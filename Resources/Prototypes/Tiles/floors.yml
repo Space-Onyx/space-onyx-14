@@ -1,4 +1,7 @@
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: BaseStationTile
   abstract: true
   isSubfloor: false
@@ -26,6 +29,9 @@
   - FloorHullReinforced
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSteel
   parent: BaseStationTile
   name: tiles-steel-floor
@@ -34,6 +40,9 @@
   itemDrop: FloorTileItemSteel
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSteelCheckerLight
   parent: BaseStationTile
   name: tiles-steel-floor-checker-light
@@ -42,6 +51,9 @@
   itemDrop: FloorTileItemSteelCheckerLight
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSteelCheckerDark
   parent: BaseStationTile
   name: tiles-steel-floor-checker-dark
@@ -50,6 +62,9 @@
   itemDrop: FloorTileItemSteelCheckerDark
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSteelMini
   parent: BaseStationTile
   name: tiles-steel-floor-mini
@@ -58,6 +73,9 @@
   itemDrop: FloorTileItemSteelMini
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSteelPavement
   parent: BaseStationTile
   name: tiles-steel-floor-pavement
@@ -66,6 +84,9 @@
   itemDrop: FloorTileItemSteelPavement
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSteelDiagonal
   parent: BaseStationTile
   name: tiles-steel-floor-diagonal
@@ -74,6 +95,9 @@
   itemDrop: FloorTileItemSteelDiagonal
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSteelOffset
   parent: BaseStationTile
   name: tiles-steel-floor-offset
@@ -81,6 +105,9 @@
   itemDrop: FloorTileItemSteelOffset
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSteelMono
   parent: BaseStationTile
   name: tiles-steel-floor-mono
@@ -89,6 +116,9 @@
   itemDrop: FloorTileItemSteelMono
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSteelPavementVertical
   parent: BaseStationTile
   name: tiles-steel-floor-pavement-vertical
@@ -97,6 +127,9 @@
   itemDrop: FloorTileItemSteelPavementVertical
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSteelHerringbone
   parent: BaseStationTile
   name: tiles-steel-floor-herringbone
@@ -105,6 +138,9 @@
   itemDrop: FloorTileItemSteelHerringbone
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSteelDiagonalMini
   parent: BaseStationTile
   name: tiles-steel-floor-diagonal-mini
@@ -113,6 +149,9 @@
   itemDrop: FloorTileItemSteelDiagonalMini
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   parent: BaseStationTile
   id: FloorSteelSlatsContinuous
   name: tiles-steel-floor-slats-continuous
@@ -122,6 +161,9 @@
   allowRotationMirror: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   parent: BaseStationTile
   id: FloorSteelVerticalSlatsBordered
   name: tiles-steel-floor-vertical-slats-bordered
@@ -130,6 +172,9 @@
   itemDrop: FloorTileItemSteelVerticalSlatsBordered
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   parent: BaseStationTile
   id: FloorSteelHorizontalSlatsBordered
   name: tiles-steel-floor-horizontal-slats-bordered
@@ -138,6 +183,9 @@
   itemDrop: FloorTileItemSteelHorizontalSlatsBordered
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorBrassFilled
   parent: BaseStationTile
   name: tiles-brass-floor-filled
@@ -147,6 +195,9 @@
   itemDrop: FloorTileItemBrassFilled
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorBrassReebe
   parent: BaseStationTile
   name: tiles-brass-floor-reebe
@@ -156,6 +207,9 @@
   itemDrop: FloorTileItemBrassReebe
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorPlastic
   parent: BaseStationTile
   name: tiles-plastic-floor
@@ -164,6 +218,9 @@
   itemDrop: FloorTileItemSteel
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWood
   parent: BaseStationTile
   name: tiles-wood
@@ -176,6 +233,9 @@
   itemDrop: FloorTileItemWood
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWhite
   parent: BaseStationTile
   name: tiles-white-floor
@@ -186,6 +246,9 @@
   itemDrop: FloorTileItemWhite
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWhiteMini
   parent: BaseStationTile
   name: tiles-white-floor-mini
@@ -196,6 +259,9 @@
   itemDrop: FloorTileItemWhiteMini
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   parent: BaseStationTile
   id: FloorWhiteSlatsContinuous
   name: tiles-white-floor-slats-continuous
@@ -205,6 +271,9 @@
   allowRotationMirror: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   parent: BaseStationTile
   id: FloorWhiteVerticalSlatsBordered
   name: tiles-white-floor-vertical-slats-bordered
@@ -213,6 +282,9 @@
   itemDrop: FloorTileItemWhiteVerticalSlatsBordered
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   parent: BaseStationTile
   id: FloorWhiteHorizontalSlatsBordered
   name: tiles-white-floor-horizontal-slats-bordered
@@ -221,6 +293,9 @@
   itemDrop: FloorTileItemWhiteHorizontalSlatsBordered
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWhitePavement
   parent: BaseStationTile
   name: tiles-white-floor-pavement
@@ -231,6 +306,9 @@
   itemDrop: FloorTileItemWhitePavement
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWhiteDiagonal
   parent: BaseStationTile
   name: tiles-white-floor-diagonal
@@ -241,6 +319,9 @@
   itemDrop: FloorTileItemWhiteDiagonal
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWhiteOffset
   parent: BaseStationTile
   name: tiles-white-floor-offset
@@ -250,6 +331,9 @@
   itemDrop: FloorTileItemWhiteOffset
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWhiteMono
   parent: BaseStationTile
   name: tiles-white-floor-mono
@@ -260,6 +344,9 @@
   itemDrop: FloorTileItemWhiteMono
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWhitePavementVertical
   parent: BaseStationTile
   name: tiles-white-floor-pavement-vertical
@@ -270,6 +357,9 @@
   itemDrop: FloorTileItemWhitePavementVertical
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWhiteHerringbone
   parent: BaseStationTile
   name: tiles-white-floor-herringbone
@@ -280,6 +370,9 @@
   itemDrop: FloorTileItemWhiteHerringbone
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWhiteDiagonalMini
   parent: BaseStationTile
   name: tiles-white-floor-diagonal-mini
@@ -290,6 +383,9 @@
   itemDrop: FloorTileItemWhiteDiagonalMini
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWhitePlastic
   parent: BaseStationTile
   name: tiles-plastic-white-floor
@@ -300,6 +396,9 @@
   itemDrop: FloorTileItemWhite
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorDark
   parent: BaseStationTile
   name: tiles-dark-floor
@@ -310,6 +409,9 @@
   itemDrop: FloorTileItemDark
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorDarkMini
   parent: BaseStationTile
   name: tiles-dark-floor-mini
@@ -320,6 +422,9 @@
   itemDrop: FloorTileItemDarkMini
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   parent: BaseStationTile
   id: FloorDarkSlatsContinuous
   name: tiles-dark-floor-slats-continuous
@@ -329,6 +434,9 @@
   allowRotationMirror: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   parent: BaseStationTile
   id: FloorDarkVerticalSlatsBordered
   name: tiles-dark-floor-vertical-slats-bordered
@@ -337,6 +445,9 @@
   itemDrop: FloorTileItemDarkVerticalSlatsBordered
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   parent: BaseStationTile
   id: FloorDarkHorizontalSlatsBordered
   name: tiles-dark-floor-horizontal-slats-bordered
@@ -345,6 +456,9 @@
   itemDrop: FloorTileItemDarkHorizontalSlatsBordered
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorDarkPavement
   parent: BaseStationTile
   name: tiles-dark-floor-pavement
@@ -355,6 +469,9 @@
   itemDrop: FloorTileItemDarkPavement
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorDarkDiagonal
   parent: BaseStationTile
   name: tiles-dark-floor-diagonal
@@ -365,6 +482,9 @@
   itemDrop: FloorTileItemDarkDiagonal
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorDarkOffset
   parent: BaseStationTile
   name: tiles-dark-floor-offset
@@ -374,6 +494,9 @@
   itemDrop: FloorTileItemDarkOffset
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorDarkMono
   parent: BaseStationTile
   name: tiles-dark-floor-mono
@@ -384,6 +507,9 @@
   itemDrop: FloorTileItemDarkMono
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorDarkPavementVertical
   parent: BaseStationTile
   name: tiles-dark-floor-pavement-vertical
@@ -394,6 +520,9 @@
   itemDrop: FloorTileItemDarkPavementVertical
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorDarkHerringbone
   parent: BaseStationTile
   name: tiles-dark-floor-herringbone
@@ -404,6 +533,9 @@
   itemDrop: FloorTileItemDarkHerringbone
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorDarkDiagonalMini
   parent: BaseStationTile
   name: tiles-dark-floor-diagonal-mini
@@ -414,6 +546,9 @@
   itemDrop: FloorTileItemDarkDiagonalMini
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorDarkPlastic
   parent: BaseStationTile
   name: tiles-plastic-dark-floor
@@ -424,6 +559,9 @@
   itemDrop: FloorTileItemDark
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorTechMaint
   parent: BaseStationTile
   name: tiles-techmaint-floor
@@ -433,6 +571,9 @@
   itemDrop: FloorTileItemTechmaint
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorTechMaintDark
   parent: BaseStationTile
   name: tiles-techmaint-floor-dark
@@ -442,6 +583,9 @@
   itemDrop: FloorTileItemTechmaintDark
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorReinforced
   parent: BaseStationTile
   name: tiles-reinforced-floor
@@ -451,6 +595,9 @@
   itemDrop: PartRodMetal1
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorMono
   parent: BaseStationTile
   name: tiles-mono-floor
@@ -460,6 +607,9 @@
   itemDrop: FloorTileItemMono
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorLino
   parent: BaseStationTile
   name: tiles-linoleum-floor
@@ -469,6 +619,9 @@
   itemDrop: FloorTileItemLino
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSteelDirty
   parent: BaseStationTile
   name: tiles-dirty-steel-floor
@@ -479,6 +632,9 @@
   itemDrop: FloorTileItemDirty
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorElevatorShaft
   parent: BaseStationTile
   name: tiles-elevator-shaft
@@ -488,6 +644,9 @@
   itemDrop: FloorTileItemElevatorShaft
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorMetalDiamond
   parent: BaseStationTile
   name: tiles-diamond-plate-floor
@@ -497,6 +656,9 @@
   itemDrop: FloorTileItemMetalDiamond
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorRockVault
   parent: BaseStationTile
   name: tiles-rock-floor
@@ -506,6 +668,9 @@
   itemDrop: FloorTileItemRockVault
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorBlue
   parent: BaseStationTile
   name: tiles-blue-tile
@@ -515,6 +680,9 @@
   itemDrop: FloorTileItemBlue
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSteelLime
   parent: BaseStationTile
   name: tiles-lime-floor
@@ -523,6 +691,9 @@
   itemDrop: FloorTileItemLime
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorMining
   parent: BaseStationTile
   name: tiles-mining-tile
@@ -532,6 +703,9 @@
   itemDrop: FloorTileItemMining
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorMiningDark
   parent: BaseStationTile
   name: tiles-mining-dark-tile
@@ -541,6 +715,9 @@
   itemDrop: FloorTileItemMiningDark
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorMiningLight
   parent: BaseStationTile
   name: tiles-mining-light-tile
@@ -551,6 +728,9 @@
 
 # Departmental
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorFreezer
   parent: BaseStationTile
   name: tiles-freezer
@@ -560,6 +740,9 @@
   itemDrop: FloorTileItemFreezer
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorShowroom
   parent: BaseStationTile
   name: tiles-showroom-floor
@@ -567,6 +750,9 @@
   itemDrop: FloorTileItemShowroom
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorHydro
   parent: BaseStationTile
   name: tiles-hydro-floor
@@ -574,6 +760,9 @@
   itemDrop: FloorTileItemHydro
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorBar
   parent: BaseStationTile
   name: tiles-bar-floor
@@ -582,6 +771,9 @@
   itemDrop: FloorTileItemBar
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorClown
   parent: BaseStationTile
   name: tiles-clown-floor
@@ -589,6 +781,9 @@
   itemDrop: FloorTileItemClown
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorMime
   parent: BaseStationTile
   name: tiles-mime-floor
@@ -596,6 +791,9 @@
   itemDrop: FloorTileItemMime
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorKitchen
   parent: BaseStationTile
   name: tiles-kitchen-floor
@@ -605,6 +803,9 @@
   itemDrop: FloorTileItemKitchen
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorLaundry
   parent: BaseStationTile
   name: tiles-laundry-floor
@@ -614,6 +815,9 @@
   itemDrop: FloorTileItemLaundry
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSteelDamaged
   parent: BaseStationTile
   name: tiles-steel-floor
@@ -623,6 +827,9 @@
 
 # Concrete
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorConcrete
   parent: BaseStationTile
   name: tiles-concrete-tile
@@ -633,6 +840,9 @@
   itemDrop: FloorTileItemConcrete
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorConcreteMono
   parent: BaseStationTile
   name: tiles-concrete-slab
@@ -643,6 +853,9 @@
   itemDrop: FloorTileItemConcreteMono
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorConcreteSmooth
   parent: BaseStationTile
   name: tiles-concrete-smooth
@@ -653,6 +866,9 @@
   itemDrop: FloorTileItemConcreteSmooth
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorGrayConcrete
   parent: BaseStationTile
   name: tiles-gray-concrete-tile
@@ -663,6 +879,9 @@
   itemDrop: FloorTileItemGrayConcrete
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorGrayConcreteMono
   parent: BaseStationTile
   name: tiles-gray-concrete-slab
@@ -673,6 +892,9 @@
   itemDrop: FloorTileItemGrayConcreteMono
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorGrayConcreteSmooth
   parent: BaseStationTile
   name: tiles-gray-concrete-smooth
@@ -683,6 +905,9 @@
   itemDrop: FloorTileItemGrayConcreteSmooth
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorOldConcrete
   parent: BaseStationTile
   name: tiles-old-concrete-tile
@@ -693,6 +918,9 @@
   itemDrop: FloorTileItemOldConcrete
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorOldConcreteMono
   parent: BaseStationTile
   name: tiles-old-concrete-slab
@@ -703,6 +931,9 @@
   itemDrop: FloorTileItemOldConcreteMono
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorOldConcreteSmooth
   parent: BaseStationTile
   name: tiles-old-concrete-smooth
@@ -714,6 +945,9 @@
 
 # Carpets (non smoothing)
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorArcadeBlue
   parent: BaseStationTile
   name: tiles-blue-arcade-floor
@@ -726,6 +960,9 @@
   itemDrop: FloorTileItemArcadeBlue
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorArcadeBlue2
   parent: BaseStationTile
   name: tiles-blue-arcade-floor
@@ -738,6 +975,9 @@
   itemDrop: FloorTileItemArcadeBlue2
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorArcadeRed
   parent: BaseStationTile
   name: tiles-red-arcade-floor
@@ -750,6 +990,9 @@
   itemDrop: FloorTileItemArcadeRed
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorEighties
   parent: BaseStationTile
   name: tiles-eighties-floor
@@ -762,6 +1005,9 @@
   itemDrop: FloorTileItemEighties
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorCarpetClown
   parent: BaseStationTile
   name: tiles-clown-carpet-floor
@@ -774,6 +1020,9 @@
   itemDrop: FloorTileItemCarpetClown
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorCarpetOffice
   parent: BaseStationTile
   name: tiles-office-carpet-floor
@@ -786,6 +1035,9 @@
   itemDrop: FloorTileItemCarpetOffice
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorBoxing
   parent: BaseStationTile
   name: tiles-boxing-ring-floor
@@ -795,6 +1047,9 @@
   itemDrop: FloorTileItemBoxing
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorGym
   parent: BaseStationTile
   name: tiles-gym-floor
@@ -805,6 +1060,9 @@
 
 # Shuttle
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorShuttleWhite
   parent: BaseStationTile
   name: tiles-white-shuttle-floor
@@ -813,6 +1071,9 @@
   itemDrop: FloorTileItemShuttleWhite
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorShuttleGrey
   parent: BaseStationTile
   name: tiles-grey-shuttle-floor
@@ -821,6 +1082,9 @@
   itemDrop: FloorTileItemShuttleGrey
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorShuttleBlack
   parent: BaseStationTile
   name: tiles-black-shuttle-floor
@@ -829,6 +1093,9 @@
   itemDrop: FloorTileItemShuttleBlack
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorShuttleBlue
   parent: BaseStationTile
   name: tiles-blue-shuttle-floor
@@ -837,6 +1104,9 @@
   itemDrop: FloorTileItemShuttleBlue
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorShuttleOrange
   parent: BaseStationTile
   name: tiles-orange-shuttle-floor
@@ -845,6 +1115,9 @@
   itemDrop: FloorTileItemShuttleOrange
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorShuttlePurple
   parent: BaseStationTile
   name: tiles-purple-shuttle-floor
@@ -853,6 +1126,9 @@
   itemDrop: FloorTileItemShuttlePurple
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorShuttleRed
   parent: BaseStationTile
   name: tiles-red-shuttle-floor
@@ -863,6 +1139,9 @@
 
 # Materials
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorGold
   parent: BaseStationTile
   name: tiles-gold-tile
@@ -872,6 +1151,9 @@
   itemDrop: FloorTileItemGold
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSilver
   parent: BaseStationTile
   name: tiles-silver-tile
@@ -881,6 +1163,9 @@
   itemDrop: FloorTileItemSilver
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorGlass
   parent: BaseStationTile
   name: tiles-glass-floor
@@ -891,6 +1176,9 @@
   itemDrop: SheetGlass1
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorRGlass
   parent: BaseStationTile
   name: tiles-reinforced-glass-floor
@@ -901,6 +1189,9 @@
   itemDrop: SheetRGlass1
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorMetalFoam
   parent: BaseStationTile
   name: tiles-metal-foam
@@ -911,6 +1202,9 @@
 
 # Circuits
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorGreenCircuit
   parent: BaseStationTile
   name: tiles-green-circuit-floor
@@ -920,6 +1214,9 @@
   itemDrop: FloorTileItemGCircuit
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorBlueCircuit
   parent: BaseStationTile
   name: tiles-blue-circuit-floor
@@ -929,6 +1226,9 @@
   itemDrop: FloorTileItemBCircuit
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorRedCircuit
   parent: BaseStationTile
   name: tiles-red-circuit-floor
@@ -939,6 +1239,9 @@
 
 # Terrain
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAsphalt
   name: tiles-asphalt
   sprite: /Textures/Tiles/Planet/Concrete/asphalt.png
@@ -948,9 +1251,11 @@
   footstepSounds:
     collection: FootstepTile
   heatCapacity: 10000
-  weather: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorGrass
   name: tiles-planet-grass-floor
   sprite: /Textures/Tiles/grass.png
@@ -966,9 +1271,11 @@
     collection: FootstepGrass
   itemDrop: FloorTileItemGrass
   heatCapacity: 10000
-  weather: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorGrassJungle
   name: tiles-jungle-grass-floor
   sprite: /Textures/Tiles/grassjungle.png
@@ -984,9 +1291,11 @@
     collection: FootstepGrass
   itemDrop: FloorTileItemGrassJungle
   heatCapacity: 10000
-  weather: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorGrassDark
   name: tiles-dark-grass-floor
   sprite: /Textures/Tiles/grassdark.png
@@ -996,9 +1305,11 @@
   footstepSounds:
     collection: FootstepGrass
   heatCapacity: 10000
-  weather: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorGrassLight
   name: tiles-light-grass-floor
   sprite: /Textures/Tiles/grasslight.png
@@ -1008,9 +1319,11 @@
   footstepSounds:
     collection: FootstepGrass
   heatCapacity: 10000
-  weather: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorDirt
   name: tiles-dirt-floor
   sprite: /Textures/Tiles/dirt.png
@@ -1020,11 +1333,13 @@
   footstepSounds:
     collection: FootstepAsteroid
   heatCapacity: 10000
-  weather: true
 
 # Asteroid
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAsteroidSandBorderless
   name: tiles-asteroid-sand-borderless
   sprite: /Textures/Tiles/Asteroid/asteroid.png
@@ -1048,9 +1363,11 @@
   footstepSounds:
     collection: FootstepAsteroid
   heatCapacity: 10000
-  weather: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAsteroidSand
   parent: FloorAsteroidSandBorderless
   name: tiles-asteroid-sand
@@ -1066,6 +1383,9 @@
     West: /Textures/Tiles/Asteroid/asteroid_double_edge.png
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAsteroidSandDugBorderless
   name: tiles-asteroid-sand-borderless
   sprite: /Textures/Tiles/Asteroid/asteroid_dug.png
@@ -1074,9 +1394,11 @@
   footstepSounds:
     collection: FootstepAsteroid
   heatCapacity: 10000
-  weather: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAsteroidSandDug
   parent: FloorAsteroidSandDugBorderless
   name: tiles-asteroid-sand
@@ -1092,6 +1414,9 @@
     West: /Textures/Tiles/Asteroid/asteroid_double_edge.png
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAsteroidSandRedBorderless
   name: tiles-asteroid-sand-borderless
   sprite: /Textures/Tiles/Asteroid/asteroid_red.png
@@ -1115,9 +1440,11 @@
   footstepSounds:
     collection: FootstepAsteroid
   heatCapacity: 10000
-  weather: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAsteroidSandRed
   parent: FloorAsteroidSandRedBorderless
   name: tiles-asteroid-sand
@@ -1133,6 +1460,9 @@
     West: /Textures/Tiles/Asteroid/asteroid_double_edge.png
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAsteroidTile
   name: tiles-asteroid-tile
   sprite: /Textures/Tiles/Asteroid/asteroid_tile.png
@@ -1142,9 +1472,11 @@
   footstepSounds:
     collection: FootstepAsteroid
   heatCapacity: 10000
-  weather: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAsteroidIronsandBorderless
   name: tiles-asteroid-ironsand-borderless
   sprite: /Textures/Tiles/Asteroid/ironsand.png
@@ -1154,9 +1486,11 @@
   footstepSounds:
     collection: FootstepAsteroid
   heatCapacity: 10000
-  weather: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAsteroidIronsand
   parent: FloorAsteroidIronsandBorderless
   name: tiles-asteroid-ironsand
@@ -1172,6 +1506,9 @@
     West: /Textures/Tiles/Asteroid/iron_double_edge.png
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAsteroidSandUnvariantizedBorderless
   name: tiles-asteroid-sand-borderless
   sprite: /Textures/Tiles/Asteroid/asteroid0.png
@@ -1180,9 +1517,11 @@
   footstepSounds:
     collection: FootstepAsteroid
   heatCapacity: 10000
-  weather: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAsteroidSandUnvariantized
   parent: FloorAsteroidSandUnvariantizedBorderless
   name: tiles-asteroid-sand
@@ -1198,6 +1537,9 @@
     West: /Textures/Tiles/Asteroid/asteroid_double_edge.png
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAsteroidIronsandUnvariantizedBorderless
   name: tiles-asteroid-ironsand-borderless
   sprite: /Textures/Tiles/Asteroid/ironsand0.png
@@ -1206,9 +1548,11 @@
   footstepSounds:
     collection: FootstepAsteroid
   heatCapacity: 10000
-  weather: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAsteroidIronsandUnvariantized
   parent: FloorAsteroidIronsandUnvariantizedBorderless
   name: tiles-asteroid-ironsand
@@ -1225,6 +1569,9 @@
 
 # Caves
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorCave
   name: tiles-cave
   sprite: /Textures/Tiles/cave.png
@@ -1236,6 +1583,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorCaveDrought
   name: tiles-cave-drought
   sprite: /Textures/Tiles/cavedrought.png
@@ -1247,6 +1597,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorFlesh
   parent: BaseStationTile
   name: tiles-flesh-floor
@@ -1258,6 +1611,9 @@
   friction: 0.25 #slippy
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorTechMaint2
   parent: BaseStationTile
   name: tiles-techmaint2-floor
@@ -1267,6 +1623,9 @@
   itemDrop: FloorTileItemSteelMaint
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorTechMaint3
   parent: BaseStationTile
   name: tiles-techmaint3-floor
@@ -1277,6 +1636,9 @@
   itemDrop: FloorTileItemGratingMaint
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodTile
   parent: BaseStationTile
   name: tiles-wood2
@@ -1289,6 +1651,9 @@
   itemDrop: FloorTileItemWoodPattern
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorBrokenWood
   parent: BaseStationTile
   name: tiles-wood3
@@ -1301,6 +1666,9 @@
   itemDrop: MaterialWoodPlank1
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWebTile
   parent: BaseStationTile
   name: tiles-web
@@ -1312,6 +1680,9 @@
   itemDrop: FloorTileItemWeb
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorChromite
   name: tiles-chromite
   sprite: /Textures/Tiles/chromite.png
@@ -1324,6 +1695,9 @@
 
 #Hull tiles
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorHull
   parent: BaseStationTile
   name: tiles-hull
@@ -1333,6 +1707,9 @@
   itemDrop: FloorTileItemSteel #probably should not be normally obtainable, but the game shits itself and dies when you try to put null here
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorReinforcedHardened
   parent: BaseStationTile
   name: tiles-super-reinforced-floor
@@ -1345,6 +1722,9 @@
 
 # Grass
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAstroGrass
   parent: BaseStationTile
   name: tiles-astro-grass
@@ -1366,6 +1746,9 @@
   itemDrop: FloorTileItemAstroGrass
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorMowedAstroGrass
   parent: [ BaseStationTile, FloorGrass ]
   name: tiles-mowed-astro-grass
@@ -1381,18 +1764,22 @@
   isSubfloor: false
   deconstructTools: [ Cutting ]
   itemDrop: FloorTileItemMowedAstroGrass
-  weather: false # Corvax
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorJungleAstroGrass
   parent: [ BaseStationTile, FloorGrassJungle ]
   name: tiles-jungle-astro-grass
   isSubfloor: false
   deconstructTools: [ Cutting ]
   itemDrop: FloorTileItemJungleAstroGrass
-  weather: false # Corvax
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   parent: FloorGrassDark
   id: FloorDarkAstroGrass
   name: tiles-dark-astro-grass
@@ -1402,6 +1789,9 @@
   itemDrop: FloorTileItemDarkAstroGrass
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   parent: FloorGrassLight
   id: FloorLightAstroGrass
   name: tiles-light-astro-grass
@@ -1412,6 +1802,9 @@
 
 # Ice
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAstroIce
   parent: BaseStationTile
   name: tiles-astro-ice
@@ -1422,34 +1815,43 @@
   itemDrop: FloorTileItemAstroIce
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAstroSnow
   parent: [ BaseStationTile, FloorSnow ]
   name: tiles-astro-snow
   isSubfloor: false
   deconstructTools: [ Prying ]
   itemDrop: FloorTileItemAstroSnow
-  weather: false # Corvax
 
 # Asteroid Sand
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAstroAsteroidSand
   parent: [ BaseStationTile, FloorAsteroidSand ]
   name: tiles-astro-asteroid-sand
   isSubfloor: false
   deconstructTools: [ Prying ]
   itemDrop: FloorTileItemAstroAsteroidSand
-  weather: false
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAstroAsteroidSandBorderless
   parent: [ BaseStationTile, FloorAsteroidSandBorderless ]
   name: tiles-astro-asteroid-sand-borderless
   isSubfloor: false
   deconstructTools: [ Prying ]
   itemDrop: FloorTileItemAstroAsteroidSand
-  weather: false
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   parent: FloorDesert
   id: FloorDesertAstroSand
   name: tiles-desert-astro-sand
@@ -1457,9 +1859,11 @@
   isSubfloor: false
   deconstructTools: [ Prying ]
   itemDrop: FloorTileItemDesertAstroSand
-  weather: false
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAstroIronsand
   name: tiles-astro-ironsand
   parent: FloorAsteroidIronsand
@@ -1467,9 +1871,11 @@
   isSubfloor: false
   deconstructTools: [ Prying ]
   itemDrop: FloorTileItemAstroIronsand
-  weather: false
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorAstroIronsandBorderless
   name: tiles-astro-ironsand-borderless
   parent: FloorAsteroidIronsandBorderless
@@ -1477,9 +1883,11 @@
   isSubfloor: false
   deconstructTools: [ Prying ]
   itemDrop: FloorTileItemAstroIronsandBorderless
-  weather: false
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodLarge
   parent: BaseStationTile
   name: tiles-wood-large
@@ -1492,6 +1900,9 @@
   itemDrop: FloorTileItemWoodLarge
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorXenoborg
   name: tiles-xenoborg-floor
   sprite: /Textures/Tiles/exoborg.png
@@ -1504,6 +1915,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorXeno
   parent: BaseStationTile
   name: tiles-xeno-floor
@@ -1513,6 +1927,9 @@
   itemDrop: FloorTileItemXeno
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorXenoSteel
   parent: BaseStationTile
   name: tiles-xeno-steel
@@ -1523,6 +1940,9 @@
   allowRotationMirror: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorXenoSteelCorner
   parent: BaseStationTile
   name: tiles-xeno-steel-corner
@@ -1533,6 +1953,9 @@
   allowRotationMirror: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorDarkSquiggly
   parent: BaseStationTile
   name: tiles-dark-squiggly
@@ -1542,6 +1965,9 @@
   allowRotationMirror: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorXenoMaint
   parent: BaseStationTile
   name: tiles-xeno-maint
@@ -1551,6 +1977,9 @@
   itemDrop: FloorTileItemXenoMaint
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWhiteMarble
   parent: BaseStationTile
   name: tiles-white-marble
@@ -1562,6 +1991,9 @@
   itemDrop: FloorTileItemWhiteMarble
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorDarkMarble
   parent: BaseStationTile
   name: tiles-dark-marble
@@ -1573,6 +2005,9 @@
   itemDrop: FloorTileItemDarkMarble
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorPlasmaMarble
   parent: BaseStationTile
   name: tiles-plasma-marble
@@ -1584,6 +2019,9 @@
   itemDrop: FloorTileItemPlasmaMarble
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorUraniumMarble
   parent: BaseStationTile
   name: tiles-uranium-marble

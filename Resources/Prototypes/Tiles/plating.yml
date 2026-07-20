@@ -11,12 +11,18 @@
     - TrainLattice
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: Plating
   parent: BasePlating
   name: tiles-plating
   sprite: /Textures/Tiles/plating.png
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: PlatingRCD
   parent: Plating
   name: tiles-rcd-plating
@@ -36,6 +42,9 @@
     - FloorAsteroidSandRedBorderless
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorHullReinforced
   parent: BasePlating
   name: tiles-hull-reinforced
@@ -47,6 +56,9 @@
   indestructible: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: PlatingDamaged
   parent: BasePlating
   name: tiles-plating
@@ -54,18 +66,27 @@
   variants: 3
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: PlatingAsteroid
   parent: BasePlating
   name: tiles-asteroid-plating
   sprite: /Textures/Tiles/Asteroid/asteroid_plating.png
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: PlatingBrass
   parent: BasePlating
   name: tiles-brass-plating
   sprite: /Textures/Tiles/Misc/clockwork/clockwork_floor.png
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: PlatingSnow
   name: tiles-snow-plating
   parent: BasePlating
@@ -73,6 +94,9 @@
   friction: 0.75 #a little less then actual snow
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: PlatingIronsand
   name: tiles-ironsand-plating
   sprite: /Textures/Tiles/Asteroid/ironsand_plating.png
@@ -84,13 +108,15 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: Lattice
   name: tiles-lattice
   sprite: /Textures/Tiles/lattice.png
   baseTurf: Space
   isSubfloor: true
   deconstructTools: [ Cutting ]
-  weather: true
   footstepSounds:
     collection: FootstepCatwalk
   friction: 1.5
@@ -100,6 +126,9 @@
   mass: 200
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: TrainLattice
   parent: Lattice
   name: tiles-lattice-train

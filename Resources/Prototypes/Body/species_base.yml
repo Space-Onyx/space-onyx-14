@@ -15,6 +15,9 @@
     thresholds: [ 10, 20, 30, 50, 70, 100 ]
     targetLayers:
     - "enum.HumanoidVisualLayers.Chest"
+    # <Onyx-GroinDamageVisuals>
+    - "enum.HumanoidVisualLayers.Groin"
+    # </Onyx-GroinDamageVisuals>
     - "enum.HumanoidVisualLayers.Head"
     - "enum.HumanoidVisualLayers.LArm"
     - "enum.HumanoidVisualLayers.LLeg"
@@ -22,10 +25,14 @@
     - "enum.HumanoidVisualLayers.RLeg"
     damageOverlayGroups:
       Brute:
-        sprite: Mobs/Effects/brute_damage.rsi
+        # <Onyx-PartDamageVisuals-edited>
+        sprite: _Onyx/Wounds/brute_damage.rsi
+        # </Onyx-PartDamageVisuals-edited>
         color: "#FF0000"
       Burn:
-         sprite: Mobs/Effects/burn_damage.rsi
+         # <Onyx-PartDamageVisuals-edited>
+         sprite: _Onyx/Wounds/burn_damage.rsi
+         # </Onyx-PartDamageVisuals-edited>
   # <Onyx-Carrying>
   - type: Carriable
   # </Onyx-Carrying>

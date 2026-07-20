@@ -1,4 +1,7 @@
 using Content.Shared.Inventory.Events;
+// <Onyx-SlotBlock>
+using Content.Shared._Onyx.Inventory;
+// </Onyx-SlotBlock>
 
 namespace Content.Shared.Inventory;
 
@@ -20,6 +23,11 @@ public sealed partial class SlotBlockSystem : EntitySystem
         if (args.Args.Cancelled || (args.Args.SlotFlags & ent.Comp.Slots) == 0)
             return;
 
+        // <Onyx-SlotBlock>
+        if (HasComp<StopBlockBypassComponent>(args.Args.EquipTarget))
+            return;
+        // </Onyx-SlotBlock>
+
         args.Args.Reason = Loc.GetString("slot-block-component-blocked", ("item", ent));
         args.Args.Cancel();
     }
@@ -28,6 +36,11 @@ public sealed partial class SlotBlockSystem : EntitySystem
     {
         if (args.Args.Cancelled || (args.Args.SlotFlags & ent.Comp.Slots) == 0)
             return;
+
+        // <Onyx-SlotBlock>
+        if (HasComp<StopBlockBypassComponent>(args.Args.UnEquipTarget))
+            return;
+        // </Onyx-SlotBlock>
 
         args.Args.Reason = Loc.GetString("slot-block-component-blocked", ("item", ent));
         args.Args.Cancel();

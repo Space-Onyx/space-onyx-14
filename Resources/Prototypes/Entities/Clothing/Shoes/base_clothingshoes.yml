@@ -3,6 +3,10 @@
   parent: [SolutionFood, SolutionToolNormal, Clothing]
   id: ClothingShoesBase
   components:
+  # <Onyx-SlotBlock>
+  - type: SlotBlock
+    slots: [socks]
+  # </Onyx-SlotBlock>
   - type: Clothing
     slots:
     - FEET

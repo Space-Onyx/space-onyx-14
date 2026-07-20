@@ -26,9 +26,8 @@ surgery-popup-patient-must-lie = The patient must be lying down.
 
 surgery-tool-examine-verb-text = Surgical properties
 surgery-tool-examine-verb-message = Examine the surgical tool properties.
-surgery-tool-examine-speed = Surgery speed: [color=cyan]{ $multiplier }×[/color].
 surgery-tool-examine-uses = Suitable for:
-surgery-tool-examine-use = - [color=yellow]{ $use }[/color]
+surgery-tool-examine-use = - [color=yellow]{ $use }[/color]: [color=cyan]{ $multiplier }×[/color]
 surgery-tool-examine-use-none = - [color=gray]No compatible surgical procedures.[/color]
 surgery-tool-use-scalpel = making incisions
 surgery-tool-use-hemostat = clamping blood vessels and bleeding

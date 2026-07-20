@@ -33,8 +33,8 @@
   id: OnyxBasicTranslation
   name: research-technology-onyx-basic-translation
   icon:
-    sprite: Objects/Devices/signaller.rsi
-    state: advanced
+    sprite: _Onyx/Objects/Devices/translator.rsi
+    state: icon
   discipline: CivilianServices
   tier: 2
   cost: 7500
@@ -76,5 +76,6 @@
   - RobotTalkTranslatorImplanterRecipe
   - NekomimeticTranslatorImplanterRecipe
   - SolCommonTranslatorImplanterRecipe
+  - SignTranslatorImplanterRecipe
   position: -2,4
   technologyPrerequisites: [OnyxBasicTranslation]

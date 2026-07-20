@@ -1,0 +1,35 @@
+- type: entity
+  parent: BaseMedicalPDA
+  id: SurgeonPDA
+  name: surgeon PDA
+  description: Shiny and sterile.
+  components:
+  - type: Pda
+    id: SurgeonIDCard
+  - type: PdaBorderColor
+    borderColor: "#d7d7d0"
+    accentVColor: "#5db8be"
+  - type: Appearance
+    appearanceDataInit:
+      enum.PdaVisuals.PdaType:
+        !type:String
+        pda-surgeon
+  - type: Icon
+    sprite: Objects/Devices/pda.rsi
+    state: pda-surgeon
+  - type: Sprite
+    sprite: Objects/Devices/pda.rsi
+    layers:
+    - map: [ "enum.PdaVisualLayers.Base" ]
+      state: pda-surgeon
+    - state: light_overlay
+      map: [ "enum.PdaVisualLayers.Flashlight" ]
+      shader: unshaded
+      visible: false
+    - state: id_overlay
+      map: [ "enum.PdaVisualLayers.IdLight" ]
+      shader: unshaded
+      visible: false
+  - type: GuideHelp
+    guides:
+    - MedicalDoctor

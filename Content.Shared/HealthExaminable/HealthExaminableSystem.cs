@@ -31,7 +31,9 @@ public sealed partial class HealthExaminableSystem : EntitySystem
         {
             Act = () =>
             {
-                var markup = CreateMarkup(uid, component, damage);
+                // <Onyx-SelfPainExamine-edited>
+                var markup = CreateMarkup(uid, args.User, component, damage);
+                // </Onyx-SelfPainExamine-edited>
                 _examineSystem.SendExamineTooltip(args.User, uid, markup, false, false);
             },
             Text = Loc.GetString("health-examinable-verb-text"),
@@ -44,7 +46,9 @@ public sealed partial class HealthExaminableSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    public FormattedMessage CreateMarkup(EntityUid uid, HealthExaminableComponent component, DamageableComponent damage)
+    // <Onyx-SelfPainExamine-edited>
+    public FormattedMessage CreateMarkup(EntityUid uid, EntityUid examiner, HealthExaminableComponent component, DamageableComponent damage)
+    // </Onyx-SelfPainExamine-edited>
     {
         var msg = new FormattedMessage();
 
@@ -95,6 +99,10 @@ public sealed partial class HealthExaminableSystem : EntitySystem
         {
             msg.AddMarkupOrThrow(Loc.GetString($"health-examinable-{component.LocPrefix}-none"));
         }
+
+        // <Onyx-SelfPainExamine>
+        AddPainMarkup(uid, examiner, msg);
+        // </Onyx-SelfPainExamine>
 
         // Anything else want to add on to this?
         RaiseLocalEvent(uid, new HealthBeingExaminedEvent(msg), true);

@@ -1,5 +1,5 @@
-language-Universal-name = Межгалактический
-language-Universal-description = Универсальное понимание любой речи.
+language-Universal-name = Псионический
+language-Universal-description = Псионическое понимание любой речи.
 language-TauCetiBasic-name = Тау-Сети Бейсик
 language-TauCetiBasic-description = Общий язык космических станций Тау Кита.
 language-Chittin-name = Читин

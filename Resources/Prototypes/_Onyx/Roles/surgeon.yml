@@ -1,0 +1,10 @@
+- type: playTimeTracker
+  id: JobSurgeon
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconSurgeon
+  icon:
+    sprite: /Textures/Corvax/Interface/Misc/job_icons.rsi
+    state: Surgeon
+  jobName: job-name-surgeon

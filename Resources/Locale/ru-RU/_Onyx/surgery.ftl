@@ -26,9 +26,8 @@ surgery-popup-patient-must-lie = Сначала уложите пациента.
 
 surgery-tool-examine-verb-text = Хирургические показатели
 surgery-tool-examine-verb-message = Изучить показатели хирургического инструмента.
-surgery-tool-examine-speed = Скорость выполнения операций: [color=cyan]{ $multiplier }×[/color].
 surgery-tool-examine-uses = Подходит для:
-surgery-tool-examine-use = - [color=yellow]{ $use }[/color]
+surgery-tool-examine-use = - [color=yellow]{ $use }[/color]: [color=cyan]{ $multiplier }×[/color]
 surgery-tool-examine-use-none = - [color=gray]Нет подходящих хирургических процедур.[/color]
 surgery-tool-use-scalpel = выполнения разрезов
 surgery-tool-use-hemostat = пережатия сосудов и кровотечений

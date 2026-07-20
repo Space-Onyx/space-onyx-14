@@ -515,10 +515,19 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     {
         var ev = new SurgeryDoAfterEvent(GetNetEntity(part), surgery, stepId);
         var duration = Comp<SurgeryStepComponent>(step).Duration;
-        if (validTools != null)
-            foreach (var tool in validTools)
-                if (TryComp(tool, out SurgeryToolComponent? surgeryTool))
-                    duration /= Math.Max(0.01f, surgeryTool.SpeedModifier);
+        if (validTools != null && TryComp(step, out SurgeryStepComponent? surgeryStep) && surgeryStep.Tool != null)
+        {
+            foreach (var requirement in surgeryStep.Tool.Values)
+            {
+                if (!AnyHaveComp(validTools, requirement.Component, out var tool) ||
+                    !TryComp(tool, out SurgeryToolComponent? surgeryTool))
+                    continue;
+
+                var task = _compFactory.GetComponentName(requirement.Component.GetType());
+                if (surgeryTool.SpeedModifiers.TryGetValue(task, out var modifier))
+                    duration /= Math.Max(0.01f, modifier);
+            }
+        }
 
         if (user == target.Owner)
             duration *= Math.Max(0.01f, _configuration.GetCVar(CCVars.SurgerySelfMultiplier));

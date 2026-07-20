@@ -1,4 +1,7 @@
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: Space
   name: tiles-space
   friction: 0

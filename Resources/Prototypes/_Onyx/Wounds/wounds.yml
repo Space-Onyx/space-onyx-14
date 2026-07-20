@@ -12,6 +12,10 @@
       Slash: 70
       Piercing: 110
       Blunt: 140
+    Groin:
+      Slash: 80
+      Piercing: 125
+      Blunt: 160
     Arm:
       Slash: 45
       Piercing: 80

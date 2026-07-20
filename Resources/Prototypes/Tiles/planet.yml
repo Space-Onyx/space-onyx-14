@@ -1,14 +1,19 @@
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: BaseFloorPlanet
   abstract: true
   heatCapacity: 10000
   isSubfloor: true
   footstepSounds:
     collection: FootstepAsteroid
-  weather: true
   indestructible: true
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorPlanetDirt
   parent: BaseFloorPlanet
   name: tiles-dirt-planet-floor
@@ -17,6 +22,9 @@
 
 # Desert
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorDesert
   parent: BaseFloorPlanet
   name: tiles-desert-floor
@@ -33,6 +41,9 @@
 # Corvax-Mapping-End
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorLowDesert
   name: tiles-low-desert-floor
   sprite: /Textures/Tiles/Planet/Desert/low_desert.png
@@ -40,6 +51,9 @@
 
 # Grass
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorPlanetGrass
   parent: BaseFloorPlanet
   name: tiles-grass-planet-floor
@@ -61,6 +75,9 @@
 
 # Lava
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorBasalt
   name: tiles-basalt-floor
   parent: BaseFloorPlanet
@@ -68,6 +85,9 @@
 
 # Snow
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSnow
   parent: BaseFloorPlanet
   name: tiles-snow
@@ -98,18 +118,23 @@
 
 # Ice
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorIce
   name: tiles-ice
   sprite: /Textures/Tiles/Planet/Snow/ice.png
   isSubfloor: true
   friction: 0.05
   heatCapacity: 10000
-  weather: true
   mobAcceleration: 0.1
   indestructible: true
 
 # Dug snow
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorSnowDug
   parent: BaseFloorPlanet
   name: tiles-snow-dug

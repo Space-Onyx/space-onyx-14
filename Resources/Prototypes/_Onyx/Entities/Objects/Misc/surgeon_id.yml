@@ -1,0 +1,12 @@
+- type: entity
+  parent: IDCardStandard
+  id: SurgeonIDCard
+  name: surgeon ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Objects/Misc/id_cards.rsi
+      state: idsurgeon
+  - type: PresetIdCard
+    job: Surgeon

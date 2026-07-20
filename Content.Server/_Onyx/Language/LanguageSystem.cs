@@ -142,7 +142,13 @@ public sealed partial class LanguageSystem : EntitySystem
     {
         languageSpeaker.SpokenLanguages.Clear();
         languageSpeaker.UnderstoodLanguages.Clear();
-        if (TryComp(speaker, out knowledge))
+        TryComp(speaker, out knowledge);
+        if (HasComp<UniversalLanguageSpeakerComponent>(speaker))
+        {
+            languageSpeaker.SpokenLanguages.Add(Universal);
+            languageSpeaker.UnderstoodLanguages.Add(Universal);
+        }
+        else if (knowledge != null)
         {
             languageSpeaker.SpokenLanguages.UnionWith(knowledge.SpokenLanguages);
             languageSpeaker.UnderstoodLanguages.UnionWith(knowledge.UnderstoodLanguages);

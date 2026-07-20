@@ -1,0 +1,44 @@
+- type: entity
+  parent: BaseToilet
+  id: PrisonToiletEmpty
+  name: prison toilet
+  description: A compact combination of a toilet and sink.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Furniture/prison_toilet.rsi
+  - type: Construction
+    graph: PrisonToilet
+    node: prisonToilet
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+          params: { volume: -6 }
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel:
+            min: 5
+            max: 5
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: StaticPrice
+    price: 120
+
+- type: entity
+  parent: PrisonToiletEmpty
+  id: PrisonToiletWater
+  suffix: Water
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drainBuffer:
+        maxVol: 100
+      tank:
+        maxVol: 500
+        reagents:
+        - ReagentId: Water
+          Quantity: 200

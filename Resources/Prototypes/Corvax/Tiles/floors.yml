@@ -1,4 +1,7 @@
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodParquet
   name: tiles-wood-parquet
   sprite: /Textures/Corvax/Tiles/wood_parquet.png
@@ -19,6 +22,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodChess
   name: tiles-wood-chess
   sprite: /Textures/Corvax/Tiles/wood_chess.png
@@ -39,6 +45,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodBlack
   name: tiles-wood-black
   sprite: /Textures/Corvax/Tiles/wood_black.png
@@ -59,6 +68,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodLargeBlack
   name: tiles-wood-large-black
   sprite: /Textures/Corvax/Tiles/wood_large_black.png
@@ -79,6 +91,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodParquetBlack
   name: tiles-wood-parquet-black
   sprite: /Textures/Corvax/Tiles/wood_parquet_black.png
@@ -99,6 +114,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodChessBlack
   name: tiles-wood-chess-black
   sprite: /Textures/Corvax/Tiles/wood_chess_black.png
@@ -119,6 +137,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodDark
   name: tiles-wood-dark
   sprite: /Textures/Corvax/Tiles/wood_dark.png
@@ -139,6 +160,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodLargeDark
   name: tiles-wood-large-dark
   sprite: /Textures/Corvax/Tiles/wood_large_dark.png
@@ -159,6 +183,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodParquetDark
   name: tiles-wood-parquet-dark
   sprite: /Textures/Corvax/Tiles/wood_parquet_dark.png
@@ -179,6 +206,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodChessDark
   name: tiles-wood-chess-dark
   sprite: /Textures/Corvax/Tiles/wood_chess_dark.png
@@ -199,6 +229,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodLight
   name: tiles-wood-light
   sprite: /Textures/Corvax/Tiles/wood_light.png
@@ -219,6 +252,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodLargeLight
   name: tiles-wood-large-light
   sprite: /Textures/Corvax/Tiles/wood_large_light.png
@@ -239,6 +275,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodParquetLight
   name: tiles-wood-parquet-light
   sprite: /Textures/Corvax/Tiles/wood_parquet_light.png
@@ -259,6 +298,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodChessLight
   name: tiles-wood-chess-light
   sprite: /Textures/Corvax/Tiles/wood_chess_light.png
@@ -279,6 +321,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodRed
   name: tiles-wood-red
   sprite: /Textures/Corvax/Tiles/wood_red.png
@@ -299,6 +344,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodLargeRed
   name: tiles-wood-large-red
   sprite: /Textures/Corvax/Tiles/wood_large_red.png
@@ -319,6 +367,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodParquetRed
   name: tiles-wood-parquet-red
   sprite: /Textures/Corvax/Tiles/wood_parquet_red.png
@@ -339,6 +390,9 @@
   heatCapacity: 10000
 
 - type: tile
+  # <Onyx-AllTileWeather>
+  weather: true
+  # </Onyx-AllTileWeather>
   id: FloorWoodChessRed
   name: tiles-wood-chess-red
   sprite: /Textures/Corvax/Tiles/wood_chess_red.png

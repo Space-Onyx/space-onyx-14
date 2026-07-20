@@ -67,7 +67,8 @@ public sealed partial class FootprintSystem : EntitySystem
 
         var oldPosition = _transform.ToMapCoordinates(args.OldPosition).Position;
         var newPosition = _transform.ToMapCoordinates(args.NewPosition).Position;
-        ent.Comp.Distance += Vector2.Distance(newPosition, oldPosition);
+        var movement = newPosition - oldPosition;
+        ent.Comp.Distance += movement.Length();
 
         var standing = TryComp<StandingStateComponent>(ent, out var state) && state.Standing;
         var requiredDistance = standing ? ent.Comp.FootDistance : ent.Comp.BodyDistance;
@@ -79,15 +80,22 @@ public sealed partial class FootprintSystem : EntitySystem
             return;
 
         ent.Comp.Distance %= requiredDistance;
-        EntityCoordinates coordinates = new(ent, standing ? ent.Comp.NextFootOffset : 0, 0);
+        var oldLocalPosition = _map.WorldToLocal(gridUid, grid, oldPosition);
+        var newLocalPosition = _map.WorldToLocal(gridUid, grid, newPosition);
+        var localMovement = newLocalPosition - oldLocalPosition;
+        if (localMovement.LengthSquared() <= float.Epsilon)
+            return;
+
+        var direction = Vector2.Normalize(localMovement);
+        var side = new Vector2(-direction.Y, direction.X);
+        var offset = standing ? side * ent.Comp.NextFootOffset : Vector2.Zero;
+        var coordinates = new EntityCoordinates(gridUid, newLocalPosition + offset);
         ent.Comp.NextFootOffset = -ent.Comp.NextFootOffset;
         var tile = _map.CoordinatesToTile(gridUid, grid, coordinates);
         if (TryPuddleInteraction(ent, (gridUid, grid), tile, standing))
             return;
 
-        var rotation = standing
-            ? xform.LocalRotation
-            : (_map.WorldToLocal(gridUid, grid, newPosition) - _map.WorldToLocal(gridUid, grid, oldPosition)).ToAngle();
+        var rotation = direction.ToAngle() + Angle.FromDegrees(standing ? 90 : 0);
         LeavePrint(ent, (gridUid, grid), tile, coordinates, rotation, standing);
     }
 

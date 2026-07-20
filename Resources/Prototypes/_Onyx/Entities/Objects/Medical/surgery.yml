@@ -42,7 +42,10 @@
     sprite: _Onyx/Objects/Specific/Medical/Surgery/e-scalpel.rsi
     heldPrefix: scalpel
   - type: SurgeryTool
-    speedModifier: 3
+    speedModifiers:
+      Scalpel: 3
+      BoneSaw: 3
+      Drill: 3
   - type: MeleeWeapon
     damage:
       types:
@@ -74,7 +77,11 @@
     sprite: _Onyx/Objects/Specific/Medical/Surgery/adv-retractor.rsi
     heldPrefix: retractor
   - type: SurgeryTool
-    speedModifier: 3
+    speedModifiers:
+      Retractor: 3
+      Hemostat: 3
+      Tweezers: 3
+      Tending: 3
 
 - type: entity
   id: EnergyCautery
@@ -101,7 +108,9 @@
     sprite: _Onyx/Objects/Specific/Medical/Surgery/e-cautery.rsi
     heldPrefix: cautery
   - type: SurgeryTool
-    speedModifier: 3
+    speedModifiers:
+      Cautery: 3
+      Stitches: 3
   - type: MeleeWeapon
     damage:
       types:
@@ -132,7 +141,10 @@
     sprite: _Onyx/Objects/Specific/Medical/Surgery/e-bone-gel.rsi
     heldPrefix: bonegel
   - type: SurgeryTool
-    speedModifier: 3
+    speedModifiers:
+      BoneGel: 3
+      BoneSetter: 3
+      Hemostat: 3
   - type: MeleeWeapon
     damage:
       types:
@@ -151,7 +163,14 @@
     size: Normal
     sprite: _Onyx/Objects/Specific/Medical/Surgery/omnimed.rsi
   - type: SurgeryTool
-    speedModifier: 3
+    speedModifiers:
+      Scalpel: 3
+      Hemostat: 3
+      Retractor: 3
+      BoneSaw: 3
+      Cautery: 3
+      BoneGel: 3
+      Tweezers: 3
   - type: Scalpel
   - type: Hemostat
   - type: Retractor

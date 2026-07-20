@@ -1,0 +1,25 @@
+- type: entity
+  id: WeatherMarker
+  name: Weather
+  suffix: Enabled
+  parent: MarkerBase
+  components:
+  - type: SetTileWeather
+    disable: false
+  - type: Sprite
+    layers:
+    - state: green
+      shader: unshaded
+
+- type: entity
+  id: NoWeatherMarker
+  name: Weather
+  suffix: Disabled
+  parent: MarkerBase
+  components:
+  - type: SetTileWeather
+    disable: true
+  - type: Sprite
+    layers:
+    - state: red
+      shader: unshaded

@@ -22,11 +22,9 @@ public sealed partial class SurgeryToolExamineSystem : EntitySystem
             return;
 
         var message = new FormattedMessage();
-        message.AddMarkupOrThrow(Loc.GetString("surgery-tool-examine-speed", ("multiplier", ent.Comp.SpeedModifier)));
-        message.PushNewline();
         message.AddMarkupOrThrow(Loc.GetString("surgery-tool-examine-uses"));
 
-        var uses = GetUses(ent.Owner, ent.Comp.CustomUses);
+        var uses = GetUses(ent.Owner, ent.Comp);
         if (uses.Count == 0)
         {
             message.PushNewline();
@@ -34,10 +32,12 @@ public sealed partial class SurgeryToolExamineSystem : EntitySystem
         }
         else
         {
-            foreach (var use in uses)
+            foreach (var (use, task) in uses)
             {
                 message.PushNewline();
-                message.AddMarkupOrThrow(Loc.GetString("surgery-tool-examine-use", ("use", Loc.GetString(use))));
+                var speed = ent.Comp.SpeedModifiers.GetValueOrDefault(task, 1f);
+                message.AddMarkupOrThrow(Loc.GetString("surgery-tool-examine-use",
+                    ("use", Loc.GetString(use)), ("multiplier", speed)));
             }
         }
 
@@ -50,9 +50,9 @@ public sealed partial class SurgeryToolExamineSystem : EntitySystem
             Loc.GetString("surgery-tool-examine-verb-message"));
     }
 
-    private List<LocId> GetUses(EntityUid tool, List<LocId> customUses)
+    private List<(LocId Use, string Task)> GetUses(EntityUid tool, SurgeryToolComponent component)
     {
-        var uses = new List<LocId>();
+        var uses = new List<(LocId, string)>();
         AddUse<ScalpelComponent>(tool, "surgery-tool-use-scalpel", uses);
         AddUse<HemostatComponent>(tool, "surgery-tool-use-hemostat", uses);
         AddUse<RetractorComponent>(tool, "surgery-tool-use-retractor", uses);
@@ -61,16 +61,28 @@ public sealed partial class SurgeryToolExamineSystem : EntitySystem
         AddUse<BoneGelComponent>(tool, "surgery-tool-use-bone-gel", uses);
         AddUse<TweezersComponent>(tool, "surgery-tool-use-tweezers", uses);
 
-        foreach (var use in customUses)
-            if (!uses.Contains(use))
-                uses.Add(use);
+        foreach (var use in component.CustomUses)
+        {
+            var duplicate = false;
+            foreach (var entry in uses)
+            {
+                if (entry.Item1 != use)
+                    continue;
+
+                duplicate = true;
+                break;
+            }
+
+            if (!duplicate)
+                uses.Add((use, string.Empty));
+        }
 
         return uses;
     }
 
-    private void AddUse<T>(EntityUid tool, LocId use, List<LocId> uses) where T : IComponent
+    private void AddUse<T>(EntityUid tool, LocId use, List<(LocId, string)> uses) where T : IComponent
     {
         if (HasComp<T>(tool))
-            uses.Add(use);
+            uses.Add((use, Factory.GetComponentName(typeof(T))));
     }
 }

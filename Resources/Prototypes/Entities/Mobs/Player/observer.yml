@@ -107,6 +107,9 @@
     overlayColor: '#FFFFFF00'
     noiseAmount: 0 # In case default values change
     noiseMultiplier: 0 # In case default values change
+  # <Onyx-ToggleableHUD>
+  - type: ToggleableHUD
+  # </Onyx-ToggleableHUD>
 
 # proto for player ghosts specifically
 - type: entity

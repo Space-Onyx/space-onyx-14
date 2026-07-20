@@ -1,4 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
+// <Onyx-TileWeather>
+using Content.Shared._Onyx.Weather;
+// </Onyx-TileWeather>
 using Content.Shared.Light.Components;
 using Content.Shared.Light.EntitySystems;
 using Content.Shared.Maps;
@@ -37,6 +40,20 @@ public abstract partial class SharedWeatherSystem : EntitySystem
 
         if (Resolve(ent, ref ent.Comp2, false) && _roof.IsRooved((ent, ent.Comp1, ent.Comp2), tileRef.GridIndices))
             return false;
+
+        // <Onyx-TileWeather>
+        if (TryComp(ent.Owner, out TileWeatherComponent? tileWeather))
+        {
+            var chunk = SharedMapSystem.GetChunkIndices(tileRef.GridIndices, TileWeatherComponent.ChunkSize);
+            var relative = SharedMapSystem.GetChunkRelative(tileRef.GridIndices, TileWeatherComponent.ChunkSize);
+            var bit = 1UL << (relative.X + relative.Y * TileWeatherComponent.ChunkSize);
+
+            if ((tileWeather.Enabled.GetValueOrDefault(chunk) & bit) != 0)
+                return true;
+            if ((tileWeather.Disabled.GetValueOrDefault(chunk) & bit) != 0)
+                return false;
+        }
+        // </Onyx-TileWeather>
 
         var tileDef = (ContentTileDefinition)_tileDefManager[tileRef.Tile.TypeId];
 

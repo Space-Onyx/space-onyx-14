@@ -95,6 +95,9 @@
   - Chemist
   - ChiefMedicalOfficer
   - MedicalDoctor
+  # <Onyx-Surgeon>
+  - Surgeon
+  # </Onyx-Surgeon>
   - MedicalIntern
   - Psychologist
   - Paramedic

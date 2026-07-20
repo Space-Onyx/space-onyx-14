@@ -362,6 +362,7 @@
   - type: GibbableOrgan
   - type: Organ
     category: Tongue
+  - type: Tongue
   - type: Sprite
     layers:
     - state: tongue

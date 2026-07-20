@@ -1,0 +1,20 @@
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: VirologyComputerCircuitboard
+  name: virology computer board
+  components:
+  - type: Sprite
+    state: cpu_medical
+  - type: ComputerBoard
+    prototype: ComputerVirology
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: VirologyServerMachineCircuitboard
+  name: virology server machine board
+  components:
+  - type: MachineBoard
+    prototype: VirologyServer
+    stackRequirements:
+      Steel: 1
+      Cable: 2

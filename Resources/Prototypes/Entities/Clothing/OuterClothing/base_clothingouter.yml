@@ -3,6 +3,10 @@
   parent: Clothing
   id: ClothingOuterBase
   components:
+  # <Onyx-SlotBlock>
+  - type: SlotBlock
+    slots: [innerclothing, underweart, underwearb]
+  # </Onyx-SlotBlock>
   - type: Clothing
     slots:
     - outerClothing
@@ -123,9 +127,10 @@
   id: ClothingOuterHardsuitBase
   name: base hardsuit
   components:
-# SlotBlocker blocked until UI change
-#  - type: SlotBlock
-#    slots: [innerclothing, feet]
+  # <Onyx-SlotBlock-edited>
+  - type: SlotBlock
+    slots: [innerclothing, feet, underweart, underwearb]
+  # </Onyx-SlotBlock-edited>
   - type: PressureProtection
     highPressureMultiplier: 0.3
     lowPressureMultiplier: 1000

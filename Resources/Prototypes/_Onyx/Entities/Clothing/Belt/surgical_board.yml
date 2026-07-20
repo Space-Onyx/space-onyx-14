@@ -1,0 +1,47 @@
+- type: entity
+  parent: ClothingBeltStorageBase
+  id: ClothingBeltSurgicalBoard
+  name: surgical magnetic board
+  description: A magnetic board made for carrying surgical instruments.
+  components:
+  - type: Sprite
+    sprite: Clothing/Belt/surgical_board.rsi
+  - type: Clothing
+    sprite: Clothing/Belt/surgical_board.rsi
+  - type: Storage
+    grid:
+    - 0,0,8,1
+    whitelist:
+      tags:
+      - SurgeryTool
+      components:
+      - SurgeryTool
+  - type: ItemMapper
+    sprite: Clothing/Belt/surgical_board_overlay.rsi
+    mapLayers:
+      hemostat: { whitelist: { tags: [ Hemostat ] } }
+      scalpel: { whitelist: { tags: [ Scalpel ] } }
+      energyScalpel: { whitelist: { tags: [ EnergyScalpel ] } }
+      scalpelLaser: { whitelist: { tags: [ ScalpelLaser ] } }
+      retractor: { whitelist: { tags: [ Retractor ] } }
+      advancedRetractor: { whitelist: { tags: [ AdvancedRetractor ] } }
+      cautery: { whitelist: { tags: [ Cautery ] } }
+      energyCautery: { whitelist: { tags: [ EnergyCautery ] } }
+      drill: { whitelist: { tags: [ Drill ] } }
+      sawElectric: { whitelist: { tags: [ SawElectric ] } }
+  - type: Appearance
+
+- type: entity
+  parent: ClothingBeltSurgicalBoard
+  id: ClothingBeltSurgicalBoardFilled
+  suffix: Filled
+  components:
+  - type: StorageFill
+    contents:
+    - id: Hemostat
+    - id: Scalpel
+    - id: Retractor
+    - id: Cautery
+    - id: Drill
+    - id: SawElectric
+    - id: BoneGel

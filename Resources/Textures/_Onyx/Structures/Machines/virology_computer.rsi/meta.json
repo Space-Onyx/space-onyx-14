@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Viro state made by Ilya246 and Gallagin based on SS14 computer sprites.",
+  "size": { "x": 32, "y": 32 },
+  "states": [
+    {
+      "name": "viro",
+      "directions": 4,
+      "delays": [
+        [0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
+        [0.25, 0.25, 0.25, 0.25, 0.25, 0.25]
+      ]
+    }
+  ]
+}

@@ -4,6 +4,10 @@
   name: winter coat
   description: A heavy jacket made from 'synthetic' animal furs.
   components:
+  # <Onyx-SlotBlock>
+  - type: SlotBlock
+    slots: [innerclothing, underwearb]
+  # </Onyx-SlotBlock>
   - type: Sprite
     sprite: Clothing/OuterClothing/WinterCoats/coat.rsi
   - type: Clothing

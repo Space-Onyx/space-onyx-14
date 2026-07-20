@@ -44,6 +44,10 @@
   parent: UnsensoredClothingUniformBase
   id: ClothingUniformBase
   components:
+  # <Onyx-SlotBlock>
+  - type: SlotBlock
+    slots: [underweart, underwearb]
+  # </Onyx-SlotBlock>
   - type: SuitSensor
   - type: DeviceNetwork
     deviceNetId: Wireless
@@ -61,6 +65,10 @@
   - type: Clothing
     slots: [innerclothing]
     femaleMask: UniformTop
+  # <Onyx-SlotBlock>
+  - type: SlotBlock
+    slots: [underweart]
+  # </Onyx-SlotBlock>
 
 - type: entity
   abstract: true

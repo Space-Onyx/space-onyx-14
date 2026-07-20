@@ -127,7 +127,8 @@
   components:
   # <Onyx-SurgerySpeed>
   - type: SurgeryTool
-    speedModifier: 0.75
+    speedModifiers:
+      Scalpel: 0.75
   # </Onyx-SurgerySpeed>
   # <Onyx-Surgery-edited>
   - type: Sprite
@@ -157,7 +158,8 @@
   components:
   # <Onyx-SurgerySpeed>
   - type: SurgeryTool
-    speedModifier: 1.5
+    speedModifiers:
+      Scalpel: 1.5
   # </Onyx-SurgerySpeed>
   # <Onyx-Surgery-edited>
   - type: Sprite
@@ -180,7 +182,8 @@
   components:
   # <Onyx-SurgerySpeed>
   - type: SurgeryTool
-    speedModifier: 2
+    speedModifiers:
+      Scalpel: 2
   # </Onyx-SurgerySpeed>
   # <Onyx-Surgery-edited>
   - type: Sprite

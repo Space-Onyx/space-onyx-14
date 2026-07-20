@@ -7,6 +7,9 @@
   # <Onyx-GhostLanguages>
   - type: UniversalLanguageSpeaker
   # </Onyx-GhostLanguages>
+  # <Onyx-SlotBlock>
+  - type: StopBlockBypass
+  # </Onyx-SlotBlock>
   - type: ContentEye
     maxZoom: 8.916104, 8.916104
   - type: Tag
