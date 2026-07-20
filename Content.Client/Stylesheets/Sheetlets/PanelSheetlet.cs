@@ -52,6 +52,10 @@ public sealed class PanelSheetlet<T> : Sheetlet<T> where T : PalettedStylesheet,
                 .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.BaseStyleBox(sheet))
                 .Modulate(sheet.SecondaryPalette.Background),
             E()
+                .Class("AngleRect")
+                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.BaseStyleBox(sheet))
+                .Modulate(sheet.SecondaryPalette.Background),
+            E()
                 .Class(StyleClass.BackgroundPanelDark)
                 .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.BaseStyleBox(sheet))
                 .Modulate(sheet.SecondaryPalette.BackgroundDark),

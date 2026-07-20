@@ -430,6 +430,9 @@
   physicalDesc: reagent-physical-desc-translucent
   flavor: water
   color: "#75b1f0"
+  # <Onyx-ClothingDirt>
+  clothingDirtCleanMultiplier: 1
+  # </Onyx-ClothingDirt>
   recognizable: true
   boilingPoint: 100.0
   meltingPoint: 0.0

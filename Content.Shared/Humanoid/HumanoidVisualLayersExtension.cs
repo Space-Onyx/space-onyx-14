@@ -6,6 +6,9 @@ namespace Content.Shared.Humanoid
         {
             return layer switch
             {
+                // <Onyx-ChestGroin>
+                HumanoidVisualLayers.Groin => true,
+                // </Onyx-ChestGroin>
                 HumanoidVisualLayers.Chest => true,
                 HumanoidVisualLayers.Head => true,
                 _ => false
@@ -63,8 +66,17 @@ namespace Content.Shared.Humanoid
                     break;
                 case HumanoidVisualLayers.Chest:
                     yield return HumanoidVisualLayers.Chest;
+                    // <Onyx-ChestGroin>
+                    yield return HumanoidVisualLayers.Groin;
+                    // </Onyx-ChestGroin>
                     yield return HumanoidVisualLayers.Tail;
                     break;
+                // <Onyx-ChestGroin>
+                case HumanoidVisualLayers.Groin:
+                    yield return HumanoidVisualLayers.Groin;
+                    yield return HumanoidVisualLayers.Tail;
+                    break;
+                // </Onyx-ChestGroin>
                 default:
                     yield break;
             }

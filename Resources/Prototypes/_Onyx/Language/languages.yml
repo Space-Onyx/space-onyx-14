@@ -1,0 +1,166 @@
+- type: language
+  id: Universal
+  obfuscation:
+    !type:ReplacementObfuscation
+    replacement: ["<?>"]
+
+- type: language
+  id: TauCetiBasic
+  isVisibleLanguage: true
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 3
+    replacement:
+    - та
+    - у
+    - се
+    - ти
+    - ба
+    - сик
+    - кор
+    - вакс
+    - он
+    - икс
+
+- type: language
+  id: Chittin
+  isVisibleLanguage: true
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - хит
+    - тик
+    - клик
+    - трр
+
+- type: language
+  id: RootSpeak
+  isVisibleLanguage: true
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - шор
+    - шелест
+    - кор
+    - вет
+
+- type: language
+  id: Moffic
+  isVisibleLanguage: true
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - бзз
+    - фф
+    - мыр
+    - зз
+
+- type: language
+  id: Draconic
+  isVisibleLanguage: true
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - сс
+    - ра
+    - хар
+    - исс
+
+- type: language
+  id: Bubblish
+  isVisibleLanguage: true
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - буль
+    - блоп
+    - плоп
+    - глю
+
+- type: language
+  id: Calcic
+  isVisibleLanguage: true
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - клик
+    - клак
+    - трек
+    - каль
+
+- type: language
+  id: NewKinPidgin
+  isVisibleLanguage: true
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - ки
+    - кик
+    - кра
+    - рак
+
+- type: language
+  id: Canilunzt
+  isVisibleLanguage: true
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - вур
+    - рра
+    - кан
+    - лун
+
+- type: language
+  id: SiikMaas
+  isVisibleLanguage: true
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - сиик
+    - маас
+    - рр
+    - таж
+
+- type: language
+  id: RobotTalk
+  isVisibleLanguage: true
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 2
+    maxSyllables: 6
+    replacement:
+    - "0"
+    - "1"
+
+- type: language
+  id: Nekomimetic
+  isVisibleLanguage: true
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - ня
+    - мяу
+    - нэко
+    - ми
+
+- type: language
+  id: SolCommon
+  isVisibleLanguage: true
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - сол
+    - тер
+    - мар
+    - нова
+
+- type: language
+  id: Sign
+  isVisibleLanguage: true
+  obfuscation:
+    !type:ReplacementObfuscation
+    replacement:
+    - что-то непонятное
+    - незнакомый жест
+    - непонятный сигнал

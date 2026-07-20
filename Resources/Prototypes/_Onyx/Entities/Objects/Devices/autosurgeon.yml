@@ -1,0 +1,76 @@
+- type: entity
+  parent: BaseStructure
+  id: OnyxAutosurgeonBase
+  name: auto-operation
+  description: A single-use machine that performs a preset cybernetic operation.
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Devices/autosurgeon.rsi
+    state: icon
+    noRot: true
+  - type: Item
+    size: Huge
+  - type: ItemToggle
+    onUse: false
+  - type: DoAfter
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.05"
+        density: 190
+        mask:
+        - TableMask
+  - type: Strap
+    position: Down
+    rotation: -90
+    buckleOffset: 0.05,-0.15
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Anchorable
+  - type: Pullable
+
+- type: entity
+  parent: OnyxAutosurgeonBase
+  id: OnyxAutosurgeonSpeedLeftLeg
+  name: auto-operation (left S.P.E.E.D. leg)
+  components:
+  - type: Autosurgeon
+    targetPart: Leg
+    targetSymmetry: Left
+    replacement: SpeedLeftLeg
+
+- type: entity
+  parent: OnyxAutosurgeonBase
+  id: OnyxAutosurgeonSpeedRightLeg
+  name: auto-operation (right S.P.E.E.D. leg)
+  components:
+  - type: Autosurgeon
+    targetPart: Leg
+    targetSymmetry: Right
+    replacement: SpeedRightLeg
+
+- type: entity
+  parent: OnyxAutosurgeonBase
+  id: OnyxAutosurgeonJawsLeftArm
+  name: auto-operation (left J.A.W.S. arm)
+  components:
+  - type: Autosurgeon
+    targetPart: Arm
+    targetSymmetry: Left
+    replacement: JawsOfLifeLeftArm
+
+- type: entity
+  parent: OnyxAutosurgeonBase
+  id: OnyxAutosurgeonJawsRightArm
+  name: auto-operation (right J.A.W.S. arm)
+  components:
+  - type: Autosurgeon
+    targetPart: Arm
+    targetSymmetry: Right
+    replacement: JawsOfLifeRightArm

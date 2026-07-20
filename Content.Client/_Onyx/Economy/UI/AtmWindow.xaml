@@ -1,0 +1,76 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+               xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+               xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
+               Title="{Loc 'atm-window-title'}"
+               SetSize="400 350"
+               Resizable="False">
+
+    <BoxContainer Orientation="Vertical" VerticalExpand="True" Margin="8 8 8 8">
+        <BoxContainer Name="NoCardPage" HorizontalExpand="True" VerticalExpand="True" Visible="False">
+            <BoxContainer HorizontalAlignment="Center" HorizontalExpand="True" VerticalAlignment="Center" Orientation="Vertical" MinSize="325 200">
+                <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextureRect StyleClasses="NTLogoDark" Stretch="KeepAspectCentered"
+                            VerticalAlignment="Center" HorizontalAlignment="Left" SetSize="32 32" Margin="0 0 8 0"/>
+                    <Label Name="NoCardHeaderLabel" HorizontalAlignment="Center" FontColorOverride="#a88b5e" StyleClasses="LabelHeading"/>
+                </BoxContainer>
+                <Control MinSize="0 20"/>
+                <Label Name="NoCardMessageLabel" HorizontalAlignment="Center"/>
+            </BoxContainer>
+        </BoxContainer>
+        <BoxContainer Name="PinEntryPage" HorizontalExpand="True" VerticalExpand="True" Visible="False">
+            <BoxContainer HorizontalAlignment="Center" HorizontalExpand="True" VerticalAlignment="Center" Orientation="Vertical" MinSize="325 200">
+                <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextureRect StyleClasses="NTLogoDark" Stretch="KeepAspectCentered"
+                            VerticalAlignment="Center" HorizontalAlignment="Left" SetSize="32 32" Margin="0 0 8 0"/>
+                    <Label Name="PinEntryHeaderLabel" HorizontalAlignment="Center" FontColorOverride="#a88b5e" StyleClasses="LabelHeading"/>
+                </BoxContainer>
+                <Control MinSize="0 20"/>
+                <Label Name="PinEntryTitleLabel" HorizontalAlignment="Center" FontColorOverride="#a88b5e" StyleClasses="LabelHeading"/>
+                <Control MinSize="0 10"/>
+                <LineEdit Name="PinEntryLineEdit" HorizontalAlignment="Center" MinSize="120 0" PlaceHolder="{Loc 'atm-ui-enter-pin'}"/>
+                <Control MinSize="0 10"/>
+                <Button Name="PinEntryNextButton" HorizontalAlignment="Center" Text="{Loc 'atm-ui-next'}" MinSize="100 0"/>
+            </BoxContainer>
+        </BoxContainer>
+        <BoxContainer Name="MainPage" HorizontalExpand="True" VerticalExpand="True" Visible="False">
+            <BoxContainer HorizontalAlignment="Center" HorizontalExpand="True" VerticalAlignment="Center" Orientation="Vertical" MinSize="360 280">
+                <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextureRect StyleClasses="NTLogoDark" Stretch="KeepAspectCentered"
+                            VerticalAlignment="Center" HorizontalAlignment="Left" SetSize="32 32" Margin="0 0 8 0"/>
+                    <Label Name="MainHeaderLabel" HorizontalAlignment="Center" FontColorOverride="#a88b5e" StyleClasses="LabelHeading"/>
+                </BoxContainer>
+                <Control MinSize="0 10"/>
+                <Label Name="WelcomeLabel" HorizontalAlignment="Center"/>
+                <BoxContainer HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Label Name="BalanceTitleLabel" FontColorOverride="#a88b5e" StyleClasses="LabelHeading"/>
+                    <Label Name="BalanceValueLabel"/>
+                </BoxContainer>
+                <Control MinSize="0 15"/>
+                <Label Name="WithdrawTitleLabel" HorizontalAlignment="Left" FontColorOverride="#a88b5e" StyleClasses="LabelHeading"/>
+                <Control MinSize="0 10"/>
+                <BoxContainer HorizontalAlignment="Stretch" HorizontalExpand="True" Orientation="Horizontal">
+                    <Button Name="Withdraw10Button" Text="10$" HorizontalExpand="True"/>
+                    <Button Name="Withdraw50Button" Text="50$" HorizontalExpand="True"/>
+                    <Button Name="Withdraw100Button" Text="100$" HorizontalExpand="True"/>
+                    <Button Name="Withdraw500Button" Text="500$" HorizontalExpand="True"/>
+                </BoxContainer>
+                <Control MinSize="0 10"/>
+                <BoxContainer HorizontalAlignment="Stretch" HorizontalExpand="True" Orientation="Horizontal">
+                    <LineEdit Name="CustomAmountLineEdit" HorizontalExpand="True" PlaceHolder="{Loc 'atm-ui-custom-amount'}"/>
+                    <Button Name="CustomWithdrawButton" Text="{Loc 'atm-ui-withdraw'}" MinSize="80 0"/>
+                </BoxContainer>
+            </BoxContainer>
+        </BoxContainer>
+        <BoxContainer Orientation="Vertical">
+            <PanelContainer StyleClasses="LowDivider" />
+            <BoxContainer Orientation="Horizontal" Margin="10 2 5 0" VerticalAlignment="Bottom">
+                <Label Text="{Loc 'atm-ui-footer'}" StyleClasses="WindowFooterText" />
+                <BoxContainer HorizontalExpand="True" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Label Text="v 2.0" StyleClasses="WindowFooterText" Margin="0 0 4 0"/>
+                    <TextureRect StyleClasses="NTLogoDark" Stretch="KeepAspectCentered"
+                            VerticalAlignment="Center" HorizontalAlignment="Right" SetSize="19 19"/>
+                </BoxContainer>
+            </BoxContainer>
+        </BoxContainer>
+    </BoxContainer>
+</controls:FancyWindow>

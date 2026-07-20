@@ -44,6 +44,10 @@
     - NewsReaderCartridge
     - WantedListCartridge
     - AstroNavCartridge
+    - WalletCartridge
+    # <Onyx-NanoChat-edited>
+    - NanoChatCartridge
+    # </Onyx-NanoChat-edited>
 
 - type: entity
   parent: BaseSecurityPDA

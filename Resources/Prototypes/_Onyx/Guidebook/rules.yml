@@ -1,0 +1,85 @@
+
+- type: guideEntry
+  id: OnyxRules
+  name: guide-entry-rules-core
+  ruleEntry: true
+  priority: 10
+  text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/DefaultRules.xml"
+  children:
+  - OnyxRules0
+  - OnyxRules1
+  - OnyxRules2
+  - OnyxRules3
+  - OnyxRules4
+  - OnyxRules5
+  - OnyxRules6
+  - OnyxRules7
+  - OnyxRules8
+  - OnyxRules9
+  - OnyxRules10
+
+- type: guideEntry
+  id: OnyxRules0
+  name: Не будь мудаком.
+  ruleEntry: true
+  text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule0.xml"
+
+- type: guideEntry
+  id: OnyxRules1
+  name: Гриферство
+  ruleEntry: true
+  text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule1.xml"
+
+- type: guideEntry
+  id: OnyxRules2
+  name: Убийство
+  ruleEntry: true
+  text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule2.xml"
+  
+- type: guideEntry
+  id: OnyxRules3
+  name: Нарушение игровой атмосферы.
+  ruleEntry: true
+  text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule3.xml"
+  
+- type: guideEntry
+  id: OnyxRules4
+  name: Логика персонажей
+  ruleEntry: true
+  text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule4.xml"
+ 
+- type: guideEntry
+  id: OnyxRules5
+  name: Ответственная игра за антагониста
+  ruleEntry: true
+  text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule5.xml"
+
+- type: guideEntry
+  id: OnyxRules6
+  name: Самоантагонизм
+  ruleEntry: true
+  text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule6.xml"
+
+- type: guideEntry
+  id: OnyxRules7
+  name: Валидхант
+  ruleEntry: true
+  text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule7.xml"
+
+- type: guideEntry
+  id: OnyxRules8
+  name: ERP
+  ruleEntry: true
+  text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule8.xml"
+
+- type: guideEntry
+  id: OnyxRules9
+  name: Нечестная игра
+  ruleEntry: true
+  text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule9.xml"
+
+- type: guideEntry
+  id: OnyxRules10
+  name: Обман администрации
+  ruleEntry: true
+  text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule10.xml"

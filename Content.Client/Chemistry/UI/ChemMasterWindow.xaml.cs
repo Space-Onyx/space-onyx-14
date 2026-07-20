@@ -27,6 +27,11 @@ namespace Content.Client.Chemistry.UI
         [Dependency] private IEntityManager _entityManager = default!;
 
         private readonly SpriteSystem _sprite;
+        // <Onyx-Search>
+        private ChemMasterBoundUserInterfaceState? _lastState;
+        private string _reagentSearch = string.Empty;
+        private bool _searchInContainers = true;
+        // </Onyx-Search>
 
         public event Action<BaseButton.ButtonEventArgs, ReagentButton>? OnReagentButtonPressed;
         public readonly Button[] PillTypeButtons;
@@ -90,6 +95,20 @@ namespace Content.Client.Chemistry.UI
 
             // Ensure label length is within the character limit.
             LabelLineEdit.IsValid = s => s.Length <= SharedChemMaster.LabelMaxLength;
+            // <Onyx-Search>
+            ReagentSearchLineEdit.OnTextChanged += _ =>
+            {
+                _reagentSearch = ReagentSearchLineEdit.Text.Trim();
+                if (_lastState is not null)
+                    UpdatePanelInfo(_lastState);
+            };
+            SearchInContainersCheckBox.OnToggled += _ =>
+            {
+                _searchInContainers = SearchInContainersCheckBox.Pressed;
+                if (_lastState is not null)
+                    UpdatePanelInfo(_lastState);
+            };
+            // </Onyx-Search>
 
             Tabs.SetTabTitle(0, Loc.GetString("chem-master-window-input-tab"));
             Tabs.SetTabTitle(1, Loc.GetString("chem-master-window-output-tab"));
@@ -143,6 +162,7 @@ namespace Content.Client.Chemistry.UI
         public void UpdateState(BoundUserInterfaceState state)
         {
             var castState = (ChemMasterBoundUserInterfaceState)state;
+            _lastState = castState; // <Onyx-Search>
 
             if (castState.UpdateLabel)
                 LabelLine = GenerateLabel(castState);
@@ -293,8 +313,21 @@ namespace Content.Client.Chemistry.UI
                 _prototypeManager.TryIndex(reagentId.Prototype, out ReagentPrototype? proto);
                 var name = proto?.LocalizedName ?? Loc.GetString("chem-master-window-unknown-reagent-text");
                 var reagentColor = proto?.SubstanceColor ?? default(Color);
+                // <Onyx-Search>
+                if (!MatchesReagentSearch(name, reagentId))
+                    continue;
+                // </Onyx-Search>
+
                 reagentList.Add(new (reagentId, name, reagentColor, quantity));
             }
+
+            // <Onyx-Search>
+            if (reagentList.Count == 0)
+            {
+                BufferInfo.Children.Add(new Label { Text = Loc.GetString("chem-master-window-search-no-results-text") });
+                return;
+            }
+            // </Onyx-Search>
 
             // We sort here since we need sorted list to be filled first.
             // You can easily add any new params you need to it.
@@ -372,11 +405,27 @@ namespace Content.Client.Chemistry.UI
                     _prototypeManager.TryIndex(reagent.Reagent.Prototype, out ReagentPrototype? proto);
                     var name = proto?.LocalizedName ?? Loc.GetString("chem-master-window-unknown-reagent-text");
                     var reagentColor = proto?.SubstanceColor ?? default(Color);
+                    // <Onyx-Search>
+                    if (_searchInContainers && !MatchesReagentSearch(name, reagent.Reagent))
+                        continue;
+                    // </Onyx-Search>
 
                     control.Children.Add(BuildReagentRow(reagentColor, rowCount++, name, reagent.Reagent, reagent.Quantity, false, addReagentButtons));
                 }
             }
         }
+
+        // <Onyx-Search>
+        private bool MatchesReagentSearch(string reagentName, ReagentId reagentId)
+        {
+            if (string.IsNullOrWhiteSpace(_reagentSearch))
+                return true;
+
+            return reagentName.Contains(_reagentSearch, StringComparison.OrdinalIgnoreCase)
+                   || reagentId.Prototype.Contains(_reagentSearch, StringComparison.OrdinalIgnoreCase);
+        }
+        // </Onyx-Search>
+
         /// <summary>
         /// Take reagent/entity data and present rows, labels, and buttons appropriately. todo sprites?
         /// </summary>

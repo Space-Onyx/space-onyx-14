@@ -12,7 +12,9 @@ using Content.Shared.Radio.Components;
 using Content.Shared.Radio.EntitySystems;
 using Content.Shared.Speech;
 using Content.Shared.Speech.Components;
+using Content.Shared.Verbs;
 using Robust.Shared.Prototypes;
+using Content.Server._Onyx.Radio.Components;
 
 namespace Content.Server.Radio.EntitySystems;
 
@@ -45,6 +47,12 @@ public sealed partial class RadioDeviceSystem : SharedRadioDeviceSystem
         SubscribeLocalEvent<RadioSpeakerComponent, ActivateInWorldEvent>(OnActivateSpeaker);
         SubscribeLocalEvent<RadioSpeakerComponent, RadioReceiveEvent>(OnReceiveRadio);
 
+        // <Onyx-Radio>
+        SubscribeLocalEvent<HandheldRadioPresetComponent, ComponentInit>(OnHandheldPresetInit);
+        SubscribeLocalEvent<HandheldRadioPresetComponent, ExaminedEvent>(OnHandheldPresetExamine);
+        SubscribeLocalEvent<HandheldRadioPresetComponent, GetVerbsEvent<Verb>>(OnHandheldPresetVerbs);
+        // <Onyx-Radio>
+
         SubscribeLocalEvent<IntercomComponent, EncryptionChannelsChangedEvent>(OnIntercomEncryptionChannelsChanged);
         SubscribeLocalEvent<IntercomComponent, ToggleIntercomMicMessage>(OnToggleIntercomMic);
         SubscribeLocalEvent<IntercomComponent, ToggleIntercomSpeakerMessage>(OnToggleIntercomSpeaker);
@@ -74,6 +82,17 @@ public sealed partial class RadioDeviceSystem : SharedRadioDeviceSystem
         else
             RemCompDeferred<ActiveRadioComponent>(uid);
     }
+
+    // <Onyx-Radio>
+    private void OnHandheldPresetInit(EntityUid uid, HandheldRadioPresetComponent component, ComponentInit args)
+    {
+        if (component.Channels.Count == 0)
+            return;
+
+        component.CurrentIndex = Math.Clamp(component.CurrentIndex, 0, component.Channels.Count - 1);
+        SetHandheldPresetChannel(uid, component, component.CurrentIndex, null, true);
+    }
+    // </Onyx-Radio>
     #endregion
 
     #region Toggling
@@ -148,6 +167,48 @@ public sealed partial class RadioDeviceSystem : SharedRadioDeviceSystem
                 ("channel", proto.LocalizedName)));
         }
     }
+
+    // <Onyx-Radio>
+    private void OnHandheldPresetExamine(EntityUid uid, HandheldRadioPresetComponent component, ExaminedEvent args)
+    {
+        if (!args.IsInDetailsRange || component.Channels.Count == 0)
+            return;
+
+        var channel = GetHandheldPresetChannel(component);
+        if (channel == null || !_protoMan.TryIndex<RadioChannelPrototype>(channel, out var proto))
+            return;
+
+        args.PushMarkup(Loc.GetString("handheld-radio-component-preset-examine",
+            ("channel", proto.LocalizedName),
+            ("frequency", proto.Frequency)));
+    }
+
+    private void OnHandheldPresetVerbs(EntityUid uid, HandheldRadioPresetComponent component, GetVerbsEvent<Verb> args)
+    {
+        if (!args.CanInteract || !args.CanAccess || component.Channels.Count == 0)
+            return;
+
+        for (var i = 0; i < component.Channels.Count; i++)
+        {
+            var channel = component.Channels[i];
+            if (!_protoMan.TryIndex<RadioChannelPrototype>(channel, out var proto))
+                continue;
+
+            var index = i;
+            var selected = index == component.CurrentIndex;
+            args.Verbs.Add(new Verb
+            {
+                Text = Loc.GetString("handheld-radio-component-preset-verb",
+                    ("channel", proto.LocalizedName),
+                    ("frequency", proto.Frequency)),
+                Category = VerbCategory.PowerLevel,
+                Disabled = selected,
+                Message = selected ? Loc.GetString("handheld-radio-component-preset-current") : null,
+                Act = () => SetHandheldPresetChannel(uid, component, index, args.User),
+            });
+        }
+    }
+    // </Onyx-Radio>
 
     private void OnListen(EntityUid uid, RadioMicrophoneComponent component, ListenEvent args)
     {
@@ -246,4 +307,50 @@ public sealed partial class RadioDeviceSystem : SharedRadioDeviceSystem
             speaker.Channels = new() { channel.Value };
         Dirty(ent);
     }
+
+    // <Onyx-Radio>
+    private string? GetHandheldPresetChannel(HandheldRadioPresetComponent component)
+    {
+        if (component.Channels.Count == 0)
+            return null;
+
+        component.CurrentIndex = Math.Clamp(component.CurrentIndex, 0, component.Channels.Count - 1);
+        return component.Channels[component.CurrentIndex];
+    }
+
+    private void SetHandheldPresetChannel(
+        EntityUid uid,
+        HandheldRadioPresetComponent component,
+        int index,
+        EntityUid? user,
+        bool quiet = false)
+    {
+        if (component.Channels.Count == 0)
+            return;
+
+        index = Math.Clamp(index, 0, component.Channels.Count - 1);
+        var channel = component.Channels[index];
+        if (!_protoMan.TryIndex<RadioChannelPrototype>(channel, out var proto))
+            return;
+
+        component.CurrentIndex = index;
+
+        if (TryComp<RadioMicrophoneComponent>(uid, out var mic))
+            mic.BroadcastChannel = channel;
+
+        if (TryComp<RadioSpeakerComponent>(uid, out var speaker))
+        {
+            speaker.Channels = new() { channel };
+
+            if (speaker.Enabled)
+                EnsureComp<ActiveRadioComponent>(uid).Channels = new(speaker.Channels);
+        }
+
+        if (!quiet && user != null)
+        {
+            _popup.PopupEntity(Loc.GetString("handheld-radio-component-channel-set",
+                ("channel", proto.LocalizedName)), uid, user.Value);
+        }
+    }
+    // </Onyx-Radio>
 }

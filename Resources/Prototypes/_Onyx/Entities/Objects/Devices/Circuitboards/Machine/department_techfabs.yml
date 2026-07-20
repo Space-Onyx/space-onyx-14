@@ -1,0 +1,55 @@
+- type: entity
+  id: EngineeringTechFabCircuitboard
+  parent: BaseMachineCircuitboard
+  name: engineering techfab machine board
+  description: A machine printed circuit board for an engineering techfab.
+  components:
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: EngineeringTechFab
+    stackRequirements: &DepartmentTechFabStackRequirements
+      Manipulator: 4
+    tagRequirements: &DepartmentTechFabTagRequirements
+      GlassBeaker:
+        amount: 2
+        defaultPrototype: Beaker
+
+- type: entity
+  id: CargoTechFabCircuitboard
+  parent: BaseMachineCircuitboard
+  name: cargo techfab machine board
+  description: A machine printed circuit board for a cargo techfab.
+  components:
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: CargoTechFab
+    stackRequirements: *DepartmentTechFabStackRequirements
+    tagRequirements: *DepartmentTechFabTagRequirements
+
+- type: entity
+  id: ScienceTechFabCircuitboard
+  parent: BaseMachineCircuitboard
+  name: science techfab machine board
+  description: A machine printed circuit board for a science techfab.
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: ScienceTechFab
+    stackRequirements: *DepartmentTechFabStackRequirements
+    tagRequirements: *DepartmentTechFabTagRequirements
+
+- type: entity
+  id: ServiceTechFabCircuitboard
+  parent: BaseMachineCircuitboard
+  name: service techfab machine board
+  description: A machine printed circuit board for a service techfab.
+  components:
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: ServiceTechFab
+    stackRequirements: *DepartmentTechFabStackRequirements
+    tagRequirements: *DepartmentTechFabTagRequirements

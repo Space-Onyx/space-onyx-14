@@ -44,7 +44,10 @@
     speciesId: arachnid
   - type: InitialBody
     organs:
-      Torso: OrganArachnidTorso
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganArachnidChest
+      Groin: OrganArachnidGroin
+      # </Onyx-ChestGroin-edited>
       Head: OrganArachnidHead
       ArmLeft: OrganArachnidArmLeft
       ArmRight: OrganArachnidArmRight
@@ -136,6 +139,11 @@
       Male: UnisexArachnid
       Female: UnisexArachnid
       Unsexed: UnisexArachnid
+  # <Onyx-Languages>
+  - type: LanguageKnowledge
+    speaks: [TauCetiBasic, Chittin]
+    understands: [TauCetiBasic, Chittin]
+  # </Onyx-Languages>
   - type: TypingIndicator
     proto: spider
   - type: CreamPied

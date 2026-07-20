@@ -149,6 +149,12 @@
       - !type:EvenHealthChange
         damage:
           Brute: -1.5
+      # <Onyx-PartPain>
+      - !type:SuppressPain
+        amount: 1.5
+        decayDuration: 10
+        identifier: Bicaridine
+      # </Onyx-PartPain>
       - !type:HealthChange
         conditions:
         - !type:ReagentCondition
@@ -620,6 +626,11 @@
         damage:
           types:
             Caustic: 0.3
+      # <Onyx-VirologyReagents>
+      - !type:DiseaseProgressChange
+        affectedType: OwnCells
+        progressModifier: -0.07
+      # </Onyx-VirologyReagents>
 
 - type: reagent
   id: PolypyryliumOligomers
@@ -881,6 +892,12 @@
           Toxin: -2
           Airloss: -2
           Brute: -2
+      # <Onyx-VirologyReagents>
+      - !type:ImmunityModifier
+        gainRateModifier: 0.0011
+        strengthModifier: 0.0088888888888
+        statusLifetime: 3
+      # </Onyx-VirologyReagents>
 
 - type: reagent
   id: Ultravasculine

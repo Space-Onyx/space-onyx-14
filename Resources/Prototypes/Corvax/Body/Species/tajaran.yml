@@ -50,14 +50,9 @@
     enum.HumanoidVisualLayers.RFoot:
       limit: 2
       required: false
-    enum.HumanoidVisualLayers.UndergarmentTop:
-      limit: 1
-      required: false
-      nudityDefault: [ UndergarmentTopTanktopVulpkanin ]
-    enum.HumanoidVisualLayers.UndergarmentBottom:
-      limit: 1
-      required: false
-      nudityDefault: [ UndergarmentBottomBoxersVulpkanin ]
+    # <Onyx-Underwear-edited>
+    # Undergarment marking defaults removed in favor of wearable underwear items.
+    # </Onyx-Underwear-edited>
 
 - type: entity
   parent: BaseSpeciesAppearance
@@ -66,7 +61,10 @@
   components:
   - type: InitialBody
     organs:
-      Torso: OrganTajaranTorso
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganTajaranChest
+      Groin: OrganTajaranGroin
+      # </Onyx-ChestGroin-edited>
       Head: OrganTajaranHead
       ArmLeft: OrganTajaranArmLeft
       ArmRight: OrganTajaranArmRight
@@ -89,6 +87,9 @@
   - type: HumanoidProfile
     species: Tajaran
   - type: Inventory
+    # <Onyx-Underwear>
+    templateId: humanNoSocks
+    # </Onyx-Underwear>
     speciesId: corvaxtajaran
     femaleDisplacements:
       jumpsuit:
@@ -138,6 +139,11 @@
       Male: MaleTajaran
       Female: FemaleTajaran
       Unsexed: MaleTajaran
+  # <Onyx-Languages>
+  - type: LanguageKnowledge
+    speaks: [TauCetiBasic, SiikMaas]
+    understands: [TauCetiBasic, SiikMaas]
+  # </Onyx-Languages>
   - type: GrowlingAccent
   - type: MeleeWeapon
     animation: WeaponArcClaw

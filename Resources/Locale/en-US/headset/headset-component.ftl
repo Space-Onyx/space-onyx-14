@@ -17,7 +17,11 @@ chat-radio-syndicate = Syndicate
 chat-radio-freelance = Freelance
 
 # not headset but whatever
-chat-radio-handheld = Handheld
+chat-radio-handheld = Handheld 1
+chat-radio-handheld-preset-2 = Handheld 2
+chat-radio-handheld-preset-3 = Handheld 3
+chat-radio-handheld-preset-4 = Handheld 4
+chat-radio-handheld-preset-5 = Handheld 5
 chat-radio-binary = Binary
 chat-radio-xenoborg = Xenoborg
 chat-radio-mothership = Mothership

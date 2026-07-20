@@ -9,6 +9,11 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear-edited>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear-edited>
 
 #Law
 
@@ -23,6 +28,11 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear-edited>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear-edited>
 
 # Engineering
 - type: roleLoadout
@@ -38,6 +48,11 @@
   - SurvivalExtended
   - Trinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear-edited>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear-edited>
 
 # Science
 - type: roleLoadout
@@ -55,6 +70,11 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear-edited>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear-edited>
 
 # Security
 - type: roleLoadout
@@ -70,6 +90,11 @@
   - SurvivalSecurity
   - Trinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear-edited>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobBrigmedic
@@ -85,6 +110,11 @@
   - SurvivalMedical
   - Trinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear-edited>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobSeniorOfficer
@@ -99,6 +129,11 @@
   - SurvivalSecurity
   - Trinkets
   - GroupSpeciesBreathToolSecurity
+  # <Onyx-Underwear-edited>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear-edited>
 
 # Medical
 - type: roleLoadout
@@ -116,3 +151,8 @@
   - SurvivalMedical
   - Trinkets
   - GroupSpeciesBreathToolMedical
+  # <Onyx-Underwear-edited>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear-edited>

@@ -1,0 +1,223 @@
+- type: loadoutGroup
+  id: OnyxBottom
+  name: loadout-group-onyx-underwear-bottom
+  minLimit: 1
+  maxLimit: 1
+  loadouts:
+  - OnyxUnderwearBoxersWhite
+  - OnyxUnderwearBoxersAmerica
+  - OnyxUnderwearBoxersBoom
+  - OnyxUnderwearBriefsWhite
+  - OnyxUnderwearPantiesWhite
+  - OnyxUnderwearPantiesComfyWhite
+  - OnyxUnderwearPantiesLace
+  - OnyxUnderwearPantiesLaceBlue
+  - OnyxUnderwearPantiesLaceRed
+  - OnyxUnderwearPantiesLaceBlack
+  - OnyxUnderwearMonokiniWhite
+  - OnyxUnderwearMonokiniBlack
+
+- type: loadoutGroup
+  id: OnyxTop
+  name: loadout-group-onyx-underwear-top
+  minLimit: 0
+  maxLimit: 1
+  loadouts:
+  - OnyxUnderwearTShirt
+  - OnyxUnderwearBraWhite
+  - OnyxUnderwearBraComfyWhite
+  - OnyxUnderwearBraSports
+  - OnyxUnderwearBraSportsAlternative
+  - OnyxUnderwearBraSportsBlack
+  - OnyxUnderwearBraPea
+  - OnyxUnderwearBraLace
+  - OnyxUnderwearBraLaceBlue
+  - OnyxUnderwearBraLaceRed
+  - OnyxUnderwearBraLaceBlack
+  - OnyxUnderwearTopMonokiniWhite
+  - OnyxUnderwearTopMonokiniBlack
+
+- type: loadoutGroup
+  id: OnyxSocks
+  name: loadout-group-onyx-socks
+  minLimit: 0
+  maxLimit: 1
+  loadouts:
+  - OnyxUnderwearSocksNormal
+  - OnyxUnderwearSocksHigh
+  - OnyxUnderwearSocksShort
+  - OnyxUnderwearSocksThigh
+  - OnyxUnderwearStockings
+  - OnyxUnderwearStockingsBlack
+  - OnyxUnderwearStockingsLace
+  - OnyxUnderwearSocksBee
+  - OnyxUnderwearSocksBeeThigh
+  - OnyxUnderwearSocksCoder
+  - OnyxUnderwearSocksComfyBlue
+  - OnyxUnderwearSocksComfyGrey
+  - OnyxUnderwearSocksComfyRed
+  - OnyxUnderwearSocksComfyViolet
+  - OnyxUnderwearStockingsComfyBlue
+  - OnyxUnderwearStockingsComfyGrey
+  - OnyxUnderwearStockingsComfyRed
+  - OnyxUnderwearStockingsComfyViolet
+  - OnyxUnderwearSocksAzure
+  - OnyxUnderwearSocksKneeAzure
+  - OnyxUnderwearSocksThighAzure
+  - OnyxUnderwearSocksBlack
+  - OnyxUnderwearSocksKneeBlack
+  - OnyxUnderwearSocksThighBlack
+  - OnyxUnderwearSocksCyan
+  - OnyxUnderwearSocksKneeCyan
+  - OnyxUnderwearSocksThighCyan
+  - OnyxUnderwearSocksFurr
+  - OnyxUnderwearSocksKneeFurr
+  - OnyxUnderwearSocksThighFurr
+  - OnyxUnderwearSocksGreen
+  - OnyxUnderwearSocksKneeGreen
+  - OnyxUnderwearSocksThighGreen
+  - OnyxUnderwearSocksHomelander
+  - OnyxUnderwearSocksKneeHomelander
+  - OnyxUnderwearSocksThighHomelander
+  - OnyxUnderwearSocksHotpink
+  - OnyxUnderwearSocksKneeHotpink
+  - OnyxUnderwearSocksThighHotpink
+  - OnyxUnderwearSocksOrange
+  - OnyxUnderwearSocksKneeOrange
+  - OnyxUnderwearSocksThighOrange
+  - OnyxUnderwearSocksPink
+  - OnyxUnderwearSocksKneePink
+  - OnyxUnderwearSocksThighCreepy
+  - OnyxUnderwearSocksKneeFishnet
+  - OnyxUnderwearSocksFullFishnet
+  - OnyxUnderwearSocksKneeThin
+  - OnyxUnderwearSocksThighThin
+  - OnyxUnderwearSocksThighBlue
+  - OnyxUnderwearSocksThighFishnet
+  - OnyxUnderwearSocksThighGrey
+  - OnyxUnderwearSocksThighPantyhose
+  - OnyxUnderwearSocksThighPurple
+  - OnyxUnderwearSocksThighRed
+  - OnyxUnderwearSocksYellow
+  - OnyxUnderwearSocksKneeYellow
+  - OnyxUnderwearSocksThighYellow
+
+- type: loadoutGroup
+  id: OnyxSocksClown
+  name: loadout-group-onyx-socks
+  minLimit: 0
+  maxLimit: 1
+  loadouts: [OnyxUnderwearSocksKneehRainbow, OnyxUnderwearSocksThighRainbow, OnyxUnderwearSocksNormal, OnyxUnderwearSocksHigh, OnyxUnderwearSocksShort, OnyxUnderwearSocksThigh, OnyxUnderwearStockings, OnyxUnderwearSocksComfyBlue, OnyxUnderwearSocksComfyGrey, OnyxUnderwearSocksComfyRed, OnyxUnderwearSocksComfyViolet, OnyxUnderwearSocksBee, OnyxUnderwearSocksBeeThigh, OnyxUnderwearSocksCoder, OnyxUnderwearStockingsLace, OnyxUnderwearStockingsBlack, OnyxUnderwearStockingsComfyBlue, OnyxUnderwearStockingsComfyGrey, OnyxUnderwearStockingsComfyRed, OnyxUnderwearStockingsComfyViolet, OnyxUnderwearSocksAzure, OnyxUnderwearSocksKneeAzure, OnyxUnderwearSocksThighAzure, OnyxUnderwearSocksBlack, OnyxUnderwearSocksKneeBlack, OnyxUnderwearSocksThighBlack, OnyxUnderwearSocksCyan, OnyxUnderwearSocksKneeCyan, OnyxUnderwearSocksThighCyan, OnyxUnderwearSocksFurr, OnyxUnderwearSocksKneeFurr, OnyxUnderwearSocksThighFurr, OnyxUnderwearSocksGreen, OnyxUnderwearSocksKneeGreen, OnyxUnderwearSocksThighGreen, OnyxUnderwearSocksHomelander, OnyxUnderwearSocksKneeHomelander, OnyxUnderwearSocksThighHomelander, OnyxUnderwearSocksHotpink, OnyxUnderwearSocksKneeHotpink, OnyxUnderwearSocksThighHotpink, OnyxUnderwearSocksOrange, OnyxUnderwearSocksKneeOrange, OnyxUnderwearSocksThighOrange, OnyxUnderwearSocksPink, OnyxUnderwearSocksKneePink, OnyxUnderwearSocksThighCreepy, OnyxUnderwearSocksKneeFishnet, OnyxUnderwearSocksFullFishnet, OnyxUnderwearSocksKneeThin, OnyxUnderwearSocksThighThin, OnyxUnderwearSocksThighBlue, OnyxUnderwearSocksThighFishnet, OnyxUnderwearSocksThighGrey, OnyxUnderwearSocksThighPantyhose, OnyxUnderwearSocksThighPurple, OnyxUnderwearSocksThighRed, OnyxUnderwearSocksYellow, OnyxUnderwearSocksKneeYellow, OnyxUnderwearSocksThighYellow]
+
+- type: loadoutGroup
+  id: OnyxSocksMime
+  name: loadout-group-onyx-socks
+  minLimit: 0
+  maxLimit: 1
+  loadouts: [OnyxUnderwearSocksThighMonochrome, OnyxUnderwearSocksNormal, OnyxUnderwearSocksHigh, OnyxUnderwearSocksShort, OnyxUnderwearSocksThigh, OnyxUnderwearStockings, OnyxUnderwearSocksComfyBlue, OnyxUnderwearSocksComfyGrey, OnyxUnderwearSocksComfyRed, OnyxUnderwearSocksComfyViolet, OnyxUnderwearSocksBee, OnyxUnderwearSocksBeeThigh, OnyxUnderwearSocksCoder, OnyxUnderwearStockingsLace, OnyxUnderwearStockingsBlack, OnyxUnderwearStockingsComfyBlue, OnyxUnderwearStockingsComfyGrey, OnyxUnderwearStockingsComfyRed, OnyxUnderwearStockingsComfyViolet, OnyxUnderwearSocksAzure, OnyxUnderwearSocksKneeAzure, OnyxUnderwearSocksThighAzure, OnyxUnderwearSocksBlack, OnyxUnderwearSocksKneeBlack, OnyxUnderwearSocksThighBlack, OnyxUnderwearSocksCyan, OnyxUnderwearSocksKneeCyan, OnyxUnderwearSocksThighCyan, OnyxUnderwearSocksFurr, OnyxUnderwearSocksKneeFurr, OnyxUnderwearSocksThighFurr, OnyxUnderwearSocksGreen, OnyxUnderwearSocksKneeGreen, OnyxUnderwearSocksThighGreen, OnyxUnderwearSocksHomelander, OnyxUnderwearSocksKneeHomelander, OnyxUnderwearSocksThighHomelander, OnyxUnderwearSocksHotpink, OnyxUnderwearSocksKneeHotpink, OnyxUnderwearSocksThighHotpink, OnyxUnderwearSocksOrange, OnyxUnderwearSocksKneeOrange, OnyxUnderwearSocksThighOrange, OnyxUnderwearSocksPink, OnyxUnderwearSocksKneePink, OnyxUnderwearSocksThighCreepy, OnyxUnderwearSocksKneeFishnet, OnyxUnderwearSocksFullFishnet, OnyxUnderwearSocksKneeThin, OnyxUnderwearSocksThighThin, OnyxUnderwearSocksThighBlue, OnyxUnderwearSocksThighFishnet, OnyxUnderwearSocksThighGrey, OnyxUnderwearSocksThighPantyhose, OnyxUnderwearSocksThighPurple, OnyxUnderwearSocksThighRed, OnyxUnderwearSocksYellow, OnyxUnderwearSocksKneeYellow, OnyxUnderwearSocksThighYellow]
+
+# Department groups
+- type: loadoutGroup
+  id: OnyxBottomQM
+  name: loadout-group-onyx-underwear-bottom
+  minLimit: 1
+  maxLimit: 1
+  loadouts: [OnyxUnderwearBoxersQM, OnyxUnderwearPantiesQM, OnyxUnderwearBoxersWhite, OnyxUnderwearBoxersAmerica, OnyxUnderwearBoxersBoom, OnyxUnderwearBriefsWhite, OnyxUnderwearPantiesWhite, OnyxUnderwearPantiesComfyWhite, OnyxUnderwearPantiesLace, OnyxUnderwearPantiesLaceBlue, OnyxUnderwearPantiesLaceRed, OnyxUnderwearPantiesLaceBlack]
+- type: loadoutGroup
+  id: OnyxBottomRD
+  name: loadout-group-onyx-underwear-bottom
+  minLimit: 1
+  maxLimit: 1
+  loadouts: [OnyxUnderwearBoxersRD, OnyxUnderwearPantiesRD, OnyxUnderwearBoxersWhite, OnyxUnderwearBoxersAmerica, OnyxUnderwearBoxersBoom, OnyxUnderwearBriefsWhite, OnyxUnderwearPantiesWhite, OnyxUnderwearPantiesComfyWhite, OnyxUnderwearPantiesLace, OnyxUnderwearPantiesLaceBlue, OnyxUnderwearPantiesLaceRed, OnyxUnderwearPantiesLaceBlack]
+- type: loadoutGroup
+  id: OnyxBottomCap
+  name: loadout-group-onyx-underwear-bottom
+  minLimit: 1
+  maxLimit: 1
+  loadouts: [OnyxUnderwearBoxersCap, OnyxUnderwearPantiesCap, OnyxUnderwearBoxersWhite, OnyxUnderwearBoxersAmerica, OnyxUnderwearBoxersBoom, OnyxUnderwearBriefsWhite, OnyxUnderwearPantiesWhite, OnyxUnderwearPantiesComfyWhite, OnyxUnderwearPantiesLace, OnyxUnderwearPantiesLaceBlue, OnyxUnderwearPantiesLaceRed, OnyxUnderwearPantiesLaceBlack]
+- type: loadoutGroup
+  id: OnyxBottomHOP
+  name: loadout-group-onyx-underwear-bottom
+  minLimit: 1
+  maxLimit: 1
+  loadouts: [OnyxUnderwearBoxersHOP, OnyxUnderwearPantiesHOP, OnyxUnderwearBoxersWhite, OnyxUnderwearBoxersAmerica, OnyxUnderwearBoxersBoom, OnyxUnderwearBriefsWhite, OnyxUnderwearPantiesWhite, OnyxUnderwearPantiesComfyWhite, OnyxUnderwearPantiesLace, OnyxUnderwearPantiesLaceBlue, OnyxUnderwearPantiesLaceRed, OnyxUnderwearPantiesLaceBlack]
+- type: loadoutGroup
+  id: OnyxBottomHOS
+  name: loadout-group-onyx-underwear-bottom
+  minLimit: 1
+  maxLimit: 1
+  loadouts: [OnyxUnderwearBoxersHOS, OnyxUnderwearPantiesHOS, OnyxUnderwearBoxersWhite, OnyxUnderwearBoxersAmerica, OnyxUnderwearBoxersBoom, OnyxUnderwearBriefsWhite, OnyxUnderwearPantiesWhite, OnyxUnderwearPantiesComfyWhite, OnyxUnderwearPantiesLace, OnyxUnderwearPantiesLaceBlue, OnyxUnderwearPantiesLaceRed, OnyxUnderwearPantiesLaceBlack]
+- type: loadoutGroup
+  id: OnyxBottomCMO
+  name: loadout-group-onyx-underwear-bottom
+  minLimit: 1
+  maxLimit: 1
+  loadouts: [OnyxUnderwearBoxersCMO, OnyxUnderwearPantiesCMO, OnyxUnderwearBoxersWhite, OnyxUnderwearBoxersAmerica, OnyxUnderwearBoxersBoom, OnyxUnderwearBriefsWhite, OnyxUnderwearPantiesWhite, OnyxUnderwearPantiesComfyWhite, OnyxUnderwearPantiesLace, OnyxUnderwearPantiesLaceBlue, OnyxUnderwearPantiesLaceRed, OnyxUnderwearPantiesLaceBlack]
+- type: loadoutGroup
+  id: OnyxBottomCE
+  name: loadout-group-onyx-underwear-bottom
+  minLimit: 1
+  maxLimit: 1
+  loadouts: [OnyxUnderwearBoxersCE, OnyxUnderwearPantiesCE, OnyxUnderwearBoxersWhite, OnyxUnderwearBoxersAmerica, OnyxUnderwearBoxersBoom, OnyxUnderwearBriefsWhite, OnyxUnderwearPantiesWhite, OnyxUnderwearPantiesComfyWhite, OnyxUnderwearPantiesLace, OnyxUnderwearPantiesLaceBlue, OnyxUnderwearPantiesLaceRed, OnyxUnderwearPantiesLaceBlack]
+
+- type: loadoutGroup
+  id: OnyxTopQM
+  name: loadout-group-onyx-underwear-top
+  minLimit: 0
+  maxLimit: 1
+  loadouts: [OnyxUnderwearTShirt, OnyxUnderwearBraQM, OnyxUnderwearBraWhite, OnyxUnderwearBraComfyWhite, OnyxUnderwearBraSports, OnyxUnderwearBraSportsAlternative, OnyxUnderwearBraSportsBlack, OnyxUnderwearBraPea, OnyxUnderwearBraLace, OnyxUnderwearBraLaceBlue, OnyxUnderwearBraLaceRed, OnyxUnderwearBraLaceBlack]
+- type: loadoutGroup
+  id: OnyxTopRD
+  name: loadout-group-onyx-underwear-top
+  minLimit: 0
+  maxLimit: 1
+  loadouts: [OnyxUnderwearTShirt, OnyxUnderwearBraRD, OnyxUnderwearBraWhite, OnyxUnderwearBraComfyWhite, OnyxUnderwearBraSports, OnyxUnderwearBraSportsAlternative, OnyxUnderwearBraSportsBlack, OnyxUnderwearBraPea, OnyxUnderwearBraLace, OnyxUnderwearBraLaceBlue, OnyxUnderwearBraLaceRed, OnyxUnderwearBraLaceBlack]
+- type: loadoutGroup
+  id: OnyxTopCap
+  name: loadout-group-onyx-underwear-top
+  minLimit: 0
+  maxLimit: 1
+  loadouts: [OnyxUnderwearTShirt, OnyxUnderwearBraCap, OnyxUnderwearBraWhite, OnyxUnderwearBraComfyWhite, OnyxUnderwearBraSports, OnyxUnderwearBraSportsAlternative, OnyxUnderwearBraSportsBlack, OnyxUnderwearBraPea, OnyxUnderwearBraLace, OnyxUnderwearBraLaceBlue, OnyxUnderwearBraLaceRed, OnyxUnderwearBraLaceBlack]
+- type: loadoutGroup
+  id: OnyxTopHOP
+  name: loadout-group-onyx-underwear-top
+  minLimit: 0
+  maxLimit: 1
+  loadouts: [OnyxUnderwearTShirt, OnyxUnderwearBraHOP, OnyxUnderwearBraWhite, OnyxUnderwearBraComfyWhite, OnyxUnderwearBraSports, OnyxUnderwearBraSportsAlternative, OnyxUnderwearBraSportsBlack, OnyxUnderwearBraPea, OnyxUnderwearBraLace, OnyxUnderwearBraLaceBlue, OnyxUnderwearBraLaceRed, OnyxUnderwearBraLaceBlack]
+- type: loadoutGroup
+  id: OnyxTopHOS
+  name: loadout-group-onyx-underwear-top
+  minLimit: 0
+  maxLimit: 1
+  loadouts: [OnyxUnderwearBraHOS, OnyxUnderwearBraWhite, OnyxUnderwearBraComfyWhite, OnyxUnderwearBraSports, OnyxUnderwearBraSportsAlternative, OnyxUnderwearBraSportsBlack, OnyxUnderwearBraPea, OnyxUnderwearBraLace, OnyxUnderwearBraLaceBlue, OnyxUnderwearBraLaceRed, OnyxUnderwearBraLaceBlack]
+- type: loadoutGroup
+  id: OnyxTopCMO
+  name: loadout-group-onyx-underwear-top
+  minLimit: 0
+  maxLimit: 1
+  loadouts: [OnyxUnderwearTShirt, OnyxUnderwearBraCMO, OnyxUnderwearBraWhite, OnyxUnderwearBraComfyWhite, OnyxUnderwearBraSports, OnyxUnderwearBraSportsAlternative, OnyxUnderwearBraSportsBlack, OnyxUnderwearBraPea, OnyxUnderwearBraLace, OnyxUnderwearBraLaceBlue, OnyxUnderwearBraLaceRed, OnyxUnderwearBraLaceBlack]
+- type: loadoutGroup
+  id: OnyxTopCE
+  name: loadout-group-onyx-underwear-top
+  minLimit: 0
+  maxLimit: 1
+  loadouts: [OnyxUnderwearTShirt, OnyxUnderwearBraCE, OnyxUnderwearBraWhite, OnyxUnderwearBraComfyWhite, OnyxUnderwearBraSports, OnyxUnderwearBraSportsAlternative, OnyxUnderwearBraSportsBlack, OnyxUnderwearBraPea, OnyxUnderwearBraLace, OnyxUnderwearBraLaceBlue, OnyxUnderwearBraLaceRed, OnyxUnderwearBraLaceBlack]
+
+- type: loadoutGroup
+  id: OnyxSocksHOP
+  name: loadout-group-onyx-socks
+  minLimit: 0
+  maxLimit: 1
+  loadouts: [OnyxUnderwearSocksHOP, OnyxUnderwearSocksKneeHOP, OnyxUnderwearSocksThighHOP, OnyxUnderwearSocksNormal, OnyxUnderwearSocksHigh, OnyxUnderwearSocksShort, OnyxUnderwearSocksThigh, OnyxUnderwearStockings, OnyxUnderwearSocksComfyBlue, OnyxUnderwearSocksComfyGrey, OnyxUnderwearSocksComfyRed, OnyxUnderwearSocksComfyViolet, OnyxUnderwearSocksBee, OnyxUnderwearSocksBeeThigh, OnyxUnderwearSocksCoder, OnyxUnderwearStockingsLace, OnyxUnderwearStockingsBlack, OnyxUnderwearStockingsComfyBlue, OnyxUnderwearStockingsComfyGrey, OnyxUnderwearStockingsComfyRed, OnyxUnderwearStockingsComfyViolet, OnyxUnderwearSocksAzure, OnyxUnderwearSocksKneeAzure, OnyxUnderwearSocksThighAzure, OnyxUnderwearSocksBlack, OnyxUnderwearSocksKneeBlack, OnyxUnderwearSocksThighBlack, OnyxUnderwearSocksCyan, OnyxUnderwearSocksKneeCyan, OnyxUnderwearSocksThighCyan, OnyxUnderwearSocksFurr, OnyxUnderwearSocksKneeFurr, OnyxUnderwearSocksThighFurr, OnyxUnderwearSocksGreen, OnyxUnderwearSocksKneeGreen, OnyxUnderwearSocksThighGreen, OnyxUnderwearSocksHomelander, OnyxUnderwearSocksKneeHomelander, OnyxUnderwearSocksThighHomelander, OnyxUnderwearSocksHotpink, OnyxUnderwearSocksKneeHotpink, OnyxUnderwearSocksThighHotpink, OnyxUnderwearSocksOrange, OnyxUnderwearSocksKneeOrange, OnyxUnderwearSocksThighOrange, OnyxUnderwearSocksPink, OnyxUnderwearSocksKneePink, OnyxUnderwearSocksThighCreepy, OnyxUnderwearSocksKneeFishnet, OnyxUnderwearSocksFullFishnet, OnyxUnderwearSocksKneeThin, OnyxUnderwearSocksThighThin, OnyxUnderwearSocksThighBlue, OnyxUnderwearSocksThighFishnet, OnyxUnderwearSocksThighGrey, OnyxUnderwearSocksThighPantyhose, OnyxUnderwearSocksThighPurple, OnyxUnderwearSocksThighRed, OnyxUnderwearSocksYellow, OnyxUnderwearSocksKneeYellow, OnyxUnderwearSocksThighYellow]
+- type: loadoutGroup
+  id: OnyxSocksHOS
+  name: loadout-group-onyx-socks
+  minLimit: 0
+  maxLimit: 1
+  loadouts: [OnyxUnderwearSocksHOS, OnyxUnderwearSocksKneeHOS, OnyxUnderwearSocksThighHOS, OnyxUnderwearSocksNormal, OnyxUnderwearSocksHigh, OnyxUnderwearSocksShort, OnyxUnderwearSocksThigh, OnyxUnderwearStockings, OnyxUnderwearSocksComfyBlue, OnyxUnderwearSocksComfyGrey, OnyxUnderwearSocksComfyRed, OnyxUnderwearSocksComfyViolet, OnyxUnderwearSocksBee, OnyxUnderwearSocksBeeThigh, OnyxUnderwearSocksCoder, OnyxUnderwearStockingsLace, OnyxUnderwearStockingsBlack, OnyxUnderwearStockingsComfyBlue, OnyxUnderwearStockingsComfyGrey, OnyxUnderwearStockingsComfyRed, OnyxUnderwearStockingsComfyViolet, OnyxUnderwearSocksAzure, OnyxUnderwearSocksKneeAzure, OnyxUnderwearSocksThighAzure, OnyxUnderwearSocksBlack, OnyxUnderwearSocksKneeBlack, OnyxUnderwearSocksThighBlack, OnyxUnderwearSocksCyan, OnyxUnderwearSocksKneeCyan, OnyxUnderwearSocksThighCyan, OnyxUnderwearSocksFurr, OnyxUnderwearSocksKneeFurr, OnyxUnderwearSocksThighFurr, OnyxUnderwearSocksGreen, OnyxUnderwearSocksKneeGreen, OnyxUnderwearSocksThighGreen, OnyxUnderwearSocksHomelander, OnyxUnderwearSocksKneeHomelander, OnyxUnderwearSocksThighHomelander, OnyxUnderwearSocksHotpink, OnyxUnderwearSocksKneeHotpink, OnyxUnderwearSocksThighHotpink, OnyxUnderwearSocksOrange, OnyxUnderwearSocksKneeOrange, OnyxUnderwearSocksThighOrange, OnyxUnderwearSocksPink, OnyxUnderwearSocksKneePink, OnyxUnderwearSocksThighCreepy, OnyxUnderwearSocksKneeFishnet, OnyxUnderwearSocksFullFishnet, OnyxUnderwearSocksKneeThin, OnyxUnderwearSocksThighThin, OnyxUnderwearSocksThighBlue, OnyxUnderwearSocksThighFishnet, OnyxUnderwearSocksThighGrey, OnyxUnderwearSocksThighPantyhose, OnyxUnderwearSocksThighPurple, OnyxUnderwearSocksThighRed, OnyxUnderwearSocksYellow, OnyxUnderwearSocksKneeYellow, OnyxUnderwearSocksThighYellow]
+- type: loadoutGroup
+  id: OnyxSocksCaptain
+  name: loadout-group-onyx-socks
+  minLimit: 0
+  maxLimit: 1
+  loadouts: [OnyxUnderwearSocksCaptain, OnyxUnderwearSocksKneeCaptain, OnyxUnderwearSocksThighCaptain, OnyxUnderwearSocksNormal, OnyxUnderwearSocksHigh, OnyxUnderwearSocksShort, OnyxUnderwearSocksThigh, OnyxUnderwearStockings, OnyxUnderwearSocksComfyBlue, OnyxUnderwearSocksComfyGrey, OnyxUnderwearSocksComfyRed, OnyxUnderwearSocksComfyViolet, OnyxUnderwearSocksBee, OnyxUnderwearSocksBeeThigh, OnyxUnderwearSocksCoder, OnyxUnderwearStockingsLace, OnyxUnderwearStockingsBlack, OnyxUnderwearStockingsComfyBlue, OnyxUnderwearStockingsComfyGrey, OnyxUnderwearStockingsComfyRed, OnyxUnderwearStockingsComfyViolet, OnyxUnderwearSocksAzure, OnyxUnderwearSocksKneeAzure, OnyxUnderwearSocksThighAzure, OnyxUnderwearSocksBlack, OnyxUnderwearSocksKneeBlack, OnyxUnderwearSocksThighBlack, OnyxUnderwearSocksCyan, OnyxUnderwearSocksKneeCyan, OnyxUnderwearSocksThighCyan, OnyxUnderwearSocksFurr, OnyxUnderwearSocksKneeFurr, OnyxUnderwearSocksThighFurr, OnyxUnderwearSocksGreen, OnyxUnderwearSocksKneeGreen, OnyxUnderwearSocksThighGreen, OnyxUnderwearSocksHomelander, OnyxUnderwearSocksKneeHomelander, OnyxUnderwearSocksThighHomelander, OnyxUnderwearSocksHotpink, OnyxUnderwearSocksKneeHotpink, OnyxUnderwearSocksThighHotpink, OnyxUnderwearSocksOrange, OnyxUnderwearSocksKneeOrange, OnyxUnderwearSocksThighOrange, OnyxUnderwearSocksPink, OnyxUnderwearSocksKneePink, OnyxUnderwearSocksThighCreepy, OnyxUnderwearSocksKneeFishnet, OnyxUnderwearSocksFullFishnet, OnyxUnderwearSocksKneeThin, OnyxUnderwearSocksThighThin, OnyxUnderwearSocksThighBlue, OnyxUnderwearSocksThighFishnet, OnyxUnderwearSocksThighGrey, OnyxUnderwearSocksThighPantyhose, OnyxUnderwearSocksThighPurple, OnyxUnderwearSocksThighRed, OnyxUnderwearSocksYellow, OnyxUnderwearSocksKneeYellow, OnyxUnderwearSocksThighYellow]

@@ -64,10 +64,14 @@ public sealed partial class ChatSystem
     /// <summary>
     ///     Sends a chat message to the given players in range of the source entity.
     /// </summary>
-    private void SendInVoiceRange(ChatChannel channel, string message, string wrappedMessage, EntityUid source, ChatTransmitRange range, NetUserId? author = null)
+    private void SendInVoiceRange(ChatChannel channel, string message, string wrappedMessage, EntityUid source, ChatTransmitRange range, NetUserId? author = null, bool requiresHearing = true) // <Onyx-OrganHearing-edited>
     {
         foreach (var (session, data) in GetRecipients(source, VoiceRange))
         {
+            // <Onyx-OrganHearing>
+            if (requiresHearing && session.AttachedEntity is { } listener && !CanHear(listener))
+                continue;
+            // </Onyx-OrganHearing>
             var entRange = MessageRangeCheck(session, data, range);
             if (entRange == MessageRangeCheckResult.Disallowed)
                 continue;

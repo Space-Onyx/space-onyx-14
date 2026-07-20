@@ -15,12 +15,20 @@ using Robust.Shared.Timing;
 using System.Numerics;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
+// Onyx-Wounds-edited-start
+using Content.Shared._Onyx.Targeting;
+using Content.Shared._Onyx.Wounds;
+// Onyx-Wounds-edited-end
 using TimedDespawnComponent = Robust.Shared.Spawners.TimedDespawnComponent;
 
 namespace Content.Server.Explosion.EntitySystems;
 
 public sealed partial class ExplosionSystem
 {
+    // Onyx-Wounds-edited-start
+    [Dependency] private WoundDamageRoutingSystem _woundDamageRouting = default!;
+    // Onyx-Wounds-edited-end
+
     /// <summary>
     ///     Used to limit explosion processing time. See <see cref="MaxProcessingTime"/>.
     /// </summary>
@@ -441,7 +449,12 @@ public sealed partial class ExplosionSystem
                     continue;
 
                 // TODO EXPLOSIONS turn explosions into entities, and pass the the entity in as the damage origin.
-                _damageableSystem.ChangeDamage((entity, damageable), damage);
+                // Onyx-Wounds-edited-start
+                if (HasComp<WoundHostComponent>(entity))
+                    _woundDamageRouting.TryApplyDistributedDamage(entity, damage, TargetBodyPart.All, DamageDistribution.SplitByPartWeight);
+                else
+                    _damageableSystem.ChangeDamage((entity, damageable), damage);
+                // Onyx-Wounds-edited-end
 
                 if (_actorQuery.HasComp(entity))
                 {

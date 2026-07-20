@@ -4,8 +4,10 @@ using Content.Shared.Administration.Managers;
 using Content.Shared.Administration;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Markings;
+using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
 using Content.Shared.Verbs;
+using Content.Shared.Body.Systems;
 using JetBrains.Annotations;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
@@ -17,6 +19,7 @@ public abstract partial class SharedVisualBodySystem
 {
     [Dependency] private ISharedAdminManager _admin = default!;
     [Dependency] private SharedUserInterfaceSystem _userInterface = default!;
+    [Dependency] private SharedBodySystem _bodySystem = default!;
 
     private void InitializeModifiers()
     {
@@ -59,13 +62,18 @@ public abstract partial class SharedVisualBodySystem
         if (!Resolve(source, ref source.Comp) || !Resolve(target, ref target.Comp))
             return;
 
-        var sourceOrgans = _container.EnsureContainer<Container>(source, BodyComponent.ContainerID);
-
-        foreach (var sourceOrgan in sourceOrgans.ContainedEntities)
+        // <Onyx-Surgery-edited>
+        foreach (var sourceOrgan in _bodySystem.GetBodyChildren(source))
         {
-            var evt = new OrganCopyAppearanceEvent(sourceOrgan);
+            var evt = new OrganCopyAppearanceEvent(sourceOrgan.Id);
             RaiseLocalEvent(target, ref evt);
         }
+        foreach (var sourceOrgan in _bodySystem.GetBodyOrgans(source))
+        {
+            var evt = new OrganCopyAppearanceEvent(sourceOrgan.Id);
+            RaiseLocalEvent(target, ref evt);
+        }
+        // </Onyx-Surgery-edited>
     }
 
     /// <summary>
@@ -94,19 +102,18 @@ public abstract partial class SharedVisualBodySystem
         markings = new();
         applied = new();
 
-        var organContainer = _container.EnsureContainer<Container>(ent, BodyComponent.ContainerID);
-
-        foreach (var organ in organContainer.ContainedEntities)
+        // <Onyx-Surgery-edited>
+        foreach (var organ in _bodySystem.GetBodyChildren(ent))
         {
-            if (!TryComp<OrganComponent>(organ, out var organComp) || organComp.Category is not { } category)
+            if (organ.Component.Category is not { } category)
                 continue;
 
-            if (TryComp<VisualOrganComponent>(organ, out var visualOrgan))
+            if (TryComp<VisualOrganComponent>(organ.Id, out var visualOrgan))
             {
                 profiles.TryAdd(category, visualOrgan.Profile);
             }
 
-            if (TryComp<VisualOrganMarkingsComponent>(organ, out var visualOrganMarkings))
+            if (TryComp<VisualOrganMarkingsComponent>(organ.Id, out var visualOrganMarkings))
             {
                 markings.TryAdd(category, visualOrganMarkings.MarkingData);
                 if (filter is not null)
@@ -115,6 +122,24 @@ public abstract partial class SharedVisualBodySystem
                     applied.TryAdd(category, visualOrganMarkings.Markings);
             }
         }
+
+        foreach (var organ in _bodySystem.GetBodyOrgans(ent))
+        {
+            if (organ.Component.Category is not { } category)
+                continue;
+
+            if (TryComp<VisualOrganComponent>(organ.Id, out var visualOrgan))
+                profiles.TryAdd(category, visualOrgan.Profile);
+
+            if (TryComp<VisualOrganMarkingsComponent>(organ.Id, out var visualOrganMarkings))
+            {
+                markings.TryAdd(category, visualOrganMarkings.MarkingData);
+                applied.TryAdd(category, filter is null
+                    ? visualOrganMarkings.Markings
+                    : visualOrganMarkings.Markings.Where(kvp => filter.Contains(kvp.Key)).ToDictionary());
+            }
+        }
+        // </Onyx-Surgery-edited>
 
         return true;
     }
@@ -130,6 +155,9 @@ public abstract partial class SharedVisualBodySystem
     {
         var markingsEvt = new ApplyOrganMarkingsEvent(args.Markings);
         RaiseLocalEvent(ent, ref markingsEvt);
+        // <Onyx-DynamicWagging>
+        RaiseLocalEvent(ent.Owner, new VisualBodyMarkingsChangedEvent());
+        // </Onyx-DynamicWagging>
     }
 
     /// <summary>
@@ -142,6 +170,9 @@ public abstract partial class SharedVisualBodySystem
     {
         var markingsEvt = new ApplyOrganMarkingsEvent(markings);
         RaiseLocalEvent(ent, ref markingsEvt);
+        // <Onyx-DynamicWagging>
+        RaiseLocalEvent(ent, new VisualBodyMarkingsChangedEvent());
+        // </Onyx-DynamicWagging>
     }
 
     private void ApplyAppearanceTo(Entity<VisualBodyComponent?> ent, HumanoidCharacterAppearance appearance, Sex sex)
@@ -159,6 +190,9 @@ public abstract partial class SharedVisualBodySystem
 
         var markingsEvt = new ApplyOrganMarkingsEvent(appearance.Markings);
         RaiseLocalEvent(ent, ref markingsEvt);
+        // <Onyx-DynamicWagging>
+        RaiseLocalEvent(ent.Owner, new VisualBodyMarkingsChangedEvent());
+        // </Onyx-DynamicWagging>
     }
 
     /// <summary>
@@ -171,6 +205,10 @@ public abstract partial class SharedVisualBodySystem
     public void ApplyProfileTo(Entity<VisualBodyComponent?> ent, HumanoidCharacterProfile profile)
     {
         ApplyAppearanceTo(ent, profile.Appearance, profile.Sex);
+        // <Onyx-HeightWidth>
+        if (_prototype.TryIndex<SpeciesPrototype>(profile.Species, out var species))
+            _scaleVisuals.SetSpriteScale(ent.Owner, species.GetVisualScale(profile.Height, profile.Width));
+        // </Onyx-HeightWidth>
     }
 
     /// <summary>

@@ -39,6 +39,11 @@ public sealed partial class ClientClothingSystem : ClothingSystem
         {"back", "BACKPACK"},
         {"belt", "BELT"},
         {"gloves", "HAND"},
+        // <Onyx-Underwear>
+        {"socks", "SOCKS"},
+        {"underweart", "UNDERWEART"},
+        {"underwearb", "UNDERWEARB"},
+        // </Onyx-Underwear>
         {"shoes", "FEET"},
         {"id", "IDCARD"},
         {"pocket1", "POCKET1"},

@@ -4,6 +4,9 @@
   name: admin observer
   categories: [ HideSpawnMenu ]
   components:
+  # <Onyx-GhostLanguages>
+  - type: UniversalLanguageSpeaker
+  # </Onyx-GhostLanguages>
   - type: ContentEye
     maxZoom: 8.916104, 8.916104
   - type: Tag
@@ -18,6 +21,7 @@
     - PreventAccessLogging
     - AllowBiomeLoading
     - NotGhostnadoWarpable
+    - IgnoreBalanceChecks
   - type: Input
     context: "aghost"
   - type: Ghost
@@ -36,6 +40,9 @@
   - type: Puller
     needsHands: false
   - type: CombatMode
+  # <Onyx-AGhost-Targeting>
+  - type: Targeting
+  # </Onyx-AGhost-Targeting>
   - type: Physics
     bodyType: Kinematic # Admin ghosts should ignore the laws of physics.
     ignorePaused: true

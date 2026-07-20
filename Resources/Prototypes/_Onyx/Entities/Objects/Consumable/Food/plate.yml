@@ -1,0 +1,7 @@
+- type: entity
+  abstract: true
+  id: OnyxPlatableBase
+  parent: BaseItem
+  components:
+  - type: PlateContainer
+    maxItems: 3

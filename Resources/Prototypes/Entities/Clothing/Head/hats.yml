@@ -606,12 +606,15 @@
     sprite: Clothing/Head/Hats/surgcap_blue.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/surgcap_blue.rsi
+  # <Onyx-SurgeryPPE>
   - type: Tag
     tags:
     - ClothMade
     - Recyclable
     - HamsterWearable
     - WhitelistChameleon
+    - SurgerySterileCap
+  # </Onyx-SurgeryPPE>
   - type: HideLayerClothing
     layers:
       Hair: HEAD
@@ -628,6 +631,10 @@
     sprite: Clothing/Head/Hats/surgcap_green.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/surgcap_green.rsi
+  # <Onyx-SurgeryPPE>
+  - type: Tag
+    tags: [ SurgerySterileCap ]
+  # </Onyx-SurgeryPPE>
   - type: HideLayerClothing
     layers:
       Hair: HEAD
@@ -644,6 +651,10 @@
     sprite: Clothing/Head/Hats/surgcap_purple.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/surgcap_purple.rsi
+  # <Onyx-SurgeryPPE>
+  - type: Tag
+    tags: [ SurgerySterileCap ]
+  # </Onyx-SurgeryPPE>
   - type: HideLayerClothing
     layers:
       Hair: HEAD

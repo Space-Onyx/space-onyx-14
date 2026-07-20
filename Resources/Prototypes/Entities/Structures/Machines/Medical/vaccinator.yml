@@ -1,6 +1,8 @@
 - type: entity
   id: Vaccinator
-  parent: BaseMachinePowered
+  # <Onyx-VirologyMachineConstruction-edited>
+  parent: [ BaseMachinePowered, SmallConstructibleMachine ]
+  # </Onyx-VirologyMachineConstruction-edited>
   name: vaccinator
   description: A machine that creates vaccines.
   placement:
@@ -10,11 +12,32 @@
     sprite: Structures/Machines/vaccinator.rsi
     layers:
     - state: icon
-      map: ["enum.DiseaseMachineVisualLayers.IsRunning"]
+    # <Onyx-VirologyMachineAnimations-edited>
+    - state: running
+      visible: false
+      map: ["running"]
     - state: unlit
       shader: unshaded
-      map: ["enum.DiseaseMachineVisualLayers.IsOn"]
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    # </Onyx-VirologyMachineAnimations-edited>
   - type: Appearance
+  # <Onyx-VirologyMachineAnimations>
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+      enum.DiseaseMachineVisuals.IsRunning:
+        running:
+          True: { visible: true }
+          False: { visible: false }
+  # </Onyx-VirologyMachineAnimations>
+  - type: VirologyMachine
+    vaccinator: true
+  # <Onyx-VirologyMachineItemSlots>
+  - type: ItemSlots
+  # </Onyx-VirologyMachineItemSlots>
   - type: Machine
     board: VaccinatorMachineCircuitboard
   - type: ContainerContainer

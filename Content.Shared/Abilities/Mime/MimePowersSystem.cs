@@ -8,6 +8,10 @@ using Content.Shared.Maps;
 using Content.Shared.Paper;
 using Content.Shared.Physics;
 using Content.Shared.Speech.Muting;
+// <Onyx-SignLanguage>
+using Content.Shared._Onyx.Language;
+using Robust.Shared.Prototypes;
+// </Onyx-SignLanguage>
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
@@ -16,6 +20,9 @@ namespace Content.Shared.Abilities.Mime;
 
 public sealed partial class MimePowersSystem : EntitySystem
 {
+    // <Onyx-SignLanguage>
+    private static readonly ProtoId<LanguagePrototype> SignLanguage = "Sign";
+    // </Onyx-SignLanguage>
     [Dependency] private SharedPopupSystem _popupSystem = default!;
     [Dependency] private SharedActionsSystem _actionsSystem = default!;
     [Dependency] private AlertsSystem _alertsSystem = default!;
@@ -60,6 +67,22 @@ public sealed partial class MimePowersSystem : EntitySystem
     {
         EnsureComp<MutedComponent>(ent);
 
+        // <Onyx-SignLanguage>
+        if (TryComp<LanguageKnowledgeComponent>(ent, out var knowledge))
+        {
+            knowledge.SpokenLanguages.Add(SignLanguage);
+            knowledge.UnderstoodLanguages.Add(SignLanguage);
+            Dirty(ent, knowledge);
+        }
+
+        if (TryComp<LanguageSpeakerComponent>(ent, out var speaker))
+        {
+            speaker.SpokenLanguages.Add(SignLanguage);
+            speaker.UnderstoodLanguages.Add(SignLanguage);
+            Dirty(ent, speaker);
+        }
+        // </Onyx-SignLanguage>
+
         if (ent.Comp.PreventWriting)
         {
             EnsureComp<BlockWritingComponent>(ent, out var illiterateComponent);
@@ -73,6 +96,21 @@ public sealed partial class MimePowersSystem : EntitySystem
 
     private void OnComponentShutdown(Entity<MimePowersComponent> ent, ref ComponentShutdown args)
     {
+        // <Onyx-SignLanguage>
+        if (TryComp<LanguageKnowledgeComponent>(ent, out var knowledge))
+        {
+            knowledge.SpokenLanguages.Remove(SignLanguage);
+            knowledge.UnderstoodLanguages.Remove(SignLanguage);
+            Dirty(ent, knowledge);
+        }
+
+        if (TryComp<LanguageSpeakerComponent>(ent, out var speaker))
+        {
+            speaker.SpokenLanguages.Remove(SignLanguage);
+            speaker.UnderstoodLanguages.Remove(SignLanguage);
+            Dirty(ent, speaker);
+        }
+        // </Onyx-SignLanguage>
         _actionsSystem.RemoveAction(ent.Owner, ent.Comp.InvisibleWallActionEntity);
     }
 

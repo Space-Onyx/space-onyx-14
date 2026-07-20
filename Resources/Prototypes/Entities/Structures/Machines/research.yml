@@ -23,6 +23,11 @@
     color: "#b211b2"
   - type: LitOnPowered
   - type: ResearchServer
+  # <Onyx-RDServerPoints>
+  - type: ResearchPointSource
+    pointspersecond: 5
+    active: true
+  # </Onyx-RDServerPoints>
   - type: TechnologyDatabase
     supportedDisciplines:
     - Industrial

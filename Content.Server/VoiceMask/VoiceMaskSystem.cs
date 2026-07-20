@@ -78,6 +78,7 @@ public sealed partial class VoiceMaskSystem : EntitySystem
 
         Subs.CVar(_cfgManager, CCVars.MaxNameLength, value => _maxNameLength = value, true);
         InitializeTTS(); // Corvax-TTS
+        InitializeBarks(); // <Onyx-Barks>
     }
 
     private void OnMapInit(Entity<VoiceMaskComponent> ent, ref MapInitEvent args)

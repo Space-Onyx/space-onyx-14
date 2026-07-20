@@ -55,6 +55,9 @@
   name: moth appearance
   components:
   - type: Inventory
+    # <Onyx-Underwear>
+    templateId: humanNoSocks
+    # </Onyx-Underwear>
     speciesId: moth
     femaleDisplacements:
       jumpsuit:
@@ -110,7 +113,10 @@
             state: shoes
   - type: InitialBody
     organs:
-      Torso: OrganMothTorso
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganMothChest
+      Groin: OrganMothGroin
+      # </Onyx-ChestGroin-edited>
       Head: OrganMothHead
       ArmLeft: OrganMothArmLeft
       ArmRight: OrganMothArmRight
@@ -171,6 +177,11 @@
       Male: UnisexMoth
       Female: UnisexMoth
       Unsexed: UnisexMoth
+  # <Onyx-Languages>
+  - type: LanguageKnowledge
+    speaks: [TauCetiBasic, Moffic]
+    understands: [TauCetiBasic, Moffic]
+  # </Onyx-Languages>
   - type: BodyEmotes
     soundsId: MothBodyEmotes
   - type: MovementSpeedModifier

@@ -9,3 +9,12 @@
   maleFirstNames: NamesReptilianMale
   femaleFirstNames: NamesReptilianFemale
   naming: FirstDashFirst
+  # <Onyx-SpeciesDimensions>
+  baseScale: "1.1, 1.1"
+  defaultHeightCm: 183
+  defaultWeightKg: 70
+  minHeightCm: 140
+  maxHeightCm: 210
+  minWeightKg: 40
+  maxWeightKg: 95
+  # </Onyx-SpeciesDimensions>

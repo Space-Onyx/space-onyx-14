@@ -16,6 +16,9 @@ using Content.Shared.Spillable;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Weapons.Melee.Events;
+// <Onyx-ClothingDirt>
+using Content.Shared._Onyx.Clothing;
+// </Onyx-ClothingDirt>
 using Robust.Shared.Player;
 
 namespace Content.Shared.Fluids;
@@ -24,6 +27,9 @@ public abstract partial class SharedPuddleSystem
 {
     private static readonly FixedPoint2 MeleeHitTransferProportion = 0.25;
     [Dependency] private InjectorSystem _injectorSystem = default!;
+    // <Onyx-ClothingDirt>
+    [Dependency] private ClothingDirtSystem _clothingDirt = default!;
+    // </Onyx-ClothingDirt>
 
     protected virtual void InitializeSpillable()
     {
@@ -162,6 +168,11 @@ public abstract partial class SharedPuddleSystem
                 continue;
 
             var splitSolution = _solutionContainerSystem.SplitSolution(soln.Value, totalSplit / hitCount);
+
+            // <Onyx-ClothingDirt>
+            _clothingDirt.TryDirtyWornSplash(hit, splitSolution,
+                FixedPoint2.Min(splitSolution.Volume, FixedPoint2.New(1)));
+            // </Onyx-ClothingDirt>
 
             AdminLogger.Add(LogType.MeleeHit,
                 $"{ToPrettyString(args.User):actor} "

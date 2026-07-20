@@ -1,24 +1,33 @@
-# These are technically shoes for now, as we don't actually have underwear. But
-# I would cry if we didn't have them. -swept
-
 - type: entity
-  parent: ClothingShoesBase
+  # <Onyx-Underwear-edited>
+  parent: OnyxClothingUnderwearSocksBase
+  # </Onyx-Underwear-edited>
   id: ClothingUnderSocksBee
   name: bee socks
   description: Make them loins buzz!
   components:
   - type: Sprite
-    sprite: Clothing/Under/Socks/bee.rsi
+    # <Onyx-Underwear-edited>
+    sprite: _Onyx/Clothing/Underwear/Socks/bee.rsi
+    # </Onyx-Underwear-edited>
   - type: Clothing
-    sprite: Clothing/Under/Socks/bee.rsi
+    # <Onyx-Underwear-edited>
+    sprite: _Onyx/Clothing/Underwear/Socks/bee.rsi
+    # </Onyx-Underwear-edited>
 
 - type: entity
-  parent: ClothingShoesBase
+  # <Onyx-Underwear-edited>
+  parent: OnyxClothingUnderwearSocksBase
+  # </Onyx-Underwear-edited>
   id: ClothingUnderSocksCoder
   name: coder socks
   description: It's time to code sisters!!11!
   components:
   - type: Sprite
-    sprite: Clothing/Under/Socks/coder.rsi
+    # <Onyx-Underwear-edited>
+    sprite: _Onyx/Clothing/Underwear/Socks/coder.rsi
+    # </Onyx-Underwear-edited>
   - type: Clothing
-    sprite: Clothing/Under/Socks/coder.rsi
+    # <Onyx-Underwear-edited>
+    sprite: _Onyx/Clothing/Underwear/Socks/coder.rsi
+    # </Onyx-Underwear-edited>

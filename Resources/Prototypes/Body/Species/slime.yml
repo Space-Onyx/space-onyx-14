@@ -66,7 +66,10 @@
             state: jumpsuit-female
   - type: InitialBody
     organs:
-      Torso: OrganSlimePersonTorso
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganSlimePersonChest
+      Groin: OrganSlimePersonGroin
+      # </Onyx-ChestGroin-edited>
       Head: OrganSlimePersonHead
       ArmLeft: OrganSlimePersonArmLeft
       ArmRight: OrganSlimePersonArmRight
@@ -120,6 +123,11 @@
       Male: MaleSlime
       Female: FemaleSlime
       Unsexed: MaleSlime
+  # <Onyx-Languages>
+  - type: LanguageKnowledge
+    speaks: [TauCetiBasic, Bubblish]
+    understands: [TauCetiBasic, Bubblish]
+  # </Onyx-Languages>
   - type: Damageable
     damageModifierSet: Slime
   - type: PassiveDamage # Around 8 damage a minute healed

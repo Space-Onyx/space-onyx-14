@@ -1,9 +1,9 @@
 using Content.Shared.Hands.EntitySystems;
-
 namespace Content.Shared.Body;
 
 public sealed partial class HandOrganSystem : EntitySystem
 {
+    // <Onyx-Surgery>
     [Dependency] private SharedHandsSystem _hands = default!;
 
     public override void Initialize()
@@ -27,4 +27,5 @@ public sealed partial class HandOrganSystem : EntitySystem
 
         _hands.RemoveHand(args.Target, ent.Comp.HandID);
     }
+    // </Onyx-Surgery>
 }

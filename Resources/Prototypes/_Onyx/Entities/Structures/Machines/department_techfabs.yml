@@ -1,0 +1,200 @@
+- type: entity
+  id: EngineeringTechFab
+  parent: BaseLatheLube
+  name: engineering techfab
+  description: Prints equipment and circuit boards for engineering.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/techfab.rsi
+    layers:
+    - state: icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: engi
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: inserting
+      map: ["enum.MaterialStorageVisualLayers.Inserting"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: Machine
+    board: EngineeringTechFabCircuitboard
+  - type: Lathe
+    idleState: icon
+    runningState: icon
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
+    staticPacks:
+    - EngineeringBoardsStatic
+    - CircuitFloorsStatic
+    - ToolsStatic
+    - PartsStatic
+    - AtmosStatic
+    - CablesStatic
+    - MaterialsStatic
+    - LightsStatic
+    - PowerCellsStatic
+    - ElectronicsStatic
+    dynamicPacks:
+    - AdvancedTools
+    - AtmosTools
+    - EngineeringWeapons
+    - PowerCells
+    - Equipment
+    - EngineeringBoards
+    - CameraBoards
+    - ShuttleBoards
+  - type: EmagLatheRecipes
+    emagDynamicPacks:
+    - SecurityBoards
+  - type: MaterialStorage
+    whitelist: &DepartmentTechFabMaterialWhitelist
+      tags:
+      - Sheet
+      - RawMaterial
+      - Ingot
+  - type: OreSiloClient
+
+- type: entity
+  id: CargoTechFab
+  parent: BaseLatheLube
+  name: cargo techfab
+  description: Prints equipment and circuit boards for cargo.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/techfab.rsi
+    layers:
+    - state: icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: cargo
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: inserting
+      map: ["enum.MaterialStorageVisualLayers.Inserting"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: Machine
+    board: CargoTechFabCircuitboard
+  - type: Lathe
+    idleState: icon
+    runningState: icon
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
+    staticPacks:
+    - ToolsStatic
+    - CargoBoardsStatic
+    - CablesStatic
+    - PartsStatic
+    - PowerCellsStatic
+    - CargoStatic
+    dynamicPacks:
+    - AdvancedTools
+    - Mining
+    - PowerCells
+    - Equipment
+    - CargoBoards
+    - ShuttleBoards
+    - SalvageSecurityBoards
+    - SalvageSecurityWeapons
+  - type: EmagLatheRecipes
+    emagDynamicPacks:
+    - SecurityExplosives
+  - type: MaterialStorage
+    whitelist: *DepartmentTechFabMaterialWhitelist
+  - type: OreSiloClient
+
+- type: entity
+  id: ScienceTechFab
+  parent: BaseLatheLube
+  name: science techfab
+  description: Prints equipment and circuit boards for science.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/techfab.rsi
+    layers:
+    - state: icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: sci
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: inserting
+      map: ["enum.MaterialStorageVisualLayers.Inserting"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: Machine
+    board: ScienceTechFabCircuitboard
+  - type: Lathe
+    idleState: icon
+    runningState: icon
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
+    staticPacks:
+    - ToolsStatic
+    - PartsStatic
+    - CablesStatic
+    - MaterialsStatic
+    - LightsStatic
+    - PowerCellsStatic
+    - ElectronicsStatic
+    - ScienceBoardsStatic
+    - ScienceExplosives
+    dynamicPacks:
+    - AdvancedTools
+    - ScienceEquipment
+    - ScienceClothing
+    - ScienceWeapons
+    - PowerCells
+    - Equipment
+    - ScienceBoards
+    - MechBoards
+    - OnyxScienceMaterials
+  - type: MaterialStorage
+    whitelist: *DepartmentTechFabMaterialWhitelist
+  - type: OreSiloClient
+
+- type: entity
+  id: ServiceTechFab
+  parent: BaseLatheLube
+  name: service techfab
+  description: Prints equipment and circuit boards for service.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/techfab.rsi
+    layers:
+    - state: icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: service
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: inserting
+      map: ["enum.MaterialStorageVisualLayers.Inserting"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: Machine
+    board: ServiceTechFabCircuitboard
+  - type: Lathe
+    idleState: icon
+    runningState: icon
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
+    staticPacks:
+    - ServiceBoardsStatic
+    - MaterialsStatic
+    - LightsStatic
+    - ServiceStatic
+    - PowerCellsStatic
+    - PartsStatic
+    - ChemistryStatic
+    dynamicPacks:
+    - Janitor
+    - Instruments
+    - FauxTiles
+    - ServiceBoards
+    - CameraBoards
+    - OnyxTranslators
+  - type: MaterialStorage
+    whitelist: *DepartmentTechFabMaterialWhitelist
+  - type: OreSiloClient

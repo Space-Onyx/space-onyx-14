@@ -1,10 +1,22 @@
 - type: entity
   abstract: true
-  parent: Clothing
+  # <Onyx-CleanHeadsets-edited>
+  parent: BaseItem
+  # </Onyx-CleanHeadsets-edited>
   id: ClothingHeadset
   name: headset
   description: An updated, modular intercom that fits over the head. Takes encryption keys.
   components:
+  # <Onyx-CleanHeadsets>
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  # </Onyx-CleanHeadsets>
   - type: ContainerContainer
     containers:
       key_slots: !type:Container

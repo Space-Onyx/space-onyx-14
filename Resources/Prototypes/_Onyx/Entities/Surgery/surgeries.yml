@@ -1,0 +1,636 @@
+- type: entity
+  id: SurgeryBase
+  categories: [ HideSpawnMenu ]
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryOpenIncision
+  name: Open Incision
+  components:
+  - type: Surgery
+    steps:
+    - SurgeryStepOpenIncisionScalpel
+    - SurgeryStepClampBleeders
+    - SurgeryStepRetractSkin
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryCloseIncision
+  name: Close Incision
+  components:
+  - type: Surgery
+    priority: 1
+    steps:
+    - SurgeryStepCloseBones
+    - SurgeryStepMendRibcage
+    - SurgeryStepCloseIncision
+  - type: SurgeryCloseIncisionCondition
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryOpenRibcage
+  name: Open Ribcage
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepSawBones
+    - SurgeryStepPriseOpenBones
+  - type: SurgeryPartCondition
+    part: Torso
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryRemovePart
+  name: Amputate
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepRemovePart
+  - type: SurgeryDetachablePartCondition
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryOpenAbdomen
+  name: Open abdomen
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepOpenAbdomen ]
+  - type: SurgeryPartCondition
+    part: Torso
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryHideItem
+  name: Hide item
+  components:
+  - type: Surgery
+    steps: [ SurgeryStepHideItem ]
+  - type: SurgeryPartCondition
+    part: Torso
+  - type: SurgeryCavityCondition
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryTakeItem
+  name: Take item
+  components:
+  - type: Surgery
+    steps: [ SurgeryStepTakeItem ]
+  - type: SurgeryPartCondition
+    part: Torso
+  - type: SurgeryCavityCondition
+    occupied: true
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryAttachHead
+  name: Attach head
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepAttachHead ]
+  - type: SurgeryPartCondition
+    part: Torso
+  - type: SurgeryMissingPartCondition
+    part: Head
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryAttachLeftArm
+  name: Attach left arm
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepAttachLeftArm ]
+  - type: SurgeryPartCondition
+    part: Torso
+  - type: SurgeryMissingPartCondition
+    part: Arm
+    symmetry: Left
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryAttachRightArm
+  name: Attach right arm
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepAttachRightArm ]
+  - type: SurgeryPartCondition
+    part: Torso
+  - type: SurgeryMissingPartCondition
+    part: Arm
+    symmetry: Right
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryAttachLeftLeg
+  name: Attach left leg
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepAttachLeftLeg ]
+  - type: SurgeryPartCondition
+    part: Torso
+  - type: SurgeryMissingPartCondition
+    part: Leg
+    symmetry: Left
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryAttachRightLeg
+  name: Attach right leg
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepAttachRightLeg ]
+  - type: SurgeryPartCondition
+    part: Torso
+  - type: SurgeryMissingPartCondition
+    part: Leg
+    symmetry: Right
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryAttachLeftHand
+  name: Attach left hand
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepAttachLeftHand ]
+  - type: SurgeryPartCondition
+    part: Arm
+    symmetry: Left
+  - type: SurgeryMissingPartCondition
+    part: Hand
+    symmetry: Left
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryAttachRightHand
+  name: Attach right hand
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepAttachRightHand ]
+  - type: SurgeryPartCondition
+    part: Arm
+    symmetry: Right
+  - type: SurgeryMissingPartCondition
+    part: Hand
+    symmetry: Right
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryAttachLeftFoot
+  name: Attach left foot
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepAttachLeftFoot ]
+  - type: SurgeryPartCondition
+    part: Leg
+    symmetry: Left
+  - type: SurgeryMissingPartCondition
+    part: Foot
+    symmetry: Left
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryAttachRightFoot
+  name: Attach right foot
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepAttachRightFoot ]
+  - type: SurgeryPartCondition
+    part: Leg
+    symmetry: Right
+  - type: SurgeryMissingPartCondition
+    part: Foot
+    symmetry: Right
+
+- type: entity
+  parent: SurgeryBase
+  id: BaseSurgeryRemoveOrgan
+  abstract: true
+
+- type: entity
+  parent: SurgeryBase
+  id: BaseSurgeryInsertOrgan
+  abstract: true
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveBrain
+  name: Remove brain
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepRemoveBrain ]
+  - type: SurgeryOrganCondition
+    slot: Brain
+    part: Head
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertBrain
+  name: Implant brain
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepInsertBrain ]
+  - type: SurgeryOrganCondition
+    slot: Brain
+    inverse: true
+    part: Head
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveEyes
+  name: Remove eyes
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepRemoveEyes ]
+  - type: SurgeryOrganCondition
+    slot: Eyes
+    part: Head
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertEyes
+  name: Implant eyes
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepInsertEyes ]
+  - type: SurgeryOrganCondition
+    slot: Eyes
+    inverse: true
+    part: Head
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveTongue
+  name: Remove tongue
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepRemoveTongue ]
+  - type: SurgeryOrganCondition
+    slot: Tongue
+    part: Head
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertTongue
+  name: Implant tongue
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepInsertTongue ]
+  - type: SurgeryOrganCondition
+    slot: Tongue
+    inverse: true
+    part: Head
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveEars
+  name: Remove ears
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepRemoveEars ]
+  - type: SurgeryOrganCondition
+    slot: Ears
+    part: Head
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertEars
+  name: Implant ears
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepInsertEars ]
+  - type: SurgeryOrganCondition
+    slot: Ears
+    inverse: true
+    part: Head
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveHeart
+  name: Remove heart
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepRemoveHeart ]
+  - type: SurgeryOrganCondition
+    slot: Heart
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertHeart
+  name: Implant heart
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepInsertHeart ]
+  - type: SurgeryOrganCondition
+    slot: Heart
+    inverse: true
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveLungs
+  name: Remove lungs
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepRemoveLungs ]
+  - type: SurgeryOrganCondition
+    slot: Lungs
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertLungs
+  name: Implant lungs
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepInsertLungs ]
+  - type: SurgeryOrganCondition
+    slot: Lungs
+    inverse: true
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveLiver
+  name: Remove liver
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepRemoveLiver ]
+  - type: SurgeryOrganCondition
+    slot: Liver
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertLiver
+  name: Implant liver
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepInsertLiver ]
+  - type: SurgeryOrganCondition
+    slot: Liver
+    inverse: true
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveStomach
+  name: Remove stomach
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepRemoveStomach ]
+  - type: SurgeryOrganCondition
+    slot: Stomach
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertStomach
+  name: Implant stomach
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepInsertStomach ]
+  - type: SurgeryOrganCondition
+    slot: Stomach
+    inverse: true
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveKidneys
+  name: Remove kidneys
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepRemoveKidneys ]
+  - type: SurgeryOrganCondition
+    slot: Kidneys
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertKidneys
+  name: Implant kidneys
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepInsertKidneys ]
+  - type: SurgeryOrganCondition
+    slot: Kidneys
+    inverse: true
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveAppendix
+  name: Remove appendix
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepRemoveAppendix ]
+  - type: SurgeryOrganCondition
+    slot: Appendix
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertAppendix
+  name: Implant appendix
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepInsertAppendix ]
+  - type: SurgeryOrganCondition
+    slot: Appendix
+    inverse: true
+    part: Torso
+
+- type: entity
+  parent: SurgeryBase
+  id: BaseSurgeryHealOrgan
+  abstract: true
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+
+- type: entity
+  parent: BaseSurgeryHealOrgan
+  id: SurgeryHealBrain
+  name: Heal brain
+  components:
+  - type: Surgery
+    steps: [ SurgeryStepHealBrain ]
+  - type: SurgeryOrganCondition
+    slot: Brain
+    damaged: true
+    part: Head
+
+- type: entity
+  parent: BaseSurgeryHealOrgan
+  id: SurgeryHealEyes
+  name: Heal eyes
+  components:
+  - type: Surgery
+    steps: [ SurgeryStepHealEyes ]
+  - type: SurgeryOrganCondition
+    slot: Eyes
+    damaged: true
+    part: Head
+
+- type: entity
+  parent: BaseSurgeryHealOrgan
+  id: SurgeryHealTongue
+  name: Heal tongue
+  components:
+  - type: Surgery
+    steps: [ SurgeryStepHealTongue ]
+  - type: SurgeryOrganCondition
+    slot: Tongue
+    damaged: true
+    part: Head
+
+- type: entity
+  parent: BaseSurgeryHealOrgan
+  id: SurgeryHealEars
+  name: Heal ears
+  components:
+  - type: Surgery
+    steps: [ SurgeryStepHealEars ]
+  - type: SurgeryOrganCondition
+    slot: Ears
+    damaged: true
+    part: Head
+
+- type: entity
+  parent: BaseSurgeryHealOrgan
+  id: SurgeryHealHeart
+  name: Heal heart
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepHealHeart ]
+  - type: SurgeryOrganCondition
+    slot: Heart
+    damaged: true
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryHealOrgan
+  id: SurgeryHealLungs
+  name: Heal lungs
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepHealLungs ]
+  - type: SurgeryOrganCondition
+    slot: Lungs
+    damaged: true
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryHealOrgan
+  id: SurgeryHealLiver
+  name: Heal liver
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepHealLiver ]
+  - type: SurgeryOrganCondition
+    slot: Liver
+    damaged: true
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryHealOrgan
+  id: SurgeryHealStomach
+  name: Heal stomach
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepHealStomach ]
+  - type: SurgeryOrganCondition
+    slot: Stomach
+    damaged: true
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryHealOrgan
+  id: SurgeryHealKidneys
+  name: Heal kidneys
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepHealKidneys ]
+  - type: SurgeryOrganCondition
+    slot: Kidneys
+    damaged: true
+    part: Torso
+
+- type: entity
+  parent: BaseSurgeryHealOrgan
+  id: SurgeryHealAppendix
+  name: Heal appendix
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepHealAppendix ]
+  - type: SurgeryOrganCondition
+    slot: Appendix
+    damaged: true
+    part: Torso
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryTendWound
+  name: Tend wound
+  components:
+  - type: Surgery
+    steps: [ SurgeryStepClampWoundBleeding, SurgeryStepTendWound ]
+  - type: SurgeryHasWoundCondition
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryReduceFracture
+  name: Reduce fracture
+  components:
+  - type: Surgery
+    steps: [ SurgeryStepReduceFracture ]
+  - type: SurgeryFractureGradeCondition
+    minGrade: Displaced
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryMendFracture
+  name: Mend fracture
+  components:
+  - type: Surgery
+    steps: [ SurgeryStepMendFracture ]
+  - type: SurgeryFractureGradeCondition

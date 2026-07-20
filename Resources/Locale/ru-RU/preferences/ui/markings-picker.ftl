@@ -45,8 +45,9 @@ markings-layer-Tail = Хвост
 markings-layer-Tail-Moth = Крылья
 markings-layer-Hair = Волосы
 markings-layer-FacialHair = Лицевая растительность
-markings-layer-UndergarmentTop = Нижняя рубашка
-markings-layer-UndergarmentBottom = Трусы
+# <Onyx-Underwear-edited>
+# Категории нижнего белья удалены в пользу настоящих предметов.
+# </Onyx-Underwear-edited>
 markings-layer-Chest = Туловищие
 markings-layer-Head = Голова
 markings-layer-Snout = Нос

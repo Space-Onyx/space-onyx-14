@@ -1,15 +1,21 @@
+<!-- <Onyx-HealthAnalyzer-WoundPanel-edited> -->
 <controls:FancyWindow
     xmlns="https://spacestation14.io"
     xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
     xmlns:ui="clr-namespace:Content.Client.HealthAnalyzer.UI"
-    MaxHeight="525"
-    MinWidth="300">
-    <ScrollContainer
-        Margin="5 5 5 5"
-        ReturnMeasure="True"
-        VerticalExpand="True">
+    MaxHeight="650"
+    MinSize="790 600">
+    <BoxContainer Orientation="Vertical" VerticalExpand="True">
+        <BoxContainer Orientation="Horizontal" Margin="8 10 8 5">
+            <Button Name="BodyButton" Text="{Loc health-analyzer-window-body-tab}" MinWidth="130" MinHeight="30" HorizontalExpand="True" StyleClasses="OpenRight" />
+            <Button Name="OrgansButton" Text="{Loc health-analyzer-window-organs-tab}" MinWidth="130" MinHeight="30" HorizontalExpand="True" StyleClasses="OpenLeft" />
+        </BoxContainer>
+        <PanelContainer StyleClasses="LowDivider" />
+        <ScrollContainer Margin="5 5 5 5" ReturnMeasure="True" VerticalExpand="True">
 
         <ui:HealthAnalyzerControl
             Name="HealthAnalyzer"/>
-    </ScrollContainer>
+        </ScrollContainer>
+    </BoxContainer>
 </controls:FancyWindow>
+<!-- </Onyx-HealthAnalyzer-WoundPanel-edited> -->

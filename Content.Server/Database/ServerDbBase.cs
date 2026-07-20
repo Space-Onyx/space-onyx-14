@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
@@ -19,6 +20,8 @@ using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Utility;
+using System.Data;
+using System.Security.Cryptography;
 
 namespace Content.Server.Database
 {
@@ -27,6 +30,8 @@ namespace Content.Server.Database
         private readonly ISawmill _opsLog;
         public event Action<DatabaseNotification>? OnNotificationReceived;
         private readonly ISerializationManager _serialization;
+        private readonly SemaphoreSlim _discordLinkCodeTableInitLock = new(1, 1);
+        private bool _discordLinkCodeTableReady;
 
         /// <param name="opsLog">Sawmill to trace log database operations to.</param>
         public ServerDbBase(ISawmill opsLog, ISerializationManager serialization)
@@ -214,6 +219,10 @@ namespace Content.Server.Database
             profile.Species = humanoid.Species;
             profile.Voice = humanoid.Voice; // Corvax-TTS
             profile.Age = humanoid.Age;
+            // <Onyx-HeightWidth>
+            profile.Height = humanoid.Height;
+            profile.Width = humanoid.Width;
+            // </Onyx-HeightWidth>
             profile.Sex = humanoid.Sex.ToString();
             profile.Gender = humanoid.Gender.ToString();
             profile.EyeColor = appearance.EyeColor.ToHex();
@@ -315,6 +324,222 @@ namespace Content.Server.Database
             });
 
             await db.DbContext.SaveChangesAsync();
+        }
+        #endregion
+
+        #region Onyx Discord
+        public async Task<string?> GetDiscordIdAsync(Guid userId)
+        {
+            await using var db = await GetDb();
+
+            var discordPlayer = await db.DbContext.DiscordUser
+                .FirstOrDefaultAsync(p => p.UserId == userId);
+
+            return discordPlayer?.DiscordId;
+        }
+
+        public async Task<Guid?> GetUserIdByDiscordIdAsync(string discordId)
+        {
+            await using var db = await GetDb();
+
+            var discordPlayer = await db.DbContext.DiscordUser
+                .FirstOrDefaultAsync(p => p.DiscordId == discordId);
+
+            return discordPlayer?.UserId;
+        }
+
+        public async Task UnlinkDiscordIdAsync(Guid userId)
+        {
+            await using var db = await GetDb();
+
+            var discordUsers = await db.DbContext.DiscordUser
+                .Where(p => p.UserId == userId)
+                .ToListAsync();
+
+            if (discordUsers.Count == 0)
+                return;
+
+            db.DbContext.DiscordUser.RemoveRange(discordUsers);
+            await db.DbContext.SaveChangesAsync();
+        }
+        public async Task<string> GetOrCreateDiscordLinkCodeAsync(Guid userId, string ckey, TimeSpan lifetime)
+        {
+            await using var db = await GetDb();
+            await EnsureDiscordLinkCodeTableAsync(db.DbContext);
+
+            var userIdText = userId.ToString();
+            var nowUnix = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+            await ExecuteDiscordLinkCodeNonQueryAsync(
+                db.DbContext,
+                "DELETE FROM discord_link_code WHERE expires_at <= @now",
+                ("@now", nowUnix));
+
+            var existingCode = await ExecuteDiscordLinkCodeScalarAsync(
+                db.DbContext,
+                "SELECT code FROM discord_link_code WHERE user_id = @userId AND ckey = @ckey AND expires_at > @now LIMIT 1",
+                ("@userId", userIdText),
+                ("@ckey", ckey.ToLowerInvariant()),
+                ("@now", nowUnix));
+
+            if (!string.IsNullOrWhiteSpace(existingCode))
+                return existingCode;
+
+            for (var attempt = 0; attempt < 10; attempt++)
+            {
+                var code = GenerateDiscordLinkCode();
+                var expiresAtUnix = DateTimeOffset.UtcNow.Add(lifetime).ToUnixTimeSeconds();
+
+                await ExecuteDiscordLinkCodeNonQueryAsync(
+                    db.DbContext,
+                    "DELETE FROM discord_link_code WHERE user_id = @userId",
+                    ("@userId", userIdText));
+
+                try
+                {
+                    await ExecuteDiscordLinkCodeNonQueryAsync(
+                        db.DbContext,
+                    "INSERT INTO discord_link_code (user_id, ckey, code, expires_at) VALUES (@userId, @ckey, @code, @expiresAt)",
+                    ("@userId", userIdText),
+                    ("@ckey", ckey.ToLowerInvariant()),
+                        ("@code", code),
+                        ("@expiresAt", expiresAtUnix));
+
+                    return code;
+                }
+                catch (DbException)
+                {
+                    // Extremely unlikely collision of 9-hex code. Retry with another code.
+                }
+            }
+
+            throw new InvalidOperationException("Failed to generate a unique Discord link code.");
+        }
+
+        public async Task RemoveDiscordLinkCodeAsync(Guid userId)
+        {
+            await using var db = await GetDb();
+            await EnsureDiscordLinkCodeTableAsync(db.DbContext);
+
+            await ExecuteDiscordLinkCodeNonQueryAsync(
+                db.DbContext,
+                "DELETE FROM discord_link_code WHERE user_id = @userId",
+                ("@userId", userId.ToString()));
+        }
+
+        private static string GenerateDiscordLinkCode()
+        {
+            Span<byte> bytes = stackalloc byte[6];
+            RandomNumberGenerator.Fill(bytes);
+            return Convert.ToHexString(bytes).ToLowerInvariant();
+        }
+
+        private async Task EnsureDiscordLinkCodeTableAsync(ServerDbContext dbContext)
+        {
+            if (_discordLinkCodeTableReady)
+                return;
+
+            await _discordLinkCodeTableInitLock.WaitAsync();
+            try
+            {
+                if (_discordLinkCodeTableReady)
+                    return;
+
+                await dbContext.Database.ExecuteSqlRawAsync(
+                    "CREATE TABLE IF NOT EXISTS discord_link_code (" +
+                    "user_id TEXT NOT NULL PRIMARY KEY, " +
+                    "ckey TEXT NOT NULL, " +
+                    "code TEXT NOT NULL UNIQUE, " +
+                    "expires_at BIGINT NOT NULL)");
+
+                await EnsureDiscordLinkCodeCkeyColumnAsync(dbContext);
+
+                await dbContext.Database.ExecuteSqlRawAsync(
+                    "CREATE INDEX IF NOT EXISTS ix_discord_link_code_expires_at ON discord_link_code (expires_at)");
+
+                _discordLinkCodeTableReady = true;
+            }
+            finally
+            {
+                _discordLinkCodeTableInitLock.Release();
+            }
+        }
+
+        private static async Task EnsureDiscordLinkCodeCkeyColumnAsync(ServerDbContext dbContext)
+        {
+            var provider = dbContext.Database.ProviderName ?? string.Empty;
+            var connection = dbContext.Database.GetDbConnection();
+            if (connection.State != ConnectionState.Open)
+                await connection.OpenAsync();
+
+            await using var command = connection.CreateCommand();
+
+            if (provider.Contains("Sqlite", StringComparison.OrdinalIgnoreCase))
+            {
+                command.CommandText = "PRAGMA table_info(discord_link_code)";
+                await using var reader = await command.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    var name = reader["name"]?.ToString();
+                    if (string.Equals(name, "ckey", StringComparison.OrdinalIgnoreCase))
+                        return;
+                }
+                await dbContext.Database.ExecuteSqlRawAsync("ALTER TABLE discord_link_code ADD COLUMN ckey TEXT NOT NULL DEFAULT ''");
+                return;
+            }
+
+            command.CommandText =
+                "SELECT data_type FROM information_schema.columns " +
+                "WHERE table_name = 'discord_link_code' AND column_name = 'ckey' LIMIT 1";
+            var result = await command.ExecuteScalarAsync();
+            if (result is null or DBNull)
+                await dbContext.Database.ExecuteSqlRawAsync("ALTER TABLE discord_link_code ADD COLUMN ckey TEXT NOT NULL DEFAULT ''");
+        }
+
+        private static async Task<string?> ExecuteDiscordLinkCodeScalarAsync(
+            ServerDbContext dbContext,
+            string sql,
+            params (string Name, object? Value)[] parameters)
+        {
+            var connection = dbContext.Database.GetDbConnection();
+            if (connection.State != ConnectionState.Open)
+                await connection.OpenAsync();
+
+            await using var command = connection.CreateCommand();
+            command.CommandText = sql;
+            AddDiscordLinkCodeParameters(command, parameters);
+
+            var result = await command.ExecuteScalarAsync();
+            return result is null or DBNull ? null : result.ToString();
+        }
+
+        private static async Task ExecuteDiscordLinkCodeNonQueryAsync(
+            ServerDbContext dbContext,
+            string sql,
+            params (string Name, object? Value)[] parameters)
+        {
+            var connection = dbContext.Database.GetDbConnection();
+            if (connection.State != ConnectionState.Open)
+                await connection.OpenAsync();
+
+            await using var command = connection.CreateCommand();
+            command.CommandText = sql;
+            AddDiscordLinkCodeParameters(command, parameters);
+
+            await command.ExecuteNonQueryAsync();
+        }
+
+        private static void AddDiscordLinkCodeParameters(
+            DbCommand command,
+            params (string Name, object? Value)[] parameters)
+        {
+            foreach (var (name, value) in parameters)
+            {
+                var param = command.CreateParameter();
+                param.ParameterName = name;
+                param.Value = value ?? DBNull.Value;
+                command.Parameters.Add(param);
+            }
         }
         #endregion
 

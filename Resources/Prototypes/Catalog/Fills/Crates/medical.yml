@@ -75,6 +75,9 @@
         - id: Drill
         - id: Saw
         - id: Hemostat
+        # <Onyx-Surgery>
+        - id: BoneGel
+        # </Onyx-Surgery>
         - id: ClothingMaskSterile
 
 - type: entity

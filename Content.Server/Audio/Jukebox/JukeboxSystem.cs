@@ -23,6 +23,8 @@ public sealed partial class JukeboxSystem : SharedJukeboxSystem
         SubscribeLocalEvent<JukeboxComponent, JukeboxPauseMessage>(OnJukeboxPause);
         SubscribeLocalEvent<JukeboxComponent, JukeboxStopMessage>(OnJukeboxStop);
         SubscribeLocalEvent<JukeboxComponent, JukeboxSetTimeMessage>(OnJukeboxSetTime);
+        SubscribeLocalEvent<JukeboxComponent, JukeboxSetVolumeMessage>(OnJukeboxSetVolume); // <Onyx>
+        SubscribeLocalEvent<JukeboxComponent, JukeboxToggleLoopMessage>(OnJukeboxToggleLoop); // <Onyx>
         SubscribeLocalEvent<JukeboxComponent, ComponentInit>(OnComponentInit);
         SubscribeLocalEvent<JukeboxComponent, ComponentShutdown>(OnComponentShutdown);
 
@@ -55,6 +57,23 @@ public sealed partial class JukeboxSystem : SharedJukeboxSystem
             SetTime(ent.AsNullable(), args.SongTime + offset);
         }
     }
+
+    // <Onyx>
+    private void OnJukeboxSetVolume(EntityUid uid, JukeboxComponent component, JukeboxSetVolumeMessage args)
+    {
+        SetJukeboxVolume(uid, component, args.Volume);
+
+        if (!TryComp<AudioComponent>(component.AudioStream, out _))
+            return;
+
+        Audio.SetVolume(component.AudioStream, MapToRange(args.Volume, component.MinSlider, component.MaxSlider, component.MinVolume, component.MaxVolume));
+    }
+
+    private void OnJukeboxToggleLoop(EntityUid uid, JukeboxComponent component, JukeboxToggleLoopMessage args)
+    {
+        ToggleLoop(uid, component);
+    }
+    // </Onyx>
 
     private void OnPowerChanged(Entity<JukeboxComponent> entity, ref PowerChangedEvent args)
     {
@@ -94,12 +113,33 @@ public sealed partial class JukeboxSystem : SharedJukeboxSystem
                     TryUpdateVisualState((uid, comp));
                 }
             }
+
         }
     }
 
     private void OnComponentShutdown(Entity<JukeboxComponent> ent, ref ComponentShutdown args)
     {
         ent.Comp.AudioStream = Audio.Stop(ent.Comp.AudioStream);
+    }
+
+    private void SetJukeboxVolume(EntityUid uid, JukeboxComponent component, float volume)
+    {
+        component.Volume = Math.Clamp(volume, component.MinSlider, component.MaxSlider);
+        Dirty(uid, component);
+    }
+
+    private void ToggleLoop(EntityUid uid, JukeboxComponent component)
+    {
+        component.LoopEnabled = !component.LoopEnabled;
+        Dirty(uid, component);
+
+        if (!TryComp(component.AudioStream, out AudioComponent? audio) || audio.State != AudioState.Playing)
+            return;
+
+        var position = audio.PlaybackPosition;
+        component.AudioStream = Audio.Stop(component.AudioStream);
+        if (TryPlay((uid, component)))
+            Audio.SetPlaybackPosition(component.AudioStream, position);
     }
 
     private void DirectSetVisualState(EntityUid uid, JukeboxVisualState state)
@@ -161,7 +201,11 @@ public sealed partial class JukeboxSystem : SharedJukeboxSystem
                 return false;
             }
 
-            ent.Comp.AudioStream = Audio.PlayPvs(jukeboxProto.Path, ent, AudioParams.Default.WithMaxDistance(10f))?.Entity;
+            var volume = MapToRange(ent.Comp.Volume, ent.Comp.MinSlider, ent.Comp.MaxSlider, ent.Comp.MinVolume, ent.Comp.MaxVolume);
+            ent.Comp.AudioStream = Audio.PlayPvs(jukeboxProto.Path, ent, AudioParams.Default
+                .WithMaxDistance(10f)
+                .WithVolume(volume)
+                .WithLoop(ent.Comp.LoopEnabled))?.Entity;
             Dirty(ent);
         }
         return true;

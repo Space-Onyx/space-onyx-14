@@ -1,0 +1,211 @@
+- type: entity
+  id: WallATM
+  name: Wallmount ATM
+  description: For all your monetary needs!
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: WallMount
+    arc: 360
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Onyx/Structures/Machines/wall_atm.rsi
+    layers:
+    - map: ["atmLayerBody"]
+      state: icon
+      directional: true
+    - map: ["atmLayerScreen"]
+      state: off
+      directional: true
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
+      state: on
+      shader: unshaded
+      directional: true
+  - type: ATM
+    idCardSlot:
+      ejectSound: /Audio/Machines/id_swipe.ogg
+      insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+      ejectOnBreak: true
+      swap: false
+      whitelist:
+        components:
+        - BankCard
+  - type: ItemSlots
+  - type: ContainerFill
+    containers:
+      board: [ WallATMElectronics ]
+  - type: ContainerContainer
+    containers:
+      IdCardSlot: !type:ContainerSlot
+      board: !type:Container
+  - type: Appearance
+  - type: AmbientOnPowered
+  - type: AmbientSound
+    volume: -9
+    range: 3
+    enabled: false
+    sound:
+      path: /Audio/Ambience/Objects/vending_machine_hum.ogg
+  - type: ActivatableUI
+    key: enum.ATMUiKey.Key
+  - type: Rotatable
+  - type: ActivatableUIRequiresPower
+  - type: UserInterface
+    interfaces:
+      enum.ATMUiKey.Key:
+        type: ATMBui
+  - type: PointLight
+    enabled: false
+    castShadows: false
+    radius: 1.5
+  - type: LitOnPowered
+  - type: ApcPowerReceiver
+    powerLoad: 200
+    priority: Low
+  - type: ExtensionCableReceiver
+  - type: EmitSoundOnUIOpen
+    sound:
+      collection: Keyboard
+    blacklist:
+      tags:
+      - NoConsoleSound
+  - type: LightningTarget
+    priority: 1
+  - type: Construction
+    graph: WallATM
+    node: wall_atm
+    containers:
+    - board
+
+- type: entity
+  parent: BaseWallmountMetallic
+  id: WallATMAssembly
+  name: wall ATM assembly
+  description: Unfinished wall ATM.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: WallMount
+    arc: 360
+  - type: Sprite
+    sprite: _Onyx/Structures/Machines/wall_atm.rsi
+    layers:
+    - map: [ "enum.ConstructionVisuals.Layer" ]
+      state: off
+      directional: true
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ConstructionVisuals.Key:
+        enum.ConstructionVisuals.Layer:
+          assembly: { state: off }
+          wired: { state: off }
+          electronics: { state: icon }
+  - type: ContainerContainer
+    containers:
+      board: !type:Container
+  - type: Construction
+    graph: WallATM
+    node: assembly
+    containers:
+    - board
+
+
+- type: entity
+  parent: BaseStructureDynamic
+  id: ATM
+  name: ATM
+  description: For all your monetary needs!
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Anchorable
+    delay: 2
+  - type: Physics
+    bodyType: Static
+  - type: Pullable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Onyx/Structures/Machines/atm.rsi
+    snapCardinals: true
+    layers:
+    - map: ["atmLayerBody"]
+      state: icon
+    - map: ["atmLayerScreen"]
+      state: off
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
+      state: on
+      shader: unshaded
+  - type: ATM
+    idCardSlot:
+      ejectSound: /Audio/Machines/id_swipe.ogg
+      insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+      ejectOnBreak: true
+      swap: false
+      whitelist:
+        components:
+        - BankCard
+  - type: ItemSlots
+  - type: ContainerContainer
+    containers:
+      IdCardSlot: !type:ContainerSlot
+  - type: Appearance
+  - type: AmbientOnPowered
+  - type: AmbientSound
+    volume: -9
+    range: 3
+    enabled: false
+    sound:
+      path: /Audio/Ambience/Objects/vending_machine_hum.ogg
+  - type: ActivatableUI
+    key: enum.ATMUiKey.Key
+  - type: Rotatable
+  - type: ActivatableUIRequiresPower
+  - type: UserInterface
+    interfaces:
+      enum.ATMUiKey.Key:
+        type: ATMBui
+  - type: PointLight
+    enabled: false
+    castShadows: false
+    radius: 1.5
+  - type: LitOnPowered
+  - type: ApcPowerReceiver
+    powerLoad: 200
+    priority: Low
+  - type: ExtensionCableReceiver
+  - type: EmitSoundOnUIOpen
+    sound:
+      collection: Keyboard
+    blacklist:
+      tags:
+      - NoConsoleSound
+  - type: LightningTarget
+    priority: 1
+
+- type: entity
+  parent: BaseFlatpack
+  id: ATMFlatpack
+  name: ATM flatpack
+  description: A flatpack used for constructing a ATM
+  components:
+  - type: Flatpack
+    entity: ATM
+
+- type: entity
+  parent: BaseElectronics
+  id: WallATMElectronics
+  name: wall ATM electronics
+  description: An encrypted electronics board for wall-mounted NanoBank ATMs.
+  components:
+  - type: Tag
+    tags: [ WallATMElectronics ]

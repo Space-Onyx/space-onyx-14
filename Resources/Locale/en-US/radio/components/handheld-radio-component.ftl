@@ -4,3 +4,6 @@ handheld-radio-component-on-state = on
 handheld-radio-component-off-state = off
 handheld-radio-component-channel-set = Channel set to {$channel}
 handheld-radio-component-chennel-examine = The current channel is {$channel}.
+handheld-radio-component-preset-examine = Frequency preset: {$channel} ({$frequency}).
+handheld-radio-component-preset-verb = {$channel} ({$frequency})
+handheld-radio-component-preset-current = This preset is already selected.

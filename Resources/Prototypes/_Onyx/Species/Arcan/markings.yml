@@ -1,0 +1,255 @@
+- type: marking
+  id: DemomTail
+  bodyPart: Tail
+  groupWhitelist: [ Demon, Human ]
+  sprites:
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: tail
+
+- type: marking
+  id: DemomTail1
+  bodyPart: Tail
+  groupWhitelist: [ Demon, Human ]
+  sprites:
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: tail
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: demon_tail
+
+- type: marking
+  id: DemomTailLong
+  bodyPart: Tail
+  groupWhitelist: [ Demon, Human ]
+  sprites:
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: tail
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: long
+
+- type: marking
+  id: DemomTailUp
+  bodyPart: Tail
+  groupWhitelist: [ Demon, Human ]
+  sprites:
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: tail
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: up
+
+- type: marking
+  id: DemomTailAnimated
+  bodyPart: Tail
+  groupWhitelist: []
+  sprites:
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: tail_waggin
+
+- type: marking
+  id: DemomTail1Animated
+  bodyPart: Tail
+  groupWhitelist: []
+  sprites:
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: tail_waggin
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: demon_tail_waggin
+
+- type: marking
+  id: DemomTailLongAnimated
+  bodyPart: Tail
+  groupWhitelist: []
+  sprites:
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: tail_waggin
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: long_waggin
+
+- type: marking
+  id: DemomTailUpAnimated
+  bodyPart: Tail
+  groupWhitelist: []
+  sprites:
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: tail_waggin
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: up_waggin
+
+- type: marking
+  id: DemonCowEars
+  bodyPart: HeadSide
+  groupWhitelist: [ Demon ]
+  sprites:
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: cow_ears
+
+- type: marking
+  id: DemonEars
+  bodyPart: HeadSide
+  groupWhitelist: [ Demon ]
+  sprites:
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: demon_ears
+
+- type: marking
+  id: DemonElfEars
+  bodyPart: HeadSide
+  groupWhitelist: [ Demon ]
+  sprites:
+  - sprite: _Onyx/Species/Arcan/markings.rsi
+    state: ears_elf
+
+- type: marking
+  id: DemonCowHorns
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: cow_horns }]
+
+- type: marking
+  id: DemonHornsDeer
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: deer_antlers_horns }]
+
+- type: marking
+  id: DemonHornsSmall
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: small_horns }]
+
+- type: marking
+  id: DemonHornsBuffalo
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: horns_buffalo }]
+
+- type: marking
+  id: DemonHornsCarpicorn
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: horns_capricorn }]
+
+- type: marking
+  id: DemonHornsDevil
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: horns_devil }]
+
+- type: marking
+  id: DemonHornsDevil2
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: horns_devil2 }]
+
+- type: marking
+  id: DemonHornsDevil3
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: horns_devil3 }]
+
+- type: marking
+  id: DemonHornsDevil4
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: horns_devil4 }]
+
+- type: marking
+  id: DemonHornsRam
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: horns_ram }]
+
+- type: marking
+  id: DemonHornsUnicorn
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: horns_unicorn }]
+
+- type: marking
+  id: DemonHornsBackwardHorns
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/horns_32x64.rsi, state: backward_horns }]
+
+- type: marking
+  id: DemonHornsDarkCrown
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/horns_32x64.rsi, state: dark_crown }]
+
+- type: marking
+  id: DemonHornsDevilPrimeSi1
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/horns_32x64.rsi, state: devil_prime1_s }]
+
+- type: marking
+  id: DemonHornsDevilPrime1
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/horns_32x64.rsi, state: devil_prime1 }]
+
+- type: marking
+  id: DemonHornsDevilPrime2
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/horns_32x64.rsi, state: devil_prime2 }]
+
+- type: marking
+  id: DemonHornsFatHorn
+  bodyPart: HeadTop
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/horns_32x64.rsi, state: fat_horn }]
+
+- type: marking
+  id: DemonChestCowSpots
+  bodyPart: Chest
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: cow_spots }]
+
+- type: marking
+  id: DemonChestGuard
+  bodyPart: Chest
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: guards_stripes }]
+
+- type: marking
+  id: DemonChestLinesEmperos
+  bodyPart: Chest
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: lines_emperos }]
+
+- type: marking
+  id: DemonChestQueenLines
+  bodyPart: Chest
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: queen_lines }]
+
+- type: marking
+  id: DemonChestTreeLines
+  bodyPart: Chest
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: tree_lines }]
+
+- type: marking
+  id: DemonChestTrinitySpots
+  bodyPart: Chest
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: trinity_spots }]
+
+- type: marking
+  id: DemonGoatee
+  bodyPart: FacialHair
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: _Onyx/Species/Arcan/markings.rsi, state: goatee }]
+
+- type: marking
+  id: DemonrigthEye
+  bodyPart: Head
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: Mobs/Customization/tattoos.rsi, state: tattoo_eye_r }]
+
+- type: marking
+  id: DemonleftEye
+  bodyPart: Head
+  groupWhitelist: [ Demon ]
+  sprites: [{ sprite: Mobs/Customization/tattoos.rsi, state: tattoo_eye_l }]

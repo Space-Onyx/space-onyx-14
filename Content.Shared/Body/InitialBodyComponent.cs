@@ -10,9 +10,11 @@ namespace Content.Shared.Body;
 [Access(typeof(InitialBodySystem))]
 public sealed partial class InitialBodyComponent : Component
 {
+    // <Onyx-Surgery-edited>
     /// <summary>
     /// The organs to spawn based on their category.
     /// </summary>
     [DataField(required: true)]
-    public Dictionary<ProtoId<OrganCategoryPrototype>, EntProtoId<OrganComponent>> Organs;
+    public Dictionary<ProtoId<OrganCategoryPrototype>, EntProtoId> Organs;
+    // </Onyx-Surgery-edited>
 }

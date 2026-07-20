@@ -98,6 +98,9 @@
   - MedicalIntern
   - Psychologist
   - Paramedic
+  # <Onyx-Virologist>
+  - Virologist
+  # </Onyx-Virologist>
   - SeniorPhysician # Corvax-MentorRoles
 
 - type: department

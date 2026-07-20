@@ -81,9 +81,17 @@ public sealed partial class ResearchSystem
             return false;
 
         AddTechnology(serverEnt.Value, prototype);
-        TrySetMainDiscipline(prototype, serverEnt.Value);
+        // <Onyx-FancyResearchUI-edited>
+        // Research disciplines no longer lock each other out.
+        // TrySetMainDiscipline(prototype, serverEnt.Value);
+        // </Onyx-FancyResearchUI-edited>
         ModifyServerPoints(serverEnt.Value, -prototype.Cost);
         UpdateTechnologyCards(serverEnt.Value);
+        // <Onyx-FancyResearchUI>
+        // AddTechnology raises its event before cards are regenerated; notify peer consoles of the final state.
+        var cardsUpdated = new TechnologyDatabaseModifiedEvent(null);
+        RaiseLocalEvent(serverEnt.Value, ref cardsUpdated);
+        // </Onyx-FancyResearchUI>
 
         _adminLog.Add(LogType.Action, LogImpact.Medium,
             $"{ToPrettyString(user):player} unlocked {prototype.ID} (discipline: {prototype.Discipline}, tier: {prototype.Tier}) at {ToPrettyString(client)}, for server {ToPrettyString(serverEnt.Value)}.");

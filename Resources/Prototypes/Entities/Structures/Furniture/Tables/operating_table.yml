@@ -2,8 +2,9 @@
   id: OperatingTable
   parent: Bed
   name: operating table
-  description: Special medical table for surgery. This one just seems to be a useless prop, though.
+  description: A sterile bed for medical procedures.
   components:
+  # <Onyx-Surgery>
   - type: Sprite
     sprite: Structures/Furniture/Tables/optable.rsi
     state: operating_table
@@ -11,4 +12,5 @@
   - type: Icon
     sprite: Structures/Furniture/Tables/optable.rsi
     state: operating_table
-  - type: AmbientMusicMarkerMedical
+  - type: OperatingTable
+  # </Onyx-Surgery>

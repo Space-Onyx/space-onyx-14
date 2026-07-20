@@ -18,6 +18,9 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using Robust.Shared.Configuration;
+using Content.Shared._Onyx.Economy;
+using Content.Shared.CCVar;
 
 namespace Content.Shared.VendingMachines;
 
@@ -25,22 +28,22 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
 {
     [Dependency] protected IGameTiming Timing = default!;
     [Dependency] protected IPrototypeManager PrototypeManager = default!;
-    [Dependency] private AccessReaderSystem _accessReader = default!;
+    [Dependency] protected AccessReaderSystem _accessReader = default!;
     [Dependency] private SharedAppearanceSystem _appearanceSystem = default!;
     [Dependency] protected SharedAudioSystem Audio = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] protected SharedPointLightSystem Light = default!;
-    [Dependency] private SharedPowerReceiverSystem _receiver = default!;
+    [Dependency] protected SharedPowerReceiverSystem _receiver = default!;
     [Dependency] protected SharedPopupSystem Popup = default!;
-    [Dependency] private SharedSpeakOnUIClosedSystem _speakOn = default!;
+    [Dependency] protected SharedSpeakOnUIClosedSystem _speakOn = default!;
     [Dependency] protected SharedUserInterfaceSystem UISystem = default!;
     [Dependency] protected IRobustRandom Randomizer = default!;
     [Dependency] private EmagSystem _emag = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<VendingMachineComponent, ComponentGetState>(OnVendingGetState);
         SubscribeLocalEvent<VendingMachineComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<VendingMachineComponent, GotEmaggedEvent>(OnEmagged);
         SubscribeLocalEvent<VendingMachineComponent, EmpPulseEvent>(OnEmpPulse);
@@ -53,43 +56,9 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         Subs.BuiEvents<VendingMachineComponent>(VendingMachineUiKey.Key, subs =>
         {
             subs.Event<VendingMachineEjectMessage>(OnInventoryEjectMessage);
+            subs.Event<VendingMachineEjectCountMessage>(OnInventoryEjectCountMessage);
+            subs.Event<VendingMachineWithdrawMessage>(OnWithdrawMessage);
         });
-    }
-
-    private void OnVendingGetState(Entity<VendingMachineComponent> entity, ref ComponentGetState args)
-    {
-        var component = entity.Comp;
-
-        var inventory = new Dictionary<string, VendingMachineInventoryEntry>();
-        var emaggedInventory = new Dictionary<string, VendingMachineInventoryEntry>();
-        var contrabandInventory = new Dictionary<string, VendingMachineInventoryEntry>();
-
-        foreach (var weh in component.Inventory)
-        {
-            inventory[weh.Key] = new(weh.Value);
-        }
-
-        foreach (var weh in component.EmaggedInventory)
-        {
-            emaggedInventory[weh.Key] = new(weh.Value);
-        }
-
-        foreach (var weh in component.ContrabandInventory)
-        {
-            contrabandInventory[weh.Key] = new(weh.Value);
-        }
-
-        args.State = new VendingMachineComponentState()
-        {
-            Inventory = inventory,
-            EmaggedInventory = emaggedInventory,
-            ContrabandInventory = contrabandInventory,
-            Contraband = component.Contraband,
-            EjectEnd = component.EjectEnd,
-            DenyEnd = component.DenyEnd,
-            DispenseOnHitEnd = component.DispenseOnHitEnd,
-            Broken = component.Broken,
-        };
     }
 
     public override void Update(float frameTime)
@@ -146,6 +115,47 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         AuthorizedVend(entity.Owner, actor, args.Type, args.ID, entity.Comp);
     }
 
+    //<Onyx Economy>
+    protected virtual int GetEntryPrice(EntityPrototype proto, VendingMachineComponent component)
+    {
+        return 5;
+    }
+
+    protected virtual void OnInventoryEjectCountMessage(EntityUid uid, VendingMachineComponent component, VendingMachineEjectCountMessage args)
+    {
+        if (!_receiver.IsPowered(uid))
+            return;
+
+        if (args.Actor is not { Valid: true } entity || Deleted(entity))
+            return;
+
+        AuthorizedVend(uid, entity, args.Entry.Type, args.Entry.ID, component, args.Count);
+    }
+
+    protected virtual void AuthorizedVend(EntityUid uid, EntityUid sender, InventoryType type, string itemId, VendingMachineComponent component, int count)
+    {
+        if (IsAuthorized(uid, sender, component))
+        {
+            TryEjectVendorItem(uid, type, itemId, component.CanShoot, sender, component);
+        }
+    }
+
+    protected virtual int GetPrice(VendingMachineInventoryEntry entry, VendingMachineComponent comp, int count)
+    {
+        return (int)(entry.Price * count * comp.PriceMultiplier * _cfg.GetCVar(CCVars.VendingPriceMultiplier));
+    }
+
+    protected virtual void UpdateVendingMachineInterfaceState(EntityUid uid, VendingMachineComponent component)
+    {
+    }
+
+    protected virtual void OnWithdrawMessage(EntityUid uid, VendingMachineComponent component, VendingMachineWithdrawMessage args)
+    {
+        component.Credits = 0;
+        Audio.PlayPvs(component.SoundWithdrawCurrency, uid);
+        UpdateVendingMachineInterfaceState(uid, component);
+    }
+    //</Onyx Economy>
     protected virtual void OnMapInit(EntityUid uid, VendingMachineComponent component, MapInitEvent args)
     {
         RestockInventoryFromPrototype(uid, component, component.InitialStockQuality);
@@ -208,7 +218,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     /// <param name="itemId">The prototype ID of the item</param>
     /// <param name="throwItem">Whether the item should be thrown in a random direction after ejection</param>
     /// <param name="vendComponent"></param>
-    public void TryEjectVendorItem(EntityUid uid, InventoryType type, string itemId, bool throwItem, EntityUid? user = null, VendingMachineComponent? vendComponent = null)
+    public void TryEjectVendorItem(EntityUid uid, InventoryType type, string itemId, bool throwItem, EntityUid? user = null, VendingMachineComponent? vendComponent = null, EntityUid? sender = null)
     {
         if (!Resolve(uid, ref vendComponent))
             return;
@@ -222,17 +232,29 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
 
         if (string.IsNullOrEmpty(entry?.ID))
         {
-            Popup.PopupClient(Loc.GetString("vending-machine-component-try-eject-invalid-item"), uid);
+            //<Onyx Economy>
+            if (sender.HasValue)
+                Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-invalid-item"), uid, sender.Value);
+            //</Onyx Economy>
             Deny((uid, vendComponent));
             return;
         }
 
         if (entry.Amount <= 0)
         {
-            Popup.PopupClient(Loc.GetString("vending-machine-component-try-eject-out-of-stock"), uid);
+            //<Onyx Economy>
+            if (sender.HasValue)
+                Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-out-of-stock"), uid, sender.Value);
+            //</Onyx Economy>
             Deny((uid, vendComponent));
             return;
         }
+
+
+        //</Onyx Economy>
+        //<Onyx ServerEconomy>
+        // Economy moved to ServerVendingMachineSystem due to shared assembly restrictions
+        //</Onyx ServerEconomy>
 
         // Start Ejecting, and prevent users from ordering while anim playing
         vendComponent.EjectEnd = Timing.CurTime + vendComponent.EjectDelay;
@@ -328,9 +350,9 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         if (!PrototypeManager.TryIndex(component.PackPrototypeId, out VendingMachineInventoryPrototype? packPrototype))
             return;
 
-        AddInventoryFromPrototype(uid, packPrototype.StartingInventory, InventoryType.Regular, component, restockQuality);
-        AddInventoryFromPrototype(uid, packPrototype.EmaggedInventory, InventoryType.Emagged, component, restockQuality);
-        AddInventoryFromPrototype(uid, packPrototype.ContrabandInventory, InventoryType.Contraband, component, restockQuality);
+        AddInventoryFromPrototype(uid, packPrototype.StartingInventory, InventoryType.Regular, packPrototype, component, restockQuality);
+        AddInventoryFromPrototype(uid, packPrototype.EmaggedInventory, InventoryType.Emagged, packPrototype, component, restockQuality);
+        AddInventoryFromPrototype(uid, packPrototype.ContrabandInventory, InventoryType.Contraband, packPrototype, component, restockQuality);
         Dirty(uid, component);
     }
 
@@ -343,7 +365,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
             return;
 
         // only emag if there are emag-only items
-        args.Handled = component.EmaggedInventory.Count > 0;
+        args.Handled = component.EmaggedInventory.Count > 0 || component.PriceMultiplier > 0;
     }
 
     /// <summary>
@@ -380,6 +402,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
 
     private void AddInventoryFromPrototype(EntityUid uid, Dictionary<string, uint>? entries,
         InventoryType type,
+        VendingMachineInventoryPrototype packPrototype,
         VendingMachineComponent? component = null, float restockQuality = 1.0f)
     {
         if (!Resolve(uid, ref component) || entries == null)
@@ -405,7 +428,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
 
         foreach (var (id, amount) in entries)
         {
-            if (PrototypeManager.HasIndex<EntityPrototype>(id))
+            if (PrototypeManager.TryIndex<EntityPrototype>(id, out var proto))
             {
                 var restock = amount;
                 var chanceOfMissingStock = 1 - restockQuality;
@@ -423,9 +446,12 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
                     // restocking a machine who doesn't want to force vend out
                     // all the items just to restock one empty slot without
                     // losing the rest of the restock.
-                    entry.Amount = Math.Min(entry.Amount + amount, 3 * restock);
+                    entry.Amount = Math.Min(entry.Amount + amount, 3 * amount);
                 else
-                    inventory.Add(id, new VendingMachineInventoryEntry(type, id, restock));
+                {
+                    var price = packPrototype.Prices.TryGetValue(id, out var p) ? p : GetEntryPrice(proto, component);
+                    inventory.Add(id, new VendingMachineInventoryEntry(type, id, amount, price));
+                }
             }
         }
     }

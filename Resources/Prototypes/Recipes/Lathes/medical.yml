@@ -42,6 +42,16 @@
   id: Hemostat
   result: Hemostat
 
+# <Onyx-Surgery>
+- type: latheRecipe
+  parent: BaseSurgicalRecipe
+  id: BoneGel
+  result: BoneGel
+  materials:
+    Steel: 100
+    Plastic: 100
+# </Onyx-Surgery>
+
 - type: latheRecipe
   id: BodyBag
   result: BodyBagFolded

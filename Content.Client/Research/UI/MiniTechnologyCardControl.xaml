@@ -1,12 +1,19 @@
-﻿<Control xmlns="https://spacestation14.io">
+﻿<Control xmlns="https://spacestation14.io"
+         xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+         Margin="0 1">
     <BoxContainer Orientation="Horizontal">
+        <!-- <Onyx-FancyResearchCards-edited> -->
         <PanelContainer Name="Background"
-                        Access="Public"
-                        StyleClasses="PdaBackground"
-                        VerticalExpand="False"
-                        HorizontalExpand="False"
-                        MaxWidth="10"
-                        Margin="0 0 -5 0"/>
+                         Access="Public"
+                         VerticalExpand="True"
+                         HorizontalExpand="False"
+                         MinWidth="5"
+                         MaxWidth="5">
+            <PanelContainer.PanelOverride>
+                <gfx:StyleBoxFlat BackgroundColor="#FFFFFF"/>
+            </PanelContainer.PanelOverride>
+        </PanelContainer>
+        <!-- </Onyx-FancyResearchCards-edited> -->
         <Button Name="Main"
                 Disabled="True"
                 HorizontalExpand="True"
@@ -15,11 +22,13 @@
                 Margin="0"
                 ToolTip="foobar">
             <BoxContainer Orientation="Horizontal" Margin="0">
+                <!-- <Onyx-FancyResearchCards-edited> -->
                 <TextureRect Name="Texture"
-                             HorizontalExpand="False"
-                             VerticalExpand="False"
-                             Margin="1"
-                             TextureScale="0.5 0.5"/>
+                              HorizontalExpand="False"
+                              VerticalExpand="False"
+                              Margin="1"
+                              TextureScale="1 1"/>
+                <!-- </Onyx-FancyResearchCards-edited> -->
                 <Control MinWidth="5"/>
                 <RichTextLabel Name="NameLabel" StyleClasses="LabelSubText" VerticalAlignment="Center"/>
             </BoxContainer>

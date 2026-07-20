@@ -247,6 +247,7 @@
     normalState: normal-unshaded
     denyState: deny-unshaded
     loopDeny: false
+    priceMultiplier: 0
   - type: DatasetVocalizer
     dataset: BoozeOMatAds
   - type: SpeakOnUIClosed
@@ -344,6 +345,7 @@
     brokenState: broken
     normalState: normal-unshaded
     ejectState: eject-unshaded
+    priceMultiplier: 0
   - type: DatasetVocalizer
     dataset: ChefvendAds
   - type: SpeakOnUIClosed
@@ -797,6 +799,7 @@
     brokenState: broken
     normalState: normal-unshaded
     ejectState: eject-unshaded
+    priceMultiplier: 0
   - type: DatasetVocalizer
     dataset: DinnerwareAds
   - type: SpeakOnUIClosed
@@ -982,6 +985,7 @@
     normalState: normal-unshaded
     ejectState: eject-unshaded
     denyState: deny-unshaded
+    priceMultiplier: 0
   - type: DatasetVocalizer
     dataset: NutriMaxAds
   - type: SpeakOnUIClosed

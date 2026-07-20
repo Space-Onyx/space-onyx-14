@@ -1,0 +1,60 @@
+- type: latheRecipe
+  parent: BaseSurgicalRecipe
+  id: EnergyScalpel
+  result: EnergyScalpel
+  completetime: 2
+  materials:
+    Steel: 600
+    Glass: 150
+    Gold: 150
+
+- type: latheRecipe
+  parent: BaseSurgicalRecipe
+  id: AdvancedRetractor
+  result: AdvancedRetractor
+  completetime: 2
+  materials:
+    Steel: 600
+    Glass: 150
+    Silver: 150
+
+- type: latheRecipe
+  parent: BaseSurgicalRecipe
+  id: EnergyCautery
+  result: EnergyCautery
+  completetime: 2
+  materials:
+    Steel: 600
+    Glass: 150
+    Plasma: 150
+
+- type: latheRecipe
+  parent: BaseSurgicalRecipe
+  id: AdvancedBoneGel
+  result: AdvancedBoneGel
+  completetime: 2
+  materials:
+    Steel: 600
+    Glass: 150
+    Plasma: 150
+
+- type: latheRecipe
+  parent: BaseSurgicalRecipe
+  id: OmnimedTool
+  result: OmnimedTool
+  completetime: 4
+  materials:
+    Steel: 1800
+    Glass: 600
+    Plasma: 600
+    Gold: 300
+    Silver: 300
+
+- type: latheRecipePack
+  id: OnyxAdvancedSurgery
+  recipes:
+  - EnergyScalpel
+  - AdvancedRetractor
+  - EnergyCautery
+  - AdvancedBoneGel
+  - OmnimedTool

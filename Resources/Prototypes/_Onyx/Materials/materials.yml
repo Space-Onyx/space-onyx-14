@@ -1,0 +1,17 @@
+- type: material
+  id: BSCrystal
+  stackEntity: MaterialBSCrystal1
+  name: materials-bscrystal
+  unit: materials-unit-piece
+  icon: { sprite: _Onyx/Objects/Materials/bluespace_crystal.rsi, state: bluespace_crystal }
+  color: "#80ffff"
+  price: 1.175
+
+- type: material
+  id: BSCrystalUnprocessed
+  stackEntity: MaterialBSCrystal1Unprocessed
+  name: materials-bscrystal-unprocessed
+  unit: materials-unit-piece
+  icon: { sprite: _Onyx/Objects/Materials/bluespace_crystal.rsi, state: bluespace_crystal }
+  color: "#80ffff"
+  price: 1.175

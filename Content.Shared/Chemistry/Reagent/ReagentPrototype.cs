@@ -136,6 +136,14 @@ namespace Content.Shared.Chemistry.Reagent
         [DataField]
         public FixedPoint2 EvaporationSpeed = FixedPoint2.Zero;
 
+        // <Onyx-ClothingDirt>
+        /// <summary>
+        /// How much clothing dirt one unit of this reagent removes.
+        /// </summary>
+        [DataField]
+        public FixedPoint2 ClothingDirtCleanMultiplier = FixedPoint2.Zero;
+        // </Onyx-ClothingDirt>
+
         /// <summary>
         /// If this reagent can be used to mop up other reagents.
         /// </summary>

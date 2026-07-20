@@ -320,6 +320,10 @@
     - BorgModules
     - MechParts
     - MechEquipment
+    # <Onyx-Cybernetics>
+    - OnyxBasicCybernetics
+    - OnyxAdvancedCybernetics
+    # </Onyx-Cybernetics>
   - type: MaterialStorage
     whitelist: *StandardMaterialWhitelist
   - type: OreSiloClient
@@ -392,20 +396,26 @@
     runningState: icon
     unlitIdleState: unlit
     unlitRunningState: unlit-building
+    # <Onyx-DepartmentTechfabRecipes-edited>
     staticPacks:
     - SecurityEquipmentStatic
     - SecurityPracticeStatic
     - SecurityAmmoStatic
     - SecurityWeaponsStatic
+    - PowerCellsStatic
+    - ScienceExplosives
     dynamicPacks:
-    - SalvageSecurityBoards
-    - SalvageSecurityWeapons
     - SecurityEquipment
     - SecurityBoards
     - SecurityExplosives
     - SecurityAmmo
     - SecurityWeapons
     - SecurityDisablers
+    # <Onyx-Cybernetics>
+    - OnyxSecurityCybernetics
+    # </Onyx-Cybernetics>
+    - PowerCells
+    # </Onyx-DepartmentTechfabRecipes-edited>
   - type: EmagLatheRecipes
     emagStaticPacks:
     - SyndicateAmmoStatic
@@ -474,6 +484,7 @@
     runningState: icon
     unlitIdleState: unlit
     unlitRunningState: unlit-building
+    # <Onyx-DepartmentTechfabRecipes-edited>
     staticPacks:
     - TopicalsStatic
     - ChemistryStatic
@@ -482,8 +493,22 @@
     - MedicalClothingStatic
     - EmptyMedkitsStatic
     - SurgeryStatic
+    - MedicalBoardsStatic
+    - PowerCellsStatic
     dynamicPacks:
     - Chemistry
+    - MedicalBoards
+    # <Onyx-AdvancedSurgery>
+    - OnyxAdvancedSurgery
+    # </Onyx-AdvancedSurgery>
+    # <Onyx-Cybernetics>
+    - OnyxMedicalCybernetics
+    # </Onyx-Cybernetics>
+    # <Onyx-LanguageTranslators>
+    - OnyxTranslatorImplanters
+    # </Onyx-LanguageTranslators>
+    - PowerCells
+    # </Onyx-DepartmentTechfabRecipes-edited>
   - type: Machine
     board: MedicalTechFabCircuitboard
   - type: StealTarget

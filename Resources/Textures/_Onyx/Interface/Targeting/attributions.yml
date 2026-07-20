@@ -1,0 +1,31 @@
+- files:
+  - target_doll.png
+  - Doll/eyes_hover.png
+  - Doll/eyes.png
+  - Doll/groin_hover.png
+  - Doll/groin.png
+  - Doll/head_hover.png
+  - Doll/head.png
+  - Doll/leftarm_hover.png
+  - Doll/leftarm.png
+  - Doll/leftfoot_hover.png
+  - Doll/leftfoot.png
+  - Doll/lefthand_hover.png
+  - Doll/lefthand.png
+  - Doll/leftleg_hover.png
+  - Doll/leftleg.png
+  - Doll/mouth_hover.png
+  - Doll/mouth.png
+  - Doll/rightarm_hover.png
+  - Doll/rightarm.png
+  - Doll/rightfoot_hover.png
+  - Doll/rightfoot.png
+  - Doll/righthand_hover.png
+  - Doll/righthand.png
+  - Doll/rightleg_hover.png
+  - Doll/rightleg.png
+  - Doll/torso_hover.png
+  - Doll/torso.png
+  license: AGPL-3.0-or-later
+  copyright: gluesniffler <159397573+gluesniffler@users.noreply.github.com>
+  source: https://github.com/Goob-Station/Goob-Station/commit/0824244689aa13a10b23dc9826efb970e99234fc

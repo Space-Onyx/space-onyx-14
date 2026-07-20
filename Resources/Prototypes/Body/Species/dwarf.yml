@@ -13,7 +13,10 @@
             state: jumpsuit-female
   - type: InitialBody
     organs:
-      Torso: OrganHumanTorso
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganHumanChest
+      Groin: OrganHumanGroin
+      # </Onyx-ChestGroin-edited>
       Head: OrganHumanHead
       ArmLeft: OrganHumanArmLeft
       ArmRight: OrganHumanArmRight
@@ -45,6 +48,11 @@
   id: MobDwarf
   name: Urist McHands the Dwarf
   components:
+  # <Onyx-Languages>
+  - type: LanguageKnowledge
+    speaks: [TauCetiBasic, SolCommon]
+    understands: [TauCetiBasic, SolCommon]
+  # </Onyx-Languages>
   - type: Fixtures
     fixtures: # TODO: This needs a second fixture just for mob collisions.
       fix1:

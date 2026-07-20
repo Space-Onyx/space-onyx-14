@@ -1,0 +1,32 @@
+- type: technology
+  id: TechFabs
+  name: research-technology-tech-fabs
+  icon:
+    sprite: Structures/Machines/techfab.rsi
+    state: icon
+  discipline: Industrial
+  tier: 1
+  cost: 7500
+  recipeUnlocks:
+    - EngineeringTechFabCircuitboardRecipe
+    - ServiceTechFabCircuitboardRecipe
+    - CargoTechFabCircuitboardRecipe
+    - ScienceTechFabCircuitboardRecipe
+  position: 2,3
+  technologyPrerequisites:
+    - IndustrialEngineering
+- type: technology
+  id: SpecTechFabs
+  name: research-technology-spec-tech-fabs
+  icon:
+    sprite: Structures/Machines/techfab.rsi
+    state: icon
+  discipline: Industrial
+  tier: 2
+  cost: 15000
+  recipeUnlocks:
+    - MedicalTechFabCircuitboardRecipe
+    - SecurityTechFabCircuitboardRecipe
+  position: 2,4
+  technologyPrerequisites:
+    - TechFabs

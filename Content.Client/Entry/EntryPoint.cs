@@ -1,4 +1,5 @@
 using Content.Client.Administration.Managers;
+using Content.Client._Onyx.Discord;
 using Content.Client.Changelog;
 using Content.Client.Chat.Managers;
 using Content.Client.Corvax.ExportSprites;
@@ -83,7 +84,7 @@ namespace Content.Client.Entry
         [Dependency] private ClientsidePlaytimeTrackingManager _clientsidePlaytimeManager = default!;
         [Dependency] private ClientFeedbackManager _feedbackManager = null!;
         [Dependency] private EntityScreenshotGenerator _entityScreenshotGenerator = default!; // Corvax-Wiki
-
+        [Dependency] private DiscordIdManager _discordIdManager = default!;
         public override void PreInit()
         {
             ClientContentIoC.Register(Dependencies);
@@ -138,6 +139,7 @@ namespace Content.Client.Entry
 
             _componentFactory.GenerateNetIds();
             _adminManager.Initialize();
+            _discordIdManager.Initialize();
             _entityScreenshotGenerator.Initialize(); // Corvax-Wiki
             _screenshotHook.Initialize();
             _fullscreenHook.Initialize();

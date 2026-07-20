@@ -1,0 +1,10 @@
+- type: construction
+  id: ComputerTabletopFrame
+  name: construction-recipe-computer-tabletop-frame
+  description: construction-recipe-computer-tabletop-frame-desc
+  graph: ComputerTabletop
+  startNode: start
+  targetNode: tabletop computer
+  category: construction-category-machines
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false

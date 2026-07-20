@@ -418,3 +418,13 @@ ui-options-admin-overlay-ghost-hide-distance = Ghost overlay hide range from mou
 
 ui-options-admin-strip-overlay-title = Strip Overlay
 ui-options-admin-strip-overlay-setting = Show strip overlay by default
+
+# Onyx-Posing
+ui-options-header-posing = Posing
+ui-options-function-toggle-posing = Toggle Posing
+ui-options-function-posing-offset-left = Pose Offset Left
+ui-options-function-posing-offset-right = Pose Offset Right
+ui-options-function-posing-offset-up = Pose Offset Up
+ui-options-function-posing-offset-down = Pose Offset Down
+ui-options-function-posing-rotate-positive = Pose Rotate Positive
+ui-options-function-posing-rotate-negative = Pose Rotate Negative

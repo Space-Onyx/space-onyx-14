@@ -1,4 +1,13 @@
 using Content.Server.Medical.Components;
+// <Onyx-HealthAnalyzer-StatusDoll>
+using Content.Shared._Onyx.Medical.Surgery;
+using Content.Shared._Onyx.Medical;
+using Content.Shared._Onyx.Targeting;
+using Content.Shared._Onyx.Wounds;
+using Content.Shared.Body.Systems;
+using Content.Shared.Damage;
+using Content.Shared.Damage.Systems;
+// </Onyx-HealthAnalyzer-StatusDoll>
 using Content.Shared.Body.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage.Components;
@@ -34,6 +43,11 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
     [Dependency] private TransformSystem _transformSystem = default!;
     [Dependency] private SharedPopupSystem _popupSystem = default!;
     [Dependency] private BloodstreamSystem _bloodstreamSystem = default!;
+    // <Onyx-HealthAnalyzer-StatusDoll>
+    [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private WoundSystem _wounds = default!;
+    // </Onyx-HealthAnalyzer-StatusDoll>
 
     public override void Initialize()
     {
@@ -111,7 +125,7 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
             _audio.PlayPvs(uid.Comp.ScanningEndSound, uid);
 
         OpenUserInterface(args.User, uid);
-        BeginAnalyzingEntity(uid, args.Target.Value);
+        BeginAnalyzingEntity(uid, args.Target.Value, args.User);
         args.Handled = true;
     }
 
@@ -155,11 +169,10 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
     /// </summary>
     /// <param name="healthAnalyzer">The health analyzer that should receive the updates</param>
     /// <param name="target">The entity to start analyzing</param>
-    private void BeginAnalyzingEntity(Entity<HealthAnalyzerComponent> healthAnalyzer, EntityUid target)
+    private void BeginAnalyzingEntity(Entity<HealthAnalyzerComponent> healthAnalyzer, EntityUid target, EntityUid user)
     {
         //Link the health analyzer to the scanned entity
         healthAnalyzer.Comp.ScannedEntity = target;
-
         _toggle.TryActivate(healthAnalyzer.Owner);
 
         UpdateScannedUser(healthAnalyzer, target, true);
@@ -209,7 +222,6 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
 
         var uiState = GetHealthAnalyzerUiState(target);
         uiState.ScanMode = scanMode;
-
         _uiSystem.ServerSendUiMessage(
             healthAnalyzer,
             HealthAnalyzerUiKey.Key,
@@ -254,7 +266,129 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
             bloodAmount,
             null,
             bleeding,
-            unrevivable
+            unrevivable,
+            // <Onyx-HealthAnalyzer-StatusDoll>
+            BuildPartDamage(entity),
+            BuildWoundDiagnostics(entity),
+            // <Onyx-HealthAnalyzerOrgans-edited>
+            BuildOrganInfo(entity)
+            // </Onyx-HealthAnalyzerOrgans-edited>
+            // </Onyx-HealthAnalyzer-StatusDoll>
         );
     }
+
+    // <Onyx-HealthAnalyzer-StatusDoll>
+    public Dictionary<TargetBodyPart, DamageSpecifier>? BuildPartDamage(EntityUid body)
+    {
+        if (!HasComp<SurgeryTargetComponent>(body))
+            return null;
+
+        var result = new Dictionary<TargetBodyPart, DamageSpecifier>();
+        foreach (var (part, bodyPart) in _body.GetBodyChildren(body))
+        {
+            if (!TryComp(part, out DamageableComponent? damageable) ||
+                !SharedTargetingSystem.TryConvert(bodyPart.PartType, bodyPart.Symmetry, out var target))
+                continue;
+
+            var damage = new DamageSpecifier(_damageable.GetAllDamage((part, damageable)));
+            result[target] = damage;
+            if (target == TargetBodyPart.Chest)
+                result[TargetBodyPart.Groin] = new DamageSpecifier(damage);
+        }
+
+        return result;
+    }
+
+    public HealthAnalyzerWoundDiagnostics? BuildWoundDiagnostics(EntityUid body)
+    {
+        if (!HasComp<SurgeryTargetComponent>(body))
+            return null;
+
+        var result = new Dictionary<TargetBodyPart, HealthAnalyzerWoundDiagnostic>();
+        foreach (var (part, bodyPart) in _body.GetBodyChildren(body))
+        {
+            if (!TryComp(part, out WoundableComponent? woundable) ||
+                !SharedTargetingSystem.TryConvert(bodyPart.PartType, bodyPart.Symmetry, out var target))
+                continue;
+
+            var fracture = FractureGrade.None;
+            var fractureTreatment = FractureTreatment.None;
+            var bleedingRate = 0f;
+            var bleedingTreatment = BleedingTreatment.None;
+            var highestBleedingRate = 0f;
+            ushort scarCount = 0;
+
+            foreach (var wound in _wounds.GetWounds((part, woundable)))
+            {
+                if (TryComp(wound, out WoundFractureComponent? foundFracture) &&
+                    foundFracture.Treatment != FractureTreatment.Mended &&
+                    foundFracture.Grade > fracture)
+                {
+                    fracture = foundFracture.Grade;
+                    fractureTreatment = foundFracture.Treatment;
+                }
+
+                if (TryComp(wound, out WoundBleedingComponent? foundBleeding) && foundBleeding.CurrentRate > 0f)
+                {
+                    bleedingRate += foundBleeding.CurrentRate;
+                    if (foundBleeding.CurrentRate > highestBleedingRate)
+                    {
+                        highestBleedingRate = foundBleeding.CurrentRate;
+                        bleedingTreatment = foundBleeding.Treatment;
+                    }
+                }
+
+                if (HasComp<WoundScarComponent>(wound))
+                    scarCount++;
+            }
+
+            var diagnostic = new HealthAnalyzerWoundDiagnostic(
+                fracture,
+                fractureTreatment,
+                bleedingRate,
+                bleedingTreatment,
+                scarCount);
+            if (diagnostic.HasFindings)
+                result[target] = diagnostic;
+        }
+
+        return new HealthAnalyzerWoundDiagnostics(result);
+    }
+
+    // <Onyx-HealthAnalyzerOrgans-edited>
+    private List<HealthAnalyzerOrganInfo>? BuildOrganInfo(EntityUid body)
+    {
+        if (!HasComp<SurgeryTargetComponent>(body))
+            return null;
+
+        var result = new List<HealthAnalyzerOrganInfo>();
+        foreach (var (organ, component) in _body.GetBodyOrgans(body))
+        {
+            result.Add(new HealthAnalyzerOrganInfo(
+                GetNetEntity(organ),
+                component.Health,
+                component.MaxHealth,
+                OrganOrder(component.Category?.Id)));
+        }
+
+        result.Sort((left, right) => left.Order.CompareTo(right.Order));
+        return result;
+    }
+
+    private static int OrganOrder(string? category) => category switch
+    {
+        "Brain" => 0,
+        "Eyes" => 1,
+        "Ears" => 2,
+        "Tongue" => 3,
+        "Lungs" => 4,
+        "Heart" => 5,
+        "Liver" => 6,
+        "Stomach" => 7,
+        "Appendix" => 8,
+        "Kidneys" => 9,
+        _ => 10,
+    };
+    // </Onyx-HealthAnalyzerOrgans-edited>
+    // </Onyx-HealthAnalyzer-StatusDoll>
 }

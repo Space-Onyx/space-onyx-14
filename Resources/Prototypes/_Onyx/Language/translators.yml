@@ -1,0 +1,98 @@
+- type: entity
+  id: OnyxTranslatorBase
+  parent: BaseItem
+  abstract: true
+  name: translator
+  description: Translates speech between Tau Ceti Basic and another language. Use it to toggle translation.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Devices/translator.rsi
+    state: icon
+    layers:
+    - state: icon
+    - state: translator
+      shader: unshaded
+      visible: false
+      map: [ "enum.ToggleableVisuals.Layer" ]
+  - type: Item
+    sprite: _Onyx/Objects/Devices/translator.rsi
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ToggleableVisuals.Enabled:
+        enum.ToggleableVisuals.Layer:
+          True: { visible: true }
+          False: { visible: false }
+  - type: HandheldTranslator
+
+- type: entity
+  id: ChittinTranslator
+  parent: OnyxTranslatorBase
+  name: chittin translator
+  components: [{ type: HandheldTranslator, spoken: [TauCetiBasic, Chittin], understood: [TauCetiBasic, Chittin], requires: [TauCetiBasic, Chittin] }]
+
+- type: entity
+  id: RootSpeakTranslator
+  parent: OnyxTranslatorBase
+  name: rootspeak translator
+  components: [{ type: HandheldTranslator, spoken: [TauCetiBasic, RootSpeak], understood: [TauCetiBasic, RootSpeak], requires: [TauCetiBasic, RootSpeak] }]
+
+- type: entity
+  id: MofficTranslator
+  parent: OnyxTranslatorBase
+  name: moffic translator
+  components: [{ type: HandheldTranslator, spoken: [TauCetiBasic, Moffic], understood: [TauCetiBasic, Moffic], requires: [TauCetiBasic, Moffic] }]
+
+- type: entity
+  id: DraconicTranslator
+  parent: OnyxTranslatorBase
+  name: draconic translator
+  components: [{ type: HandheldTranslator, spoken: [TauCetiBasic, Draconic], understood: [TauCetiBasic, Draconic], requires: [TauCetiBasic, Draconic] }]
+
+- type: entity
+  id: BubblishTranslator
+  parent: OnyxTranslatorBase
+  name: bubblish translator
+  components: [{ type: HandheldTranslator, spoken: [TauCetiBasic, Bubblish], understood: [TauCetiBasic, Bubblish], requires: [TauCetiBasic, Bubblish] }]
+
+- type: entity
+  id: CalcicTranslator
+  parent: OnyxTranslatorBase
+  name: calcic translator
+  components: [{ type: HandheldTranslator, spoken: [TauCetiBasic, Calcic], understood: [TauCetiBasic, Calcic], requires: [TauCetiBasic, Calcic] }]
+
+- type: entity
+  id: NewKinPidginTranslator
+  parent: OnyxTranslatorBase
+  name: ka'rakk translator
+  components: [{ type: HandheldTranslator, spoken: [TauCetiBasic, NewKinPidgin], understood: [TauCetiBasic, NewKinPidgin], requires: [TauCetiBasic, NewKinPidgin] }]
+
+- type: entity
+  id: CanilunztTranslator
+  parent: OnyxTranslatorBase
+  name: canilunzt translator
+  components: [{ type: HandheldTranslator, spoken: [TauCetiBasic, Canilunzt], understood: [TauCetiBasic, Canilunzt], requires: [TauCetiBasic, Canilunzt] }]
+
+- type: entity
+  id: SiikMaasTranslator
+  parent: OnyxTranslatorBase
+  name: siik'maas translator
+  components: [{ type: HandheldTranslator, spoken: [TauCetiBasic, SiikMaas], understood: [TauCetiBasic, SiikMaas], requires: [TauCetiBasic, SiikMaas] }]
+
+- type: entity
+  id: RobotTalkTranslator
+  parent: OnyxTranslatorBase
+  name: robot talk translator
+  components: [{ type: HandheldTranslator, spoken: [TauCetiBasic, RobotTalk], understood: [TauCetiBasic, RobotTalk], requires: [TauCetiBasic, RobotTalk] }]
+
+- type: entity
+  id: NekomimeticTranslator
+  parent: OnyxTranslatorBase
+  name: nekomimetic translator
+  components: [{ type: HandheldTranslator, spoken: [TauCetiBasic, Nekomimetic], understood: [TauCetiBasic, Nekomimetic], requires: [TauCetiBasic, Nekomimetic] }]
+
+- type: entity
+  id: SolCommonTranslator
+  parent: OnyxTranslatorBase
+  name: sol common translator
+  components: [{ type: HandheldTranslator, spoken: [TauCetiBasic, SolCommon], understood: [TauCetiBasic, SolCommon], requires: [TauCetiBasic, SolCommon] }]

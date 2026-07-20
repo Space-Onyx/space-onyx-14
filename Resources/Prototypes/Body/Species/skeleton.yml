@@ -54,7 +54,10 @@
             state: jumpsuit-female
   - type: InitialBody
     organs:
-      Torso: OrganSkeletonPersonTorso
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganSkeletonPersonChest
+      Groin: OrganSkeletonPersonGroin
+      # </Onyx-ChestGroin-edited>
       Head: OrganSkeletonPersonHead
       ArmLeft: OrganSkeletonPersonArmLeft
       ArmRight: OrganSkeletonPersonArmRight
@@ -110,6 +113,11 @@
       Male: Skeleton
       Female: Skeleton
       Unsexed: Skeleton
+  # <Onyx-Languages>
+  - type: LanguageKnowledge
+    speaks: [TauCetiBasic, Calcic]
+    understands: [TauCetiBasic, Calcic]
+  # </Onyx-Languages>
   - type: SkeletonAccent
   - type: Fixtures
     fixtures:

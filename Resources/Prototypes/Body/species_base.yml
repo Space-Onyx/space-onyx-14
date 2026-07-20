@@ -25,9 +25,15 @@
         sprite: Mobs/Effects/brute_damage.rsi
         color: "#FF0000"
       Burn:
-        sprite: Mobs/Effects/burn_damage.rsi
+         sprite: Mobs/Effects/burn_damage.rsi
+  # <Onyx-Carrying>
+  - type: Carriable
+  # </Onyx-Carrying>
   - type: StatusIcon
     bounds: -0.5,-0.5,0.5,0.5
+  # <GoobStation-Disease>
+  - type: DiseaseCarrier
+  # </GoobStation-Disease>
   - type: JobStatus
   - type: RotationVisuals
     defaultRotation: 90
@@ -132,6 +138,10 @@
         type: HumanoidMarkingModifierBoundUserInterface
       enum.StrippingUiKey.Key:
         type: StrippableBoundUserInterface
+      # <Onyx-Surgery>
+      enum.SurgeryUIKey.Key:
+        type: SurgeryBoundUserInterface
+      # </Onyx-Surgery>
   - type: Puller
   - type: Speech
     speechSounds: Alto
@@ -141,6 +151,11 @@
       Male: MaleHuman
       Female: FemaleHuman
       Unsexed: MaleHuman
+  # <Onyx-Languages>
+  - type: LanguageKnowledge
+    speaks: [TauCetiBasic]
+    understands: [TauCetiBasic]
+  # </Onyx-Languages>
   - type: Emoting
   - type: BodyEmotes
     soundsId: GeneralBodyEmotes
@@ -158,6 +173,11 @@
     - FootstepSound
     - DoorBumpOpener
     - AnomalyHost
+  # <Onyx-InteractionVerbs>
+  - type: OwnInteractionVerbs
+  # </Onyx-InteractionVerbs>
+  - type: Posing # <Onyx-Posing>
+  - type: SpeechBarks # <Onyx-Barks>
 
 - type: entity
   abstract: true
@@ -187,6 +207,22 @@
         Piercing: -0.05
         Slash: -0.05
   - type: Fingerprint
+  # <Onyx-Footprints>
+  - type: FootprintOwner
+  - type: SolutionManager
+    solutions:
+    - SolutionFootprintOwner
+  # </Onyx-Footprints>
+  # <Onyx-Surgery>
+  - type: SurgeryTarget
+  # </Onyx-Surgery>
+  # <Onyx-WoundSystem>
+  - type: WoundHost
+  # </Onyx-WoundSystem>
+  # <Onyx-Targeting>
+  - type: Targeting
+  - type: PartStatus
+  # </Onyx-Targeting>
   - type: Blindable
   - type: Temperature
     currentTemperature: 310.15

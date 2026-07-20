@@ -36,6 +36,9 @@
   - Drill
   - Saw
   - Hemostat
+  # <Onyx-Surgery>
+  - BoneGel
+  # </Onyx-Surgery>
 
 - type: latheRecipePack
   id: MedicalStatic
@@ -108,3 +111,6 @@
   - StasisBedMachineCircuitboard
   - CryoPodMachineCircuitboard
   - BiomassReclaimerMachineCircuitboard
+  # <Onyx-Cybernetics>
+  - MedicalBiofabMachineBoard
+  # </Onyx-Cybernetics>

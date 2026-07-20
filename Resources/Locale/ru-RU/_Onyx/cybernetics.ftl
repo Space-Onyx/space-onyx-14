@@ -1,0 +1,51 @@
+research-technology-onyx-basic-cybernetics = Базовая кибернетика
+research-technology-onyx-advanced-cybernetics = Продвинутая кибернетика
+
+ent-MedicalBiofabricator = медицинский биофабрикатор
+    .desc = Производит органы и биосинтетические части тела из биомассы.
+ent-MedicalBiofabricatorFlatpack = упаковка медицинского биофабрикатора
+    .desc = Универсально-сборная упаковка, используемая для сборки медицинского биофабрикатора.
+ent-MedicalBiofabMachineBoard = плата медицинского биофабрикатора
+    .desc = Машинная плата медицинского биофабрикатора.
+
+ent-BioSynthHeart = биосинтетическое сердце
+ent-BioSynthLiver = биосинтетическая печень
+ent-BioSynthLungs = биосинтетические лёгкие
+ent-BioSynthEyes = биосинтетические глаза
+ent-BioSynthTongue = биосинтетический язык
+ent-BioSynthHeadEmpty = пустая биосинтетическая голова
+ent-BioSynthLeftArm = биосинтетическая левая рука
+ent-BioSynthRightArm = биосинтетическая правая рука
+ent-BioSynthLeftHand = биосинтетическая левая кисть
+ent-BioSynthRightHand = биосинтетическая правая кисть
+ent-BioSynthLeftLeg = биосинтетическая левая нога
+ent-BioSynthRightLeg = биосинтетическая правая нога
+ent-BioSynthLeftFoot = биосинтетическая левая стопа
+ent-BioSynthRightFoot = биосинтетическая правая стопа
+
+ent-LeftArmCybernetic = кибернетическая левая рука
+ent-RightArmCybernetic = кибернетическая правая рука
+ent-LeftHandCybernetic = кибернетическая левая кисть
+ent-RightHandCybernetic = кибернетическая правая кисть
+ent-LeftLegCybernetic = кибернетическая левая нога
+ent-RightLegCybernetic = кибернетическая правая нога
+ent-LeftFootCybernetic = кибернетическая левая стопа
+ent-RightFootCybernetic = кибернетическая правая стопа
+ent-JawsOfLifeLeftArm = левая рука J.A.W.S.
+    .desc = Кибернетическая рука, способная вскрывать двери под напряжением.
+ent-JawsOfLifeRightArm = правая рука J.A.W.S.
+    .desc = Кибернетическая рука, способная вскрывать двери под напряжением.
+ent-SpeedLeftLeg = левая нога S.P.E.E.D.
+    .desc = Кибернетическая нога, повышающая скорость передвижения.
+ent-SpeedRightLeg = правая нога S.P.E.E.D.
+    .desc = Кибернетическая нога, повышающая скорость передвижения.
+
+ent-BasicCyberneticEyes = кибернетические глаза
+ent-MedicalCyberneticEyes = кибернетические глаза с медицинским HUD
+ent-SecurityCyberneticEyes = кибернетические глаза с охранным HUD
+ent-DiagnosticCyberneticEyes = кибернетические глаза с диагностическим HUD
+ent-BasicCyberneticHeart = кибернетическое сердце
+ent-UpgradedCyberneticHeart = улучшенное кибернетическое сердце
+ent-BasicCyberneticLiver = кибернетическая печень
+ent-BasicCyberneticLungs = кибернетические лёгкие
+ent-UpgradedCyberneticLungs = улучшенные кибернетические лёгкие

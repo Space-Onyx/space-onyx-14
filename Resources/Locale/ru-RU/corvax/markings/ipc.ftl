@@ -30,7 +30,9 @@ marking-IpcZenghuZenghuMainTorso1 = Торс Зенгху (вариант 1)
 marking-IpcZenghuZenghuMainLArm2 = Левая рука Зенгху (вариант 2)
 marking-IpcZenghuZenghuMainRHand1 = Правая кисть Зенгху (вариант 1)
 marking-IpcZenghuZenghuMainRLeg2 = Правая нога Зенгху (вариант 2)
-marking-IpcZenghuZenghuMainGroin = Пах Зенгху
+# <Onyx-ChestGroin-edited>
+marking-IpcZenghuZenghuMainGroin = Таз Зенгху
+# </Onyx-ChestGroin-edited>
 marking-IpcZenghuZenghuMainRLeg1 = Правая нога Зенгху (вариант 1)
 marking-IpcZenghuZenghuMainHead2 = Голова Зенгху (вариант 2)
 marking-IpcZenghuZenghuMainLArm1 = Левая рука Зенгху (вариант 1)

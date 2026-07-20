@@ -1,0 +1,55 @@
+- type: job
+  id: Virologist
+  name: job-name-virologist
+  description: job-description-virologist
+  playTimeTracker: JobVirologist
+  requirements:
+  - !type:DepartmentTimeRequirement
+    department: Medical
+    time: 4h
+  startingGear: VirologistGear
+  icon: JobIconVirologist
+  supervisors: job-supervisors-cmo
+  access:
+  - Medical
+  - Maintenance
+  extendedAccess:
+  - Chemistry
+
+- type: startingGear
+  id: VirologistGear
+  equipment:
+    ears: ClothingHeadsetMedical
+    eyes: ClothingEyesHudMedical
+    belt: ClothingBeltMedicalFilled
+
+- type: chameleonOutfit
+  id: VirologistChameleonOutfit
+  job: Virologist
+  equipment:
+    ears: ClothingHeadsetMedical
+    eyes: ClothingEyesHudMedical
+    belt: ClothingBeltMedicalFilled
+
+- type: playTimeTracker
+  id: JobVirologist
+
+- type: roleLoadout
+  id: JobVirologist
+  groups:
+  - Inventory
+  - GroupTankHarness
+  - MedicalMask
+  - VirologistJumpsuit
+  - MedicalGloves
+  - VirologistBackpack
+  - VirologistOuterClothing
+  - MedicalShoes
+  - VirologistPDAGroup
+  - Glasses
+  - SurvivalMedical
+  - Trinkets
+  - GroupSpeciesBreathToolMedical
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks

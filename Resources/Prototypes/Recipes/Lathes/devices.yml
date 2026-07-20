@@ -136,10 +136,13 @@
   result: ClothingBackpackHolding
   completetime: 5
   materials:
+    # <Onyx-BluespaceCrafting-edited>
     Steel: 2000
     Silver: 750
     Plasma: 1500
     Uranium: 150
+    BSCrystal: 500
+    # </Onyx-BluespaceCrafting-edited>
 
 - type: latheRecipe
   parent: ClothingBackpackHolding

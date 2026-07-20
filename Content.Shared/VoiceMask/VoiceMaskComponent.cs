@@ -83,5 +83,23 @@ public sealed partial class VoiceMaskComponent : Component
     /// </summary>
     [DataField]
     public LocId TitleText = "voice-mask-name-change-window";
+
+    // <Onyx-Barks>
+    [DataField]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public string BarkId = "Human1";
+
+    [DataField]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public float BarkPitch = 1f;
+
+    [DataField]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public float MinVar = 0.1f;
+
+    [DataField]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public float MaxVar = 0.5f;
+    // </Onyx-Barks>
 }
 

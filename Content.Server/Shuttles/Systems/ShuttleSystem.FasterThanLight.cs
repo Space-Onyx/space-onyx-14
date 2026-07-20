@@ -78,6 +78,7 @@ public sealed partial class ShuttleSystem
     {
         SubscribeLocalEvent<StationPostInitEvent>(OnStationPostInit);
         SubscribeLocalEvent<FTLComponent, ComponentShutdown>(OnFtlShutdown);
+        SubscribeLocalEvent<GravityUpmassComponent, MapInitEvent>(OnGravityUpmassMapInit);
 
         _cfg.OnValueChanged(CCVars.FTLStartupTime, time => DefaultStartupTime = time, true);
         _cfg.OnValueChanged(CCVars.FTLTravelTime, time => DefaultTravelTime = time, true);
@@ -220,11 +221,16 @@ public sealed partial class ShuttleSystem
             return false;
         }
 
-        if (_physicsQuery.TryComp(shuttleUid, out var shuttlePhysics))
+        float? customMassLimit = null;
+        if (TryComp<Content.Server.Shuttles.Components.GravityUpmassComponent>(shuttleUid, out var upmass))
         {
+            customMassLimit = upmass.MaxFtlMass == 0 ? FTLMassLimit : upmass.MaxFtlMass;
+        }
 
-            // Too large to FTL
-            if (FTLMassLimit > 0 &&  shuttlePhysics.Mass > FTLMassLimit)
+        if (TryComp<PhysicsComponent>(shuttleUid, out var shuttlePhysics))
+        {
+            var massLimit = customMassLimit ?? FTLMassLimit;
+            if (massLimit > 0 && shuttlePhysics.Mass > massLimit)
             {
                 reason = Loc.GetString("shuttle-console-mass");
                 return false;
@@ -1006,5 +1012,13 @@ public sealed partial class ShuttleSystem
 
         var ev = new ShuttleFlattenEvent(xform.MapUid.Value, aabbs);
         RaiseLocalEvent(ref ev);
+    }
+
+    private void OnGravityUpmassMapInit(EntityUid uid, GravityUpmassComponent component, MapInitEvent args)
+    {
+        if (component.MaxFtlMass == 0)
+        {
+            component.MaxFtlMass = FTLMassLimit;
+        }
     }
 }

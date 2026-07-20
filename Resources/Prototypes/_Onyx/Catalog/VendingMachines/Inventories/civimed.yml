@@ -1,0 +1,26 @@
+- type: vendingMachineInventory
+  id: CiviMedVendInventory
+  startingInventory:
+    HandheldHealthAnalyzer: 5
+    Brutepack: 4
+    Ointment: 10
+    Bloodpack: 10
+    Gauze: 10
+    EmergencyMedipen: 3
+    PillCanisterTricordrazine: 3
+    BodyBagFolded: 5
+    ClothingEyesHudMedical: 2
+    ClothingEyesEyepatchHudMedical: 2
+    LightImplanter: 2
+  prices:
+    HandheldHealthAnalyzer: 15
+    Brutepack: 9
+    Ointment: 10
+    Bloodpack: 10
+    Gauze: 10
+    EmergencyMedipen: 15
+    PillCanisterTricordrazine: 10
+    BodyBagFolded: 9
+    ClothingEyesHudMedical: 15
+    ClothingEyesEyepatchHudMedical: 15
+    LightImplanter: 20

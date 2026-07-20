@@ -6,17 +6,22 @@ namespace Content.Shared.CartridgeLoader.Cartridges;
 public sealed class NewsReaderUiMessageEvent : CartridgeMessageEvent
 {
     public readonly NewsReaderUiAction Action;
+    public readonly int? ArticleIndex;
 
-    public NewsReaderUiMessageEvent(NewsReaderUiAction action)
+    public NewsReaderUiMessageEvent(NewsReaderUiAction action, int? articleIndex = null)
     {
         Action = action;
+        ArticleIndex = articleIndex;
     }
 }
 
 [Serializable, NetSerializable]
-public enum NewsReaderUiAction
+public enum NewsReaderUiAction // <Onyx-edited>
 {
     Next,
     Prev,
-    NotificationSwitch
+    NotificationSwitch,
+    ShowArticle,
+    ShowList,
+    BackToMain
 }

@@ -17,6 +17,7 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Random;
 using Content.Shared.Examine;
 using Content.Shared.Localizations;
+using Content.Shared._Onyx.Targeting;
 
 namespace Content.Shared.Weapons.Reflect;
 
@@ -33,6 +34,7 @@ public sealed partial class ReflectSystem : EntitySystem
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private TargetingSnapshotSystem _targetingSnapshots = default!;
 
     public override void Initialize()
     {
@@ -132,6 +134,8 @@ public sealed partial class ReflectSystem : EntitySystem
             projectile.Comp.Shooter = user;
             projectile.Comp.Weapon = user;
             Dirty(projectile, projectile.Comp);
+            // Onyx-Targeting: reflected projectiles inherit the reflector's current intent.
+            _targetingSnapshots.Refresh(projectile, user);
         }
         else
         {

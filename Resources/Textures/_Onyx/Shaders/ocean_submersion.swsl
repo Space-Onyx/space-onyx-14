@@ -1,0 +1,11 @@
+light_mode unshaded;
+
+uniform highp float submersionDepth;
+uniform highp float submergedAlpha;
+
+void fragment()
+{
+    highp vec4 tex = zTexture(UV);
+    highp float modifier = UV.y > submersionDepth ? 1.0 : submergedAlpha;
+    COLOR = vec4(tex.rgb, tex.a * modifier);
+}

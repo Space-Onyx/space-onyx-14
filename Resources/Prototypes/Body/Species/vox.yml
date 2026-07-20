@@ -62,14 +62,9 @@
     enum.HumanoidVisualLayers.TailOverlay:
       limit: 1
       required: false
-    enum.HumanoidVisualLayers.UndergarmentTop:
-      limit: 1
-      required: false
-      nudityDefault: [ UndergarmentTopTanktopVox ]
-    enum.HumanoidVisualLayers.UndergarmentBottom:
-      limit: 1
-      required: false
-      nudityDefault: [ UndergarmentBottomBoxersVox ]
+    # <Onyx-Underwear-edited>
+    # Undergarment marking defaults removed in favor of wearable underwear items.
+    # </Onyx-Underwear-edited>
 
 - type: entity
   parent: BaseSpeciesAppearance
@@ -78,6 +73,9 @@
   name: vox appearance
   components:
   - type: Inventory
+    # <Onyx-Underwear>
+    templateId: humanNoUnderwear
+    # </Onyx-Underwear>
     speciesId: vox
     displacements:
       jumpsuit:
@@ -133,7 +131,10 @@
           state: hand_r
   - type: InitialBody
     organs:
-      Torso: OrganVoxTorso
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganVoxChest
+      Groin: OrganVoxGroin
+      # </Onyx-ChestGroin-edited>
       Head: OrganVoxHead
       ArmLeft: OrganVoxArmLeft
       ArmRight: OrganVoxArmRight
@@ -180,6 +181,11 @@
       Male: UnisexVox
       Female: UnisexVox
       Unsexed: UnisexVox
+  # <Onyx-Languages>
+  - type: LanguageKnowledge
+    speaks: [TauCetiBasic, NewKinPidgin]
+    understands: [TauCetiBasic, NewKinPidgin]
+  # </Onyx-Languages>
   - type: Butcherable
     spawned:
     - id: FoodMeatChicken

@@ -1,12 +1,16 @@
+using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Hitscan.Events;
+using Content.Shared._Onyx.Targeting;
+using Content.Shared._Onyx.Wounds;
 
 namespace Content.Shared.Weapons.Hitscan.Systems;
 
 public sealed partial class HitscanBasicDamageSystem : EntitySystem
 {
     [Dependency] private DamageableSystem _damage = default!;
+    [Dependency] private WoundDamageRoutingSystem _woundRouting = default!;
 
     public override void Initialize()
     {
@@ -22,7 +26,26 @@ public sealed partial class HitscanBasicDamageSystem : EntitySystem
 
         var dmg = ent.Comp.Damage * _damage.UniversalHitscanDamageModifier;
 
-        if(!_damage.TryChangeDamage(args.Data.HitEntity.Value, dmg, out var damageDealt, origin: args.Data.Gun))
+        // Onyx-Targeting: Shooter is the damage origin; snapshot supplies the fixed anatomical intent.
+        bool damaged;
+        DamageSpecifier damageDealt;
+        if (TryComp(ent, out TargetingSnapshotComponent? snapshot) &&
+            HasComp<WoundHostComponent>(args.Data.HitEntity.Value))
+        {
+            damaged = _woundRouting.TryApplyTargetedDamage(args.Data.HitEntity.Value,
+                dmg,
+                snapshot.RequestedTarget,
+                snapshot.Shooter,
+                out damageDealt);
+        }
+        else
+        {
+            damaged = _damage.TryChangeDamage(args.Data.HitEntity.Value,
+                dmg,
+                out damageDealt,
+                origin: args.Data.Shooter);
+        }
+        if (!damaged)
             return;
 
         var damageEvent = new HitscanDamageDealtEvent

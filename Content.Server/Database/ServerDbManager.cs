@@ -61,6 +61,14 @@ namespace Content.Server.Database
         Task<NetUserId?> GetAssignedUserIdAsync(string name);
         #endregion
 
+        #region Onyx DiscordAuth
+        Task<string?> GetDiscordIdAsync(Guid userId);
+        Task<Guid?> GetUserIdByDiscordIdAsync(string discordId);
+        Task UnlinkDiscordIdAsync(Guid userId);
+        Task<string> GetOrCreateDiscordLinkCodeAsync(Guid userId, string ckey, TimeSpan lifetime);
+        Task RemoveDiscordLinkCodeAsync(Guid userId);
+        #endregion
+
         #region Bans
         /// <summary>
         ///     Looks up a ban by id.
@@ -522,6 +530,40 @@ namespace Content.Server.Database
             DbWriteOpsMetric.Inc();
             return RunDbCommand(() => _db.AssignUserIdAsync(name, userId));
         }
+
+
+        // <Onyx-DiscordAuth>
+        public Task<string?> GetDiscordIdAsync(Guid userId)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetDiscordIdAsync(userId));
+        }
+
+        public Task<Guid?> GetUserIdByDiscordIdAsync(string discordId)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetUserIdByDiscordIdAsync(discordId));
+        }
+
+        public Task UnlinkDiscordIdAsync(Guid userId)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.UnlinkDiscordIdAsync(userId));
+        }
+
+        public Task<string> GetOrCreateDiscordLinkCodeAsync(Guid userId, string ckey, TimeSpan lifetime)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetOrCreateDiscordLinkCodeAsync(userId, ckey, lifetime));
+        }
+
+        public Task RemoveDiscordLinkCodeAsync(Guid userId)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.RemoveDiscordLinkCodeAsync(userId));
+        }
+        // </Onyx-DiscordAuth>
+
 
         public Task<NetUserId?> GetAssignedUserIdAsync(string name)
         {

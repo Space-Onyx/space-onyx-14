@@ -17,6 +17,11 @@
   - Trinkets
 #  - ChiefMedicalOfficerJobTrinkets
   - GroupSpeciesBreathToolMedical
+  # <Onyx-Underwear-edited>
+  - OnyxTopCMO
+  - OnyxBottomCMO
+  - OnyxSocks
+  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobMedicalDoctor
@@ -35,6 +40,11 @@
   - Trinkets
 #  - MedicalDoctorJobTrinkets
   - GroupSpeciesBreathToolMedical
+  # <Onyx-Underwear-edited>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobMedicalIntern
@@ -48,6 +58,11 @@
   - Trinkets
 #  - MedicalInternJobTrinkets
   - GroupSpeciesBreathToolMedical
+  # <Onyx-Underwear-edited>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobChemist
@@ -64,6 +79,11 @@
   - Trinkets
 #  - ChemistJobTrinkets
   - GroupSpeciesBreathToolMedical
+  # <Onyx-Underwear-edited>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobParamedic
@@ -81,3 +101,8 @@
   - Trinkets
 #  - ParamedicJobTrinkets
   - GroupSpeciesBreathToolMedical
+  # <Onyx-Underwear-edited>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear-edited>

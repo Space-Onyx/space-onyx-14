@@ -1,6 +1,7 @@
 using Content.Client.Movement.Systems;
 using Content.Shared.Actions;
 using Content.Shared.Ghost;
+using Content.Shared._Onyx.Ghost;
 using Robust.Client.Console;
 using Robust.Client.GameObjects;
 using Robust.Client.Player;
@@ -191,6 +192,13 @@ namespace Content.Client.Ghost
             var msg = new GhostReturnToBodyRequest();
             RaiseNetworkEvent(msg);
         }
+
+        // <Onyx-Ghost>
+        public void ReturnToLobby()
+        {
+            RaiseNetworkEvent(new GhostReturnToLobbyRequestEvent());
+        }
+        // </Onyx-Ghost>
 
         public void OpenGhostRoles()
         {

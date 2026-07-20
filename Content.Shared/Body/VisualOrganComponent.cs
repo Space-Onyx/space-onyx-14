@@ -23,6 +23,14 @@ public sealed partial class VisualOrganComponent : Component
     [DataField(required: true), AutoNetworkedField, AlwaysPushInheritance]
     public PrototypeLayerData Data;
 
+    // <Onyx-CyberneticVisuals>
+    /// <summary>
+    /// Whether this organ's body layer is tinted by its humanoid profile.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public bool ColorFromProfile = true;
+    // </Onyx-CyberneticVisuals>
+
     /// <summary>
     /// When applying a profile, if the sex is present in this dictionary, overrides the state of the sprite data.
     /// Used for e.g. male vs female torsoes.

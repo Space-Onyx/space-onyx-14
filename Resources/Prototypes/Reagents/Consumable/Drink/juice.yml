@@ -57,6 +57,13 @@
       metabolites:
         Oculine: 1
         Nutriment: 1
+      # <Onyx-VirologyReagents>
+      effects:
+      - !type:ImmunityModifier
+        gainRateModifier: 0.000211695098702
+        strengthModifier: 0.00256600119637
+        statusLifetime: 3
+      # </Onyx-VirologyReagents>
 
 - type: reagent
   id: JuiceGrape
@@ -81,6 +88,16 @@
   metamorphicMaxFillLevels: 5
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # <Onyx-VirologyReagents>
+  metabolisms:
+    Medicine:
+      effects:
+      - !type:SatiateThirst
+      - !type:ImmunityModifier
+        gainRateModifier: 0.000211695098702
+        strengthModifier: 0.00256600119637
+        statusLifetime: 3
+  # </Onyx-VirologyReagents>
 
 - type: reagent
   id: JuiceLime
@@ -90,6 +107,16 @@
   physicalDesc: reagent-physical-desc-citric
   flavor: sour
   color: "#99bb43"
+  # <Onyx-VirologyReagents>
+  metabolisms:
+    Medicine:
+      effects:
+      - !type:SatiateThirst
+      - !type:ImmunityModifier
+        gainRateModifier: 0.000211695098702
+        strengthModifier: 0.00256600119637
+        statusLifetime: 3
+  # </Onyx-VirologyReagents>
 
 # /datum/reagent/drink/orangejuice/on_mob_life(var/mob/living/M)
 
@@ -113,6 +140,16 @@
   metamorphicMaxFillLevels: 5
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # <Onyx-VirologyReagents>
+  metabolisms:
+    Medicine:
+      effects:
+      - !type:SatiateThirst
+      - !type:ImmunityModifier
+        gainRateModifier: 0.000211695098702
+        strengthModifier: 0.00256600119637
+        statusLifetime: 3
+  # </Onyx-VirologyReagents>
 
 - type: reagent
   id: JuicePineapple
@@ -122,6 +159,16 @@
   physicalDesc: reagent-physical-desc-tropical
   flavor: pineapple
   color: yellow
+  # <Onyx-VirologyReagents>
+  metabolisms:
+    Medicine:
+      effects:
+      - !type:SatiateThirst
+      - !type:ImmunityModifier
+        gainRateModifier: 0.000211695098702
+        strengthModifier: 0.00256600119637
+        statusLifetime: 3
+  # </Onyx-VirologyReagents>
 
 - type: reagent
   id: JuiceTomato

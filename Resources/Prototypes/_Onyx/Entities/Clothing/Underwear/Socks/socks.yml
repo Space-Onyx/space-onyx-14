@@ -1,0 +1,770 @@
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksHigh
+  name: high socks
+  description: Nanotrasen high socks for station employees. Painted white.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socksknee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksNormal
+  name: socks
+  description: Standard Nanotrasen socks for station employees. Dyed white.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socksnorm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksShort
+  name: short socks
+  description: Nanotrasen short socks for station employees. Dyed white.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socksshort.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThigh
+  name: stockings
+  description: Standard Nanotrasen stockings for station employees. Dyed white.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socksthigh.rsi
+
+# Wizards
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksBee # HACK
+  name: bee socks
+  description: Make them loins buzz!
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socksbee.rsi
+
+#приколы празата
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksLaceThigh
+  name: lace stockings
+  description: Good looking lace stockings.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/lace_socks_thigh.rsi
+
+#Stockings
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksStockingsRed
+  name: red stockings
+  description: Red lace stockings. Not for a standart shift
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/red_stockings.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksStockingsBlack
+  name: black stockings
+  description: Black lace stockings. Not for a standart shift
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/black_stockings.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksStockingsWhite
+  name: white stockings
+  description: White lace stockings. With a pink bow
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/white_stockings.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksStockingsBlueshield
+  name: blueshield's stockings
+  description: Excellent warm stockings for the most beautiful guardian.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/stockings_blueshield.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksBlueshield
+  name: blueshield's socks
+  description: Excellent warm socks for the most beautiful guardian.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socks_blueshield.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksRabbit
+  name: rabbit socks
+  description: Cool rabbit socks
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socks_rabbit.rsi
+  - type: StaticPrice
+    price: 26
+
+# TGS
+
+## Носки
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksComfyBlue
+  name: blue socks
+  description: Comfy blue socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socks_comfyblue.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksComfyGrey
+  name: grey socks
+  description: Comfy grey socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socks_comfygrey.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksComfyRed
+  name: red socks
+  description: Comfy red socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socks_comfyred.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksComfyViolet
+  name: violet socks
+  description: Comfy violet socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socks_comfyviolet.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksAzure
+  name: azure socks
+  description: azure socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/azure_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksBlack
+  name: black socks
+  description: Black socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/black_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksCaptain
+  name: captain socks
+  description: Captain socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/cap_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksCentcom
+  name: centcom socks
+  description: Centcom socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/centcom_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksCyan
+  name: cyan socks
+  description: Cyan socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/cyan_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksFurr
+  name: furr socks
+  description: Furr socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/furr_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksGreen
+  name: green socks
+  description: Green socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/green_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksHomelander
+  name: homelander socks
+  description: Homelander socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/homelander_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksHop
+  name: hop socks
+  description: Hop socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/hop_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksHos
+  name: hos socks
+  description: Hos socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/hos_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksHotpink
+  name: hotpink socks
+  description: Hotpink socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/hotpink_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksOrange
+  name: orange socks
+  description: Orange socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/orange_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksSyndieGreen
+  name: syndie green socks
+  description: Syndie green socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/syndie_green_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksSyndieRed
+  name: syndie red socks
+  description: Syndie red socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/syndie_red_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksYellow
+  name: yellow socks
+  description: Yellow socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/yellow_norm.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksPink
+  name: pink socks
+  description: Pink socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/pink_norm.rsi
+
+## Гольфы
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeComfyBlue
+  name: blue knee socks
+  description: Comfy blue knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socks_kneecomfyblue.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeComfyGrey
+  name: grey knee socks
+  description: Comfy grey knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socks_kneecomfygrey.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeComfyRed
+  name: red knee socks
+  description: Comfy red knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socks_kneecomfyred.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeComfyViolet
+  name: violet knee socks
+  description: Comfy violet knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socks_kneecomfyviolet.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeAzure
+  name: azure knee socks
+  description: Azure knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/azure_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeBlack
+  name: black knee socks
+  description: Black knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/black_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeCaptain
+  name: captain knee socks
+  description: Captain knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/cap_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeCentcom
+  name: centcom knee socks
+  description: Centcom knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/centcom_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeCyan
+  name: cyan knee socks
+  description: Cyan knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/cyan_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeFishnet
+  name: fishnet knee socks
+  description: Fishnet knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/fishnet_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeFurr
+  name: furr knee socks
+  description: Furr knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/furr_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeGreen
+  name: green knee socks
+  description: Green knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/green_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeHolyday
+  name: holyday knee socks
+  description: Holyday knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/holyday_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeHomelander
+  name: homelander knee socks
+  description: Homelander knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/homelander_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeHop
+  name: hop knee socks
+  description: Hop knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/hop_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeHos
+  name: hos knee socks
+  description: Hos knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/hos_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeHotpink
+  name: hotpink knee socks
+  description: Hotpink knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/hotpink_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeOrange
+  name: orange knee socks
+  description: Orange knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/orange_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneePink
+  name: pink knee socks
+  description: Pink knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/pink_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeRainbow
+  name: rainbow knee socks
+  description: Rainbow knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/rainbow_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeSyndieGreen
+  name: syndie green knee socks
+  description: Syndie green knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/syndie_green_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeSyndieRed
+  name: syndie red knee socks
+  description: Syndie red knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/syndie_red_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeThin
+  name: thin knee socks
+  description: Thin knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/thin_knee.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksKneeYellow
+  name: yellow knee socks
+  description: Yellow knee socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/yellow_knee.rsi
+
+## Чулки
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighAzure
+  name: azure thigh socks
+  description: Azure thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/azure_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighBlack
+  name: black thigh socks
+  description: Black thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/black_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighBlue
+  name: blue thigh socks
+  description: Blue thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/blue_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighCaptain
+  name: captain thigh socks
+  description: Captain thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/cap_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighCentcom
+  name: centcom thigh socks
+  description: Centcom thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/centcom_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighCreepy
+  name: creepy thigh socks
+  description: Creepy thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/creepy_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighCyan
+  name: cyan thigh socks
+  description: Cyan thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/cyan_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksFullFishnet
+  name: fishnet full socks
+  description: Fishnet full socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/fishnet_full.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighFishnet
+  name: fishnet thigh socks
+  description: Fishnet thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/fishnet_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighFurr
+  name: furr thigh socks
+  description: Furr thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/furr_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighGreen
+  name: green thigh socks
+  description: Green thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/green_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighGrey
+  name: grey thigh socks
+  description: Grey thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/grey_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighHolyday
+  name: holyday thigh socks
+  description: Holyday thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/holyday_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighHomelander
+  name: homelander thigh socks
+  description: Homelander thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/homelander_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighHop
+  name: hop thigh socks
+  description: Hop thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/hop_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighHos
+  name: hos thigh socks
+  description: Hos thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/hos_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighHotpink
+  name: hotpink thigh socks
+  description: Hotpink thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/hotpink_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighMonochrome
+  name: monochrome thigh socks
+  description: Monochrome thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/monochrome_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighOrange
+  name: orange thigh socks
+  description: Orange thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/orange_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighPantyhose
+  name: pantyhose socks
+  description: Pantyhose socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/pantyhose.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighPurple
+  name: purple thigh socks
+  description: Purple thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/purple_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighRainbow
+  name: rainbow thigh socks
+  description: Rainbow thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/rainbow_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighRed
+  name: red thigh socks
+  description: Red thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/red_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighSyndieGreen
+  name: syndie green socks
+  description: Syndie green thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/syndie_green_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighSyndieRed
+  name: syndie redsocks
+  description: Syndie red thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/syndie_red_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighThin
+  name: thin thigh socks
+  description: Thin thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/thin_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksThighYellow
+  name: yellow thigh socks
+  description: Yellow thigh socks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/yellow_thigh.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearSocksBase
+  id: OnyxClothingUnderwearSocksCow
+  name: cow socks
+  description: Cute cow-themed socks. Moo!
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Socks/socks_cow.rsi

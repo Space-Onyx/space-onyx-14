@@ -1,6 +1,9 @@
 using System.Numerics;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
+// <Onyx-Footprints>
+using Content.Shared._Onyx.Footprints;
+// </Onyx-Footprints>
 using Content.Shared.FixedPoint;
 using Content.Shared.Fluids.Components;
 using Content.Shared.Interaction;
@@ -356,6 +359,10 @@ public abstract partial class SharedAbsorbentSystem : EntitySystem
         localPos = userXform.LocalRotation.RotateVec(localPos);
 
         _melee.DoLunge(user, absorbEnt, Angle.Zero, localPos, null);
+
+        // <Onyx-Footprints>
+        RaiseLocalEvent(target, new FootprintCleanEvent());
+        // </Onyx-Footprints>
 
         return true;
     }

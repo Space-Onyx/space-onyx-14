@@ -8,7 +8,7 @@
 
 - type: entity
   name: large plate
-  parent: BaseItem
+  parent: OnyxPlatableBase
   id: FoodPlate
   description: A large plate, excellent for bread.
   components:
@@ -87,6 +87,11 @@
   id: FoodPlateSmall
   description: A small plate. Delicate.
   components:
+  - type: PlateContainer
+    maxItems: 1
+    maxItemSize: Small
+    itemOffsets:
+    - 0,0.04
   - type: Sprite
     sprite: Objects/Consumable/Food/plates.rsi
     state: plate-small
@@ -133,7 +138,7 @@
 # Plastic Plate
 
 - type: entity
-  parent: BaseItem
+  parent: OnyxPlatableBase
   id: FoodPlatePlastic
   name: large plastic plate
   description: A large blue plastic plate, excellent for a birthday cake.
@@ -155,11 +160,16 @@
     - Trash
 
 - type: entity
-  parent: BaseItem
+  parent: OnyxPlatableBase
   id: FoodPlateSmallPlastic
   name: small plastic plate
   description: A blue plastic plate, excellent for slices of birthday cake.
   components:
+  - type: PlateContainer
+    maxItems: 1
+    maxItemSize: Small
+    itemOffsets:
+    - 0,0.04
   - type: Sprite
     sprite: Objects/Consumable/Food/plates.rsi
     state: plate-small-plastic

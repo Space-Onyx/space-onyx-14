@@ -1,6 +1,9 @@
 using System.Globalization;
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
+// <Onyx-Languages>
+using Content.Server._Onyx.Language;
+// </Onyx-Languages>
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
 using Content.Server.Speech.EntitySystems;
@@ -47,6 +50,9 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private ReplacementAccentSystem _wordreplacement = default!;
     [Dependency] private ExamineSystemShared _examineSystem = default!;
     [Dependency] private EntityQuery<GhostHearingComponent> _ghostHearingQuery = default!;
+    // <Onyx-Languages>
+    [Dependency] private LanguageSystem _language = default!;
+    // </Onyx-Languages>
 
     // Corvax-TTS-Start: Moved from Server to Shared
     // public const int VoiceRange = 10; // how far voice goes in world units
@@ -206,7 +212,11 @@ public sealed partial class ChatSystem : SharedChatSystem
         // This message may have a radio prefix, and should then be whispered to the resolved radio channel
         if (checkRadioPrefix)
         {
-            if (TryProcessRadioMessage(source, message, out var modMessage, out var channel))
+            // <Onyx-SignLanguage-edited>
+            var canUseRadio = !TryComp<Content.Shared._Onyx.Language.LanguageSpeakerComponent>(source, out var speaker) ||
+                              speaker.CurrentLanguage != "Sign";
+            // </Onyx-SignLanguage-edited>
+            if (canUseRadio && TryProcessRadioMessage(source, message, out var modMessage, out var channel))
             {
                 SendEntityWhisper(source, modMessage, range, channel, nameOverride, hideLog, ignoreActionBlocker);
                 return;

@@ -13,6 +13,10 @@ namespace Content.Shared.Wagging;
 [RegisterComponent, NetworkedComponent]
 public sealed partial class WaggingComponent : Component
 {
+    // <Onyx-DynamicWagging>
+    public const string DefaultSuffix = "Animated";
+    // </Onyx-DynamicWagging>
+
     [DataField]
     public EntProtoId Action = "ActionToggleWagging";
 
@@ -28,7 +32,7 @@ public sealed partial class WaggingComponent : Component
     /// <summary>
     /// Suffix to add to get the animated marking.
     /// </summary>
-    public string Suffix = "Animated";
+    public string Suffix = DefaultSuffix;
 
     /// <summary>
     /// Is the entity currently wagging.

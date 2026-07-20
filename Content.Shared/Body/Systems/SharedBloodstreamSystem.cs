@@ -18,6 +18,11 @@ using Content.Shared.Popups;
 using Content.Shared.Random.Helpers;
 using Content.Shared.Rejuvenate;
 using Content.Shared.StatusEffectNew;
+using Content.Shared.Bed.Components;
+using Content.Shared._Onyx.Wounds; // Onyx-WoundSystem-edited
+// <Onyx-ClothingDirt>
+using Content.Shared._Onyx.Clothing;
+// </Onyx-ClothingDirt>
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
@@ -40,6 +45,9 @@ public abstract partial class SharedBloodstreamSystem : EntitySystem
     [Dependency] private AlertsSystem _alertsSystem = default!;
     [Dependency] private MobStateSystem _mobStateSystem = default!;
     [Dependency] private DamageableSystem _damageableSystem = default!;
+    // <Onyx-ClothingDirt>
+    [Dependency] private ClothingDirtSystem _clothingDirt = default!;
+    // </Onyx-ClothingDirt>
 
     public override void Initialize()
     {
@@ -183,6 +191,10 @@ public abstract partial class SharedBloodstreamSystem : EntitySystem
 
     private void OnDamageChanged(Entity<BloodstreamComponent> ent, ref DamageChangedEvent args)
     {
+        // Onyx-WoundSystem-edited: wound sources project bleeding for migrated bodies.
+        if (HasComp<WoundHostComponent>(ent))
+            return;
+
         // The incoming state from the server raises a DamageChangedEvent as well.
         // But the changes to the bloodstream have also been dirtied,
         // so we prevent applying them twice.
@@ -459,11 +471,37 @@ public abstract partial class SharedBloodstreamSystem : EntitySystem
         var ev = new BleedModifierEvent(entity.Comp.BleedAmount, entity.Comp.BleedReductionAmount);
         RaiseLocalEvent(entity, ref ev);
 
-        // Blood is removed from the bloodstream at a 1-1 rate with the bleed amount
-        TryBleedOut(entity.AsNullable(), ev.BleedAmount);
+        var bleed = ev.BleedAmount;
+        if (HasComp<StasisBedBuckledComponent>(entity))
+            bleed *= 0.5f;
+
+        if (_mobStateSystem.IsDead(entity))
+        {
+            var remaining = GetBloodLevel(entity.AsNullable()) - 0.65f;
+            if (remaining <= 0)
+                return;
+
+            // Corpses can lose at most 35% of their normal blood volume.
+            bleed = Math.Min(bleed * 0.5f, remaining * entity.Comp.BloodReferenceSolution.Volume.Float());
+        }
+
+        // <Onyx-ClothingDirt>
+        var dirtAmount = FixedPoint2.Min(FixedPoint2.New(bleed), FixedPoint2.New(1));
+        if (dirtAmount > 0)
+        {
+            var bloodDirt = entity.Comp.BloodReferenceSolution.Clone();
+            bloodDirt.SetReagentData(GetEntityBloodData(entity.AsNullable()));
+            bloodDirt.ScaleTo(dirtAmount);
+            _clothingDirt.TryDirtyWorn(entity.Owner, bloodDirt, dirtAmount, ClothingDirtSystem.BleedSlots);
+        }
+        // </Onyx-ClothingDirt>
+
+        TryBleedOut(entity.AsNullable(), bleed);
 
         // Bleed rate is reduced by the bleed reduction amount in the bloodstream component.
-        TryModifyBleedAmount(entity.AsNullable(), -ev.BleedReductionAmount);
+        // Onyx-WoundSystem-edited: clotting is distributed to wound sources by WoundBleedingSystem.
+        if (!HasComp<WoundHostComponent>(entity))
+            TryModifyBleedAmount(entity.AsNullable(), -ev.BleedReductionAmount);
     }
 
     /// <summary>

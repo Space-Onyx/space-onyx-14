@@ -40,3 +40,4 @@ chem-master-window-beaker-empty-text = Ёмкость пуста
 chem-master-window-beaker-low-text = Недостаточно реагентов в ёмкости
 chem-master-output-source = Источник реагентов:
 chem-master-no-source = Нет источника
+chem-master-window-search-reagent-label = Поиск:

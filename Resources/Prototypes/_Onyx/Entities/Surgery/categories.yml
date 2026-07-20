@@ -1,0 +1,6 @@
+- type: entityCategory
+  id: OnyxSurgeryInternal
+  hideSpawnMenu: true
+  components:
+  - Surgery
+  - SurgeryStep

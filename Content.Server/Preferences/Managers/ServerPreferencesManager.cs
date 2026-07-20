@@ -14,6 +14,7 @@ using Content.Shared.Humanoid.Markings;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
 using Content.Shared.Preferences.Loadouts;
+using Content.Shared._Onyx.SpeechBarks;
 using Content.Shared.Roles;
 using Content.Shared.Traits;
 using Robust.Server.Player;
@@ -183,6 +184,10 @@ namespace Content.Server.Preferences.Managers
                 species,
                 voice, // Corvax-TTS
                 profile.Age,
+                // <Onyx-HeightWidth>
+                profile.Height,
+                profile.Width,
+                // </Onyx-HeightWidth>
                 sex,
                 gender,
                 new HumanoidCharacterAppearance
@@ -196,7 +201,8 @@ namespace Content.Server.Preferences.Managers
                 (PreferenceUnavailableMode) profile.PreferenceUnavailable,
                 antags.ToHashSet(),
                 traits.ToHashSet(),
-                loadouts
+                loadouts,
+                new BarkData()
             );
         }
 

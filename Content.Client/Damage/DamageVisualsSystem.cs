@@ -1,9 +1,14 @@
 using System.Linq;
+// <Onyx-PartDamageVisuals>
+using Content.Shared._Onyx.Wounds;
+// </Onyx-PartDamageVisuals>
 using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
+using Content.Shared.Body.Part;
+using Content.Shared.Humanoid;
 using Robust.Client.GameObjects;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
@@ -36,7 +41,118 @@ public sealed partial class DamageVisualsSystem : VisualizerSystem<DamageVisuals
         base.Initialize();
 
         SubscribeLocalEvent<DamageVisualsComponent, ComponentInit>(InitializeEntity);
+        // <Onyx-PartDamageVisuals>
+        SubscribeLocalEvent<PartDamageVisualsComponent, AfterAutoHandleStateEvent>(OnPartDamageVisualsState);
+        SubscribeLocalEvent<BodyPartComponent, AfterAutoHandleStateEvent>(OnBodyPartState);
+        // </Onyx-PartDamageVisuals>
     }
+
+    // <Onyx-PartDamageVisuals>
+    private void OnPartDamageVisualsState(Entity<PartDamageVisualsComponent> ent, ref AfterAutoHandleStateEvent args)
+    {
+        if (TryComp(ent, out DamageVisualsComponent? visuals) && TryComp(ent, out AppearanceComponent? appearance))
+            HandleDamage(ent, appearance, visuals);
+
+        UpdateDetachedPartDamage(ent.Owner, ent.Comp);
+    }
+
+    private void OnBodyPartState(Entity<BodyPartComponent> ent, ref AfterAutoHandleStateEvent args)
+    {
+        if (TryComp(ent, out PartDamageVisualsComponent? damage))
+            UpdateDetachedPartDamage(ent.Owner, damage);
+    }
+
+    private void UpdateDetachedPartDamage(EntityUid uid, PartDamageVisualsComponent damage)
+    {
+        if (!TryComp(uid, out BodyPartComponent? part) || !TryComp(uid, out SpriteComponent? sprite))
+            return;
+
+        var detached = part.Body == null;
+        foreach (var (layer, layerDamage) in damage.Damage)
+        {
+            if (!TryGetDetachedDamagePrefix(layer, out var prefix))
+                continue;
+
+            var groups = layerDamage.GetDamagePerGroup(_prototypeManager);
+            UpdateDetachedDamageLayer(uid, sprite, layer, prefix, "Brute", groups.GetValueOrDefault("Brute"), detached);
+            UpdateDetachedDamageLayer(uid, sprite, layer, prefix, "Burn", groups.GetValueOrDefault("Burn"), detached);
+        }
+
+        if (detached)
+            return;
+
+        foreach (var layer in Enum.GetValues<HumanoidVisualLayers>())
+        {
+            SetDetachedDamageLayerVisible(uid, sprite, layer, "Brute", false);
+            SetDetachedDamageLayerVisible(uid, sprite, layer, "Burn", false);
+        }
+    }
+
+    private void UpdateDetachedDamageLayer(
+        EntityUid uid,
+        SpriteComponent sprite,
+        HumanoidVisualLayers layer,
+        string prefix,
+        string group,
+        FixedPoint2 amount,
+        bool detached)
+    {
+        var threshold = GetDetachedDamageThreshold(amount);
+        var key = $"OnyxDetached{layer}{group}";
+        if (!SpriteSystem.LayerMapTryGet((uid, sprite), key, out var index, false))
+        {
+            index = SpriteSystem.AddLayer((uid, sprite), new SpriteSpecifier.Rsi(
+                new ResPath($"_Onyx/Wounds/{group.ToLowerInvariant()}_damage.rsi"),
+                $"{prefix}_{group}_10"));
+            SpriteSystem.LayerMapSet((uid, sprite), key, index);
+            if (group == "Brute")
+                SpriteSystem.LayerSetColor((uid, sprite), index, Color.FromHex("#FF0000"));
+        }
+
+        var visible = detached && threshold > 0;
+        SpriteSystem.LayerSetVisible((uid, sprite), index, visible);
+        if (visible)
+            SpriteSystem.LayerSetRsiState((uid, sprite), index, $"{prefix}_{group}_{threshold}");
+    }
+
+    private void SetDetachedDamageLayerVisible(EntityUid uid, SpriteComponent sprite, HumanoidVisualLayers layer, string group, bool visible)
+    {
+        if (SpriteSystem.LayerMapTryGet((uid, sprite), $"OnyxDetached{layer}{group}", out var index, false))
+            SpriteSystem.LayerSetVisible((uid, sprite), index, visible);
+    }
+
+    private static int GetDetachedDamageThreshold(FixedPoint2 amount)
+    {
+        var value = amount.Float();
+        if (value >= 100) return 100;
+        if (value >= 70) return 70;
+        if (value >= 50) return 50;
+        if (value >= 30) return 30;
+        if (value >= 20) return 20;
+        if (value >= 10) return 10;
+        return 0;
+    }
+
+    private static bool TryGetDetachedDamagePrefix(HumanoidVisualLayers layer, out string prefix)
+    {
+        prefix = layer switch
+        {
+            HumanoidVisualLayers.Chest => "Chest",
+            HumanoidVisualLayers.Groin => "Groin",
+            HumanoidVisualLayers.Head => "Head",
+            HumanoidVisualLayers.LArm => "LArm",
+            HumanoidVisualLayers.RArm => "RArm",
+            HumanoidVisualLayers.LHand => "LHand",
+            HumanoidVisualLayers.RHand => "RHand",
+            HumanoidVisualLayers.LLeg => "LLeg",
+            HumanoidVisualLayers.RLeg => "RLeg",
+            HumanoidVisualLayers.LFoot => "LFoot",
+            HumanoidVisualLayers.RFoot => "RFoot",
+            _ => string.Empty,
+        };
+        return prefix.Length != 0;
+    }
+    // </Onyx-PartDamageVisuals>
 
     private void InitializeEntity(EntityUid entity, DamageVisualsComponent comp, ComponentInit args)
     {
@@ -367,6 +483,15 @@ public sealed partial class DamageVisualsSystem : VisualizerSystem<DamageVisuals
         if (damageVisComp.TargetLayers != null && damageVisComp.DamageOverlayGroups != null)
             UpdateDisabledLayers(uid, spriteComponent, component, damageVisComp);
 
+        // <Onyx-PartDamageVisuals-edited>
+        if (damageVisComp.TargetLayers != null && damageVisComp.DamageOverlayGroups != null &&
+            TryComp(uid, out PartDamageVisualsComponent? partDamage))
+        {
+            UpdatePartDamageVisuals((uid, spriteComponent, damageVisComp), partDamage);
+            return;
+        }
+        // </Onyx-PartDamageVisuals-edited>
+
         if (damageVisComp.Overlay && damageVisComp.TargetLayers == null)
             CheckOverlayOrdering((uid, spriteComponent), damageVisComp);
 
@@ -391,6 +516,28 @@ public sealed partial class DamageVisualsSystem : VisualizerSystem<DamageVisuals
 
         UpdateDamageVisuals(data.GroupList, (uid, damageComponent, spriteComponent, damageVisComp));
     }
+
+    // <Onyx-PartDamageVisuals>
+    private void UpdatePartDamageVisuals(
+        Entity<SpriteComponent, DamageVisualsComponent> entity,
+        PartDamageVisualsComponent partDamage)
+    {
+        foreach (var layer in entity.Comp2.TargetLayerMapKeys)
+        {
+            var damage = layer is Content.Shared.Humanoid.HumanoidVisualLayers humanoidLayer
+                ? partDamage.Damage.GetValueOrDefault(humanoidLayer)
+                : null;
+            var groups = damage?.GetDamagePerGroup(_prototypeManager);
+
+            foreach (var group in entity.Comp2.DamageOverlayGroups!.Keys)
+            {
+                var amount = groups?.GetValueOrDefault(group) ?? FixedPoint2.Zero;
+                CheckThresholdBoundary(amount, FixedPoint2.Zero, entity.Comp2, out var threshold);
+                UpdateTargetLayer(entity, layer, group, threshold);
+            }
+        }
+    }
+    // </Onyx-PartDamageVisuals>
 
     /// <summary>
     ///     Checks if any layers were disabled in the last

@@ -53,6 +53,9 @@
   - type: InputMover
   - type: MobMover
   - type: MovementSpeedModifier
+  # <Onyx-Languages>
+  - type: LanguageSpeaker
+  # </Onyx-Languages>
   - type: LagCompensation
 
 - type: entity

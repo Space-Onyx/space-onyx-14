@@ -88,5 +88,21 @@
   - PortableGeneratorJrPacmanMachineCircuitboard
   - EmitterCircuitboard
   - TelecomServerCircuitboard
+  # <Onyx-Telecommunications>
+  - OnyxTelecomServerCircuitboard
+  - TelecomBusCircuitboard
+  - TelecomReceiverCircuitboard
+  - TelecomProcessorCircuitboard
+  - TelecomBroadcasterCircuitboard
+  - TelecomTrafficConsoleCircuitboard
+  # </Onyx-Telecommunications>
   - SMESAdvancedMachineCircuitboard
   - HolopadMachineCircuitboard
+  # <Onyx-DepartmentTechfabs>
+  - EngineeringTechFabCircuitboardRecipe
+  - ServiceTechFabCircuitboardRecipe
+  - CargoTechFabCircuitboardRecipe
+  - ScienceTechFabCircuitboardRecipe
+  - MedicalTechFabCircuitboardRecipe
+  - SecurityTechFabCircuitboardRecipe
+  # </Onyx-DepartmentTechfabs>

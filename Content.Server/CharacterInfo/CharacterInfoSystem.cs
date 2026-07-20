@@ -64,6 +64,16 @@ public sealed partial class CharacterInfoSystem : EntitySystem
             briefing = _roles.MindGetBriefing(mindId);
         }
 
-        RaiseNetworkEvent(new CharacterInfoEvent(GetNetEntity(entity), jobTitle, objectives, briefing), args.SenderSession);
+        // Get memory // <Onyx Economy>
+        var memory = new Dictionary<string, string>();
+        if (_minds.TryGetMind(entity, out _, out var mindComp))
+        {
+            foreach (var m in mindComp.Memories)
+            {
+                memory[m.Name] = m.Value;
+            }
+        }
+
+        RaiseNetworkEvent(new CharacterInfoEvent(GetNetEntity(entity), jobTitle, objectives, briefing, memory), args.SenderSession);
     }
 }

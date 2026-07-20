@@ -1,11 +1,12 @@
 using Content.Shared.Damage.Components;
+// <Onyx-PartPain>
+using Content.Shared._Onyx.Wounds;
+// </Onyx-PartPain>
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
-using Content.Shared.StatusEffectNew;
-using Content.Shared.Traits.Assorted;
 using JetBrains.Annotations;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
@@ -22,8 +23,10 @@ public sealed partial class DamageOverlayUiController : UIController
     [Dependency] private IPlayerManager _playerManager = default!;
 
     [UISystemDependency] private readonly MobThresholdSystem _mobThresholdSystem = default!;
-    [UISystemDependency] private readonly StatusEffectsSystem _statusEffects = default!;
     [UISystemDependency] private readonly DamageableSystem _damageable = default!;
+    // <Onyx-PartPain>
+    [UISystemDependency] private readonly PainSystem _pain = default!;
+    // </Onyx-PartPain>
     private Overlays.DamageOverlay _overlay = default!;
 
     public override void Initialize()
@@ -33,7 +36,18 @@ public sealed partial class DamageOverlayUiController : UIController
         SubscribeLocalEvent<LocalPlayerDetachedEvent>(OnPlayerDetached);
         SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
         SubscribeLocalEvent<MobThresholdChecked>(OnThresholdCheck);
+        // <Onyx-PartPain-edited>
+        EntityManager.EventBus.SubscribeLocalEvent<PainComponent, AfterAutoHandleStateEvent>(OnPainState);
+        // </Onyx-PartPain-edited>
     }
+
+    // <Onyx-PartPain-edited>
+    private void OnPainState(EntityUid uid, PainComponent component, ref AfterAutoHandleStateEvent args)
+    {
+        if (uid == _playerManager.LocalEntity)
+            UpdateOverlays(uid, EntityManager.GetComponentOrNull<MobStateComponent>(uid));
+    }
+    // </Onyx-PartPain-edited>
 
     private void OnPlayerAttach(LocalPlayerAttachedEvent args)
     {
@@ -105,20 +119,25 @@ public sealed partial class DamageOverlayUiController : UIController
                 FixedPoint2 painLevel = 0;
                 _overlay.PainLevel = 0;
 
-                if (!_statusEffects.TryEffectsWithComp<PainNumbnessStatusEffectComponent>(entity, out _))
+                // <Onyx-PartPain-edited>
+                if (EntityManager.TryGetComponent(entity, out PainComponent? pain))
+                {
+                    _overlay.PainLevel = FixedPoint2.Min(1f, _pain.GetPain((entity, pain)) / critThreshold).Float();
+                }
+                else
                 {
                     foreach (var painDamageType in injurable.PainDamageGroups)
                     {
-
                         damagePerGroup.TryGetValue(painDamageType, out var painDamage);
                         painLevel += painDamage;
                     }
                     _overlay.PainLevel = FixedPoint2.Min(1f, painLevel / critThreshold).Float();
+                }
+                // </Onyx-PartPain-edited>
 
-                    if (_overlay.PainLevel < 0.05f) // Don't show damage overlay if they're near enough to max.
-                    {
-                        _overlay.PainLevel = 0;
-                    }
+                if (_overlay.PainLevel < 0.05f) // Don't show damage overlay if they're near enough to max.
+                {
+                    _overlay.PainLevel = 0;
                 }
 
                 if (damagePerGroup.TryGetValue("Airloss", out var oxyDamage))

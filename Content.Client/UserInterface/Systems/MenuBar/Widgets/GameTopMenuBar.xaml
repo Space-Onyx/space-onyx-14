@@ -83,6 +83,18 @@
         HorizontalExpand="True"
         AppendStyleClass="{x:Static style:StyleClass.ButtonSquare}"
         />
+    <!-- <Onyx-LanguageMenu> -->
+    <ui:MenuButton
+        Name="LanguageButton"
+        Access="Internal"
+        Icon="{xe:Tex '/Textures/Interface/VerbIcons/information.svg.192dpi.png'}"
+        BoundKey="{x:Static is:ContentKeyFunctions.OpenLanguageMenu}"
+        ToolTip="{Loc 'game-hud-open-language-menu-button-tooltip'}"
+        MinSize="42 64"
+        HorizontalExpand="True"
+        AppendStyleClass="{x:Static style:StyleClass.ButtonSquare}"
+        />
+    <!-- </Onyx-LanguageMenu> -->
     <ui:MenuButton
         Name="SandboxButton"
         Access="Internal"

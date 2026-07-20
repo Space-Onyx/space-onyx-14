@@ -1,0 +1,54 @@
+- type: sourcePort
+  id: TelecomReceiverOutput
+  name: signal-port-name-telecom-receiver-output
+  description: signal-port-description-telecom-receiver-output
+  defaultLinks: [ TelecomBusInput ]
+
+- type: sinkPort
+  id: TelecomProcessorInput
+  name: signal-port-name-telecom-processor-input
+  description: signal-port-description-telecom-processor-input
+
+- type: sourcePort
+  id: TelecomProcessorOutput
+  name: signal-port-name-telecom-processor-output
+  description: signal-port-description-telecom-processor-output
+  defaultLinks: [ TelecomBusInput ]
+
+- type: sinkPort
+  id: TelecomBusInput
+  name: signal-port-name-telecom-bus-input
+  description: signal-port-description-telecom-bus-input
+
+- type: sourcePort
+  id: TelecomBusOutput
+  name: signal-port-name-telecom-bus-output
+  description: signal-port-description-telecom-bus-output
+  defaultLinks: [ TelecomProcessorInput, TelecomServerInput ]
+
+- type: sinkPort
+  id: TelecomServerInput
+  name: signal-port-name-telecom-server-input
+  description: signal-port-description-telecom-server-input
+
+- type: sourcePort
+  id: TelecomServerOutput
+  name: signal-port-name-telecom-server-output
+  description: signal-port-description-telecom-server-output
+  defaultLinks: [ TelecomBroadcasterInput ]
+
+- type: sinkPort
+  id: TelecomBroadcasterInput
+  name: signal-port-name-telecom-broadcaster-input
+  description: signal-port-description-telecom-broadcaster-input
+
+- type: sourcePort
+  id: TelecomServerMonitorOutput
+  name: signal-port-name-telecom-server-monitor-output
+  description: signal-port-description-telecom-server-monitor-output
+  defaultLinks: [ TelecomConsoleInput ]
+
+- type: sinkPort
+  id: TelecomConsoleInput
+  name: signal-port-name-telecom-console-input
+  description: signal-port-description-telecom-console-input

@@ -12,3 +12,12 @@
   femaleLastNames: NamesArachnidLast # Corvax-LastnameGender
   sexes:
   - Unsexed
+  # <Onyx-SpeciesDimensions>
+  baseScale: "1.16, 1.16"
+  defaultHeightCm: 185
+  defaultWeightKg: 73
+  minHeightCm: 140
+  maxHeightCm: 220
+  minWeightKg: 40
+  maxWeightKg: 95
+  # </Onyx-SpeciesDimensions>

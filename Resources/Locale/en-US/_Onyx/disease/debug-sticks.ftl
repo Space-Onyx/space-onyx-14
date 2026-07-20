@@ -1,0 +1,10 @@
+ent-MeleeDebugInfectTurboCancer = turbocancer stick
+    .desc = Need a taste of Chernobyl?
+ent-MeleeDebugInfectTheRot = the rot stick
+    .desc = Destroys everything. No, really.
+ent-MeleeDebugInfectFlu = flu stick
+    .desc = Gives you the flu. And people wonder where it comes from.
+ent-MeleeDebugInfectGravitosisA = gravitosis stick
+    .desc = Gives you gravitosis A.
+ent-MeleeDebugInfectGunemia = gunemia stick
+    .desc = Gives you gunemia.

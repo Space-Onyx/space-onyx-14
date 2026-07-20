@@ -1,0 +1,558 @@
+- type: loadoutEffectGroup
+  id: OnyxUnderwearBottomSpeciesRestrictions
+  effects:
+  - !type:SpeciesLoadoutEffect
+    species: [Human, Reptilian, SlimePerson, Dwarf, Moth, Vulpkanin, Tajaran, Felinid, Demon]
+
+- type: loadoutEffectGroup
+  id: OnyxUnderwearTopSpeciesRestrictions
+  effects:
+  - !type:SpeciesLoadoutEffect
+    species: [Human, Reptilian, SlimePerson, Dwarf, Moth, Vulpkanin, Tajaran, Felinid, Demon]
+
+- type: loadoutEffectGroup
+  id: OnyxUnderwearSocksSpeciesRestrictions
+  effects:
+  - !type:SpeciesLoadoutEffect
+    species: [Human, SlimePerson, Dwarf]
+
+- type: loadout
+  id: OnyxUnderwearBoxersWhite
+  effects: &underwearBottomEffects
+  - !type:GroupLoadoutEffect
+    proto: OnyxUnderwearBottomSpeciesRestrictions
+  equipment: { underwearb: OnyxClothingUnderwearBottomBoxersWhite }
+
+- type: loadout
+  id: OnyxUnderwearBoxersAmerica
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomBoxersAmerica }
+
+- type: loadout
+  id: OnyxUnderwearBoxersBoom
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomBoxersBoom }
+
+- type: loadout
+  id: OnyxUnderwearBriefsWhite
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomBriefsWhite }
+
+- type: loadout
+  id: OnyxUnderwearPantiesWhite
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomPantiesWhite }
+
+- type: loadout
+  id: OnyxUnderwearPantiesComfyWhite
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomPantiesComfyWhite }
+
+- type: loadout
+  id: OnyxUnderwearPantiesLace
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomPantiesLace }
+
+- type: loadout
+  id: OnyxUnderwearPantiesLaceBlue
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomPantiesLaceBlueAlternative }
+
+- type: loadout
+  id: OnyxUnderwearPantiesLaceRed
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomPantiesLaceRedAlternative }
+
+- type: loadout
+  id: OnyxUnderwearPantiesLaceBlack
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomPantiesLaceBlack }
+
+- type: loadout
+  id: OnyxUnderwearMonokiniWhite
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomMonokiniWhite }
+
+- type: loadout
+  id: OnyxUnderwearMonokiniBlack
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomMonokiniBlack }
+
+- type: loadout
+  id: OnyxUnderwearTShirt
+  effects: &underwearTopEffects
+  - !type:GroupLoadoutEffect
+    proto: OnyxUnderwearTopSpeciesRestrictions
+  equipment: { underweart: OnyxClothingUnderwearTopTShirt }
+
+- type: loadout
+  id: OnyxUnderwearBraWhite
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraWhite }
+
+- type: loadout
+  id: OnyxUnderwearBraComfyWhite
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraComfyWhite }
+
+- type: loadout
+  id: OnyxUnderwearBraSports
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraSports }
+
+- type: loadout
+  id: OnyxUnderwearBraSportsAlternative
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraSportsAlternative }
+
+- type: loadout
+  id: OnyxUnderwearBraSportsBlack
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraSportsBlack }
+
+- type: loadout
+  id: OnyxUnderwearBraPea
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraPea }
+
+- type: loadout
+  id: OnyxUnderwearBraLace
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraLace }
+
+- type: loadout
+  id: OnyxUnderwearBraLaceBlue
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraLaceBlueAlternative }
+
+- type: loadout
+  id: OnyxUnderwearBraLaceRed
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraLaceRedAlternative }
+
+- type: loadout
+  id: OnyxUnderwearBraLaceBlack
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraLaceBlack }
+
+- type: loadout
+  id: OnyxUnderwearTopMonokiniWhite
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopMonokiniWhite }
+
+- type: loadout
+  id: OnyxUnderwearTopMonokiniBlack
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopMonokiniBlack }
+
+- type: loadout
+  id: OnyxUnderwearSocksNormal
+  effects: &underwearSocksEffects
+  - !type:GroupLoadoutEffect
+    proto: OnyxUnderwearSocksSpeciesRestrictions
+  equipment: { socks: OnyxClothingUnderwearSocksNormal }
+
+- type: loadout
+  id: OnyxUnderwearSocksHigh
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksHigh }
+
+- type: loadout
+  id: OnyxUnderwearSocksShort
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksShort }
+
+- type: loadout
+  id: OnyxUnderwearSocksThigh
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThigh }
+
+- type: loadout
+  id: OnyxUnderwearStockings
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksStockingsWhite }
+
+- type: loadout
+  id: OnyxUnderwearStockingsBlack
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksStockingsBlack }
+
+- type: loadout
+  id: OnyxUnderwearStockingsLace
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksLaceThigh }
+
+- type: loadout
+  id: OnyxUnderwearSocksBee
+  effects: *underwearSocksEffects
+  equipment: { socks: ClothingUnderSocksBee }
+
+- type: loadout
+  id: OnyxUnderwearSocksBeeThigh
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksBee }
+
+- type: loadout
+  id: OnyxUnderwearSocksCoder
+  effects: *underwearSocksEffects
+  equipment: { socks: ClothingUnderSocksCoder }
+
+# Department underwear
+- type: loadout
+  id: OnyxUnderwearBoxersQM
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomBoxersQM }
+- type: loadout
+  id: OnyxUnderwearBoxersRD
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomBoxersRD }
+- type: loadout
+  id: OnyxUnderwearBoxersCap
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomBoxersCap }
+- type: loadout
+  id: OnyxUnderwearBoxersHOP
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomBoxersHOP }
+- type: loadout
+  id: OnyxUnderwearBoxersHOS
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomBoxersHOS }
+- type: loadout
+  id: OnyxUnderwearBoxersCMO
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomBoxersCMO }
+- type: loadout
+  id: OnyxUnderwearBoxersCE
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomBoxersCE }
+- type: loadout
+  id: OnyxUnderwearBoxersBlueshield
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomBoxersBlueshield }
+- type: loadout
+  id: OnyxUnderwearPantiesQM
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomPantiesQM }
+- type: loadout
+  id: OnyxUnderwearPantiesRD
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomPantiesRD }
+- type: loadout
+  id: OnyxUnderwearPantiesCap
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomPantiesCap }
+- type: loadout
+  id: OnyxUnderwearPantiesHOP
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomPantiesHOP }
+- type: loadout
+  id: OnyxUnderwearPantiesHOS
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomPantiesHOS }
+- type: loadout
+  id: OnyxUnderwearPantiesCMO
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomPantiesCMO }
+- type: loadout
+  id: OnyxUnderwearPantiesCE
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomPantiesCE }
+- type: loadout
+  id: OnyxUnderwearPantiesBlueshield
+  effects: *underwearBottomEffects
+  equipment: { underwearb: OnyxClothingUnderwearBottomPantiesBlueshield }
+- type: loadout
+  id: OnyxUnderwearBraQM
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraQM }
+- type: loadout
+  id: OnyxUnderwearBraRD
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraRD }
+- type: loadout
+  id: OnyxUnderwearBraCap
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraCap }
+- type: loadout
+  id: OnyxUnderwearBraHOP
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraHOP }
+- type: loadout
+  id: OnyxUnderwearBraHOS
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraHOS }
+- type: loadout
+  id: OnyxUnderwearBraCMO
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraCMO }
+- type: loadout
+  id: OnyxUnderwearBraCE
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraCE }
+- type: loadout
+  id: OnyxUnderwearBraBlueshield
+  effects: *underwearTopEffects
+  equipment: { underweart: OnyxClothingUnderwearTopBraBlueshield }
+
+# Socks
+- type: loadout
+  id: OnyxUnderwearSocksComfyBlue
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksComfyBlue }
+- type: loadout
+  id: OnyxUnderwearSocksComfyGrey
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksComfyGrey }
+- type: loadout
+  id: OnyxUnderwearSocksComfyRed
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksComfyRed }
+- type: loadout
+  id: OnyxUnderwearSocksComfyViolet
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksComfyViolet }
+- type: loadout
+  id: OnyxUnderwearStockingsComfyBlue
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeComfyBlue }
+- type: loadout
+  id: OnyxUnderwearStockingsComfyGrey
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeComfyGrey }
+- type: loadout
+  id: OnyxUnderwearStockingsComfyRed
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeComfyRed }
+- type: loadout
+  id: OnyxUnderwearStockingsComfyViolet
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeComfyViolet }
+- type: loadout
+  id: OnyxUnderwearStockingsBlueshield
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksStockingsBlueshield }
+- type: loadout
+  id: OnyxUnderwearSocksBlueshield
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksBlueshield }
+- type: loadout
+  id: OnyxUnderwearStockingsCentcom
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighCentcom }
+- type: loadout
+  id: OnyxUnderwearSocksKneeCentcom
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeCentcom }
+- type: loadout
+  id: OnyxUnderwearSocksCentcom
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksCentcom }
+- type: loadout
+  id: OnyxUnderwearSocksAzure
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksAzure }
+- type: loadout
+  id: OnyxUnderwearSocksKneeAzure
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeAzure }
+- type: loadout
+  id: OnyxUnderwearSocksThighAzure
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighAzure }
+- type: loadout
+  id: OnyxUnderwearSocksBlack
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksBlack }
+- type: loadout
+  id: OnyxUnderwearSocksKneeBlack
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeBlack }
+- type: loadout
+  id: OnyxUnderwearSocksThighBlack
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighBlack }
+- type: loadout
+  id: OnyxUnderwearSocksCyan
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksCyan }
+- type: loadout
+  id: OnyxUnderwearSocksKneeCyan
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeCyan }
+- type: loadout
+  id: OnyxUnderwearSocksThighCyan
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighCyan }
+- type: loadout
+  id: OnyxUnderwearSocksFurr
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksFurr }
+- type: loadout
+  id: OnyxUnderwearSocksKneeFurr
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeFurr }
+- type: loadout
+  id: OnyxUnderwearSocksThighFurr
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighFurr }
+- type: loadout
+  id: OnyxUnderwearSocksGreen
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksGreen }
+- type: loadout
+  id: OnyxUnderwearSocksKneeGreen
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeGreen }
+- type: loadout
+  id: OnyxUnderwearSocksThighGreen
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighGreen }
+- type: loadout
+  id: OnyxUnderwearSocksHomelander
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksHomelander }
+- type: loadout
+  id: OnyxUnderwearSocksKneeHomelander
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeHomelander }
+- type: loadout
+  id: OnyxUnderwearSocksThighHomelander
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighHomelander }
+- type: loadout
+  id: OnyxUnderwearSocksHotpink
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksHotpink }
+- type: loadout
+  id: OnyxUnderwearSocksKneeHotpink
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeHotpink }
+- type: loadout
+  id: OnyxUnderwearSocksThighHotpink
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighHotpink }
+- type: loadout
+  id: OnyxUnderwearSocksOrange
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksOrange }
+- type: loadout
+  id: OnyxUnderwearSocksKneeOrange
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeOrange }
+- type: loadout
+  id: OnyxUnderwearSocksThighOrange
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighOrange }
+- type: loadout
+  id: OnyxUnderwearSocksPink
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksPink }
+- type: loadout
+  id: OnyxUnderwearSocksKneePink
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneePink }
+- type: loadout
+  id: OnyxUnderwearSocksThighCreepy
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighCreepy }
+- type: loadout
+  id: OnyxUnderwearSocksKneeFishnet
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeFishnet }
+- type: loadout
+  id: OnyxUnderwearSocksFullFishnet
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksFullFishnet }
+- type: loadout
+  id: OnyxUnderwearSocksKneeThin
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeThin }
+- type: loadout
+  id: OnyxUnderwearSocksThighThin
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighThin }
+- type: loadout
+  id: OnyxUnderwearSocksThighBlue
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighBlue }
+- type: loadout
+  id: OnyxUnderwearSocksThighFishnet
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighFishnet }
+- type: loadout
+  id: OnyxUnderwearSocksThighGrey
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighGrey }
+- type: loadout
+  id: OnyxUnderwearSocksThighPantyhose
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighPantyhose }
+- type: loadout
+  id: OnyxUnderwearSocksThighPurple
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighPurple }
+- type: loadout
+  id: OnyxUnderwearSocksThighRed
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighRed }
+- type: loadout
+  id: OnyxUnderwearSocksYellow
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksYellow }
+- type: loadout
+  id: OnyxUnderwearSocksKneeYellow
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeYellow }
+- type: loadout
+  id: OnyxUnderwearSocksThighYellow
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighYellow }
+- type: loadout
+  id: OnyxUnderwearSocksKneehRainbow
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeRainbow }
+- type: loadout
+  id: OnyxUnderwearSocksThighRainbow
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighRainbow }
+- type: loadout
+  id: OnyxUnderwearSocksThighMonochrome
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighMonochrome }
+- type: loadout
+  id: OnyxUnderwearSocksHOP
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksHop }
+- type: loadout
+  id: OnyxUnderwearSocksKneeHOP
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeHop }
+- type: loadout
+  id: OnyxUnderwearSocksThighHOP
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighHop }
+- type: loadout
+  id: OnyxUnderwearSocksHOS
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksHos }
+- type: loadout
+  id: OnyxUnderwearSocksKneeHOS
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeHos }
+- type: loadout
+  id: OnyxUnderwearSocksThighHOS
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighHos }
+- type: loadout
+  id: OnyxUnderwearSocksCaptain
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksCaptain }
+- type: loadout
+  id: OnyxUnderwearSocksKneeCaptain
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksKneeCaptain }
+- type: loadout
+  id: OnyxUnderwearSocksThighCaptain
+  effects: *underwearSocksEffects
+  equipment: { socks: OnyxClothingUnderwearSocksThighCaptain }

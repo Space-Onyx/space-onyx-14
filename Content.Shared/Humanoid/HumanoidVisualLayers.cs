@@ -14,6 +14,9 @@ namespace Content.Shared.Humanoid
         UndergarmentTop,
         UndergarmentBottom,
         Chest,
+        // <Onyx-ChestGroin>
+        Groin,
+        // </Onyx-ChestGroin>
         Head,
         Snout,
         SnoutCover, // things layered over snouts (i.e. noses)

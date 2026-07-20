@@ -1,0 +1,35 @@
+- type: latheRecipe
+  parent: [ BaseCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
+  id: OnyxTelecomServerCircuitboard
+  icon: { sprite: Structures/Machines/telecomms.rsi, state: telecom-nopower }
+  result: OnyxTelecomServerCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
+  id: TelecomBusCircuitboard
+  icon: { sprite: Structures/Machines/telecomms.rsi, state: telecom-nopower }
+  result: TelecomBusCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
+  id: TelecomReceiverCircuitboard
+  icon: { sprite: _Onyx/Structures/Machines/comms_transmitter.rsi, state: base }
+  result: TelecomReceiverCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
+  id: TelecomProcessorCircuitboard
+  icon: { sprite: _Onyx/Structures/Machines/tele_bus.rsi, state: icon }
+  result: TelecomProcessorCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
+  id: TelecomBroadcasterCircuitboard
+  icon: { sprite: _Onyx/Structures/Machines/comms_transmitter.rsi, state: base }
+  result: TelecomBroadcasterCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
+  id: TelecomTrafficConsoleCircuitboard
+  icon: { sprite: Structures/Machines/computers.rsi, state: comm_logs }
+  result: TelecomTrafficConsoleCircuitboard

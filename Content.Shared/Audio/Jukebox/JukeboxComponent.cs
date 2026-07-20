@@ -37,6 +37,24 @@ public sealed partial class JukeboxComponent : Component
 
     [ViewVariables]
     public float SelectAccumulator;
+    // <Onyx>
+    [ViewVariables, AutoNetworkedField]
+    public float Volume = 50f;
+
+    public float MinVolume = -30f;
+    public float MaxVolume = 0f;
+    public float MinSlider = 0f;
+    public float MaxSlider = 100f;
+
+    [DataField, AutoNetworkedField]
+    public bool LoopEnabled;
+
+    [DataField]
+    public TimeSpan? PlaybackStartTime;
+
+    [DataField]
+    public float CurrentPlaybackOffset;
+    // </Onyx>
 }
 
 [Serializable, NetSerializable]
@@ -59,6 +77,17 @@ public sealed class JukeboxSetTimeMessage(float songTime) : BoundUserInterfaceMe
 {
     public float SongTime { get; } = songTime;
 }
+
+// <Onyx>
+[Serializable, NetSerializable]
+public sealed class JukeboxSetVolumeMessage(float volume) : BoundUserInterfaceMessage
+{
+    public float Volume { get; } = volume;
+}
+
+[Serializable, NetSerializable]
+public sealed class JukeboxToggleLoopMessage : BoundUserInterfaceMessage;
+// </Onyx>
 
 [Serializable, NetSerializable]
 public enum JukeboxVisuals : byte

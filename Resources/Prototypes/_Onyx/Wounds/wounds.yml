@@ -1,0 +1,102 @@
+- type: woundableProfile
+  id: OrganicWoundableProfile
+  fractureProfiles:
+    Head: OrganicFractureProfile
+    Torso: OrganicFractureProfile
+    Arm: OrganicFractureProfile
+    Hand: OrganicFractureProfile
+    Leg: OrganicFractureProfile
+    Foot: OrganicFractureProfile
+  amputationThresholds:
+    Head:
+      Slash: 70
+      Piercing: 110
+      Blunt: 140
+    Arm:
+      Slash: 45
+      Piercing: 80
+      Blunt: 100
+    Hand:
+      Slash: 25
+      Piercing: 45
+      Blunt: 60
+    Leg:
+      Slash: 55
+      Piercing: 95
+      Blunt: 120
+    Foot:
+      Slash: 30
+      Piercing: 50
+      Blunt: 70
+  organDamageChances:
+    Head: 0.15
+    Torso: 0.08
+    Arm: 0.02
+    Hand: 0.005
+    Leg: 0.02
+    Foot: 0.005
+  organDamageWeights:
+    Brain: 1.0
+    Eyes: 0.35
+    Ears: 0.25
+    Tongue: 0.2
+    Lungs: 1.2
+    Heart: 0.8
+    Liver: 1.0
+    Stomach: 0.7
+    Kidneys: 0.6
+    Appendix: 0.15
+  organDamageMultipliers:
+    Blunt: 0.35
+    Slash: 0.8
+    Piercing: 1.25
+    Heat: 0.5
+    Cold: 0.3
+    Shock: 0.8
+
+- type: fractureProfile
+  id: OrganicFractureProfile
+
+- type: wound
+  id: BluntWound
+  damageTypes: [Blunt]
+  maximumSeverity: 200
+  scarThreshold: 20
+
+- type: wound
+  id: BoneFractureWound
+  damageTypes: []
+  maximumSeverity: 200
+
+- type: wound
+  id: SlashWound
+  damageTypes: [Slash]
+  maximumSeverity: 200
+  bleedingRate: 0.1
+  scarThreshold: 15
+
+- type: wound
+  id: PiercingWound
+  damageTypes: [Piercing]
+  maximumSeverity: 200
+  bleedingRate: 0.15
+  scarThreshold: 15
+
+- type: wound
+  id: BurnWound
+  damageTypes: [Heat, Cold, Shock, Caustic]
+  maximumSeverity: 200
+  scarThreshold: 20
+
+- type: wound
+  id: SurgicalIncisionWound
+  damageTypes: []
+  mergeMode: SeparateInstances
+  maximumSeverity: 200
+  bleedingRate: 0.1
+
+- type: wound
+  id: MedicalScarWound
+  damageTypes: []
+  mergeMode: SeparateInstances
+  maximumSeverity: 1

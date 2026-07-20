@@ -1,0 +1,223 @@
+- type: entity
+  abstract: true
+  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  id: OnyxTelecomMachineBase
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/server.rsi
+    snapCardinals: true
+    layers:
+    - state: server-off
+    - state: server-on
+      visible: false
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: server_o
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Appearance
+  - type: AmbientOnPowered
+  - type: AmbientSound
+    volume: -9
+    range: 5
+    enabled: false
+    sound:
+      path: /Audio/Ambience/Objects/server_fans.ogg
+  - type: WiresVisuals
+  - type: WiresPanel
+  - type: Transform
+    anchored: true
+  - type: Pullable
+
+- type: entity
+  parent: OnyxTelecomMachineBase
+  id: TelecomBus
+  name: telecommunication bus
+  description: Carries signals between physically connected telecommunications machines.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/telecomms.rsi
+    snapCardinals: true
+    layers:
+    - state: telecom-nopower
+    - state: telecom-stripe
+    - state: telecom-on
+      shader: unshaded
+      visible: false
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: telecom-open
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: TelecomBus
+    maxReceivers: 4
+    maxProcessors: 4
+    maxServers: 2
+    routeLossExponent: 2
+    routeLossChanceMultiplier: 0.65
+  - type: TelecomWear
+  - type: DeviceLinkSink
+    ports:
+    - TelecomBusInput
+  - type: DeviceLinkSource
+    ports:
+    - TelecomBusOutput
+    range: 5
+  - type: Machine
+    board: TelecomBusCircuitboard
+
+- type: entity
+  parent: OnyxTelecomMachineBase
+  id: TelecomReceiver
+  name: telecommunication receiver
+  description: Receives radio signals and passes them into the telecommunications network.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Machines/comms_transmitter.rsi
+    snapCardinals: true
+    layers:
+    - state: base
+    - state: transmitter-on
+      visible: false
+      map: ["powered-state"]
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        powered-state:
+          True: { visible: true }
+          False: { visible: false }
+  - type: PointLight
+    enabled: false
+    castShadows: false
+    radius: 1.5
+    energy: 1.6
+    color: "#39b8ee"
+  - type: LitOnPowered
+  - type: TelecomReceiver
+    maxBuses: 2
+    lossExponent: 2
+    lossChanceMultiplier: 0.65
+  - type: TelecomCalibration
+  - type: DeviceLinkSource
+    ports:
+    - TelecomReceiverOutput
+    range: 5
+  - type: Machine
+    board: TelecomReceiverCircuitboard
+
+- type: entity
+  parent: OnyxTelecomMachineBase
+  id: TelecomProcessor
+  name: telecommunication processor
+  description: Processes incoming radio signals before they are routed.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Machines/tele_bus.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+  - type: TelecomProcessor
+    maxBuses: 1
+    garbleQualityThreshold: 0.95
+    garbleChanceMultiplier: 0.35
+    calibrationLatencyMultiplier: 800
+  - type: TelecomCalibration
+  - type: TelecomNode
+    bandwidth: 8
+    basePacketCost: 1
+    charactersPerCostUnit: 75
+    loadRecoveryPerSecond: 8
+    telemetryRecoveryPerSecond: 0.8
+  - type: DeviceLinkSink
+    ports:
+    - TelecomProcessorInput
+  - type: DeviceLinkSource
+    ports:
+    - TelecomProcessorOutput
+    range: 5
+  - type: Machine
+    board: TelecomProcessorCircuitboard
+
+- type: entity
+  parent: OnyxTelecomMachineBase
+  id: TelecomBroadcaster
+  name: telecommunication broadcaster
+  description: Broadcasts signals received from the telecommunication router.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Machines/comms_transmitter.rsi
+    snapCardinals: true
+    layers:
+    - state: base
+    - state: transmitter-on
+      visible: false
+      map: ["powered-state"]
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        powered-state:
+          True: { visible: true }
+          False: { visible: false }
+  - type: PointLight
+    enabled: false
+    castShadows: false
+    radius: 1.5
+    energy: 1.6
+    color: "#39b8ee"
+  - type: LitOnPowered
+  - type: TelecomBroadcaster
+    maxServers: 2
+    damageLossMultiplier: 0.15
+    outputLossExponent: 2
+    outputLossChanceMultiplier: 0.65
+  - type: DeviceLinkSink
+    ports:
+    - TelecomBroadcasterInput
+  - type: Machine
+    board: TelecomBroadcasterCircuitboard
+
+- type: entity
+  parent: BaseComputer
+  id: TelecomTrafficConsole
+  name: telecommunication traffic monitor
+  description: Monitors telecommunication servers, signal logs, and routing status.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: comm_logs
+    - map: ["computerLayerKeys"]
+      state: generic_keys
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      state: generic_panel_open
+  - type: AccessReader
+    access: [["Command"]]
+  - type: UIRequiresLock
+  - type: Lock
+  - type: TelecomTrafficConsole
+  - type: DeviceLinkSink
+    ports:
+    - TelecomConsoleInput
+  - type: ActivatableUI
+    key: enum.TelecomTrafficConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.TelecomTrafficConsoleUiKey.Key:
+        type: TelecomTrafficConsoleBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: Computer
+    board: TelecomTrafficConsoleCircuitboard
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#45e67b"

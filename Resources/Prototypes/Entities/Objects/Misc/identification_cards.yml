@@ -17,6 +17,9 @@
     storedRotation: -90
   - type: Access
   - type: IdCard
+  # <Onyx-NanoChat-edited>
+  - type: NanoChatCard
+  # </Onyx-NanoChat-edited>
   - type: StationRecordKeyStorage
   - type: Tag
     tags:
@@ -1312,6 +1315,10 @@
   - type: IdCard
     jobTitle: job-title-universal
     jobIcon: JobIconAdmin
+  # <Onyx-NanoChat-edited>
+  - type: NanoChatCard
+    listNumber: false
+  # </Onyx-NanoChat-edited>
   - type: Access
     groups:
     - AllAccess

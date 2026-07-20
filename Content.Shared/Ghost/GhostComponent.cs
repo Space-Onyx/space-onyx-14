@@ -10,7 +10,7 @@ namespace Content.Shared.Ghost;
 /// Handles limiting interactions, using ghost abilities, ghost visibility, and ghost warping.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedGhostSystem))]
-[AutoGenerateComponentState(true)]
+[AutoGenerateComponentState(true), AutoGenerateComponentPause]
 public sealed partial class GhostComponent : Component
 {
     // Actions
@@ -94,6 +94,14 @@ public sealed partial class GhostComponent : Component
     /// <remarks>Used to allow admins to change ghost colors. Should be removed if the capability to edit existing sprite colors is ever added back.</remarks>
     [DataField, AutoNetworkedField]
     public Color Color = Color.White;
+
+    // <Onyx-Ghost>
+    [DataField, AutoPausedField, AutoNetworkedField]
+    public TimeSpan ReturnToLobbyAvailableAt = TimeSpan.Zero;
+
+    [DataField, AutoNetworkedField]
+    public bool CanReturnToLobby;
+    // </Onyx-Ghost>   
 }
 
 /// <summary>
@@ -105,7 +113,6 @@ public enum GhostVisuals : byte
 {
     Damage
 }
-
 public sealed partial class ToggleFoVActionEvent : InstantActionEvent { }
 
 public sealed partial class ToggleGhostsActionEvent : InstantActionEvent { }

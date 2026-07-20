@@ -22,6 +22,7 @@ using Robust.Shared.Utility;
 using Robust.Shared;
 using YamlDotNet.RepresentationModel;
 using Content.Corvax.Interfaces.Shared; // Corvax-Sponsors
+using Content.Shared._Onyx.SpeechBarks;
 
 namespace Content.Shared.Preferences
 {
@@ -88,6 +89,14 @@ namespace Content.Shared.Preferences
         [DataField]
         public int Age { get; set; } = 18;
 
+        // <Onyx-HeightWidth>
+        [DataField]
+        public float Height { get; private set; } = 1f;
+
+        [DataField]
+        public float Width { get; private set; } = 1f;
+        // </Onyx-HeightWidth>
+
         [DataField]
         public Sex Sex { get; private set; } = Sex.Male;
 
@@ -105,6 +114,11 @@ namespace Content.Shared.Preferences
         /// </summary>
         [DataField]
         public SpawnPriorityPreference SpawnPriority { get; private set; } = SpawnPriorityPreference.None;
+
+        // <Onyx-Barks>
+        [DataField]
+        public BarkData Bark = new();
+        // </Onyx-Barks>
 
         /// <summary>
         /// <see cref="_jobPriorities"/>
@@ -134,6 +148,10 @@ namespace Content.Shared.Preferences
             string species,
             string voice, // Corvax-TTS
             int age,
+            // <Onyx-HeightWidth>
+            float height,
+            float width,
+            // </Onyx-HeightWidth>
             Sex sex,
             Gender gender,
             HumanoidCharacterAppearance appearance,
@@ -142,13 +160,21 @@ namespace Content.Shared.Preferences
             PreferenceUnavailableMode preferenceUnavailable,
             HashSet<ProtoId<AntagPrototype>> antagPreferences,
             HashSet<ProtoId<TraitPrototype>> traitPreferences,
-            Dictionary<string, RoleLoadout> loadouts)
+            Dictionary<string, RoleLoadout> loadouts,
+            // <Onyx-Barks>
+            BarkData bark
+            // </Onyx-Barks>
+            )
         {
             Name = name;
             FlavorText = flavortext;
             Species = species;
             Voice = voice; // Corvax-TTS
             Age = age;
+            // <Onyx-HeightWidth>
+            Height = height;
+            Width = width;
+            // </Onyx-HeightWidth>
             Sex = sex;
             Gender = gender;
             Appearance = appearance;
@@ -158,6 +184,9 @@ namespace Content.Shared.Preferences
             _antagPreferences = antagPreferences;
             _traitPreferences = traitPreferences;
             _loadouts = loadouts;
+            // <Onyx-Barks>
+            Bark = bark;
+            // </Onyx-Barks>
 
             var hasHighPrority = false;
             foreach (var (key, value) in _jobPriorities)
@@ -181,6 +210,10 @@ namespace Content.Shared.Preferences
                 other.Species,
                 other.Voice,
                 other.Age,
+                // <Onyx-HeightWidth>
+                other.Height,
+                other.Width,
+                // </Onyx-HeightWidth>
                 other.Sex,
                 other.Gender,
                 other.Appearance.Clone(),
@@ -189,7 +222,11 @@ namespace Content.Shared.Preferences
                 other.PreferenceUnavailable,
                 new HashSet<ProtoId<AntagPrototype>>(other.AntagPreferences),
                 new HashSet<ProtoId<TraitPrototype>>(other.TraitPreferences),
-                new Dictionary<string, RoleLoadout>(other.Loadouts))
+                new Dictionary<string, RoleLoadout>(other.Loadouts),
+                // <Onyx-Barks>
+                other.Bark
+                // </Onyx-Barks>
+                )
         {
         }
 
@@ -245,10 +282,20 @@ namespace Content.Shared.Preferences
 
             var sex = Sex.Unsexed;
             var age = 18;
+            // <Onyx-HeightWidth>
+            var height = 1f;
+            var width = 1f;
+            // </Onyx-HeightWidth>
             if (prototypeManager.TryIndex<SpeciesPrototype>(species, out var speciesPrototype))
             {
                 sex = random.Pick(speciesPrototype.Sexes);
                 age = random.Next(speciesPrototype.MinAge, speciesPrototype.OldAge); // people don't look and keep making 119 year old characters with zero rp, cap it at middle aged
+                // <Onyx-HeightWidth>
+                var heightRange = speciesPrototype.HeightRange;
+                var widthRange = speciesPrototype.WidthRange;
+                height = heightRange.Min == heightRange.Max ? heightRange.Min : random.NextFloat(heightRange.Min, heightRange.Max);
+                width = widthRange.Min == widthRange.Max ? widthRange.Min : random.NextFloat(widthRange.Min, widthRange.Max);
+                // </Onyx-HeightWidth>
             }
 
             // Corvax-TTS-Start
@@ -277,6 +324,10 @@ namespace Content.Shared.Preferences
                 Name = name,
                 Sex = sex,
                 Age = age,
+                // <Onyx-HeightWidth>
+                Height = height,
+                Width = width,
+                // </Onyx-HeightWidth>
                 Gender = gender,
                 Species = species,
                 Voice = voiceId, // Corvax-TTS
@@ -299,6 +350,23 @@ namespace Content.Shared.Preferences
             return new(this) { Age = age };
         }
 
+        // <Onyx-HeightWidth>
+        public HumanoidCharacterProfile WithHeight(float height)
+        {
+            return new(this) { Height = height };
+        }
+
+        public HumanoidCharacterProfile WithWidth(float width)
+        {
+            return new(this) { Width = width };
+        }
+
+        public HumanoidCharacterProfile WithDimensions(float height, float width)
+        {
+            return new(this) { Height = height, Width = width };
+        }
+        // </Onyx-HeightWidth>
+
         public HumanoidCharacterProfile WithSex(Sex sex)
         {
             return new(this) { Sex = sex };
@@ -320,6 +388,40 @@ namespace Content.Shared.Preferences
             return new(this) { Voice = voice };
         }
         // Corvax-TTS-End
+
+        // <Onyx-Barks>
+        public HumanoidCharacterProfile WithBarkProto(string bark)
+        {
+            return new(this)
+            {
+                Bark = Bark.WithProto(bark),
+            };
+        }
+
+        public HumanoidCharacterProfile WithBarkPitch(float pitch)
+        {
+            return new(this)
+            {
+                Bark = Bark.WithPitch(pitch),
+            };
+        }
+
+        public HumanoidCharacterProfile WithBarkMinVariation(float variation)
+        {
+            return new(this)
+            {
+                Bark = Bark.WithMinVar(variation),
+            };
+        }
+
+        public HumanoidCharacterProfile WithBarkMaxVariation(float variation)
+        {
+            return new(this)
+            {
+                Bark = Bark.WithMaxVar(variation),
+            };
+        }
+        // </Onyx-Barks>
 
         public HumanoidCharacterProfile WithCharacterAppearance(HumanoidCharacterAppearance appearance)
         {
@@ -486,6 +588,10 @@ namespace Content.Shared.Preferences
         {
             if (Name != other.Name) return false;
             if (Age != other.Age) return false;
+            // <Onyx-HeightWidth>
+            if (Height != other.Height) return false;
+            if (Width != other.Width) return false;
+            // </Onyx-HeightWidth>
             if (Sex != other.Sex) return false;
             if (Gender != other.Gender) return false;
             if (Species != other.Species) return false;
@@ -496,6 +602,9 @@ namespace Content.Shared.Preferences
             if (!_traitPreferences.SequenceEqual(other._traitPreferences)) return false;
             if (!Loadouts.SequenceEqual(other.Loadouts)) return false;
             if (FlavorText != other.FlavorText) return false;
+            // <Onyx-Barks>
+            if (!Bark.MemberwiseEquals(other.Bark)) return false;
+            // </Onyx-Barks>
             return Appearance.Equals(other.Appearance);
         }
 
@@ -531,6 +640,10 @@ namespace Content.Shared.Preferences
                 sex = speciesPrototype.Sexes[0];
 
             var age = Math.Clamp(Age, speciesPrototype.MinAge, speciesPrototype.MaxAge);
+            // <Onyx-HeightWidth>
+            var height = speciesPrototype.ClampHeight(Height);
+            var width = speciesPrototype.ClampWidth(Width);
+            // </Onyx-HeightWidth>
 
             var gender = Gender switch
             {
@@ -634,6 +747,10 @@ namespace Content.Shared.Preferences
             Name = name;
             FlavorText = flavortext;
             Age = age;
+            // <Onyx-HeightWidth>
+            Height = height;
+            Width = width;
+            // </Onyx-HeightWidth>
             Sex = sex;
             Gender = gender;
             Appearance = appearance;
@@ -768,6 +885,10 @@ namespace Content.Shared.Preferences
             hashCode.Add(FlavorText);
             hashCode.Add(Species);
             hashCode.Add(Age);
+            // <Onyx-HeightWidth>
+            hashCode.Add(Height);
+            hashCode.Add(Width);
+            // </Onyx-HeightWidth>
             hashCode.Add((int)Sex);
             hashCode.Add((int)Gender);
             hashCode.Add(Appearance);

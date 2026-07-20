@@ -28,6 +28,9 @@ namespace Content.Shared.Input
         public static readonly BoundKeyFunction OpenCharacterMenu = "OpenCharacterMenu";
         public static readonly BoundKeyFunction OpenEmotesMenu = "OpenEmotesMenu";
         public static readonly BoundKeyFunction OpenCraftingMenu = "OpenCraftingMenu";
+        // <Onyx-LanguageMenu>
+        public static readonly BoundKeyFunction OpenLanguageMenu = "OpenLanguageMenu";
+        // </Onyx-LanguageMenu>
         public static readonly BoundKeyFunction OpenGuidebook = "OpenGuidebook";
         public static readonly BoundKeyFunction OpenInventoryMenu = "OpenInventoryMenu";
         public static readonly BoundKeyFunction SmartEquipBackpack = "SmartEquipBackpack";
@@ -64,6 +67,20 @@ namespace Content.Shared.Input
         public static readonly BoundKeyFunction ZoomOut = "ZoomOut";
         public static readonly BoundKeyFunction ZoomIn = "ZoomIn";
         public static readonly BoundKeyFunction ResetZoom = "ResetZoom";
+
+        // <Onyx-Targeting>
+        public static readonly BoundKeyFunction TargetHead = "TargetHead";
+        public static readonly BoundKeyFunction TargetChest = "TargetChest";
+        public static readonly BoundKeyFunction TargetGroin = "TargetGroin";
+        public static readonly BoundKeyFunction TargetLeftArm = "TargetLeftArm";
+        public static readonly BoundKeyFunction TargetLeftHand = "TargetLeftHand";
+        public static readonly BoundKeyFunction TargetRightArm = "TargetRightArm";
+        public static readonly BoundKeyFunction TargetRightHand = "TargetRightHand";
+        public static readonly BoundKeyFunction TargetLeftLeg = "TargetLeftLeg";
+        public static readonly BoundKeyFunction TargetLeftFoot = "TargetLeftFoot";
+        public static readonly BoundKeyFunction TargetRightLeg = "TargetRightLeg";
+        public static readonly BoundKeyFunction TargetRightFoot = "TargetRightFoot";
+        // </Onyx-Targeting>
 
         public static readonly BoundKeyFunction ArcadeUp = "ArcadeUp";
         public static readonly BoundKeyFunction ArcadeDown = "ArcadeDown";
@@ -133,5 +150,13 @@ namespace Content.Shared.Input
         public static readonly BoundKeyFunction MappingRemoveDecal = "MappingRemoveDecal";
         public static readonly BoundKeyFunction MappingCancelEraseDecal = "MappingCancelEraseDecal";
         public static readonly BoundKeyFunction MappingOpenContextMenu = "MappingOpenContextMenu";
+
+        public static readonly BoundKeyFunction TogglePosing = "TogglePosing";
+        public static readonly BoundKeyFunction PosingOffsetRight = "PosingOffsetRight";
+        public static readonly BoundKeyFunction PosingOffsetLeft = "PosingOffsetLeft";
+        public static readonly BoundKeyFunction PosingOffsetUp = "PosingOffsetUp";
+        public static readonly BoundKeyFunction PosingOffsetDown = "PosingOffsetDown";
+        public static readonly BoundKeyFunction PosingRotatePositive = "PosingRotatePositive";
+        public static readonly BoundKeyFunction PosingRotateNegative = "PosingRotateNegative";
     }
 }

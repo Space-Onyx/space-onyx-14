@@ -6,6 +6,9 @@ using Content.Shared.Chat.Prototypes;
 using Content.Shared.Puppet;
 using Content.Shared.Speech;
 using Content.Shared.Speech.Muting;
+// <Onyx-SignLanguage>
+using Content.Shared._Onyx.Language;
+// </Onyx-SignLanguage>
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.Speech.Muting
@@ -55,6 +58,13 @@ namespace Content.Server.Speech.Muting
 
         private void OnSpeakAttempt(EntityUid uid, MutedComponent component, SpeakAttemptEvent args)
         {
+            // <Onyx-SignLanguage-edited>
+            if (HasComp<MimePowersComponent>(uid) &&
+                TryComp<LanguageSpeakerComponent>(uid, out var speaker) &&
+                speaker.CurrentLanguage == "Sign")
+                return;
+            // </Onyx-SignLanguage-edited>
+
             // TODO something better than this.
 
             if (HasComp<MimePowersComponent>(uid))

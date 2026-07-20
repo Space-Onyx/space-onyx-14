@@ -65,16 +65,17 @@ public abstract partial class SharedResearchSystem : EntitySystem
 
     public bool IsTechnologyAvailable(TechnologyDatabaseComponent component, TechnologyPrototype tech, Dictionary<string, int>? disciplineTiers = null)
     {
-        disciplineTiers ??= GetDisciplineTiers(component);
-
         if (tech.Hidden)
             return false;
 
         if (!component.SupportedDisciplines.Contains(tech.Discipline))
             return false;
 
-        if (tech.Tier > disciplineTiers[tech.Discipline])
-            return false;
+        // <Onyx-FancyResearchUI-edited>
+        // Technology prerequisites define progression; discipline tiers do not gate research.
+        // if (tech.Tier > disciplineTiers[tech.Discipline])
+        //     return false;
+        // </Onyx-FancyResearchUI-edited>
 
         if (component.UnlockedTechnologies.Contains(tech.ID))
             return false;
@@ -136,10 +137,13 @@ public abstract partial class SharedResearchSystem : EntitySystem
             if (percent < techDiscipline.TierPrerequisites[tier])
                 break;
 
-            if (tier >= techDiscipline.LockoutTier &&
-                component.MainDiscipline != null &&
-                techDiscipline.ID != component.MainDiscipline)
-                break;
+            // <Onyx-FancyResearchUI-edited>
+            // Main discipline lockouts are disabled; this API remains for legacy displays only.
+            // if (tier >= techDiscipline.LockoutTier &&
+            //     component.MainDiscipline != null &&
+            //     techDiscipline.ID != component.MainDiscipline)
+            //     break;
+            // </Onyx-FancyResearchUI-edited>
             tier++;
         }
 

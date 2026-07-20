@@ -14,6 +14,9 @@
         - id: Cautery
         - id: Retractor
         - id: Scalpel
+        # <Onyx-Surgery>
+        - id: BoneGel
+        # </Onyx-Surgery>
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateMedicalBundle
@@ -31,6 +34,9 @@
         - id: Cautery
         - id: Retractor
         - id: ScalpelAdvanced
+        # <Onyx-Surgery>
+        - id: BoneGel
+        # </Onyx-Surgery>
         - id: ClothingHandsGlovesNitrile
         - id: EmergencyRollerBedSpawnFolded
 

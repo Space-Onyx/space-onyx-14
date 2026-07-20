@@ -38,19 +38,26 @@ public sealed partial class BodySystem : EntitySystem
 
     private void OnBodyInit(Entity<BodyComponent> ent, ref ComponentInit args)
     {
+        // <Onyx-Surgery-edited>
         ent.Comp.Organs =
             _container.EnsureContainer<Container>(ent, BodyComponent.ContainerID);
+        ent.Comp.RootContainer = _container.EnsureContainer<ContainerSlot>(ent, BodyComponent.RootContainerID);
+        // </Onyx-Surgery-edited>
     }
 
     private void OnBodyShutdown(Entity<BodyComponent> ent, ref ComponentShutdown args)
     {
+        // <Onyx-Surgery-edited>
         if (ent.Comp.Organs is { } organs)
             _container.ShutdownContainer(organs);
+        if (ent.Comp.RootContainer is { } root)
+            _container.ShutdownContainer(root);
+        // </Onyx-Surgery-edited>
     }
 
     private void OnBodyEntInserted(Entity<BodyComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
-        if (args.Container.ID != BodyComponent.ContainerID)
+        if (args.Container.ID != BodyComponent.ContainerID && args.Container.ID != BodyComponent.RootContainerID)
             return;
 
         if (!_organQuery.TryComp(args.Entity, out var organ))
@@ -71,7 +78,7 @@ public sealed partial class BodySystem : EntitySystem
 
     private void OnBodyEntRemoved(Entity<BodyComponent> ent, ref EntRemovedFromContainerMessage args)
     {
-        if (args.Container.ID != BodyComponent.ContainerID)
+        if (args.Container.ID != BodyComponent.ContainerID && args.Container.ID != BodyComponent.RootContainerID)
             return;
 
         if (!_organQuery.TryComp(args.Entity, out var organ))

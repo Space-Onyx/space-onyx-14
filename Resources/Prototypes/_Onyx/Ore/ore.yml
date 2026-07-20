@@ -1,0 +1,5 @@
+- type: ore
+  id: OreBSCrystal
+  oreEntity: MaterialBSCrystal1Unprocessed
+  minOreYield: 1
+  maxOreYield: 2

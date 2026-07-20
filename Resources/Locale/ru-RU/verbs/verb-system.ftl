@@ -28,6 +28,9 @@ verb-categories-lever = Рычаг
 verb-categories-select-type = Выбрать тип
 verb-categories-fax = Задать место назначения
 verb-categories-power-level = Уровень мощности
+# <Onyx-InteractionVerbs>
+verb-categories-interaction = Взаимодействовать
+# </Onyx-InteractionVerbs>
 verb-categories-adjust = Отрегулировать
 
 verb-common-toggle-light = Переключить свет

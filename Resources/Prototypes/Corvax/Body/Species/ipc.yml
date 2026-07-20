@@ -63,7 +63,10 @@
             state: jumpsuit-female
   - type: InitialBody
     organs:
-      Torso: OrganIpcTorso
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganIpcChest
+      Groin: OrganIpcGroin
+      # </Onyx-ChestGroin-edited>
       Head: OrganIpcHead
       ArmLeft: OrganIpcArmLeft
       ArmRight: OrganIpcArmRight
@@ -108,6 +111,11 @@
       Male: MaleIpc
       Female: FemaleIpc
       Unsexed: MaleIpc
+  # <Onyx-Languages>
+  - type: LanguageKnowledge
+    speaks: [TauCetiBasic, RobotTalk]
+    understands: [TauCetiBasic, RobotTalk]
+  # </Onyx-Languages>
   - type: Fixtures
     fixtures: # TODO: This needs a second fixture just for mob collisions.
       fix1:

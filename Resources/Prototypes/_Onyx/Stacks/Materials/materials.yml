@@ -1,0 +1,13 @@
+- type: stack
+  id: BSCrystal
+  name: stack-bscrystal
+  icon: { sprite: /Textures/_Onyx/Objects/Materials/bluespace_crystal.rsi, state: bluespace_crystal }
+  spawn: MaterialBSCrystal1
+  maxCount: 30
+
+- type: stack
+  id: BSCrystalUnprocessed
+  name: stack-bscrystal-unprocessed
+  icon: { sprite: /Textures/_Onyx/Objects/Materials/bluespace_crystal.rsi, state: bluespace_crystal }
+  spawn: MaterialBSCrystal1Unprocessed
+  maxCount: 30

@@ -1,0 +1,224 @@
+- type: species
+  id: Demon
+  name: species-name-demon
+  roundStart: true
+  prototype: MobArcan
+  dollPrototype: AppearanceArcan
+  skinColoration: Hues
+  defaultSkinTone: "#34a223"
+  minAge: 35
+  youngAge: 101
+  oldAge: 201
+  maxAge: 300
+  defaultHeightCm: 175
+  defaultWeightKg: 65
+  minHeightCm: 140
+  maxHeightCm: 210
+  minWeightKg: 40
+  maxWeightKg: 85
+
+- type: markingsGroup
+  parent: Undergarments
+  id: Demon
+  limits:
+    enum.HumanoidVisualLayers.Hair:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.FacialHair:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.Head:
+      limit: 2
+      required: false
+    enum.HumanoidVisualLayers.HeadTop:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.HeadSide:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.Chest:
+      limit: 4
+      required: false
+    enum.HumanoidVisualLayers.Tail:
+      limit: 1
+      required: true
+      default: [ DemomTail ]
+
+- type: entity
+  parent: BaseSpeciesAppearance
+  id: AppearanceArcan
+  categories: [ HideSpawnMenu ]
+  name: arcan appearance
+  components:
+  - type: Inventory
+    femaleDisplacements:
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: _Onyx/Species/Arcan/displacement.rsi
+            state: jumpsuit-female
+  - type: InitialBody
+    organs:
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganArcanChest
+      Groin: OrganArcanGroin
+      # </Onyx-ChestGroin-edited>
+      Head: OrganArcanHead
+      ArmLeft: OrganArcanArmLeft
+      ArmRight: OrganArcanArmRight
+      HandRight: OrganArcanHandRight
+      HandLeft: OrganArcanHandLeft
+      LegLeft: OrganArcanLegLeft
+      LegRight: OrganArcanLegRight
+      FootLeft: OrganArcanFootLeft
+      FootRight: OrganArcanFootRight
+      Brain: OrganHumanBrain
+      Eyes: OrganHumanEyes
+      Tongue: OrganHumanTongue
+      Appendix: OrganHumanAppendix
+      Ears: OrganHumanEars
+      Lungs: OrganHumanLungs
+      Heart: OrganDemonHeart
+      Stomach: OrganDemonStomach
+      Liver: OrganHumanLiver
+      Kidneys: OrganHumanKidneys
+  - type: HumanoidProfile
+    species: Demon
+
+- type: entity
+  parent:
+  - AppearanceArcan
+  - BaseSpeciesMobOrganic
+  id: MobArcan
+  name: Urisst' Mzhand Arcan
+  components:
+  - type: Damageable
+    damageModifierSet: Demon
+  - type: Speech
+    speechSounds: Lizard
+  - type: Vocal
+    sounds:
+      Male: MaleHuman
+      Female: FemaleHuman
+      Unsexed: FemaleHuman
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/Weapons/pierce.ogg
+    angle: 30
+    animation: WeaponArcPunch
+    damage:
+      types:
+        Slash: 2
+        Piercing: 3
+
+- type: damageModifierSet
+  id: Demon
+  coefficients:
+    Piercing: 1.1
+    Slash: 1.05
+    Cold: 0.7
+    Heat: 0.85
+    Poison: 0.8
+    Cellular: 1.5
+
+- type: metabolizerType
+  id: Demon
+  name: metabolizer-type-demon
+
+- type: entity
+  id: OrganDemonMetabolizer
+  abstract: true
+  components:
+  - type: Metabolizer
+    metabolizerTypes: [ Demon ]
+
+- type: entity
+  parent: [ OrganAnimalHeart, OrganDemonMetabolizer ]
+  id: OrganDemonHeart
+  name: arcan heart
+  components:
+  - type: Metabolizer
+    maxReagents: 2
+
+- type: entity
+  parent: [ OrganAnimalStomach, OrganDemonMetabolizer ]
+  id: OrganDemonStomach
+  name: arcan stomach
+  components:
+  - type: SolutionManager
+    solutions:
+    - SolutionDemonStomach
+
+- type: entity
+  parent: Solution
+  id: SolutionDemonStomach
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Solution
+    id: stomach
+    solution:
+      maxVol: 50
+
+- type: entity
+  parent: OrganBaseOrganic
+  id: OrganArcan
+  abstract: true
+  suffix: Arcan
+
+- type: entity
+  parent: OrganArcan
+  id: OrganArcanExternal
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Onyx/Species/Arcan/parts.rsi
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Species/Arcan/parts.rsi
+  - type: VisualOrganMarkings
+    markingData:
+      group: Demon
+
+- type: entity
+  parent: [ OrganBaseTorsoSexed, OrganBaseTorso, OrganArcanExternal ]
+  id: OrganArcanTorso
+
+- type: entity
+  parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganArcanExternal ]
+  id: OrganArcanHead
+  components:
+  - type: VisualOrganMarkings
+    hideableLayers:
+    - enum.HumanoidVisualLayers.Hair
+
+- type: entity
+  parent: [ OrganBaseArmLeft, OrganArcanExternal ]
+  id: OrganArcanArmLeft
+
+- type: entity
+  parent: [ OrganBaseArmRight, OrganArcanExternal ]
+  id: OrganArcanArmRight
+
+- type: entity
+  parent: [ OrganBaseHandLeft, OrganArcanExternal ]
+  id: OrganArcanHandLeft
+
+- type: entity
+  parent: [ OrganBaseHandRight, OrganArcanExternal ]
+  id: OrganArcanHandRight
+
+- type: entity
+  parent: [ OrganBaseLegLeft, OrganArcanExternal ]
+  id: OrganArcanLegLeft
+
+- type: entity
+  parent: [ OrganBaseLegRight, OrganArcanExternal ]
+  id: OrganArcanLegRight
+
+- type: entity
+  parent: [ OrganBaseFootLeft, OrganArcanExternal ]
+  id: OrganArcanFootLeft
+
+- type: entity
+  parent: [ OrganBaseFootRight, OrganArcanExternal ]
+  id: OrganArcanFootRight

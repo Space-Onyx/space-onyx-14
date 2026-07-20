@@ -1,0 +1,21 @@
+<targeting:PartStatusControl
+    xmlns="https://spacestation14.io"
+    xmlns:targeting="clr-namespace:Content.Client._Onyx.Targeting.UI"
+    SetSize="64 64"
+    MouseFilter="Ignore"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Center">
+    <PanelContainer SetSize="64 64" MouseFilter="Ignore">
+        <TextureRect Name="DollHead" Stretch="KeepAspectCentered" SetSize="64 64" MouseFilter="Ignore" />
+        <TextureRect Name="DollChest" Stretch="KeepAspectCentered" SetSize="64 64" MouseFilter="Ignore" />
+        <TextureRect Name="DollGroin" Stretch="KeepAspectCentered" SetSize="64 64" MouseFilter="Ignore" />
+        <TextureRect Name="DollLeftArm" Stretch="KeepAspectCentered" SetSize="64 64" MouseFilter="Ignore" />
+        <TextureRect Name="DollLeftHand" Stretch="KeepAspectCentered" SetSize="64 64" MouseFilter="Ignore" />
+        <TextureRect Name="DollRightArm" Stretch="KeepAspectCentered" SetSize="64 64" MouseFilter="Ignore" />
+        <TextureRect Name="DollRightHand" Stretch="KeepAspectCentered" SetSize="64 64" MouseFilter="Ignore" />
+        <TextureRect Name="DollLeftLeg" Stretch="KeepAspectCentered" SetSize="64 64" MouseFilter="Ignore" />
+        <TextureRect Name="DollLeftFoot" Stretch="KeepAspectCentered" SetSize="64 64" MouseFilter="Ignore" />
+        <TextureRect Name="DollRightLeg" Stretch="KeepAspectCentered" SetSize="64 64" MouseFilter="Ignore" />
+        <TextureRect Name="DollRightFoot" Stretch="KeepAspectCentered" SetSize="64 64" MouseFilter="Ignore" />
+    </PanelContainer>
+</targeting:PartStatusControl>

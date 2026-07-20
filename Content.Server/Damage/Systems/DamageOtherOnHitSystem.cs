@@ -10,6 +10,8 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Throwing;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
+using Content.Shared._Onyx.Wounds;
+using Content.Shared._Onyx.Targeting;
 
 namespace Content.Server.Damage.Systems;
 
@@ -20,6 +22,7 @@ public sealed partial class DamageOtherOnHitSystem : SharedDamageOtherOnHitSyste
     [Dependency] private Shared.Damage.Systems.DamageableSystem _damageable = default!;
     [Dependency] private SharedCameraRecoilSystem _sharedCameraRecoil = default!;
     [Dependency] private SharedColorFlashEffectSystem _color = default!;
+    [Dependency] private WoundDamageRoutingSystem _woundRouting = default!;
 
     public override void Initialize()
     {
@@ -33,7 +36,18 @@ public sealed partial class DamageOtherOnHitSystem : SharedDamageOtherOnHitSyste
         if (TerminatingOrDeleted(args.Target))
             return;
 
-        var dmg = _damageable.ChangeDamage(args.Target, component.Damage * _damageable.UniversalThrownDamageModifier, component.IgnoreResistances, origin: args.Component.Thrower);
+        var damage = component.Damage * _damageable.UniversalThrownDamageModifier;
+        // Onyx-Targeting: read intent from the carrier while preserving thrower attribution.
+        DamageSpecifier dmg;
+        if (HasComp<TargetingSnapshotComponent>(uid) && HasComp<WoundHostComponent>(args.Target))
+            _woundRouting.TryApplyCarrierDamage(args.Target,
+                uid,
+                damage,
+                args.Component.Thrower,
+                out dmg,
+                component.IgnoreResistances);
+        else
+            dmg = _damageable.ChangeDamage(args.Target, damage, component.IgnoreResistances, origin: args.Component.Thrower);
 
         // Log damage only for mobs. Useful for when people throw spears at each other, but also avoids log-spam when explosions send glass shards flying.
         if (HasComp<MobStateComponent>(args.Target))

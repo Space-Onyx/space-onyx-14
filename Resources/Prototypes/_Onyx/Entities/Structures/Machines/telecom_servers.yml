@@ -1,0 +1,120 @@
+- type: entity
+  parent: TelecomServer
+  id: OnyxTelecomServer
+  suffix: Signal Chain
+  components:
+  - type: TelecomRouter
+    maxBuses: 1
+    standalone: false
+  - type: Machine
+    board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: TelecomServerFilled
+  id: OnyxTelecomServerFilled
+  suffix: Filled All, Signal Chain
+  components:
+  - type: TelecomRouter
+    maxBuses: 1
+    standalone: false
+  - type: Machine
+    board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: TelecomServerFilledCommon
+  id: OnyxTelecomServerFilledCommon
+  suffix: Common, Signal Chain
+  components:
+  - type: TelecomRouter
+    maxBuses: 1
+    standalone: false
+  - type: Machine
+    board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: TelecomServerFilledCargo
+  id: OnyxTelecomServerFilledCargo
+  suffix: Cargo, Signal Chain
+  components:
+  - type: TelecomRouter
+    maxBuses: 1
+    standalone: false
+  - type: Machine
+    board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: TelecomServerFilledEngineering
+  id: OnyxTelecomServerFilledEngineering
+  suffix: Engineering, Signal Chain
+  components:
+  - type: TelecomRouter
+    maxBuses: 1
+    standalone: false
+  - type: Machine
+    board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: TelecomServerFilledMedical
+  id: OnyxTelecomServerFilledMedical
+  suffix: Medical, Signal Chain
+  components:
+  - type: TelecomRouter
+    maxBuses: 1
+    standalone: false
+  - type: Machine
+    board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: TelecomServerFilledScience
+  id: OnyxTelecomServerFilledScience
+  suffix: Science, Signal Chain
+  components:
+  - type: TelecomRouter
+    maxBuses: 1
+    standalone: false
+  - type: Machine
+    board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: TelecomServerFilledSecurity
+  id: OnyxTelecomServerFilledSecurity
+  suffix: Security, Signal Chain
+  components:
+  - type: TelecomRouter
+    maxBuses: 1
+    standalone: false
+  - type: Machine
+    board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: TelecomServerFilledService
+  id: OnyxTelecomServerFilledService
+  suffix: Service, Signal Chain
+  components:
+  - type: TelecomRouter
+    maxBuses: 1
+    standalone: false
+  - type: Machine
+    board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: TelecomServerFilledCommand
+  id: OnyxTelecomServerFilledCommand
+  suffix: Command, Signal Chain
+  components:
+  - type: TelecomRouter
+    maxBuses: 1
+    standalone: false
+  - type: Machine
+    board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: TelecomServerFilledLegal
+  id: OnyxTelecomServerFilledLegal
+  suffix: Legal, Signal Chain
+  components:
+  - type: TelecomRouter
+    maxBuses: 1
+    standalone: false
+  - type: Machine
+    board: OnyxTelecomServerCircuitboard

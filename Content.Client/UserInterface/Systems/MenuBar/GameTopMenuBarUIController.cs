@@ -1,4 +1,7 @@
 using Content.Client.UserInterface.Systems.Actions;
+// <Onyx-LanguageMenu>
+using Content.Client._Onyx.Language;
+// </Onyx-LanguageMenu>
 using Content.Client.UserInterface.Systems.Admin;
 using Content.Client.UserInterface.Systems.Bwoink;
 using Content.Client.UserInterface.Systems.Character;
@@ -24,6 +27,9 @@ public sealed partial class GameTopMenuBarUIController : UIController
     [Dependency] private SandboxUIController _sandbox = default!;
     [Dependency] private GuidebookUIController _guidebook = default!;
     [Dependency] private EmotesUIController _emotes = default!;
+    // <Onyx-LanguageMenu>
+    [Dependency] private LanguageMenuUIController _language = default!;
+    // </Onyx-LanguageMenu>
 
     private GameTopMenuBar? GameTopMenuBar => UIManager.GetActiveUIWidgetOrNull<GameTopMenuBar>();
 
@@ -47,6 +53,9 @@ public sealed partial class GameTopMenuBarUIController : UIController
         _action.UnloadButton();
         _sandbox.UnloadButton();
         _emotes.UnloadButton();
+        // <Onyx-LanguageMenu>
+        _language.UnloadButton();
+        // </Onyx-LanguageMenu>
     }
 
     public void LoadButtons()
@@ -60,5 +69,8 @@ public sealed partial class GameTopMenuBarUIController : UIController
         _action.LoadButton();
         _sandbox.LoadButton();
         _emotes.LoadButton();
+        // <Onyx-LanguageMenu>
+        _language.LoadButton();
+        // </Onyx-LanguageMenu>
     }
 }

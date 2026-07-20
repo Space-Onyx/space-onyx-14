@@ -1216,8 +1216,11 @@
     - type: MachineBoard
       prototype: CargoTelepad
       stackRequirements:
+        # <Onyx-BluespaceCrafting-edited>
         Manipulator: 2
         Steel: 5
+        BSCrystal: 10
+        # </Onyx-BluespaceCrafting-edited>
 
 - type: entity
   id: MailTeleporterMachineCircuitboard

@@ -1,0 +1,57 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="{Loc 'eftpos-ui-title'}"
+               Resizable="False"
+               SetSize="380 200">
+
+    <BoxContainer Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True">
+        <!-- Setup Container -->
+        <BoxContainer Name="SetupContainer" Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True">
+            <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
+                <Label Name="AmountLabel"
+                       Text="{Loc 'eftpos-ui-amount-text'}" />
+                <LineEdit Name="AmountLineEdit"
+                          PlaceHolder="0"
+                          MinWidth="60"
+                          Access="Public" />
+                <Button Name="CardButton"
+                        Access="Public"
+                        HorizontalExpand="True"
+                        HorizontalAlignment="Right"
+                        ToolTip="{Loc 'eftpos-ui-card-lock-desc'}"
+                        Text="{Loc 'eftpos-ui-card-lock-text'}" />
+            </BoxContainer>
+            <Label Name="AccountLabel"
+                   VerticalExpand="True"
+                   VerticalAlignment="Bottom"
+                   Access="Public" />
+        </BoxContainer>
+
+        <!-- Confirmation Container -->
+        <BoxContainer Name="ConfirmContainer" Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True" Visible="False">
+            <Label Name="ConfirmLabel"
+                   Text="{Loc 'eftpos-ui-confirm-text'}"
+                   HorizontalAlignment="Center" />
+            <Label Name="PayerLabel"
+                   Access="Public"
+                   HorizontalAlignment="Center" />
+            <Label Name="AmountConfirmLabel"
+                   Access="Public"
+                   HorizontalAlignment="Center" />
+            <BoxContainer Orientation="Horizontal" HorizontalExpand="True" Margin="0 8">
+                <Label Text="{Loc 'eftpos-ui-pin-text'}" />
+                <LineEdit Name="PinLineEdit"
+                          PlaceHolder="****"
+                          MinWidth="60"
+                          Access="Public" />
+            </BoxContainer>
+            <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
+                <Button Name="ConfirmButton"
+                        Access="Public"
+                        Text="{Loc 'eftpos-ui-confirm-button'}" />
+                <Button Name="CancelButton"
+                        Access="Public"
+                        Text="{Loc 'eftpos-ui-cancel-button'}" />
+            </BoxContainer>
+        </BoxContainer>
+    </BoxContainer>
+</DefaultWindow>

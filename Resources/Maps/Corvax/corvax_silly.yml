@@ -112,6 +112,21 @@ entities:
     - type: Transform
     - type: Map
       mapPaused: True
+    - type: GridGravityDefaults
+      enabled: true
+      inherent: true
+    - type: WeatherScheduler
+      random: true
+      stages:
+      - weight: 70
+        duration:
+          min: 60
+          max: 300
+      - weather: Rain
+        weight: 30
+        duration:
+          min: 60
+          max: 300
     - type: GridTree
     - type: Broadphase
     - type: OccluderTree
@@ -137,6 +152,14 @@ entities:
       offset: 720
       duration: 2400
       originalColor: '#E0A0C0FF'
+    - type: SunShadow
+      castRoofShadows: true
+      roofHeight: 1
+    - type: SunShadowCycle
+      pathRotation: 45
+      reverse: false
+      lengthMultiplier: 1.5
+      alphaMultiplier: 1.2
   - uid: 2
     components:
     - type: MetaData

@@ -1,0 +1,33 @@
+- type: entity
+  name: raw fish fillet
+  parent: [FoodMeatBase, BaseSlicingRefinableFood]
+  id: FoodMeatFishRaw
+  description: A fresh fillet of fish, ready for cooking or slicing.
+  components:
+  - type: FlavorProfile
+    flavors:
+      - fishy
+  - type: Tag
+    tags:
+    - Raw
+    - Meat
+  - type: Sprite
+    state: fish
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 6
+        - ReagentId: Protein
+          Quantity: 3
+  - type: ToolRefinable
+    refineResult:
+    - id: FoodMeatCutlet
+      amount: 3
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: generic-pink-inhand-left
+      right:
+      - state: generic-pink-inhand-right

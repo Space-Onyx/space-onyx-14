@@ -6,6 +6,9 @@
     layers:
     # Torso
     - map: [ "enum.HumanoidVisualLayers.Chest" ]
+    # <Onyx-ChestGroin>
+    - map: [ "enum.HumanoidVisualLayers.Groin" ]
+    # </Onyx-ChestGroin>
 
     # Head
     - map: [ "enum.HumanoidVisualLayers.Head" ]
@@ -19,13 +22,21 @@
     - map: [ "enum.HumanoidVisualLayers.LLeg" ]
 
     # Underwear & clothing
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
+    # <Onyx-Underwear-edited>
+    # Marking layers removed in favor of wearable underwear items.
+    # </Onyx-Underwear-edited>
+    # <Onyx-Underwear>
+    - map: [ "underwearb" ]
+    - map: [ "underweart" ]
+    # </Onyx-Underwear>
     - map: ["jumpsuit"]
 
     # Extremities
     - map: ["enum.HumanoidVisualLayers.LFoot"]
     - map: ["enum.HumanoidVisualLayers.RFoot"]
+    # <Onyx-Underwear>
+    - map: [ "socks" ]
+    # </Onyx-Underwear>
     - map: ["enum.HumanoidVisualLayers.LHand"]
     - map: ["enum.HumanoidVisualLayers.RHand"]
 

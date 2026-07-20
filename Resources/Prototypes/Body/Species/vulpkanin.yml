@@ -51,14 +51,9 @@
     enum.HumanoidVisualLayers.RFoot:
       limit: 2
       required: false
-    enum.HumanoidVisualLayers.UndergarmentTop:
-      limit: 1
-      required: false
-      nudityDefault: [ UndergarmentTopTanktopVulpkanin ]
-    enum.HumanoidVisualLayers.UndergarmentBottom:
-      limit: 1
-      required: false
-      nudityDefault: [ UndergarmentBottomBoxersVulpkanin ]
+    # <Onyx-Underwear-edited>
+    # Undergarment marking defaults removed in favor of wearable underwear items.
+    # </Onyx-Underwear-edited>
 
 - type: entity
   parent: BaseSpeciesAppearance
@@ -68,7 +63,10 @@
   components:
   - type: InitialBody
     organs:
-      Torso: OrganVulpkaninTorso
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganVulpkaninChest
+      Groin: OrganVulpkaninGroin
+      # </Onyx-ChestGroin-edited>
       Head: OrganVulpkaninHead
       ArmLeft: OrganVulpkaninArmLeft
       ArmRight: OrganVulpkaninArmRight
@@ -91,6 +89,9 @@
   - type: HumanoidProfile
     species: Vulpkanin
   - type: Inventory
+    # <Onyx-Underwear>
+    templateId: humanNoSocks
+    # </Onyx-Underwear>
     speciesId: vulpkanin
 #Corvax-Vulp_Port start
     femaleDisplacements:
@@ -195,6 +196,11 @@
       Male: MaleVulpkanin
       Female: FemaleVulpkanin
       Unsexed: MaleVulpkanin
+  # <Onyx-Languages>
+  - type: LanguageKnowledge
+    speaks: [TauCetiBasic, Canilunzt]
+    understands: [TauCetiBasic, Canilunzt]
+  # </Onyx-Languages>
   - type: Damageable
     damageModifierSet: Vulpkanin
   - type: MeleeWeapon

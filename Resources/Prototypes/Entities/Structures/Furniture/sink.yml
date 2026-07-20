@@ -32,6 +32,9 @@
   - type: DrainableSolution
     solution: tank
   - type: ReagentTank
+  # <Onyx-ClothingDirt>
+  - type: ClothingDirtWasher
+  # </Onyx-ClothingDirt>
   - type: Drain
     autoDrain: false
   - type: DumpableSolution

@@ -25,6 +25,19 @@
                     </BoxContainer>
                 </ScrollContainer>
             </PanelContainer>
+            <!-- Onyx Search -->
+            <BoxContainer Orientation="Horizontal">
+                <Label Text="{Loc 'chem-master-window-search-reagent-label'}" />
+                <Control MinSize="8 0" />
+                <LineEdit Name="ReagentSearchLineEdit"
+                          PlaceHolder="{Loc 'chem-master-window-search-reagent-placeholder'}"
+                          HorizontalExpand="True" />
+                <CheckBox Name="SearchInContainersCheckBox"
+                          Pressed="True"
+                          Margin="8 0 0 0"
+                          Text="{Loc 'chem-master-window-search-in-containers'}" />
+            </BoxContainer>
+            <!-- Onyx Search -->
 
             <!-- Padding -->
             <Control MinSize="0 10" />

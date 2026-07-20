@@ -1,0 +1,2 @@
+salary-pay-announcement = Attention! Our automated systems are transmitting a signal received from Central Command. According to our employment contract, the station crew has been paid their salary.
+salary-pay-sender = Station

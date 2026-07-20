@@ -4,6 +4,7 @@ using Content.Shared.Guidebook;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
+using Content.Shared._Onyx.CCVar;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
@@ -18,6 +19,11 @@ public sealed partial class HumanoidProfileEditor
     private ColorSelectorSliders _rgbSkinColorSelector;
     private List<SpeciesPrototype> _species = new();
     private static readonly ProtoId<GuideEntryPrototype> DefaultSpeciesGuidebook = "Species";
+    // <Onyx-HeightWidth>
+    private const float WidthWeightExponent = 1.35f;
+    private const float HeightWeightExponent = 0.65f;
+    private bool _updatingDimensionControls;
+    // </Onyx-HeightWidth>
 
     public void UpdateSpeciesGuidebookIcon()
     {
@@ -52,6 +58,103 @@ public sealed partial class HumanoidProfileEditor
     {
         AgeEdit.Text = Profile?.Age.ToString() ?? "";
     }
+
+    // <Onyx-HeightWidth>
+    private void UpdateDimensionControls()
+    {
+        if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
+            return;
+
+        var height = species.ClampHeight(Profile.Height);
+        var width = species.ClampWidth(Profile.Width);
+        if (height != Profile.Height || width != Profile.Width)
+            Profile = Profile.WithDimensions(height, width);
+
+        _updatingDimensionControls = true;
+        HeightSlider.Value = ToSlider(species.HeightScaleToCm(height), species.MinHeightCm, species.MaxHeightCm);
+        WidthSlider.Value = ToSlider(species.WidthScaleToKg(width), species.MinWeightKg, species.MaxWeightKg);
+        HeightEdit.Text = MathF.Round(species.HeightScaleToCm(height)).ToString("0");
+        WidthEdit.Text = MathF.Round(species.WidthScaleToKg(width)).ToString("0");
+        UpdateCalculatedWeightLabel(species);
+        _updatingDimensionControls = false;
+    }
+
+    private static float ToSlider(float value, int min, int max)
+    {
+        return min == max ? 0f : Math.Clamp((value - min) / (max - min), 0f, 1f);
+    }
+
+    private void SetHeightSlider()
+    {
+        if (_updatingDimensionControls || Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
+            return;
+
+        SetHeightCm((int)MathF.Round(MathHelper.Lerp(species.MinHeightCm, species.MaxHeightCm, HeightSlider.Value)));
+    }
+
+    private void SetWidthSlider()
+    {
+        if (_updatingDimensionControls || Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
+            return;
+
+        SetWidthKg((int)MathF.Round(MathHelper.Lerp(species.MinWeightKg, species.MaxWeightKg, WidthSlider.Value)));
+    }
+
+    private void SetHeightCm(int value)
+    {
+        if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
+            return;
+
+        value = Math.Clamp(value, Math.Min(species.MinHeightCm, species.MaxHeightCm), Math.Max(species.MinHeightCm, species.MaxHeightCm));
+        Profile = Profile.WithHeight(species.ClampHeight(species.HeightCmToScale(value)));
+        UpdateDimensionControls();
+        ReloadProfilePreview();
+    }
+
+    private void SetWidthKg(int value)
+    {
+        if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
+            return;
+
+        value = Math.Clamp(value, Math.Min(species.MinWeightKg, species.MaxWeightKg), Math.Max(species.MinWeightKg, species.MaxWeightKg));
+        Profile = Profile.WithWidth(species.ClampWidth(species.WeightKgToScale(value)));
+        UpdateDimensionControls();
+        ReloadProfilePreview();
+    }
+
+    private void ResetHeight()
+    {
+        if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
+            return;
+
+        Profile = Profile.WithHeight(species.DefaultHeight);
+        UpdateDimensionControls();
+        ReloadProfilePreview();
+    }
+
+    private void ResetWidth()
+    {
+        if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
+            return;
+
+        Profile = Profile.WithWidth(species.DefaultWidth);
+        UpdateDimensionControls();
+        ReloadProfilePreview();
+    }
+
+    private void UpdateCalculatedWeightLabel(SpeciesPrototype species)
+    {
+        if (Profile == null)
+            return;
+
+        var heightRatio = species.HeightScaleToCm(Profile.Height) / Math.Max(species.DefaultHeightCm, 1);
+        var widthRatio = species.WidthScaleToKg(Profile.Width) / Math.Max(species.DefaultWeightKg, 1);
+        var weight = species.DefaultWeightKg
+            * MathF.Pow(Math.Max(widthRatio, 0.01f), WidthWeightExponent)
+            * MathF.Pow(Math.Max(heightRatio, 0.01f), HeightWeightExponent);
+        CalculatedWeightLabel.Text = Loc.GetString("humanoid-profile-editor-calculated-weight-label", ("weight", MathF.Round(weight * 2f) / 2f));
+    }
+    // </Onyx-HeightWidth>
 
     private void UpdateSexControls()
     {
@@ -194,6 +297,9 @@ public sealed partial class HumanoidProfileEditor
         RefreshLoadouts();
         UpdateSexControls(); // update sex for new species
         UpdateSpeciesGuidebookIcon();
+        // <Onyx-HeightWidth>
+        UpdateDimensionControls();
+        // </Onyx-HeightWidth>
         ReloadPreview();
     }
 
@@ -258,6 +364,36 @@ public sealed partial class HumanoidProfileEditor
             guidebookController.OpenGuidebook(dict, includeChildren: true, selected: page);
         }
     }
+
+    // <Onyx-Barks>
+    private void SetBarkProto(string prototype)
+    {
+        Profile = Profile?.WithBarkProto(prototype);
+        ReloadPreview();
+        SetDirty();
+    }
+
+    private void SetBarkPitch(float pitch)
+    {
+        Profile = Profile?.WithBarkPitch(Math.Clamp(pitch, _cfgManager.GetCVar(ADTCCVars.BarksMinPitch), _cfgManager.GetCVar(ADTCCVars.BarksMaxPitch)));
+        ReloadPreview();
+        SetDirty();
+    }
+
+    private void SetBarkMinVariation(float variation)
+    {
+        Profile = Profile?.WithBarkMinVariation(Math.Clamp(variation, _cfgManager.GetCVar(ADTCCVars.BarksMinDelay), Profile.Bark.MaxVar));
+        ReloadPreview();
+        SetDirty();
+    }
+
+    private void SetBarkMaxVariation(float variation)
+    {
+        Profile = Profile?.WithBarkMaxVariation(Math.Clamp(variation, Profile.Bark.MinVar, _cfgManager.GetCVar(ADTCCVars.BarksMaxDelay)));
+        ReloadPreview();
+        SetDirty();
+    }
+    // </Onyx-Barks>
 
     private void OnSkinColorOnValueChanged()
     {

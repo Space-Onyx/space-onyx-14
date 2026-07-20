@@ -1,0 +1,77 @@
+- type: reagent
+  id: Immurin
+  name: reagent-name-immurin
+  group: Medicine
+  desc: reagent-desc-immurin
+  physicalDesc: reagent-physical-desc-powdery
+  flavor: terrible
+  color: "#A2AF8A"
+  metabolisms:
+    Medicine:
+      effects:
+      - !type:ImmunityModifier
+        gainRateModifier: 0.000366666666666
+        strengthModifier: 0.0044444444444
+        statusLifetime: 3
+
+- type: reagent
+  id: Spaceacilin
+  name: reagent-name-spaceacilin
+  group: Medicine
+  desc: reagent-desc-spaceacilin
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: medicine
+  color: "#559955"
+  metabolisms:
+    Medicine:
+      effects:
+      - !type:DiseaseProgressChange
+        affectedType: Bacterial
+        progressModifier: -0.033333333333
+      - !type:ImmunityModifier
+        gainRateModifier: -0.000555555555555
+        strengthModifier: -0.0044444444444
+        statusLifetime: 1.5
+
+- type: reagent
+  id: Devirate
+  name: reagent-name-devirate
+  group: Medicine
+  desc: reagent-desc-devirate
+  physicalDesc: reagent-physical-desc-opaque
+  flavor: medicine
+  color: "#995555"
+  metabolisms:
+    Medicine:
+      effects:
+      - !type:DiseaseProgressChange
+        affectedType: Viral
+        progressModifier: -0.033333333333
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 0.5
+
+- type: reagent
+  id: TripleCitrus
+  name: reagent-name-triple-citrus
+  parent: BaseDrink
+  desc: reagent-desc-triple-citrus
+  physicalDesc: reagent-physical-desc-lemony-fresh
+  flavor: sour
+  color: "#d9f929"
+  metabolisms:
+    Medicine:
+      effects:
+      - !type:SatiateThirst
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: -1
+      - !type:ImmunityModifier
+        gainRateModifier: 0.000259272486435
+        strengthModifier: 0.00314269680524
+        statusLifetime: 3
+      - !type:DiseaseProgressChange
+        affectedType: Viral
+        progressModifier: -0.0041666666666

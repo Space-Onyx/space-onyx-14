@@ -45,8 +45,9 @@ markings-layer-Tail = Tail
 markings-layer-Tail-Moth = Wings
 markings-layer-Hair = Hair
 markings-layer-FacialHair = Facial Hair
-markings-layer-UndergarmentTop = Undershirt
-markings-layer-UndergarmentBottom = Underpants
+# <Onyx-Underwear-edited>
+# Undergarment categories removed in favor of wearable underwear items.
+# </Onyx-Underwear-edited>
 markings-layer-Chest = Chest
 markings-layer-Head = Head
 markings-layer-Snout = Snout

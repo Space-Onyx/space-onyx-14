@@ -182,6 +182,10 @@
   - type: Fiber
     fiberMaterial: fibers-latex
   - type: FingerprintMask
+  # <Onyx-SurgeryPPE>
+  - type: Tag
+    tags: [ SurgerySterileGloves ]
+  # </Onyx-SurgeryPPE>
 
 - type: entity
   parent: ClothingHandsButcherable
@@ -196,6 +200,10 @@
   - type: Fiber
     fiberMaterial: fibers-nitrile
   - type: FingerprintMask
+  # <Onyx-SurgeryPPE>
+  - type: Tag
+    tags: [ SurgerySterileGloves ]
+  # </Onyx-SurgeryPPE>
 
 - type: entity
   parent: ClothingHandsButcherable

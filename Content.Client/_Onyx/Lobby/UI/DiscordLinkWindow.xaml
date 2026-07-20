@@ -1,0 +1,26 @@
+<DefaultWindow
+    x:Class="Content.Client.Lobby.UI.DiscordLinkWindow"
+    xmlns="https://spacestation14.io"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="{Loc 'ui-lobby-discord-linc-title'}"
+    MinWidth="500"
+    MinHeight="270"
+    MaxWidth="650"
+    MaxHeight="300"
+    Resizable="False">
+    <BoxContainer Orientation="Vertical" SeparationOverride="10" Margin="10">
+        <RichTextLabel Name="StatusLabel" HorizontalExpand="True" VerticalExpand="False" />
+        <BoxContainer Name="InstructionContainer" Orientation="Vertical" SeparationOverride="6" Visible="false">
+            <RichTextLabel Name="InstructionText" HorizontalExpand="True" VerticalExpand="True" />
+            <BoxContainer Orientation="Horizontal" SeparationOverride="6" HorizontalExpand="True">
+                <Button Name="CopyCodeButton" Text="{Loc 'ui-lobby-discord-linc-copy-button-code'}" HorizontalExpand="True" />
+                <Button Name="OpenDiscordButton" Text="{Loc 'ui-lobby-discord-linc-open-channel'}" HorizontalExpand="True" />
+                <Button Name="CopyInstructionButton" Text="{Loc 'ui-lobby-discord-linc-copy-button-instruction'}" HorizontalExpand="True" />
+            </BoxContainer>
+        </BoxContainer>
+        <BoxContainer Name="SuccessContainer" Orientation="Vertical" SeparationOverride="6" Visible="false" HorizontalExpand="True">
+            <RichTextLabel Name="SuccessRichText" HorizontalExpand="True" />
+            <Button Name="UnlinkDiscordButton" Text="{Loc 'ui-lobby-discord-link-unlink-button'}" HorizontalExpand="True" />
+        </BoxContainer>
+    </BoxContainer>
+</DefaultWindow>

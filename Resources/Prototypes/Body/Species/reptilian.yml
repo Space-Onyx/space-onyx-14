@@ -58,6 +58,9 @@
   name: reptilian appearance
   components:
   - type: Inventory
+    # <Onyx-Underwear>
+    templateId: humanNoSocks
+    # </Onyx-Underwear>
     speciesId: reptilian
     femaleDisplacements:
       jumpsuit:
@@ -107,7 +110,10 @@
     # Corvax-Displacements-End
   - type: InitialBody
     organs:
-      Torso: OrganReptilianTorso
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganReptilianChest
+      Groin: OrganReptilianGroin
+      # </Onyx-ChestGroin-edited>
       Head: OrganReptilianHead
       ArmLeft: OrganReptilianArmLeft
       ArmRight: OrganReptilianArmRight
@@ -159,6 +165,11 @@
       Male: MaleReptilian
       Female: FemaleReptilian
       Unsexed: MaleReptilian
+  # <Onyx-Languages>
+  - type: LanguageKnowledge
+    speaks: [TauCetiBasic, Draconic]
+    understands: [TauCetiBasic, Draconic]
+  # </Onyx-Languages>
   - type: BodyEmotes
     soundsId: ReptilianBodyEmotes
   - type: Damageable

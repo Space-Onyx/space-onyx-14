@@ -494,7 +494,9 @@
   - type: UserInterface
     interfaces:
       enum.ResearchConsoleUiKey.Key:
-        type: ResearchConsoleBoundUserInterface
+        # <Onyx-FancyResearchUI-edited>
+        type: FancyResearchConsoleBoundUserInterface
+        # </Onyx-FancyResearchUI-edited>
       enum.ResearchClientUiKey.Key:
         type: ResearchClientBoundUserInterface
       enum.WiresUiKey.Key:

@@ -14,6 +14,10 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Maps;
 using Content.Shared.Popups;
 using Content.Shared.Slippery;
+using Content.Shared.StepTrigger.Systems;
+// <Onyx-ClothingDirt>
+using Content.Shared._Onyx.Clothing;
+// </Onyx-ClothingDirt>
 using Robust.Shared.Collections;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -36,6 +40,9 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
     [Dependency] private SharedSolutionContainerSystem _solutionContainerSystem = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private TurfSystem _turf = default!;
+    // <Onyx-ClothingDirt>
+    [Dependency] private ClothingDirtSystem _clothingDirt = default!;
+    // </Onyx-ClothingDirt>
 
     [Dependency] private EntityQuery<PuddleComponent> _puddleQuery = default!;
     [Dependency] private EntityQuery<EvaporationSparkleComponent> _evaporationSparklesQuery = default!;
@@ -420,6 +427,11 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
             // between 5 and 30%
             var splitAmount = spilled.Volume * _random.NextFloat(0.05f, 0.30f);
             var splitSolution = spilled.SplitSolution(splitAmount);
+
+            // <Onyx-ClothingDirt>
+            _clothingDirt.TryDirtyWornSplash(owner, splitSolution,
+                FixedPoint2.Min(splitSolution.Volume, FixedPoint2.New(1)));
+            // </Onyx-ClothingDirt>
 
             if (user != null)
             {

@@ -14,6 +14,7 @@ using Content.Server.GameTicking.Presets;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Maps;
 using Content.Server.RoundEnd;
+using Content.Shared.Administration;
 using Content.Shared.Administration.Managers;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
@@ -26,6 +27,11 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
+using Content.Shared.Chat;
+using Content.Server.Chat.Managers;
+using Content.Server._Onyx.Discord;
+using Content.Server._Onyx.Discord.Bans;
+using Content.Server._Onyx.Discord.Bans.PayloadGenerators;
 
 namespace Content.Server.Administration;
 
@@ -51,7 +57,7 @@ public sealed partial class ServerApi : IPostInjectInit
     [Dependency] private IStatusHost _statusHost = default!;
     [Dependency] private IConfigurationManager _config = default!;
     [Dependency] private ISharedPlayerManager _playerManager = default!;
-    [Dependency] private ISharedAdminManager _adminManager = default!;
+    [Dependency] private IAdminManager _adminManager = default!;
     [Dependency] private IGameMapManager _gameMapManager = default!;
     [Dependency] private IServerNetManager _netManager = default!;
     [Dependency] private IPrototypeManager _prototypeManager = default!;
@@ -61,6 +67,8 @@ public sealed partial class ServerApi : IPostInjectInit
     [Dependency] private ILogManager _logManager = default!;
     [Dependency] private IEntitySystemManager _entitySystemManager = default!;
     [Dependency] private ILocalizationManager _loc = default!;
+    [Dependency] private INetConfigurationManager _netConfigManager = default!;
+    [Dependency] private IChatManager _chatManager = default!;
     [Dependency] private IPlayerLocator _locator = default!;
     [Dependency] private IBanManager _bans = default!;
     [Dependency] private IServerDbManager _db = default!;
@@ -88,6 +96,8 @@ public sealed partial class ServerApi : IPostInjectInit
         RegisterActorHandler(HttpMethod.Post, "/admin/actions/force_preset", ActionForcePreset);
         RegisterActorHandler(HttpMethod.Post, "/admin/actions/set_motd", ActionForceMotd);
         RegisterActorHandler(HttpMethod.Patch, "/admin/actions/panic_bunker", ActionPanicPunker);
+        RegisterActorHandler(HttpMethod.Post, "/admin/actions/a_chat", ActionAdminChat);                // ADT Tweak
+        RegisterActorHandler(HttpMethod.Post, "/admin/actions/server_ban", ActionServerBan);            // ADT Tweak
     }
 
     public void Initialize()
@@ -791,6 +801,128 @@ public sealed partial class ServerApi : IPostInjectInit
     private sealed class GameruleResponse
     {
         public required List<string> GameRules { get; init; }
+    }
+
+    #endregion
+    #region ADT-Tweak
+
+    private async Task ActionAdminChat(IStatusHandlerContext context, Actor actor)
+    {
+        var body = await ReadJson<AdminChatActionBody>(context);
+        if (body == null)
+            return;
+
+        string discordName = $"{body.NickName}(Discord)";
+        string message = body.Message;
+        var authorUser = new NetUserId(actor.Guid);
+
+        await RunOnMainThread(async () =>
+        {
+            var clients = _adminManager.ActiveAdmins
+            .Where(admin => _adminManager.GetAdminData(admin)?.Flags.HasFlag(AdminFlags.Adminchat) == true)
+            .Select(p => p.Channel).ToList();
+
+            // Используем Loc.GetString для формирования сообщения
+            var wrappedMessage = Loc.GetString("chat-manager-send-admin-chat-wrap-message",
+                ("adminChannelName", Loc.GetString("chat-manager-admin-channel-name")),
+                ("playerName", discordName),
+                ("message", FormattedMessage.EscapeText(body.Message))
+            );
+
+            // Отправляем сообщения всем администраторам
+            foreach (var client in clients)
+            {
+                bool isSource = true;
+                string? audioPath = isSource ? _netConfigManager.GetClientCVar(client, CCVars.AdminChatSoundPath) : default;
+                float audioVolume = isSource ? _netConfigManager.GetClientCVar(client, CCVars.AdminChatSoundVolume) : default;
+
+                _chatManager.ChatMessageToOne(
+                    ChatChannel.AdminChat,
+                    message,
+                    wrappedMessage,
+                    default,
+                    false,
+                    client,
+                    audioPath: audioPath,
+                    audioVolume: audioVolume,
+                    author: authorUser
+                );
+            }
+
+            await RespondOk(context);
+            _sawmill.Info($"Send message by {FormatLogActor(actor)}");
+        });
+    }
+
+    private async Task ActionServerBan(IStatusHandlerContext context, Actor actor)
+    {
+        var body = await ReadJson<ActionServerBanBody>(context);
+        if (body == null)
+            return;
+
+        await RunOnMainThread(async () =>
+        {
+            if (!uint.TryParse(body.Time, out uint minutes) || minutes < 0)
+            {
+                _sawmill.Warning($"ServerApi BAN: {body.Time} is not a valid amount of minutes!");
+                return;
+            }
+
+            var adminName = actor.Name;
+            var adminUserId = new NetUserId(actor.Guid);
+            var target = body.NickName;
+            var reason = body.Reason;
+            var severity = NoteSeverity.High;
+
+            var locatedTarget = await _locator.LookupIdByNameOrIdAsync(target);
+            if (locatedTarget == null)
+            {
+                _sawmill.Warning($"ServerApi BAN: Unable to find a player with name {target}.");
+                return;
+            }
+
+            var targetUid = locatedTarget.UserId;
+            var targetHWid = locatedTarget.LastHWId;
+
+            if (_bans == null)
+            {
+                _sawmill.Error("ServerApi BAN: _bans (BanManager) is NULL! Cannot process ban.");
+                return;
+            }
+
+            try
+            {
+                _bans.CreateServerBan(targetUid, target, adminUserId, null, targetHWid, minutes, severity, reason);
+            }
+            catch (Exception ex)
+            {
+                _sawmill.Error($"ServerApi BAN: Exception while banning {target}: {ex}");
+                return;
+            }
+
+            await RespondOk(context);
+            _sawmill.Info($"{actor.Name} banned {body.NickName} for {body.Time} minutes. Reason: {body.Reason}");
+        });
+    }
+
+    private sealed class AdminChatActionBody
+    {
+        public required string Message { get; init; }
+        public required string NickName { get; init; }
+    }
+
+    private sealed class AdminActionPlayTimeJobBody
+    {
+        public required string NickName { get; init; }
+        public required string JobIdPrototype { get; init; }
+        public required string Time { get; init; }
+    }
+
+    private sealed class ActionServerBanBody
+    {
+        public required string NickName { get; init; }
+        public required string Reason { get; init; }
+        public required string Time { get; init; }
     }
 
     #endregion

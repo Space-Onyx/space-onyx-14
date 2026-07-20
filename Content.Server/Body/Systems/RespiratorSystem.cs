@@ -2,6 +2,9 @@ using Content.Server.Administration.Logs;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Components;
 using Content.Server.Chat.Systems;
+// <Onyx-OrganConsequences>
+using Content.Shared._Onyx.Body;
+// </Onyx-OrganConsequences>
 using Content.Shared.Body.Systems;
 using Content.Shared.Alert;
 using Content.Shared.Atmos;
@@ -87,6 +90,16 @@ public sealed partial class RespiratorSystem : EntitySystem
 
             if (_mobState.IsDead(uid))
                 continue;
+
+            // <Onyx-OrganConsequences>
+            // Bodies only become lung-dependent after actually having lungs.
+            if (!HasComp<LungDependentComponent>(uid))
+            {
+                respirator.Saturation = respirator.MaxSaturation;
+                respirator.SuffocationCycles = 0;
+                continue;
+            }
+            // </Onyx-OrganConsequences>
 
             UpdateSaturation(uid, -(float)respirator.UpdateInterval.TotalSeconds, respirator);
 
@@ -207,6 +220,11 @@ public sealed partial class RespiratorSystem : EntitySystem
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
 
+        // <Onyx-OrganConsequences>
+        if (!HasComp<LungDependentComponent>(ent))
+            return true;
+        // </Onyx-OrganConsequences>
+
         // Get the gas at our location but don't actually remove it from the gas mixture.
         var ev = new InhaleLocationEvent
         {
@@ -230,6 +248,11 @@ public sealed partial class RespiratorSystem : EntitySystem
     {
         if (!Resolve(ent, ref ent.Comp, false))//Corvax-IPC
             return false;
+
+        // <Onyx-OrganConsequences>
+        if (!HasComp<LungDependentComponent>(ent))
+            return true;
+        // </Onyx-OrganConsequences>
 
         var ev = new CanMetabolizeGasEvent(gas);
         RaiseLocalEvent(ent, ref ev);

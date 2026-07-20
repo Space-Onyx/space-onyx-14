@@ -1,4 +1,5 @@
 using Content.Shared.Corvax.TTS;
+using Content.Shared._Onyx.SpeechBarks;
 using Content.Shared.Examine;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.IdentityManagement;
@@ -37,6 +38,10 @@ public sealed partial class HumanoidProfileSystem : EntitySystem
 
         ent.Comp.Gender = profile.Gender;
         ent.Comp.Age = profile.Age;
+        // <Onyx-HeightWidth>
+        ent.Comp.Height = profile.Height;
+        ent.Comp.Width = profile.Width;
+        // </Onyx-HeightWidth>
         ent.Comp.Species = profile.Species;
         ent.Comp.Sex = profile.Sex;
         // Corvax-TTS-start
@@ -46,6 +51,9 @@ public sealed partial class HumanoidProfileSystem : EntitySystem
             _TTSComponent.VoicePrototypeId = profile.Voice;
         }
         // Corvax-TTS-end
+        if (TryComp<SpeechBarksComponent>(ent, out var barks))
+            barks.Data = profile.Bark.Copy();
+
         Dirty(ent);
 
         var sexChanged = new SexChangedEvent(ent.Comp.Sex, profile.Sex);

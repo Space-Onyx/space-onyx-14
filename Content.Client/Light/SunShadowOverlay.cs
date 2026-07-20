@@ -1,6 +1,8 @@
 using System.Numerics;
 using Content.Client.Graphics;
 using Content.Shared.Light.Components;
+using Content.Shared.Light.EntitySystems;
+using Content.Shared.Maps;
 using Robust.Client.Graphics;
 using Robust.Shared.Enums;
 using Robust.Shared.Map;
@@ -21,6 +23,8 @@ public sealed partial class SunShadowOverlay : Overlay
     [Dependency] private IMapManager _mapManager = default!;
     [Dependency] private IPrototypeManager _protoManager = default!;
     private readonly EntityLookupSystem _lookup;
+    private readonly SharedMapSystem _mapSystem; // <Onyx-Planetar>
+    private readonly SharedRoofSystem _roofSystem; // <Onyx-Planetar>
     private readonly SharedTransformSystem _xformSys;
 
     private readonly HashSet<Entity<SunShadowCastComponent>> _shadows = new();
@@ -32,6 +36,8 @@ public sealed partial class SunShadowOverlay : Overlay
         IoCManager.InjectDependencies(this);
         _xformSys = _entManager.System<SharedTransformSystem>();
         _lookup = _entManager.System<EntityLookupSystem>();
+        _mapSystem = _entManager.System<SharedMapSystem>(); // <Onyx-Planetar>
+        _roofSystem = _entManager.System<SharedRoofSystem>(); // <Onyx-Planetar>
         ZIndex = AfterLightTargetOverlay.ContentZIndex + 1;
     }
 
@@ -76,7 +82,10 @@ public sealed partial class SunShadowOverlay : Overlay
 
         foreach (var grid in _grids)
         {
-            if (!_entManager.TryGetComponent(grid.Owner, out SunShadowComponent? sun))
+            // <Onyx-Planetar>
+            if (!_entManager.TryGetComponent(grid.Owner, out SunShadowComponent? sun) &&
+                !_entManager.TryGetComponent(args.MapUid, out sun))
+            // </Onyx-Planetar>
             {
                 continue;
             }
@@ -101,6 +110,15 @@ public sealed partial class SunShadowOverlay : Overlay
                     var invMatrix =
                         res.Target.GetWorldToLocalMatrix(eye, scale);
                     var indices = new Vector2[PhysicsConstants.MaxPolygonVertices * 2];
+                    // <Onyx-Planetar>
+                    DrawRoofShadows(
+                        worldHandle,
+                        invMatrix,
+                        grid,
+                        expandedBounds,
+                        direction,
+                        sun);
+                    // </Onyx-Planetar>
 
                     // Go through shadows in range.
 

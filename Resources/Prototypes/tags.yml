@@ -1,6 +1,23 @@
 # PUT YOUR TAGS IN ALPHABETICAL ORDER
 # ALSO DOCUMENT WHAT THE HELL THEY DO
 
+# <Onyx-SurgeryPPE>
+- type: Tag
+  id: SurgerySterileCap # Surgical PPE worn in the head slot.
+
+- type: Tag
+  id: SurgerySterileGloves # Surgical PPE worn in the gloves slot.
+
+- type: Tag
+  id: SurgerySterileMask # Surgical PPE worn in the mask slot.
+
+- type: Tag
+  id: SurgeryLeft # Left body part accepted by a surgery attachment operation.
+
+- type: Tag
+  id: SurgeryRight # Right body part accepted by a surgery attachment operation.
+# </Onyx-SurgeryPPE>
+
 ## A ##
 
 - type: Tag

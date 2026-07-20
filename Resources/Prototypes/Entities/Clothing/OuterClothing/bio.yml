@@ -22,6 +22,14 @@
   - type: ClothingSpeedModifier
     walkModifier: 0.95
     sprintModifier: 0.95
+  # <GoobStation-Disease>
+  - type: DiseaseProtection
+    incoming:
+      powerModifiers:
+        Blood: -1
+      chanceMultipliers:
+        Blood: 0.5
+  # </GoobStation-Disease>
 
 - type: entity
   parent: ClothingOuterBioGeneral

@@ -1,0 +1,9 @@
+- type: entity
+  parent: Solution
+  id: SolutionClothingDirt
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Solution
+    id: dirt
+    solution:
+      maxVol: 20

@@ -31,6 +31,9 @@
         Quantity: 100
   - type: DrainableSolution
     solution: pool
+  # <Onyx-ClothingDirt>
+  - type: ClothingDirtWasher
+  # </Onyx-ClothingDirt>
   - type: SpeedModifierContacts
     walkSpeedModifier: 0.5
     sprintSpeedModifier: 0.5

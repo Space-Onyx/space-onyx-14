@@ -1,6 +1,7 @@
 using System.Linq;
 using Content.Shared.Humanoid.Markings;
 using Content.Shared.Humanoid;
+using Content.Shared.Sprite;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
@@ -15,6 +16,9 @@ public abstract partial class SharedVisualBodySystem : EntitySystem
     [Dependency] private IPrototypeManager _prototype = default!;
     [Dependency] private MarkingManager _marking = default!;
     [Dependency] private SharedContainerSystem _container = default!;
+    // <Onyx-HeightWidth>
+    [Dependency] private SharedScaleVisualsSystem _scaleVisuals = default!;
+    // </Onyx-HeightWidth>
 
     public override void Initialize()
     {
@@ -111,7 +115,7 @@ public abstract partial class SharedVisualBodySystem : EntitySystem
 
     private void OnVisualOrganApplyProfile(Entity<VisualOrganComponent> ent, ref BodyRelayedEvent<ApplyOrganProfileDataEvent> args)
     {
-        if (Comp<OrganComponent>(ent).Category is not { } category)
+        if (!TryGetVisualCategory(ent, out var category))
             return;
 
         var relevantData = args.Args.Base;
@@ -123,10 +127,15 @@ public abstract partial class SharedVisualBodySystem : EntitySystem
 
         ent.Comp.Profile = data;
 
-        if (ent.Comp.Layer.Equals(HumanoidVisualLayers.Eyes))
-            SetOrganColor(ent, ent.Comp.Profile.EyeColor);
-        else
-            SetOrganColor(ent, ent.Comp.Profile.SkinColor);
+        // <Onyx-CyberneticVisuals-edited>
+        if (ent.Comp.ColorFromProfile)
+        {
+            if (ent.Comp.Layer.Equals(HumanoidVisualLayers.Eyes))
+                SetOrganColor(ent, ent.Comp.Profile.EyeColor);
+            else
+                SetOrganColor(ent, ent.Comp.Profile.SkinColor);
+        }
+        // </Onyx-CyberneticVisuals-edited>
 
         if (ent.Comp.SexStateOverrides is { } overrides && overrides.TryGetValue(data.Sex, out var state))
         {
@@ -137,7 +146,7 @@ public abstract partial class SharedVisualBodySystem : EntitySystem
 
     private void OnMarkingsOrganApplyMarkings(Entity<VisualOrganMarkingsComponent> ent, ref BodyRelayedEvent<ApplyOrganMarkingsEvent> args)
     {
-        if (Comp<OrganComponent>(ent).Category is not { } category)
+        if (!TryGetVisualCategory(ent, out var category))
             return;
 
         if (!args.Args.Markings.TryGetValue(category, out var markingSet))
@@ -171,6 +180,26 @@ public abstract partial class SharedVisualBodySystem : EntitySystem
 
         SetOrganMarkings(ent, resolved);
     }
+
+    private bool TryGetVisualCategory(EntityUid entity, out ProtoId<OrganCategoryPrototype> category)
+    {
+        // <Onyx-Surgery>
+        category = default;
+        if (TryComp(entity, out OrganComponent? organ) && organ.Category is { } organCategory)
+        {
+            category = organCategory;
+            return true;
+        }
+
+        if (TryComp(entity, out Body.Part.BodyPartComponent? part) && part.Category is { } partCategory)
+        {
+            category = partCategory;
+            return true;
+        }
+
+        return false;
+        // </Onyx-Surgery>
+    }
 }
 
 /// <summary>
@@ -190,4 +219,13 @@ public readonly record struct ApplyOrganProfileDataEvent(OrganProfileData? Base,
 /// </summary>
 [ByRefEvent]
 public readonly record struct ApplyOrganMarkingsEvent(Dictionary<ProtoId<OrganCategoryPrototype>, Dictionary<HumanoidVisualLayers, List<Marking>>> Markings);
+
+// <Onyx-DynamicWagging>
+/// <summary>
+/// Raised after a visual body's markings have changed.
+/// </summary>
+public sealed class VisualBodyMarkingsChangedEvent : EntityEventArgs
+{
+}
+// </Onyx-DynamicWagging>
 

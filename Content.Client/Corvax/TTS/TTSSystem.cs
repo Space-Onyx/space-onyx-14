@@ -8,6 +8,7 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Utility;
+using Content.Shared._Onyx.CCVar;
 
 namespace Content.Client.Corvax.TTS;
 
@@ -71,6 +72,8 @@ public sealed partial class TTSSystem : EntitySystem
 
     private void OnPlayTTS(PlayTTSEvent ev)
     {
+        if (_cfg.GetCVar(ADTCCVars.ReplaceTTSWithBarks) == true) // <Onyx-Bark>
+            return;
         _sawmill.Verbose($"Play TTS audio {ev.Data.Length} bytes from {ev.SourceUid} entity");
 
         var filePath = new ResPath($"{_fileIdx++}.ogg");

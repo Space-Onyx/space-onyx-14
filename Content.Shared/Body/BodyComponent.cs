@@ -12,13 +12,20 @@ namespace Content.Shared.Body;
 [Access(typeof(BodySystem))]
 public sealed partial class BodyComponent : Component
 {
+    // <Onyx-Surgery>
     public const string ContainerID = "body_organs";
+    public const string RootContainerID = "body_root_part";
 
     /// <summary>
     /// The actual container with entities with <see cref="OrganComponent" /> in it
     /// </summary>
     [ViewVariables]
     public Container? Organs;
+
+    /// <summary>Root torso slot for the RMC-compatible body graph.</summary>
+    [ViewVariables]
+    public ContainerSlot? RootContainer;
+    // </Onyx-Surgery>
 }
 
 /// <summary>

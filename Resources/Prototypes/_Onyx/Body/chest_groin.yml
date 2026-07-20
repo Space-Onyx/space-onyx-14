@@ -1,0 +1,336 @@
+- type: organCategory
+  id: Chest
+
+- type: organCategory
+  id: Groin
+
+- type: entity
+  parent: OrganBaseOrganic
+  id: OrganBaseChest
+  name: chest
+  abstract: true
+  components:
+  - type: BodyPart
+    partType: Chest
+    category: Chest
+  - type: Sprite
+    state: chest_m
+  - type: VisualOrgan
+    layer: enum.HumanoidVisualLayers.Chest
+    data:
+      state: chest_m
+  - type: VisualOrganMarkings
+    markingData:
+      layers:
+      - Chest
+      - Overlay
+      - Special
+
+- type: entity
+  parent: OrganBaseOrganic
+  id: OrganBaseGroin
+  name: pelvis
+  abstract: true
+  components:
+  - type: BodyPart
+    partType: Groin
+    category: Groin
+  - type: Sprite
+    state: groin_m
+  - type: VisualOrgan
+    layer: enum.HumanoidVisualLayers.Groin
+    data:
+      state: groin_m
+  - type: VisualOrganMarkings
+    markingData:
+      layers:
+      - Tail
+      - TailOverlay
+
+- type: entity
+  id: OrganBaseChestSexed
+  abstract: true
+  components:
+  - type: Sprite
+    state: chest_m
+  - type: VisualOrgan
+    data:
+      state: chest_m
+    sexStateOverrides:
+      Male: chest_m
+      Female: chest_f
+
+- type: entity
+  id: OrganBaseGroinSexed
+  abstract: true
+  components:
+  - type: Sprite
+    state: groin_m
+  - type: VisualOrgan
+    data:
+      state: groin_m
+    sexStateOverrides:
+      Male: groin_m
+      Female: groin_f
+
+- type: entity
+  parent: [ OrganBaseChestSexed, OrganBaseChest, OrganHumanExternal ]
+  id: OrganHumanChest
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Human/parts.rsi
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Body/Species/Human/parts.rsi
+
+- type: entity
+  parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganHumanExternal ]
+  id: OrganHumanGroin
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Human/parts.rsi
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Body/Species/Human/parts.rsi
+
+- type: entity
+  parent: [ OrganBaseChestSexed, OrganBaseChest, OrganHumanExternal ]
+  id: OrganFelinidChest
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Human/parts.rsi
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Body/Species/Human/parts.rsi
+  - type: VisualOrganMarkings
+    markingData:
+      group: Felinid
+
+- type: entity
+  parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganHumanExternal ]
+  id: OrganFelinidGroin
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Human/parts.rsi
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Body/Species/Human/parts.rsi
+  - type: VisualOrganMarkings
+    markingData:
+      group: Felinid
+
+- type: entity
+  parent: [ OrganBaseChestSexed, OrganBaseChest, OrganReptilianExternal ]
+  id: OrganReptilianChest
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Reptilian/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Reptilian/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganReptilianExternal ]
+  id: OrganReptilianGroin
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Reptilian/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Reptilian/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseChestSexed, OrganBaseChest, OrganSlimePersonExternal ]
+  id: OrganSlimePersonChest
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Slime/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Slime/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganSlimePersonExternal ]
+  id: OrganSlimePersonGroin
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Slime/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Slime/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseChest, OrganDionaExternal ]
+  id: OrganDionaChest
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Diona/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Diona/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseGroin, OrganDionaExternal ]
+  id: OrganDionaGroin
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Diona/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Diona/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseChestSexed, OrganBaseChest, OrganMothExternal ]
+  id: OrganMothChest
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Moth/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Moth/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganMothExternal ]
+  id: OrganMothGroin
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Moth/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Moth/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseChestSexed, OrganBaseChest, OrganVulpkaninExternal ]
+  id: OrganVulpkaninChest
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganVulpkaninExternal ]
+  id: OrganVulpkaninGroin
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseChest, OrganVoxExternal ]
+  id: OrganVoxChest
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Vox/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Vox/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseGroin, OrganVoxExternal ]
+  id: OrganVoxGroin
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Vox/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Vox/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseChest, OrganArachnidExternal ]
+  id: OrganArachnidChest
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Arachnid/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Arachnid/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseGroin, OrganArachnidExternal ]
+  id: OrganArachnidGroin
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Arachnid/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Arachnid/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseChestSexed, OrganBaseChest, OrganTajaranExternal ]
+  id: OrganTajaranChest
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Tajaran/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Tajaran/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganTajaranExternal ]
+  id: OrganTajaranGroin
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Tajaran/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Tajaran/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseChest, OrganIpcExternal ]
+  id: OrganIpcChest
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/IPC/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/IPC/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseGroin, OrganIpcExternal ]
+  id: OrganIpcGroin
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/IPC/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/IPC/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseChestSexed, OrganBaseChest, OrganArcanExternal ]
+  id: OrganArcanChest
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Arcan/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Arcan/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganArcanExternal ]
+  id: OrganArcanGroin
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Arcan/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Arcan/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseChestSexed, OrganBaseChest, OrganSkeletonPersonExternal ]
+  id: OrganSkeletonPersonChest
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Skeleton/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Skeleton/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganSkeletonPersonExternal ]
+  id: OrganSkeletonPersonGroin
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Skeleton/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Skeleton/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseChest, OrganGingerbreadExternal ]
+  id: OrganGingerbreadChest
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Gingerbread/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Gingerbread/parts.rsi }
+
+- type: entity
+  parent: [ OrganBaseGroin, OrganGingerbreadExternal ]
+  id: OrganGingerbreadGroin
+  components:
+  - type: Sprite
+    sprite: _Onyx/Body/Species/Gingerbread/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Body/Species/Gingerbread/parts.rsi }

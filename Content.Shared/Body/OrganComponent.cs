@@ -1,5 +1,6 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
+using Content.Shared.FixedPoint;
 
 namespace Content.Shared.Body;
 
@@ -8,9 +9,19 @@ namespace Content.Shared.Body;
 /// </summary>
 /// <seealso cref="BodySystem" />
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-[Access(typeof(BodySystem))]
+// <Onyx-OrganDamage-edited>
+[Access(typeof(BodySystem), typeof(InitialBodySystem), typeof(Systems.SharedBodySystem), typeof(_Onyx.Wounds.OrganDamageSystem), typeof(_Onyx.Medical.Surgery.SharedSurgerySystem))]
+// </Onyx-OrganDamage-edited>
 public sealed partial class OrganComponent : Component
 {
+    // <Onyx-OrganHealth>
+    [DataField, AutoNetworkedField]
+    public FixedPoint2 Health = FixedPoint2.New(15);
+
+    [DataField, AutoNetworkedField]
+    public FixedPoint2 MaxHealth = FixedPoint2.New(15);
+    // </Onyx-OrganHealth>
+
     /// <summary>
     /// The body entity containing this organ, if any
     /// </summary>

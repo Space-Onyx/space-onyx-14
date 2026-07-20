@@ -417,3 +417,13 @@ ui-options-admin-overlay-ghost-hide-distance = Расстояние от кур�
 
 ui-options-admin-strip-overlay-title = Оверлей обыска
 ui-options-admin-strip-overlay-setting = Показывать админ-вид обыска по умолчанию
+
+# Onyx-Posing
+ui-options-header-posing = Позинг
+ui-options-function-toggle-posing = Включить позинг
+ui-options-function-posing-offset-left = Сместить позу влево
+ui-options-function-posing-offset-right = Сместить позу вправо
+ui-options-function-posing-offset-up = Сместить позу вверх
+ui-options-function-posing-offset-down = Сместить позу вниз
+ui-options-function-posing-rotate-positive = Повернуть позу по часовой
+ui-options-function-posing-rotate-negative = Повернуть позу против часовой

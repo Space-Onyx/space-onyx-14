@@ -1,0 +1,161 @@
+- type: entity
+  parent: BaseItem
+  id: BoneGel
+  name: bone gel
+  description: A surgical gel used to mend sawed bones.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/bone-gel.rsi
+    state: bone-gel
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/bone-gel.rsi
+    size: Small
+  - type: SurgeryTool
+    startSound:
+      path: /Audio/_Onyx/Medical/Surgery/bone_setter.ogg
+    endSound:
+      path: /Audio/_Onyx/Medical/Surgery/bone_setter.ogg
+  - type: BoneGel
+
+- type: entity
+  id: EnergyScalpel
+  parent: Scalpel
+  name: energy scalpel
+  description: An energy surgical cutter switchable between scalpel and drill modes.
+  components:
+  - type: ItemSwitch
+    state: scalpel
+    states:
+      scalpel:
+        sprite: { sprite: _Onyx/Objects/Specific/Medical/Surgery/e-scalpel.rsi, state: e-scalpel }
+        components:
+        - type: Scalpel
+      drill:
+        sprite: { sprite: _Onyx/Objects/Specific/Medical/Surgery/e-scalpel.rsi, state: e-scalpel-on }
+        components:
+        - type: Drill
+        - type: BoneSaw
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/e-scalpel.rsi
+    state: e-scalpel
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/e-scalpel.rsi
+    heldPrefix: scalpel
+  - type: SurgeryTool
+    speedModifier: 3
+  - type: MeleeWeapon
+    damage:
+      types:
+        Slash: 12
+
+- type: entity
+  id: AdvancedRetractor
+  parent: Retractor
+  name: advanced retractor
+  description: Powered surgical pincers switchable between retractor and hemostat modes.
+  components:
+  - type: ItemSwitch
+    state: retractor
+    states:
+      retractor:
+        sprite: { sprite: _Onyx/Objects/Specific/Medical/Surgery/adv-retractor.rsi, state: adv-retractor }
+        components:
+        - type: Retractor
+      hemostat:
+        sprite: { sprite: _Onyx/Objects/Specific/Medical/Surgery/adv-retractor.rsi, state: adv-retractor-on }
+        components:
+        - type: Hemostat
+        - type: Tweezers
+        - type: Tending
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/adv-retractor.rsi
+    state: adv-retractor
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/adv-retractor.rsi
+    heldPrefix: retractor
+  - type: SurgeryTool
+    speedModifier: 3
+
+- type: entity
+  id: EnergyCautery
+  parent: Cautery
+  name: energy cautery
+  description: A high-power surgical tool switchable between cautery and stitching modes.
+  components:
+  - type: ItemSwitch
+    state: cautery
+    states:
+      cautery:
+        sprite: { sprite: _Onyx/Objects/Specific/Medical/Surgery/e-cautery.rsi, state: e-cautery }
+        components:
+        - type: Cautery
+      stitches:
+        sprite: { sprite: _Onyx/Objects/Specific/Medical/Surgery/e-cautery.rsi, state: e-cautery-on }
+        components:
+        - type: Stitches
+        - type: Cautery
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/e-cautery.rsi
+    state: e-cautery
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/e-cautery.rsi
+    heldPrefix: cautery
+  - type: SurgeryTool
+    speedModifier: 3
+  - type: MeleeWeapon
+    damage:
+      types:
+        Heat: 12
+
+- type: entity
+  id: AdvancedBoneGel
+  parent: BoneGel
+  name: advanced bone gel applicator
+  description: A mechanized tool switchable between bone gel and bone setter modes.
+  components:
+  - type: ItemSwitch
+    state: bonegel
+    states:
+      bonegel:
+        sprite: { sprite: _Onyx/Objects/Specific/Medical/Surgery/e-bone-gel.rsi, state: e-bone-gel }
+        components:
+        - type: BoneGel
+      bonesetter:
+        sprite: { sprite: _Onyx/Objects/Specific/Medical/Surgery/e-bone-gel.rsi, state: e-bone-gel-on }
+        components:
+        - type: BoneSetter
+        - type: Hemostat
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/e-bone-gel.rsi
+    state: e-bone-gel
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/e-bone-gel.rsi
+    heldPrefix: bonegel
+  - type: SurgeryTool
+    speedModifier: 3
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 12
+
+- type: entity
+  id: OmnimedTool
+  parent: BaseToolSurgery
+  name: surgical omnitool
+  description: A compact high-end tool suitable for every surgical step.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/omnimed.rsi
+    state: omnimed
+  - type: Item
+    size: Normal
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/omnimed.rsi
+  - type: SurgeryTool
+    speedModifier: 3
+  - type: Scalpel
+  - type: Hemostat
+  - type: Retractor
+  - type: BoneSaw
+  - type: Cautery
+  - type: BoneGel
+  - type: Tweezers

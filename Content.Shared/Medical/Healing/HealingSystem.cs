@@ -3,6 +3,7 @@ using Content.Shared.Body.Components;
 using Content.Shared.Body.Systems;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage.Components;
+using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
@@ -15,6 +16,8 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
+using Content.Shared._Onyx.Targeting;
+using Content.Shared._Onyx.Wounds; // Onyx-WoundSystem-edited
 using Robust.Shared.Audio.Systems;
 
 namespace Content.Shared.Medical.Healing;
@@ -31,6 +34,8 @@ public sealed partial class HealingSystem : EntitySystem
     [Dependency] private MobThresholdSystem _mobThresholdSystem = default!;
     [Dependency] private SharedPopupSystem _popupSystem = default!;
     [Dependency] private SharedSolutionContainerSystem _solutionContainerSystem = default!;
+    [Dependency] private TargetResolverSystem _targetResolver = default!;
+    [Dependency] private WoundHealingSystem _woundHealing = default!; // Onyx-WoundSystem-edited
 
     public override void Initialize()
     {
@@ -49,6 +54,37 @@ public sealed partial class HealingSystem : EntitySystem
 
         if (!TryComp(args.Used, out HealingComponent? healing))
             return;
+
+        // Onyx-WoundSystem-edited: localized healing belongs to the selected part, never the body projection.
+        if (HasComp<WoundHostComponent>(target))
+        {
+            EntityUid? requestedPart = args.RequestedPart is { } netPart ? GetEntity(netPart) : null;
+            if (requestedPart is { } concretePart && _woundHealing.ResolveHealingPart(target, concretePart,
+                    healing.Damage, healing.DamageContainers, healing.BloodlossModifier) != concretePart)
+            {
+                _popupSystem.PopupClient(Loc.GetString("targeting-selected-part-missing"), target, args.User);
+                return;
+            }
+
+            if (!_woundHealing.TryApplyHealing(target, requestedPart, (args.Used.Value, healing), args.User,
+                    out var woundHealed, out var stoppedBleeding))
+                return;
+
+            TryComp<BloodstreamComponent>(target, out var woundBloodstream);
+            if (healing.ModifyBloodLevel != 0 && woundBloodstream != null)
+                _bloodstreamSystem.TryModifyBloodLevel((target.Owner, woundBloodstream), healing.ModifyBloodLevel);
+
+            if (stoppedBleeding)
+            {
+                var popup = args.User == target.Owner
+                    ? Loc.GetString("medical-item-stop-bleeding-self")
+                    : Loc.GetString("medical-item-stop-bleeding", ("target", Identity.Entity(target.Owner, EntityManager)));
+                _popupSystem.PopupClient(popup, target, args.User);
+            }
+
+            FinishHealing(target, ref args, healing, woundHealed);
+            return;
+        }
 
         if (!TryComp<InjurableComponent>(target, out var injurable))
             return;
@@ -83,20 +119,29 @@ public sealed partial class HealingSystem : EntitySystem
         if (!_damageable.TryChangeDamage(target.Owner, healing.Damage * _damageable.UniversalTopicalsHealModifier, out var healed, true, origin: args.Args.User) && healing.BloodlossModifier != 0)
             return;
 
+        FinishHealing(target, ref args, healing, healed);
+    }
+
+    private void FinishHealing(Entity<DamageableComponent> target, ref HealingDoAfterEvent args,
+        HealingComponent healing, DamageSpecifier healed)
+    {
+        if (args.Used is not { } used)
+            return;
+
         var total = healed.GetTotal();
 
         // Re-verify that we can heal the damage.
         var dontRepeat = false;
-        if (TryComp<StackComponent>(args.Used.Value, out var stackComp))
+        if (TryComp<StackComponent>(used, out var stackComp))
         {
-            _stacks.ReduceCount((args.Used.Value, stackComp), 1);
+            _stacks.ReduceCount((used, stackComp), 1);
 
-            if (_stacks.GetCount((args.Used.Value, stackComp)) <= 0)
+            if (_stacks.GetCount((used, stackComp)) <= 0)
                 dontRepeat = true;
         }
         else
         {
-            PredictedQueueDel(args.Used.Value);
+            PredictedQueueDel(used);
         }
 
         if (target.Owner != args.User)
@@ -113,7 +158,8 @@ public sealed partial class HealingSystem : EntitySystem
         _audio.PlayPredicted(healing.HealingEndSound, target.Owner, args.User);
 
         // Logic to determine the whether or not to repeat the healing action
-        args.Repeat = HasDamage((args.Used.Value, healing), target) && !dontRepeat;
+        var requestedPart = args.RequestedPart is { } netPart ? GetEntity(netPart) : (EntityUid?) null;
+        args.Repeat = HasDamage((used, healing), target, requestedPart) && !dontRepeat;
         args.Handled = true;
 
         if (!args.Repeat)
@@ -127,8 +173,41 @@ public sealed partial class HealingSystem : EntitySystem
             args.Args.Delay = healing.Delay * GetScaledHealingPenalty(target.Owner, healing.SelfHealPenaltyMultiplier);
     }
 
-    private bool HasDamage(Entity<HealingComponent> healing, Entity<DamageableComponent> target)
+    private bool HasDamage(Entity<HealingComponent> healing, Entity<DamageableComponent> target,
+        EntityUid? requestedPart = null)
     {
+        // <Onyx-WoundSystem-edited>
+        if (TryComp(target, out WoundHostComponent? host))
+        {
+            var resolve = new ResolveHealingPartEvent(target, healing.Comp.Damage, healing.Comp.DamageContainers,
+                healing.Comp.BloodlossModifier, requestedPart);
+            RaiseLocalEvent(target, ref resolve);
+            if (!resolve.Accepted)
+                return false;
+
+            foreach (var (type, amount) in healing.Comp.Damage.DamageDict)
+            {
+                var source = host.LocalizedDamageTypes.Contains(type) ? resolve.Part : target.Owner;
+                if (amount < 0 && source is { } entity &&
+                    _damageable.GetAllDamage(entity).DamageDict.GetValueOrDefault(type) > 0)
+                    return true;
+            }
+
+            if (resolve.Part is { } bleedingPart && healing.Comp.BloodlossModifier < 0 &&
+                _woundHealing.CanTreatBleeding(bleedingPart))
+                return true;
+
+            if (TryComp<BloodstreamComponent>(target, out var hostBloodstream) &&
+                healing.Comp.ModifyBloodLevel > 0 &&
+                _solutionContainerSystem.ResolveSolution(target.Owner, hostBloodstream.BloodSolutionName,
+                    ref hostBloodstream.BloodSolution, out _) &&
+                _bloodstreamSystem.GetBloodLevel((target, hostBloodstream)) < 1)
+                return true;
+
+            return false;
+        }
+        // </Onyx-WoundSystem-edited>
+
         var damageableDict = _damageable.GetAllDamage(target.AsNullable()).DamageDict;
         var healingDict = healing.Comp.Damage.DamageDict;
         foreach (var type in healingDict)
@@ -164,6 +243,12 @@ public sealed partial class HealingSystem : EntitySystem
         if (args.Handled)
             return;
 
+        if (TryHealTargeted(healing, args.User, args.User))
+        {
+            args.Handled = true;
+            return;
+        }
+
         if (TryHeal(healing, args.User, args.User))
             args.Handled = true;
     }
@@ -173,17 +258,49 @@ public sealed partial class HealingSystem : EntitySystem
         if (args.Handled || !args.CanReach || args.Target == null)
             return;
 
+        if (TryHealTargeted(healing, args.Target.Value, args.User))
+        {
+            args.Handled = true;
+            return;
+        }
+
         if (TryHeal(healing, args.Target.Value, args.User))
             args.Handled = true;
     }
 
-    private bool TryHeal(Entity<HealingComponent> healing, Entity<DamageableComponent?> target, EntityUid user)
+    private bool TryHealTargeted(Entity<HealingComponent> healing, EntityUid target, EntityUid user)
+    {
+        if (!HasComp<WoundHostComponent>(target) || !TryComp(user, out TargetingComponent? targeting))
+            return false;
+
+        if (!_targetResolver.TryResolveExact(target, targeting.Target, out var part))
+        {
+            _popupSystem.PopupClient(Loc.GetString("targeting-selected-part-missing"), target, user);
+            return true;
+        }
+
+        TryHeal(healing, target, user, part);
+        return true;
+    }
+
+    public bool TryHeal(Entity<HealingComponent> healing, Entity<DamageableComponent?> target, EntityUid user,
+        EntityUid? requestedPart = null)
     {
         if (!Resolve(target, ref target.Comp, false))
             return false;
 
         if (!TryComp<InjurableComponent>(target, out var injurable))
             return false;
+
+        // Onyx-WoundSystem-edited: public explicit-part entry point for future Targeting.
+        if (HasComp<WoundHostComponent>(target))
+        {
+            var resolve = new ResolveHealingPartEvent(target, healing.Comp.Damage, healing.Comp.DamageContainers,
+                healing.Comp.BloodlossModifier, requestedPart);
+            RaiseLocalEvent(target, ref resolve);
+            if (!resolve.Accepted)
+                return false;
+        }
 
         if (healing.Comp.DamageContainers is not null &&
             injurable.DamageContainer is not null &&
@@ -198,7 +315,7 @@ public sealed partial class HealingSystem : EntitySystem
         if (TryComp<StackComponent>(healing, out var stack) && stack.Count < 1)
             return false;
 
-        if (!HasDamage(healing, target!))
+        if (!HasDamage(healing, target!, requestedPart))
         {
             _popupSystem.PopupClient(Loc.GetString("medical-item-cant-use", ("item", healing.Owner)), healing, user);
             return false;
@@ -219,7 +336,9 @@ public sealed partial class HealingSystem : EntitySystem
             : healing.Comp.Delay * GetScaledHealingPenalty(target, healing.Comp.SelfHealPenaltyMultiplier);
 
         var doAfterEventArgs =
-            new DoAfterArgs(EntityManager, user, delay, new HealingDoAfterEvent(), target, target: target, used: healing)
+            new DoAfterArgs(EntityManager, user, delay,
+                new HealingDoAfterEvent(requestedPart is { } part ? GetNetEntity(part) : null),
+                target, target: target, used: healing)
             {
                 // Didn't break on damage as they may be trying to prevent it and
                 // not being able to heal your own ticking damage would be frustrating.

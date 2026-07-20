@@ -18,6 +18,10 @@
     - Human
     - Moth
     - Reptilian
+    # <Onyx-FelinidArcan>
+    - Felinid
+    - Demon
+    # </Onyx-FelinidArcan>
     #Corvax-Species-Start
     - Vulpkanin
     - Tajaran
@@ -79,6 +83,10 @@
     - Dwarf
     - Human
     - Reptilian
+    # <Onyx-FelinidArcan>
+    - Felinid
+    - Demon
+    # </Onyx-FelinidArcan>
     #Corvax-Species-Start
     - Vulpkanin
     - Tajaran

@@ -1,0 +1,301 @@
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesWhite
+  name: panties
+  description: Standard Nanotrasen underwear for station female employees. Painted white.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/panties.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomBoxersWhite
+  name: boxers
+  description: Standard Nanotrasen underwear for station employees. Dyed white.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/boxers.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomBoxersAmerica
+  name: boxers america
+  description: Standard Nanotrasen underwear for station employees. Dyed white.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/boxers_america.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomBoxersBoom
+  name: boxers boom
+  description: Standard Nanotrasen underwear for station employees. Dyed white.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/boxers_boom.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomBriefsWhite
+  name: briefs
+  description: Standard Nanotrasen underwear for station employees. Dyed white.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/briefs.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomBriefsMoth
+  name: briefs moth
+  description: Standard Nanotrasen underwear for station employees. Dyed white.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/briefs_moth.rsi
+
+#Underwear-for-the-heads
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomBoxersCap
+  name: captain's boxers
+  description: Standard station captain's underwear.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/Heads/capitan_boxers.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomBoxersCE
+  name: chief engineer's boxers
+  description: Standard station chief engineer underwear.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/Heads/ce_boxers.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomBoxersCMO
+  name: chief medical officer's boxers
+  description: Standard station chief physician's underwear. For some reason they smell like chloral hydrate...
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/Heads/cmo_boxers.rsi
+    state: icon
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomBoxersHOP
+  name: head of personnel's boxers
+  description: The standard underwear of the station's chief of staff.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/Heads/hop_boxers.rsi
+    state: icon
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomBoxersHOS
+  name: head of security's boxers
+  description: Standard station head of security underwear.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/Heads/hos_boxers.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomBoxersQM
+  name: quartermaster's boxers
+  description: Standard station quartermaster underwear.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/Heads/qm_boxers.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomBoxersRD
+  name: research director's boxers
+  description: Standard research director's underwear.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/Heads/rd_boxers.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesCap
+  name: captain's panties
+  description: Standard station captain underwear.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/Heads/capitan_panties.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesCE
+  name: chief engineer's panties
+  description: Standard station chief engineer underwear.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/Heads/ce_panties.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesCMO
+  name: chief medical officer's panties
+  description: Standard station chief physician's underwear. For some reason they smell like chloral hydrate...
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/Heads/cmo_panties.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesHOP
+  name: head of personnel's panties
+  description: The standard underwear of the station's chief of staff.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/Heads/hop_panties.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesHOS
+  name: head of security's panties
+  description: Standard station head of security underwear.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/Heads/hos_panties.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesQM
+  name: quartermaster's panties
+  description: Standard station quartermaster underwear.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/Heads/qm_panties.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesRD
+  name: research director's panties
+  description: Standard research director's underwear.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/Heads/rd_panties.rsi
+
+# ADT
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomMonokiniWhite
+  name: white monokini bottom
+  description: monokini bottom. Painted white.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/monokini_bottom_white.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomMonokiniBlack
+  name: black monokini bottom
+  description: monokini bottom. Painted black.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/monokini_bottom_black.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesLace
+  name: lace panties
+  description: Good looking lace underwear.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/lace_panties.rsi #спрайты от prazat911
+  - type: StaticPrice
+    price: 28
+
+#New Year.
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesChristmas
+  name: christmas panties
+  description: A questionable christmas underwear...
+  suffix: New Year
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/panties_christmas.rsi #спрайты от prazat911
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesLaceBlueAlternative
+  name: bluedshield boxers
+  description: Standard Nanotrasen underwear for Blue Shield Officer.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/muns_panties_blue.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesLaceRedAlternative
+  name: bluedshield boxers
+  description: Standard Nanotrasen underwear for Blue Shield Officer.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/muns_panties_red.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesLaceRed
+  name: red lace panties
+  description: Red, lacy and, probably, very expensive.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/red_panties.rsi
+  - type: StaticPrice
+    price: 25
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesLaceBlack
+  name: black lace panties
+  description: Black, lacy and, probably, very expensive.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/black_panties.rsi
+  - type: StaticPrice
+    price: 25
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesComfyWhite
+  name: white comfy panties
+  description: White, very comfortable and with a pink bow.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/whitecomfy_panties.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomBoxersBlueshield
+  name: bluedshield boxers
+  description: Standard Nanotrasen underwear for Blue Shield Officer.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/blueshield_boxers.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesBlueshield
+  name: bluedshield panties
+  description: Standard Nanotrasen underwear for female Blue Shield Officer.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/blueshield_panties.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: OnyxClothingUnderwearBottomPantiesCow
+  name: cow panties
+  description: Cute cow-themed panties. Moo!
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Underwear/Bottom/panties_cow.rsi
+

@@ -28,6 +28,7 @@ using Robust.Server.Console;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
 using Robust.Shared.Console;
+using Content.Shared.FixedPoint;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
@@ -87,6 +88,7 @@ namespace Content.Server.Administration.Systems
             AddAdminVerbs(ev);
             AddDebugVerbs(ev);
             AddSmiteVerbs(ev);
+            AddAdminADTSmitesVerbs(ev); // ADT-Tweak
             AddTricksVerbs(ev);
             AddAntagVerbs(ev);
         }

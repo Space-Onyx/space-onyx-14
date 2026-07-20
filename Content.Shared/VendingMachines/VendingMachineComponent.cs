@@ -1,13 +1,15 @@
 using Content.Shared.Actions;
+using Content.Shared.Stacks;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Shared.VendingMachines
 {
-    [RegisterComponent, NetworkedComponent, AutoGenerateComponentPause]
+    [RegisterComponent, NetworkedComponent, AutoGenerateComponentPause, AutoGenerateComponentState(true)]
     public sealed partial class VendingMachineComponent : Component
     {
         /// <summary>
@@ -32,19 +34,19 @@ namespace Content.Shared.VendingMachines
         [DataField]
         public TimeSpan EjectDelay = TimeSpan.FromSeconds(1.2);
 
-        [DataField]
+        [DataField, AutoNetworkedField]
         public Dictionary<string, VendingMachineInventoryEntry> Inventory = new();
 
-        [DataField]
+        [DataField, AutoNetworkedField]
         public Dictionary<string, VendingMachineInventoryEntry> EmaggedInventory = new();
 
-        [DataField]
+        [DataField, AutoNetworkedField]
         public Dictionary<string, VendingMachineInventoryEntry> ContrabandInventory = new();
 
         /// <summary>
         /// If true then unlocks the <see cref="ContrabandInventory"/>
         /// </summary>
-        [DataField]
+        [DataField, AutoNetworkedField]
         public bool Contraband;
 
         [ViewVariables]
@@ -56,18 +58,18 @@ namespace Content.Shared.VendingMachines
         [ViewVariables]
         public bool DispenseOnHitCoolingDown => DispenseOnHitEnd != null;
 
-        [DataField, AutoPausedField]
+        [DataField, AutoNetworkedField, AutoPausedField]
         public TimeSpan? EjectEnd;
 
-        [DataField, AutoPausedField]
+        [DataField, AutoNetworkedField, AutoPausedField]
         public TimeSpan? DenyEnd;
 
-        [DataField]
+        [DataField, AutoNetworkedField]
         public TimeSpan? DispenseOnHitEnd;
 
         public string? NextItemToEject;
 
-        [DataField]
+        [DataField, AutoNetworkedField]
         public bool Broken;
 
         /// <summary>
@@ -198,6 +200,47 @@ namespace Content.Shared.VendingMachines
         [DataField("loopDeny")]
         public bool LoopDenyAnimation = true;
         #endregion
+        //<Onyx Economy>
+        [DataField, ViewVariables(VVAccess.ReadWrite)]
+        public double PriceMultiplier = 1;
+
+        [DataField, ViewVariables(VVAccess.ReadWrite)]
+        public bool AllForFree = false;
+
+        public ProtoId<StackPrototype> CreditStackPrototype = "Credit";
+
+        [DataField]
+        public string CurrencyType = "SpaceCash";
+
+        [DataField]
+        public bool UseStaticPrice = true;
+
+        [DataField]
+        public SoundSpecifier SoundInsertCurrency =
+            new SoundPathSpecifier("/Audio/_Onyx/Machines/polaroid2.ogg");
+
+        [DataField]
+        public SoundSpecifier SoundWithdrawCurrency =
+            new SoundPathSpecifier("/Audio/_Onyx/Machines/polaroid1.ogg");
+
+        [ViewVariables]
+        public int Credits;
+
+        public int NextItemCount = 1;
+
+        [DataField, AutoNetworkedField]
+        public Color UiButtonBorderColor = Color.FromHex("#4972A1");
+
+        [DataField, AutoNetworkedField]
+        public Color UiButtonBaseColor = Color.FromHex("#141F2F");
+
+        [DataField, AutoNetworkedField]
+        public Color UiButtonHoveredColor = Color.FromHex("#4972A1");
+
+        [DataField, AutoNetworkedField]
+        public Color UiButtonDisabledColor = Color.FromHex("#3f3f3fff");
+
+        // </Onyx Economy>
     }
 
     [Serializable, NetSerializable, DataDefinition]
@@ -212,11 +255,21 @@ namespace Content.Shared.VendingMachines
         [DataField]
         public uint Amount;
 
-        public VendingMachineInventoryEntry(InventoryType type, string id, uint amount)
+        //<Onyx Economy>
+        [ViewVariables(VVAccess.ReadWrite)]
+        public int Price;
+        //</Onyx Economy>
+
+        public VendingMachineInventoryEntry() : this(InventoryType.Regular, string.Empty, 0, 0)
+        {
+        }
+
+        public VendingMachineInventoryEntry(InventoryType type, string id, uint amount, int price) //<Onyx Economy>
         {
             Type = type;
             ID = id;
             Amount = amount;
+            Price = price; //<Onyx Economy>
         }
 
         public VendingMachineInventoryEntry(VendingMachineInventoryEntry entry)
@@ -224,6 +277,7 @@ namespace Content.Shared.VendingMachines
             Type = entry.Type;
             ID = entry.ID;
             Amount = entry.Amount;
+            Price = entry.Price; //<Onyx Economy>
         }
     }
 

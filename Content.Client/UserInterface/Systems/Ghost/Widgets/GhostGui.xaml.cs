@@ -14,6 +14,7 @@ public sealed partial class GhostGui : UIWidget
     public event Action? RequestWarpsPressed;
     public event Action? ReturnToBodyPressed;
     public event Action? GhostRolesPressed;
+    public event Action? ReturnToLobbyPressed; // <Onyx-Ghost>
     private int _prevNumberRoles;
 
     public GhostGui()
@@ -27,7 +28,8 @@ public sealed partial class GhostGui : UIWidget
         GhostWarpButton.OnPressed += _ => RequestWarpsPressed?.Invoke();
         ReturnToBodyButton.OnPressed += _ => ReturnToBodyPressed?.Invoke();
         GhostRolesButton.OnPressed += _ => GhostRolesPressed?.Invoke();
-        GhostRolesButton.OnPressed += _ => GhostRolesButton.StyleClasses.Remove(StyleClass.Negative);
+        GhostRolesButton.OnPressed += _ => GhostRolesButton.StyleClasses.Remove(StyleNano.ButtonCaution);
+        ReturnToLobbyButton.OnPressed += _ => ReturnToLobbyPressed?.Invoke(); // <Onyx-Ghost>
     }
 
     public void Hide()
@@ -54,6 +56,15 @@ public sealed partial class GhostGui : UIWidget
 
         TargetWindow.Populate();
     }
+
+    // <Onyx-Ghost>
+    public void UpdateReturnToLobbyButton(bool visible, bool enabled, string text)
+    {
+        ReturnToLobbyButton.Visible = visible;
+        ReturnToLobbyButton.Disabled = !enabled;
+        ReturnToLobbyButton.Text = text;
+    }
+    // </Onyx-Ghost>
 
     protected override void Dispose(bool disposing)
     {

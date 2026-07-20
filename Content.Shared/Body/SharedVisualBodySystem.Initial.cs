@@ -1,4 +1,5 @@
 using Content.Shared.Humanoid;
+using Content.Shared.Humanoid.Prototypes;
 
 namespace Content.Shared.Body;
 
@@ -15,5 +16,9 @@ public abstract partial class SharedVisualBodySystem
             return;
 
         ApplyAppearanceTo(ent.AsNullable(), HumanoidCharacterAppearance.DefaultWithSpecies(humanoidProfile.Species, humanoidProfile.Sex), humanoidProfile.Sex);
+        // <Onyx-HeightWidth>
+        if (_prototype.TryIndex<SpeciesPrototype>(humanoidProfile.Species, out var species))
+            _scaleVisuals.SetSpriteScale(ent.Owner, species.GetVisualScale(humanoidProfile.Height, humanoidProfile.Width));
+        // </Onyx-HeightWidth>
     }
 }

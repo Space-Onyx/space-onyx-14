@@ -1,10 +1,17 @@
 using System.Linq;
 using System.Numerics;
+// <Onyx-HealthAnalyzer-StatusDoll>
+using Content.Shared._Onyx.Targeting;
+using Content.Shared._Onyx.Medical;
+using Content.Shared._Onyx.Wounds;
+using Content.Shared.Damage;
+// </Onyx-HealthAnalyzer-StatusDoll>
 using Content.Shared.Atmos;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
+using Content.Shared._GoobStation.Disease.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.IdentityManagement;
@@ -27,11 +34,19 @@ namespace Content.Client.HealthAnalyzer.UI;
 [GenerateTypedNameReferences]
 public sealed partial class HealthAnalyzerControl : BoxContainer
 {
+    private const float DangerousBloodLevel = 0.65f;
+
     private readonly IEntityManager _entityManager;
     private readonly SpriteSystem _spriteSystem;
     private readonly IPrototypeManager _prototypes;
     private readonly IResourceCache _cache;
     private readonly DamageableSystem _damageable;
+    // <Onyx-HealthAnalyzer-StatusDoll>
+    private HealthAnalyzerUiState _state;
+    private NetEntity? _displayedTarget;
+    private TargetBodyPart? _selectedPart;
+    private EntityUid? _target;
+    // </Onyx-HealthAnalyzer-StatusDoll>
 
     public HealthAnalyzerControl()
     {
@@ -43,6 +58,10 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         _prototypes = dependencies.Resolve<IPrototypeManager>();
         _cache = dependencies.Resolve<IResourceCache>();
         _damageable = _entityManager.System<DamageableSystem>();
+        // <Onyx-HealthAnalyzer-StatusDoll>
+        StatusDoll.PartSelected += OnPartSelected;
+        WholeBodyButton.OnPressed += _ => SelectPart(null);
+        // </Onyx-HealthAnalyzer-StatusDoll>
     }
 
     public void Populate(HealthAnalyzerUiState state)
@@ -50,13 +69,41 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         var target = _entityManager.GetEntity(state.TargetEntity);
 
         if (target == null
-            || !_entityManager.TryGetComponent<DamageableComponent>(target, out var damageable))
+            || !_entityManager.HasComponent<DamageableComponent>(target))
         {
             NoPatientDataText.Visible = true;
+            // <Onyx-HealthAnalyzer-StatusDoll-edited>
+            PatientDataContainer.Visible = false;
+            DiagnosticColumns.Visible = false;
+            AlertsDivider.Visible = false;
+            AlertsContainer.Visible = false;
+            GroupsContainer.RemoveAllChildren();
+            OrgansContainer.RemoveAllChildren();
+            _target = null;
+            _displayedTarget = null;
+            _selectedPart = null;
+            // </Onyx-HealthAnalyzer-StatusDoll-edited>
             return;
         }
 
         NoPatientDataText.Visible = false;
+        // <Onyx-HealthAnalyzer-StatusDoll-edited>
+        PatientDataContainer.Visible = true;
+        DiagnosticColumns.Visible = true;
+        // </Onyx-HealthAnalyzer-StatusDoll-edited>
+
+        // <Onyx-HealthAnalyzer-StatusDoll>
+        if (_displayedTarget != state.TargetEntity)
+            _selectedPart = null;
+        _displayedTarget = state.TargetEntity;
+        _state = state;
+        _target = target;
+        // <GoobStation-Disease>
+        DrawDiseases(target.Value);
+        // </GoobStation-Disease>
+        if (_selectedPart is { } selected && (state.PartDamage == null || !state.PartDamage.ContainsKey(selected)))
+            _selectedPart = null;
+        // </Onyx-HealthAnalyzer-StatusDoll>
 
         // Scan Mode
 
@@ -70,9 +117,22 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
 
         // Patient Information
 
+        // <Onyx-HealthAnalyzer-StatusDoll-edited>
+        var active = state.ScanMode == true;
+        var showDoll = active && state.PartDamage != null;
         SpriteView.SetEntity(target.Value);
-        SpriteView.Visible = state.ScanMode.HasValue && state.ScanMode.Value;
-        NoDataTex.Visible = !SpriteView.Visible;
+        SpriteView.Visible = active && !showDoll;
+        StatusDoll.Visible = showDoll;
+        WholeBodyButton.Visible = showDoll;
+        WholeBodyButton.Disabled = _selectedPart == null;
+        NoDataTex.Visible = !active;
+        if (showDoll)
+            StatusDoll.Refresh(state.PartDamage!, _spriteSystem);
+        DrawWoundDiagnostics(state);
+        // <Onyx-HealthAnalyzerOrgans-edited>
+        DrawOrgans(state);
+        // </Onyx-HealthAnalyzerOrgans-edited>
+        // </Onyx-HealthAnalyzer-StatusDoll-edited>
 
         var name = new FormattedMessage();
         name.PushColor(Color.White);
@@ -102,13 +162,13 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                 ? GetStatus(mobStateComponent.CurrentState)
                 : Loc.GetString("health-analyzer-window-entity-unknown-text");
 
-        // Total Damage
-
-        DamageLabel.Text = _damageable.GetTotalDamage(target.Value).ToString();
+        // <Onyx-HealthAnalyzer-StatusDoll-edited>
+        DrawDamage(target.Value);
+        // </Onyx-HealthAnalyzer-StatusDoll-edited>
 
         // Alerts
 
-        var showAlerts = state.Unrevivable == true || state.Bleeding == true;
+        var showAlerts = state.Unrevivable == true;
 
         AlertsDivider.Visible = showAlerts;
         AlertsContainer.Visible = showAlerts;
@@ -124,25 +184,211 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                 MaxWidth = 300
             });
 
-        if (state.Bleeding == true)
-            AlertsContainer.AddChild(new RichTextLabel
-            {
-                Text = Loc.GetString("health-analyzer-window-entity-bleeding-text"),
-                Margin = new Thickness(0, 4),
-                MaxWidth = 300
-            });
-
-        // Damage Groups
-
-        var damageSortedGroups =
-            _damageable.GetDamagePerGroup(target.Value)
-                .OrderByDescending(damage => damage.Value)
-                .ToDictionary(x => x.Key, x => x.Value);
-
-        var damagePerType = _damageable.GetAllDamage(target.Value).DamageDict;
-
-        DrawDiagnosticGroups(damageSortedGroups, damagePerType);
     }
+
+    // <Onyx-HealthAnalyzer-StatusDoll>
+    private void OnPartSelected(TargetBodyPart part) => SelectPart(part);
+
+    private void SelectPart(TargetBodyPart? part)
+    {
+        if (_target is not { } target || _state.PartDamage == null || part is { } selected && !_state.PartDamage.ContainsKey(selected))
+            return;
+
+        _selectedPart = part;
+        WholeBodyButton.Disabled = part == null;
+        StatusDoll.Refresh(_state.PartDamage, _spriteSystem);
+        DrawDamage(target);
+    }
+
+    private void DrawDamage(EntityUid target)
+    {
+        IReadOnlyDictionary<ProtoId<DamageGroupPrototype>, FixedPoint2> groups;
+        IReadOnlyDictionary<ProtoId<DamageTypePrototype>, FixedPoint2> types;
+
+        if (_selectedPart is { } selected && _state.PartDamage?.GetValueOrDefault(selected) is { } partDamage)
+        {
+            DamageScopeLabel.Text = Loc.GetString("health-analyzer-window-entity-damage-part-text",
+                ("part", Loc.GetString($"targeting-part-{PartKey(selected)}")));
+            DamageLabel.Text = partDamage.GetTotal().ToString();
+            groups = partDamage.GetDamagePerGroup(_prototypes);
+            types = partDamage.DamageDict;
+        }
+        else
+        {
+            DamageScopeLabel.Text = Loc.GetString("health-analyzer-window-entity-damage-total-text");
+            DamageLabel.Text = _damageable.GetTotalDamage(target).ToString();
+            groups = _damageable.GetDamagePerGroup(target);
+            types = _damageable.GetAllDamage(target).DamageDict;
+        }
+
+        DrawDiagnosticGroups(
+            groups.OrderByDescending(damage => damage.Value).ToDictionary(x => x.Key, x => x.Value),
+            types);
+    }
+
+    private static string PartKey(TargetBodyPart part) => part.ToString()
+        .Replace("Left", "left-")
+        .Replace("Right", "right-")
+        .ToLowerInvariant();
+
+    private void DrawWoundDiagnostics(HealthAnalyzerUiState state)
+    {
+        WoundFindingsContainer.RemoveAllChildren();
+        WoundDiagnosticStateLabel.Visible = true;
+
+        if (state.ScanMode != true)
+        {
+            WoundDiagnosticStateLabel.SetMessage(Loc.GetString("health-analyzer-wound-diagnostics-inactive"));
+            return;
+        }
+
+        if (IsDangerousBloodLevel(state.BloodLevel))
+            AddWoundFinding(Loc.GetString("health-analyzer-wound-blood-level-dangerous"));
+
+        if (state.WoundDiagnostics == null)
+        {
+            WoundDiagnosticStateLabel.SetMessage(Loc.GetString("health-analyzer-wound-diagnostics-unavailable"));
+            return;
+        }
+
+        WoundDiagnosticStateLabel.Visible = false;
+        foreach (var part in SharedTargetingSystem.SelectableParts)
+        {
+            if (!state.WoundDiagnostics.Parts.TryGetValue(part, out var diagnostic))
+                continue;
+
+            var partName = Loc.GetString($"targeting-part-{PartKey(part)}");
+            var partGenitive = Loc.GetString($"health-analyzer-wound-part-{PartKey(part)}-genitive");
+
+            if (diagnostic.Fracture != FractureGrade.None)
+                AddWoundFinding(Loc.GetString(diagnostic.Fracture == FractureGrade.Hairline
+                        ? "health-analyzer-wound-fracture-hairline"
+                        : "health-analyzer-wound-fracture",
+                    ("part", partGenitive)));
+
+            if (diagnostic.BleedingRate > 0f)
+                AddWoundFinding(Loc.GetString("health-analyzer-wound-bleeding-active",
+                    ("part", partGenitive)));
+
+            if (diagnostic.ScarCount > 0)
+                AddWoundFinding(Loc.GetString(diagnostic.ScarCount == 1
+                        ? "health-analyzer-wound-scar-single"
+                        : "health-analyzer-wound-scar-multiple",
+                    ("part", partName),
+                    ("count", diagnostic.ScarCount)));
+        }
+    }
+
+    internal static bool IsDangerousBloodLevel(float level) => !float.IsNaN(level) && level < DangerousBloodLevel;
+
+    private void AddWoundFinding(string text)
+    {
+        var label = new RichTextLabel
+        {
+            MaxWidth = 430,
+            HorizontalExpand = true,
+            HorizontalAlignment = HAlignment.Left,
+            Margin = new Thickness(0, 0, 0, 8),
+        };
+        label.SetMessage(FormattedMessage.FromMarkupPermissive($"• {text}"));
+        WoundFindingsContainer.AddChild(label);
+    }
+
+    // <GoobStation-Disease>
+    private void DrawDiseases(EntityUid target)
+    {
+        DiseasesContainer.RemoveAllChildren();
+        if (!_entityManager.TryGetComponent<DiseaseCarrierComponent>(target, out var carrier) || carrier.Diseases.Count == 0)
+        {
+            DiseasesDivider.Visible = false;
+            DiseasesContainer.Visible = false;
+            return;
+        }
+
+        DiseasesDivider.Visible = true;
+        DiseasesContainer.Visible = true;
+        DiseasesContainer.AddChild(new RichTextLabel { Text = Loc.GetString("health-analyzer-window-diseases") });
+        foreach (var diseaseUid in carrier.Diseases.ContainedEntities)
+        {
+            if (!_entityManager.TryGetComponent<DiseaseComponent>(diseaseUid, out var disease))
+                continue;
+            DiseasesContainer.AddChild(new RichTextLabel
+            {
+                Text = Loc.GetString("health-analyzer-window-disease-type-text", ("type", disease.Genotype)) + "\n · " +
+                       Loc.GetString("health-analyzer-window-disease-progress-text", ("progress", disease.InfectionProgress)) + "\n · " +
+                       Loc.GetString("health-analyzer-window-immunity-progress-text", ("progress", disease.ImmunityProgress)),
+            });
+        }
+    }
+    // </GoobStation-Disease>
+
+    // <Onyx-HealthAnalyzerOrgans-edited>
+    public void SelectDiagnosticTab(bool organs)
+    {
+        BodyTab.Visible = !organs;
+        OrgansTab.Visible = organs;
+    }
+    // </Onyx-HealthAnalyzerOrgans-edited>
+
+    // <Onyx-HealthAnalyzerOrgans-edited>
+    private void DrawOrgans(HealthAnalyzerUiState state)
+    {
+        OrgansContainer.RemoveAllChildren();
+
+        if (state.ScanMode != true || state.Organs == null)
+        {
+            OrgansContainer.AddChild(new Label
+            {
+                Text = Loc.GetString("health-analyzer-window-organs-unavailable"),
+            });
+            return;
+        }
+
+        foreach (var organ in state.Organs.OrderBy(organ => organ.Order))
+        {
+            if (!_entityManager.TryGetEntity(organ.Entity, out var organEntity) || organ.MaxHealth == 0)
+                continue;
+
+            var name = _entityManager.HasComponent<MetaDataComponent>(organEntity.Value)
+                ? Capitalize(Identity.Name(organEntity.Value, _entityManager))
+                : Loc.GetString("health-analyzer-window-entity-unknown-value-text");
+            var percent = float.IsFinite((float) organ.Health / (float) organ.MaxHealth)
+                ? (int) MathF.Round(Math.Clamp((float) organ.Health / (float) organ.MaxHealth * 100f, 0f, 100f))
+                : 0;
+
+            var row = new BoxContainer
+            {
+                Orientation = LayoutOrientation.Horizontal,
+                HorizontalExpand = true,
+                SeparationOverride = 8,
+            };
+            var icon = new SpriteView
+            {
+                SetSize = new Vector2(26, 26),
+                OverrideDirection = Direction.South,
+            };
+            icon.SetEntity(organEntity.Value);
+            row.AddChild(icon);
+            row.AddChild(new Label { Text = name, HorizontalExpand = true });
+            row.AddChild(new Label
+            {
+                Text = Loc.GetString("health-analyzer-window-organ-health",
+                    ("percent", percent)),
+            });
+            OrgansContainer.AddChild(row);
+        }
+    }
+
+    private static string Capitalize(string text) =>
+        string.IsNullOrEmpty(text) ? text : OopsConcat(char.ToUpper(text[0]).ToString(), text.Remove(0, 1));
+
+    private static string OopsConcat(string first, string rest)
+    {
+        // Prevent Roslyn from emitting string span code forbidden by the content sandbox.
+        return first + rest;
+    }
+    // </Onyx-HealthAnalyzerOrgans-edited>
+    // </Onyx-HealthAnalyzer-StatusDoll>
 
     private static string GetStatus(MobState mobState)
     {

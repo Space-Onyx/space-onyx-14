@@ -26,6 +26,11 @@ public enum SlotFlags
     LEGS = 1 << 13,
     FEET = 1 << 14,
     SUITSTORAGE = 1 << 15,
+    // <Onyx-Underwear>
+    UNDERWEART = 1 << 17,
+    UNDERWEARB = 1 << 18,
+    SOCKS = 1 << 19,
+    // </Onyx-Underwear>
     All = ~NONE,
 
     WITHOUT_POCKET = All & ~POCKET

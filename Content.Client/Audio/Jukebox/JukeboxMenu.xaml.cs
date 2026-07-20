@@ -28,12 +28,16 @@ public sealed partial class JukeboxMenu : FancyWindow
     /// </summary>
     public event Action<bool>? OnPlayPressed;
     public event Action? OnStopPressed;
+    public event Action? OnLoopToggled; // <Onyx>
+    public event Action<float>? SetVolume; // <Onyx>
     public event Action<ProtoId<JukeboxPrototype>>? OnSongSelected;
     public event Action<float>? SetTime;
 
     private EntityUid? _audio;
 
     private float _lockTimer;
+
+    private bool _loopState; // <Onyx>
 
     public JukeboxMenu()
     {
@@ -51,16 +55,27 @@ public sealed partial class JukeboxMenu : FancyWindow
             OnSongSelected?.Invoke(juke);
         };
 
-        PlayButton.OnPressed += args =>
+        PlayButton.OnPressed += _ =>
         {
             OnPlayPressed?.Invoke(!_playState);
         };
 
-        StopButton.OnPressed += args =>
+        StopButton.OnPressed += _ =>
         {
             OnStopPressed?.Invoke();
         };
+
+        // <Onyx>
+        LoopButton.OnPressed += _ =>
+        {
+            OnLoopToggled?.Invoke();
+        };
+        // </Onyx>
+
         PlaybackSlider.OnReleased += PlaybackSliderKeyUp;
+        VolumeSlider.OnReleased += VolumeSliderKeyUp; // <Onyx>
+
+        VolumeSlider.MaxValue = 100f; // <Onyx>
 
         SetPlayPauseButton(_audioSystem.IsPlaying(_audio), force: true);
     }
@@ -110,6 +125,26 @@ public sealed partial class JukeboxMenu : FancyWindow
         PlayButton.Text = Loc.GetString("jukebox-menu-buttonplay");
     }
 
+    // <Onyx>
+    public void SetLoopButton(bool loopEnabled)
+    {
+        if (_loopState == loopEnabled)
+            return;
+
+        _loopState = loopEnabled;
+
+        if (loopEnabled)
+        {
+            LoopButton.Text = Loc.GetString("jukebox-menu-button-loop-enabled");
+            LoopButton.Pressed = true;
+            return;
+        }
+
+        LoopButton.Text = Loc.GetString("jukebox-menu-button-loop");
+        LoopButton.Pressed = false;
+    }
+    // </Onyx>
+
     public void SetSelectedSong(string name, float length)
     {
         SetSelectedSongText(name);
@@ -137,6 +172,8 @@ public sealed partial class JukeboxMenu : FancyWindow
             DurationLabel.Text = $"00:00 / 00:00";
         }
 
+        VolumeNumberLabel.Text = $"{VolumeSlider.Value:0.##} %"; // </Onyx>
+
         if (PlaybackSlider.Grabbed)
             return;
 
@@ -151,6 +188,19 @@ public sealed partial class JukeboxMenu : FancyWindow
 
         SetPlayPauseButton(_audioSystem.IsPlaying(_audio, audio));
     }
+
+    // <Onyx>
+    public void SetVolumeSlider(float volume)
+    {
+        VolumeSlider.Value = volume;
+    }
+
+    private void VolumeSliderKeyUp(Slider args)
+    {
+        SetVolume?.Invoke(VolumeSlider.Value);
+        _lockTimer = 0.5f;
+    }
+    // </Onyx>
 
     public void SetSelectedSongText(string? text)
     {

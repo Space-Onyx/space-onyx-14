@@ -175,6 +175,102 @@ public sealed partial class NpcFactionSystem : EntitySystem
             RefreshFactions((ent, ent.Comp));
     }
 
+    // <Onyx-Factions>
+    public void AddFriendlyFaction(Entity<NpcFactionMemberComponent?> ent, [ForbidLiteral] string faction, bool dirty = true)
+    {
+        if (!_proto.HasIndex<NpcFactionPrototype>(faction))
+        {
+            Log.Error($"Unable to find faction {faction}");
+            return;
+        }
+
+        ent.Comp ??= EnsureComp<NpcFactionMemberComponent>(ent);
+        ent.Comp.AddFriendlyFactions ??= new HashSet<ProtoId<NpcFactionPrototype>>();
+        if (!ent.Comp.AddFriendlyFactions.Add(faction))
+            return;
+
+        if (dirty)
+            RefreshFactions((ent, ent.Comp));
+    }
+
+    public void RemoveFriendlyFaction(Entity<NpcFactionMemberComponent?> ent, [ForbidLiteral] string faction, bool dirty = true)
+    {
+        if (!Resolve(ent, ref ent.Comp, false) || ent.Comp.AddFriendlyFactions == null)
+            return;
+
+        if (!ent.Comp.AddFriendlyFactions.Remove(faction))
+            return;
+
+        if (ent.Comp.AddFriendlyFactions.Count == 0)
+            ent.Comp.AddFriendlyFactions = null;
+
+        if (dirty)
+            RefreshFactions((ent, ent.Comp));
+    }
+
+    public void AddHostileFaction(Entity<NpcFactionMemberComponent?> ent, [ForbidLiteral] string faction, bool dirty = true)
+    {
+        if (!_proto.HasIndex<NpcFactionPrototype>(faction))
+        {
+            Log.Error($"Unable to find faction {faction}");
+            return;
+        }
+
+        ent.Comp ??= EnsureComp<NpcFactionMemberComponent>(ent);
+        ent.Comp.AddHostileFactions ??= new HashSet<ProtoId<NpcFactionPrototype>>();
+        if (!ent.Comp.AddHostileFactions.Add(faction))
+            return;
+
+        if (dirty)
+            RefreshFactions((ent, ent.Comp));
+    }
+
+    public void RemoveHostileFaction(Entity<NpcFactionMemberComponent?> ent, [ForbidLiteral] string faction, bool dirty = true)
+    {
+        if (!Resolve(ent, ref ent.Comp, false) || ent.Comp.AddHostileFactions == null)
+            return;
+
+        if (!ent.Comp.AddHostileFactions.Remove(faction))
+            return;
+
+        if (ent.Comp.AddHostileFactions.Count == 0)
+            ent.Comp.AddHostileFactions = null;
+
+        if (dirty)
+            RefreshFactions((ent, ent.Comp));
+    }
+
+    public void ClearFriendlyFactions(Entity<NpcFactionMemberComponent?> ent, bool dirty = true)
+    {
+        if (!Resolve(ent, ref ent.Comp, false))
+            return;
+
+        ent.Comp.AddFriendlyFactions = null;
+
+        if (dirty)
+            RefreshFactions((ent, ent.Comp));
+    }
+
+    public void ClearHostileFactions(Entity<NpcFactionMemberComponent?> ent, bool dirty = true)
+    {
+        if (!Resolve(ent, ref ent.Comp, false))
+            return;
+
+        ent.Comp.AddHostileFactions = null;
+
+        if (dirty)
+            RefreshFactions((ent, ent.Comp));
+    }
+
+    public void RefreshFactionCache(Entity<NpcFactionMemberComponent?> ent)
+    {
+        if (!Resolve(ent, ref ent.Comp, false))
+            return;
+
+        RefreshFactions((ent, ent.Comp));
+    }
+    // </Onyx-Factions>
+
     public IEnumerable<EntityUid> GetNearbyHostiles(Entity<NpcFactionMemberComponent?, FactionExceptionComponent?> ent, float range)
     {
         if (!Resolve(ent, ref ent.Comp1, false))

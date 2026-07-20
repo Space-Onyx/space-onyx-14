@@ -712,6 +712,15 @@ public sealed partial class ChatUIController : UIController
         // We only cut off prefix only if it is not a radio or local channel, which both map to the same /say command
         // because ????????
 
+        // <Onyx-InlineActions>
+        if (text.Length > 1
+            && text[0] == SharedChatSystem.EmotesAltPrefix
+            && text[1] == SharedChatSystem.EmotesAltPrefix)
+        {
+            return (ChatSelectChannel.None, text[1..], null);
+        }
+        // </Onyx-InlineActions>
+
         ChatSelectChannel chatChannel;
         if (TryGetRadioChannel(text, out var radioChannel))
             chatChannel = ChatSelectChannel.Radio;

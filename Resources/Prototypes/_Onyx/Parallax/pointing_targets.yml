@@ -1,0 +1,19 @@
+- type: parallaxPointingTarget
+  id: Water
+  name: parallax-pointing-target-water
+
+- type: parallaxPointingTarget
+  id: IceWater
+  name: parallax-pointing-target-water
+
+- type: parallaxPointingTarget
+  id: SillyIsland
+  name: parallax-pointing-target-ocean
+
+- type: parallaxPointingTarget
+  id: SillyIce
+  name: parallax-pointing-target-ocean
+
+- type: parallaxPointingTarget
+  id: PilgrimAiur
+  name: parallax-pointing-target-ocean

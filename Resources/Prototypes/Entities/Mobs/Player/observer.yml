@@ -112,6 +112,9 @@
   parent: MobObserverBase
   id: MobObserver
   components:
+  # <Onyx-GhostLanguages>
+  - type: UniversalLanguageSpeaker
+  # </Onyx-GhostLanguages>
   - type: Spectral
   - type: Tag
     tags: # BAD: Intentional removal of inherited tag

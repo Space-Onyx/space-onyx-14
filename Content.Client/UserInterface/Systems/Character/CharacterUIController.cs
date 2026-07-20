@@ -130,7 +130,7 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
             return;
         }
 
-        var (entity, job, objectives, briefing, entityName) = data;
+        var (entity, job, objectives, briefing, entityName, memories) = data; //<Onyx Economy>
 
         _window.SpriteView.SetEntity(entity);
 
@@ -140,6 +140,7 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
         _window.SubText.Text = job;
         _window.Objectives.RemoveAllChildren();
         _window.ObjectivesLabel.Visible = objectives.Any();
+        _window.Memories.RemoveAllChildren(); //<Onyx Economy>
 
         foreach (var (groupId, conditions) in objectives)
         {
@@ -189,6 +190,26 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
             briefingControl.Label.SetMessage(text);
             _window.Objectives.AddChild(briefingControl);
         }
+
+        //<Onyx Economy>
+        foreach (var (memoryName, memoryValue) in memories)
+        {
+            var memoryControl = new BoxContainer()
+            {
+                Orientation = BoxContainer.LayoutOrientation.Vertical,
+                Modulate = Color.Gray
+            };
+            var text = Loc.TryGetString(memoryName, out var t, ("value", memoryValue))
+                ? t
+                : $"{memoryName}: {memoryValue}";
+
+            memoryControl.AddChild(new Label
+            {
+                Text = text,
+            });
+            _window.Memories.AddChild(memoryControl);
+        }
+        //</Onyx Economy>
 
         var controls = _characterInfo.GetCharacterInfoControls(entity);
         foreach (var control in controls)

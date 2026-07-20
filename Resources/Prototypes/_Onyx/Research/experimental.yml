@@ -1,0 +1,61 @@
+- type: technology
+  id: BasicCybernetics
+  name: research-technology-onyx-basic-cybernetics
+  icon:
+    sprite: _Onyx/Cybernetics/organs.rsi
+    state: eyes
+  discipline: Experimental
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+    - LeftArmCybernetic
+    - RightArmCybernetic
+    - LeftHandCybernetic
+    - RightHandCybernetic
+    - LeftLegCybernetic
+    - RightLegCybernetic
+    - LeftFootCybernetic
+    - RightFootCybernetic
+    - BasicCyberneticEyes
+    - BasicCyberneticHeart
+    - BasicCyberneticLungs
+    - BasicCyberneticLiver
+  position: 1,5
+  technologyPrerequisites:
+    - BasicRobotics
+- type: technology
+  id: AdvancedCybernetics
+  name: research-technology-onyx-advanced-cybernetics
+  icon:
+    sprite: _Onyx/Cybernetics/organs.rsi
+    state: heart-u-on
+  discipline: Experimental
+  tier: 3
+  cost: 15000
+  recipeUnlocks:
+    - UpgradedCyberneticHeart
+    - UpgradedCyberneticLungs
+    - JawsOfLifeLeftArm
+    - JawsOfLifeRightArm
+    - SpeedLeftLeg
+    - SpeedRightLeg
+    - MedicalCyberneticEyes
+    - SecurityCyberneticEyes
+    - DiagnosticCyberneticEyes
+  position: 2,5
+  technologyPrerequisites:
+    - BasicCybernetics
+- type: technology
+  id: BluespaceTheory
+  name: research-technology-bluespace-theory
+  icon:
+    sprite: _Onyx/Objects/Materials/bluespace_crystal.rsi
+    state: bluespace_crystal
+  discipline: Experimental
+  tier: 2
+  cost: 5000
+  recipeUnlocks:
+    - MaterialBSCrystal
+  position: 4,2
+  technologyPrerequisites:
+    - DeterrenceTechnologies

@@ -4,3 +4,6 @@ handheld-radio-component-on-state = включено
 handheld-radio-component-off-state = выключено
 handheld-radio-component-channel-set = Включён { $channel } канал
 handheld-radio-component-chennel-examine = Выбранный канал: { $channel }.
+handheld-radio-component-preset-examine = Частота: { $channel } ({ $frequency }).
+handheld-radio-component-preset-verb = { $channel } ({ $frequency })
+handheld-radio-component-preset-current = Этот вариант уже выбран.

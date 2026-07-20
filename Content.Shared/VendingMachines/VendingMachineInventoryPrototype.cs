@@ -19,5 +19,8 @@ namespace Content.Shared.VendingMachines
 
         [DataField("contrabandInventory", customTypeSerializer:typeof(PrototypeIdDictionarySerializer<uint, EntityPrototype>))]
         public Dictionary<string, uint>? ContrabandInventory { get; private set; }
+
+        [DataField("prices", customTypeSerializer:typeof(PrototypeIdDictionarySerializer<int, EntityPrototype>))]
+        public Dictionary<string, int> Prices { get; private set; } = new();
     }
 }

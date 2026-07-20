@@ -1,29 +1,33 @@
+<!-- <Onyx-HealthAnalyzer-StatusDoll-edited> -->
 <BoxContainer
     xmlns="https://spacestation14.io"
+    xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
+    xmlns:targeting="clr-namespace:Content.Client._Onyx.Targeting.UI"
     VerticalExpand="True"
     Orientation="Vertical">
     <Label
         Name="NoPatientDataText"
         Text="{Loc health-analyzer-window-no-patient-data-text}" />
 
-    <BoxContainer
-        Name="PatientDataContainer"
-        Margin="0 0 0 5"
-        Orientation="Vertical">
+    <!-- <Onyx-HealthAnalyzer-WoundPanel> -->
+    <BoxContainer Name="DiagnosticColumns" Orientation="Horizontal" SeparationOverride="0" VerticalExpand="True">
+    <!-- <Onyx-HealthAnalyzerOrgans-edited> -->
+    <BoxContainer Name="DiagnosticTabs" Orientation="Vertical" MinWidth="220" HorizontalExpand="True" VerticalExpand="True">
+    <BoxContainer Name="PatientDataContainer" Margin="0 0 0 5" Orientation="Vertical">
         <BoxContainer Orientation="Horizontal" Margin="0 0 0 5">
-            <SpriteView OverrideDirection="South" Scale="2 2" Name="SpriteView" Access="Public" SetSize="64 64" />
-            <TextureRect Name="NoDataTex" Access="Public" SetSize="64 64" Visible="false" Stretch="KeepAspectCentered" TexturePath="/Textures/Interface/Misc/health_analyzer_out_of_range.png"/>
+            <BoxContainer Orientation="Vertical" SetWidth="96">
+                <SpriteView OverrideDirection="South" Scale="2 2" Name="SpriteView" Access="Public" SetSize="64 64" HorizontalAlignment="Center" />
+                <targeting:HealthAnalyzerStatusDoll Name="StatusDoll" Visible="false" />
+                <TextureRect Name="NoDataTex" Access="Public" SetSize="64 64" Visible="false" HorizontalAlignment="Center" Stretch="KeepAspectCentered" TexturePath="/Textures/Interface/Misc/health_analyzer_out_of_range.png"/>
+                <Button Name="WholeBodyButton" Text="{Loc health-analyzer-window-whole-body}" Visible="false" />
+            </BoxContainer>
             <BoxContainer Margin="5 0 0 0" Orientation="Vertical" VerticalAlignment="Top">
                 <RichTextLabel Name="NameLabel" SetWidth="150" />
                 <Label Name="SpeciesLabel" VerticalAlignment="Top" StyleClasses="LabelSubText" />
             </BoxContainer>
-            <Label Margin="0 0 5 0" HorizontalExpand="True" HorizontalAlignment="Right" VerticalExpand="True"
-                   VerticalAlignment="Top" Name="ScanModeLabel"
-                   Text="{Loc 'health-analyzer-window-entity-unknown-text'}" />
+            <Label Margin="0 0 5 0" HorizontalExpand="True" HorizontalAlignment="Right" VerticalExpand="True" VerticalAlignment="Top" Name="ScanModeLabel" Text="{Loc 'health-analyzer-window-entity-unknown-text'}" />
         </BoxContainer>
-
         <PanelContainer StyleClasses="LowDivider" />
-
         <GridContainer Margin="0 5 0 0" Columns="2">
             <Label Text="{Loc 'health-analyzer-window-entity-status-text'}" />
             <Label Name="StatusLabel" />
@@ -31,23 +35,43 @@
             <Label Name="TemperatureLabel" />
             <Label Text="{Loc 'health-analyzer-window-entity-blood-level-text'}" />
             <Label Name="BloodLabel" />
-            <Label Text="{Loc 'health-analyzer-window-entity-damage-total-text'}" />
-            <Label Name="DamageLabel" />
         </GridContainer>
     </BoxContainer>
-
+    <PanelContainer Margin="0 5" StyleClasses="LowDivider" />
+    <BoxContainer Name="BodyTab" Orientation="Vertical" HorizontalExpand="True">
+    <!-- </Onyx-HealthAnalyzer-WoundPanel> -->
+    <GridContainer Margin="0 5 0 0" Columns="2">
+        <Label Name="DamageScopeLabel" Text="{Loc 'health-analyzer-window-entity-damage-total-text'}" />
+        <Label Name="DamageLabel" />
+    </GridContainer>
     <PanelContainer Name="AlertsDivider" Visible="False" StyleClasses="LowDivider" />
 
     <BoxContainer Name="AlertsContainer" Visible="False" Margin="0 5" Orientation="Vertical" HorizontalAlignment="Center">
 
     </BoxContainer>
 
-    <PanelContainer StyleClasses="LowDivider" />
-
-    <BoxContainer
-        Name="GroupsContainer"
-        Margin="0 5 0 5"
-        Orientation="Vertical">
+    <BoxContainer Name="GroupsContainer" Margin="0 5 0 5" Orientation="Vertical">
     </BoxContainer>
+    <!-- <GoobStation-Disease> -->
+    <PanelContainer Name="DiseasesDivider" Visible="False" StyleClasses="LowDivider" />
+    <BoxContainer Name="DiseasesContainer" Visible="False" Margin="0 5" Orientation="Vertical" />
+    <!-- </GoobStation-Disease> -->
+    </BoxContainer>
+    <ScrollContainer Name="OrgansTab" HorizontalExpand="True" VerticalExpand="True" Visible="False">
+        <BoxContainer Name="OrgansContainer" Orientation="Vertical" Margin="5" HorizontalExpand="True" />
+    </ScrollContainer>
+    </BoxContainer>
+    <!-- </Onyx-HealthAnalyzerOrgans-edited> -->
 
+    <!-- <Onyx-HealthAnalyzer-WoundPanel> -->
+    <cc:VSeparator VerticalExpand="True" />
+    <BoxContainer Name="WoundDiagnosticColumn" Margin="5 0 0 0" Orientation="Vertical" MinWidth="430" HorizontalExpand="True">
+        <Label Text="{Loc health-analyzer-wound-diagnostics-title}" StyleClasses="LabelHeading" />
+        <PanelContainer Margin="0 5 0 5" StyleClasses="LowDivider" />
+        <RichTextLabel Name="WoundDiagnosticStateLabel" HorizontalAlignment="Left" HorizontalExpand="True" MaxWidth="430" />
+        <BoxContainer Name="WoundFindingsContainer" Orientation="Vertical" HorizontalAlignment="Left" HorizontalExpand="True" />
+    </BoxContainer>
+    </BoxContainer>
+    <!-- </Onyx-HealthAnalyzer-WoundPanel> -->
 </BoxContainer>
+<!-- </Onyx-HealthAnalyzer-StatusDoll-edited> -->

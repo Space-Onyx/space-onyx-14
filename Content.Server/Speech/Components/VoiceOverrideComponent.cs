@@ -1,5 +1,6 @@
 using Content.Shared.Speech;
 using Robust.Shared.Prototypes;
+using Content.Shared._Onyx.SpeechBarks;
 
 namespace Content.Server.Speech.Components;
 
@@ -32,4 +33,9 @@ public sealed partial class VoiceOverrideComponent : Component
     /// </summary>
     [DataField]
     public bool Enabled = true;
+
+    // <Onyx-Barks>
+    [DataField]
+    public BarkData? Bark;
+    // </Onyx-Barks>
 }

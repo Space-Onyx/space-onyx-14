@@ -231,6 +231,13 @@
     - id: DoorRemoteMedical
     - id: BoxEncryptionKeyMedical
     - id: BoxCMOCircuitboards
+    # <Onyx-MedicalBiofabricator>
+    - id: MedicalBiofabricatorFlatpack
+    # </Onyx-MedicalBiofabricator>
+    # <Onyx-VirologyMachines>
+    - id: DiseaseDiagnoserFlatPack
+    - id: VaccinatorFlatPack
+    # </Onyx-VirologyMachines>
     - id: PlushieLizardJobChiefmedicalofficer
       prob: 0.02
     - id: PrinterDocFlatpack # Corvax-Printer

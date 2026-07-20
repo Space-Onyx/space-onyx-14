@@ -2,9 +2,13 @@
 using Content.Client.Ghost;
 using Content.Client.UserInterface.Systems.Gameplay;
 using Content.Client.UserInterface.Systems.Ghost.Widgets;
+using Content.Shared.CCVar;
 using Content.Shared.Ghost;
+using Content.Shared._Onyx.Ghost;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controllers;
+using Robust.Shared.Configuration;
+using Robust.Shared.Timing;
 
 namespace Content.Client.UserInterface.Systems.Ghost;
 
@@ -12,6 +16,8 @@ namespace Content.Client.UserInterface.Systems.Ghost;
 public sealed partial class GhostUIController : UIController, IOnSystemChanged<GhostSystem>
 {
     [Dependency] private IEntityNetworkManager _net = default!;
+    [Dependency] private IConfigurationManager _cfg = default!; // <Onyx-Ghost>
+    [Dependency] private IGameTiming _timing = default!; // <Onyx-Ghost>
 
     [UISystemDependency] private readonly GhostSystem? _system = default;
 
@@ -65,7 +71,17 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
 
         Gui.Visible = _system?.IsGhost ?? false;
         Gui.Update(_system?.AvailableGhostRoleCount, _system?.Player?.CanReturnToBody);
+        UpdateReturnToLobbyButton(); // <Onyx-Ghost>
     }
+
+    // <Onyx-Ghost>
+    public override void FrameUpdate(FrameEventArgs args)
+    {
+        if (Gui == null || _system?.IsGhost != true || !Gui.Visible)
+            return;
+        UpdateReturnToLobbyButton();
+    }
+    // </Onyx-Ghost>
 
     private void OnPlayerRemoved(GhostComponent component)
     {
@@ -125,6 +141,7 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
         Gui.RequestWarpsPressed += RequestWarps;
         Gui.ReturnToBodyPressed += ReturnToBody;
         Gui.GhostRolesPressed += GhostRolesPressed;
+        Gui.ReturnToLobbyPressed += ReturnToLobbyPressed; // <Onyx-Ghost>
         Gui.TargetWindow.WarpClicked += OnWarpClicked;
         Gui.TargetWindow.OnGhostnadoClicked += OnGhostnadoClicked;
 
@@ -139,7 +156,7 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
         Gui.RequestWarpsPressed -= RequestWarps;
         Gui.ReturnToBodyPressed -= ReturnToBody;
         Gui.GhostRolesPressed -= GhostRolesPressed;
-        Gui.TargetWindow.WarpClicked -= OnWarpClicked;
+        Gui.ReturnToLobbyPressed -= ReturnToLobbyPressed; // <Onyx-Ghost>
 
         Gui.Hide();
     }
@@ -160,4 +177,47 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
     {
         _system?.OpenGhostRoles();
     }
+
+    // <Onyx-Ghost>
+    private void UpdateReturnToLobbyButton()
+    {
+        if (Gui == null)
+            return;
+
+        if (!_cfg.GetCVar(CCVars.GhostReturnToLobbyEnabled)
+            || _system?.Player is not { } player)
+        {
+            Gui.UpdateReturnToLobbyButton(false, false, Loc.GetString("ghost-return-to-lobby-button-ready"));
+            return;
+        }
+
+        var canReturn = player.CanReturnToLobby;
+        var remaining = GhostReturnToLobbyLogic.GetRemaining(_timing.CurTime, player.ReturnToLobbyAvailableAt);
+
+        var text = Loc.GetString("ghost-return-to-lobby-button-ready");
+        if (!canReturn)
+        {
+            if (remaining > TimeSpan.Zero)
+            {
+                var totalSeconds = (int) System.Math.Ceiling(remaining.TotalSeconds);
+                if (totalSeconds < 0)
+                    totalSeconds = 0;
+
+                var minutes = (totalSeconds / 60).ToString("00");
+                var seconds = (totalSeconds % 60).ToString("00");
+                text = Loc.GetString("ghost-return-to-lobby-button-timer", ("minutes", minutes), ("seconds", seconds));
+            }
+            else
+            {
+                text = Loc.GetString("ghost-return-to-lobby-button-player-limit");
+            }
+        }
+
+        Gui.UpdateReturnToLobbyButton(true, canReturn, text);
+    }
+    private void ReturnToLobbyPressed()
+    {
+        _system?.ReturnToLobby();
+    }
+    // </Onyx-Ghost>
 }

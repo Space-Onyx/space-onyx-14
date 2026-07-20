@@ -1,0 +1,31 @@
+<targeting:HealthAnalyzerStatusDoll
+    xmlns="https://spacestation14.io"
+    xmlns:targeting="clr-namespace:Content.Client._Onyx.Targeting.UI"
+    SetSize="96 96">
+    <PanelContainer SetSize="96 96">
+        <TextureRect Name="DollHead" Stretch="KeepAspectCentered" SetSize="96 96" MouseFilter="Ignore" />
+        <TextureRect Name="DollChest" Stretch="KeepAspectCentered" SetSize="96 96" MouseFilter="Ignore" />
+        <TextureRect Name="DollGroin" Stretch="KeepAspectCentered" SetSize="96 96" MouseFilter="Ignore" />
+        <TextureRect Name="DollLeftArm" Stretch="KeepAspectCentered" SetSize="96 96" MouseFilter="Ignore" />
+        <TextureRect Name="DollLeftHand" Stretch="KeepAspectCentered" SetSize="96 96" MouseFilter="Ignore" />
+        <TextureRect Name="DollRightArm" Stretch="KeepAspectCentered" SetSize="96 96" MouseFilter="Ignore" />
+        <TextureRect Name="DollRightHand" Stretch="KeepAspectCentered" SetSize="96 96" MouseFilter="Ignore" />
+        <TextureRect Name="DollLeftLeg" Stretch="KeepAspectCentered" SetSize="96 96" MouseFilter="Ignore" />
+        <TextureRect Name="DollLeftFoot" Stretch="KeepAspectCentered" SetSize="96 96" MouseFilter="Ignore" />
+        <TextureRect Name="DollRightLeg" Stretch="KeepAspectCentered" SetSize="96 96" MouseFilter="Ignore" />
+        <TextureRect Name="DollRightFoot" Stretch="KeepAspectCentered" SetSize="96 96" MouseFilter="Ignore" />
+        <PanelContainer SetSize="96 96" MouseFilter="Ignore">
+            <TextureButton Name="HeadButton" SetSize="21 21" Margin="36 9 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextureButton Name="ChestButton" SetSize="27 21" Margin="33 30 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextureButton Name="GroinButton" SetSize="27 15" Margin="33 51 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextureButton Name="LeftArmButton" SetSize="15 18" Margin="57 30 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextureButton Name="LeftHandButton" SetSize="12 12" Margin="60 48 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextureButton Name="RightArmButton" SetSize="15 18" Margin="21 30 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextureButton Name="RightHandButton" SetSize="12 12" Margin="21 48 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextureButton Name="LeftLegButton" SetSize="12 18" Margin="48 60 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextureButton Name="LeftFootButton" SetSize="18 9" Margin="48 78 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextureButton Name="RightLegButton" SetSize="12 18" Margin="33 60 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextureButton Name="RightFootButton" SetSize="18 9" Margin="27 78 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        </PanelContainer>
+    </PanelContainer>
+</targeting:HealthAnalyzerStatusDoll>

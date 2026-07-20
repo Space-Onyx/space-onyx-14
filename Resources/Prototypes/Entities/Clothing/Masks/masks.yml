@@ -339,6 +339,9 @@
       Plastic: 25
   - type: StaticPrice
     price: 5
+  - type: Tag
+    tags:
+    - SurgerySterileMask
 
 - type: entity
   parent: ClothingMaskBase

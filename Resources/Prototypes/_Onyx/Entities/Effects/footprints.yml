@@ -1,0 +1,50 @@
+- type: entity
+  parent: Solution
+  id: SolutionFootprintOwner
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Solution
+    id: print
+    solution:
+      maxVol: 20
+
+- type: entity
+  parent: Solution
+  id: SolutionFootprint
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Solution
+    id: print
+    solution:
+      maxVol: 50
+
+- type: entity
+  name: footprint
+  description: Trace of liquid.
+  id: Footprint
+  save: false
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Clickable
+  - type: Transform
+    noRot: false
+    anchored: true
+  - type: Sprite
+    drawdepth: FloorObjects
+  - type: Physics
+    bodyType: Static
+  - type: Appearance
+  - type: SolutionManager
+    solutions:
+    - SolutionFootprint
+  - type: Footprint
+  - type: Puddle
+    solution: print
+  - type: ExaminableSolution
+    solution: print
+  - type: MixableSolution
+    solution: print
+  - type: DrawableSolution
+    solution: print
+  - type: IgnoresFingerprints

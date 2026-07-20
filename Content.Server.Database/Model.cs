@@ -51,6 +51,7 @@ namespace Content.Server.Database
         public DbSet<IPIntelCache> IPIntelCache { get; set; } = null!;
         public DbSet<CustomVoteLog> CustomVoteLog { get; set; } = null!;
         public DbSet<CustomVoteLogOption> CustomVoteLogOption { get; set; } = null!;
+        public DbSet<DiscordUser> DiscordUser { get; set; } = null!; // <Onyx-DiscordAuth>
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -107,6 +108,14 @@ namespace Content.Server.Database
             // Can't have two usernames with the same user ID.
             modelBuilder.Entity<AssignedUserId>()
                 .HasIndex(p => p.UserId)
+                .IsUnique();
+
+            modelBuilder.Entity<DiscordUser>()
+                .HasIndex(p => p.UserId)
+                .IsUnique();
+
+            modelBuilder.Entity<DiscordUser>()
+                .HasIndex(p => p.DiscordId)
                 .IsUnique();
 
             modelBuilder.Entity<Admin>()
@@ -331,6 +340,10 @@ namespace Content.Server.Database
         [Column("char_name")] public string CharacterName { get; set; } = null!;
         public string FlavorText { get; set; } = null!;
         public int Age { get; set; }
+        // <Onyx-HeightWidth>
+        public float Height { get; set; } = 1f;
+        public float Width { get; set; } = 1f;
+        // </Onyx-HeightWidth>
         public string Sex { get; set; } = null!;
         public string Gender { get; set; } = null!;
         public string Species { get; set; } = null!;
@@ -588,6 +601,16 @@ namespace Content.Server.Database
         public AdminRank Rank { get; set; } = default!;
     }
 
+    // <Onyx-DiscordAuth>
+    public class DiscordUser
+    {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public Guid UserId { get; set; }
+        public string DiscordId { get; set; } = default!;
+    }
+    // <Onyx-DiscordAuth>
+
     public class Round
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -763,7 +786,8 @@ namespace Content.Server.Database
         /// Results from rejected connections with external API checking tools
         IPChecks = 5,
         /// Results from rejected connections who are authenticated but have no modern hwid associated with them.
-        NoHwid = 6
+        NoHwid = 6,
+        DiscordAuth = 7
     }
 
     public class ServerBanHit

@@ -1,6 +1,7 @@
 ﻿using Content.Server.Actions;
 using Content.Shared.Body;
 using Content.Shared.Cloning.Events;
+using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Markings;
 using Content.Shared.Mobs;
 using Content.Shared.Toggleable;
@@ -24,6 +25,10 @@ public sealed partial class WaggingSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<WaggingComponent, MapInitEvent>(OnWaggingMapInit);
+        // <Onyx-DynamicWagging>
+        SubscribeLocalEvent<WaggingComponent, ComponentStartup>(OnWaggingStartup);
+        SubscribeLocalEvent<VisualBodyComponent, VisualBodyMarkingsChangedEvent>(OnMarkingsChanged);
+        // </Onyx-DynamicWagging>
         SubscribeLocalEvent<WaggingComponent, ComponentShutdown>(OnWaggingShutdown);
         SubscribeLocalEvent<WaggingComponent, ToggleActionEvent>(OnWaggingToggle);
         SubscribeLocalEvent<WaggingComponent, MobStateChangedEvent>(OnMobStateChanged);
@@ -46,8 +51,66 @@ public sealed partial class WaggingSystem : EntitySystem
 
     private void OnWaggingMapInit(Entity<WaggingComponent> ent, ref MapInitEvent args)
     {
+        EnsureWaggingAction(ent);
+    }
+
+    // <Onyx-DynamicWagging>
+    private void OnWaggingStartup(Entity<WaggingComponent> ent, ref ComponentStartup args)
+    {
+        EnsureWaggingAction(ent);
+    }
+
+    private void EnsureWaggingAction(Entity<WaggingComponent> ent)
+    {
+        if (ent.Comp.ActionEntity != null)
+            return;
+
         _actions.AddAction(ent, ref ent.Comp.ActionEntity, ent.Comp.Action, ent);
     }
+
+    private void OnMarkingsChanged(Entity<VisualBodyComponent> ent, ref VisualBodyMarkingsChangedEvent args)
+    {
+        if (TryGetWaggableTail(ent, out var organ, out var layer))
+        {
+            var wagging = EnsureComp<WaggingComponent>(ent);
+            wagging.Organ = organ;
+            wagging.Layer = layer;
+            return;
+        }
+
+        RemComp<WaggingComponent>(ent);
+    }
+
+    private bool TryGetWaggableTail(Entity<VisualBodyComponent> ent,
+        out ProtoId<OrganCategoryPrototype> organ,
+        out HumanoidVisualLayers layer)
+    {
+        organ = default;
+        layer = HumanoidVisualLayers.Tail;
+        if (!_visualBody.TryGatherMarkingsData(ent.AsNullable(), [layer], out _, out _, out var applied))
+            return false;
+
+        foreach (var (category, markingSet) in applied)
+        {
+            if (!markingSet.TryGetValue(layer, out var tails))
+                continue;
+
+            foreach (var tail in tails)
+            {
+                var id = tail.MarkingId.Id;
+                if (id.EndsWith(WaggingComponent.DefaultSuffix)
+                    ? _prototype.HasIndex<MarkingPrototype>(id[..^WaggingComponent.DefaultSuffix.Length])
+                    : _prototype.HasIndex<MarkingPrototype>($"{id}{WaggingComponent.DefaultSuffix}"))
+                {
+                    organ = category;
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+    // </Onyx-DynamicWagging>
 
     private void OnWaggingShutdown(Entity<WaggingComponent> ent, ref ComponentShutdown args)
     {

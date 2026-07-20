@@ -1,4 +1,10 @@
 using Robust.Shared.Serialization;
+// <Onyx-HealthAnalyzer-StatusDoll>
+using Content.Shared.Damage;
+using Content.Shared._Onyx.Medical;
+using Content.Shared._Onyx.Targeting;
+using System.Collections.Generic;
+// </Onyx-HealthAnalyzer-StatusDoll>
 
 namespace Content.Shared.MedicalScanner;
 
@@ -28,10 +34,27 @@ public struct HealthAnalyzerUiState
     public bool? ScanMode;
     public bool? Bleeding;
     public bool? Unrevivable;
+    // <Onyx-HealthAnalyzer-StatusDoll>
+    public Dictionary<TargetBodyPart, DamageSpecifier>? PartDamage;
+    public HealthAnalyzerWoundDiagnostics? WoundDiagnostics;
+    // <Onyx-HealthAnalyzerOrgans-edited>
+    public List<HealthAnalyzerOrganInfo>? Organs;
+    // </Onyx-HealthAnalyzerOrgans-edited>
+    // </Onyx-HealthAnalyzer-StatusDoll>
 
     public HealthAnalyzerUiState() {}
 
-    public HealthAnalyzerUiState(NetEntity? targetEntity, float temperature, float bloodLevel, bool? scanMode, bool? bleeding, bool? unrevivable)
+    // <Onyx-HealthAnalyzer-StatusDoll-edited>
+    public HealthAnalyzerUiState(
+        NetEntity? targetEntity,
+        float temperature,
+        float bloodLevel,
+        bool? scanMode,
+        bool? bleeding,
+        bool? unrevivable,
+        Dictionary<TargetBodyPart, DamageSpecifier>? partDamage = null,
+        HealthAnalyzerWoundDiagnostics? woundDiagnostics = null,
+        List<HealthAnalyzerOrganInfo>? organs = null)
     {
         TargetEntity = targetEntity;
         Temperature = temperature;
@@ -39,5 +62,13 @@ public struct HealthAnalyzerUiState
         ScanMode = scanMode;
         Bleeding = bleeding;
         Unrevivable = unrevivable;
+        // <Onyx-HealthAnalyzer-StatusDoll>
+        PartDamage = partDamage;
+        WoundDiagnostics = woundDiagnostics;
+        // <Onyx-HealthAnalyzerOrgans-edited>
+        Organs = organs;
+        // </Onyx-HealthAnalyzerOrgans-edited>
+        // </Onyx-HealthAnalyzer-StatusDoll>
     }
+    // </Onyx-HealthAnalyzer-StatusDoll-edited>
 }

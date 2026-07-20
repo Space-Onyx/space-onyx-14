@@ -5,6 +5,9 @@ using Content.Shared.Examine;
 using Content.Shared.Inventory;
 using Content.Shared.Silicons.Borgs;
 using Content.Shared.Verbs;
+// <Onyx-WoundSystem>
+using Content.Shared._Onyx.Wounds;
+// </Onyx-WoundSystem>
 using Robust.Shared.Utility;
 
 namespace Content.Shared.Armor;
@@ -23,6 +26,9 @@ public abstract partial class SharedArmorSystem : EntitySystem
 
         SubscribeLocalEvent<ArmorComponent, InventoryRelayedEvent<CoefficientQueryEvent>>(OnCoefficientQuery);
         SubscribeLocalEvent<ArmorComponent, InventoryRelayedEvent<DamageModifyEvent>>(OnDamageModify);
+        // <Onyx-WoundSystem>
+        SubscribeLocalEvent<ArmorComponent, InventoryRelayedEvent<PartDamageModifyEvent>>(OnPartDamageModify);
+        // </Onyx-WoundSystem>
         SubscribeLocalEvent<ArmorComponent, BorgModuleRelayedEvent<DamageModifyEvent>>(OnBorgDamageModify);
         SubscribeLocalEvent<ArmorComponent, GetVerbsEvent<ExamineVerb>>(OnArmorVerbExamine);
     }
@@ -45,11 +51,41 @@ public abstract partial class SharedArmorSystem : EntitySystem
 
     private void OnDamageModify(EntityUid uid, ArmorComponent component, InventoryRelayedEvent<DamageModifyEvent> args)
     {
+        // <Onyx-WoundSystem-edited>
+        // Wound hosts apply equipped armor after resolving the struck part.
+        if (HasComp<WoundHostComponent>(args.Owner))
+            return;
+        // </Onyx-WoundSystem-edited>
+
         if (TryComp<MaskComponent>(uid, out var mask) && mask.IsToggled)
             return;
 
         args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, component.Modifiers);
     }
+
+    // <Onyx-WoundSystem>
+    private void OnPartDamageModify(EntityUid uid, ArmorComponent component, InventoryRelayedEvent<PartDamageModifyEvent> args)
+    {
+        if (TryComp<MaskComponent>(uid, out var mask) && mask.IsToggled)
+            return;
+
+        foreach (var profile in component.PartModifiers)
+        {
+            if (profile.Parts.Count != 0 && !profile.Parts.Contains(args.Args.PartType) ||
+                profile.Symmetry.Count != 0 && !profile.Symmetry.Contains(args.Args.Symmetry))
+                continue;
+
+            args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, profile.Modifiers);
+            return;
+        }
+
+        if (component.Coverage.Count != 0 && !component.Coverage.Contains(args.Args.PartType) ||
+            component.CoverageSymmetry.Count != 0 && !component.CoverageSymmetry.Contains(args.Args.Symmetry))
+            return;
+
+        args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, component.Modifiers);
+    }
+    // </Onyx-WoundSystem>
 
     private void OnBorgDamageModify(EntityUid uid, ArmorComponent component,
         ref BorgModuleRelayedEvent<DamageModifyEvent> args)

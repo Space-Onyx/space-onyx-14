@@ -19,6 +19,8 @@ using Robust.Shared.ContentPack;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 using Direction = Robust.Shared.Maths.Direction;
+using Content.Shared._Onyx.CCVar;
+using Content.Shared._Onyx.SpeechBarks;
 
 namespace Content.Client.Lobby.UI
 {
@@ -176,6 +178,23 @@ namespace Content.Client.Lobby.UI
 
             #endregion Age
 
+            // <Onyx-HeightWidth>
+            HeightEdit.OnTextChanged += args =>
+            {
+                if (!_updatingDimensionControls && int.TryParse(args.Text, out var value))
+                    SetHeightCm(value);
+            };
+            WidthEdit.OnTextChanged += args =>
+            {
+                if (!_updatingDimensionControls && int.TryParse(args.Text, out var value))
+                    SetWidthKg(value);
+            };
+            HeightSlider.OnValueChanged += _ => SetHeightSlider();
+            WidthSlider.OnValueChanged += _ => SetWidthSlider();
+            HeightReset.OnPressed += _ => ResetHeight();
+            WidthReset.OnPressed += _ => ResetWidth();
+            // </Onyx-HeightWidth>
+
             #region Gender
 
             PronounsButton.AddItem(Loc.GetString("humanoid-profile-editor-pronouns-male-text"), (int)Gender.Male);
@@ -191,6 +210,18 @@ namespace Content.Client.Lobby.UI
 
             #endregion Gender
 
+            // <Onyx-Barks>
+            #region Voice
+
+            if (configurationManager.GetCVar(ADTCCVars.BarksEnabled))
+            {
+                BarksContainer.Visible = true;
+                InitializeBarks();
+            }
+
+            #endregion
+            // </Onyx-Barks>
+
             RefreshSpecies();
 
             SpeciesButton.OnItemSelected += args =>
@@ -199,6 +230,7 @@ namespace Content.Client.Lobby.UI
                 SetSpecies(_species[args.Id].ID);
                 OnSkinColorOnValueChanged();
             };
+
 
             #region Skin
 
@@ -377,10 +409,14 @@ namespace Content.Client.Lobby.UI
             UpdateSkinColor();
             UpdateSpawnPriorityControls();
             UpdateAgeEdit();
+            // <Onyx-HeightWidth>
+            UpdateDimensionControls();
+            // </Onyx-HeightWidth>
             UpdateEyePickers();
             UpdateSaveButton();
             UpdateMarkings();
             UpdateTTSVoicesControls(); // Corvax-TTS
+            UpdateBarkVoicesControls(); // <Onyx-Barks>
 
             RefreshAntags();
             RefreshJobs();

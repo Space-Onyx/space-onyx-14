@@ -1,7 +1,14 @@
 using System.Linq;
+using Content.Server._Onyx.Chat;
+// <Onyx-Languages>
+using Content.Shared._Onyx.Language;
+// </Onyx-Languages>
 using Content.Shared.Chat;
 using Content.Shared.Database;
 using Content.Shared.IdentityManagement;
+// <Onyx-SignLanguage>
+using Content.Shared.Eye.Blinding.Components;
+// </Onyx-SignLanguage>
 using Content.Shared.Radio;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
@@ -29,7 +36,13 @@ public sealed partial class ChatSystem
         if (message.Length == 0)
             return;
 
-        var speech = GetSpeechVerb(source, message);
+        // <Onyx-InlineActions>
+        var protectedMessage = InlineActionFormatter.ProtectActions(message, out var inlineReplacements, out var inlineActions);
+        TryTriggerInlineActionEmotes(source, inlineActions, false, ignoreActionBlocker);
+        var restoredMessage = InlineActionFormatter.RestoreActions(protectedMessage, inlineReplacements);
+        // </Onyx-InlineActions>
+
+        var speech = GetSpeechVerb(source, restoredMessage);
 
         // get the entity's apparent name (if no override provided).
         string name;
@@ -49,14 +62,55 @@ public sealed partial class ChatSystem
 
         name = FormattedMessage.EscapeText(name);
 
+        var content = FormattedMessage.EscapeText(restoredMessage);
+        var inlineFormattedMessage = InlineActionFormatter.Format(content); // <Onyx-InlineActions>
+        // <Onyx-Languages>
+        var speechVerb = Loc.GetString(_random.Pick(speech.SpeechVerbStrings));
+        // </Onyx-Languages>
         var wrappedMessage = Loc.GetString(speech.Bold ? "chat-manager-entity-say-bold-wrap-message" : "chat-manager-entity-say-wrap-message",
             ("entityName", name),
-            ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
+            ("verb", speechVerb),
             ("fontType", speech.FontId),
             ("fontSize", speech.FontSize),
-            ("message", FormattedMessage.EscapeText(message)));
+            ("message", inlineFormattedMessage));
 
-        SendInVoiceRange(ChatChannel.Local, message, wrappedMessage, source, range);
+        // <Onyx-Languages-edited>
+        var language = _language.GetCurrentLanguage(source);
+        // <Onyx-SignLanguage>
+        var isSignLanguage = language.ID == "Sign";
+        // </Onyx-SignLanguage>
+        var obfuscated = InlineActionFormatter.RestoreActions(_language.Obfuscate(protectedMessage, language), inlineReplacements);
+        foreach (var (session, data) in GetRecipients(source, VoiceRange))
+        {
+            if (session.AttachedEntity is not { } listener)
+                continue;
+
+            // <Onyx-SignLanguage-edited>
+            if (isSignLanguage
+                    ? TryComp<BlindableComponent>(listener, out var blind) && blind.IsBlind ||
+                      !_examineSystem.InRangeUnOccluded(source, listener, VoiceRange)
+                    : !CanHear(listener))
+                continue;
+            // </Onyx-SignLanguage-edited>
+
+            var entRange = MessageRangeCheck(session, data, range);
+            if (entRange == MessageRangeCheckResult.Disallowed)
+                continue;
+
+            var understood = _language.CanUnderstand(listener, language.ID);
+            var perceived = understood ? restoredMessage : obfuscated;
+            var perceivedContent = InlineActionFormatter.Format(FormattedMessage.EscapeText(perceived));
+            var perceivedWrap = Loc.GetString(speech.Bold ? "chat-manager-entity-say-bold-wrap-message" : "chat-manager-entity-say-wrap-message",
+                ("entityName", name),
+                ("verb", speechVerb),
+                ("fontType", speech.FontId),
+                ("fontSize", speech.FontSize),
+                ("message", perceivedContent));
+            _chatManager.ChatMessageToOne(ChatChannel.Local, perceived, perceivedWrap, source,
+                entRange == MessageRangeCheckResult.HideChat, session.Channel);
+        }
+        _replay.RecordServerMessage(new ChatMessage(ChatChannel.Local, message, wrappedMessage, GetNetEntity(source), null, MessageRangeHideChatForReplay(range)));
+        // </Onyx-Languages-edited>
 
         var ev = new EntitySpokeEvent(source, message, originalMessage, null, null);
         RaiseLocalEvent(source, ev, true);
@@ -101,7 +155,20 @@ public sealed partial class ChatSystem
         if (message.Length == 0)
             return;
 
-        var obfuscatedMessage = ObfuscateMessageReadability(message, 0.2f);
+        // <Onyx-InlineActions>
+        var protectedMessage = InlineActionFormatter.ProtectActions(message, out var inlineReplacements, out var inlineActions);
+        TryTriggerInlineActionEmotes(source, inlineActions, false, ignoreActionBlocker);
+        var restoredMessage = InlineActionFormatter.RestoreActions(protectedMessage, inlineReplacements);
+        // </Onyx-InlineActions>
+
+        // <Onyx-Languages-edited>
+        var language = _language.GetCurrentLanguage(source);
+        // <Onyx-SignLanguage>
+        var isSignLanguage = language.ID == "Sign";
+        // </Onyx-SignLanguage>
+        var languageObfuscatedMessage = InlineActionFormatter.RestoreActions(_language.Obfuscate(protectedMessage, language), inlineReplacements);
+        var obfuscatedMessage = ObfuscateMessageReadability(restoredMessage, 0.2f);
+        // </Onyx-Languages-edited>
 
         // get the entity's name by visual identity (if no override provided).
         string nameIdentity = FormattedMessage.EscapeText(nameOverride ?? Identity.Name(source, EntityManager));
@@ -119,35 +186,55 @@ public sealed partial class ChatSystem
         }
         name = FormattedMessage.EscapeText(name);
 
+        var content = FormattedMessage.EscapeText(restoredMessage);
+        var inlineFormattedMessage = InlineActionFormatter.Format(content); // <Onyx-InlineActions>
         var wrappedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
-            ("entityName", name), ("message", FormattedMessage.EscapeText(message)));
-
-        var wrappedobfuscatedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
-            ("entityName", nameIdentity), ("message", FormattedMessage.EscapeText(obfuscatedMessage)));
-
-        var wrappedUnknownMessage = Loc.GetString("chat-manager-entity-whisper-unknown-wrap-message",
-            ("message", FormattedMessage.EscapeText(obfuscatedMessage)));
-
+            ("entityName", name), ("message", inlineFormattedMessage));
 
         foreach (var (session, data) in GetRecipients(source, WhisperMuffledRange))
         {
-            EntityUid listener;
-
-            if (session.AttachedEntity is not { Valid: true } playerEntity)
+            if (session.AttachedEntity is not { Valid: true } listener)
                 continue;
-            listener = session.AttachedEntity.Value;
+
+            // <Onyx-OrganHearing>
+            // <Onyx-SignLanguage-edited>
+            if (isSignLanguage
+                    ? TryComp<BlindableComponent>(listener, out var blind) && blind.IsBlind ||
+                      !_examineSystem.InRangeUnOccluded(source, listener, WhisperMuffledRange)
+                    : !CanHear(listener))
+                continue;
+            // </Onyx-SignLanguage-edited>
+            // </Onyx-OrganHearing>
 
             if (MessageRangeCheck(session, data, range) != MessageRangeCheckResult.Full)
                 continue; // Won't get logged to chat, and ghosts are too far away to see the pop-up, so we just won't send it to them.
 
+            // <Onyx-Languages-edited>
+            var understoodMessage = _language.CanUnderstand(listener, language.ID) ? restoredMessage : languageObfuscatedMessage;
+            var understoodWrap = Loc.GetString("chat-manager-entity-whisper-wrap-message",
+                ("entityName", name),
+                ("message", InlineActionFormatter.Format(FormattedMessage.EscapeText(understoodMessage))));
+
             if (data.Range <= WhisperClearRange || data.Observer)
-                _chatManager.ChatMessageToOne(ChatChannel.Whisper, message, wrappedMessage, source, false, session.Channel);
+                _chatManager.ChatMessageToOne(ChatChannel.Whisper, understoodMessage, understoodWrap, source, false, session.Channel);
             //If listener is too far, they only hear fragments of the message
             else if (_examineSystem.InRangeUnOccluded(source, listener, WhisperMuffledRange))
-                _chatManager.ChatMessageToOne(ChatChannel.Whisper, obfuscatedMessage, wrappedobfuscatedMessage, source, false, session.Channel);
+            {
+                var muffled = ObfuscateMessageReadability(understoodMessage, 0.2f);
+                var muffledWrap = Loc.GetString("chat-manager-entity-whisper-wrap-message",
+                    ("entityName", nameIdentity),
+                    ("message", InlineActionFormatter.Format(FormattedMessage.EscapeText(muffled))));
+                _chatManager.ChatMessageToOne(ChatChannel.Whisper, muffled, muffledWrap, source, false, session.Channel);
+            }
             //If listener is too far and has no line of sight, they can't identify the whisperer's identity
             else
-                _chatManager.ChatMessageToOne(ChatChannel.Whisper, obfuscatedMessage, wrappedUnknownMessage, source, false, session.Channel);
+            {
+                var muffled = ObfuscateMessageReadability(understoodMessage, 0.2f);
+                var unknownWrap = Loc.GetString("chat-manager-entity-whisper-unknown-wrap-message",
+                    ("message", InlineActionFormatter.Format(FormattedMessage.EscapeText(muffled))));
+                _chatManager.ChatMessageToOne(ChatChannel.Whisper, muffled, unknownWrap, source, false, session.Channel);
+            }
+            // </Onyx-Languages-edited>
         }
 
         _replay.RecordServerMessage(new ChatMessage(ChatChannel.Whisper, message, wrappedMessage, GetNetEntity(source), null, MessageRangeHideChatForReplay(range)));
@@ -201,7 +288,7 @@ public sealed partial class ChatSystem
             !TryEmoteChatInput(source, action))
             return;
 
-        SendInVoiceRange(ChatChannel.Emotes, action, wrappedMessage, source, range, author);
+        SendInVoiceRange(ChatChannel.Emotes, action, wrappedMessage, source, range, author, requiresHearing: false); // <Onyx-OrganHearing-edited>
         if (!hideLog)
             if (name != Name(source))
                 _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Emote from {source} as {name}: {action}");

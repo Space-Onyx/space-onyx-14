@@ -6,6 +6,7 @@ using Content.Shared.DoAfter;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Tools.Systems;
+using Content.Shared._Onyx.Repairable;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Repairable;
@@ -28,21 +29,33 @@ public sealed partial class RepairableSystem : EntitySystem
         if (args.Cancelled)
             return;
 
-        if (!TryComp(ent.Owner, out DamageableComponent? damageable))
+        var repairTarget = args.RequestedPart is { } netPart ? GetEntity(netPart) : ent.Owner;
+        if (args.RequestedPart != null)
+        {
+            var validate = new ValidateRepairPartEvent(repairTarget);
+            RaiseLocalEvent(ent.Owner, ref validate);
+            if (!validate.Valid)
+            {
+                _popup.PopupClient(Loc.GetString("targeting-selected-part-missing"), ent.Owner, args.User);
+                return;
+            }
+        }
+
+        if (!TryComp(repairTarget, out DamageableComponent? damageable))
             return;
 
-        var totalDamage = _damageableSystem.GetTotalDamage((ent.Owner, damageable));
+        var totalDamage = _damageableSystem.GetTotalDamage((repairTarget, damageable));
         if (totalDamage == 0)
             return;
 
         if (ent.Comp.DamageValue != null)
-            RepairSomeDamage((ent, damageable), ent.Comp.DamageValue.Value, args.User);
+            RepairSomeDamage((repairTarget, damageable), ent.Comp.DamageValue.Value, args.User);
         else if (ent.Comp.Damage != null)
-            RepairSomeDamage((ent, damageable), ent.Comp.Damage, args.User);
+            RepairSomeDamage((repairTarget, damageable), ent.Comp.Damage, args.User);
         else
-            RepairAllDamage((ent, damageable), args.User);
+            RepairAllDamage((repairTarget, damageable), args.User);
 
-        totalDamage = _damageableSystem.GetTotalDamage((ent.Owner, damageable));
+        totalDamage = _damageableSystem.GetTotalDamage((repairTarget, damageable));
 
         args.Repeat = ent.Comp.AutoDoAfter && totalDamage > 0;
         args.Args.Event.Repeat = args.Repeat;
@@ -100,9 +113,25 @@ public sealed partial class RepairableSystem : EntitySystem
         if (args.Handled)
             return;
 
-        // Only try repair the target if it is damaged
-        if (_damageableSystem.GetTotalDamage(ent.Owner) == 0)
+        var resolve = new ResolveRepairPartEvent(args.User);
+        RaiseLocalEvent(ent.Owner, ref resolve);
+        if (resolve.Targeted && resolve.Part == null)
+        {
+            args.Handled = true;
+            _popup.PopupClient(Loc.GetString("targeting-selected-part-missing"), ent.Owner, args.User);
             return;
+        }
+
+        var repairTarget = resolve.Part ?? ent.Owner;
+        if (_damageableSystem.GetTotalDamage(repairTarget) == 0)
+        {
+            if (resolve.Targeted)
+            {
+                args.Handled = true;
+                _popup.PopupClient(Loc.GetString("targeting-selected-part-healthy"), ent.Owner, args.User);
+            }
+            return;
+        }
 
         float delay = ent.Comp.DoAfterDelay;
 
@@ -116,7 +145,8 @@ public sealed partial class RepairableSystem : EntitySystem
         }
 
         // Run the repairing doafter
-        args.Handled = _toolSystem.UseTool(args.Used, args.User, ent.Owner, delay, ent.Comp.QualityNeeded, new RepairDoAfterEvent(), ent.Comp.FuelCost);
+        args.Handled = _toolSystem.UseTool(args.Used, args.User, ent.Owner, delay, ent.Comp.QualityNeeded,
+            new RepairDoAfterEvent(resolve.Part is { } part ? GetNetEntity(part) : null), ent.Comp.FuelCost);
     }
 }
 
@@ -133,4 +163,12 @@ public readonly record struct RepairedEvent(Entity<RepairableComponent> Ent, Ent
 /// This doafter is repeated if the entity has <see cref="AutoDoAfter"> set to true and not all damage was fixed yet.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class RepairDoAfterEvent : SimpleDoAfterEvent;
+public sealed partial class RepairDoAfterEvent : SimpleDoAfterEvent
+{
+    public readonly NetEntity? RequestedPart;
+
+    public RepairDoAfterEvent(NetEntity? requestedPart = null)
+    {
+        RequestedPart = requestedPart;
+    }
+}

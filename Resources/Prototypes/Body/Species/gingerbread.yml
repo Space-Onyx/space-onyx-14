@@ -13,7 +13,10 @@
             state: jumpsuit-female
   - type: InitialBody
     organs:
-      Torso: OrganGingerbreadTorso
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganGingerbreadChest
+      Groin: OrganGingerbreadGroin
+      # </Onyx-ChestGroin-edited>
       Head: OrganGingerbreadHead
       ArmLeft: OrganGingerbreadArmLeft
       ArmRight: OrganGingerbreadArmRight

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Taken from cev-eris at https://github.com/discordia-space/CEV-Eris/commit/740ff31a81313086cf16761f3677cf1e2ab46c93, sprites in hands by @mishutka09",
+  "copyright": "Icons taken from TGStation at commit 3286f3b5b42f17400d28ccac3f07e42f0a2e599d & 4f6e27ca92233374e19200abbbff467ee54dcb4d, sprites in hands by @mishutka09",
   "size": {
     "x": 32,
     "y": 32
@@ -11,6 +11,8 @@
       "name": "beakerbluespace",
       "delays": [
         [
+          0.1,
+          0.1,
           0.1,
           0.1
         ]

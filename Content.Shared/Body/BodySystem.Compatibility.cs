@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Content.Shared.Body.Systems;
 
 namespace Content.Shared.Body;
 
@@ -20,11 +21,20 @@ public sealed partial class BodySystem
         if (!_bodyQuery.Resolve(ent, ref ent.Comp))
             return false;
 
-        foreach (var organ in ent.Comp.Organs?.ContainedEntities ?? [])
+        // <Onyx-Surgery-edited>
+        var graph = EntityManager.System<SharedBodySystem>();
+        foreach (var part in graph.GetBodyChildren(ent))
         {
-            if (TryComp<TComp>(organ, out var comp))
-                organs.Add((organ, comp));
+            if (TryComp<TComp>(part.Id, out var comp))
+                organs.Add((part.Id, comp));
         }
+
+        foreach (var organ in graph.GetBodyOrgans(ent))
+        {
+            if (TryComp<TComp>(organ.Id, out var comp))
+                organs.Add((organ.Id, comp));
+        }
+        // </Onyx-Surgery-edited>
 
         return organs.Count != 0;
     }

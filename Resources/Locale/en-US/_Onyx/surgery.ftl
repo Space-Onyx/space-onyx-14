@@ -1,0 +1,126 @@
+surgery-ui-title = Surgery
+surgery-ui-heading = Surgical workflow
+surgery-ui-context-none = Select the operating area to begin
+surgery-ui-context-part = Operating area: { $part }
+surgery-ui-context-full = { $part } · { $surgery }
+surgery-ui-navigation = WORKFLOW
+surgery-ui-nav-parts = 1. Operating area
+surgery-ui-nav-surgeries = 2. Procedure
+surgery-ui-nav-steps = 3. Steps
+surgery-ui-section-parts = Select operating area
+surgery-ui-section-surgeries = Select procedure
+surgery-ui-section-steps = Procedure protocol
+surgery-ui-unavailable-title = Procedure unavailable
+surgery-ui-patient-must-lie = [color=#E5A1A5]The patient must be lying down before surgery can begin.[/color]
+surgery-ui-requires = Required first: { $surgery }
+surgery-ui-reason-out-of-range = move closer to the patient
+surgery-ui-reason-operating-table = an operating table is required
+surgery-ui-reason-clothing = remove obstructing clothing
+surgery-ui-reason-tool = The instrument in your active hand is not suitable.
+surgery-ui-reason-part = Hold a compatible body part in your active hand.
+surgery-ui-reason-organ = Hold a compatible organ in your active hand.
+surgery-ui-reason-cavity-item = Hold a Tiny or Small item in your active hand.
+surgery-ui-reason-unavailable = this step is currently unavailable
+surgery-verb-open = Begin surgery
+surgery-popup-patient-must-lie = The patient must be lying down.
+
+surgery-tool-examine-verb-text = Surgical properties
+surgery-tool-examine-verb-message = Examine the surgical tool properties.
+surgery-tool-examine-speed = Surgery speed: [color=cyan]{ $multiplier }×[/color].
+surgery-tool-examine-uses = Suitable for:
+surgery-tool-examine-use = - [color=yellow]{ $use }[/color]
+surgery-tool-examine-use-none = - [color=gray]No compatible surgical procedures.[/color]
+surgery-tool-use-scalpel = making incisions
+surgery-tool-use-hemostat = clamping blood vessels and bleeding
+surgery-tool-use-retractor = retracting tissue and bones
+surgery-tool-use-bone-saw = sawing bones and amputating body parts
+surgery-tool-use-cautery = cauterizing and closing incisions
+surgery-tool-use-bone-gel = mending bones
+surgery-tool-use-tweezers = extracting organs and items
+
+ent-BoneGel = bottle of bone gel
+    .desc = A container for bone gel that often needs to be refilled from a specialized machine.
+
+ent-EnergyScalpel = energy scalpel
+    .desc = An energy surgical cutter switchable between scalpel and drill modes.
+ent-AdvancedRetractor = advanced retractor
+    .desc = Powered surgical pincers switchable between retractor and hemostat modes.
+ent-EnergyCautery = energy cautery
+    .desc = A high-power surgical tool switchable between cautery and stitching modes.
+ent-AdvancedBoneGel = advanced bone gel applicator
+    .desc = A mechanized tool switchable between bone gel and bone setter modes.
+ent-OmnimedTool = surgical omnitool
+    .desc = A compact high-end tool suitable for every surgical step.
+research-technology-onyx-advanced-treatment = Advanced treatment
+research-technology-onyx-high-end-surgery = High-end surgery
+
+ent-SurgeryRemovePart = Amputate
+ent-SurgeryOpenAbdomen = Open abdomen
+ent-SurgeryHideItem = Hide item
+ent-SurgeryTakeItem = Take item
+ent-SurgeryAttachHead = Attach head
+ent-SurgeryAttachLeftArm = Attach left arm
+ent-SurgeryAttachRightArm = Attach right arm
+ent-SurgeryAttachLeftLeg = Attach left leg
+ent-SurgeryAttachRightLeg = Attach right leg
+ent-SurgeryAttachLeftHand = Attach left hand
+ent-SurgeryAttachRightHand = Attach right hand
+ent-SurgeryAttachLeftFoot = Attach left foot
+ent-SurgeryAttachRightFoot = Attach right foot
+
+ent-SurgeryRemoveBrain = Remove brain
+ent-SurgeryInsertBrain = Implant brain
+ent-SurgeryRemoveEyes = Remove eyes
+ent-SurgeryInsertEyes = Implant eyes
+ent-SurgeryRemoveTongue = Remove tongue
+ent-SurgeryInsertTongue = Implant tongue
+ent-SurgeryRemoveEars = Remove ears
+ent-SurgeryInsertEars = Implant ears
+ent-SurgeryRemoveHeart = Remove heart
+ent-SurgeryInsertHeart = Implant heart
+ent-SurgeryRemoveLungs = Remove lungs
+ent-SurgeryInsertLungs = Implant lungs
+ent-SurgeryRemoveLiver = Remove liver
+ent-SurgeryInsertLiver = Implant liver
+ent-SurgeryRemoveStomach = Remove stomach
+ent-SurgeryInsertStomach = Implant stomach
+ent-SurgeryRemoveKidneys = Remove kidneys
+ent-SurgeryInsertKidneys = Implant kidneys
+ent-SurgeryRemoveAppendix = Remove appendix
+ent-SurgeryInsertAppendix = Implant appendix
+
+ent-SurgeryHealBrain = Repair brain
+ent-SurgeryHealEyes = Repair eyes
+ent-SurgeryHealTongue = Repair tongue
+ent-SurgeryHealEars = Repair ears
+ent-SurgeryHealHeart = Repair heart
+ent-SurgeryHealLungs = Repair lungs
+ent-SurgeryHealLiver = Repair liver
+ent-SurgeryHealStomach = Repair stomach
+ent-SurgeryHealKidneys = Repair kidneys
+ent-SurgeryHealAppendix = Repair appendix
+
+ent-SurgeryStepRemovePart = Amputate body part
+ent-SurgeryStepAttachPart = Attach body part
+ent-SurgeryStepRemoveOrgan = Remove organ
+ent-SurgeryStepInsertOrgan = Implant organ
+ent-SurgeryStepOpenAbdomen = Open abdomen
+ent-SurgeryStepHideItem = Hide item
+ent-SurgeryStepTakeItem = Take item
+ent-SurgeryStepHealBrain = Repair brain
+ent-SurgeryStepHealEyes = Repair eyes
+ent-SurgeryStepHealTongue = Repair tongue
+ent-SurgeryStepHealEars = Repair ears
+ent-SurgeryStepHealHeart = Repair heart
+ent-SurgeryStepHealLungs = Repair lungs
+ent-SurgeryStepHealLiver = Repair liver
+ent-SurgeryStepHealStomach = Repair stomach
+ent-SurgeryStepHealKidneys = Repair kidneys
+ent-SurgeryStepHealAppendix = Repair appendix
+ent-SurgeryTendWound = Tend wound
+ent-SurgeryReduceFracture = Reduce fracture
+ent-SurgeryMendFracture = Mend fracture
+ent-SurgeryStepTendWound = Tend wound
+ent-SurgeryStepClampWoundBleeding = Clamp wound bleeding
+ent-SurgeryStepReduceFracture = Reduce fracture
+ent-SurgeryStepMendFracture = Mend fracture

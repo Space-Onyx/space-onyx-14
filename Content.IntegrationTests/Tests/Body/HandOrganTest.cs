@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Content.IntegrationTests.Fixtures;
 using Content.Shared.Body;
+using Content.Shared.Body.Part;
+using Content.Shared.Body.Systems;
 using Content.Shared.Hands.Components;
 using Robust.Shared.Containers;
 using Robust.Shared.GameObjects;
@@ -43,6 +45,41 @@ public sealed class HandOrganTest : GameTest
     handID: right
     data:
       location: Right
+
+- type: entity
+  id: GraphBody
+  components:
+  - type: Body
+  - type: Hands
+  - type: InitialBody
+    organs:
+      Torso: GraphTorso
+      ArmLeft: GraphArm
+      HandLeft: GraphHand
+
+- type: entity
+  id: GraphTorso
+  components:
+  - type: BodyPart
+    partType: Torso
+
+- type: entity
+  id: GraphArm
+  components:
+  - type: BodyPart
+    partType: Arm
+    symmetry: Left
+
+- type: entity
+  id: GraphHand
+  components:
+  - type: BodyPart
+    partType: Hand
+    symmetry: Left
+  - type: HandOrgan
+    handID: left
+    data:
+      location: Left
 ";
     [Test]
     public async Task HandInsertionAndRemovalTest()
@@ -81,6 +118,35 @@ public sealed class HandOrganTest : GameTest
                 entityManager.SpawnInContainerOrDrop(proto, body, BodyComponent.ContainerID);
                 Assert.That(hands.Count, Is.EqualTo(expectedCount));
             }
+        });
+    }
+
+    [Test]
+    public async Task GraphHandRemovalTest()
+    {
+        var server = Pair.Server;
+        await server.WaitIdleAsync();
+        var entityManager = server.ResolveDependency<IEntityManager>();
+        var mapData = await Pair.CreateTestMap();
+
+        await server.WaitAssertion(() =>
+        {
+            var containers = entityManager.System<SharedContainerSystem>();
+            var graph = entityManager.System<SharedBodySystem>();
+            var body = entityManager.SpawnEntity("GraphBody", mapData.GridCoords);
+            var hands = entityManager.GetComponent<HandsComponent>(body);
+
+            Assert.That(hands.Count, Is.EqualTo(1));
+            var parts = graph.GetBodyChildren(body).ToList();
+            Assert.That(parts.Count, Is.EqualTo(3));
+
+            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var arm = parts.Single(part => part.Component.PartType == BodyPartType.Arm).Id;
+            var armContainer = containers.GetContainer(torso, BodyPartComponent.PartSlotPrefix + "left_arm");
+            containers.Remove(arm, armContainer);
+
+            Assert.That(hands.Count, Is.Zero);
+            Assert.That(graph.GetBodyChildren(body).Count(), Is.EqualTo(1));
         });
     }
 }

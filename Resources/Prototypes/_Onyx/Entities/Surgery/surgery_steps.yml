@@ -1,0 +1,518 @@
+- type: entity
+  id: SurgeryStepBase
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepOpenIncisionScalpel
+  name: Cut with a scalpel
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Scalpel
+    add:
+    - type: IncisionOpen
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/scalpel.rsi
+    state: scalpel
+  - type: SurgeryStepBleedEffect
+    damage: 10
+  - type: SurgeryStepEmoteEffect
+  - type: SurgeryCloseIncisionEffect
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepClampBleeders
+  name: Clamp the bleeders
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Hemostat
+    add:
+    - type: BleedersClamped
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
+    state: hemostat
+  - type: SurgeryClampBleedEffect
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepRetractSkin
+  name: Retract the skin
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Retractor
+    add:
+    - type: SkinRetracted
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/retractor.rsi
+    state: retractor
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepSawBones
+  name: Saw through bones
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: BoneSaw
+    add:
+    - type: RibcageSawed
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/circular-saw.rsi
+    state: circular-saw
+  - type: SurgeryStepEmoteEffect
+  - type: SurgeryOperatingTableCondition
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepPriseOpenBones
+  name: Prise the bones open
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Retractor
+    add:
+    - type: RibcageOpen
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/retractor.rsi
+    state: retractor
+  - type: SurgeryOperatingTableCondition
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepCloseBones
+  name: Close bones
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Retractor
+    remove:
+    - type: RibcageOpen
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/retractor.rsi
+    state: retractor
+  - type: SurgeryOperatingTableCondition
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepMendRibcage
+  name: Mend ribcage
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: BoneGel
+    remove:
+    - type: RibcageSawed
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/bone-gel.rsi
+    state: bone-gel
+  - type: SurgeryOperatingTableCondition
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepCloseIncision
+  name: Close incision
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Cautery
+    remove:
+    - type: SkinRetracted
+    - type: BleedersClamped
+    - type: IncisionOpen
+    - type: AbdominalCavityOpen
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/cautery.rsi
+    state: cautery
+  - type: SurgeryStepEmoteEffect
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepOpenAbdomen
+  name: Open abdomen
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Scalpel
+    add:
+    - type: AbdominalCavityOpen
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/scalpel.rsi
+    state: scalpel
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepHideItem
+  name: Hide item
+  components:
+  - type: SurgeryStep
+  - type: SurgeryInsertCavityItemEffect
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
+    state: hemostat
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepTakeItem
+  name: Take item
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Tweezers
+  - type: SurgeryRemoveCavityItemEffect
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
+    state: hemostat
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepRemovePart
+  name: Amputate body part
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: BoneSaw
+  - type: SurgeryDetachPartEffect
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/circular-saw.rsi
+    state: circular-saw
+  - type: SurgeryStepEmoteEffect
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepAttachPart
+  name: Attach body part
+  components:
+  - type: SurgeryStep
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/cautery.rsi
+    state: cautery
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepRemoveOrgan
+  name: Remove organ
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Tweezers
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
+    state: hemostat
+  - type: SurgeryStepEmoteEffect
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepInsertOrgan
+  name: Implant organ
+  components:
+  - type: SurgeryStep
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
+    state: hemostat
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachHead
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Head
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachLeftArm
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Arm
+    symmetry: Left
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachRightArm
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Arm
+    symmetry: Right
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachLeftLeg
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Leg
+    symmetry: Left
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachRightLeg
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Leg
+    symmetry: Right
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachLeftHand
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Hand
+    symmetry: Left
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachRightHand
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Hand
+    symmetry: Right
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachLeftFoot
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Foot
+    symmetry: Left
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachRightFoot
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Foot
+    symmetry: Right
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveBrain
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Brain } ]
+
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertBrain
+  components: [ { type: SurgeryInsertOrganEffect, slot: Brain } ]
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveEyes
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Eyes } ]
+
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertEyes
+  components: [ { type: SurgeryInsertOrganEffect, slot: Eyes } ]
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveTongue
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Tongue } ]
+
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertTongue
+  components: [ { type: SurgeryInsertOrganEffect, slot: Tongue } ]
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveEars
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Ears } ]
+
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertEars
+  components: [ { type: SurgeryInsertOrganEffect, slot: Ears } ]
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveHeart
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Heart } ]
+
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertHeart
+  components: [ { type: SurgeryInsertOrganEffect, slot: Heart } ]
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveLungs
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Lungs } ]
+
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertLungs
+  components: [ { type: SurgeryInsertOrganEffect, slot: Lungs } ]
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveLiver
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Liver } ]
+
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertLiver
+  components: [ { type: SurgeryInsertOrganEffect, slot: Liver } ]
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveStomach
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Stomach } ]
+
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertStomach
+  components: [ { type: SurgeryInsertOrganEffect, slot: Stomach } ]
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveKidneys
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Kidneys } ]
+
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertKidneys
+  components: [ { type: SurgeryInsertOrganEffect, slot: Kidneys } ]
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveAppendix
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Appendix } ]
+
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertAppendix
+  components: [ { type: SurgeryInsertOrganEffect, slot: Appendix } ]
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepHealOrganBase
+  components:
+  - type: SurgeryStep
+    duration: 2
+    tool: [ { type: Hemostat } ]
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
+    state: hemostat
+
+- type: entity
+  parent: SurgeryStepHealOrganBase
+  id: SurgeryStepHealBrain
+  components:
+  - type: SurgeryOrganHealEffect
+    slot: Brain
+    amount: 1
+
+- type: entity
+  parent: SurgeryStepHealOrganBase
+  id: SurgeryStepHealEyes
+  components:
+  - type: SurgeryOrganHealEffect
+    slot: Eyes
+    amount: 1
+
+- type: entity
+  parent: SurgeryStepHealOrganBase
+  id: SurgeryStepHealTongue
+  components:
+  - type: SurgeryOrganHealEffect
+    slot: Tongue
+    amount: 1
+
+- type: entity
+  parent: SurgeryStepHealOrganBase
+  id: SurgeryStepHealEars
+  components:
+  - type: SurgeryOrganHealEffect
+    slot: Ears
+    amount: 1
+
+- type: entity
+  parent: SurgeryStepHealOrganBase
+  id: SurgeryStepHealHeart
+  components:
+  - type: SurgeryOrganHealEffect
+    slot: Heart
+    amount: 1
+
+- type: entity
+  parent: SurgeryStepHealOrganBase
+  id: SurgeryStepHealLungs
+  components:
+  - type: SurgeryOrganHealEffect
+    slot: Lungs
+    amount: 1
+
+- type: entity
+  parent: SurgeryStepHealOrganBase
+  id: SurgeryStepHealLiver
+  components:
+  - type: SurgeryOrganHealEffect
+    slot: Liver
+    amount: 1
+
+- type: entity
+  parent: SurgeryStepHealOrganBase
+  id: SurgeryStepHealStomach
+  components:
+  - type: SurgeryOrganHealEffect
+    slot: Stomach
+    amount: 1
+
+- type: entity
+  parent: SurgeryStepHealOrganBase
+  id: SurgeryStepHealKidneys
+  components:
+  - type: SurgeryOrganHealEffect
+    slot: Kidneys
+    amount: 1
+
+- type: entity
+  parent: SurgeryStepHealOrganBase
+  id: SurgeryStepHealAppendix
+  components:
+  - type: SurgeryOrganHealEffect
+    slot: Appendix
+    amount: 1
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepTendWound
+  name: Tend wound
+  components:
+  - type: SurgeryStep
+    tool: [ { type: Hemostat } ]
+  - type: SurgeryHasWoundCondition
+  - type: SurgeryTreatWoundEffect
+    amount: 10
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepClampWoundBleeding
+  name: Clamp wound bleeding
+  components:
+  - type: SurgeryStep
+    tool: [ { type: Hemostat } ]
+  - type: SurgeryHasWoundCondition
+    state: Open
+  - type: SurgeryClampBleedingEffect
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepReduceFracture
+  name: Reduce fracture
+  components:
+  - type: SurgeryStep
+    tool: [ { type: Hemostat } ]
+  - type: SurgeryReduceFractureEffect
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepMendFracture
+  name: Mend fracture
+  components:
+  - type: SurgeryStep
+    tool: [ { type: BoneGel } ]
+  - type: SurgeryMendFractureEffect

@@ -126,12 +126,16 @@ namespace Content.Client.Lobby
         {
             if (_gameTicker.IsGameStarted)
             {
+                // <Onyx-Lobby>
+                Lobby!.StartTimeContainer.Visible = false;
                 Lobby!.StartTime.Text = string.Empty;
+                // <Onyx-Lobby>
                 var roundTime = _gameTiming.CurTime.Subtract(_gameTicker.RoundStartTimeSpan);
                 Lobby!.StationTime.Text = Loc.GetString("lobby-state-player-status-round-time", ("hours", roundTime.Hours), ("minutes", roundTime.Minutes));
                 return;
             }
 
+            Lobby!.StartTimeContainer.Visible = true; // <Onyx-Lobby>
             Lobby!.StationTime.Text = Loc.GetString("lobby-state-player-status-round-not-started");
             string text;
 

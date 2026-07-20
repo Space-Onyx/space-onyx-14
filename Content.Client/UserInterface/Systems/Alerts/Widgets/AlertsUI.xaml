@@ -1,7 +1,13 @@
 ﻿<widgets:AlertsUI xmlns="https://spacestation14.io"
-                  xmlns:widgets="clr-namespace:Content.Client.UserInterface.Systems.Alerts.Widgets"
-                  MinSize="64 64">
-    <PanelContainer HorizontalAlignment="Right" VerticalAlignment="Top">
-        <BoxContainer Name="AlertContainer" Access="Public" Orientation="Vertical" />
-    </PanelContainer>
+                   xmlns:widgets="clr-namespace:Content.Client.UserInterface.Systems.Alerts.Widgets"
+                   xmlns:targeting="clr-namespace:Content.Client._Onyx.Targeting.UI"
+                   MinSize="64 64">
+    <!-- <Onyx-PartStatus-edited> -->
+    <GridContainer Columns="1" HorizontalAlignment="Right" VerticalAlignment="Top">
+        <PanelContainer>
+            <GridContainer Name="AlertContainer" Access="Public" Columns="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+        </PanelContainer>
+        <targeting:PartStatusControl Name="PartStatus" Access="Public" />
+    </GridContainer>
+    <!-- </Onyx-PartStatus-edited> -->
 </widgets:AlertsUI>

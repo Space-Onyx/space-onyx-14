@@ -184,6 +184,61 @@
       key_slots: !type:Container
       machine_board: !type:Container
       machine_parts: !type:Container
+  # <Onyx-Telecomms>
+  - type: TelecomSignalLog
+  - type: TelecomRouter
+    maxBuses: 1
+    standalone: true
+    congestionDropThreshold: 1
+    congestionDropChanceMultiplier: 0.35
+    maxCongestionDropChance: 0.65
+    maxTotalDropChance: 0.8
+    criticalOverloadThreshold: 1.5
+    criticalOverloadDropChance: 0.9
+    criticalOverloadGarbleChance: 1
+    garbleLoadThreshold: 0.75
+    garbleLoadChanceMultiplier: 0.12
+    maxGarbleChance: 0.7
+    garbleCharacterChance: 0.45
+    garbleAlternateSymbolChance: 0.5
+    degradedQualityThreshold: 0.9
+    degradedLoadThreshold: 0.75
+    channelErrorExponent: 2
+    channelErrorChanceMultiplier: 0.45
+    loggingFailureExponent: 2
+    loggingFailureChanceMultiplier: 0.35
+    channelOutageExponent: 3
+    channelOutageChanceMultiplier: 0.2
+    channelOutageDurationSeconds: 20
+    baseLatencyMilliseconds: 40
+    loadLatencyThreshold: 0.5
+    loadLatencyMultiplier: 1200
+  - type: TelecomCalibration
+    decayPerHour: 12
+  - type: TelecomProcessor
+    maxBuses: 0
+    garbleQualityThreshold: 0.95
+    garbleChanceMultiplier: 0.35
+    calibrationLatencyMultiplier: 800
+  - type: TelecomNode
+    bandwidth: 8
+    basePacketCost: 1
+    charactersPerCostUnit: 75
+    loadRecoveryPerSecond: 8
+    telemetryRecoveryPerSecond: 0.8
+  - type: TelecomWear
+  - type: DeviceLinkSink
+    ports:
+    - TelecomServerInput
+  - type: DeviceLinkSource
+    ports:
+    - TelecomServerOutput
+    - TelecomServerMonitorOutput
+    range: 25
+  - type: Label
+    currentLabel: telecom-server-label-unassigned
+  # </Onyx-Telecomms>
+
 
 - type: entity
   parent: TelecomServer
@@ -212,6 +267,8 @@
     containers:
       key_slots:
       - EncryptionKeyCommon
+  - type: Label # <Onyx-Telecomms>
+    currentLabel: telecom-server-label-common
 
 - type: entity
   parent: TelecomServer
@@ -222,6 +279,8 @@
     containers:
       key_slots:
       - EncryptionKeyCargo
+  - type: Label # <Onyx-Telecomms>
+    currentLabel: telecom-server-label-cargo
 
 - type: entity
   parent: TelecomServer
@@ -232,6 +291,8 @@
     containers:
       key_slots:
       - EncryptionKeyEngineering
+  - type: Label # <Onyx-Telecomms>
+    currentLabel: telecom-server-label-engineering
 
 - type: entity
   parent: TelecomServer
@@ -242,6 +303,8 @@
     containers:
       key_slots:
       - EncryptionKeyMedical
+  - type: Label # <Onyx-Telecomms>
+    currentLabel: telecom-server-label-medical
 
 - type: entity
   parent: TelecomServer
@@ -252,6 +315,8 @@
     containers:
       key_slots:
       - EncryptionKeyScience
+  - type: Label # <Onyx-Telecomms>
+    currentLabel: telecom-server-label-science
 
 - type: entity
   parent: TelecomServer
@@ -263,6 +328,8 @@
       key_slots:
       - EncryptionKeySecurity
       - EncryptionKeyLegal # Corvax Legal
+  - type: Label # <Onyx-Telecomms>
+    currentLabel: telecom-server-label-security
 
 - type: entity
   parent: TelecomServer
@@ -273,6 +340,8 @@
     containers:
       key_slots:
       - EncryptionKeyService
+  - type: Label # <Onyx-Telecomms>
+    currentLabel: telecom-server-label-service
 
 - type: entity
   parent: TelecomServer
@@ -283,3 +352,5 @@
     containers:
       key_slots:
       - EncryptionKeyCommand
+  - type: Label # <Onyx-Telecomms>
+    currentLabel: telecom-server-label-command

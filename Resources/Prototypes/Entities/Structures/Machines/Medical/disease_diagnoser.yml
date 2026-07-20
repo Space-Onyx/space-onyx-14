@@ -10,11 +10,32 @@
     sprite: Structures/Machines/diagnoser.rsi
     layers:
     - state: icon
-      map: ["enum.DiseaseMachineVisualLayers.IsRunning"]
+    # <Onyx-VirologyMachineAnimations-edited>
+    - state: running
+      visible: false
+      map: ["running"]
     - state: unlit
       shader: unshaded
-      map: ["enum.DiseaseMachineVisualLayers.IsOn"]
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    # </Onyx-VirologyMachineAnimations-edited>
   - type: Appearance
+  # <Onyx-VirologyMachineAnimations>
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+      enum.DiseaseMachineVisuals.IsRunning:
+        running:
+          True: { visible: true }
+          False: { visible: false }
+  # </Onyx-VirologyMachineAnimations>
+  - type: VirologyMachine
+    analysisDuration: 5
+  # <Onyx-VirologyMachineItemSlots>
+  - type: ItemSlots
+  # </Onyx-VirologyMachineItemSlots>
   - type: Machine
     board: DiagnoserMachineCircuitboard
 
@@ -41,5 +62,3 @@
     backgroundImageTile: true
     backgroundPatchMargin: 0.0, 6.0, 0.0, 6.0
     contentMargin: 12.0, 0.0, 12.0, 0.0
-    # This is a narrow piece of paper
-    maxWritableArea: 128.0, 0.0

@@ -468,8 +468,10 @@
     pillType: 16
   - type: Sprite
     state: pill17
+  # <Onyx-HyronalinLabel-edited>
   - type: Label
-    currentLabel: hyronalin 20u
+    currentLabel: reagent-name-hyronalin
+  # </Onyx-HyronalinLabel-edited>
   - type: Solution
     solution:
       reagents:
@@ -482,8 +484,10 @@
   id: PillCanisterHyronalin
   suffix: Hyronalin 20u, 5
   components:
+  # <Onyx-HyronalinLabel-edited>
   - type: Label
-    currentLabel: hyronalin 20u
+    currentLabel: reagent-name-hyronalin
+  # </Onyx-HyronalinLabel-edited>
   - type: EntityTableContainerFill
     containers:
       storagebase:

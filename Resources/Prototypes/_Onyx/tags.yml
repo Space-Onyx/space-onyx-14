@@ -1,0 +1,119 @@
+- type: Tag
+  id: SignEdit
+
+- type: Tag
+  id: IgnoreBalanceChecks
+
+- type: Tag
+  id: SpaceCash
+
+- type: Tag
+  id: Augment
+
+- type: Tag
+  id: LegAugment
+
+- type: Tag
+  id: footAugment
+
+- type: Tag
+  id: chestAugment
+
+- type: Tag
+  id: headAugment
+
+- type: Tag
+  id: neckAugment
+
+- type: Tag
+  id: eyeAugment
+
+- type: Tag
+  id: brainAugment
+
+- type: Tag
+  id: armAugment
+
+- type: Tag
+  id: handAugment
+
+- type: Tag
+  id: rightTempleAugment
+
+- type: Tag
+  id: prefrontalCortexAugment
+
+- type: Tag
+  id: AugmentModuleCyberDeck
+
+- type: Tag
+  id: AugmentModuleCyberDeckProgram
+
+- type: Tag
+  id: AugmentModuleCyberDeckRam
+
+- type: Tag
+  id: SlotBlock
+
+- type: Tag
+  id: WallATMElectronics
+
+- type: Tag
+  id: AugmentBioReactorCasing
+
+- type: Tag
+  id: AugmentRTGCasing
+
+- type: Tag
+  id: AugmentNeuroInterfaceCasing
+
+- type: Tag
+  id: AugmentNeuroInterfaceChip
+
+- type: Tag
+  id: AugmentModuleNeuroCapacity
+
+- type: Tag
+  id: AugmentModuleNeuroInterface
+
+- type: Tag
+  id: AugmentCombat
+
+- type: Tag
+  id: AugmentVision
+
+- type: Tag
+  id: AugmentUtility
+
+- type: Tag
+  id: AugmentPower
+
+- type: Tag
+  id: AugmentMobility
+
+- type: Tag
+  id: AugmentNeuroInterface
+
+- type: Tag
+  id: AugmentSubdermalArmorCasing
+
+- type: Tag
+  id: FootAugment
+
+- type: Tag
+  id: HandAugment
+
+- type: Tag
+  id: ArmAugment
+
+- type: Tag
+  id: OnyxUnderwearB
+
+- type: Tag
+  id: OnyxUnderwearT
+
+- type: Tag
+  id: OnyxSocks
+
+- type: Tag
+  id: SuppressFlammableParticles

@@ -68,6 +68,26 @@
                                     <Control HorizontalExpand="True"/>
                                     <LineEdit Name="AgeEdit" MinSize="60 0" HorizontalAlignment="Right" /> <!-- Corvax-SpeciesAgeLore -->
                                 </BoxContainer>
+                                <!-- <Onyx-HeightWidth> -->
+                                <BoxContainer HorizontalExpand="True">
+                                    <Label Text="{Loc 'humanoid-profile-editor-height-label'}" />
+                                    <Control HorizontalExpand="True" />
+                                    <Slider Name="HeightSlider" HorizontalAlignment="Right" SetWidth="180" MinValue="0" MaxValue="1" />
+                                    <LineEdit Name="HeightEdit" HorizontalAlignment="Right" MinSize="50 0" />
+                                    <Button Name="HeightReset" Text="{Loc 'humanoid-profile-editor-dimension-reset'}" />
+                                </BoxContainer>
+                                <BoxContainer HorizontalExpand="True">
+                                    <Label Text="{Loc 'humanoid-profile-editor-width-label'}" />
+                                    <Control HorizontalExpand="True" />
+                                    <Slider Name="WidthSlider" HorizontalAlignment="Right" SetWidth="180" MinValue="0" MaxValue="1" />
+                                    <LineEdit Name="WidthEdit" HorizontalAlignment="Right" MinSize="50 0" />
+                                    <Button Name="WidthReset" Text="{Loc 'humanoid-profile-editor-dimension-reset'}" />
+                                </BoxContainer>
+                                <BoxContainer HorizontalExpand="True">
+                                    <Control HorizontalExpand="True" />
+                                    <Label Name="CalculatedWeightLabel" HorizontalAlignment="Right" />
+                                </BoxContainer>
+                                <!-- </Onyx-HeightWidth> -->
                                 <!-- Sex -->
                                 <BoxContainer HorizontalExpand="True">
                                     <Label Text="{Loc 'humanoid-profile-editor-sex-label'}" />
@@ -92,6 +112,14 @@
                                     <Control HorizontalExpand="True"/>
                                     <OptionButton Name="SpawnPriorityButton" HorizontalAlignment="Right" />
                                 </BoxContainer>
+                                <!-- ADT-Barks-Start -->
+                                <BoxContainer HorizontalExpand="True" Visible="False" Name="BarksContainer">
+                                    <Label Text="{Loc 'humanoid-profile-editor-bark-label'}" />
+                                    <Control HorizontalExpand="True"/>
+                                    <Button Name="BarkProtoButton" HorizontalAlignment="Right" MinWidth="150" />
+									<Button Name="BarkPlayButton" Text="{Loc 'humanoid-profile-editor-voice-play'}" MaxWidth="80" />
+                                </BoxContainer>
+                                <!-- ADT Barks End -->
                             </BoxContainer>
                             <!-- Skin -->
                             <BoxContainer Margin="10" HorizontalExpand="True" Orientation="Vertical">

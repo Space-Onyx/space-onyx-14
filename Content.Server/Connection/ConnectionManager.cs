@@ -22,6 +22,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
+
 /*
  * TODO: Remove baby jail code once a more mature gateway process is established. This code is only being issued as a stopgap to help with potential tiding in the immediate future.
  */
@@ -251,6 +252,34 @@ namespace Content.Server.Connection
 
             var adminData = await _db.GetAdminDataForAsync(e.UserId);
 
+            // ADT-Tweak-Start: Check Auth for Discord ID
+            if (_cfg.GetCVar(CCVars.DiscordAuthEnable) && _cfg.GetCVar(CCVars.DiscordAuthLinkRequired) && adminData == null)
+            {
+                var discordId = await _db.GetDiscordIdAsync(userId);
+                if (discordId != null)
+                {
+                    _sawmill.Debug($"Discord ID for user {userId}: {discordId}");
+                }
+                else
+                {
+                    var linkCode = await _db.GetOrCreateDiscordLinkCodeAsync(userId, e.UserName, TimeSpan.FromMinutes(5));
+                    var linkChannel = _cfg.GetCVar(CCVars.DiscordLinkChannel);
+                    var channelInstruction = string.IsNullOrWhiteSpace(linkChannel)
+                        ? "Откройте настроенный канал авторизации Discord."
+                        : $"Откройте канал авторизации: {linkChannel}";
+
+                    return (
+                        ConnectionDenyReason.DiscordAuth,
+                        "Для входа требуется привязка Discord.\n\n"
+                        + $"Код: {linkCode}\n"
+                        + $"CKey: {e.UserName}\n\n"
+                        + $"{channelInstruction}\n"
+                        + "Введите в боте оба значения. Код действует 5 минут.",
+                        null
+                    );
+                }
+            }
+            // ADT-Tweak-End
             // Corvax-Start: Allow privileged players bypass bunker
             var isPrivileged = await HavePrivilegedJoin(e.UserId);
             if (_cfg.GetCVar(CCVars.PanicBunkerEnabled) && adminData == null && !isPrivileged)

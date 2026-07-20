@@ -11,6 +11,7 @@ using Content.Shared.Input;
 using Content.Shared.Interaction;
 using Content.Shared.Inventory;
 using Content.Shared.Mind;
+using Content.Shared.Parallax;
 using Content.Shared.Pointing;
 using Content.Shared.Popups;
 using JetBrains.Annotations;
@@ -23,6 +24,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Replays;
 using Robust.Shared.Timing;
 
@@ -47,6 +49,7 @@ namespace Content.Server.Pointing.EntitySystems
         [Dependency] private IAdminLogManager _adminLogger = default!;
         [Dependency] private ExamineSystemShared _examine = default!;
         [Dependency] private EntityQuery<InventoryComponent> _inventoryQuery = default!;
+        [Dependency] private IPrototypeManager _prototype = default!; // <Onyx-PointingParallax>
 
         private TimeSpan _pointDelay = TimeSpan.FromSeconds(0.5f);
 
@@ -290,9 +293,7 @@ namespace Content.Server.Pointing.EntitySystems
                     tileRef = _map.GetTileRef(gridUid, grid, _map.WorldToTile(gridUid, grid, mapCoordsPointed.Position));
                 }
 
-                var tileDef = _tileDefinitionManager[tileRef?.Tile.TypeId ?? 0];
-
-                var name = Loc.GetString(tileDef.Name);
+                var name = GetPointedTileName(tileRef, mapCoordsPointed); // <Onyx-PointingParallax edited>
                 selfMessage = Loc.GetString("pointing-system-point-at-tile", ("tileName", name));
 
                 viewerMessage = Loc.GetString("pointing-system-other-point-at-tile", ("otherName", playerName), ("tileName", name));
@@ -306,6 +307,35 @@ namespace Content.Server.Pointing.EntitySystems
 
             return true;
         }
+
+        // <Onyx-PointingParallax>
+        private string GetPointedTileName(TileRef? tileRef, MapCoordinates mapCoordinates)
+        {
+            if ((tileRef == null || tileRef.Value.Tile.IsEmpty) &&
+                TryGetParallaxPointingTarget(mapCoordinates, out var parallaxName))
+            {
+                return parallaxName;
+            }
+
+            var tileDef = _tileDefinitionManager[tileRef?.Tile.TypeId ?? 0];
+            return Loc.GetString(tileDef.Name);
+        }
+
+        private bool TryGetParallaxPointingTarget(MapCoordinates mapCoordinates, out string name)
+        {
+            name = string.Empty;
+
+            var mapUid = _map.GetMapOrInvalid(mapCoordinates.MapId);
+            if (!TryComp<ParallaxComponent>(mapUid, out var parallax) ||
+                !_prototype.TryIndex<ParallaxPointingTargetPrototype>(parallax.Parallax, out var target))
+            {
+                return false;
+            }
+
+            name = Loc.GetString(target.Name);
+            return true;
+        }
+        // </Onyx-PointingParallax>
 
         public override void Initialize()
         {

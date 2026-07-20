@@ -48,7 +48,10 @@
             state: jumpsuit-female
   - type: InitialBody
     organs:
-      Torso: OrganDionaTorso
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganDionaChest
+      Groin: OrganDionaGroin
+      # </Onyx-ChestGroin-edited>
       Head: OrganDionaHead
       ArmLeft: OrganDionaArmLeft
       ArmRight: OrganDionaArmRight
@@ -157,6 +160,11 @@
       Male: UnisexDiona
       Female: UnisexDiona
       Unsexed: UnisexDiona
+  # <Onyx-Languages>
+  - type: LanguageKnowledge
+    speaks: [TauCetiBasic, RootSpeak]
+    understands: [TauCetiBasic, RootSpeak]
+  # </Onyx-Languages>
   - type: TypingIndicator
     proto: diona
   - type: BodyEmotes

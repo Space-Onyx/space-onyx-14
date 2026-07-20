@@ -1,0 +1,17 @@
+<controls:SurgeryChoiceControl
+    xmlns="https://spacestation14.io"
+    xmlns:controls="clr-namespace:Content.Client._Onyx.Medical.Surgery">
+    <BoxContainer Orientation="Horizontal" MinHeight="42">
+        <Button Name="Button" Access="Public"
+                 HorizontalExpand="True" VerticalExpand="False"
+                 StyleClasses="ButtonSquare" Margin="0" MinHeight="42">
+            <BoxContainer Orientation="Horizontal" Margin="6 3">
+                <TextureRect Name="Texture" Access="Public"
+                              HorizontalExpand="False" VerticalExpand="False"
+                              SetSize="32 32" Stretch="KeepAspectCentered" Margin="1" />
+                <Control MinWidth="8" />
+                <RichTextLabel Name="NameLabel" Access="Public" VerticalAlignment="Center" />
+            </BoxContainer>
+        </Button>
+    </BoxContainer>
+</controls:SurgeryChoiceControl>

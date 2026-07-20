@@ -2,6 +2,7 @@ using Content.Shared.Body.Events;
 using Content.Shared.Gibbing;
 using Content.Shared.Humanoid;
 using Content.Shared.Medical;
+using Content.Shared.Body.Systems;
 using JetBrains.Annotations;
 
 namespace Content.Shared.Body;
@@ -40,10 +41,17 @@ public sealed partial class BodySystem
     public void RelayEvent<T>(Entity<BodyComponent> ent, ref T args) where T : struct
     {
         var ev = new BodyRelayedEvent<T>(ent, args);
-        foreach (var organ in ent.Comp.Organs?.ContainedEntities ?? [])
+        // <Onyx-Surgery-edited>
+        var graph = EntityManager.System<SharedBodySystem>();
+        foreach (var part in graph.GetBodyChildren(ent))
+            RaiseLocalEvent(part.Id, ref ev);
+        foreach (var organ in graph.GetBodyOrgans(ent))
         {
-            RaiseLocalEvent(organ, ref ev);
+            RaiseLocalEvent(organ.Id, ref ev);
         }
+        foreach (var organ in ent.Comp.Organs?.ContainedEntities ?? [])
+            RaiseLocalEvent(organ, ref ev);
+        // </Onyx-Surgery-edited>
         args = ev.Args;
     }
 
@@ -57,10 +65,17 @@ public sealed partial class BodySystem
     public void RelayEvent<T>(Entity<BodyComponent> ent, T args) where T : class
     {
         var ev = new BodyRelayedEvent<T>(ent, args);
-        foreach (var organ in ent.Comp.Organs?.ContainedEntities ?? [])
+        // <Onyx-Surgery-edited>
+        var graph = EntityManager.System<SharedBodySystem>();
+        foreach (var part in graph.GetBodyChildren(ent))
+            RaiseLocalEvent(part.Id, ref ev);
+        foreach (var organ in graph.GetBodyOrgans(ent))
         {
-            RaiseLocalEvent(organ, ref ev);
+            RaiseLocalEvent(organ.Id, ref ev);
         }
+        foreach (var organ in ent.Comp.Organs?.ContainedEntities ?? [])
+            RaiseLocalEvent(organ, ref ev);
+        // </Onyx-Surgery-edited>
     }
 }
 

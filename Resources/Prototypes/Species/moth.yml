@@ -10,3 +10,12 @@
   femaleFirstNames: NamesMothFirstFemale
   maleLastNames: NamesMothLast # Corvax-LastnameGender
   femaleLastNames: NamesMothLast # Corvax-LastnameGender
+  # <Onyx-SpeciesDimensions>
+  baseScale: "0.87, 0.87"
+  defaultHeightCm: 170
+  defaultWeightKg: 57
+  minHeightCm: 140
+  maxHeightCm: 205
+  minWeightKg: 40
+  maxWeightKg: 95
+  # </Onyx-SpeciesDimensions>

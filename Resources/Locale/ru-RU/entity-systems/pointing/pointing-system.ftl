@@ -13,3 +13,6 @@ pointing-system-point-in-other-inventory-self = Вы указываете на {
 pointing-system-point-in-other-inventory-target = { CAPITALIZE($pointer) } указывает на ваш { $item }.
 pointing-system-point-in-other-inventory-others = { CAPITALIZE($pointer) } указывает на { $item } у { $wearer }.
 pointing-system-other-point-at-tile = { CAPITALIZE($otherName) } указывает на { $tileName }.
+
+parallax-pointing-target-water = воду
+parallax-pointing-target-ocean = океан

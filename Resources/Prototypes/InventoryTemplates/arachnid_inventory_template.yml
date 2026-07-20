@@ -143,3 +143,25 @@
       dependsOnComponents:
       - type: AllowSuitStorage
       displayName: Suit Storage
+    # <Onyx-Underwear>
+    - name: underwearb
+      slotTexture: underwearb
+      slotFlags: UNDERWEARB
+      stripTime: 6
+      uiWindowPos: 3,1
+      strippingWindowPos: 1,6
+      displayName: Underwear Bottom
+      whitelist:
+        tags:
+        - OnyxUnderwearB
+    - name: underweart
+      slotTexture: underweart
+      slotFlags: UNDERWEART
+      stripTime: 6
+      uiWindowPos: 3,2
+      strippingWindowPos: 0,6
+      displayName: Underwear Top
+      whitelist:
+        tags:
+        - OnyxUnderwearT
+    # </Onyx-Underwear>

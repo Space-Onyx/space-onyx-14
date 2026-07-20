@@ -13,3 +13,6 @@ pointing-system-point-in-other-inventory-self = You point at {THE($wearer)}'s {$
 pointing-system-point-in-other-inventory-target = {CAPITALIZE(THE($pointer))} points at your {$item}.
 pointing-system-point-in-other-inventory-others = {CAPITALIZE(THE($pointer))} points at {THE($wearer)}'s {$item}.
 pointing-system-other-point-at-tile = {CAPITALIZE(THE($otherName))} points at the {$tileName}.
+
+parallax-pointing-target-water = water
+parallax-pointing-target-ocean = ocean

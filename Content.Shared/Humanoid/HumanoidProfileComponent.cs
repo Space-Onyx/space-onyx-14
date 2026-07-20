@@ -23,6 +23,14 @@ public sealed partial class HumanoidProfileComponent : Component
     [DataField, AutoNetworkedField]
     public int Age = 18;
 
+    // <Onyx-HeightWidth>
+    [DataField, AutoNetworkedField]
+    public float Height = 1f;
+
+    [DataField, AutoNetworkedField]
+    public float Width = 1f;
+    // </Onyx-HeightWidth>
+
     [DataField, AutoNetworkedField]
     public ProtoId<SpeciesPrototype> Species = HumanoidCharacterProfile.DefaultSpecies;
 

@@ -1,0 +1,12 @@
+- type: latheRecipe
+  id: MaterialBSCrystal
+  result: MaterialBSCrystal1
+  completetime: 2
+  materials:
+    Diamond: 20
+    Plasma: 100
+
+- type: latheRecipePack
+  id: OnyxScienceMaterials
+  recipes:
+  - MaterialBSCrystal

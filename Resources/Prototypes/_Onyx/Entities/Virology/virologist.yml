@@ -1,0 +1,28 @@
+- type: entity
+  parent: IDCardStandard
+  id: VirologistIDCard
+  name: virology ID card
+  components:
+  - type: PresetIdCard
+    job: Virologist
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: VirologistPDA
+  name: virology PDA
+  description: You're not sure if touching it is safe.
+  components:
+  - type: Pda
+    id: VirologistIDCard
+
+- type: entity
+  id: SpawnPointVirologist
+  parent: SpawnPointJobBase
+  name: virologist
+  components:
+  - type: SpawnPoint
+    job_id: Virologist
+  - type: Sprite
+    layers:
+    - state: green
+    - state: doctor

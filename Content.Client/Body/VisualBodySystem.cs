@@ -49,37 +49,56 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
             RemoveMarkings((ent, markingsComp), body);
             ApplyMarkings((ent, markingsComp), body);
         }
+
+        var partQuery = AllEntityQuery<Content.Shared.Body.Part.BodyPartComponent, VisualOrganMarkingsComponent>();
+        while (partQuery.MoveNext(out var ent, out var part, out var markingsComp))
+        {
+            // <Onyx-DetachedPartVisuals-edited>
+            var target = GetVisualTarget(ent);
+            // </Onyx-DetachedPartVisuals-edited>
+            RemoveMarkings((ent, markingsComp), target);
+            ApplyMarkings((ent, markingsComp), target);
+        }
     }
 
     private void OnOrganGotInserted(Entity<VisualOrganComponent> ent, ref OrganGotInsertedEvent args)
     {
+        // <Onyx-DetachedPartVisuals-edited>
+        RemoveVisual(ent, GetDetachedPartRoot(ent.Owner));
+        // </Onyx-DetachedPartVisuals-edited>
         ApplyVisual(ent, args.Target);
     }
 
     private void OnOrganGotRemoved(Entity<VisualOrganComponent> ent, ref OrganGotRemovedEvent args)
     {
         RemoveVisual(ent, args.Target);
+        // <Onyx-DetachedPartVisuals-edited>
+        ApplyVisual(ent, GetDetachedPartRoot(ent.Owner));
+        // </Onyx-DetachedPartVisuals-edited>
     }
 
     private void OnOrganState(Entity<VisualOrganComponent> ent, ref AfterAutoHandleStateEvent args)
     {
-        if (Comp<OrganComponent>(ent).Body is not { } body)
-            return;
-
-        ApplyVisual(ent, body);
+        ApplyVisual(ent, GetVisualTarget(ent));
     }
 
     private void ApplyVisual(Entity<VisualOrganComponent> ent, EntityUid target)
     {
-        if (!_sprite.LayerMapTryGet(target, ent.Comp.Layer, out var index, true))
-            return;
+        var index = _sprite.LayerMapTryGet(target, ent.Comp.Layer, out var existing, false)
+            ? existing
+            : _sprite.LayerMapReserve(target, ent.Comp.Layer);
 
         _sprite.LayerSetData(target, index, ent.Comp.Data);
+        // <Onyx-CyberneticVisuals-edited>
+        // LayerSetData preserves the old layer tint when Data.Color is null.
+        if (!ent.Comp.ColorFromProfile)
+            _sprite.LayerSetColor(target, index, ent.Comp.Data.Color ?? Color.White);
+        // </Onyx-CyberneticVisuals-edited>
     }
 
     private void RemoveVisual(Entity<VisualOrganComponent> ent, EntityUid target)
     {
-        if (!_sprite.LayerMapTryGet(target, ent.Comp.Layer, out var index, true))
+        if (!_sprite.LayerMapTryGet(target, ent.Comp.Layer, out var index, false))
             return;
 
         _sprite.LayerSetRsiState(target, index, RSI.StateId.Invalid);
@@ -87,19 +106,23 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
 
     private void OnMarkingsGotInserted(Entity<VisualOrganMarkingsComponent> ent, ref OrganGotInsertedEvent args)
     {
+        // <Onyx-DetachedPartVisuals-edited>
+        RemoveMarkings(ent, GetDetachedPartRoot(ent.Owner));
+        // </Onyx-DetachedPartVisuals-edited>
         ApplyMarkings(ent, args.Target);
     }
 
     private void OnMarkingsGotRemoved(Entity<VisualOrganMarkingsComponent> ent, ref OrganGotRemovedEvent args)
     {
         RemoveMarkings(ent, args.Target);
+        // <Onyx-DetachedPartVisuals-edited>
+        ApplyMarkings(ent, GetDetachedPartRoot(ent.Owner));
+        // </Onyx-DetachedPartVisuals-edited>
     }
 
     private void OnMarkingsState(Entity<VisualOrganMarkingsComponent> ent, ref AfterAutoHandleStateEvent args)
     {
-        if (Comp<OrganComponent>(ent).Body is not { } body)
-            return;
-
+        var body = GetVisualTarget(ent);
         RemoveMarkings(ent, body);
         ApplyMarkings(ent, body);
     }
@@ -108,31 +131,45 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
     {
         base.SetOrganColor(ent, color);
 
-        if (Comp<OrganComponent>(ent).Body is not { } body)
-            return;
-
-        ApplyVisual(ent, body);
+        ApplyVisual(ent, GetVisualTarget(ent));
     }
 
     protected override void SetOrganMarkings(Entity<VisualOrganMarkingsComponent> ent, Dictionary<HumanoidVisualLayers, List<Marking>> markings)
     {
         base.SetOrganMarkings(ent, markings);
 
-        if (Comp<OrganComponent>(ent).Body is not { } body)
-            return;
-
+        var body = GetVisualTarget(ent);
         RemoveMarkings(ent, body);
         ApplyMarkings(ent, body);
     }
+
+    // <Onyx-DetachedPartVisuals-edited>
+    private EntityUid GetVisualTarget(EntityUid entity)
+    {
+        if (CompOrNull<OrganComponent>(entity)?.Body is { } organBody)
+            return organBody;
+
+        if (CompOrNull<Content.Shared.Body.Part.BodyPartComponent>(entity)?.Body is { } partBody)
+            return partBody;
+
+        return GetDetachedPartRoot(entity);
+    }
+
+    private EntityUid GetDetachedPartRoot(EntityUid entity)
+    {
+        var root = entity;
+        while (CompOrNull<Content.Shared.Body.Part.BodyPartComponent>(root)?.Parent is { } parent)
+            root = parent;
+
+        return root;
+    }
+    // </Onyx-DetachedPartVisuals-edited>
 
     protected override void SetOrganAppearance(Entity<VisualOrganComponent> ent, PrototypeLayerData data)
     {
         base.SetOrganAppearance(ent, data);
 
-        if (Comp<OrganComponent>(ent).Body is not { } body)
-            return;
-
-        ApplyVisual(ent, body);
+        ApplyVisual(ent, GetVisualTarget(ent));
     }
 
     private IEnumerable<Marking> AllMarkings(Entity<VisualOrganMarkingsComponent> ent)
@@ -180,8 +217,9 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
             if (!_marking.TryGetMarking(marking, out var proto))
                 continue;
 
-            if (!_sprite.LayerMapTryGet(target, proto.BodyPart, out var index, true))
-                continue;
+            var index = _sprite.LayerMapTryGet(target, proto.BodyPart, out var existing, false)
+                ? existing
+                : _sprite.LayerMapReserve(target, proto.BodyPart);
 
             ent.Comp.MarkingsDisplacement.TryGetValue(proto.BodyPart, out var displacement);
 

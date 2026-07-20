@@ -27,33 +27,65 @@ public sealed partial class SunShadowSystem : SharedSunShadowSystem
             if (!cycle.Running || cycle.Directions.Count == 0)
                 continue;
 
-            var pausedTime = _metadata.GetPauseTime(uid);
+            // <Onyx-Planetar>
+            var duration = cycle.Duration;
+            var offset = cycle.Offset;
+            var cycleTimeOwner = uid;
+
+            LightCycleComponent? lightCycle = null;
+            if (!TryComp(uid, out lightCycle))
+            {
+                var mapUid = Transform(uid).MapUid;
+                if (mapUid is { } map && TryComp(map, out lightCycle))
+                    cycleTimeOwner = map;
+            }
+
+            if (lightCycle != null)
+            {
+                if (!lightCycle.Running || !lightCycle.Enabled)
+                {
+                    shadow.Alpha = 0f;
+                    continue;
+                }
+
+                duration = lightCycle.Duration;
+                offset = lightCycle.Offset;
+            }
+
+            var pausedTime = _metadata.GetPauseTime(cycleTimeOwner);
+            var durationSeconds = MathF.Max(1f, (float) duration.TotalSeconds);
 
             var time = (float)(_timing.CurTime
-                .Add(cycle.Offset)
+                .Add(offset)
                 .Subtract(_ticker.RoundStartTimeSpan)
                 .Subtract(pausedTime)
                 .TotalSeconds % cycle.Duration.TotalSeconds);
-
-            var (direction, alpha) = GetShadow((uid, cycle), time);
+            // <Onyx-Planetar>
+            var (direction, alpha) = GetShadow((uid, cycle), GetCycleTime(cycle, time, durationSeconds));
+            ApplyOnyxSettings(cycle, ref direction, ref alpha);
+            // </Onyx-Planetar>
             shadow.Direction = direction;
             shadow.Alpha = alpha;
         }
     }
 
     [Pure]
-    public (Vector2 Direction, float Alpha) GetShadow(Entity<SunShadowCycleComponent> entity, float time)
+    public (Vector2 Direction, float Alpha) GetShadow(
+        Entity<SunShadowCycleComponent> entity,
+        float time,
+        float? durationSeconds = null)
     {
         // So essentially the values are stored as the percentages of the total duration just so it adjusts the speed
         // dynamically and we don't have to manually handle it.
         // It will lerp from each value to the next one with angle and length handled separately
-        var ratio = (float) (time / entity.Comp.Duration.TotalSeconds);
+        var duration = durationSeconds ?? MathF.Max(1f, (float) entity.Comp.Duration.TotalSeconds); // <Onyx-Planetar>
+        var ratio = time / duration; // <Onyx-Planetar>
 
         for (var i = entity.Comp.Directions.Count - 1; i >= 0; i--)
         {
             var dir = entity.Comp.Directions[i];
 
-            if (ratio > dir.Ratio)
+            if (ratio >= dir.Ratio) // <Onyx-Planetar edited>
             {
                 var next = entity.Comp.Directions[(i + 1) % entity.Comp.Directions.Count];
                 float nextRatio;

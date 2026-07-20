@@ -10,3 +10,11 @@
   oldAge: 300
   maxAge: 600
   # Corvax-SpeciesAgeLore-End
+  # <Onyx-SpeciesDimensions>
+  defaultHeightCm: 160
+  defaultWeightKg: 60
+  minHeightCm: 130
+  maxHeightCm: 170
+  minWeightKg: 40
+  maxWeightKg: 75
+  # </Onyx-SpeciesDimensions>

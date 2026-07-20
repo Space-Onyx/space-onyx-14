@@ -246,7 +246,7 @@ public sealed partial class MarkingManager
     /// </summary>
     /// <param name="species">The species to look up.</param>
     /// <returns>A dictionary of organ categories to their usual organs within a species.</returns>
-    public Dictionary<ProtoId<OrganCategoryPrototype>, EntProtoId<OrganComponent>> GetOrgans(ProtoId<SpeciesPrototype> species)
+    public Dictionary<ProtoId<OrganCategoryPrototype>, EntProtoId> GetOrgans(ProtoId<SpeciesPrototype> species)
     {
         var speciesPrototype = _prototype.Index(species);
         var appearancePrototype = _prototype.Index(speciesPrototype.DollPrototype);

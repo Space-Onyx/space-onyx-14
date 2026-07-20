@@ -1,0 +1,15 @@
+ent-MeleeDebugInfectTurboCancer = палка Креветки
+    .desc = Хочешь узнать, какой на вкус "рыжий лес"?
+    .suffix = DEBUG
+ent-MeleeDebugInfectTheRot = палка Гниения
+    .desc = Уничтожает всё. Серьёзно.
+    .suffix = DEBUG
+ent-MeleeDebugInfectFlu = палка Гриппа
+    .desc = Даёт вам грипп. А люди всё гадают, откуда он берётся.
+    .suffix = DEBUG
+ent-MeleeDebugInfectGravitosisA = палка Гравитоза
+    .desc = Даёт вам Гравитоз А.
+    .suffix = DEBUG
+ent-MeleeDebugInfectGunemia = палка Пулемии
+    .desc = Даёт вам пулемию.
+    .suffix = DEBUG
