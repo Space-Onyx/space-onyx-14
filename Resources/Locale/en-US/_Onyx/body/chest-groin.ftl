@@ -7,9 +7,9 @@ ent-OrganBaseChestSexed = { "" }
 ent-OrganBaseGroinSexed = { "" }
     .desc = { "" }
 
-ent-OrganHumanChest = human chest
+ent-OrganHumanChest = torso
     .desc = { ent-OrganBaseChest.desc }
-ent-OrganHumanGroin = human pelvis
+ent-OrganHumanGroin = pelvis
     .desc = { ent-OrganBaseGroin.desc }
 ent-OrganFelinidChest = felinid chest
     .desc = { ent-OrganBaseChest.desc }

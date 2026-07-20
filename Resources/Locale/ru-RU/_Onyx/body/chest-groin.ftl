@@ -7,9 +7,9 @@ ent-OrganBaseChestSexed = { "" }
 ent-OrganBaseGroinSexed = { "" }
     .desc = { "" }
 
-ent-OrganHumanChest = человеческий торс
+ent-OrganHumanChest = торс
     .desc = { ent-OrganBaseChest.desc }
-ent-OrganHumanGroin = человеческий таз
+ent-OrganHumanGroin = таз
     .desc = { ent-OrganBaseGroin.desc }
 ent-OrganFelinidChest = торс фелинида
     .desc = { ent-OrganBaseChest.desc }

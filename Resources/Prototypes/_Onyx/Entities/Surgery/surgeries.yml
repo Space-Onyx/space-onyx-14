@@ -37,7 +37,7 @@
     - SurgeryStepSawBones
     - SurgeryStepPriseOpenBones
   - type: SurgeryPartCondition
-    part: Torso
+    part: Chest
 
 - type: entity
   parent: SurgeryBase
@@ -59,7 +59,7 @@
     requirement: SurgeryOpenIncision
     steps: [ SurgeryStepOpenAbdomen ]
   - type: SurgeryPartCondition
-    part: Torso
+    part: Groin
 
 - type: entity
   parent: SurgeryBase
@@ -69,7 +69,7 @@
   - type: Surgery
     steps: [ SurgeryStepHideItem ]
   - type: SurgeryPartCondition
-    part: Torso
+    part: Groin
   - type: SurgeryCavityCondition
 
 - type: entity
@@ -80,7 +80,7 @@
   - type: Surgery
     steps: [ SurgeryStepTakeItem ]
   - type: SurgeryPartCondition
-    part: Torso
+    part: Groin
   - type: SurgeryCavityCondition
     occupied: true
 
@@ -93,7 +93,7 @@
     requirement: SurgeryOpenIncision
     steps: [ SurgeryStepAttachHead ]
   - type: SurgeryPartCondition
-    part: Torso
+    part: Chest
   - type: SurgeryMissingPartCondition
     part: Head
 
@@ -106,7 +106,7 @@
     requirement: SurgeryOpenIncision
     steps: [ SurgeryStepAttachLeftArm ]
   - type: SurgeryPartCondition
-    part: Torso
+    part: Chest
   - type: SurgeryMissingPartCondition
     part: Arm
     symmetry: Left
@@ -120,7 +120,7 @@
     requirement: SurgeryOpenIncision
     steps: [ SurgeryStepAttachRightArm ]
   - type: SurgeryPartCondition
-    part: Torso
+    part: Chest
   - type: SurgeryMissingPartCondition
     part: Arm
     symmetry: Right
@@ -134,7 +134,7 @@
     requirement: SurgeryOpenIncision
     steps: [ SurgeryStepAttachLeftLeg ]
   - type: SurgeryPartCondition
-    part: Torso
+    part: Groin
   - type: SurgeryMissingPartCondition
     part: Leg
     symmetry: Left
@@ -148,7 +148,7 @@
     requirement: SurgeryOpenIncision
     steps: [ SurgeryStepAttachRightLeg ]
   - type: SurgeryPartCondition
-    part: Torso
+    part: Groin
   - type: SurgeryMissingPartCondition
     part: Leg
     symmetry: Right
@@ -333,7 +333,7 @@
     steps: [ SurgeryStepRemoveHeart ]
   - type: SurgeryOrganCondition
     slot: Heart
-    part: Torso
+    part: Chest
 
 - type: entity
   parent: BaseSurgeryInsertOrgan
@@ -346,7 +346,7 @@
   - type: SurgeryOrganCondition
     slot: Heart
     inverse: true
-    part: Torso
+    part: Chest
 
 - type: entity
   parent: BaseSurgeryRemoveOrgan
@@ -358,7 +358,7 @@
     steps: [ SurgeryStepRemoveLungs ]
   - type: SurgeryOrganCondition
     slot: Lungs
-    part: Torso
+    part: Chest
 
 - type: entity
   parent: BaseSurgeryInsertOrgan
@@ -371,7 +371,7 @@
   - type: SurgeryOrganCondition
     slot: Lungs
     inverse: true
-    part: Torso
+    part: Chest
 
 - type: entity
   parent: BaseSurgeryRemoveOrgan
@@ -379,11 +379,11 @@
   name: Remove liver
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
+    requirement: SurgeryOpenAbdomen
     steps: [ SurgeryStepRemoveLiver ]
   - type: SurgeryOrganCondition
     slot: Liver
-    part: Torso
+    part: Groin
 
 - type: entity
   parent: BaseSurgeryInsertOrgan
@@ -391,12 +391,12 @@
   name: Implant liver
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
+    requirement: SurgeryOpenAbdomen
     steps: [ SurgeryStepInsertLiver ]
   - type: SurgeryOrganCondition
     slot: Liver
     inverse: true
-    part: Torso
+    part: Groin
 
 - type: entity
   parent: BaseSurgeryRemoveOrgan
@@ -408,7 +408,7 @@
     steps: [ SurgeryStepRemoveStomach ]
   - type: SurgeryOrganCondition
     slot: Stomach
-    part: Torso
+    part: Chest
 
 - type: entity
   parent: BaseSurgeryInsertOrgan
@@ -421,7 +421,7 @@
   - type: SurgeryOrganCondition
     slot: Stomach
     inverse: true
-    part: Torso
+    part: Chest
 
 - type: entity
   parent: BaseSurgeryRemoveOrgan
@@ -429,11 +429,11 @@
   name: Remove kidneys
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
+    requirement: SurgeryOpenAbdomen
     steps: [ SurgeryStepRemoveKidneys ]
   - type: SurgeryOrganCondition
     slot: Kidneys
-    part: Torso
+    part: Groin
 
 - type: entity
   parent: BaseSurgeryInsertOrgan
@@ -441,12 +441,12 @@
   name: Implant kidneys
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
+    requirement: SurgeryOpenAbdomen
     steps: [ SurgeryStepInsertKidneys ]
   - type: SurgeryOrganCondition
     slot: Kidneys
     inverse: true
-    part: Torso
+    part: Groin
 
 - type: entity
   parent: BaseSurgeryRemoveOrgan
@@ -454,11 +454,11 @@
   name: Remove appendix
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
+    requirement: SurgeryOpenAbdomen
     steps: [ SurgeryStepRemoveAppendix ]
   - type: SurgeryOrganCondition
     slot: Appendix
-    part: Torso
+    part: Groin
 
 - type: entity
   parent: BaseSurgeryInsertOrgan
@@ -466,12 +466,12 @@
   name: Implant appendix
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
+    requirement: SurgeryOpenAbdomen
     steps: [ SurgeryStepInsertAppendix ]
   - type: SurgeryOrganCondition
     slot: Appendix
     inverse: true
-    part: Torso
+    part: Groin
 
 - type: entity
   parent: SurgeryBase
@@ -540,7 +540,7 @@
   - type: SurgeryOrganCondition
     slot: Heart
     damaged: true
-    part: Torso
+    part: Chest
 
 - type: entity
   parent: BaseSurgeryHealOrgan
@@ -553,7 +553,7 @@
   - type: SurgeryOrganCondition
     slot: Lungs
     damaged: true
-    part: Torso
+    part: Chest
 
 - type: entity
   parent: BaseSurgeryHealOrgan
@@ -561,12 +561,12 @@
   name: Heal liver
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
+    requirement: SurgeryOpenAbdomen
     steps: [ SurgeryStepHealLiver ]
   - type: SurgeryOrganCondition
     slot: Liver
     damaged: true
-    part: Torso
+    part: Groin
 
 - type: entity
   parent: BaseSurgeryHealOrgan
@@ -579,7 +579,7 @@
   - type: SurgeryOrganCondition
     slot: Stomach
     damaged: true
-    part: Torso
+    part: Chest
 
 - type: entity
   parent: BaseSurgeryHealOrgan
@@ -587,12 +587,12 @@
   name: Heal kidneys
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
+    requirement: SurgeryOpenAbdomen
     steps: [ SurgeryStepHealKidneys ]
   - type: SurgeryOrganCondition
     slot: Kidneys
     damaged: true
-    part: Torso
+    part: Groin
 
 - type: entity
   parent: BaseSurgeryHealOrgan
@@ -600,12 +600,12 @@
   name: Heal appendix
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
+    requirement: SurgeryOpenAbdomen
     steps: [ SurgeryStepHealAppendix ]
   - type: SurgeryOrganCondition
     slot: Appendix
     damaged: true
-    part: Torso
+    part: Groin
 
 - type: entity
   parent: SurgeryBase
