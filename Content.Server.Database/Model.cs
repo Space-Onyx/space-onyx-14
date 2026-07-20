@@ -345,9 +345,10 @@ namespace Content.Server.Database
         public float Width { get; set; } = 1f;
         // </Onyx-HeightWidth>
         public string Sex { get; set; } = null!;
+        public string? Voice { get; set; } = null!; // If null, the voice gets defaulted to the sex associated value
         public string Gender { get; set; } = null!;
         public string Species { get; set; } = null!;
-        public string Voice { get; set; } = null!; // Corvax-TTS
+        [Column("ttsvoice")] public string TTSVoice { get; set; } = null!; // Corvax-TTS
         [Column(TypeName = "jsonb")] public JsonDocument? OrganMarkings { get; set; } = null!;
         [Column(TypeName = "jsonb")] public JsonDocument? Markings { get; set; } = null!;
         public string HairName { get; set; } = null!;

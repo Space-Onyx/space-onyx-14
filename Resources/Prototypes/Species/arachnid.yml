@@ -21,3 +21,9 @@
   minWeightKg: 40
   maxWeightKg: 95
   # </Onyx-SpeciesDimensions>
+  defaultSoundsBySex:
+  - UnisexArachnid
+  - UnisexArachnid
+  - UnisexArachnid
+  voices:
+  - UnisexArachnid

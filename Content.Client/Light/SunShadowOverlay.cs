@@ -20,7 +20,6 @@ public sealed partial class SunShadowOverlay : Overlay
 
     [Dependency] private IClyde _clyde = default!;
     [Dependency] private IEntityManager _entManager = default!;
-    [Dependency] private IMapManager _mapManager = default!;
     [Dependency] private IPrototypeManager _protoManager = default!;
     private readonly EntityLookupSystem _lookup;
     private readonly SharedMapSystem _mapSystem; // <Onyx-Planetar>
@@ -52,9 +51,11 @@ public sealed partial class SunShadowOverlay : Overlay
             return;
 
         _grids.Clear();
-        _mapManager.FindGridsIntersecting(args.MapId,
+        // <Onyx-Planetar-edited>
+        _mapSystem.FindGridsIntersecting(args.MapId,
             args.WorldBounds.Enlarged(SunShadowComponent.MaxLength),
             ref _grids);
+        // </Onyx-Planetar-edited>
 
         var worldHandle = args.WorldHandle;
         var mapId = args.MapId;

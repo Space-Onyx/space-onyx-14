@@ -177,10 +177,7 @@
       sprite: Effects/creampie.rsi
       state: creampie_vox
   - type: Vocal
-    sounds:
-      Male: UnisexVox
-      Female: UnisexVox
-      Unsexed: UnisexVox
+    emoteSounds: UnisexVox
   # <Onyx-Languages>
   - type: LanguageKnowledge
     speaks: [TauCetiBasic, NewKinPidgin]
@@ -306,6 +303,10 @@
 - type: entity
   parent: [ OrganBaseTorso, OrganVoxExternal ]
   id: OrganVoxTorso
+  components:
+  - type: VisualOrganMarkings
+    hideableLayers:
+    - enum.HumanoidVisualLayers.Tail
 
 - type: entity
   parent: [ OrganBaseHead, OrganVoxExternal ]

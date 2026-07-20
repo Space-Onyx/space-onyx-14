@@ -107,10 +107,7 @@
     speechSounds: Alto
   - type: ZombieImmune
   - type: Vocal
-    sounds:
-      Male: MaleIpc
-      Female: FemaleIpc
-      Unsexed: MaleIpc
+    emoteSounds: UnsexedIpc
   # <Onyx-Languages>
   - type: LanguageKnowledge
     speaks: [TauCetiBasic, RobotTalk]

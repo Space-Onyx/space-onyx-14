@@ -36,18 +36,20 @@
     accentVColor: "#DFDFDF"
   - type: Icon
     state: pda-seniorofficer
-  - type: CartridgeLoader
-    preinstalled:
-    - CrewManifestCartridge
-    - NotekeeperCartridge
-    - NanoTaskCartridge
-    - NewsReaderCartridge
-    - WantedListCartridge
-    - AstroNavCartridge
-    - WalletCartridge
-    # <Onyx-NanoChat-edited>
-    - NanoChatCartridge
-    # </Onyx-NanoChat-edited>
+  - type: EntityTableContainerFill
+    containers:
+      preinstalled-program-container: !type:AllSelector
+        children:
+        - id: CrewManifestCartridge
+        - id: NotekeeperCartridge
+        - id: NanoTaskCartridge
+        - id: NewsReaderCartridge
+        - id: WantedListCartridge
+        - id: AstroNavCartridge
+        # <Onyx-NanoChat-edited>
+        - id: WalletCartridge
+        - id: NanoChatCartridge
+        # </Onyx-NanoChat-edited>
 
 - type: entity
   parent: BaseSecurityPDA

@@ -161,10 +161,7 @@
       sprite: Effects/creampie.rsi
       state: creampie_lizard
   - type: Vocal
-    sounds:
-      Male: MaleReptilian
-      Female: FemaleReptilian
-      Unsexed: MaleReptilian
+    emoteSounds: MaleReptilian
   # <Onyx-Languages>
   - type: LanguageKnowledge
     speaks: [TauCetiBasic, Draconic]

@@ -18,3 +18,10 @@
   minWeightKg: 40
   maxWeightKg: 95
   # </Onyx-SpeciesDimensions>
+  defaultSoundsBySex:
+  - MaleReptilian
+  - FemaleReptilian
+  - MaleReptilian
+  voices:
+  - MaleReptilian
+  - FemaleReptilian

@@ -21,7 +21,11 @@
     - PreventAccessLogging
     - AllowBiomeLoading
     - NotGhostnadoWarpable
+    # <Onyx-AGhost-IgnoreBalanceChecks>
     - IgnoreBalanceChecks
+    # </Onyx-AGhost-IgnoreBalanceChecks>
+    - AllowPortalTraversal
+    - PreventPortalCollision
   - type: Input
     context: "aghost"
   - type: Ghost
@@ -118,6 +122,8 @@
   - type: BypassInteractionChecks
   - type: ExplosionResistance
     damageCoefficient: 0
+  - type: GluedImmune
+  - type: LubedImmune
   # Corvax-Start
   - type: MovementSpeedModifier
     baseWalkSpeed: 30

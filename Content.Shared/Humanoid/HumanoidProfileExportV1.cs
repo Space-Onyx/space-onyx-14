@@ -1,5 +1,8 @@
 using System.Numerics;
+// <Onyx-Barks>
 using Content.Shared._Onyx.SpeechBarks;
+// </Onyx-Barks>
+using Content.Shared.Chat.Prototypes;
 using Content.Shared.Humanoid.Markings;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
@@ -63,7 +66,7 @@ public sealed partial class HumanoidCharacterProfileV1
     public ProtoId<SpeciesPrototype> Species;
 
     [DataField] //Corvax-TTS
-    public string Voice = HumanoidProfileSystem.DefaultVoice;
+    public string TTSVoice = HumanoidProfileSystem.DefaultVoice;
 
     [DataField]
     public int Age;
@@ -85,11 +88,24 @@ public sealed partial class HumanoidCharacterProfileV1
 
     public HumanoidCharacterProfile ToV2()
     {
-        return new(Name, FlavorText, Species, Voice, Age,
+        return new(Name, FlavorText, Species, TTSVoice, Age,
             // <Onyx-HeightWidth>
             1f, 1f,
             // </Onyx-HeightWidth>
-            Sex, Gender, Appearance.ToV2(Species), SpawnPriority, JobPriorities, PreferenceUnavailable, AntagPreferences, TraitPreferences, Loadouts, new BarkData());
+            Sex, GetDefaultVoice(Species, Sex), Gender, Appearance.ToV2(Species), SpawnPriority, JobPriorities, PreferenceUnavailable, AntagPreferences, TraitPreferences, Loadouts,
+            // <Onyx-Barks>
+            new BarkData()
+            // </Onyx-Barks>
+            );
+    }
+
+    // In V2 voices are stored as a separate database entry, this picks the default for the species and sex, which would give the same voice as pre-nubody.
+    private ProtoId<EmoteSoundsPrototype> GetDefaultVoice(ProtoId<SpeciesPrototype> species, Sex sex)
+    {
+        var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
+
+        var speciesPrototype = prototypeManager.Index(species);
+        return speciesPrototype.DefaultSoundsBySex[(int)sex];
     }
 }
 

@@ -8,6 +8,7 @@ using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using Content.Server.Administration.Managers;
 using Content.Server.Administration.Systems;
+using Content.Server.Corvax.Api.AHelp; // Corvax-API
 using Content.Server.Database;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Presets;
@@ -98,6 +99,7 @@ public sealed partial class ServerApi : IPostInjectInit
         RegisterActorHandler(HttpMethod.Patch, "/admin/actions/panic_bunker", ActionPanicPunker);
         RegisterActorHandler(HttpMethod.Post, "/admin/actions/a_chat", ActionAdminChat);                // ADT Tweak
         RegisterActorHandler(HttpMethod.Post, "/admin/actions/server_ban", ActionServerBan);            // ADT Tweak
+        AHelpBotApiSystem.RegisterStatusHostHandler(_statusHost, _entitySystemManager); // Corvax-API
     }
 
     public void Initialize()
