@@ -1,0 +1,80 @@
+- type: technology
+  id: AdvancedTreatment
+  name: research-technology-onyx-advanced-treatment
+  icon:
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/e-scalpel.rsi
+    state: e-scalpel-on
+  discipline: CivilianServices
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+    - EnergyScalpel
+    - AdvancedRetractor
+    - EnergyCautery
+    - AdvancedBoneGel
+  position: 1,0
+  technologyPrerequisites:
+    - BiochemicalStasis
+- type: technology
+  id: HighEndSurgery
+  name: research-technology-onyx-high-end-surgery
+  icon:
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/omnimed.rsi
+    state: omnimed
+  discipline: CivilianServices
+  tier: 3
+  cost: 15000
+  recipeUnlocks:
+    - OmnimedTool
+  position: 2,0
+  technologyPrerequisites:
+    - AdvancedTreatment
+- type: technology
+  id: OnyxBasicTranslation
+  name: research-technology-onyx-basic-translation
+  icon:
+    sprite: Objects/Devices/signaller.rsi
+    state: advanced
+  discipline: CivilianServices
+  tier: 2
+  cost: 7500
+  recipeUnlocks:
+  - ChittinTranslatorRecipe
+  - RootSpeakTranslatorRecipe
+  - MofficTranslatorRecipe
+  - DraconicTranslatorRecipe
+  - BubblishTranslatorRecipe
+  - CalcicTranslatorRecipe
+  - NewKinPidginTranslatorRecipe
+  - CanilunztTranslatorRecipe
+  - SiikMaasTranslatorRecipe
+  - RobotTalkTranslatorRecipe
+  - NekomimeticTranslatorRecipe
+  - SolCommonTranslatorRecipe
+  position: -2,3
+  technologyPrerequisites: [AdvancedEntertainment]
+
+- type: technology
+  id: OnyxAdvancedTranslation
+  name: research-technology-onyx-advanced-translation
+  icon:
+    sprite: Objects/Specific/Medical/implanter.rsi
+    state: implanter0
+  discipline: CivilianServices
+  tier: 3
+  cost: 10000
+  recipeUnlocks:
+  - ChittinTranslatorImplanterRecipe
+  - RootSpeakTranslatorImplanterRecipe
+  - MofficTranslatorImplanterRecipe
+  - DraconicTranslatorImplanterRecipe
+  - BubblishTranslatorImplanterRecipe
+  - CalcicTranslatorImplanterRecipe
+  - NewKinPidginTranslatorImplanterRecipe
+  - CanilunztTranslatorImplanterRecipe
+  - SiikMaasTranslatorImplanterRecipe
+  - RobotTalkTranslatorImplanterRecipe
+  - NekomimeticTranslatorImplanterRecipe
+  - SolCommonTranslatorImplanterRecipe
+  position: -2,4
+  technologyPrerequisites: [OnyxBasicTranslation]
