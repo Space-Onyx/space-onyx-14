@@ -177,7 +177,7 @@ public sealed partial class NpcFactionSystem : EntitySystem
     // <Onyx-Factions>
     public void AddFriendlyFaction(Entity<NpcFactionMemberComponent?> ent, [ForbidLiteral] string faction, bool dirty = true)
     {
-        if (!_proto.HasIndex<NpcFactionPrototype>(faction))
+        if (!ProtoMan.HasIndex<NpcFactionPrototype>(faction))
         {
             Log.Error($"Unable to find faction {faction}");
             return;
@@ -209,7 +209,7 @@ public sealed partial class NpcFactionSystem : EntitySystem
 
     public void AddHostileFaction(Entity<NpcFactionMemberComponent?> ent, [ForbidLiteral] string faction, bool dirty = true)
     {
-        if (!_proto.HasIndex<NpcFactionPrototype>(faction))
+        if (!ProtoMan.HasIndex<NpcFactionPrototype>(faction))
         {
             Log.Error($"Unable to find faction {faction}");
             return;

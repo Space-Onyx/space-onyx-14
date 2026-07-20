@@ -174,7 +174,7 @@ public sealed partial class RadioDeviceSystem : SharedRadioDeviceSystem
             return;
 
         var channel = GetHandheldPresetChannel(component);
-        if (channel == null || !_protoMan.TryIndex<RadioChannelPrototype>(channel, out var proto))
+        if (channel == null || !ProtoMan.TryIndex<RadioChannelPrototype>(channel, out var proto))
             return;
 
         args.PushMarkup(Loc.GetString("handheld-radio-component-preset-examine",
@@ -190,7 +190,7 @@ public sealed partial class RadioDeviceSystem : SharedRadioDeviceSystem
         for (var i = 0; i < component.Channels.Count; i++)
         {
             var channel = component.Channels[i];
-            if (!_protoMan.TryIndex<RadioChannelPrototype>(channel, out var proto))
+            if (!ProtoMan.TryIndex<RadioChannelPrototype>(channel, out var proto))
                 continue;
 
             var index = i;
@@ -329,7 +329,7 @@ public sealed partial class RadioDeviceSystem : SharedRadioDeviceSystem
 
         index = Math.Clamp(index, 0, component.Channels.Count - 1);
         var channel = component.Channels[index];
-        if (!_protoMan.TryIndex<RadioChannelPrototype>(channel, out var proto))
+        if (!ProtoMan.TryIndex<RadioChannelPrototype>(channel, out var proto))
             return;
 
         component.CurrentIndex = index;

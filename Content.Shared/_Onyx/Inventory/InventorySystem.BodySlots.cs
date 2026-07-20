@@ -14,7 +14,8 @@ public partial class InventorySystem
     {
         if (TerminatingOrDeleted(ent) ||
             !Resolve(ent, ref ent.Comp) ||
-            !_prototypeManager.Resolve(ent.Comp.TemplateId, out var template))
+            ent.Comp is not { } inventory ||
+            !ProtoMan.Resolve(inventory.TemplateId, out var template))
             return;
 
         var available = SlotFlags.All;
@@ -26,13 +27,13 @@ public partial class InventorySystem
             available &= ~SlotFlags.FEET;
 
         var slots = template.Slots.Where(slot => (slot.SlotFlags & ~available) == 0).ToArray();
-        if (ent.Comp.Containers.Any(container =>
+        if (inventory.Containers.Any(container =>
                 slots.All(slot => slot.Name != container.ID) &&
                 container.ContainedEntity is { } item &&
                 TerminatingOrDeleted(item)))
             return;
 
-        foreach (var container in ent.Comp.Containers)
+        foreach (var container in inventory.Containers)
         {
             if (slots.Any(slot => slot.Name == container.ID))
                 continue;
@@ -41,13 +42,13 @@ public partial class InventorySystem
             _containerSystem.ShutdownContainer(container);
         }
 
-        ent.Comp.Slots = slots;
-        ent.Comp.Containers = new ContainerSlot[slots.Length];
+        inventory.Slots = slots;
+        inventory.Containers = new ContainerSlot[slots.Length];
         for (var i = 0; i < slots.Length; i++)
         {
             var container = _containerSystem.EnsureContainer<ContainerSlot>(ent, slots[i].Name);
             container.OccludesLight = false;
-            ent.Comp.Containers[i] = container;
+            inventory.Containers[i] = container;
         }
 
         Dirty(ent);

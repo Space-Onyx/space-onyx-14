@@ -53,7 +53,6 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<VendingMachineComponent, ComponentGetState>(OnVendingGetState);
         SubscribeLocalEvent<VendingMachineComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<VendingMachineComponent, GotEmaggedEvent>(OnEmagged);
         SubscribeLocalEvent<VendingMachineComponent, EmpPulseEvent>(OnEmpPulse);
@@ -71,33 +70,6 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
             subs.Event<VendingMachineWithdrawMessage>(OnWithdrawMessage);
             //</Onyx Economy>
         });
-    }
-
-    private void OnVendingGetState(Entity<VendingMachineComponent> entity, ref ComponentGetState args)
-    {
-        var component = entity.Comp;
-        var inventory = new Dictionary<string, VendingMachineInventoryEntry>();
-        var emaggedInventory = new Dictionary<string, VendingMachineInventoryEntry>();
-        var contrabandInventory = new Dictionary<string, VendingMachineInventoryEntry>();
-
-        foreach (var entry in component.Inventory)
-            inventory[entry.Key] = new(entry.Value);
-        foreach (var entry in component.EmaggedInventory)
-            emaggedInventory[entry.Key] = new(entry.Value);
-        foreach (var entry in component.ContrabandInventory)
-            contrabandInventory[entry.Key] = new(entry.Value);
-
-        args.State = new VendingMachineComponentState
-        {
-            Inventory = inventory,
-            EmaggedInventory = emaggedInventory,
-            ContrabandInventory = contrabandInventory,
-            Contraband = component.Contraband,
-            EjectEnd = component.EjectEnd,
-            DenyEnd = component.DenyEnd,
-            DispenseOnHitEnd = component.DispenseOnHitEnd,
-            Broken = component.Broken,
-        };
     }
 
     public override void Update(float frameTime)

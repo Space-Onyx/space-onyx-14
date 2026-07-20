@@ -206,7 +206,7 @@ public abstract partial class SharedVisualBodySystem
     {
         ApplyAppearanceTo(ent, profile.Appearance, profile.Sex);
         // <Onyx-HeightWidth>
-        if (_prototype.TryIndex<SpeciesPrototype>(profile.Species, out var species))
+        if (ProtoMan.TryIndex<SpeciesPrototype>(profile.Species, out var species))
             _scaleVisuals.SetSpriteScale(ent.Owner, species.GetVisualScale(profile.Height, profile.Width));
         // </Onyx-HeightWidth>
     }

@@ -98,8 +98,8 @@ public sealed partial class WaggingSystem : EntitySystem
             {
                 var id = tail.MarkingId.Id;
                 if (id.EndsWith(WaggingComponent.DefaultSuffix)
-                    ? _prototype.HasIndex<MarkingPrototype>(id[..^WaggingComponent.DefaultSuffix.Length])
-                    : _prototype.HasIndex<MarkingPrototype>($"{id}{WaggingComponent.DefaultSuffix}"))
+                    ? ProtoMan.HasIndex<MarkingPrototype>(id[..^WaggingComponent.DefaultSuffix.Length])
+                    : ProtoMan.HasIndex<MarkingPrototype>($"{id}{WaggingComponent.DefaultSuffix}"))
                 {
                     organ = category;
                     return true;

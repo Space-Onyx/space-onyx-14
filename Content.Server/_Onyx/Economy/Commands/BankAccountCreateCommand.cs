@@ -10,7 +10,7 @@ using Robust.Shared.IoC;
 using Robust.Server.Player;
 using Robust.Shared.Log;
 using Content.Shared.PDA;
-using Content.Server.CartridgeLoader;
+using Content.Shared.CartridgeLoader;
 using Content.Server.PDA;
 using Content.Server.Inventory;
 using Content.Shared.Inventory;
@@ -106,18 +106,8 @@ internal sealed class BankAccountCreateCommand : IConsoleCommand
             }
         }
         var bankCard = entMan.GetComponent<BankCardComponent>(idCardUid);
-        BankCartridgeComponent? bankCartridge = null;
-        var programs = cartridgeLoader.GetInstalled(pdaUid.Value);
-        EntityUid bankCartridgeUid = EntityUid.Invalid;
-        foreach (var prog in programs)
-        {
-            if (entMan.TryGetComponent<BankCartridgeComponent>(prog, out bankCartridge))
-            {
-                bankCartridgeUid = prog;
-                break;
-            }
-        }
-        if (bankCartridge == null)
+        var bankProgram = cartridgeLoader.TryGetProgram<BankCartridgeComponent>(pdaUid.Value);
+        if (bankProgram is not { } bankCartridge)
         {
             shell.WriteLine("В КПК не найден катридж банка.");
             return;
@@ -144,8 +134,8 @@ internal sealed class BankAccountCreateCommand : IConsoleCommand
             ownerName = "Неизвестно";
         account.Name = ownerName;
 
-        account.CartridgeUid = bankCartridgeUid;
-        bankCartridge.AccountId = account.AccountId;
+        account.CartridgeUid = bankCartridge.Owner;
+        bankCartridge.Comp.AccountId = account.AccountId;
         bankCard.AccountId = account.AccountId;
         bankCard.Pin = pin;
         bankCard.IsPayrollEnabled = salary;

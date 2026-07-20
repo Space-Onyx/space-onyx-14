@@ -241,7 +241,7 @@ namespace Content.Server.VendingMachines
                             if (_bankCard.TryGetAccount(bankCard.AccountId.Value, out var buyerAccount))
                             {
                                 var itemName = entry.ID;
-                                if (PrototypeManager.TryIndex<EntityPrototype>(entry.ID, out var proto))
+                                if (ProtoMan.TryIndex<EntityPrototype>(entry.ID, out var proto))
                                     itemName = proto.Name;
                                 var now = _timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan);
                                 buyerAccount.AddTransaction(new TransactionRecord(

@@ -6,7 +6,7 @@ using Robust.Shared.Configuration;
 using Content.Server.Access.Systems;
 using Content.Shared.Cargo.Components;
 using Content.Server.Cargo.Systems;
-using Content.Server.CartridgeLoader;
+using Content.Shared.CartridgeLoader;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking;
 using Content.Server.Roles.Jobs;
@@ -195,24 +195,12 @@ public sealed partial class BankCardSystem : EntitySystem
             if (!_inventorySystem.TryGetSlotEntity(ev.Mob, "id", out var pdaUid))
                 return;
 
-            BankCartridgeComponent? comp = null;
-
-            var programs = _cartridgeLoader.GetInstalled(pdaUid.Value);
-            EntityUid? program = null;
-            foreach (var installedProgram in programs)
-            {
-                if (!TryComp(installedProgram, out comp))
-                    continue;
-
-                program = installedProgram;
-                break;
-            }
-
-            if (comp == null)
+            var bankProgram = _cartridgeLoader.TryGetProgram<BankCartridgeComponent>(pdaUid.Value);
+            if (bankProgram is not { } program)
                 return;
 
-            bankAccount.CartridgeUid = program;
-            comp.AccountId = bankAccount.AccountId;
+            bankAccount.CartridgeUid = program.Owner;
+            program.Comp.AccountId = bankAccount.AccountId;
         }
     }
 

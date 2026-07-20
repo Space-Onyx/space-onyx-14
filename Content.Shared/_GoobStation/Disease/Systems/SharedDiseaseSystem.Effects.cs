@@ -10,7 +10,7 @@ using Content.Shared.Maps;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Random.Helpers;
-using Content.Shared.StatusEffect;
+using Content.Shared.StatusEffectNew;
 using Content.Shared.StatusIcon.Components;
 using Content.Shared.Stunnable;
 using Robust.Shared.Audio.Systems;
@@ -29,7 +29,6 @@ public partial class SharedDiseaseSystem
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private StatusEffectsSystem _status = default!;
     [Dependency] private SharedStunSystem _stun = default!;
-    [Dependency] private IMapManager _mapMan = default!;
     [Dependency] private TileSystem _tile = default!;
     [Dependency] private MovementModStatusSystem _movemod = default!;
 
@@ -107,7 +106,7 @@ public partial class SharedDiseaseSystem
 
         EntityUid source = args.Ent.Owner;
         var targets = _lookup.GetEntitiesInRange(new MapCoordinates(selfPos, xform.MapID), ent.Comp.Range)
-            .Where(target => (EntityUid) target != source && Angle.ShortestDistance(selfRot, (Transform(target).WorldPosition - selfPos).ToAngle()).Theta <= ent.Comp.Arc.Theta / 2);
+            .Where(target => (EntityUid) target != source && Angle.ShortestDistance(selfRot, (_transform.GetWorldPosition(target) - selfPos).ToAngle()).Theta <= ent.Comp.Arc.Theta / 2);
 
         foreach (var target in targets)
         {
@@ -149,8 +148,8 @@ public partial class SharedDiseaseSystem
         if (_net.IsClient) // flashes twice if ran on both server and client
             return;
 
-        // migrate this to new status effects once flashes are
-        _status.TryAddStatusEffect<FlashedComponent>(args.Ent, _flash.FlashedKey.Id, ent.Comp.Duration * GetScale(args, ent.Comp), true);
+        _status.TryAddStatusEffectDuration(args.Ent, SharedFlashSystem.FlashedKey,
+            ent.Comp.Duration * GetScale(args, ent.Comp));
         _movemod.TryUpdateMovementSpeedModDuration(args.Ent.Owner,  MovementModStatusSystem.FlashSlowdown, ent.Comp.Duration * GetScale(args, ent.Comp), ent.Comp.SlowTo, ent.Comp.SlowTo);
 
         if (ent.Comp.StunDuration != null)
@@ -174,7 +173,7 @@ public partial class SharedDiseaseSystem
             return;
         var xform = Transform(args.Ent);
         var mapPos = _transform.GetMapCoordinates(xform);
-        if (!_mapMan.TryFindGridAt(mapPos, out var gridUid, out var grid))
+        if (!_map.TryFindGridAt(mapPos, out var gridUid, out var grid))
             return;
         for (var i = 0; i < ent.Comp.Attempts; i++)
         {

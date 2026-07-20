@@ -16,7 +16,8 @@ public sealed partial class TargetingComponent : Component
         [TargetBodyPart.Head] = new() { [TargetBodyPart.Head] = 0.5f, [TargetBodyPart.Chest] = 0.5f },
         [TargetBodyPart.Chest] = new()
         {
-            [TargetBodyPart.Chest] = 0.6f,
+            [TargetBodyPart.Chest] = 0.45f,
+            [TargetBodyPart.Groin] = 0.15f,
             [TargetBodyPart.Head] = 0.1f,
             [TargetBodyPart.LeftArm] = 0.075f,
             [TargetBodyPart.RightArm] = 0.075f,
@@ -36,8 +37,8 @@ public sealed partial class TargetingComponent : Component
         [TargetBodyPart.RightArm] = new() { [TargetBodyPart.RightArm] = 0.7f, [TargetBodyPart.RightHand] = 0.15f, [TargetBodyPart.Chest] = 0.15f },
         [TargetBodyPart.LeftHand] = new() { [TargetBodyPart.LeftHand] = 0.35f, [TargetBodyPart.LeftArm] = 0.65f },
         [TargetBodyPart.RightHand] = new() { [TargetBodyPart.RightHand] = 0.35f, [TargetBodyPart.RightArm] = 0.65f },
-        [TargetBodyPart.LeftLeg] = new() { [TargetBodyPart.LeftLeg] = 0.7f, [TargetBodyPart.LeftFoot] = 0.15f, [TargetBodyPart.Chest] = 0.15f },
-        [TargetBodyPart.RightLeg] = new() { [TargetBodyPart.RightLeg] = 0.7f, [TargetBodyPart.RightFoot] = 0.15f, [TargetBodyPart.Chest] = 0.15f },
+        [TargetBodyPart.LeftLeg] = new() { [TargetBodyPart.LeftLeg] = 0.7f, [TargetBodyPart.LeftFoot] = 0.15f, [TargetBodyPart.Groin] = 0.15f },
+        [TargetBodyPart.RightLeg] = new() { [TargetBodyPart.RightLeg] = 0.7f, [TargetBodyPart.RightFoot] = 0.15f, [TargetBodyPart.Groin] = 0.15f },
         [TargetBodyPart.LeftFoot] = new() { [TargetBodyPart.LeftFoot] = 0.35f, [TargetBodyPart.LeftLeg] = 0.65f },
         [TargetBodyPart.RightFoot] = new() { [TargetBodyPart.RightFoot] = 0.35f, [TargetBodyPart.RightLeg] = 0.65f },
     };

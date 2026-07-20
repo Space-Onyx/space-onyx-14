@@ -17,7 +17,7 @@ public sealed partial class CarryingSlowdownSystem : EntitySystem
         entity.Comp ??= EnsureComp<CarryingSlowdownComponent>(entity);
         entity.Comp.Modifier = modifier;
         Dirty(entity, entity.Comp);
-        _movementSpeed.RefreshMovementSpeedModifiers(entity);
+        _movementSpeed.RefreshMovementSpeedModifiers(entity.Owner);
     }
 
     private static void OnRefreshSpeed(Entity<CarryingSlowdownComponent> entity, ref RefreshMovementSpeedModifiersEvent args)
