@@ -11,6 +11,11 @@
     enum.HumanoidVisualLayers.Chest:
       limit: 2
       required: false
+    # <Onyx-IPCGroin-edited>
+    enum.HumanoidVisualLayers.Groin:
+      limit: 1
+      required: false
+    # </Onyx-IPCGroin-edited>
     enum.HumanoidVisualLayers.Snout:
       limit: 1
       required: true
@@ -95,10 +100,14 @@
   - type: DamageVisuals
     damageOverlayGroups:
       Brute:
-        sprite: Mobs/Effects/brute_damage.rsi
+        # <Onyx-IPCGroinDamage-edited>
+        sprite: _Onyx/Wounds/brute_damage.rsi
+        # </Onyx-IPCGroinDamage-edited>
         color: "#cd7314"
       Burn:
-        sprite: Mobs/Effects/burn_damage.rsi
+        # <Onyx-IPCGroinDamage-edited>
+        sprite: _Onyx/Wounds/burn_damage.rsi
+        # </Onyx-IPCGroinDamage-edited>
   - type: SlowOnDamage
     speedModifierThresholds:
       60: 0.7

@@ -90,8 +90,9 @@
   - type: Sprite
     sprite: _Onyx/Body/Species/Human/parts.rsi
   - type: VisualOrgan
-    data:
-      sprite: _Onyx/Body/Species/Human/parts.rsi
+    layer: enum.HumanoidVisualLayers.Groin
+    data: { sprite: _Onyx/Body/Species/Human/parts.rsi, state: groin_m }
+    sexStateOverrides: { Male: groin_m, Female: groin_f }
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganHumanExternal ]
@@ -113,8 +114,9 @@
   - type: Sprite
     sprite: _Onyx/Body/Species/Human/parts.rsi
   - type: VisualOrgan
-    data:
-      sprite: _Onyx/Body/Species/Human/parts.rsi
+    layer: enum.HumanoidVisualLayers.Groin
+    data: { sprite: _Onyx/Body/Species/Human/parts.rsi, state: groin_m }
+    sexStateOverrides: { Male: groin_m, Female: groin_f }
   - type: VisualOrganMarkings
     markingData:
       group: Felinid
@@ -135,7 +137,9 @@
   - type: Sprite
     sprite: _Onyx/Body/Species/Reptilian/parts.rsi
   - type: VisualOrgan
-    data: { sprite: _Onyx/Body/Species/Reptilian/parts.rsi }
+    layer: enum.HumanoidVisualLayers.Groin
+    data: { sprite: _Onyx/Body/Species/Reptilian/parts.rsi, state: groin_m }
+    sexStateOverrides: { Male: groin_m, Female: groin_f }
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganSlimePersonExternal ]
@@ -153,7 +157,9 @@
   - type: Sprite
     sprite: _Onyx/Body/Species/Slime/parts.rsi
   - type: VisualOrgan
-    data: { sprite: _Onyx/Body/Species/Slime/parts.rsi }
+    layer: enum.HumanoidVisualLayers.Groin
+    data: { sprite: _Onyx/Body/Species/Slime/parts.rsi, state: groin_m }
+    sexStateOverrides: { Male: groin_m, Female: groin_f }
 
 - type: entity
   parent: [ OrganBaseChest, OrganDionaExternal ]
@@ -171,7 +177,8 @@
   - type: Sprite
     sprite: _Onyx/Body/Species/Diona/parts.rsi
   - type: VisualOrgan
-    data: { sprite: _Onyx/Body/Species/Diona/parts.rsi }
+    layer: enum.HumanoidVisualLayers.Groin
+    data: { sprite: _Onyx/Body/Species/Diona/parts.rsi, state: groin_m }
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganMothExternal ]
@@ -189,7 +196,9 @@
   - type: Sprite
     sprite: _Onyx/Body/Species/Moth/parts.rsi
   - type: VisualOrgan
-    data: { sprite: _Onyx/Body/Species/Moth/parts.rsi }
+    layer: enum.HumanoidVisualLayers.Groin
+    data: { sprite: _Onyx/Body/Species/Moth/parts.rsi, state: groin_m }
+    sexStateOverrides: { Male: groin_m, Female: groin_f }
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganVulpkaninExternal ]
@@ -207,7 +216,9 @@
   - type: Sprite
     sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi
   - type: VisualOrgan
-    data: { sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi }
+    layer: enum.HumanoidVisualLayers.Groin
+    data: { sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi, state: groin_m }
+    sexStateOverrides: { Male: groin_m, Female: groin_f }
 
 - type: entity
   parent: [ OrganBaseChest, OrganVoxExternal ]
@@ -225,7 +236,8 @@
   - type: Sprite
     sprite: _Onyx/Body/Species/Vox/parts.rsi
   - type: VisualOrgan
-    data: { sprite: _Onyx/Body/Species/Vox/parts.rsi }
+    layer: enum.HumanoidVisualLayers.Groin
+    data: { sprite: _Onyx/Body/Species/Vox/parts.rsi, state: groin_m }
 
 - type: entity
   parent: [ OrganBaseChest, OrganArachnidExternal ]
@@ -243,7 +255,8 @@
   - type: Sprite
     sprite: _Onyx/Body/Species/Arachnid/parts.rsi
   - type: VisualOrgan
-    data: { sprite: _Onyx/Body/Species/Arachnid/parts.rsi }
+    layer: enum.HumanoidVisualLayers.Groin
+    data: { sprite: _Onyx/Body/Species/Arachnid/parts.rsi, state: groin_m }
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganTajaranExternal ]
@@ -261,7 +274,13 @@
   - type: Sprite
     sprite: _Onyx/Body/Species/Tajaran/parts.rsi
   - type: VisualOrgan
-    data: { sprite: _Onyx/Body/Species/Tajaran/parts.rsi }
+    layer: enum.HumanoidVisualLayers.Groin
+    data:
+      sprite: _Onyx/Body/Species/Tajaran/parts.rsi
+      state: groin_m
+    sexStateOverrides:
+      Male: groin_m
+      Female: groin_f
 
 - type: entity
   parent: [ OrganBaseChest, OrganIpcExternal ]
@@ -273,13 +292,15 @@
     data: { sprite: _Onyx/Body/Species/IPC/parts.rsi }
 
 - type: entity
-  parent: [ OrganBaseGroin, OrganIpcExternal ]
+  parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganIpcExternal ]
   id: OrganIpcGroin
   components:
   - type: Sprite
     sprite: _Onyx/Body/Species/IPC/parts.rsi
   - type: VisualOrgan
-    data: { sprite: _Onyx/Body/Species/IPC/parts.rsi }
+    layer: enum.HumanoidVisualLayers.Groin
+    data: { sprite: _Onyx/Body/Species/IPC/parts.rsi, state: groin_m }
+    sexStateOverrides: { Male: groin_m, Female: groin_f }
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganArcanExternal ]
@@ -297,7 +318,9 @@
   - type: Sprite
     sprite: _Onyx/Body/Species/Arcan/parts.rsi
   - type: VisualOrgan
-    data: { sprite: _Onyx/Body/Species/Arcan/parts.rsi }
+    layer: enum.HumanoidVisualLayers.Groin
+    data: { sprite: _Onyx/Body/Species/Arcan/parts.rsi, state: groin_m }
+    sexStateOverrides: { Male: groin_m, Female: groin_f }
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganSkeletonPersonExternal ]
@@ -315,7 +338,9 @@
   - type: Sprite
     sprite: _Onyx/Body/Species/Skeleton/parts.rsi
   - type: VisualOrgan
-    data: { sprite: _Onyx/Body/Species/Skeleton/parts.rsi }
+    layer: enum.HumanoidVisualLayers.Groin
+    data: { sprite: _Onyx/Body/Species/Skeleton/parts.rsi, state: groin_m }
+    sexStateOverrides: { Male: groin_m, Female: groin_f }
 
 - type: entity
   parent: [ OrganBaseChest, OrganGingerbreadExternal ]
@@ -333,4 +358,5 @@
   - type: Sprite
     sprite: _Onyx/Body/Species/Gingerbread/parts.rsi
   - type: VisualOrgan
-    data: { sprite: _Onyx/Body/Species/Gingerbread/parts.rsi }
+    layer: enum.HumanoidVisualLayers.Groin
+    data: { sprite: _Onyx/Body/Species/Gingerbread/parts.rsi, state: groin_m }

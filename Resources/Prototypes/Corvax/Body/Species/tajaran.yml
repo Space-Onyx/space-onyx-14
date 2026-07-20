@@ -26,6 +26,11 @@
       limit: 1
       required: true
       default: [ TajaranTailM ]
+    # <Onyx-TajaranGroin-edited>
+    enum.HumanoidVisualLayers.Groin:
+      limit: 1
+      required: false
+    # </Onyx-TajaranGroin-edited>
     enum.HumanoidVisualLayers.LArm:
       limit: 2
       required: false
