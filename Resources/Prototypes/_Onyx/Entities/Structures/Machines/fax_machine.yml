@@ -1,0 +1,12 @@
+- type: entity
+  parent: FaxMachineBase
+  id: FaxMachineBridge
+  name: bridge long range fax machine
+  suffix: Bridge
+  components:
+  - type: FaxMachine
+    name: "Bridge"
+  - type: StealTarget
+    stealGroup: FaxMachineCaptain
+  - type: FaxAlert
+    alertChannel: Command

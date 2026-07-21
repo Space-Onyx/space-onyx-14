@@ -1,5 +1,14 @@
 - type: latheRecipe
   parent: BaseSurgicalRecipe
+  id: MedicalStitches
+  result: MedicalStitches
+  completetime: 2
+  materials:
+    Steel: 300
+    Plastic: 10
+
+- type: latheRecipe
+  parent: BaseSurgicalRecipe
   id: EnergyScalpel
   result: EnergyScalpel
   completetime: 2

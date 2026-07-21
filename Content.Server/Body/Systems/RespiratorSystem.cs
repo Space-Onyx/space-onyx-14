@@ -24,6 +24,12 @@ using Content.Shared.EntityEffects.Effects.Body;
 using Content.Shared.EntityEffects.Effects.Damage;
 using Content.Shared.Metabolism;
 using Content.Shared.Mobs.Systems;
+// <Onyx-GoobMartialArts>
+using Content.Goobstation.Shared.MartialArts;
+// </Onyx-GoobMartialArts>
+// <Onyx-GoobGrab>
+using Content.Goobstation.Shared.GrabIntent;
+// </Onyx-GoobGrab>
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
@@ -90,19 +96,33 @@ public sealed partial class RespiratorSystem : EntitySystem
             if (_mobState.IsDead(uid))
                 continue;
 
-            // <Onyx-OrganConsequences>
+            // <Onyx-GoobGrab>
+            var choked = TryComp<GrabbableComponent>(uid, out var grabbable)
+                && grabbable.GrabStage == GrabStage.Suffocate;
+            // </Onyx-GoobGrab>
+
+            // <Onyx-OrganConsequences-edited>
             // Bodies only become lung-dependent after actually having lungs.
-            if (!HasComp<LungDependentComponent>(uid))
+            if (!HasComp<LungDependentComponent>(uid) && !choked)
             {
                 respirator.Saturation = respirator.MaxSaturation;
                 respirator.SuffocationCycles = 0;
                 continue;
             }
-            // </Onyx-OrganConsequences>
+            // </Onyx-OrganConsequences-edited>
 
-            UpdateSaturation(uid, -(float)respirator.UpdateInterval.TotalSeconds, respirator);
+            // <Onyx-GoobGrab-edited>
+            // <Onyx-GoobMartialArts>
+            var breathingBlocked = HasComp<KravMagaBlockedBreathingComponent>(uid);
+            // </Onyx-GoobMartialArts>
+            UpdateSaturation(uid, -(float) respirator.UpdateInterval.TotalSeconds, respirator);
+            // </Onyx-GoobGrab-edited>
 
-            if (!_mobState.IsIncapacitated(uid)) // cannot breathe in crit.
+            // <Onyx-GoobGrab-edited>
+            // <Onyx-GoobMartialArts-edited>
+            if (!_mobState.IsIncapacitated(uid) && !choked && !breathingBlocked) // cannot breathe in crit or while choked.
+            // </Onyx-GoobMartialArts-edited>
+            // </Onyx-GoobGrab-edited>
             {
                 switch (respirator.Status)
                 {

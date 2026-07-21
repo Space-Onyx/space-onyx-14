@@ -79,6 +79,10 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         SubscribeLocalEvent<SurgeryAttachPartEffectComponent, SurgeryStepEvent>(OnAttachPart);
         SubscribeLocalEvent<SurgeryAttachPartEffectComponent, SurgeryStepCompleteCheckEvent>(OnAttachPartCheck);
         SubscribeLocalEvent<SurgeryAttachPartEffectComponent, SurgeryCanPerformStepEvent>(OnAttachPartCanPerform);
+        SubscribeLocalEvent<SurgeryMendAttachedPartEffectComponent, SurgeryStepEvent>(OnMendAttachedPart);
+        SubscribeLocalEvent<SurgeryMendAttachedPartEffectComponent, SurgeryStepCompleteCheckEvent>(OnMendAttachedPartCheck);
+        SubscribeLocalEvent<SurgerySutureAttachedPartEffectComponent, SurgeryStepEvent>(OnSutureAttachedPart);
+        SubscribeLocalEvent<SurgerySutureAttachedPartEffectComponent, SurgeryStepCompleteCheckEvent>(OnSutureAttachedPartCheck);
         SubscribeLocalEvent<SurgeryRemoveOrganEffectComponent, SurgeryStepEvent>(OnRemoveOrgan);
         SubscribeLocalEvent<SurgeryRemoveOrganEffectComponent, SurgeryStepCompleteCheckEvent>(OnRemoveOrganCheck);
         SubscribeLocalEvent<SurgeryInsertOrganEffectComponent, SurgeryStepEvent>(OnInsertOrgan);
@@ -136,7 +140,8 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         var ev = new SurgeryStepEvent(args.User, ent, part, GetActiveTool(args.User));
         RaiseLocalEvent(step, ref ev);
         // <Onyx-OrganHealing>
-        if (_net.IsServer && HasComp<SurgeryOrganHealEffectComponent>(step) &&
+        if (_net.IsServer &&
+            (HasComp<SurgeryOrganHealEffectComponent>(step) || HasComp<SurgeryClampBleedingEffectComponent>(step)) &&
             !IsStepComplete(ent, part, args.Step) &&
             CanPerformStep(args.User, ent, part.Comp.PartType, step, false, out _, out _, out var validTools))
             StartSurgeryDoAfter(ent, part, args.Surgery, args.Step, args.User, step, validTools);
@@ -147,7 +152,6 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     private void OnCloseIncisionValid(Entity<SurgeryCloseIncisionConditionComponent> ent, ref SurgeryValidEvent args)
     {
         if (!HasComp<IncisionOpenComponent>(args.Part) ||
-            !HasComp<BleedersClampedComponent>(args.Part) ||
             !HasComp<SkinRetractedComponent>(args.Part))
             args.Cancelled = true;
     }
@@ -162,7 +166,9 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
     private void OnMissingPartConditionValid(Entity<SurgeryMissingPartConditionComponent> ent, ref SurgeryValidEvent args)
     {
-        if (_body.HasPartChild(args.Part, ent.Comp.Part, ent.Comp.Symmetry))
+        if (TryGetAttachedPart(args.Part, ent.Comp.Part, ent.Comp.Symmetry, out var part) &&
+            !HasComp<BodyPartReattachedComponent>(part) &&
+            !HasComp<BodyPartMendedComponent>(part))
             args.Cancelled = true;
     }
 
@@ -218,6 +224,9 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
         if (_body.TryAttachPart(args.Part, part))
         {
+            RemComp<BodyPartMendedComponent>(part);
+            RemComp<BodyPartSuturedComponent>(part);
+            EnsureComp<BodyPartReattachedComponent>(part);
             EnsurePartDamageable(part);
             ApplyTransplantDamage(args.Body, part);
             _inventory.RefreshBodySlots(args.Body);
@@ -256,8 +265,58 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
     private void OnAttachPartCheck(Entity<SurgeryAttachPartEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
     {
-        if (!_body.HasPartChild(args.Part, ent.Comp.Part, ent.Comp.Symmetry))
+        if (!TryGetAttachedPart(args.Part, ent.Comp.Part, ent.Comp.Symmetry, out var part) ||
+            !HasComp<BodyPartReattachedComponent>(part) &&
+            !HasComp<BodyPartMendedComponent>(part) &&
+            !HasComp<BodyPartSuturedComponent>(part))
             args.Cancelled = true;
+    }
+
+    private void OnMendAttachedPart(Entity<SurgeryMendAttachedPartEffectComponent> ent, ref SurgeryStepEvent args)
+    {
+        if (!_net.IsServer || !TryGetAttachedPart(args.Part, ent.Comp.Part, ent.Comp.Symmetry, out var part) ||
+            !RemComp<BodyPartReattachedComponent>(part))
+            return;
+
+        EnsureComp<BodyPartMendedComponent>(part);
+    }
+
+    private void OnMendAttachedPartCheck(Entity<SurgeryMendAttachedPartEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
+    {
+        if (!TryGetAttachedPart(args.Part, ent.Comp.Part, ent.Comp.Symmetry, out var part) ||
+            !HasComp<BodyPartMendedComponent>(part) && !HasComp<BodyPartSuturedComponent>(part))
+            args.Cancelled = true;
+    }
+
+    private void OnSutureAttachedPart(Entity<SurgerySutureAttachedPartEffectComponent> ent, ref SurgeryStepEvent args)
+    {
+        if (!_net.IsServer || !TryGetAttachedPart(args.Part, ent.Comp.Part, ent.Comp.Symmetry, out var part) ||
+            !RemComp<BodyPartMendedComponent>(part))
+            return;
+
+        EnsureComp<BodyPartSuturedComponent>(part);
+    }
+
+    private void OnSutureAttachedPartCheck(Entity<SurgerySutureAttachedPartEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
+    {
+        if (!TryGetAttachedPart(args.Part, ent.Comp.Part, ent.Comp.Symmetry, out var part) ||
+            !HasComp<BodyPartSuturedComponent>(part))
+            args.Cancelled = true;
+    }
+
+    private bool TryGetAttachedPart(EntityUid parent, BodyPartType type, BodyPartSymmetry symmetry, out EntityUid part)
+    {
+        foreach (var child in _body.GetBodyPartChildren(parent))
+        {
+            if (child.Component.PartType != type || child.Component.Symmetry != symmetry)
+                continue;
+
+            part = child.Id;
+            return true;
+        }
+
+        part = default;
+        return false;
     }
 
     private void OnAttachPartCanPerform(Entity<SurgeryAttachPartEffectComponent> ent, ref SurgeryCanPerformStepEvent args)

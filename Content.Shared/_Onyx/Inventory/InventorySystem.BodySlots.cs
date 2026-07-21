@@ -28,20 +28,57 @@ public partial class InventorySystem
             available &= ~SlotFlags.GLOVES;
         if (!_onyxBody.BodyHasPartType(ent, BodyPartType.Foot))
             available &= ~SlotFlags.FEET;
+        if (!_onyxBody.BodyHasPartType(ent, BodyPartType.Leg))
+            available &= ~(SlotFlags.LEGS | SlotFlags.SOCKS);
+        if (!_onyxBody.BodyHasPartType(ent, BodyPartType.Groin))
+            available &= ~SlotFlags.UNDERWEARB;
 
         var slots = template.Slots.Where(slot => (slot.SlotFlags & ~available) == 0).ToArray();
-        if (inventory.Containers.Any(container =>
-                slots.All(slot => slot.Name != container.ID) &&
-                container.ContainedEntity is { } item &&
-                TerminatingOrDeleted(item)))
+        var removedSlots = inventory.Slots.Where(slot => slots.All(next => next.Name != slot.Name)).ToArray();
+        if (removedSlots.Length > 0)
+        {
+            foreach (var slot in removedSlots)
+                TryUnequip(ent, ent, slot.Name, out _, silent: true, force: true, inventory: inventory);
+
+            _readyBodySlots.Remove(ent);
+            _pendingBodySlots[ent] = available;
             return;
+        }
+
+        _readyBodySlots.Remove(ent);
+        _pendingBodySlots.Remove(ent);
+        ApplyBodySlots(ent, available, inventory, template);
+    }
+
+    private void ApplyBodySlots(EntityUid uid, SlotFlags available)
+    {
+        if (TerminatingOrDeleted(uid) ||
+            !TryComp(uid, out InventoryComponent? inventory) ||
+            !ProtoMan.Resolve(inventory.TemplateId, out var template))
+            return;
+
+        ApplyBodySlots(uid, available, inventory, template);
+    }
+
+    private void ApplyBodySlots(
+        EntityUid uid,
+        SlotFlags available,
+        InventoryComponent inventory,
+        InventoryTemplatePrototype template)
+    {
+        var slots = template.Slots.Where(slot => (slot.SlotFlags & ~available) == 0).ToArray();
 
         foreach (var container in inventory.Containers)
         {
             if (slots.Any(slot => slot.Name == container.ID))
                 continue;
 
-            _containerSystem.EmptyContainer(container);
+            if (container.ContainedEntity != null)
+            {
+                _pendingBodySlots[uid] = available;
+                return;
+            }
+
             _containerSystem.ShutdownContainer(container);
         }
 
@@ -50,15 +87,15 @@ public partial class InventorySystem
         inventory.Containers = new ContainerSlot[slots.Length];
         for (var i = 0; i < slots.Length; i++)
         {
-            var container = _containerSystem.EnsureContainer<ContainerSlot>(ent, slots[i].Name);
+            var container = _containerSystem.EnsureContainer<ContainerSlot>(uid, slots[i].Name);
             container.OccludesLight = false;
             inventory.Containers[i] = container;
         }
 
-        Dirty(ent);
-        if (TryComp<ContainerManagerComponent>(ent, out var containerManager))
-            Dirty(ent.Owner, containerManager);
+        Dirty(uid, inventory);
+        if (TryComp<ContainerManagerComponent>(uid, out var containerManager))
+            Dirty(uid, containerManager);
         var ev = new InventoryTemplateUpdated();
-        RaiseLocalEvent(ent, ref ev);
+        RaiseLocalEvent(uid, ref ev);
     }
 }

@@ -18,6 +18,20 @@
   - type: BoneGel
 
 - type: entity
+  parent: BaseToolSurgery
+  id: MedicalStitches
+  name: medical stitches
+  description: A fine, curved needle with a length of absorbable polyglycolide suture thread.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
+    state: stitches
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
+  - type: SurgeryTool
+  - type: Stitches
+
+- type: entity
   id: EnergyScalpel
   parent: Scalpel
   name: energy scalpel

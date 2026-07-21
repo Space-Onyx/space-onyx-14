@@ -323,6 +323,9 @@
   - type: SurgeryTool
     startSound:
       path: /Audio/_Onyx/Medical/Surgery/saw.ogg
+  - type: Tag
+    tags:
+    - SawElectric
   # </Onyx-Surgery>
 
 - type: entity

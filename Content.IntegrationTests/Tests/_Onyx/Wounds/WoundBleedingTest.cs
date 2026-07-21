@@ -96,41 +96,37 @@ public sealed class WoundBleedingTest : GameTest
     }
 
     [Test]
-    public async Task BandageRemovesWeakImmediatelyAndStrongAfterFiveSecondsTest()
+    public async Task BandageReducesBleedingAndDamageReopensWoundTest()
     {
         var server = Pair.Server;
         await server.WaitIdleAsync();
         var entityManager = server.ResolveDependency<IEntityManager>();
         var map = await Pair.CreateTestMap();
-        EntityUid strongPart = default;
-
         await server.WaitAssertion(() =>
         {
             var body = entityManager.SpawnEntity("WoundBleedingBody", map.GridCoords);
             var parts = entityManager.System<SharedBodySystem>().GetBodyChildren(body).ToList();
-            var weakPart = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
-            strongPart = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
+            var part = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
             var wounds = entityManager.System<WoundSystem>();
             var bleeding = entityManager.System<WoundBleedingSystem>();
-            var weak = wounds.CreateOrMergeWound(weakPart, "SlashWound", 14)!.Value;
-            var strong = wounds.CreateOrMergeWound(strongPart, "SlashWound", 15)!.Value;
+            var wound = wounds.CreateOrMergeWound(part, "SlashWound", 30)!.Value;
 
-            Assert.That(bleeding.SetTreatment(weak, BleedingTreatment.Bandaged));
-            Assert.That(wounds.GetWounds((weakPart, entityManager.GetComponent<WoundableComponent>(weakPart))), Is.Empty);
-            Assert.That(bleeding.SetTreatment(strong, BleedingTreatment.Bandaged));
-            Assert.That(wounds.GetWounds((strongPart, entityManager.GetComponent<WoundableComponent>(strongPart))).Count(),
-                Is.EqualTo(1));
+            Assert.That(bleeding.ReduceBleeding(wound, 10));
+            Assert.That(entityManager.GetComponent<WoundBleedingComponent>(wound).BleedingSeverity,
+                Is.EqualTo(FixedPoint2.New(20)));
+            Assert.That(wounds.GetWounds((part, entityManager.GetComponent<WoundableComponent>(part))).Count(), Is.EqualTo(1));
+
+            Assert.That(bleeding.ReduceBleeding(wound, 20));
+            Assert.That(bleeding.GetPartRate(part), Is.Zero);
+            Assert.That(entityManager.HasComponent<WoundBleedingComponent>(wound), Is.False);
+            Assert.That(wounds.CloseWound(wound));
+            Assert.That(wounds.CreateOrMergeWound(part, "SlashWound", 5), Is.EqualTo(wound));
+            Assert.That(entityManager.GetComponent<WoundComponent>(wound).State, Is.EqualTo(WoundState.Open));
+            Assert.That(entityManager.HasComponent<WoundBleedingComponent>(wound), Is.True);
+            Assert.That(entityManager.GetComponent<WoundBleedingComponent>(wound).BleedingSeverity,
+                Is.EqualTo(FixedPoint2.New(5)));
+            Assert.That(bleeding.GetPartRate(part), Is.GreaterThan(0f));
         });
-
-        await RunSeconds(4.9f);
-        await server.WaitAssertion(() =>
-            Assert.That(entityManager.System<WoundSystem>().GetWounds(
-                (strongPart, entityManager.GetComponent<WoundableComponent>(strongPart))).Count(), Is.EqualTo(1)));
-
-        await RunSeconds(0.2f);
-        await server.WaitAssertion(() =>
-            Assert.That(entityManager.System<WoundSystem>().GetWounds(
-                (strongPart, entityManager.GetComponent<WoundableComponent>(strongPart))), Is.Empty));
     }
 
     [Test]

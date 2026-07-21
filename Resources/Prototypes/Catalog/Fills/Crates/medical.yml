@@ -73,10 +73,13 @@
         - id: Retractor
         - id: Cautery
         - id: Drill
-        - id: Saw
+        # <Onyx-CircularSaw-edited>
+        - id: SawElectric
+        # </Onyx-CircularSaw-edited>
         - id: Hemostat
         # <Onyx-Surgery>
         - id: BoneGel
+        - id: MedicalStitches
         # </Onyx-Surgery>
         - id: ClothingMaskSterile
 

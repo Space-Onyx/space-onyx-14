@@ -103,6 +103,10 @@
     name: "Central Command"
     notifyAdmins: true
     receiveAllStationGoals: true # Corvax-StationGoal
+  # <Onyx-FaxAlert>
+  - type: FaxAlert
+    alertChannel: CentCom
+  # </Onyx-FaxAlert>
 
 - type: entity
   parent: FaxMachineBase
@@ -140,3 +144,7 @@
       receiveStationGoal: true # Corvax-StationGoal
     - type: StealTarget
       stealGroup: FaxMachineCaptain
+    # <Onyx-FaxAlert>
+    - type: FaxAlert
+      alertChannel: Command
+    # </Onyx-FaxAlert>

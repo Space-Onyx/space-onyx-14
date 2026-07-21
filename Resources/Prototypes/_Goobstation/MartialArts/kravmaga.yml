@@ -1,0 +1,29 @@
+- type: martialArt
+  id: KravMaga
+  martialArtsForm: KravMaga
+  roundstartCombos: KravMagaMoves
+- type: comboList
+  id: KravMagaMoves
+  combos: [KravLegSweep, KravNeckChop, KravLungPunch]
+- type: combo
+  id: KravLegSweep
+  name: Leg Sweep
+  martialArtsForm: KravMaga
+  attacks: [Disarm, Harm]
+  paralyzeTime: 4
+  staminaDamage: 20
+- type: combo
+  id: KravNeckChop
+  name: Neck Chop
+  martialArtsForm: KravMaga
+  attacks: [Disarm, Grab]
+  extraDamage: 10
+  silenceTime: 8
+- type: combo
+  id: KravLungPunch
+  name: Lung Punch
+  martialArtsForm: KravMaga
+  attacks: [Harm, Harm]
+  extraDamage: 10
+  staminaDamage: 25
+  blockBreathingTime: 8

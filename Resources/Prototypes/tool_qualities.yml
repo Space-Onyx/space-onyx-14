@@ -51,7 +51,9 @@
   id: Sawing
   name: tool-quality-sawing-name
   toolName: tool-quality-sawing-tool-name
-  spawn: Saw
+  # <Onyx-CircularSaw-edited>
+  spawn: SawElectric
+  # </Onyx-CircularSaw-edited>
   icon: { sprite: Objects/Specific/Medical/Surgery/saw.rsi, state: saw }
 
 - type: tool

@@ -34,10 +34,13 @@
   - Retractor
   - Cautery
   - Drill
-  - Saw
+  # <Onyx-CircularSaw-edited>
+  - SawElectric
+  # </Onyx-CircularSaw-edited>
   - Hemostat
   # <Onyx-Surgery>
   - BoneGel
+  - MedicalStitches
   # </Onyx-Surgery>
 
 - type: latheRecipePack

@@ -3,6 +3,9 @@ using Content.Shared.Body.Part;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Damage.Components;
 using Content.Shared.Humanoid;
+// <Onyx-BodyConsequences>
+using Content.Shared._Onyx.Body;
+// </Onyx-BodyConsequences>
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
@@ -89,6 +92,11 @@ public sealed partial class InitialBodySystem : EntitySystem
         Attach(external, external.GetValueOrDefault(BodyPartType.Arm)?.GetValueOrDefault(BodyPartSymmetry.Right), BodyPartType.Hand, BodyPartSymmetry.Right, "right_hand");
         Attach(external, external.GetValueOrDefault(BodyPartType.Leg)?.GetValueOrDefault(BodyPartSymmetry.Left), BodyPartType.Foot, BodyPartSymmetry.Left, "left_foot");
         Attach(external, external.GetValueOrDefault(BodyPartType.Leg)?.GetValueOrDefault(BodyPartSymmetry.Right), BodyPartType.Foot, BodyPartSymmetry.Right, "right_foot");
+
+        // <Onyx-BodyConsequences>
+        if (external.TryGetValue(BodyPartType.Leg, out var legs))
+            EnsureComp<InitiallyLeggedComponent>(ent).InitialLegCount = legs.Count;
+        // </Onyx-BodyConsequences>
 
         // Hand parts live in the surgical part graph, not BodyComponent's organ container.
         // Register their inventory slots explicitly after both hands are attached.

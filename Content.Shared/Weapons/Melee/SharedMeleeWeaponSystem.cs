@@ -2,6 +2,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
 using Content.Shared.ActionBlocker;
+// <Onyx-GoobShove>
+using Content.Goobstation.Shared.MartialArts;
+using Content.Shared.Item;
+using Content.Shared.Throwing;
+using Robust.Shared.Physics.Components;
+// </Onyx-GoobShove>
 using Content.Shared.Actions.Events;
 using Content.Shared.Administration.Components;
 using Content.Shared.Administration.Logs;
@@ -61,6 +67,9 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
     [Dependency] protected SharedMapSystem Maps = default!;
     [Dependency] protected SharedInteractionSystem Interaction = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
+    // <Onyx-GoobShove>
+    [Dependency] private ThrowingSystem _throwing = default!;
+    // </Onyx-GoobShove>
     [Dependency] protected SharedPopupSystem PopupSystem = default!;
     [Dependency] protected SharedTransformSystem TransformSystem = default!;
     [Dependency] private SharedStaminaSystem _stamina = default!;
@@ -460,7 +469,9 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
                     if (!DoDisarm(user, disarm, weaponUid, weapon, session))
                         return false;
 
-                    animation = weapon.Animation;
+                    // <Onyx-GoobShove-edited>
+                    animation = weapon.DisarmAnimation;
+                    // </Onyx-GoobShove-edited>
                     break;
                 case HeavyAttackEvent heavy:
                     if (!DoHeavyAttack(user, heavy, weaponUid, weapon, session))
@@ -552,6 +563,10 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
 
         if (Damageable.TryChangeDamage(target.Value, modifiedDamage, out var damageResult, origin:user, ignoreResistances:resistanceBypass))
         {
+            // <Onyx-GoobShove>
+            RaiseLocalEvent(user,
+                new ComboAttackPerformedEvent(user, target.Value, meleeUid, ComboAttackType.Harm));
+            // </Onyx-GoobShove>
             // If the target has stamina and is taking blunt damage, they should also take stamina damage based on their blunt to stamina factor
             if (damageResult.DamageDict.TryGetValue("Blunt", out var bluntDamage))
             {
@@ -710,6 +725,11 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
 
             var damageResult = Damageable.ChangeDamage(entity, modifiedDamage, origin: user, ignoreResistances: resistanceBypass);
 
+            // <Onyx-GoobShove>
+            RaiseLocalEvent(user,
+                new ComboAttackPerformedEvent(user, entity, meleeUid, ComboAttackType.HarmLight));
+            // </Onyx-GoobShove>
+
             if (damageResult.GetTotal() > FixedPoint2.Zero)
             {
                 // If the target has stamina and is taking blunt damage, they should also take stamina damage based on their blunt to stamina factor
@@ -845,6 +865,23 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         return Math.Clamp(chance, 0f, 1f);
     }
 
+    // <Onyx-GoobShove>
+    private float CalculateShoveStaminaDamage(EntityUid user, EntityUid target)
+    {
+        var damage = TryComp<ShovingComponent>(user, out var shoving)
+            ? shoving.StaminaDamage
+            : ShovingComponent.DefaultStaminaDamage;
+
+        if (!TryComp<PhysicsComponent>(user, out var userPhysics) ||
+            !TryComp<PhysicsComponent>(target, out var targetPhysics) ||
+            userPhysics.InvMass <= 0f ||
+            targetPhysics.InvMass <= 0f)
+            return damage;
+
+        return damage * Math.Clamp(targetPhysics.InvMass / userPhysics.InvMass, 0f, 2f);
+    }
+    // </Onyx-GoobShove>
+
     private bool DoDisarm(EntityUid user, DisarmAttackEvent ev, EntityUid meleeUid, MeleeWeaponComponent component, ICommonSession? session)
     {
         var target = GetEntity(ev.Target);
@@ -856,16 +893,28 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         }
 
 
-        if (MobState.IsIncapacitated(target.Value))
-        {
-            return false;
-        }
+        // <Onyx-GoobShove-edited>
+        // Incapacitated targets are still valid shove targets; disarm processing exits after the shove below.
+        // </Onyx-GoobShove-edited>
 
         if (!TryComp<CombatModeComponent>(user, out var combatMode) ||
             combatMode.CanDisarm != true)
         {
             return false;
         }
+
+        // <Onyx-GoobShove>
+        if (!InRange(user, target.Value, component.Range, session))
+            return false;
+
+        RaiseLocalEvent(user,
+            new ComboAttackPerformedEvent(user, target.Value, meleeUid, ComboAttackType.Disarm));
+        PhysicalShove(user, target.Value);
+        Interaction.DoContactInteraction(user, target);
+
+        if (MobState.IsIncapacitated(target.Value))
+            return true;
+        // </Onyx-GoobShove>
 
         // Need hands or to be able to be shoved over.
         if (!TryComp<HandsComponent>(target, out var targetHandsComponent))
@@ -877,7 +926,9 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
                 if (HasComp<MobStateComponent>(target.Value))
                     PopupSystem.PopupEntity(Loc.GetString("disarm-action-disarmable", ("targetName", target.Value)), target.Value, target.Value);
 
-                return false;
+                // <Onyx-GoobShove-edited>
+                return true;
+                // </Onyx-GoobShove-edited>
             }
         }
 
@@ -903,7 +954,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         RaiseLocalEvent(target.Value, ref attemptEvent);
 
         if (attemptEvent.Cancelled)
-            return false;
+            return true; // <Onyx-GoobShove-edited>
 
         var chance = CalculateDisarmChance(user, target.Value, inTargetHand, combatMode);
 
@@ -915,18 +966,18 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             return true;
         }
 
-        if (_random.Prob(chance))
+        // <Onyx-GoobShove-edited>
+        var eventArgs = new DisarmedEvent(target.Value, user, 1 - chance)
         {
-            return false;
-        }
-
-        var eventArgs = new DisarmedEvent(target.Value, user, 1 - chance);
+            StaminaDamage = CalculateShoveStaminaDamage(user, target.Value),
+        };
+        // </Onyx-GoobShove-edited>
         RaiseLocalEvent(target.Value, ref eventArgs);
 
         // Nothing handled it so abort.
         if (!eventArgs.Handled)
         {
-            return false;
+            return true; // <Onyx-GoobShove-edited>
         }
 
         Interaction.DoContactInteraction(user, target);
@@ -985,6 +1036,35 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
 
         DoLunge(user, weapon, angle, localPos, animation);
     }
+
+    // <Onyx-GoobShove>
+    private void PhysicalShove(EntityUid user, EntityUid target)
+    {
+        if (!TryComp<PhysicsComponent>(user, out var userPhysics)
+            || !TryComp<PhysicsComponent>(target, out var targetPhysics)
+            || userPhysics.InvMass <= 0f
+            || targetPhysics.InvMass <= 0f)
+            return;
+
+        var userPos = TransformSystem.GetWorldPosition(user);
+        var targetPos = TransformSystem.GetWorldPosition(target);
+        var offset = targetPos - userPos;
+        if (offset.LengthSquared() <= 0f)
+            return;
+
+        const float shoveRange = 0.6f;
+        const float shoveSpeed = 4f;
+        const float shoveMassFactor = 3f;
+        var massRatio = Math.Clamp(targetPhysics.InvMass / userPhysics.InvMass,
+            0f,
+            1f + shoveMassFactor);
+        var force = shoveRange * massRatio;
+        _throwing.TryThrow(target,
+            offset.Normalized() * force,
+            force * shoveSpeed,
+            animated: HasComp<ItemComponent>(target));
+    }
+    // </Onyx-GoobShove>
 
     public abstract void DoLunge(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, bool predicted = true);
 

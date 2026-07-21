@@ -1,0 +1,47 @@
+- type: entity
+  id: SprintAnimation
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: WallMountedItems
+    sprite: _Onyx/Effects/sprinting.rsi
+    layers:
+    - map: [ "enum.SprintVisualLayers.Base" ]
+      state: sprint_cloud
+  - type: TimedDespawn
+    lifetime: 0.48
+  - type: Tag
+    tags: [ HideContextMenu ]
+  - type: AnimationPlayer
+
+- type: entity
+  id: SmallSprintAnimation
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: WallMountedItems
+    sprite: _Onyx/Effects/sprinting.rsi
+    layers:
+    - map: [ "enum.SprintVisualLayers.Base" ]
+      state: sprint_cloud_small
+  - type: TimedDespawn
+    lifetime: 0.34
+  - type: Tag
+    tags: [ HideContextMenu ]
+  - type: AnimationPlayer
+
+- type: entity
+  id: TinySprintAnimation
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: WallMountedItems
+    sprite: _Onyx/Effects/sprinting.rsi
+    layers:
+    - map: [ "enum.SprintVisualLayers.Base" ]
+      state: sprint_cloud_tiny
+  - type: TimedDespawn
+    lifetime: 0.25
+  - type: Tag
+    tags: [ HideContextMenu ]
+  - type: AnimationPlayer

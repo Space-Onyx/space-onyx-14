@@ -34,8 +34,10 @@
 
 - type: latheRecipe
   parent: BaseSurgicalRecipe
-  id: Saw
-  result: Saw
+  # <Onyx-CircularSaw-edited>
+  id: SawElectric
+  result: SawElectric
+  # </Onyx-CircularSaw-edited>
 
 - type: latheRecipe
   parent: BaseSurgicalRecipe

@@ -36,6 +36,11 @@ public sealed class WoundSurgeryTest : GameTest
   - type: SurgeryTreatWoundEffect
     amount: 5
 - type: entity
+  id: WoundSurgeryTestBleedingTreatment
+  components:
+  - type: SurgeryClampBleedingEffect
+    amount: 10
+- type: entity
   id: WoundSurgeryTestReduce
   components: [ { type: SurgeryReduceFractureEffect } ]
 - type: entity
@@ -81,6 +86,7 @@ public sealed class WoundSurgeryTest : GameTest
             var emptyPart = entities.SpawnEntity("WoundSurgeryTestPart", map.GridCoords);
             var condition = entities.SpawnEntity("WoundSurgeryTestCondition", map.GridCoords);
             var treatment = entities.SpawnEntity("WoundSurgeryTestTreatment", map.GridCoords);
+            var bleedingTreatment = entities.SpawnEntity("WoundSurgeryTestBleedingTreatment", map.GridCoords);
             var low = wounds.CreateOrMergeWound(selected, "SlashWound", 10)!.Value;
             var high = wounds.CreateOrMergeWound(selected, "PiercingWound", 20)!.Value;
             var other = wounds.CreateOrMergeWound(otherPart, "SlashWound", 30)!.Value;
@@ -94,6 +100,12 @@ public sealed class WoundSurgeryTest : GameTest
                 Assert.That(entities.GetComponent<WoundComponent>(high).Severity, Is.EqualTo(FixedPoint2.New(15)));
                 Assert.That(entities.GetComponent<WoundComponent>(other).Severity, Is.EqualTo(FixedPoint2.New(30)));
             });
+
+            RaiseStep(bleedingTreatment, selected, entities);
+            Assert.That(entities.GetComponent<WoundBleedingComponent>(high).BleedingSeverity,
+                Is.EqualTo(FixedPoint2.New(10)));
+            RaiseStep(bleedingTreatment, selected, entities);
+            Assert.That(entities.HasComponent<WoundBleedingComponent>(high), Is.False);
         });
     }
 

@@ -204,7 +204,9 @@
     unlitRunningState: unlit-building
     staticPacks:
     - ChemistryStatic
-    - SurgeryStatic
+    # <Onyx-MedicalProtolathe-edited>
+    # Surgery recipes are exclusive to the medical techfab.
+    # </Onyx-MedicalProtolathe-edited>
     dynamicPacks:
     - AdvancedTools
     - ScienceEquipment

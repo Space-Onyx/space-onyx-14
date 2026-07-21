@@ -181,6 +181,16 @@ binds:
 - function: Drop
   type: State
   key: Q
+# <Onyx-Sprinting>
+- function: Sprint
+  type: State
+  key: Space
+# </Onyx-Sprinting>
+# <Onyx-GoobGrab>
+- function: ResistGrab
+  type: State
+  key: B
+# </Onyx-GoobGrab>
 - function: ActivateItemInHand
   type: State
   key: Z

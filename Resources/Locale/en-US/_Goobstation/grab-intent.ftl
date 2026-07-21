@@ -1,0 +1,10 @@
+popup-grab-soft-target = {CAPITALIZE($puller)} grabbed you.
+popup-grab-hard-target = {CAPITALIZE($puller)} grabbed you firmly.
+popup-grab-suffocate-target = {CAPITALIZE($puller)} started choking you!
+popup-grab-soft-self = You grabbed {CAPITALIZE($target)}.
+popup-grab-hard-self = You grabbed {CAPITALIZE($target)} firmly.
+popup-grab-suffocate-self = You started choking {CAPITALIZE($target)}.
+popup-grab-soft-others = {CAPITALIZE($puller)} grabbed {CAPITALIZE($target)}.
+popup-grab-hard-others = {CAPITALIZE($puller)} grabbed {CAPITALIZE($target)} firmly.
+popup-grab-suffocate-others = {CAPITALIZE($puller)} started choking {CAPITALIZE($target)}!
+popup-grab-release-fail-self = You fail to escape the grab.

@@ -1,4 +1,8 @@
 using Content.Shared.ActionBlocker;
+// <Onyx-GoobGrab>
+using Content.Goobstation.Shared.GrabIntent;
+using Content.Shared.CombatMode;
+// </Onyx-GoobGrab>
 using Content.Shared.Administration.Logs;
 using Content.Shared.Alert;
 using Content.Shared.Buckle.Components;
@@ -53,6 +57,9 @@ public sealed partial class PullingSystem : EntitySystem
     [Dependency] private HeldSpeedModifierSystem _clothingMoveSpeed = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedVirtualItemSystem _virtual = default!;
+    // <Onyx-GoobGrab>
+    [Dependency] private SharedCombatModeSystem _combatMode = default!;
+    // </Onyx-GoobGrab>
 
     public override void Initialize()
     {
@@ -484,6 +491,14 @@ public sealed partial class PullingSystem : EntitySystem
 
         if (pullable.Comp.Puller == pullerUid)
         {
+            // <Onyx-GoobGrab-edited>
+            var grabAttempt = new GrabAttemptEvent(pullerUid);
+            RaiseLocalEvent(pullable, ref grabAttempt);
+            if (grabAttempt.Grabbed)
+                return true;
+            if (_combatMode.IsInCombatMode(pullerUid))
+                return false;
+            // </Onyx-GoobGrab-edited>
             return TryStopPull(pullable, pullable.Comp);
         }
 
@@ -580,11 +595,18 @@ public sealed partial class PullingSystem : EntitySystem
         // Messaging
         var message = new PullStartedMessage(pullerUid, pullableUid);
         _modifierSystem.RefreshMovementSpeedModifiers(pullerUid);
-        _alertsSystem.ShowAlert(pullerUid, pullerComp.PullingAlert);
-        _alertsSystem.ShowAlert(pullableUid, pullableComp.PulledAlert);
+        // <Onyx-GoobGrab-edited>
+        _alertsSystem.ShowAlert(pullerUid, pullerComp.PullingAlert, 0);
+        _alertsSystem.ShowAlert(pullableUid, pullableComp.PulledAlert, 0);
+        // </Onyx-GoobGrab-edited>
 
         RaiseLocalEvent(pullerUid, message);
         RaiseLocalEvent(pullableUid, message);
+
+        // <Onyx-GoobGrab>
+        var grabAttempt = new GrabAttemptEvent(pullerUid);
+        RaiseLocalEvent(pullableUid, ref grabAttempt);
+        // </Onyx-GoobGrab>
 
         Dirty(pullerUid, pullerComp);
         Dirty(pullableUid, pullableComp);
@@ -598,7 +620,11 @@ public sealed partial class PullingSystem : EntitySystem
         return true;
     }
 
-    public bool TryStopPull(EntityUid pullableUid, PullableComponent pullable, EntityUid? user = null)
+    // <Onyx-GoobGrab-edited>
+    public bool TryStopPull(EntityUid pullableUid,
+        PullableComponent pullable,
+        EntityUid? user = null,
+        bool ignoreGrab = false)
     {
         var pullerUidNull = pullable.Puller;
 
@@ -611,9 +637,18 @@ public sealed partial class PullingSystem : EntitySystem
         if (msg.Cancelled)
             return false;
 
+        if (!ignoreGrab)
+        {
+            var releaseAttempt = new GrabReleaseAttemptEvent(user);
+            RaiseLocalEvent(pullableUid, ref releaseAttempt);
+            if (!releaseAttempt.Released)
+                return false;
+        }
+
         StopPulling(pullableUid, pullable);
         return true;
     }
+    // </Onyx-GoobGrab-edited>
 
     /// <summary>
     /// Copies compatible datafields of <see cref="PullerComponent"/> onto the target entity.

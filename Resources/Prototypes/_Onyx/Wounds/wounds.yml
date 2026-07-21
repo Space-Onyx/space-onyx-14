@@ -9,29 +9,89 @@
     Foot: OrganicFractureProfile
   amputationThresholds:
     Head:
-      Slash: 70
-      Piercing: 110
-      Blunt: 140
+      Slash: 140
+      Piercing: 220
+      Blunt: 280
     Groin:
-      Slash: 80
-      Piercing: 125
-      Blunt: 160
+      Slash: 160
+      Piercing: 250
+      Blunt: 320
     Arm:
-      Slash: 45
-      Piercing: 80
-      Blunt: 100
+      Slash: 90
+      Piercing: 160
+      Blunt: 200
     Hand:
-      Slash: 25
-      Piercing: 45
-      Blunt: 60
-    Leg:
-      Slash: 55
-      Piercing: 95
+      Slash: 50
+      Piercing: 90
       Blunt: 120
+    Leg:
+      Slash: 110
+      Piercing: 190
+      Blunt: 240
     Foot:
-      Slash: 30
-      Piercing: 50
-      Blunt: 70
+      Slash: 60
+      Piercing: 100
+      Blunt: 140
+  organDamageChances:
+    Head: 0.15
+    Torso: 0.08
+    Arm: 0.02
+    Hand: 0.005
+    Leg: 0.02
+    Foot: 0.005
+  organDamageWeights:
+    Brain: 1.0
+    Eyes: 0.35
+    Ears: 0.25
+    Tongue: 0.2
+    Lungs: 1.2
+    Heart: 0.8
+    Liver: 1.0
+    Stomach: 0.7
+    Kidneys: 0.6
+    Appendix: 0.15
+  organDamageMultipliers:
+    Blunt: 0.35
+    Slash: 0.8
+    Piercing: 1.25
+    Heat: 0.5
+    Cold: 0.3
+    Shock: 0.8
+
+- type: woundableProfile
+  id: IpcWoundableProfile
+  fractureProfiles:
+    Head: OrganicFractureProfile
+    Torso: OrganicFractureProfile
+    Arm: OrganicFractureProfile
+    Hand: OrganicFractureProfile
+    Leg: OrganicFractureProfile
+    Foot: OrganicFractureProfile
+  amputationThresholds:
+    Head:
+      Slash: 420
+      Piercing: 660
+      Blunt: 840
+    Groin:
+      Slash: 480
+      Piercing: 750
+      Blunt: 960
+    Arm:
+      Slash: 270
+      Piercing: 480
+      Blunt: 600
+    Hand:
+      Slash: 150
+      Piercing: 270
+      Blunt: 360
+    Leg:
+      Slash: 330
+      Piercing: 570
+      Blunt: 720
+    Foot:
+      Slash: 180
+      Piercing: 300
+      Blunt: 420
   organDamageChances:
     Head: 0.15
     Torso: 0.08
@@ -65,6 +125,8 @@
   id: BluntWound
   damageTypes: [Blunt]
   maximumSeverity: 200
+  bleedingRate: 0.05
+  bleedingChance: 0.25
   scarThreshold: 20
 
 - type: wound
@@ -98,6 +160,7 @@
   mergeMode: SeparateInstances
   maximumSeverity: 200
   bleedingRate: 0.1
+  awakeBleedingMultiplier: 3
 
 - type: wound
   id: MedicalScarWound

@@ -18,6 +18,7 @@ public sealed partial class WoundHealingSystem : EntitySystem
     [Dependency] private DamageableSystem _damage = default!;
     [Dependency] private WoundBleedingSystem _bleeding = default!;
     [Dependency] private WoundDamageRoutingSystem _routing = default!;
+    [Dependency] private WoundSystem _wounds = default!;
     [Dependency] private INetManager _net = default!;
 
     public override void Initialize()
@@ -107,8 +108,7 @@ public sealed partial class WoundHealingSystem : EntitySystem
 
         if (healing.Comp.BloodlossModifier < 0 && resolve.Part is { } bleedingPart)
         {
-            var treatment = GetTreatment(healing.Comp.Damage);
-            stoppedBleeding = _bleeding.TreatMostBleedingWound(bleedingPart, treatment);
+            stoppedBleeding = TreatBleeding(bleedingPart, -healing.Comp.BloodlossModifier);
         }
 
         var after = _damage.GetAllDamage(body);
@@ -120,6 +120,21 @@ public sealed partial class WoundHealingSystem : EntitySystem
         }
 
         return applied || stoppedBleeding || healing.Comp.ModifyBloodLevel != 0f;
+    }
+
+    private bool TreatBleeding(EntityUid part, float amount)
+    {
+        Entity<WoundComponent, WoundBleedingComponent>? selected = null;
+        foreach (var wound in _wounds.GetWounds(part))
+        {
+            if (!TryComp(wound, out WoundBleedingComponent? bleeding) || bleeding.CurrentRate <= 0f ||
+                selected is { } current && current.Comp2.CurrentRate >= bleeding.CurrentRate)
+                continue;
+
+            selected = (wound, wound.Comp, bleeding);
+        }
+
+        return selected is { } target && _bleeding.ReduceBleeding(target.Owner, FixedPoint2.New(amount));
     }
 
     private bool IsCompatiblePart(
@@ -135,18 +150,4 @@ public sealed partial class WoundHealingSystem : EntitySystem
                damageContainers.Contains(injurable.DamageContainer.Value);
     }
 
-    private static BleedingTreatment GetTreatment(DamageSpecifier healing)
-    {
-        if (healing.DamageDict.Values.Any(amount => amount > FixedPoint2.Zero))
-            return BleedingTreatment.Clamped;
-
-        var blunt = new ProtoId<DamageTypePrototype>("Blunt");
-        var slash = new ProtoId<DamageTypePrototype>("Slash");
-        var piercing = new ProtoId<DamageTypePrototype>("Piercing");
-        return healing.DamageDict.GetValueOrDefault(blunt) < FixedPoint2.Zero &&
-               healing.DamageDict.GetValueOrDefault(slash) < FixedPoint2.Zero &&
-               healing.DamageDict.GetValueOrDefault(piercing) < FixedPoint2.Zero
-            ? BleedingTreatment.Sutured
-            : BleedingTreatment.Bandaged;
-    }
 }

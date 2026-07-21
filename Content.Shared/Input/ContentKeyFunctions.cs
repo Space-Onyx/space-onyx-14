@@ -50,6 +50,9 @@ namespace Content.Shared.Input
         public static readonly BoundKeyFunction TryPullObject = "TryPullObject";
         public static readonly BoundKeyFunction MovePulledObject = "MovePulledObject";
         public static readonly BoundKeyFunction ReleasePulledObject = "ReleasePulledObject";
+        // <Onyx-GoobGrab>
+        public static readonly BoundKeyFunction ResistGrab = "ResistGrab";
+        // </Onyx-GoobGrab>
         public static readonly BoundKeyFunction MouseMiddle = "MouseMiddle";
         public static readonly BoundKeyFunction RotateObjectClockwise = "RotateObjectClockwise";
         public static readonly BoundKeyFunction RotateObjectCounterclockwise = "RotateObjectCounterclockwise";
@@ -142,6 +145,9 @@ namespace Content.Shared.Input
         public static readonly BoundKeyFunction InspectEntity = "InspectEntity";
         public static readonly BoundKeyFunction InspectServerComponent = "InspectServerComponent";
         public static readonly BoundKeyFunction InspectClientComponent = "InspectClientComponent";
+        // <Onyx-Sprinting>
+        public static readonly BoundKeyFunction Sprint = "Sprint";
+        // </Onyx-Sprinting>
         public static readonly BoundKeyFunction MappingUnselect = "MappingUnselect";
         public static readonly BoundKeyFunction SaveMap = "SaveMap";
         public static readonly BoundKeyFunction MappingEnablePick = "MappingEnablePick";

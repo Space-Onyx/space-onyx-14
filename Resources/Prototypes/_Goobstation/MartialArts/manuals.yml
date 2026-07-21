@@ -1,0 +1,47 @@
+- type: entity
+  abstract: true
+  parent: BookBase
+  id: MartialArtManualBase
+  components:
+  - type: Tag
+    tags: [Book]
+- type: entity
+  parent: MartialArtManualBase
+  id: ManualCloseQuartersCombat
+  name: CQC manual
+  components: [{type: GrantMartialArtKnowledge, martialArtsForm: CloseQuartersCombat}]
+- type: entity
+  parent: MartialArtManualBase
+  id: ManualCorporateJudo
+  name: corporate judo manual
+  components: [{type: GrantMartialArtKnowledge, martialArtsForm: CorporateJudo}]
+- type: entity
+  parent: MartialArtManualBase
+  id: ManualCapoeira
+  name: capoeira manual
+  components: [{type: GrantMartialArtKnowledge, martialArtsForm: Capoeira}]
+- type: entity
+  parent: MartialArtManualBase
+  id: ManualKungFuDragon
+  name: dragon kung fu manual
+  components: [{type: GrantMartialArtKnowledge, martialArtsForm: KungFuDragon}]
+- type: entity
+  parent: MartialArtManualBase
+  id: ManualNinjutsu
+  name: ninjutsu scroll
+  components: [{type: GrantMartialArtKnowledge, martialArtsForm: Ninjutsu}]
+- type: entity
+  parent: MartialArtManualBase
+  id: ManualSleepingCarp
+  name: sleeping carp scroll
+  components: [{type: GrantMartialArtKnowledge, martialArtsForm: SleepingCarp}]
+- type: entity
+  parent: MartialArtManualBase
+  id: ManualHellRip
+  name: hell rip scroll
+  components: [{type: GrantMartialArtKnowledge, martialArtsForm: HellRip}]
+- type: entity
+  parent: MartialArtManualBase
+  id: ManualKravMaga
+  name: krav maga manual
+  components: [{type: GrantMartialArtKnowledge, martialArtsForm: KravMaga}]

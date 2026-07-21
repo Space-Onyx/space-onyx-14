@@ -4,6 +4,7 @@ using Content.Shared.Body;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
+using Content.Shared.Bed.Sleep;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Configuration;
 using Robust.Shared.Network;
@@ -14,9 +15,6 @@ namespace Content.Shared._Onyx.Wounds;
 
 public sealed partial class WoundBleedingSystem : EntitySystem
 {
-    private static readonly FixedPoint2 StrongBleedingSeverity = 15;
-    private static readonly TimeSpan StrongBandageRemovalDelay = TimeSpan.FromSeconds(5);
-
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private SharedBloodstreamSystem _bloodstream = default!;
     [Dependency] private IConfigurationManager _configuration = default!;
@@ -33,6 +31,7 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         SubscribeLocalEvent<WoundBleedingComponent, WoundChangedEvent>(OnWoundChanged);
         SubscribeLocalEvent<WoundBleedingComponent, WoundStateChangedEvent>(OnWoundStateChanged);
         SubscribeLocalEvent<WoundBleedingComponent, WoundRemovedEvent>(OnWoundRemoved);
+        SubscribeLocalEvent<WoundHostComponent, SleepStateChangedEvent>(OnSleepStateChanged);
     }
 
     private void OnBleedingInit(Entity<WoundBleedingComponent> wound, ref ComponentInit args) => RestartAutomaticClotting(wound);
@@ -40,7 +39,11 @@ public sealed partial class WoundBleedingSystem : EntitySystem
     private void OnWoundChanged(Entity<WoundBleedingComponent> wound, ref WoundChangedEvent args)
     {
         if (args.Severity > args.OldSeverity)
+        {
+            wound.Comp.BleedingSeverity += args.Severity - args.OldSeverity;
+            wound.Comp.Treatment = BleedingTreatment.None;
             RestartAutomaticClotting(wound);
+        }
         else
             RecomputeAutomaticClotting(wound);
     }
@@ -59,6 +62,13 @@ public sealed partial class WoundBleedingSystem : EntitySystem
 
     private void OnWoundRemoved(Entity<WoundBleedingComponent> wound, ref WoundRemovedEvent args) => RefreshBodyForPart(args.Part);
 
+    private void OnSleepStateChanged(Entity<WoundHostComponent> body, ref SleepStateChangedEvent args)
+    {
+        foreach (var wound in GetAttachedBleedingWounds(body))
+            RefreshWound((wound.Owner, wound.Comp2), false);
+        RefreshBody(body);
+    }
+
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
@@ -68,12 +78,6 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         var query = EntityQueryEnumerator<WoundBleedingComponent, WoundComponent>();
         while (query.MoveNext(out var uid, out var bleeding, out var wound))
         {
-            if (bleeding.BandageRemovalAt is { } removalAt && _timing.CurTime >= removalAt)
-            {
-                _wounds.RemoveWound((uid, wound));
-                continue;
-            }
-
             if (bleeding.AutomaticClottingAt is not { } deadline || _timing.CurTime < deadline)
                 continue;
 
@@ -92,15 +96,25 @@ public sealed partial class WoundBleedingSystem : EntitySystem
             return false;
 
         bleeding.Treatment = treatment;
-        bleeding.BandageRemovalAt = null;
-        if (treatment == BleedingTreatment.Bandaged)
-        {
-            if (wound.Comp.Severity < StrongBleedingSeverity)
-                return _wounds.RemoveWound(wound);
+        RefreshWound((wound, bleeding));
+        return true;
+    }
 
-            bleeding.BandageRemovalAt = _timing.CurTime + StrongBandageRemovalDelay;
+    public bool ReduceBleeding(Entity<WoundComponent?> wound, FixedPoint2 amount)
+    {
+        if (!_net.IsServer || amount <= FixedPoint2.Zero || !Resolve(wound, ref wound.Comp, false) ||
+            !TryComp(wound, out WoundBleedingComponent? bleeding))
+            return false;
+
+        bleeding.BleedingSeverity = FixedPoint2.Max(FixedPoint2.Zero, bleeding.BleedingSeverity - amount);
+        if (bleeding.BleedingSeverity == FixedPoint2.Zero)
+        {
+            RemComp<WoundBleedingComponent>(wound.Owner);
+            RefreshBodyForPart(wound.Comp.HoldingPart);
+            return true;
         }
 
+        bleeding.Treatment = BleedingTreatment.None;
         RefreshWound((wound, bleeding));
         return true;
     }
@@ -207,7 +221,10 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         if (!_net.IsServer)
             return;
 
-        wound.Comp.BaseRate = core.Severity.Float() * prototype.BleedingRate;
+        wound.Comp.BaseRate = wound.Comp.BleedingSeverity.Float() * prototype.BleedingRate;
+        if (prototype.AwakeBleedingMultiplier > 1f && TryGetBody(core.HoldingPart, out var patient) &&
+            !HasComp<SleepingComponent>(patient))
+            wound.Comp.BaseRate *= prototype.AwakeBleedingMultiplier;
         var multiplier = core.State == WoundState.Open ? TreatmentMultiplier(wound.Comp.Treatment) : 0f;
         wound.Comp.CurrentRate = Math.Max(0f, wound.Comp.BaseRate * multiplier - wound.Comp.NaturalClotting);
         Dirty(wound);
@@ -255,7 +272,11 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         {
             wound.Comp.AutomaticClottingStartedAt = null;
             wound.Comp.AutomaticClottingAt = null;
-            wound.Comp.NaturalClotting = Math.Max(wound.Comp.NaturalClotting, core.Severity.Float() * prototype.BleedingRate);
+            var rate = wound.Comp.BleedingSeverity.Float() * prototype.BleedingRate;
+            if (prototype.AwakeBleedingMultiplier > 1f && TryGetBody(core.HoldingPart, out var patient) &&
+                !HasComp<SleepingComponent>(patient))
+                rate *= prototype.AwakeBleedingMultiplier;
+            wound.Comp.NaturalClotting = Math.Max(wound.Comp.NaturalClotting, rate);
         }
 
         RefreshWound(wound, core, prototype);

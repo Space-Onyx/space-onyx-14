@@ -117,6 +117,9 @@
   - type: SSDIndicator
   - type: StandingState
   - type: Crawler
+  # <Onyx-Sprinting>
+  - type: Sprinter
+  # </Onyx-Sprinting>
   - type: Dna
   - type: MindContainer
   - type: MindExaminable
@@ -149,6 +152,10 @@
         type: SurgeryBoundUserInterface
       # </Onyx-Surgery>
   - type: Puller
+  # <Onyx-GoobGrab>
+  - type: GrabIntent
+  - type: Grabbable
+  # </Onyx-GoobGrab>
   - type: Speech
     speechSounds: Alto
   - type: DamageForceSay

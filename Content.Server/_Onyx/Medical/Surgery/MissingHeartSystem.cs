@@ -2,6 +2,7 @@ using Content.Shared._Onyx.Body;
 using Content.Shared._Onyx.Medical.Surgery;
 using Content.Shared.Bed.Components;
 using Content.Shared.Body;
+using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Mobs;
@@ -27,6 +28,9 @@ public sealed partial class MissingHeartSystem : EntitySystem
 
     private void OnOrganChanged(Entity<OrganComponent> ent, ref OrganGotRemovedEvent args)
     {
+        if (TryComp(ent, out BodyPartComponent? part) && part.PartType == BodyPartType.Head)
+            EnsureComp<MissingHeadComponent>(args.Target);
+
         switch (ent.Comp.Category?.Id)
         {
             case "Ears":
@@ -42,6 +46,9 @@ public sealed partial class MissingHeartSystem : EntitySystem
 
     private void OnOrganChanged(Entity<OrganComponent> ent, ref OrganGotInsertedEvent args)
     {
+        if (TryComp(ent, out BodyPartComponent? part) && part.PartType == BodyPartType.Head)
+            RemComp<MissingHeadComponent>(args.Target);
+
         switch (ent.Comp.Category?.Id)
         {
             case "Ears":
@@ -103,6 +110,17 @@ public sealed partial class MissingHeartSystem : EntitySystem
                 continue;
 
             _mobState.ChangeMobState(uid, MobState.Dead);
+        }
+
+        var headQuery = EntityQueryEnumerator<MissingHeadComponent>();
+        while (headQuery.MoveNext(out var uid, out var missing))
+        {
+            if (_mobState.IsDead(uid))
+                continue;
+
+            missing.Elapsed += frameTime;
+            if (missing.Elapsed >= 5f)
+                _mobState.ChangeMobState(uid, MobState.Dead);
         }
     }
 

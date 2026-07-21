@@ -10,6 +10,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
 namespace Content.Shared._Onyx.Wounds;
@@ -21,6 +22,7 @@ public sealed partial class WoundSystem : EntitySystem
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     private readonly Dictionary<ProtoId<DamageTypePrototype>, WoundPrototype> _woundsByDamageType = [];
 
@@ -113,6 +115,14 @@ public sealed partial class WoundSystem : EntitySystem
             {
                 if (wound.Comp.Prototype == prototypeId && wound.Comp.State is not WoundState.Healed and not WoundState.Scarred)
                 {
+                    if (wound.Comp.State != WoundState.Open)
+                        SetWoundState(wound.Owner, WoundState.Open);
+                    if (!HasComp<WoundBleedingComponent>(wound) && prototype.BleedingRate > 0f &&
+                        _random.Prob(Math.Clamp(prototype.BleedingChance, 0f, 1f)))
+                    {
+                        var bleeding = AddComp<WoundBleedingComponent>(wound.Owner);
+                        bleeding.BleedingSeverity = FixedPoint2.Zero;
+                    }
                     ChangeSeverity(wound.Owner, severity);
                     return wound;
                 }
@@ -127,8 +137,11 @@ public sealed partial class WoundSystem : EntitySystem
         component.PeakSeverity = component.Severity;
         Dirty(woundId, component);
 
-        if (prototype.BleedingRate > 0f)
-            AddComp<WoundBleedingComponent>(woundId);
+        if (prototype.BleedingRate > 0f && _random.Prob(Math.Clamp(prototype.BleedingChance, 0f, 1f)))
+        {
+            var bleeding = AddComp<WoundBleedingComponent>(woundId);
+            bleeding.BleedingSeverity = component.Severity;
+        }
 
         if (!_containers.Insert(woundId, part.Comp.WoundsContainer))
         {

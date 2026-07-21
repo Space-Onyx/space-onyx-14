@@ -1,0 +1,29 @@
+- type: martialArt
+  id: KungFuDragon
+  martialArtsForm: KungFuDragon
+  roundstartCombos: KungFuDragonMoves
+- type: comboList
+  id: KungFuDragonMoves
+  combos: [DragonClaw, DragonTail, DragonStrike]
+- type: combo
+  id: DragonClaw
+  name: Dragon Claw
+  martialArtsForm: KungFuDragon
+  attacks: [Disarm, Disarm]
+  staminaDamage: 50
+- type: combo
+  id: DragonTail
+  name: Dragon Tail
+  martialArtsForm: KungFuDragon
+  attacks: [Disarm, Grab, Harm]
+  extraDamage: 15
+  staminaDamage: 30
+  paralyzeTime: 6
+  throwTarget: true
+- type: combo
+  id: DragonStrike
+  name: Dragon Strike
+  martialArtsForm: KungFuDragon
+  attacks: [Disarm, Harm, Harm]
+  extraDamage: 40
+  paralyzeTime: 2

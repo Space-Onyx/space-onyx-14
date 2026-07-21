@@ -102,6 +102,11 @@ public sealed partial class MeleeWeaponComponent : Component
     [DataField, AutoNetworkedField]
     public EntProtoId Animation = "WeaponArcThrust";
 
+    // <Onyx-GoobShove>
+    [DataField, AutoNetworkedField]
+    public EntProtoId DisarmAnimation = "WeaponArcDisarm";
+    // </Onyx-GoobShove>
+
     [DataField, AutoNetworkedField]
     public EntProtoId WideAnimation = "WeaponArcSlash";
 

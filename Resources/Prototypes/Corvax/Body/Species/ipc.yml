@@ -288,6 +288,10 @@
   id: OrganIpcExternal
   abstract: true
   components:
+  # <Onyx-IPCDismemberment>
+  - type: Woundable
+    profile: IpcWoundableProfile
+  # </Onyx-IPCDismemberment>
   - type: Sprite
     sprite: Corvax/Mobs/Species/Ipc/parts.rsi
   - type: VisualOrgan

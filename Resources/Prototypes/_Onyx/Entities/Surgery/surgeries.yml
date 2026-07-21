@@ -8,9 +8,9 @@
   name: Open Incision
   components:
   - type: Surgery
+    priority: -1
     steps:
     - SurgeryStepOpenIncisionScalpel
-    - SurgeryStepClampBleeders
     - SurgeryStepRetractSkin
 
 - type: entity
@@ -59,7 +59,7 @@
     requirement: SurgeryOpenIncision
     steps: [ SurgeryStepOpenAbdomen ]
   - type: SurgeryPartCondition
-    part: Groin
+    part: Chest
 
 - type: entity
   parent: SurgeryBase
@@ -69,7 +69,7 @@
   - type: Surgery
     steps: [ SurgeryStepHideItem ]
   - type: SurgeryPartCondition
-    part: Groin
+    part: Chest
   - type: SurgeryCavityCondition
 
 - type: entity
@@ -80,7 +80,7 @@
   - type: Surgery
     steps: [ SurgeryStepTakeItem ]
   - type: SurgeryPartCondition
-    part: Groin
+    part: Chest
   - type: SurgeryCavityCondition
     occupied: true
 
@@ -91,7 +91,7 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachHead ]
+    steps: [ SurgeryStepAttachHead, SurgeryStepMendAttachedHead, SurgeryStepSutureAttachedHead ]
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryMissingPartCondition
@@ -104,7 +104,7 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachLeftArm ]
+    steps: [ SurgeryStepAttachLeftArm, SurgeryStepMendAttachedLeftArm, SurgeryStepSutureAttachedLeftArm ]
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryMissingPartCondition
@@ -118,7 +118,7 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachRightArm ]
+    steps: [ SurgeryStepAttachRightArm, SurgeryStepMendAttachedRightArm, SurgeryStepSutureAttachedRightArm ]
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryMissingPartCondition
@@ -132,7 +132,7 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachLeftLeg ]
+    steps: [ SurgeryStepAttachLeftLeg, SurgeryStepMendAttachedLeftLeg, SurgeryStepSutureAttachedLeftLeg ]
   - type: SurgeryPartCondition
     part: Groin
   - type: SurgeryMissingPartCondition
@@ -146,7 +146,7 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachRightLeg ]
+    steps: [ SurgeryStepAttachRightLeg, SurgeryStepMendAttachedRightLeg, SurgeryStepSutureAttachedRightLeg ]
   - type: SurgeryPartCondition
     part: Groin
   - type: SurgeryMissingPartCondition
@@ -160,7 +160,7 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachLeftHand ]
+    steps: [ SurgeryStepAttachLeftHand, SurgeryStepMendAttachedLeftHand, SurgeryStepSutureAttachedLeftHand ]
   - type: SurgeryPartCondition
     part: Arm
     symmetry: Left
@@ -175,7 +175,7 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachRightHand ]
+    steps: [ SurgeryStepAttachRightHand, SurgeryStepMendAttachedRightHand, SurgeryStepSutureAttachedRightHand ]
   - type: SurgeryPartCondition
     part: Arm
     symmetry: Right
@@ -190,7 +190,7 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachLeftFoot ]
+    steps: [ SurgeryStepAttachLeftFoot, SurgeryStepMendAttachedLeftFoot, SurgeryStepSutureAttachedLeftFoot ]
   - type: SurgeryPartCondition
     part: Leg
     symmetry: Left
@@ -205,7 +205,7 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachRightFoot ]
+    steps: [ SurgeryStepAttachRightFoot, SurgeryStepMendAttachedRightFoot, SurgeryStepSutureAttachedRightFoot ]
   - type: SurgeryPartCondition
     part: Leg
     symmetry: Right
@@ -609,11 +609,22 @@
 
 - type: entity
   parent: SurgeryBase
-  id: SurgeryTendWound
-  name: Tend wound
+  id: SurgeryStopBleeding
+  name: Stop bleeding
   components:
   - type: Surgery
-    steps: [ SurgeryStepClampWoundBleeding, SurgeryStepTendWound ]
+    steps: [ SurgeryStepClampWoundBleeding ]
+  - type: SurgeryHasWoundCondition
+    state: Open
+    bleeding: true
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryTendWound
+  name: Treat wound
+  components:
+  - type: Surgery
+    steps: [ SurgeryStepTendWound ]
   - type: SurgeryHasWoundCondition
 
 - type: entity

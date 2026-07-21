@@ -35,6 +35,11 @@ using Robust.Shared.Timing;
 
 namespace Content.Server.Fax;
 
+// <Onyx-FaxAlert>
+[ByRefEvent]
+public record struct FaxReceivedEvent(string? FromAddress);
+// </Onyx-FaxAlert>
+
 public sealed partial class FaxSystem : EntitySystem
 {
     [Dependency] private IChatManager _chat = default!;
@@ -606,6 +611,11 @@ public sealed partial class FaxSystem : EntitySystem
             NotifyAdmins(faxName);
 
         component.PrintingQueue.Enqueue(printout);
+
+        // <Onyx-FaxAlert>
+        var faxReceivedEvent = new FaxReceivedEvent(fromAddress);
+        RaiseLocalEvent(uid, ref faxReceivedEvent);
+        // </Onyx-FaxAlert>
     }
 
     private void SpawnPaperFromQueue(EntityUid uid, FaxMachineComponent? component = null)

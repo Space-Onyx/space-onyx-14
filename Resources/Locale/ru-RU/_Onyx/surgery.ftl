@@ -36,6 +36,7 @@ surgery-tool-use-bone-saw = распиливания костей и ампут�
 surgery-tool-use-cautery = прижигания и закрытия разрезов
 surgery-tool-use-bone-gel = восстановления костей
 surgery-tool-use-tweezers = извлечения органов и предметов
+surgery-tool-use-stitches = остановки кровотечений и сшивания ран
 
 ent-BoneGel = костный гель
     .desc = Банка с костным гелем для восстановления поврежденных костей.
@@ -101,6 +102,8 @@ ent-SurgeryHealAppendix = Восстановить аппендикс
 
 ent-SurgeryStepRemovePart = Ампутировать часть тела
 ent-SurgeryStepAttachPart = Прикрепить часть тела
+ent-SurgeryStepMendAttachedPart = Срастить кости прикреплённой части тела
+ent-SurgeryStepSutureAttachedPart = Пришить прикреплённую часть тела
 ent-SurgeryStepRemoveOrgan = Удалить орган
 ent-SurgeryStepInsertOrgan = Имплантировать орган
 ent-SurgeryStepOpenAbdomen = Вскрыть живот
@@ -112,13 +115,13 @@ ent-SurgeryCloseIncision = Закрыть разрез
 ent-SurgeryOpenRibcage = Вскрытие грудной клетки
 
 ent-SurgeryStepOpenIncisionScalpel = Выполнить разрез
-ent-SurgeryStepClampBleeders = Пережать кровоточащие сосуды
+ent-SurgeryStepClampBleeders = Перевязать кровоточащие сосуды
 ent-SurgeryStepRetractSkin = Развести края разреза
 ent-SurgeryStepSawBones = Распилить рёбра
 ent-SurgeryStepPriseOpenBones = Развести рёбра
 ent-SurgeryStepCloseBones = Свести рёбра
 ent-SurgeryStepMendRibcage = Восстановить рёбра костным гелем
-ent-SurgeryStepCloseIncision = Закрыть и прижечь разрез
+ent-SurgeryStepCloseIncision = Зашить разрез
 
 ent-SurgeryStepAttachHead = Прикрепить голову
 ent-SurgeryStepAttachLeftArm = Прикрепить левую руку
@@ -161,9 +164,12 @@ ent-SurgeryStepHealStomach = Восстановить желудок
 ent-SurgeryStepHealKidneys = Восстановить почки
 ent-SurgeryStepHealAppendix = Восстановить аппендикс
 ent-SurgeryTendWound = Обработать рану
+ent-SurgeryStopBleeding = Остановить кровотечение
 ent-SurgeryReduceFracture = Вправить перелом
 ent-SurgeryMendFracture = Срастить перелом
-ent-SurgeryStepTendWound = Обработать рану
-ent-SurgeryStepClampWoundBleeding = Пережать кровотечение раны
+ent-SurgeryStepTendWound = Зашить рану
+ent-SurgeryStepClampWoundBleeding = Остановить кровотечение медицинской нитью
 ent-SurgeryStepReduceFracture = Вправить перелом
 ent-SurgeryStepMendFracture = Срастить перелом
+ent-MedicalStitches = медицинская нить
+    .desc = Тонкая изогнутая игла с рассасывающейся полигликолидной хирургической нитью.

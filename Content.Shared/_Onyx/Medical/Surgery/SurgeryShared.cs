@@ -122,6 +122,9 @@ public sealed partial class SurgeryToolComponent : Component
 [RegisterComponent, NetworkedComponent] public sealed partial class RibcageSawedComponent : Component;
 [RegisterComponent, NetworkedComponent] public sealed partial class RibcageOpenComponent : Component;
 [RegisterComponent, NetworkedComponent] public sealed partial class AbdominalCavityOpenComponent : Component;
+[RegisterComponent, NetworkedComponent] public sealed partial class BodyPartReattachedComponent : Component;
+[RegisterComponent, NetworkedComponent] public sealed partial class BodyPartMendedComponent : Component;
+[RegisterComponent, NetworkedComponent] public sealed partial class BodyPartSuturedComponent : Component;
 
 [RegisterComponent] public sealed partial class SurgeryOperatingTableConditionComponent : Component;
 [RegisterComponent] public sealed partial class OperatingTableComponent : Component;
@@ -149,6 +152,20 @@ public sealed partial class SurgeryStepBleedEffectComponent : Component
 
 [RegisterComponent]
 public sealed partial class SurgeryAttachPartEffectComponent : Component
+{
+    [DataField(required: true)] public BodyPartType Part;
+    [DataField] public BodyPartSymmetry Symmetry;
+}
+
+[RegisterComponent]
+public sealed partial class SurgeryMendAttachedPartEffectComponent : Component
+{
+    [DataField(required: true)] public BodyPartType Part;
+    [DataField] public BodyPartSymmetry Symmetry;
+}
+
+[RegisterComponent]
+public sealed partial class SurgerySutureAttachedPartEffectComponent : Component
 {
     [DataField(required: true)] public BodyPartType Part;
     [DataField] public BodyPartSymmetry Symmetry;

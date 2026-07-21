@@ -25,16 +25,16 @@
 - type: entity
   parent: SurgeryStepBase
   id: SurgeryStepClampBleeders
-  name: Clamp the bleeders
+  name: Suture the bleeding vessels
   components:
   - type: SurgeryStep
     tool:
-    - type: Hemostat
+    - type: Stitches
     add:
     - type: BleedersClamped
   - type: Sprite
-    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
-    state: hemostat
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
+    state: stitches
   - type: SurgeryClampBleedEffect
 
 - type: entity
@@ -119,15 +119,15 @@
   components:
   - type: SurgeryStep
     tool:
-    - type: Cautery
+    - type: Stitches
     remove:
     - type: SkinRetracted
     - type: BleedersClamped
     - type: IncisionOpen
     - type: AbdominalCavityOpen
   - type: Sprite
-    sprite: _Onyx/Objects/Specific/Medical/Surgery/cautery.rsi
-    state: cautery
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
+    state: stitches
   - type: SurgeryStepEmoteEffect
 
 - type: entity
@@ -194,6 +194,30 @@
 
 - type: entity
   parent: SurgeryStepBase
+  id: SurgeryStepMendAttachedPart
+  name: Mend attached bones
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: BoneGel
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/bone-gel.rsi
+    state: bone-gel
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepSutureAttachedPart
+  name: Suture attached body part
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Stitches
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
+    state: stitches
+
+- type: entity
+  parent: SurgeryStepBase
   id: SurgeryStepRemoveOrgan
   name: Remove organ
   components:
@@ -223,12 +247,32 @@
     part: Head
 
 - type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepMendAttachedHead
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Head } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureAttachedHead
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Head } ]
+
+- type: entity
   parent: SurgeryStepAttachPart
   id: SurgeryStepAttachLeftArm
   components:
   - type: SurgeryAttachPartEffect
     part: Arm
     symmetry: Left
+
+- type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepMendAttachedLeftArm
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Arm, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureAttachedLeftArm
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Arm, symmetry: Left } ]
 
 - type: entity
   parent: SurgeryStepAttachPart
@@ -239,12 +283,32 @@
     symmetry: Right
 
 - type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepMendAttachedRightArm
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Arm, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureAttachedRightArm
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Arm, symmetry: Right } ]
+
+- type: entity
   parent: SurgeryStepAttachPart
   id: SurgeryStepAttachLeftLeg
   components:
   - type: SurgeryAttachPartEffect
     part: Leg
     symmetry: Left
+
+- type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepMendAttachedLeftLeg
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Leg, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureAttachedLeftLeg
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Leg, symmetry: Left } ]
 
 - type: entity
   parent: SurgeryStepAttachPart
@@ -255,12 +319,32 @@
     symmetry: Right
 
 - type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepMendAttachedRightLeg
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Leg, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureAttachedRightLeg
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Leg, symmetry: Right } ]
+
+- type: entity
   parent: SurgeryStepAttachPart
   id: SurgeryStepAttachLeftHand
   components:
   - type: SurgeryAttachPartEffect
     part: Hand
     symmetry: Left
+
+- type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepMendAttachedLeftHand
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Hand, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureAttachedLeftHand
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Hand, symmetry: Left } ]
 
 - type: entity
   parent: SurgeryStepAttachPart
@@ -271,6 +355,16 @@
     symmetry: Right
 
 - type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepMendAttachedRightHand
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Hand, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureAttachedRightHand
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Hand, symmetry: Right } ]
+
+- type: entity
   parent: SurgeryStepAttachPart
   id: SurgeryStepAttachLeftFoot
   components:
@@ -279,12 +373,32 @@
     symmetry: Left
 
 - type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepMendAttachedLeftFoot
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Foot, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureAttachedLeftFoot
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Foot, symmetry: Left } ]
+
+- type: entity
   parent: SurgeryStepAttachPart
   id: SurgeryStepAttachRightFoot
   components:
   - type: SurgeryAttachPartEffect
     part: Foot
     symmetry: Right
+
+- type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepMendAttachedRightFoot
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Foot, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureAttachedRightFoot
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Foot, symmetry: Right } ]
 
 - type: entity
   parent: SurgeryStepRemoveOrgan
@@ -480,10 +594,13 @@
 - type: entity
   parent: SurgeryStepBase
   id: SurgeryStepTendWound
-  name: Tend wound
+  name: Suture wound
   components:
   - type: SurgeryStep
-    tool: [ { type: Hemostat } ]
+    tool: [ { type: Stitches } ]
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
+    state: stitches
   - type: SurgeryHasWoundCondition
   - type: SurgeryTreatWoundEffect
     amount: 10
@@ -491,13 +608,17 @@
 - type: entity
   parent: SurgeryStepBase
   id: SurgeryStepClampWoundBleeding
-  name: Clamp wound bleeding
+  name: Suture bleeding wound
   components:
   - type: SurgeryStep
-    tool: [ { type: Hemostat } ]
+    tool: [ { type: Stitches } ]
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
+    state: stitches
   - type: SurgeryHasWoundCondition
     state: Open
   - type: SurgeryClampBleedingEffect
+    amount: 10
 
 - type: entity
   parent: SurgeryStepBase

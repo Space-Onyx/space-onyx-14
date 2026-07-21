@@ -114,6 +114,9 @@ public sealed partial class WoundBleedingComponent : Component
     public float CurrentRate;
 
     [DataField, AutoNetworkedField]
+    public FixedPoint2 BleedingSeverity;
+
+    [DataField, AutoNetworkedField]
     public BleedingTreatment Treatment;
 
     [DataField, AutoNetworkedField]
@@ -125,8 +128,6 @@ public sealed partial class WoundBleedingComponent : Component
     [ViewVariables]
     public TimeSpan? AutomaticClottingAt;
 
-    [ViewVariables]
-    public TimeSpan? BandageRemovalAt;
 }
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]

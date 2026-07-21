@@ -11,7 +11,9 @@
     DrinkFourteenLokoCan: 2
   contrabandInventory:
     ClothingNeckStethoscope: 2
-    Saw: 2
+    # <Onyx-CircularSaw-edited>
+    SawElectric: 2
+    # </Onyx-CircularSaw-edited>
     Tourniquet: 3
     DrinkChangelingStingCan: 2
   emaggedInventory:

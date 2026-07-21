@@ -28,7 +28,7 @@ public sealed partial class WoundSurgerySystem : EntitySystem
 
     private void OnHasWoundValid(Entity<SurgeryHasWoundConditionComponent> ent, ref SurgeryValidEvent args)
     {
-        if (FindWound(args.Part, ent.Comp.WoundPrototype, ent.Comp.Visibility, ent.Comp.State) == null)
+        if (FindWound(args.Part, ent.Comp.WoundPrototype, ent.Comp.Visibility, ent.Comp.State, ent.Comp.Bleeding) == null)
             args.Cancelled = true;
     }
 
@@ -47,12 +47,12 @@ public sealed partial class WoundSurgerySystem : EntitySystem
     private void OnClampBleeding(Entity<SurgeryClampBleedingEffectComponent> ent, ref SurgeryStepEvent args)
     {
         if (FindWound(args.Part, ent.Comp.WoundPrototype, bleeding: true) is { } wound)
-            _bleeding.SetTreatment(wound.Owner, BleedingTreatment.Clamped);
+            _bleeding.ReduceBleeding(wound.Owner, ent.Comp.Amount);
     }
 
     private void OnClampBleedingCheck(Entity<SurgeryClampBleedingEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
     {
-        if (FindWound(args.Part, ent.Comp.WoundPrototype, bleeding: true, untreatedBleeding: true) != null)
+        if (FindWound(args.Part, ent.Comp.WoundPrototype, bleeding: true) != null)
             args.Cancelled = true;
     }
 
@@ -92,8 +92,7 @@ public sealed partial class WoundSurgerySystem : EntitySystem
         ProtoId<WoundPrototype>? prototype = null,
         WoundVisibility? visibility = null,
         WoundState? state = null,
-        bool bleeding = false,
-        bool untreatedBleeding = false)
+        bool bleeding = false)
     {
         if (!Resolve(part, ref part.Comp, false))
             return null;
@@ -107,8 +106,7 @@ public sealed partial class WoundSurgerySystem : EntitySystem
                 visibility is { } woundVisibility &&
                 (!_prototypes.TryIndex(wound.Comp.Prototype, out var woundPrototype) || woundPrototype.Visibility != woundVisibility) ||
                 bleeding && (!TryComp(wound, out WoundBleedingComponent? bleedingComp) ||
-                    wound.Comp.State != WoundState.Open || bleedingComp.CurrentRate <= 0f ||
-                    untreatedBleeding && bleedingComp.Treatment == BleedingTreatment.Clamped) ||
+                    wound.Comp.State != WoundState.Open || bleedingComp.CurrentRate <= 0f) ||
                 selected is { } current && current.Comp.Severity >= wound.Comp.Severity)
                 continue;
 

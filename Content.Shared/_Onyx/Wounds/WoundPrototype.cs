@@ -32,6 +32,12 @@ public sealed partial class WoundPrototype : IPrototype
     public float BleedingRate;
 
     [DataField]
+    public float BleedingChance = 1f;
+
+    [DataField]
+    public float AwakeBleedingMultiplier = 1f;
+
+    [DataField]
     public float AutomaticClottingTimeMultiplier = 1f;
 
     [DataField]

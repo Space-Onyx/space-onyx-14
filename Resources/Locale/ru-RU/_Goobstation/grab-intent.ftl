@@ -1,0 +1,10 @@
+popup-grab-soft-target = {CAPITALIZE($puller)} хватает вас.
+popup-grab-hard-target = {CAPITALIZE($puller)} крепко хватает вас.
+popup-grab-suffocate-target = {CAPITALIZE($puller)} начинает душить вас!
+popup-grab-soft-self = Вы хватаете {CAPITALIZE($target)}.
+popup-grab-hard-self = Вы крепко хватаете {CAPITALIZE($target)}.
+popup-grab-suffocate-self = Вы начинаете душить {CAPITALIZE($target)}.
+popup-grab-soft-others = {CAPITALIZE($puller)} хватает {CAPITALIZE($target)}.
+popup-grab-hard-others = {CAPITALIZE($puller)} крепко хватает {CAPITALIZE($target)}.
+popup-grab-suffocate-others = {CAPITALIZE($puller)} начинает душить {CAPITALIZE($target)}!
+popup-grab-release-fail-self = Вам не удаётся вырваться из захвата.
