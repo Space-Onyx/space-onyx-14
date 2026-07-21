@@ -215,10 +215,15 @@
   components:
   - type: Sprite
     sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi
+    state: groin_m
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.Groin
-    data: { sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi, state: groin_m }
-    sexStateOverrides: { Male: groin_m, Female: groin_f }
+    data:
+      sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi
+      state: groin_m
+    sexStateOverrides:
+      Male: groin_m
+      Female: groin_f
 
 - type: entity
   parent: [ OrganBaseChest, OrganVoxExternal ]

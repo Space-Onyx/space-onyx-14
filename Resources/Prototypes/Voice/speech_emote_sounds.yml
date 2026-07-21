@@ -13,6 +13,18 @@
       collection: MaleSneezes
     Cough:
       collection: MaleCoughs
+    # <Onyx-FelinidEmotes>
+    Hiss:
+      collection: CatHisses
+    Meow:
+      collection: CatMeows
+    Mew:
+      collection: CatMeows
+    Growl:
+      path: /Audio/Animals/bear.ogg
+    Purr:
+      path: /Audio/Corvax/Effects/Tajaran/purr.ogg
+    # </Onyx-FelinidEmotes>
     CatMeow:
       collection: CatMeows
     CatHisses:
@@ -56,6 +68,18 @@
       collection: FemaleSneezes
     Cough:
       collection: FemaleCoughs
+    # <Onyx-FelinidEmotes>
+    Hiss:
+      collection: CatHisses
+    Meow:
+      collection: CatMeows
+    Mew:
+      collection: CatMeows
+    Growl:
+      path: /Audio/Animals/bear.ogg
+    Purr:
+      path: /Audio/Corvax/Effects/Tajaran/purr.ogg
+    # </Onyx-FelinidEmotes>
     CatMeow:
       collection: CatMeows
     CatHisses:

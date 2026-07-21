@@ -17,12 +17,14 @@ using Content.Shared.Humanoid;
 using Content.Shared.Popups;
 using Content.Shared.Prototypes;
 using Content.Shared.Standing;
+using Content.Shared.UserInterface;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
+using System.Linq;
 
 namespace Content.Shared._Onyx.Medical.Surgery;
 
@@ -45,6 +47,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     [Dependency] private StandingStateSystem _standing = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private SharedContainerSystem _containers = default!;
+    [Dependency] private SharedUserInterfaceSystem _ui = default!;
 
     private const string CavityContainer = "surgery_cavity";
 
@@ -55,6 +58,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestartCleanup);
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
+        SubscribeLocalEvent<BodyPartComponent, ComponentStartup>(OnBodyPartStartup);
         SubscribeLocalEvent<SurgeryTargetComponent, SurgeryDoAfterEvent>(OnTargetDoAfter);
         SubscribeLocalEvent<SurgeryCloseIncisionConditionComponent, SurgeryValidEvent>(OnCloseIncisionValid);
         SubscribeLocalEvent<SurgeryPartConditionComponent, SurgeryValidEvent>(OnPartConditionValid);
@@ -91,6 +95,13 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         {
             subs.Event<SurgeryStepChosenBuiMsg>(OnSurgeryTargetStepChosen);
         });
+    }
+
+    private void OnBodyPartStartup(Entity<BodyPartComponent> ent, ref ComponentStartup args)
+    {
+        EnsureComp<SurgeryTargetComponent>(ent);
+        var ui = EnsureComp<UserInterfaceComponent>(ent);
+        _ui.SetUi((ent.Owner, ui), SurgeryUIKey.Key, new InterfaceData("SurgeryBoundUserInterface"));
     }
 
     private void OnRoundRestartCleanup(RoundRestartCleanupEvent ev)
@@ -582,8 +593,8 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         part = default;
         step = default;
 
-        if (!HasComp<SurgeryTargetComponent>(body) || !IsLyingDown(body) ||
-            !TryComp(targetPart, out BodyPartComponent? partComp) || !_body.BodyHasChild(body, targetPart) ||
+        if (!HasComp<SurgeryTargetComponent>(body) || !IsReadyForSurgery(body) ||
+            !TryComp(targetPart, out BodyPartComponent? partComp) || !IsPartOfTarget(body, targetPart) ||
             GetSingleton(surgery) is not { } surgeryEntId || !TryComp(surgeryEntId, out SurgeryComponent? surgeryComp) ||
             !surgeryComp.Steps.Contains(stepId) || GetSingleton(stepId) is not { } stepEnt)
             return false;
@@ -631,6 +642,20 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         return TryComp(entity, out BuckleComponent? buckle) &&
                TryComp(buckle.BuckledTo, out StrapComponent? strap) &&
                strap.Position == StrapPosition.Down;
+    }
+
+    public bool IsReadyForSurgery(EntityUid entity)
+    {
+        return TryComp(entity, out BodyPartComponent? part)
+            ? part.Body == null && part.Parent == null
+            : IsLyingDown(entity);
+    }
+
+    public bool IsPartOfTarget(EntityUid target, EntityUid part)
+    {
+        return TryComp(target, out BodyPartComponent? targetPart)
+            ? targetPart.Body == null && targetPart.Parent == null && _body.GetBodyPartChildren(target).Any(child => child.Id == part)
+            : _body.BodyHasChild(target, part);
     }
 
     private bool AnyHaveComp(IEnumerable<EntityUid> entities, IComponent component, out EntityUid found)

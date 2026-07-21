@@ -29,6 +29,10 @@
                             <LineEdit Name="NameLineEdit" SelectAllOnFocus="True" />
                             <Label Margin="4 2" Text="{Loc 'agent-id-ui-input-job'}" />
                             <LineEdit Name="JobLineEdit" SelectAllOnFocus="True" />
+                            <!-- <Onyx-AgentIDNanoChat> -->
+                            <Label Margin="4 2" Text="{Loc 'agent-id-ui-input-nanochat-number'}" />
+                            <LineEdit Name="NumberLineEdit" PlaceHolder="#0000" SelectAllOnFocus="True" />
+                            <!-- </Onyx-AgentIDNanoChat> -->
                         </BoxContainer>
                     </ScrollContainer>
 

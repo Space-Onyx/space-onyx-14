@@ -55,10 +55,14 @@
   - type: DamageVisuals
     damageOverlayGroups:
       Brute:
-        sprite: Mobs/Effects/brute_damage.rsi
+        # <Onyx-GroinDamageVisuals-edited>
+        sprite: _Onyx/Wounds/brute_damage.rsi
+        # </Onyx-GroinDamageVisuals-edited>
         color: "#896e55"
       Burn:
-        sprite: Mobs/Effects/burn_damage.rsi
+        # <Onyx-GroinDamageVisuals-edited>
+        sprite: _Onyx/Wounds/burn_damage.rsi
+        # </Onyx-GroinDamageVisuals-edited>
   - type: Bloodstream
     bloodReferenceSolution:
       reagents:

@@ -1,5 +1,8 @@
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
+// <Onyx-AgentIDNanoChat>
+using Content.Shared._DV.NanoChat;
+// </Onyx-AgentIDNanoChat>
 using Content.Shared.StatusIcon;
 using Robust.Client.UserInterface;
 using Robust.Shared.Prototypes;
@@ -25,6 +28,9 @@ public sealed class AgentIDCardBoundUserInterface(EntityUid owner, Enum uiKey) :
         _window.OnNameChanged += OnNameChanged;
         _window.OnJobChanged += OnJobChanged;
         _window.OnJobIconChanged += OnJobIconChanged;
+        // <Onyx-AgentIDNanoChat>
+        _window.OnNumberChanged += OnNumberChanged;
+        // </Onyx-AgentIDNanoChat>
 
         ProtoId<JobIconPrototype> currentIcon = default;
         if (EntMan.TryGetComponent<IdCardComponent>(Owner, out var card))
@@ -44,13 +50,23 @@ public sealed class AgentIDCardBoundUserInterface(EntityUid owner, Enum uiKey) :
         if (!EntMan.TryGetComponent<IdCardComponent>(Owner, out var card))
             return;
 
-        _window.Update(card);
+        // <Onyx-AgentIDNanoChat-edited>
+        EntMan.TryGetComponent<NanoChatCardComponent>(Owner, out var nanoChat);
+        _window.Update(card, nanoChat?.Number);
+        // </Onyx-AgentIDNanoChat-edited>
     }
 
     private void OnNameChanged(string newName)
     {
         SendPredictedMessage(new AgentIDCardNameChangedMessage(newName));
     }
+
+    // <Onyx-AgentIDNanoChat>
+    private void OnNumberChanged(uint newNumber)
+    {
+        SendPredictedMessage(new AgentIDCardNumberChangedMessage(newNumber));
+    }
+    // </Onyx-AgentIDNanoChat>
 
     private void OnJobChanged(string newJob)
     {

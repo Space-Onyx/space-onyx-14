@@ -111,6 +111,17 @@ public enum AgentIDCardUiKey : byte
     Key,
 }
 
+// <Onyx-AgentIDNanoChat>
+/// <summary>
+/// Sent from the agent ID UI to change the card's NanoChat number.
+/// </summary>
+[Serializable, NetSerializable]
+public sealed class AgentIDCardNumberChangedMessage(uint number) : BoundUserInterfaceMessage
+{
+    public uint Number { get; } = number;
+}
+// </Onyx-AgentIDNanoChat>
+
 /// <summary>
 /// Sent from the agent ID UI to change the card name.
 /// </summary>

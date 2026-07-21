@@ -126,10 +126,14 @@
   - type: DamageVisuals
     damageOverlayGroups:
       Brute:
-        sprite: Mobs/Effects/brute_damage.rsi
+        # <Onyx-GroinDamageVisuals-edited>
+        sprite: _Onyx/Wounds/brute_damage.rsi
+        # </Onyx-GroinDamageVisuals-edited>
         color: "#162581"
       Burn:
-        sprite: Mobs/Effects/burn_damage.rsi
+        # <Onyx-GroinDamageVisuals-edited>
+        sprite: _Onyx/Wounds/burn_damage.rsi
+        # </Onyx-GroinDamageVisuals-edited>
   - type: Speech
     speechVerb: Arachnid
     speechSounds: Arachnid

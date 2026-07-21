@@ -79,6 +79,7 @@
         Piercing: 1
   - type: Speech
     speechSounds: Alto
+    allowedEmotes: [Hiss, Meow, Mew, Growl, Purr]
   - type: Vocal
     sounds:
       Male: MaleHuman

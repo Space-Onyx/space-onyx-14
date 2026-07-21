@@ -77,11 +77,11 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
         if (_window == null)
             return;
 
-        var lyingDown = _system.IsLyingDown(Owner);
-        if (lyingDown && _part != null && _surgery != null)
+        var ready = _system.IsReadyForSurgery(Owner);
+        if (ready && _part != null && _surgery != null)
             RequestStepsState();
 
-        UpdateDisabledPanel(lyingDown);
+        UpdateDisabledPanel(ready);
     }
 
     private void ShowParts()
@@ -220,7 +220,7 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
         if (_window == null)
             return;
 
-        _window.DisabledPanel.Visible = !(lyingDown ?? _system.IsLyingDown(Owner));
+        _window.DisabledPanel.Visible = !(lyingDown ?? _system.IsReadyForSurgery(Owner));
         _window.DisabledPanel.MouseFilter = _window.DisabledPanel.Visible ? Control.MouseFilterMode.Stop : Control.MouseFilterMode.Ignore;
         if (_window.DisabledPanel.Visible)
         {

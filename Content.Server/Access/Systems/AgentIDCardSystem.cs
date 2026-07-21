@@ -1,5 +1,8 @@
 using Content.Server.Clothing.Systems;
 using Content.Server.Implants;
+// <Onyx-AgentIDNanoChat>
+using Content.Shared._DV.NanoChat;
+// </Onyx-AgentIDNanoChat>
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.Clothing.Components;
@@ -15,6 +18,20 @@ public sealed partial class AgentIdCardSystem : SharedAgentIdCardSystem
     [Dependency] private SharedIdCardSystem _card = default!;
     [Dependency] private ChameleonClothingSystem _chameleon = default!;
     [Dependency] private ChameleonControllerSystem _chamController = default!;
+    // <Onyx-AgentIDNanoChat>
+    [Dependency] private SharedNanoChatSystem _nanoChat = default!;
+    // </Onyx-AgentIDNanoChat>
+
+    // <Onyx-AgentIDNanoChat>
+    [SubscribeLocalEvent]
+    private void OnNumberChanged(Entity<AgentIDCardComponent> ent, ref AgentIDCardNumberChangedMessage args)
+    {
+        if (args.Number is < 1 or > 9999 || !TryComp<NanoChatCardComponent>(ent, out var nanoChat))
+            return;
+
+        _nanoChat.SetNumber((ent, nanoChat), args.Number);
+    }
+    // </Onyx-AgentIDNanoChat>
 
     [SubscribeLocalEvent]
     private void OnChameleonControllerOutfitChangedItem(Entity<AgentIDCardComponent> ent, ref InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent> args)

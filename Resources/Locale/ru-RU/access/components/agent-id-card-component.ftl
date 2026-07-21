@@ -11,3 +11,7 @@ agent-id-card-job-icon-label = Иконка:
 agent-id-menu-title = ID карта Агента
 
 agent-id-open-ui-verb = Настроить
+
+# <Onyx-AgentIDNanoChat>
+agent-id-ui-input-nanochat-number = Номер NanoChat:
+# </Onyx-AgentIDNanoChat>

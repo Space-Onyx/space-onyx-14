@@ -167,10 +167,14 @@
   - type: DamageVisuals
     damageOverlayGroups:
       Brute:
-        sprite: Mobs/Effects/brute_damage.rsi
+        # <Onyx-GroinDamageVisuals-edited>
+        sprite: _Onyx/Wounds/brute_damage.rsi
+        # </Onyx-GroinDamageVisuals-edited>
         color: "#808A51"
       Burn:
-        sprite: Mobs/Effects/burn_damage.rsi
+        # <Onyx-GroinDamageVisuals-edited>
+        sprite: _Onyx/Wounds/burn_damage.rsi
+        # </Onyx-GroinDamageVisuals-edited>
   - type: MothAccent
   - type: Vocal
     emoteSounds: UnisexMoth

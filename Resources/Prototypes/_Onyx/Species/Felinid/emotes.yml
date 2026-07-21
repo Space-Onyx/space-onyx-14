@@ -1,0 +1,67 @@
+- type: emote
+  id: Hiss
+  name: chat-emote-name-hiss
+  category: Vocal
+  available: false
+  icon: Interface/Emotes/vocal.png
+  whitelist:
+    components:
+    - Vocal
+  blacklist:
+    components:
+    - BorgChassis
+  chatMessages: ["chat-emote-msg-hiss"]
+  chatTriggers:
+  - hiss
+  - hisses
+  - hissing
+  - hissed
+  - шипит
+  - шипит.
+  - шипит!
+
+- type: emote
+  id: Meow
+  name: chat-emote-name-meow
+  category: Vocal
+  available: false
+  icon: Interface/Emotes/vocal.png
+  whitelist:
+    components:
+    - Vocal
+  blacklist:
+    components:
+    - BorgChassis
+  chatMessages: ["chat-emote-msg-meow"]
+  chatTriggers:
+  - meow
+  - meows
+  - meowing
+  - meowed
+  - miau
+  - nya
+  - mraow
+  - мяукает
+  - мяукает.
+  - мяукает!
+
+- type: emote
+  id: Mew
+  name: chat-emote-name-mew
+  category: Vocal
+  available: false
+  icon: Interface/Emotes/vocal.png
+  whitelist:
+    components:
+    - Vocal
+  blacklist:
+    components:
+    - BorgChassis
+  chatMessages: ["chat-emote-msg-mew"]
+  chatTriggers:
+  - mew
+  - mews
+  - mewing
+  - mewed
+  - мяукнул
+  - мяукнула

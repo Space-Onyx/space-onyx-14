@@ -10,6 +10,9 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
+// <Onyx-AgentIDNanoChat>
+using System.Linq;
+// </Onyx-AgentIDNanoChat>
 using System.Numerics;
 
 namespace Content.Client.Access.UI;
@@ -25,6 +28,10 @@ public sealed partial class AgentIDCardWindow : FancyWindow
     public event Action<string>? OnNameChanged;
     public event Action<string>? OnJobChanged;
 
+    // <Onyx-AgentIDNanoChat>
+    public event Action<uint>? OnNumberChanged;
+    // </Onyx-AgentIDNanoChat>
+
     public event Action<ProtoId<JobIconPrototype>>? OnJobIconChanged;
 
     public AgentIDCardWindow()
@@ -38,6 +45,18 @@ public sealed partial class AgentIDCardWindow : FancyWindow
 
         JobLineEdit.OnTextEntered += e => CommitJob(e.Text);
         JobLineEdit.OnFocusExit += e => CommitJob(e.Text);
+
+        // <Onyx-AgentIDNanoChat>
+        NumberLineEdit.OnTextEntered += e => CommitNumber(e.Text);
+        NumberLineEdit.OnFocusExit += e => CommitNumber(e.Text);
+        NumberLineEdit.OnTextChanged += e =>
+        {
+            var number = string.Concat(e.Text.Where(char.IsDigit));
+            number = number[..Math.Min(number.Length, 4)];
+            if (number != e.Text)
+                NumberLineEdit.Text = number;
+        };
+        // </Onyx-AgentIDNanoChat>
 
         NameLineEdit.IsValid = s => s.Length <= _cfgManager.GetCVar(CCVars.MaxNameLength);
         JobLineEdit.IsValid = s => s.Length <= _cfgManager.GetCVar(CCVars.MaxIdJobLength);
@@ -122,7 +141,9 @@ public sealed partial class AgentIDCardWindow : FancyWindow
         }
     }
 
-    public void Update(IdCardComponent card)
+    // <Onyx-AgentIDNanoChat-edited>
+    public void Update(IdCardComponent card, uint? nanoChatNumber)
+    // </Onyx-AgentIDNanoChat-edited>
     {
         var name = card.FullName ?? string.Empty;
         var job = card.LocalizedJobTitle ?? string.Empty;
@@ -131,6 +152,10 @@ public sealed partial class AgentIDCardWindow : FancyWindow
         CurrentName.Text = name;
         JobLineEdit.Text = job;
         CurrentJob.Text = job;
+
+        // <Onyx-AgentIDNanoChat>
+        NumberLineEdit.Text = nanoChatNumber?.ToString("D4") ?? string.Empty;
+        // </Onyx-AgentIDNanoChat>
 
         var jobIconProto = _prototypeManager.Index(card.JobIcon);
         CurrentJobIcon.Texture = _spriteSystem.Frame0(jobIconProto.Icon);
@@ -175,6 +200,14 @@ public sealed partial class AgentIDCardWindow : FancyWindow
     {
         OnJobChanged?.Invoke(job);
     }
+
+    // <Onyx-AgentIDNanoChat>
+    private void CommitNumber(string text)
+    {
+        if (uint.TryParse(text, out var number) && number is > 0 and <= 9999)
+            OnNumberChanged?.Invoke(number);
+    }
+    // </Onyx-AgentIDNanoChat>
 
     private void CommitName(string name)
     {

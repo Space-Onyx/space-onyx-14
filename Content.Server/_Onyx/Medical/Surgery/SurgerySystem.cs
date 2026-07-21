@@ -61,7 +61,7 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
     {
         var part = GetEntity(args.Part);
         if (!TryComp(part, out BodyPartComponent? partComp) ||
-            !_body.BodyHasChild(ent, part) ||
+            !IsPartOfTarget(ent, part) ||
             GetSingleton(args.Surgery) is not { } surgery ||
             !TryComp(surgery, out SurgeryComponent? surgeryComp))
             return;
@@ -89,7 +89,9 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
             return;
 
         var surgeries = new Dictionary<NetEntity, List<EntProtoId>>();
-        var parts = _body.GetBodyChildren(body).ToArray();
+        var parts = TryComp(body, out BodyPartComponent? rootPart)
+            ? _body.GetBodyPartChildren(body).ToArray()
+            : _body.GetBodyChildren(body).ToArray();
         foreach (var surgery in _surgeries)
         {
             if (GetSingleton(surgery) is not { } surgeryEnt)
@@ -117,6 +119,7 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
     {
         if (!args.CanAccess ||
             !args.CanInteract ||
+            TryComp(ent, out BodyPartComponent? part) && (part.Body != null || part.Parent != null) ||
             (args.User == ent.Owner && !_configuration.GetCVar(CCVars.SurgerySelfEnabled)) ||
             args.Using is not { } tool ||
             !HasComp<SurgeryToolComponent>(tool))
@@ -138,7 +141,7 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
         if (target.Owner == user && !_configuration.GetCVar(CCVars.SurgerySelfEnabled))
             return;
 
-        if (!IsLyingDown(target))
+        if (!IsReadyForSurgery(target))
         {
             _popup.PopupEntity(
                 Loc.GetString("surgery-popup-patient-must-lie"),

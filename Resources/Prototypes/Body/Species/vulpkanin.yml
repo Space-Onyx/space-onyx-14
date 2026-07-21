@@ -179,10 +179,14 @@
   - type: DamageVisuals
     damageOverlayGroups:
       Brute:
-        sprite: Mobs/Effects/brute_damage.rsi
+        # <Onyx-GroinDamageVisuals-edited>
+        sprite: _Onyx/Wounds/brute_damage.rsi
+        # </Onyx-GroinDamageVisuals-edited>
         color: "#ccac1f"
       Burn:
-        sprite: Mobs/Effects/burn_damage.rsi
+        # <Onyx-GroinDamageVisuals-edited>
+        sprite: _Onyx/Wounds/burn_damage.rsi
+        # </Onyx-GroinDamageVisuals-edited>
   - type: MessyDrinker
     spillChance: 0.33
   - type: Speech
@@ -281,7 +285,9 @@
   components:
   - type: VisualOrgan
     data:
-      sprite: Corvax/Mobs/Species/Vulpkanin/parts.rsi # Mobs/Species/Vulpkanin/parts.rsi #Corvax-Vulp_Port
+      # <Onyx-VulpkaninBody-edited>
+      sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi
+      # </Onyx-VulpkaninBody-edited>
   - type: VisualOrganMarkings
     markingData:
       group: Vulpkanin
@@ -292,11 +298,27 @@
   abstract: true
   components:
   - type: Sprite
-    sprite: Corvax/Mobs/Species/Vulpkanin/parts.rsi #Mobs/Species/Vulpkanin/parts.rsi #Corvax-Vulp_Port
+    # <Onyx-VulpkaninBody-edited>
+    sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi
+    # </Onyx-VulpkaninBody-edited>
 
 - type: entity
   parent: [ OrganBaseTorsoSexed, OrganBaseTorso, OrganVulpkaninExternal ]
   id: OrganVulpkaninTorso
+  # <Onyx-VulpkaninBody-edited>
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Species/Vulpkanin/parts.rsi
+    state: torso_m
+  - type: VisualOrgan
+    layer: enum.HumanoidVisualLayers.Chest
+    data:
+      sprite: Corvax/Mobs/Species/Vulpkanin/parts.rsi
+      state: torso_m
+    sexStateOverrides:
+      Male: torso_m
+      Female: torso_f
+  # </Onyx-VulpkaninBody-edited>
 
 - type: entity
   parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganVulpkaninExternal ]
@@ -356,8 +378,21 @@
   id: OrganVulpkaninBrain
 
 - type: entity
-  parent: [ OrganVulpkaninVisual, OrganBaseEyes, OrganVulpkaninInternal ]
+  # <Onyx-VulpkaninBody-edited>
+  parent: [ OrganBaseEyes, OrganVulpkaninInternal ]
   id: OrganVulpkaninEyes
+  components:
+  - type: VisualOrgan
+    layer: enum.HumanoidVisualLayers.Eyes
+    data:
+      sprite: Corvax/Mobs/Species/Vulpkanin/parts.rsi
+      state: eyes
+  - type: VisualOrganMarkings
+    markingData:
+      group: Vulpkanin
+      layers:
+      - Eyes
+  # </Onyx-VulpkaninBody-edited>
 
 - type: entity
   parent: [ OrganBaseTongue, OrganVulpkaninInternal ]
