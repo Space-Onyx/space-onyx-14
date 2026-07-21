@@ -22,15 +22,14 @@ public sealed partial class StationRadioReceiverSystem : EntitySystem
 
     private void OnPowerChanged(EntityUid uid, StationRadioReceiverComponent comp, PowerChangedEvent args)
     {
-        if(comp.SoundEntity != null && args.Powered)
-            _audio.SetGain(comp.SoundEntity, comp.Active ? comp.DefaultParams.Volume : 0f);
-        else if(comp.SoundEntity != null)
-            _audio.SetGain(comp.SoundEntity, 0);
+        if (comp.SoundEntity != null)
+            _audio.SetGain(comp.SoundEntity, args.Powered && comp.Active ? comp.DefaultParams.Volume : 0f);
     }
 
     private void OnRadioToggle(EntityUid uid, StationRadioReceiverComponent comp, ActivateInWorldEvent args)
     {
         comp.Active = !comp.Active;
+        Dirty(uid, comp);
         if (comp.SoundEntity != null && _power.IsPowered(uid))
             _audio.SetGain(comp.SoundEntity, comp.Active ? comp.DefaultParams.Volume : 0f);
     }
@@ -38,13 +37,13 @@ public sealed partial class StationRadioReceiverSystem : EntitySystem
     private void OnMediaPlayed(EntityUid uid, StationRadioReceiverComponent comp, StationRadioMediaPlayedEvent args)
     {
         var audio = _audio.PlayPredicted(args.MediaPlayed, uid, uid, comp.DefaultParams);
-        if (audio != null && _power.IsPowered(uid) && comp.Active)
-            comp.SoundEntity = audio.Value.Entity;
-        else if (audio != null && !_power.IsPowered(uid) || !comp.Active && audio != null)
-        {
-            comp.SoundEntity = audio.Value.Entity;
+        if (audio == null)
+            return;
+
+        comp.SoundEntity = audio.Value.Entity;
+        Dirty(uid, comp);
+        if (!_power.IsPowered(uid) || !comp.Active)
             _audio.SetGain(comp.SoundEntity, 0);
-        }
     }
 
     private void OnMediaStopped(EntityUid uid, StationRadioReceiverComponent comp, StationRadioMediaStoppedEvent args)
@@ -53,5 +52,6 @@ public sealed partial class StationRadioReceiverSystem : EntitySystem
             return;
 
         comp.SoundEntity = _audio.Stop(comp.SoundEntity);
+        Dirty(uid, comp);
     }
 }

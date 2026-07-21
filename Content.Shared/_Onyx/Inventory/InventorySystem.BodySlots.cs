@@ -12,7 +12,10 @@ public partial class InventorySystem
 
     public void RefreshBodySlots(Entity<InventoryComponent?> ent)
     {
-        if (TerminatingOrDeleted(ent) ||
+        // Container layout is authoritative. Client-side body events can arrive between
+        // transform and container states and must never eject equipped items locally.
+        if (_netManager.IsClient ||
+            TerminatingOrDeleted(ent) ||
             !Resolve(ent, ref ent.Comp) ||
             ent.Comp is not { } inventory ||
             !ProtoMan.Resolve(inventory.TemplateId, out var template))
@@ -42,6 +45,7 @@ public partial class InventorySystem
             _containerSystem.ShutdownContainer(container);
         }
 
+        inventory.AvailableSlots = available;
         inventory.Slots = slots;
         inventory.Containers = new ContainerSlot[slots.Length];
         for (var i = 0; i < slots.Length; i++)
@@ -52,6 +56,8 @@ public partial class InventorySystem
         }
 
         Dirty(ent);
+        if (TryComp<ContainerManagerComponent>(ent, out var containerManager))
+            Dirty(ent.Owner, containerManager);
         var ev = new InventoryTemplateUpdated();
         RaiseLocalEvent(ent, ref ev);
     }

@@ -69,6 +69,15 @@ public sealed partial class SharedBodySystem : EntitySystem
 
         foreach (var (partId, part) in GetBodyPartChildren(root))
         {
+            if (TryComp(partId, out OrganComponent? organ))
+            {
+                organ.Body = inserted ? body : null;
+                Dirty(partId, organ);
+            }
+
+            part.Body = inserted ? body : null;
+            Dirty(partId, part);
+
             if (inserted)
             {
                 var added = new OrganGotInsertedEvent(body);
@@ -79,15 +88,6 @@ public sealed partial class SharedBodySystem : EntitySystem
                 var removed = new OrganGotRemovedEvent(body);
                 RaiseLocalEvent(partId, ref removed);
             }
-
-            if (TryComp(partId, out OrganComponent? organ))
-            {
-                organ.Body = inserted ? body : null;
-                Dirty(partId, organ);
-            }
-
-            part.Body = inserted ? body : null;
-            Dirty(partId, part);
 
             foreach (var slot in part.Organs)
             {
@@ -114,10 +114,10 @@ public sealed partial class SharedBodySystem : EntitySystem
         }
         else
         {
-            var removed = new OrganGotRemovedEvent(body);
-            RaiseLocalEvent(uid, ref removed);
             organ.Body = null;
             Dirty(uid, organ);
+            var removed = new OrganGotRemovedEvent(body);
+            RaiseLocalEvent(uid, ref removed);
         }
     }
 

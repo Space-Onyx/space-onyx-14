@@ -28,8 +28,14 @@ public sealed partial class VinylPlayerSystem : EntitySystem
 
     private void OnPowerChanged(EntityUid uid, VinylPlayerComponent comp, PowerChangedEvent args)
     {
-        if (comp.SoundEntity != null && !args.Powered)
+        if (args.Powered)
+            return;
+
+        if (comp.SoundEntity != null)
+        {
             comp.SoundEntity = _audio.Stop(comp.SoundEntity);
+            Dirty(uid, comp);
+        }
 
         if (!CheckForRadioRig(uid))
             return;
@@ -47,7 +53,7 @@ public sealed partial class VinylPlayerSystem : EntitySystem
             return;
 
         var query = EntityQueryEnumerator<StationRadioReceiverComponent>();
-        while (query.MoveNext(out var receiver, out var _))
+        while (query.MoveNext(out var receiver, out _))
         {
             RaiseLocalEvent(receiver, new StationRadioMediaStoppedEvent());
         }
@@ -60,7 +66,10 @@ public sealed partial class VinylPlayerSystem : EntitySystem
 
         var audio = _audio.PlayPredicted(vinylcomp.Song, uid, uid, AudioParams.Default.WithVolume(3f).WithMaxDistance(4.5f));
         if (audio != null)
+        {
             comp.SoundEntity = audio.Value.Entity;
+            Dirty(uid, comp);
+        }
 
         if (!CheckForRadioRig(uid))
             return;
@@ -76,13 +85,16 @@ public sealed partial class VinylPlayerSystem : EntitySystem
     private void OnVinylRemove(EntityUid uid, VinylPlayerComponent comp, EntRemovedFromContainerMessage args)
     {
         if (comp.SoundEntity != null)
+        {
             comp.SoundEntity = _audio.Stop(comp.SoundEntity);
+            Dirty(uid, comp);
+        }
 
         if (!CheckForRadioRig(uid))
             return;
 
         var query = EntityQueryEnumerator<StationRadioReceiverComponent>();
-        while (query.MoveNext(out var receiver, out var _))
+        while (query.MoveNext(out var receiver, out _))
         {
             RaiseLocalEvent(receiver, new StationRadioMediaStoppedEvent());
         }
@@ -90,31 +102,29 @@ public sealed partial class VinylPlayerSystem : EntitySystem
 
     private bool CheckForRadioRig(EntityUid uid)
     {
-        if (TryComp<DeviceLinkSourceComponent>(uid, out var source))
+        if (!TryComp<DeviceLinkSourceComponent>(uid, out var source))
+            return false;
+
+        foreach (var linked in source.LinkedPorts.Keys)
         {
-            foreach (var linked in source.LinkedPorts.Keys)
-            {
-                if (HasComp<RadioRigComponent>(linked) && CheckForRadioServer(linked))
-                {
-                    return true;
-                }
-            }
+            if (HasComp<RadioRigComponent>(linked) && CheckForRadioServer(linked))
+                return true;
         }
+
         return false;
     }
 
     private bool CheckForRadioServer(EntityUid uid)
     {
-        if (TryComp<DeviceLinkSinkComponent>(uid, out var source))
+        if (!TryComp<DeviceLinkSinkComponent>(uid, out var source))
+            return false;
+
+        foreach (var linked in source.LinkedSources)
         {
-            foreach (var linked in source.LinkedSources)
-            {
-                if (HasComp<StationRadioServerComponent>(linked))
-                {
-                    return true;
-                }
-            }
+            if (HasComp<StationRadioServerComponent>(linked))
+                return true;
         }
+
         return false;
     }
 }

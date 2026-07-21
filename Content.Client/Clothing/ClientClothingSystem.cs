@@ -96,6 +96,8 @@ public sealed partial class ClientClothingSystem : ClothingSystem
         var enumerator = _inventorySystem.GetSlotEnumerator((uid, inventoryComponent));
         while (enumerator.NextItem(out var item, out var slot))
         {
+            if (TryComp(item, out SpriteComponent? itemSprite))
+                _sprite.SetVisible((item, itemSprite), false);
             RenderEquipment(uid, item, slot.Name, inventoryComponent);
         }
     }

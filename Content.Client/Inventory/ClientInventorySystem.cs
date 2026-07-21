@@ -277,7 +277,12 @@ namespace Content.Client.Inventory
             foreach (var slot in ent.Comp.Slots)
             {
                 if (inventorySlots.SlotData.TryGetValue(slot.Name, out var slotData))
+                {
                     slotData.SlotDef = slot;
+                    slotData.Container = TryGetSlotContainer(ent.Owner, slot.Name, out var container, out _, ent.Comp)
+                        ? container
+                        : null;
+                }
                 else
                     TryAddSlotData((ent.Owner, inventorySlots), (SlotData)slot);
             }

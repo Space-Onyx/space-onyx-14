@@ -33,12 +33,8 @@
   id: PrisonToiletWater
   suffix: Water
   components:
-  - type: SolutionContainerManager
-    solutions:
-      drainBuffer:
-        maxVol: 100
-      tank:
-        maxVol: 500
-        reagents:
-        - ReagentId: Water
-          Quantity: 200
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Water
+        Quantity: 200

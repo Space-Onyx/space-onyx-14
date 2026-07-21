@@ -75,5 +75,11 @@ public sealed class InventoryDisplay : LayoutContainer
     public void ClearButtons()
     {
         Children.Clear();
+        _buttons.Clear();
+        Columns = 0;
+        Rows = 0;
+        resizer.SetHeight = 0;
+        resizer.SetWidth = 0;
+        AddChild(resizer);
     }
 }

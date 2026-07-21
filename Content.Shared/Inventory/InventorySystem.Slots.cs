@@ -66,6 +66,9 @@ public partial class InventorySystem : EntitySystem
 
         var targetComp = EnsureComp<InventoryComponent>(target);
         targetComp.SpeciesId = source.Comp.SpeciesId;
+        // <Onyx-BodyInventorySlots>
+        targetComp.AvailableSlots = source.Comp.AvailableSlots;
+        // </Onyx-BodyInventorySlots>
         targetComp.Displacements = new Dictionary<string, DisplacementData>(source.Comp.Displacements);
         targetComp.FemaleDisplacements = new Dictionary<string, DisplacementData>(source.Comp.FemaleDisplacements);
         targetComp.MaleDisplacements = new Dictionary<string, DisplacementData>(source.Comp.MaleDisplacements);
@@ -88,20 +91,33 @@ public partial class InventorySystem : EntitySystem
         if (!ProtoMan.Resolve(ent.Comp.TemplateId, out var invTemplate))
             return;
 
-        // Remove any containers that aren't in the new template.
-        foreach (var container in ent.Comp.Containers)
-        {
-            if (invTemplate.Slots.Any(s => s.Name == container.ID))
-                continue;
+        // <Onyx-BodyInventorySlots>
+        var slots = invTemplate.Slots
+            .Where(slot => (slot.SlotFlags & ~ent.Comp.AvailableSlots) == 0)
+            .ToArray();
+        // </Onyx-BodyInventorySlots>
 
-            // Empty container before deletion so the contents don't get deleted.
-            // For cases when we update the template while items are already worn.
-            _containerSystem.EmptyContainer(container);
-            _containerSystem.ShutdownContainer(container);
+        // Remove any containers that aren't in the new template.
+        if (_netManager.IsServer)
+        {
+            foreach (var container in ent.Comp.Containers)
+            {
+                // <Onyx-BodyInventorySlots-edited>
+                if (slots.Any(s => s.Name == container.ID))
+                // </Onyx-BodyInventorySlots-edited>
+                    continue;
+
+                // Empty container before deletion so the contents don't get deleted.
+                // For cases when we update the template while items are already worn.
+                _containerSystem.EmptyContainer(container);
+                _containerSystem.ShutdownContainer(container);
+            }
         }
 
         // Ensure the containers from the template.
-        ent.Comp.Slots = invTemplate.Slots;
+        // <Onyx-BodyInventorySlots-edited>
+        ent.Comp.Slots = slots;
+        // </Onyx-BodyInventorySlots-edited>
         ent.Comp.Containers = new ContainerSlot[ent.Comp.Slots.Length];
         for (var i = 0; i < ent.Comp.Containers.Length; i++)
         {

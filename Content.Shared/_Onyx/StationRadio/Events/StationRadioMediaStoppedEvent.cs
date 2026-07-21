@@ -3,10 +3,4 @@ using Robust.Shared.Serialization;
 namespace Content.Shared._Onyx.StationRadio.Events;
 
 [Serializable, NetSerializable]
-public sealed class StationRadioMediaStoppedEvent : EntityEventArgs
-{
-    public StationRadioMediaStoppedEvent()
-    {
-
-    }
-}
+public sealed class StationRadioMediaStoppedEvent : EntityEventArgs;

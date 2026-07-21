@@ -51,6 +51,15 @@
           - ItemMask
         density: 1000
         hard: false
+      # <Onyx-Fishing>
+      fishing:
+        shape: !type:PhysShapeCircle
+          radius: 0.4
+        layer: [ ItemMask ]
+        mask: [ HighImpassable ]
+        density: 1000
+        hard: false
+      # </Onyx-Fishing>
   - type: FootstepModifier
     footstepSoundCollection:
       collection: FootstepWater
@@ -65,3 +74,10 @@
   - type: TileEntityEffect
     effects:
     - !type:Extinguish
+  # <Onyx-Fishing>
+  - type: FishingSpot
+    fishList: !type:NestedSelector
+      tableId: WaterFishingLootTable
+    fishDefaultTimer: 25.0
+    fishTimerVariety: 15.0
+  # </Onyx-Fishing>

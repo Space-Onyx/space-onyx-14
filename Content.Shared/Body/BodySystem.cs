@@ -66,14 +66,16 @@ public sealed partial class BodySystem : EntitySystem
         var body = new OrganInsertedIntoEvent(args.Entity);
         RaiseLocalEvent(ent, ref body);
 
-        var ev = new OrganGotInsertedEvent(ent);
-        RaiseLocalEvent(args.Entity, ref ev);
-
         if (organ.Body != ent)
         {
             organ.Body = ent;
             Dirty(args.Entity, organ);
         }
+
+        // <Onyx-BodyInventorySlots-edited>
+        var ev = new OrganGotInsertedEvent(ent);
+        RaiseLocalEvent(args.Entity, ref ev);
+        // </Onyx-BodyInventorySlots-edited>
     }
 
     private void OnBodyEntRemoved(Entity<BodyComponent> ent, ref EntRemovedFromContainerMessage args)
@@ -87,14 +89,16 @@ public sealed partial class BodySystem : EntitySystem
         var body = new OrganRemovedFromEvent(args.Entity);
         RaiseLocalEvent(ent, ref body);
 
+        if (organ.Body != null)
+        {
+            organ.Body = null;
+            Dirty(args.Entity, organ);
+        }
+
+        // <Onyx-BodyInventorySlots-edited>
         var ev = new OrganGotRemovedEvent(ent);
         RaiseLocalEvent(args.Entity, ref ev);
-
-        if (organ.Body == null)
-            return;
-
-        organ.Body = null;
-        Dirty(args.Entity, organ);
+        // </Onyx-BodyInventorySlots-edited>
     }
 
     private void OnCanDrag(Entity<BodyComponent> ent, ref CanDragEvent args)

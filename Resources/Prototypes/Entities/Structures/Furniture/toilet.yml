@@ -81,6 +81,15 @@
         - MachineMask
         layer:
         - None
+      # <Onyx-Fishing>
+      fishing:
+        shape: !type:PhysShapeCircle
+          radius: 0.4
+        layer: [ ItemMask ]
+        mask: [ HighImpassable ]
+        density: 1000
+        hard: false
+      # </Onyx-Fishing>
   - type: Appearance
   - type: SecretStash
     secretStashName: secret-stash-toilet
@@ -117,6 +126,13 @@
       reagents:
       - ReagentId: Water
         Quantity: 1
+  # <Onyx-Fishing>
+  - type: FishingSpot
+    fishList: !type:NestedSelector
+      tableId: ToiletFishingLootTable
+    fishDefaultTimer: 45.0
+    fishTimerVariety: 15.0
+  # </Onyx-Fishing>
 
 # constructed toilets don't come with Rummageable or plungeruse component to avoid infinite item spawning.
 - type: entity
