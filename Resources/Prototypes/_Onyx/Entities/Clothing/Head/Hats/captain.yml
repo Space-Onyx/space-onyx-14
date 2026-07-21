@@ -1,0 +1,77 @@
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatBeretCaptainWhite
+  name: white captain beret
+  description: A white captain beret, an icon of style.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Head/Hats/white_beret.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Head/Hats/white_beret.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.7
+        Slash: 0.7
+        Piercing: 0.7
+        Heat: 0.8
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatBeretSheriff
+  name: sheriff beret
+  description: Beret, a favorite among local sheriffs.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Head/Hats/sheriff_beret.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Head/Hats/sheriff_beret.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.7
+        Slash: 0.7
+        Piercing: 0.7
+        Heat: 0.8
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatCapcapWhite
+  name: white cap cap
+  description: Stylish white cap cap.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Head/Hats/white_capcap.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Head/Hats/white_capcap.rsi
+  - type: Tag
+    tags:
+    - HamsterWearable
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.7
+        Slash: 0.7
+        Piercing: 0.7
+        Heat: 0.8
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatCapcapSheriff
+  name: sheriff cap
+  description: Stylish sheriff cap.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Head/Hats/sheriff_capcap.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Head/Hats/sheriff_capcap.rsi
+  - type: Tag
+    tags:
+    - HamsterWearable
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.7
+        Slash: 0.7
+        Piercing: 0.7
+        Heat: 0.8

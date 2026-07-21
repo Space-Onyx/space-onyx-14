@@ -219,6 +219,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 0
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: CondimentVendAds
   - type: SpeakOnUIClosed
@@ -282,6 +285,9 @@
     normalState: normal-unshaded
     denyState: deny-unshaded
     loopDeny: false
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 0
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: BruiseOMatAds
   - type: SpeakOnUIClosed
@@ -316,6 +322,9 @@
     normalState: normal-unshaded
     ejectState: eject-unshaded
     denyState: deny-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 0
+    # </Onyx-VendingPrices-edited>
   - type: Sprite
     sprite: Structures/Machines/VendingMachines/cart.rsi
     layers:
@@ -409,6 +418,9 @@
     brokenState: broken
     normalState: normal-unshaded
     denyState: deny-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: ClothesMateAds
   - type: SpeakOnUIClosed
@@ -440,6 +452,9 @@
     brokenState: broken
     normalState: normal-unshaded
     denyState: deny-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: ClothesMateAds
   - type: SpeakOnUIClosed
@@ -960,6 +975,9 @@
   - type: VendingMachine
     pack: NanoMedPlusInventory
     offState: off
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 0
+    # </Onyx-VendingPrices-edited>
   - type: Sprite
     layers:
     - state: "off"
@@ -1020,6 +1038,9 @@
     normalState: normal-unshaded
     ejectState: eject-unshaded
     denyState: deny-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 0
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: SecTechAds
   - type: SpeakOnUIClosed
@@ -1059,6 +1080,9 @@
     normalState: normal-unshaded
     ejectState: eject-unshaded
     denyState: deny-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 0
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: MegaSeedAds
   - type: SpeakOnUIClosed
@@ -1136,6 +1160,9 @@
     normalState: normal-unshaded
     ejectState: eject-unshaded
     denyState: deny-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 0
+    # </Onyx-VendingPrices-edited>
   - type: Sprite
     sprite: Structures/Machines/VendingMachines/sustenance.rsi
     layers:
@@ -1282,6 +1309,9 @@
     ejectState: eject-unshaded
     denyState: deny-unshaded
     screenState: screen
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: AutoDrobeAds
   - type: SpeakOnUIClosed
@@ -1386,6 +1416,9 @@
     normalState: normal-unshaded
     ejectState: eject-unshaded
     denyState: deny-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: Sprite
     sprite: Structures/Machines/VendingMachines/youtool.rsi
     layers:
@@ -1414,6 +1447,9 @@
     normalState: normal-unshaded
     ejectState: eject-unshaded
     ejectDelay: 1.8
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 0
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: GoodCleanFunAds
   - type: SpeakOnUIClosed
@@ -1544,6 +1580,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: HyDrobeAds
   - type: SpeakOnUIClosed
@@ -1576,6 +1615,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: LawDrobeAds
   - type: SpeakOnUIClosed
@@ -1604,6 +1646,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: SecDrobeAds
   - type: SpeakOnUIClosed
@@ -1636,6 +1681,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: BarDrobeAds
   - type: SpeakOnUIClosed
@@ -1664,6 +1712,9 @@
     brokenState: broken
     normalState: normal-unshaded
     denyState: deny-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: Sprite
     sprite: Structures/Machines/VendingMachines/chapdrobe.rsi
     layers:
@@ -1692,6 +1743,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: CargoDrobeAds
   - type: SpeakOnUIClosed
@@ -1724,6 +1778,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: MediDrobeAds
   - type: SpeakOnUIClosed
@@ -1752,6 +1809,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: ChemDrobeAds
   - type: SpeakOnUIClosed
@@ -1781,6 +1841,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: CuraDrobeAds
   - type: SpeakOnUIClosed
@@ -1809,6 +1872,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: AtmosDrobeAds
   - type: SpeakOnUIClosed
@@ -1842,6 +1908,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: EngiDrobeAds
   - type: SpeakOnUIClosed
@@ -1875,6 +1944,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: ChefDrobeAds
   - type: SpeakOnUIClosed
@@ -1903,6 +1975,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: DetDrobeAds
   - type: SpeakOnUIClosed
@@ -1931,6 +2006,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: JaniDrobeAds
   - type: SpeakOnUIClosed
@@ -1963,6 +2041,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: SciDrobeAds
   - type: SpeakOnUIClosed
@@ -1991,6 +2072,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 0
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: SyndieDrobeAds
   - type: SpeakOnUIClosed
@@ -2023,6 +2107,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: RoboDrobeAds
   - type: SpeakOnUIClosed
@@ -2051,6 +2138,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: GeneDrobeAds
   - type: SpeakOnUIClosed
@@ -2080,6 +2170,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: ViroDrobeAds
   - type: SpeakOnUIClosed
@@ -2109,6 +2202,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 0
+    # </Onyx-VendingPrices-edited>
   - type: Sprite
     sprite: Structures/Machines/VendingMachines/centdrobe.rsi
     layers:
@@ -2177,6 +2273,9 @@
     offState: off
     brokenState: broken
     normalState: normal-unshaded
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 1
+    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: PrideDrobeAds
   - type: SpeakOnUIClosed
@@ -2208,6 +2307,9 @@
   components:
   - type: VendingMachine
     pack: TankDispenserEVAInventory
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 0
+    # </Onyx-VendingPrices-edited>
   - type: Sprite
     sprite: Structures/Machines/VendingMachines/tankdispenser.rsi #TODO add visualiser for remaining tanks as layers
     state: dispenser
@@ -2221,6 +2323,9 @@
   components:
   - type: VendingMachine
     pack: TankDispenserEngineeringInventory
+    # <Onyx-VendingPrices-edited>
+    priceMultiplier: 0
+    # </Onyx-VendingPrices-edited>
   - type: Sprite
     sprite: Structures/Machines/VendingMachines/tankdispenser.rsi #TODO add visualiser for remaining tanks as layers
     layers:

@@ -35,10 +35,16 @@
   - MicrowaveMachineCircuitboard
   - ReagentGrinderMachineCircuitboard
   - ElectricGrillMachineCircuitboard
+  # <Onyx-ElectricRange>
+  - ElectricRangeMachineCircuitboard
+  # </Onyx-ElectricRange>
   - BoozeDispenserMachineCircuitboard
   - SodaDispenserMachineCircuitboard
   - SmartFridgeCircuitboard
   - PrinterDocMachineCircuitboard # Corvax-Printer
+  # <Onyx-StationRadio>
+  - StationRadioCircuitboard
+  # </Onyx-StationRadio>
 
 ## Dynamic
 
@@ -67,3 +73,9 @@
   - ReagentGrinderIndustrialMachineCircuitboard
   - JukeboxCircuitBoard
   - DawInstrumentMachineCircuitboard
+  # <Onyx-StationRadio>
+  - VinylPlayerCircuitboard
+  - TapeDeckCircuitboard
+  - StationRadioServerCircuitboard
+  - StationRadioRigCircuitboard
+  # </Onyx-StationRadio>

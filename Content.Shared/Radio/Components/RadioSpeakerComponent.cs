@@ -24,4 +24,18 @@ public sealed partial class RadioSpeakerComponent : Component
 
     [DataField, AutoNetworkedField]
     public bool Enabled;
+
+    // <Onyx-StationRadio>
+    /// <summary>
+    /// Relays received messages as normal speech instead of whispers.
+    /// </summary>
+    [DataField]
+    public bool SpeakNormally;
+
+    /// <summary>
+    /// Whether the speaker requires machine power to receive messages.
+    /// </summary>
+    [DataField]
+    public bool PowerRequired;
+    // </Onyx-StationRadio>
 }

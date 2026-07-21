@@ -117,3 +117,6 @@
 
 - type: Tag
   id: SuppressFlammableParticles
+
+- type: Tag
+  id: MailCapsule

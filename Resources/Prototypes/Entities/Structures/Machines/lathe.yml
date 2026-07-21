@@ -140,6 +140,9 @@
     - RollerBedsStatic
     - LightsStatic
     - ServiceStatic
+    # <Onyx-TapeRecorder>
+    - TapeRecorderStatic
+    # </Onyx-TapeRecorder>
     - PowerCellsStatic
     - ElectronicsStatic
   - type: EmagLatheRecipes

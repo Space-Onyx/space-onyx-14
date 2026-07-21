@@ -1,0 +1,28 @@
+- type: vendingMachineInventory
+  id: MailDrobeInventory
+  startingInventory:
+    ClothingBackpackMessengerMailman: 2
+    ClothingUniformMailCarrier: 2
+    ClothingUniformSkirtMailCarrier: 2
+    ClothingHeadMailCarrier: 2
+    ClothingHeadsetCargo: 2
+    ClothingOuterWinterCoatMail: 2
+    ClothingShoesColorBrown: 2
+    ClothingEyesGlasses: 2
+    ClothingHandsGlovesColorWhite: 2
+    MailBag: 2
+    WeaponMailLake: 1
+    BoxMailCapsulePrimed: 2
+  prices:
+    ClothingBackpackMessengerMailman: 10
+    ClothingUniformMailCarrier: 10
+    ClothingUniformSkirtMailCarrier: 10
+    ClothingHeadMailCarrier: 10
+    ClothingHeadsetCargo: 8
+    ClothingOuterWinterCoatMail: 10
+    ClothingShoesColorBrown: 10
+    ClothingEyesGlasses: 12
+    ClothingHandsGlovesColorWhite: 8
+    MailBag: 0
+    WeaponMailLake: 0
+    BoxMailCapsulePrimed: 0

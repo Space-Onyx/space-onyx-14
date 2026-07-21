@@ -152,4 +152,7 @@
   - Reporter
   - Psychologist
   - Pilot # Corvax-Pilot
+  # <Onyx-RadioHost-edited>
+  - RadioHost
+  # </Onyx-RadioHost-edited>
   primary: false

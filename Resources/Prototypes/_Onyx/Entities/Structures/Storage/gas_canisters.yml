@@ -1,0 +1,19 @@
+- type: entity
+  parent: NitrousOxideCanister
+  id: OxygenAndNitrousOxideCanister
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Storage/canister.rsi
+    layers:
+    - state: redsur
+  - type: GasCanister
+    air:
+      volume: 1000
+      moles:
+        Oxygen: 1310.197357
+        NitrousOxide: 561.513153
+      temperature: 293.15
+  - type: AccessReader
+    access: [["Atmospherics"], ["Engineering"], ["Research"], ["Medical"]]
+  - type: Lock
+    locked: true

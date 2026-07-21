@@ -1,0 +1,12 @@
+- type: entity
+  id: ElectricRangeMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  components:
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: KitchenElectricRange
+    stackRequirements:
+      Steel: 5
+      Glass: 2
+      Cable: 4

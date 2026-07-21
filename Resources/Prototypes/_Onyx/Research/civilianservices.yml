@@ -79,3 +79,21 @@
   - SignTranslatorImplanterRecipe
   position: -2,4
   technologyPrerequisites: [OnyxBasicTranslation]
+
+- type: technology
+  id: RadioMusicCommunications
+  name: research-technology-radio-music-communication
+  icon:
+    sprite: _Onyx/StationRadio/Machines/vinylplayer.rsi
+    state: icon
+  discipline: CivilianServices
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+  - VinylPlayerCircuitboard
+  - TapeDeckCircuitboard
+  - StationRadioServerCircuitboard
+  - StationRadioRigCircuitboard
+  position: 3,3
+  technologyPrerequisites:
+  - AudioVisualCommunication

@@ -1,0 +1,159 @@
+# SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
+# SPDX-FileCopyrightText: 2025 Roudenn <romabond091@gmail.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: CrateRadioStationAds
+  parent: CrateGenericSteel
+  name: ads crate
+  description: A whole crate which sole purpose is to store 6 exclusive ads, aint capitalism great?
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: RandomCDDisk
+        rolls: 6
+
+- type: entity
+  id: CrateRadioStationVinyls
+  parent: CrateGenericSteel
+  name: vinyls crate
+  description: A crate with 12 vinyls so you'll NEVER play the same song twice, they come in sleeves!
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: RandomVinylSleeve
+        rolls: 12
+
+- type: entityTable
+  id: RandomCDDisk
+  table: !type:GroupSelector
+    children:
+    - id: CdDiskDanitosBurritos
+    - id: CdDiskBillMovie
+    - id: CdDiskCapTraining
+    - id: CdDiskCargonia
+    - id: CdDiskChemistry
+    - id: CdDiskCloningPsa
+    - id: CdDiskDansTickets
+    - id: CdDiskGrones
+    - id: CdDiskPopeCrunchCereal
+    - id: CdDiskQuikNoodles
+    - id: CdDiskRobotics
+    - id: CdDiskSecurityPsa
+    - id: JVNECdDiskCapstien
+      weight: 0.3
+    - id: JVNECdDiskNinja
+      weight: 0.3
+    - id: JVNECdDiskNextUp
+      weight: 0.5
+    - id: JVNECdDiskJNE
+      weight: 0.3
+    - id: CdDiskCommanderAnnouncement
+      weight: 0.2
+    - id: CdDiskCommanderFigurines
+      weight: 0.2
+    - id: CdDiskCommanderResignation
+      weight: 0.2
+    - id: CdDiskCommanderSupport
+      weight: 0.2
+    - id: CdDiskHeisenbeeTrial
+      weight: 0.2
+    - id: CdDiskXgOnboarding1
+      weight: 0.1
+    - id: CdDiskXgOnboarding2
+      weight: 0.1
+    - id: CdDiskXgOnboarding3
+      weight: 0.1
+    - id: CdDiskXgOnboarding4
+      weight: 0.1
+
+- type: entityTable
+  id: RandomVinylDisk
+  table: !type:GroupSelector
+    children:
+    - id: VinylDiskAI
+    - id: VinylDiskDevil
+    - id: VinylDiskPizza
+    - id: VinylDiskGlossy
+    - id: VinylDiskRed
+    - id: VinylDiskLightBlue
+    - id: VinylDiskBanana
+    - id: VinylDiskCarrot
+    - id: VinylDiskCyan
+    - id: VinylDiskBlue
+    - id: VinylDiskYellow
+    - id: VinylDiskGreen
+    - id: VinylDiskPurple
+    - id: VinylDiskOrange
+    - id: VinylDiskWhite
+    - id: VinylDiskLightRed
+    - id: VinylDiskDarkBlue
+    - id: VinylDiskPink
+    - id: VinylDiskBurnTheWorld
+    - id: VinylDiskFeralAngel
+    - id: VinylDiskAlsoSprach
+    - id: VinylDiskValkyries
+    - id: VinylDiskRomeoJuliet
+    - id: VinylDiskRussian
+    - id: VinylDiskFlowerDuet
+    - id: VinylDiskWinterVivaldi
+    - id: VinylDiskBachCello
+    - id: VinylDiskFloaty
+    - id: VinylDiskLime
+    - id: VinylDiskForgotten
+      weight: 0.05
+    - id: VinylDiskGetThatAntag
+    - id: VinylDiskLaw2
+    - id: VinylDiskEphedrine
+    - id: VinylDiskRunningOut
+    - id: VinylDiskJourney
+    - id: VinylDiskTraitorousIntent
+    - id: VinylDiskViolet
+    - id: VinylDiskWantYouGone
+    - id: VinylDiskEgg
+    - id: VinylDiskWeAreNumberTwo
+
+- type: entityTable
+  id: RandomVinylSleeve
+  table: !type:GroupSelector
+    children:
+    - id: VinylSleeveAI
+    - id: VinylSleeveDevil
+    - id: VinylSleevePizza
+    - id: VinylSleeveFart
+    - id: VinylSleeveLavaLand
+    - id: VinylSleeveHockey
+    - id: VinylSleeveRat
+    - id: VinylSleeveMgs
+    - id: VinylSleeveQuestionable
+    - id: VinylSleeveJanitor
+    - id: VinylSleeveWeird
+    - id: VinylSleeveDJClown
+    - id: VinylSleeveVampire
+    - id: VinylSleeveShulker
+    - id: VinylSleeveRedSun
+    - id: VinylSleeveSkull
+    - id: VinylSleeveFisherman
+    - id: VinylSleeveHeisenbee
+    - id: VinylSleeveStation13
+    - id: VinylSleeveStation14
+    - id: VinylSleeveNukeDisk
+    - id: VinylSleeveBlockyCraft
+    - id: VinylSleeveEye
+    - id: VinylSleeveTh
+    - id: VinylSleeveClown
+    - id: VinylSleeveNanoYork
+    - id: VinylSleeveDJTider
+    - id: VinylSleeveCoffee
+    - id: VinylSleeveWelcomeSS13
+    - id: VinylSleevePeace
+    - id: VinylSleeveJapan
+    - id: VinylSleeveChristmas
+    - id: VinylSleevePickle
+    - id: VinylSleeveFlash
+    - id: VinylSleeveBeige
+    - id: VinylSleeveBlack
+    - id: VinylSleeveWhite

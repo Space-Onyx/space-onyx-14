@@ -230,8 +230,10 @@ public sealed partial class RadioDeviceSystem : SharedRadioDeviceSystem
 
     private void OnReceiveRadio(EntityUid uid, RadioSpeakerComponent component, ref RadioReceiveEvent args)
     {
-        if (uid == args.RadioSource)
+        // <Onyx-StationRadio-edited>
+        if (uid == args.RadioSource || component.PowerRequired && !this.IsPowered(uid, EntityManager))
             return;
+        // </Onyx-StationRadio-edited>
 
         var nameEv = new TransformSpeakerNameEvent(args.MessageSource, Name(args.MessageSource));
         RaiseLocalEvent(args.MessageSource, nameEv);
@@ -241,7 +243,14 @@ public sealed partial class RadioDeviceSystem : SharedRadioDeviceSystem
             ("originalName", nameEv.VoiceName));
 
         // log to chat so people can identity the speaker/source, but avoid clogging ghost chat if there are many radios
-        _chat.TrySendInGameICMessage(uid, args.Message, InGameICChatType.Whisper, ChatTransmitRange.GhostRangeLimit, nameOverride: name, checkRadioPrefix: false);
+        // <Onyx-StationRadio-edited>
+        _chat.TrySendInGameICMessage(uid,
+            args.Message,
+            component.SpeakNormally ? InGameICChatType.Speak : InGameICChatType.Whisper,
+            ChatTransmitRange.GhostRangeLimit,
+            nameOverride: name,
+            checkRadioPrefix: component.SpeakNormally);
+        // </Onyx-StationRadio-edited>
     }
 
     private void OnIntercomEncryptionChannelsChanged(Entity<IntercomComponent> ent, ref EncryptionChannelsChangedEvent args)

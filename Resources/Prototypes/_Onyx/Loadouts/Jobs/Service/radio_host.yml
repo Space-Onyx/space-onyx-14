@@ -1,0 +1,44 @@
+- type: loadout
+  id: RadioHostJumpsuitHawaiBlack
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitHawaiBlack
+
+- type: loadout
+  id: RadioHostJumpsuitHawaiBlue
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitHawaiBlue
+
+- type: loadout
+  id: RadioHostJumpsuitHawaiRed
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitHawaiRed
+
+- type: loadout
+  id: RadioHostJumpsuitHawaiYellow
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitHawaiYellow
+
+- type: loadoutGroup
+  id: RadioHostJumpsuit
+  name: loadout-group-radiohost-jumpsuit
+  loadouts:
+  - RadioHostJumpsuitHawaiBlack
+  - RadioHostJumpsuitHawaiBlue
+  - RadioHostJumpsuitHawaiRed
+  - RadioHostJumpsuitHawaiYellow
+
+- type: roleLoadout
+  id: JobRadioHost
+  groups:
+  - Inventory
+  - GroupTankHarness
+  - RadioHostJumpsuit
+  - CommonBackpack
+  - Glasses
+  - AssistiveItems
+  - Survival
+  - Trinkets
+  - GroupSpeciesBreathTool
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks

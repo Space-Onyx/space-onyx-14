@@ -1,0 +1,35 @@
+# SPDX-FileCopyrightText: 2024 BombasterDS <115770678+BombasterDS@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2024 Piras314 <p1r4s@proton.me>
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Creatorbot01 <creatorbot02@gmail.com>
+# SPDX-FileCopyrightText: 2025 Creatorbot01 <creatorbot20@gmail.com>
+# SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
+# SPDX-FileCopyrightText: 2025 Solstice <solsticeofthewinter@gmail.com>
+# SPDX-FileCopyrightText: 2025 Ted Lukin <66275205+pheenty@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 pheenty <fedorlukin2006@gmail.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: ClothingBackpack
+  id: ClothingBackpackMessengerBase
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Back/Messenger/color.rsi
+  - type: Storage
+    grid:
+    - 0,0,7,0
+    - 0,2,7,3
+    - 0,5,7,5
+    - 0,0,0,5
+    - 7,0,7,5
+
+- type: entity
+  parent: ClothingBackpackMessengerBase
+  id: ClothingBackpackMessengerMailman
+  name: mailman messenger bag
+  description: A robust bag for transportation of letters and parcels.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Back/Messenger/mailman.rsi

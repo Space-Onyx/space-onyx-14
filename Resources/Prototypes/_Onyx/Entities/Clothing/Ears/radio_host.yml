@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: 2024 Aidenkrz <aiden@djkraz.com>
+# SPDX-FileCopyrightText: 2024 Piras314 <p1r4s@proton.me>
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: ClothingHeadsetAlt
+  id: ClothingHeadsetAltRadioHost
+  name: radio host's over-ear headset
+  description: An over-ear headset with extra foam padding around the ears.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: _Onyx/RadioHost/headset.rsi
+  - type: Clothing
+    sprite: _Onyx/RadioHost/headset.rsi

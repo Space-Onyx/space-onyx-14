@@ -22,6 +22,9 @@
   - HandheldStationMap
   - ClothingHeadHatWelding
   - ClothingHeadHatCone
+  # <Onyx-Hammer>
+  - WeaponHammer
+  # </Onyx-Hammer>
 
 - type: latheRecipePack
   id: AtmosStatic

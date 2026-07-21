@@ -1,0 +1,121 @@
+- type: entity
+  id: KitchenElectricRange
+  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  components:
+  - type: Microwave
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.VisualState:
+        enum.MicrowaveVisualizerLayers.Base:
+          Idle: { state: "off_no_door" }
+          Broken: { state: "off_no_door" }
+          Cooking: { state: "off_no_door" }
+        enum.MicrowaveVisualizerLayers.BaseUnlit:
+          Idle: { state: "unlit" }
+          Broken: { state: "unlit" }
+          Cooking: { state: "cooking_unlit" }
+      enum.PowerDeviceVisuals.Powered:
+        enum.MicrowaveVisualizerLayers.BaseUnlit:
+          True: { visible: true }
+          False: { visible: false }
+      enum.EntityHeaterVisuals.Setting:
+        enum.EntityHeaterVisuals.Setting:
+          Off: { visible: false }
+          Low: { visible: true, state: range_low }
+          Medium: { visible: true, state: range_medium }
+          High: { visible: true, state: range_high }
+  - type: ActivatableUI
+    key: enum.MicrowaveUiKey.Key
+  - type: DeviceLinkSink
+    ports:
+    - On
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: BasicDevice
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: UserInterface
+    interfaces:
+      enum.MicrowaveUiKey.Key:
+        type: MicrowaveBoundUserInterface
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.30,-0.25,0.30,0.45"
+        density: 600
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+      fix2:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.30,0.15,0.30,0.45"
+        mask:
+        - TabletopMachineMask
+        layer:
+        - Impassable
+        - MidImpassable
+        - LowImpassable
+        hard: false
+  - type: Sprite
+    sprite: _Onyx/Structures/Machines/oven.rsi
+    snapCardinals: true
+    layers:
+    - state: off_no_door
+      map: ["enum.MicrowaveVisualizerLayers.Base"]
+    - state: unlit
+      shader: unshaded
+      map: ["enum.MicrowaveVisualizerLayers.BaseUnlit"]
+    - state: oven_door
+    - map: ["enum.EntityHeaterVisuals.Setting"]
+      state: range_low
+      shader: unshaded
+      visible: false
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Breakage"]
+    - trigger:
+        !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:ChangeConstructionNodeBehavior
+        node: machineFrame
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: ApcPowerReceiver
+    powerLoad: 1000
+  - type: Machine
+    board: ElectricRangeMachineCircuitboard
+  - type: ContainerContainer
+    containers:
+      microwave_entity_container: !type:Container
+      machine_board: !type:Container
+      machine_parts: !type:Container
+  - type: EmptyOnMachineDeconstruct
+    containers:
+    - microwave_entity_container
+  - type: GuideHelp
+    guides:
+    - Chef
+  - type: EntityHeater
+  - type: PlaceableSurface
+    isPlaceable: false
+  - type: ItemPlacer
+    maxEntities: 4
+    whitelist:
+      components:
+      - Temperature

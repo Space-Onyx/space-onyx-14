@@ -1,0 +1,52 @@
+- type: entity
+  parent: ClothingUniformSkirtBase
+  id: OnyxClothingUniformSwimBlue
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/swim_blue.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/swim_blue.rsi
+  - type: StaticPrice
+    price: 35
+
+- type: entity
+  parent: ClothingUniformSkirtBase
+  id: OnyxClothingUniformSwimDarkGreen
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/swim_dark_green.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/swim_dark_green.rsi
+  - type: StaticPrice
+    price: 35
+
+- type: entity
+  parent: ClothingUniformSkirtBase
+  id: OnyxClothingUniformSwimGreen
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/swim_green.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/swim_green.rsi
+  - type: StaticPrice
+    price: 35
+
+- type: entity
+  parent: ClothingUniformSkirtBase
+  id: OnyxClothingUniformSwimRed
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/swim_red.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/swim_red.rsi
+  - type: StaticPrice
+    price: 35
+
+- type: entity
+  parent: ClothingUniformBase
+  id: OnyxClothingUniformSwimsuitWinth
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/winth_swimsuit.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/winth_swimsuit.rsi

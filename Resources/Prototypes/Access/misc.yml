@@ -34,6 +34,9 @@
   - Atmospherics
   - GenpopEnter
   - GenpopLeave
+  # <Onyx-RadioHost-edited>
+  - Journalism
+  # </Onyx-RadioHost-edited>
 
 - type: accessGroup
   id: General

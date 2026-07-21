@@ -1,0 +1,42 @@
+# SPDX-FileCopyrightText: 2024 NULL882 <gost6865@yandex.ru>
+# SPDX-FileCopyrightText: 2024 gluesniffler <159397573+gluesniffler@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
+# SPDX-FileCopyrightText: 2025 Ted Lukin <66275205+pheenty@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 deltanedas <39013340+deltanedas@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 deltanedas <@deltanedas:kde.org>
+# SPDX-FileCopyrightText: 2025 holorain <scratchysenior@gmail.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: latheRecipe
+  parent: [ BaseCircuitboardRecipe, BaseServiceMachineRecipeCategory ]
+  id: VinylPlayerCircuitboard
+  icon:
+    sprite: _Onyx/StationRadio/Machines/vinylplayer.rsi
+    state: icon
+  result: VinylPlayerCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseGoldCircuitboardRecipe, BaseServiceMachineRecipeCategory ]
+  id: StationRadioServerCircuitboard
+  icon:
+    sprite: _Onyx/StationRadio/Machines/stationradioserver.rsi
+    state: icon
+  result: StationRadioServerCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseSilverCircuitboardRecipe, BaseServiceMachineRecipeCategory ]
+  id: StationRadioRigCircuitboard
+  icon:
+    sprite: _Onyx/StationRadio/Machines/radiostationrig.rsi
+    state: icon
+  result: StationRadioRigCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseCircuitboardRecipe, BaseServiceMachineRecipeCategory ]
+  id: StationRadioCircuitboard
+  icon:
+    sprite: _Onyx/StationRadio/Machines/stationradio.rsi
+    state: icon
+  result: StationRadioCircuitboard

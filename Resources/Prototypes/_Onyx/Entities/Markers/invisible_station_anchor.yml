@@ -1,0 +1,14 @@
+- type: entity
+  id: InvisibleStationAnchor
+  parent: MarkerBase
+  suffix: Station Anchor
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _Onyx/Markers/environment.rsi
+      state: base-green
+      shader: unshaded
+    - sprite: _Onyx/Markers/environment.rsi
+      state: wall
+      shader: unshaded
+  - type: StationAnchor
