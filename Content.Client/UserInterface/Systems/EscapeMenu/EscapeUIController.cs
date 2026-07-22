@@ -95,6 +95,14 @@ public sealed partial class EscapeUIController : UIController, IOnStateEntered<G
             _options.OpenWindow();
         };
 
+        // <Onyx-EscapeCharacterEditor>
+        _escapeWindow.CharacterButton.OnPressed += _ =>
+        {
+            CloseEscapeWindow();
+            OpenCharacterSetup();
+        };
+        // </Onyx-EscapeCharacterEditor>
+
         _escapeWindow.QuitButton.OnPressed += _ =>
         {
             CloseEscapeWindow();
@@ -127,6 +135,10 @@ public sealed partial class EscapeUIController : UIController, IOnStateEntered<G
             _escapeWindow.Dispose();
             _escapeWindow = null;
         }
+
+        // <Onyx-EscapeCharacterEditor>
+        CloseCharacterSetup();
+        // </Onyx-EscapeCharacterEditor>
 
         CommandBinds.Unregister<EscapeUIController>();
     }

@@ -8,3 +8,6 @@ ui-escape-wiki = Wiki
 ui-escape-disconnect = Disconnect
 ui-escape-quit = Quit
 ui-escape-feedback = Feedback
+# <Onyx-EscapeCharacterEditor>
+ui-escape-character = Character Editor
+# </Onyx-EscapeCharacterEditor>
