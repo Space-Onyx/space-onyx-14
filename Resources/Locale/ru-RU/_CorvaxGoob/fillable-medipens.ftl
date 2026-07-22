@@ -1,0 +1,19 @@
+component-medipen-default-label = химический медипен
+ent-FillableMedipen = химический медипен
+    .desc = Многоразовый медипен, заполняемый с помощью заполнителя медипенов.
+ent-MedipenRefiller = заполнитель медипенов
+    .desc = Заполняет, подписывает и перекрашивает многоразовые химические медипены.
+medipen-refiller-window-title = Заполнитель медипенов
+medipen-refiller-window-no-medipen-container-loaded-text = Медипен не вставлен
+medipen-refiller-window-label-text = Этикетка
+medipen-refiller-window-apply = Применить
+medipen-refiller-window-no-container-loaded-text = Контейнер не загружен
+medipen-refiller-window-filling-text = Заполнение:
+medipen-refiller-window-dose-label = Дозировка
+medipen-refiller-window-fill-button = Заполнить
+medipen-refiller-window-unknown-reagent-text = Неизвестный реагент
+research-technology-injectors-filling = Заполнение инжекторов
+research-technology-cloning = Клонирование
+
+ent-MachineMedipenRefillerCircuitboard = плата заполнителя медипенов
+    .desc = Машинная плата заполнителя медипенов.

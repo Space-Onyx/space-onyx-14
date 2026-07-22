@@ -1,0 +1,67 @@
+- type: entity
+  parent: BookBase
+  id: BookCarcRulesClassic
+  name: Spacessonne rulebook
+  description: Read it before playing.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Objects/Fun/Tabletop/Spacessonne/rulebook.rsi
+    layers:
+    - state: classic
+  - type: Paper
+    content: book-text-carc-rules
+
+- type: entity
+  parent: BaseStorageItem
+  id: CarcBoxClassic
+  name: Spacessonne box
+  description: A box for the classic edition of Spacessonne.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Objects/Fun/Tabletop/Spacessonne/boxes.rsi
+    layers:
+    - map: [ base ]
+      state: classic
+  - type: Storage
+    grid:
+    - 0,0,3,1
+    - 0,3,3,5
+    quickInsert: true
+    areaInsert: true
+    maxItemSize: Small
+  - type: Item
+    size: Large
+  - type: GenericVisualizer
+    visuals:
+      enum.StorageVisuals.Open:
+        base:
+          True: { state: classic-open }
+          False: { state: classic }
+  - type: Appearance
+  - type: StaticPrice
+    price: 100
+
+- type: entity
+  parent: BaseStorageItem
+  id: CardBoxBlack
+  name: black deck box
+  description: A black box for storing playing cards.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Objects/Misc/card_box_black.rsi
+    layers:
+    - map: [ base ]
+      state: black_box
+  - type: Storage
+    grid:
+    - 0,0,1,1
+    maxItemSize: Normal
+  - type: Item
+    size: Small
+  - type: GenericVisualizer
+    visuals:
+      enum.StorageVisuals.Open:
+        base:
+          True: { state: black_box_open }
+          False: { state: black_box }
+  - type: Appearance

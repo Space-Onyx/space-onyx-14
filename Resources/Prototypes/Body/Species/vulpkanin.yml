@@ -285,9 +285,7 @@
   components:
   - type: VisualOrgan
     data:
-      # <Onyx-VulpkaninBody-edited>
-      sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi
-      # </Onyx-VulpkaninBody-edited>
+      sprite: Corvax/Mobs/Species/Vulpkanin/parts.rsi
   - type: VisualOrganMarkings
     markingData:
       group: Vulpkanin
@@ -298,9 +296,7 @@
   abstract: true
   components:
   - type: Sprite
-    # <Onyx-VulpkaninBody-edited>
-    sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi
-    # </Onyx-VulpkaninBody-edited>
+    sprite: Corvax/Mobs/Species/Vulpkanin/parts.rsi
 
 - type: entity
   parent: [ OrganBaseTorsoSexed, OrganBaseTorso, OrganVulpkaninExternal ]

@@ -56,10 +56,20 @@ public abstract partial class BaseTranslatorComponent : Component
 
     [DataField]
     public bool Enabled = true;
+
+    [DataField("requiresAll")]
+    public bool RequiresAllLanguages;
 }
 
 [RegisterComponent]
-public sealed partial class HandheldTranslatorComponent : BaseTranslatorComponent;
+public sealed partial class HandheldTranslatorComponent : BaseTranslatorComponent
+{
+    [DataField]
+    public bool SetLanguageOnInteract = true;
+
+    [DataField]
+    public bool ShowInfoOnExamine = true;
+}
 
 [RegisterComponent]
 public sealed partial class TranslatorImplantComponent : BaseTranslatorComponent;

@@ -1,0 +1,110 @@
+# SPDX-FileCopyrightText: 2024 BombasterDS <115770678+BombasterDS@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2024 Fishbait <Fishbait@git.ml>
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Aviu00 <93730715+Aviu00@users.noreply.github.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: MobHuman
+  id: MobHumanRandom
+  name: Urist McHuman
+  suffix: Random Appearance
+  components:
+  - type: RandomHumanoidAppearance
+
+- type: entity
+  parent: MobDiona
+  id: MobDionaRandom
+  name: Urist McPlants
+  suffix: Random Appearance
+  components:
+  - type: RandomHumanoidAppearance
+
+- type: entity
+  parent: MobFelinid
+  id: MobFelinidRandom
+  name: Urist McFelinid
+  suffix: Random Appearance
+  components:
+  - type: RandomHumanoidAppearance
+
+- type: entity
+  parent: MobTajaran
+  id: MobTajaranRandom
+  name: Urist McTajaran
+  suffix: Random Appearance
+  components:
+  - type: RandomHumanoidAppearance
+
+- type: entity
+  parent: MobGingerbread
+  id: MobGingerbreadRandom
+  name: Urist McCookie
+  suffix: Random Appearance
+  components:
+  - type: RandomHumanoidAppearance
+
+- type: entity
+  parent: MobMoth
+  id: MobMothRandom
+  name: Urist McFluff
+  suffix: Random Appearance
+  components:
+  - type: RandomHumanoidAppearance
+
+- type: entity
+  parent: MobDwarf
+  id: MobDwarfRandom
+  name: Urist McDwarf
+  suffix: Random Appearance
+  components:
+  - type: RandomHumanoidAppearance
+
+- type: entity
+  parent: MobArachnid
+  id: MobArachnidRandom
+  name: Urist McWeb
+  suffix: Random Appearance
+  components:
+  - type: RandomHumanoidAppearance
+
+- type: entity
+  parent: MobReptilian
+  id: MobReptilianRandom
+  name: Urist McScales
+  suffix: Random Appearance
+  components:
+  - type: RandomHumanoidAppearance
+
+- type: entity
+  parent: MobVulpkanin
+  id: MobVulpkaninRandom
+  name: Urist McVulp
+  suffix: Random Appearance
+  components:
+  - type: RandomHumanoidAppearance
+
+- type: entity
+  parent: MobSlimePerson
+  id: MobSlimePersonRandom
+  name: Urist McSlime
+  suffix: Random Appearance
+  components:
+  - type: RandomHumanoidAppearance
+
+- type: entity
+  parent: MobVox
+  id: MobVoxRandom
+  name: Uristiti McVox
+  suffix: Random Appearance
+  components:
+  - type: RandomHumanoidAppearance
+
+- type: entity
+  parent: MobIpc
+  id: MobIpcRandom
+  name: Urist McPositronic
+  suffix: Random Appearance
+  components:
+  - type: RandomHumanoidAppearance

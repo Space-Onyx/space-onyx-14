@@ -1,0 +1,142 @@
+- type: reagent
+  id: BZ
+  name: reagent-name-bz
+  desc: reagent-desc-bz
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#9370db"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        ignoreResistances: true
+        scaling: true
+        damage:
+          types:
+            Asphyxiation: 1
+            Poison: 0.25
+      - !type:ModifyStatusEffect
+        minScale: 0.3
+        effectProto: StatusEffectSeeingRainbow
+        type: Add
+        time: 15
+    Respiration:
+      effects:
+      - !type:HealthChange
+        minScale: 0.5
+        ignoreResistances: true
+        scaling: true
+        damage:
+          types:
+            Asphyxiation: 1
+            Poison: 0.25
+      - !type:ModifyStatusEffect
+        minScale: 0.3
+        effectProto: StatusEffectSeeingRainbow
+        type: Add
+        time: 15
+
+- type: reagent
+  id: Healium
+  name: reagent-name-healium
+  desc: reagent-desc-healium
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: strange
+  color: "#fa8072"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        ignoreResistances: true
+        scaling: true
+        damage:
+          groups:
+            Burn: -2
+            Toxin: -5
+            Brute: -2
+      - !type:ModifyStatusEffect
+        minScale: 0.7
+        effectProto: StatusEffectForcedSleeping
+        time: 1
+        type: Update
+    Respiration:
+      effects:
+      - !type:HealthChange
+        ignoreResistances: true
+        scaling: true
+        damage:
+          groups:
+            Burn: -2
+            Toxin: -5
+            Brute: -2
+      - !type:ModifyStatusEffect
+        minScale: 0.7
+        effectProto: StatusEffectForcedSleeping
+        time: 1
+        type: Update
+
+- type: reagent
+  id: Nitrium
+  name: reagent-name-nitrium
+  desc: reagent-desc-nitrium
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: sour
+  color: "#a52a2a"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:MovementSpeedModifier
+        minScale: 1
+        walkSpeedModifier: 1.25
+        sprintSpeedModifier: 1.25
+      - !type:MovementSpeedModifier
+        minScale: 8
+        walkSpeedModifier: 1.4
+        sprintSpeedModifier: 1.4
+      - !type:HealthChange
+        minScale: 10
+        ignoreResistances: true
+        damage:
+          types:
+            Asphyxiation: 1.5
+    Respiration:
+      effects:
+      - !type:MovementSpeedModifier
+        minScale: 1
+        walkSpeedModifier: 1.25
+        sprintSpeedModifier: 1.25
+      - !type:MovementSpeedModifier
+        minScale: 8
+        walkSpeedModifier: 1.4
+        sprintSpeedModifier: 1.4
+      - !type:HealthChange
+        minScale: 10
+        ignoreResistances: true
+        damage:
+          types:
+            Asphyxiation: 1.5
+
+- type: reagent
+  id: Pluoxium
+  name: reagent-name-pluoxium
+  desc: reagent-desc-pluoxium
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#7b68ee"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:Oxygenate
+        factor: 8
+      - !type:ModifyLungGas
+        ratios:
+          CarbonDioxide: 1
+          Pluoxium: -1
+    Respiration:
+      effects:
+      - !type:Oxygenate
+        factor: 8
+      - !type:ModifyLungGas
+        ratios:
+          CarbonDioxide: 1
+          Pluoxium: -1

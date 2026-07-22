@@ -10,7 +10,7 @@
   defaultWeightKg: 58
   minHeightCm: 135
   maxHeightCm: 170
-  minWeightKg: 35
+  minWeightKg: 50
   maxWeightKg: 70
 
 - type: markingsGroup

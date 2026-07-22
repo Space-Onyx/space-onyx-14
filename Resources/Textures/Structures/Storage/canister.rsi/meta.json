@@ -2,7 +2,7 @@
     "version": 1,
     "license": "CC-BY-SA-3.0",
     "copyright": "Frezon canister modified from tgstation, the rest are taken from tgstation at commit https://github.com/tgstation/tgstation/commit/f8581a636acfc1517611a680b7711a74fc7ef335. Paper Sprites by Vermidia.",
-  "copyright": "Taken from TauCetiClassic at commit https://github.com/TauCetiStation/TauCetiClassic/tree/13b5c47145804dd24507b75f250de5e87d34e194, integrity & masks fixed by @mishutka09(discord:1152277579206774854)",
+  "copyright": "Taken from TauCetiClassic at commit https://github.com/TauCetiStation/TauCetiClassic/tree/13b5c47145804dd24507b75f250de5e87d34e194, integrity & masks fixed by @mishutka09(discord:1152277579206774854). Purple, brown, and healium canisters taken from ParadiseSS13 via Goob Station.",
     "size": {
         "x": 32,
         "y": 32
@@ -148,6 +148,24 @@
         },
         {
             "name": "mask-water_vapor"
+        },
+        {
+            "name": "purple"
+        },
+        {
+            "name": "purple-1"
+        },
+        {
+            "name": "brown"
+        },
+        {
+            "name": "brown-1"
+        },
+        {
+            "name": "healium"
+        },
+        {
+            "name": "healium-1"
         },
         {
             "name": "scrubber-connector"

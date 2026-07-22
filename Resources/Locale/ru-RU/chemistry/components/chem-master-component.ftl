@@ -41,3 +41,6 @@ chem-master-window-beaker-low-text = Недостаточно реагентов
 chem-master-output-source = Источник реагентов:
 chem-master-no-source = Нет источника
 chem-master-window-search-reagent-label = Поиск:
+chem-master-window-search-reagent-placeholder = Название реагента
+chem-master-window-search-in-containers = В контейнерах
+chem-master-window-search-no-results-text = Реагенты по запросу не найдены.

@@ -1,0 +1,19 @@
+component-medipen-default-label = chemical medipen
+ent-FillableMedipen = chemical medipen
+    .desc = A reusable medipen filled with a medipen refiller.
+ent-MedipenRefiller = medipen refiller
+    .desc = Fills, labels and recolors reusable chemical medipens.
+medipen-refiller-window-title = Medipen refiller
+medipen-refiller-window-no-medipen-container-loaded-text = Medipen is not inserted
+medipen-refiller-window-label-text = Label
+medipen-refiller-window-apply = Apply
+medipen-refiller-window-no-container-loaded-text = Container is not inserted
+medipen-refiller-window-filling-text = Filling:
+medipen-refiller-window-dose-label = Dose
+medipen-refiller-window-fill-button = Fill
+medipen-refiller-window-unknown-reagent-text = Unknown reagent
+research-technology-injectors-filling = Injector filling
+research-technology-cloning = Biological reconstruction
+
+ent-MachineMedipenRefillerCircuitboard = medipen refiller machine board
+    .desc = A machine printed circuit board for a medipen refiller.

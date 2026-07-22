@@ -1,0 +1,53 @@
+- type: gasReaction
+  id: BZFormation
+  priority: 2
+  maximumTemperature: 313.149
+  minimumRequirements:
+    Plasma: 10
+    NitrousOxide: 10
+  effects:
+  - !type:BZFormationReaction {}
+
+- type: gasReaction
+  id: HealiumProduction
+  priority: 2
+  minimumTemperature: 22
+  maximumTemperature: 300
+  minimumRequirements:
+    Frezon: 5
+    BZ: 5
+  effects:
+  - !type:HealiumProductionReaction {}
+
+- type: gasReaction
+  id: NitriumProduction
+  priority: 2
+  minimumTemperature: 1500
+  minimumRequirements:
+    Nitrogen: 10
+    Tritium: 20
+    BZ: 5
+  effects:
+  - !type:NitriumProductionReaction {}
+
+- type: gasReaction
+  id: NitriumDecomposition
+  priority: 2
+  maximumTemperature: 343.15
+  minimumRequirements:
+    Oxygen: 0.01
+    Nitrium: 0.01
+  effects:
+  - !type:NitriumDecompositionReaction {}
+
+- type: gasReaction
+  id: PluoxiumProduction
+  priority: 3
+  minimumTemperature: 50
+  maximumTemperature: 273.15
+  minimumRequirements:
+    Oxygen: 0.01
+    CarbonDioxide: 0.01
+    Tritium: 0.01
+  effects:
+  - !type:PluoxiumProductionReaction {}

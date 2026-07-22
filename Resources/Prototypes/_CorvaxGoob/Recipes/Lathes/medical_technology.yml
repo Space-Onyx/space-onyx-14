@@ -1,0 +1,44 @@
+- type: latheRecipe
+  id: FillableMedipen
+  result: FillableMedipen
+  completetime: 3
+  materials:
+    Steel: 100
+    Glass: 100
+    Plastic: 300
+
+- type: latheRecipe
+  parent: [BaseCircuitboardRecipe, BaseMedicalMachineRecipeCategory]
+  id: MachineMedipenRefillerCircuitboard
+  result: MachineMedipenRefillerCircuitboard
+  icon: { sprite: _CorvaxGoob/Structures/Machines/medipen_refiller.rsi, state: icon }
+
+- type: latheRecipe
+  parent: [BaseGoldCircuitboardRecipe, BaseMedicalComputerRecipeCategory]
+  id: CloningConsoleComputerCircuitboard
+  result: CloningConsoleComputerCircuitboard
+
+- type: latheRecipe
+  parent: [BaseGoldCircuitboardRecipe, BaseMedicalMachineRecipeCategory]
+  id: CloningPodMachineCircuitboard
+  result: CloningPodMachineCircuitboard
+  icon: { sprite: Structures/Machines/cloning.rsi, state: pod_0 }
+
+- type: latheRecipe
+  parent: [BaseGoldCircuitboardRecipe, BaseMedicalMachineRecipeCategory]
+  id: MedicalScannerMachineCircuitboard
+  result: MedicalScannerMachineCircuitboard
+  icon: { sprite: Structures/Machines/scanner.rsi, state: open }
+
+- type: latheRecipePack
+  id: MedipenFilling
+  recipes:
+  - FillableMedipen
+  - MachineMedipenRefillerCircuitboard
+
+- type: latheRecipePack
+  id: Cloning
+  recipes:
+  - CloningConsoleComputerCircuitboard
+  - CloningPodMachineCircuitboard
+  - MedicalScannerMachineCircuitboard

@@ -15,7 +15,7 @@
   defaultWeightKg: 70
   minHeightCm: 140
   maxHeightCm: 210
-  minWeightKg: 40
+  minWeightKg: 50
   maxWeightKg: 95
   # </Onyx-SpeciesDimensions>
   defaultSoundsBySex:

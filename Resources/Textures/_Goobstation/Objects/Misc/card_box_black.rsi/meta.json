@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Cards and boxes by VictorJob, ep, Ko4erga and JrInventor05; ported from Goob Station",
+  "size": { "x": 32, "y": 32 },
+  "states": [
+    { "name": "black_box" },
+    { "name": "black_box_open" },
+    { "name": "black_box_full" }
+  ]
+}

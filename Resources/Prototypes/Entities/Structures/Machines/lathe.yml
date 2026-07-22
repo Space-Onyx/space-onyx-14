@@ -202,31 +202,24 @@
     runningState: building
     unlitIdleState: unlit
     unlitRunningState: unlit-building
-    staticPacks:
-    - ChemistryStatic
-    # <Onyx-MedicalProtolathe-edited>
-    # Surgery recipes are exclusive to the medical techfab.
-    # </Onyx-MedicalProtolathe-edited>
+    # <Onyx-GoobProtolathePacks-edited>
+    # Static and departmental recipes belong to autolathes and departmental techfabs.
     dynamicPacks:
     - AdvancedTools
-    - ScienceEquipment
-    - ScienceExplosives
     - ScienceClothing
     - PowerCells
-    - ScienceWeapons
-    - Mining
-    - AtmosTools
-    - EngineeringWeapons
-    - Chemistry
     - Janitor
     - Instruments
     - Equipment
+    - FauxTiles
+    # </Onyx-GoobProtolathePacks-edited>
   - type: EmagLatheRecipes
+    # <Onyx-GoobProtolathePacks-edited>
     emagDynamicPacks:
     - SecurityAmmo
     - SecurityExplosives
-    - SecurityEquipment
     - SecurityWeapons
+    # </Onyx-GoobProtolathePacks-edited>
 
 - type: entity
   id: ProtolatheHyperConvection
@@ -503,6 +496,10 @@
     dynamicPacks:
     - Chemistry
     - MedicalBoards
+    # <Onyx-CorvaxGoobMedicalTechnology>
+    - MedipenFilling
+    - Cloning
+    # </Onyx-CorvaxGoobMedicalTechnology>
     # <Onyx-AdvancedSurgery>
     - OnyxAdvancedSurgery
     # </Onyx-AdvancedSurgery>

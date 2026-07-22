@@ -15,6 +15,7 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Input;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
 namespace Content.Client._Onyx.Research.UI;
@@ -50,6 +51,7 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
     private string? _selectedDiscipline;
     private string _searchText = string.Empty;
     private int _currentMatch = -1;
+    private bool _initialTreePositionSet;
 
     public FancyResearchConsoleMenu()
     {
@@ -66,13 +68,15 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
         DragContainer.OnKeyBindUp += OnDragKeyBindUp;
         RecipeSearchLineEdit.OnTextChanged += OnSearchChanged;
         RecipeSearchLineEdit.OnTextEntered += OnSearchEntered;
-        DragContainer.OnResized += Recenter;
+        DragContainer.OnResized += OnDragContainerResized;
     }
 
     public void SetEntity(EntityUid entity) => Entity = entity;
 
     public void UpdatePanels(Dictionary<string, ResearchAvailability> list)
     {
+        var preservePosition = _initialTreePositionSet;
+        var position = _position;
         List = list;
         if (CurrentTech is { } selected && !list.ContainsKey(selected))
         {
@@ -91,7 +95,14 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
         UpdateMatches();
         UpdateDisciplineTabs();
         if (_selectedDiscipline != null)
+        {
             UpdateActiveTab(_selectedDiscipline);
+            if (preservePosition)
+            {
+                _position = position;
+                RecenterItems();
+            }
+        }
         else
             ClearItems();
     }
@@ -203,7 +214,10 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
             _items.Add(item);
         }
         DragContainer.InvalidateMeasure();
-        Recenter();
+        if (_initialTreePositionSet)
+            Recenter();
+        else
+            Timer.Spawn(0, Recenter);
     }
 
     protected override void MouseMove(GUIMouseMoveEventArgs args)
@@ -358,13 +372,22 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
 
     public void Recenter()
     {
-        if (_items.Count == 0)
+        if (_items.Count == 0 || DragContainer.Size == Vector2.Zero)
             return;
 
         var min = new Vector2(_items.Min(item => item.TreePosition.X), _items.Min(item => item.TreePosition.Y));
         var max = new Vector2(_items.Max(item => item.TreePosition.X), _items.Max(item => item.TreePosition.Y));
         _position = DragContainer.Size / 2f - (min + max) / 2f * _zoom;
         RecenterItems();
+        _initialTreePositionSet = true;
+    }
+
+    private void OnDragContainerResized()
+    {
+        if (_initialTreePositionSet || _items.Count == 0 || DragContainer.Size == Vector2.Zero)
+            return;
+
+        Recenter();
     }
 
     private void CenterOn(TechnologyPrototype tech)
@@ -398,7 +421,7 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
     {
         RecipeSearchLineEdit.OnTextChanged -= OnSearchChanged;
         RecipeSearchLineEdit.OnTextEntered -= OnSearchEntered;
-        DragContainer.OnResized -= Recenter;
+        DragContainer.OnResized -= OnDragContainerResized;
         base.Close();
     }
 }

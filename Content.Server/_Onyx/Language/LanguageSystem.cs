@@ -1,8 +1,12 @@
 using System.Linq;
 using Content.Server.GameTicking;
+using Content.Server.Popups;
 using Content.Shared._Onyx.Language;
 using Content.Shared.Implants.Components;
 using Content.Shared.Interaction;
+using Content.Shared.Interaction.Events;
+using Content.Shared.Item.ItemToggle.Components;
+using Content.Shared.PowerCell;
 using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
@@ -17,6 +21,9 @@ public sealed partial class LanguageSystem : EntitySystem
     [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private GameTicker _ticker = default!;
     [Dependency] private SharedContainerSystem _containers = default!;
+    [Dependency] private PowerCellSystem _powerCell = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private TranslatorSystem _translator = default!;
 
     public override void Initialize()
     {
@@ -26,6 +33,9 @@ public sealed partial class LanguageSystem : EntitySystem
         SubscribeLocalEvent<HandheldTranslatorComponent, ActivateInWorldEvent>(OnTranslatorToggle);
         SubscribeLocalEvent<HandheldTranslatorComponent, EntGotInsertedIntoContainerMessage>(OnTranslatorInserted);
         SubscribeLocalEvent<HandheldTranslatorComponent, EntGotRemovedFromContainerMessage>(OnTranslatorRemoved);
+        SubscribeLocalEvent<HandheldTranslatorComponent, PowerCellSlotEmptyEvent>(OnPowerCellSlotEmpty);
+        SubscribeLocalEvent<HandheldTranslatorComponent, PowerCellChangedEvent>(OnPowerCellChanged);
+        SubscribeLocalEvent<HandheldTranslatorComponent, ItemToggledEvent>(OnItemToggled);
         SubscribeLocalEvent<TranslatorImplantComponent, EntGotInsertedIntoContainerMessage>(OnImplantInserted);
         SubscribeLocalEvent<TranslatorImplantComponent, EntGotRemovedFromContainerMessage>(OnImplantRemoved);
     }
@@ -57,12 +67,15 @@ public sealed partial class LanguageSystem : EntitySystem
 
     private void OnTranslatorToggle(Entity<HandheldTranslatorComponent> ent, ref ActivateInWorldEvent args)
     {
-        ent.Comp.Enabled = !ent.Comp.Enabled;
+        var hasPower = _powerCell.HasDrawCharge(ent.Owner, user: args.User);
+        var enabled = !ent.Comp.Enabled && hasPower;
+        ent.Comp.Enabled = enabled;
+        _powerCell.SetDrawEnabled(ent.Owner, enabled);
         if (_containers.TryGetContainingContainer(ent.Owner, out var container))
         {
             var holder = container.Owner;
             UpdateLanguages(holder);
-            if (ent.Comp.Enabled)
+            if (enabled && ent.Comp.SetLanguageOnInteract)
             {
                 var newLanguage = ent.Comp.SpokenLanguages.FirstOrDefault(language =>
                     !TryComp<LanguageKnowledgeComponent>(holder, out var knowledge) || !knowledge.SpokenLanguages.Contains(language));
@@ -70,7 +83,40 @@ public sealed partial class LanguageSystem : EntitySystem
                     SetLanguage(holder, newLanguage);
             }
         }
+
+        _translator.UpdateAppearance(ent);
+        if (hasPower)
+        {
+            var message = Loc.GetString(enabled ? "translator-component-turnon" : "translator-component-shutoff",
+                ("translator", ent.Owner));
+            _popup.PopupEntity(message, ent.Owner, args.User);
+        }
         args.Handled = true;
+    }
+
+    private void OnPowerCellSlotEmpty(Entity<HandheldTranslatorComponent> ent, ref PowerCellSlotEmptyEvent args)
+    {
+        SetTranslatorEnabled(ent, false);
+    }
+
+    private void OnPowerCellChanged(Entity<HandheldTranslatorComponent> ent, ref PowerCellChangedEvent args)
+    {
+        SetTranslatorEnabled(ent, _powerCell.HasActivatableCharge(ent.Owner));
+    }
+
+    private void OnItemToggled(Entity<HandheldTranslatorComponent> ent, ref ItemToggledEvent args)
+    {
+        SetTranslatorEnabled(ent, args.Activated && _powerCell.HasActivatableCharge(ent.Owner));
+    }
+
+    private void SetTranslatorEnabled(Entity<HandheldTranslatorComponent> ent, bool enabled)
+    {
+        ent.Comp.Enabled = enabled;
+        _powerCell.SetDrawEnabled(ent.Owner, enabled);
+        _translator.UpdateAppearance(ent);
+
+        if (_containers.TryGetContainingContainer(ent.Owner, out var container))
+            UpdateLanguages(container.Owner);
     }
 
     private void OnTranslatorInserted(Entity<HandheldTranslatorComponent> ent, ref EntGotInsertedIntoContainerMessage args)
@@ -169,11 +215,19 @@ public sealed partial class LanguageSystem : EntitySystem
         LanguageSpeakerComponent speaker)
     {
         if (!translator.Enabled || knowledge == null ||
-            translator.RequiredLanguages.Count > 0 && !translator.RequiredLanguages.Any(knowledge.UnderstoodLanguages.Contains))
+            !CheckLanguagesMatch(translator.RequiredLanguages, knowledge.UnderstoodLanguages, translator.RequiresAllLanguages))
             return;
 
         speaker.SpokenLanguages.UnionWith(translator.SpokenLanguages);
         speaker.UnderstoodLanguages.UnionWith(translator.UnderstoodLanguages);
+    }
+
+    private static bool CheckLanguagesMatch<T>(ICollection<T> required, ICollection<T> provided, bool requireAll)
+    {
+        if (required.Count == 0)
+            return true;
+
+        return requireAll ? required.All(provided.Contains) : required.Any(provided.Contains);
     }
 
     public LanguagePrototype GetCurrentLanguage(EntityUid speaker)

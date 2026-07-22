@@ -8,5 +8,5 @@ public sealed partial class SunShadowComponent
     public bool CastRoofShadows;
 
     [DataField, AutoNetworkedField]
-    public float RoofHeight = 1f;
+    public float RoofHeight = 0.4f;
 }

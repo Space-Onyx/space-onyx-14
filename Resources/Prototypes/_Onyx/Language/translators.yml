@@ -1,6 +1,6 @@
 - type: entity
   id: OnyxTranslatorBase
-  parent: BaseItem
+  parent: [BaseItem, PowerCellSlotMediumItem]
   abstract: true
   name: translator
   description: Translates speech between Tau Ceti Basic and another language. Use it to toggle translation.
@@ -23,7 +23,16 @@
         enum.ToggleableVisuals.Layer:
           True: { visible: true }
           False: { visible: false }
+  - type: ItemToggle
+  - type: PowerCellDraw
+    drawRate: 1
   - type: HandheldTranslator
+    enabled: false
+  - type: Clothing
+    slots: [neck]
+    equipDelay: 0.3
+    unequipDelay: 0.3
+    quickEquip: false
 
 - type: entity
   id: ChittinTranslator

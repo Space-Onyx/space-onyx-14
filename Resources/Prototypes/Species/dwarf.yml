@@ -22,6 +22,6 @@
   defaultWeightKg: 60
   minHeightCm: 130
   maxHeightCm: 170
-  minWeightKg: 40
+  minWeightKg: 50
   maxWeightKg: 75
   # </Onyx-SpeciesDimensions>

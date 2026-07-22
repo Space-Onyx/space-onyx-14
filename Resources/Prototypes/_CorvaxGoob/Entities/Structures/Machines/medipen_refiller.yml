@@ -1,0 +1,66 @@
+- type: entity
+  parent: BaseMachinePowered
+  id: MedipenRefiller
+  name: medipen refiller
+  description: Fills, labels and recolors reusable chemical medipens.
+  components:
+  - type: Sprite
+    sprite: _CorvaxGoob/Structures/Machines/medipen_refiller.rsi
+    noRot: true
+    layers:
+    - state: icon
+    - state: active
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+  - type: Appearance
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: ItemSlots
+    slots:
+      medipenSlot:
+        priority: 1
+        whitelist:
+          components:
+          - Medipen
+      beakerSlot:
+        whitelist:
+          components:
+          - FitsInDispenser
+        blacklist:
+          components:
+          - Medipen
+  - type: ActivatableUI
+    key: enum.MedipenRefillerUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: UserInterface
+    interfaces:
+      enum.MedipenRefillerUiKey.Key:
+        type: MedipenRefillerUserInterface
+  - type: ApcPowerReceiver
+    powerLoad: 250
+  - type: Machine
+    board: MachineMedipenRefillerCircuitboard
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ContainerContainer
+    containers:
+      beakerSlot: !type:ContainerSlot
+      medipenSlot: !type:ContainerSlot
+      machine_board: !type:Container
+      machine_parts: !type:Container
+  - type: MedipenRefiller

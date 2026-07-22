@@ -1,0 +1,32 @@
+- type: technology
+  id: MedipenFilling
+  name: research-technology-injectors-filling
+  icon:
+    sprite: _CorvaxGoob/Structures/Machines/medipen_refiller.rsi
+    state: icon
+  discipline: CivilianServices
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+  - FillableMedipen
+  - MachineMedipenRefillerCircuitboard
+  position: -1,0
+  technologyPrerequisites:
+  - BiochemicalStasis
+
+- type: technology
+  id: Cloning
+  name: research-technology-cloning
+  icon:
+    sprite: Structures/Machines/cloning.rsi
+    state: pod_0
+  discipline: CivilianServices
+  tier: 3
+  cost: 20000
+  recipeUnlocks:
+  - CloningConsoleComputerCircuitboard
+  - CloningPodMachineCircuitboard
+  - MedicalScannerMachineCircuitboard
+  position: 0,-1
+  technologyPrerequisites:
+  - BiochemicalStasis

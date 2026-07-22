@@ -223,7 +223,9 @@ namespace Content.Shared.Atmos
         /// <summary>
         ///     Total number of gases. Increase this if you want to add more!
         /// </summary>
-        public const int TotalNumberOfGases = 9;
+        // <Onyx-GoobGases-edited>
+        public const int TotalNumberOfGases = 13;
+        // </Onyx-GoobGases-edited>
 
         /// <summary>
         ///     This is the actual length of the gases arrays in mixtures.
@@ -301,6 +303,14 @@ namespace Content.Shared.Atmos
         ///     Divisor for Ammonia Oxygen reaction so that it doesn't happen instantaneously.
         /// </summary>
         public const float AmmoniaOxygenReactionRate = 10f;
+
+        // <Onyx-GoobGases>
+        public const float BZFormationEnergy = 80e3f;
+        public const float HealiumProductionEnergy = 9e3f;
+        public const float NitriumProductionEnergy = -100e3f;
+        public const float PluoxiumProductionEnergy = 250f;
+        public const float NitriumDecompositionEnergy = 30e3f;
+        // </Onyx-GoobGases>
 
         /// <summary>
         ///     Determines at what pressure the ultra-high pressure red icon is displayed.
@@ -387,6 +397,12 @@ namespace Content.Shared.Atmos
         WaterVapor = 5,
         Ammonia = 6,
         NitrousOxide = 7,
-        Frezon = 8
+        Frezon = 8,
+        // <Onyx-GoobGases>
+        BZ = 9,
+        Healium = 10,
+        Nitrium = 11,
+        Pluoxium = 12
+        // </Onyx-GoobGases>
     }
 }

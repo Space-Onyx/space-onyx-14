@@ -204,26 +204,37 @@
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganVulpkaninExternal ]
   id: OrganVulpkaninChest
   components:
+  # <Onyx-CorvaxVulpkaninChest-edited>
   - type: Sprite
-    sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi
+    sprite: Corvax/Mobs/Species/Vulpkanin/parts.rsi
+    state: torso_m
   - type: VisualOrgan
-    data: { sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi }
+    layer: enum.HumanoidVisualLayers.Chest
+    data:
+      sprite: Corvax/Mobs/Species/Vulpkanin/parts.rsi
+      state: torso_m
+    sexStateOverrides:
+      Male: torso_m
+      Female: torso_f
+  # </Onyx-CorvaxVulpkaninChest-edited>
 
 - type: entity
   parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganVulpkaninExternal ]
   id: OrganVulpkaninGroin
   components:
+  # <Onyx-CorvaxVulpkaninGroin-edited>
   - type: Sprite
-    sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi
+    sprite: Corvax/Mobs/Species/Vulpkanin/parts.rsi
     state: groin_m
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.Groin
     data:
-      sprite: _Onyx/Body/Species/Vulpkanin/parts.rsi
+      sprite: Corvax/Mobs/Species/Vulpkanin/parts.rsi
       state: groin_m
     sexStateOverrides:
       Male: groin_m
       Female: groin_f
+  # </Onyx-CorvaxVulpkaninGroin-edited>
 
 - type: entity
   parent: [ OrganBaseChest, OrganVoxExternal ]
