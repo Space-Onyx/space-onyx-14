@@ -44,6 +44,9 @@
     - hand_right
     - hand_left
   - type: ComplexInteraction
+  # <GoobStation-Supermatter>
+  - type: SupermatterImmune
+  # </GoobStation-Supermatter>
   - type: Puller
     needsHands: false
   - type: CombatMode

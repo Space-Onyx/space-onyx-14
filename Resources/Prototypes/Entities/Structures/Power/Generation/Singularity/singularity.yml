@@ -70,6 +70,9 @@
   - type: WarpPoint
     follow: true
     location: singularity
+  # <GoobStation-Supermatter>
+  - type: SupermatterImmune
+  # </GoobStation-Supermatter>
   - type: Sprite
     sprite: Structures/Power/Generation/Singularity/singularity_1.rsi
     layers:

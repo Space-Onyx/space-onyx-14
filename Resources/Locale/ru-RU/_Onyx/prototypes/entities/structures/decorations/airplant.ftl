@@ -3,7 +3,9 @@ ent-AirPlantSmall = кислородное растение
     .suffix = Шаттл, 100 кПа
 
 ent-AirPlantMedium = кислородное растение
+    .desc = { ent-AirPlantSmall.desc }
     .suffix = Среднее, 300 кПа
 
 ent-AirPlantLarge = кислородное растение
+    .desc = { ent-AirPlantSmall.desc }
     .suffix = Большое, 500 кПа

@@ -1,5 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.ActionBlocker;
+// <GoobStation-Supermatter>
+using Content.Shared._GoobStation.Supermatter.Components;
+// </GoobStation-Supermatter>
 using Content.Shared.Buckle.Components;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
@@ -177,8 +180,11 @@ public abstract partial class SharedTetherGunSystem : EntitySystem
         if (HasComp<TetheredComponent>(target) || !TryComp<PhysicsComponent>(target, out var physics))
             return false;
 
+        // <GoobStation-Supermatter-edited>
         if (physics.BodyType == BodyType.Static && !component.CanUnanchor ||
-            _container.IsEntityInContainer(target))
+            _container.IsEntityInContainer(target) ||
+            HasComp<PhysicsGunBlacklistComponent>(target) && !component.CanUnanchor)
+        // </GoobStation-Supermatter-edited>
             return false;
 
         if (physics.Mass > component.MassLimit)

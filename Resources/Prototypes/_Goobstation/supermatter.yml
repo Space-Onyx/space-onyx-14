@@ -1,0 +1,29 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: explosion
+  id: Supermatter
+  damagePerIntensity:
+    types:
+      Radiation: 5
+      Heat: 4
+      Blunt: 3
+      Slash: 3
+  tileBreakChance: [0, 0.5, 1]
+  tileBreakIntensity: [0, 10, 30]
+  tileBreakRerollReduction: 20
+  lightColor: Yellow
+  fireColor: Green
+  texturePath: /Textures/Effects/fire_greyscale.rsi
+  fireStates: 3
+
+- type: stealTargetGroup
+  id: SupermatterSliver
+  name: steal-target-groups-cargo-supermatter-sliver
+  sprite:
+    sprite: _Goobstation/Supermatter/supermatter_sliver.rsi
+    state: icon
+
+- type: guideEntry
+  id: Supermatter
+  name: guide-entry-sm
+  text: "/ServerInfo/_GoobStation/Guidebook/Engineering/Supermatter.xml"

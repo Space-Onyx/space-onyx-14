@@ -322,6 +322,9 @@
   - TEG
   - RTG
   - SolarPanels
+  # <GoobStation-Supermatter>
+  - Supermatter
+  # </GoobStation-Supermatter>
 
 - type: guideEntry
   id: AME

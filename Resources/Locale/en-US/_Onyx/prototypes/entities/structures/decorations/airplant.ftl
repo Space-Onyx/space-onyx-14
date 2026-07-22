@@ -3,7 +3,9 @@ ent-AirPlantSmall = oxygen plant
     .suffix = Shuttle, 100kPa
 
 ent-AirPlantMedium = oxygen plant
+    .desc = { ent-AirPlantSmall.desc }
     .suffix = Medium, 300kPa
 
 ent-AirPlantLarge = oxygen plant
+    .desc = { ent-AirPlantSmall.desc }
     .suffix = Large, 500kPa

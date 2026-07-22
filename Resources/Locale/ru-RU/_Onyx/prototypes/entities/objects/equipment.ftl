@@ -1,5 +1,6 @@
 ent-BlueShieldShield = большой щит Синего Щита
 ent-BlueShieldShieldFilled = { ent-BlueShieldShield }
+    .desc = Энергетический щит со встроенной булавой.
     .suffix = Заполненный, НЕ МАППИТЬ
 ent-BlueshieldMace = DT-3 «Зверство»
 ent-ClothingOuterHardsuitBlueshieldLight = лёгкий скафандр «Преторианец»
@@ -12,12 +13,14 @@ selectable-set-blueshield-hardsuit-light-description = Мобильный бро
 
 ent-WeaponEnergyRevolver = энергетический револьвер EG-4 «Уравнитель»
 ent-ClothingBeltHolsterFilledBlueshield = наплечная кобура
+    .desc = Наплечная кобура с энергетическим револьвером EG-4 «Уравнитель».
     .suffix = Заполненная, EG-4
 ent-CombatInjector = боевой инъектор
 ent-ClothingBeltMilitaryWebbingBSOFilled = разгрузка Синего Щита
 ent-WeaponLeverChester = «Честер»
 ent-MagazineShotgunLeverRifle = магазин рычажного ружья (8 калибр)
 ent-MagazineShotgunLeverRifleEmpty = { ent-MagazineShotgunLeverRifle }
+    .desc = Пустой магазин рычажного ружья 8 калибра.
     .suffix = Пустой
 ent-MagazineBoxShotgunHighCaliberEMP = коробка ЭМИ-патронов (8 калибр)
 ent-MagazineBoxShotgunHighCaliberEnsnaring = коробка связывающих патронов (8 калибр)

@@ -22,6 +22,9 @@
     - HighRiskItem
   - type: StealTarget
     stealGroup: NukeDisk
+  # <GoobStation-Supermatter>
+  - type: SupermatterImmune
+  # </GoobStation-Supermatter>
 
 - type: entity
   name: nuclear authentication disk

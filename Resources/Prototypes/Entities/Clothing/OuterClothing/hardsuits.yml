@@ -381,6 +381,11 @@
   - type: HeldSpeedModifier
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHelmetHardsuitEngineeringWhite
+  # <GoobStation-Supermatter>
+  - type: ClothingGrantComponent
+    component:
+    - type: SupermatterImmune
+  # </GoobStation-Supermatter>
   - type: Tag
     tags:
     - Hardsuit

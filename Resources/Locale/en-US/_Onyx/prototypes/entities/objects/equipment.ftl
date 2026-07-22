@@ -1,5 +1,6 @@
 ent-BlueShieldShield = greatshield
 ent-BlueShieldShieldFilled = { ent-BlueShieldShield }
+    .desc = An energy greatshield containing a powered mace.
     .suffix = Filled, DO NOT MAP
 ent-BlueshieldMace = DT-3 "Atrocity"
 ent-ClothingOuterHardsuitBlueshieldLight = 'praetorian' escort hardsuit
@@ -12,12 +13,14 @@ selectable-set-blueshield-hardsuit-light-description = A mobile armored hardsuit
 
 ent-WeaponEnergyRevolver = EG-4 Equalizer
 ent-ClothingBeltHolsterFilledBlueshield = shoulder holster
+    .desc = A shoulder holster containing an EG-4 Equalizer.
     .suffix = Filled, EG-4
 ent-CombatInjector = combat injector
 ent-ClothingBeltMilitaryWebbingBSOFilled = blueshield chest rig
 ent-WeaponLeverChester = Chester
 ent-MagazineShotgunLeverRifle = lever rifle magazine (8 gauge)
 ent-MagazineShotgunLeverRifleEmpty = { ent-MagazineShotgunLeverRifle }
+    .desc = An empty 8 gauge lever rifle magazine.
     .suffix = Empty
 ent-MagazineBoxShotgunHighCaliberEMP = shell box (8 gauge EMP slug)
 ent-MagazineBoxShotgunHighCaliberEnsnaring = shell box (8 gauge ensnaring slug)

@@ -126,6 +126,9 @@
     solution: food
   - type: Extractable
     grindableSolutionName: food
+  # <GoobStation-Supermatter>
+  - type: SupermatterImmune
+  # </GoobStation-Supermatter>
 
 - type: entity
   parent: Ash
