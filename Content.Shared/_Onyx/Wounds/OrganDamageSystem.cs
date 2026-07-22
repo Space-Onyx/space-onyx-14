@@ -18,6 +18,7 @@ public sealed partial class OrganDamageSystem : EntitySystem
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private WoundFractureSystem _fractures = default!;
     [Dependency] private AmputationSystem _amputation = default!;
+    [Dependency] private WoundSystem _wounds = default!;
 
     public override void Initialize()
     {
@@ -26,6 +27,7 @@ public sealed partial class OrganDamageSystem : EntitySystem
 
     private void OnPartDamageApplied(Entity<WoundableComponent> part, ref PartDamageAppliedEvent args)
     {
+        _wounds.HandlePartDamageApplied(part, ref args);
         _fractures.HandlePartDamageApplied(part, ref args);
         _amputation.HandlePartDamageApplied(part, ref args);
 

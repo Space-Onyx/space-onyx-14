@@ -49,7 +49,7 @@ public abstract partial class SharedTapeRecorderSystem : EntitySystem
         SubscribeLocalEvent<TapeRecorderComponent, AfterActivatableUIOpenEvent>(OnUIOpened);
 
         SubscribeLocalEvent<TapeCassetteComponent, ExaminedEvent>(OnTapeExamined);
-        SubscribeLocalEvent<TapeCassetteComponent, DamageChangedEvent>(OnDamagedChanged);
+        SubscribeLocalEvent<TapeCassetteComponent, DamageDealtEvent>(OnDamageDealt);
         SubscribeLocalEvent<TapeCassetteComponent, InteractUsingEvent>(OnInteractingWithCassette);
         SubscribeLocalEvent<TapeCassetteComponent, TapeCassetteRepairDoAfterEvent>(OnTapeCassetteRepair);
     }
@@ -220,9 +220,9 @@ public abstract partial class SharedTapeRecorderSystem : EntitySystem
     /// <summary>
     /// When the cassette has been damaged, corrupt and entry and unspool it
     /// </summary>
-    protected void OnDamagedChanged(Entity<TapeCassetteComponent> ent, ref DamageChangedEvent args)
+    protected void OnDamageDealt(Entity<TapeCassetteComponent> ent, ref DamageDealtEvent args)
     {
-        if (args.DamageDelta == null || args.DamageDelta.GetTotal() < 5)
+        if (args.Damage.GetTotal() < 5)
             return;
 
         _appearance.SetData(ent, ToggleableVisuals.Enabled, true);

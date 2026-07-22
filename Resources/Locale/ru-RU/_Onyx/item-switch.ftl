@@ -1,1 +1,8 @@
 item-switch-cycle = Переключить функцию
+item-switch-failed-no-power = Недостаточно энергии!
+itemswitch-component-on-examine-detailed-message = Текущий режим: { $state }
+itemswitch-component-state-off = выключен
+itemswitch-component-state-stun = оглушение
+itemswitch-component-state-ion = ионный
+itemswitch-component-state-lethal = летальный
+itemswitch-component-state-empowered = уничтожение

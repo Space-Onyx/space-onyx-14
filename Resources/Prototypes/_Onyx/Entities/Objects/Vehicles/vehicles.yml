@@ -1,0 +1,36 @@
+- type: entity
+  id: VehicleATV
+  parent: BaseVehicleStrap
+  name: ATV
+  description: All-Tile Vehicle.
+  components:
+  - type: Sprite
+    sprite: Objects/Vehicles/atv.rsi
+    state: vehicle
+  - type: GenericKeyedVehicle
+    containerId: key_slot
+    keyWhitelist:
+      tags:
+      - ATVKeys
+  - type: Strap
+    position: Stand
+    blockMovement: false
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 4.5
+    baseSprintSpeed: 8.5
+  - type: ItemSlots
+    slots:
+      key_slot:
+        name: vehicle-slot-component-slot-name-keys
+        whitelist:
+          tags:
+          - ATVKeys
+        insertSound:
+          path: /Audio/Effects/Vehicle/vehiclestartup.ogg
+          params:
+            volume: -3
+  - type: ContainerContainer
+    containers:
+      key_slot: !type:ContainerSlot
+  - type: StaticPrice
+    price: 2500

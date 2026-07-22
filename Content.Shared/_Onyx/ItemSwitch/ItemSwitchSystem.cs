@@ -4,6 +4,7 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Item;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Melee;
+using Content.Shared.Popups;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 
@@ -14,6 +15,7 @@ public sealed partial class ItemSwitchSystem : EntitySystem
     [Dependency] private INetManager _net = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedItemSystem _item = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -54,11 +56,18 @@ public sealed partial class ItemSwitchSystem : EntitySystem
             return;
 
         var user = args.User;
-        args.Verbs.Add(new ActivationVerb
+        foreach (var (key, state) in ent.Comp.States)
         {
-            Text = Loc.GetString("item-switch-cycle"),
-            Act = () => Switch(ent, Next(ent.Comp), user, ent.Comp.Predictable),
-        });
+            if (state.Hidden || state.Verb == null)
+                continue;
+
+            args.Verbs.Add(new ActivationVerb
+            {
+                Text = Loc.TryGetString($"itemswitch-component-state-{state.Verb}", out var text) ? text : state.Verb,
+                Category = VerbCategory.SelectType,
+                Act = () => Switch(ent, key, user, ent.Comp.Predictable),
+            });
+        }
     }
 
     private static string Next(ItemSwitchComponent comp)
@@ -75,6 +84,13 @@ public sealed partial class ItemSwitchSystem : EntitySystem
 
         if (!ent.Comp.Predictable && _net.IsClient)
             return true;
+
+        if (ent.Comp.NeedsPower && !ent.Comp.IsPowered && key != ent.Comp.DefaultState)
+        {
+            if (user != null)
+                _popup.PopupEntity(Loc.GetString("item-switch-failed-no-power"), ent, user.Value);
+            return false;
+        }
 
         var attempt = new ItemSwitchAttemptEvent(user, key);
         RaiseLocalEvent(ent.Owner, ref attempt);
@@ -102,9 +118,9 @@ public sealed partial class ItemSwitchSystem : EntitySystem
 
         predicted &= ent.Comp.Predictable;
         if (predicted)
-            _audio.PlayPredicted(state.Sound, ent, user);
+            _audio.PlayPredicted(state.SoundStateActivate ?? state.Sound, ent, user);
         else
-            _audio.PlayPvs(state.Sound, ent);
+            _audio.PlayPvs(state.SoundStateActivate ?? state.Sound, ent);
 
         var switched = new ItemSwitchedEvent(user, key, predicted);
         RaiseLocalEvent(ent.Owner, ref switched);

@@ -1,0 +1,69 @@
+- type: selectableAmmo
+  id: BulletEnergyGunClownshot
+  desc: Clownshot
+  icon:
+    sprite: _Onyx/Objects/Weapons/Guns/Projectiles/selectable_ammo.rsi
+    state: clownshot
+  color: yellow
+  protoId: BulletClownshot
+  fireCost: 40
+
+- type: selectableAmmo
+  id: BulletEnergyGunPulse
+  desc: Pulse
+  icon:
+    sprite: _Onyx/Objects/Weapons/Guns/Projectiles/selectable_ammo.rsi
+    state: pulse
+  color: blue
+  protoId: BulletPulse
+  fireCost: 60
+
+- type: selectableAmmo
+  id: BulletEnergyGunDetain
+  desc: Detain
+  icon:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+    state: omnilaser
+  color: blue
+  protoId: BulletDetain
+  fireCost: 60
+
+- type: selectableAmmo
+  id: BulletEnergyGunExecute
+  desc: Execute
+  icon:
+    sprite: _Onyx/Objects/Weapons/Guns/Projectiles/selectable_ammo.rsi
+    state: execute
+  color: green
+  protoId: BulletExecute
+  fireCost: 80
+
+- type: selectableAmmo
+  id: BulletEnergyGunHotshot
+  desc: Hotshot
+  icon:
+    sprite: _Onyx/Objects/Weapons/Guns/Projectiles/selectable_ammo.rsi
+    state: hotshot
+  color: red
+  protoId: BulletHotshot
+  fireCost: 80
+
+- type: selectableAmmo
+  id: BulletEnergyGunSleepshot
+  desc: Sleepshot
+  icon:
+    sprite: _Onyx/Objects/Weapons/Guns/Projectiles/selectable_ammo.rsi
+    state: sleepshot
+  color: pink
+  protoId: BulletSleepshot
+  fireCost: 60
+
+- type: selectableAmmo
+  id: BulletEnergyGunBigshot
+  desc: Bigshot
+  icon:
+    sprite: _Onyx/Objects/Weapons/Guns/Projectiles/selectable_ammo.rsi
+    state: bigshot
+  color: gray
+  protoId: BulletBigshot
+  fireCost: 80

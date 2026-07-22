@@ -1,0 +1,13 @@
+- type: entity
+  id: VehicleKeyATV
+  parent: BaseItem
+  name: ATV keys
+  description: Think this looks like just one key? ATV keys means "actually two vehicle keys."
+  components:
+  - type: Sprite
+    sprite: Objects/Vehicles/atv.rsi
+    state: keys
+  - type: Item
+    size: Small
+  - type: Tag
+    tags: [ATVKeys]

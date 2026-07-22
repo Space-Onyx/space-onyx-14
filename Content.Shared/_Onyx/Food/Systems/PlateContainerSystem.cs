@@ -118,7 +118,7 @@ public sealed partial class PlateContainerSystem : EntitySystem
 
         ent.Comp.LastPopupUser = user;
         ent.Comp.NextPopupTime = now + PopupCooldown;
-        _popup.PopupClient(Loc.GetString(GetPopup(result)), ent.Owner, user);
+        _popup.PopupEntity(Loc.GetString(GetPopup(result)), ent.Owner, user);
     }
     private void OnGetAlternativeVerbs(
         Entity<PlateContainerComponent> ent,

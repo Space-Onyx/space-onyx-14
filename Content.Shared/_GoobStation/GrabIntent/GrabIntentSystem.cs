@@ -92,13 +92,13 @@ public sealed partial class GrabIntentSystem : EntitySystem
         Dirty(target, target.Comp2);
 
         var name = stage.ToString().ToLowerInvariant();
-        _popup.PopupPredicted(
+        _popup.PopupEntity(
             Loc.GetString($"popup-grab-{name}-self", ("target", Identity.Entity(target, EntityManager))),
             Loc.GetString($"popup-grab-{name}-others", ("target", Identity.Entity(target, EntityManager)), ("puller", Identity.Entity(puller, EntityManager))),
             target,
             puller,
             PopupType.Medium);
-        _popup.PopupPredicted(
+        _popup.PopupEntity(
             Loc.GetString($"popup-grab-{name}-target", ("puller", Identity.Entity(puller, EntityManager))),
             null,
             target,
@@ -140,7 +140,7 @@ public sealed partial class GrabIntentSystem : EntitySystem
         var chance = grabber.EscapeChances.GetValueOrDefault(target.Comp.GrabStage, 1f) * MassRatio(target, pullerUid);
         if (!_random.Prob(Math.Clamp(chance, 0.05f, 1f)))
         {
-            _popup.PopupPredicted(Loc.GetString("popup-grab-release-fail-self"), target, target);
+            _popup.PopupEntity(Loc.GetString("popup-grab-release-fail-self"), target, target);
             return false;
         }
 

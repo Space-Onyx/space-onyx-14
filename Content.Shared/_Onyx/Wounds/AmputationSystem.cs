@@ -31,7 +31,7 @@ public sealed partial class AmputationSystem : EntitySystem
 
         var parent = bodyPart.Parent.Value;
         if (!TryComp(part, out DamageableComponent? damageable) ||
-            !ReachedThreshold(_damageable.GetAllDamage((part.Owner, damageable)), thresholds))
+            !ReachedThreshold(_damageable.GetPositiveDamage((part.Owner, damageable)), thresholds))
             return;
 
         if (!_body.TryDetachPart(part.Owner))

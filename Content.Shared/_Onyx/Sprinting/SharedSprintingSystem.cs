@@ -94,7 +94,7 @@ public abstract partial class SharedSprintingSystem : EntitySystem
         if (!sprinter.CanSprint || !HasComp<StaminaComponent>(uid))
         {
             if (message.State == BoundKeyState.Down)
-                _popup.PopupClient(Loc.GetString("sprint-disabled"), uid, uid, PopupType.Medium);
+                _popup.PopupEntity(Loc.GetString("sprint-disabled"), uid, uid, PopupType.Medium);
             return;
         }
 
@@ -126,7 +126,7 @@ public abstract partial class SharedSprintingSystem : EntitySystem
     {
         if (_gravity.IsWeightless(uid))
         {
-            _popup.PopupClient(Loc.GetString("no-sprint-while-weightless"), uid, uid, PopupType.Medium);
+            _popup.PopupEntity(Loc.GetString("no-sprint-while-weightless"), uid, uid, PopupType.Medium);
             return false;
         }
 
@@ -140,7 +140,7 @@ public abstract partial class SharedSprintingSystem : EntitySystem
         if (ent.Comp.CanStillInteract)
             return;
 
-        _popup.PopupClient(Loc.GetString("no-sprint-while-restrained"), ent, ent, PopupType.Medium);
+        _popup.PopupEntity(Loc.GetString("no-sprint-while-restrained"), ent, ent, PopupType.Medium);
         args.Cancel();
     }
 
@@ -149,7 +149,7 @@ public abstract partial class SharedSprintingSystem : EntitySystem
         if (!_standing.IsDown(ent.Owner))
             return;
 
-        _popup.PopupClient(Loc.GetString("no-sprint-while-lying"), ent, ent, PopupType.Medium);
+        _popup.PopupEntity(Loc.GetString("no-sprint-while-lying"), ent, ent, PopupType.Medium);
         args.Cancel();
     }
 

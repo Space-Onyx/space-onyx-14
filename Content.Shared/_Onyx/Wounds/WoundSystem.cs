@@ -1,7 +1,6 @@
 using System.Linq;
 using Content.Shared.Body;
 using Content.Shared.Body.Systems;
-using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
@@ -11,7 +10,6 @@ using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Robust.Shared.Timing;
 
 namespace Content.Shared._Onyx.Wounds;
 
@@ -19,7 +17,6 @@ public sealed partial class WoundSystem : EntitySystem
 {
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private SharedContainerSystem _containers = default!;
-    [Dependency] private IGameTiming _timing = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private IRobustRandom _random = default!;
@@ -32,7 +29,6 @@ public sealed partial class WoundSystem : EntitySystem
         RebuildDamageTypeCache();
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
         SubscribeLocalEvent<WoundableComponent, ComponentInit>(OnWoundableInit);
-        SubscribeLocalEvent<DamageableComponent, DamageChangedEvent>(OnDamageChanged);
         SubscribeLocalEvent<BodyComponent, RejuvenateEvent>(OnRejuvenate);
         SubscribeLocalEvent<WoundableComponent, RejuvenateEvent>(OnPartRejuvenate);
     }
@@ -58,15 +54,12 @@ public sealed partial class WoundSystem : EntitySystem
         part.Comp.WoundsContainer = _containers.EnsureContainer<Container>(part, WoundableComponent.ContainerId);
     }
 
-    private void OnDamageChanged(Entity<DamageableComponent> ent, ref DamageChangedEvent args)
+    internal void HandlePartDamageApplied(Entity<WoundableComponent> part, ref PartDamageAppliedEvent args)
     {
-        if (!_net.IsServer || _timing.ApplyingState || args.DamageDelta is null ||
-            !TryComp(ent, out WoundableComponent? woundable))
+        if (!_net.IsServer)
             return;
 
-        var part = new Entity<WoundableComponent>(ent, woundable);
-
-        foreach (var (type, amount) in args.DamageDelta.DamageDict)
+        foreach (var (type, amount) in args.Damage.DamageDict)
         {
             if (amount == FixedPoint2.Zero || !TryResolvePrototype(type, out var prototype))
                 continue;

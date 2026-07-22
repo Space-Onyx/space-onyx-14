@@ -123,3 +123,11 @@
 
 - type: Tag
   id: SawElectric
+- type: Tag
+  id: ATVKeys
+
+- type: Tag
+  id: Justice
+
+- type: Tag
+  id: WeaponEnergyGunLawbringer

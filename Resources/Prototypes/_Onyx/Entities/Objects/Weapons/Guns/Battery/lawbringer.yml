@@ -1,0 +1,91 @@
+- type: entity
+  id: WeaponEnergyGunLawbringer
+  name: DT-12 Lawbringer
+  parent: [BaseWeaponBatterySmall, BaseGrandTheftContraband]
+  description: A self-recharging energy gun designed for the Head of Security.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/lawbringer.rsi
+    layers:
+    - state: icon
+      map: ["enum.GunVisualLayers.Base"]
+  - type: Clothing
+    quickEquip: false
+    slots:
+    - suitStorage
+    - belt
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/lawbringer.rsi
+  - type: Gun
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser.ogg
+  - type: Battery
+    maxCharge: 1000
+    startingCharge: 1000
+  - type: BatteryAmmoProvider
+    proto: BulletDetain
+    fireCost: 80
+  - type: AmmoSelector
+    defaultPrototype: BulletEnergyGunDetain
+    prototypes:
+    - BulletEnergyGunClownshot
+    - BulletEnergyGunPulse
+    - BulletEnergyGunDetain
+    - BulletEnergyGunExecute
+    - BulletEnergyGunHotshot
+    - BulletEnergyGunSleepshot
+    - BulletEnergyGunBigshot
+  - type: UserInterface
+    interfaces:
+      enum.AmmoSelectorUiKey.Key:
+        type: AmmoSelectorMenuBoundUserInterface
+  - type: ActivatableUI
+    inHandsOnly: true
+    key: enum.AmmoSelectorUiKey.Key
+  - type: ItemToggle
+    activated: true
+    onActivate: false
+    onUse: false
+    wieldToggle: false
+  - type: Appearance
+  - type: ToggleableVisuals
+    spriteLayer: Firemode
+    inhandVisuals:
+      left:
+      - state: mode-inhand-left
+        shader: unshaded
+      right:
+      - state: mode-inhand-right
+        shader: unshaded
+  - type: Tag
+    tags:
+    - HighRiskItem
+    - Sidearm
+    - WeaponEnergyGunLawbringer
+  - type: StaticPrice
+    price: 750
+  - type: StealTarget
+    stealGroup: WeaponEnergyGunLawbringer
+  - type: RestrictById
+    restrictMelee: true
+    restrictRanged: true
+    isEmaggable: true
+  - type: AccessReader
+    access: [["HeadOfSecurity"]]
+  - type: TriggerOnVoiceIdLocked
+    keyPhrase: lawbringer-phrase
+    holderOnly: true
+  - type: ActiveListener
+    range: 1
+  - type: Explosive
+    explosionType: Default
+    maxIntensity: 2
+    intensitySlope: 1
+    totalIntensity: 2
+    canCreateVacuum: false
+    deleteAfterExplosion: false
+    repeatable: true
+  - type: BatterySelfRecharger
+    autoRecharge: true
+    autoRechargeRate: 50
+    autoRechargePause: true
+    autoRechargePauseTime: 40

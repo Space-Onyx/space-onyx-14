@@ -1,0 +1,9 @@
+- type: entity
+  id: ClothingBeltSheathHeadOfSecurityFilled
+  parent: ClothingBeltSheathHeadOfSecurity
+  suffix: Filled, Head Of Security
+  components:
+  - type: ContainerFill
+    containers:
+      item:
+      - Justice

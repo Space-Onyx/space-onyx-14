@@ -1,0 +1,45 @@
+- type: entity
+  id: AirPlantSmall
+  name: oxygen plant
+  parent: GasMinerBase
+  description: It seems to always be producing a gust of fresh air. The ground around it feels hot to the touch.
+  suffix: Shuttle, 100kPa
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Decoration/air_plant.rsi
+    state: air_plantS
+  - type: GasMiner
+    spawnGas: Oxygen
+    maxExternalPressure: 100
+
+- type: entity
+  id: AirPlantMedium
+  name: oxygen plant
+  parent: GasMinerBase
+  suffix: Medium, 300kPa
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Decoration/air_plant.rsi
+    state: air_plantM
+  - type: GasMiner
+    spawnGas: Oxygen
+    maxExternalPressure: 300
+
+- type: entity
+  id: AirPlantLarge
+  name: oxygen plant
+  parent: GasMinerBase
+  suffix: Large, 500kPa
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Decoration/air_plant.rsi
+    state: air_plantL
+  - type: GasMiner
+    spawnGas: Oxygen
+    maxExternalPressure: 500

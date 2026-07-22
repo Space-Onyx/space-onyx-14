@@ -1,0 +1,16 @@
+- type: entity
+  id: ServiceEnergyChemMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  name: energy food synthesizer machine board
+  description: A machine printed circuit board for an energy food synthesizer.
+  components:
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: ServiceEnergyChemDispenser
+    stackRequirements:
+      Manipulator: 3
+    tagRequirements:
+      GlassBeaker:
+        amount: 2
+        defaultPrototype: Beaker

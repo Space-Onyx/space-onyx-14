@@ -1,0 +1,45 @@
+- type: entity
+  id: ServiceEnergyChemDispenser
+  parent: EnergyChemDispenser
+  name: energy food synthesizer
+  suffix: energy
+  description: A bluespace chemical dispenser that uses station energy to synthesize organic reagents.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Machines/service_dispenser.rsi
+    state: industrial-working
+    snapCardinals: true
+  - type: Machine
+    board: ServiceEnergyChemMachineCircuitboard
+  - type: EnergyReagentDispenser
+    beakerSlot:
+      whitelistFailPopup: reagent-dispenser-component-cannot-put-entity-message
+      whitelist:
+        components: [FitsInDispenser]
+    reagents:
+      Flour: 4
+      Cornmeal: 4
+      Rice: 4
+      Egg: 12
+      Milk: 12
+      Sugar: 3
+      Water: 3
+      Fat: 20
+      UncookedAnimalProteins: 20
+      MilkSoy: 16
+      Oats: 14
+      Vinegar: 8
+      OilOlive: 5
+      TableSalt: 2
+      Blackpepper: 2
+      BbqSauce: 2
+      Soysauce: 4
+      Mustard: 3
+      Ketchup: 3
+      Mayo: 3
+      Hotsauce: 3
+      Syrup: 3
+      Vinaigrette: 4
+      Astrotame: 8
+      HorseradishSauce: 4
+      Cornoil: 4

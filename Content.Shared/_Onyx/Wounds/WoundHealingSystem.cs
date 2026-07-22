@@ -57,7 +57,7 @@ public sealed partial class WoundHealingSystem : EntitySystem
                 continue;
 
             var score = FixedPoint2.Zero;
-            var partDamage = _damage.GetAllDamage((part, damageable)).DamageDict;
+            var partDamage = _damage.GetPositiveDamage((part, damageable)).DamageDict;
             foreach (var (type, amount) in healing.DamageDict)
             {
                 if (amount >= FixedPoint2.Zero || !host.LocalizedDamageTypes.Contains(type))
@@ -91,7 +91,8 @@ public sealed partial class WoundHealingSystem : EntitySystem
     {
         healed = new DamageSpecifier();
         stoppedBleeding = false;
-        if (!_net.IsServer || !TryComp(body, out WoundHostComponent? host))
+        if (!_net.IsServer || !TryComp(body, out WoundHostComponent? host) ||
+            !TryComp(body, out DamageableComponent? bodyDamageable))
             return false;
 
         var resolve = new ResolveHealingPartEvent(body, healing.Comp.Damage, healing.Comp.DamageContainers,
@@ -100,7 +101,7 @@ public sealed partial class WoundHealingSystem : EntitySystem
         if (!resolve.Accepted)
             return false;
 
-        var before = _damage.GetAllDamage(body).Clone();
+        var before = _damage.GetPositiveDamage((body, bodyDamageable));
         var change = healing.Comp.Damage * _damage.UniversalTopicalsHealModifier;
         var applied = resolve.Part is { } part
             ? _routing.TryApplyPartDamage(body, part, change, origin)
@@ -111,7 +112,7 @@ public sealed partial class WoundHealingSystem : EntitySystem
             stoppedBleeding = TreatBleeding(bleedingPart, -healing.Comp.BloodlossModifier);
         }
 
-        var after = _damage.GetAllDamage(body);
+        var after = _damage.GetPositiveDamage((body, bodyDamageable));
         foreach (var (type, amount) in before.DamageDict)
         {
             var delta = after.DamageDict.GetValueOrDefault(type) - amount;

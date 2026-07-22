@@ -196,14 +196,17 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
             !_targetResolver.TryResolve(body, requested, shooter, out var part))
             return false;
 
-        var before = _damage.GetAllDamage(part).Clone();
+        if (!TryComp(part, out DamageableComponent? partDamageable))
+            return false;
+
+        var before = _damage.GetPositiveDamage((part, partDamageable));
         _requestedParts[body] = part;
         try
         {
             if (!RouteThroughBodyModifiers((body, host), damage, origin, ignoreResistances))
                 return false;
 
-            var after = _damage.GetAllDamage(part);
+            var after = _damage.GetPositiveDamage((part, partDamageable));
             foreach (var (type, oldAmount) in before.DamageDict)
             {
                 var delta = after.DamageDict.GetValueOrDefault(type) - oldAmount;
@@ -345,13 +348,14 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
 
             if (_damage.TryChangeDamage(target,
                     localized,
+                    out var appliedDamage,
                     ignoreResistances: true,
                     interruptsDoAfters: interruptsDoAfters,
                     origin: origin,
                     ignoreGlobalModifiers: true))
             {
                 _applied.Add(body);
-                var applied = new PartDamageAppliedEvent(body, target, localized);
+                var applied = new PartDamageAppliedEvent(body, target, appliedDamage);
                 RaiseLocalEvent(target, ref applied);
                 return;
             }

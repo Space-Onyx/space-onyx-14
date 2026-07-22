@@ -30,6 +30,7 @@ public abstract partial class SharedFishingSystem : EntitySystem
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     protected EntityQuery<ActiveFisherComponent> FisherQuery;
     protected EntityQuery<ActiveFishingSpotComponent> ActiveFishSpotQuery;
@@ -132,7 +133,7 @@ public abstract partial class SharedFishingSystem : EntitySystem
             activeFisher.ProgressPerUse *= fishRodComp.Efficiency;
             activeFisher.TotalProgress = fishRodComp.StartingProgress;
             activeFisher.NextStruggle = Timing.CurTime + TimeSpan.FromSeconds(fishRodComp.StartingStruggleTime);
-            _popup.PopupPredicted(Loc.GetString("fishing-progress-start"), fisher, fisher);
+            _popup.PopupEntity(Loc.GetString("fishing-progress-start"), fisher, fisher);
             activeSpotComp.IsActive = true;
             Dirty(fisher, activeFisher);
             Dirty(fishingSpot, activeSpotComp);
@@ -266,7 +267,7 @@ public abstract partial class SharedFishingSystem : EntitySystem
             return;
         }
 
-        _popup.PopupPredicted(Loc.GetString("fishing-rod-remove-lure", ("ent", Name(ent))), ent, ent);
+        _popup.PopupEntity(Loc.GetString("fishing-rod-remove-lure", ("ent", Name(ent))), ent, ent);
 
         if (!FishLureQuery.TryComp(ent.Comp.FishingLure, out var lureComp))
         {
@@ -280,8 +281,7 @@ public abstract partial class SharedFishingSystem : EntitySystem
             var attachedEnt = lureComp.AttachedEntity.Value;
             var targetCoords = Xform.GetMapCoordinates(Transform(attachedEnt));
             var playerCoords = Xform.GetMapCoordinates(Transform(player));
-            var random = new System.Random((int) Timing.CurTick.Value);
-            var direction = (playerCoords.Position - targetCoords.Position) * random.NextFloat(0.2f, 0.85f);
+            var direction = (playerCoords.Position - targetCoords.Position) * _random.NextFloat(0.2f, 0.85f);
             Throwing.TryThrow(attachedEnt, direction, 4f, player);
         }
 

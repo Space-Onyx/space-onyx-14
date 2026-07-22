@@ -25,7 +25,7 @@ public sealed partial class WoundDamageProjectionSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<WoundHostComponent, MapInitEvent>(OnMapInit, after: [typeof(InitialBodySystem)]);
         SubscribeLocalEvent<WoundHostComponent, RejuvenateEvent>(OnRejuvenate);
-        SubscribeLocalEvent<WoundableComponent, DamageChangedEvent>(OnPartDamageChanged);
+        SubscribeLocalEvent<WoundableComponent, DamageDealtEvent>(OnPartDamageDealt, after: [typeof(DamageableSystem)]);
     }
 
     private void OnMapInit(Entity<WoundHostComponent> body, ref MapInitEvent args)
@@ -68,13 +68,12 @@ public sealed partial class WoundDamageProjectionSystem : EntitySystem
         RefreshBodyDamage(body);
     }
 
-    private void OnPartDamageChanged(Entity<WoundableComponent> part, ref DamageChangedEvent args)
+    private void OnPartDamageDealt(Entity<WoundableComponent> part, ref DamageDealtEvent args)
     {
         if (!_net.IsServer || !TryComp(part, out BodyPartComponent? component))
             return;
 
-        if (args.DamageDelta is { } delta)
-            _pain.ApplyDamage(part, delta, component);
+        _pain.ApplyDamage(part, args.Damage, component);
 
         if (component.Body is { } body)
             RefreshBodyDamage(body);
@@ -120,7 +119,7 @@ public sealed partial class WoundDamageProjectionSystem : EntitySystem
             if (!TryComp(part, out DamageableComponent? damageable) || !TryGetVisualLayer(part, out var layer))
                 continue;
 
-            var damage = _damage.GetAllDamage((part, damageable));
+            var damage = _damage.GetPositiveDamage((part, damageable));
             if (!visual.Damage.TryGetValue(layer, out var current))
                 visual.Damage[layer] = damage.Clone();
             else
@@ -144,7 +143,7 @@ public sealed partial class WoundDamageProjectionSystem : EntitySystem
             {
                 if (TryComp(part, out DamageableComponent? damageable))
                 {
-                    var damage = _damage.GetAllDamage((part, damageable));
+                    var damage = _damage.GetPositiveDamage((part, damageable));
                     total += damage;
                     if (TryGetVisualLayer(part, out var layer))
                     {
