@@ -1,6 +1,7 @@
 - type: inventoryTemplate
   id: aghost
   slots:
+    # <Onyx-AGhostInventory-edited>
     - name: back
       slotTexture: back
       slotFlags: BACK
@@ -18,14 +19,60 @@
       uiWindowPos: 2,2
       strippingWindowPos: 2,3
       displayName: ID
+    - name: pocket1
+      slotTexture: pocket
+      fullTextureName: template_small
+      slotFlags: POCKET
+      slotGroup: MainHotbar
+      stripTime: 3
+      uiWindowPos: 0,3
+      strippingWindowPos: 0,4
+      displayName: Pocket 1
+      stripHidden: true
+    - name: pocket2
+      slotTexture: pocket
+      fullTextureName: template_small
+      slotFlags: POCKET
+      slotGroup: MainHotbar
+      stripTime: 3
+      uiWindowPos: 2,3
+      strippingWindowPos: 1,4
+      displayName: Pocket 2
+      stripHidden: true
+    - name: pocket3
+      slotTexture: pocket
+      fullTextureName: template_small
+      slotFlags: POCKET
+      slotGroup: MainHotbar
+      stripTime: 3
+      uiWindowPos: 4,3
+      strippingWindowPos: 2,4
+      displayName: Pocket 3
+      stripHidden: true
+    - name: pocket4
+      slotTexture: pocket
+      fullTextureName: template_small
+      slotFlags: POCKET
+      slotGroup: MainHotbar
+      stripTime: 3
+      uiWindowPos: 6,3
+      strippingWindowPos: 3,4
+      displayName: Pocket 4
+      stripHidden: true
 
     # For drip reasons.
     - name: head
       slotTexture: head
       slotFlags: HEAD
-      uiWindowPos: 0,2
+      uiWindowPos: 0,3
       strippingWindowPos: 0,0
       displayName: Head
+    - name: neck
+      slotTexture: neck
+      slotFlags: NECK
+      uiWindowPos: 0,2
+      strippingWindowPos: 0,1
+      displayName: Neck
     - name: mask
       slotTexture: mask
       slotFlags: MASK
@@ -38,7 +85,8 @@
       slotTexture: glasses
       slotFlags: EYES
       stripTime: 3
-      uiWindowPos: 0,3
+      uiWindowPos: 0,4
       strippingWindowPos: 0,0
       displayName: Eyes
     # Corvax aghost-MLG end
+    # </Onyx-AGhostInventory-edited>

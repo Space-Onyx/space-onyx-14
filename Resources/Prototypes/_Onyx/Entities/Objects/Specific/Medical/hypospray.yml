@@ -1,0 +1,5 @@
+- type: entity
+  parent: AdvancedJetInjector
+  id: ParamedHypo
+  name: medical jet injector
+  description: A rapid medical injector issued to Blueshield officers.

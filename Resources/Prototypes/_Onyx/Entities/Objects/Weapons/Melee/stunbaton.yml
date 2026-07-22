@@ -1,0 +1,63 @@
+- type: entity
+  name: DT-3 "Atrocity"
+  parent: [ BaseItem, BaseCentcommContraband ]
+  id: BlueshieldMace
+  description: A powered mace that functions as a stun baton.
+  components:
+  - type: Tag
+    tags:
+    - Stunbaton
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Melee/blueshield_mace.rsi
+    layers:
+    - state: icon-off
+      map: [ "enum.ToggleableVisuals.Layer" ]
+  - type: ItemToggle
+    soundActivate:
+      collection: sparks
+    soundDeactivate:
+      collection: sparks
+    soundFailToActivate:
+      path: /Audio/Machines/button.ogg
+  - type: ItemToggleMeleeWeapon
+    activatedDamage:
+      types:
+        Heat: 1
+  - type: Stunbaton
+    energyPerUse: 40
+  - type: MeleeWeapon
+    angle: 0
+    wideAnimationRotation: -135
+    damage:
+      types:
+        Blunt: 13
+        Slash: 7
+    bluntStaminaDamageFactor: 2
+    animation: WeaponArcThrust
+    soundHit:
+      path: /Audio/_Onyx/Weapons/Effects/metalcrush.ogg
+  - type: StaminaDamageOnHit
+    damage: 15
+    sound: /Audio/Weapons/egloves.ogg
+  - type: LandAtCursor
+  - type: Battery
+    maxCharge: 600
+    startingCharge: 600
+  - type: UseDelay
+  - type: Item
+    heldPrefix: off
+    size: Normal
+  - type: DisarmMalus
+    malus: 0.225
+  - type: UseDelayBlockMelee
+    delays:
+    - stunbaton
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ToggleableVisuals.Enabled:
+        enum.ToggleableVisuals.Layer:
+          True: { state: icon }
+          False: { state: icon-off }
+  - type: StaticPrice
+    price: 1000

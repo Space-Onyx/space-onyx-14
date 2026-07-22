@@ -1,0 +1,34 @@
+- type: entity
+  parent: [ BaseCentcommContraband, ClothingOuterArmorCaptainCarapace ]
+  id: ClothingBlueshieldArmourVest
+  name: blueshield's security armour
+  description: A compact armoured vest bearing the Blueshield badge.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/OuterClothing/Armor/bso_armour.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/OuterClothing/Armor/bso_armour.rsi
+  - type: Item
+    size: Normal
+
+- type: entity
+  parent: ClothingBlueshieldArmourVest
+  id: ClothingBlueshieldArmoredJacket
+  name: blueshield's armored jacket
+  description: A jacket with sewn-in reinforcement layers.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/OuterClothing/Armor/blueshield_jacket.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/OuterClothing/Armor/blueshield_jacket.rsi
+
+- type: entity
+  parent: ClothingBlueshieldArmourVest
+  id: ClothingBlueshieldArmoredCowboyJacket
+  name: blueshield's armored cowboy jacket
+  description: A reinforced jacket for wild assignments.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/OuterClothing/Armor/blueshield_cowboy_jacket.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/OuterClothing/Armor/blueshield_cowboy_jacket.rsi

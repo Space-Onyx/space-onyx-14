@@ -1,0 +1,63 @@
+- type: selectableSet
+  id: BSOBlueshieldSet
+  name: selectable-set-blueshield-shield-name
+  description: selectable-set-blueshield-shield-description
+  sprite:
+    sprite: _Onyx/Objects/Shields/blueshieldshield.rsi
+    state: icon-on
+  content:
+  - BlueShieldShieldFilled
+
+- type: selectableSet
+  id: BSOHardsuitLightSet
+  name: selectable-set-blueshield-hardsuit-light-name
+  description: selectable-set-blueshield-hardsuit-light-description
+  sprite:
+    sprite: _Onyx/Clothing/OuterClothing/Hardsuits/bsolight.rsi
+    state: icon
+  content:
+  - ClothingOuterHardsuitBlueshieldLight
+
+- type: selectableSet
+  id: BSORevolverSet
+  name: selectable-set-blueshield-revolver-name
+  description: selectable-set-blueshield-revolver-description
+  sprite:
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/erevolver.rsi
+    state: icon
+  content:
+  - ClothingBeltHolsterFilledBlueshield
+
+- type: selectableSet
+  id: BSOCQCSet
+  name: selectable-set-blueshield-dragon-name
+  description: selectable-set-blueshield-dragon-description
+  sprite:
+    sprite: _Onyx/Objects/Misc/martial_arts.rsi
+    state: dragon
+  content:
+  - ManualKungFuDragon
+
+- type: selectableSet
+  id: BSOChesterSet
+  name: selectable-set-blueshield-chester-name
+  description: selectable-set-blueshield-chester-description
+  sprite:
+    sprite: _Onyx/Objects/Weapons/Guns/Lever/chester_icon_48x.rsi
+    state: base
+  content:
+  - WeaponLeverChester
+  - MagazineShotgunLeverRifleEmpty
+  - MagazineShotgunLeverRifleEmpty
+  - MagazineBoxShotgunHighCaliberEMP
+  - MagazineBoxShotgunHighCaliberEnsnaring
+
+- type: selectableSet
+  id: BSOSyringeSet
+  name: selectable-set-blueshield-syringe-name
+  description: selectable-set-blueshield-syringe-description
+  sprite:
+    sprite: _Onyx/Objects/Weapons/Melee/blueshield_knife.rsi
+    state: icon
+  content:
+  - ClothingBeltMilitaryWebbingBSOFilled

@@ -1,0 +1,114 @@
+- type: loadout
+  id: BlueshieldOfficerHeadSwatHelmet
+  equipment:
+    head: ClothingHeadHelmetSwat
+
+- type: loadout
+  id: BlueshieldOfficerBeret
+  equipment:
+    head: ClothingHeadHatBeretBlueshield
+
+- type: loadout
+  id: BlueshieldOfficerHeadCowboy
+  equipment:
+    head: ClothingHeadHatCowboyBlueshield
+
+- type: loadout
+  id: BlueshieldOfficerUshanka
+  equipment:
+    head: ClothingHeadHatUshankaBlueshield
+
+- type: loadout
+  id: BlueshieldOfficerJumpsuit
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBlueshieldOfficer
+
+- type: loadout
+  id: BlueshieldOfficerJumpskirt
+  equipment:
+    jumpsuit: ClothingUniformJumpskirtBlueshieldOfficer
+
+- type: loadout
+  id: BlueshieldOfficerShirt
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBlueshieldShirt
+
+- type: loadout
+  id: BlueshieldOfficerArmorVest
+  equipment:
+    outerClothing: ClothingBlueshieldArmourVest
+
+- type: loadout
+  id: BlueshieldOfficerArmoredJacket
+  equipment:
+    outerClothing: ClothingBlueshieldArmoredJacket
+
+- type: loadout
+  id: BlueshieldOfficerCowboyJacket
+  equipment:
+    outerClothing: ClothingBlueshieldArmoredCowboyJacket
+
+- type: loadout
+  id: BlueshieldOfficerWinterCoat
+  equipment:
+    outerClothing: ClothingOuterWinterBlueshield
+
+- type: loadout
+  id: BlueshieldOfficerMantle
+  equipment:
+    neck: ClothingNeckMantleBlueshield
+
+- type: loadout
+  id: BlueshieldOfficerLollipop
+  equipment:
+    mask: FoodSnackLollypopBlueshield
+
+- type: loadout
+  id: BlueshieldOfficerGasMask
+  equipment:
+    mask: ClothingBSOMaskGasSwat
+
+- type: loadout
+  id: BlueshieldOfficerBackpack
+  equipment:
+    back: ClothingBackpackBlueshield
+
+- type: loadout
+  id: BlueshieldOfficerSatchel
+  equipment:
+    back: ClothingBackpackSatchelBlueshield
+
+- type: loadout
+  id: BlueshieldOfficerDuffel
+  equipment:
+    back: ClothingBackpackDuffelBlueshield
+
+- type: loadout
+  id: BlueshieldOfficerMessenger
+  equipment:
+    back: ClothingBackpackMessengerBlueshield
+
+- type: loadout
+  id: BlueshieldOfficerJackboots
+  equipment:
+    shoes: ClothingShoesBootsJack
+
+- type: loadout
+  id: BlueshieldOfficerCowboyBoots
+  equipment:
+    shoes: ClothingShoesBootsCowboyBlack
+
+- type: loadout
+  id: BlueshieldOfficerSnowjacks
+  equipment:
+    shoes: ClothingShoesBootsWinterSnowjackBso
+
+- type: loadout
+  id: BlueshieldOfficerSwatBoots
+  equipment:
+    shoes: ClothingShoesSwat
+
+- type: loadout
+  id: BlueshieldOfficerCombatGloves
+  equipment:
+    gloves: ClothingHandsGlovesCombat

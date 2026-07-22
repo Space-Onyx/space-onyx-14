@@ -8,7 +8,7 @@ namespace Content.Shared._Onyx.Targeting;
 public sealed partial class PartStatusComponent : Component
 {
     [AutoNetworkedField]
-    public Dictionary<TargetBodyPart, PartStatus> Parts = [];
+    public Dictionary<TargetBodyPart, PartStatus> Parts = new();
 }
 
 [Serializable, NetSerializable]

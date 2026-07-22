@@ -14,7 +14,7 @@ public sealed partial class WoundPrototype : IPrototype
     public string ID { get; private set; } = default!;
 
     [DataField(required: true)]
-    public HashSet<ProtoId<DamageTypePrototype>> DamageTypes = [];
+    public HashSet<ProtoId<DamageTypePrototype>> DamageTypes = new();
 
     [DataField]
     public WoundMergeMode MergeMode = WoundMergeMode.MergeByPrototype;
@@ -55,10 +55,10 @@ public sealed partial class WoundableProfilePrototype : IPrototype
     public ProtoId<FractureProfilePrototype>? FractureProfile;
 
     [DataField]
-    public Dictionary<BodyPartType, ProtoId<FractureProfilePrototype>> FractureProfiles = [];
+    public Dictionary<BodyPartType, ProtoId<FractureProfilePrototype>> FractureProfiles = new();
 
     [DataField]
-    public Dictionary<BodyPartType, Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2>> AmputationThresholds = [];
+    public Dictionary<BodyPartType, Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2>> AmputationThresholds = new();
 
     [DataField]
     public Dictionary<BodyPartType, float> OrganDamageChances = new();

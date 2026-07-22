@@ -24,7 +24,7 @@ public sealed partial class WoundSystem : EntitySystem
     [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private IRobustRandom _random = default!;
 
-    private readonly Dictionary<ProtoId<DamageTypePrototype>, WoundPrototype> _woundsByDamageType = [];
+    private readonly Dictionary<ProtoId<DamageTypePrototype>, WoundPrototype> _woundsByDamageType = new();
 
     public override void Initialize()
     {

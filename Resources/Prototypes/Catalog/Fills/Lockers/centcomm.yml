@@ -1,0 +1,35 @@
+- type: entityTable
+  id: LockerFillBlueshieldOfficer
+  table: !type:AllSelector
+    children:
+    - id: DefibrillatorCompact
+    - id: ParamedHypo
+    - id: MedkitBSOFilled
+    - id: MedkitBSOIPCFilled
+    - id: FlippoLighterBlueshield
+    - id: CigPackBlueshield
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: HandheldCrewMonitorBSO
+    - id: BlueshieldUndeterminedWeapon
+    - id: BlueshieldUndeterminedHardsuit
+    - id: FlashlightSeclite
+
+- type: entity
+  id: LockerBlueshieldOfficerFilled
+  suffix: Filled
+  parent: LockerBlueshieldOfficer
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: LockerFillBlueshieldOfficer
+
+- type: entity
+  id: UniqueLockerBlueshieldOfficerFilled
+  suffix: MAP THIS, Unique, Filled
+  parent: LockerBlueshieldOfficerFilled
+  components:
+  - type: ConditionalSpawner
+    prototypes:
+    - UniqueMarkerBlueshieldLocker

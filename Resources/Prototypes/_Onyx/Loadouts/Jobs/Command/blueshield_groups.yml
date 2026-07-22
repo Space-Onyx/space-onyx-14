@@ -1,0 +1,86 @@
+- type: loadoutGroup
+  id: OnyxBottomBlueshield
+  name: loadout-group-onyx-underwear-bottom
+  minLimit: 1
+  maxLimit: 1
+  loadouts:
+  - OnyxUnderwearBoxersBlueshield
+  - OnyxUnderwearPantiesBlueshield
+  - OnyxUnderwearBoxersWhite
+  - OnyxUnderwearPantiesWhite
+
+- type: loadoutGroup
+  id: OnyxTopBlueshield
+  name: loadout-group-onyx-underwear-top
+  minLimit: 0
+  maxLimit: 1
+  loadouts:
+  - OnyxUnderwearTShirt
+  - OnyxUnderwearBraBlueshield
+  - OnyxUnderwearBraWhite
+
+- type: loadoutGroup
+  id: BlueshieldOfficerHead
+  name: loadout-group-bso-head
+  minLimit: 0
+  loadouts:
+  - BlueshieldOfficerHeadSwatHelmet
+  - BlueshieldOfficerBeret
+  - BlueshieldOfficerHeadCowboy
+  - BlueshieldOfficerUshanka
+
+- type: loadoutGroup
+  id: BlueshieldOfficerBackpack
+  name: loadout-group-bso-backpack
+  loadouts:
+  - BlueshieldOfficerBackpack
+  - BlueshieldOfficerSatchel
+  - BlueshieldOfficerDuffel
+  - BlueshieldOfficerMessenger
+
+- type: loadoutGroup
+  id: BlueshieldOfficerJumpsuit
+  name: loadout-group-bso-jumpsuit
+  loadouts:
+  - BlueshieldOfficerJumpsuit
+  - BlueshieldOfficerJumpskirt
+  - BlueshieldOfficerShirt
+
+- type: loadoutGroup
+  id: BlueshieldOfficerOuter
+  name: loadout-group-bso-outer
+  loadouts:
+  - BlueshieldOfficerArmorVest
+  - BlueshieldOfficerArmoredJacket
+  - BlueshieldOfficerCowboyJacket
+  - BlueshieldOfficerWinterCoat
+
+- type: loadoutGroup
+  id: BlueshieldOfficerNeck
+  name: loadout-group-bso-neck
+  minLimit: 0
+  loadouts:
+  - BlueshieldOfficerMantle
+
+- type: loadoutGroup
+  id: BlueshieldOfficerMask
+  name: loadout-group-bso-mask
+  minLimit: 0
+  loadouts:
+  - BlueshieldOfficerLollipop
+  - BlueshieldOfficerGasMask
+
+- type: loadoutGroup
+  id: BlueshieldOfficerShoes
+  name: loadout-group-bso-shoes
+  loadouts:
+  - BlueshieldOfficerJackboots
+  - BlueshieldOfficerCowboyBoots
+  - BlueshieldOfficerSnowjacks
+  - BlueshieldOfficerSwatBoots
+
+- type: loadoutGroup
+  id: BlueshieldOfficerGloves
+  name: loadout-group-bso-gloves
+  loadouts:
+  - BlueshieldOfficerCombatGloves

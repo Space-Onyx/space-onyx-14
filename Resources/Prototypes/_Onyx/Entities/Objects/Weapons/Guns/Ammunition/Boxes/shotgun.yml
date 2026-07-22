@@ -1,0 +1,28 @@
+- type: entity
+  parent: AmmoProviderShotgunShell
+  id: BaseMagazineBoxShotgunHighCaliber
+  abstract: true
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+    whitelist:
+      tags:
+      - ShellShotgunHeavy
+  - type: Item
+    size: Small
+
+- type: entity
+  id: MagazineBoxShotgunHighCaliberEnsnaring
+  parent: BaseMagazineBoxShotgunHighCaliber
+  name: shell box (8 gauge ensnaring slug)
+  components:
+  - type: BallisticAmmoProvider
+    proto: ShellShotgunSlugEnsnaring
+
+- type: entity
+  id: MagazineBoxShotgunHighCaliberEMP
+  parent: BaseMagazineBoxShotgunHighCaliber
+  name: shell box (8 gauge EMP slug)
+  components:
+  - type: BallisticAmmoProvider
+    proto: ShellShotgunSlugEMP

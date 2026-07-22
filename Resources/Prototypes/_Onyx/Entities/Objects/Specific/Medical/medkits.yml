@@ -1,0 +1,39 @@
+- type: entity
+  parent: MedkitCombatFilled
+  id: MedkitBSOFilled
+  name: tactical medical kit
+  description: Contains supplies for rapidly stabilizing an injured person.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/firstaidkits.rsi
+    state: bsokit
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Medical/firstaidkits.rsi
+    heldPrefix: bsokit
+
+- type: entity
+  parent: Medkit
+  id: MedkitBSOIPC
+  name: tactical repairing kit
+  description: Contains supplies for rapidly repairing a silicon.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/firstaidkits.rsi
+    state: bsokit-ipc
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Medical/firstaidkits.rsi
+    heldPrefix: bsokit-ipc
+
+- type: entity
+  parent: MedkitBSOIPC
+  id: MedkitBSOIPCFilled
+  suffix: Filled
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: ClothingEyesGlassesMeson
+        - id: WelderIndustrial
+        - id: CableApcStack
+        - id: PowerCellHigh

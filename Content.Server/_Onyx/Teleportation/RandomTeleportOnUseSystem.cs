@@ -48,7 +48,7 @@ public sealed partial class RandomTeleportOnUseSystem : EntitySystem
             if (ent.Comp.ConsumeOnUse)
             {
                 if (TryComp<StackComponent>(ent, out var stack))
-                    _stack.SetCount(ent, stack.Count - 1, stack);
+                    _stack.SetCount((ent, stack), stack.Count - 1);
                 else
                     QueueDel(ent);
             }

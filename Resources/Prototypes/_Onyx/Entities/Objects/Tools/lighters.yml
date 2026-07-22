@@ -1,0 +1,5 @@
+- type: entity
+  parent: [ FlippoLighter, BaseCentcommContraband ]
+  id: FlippoLighterBlueshield
+  name: blue flippo
+  description: A blue lighter issued to Blueshield officers.

@@ -194,10 +194,12 @@
   id: ChemMasterMachineCircuitboard
   result: ChemMasterMachineCircuitboard
 
+# <Onyx-EnergyChemDispenser-edited>
 - type: latheRecipe
   parent: [ BaseGoldCircuitboardRecipe, BaseMedicalMachineRecipeCategory ]
   id: ChemDispenserMachineCircuitboard
-  result: ChemDispenserMachineCircuitboard
+  result: EnergyChemDispenserMachineCircuitboard
+# </Onyx-EnergyChemDispenser-edited>
 
 # Treatment
 - type: latheRecipe

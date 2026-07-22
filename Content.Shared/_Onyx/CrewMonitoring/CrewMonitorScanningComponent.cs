@@ -13,7 +13,7 @@ namespace Content.Shared._Onyx.CrewMonitoring;
 public sealed partial class CrewMonitorScanningComponent : Component
 {
     [ViewVariables(VVAccess.ReadOnly)]
-    public List<EntityUid> ScannedEntities = [];
+    public List<EntityUid> ScannedEntities = new();
 
     [DataField]
     public TimeSpan DoAfterTime = TimeSpan.FromSeconds(8);

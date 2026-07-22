@@ -1,0 +1,41 @@
+- type: entity
+  parent: AirlockCentralCommand
+  id: AirlockBlueshieldOfficerCommand
+  suffix: Blueshield
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Standard/blueshield.rsi
+
+- type: entity
+  parent: AirlockCentralCommandGlass
+  id: AirlockBlueshieldOfficerCommandGlass
+  suffix: Blueshield
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Glass/blueshield.rsi
+
+- type: entity
+  parent: AirlockBlueshieldOfficerCommand
+  id: AirlockBlueshieldOfficerCommandLocked
+  suffix: Blueshield, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsBSO ]
+
+- type: entity
+  parent: AirlockBlueshieldOfficerCommandGlass
+  id: AirlockBlueshieldOfficerCommandGlassLocked
+  suffix: Blueshield, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsBSO ]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsBSO
+  suffix: BlueshieldOfficer, Locked
+  components:
+  - type: AccessReader
+    access: [[ "BlueshieldOfficer" ]]

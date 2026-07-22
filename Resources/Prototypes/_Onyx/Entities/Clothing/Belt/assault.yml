@@ -1,0 +1,69 @@
+# SPDX-FileCopyrightText: 2024 BombasterDS <115770678+BombasterDS@users.noreply.github.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: ClothingBeltStorageBase
+  id: ClothingBeltAssault
+  name: assault belt
+  description: A tactical assault belt.
+  components:
+  - type: Sprite
+    sprite: Clothing/Belt/assault.rsi
+  - type: Clothing
+    sprite: Clothing/Belt/assault.rsi
+  - type: Storage
+    whitelist:
+      tags:
+      - CigPack
+      - Taser
+      - SecBeltEquip
+      - HandheldCrewMonitor
+      - Sidearm
+      components:
+      - Stunbaton
+      - FlashOnTrigger
+      - SmokeOnTrigger
+      - Flash
+      - Handcuff
+      - BallisticAmmoProvider
+      - Ammo
+  - type: ItemMapper
+    mapLayers:
+      flashbang:
+        whitelist:
+          components:
+          - FlashOnTrigger
+      stunbaton:
+        whitelist:
+          components:
+          - Stunbaton
+      tear_gas_grenade:
+        whitelist:
+          components:
+          - SmokeOnTrigger
+    sprite: Clothing/Belt/belt_overlay.rsi
+  - type: Appearance
+
+- type: entityTable
+  id: BeltAssaultBSOEntityTable
+  table: !type:AllSelector
+    children:
+    - id: Stunbaton
+    - id: HoloprojectorSecurity
+    - id: GrenadeFlashBang
+    - id: GrenadeFlashBang
+    - id: WeaponDisabler
+    - id: Zipties
+    - id: Zipties
+    - id: Zipties
+
+- type: entity
+  id: ClothingBeltAssaultFilled
+  parent: ClothingBeltAssault
+  suffix: Filled, BSO
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:NestedSelector
+        tableId: BeltAssaultBSOEntityTable

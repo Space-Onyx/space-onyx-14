@@ -1,0 +1,8 @@
+- type: entity
+  parent: [ ClothingBackpackSatchel, BaseCentcommContraband ]
+  id: ClothingBackpackSatchelBlueshield
+  name: blueshield satchel
+  description: A protective Blueshield satchel.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Back/Satchels/blueshield.rsi

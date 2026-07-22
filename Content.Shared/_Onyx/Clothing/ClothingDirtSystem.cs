@@ -23,8 +23,8 @@ public sealed partial class ClothingDirtSystem : EntitySystem
     [Dependency] private IPrototypeManager _prototype = default!;
     [Dependency] private SharedSolutionContainerSystem _solutions = default!;
 
-    private readonly HashSet<EntityUid> _drying = [];
-    private readonly List<EntityUid> _dryingBuffer = [];
+    private readonly HashSet<EntityUid> _drying = new();
+    private readonly List<EntityUid> _dryingBuffer = new();
     private float _dryUpdateAccumulator;
 
     public override void Initialize()

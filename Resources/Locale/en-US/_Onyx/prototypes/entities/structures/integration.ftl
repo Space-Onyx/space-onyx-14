@@ -1,0 +1,16 @@
+ent-AirlockBlueshieldOfficerCommand = { ent-AirlockCentralCommand }
+    .suffix = Blueshield
+    .desc = { ent-AirlockCentralCommand.desc }
+ent-AirlockBlueshieldOfficerCommandGlass = { ent-AirlockCentralCommandGlass }
+    .suffix = Blueshield
+    .desc = { ent-AirlockCentralCommandGlass.desc }
+ent-AirlockBlueshieldOfficerCommandLocked = { ent-AirlockBlueshieldOfficerCommand }
+    .suffix = Blueshield, Locked
+    .desc = { ent-AirlockBlueshieldOfficerCommand.desc }
+ent-AirlockBlueshieldOfficerCommandGlassLocked = { ent-AirlockBlueshieldOfficerCommandGlass }
+    .suffix = Blueshield, Locked
+    .desc = { ent-AirlockBlueshieldOfficerCommandGlass.desc }
+ent-DoorElectronicsBSO = { ent-DoorElectronics }
+    .suffix = BlueshieldOfficer, Locked
+    .desc = { ent-DoorElectronics.desc }
+ent-DefaultStationBeaconBlueShield = { ent-DefaultStationBeaconCommand }

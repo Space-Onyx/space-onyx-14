@@ -1,6 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Shared.ActionBlocker;
+// <Onyx-Interaction>
+using Content.Shared._Onyx.Interaction.Events;
+// </Onyx-Interaction>
 using Content.Shared.Administration.Logs;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
@@ -1229,6 +1232,13 @@ namespace Content.Shared.Interaction
 
             if (checkCanUse && !_actionBlockerSystem.CanUseHeldEntity(user, used))
                 return false;
+
+            // <Onyx-Interaction>
+            var useAttemptEv = new UseInHandAttemptEvent(user);
+            RaiseLocalEvent(used, useAttemptEv);
+            if (useAttemptEv.Cancelled)
+                return false;
+            // </Onyx-Interaction>
 
             var useMsg = new UseInHandEvent(user);
             RaiseLocalEvent(used, useMsg, true);

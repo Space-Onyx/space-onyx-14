@@ -1,0 +1,49 @@
+- type: entity
+  name: Chester
+  parent: [ BaseWeaponRifle, BaseGunWieldable, BaseCentcommContraband ]
+  id: WeaponLeverChester
+  description: A lever-action shotgun designed for the Blueshield corps.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Lever/chester_icon_48x.rsi
+    layers:
+    - state: base
+      map: [ "enum.GunVisualLayers.Base" ]
+    - state: mag-0
+      map: [ "enum.GunVisualLayers.Mag" ]
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Guns/Lever/chester.rsi
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        startingItem: MagazineShotgunLeverRifle
+        insertSound: /Audio/Weapons/Guns/MagIn/rifle_load.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/sfrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - MagazineShotgunLeverRifle
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        priority: 1
+        whitelist:
+          tags:
+          - ShellShotgunHeavy
+  - type: Gun
+    fireRate: 0.65
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/batrifle.ogg
+  - type: ChamberMagazineAmmoProvider
+    autoCycle: false
+    autoEject: true
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/batrifle_cock.ogg
+  - type: GunRequiresWield
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: Item
+    sprite: _Onyx/Objects/Weapons/Guns/Lever/chester.rsi
+    size: Large

@@ -12,7 +12,7 @@ public sealed partial class ItemSwitchComponent : Component
     public string State = string.Empty;
 
     [DataField(readOnly: true)]
-    public Dictionary<string, ItemSwitchState> States = [];
+    public Dictionary<string, ItemSwitchState> States = new();
 
     [DataField]
     public bool OnActivate = true;

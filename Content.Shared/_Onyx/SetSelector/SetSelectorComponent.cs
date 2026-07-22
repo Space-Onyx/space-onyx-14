@@ -12,13 +12,13 @@ namespace Content.Shared._Onyx.SetSelector;
 public sealed partial class SetSelectorComponent : Component
 {
     [DataField]
-    public List<ProtoId<SelectableSetPrototype>> PossibleSets = [];
+    public List<ProtoId<SelectableSetPrototype>> PossibleSets = new();
 
     [DataField]
-    public List<ProtoId<SelectableSetPrototype>> AvailableSets = [];
+    public List<ProtoId<SelectableSetPrototype>> AvailableSets = new();
 
     [DataField]
-    public List<int> SelectedSets = [];
+    public List<int> SelectedSets = new();
 
     [DataField]
     public int MaxSelectedSets = 1;

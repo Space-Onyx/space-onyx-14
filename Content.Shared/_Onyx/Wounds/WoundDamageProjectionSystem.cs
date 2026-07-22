@@ -18,7 +18,7 @@ public sealed partial class WoundDamageProjectionSystem : EntitySystem
     [Dependency] private INetManager _net = default!;
     [Dependency] private PainSystem _pain = default!;
 
-    private readonly HashSet<EntityUid> _projecting = [];
+    private readonly HashSet<EntityUid> _projecting = new();
 
     public override void Initialize()
     {

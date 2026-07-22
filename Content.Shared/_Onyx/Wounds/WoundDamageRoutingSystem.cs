@@ -21,9 +21,9 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private TargetResolverSystem _targetResolver = default!;
 
-    private readonly HashSet<EntityUid> _routing = [];
-    private readonly Dictionary<EntityUid, EntityUid> _requestedParts = [];
-    private readonly HashSet<EntityUid> _applied = [];
+    private readonly HashSet<EntityUid> _routing = new();
+    private readonly Dictionary<EntityUid, EntityUid> _requestedParts = new();
+    private readonly HashSet<EntityUid> _applied = new();
 
     public override void Initialize()
     {

@@ -1,0 +1,10 @@
+- type: entity
+  parent: ClothingHeadHatHoodWinterBase
+  id: ClothingHeadHatHoodWinterBso
+  categories: [ HideSpawnMenu ]
+  name: blueshield's winter coat hood
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Head/Hoods/bso_winter_hood.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Head/Hoods/bso_winter_hood.rsi

@@ -1,0 +1,8 @@
+- type: entity
+  parent: [ ClothingBackpackDuffel, BaseCentcommContraband ]
+  id: ClothingBackpackDuffelBlueshield
+  name: blueshield duffel bag
+  description: A protective Blueshield duffel bag.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Back/Duffels/blueshield.rsi

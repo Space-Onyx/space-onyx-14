@@ -1,0 +1,10 @@
+- type: entity
+  parent: [ CigPackSyndicate, BaseCentcommContraband ]
+  id: CigPackBlueshield
+  name: blueshield cigarette packet
+  description: High-grade medicated cigarettes for a high-grade bodyguard.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/Smokeables/Cigarettes/Packs/blueshield.rsi
+  - type: Item
+    sprite: _Onyx/Objects/Consumable/Smokeables/Cigarettes/Packs/blueshield.rsi

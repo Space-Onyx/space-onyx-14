@@ -1,0 +1,33 @@
+- type: entity
+  name: combat injector
+  parent: [ BaseItem, BaseCentcommContraband ]
+  id: CombatInjector
+  description: Injects stored chemicals on hit.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Melee/blueshield_knife.rsi
+    state: icon
+  - type: Item
+    size: Small
+  - type: SolutionContainerManager
+    solutions:
+      injector:
+        maxVol: 5
+  - type: Injector
+    delay: 1
+    maxTransferAmount: 5
+    minTransferAmount: 3
+    injectOnly: false
+    activeModeProtoId: HyposprayInjectMode
+    allowedModes:
+    - HyposprayInjectMode
+  - type: MeleeChemicalInjector
+    transferAmount: 5
+    solution: injector
+  - type: MeleeWeapon
+    attackRate: 0.75
+    damage:
+      types:
+        Piercing: 7
+    soundHit:
+      path: /Audio/Weapons/bladeslice.ogg

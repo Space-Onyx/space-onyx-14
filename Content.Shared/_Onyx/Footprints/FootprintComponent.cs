@@ -11,7 +11,7 @@ namespace Content.Shared._Onyx.Footprints;
 public sealed partial class FootprintComponent : Component
 {
     [AutoNetworkedField, ViewVariables]
-    public List<Footprint> Footprints = [];
+    public List<Footprint> Footprints = new();
 }
 
 [Serializable, NetSerializable]

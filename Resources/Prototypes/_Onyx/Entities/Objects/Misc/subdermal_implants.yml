@@ -1,0 +1,91 @@
+- type: entity
+  parent: BaseSubdermalImplant
+  id: BluespaceLifelineImplant
+  name: bluespace lifeline implant
+  description: Teleports the hosts body to Central Command on activation. They will not be able to return.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant
+    permanent: true
+    implantAction: ActionActivateBluespaceLifeline
+  - type: TriggerOnMobstateChange
+    mobState: [ Dead ]
+  - type: TriggerOnActivateImplant
+  - type: DeleteParentOnTrigger
+  - type: SpawnOnTrigger
+    proto: BluespaceLifelineSpawnCore
+  - type: Tag
+    tags: [ SubdermalImplant, HideContextMenu ]
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: RedspaceLifelineImplant
+  name: redspace lifeline implant
+  description: Teleports the hosts body to Syndicate High Command on activation. They will not be able to return.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant
+    permanent: true
+    implantAction: ActionActivateRedspaceLifeline
+  - type: TriggerOnMobstateChange
+    mobState: [ Dead ]
+  - type: TriggerOnActivateImplant
+  - type: DeleteParentOnTrigger
+  - type: SpawnOnTrigger
+    proto: RedspaceLifelineSpawnCore
+  - type: Tag
+    tags: [ SubdermalImplant, HideContextMenu ]
+
+- type: entity
+  id: BaseImplantOnlyImplanterCentcomm
+  parent: [ BaseImplantOnlyImplanter, BaseCentcommContraband ]
+  name: centcomm implanter
+  description: A compact disposable syringe exclusively designed for the injection of subdermal implants. The insertion needle is coated with an analgesic.
+  abstract: true
+
+- type: entity
+  id: BluespaceLifelineImplanter
+  suffix: Bluespace Lifeline
+  parent: BaseImplantOnlyImplanterCentcomm
+  components:
+  - type: Implanter
+    implant: BluespaceLifelineImplant
+
+- type: entity
+  id: RedspaceLifelineImplanter
+  suffix: Redspace Lifeline
+  parent: BaseImplantOnlyImplanterSyndi
+  components:
+  - type: Implanter
+    implant: RedspaceLifelineImplant
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: CommandTrackingImplant
+  name: command tracking implant
+  description: This implant reserved for command has a tracking device attached to a private suit sensor network, as well as a condition monitor for the Command radio channel.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant
+    whitelist:
+      components:
+      - MobState
+  - type: SuitSensor
+    randomMode: false
+    controlsLocked: true
+    mode: SensorCords
+    activationContainer: implant
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    transmitFrequencyId: SuitSensor
+  - type: StationLimitedNetwork
+  - type: WirelessNetworkConnection
+    range: 500
+
+- type: entity
+  id: CommandTrackingImplanter
+  suffix: Command Tracker
+  parent: BaseImplantOnlyImplanterCentcomm
+  components:
+  - type: Implanter
+    implant: CommandTrackingImplant

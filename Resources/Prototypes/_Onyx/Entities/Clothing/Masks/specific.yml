@@ -1,0 +1,22 @@
+- type: entity
+  parent: [ ClothingMaskGas, BaseCentcommContraband ]
+  id: ClothingBSOMaskGasSwat
+  name: Blueshield SWAT gas mask
+  description: A standard-issue armored gas mask for Blueshield officers.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Mask/bsoswat.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Mask/bsoswat.rsi
+  - type: HideLayerClothing
+    slots: [ Hair, Snout, HeadTop, HeadSide ]
+    hideOnToggle: true
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.8
+        Slash: 0.8
+        Piercing: 0.9
+        Heat: 0.9
+  - type: IngestionBlocker
+    blockSmokeIngestion: true

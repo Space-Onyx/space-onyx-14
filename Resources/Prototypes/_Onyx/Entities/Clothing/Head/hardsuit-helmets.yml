@@ -1,0 +1,42 @@
+- type: entity
+  parent: ClothingHeadHardsuitBase
+  id: ClothingHeadHelmetHardsuitBlueshield
+  name: blueshield hardsuit helmet
+  description: The helmet of the Blueshield escort hardsuit.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Head/Hardsuits/bso.rsi
+    layers:
+    - state: icon
+    - state: icon-flash
+      visible: false
+      map: [ "light" ]
+  - type: Clothing
+    sprite: _Onyx/Clothing/Head/Hardsuits/bso.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.525
+    lowPressureMultiplier: 1000
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.65
+        Slash: 0.65
+        Piercing: 0.7
+        Heat: 0.7
+        Radiation: 0.6
+        Caustic: 0.6
+  - type: FlashImmunity
+  - type: ToggleableVisuals
+    spriteLayer: light
+  - type: ItemTogglePointLight
+  - type: PointLight
+    enabled: false
+    color: "#4d7ae3"
+    rotation: 30
+    radius: 5
+    energy: 10
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+    netsync: false
+  - type: Appearance
+  - type: HandheldLight

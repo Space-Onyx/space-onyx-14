@@ -1,0 +1,57 @@
+- type: entity
+  id: ShellShotgunHighCaliber
+  name: shell (8 gauge carpshot)
+  parent: BaseShellShotgun
+  components:
+  - type: Tag
+    tags: [ Cartridge, ShellShotgunHeavy ]
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Cartridges/highcaliber-shell.rsi
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+  - type: CartridgeAmmo
+    proto: HighCaliberPelletShotgunSpread
+  - type: SpentAmmoVisuals
+    state: base
+
+- type: entity
+  id: ShellShotgunSlugHighCaliber
+  name: shell (8 gauge slug)
+  parent: BaseShellShotgun
+  components:
+  - type: Tag
+    tags: [ Cartridge, ShellShotgunHeavy ]
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Cartridges/highcaliber-shell.rsi
+    layers:
+    - state: slug
+      map: [ "enum.AmmoVisualLayers.Base" ]
+  - type: CartridgeAmmo
+    proto: PelletShotgunSlugHighCaliber
+  - type: SpentAmmoVisuals
+    state: slug
+
+- type: entity
+  id: ShellShotgunSlugEnsnaring
+  name: cartridge (8 gauge ensnaring slug)
+  parent: ShellShotgunSlugHighCaliber
+  components:
+  - type: CartridgeAmmo
+    proto: BulletSlugEnsnaring
+  - type: Sprite
+    layers:
+    - state: snare
+      map: [ "enum.AmmoVisualLayers.Base" ]
+
+- type: entity
+  id: ShellShotgunSlugEMP
+  name: cartridge (8 gauge EMP slug)
+  parent: ShellShotgunSlugHighCaliber
+  components:
+  - type: CartridgeAmmo
+    proto: BulletSlugEMP
+  - type: Sprite
+    layers:
+    - state: emp
+      map: [ "enum.AmmoVisualLayers.Base" ]

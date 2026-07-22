@@ -65,7 +65,7 @@ public sealed partial class PainComponent : Component
     public FixedPoint2 RecoveryPerSecond = FixedPoint2.New(1f / 12f);
 
     [ViewVariables]
-    public Dictionary<string, PainSuppressionModifier> SuppressionModifiers = [];
+    public Dictionary<string, PainSuppressionModifier> SuppressionModifiers = new();
 }
 
 public sealed record PainSuppressionModifier(FixedPoint2 Amount, FixedPoint2 DecayPerSecond);

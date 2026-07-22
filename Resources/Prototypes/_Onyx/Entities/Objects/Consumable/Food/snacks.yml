@@ -1,0 +1,16 @@
+- type: entity
+  parent: FoodSnackSwirlLollipop
+  id: FoodSnackLollypopBlueshield
+  name: blueshield lollipop
+  description: A deep blue lollipop, imbuing you with determination.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/Food/lollypop.rsi
+    layers:
+    - state: lollypop
+    - state: color
+      color: "#040273"
+  - type: Clothing
+    quickEquip: false
+    sprite: _Onyx/Objects/Consumable/Food/lollypop.rsi
+    slots: [ mask ]

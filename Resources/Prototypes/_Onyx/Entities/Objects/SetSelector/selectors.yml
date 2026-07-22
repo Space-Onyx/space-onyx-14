@@ -1,0 +1,31 @@
+- type: entity
+  id: BlueshieldUndeterminedWeapon
+  name: blueshield sets pack
+  description: A compact bluespace package containing two selectable equipment sets. Choose wisely.
+  parent: [ BaseItem, BaseSetSelector, BaseCentcommContraband ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Security/blueshieldundetermined.rsi
+    state: icon
+  - type: SetSelector
+    possibleSets:
+    - BSOBlueshieldSet
+    - BSORevolverSet
+    - BSOCQCSet
+    - BSOChesterSet
+    - BSOSyringeSet
+    maxSelectedSets: 2
+
+- type: entity
+  id: BlueshieldUndeterminedHardsuit
+  name: blueshield hardsuit pack
+  description: A compact bluespace package containing a selectable escort suit. Choose wisely.
+  parent: [ BaseItem, BaseSetSelector, BaseCentcommContraband ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Security/blueshieldundetermined.rsi
+    state: icon-alt
+  - type: SetSelector
+    possibleSets:
+    - BSOHardsuitLightSet
+    maxSelectedSets: 1

@@ -1,0 +1,8 @@
+- type: entity
+  parent: [ ClothingBackpack, BaseCentcommContraband ]
+  id: ClothingBackpackBlueshield
+  name: blueshield backpack
+  description: A protective Blueshield backpack.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Back/Backpacks/blueshield.rsi

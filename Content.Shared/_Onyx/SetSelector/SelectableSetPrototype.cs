@@ -27,8 +27,8 @@ public sealed partial class SelectableSetPrototype : IPrototype
     public SpriteSpecifier Sprite { get; private set; } = SpriteSpecifier.Invalid;
 
     [DataField]
-    public List<EntProtoId> Content = [];
+    public List<EntProtoId> Content = new();
 
     [DataField]
-    public List<ProtoId<EntityTablePrototype>> Tables = [];
+    public List<ProtoId<EntityTablePrototype>> Tables = new();
 }

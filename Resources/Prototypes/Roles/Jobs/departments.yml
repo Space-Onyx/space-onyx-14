@@ -63,6 +63,9 @@
   - ResearchDirector
   - Quartermaster
   - CentralCommandOfficial
+  # <Onyx-BlueshieldDepartment>
+  - BlueshieldOfficer
+  # </Onyx-BlueshieldDepartment>
   - CBURN
   - ERTLeader
   - ERTChaplain
