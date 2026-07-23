@@ -6,3 +6,10 @@
     DrinkSodaWaterBottleFull: 2
     DrinkColaCan: 10
     ClothingHeadHatUshanka: 2
+  # <Onyx-VendingPrices>
+  prices:
+    DrinkSodaWaterCan: 4
+    DrinkSodaWaterBottleFull: 8
+    DrinkColaCan: 5
+    ClothingHeadHatUshanka: 9
+  # </Onyx-VendingPrices>

@@ -5,6 +5,9 @@ using Content.Server.Discord;
 using Content.Server.GameTicking.Events;
 using Content.Server.Maps;
 using Content.Server.Roles;
+// <Onyx-AutomaticVotes>
+using Content.Server.Voting.Managers;
+// </Onyx-AutomaticVotes>
 using Content.Shared.CCVar;
 using Content.Shared.Database;
 using Content.Shared.GameTicking;
@@ -13,6 +16,9 @@ using Content.Shared.Mind;
 using Content.Shared.Players;
 using Content.Shared.Preferences;
 using Content.Shared.Roles.Components;
+// <Onyx-AutomaticVotes>
+using Content.Shared.Voting;
+// </Onyx-AutomaticVotes>
 using JetBrains.Annotations;
 using Prometheus;
 using Robust.Shared.Asynchronous;
@@ -29,6 +35,9 @@ namespace Content.Server.GameTicking
 {
     public sealed partial class GameTicker
     {
+        // <Onyx-AutomaticVotes>
+        [Dependency] private IVoteManager _voteManager = default!;
+        // </Onyx-AutomaticVotes>
         [Dependency] private DiscordWebhook _discord = default!;
         [Dependency] private RoleSystem _role = default!;
         [Dependency] private ITaskManager _taskManager = default!;
@@ -674,6 +683,14 @@ namespace Content.Server.GameTicking
             }
             else
             {
+                // <Onyx-AutomaticVotes>
+                if (_cfg.GetCVar(CCVars.VoteMapAutoAfterRestart))
+                    _voteManager.CreateStandardVote(null, StandardVoteType.Map);
+
+                if (_cfg.GetCVar(CCVars.VotePresetAutoAfterRestart))
+                    _voteManager.CreateStandardVote(null, StandardVoteType.Preset);
+                // </Onyx-AutomaticVotes>
+
                 if (_playerManager.PlayerCount == 0)
                     _roundStartCountdownHasNotStartedYetDueToNoPlayers = true;
                 else

@@ -18,3 +18,22 @@
     GroundTobacco: 3
     CigarGold: 2
     Igniter: 1
+  # <Onyx-VendingPrices>
+  prices:
+    CigPackGreen: 14
+    CigPackRed: 14
+    CigPackBlue: 14
+    CigPackBlack: 14
+    CigPackMixed: 15
+    CigarCase: 24
+    SmokingPipeFilledTobacco: 15
+    Vape: 18
+    Matchbox: 4
+    PackPaperRollingFilters: 10
+    CheapLighter: 6
+    Lighter: 8
+    FlippoLighter: 12
+    GroundTobacco: 10
+    CigarGold: 45
+    Igniter: 11
+  # </Onyx-VendingPrices>

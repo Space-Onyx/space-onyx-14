@@ -51,6 +51,9 @@
     Syringe: 4
     PillCanisterTricordrazine: 4
     ClothingOuterHospitalGown: 2 # Not a popular item, so less stock
+    # <Onyx-NanoMedWheelchair>
+    VehicleWheelchair: 3
+    # </Onyx-NanoMedWheelchair>
   contrabandInventory:
     PillCanisterRandom: 3
     PillSpaceDrugs: 3

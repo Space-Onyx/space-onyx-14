@@ -15,3 +15,18 @@
   contrabandInventory:
     CowToolboxFilled: 1
     DrinkBeerCan: 3
+  # <Onyx-VendingPrices>
+  prices:
+    ClothingEyesGlassesMeson: 30
+    ClothingEyesHudDiagnostic: 21
+    ClothingHeadHatWelding: 19
+    CrowbarYellow: 21
+    Multitool: 40
+    NetworkConfigurator: 31
+    PowerCellMedium: 87
+    ClothingHandsGlovesColorYellow: 50
+    BoxInflatable: 28
+    ClothingHeadHatCone: 25
+    CowToolboxFilled: 40
+    DrinkBeerCan: 6
+  # </Onyx-VendingPrices>

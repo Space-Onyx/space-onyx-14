@@ -23,3 +23,23 @@
     FoodShakerPepper: 1
     FoodCondimentBottleKetchup: 1
     ReagentContainerMayo: 1
+  # <Onyx-VendingPrices>
+  prices:
+    FoodCondimentPacketAstrotame: 4
+    FoodCondimentPacketBbq: 4
+    FoodCondimentPacketColdsauce: 4
+    FoodCondimentPacketHorseradish: 4
+    FoodCondimentPacketHotsauce: 4
+    FoodCondimentPacketKetchup: 4
+    FoodCondimentPacketMustard: 4
+    FoodCondimentPacketPepper: 4
+    FoodCondimentPacketSalt: 3
+    FoodCondimentPacketSoy: 4
+    FoodCondimentPacketSugar: 3
+    FoodCondimentPacketCornoil: 4
+    ForkPlastic: 7
+    SpoonPlastic: 7
+    KnifePlastic: 7
+    FoodPlatePlastic: 9
+    FoodPlateSmallPlastic: 6
+  # </Onyx-VendingPrices>

@@ -10,3 +10,14 @@
   contrabandInventory:
     FoodSnackSwirlLollipop: 2
     FoodSnackSyndi: 3
+  # <Onyx-VendingPrices>
+  prices:
+    FoodSnackRaisins: 6
+    FoodSnackChocolate: 8
+    FoodSnackCnDs: 6
+    FoodSnackPistachios: 6
+    FoodSnackSus: 6
+    FoodSnackSemki: 7
+    FoodSnackSwirlLollipop: 9
+    FoodSnackSyndi: 0
+  # </Onyx-VendingPrices>

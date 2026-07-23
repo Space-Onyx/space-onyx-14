@@ -16,9 +16,11 @@
     shoes: ClothingShoesColorWhite
     id: ReporterPDA
     ears: ClothingHeadsetService
-  #storage:
-    #back:
-    #- Stuff
+  # <Onyx-PhotoCamera>
+  storage:
+    back:
+    - PhotoCameraFilled
+  # </Onyx-PhotoCamera>
 
 - type: chameleonOutfit
   id: ReporterChameleonOutfit

@@ -4,8 +4,8 @@
   id: BaseLatheUpgradeKit
   components:
   - type: Sprite
-    sprite: Objects/Tools/upgrade.rsi
-    state: base
+    sprite: _Onyx/Objects/Tools/lathe_upgrade_kit.rsi
+    state: icon
   - type: UpgradeKit
     whitelist:
       components:

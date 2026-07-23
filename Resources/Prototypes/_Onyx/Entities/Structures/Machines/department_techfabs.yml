@@ -54,6 +54,8 @@
       - RawMaterial
       - Ingot
   - type: OreSiloClient
+  - type: LatheAnnouncing
+    channels: [Engineering]
 
 - type: entity
   id: CargoTechFab
@@ -103,6 +105,8 @@
   - type: MaterialStorage
     whitelist: *DepartmentTechFabMaterialWhitelist
   - type: OreSiloClient
+  - type: LatheAnnouncing
+    channels: [Supply]
 
 - type: entity
   id: ScienceTechFab
@@ -153,6 +157,8 @@
   - type: MaterialStorage
     whitelist: *DepartmentTechFabMaterialWhitelist
   - type: OreSiloClient
+  - type: LatheAnnouncing
+    channels: [Science]
 
 - type: entity
   id: ServiceTechFab
@@ -198,3 +204,5 @@
   - type: MaterialStorage
     whitelist: *DepartmentTechFabMaterialWhitelist
   - type: OreSiloClient
+  - type: LatheAnnouncing
+    channels: [Service]

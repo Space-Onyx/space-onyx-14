@@ -18,3 +18,21 @@
   contrabandInventory:
     Multitool: 1
     ClothingHandsGlovesColorYellow: 1
+  # <Onyx-VendingPrices>
+  prices:
+    CableApcStack: 40
+    Crowbar: 24
+    Welder: 40
+    Wirecutter: 32
+    Wrench: 26
+    Screwdriver: 40
+    trayScanner: 50
+    NetworkConfigurator: 31
+    GasAnalyzer: 50
+    FlashlightLantern: 135
+    ClothingHandsGlovesColorYellowBudget: 20
+    SprayPainter: 50
+    SprayPainterAmmo: 25
+    Multitool: 45
+    ClothingHandsGlovesColorYellow: 49
+  # </Onyx-VendingPrices>

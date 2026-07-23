@@ -10,3 +10,13 @@
     HappyHonkCluwne: 1
   emaggedInventory:
     HappyHonkNukie: 1
+  # <Onyx-VendingPrices>
+  prices:
+    HappyHonk: 37
+    HappyHonkMime: 37
+    HappyHonkNukie: 40
+    ToyFigurineClown: 76
+    ToyFigurineMime: 76
+    ToyFigurineNukie: 80
+    HappyHonkCluwne: 40
+  # </Onyx-VendingPrices>

@@ -12,3 +12,16 @@
   contrabandInventory:
     ProximitySensor: 1
     LeftArmBorg: 1
+  # <Onyx-VendingPrices>
+  prices:
+    RemoteSignaller: 30
+    Igniter: 17
+    Wirecutter: 32
+    Screwdriver: 40
+    CableApcStack: 40
+    FlashlightLantern: 90
+    PowerCellSmallPrinted: 55
+    MicroManipulatorStockPart: 20
+    ProximitySensor: 25
+    LeftArmBorg: 30
+  # </Onyx-VendingPrices>

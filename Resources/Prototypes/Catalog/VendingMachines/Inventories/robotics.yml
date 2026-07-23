@@ -20,3 +20,22 @@
     Crowbar: 2
   contrabandInventory:
     FoodBurgerRobot: 1  
+  # <Onyx-VendingPrices>
+  prices:
+    CableApcStack: 40
+    SciFlash: 9
+    ProximitySensor: 25
+    ClothingEyesHudDiagnostic: 23
+    ClothingEyesEyepatchHudDiag: 23
+    RemoteSignaller: 30
+    Igniter: 17
+    HandheldHealthAnalyzer: 10
+    Scalpel: 21
+    SawElectric: 30
+    NitrousOxideTankFilled: 30
+    ClothingMaskBreathMedical: 8
+    ClothingHeadHatWeldingMaskFlame: 17
+    Welder: 39
+    Screwdriver: 40
+    Crowbar: 22
+  # </Onyx-VendingPrices>

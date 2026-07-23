@@ -14,3 +14,17 @@
     DrinkChangelingStingCan: 3
   emaggedInventory:
     DrinkNukieCan: 3
+  # <Onyx-VendingPrices>
+  prices:
+    DrinkColaCan: 5
+    DrinkGrapeCan: 5
+    DrinkRootBeerCan: 5
+    DrinkIcedTeaCan: 5
+    DrinkSolDryCan: 5
+    DrinkLemonLimeCan: 5
+    DrinkLemonLimeCranberryCan: 5
+    DrinkFourteenLokoCan: 5
+    DrinkColaBottleFull: 12
+    DrinkChangelingStingCan: 5
+    DrinkNukieCan: 7
+  # </Onyx-VendingPrices>

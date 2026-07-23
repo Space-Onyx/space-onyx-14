@@ -1,0 +1,54 @@
+- type: entity
+  parent: BaseItem
+  id: PhotoCamera
+  name: camera
+  description: Say "Cheeese!", uses paper for printing.
+  components:
+  - type: Sprite
+    sprite: _CorvaxGoob/Objects/Misc/camera.rsi
+    state: camera
+  - type: Eye
+  - type: PhotoCamera
+  - type: UseDelay
+  - type: ActivatableUI
+    key: enum.PhotoCameraUiKey.Key
+    inHandsOnly: true
+  - type: UserInterface
+    interfaces:
+      enum.PhotoCameraUiKey.Key:
+        type: PhotoCameraBoundUserInterface
+  - type: MaterialStorage
+    whitelist:
+      tags:
+      - Paper
+    blacklist:
+      tags:
+      - InfinityPaper
+
+- type: entity
+  parent: PhotoCamera
+  id: PhotoCameraFilled
+  suffix: Filled
+  components:
+  - type: MaterialStorage
+    storage:
+      Paper: 1000
+
+- type: entity
+  parent: BasePaper
+  id: PhotoCard
+  name: photo
+  description: Paper with a printed image on it.
+  components:
+  - type: Sprite
+    sprite: _CorvaxGoob/Objects/Misc/camera.rsi
+    state: card
+  - type: ActivatableUI
+    key: enum.PhotoCardUiKey.Key
+    requiresComplex: false
+  - type: UserInterface
+    interfaces:
+      enum.PhotoCardUiKey.Key:
+        type: PhotoCardBoundUserInterface
+  - type: PhotoCard
+  - type: FaxableObject

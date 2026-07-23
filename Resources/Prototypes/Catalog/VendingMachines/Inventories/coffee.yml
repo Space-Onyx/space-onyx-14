@@ -9,3 +9,13 @@
   contrabandInventory:
     DrinkTeapot: 2
     DrinkNothing: 2
+  # <Onyx-VendingPrices>
+  prices:
+    DrinkHotCoffee: 9
+    DrinkCafeLatte: 9
+    DrinkTeacup: 8
+    DrinkGreenTea: 8
+    DrinkHotCoco: 11
+    DrinkTeapot: 20
+    DrinkNothing: 14
+  # </Onyx-VendingPrices>

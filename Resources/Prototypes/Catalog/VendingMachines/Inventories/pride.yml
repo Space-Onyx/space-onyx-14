@@ -43,3 +43,29 @@
   contrabandInventory:
     ClothingNeckScarfStripedLesbianLong: 2
     ClothingUniformJumpskirtColorRainbow: 2
+  # <Onyx-VendingPrices>
+  prices:
+    PlushieSharkBlue: 12
+    PlushieSharkPink: 12
+    PlushieSharkGrey: 12
+    ClothingNeckScarfStripedAce: 9
+    ClothingNeckScarfStripedAro: 9
+    ClothingNeckScarfStripedAroace: 9
+    ClothingNeckScarfStripedBiSexual: 9
+    ClothingNeckScarfStripedGay: 9
+    ClothingNeckScarfStripedInter: 9
+    ClothingNeckScarfStripedLesbian: 9
+    ClothingNeckScarfStripedPan: 9
+    ClothingNeckScarfStripedNonBinary: 9
+    ClothingNeckScarfStripedRainbow: 9
+    ClothingNeckScarfStripedTrans: 9
+    ClothingHeadHatXmasCrown: 7
+    BedsheetRainbow: 15
+    ClothingMultipleHeadphones: 10
+    ClothingHeadHatFlowerWreath: 6
+    ClothingUniformColorRainbow: 13
+    ClothingUnderSocksCoder: 8
+    ClothingUnderSocksBee: 8
+    ClothingNeckScarfStripedLesbianLong: 10
+    ClothingUniformJumpskirtColorRainbow: 10
+  # </Onyx-VendingPrices>

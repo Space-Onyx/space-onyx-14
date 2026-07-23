@@ -60,4 +60,35 @@
     ChemistryBottleMuteToxin: 3
     ChemistryBottleLead: 2
     ChemistryBottleToxin: 1
-
+  # <Onyx-VendingPrices>
+  prices:
+    Jug: 0
+    JugAluminium: 0
+    JugCarbon: 0
+    JugChlorine: 0
+    JugCopper: 0
+    JugEthanol: 0
+    JugFluorine: 0
+    JugHydrogen: 0
+    JugIodine: 0
+    JugIron: 0
+    JugLithium: 0
+    JugMercury: 0
+    JugNitrogen: 0
+    JugOxygen: 0
+    JugPhosphorus: 0
+    JugPotassium: 0
+    JugRadium: 0
+    JugSilicon: 0
+    JugSodium: 0
+    JugSugar: 0
+    JugSulfur: 0
+    JugWeldingFuel: 0
+    PlasmaChemistryVial: 0
+    DrinkLithiumFlask: 0
+    StrangePill: 0
+    ChemistryBottlePax: 0
+    ChemistryBottleMuteToxin: 0
+    ChemistryBottleLead: 0
+    ChemistryBottleToxin: 0
+  # </Onyx-VendingPrices>

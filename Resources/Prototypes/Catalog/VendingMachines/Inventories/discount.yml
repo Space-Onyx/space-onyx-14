@@ -12,3 +12,16 @@
   contrabandInventory:
     FoodSnackDanDanNoodles: 3
     FoodBakedBunHoney: 3
+  # <Onyx-VendingPrices>
+  prices:
+    FoodSnackCheesie: 6
+    FoodSnackChips: 5
+    FoodSnackBoritos: 6
+    DrinkEnergyDrinkCan: 6
+    FoodSnackPopcorn: 8
+    FoodSnackEnergy: 5
+    CigPackMixed: 5
+    DiscountDanLighter: 3
+    FoodSnackDanDanNoodles: 20
+    FoodBakedBunHoney: 11
+  # </Onyx-VendingPrices>
