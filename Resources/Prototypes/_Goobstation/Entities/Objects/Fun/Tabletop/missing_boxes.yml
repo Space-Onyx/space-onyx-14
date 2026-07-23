@@ -58,6 +58,12 @@
     maxItemSize: Normal
   - type: Item
     size: Small
+  # <Onyx-PlayingCards>
+  - type: OpenTriggeredStorageFill
+    contents:
+    - id: CardDeckBlack
+      amount: 1
+  # </Onyx-PlayingCards>
   - type: GenericVisualizer
     visuals:
       enum.StorageVisuals.Open:

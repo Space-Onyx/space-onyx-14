@@ -212,6 +212,9 @@
     - Instruments
     - Equipment
     - FauxTiles
+    # <Onyx-LatheUpgradeKits>
+    - OnyxLatheUpgradeKits
+    # </Onyx-LatheUpgradeKits>
     # </Onyx-GoobProtolathePacks-edited>
   - type: EmagLatheRecipes
     # <Onyx-GoobProtolathePacks-edited>

@@ -1,0 +1,57 @@
+# SPDX-FileCopyrightText: 2024 Piras314 <p1r4s@proton.me>
+# SPDX-FileCopyrightText: 2024 RadsammyT <32146976+RadsammyT@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2024 coderabbitai[bot] <136622811+coderabbitai[bot]@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: soundCollection
+  id: cardFan
+  files:
+  - /Audio/_Onyx/Effects/Cards/cardFan1.ogg
+  - /Audio/_Onyx/Effects/Cards/cardFan2.ogg
+
+- type: soundCollection
+  id: cardOpenPackage
+  files:
+  - /Audio/_Onyx/Effects/Cards/cardOpenPackage1.ogg
+  - /Audio/_Onyx/Effects/Cards/cardOpenPackage2.ogg
+
+- type: soundCollection
+  id: cardPlace
+  files:
+  - /Audio/_Onyx/Effects/Cards/cardPlace1.ogg
+  - /Audio/_Onyx/Effects/Cards/cardPlace2.ogg
+  - /Audio/_Onyx/Effects/Cards/cardPlace3.ogg
+  - /Audio/_Onyx/Effects/Cards/cardPlace4.ogg
+
+- type: soundCollection
+  id: cardShove
+  files:
+  - /Audio/_Onyx/Effects/Cards/cardShove1.ogg
+  - /Audio/_Onyx/Effects/Cards/cardShove2.ogg
+  - /Audio/_Onyx/Effects/Cards/cardShove3.ogg
+  - /Audio/_Onyx/Effects/Cards/cardShove4.ogg
+
+- type: soundCollection
+  id: cardShuffle
+  files:
+  - /Audio/_Onyx/Effects/Cards/cardShuffle.ogg
+
+- type: soundCollection
+  id: cardSlide
+  files:
+  - /Audio/_Onyx/Effects/Cards/cardSlide1.ogg
+  - /Audio/_Onyx/Effects/Cards/cardSlide2.ogg
+  - /Audio/_Onyx/Effects/Cards/cardSlide3.ogg
+  - /Audio/_Onyx/Effects/Cards/cardSlide4.ogg
+  - /Audio/_Onyx/Effects/Cards/cardSlide5.ogg
+  - /Audio/_Onyx/Effects/Cards/cardSlide6.ogg
+  - /Audio/_Onyx/Effects/Cards/cardSlide7.ogg
+  - /Audio/_Onyx/Effects/Cards/cardSlide8.ogg
+
+- type: soundCollection
+  id: cardTakeOutPackage
+  files:
+  - /Audio/_Onyx/Effects/Cards/cardTakeOutPackage1.ogg
+  - /Audio/_Onyx/Effects/Cards/cardTakeOutPackage2.ogg

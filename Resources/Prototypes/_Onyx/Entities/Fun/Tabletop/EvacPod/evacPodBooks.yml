@@ -1,0 +1,15 @@
+- type: entity
+  parent: BookBase
+  id: BookEvacPodStandartRules
+  name: EvacPod — Standart rules
+  description: Standard rules of the game EvacPod.
+  components:
+    - type: Sprite
+      sprite: _Onyx/Objects/Misc/books.rsi
+      layers:
+        - state: book_EvacPod_StandartRules
+    - type: Paper
+      content: book-text-EvacPod-StandartRules
+    - type: Tag
+      tags:
+      - EvacPod

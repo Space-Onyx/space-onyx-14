@@ -1,0 +1,82 @@
+- type: entity
+  parent: [BoxCardboard, BaseBagOpenClose]
+  id: CardBoxBase
+  abstract: true
+  components:
+  - type: Item
+    size: Small
+    shape:
+    - 0,0,1,1
+  - type: Storage
+    maxItemSize: Normal
+    grid:
+    - 0,0,1,1
+    whitelist:
+      components:
+      - CardDeck
+      - Paper
+  - type: Appearance
+
+- type: entity
+  parent: BaseItem
+  id: CardStackBase
+  abstract: true
+  components:
+  - type: Item
+    size: Small
+  - type: CardStack
+  - type: ContainerContainer
+    containers:
+      cardstack-container: !type:Container
+
+- type: entity
+  parent: CardStackBase
+  id: CardHandBase
+  categories: [HideSpawnMenu]
+  components:
+  - type: CardHand
+  - type: Sprite
+    sprite: _Onyx/Objects/Misc/cards.rsi
+    state: back_black
+    drawdepth: SmallObjects
+  - type: UserInterface
+    interfaces:
+      enum.CardUiKey.Key:
+        type: CardHandMenuBoundUserInterface
+  - type: ActivatableUI
+    key: enum.CardUiKey.Key
+
+- type: entity
+  parent: CardStackBase
+  id: CardDeckBase
+  categories: [HideSpawnMenu]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Misc/cards.rsi
+    state: deck_black_full
+    drawdepth: SmallObjects
+  - type: Item
+    size: Normal
+  - type: CardDeck
+
+- type: entity
+  parent: BaseItem
+  id: CardBase
+  abstract: true
+  components:
+  - type: EmitSoundOnLand
+    sound:
+      collection: cardShove
+  - type: Sprite
+    sprite: _Onyx/Objects/Misc/cards.rsi
+    state: back_black
+  - type: Rotatable
+  - type: Item
+    size: Small
+  - type: UseDelay
+    delay: 0.5
+  - type: Card
+    backSpriteLayers:
+    - sprite: _Onyx/Objects/Misc/cards.rsi
+      state: back_black
+    flipped: true

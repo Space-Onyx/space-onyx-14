@@ -18,7 +18,19 @@
     MysteryFigureBox: 2
     BooksBag: 3
     Magic9Ball: 2
+    # <Onyx-EvacPod>
+    BoxPlaysetEvacPod: 1
+    # </Onyx-EvacPod>
+    # <Onyx-PlayingCards>
+    CardBoxBlack: 3
+    CardBoxNanotrasen: 3
+    CardBoxKotahi: 3
+    # </Onyx-PlayingCards>
   contrabandInventory:
     Basketball: 1
     FoodSnackBoritos: 3
     DrinkSpaceMountainWindCan: 3
+  # <Onyx-PlayingCards>
+  emaggedInventory:
+    CardBoxSyndicate: 1
+  # </Onyx-PlayingCards>

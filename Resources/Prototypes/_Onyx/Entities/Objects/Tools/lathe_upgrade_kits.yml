@@ -1,0 +1,46 @@
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: BaseLatheUpgradeKit
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/upgrade.rsi
+    state: base
+  - type: UpgradeKit
+    whitelist:
+      components:
+      - Lathe
+    blacklist:
+      components:
+      - UpgradedMachine
+
+- type: entity
+  parent: BaseLatheUpgradeKit
+  id: LatheUpgradeKitHyper
+  components:
+  - type: UpgradeKit
+    components:
+    - type: UpgradedMachine
+      upgrade: lathe-upgrade-kit-hyper-convection
+    - type: LatheUpgrade
+      materialUseMultiplier: 0.5
+      timeMultiplier: 1.5
+    - type: LatheHeatProducing
+    - type: ReagentSpeed
+      solution: lube
+      modifiers:
+        SpaceLube: 0.8
+        SpaceGlue: 5
+
+- type: entity
+  parent: BaseLatheUpgradeKit
+  id: LatheUpgradeKitCryo
+  components:
+  - type: UpgradeKit
+    components:
+    - type: UpgradedMachine
+      upgrade: lathe-upgrade-kit-cryo-stabilizing
+    - type: LatheUpgrade
+      timeMultiplier: 0.5
+    - type: LatheHeatProducing
+      energyPerSecond: -20000
