@@ -1,0 +1,9 @@
+ent-DoorElectronicsJournalism = journalism door electronics
+    .suffix = Journalism, Locked
+    .desc = { ent-DoorElectronics.desc }
+ent-AirlockJournalismGlassLocked = { ent-AirlockServiceGlassLocked }
+    .suffix = Journalism, Locked
+    .desc = { ent-AirlockServiceGlassLocked.desc }
+ent-AirlockMaintJournalismLocked = { ent-AirlockServiceLocked }
+    .suffix = Journalism, Locked
+    .desc = { ent-AirlockServiceLocked.desc }

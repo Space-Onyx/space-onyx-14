@@ -1,0 +1,29 @@
+- type: entity
+  name: GL-06 RGL
+  parent: [ WeaponFlareGun, BaseGunWieldable, BaseSecurityContraband ]
+  id: WeaponLauncherNonLethal
+  description: A single-shot break-action riot grenade launcher. Its safety only accepts nonlethal grenades.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Launchers/riotlauncher.rsi
+    layers:
+    - state: base
+      map: [ "enum.GunVisualLayers.Base" ]
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Guns/Launchers/riotlauncher.rsi
+    slots:
+    - Back
+    - suitStorage
+  - type: GunRequiresWield
+  - type: Gun
+    fireRate: 0.5
+  - type: Item
+    size: Huge
+    sprite: _Onyx/Objects/Weapons/Guns/Launchers/riotlauncher.rsi
+  - type: ItemSlots
+    slots:
+      gun_chamber:
+        priority: 1
+        whitelist:
+          tags:
+          - NonLethalGrenade

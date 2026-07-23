@@ -6,3 +6,6 @@
 
 - type: Tag
   id: ShellShotgunHeavy
+
+- type: Tag
+  id: NonLethalGrenade

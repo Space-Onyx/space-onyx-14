@@ -71,6 +71,12 @@
   - type: SpentAmmoVisuals
     state: baton
     suffix: false
+  # <Onyx-NonLethalGrenades>
+  - type: Tag
+    tags:
+    - Grenade
+    - NonLethalGrenade
+  # </Onyx-NonLethalGrenades>
 
 - type: entity
   parent: BaseGrenade
@@ -105,6 +111,12 @@
   - type: SpentAmmoVisuals
     state: flash
     suffix: false
+  # <Onyx-NonLethalGrenades>
+  - type: Tag
+    tags:
+    - Grenade
+    - NonLethalGrenade
+  # </Onyx-NonLethalGrenades>
 
 - type: entity
   parent: BaseGrenade

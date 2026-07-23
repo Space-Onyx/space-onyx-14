@@ -81,6 +81,13 @@
       - material: Cable
         amount: 1
         doAfter: 1
+    # <Onyx-DisposalBlocker>
+    - to: blocker
+      steps:
+      - material: Steel
+        amount: 2
+        doAfter: 1
+    # </Onyx-DisposalBlocker>
   - node: broken
     entity: DisposalPipeBroken
     edges:
@@ -274,3 +281,17 @@
       steps:
       - tool: Welding
         doAfter: 1
+  # <Onyx-DisposalBlocker>
+  - node: blocker
+    entity: DisposalBlocker
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:DestroyEntity
+      steps:
+      - tool: Welding
+        doAfter: 1
+  # </Onyx-DisposalBlocker>

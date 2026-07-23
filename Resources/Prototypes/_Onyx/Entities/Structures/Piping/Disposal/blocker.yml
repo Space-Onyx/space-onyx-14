@@ -1,0 +1,24 @@
+- type: entity
+  id: DisposalBlocker
+  parent: DisposalPipeBase
+  name: disposal pipe blocker
+  description: A pipe that allows movement of objects on one side and blocks it on the other.
+  components:
+  - type: Sprite
+    drawdepth: ThickPipe
+    sprite: _Onyx/Structures/Piping/disposal.rsi
+    layers:
+    - map: [ "pipe" ]
+      state: conpipe-blocker
+  - type: DisposalTube
+    exits:
+    - South
+  - type: GenericVisualizer
+    visuals:
+      enum.AnchorVisuals.Anchored:
+        pipe:
+          False: { state: conpipe-blocker }
+          True: { state: pipe-blocker }
+  - type: Construction
+    graph: DisposalPipe
+    node: blocker

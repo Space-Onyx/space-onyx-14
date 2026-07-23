@@ -1,0 +1,19 @@
+- type: entity
+  id: GrenadeTeargas
+  name: tear gas shell (40mm)
+  parent: BaseGrenade
+  components:
+  - type: CartridgeAmmo
+    proto: BulletGrenadeTeargas
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Explosives/tear_gas.rsi
+    layers:
+    - state: teargas
+      map: [ "enum.AmmoVisualLayers.Base" ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+    state: teargas
+  - type: Tag
+    tags:
+    - Grenade
+    - NonLethalGrenade

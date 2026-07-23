@@ -77,3 +77,11 @@
     graph: TableFoldingGraph
     node: TableFolding
   - type: DamageExaminable
+
+- type: entity
+  parent: TableFolding
+  id: TableFoldingSpawnFolded
+  suffix: Folded
+  components:
+  - type: Foldable
+    folded: true

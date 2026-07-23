@@ -16,3 +16,31 @@
       board: [ DoorElectronicsAllService ]
   - type: Wires
     layoutId: AirlockService
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsJournalism
+  suffix: Journalism, Locked
+  components:
+  - type: AccessReader
+    access: [["Journalism"]]
+
+- type: entity
+  parent: AirlockServiceGlassLocked
+  id: AirlockJournalismGlassLocked
+  suffix: Journalism, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsJournalism ]
+
+- type: entity
+  parent: AirlockServiceLocked
+  id: AirlockMaintJournalismLocked
+  suffix: Journalism, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsJournalism ]
+  - type: Sprite
+    sprite: Structures/Doors/Airlocks/Standard/maint.rsi

@@ -1,0 +1,9 @@
+ent-DoorElectronicsJournalism = электроника шлюза журналистики
+    .suffix = Журнализм, Закрыт
+    .desc = { ent-DoorElectronics.desc }
+ent-AirlockJournalismGlassLocked = { ent-AirlockServiceGlassLocked }
+    .suffix = Журнализм, Закрыт
+    .desc = { ent-AirlockServiceGlassLocked.desc }
+ent-AirlockMaintJournalismLocked = { ent-AirlockServiceLocked }
+    .suffix = Журнализм, Закрыт
+    .desc = { ent-AirlockServiceLocked.desc }

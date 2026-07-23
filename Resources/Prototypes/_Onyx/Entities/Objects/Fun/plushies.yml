@@ -1,0 +1,48 @@
+- type: entity
+  parent: BasePlushie
+  id: PlushieLouie
+  name: Louie plushie
+  description: A cute stuffed toy that resembles a rat. You feel a strange compulsion to say hi to the rat.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Fun/Plushies/louie.rsi
+    state: plushie_louie
+  - type: EmitSoundOnUse
+    sound: &louieSound
+      path: /Audio/Items/Toys/mousesqueek.ogg
+  - type: EmitSoundOnLand
+    sound: *louieSound
+  - type: EmitSoundOnActivate
+    sound: *louieSound
+  - type: EmitSoundOnTrigger
+    sound: *louieSound
+  - type: Food
+    requiresSpecialDigestion: true
+    useSound: *louieSound
+  - type: MeleeWeapon
+    wideAnimationRotation: 180
+    soundHit: *louieSound
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieDurk
+  name: Durk plushie
+  description: A cute stuffed toy that resembles a certain atmospheric technician. You feel like a great breaking of the universe approaches while holding it.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Fun/Plushies/durk.rsi
+    state: plushie_durk
+  - type: EmitSoundOnUse
+    sound: &durkSound
+      path: /Audio/Effects/adminhelp.ogg
+  - type: EmitSoundOnLand
+    sound: *durkSound
+  - type: EmitSoundOnActivate
+    sound: *durkSound
+  - type: EmitSoundOnTrigger
+    sound: *durkSound
+  - type: EmitSoundOnCollide
+    sound: *durkSound
+  - type: Food
+    requiresSpecialDigestion: false
+    useSound: *durkSound
