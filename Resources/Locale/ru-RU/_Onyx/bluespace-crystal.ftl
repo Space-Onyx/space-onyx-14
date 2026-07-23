@@ -17,4 +17,4 @@ ent-MaterialBSCrystal1 = { ent-MaterialBSCrystal }
 ent-MaterialBSCrystalUnprocessed = необработанный блюспейс-кристалл
 ent-MaterialBSCrystal1Unprocessed = { ent-MaterialBSCrystalUnprocessed }
 
-research-technology-bluespace-theory = теория блюспейса
+research-technology-bluespace-theory = Блюспейс технологии

@@ -26,6 +26,11 @@ public sealed partial class BodyComponent : Component
     [ViewVariables]
     public ContainerSlot? RootContainer;
     // </Onyx-Surgery>
+
+    // <Onyx-ThermalVision>
+    [DataField]
+    public bool ThermalVisibility = true;
+    // </Onyx-ThermalVision>
 }
 
 /// <summary>

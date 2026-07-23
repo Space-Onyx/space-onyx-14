@@ -17,7 +17,13 @@
         base:
           True: { state: silo_active }
           False: { state: silo }
+  # <Onyx-MaterialSiloDeviceLink-edited>
   - type: OreSilo
+    range: 300
+  - type: MaterialSiloLink
+  - type: DeviceLinkSource
+    range: 300
+  # </Onyx-MaterialSiloDeviceLink-edited>
   - type: MaterialStorage
     whitelist:
       tags:

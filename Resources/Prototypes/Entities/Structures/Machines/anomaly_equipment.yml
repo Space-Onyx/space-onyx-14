@@ -269,6 +269,9 @@
     materialWhiteList:
     - Plasma
   - type: OreSiloClient
+  # <Onyx-MaterialSiloDeviceLink>
+  - type: MaterialSiloLink
+  # </Onyx-MaterialSiloDeviceLink>
   - type: Fixtures
     fixtures:
       fix1:

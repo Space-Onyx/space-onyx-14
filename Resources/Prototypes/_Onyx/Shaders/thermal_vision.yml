@@ -1,0 +1,11 @@
+- type: shader
+  id: OnyxThermalVision
+  kind: source
+  path: "/Textures/_Onyx/Shaders/thermal.swsl"
+  params:
+    pixelSize: 32.0
+
+- type: shader
+  id: OnyxThermalVisionScreen
+  kind: source
+  path: "/Textures/_Onyx/Shaders/thermal_screen.swsl"

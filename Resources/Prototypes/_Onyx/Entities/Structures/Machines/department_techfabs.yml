@@ -54,6 +54,7 @@
       - RawMaterial
       - Ingot
   - type: OreSiloClient
+  - type: MaterialSiloLink
   - type: LatheAnnouncing
     channels: [Engineering]
 
@@ -105,6 +106,7 @@
   - type: MaterialStorage
     whitelist: *DepartmentTechFabMaterialWhitelist
   - type: OreSiloClient
+  - type: MaterialSiloLink
   - type: LatheAnnouncing
     channels: [Supply]
 
@@ -157,6 +159,7 @@
   - type: MaterialStorage
     whitelist: *DepartmentTechFabMaterialWhitelist
   - type: OreSiloClient
+  - type: MaterialSiloLink
   - type: LatheAnnouncing
     channels: [Science]
 
@@ -204,5 +207,6 @@
   - type: MaterialStorage
     whitelist: *DepartmentTechFabMaterialWhitelist
   - type: OreSiloClient
+  - type: MaterialSiloLink
   - type: LatheAnnouncing
     channels: [Service]

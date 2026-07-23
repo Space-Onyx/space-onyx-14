@@ -196,6 +196,44 @@
           steps:
             - tool: Screwing
               doAfter: 1
+        # <Onyx-FancyWoodChairs>
+        - to: chairWoodFancyBlack
+          steps:
+            - material: FloorCarpetBlack
+              amount: 1
+        - to: chairWoodFancyBlue
+          steps:
+            - material: FloorCarpetBlue
+              amount: 1
+        - to: chairWoodFancyCyan
+          steps:
+            - material: FloorCarpetCyan
+              amount: 1
+        - to: chairWoodFancyGreen
+          steps:
+            - material: FloorCarpetGreen
+              amount: 1
+        - to: chairWoodFancyOrange
+          steps:
+            - material: FloorCarpetOrange
+              amount: 1
+        - to: chairWoodFancyPink
+          steps:
+            - material: FloorCarpetPink
+              amount: 1
+        - to: chairWoodFancyPurple
+          steps:
+            - material: FloorCarpetPurple
+              amount: 1
+        - to: chairWoodFancyRed
+          steps:
+            - material: FloorCarpetRed
+              amount: 1
+        - to: chairWoodFancyWhite
+          steps:
+            - material: FloorCarpetWhite
+              amount: 1
+        # </Onyx-FancyWoodChairs>
 
     - node: chairMeat
       entity: ChairMeat
@@ -295,3 +333,113 @@
               doAfter: 1
             - tool: Screwing
               doAfter: 1
+
+    # <Onyx-FancyWoodChairs>
+    - node: chairWoodFancyBlack
+      entity: ChairWoodFancyBlack
+      edges:
+        - to: chairWood
+          completed:
+            - !type:SpawnPrototype
+              prototype: FloorCarpetItemBlack
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+
+    - node: chairWoodFancyBlue
+      entity: ChairWoodFancyBlue
+      edges:
+        - to: chairWood
+          completed:
+            - !type:SpawnPrototype
+              prototype: FloorCarpetItemBlue
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+
+    - node: chairWoodFancyCyan
+      entity: ChairWoodFancyCyan
+      edges:
+        - to: chairWood
+          completed:
+            - !type:SpawnPrototype
+              prototype: FloorCarpetItemCyan
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+
+    - node: chairWoodFancyGreen
+      entity: ChairWoodFancyGreen
+      edges:
+        - to: chairWood
+          completed:
+            - !type:SpawnPrototype
+              prototype: FloorCarpetItemGreen
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+
+    - node: chairWoodFancyOrange
+      entity: ChairWoodFancyOrange
+      edges:
+        - to: chairWood
+          completed:
+            - !type:SpawnPrototype
+              prototype: FloorCarpetItemOrange
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+
+    - node: chairWoodFancyPurple
+      entity: ChairWoodFancyPurple
+      edges:
+        - to: chairWood
+          completed:
+            - !type:SpawnPrototype
+              prototype: FloorCarpetItemPurple
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+
+    - node: chairWoodFancyPink
+      entity: ChairWoodFancyPink
+      edges:
+        - to: chairWood
+          completed:
+            - !type:SpawnPrototype
+              prototype: FloorCarpetItemPink
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+
+    - node: chairWoodFancyRed
+      entity: ChairWoodFancyRed
+      edges:
+        - to: chairWood
+          completed:
+            - !type:SpawnPrototype
+              prototype: FloorCarpetItemRed
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+
+    - node: chairWoodFancyWhite
+      entity: ChairWoodFancyWhite
+      edges:
+        - to: chairWood
+          completed:
+            - !type:SpawnPrototype
+              prototype: FloorCarpetItemWhite
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+    # </Onyx-FancyWoodChairs>

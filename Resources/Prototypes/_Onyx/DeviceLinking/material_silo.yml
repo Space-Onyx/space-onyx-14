@@ -1,0 +1,10 @@
+- type: sourcePort
+  id: MaterialSilo
+  name: signal-port-name-material-silo
+  description: signal-port-description-material-silo
+  defaultLinks: [ MaterialSiloUtilizer ]
+
+- type: sinkPort
+  id: MaterialSiloUtilizer
+  name: signal-port-name-material-silo-utilizer
+  description: signal-port-description-material-silo-utilizer

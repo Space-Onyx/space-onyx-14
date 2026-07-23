@@ -56,6 +56,9 @@ public sealed partial class PopupSystem : SharedPopupSystem
             _examine,
             _transform,
             this));
+        // <Onyx-PopupChatLogging>
+        InitializeOnyxChatLogging();
+        // </Onyx-PopupChatLogging>
     }
 
     public override void Shutdown()
@@ -63,6 +66,9 @@ public sealed partial class PopupSystem : SharedPopupSystem
         base.Shutdown();
 
         _overlay.RemoveOverlay<PopupOverlay>();
+        // <Onyx-PopupChatLogging>
+        ShutdownOnyxChatLogging();
+        // </Onyx-PopupChatLogging>
     }
 
     /// <summary>
@@ -107,6 +113,9 @@ public sealed partial class PopupSystem : SharedPopupSystem
         };
 
         _aliveWorldLabels.Add(popupData, label);
+        // <Onyx-PopupChatLogging>
+        LogPopupInChat(message, type, coordinates);
+        // </Onyx-PopupChatLogging>
     }
 
     /// <summary>

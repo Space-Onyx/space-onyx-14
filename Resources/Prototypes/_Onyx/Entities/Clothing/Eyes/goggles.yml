@@ -24,6 +24,7 @@
     sprite: _Onyx/Clothing/Eyes/Goggles/thermal.rsi
   - type: Clothing
     sprite: _Onyx/Clothing/Eyes/Goggles/thermal.rsi
-  - type: ThermalSight
+  - type: ThermalVision
+    pulseTime: 2
   - type: IdentityBlocker
     coverage: EYES

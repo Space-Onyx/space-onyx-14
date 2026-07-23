@@ -46,6 +46,10 @@ public sealed partial class MiscTab : Control
         Control.AddOptionCheckBox(CVars.DiscordEnabled, DiscordRich);
         Control.AddOptionCheckBox(CCVars.ShowOocPatronColor, ShowOocPatronColor);
         Control.AddOptionCheckBox(CCVars.LoocAboveHeadShow, ShowLoocAboveHeadCheckBox);
+        // <Onyx-ChatOptions>
+        Control.AddOptionCheckBox(CCVars.ChatLogActions, LogActionsInChatCheckBox);
+        Control.AddOptionCheckBox(CCVars.ChatCoalesceIdenticalMessages, CoalesceIdenticalMessagesCheckBox);
+        // </Onyx-ChatOptions>
         Control.AddOptionCheckBox(CCVars.HudHeldItemShow, ShowHeldItemCheckBox);
         Control.AddOptionCheckBox(CCVars.CombatModeIndicatorsPointShow, ShowCombatModeIndicatorsCheckBox);
         Control.AddOptionCheckBox(CCVars.OpaqueStorageWindow, OpaqueStorageWindowCheckBox);

@@ -19,6 +19,10 @@
                 <CheckBox Name="FancySpeechBubblesCheckBox" Text="{Loc 'ui-options-fancy-speech'}" />
                 <CheckBox Name="FancyNameBackgroundsCheckBox" Text="{Loc 'ui-options-fancy-name-background'}" />
                 <CheckBox Name="ChatFollowButton" Text="{Loc 'ui-options-chat-follow-button'}" />
+                <!-- <Onyx-ChatOptions> -->
+                <CheckBox Name="LogActionsInChatCheckBox" Text="{Loc 'ui-options-log-in-chat'}" />
+                <CheckBox Name="CoalesceIdenticalMessagesCheckBox" Text="{Loc 'ui-options-coalesce-identical-messages'}" />
+                <!-- </Onyx-ChatOptions> -->
                 <Label Text="{Loc 'ui-options-general-cursor'}"
                        StyleClasses="LabelKeyText"/>
                 <CheckBox Name="ShowHeldItemCheckBox" Text="{Loc 'ui-options-show-held-item'}" />

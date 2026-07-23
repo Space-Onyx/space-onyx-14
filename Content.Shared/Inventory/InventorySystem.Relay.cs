@@ -22,6 +22,9 @@ using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Systems;
 using Content.Shared.NameModifier.EntitySystems;
 using Content.Shared.NightVision;
+// <Onyx-ThermalVision>
+using Content.Shared._Onyx.Overlays;
+// </Onyx-ThermalVision>
 using Content.Shared.Nutrition;
 using Content.Shared.Overlays;
 using Content.Shared.Projectiles;
@@ -112,6 +115,9 @@ public partial class InventorySystem
         SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<BlackAndWhiteOverlayComponent>>(RefRelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<NoirOverlayComponent>>(RefRelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ThermalSightComponent>>(RefRelayInventoryEvent);
+        // <Onyx-ThermalVision>
+        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ThermalVisionComponent>>(RefRelayInventoryEvent);
+        // </Onyx-ThermalVision>
 
         SubscribeLocalEvent<InventoryComponent, GetVerbsEvent<EquipmentVerb>>(OnGetEquipmentVerbs);
         SubscribeLocalEvent<InventoryComponent, GetVerbsEvent<InnateVerb>>(OnGetInnateVerbs);

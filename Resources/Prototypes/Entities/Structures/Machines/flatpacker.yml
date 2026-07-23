@@ -45,6 +45,9 @@
       - RawMaterial
       - Ingot
   - type: OreSiloClient
+  # <Onyx-MaterialSiloDeviceLink>
+  - type: MaterialSiloLink
+  # </Onyx-MaterialSiloDeviceLink>
   - type: AmbientSound
     enabled: false
     volume: 5

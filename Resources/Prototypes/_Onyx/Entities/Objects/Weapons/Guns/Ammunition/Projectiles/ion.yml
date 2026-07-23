@@ -1,0 +1,39 @@
+- type: entity
+  id: RifleBulletEnergyGunIon
+  name: rifle ion bolt
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Reflective
+    reflective:
+    - Energy
+  - type: FlyBySound
+    sound:
+      collection: EnergyMiss
+      params:
+        volume: 5
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+    layers:
+    - state: omnilaser_greyscale
+      shader: unshaded
+      color: blue
+  - type: Ammo
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.2,-0.2,0.2,0.2"
+        hard: false
+        mask:
+        - Opaque
+  - type: Projectile
+    impactEffect: BulletImpactEffectBlueDisabler
+    damage:
+      types:
+        Ion: 20
+        Heat: 5
+    soundHit:
+      collection: MeatLaserImpact

@@ -46,6 +46,9 @@ public partial class ChatBox : UIWidget
         _controller.MessageAdded += OnMessageAdded;
         _controller.HighlightsUpdated += OnHighlightsUpdated;
         _controller.RegisterChat(this);
+        // <Onyx-ChatCoalescing>
+        InitializeOnyxChatCoalescing();
+        // </Onyx-ChatCoalescing>
     }
 
     private void OnTextEntered(LineEditEventArgs args)
@@ -68,7 +71,10 @@ public partial class ChatBox : UIWidget
 
         var color = msg.MessageColorOverride ?? msg.Channel.TextColor();
 
-        AddLine(msg.WrappedMessage, color);
+        // <Onyx-ChatCoalescing-edited>
+        if (!TryAddCoalescedMessage(msg, color))
+            AddLine(msg.WrappedMessage, color);
+        // </Onyx-ChatCoalescing-edited>
     }
 
     private void OnHighlightsUpdated(string highlights)
@@ -84,6 +90,9 @@ public partial class ChatBox : UIWidget
     public void Repopulate()
     {
         Contents.Clear();
+        // <Onyx-ChatCoalescing>
+        ResetOnyxChatCoalescing();
+        // </Onyx-ChatCoalescing>
 
         foreach (var message in _controller.History)
         {
@@ -94,6 +103,9 @@ public partial class ChatBox : UIWidget
     private void OnChannelFilter(ChatChannel channel, bool active)
     {
         Contents.Clear();
+        // <Onyx-ChatCoalescing>
+        ResetOnyxChatCoalescing();
+        // </Onyx-ChatCoalescing>
 
         foreach (var message in _controller.History)
         {
@@ -212,5 +224,8 @@ public partial class ChatBox : UIWidget
         ChatInput.Input.OnKeyBindDown -= OnInputKeyBindDown;
         ChatInput.Input.OnTextChanged -= OnTextChanged;
         ChatInput.ChannelSelector.OnChannelSelect -= OnChannelSelect;
+        // <Onyx-ChatCoalescing>
+        ShutdownOnyxChatCoalescing();
+        // </Onyx-ChatCoalescing>
     }
 }

@@ -47,6 +47,9 @@
   cost: 7500
   recipeUnlocks:
     - WeaponLaserCarbine
+    # <Onyx-IonRifle>
+    - WeaponEnergyIonRifle
+    # </Onyx-IonRifle>
   position: 4,3
   technologyPrerequisites:
     - ConcentratedLaserWeaponry

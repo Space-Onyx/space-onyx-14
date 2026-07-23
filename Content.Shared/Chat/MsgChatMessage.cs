@@ -37,11 +37,17 @@ namespace Content.Shared.Chat
         public Color? MessageColorOverride;
         public string? AudioPath;
         public float AudioVolume;
+        // <Onyx-ChatCoalescing>
+        public bool CanCoalesce;
+        // </Onyx-ChatCoalescing>
 
         [NonSerialized]
         public bool Read;
 
-        public ChatMessage(ChatChannel channel, string message, string wrappedMessage, NetEntity source, int? senderKey, bool hideChat = false, Color? colorOverride = null, string? audioPath = null, float audioVolume = 0)
+        // <Onyx-ChatCoalescing-edited>
+        public ChatMessage(ChatChannel channel, string message, string wrappedMessage, NetEntity source, int? senderKey, bool hideChat = false, Color? colorOverride = null, string? audioPath = null, float audioVolume = 0,
+            bool canCoalesce = true)
+        // </Onyx-ChatCoalescing-edited>
         {
             Channel = channel;
             Message = message;
@@ -52,6 +58,9 @@ namespace Content.Shared.Chat
             MessageColorOverride = colorOverride;
             AudioPath = audioPath;
             AudioVolume = audioVolume;
+            // <Onyx-ChatCoalescing>
+            CanCoalesce = canCoalesce;
+            // </Onyx-ChatCoalescing>
         }
 
         public ChatMessage(ChatMessage copyFrom)
@@ -65,6 +74,9 @@ namespace Content.Shared.Chat
             MessageColorOverride = copyFrom.MessageColorOverride;
             AudioPath = copyFrom.AudioPath;
             AudioVolume = copyFrom.AudioVolume;
+            // <Onyx-ChatCoalescing>
+            CanCoalesce = copyFrom.CanCoalesce;
+            // </Onyx-ChatCoalescing>
             Read = copyFrom.Read;
         }
     }

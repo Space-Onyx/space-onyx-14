@@ -33,40 +33,67 @@ public abstract partial class SharedOreSiloSystem : EntitySystem
     {
         var client = GetEntity(args.Client);
 
-        if (!_clientQuery.TryComp(client, out var clientComp))
+        if (!_clientQuery.TryComp(client, out _))
             return;
 
-        if (ent.Comp.Clients.Contains(client)) // remove client
+        // <Onyx-MaterialSiloDeviceLink-edited>
+        // The silo UI only disconnects existing links. New links are created with a multitool.
+        if (!ent.Comp.Clients.Contains(client))
+            return;
+
+        OnClientUiUnlinked(ent, client);
+        UnlinkClient(ent, client);
+        // </Onyx-MaterialSiloDeviceLink-edited>
+    }
+
+    // <Onyx-MaterialSiloDeviceLink>
+    public bool TryLinkClient(Entity<OreSiloComponent> silo, EntityUid client)
+    {
+        if (!_clientQuery.TryComp(client, out var clientComp))
+            return false;
+
+        if (clientComp.Silo == silo.Owner)
+            return true;
+
+        if (clientComp.Silo != null || !CanTransmitMaterials((silo, silo), client))
+            return false;
+
+        var clientMats = _materialStorage.GetStoredMaterials(client, true);
+        var inverseMats = new Dictionary<string, int>();
+        foreach (var (mat, amount) in clientMats)
+            inverseMats.Add(mat, -amount);
+
+        _materialStorage.TryChangeMaterialAmount(client, inverseMats, localOnly: true);
+        _materialStorage.TryChangeMaterialAmount((silo.Owner, (MaterialStorageComponent?) null), clientMats);
+
+        silo.Comp.Clients.Add(client);
+        Dirty(silo);
+        clientComp.Silo = silo;
+        Dirty(client, clientComp);
+        UpdateOreSiloUi(silo);
+        return true;
+    }
+
+    public bool UnlinkClient(Entity<OreSiloComponent> silo, EntityUid client)
+    {
+        if (!silo.Comp.Clients.Remove(client))
+            return false;
+
+        Dirty(silo);
+        if (_clientQuery.TryComp(client, out var clientComp) && clientComp.Silo == silo.Owner)
         {
             clientComp.Silo = null;
             Dirty(client, clientComp);
-            ent.Comp.Clients.Remove(client);
-            Dirty(ent);
-
-            UpdateOreSiloUi(ent);
         }
-        else // add client
-        {
-            if (!CanTransmitMaterials((ent, ent), client))
-                return;
 
-            var clientMats = _materialStorage.GetStoredMaterials(client, true);
-            var inverseMats = new Dictionary<string, int>();
-            foreach (var (mat, amount) in clientMats)
-            {
-                inverseMats.Add(mat, -amount);
-            }
-            _materialStorage.TryChangeMaterialAmount(client, inverseMats, localOnly: true);
-            _materialStorage.TryChangeMaterialAmount(ent.Owner, clientMats);
-
-            ent.Comp.Clients.Add(client);
-            Dirty(ent);
-            clientComp.Silo = ent;
-            Dirty(client, clientComp);
-
-            UpdateOreSiloUi(ent);
-        }
+        UpdateOreSiloUi(silo);
+        return true;
     }
+
+    protected virtual void OnClientUiUnlinked(Entity<OreSiloComponent> silo, EntityUid client)
+    {
+    }
+    // </Onyx-MaterialSiloDeviceLink>
 
     private void OnBoundUIOpened(Entity<OreSiloComponent> ent, ref BoundUIOpenedEvent args)
     {
@@ -155,11 +182,10 @@ public abstract partial class SharedOreSiloSystem : EntitySystem
         if (!_powerReceiver.IsPowered(silo.Owner))
             return false;
 
-        if (_transform.GetGrid(client) != _transform.GetGrid(silo.Owner))
+        // <Onyx-MaterialSiloDeviceLink-edited>
+        if (!_transform.GetMapCoordinates(silo.Owner).InRange(_transform.GetMapCoordinates(client), silo.Comp1.Range))
             return false;
-
-        if (!_transform.InRange((silo.Owner, silo.Comp2), client, silo.Comp1.Range))
-            return false;
+        // </Onyx-MaterialSiloDeviceLink-edited>
 
         return true;
     }

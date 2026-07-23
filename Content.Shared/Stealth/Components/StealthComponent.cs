@@ -78,6 +78,11 @@ public sealed partial class StealthComponent : Component
     /// </summary>
     [DataField]
     public string ExaminedDesc = "stealth-visual-effect";
+
+    // <Onyx-ThermalVision>
+    [DataField]
+    public bool ThermalsImmune;
+    // </Onyx-ThermalVision>
 }
 
 [Serializable, NetSerializable]

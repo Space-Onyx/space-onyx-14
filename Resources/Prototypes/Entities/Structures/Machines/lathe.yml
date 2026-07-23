@@ -122,6 +122,9 @@
         - RawMaterial
         - Ingot
   - type: OreSiloClient
+  # <Onyx-MaterialSiloDeviceLink>
+  - type: MaterialSiloLink
+  # </Onyx-MaterialSiloDeviceLink>
   - type: Lathe
     idleState: icon
     runningState: building
@@ -197,6 +200,9 @@
   - type: MaterialStorage
     whitelist: *StandardMaterialWhitelist
   - type: OreSiloClient
+  # <Onyx-MaterialSiloDeviceLink>
+  - type: MaterialSiloLink
+  # </Onyx-MaterialSiloDeviceLink>
   - type: Lathe
     idleState: icon
     runningState: building
@@ -286,6 +292,9 @@
   - type: MaterialStorage
     whitelist: *StandardMaterialWhitelist
   - type: OreSiloClient
+  # <Onyx-MaterialSiloDeviceLink>
+  - type: MaterialSiloLink
+  # </Onyx-MaterialSiloDeviceLink>
   - type: RequireProjectileTarget
 
 - type: entity
@@ -335,6 +344,9 @@
   - type: MaterialStorage
     whitelist: *StandardMaterialWhitelist
   - type: OreSiloClient
+  # <Onyx-MaterialSiloDeviceLink>
+  - type: MaterialSiloLink
+  # </Onyx-MaterialSiloDeviceLink>
   - type: GuideHelp
     guides:
     - Robotics
@@ -430,6 +442,9 @@
   - type: MaterialStorage
     whitelist: *StandardMaterialWhitelist
   - type: OreSiloClient
+  # <Onyx-MaterialSiloDeviceLink>
+  - type: MaterialSiloLink
+  # </Onyx-MaterialSiloDeviceLink>
   - type: LatheAnnouncing
     channels: [Security]
 
@@ -467,6 +482,9 @@
     - type: MaterialStorage
       whitelist: *StandardMaterialWhitelist
     - type: OreSiloClient
+    # <Onyx-MaterialSiloDeviceLink>
+    - type: MaterialSiloLink
+    # </Onyx-MaterialSiloDeviceLink>
 
 - type: entity
   id: MedicalTechFab
@@ -526,6 +544,9 @@
   - type: StealTarget
     stealGroup: MedicalTechFabCircuitboard
   - type: OreSiloClient
+  # <Onyx-MaterialSiloDeviceLink>
+  - type: MaterialSiloLink
+  # </Onyx-MaterialSiloDeviceLink>
   - type: LatheAnnouncing
     channels: [Medical]
   - type: AmbientMusicMarkerMedical
@@ -573,6 +594,9 @@
   - type: MaterialStorage
     whitelist: *StandardMaterialWhitelist
   - type: OreSiloClient
+  # <Onyx-MaterialSiloDeviceLink>
+  - type: MaterialSiloLink
+  # </Onyx-MaterialSiloDeviceLink>
 
 - type: entity
   id: Biogenerator
@@ -745,3 +769,6 @@
   - type: MaterialStorage
     whitelist: *StandardMaterialWhitelist
   - type: OreSiloClient
+  # <Onyx-MaterialSiloDeviceLink>
+  - type: MaterialSiloLink
+  # </Onyx-MaterialSiloDeviceLink>

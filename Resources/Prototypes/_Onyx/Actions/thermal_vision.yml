@@ -1,0 +1,16 @@
+- type: entity
+  parent: BaseAction
+  id: ActionToggleThermalVision
+  name: Toggle thermal vision
+  description: Activates thermal vision temporarily.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    itemIconStyle: BigAction
+    priority: -20
+    useDelay: 4
+    icon:
+      sprite: _Onyx/Clothing/Eyes/Goggles/thermal.rsi
+      state: icon
+  - type: InstantAction
+    event: !type:ToggleThermalVisionEvent
