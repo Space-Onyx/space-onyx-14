@@ -132,7 +132,7 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
         foreach (var id in surgeryIds)
         {
             if (_prototypes.TryIndex<EntityPrototype>(id, out var proto) &&
-                proto.TryGetComponent(out SurgeryComponent? component, EntMan.ComponentFactory))
+                proto.TryComp(out SurgeryComponent? component, EntMan.ComponentFactory))
                 surgeries.Add((id, proto, component));
         }
 
@@ -150,7 +150,7 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
     {
         if (_window == null || _part == null ||
             !_prototypes.TryIndex<EntityPrototype>(surgeryId, out var surgeryProto) ||
-            !surgeryProto.TryGetComponent(out SurgeryComponent? surgery, EntMan.ComponentFactory))
+            !surgeryProto.TryComp(out SurgeryComponent? surgery, EntMan.ComponentFactory))
             return;
 
         _surgery = surgeryId;
@@ -341,7 +341,7 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
     private bool ChangesBodyParts(EntProtoId surgeryId)
     {
         if (!_prototypes.TryIndex<EntityPrototype>(surgeryId, out var surgeryProto) ||
-            !surgeryProto.TryGetComponent(out SurgeryComponent? surgery, EntMan.ComponentFactory))
+            !surgeryProto.TryComp(out SurgeryComponent? surgery, EntMan.ComponentFactory))
             return false;
 
         foreach (var stepId in surgery.Steps)

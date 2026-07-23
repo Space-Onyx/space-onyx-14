@@ -17,6 +17,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.IntegrationTests.Tests._Onyx.Wounds;
 
+#pragma warning disable CS0618 // These tests intentionally verify the legacy Damageable projection maintained by WoundHealingSystem.
 [TestFixture]
 [TestOf(typeof(WoundHealingSystem))]
 public sealed class WoundHealingTest : GameTest
@@ -215,3 +216,4 @@ public sealed class WoundHealingTest : GameTest
         DamageDict = { [new ProtoId<DamageTypePrototype>(type)] = FixedPoint2.New(amount) },
     };
 }
+#pragma warning restore CS0618

@@ -47,8 +47,11 @@ public sealed partial class CardHandMenuBoundUserInterface : BoundUserInterface
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);
-        if (!disposing) return;
+        if (!disposing || _menu == null)
+            return;
 
-        _menu?.Dispose();
+        _menu.OnClose -= Close;
+        _menu.Orphan();
+        _menu = null;
     }
 }

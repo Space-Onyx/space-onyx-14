@@ -3,15 +3,12 @@ using Content.Shared._Onyx.Targeting;
 using Content.Shared._Onyx.Wounds;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
-using Content.Shared.Damage.Components;
-using Content.Shared.Damage.Systems;
 
 namespace Content.Server._Onyx.Targeting;
 
 public sealed partial class PartStatusSystem : EntitySystem
 {
     [Dependency] private SharedBodySystem _body = default!;
-    [Dependency] private DamageableSystem _damage = default!;
     [Dependency] private WoundSystem _wounds = default!;
     private float _refresh;
 
@@ -69,12 +66,13 @@ public sealed partial class PartStatusSystem : EntitySystem
 
     private PartStatus Snapshot(EntityUid part)
     {
-        var damage = _damage.GetTotalDamage(part).Float();
+        var damage = 0f;
         var bleeding = false;
         var fracture = FractureGrade.None;
         var scar = false;
         foreach (var wound in _wounds.GetWounds(part))
         {
+            damage += wound.Comp.Severity.Float();
             bleeding |= CompOrNull<WoundBleedingComponent>(wound)?.CurrentRate > 0f;
             if (CompOrNull<WoundFractureComponent>(wound) is { } found && found.Grade > fracture)
                 fracture = found.Grade;

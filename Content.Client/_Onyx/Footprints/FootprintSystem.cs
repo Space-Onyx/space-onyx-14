@@ -8,6 +8,8 @@ namespace Content.Client._Onyx.Footprints;
 
 public sealed partial class FootprintSystem : EntitySystem
 {
+    [Dependency] private SpriteSystem _sprite = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -30,17 +32,17 @@ public sealed partial class FootprintSystem : EntitySystem
 
         for (var i = 0; i < footprint.Footprints.Count; i++)
         {
-            if (!sprite.LayerExists(i, false))
-                sprite.AddBlankLayer(i);
+            if (!_sprite.LayerExists((uid, sprite), i))
+                _sprite.AddBlankLayer((uid, sprite), i);
 
             var print = footprint.Footprints[i];
-            sprite.LayerSetOffset(i, print.Offset);
-            sprite.LayerSetRotation(i, print.Rotation);
-            sprite.LayerSetColor(i, print.Color);
-            sprite.LayerSetSprite(i, new SpriteSpecifier.Rsi(new("/Textures/_Onyx/Effects/footprint.rsi"), print.State));
+            _sprite.LayerSetOffset((uid, sprite), i, print.Offset);
+            _sprite.LayerSetRotation((uid, sprite), i, print.Rotation);
+            _sprite.LayerSetColor((uid, sprite), i, print.Color);
+            _sprite.LayerSetSprite((uid, sprite), i, new SpriteSpecifier.Rsi(new("/Textures/_Onyx/Effects/footprint.rsi"), print.State));
         }
 
         for (var i = sprite.AllLayers.Count() - 1; i >= footprint.Footprints.Count; i--)
-            sprite.RemoveLayer(i);
+            _sprite.RemoveLayer((uid, sprite), i);
     }
 }

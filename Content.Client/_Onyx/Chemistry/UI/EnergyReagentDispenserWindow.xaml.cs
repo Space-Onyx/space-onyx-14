@@ -90,7 +90,7 @@ public sealed partial class EnergyReagentDispenserWindow : FancyWindow
             ContainerInfo.Children.Add(new BoxContainer
             {
                 Orientation = LayoutOrientation.Horizontal,
-                Children = { new Label { Text = $"{localizedName}: " }, new Label { Text = Loc.GetString("reagent-dispenser-window-quantity-label-text", ("quantity", quantity)), StyleClasses = { StyleNano.StyleClassLabelSecondaryColor } } }
+                Children = { new Label { Text = $"{localizedName}: " }, new Label { Text = Loc.GetString("reagent-dispenser-window-quantity-label-text", ("quantity", quantity)), StyleClasses = { StyleClass.LabelWeak } } }
             });
         }
     }

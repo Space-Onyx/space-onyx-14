@@ -28,7 +28,7 @@ public sealed class LanguageMenuUIController : UIController, IOnStateChanged<Gam
     public void OnStateExited(GameplayState state)
     {
         CommandBinds.Unregister<LanguageMenuUIController>();
-        _window?.Dispose();
+        _window?.Orphan();
         _window = null;
     }
 

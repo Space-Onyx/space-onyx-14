@@ -40,8 +40,19 @@ public sealed partial class DiscordLinkWindow : DefaultWindow
         OpenDiscordButton.OnPressed += _ => _uriOpener.OpenUri(_channelLink);
         CopyInstructionButton.OnPressed += _ => _clipboard.SetText(InstructionText.Text ?? string.Empty);
         UnlinkDiscordButton.OnPressed += _ => _discordIdManager.RequestUnlink();
-        _discordIdManager.DiscordInfoUpdated += UpdateStatus;
         UpdateStatus();
+    }
+
+    protected override void EnteredTree()
+    {
+        base.EnteredTree();
+        _discordIdManager.DiscordInfoUpdated += UpdateStatus;
+    }
+
+    protected override void ExitedTree()
+    {
+        _discordIdManager.DiscordInfoUpdated -= UpdateStatus;
+        base.ExitedTree();
     }
 
     protected override void Opened()
@@ -88,10 +99,4 @@ public sealed partial class DiscordLinkWindow : DefaultWindow
         SuccessContainer.Visible = false;
     }
 
-    protected override void Dispose(bool disposing)
-    {
-        if (disposing)
-            _discordIdManager.DiscordInfoUpdated -= UpdateStatus;
-        base.Dispose(disposing);
-    }
 }

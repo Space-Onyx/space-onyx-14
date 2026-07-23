@@ -14,8 +14,10 @@ namespace Content.Client._Onyx.Cards;
 /// <summary>
 /// This handles...
 /// </summary>
-public sealed class CardSpriteSystem : EntitySystem
+public sealed partial class CardSpriteSystem : EntitySystem
 {
+    [Dependency] private SpriteSystem _sprite = default!;
+
     /// <inheritdoc/>
     public override void Initialize()
     {
@@ -44,7 +46,7 @@ public sealed class CardSpriteSystem : EntitySystem
         {
             for (var i = sprite.AllLayers.Count(); i < layerCount; i++)
             {
-                sprite.AddBlankLayer(i);
+                _sprite.AddBlankLayer((uid.Owner, sprite), i);
             }
         }
         //Removes extra layers
@@ -52,7 +54,7 @@ public sealed class CardSpriteSystem : EntitySystem
         {
             for (var i = sprite.AllLayers.Count() - 1; i >= layerCount; i--)
             {
-                sprite.RemoveLayer(i);
+                _sprite.RemoveLayer((uid.Owner, sprite), i);
             }
         }
 
@@ -82,9 +84,9 @@ public sealed class CardSpriteSystem : EntitySystem
         foreach (var obj in layers)
         {
             var (cardIndex, layer) = obj;
-            sprite.LayerSetVisible(j, true);
-            sprite.LayerSetTexture(j, layer.Texture);
-            sprite.LayerSetState(j, layer.RsiState.Name);
+            _sprite.LayerSetVisible((uid.Owner, sprite), j, true);
+            _sprite.LayerSetTexture((uid.Owner, sprite), j, layer.Texture);
+            _sprite.LayerSetRsiState((uid.Owner, sprite), j, layer.RsiState);
             layerFunc.Invoke((uid, sprite), cardIndex, j);
             j++;
         }

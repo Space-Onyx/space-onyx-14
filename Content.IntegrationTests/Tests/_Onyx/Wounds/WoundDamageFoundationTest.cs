@@ -23,6 +23,7 @@ using Robust.Shared.Configuration;
 
 namespace Content.IntegrationTests.Tests._Onyx.Wounds;
 
+#pragma warning disable CS0618 // These tests intentionally verify the legacy Damageable projection maintained by WoundDamageRoutingSystem.
 [TestFixture]
 [TestOf(typeof(WoundDamageRoutingSystem))]
 public sealed class WoundDamageFoundationTest : GameTest
@@ -643,3 +644,4 @@ public sealed class WoundDamageFoundationTest : GameTest
         };
     }
 }
+#pragma warning restore CS0618

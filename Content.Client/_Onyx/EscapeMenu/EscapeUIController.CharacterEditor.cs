@@ -105,7 +105,7 @@ public sealed partial class EscapeUIController
 
     private void CloseCharacterSetup()
     {
-        _characterWindow?.Dispose();
+        _characterWindow?.Orphan();
         _characterWindow = null;
         _characterSetup = null;
         _profileEditor = null;

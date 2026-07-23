@@ -34,7 +34,7 @@ public sealed partial class CardSystem : EntitySystem
         for (var i = 0; i < spriteComponent.AllLayers.Count(); i++)
         {
             //Log.Debug($"Layer {i}");
-            if (!spriteComponent.TryGetLayer(i, out var layer) || layer.State.Name == null)
+            if (!_spriteSystem.TryGetLayer((uid, spriteComponent), i, out var layer, false) || layer.State.Name == null)
                 continue;
 
             var rsi = layer.RSI ?? spriteComponent.BaseRSI;
@@ -72,7 +72,7 @@ public sealed partial class CardSystem : EntitySystem
         {
             for (var i = spriteComponent.AllLayers.Count(); i < layerCount; i++)
             {
-                spriteComponent.AddBlankLayer(i);
+                _spriteSystem.AddBlankLayer((uid, spriteComponent), i);
             }
         }
         //Removes extra layers
@@ -80,14 +80,14 @@ public sealed partial class CardSystem : EntitySystem
         {
             for (var i = spriteComponent.AllLayers.Count() - 1; i >= layerCount; i--)
             {
-                spriteComponent.RemoveLayer(i);
+                _spriteSystem.RemoveLayer((uid, spriteComponent), i);
             }
         }
 
         for (var i = 0; i < newSprite.Count(); i++)
         {
             var layer = newSprite[i];
-            spriteComponent.LayerSetSprite(i, layer);
+            _spriteSystem.LayerSetSprite((uid, spriteComponent), i, layer);
         }
     }
 }

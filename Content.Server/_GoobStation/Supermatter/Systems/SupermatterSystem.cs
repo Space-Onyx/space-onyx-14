@@ -130,12 +130,12 @@ public sealed partial class SupermatterSystem : SharedSupermatterSystem
         if (!_gameTiming.IsFirstTimePredicted)
             return;
 
-        foreach (var sm in EntityQuery<SupermatterComponent>())
+        var query = EntityQueryEnumerator<SupermatterComponent>();
+        while (query.MoveNext(out var uid, out var sm))
         {
             if (!sm.Activated)
                 continue;
 
-            var uid = sm.Owner;
             sm.UpdateAccumulator += frameTime;
 
             if (sm.UpdateAccumulator >= sm.UpdateTimer)
