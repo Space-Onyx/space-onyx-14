@@ -1,0 +1,95 @@
+- type: entity
+  name: anomaly pinpointer
+  description: A handheld tracking device that tracks anomalies. Keep upright to retain accuracy.
+  id: PinpointerAnomaly
+  parent: PinpointerBase
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Devices/pinpointer.rsi
+    layers:
+    - state: pinpointer-science
+      map: ["enum.PinpointerLayers.Base"]
+    - state: pinonnull
+      map: ["enum.PinpointerLayers.Screen"]
+      shader: unshaded
+      visible: false
+  - type: Icon
+    sprite: _Onyx/Objects/Devices/pinpointer.rsi
+    state: pinpointer-science
+  - type: Item
+    sprite: _Onyx/Objects/Devices/pinpointer.rsi
+  - type: Pinpointer
+    component: Anomaly
+    targetName: anomaly
+
+- type: entity
+  name: artifact pinpointer
+  description: A handheld tracking device that tracks artifacts. Keep upright to retain accuracy.
+  id: PinpointerArtifact
+  parent: PinpointerBase
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Devices/pinpointer.rsi
+    layers:
+    - state: pinpointer-science
+      map: ["enum.PinpointerLayers.Base"]
+    - state: pinonnull
+      map: ["enum.PinpointerLayers.Screen"]
+      shader: unshaded
+      visible: false
+  - type: Icon
+    sprite: _Onyx/Objects/Devices/pinpointer.rsi
+    state: pinpointer-science
+  - type: Item
+    sprite: _Onyx/Objects/Devices/pinpointer.rsi
+  - type: Pinpointer
+    component: Artifact
+    targetName: artifact
+
+- type: entity
+  name: borg pinpointer
+  description: A handheld tracking device that tracks cyborgs. Keep upright to retain accuracy.
+  id: PinpointerBorg
+  parent: PinpointerBase
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Devices/pinpointer.rsi
+    layers:
+    - state: pinpointer-way
+      map: ["enum.PinpointerLayers.Base"]
+    - state: pinonnull
+      map: ["enum.PinpointerLayers.Screen"]
+      shader: unshaded
+      visible: false
+  - type: Icon
+    sprite: _Onyx/Objects/Devices/pinpointer.rsi
+    state: pinpointer-way
+  - type: Item
+    sprite: _Onyx/Objects/Devices/pinpointer.rsi
+  - type: Pinpointer
+    component: BorgChassis
+    targetName: cyborg
+
+- type: entity
+  name: station pinpointer
+  description: A handheld tracking device that tracks the nearest station. Keep upright to retain accuracy.
+  id: PinpointerStationOnyx
+  parent: PinpointerBase
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Devices/pinpointer.rsi
+    layers:
+    - state: pinpointer-crewprox
+      map: ["enum.PinpointerLayers.Base"]
+    - state: pinonnull
+      map: ["enum.PinpointerLayers.Screen"]
+      shader: unshaded
+      visible: false
+  - type: Icon
+    sprite: _Onyx/Objects/Devices/pinpointer.rsi
+    state: pinpointer-crewprox
+  - type: Item
+    sprite: _Onyx/Objects/Devices/pinpointer.rsi
+  - type: Pinpointer
+    component: BecomesStation
+    targetName: station

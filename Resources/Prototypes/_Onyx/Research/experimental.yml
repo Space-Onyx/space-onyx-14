@@ -59,3 +59,77 @@
   position: 4,2
   technologyPrerequisites:
     - DeterrenceTechnologies
+
+- type: technology
+  id: AdvancedRobotics
+  name: research-technology-advanced-robotics
+  icon:
+    sprite: Mobs/Silicon/station_ai.rsi
+    state: ai
+  discipline: Experimental
+  tier: 2
+  cost: 7500
+  recipeUnlocks:
+  - AsimovCircuitBoard
+  - CorporateCircuitBoard
+  - NTDefaultCircuitBoard
+  - CommandmentCircuitBoard
+  - PaladinCircuitBoard
+  - LiveLetLiveCircuitBoard
+  - StationEfficiencyCircuitBoard
+  - RobocopCircuitBoard
+  - OverlordCircuitBoard
+  - GameMasterCircuitBoard
+  - ArtistCircuitBoard
+  - NutimovCircuitBoard
+  position: -1,2
+  technologyPrerequisites:
+  - AdvancedAnomalyResearch
+
+- type: technology
+  id: Pinpointers
+  name: research-technology-pinpointing
+  icon:
+    sprite: Objects/Devices/pinpointer.rsi
+    state: pinpointer
+  discipline: Experimental
+  tier: 2
+  cost: 7500
+  recipeUnlocks:
+  - PinpointerOnyx
+  - PinpointerArtifact
+  - PinpointerAnomaly
+  - PinpointerBorg
+  position: 1,6
+  technologyPrerequisites:
+  - MagnetsTech
+
+- type: technology
+  id: NightVisionTech
+  name: research-technology-night-vision
+  icon:
+    sprite: _Onyx/Clothing/Eyes/Goggles/nightvision.rsi
+    state: icon
+  discipline: Experimental
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+  - ClothingEyesNightVisionGoggles
+  position: -2,3
+  technologyPrerequisites:
+  - AdvancedRobotics
+
+- type: technology
+  id: ThermalVisionTech
+  name: research-technology-thermal-vision
+  icon:
+    sprite: _Onyx/Clothing/Eyes/Goggles/thermal.rsi
+    state: icon
+  discipline: Experimental
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+  - ClothingEyesThermalVisionGoggles
+  position: -2,4
+  technologyPrerequisites:
+  - AdvancedRobotics

@@ -1,0 +1,13 @@
+- type: latheRecipePack
+  id: OnyxSpecOpsGoggles
+  recipes:
+  - ClothingEyesNightVisionGoggles
+  - ClothingEyesThermalVisionGoggles
+
+- type: latheRecipePack
+  id: OnyxPinpointers
+  recipes:
+  - PinpointerOnyx
+  - PinpointerArtifact
+  - PinpointerAnomaly
+  - PinpointerBorg

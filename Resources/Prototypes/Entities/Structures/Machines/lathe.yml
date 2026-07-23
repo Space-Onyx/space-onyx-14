@@ -212,6 +212,10 @@
     - Instruments
     - Equipment
     - FauxTiles
+    # <Onyx-VisionGogglesAndPinpointers>
+    - OnyxSpecOpsGoggles
+    - OnyxPinpointers
+    # </Onyx-VisionGogglesAndPinpointers>
     # <Onyx-LatheUpgradeKits>
     - OnyxLatheUpgradeKits
     # </Onyx-LatheUpgradeKits>
@@ -273,6 +277,9 @@
     - CameraBoards
     - MechBoards
     - ShuttleBoards
+    # <Onyx-AdvancedRobotics>
+    - AdvancedRoboticsBoards
+    # </Onyx-AdvancedRobotics>
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityBoards
