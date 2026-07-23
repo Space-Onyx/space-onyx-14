@@ -1,0 +1,246 @@
+- type: entity
+  id: SurgeryIpcBase
+  abstract: true
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgerySpeciesCondition
+    species: [ Ipc ]
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcOpenPanel
+  name: Open access panel
+  components:
+  - type: Surgery
+    priority: -1
+    steps:
+    - SurgeryStepIpcUnfastenPanel
+    - SurgeryStepIpcDisconnectWiring
+    - SurgeryStepIpcOpenPanel
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcClosePanel
+  name: Close access panel
+  components:
+  - type: Surgery
+    priority: 1
+    steps:
+    - SurgeryStepIpcClosePanel
+    - SurgeryStepIpcReconnectWiring
+    - SurgeryStepIpcFastenPanel
+  - type: SurgeryCloseIncisionCondition
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcRemovePart
+  name: Detach body part
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcDetachPart ]
+  - type: SurgeryDetachablePartCondition
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcAttachHead
+  name: Install head
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcAttachHead, SurgeryStepIpcSecureHead, SurgeryStepIpcConnectHead ]
+  - type: SurgeryPartCondition
+    part: Chest
+  - type: SurgeryMissingPartCondition
+    part: Head
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcAttachLeftArm
+  name: Install left arm
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcAttachLeftArm, SurgeryStepIpcSecureLeftArm, SurgeryStepIpcConnectLeftArm ]
+  - type: SurgeryPartCondition
+    part: Chest
+  - type: SurgeryMissingPartCondition
+    part: Arm
+    symmetry: Left
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcAttachRightArm
+  name: Install right arm
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcAttachRightArm, SurgeryStepIpcSecureRightArm, SurgeryStepIpcConnectRightArm ]
+  - type: SurgeryPartCondition
+    part: Chest
+  - type: SurgeryMissingPartCondition
+    part: Arm
+    symmetry: Right
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcAttachLeftLeg
+  name: Install left leg
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcAttachLeftLeg, SurgeryStepIpcSecureLeftLeg, SurgeryStepIpcConnectLeftLeg ]
+  - type: SurgeryPartCondition
+    part: Groin
+  - type: SurgeryMissingPartCondition
+    part: Leg
+    symmetry: Left
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcAttachRightLeg
+  name: Install right leg
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcAttachRightLeg, SurgeryStepIpcSecureRightLeg, SurgeryStepIpcConnectRightLeg ]
+  - type: SurgeryPartCondition
+    part: Groin
+  - type: SurgeryMissingPartCondition
+    part: Leg
+    symmetry: Right
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcAttachLeftHand
+  name: Install left hand
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcAttachLeftHand, SurgeryStepIpcSecureLeftHand, SurgeryStepIpcConnectLeftHand ]
+  - type: SurgeryPartCondition
+    part: Arm
+    symmetry: Left
+  - type: SurgeryMissingPartCondition
+    part: Hand
+    symmetry: Left
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcAttachRightHand
+  name: Install right hand
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcAttachRightHand, SurgeryStepIpcSecureRightHand, SurgeryStepIpcConnectRightHand ]
+  - type: SurgeryPartCondition
+    part: Arm
+    symmetry: Right
+  - type: SurgeryMissingPartCondition
+    part: Hand
+    symmetry: Right
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcAttachLeftFoot
+  name: Install left foot
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcAttachLeftFoot, SurgeryStepIpcSecureLeftFoot, SurgeryStepIpcConnectLeftFoot ]
+  - type: SurgeryPartCondition
+    part: Leg
+    symmetry: Left
+  - type: SurgeryMissingPartCondition
+    part: Foot
+    symmetry: Left
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcAttachRightFoot
+  name: Install right foot
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcAttachRightFoot, SurgeryStepIpcSecureRightFoot, SurgeryStepIpcConnectRightFoot ]
+  - type: SurgeryPartCondition
+    part: Leg
+    symmetry: Right
+  - type: SurgeryMissingPartCondition
+    part: Foot
+    symmetry: Right
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcRemoveBrain
+  name: Remove positronic brain
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcRemoveBrain ]
+  - type: SurgeryOrganCondition
+    slot: Brain
+    part: Chest
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcInsertBrain
+  name: Install positronic brain
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcInsertBrain ]
+  - type: SurgeryOrganCondition
+    slot: Brain
+    inverse: true
+    part: Chest
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcRemoveEyes
+  name: Remove optical sensors
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcRemoveEyes ]
+  - type: SurgeryOrganCondition
+    slot: Eyes
+    part: Head
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcInsertEyes
+  name: Install optical sensors
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcInsertEyes ]
+  - type: SurgeryOrganCondition
+    slot: Eyes
+    inverse: true
+    part: Head
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcRemoveTongue
+  name: Remove vocal modulator
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcRemoveTongue ]
+  - type: SurgeryOrganCondition
+    slot: Tongue
+    part: Head
+
+- type: entity
+  parent: SurgeryIpcBase
+  id: SurgeryIpcInsertTongue
+  name: Install vocal modulator
+  components:
+  - type: Surgery
+    requirement: SurgeryIpcOpenPanel
+    steps: [ SurgeryStepIpcInsertTongue ]
+  - type: SurgeryOrganCondition
+    slot: Tongue
+    inverse: true
+    part: Head

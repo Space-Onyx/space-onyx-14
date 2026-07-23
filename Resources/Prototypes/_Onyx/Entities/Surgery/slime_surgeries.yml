@@ -1,0 +1,301 @@
+- type: entity
+  id: SurgerySlimeBase
+  abstract: true
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgerySpeciesCondition
+    species: [ SlimePerson ]
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeOpenIncision
+  name: Open membrane
+  components:
+  - type: Surgery
+    priority: -1
+    steps:
+    - SurgeryStepOpenIncisionScalpel
+    - SurgeryStepRetractSkin
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeCloseIncision
+  name: Seal membrane
+  components:
+  - type: Surgery
+    priority: 1
+    steps: [ SurgeryStepCloseIncision ]
+  - type: SurgeryCloseIncisionCondition
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeRemovePart
+  name: Separate body part
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepSlimeSeparatePart ]
+  - type: SurgeryDetachablePartCondition
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeAttachHead
+  name: Merge head
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepSlimeAttachHead ]
+  - type: SurgeryPartCondition
+    part: Chest
+  - type: SurgeryMissingPartCondition
+    part: Head
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeAttachLeftArm
+  name: Merge left arm
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepSlimeAttachLeftArm ]
+  - type: SurgeryPartCondition
+    part: Chest
+  - type: SurgeryMissingPartCondition
+    part: Arm
+    symmetry: Left
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeAttachRightArm
+  name: Merge right arm
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepSlimeAttachRightArm ]
+  - type: SurgeryPartCondition
+    part: Chest
+  - type: SurgeryMissingPartCondition
+    part: Arm
+    symmetry: Right
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeAttachLeftLeg
+  name: Merge left leg
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepSlimeAttachLeftLeg ]
+  - type: SurgeryPartCondition
+    part: Groin
+  - type: SurgeryMissingPartCondition
+    part: Leg
+    symmetry: Left
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeAttachRightLeg
+  name: Merge right leg
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepSlimeAttachRightLeg ]
+  - type: SurgeryPartCondition
+    part: Groin
+  - type: SurgeryMissingPartCondition
+    part: Leg
+    symmetry: Right
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeAttachLeftHand
+  name: Merge left hand
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepSlimeAttachLeftHand ]
+  - type: SurgeryPartCondition
+    part: Arm
+    symmetry: Left
+  - type: SurgeryMissingPartCondition
+    part: Hand
+    symmetry: Left
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeAttachRightHand
+  name: Merge right hand
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepSlimeAttachRightHand ]
+  - type: SurgeryPartCondition
+    part: Arm
+    symmetry: Right
+  - type: SurgeryMissingPartCondition
+    part: Hand
+    symmetry: Right
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeAttachLeftFoot
+  name: Merge left foot
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepSlimeAttachLeftFoot ]
+  - type: SurgeryPartCondition
+    part: Leg
+    symmetry: Left
+  - type: SurgeryMissingPartCondition
+    part: Foot
+    symmetry: Left
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeAttachRightFoot
+  name: Merge right foot
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepSlimeAttachRightFoot ]
+  - type: SurgeryPartCondition
+    part: Leg
+    symmetry: Right
+  - type: SurgeryMissingPartCondition
+    part: Foot
+    symmetry: Right
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeRemoveCore
+  name: Remove slime core
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepSlimeRemoveCore ]
+  - type: SurgeryOrganCondition
+    slot: Brain
+    part: Groin
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeInsertCore
+  name: Insert slime core
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepSlimeInsertCore ]
+  - type: SurgeryOrganCondition
+    slot: Brain
+    inverse: true
+    part: Groin
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeHealCore
+  name: Restore slime core
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepHealBrain ]
+  - type: SurgeryOrganCondition
+    slot: Brain
+    damaged: true
+    part: Groin
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeRemoveEyes
+  name: Remove eyes
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepRemoveEyes ]
+  - type: SurgeryOrganCondition
+    slot: Eyes
+    part: Head
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeInsertEyes
+  name: Insert eyes
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepInsertEyes ]
+  - type: SurgeryOrganCondition
+    slot: Eyes
+    inverse: true
+    part: Head
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeHealEyes
+  name: Restore eyes
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepHealEyes ]
+  - type: SurgeryOrganCondition
+    slot: Eyes
+    damaged: true
+    part: Head
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeRemoveLungs
+  name: Remove gas sacs
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepRemoveLungs ]
+  - type: SurgeryOrganCondition
+    slot: Lungs
+    part: Chest
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeInsertLungs
+  name: Insert gas sacs
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepInsertLungs ]
+  - type: SurgeryOrganCondition
+    slot: Lungs
+    inverse: true
+    part: Chest
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeHealLungs
+  name: Restore gas sacs
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepHealLungs ]
+  - type: SurgeryOrganCondition
+    slot: Lungs
+    damaged: true
+    part: Chest
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeStopBleeding
+  name: Stop leaking
+  components:
+  - type: Surgery
+    steps: [ SurgeryStepClampWoundBleeding ]
+  - type: SurgeryHasWoundCondition
+    state: Open
+    bleeding: true
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeTendWound
+  name: Seal wound
+  components:
+  - type: Surgery
+    steps: [ SurgeryStepTendWound ]
+  - type: SurgeryHasWoundCondition

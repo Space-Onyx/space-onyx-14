@@ -219,6 +219,11 @@
   id: OrganSlimePersonExternal
   abstract: true
   components:
+  # <Onyx-SlimeSurgery>
+  - type: Woundable
+    profile: SlimeWoundableProfile
+  - type: Scarless
+  # </Onyx-SlimeSurgery>
   - type: Sprite
     sprite: Mobs/Species/Slime/parts.rsi
   - type: VisualOrgan
@@ -273,6 +278,9 @@
   id: OrganSlimePersonCore
   name: sentient slime core
   components:
+  # <Onyx-SlimeSurgery>
+  - type: SlimeCore
+  # </Onyx-SlimeSurgery>
   - type: SolutionManager
     solutions:
     - SolutionStomach

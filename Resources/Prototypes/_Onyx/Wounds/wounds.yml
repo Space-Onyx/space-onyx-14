@@ -60,13 +60,6 @@
 
 - type: woundableProfile
   id: IpcWoundableProfile
-  fractureProfiles:
-    Head: OrganicFractureProfile
-    Torso: OrganicFractureProfile
-    Arm: OrganicFractureProfile
-    Hand: OrganicFractureProfile
-    Leg: OrganicFractureProfile
-    Foot: OrganicFractureProfile
   amputationThresholds:
     Head:
       Slash: 420
@@ -110,6 +103,48 @@
     Stomach: 0.7
     Kidneys: 0.6
     Appendix: 0.15
+  organDamageMultipliers:
+    Blunt: 0.35
+    Slash: 0.8
+    Piercing: 1.25
+    Heat: 0.5
+    Cold: 0.3
+    Shock: 0.8
+
+- type: woundableProfile
+  id: SlimeWoundableProfile
+  amputationThresholds:
+    Head:
+      Slash: 140
+      Piercing: 220
+      Blunt: 280
+    Groin:
+      Slash: 160
+      Piercing: 250
+      Blunt: 320
+    Arm:
+      Slash: 90
+      Piercing: 160
+      Blunt: 200
+    Hand:
+      Slash: 50
+      Piercing: 90
+      Blunt: 120
+    Leg:
+      Slash: 110
+      Piercing: 190
+      Blunt: 240
+    Foot:
+      Slash: 60
+      Piercing: 100
+      Blunt: 140
+  organDamageChances:
+    Head: 0.15
+    Torso: 0.08
+  organDamageWeights:
+    Brain: 1.0
+    Eyes: 0.35
+    Lungs: 1.2
   organDamageMultipliers:
     Blunt: 0.35
     Slash: 0.8

@@ -1,9 +1,13 @@
+ent-OnyxClothingUniformSwimBlack = black swimsuit
+    .desc = A stylish black swimsuit for the beach or pool.
 ent-OnyxClothingUniformSwimBlue = blue swimsuit
     .desc = A bright blue swimsuit perfect for summer days.
 ent-OnyxClothingUniformSwimDarkGreen = dark green swimsuit
     .desc = A dark green swimsuit with a classic look.
 ent-OnyxClothingUniformSwimGreen = green swimsuit
     .desc = A vibrant green swimsuit for the bold.
+ent-OnyxClothingUniformSwimPurple = purple swimsuit
+    .desc = A beautiful purple swimsuit with an elegant design.
 ent-OnyxClothingUniformSwimRed = red swimsuit
     .desc = A stunning red swimsuit that catches the eye.
 ent-OnyxClothingUniformSwimsuitWinth = winth swimsuit

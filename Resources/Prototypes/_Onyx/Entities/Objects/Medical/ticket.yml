@@ -1,0 +1,23 @@
+- type: entity
+  name: ticket
+  parent: Paper
+  id: PaperTicket
+  description: "Next!"
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Misc/ticket.rsi
+    layers:
+    - state: paper_ticket
+      color: "#e6e6fa"
+    - state: paper_ticket_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      color: "#e6e6fa"
+      visible: false
+    - state: paper_stamp-generic
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+  - type: PaperVisuals
+    backgroundModulate: "#d9d9d9"
+    backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
+    contentMargin: 32.0, 16.0, 32.0, 0.0
+    maxWritableArea: 400.0, 200.0

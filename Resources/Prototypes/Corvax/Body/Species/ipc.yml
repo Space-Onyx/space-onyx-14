@@ -83,6 +83,9 @@
       FootRight: OrganIpcFootRight
       Brain: OrganIpcBrain
       Eyes: OrganIPCEyes
+      # <Onyx-IpcVoiceModulator>
+      Tongue: OrganIpcTongue
+      # </Onyx-IpcVoiceModulator>
   - type: HumanoidProfile
     species: Ipc
 
@@ -282,6 +285,10 @@
   id: OrganIpc
   abstract: true
   suffix: Ipc
+  # <Onyx-IpcSurgery>
+  components:
+  - type: MechanicalOrgan
+  # </Onyx-IpcSurgery>
 
 - type: entity
   parent: OrganIpc
@@ -291,6 +298,7 @@
   # <Onyx-IPCDismemberment>
   - type: Woundable
     profile: IpcWoundableProfile
+  - type: Scarless
   # </Onyx-IPCDismemberment>
   - type: Sprite
     sprite: Corvax/Mobs/Species/Ipc/parts.rsi
@@ -350,6 +358,9 @@
   parent: [ OrganBaseBrain, OrganIpc ]
   id: OrganIpcBrain
   components:
+  # <Onyx-IpcSurgery>
+  - type: TorsoOrgan
+  # </Onyx-IpcSurgery>
   - type: Sprite
     sprite: Objects/Specific/Robotics/mmi.rsi
     layers:
@@ -360,6 +371,24 @@
   parent: [ OrganBase ]
   id: OrganIPCEyes
   components:
+  # <Onyx-IpcSurgery>
+  - type: Organ
+    category: Eyes
+  - type: MechanicalOrgan
+  # </Onyx-IpcSurgery>
   - type: Sprite
     sprite: Objects/Misc/proximity_sensor.rsi
     state: icon
+
+# <Onyx-IpcVoiceModulator>
+- type: entity
+  parent: [ OrganBaseTongue, OrganIpc ]
+  id: OrganIpcTongue
+  name: vocal modulator
+  description: A vocal modulator used to produce speech.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/proximity_sensor.rsi
+    layers:
+    - state: icon
+# </Onyx-IpcVoiceModulator>

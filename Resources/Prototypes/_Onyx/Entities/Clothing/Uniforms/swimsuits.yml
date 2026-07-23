@@ -1,5 +1,31 @@
 - type: entity
   parent: ClothingUniformSkirtBase
+  id: OnyxClothingUniformSwimBlack
+  name: black swimsuit
+  description: A stylish black swimsuit for the beach or pool.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/swim_black.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/swim_black.rsi
+  - type: StaticPrice
+    price: 35
+
+- type: entity
+  parent: ClothingUniformSkirtBase
+  id: OnyxClothingUniformSwimPurple
+  name: purple swimsuit
+  description: A beautiful purple swimsuit with elegant design.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/swim_purple.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/swim_purple.rsi
+  - type: StaticPrice
+    price: 35
+
+- type: entity
+  parent: ClothingUniformSkirtBase
   id: OnyxClothingUniformSwimBlue
   components:
   - type: Sprite

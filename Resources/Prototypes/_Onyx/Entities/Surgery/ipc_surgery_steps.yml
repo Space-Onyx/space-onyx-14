@@ -1,0 +1,301 @@
+- type: entity
+  id: SurgeryStepIpcBase
+  abstract: true
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+  - type: MechanicalSurgeryStep
+
+- type: entity
+  parent: SurgeryStepIpcBase
+  id: SurgeryStepIpcUnfastenPanel
+  name: Unfasten the access panel
+  components:
+  - type: SurgeryStep
+    toolQuality: Screwing
+    add: [ { type: IncisionOpen } ]
+  - type: Sprite
+    sprite: Objects/Tools/screwdriver.rsi
+    state: screwdriver
+
+- type: entity
+  parent: SurgeryStepIpcBase
+  id: SurgeryStepIpcDisconnectWiring
+  name: Disconnect the internal wiring
+  components:
+  - type: SurgeryStep
+    toolQuality: Cutting
+    add: [ { type: BleedersClamped } ]
+  - type: Sprite
+    sprite: Objects/Tools/wirecutters.rsi
+    state: cutters
+
+- type: entity
+  parent: SurgeryStepIpcBase
+  id: SurgeryStepIpcOpenPanel
+  name: Pry open the access panel
+  components:
+  - type: SurgeryStep
+    toolQuality: Prying
+    add: [ { type: SkinRetracted } ]
+  - type: Sprite
+    sprite: Objects/Tools/crowbar.rsi
+    state: icon
+
+- type: entity
+  parent: SurgeryStepIpcBase
+  id: SurgeryStepIpcClosePanel
+  name: Close the access panel
+  components:
+  - type: SurgeryStep
+    toolQuality: Prying
+    remove: [ { type: SkinRetracted } ]
+  - type: Sprite
+    sprite: Objects/Tools/crowbar.rsi
+    state: icon
+
+- type: entity
+  parent: SurgeryStepIpcBase
+  id: SurgeryStepIpcReconnectWiring
+  name: Reconnect the internal wiring
+  components:
+  - type: SurgeryStep
+    consumedStackType: CableHV
+    consumedAmount: 1
+    remove: [ { type: BleedersClamped } ]
+  - type: Sprite
+    sprite: Objects/Tools/cable-coils.rsi
+    state: coilhv-10
+
+- type: entity
+  parent: SurgeryStepIpcBase
+  id: SurgeryStepIpcFastenPanel
+  name: Fasten the access panel
+  components:
+  - type: SurgeryStep
+    toolQuality: Screwing
+    remove: [ { type: IncisionOpen } ]
+  - type: Sprite
+    sprite: Objects/Tools/screwdriver.rsi
+    state: screwdriver
+
+- type: entity
+  parent: SurgeryStepIpcBase
+  id: SurgeryStepIpcDetachPart
+  name: Unbolt the body part
+  components:
+  - type: SurgeryStep
+    toolQuality: Anchoring
+  - type: SurgeryDetachPartEffect
+  - type: Sprite
+    sprite: Objects/Tools/wrench.rsi
+    state: icon
+
+- type: entity
+  parent: SurgeryStepIpcBase
+  id: SurgeryStepIpcAttachPart
+  name: Fit the body part
+
+- type: entity
+  parent: SurgeryStepIpcBase
+  id: SurgeryStepIpcSecurePart
+  name: Secure the body part
+  components:
+  - type: SurgeryStep
+    toolQuality: Anchoring
+  - type: Sprite
+    sprite: Objects/Tools/wrench.rsi
+    state: icon
+
+- type: entity
+  parent: SurgeryStepIpcBase
+  id: SurgeryStepIpcConnectPart
+  name: Connect the body part wiring
+  components:
+  - type: SurgeryStep
+    consumedStackType: CableHV
+    consumedAmount: 1
+  - type: Sprite
+    sprite: Objects/Tools/cable-coils.rsi
+    state: coilhv-10
+
+- type: entity
+  parent: SurgeryStepIpcBase
+  id: SurgeryStepIpcRemoveOrgan
+  name: Disconnect the module
+  components:
+  - type: SurgeryStep
+    toolQuality: Pulsing
+  - type: Sprite
+    sprite: Objects/Tools/multitool.rsi
+    state: icon
+
+- type: entity
+  parent: SurgeryStepIpcBase
+  id: SurgeryStepIpcInsertOrgan
+  name: Install the module
+
+- type: entity
+  parent: SurgeryStepIpcAttachPart
+  id: SurgeryStepIpcAttachHead
+  components: [ { type: SurgeryAttachPartEffect, part: Head } ]
+
+- type: entity
+  parent: SurgeryStepIpcSecurePart
+  id: SurgeryStepIpcSecureHead
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Head } ]
+
+- type: entity
+  parent: SurgeryStepIpcConnectPart
+  id: SurgeryStepIpcConnectHead
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Head } ]
+
+- type: entity
+  parent: SurgeryStepIpcAttachPart
+  id: SurgeryStepIpcAttachLeftArm
+  components: [ { type: SurgeryAttachPartEffect, part: Arm, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepIpcSecurePart
+  id: SurgeryStepIpcSecureLeftArm
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Arm, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepIpcConnectPart
+  id: SurgeryStepIpcConnectLeftArm
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Arm, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepIpcAttachPart
+  id: SurgeryStepIpcAttachRightArm
+  components: [ { type: SurgeryAttachPartEffect, part: Arm, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepIpcSecurePart
+  id: SurgeryStepIpcSecureRightArm
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Arm, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepIpcConnectPart
+  id: SurgeryStepIpcConnectRightArm
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Arm, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepIpcAttachPart
+  id: SurgeryStepIpcAttachLeftLeg
+  components: [ { type: SurgeryAttachPartEffect, part: Leg, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepIpcSecurePart
+  id: SurgeryStepIpcSecureLeftLeg
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Leg, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepIpcConnectPart
+  id: SurgeryStepIpcConnectLeftLeg
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Leg, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepIpcAttachPart
+  id: SurgeryStepIpcAttachRightLeg
+  components: [ { type: SurgeryAttachPartEffect, part: Leg, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepIpcSecurePart
+  id: SurgeryStepIpcSecureRightLeg
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Leg, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepIpcConnectPart
+  id: SurgeryStepIpcConnectRightLeg
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Leg, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepIpcAttachPart
+  id: SurgeryStepIpcAttachLeftHand
+  components: [ { type: SurgeryAttachPartEffect, part: Hand, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepIpcSecurePart
+  id: SurgeryStepIpcSecureLeftHand
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Hand, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepIpcConnectPart
+  id: SurgeryStepIpcConnectLeftHand
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Hand, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepIpcAttachPart
+  id: SurgeryStepIpcAttachRightHand
+  components: [ { type: SurgeryAttachPartEffect, part: Hand, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepIpcSecurePart
+  id: SurgeryStepIpcSecureRightHand
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Hand, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepIpcConnectPart
+  id: SurgeryStepIpcConnectRightHand
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Hand, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepIpcAttachPart
+  id: SurgeryStepIpcAttachLeftFoot
+  components: [ { type: SurgeryAttachPartEffect, part: Foot, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepIpcSecurePart
+  id: SurgeryStepIpcSecureLeftFoot
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Foot, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepIpcConnectPart
+  id: SurgeryStepIpcConnectLeftFoot
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Foot, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepIpcAttachPart
+  id: SurgeryStepIpcAttachRightFoot
+  components: [ { type: SurgeryAttachPartEffect, part: Foot, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepIpcSecurePart
+  id: SurgeryStepIpcSecureRightFoot
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Foot, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepIpcConnectPart
+  id: SurgeryStepIpcConnectRightFoot
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Foot, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepIpcRemoveOrgan
+  id: SurgeryStepIpcRemoveBrain
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Brain } ]
+
+- type: entity
+  parent: SurgeryStepIpcInsertOrgan
+  id: SurgeryStepIpcInsertBrain
+  components: [ { type: SurgeryInsertOrganEffect, slot: Brain, requireMechanical: true } ]
+
+- type: entity
+  parent: SurgeryStepIpcRemoveOrgan
+  id: SurgeryStepIpcRemoveEyes
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Eyes } ]
+
+- type: entity
+  parent: SurgeryStepIpcInsertOrgan
+  id: SurgeryStepIpcInsertEyes
+  components: [ { type: SurgeryInsertOrganEffect, slot: Eyes, requireMechanical: true } ]
+
+- type: entity
+  parent: SurgeryStepIpcRemoveOrgan
+  id: SurgeryStepIpcRemoveTongue
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Tongue } ]
+
+- type: entity
+  parent: SurgeryStepIpcInsertOrgan
+  id: SurgeryStepIpcInsertTongue
+  components: [ { type: SurgeryInsertOrganEffect, slot: Tongue, requireMechanical: true } ]

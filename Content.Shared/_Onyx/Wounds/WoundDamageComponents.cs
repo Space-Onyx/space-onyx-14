@@ -82,6 +82,9 @@ public sealed partial class WoundableComponent : Component
     public Container WoundsContainer = default!;
 }
 
+[RegisterComponent]
+public sealed partial class ScarlessComponent : Component;
+
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class WoundComponent : Component
 {

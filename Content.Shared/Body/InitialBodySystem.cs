@@ -1,5 +1,8 @@
 using System.Numerics;
 using Content.Shared.Body.Part;
+// <Onyx-SlimeSurgery>
+using Content.Shared._Onyx.Medical.Surgery;
+// </Onyx-SlimeSurgery>
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Damage.Components;
 using Content.Shared.Humanoid;
@@ -115,11 +118,17 @@ public sealed partial class InitialBodySystem : EntitySystem
             if (!TryComp(spawn, out OrganComponent? organ))
                 continue;
 
-            var parent = category.Id is "Brain" or "Eyes" or "Tongue" or "Ears"
+            // <Onyx-SlimeSurgery-edited>
+            var parent = HasComp<SlimeCoreComponent>(spawn)
+                ? groin
+                : HasComp<TorsoOrganComponent>(spawn)
+                    ? chest
+                : category.Id is "Brain" or "Eyes" or "Tongue" or "Ears"
                 ? external.GetValueOrDefault(BodyPartType.Head)?.GetValueOrDefault(BodyPartSymmetry.None)
                 : category.Id is "Liver" or "Kidneys" or "Appendix"
                     ? groin
                     : chest;
+            // </Onyx-SlimeSurgery-edited>
             if (parent == null || !InsertOrgan(ent.Owner, parent.Value, category.Id, spawn, organ))
                 Del(spawn);
         }

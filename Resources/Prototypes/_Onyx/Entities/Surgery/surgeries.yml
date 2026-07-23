@@ -1,6 +1,10 @@
 - type: entity
   id: SurgeryBase
   categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgerySpeciesCondition
+    species: [ Ipc, SlimePerson ]
+    inverse: true
 
 - type: entity
   parent: SurgeryBase

@@ -1,0 +1,18 @@
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsAllService
+  suffix: All Service, Locked
+  components:
+  - type: AccessReader
+    access: [["Service"], ["Bar"], ["Kitchen"], ["Hydroponics"], ["Chapel"], ["Theatre"], ["Janitor"], ["HeadOfPersonnel"], ["Journalism"]]
+
+- type: entity
+  parent: AirlockServiceGlassLocked
+  id: AirlockAllServiceGlassLocked
+  suffix: All Service, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsAllService ]
+  - type: Wires
+    layoutId: AirlockService

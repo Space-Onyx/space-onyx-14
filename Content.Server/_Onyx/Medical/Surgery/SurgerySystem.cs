@@ -9,9 +9,11 @@ using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Server.Chat.Systems;
 using Content.Shared.Interaction;
+using Content.Shared.Humanoid;
 using Content.Shared.Prototypes;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
+using Content.Shared.Tools.Components;
 using Robust.Server.GameObjects;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
@@ -54,7 +56,8 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
 
     protected override void OnToolStepCompleted(Entity<SurgeryStepComponent> ent, ref SurgeryStepEvent args)
     {
-        _infection.OnStep(ref args);
+        if (!HasComp<MechanicalSurgeryStepComponent>(ent))
+            _infection.OnStep(ref args);
     }
 
     private void OnStepsStateRequest(Entity<SurgeryTargetComponent> ent, ref SurgeryStepsStateRequest args)
@@ -122,7 +125,8 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
             TryComp(ent, out BodyPartComponent? part) && (part.Body != null || part.Parent != null) ||
             (args.User == ent.Owner && !_configuration.GetCVar(CCVars.SurgerySelfEnabled)) ||
             args.Using is not { } tool ||
-            !HasComp<SurgeryToolComponent>(tool))
+            !HasComp<SurgeryToolComponent>(tool) &&
+            !(IsIpc(ent) && HasComp<ToolComponent>(tool)))
             return;
 
         var user = args.User;
@@ -134,6 +138,13 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
                 "scalpel"),
             Act = () => TryOpenSurgeryUi(ent, user),
         });
+    }
+
+    private bool IsIpc(EntityUid target)
+    {
+        var species = CompOrNull<HumanoidProfileComponent>(target)?.Species ??
+                      CompOrNull<BodyPartComponent>(target)?.Species;
+        return species == "Ipc";
     }
 
     private void TryOpenSurgeryUi(Entity<SurgeryTargetComponent> target, EntityUid user)

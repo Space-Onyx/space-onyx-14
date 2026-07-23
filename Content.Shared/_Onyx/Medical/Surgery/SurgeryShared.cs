@@ -3,6 +3,9 @@ using Content.Shared.Body;
 using Content.Shared.DoAfter;
 using Content.Shared.FixedPoint;
 using Content.Shared.Inventory;
+using Content.Shared.Humanoid.Prototypes;
+using Content.Shared.Stacks;
+using Content.Shared.Tools;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
@@ -89,10 +92,22 @@ public sealed partial class SurgeryStepComponent : Component
 {
     [DataField] public float Duration = 2f;
     [DataField] public ComponentRegistry? Tool;
+    [DataField] public ProtoId<ToolQualityPrototype>? ToolQuality;
+    [DataField] public ProtoId<StackPrototype>? ConsumedStackType;
+    [DataField] public EntProtoId? ConsumedPrototype;
+    [DataField] public int ConsumedAmount = 1;
     [DataField] public ComponentRegistry? Add;
     [DataField] public ComponentRegistry? Remove;
     [DataField] public ComponentRegistry? BodyRemove;
 }
+
+[RegisterComponent] public sealed partial class MechanicalSurgeryStepComponent : Component;
+
+[RegisterComponent] public sealed partial class MechanicalOrganComponent : Component;
+
+[RegisterComponent] public sealed partial class SlimeCoreComponent : Component;
+
+[RegisterComponent] public sealed partial class TorsoOrganComponent : Component;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedSurgerySystem), typeof(SurgeryToolExamineSystem))]
@@ -137,6 +152,16 @@ public sealed partial class SurgeryPartConditionComponent : Component
 }
 
 [RegisterComponent] public sealed partial class SurgeryCloseIncisionConditionComponent : Component;
+
+[RegisterComponent]
+public sealed partial class SurgerySpeciesConditionComponent : Component
+{
+    [DataField(required: true)]
+    public HashSet<ProtoId<SpeciesPrototype>> Species = new();
+
+    [DataField]
+    public bool Inverse;
+}
 
 [RegisterComponent]
 public sealed partial class SurgeryStepBleedEffectComponent : Component
@@ -197,6 +222,8 @@ public sealed partial class SurgeryRemoveOrganEffectComponent : Component
 public sealed partial class SurgeryInsertOrganEffectComponent : Component
 {
     [DataField(required: true)] public ProtoId<OrganCategoryPrototype> Slot;
+    [DataField] public bool RequireMechanical;
+    [DataField] public ComponentRegistry? Required;
 }
 
 [RegisterComponent]

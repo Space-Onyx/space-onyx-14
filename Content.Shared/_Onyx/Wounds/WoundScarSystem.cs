@@ -44,7 +44,8 @@ public sealed partial class WoundScarSystem : EntitySystem
     {
         if (!_net.IsServer || !Resolve(source, ref source.Comp, false) ||
             source.Comp.State == WoundState.Scarred || source.Comp.ScarCreatedForCurrentClosure ||
-            !TryComp(source.Comp.HoldingPart, out BodyPartComponent? part))
+            !TryComp(source.Comp.HoldingPart, out BodyPartComponent? part) ||
+            HasComp<ScarlessComponent>(source.Comp.HoldingPart))
             return null;
 
         var scar = _wounds.CreateOrMergeWound(source.Comp.HoldingPart, ScarWound, 1);

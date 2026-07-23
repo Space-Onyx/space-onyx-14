@@ -1,0 +1,25 @@
+- type: constructionGraph
+  id: portableChemicalMixerGraph
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: end
+      steps:
+      - tag: Bucket
+        icon: { sprite: Objects/Tools/bucket.rsi, state: icon }
+        name: construction-graph-tag-bucket
+      - tag: Multitool
+        icon: { sprite: Objects/Tools/multitool.rsi, state: icon }
+        name: construction-graph-tag-multitool
+      - tag: GlassBeaker
+        icon: { sprite: Objects/Specific/Chemistry/beaker.rsi, state: beaker }
+        name: construction-graph-tag-beaker
+      - material: Cable
+        amount: 15
+      - anyTags: [ PowerCell, PowerCellSmall ]
+        name: construction-graph-tag-power-cell
+        icon: { sprite: Objects/Power/power_cells.rsi, state: medium }
+        doAfter: 5
+  - node: end
+    entity: portableChemicalMixer

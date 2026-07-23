@@ -1,0 +1,28 @@
+- type: entity
+  id: TicketMachine
+  name: ticket machine
+  description: "NEXT!"
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Machines/ticket_machine.rsi
+    state: base
+  - type: TicketMachine
+  - type: UseDelay
+    delay: 5
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Transform
+    anchored: true
+  - type: WallMount
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger { damage: 200 }
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1: { min: 1, max: 1 }
+      - !type:DoActsBehavior { acts: [ "Destruction" ] }
+      - !type:PlaySoundBehavior
+        sound: { collection: MetalBreak }

@@ -17,6 +17,10 @@ using Content.Shared.Humanoid;
 using Content.Shared.Popups;
 using Content.Shared.Prototypes;
 using Content.Shared.Standing;
+using Content.Shared.Stacks;
+using Content.Shared.Tools;
+using Content.Shared.Tools.Components;
+using Content.Shared.Tools.Systems;
 using Content.Shared.UserInterface;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
@@ -45,7 +49,9 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private RotateToFaceSystem _rotateToFace = default!;
     [Dependency] private StandingStateSystem _standing = default!;
+    [Dependency] private SharedStackSystem _stacks = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private SharedToolSystem _tools = default!;
     [Dependency] private SharedContainerSystem _containers = default!;
     [Dependency] private SharedUserInterfaceSystem _ui = default!;
 
@@ -61,6 +67,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         SubscribeLocalEvent<BodyPartComponent, ComponentStartup>(OnBodyPartStartup);
         SubscribeLocalEvent<SurgeryTargetComponent, SurgeryDoAfterEvent>(OnTargetDoAfter);
         SubscribeLocalEvent<SurgeryCloseIncisionConditionComponent, SurgeryValidEvent>(OnCloseIncisionValid);
+        SubscribeLocalEvent<SurgerySpeciesConditionComponent, SurgeryValidEvent>(OnSpeciesConditionValid);
         SubscribeLocalEvent<SurgeryPartConditionComponent, SurgeryValidEvent>(OnPartConditionValid);
         SubscribeLocalEvent<SurgeryMissingPartConditionComponent, SurgeryValidEvent>(OnMissingPartConditionValid);
         SubscribeLocalEvent<SurgeryDetachablePartConditionComponent, SurgeryValidEvent>(OnDetachablePartConditionValid);
@@ -153,6 +160,15 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     {
         if (!HasComp<IncisionOpenComponent>(args.Part) ||
             !HasComp<SkinRetractedComponent>(args.Part))
+            args.Cancelled = true;
+    }
+
+    private void OnSpeciesConditionValid(Entity<SurgerySpeciesConditionComponent> ent, ref SurgeryValidEvent args)
+    {
+        var species = CompOrNull<HumanoidProfileComponent>(args.Body)?.Species ??
+                      CompOrNull<BodyPartComponent>(args.Part)?.Species;
+        var matches = species is { } id && ent.Comp.Species.Contains(id);
+        if (matches == ent.Comp.Inverse)
             args.Cancelled = true;
     }
 
@@ -348,7 +364,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
     private void OnInsertOrgan(Entity<SurgeryInsertOrganEffectComponent> ent, ref SurgeryStepEvent args)
     {
-        if (!_net.IsServer || FindHeldOrgan(args.Tools, ent.Comp.Slot) is not { } organ)
+        if (!_net.IsServer || FindHeldOrgan(args.Tools, ent.Comp.Slot, ent.Comp.RequireMechanical, ent.Comp.Required) is not { } organ)
             return;
 
         _body.TryInsertOrgan(args.Part, organ, ent.Comp.Slot.Id);
@@ -362,7 +378,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
     private void OnInsertOrganCanPerform(Entity<SurgeryInsertOrganEffectComponent> ent, ref SurgeryCanPerformStepEvent args)
     {
-        if (FindHeldOrgan(args.Tools, ent.Comp.Slot) is not { } organ)
+        if (FindHeldOrgan(args.Tools, ent.Comp.Slot, ent.Comp.RequireMechanical, ent.Comp.Required) is not { } organ)
         {
             args.Invalid = StepInvalidReason.MissingTool;
             args.Popup = Loc.GetString("surgery-ui-reason-organ");
@@ -389,12 +405,15 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         return found;
     }
 
-    private EntityUid? FindHeldOrgan(List<EntityUid> held, ProtoId<OrganCategoryPrototype> slot)
+    private EntityUid? FindHeldOrgan(List<EntityUid> held, ProtoId<OrganCategoryPrototype> slot, bool requireMechanical,
+        ComponentRegistry? required)
     {
         EntityUid? found = null;
         foreach (var item in held)
         {
-            if (HasComp<BodyPartComponent>(item) || !TryComp(item, out OrganComponent? organ) || organ.Body != null || organ.Category != slot)
+            if (HasComp<BodyPartComponent>(item) || !TryComp(item, out OrganComponent? organ) || organ.Body != null ||
+                organ.Category != slot || requireMechanical && !HasComp<MechanicalOrganComponent>(item) ||
+                required != null && required.Values.Any(component => !HasComp(item, component.Component.GetType())))
                 continue;
 
             if (found != null)
@@ -473,6 +492,9 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
     private void OnToolStep(Entity<SurgeryStepComponent> ent, ref SurgeryStepEvent args)
     {
+        if (ent.Comp.ToolQuality is { } quality && !AnyHaveQuality(args.Tools, quality, out _))
+            return;
+
         if (ent.Comp.Tool != null)
         {
             foreach (var reg in ent.Comp.Tool.Values)
@@ -484,6 +506,17 @@ public abstract partial class SharedSurgerySystem : EntitySystem
                     _audio.PlayPvs(toolComp.EndSound, tool);
             }
         }
+
+        var consumedAmount = Math.Max(1, ent.Comp.ConsumedAmount);
+        if (ent.Comp.ConsumedStackType is { } stackType &&
+            (!AnyHaveStack(args.Tools, stackType, consumedAmount, out var stack) ||
+             _net.IsServer && !_stacks.TryUse(stack, consumedAmount)))
+            return;
+
+        if (ent.Comp.ConsumedPrototype is { } prototype &&
+            (!TryFindConsumables(args.Tools, prototype, consumedAmount, out var consumables) ||
+             _net.IsServer && !ConsumeEntities(consumables)))
+            return;
 
         if (ent.Comp.Add != null)
         {
@@ -538,20 +571,56 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         if (args.Invalid != StepInvalidReason.None)
             return;
 
-        if (ent.Comp.Tool == null)
-            return;
-
         args.ValidTools ??= new HashSet<EntityUid>();
-        foreach (var reg in ent.Comp.Tool.Values)
+        if (ent.Comp.Tool != null)
         {
-            if (!AnyHaveComp(args.Tools, reg.Component, out var withComp))
+            foreach (var reg in ent.Comp.Tool.Values)
+            {
+                if (!AnyHaveComp(args.Tools, reg.Component, out var withComp))
+                {
+                    args.Invalid = StepInvalidReason.MissingTool;
+                    args.Popup = Loc.GetString("surgery-ui-reason-tool");
+                    return;
+                }
+
+                args.ValidTools.Add(withComp);
+            }
+        }
+
+        if (ent.Comp.ToolQuality is { } quality)
+        {
+            if (!AnyHaveQuality(args.Tools, quality, out var tool))
             {
                 args.Invalid = StepInvalidReason.MissingTool;
                 args.Popup = Loc.GetString("surgery-ui-reason-tool");
                 return;
             }
 
-            args.ValidTools.Add(withComp);
+            args.ValidTools.Add(tool);
+        }
+
+        if (ent.Comp.ConsumedStackType is { } stackType)
+        {
+            if (!AnyHaveStack(args.Tools, stackType, Math.Max(1, ent.Comp.ConsumedAmount), out var stack))
+            {
+                args.Invalid = StepInvalidReason.MissingTool;
+                args.Popup = Loc.GetString("surgery-ui-reason-material");
+                return;
+            }
+
+            args.ValidTools.Add(stack);
+        }
+
+        if (ent.Comp.ConsumedPrototype is { } prototype)
+        {
+            if (!TryFindConsumables(args.Tools, prototype, Math.Max(1, ent.Comp.ConsumedAmount), out var consumables))
+            {
+                args.Invalid = StepInvalidReason.MissingTool;
+                args.Popup = Loc.GetString("surgery-ui-reason-material");
+                return;
+            }
+
+            args.ValidTools.UnionWith(consumables);
         }
     }
 
@@ -597,6 +666,16 @@ public abstract partial class SharedSurgerySystem : EntitySystem
                 if (surgeryTool.SpeedModifiers.TryGetValue(task, out var modifier))
                     duration /= Math.Max(0.01f, modifier);
             }
+        }
+
+        if (validTools != null && TryComp(step, out SurgeryStepComponent? toolStep) && toolStep.ToolQuality != null)
+        {
+            foreach (var tool in validTools)
+                if (TryComp(tool, out ToolComponent? toolComp) && _tools.HasQuality(tool, toolStep.ToolQuality, toolComp))
+                {
+                    duration /= Math.Max(0.01f, toolComp.SpeedModifier);
+                    break;
+                }
         }
 
         if (user == target.Owner)
@@ -731,6 +810,68 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
         found = default;
         return false;
+    }
+
+    private bool AnyHaveQuality(IEnumerable<EntityUid> entities, ProtoId<ToolQualityPrototype> quality, out EntityUid found)
+    {
+        foreach (var entity in entities)
+        {
+            if (!_tools.HasQuality(entity, quality))
+                continue;
+
+            found = entity;
+            return true;
+        }
+
+        found = default;
+        return false;
+    }
+
+    private bool AnyHaveStack(IEnumerable<EntityUid> entities, ProtoId<StackPrototype> stackType, int amount,
+        out EntityUid found)
+    {
+        foreach (var entity in entities)
+        {
+            if (!TryComp(entity, out StackComponent? stack) || stack.StackTypeId != stackType || stack.Count < amount)
+                continue;
+
+            found = entity;
+            return true;
+        }
+
+        found = default;
+        return false;
+    }
+
+    private bool TryFindConsumables(IEnumerable<EntityUid> entities, EntProtoId prototype, int amount,
+        out List<EntityUid> found)
+    {
+        found = new List<EntityUid>(amount);
+        foreach (var entity in entities)
+        {
+            if (MetaData(entity).EntityPrototype is not { } entityPrototype || entityPrototype.ID != prototype.Id)
+                continue;
+
+            found.Add(entity);
+            if (found.Count == amount)
+                return true;
+        }
+
+        found.Clear();
+        return false;
+    }
+
+    private bool ConsumeEntities(List<EntityUid> entities)
+    {
+        foreach (var entity in entities)
+        {
+            if (TerminatingOrDeleted(entity))
+                return false;
+
+            QueueDel(entity);
+        }
+
+        return true;
     }
 
     public (Entity<SurgeryComponent> Surgery, int Step)? GetNextStep(EntityUid body, EntityUid part, Entity<SurgeryComponent?> surgery, List<EntityUid> requirements)

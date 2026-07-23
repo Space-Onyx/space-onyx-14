@@ -1,0 +1,11 @@
+ent-AirlockAllServiceGlassLocked = { ent-AirlockServiceGlassLocked }
+    .suffix = All Service, Locked
+    .desc = { ent-AirlockServiceGlassLocked.desc }
+ent-DoorElectronicsAllService = door electronics
+    .suffix = All Service, Locked
+ent-BaseReinforcedSecretDoor = { ent-WallReinforced }
+    .desc = { ent-WallReinforced.desc }
+    .suffix = Secret Door
+ent-ReinforcedSecretDoor = { ent-WallReinforced }
+    .desc = { ent-BaseReinforcedSecretDoor.desc }
+recipes-secret-door-reinforced-name = reinforced secret door
