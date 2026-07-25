@@ -17,4 +17,4 @@ ent-ClothingShoesBootsWinterSnowjackBso = зимние бронеботинки 
 ent-ClothingBackpackBlueshield = рюкзак Синего Щита
 ent-ClothingBackpackSatchelBlueshield = сумка Синего Щита
 ent-ClothingBackpackDuffelBlueshield = вещмешок Синего Щита
-ent-ClothingBackpackMessengerBlueshield = сумка-почтальонка Синего Щита
+ent-ClothingBackpackMessengerBlueshield = барсетка офицера "Синий Щит"

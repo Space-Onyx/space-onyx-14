@@ -1,0 +1,44 @@
+- type: cargoProduct
+  id: LivestockXenobioSlimes
+  icon:
+    entity: CargoIconXenobioSlimeGrey
+  product: CrateNPCXenobioSlime
+  cost: 1800
+  category: cargoproduct-category-name-science
+  group: market
+
+- type: cargoProduct
+  id: CrateNPCBlueSlime
+  icon:
+    entity: CargoIconXenobioSlimeBlue
+  product: CrateNPCBlueSlime
+  cost: 1500
+  category: cargoproduct-category-name-science
+  group: market
+
+- type: cargoProduct
+  id: CrateNPCPurpleSlime
+  icon:
+    entity: CargoIconXenobioSlimePurple
+  product: CrateNPCPurpleSlime
+  cost: 1500
+  category: cargoproduct-category-name-science
+  group: market
+
+- type: cargoProduct
+  id: CrateNPCOrangeSlime
+  icon:
+    entity: CargoIconXenobioSlimeOrange
+  product: CrateNPCOrangeSlime
+  cost: 1500
+  category: cargoproduct-category-name-science
+  group: market
+
+- type: cargoProduct
+  id: CrateNPCMetalSlime
+  icon:
+    entity: CargoIconXenobioSlimeMetal
+  product: CrateNPCMetalSlime
+  cost: 1500
+  category: cargoproduct-category-name-science
+  group: market

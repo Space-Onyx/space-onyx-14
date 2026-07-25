@@ -488,7 +488,7 @@
       - !type:PopupMessage
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Animal, Vox ]
+          type: [ Animal, Vox, XenobioSlime ] # <Onyx-XenobiologyMetabolism-edited>
           inverted: true
         type: Local
         visualType: MediumCaution
@@ -498,12 +498,12 @@
         probability: 0.1
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Animal, Vox, Plant ]
+          type: [ Animal, Vox, Plant, XenobioSlime ] # <Onyx-XenobiologyMetabolism-edited>
           inverted: true
       - !type:HealthChange
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Animal, Vox, Plant ]
+          type: [ Animal, Vox, Plant, XenobioSlime ] # <Onyx-XenobiologyMetabolism-edited>
           inverted: true
         damage:
           types:
@@ -527,6 +527,14 @@
           type: [ Vox ]
         reagent: Protein
         amount: 0.25
+      # <Onyx-XenobiologyMetabolism>
+      - !type:AdjustReagent
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [ XenobioSlime ]
+        reagent: Protein
+        amount: 0.5
+      # </Onyx-XenobiologyMetabolism>
 
 - type: reagent
   id: Allicin

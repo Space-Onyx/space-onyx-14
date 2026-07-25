@@ -17,6 +17,9 @@ using Content.Shared.Popups;
 using Content.Shared.Storage.Components;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Whitelist;
+// <Onyx-TileMovement>
+using Content.Shared._Onyx.TileMovement;
+// </Onyx-TileMovement>
 using Robust.Shared.Containers;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
@@ -132,6 +135,9 @@ public abstract partial class SharedMechSystem : EntitySystem
         var irelay = EnsureComp<InteractionRelayComponent>(pilot);
 
         _mover.SetRelay(pilot, mech);
+        // <Onyx-TileMovement>
+        _mover.SyncRelayTileMovement(pilot, mech);
+        // </Onyx-TileMovement>
         _interaction.SetRelay(pilot, mech, irelay);
         rider.Mech = mech;
         Dirty(pilot, rider);
@@ -146,6 +152,13 @@ public abstract partial class SharedMechSystem : EntitySystem
 
     private void RemoveUser(EntityUid mech, EntityUid pilot)
     {
+        // <Onyx-TileMovement>
+        if (HasComp<TileMovementRelayComponent>(mech))
+        {
+            RemComp<TileMovementComponent>(mech);
+            RemComp<TileMovementRelayComponent>(mech);
+        }
+        // </Onyx-TileMovement>
         if (!RemComp<MechPilotComponent>(pilot))
             return;
         RemComp<RelayInputMoverComponent>(pilot);

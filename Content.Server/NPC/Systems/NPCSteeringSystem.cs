@@ -31,6 +31,10 @@ using Robust.Shared.Utility;
 using Content.Shared.Prying.Systems;
 using Microsoft.Extensions.ObjectPool;
 using Prometheus;
+// <Onyx-TileMovement>
+using Content.Shared._Onyx.TileMovement;
+using Content.Shared.Gravity;
+// </Onyx-TileMovement>
 
 namespace Content.Server.NPC.Systems;
 
@@ -67,6 +71,10 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private SharedCombatModeSystem _combat = default!;
+    // <Onyx-TileMovement>
+    [Dependency] private SharedGravitySystem _gravity = default!;
+    [Dependency] private EntityQuery<TileMovementComponent> _tileMovementQuery = default!;
+    // </Onyx-TileMovement>
 
     [Dependency] private EntityQuery<FixturesComponent> _fixturesQuery = default!;
     [Dependency] private EntityQuery<MovementSpeedModifierComponent> _modifierQuery = default!;
@@ -405,7 +413,18 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
 
         steering.LastSteerDirection = resultDirection;
         DebugTools.Assert(!float.IsNaN(resultDirection.X));
-        SetDirection(uid, mover, steering, resultDirection, false);
+        // <Onyx-TileMovement-edited>
+        if (!_gravity.IsWeightless(uid) &&
+            body.BodyStatus == BodyStatus.OnGround &&
+            _tileMovementQuery.TryGetComponent(uid, out var tileMovement))
+        {
+            SetTileMovementDirection(xform, tileMovement, resultDirection);
+        }
+        else
+        {
+            SetDirection(uid, mover, steering, resultDirection, false);
+        }
+        // </Onyx-TileMovement-edited>
     }
 
     private EntityCoordinates GetCoordinates(PathPoly poly)
@@ -486,4 +505,22 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
 
         return modifier.CurrentSprintSpeed;
     }
+
+    // <Onyx-TileMovement>
+    private void SetTileMovementDirection(
+        TransformComponent transform,
+        TileMovementComponent tileMovement,
+        Vector2 direction)
+    {
+        if (tileMovement.SlideActive || direction == Vector2.Zero)
+            return;
+
+        var targetLocation = transform.LocalPosition + direction.Normalized() * 0.97f;
+        tileMovement.SlideActive = true;
+        tileMovement.Origin = new EntityCoordinates(transform.ParentUid, transform.LocalPosition);
+        tileMovement.Destination = SharedMoverController.SnapCoordinatesToTile(targetLocation);
+        tileMovement.MovementKeyInitialDownTime = _physics.EffectiveCurTime ?? _timing.CurTime;
+        tileMovement.CurrentSlideMoveButtons = MoveButtons.None;
+    }
+    // </Onyx-TileMovement>
 }

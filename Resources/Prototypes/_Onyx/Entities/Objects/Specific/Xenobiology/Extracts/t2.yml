@@ -1,0 +1,271 @@
+- type: entity
+  id: YellowSlimeExtract
+  parent: BaseSlimeExtract
+  name: yellow slime extract
+  components:
+  - type: Tag
+    tags: [ XenobiologyYellowExtract ]
+  - type: Sprite
+    layers:
+    - state: core
+      color: "#ffff1a"
+  - type: Reactive
+    reactions:
+    - reagents: [ Water ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction-fail" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+    - reagents: [ Plasma ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+        - !type:SpawnEntity
+          entity: XenobioVolatileOrgan
+          predicted: false
+    - reagents: [ Blood ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+        - !type:Emp
+
+- type: entity
+  id: DarkPurpleSlimeExtract
+  parent: BaseSlimeExtract
+  name: dark purple slime extract
+  components:
+  - type: Tag
+    tags: [ XenobiologyDarkPurpleExtract ]
+  - type: Sprite
+    layers:
+    - state: core
+      color: "#8e0ff0"
+  - type: Reactive
+    reactions:
+    - reagents: [ Water ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+        - !type:SpawnEntity
+          entity: SheetPlastic10
+          number: 3
+          predicted: false
+    - reagents: [ Plasma ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+        - !type:SpawnEntity
+          entity: SheetPlasma1
+          number: 3
+          predicted: false
+    - reagents: [ Blood ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+        - !type:CreateGas
+          gas: Plasma
+          moles: 55
+
+- type: entity
+  id: DarkBlueSlimeExtract
+  parent: BaseSlimeExtract
+  name: dark blue slime extract
+  components:
+  - type: Tag
+    tags: [ XenobiologyDarkBlueExtract ]
+  - type: Sprite
+    layers:
+    - state: core
+      color: "#1e8cfa"
+  - type: Reactive
+    reactions:
+    - reagents: [ Water ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction-reagent" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+        - !type:AdjustExtractReagent
+          reagent: XenobioJellyDarkBlue
+          amount: 1
+    - reagents: [ Plasma ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction-evil" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+        - !type:CreateGas
+          gas: Frezon
+          moles: 35
+    - reagents: [ Blood ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction-reagent" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+        - !type:AdjustExtractReagent
+          reagent: Leporazine
+          amount: 30
+
+- type: entity
+  id: SilverSlimeExtract
+  parent: BaseSlimeExtract
+  name: silver slime extract
+  components:
+  - type: Tag
+    tags: [ XenobiologySilverExtract ]
+  - type: Sprite
+    layers:
+    - state: core
+      color: "#c4c4c4"
+      shader: XenoMetallic
+  - type: Reactive
+    reactions:
+    - reagents: [ Water ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction-evil" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+        - !type:Jitter
+          time: 5
+          frequency: 20
+        - !type:DelayedExtractAreaReaction
+          delay: 5
+          duration: 10
+          prototypeId: AluminiumMetalFoam
+          sound: { path: /Audio/Effects/extinguish.ogg }
+    - reagents: [ Plasma ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+        - !type:SpawnEntity
+          entity: IngotSilver1
+          number: 2
+          predicted: false
+    - reagents: [ Blood ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+        - !type:SpawnEntity
+          entity: XenobioGoopBall
+          number: 3
+          predicted: false
+
+- type: entity
+  id: CeruleanSlimeExtract
+  parent: BaseSlimeExtract
+  name: cerulean slime extract
+  components:
+  - type: Tag
+    tags: [ XenobiologyCeruleanExtract ]
+  - type: Sprite
+    layers:
+    - state: core
+      color: "#2A52BE"
+  - type: Reactive
+    reactions:
+    - reagents: [ Water ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+        - !type:CreateGas
+          gas: Pluoxium
+          moles: 55
+    - reagents: [ Plasma ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+        - !type:ApplyEffectsNearby
+          range: 5
+          effects:
+          - !type:Extinguish
+            fireStacksAdjustment: -10
+    - reagents: [ Blood ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction-reagent" ]
+        - !type:PlaySound
+          sound: { path: /Audio/Effects/Chemistry/bubbles.ogg }
+        - !type:AdjustExtractReagent
+          reagent: XenobioJellyCerulean
+          amount: 1

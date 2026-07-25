@@ -10,6 +10,9 @@ using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Vehicle.Components;
 using Content.Shared.Whitelist;
+// <Onyx-TileMovement>
+using Content.Shared._Onyx.TileMovement;
+// </Onyx-TileMovement>
 using JetBrains.Annotations;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
@@ -138,6 +141,9 @@ public sealed partial class VehicleSystem : EntitySystem
         }
 
         _mover.SetRelay(operatorUid, entity);
+        // <Onyx-TileMovement>
+        _mover.SyncRelayTileMovement(operatorUid, entity);
+        // </Onyx-TileMovement>
 
         var enterEvent = new OnVehicleEnteredEvent(entity, operatorUid);
         RaiseLocalEvent(operatorUid, ref enterEvent);
@@ -174,6 +180,13 @@ public sealed partial class VehicleSystem : EntitySystem
         }
 
         entity.Comp.Operator = null;
+        // <Onyx-TileMovement>
+        if (HasComp<TileMovementRelayComponent>(entity))
+        {
+            RemComp<TileMovementComponent>(entity);
+            RemComp<TileMovementRelayComponent>(entity);
+        }
+        // </Onyx-TileMovement>
         ClearOperatorRelays(currentOperator, entity);
 
         RefreshCanRun((entity, entity.Comp));

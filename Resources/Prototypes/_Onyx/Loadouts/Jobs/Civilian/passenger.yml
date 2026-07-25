@@ -1,0 +1,19 @@
+- type: loadout
+  id: CommonMessenger
+  equipment:
+    back: ClothingBackpackMessenger
+
+- type: loadout
+  id: BotanistMessenger
+  equipment:
+    back: ClothingBackpackMessengerHydroponics
+
+- type: loadout
+  id: ClownMessenger
+  equipment:
+    back: ClothingBackpackMessengerClown
+
+- type: loadout
+  id: MimeMessenger
+  equipment:
+    back: ClothingBackpackMessengerMime

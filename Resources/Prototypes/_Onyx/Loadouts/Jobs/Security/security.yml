@@ -1,0 +1,4 @@
+- type: loadout
+  id: SecurityMessenger
+  equipment:
+    back: ClothingBackpackMessengerSecurity

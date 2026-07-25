@@ -13,6 +13,7 @@
   loadouts:
   - MedicalDoctorBackpack
   - MedicalDoctorSatchel
+  - MedicalDoctorMessenger # <Onyx-Messenger>
   - MedicalDoctorDuffel
 
 - type: loadoutGroup
@@ -168,6 +169,7 @@
   loadouts:
   - ChemistBackpack
   - ChemistSatchel
+  - ChemistMessenger # <Onyx-Messenger>
   - ChemistDuffel
 
 #- type: loadoutGroup

@@ -1,0 +1,41 @@
+- type: entity
+  id: SolutionSlimeExtract
+  parent: SolutionNormal
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Solution
+    id: extract
+    solution:
+      maxVol: 100
+
+- type: entity
+  id: BaseSlimeExtract
+  parent: BaseItem
+  abstract: true
+  name: slime extract
+  description: A reactive core extracted from a xenobiology slime.
+  components:
+  - type: Item
+    size: Small
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Extracts/extract.rsi
+    layers:
+    - state: core
+      map: [ extract ]
+  - type: Appearance
+  - type: StatusEffects
+    allowed: [ Jitter ]
+  - type: SolutionManager
+    solutions:
+    - SolutionSlimeExtract
+  - type: InjectableSolution
+    solution: extract
+  - type: RefillableSolution
+    solution: extract
+  - type: DrawableSolution
+    solution: extract
+  - type: ExaminableSolution
+    solution: extract
+  - type: SlimeExtract
+  - type: GuideHelp
+    guides: [ XenobiologyGuide ]

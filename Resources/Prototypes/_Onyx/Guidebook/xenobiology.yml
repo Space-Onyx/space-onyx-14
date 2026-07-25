@@ -1,0 +1,4 @@
+- type: guideEntry
+  id: XenobiologyGuide
+  name: guide-entry-xenobiology
+  text: "/ServerInfo/_Onyx/Guidebook/Science/Xenobiology.xml"

@@ -924,3 +924,21 @@ CableApcStackLingering10: CableApcStack10
 
 # 2026-07-22 Onyx
 ChemDispenser: EnergyChemDispenser
+
+# 2026-07-24 Onyx
+AirlockNanotrasenRepresentativeCommandLocked: null
+AirlockNanotrasenRepresentativeCommandGlassLocked: null
+DormNotifierMarker: null
+MailTeleporter: CargoMailTeleporter
+MaterialSilo: MachineMaterialSilo
+PlushieBingleSmall: PlushieSpaceSheep
+DresserNanorepFilled: null
+HolopadCommandNTR: null
+AugmentNeuroInterface: null
+MinesweeperArcadeFilled: null
+MinesweeperCircuitboard: null
+UniqueLockerNanorepFilled: null
+DefaultStationBeaconCentcommOffice: null
+SpawnPointNanotrasenRepresentative: null
+ComputerNTRTasks: null
+RandomVendingSnacksHighpop: RandomVendingSnacks

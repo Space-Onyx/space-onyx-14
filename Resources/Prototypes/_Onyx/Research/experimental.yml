@@ -133,3 +133,36 @@
   position: -2,4
   technologyPrerequisites:
   - AdvancedRobotics
+
+- type: technology
+  id: Xenobiology
+  name: research-technology-xenobiology
+  icon:
+    sprite: _Onyx/Xenobiology/Equipment/Xenovac/slime_nozzle.rsi
+    state: icon
+  discipline: Experimental
+  tier: 1
+  cost: 5000
+  recipeUnlocks:
+  - SlimeScannerXenobio
+  - XenobiologyBountyComputerCircuitboard
+  - SlimeGrinderMachineCircuitboard
+  - ClothingBackpackXenoBioTank
+  position: 0,5
+  technologyPrerequisites:
+  - BasicXenoArcheology
+
+- type: technology
+  id: XenobagHolding
+  name: research-technology-xenobag-holding
+  icon:
+    sprite: _Onyx/Xenobiology/Clothing/Belt/xenobag_holding.rsi
+    state: icon
+  discipline: Experimental
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+  - ClothingBeltChemBagXenobiologyHolding
+  position: 0,6
+  technologyPrerequisites:
+  - Xenobiology

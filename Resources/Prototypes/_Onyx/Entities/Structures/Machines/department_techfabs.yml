@@ -25,6 +25,7 @@
     unlitIdleState: unlit
     unlitRunningState: unlit-building
     staticPacks:
+    - SharedBoardsStatic
     - EngineeringBoardsStatic
     - CircuitFloorsStatic
     - ToolsStatic
@@ -42,6 +43,7 @@
     - PowerCells
     - Equipment
     - EngineeringBoards
+    - SharedBoards
     - CameraBoards
     - ShuttleBoards
   - type: EmagLatheRecipes
@@ -86,6 +88,7 @@
     unlitRunningState: unlit-building
     staticPacks:
     - ToolsStatic
+    - SharedBoardsStatic
     - CargoBoardsStatic
     - CablesStatic
     - PartsStatic
@@ -97,6 +100,8 @@
     - PowerCells
     - Equipment
     - CargoBoards
+    - SharedBoards
+    - MechBoardsCargo
     - ShuttleBoards
     - SalvageSecurityBoards
     - SalvageSecurityWeapons
@@ -137,6 +142,9 @@
     unlitIdleState: unlit
     unlitRunningState: unlit-building
     staticPacks:
+    - SharedBoardsStatic
+    - EngineeringBoardsStatic
+    - MedicalBoardsStatic
     - ToolsStatic
     - PartsStatic
     - CablesStatic
@@ -153,8 +161,12 @@
     - ScienceWeapons
     - PowerCells
     - Equipment
+    - EngineeringBoards
+    - SharedBoards
     - ScienceBoards
-    - MechBoards
+    - MechBoardsScience
+    - AdvancedRoboticsBoards
+    - ScienceBoardsXenobiology
     - OnyxScienceMaterials
   - type: MaterialStorage
     whitelist: *DepartmentTechFabMaterialWhitelist
@@ -194,6 +206,7 @@
     - MaterialsStatic
     - LightsStatic
     - ServiceStatic
+    - TapeRecorderStatic
     - PowerCellsStatic
     - PartsStatic
     - ChemistryStatic
@@ -201,7 +214,9 @@
     - Janitor
     - Instruments
     - FauxTiles
+    - MechBoardsCivilian
     - ServiceBoards
+    - SharedBoards
     - CameraBoards
     - OnyxTranslators
   - type: MaterialStorage

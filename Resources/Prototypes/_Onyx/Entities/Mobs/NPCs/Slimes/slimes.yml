@@ -1,0 +1,139 @@
+- type: entity
+  id: BaseMobSlimeXenobio
+  parent: BaseMobAdultSlimes
+  abstract: true
+  name: xenobiology slime
+  description: ""
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      body_organs: !type:AllSelector
+        children:
+        - id: XenobioSentientSlimesCore
+        - id: OrganSlimePersonLungs
+  - type: Appearance
+  - type: Hunger
+    startingHunger: 40
+    thresholds:
+      Overfed: 150
+      Okay: 75
+      Peckish: 25
+      Starving: 10
+      Dead: 0
+    hungerThresholdDecayModifiers:
+      Okay: 1.5
+      Peckish: 0.4
+      Starving: 0.2
+      Dead: 0.1
+    baseDecayRate: 0.5
+    starvingSlowdownModifier: 0
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      100: Dead
+  - type: Reactive
+    groups:
+      Flammable: [ Touch ]
+      Extinguish: [ Touch ]
+    reactions:
+    - reagents: [ Water, SpaceCleaner ]
+      methods: [ Touch ]
+      effects:
+      - !type:WashCreamPie
+    - reagents: [ Water ]
+      methods: [ Touch ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Caustic: 5
+      - !type:PopupMessage
+        type: Local
+        messages: [ "slime-hurt-by-water-popup" ]
+        probability: 0.25
+  - type: Tag
+    tags:
+    - FootstepSound
+    - DoorBumpOpener
+    - XenoSlime
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+  - type: HTN
+    rootTask:
+      task: XenoSlimeCompound
+  - type: ActionGrant
+    actions:
+    - ActionXenobioSlimeLatch
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyGrey
+    breedName: xenobio-breed-grey
+  - type: RandomizeXenobioSlime
+  - type: GuideHelp
+    guides: [ XenobiologyGuide ]
+
+- type: entity
+  id: MobSlimeXenobioBaby
+  parent: BaseMobSlimeXenobio
+  abstract: true
+  name: xenobiology slime
+  suffix: Baby
+  components:
+  - type: Sprite
+    noRot: true
+    drawdepth: OverMobs
+    sprite: _Onyx/Xenobiology/Mobs/slimesBaby.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: base
+  - type: DamageStateVisuals
+    states:
+      Dead:
+        Base: dead
+  - type: MobGrowth
+    initialStage: baby
+    currentStage: baby
+    hungerRequired: 75
+    hungerCost: 75
+    stages:
+      baby:
+        nextStage: adult
+        sprite: _Onyx/Xenobiology/Mobs/slimesBaby.rsi
+        state: base
+        layer: 0
+        namePrefix: mob-growth-stage-small
+      adult:
+        sprite: _Onyx/Xenobiology/Mobs/slimesAdult.rsi
+        state: base
+        layer: 0
+
+- type: entity
+  id: MobSlimeXenobioBabyGrey
+  parent: MobSlimeXenobioBaby
+  name: grey xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyGrey
+    breedName: xenobio-breed-grey
+    color: "#828282"
+    producedExtract: GreySlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyOrange
+    - MobSlimeXenobioBabyPurple
+    - MobSlimeXenobioBabyBlue
+    - MobSlimeXenobioBabyMetal
+
+- type: entity
+  id: XenobioSlimeBabySpawner
+  parent: MarkerBase
+  name: xenobiology slime spawner
+  suffix: Grey
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _Onyx/Xenobiology/Mobs/slimesBaby.rsi
+      state: base
+  - type: RandomSpawner
+    prototypes:
+    - MobSlimeXenobioBabyGrey

@@ -143,9 +143,7 @@
     - RollerBedsStatic
     - LightsStatic
     - ServiceStatic
-    # <Onyx-TapeRecorder>
-    - TapeRecorderStatic
-    # </Onyx-TapeRecorder>
+    - TapeRecorderStatic # <Onyx-TapeRecorder>
     - PowerCellsStatic
     - ElectronicsStatic
   - type: EmagLatheRecipes
@@ -222,9 +220,11 @@
     - OnyxSpecOpsGoggles
     - OnyxPinpointers
     # </Onyx-VisionGogglesAndPinpointers>
-    # <Onyx-LatheUpgradeKits>
-    - OnyxLatheUpgradeKits
-    # </Onyx-LatheUpgradeKits>
+    - OnyxLatheUpgradeKits # <Onyx-LatheUpgradeKits>
+    # <Onyx-XenobiologyProduction>
+    - XenobioPack
+    - XenobagHoldingPack
+    # </Onyx-XenobiologyProduction>
     # </Onyx-GoobProtolathePacks-edited>
   - type: EmagLatheRecipes
     # <Onyx-GoobProtolathePacks-edited>
@@ -268,24 +268,20 @@
     producingSound: /Audio/Machines/circuitprinter.ogg
     idleState: icon
     runningState: building
+    # <Onyx-GoobDepartmentBoards-edited>
     staticPacks:
-    - ScienceBoardsStatic
+    - SharedBoardsStatic
     - ServiceBoardsStatic
     - CargoBoardsStatic
-    - MedicalBoardsStatic
-    - EngineeringBoardsStatic
     dynamicPacks:
     - EngineeringBoards
     - CargoBoards
     - MedicalBoards
     - ServiceBoards
-    - ScienceBoards
+    - SharedBoards
     - CameraBoards
-    - MechBoards
     - ShuttleBoards
-    # <Onyx-AdvancedRobotics>
-    - AdvancedRoboticsBoards
-    # </Onyx-AdvancedRobotics>
+    # </Onyx-GoobDepartmentBoards-edited>
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityBoards
@@ -534,9 +530,7 @@
     # <Onyx-Cybernetics>
     - OnyxMedicalCybernetics
     # </Onyx-Cybernetics>
-    # <Onyx-LanguageTranslators>
-    - OnyxTranslatorImplanters
-    # </Onyx-LanguageTranslators>
+    - OnyxTranslatorImplanters # <Onyx-LanguageTranslators>
     - PowerCells
     # </Onyx-DepartmentTechfabRecipes-edited>
   - type: Machine

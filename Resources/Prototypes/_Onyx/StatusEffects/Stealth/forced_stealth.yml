@@ -1,0 +1,6 @@
+- type: entity
+  parent: MobStatusEffectDebuff
+  id: StatusEffectOnyxForcedStealth
+  name: forced stealth
+  components:
+  - type: ForcedStealthStatusEffect

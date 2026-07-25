@@ -1,0 +1,14 @@
+- type: loadout
+  id: StationEngineerMessenger
+  equipment:
+    back: ClothingBackpackMessengerEngineering
+
+- type: loadout
+  id: AtmosphericTechnicianMessenger
+  equipment:
+    back: ClothingBackpackMessengerAtmospherics
+
+- type: loadout
+  id: ChiefEngineerMessenger
+  equipment:
+    back: ClothingBackpackMessengerEngineering

@@ -1,0 +1,22 @@
+- type: entity
+  parent: BaseItem
+  id: WeaponXenoVacNozzle
+  name: xenovac nozzle
+  description: A high-powered nozzle used with a xenovac containment tank.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Equipment/Xenovac/slime_nozzle.rsi
+    state: icon
+  - type: Item
+    sprite: _Onyx/Xenobiology/Equipment/Xenovac/slime_nozzle.rsi
+    size: Normal
+  - type: Xenovac
+    whitelist:
+      tags: [ XenoSlime ]
+      components: [ Skinnable ]
+  - type: UseDelay
+    delays:
+      release: { length: 3 }
+      suction: { length: 1 }
+  - type: GuideHelp
+    guides: [ XenobiologyGuide ]

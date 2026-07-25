@@ -16,7 +16,7 @@
     sound: *louieSound
   - type: EmitSoundOnTrigger
     sound: *louieSound
-  - type: Food
+  - type: Edible
     requiresSpecialDigestion: true
     useSound: *louieSound
   - type: MeleeWeapon
@@ -43,6 +43,6 @@
     sound: *durkSound
   - type: EmitSoundOnCollide
     sound: *durkSound
-  - type: Food
+  - type: Edible
     requiresSpecialDigestion: false
     useSound: *durkSound

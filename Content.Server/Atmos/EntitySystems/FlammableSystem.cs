@@ -23,6 +23,10 @@ using Content.Shared.Toggleable;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.FixedPoint;
 using Content.Shared.Temperature.Components;
+// <Onyx-XenobiologyImmunities>
+using Content.Shared._Onyx.StatusEffects.Immunities;
+using Content.Shared.StatusEffectNew;
+// </Onyx-XenobiologyImmunities>
 using Robust.Server.Audio;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
@@ -50,6 +54,9 @@ namespace Content.Server.Atmos.EntitySystems
         [Dependency] private AudioSystem _audio = default!;
         [Dependency] private IRobustRandom _random = default!;
         [Dependency] private IGameTiming _timing = default!;
+        // <Onyx-XenobiologyImmunities>
+        [Dependency] private StatusEffectsSystem _statusEffects = default!;
+        // </Onyx-XenobiologyImmunities>
 
         [Dependency] private EntityQuery<InventoryComponent> _inventoryQuery = default!;
         [Dependency] private EntityQuery<PhysicsComponent> _physicsQuery = default!;
@@ -294,6 +301,11 @@ namespace Content.Server.Atmos.EntitySystems
             if (!Resolve(uid, ref flammable))
                 return;
 
+            // <Onyx-XenobiologyImmunities>
+            if (stacks > flammable.FireStacks && _statusEffects.HasEffectComp<FireImmunityStatusEffectComponent>(uid))
+                return;
+            // </Onyx-XenobiologyImmunities>
+
             flammable.FireStacks = MathF.Min(MathF.Max(flammable.MinimumFireStacks, stacks), flammable.MaximumFireStacks);
 
             if (flammable.FireStacks <= 0)
@@ -332,6 +344,14 @@ namespace Content.Server.Atmos.EntitySystems
         {
             if (!Resolve(uid, ref flammable))
                 return;
+
+            // <Onyx-XenobiologyImmunities>
+            if (_statusEffects.HasEffectComp<FireImmunityStatusEffectComponent>(uid))
+            {
+                Extinguish(uid, flammable);
+                return;
+            }
+            // </Onyx-XenobiologyImmunities>
 
             if (flammable.AlwaysCombustible)
             {
@@ -436,6 +456,14 @@ namespace Content.Server.Atmos.EntitySystems
                     _alertsSystem.ClearAlert(uid, flammable.FireAlert);
                     continue;
                 }
+
+                // <Onyx-XenobiologyImmunities>
+                if (_statusEffects.HasEffectComp<FireImmunityStatusEffectComponent>(uid))
+                {
+                    Extinguish(uid, flammable);
+                    continue;
+                }
+                // </Onyx-XenobiologyImmunities>
 
                 _alertsSystem.ShowAlert(uid, flammable.FireAlert);
 

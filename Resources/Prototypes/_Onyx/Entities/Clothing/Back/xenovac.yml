@@ -1,0 +1,53 @@
+- type: entity
+  parent: [ Clothing, ClothingSlotBase ]
+  id: ClothingBackpackXenoBioTank
+  name: xenovac containment tank
+  description: A backpack tank for safely containing xenobiology slimes.
+  components:
+  - type: XenovacTank
+    capacity: 5
+  - type: Appearance
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Equipment/Xenovac/slime_pack.rsi
+    state: icon
+  - type: Item
+    size: Ginormous
+  - type: Clothing
+    slots: [ SUITSTORAGE, Back ]
+    sprite: _Onyx/Xenobiology/Equipment/Xenovac/slime_pack.rsi
+  - type: ContainerContainer
+    containers:
+      item: !type:ContainerSlot
+      xenovac-storage: !type:Container
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger { damage: 50 }
+      behaviors:
+      - !type:DoActsBehavior { acts: [ Destruction ] }
+      - !type:PlaySoundBehavior { sound: { collection: MetalBreak } }
+  - type: ItemSlots
+    slots:
+      item:
+        priority: 2
+        whitelist:
+          components: [ Xenovac ]
+  - type: ItemMapper
+    mapLayers:
+      icon-filled:
+        whitelist:
+          components: [ Xenovac ]
+  - type: GuideHelp
+    guides: [ XenobiologyGuide ]
+
+- type: entity
+  parent: ClothingBackpackXenoBioTank
+  id: ClothingBackpackXenoBioTankFilled
+  suffix: Filled
+  components:
+  - type: ContainerFill
+    containers:
+      item:
+      - WeaponXenoVacNozzle

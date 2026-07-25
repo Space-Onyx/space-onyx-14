@@ -1,0 +1,160 @@
+- type: entity
+  id: OilSlimeExtract
+  parent: BaseSlimeExtract
+  name: oil slime extract
+  components:
+  - type: Tag
+    tags: [ XenobiologyOilExtract ]
+  - type: Sprite
+    layers:
+    - state: core
+      color: "#383936"
+      shader: XenoMetallic
+  - type: Reactive
+    reactions:
+    - reagents: [ Water ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage { type: Pvs, messages: [ xeno-extract-reaction-reagent ] }
+        - !type:PlaySound { sound: { path: /Audio/Effects/Chemistry/bubbles.ogg } }
+        - !type:AdjustExtractReagent { reagent: SpaceLube, amount: 100 }
+    - reagents: [ Plasma ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage { type: Pvs, messages: [ xeno-extract-reaction-evil ] }
+        - !type:PlaySound { sound: { path: /Audio/Effects/Chemistry/bubbles.ogg } }
+        - !type:Jitter { time: 5, frequency: 20 }
+        - !type:DelayedSpawnEntity { entity: XenoExtractOilExplosion, delay: 5 }
+    - reagents: [ Blood ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage { type: Pvs, messages: [ xeno-extract-reaction-fail ] }
+        - !type:PlaySound { sound: { path: /Audio/Effects/Chemistry/bubbles.ogg } }
+
+- type: entity
+  id: LightPinkSlimeExtract
+  parent: BaseSlimeExtract
+  name: light pink slime extract
+  components:
+  - type: Tag
+    tags: [ XenobiologyLightPinkExtract ]
+  - type: Sprite
+    layers:
+    - state: core
+      color: "#ffb3ec"
+  - type: Reactive
+    reactions:
+    - reagents: [ Water ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage { type: Pvs, messages: [ xeno-extract-reaction-reagent ] }
+        - !type:PlaySound { sound: { path: /Audio/Effects/Chemistry/bubbles.ogg } }
+        - !type:AdjustExtractReagent { reagent: Pax, amount: 30 }
+        - !type:AreaReactionEffect
+          duration: 15
+          prototypeId: Foam
+          overflowThreshold: 0.02
+          sound: { path: /Audio/Effects/extinguish.ogg }
+        - !type:AdjustExtractReagent { reagent: Pax, amount: -30 }
+    - reagents: [ Plasma ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage { type: Pvs, messages: [ xeno-extract-reaction-reagent ] }
+        - !type:PlaySound { sound: { path: /Audio/Effects/Chemistry/bubbles.ogg } }
+        - !type:AdjustExtractReagent { reagent: Cognizine, amount: 10 }
+    - reagents: [ Blood ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage { type: Pvs, messages: [ xeno-extract-reaction-evil ] }
+        - !type:PlaySound { sound: { path: /Audio/Effects/Chemistry/bubbles.ogg } }
+        - !type:Jitter { time: 3, frequency: 20 }
+        - !type:DelayedApplyEffectsNearby
+          delay: 3
+          range: 3
+          effects:
+          - !type:DnaScramble
+
+- type: entity
+  id: BlackSlimeExtract
+  parent: BaseSlimeExtract
+  name: black slime extract
+  components:
+  - type: Tag
+    tags: [ XenobiologyBlackExtract ]
+  - type: Sprite
+    layers:
+    - state: core
+      color: "#000000"
+  - type: Reactive
+    reactions:
+    - reagents: [ Water ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage { type: Pvs, messages: [ xeno-extract-reaction-fail ] }
+        - !type:PlaySound { sound: { path: /Audio/Effects/Chemistry/bubbles.ogg } }
+    - reagents: [ Plasma ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage { type: Pvs, messages: [ xeno-extract-reaction-reagent ] }
+        - !type:PlaySound { sound: { path: /Audio/Effects/Chemistry/bubbles.ogg } }
+        - !type:AdjustExtractReagent { reagent: AdvancedMutationToxin, amount: 10 }
+    - reagents: [ Blood ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage { type: Pvs, messages: [ xeno-extract-reaction-fail ] }
+        - !type:PlaySound { sound: { path: /Audio/Effects/Chemistry/bubbles.ogg } }
+
+- type: entity
+  id: AdamantineSlimeExtract
+  parent: BaseSlimeExtract
+  name: adamantine slime extract
+  components:
+  - type: Tag
+    tags: [ XenobiologyAdamantineExtract ]
+  - type: Sprite
+    layers:
+    - state: core
+      color: "#005c33"
+      shader: XenoMetallic
+  - type: Reactive
+    reactions:
+    - reagents: [ Water ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PlaySound { sound: { path: /Audio/Effects/Chemistry/bubbles.ogg } }
+        - !type:CreateGas { gas: Healium, moles: 55 }
+    - reagents: [ Plasma ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage { type: Pvs, messages: [ xeno-extract-reaction ] }
+        - !type:PlaySound { sound: { path: /Audio/Effects/Chemistry/bubbles.ogg } }
+        - !type:SpawnEntity { entity: XenobioAdamantineBar, predicted: false }
+    - reagents: [ Blood ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage { type: Pvs, messages: [ xeno-extract-reaction-fail ] }
+        - !type:PlaySound { sound: { path: /Audio/Effects/Chemistry/bubbles.ogg } }

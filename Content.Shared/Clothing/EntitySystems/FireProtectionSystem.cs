@@ -2,6 +2,9 @@ using Content.Shared.Armor;
 using Content.Shared.Atmos;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Inventory;
+// <Onyx-XenobiologyVolatileCoating>
+using Content.Shared._Onyx.Clothing.Coating;
+// </Onyx-XenobiologyVolatileCoating>
 
 namespace Content.Shared.Clothing.EntitySystems;
 
@@ -20,6 +23,10 @@ public sealed class FireProtectionSystem : EntitySystem
 
     private void OnGetProtection(Entity<FireProtectionComponent> ent, ref InventoryRelayedEvent<GetFireProtectionEvent> args)
     {
+        // <Onyx-XenobiologyVolatileCoating>
+        if (HasComp<VeryFlammableComponent>(ent))
+            return;
+        // </Onyx-XenobiologyVolatileCoating>
         args.Args.Reduce(ent.Comp.Reduction);
     }
 

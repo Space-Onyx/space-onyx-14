@@ -1,4 +1,19 @@
 - type: latheRecipePack
+  id: SharedBoardsStatic
+  recipes:
+  - ProtolatheMachineCircuitboard
+  - AutolatheMachineCircuitboard
+  - CircuitImprinterMachineCircuitboard
+
+- type: latheRecipePack
+  id: SharedBoards
+  recipes:
+  - TurboItemRechargerCircuitboard
+  - FlatpackerMachineCircuitboard
+  - SheetifierMachineCircuitboard
+  - PowerCageRechargerCircuitboard
+
+- type: latheRecipePack
   id: AdvancedRoboticsBoards
   recipes:
   - AsimovCircuitBoard
@@ -13,3 +28,9 @@
   - GameMasterCircuitBoard
   - ArtistCircuitBoard
   - NutimovCircuitBoard
+
+- type: latheRecipePack
+  id: ScienceBoardsXenobiology
+  recipes:
+  - SlimeGrinderMachineCircuitboard
+  - XenobiologyBountyComputerCircuitboard

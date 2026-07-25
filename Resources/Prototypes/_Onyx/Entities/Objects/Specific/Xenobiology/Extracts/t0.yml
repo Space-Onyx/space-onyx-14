@@ -1,0 +1,60 @@
+- type: entity
+  id: GreySlimeExtract
+  parent: BaseSlimeExtract
+  name: grey slime extract
+  components:
+  - type: Tag
+    tags: [ XenobiologyGreyExtract ]
+  - type: Sprite
+    layers:
+    - state: core
+      color: "#828282"
+  - type: Reactive
+    reactions:
+    - reagents: [ Water ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction-reagent" ]
+        - !type:PlaySound
+          sound:
+            path: /Audio/Effects/Chemistry/bubbles.ogg
+        - !type:AdjustExtractReagent
+          reagent: Epinephrine
+          amount: 15
+    - reagents: [ Plasma ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction-evil" ]
+        - !type:PlaySound
+          sound:
+            path: /Audio/Effects/Chemistry/bubbles.ogg
+        - !type:Jitter
+          time: 3
+          frequency: 20
+        - !type:DelayedSpawnEntity
+          entity: MobSlimeXenobioBabyGrey
+          number: 3
+          delay: 3
+    - reagents: [ Blood ]
+      methods: [ Touch, Injection ]
+      effects:
+      - !type:UseSlimeExtract
+        effects:
+        - !type:PopupMessage
+          type: Pvs
+          messages: [ "xeno-extract-reaction" ]
+        - !type:PlaySound
+          sound:
+            path: /Audio/Effects/Chemistry/bubbles.ogg
+        - !type:SpawnEntity
+          entity: MonkeyCube
+          number: 3
+          predicted: false

@@ -1,0 +1,69 @@
+- type: reagent
+  id: BaseXenobioReagent
+  abstract: true
+  group: Biological
+  flavor: horrible
+  physicalDesc: reagent-physical-desc-viscous
+  recognizable: false
+  viscosity: 0.25
+
+- type: reagent
+  parent: BaseXenobioReagent
+  id: XenobioSlimeToxin
+  name: xenobio-reagent-slime-toxin-name
+  desc: xenobio-reagent-slime-toxin-desc
+  color: "#3CB371"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.1
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [ Slime ]
+          inverted: true
+        - !type:MobStateCondition
+          mobstate: Critical
+        damage:
+          types:
+            Asphyxiation: -2
+      - !type:HealthChange
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [ Slime ]
+          inverted: true
+        damage:
+          types:
+            Bloodloss: -7
+      - !type:ModifyStatusEffect
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [ Slime ]
+          inverted: true
+        effectProto: StatusEffectSeeingRainbow
+        type: Add
+        time: 5
+        refresh: false
+      - !type:Drunk
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [ Slime ]
+          inverted: true
+        boozePower: 5
+      - !type:Emote
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [ Slime ]
+          inverted: true
+        emote: Yawn
+        showInChat: true
+        probability: 0.1
+      - !type:ModifyStatusEffect
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [ Slime ]
+          inverted: true
+        effectProto: StatusEffectDrowsiness
+        time: 2
+        type: Add
+        refresh: false

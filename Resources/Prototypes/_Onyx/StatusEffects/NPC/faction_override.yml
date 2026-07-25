@@ -1,0 +1,12 @@
+- type: entity
+  parent: StatusEffectBase
+  id: StatusEffectOnyxAllHostileFaction
+  name: hostile faction override
+  components:
+  - type: StatusEffect
+    whitelist:
+      components:
+      - NpcFactionMember
+  - type: RejuvenateRemovedStatusEffect
+  - type: FactionOverrideStatusEffect
+    faction: AllHostile

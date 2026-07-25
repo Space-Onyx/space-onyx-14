@@ -20,6 +20,9 @@ public sealed class TongueSystem : EntitySystem
 
     private void OnTongueRemoved(Entity<TongueComponent> ent, ref OrganGotRemovedEvent args)
     {
+        if (TerminatingOrDeleted(args.Target))
+            return;
+
         EnsureComp<TonguelessAccentComponent>(args.Target);
     }
 }

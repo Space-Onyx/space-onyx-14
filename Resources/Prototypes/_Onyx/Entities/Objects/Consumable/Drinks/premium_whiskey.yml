@@ -1,0 +1,5 @@
+- type: entity
+  id: DrinkPremiumWhiskeyBottleFull
+  parent: DrinkWhiskeyBottleFull
+  name: Ol' Prowler 18 whiskey bottle
+  description: Surprisingly smooth, it has a nasty habit of sneaking up on you.

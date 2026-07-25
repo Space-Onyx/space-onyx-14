@@ -26,6 +26,7 @@
   - Holoprojector
   - WetFloorSign
   - WireBrush
+  - PhotoCamera # <Onyx-PhotoCamera>
 
 - type: latheRecipePack
   id: ServiceBoardsStatic

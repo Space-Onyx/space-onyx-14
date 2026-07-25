@@ -1,0 +1,10 @@
+ent-CrateNPCXenobioSlime = grey slime crate
+    .desc = A crate containing two small grey slimes for breeding.
+ent-CrateNPCBlueSlime = blue slime crate
+    .desc = A crate containing a single blue slime.
+ent-CrateNPCPurpleSlime = purple slime crate
+    .desc = A crate containing a single purple slime.
+ent-CrateNPCOrangeSlime = orange slime crate
+    .desc = A crate containing a single orange slime.
+ent-CrateNPCMetalSlime = metal slime crate
+    .desc = A crate containing a single metal slime.

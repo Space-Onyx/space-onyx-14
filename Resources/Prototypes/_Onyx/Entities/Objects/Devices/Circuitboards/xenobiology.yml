@@ -1,0 +1,30 @@
+- type: entity
+  id: SlimeGrinderMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  name: slime grinder machine board
+  description: A machine printed circuit board for a slime grinder.
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: SlimeGrinder
+    stackRequirements:
+      Manipulator: 5
+      Steel: 5
+    tagRequirements:
+      Knife:
+        amount: 2
+        defaultPrototype: KitchenKnife
+        examineName: construction-insert-info-examine-name-knife
+
+- type: entity
+  id: XenobiologyBountyComputerCircuitboard
+  parent: BaseComputerCircuitboard
+  name: xenobiology bounty console board
+  description: A computer printed circuit board for a xenobiology bounty console.
+  components:
+  - type: Sprite
+    state: cpu_science
+  - type: ComputerBoard
+    prototype: ComputerScienceXenobiologyBounty
+  - type: StaticPrice

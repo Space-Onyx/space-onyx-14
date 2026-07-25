@@ -258,6 +258,13 @@
   - type: Construction
     graph: TileSteel
     node: steeltile
+  # <Onyx-TileMovement>
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: Nostalgia
+        Quantity: 1
+  # </Onyx-TileMovement>
 
 - type: entity
   name: offset steel tile

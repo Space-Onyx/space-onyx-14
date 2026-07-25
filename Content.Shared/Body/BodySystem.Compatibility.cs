@@ -22,16 +22,26 @@ public sealed partial class BodySystem
             return false;
 
         // <Onyx-Surgery-edited>
+        var seen = new HashSet<EntityUid>();
+        if (ent.Comp.Organs != null)
+        {
+            foreach (var organ in ent.Comp.Organs.ContainedEntities)
+            {
+                if (TryComp<TComp>(organ, out var comp) && seen.Add(organ))
+                    organs.Add((organ, comp));
+            }
+        }
+
         var graph = EntityManager.System<SharedBodySystem>();
         foreach (var part in graph.GetBodyChildren(ent))
         {
-            if (TryComp<TComp>(part.Id, out var comp))
+            if (TryComp<TComp>(part.Id, out var comp) && seen.Add(part.Id))
                 organs.Add((part.Id, comp));
         }
 
         foreach (var organ in graph.GetBodyOrgans(ent))
         {
-            if (TryComp<TComp>(organ.Id, out var comp))
+            if (TryComp<TComp>(organ.Id, out var comp) && seen.Add(organ.Id))
                 organs.Add((organ.Id, comp));
         }
         // </Onyx-Surgery-edited>

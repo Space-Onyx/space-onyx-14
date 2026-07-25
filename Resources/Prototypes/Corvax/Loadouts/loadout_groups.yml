@@ -38,6 +38,7 @@
   loadouts:
   - ChiefEngineerBackpack
   - ChiefEngineerSatchel
+  - ChiefEngineerMessenger # <Onyx-Messenger>
   - ChiefEngineerDuffel
 
 - type: loadoutGroup

@@ -1,0 +1,35 @@
+- type: entity
+  id: XenobioSlimes
+  abstract: true
+  components:
+  - type: Body
+  - type: EntityTableContainerFill
+    containers:
+      body_organs: !type:AllSelector
+        children:
+        - id: XenobioSentientSlimesCore
+        - id: OrganSlimePersonLungs
+
+- type: entity
+  parent: OrganSlimePersonCore
+  id: XenobioSentientSlimesCore
+  name: mutated slime core
+  description: A mutated slime core. It looks larger than usual.
+  components:
+  - type: SolutionManager
+    solutions:
+    - SolutionXenobioSlimeStomach
+  - type: Metabolizer
+    maxReagents: 6
+    metabolizerTypes: [ Slime, XenobioSlime ]
+    stages: [ Digestion, Bloodstream, Metabolites ]
+
+- type: entity
+  parent: Solution
+  id: SolutionXenobioSlimeStomach
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Solution
+    id: stomach
+    solution:
+      maxVol: 50

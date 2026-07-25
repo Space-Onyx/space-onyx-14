@@ -10,6 +10,9 @@ using Content.Shared.Temperature;
 using Content.Shared.Temperature.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
+// <Onyx-XenobiologyImmunities>
+using Content.Shared._Onyx.StatusEffects.Immunities;
+// </Onyx-XenobiologyImmunities>
 
 namespace Content.Server.Temperature.Systems;
 
@@ -100,6 +103,14 @@ public sealed partial class TemperatureSystem
 
         if (temperature.CurrentTemperature >= heatDamageThreshold)
         {
+            // <Onyx-XenobiologyImmunities>
+            if (_statusEffects.HasEffectComp<HighTemperatureImmunityStatusEffectComponent>(entity.Owner))
+            {
+                entity.Comp.TakingDamage = false;
+                return;
+            }
+            // </Onyx-XenobiologyImmunities>
+
             if (!entity.Comp.TakingDamage)
             {
                 _adminLogger.Add(LogType.Temperature, $"{ToPrettyString(entity):entity} started taking high temperature damage");

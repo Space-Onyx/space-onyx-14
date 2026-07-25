@@ -1,14 +1,13 @@
 ## Static
 
+# <Onyx-GoobDepartmentBoards-edited>
 - type: latheRecipePack
   id: ScienceBoardsStatic
   recipes:
-  - ProtolatheMachineCircuitboard
-  - AutolatheMachineCircuitboard
-  - CircuitImprinterMachineCircuitboard
   - ExosuitFabricatorMachineCircuitboard
   - CutterMachineCircuitboard
   - BorgChargerCircuitboard
+# </Onyx-GoobDepartmentBoards-edited>
 
 ## Dynamic
 
@@ -35,6 +34,7 @@
   - ClothingBackpackHolding
   - ClothingBackpackSatchelHolding
   - ClothingBackpackDuffelHolding
+  - ClothingBackpackMessengerHolding # <Onyx-MessengerHolding>
 
 - type: latheRecipePack
   id: PowerCells
@@ -65,17 +65,14 @@
   - SignalTrigger
   - VoiceTrigger
 
+# <Onyx-GoobDepartmentBoards-edited>
 - type: latheRecipePack
   id: ScienceBoards
   recipes:
-  - TurboItemRechargerCircuitboard
   - AutolatheHyperConvectionMachineCircuitboard
   - ProtolatheHyperConvectionMachineCircuitboard
   - CircuitImprinterHyperConvectionMachineCircuitboard
   - TechDiskComputerCircuitboard
-  - FlatpackerMachineCircuitboard
-  - SheetifierMachineCircuitboard
-  - PowerCageRechargerCircuitboard
   - AnalysisComputerCircuitboard
   - AnomalyVesselCircuitboard
   - AnomalyVesselExperimentalCircuitboard
@@ -83,6 +80,7 @@
   - APECircuitboard
   - ArtifactAnalyzerMachineCircuitboard
   - ArtifactCrusherMachineCircuitboard
+# </Onyx-GoobDepartmentBoards-edited>
 
 - type: latheRecipePack
   id: CameraBoards
@@ -95,16 +93,26 @@
   - SurveillanceWirelessCameraMovableCircuitboard
   - SurveillanceWirelessCameraAnchoredCircuitboard
 
+# <Onyx-GoobDepartmentBoards-edited>
 - type: latheRecipePack
-  id: MechBoards
+  id: MechBoardsCargo
   recipes:
   - RipleyCentralElectronics
   - RipleyPeripheralsElectronics
+
+- type: latheRecipePack
+  id: MechBoardsCivilian
+  recipes:
   - HonkerCentralElectronics
   - HonkerPeripheralsElectronics
   - HonkerTargetingElectronics
+
+- type: latheRecipePack
+  id: MechBoardsScience
+  recipes:
   - HamtrCentralElectronics
   - HamtrPeripheralsElectronics
+# </Onyx-GoobDepartmentBoards-edited>
 
 - type: latheRecipePack
   id: ShuttleBoards

@@ -1,0 +1,25 @@
+- type: entity
+  id: LockerScienceFilledXenobiology
+  suffix: Filled, Xenobiology
+  parent: LockerScientist
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillLockerScienceXenobiology
+
+- type: entityTable
+  id: FillLockerScienceXenobiology
+  table: !type:AllSelector
+    children:
+    - id: ClothingHandsGlovesLatex
+    - id: ClothingHeadsetScience
+    - id: ClothingMaskSterile
+    - id: ClothingOuterVestTank
+    - id: ClothingBeltChemBagXenobiology
+    - id: ClothingBackpackXenoBioTankFilled
+    - id: SprayBottleWater
+    - id: SlimeScannerXenobio
+    - id: BoxSyringe
+    - id: PlasmaChemistryVial
+    - id: MonkeyCubeBox

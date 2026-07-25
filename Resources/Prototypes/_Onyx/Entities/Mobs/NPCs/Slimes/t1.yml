@@ -1,0 +1,64 @@
+- type: entity
+  id: MobSlimeXenobioBabyOrange
+  parent: MobSlimeXenobioBaby
+  name: orange xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyOrange
+    breedName: xenobio-breed-orange
+    color: "#ff9f1a"
+    producedExtract: OrangeSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyGrey
+    - MobSlimeXenobioBabyYellow
+    - MobSlimeXenobioBabyDarkPurple
+    - MobSlimeXenobioBabyRed
+
+- type: entity
+  id: MobSlimeXenobioBabyPurple
+  parent: MobSlimeXenobioBaby
+  name: purple xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyPurple
+    breedName: xenobio-breed-purple
+    color: "#BF77F6"
+    producedExtract: PurpleSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyGrey
+    - MobSlimeXenobioBabyDarkPurple
+    - MobSlimeXenobioBabyDarkBlue
+    - MobSlimeXenobioBabyGreen
+
+- type: entity
+  id: MobSlimeXenobioBabyBlue
+  parent: MobSlimeXenobioBaby
+  name: blue xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyBlue
+    breedName: xenobio-breed-blue
+    color: "#79F6FC"
+    producedExtract: BlueSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyGrey
+    - MobSlimeXenobioBabyDarkBlue
+    - MobSlimeXenobioBabySilver
+    - MobSlimeXenobioBabyPink
+
+- type: entity
+  id: MobSlimeXenobioBabyMetal
+  parent: MobSlimeXenobioBaby
+  name: metal xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyMetal
+    breedName: xenobio-breed-metal
+    color: "#595959"
+    shader: XenoMetallic
+    producedExtract: MetalSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyGrey
+    - MobSlimeXenobioBabySilver
+    - MobSlimeXenobioBabyYellow
+    - MobSlimeXenobioBabyGold

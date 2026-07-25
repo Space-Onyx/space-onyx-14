@@ -1,0 +1,111 @@
+# Source-only mobs are replaced one-for-one by the nearest target-native mob of the same danger/category.
+- type: entity
+  id: XenoRandomHostileMobSpawner
+  parent: MarkerBase
+  name: random hostile xenobiology mob spawner
+  components:
+  - type: RandomSpawner
+    offset: 0
+    prototypes:
+    - MobAngryBee
+    - MobKangarooSpace # MobBrullbar: large aggressive fauna.
+    - MobBearSpace # MobWhiteWolf: large predatory fauna.
+    - MobSpiderSpace
+    - MobCobraSpace
+    - MobCarp
+    - MobCarpMagic
+    - MobCarpHolo
+    - MobCarpRainbow
+    - MobFleshJared # MobGhoulStalker: fast flesh hostile.
+    - MobFleshGolem # MobGhoulProphet: dangerous flesh hostile.
+    - MobFleshClamp # MobGhoulFireShark: specialist flesh hostile.
+    - MobFleshGolem # MobGhoulRustWalker: durable flesh hostile.
+    - ReagentSlimeSpawner
+    - MobAbomination
+    - MobHivebot
+    - MobHivebotRanged
+    - MobHivebotStrong
+    - MobWatcherLavaland
+    - MobWatcherIcewing
+    - MobWatcherMagmawing
+    - MobLuminousPerson
+    - MobLuminousObject
+    - MobLuminousEntity
+    - MobLaserRaptor
+    - MobTomatoKiller
+    - MobRatKing
+    - MobTick
+    - MobXenoRavager # MobXenomorphHunter: high-danger xenomorph.
+    - MobXeno # MobXenomorphFaceHugger: basic xenomorph threat.
+    - MobPurpleSnake
+    - MobSmallPurpleSnake
+    - MobFleshGolem # MobBingle: high-danger melee hostile.
+
+- type: entity
+  id: XenoRandomNeutralMobSpawner
+  parent: MarkerBase
+  name: random neutral xenobiology mob spawner
+  components:
+  - type: RandomSpawner
+    offset: 0
+    prototypes:
+    - MobBee
+    - MobGorilla
+    - MobKangaroo
+    - MobMonkey
+    - MobKobold
+    - MobMouse
+    - MobMouseCancer
+    - MobGiantSpider
+    - MobGiantSpiderWizard
+    - MobFox
+    - MobReindeerBuck
+    - MobReindeerDoe
+    - MobCockroach
+    - MobMothroach # MobSquackroach: neutral roach variant.
+    - MobSlimeXenobioBabyGrey
+    - MobSnail
+    - MobSnailSpeed
+    - MobSnailMoth
+    - MobMonkey # MobXenomorphMaid: neutral humanoid-like fauna.
+
+- type: entity
+  id: XenoRandomPassiveMobSpawner
+  parent: MarkerBase
+  name: random passive xenobiology mob spawner
+  components:
+  - type: RandomSpawner
+    offset: 0
+    prototypes:
+    - MobSloth # MobGondola: slow passive fauna.
+    - MobCockroach # MobLootbug: small passive arthropod.
+    - MobChicken
+    - MobDuckMallard
+    - MobDuckWhite
+    - MobDuckBrown
+    - MobButterfly
+    - MobCow
+    - MobCrab
+    - MobGoat
+    - MobGoose
+    - MobLizard
+    - MobSlug
+    - MobFrog
+    - MobParrot
+    - MobPenguin
+    - MobSnake
+    - MobPossum
+    - MobPossumOld
+    - MobRaccoon
+    - MobCorgi
+    - MobCorgiPuppy
+    - MobCat
+    - MobCatCalico
+    - MobCatCaracal
+    - MobCatKitten
+    - MobSloth
+    - MobFerret
+    - MobHamster
+    - MobPig
+    - MobDionaNymph
+    - MobCatShadow

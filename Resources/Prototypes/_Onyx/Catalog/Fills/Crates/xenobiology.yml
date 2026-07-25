@@ -1,0 +1,55 @@
+- type: entity
+  id: CrateNPCXenobioSlime
+  parent: CrateLivestock
+  name: crate of xenobio slimes
+  description: A crate containing two xenobio slimes for experiments.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage:
+        id: MobSlimeXenobioBabyGrey
+        amount: 2
+
+- type: entity
+  id: CrateNPCBlueSlime
+  parent: CrateLivestock
+  name: blue slime crate
+  description: A crate containing a single blue slime.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage:
+        id: MobSlimeXenobioBabyBlue
+
+- type: entity
+  id: CrateNPCPurpleSlime
+  parent: CrateLivestock
+  name: purple slime crate
+  description: A crate containing a single purple slime.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage:
+        id: MobSlimeXenobioBabyPurple
+
+- type: entity
+  id: CrateNPCOrangeSlime
+  parent: CrateLivestock
+  name: orange slime crate
+  description: A crate containing a single orange slime.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage:
+        id: MobSlimeXenobioBabyOrange
+
+- type: entity
+  id: CrateNPCMetalSlime
+  parent: CrateLivestock
+  name: metal slime crate
+  description: A crate containing a single metal slime.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage:
+        id: MobSlimeXenobioBabyMetal

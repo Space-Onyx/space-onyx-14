@@ -1,0 +1,49 @@
+- type: entity
+  id: CargoIconXenobioSlimeGrey
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Mobs/slimesBaby.rsi
+    layers:
+    - state: base
+      color: "#828282"
+
+- type: entity
+  id: CargoIconXenobioSlimeOrange
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Mobs/slimesBaby.rsi
+    layers:
+    - state: base
+      color: "#ff9f1a"
+
+- type: entity
+  id: CargoIconXenobioSlimePurple
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Mobs/slimesBaby.rsi
+    layers:
+    - state: base
+      color: "#bf77f6"
+
+- type: entity
+  id: CargoIconXenobioSlimeBlue
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Mobs/slimesBaby.rsi
+    layers:
+    - state: base
+      color: "#79f6fc"
+
+- type: entity
+  id: CargoIconXenobioSlimeMetal
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Mobs/slimesBaby.rsi
+    layers:
+    - state: base
+      color: "#595959"

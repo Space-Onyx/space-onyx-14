@@ -18,6 +18,9 @@
         Security: [ ]
         Service: [ ]
     - type: StationCargoBountyDatabase
+    # <Onyx-XenobiologyBounties>
+    - type: StationXenobiologyBountyDatabase
+    # </Onyx-XenobiologyBounties>
 
 - type: entity
   id: BaseStationJobsSpawning

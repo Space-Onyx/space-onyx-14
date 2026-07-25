@@ -1,0 +1,17 @@
+- type: entity
+  parent: BaseItem
+  id: SlimeScannerXenobio
+  name: slime scanner
+  description: Reveals the properties of slimes and their extracts. Essential equipment for any slime rancher.
+  components:
+  - type: SlimeScanner
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Equipment/Scanner/slime_scanner.rsi
+    layers:
+    - state: icon
+    - state: analyzer
+      shader: unshaded
+  - type: Item
+    sprite: _Onyx/Xenobiology/Equipment/Scanner/slime_scanner.rsi
+    heldPrefix: analyzer
+    storedRotation: -90

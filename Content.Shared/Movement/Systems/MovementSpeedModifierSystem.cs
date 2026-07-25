@@ -213,19 +213,39 @@ namespace Content.Shared.Movement.Systems
     {
         public SlotFlags TargetSlots { get; } = ~SlotFlags.POCKET;
 
-        public float WalkSpeedModifier { get; private set; } = 1.0f;
-        public float SprintSpeedModifier { get; private set; } = 1.0f;
+        // <Onyx-XenobiologyVolatileCoating-edited>
+        private float _walkSpeedup = 1.0f;
+        private float _walkSlowdown = 1.0f;
+        private float _sprintSpeedup = 1.0f;
+        private float _sprintSlowdown = 1.0f;
+        private bool _slowdownImmune;
+
+        public float WalkSpeedModifier => _walkSpeedup * (_slowdownImmune ? 1.0f : _walkSlowdown);
+        public float SprintSpeedModifier => _sprintSpeedup * (_slowdownImmune ? 1.0f : _sprintSlowdown);
 
         public void ModifySpeed(float walk, float sprint)
         {
-            WalkSpeedModifier *= walk;
-            SprintSpeedModifier *= sprint;
+            if (walk < 1.0f)
+                _walkSlowdown *= walk;
+            else
+                _walkSpeedup *= walk;
+
+            if (sprint < 1.0f)
+                _sprintSlowdown *= sprint;
+            else
+                _sprintSpeedup *= sprint;
         }
 
         public void ModifySpeed(float mod)
         {
             ModifySpeed(mod, mod);
         }
+
+        public void GrantSlowdownImmunity()
+        {
+            _slowdownImmune = true;
+        }
+        // </Onyx-XenobiologyVolatileCoating-edited>
     }
 
     [ByRefEvent]

@@ -157,6 +157,7 @@
   loadouts:
   - CaptainBackpack
   - CaptainSatchel
+  - CaptainMessenger # <Onyx-Messenger>
   - CaptainDuffel
 
 - type: loadoutGroup
@@ -204,6 +205,7 @@
   loadouts:
   - CommonBackpack
   - CommonSatchel
+  - CommonMessenger # <Onyx-Messenger>
   - CommonDuffel
   - HoPBackpackIan
 
@@ -518,6 +520,7 @@
   loadouts:
   - BotanistBackpack
   - BotanistSatchel
+  - BotanistMessenger # <Onyx-Messenger>
   - BotanistDuffel
 
 - type: loadoutGroup
@@ -558,6 +561,7 @@
   loadouts:
   - ClownBackpack
   - ClownSatchel
+  - ClownMessenger # <Onyx-Messenger>
   - ClownDuffel
 
 - type: loadoutGroup
@@ -622,6 +626,7 @@
   loadouts:
   - MimeBackpack
   - MimeSatchel
+  - MimeMessenger # <Onyx-Messenger>
   - MimeDuffel
 
 - type: loadoutGroup
@@ -777,6 +782,7 @@
   loadouts:
   - CargoTechnicianBackpack
   - CargoTechnicianSatchel
+  - CargoTechnicianMessenger # <Onyx-Messenger>
   - CargoTechnicianDuffel
 
 - type: loadoutGroup
@@ -812,6 +818,7 @@
   loadouts:
   - SalvageSpecialistBackpack
   - SalvageSpecialistSatchel
+  - SalvageSpecialistMessenger # <Onyx-Messenger>
   - SalvageSpecialistDuffel
 
 - type: loadoutGroup
@@ -919,6 +926,7 @@
   loadouts:
   - StationEngineerBackpack
   - StationEngineerSatchel
+  - StationEngineerMessenger # <Onyx-Messenger>
   - StationEngineerDuffel
 
 - type: loadoutGroup
@@ -971,6 +979,7 @@
   loadouts:
   - AtmosphericTechnicianBackpack
   - AtmosphericTechnicianSatchel
+  - AtmosphericTechnicianMessenger # <Onyx-Messenger>
   - AtmosphericTechnicianDuffel
 
 - type: loadoutGroup
@@ -1077,6 +1086,7 @@
   loadouts:
   - ScientistBackpack
   - ScientistSatchel
+  - ScientistMessenger # <Onyx-Messenger>
   - ScientistDuffel
 
 - type: loadoutGroup
@@ -1238,6 +1248,7 @@
   loadouts:
   - SecurityBackpack
   - SecuritySatchel
+  - SecurityMessenger # <Onyx-Messenger>
   - SecurityDuffel
 
 - type: loadoutGroup

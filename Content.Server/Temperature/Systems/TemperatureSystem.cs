@@ -7,12 +7,19 @@ using Content.Shared.Temperature;
 using Content.Shared.Projectiles;
 using Content.Shared.Temperature.Components;
 using Content.Shared.Temperature.Systems;
+// <Onyx-XenobiologyImmunities>
+using Content.Shared._Onyx.StatusEffects.Immunities;
+using Content.Shared.StatusEffectNew;
+// </Onyx-XenobiologyImmunities>
 
 namespace Content.Server.Temperature.Systems;
 
 public sealed partial class TemperatureSystem : SharedTemperatureSystem
 {
     [Dependency] private AtmosphereSystem _atmosphere = default!;
+    // <Onyx-XenobiologyImmunities>
+    [Dependency] private StatusEffectsSystem _statusEffects = default!;
+    // </Onyx-XenobiologyImmunities>
 
     public override void Initialize()
     {
@@ -64,6 +71,11 @@ public sealed partial class TemperatureSystem : SharedTemperatureSystem
         if (!TemperatureQuery.Resolve(uid, ref temperature))
             return;
 
+        // <Onyx-XenobiologyImmunities>
+        if (temp > Atmospherics.T20C && _statusEffects.HasEffectComp<HighTemperatureImmunityStatusEffectComponent>(uid))
+            temp = Atmospherics.T20C;
+        // </Onyx-XenobiologyImmunities>
+
         var lastTemp = temperature.CurrentTemperature;
         var delta = temperature.CurrentTemperature - temp;
         temperature.CurrentTemperature = temp;
@@ -74,6 +86,17 @@ public sealed partial class TemperatureSystem : SharedTemperatureSystem
     {
         if (!TemperatureQuery.Resolve(uid, ref temperature, false))
             return;
+
+        // <Onyx-XenobiologyImmunities>
+        if (heatAmount > 0 && _statusEffects.HasEffectComp<HighTemperatureImmunityStatusEffectComponent>(uid))
+        {
+            if (temperature.CurrentTemperature >= Atmospherics.T20C)
+                return;
+
+            heatAmount = Math.Min(heatAmount,
+                (Atmospherics.T20C - temperature.CurrentTemperature) * GetHeatCapacity(uid, temperature));
+        }
+        // </Onyx-XenobiologyImmunities>
 
         if (!ignoreHeatResistance)
         {

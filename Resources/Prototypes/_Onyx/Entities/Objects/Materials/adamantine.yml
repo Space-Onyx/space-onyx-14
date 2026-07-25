@@ -1,0 +1,13 @@
+- type: entity
+  parent: BaseItem
+  id: XenobioAdamantineBar
+  name: adamantine bar
+  description: An extraordinarily valuable bar of an almost indestructible alloy.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Materials/adamantine_bar.rsi
+    state: icon
+  - type: Item
+    sprite: _Onyx/Xenobiology/Materials/adamantine_bar.rsi
+  - type: StaticPrice
+    price: 10000

@@ -1,0 +1,9 @@
+- type: loadout
+  id: MedicalDoctorMessenger
+  equipment:
+    back: ClothingBackpackMessengerMedical
+
+- type: loadout
+  id: ChemistMessenger
+  equipment:
+    back: ClothingBackpackMessengerChemistry

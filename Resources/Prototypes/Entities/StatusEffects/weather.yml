@@ -36,6 +36,12 @@
       params:
         loop: true
         volume: -6
+  # <Onyx-XenobiologyImmunities>
+  - type: WeatherDamage
+    damage:
+      types:
+        Heat: 4
+  # </Onyx-XenobiologyImmunities>
 
 - type: entity
   parent: WeatherBase

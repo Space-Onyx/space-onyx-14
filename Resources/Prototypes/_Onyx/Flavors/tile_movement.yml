@@ -1,0 +1,14 @@
+- type: flavor
+  id: tears
+  flavorType: Base
+  description: flavor-base-tears
+
+- type: flavor
+  id: old
+  flavorType: Base
+  description: flavor-base-old
+
+- type: flavor
+  id: robust
+  flavorType: Base
+  description: flavor-base-robust

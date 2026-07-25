@@ -1,0 +1,53 @@
+- type: entity
+  id: MobSlimeXenobioBabyOil
+  parent: MobSlimeXenobioBaby
+  name: oil xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyOil
+    breedName: xenobio-breed-oil
+    color: "#383936"
+    shader: XenoMetallic
+    producedExtract: OilSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyOil
+
+- type: entity
+  id: MobSlimeXenobioBabyLightPink
+  parent: MobSlimeXenobioBaby
+  name: light pink xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyLightPink
+    breedName: xenobio-breed-light-pink
+    color: "#ffb3ec"
+    producedExtract: LightPinkSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyLightPink
+
+- type: entity
+  id: MobSlimeXenobioBabyBlack
+  parent: MobSlimeXenobioBaby
+  name: black xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyBlack
+    breedName: xenobio-breed-black
+    color: "#000000"
+    producedExtract: BlackSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyBlack
+
+- type: entity
+  id: MobSlimeXenobioBabyAdamantine
+  parent: MobSlimeXenobioBaby
+  name: adamantine xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyAdamantine
+    breedName: xenobio-breed-adamantine
+    color: "#005c33"
+    shader: XenoMetallic
+    producedExtract: AdamantineSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyAdamantine

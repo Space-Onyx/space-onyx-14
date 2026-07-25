@@ -1,0 +1,132 @@
+- type: entity
+  id: XenobioVolatileOrgan
+  parent: [ OrganHumanHeart, BasePowerCell ]
+  name: volatile organ
+  description: A pulsating mass of slime that reacts to nearby devices.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Items/volatile_organ.rsi
+    layers:
+    - state: icon
+  - type: Battery
+    pricePerJoule: 0.15
+    maxCharge: 5200
+    startingCharge: 5200
+  - type: BatterySelfRecharger
+    autoRechargeRate: 40
+  - type: EmpResistance
+    strengthMultiplier: 0
+    durationMultiplier: 0
+  - type: VolatileOrgan
+
+- type: entity
+  id: XenobioGoopBall
+  parent: ItemHeftyBase
+  name: goop ball
+  description: A dense ball of slime that forms an airtight growth when broken.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Items/goo_ball.rsi
+    state: icon
+  - type: Item
+    size: Normal
+  - type: Damageable
+    damageContainer: Biological
+  - type: DamageOnHighSpeedImpact
+    minimumSpeed: 0.1
+    damage:
+      types:
+        Blunt: 1
+    soundHit:
+      collection: desecration
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: desecration
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          XenoGooWall:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: XenoGooWall
+  name: gelatinous growth
+  description: A flexible slime barrier that blocks air and slows movement.
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Items/goo_ball.rsi
+    state: goo-wall
+    drawdepth: WallMountedItems
+  - type: Clickable
+  - type: Damageable
+    damageContainer: Biological
+    damageModifierSet: Slime
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 30
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        collection: desecration
+  - type: Fixtures
+    fixtures:
+      fix1:
+        hard: false
+        density: 7
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        layer: [ MidImpassable ]
+  - type: Airtight
+    noAirWhenFullyAirBlocked: false
+  - type: SpeedModifierContacts
+    walkSpeedModifier: 0.5
+    sprintSpeedModifier: 0.5
+  - type: PointLight
+    enabled: true
+    radius: 3
+    color: teal
+
+- type: entity
+  parent: BaseItem
+  id: XenobioVolatileRedExtractJelly
+  name: volatile red slime jelly
+  description: Coating clothing with this removes movement slowdowns, but makes its wearer dangerously vulnerable to fire.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Items/extract_jellies.rsi
+    layers:
+    - state: jelly
+      color: "#ff3333"
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: inhand-left
+        color: "#ff3333"
+      right:
+      - state: inhand-right
+        color: "#ff3333"
+  - type: ClothingCoating
+    coatingName: clothing-coating-xenobio-volatile
+    components:
+    - type: VeryFlammable
+    - type: SpeedModifierImmunity

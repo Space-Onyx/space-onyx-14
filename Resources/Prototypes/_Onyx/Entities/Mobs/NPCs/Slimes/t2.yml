@@ -1,0 +1,73 @@
+- type: entity
+  id: MobSlimeXenobioBabyYellow
+  parent: MobSlimeXenobioBaby
+  name: yellow xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyYellow
+    breedName: xenobio-breed-yellow
+    color: "#ffff1a"
+    producedExtract: YellowSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyOrange
+    - MobSlimeXenobioBabyMetal
+    - MobSlimeXenobioBabyBluespace
+
+- type: entity
+  id: MobSlimeXenobioBabyDarkPurple
+  parent: MobSlimeXenobioBaby
+  name: dark purple xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyDarkPurple
+    breedName: xenobio-breed-dark-purple
+    color: "#8e0ff0"
+    producedExtract: DarkPurpleSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyPurple
+    - MobSlimeXenobioBabyOrange
+    - MobSlimeXenobioBabySepia
+
+- type: entity
+  id: MobSlimeXenobioBabyDarkBlue
+  parent: MobSlimeXenobioBaby
+  name: dark blue xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyDarkBlue
+    breedName: xenobio-breed-dark-blue
+    color: "#1e8cfa"
+    producedExtract: DarkBlueSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyBlue
+    - MobSlimeXenobioBabyPurple
+    - MobSlimeXenobioBabyCerulean
+
+- type: entity
+  id: MobSlimeXenobioBabySilver
+  parent: MobSlimeXenobioBaby
+  name: silver xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabySilver
+    breedName: xenobio-breed-silver
+    color: "#c4c4c4"
+    shader: XenoMetallic
+    producedExtract: SilverSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyBlue
+    - MobSlimeXenobioBabyPyrite
+    - MobSlimeXenobioBabyMetal
+
+- type: entity
+  id: MobSlimeXenobioBabyCerulean
+  parent: MobSlimeXenobioBaby
+  name: cerulean xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyCerulean
+    breedName: xenobio-breed-cerulean
+    color: "#2A52BE"
+    producedExtract: CeruleanSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyCerulean

@@ -1,0 +1,16 @@
+- type: entity
+  parent: StatusEffectBase
+  id: StatusEffectOnyxFireImmunity
+  name: fire immunity
+  components:
+  - type: StatusEffect
+  - type: FireImmunityStatusEffect
+  - type: HighTemperatureImmunityStatusEffect
+
+- type: entity
+  parent: StatusEffectBase
+  id: StatusEffectOnyxWeatherImmunity
+  name: weather immunity
+  components:
+  - type: StatusEffect
+  - type: WeatherImmunityStatusEffect

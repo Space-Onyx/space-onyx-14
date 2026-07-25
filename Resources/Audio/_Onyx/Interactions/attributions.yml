@@ -1,0 +1,4 @@
+- files: ["ominous.ogg"]
+  license: "AGPL-3.0-or-later"
+  copyright: "Ported with Einstein Engines interaction verbs. See source commit."
+  source: "https://github.com/Goob-Station/Goob-Station/commit/41aff59615bb1dc1c37a4c39cff6ab583785a3c7"

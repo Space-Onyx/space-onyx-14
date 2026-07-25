@@ -1,0 +1,98 @@
+- type: entity
+  id: MobSlimeXenobioBabyBluespace
+  parent: MobSlimeXenobioBaby
+  name: bluespace xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyBluespace
+    breedName: xenobio-breed-bluespace
+    color: "#f0f8ff"
+    shader: XenoBluespace
+    producedExtract: BluespaceSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyBluespace
+
+- type: entity
+  id: MobSlimeXenobioBabySepia
+  parent: MobSlimeXenobioBaby
+  name: sepia xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabySepia
+    breedName: xenobio-breed-sepia
+    color: "#704214"
+    shader: XenoSepia
+    producedExtract: SepiaSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabySepia
+
+- type: entity
+  id: MobSlimeXenobioBabyPyrite
+  parent: MobSlimeXenobioBaby
+  name: pyrite xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyPyrite
+    breedName: xenobio-breed-pyrite
+    color: "#dcaa4f"
+    shader: XenoMetallic
+    producedExtract: PyriteSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyPyrite
+
+- type: entity
+  id: MobSlimeXenobioBabyRed
+  parent: MobSlimeXenobioBaby
+  name: red xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyRed
+    breedName: xenobio-breed-red
+    color: "#ff3333"
+    producedExtract: RedSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyRed
+    - MobSlimeXenobioBabyOil
+
+- type: entity
+  id: MobSlimeXenobioBabyGreen
+  parent: MobSlimeXenobioBaby
+  name: green xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyGreen
+    breedName: xenobio-breed-green
+    color: "#4dff4d"
+    producedExtract: GreenSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyGreen
+    - MobSlimeXenobioBabyBlack
+
+- type: entity
+  id: MobSlimeXenobioBabyPink
+  parent: MobSlimeXenobioBaby
+  name: pink xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyPink
+    breedName: xenobio-breed-pink
+    color: "#ff33cc"
+    producedExtract: PinkSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyPink
+    - MobSlimeXenobioBabyLightPink
+
+- type: entity
+  id: MobSlimeXenobioBabyGold
+  parent: MobSlimeXenobioBaby
+  name: gold xenobiology slime
+  components:
+  - type: XenobioSlime
+    breed: MobSlimeXenobioBabyGold
+    breedName: xenobio-breed-gold
+    color: "#e8b923"
+    shader: XenoMetallic
+    producedExtract: GoldSlimeExtract
+    potentialMutations:
+    - MobSlimeXenobioBabyGold
+    - MobSlimeXenobioBabyAdamantine

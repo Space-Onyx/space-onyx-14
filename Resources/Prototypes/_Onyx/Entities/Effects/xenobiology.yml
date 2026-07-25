@@ -1,0 +1,14 @@
+- type: entity
+  id: XenoExtractOilExplosion
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+  - type: TriggerOnSpawn
+  - type: Explosive
+    explosionType: FireBomb
+    totalIntensity: 70
+    intensitySlope: 4
+    maxIntensity: 1050
+  - type: ExplodeOnTrigger
+  - type: TimedDespawn
+    lifetime: 1

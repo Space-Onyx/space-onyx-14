@@ -1,0 +1,224 @@
+- type: reagent
+  parent: BaseXenobioReagent
+  id: XenobioJellyPurple
+  name: xenobio-reagent-jelly-purple-name
+  desc: xenobio-reagent-jelly-purple-desc
+  color: "#BF77F6"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 1
+      effects:
+      - !type:ModifySlime
+        conditions:
+        - !type:ReagentCondition
+          reagent: XenobioJellyPurple
+          min: 1
+        extractBonus: 1
+
+- type: reagent
+  parent: BaseXenobioReagent
+  id: XenobioJellyBlue
+  name: xenobio-reagent-jelly-blue-name
+  desc: xenobio-reagent-jelly-blue-desc
+  color: "#79F6FC"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 1
+      effects:
+      - !type:ModifySlime
+        conditions:
+        - !type:ReagentCondition
+          reagent: XenobioJellyBlue
+          min: 1
+        chanceModifier: -0.25
+
+- type: reagent
+  parent: BaseXenobioReagent
+  id: XenobioJellyDarkBlue
+  name: xenobio-reagent-jelly-darkblue-name
+  desc: xenobio-reagent-jelly-darkblue-desc
+  color: "#1E8CFA"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 1
+      effects:
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectOnyxFireImmunity
+        type: Add
+        time: 60
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectOnyxWeatherImmunity
+        type: Add
+        time: 60
+
+- type: reagent
+  parent: BaseXenobioReagent
+  id: XenobioJellyCerulean
+  name: xenobio-reagent-jelly-cerulean-name
+  desc: xenobio-reagent-jelly-cerulean-desc
+  color: "#2A52BE"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 1
+      effects:
+      - !type:ModifySlime
+        conditions:
+        - !type:ReagentCondition
+          reagent: XenobioJellyCerulean
+          min: 1
+        offspringBonus: 2
+
+- type: reagent
+  parent: BaseXenobioReagent
+  id: XenobioJellyRed
+  name: xenobio-reagent-jelly-red-name
+  desc: xenobio-reagent-jelly-red-desc
+  color: "#FF3333"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 1
+      effects:
+      - !type:ModifySlime
+        conditions:
+        - !type:ReagentCondition
+          reagent: XenobioJellyRed
+          min: 1
+        chanceModifier: 0.25
+
+- type: reagent
+  parent: BaseXenobioReagent
+  id: XenobioJellyGreen
+  name: xenobio-reagent-jelly-green-name
+  desc: xenobio-reagent-jelly-green-desc
+  color: "#4DFF4D"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 5
+      effects:
+      - !type:SpeciesChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: XenobioJellyGreen
+          min: 10
+        species: SlimePerson
+      - !type:AdjustReagent
+        reagent: XenobioJellyGreen
+        amount: -50
+        conditions:
+        - !type:ReagentCondition
+          reagent: XenobioJellyGreen
+          min: 10
+
+- type: reagent
+  parent: BaseXenobioReagent
+  id: XenobioHumanToxin
+  name: xenobio-reagent-toxin-human-name
+  desc: xenobio-reagent-toxin-human-desc
+  color: "#000000"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 5
+      effects:
+      - !type:SpeciesChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: XenobioHumanToxin
+          min: 10
+        species: Human
+      - !type:AdjustReagent
+        reagent: XenobioHumanToxin
+        amount: -50
+        conditions:
+        - !type:ReagentCondition
+          reagent: XenobioHumanToxin
+          min: 10
+
+- type: reagent
+  parent: BaseXenobioReagent
+  id: XenobioJellyPink
+  name: xenobio-reagent-jelly-pink-name
+  desc: xenobio-reagent-jelly-pink-desc
+  color: "#FF4DD2"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 1
+      effects:
+      - !type:SetFaction
+        conditions:
+        - !type:ReagentCondition
+          reagent: XenobioJellyPink
+          min: 5
+        faction: Passive
+
+- type: reagent
+  parent: BaseXenobioReagent
+  id: AdvancedMutationToxin
+  name: xenobio-reagent-toxin-advanced-name
+  desc: xenobio-reagent-toxin-advanced-desc
+  color: "#000000"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 5
+      effects:
+      - !type:RandomSpeciesChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: AdvancedMutationToxin
+          min: 10
+        blacklist:
+        - Skeleton
+        - Ipc
+      - !type:AdjustReagent
+        reagent: AdvancedMutationToxin
+        amount: -50
+        conditions:
+        - !type:ReagentCondition
+          reagent: AdvancedMutationToxin
+          min: 10
+
+- type: reagent
+  parent: BaseXenobioReagent
+  id: XenobioFelinidToxin
+  name: xenobio-reagent-toxin-felinid-name
+  desc: xenobio-reagent-toxin-felinid-desc
+  color: "#000000"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 5
+      effects:
+      - !type:SpeciesChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: XenobioFelinidToxin
+          min: 10
+        species: Felinid
+      - !type:AdjustReagent
+        reagent: XenobioFelinidToxin
+        amount: -50
+        conditions:
+        - !type:ReagentCondition
+          reagent: XenobioFelinidToxin
+          min: 10
+
+- type: reagent
+  parent: BaseXenobioReagent
+  id: XenobioGenderFluid
+  name: xenobio-reagent-genderfluid-name
+  desc: xenobio-reagent-genderfluid-desc
+  color: "#FF4DD2"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 1
+      effects:
+      - !type:SexChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: XenobioGenderFluid
+          min: 5
+      - !type:AdjustReagent
+        reagent: XenobioGenderFluid
+        amount: -50
+        conditions:
+        - !type:ReagentCondition
+          reagent: XenobioGenderFluid
+          min: 5
