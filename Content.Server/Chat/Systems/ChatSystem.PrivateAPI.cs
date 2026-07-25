@@ -67,11 +67,14 @@ public sealed partial class ChatSystem
         // <Onyx-Languages>
         var speechVerb = Loc.GetString(_random.Pick(speech.SpeechVerbStrings));
         // </Onyx-Languages>
+        // <Onyx-Loudspeaker>
+        var loudspeakerFontSize = GetLoudspeakerFontSize(source, false);
+        // </Onyx-Loudspeaker>
         var wrappedMessage = Loc.GetString(speech.Bold ? "chat-manager-entity-say-bold-wrap-message" : "chat-manager-entity-say-wrap-message",
             ("entityName", name),
             ("verb", speechVerb),
             ("fontType", speech.FontId),
-            ("fontSize", speech.FontSize),
+            ("fontSize", loudspeakerFontSize ?? speech.FontSize), // <Onyx-Loudspeaker-edited>
             ("message", inlineFormattedMessage));
 
         // <Onyx-Languages-edited>
@@ -104,7 +107,7 @@ public sealed partial class ChatSystem
                 ("entityName", name),
                 ("verb", speechVerb),
                 ("fontType", speech.FontId),
-                ("fontSize", speech.FontSize),
+                ("fontSize", loudspeakerFontSize ?? speech.FontSize), // <Onyx-Loudspeaker-edited>
                 ("message", perceivedContent));
             _chatManager.ChatMessageToOne(ChatChannel.Local, perceived, perceivedWrap, source,
                 entRange == MessageRangeCheckResult.HideChat, session.Channel);

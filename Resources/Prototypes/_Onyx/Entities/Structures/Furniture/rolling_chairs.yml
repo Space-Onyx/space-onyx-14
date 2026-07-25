@@ -1,0 +1,53 @@
+- type: entity
+  name: chair
+  id: RollingOfficeChairBase
+  abstract: true
+  parent: BaseVehicleStrap
+  description: Scoot from desk to desk because standing is for interns.
+  components:
+  - type: Anchorable
+  - type: Rotatable
+    rotateWhileAnchored: true
+  - type: Sprite
+    sprite: Structures/Furniture/chairs.rsi
+    noRot: true
+  - type: Strap
+    position: Stand
+    buckleOffset: "0,-0.05"
+  - type: Vehicle
+    requiresHands: false
+  - type: MovementSpeedModifier
+    acceleration: 10
+    friction: 3.5
+    baseSprintSpeed: 2.5
+    baseWalkSpeed: 1.5
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: StaticPrice
+    price: 50
+
+- type: entity
+  name: white office chair
+  id: RollingChairOfficeLight
+  parent: RollingOfficeChairBase
+  suffix: Vehicle
+  components:
+  - type: Sprite
+    state: office-white
+  - type: Construction
+    graph: Seat
+    node: rollingChairOffice
+
+- type: entity
+  name: dark office chair
+  id: RollingChairOfficeDark
+  parent: RollingOfficeChairBase
+  suffix: Vehicle
+  components:
+  - type: Sprite
+    state: office-dark
+  - type: Construction
+    graph: Seat
+    node: rollingChairOfficeDark

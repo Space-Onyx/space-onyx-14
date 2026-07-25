@@ -1,0 +1,77 @@
+- type: entity
+  name: Secway Spawner
+  id: SpawnVehicleSecway
+  parent: MarkerBase
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Objects/Vehicles/secway.rsi
+      state: keys
+  - type: ConditionalSpawner
+    prototypes: [VehicleSecway]
+
+- type: entity
+  name: ATV Spawner
+  id: SpawnVehicleATV
+  parent: MarkerBase
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Objects/Vehicles/atv.rsi
+      state: keys
+  - type: ConditionalSpawner
+    prototypes: [VehicleATV]
+
+- type: entity
+  name: Janicart Spawner
+  id: SpawnVehicleJanicart
+  parent: MarkerBase
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Objects/Vehicles/janicart.rsi
+      state: keys
+  - type: ConditionalSpawner
+    prototypes: [VehicleJanicart]
+
+- type: entity
+  name: Motobike Spawner
+  id: SpawnVehicleMotobike
+  parent: MarkerBase
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Objects/Vehicles/motorbike.rsi
+      state: keys
+  - type: ConditionalSpawner
+    prototypes: [VehicleSkeletonMotorcycle]
+
+- type: entity
+  name: light office chair spawner
+  id: SpawnVehicleChairOfficeLight
+  parent: MarkerBase
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _Onyx/Objects/Vehicles/chairs.rsi
+      state: white-icon
+  - type: ConditionalSpawner
+    prototypes: [RollingChairOfficeLight]
+
+- type: entity
+  name: dark office chair spawner
+  id: SpawnVehicleChairOfficeDark
+  parent: MarkerBase
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _Onyx/Objects/Vehicles/chairs.rsi
+      state: dark-icon
+  - type: ConditionalSpawner
+    prototypes: [RollingChairOfficeDark]

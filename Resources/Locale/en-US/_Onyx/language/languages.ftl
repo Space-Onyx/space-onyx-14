@@ -1,5 +1,7 @@
 language-Universal-name = Universal
-language-Universal-description = Universal understanding of all speech.
+language-Universal-description = What are you?
+language-Psychomantic-name = Psychomantic
+language-Psychomantic-description = Pure meaning, free from the tyranny of primitive words and gestures.
 language-TauCetiBasic-name = Tau Ceti Basic
 language-TauCetiBasic-description = The common language of Tau Ceti space stations.
 language-Chittin-name = Chittin

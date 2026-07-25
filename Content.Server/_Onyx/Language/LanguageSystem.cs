@@ -17,6 +17,7 @@ namespace Content.Server._Onyx.Language;
 public sealed partial class LanguageSystem : EntitySystem
 {
     private static readonly ProtoId<LanguagePrototype> Universal = "Universal";
+    private static readonly ProtoId<LanguagePrototype> Psychomantic = "Psychomantic";
 
     [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private GameTicker _ticker = default!;
@@ -29,6 +30,8 @@ public sealed partial class LanguageSystem : EntitySystem
     {
         SubscribeLocalEvent<LanguageSpeakerComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<LanguageSpeakerComponent, ComponentGetState>(OnGetState);
+        SubscribeLocalEvent<UniversalLanguageSpeakerComponent, ComponentStartup>(OnUniversalStartup);
+        SubscribeLocalEvent<UniversalLanguageSpeakerComponent, ComponentRemove>(OnUniversalRemoved);
         SubscribeNetworkEvent<SetLanguageMessage>(OnSetLanguage);
         SubscribeLocalEvent<HandheldTranslatorComponent, ActivateInWorldEvent>(OnTranslatorToggle);
         SubscribeLocalEvent<HandheldTranslatorComponent, EntGotInsertedIntoContainerMessage>(OnTranslatorInserted);
@@ -38,6 +41,21 @@ public sealed partial class LanguageSystem : EntitySystem
         SubscribeLocalEvent<HandheldTranslatorComponent, ItemToggledEvent>(OnItemToggled);
         SubscribeLocalEvent<TranslatorImplantComponent, EntGotInsertedIntoContainerMessage>(OnImplantInserted);
         SubscribeLocalEvent<TranslatorImplantComponent, EntGotRemovedFromContainerMessage>(OnImplantRemoved);
+    }
+
+    private void OnUniversalStartup(Entity<UniversalLanguageSpeakerComponent> ent, ref ComponentStartup args)
+    {
+        UpdateLanguages(ent);
+    }
+
+    private void OnUniversalRemoved(Entity<UniversalLanguageSpeakerComponent> ent, ref ComponentRemove args)
+    {
+        if (TryComp<LanguageSpeakerComponent>(ent, out var speaker))
+        {
+            speaker.SpokenLanguages.Remove(Psychomantic);
+            EnsureValidCurrentLanguage(speaker);
+            Dirty(ent.Owner, speaker);
+        }
     }
 
     private void OnGetState(Entity<LanguageSpeakerComponent> ent, ref ComponentGetState args)
@@ -189,16 +207,14 @@ public sealed partial class LanguageSystem : EntitySystem
         languageSpeaker.SpokenLanguages.Clear();
         languageSpeaker.UnderstoodLanguages.Clear();
         TryComp(speaker, out knowledge);
-        if (HasComp<UniversalLanguageSpeakerComponent>(speaker))
-        {
-            languageSpeaker.SpokenLanguages.Add(Universal);
-            languageSpeaker.UnderstoodLanguages.Add(Universal);
-        }
-        else if (knowledge != null)
+        if (knowledge != null)
         {
             languageSpeaker.SpokenLanguages.UnionWith(knowledge.SpokenLanguages);
             languageSpeaker.UnderstoodLanguages.UnionWith(knowledge.UnderstoodLanguages);
         }
+
+        if (TryComp<UniversalLanguageSpeakerComponent>(speaker, out var universal) && universal.Enabled)
+            languageSpeaker.SpokenLanguages.Add(Psychomantic);
 
         EnsureValidCurrentLanguage(languageSpeaker);
     }
@@ -241,7 +257,8 @@ public sealed partial class LanguageSystem : EntitySystem
 
     public bool CanUnderstand(EntityUid listener, ProtoId<LanguagePrototype> language)
     {
-        return HasComp<UniversalLanguageSpeakerComponent>(listener) ||
+        return (TryComp<UniversalLanguageSpeakerComponent>(listener, out var universal) && universal.Enabled) ||
+               language == Psychomantic ||
                language == Universal ||
                TryComp<LanguageSpeakerComponent>(listener, out var component) && component.UnderstoodLanguages.Contains(language);
     }

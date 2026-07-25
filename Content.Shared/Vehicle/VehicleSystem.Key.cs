@@ -1,11 +1,14 @@
 using System.Linq;
 using Content.Shared.Vehicle.Components;
+using Content.Shared.Audio; // <Onyx-VehicleIdleSound-edited>
 using Robust.Shared.Containers;
 
 namespace Content.Shared.Vehicle;
 
 public sealed partial class VehicleSystem
 {
+    [Dependency] private SharedAmbientSoundSystem _ambient = default!; // <Onyx-VehicleIdleSound-edited>
+
     [SubscribeLocalEvent]
     private void OnGenericKeyedInsertAttempt(Entity<GenericKeyedVehicleComponent> ent, ref ContainerIsInsertingAttemptEvent args)
     {
@@ -28,6 +31,7 @@ public sealed partial class VehicleSystem
             return;
 
         RefreshCanRun((ent.Owner, vehicle));
+        _ambient.SetAmbience(ent.Owner, true); // <Onyx-VehicleIdleSound-edited>
     }
 
     [SubscribeLocalEvent]
@@ -40,6 +44,7 @@ public sealed partial class VehicleSystem
             return;
 
         RefreshCanRun((ent.Owner, vehicle));
+        _ambient.SetAmbience(ent.Owner, false); // <Onyx-VehicleIdleSound-edited>
     }
 
     [SubscribeLocalEvent]

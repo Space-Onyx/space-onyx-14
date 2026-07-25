@@ -1,4 +1,5 @@
 using Content.Shared.Chat;
+using Content.Shared._Onyx.Loudspeaker.Events; // <Onyx-Loudspeaker>
 using Content.Shared.Speech;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
@@ -22,12 +23,29 @@ namespace Content.Server.Speech
 
         public SoundSpecifier? GetSpeechSound(Entity<SpeechComponent> ent, string message)
         {
-            if (ent.Comp.SpeechSounds == null)
+            // <Onyx-Loudspeaker>
+            var getSpeechSound = new GetSpeechSoundEvent();
+            RaiseLocalEvent(ent, ref getSpeechSound);
+            SpeechSoundsPrototype? prototype;
+            if (getSpeechSound.Handled)
+            {
+                if (getSpeechSound.SpeechSoundProtoId is not { } protoId || !ProtoMan.TryIndex(protoId, out prototype))
+                    return null;
+            }
+            else
+            {
+                if (ent.Comp.SpeechSounds == null)
+                    return null;
+
+                prototype = ProtoMan.Index<SpeechSoundsPrototype>(ent.Comp.SpeechSounds);
+            }
+            // </Onyx-Loudspeaker>
+
+            if (prototype == null)
                 return null;
 
             // Play speech sound
             SoundSpecifier? contextSound;
-            var prototype = ProtoMan.Index<SpeechSoundsPrototype>(ent.Comp.SpeechSounds);
 
             // Different sounds for ask/exclaim based on last character
             contextSound = message[^1] switch
@@ -56,9 +74,6 @@ namespace Content.Server.Speech
 
         private void OnEntitySpoke(EntityUid uid, SpeechComponent component, EntitySpokeEvent args)
         {
-            if (component.SpeechSounds == null)
-                return;
-
             var currentTime = _gameTiming.CurTime;
             var cooldown = TimeSpan.FromSeconds(component.SoundCooldownTime);
 
@@ -67,6 +82,9 @@ namespace Content.Server.Speech
                 return;
 
             var sound = GetSpeechSound((uid, component), args.Message);
+            if (sound == null)
+                return;
+
             component.LastTimeSoundPlayed = currentTime;
             _audio.PlayPvs(sound, uid);
         }

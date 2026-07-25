@@ -80,7 +80,10 @@
   - APECircuitboard
   - ArtifactAnalyzerMachineCircuitboard
   - ArtifactCrusherMachineCircuitboard
-# </Onyx-GoobDepartmentBoards-edited>
+  # <Onyx-SeedDna>
+  - ADTBotanicalSeedDNAManipulatorCircuitboard
+  # </Onyx-SeedDna>
+ # </Onyx-GoobDepartmentBoards-edited>
 
 - type: latheRecipePack
   id: CameraBoards

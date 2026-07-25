@@ -592,6 +592,11 @@
     stateBaseClosed: clown
     stateDoorOpen: clown_open
     stateDoorClosed: clown_door
+  # <Onyx-Loudspeaker>
+  - type: StorageFill
+    contents:
+    - id: ClownMegaphone
+  # </Onyx-Loudspeaker>
 
 # Mime
 - type: entity

@@ -1,0 +1,7 @@
+- type: latheRecipe
+  id: ADTBotanicalSeedDNADisk
+  result: ADTBotanicalSeedDNADisk
+  completetime: 4
+  materials:
+    Steel: 500
+    Plastic: 100

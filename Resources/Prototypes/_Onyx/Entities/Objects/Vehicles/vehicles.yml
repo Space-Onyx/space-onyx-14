@@ -34,3 +34,433 @@
       key_slot: !type:ContainerSlot
   - type: StaticPrice
     price: 2500
+  - type: AmbientSound
+    sound: /Audio/Effects/Vehicle/vehicleengineidle.ogg
+    range: 10
+    volume: -10
+    enabled: false
+
+- type: entity
+  id: VehicleForklift
+  parent: BaseVehicleStrap
+  name: forklift
+  description: NanoTrasen approved Forklift Certification required.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Vehicles/forklift.rsi
+    layers:
+    - state: forklift
+    - state: forklift_crate
+      map: ["crateLayer0"]
+      visible: false
+    - state: forklift_crate2
+      map: ["crateLayer1"]
+      visible: false
+    - state: forklift_crate3
+      map: ["crateLayer2"]
+      visible: false
+    - state: forklift_crate4
+      map: ["crateLayer3"]
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ForkliftVisuals.CrateState:
+        crateLayer0:
+          Empty: { visible: false }
+          OneCrate: { visible: true }
+          TwoCrates: { visible: true }
+          ThreeCrates: { visible: true }
+          FourCrates: { visible: true }
+        crateLayer1:
+          Empty: { visible: false }
+          OneCrate: { visible: false }
+          TwoCrates: { visible: true }
+          ThreeCrates: { visible: true }
+          FourCrates: { visible: true }
+        crateLayer2:
+          Empty: { visible: false }
+          OneCrate: { visible: false }
+          TwoCrates: { visible: false }
+          ThreeCrates: { visible: true }
+          FourCrates: { visible: true }
+        crateLayer3:
+          Empty: { visible: false }
+          OneCrate: { visible: false }
+          TwoCrates: { visible: false }
+          ThreeCrates: { visible: false }
+          FourCrates: { visible: true }
+  - type: GenericKeyedVehicle
+    containerId: key_slot
+    keyWhitelist:
+      tags: [ForkliftKeys]
+  - type: ItemSlots
+    slots:
+      key_slot:
+        name: vehicle-slot-component-slot-name-keys
+        whitelist:
+          tags: [ForkliftKeys]
+        insertSound: /Audio/Effects/Vehicle/vehiclestartup.ogg
+  - type: ContainerContainer
+    containers:
+      key_slot: !type:ContainerSlot
+      crate_storage: !type:Container
+  - type: Forklift
+    liftSound:
+      path: /Audio/_Onyx/Vehicle/Forklift/forklift.ogg
+      params:
+        playOffsetSeconds: 6
+        variation: 0.5
+  - type: MovementSpeedModifier
+    acceleration: 8
+    friction: 0.2
+    baseWalkSpeed: 4.5
+    baseSprintSpeed: 6.5
+
+- type: entity
+  id: VehicleClowncarBase
+  parent: BaseVehicleStrap
+  abstract: true
+  name: clown car
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Vehicles/clowncar.rsi
+    state: clowncar
+  - type: GenericKeyedVehicle
+    containerId: key_slot
+    keyWhitelist:
+      tags: [BikeHorn]
+  - type: ItemSlots
+    slots:
+      key_slot:
+        name: vehicle-slot-component-slot-name-keys
+        whitelist:
+          tags: [BikeHorn]
+        insertSound: /Audio/Effects/Vehicle/vehiclestartup.ogg
+  - type: Strap
+    buckleOnInteractHand: false
+    addBuckleverb: false
+    allowOthersToUnbuckle: false
+    unbuckleSound:
+      collection: ClowncarCrash
+    whitelist:
+      components: [Clumsy]
+  - type: ContainerContainer
+    containers:
+      key_slot: !type:ContainerSlot
+      clowncar_container: !type:Container
+  - type: DragInsertContainer
+    containerId: clowncar_container
+    entryDelay: 2
+    useVerbs: true
+  - type: Clowncar
+    loadSound:
+      collection: ClowncarLoad
+    crashSound:
+      collection: ClowncarCrash
+    crashWhitelist:
+      components:
+      - HumanoidProfile
+      - KnockedDown
+      - Item
+      - Puddle
+      - Airlock
+      - Door
+      - Strap
+      - Body
+      - Holopad
+  - type: MovementSpeedModifier
+    weightlessModifier: 0
+    acceleration: 1
+    friction: 1
+    baseWalkSpeed: 4.5
+    baseSprintSpeed: 10
+  - type: UnpoweredFlashlight
+  - type: PointLight
+    enabled: false
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+    radius: 3.5
+    softness: 2
+
+- type: entity
+  id: VehicleClowncarAntag
+  parent: VehicleClowncarBase
+  description: How someone could even fit in there is beyond me.
+  components:
+  - type: Clowncar
+    capacity: 50
+    captureOnCollide: true
+
+- type: entity
+  id: VehicleClowncarTrainee
+  parent: VehicleClowncarBase
+  name: trainee clown car
+  description: Carry mostly willing passengers around! Be careful with collisions!
+  components:
+  - type: Clowncar
+    capacity: 5
+
+- type: entity
+  id: VehicleHoverbikeNF
+  parent: BaseVehicleStrap
+  name: hoverbike
+  description: A turbine with bike handles. Very safe.
+  components:
+  - type: MovementAlwaysTouching
+  - type: CanMoveInAir
+  - type: Sprite
+    sprite: _Onyx/Objects/Vehicles/hoverbike.rsi
+    layers:
+    - state: hull
+    - state: engine
+    - state: lights
+      shader: unshaded
+  - type: AmbientSound
+    sound: /Audio/Effects/shuttle_thruster.ogg
+    range: 8
+    volume: 5
+    enabled: false
+  - type: GenericKeyedVehicle
+    containerId: key_slot
+    keyWhitelist:
+      tags: [HoverbikeKeys]
+  - type: ItemSlots
+    slots:
+      key_slot: &hoverbikeKeySlot
+        name: vehicle-slot-component-slot-name-keys
+        whitelist:
+          tags: [HoverbikeKeys]
+        insertSound:
+          path: /Audio/Effects/Vehicle/vehiclestartup.ogg
+          params:
+            volume: -5
+      bag: &hoverbikeBagSlot
+        name: stored bag
+        whitelist:
+          components: [Storage]
+        insertSound: /Audio/Items/belt_equip.ogg
+  - type: ItemMapper
+    mapLayers:
+      bag:
+        whitelist:
+          components: [Storage]
+    sprite: _Onyx/Objects/Vehicles/hoverbike.rsi
+  - type: Appearance
+  - type: ContainerContainer
+    containers:
+      key_slot: !type:ContainerSlot
+      bag: !type:ContainerSlot
+  - type: Strap
+    buckleOffset: "0.1,-0.05"
+  - type: MovementSpeedModifier
+    acceleration: 1.5
+    friction: 1
+    baseWalkSpeed: 3.5
+    baseSprintSpeed: 6
+    baseWeightlessAcceleration: 1
+    baseWeightlessFriction: 0.05
+    weightlessFrictionNoInput: 0.05
+    baseWeightlessModifier: 3
+  - type: PointLight
+    radius: 7
+    energy: 3
+
+- type: entity
+  id: VehicleHoverbikeNFKeys
+  parent: VehicleHoverbikeNF
+  suffix: With key
+  components:
+  - type: ItemSlots
+    slots:
+      key_slot:
+        <<: *hoverbikeKeySlot
+        startingItem: VehicleKeyHoverbikeNF
+      bag: *hoverbikeBagSlot
+
+- type: entity
+  id: VehicleHoverbikeMailcarrier
+  parent: VehicleHoverbikeNF
+  name: mail carrier hoverbike
+  description: You better run, better run, faster than my mail.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Vehicles/hoverbike.rsi
+    layers:
+    - state: hull
+      color: "#8fd3ff"
+    - state: engine
+    - state: mailtrim
+    - state: lights
+      shader: unshaded
+  - type: ItemSlots
+    slots:
+      key_slot: *hoverbikeKeySlot
+      mailgun: &hoverbikeGunSlot
+        name: gun
+        whitelist:
+          components: [Gun]
+  - type: ItemMapper
+    mapLayers:
+      mailgun:
+        whitelist:
+          components: [Gun]
+    sprite: _Onyx/Objects/Vehicles/hoverbike.rsi
+  - type: ContainerContainer
+    containers:
+      key_slot: !type:ContainerSlot
+      mailgun: !type:ContainerSlot
+
+- type: entity
+  id: VehicleHoverbikeMailcarrierKey
+  parent: VehicleHoverbikeMailcarrier
+  suffix: With key
+  components:
+  - type: ItemSlots
+    slots:
+      key_slot:
+        <<: *hoverbikeKeySlot
+        startingItem: VehicleKeyHoverbikeNF
+      mailgun: *hoverbikeGunSlot
+
+- type: entity
+  id: VehicleHoverbikeNfsd
+  parent: VehicleHoverbikeMailcarrier
+  name: TSFMC hoverbike
+  description: A TSFMC-issued turbine with bike handles. Very safe.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Vehicles/hoverbike.rsi
+    layers:
+    - state: hull
+      color: "#3d4b54"
+    - state: engine
+    - state: nfsdstar
+    - state: lights
+      shader: unshaded
+  - type: ItemSlots
+    slots:
+      key_slot: *hoverbikeKeySlot
+      nfsdbaton: &hoverbikeBatonSlot
+        name: stun baton
+        whitelist:
+          components: [Stunbaton]
+  - type: ItemMapper
+    mapLayers:
+      nfsdbaton:
+        whitelist:
+          components: [Stunbaton]
+    sprite: _Onyx/Objects/Vehicles/hoverbike.rsi
+  - type: ContainerContainer
+    containers:
+      key_slot: !type:ContainerSlot
+      nfsdbaton: !type:ContainerSlot
+  - type: RotatingLight
+    speed: 190
+  - type: PointLight
+    enabled: false
+    radius: 6
+    energy: 2
+    color: "#FF4020"
+    mask: /Textures/Effects/LightMasks/double_cone.png
+
+- type: entity
+  id: VehicleHoverbikeNfsdKey
+  parent: VehicleHoverbikeNfsd
+  suffix: With key
+  components:
+  - type: ItemSlots
+    slots:
+      key_slot:
+        <<: *hoverbikeKeySlot
+        startingItem: VehicleKeyHoverbikeNF
+      nfsdbaton: *hoverbikeBatonSlot
+
+- type: entity
+  id: VehicleHoverbikePirate
+  parent: VehicleHoverbikeMailcarrier
+  name: pirate hoverbike
+  description: Yarr! Dis be me sovereign space shuttle. Now, whaur me rum?
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Vehicles/hoverbike.rsi
+    layers:
+    - state: hull
+      color: "#3d2712"
+    - state: engine
+    - state: pirate
+    - state: lights
+      shader: unshaded
+  - type: ItemSlots
+    slots:
+      key_slot: *hoverbikeKeySlot
+      piratemusket: *hoverbikeGunSlot
+  - type: ItemMapper
+    mapLayers:
+      piratemusket:
+        whitelist:
+          components: [Gun]
+    sprite: _Onyx/Objects/Vehicles/hoverbike.rsi
+  - type: ContainerContainer
+    containers:
+      key_slot: !type:ContainerSlot
+      piratemusket: !type:ContainerSlot
+
+- type: entity
+  id: VehicleHoverbikePirateKey
+  parent: VehicleHoverbikePirate
+  suffix: With key
+  components:
+  - type: ItemSlots
+    slots:
+      key_slot:
+        <<: *hoverbikeKeySlot
+        startingItem: VehicleKeyHoverbikeNF
+      piratemusket: *hoverbikeGunSlot
+
+- type: entity
+  id: VehicleHoverbikeSyndicate
+  parent: [VehicleHoverbikeMailcarrier, BaseSyndicateContraband]
+  name: syndicate hoverbike
+  description: This thing screams style. And war crimes.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Vehicles/hoverbike.rsi
+    layers:
+    - state: hull
+      color: "#b51e0e"
+    - state: engine
+    - state: syndicatebags
+    - state: syndicatelights
+      shader: unshaded
+  - type: ItemSlots
+    slots:
+      key_slot: *hoverbikeKeySlot
+      syndicategun: *hoverbikeGunSlot
+  - type: ItemMapper
+    mapLayers:
+      syndicategun:
+        whitelist:
+          components: [Gun]
+    sprite: _Onyx/Objects/Vehicles/hoverbike.rsi
+  - type: ContainerContainer
+    containers:
+      key_slot: !type:ContainerSlot
+      syndicategun: !type:ContainerSlot
+  - type: PointLight
+    enabled: false
+    color: green
+    radius: 6
+    energy: 3
+
+- type: entity
+  id: VehicleHoverbikeSyndicateKey
+  parent: VehicleHoverbikeSyndicate
+  suffix: With key
+  components:
+  - type: ItemSlots
+    slots:
+      key_slot:
+        <<: *hoverbikeKeySlot
+        startingItem: VehicleKeyHoverbikeNF
+      syndicategun: *hoverbikeGunSlot

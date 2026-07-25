@@ -15,6 +15,7 @@ using Content.Shared.Chat;
 using Content.Shared.Examine;
 using Content.Shared.Ghost;
 using Content.Shared.Mobs.Systems;
+using Content.Shared._Onyx.Loudspeaker.Events; // <Onyx-Loudspeaker>
 using Content.Shared.Players.RateLimiting;
 using Robust.Server.Player;
 using Robust.Shared.Audio.Systems;
@@ -51,6 +52,26 @@ public sealed partial class ChatSystem : SharedChatSystem
     // <Onyx-Languages>
     [Dependency] private LanguageSystem _language = default!;
     // </Onyx-Languages>
+
+    // <Onyx-Loudspeaker>
+    public int? GetLoudspeakerFontSize(EntityUid source, bool radio)
+    {
+        var getLoudspeakers = new GetLoudspeakerEvent();
+        RaiseLocalEvent(source, ref getLoudspeakers);
+        if (getLoudspeakers.Loudspeakers == null)
+            return null;
+
+        foreach (var loudspeaker in getLoudspeakers.Loudspeakers)
+        {
+            var data = new GetLoudspeakerDataEvent();
+            RaiseLocalEvent(loudspeaker, ref data);
+            if (data.IsActive && (radio ? data.AffectRadio : data.AffectChat))
+                return data.FontSize;
+        }
+
+        return null;
+    }
+    // </Onyx-Loudspeaker>
 
     // Corvax-TTS-Start: Moved from Server to Shared
     // public const int VoiceRange = 10; // how far voice goes in world units

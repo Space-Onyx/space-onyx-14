@@ -1,5 +1,7 @@
-language-Universal-name = Псионический
-language-Universal-description = Псионическое понимание любой речи.
+language-Universal-name = Межгалактический
+language-Universal-description = Кто ты?
+language-Psychomantic-name = Психомантия
+language-Psychomantic-description = Чистый смысл, свободный от тирании примитивных слов и жестов.
 language-TauCetiBasic-name = Тау-Сети Бейсик
 language-TauCetiBasic-description = Общий язык космических станций Тау Кита.
 language-Chittin-name = Читин

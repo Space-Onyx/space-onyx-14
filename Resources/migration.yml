@@ -184,32 +184,34 @@ SyndiCrewMonitorEmpty: null
 
 SpawnVehicleWheelchair: null
 SpawnVehicleWheelchairFolded: null
-VehicleWheelchair: null
-VehicleWheelchairFolded: null
 VehicleSecwayStealObjective: null
-VehicleKeyJanicart: null
-VehicleKeySecway: null
-VehicleKeyATV: null
 VehicleKeySkeleton: null
-VehicleKeySyndicateSegway: null
-VehicleKeySkeletonMotorcycle: null
-VehicleSecway: null
-VehicleATV: null
-VehicleSyndicateSegway: null
-VehicleSkeletonMotorcycle: null
 VehicleUnicycle: null
 VehicleUnicycleFolded: null
-ActionVehicleHorn: null
-CrateFunATV: null
-CrateFunSyndicateSegway: null
 MobTaxiBot: null
-# MobSupplyBot: null
-SpawnVehicleMotobike: null
-SpawnVehicleATV: null
-SpawnVehicleSecway: null
-SpawnVehicleJanicart: null
-VehicleJanicart: null
 VehicleJanicartDestroyed: null
+# <Onyx-Vehicles>
+ # SpawnVehicleSecway: null # Re-added transport spawner
+ # SpawnVehicleJanicart: null # Re-added transport spawner
+ # VehicleJanicart: null # Re-added transport prototype
+ # VehicleWheelchair: null # Re-added transport prototype
+ # VehicleWheelchairFolded: null # Re-added transport prototype
+ # VehicleKeyJanicart: null # Re-added transport prototype
+ # VehicleKeySecway: null # Re-added transport prototype
+ # VehicleKeyATV: null # Re-added transport prototype
+ # VehicleKeySyndicateSegway: null # Re-added transport prototype
+ # VehicleKeySkeletonMotorcycle: null # Re-added transport prototype
+ # VehicleSecway: null # Re-added transport prototype
+ # VehicleATV: null # Re-added transport prototype
+ # VehicleSyndicateSegway: null # Re-added transport prototype
+ # VehicleSkeletonMotorcycle: null # Re-added transport prototype
+ # ActionVehicleHorn: null
+ # CrateFunATV: null
+ # CrateFunSyndicateSegway: null
+ # SpawnVehicleMotobike: null # Re-added transport spawner
+ # SpawnVehicleATV: null # Re-added transport spawner
+# </Onyx-Vehicles>
+# MobSupplyBot: null
 
 # 2024-02-01
 YellowOxygenTank: OxygenTank
@@ -928,6 +930,10 @@ ChemDispenser: EnergyChemDispenser
 # 2026-07-24 Onyx
 AirlockNanotrasenRepresentativeCommandLocked: null
 AirlockNanotrasenRepresentativeCommandGlassLocked: null
+DefaultStationBeaconRepresenterNT: null
+UniqueLockerNanorepFilled: null
+DefaultStationBeaconCentcommOffice: null
+SpawnPointNanotrasenRepresentative: null
 DormNotifierMarker: null
 MailTeleporter: CargoMailTeleporter
 MaterialSilo: MachineMaterialSilo
@@ -937,8 +943,7 @@ HolopadCommandNTR: null
 AugmentNeuroInterface: null
 MinesweeperArcadeFilled: null
 MinesweeperCircuitboard: null
-UniqueLockerNanorepFilled: null
-DefaultStationBeaconCentcommOffice: null
-SpawnPointNanotrasenRepresentative: null
 ComputerNTRTasks: null
 RandomVendingSnacksHighpop: RandomVendingSnacks
+SpawnPointWardenHelper: null
+MailMetricsCartridge: null

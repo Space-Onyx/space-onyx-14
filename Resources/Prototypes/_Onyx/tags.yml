@@ -2,6 +2,15 @@
   id: SignEdit
 
 - type: Tag
+  id: CartridgeLargeCaliber
+
+- type: Tag
+  id: HEVSuit
+
+- type: Tag
+  id: MagazineLargeCaliber
+
+- type: Tag
   id: IgnoreBalanceChecks
 
 - type: Tag

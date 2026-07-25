@@ -3,6 +3,9 @@
 - type: latheRecipePack
   id: ServiceStatic
   recipes:
+  # <Onyx-SeedDna>
+  - ADTBotanicalSeedDNADisk
+  # </Onyx-SeedDna>
   - Bucket
   - Ashtray
   - DrinkMug

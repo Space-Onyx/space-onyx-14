@@ -135,10 +135,11 @@ public sealed partial class RadioSystem : EntitySystem
             : transmittedMessage;
 
         var inlineFormattedMessage = InlineActionFormatter.Format(content); // <Onyx-InlineActions>
+        var loudspeakerFontSize = _chat.GetLoudspeakerFontSize(messageSource, true); // <Onyx-Loudspeaker>
         var wrappedMessage = Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold" : "chat-radio-message-wrap",
             ("color", channel.Color),
             ("fontType", speech.FontId),
-            ("fontSize", speech.FontSize),
+            ("fontSize", loudspeakerFontSize ?? speech.FontSize), // <Onyx-Loudspeaker-edited>
             ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
             ("channel", $"\\[{channel.LocalizedName}\\]"),
             ("name", name),

@@ -1,0 +1,87 @@
+- type: entity
+  id: VehicleSecway
+  parent: BaseVehicleStrap
+  name: secway
+  description: The future of transportation. Popularized by St. James, the patron saint of security officers and internet forum moderators.
+  components:
+  - type: Sprite
+    sprite: Objects/Vehicles/secway.rsi
+    state: vehicle
+    noRot: true
+  - type: GenericKeyedVehicle
+    containerId: key_slot
+    keyWhitelist:
+      tags: [SecwayKeys]
+  - type: ItemSlots
+    slots:
+      key_slot:
+        name: vehicle-slot-component-slot-name-keys
+        whitelist:
+          tags: [SecwayKeys]
+        insertSound: /Audio/Effects/Vehicle/vehiclestartup.ogg
+  - type: ContainerContainer
+    containers:
+      key_slot: !type:ContainerSlot
+
+- type: entity
+  id: VehicleSyndicateSegway
+  parent: [VehicleSecway, BaseSyndicateContraband]
+  name: syndicate segway
+  description: Be an enemy of the corporation, in style.
+  components:
+  - type: Sprite
+    sprite: Objects/Vehicles/syndicatesegway.rsi
+    state: vehicle
+    noRot: true
+  - type: GenericKeyedVehicle
+    containerId: key_slot
+    keyWhitelist:
+      tags: [SyndicateSegwayKeys]
+  - type: ItemSlots
+    slots:
+      key_slot:
+        name: vehicle-slot-component-slot-name-keys
+        whitelist:
+          tags: [SyndicateSegwayKeys]
+        insertSound: /Audio/Effects/Vehicle/vehiclestartup.ogg
+
+- type: entity
+  id: VehicleSkeletonMotorcycle
+  parent: BaseVehicleStrap
+  name: skeleton motorcycle
+  description: Bad to the Bone.
+  components:
+  - type: Sprite
+    sprite: Objects/Vehicles/motorbike.rsi
+    state: vehicle
+    noRot: true
+  - type: GenericKeyedVehicle
+    containerId: key_slot
+    keyWhitelist:
+      tags: [SkeletonMotorcycleKeys]
+  - type: ItemSlots
+    slots:
+      key_slot:
+        name: vehicle-slot-component-slot-name-keys
+        whitelist:
+          tags: [SkeletonMotorcycleKeys]
+        insertSound: /Audio/Effects/Vehicle/vehiclestartup.ogg
+  - type: ContainerContainer
+    containers:
+      key_slot: !type:ContainerSlot
+
+- type: entity
+  id: VehicleHoverchair
+  parent: BaseVehicleStrap
+  name: hoverchair
+  description: A luxury hoverchair, kick back and relax.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Vehicles/hoverchair.rsi
+    state: vehicle
+    noRot: true
+  - type: Vehicle
+    requiresHands: false
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.5
+    baseSprintSpeed: 3.5

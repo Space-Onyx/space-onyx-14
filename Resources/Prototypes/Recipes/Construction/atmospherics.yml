@@ -213,21 +213,45 @@
   parent: BaseGasUnary
   id: GasVentPump
   targetNode: ventpump
+  # <Onyx-AtmosUnaryAltLayers>
+  alternativePrototypes:
+  - GasVentPump
+  - GasVentPumpAlt1
+  - GasVentPumpAlt2
+  # </Onyx-AtmosUnaryAltLayers>
 
 - type: construction
   parent: BaseGasUnary
   id: GasPassiveVent
   targetNode: passivevent
+  # <Onyx-AtmosUnaryAltLayers>
+  alternativePrototypes:
+  - GasPassiveVent
+  - GasPassiveVentAlt1
+  - GasPassiveVentAlt2
+  # </Onyx-AtmosUnaryAltLayers>
 
 - type: construction
   parent: BaseGasUnary
   id: GasVentScrubber
   targetNode: ventscrubber
+  # <Onyx-AtmosUnaryAltLayers>
+  alternativePrototypes:
+  - GasVentScrubber
+  - GasVentScrubberAlt1
+  - GasVentScrubberAlt2
+  # </Onyx-AtmosUnaryAltLayers>
 
 - type: construction
   parent: BaseGasUnary
   id: GasOutletInjector
   targetNode: outletinjector
+  # <Onyx-AtmosUnaryAltLayers>
+  alternativePrototypes:
+  - GasOutletInjector
+  - GasOutletInjectorAlt1
+  - GasOutletInjectorAlt2
+  # </Onyx-AtmosUnaryAltLayers>
 # endregion Unary
 
 # region Binary

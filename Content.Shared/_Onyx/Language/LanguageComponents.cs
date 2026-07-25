@@ -40,8 +40,12 @@ public sealed partial class LanguageKnowledgeComponent : Component
     public HashSet<ProtoId<LanguagePrototype>> UnderstoodLanguages = new();
 }
 
-[RegisterComponent]
-public sealed partial class UniversalLanguageSpeakerComponent : Component;
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class UniversalLanguageSpeakerComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public bool Enabled = true;
+}
 
 public abstract partial class BaseTranslatorComponent : Component
 {

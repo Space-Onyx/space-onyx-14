@@ -1,0 +1,1 @@
+ent-ClothingHeadsetAltSyndicateCommander = кроваво-красная полноразмерная гарнитура

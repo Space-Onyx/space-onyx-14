@@ -162,6 +162,7 @@
     id: SyndiCommanderPDA
     neck: SyndicateWhistle
     outerClothing: ClothingOuterHardsuitSyndieCommander
+    ears: ClothingHeadsetAltSyndicateCommander # <Onyx-Loudspeaker>
   inhand:
   - NukeOpsDeclarationOfWar
 

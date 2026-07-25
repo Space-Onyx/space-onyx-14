@@ -1,4 +1,27 @@
 - type: entity
+  id: ADTComputerBotanicalSeedDNAManipulatorTabletop
+  parent: [BaseStructureComputerTabletop, ADTComputerBotanicalSeedDNAManipulator]
+  suffix: Tabletop
+  components:
+  - type: Sprite
+    drawdepth: SmallObjects
+    sprite: _Onyx/Structures/Machines/computer_tabletop.rsi
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      sprite: _Onyx/Structures/Machines/computers.rsi
+      state: dna
+    - map: ["computerLayerKeys"]
+      sprite: _Onyx/Structures/Machines/computers.rsi
+      state: id_key
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      sprite: _Onyx/Structures/Machines/computers.rsi
+      state: generic_panel_open
+
+- type: entity
   id: ComputerCommsTabletop
   parent: [BaseStructureComputerTabletop, ComputerComms]
   suffix: Tabletop

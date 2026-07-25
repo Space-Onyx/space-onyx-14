@@ -15,6 +15,7 @@
     - id: PlushieLizardJobQuartermaster
       prob: 0.02
     - id: PrinterDocFlatpack # Corvax-Printer
+    - id: CargoMegaphone # <Onyx-Loudspeaker>
 
 - type: entity
   id: LockerQuarterMasterFilled
@@ -141,6 +142,7 @@
       prob: 0.02
     - id: ClothingOuterCoatHOP # Corvax-Resprite
     - id: PrinterDocFlatpack # Corvax-Printer
+    - id: CommandMegaphone # <Onyx-Loudspeaker>
 
 - type: entity
   id: LockerHeadOfPersonnelFilled

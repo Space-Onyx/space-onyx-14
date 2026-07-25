@@ -2,6 +2,10 @@ ent-CentcommConsoleTabletop = { ent-CentcommConsole }
     .desc = { ent-CentcommConsole.desc }
     .suffix = Настольный
 
+ent-ADTComputerBotanicalSeedDNAManipulatorTabletop = { ent-ADTComputerBotanicalSeedDNAManipulator }
+    .desc = { ent-ADTComputerBotanicalSeedDNAManipulator.desc }
+    .suffix = { ent-CentcommConsoleTabletop.suffix }
+
 ent-ComputerCommsTabletop = { ent-ComputerComms }
     .desc = { ent-ComputerComms.desc }
     .suffix = { ent-CentcommConsoleTabletop.suffix }

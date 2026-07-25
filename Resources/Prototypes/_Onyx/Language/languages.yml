@@ -2,6 +2,13 @@
   id: Universal
   obfuscation:
     !type:ReplacementObfuscation
+    replacement: ["*incomprehensible*"]
+
+- type: language
+  id: Psychomantic
+  isVisibleLanguage: true
+  obfuscation:
+    !type:ReplacementObfuscation
     replacement: ["<?>"]
 
 - type: language

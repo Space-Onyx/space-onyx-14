@@ -28,6 +28,30 @@
   - type: FlashImmunity
   - type: ToggleableVisuals
     spriteLayer: light
+
+- type: entity
+  parent: ClothingHeadHelmetBase
+  id: ClothingHeadHelmetHEV
+  name: H.E.V helmet
+  description: Not included in a set with crowbar, long jump module and gravity manipulation device.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Head/Helmets/hev.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Head/Helmets/hev.rsi
+  - type: Armor
+    coverage:
+    - Head
+    modifiers:
+      coefficients:
+        Blunt: 0.75
+        Shock: 0.7
+        Radiation: 0.01
+        Caustic: 0.5
+  - type: HideLayerClothing
+    layers:
+      HeadTop: HEAD
+      HeadSide: HEAD
   - type: ItemTogglePointLight
   - type: PointLight
     enabled: false
