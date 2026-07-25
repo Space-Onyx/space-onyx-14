@@ -12,6 +12,9 @@ public sealed partial class ConfirmableActionSystem : EntitySystem
 {
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
+    // <Onyx-Modsuit>
+    [Dependency] private SharedActionsSystem _actions = default!;
+    // </Onyx-Modsuit>
 
     public override void Initialize()
     {
@@ -69,6 +72,9 @@ public sealed partial class ConfirmableActionSystem : EntitySystem
         Dirty(uid, comp);
 
         _popup.PopupEntity(Loc.GetString(comp.Popup), user, user, PopupType.LargeCaution);
+        // <Onyx-Modsuit>
+        _actions.SetToggled(ent.Owner, true);
+        // </Onyx-Modsuit>
     }
 
     private void Unprime(Entity<ConfirmableActionComponent> ent)
@@ -76,6 +82,9 @@ public sealed partial class ConfirmableActionSystem : EntitySystem
         var (uid, comp) = ent;
         comp.NextConfirm = null;
         comp.NextUnprime = null;
+        // <Onyx-Modsuit>
+        _actions.SetToggled(ent.Owner, false);
+        // </Onyx-Modsuit>
         Dirty(uid, comp);
     }
 }

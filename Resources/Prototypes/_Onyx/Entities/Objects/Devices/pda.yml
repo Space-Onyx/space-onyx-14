@@ -1,25 +1,18 @@
-# SPDX-FileCopyrightText: 2024 BombasterDS <115770678+BombasterDS@users.noreply.github.com>
-#
-# SPDX-License-Identifier: AGPL-3.0-or-later
-
 - type: entity
-  parent: BaseMedicalPDA
-  id: BlueshieldPDA
-  name: blueshield officer PDA
-  description: The silver shield of the Blueshield is engraved on the front.
+  parent: BasePDA
+  id: RoboticistPDA
+  name: roboticist PDA
+  description: It's covered with failed ambitions.
   components:
+  - type: Pda
+    id: RoboticistIDCard
   - type: Appearance
     appearanceDataInit:
       enum.PdaVisuals.PdaType:
         !type:String
-        pda-blueshield
-  - type: Pda
-    id: BlueshieldIDCard
-  - type: Icon
-    sprite: _Onyx/Objects/Devices/pda.rsi
-    state: pda-blueshield
-  - type: Sprite
-    sprite: _Onyx/Objects/Devices/pda.rsi
-    state: pda-blueshield
+        pda-roboticist
   - type: PdaBorderColor
-    borderColor: "#3c94c5"
+    borderColor: "#161616"
+    accentVColor: "#cc4d03"
+  - type: Icon
+    state: pda-roboticist

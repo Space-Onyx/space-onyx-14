@@ -1,0 +1,6 @@
+- type: stack
+  id: CoalUnprocessed
+  name: stack-unprocessed-coal
+  icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: coal }
+  spawn: Coal1Unprocessed
+  maxCount: 90

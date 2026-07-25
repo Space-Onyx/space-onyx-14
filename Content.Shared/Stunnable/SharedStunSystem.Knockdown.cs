@@ -298,6 +298,11 @@ public abstract partial class SharedStunSystem
 
         var ev = new GetStandUpTimeEvent(crawler.StandTime);
         RaiseLocalEvent(entity, ref ev);
+        // <Onyx-Modsuit>
+        var multiplier = new Content.Shared._Onyx.Clothing.GetStandingUpTimeMultiplierEvent();
+        RaiseLocalEvent(entity, multiplier);
+        ev.DoAfterTime *= multiplier.Multiplier;
+        // </Onyx-Modsuit>
 
         var doAfterArgs = new DoAfterArgs(EntityManager, entity, ev.DoAfterTime, new TryStandDoAfterEvent(), entity, entity)
         {

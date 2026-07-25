@@ -20,7 +20,7 @@ highlights-salvage-specialist = утилизатор, "утиль", карго, 
 # Engineering
 highlights-atmospheric-technician = атмосферный техник, атмосферник, атмос, инженер, "атмос", "инж"
 highlights-station-engineer = инженер, "инж"
-highlights-technical-assistant = технический ассистент, тех асист, инженер, "инж"
+highlights-technical-assistant = инженер-стажёр, технический ассистент, тех асист, инженер, "инж"
 
 # Medical
 highlights-chemist = химик, химия, медблок, медбей, "мед"
@@ -30,7 +30,7 @@ highlights-paramedic = парамед, медблок, медбей, "мед"
 
 # Science
 highlights-scientist = учёный, наука, "рнд", "нио"
-highlights-research-assistant = научный ассистент, наука, "рнд", "нио"
+highlights-research-assistant = лаборант, научный ассистент, наука, "рнд", "нио"
 
 # Civilian
 highlights-bartender = бармен, "бар"
@@ -43,7 +43,7 @@ highlights-lawyer = адвокат, юрист
 highlights-librarian = библиотекар, библиотека
 highlights-mime = мим
 highlights-musician = музыкант, театрал, артист, сервисный работник, сервисник
-highlights-passenger = пассажир, грейтайдер, "тайдер"
+highlights-passenger = ассистент, пассажир, грейтайдер, "тайдер"
 highlights-service-worker = сервисный работник, сервисник
 
 # Station-specific

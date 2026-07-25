@@ -1,0 +1,159 @@
+- type: reagent
+  id: Probital
+  name: reagent-name-probital
+  group: Medicine
+  desc: reagent-desc-probital
+  physicalDesc: reagent-physical-desc-soothing
+  flavor: medicine
+  color: "#ffff64"
+  metabolisms:
+    Medicine:
+      effects:
+      - !type:HealthChange
+        damage:
+          groups:
+            Brute: -1.5
+      - !type:TakeStaminaDamage
+        conditions:
+        - !type:ReagentCondition
+          reagent: Probital
+          min: 20
+        amount: 5
+        immediate: false
+      - !type:MovementSpeedModifier
+        conditions:
+        - !type:StaminaDamageCondition
+          min: 80
+        - !type:ReagentCondition
+          reagent: Probital
+          min: 20
+        walkSpeedModifier: 0.8
+        sprintSpeedModifier: 0.8
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:StaminaDamageCondition
+          min: 80
+        - !type:ReagentCondition
+          reagent: Probital
+          min: 20
+        key: Stutter
+        component: StutteringAccent
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:StaminaDamageCondition
+          min: 100
+        - !type:ReagentCondition
+          reagent: Probital
+          min: 20
+        key: ForcedSleep
+        component: ForcedSleeping
+        refresh: false
+        type: Add
+        time: 10
+      - !type:TakeStaminaDamage
+        conditions:
+        - !type:StaminaDamageCondition
+          min: 100
+        - !type:ReagentCondition
+          reagent: Probital
+          min: 20
+        amount: -100
+        immediate: true
+      - !type:AdjustReagent
+        reagent: Mitogen
+        amount: 0.125
+
+- type: reagent
+  id: Mitogen
+  name: reagent-name-mitogen
+  group: Medicine
+  desc: reagent-desc-mitogen
+  physicalDesc: reagent-physical-desc-nondescript
+  flavor: medicine
+  color: "#ffc41a"
+  metabolisms:
+    Medicine:
+      metabolismRate: 0.05
+      effects:
+      - !type:Vomit
+        conditions:
+        - !type:ReagentCondition
+          reagent: Mitogen
+          min: 10
+        probability: 0.15
+
+- type: reagent
+  id: Mitotrophin
+  name: reagent-name-mitotrophin
+  group: Foods
+  desc: reagent-desc-mitotrophin
+  physicalDesc: reagent-physical-desc-nondescript
+  flavor: terrible
+  color: "#cc9c14"
+  metabolisms:
+    Medicine:
+      effects:
+      - !type:HealthChange
+        damage:
+          groups:
+            Brute: -4
+            Burn: -2
+      - !type:ModifyBleed
+        amount: -0.5
+      - !type:ModifyBloodLevel
+        amount: 3
+    Food:
+      effects:
+      - !type:SatiateHunger
+        factor: 1.5
+
+- type: reagent
+  id: Ibuprofen
+  name: reagent-name-ibuprofen
+  group: Medicine
+  desc: reagent-desc-ibuprofen
+  physicalDesc: reagent-physical-desc-thick
+  flavor: medicine
+  color: "#be5c5c"
+  plantMetabolism:
+  - !type:PlantAdjustWeeds
+    amount: -5
+  - !type:PlantAdjustHealth
+    amount: -10
+  metabolisms:
+    Medicine:
+      metabolismRate: 0.15
+      effects:
+      - !type:SuppressPain
+        amount: 10
+        decayDuration: 30
+        identifier: Ibuprofen
+      - !type:HealthChange
+        damage:
+          groups:
+            Brute: -1
+      - !type:AdjustTemperature
+        conditions:
+        - !type:TemperatureCondition
+          max: 293.15
+        amount: 10000
+      - !type:AdjustTemperature
+        conditions:
+        - !type:TemperatureCondition
+          min: 293.15
+        amount: -1000
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 0.2
+        conditions:
+        - !type:ReagentCondition
+          reagent: Ibuprofen
+          min: 20
+      - !type:TakeStaminaDamage
+        conditions:
+        - !type:ReagentCondition
+          reagent: Ibuprofen
+          min: 10
+        amount: 2.4
+        immediate: false

@@ -6,4 +6,5 @@
   roles:
   - Magistrate
   - IAA
+  - Lawyer # <Onyx-Lawyer-edited>
   weight: 90

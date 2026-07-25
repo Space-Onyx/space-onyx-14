@@ -1,0 +1,11 @@
+- type: entity
+  parent: BaseAction
+  id: ActionActivateAutoinjector
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    icon:
+      sprite: _Onyx/Actions/modsuit.rsi
+      state: stim
+  - type: InstantAction
+    event: !type:ActionActivateAutoInjectorEvent {}

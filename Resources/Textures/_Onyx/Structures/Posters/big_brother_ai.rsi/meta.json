@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Sprite made by BeeRobyn on Discord; ported from Goob Station",
+  "size": { "x": 32, "y": 32 },
+  "states": [
+    { "name": "goob_poster12_legit" }
+  ]
+}

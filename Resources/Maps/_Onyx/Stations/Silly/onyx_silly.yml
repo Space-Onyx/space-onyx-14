@@ -10269,6 +10269,14 @@ entities:
     - type: Transform
       pos: -21.5,-18.5
       parent: 2
+- proto: AirlockExternalGlassShuttleMiningFilled
+  entities:
+  - uid: 67
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 23.5,31.5
+      parent: 2
 - proto: AirlockFreezerLocked
   entities:
   - uid: 68
@@ -10594,6 +10602,22 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -12.5,-0.5
       parent: 7777
+- proto: AirlockNanotrasenRepresentativeCommandGlassLocked
+  entities:
+  - uid: 97
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 11.5,-40.5
+      parent: 2
+- proto: AirlockNanotrasenRepresentativeCommandLocked
+  entities:
+  - uid: 98
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 14.5,-39.5
+      parent: 2
 - proto: AirlockQuartermasterLocked
   entities:
   - uid: 99
@@ -28622,6 +28646,25 @@ entities:
     - type: Transform
       parent: 11131
     - type: InsideEntityStorage
+- proto: Coal1Unprocessed
+  entities:
+  - uid: 2641
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -28.3185,-0.7955568
+      parent: 2
+  - uid: 2642
+    components:
+    - type: Transform
+      pos: -28.662437,-0.56639004
+      parent: 2
+  - uid: 2643
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -28.255968,-0.42055678
+      parent: 2
 - proto: Cobweb1
   entities:
   - uid: 2644
@@ -29024,6 +29067,13 @@ entities:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 20.5,8.5
+      parent: 2
+- proto: ComputerShuttleMiningLavaland
+  entities:
+  - uid: 2683
+    components:
+    - type: Transform
+      pos: 21.5,27.5
       parent: 2
 - proto: ComputerStationRecordsTabletop
   entities:
@@ -29877,6 +29927,13 @@ entities:
       text: Уборная
     - type: WarpPoint
       location: Уборная
+- proto: DefaultStationBeaconBlueShield
+  entities:
+  - uid: 2775
+    components:
+    - type: Transform
+      pos: -3.5,0.5
+      parent: 2
 - proto: DefaultStationBeaconBotany
   entities:
   - uid: 2776
@@ -30096,6 +30153,13 @@ entities:
     - type: Transform
       pos: 8.5,20.5
       parent: 2
+- proto: DefaultStationBeaconParamedic
+  entities:
+  - uid: 2802
+    components:
+    - type: Transform
+      pos: 12.5,14.5
+      parent: 2
 - proto: DefaultStationBeaconPsychology
   entities:
   - uid: 2803
@@ -30123,6 +30187,13 @@ entities:
     components:
     - type: Transform
       pos: -9.5,1.5
+      parent: 2
+- proto: DefaultStationBeaconRepresenterNT
+  entities:
+  - uid: 2807
+    components:
+    - type: Transform
+      pos: 10.5,-40.5
       parent: 2
 - proto: DefaultStationBeaconRND
   entities:
@@ -31782,6 +31853,13 @@ entities:
     components:
     - type: Transform
       pos: 8.5,-3.5
+      parent: 2
+- proto: DresserNanorepFilled
+  entities:
+  - uid: 3054
+    components:
+    - type: Transform
+      pos: 12.5,-43.5
       parent: 2
 - proto: DresserQuarterMasterFilled
   entities:
@@ -46483,6 +46561,13 @@ entities:
     - type: Transform
       pos: -0.5,-6.5
       parent: 9964
+- proto: GlassBoxLawbringerFilled
+  entities:
+  - uid: 4522
+    components:
+    - type: Transform
+      pos: -14.5,13.5
+      parent: 2
 - proto: GoldOre
   entities:
   - uid: 8303
@@ -47570,6 +47655,13 @@ entities:
     components:
     - type: Transform
       pos: 3.5,-3.5
+      parent: 2
+- proto: HolopadCommandNTR
+  entities:
+  - uid: 4698
+    components:
+    - type: Transform
+      pos: 10.5,-42.5
       parent: 2
 - proto: HolopadGeneralTheater
   entities:
@@ -49671,7 +49763,7 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
-- proto: CargoMailTeleporter
+- proto: MailTeleporter
   entities:
   - uid: 4848
     components:
@@ -49852,6 +49944,33 @@ entities:
     - type: Transform
       pos: 2.5797691,-2.8416953
       parent: 2
+- proto: MaterialSilo
+  entities:
+  - uid: 4862
+    components:
+    - type: Transform
+      pos: 18.5,-4.5
+      parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        2527:
+        - - MaterialSilo
+          - MaterialSiloUtilizer
+        5171:
+        - - MaterialSilo
+          - MaterialSiloUtilizer
+        5813:
+        - - MaterialSilo
+          - MaterialSiloUtilizer
+        3118:
+        - - MaterialSilo
+          - MaterialSiloUtilizer
+        4920:
+        - - MaterialSilo
+          - MaterialSiloUtilizer
+        3117:
+        - - MaterialSilo
+          - MaterialSiloUtilizer
 - proto: MaterialWoodPlank
   entities:
   - uid: 4863
@@ -59336,6 +59455,18 @@ entities:
     - type: Transform
       pos: -22.5,5.5
       parent: 2
+- proto: SpawnPointNanotrasenRepresentative
+  entities:
+  - uid: 6036
+    components:
+    - type: Transform
+      pos: 8.5,-37.5
+      parent: 2
+  - uid: 6037
+    components:
+    - type: Transform
+      pos: 13.5,-43.5
+      parent: 2
 - proto: SpawnPointObserver
   entities:
   - uid: 6038
@@ -59463,6 +59594,18 @@ entities:
     - type: Transform
       pos: -7.5,12.5
       parent: 2
+- proto: SpawnPointShaftMiner
+  entities:
+  - uid: 6059
+    components:
+    - type: Transform
+      pos: 17.5,24.5
+      parent: 2
+  - uid: 6060
+    components:
+    - type: Transform
+      pos: 16.5,25.5
+      parent: 2
 - proto: SpawnPointStationEngineer
   entities:
   - uid: 6061
@@ -59506,12 +59649,33 @@ entities:
     - type: Transform
       pos: -8.5,19.5
       parent: 2
+- proto: SpawnPointWardenHelper
+  entities:
+  - uid: 6068
+    components:
+    - type: Transform
+      pos: -9.5,19.5
+      parent: 2
 - proto: SpawnVehicleJanicart
   entities:
   - uid: 6069
     components:
     - type: Transform
       pos: -20.5,1.5
+      parent: 2
+- proto: SpawnVehicleSecway
+  entities:
+  - uid: 6070
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -3.5,10.5
+      parent: 2
+  - uid: 6071
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -2.5,10.5
       parent: 2
 - proto: SpearBone
   entities:
@@ -62294,6 +62458,24 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -10.5,-7.5
       parent: 9749
+- proto: TaskBottle
+  entities:
+  - uid: 10539
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 4.61425,10.604683
+      parent: 9964
+  - uid: 10540
+    components:
+    - type: Transform
+      pos: 4.9503975,10.598312
+      parent: 9964
+  - uid: 10541
+    components:
+    - type: Transform
+      pos: 4.3253975,10.567062
+      parent: 9964
 - proto: TegCenter
   entities:
   - uid: 8510
@@ -63275,6 +63457,13 @@ entities:
         - 0
         - 0
         - 0
+- proto: UniqueLockerNanorepFilled
+  entities:
+  - uid: 6437
+    components:
+    - type: Transform
+      pos: 11.5,-43.5
+      parent: 2
 - proto: UraniumOre
   entities:
   - uid: 8529
@@ -63482,6 +63671,27 @@ entities:
     - type: Transform
       pos: 14.5,-10.5
       parent: 2
+- proto: VehicleKeyJanicart
+  entities:
+  - uid: 356
+    components:
+    - type: Transform
+      parent: 343
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
+- proto: VehicleKeySecway
+  entities:
+  - uid: 6470
+    components:
+    - type: Transform
+      pos: -3.4391832,10.422556
+      parent: 2
+  - uid: 6471
+    components:
+    - type: Transform
+      pos: -2.4860582,10.500681
+      parent: 2
 - proto: VendingBarDrobe
   entities:
   - uid: 6472
@@ -63495,6 +63705,21 @@ entities:
     components:
     - type: Transform
       pos: 30.5,1.5
+      parent: 2
+- proto: VendingMachineBooze
+  entities:
+  - uid: 6474
+    components:
+    - type: Transform
+      pos: 10.5,-40.5
+      parent: 2
+    - type: AccessReader
+      access:
+      - - NanotrasenRepresentative
+  - uid: 6475
+    components:
+    - type: Transform
+      pos: 5.5,-13.5
       parent: 2
 - proto: VendingMachineCargoDrobe
   entities:
@@ -74892,7 +75117,7 @@ entities:
     - type: Transform
       pos: 2.5,-0.5
       parent: 7777
-- proto: WarpPoint
+- proto: WarpPointBombing
   entities:
   - uid: 7481
     components:

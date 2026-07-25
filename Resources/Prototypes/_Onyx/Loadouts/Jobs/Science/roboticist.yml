@@ -1,0 +1,29 @@
+- type: loadout
+  id: RoboticistGlasses
+  equipment:
+    eyes: ClothingEyesGlassesDiag
+
+- type: loadout
+  id: RoboticistMonoHud
+  equipment:
+    eyes: ClothingEyesEyepatchHudDiag
+
+- type: loadout
+  id: RoboticistHud
+  equipment:
+    eyes: ClothingEyesHudDiagnostic
+
+- type: loadout
+  id: CheapSunglasses
+  equipment:
+    eyes: ClothingEyesGlassesCheapSunglasses
+
+- type: loadout
+  id: ResearchMJ
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMilitaryScientist
+
+- type: loadout
+  id: RoboticistPDA
+  equipment:
+    id: RoboticistPDA

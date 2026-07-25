@@ -1,92 +1,4 @@
 - type: technology
-  id: BasicCybernetics
-  name: research-technology-onyx-basic-cybernetics
-  icon:
-    sprite: _Onyx/Cybernetics/organs.rsi
-    state: eyes
-  discipline: Experimental
-  tier: 2
-  cost: 10000
-  recipeUnlocks:
-    - LeftArmCybernetic
-    - RightArmCybernetic
-    - LeftHandCybernetic
-    - RightHandCybernetic
-    - LeftLegCybernetic
-    - RightLegCybernetic
-    - LeftFootCybernetic
-    - RightFootCybernetic
-    - BasicCyberneticEyes
-    - BasicCyberneticHeart
-    - BasicCyberneticLungs
-    - BasicCyberneticLiver
-  position: 1,5
-  technologyPrerequisites:
-    - BasicRobotics
-- type: technology
-  id: AdvancedCybernetics
-  name: research-technology-onyx-advanced-cybernetics
-  icon:
-    sprite: _Onyx/Cybernetics/organs.rsi
-    state: heart-u-on
-  discipline: Experimental
-  tier: 3
-  cost: 15000
-  recipeUnlocks:
-    - UpgradedCyberneticHeart
-    - UpgradedCyberneticLungs
-    - JawsOfLifeLeftArm
-    - JawsOfLifeRightArm
-    - SpeedLeftLeg
-    - SpeedRightLeg
-    - MedicalCyberneticEyes
-    - SecurityCyberneticEyes
-    - DiagnosticCyberneticEyes
-  position: 2,5
-  technologyPrerequisites:
-    - BasicCybernetics
-- type: technology
-  id: BluespaceTheory
-  name: research-technology-bluespace-theory
-  icon:
-    sprite: _Onyx/Objects/Materials/bluespace_crystal.rsi
-    state: bluespace_crystal
-  discipline: Experimental
-  tier: 2
-  cost: 5000
-  recipeUnlocks:
-    - MaterialBSCrystal
-  position: 4,2
-  technologyPrerequisites:
-    - DeterrenceTechnologies
-
-- type: technology
-  id: AdvancedRobotics
-  name: research-technology-advanced-robotics
-  icon:
-    sprite: Mobs/Silicon/station_ai.rsi
-    state: ai
-  discipline: Experimental
-  tier: 2
-  cost: 7500
-  recipeUnlocks:
-  - AsimovCircuitBoard
-  - CorporateCircuitBoard
-  - NTDefaultCircuitBoard
-  - CommandmentCircuitBoard
-  - PaladinCircuitBoard
-  - LiveLetLiveCircuitBoard
-  - StationEfficiencyCircuitBoard
-  - RobocopCircuitBoard
-  - OverlordCircuitBoard
-  - GameMasterCircuitBoard
-  - ArtistCircuitBoard
-  - NutimovCircuitBoard
-  position: -1,2
-  technologyPrerequisites:
-  - AdvancedAnomalyResearch
-
-- type: technology
   id: Pinpointers
   name: research-technology-pinpointing
   icon:
@@ -96,73 +8,119 @@
   tier: 2
   cost: 7500
   recipeUnlocks:
-  - PinpointerOnyx
-  - PinpointerArtifact
-  - PinpointerAnomaly
-  - PinpointerBorg
-  position: 1,6
+    - Pinpointer
+    - PinpointerArtifact
+    - PinpointerAnomaly
+    - PinpointerBorg
+  position: -1,0
   technologyPrerequisites:
-  - MagnetsTech
-
+    - MagnetsTech
 - type: technology
-  id: NightVisionTech
-  name: research-technology-night-vision
+  id: ModsuitsTech
+  name: research-technology-modsuits
   icon:
-    sprite: _Onyx/Clothing/Eyes/Goggles/nightvision.rsi
-    state: icon
+    sprite: _Onyx/Objects/Specific/Robotics/modsuit_parts.rsi
+    state: mod-core-standard
   discipline: Experimental
-  tier: 2
-  cost: 10000
+  tier: 1
+  cost: 5000
   recipeUnlocks:
-  - ClothingEyesNightVisionGoggles
-  position: -2,3
+    - ModsuitChestplate
+    - ModsuitBoots
+    - ModsuitHelmet
+    - ModsuitGauntlets
+    - ModsuitShell
+    - ModsuitPlatingExternal
+  position: -2,-1
   technologyPrerequisites:
-  - AdvancedRobotics
-
-- type: technology
-  id: ThermalVisionTech
-  name: research-technology-thermal-vision
-  icon:
-    sprite: _Onyx/Clothing/Eyes/Goggles/thermal.rsi
-    state: icon
-  discipline: Experimental
-  tier: 2
-  cost: 10000
-  recipeUnlocks:
-  - ClothingEyesThermalVisionGoggles
-  position: -2,4
-  technologyPrerequisites:
-  - AdvancedRobotics
-
+    - MagnetsTech
 - type: technology
   id: Xenobiology
   name: research-technology-xenobiology
   icon:
-    sprite: _Onyx/Xenobiology/Equipment/Xenovac/slime_nozzle.rsi
+    sprite: _Onyx/Xenobiology/Specific/Xenobiology/slime_nozzle.rsi
     state: icon
   discipline: Experimental
   tier: 1
   cost: 5000
   recipeUnlocks:
-  - SlimeScannerXenobio
-  - XenobiologyBountyComputerCircuitboard
-  - SlimeGrinderMachineCircuitboard
-  - ClothingBackpackXenoBioTank
-  position: 0,5
+    - SlimeScannerXenobio
+    - XenobiologyBountyComputerCircuitboard
+    - SlimeGrinderMachineCircuitboard
+    - ClothingBackpackXenoBioTank
+  position: 0,4
   technologyPrerequisites:
-  - BasicXenoArcheology
+    - BasicXenoArcheology
+- type: technology
+  id: BluespaceTheory
+  name: research-technology-bluespace-theory
+  icon:
+    sprite: _Onyx/Objects/Materials/materials.rsi
+    state: bluespace_crystal
+  discipline: Experimental
+  tier: 1
+  cost: 5000
+  recipeUnlocks:
+    - MaterialBSCrystal
+  position: -1,-2
+  technologyPrerequisites:
+    - DeterrenceTechnologies
+- type: technology
+  id: ExperimentalScience
+  name: research-technology-experimental-science
+  icon:
+    sprite: Objects/Misc/module.rsi
+    state: std_mod
+  discipline: Experimental
+  tier: 2
+  cost: 7500
+  recipeUnlocks:
+    - ExperimentalCircuitBoard
+  position: -2,2
+  technologyPrerequisites:
+    - AdvancedRobotics
+    - AdvancedAnomalyResearch
+# - type: technology
+#   id: XenoBiology
+#   name: research-technology-xeno-biology
+#   icon:
+#     sprite: _White/Mobs/Aliens/Xenomorphs/drone.rsi
+#     state: xenomorph
+#   discipline: Experimental
+#   tier: 2
+#   cost: 15000
+#   recipeUnlocks:
+#     - XenoCompatibilityImplanter
+#   position: -3,1
+#   technologyPrerequisites:
+#     - ExperimentalScience
+#     - ModsuitsTech
+- type: technology
+  id: XenoCompatibility
+  name: research-technology-xeno-compatibility
+  icon:
+    sprite: _Onyx/Clothing/Belt/xenobag_holding.rsi
+    state: icon
+  discipline: Experimental
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+    - ClothingBeltChemBagXenobiologyHolding
+  position: 1,4
+  technologyPrerequisites:
+    - ExperimentalScience
 
 - type: technology
   id: XenobagHolding
   name: research-technology-xenobag-holding
   icon:
-    sprite: _Onyx/Xenobiology/Clothing/Belt/xenobag_holding.rsi
+    sprite: _Onyx/Clothing/Belt/xenobag_holding.rsi
     state: icon
   discipline: Experimental
   tier: 2
   cost: 10000
   recipeUnlocks:
   - ClothingBeltChemBagXenobiologyHolding
-  position: 0,6
+  position: -4,3
   technologyPrerequisites:
   - Xenobiology

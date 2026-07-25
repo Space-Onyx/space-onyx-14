@@ -1,20 +1,17 @@
-# SPDX-FileCopyrightText: 2024 BombasterDS <115770678+BombasterDS@users.noreply.github.com>
-#
-# SPDX-License-Identifier: AGPL-3.0-or-later
-
 - type: entity
   parent: IDCardStandard
-  id: BlueshieldIDCard
-  name: blueshield officer ID card
+  id: RoboticistIDCard
+  name: roboticist ID card
   components:
   - type: Sprite
     layers:
-    - state: centcom
-  - type: Item
-    heldPrefix:
+    - state: default
+    - state: stripe_top
+      color: "#d381c9"
+    - state: stripe_bottom
+      color: "#d381c9"
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Roboticist
   - type: PresetIdCard
-    job: BlueshieldOfficer
-  - type: Access
-    tags:
-    - CentralCommand
-    - BlueshieldOfficer
+    job: Roboticist

@@ -1,0 +1,172 @@
+## voidsuit selectors
+
+# paramedic
+- type: selectableSet
+  id: VoidsuitSelectorParamedicVoidsuit
+  name: selectable-set-paramedic-voidsuit-name
+  description: selectable-set-paramedic-voidsuit-desc
+  sprite:
+    sprite: Clothing/OuterClothing/Hardsuits/paramed.rsi
+    state: icon
+  content:
+  - ClothingOuterHardsuitVoidParamed
+
+- type: selectableSet
+  id: VoidsuitSelectorParamedicHardsuit
+  name: selectable-set-paramedic-modsuit-name
+  description: selectable-set-paramedic-modsuit-desc
+  sprite:
+    sprite: _Onyx/Clothing/Back/Modsuits/paramedic.rsi
+    state: control
+  content:
+  - ClothingModsuitParamedicPowerCell
+
+# security
+- type: selectableSet
+  id: VoidsuitSelectorSecurityVoidsuit
+  name: selectable-set-security-voidsuit-name
+  description: selectable-set-security-voidsuit-desc
+  sprite:
+    sprite: _Onyx/Clothing/OuterClothing/Voidsuits/security.rsi
+    state: icon
+  content:
+  - ClothingOuterVoidsuitSecurity
+
+- type: selectableSet
+  id: VoidsuitSelectorSecurityHardsuit
+  name: selectable-set-security-modsuit-name
+  description: selectable-set-security-modsuit-desc
+  sprite:
+    sprite: _Onyx/Clothing/Back/Modsuits/security.rsi
+    state: control
+  content:
+  - ClothingModsuitSecurityPowerCell
+
+# head of security
+- type: selectableSet
+  id: VoidsuitSelectorHeadOfSecurityVoidsuit
+  name: selectable-set-headofsecurity-voidsuit-name
+  description: selectable-set-headofsecurity-voidsuit-desc
+  sprite:
+    sprite: Clothing/OuterClothing/Hardsuits/security-red.rsi
+    state: icon
+  content:
+  - ClothingOuterHardsuitSecurityRed
+
+- type: selectableSet
+  id: VoidsuitSelectorHeadOfSecurityHardsuit
+  name: selectable-set-headofsecurity-modsuit-name
+  description: selectable-set-headofsecurity-modsuit-desc
+  sprite:
+    sprite: _Onyx/Clothing/Back/Modsuits/headofsecurity.rsi
+    state: control
+  content:
+  - ClothingModsuitHeadOfSecurityPowerCell
+
+# engineer
+
+- type: selectableSet
+  id: VoidsuitSelectorEngineerVoidsuit
+  name: selectable-set-engineering-voidsuit-name
+  description: selectable-set-engineering-voidsuit-desc
+  sprite:
+    sprite: Clothing/OuterClothing/Hardsuits/engineering.rsi
+    state: icon
+  content:
+  - ClothingOuterHardsuitEngineering
+
+- type: selectableSet
+  id: VoidsuitSelectorEngineerHardsuit
+  name: selectable-set-engineering-modsuit-name
+  description: selectable-set-engineering-modsuit-desc
+  sprite:
+    sprite: _Onyx/Clothing/Back/Modsuits/engineer.rsi
+    state: control
+  content:
+  - ClothingModsuitEngineerPowerCell
+
+# Head Of Security
+
+- type: selectableSet
+  id: HosSmgSet
+  name: selectable-set-hos-smg-name
+  description: selectable-set-hos-smg-description
+  sprite:
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/HeadOfSecurity/smg.rsi
+    state: icon
+  content:
+  - WeaponHeadOfSecuritySMG
+
+- type: selectableSet
+  id: HosShotgunSet
+  name: selectable-set-hos-shotgun-name
+  description: selectable-set-hos-shotgun-description
+  sprite:
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/HeadOfSecurity/shotgun.rsi
+    state: icon
+  content:
+  - WeaponHeadOfSecurityShotgun
+
+- type: selectableSet
+  id: HosSniperSet
+  name: selectable-set-hos-sniper-name
+  description: selectable-set-hos-sniper-description
+  sprite:
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/HeadOfSecurity/sniper_icon_48x.rsi
+    state: icon
+  content:
+  - WeaponHeadOfSecuritySniper
+
+- type: selectableSet
+  id: HosRifleSet
+  name: selectable-set-hos-rifle-name
+  description: selectable-set-hos-rifle-description
+  sprite:
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/HeadOfSecurity/rifle.rsi
+    state: icon
+  content:
+  - WeaponHeadOfSecurityRifle
+
+# Captain
+
+- type: selectableSet
+  id: VoidsuitSelectorCaptainVoidsuit
+  name: selectable-set-captain-voidsuit-name
+  description: selectable-set-captain-voidsuit-desc
+  sprite:
+    sprite: Clothing/OuterClothing/Hardsuits/capspace.rsi
+    state: icon
+  content:
+  - ClothingOuterHardsuitCap
+
+- type: selectableSet
+  id: VoidsuitSelectorCaptainHardsuit
+  name: selectable-set-captain-modsuit-name
+  description: selectable-set-captain-modsuit-desc
+  sprite:
+    sprite: _Onyx/Clothing/Back/Modsuits/captain.rsi
+    state: control
+  content:
+  - ClothingModsuitCaptainPowerCell
+
+# Research Director RD
+
+- type: selectableSet
+  id: VoidsuitSelectorRDVoidsuit
+  name: selectable-set-research-director-voidsuit-name
+  description: selectable-set-research-director-voidsuit-desc
+  sprite:
+    sprite: Clothing/OuterClothing/Hardsuits/rd.rsi
+    state: icon
+  content:
+  - ClothingOuterHardsuitRd
+
+- type: selectableSet
+  id: VoidsuitSelectorRDHardsuit
+  name: selectable-set-research-director-modsuit-name
+  description: selectable-set-research-director-modsuit-desc
+  sprite:
+    sprite: _Onyx/Clothing/Back/Modsuits/researchdirector.rsi
+    state: control
+  content:
+  - ClothingModsuitResearchDirectorPowerCell

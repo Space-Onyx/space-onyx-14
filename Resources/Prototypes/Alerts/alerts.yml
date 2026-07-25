@@ -7,6 +7,7 @@
     - category: Health
     - category: Stamina
     - alertType: SuitPower
+    - alertType: ModsuitPower # <Onyx-Modsuit>
     - category: Internals
     - alertType: Fire
     - alertType: Handcuffed

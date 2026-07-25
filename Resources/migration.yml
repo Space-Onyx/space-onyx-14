@@ -947,3 +947,7 @@ ComputerNTRTasks: null
 RandomVendingSnacksHighpop: RandomVendingSnacks
 SpawnPointWardenHelper: null
 MailMetricsCartridge: null
+DefaultStationBeaconParamedic: null
+TaskBottle: null
+DVSmartFridgeMedical: SmartFridgeMedical
+SpawnMobBingleCargo: SpawnMobGorillaLargo

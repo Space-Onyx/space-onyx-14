@@ -38,7 +38,7 @@ public sealed partial class ClothingCoatingSystem : EntitySystem
         Dirty(target, coated);
         if (_containers.TryGetContainingContainer(target, out var container))
             _movement.RefreshMovementSpeedModifiers(container.Owner);
-        _popup.PopupClient(Loc.GetString("clothing-coating-success", ("target", target), ("source", ent.Owner)), target, args.User);
+        _popup.PopupEntity(Loc.GetString("clothing-coating-success", ("target", target), ("source", ent.Owner)), target, args.User);
         QueueDel(ent);
         args.Handled = true;
     }

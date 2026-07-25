@@ -1,0 +1,71 @@
+- type: reaction
+  id: Probital
+  reactants:
+    Acetone:
+      amount: 2
+    Copper:
+      amount: 1
+    Phosphorus:
+      amount: 1
+  products:
+    Probital: 4
+
+- type: reaction
+  id: MitotrophinNutriment
+  sound:
+    path: /Audio/Effects/Chemistry/bubbles.ogg
+    params:
+      volume: -30
+      maxDistance: 1
+  reactants:
+    Mitogen:
+      amount: 1
+      catalyst: true
+    Nutriment:
+      amount: 1
+  products:
+    Mitotrophin: 1
+
+- type: reaction
+  id: MitotrophinProtein
+  sound:
+    path: /Audio/Effects/Chemistry/bubbles.ogg
+    params:
+      volume: -30
+      maxDistance: 1
+  reactants:
+    Mitogen:
+      amount: 1
+      catalyst: true
+    Protein:
+      amount: 2
+  products:
+    Mitotrophin: 3
+
+- type: reaction
+  id: MitotrophinVitamin
+  sound:
+    path: /Audio/Effects/Chemistry/bubbles.ogg
+    params:
+      volume: -30
+      maxDistance: 1
+  reactants:
+    Mitogen:
+      amount: 1
+      catalyst: true
+    Vitamin:
+      amount: 1
+  products:
+    Mitotrophin: 2
+
+- type: reaction
+  id: Ibuprofen
+  reactants:
+    Charcoal:
+      amount: 1
+    Benzene:
+      amount: 1
+    Fluorine:
+      amount: 1
+  products:
+    Ibuprofen: 3

@@ -1,0 +1,40 @@
+- type: entity
+  parent: ClothingUniformJumpsuitScientist
+  id: ClothingUniformJumpsuitMilitaryScientist
+  suffix: Military
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/military.rsi
+    layers:
+    - state: icon-base-bottom
+      color: "#3e3e48"
+    - state: icon-base-top-jumpsuit
+      color: "#3e3e48"
+    - state: icon-decor-department
+      color: "#9c0de1"
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: inhand-left-base-bottom
+        color: "#3e3e48"
+      - state: inhand-left-base-top-jumpsuit
+        color: "#3e3e48"
+      - state: inhand-left-decor-department
+        color: "#9c0de1"
+      right:
+      - state: inhand-right-base-bottom
+        color: "#3e3e48"
+      - state: inhand-right-base-top-jumpsuit
+        color: "#3e3e48"
+      - state: inhand-right-decor-department
+        color: "#9c0de1"
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/military.rsi
+    clothingVisuals:
+      jumpsuit:
+      - state: equipped-base-bottom
+        color: "#3e3e48"
+      - state: equipped-base-top-jumpsuit
+        color: "#3e3e48"
+      - state: equipped-decor-department
+        color: "#9c0de1"

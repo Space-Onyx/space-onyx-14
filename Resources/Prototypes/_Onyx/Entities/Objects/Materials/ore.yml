@@ -1,0 +1,59 @@
+- type: entity
+  parent: Coal
+  id: CoalUnprocessed
+  name: unprocessed coal
+  suffix: Full
+  components:
+  - type: Stack
+    stackType: CoalUnprocessed
+  - type: PhysicalComposition
+    materialComposition:
+      Coal: 300
+
+- type: entity
+  parent: CoalUnprocessed
+  id: Coal1Unprocessed
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: CoalUnprocessed
+  id: Coal5Unprocessed
+  suffix: Five
+  components:
+  - type: Stack
+    count: 5
+
+- type: entity
+  parent: CoalUnprocessed
+  id: Coal10Unprocessed
+  suffix: Ten
+  components:
+  - type: Stack
+    count: 10
+
+- type: entity
+  parent: CoalUnprocessed
+  id: Coal15Unprocessed
+  suffix: Fifteen
+  components:
+  - type: Stack
+    count: 15
+
+- type: entity
+  parent: CoalUnprocessed
+  id: Coal60Unprocessed
+  suffix: Sixty
+  components:
+  - type: Stack
+    count: 60
+
+- type: entity
+  parent: CoalUnprocessed
+  id: Coal90Unprocessed
+  suffix: Full
+  components:
+  - type: Stack
+    count: 90

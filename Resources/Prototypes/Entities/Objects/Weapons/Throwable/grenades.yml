@@ -33,6 +33,7 @@
     keysIn:
     - timer
     range: 7
+    flashbang: true # <Onyx-Flashbang-edited>
   - type: EmitSoundOnTrigger
     keysIn:
     - timer

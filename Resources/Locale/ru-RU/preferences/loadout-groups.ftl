@@ -35,12 +35,12 @@ loadout-group-hop-backpack = Глава персонала, рюкзак
 loadout-group-hop-outerclothing = Глава персонала, верхняя одежда
 
 # Civilian
-loadout-group-passenger-jumpsuit = Пассажир, комбинезон
-loadout-group-passenger-mask = Пассажир, маска
-loadout-group-passenger-gloves = Пассажир, перчатки
-loadout-group-passenger-outerclothing = Пассажир, верхняя одежда
-loadout-group-passenger-shoes = Пассажир, обувь
-loadout-group-passenger-neck = Пассажир, шея
+loadout-group-passenger-jumpsuit = Ассистент, комбинезон
+loadout-group-passenger-mask = Ассистент, маска
+loadout-group-passenger-gloves = Ассистент, перчатки
+loadout-group-passenger-outerclothing = Ассистент, верхняя одежда
+loadout-group-passenger-shoes = Ассистент, обувь
+loadout-group-passenger-neck = Ассистент, шея
 
 loadout-group-bartender-head = Бармен, голова
 loadout-group-bartender-jumpsuit = Бармен, комбинезон
@@ -116,7 +116,7 @@ loadout-group-chief-engineer-outerclothing = Старший инженер, ве
 loadout-group-chief-engineer-neck = Старший инженер, шея
 loadout-group-chief-engineer-shoes = Старший инженер, обувь
 
-loadout-group-technical-assistant-jumpsuit = Технический ассистент, комбинезон
+loadout-group-technical-assistant-jumpsuit = Инженер-стажёр, комбинезон
 
 loadout-group-station-engineer-head = Инженер, голова
 loadout-group-station-engineer-jumpsuit = Инженер, комбинезон
@@ -146,7 +146,7 @@ loadout-group-scientist-gloves = Учёный, перчатки
 loadout-group-scientist-shoes = Учёный, обувь
 loadout-group-scientist-id = Учёный, ID
 
-loadout-group-research-assistant-jumpsuit = Научный ассистент, комбинезон
+loadout-group-research-assistant-jumpsuit = Лаборант, комбинезон
 
 # Security
 loadout-group-head-of-security-head = Глава службы безопасности, голова

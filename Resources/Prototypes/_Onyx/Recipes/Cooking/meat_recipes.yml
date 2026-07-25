@@ -1,0 +1,15 @@
+- type: microwaveMealRecipe
+  id: RecipeOlivielsoup
+  name: oliviel soup
+  result: FoodOlivielsoup
+  time: 15
+  reagents:
+    Mayo: 20
+  solids:
+    FoodMeat: 1
+    FoodCucumber: 1
+    FoodEgg: 1
+    FoodPotato: 1
+    FoodPeaPod: 2
+    FoodCarrot: 1
+    FoodBowlBig: 1

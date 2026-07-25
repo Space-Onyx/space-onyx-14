@@ -1,0 +1,24 @@
+- type: entity
+  name: oliviel soup
+  parent: FoodBowlBase
+  id: FoodOlivielsoup
+  description: My father never dreamed of so much mayonnaise!
+  components:
+  - type: FlavorProfile
+    flavors: [ holidais, potatoes ]
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/Food/bowl.rsi
+    layers:
+    - state: bowl
+    - state: oliviel
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 10
+        - ReagentId: Vitamin
+          Quantity: 10
+  - type: Tag
+    tags: [ Soup, Meat ]

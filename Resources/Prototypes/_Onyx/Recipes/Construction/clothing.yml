@@ -1,0 +1,6 @@
+- type: construction
+  id: DiagnosticGlasses
+  graph: GlassesDiagHUD
+  targetNode: glassesDiag
+  category: construction-category-clothing
+  objectType: Item

@@ -118,7 +118,7 @@
   table: !type:AllSelector
     children:
     - id: ClothingEyesHudMedical
-    - id: ClothingOuterHardsuitVoidParamed
+    - id: UndeterminedVoidsuitParamedic # <Onyx-VoidsuitSelectors-edited>
     - id: ClothingBeltMedicalEMTFilled
     - id: JetInjector
     - id: HandheldHealthAnalyzer

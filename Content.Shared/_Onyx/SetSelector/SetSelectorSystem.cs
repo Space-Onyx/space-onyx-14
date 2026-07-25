@@ -10,6 +10,7 @@ using System.Linq;
 using Content.Shared.EntityTable;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Storage.EntitySystems;
+using Content.Shared._Onyx.Effects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
@@ -28,6 +29,7 @@ public sealed partial class SetSelectorSystem : EntitySystem
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private SharedUserInterfaceSystem _ui = default!;
+    [Dependency] private SparksSystem _sparks = default!;
 
     public override void Initialize()
     {
@@ -79,6 +81,8 @@ public sealed partial class SetSelectorSystem : EntitySystem
         }
 
         _audio.PlayPvs(selector.Comp.ApproveSound, Transform(selector).Coordinates);
+        if (selector.Comp.PlaySparksEffect)
+            _sparks.DoSparks(Transform(selector).Coordinates, playSound: false);
 
         var storagePrototype = selector.Comp.SpawnedStoragePrototype;
         var storageContainer = selector.Comp.SpawnedStorageContainer;

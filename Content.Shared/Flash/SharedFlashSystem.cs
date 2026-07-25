@@ -18,6 +18,7 @@ using Content.Shared.Tag;
 using Content.Shared.Timing;
 using Content.Shared.Traits.Assorted;
 using Content.Shared.Weapons.Melee.Events;
+using Content.Shared._Onyx.Flashbang;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
@@ -258,7 +259,7 @@ public abstract partial class SharedFlashSystem : EntitySystem
     /// <param name="displayPopup">Whether or not to show a popup to the target player.</param>
     /// <param name="probability">Chance to be flashed. Rolled separately for each target in range.</param>
     /// <param name="sound">Additional sound to play at the source.</param>
-    public void FlashArea(EntityUid source, EntityUid? user, float range, TimeSpan flashDuration, float slowTo = 0.8f, bool displayPopup = false, float probability = 1f, SoundSpecifier? sound = null)
+    public void FlashArea(EntityUid source, EntityUid? user, float range, TimeSpan flashDuration, float slowTo = 0.8f, bool displayPopup = false, float probability = 1f, SoundSpecifier? sound = null, bool flashbang = false)
     {
         var transform = Transform(source);
         var mapPosition = _transform.GetMapCoordinates(transform);
@@ -278,6 +279,14 @@ public abstract partial class SharedFlashSystem : EntitySystem
             // Put DamagedByFlashingComponent in the predicate because shadow anomalies block vision.
             if (!_examine.InRangeUnOccluded(entity, mapPosition, range, predicate: (e) => _damagedByFlashingQuery.HasComponent(e)))
                 continue;
+
+            if (flashbang)
+            {
+                var protection = new GetFlashbangedEvent(range);
+                RaiseLocalEvent(entity, protection);
+                if (protection.ProtectionRange <= 0)
+                    continue;
+            }
 
             Flash(entity, user, source, flashDuration, slowTo, displayPopup);
         }

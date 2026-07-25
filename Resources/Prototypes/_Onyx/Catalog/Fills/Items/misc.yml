@@ -1,0 +1,25 @@
+- type: entity
+  parent: CandyBowl
+  id: CandyBowlFilledLollypopsMystery
+  suffix: Mystery, Good
+  components:
+  - type: Bin
+    initialContents:
+    - FoodSnackLollypopWrappedMystery
+    - FoodSnackLollypopWrappedMystery
+    - FoodSnackLollypopWrappedMystery
+    - FoodSnackLollypopWrappedMystery
+    - FoodSnackLollypopWrappedMystery
+    - FoodSnackLollypopWrappedMystery
+    - FoodSnackLollypopWrappedMystery
+    - FoodSnackLollypopWrappedMystery
+    - FoodSnackLollypopWrappedMystery
+    - FoodSnackLollypopWrappedMystery
+    - FoodSnackLollypopWrappedMystery
+    - FoodSnackLollypopWrappedMystery
+    - FoodSnackLollypopWrappedMystery
+    - FoodSnackLollypopWrappedMystery
+    - FoodSnackLollypopWrappedMystery
+    whitelist:
+      tags:
+      - FoodSnack

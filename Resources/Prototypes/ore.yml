@@ -16,7 +16,7 @@
 
 - type: ore
   id: OreCoal
-  oreEntity: Coal1
+  oreEntity: Coal1Unprocessed # <Onyx-UnprocessedCoal-edited>
   minOreYield: 1
   maxOreYield: 5
 

@@ -22,7 +22,6 @@
   - Clown
   - HeadOfPersonnel
   - Janitor
-  - Lawyer
   - Librarian
   - Mime
   - Musician
@@ -135,6 +134,7 @@
   - SeniorResearcher # Corvax-MentorRoles
   - Scientist
   - ResearchAssistant
+  - Roboticist # <Onyx-Roboticist-edited>
 
 - type: department
   id: Silicon

@@ -1,0 +1,9 @@
+- type: entity
+  parent: PosterBase
+  id: PosterLegitGoobBigBrotherAI
+  name: AI Sees All
+  description: A poster that reminds you that your secrets are not hidden from your Station AI.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Posters/big_brother_ai.rsi
+    state: goob_poster12_legit

@@ -1,16 +1,18 @@
-# SPDX-FileCopyrightText: 2024 BombasterDS <115770678+BombasterDS@users.noreply.github.com>
-#
-# SPDX-License-Identifier: AGPL-3.0-or-later
-
 - type: entity
-  parent: [ ClothingEyesBase, ShowMedicalIcons, BaseCentcommContraband, ClothingEyesGlassesSunglasses ]
-  id: ClothingEyesGlassesBSO
-  name: blueshield officer glasses
-  description: Sunglasses with a medical, job and diagnostic HUD.
+  parent: [ ClothingEyesBase, ClothingEyesGlassesSunglasses ]
+  id: ClothingEyesGlassesDiag
+  name: diagnostic glasses
+  description: Sunglasses with a diagnostic HUD.
   components:
   - type: Sprite
-    sprite: _Onyx/Clothing/Eyes/Glasses/bsoglasses.rsi
+    sprite: _Onyx/Clothing/Eyes/Glasses/diagglasses.rsi
   - type: Clothing
-    sprite: _Onyx/Clothing/Eyes/Glasses/bsoglasses.rsi
-  - type: ShowJobIcons
-  - type: ShowMindShieldIcons
+    sprite: _Onyx/Clothing/Eyes/Glasses/diagglasses.rsi
+  - type: Construction
+    graph: GlassesDiagHUD
+    node: glassesDiag
+  - type: ShowHealthBars
+    damageContainers:
+    - Inorganic
+    - Silicon
+    - SiliconRadiation

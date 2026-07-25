@@ -4,6 +4,9 @@ using Content.Shared.Shuttles.Components;
 using Content.Shared.Popups;
 using Content.Shared.Singularity.Components;
 using Content.Shared.Throwing;
+// <Onyx-ContainmentFieldIgnore>
+using Content.Server._Onyx.Singularity;
+// </Onyx-ContainmentFieldIgnore>
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 
@@ -38,7 +41,12 @@ public sealed partial class ContainmentFieldSystem : EntitySystem
             var fieldDir = _transformSystem.GetWorldPosition(uid);
             var playerDir = _transformSystem.GetWorldPosition(otherBody);
 
-            _throwing.TryThrow(otherBody, playerDir-fieldDir, baseThrowSpeed: component.ThrowForce);
+            // <Onyx-ContainmentFieldIgnore>
+            var throwEvent = new ContainmentFieldThrowEvent(uid);
+            RaiseLocalEvent(otherBody, ref throwEvent);
+            if (!throwEvent.Cancelled)
+                _throwing.TryThrow(otherBody, playerDir-fieldDir, baseThrowSpeed: component.ThrowForce);
+            // </Onyx-ContainmentFieldIgnore>
         }
     }
 

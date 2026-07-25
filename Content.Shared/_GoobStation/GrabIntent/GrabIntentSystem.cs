@@ -1,4 +1,5 @@
 using Content.Goobstation.Shared.MartialArts;
+using Content.Shared._Onyx.Grab;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Alert;
 using Content.Shared.CombatMode;
@@ -83,6 +84,9 @@ public sealed partial class GrabIntentSystem : EntitySystem
         Entity<PullableComponent, GrabbableComponent> target,
         GrabStage stage)
     {
+        var modifier = new RaiseGrabModifierEvent(puller.Owner, stage);
+        RaiseLocalEvent(ref modifier);
+        stage = modifier.NewStage ?? stage;
         puller.Comp2.GrabStage = stage;
         target.Comp2.GrabStage = stage;
         _alerts.ShowAlert(puller.Owner, puller.Comp1.PullingAlert, (short) stage);

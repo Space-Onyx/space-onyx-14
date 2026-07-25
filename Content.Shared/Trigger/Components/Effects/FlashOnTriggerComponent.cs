@@ -26,4 +26,5 @@ public sealed partial class FlashOnTriggerComponent : BaseXOnTriggerComponent
     /// </summary>
     [DataField, AutoNetworkedField]
     public float Probability = 1.0f;
+
 }

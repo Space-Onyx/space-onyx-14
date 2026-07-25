@@ -1,0 +1,135 @@
+// SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+// SPDX-FileCopyrightText: 2025 Aiden <aiden@djkraz.com>
+// SPDX-FileCopyrightText: 2025 BombasterDS <115770678+BombasterDS@users.noreply.github.com>
+// SPDX-FileCopyrightText: 2025 BombasterDS <deniskaporoshok@gmail.com>
+// SPDX-FileCopyrightText: 2025 BombasterDS2 <shvalovdenis.workmail@gmail.com>
+// SPDX-FileCopyrightText: 2025 Misandry <mary@thughunt.ing>
+// SPDX-FileCopyrightText: 2025 gus <august.eymann@gmail.com>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+using Content.Shared._Onyx.Clothing.Components;
+using Content.Shared._Onyx.Clothing.Systems;
+using Content.Server.Power.EntitySystems;
+using Content.Shared.Alert;
+using Content.Shared.Inventory;
+using Content.Shared.Movement.Systems;
+using Content.Shared.PowerCell;
+using Content.Shared.PowerCell.Components;
+using Content.Shared.Rounding;
+using Content.Shared.Power.EntitySystems;
+
+namespace Content.Server._Onyx.Clothing.Systems;
+
+public sealed partial class PoweredSealableClothingSystem : SharedPoweredSealableClothingSystem
+{
+    [Dependency] private AlertsSystem _alertsSystem = default!;
+    [Dependency] private PowerCellSystem _powerCellSystem = default!;
+    [Dependency] private SharedBatterySystem _battery = default!;
+    [Dependency] private MovementSpeedModifierSystem _movementSpeed = default!;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        SubscribeLocalEvent<SealableClothingRequiresPowerComponent, InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent>>(OnMovementSpeedChange);
+        SubscribeLocalEvent<SealableClothingRequiresPowerComponent, PowerCellChangedEvent>(OnPowerCellChanged);
+        SubscribeLocalEvent<SealableClothingRequiresPowerComponent, PowerCellSlotEmptyEvent>(OnPowerCellEmpty);
+        SubscribeLocalEvent<SealableClothingRequiresPowerComponent, ClothingControlSealCompleteEvent>(OnRequiresPowerSealCompleteEvent);
+        SubscribeLocalEvent<SealableClothingRequiresPowerComponent, InventoryRelayedEvent<FindBatteryEvent>>(OnFindBatteryEvent);
+    }
+
+    private void OnPowerCellChanged(Entity<SealableClothingRequiresPowerComponent> entity, ref PowerCellChangedEvent args)
+    {
+        if (!TryComp(entity, out PowerCellSlotComponent? slot) ||
+            !TryComp(entity, out PowerCellDrawComponent? draw))
+            return;
+
+        if (!entity.Comp.IsPowered && _powerCellSystem.HasDrawCharge((entity.Owner, draw, slot)))
+        {
+            entity.Comp.IsPowered = true;
+            Dirty(entity);
+
+            ModifySpeed(entity);
+        }
+
+        UpdateClothingPowerAlert(entity);
+    }
+
+    private void OnPowerCellEmpty(Entity<SealableClothingRequiresPowerComponent> entity, ref PowerCellSlotEmptyEvent args)
+    {
+        entity.Comp.IsPowered = false;
+        Dirty(entity);
+
+        ModifySpeed(entity);
+    }
+
+    /// <summary>
+    /// Enables or disables power cell draw on seal/unseal complete
+    /// </summary>
+    private void OnRequiresPowerSealCompleteEvent(Entity<SealableClothingRequiresPowerComponent> entity, ref ClothingControlSealCompleteEvent args)
+    {
+        if (!TryComp(entity, out PowerCellDrawComponent? drawComp))
+            return;
+
+        _powerCellSystem.SetDrawEnabled((entity.Owner, drawComp), args.IsSealed);
+
+        UpdateClothingPowerAlert(entity);
+        ModifySpeed(entity);
+    }
+
+    private void OnMovementSpeedChange(Entity<SealableClothingRequiresPowerComponent> entity, ref InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent> args)
+    {
+        if (!TryComp(entity, out SealableClothingControlComponent? controlComp))
+            return;
+
+        // If suit is unsealed - don't care about penalty
+        if (!controlComp.IsCurrentlySealed)
+            return;
+
+        if (!entity.Comp.IsPowered)
+            args.Args.ModifySpeed(entity.Comp.MovementSpeedPenalty);
+    }
+
+    private void ModifySpeed(EntityUid uid)
+    {
+        if (!TryComp(uid, out SealableClothingControlComponent? controlComp) || controlComp.WearerEntity == null)
+            return;
+
+        _movementSpeed.RefreshMovementSpeedModifiers(controlComp.WearerEntity.Value);
+    }
+
+    /// <summary>
+    /// Sets power alert to wearer when clothing is sealed
+    /// </summary>
+    private void UpdateClothingPowerAlert(Entity<SealableClothingRequiresPowerComponent> entity)
+    {
+        var (uid, comp) = entity;
+
+        if (!TryComp<SealableClothingControlComponent>(uid, out var controlComp) || controlComp.WearerEntity == null)
+            return;
+
+        if (!TryComp(entity, out PowerCellSlotComponent? slot) ||
+            !_powerCellSystem.TryGetBatteryFromSlot((uid, slot), out var battery) || !controlComp.IsCurrentlySealed)
+        {
+            _alertsSystem.ClearAlert(controlComp.WearerEntity.Value, comp.SuitPowerAlert);
+            return;
+        }
+
+        var severity = ContentHelpers.RoundToLevels(MathF.Max(0f, _battery.GetCharge(battery.Value.AsNullable())), battery.Value.Comp.MaxCharge, 6);
+        _alertsSystem.ShowAlert(controlComp.WearerEntity.Value, comp.SuitPowerAlert, (short) severity);
+    }
+
+    /// <summary>
+    /// Tries to find battery for charger
+    /// </summary>
+    private void OnFindBatteryEvent(Entity<SealableClothingRequiresPowerComponent> entity, ref InventoryRelayedEvent<FindBatteryEvent> args)
+    {
+        if (args.Args.FoundBattery != null)
+            return;
+
+        if (TryComp(entity, out PowerCellSlotComponent? slot) &&
+            _powerCellSystem.TryGetBatteryFromSlot((entity.Owner, slot), out var battery))
+            args.Args.FoundBattery = battery;
+    }
+}

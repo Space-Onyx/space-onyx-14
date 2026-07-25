@@ -7,9 +7,8 @@
     - !type:OverallPlaytimeRequirement
       time: 2.5h
   startingGear: LawyerGear
-  setPreference: false # Corvax-IAA
   icon: "JobIconLawyer"
-  supervisors: job-supervisors-hop
+  supervisors: job-supervisors-iaa # <Onyx-Lawyer-edited>
   access:
   - Service
   - Lawyer
@@ -21,7 +20,7 @@
   equipment:
     shoes: ClothingShoesBootsLaceup
     id: LawyerPDA
-    ears: ClothingHeadsetSecurity
+    ears: ClothingHeadsetLawyer # <Onyx-Lawyer-edited>
   inhand:
     - BriefcaseBrownFilled
   storage:
@@ -39,3 +38,4 @@
     neck: ClothingNeckLawyerbadge
     outerClothing: ClothingOuterWinterColorBlack
     gloves: ClothingHandsGlovesColorBlack
+    ears: ClothingHeadsetLawyer # <Onyx-Lawyer>

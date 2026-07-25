@@ -32,6 +32,9 @@ using Content.Shared.Radio;
 using Content.Shared.Slippery;
 using Content.Shared.Speech;
 using Content.Shared.Standing;
+// <Onyx-Modsuit>
+using Content.Shared._Onyx.Clothing;
+// </Onyx-Modsuit>
 using Content.Shared.Strip.Components;
 using Content.Shared.Temperature;
 using Content.Shared.Verbs;
@@ -39,6 +42,9 @@ using Content.Shared.VoiceMask;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Wieldable;
 using Content.Shared.Zombies;
+// <Onyx-Flashbang>
+using Content.Shared._Onyx.Flashbang;
+// </Onyx-Flashbang>
 
 namespace Content.Shared.Inventory;
 
@@ -78,6 +84,9 @@ public partial class InventorySystem
 
         // by-ref events
         SubscribeLocalEvent<InventoryComponent, RefreshFrictionModifiersEvent>(RefRelayInventoryEvent);
+        // <Onyx-Modsuit>
+        SubscribeLocalEvent<InventoryComponent, GetStandingUpTimeMultiplierEvent>(RelayInventoryEvent);
+        // </Onyx-Modsuit>
         SubscribeLocalEvent<InventoryComponent, BeforeStaminaDamageEvent>(RefRelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, GetExplosionResistanceEvent>(RefRelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, IsWeightlessEvent>(RefRelayInventoryEvent);
@@ -89,6 +98,9 @@ public partial class InventorySystem
         SubscribeLocalEvent<InventoryComponent, HitScanReflectAttemptEvent>(RefRelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, GetContrabandDetailsEvent>(RefRelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, FlashAttemptEvent>(RefRelayInventoryEvent);
+        // <Onyx-Flashbang>
+        SubscribeLocalEvent<InventoryComponent, GetFlashbangedEvent>(RelayInventoryEvent);
+        // </Onyx-Flashbang>
         SubscribeLocalEvent<InventoryComponent, WieldAttemptEvent>(RefRelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, UnwieldAttemptEvent>(RefRelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, IngestionAttemptEvent>(RefRelayInventoryEvent);
