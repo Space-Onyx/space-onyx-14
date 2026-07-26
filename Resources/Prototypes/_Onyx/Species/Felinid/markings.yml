@@ -1,6 +1,6 @@
 - type: marking
   id: FelinidEarsBasic
-  bodyPart: HeadTop
+  bodyPart: Ears
   groupWhitelist: [ Felinid ]
   sprites:
   - sprite: _Onyx/Species/Felinid/felinid_ears.rsi
@@ -10,7 +10,7 @@
 
 - type: marking
   id: FelinidEarsCurled
-  bodyPart: HeadTop
+  bodyPart: Ears
   groupWhitelist: [ Felinid ]
   sprites:
   - sprite: _Onyx/Species/Felinid/felinid_ears.rsi
@@ -20,7 +20,7 @@
 
 - type: marking
   id: FelinidEarsDroopy
-  bodyPart: HeadTop
+  bodyPart: Ears
   groupWhitelist: [ Felinid ]
   sprites:
   - sprite: _Onyx/Species/Felinid/felinid_ears.rsi
@@ -30,7 +30,7 @@
 
 - type: marking
   id: FelinidEarsFuzzy
-  bodyPart: HeadTop
+  bodyPart: Ears
   groupWhitelist: [ Felinid ]
   sprites:
   - sprite: _Onyx/Species/Felinid/felinid_ears.rsi
@@ -40,7 +40,7 @@
 
 - type: marking
   id: FelinidEarsStubby
-  bodyPart: HeadTop
+  bodyPart: Ears
   groupWhitelist: [ Felinid ]
   sprites:
   - sprite: _Onyx/Species/Felinid/felinid_ears.rsi
@@ -50,7 +50,7 @@
 
 - type: marking
   id: FelinidEarsTall
-  bodyPart: HeadTop
+  bodyPart: Ears
   groupWhitelist: [ Felinid ]
   sprites:
   - sprite: _Onyx/Species/Felinid/felinid_ears.rsi
@@ -62,7 +62,7 @@
 
 - type: marking
   id: FelinidEarsTorn
-  bodyPart: HeadTop
+  bodyPart: Ears
   groupWhitelist: [ Felinid ]
   sprites:
   - sprite: _Onyx/Species/Felinid/felinid_ears.rsi
@@ -72,7 +72,7 @@
 
 - type: marking
   id: FelinidEarsWide
-  bodyPart: HeadTop
+  bodyPart: Ears
   groupWhitelist: [ Felinid ]
   sprites:
   - sprite: _Onyx/Species/Felinid/felinid_ears.rsi

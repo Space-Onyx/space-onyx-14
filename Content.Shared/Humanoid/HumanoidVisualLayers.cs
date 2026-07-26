@@ -36,6 +36,10 @@ namespace Content.Shared.Humanoid
         StencilMask,
         Ensnare,
         Fire,
+        // <Onyx-VisualEars>
+        Ears,
+        EarsOverlay,
+        // </Onyx-VisualEars>
 
     }
 }

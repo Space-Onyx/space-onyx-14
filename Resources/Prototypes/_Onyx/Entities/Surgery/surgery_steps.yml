@@ -442,6 +442,16 @@
 
 - type: entity
   parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveTail
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Tail } ]
+
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertTail
+  components: [ { type: SurgeryInsertOrganEffect, slot: Tail } ]
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
   id: SurgeryStepRemoveHeart
   components: [ { type: SurgeryRemoveOrganEffect, slot: Heart } ]
 
@@ -590,20 +600,6 @@
   - type: SurgeryOrganHealEffect
     slot: Appendix
     amount: 1
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepTendWound
-  name: Suture wound
-  components:
-  - type: SurgeryStep
-    tool: [ { type: Stitches } ]
-  - type: Sprite
-    sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
-    state: stitches
-  - type: SurgeryHasWoundCondition
-  - type: SurgeryTreatWoundEffect
-    amount: 10
 
 - type: entity
   parent: SurgeryStepBase

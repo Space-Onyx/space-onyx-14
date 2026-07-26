@@ -20,7 +20,7 @@
 
 - type: marking
   id: FoxEar
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [Vulpkanin]
   sponsorOnly: true # Corvax-Sponsors
   sprites:

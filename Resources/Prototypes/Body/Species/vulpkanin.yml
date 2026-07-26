@@ -12,7 +12,7 @@
     enum.HumanoidVisualLayers.Head:
       limit: 3
       required: false
-    enum.HumanoidVisualLayers.HeadTop:
+    enum.HumanoidVisualLayers.Ears: # <Onyx-VisualEars-edited>
       limit: 1
       required: true
       default: [ FoxEar ] # Corvax-Vulp_Port VulpEar
@@ -67,6 +67,7 @@
       Chest: OrganVulpkaninChest
       Groin: OrganVulpkaninGroin
       # </Onyx-ChestGroin-edited>
+      Tail: OrganVulpkaninTail # <Onyx-VisualTail>
       Head: OrganVulpkaninHead
       ArmLeft: OrganVulpkaninArmLeft
       ArmRight: OrganVulpkaninArmRight
@@ -80,7 +81,7 @@
       Eyes: OrganVulpkaninEyes
       Tongue: OrganVulpkaninTongue
       Appendix: OrganVulpkaninAppendix
-      Ears: OrganVulpkaninEars
+      Ears: OrganVulpkaninVisualEars # <Onyx-VisualEars-edited>
       Lungs: OrganVulpkaninLungs
       Heart: OrganVulpkaninHeart
       Stomach: OrganVulpkaninStomach

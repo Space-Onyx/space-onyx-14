@@ -18,6 +18,7 @@ public sealed partial class AmputationSystem : EntitySystem
     [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private WoundSystem _wounds = default!;
     [Dependency] private ThrowingSystem _throwing = default!;
     [Dependency] private IRobustRandom _random = default!;
 
@@ -37,12 +38,22 @@ public sealed partial class AmputationSystem : EntitySystem
         if (!_body.TryDetachPart(part.Owner))
             return;
 
+        _wounds.CreateOrMergeWound(parent, "DismembermentWound", GetDismembermentSeverity(bodyPart.PartType));
         Dirty(part.Owner, part.Comp);
         _throwing.TryThrow(part.Owner, _random.NextVector2(0.8f, 1.2f), baseThrowSpeed: 3f,
             pushbackRatio: 0f, doSpin: true);
         var ev = new PartAmputatedEvent(args.Body, part.Owner, parent);
         RaiseLocalEvent(part.Owner, ref ev);
     }
+
+    private static FixedPoint2 GetDismembermentSeverity(BodyPartType type) => type switch
+    {
+        BodyPartType.Head => 200,
+        BodyPartType.Groin => 160,
+        BodyPartType.Arm or BodyPartType.Leg => 120,
+        BodyPartType.Hand or BodyPartType.Foot => 80,
+        _ => 100,
+    };
 
     internal static bool ReachedThreshold(
         DamageSpecifier damage,

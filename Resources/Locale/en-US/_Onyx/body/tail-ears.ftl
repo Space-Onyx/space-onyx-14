@@ -1,0 +1,23 @@
+ent-OrganBaseVisualTail = tail
+    .desc = { ent-OrganBase.desc }
+ent-OrganHumanTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganFelinidTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganVulpkaninTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganReptilianTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganVoxTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganSlimePersonTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganTajaranTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganArcanTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+
+markings-organ-Tail = Tail
+markings-organ-Ears = Ears
+markings-layer-Ears = Ears
+markings-layer-EarsOverlay = Ear overlay

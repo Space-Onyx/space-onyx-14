@@ -26,6 +26,14 @@
     enum.HumanoidVisualLayers.HeadSide:
       limit: 1
       required: false
+    # <Onyx-VisualEars>
+    enum.HumanoidVisualLayers.Ears:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.EarsOverlay:
+      limit: 1
+      required: false
+    # </Onyx-VisualEars>
     enum.HumanoidVisualLayers.LArm:
       limit: 1
       required: false
@@ -114,6 +122,7 @@
       Chest: OrganReptilianChest
       Groin: OrganReptilianGroin
       # </Onyx-ChestGroin-edited>
+      Tail: OrganReptilianTail # <Onyx-VisualTail>
       Head: OrganReptilianHead
       ArmLeft: OrganReptilianArmLeft
       ArmRight: OrganReptilianArmRight
@@ -127,7 +136,7 @@
       Eyes: OrganReptilianEyes
       Tongue: OrganReptilianTongue
       Appendix: OrganReptilianAppendix
-      Ears: OrganReptilianEars
+      Ears: OrganReptilianVisualEars # <Onyx-VisualEars-edited>
       Lungs: OrganReptilianLungs
       Heart: OrganReptilianHeart
       Stomach: OrganReptilianStomach

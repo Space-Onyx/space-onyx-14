@@ -43,9 +43,7 @@
       state: groin_m
   - type: VisualOrganMarkings
     markingData:
-      layers:
-      - Tail
-      - TailOverlay
+      layers: []
 
 - type: entity
   id: OrganBaseChestSexed
@@ -188,6 +186,10 @@
     sprite: _Onyx/Body/Species/Moth/parts.rsi
   - type: VisualOrgan
     data: { sprite: _Onyx/Body/Species/Moth/parts.rsi }
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Chest, Tail, Overlay, TailOverlay, Special ]
+      group: Moth
 
 - type: entity
   parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganMothExternal ]
@@ -199,6 +201,10 @@
     layer: enum.HumanoidVisualLayers.Groin
     data: { sprite: _Onyx/Body/Species/Moth/parts.rsi, state: groin_m }
     sexStateOverrides: { Male: groin_m, Female: groin_f }
+  - type: VisualOrganMarkings
+    markingData:
+      layers: []
+      group: Moth
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganVulpkaninExternal ]
@@ -263,6 +269,10 @@
     sprite: _Onyx/Body/Species/Arachnid/parts.rsi
   - type: VisualOrgan
     data: { sprite: _Onyx/Body/Species/Arachnid/parts.rsi }
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Chest, Tail, Overlay, TailOverlay, Special ]
+      group: Arachnid
 
 - type: entity
   parent: [ OrganBaseGroin, OrganArachnidExternal ]
@@ -273,6 +283,10 @@
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.Groin
     data: { sprite: _Onyx/Body/Species/Arachnid/parts.rsi, state: groin_m }
+  - type: VisualOrganMarkings
+    markingData:
+      layers: []
+      group: Arachnid
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganTajaranExternal ]
@@ -306,6 +320,10 @@
     sprite: _Onyx/Body/Species/IPC/parts.rsi
   - type: VisualOrgan
     data: { sprite: _Onyx/Body/Species/IPC/parts.rsi }
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Chest, Overlay, Special ]
+      group: Ipc
 
 - type: entity
   parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganIpcExternal ]
@@ -317,6 +335,10 @@
     layer: enum.HumanoidVisualLayers.Groin
     data: { sprite: _Onyx/Body/Species/IPC/parts.rsi, state: groin_m }
     sexStateOverrides: { Male: groin_m, Female: groin_f }
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Groin ]
+      group: Ipc
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganArcanExternal ]

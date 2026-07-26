@@ -342,7 +342,7 @@
 
 - type: marking
   id: TajaranOutears
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [Tajaran]
   sponsorOnly: true # Corvax-Sponsors
   sprites:
@@ -387,7 +387,7 @@
 
 - type: marking
   id: TajaranInears
-  bodyPart: HeadTop
+  bodyPart: EarsOverlay # <Onyx-VisualEars-edited>
   groupWhitelist: [Tajaran]
   sponsorOnly: true # Corvax-Sponsors
   sprites:
@@ -396,7 +396,7 @@
 
 - type: marking
   id: TajaranNose
-  bodyPart: Snout
+  bodyPart: EarsOverlay # <Onyx-VisualEars-edited>
   groupWhitelist: [Tajaran]
   sponsorOnly: true # Corvax-Sponsors
   sprites:

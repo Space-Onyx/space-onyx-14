@@ -198,6 +198,16 @@
   awakeBleedingMultiplier: 3
 
 - type: wound
+  id: DismembermentWound
+  damageTypes: []
+  mergeMode: SeparateInstances
+  maximumSeverity: 200
+  bleedingRate: 0.2
+  bleedingChance: 1
+  awakeBleedingMultiplier: 1.5
+  automaticClottingTimeMultiplier: 4
+
+- type: wound
   id: MedicalScarWound
   damageTypes: []
   mergeMode: SeparateInstances

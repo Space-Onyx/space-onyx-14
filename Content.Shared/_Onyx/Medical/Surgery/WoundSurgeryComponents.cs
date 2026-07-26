@@ -21,16 +21,6 @@ public sealed partial class SurgeryHasWoundConditionComponent : Component
 }
 
 [RegisterComponent]
-public sealed partial class SurgeryTreatWoundEffectComponent : Component
-{
-    [DataField(required: true)]
-    public FixedPoint2 Amount;
-
-    [DataField]
-    public ProtoId<WoundPrototype>? WoundPrototype;
-}
-
-[RegisterComponent]
 public sealed partial class SurgeryClampBleedingEffectComponent : Component
 {
     [DataField(required: true)]

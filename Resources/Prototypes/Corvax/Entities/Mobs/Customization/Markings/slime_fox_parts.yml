@@ -1,6 +1,6 @@
 - type: marking
   id: SlimeFoxEars # if cat ears from slime can exist, then why fox ears cannot?
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [Slime]
   sponsorOnly: true # Corvax-Sponsors
   sprites:

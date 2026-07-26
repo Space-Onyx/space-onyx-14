@@ -17,7 +17,7 @@
   parent: Human
   id: Felinid
   limits:
-    enum.HumanoidVisualLayers.HeadTop:
+    enum.HumanoidVisualLayers.Ears: # <Onyx-VisualEars-edited>
       limit: 1
       required: true
       default: [ FelinidEarsBasic ]
@@ -38,6 +38,7 @@
       Chest: OrganFelinidChest
       Groin: OrganFelinidGroin
       # </Onyx-ChestGroin-edited>
+      Tail: OrganFelinidTail
       Head: OrganFelinidHead
       ArmLeft: OrganHumanArmLeft
       ArmRight: OrganHumanArmRight
@@ -51,7 +52,7 @@
       Eyes: OrganHumanEyes
       Tongue: OrganHumanTongue
       Appendix: OrganHumanAppendix
-      Ears: OrganHumanEars
+      Ears: OrganFelinidEars
       Lungs: OrganHumanLungs
       Heart: OrganHumanHeart
       Stomach: OrganHumanStomach

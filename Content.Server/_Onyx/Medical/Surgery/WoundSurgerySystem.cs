@@ -15,8 +15,6 @@ public sealed partial class WoundSurgerySystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<SurgeryHasWoundConditionComponent, SurgeryValidEvent>(OnHasWoundValid);
-        SubscribeLocalEvent<SurgeryTreatWoundEffectComponent, SurgeryStepEvent>(OnTreatWound);
-        SubscribeLocalEvent<SurgeryTreatWoundEffectComponent, SurgeryStepCompleteCheckEvent>(OnTreatWoundCheck);
         SubscribeLocalEvent<SurgeryClampBleedingEffectComponent, SurgeryStepEvent>(OnClampBleeding);
         SubscribeLocalEvent<SurgeryClampBleedingEffectComponent, SurgeryStepCompleteCheckEvent>(OnClampBleedingCheck);
         SubscribeLocalEvent<SurgeryFractureGradeConditionComponent, SurgeryValidEvent>(OnFractureGradeValid);
@@ -29,18 +27,6 @@ public sealed partial class WoundSurgerySystem : EntitySystem
     private void OnHasWoundValid(Entity<SurgeryHasWoundConditionComponent> ent, ref SurgeryValidEvent args)
     {
         if (FindWound(args.Part, ent.Comp.WoundPrototype, ent.Comp.Visibility, ent.Comp.State, ent.Comp.Bleeding) == null)
-            args.Cancelled = true;
-    }
-
-    private void OnTreatWound(Entity<SurgeryTreatWoundEffectComponent> ent, ref SurgeryStepEvent args)
-    {
-        if (FindWound(args.Part, ent.Comp.WoundPrototype) is { } wound)
-            _wounds.TreatWound(wound.Owner, ent.Comp.Amount);
-    }
-
-    private void OnTreatWoundCheck(Entity<SurgeryTreatWoundEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
-    {
-        if (FindWound(args.Part, ent.Comp.WoundPrototype) != null)
             args.Cancelled = true;
     }
 

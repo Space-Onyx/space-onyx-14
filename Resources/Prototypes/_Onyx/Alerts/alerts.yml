@@ -30,3 +30,11 @@
   description: alerts-modsuit-power-desc
   minSeverity: 0
   maxSeverity: 5
+
+- type: alert
+  id: BrokenBones
+  icons:
+  - sprite: /Textures/_Onyx/Interface/Alerts/fracture.rsi
+    state: brokenbones
+  name: alerts-broken-bones-name
+  description: alerts-broken-bones-desc

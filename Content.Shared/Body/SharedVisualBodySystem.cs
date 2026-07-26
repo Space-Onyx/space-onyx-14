@@ -227,4 +227,3 @@ public sealed class VisualBodyMarkingsChangedEvent : EntityEventArgs
 {
 }
 // </Onyx-DynamicWagging>
-

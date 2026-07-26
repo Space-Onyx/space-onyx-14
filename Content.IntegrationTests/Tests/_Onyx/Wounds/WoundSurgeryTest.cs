@@ -31,11 +31,6 @@ public sealed class WoundSurgeryTest : GameTest
   - type: SurgeryHasWoundCondition
     woundPrototype: SlashWound
 - type: entity
-  id: WoundSurgeryTestTreatment
-  components:
-  - type: SurgeryTreatWoundEffect
-    amount: 5
-- type: entity
   id: WoundSurgeryTestBleedingTreatment
   components:
   - type: SurgeryClampBleedingEffect
@@ -85,7 +80,6 @@ public sealed class WoundSurgeryTest : GameTest
             var otherPart = entities.SpawnEntity("WoundSurgeryTestPart", map.GridCoords);
             var emptyPart = entities.SpawnEntity("WoundSurgeryTestPart", map.GridCoords);
             var condition = entities.SpawnEntity("WoundSurgeryTestCondition", map.GridCoords);
-            var treatment = entities.SpawnEntity("WoundSurgeryTestTreatment", map.GridCoords);
             var bleedingTreatment = entities.SpawnEntity("WoundSurgeryTestBleedingTreatment", map.GridCoords);
             var low = wounds.CreateOrMergeWound(selected, "SlashWound", 10)!.Value;
             var high = wounds.CreateOrMergeWound(selected, "PiercingWound", 20)!.Value;
@@ -93,19 +87,17 @@ public sealed class WoundSurgeryTest : GameTest
 
             Assert.That(IsValid(condition, selected, entities));
             Assert.That(IsValid(condition, emptyPart, entities), Is.False);
-            RaiseStep(treatment, selected, entities);
-            Assert.Multiple(() =>
-            {
-                Assert.That(entities.GetComponent<WoundComponent>(low).Severity, Is.EqualTo(FixedPoint2.New(10)));
-                Assert.That(entities.GetComponent<WoundComponent>(high).Severity, Is.EqualTo(FixedPoint2.New(15)));
-                Assert.That(entities.GetComponent<WoundComponent>(other).Severity, Is.EqualTo(FixedPoint2.New(30)));
-            });
-
             RaiseStep(bleedingTreatment, selected, entities);
             Assert.That(entities.GetComponent<WoundBleedingComponent>(high).BleedingSeverity,
                 Is.EqualTo(FixedPoint2.New(10)));
             RaiseStep(bleedingTreatment, selected, entities);
             Assert.That(entities.HasComponent<WoundBleedingComponent>(high), Is.False);
+            Assert.Multiple(() =>
+            {
+                Assert.That(entities.GetComponent<WoundComponent>(low).Severity, Is.EqualTo(FixedPoint2.New(10)));
+                Assert.That(entities.GetComponent<WoundComponent>(high).Severity, Is.EqualTo(FixedPoint2.New(20)));
+                Assert.That(entities.GetComponent<WoundComponent>(other).Severity, Is.EqualTo(FixedPoint2.New(30)));
+            });
         });
     }
 

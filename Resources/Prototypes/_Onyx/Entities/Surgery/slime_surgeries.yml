@@ -244,6 +244,56 @@
 
 - type: entity
   parent: SurgerySlimeBase
+  id: SurgerySlimeRemoveEars
+  name: Remove ears
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepRemoveEars ]
+  - type: SurgeryOrganCondition
+    slot: Ears
+    part: Head
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeInsertEars
+  name: Insert ears
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepInsertEars ]
+  - type: SurgeryOrganCondition
+    slot: Ears
+    inverse: true
+    part: Head
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeRemoveTail
+  name: Remove tail
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepRemoveTail ]
+  - type: SurgeryOrganCondition
+    slot: Tail
+    part: Groin
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeInsertTail
+  name: Insert tail
+  components:
+  - type: Surgery
+    requirement: SurgerySlimeOpenIncision
+    steps: [ SurgeryStepInsertTail ]
+  - type: SurgeryOrganCondition
+    slot: Tail
+    inverse: true
+    part: Groin
+
+- type: entity
+  parent: SurgerySlimeBase
   id: SurgerySlimeRemoveLungs
   name: Remove gas sacs
   components:
@@ -290,12 +340,3 @@
   - type: SurgeryHasWoundCondition
     state: Open
     bleeding: true
-
-- type: entity
-  parent: SurgerySlimeBase
-  id: SurgerySlimeTendWound
-  name: Seal wound
-  components:
-  - type: Surgery
-    steps: [ SurgeryStepTendWound ]
-  - type: SurgeryHasWoundCondition

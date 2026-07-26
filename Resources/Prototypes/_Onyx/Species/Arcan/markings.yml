@@ -76,7 +76,7 @@
 
 - type: marking
   id: DemonCowEars
-  bodyPart: HeadSide
+  bodyPart: Ears
   groupWhitelist: [ Demon ]
   sprites:
   - sprite: _Onyx/Species/Arcan/markings.rsi
@@ -84,7 +84,7 @@
 
 - type: marking
   id: DemonEars
-  bodyPart: HeadSide
+  bodyPart: Ears
   groupWhitelist: [ Demon ]
   sprites:
   - sprite: _Onyx/Species/Arcan/markings.rsi
@@ -92,7 +92,7 @@
 
 - type: marking
   id: DemonElfEars
-  bodyPart: HeadSide
+  bodyPart: Ears
   groupWhitelist: [ Demon ]
   sprites:
   - sprite: _Onyx/Species/Arcan/markings.rsi

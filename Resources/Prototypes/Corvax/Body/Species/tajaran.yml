@@ -12,10 +12,15 @@
     enum.HumanoidVisualLayers.Head:
       limit: 3
       required: false
-    enum.HumanoidVisualLayers.HeadTop:
+    enum.HumanoidVisualLayers.Ears: # <Onyx-VisualEars-edited>
       limit: 1
       required: true
       default: [ TajaranOutears ]
+    # <Onyx-VisualEars>
+    enum.HumanoidVisualLayers.EarsOverlay:
+      limit: 1
+      required: false
+    # </Onyx-VisualEars>
     enum.HumanoidVisualLayers.Snout:
       limit: 1
       required: true
@@ -70,6 +75,7 @@
       Chest: OrganTajaranChest
       Groin: OrganTajaranGroin
       # </Onyx-ChestGroin-edited>
+      Tail: OrganTajaranTail # <Onyx-VisualTail>
       Head: OrganTajaranHead
       ArmLeft: OrganTajaranArmLeft
       ArmRight: OrganTajaranArmRight
@@ -83,7 +89,7 @@
       Eyes: OrganTajaranEyes
       Tongue: OrganTajaranTongue
       Appendix: OrganTajaranAppendix
-      Ears: OrganTajaranEars
+      Ears: OrganTajaranVisualEars # <Onyx-VisualEars-edited>
       Lungs: OrganTajaranLungs
       Heart: OrganTajaranHeart
       Stomach: OrganTajaranStomach

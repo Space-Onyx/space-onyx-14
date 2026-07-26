@@ -5,6 +5,11 @@
     enum.HumanoidVisualLayers.HeadTop:
       limit: 1
       required: false
+    # <Onyx-VisualEars>
+    enum.HumanoidVisualLayers.Ears:
+      limit: 1
+      required: false
+    # </Onyx-VisualEars>
     enum.HumanoidVisualLayers.Hair:
       limit: 1
       required: false
@@ -68,6 +73,7 @@
       Chest: OrganHumanChest
       Groin: OrganHumanGroin
       # </Onyx-ChestGroin-edited>
+      Tail: OrganHumanTail # <Onyx-VisualTail>
       Head: OrganHumanHead
       ArmLeft: OrganHumanArmLeft
       ArmRight: OrganHumanArmRight
@@ -81,7 +87,7 @@
       Eyes: OrganHumanEyes
       Tongue: OrganHumanTongue
       Appendix: OrganHumanAppendix
-      Ears: OrganHumanEars
+      Ears: OrganHumanVisualEars # <Onyx-VisualEars-edited>
       Lungs: OrganHumanLungs
       Heart: OrganHumanHeart
       Stomach: OrganHumanStomach

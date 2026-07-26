@@ -329,6 +329,31 @@
 
 - type: entity
   parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveTail
+  name: Remove tail
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepRemoveTail ]
+  - type: SurgeryOrganCondition
+    slot: Tail
+    part: Groin
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertTail
+  name: Implant tail
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepInsertTail ]
+  - type: SurgeryOrganCondition
+    slot: Tail
+    inverse: true
+    part: Groin
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
   id: SurgeryRemoveHeart
   name: Remove heart
   components:
@@ -621,15 +646,6 @@
   - type: SurgeryHasWoundCondition
     state: Open
     bleeding: true
-
-- type: entity
-  parent: SurgeryBase
-  id: SurgeryTendWound
-  name: Treat wound
-  components:
-  - type: Surgery
-    steps: [ SurgeryStepTendWound ]
-  - type: SurgeryHasWoundCondition
 
 - type: entity
   parent: SurgeryBase

@@ -135,6 +135,7 @@
       Chest: OrganVoxChest
       Groin: OrganVoxGroin
       # </Onyx-ChestGroin-edited>
+      Tail: OrganVoxTail # <Onyx-VisualTail>
       Head: OrganVoxHead
       ArmLeft: OrganVoxArmLeft
       ArmRight: OrganVoxArmRight

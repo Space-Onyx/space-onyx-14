@@ -40,6 +40,11 @@
     enum.HumanoidVisualLayers.HeadTop:
       limit: 1
       required: false
+    # <Onyx-VisualEars>
+    enum.HumanoidVisualLayers.Ears:
+      limit: 1
+      required: false
+    # </Onyx-VisualEars>
     enum.HumanoidVisualLayers.Tail:
       limit: 1
       required: false
@@ -71,6 +76,7 @@
       Chest: OrganSlimePersonChest
       Groin: OrganSlimePersonGroin
       # </Onyx-ChestGroin-edited>
+      Tail: OrganSlimePersonTail # <Onyx-VisualTail>
       Head: OrganSlimePersonHead
       ArmLeft: OrganSlimePersonArmLeft
       ArmRight: OrganSlimePersonArmRight
@@ -82,6 +88,7 @@
       FootRight: OrganSlimePersonFootRight
       Brain: OrganSlimePersonCore
       Eyes: OrganSlimePersonEyes
+      Ears: OrganSlimePersonEars # <Onyx-VisualEars>
       Lungs: OrganSlimePersonLungs
   - type: HumanoidProfile
     species: SlimePerson

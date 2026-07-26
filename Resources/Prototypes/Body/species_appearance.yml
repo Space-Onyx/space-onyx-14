@@ -61,6 +61,10 @@
     - map: [ "enum.HumanoidVisualLayers.Hair" ]
     - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
     - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
+    # <Onyx-VisualEars>
+    - map: [ "enum.HumanoidVisualLayers.Ears" ]
+    - map: [ "enum.HumanoidVisualLayers.EarsOverlay" ]
+    # </Onyx-VisualEars>
     - map: [ "enum.HumanoidVisualLayers.Tail" ]
     - map: [ "enum.HumanoidVisualLayers.TailOverlay" ]
 

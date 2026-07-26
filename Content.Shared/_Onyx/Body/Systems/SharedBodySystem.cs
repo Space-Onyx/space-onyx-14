@@ -259,16 +259,20 @@ public sealed partial class SharedBodySystem : EntitySystem
         return true;
     }
 
-    public bool TryRemoveOrgan(EntityUid partId, string slot, out EntityUid organ)
+    public bool TryRemoveOrgan(EntityUid partId, string slot, out EntityUid organ, bool reparent = true)
     {
         organ = default;
-        if (!_containers.TryGetContainer(partId, BodyPartComponent.OrganSlotPrefix + slot, out var container) || container is not ContainerSlot { ContainedEntity: { } contained })
+        if (!TryComp(partId, out BodyPartComponent? part)
+            || !_containers.TryGetContainer(partId, BodyPartComponent.OrganSlotPrefix + slot, out var container)
+            || container is not ContainerSlot { ContainedEntity: { } contained })
             return false;
 
-        if (!_containers.Remove(contained, container))
+        if (!_containers.Remove(contained, container, reparent: reparent))
             return false;
 
         organ = contained;
+        if (part.Body is { } body)
+            RaiseLocalEvent(body, new BodyOrganSlotChangedEvent(slot, organ, false));
         return true;
     }
 
@@ -283,6 +287,9 @@ public sealed partial class SharedBodySystem : EntitySystem
 
         if (part.Organs.Add(slot))
             Dirty(partId, part);
+
+        if (part.Body is { } body)
+            RaiseLocalEvent(body, new BodyOrganSlotChangedEvent(slot, organId, true));
 
         return true;
     }
@@ -375,3 +382,8 @@ public sealed partial class SharedBodySystem : EntitySystem
         }
     }
 }
+
+/// <summary>
+/// Raised on a body after its surgical organ graph has finished changing.
+/// </summary>
+public readonly record struct BodyOrganSlotChangedEvent(string Slot, EntityUid Organ, bool Inserted);

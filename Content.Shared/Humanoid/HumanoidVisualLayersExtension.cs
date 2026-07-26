@@ -39,6 +39,10 @@ namespace Content.Shared.Humanoid
                     yield return HumanoidVisualLayers.Eyes;
                     yield return HumanoidVisualLayers.HeadSide;
                     yield return HumanoidVisualLayers.HeadTop;
+                    // <Onyx-VisualEars>
+                    yield return HumanoidVisualLayers.Ears;
+                    yield return HumanoidVisualLayers.EarsOverlay;
+                    // </Onyx-VisualEars>
                     yield return HumanoidVisualLayers.Hair;
                     yield return HumanoidVisualLayers.FacialHair;
                     yield return HumanoidVisualLayers.Snout;

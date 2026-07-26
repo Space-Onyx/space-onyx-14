@@ -1,6 +1,6 @@
 - type: marking
   id: CatEarsStubby
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [Human]
   sponsorOnly: true # Corvax-Sponsors
   coloring:
@@ -23,7 +23,7 @@
 
 - type: marking
   id: CatEarsCurled
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [Human]
   sponsorOnly: true # Corvax-Sponsors
   coloring:
@@ -46,7 +46,7 @@
 
 - type: marking
   id: CatEarsTorn
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [Human]
   sponsorOnly: true # Corvax-Sponsors
   coloring:

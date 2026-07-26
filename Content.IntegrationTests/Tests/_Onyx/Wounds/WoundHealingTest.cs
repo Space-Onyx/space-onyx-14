@@ -157,6 +157,38 @@ public sealed class WoundHealingTest : GameTest
     }
 
     [Test]
+    public async Task UntargetedHealingTreatsDamageAcrossAllPartsTest()
+    {
+        var server = Pair.Server;
+        await server.WaitIdleAsync();
+        var entities = server.ResolveDependency<IEntityManager>();
+        var map = await Pair.CreateTestMap();
+
+        await server.WaitAssertion(() =>
+        {
+            var body = entities.SpawnEntity("WoundHealingBody", map.GridCoords);
+            var graph = entities.System<SharedBodySystem>();
+            var routing = entities.System<WoundDamageRoutingSystem>();
+            var damage = entities.System<DamageableSystem>();
+            var head = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Head).Id;
+            var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Blunt", 10)));
+            Assert.That(routing.TryApplyPartDamage(body, torso, Spec("Blunt", 10)));
+            Assert.That(routing.TryApplyDamage(body, Spec("Blunt", -10)));
+            Assert.That(damage.GetAllDamage(head).GetTotal(), Is.EqualTo(FixedPoint2.New(5)));
+            Assert.That(damage.GetAllDamage(torso).GetTotal(), Is.EqualTo(FixedPoint2.New(5)));
+
+            Assert.That(routing.TryApplyDistributedDamage(body, Spec("Heat", 10), TargetBodyPart.All,
+                DamageDistribution.SplitEvenly));
+            Assert.That(damage.GetAllDamage(head).DamageDict[new ProtoId<DamageTypePrototype>("Heat")],
+                Is.EqualTo(FixedPoint2.New(5)));
+            Assert.That(damage.GetAllDamage(torso).DamageDict[new ProtoId<DamageTypePrototype>("Heat")],
+                Is.EqualTo(FixedPoint2.New(5)));
+        });
+    }
+
+    [Test]
     public async Task ExactTargetSelectionAndMissingRejectionTest()
     {
         var server = Pair.Server;

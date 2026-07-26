@@ -1,6 +1,7 @@
 using System.Linq;
 using Content.IntegrationTests.Fixtures;
 using Content.Shared._Onyx.Wounds;
+using Content.Shared._Onyx.Medical.Tourniquet;
 using Content.Shared.Body;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Part;
@@ -9,6 +10,7 @@ using Content.Shared.CCVar;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.FixedPoint;
+using Content.Shared.Medical.Healing;
 using Content.Shared.Rejuvenate;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Configuration;
@@ -126,6 +128,58 @@ public sealed class WoundBleedingTest : GameTest
             Assert.That(entityManager.GetComponent<WoundBleedingComponent>(wound).BleedingSeverity,
                 Is.EqualTo(FixedPoint2.New(5)));
             Assert.That(bleeding.GetPartRate(part), Is.GreaterThan(0f));
+        });
+    }
+
+    [Test]
+    public async Task TourniquetStopsOnlySelectedPartTest()
+    {
+        var server = Pair.Server;
+        await server.WaitIdleAsync();
+        var entities = server.ResolveDependency<IEntityManager>();
+        var map = await Pair.CreateTestMap();
+
+        await server.WaitAssertion(() =>
+        {
+            var tourniquet = entities.SpawnEntity("Tourniquet", map.GridCoords);
+            var body = entities.SpawnEntity("WoundBleedingBody", map.GridCoords);
+            var graph = entities.System<SharedBodySystem>();
+            var routing = entities.System<WoundDamageRoutingSystem>();
+            var bleeding = entities.System<WoundBleedingSystem>();
+            var head = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Head).Id;
+            var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+
+            Assert.That(entities.HasComponent<TourniquetComponent>(tourniquet), Is.True);
+            Assert.That(entities.HasComponent<HealingComponent>(tourniquet), Is.False);
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 10)));
+            Assert.That(routing.TryApplyPartDamage(body, torso, Spec("Slash", 10)));
+            Assert.That(entities.System<TourniquetSystem>().Apply(body, head));
+            Assert.That(bleeding.GetPartRate(head), Is.Zero);
+            Assert.That(bleeding.GetPartRate(torso), Is.GreaterThan(0f));
+        });
+    }
+
+    [Test]
+    public async Task TraumaticAmputationCreatesSevereStumpBleedingTest()
+    {
+        var server = Pair.Server;
+        await server.WaitIdleAsync();
+        var entityManager = server.ResolveDependency<IEntityManager>();
+        var map = await Pair.CreateTestMap();
+
+        await server.WaitAssertion(() =>
+        {
+            var body = entityManager.SpawnEntity("WoundBleedingBody", map.GridCoords);
+            var graph = entityManager.System<SharedBodySystem>();
+            var head = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Head).Id;
+            var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+
+            Assert.That(entityManager.System<WoundDamageRoutingSystem>().TryApplyPartDamage(body, head, Spec("Slash", 140)));
+            Assert.That(graph.BodyHasChild(body, head), Is.False);
+            Assert.That(entityManager.System<WoundSystem>()
+                .GetWounds((torso, entityManager.GetComponent<WoundableComponent>(torso)))
+                .Any(wound => wound.Comp.Prototype == new ProtoId<WoundPrototype>("DismembermentWound")));
+            Assert.That(entityManager.GetComponent<BloodstreamComponent>(body).BleedAmount, Is.GreaterThanOrEqualTo(40f));
         });
     }
 

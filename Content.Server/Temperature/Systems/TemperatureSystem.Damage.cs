@@ -2,6 +2,9 @@ using Content.Server.Administration.Logs;
 using Content.Server.Body.Components;
 using Content.Server.Temperature.Components;
 using Content.Shared.Alert;
+// <Onyx-LocalizedTemperatureDamage>
+using Content.Shared.Damage;
+// </Onyx-LocalizedTemperatureDamage>
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Database;
@@ -26,7 +29,6 @@ public sealed partial class TemperatureSystem
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private IAdminLogManager _adminLogger = default!;
     [Dependency] private IGameTiming _gameTiming = default!;
-
     [Dependency] private EntityQuery<TemperatureDamageComponent> _tempDamageQuery = default!;
     [Dependency] private EntityQuery<ContainerTemperatureComponent> _containerTemperatureQuery = default!;
     [Dependency] private EntityQuery<ThermalRegulatorComponent> _thermalRegulatorQuery = default!;
@@ -119,7 +121,11 @@ public sealed partial class TemperatureSystem
 
             var diff = Math.Abs(temperature.CurrentTemperature - heatDamageThreshold);
             var tempDamage = c / (1 + a * Math.Pow(Math.E, -heatK * diff)) - y;
-            _damageable.TryChangeDamage(entity.Owner, entity.Comp.HeatDamage * tempDamage * deltaTime.TotalSeconds, ignoreResistances: true, interruptsDoAfters: false);
+            // <Onyx-LocalizedTemperatureDamage-edited>
+            var damage = entity.Comp.HeatDamage * tempDamage * deltaTime.TotalSeconds;
+            if (!TryApplyLocalizedTemperatureDamage(entity, damage))
+                _damageable.TryChangeDamage(entity.Owner, damage, ignoreResistances: true, interruptsDoAfters: false);
+            // </Onyx-LocalizedTemperatureDamage-edited>
         }
         else if (temperature.CurrentTemperature <= coldDamageThreshold)
         {
@@ -132,7 +138,11 @@ public sealed partial class TemperatureSystem
             var diff = Math.Abs(temperature.CurrentTemperature - coldDamageThreshold);
             var tempDamage =
                 Math.Sqrt(diff * (Math.Pow(entity.Comp.DamageCap.Double(), 2) / coldDamageThreshold));
-            _damageable.TryChangeDamage(entity.Owner, entity.Comp.ColdDamage * tempDamage * deltaTime.TotalSeconds, ignoreResistances: true, interruptsDoAfters: false);
+            // <Onyx-LocalizedTemperatureDamage-edited>
+            var damage = entity.Comp.ColdDamage * tempDamage * deltaTime.TotalSeconds;
+            if (!TryApplyLocalizedTemperatureDamage(entity, damage))
+                _damageable.TryChangeDamage(entity.Owner, damage, ignoreResistances: true, interruptsDoAfters: false);
+            // </Onyx-LocalizedTemperatureDamage-edited>
         }
         else if (entity.Comp.TakingDamage)
         {
@@ -140,6 +150,8 @@ public sealed partial class TemperatureSystem
             entity.Comp.TakingDamage = false;
         }
     }
+
+    private partial bool TryApplyLocalizedTemperatureDamage(Entity<TemperatureDamageComponent> entity, DamageSpecifier damage); // <Onyx-LocalizedTemperatureDamage>
 
     private void ServerAlert(Entity<AlertsComponent> entity, ref OnTemperatureChangeEvent args)
     {

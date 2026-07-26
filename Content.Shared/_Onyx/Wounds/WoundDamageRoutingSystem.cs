@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Shared.Body.Systems;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
@@ -324,6 +325,19 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
             _applied.Add(body);
         }
 
+        var healing = new DamageSpecifier();
+        foreach (var (type, amount) in localized.DamageDict.ToArray())
+        {
+            if (amount >= FixedPoint2.Zero)
+                continue;
+
+            healing.DamageDict[type] = amount;
+            localized.DamageDict.Remove(type);
+        }
+
+        if (!healing.Empty && ApplyLocalizedHealing(body, healing, origin, interruptsDoAfters))
+            _applied.Add(body);
+
         EntityUid? part = _requestedParts.TryGetValue(body, out var requestedPart) ? requestedPart : null;
         if (!localized.Empty && part is { } target)
         {
@@ -362,6 +376,74 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         }
 
         _projection.RefreshBodyDamage(body);
+    }
+
+    private bool ApplyLocalizedHealing(
+        Entity<WoundHostComponent> body,
+        DamageSpecifier healing,
+        EntityUid? origin,
+        bool interruptsDoAfters)
+    {
+        if (_requestedParts.TryGetValue(body, out var requestedPart))
+            return ApplyPartChange(body, requestedPart, healing, origin, interruptsDoAfters);
+
+        var parts = new List<(EntityUid Part, DamageableComponent Damageable)>();
+        foreach (var (part, _) in _body.GetBodyChildren(body))
+            if (HasComp<WoundableComponent>(part) && TryComp(part, out DamageableComponent? damageable))
+                parts.Add((part, damageable));
+
+        var changes = parts.ToDictionary(part => part.Part, _ => new DamageSpecifier());
+        foreach (var (type, amount) in healing.DamageDict)
+        {
+            var totalDamage = FixedPoint2.Zero;
+            foreach (var part in parts)
+                totalDamage += _damage.GetPositiveDamage((part.Part, part.Damageable)).DamageDict.GetValueOrDefault(type);
+
+            if (totalDamage <= FixedPoint2.Zero)
+                continue;
+
+            var remaining = amount.Value;
+            var damaged = parts.Where(part =>
+                    _damage.GetPositiveDamage((part.Part, part.Damageable)).DamageDict.GetValueOrDefault(type) > FixedPoint2.Zero)
+                .ToArray();
+            for (var i = 0; i < damaged.Length; i++)
+            {
+                var partDamage = _damage.GetPositiveDamage((damaged[i].Part, damaged[i].Damageable))
+                    .DamageDict.GetValueOrDefault(type);
+                var value = i == damaged.Length - 1
+                    ? remaining
+                    : (int) ((long) amount.Value * partDamage.Value / totalDamage.Value);
+                changes[damaged[i].Part].DamageDict[type] = FixedPoint2.FromHundredths(value);
+                remaining -= value;
+            }
+        }
+
+        var applied = false;
+        foreach (var (part, change) in changes)
+            if (!change.Empty)
+                applied |= ApplyPartChange(body, part, change, origin, interruptsDoAfters);
+        return applied;
+    }
+
+    private bool ApplyPartChange(
+        Entity<WoundHostComponent> body,
+        EntityUid part,
+        DamageSpecifier change,
+        EntityUid? origin,
+        bool interruptsDoAfters)
+    {
+        if (!_damage.TryChangeDamage(part,
+                change,
+                out var appliedDamage,
+                ignoreResistances: true,
+                interruptsDoAfters: interruptsDoAfters,
+                origin: origin,
+                ignoreGlobalModifiers: true))
+            return false;
+
+        var applied = new PartDamageAppliedEvent(body, part, appliedDamage);
+        RaiseLocalEvent(part, ref applied);
+        return true;
     }
 
     private void ApplySystemicDamage(EntityUid body, DamageSpecifier change)

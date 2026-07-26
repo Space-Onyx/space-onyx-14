@@ -66,7 +66,7 @@
 
 - type: marking
   id: LizardHornsAngler
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [Reptilian]
   sprites:
   - sprite: Mobs/Customization/reptilian_parts.rsi
@@ -304,7 +304,7 @@
 
 - type: marking
   id: LizardHornsFloppyKoboldEars
-  bodyPart: HeadSide
+  bodyPart: EarsOverlay # <Onyx-VisualEars-edited>
   groupWhitelist: [Reptilian]
   sprites:
   - sprite: Mobs/Customization/reptilian_parts.rsi

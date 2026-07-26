@@ -1,6 +1,6 @@
 - type: marking
   id: FoxEars
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [Human]
   sponsorOnly: false # Corvax-Sponsors
   sprites:

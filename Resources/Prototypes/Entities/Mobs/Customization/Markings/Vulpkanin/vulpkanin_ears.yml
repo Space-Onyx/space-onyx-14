@@ -2,7 +2,7 @@
 # Ears Markings
 - type: marking
   id: VulpEar
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [ Vulpkanin ]
   sprites:
     - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
@@ -12,7 +12,7 @@
 
 - type: marking
   id: VulpEarSharp
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [ Vulpkanin ]
   sprites:
     - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
@@ -24,7 +24,7 @@
 
 - type: marking
   id: VulpEarFade
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [ Vulpkanin ]
   sprites:
     - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
@@ -36,7 +36,7 @@
 
 - type: marking
   id: VulpEarJackal
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [ Vulpkanin ]
   sprites:
     - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
@@ -46,7 +46,7 @@
 
 - type: marking
   id: VulpEarTerrier
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [ Vulpkanin ]
   sprites:
     - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
@@ -56,7 +56,7 @@
 
 - type: marking
   id: VulpEarFennec
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [ Vulpkanin ]
   sprites:
     - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
@@ -66,7 +66,7 @@
 
 - type: marking
   id: VulpEarFox
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [ Vulpkanin ]
   sprites:
     - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
@@ -76,7 +76,7 @@
 
 - type: marking
   id: VulpEarOtie
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [ Vulpkanin ]
   sprites:
     - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
@@ -86,7 +86,7 @@
 
 - type: marking
   id: VulpEarShock
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [ Vulpkanin ]
   sprites:
     - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
@@ -96,7 +96,7 @@
 
 - type: marking
   id: VulpEarCoyote
-  bodyPart: HeadTop
+  bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [ Vulpkanin ]
   sprites:
     - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
