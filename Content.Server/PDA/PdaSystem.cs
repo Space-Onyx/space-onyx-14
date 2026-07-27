@@ -10,6 +10,7 @@ using Content.Server.Station.Systems;
 using Content.Server.Store.Systems;
 using Content.Server.Traitor.Uplink;
 using Content.Shared.Access.Components;
+using Content.Shared._Onyx.Salvage.MiningPoints; // <Onyx-MiningPointsPda>
 using Content.Shared.CartridgeLoader;
 using Content.Shared.Chat;
 using Content.Shared.DeviceNetwork.Components;
@@ -64,6 +65,7 @@ namespace Content.Server.PDA
             SubscribeLocalEvent<AlertLevelChangedEvent>(OnAlertLevelChanged);
             SubscribeLocalEvent<PdaComponent, InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent>>(OnRelayedEventToIdCard);
             SubscribeLocalEvent<PdaComponent, InventoryRelayedEvent<VoiceMaskNameUpdatedEvent>>(OnRelayedEventToIdCard);
+            InitializeMiningPoints(); // <Onyx-MiningPointsPda>
         }
 
         private void OnRelayedEventToIdCard<T>(Entity<PdaComponent> ent, ref InventoryRelayedEvent<T> args)
@@ -205,6 +207,7 @@ namespace Content.Server.PDA
 
             var programs = GetNetEntityList(_cartridgeLoader.GetAllPrograms(uid).ToList());
             var id = CompOrNull<IdCardComponent>(pda.ContainedId);
+            var miningPoints = CompOrNull<MiningPointsComponent>(pda.ContainedId)?.Points ?? 0; // <Onyx-MiningPointsPda>
             var state = new PdaUpdateState(
                 programs,
                 GetNetEntity(loader.ActiveProgram),
@@ -217,7 +220,8 @@ namespace Content.Server.PDA
                     IdOwner = id?.FullName,
                     JobTitle = id?.LocalizedJobTitle,
                     StationAlertLevel = pda.StationAlertLevel,
-                    StationAlertColor = pda.StationAlertColor
+                    StationAlertColor = pda.StationAlertColor,
+                    MiningPoints = miningPoints // <Onyx-MiningPointsPda>
                 },
                 pda.StationName,
                 showUplink,

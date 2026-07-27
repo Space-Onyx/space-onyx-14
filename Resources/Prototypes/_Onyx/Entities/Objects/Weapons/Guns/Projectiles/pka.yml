@@ -1,0 +1,39 @@
+- type: entity
+  id: RapidBulletKinetic
+  parent: BulletKinetic
+  categories: [ HideSpawnMenu ]
+  name: rapid kinetic bolt
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 6.5
+        Structural: 8
+  - type: TimedDespawn
+    lifetime: 0.14
+
+- type: entity
+  id: WeakBulletKinetic
+  parent: RapidBulletKinetic
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 3
+        Structural: 5
+
+- type: entity
+  id: PelletKinetic
+  parent: WeakBulletKinetic
+  categories: [ HideSpawnMenu ]
+
+- type: entity
+  id: PelletKineticSpread
+  parent: PelletKinetic
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ProjectileSpread
+    proto: PelletKinetic
+    count: 4
+    spread: 20

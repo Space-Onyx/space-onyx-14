@@ -57,6 +57,7 @@
     containers:
       machine_board: !type:Container
       machine_parts: !type:Container
+      upgrades: !type:Container # Onyx: one PKA modkit.
       cell_slot: !type:ContainerSlot
   - type: Destructible
     thresholds:
@@ -337,8 +338,8 @@
       - !type:DoActsBehavior
         acts: ["Destruction"]
   - type: Gun
-    projectileSpeed: 20
-    fireRate: 2
+    projectileSpeed: 25 # Onyx: Goob tuning.
+    fireRate: 1 # Onyx: Goob tuning.
     selectedMode: SemiAuto
     angleDecay: 45
     minAngle: 5
@@ -362,6 +363,14 @@
     count: 5
   - type: Machine
     board: ShuttleGunKineticCircuitboard
+  # Onyx-start: Goob pressure behavior and target-native PKA upgrade container.
+  - type: PressureDamageChange
+    lowerBound: 0
+  - type: UpgradeableGun
+    maxUpgradeCount: 1
+    whitelist:
+      tags: [ PKAUpgrade ]
+  # Onyx-end
 
 - type: entity
   parent: ShuttleGunBase

@@ -69,6 +69,13 @@
   id: SalvageSecurityWeapons
   recipes:
   - WeaponProtoKineticAccelerator
+  # Onyx-start: complete PKA family and printable modkits.
+  - WeaponProtoKineticShotgun
+  - WeaponProtoKineticRepeater
+  - WeaponProtoKineticPistol
   - PKAUpgradeDamage
   - PKAUpgradeRange
   - PKAUpgradeFireRate
+  - PKAUpgradePressure
+  - PKAUpgradeSpace
+  # Onyx-end

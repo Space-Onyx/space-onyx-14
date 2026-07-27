@@ -11,19 +11,23 @@ public sealed partial class FancyVendingMachineItem : BoxContainer
 {
     public Action? BuyPressed;
 
-    public FancyVendingMachineItem(EntProtoId entProto, string text, int count, int price)
+    public FancyVendingMachineItem(EntProtoId entProto, string text, int count, int price, bool infiniteStock = false,
+        bool affordable = true, bool miningPoints = false)
     {
         RobustXamlLoader.Load(this);
         BuyButton.OnPressed += _ => BuyPressed?.Invoke();
 
-        BuyButton.Disabled = count <= 0;
+        BuyButton.Disabled = !affordable || !infiniteStock && count <= 0;
 
         ItemPrototype.SetPrototype(entProto);
 
         NameLabel.Text = text;
+        CountLabel.Visible = !infiniteStock;
         CountLabel.SetMarkup(Loc.GetString("vending-machine-ui-count", ("count", count), ("color", count > 0 ? "[color=white]" : "[color=red]")));
 
-        var priceText = price <= 0 ? Loc.GetString("vending-machine-ui-price-free") : Loc.GetString("vending-machine-ui-price", ("price", price));
+        var priceText = price <= 0
+            ? Loc.GetString("vending-machine-ui-price-free")
+            : Loc.GetString(miningPoints ? "vending-machine-ui-price-mining-points" : "vending-machine-ui-price", ("price", price));
         CostLabel.SetMarkup(priceText);
     }
 }

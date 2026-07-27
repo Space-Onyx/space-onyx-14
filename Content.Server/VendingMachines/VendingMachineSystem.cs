@@ -102,8 +102,11 @@ namespace Content.Server.VendingMachines
 
         protected override void UpdateVendingMachineInterfaceState(EntityUid uid, VendingMachineComponent component)
         {
-            var state = new VendingMachineInterfaceState(GetAllInventory(uid, component), component.PriceMultiplier,
-                component.Credits);
+            // <Onyx-SalvageVendorCatalog-edited>
+            var state = new VendingMachineInterfaceState(GetAllInventory(uid, component), IsSalvageMiningPointVendor(uid) ? 1 : GetEffectivePriceMultiplier(component), // <Onyx-SalvageVendorPrices-edited>
+                IsSalvageMiningPointVendor(uid) ? 0 : component.Credits, component.ShowWithdraw, component.BalanceLabel,
+                component.InfiniteStock, IsSalvageMiningPointVendor(uid));
+            // </Onyx-SalvageVendorCatalog-edited>
 
             _userInterfaceSystem.SetUiState(uid, VendingMachineUiKey.Key, state);
         }
@@ -156,6 +159,9 @@ namespace Content.Server.VendingMachines
             if (component.Broken || !_receiver.IsPowered(uid))
                 return;
 
+            if (IsSalvageMiningPointVendor(uid)) // <Onyx-SalvageMiningPoints>
+                return;
+
             if (!TryComp<CurrencyComponent>(args.Used, out var currency) ||
                 !currency.Price.Keys.Contains(component.CurrencyType))
                 return;
@@ -170,6 +176,9 @@ namespace Content.Server.VendingMachines
 
         protected override void OnWithdrawMessage(EntityUid uid, VendingMachineComponent component, VendingMachineWithdrawMessage args)
         {
+            if (IsSalvageMiningPointVendor(uid)) // <Onyx-SalvageMiningPoints>
+                return;
+
             if (component.Credits <= 0)
                 return;
 
@@ -200,7 +209,20 @@ namespace Content.Server.VendingMachines
                 return;
             }
 
-            if (entry.Amount <= 0)
+            // <Onyx-VendingMechanicsReview>
+            if (count != 1)
+            {
+                Deny((uid, component), sender);
+                return;
+            }
+            // </Onyx-VendingMechanicsReview>
+
+            // <Onyx-SalvageMiningPoints>
+            if (TryAuthorizedSalvageMiningPointVend(uid, sender, component, entry))
+                return;
+            // </Onyx-SalvageMiningPoints>
+
+            if (!component.InfiniteStock && entry.Amount <= 0) // <Onyx-VendingMechanicsReview-edited>
             {
                 if (sender.IsValid())
                     Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-out-of-stock"), uid, sender);
@@ -274,7 +296,10 @@ namespace Content.Server.VendingMachines
             if (TryComp(uid, out SpeakOnUIClosedComponent? speakComponent))
                 _speakOn.TrySetFlag((uid, speakComponent));
 
-            entry.Amount -= (uint)count;
+            // <Onyx-VendingMechanicsReview-edited>
+            if (!component.InfiniteStock)
+                entry.Amount--;
+            // </Onyx-VendingMechanicsReview-edited>
             Dirty(uid, component);
             UpdateUI((uid, component));
             TryUpdateVisualState((uid, component));
@@ -358,6 +383,9 @@ namespace Content.Server.VendingMachines
 
         public void EjectRandom(EntityUid uid, bool throwItem, bool forceEject = false, VendingMachineComponent? vendComponent = null)
         {
+            if (IsSalvageMiningPointVendor(uid)) // <Onyx-SalvageMiningPoints>
+                return;
+
             if (!Resolve(uid, ref vendComponent))
                 return;
 
@@ -373,7 +401,7 @@ namespace Content.Server.VendingMachines
                 vendComponent.ThrowNextItem = throwItem;
                 vendComponent.NextItemCount = 1;
                 var entry = GetEntry(uid, item.ID, item.Type, vendComponent);
-                if (entry != null)
+                if (entry != null && !vendComponent.InfiniteStock) // <Onyx-SalvageMiningPoints-edited>
                     entry.Amount--;
                 EjectItem(uid, vendComponent, forceEject);
             }

@@ -33,6 +33,7 @@ using Content.Shared.Popups;
 using Content.Shared.StatusEffect;
 using Content.Shared.Weapons.Melee.Components;
 using Content.Shared.Weapons.Melee.Events;
+using Content.Shared._Onyx.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
@@ -274,6 +275,18 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         return ev.Rate * ev.Multipliers;
     }
 
+    // _Onyx-CrusherUpgrades-start
+    public float GetRange(EntityUid uid, EntityUid user, MeleeWeaponComponent? component = null)
+    {
+        if (!Resolve(uid, ref component))
+            return 0;
+
+        var ev = new GetMeleeRangeEvent(uid, component.Range, 1, user);
+        RaiseLocalEvent(uid, ref ev);
+        return ev.Range * ev.Multipliers;
+    }
+    // _Onyx-CrusherUpgrades-end
+
     public FixedPoint2 GetHeavyDamageModifier(EntityUid uid, EntityUid user, MeleeWeaponComponent? component = null)
     {
         if (!Resolve(uid, ref component))
@@ -322,6 +335,20 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             if (TryComp(held, out melee) &&
                 !melee.MustBeEquippedToUse)
             {
+                // <Onyx-PKAAttachments>
+                if (HasComp<PKAWeaponAttachmentsComponent>(held.Value))
+                {
+                    var relay = new GetRelayMeleeWeaponEvent();
+                    RaiseLocalEvent(held.Value, ref relay);
+                    if (relay.Handled && TryComp(relay.Found, out MeleeWeaponComponent? relayMelee))
+                    {
+                        weaponUid = relay.Found.Value;
+                        melee = relayMelee;
+                        return true;
+                    }
+                }
+                // </Onyx-PKAAttachments>
+
                 weaponUid = held.Value;
                 return true;
             }
@@ -483,7 +510,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
                     throw new NotImplementedException();
             }
 
-            DoLungeAnimation(user, weaponUid, weapon.Angle, TransformSystem.ToMapCoordinates(GetCoordinates(attack.Coordinates)), weapon.Range, animation);
+            DoLungeAnimation(user, weaponUid, weapon.Angle, TransformSystem.ToMapCoordinates(GetCoordinates(attack.Coordinates)), GetRange(weaponUid, user, weapon), animation); // _Onyx-CrusherUpgrades
         }
 
         var attackEv = new MeleeAttackEvent(weaponUid);
@@ -508,7 +535,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             !HasComp<DamageableComponent>(target) ||
             !TryComp(target, out TransformComponent? targetXform) ||
             // Not in LOS.
-            !InRange(user, target.Value, component.Range, session))
+            !InRange(user, target.Value, GetRange(meleeUid, user, component), session)) // _Onyx-CrusherUpgrades
         {
             // Leave IsHit set to true, because the only time it's set to false
             // is when a melee weapon is examined. Misses are inferred from an
@@ -618,7 +645,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
 
         var userPos = TransformSystem.GetWorldPosition(userXform);
         var direction = targetMap.Position - userPos;
-        var distance = Math.Min(component.Range, direction.Length());
+        var distance = Math.Min(GetRange(meleeUid, user, component), direction.Length()); // _Onyx-CrusherUpgrades
 
         var damage = GetDamage(meleeUid, user, component);
         var resistanceBypass = GetResistanceBypass(meleeUid, user, component);
@@ -911,7 +938,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         }
 
         // <Onyx-GoobShove>
-        if (!InRange(user, target.Value, component.Range, session))
+        if (!InRange(user, target.Value, GetRange(meleeUid, user, component), session)) // _Onyx-CrusherUpgrades
             return false;
 
         PhysicalShove(user, target.Value);
@@ -939,7 +966,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             }
         }
 
-        if (!InRange(user, target.Value, component.Range, session))
+        if (!InRange(user, target.Value, GetRange(meleeUid, user, component), session)) // _Onyx-CrusherUpgrades
         {
             return false;
         }

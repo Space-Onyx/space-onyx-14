@@ -3,6 +3,7 @@ using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 using Robust.Shared.Timing;
+using Content.Shared._Onyx.Weapons.Ranged;
 
 namespace Content.Shared.Weapons.Ranged.Systems;
 
@@ -50,7 +51,7 @@ public sealed partial class RechargeBasicEntityAmmoSystem : EntitySystem
                 continue;
             }
 
-            recharge.NextCharge = recharge.NextCharge.Value + TimeSpan.FromSeconds(recharge.RechargeCooldown);
+            recharge.NextCharge = recharge.NextCharge.Value + TimeSpan.FromSeconds(GetCooldown(uid, recharge)); // Onyx: upgrade-aware recharge.
             Dirty(uid, recharge);
         }
     }
@@ -85,8 +86,17 @@ public sealed partial class RechargeBasicEntityAmmoSystem : EntitySystem
 
         if (ent.Comp.NextCharge == null || ent.Comp.NextCharge < _timing.CurTime)
         {
-            ent.Comp.NextCharge = _timing.CurTime + TimeSpan.FromSeconds(ent.Comp.RechargeCooldown);
+            ent.Comp.NextCharge = _timing.CurTime + TimeSpan.FromSeconds(GetCooldown(ent.Owner, ent.Comp)); // Onyx: upgrade-aware recharge.
             Dirty(ent);
         }
     }
+
+    // Onyx-start: lets contained gun upgrades affect renewable ammunition.
+    private float GetCooldown(EntityUid uid, RechargeBasicEntityAmmoComponent component)
+    {
+        var ev = new RechargeBasicEntityAmmoGetCooldownModifiersEvent(component.RechargeCooldown);
+        RaiseLocalEvent(uid, ref ev);
+        return ev.Cooldown;
+    }
+    // Onyx-end
 }

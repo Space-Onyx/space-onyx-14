@@ -1,0 +1,83 @@
+- type: entity
+  name: survival medipen
+  parent: ChemicalMedipen
+  id: SurvivalMedipen
+  description: A cocktail of powerful healing chemicals for survival in harsh environments.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/medipen.rsi
+    layers:
+    - state: survivalpen
+      map: [ "enum.SolutionContainerLayers.Fill" ]
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: survivalpen_empty
+    solutionName: hypospray
+  - type: Injector
+    solutionName: hypospray
+    currentTransferAmount: 40
+    ignoreClosed: false
+    activeModeProtoId: HyposprayInjectMode
+    allowedModes:
+    - HyposprayInjectMode
+  - type: Solution
+    id: hypospray
+    solution:
+      maxVol: 40
+      reagents:
+      - ReagentId: MinersSalve
+        Quantity: 20
+      - ReagentId: Leporazine
+        Quantity: 10
+      - ReagentId: Epinephrine
+        Quantity: 10
+
+- type: entity
+  name: luxury medipen
+  parent: ChemicalMedipen
+  id: LuxuryMedipen
+  description: A 180-unit medipen of rare medicines, most effective in low pressure.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/luxmedipen.rsi
+    layers:
+    - state: luxpen
+      map: [ "enum.SolutionContainerLayers.Fill" ]
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: luxpen_empty
+    solutionName: hypospray
+  - type: Injector
+    solutionName: hypospray
+    currentTransferAmount: 180
+    ignoreClosed: false
+    activeModeProtoId: HyposprayInjectMode
+    allowedModes:
+    - HyposprayInjectMode
+  - type: Solution
+    id: hypospray
+    solution:
+      maxVol: 180
+      reagents:
+      - ReagentId: DexalinPlus
+        Quantity: 20
+      - ReagentId: Epinephrine
+        Quantity: 20
+      - ReagentId: Oxandrolone
+        Quantity: 20
+      - ReagentId: SalicylicAcid
+        Quantity: 20
+      - ReagentId: Omnizine
+        Quantity: 20
+      - ReagentId: Leporazine
+        Quantity: 20
+      - ReagentId: TranexamicAcid
+        Quantity: 20
+      - ReagentId: Saline
+        Quantity: 20
+      - ReagentId: Luxurium
+        Quantity: 20

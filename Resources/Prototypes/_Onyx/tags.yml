@@ -203,6 +203,12 @@
   id: MechKineticPressure
 
 - type: Tag
+  id: PKAUpgradeSpace
+
+- type: Tag
+  id: GunUpgradeVampirism
+
+- type: Tag
   id: MechAirTank
 
 - type: Tag
@@ -299,4 +305,41 @@
   id: DurandLLeg
 
 - type: Tag
+  id: LavalandJaunter
+
+- type: Tag
+  id: MarkerBeacon
+
+- type: Tag
+  id: ExplorerSuit
+
+- type: Tag
+  id: MesonGoggles
+
+- type: Tag
   id: DurandRLeg
+
+- type: Tag
+  id: CrusherUpgradeMain
+- type: Tag
+  id: CrusherUpgradeMainMarker
+- type: Tag
+  id: CrusherUpgradeMainRudeBuster
+- type: Tag
+  id: CrusherUpgradeBlade
+- type: Tag
+  id: CrusherUpgradeBladeLavaAspect
+- type: Tag
+  id: CrusherUpgradeBladeIceFrost
+- type: Tag
+  id: CrusherUpgradeBladeSharpness
+- type: Tag
+  id: CrusherUpgradeHandle
+- type: Tag
+  id: CrusherUpgradeHandleWeights
+- type: Tag
+  id: CrusherUpgradeHandleLightweight
+- type: Tag
+  id: CrusherUpgradeHandleRange
+- type: Tag
+  id: CrusherUpgradeFrame

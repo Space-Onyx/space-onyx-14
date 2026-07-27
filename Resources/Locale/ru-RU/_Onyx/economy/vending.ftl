@@ -1,2 +1,13 @@
 vending-ui-credits-amount = Кредитов в автомате: { $credits }
 vending-machine-component-no-balance = Недостаточно средств.
+vending-machine-component-no-mining-points = Недостаточно очков шахтёра.
+vending-ui-salvage-points-amount = Очки шахтёра: { $credits }
+vending-ui-category-consumables = Расходники
+vending-ui-category-exploration = Исследование
+vending-ui-category-equipment = Снаряжение
+vending-ui-category-medical = Медицина
+vending-ui-category-weapons-upgrades = Оружие / Улучшения
+vending-ui-category-armor = Броня
+vending-ui-category-premium = Премиум
+vending-ui-category-other = Прочее
+shop-listing-deathrattle-implant-lavaland = имплантер «предсмертный хрип» Лаваленда

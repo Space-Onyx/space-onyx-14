@@ -13,6 +13,7 @@ using Content.Shared.Whitelist;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
+using Content.Shared._Onyx.Weapons.Ranged;
 
 namespace Content.Shared.Weapons.Ranged.Upgrades;
 
@@ -34,10 +35,12 @@ public sealed partial class GunUpgradeSystem : EntitySystem
 
         SubscribeLocalEvent<UpgradeableGunComponent, GunRefreshModifiersEvent>(RelayEvent);
         SubscribeLocalEvent<UpgradeableGunComponent, GunShotEvent>(RelayEvent);
+        SubscribeLocalEvent<UpgradeableGunComponent, AmmoShotEvent>(RelayEvent); // Onyx: final projectiles, including spread children.
+        SubscribeLocalEvent<UpgradeableGunComponent, RechargeBasicEntityAmmoGetCooldownModifiersEvent>(RelayEvent); // Onyx: fire-rate modkits affect recharge.
 
         SubscribeLocalEvent<GunUpgradeFireRateComponent, GunRefreshModifiersEvent>(OnFireRateRefresh);
         SubscribeLocalEvent<GunUpgradeSpeedComponent, GunRefreshModifiersEvent>(OnSpeedRefresh);
-        SubscribeLocalEvent<GunUpgradeDamageComponent, GunShotEvent>(OnDamageGunShot);
+        SubscribeLocalEvent<GunUpgradeDamageComponent, AmmoShotEvent>(OnDamageAmmoShot); // Onyx: apply once to every actual projectile.
     }
 
     private void RelayEvent<T>(Entity<UpgradeableGunComponent> ent, ref T args) where T : notnull
@@ -95,6 +98,8 @@ public sealed partial class GunUpgradeSystem : EntitySystem
     private void OnFireRateRefresh(Entity<GunUpgradeFireRateComponent> ent, ref GunRefreshModifiersEvent args)
     {
         args.FireRate *= ent.Comp.Coefficient;
+        args.BurstFireRate *= ent.Comp.Coefficient; // Onyx: Goob burst tuning.
+        args.BurstCooldown /= ent.Comp.Coefficient; // Onyx: Goob burst tuning.
     }
 
     private void OnSpeedRefresh(Entity<GunUpgradeSpeedComponent> ent, ref GunRefreshModifiersEvent args)
@@ -102,12 +107,15 @@ public sealed partial class GunUpgradeSystem : EntitySystem
         args.ProjectileSpeed *= ent.Comp.Coefficient;
     }
 
-    private void OnDamageGunShot(Entity<GunUpgradeDamageComponent> ent, ref GunShotEvent args)
+    private void OnDamageAmmoShot(Entity<GunUpgradeDamageComponent> ent, ref AmmoShotEvent args)
     {
-        foreach (var (ammo, _) in args.Ammo)
+        foreach (var ammo in args.FiredProjectiles)
         {
             if (TryComp<ProjectileComponent>(ammo, out var proj))
+            {
                 proj.Damage += ent.Comp.Damage;
+                proj.Damage *= ent.Comp.Modifier; // Onyx: Goob PKA multiplicative damage modkits.
+            }
         }
     }
 

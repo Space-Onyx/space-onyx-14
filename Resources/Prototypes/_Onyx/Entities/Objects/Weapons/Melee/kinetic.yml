@@ -1,0 +1,87 @@
+- type: entity
+  parent: [ BaseItem, ClothingHandsBase, BaseSalvageContraband ]
+  id: LavalandWeaponKineticClaws
+  name: kinetic claws
+  description: A one-handed kinetic claw small enough to fit in a backpack.
+  components:
+  - type: Appearance
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Secondary/kinetic_claws.rsi
+    state: icon
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Secondary/kinetic_claws-inhands.rsi
+  - type: Item
+    size: Normal
+    sprite: _Onyx/Objects/Weapons/Secondary/kinetic_claws-inhands.rsi
+  - type: MeleeWeapon
+    attackRate: 2.5
+    wideAnimationRotation: -135
+    damage:
+      types: { Slash: 7 }
+    soundHit: { collection: AlienClaw }
+    angle: 30
+    animation: WeaponArcClaw
+    range: 1.1
+    mustBeEquippedToUse: true
+    heavyStaminaCost: 4
+  - type: PressureDamageChange
+    lowerBound: 0
+    appliedModifier: 1.25
+  - type: Sharp
+  - type: Prying
+  - type: UseDelay
+    delay: 1
+  - type: Fiber
+    fiberMaterial: fibers-kinetic
+    fiberColor: fibers-purple
+  - type: Execution
+    doAfterDuration: 4
+  - type: Tool
+    qualities: [ Slicing ]
+    useSound: { path: /Audio/Items/Culinary/chop.ogg }
+  - type: Scalpel
+    speed: 0.3
+
+- type: entity
+  parent: [ BaseItem, BaseSalvageContraband ]
+  id: LavalandWeaponKineticMachete
+  name: kinetic machete
+  description: A smaller, one-handed crusher variant with superior reach and a rechargeable block against Lavaland fauna.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Secondary/kinetic_machete.rsi
+    state: icon
+  - type: UseDelay
+    delay: 1
+  - type: Appearance
+  - type: Sharp
+  - type: Execution
+    doAfterDuration: 4
+  - type: DisarmMalus
+  - type: Prying
+  - type: MeleeWeapon
+    attackRate: 1
+    damage:
+      types:
+        Slash: 15
+    soundHit:
+      collection: MetalThud
+    angle: 0
+    animation: WeaponArcThrust
+    range: 2
+  - type: PressureDamageChange
+    lowerBound: 0
+    appliedModifier: 1.25
+  - type: Item
+    size: Normal
+    sprite: _Onyx/Objects/Weapons/Secondary/kinetic_machete-inhands.rsi
+  - type: BlockCharge
+    rechargeTime: 120
+    markerReductionTime: 20
+  - type: Tool
+    qualities:
+    - Slicing
+    useSound:
+      path: /Audio/Items/Culinary/chop.ogg
+  - type: Scalpel
+    speed: 0.55

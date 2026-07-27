@@ -74,6 +74,7 @@
     quickEquip: false
     slots:
       - Belt
+  - type: GunUpgradeFlashlight # <Onyx-PKAAttachments>
 
 - type: entity
   name: seclite

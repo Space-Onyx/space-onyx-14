@@ -34,6 +34,9 @@
             <ContainerButton Name="IdInfoButton">
                 <RichTextLabel Name="IdInfoLabel" Access="Public"/>
             </ContainerButton>
+            <!-- <Onyx-MiningPointsPda> -->
+            <RichTextLabel Name="MiningPointsLabel" Access="Public" Visible="False"/>
+            <!-- </Onyx-MiningPointsPda> -->
             <ContainerButton Name="StationNameButton">
                 <RichTextLabel Name="StationNameLabel" Access="Public"/>
             </ContainerButton>

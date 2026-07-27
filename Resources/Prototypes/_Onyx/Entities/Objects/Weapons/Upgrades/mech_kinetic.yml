@@ -1,6 +1,6 @@
 - type: entity
   id: PKAUpgradePressure
-  parent: BasePKAUpgrade
+  parent: [ BaseSyndicateContraband, BasePKAUpgrade ]
   name: PKA modkit (pressure)
   components:
   - type: Sprite
@@ -8,9 +8,16 @@
     - state: base
     - state: overlay-1
       color: "#ff4500"
+    - state: overlay-2
+      color: "#9b0000"
+    - state: overlay-3
+      color: "#ff4500"
   - type: GunUpgrade
     tags: [ MechKineticPressure ]
-    examineText: gun-upgrade-examine-text-damage
+    examineText: gun-upgrade-examine-text-pressure
+  - type: GunUpgradePressure
+    newLowerBound: 0
+    newUpperBound: 200
   - type: MechKineticPressureUpgrade
     lowerBound: 0
     upperBound: 200
@@ -26,10 +33,33 @@
     - state: base
     - state: overlay-1
       color: "#ff00bf"
+    - state: overlay-2
+      color: "#a0038b"
+    - state: overlay-3
+      color: "#ff00bf"
   - type: GunUpgrade
     tags: [ MechKineticPressure ]
-    examineText: gun-upgrade-examine-text-damage
+    examineText: gun-upgrade-examine-text-space
+  - type: GunUpgradePressure
+    newLowerBound: 0
+    newUpperBound: 10
+    newAppliedModifier: 2
   - type: MechKineticPressureUpgrade
     lowerBound: 0
     upperBound: 10
     modifier: 2
+  - type: Tag
+    tags: [ PKAUpgrade, PKAUpgradeSpace ]
+
+- type: entityTable
+  id: ProtoKineticUpgrades
+  table: !type:GroupSelector
+    children:
+    - id: PKAUpgradeDamage
+    - id: PKAUpgradeRange
+    - id: PKAUpgradeFireRate
+    - id: PKAUpgradePressure
+    - id: PKAUpgradeSpace
+      weight: 0.6
+    - id: LavalandVampirismCrystal
+      weight: 0.2

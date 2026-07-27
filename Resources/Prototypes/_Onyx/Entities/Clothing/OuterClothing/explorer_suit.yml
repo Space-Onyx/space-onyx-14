@@ -1,0 +1,170 @@
+- type: entity
+  parent: [ ClothingOuterBaseMedium, AllowSuitStorageClothing, BaseCargoContraband ]
+  id: LavalandEquipmentExplorerSuit
+  suffix: Lava
+  name: explorer suit
+  description: An armoured suit for exploring harsh environments.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Equipment/explorer_suit.rsi
+    state: icon
+  - type: Clothing
+    sprite: _Onyx/Equipment/explorer_suit.rsi
+  - type: Armor
+    coverage: [ Chest, Groin, Arm, Leg, Tail ]
+    traumaDeductions: { Dismemberment: 0.25, OrganDamage: 0.25, BoneDamage: 0.25, VeinsDamage: 0, NerveDamage: 0 }
+    modifiers:
+      coefficients: { Blunt: 0.6, Slash: 0.6, Piercing: 0.65, Heat: 0.6, Caustic: 0.6 }
+  - type: ExplosionResistance
+    damageCoefficient: 0.6
+  - type: ContainerContainer
+    containers:
+      toggleable-clothing: !type:Container {}
+  - type: ToggleableClothing
+    clothingPrototype: LavalandEquipmentExplorerHood
+  - type: Construction
+    graph: ExplorerSuit
+    node: start
+  - type: FireProtection
+    reduction: 0.4
+  - type: PressureArmorChange
+  - type: Tag
+    tags: [ ExplorerSuit ]
+
+- type: entity
+  parent: ClothingHeadBase
+  id: LavalandEquipmentExplorerHood
+  suffix: Lava
+  name: explorer hood
+  description: An armoured hood for exploring harsh environments.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Equipment/explorer_suit.rsi
+    state: icon_head
+  - type: Clothing
+    sprite: _Onyx/Equipment/explorer_suit.rsi
+  - type: Tag
+    tags: [ WhitelistChameleon ]
+  - type: HideLayerClothing
+    slots: [ Hair, HeadTop, HeadSide ]
+  - type: Armor
+    coverage: [ Head ]
+    traumaDeductions: { Dismemberment: 0.25, OrganDamage: 0.25, BoneDamage: 0.25, VeinsDamage: 0, NerveDamage: 0 }
+    modifiers:
+      coefficients: { Blunt: 0.65, Slash: 0.65, Piercing: 0.7, Heat: 0.65, Caustic: 0.65 }
+  - type: PressureArmorChange
+
+- type: entity
+  parent: LavalandEquipmentExplorerSuit
+  id: LavalandEquipmentExplorerSuitReinforced1
+  suffix: Reinforced
+  name: reinforced explorer suit
+  components:
+  - type: Sprite
+    sprite: _Onyx/Equipment/explorer_suit.rsi
+    state: reinforced1-icon
+  - type: Clothing
+    sprite: _Onyx/Equipment/explorer_suit.rsi
+    equippedState: reinforced1-equipped-OUTERCLOTHING
+  - type: Armor
+    modifiers:
+      coefficients: { Blunt: 0.5, Slash: 0.5, Piercing: 0.6, Heat: 0.5, Caustic: 0.5 }
+  - type: ExplosionResistance
+    damageCoefficient: 0.5
+  - type: FireProtection
+    reduction: 0.5
+  - type: ToggleableClothing
+    clothingPrototype: LavalandEquipmentExplorerHoodReinforced1
+  - type: Construction
+    graph: ExplorerSuit
+    node: reinforced1
+
+- type: entity
+  parent: LavalandEquipmentExplorerHood
+  id: LavalandEquipmentExplorerHoodReinforced1
+  suffix: Reinforced
+  name: reinforced explorer hood
+  components:
+  - type: Sprite
+    sprite: _Onyx/Equipment/explorer_suit.rsi
+    state: reinforced1-icon_head
+  - type: Clothing
+    sprite: _Onyx/Equipment/explorer_suit.rsi
+    equippedState: reinforced1-equipped-HELMET
+  - type: Armor
+    modifiers:
+      coefficients: { Blunt: 0.55, Slash: 0.55, Piercing: 0.65, Heat: 0.55, Caustic: 0.55 }
+
+- type: entity
+  parent: LavalandEquipmentExplorerSuitReinforced1
+  id: LavalandEquipmentExplorerSuitReinforced2
+  suffix: Reinforced
+  name: reinforced explorer suit
+  components:
+  - type: Sprite
+    state: reinforced2-icon
+  - type: Clothing
+    equippedState: reinforced2-equipped-OUTERCLOTHING
+  - type: Armor
+    modifiers:
+      coefficients: { Blunt: 0.4, Slash: 0.4, Piercing: 0.55, Heat: 0.4, Caustic: 0.4 }
+  - type: ExplosionResistance
+    damageCoefficient: 0.4
+  - type: FireProtection
+    reduction: 0.6
+  - type: ToggleableClothing
+    clothingPrototype: LavalandEquipmentExplorerHoodReinforced2
+  - type: Construction
+    graph: ExplorerSuit
+    node: reinforced2
+
+- type: entity
+  parent: LavalandEquipmentExplorerHoodReinforced1
+  id: LavalandEquipmentExplorerHoodReinforced2
+  suffix: Reinforced
+  name: reinforced explorer hood
+  components:
+  - type: Sprite
+    state: reinforced2-icon_head
+  - type: Clothing
+    equippedState: reinforced2-equipped-HELMET
+  - type: Armor
+    modifiers:
+      coefficients: { Blunt: 0.45, Slash: 0.45, Piercing: 0.6, Heat: 0.45, Caustic: 0.45 }
+
+- type: entity
+  parent: LavalandEquipmentExplorerSuitReinforced2
+  id: LavalandEquipmentExplorerSuitReinforced3
+  suffix: Reinforced
+  name: reinforced explorer suit
+  components:
+  - type: Sprite
+    state: reinforced3-icon
+  - type: Clothing
+    equippedState: reinforced3-equipped-OUTERCLOTHING
+  - type: Armor
+    modifiers:
+      coefficients: { Blunt: 0.3, Slash: 0.3, Piercing: 0.5, Heat: 0.3, Caustic: 0.3 }
+  - type: ExplosionResistance
+    damageCoefficient: 0.3
+  - type: FireProtection
+    reduction: 0.7
+  - type: ToggleableClothing
+    clothingPrototype: LavalandEquipmentExplorerHoodReinforced3
+  - type: Construction
+    graph: ExplorerSuit
+    node: reinforced3
+
+- type: entity
+  parent: LavalandEquipmentExplorerHoodReinforced2
+  id: LavalandEquipmentExplorerHoodReinforced3
+  suffix: Reinforced
+  name: reinforced explorer hood
+  components:
+  - type: Sprite
+    state: reinforced3-icon_head
+  - type: Clothing
+    equippedState: reinforced3-equipped-HELMET
+  - type: Armor
+    modifiers:
+      coefficients: { Blunt: 0.35, Slash: 0.35, Piercing: 0.55, Heat: 0.35, Caustic: 0.35 }

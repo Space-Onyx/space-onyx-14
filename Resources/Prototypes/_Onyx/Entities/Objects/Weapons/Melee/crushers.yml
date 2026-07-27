@@ -1,0 +1,78 @@
+- type: entity
+  parent: [ BaseWeaponCrusher, BaseSecurityCargoContraband ]
+  id: WeaponCrusherHammer
+  name: crusher hammer
+  description: A beefy, two-handed weapon that inflicts knockback and heavier damage than a crusher.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Crushers/crusher_hammer.rsi
+    state: icon
+  - type: Item
+    sprite: _Onyx/Objects/Weapons/Crushers/crusher_hammer-inhands.rsi
+  - type: MeleeWeapon
+    attackRate: 0.6
+    damage: { types: { Blunt: 12 } }
+  - type: IncreaseDamageOnWield
+    damage: { types: { Blunt: 13, Structural: 15 } }
+  - type: Tool
+    speedModifier: 1.5
+    qualities: [ Hammering ]
+    useSound: { path: /Audio/Items/trayhit2.ogg }
+
+- type: entity
+  parent: [ BaseWeaponCrusher, BaseSecurityCargoContraband ]
+  id: WeaponCrusherHalberd
+  name: crusher halberd
+  description: A universal weapon that combines the power of a crusher and the range of a spear.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Crushers/crusher_halberd.rsi
+    state: icon
+  - type: Item
+    sprite: _Onyx/Objects/Weapons/Crushers/crusher_halberd-inhands.rsi
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Crushers/crusher_halberd.rsi
+  - type: MeleeWeapon
+    range: 2.2
+    damage: { types: { Slash: 6, Blunt: 5 } }
+  - type: IncreaseDamageOnWield
+    damage: { types: { Piercing: 3, Slash: 3, Structural: 15 } }
+
+- type: entity
+  id: CrusherRandomUpgradesFill
+  suffix: Random Upgrades
+  abstract: true
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      upgrade_slot_main: !type:NestedSelector
+        tableId: CrusherUpgradesMain
+        prob: 0.67
+      upgrade_slot_blade: !type:NestedSelector
+        tableId: CrusherUpgradesBlade
+        prob: 0.75
+      upgrade_slot_handle: !type:NestedSelector
+        tableId: CrusherUpgradesHandle
+        prob: 0.75
+
+- type: entity
+  parent: [ WeaponCrusher, CrusherRandomUpgradesFill ]
+  id: WeaponCrusherFilledRandom
+- type: entity
+  parent: [ WeaponCrusherGlaive, CrusherRandomUpgradesFill ]
+  id: WeaponCrusherGlaiveFilledRandom
+- type: entity
+  parent: [ WeaponCrusherHammer, CrusherRandomUpgradesFill ]
+  id: WeaponCrusherHammerFilledRandom
+- type: entity
+  parent: [ WeaponCrusherHalberd, CrusherRandomUpgradesFill ]
+  id: WeaponCrusherHalberdFilledRandom
+
+- type: entityTable
+  id: CrusherWeapons
+  table: !type:GroupSelector
+    children:
+    - id: WeaponCrusher
+    - id: WeaponCrusherGlaive
+    - id: WeaponCrusherHammer
+    - id: WeaponCrusherHalberd

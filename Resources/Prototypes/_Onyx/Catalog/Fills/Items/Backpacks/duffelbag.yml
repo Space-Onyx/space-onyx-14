@@ -1,0 +1,30 @@
+- type: entity
+  parent: ClothingBackpackDuffelSalvage
+  id: ClothingBackpackDuffelSalvageConscription
+  name: mining conscription kit
+  description: Everything a crewmember needs to support a shaft miner in the field.
+  components:
+  - type: StorageFill
+    contents:
+    - id: ClothingEyesGlassesMeson
+    - id: MineralScanner
+    - id: ClothingUniformJumpsuitSalvageSpecialist
+    - id: EncryptionKeyCargo
+    - id: ClothingMaskGasExplorer
+    - id: WeaponProtoKineticAccelerator
+    - id: SurvivalKnife
+    - id: FlashlightSeclite
+    - id: LavalandJaunter
+
+- type: entity
+  parent: ClothingBackpackDuffelSalvage
+  id: ClothingBackpackDuffelSalvageSCAF
+  name: salvage duffel bag
+  description: A large duffel bag for holding extra exotic treasures.
+  components:
+  - type: StorageFill
+    contents:
+    - id: ClothingOuterArmorScaf
+    - id: ClothingHeadHelmetScaf
+    - id: AirTankFilled
+    - id: ClothingMaskBreathMedicalSecurity

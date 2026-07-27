@@ -681,6 +681,12 @@
       whitelist:
         tags:
           - Ore
+    # <Onyx-SalvageMiningPoints>
+    - type: OreSiloClient
+    - type: MaterialSiloLink
+    - type: SalvageMiningPointProcessor
+    - type: MiningPoints
+    # </Onyx-SalvageMiningPoints>
     - type: Lathe
       idleState: icon
       runningState: building

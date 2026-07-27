@@ -88,6 +88,12 @@ public record struct GetMeleeDamageEvent(EntityUid Weapon, DamageSpecifier Damag
 [ByRefEvent]
 public record struct GetMeleeAttackRateEvent(EntityUid Weapon, float Rate, float Multipliers, EntityUid User);
 
+// _Onyx-CrusherUpgrades-start
+/// <summary>Raised on a melee weapon to calculate its attack range.</summary>
+[ByRefEvent]
+public record struct GetMeleeRangeEvent(EntityUid Weapon, float Range, float Multipliers, EntityUid User);
+// _Onyx-CrusherUpgrades-end
+
 /// <summary>
 /// Raised on a melee weapon to calculate the heavy damage modifier.
 /// </summary>

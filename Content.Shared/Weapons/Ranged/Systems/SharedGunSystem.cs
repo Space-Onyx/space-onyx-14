@@ -36,6 +36,7 @@ using Robust.Shared.Random;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
+using Content.Shared._Onyx.Weapons.Multishot;
 
 namespace Content.Shared.Weapons.Ranged.Systems;
 
@@ -153,6 +154,13 @@ public abstract partial class SharedGunSystem : EntitySystem
         {
             return;
         }
+
+        // Onyx-start: Multishot owns the request when two compatible guns are held.
+        var multishot = new MultishotShootRequestEvent(msg);
+        RaiseLocalEvent(user.Value, ref multishot);
+        if (multishot.Handled)
+            return;
+        // Onyx-end
 
         if (gun.Owner != GetEntity(msg.Gun))
             return;
@@ -292,7 +300,7 @@ public abstract partial class SharedGunSystem : EntitySystem
         var fireRate = TimeSpan.FromSeconds(1f / gun.Comp.FireRateModified);
 
         if (gun.Comp.SelectedMode == SelectiveFire.Burst || gun.Comp.BurstActivated)
-            fireRate = TimeSpan.FromSeconds(1f / gun.Comp.BurstFireRate);
+            fireRate = TimeSpan.FromSeconds(1f / gun.Comp.BurstFireRateModified); // Onyx: upgradeable burst cadence.
 
         // First shot
         // Previously we checked shotcounter but in some cases all the bullets got dumped at once
@@ -375,7 +383,7 @@ public abstract partial class SharedGunSystem : EntitySystem
 
             gun.Comp.BurstActivated = false;
             gun.Comp.BurstShotsCount = 0;
-            gun.Comp.NextFire += TimeSpan.FromSeconds(gun.Comp.BurstCooldown);
+            gun.Comp.NextFire += TimeSpan.FromSeconds(gun.Comp.BurstCooldownModified); // Onyx: upgradeable burst cooldown.
 
             // Play empty gun sounds if relevant
             // If they're firing an existing clip then don't play anything.
@@ -403,7 +411,7 @@ public abstract partial class SharedGunSystem : EntitySystem
             gun.Comp.BurstShotsCount += shots;
             if (gun.Comp.BurstShotsCount >= gun.Comp.ShotsPerBurstModified)
             {
-                gun.Comp.NextFire += TimeSpan.FromSeconds(gun.Comp.BurstCooldown);
+                gun.Comp.NextFire += TimeSpan.FromSeconds(gun.Comp.BurstCooldownModified); // Onyx: upgradeable burst cooldown.
                 gun.Comp.BurstActivated = false;
                 gun.Comp.BurstShotsCount = 0;
             }
@@ -582,7 +590,9 @@ public abstract partial class SharedGunSystem : EntitySystem
             comp.MinAngle,
             comp.ShotsPerBurst,
             comp.FireRate,
-            comp.ProjectileSpeed
+            comp.ProjectileSpeed,
+            comp.BurstFireRate, // Onyx: upgradeable burst cadence.
+            comp.BurstCooldown // Onyx: upgradeable burst cooldown.
         );
 
         RaiseLocalEvent(gun, ref ev);
@@ -634,6 +644,19 @@ public abstract partial class SharedGunSystem : EntitySystem
             comp.FireRateModified = ev.FireRate;
             DirtyField(gun, nameof(GunComponent.FireRateModified));
         }
+
+        // Onyx-start: update refreshable burst modifiers without mutating prototype base values.
+        if (!MathHelper.CloseTo(comp.BurstFireRateModified, ev.BurstFireRate))
+        {
+            comp.BurstFireRateModified = ev.BurstFireRate;
+            DirtyField(gun, nameof(GunComponent.BurstFireRateModified));
+        }
+        if (!MathHelper.CloseTo(comp.BurstCooldownModified, ev.BurstCooldown))
+        {
+            comp.BurstCooldownModified = ev.BurstCooldown;
+            DirtyField(gun, nameof(GunComponent.BurstCooldownModified));
+        }
+        // Onyx-end
 
         if (!MathHelper.CloseTo(comp.ProjectileSpeedModified, ev.ProjectileSpeed))
         {

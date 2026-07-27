@@ -1,0 +1,11 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="using:Content.Client.UserInterface.Controls"
+                      Title="{Loc 'marker-beacon-color-picker-title'}"
+                      MinSize="420 190">
+  <BoxContainer Orientation="Vertical" Margin="10">
+    <Label Text="{Loc 'marker-beacon-color-picker-label'}" />
+    <BoxContainer Name="ColorContainer" Orientation="Vertical" VerticalExpand="True" />
+    <CheckBox Name="RgbCycle" Text="{Loc 'marker-beacon-color-picker-rgb'}" />
+    <Button Name="Confirm" Text="{Loc 'marker-beacon-color-picker-confirm'}" />
+  </BoxContainer>
+</controls:FancyWindow>

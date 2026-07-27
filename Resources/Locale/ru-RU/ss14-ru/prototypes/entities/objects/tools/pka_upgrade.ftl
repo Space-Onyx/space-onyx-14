@@ -1,8 +1,10 @@
-ent-BasePKAUpgrade = модкит ПКУ
-    .desc = Модификационный набор для протокинетического ускорителя.
-ent-PKAUpgradeDamage = модкит ПКУ (урон)
+# Onyx-start: complete Goob PKA modkit localization.
+ent-BasePKAUpgrade = набор улучшения протокинетики
+    .desc = Набор улучшения для протокинетического ускорителя.
+ent-PKAUpgradeDamage = набор улучшения протокинетики (урон)
     .desc = { ent-BasePKAUpgrade.desc }
-ent-PKAUpgradeRange = модкит ПКУ (дальность)
+ent-PKAUpgradeRange = набор улучшения протокинетики (дальность)
     .desc = { ent-BasePKAUpgrade.desc }
-ent-PKAUpgradeFireRate = моднабор ПКУ (скорострельность)
+ent-PKAUpgradeFireRate = набор улучшения протокинетики (скорострельность)
     .desc = { ent-BasePKAUpgrade.desc }
+# Onyx-end

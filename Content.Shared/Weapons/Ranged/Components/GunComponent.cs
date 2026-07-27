@@ -163,11 +163,19 @@ public sealed partial class GunComponent : Component
     [DataField, AutoNetworkedField]
     public float BurstCooldown = 0.25f;
 
+    // Onyx-start: refreshable burst modifiers for gun upgrades.
+    [AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
+    public float BurstCooldownModified = 0.25f;
+
     /// <summary>
     /// The fire rate of the weapon in burst fire mode.
     /// </summary>
     [DataField, AutoNetworkedField]
     public float BurstFireRate = 8f;
+
+    [AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
+    public float BurstFireRateModified = 8f;
+    // Onyx-end
 
     /// <summary>
     /// Whether the burst fire mode has been activated.

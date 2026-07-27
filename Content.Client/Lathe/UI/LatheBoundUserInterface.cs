@@ -1,4 +1,5 @@
 using Content.Shared.Lathe;
+using Content.Shared._Onyx.Salvage.MiningPoints;
 using Content.Shared.Research.Components;
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
@@ -34,6 +35,7 @@ namespace Content.Client.Lathe.UI
             _menu.QueueMoveUpAction += index => SendMessage(new LatheMoveRequestMessage(index, -1));
             _menu.QueueMoveDownAction += index => SendMessage(new LatheMoveRequestMessage(index, 1));
             _menu.DeleteFabricatingAction += () => SendMessage(new LatheAbortFabricationMessage());
+            _menu.ClaimMiningPointsAction += amount => SendMessage(new ClaimMiningPointsMessage(amount));
         }
 
         protected override void UpdateState(BoundUserInterfaceState state)

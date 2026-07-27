@@ -54,7 +54,7 @@ public sealed partial class MechKineticUpgradeSystem : EntitySystem
             return;
 
         args.Handled = _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, gun.Comp.InsertDelay,
-            new MechKineticInsertDoAfterEvent(), gun, target: args.Used, used: gun)
+            new MechKineticInsertDoAfterEvent(), gun, target: args.Used, used: args.Used)
         {
             BreakOnMove = true,
             NeedHand = true,
@@ -72,10 +72,10 @@ public sealed partial class MechKineticUpgradeSystem : EntitySystem
             Category = VerbCategory.Eject,
             Text = Loc.GetString("verb-categories-eject"),
             Act = () => _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, gun.Comp.EjectDelay,
-                new MechKineticEjectDoAfterEvent(), gun, target: gun, used: gun)
+                new MechKineticEjectDoAfterEvent(), gun, target: gun)
             {
                 BreakOnMove = true,
-                NeedHand = true,
+                NeedHand = false,
             }),
         });
     }

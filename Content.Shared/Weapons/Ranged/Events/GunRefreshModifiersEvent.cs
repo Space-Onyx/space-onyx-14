@@ -19,5 +19,9 @@ public record struct GunRefreshModifiersEvent(
     Angle MinAngle,
     int ShotsPerBurst,
     float FireRate,
-    float ProjectileSpeed
+    float ProjectileSpeed,
+    // Onyx-start: burst weapons need the same upgrade path as single-fire guns.
+    float BurstFireRate,
+    float BurstCooldown
+    // Onyx-end
 );

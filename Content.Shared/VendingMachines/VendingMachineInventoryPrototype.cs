@@ -22,5 +22,13 @@ namespace Content.Shared.VendingMachines
 
         [DataField("prices", customTypeSerializer:typeof(PrototypeIdDictionarySerializer<int, EntityPrototype>))]
         public Dictionary<string, int> Prices { get; private set; } = new();
+
+        // <Onyx-SalvageVendorCatalog>
+        [DataField("categories", customTypeSerializer:typeof(PrototypeIdDictionarySerializer<string, EntityPrototype>))]
+        public Dictionary<string, string> Categories { get; private set; } = new();
+
+        [DataField("overrideNames", customTypeSerializer:typeof(PrototypeIdDictionarySerializer<string, EntityPrototype>))]
+        public Dictionary<string, string> OverrideNames { get; private set; } = new();
+        // </Onyx-SalvageVendorCatalog>
     }
 }

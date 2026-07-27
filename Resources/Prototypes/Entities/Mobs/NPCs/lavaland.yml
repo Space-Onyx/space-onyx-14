@@ -47,6 +47,13 @@
     refineResult:
     - id: DiamondOre1
       amount: 1
+  # <Onyx-WatcherTrophies>
+  - type: Butcherable
+    spawned:
+    - id: DiamondOre1
+    - id: MaterialWatcherWing1
+      maxAmount: 2
+  # </Onyx-WatcherTrophies>
   - type: MovementSpeedModifier
     baseWalkSpeed: 5
     baseSprintSpeed: 7
@@ -66,6 +73,9 @@
     - SemiAuto
     soundGunshot: /Audio/Weapons/Guns/Gunshots/taser2.ogg
   - type: CombatMode
+  # <Onyx-LavalandFauna>
+  - type: Fauna
+  # </Onyx-LavalandFauna>
   - type: InteractionPopup
     successChance: 0.3
     interactSuccessString: petting-success-slimes
@@ -89,6 +99,13 @@
     radius: 1
     energy: 3
     color: red
+  # <Onyx-WatcherTrophies>
+  - type: Butcherable
+    spawned:
+    - id: DiamondOre1
+    - id: MaterialWatcherWing1
+      maxAmount: 2
+  # </Onyx-WatcherTrophies>
 
 - type: entity
   id: MobWatcherIcewing
@@ -107,6 +124,13 @@
     radius: 1
     energy: 3
     color: deepskyblue
+  # <Onyx-WatcherTrophies>
+  - type: Butcherable
+    spawned:
+    - id: DiamondOre1
+    - id: MaterialWatcherIceWing1
+      maxAmount: 2
+  # </Onyx-WatcherTrophies>
 
 - type: entity
   id: MobWatcherMagmawing
@@ -128,6 +152,13 @@
   - type: BatteryAmmoProvider
     proto: WatcherBoltMagmawing
     fireCost: 50
+  # <Onyx-WatcherTrophies>
+  - type: Butcherable
+    spawned:
+    - id: DiamondOre1
+    - id: MaterialWatcherMagmaWing1
+      maxAmount: 2
+  # </Onyx-WatcherTrophies>
 
 - type: entity
   id: MobWatcherPride

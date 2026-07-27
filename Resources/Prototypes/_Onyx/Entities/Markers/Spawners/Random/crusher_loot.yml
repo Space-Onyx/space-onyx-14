@@ -1,0 +1,79 @@
+- type: entity
+  name: crusher weapon spawner
+  id: CrusherWeaponLootSpawner
+  parent: MarkerBase
+  suffix: Lavaland
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Onyx/Objects/Weapons/Crushers/crusher.rsi
+      state: icon
+  - type: EntityTableSpawner
+    table: !type:NestedSelector { tableId: LavalandWeapons }
+
+- type: entity
+  name: crusher upgrade spawner
+  id: CrusherUpgradeLootSpawner
+  parent: MarkerBase
+  suffix: Lavaland
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Onyx/Objects/Weapons/Upgrades/crusher.rsi
+      state: base
+  - type: EntityTableSpawner
+    table: !type:NestedSelector { tableId: CrusherUpgrades }
+
+- type: entity
+  name: secondary kinetic weapon spawner
+  id: SecondaryKineticWeaponLootSpawner
+  parent: MarkerBase
+  suffix: Lavaland
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Onyx/Objects/Weapons/Secondary/kinetic_machete.rsi
+      state: icon
+  - type: EntityTableSpawner
+    table: !type:NestedSelector { tableId: SecondaryKineticWeapons }
+
+- type: entityTable
+  id: SecondaryKineticWeapons
+  table: !type:GroupSelector
+    children:
+    - id: WeaponCrusherDagger
+    - id: LavalandWeaponKineticClaws
+    - id: LavalandWeaponKineticMachete
+
+- type: entityTable
+  id: CrusherAndSecondaryKineticWeapons
+  table: !type:GroupSelector
+    children:
+    - !type:NestedSelector { tableId: CrusherWeapons }
+    - !type:NestedSelector { tableId: CrusherUpgrades }
+    - !type:NestedSelector { tableId: SecondaryKineticWeapons }
+
+- type: entityTable
+  id: LavalandWeapons
+  table: !type:GroupSelector
+    children:
+    - !type:NestedSelector { tableId: CrusherWeapons }
+    - !type:NestedSelector
+      tableId: CrusherUpgrades
+      weight: 2
+    - !type:NestedSelector
+      tableId: SecondaryKineticWeapons
+      weight: 0.5
+    - !type:NestedSelector { tableId: ProtoKineticWeapons }
+    - !type:NestedSelector
+      tableId: ProtoKineticWeaponsSpace
+      weight: 0.25
+    - !type:NestedSelector
+      tableId: ProtoKineticUpgrades
+      weight: 2
+    - !type:NestedSelector
+      tableId: LavalandMaterialRare
+      weight: 0.1

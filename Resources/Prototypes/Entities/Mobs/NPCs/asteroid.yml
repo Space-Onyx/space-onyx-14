@@ -21,6 +21,9 @@
     - Electrocution
     - Adrenaline
   - type: StandingState
+  # <Onyx-LavalandFauna>
+  - type: Fauna
+  # </Onyx-LavalandFauna>
   - type: Tag
     tags:
     - DoorBumpOpener

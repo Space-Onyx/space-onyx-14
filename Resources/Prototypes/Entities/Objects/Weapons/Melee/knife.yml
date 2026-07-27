@@ -140,6 +140,7 @@
     malus: 0.225
   - type: ThrowingAngle
     angle: 225
+  - type: GunUpgradeBayonet # <Onyx-PKAAttachments>
   - type: Fixtures
     fixtures:
       fix1:

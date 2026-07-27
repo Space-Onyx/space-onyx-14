@@ -6,7 +6,7 @@
     xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
     Title="{Loc 'lathe-menu-title'}"
     MinSize="550 450"
-    SetSize="750 500">
+    SetSize="750 550"> <!-- <Onyx-LatheUiHeight-edited> -->
     <BoxContainer
         Orientation="Horizontal"
         VerticalExpand="True"
@@ -72,6 +72,24 @@
             VerticalExpand="True"
             HorizontalExpand="True"
             SeparationOverride="5">
+            <!-- <Onyx-SalvageMiningPoints> -->
+            <BoxContainer Name="MiningPointsContainer" Orientation="Vertical" Visible="False" SeparationOverride="4">
+                <Label Text="{Loc 'lathe-mining-points-title'}" HorizontalAlignment="Center" />
+                <Label Name="MiningPointsBalance" />
+                <RichTextLabel Name="MiningPointsNoConnectionWarning" Visible="False" />
+                <BoxContainer Orientation="Horizontal" SeparationOverride="4">
+                    <Button Name="Claim10Button" Text="10" />
+                    <Button Name="Claim50Button" Text="50" />
+                    <Button Name="Claim100Button" Text="100" />
+                    <Button Name="Claim500Button" Text="500" />
+                    <Button Name="ClaimAllButton" Text="{Loc 'lathe-mining-points-all'}" />
+                </BoxContainer>
+                <BoxContainer Orientation="Horizontal" SeparationOverride="4">
+                    <LineEdit Name="MiningPointsAmount" PlaceHolder="{Loc 'lathe-mining-points-amount'}" HorizontalExpand="True" />
+                    <Button Name="ClaimMiningPointsButton" Text="{Loc 'lathe-mining-points-claim'}" />
+                </BoxContainer>
+            </BoxContainer>
+            <!-- </Onyx-SalvageMiningPoints> -->
             <BoxContainer Orientation="Vertical" MinHeight="225">
                 <BoxContainer
                     Orientation="Horizontal"

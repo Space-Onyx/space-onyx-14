@@ -123,7 +123,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         if (args.Actor is not { Valid: true } actor)
             return;
 
-        AuthorizedVend(entity.Owner, actor, args.Type, args.ID, entity.Comp);
+        AuthorizedVend(entity.Owner, actor, args.Type, args.ID, entity.Comp, 1); // <Onyx-SalvageMiningPoints-edited>
     }
 
     //<Onyx Economy>
@@ -153,8 +153,15 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
 
     protected virtual int GetPrice(VendingMachineInventoryEntry entry, VendingMachineComponent comp, int count)
     {
-        return (int)(entry.Price * count * comp.PriceMultiplier * _cfg.GetCVar(CCVars.VendingPriceMultiplier));
+        return (int)(entry.Price * count * GetEffectivePriceMultiplier(comp)); // <Onyx-VendingMechanicsReview-edited>
     }
+
+    // <Onyx-VendingMechanicsReview>
+    protected double GetEffectivePriceMultiplier(VendingMachineComponent comp)
+    {
+        return comp.PriceMultiplier * _cfg.GetCVar(CCVars.VendingPriceMultiplier);
+    }
+    // </Onyx-VendingMechanicsReview>
 
     protected virtual void UpdateVendingMachineInterfaceState(EntityUid uid, VendingMachineComponent component)
     {
@@ -256,7 +263,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
             return;
         }
 
-        if (entry.Amount <= 0)
+        if (!vendComponent.InfiniteStock && entry.Amount <= 0) // <Onyx-VendingMechanicsReview-edited>
         {
             //<Onyx Economy>
             if (sender.HasValue)
@@ -282,7 +289,10 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         if (TryComp(uid, out SpeakOnUIClosedComponent? speakComponent))
             _speakOn.TrySetFlag((uid, speakComponent));
 
-        entry.Amount--;
+        // <Onyx-VendingMechanicsReview-edited>
+        if (!vendComponent.InfiniteStock)
+            entry.Amount--;
+        // </Onyx-VendingMechanicsReview-edited>
         Dirty(uid, vendComponent);
         UpdateUI((uid, vendComponent));
         TryUpdateVisualState((uid, vendComponent));
@@ -429,7 +439,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return new();
 
-        return GetAllInventory(uid, component).Where(_ => _.Amount > 0).ToList();
+        return GetAllInventory(uid, component).Where(entry => component.InfiniteStock || entry.Amount > 0).ToList(); // <Onyx-VendingMechanicsReview-edited>
     }
 
     private void AddInventoryFromPrototype(EntityUid uid, Dictionary<string, uint>? entries,
@@ -460,6 +470,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
                 return;
         }
 
+        var order = 0; // <Onyx-SalvageVendorCatalog>
         foreach (var (id, amount) in entries)
         {
             if (ProtoMan.TryIndex<EntityPrototype>(id, out var proto))
@@ -485,10 +496,16 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
                 {
                     //<Onyx Economy>
                     var price = packPrototype.Prices.TryGetValue(id, out var p) ? p : GetEntryPrice(proto, component);
-                    inventory.Add(id, new VendingMachineInventoryEntry(type, id, amount, price));
+                    // <Onyx-SalvageVendorCatalog-edited>
+                    inventory.Add(id, new VendingMachineInventoryEntry(type, id, amount, price,
+                        packPrototype.Categories.GetValueOrDefault(id),
+                        packPrototype.OverrideNames.GetValueOrDefault(id), order));
+                    // </Onyx-SalvageVendorCatalog-edited>
                     //</Onyx Economy>
                 }
             }
+
+            order++; // <Onyx-SalvageVendorCatalog>
         }
     }
 

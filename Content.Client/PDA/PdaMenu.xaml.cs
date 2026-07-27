@@ -162,6 +162,12 @@ namespace Content.Client.PDA
                 IdInfoLabel.SetMarkup(Loc.GetString("comp-pda-ui-blank"));
             }
 
+            // <Onyx-MiningPointsPda>
+            MiningPointsLabel.Visible = state.PdaOwnerInfo.MiningPoints > 0;
+            MiningPointsLabel.SetMarkup(Loc.GetString("comp-pda-ui-mining-points",
+                ("points", state.PdaOwnerInfo.MiningPoints)));
+            // </Onyx-MiningPointsPda>
+
             _stationName = state.StationName ?? Loc.GetString("comp-pda-ui-unknown");
             StationNameLabel.SetMarkup(Loc.GetString("comp-pda-ui-station",
                 ("station", _stationName)));

@@ -87,6 +87,7 @@
         Structural: 30
 
 
+# _Onyx-CrusherUpgrades-start
 - type: entity
   abstract: true
   parent: BaseItem
@@ -94,6 +95,7 @@
   name: crusher
   description: An early design of the proto-kinetic accelerator.
   components:
+  - type: Appearance
   - type: Tool
     qualities:
     - Slicing
@@ -104,6 +106,71 @@
     color: "#ffeead"
     enabled: false
     radius: 4
+  - type: Item
+    size: Ginormous
+  - type: Sharp
+  - type: DisarmMalus
+  - type: Prying
+  - type: MeleeWeapon
+    range: 2
+    attackRate: 1
+    animationRotation: -135
+    wideAnimationRotation: -135
+    damage:
+      types:
+        Blunt: 1
+    soundHit:
+      collection: MetalThud
+  - type: Wieldable
+  - type: UseDelayBlockMelee
+  - type: UseDelay
+    delay: 1
+  - type: Clothing
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: ItemUpgradeable
+  - type: CrusherUpgradeOwnership
+  - type: ContainerContainer
+    containers:
+      upgrade_slot_main: !type:ContainerSlot
+      upgrade_slot_blade: !type:ContainerSlot
+      upgrade_slot_handle: !type:ContainerSlot
+  - type: ItemSlots
+    slots:
+      upgrade_slot_main:
+        name: crusher-upgrade-slot-main
+        swap: false
+        priority: 3
+        insertDelay: 3
+        ejectDelay: 1.8
+        whitelist: { tags: [ CrusherUpgradeMain ] }
+      upgrade_slot_blade:
+        name: crusher-upgrade-slot-blade
+        swap: false
+        priority: 2
+        insertDelay: 2.4
+        ejectDelay: 1.2
+        whitelist: { tags: [ CrusherUpgradeBlade ] }
+      upgrade_slot_handle:
+        name: crusher-upgrade-slot-handle
+        swap: false
+        priority: 1
+        insertDelay: 2.4
+        ejectDelay: 1.2
+        whitelist: { tags: [ CrusherUpgradeHandle ] }
+  - type: ItemMapper
+    mapLayers:
+      upgrade-marker: { whitelist: { tags: [ CrusherUpgradeMainMarker ] } }
+      upgrade-rude-buster: { whitelist: { tags: [ CrusherUpgradeMainRudeBuster ] } }
+      upgrade-lava-aspect: { whitelist: { tags: [ CrusherUpgradeBladeLavaAspect ] } }
+      upgrade-ice-frost: { whitelist: { tags: [ CrusherUpgradeBladeIceFrost ] } }
+      upgrade-sharpness: { whitelist: { tags: [ CrusherUpgradeBladeSharpness ] } }
+      upgrade-handle-weights: { whitelist: { tags: [ CrusherUpgradeHandleWeights ] } }
+      upgrade-handle-lightweight: { whitelist: { tags: [ CrusherUpgradeHandleLightweight ] } }
+      upgrade-handle-range: { whitelist: { tags: [ CrusherUpgradeHandleRange ] } }
+# _Onyx-CrusherUpgrades-end
 
 # Very high burst damage if you land a mark, while also providing a small amount of healing.
 - type: entity
@@ -114,39 +181,19 @@
     tags:
       - Pickaxe
   - type: Sprite
-    sprite: Objects/Weapons/Melee/crusher.rsi
+    sprite: _Onyx/Objects/Weapons/Crushers/crusher.rsi # _Onyx-CrusherUpgrades
     state: icon
   - type: Item
     size: Ginormous
-    sprite: Objects/Weapons/Melee/crusher-inhands.rsi
+    sprite: _Onyx/Objects/Weapons/Crushers/crusher-inhands.rsi # _Onyx-CrusherUpgrades
   - type: Clothing
-    sprite: Objects/Weapons/Melee/crusher.rsi
-    quickEquip: false
-    slots:
-    - Back
-    - suitStorage
-  - type: AmmoCounter
-  - type: UseDelayOnShoot
-  - type: UseDelay
-    delay: 0.9
+    sprite: _Onyx/Objects/Weapons/Crushers/crusher.rsi # _Onyx-CrusherUpgrades
   - type: LeechOnMarker
     leech:
       types:
         Blunt: -2
         Slash: -2
         Piercing: -2
-  - type: Gun
-    soundGunshot: /Audio/Weapons/plasma_cutter.ogg
-    fireRate: 1
-    useKey: false
-  - type: RechargeBasicEntityAmmo
-    rechargeCooldown: 0.5
-    rechargeSound:
-      path: /Audio/Weapons/Guns/MagIn/kinetic_reload.ogg
-  - type: BasicEntityAmmoProvider
-    proto: BulletCharge
-    capacity: 1
-    count: 1
   - type: MeleeWeapon
     attackRate: 1
     wideAnimationRotation: -135
@@ -156,24 +203,29 @@
         Slash: 4
     soundHit:
       collection: MetalThud
-  - type: Wieldable
   - type: IncreaseDamageOnWield
     damage:
       types:
         Blunt: 6
         Slash: 2
         Structural: 30
-  - type: GunRequiresWield
-  - type: DisarmMalus
-  - type: Prying
 
 # No mark ability in exchange for wideswing, autoattack, and being one-handed
 - type: entity
-  parent: [ BaseKnife, BaseWeaponCrusher, BaseSecurityCargoContraband]
+  parent: [ BaseKnife, BaseSecurityCargoContraband] # _Onyx-CrusherUpgrades: dagger remains a secondary, not a modular crusher.
   id: WeaponCrusherDagger
   name: crusher dagger
   description: A scaled down version of a proto-kinetic crusher. Uses kinetic energy to vibrate the blade at high speeds.
   components:
+  - type: Tool
+    qualities: [ Slicing ]
+  - type: Execution
+    doAfterDuration: 4
+  - type: UnpoweredFlashlight
+  - type: PointLight
+    color: "#ffeead"
+    enabled: false
+    radius: 4
   - type: Sprite
     sprite: Objects/Weapons/Melee/crusher_dagger.rsi
     state: icon
@@ -214,29 +266,25 @@
 
 # Less mark damage in exchange for more healing. Also has a better ratio of blunt to slash damage, but less structural.
 - type: entity
-  parent: [ WeaponCrusher, BaseSecurityCargoContraband]
+  parent: WeaponCrusher
   id: WeaponCrusherGlaive
   name: crusher glaive
   description: An early design of the proto-kinetic accelerator, in glaive form. Provides better healing in exchange for less charged damage.
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Melee/crusher_glaive.rsi
+    sprite: _Onyx/Objects/Weapons/Crushers/crusher_glaive.rsi # _Onyx-CrusherUpgrades
     state: icon
   - type: Item
     size: Ginormous
-    sprite: Objects/Weapons/Melee/crusher_glaive-inhands.rsi
+    sprite: _Onyx/Objects/Weapons/Crushers/crusher_glaive-inhands.rsi # _Onyx-CrusherUpgrades
   - type: Clothing
-    sprite: Objects/Weapons/Melee/crusher_glaive.rsi
+    sprite: _Onyx/Objects/Weapons/Crushers/crusher_glaive.rsi # _Onyx-CrusherUpgrades
     quickEquip: false
     slots:
     - Back
     - suitStorage
   - type: UseDelay
     delay: 1.9
-  - type: BasicEntityAmmoProvider
-    proto: BulletChargeGlaive
-    capacity: 1
-    count: 1
   - type: LeechOnMarker
     leech:
       types:

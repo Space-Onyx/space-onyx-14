@@ -1,4 +1,5 @@
 using Content.Shared.Damage;
+using Content.Shared._Onyx.Salvage.Weapons; // <Onyx-LavalandBlockCharge>
 using Content.Shared.Damage.Systems;
 using Content.Shared.Projectiles;
 using Content.Shared.Weapons.Melee.Events;
@@ -38,6 +39,11 @@ public abstract partial class SharedDamageMarkerSystem : EntitySystem
         {
             _damageable.TryChangeDamage(args.User, leech.Leech, true, false, origin: args.Used);
         }
+
+        // <Onyx-LavalandBlockCharge>
+        RaiseLocalEvent(uid, new ApplyMarkerBonusEvent(args.Used, args.User));
+        RaiseLocalEvent(args.Used, new ApplyMarkerBonusEvent(args.Used, args.User));
+        // </Onyx-LavalandBlockCharge>
     }
 
     public override void Update(float frameTime)

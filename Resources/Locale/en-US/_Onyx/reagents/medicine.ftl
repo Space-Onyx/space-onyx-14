@@ -1,3 +1,6 @@
+reagent-name-luxurium = luxurium
+reagent-desc-luxurium = An advanced medicine that heals severe injuries at low pressure but is harmful at normal pressure.
+reagent-effect-condition-pressure-threshold = requires pressure between { $min } kPa and { $max } kPa
 reagent-name-probital = probital
 reagent-desc-probital = Forces the patient's body to spend energy creating more healing compounds. Overdose causes severe exhaustion.
 reagent-name-mitogen = mitogen

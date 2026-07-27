@@ -20,6 +20,7 @@ ent-KravMagaImplant = krav maga implant
     .desc = Allows the user to perform Krav Maga moves.
 ent-KravMagaImplanter = { ent-BaseImplantOnlyImplanterSyndi }
     .suffix = Krav Maga
+    .desc = { ent-BaseImplantOnlyImplanterSyndi.desc }
 ent-ActionLegSweep = Leg Sweep
     .desc = Sweeps a standing target's legs for four seconds.
 ent-ActionNeckChop = Neck Chop

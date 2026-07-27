@@ -9,15 +9,14 @@
     state: icon
   - type: Item
     size: Small
-  - type: SolutionContainerManager
-    solutions:
-      injector:
-        maxVol: 5
+  - type: Solution
+    id: injector
+    solution:
+      maxVol: 5
   - type: Injector
-    delay: 1
-    maxTransferAmount: 5
-    minTransferAmount: 3
-    injectOnly: false
+    solutionName: injector
+    currentTransferAmount: 5
+    ignoreClosed: false
     activeModeProtoId: HyposprayInjectMode
     allowedModes:
     - HyposprayInjectMode

@@ -215,6 +215,17 @@ namespace Content.Shared.VendingMachines
         [DataField]
         public bool UseStaticPrice = true;
 
+        // <Onyx-SalvageVendorCatalog>
+        [DataField, AutoNetworkedField]
+        public bool ShowWithdraw = true;
+
+        [DataField, AutoNetworkedField]
+        public string BalanceLabel = "vending-ui-credits-amount";
+
+        [DataField, AutoNetworkedField]
+        public bool InfiniteStock;
+        // </Onyx-SalvageVendorCatalog>
+
         [DataField]
         public SoundSpecifier SoundInsertCurrency =
             new SoundPathSpecifier("/Audio/_Onyx/Machines/polaroid2.ogg");
@@ -260,16 +271,33 @@ namespace Content.Shared.VendingMachines
         public int Price;
         //</Onyx Economy>
 
+        // <Onyx-SalvageVendorCatalog>
+        [DataField]
+        public string? Category;
+
+        [DataField]
+        public string? OverrideName;
+
+        [DataField]
+        public int Order;
+        // </Onyx-SalvageVendorCatalog>
+
         public VendingMachineInventoryEntry() : this(InventoryType.Regular, string.Empty, 0, 0)
         {
         }
 
-        public VendingMachineInventoryEntry(InventoryType type, string id, uint amount, int price) //<Onyx Economy>
+        public VendingMachineInventoryEntry(InventoryType type, string id, uint amount, int price, string? category = null,
+            string? overrideName = null, int order = 0) //<Onyx Economy> // <Onyx-SalvageVendorCatalog-edited>
         {
             Type = type;
             ID = id;
             Amount = amount;
             Price = price; //<Onyx Economy>
+            // <Onyx-SalvageVendorCatalog>
+            Category = category;
+            OverrideName = overrideName;
+            Order = order;
+            // </Onyx-SalvageVendorCatalog>
         }
 
         public VendingMachineInventoryEntry(VendingMachineInventoryEntry entry)
@@ -278,6 +306,11 @@ namespace Content.Shared.VendingMachines
             ID = entry.ID;
             Amount = entry.Amount;
             Price = entry.Price; //<Onyx Economy>
+            // <Onyx-SalvageVendorCatalog>
+            Category = entry.Category;
+            OverrideName = entry.OverrideName;
+            Order = entry.Order;
+            // </Onyx-SalvageVendorCatalog>
         }
     }
 

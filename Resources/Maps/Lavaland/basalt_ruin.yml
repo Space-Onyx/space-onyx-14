@@ -148,6 +148,9 @@ entities:
     - type: Transform
     - type: Map
       mapPaused: True
+    # <Onyx-LavalandSurfaceMarker>
+    - type: LavalandMap
+    # </Onyx-LavalandSurfaceMarker>
     - type: GridTree
     - type: Broadphase
     - type: OccluderTree

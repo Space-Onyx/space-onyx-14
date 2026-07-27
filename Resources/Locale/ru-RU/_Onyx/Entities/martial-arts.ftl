@@ -20,6 +20,7 @@ ent-KravMagaImplant = имплант Крав Мага
     .desc = Позволяет владельцу выполнять приёмы Крав Мага.
 ent-KravMagaImplanter = { ent-BaseImplantOnlyImplanterSyndi }
     .suffix = Крав Мага
+    .desc = { ent-BaseImplantOnlyImplanterSyndi.desc }
 ent-ActionLegSweep = подсечка
     .desc = Сбивает стоящую цель с ног на четыре секунды.
 ent-ActionNeckChop = удар по шее

@@ -1,0 +1,71 @@
+- type: selectableSet
+  id: ProtoKineticAcceleratorSet
+  name: selectable-set-pka-accelerator-name
+  description: selectable-set-pka-standard-description
+  sprite:
+    sprite: Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi
+    state: icon
+  content: [ WeaponProtoKineticAccelerator ]
+
+- type: selectableSet
+  id: ProtoKineticShotgunSet
+  name: selectable-set-pka-shotgun-name
+  description: selectable-set-pka-standard-description
+  sprite:
+    sprite: _Onyx/Objects/Weapons/Guns/Basic/kinetic_shotgun.rsi
+    state: icon
+  content: [ WeaponProtoKineticShotgun ]
+
+- type: selectableSet
+  id: ProtoKineticRepeaterSet
+  name: selectable-set-pka-repeater-name
+  description: selectable-set-pka-standard-description
+  sprite:
+    sprite: _Onyx/Objects/Weapons/Guns/Basic/kinetic_repeater.rsi
+    state: icon
+  content: [ WeaponProtoKineticRepeater ]
+
+- type: selectableSet
+  id: ProtoKineticPistolSet
+  name: selectable-set-pka-pistol-name
+  description: selectable-set-pka-standard-description
+  sprite:
+    sprite: _Onyx/Objects/Weapons/Guns/Basic/kinetic_pistol.rsi
+    state: icon
+  content: [ WeaponProtoKineticPistol ]
+
+- type: selectableSet
+  id: ProtoKineticAcceleratorSpaceSet
+  name: selectable-set-pka-accelerator-name
+  description: selectable-set-pka-space-description
+  sprite:
+    sprite: Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi
+    state: icon
+  content: [ WeaponProtoKineticAcceleratorSpace ]
+
+- type: selectableSet
+  id: ProtoKineticShotgunSpaceSet
+  name: selectable-set-pka-shotgun-name
+  description: selectable-set-pka-space-description
+  sprite:
+    sprite: _Onyx/Objects/Weapons/Guns/Basic/kinetic_shotgun.rsi
+    state: icon
+  content: [ WeaponProtoKineticShotgunSpace ]
+
+- type: selectableSet
+  id: ProtoKineticRepeaterSpaceSet
+  name: selectable-set-pka-repeater-name
+  description: selectable-set-pka-space-description
+  sprite:
+    sprite: _Onyx/Objects/Weapons/Guns/Basic/kinetic_repeater.rsi
+    state: icon
+  content: [ WeaponProtoKineticRepeaterSpace ]
+
+- type: selectableSet
+  id: ProtoKineticPistolSpaceSet
+  name: selectable-set-pka-pistol-name
+  description: selectable-set-pka-space-description
+  sprite:
+    sprite: _Onyx/Objects/Weapons/Guns/Basic/kinetic_pistol.rsi
+    state: icon
+  content: [ WeaponProtoKineticPistolSpace ]

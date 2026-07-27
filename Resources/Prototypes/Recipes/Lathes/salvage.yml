@@ -74,18 +74,18 @@
   result: PKAUpgradeDamage
   categories:
   - Weapons
-  completetime: 5
+  completetime: 10 # Onyx: Goob tuning.
   materials:
-    Steel: 1500
-    Gold: 500
-    Silver: 500
+    Steel: 4500 # Onyx: Goob tuning.
+    Gold: 2500 # Onyx: Goob tuning.
+    Silver: 2500 # Onyx: Goob tuning.
 
 - type: latheRecipe
   id: PKAUpgradeRange
   result: PKAUpgradeRange
   categories:
   - Weapons
-  completetime: 5
+  completetime: 10 # Onyx: Goob tuning.
   materials:
     Steel: 1500
     Gold: 500
@@ -96,7 +96,7 @@
   result: PKAUpgradeFireRate
   categories:
   - Weapons
-  completetime: 5
+  completetime: 10 # Onyx: Goob tuning.
   materials:
     Steel: 1500
     Gold: 500

@@ -17,6 +17,9 @@
     storedRotation: -90
   - type: Access
   - type: IdCard
+  # <Onyx-SalvageMiningPoints>
+  - type: MiningPoints
+  # </Onyx-SalvageMiningPoints>
   # <Onyx-NanoChat-edited>
   - type: NanoChatCard
   # </Onyx-NanoChat-edited>

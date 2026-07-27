@@ -34,10 +34,7 @@
     tags: [ GunUpgradeDamage ]
     examineText: gun-upgrade-examine-text-damage
   - type: GunUpgradeDamage
-    damage:
-      types:
-        Blunt: 10
-        Structural: 15
+    modifier: 1.25 # Onyx: Goob tuning.
 
 - type: entity
   id: PKAUpgradeRange
@@ -57,7 +54,7 @@
     tags: [ GunUpgradeRange ]
     examineText: gun-upgrade-examine-text-range
   - type: GunUpgradeSpeed
-    coefficient: 1.5
+    coefficient: 1.30 # Onyx: Goob tuning.
 
 - type: entity
   id: PKAUpgradeFireRate
@@ -77,4 +74,4 @@
     tags: [ GunUpgradeReloadSpeed ]
     examineText: gun-upgrade-examine-text-reload
   - type: GunUpgradeFireRate
-    coefficient: 1.5
+    coefficient: 1.20 # Onyx: Goob tuning.

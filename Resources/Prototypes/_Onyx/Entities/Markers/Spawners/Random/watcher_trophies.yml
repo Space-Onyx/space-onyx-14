@@ -1,0 +1,7 @@
+- type: entityTable
+  id: LavalandMaterialRare
+  table: !type:GroupSelector
+    children:
+    - id: MaterialWatcherWing5
+    - id: MaterialWatcherMagmaWing5
+    - id: MaterialWatcherIceWing5

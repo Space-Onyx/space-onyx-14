@@ -376,7 +376,7 @@ public abstract partial class SharedMaterialStorageSystem : EntitySystem
         _appearance.SetData(receiver, MaterialStorageVisuals.Inserting, true);
         Dirty(receiver, insertingComp);
 
-        var ev = new MaterialEntityInsertedEvent(material);
+        var ev = new MaterialEntityInsertedEvent(material, toInsert, multiplier); // <Onyx-SalvageMiningPoints-edited>
         RaiseLocalEvent(receiver, ref ev);
         return true;
     }

@@ -97,10 +97,14 @@ public readonly record struct ConsumeStoredMaterialsEvent(Entity<MaterialStorage
 /// event raised on the materialStorage when a material entity is inserted into it.
 /// </summary>
 [ByRefEvent]
-public readonly record struct MaterialEntityInsertedEvent(MaterialComponent MaterialComp)
+// <Onyx-SalvageMiningPoints-edited>
+public readonly record struct MaterialEntityInsertedEvent(MaterialComponent MaterialComp, EntityUid Inserted, int Count)
 {
     public readonly MaterialComponent MaterialComp = MaterialComp;
+    public readonly EntityUid Inserted = Inserted;
+    public readonly int Count = Count;
 }
+// </Onyx-SalvageMiningPoints-edited>
 
 /// <summary>
 /// Event raised when a material amount is changed

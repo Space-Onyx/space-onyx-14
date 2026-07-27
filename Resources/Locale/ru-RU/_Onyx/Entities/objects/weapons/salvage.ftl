@@ -1,0 +1,15 @@
+ent-LavalandWeaponKineticClaws = кинетические когти
+    .desc = Освободите своего внутреннего зверя при помощи этого одноручного когтя, который достаточно мал, чтобы поместиться в вашем рюкзаке.
+ent-LavalandWeaponKineticMachete = кинетическое мачете
+    .desc = Уменьшенный вариант одноручного крушителя, позволяющий вам блокировать атаки.
+block-charge-status-charged = Индикатор щита показывает, что он заряжен.
+block-charge-status-recharging = Индикатор щита показывает, что он перезаряжается.
+block-attack-notice = { $user } блокирует атаку { $blocked }!
+block-charge-startup = Индикатор щита { $entity } слабо светится...
+ent-WeaponPlasmaCutter = плазменный резак
+    .desc = Плазменный инструмент для добычи и самообороны, истощающий органические цели.
+ent-WeaponPlasmaCutterEmpty = { ent-WeaponPlasmaCutter }
+ent-BulletPlasmaCutter = заряд резака
+    .desc = Короткоживущий плазменный заряд, способный добывать руду.
+salvage-pressure-damage-examine = Низкое давление увеличивает урон в ×{ $modifier }.
+salvage-pressure-armor-examine = Вне низкого давления атаки получают { $modifier }% пробития этой брони.

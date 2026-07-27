@@ -1,0 +1,48 @@
+- type: entity
+  id: ProtoKineticWeaponLootSpawner
+  parent: MarkerBase
+  name: proto-kinetic weapon spawner
+  suffix: Lavaland
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Onyx/Objects/Weapons/Guns/Basic/kinetic_repeater.rsi
+      state: icon
+  - type: EntityTableSpawner
+    offset: 0
+    table: !type:NestedSelector
+      tableId: ProtoKineticWeapons
+
+- type: entity
+  id: ProtoKineticWeaponSpaceLootSpawner
+  parent: MarkerBase
+  name: space proto-kinetic weapon spawner
+  suffix: Lavaland, Space Upgrade
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Onyx/Objects/Weapons/Guns/Basic/kinetic_repeater.rsi
+      state: icon
+    - sprite: _Onyx/Objects/Weapons/Guns/Basic/kinetic_repeater.rsi
+      state: upgrade-space
+  - type: EntityTableSpawner
+    offset: 0
+    table: !type:NestedSelector
+      tableId: ProtoKineticWeaponsSpace
+
+- type: entity
+  id: ProtoKineticUpgradeLootSpawner
+  parent: MarkerBase
+  name: proto-kinetic upgrade spawner
+  suffix: Lavaland
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Objects/Tools/upgrade.rsi
+      state: base
+  - type: EntityTableSpawner
+    table: !type:NestedSelector
+      tableId: ProtoKineticUpgrades

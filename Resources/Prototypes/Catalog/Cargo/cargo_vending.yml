@@ -176,18 +176,9 @@
   category: cargoproduct-category-name-service
   group: market
 
-- type: cargoProduct
-  id: CrateVendingMachineRestockSalvageEquipment
-  icon:
-    sprite: Objects/Specific/Service/vending_machine_restock.rsi
-    state: base
-  product: VendingMachineRestockSalvageEquipment
-  container:
-    entity: WrappedParcel
-    containerId: contents
-  cost: 1500
-  category: cargoproduct-category-name-engineering
-  group: market
+# <Onyx-SalvageVendorRestock-edited>
+# Salvage vendors use mining points and cannot be restocked.
+# </Onyx-SalvageVendorRestock-edited>
 
 - type: cargoProduct
   id: CrateVendingMachineRestockSecTech

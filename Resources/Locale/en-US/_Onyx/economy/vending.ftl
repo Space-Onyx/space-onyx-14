@@ -1,2 +1,13 @@
 vending-ui-credits-amount = Credits in machine: { $credits }
 vending-machine-component-no-balance = Insufficient funds.
+vending-machine-component-no-mining-points = Not enough mining points.
+vending-ui-salvage-points-amount = Mining points: { $credits }
+vending-ui-category-consumables = Consumables
+vending-ui-category-exploration = Exploration
+vending-ui-category-equipment = Equipment
+vending-ui-category-medical = Medical
+vending-ui-category-weapons-upgrades = Weapons / Upgrades
+vending-ui-category-armor = Armor
+vending-ui-category-premium = Premium
+vending-ui-category-other = Other
+shop-listing-deathrattle-implant-lavaland = lavaland death rattle implanter

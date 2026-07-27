@@ -1510,6 +1510,11 @@
   components:
   - type: VendingMachine
     pack: SalvageEquipmentInventory
+    # <Onyx-SalvageVendorCatalog>
+    showWithdraw: false
+    balanceLabel: vending-ui-salvage-points-amount
+    infiniteStock: true
+    # </Onyx-SalvageVendorCatalog>
     offState: off
     brokenState: broken
     normalState: normal-unshaded
@@ -1533,6 +1538,9 @@
   - type: GuideHelp
     guides:
     - Salvage
+  # <Onyx-SalvageMiningPoints>
+  - type: SalvageMiningPointVendor
+  # </Onyx-SalvageMiningPoints>
 
 - type: entity
   parent: VendingMachine

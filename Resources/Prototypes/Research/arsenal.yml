@@ -11,6 +11,11 @@
     - WeaponProtoKineticAccelerator
     - ShuttleGunKineticCircuitboard
     - MechEquipmentKineticAccelerator
+    # Onyx-start: complete PKA family.
+    - WeaponProtoKineticShotgun
+    - WeaponProtoKineticRepeater
+    - WeaponProtoKineticPistol
+    # Onyx-end
   position: 0,3
   technologyPrerequisites: []
 - type: technology
@@ -184,11 +189,15 @@
     state: display
   discipline: Arsenal
   tier: 2
-  cost: 7500
+  cost: 10000 # Onyx: Goob tuning.
   recipeUnlocks:
     - PKAUpgradeDamage
     - PKAUpgradeRange
     - PKAUpgradeFireRate
+    # Onyx-start: complete printable PKA modkits.
+    - PKAUpgradePressure
+    - PKAUpgradeSpace
+    # Onyx-end
   position: 0,2
   technologyPrerequisites:
     - SalvageWeapons

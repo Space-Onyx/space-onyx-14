@@ -1,0 +1,21 @@
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHelmetScaf
+  name: SCAF helmet
+  description: A robust tactical helmet.
+  components:
+  - type: Item
+    size: Normal
+  - type: Sprite
+    sprite: _Onyx/Clothing/Head/Helmets/scaf.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Head/Helmets/scaf.rsi
+    equipDelay: 1.5
+    unequipDelay: 1.5
+  - type: IngestionBlocker
+  - type: Armor
+    coverage: [ Head ]
+    modifiers:
+      coefficients: { Blunt: 0.7, Slash: 0.7, Piercing: 0.85 }
+  - type: Tag
+    tags: [ HidesHair, WhitelistChameleon ]

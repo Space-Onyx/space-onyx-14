@@ -4,18 +4,70 @@
   parent: BaseItem
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi # <Onyx-PKAAttachments-edited>
   - type: Item
-    sprite: Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi # <Onyx-PKAAttachments-edited>
     size: Large
     shape:
-    - 0,0,2,1
-  - type: GunWieldBonus
-    minAngle: -43
-    maxAngle: -43
-  - type: Wieldable
+    - 0,0,1,1 # Onyx: Goob PKA footprint.
+  # Onyx-start: full PKA gameplay on the existing target upgrade framework.
+  - type: PressureDamageChange
+    lowerBound: 20.265
+    upperBound: 50.6625
+    applyToMelee: false
+    applyToProjectiles: true
+  - type: UpgradeableGun
+    maxUpgradeCount: 4
+    insertSound: /Audio/Weapons/Guns/MagIn/revolver_magin.ogg # <Onyx-PKAUpgrades-edited>
+    whitelist:
+      tags:
+      - PKAUpgrade
+  # <Onyx-PKAUpgrades>
+  - type: PKAUpgradeEjectable
+  # </Onyx-PKAUpgrades>
+  - type: ContainerContainer
+    containers:
+      upgrades: !type:Container
+      # <Onyx-PKAAttachments>
+      bayonet: !type:ContainerSlot
+      flashlight: !type:ContainerSlot
+        occludes: false
+      # </Onyx-PKAAttachments>
+  # <Onyx-PKAAttachments>
+  - type: PKAWeaponAttachments
+  - type: ItemSlots
+    slots:
+      bayonet:
+        name: weapon-upgrade-slot-name-bayonet
+        priority: 6
+        swap: false
+        ejectOnBreak: true
+        whitelist:
+          components:
+          - GunUpgradeBayonet
+      flashlight:
+        name: weapon-upgrade-slot-name-flashlight
+        priority: 5
+        swap: false
+        ejectOnBreak: true
+        whitelist:
+          components:
+          - GunUpgradeFlashlight
+  - type: ItemMapper
+    mapLayers:
+      bayonet:
+        whitelist:
+          components:
+          - GunUpgradeBayonet
+      flight:
+        whitelist:
+          components:
+          - GunUpgradeFlashlight
+  # </Onyx-PKAAttachments>
+  # Onyx-end
+  # Onyx: Goob base PKAs are one-handed; the shotgun supplies its own wield requirement.
   - type: Gun
-    fireRate: 0.5
+    fireRate: 0.8 # Onyx: Goob tuning.
     selectedMode: SemiAuto
     angleDecay: 45
     minAngle: 44
@@ -36,9 +88,15 @@
         empty-icon:
           True: { visible: False }
           False: { visible: True }
+      # <Onyx-PKAAttachments>
+      enum.PKAAttachmentVisuals.FlashlightEnabled:
+        flight:
+          True: { state: flight-on }
+          False: { state: flight }
+      # </Onyx-PKAAttachments>
         #todo: add other 'empty' animations
   - type: RechargeBasicEntityAmmo
-    rechargeCooldown: 0.75
+    rechargeCooldown: 0.5 # Onyx: Goob tuning.
     rechargeSound:
       path: /Audio/Weapons/Guns/MagIn/kinetic_reload.ogg
   - type: BasicEntityAmmoProvider
@@ -46,10 +104,20 @@
     capacity: 1
     count: 1
   - type: Clothing
-    sprite: Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi # <Onyx-PKAAttachments-edited>
     quickEquip: false
     slots:
     - suitStorage
     - Belt
   - type: UseDelay
     delay: 1
+  # <Onyx-PKAAttachments>
+  - type: MeleeWeapon
+    wideAnimationRotation: 270
+    attackRate: 1
+    angle: 0
+    range: 1.1
+    damage:
+      types:
+        Blunt: 5
+  # </Onyx-PKAAttachments>

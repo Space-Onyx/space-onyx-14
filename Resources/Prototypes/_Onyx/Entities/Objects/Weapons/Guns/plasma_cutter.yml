@@ -1,0 +1,66 @@
+- type: entity
+  name: plasma cutter
+  parent: BaseWeaponBatterySmall
+  id: WeaponPlasmaCutter
+  description: A plasma-powered mining and self-defense weapon that exhausts organic targets.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/cutter.rsi
+    state: icon
+  - type: Gun
+    fireRate: 1
+    soundGunshot: { path: /Audio/_Onyx/Weapons/Guns/plasma_cutter.ogg }
+  - type: Item
+    size: Normal
+    shape:
+    - 0,0,2,2
+  - type: Battery
+    maxCharge: 1500
+    startingCharge: 1500
+  - type: MaterialEnergy
+    materialWhiteList: [ Plasma ]
+  - type: BatteryAmmoProvider
+    proto: BulletPlasmaCutter
+    fireCost: 100
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition: { Steel: 125, Glass: 75, Plasma: 75 }
+
+- type: entity
+  parent: WeaponPlasmaCutter
+  id: WeaponPlasmaCutterEmpty
+  suffix: Empty
+  components:
+  - type: Battery
+    maxCharge: 1500
+    startingCharge: 0
+
+- type: entity
+  id: BulletPlasmaCutter
+  name: cutter bolt
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  description: A short-lived plasma bolt capable of gathering ore.
+  components:
+  - type: Reflective
+    reflective: [ NonEnergy ]
+  - type: Sprite
+    noRot: false
+    sprite: _Onyx/Objects/Weapons/Guns/Projectiles/bullet_cutter.rsi
+    layers:
+    - state: icon
+      shader: unshaded
+  - type: GatheringProjectile
+    amount: 40
+  - type: Projectile
+    deleteOnCollide: false
+    damage:
+      types: { Heat: 5 }
+  - type: StaminaDamageOnCollide
+    damage: 20
+  - type: TimedDespawn
+    lifetime: 0.2
+  - type: PointLight
+    radius: 2
+    color: purple
+    energy: 1

@@ -1,0 +1,30 @@
+- type: entity
+  name: high-capacity ore bag
+  description: A robust bag that magnetises nearby ores when active.
+  id: OreBagMagnetic
+  parent: OreBag
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Mining/ore_bag.rsi
+    layers:
+    - state: orebag_off
+      map: [ "enum.ToggleableVisuals.Layer" ]
+  - type: Clothing
+    sprite: _Onyx/Objects/Specific/Mining/ore_bag.rsi
+    quickEquip: false
+    slots: [ belt ]
+  - type: MagnetPickup
+    range: 1.5
+  - type: ItemToggle
+    soundActivate: { collection: sparks }
+    soundDeactivate: { collection: sparks }
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ToggleableVisuals.Enabled:
+        enum.ToggleableVisuals.Layer:
+          True: { state: orebag_on }
+          False: { state: orebag_off }
+  - type: Storage
+    grid:
+    - 0,0,9,7

@@ -1,3 +1,6 @@
+reagent-name-luxurium = люксуариум
+reagent-desc-luxurium = Продвинутое лекарство, лечащее тяжёлые травмы при низком давлении, но вредное при нормальном.
+reagent-effect-condition-pressure-threshold = требует давление от { $min } кПа до { $max } кПа
 reagent-name-probital = пробитал
 reagent-desc-probital = Заставляет тело пациента расходовать энергию на создание исцеляющих соединений. Передозировка вызывает сильную усталость.
 reagent-name-mitogen = митоген

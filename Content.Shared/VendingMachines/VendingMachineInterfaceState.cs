@@ -38,11 +38,27 @@ namespace Content.Shared.VendingMachines
         public readonly double PriceMultiplier;
         public readonly int Credits;
 
-        public VendingMachineInterfaceState(List<VendingMachineInventoryEntry> inventory, double priceMultiplier, int credits)
+        // <Onyx-SalvageVendorCatalog>
+        public readonly bool ShowWithdraw;
+        public readonly string BalanceLabel;
+        public readonly bool InfiniteStock;
+        public readonly bool UsesIdCardMiningPoints;
+        // </Onyx-SalvageVendorCatalog>
+
+        // <Onyx-SalvageVendorCatalog-edited>
+        public VendingMachineInterfaceState(List<VendingMachineInventoryEntry> inventory, double priceMultiplier, int credits,
+            bool showWithdraw, string balanceLabel, bool infiniteStock, bool usesIdCardMiningPoints = false)
+        // </Onyx-SalvageVendorCatalog-edited>
         {
             Inventory = inventory;
             PriceMultiplier = priceMultiplier;
             Credits = credits;
+            // <Onyx-SalvageVendorCatalog>
+            ShowWithdraw = showWithdraw;
+            BalanceLabel = balanceLabel;
+            InfiniteStock = infiniteStock;
+            UsesIdCardMiningPoints = usesIdCardMiningPoints;
+            // </Onyx-SalvageVendorCatalog>
         }
     }
 

@@ -1,8 +1,10 @@
 <BoxContainer xmlns="https://spacestation14.io"
             Orientation="Vertical"
-            SetWidth="144">
+            SetWidth="148"
+            VerticalAlignment="Top">
     <Button
             Name="BuyButton"
+            StyleClasses="ButtonSquare"
             SetSize="140 140"
             Margin="4">
         <EntityPrototypeView
@@ -24,8 +26,10 @@
         </BoxContainer>
     </Button>
     <RichTextLabel Name="NameLabel"
-            Margin="0 4"
-            MaxWidth="144"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Bottom"/>
+            Margin="4 4"
+            SetWidth="140"
+            MinHeight="48"
+            LineHeightScale="0.95"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"/>
 </BoxContainer>
