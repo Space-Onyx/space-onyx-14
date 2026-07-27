@@ -2,9 +2,6 @@ using Content.Server.Administration.Logs;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Components;
 using Content.Server.Chat.Systems;
-// <Onyx-OrganConsequences>
-using Content.Shared._Onyx.Body;
-// </Onyx-OrganConsequences>
 using Content.Shared.Body.Systems;
 using Content.Shared.Alert;
 using Content.Shared.Atmos;
@@ -24,12 +21,13 @@ using Content.Shared.EntityEffects.Effects.Body;
 using Content.Shared.EntityEffects.Effects.Damage;
 using Content.Shared.Metabolism;
 using Content.Shared.Mobs.Systems;
-// <Onyx-GoobMartialArts>
+// <Onyx-MartialArts>
 using Content.Goobstation.Shared.MartialArts;
-// </Onyx-GoobMartialArts>
-// <Onyx-GoobGrab>
+// </Onyx-MartialArts>
+// <Onyx>
 using Content.Goobstation.Shared.GrabIntent;
-// </Onyx-GoobGrab>
+using Content.Shared._Onyx.Body;
+// </Onyx>
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
@@ -101,9 +99,14 @@ public sealed partial class RespiratorSystem : EntitySystem
                 && grabbable.GrabStage == GrabStage.Suffocate;
             // </Onyx-GoobGrab>
 
+            // <Onyx-MartialArts>
+            var breathingBlocked = TryComp<KravMagaBlockedBreathingComponent>(uid, out var blockedBreathing)
+                && blockedBreathing.Until > _gameTiming.CurTime;
+            // </Onyx-MartialArts>
+
             // <Onyx-OrganConsequences-edited>
             // Bodies only become lung-dependent after actually having lungs.
-            if (!HasComp<LungDependentComponent>(uid) && !choked)
+            if (!HasComp<LungDependentComponent>(uid) && !choked && !breathingBlocked) // <MartialArts-edited>
             {
                 respirator.Saturation = respirator.MaxSaturation;
                 respirator.SuffocationCycles = 0;
@@ -112,16 +115,11 @@ public sealed partial class RespiratorSystem : EntitySystem
             // </Onyx-OrganConsequences-edited>
 
             // <Onyx-GoobGrab-edited>
-            // <Onyx-GoobMartialArts>
-            var breathingBlocked = HasComp<KravMagaBlockedBreathingComponent>(uid);
-            // </Onyx-GoobMartialArts>
             UpdateSaturation(uid, -(float) respirator.UpdateInterval.TotalSeconds, respirator);
             // </Onyx-GoobGrab-edited>
 
             // <Onyx-GoobGrab-edited>
-            // <Onyx-GoobMartialArts-edited>
-            if (!_mobState.IsIncapacitated(uid) && !choked && !breathingBlocked) // cannot breathe in crit or while choked.
-            // </Onyx-GoobMartialArts-edited>
+            if (!_mobState.IsIncapacitated(uid) && !choked && !breathingBlocked) // cannot breathe in crit or while choked. // <MartialArts-edited>
             // </Onyx-GoobGrab-edited>
             {
                 switch (respirator.Status)

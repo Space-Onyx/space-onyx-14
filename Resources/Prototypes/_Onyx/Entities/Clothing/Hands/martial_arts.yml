@@ -1,0 +1,18 @@
+- type: entity
+  parent: [ClothingHandsBase, BaseSecurityContraband]
+  id: ClothingHandsGlovesKravMaga
+  name: Krav Maga gloves
+  description: Nanochips teach Krav Maga while these gloves are worn.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Hands/Gloves/kravgloves.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Hands/Gloves/kravgloves.rsi
+  - type: Fiber
+    fiberMaterial: fibers-leather
+    fiberColor: fibers-red
+  - type: ClothingGrantComponent
+    component:
+    - type: KravMaga
+  - type: GuideHelp
+    guides: [KravMaga]

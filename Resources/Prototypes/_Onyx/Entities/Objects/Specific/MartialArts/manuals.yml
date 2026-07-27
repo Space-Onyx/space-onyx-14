@@ -1,0 +1,103 @@
+- type: entity
+  parent: [BaseItem, BaseSyndicateContraband]
+  id: CQCManual
+  name: old manual
+  description: A small black manual with tactical hand-to-hand combat instructions.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Misc/cqc_manual.rsi
+    state: icon
+  - type: Item
+    size: Small
+  - type: StaticPrice
+    price: 3000
+  - type: GrantCqc
+  - type: GuideHelp
+    guides: [CQC]
+
+- type: entity
+  parent: [BaseItem, BaseSyndicateContraband]
+  id: SleepingCarpScroll
+  name: mysterious scroll
+  description: A scroll filled with drawings of an ancient martial art.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Wizard/Objects/scroll.rsi
+    state: scroll2
+  - type: Item
+    sprite: _Onyx/Wizard/Objects/scroll.rsi
+    size: Small
+  - type: StaticPrice
+    price: 3000
+  - type: GrantSleepingCarp
+  - type: GuideHelp
+    guides: [SleepingCarp]
+
+- type: entity
+  parent: [BaseItem, BaseSyndicateContraband]
+  id: CapoeiraManual
+  name: choreography manual
+  description: Every second page ends with someone on the floor, not dancing.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Misc/martial_arts.rsi
+    state: capoeira
+  - type: Item
+    size: Small
+  - type: StaticPrice
+    price: 3000
+  - type: GrantCapoeira
+  - type: GuideHelp
+    guides: [Capoeira]
+
+- type: entity
+  parent: [BaseItem, BaseMajorContraband]
+  id: NinjutsuScroll
+  name: ninjutsu scroll
+  description: A green scroll whose lessons are written for those who strike unseen.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Misc/martial_arts.rsi
+    state: ninjutsu
+  - type: Item
+    size: Small
+  - type: StaticPrice
+    price: 3000
+  - type: GrantNinjutsu
+  - type: GuideHelp
+    guides: [Ninjutsu]
+
+- type: entity
+  parent: [BaseItem, BaseCentcommContraband]
+  id: BSOManual
+  name: Nanotrasen Dragon Kung Fu manual
+  description: Nanotrasen-approved martial art instructions for elite bodyguards.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Misc/martial_arts.rsi
+    state: dragon
+  - type: Item
+    size: Small
+  - type: StaticPrice
+    price: 3000
+  - type: GrantKungFuDragon
+  - type: GuideHelp
+    guides: [DragonKungFu]
+
+- type: entity
+  parent: [BaseItem, BaseMagicalContraband]
+  id: HellRipScroll
+  name: hell ripte scroll
+  description: A dark scroll written in blood. Looking at it inspires tearing flesh.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Misc/devil_contract.rsi
+    state: icon
+  - type: Item
+    sprite: _Onyx/Objects/Misc/devil_contract.rsi
+    size: Small
+  - type: StaticPrice
+    price: 50000
+  - type: GrantHellRip
+  - type: GuideHelp
+    guides: [HellRip]

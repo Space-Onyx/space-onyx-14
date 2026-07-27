@@ -36,7 +36,7 @@
     sprite: _Onyx/Objects/Misc/martial_arts.rsi
     state: dragon
   content:
-  - ManualKungFuDragon
+  - BSOManual
 
 - type: selectableSet
   id: BSOChesterSet

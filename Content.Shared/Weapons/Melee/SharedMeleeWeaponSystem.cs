@@ -561,12 +561,19 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
 
         var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, hitEvent.ModifiersList);
 
-        if (Damageable.TryChangeDamage(target.Value, modifiedDamage, out var damageResult, origin:user, ignoreResistances:resistanceBypass))
+        var damageChanged = Damageable.TryChangeDamage(target.Value,
+            modifiedDamage,
+            out var damageResult,
+            origin: user,
+            ignoreResistances: resistanceBypass);
+
+        // <Onyx-MartialArts>
+        RaiseLocalEvent(user,
+            new ComboAttackPerformedEvent(user, target.Value, meleeUid, ComboAttackType.Harm));
+        // </Onyx-MartialArts>
+
+        if (damageChanged)
         {
-            // <Onyx-GoobShove>
-            RaiseLocalEvent(user,
-                new ComboAttackPerformedEvent(user, target.Value, meleeUid, ComboAttackType.Harm));
-            // </Onyx-GoobShove>
             // If the target has stamina and is taking blunt damage, they should also take stamina damage based on their blunt to stamina factor
             if (damageResult.DamageDict.TryGetValue("Blunt", out var bluntDamage))
             {
@@ -907,9 +914,9 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         if (!InRange(user, target.Value, component.Range, session))
             return false;
 
-        RaiseLocalEvent(user,
-            new ComboAttackPerformedEvent(user, target.Value, meleeUid, ComboAttackType.Disarm));
         PhysicalShove(user, target.Value);
+        RaiseLocalEvent(user,
+            new ComboAttackPerformedEvent(user, target.Value, meleeUid, ComboAttackType.Disarm)); // <MartialArts-edited>
         Interaction.DoContactInteraction(user, target);
 
         if (MobState.IsIncapacitated(target.Value))

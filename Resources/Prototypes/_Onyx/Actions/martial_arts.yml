@@ -1,0 +1,54 @@
+- type: entity
+  abstract: true
+  parent: BaseAction
+  id: BaseKravMagaAction
+  categories: [HideSpawnMenu]
+  components:
+  - type: Action
+    useDelay: 0.5
+  - type: InstantAction
+    event: !type:KravMagaActionEvent
+
+- type: entity
+  parent: BaseKravMagaAction
+  id: ActionLegSweep
+  name: Leg Sweep
+  description: Sweeps a standing target's legs for four seconds.
+  components:
+  - type: Action
+    icon: {sprite: _Onyx/Actions/kravmaga.rsi, state: legsweep}
+  - type: Sprite
+    sprite: _Onyx/Actions/kravmaga.rsi
+    state: legsweep
+  - type: KravMagaAction
+    configuration: LegSweep
+    effectTime: 4
+- type: entity
+  parent: BaseKravMagaAction
+  id: ActionNeckChop
+  name: Neck Chop
+  description: Silences the next struck target for twenty seconds.
+  components:
+  - type: Action
+    icon: {sprite: _Onyx/Actions/kravmaga.rsi, state: neckchop}
+  - type: Sprite
+    sprite: _Onyx/Actions/kravmaga.rsi
+    state: neckchop
+  - type: KravMagaAction
+    configuration: NeckChop
+    effectTime: 20
+- type: entity
+  parent: BaseKravMagaAction
+  id: ActionLungPunch
+  name: Lung Punch
+  description: Deals 40 stamina damage and prevents breathing for ten seconds.
+  components:
+  - type: Action
+    icon: {sprite: _Onyx/Actions/kravmaga.rsi, state: lungpunch}
+  - type: Sprite
+    sprite: _Onyx/Actions/kravmaga.rsi
+    state: lungpunch
+  - type: KravMagaAction
+    configuration: LungPunch
+    staminaDamage: 40
+    effectTime: 10

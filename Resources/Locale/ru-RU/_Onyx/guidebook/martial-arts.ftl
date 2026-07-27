@@ -1,0 +1,9 @@
+guide-entry-martial-arts = Боевые искусства
+guide-entry-cqc = Ближний бой
+guide-entry-hell-rip = Адский разрыв
+guide-entry-sleeping-carp = Спящий карп
+guide-entry-krav-maga = Крав-мага
+guide-entry-corporate-judo = Корпоративное дзюдо
+guide-entry-capoeira = Капоэйра
+guide-entry-ninjutsu = Ниндзюцу
+guide-entry-dragon-kung-fu = Стиль Дракона

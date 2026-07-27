@@ -1,0 +1,18 @@
+- type: entity
+  parent: BaseSubdermalImplant
+  id: KravMagaImplant
+  name: krav maga implant
+  description: Allows the user to perform Krav Maga moves.
+  categories: [HideSpawnMenu]
+  components:
+  - type: SubdermalImplant
+    implantComponents:
+    - type: KravMaga
+
+- type: entity
+  parent: BaseImplantOnlyImplanterSyndi
+  id: KravMagaImplanter
+  suffix: Krav Maga
+  components:
+  - type: Implanter
+    implant: KravMagaImplant

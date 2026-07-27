@@ -32,6 +32,9 @@
     - id: Flash
     - id: ClothingEyesGlassesSecurity
     - id: ClothingHandsGlovesCombat
+    # <MartialArts>
+    - id: ClothingHandsGlovesKravMaga
+    # </MartialArts>
     - id: ClothingShoesBootsJack
     - id: ClothingOuterCoatWarden
     - id: ClothingOuterWinterWarden
@@ -82,7 +85,14 @@
       prob: 0.3
     - id: ClothingHeadHelmetBasic
     - id: ClothingOuterArmorBasic
-    - id: ClothingBeltSecurityFilled
+    # <MartialArts-edited>
+    - !type:GroupSelector
+      children:
+      - id: ClothingBeltSecurityFilled
+        weight: 0.5
+      - id: ClothingBeltCorporateJudoFilled
+        weight: 0.5
+    # </MartialArts-edited>
     - id: Flash
       prob: 0.5
     - id: ClothingEyesGlassesSecurity

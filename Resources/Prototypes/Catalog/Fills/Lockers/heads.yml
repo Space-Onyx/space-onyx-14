@@ -337,7 +337,7 @@
   id: LockerFillHeadOfSecurityNoHardsuit
   table: !type:AllSelector
     children:
-    - id: WeaponEnergyMagnum
+    # - id: WeaponEnergyMagnum <Onyx-Removed>
     - id: BookSpaceLaw
     - id: BoxEncryptionKeySecurity
     - id: CigarGoldCase
@@ -346,6 +346,7 @@
     - id: ClothingEyesGlassesSecurity
     - id: ClothingHeadsetAltSecurity
     - id: ClothingOuterCoatHoSTrench
+    - id: ClothingBeltSheathHeadOfSecurityFilled # <Onyx-JusticeSheath>
     - id: ClothingShoesBootsJack
     - id: FlashlightSeclite
     - id: DoorRemoteSecurity

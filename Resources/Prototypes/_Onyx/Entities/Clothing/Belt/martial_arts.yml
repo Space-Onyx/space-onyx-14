@@ -1,0 +1,28 @@
+- type: entity
+  parent: ClothingBeltSecurity
+  id: ClothingBeltCorporateJudo
+  name: corporate judo belt
+  description: Teaches the wearer Nanotrasen Corporate Judo.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Belt/judobelt.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Belt/judobelt.rsi
+  - type: GrantCorporateJudo
+  - type: Storage
+    grid:
+    - 0,0,5,1
+  - type: GuideHelp
+    guides: [CorporateJudo]
+
+- type: entity
+  parent: ClothingBeltCorporateJudo
+  id: ClothingBeltCorporateJudoFilled
+  suffix: Filled
+  components:
+  - type: StorageFill
+    contents:
+    - id: Stunbaton
+    - id: Handcuffs
+    - id: Handcuffs
+    - id: WeaponDisabler

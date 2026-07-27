@@ -1,0 +1,297 @@
+- type: entity
+  id: MartialArtsGenericSlowdownEffect
+  parent: StatusEffectSlowdown
+
+- type: martialArt
+  id: CorporateJudo
+  martialArtsForm: CorporateJudo
+  roundstartCombos: CorporateJudoMoves
+  baseDamageModifier: 5
+- type: comboList
+  id: CorporateJudoMoves
+  combos: [JudoThrow, JudoArmbar, JudoDiscombobulate, JudoWheelThrow, JudoEyePoke]
+- type: combo
+  id: JudoDiscombobulate
+  name: Discombobulate
+  effect: JudoDiscombobulate
+  martialArtsForm: CorporateJudo
+  attacks: [Disarm, Grab]
+- type: combo
+  id: JudoEyePoke
+  name: Eye Poke
+  effect: JudoEyePoke
+  martialArtsForm: CorporateJudo
+  attacks: [Disarm, Harm]
+  extraDamage: 5
+- type: combo
+  id: JudoThrow
+  name: Judo Throw
+  effect: JudoThrow
+  martialArtsForm: CorporateJudo
+  attacks: [Grab, Disarm]
+  paralyzeTime: 4
+  staminaDamage: 5
+  canDoWhileProne: false
+- type: combo
+  id: JudoArmbar
+  name: Armbar
+  effect: JudoArmbar
+  martialArtsForm: CorporateJudo
+  attacks: [Disarm, Disarm, Grab]
+  paralyzeTime: 5
+  staminaDamage: 10
+  dropItems: true
+- type: combo
+  id: JudoWheelThrow
+  name: Wheel Throw
+  effect: JudoWheelThrow
+  martialArtsForm: CorporateJudo
+  attacks: [Grab, Disarm, Harm]
+  staminaDamage: 120
+
+- type: martialArt
+  id: CloseQuartersCombat
+  martialArtsForm: CloseQuartersCombat
+  roundstartCombos: CQCMoves
+- type: comboList
+  id: CQCMoves
+  combos: [CQCConsecutive, CQCPressure, CQCRestrain, CQCKick, CQCSlam]
+- type: combo
+  id: CQCSlam
+  name: Slam
+  effect: CqcSlam
+  martialArtsForm: CloseQuartersCombat
+  attacks: [Grab, Harm]
+  extraDamage: 10
+  paralyzeTime: 12
+- type: combo
+  id: CQCKick
+  name: Kick
+  effect: CqcKick
+  martialArtsForm: CloseQuartersCombat
+  attacks: [Harm, Harm]
+  extraDamage: 10
+  staminaDamage: 25
+- type: combo
+  id: CQCRestrain
+  name: Restrain
+  effect: CqcRestrain
+  martialArtsForm: CloseQuartersCombat
+  attacks: [Grab, Grab]
+  paralyzeTime: 10
+  staminaDamage: 30
+- type: combo
+  id: CQCPressure
+  name: Pressure
+  effect: CqcPressure
+  martialArtsForm: CloseQuartersCombat
+  attacks: [Disarm, Grab]
+  staminaDamage: 65
+- type: combo
+  id: CQCConsecutive
+  name: Consecutive
+  effect: CqcConsecutive
+  martialArtsForm: CloseQuartersCombat
+  attacks: [Disarm, Disarm, Harm]
+  extraDamage: 10
+  staminaDamage: 70
+
+- type: martialArt
+  id: SleepingCarp
+  martialArtsForm: SleepingCarp
+  roundstartCombos: SleepingCarpMoves
+  randomDamageModifier: true
+  baseDamageModifier: 5
+  damageModifierType: Slash
+  randomSayings: [carp-saying-huah, carv-vaying-hya, carp-saying-choo, carp-saying-wuo, carp-saying-kya, carp-saying-huh, carp-saying-hiyoh, carp-saying-strike, carp-saying-bite]
+  randomSayingsDowned: [carp-saying-banzai, carp-saying-kiya, carp-saying-omae, carp-saying-see, carp-saying-time, carp-saying-cowabunga]
+- type: comboList
+  id: SleepingCarpMoves
+  combos: [SleepingCarpGnashingTeeth, SleepingCarpKneeHaul, SleepingCarpCrashingWaves]
+- type: combo
+  id: SleepingCarpGnashingTeeth
+  name: Gnashing Teeth
+  effect: CarpGnashingTeeth
+  martialArtsForm: SleepingCarp
+  attacks: [Harm, Harm]
+  damageType: Slash
+  extraDamage: 20
+- type: combo
+  id: SleepingCarpKneeHaul
+  name: Knee Haul
+  effect: CarpKneeHaul
+  martialArtsForm: SleepingCarp
+  attacks: [Harm, Grab]
+  extraDamage: 10
+  paralyzeTime: 6
+  staminaDamage: 60
+- type: combo
+  id: SleepingCarpCrashingWaves
+  name: Crashing Waves
+  effect: CarpCrashingWaves
+  martialArtsForm: SleepingCarp
+  attacks: [Harm, Disarm]
+  staminaDamage: 25
+
+- type: martialArt
+  id: Capoeira
+  martialArtsForm: Capoeira
+  roundstartCombos: CapoeiraMoves
+- type: comboList
+  id: CapoeiraMoves
+  combos: [PushKick, SweepKick, CircleKick, SpinKick, KickUp]
+- type: combo
+  id: PushKick
+  name: Push Kick
+  effect: PushKick
+  martialArtsForm: Capoeira
+  attacks: [Grab, Harm, Harm]
+  paralyzeTime: 2
+  dropItems: true
+  canDoWhileProne: false
+  staminaToHeal: -30
+- type: combo
+  id: CircleKick
+  name: Circle Kick
+  effect: CircleKick
+  martialArtsForm: Capoeira
+  attacks: [Disarm, Disarm, Harm]
+  extraDamage: 15
+  canDoWhileProne: false
+  staminaToHeal: -40
+- type: combo
+  id: SweepKick
+  name: Sweep Kick
+  effect: SweepKick
+  martialArtsForm: Capoeira
+  attacks: [Harm, Harm, Disarm]
+  extraDamage: 10
+  paralyzeTime: 1
+  staminaDamage: 10
+  staminaToHeal: -60
+  minVelocity: 2
+  attackSpeedMultiplier: 1.5
+  attackSpeedMultiplierTime: 5
+  canDoWhileProne: false
+- type: combo
+  id: SpinKick
+  name: Spin Kick
+  effect: SpinKick
+  martialArtsForm: Capoeira
+  attacks: [Grab, Harm, Disarm, Harm]
+  extraDamage: 25
+  paralyzeTime: 2
+  staminaDamage: 15
+  staminaToHeal: -100
+  minVelocity: 2
+  attackSpeedMultiplier: 1.5
+  attackSpeedMultiplierTime: 5
+  canDoWhileProne: false
+- type: combo
+  id: KickUp
+  name: Kick Up
+  effect: KickUp
+  martialArtsForm: Capoeira
+  attacks: [Disarm, Disarm]
+  performOnSelf: true
+
+- type: martialArt
+  id: KungFuDragon
+  martialArtsForm: KungFuDragon
+  roundstartCombos: KungFuDragonMoves
+- type: comboList
+  id: KungFuDragonMoves
+  combos: [DragonClaw, DragonTail, DragonStrike]
+- type: combo
+  id: DragonClaw
+  name: Dragon Claw
+  effect: DragonClaw
+  martialArtsForm: KungFuDragon
+  attacks: [Disarm, Disarm]
+  staminaDamage: 50
+- type: combo
+  id: DragonTail
+  name: Dragon Tail
+  effect: DragonTail
+  martialArtsForm: KungFuDragon
+  attacks: [Disarm, Grab, Harm]
+  extraDamage: 15
+  staminaDamage: 30
+  paralyzeTime: 6
+- type: combo
+  id: DragonStrike
+  name: Dragon Strike
+  effect: DragonStrike
+  martialArtsForm: KungFuDragon
+  attacks: [Disarm, Harm, Harm]
+  extraDamage: 40
+  paralyzeTime: 2
+
+- type: martialArt
+  id: Ninjutsu
+  martialArtsForm: Ninjutsu
+  roundstartCombos: NinjutsuMoves
+- type: comboList
+  id: NinjutsuMoves
+  combos: [BiteTheDust, DirtyKill]
+- type: combo
+  id: BiteTheDust
+  name: Bite The Dust
+  effect: BiteTheDust
+  martialArtsForm: Ninjutsu
+  attacks: [Harm, Grab]
+  extraDamage: 10
+  paralyzeTime: 9
+- type: combo
+  id: DirtyKill
+  name: Dirty Kill
+  effect: DirtyKill
+  martialArtsForm: Ninjutsu
+  attacks: [Disarm, Disarm]
+  extraDamage: 20
+  paralyzeTime: 7
+
+- type: martialArt
+  id: HellRip
+  martialArtsForm: HellRip
+  roundstartCombos: HellRipMoves
+  randomDamageModifier: true
+  damageModifierType: Slash
+- type: comboList
+  id: HellRipMoves
+  combos: [DropKick, HeadRip, Slam, TearDown]
+- type: combo
+  id: DropKick
+  name: Flying DropKick
+  effect: HellRipDropKick
+  martialArtsForm: HellRip
+  attacks: [Disarm, Disarm]
+  damageType: Slash
+  paralyzeTime: 6
+  staminaDamage: 80
+  canDoWhileProne: false
+- type: combo
+  id: HeadRip
+  name: Head Rip
+  effect: HellRipHeadRip
+  martialArtsForm: HellRip
+  attacks: [Harm, Harm, Harm, Grab]
+  damageType: Slash
+  extraDamage: 100
+  canDoWhileProne: false
+- type: combo
+  id: TearDown
+  name: Tear Down
+  effect: HellRipTearDown
+  martialArtsForm: HellRip
+  attacks: [Harm, Disarm, Grab]
+  staminaDamage: 50
+  extraDamage: 60
+- type: combo
+  id: Slam
+  name: Hellish Slam
+  effect: HellRipSlam
+  martialArtsForm: HellRip
+  attacks: [Disarm, Harm]
+  paralyzeTime: 8
+  staminaDamage: 100
