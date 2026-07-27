@@ -91,7 +91,7 @@
       Eyes: OrganDwarfEyes
       Tongue: OrganHumanTongue
       Appendix: OrganHumanAppendix
-      Ears: OrganHumanVisualEars # <Onyx-VisualEars-edited>
+      Ears: OrganHumanEars # <Onyx-VisualEars-edited>
       Lungs: OrganHumanLungs
       Heart: OrganDwarfHeart
       Stomach: OrganDwarfStomach

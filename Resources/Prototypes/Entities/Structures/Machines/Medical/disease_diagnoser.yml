@@ -31,11 +31,33 @@
           True: { visible: true }
           False: { visible: false }
   # </Onyx-VirologyMachineAnimations>
+  # <Onyx-VirologyMachines>
   - type: VirologyMachine
     analysisDuration: 5
-  # <Onyx-VirologyMachineItemSlots>
+    swabSlot:
+      occludesLight: true
+      insertSound: !type:SoundPathSpecifier
+        path: /Audio/Weapons/Guns/MagIn/revolver_magin.ogg
+      ejectSound: !type:SoundPathSpecifier
+        path: /Audio/Weapons/Guns/MagOut/revolver_magout.ogg
+      insertOnInteract: true
+      swap: true
+      whitelist:
+        components:
+        - DiseaseSwab
   - type: ItemSlots
-  # </Onyx-VirologyMachineItemSlots>
+    slots:
+      disease_swab_slot:
+        name: Swab
+        whitelist:
+          components:
+          - DiseaseSwab
+  - type: ContainerContainer
+    containers:
+      disease_swab_slot: !type:ContainerSlot
+      machine_board: !type:Container
+      machine_parts: !type:Container
+  # </Onyx-VirologyMachines>
   - type: Machine
     board: DiagnoserMachineCircuitboard
 
@@ -62,3 +84,14 @@
     backgroundImageTile: true
     backgroundPatchMargin: 0.0, 6.0, 0.0, 6.0
     contentMargin: 12.0, 0.0, 12.0, 0.0
+  # <Onyx-DiseaseReportSwab>
+  - type: ContainerContainer
+    containers:
+      item: !type:ContainerSlot
+  - type: ItemSlots
+    slots:
+      item:
+        whitelist:
+          components:
+          - DiseaseSwab
+  # </Onyx-DiseaseReportSwab>

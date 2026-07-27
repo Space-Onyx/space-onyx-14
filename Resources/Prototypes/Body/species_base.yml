@@ -38,9 +38,14 @@
   # </Onyx-Carrying>
   - type: StatusIcon
     bounds: -0.5,-0.5,0.5,0.5
-  # <GoobStation-Disease>
+  # <Onyx-DiseaseCarrier>
   - type: DiseaseCarrier
-  # </GoobStation-Disease>
+  - type: Immunity
+    affectedTypes:
+    - Viral
+    - Bacterial
+    - Parasite
+  # </Onyx-DiseaseCarrier>
   - type: JobStatus
   - type: RotationVisuals
     defaultRotation: 90

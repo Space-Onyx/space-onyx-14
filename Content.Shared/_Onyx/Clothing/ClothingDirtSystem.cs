@@ -121,6 +121,41 @@ public sealed partial class ClothingDirtSystem : EntitySystem
 
         if (sample.Volume <= 0 || !_solutions.TryAddSolution(solutionEnt.Value, sample))
             return false;
+        if (ProcessCleaners(dirt))
+            _solutions.UpdateChemicals(solutionEnt.Value);
+        Refresh((clothing, component), dirt);
+        return true;
+    }
+
+    public bool TryAddCleanerToClothing(EntityUid clothing, ReagentId cleaner, FixedPoint2 amount,
+        ClothingDirtableComponent? component = null)
+    {
+        if (!_net.IsServer || amount <= 0 || !Resolve(clothing, ref component, false) ||
+            !_prototype.Resolve<ReagentPrototype>(cleaner.Prototype, out var prototype) ||
+            prototype.ClothingDirtCleanMultiplier <= 0 ||
+            !_solutions.TryGetSolution(clothing, component.Solution, out var solutionEnt, out var dirt))
+            return false;
+
+        var add = FixedPoint2.Min(amount,
+            component.MaxReagentAmount - dirt.GetReagentQuantity(cleaner));
+        if (add <= 0)
+            return false;
+
+        var spaceNeeded = FixedPoint2.Max(FixedPoint2.Zero, add - dirt.AvailableVolume);
+        if (spaceNeeded > 0)
+            RemoveWashableDirt(dirt, spaceNeeded);
+
+        add = FixedPoint2.Min(add, dirt.AvailableVolume);
+        if (add <= 0)
+            return false;
+
+        var solution = new Solution();
+        solution.AddReagent(cleaner, add);
+        if (!_solutions.TryAddSolution(solutionEnt.Value, solution))
+            return false;
+
+        if (ProcessCleaners(dirt))
+            _solutions.UpdateChemicals(solutionEnt.Value);
         Refresh((clothing, component), dirt);
         return true;
     }
@@ -185,7 +220,7 @@ public sealed partial class ClothingDirtSystem : EntitySystem
             SlotFlags.OUTERCLOTHING, SlotFlags.INNERCLOTHING, UnderwearSlots);
         dirtied |= TryDirtyFirstOccupiedLayer(wearer, source, amount, SlotFlags.FEET, SlotFlags.SOCKS);
         dirtied |= TryDirtyWorn(wearer, source, amount,
-            SlotFlags.HEAD | SlotFlags.EYES | SlotFlags.EARS | SlotFlags.MASK | SlotFlags.NECK |
+            SlotFlags.HEAD | SlotFlags.EARS | SlotFlags.MASK | SlotFlags.NECK |
             SlotFlags.BACK | SlotFlags.BELT | SlotFlags.GLOVES | SlotFlags.IDCARD | SlotFlags.SUITSTORAGE);
         return dirtied;
     }
@@ -247,7 +282,7 @@ public sealed partial class ClothingDirtSystem : EntitySystem
             return;
         }
 
-        var changed = false;
+        var changed = ProcessCleaners(dirt);
         foreach (var reagent in dirt.Contents.ToArray())
         {
             var minimum = _prototype.Resolve<ReagentPrototype>(reagent.Reagent.Prototype, out var prototype) &&
@@ -260,6 +295,60 @@ public sealed partial class ClothingDirtSystem : EntitySystem
         if (changed)
             _solutions.UpdateChemicals(solutionEnt.Value);
         Refresh(ent, dirt);
+    }
+
+    private bool ProcessCleaners(Solution dirt)
+    {
+        var changed = false;
+        foreach (var cleaner in dirt.Contents.ToArray())
+        {
+            if (!_prototype.Resolve<ReagentPrototype>(cleaner.Reagent.Prototype, out var prototype) ||
+                prototype.ClothingDirtCleanMultiplier <= 0)
+                continue;
+
+            var washable = dirt.Contents
+                .Where(x => !IsCleaner(x.Reagent))
+                .Aggregate(FixedPoint2.Zero, (total, reagent) => total + reagent.Quantity);
+            if (washable <= 0)
+                break;
+
+            var cleanAmount = FixedPoint2.Min(
+                cleaner.Quantity * prototype.ClothingDirtCleanMultiplier,
+                washable);
+            var removed = RemoveWashableDirt(dirt, cleanAmount);
+            if (removed <= 0)
+                continue;
+
+            dirt.RemoveReagent(cleaner.Reagent,
+                FixedPoint2.Min(cleaner.Quantity, removed / prototype.ClothingDirtCleanMultiplier));
+            changed = true;
+        }
+
+        return changed;
+    }
+
+    private FixedPoint2 RemoveWashableDirt(Solution dirt, FixedPoint2 amount)
+    {
+        var washable = dirt.Contents
+            .Where(x => !IsCleaner(x.Reagent))
+            .Aggregate(FixedPoint2.Zero, (total, reagent) => total + reagent.Quantity);
+        var remaining = FixedPoint2.Min(amount, washable);
+        var removed = FixedPoint2.Zero;
+        if (remaining <= 0)
+            return removed;
+
+        var original = remaining;
+        foreach (var reagent in dirt.Contents.ToArray())
+        {
+            if (remaining <= 0 || IsCleaner(reagent.Reagent))
+                continue;
+            var quantity = FixedPoint2.Min(reagent.Quantity / washable * original, remaining);
+            var current = dirt.RemoveReagent(reagent.Reagent, quantity);
+            removed += current;
+            remaining -= current;
+        }
+
+        return removed;
     }
 
     private bool IsDeepDirty(Solution dirt, ClothingDirtableComponent component)

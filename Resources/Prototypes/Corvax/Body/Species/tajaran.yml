@@ -89,7 +89,7 @@
       Eyes: OrganTajaranEyes
       Tongue: OrganTajaranTongue
       Appendix: OrganTajaranAppendix
-      Ears: OrganTajaranVisualEars # <Onyx-VisualEars-edited>
+      Ears: OrganTajaranEars # <Onyx-VisualEars-edited>
       Lungs: OrganTajaranLungs
       Heart: OrganTajaranHeart
       Stomach: OrganTajaranStomach
@@ -281,6 +281,11 @@
 - type: entity
   parent: [ OrganBaseEars, OrganSpriteHumanInternal, OrganTajaranInternal ]
   id: OrganTajaranEars
+  # <Onyx-VisualEars>
+  components:
+  - type: VisualOrganMarkings
+    markingData: { layers: [ Ears, EarsOverlay ], group: Tajaran }
+  # </Onyx-VisualEars>
 
 - type: entity
   parent: [ OrganBaseLungs, OrganTajaranInternal, OrganTajaranMetabolizer ]

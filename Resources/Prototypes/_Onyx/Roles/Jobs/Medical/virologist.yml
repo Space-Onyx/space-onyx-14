@@ -10,6 +10,7 @@
   startingGear: VirologistGear
   icon: JobIconVirologist
   supervisors: job-supervisors-cmo
+  guides: [ MedicalDoctor, Medical, Medicine, Virology ]
   access:
   - Medical
   - Maintenance
@@ -20,7 +21,7 @@
   id: VirologistGear
   equipment:
     ears: ClothingHeadsetMedical
-    eyes: ClothingEyesHudMedical
+    eyes: ClothingEyesHudViro
     belt: ClothingBeltMedicalFilled
 
 - type: chameleonOutfit
@@ -28,7 +29,7 @@
   job: Virologist
   equipment:
     ears: ClothingHeadsetMedical
-    eyes: ClothingEyesHudMedical
+    eyes: ClothingEyesHudViro
     belt: ClothingBeltMedicalFilled
 
 - type: playTimeTracker

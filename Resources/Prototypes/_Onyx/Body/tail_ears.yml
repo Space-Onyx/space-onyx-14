@@ -77,63 +77,24 @@
     markingData: { layers: [ Tail, TailOverlay ], group: Demon }
 
 - type: entity
-  id: OrganBaseVisualEars
-  abstract: true
-  components:
-  - type: VisualOrgan
-    layer: enum.HumanoidVisualLayers.Ears
-    data: {}
-  - type: VisualOrganMarkings
-    markingData:
-      layers: [ Ears, EarsOverlay ]
-
-- type: entity
-  parent: [ OrganBaseVisualEars, OrganHumanEars ]
-  id: OrganHumanVisualEars
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Ears, EarsOverlay ], group: Human }
-
-- type: entity
-  parent: [ OrganBaseVisualEars, OrganHumanEars ]
+  parent: OrganHumanEars
   id: OrganFelinidEars
   components:
   - type: VisualOrganMarkings
     markingData: { layers: [ Ears, EarsOverlay ], group: Felinid }
 
 - type: entity
-  parent: [ OrganBaseVisualEars, OrganHumanEars ]
+  parent: OrganHumanEars
   id: OrganArcanEars
   components:
   - type: VisualOrganMarkings
     markingData: { layers: [ Ears, EarsOverlay ], group: Demon }
 
 - type: entity
-  parent: [ OrganBaseVisualEars, OrganBaseEars, OrganSlimePersonInternal ]
+  parent: [ OrganBaseEars, OrganSlimePersonInternal ]
   id: OrganSlimePersonEars
   components:
   - type: Sprite
     sprite: Mobs/Species/Human/organs.rsi
   - type: VisualOrganMarkings
     markingData: { layers: [ Ears, EarsOverlay ], group: Slime }
-
-- type: entity
-  parent: [ OrganBaseVisualEars, OrganVulpkaninEars ]
-  id: OrganVulpkaninVisualEars
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Ears, EarsOverlay ], group: Vulpkanin }
-
-- type: entity
-  parent: [ OrganBaseVisualEars, OrganReptilianEars ]
-  id: OrganReptilianVisualEars
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Ears, EarsOverlay ], group: Reptilian }
-
-- type: entity
-  parent: [ OrganBaseVisualEars, OrganTajaranEars ]
-  id: OrganTajaranVisualEars
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Ears, EarsOverlay ], group: Tajaran }

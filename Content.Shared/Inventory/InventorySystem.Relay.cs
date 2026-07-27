@@ -42,6 +42,9 @@ using Content.Shared.VoiceMask;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Wieldable;
 using Content.Shared.Zombies;
+// <Onyx-DiseaseProtection>
+using Content.Shared._Onyx.Disease;
+// </Onyx-DiseaseProtection>
 // <Onyx-Flashbang>
 using Content.Shared._Onyx.Flashbang;
 // </Onyx-Flashbang>
@@ -78,6 +81,10 @@ public partial class InventorySystem
         SubscribeLocalEvent<InventoryComponent, StoodEvent>(RelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, DownedEvent>(RelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, AccentGetEvent>(RelayInventoryEvent);
+        // <Onyx-DiseaseProtection>
+        SubscribeLocalEvent<InventoryComponent, DiseaseIncomingSpreadAttemptEvent>(RelayInventoryEvent);
+        SubscribeLocalEvent<InventoryComponent, DiseaseOutgoingSpreadAttemptEvent>(RelayInventoryEvent);
+        // </Onyx-DiseaseProtection>
 
         // Corvax-TTS
         SubscribeLocalEvent<InventoryComponent, TransformSpeakerVoiceEvent>(RelayInventoryEvent);

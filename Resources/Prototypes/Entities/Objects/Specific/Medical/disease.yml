@@ -14,7 +14,7 @@
     - Recyclable
     - Trash
   - type: BotanySwab
-  - type: DiseaseSwab
+  - type: DiseaseSwab # <Onyx-DiseaseSwab>
   - type: GuideHelp
     guides:
   # - Virology (when it's back)
@@ -54,4 +54,4 @@
   - type: Sprite
     sprite: Objects/Specific/Medical/medipen.rsi
     state: salpen
-  - type: DiseasePen
+  - type: DiseasePen # <Onyx-DiseaseVaccine>

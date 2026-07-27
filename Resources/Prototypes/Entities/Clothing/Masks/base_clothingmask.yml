@@ -11,7 +11,7 @@
     slots: [mask]
   - type: StaticPrice
     price: 25
-  # <GoobStation-Disease>
+  # <Onyx-DiseaseProtection>
   - type: DiseaseProtection
     incoming:
       chanceMultipliers:
@@ -19,7 +19,7 @@
     outgoing:
       chanceMultipliers:
         Aerial: 0.6
-  # </GoobStation-Disease>
+  # </Onyx-DiseaseProtection>
 
 - type: entity
   abstract: true

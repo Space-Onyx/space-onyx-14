@@ -136,7 +136,7 @@
       Eyes: OrganReptilianEyes
       Tongue: OrganReptilianTongue
       Appendix: OrganReptilianAppendix
-      Ears: OrganReptilianVisualEars # <Onyx-VisualEars-edited>
+      Ears: OrganReptilianEars # <Onyx-VisualEars-edited>
       Lungs: OrganReptilianLungs
       Heart: OrganReptilianHeart
       Stomach: OrganReptilianStomach
@@ -339,6 +339,11 @@
 - type: entity
   parent: [ OrganBaseEars, OrganSpriteHumanInternal, OrganReptilianInternal ]
   id: OrganReptilianEars
+  # <Onyx-VisualEars>
+  components:
+  - type: VisualOrganMarkings
+    markingData: { layers: [ Ears, EarsOverlay ], group: Reptilian }
+  # </Onyx-VisualEars>
 
 - type: entity
   parent: [ OrganBaseLungs, OrganReptilianInternal, OrganReptilianMetabolizer ]

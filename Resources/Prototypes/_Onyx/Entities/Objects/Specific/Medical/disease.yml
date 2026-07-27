@@ -7,16 +7,16 @@
   - type: Item
     size: Tiny
   - type: Sprite
-    sprite: Objects/Specific/Medical/medipen.rsi
+    sprite: _Onyx/Objects/Specific/Medical/live_injector.rsi
     layers:
-    - state: salpen
-      map: ["salpen"]
+    - state: livepen
+      map: ["livepen"]
   - type: Appearance
   - type: DiseasePen
     vaccine: false
   - type: GenericVisualizer
     visuals:
       enum.DiseasePenVisuals.Used:
-        salpen:
-          True: { state: salpen_empty }
-          False: { state: salpen }
+        livepen:
+          True: { state: livepen_empty }
+          False: { state: livepen }

@@ -81,7 +81,7 @@
       Eyes: OrganVulpkaninEyes
       Tongue: OrganVulpkaninTongue
       Appendix: OrganVulpkaninAppendix
-      Ears: OrganVulpkaninVisualEars # <Onyx-VisualEars-edited>
+      Ears: OrganVulpkaninEars # <Onyx-VisualEars-edited>
       Lungs: OrganVulpkaninLungs
       Heart: OrganVulpkaninHeart
       Stomach: OrganVulpkaninStomach
@@ -402,6 +402,11 @@
 - type: entity
   parent: [ OrganBaseEars, OrganVulpkaninInternal ]
   id: OrganVulpkaninEars
+  # <Onyx-VisualEars>
+  components:
+  - type: VisualOrganMarkings
+    markingData: { layers: [ Ears, EarsOverlay ], group: Vulpkanin }
+  # </Onyx-VisualEars>
 
 - type: entity
   parent: [ OrganBaseLungs, OrganVulpkaninInternal, OrganVulpkaninMetabolizer ]

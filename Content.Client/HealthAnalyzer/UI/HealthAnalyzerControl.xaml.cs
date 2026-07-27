@@ -11,7 +11,6 @@ using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
-using Content.Shared._GoobStation.Disease.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.IdentityManagement;
@@ -98,9 +97,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         _displayedTarget = state.TargetEntity;
         _state = state;
         _target = target;
-        // <GoobStation-Disease>
-        DrawDiseases(target.Value);
-        // </GoobStation-Disease>
+        DrawDiseases(target.Value); // <Onyx-DiseaseHealthAnalyzer-edited>
         if (_selectedPart is { } selected && (state.PartDamage == null || !state.PartDamage.ContainsKey(selected)))
             _selectedPart = null;
         // </Onyx-HealthAnalyzer-StatusDoll>
@@ -293,34 +290,6 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         label.SetMessage(FormattedMessage.FromMarkupPermissive($"• {text}"));
         WoundFindingsContainer.AddChild(label);
     }
-
-    // <GoobStation-Disease>
-    private void DrawDiseases(EntityUid target)
-    {
-        DiseasesContainer.RemoveAllChildren();
-        if (!_entityManager.TryGetComponent<DiseaseCarrierComponent>(target, out var carrier) || carrier.Diseases.Count == 0)
-        {
-            DiseasesDivider.Visible = false;
-            DiseasesContainer.Visible = false;
-            return;
-        }
-
-        DiseasesDivider.Visible = true;
-        DiseasesContainer.Visible = true;
-        DiseasesContainer.AddChild(new RichTextLabel { Text = Loc.GetString("health-analyzer-window-diseases") });
-        foreach (var diseaseUid in carrier.Diseases.ContainedEntities)
-        {
-            if (!_entityManager.TryGetComponent<DiseaseComponent>(diseaseUid, out var disease))
-                continue;
-            DiseasesContainer.AddChild(new RichTextLabel
-            {
-                Text = Loc.GetString("health-analyzer-window-disease-type-text", ("type", disease.Genotype)) + "\n · " +
-                       Loc.GetString("health-analyzer-window-disease-progress-text", ("progress", disease.InfectionProgress)) + "\n · " +
-                       Loc.GetString("health-analyzer-window-immunity-progress-text", ("progress", disease.ImmunityProgress)),
-            });
-        }
-    }
-    // </GoobStation-Disease>
 
     // <Onyx-HealthAnalyzerOrgans-edited>
     public void SelectDiagnosticTab(bool organs)

@@ -21,10 +21,8 @@ using Content.Shared.EntityEffects.Effects.Body;
 using Content.Shared.EntityEffects.Effects.Damage;
 using Content.Shared.Metabolism;
 using Content.Shared.Mobs.Systems;
-// <Onyx-MartialArts>
-using Content.Goobstation.Shared.MartialArts;
-// </Onyx-MartialArts>
 // <Onyx>
+using Content.Goobstation.Shared.MartialArts;
 using Content.Goobstation.Shared.GrabIntent;
 using Content.Shared._Onyx.Body;
 // </Onyx>

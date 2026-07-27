@@ -67,7 +67,7 @@ public sealed partial class ShowerSystem : EntitySystem
             if (!_inventory.TryGetContainerSlotEnumerator(wearer, out var enumerator, shower.TargetSlots))
                 continue;
             while (enumerator.NextItem(out var item))
-                _dirt.TryWashClothing(item, new ReagentId(shower.CleanerReagent, null), shower.WashAmount);
+                _dirt.TryAddCleanerToClothing(item, new ReagentId(shower.CleanerReagent, null), shower.WashAmount);
         }
     }
 }

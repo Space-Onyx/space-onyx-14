@@ -17,6 +17,13 @@ ent-OrganTajaranTail = { ent-OrganBaseVisualTail }
 ent-OrganArcanTail = { ent-OrganBaseVisualTail }
     .desc = { ent-OrganBaseVisualTail.desc }
 
+ent-OrganFelinidEars = { ent-OrganBaseEars }
+    .desc = { ent-OrganBaseEars.desc }
+ent-OrganArcanEars = { ent-OrganBaseEars }
+    .desc = { ent-OrganBaseEars.desc }
+ent-OrganSlimePersonEars = { ent-OrganBaseEars }
+    .desc = { ent-OrganBaseEars.desc }
+
 markings-organ-Tail = Хвост
 markings-organ-Ears = Уши
 markings-layer-Ears = Уши

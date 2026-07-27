@@ -52,10 +52,10 @@
 
     <BoxContainer Name="GroupsContainer" Margin="0 5 0 5" Orientation="Vertical">
     </BoxContainer>
-    <!-- <GoobStation-Disease> -->
+    <!-- <Onyx-DiseaseHealthAnalyzer> -->
     <PanelContainer Name="DiseasesDivider" Visible="False" StyleClasses="LowDivider" />
     <BoxContainer Name="DiseasesContainer" Visible="False" Margin="0 5" Orientation="Vertical" />
-    <!-- </GoobStation-Disease> -->
+    <!-- </Onyx-DiseaseHealthAnalyzer> -->
     </BoxContainer>
     <ScrollContainer Name="OrgansTab" HorizontalExpand="True" VerticalExpand="True" Visible="False">
         <BoxContainer Name="OrgansContainer" Orientation="Vertical" Margin="5" HorizontalExpand="True" />

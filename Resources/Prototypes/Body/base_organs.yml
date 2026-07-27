@@ -392,6 +392,11 @@
   - type: Sprite
     layers:
     - state: ears
+  # <Onyx-VisualEars>
+  - type: VisualOrgan
+    layer: enum.HumanoidVisualLayers.Ears
+    data: {}
+  # </Onyx-VisualEars>
 
 - type: entity
   parent: OrganBase
