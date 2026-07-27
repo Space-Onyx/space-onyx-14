@@ -1,0 +1,12 @@
+construction-graph-tag-clarke-central-control-module = clarke central control module
+construction-graph-tag-clarke-peripherals-control-module = clarke peripherals control module
+construction-graph-tag-durand-peripherals-control-module = durand peripherals control module
+construction-graph-tag-durand-targeting-control-module = durand targeting control module
+construction-graph-tag-durand-central-control-module = durand central control module
+construction-graph-tag-exosuit-air-tank = exosuit air tank
+construction-graph-tag-exosuit-thruster = exosuit thruster
+construction-graph-tag-durand-armor = durand armor
+construction-graph-tag-gygax-central-control-module = gygax central control module
+construction-graph-tag-gygax-peripherals-control-module = gygax peripherals control module
+construction-graph-tag-gygax-targeting-control-module = gygax targeting control module
+construction-graph-tag-gygax-armor = gygax armor

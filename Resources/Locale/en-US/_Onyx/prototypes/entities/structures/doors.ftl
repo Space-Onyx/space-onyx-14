@@ -1,8 +1,9 @@
 ent-AirlockAllServiceGlassLocked = { ent-AirlockServiceGlassLocked }
     .suffix = All Service, Locked
     .desc = { ent-AirlockServiceGlassLocked.desc }
-ent-DoorElectronicsAllService = door electronics
+ent-DoorElectronicsAllService = { ent-DoorElectronics }
     .suffix = All Service, Locked
+    .desc = { ent-DoorElectronics.desc }
 ent-BaseReinforcedSecretDoor = { ent-WallReinforced }
     .desc = { ent-WallReinforced.desc }
     .suffix = Secret Door

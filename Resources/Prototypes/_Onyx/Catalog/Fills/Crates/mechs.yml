@@ -1,0 +1,47 @@
+- type: entity
+  id: CrateCargoClarkeAssembly
+  name: clarke assembly crate
+  description: At long last, you will finally feel secure inside this brand new spankin machine! Assembly required.
+  parent: CratePrivateSecure
+  components:
+  - type: StorageFill
+    contents:
+    - id: ClarkeHarness
+    - id: ClarkeHead
+    - id: ClarkeLArm
+    - id: ClarkeRArm
+    - id: ClarkeTreads
+    - id: ClarkeCentralElectronics
+    - id: ClarkePeripheralsElectronics
+    - id: MechAirTank
+    - id: MechThruster
+
+- type: entity
+  id: CrateCybersunDarkGygaxBundle
+  suffix: Filled
+  parent: CrateSyndicate
+  name: Cybersun gygax bundle
+  description: Contains a set of Cybersan light armored mechs.
+  components:
+  - type: StorageFill
+    contents:
+    - id: MechGygaxSyndieFilled
+    - id: DoubleEmergencyOxygenTankFilled
+    - id: DoubleEmergencyNitrogenTankFilled
+    - id: ToolboxSyndicateFilled
+    - id: PlushieNuke
+
+- type: entity
+  id: CrateCybersunMaulerBundle
+  suffix: Filled
+  parent: CrateSyndicate
+  name: Cybersun mauler bundle
+  description: Contains a set of Cybersan heavy armored mechs.
+  components:
+  - type: StorageFill
+    contents:
+    - id: MechMaulerSyndieFilled
+    - id: DoubleEmergencyOxygenTankFilled
+    - id: DoubleEmergencyNitrogenTankFilled
+    - id: ToolboxSyndicateFilled
+    - id: PlushieNuke

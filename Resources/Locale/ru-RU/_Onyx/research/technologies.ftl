@@ -1,6 +1,12 @@
 research-technology-advanced-robotics = Продвинутая робототехника
+research-technology-modsuits = Модульные технологии
 research-technology-pinpointing = Технологии точного обнаружения
 research-technology-night-vision = Технология ночного видения
 research-technology-thermal-vision = Технология теплового видения
 research-technology-xenobiology = Снаряжение для работы со слаймами
 research-technology-xenobag-holding = Блюспейс-хранилище для слаймов
+research-technology-ripley-mkii = Рипли MK-II
+research-technology-honk-weapons = Бананиумное оружие
+research-technology-gygax = Гигакс (Требуется разрешение ЦК)
+research-technology-explosive-mech-ammunition = Взрывные боеприпасы для мехов
+research-technology-durand = Дюранд (Требуется разрешение ЦК)

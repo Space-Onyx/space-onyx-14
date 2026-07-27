@@ -117,6 +117,20 @@
   description: Used to pilot a shuttle.
   abstract: true
   components:
+  # <ShuttleRemoteControl>
+  - type: DeviceLinkSink
+    ports:
+      - ShuttleDroneReceiver
+  # </ShuttleRemoteControl>
+  # <ShuttleSignalPorts>
+  - type: DeviceLinkSource
+    range: 90
+    ports:
+      - SignalShuttleConsole1
+      - SignalShuttleConsole2
+      - SignalShuttleConsole3
+      - SignalShuttleConsole4
+  # </ShuttleSignalPorts>
   - type: ShuttleConsole
   - type: ActivatableUI
     key: enum.ShuttleConsoleUiKey.Key

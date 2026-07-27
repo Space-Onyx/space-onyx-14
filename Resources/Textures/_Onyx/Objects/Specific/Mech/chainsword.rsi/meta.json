@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Mech chainsword by NULL882 (GitHub), from Goob-Station",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "mecha_chainsword",
+      "delays": [
+        [0.1, 0.1]
+      ]
+    }
+  ]
+}

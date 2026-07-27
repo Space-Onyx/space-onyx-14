@@ -1,5 +1,7 @@
 research-technology-onyx-basic-cybernetics = Базовая кибернетика
 research-technology-onyx-advanced-cybernetics = Продвинутая кибернетика
+research-technology-basic-cybernatics-upgrade = Базовые кибернетические улучшения
+research-technology-advandec-cybernatics-upgrade = Продвинутые кибернетические улучшения
 
 ent-MedicalBiofabricator = медицинский биофабрикатор
     .desc = Производит органы и биосинтетические части тела из биомассы.

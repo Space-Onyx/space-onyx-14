@@ -328,15 +328,26 @@
     - RoboticsStatic
     - BorgModulesStatic
     - BorgLimbsStatic
+    - MechPartsStatic # <MechProduction>
     dynamicPacks:
     - Robotics
     - BorgModules
     - MechParts
     - MechEquipment
+    - MechPartsAdvanced # <MechProduction>
+    - Modsuits # <ModsuitProduction-edited>
     # <Onyx-Cybernetics>
-    - OnyxBasicCybernetics
-    - OnyxAdvancedCybernetics
+    - BasicCybernetics
+    - AdvancedCybernetics
     # </Onyx-Cybernetics>
+  # <MechProduction>
+  - type: EmagLatheRecipes
+    emagStaticPacks:
+    - MechWeaponsSecurityStatic
+    emagDynamicPacks:
+    - MechWeaponsSalvage
+    - MechWeaponsSecurityLight
+  # </MechProduction>
   - type: MaterialStorage
     whitelist: *StandardMaterialWhitelist
   - type: OreSiloClient
@@ -418,6 +429,7 @@
     - SecurityPracticeStatic
     - SecurityAmmoStatic
     - SecurityWeaponsStatic
+    - MechWeaponsSecurityStatic # <MechProduction>
     - PowerCellsStatic
     - ScienceExplosives
     dynamicPacks:
@@ -427,8 +439,13 @@
     - SecurityAmmo
     - SecurityWeapons
     - SecurityDisablers
+    # <MechProduction>
+    - MechBoardsSecurity
+    - MechWeaponsSecurityLight
+    - MechWeaponsSecurityHeavy
+    # </MechProduction>
     # <Onyx-Cybernetics>
-    - OnyxSecurityCybernetics
+    - SecurityCybernetics
     # </Onyx-Cybernetics>
     - PowerCells
     # </Onyx-DepartmentTechfabRecipes-edited>
@@ -528,7 +545,7 @@
     - OnyxAdvancedSurgery
     # </Onyx-AdvancedSurgery>
     # <Onyx-Cybernetics>
-    - OnyxMedicalCybernetics
+    - MedicalCybernetics
     # </Onyx-Cybernetics>
     - OnyxTranslatorImplanters # <Onyx-LanguageTranslators>
     - PowerCells

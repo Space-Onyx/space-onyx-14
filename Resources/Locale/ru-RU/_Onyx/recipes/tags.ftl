@@ -1,0 +1,12 @@
+construction-graph-tag-clarke-central-control-module = центральный модуль управления Кларка
+construction-graph-tag-clarke-peripherals-control-module = периферийный модуль управления Кларка
+construction-graph-tag-durand-peripherals-control-module = периферийный модуль управления Дюранда
+construction-graph-tag-durand-targeting-control-module = модуль наведения Дюранда
+construction-graph-tag-durand-central-control-module = центральный модуль управления Дюранда
+construction-graph-tag-exosuit-air-tank = воздушный баллон экзокостюма
+construction-graph-tag-exosuit-thruster = двигатель экзокостюма
+construction-graph-tag-durand-armor = броня Дюранда
+construction-graph-tag-gygax-central-control-module = центральный модуль управления Гигакса
+construction-graph-tag-gygax-peripherals-control-module = периферийный модуль управления Гигакса
+construction-graph-tag-gygax-targeting-control-module = модуль наведения Гигакса
+construction-graph-tag-gygax-armor = броня Гигакса

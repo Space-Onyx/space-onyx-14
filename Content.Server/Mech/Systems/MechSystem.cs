@@ -2,8 +2,10 @@ using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Systems;
 using Content.Server.Mech.Components;
 using Content.Shared.ActionBlocker;
+using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DoAfter;
+using Content.Shared.Emp;
 using Content.Shared.FixedPoint;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
@@ -53,9 +55,11 @@ public sealed partial class MechSystem : SharedMechSystem
 
         SubscribeLocalEvent<MechComponent, InteractUsingEvent>(OnInteractUsing);
         SubscribeLocalEvent<MechComponent, EntInsertedIntoContainerMessage>(OnInsertBattery);
+        InitializeBatteryState(); // <MechBatteryState>
         SubscribeLocalEvent<MechComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<MechComponent, GetVerbsEvent<AlternativeVerb>>(OnAlternativeVerb);
         SubscribeLocalEvent<MechComponent, MechOpenUiEvent>(OnOpenUi);
+        InitializeEquipmentSelector(); // <MechEquipmentSelector>
         SubscribeLocalEvent<MechComponent, RemoveBatteryEvent>(OnRemoveBattery);
         SubscribeLocalEvent<MechComponent, MechEntryEvent>(OnMechEntry);
         SubscribeLocalEvent<MechComponent, MechExitEvent>(OnMechExit);
@@ -81,7 +85,7 @@ public sealed partial class MechSystem : SharedMechSystem
 
     private void OnMechCanMoveEvent(EntityUid uid, MechComponent component, UpdateCanMoveEvent args)
     {
-        if (component.Broken || component.Integrity <= 0 || component.Energy <= 0)
+        if (component.Broken || component.Integrity <= 0 || component.Energy <= 0 || HasComp<EmpDisabledComponent>(uid)) // <MechEmp-edited>
             args.Cancel();
     }
 
@@ -111,14 +115,12 @@ public sealed partial class MechSystem : SharedMechSystem
 
     private void OnInsertBattery(EntityUid uid, MechComponent component, EntInsertedIntoContainerMessage args)
     {
-        if (args.Container != component.BatterySlot || !TryComp<BatteryComponent>(args.Entity, out var battery))
+        // <MechBatteryState-edited>
+        if (args.Container != component.BatterySlot || !HasComp<BatteryComponent>(args.Entity))
             return;
 
-        component.Energy = _battery.GetCharge((args.Entity, battery));
-        component.MaxEnergy = battery.MaxCharge;
-
-        Dirty(uid, component);
-        _actionBlocker.UpdateCanMove(uid);
+        SyncBatteryState(uid, component);
+        // </MechBatteryState-edited>
     }
 
     private void OnRemoveBattery(EntityUid uid, MechComponent component, RemoveBatteryEvent args)
@@ -142,12 +144,12 @@ public sealed partial class MechSystem : SharedMechSystem
             InsertEquipment(uid, ent, component);
         }
 
-        // TODO: this should just be damage and battery
-        component.Integrity = component.MaxIntegrity;
-        component.Energy = component.MaxEnergy;
-
-        _actionBlocker.UpdateCanMove(uid);
-        Dirty(uid, component);
+        // <MechState-edited>
+        if (TryComp<DamageableComponent>(uid, out var damageable))
+            component.Integrity = FixedPoint2.Clamp(component.MaxIntegrity - _damageable.GetTotalDamage((uid, damageable)), 0, component.MaxIntegrity);
+        component.Broken = component.Integrity <= 0;
+        // </MechState-edited>
+        SyncBatteryState(uid, component); // <MechBatteryState-edited>
     }
 
     private void OnRemoveEquipmentMessage(EntityUid uid, MechComponent component, MechEquipmentRemoveMessage args)
@@ -168,6 +170,7 @@ public sealed partial class MechSystem : SharedMechSystem
         args.Handled = true;
         ToggleMechUi(uid, component);
     }
+
 
     private void OnToolUseAttempt(EntityUid uid, MechPilotComponent component, ref ToolUserAttemptUseEvent args)
     {
@@ -324,15 +327,13 @@ public sealed partial class MechSystem : SharedMechSystem
         base.BreakMech(uid, component);
 
         _ui.CloseUi(uid, MechUiKey.Key);
+        _ui.CloseUi(uid, MechUiKey.EquipmentSelector); // <MechEquipmentSelector>
         _actionBlocker.UpdateCanMove(uid);
     }
 
     public override bool TryChangeEnergy(EntityUid uid, FixedPoint2 delta, MechComponent? component = null)
     {
         if (!Resolve(uid, ref component))
-            return false;
-
-        if (!base.TryChangeEnergy(uid, delta, component))
             return false;
 
         var battery = component.BatterySlot.ContainedEntity;
@@ -342,16 +343,11 @@ public sealed partial class MechSystem : SharedMechSystem
         if (!TryComp<BatteryComponent>(battery, out var batteryComp))
             return false;
 
-        _battery.SetCharge((battery.Value, batteryComp), _battery.GetCharge((battery.Value, batteryComp)) + delta.Float());
-        // TODO: Power cells are predicted now, so no need to duplicate the charge level
-        var charge = _battery.GetCharge((battery.Value, batteryComp));
-        if (charge != component.Energy) //if there's a discrepency, we have to resync them
-        {
-            Log.Debug($"Battery charge was not equal to mech charge. Battery {charge}. Mech {component.Energy}");
-            component.Energy = charge;
-            Dirty(uid, component);
-        }
-        _actionBlocker.UpdateCanMove(uid);
+        var amount = delta.Float();
+        if (amount < 0 && -amount > _battery.GetCharge((battery.Value, batteryComp)))
+            return false;
+
+        _battery.ChangeCharge((battery.Value, batteryComp), amount);
         return true;
     }
 
@@ -363,14 +359,7 @@ public sealed partial class MechSystem : SharedMechSystem
         if (!Resolve(toInsert, ref battery, false))
             return;
 
-        _container.Insert(toInsert, component.BatterySlot);
-        component.Energy = _battery.GetCharge((toInsert, battery));
-        component.MaxEnergy = battery.MaxCharge;
-
-        _actionBlocker.UpdateCanMove(uid);
-
-        Dirty(uid, component);
-        UpdateUserInterface(uid, component);
+        _container.Insert(toInsert, component.BatterySlot); // <MechBatteryState-edited>
     }
 
     public void RemoveBattery(EntityUid uid, MechComponent? component = null)
@@ -379,13 +368,7 @@ public sealed partial class MechSystem : SharedMechSystem
             return;
 
         _container.EmptyContainer(component.BatterySlot);
-        component.Energy = 0;
-        component.MaxEnergy = 0;
-
-        _actionBlocker.UpdateCanMove(uid);
-
-        Dirty(uid, component);
-        UpdateUserInterface(uid, component);
+        SyncBatteryState(uid, component); // <MechBatteryState-edited>
     }
 
     #region Atmos Handling

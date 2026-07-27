@@ -22,6 +22,29 @@
       state: generic_panel_open
 
 - type: entity
+  id: ComputerShuttleRemoteControlSystemTabletop
+  parent: [BaseStructureComputerTabletop, ComputerShuttleRemoteControlSystem]
+  suffix: Tabletop
+  components:
+  - type: Sprite
+    drawdepth: SmallObjects
+    sprite: _Onyx/Structures/Machines/computer_tabletop.rsi
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      sprite: Structures/Machines/computers.rsi
+      state: teleport
+    - map: ["computerLayerKeys"]
+      sprite: Structures/Machines/computers.rsi
+      state: generic_keys
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      sprite: Structures/Machines/computers.rsi
+      state: generic_panel_open
+
+- type: entity
   id: ComputerCommsTabletop
   parent: [BaseStructureComputerTabletop, ComputerComms]
   suffix: Tabletop

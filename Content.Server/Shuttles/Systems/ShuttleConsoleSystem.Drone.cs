@@ -1,5 +1,11 @@
+// <ShuttleRemoteControl>
+using Content.Server._Onyx.Shuttles.Systems;
+// </ShuttleRemoteControl>
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
+// <ShuttleRemoteControl>
+using Content.Shared.DeviceLinking;
+// </ShuttleRemoteControl>
 using Content.Shared.Station.Components;
 using Content.Shared.UserInterface;
 
@@ -58,6 +64,26 @@ public sealed partial class ShuttleConsoleSystem
     {
         if (!Resolve(uid, ref component))
             return null;
+
+        // <ShuttleRemoteControl-edited>
+        if (_tags.HasTag(uid, ShuttleDroneLinkSystem.RemoteDroneTag))
+        {
+            if (!TryComp<DeviceLinkSourceComponent>(uid, out var source))
+                return null;
+
+            foreach (var (linked, ports) in source.LinkedPorts)
+            {
+                foreach (var port in ports)
+                {
+                    if (port.Source == ShuttleDroneLinkSystem.RemoteDroneSourcePort &&
+                        HasComp<ShuttleConsoleComponent>(linked))
+                        return linked;
+                }
+            }
+
+            return null;
+        }
+        // </ShuttleRemoteControl-edited>
 
         var stationUid = _station.GetOwningStation(uid);
 

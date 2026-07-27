@@ -159,7 +159,7 @@ public abstract partial class SharedGunSystem : EntitySystem
 
         gun.Comp.ShootCoordinates = GetCoordinates(msg.Coordinates);
         gun.Comp.Target = GetEntity(msg.Target);
-        AttemptShoot(user.Value, gun);
+        AttemptShoot(ResolveMechShooter(user.Value), gun); // <MechGuns-edited>
         if (msg.Continuous)
             gun.Comp.ShotCounter = 0;
     }
@@ -198,6 +198,9 @@ public abstract partial class SharedGunSystem : EntitySystem
     public bool TryGetGun(EntityUid entity, out Entity<GunComponent> gun)
     {
         gun = default;
+
+        if (TryGetMechGun(entity, out gun)) // <MechGuns>
+            return true;
 
         if (_hands.GetActiveItem(entity) is { } held &&
             TryComp(held, out GunComponent? gunComp))

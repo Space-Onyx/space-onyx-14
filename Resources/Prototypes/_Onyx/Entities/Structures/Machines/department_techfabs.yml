@@ -102,6 +102,7 @@
     - CargoBoards
     - SharedBoards
     - MechBoardsCargo
+    - MechWeaponsSalvage
     - ShuttleBoards
     - SalvageSecurityBoards
     - SalvageSecurityWeapons
@@ -168,6 +169,11 @@
     - AdvancedRoboticsBoards
     - ScienceBoardsXenobiology
     - OnyxScienceMaterials
+  - type: EmagLatheRecipes
+    emagDynamicPacks:
+    - MechBoardsSecurity
+    - MechBoardsCargo
+    - MechBoardsCivilian
   - type: MaterialStorage
     whitelist: *DepartmentTechFabMaterialWhitelist
   - type: OreSiloClient
@@ -215,6 +221,7 @@
     - Instruments
     - FauxTiles
     - MechBoardsCivilian
+    - MechWeaponsCivilian
     - ServiceBoards
     - SharedBoards
     - CameraBoards

@@ -1,0 +1,91 @@
+- type: entity
+  id: PulseMechHeavy
+  parent: BasicHitscan
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Heat: 30
+        Blunt: 5
+  - type: HitscanBasicVisuals
+    muzzleFlash:
+      sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: muzzle_blue
+    travelFlash:
+      sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: beam_blue
+    impactFlash:
+      sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: impact_blue
+
+- type: entity
+  id: BulletMechKinetic
+  parent: BulletKineticShuttle
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 40
+        Structural: 35
+  - type: TimedDespawn
+    lifetime: 0.3
+  - type: GatheringProjectile
+    enabled: false
+
+- type: entity
+  id: BulletMechTaser
+  parent: BulletTaser
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Shock: 1
+  - type: StunOnCollide
+    stunAmount: 0
+    knockdownAmount: 2.5
+    slowdownAmount: 2.5
+    walkSpeedModifier: 0.5
+    sprintSpeedModifier: 0.5
+
+- type: entity
+  id: BulletMechDisabler
+  parent: BulletDisabler
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: StaminaDamageOnCollide
+    damage: 20
+
+- type: entity
+  id: PelletMechIncendiary
+  parent: PelletShotgunIncendiary
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 3
+        Heat: 3
+
+- type: entity
+  id: PelletMechIncendiarySpread
+  parent: PelletMechIncendiary
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ProjectileSpread
+    proto: PelletMechIncendiary
+    count: 4
+    spread: 15
+
+- type: entity
+  id: BulletMechLightRifle
+  parent: BulletLightRifle
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 19
+      armorPenetration: 0.4

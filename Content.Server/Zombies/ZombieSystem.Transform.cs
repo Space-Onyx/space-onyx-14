@@ -114,6 +114,8 @@ public sealed partial class ZombieSystem
         if (!Resolve(target, ref mobState, logMissing: false))
             return;
 
+        EjectMechPilot(target); // <MechZombieEject>
+
         // Detach role-banned players before zombification
         if (TryComp<ActorComponent>(target, out var actor) && _ban.IsRoleBanned(actor.PlayerSession, BannableZombiePrototypes))
         {

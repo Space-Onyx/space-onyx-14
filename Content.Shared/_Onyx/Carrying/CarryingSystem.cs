@@ -75,7 +75,7 @@ public sealed partial class CarryingSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void Carry(EntityUid carrier, EntityUid carried)
+    public void Carry(EntityUid carrier, EntityUid carried)
     {
         if (TryComp<PullableComponent>(carried, out var pullable))
             _pulling.TryStopPull(carried, pullable);

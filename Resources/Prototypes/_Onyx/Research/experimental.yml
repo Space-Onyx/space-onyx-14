@@ -8,13 +8,67 @@
   tier: 2
   cost: 7500
   recipeUnlocks:
-    - Pinpointer
+    - PinpointerOnyx
     - PinpointerArtifact
     - PinpointerAnomaly
     - PinpointerBorg
-  position: -1,0
+  position: 0,0
   technologyPrerequisites:
     - MagnetsTech
+- type: technology
+  id: AdvancedRobotics
+  name: research-technology-advanced-robotics
+  icon:
+    sprite: Mobs/Silicon/station_ai.rsi
+    state: ai
+  discipline: Experimental
+  tier: 2
+  cost: 7500
+  recipeUnlocks:
+    - AsimovCircuitBoard
+    - CorporateCircuitBoard
+    - NTDefaultCircuitBoard
+    - CommandmentCircuitBoard
+    - PaladinCircuitBoard
+    - LiveLetLiveCircuitBoard
+    - StationEfficiencyCircuitBoard
+    - RobocopCircuitBoard
+    - OverlordCircuitBoard
+    - GameMasterCircuitBoard
+    - ArtistCircuitBoard
+    - NutimovCircuitBoard
+  position: -1,-2
+  technologyPrerequisites:
+    - AlternativeResearch
+    - ModsuitsTech
+- type: technology
+  id: NightVisionTech
+  name: research-technology-night-vision
+  icon:
+    sprite: _Onyx/Clothing/Eyes/Goggles/nightvision.rsi
+    state: icon
+  discipline: Experimental
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+    - ClothingEyesNightVisionGoggles
+  position: -2,-1
+  technologyPrerequisites:
+    - ModsuitsTech
+- type: technology
+  id: ThermalVisionTech
+  name: research-technology-thermal-vision
+  icon:
+    sprite: _Onyx/Clothing/Eyes/Goggles/thermal.rsi
+    state: icon
+  discipline: Experimental
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+    - ClothingEyesThermalVisionGoggles
+  position: -2,0
+  technologyPrerequisites:
+    - ModsuitsTech
 - type: technology
   id: ModsuitsTech
   name: research-technology-modsuits
@@ -31,7 +85,7 @@
     - ModsuitGauntlets
     - ModsuitShell
     - ModsuitPlatingExternal
-  position: -2,-1
+  position: -1,-1
   technologyPrerequisites:
     - MagnetsTech
 - type: technology
@@ -48,9 +102,9 @@
     - XenobiologyBountyComputerCircuitboard
     - SlimeGrinderMachineCircuitboard
     - ClothingBackpackXenoBioTank
-  position: 0,4
+  position: 3,3
   technologyPrerequisites:
-    - BasicXenoArcheology
+    - BasicRobotics
 - type: technology
   id: BluespaceTheory
   name: research-technology-bluespace-theory
@@ -59,57 +113,12 @@
     state: bluespace_crystal
   discipline: Experimental
   tier: 1
-  cost: 5000
-  recipeUnlocks:
-    - MaterialBSCrystal
-  position: -1,-2
-  technologyPrerequisites:
-    - DeterrenceTechnologies
-- type: technology
-  id: ExperimentalScience
-  name: research-technology-experimental-science
-  icon:
-    sprite: Objects/Misc/module.rsi
-    state: std_mod
-  discipline: Experimental
-  tier: 2
   cost: 7500
   recipeUnlocks:
-    - ExperimentalCircuitBoard
-  position: -2,2
+    - MaterialBSCrystal
+  position: -1,3
   technologyPrerequisites:
-    - AdvancedRobotics
-    - AdvancedAnomalyResearch
-# - type: technology
-#   id: XenoBiology
-#   name: research-technology-xeno-biology
-#   icon:
-#     sprite: _White/Mobs/Aliens/Xenomorphs/drone.rsi
-#     state: xenomorph
-#   discipline: Experimental
-#   tier: 2
-#   cost: 15000
-#   recipeUnlocks:
-#     - XenoCompatibilityImplanter
-#   position: -3,1
-#   technologyPrerequisites:
-#     - ExperimentalScience
-#     - ModsuitsTech
-- type: technology
-  id: XenoCompatibility
-  name: research-technology-xeno-compatibility
-  icon:
-    sprite: _Onyx/Clothing/Belt/xenobag_holding.rsi
-    state: icon
-  discipline: Experimental
-  tier: 2
-  cost: 10000
-  recipeUnlocks:
-    - ClothingBeltChemBagXenobiologyHolding
-  position: 1,4
-  technologyPrerequisites:
-    - ExperimentalScience
-
+    - DeterrenceTechnologies
 - type: technology
   id: XenobagHolding
   name: research-technology-xenobag-holding
@@ -120,7 +129,7 @@
   tier: 2
   cost: 10000
   recipeUnlocks:
-  - ClothingBeltChemBagXenobiologyHolding
-  position: -4,3
+    - ClothingBeltChemBagXenobiologyHolding
+  position: 3,2
   technologyPrerequisites:
-  - Xenobiology
+    - Xenobiology

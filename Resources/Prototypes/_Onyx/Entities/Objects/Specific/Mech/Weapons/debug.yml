@@ -1,0 +1,61 @@
+- type: entity
+  id: WeaponMechDebugBallistic
+  parent: [ BaseMechWeaponRange, DebugMechEquipment ]
+  name: debug bang
+  suffix: Mech Weapon, DEBUG, Ballistic
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/SMGs/c20r.rsi
+    state: base
+  - type: Gun
+    minAngle: 24
+    maxAngle: 45
+    angleIncrease: 4
+    angleDecay: 16
+    fireRate: 5
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/lmg.ogg }
+    soundEmpty: { path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg }
+  - type: BatteryAmmoProvider
+    proto: CartridgeLightRifle
+    fireCost: 9
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechDebugLaser
+  parent: [ BaseMechWeaponRange, DebugMechEquipment ]
+  name: debug pow
+  suffix: Mech Weapon, DEBUG, Laser
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Battery/laser_retro.rsi
+    state: base
+  - type: Gun
+    fireRate: 2
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/laser.ogg }
+  - type: BatteryAmmoProvider
+    proto: RedMediumLaser
+    fireCost: 19
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechDebugDisabler
+  parent: [ BaseMechWeaponRange, DebugMechEquipment ]
+  name: debug tew
+  suffix: Mech Weapon, DEBUG, Disabler
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Battery/disabler.rsi
+    state: base
+  - type: Gun
+    fireRate: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/taser2.ogg }
+  - type: BatteryAmmoProvider
+    proto: BulletDisabler
+    fireCost: 19
+  - type: AmmoCounter

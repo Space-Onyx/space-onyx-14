@@ -88,10 +88,11 @@ public sealed partial class WoundSystem : EntitySystem
 
     public IEnumerable<Entity<WoundComponent>> GetWounds(Entity<WoundableComponent?> part)
     {
-        if (!Resolve(part, ref part.Comp, false))
+        if (!Resolve(part, ref part.Comp, false) ||
+            !_containers.TryGetContainer(part.Owner, WoundableComponent.ContainerId, out var container))
             yield break;
 
-        foreach (var wound in part.Comp.WoundsContainer.ContainedEntities)
+        foreach (var wound in container.ContainedEntities)
             if (TryComp(wound, out WoundComponent? component))
                 yield return (wound, component);
     }
@@ -136,7 +137,9 @@ public sealed partial class WoundSystem : EntitySystem
             bleeding.BleedingSeverity = component.Severity;
         }
 
-        if (!_containers.Insert(woundId, part.Comp.WoundsContainer))
+        var woundsContainer = _containers.EnsureContainer<Container>(part.Owner, WoundableComponent.ContainerId);
+        part.Comp.WoundsContainer = woundsContainer;
+        if (!_containers.Insert(woundId, woundsContainer))
         {
             QueueDel(woundId);
             return null;
@@ -216,8 +219,8 @@ public sealed partial class WoundSystem : EntitySystem
 
     private bool RemoveWoundInternal(Entity<WoundComponent> wound)
     {
-        if (TryComp(wound.Comp.HoldingPart, out WoundableComponent? part))
-            _containers.Remove(wound.Owner, part.WoundsContainer);
+        if (_containers.TryGetContainer(wound.Comp.HoldingPart, WoundableComponent.ContainerId, out var container))
+            _containers.Remove(wound.Owner, container);
         var removed = new WoundRemovedEvent(wound.Comp.HoldingPart, wound, wound.Comp.Prototype);
         RaiseLocalEvent(wound.Comp.HoldingPart, ref removed);
         RaiseLocalEvent(wound, ref removed);
@@ -227,10 +230,11 @@ public sealed partial class WoundSystem : EntitySystem
 
     public void ClearWounds(Entity<WoundableComponent?> part)
     {
-        if (!_net.IsServer || !Resolve(part, ref part.Comp, false))
+        if (!_net.IsServer || !Resolve(part, ref part.Comp, false) ||
+            !_containers.TryGetContainer(part.Owner, WoundableComponent.ContainerId, out var container))
             return;
 
-        foreach (var wound in part.Comp.WoundsContainer.ContainedEntities.ToArray())
+        foreach (var wound in container.ContainedEntities.ToArray())
             if (TryComp(wound, out WoundComponent? component))
                 RemoveWoundInternal((wound, component));
     }

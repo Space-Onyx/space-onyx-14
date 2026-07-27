@@ -15,7 +15,7 @@
 
 - type: entity
   id: MechEquipmentGrabber
-  parent: BaseMechEquipment
+  parent: [ BaseMechEquipment, IndustrialMechEquipment ] # <MechEquipmentClasses-edited>
   name: hydraulic clamp
   description: Gives the mech the ability to grab things and drag them around.
   components:
@@ -29,6 +29,11 @@
       - state: inhand-right-big
   - type: MultiHandedItem
   - type: MechGrabber
+    # <MechGrabber>
+    blacklist:
+      tags: [ MechUnGrabbable ]
+      components: [ Mech ]
+    # </MechGrabber>
   - type: UIFragment
     ui: !type:MechGrabberUi
   - type: ContainerContainer
@@ -54,9 +59,15 @@
     maxContents: 4
     grabDelay: 3
     grabEnergyDelta: -20
+    # <MechGrabber>
+    blacklist:
+      tags: [ MechUnGrabbable ]
+      components: [ Mech ]
+    # </MechGrabber>
   - type: Tag
     tags:
     - SmallMech
+    - IndustrialMech # <MechEquipmentClasses>
   - type: UIFragment
     ui: !type:MechGrabberUi
   - type: ContainerContainer
@@ -65,7 +76,7 @@
 
 - type: entity
   id: MechEquipmentHorn
-  parent: BaseMechEquipment
+  parent: [ BaseMechEquipment, SpecialMechEquipment ] # <MechEquipmentClasses-edited>
   name: mech horn
   description: An enhanced bike horn that plays a hilarious array of sounds for the enjoyment of the crew. HONK!
   components:

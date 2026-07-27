@@ -29,6 +29,10 @@ public sealed partial class NavScreen : BoxContainer
 
         DockToggle.OnToggled += OnDockTogglePressed;
         DockToggle.Pressed = NavRadar.ShowDocks;
+
+        // <ShuttleSignalPorts>
+        InitializeSignalPorts();
+        // </ShuttleSignalPorts>
     }
 
     public void SetShuttle(EntityUid? shuttle)

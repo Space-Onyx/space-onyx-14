@@ -51598,7 +51598,7 @@ entities:
     - type: Transform
       pos: 20.885225,-33.223194
       parent: 1668
-- proto: SpawnMechRipley
+- proto: SpawnMechRipley2 # <MechRipleyMKII-edited>
   entities:
   - uid: 4016
     components:

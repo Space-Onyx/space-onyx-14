@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from https://github.com/tgstation/tgstation at https://github.com/tgstation/tgstation/commit/da4d61210600269aaf56a2e309dd31c056252d84",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "mecha_camera"
+    },
+    {
+      "name": "mecha_bin"
+    },
+    {
+      "name": "mecha_air_tank"
+    }
+  ]
+}

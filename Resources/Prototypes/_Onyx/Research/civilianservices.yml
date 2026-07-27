@@ -12,9 +12,9 @@
     - AdvancedRetractor
     - EnergyCautery
     - AdvancedBoneGel
-  position: 1,0
+  position: 4,3
   technologyPrerequisites:
-    - BiochemicalStasis
+    - MechanizedTreatment
 - type: technology
   id: HighEndSurgery
   name: research-technology-onyx-high-end-surgery
@@ -26,11 +26,11 @@
   cost: 15000
   recipeUnlocks:
     - OmnimedTool
-  position: 2,0
+  position: 2,4
   technologyPrerequisites:
-    - AdvancedTreatment
+    - AdvancedCybernaticsUpgrade
 - type: technology
-  id: OnyxBasicTranslation
+  id: BasicTranslation
   name: research-technology-onyx-basic-translation
   icon:
     sprite: _Onyx/Objects/Devices/translator.rsi
@@ -39,23 +39,23 @@
   tier: 2
   cost: 7500
   recipeUnlocks:
-  - ChittinTranslatorRecipe
-  - RootSpeakTranslatorRecipe
-  - MofficTranslatorRecipe
-  - DraconicTranslatorRecipe
-  - BubblishTranslatorRecipe
-  - CalcicTranslatorRecipe
-  - NewKinPidginTranslatorRecipe
-  - CanilunztTranslatorRecipe
-  - SiikMaasTranslatorRecipe
-  - RobotTalkTranslatorRecipe
-  - NekomimeticTranslatorRecipe
-  - SolCommonTranslatorRecipe
-  position: -2,3
-  technologyPrerequisites: [AdvancedEntertainment]
-
+    - ChittinTranslatorRecipe
+    - RootSpeakTranslatorRecipe
+    - MofficTranslatorRecipe
+    - DraconicTranslatorRecipe
+    - BubblishTranslatorRecipe
+    - CalcicTranslatorRecipe
+    - NewKinPidginTranslatorRecipe
+    - CanilunztTranslatorRecipe
+    - SiikMaasTranslatorRecipe
+    - RobotTalkTranslatorRecipe
+    - NekomimeticTranslatorRecipe
+    - SolCommonTranslatorRecipe
+  position: 1,-1
+  technologyPrerequisites:
+    - AdvancedEntertainment
 - type: technology
-  id: OnyxAdvancedTranslation
+  id: AdvancedTranslation
   name: research-technology-onyx-advanced-translation
   icon:
     sprite: Objects/Specific/Medical/implanter.rsi
@@ -64,22 +64,22 @@
   tier: 3
   cost: 10000
   recipeUnlocks:
-  - ChittinTranslatorImplanterRecipe
-  - RootSpeakTranslatorImplanterRecipe
-  - MofficTranslatorImplanterRecipe
-  - DraconicTranslatorImplanterRecipe
-  - BubblishTranslatorImplanterRecipe
-  - CalcicTranslatorImplanterRecipe
-  - NewKinPidginTranslatorImplanterRecipe
-  - CanilunztTranslatorImplanterRecipe
-  - SiikMaasTranslatorImplanterRecipe
-  - RobotTalkTranslatorImplanterRecipe
-  - NekomimeticTranslatorImplanterRecipe
-  - SolCommonTranslatorImplanterRecipe
-  - SignTranslatorImplanterRecipe
-  position: -2,4
-  technologyPrerequisites: [OnyxBasicTranslation]
-
+    - ChittinTranslatorImplanterRecipe
+    - RootSpeakTranslatorImplanterRecipe
+    - MofficTranslatorImplanterRecipe
+    - DraconicTranslatorImplanterRecipe
+    - BubblishTranslatorImplanterRecipe
+    - CalcicTranslatorImplanterRecipe
+    - NewKinPidginTranslatorImplanterRecipe
+    - CanilunztTranslatorImplanterRecipe
+    - SiikMaasTranslatorImplanterRecipe
+    - RobotTalkTranslatorImplanterRecipe
+    - NekomimeticTranslatorImplanterRecipe
+    - SolCommonTranslatorImplanterRecipe
+    - SignTranslatorImplanterRecipe
+  position: 2,-1
+  technologyPrerequisites:
+    - BasicTranslation
 - type: technology
   id: RadioMusicCommunications
   name: research-technology-radio-music-communication
@@ -90,10 +90,70 @@
   tier: 2
   cost: 10000
   recipeUnlocks:
-  - VinylPlayerCircuitboard
-  - TapeDeckCircuitboard
-  - StationRadioServerCircuitboard
-  - StationRadioRigCircuitboard
-  position: 3,3
+    - VinylPlayerCircuitboard
+    - TapeDeckCircuitboard
+    - StationRadioServerCircuitboard
+    - StationRadioRigCircuitboard
+  position: 1,4
   technologyPrerequisites:
-  - AudioVisualCommunication
+    - AudioVisualCommunication
+- type: technology
+  id: HONKWeapons
+  name: research-technology-honk-weapons
+  icon:
+    sprite: Objects/Specific/Mech/mecha_equipment.rsi
+    state: mecha_bananamrtr
+  discipline: CivilianServices
+  tier: 2
+  cost: 6000
+  recipeUnlocks:
+    - MechEquipmentHonkerBananaMortar
+    - MechEquipmentHonkerMousetrapMortar
+  position: -1,4
+  technologyPrerequisites:
+    - HONKMech
+- type: technology
+  id: BasicCybernaticsUpgrade
+  name: research-technology-basic-cybernatics-upgrade
+  icon:
+    sprite: _Onyx/Cybernetics/organs.rsi
+    state: eyes
+  discipline: CivilianServices
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+    - LeftArmCybernetic
+    - RightArmCybernetic
+    - LeftHandCybernetic
+    - RightHandCybernetic
+    - LeftLegCybernetic
+    - RightLegCybernetic
+    - LeftFootCybernetic
+    - RightFootCybernetic
+    - BasicCyberneticEyes
+    - BasicCyberneticHeart
+    - BasicCyberneticLungs
+    - BasicCyberneticLiver
+  position: 4,4
+  technologyPrerequisites:
+    - AdvancedTreatment
+- type: technology
+  id: AdvancedCybernaticsUpgrade
+  name: research-technology-advandec-cybernatics-upgrade
+  icon:
+    sprite: _Onyx/Cybernetics/organs.rsi
+    state: heart-u-on
+  discipline: CivilianServices
+  tier: 3
+  cost: 15000
+  recipeUnlocks:
+    - UpgradedCyberneticHeart
+    - UpgradedCyberneticLungs
+    - JawsOfLifeLeftArm
+    - JawsOfLifeRightArm
+    - SpeedLeftLeg
+    - SpeedRightLeg
+    - DiagnosticCyberneticEyes
+  position: 3,4
+  technologyPrerequisites:
+    - BasicCybernaticsUpgrade

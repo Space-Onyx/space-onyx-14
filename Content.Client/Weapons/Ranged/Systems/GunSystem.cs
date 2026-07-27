@@ -179,8 +179,9 @@ public sealed partial class GunSystem : SharedGunSystem
         }
 
         var entity = entityNull.Value;
+        entity = ResolveMechShootingEntity(entity); // <MechGuns-edited>
 
-        if (!TryGetGun(entity, out var gun))
+        if (!TryGetGun(entityNull.Value, out var gun)) // <MechGuns-edited>
         {
             return;
         }

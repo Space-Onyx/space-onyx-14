@@ -87,6 +87,7 @@ namespace Content.Shared.Damage
         public DamageSpecifier(DamageSpecifier damageSpec)
         {
             DamageDict = new(damageSpec.DamageDict);
+            ArmorPenetration = damageSpec.ArmorPenetration; // <ArmorPenetration>
         }
 
         /// <summary>
@@ -128,7 +129,11 @@ namespace Content.Shared.Damage
             // Make a copy of the given data. Don't modify the one passed to this function. I did this before, and weapons became
             // duller as you hit walls. Neat, but not FixedPoint2ended. And confusing, when you realize your fists don't work no
             // more cause they're just bloody stumps.
-            DamageSpecifier newDamage = new();
+            var penetration = float.IsFinite(damageSpec.ArmorPenetration)
+                ? Math.Clamp(damageSpec.ArmorPenetration, 0f, 1f)
+                : 0f;
+            DamageSpecifier newDamage = new(damageSpec); // <ArmorPenetration-edited>
+            newDamage.DamageDict.Clear(); // <ArmorPenetration>
             newDamage.DamageDict.EnsureCapacity(damageSpec.DamageDict.Count);
 
             foreach (var (key, value) in damageSpec.DamageDict)
@@ -145,10 +150,12 @@ namespace Content.Shared.Damage
                 float newValue = value.Float();
 
                 if (modifierSet.FlatReduction.TryGetValue(key, out var reduction))
-                    newValue = Math.Max(0f, newValue - reduction); // flat reductions can't heal you
+                    newValue = Math.Max(0f, newValue - reduction * (1f - penetration)); // <ArmorPenetration-edited>
 
                 if (modifierSet.Coefficients.TryGetValue(key, out var coefficient))
-                    newValue *= coefficient; // coefficients can heal you, e.g. cauterizing bleeding
+                    newValue *= coefficient is > 0 and < 1
+                        ? MathF.Pow(coefficient, 1f - penetration)
+                        : coefficient; // <ArmorPenetration-edited>
 
                 if (newValue != 0)
                     newDamage.DamageDict[key] = FixedPoint2.New(newValue);
@@ -186,7 +193,8 @@ namespace Content.Shared.Damage
         /// </summary>
         public static DamageSpecifier GetPositive(DamageSpecifier damageSpec)
         {
-            DamageSpecifier newDamage = new();
+            DamageSpecifier newDamage = new(damageSpec);
+            newDamage.DamageDict.Clear();
 
             foreach (var (key, value) in damageSpec.DamageDict)
             {
@@ -202,7 +210,8 @@ namespace Content.Shared.Damage
         /// </summary>
         public static DamageSpecifier GetNegative(DamageSpecifier damageSpec)
         {
-            DamageSpecifier newDamage = new();
+            DamageSpecifier newDamage = new(damageSpec);
+            newDamage.DamageDict.Clear();
 
             foreach (var (key, value) in damageSpec.DamageDict)
             {
@@ -341,7 +350,8 @@ namespace Content.Shared.Damage
         #region Operators
         public static DamageSpecifier operator *(DamageSpecifier damageSpec, FixedPoint2 factor)
         {
-            DamageSpecifier newDamage = new();
+            DamageSpecifier newDamage = new(damageSpec);
+            newDamage.DamageDict.Clear();
             foreach (var entry in damageSpec.DamageDict)
             {
                 newDamage.DamageDict.Add(entry.Key, entry.Value * factor);
@@ -351,7 +361,8 @@ namespace Content.Shared.Damage
 
         public static DamageSpecifier operator *(DamageSpecifier damageSpec, float factor)
         {
-            DamageSpecifier newDamage = new();
+            DamageSpecifier newDamage = new(damageSpec);
+            newDamage.DamageDict.Clear();
             foreach (var entry in damageSpec.DamageDict)
             {
                 newDamage.DamageDict.Add(entry.Key, entry.Value * factor);
@@ -361,7 +372,8 @@ namespace Content.Shared.Damage
 
         public static DamageSpecifier operator /(DamageSpecifier damageSpec, FixedPoint2 factor)
         {
-            DamageSpecifier newDamage = new();
+            DamageSpecifier newDamage = new(damageSpec);
+            newDamage.DamageDict.Clear();
             foreach (var entry in damageSpec.DamageDict)
             {
                 newDamage.DamageDict.Add(entry.Key, entry.Value / factor);
@@ -371,7 +383,8 @@ namespace Content.Shared.Damage
 
         public static DamageSpecifier operator /(DamageSpecifier damageSpec, float factor)
         {
-            DamageSpecifier newDamage = new();
+            DamageSpecifier newDamage = new(damageSpec);
+            newDamage.DamageDict.Clear();
 
             foreach (var entry in damageSpec.DamageDict)
             {
@@ -423,7 +436,7 @@ namespace Content.Shared.Damage
 
         public bool Equals(DamageSpecifier? other)
         {
-            if (other == null || DamageDict.Count != other.DamageDict.Count)
+            if (other == null || ArmorPenetration != other.ArmorPenetration || DamageDict.Count != other.DamageDict.Count)
                 return false;
 
             foreach (var (key, value) in DamageDict)

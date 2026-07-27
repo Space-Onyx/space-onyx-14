@@ -11,6 +11,7 @@ public sealed partial class FractureMobilitySystem : EntitySystem
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private MovementSpeedModifierSystem _movement = default!;
     [Dependency] private WoundFractureSystem _fractures = default!;
+    [Dependency] private FractureAlertSystem _alerts = default!;
 
     public override void Initialize()
     {
@@ -21,6 +22,22 @@ public sealed partial class FractureMobilitySystem : EntitySystem
         SubscribeLocalEvent<WoundFractureComponent, WoundRemovedEvent>(OnRemoved);
         SubscribeLocalEvent<WoundableComponent, OrganGotInsertedEvent>(OnPartChanged);
         SubscribeLocalEvent<WoundableComponent, OrganGotRemovedEvent>(OnPartChanged);
+    }
+
+    private void OnChanged(Entity<WoundFractureComponent> wound, ref FractureGradeChangedEvent args) => Refresh(args.Body);
+    private void OnChanged(Entity<WoundFractureComponent> wound, ref FractureTreatmentChangedEvent args) => Refresh(args.Body);
+    private void OnRemoved(Entity<WoundFractureComponent> wound, ref WoundRemovedEvent args) => RefreshPart(args.Part);
+    private void OnPartChanged(Entity<WoundableComponent> part, ref OrganGotInsertedEvent args) => Refresh(args.Target);
+    private void OnPartChanged(Entity<WoundableComponent> part, ref OrganGotRemovedEvent args) => Refresh(args.Target);
+
+    private void RefreshPart(EntityUid part) => Refresh(CompOrNull<BodyPartComponent>(part)?.Body);
+
+    private void Refresh(EntityUid? body)
+    {
+        if (body is { } uid)
+            _movement.RefreshMovementSpeedModifiers(uid);
+
+        _alerts.Refresh(body);
     }
 
     private void OnRefreshSpeed(Entity<WoundHostComponent> body, ref RefreshMovementSpeedModifiersEvent args)
@@ -39,19 +56,6 @@ public sealed partial class FractureMobilitySystem : EntitySystem
             var treatmentScale = GetTreatmentScale(profile, fracture.Comp2.Treatment);
             args.ModifySpeed(1f - (1f - modifier) * partScale * treatmentScale);
         }
-    }
-
-    private void OnChanged(Entity<WoundFractureComponent> wound, ref FractureGradeChangedEvent args) => Refresh(args.Body);
-    private void OnChanged(Entity<WoundFractureComponent> wound, ref FractureTreatmentChangedEvent args) => Refresh(args.Body);
-    private void OnRemoved(Entity<WoundFractureComponent> wound, ref WoundRemovedEvent args) => RefreshPart(args.Part);
-    private void OnPartChanged(Entity<WoundableComponent> part, ref OrganGotInsertedEvent args) => Refresh(args.Target);
-    private void OnPartChanged(Entity<WoundableComponent> part, ref OrganGotRemovedEvent args) => Refresh(args.Target);
-
-    private void RefreshPart(EntityUid part) => Refresh(CompOrNull<BodyPartComponent>(part)?.Body);
-    private void Refresh(EntityUid? body)
-    {
-        if (body is { } uid)
-            _movement.RefreshMovementSpeedModifiers(uid);
     }
 
     internal static float GetMovementModifier(FractureProfilePrototype profile, FractureGrade grade) => grade switch

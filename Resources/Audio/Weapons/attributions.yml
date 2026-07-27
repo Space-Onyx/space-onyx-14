@@ -18,6 +18,13 @@
   copyright: "User kyles on freesound.org, modified by Errant"
   source: "https://freesound.org/people/kyles/sounds/453260/"
 
+# <MechAssets>
+- files: ["../_Onyx/Weapons/chainsaw.ogg"]
+  license: "Custom"
+  copyright: "https://www.soundjay.com/tos.html"
+  source: "https://www.soundjay.com/chainsaw-sound-effect.html"
+# </MechAssets>
+
 - files: ["guitarsmash.ogg"]
   license: "CC0-1.0"
   copyright: "User Mystovski on freesound.org. Modified by LankLTE on github."

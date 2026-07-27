@@ -127,6 +127,8 @@
     - id: Bola
     - id: Shovel
     - id: WeaponTurretXeno
+    - id: WeaponMechCombatFiredartLaser # <MechDistribution>
+      weight: 0.06 # <MechDistribution>
     - !type:NestedSelector
       tableId: AllToyWeaponsTable
 
@@ -214,6 +216,8 @@
       weight: 0.1
     - id: ClothingEyesGlassesMeson
     - id: MechVim
+    - id: MechClarke # <MechDistribution>
+      weight: 0.1 # <MechDistribution>
     - id: Chainsaw
       weight: 0.1
     - id: Crowbar

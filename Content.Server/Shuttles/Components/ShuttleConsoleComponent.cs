@@ -1,4 +1,8 @@
 using System.Numerics;
+// <ShuttleSignalPorts>
+using Content.Shared.DeviceLinking;
+using Robust.Shared.Prototypes;
+// </ShuttleSignalPorts>
 using Content.Shared.Shuttles.Components;
 
 namespace Content.Server.Shuttles.Components
@@ -20,5 +24,16 @@ namespace Content.Server.Shuttles.Components
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite), DataField("whitelistSpecific")]
         public List<EntityUid> FTLWhitelist = new List<EntityUid>();
+
+        // <ShuttleSignalPorts>
+        [DataField]
+        public List<ProtoId<SourcePortPrototype>> SourcePorts =
+        [
+            "SignalShuttleConsole1",
+            "SignalShuttleConsole2",
+            "SignalShuttleConsole3",
+            "SignalShuttleConsole4",
+        ];
+        // </ShuttleSignalPorts>
     }
 }

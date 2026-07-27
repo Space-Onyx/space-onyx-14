@@ -61,5 +61,17 @@
             Text="{Loc 'shuttle-console-dock-toggle'}"
             TextAlign="Center"
             ToggleMode="True"/>
+        <!-- <ShuttleSignalPorts> -->
+        <controls:StripeBack MinSize="48 48" Margin="0 5 0 0">
+            <Label
+                Text="{Loc 'shuttle-console-network-ports'}"
+                VerticalExpand="True"
+                HorizontalAlignment="Center"/>
+        </controls:StripeBack>
+        <Button Name="DeviceButton1" Text="{Loc 'signal-port-name-shuttle-1'}" TextAlign="Center"/>
+        <Button Name="DeviceButton2" Text="{Loc 'signal-port-name-shuttle-2'}" TextAlign="Center"/>
+        <Button Name="DeviceButton3" Text="{Loc 'signal-port-name-shuttle-3'}" TextAlign="Center"/>
+        <Button Name="DeviceButton4" Text="{Loc 'signal-port-name-shuttle-4'}" TextAlign="Center"/>
+        <!-- </ShuttleSignalPorts> -->
     </BoxContainer>
 </BoxContainer>

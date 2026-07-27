@@ -47,6 +47,8 @@ public abstract partial class SharedSprintingSystem : EntitySystem
         SubscribeLocalEvent<SprinterComponent, KnockedDownEvent>(OnDisabled);
         SubscribeLocalEvent<SprinterComponent, StunnedEvent>(OnDisabled);
         SubscribeLocalEvent<SprinterComponent, DownedEvent>(OnDisabled);
+        SubscribeLocalEvent<SprinterComponent, ComponentShutdown>(OnSprinterShutdown);
+        SubscribeLocalEvent<StaminaComponent, ComponentRemove>(OnStaminaRemoved);
         SubscribeLocalEvent<CuffableComponent, SprintAttemptEvent>(OnCuffableAttempt);
         SubscribeLocalEvent<StandingStateComponent, SprintAttemptEvent>(OnStandingAttempt);
         SubscribeLocalEvent<BuckleComponent, SprintAttemptEvent>(OnBuckleAttempt);
@@ -85,16 +87,19 @@ public abstract partial class SharedSprintingSystem : EntitySystem
 
     private void HandleSprintInput(ICommonSession? session, IFullInputCmdMessage message)
     {
-        if (session?.AttachedEntity is not { } uid ||
+        if (session?.AttachedEntity is not { } user)
+            return;
+
+        var uid = _mover.GetEffectiveMover(user);
+        if (
             !TryComp(uid, out SprinterComponent? sprinter) ||
             !TryComp(uid, out InputMoverComponent? mover) ||
             !sprinter.IsSprinting && _mover.GetVelocityInput(mover).Sprinting == Vector2.Zero)
             return;
 
-        if (!sprinter.CanSprint || !HasComp<StaminaComponent>(uid))
+        if (message.State == BoundKeyState.Down && (!sprinter.CanSprint || !HasComp<StaminaComponent>(uid)))
         {
-            if (message.State == BoundKeyState.Down)
-                _popup.PopupEntity(Loc.GetString("sprint-disabled"), uid, uid, PopupType.Medium);
+            _popup.PopupEntity(Loc.GetString("sprint-disabled"), uid, user, PopupType.Medium);
             return;
         }
 
@@ -107,7 +112,10 @@ public abstract partial class SharedSprintingSystem : EntitySystem
     public void ToggleSprint(EntityUid uid, SprinterComponent component, bool enabled)
     {
         if (enabled == component.IsSprinting ||
-            enabled && (!CanSprint(uid) || _timing.CurTime - component.LastSprint < component.TimeBetweenSprints))
+            enabled && (!component.CanSprint ||
+                !HasComp<StaminaComponent>(uid) ||
+                !CanSprint(uid) ||
+                _timing.CurTime - component.LastSprint < component.TimeBetweenSprints))
             return;
 
         component.IsSprinting = enabled;
@@ -159,6 +167,12 @@ public abstract partial class SharedSprintingSystem : EntitySystem
             args.Cancel();
     }
 
+    public void StopSprint(EntityUid uid)
+    {
+        if (TryComp<SprinterComponent>(uid, out var sprinter))
+            ToggleSprint(uid, sprinter, false);
+    }
+
     private void OnMobStateChanged(Entity<SprinterComponent> ent, ref MobStateChangedEvent args)
     {
         if (ent.Comp.IsSprinting && args.NewMobState is MobState.Critical or MobState.Dead)
@@ -190,6 +204,18 @@ public abstract partial class SharedSprintingSystem : EntitySystem
     {
         if (ent.Comp.IsSprinting)
             ToggleSprint(ent, ent.Comp, false);
+    }
+
+    private void OnSprinterShutdown(Entity<SprinterComponent> ent, ref ComponentShutdown args)
+    {
+        if (ent.Comp.IsSprinting && MetaData(ent).EntityLifeStage < EntityLifeStage.Terminating)
+            _movementSpeed.RefreshMovementSpeedModifiers(ent.Owner);
+    }
+
+    private void OnStaminaRemoved(Entity<StaminaComponent> ent, ref ComponentRemove args)
+    {
+        if (TryComp<SprinterComponent>(ent, out var sprinter) && sprinter.IsSprinting)
+            ToggleSprint(ent, sprinter, false);
     }
 
     private sealed class SprintInputCmdHandler(SharedSprintingSystem system) : InputCmdHandler

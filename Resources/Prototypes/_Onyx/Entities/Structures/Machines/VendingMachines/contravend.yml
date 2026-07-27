@@ -1,0 +1,18 @@
+- type: entity
+  id: VendingMachineContravend
+  parent: [ StorePresetContravend, VendingMachineSyndieDrobe ]
+  name: ContraVend
+  description: Wanted across multiple sectors.
+  components:
+  - type: Store
+    balance:
+      Telecrystal: 100
+  - type: UserInterface
+    interfaces:
+      enum.StoreUiKey.Key:
+        type: StoreBoundUserInterface
+  - type: ActivatableUI
+    key: enum.StoreUiKey.Key
+  - type: Tag
+    tags:
+    - ContravendUplink

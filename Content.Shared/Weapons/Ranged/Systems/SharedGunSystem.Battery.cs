@@ -61,8 +61,14 @@ public abstract partial class SharedGunSystem
 
     private void OnBatteryTakeAmmo(Entity<BatteryAmmoProviderComponent> ent, ref TakeAmmoEvent args)
     {
+        // <MechGuns-edited>
+        UpdateShots(ent);
         var shots = Math.Min(args.Shots, ent.Comp.Shots);
 
+        if (shots == 0)
+            return;
+
+        shots = TakeCharge(ent, shots);
         if (shots == 0)
             return;
 
@@ -71,7 +77,8 @@ public abstract partial class SharedGunSystem
             args.Ammo.Add(GetShootable(ent, args.Coordinates));
         }
 
-        TakeCharge(ent, shots);
+        UpdateShots(ent);
+        // </MechGuns-edited>
     }
 
     private void OnBatteryAmmoCount(Entity<BatteryAmmoProviderComponent> ent, ref GetAmmoCountEvent args)
@@ -83,11 +90,15 @@ public abstract partial class SharedGunSystem
     /// <summary>
     /// Use up the required amount of battery charge for firing.
     /// </summary>
-    public void TakeCharge(Entity<BatteryAmmoProviderComponent> ent, int shots = 1)
+    public int TakeCharge(Entity<BatteryAmmoProviderComponent> ent, int shots = 1)
     {
+        if (TryTakeMechCharge(ent, shots) is { } mechShots) // <MechGuns>
+            return mechShots;
+
         // Take charge from either the BatteryComponent or PowerCellSlotComponent.
         var ev = new ChangeChargeEvent(-ent.Comp.FireCost * shots);
         RaiseLocalEvent(ent, ref ev);
+        return Math.Abs(ev.ResidualValue) < 0.001f ? shots : 0;
         // UpdateShots is already called by the resulting ChargeChangedEvent
     }
 
@@ -181,6 +192,9 @@ public abstract partial class SharedGunSystem
     /// </summary>
     public (int, int) GetShots(Entity<BatteryAmmoProviderComponent> ent)
     {
+        if (TryGetMechShots(ent) is { } mechShots) // <MechGuns>
+            return mechShots;
+
         var ev = new GetChargeEvent();
         RaiseLocalEvent(ent, ref ev);
         var currentShots = (int)(ev.CurrentCharge / ent.Comp.FireCost);

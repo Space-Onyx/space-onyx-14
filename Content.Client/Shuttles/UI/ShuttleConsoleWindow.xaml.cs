@@ -62,6 +62,10 @@ public sealed partial class ShuttleConsoleWindow : FancyWindow,
         {
             UndockRequest?.Invoke(entity);
         };
+
+        // <ShuttleSignalPorts>
+        InitializeSignalPorts();
+        // </ShuttleSignalPorts>
     }
 
     private void ClearModes(ShuttleConsoleMode mode)

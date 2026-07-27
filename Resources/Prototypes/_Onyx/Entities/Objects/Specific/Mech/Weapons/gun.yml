@@ -1,0 +1,313 @@
+- type: entity
+  id: WeaponMechCombatPulseRifle
+  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  name: eZ-14 mk2 heavy pulse rifle
+  description: Fires a heavy pulse laser.
+  components:
+  - type: Sprite
+    state: mecha_pulse
+  - type: Gun
+    fireRate: 1.5
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/laser3.ogg }
+  - type: BatteryAmmoProvider
+    proto: PulseMechHeavy
+    fireCost: 40
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechCombatImmolationGun
+  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  name: ZFI immolation beam gun
+  description: Fires high-temperature beams.
+  components:
+  - type: Sprite
+    state: mecha_laser
+  - type: Gun
+    fireRate: 1.5
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg }
+  - type: BatteryAmmoProvider
+    proto: RedHeavyLaser
+    fireCost: 30
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechCombatSolarisLaser
+  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  name: CH-LC Solaris laser cannon
+  description: A rapid-fire combat laser cannon.
+  components:
+  - type: Sprite
+    state: mecha_laser
+  - type: Gun
+    fireRate: 3
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/laser.ogg }
+  - type: BatteryAmmoProvider
+    proto: RedMediumLaser
+    fireCost: 30
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechCombatFiredartLaser
+  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  name: CH-PS Firedart laser
+  description: Standard combat-mounted laser armament.
+  components:
+  - type: Sprite
+    state: mecha_laser
+  - type: Gun
+    fireRate: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/laser.ogg }
+  - type: BatteryAmmoProvider
+    proto: RedLaser
+    fireCost: 10
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechCombatTeslaCannon
+  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  name: P-X tesla cannon
+  description: Fires experimental Tesla energy balls.
+  components:
+  - type: Sprite
+    state: mecha_wholegen
+  - type: Gun
+    projectileSpeed: 6
+    fireRate: 0.4
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot:
+      path: /Audio/Effects/Lightning/lightningshock.ogg
+      params: { variation: 0.2 }
+  - type: BatteryAmmoProvider
+    proto: TeslaGunBullet
+    fireCost: 99
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechCombatDisabler
+  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  name: CH-PD disabler
+  description: A non-lethal mounted disabler.
+  components:
+  - type: Sprite
+    state: mecha_disabler
+  - type: Gun
+    fireRate: 5
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/taser2.ogg }
+  - type: BatteryAmmoProvider
+    proto: BulletMechDisabler
+    fireCost: 10
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechCombatTaser
+  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  name: PBT Pacifier mounted taser
+  description: A mounted non-lethal taser.
+  components:
+  - type: Sprite
+    state: mecha_taser
+  - type: Gun
+    fireRate: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/taser2.ogg }
+  - type: BatteryAmmoProvider
+    proto: BulletMechTaser
+    fireCost: 19
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechCombatShotgun
+  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  name: LBX AC 10 Scattershot
+  description: A mounted anti-personnel shotgun.
+  components:
+  - type: Sprite
+    state: mecha_scatter
+  - type: Gun
+    fireRate: 1.5
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/shotgun.ogg }
+  - type: BatteryAmmoProvider
+    proto: ShellShotgun
+    fireCost: 30
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechCombatShotgunIncendiary
+  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  name: FNX-99 Hades carbine
+  description: A mounted shotgun loaded with incendiary shells.
+  components:
+  - type: Sprite
+    state: mecha_carbine
+  - type: Gun
+    fireRate: 1.2
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/shotgun.ogg }
+  - type: BatteryAmmoProvider
+    proto: ShellMechIncendiary
+    fireCost: 40
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechCombatUltraRifle
+  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  name: Ultra AC-2
+  description: A rapid-fire mounted rifle.
+  components:
+  - type: Sprite
+    state: mecha_uac2
+  - type: Gun
+    fireRate: 6
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/shotgun.ogg }
+  - type: BatteryAmmoProvider
+    proto: CartridgeMechLightRifle
+    fireCost: 5
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechCombatMissileRack8
+  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  name: SRM-8 light missile rack
+  description: Launches low-explosive breaching missiles.
+  components:
+  - type: Sprite
+    state: mecha_missilerack
+  - type: Gun
+    fireRate: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/rpgfire.ogg }
+  - type: BatteryAmmoProvider
+    proto: BulletWeakRocket
+    fireCost: 25
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechCombatMissileRack6
+  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  name: BRM-6 missile rack
+  description: A heavy mounted grenade rack.
+  components:
+  - type: Sprite
+    state: mecha_missilerack_six
+  - type: Gun
+    fireRate: 0.5
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/rpgfire.ogg }
+  - type: BatteryAmmoProvider
+    proto: GrenadeBlast
+    fireCost: 300
+  - type: Battery
+    maxCharge: 300
+    startingCharge: 300
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechCombatFlashbangLauncher
+  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  name: SGL-6 flashbang launcher
+  description: A mounted flash grenade launcher.
+  components:
+  - type: Sprite
+    state: mecha_grenadelnchr
+  - type: Gun
+    fireRate: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/grenade_launcher.ogg }
+    soundEmpty: { path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg }
+  - type: BatteryAmmoProvider
+    proto: GrenadeFlash
+    fireCost: 30
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechIndustrialKineticAccelerator
+  parent: [ BaseMechWeaponRange, IndustrialMechEquipment ]
+  name: proto-kinetic launcher
+  description: Fires powerful kinetic bolts at medium range.
+  components:
+  - type: Sprite
+    state: mecha_kineticgun
+  - type: Gun
+    fireRate: 0.5
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    projectileSpeed: 25
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/kinetic_accel.ogg }
+  - type: BatteryAmmoProvider
+    proto: BulletMechKinetic
+    fireCost: 0.1
+  - type: AmmoCounter
+  - type: MechKineticUpgrade
+  - type: UpgradeableGun
+    maxUpgradeCount: 1
+    whitelist:
+      tags: [ PKAUpgrade ]
+  - type: ContainerContainer
+    containers:
+      upgrades: !type:Container
+
+- type: entity
+  id: WeaponMechSpecialMousetrapMortar
+  parent: [ BaseMechWeaponRange, SpecialMechEquipment ]
+  name: mousetrap mortar
+  description: Mounted mousetrap launcher.
+  components:
+  - type: Sprite
+    state: mecha_mousetrapmrtr
+  - type: Gun
+    minAngle: 24
+    maxAngle: 45
+    angleIncrease: 4
+    angleDecay: 16
+    fireRate: 0.5
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/grenade_launcher.ogg }
+    soundEmpty: { path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg }
+  - type: BatteryAmmoProvider
+    proto: MousetrapArmed
+    fireCost: 100
+  - type: AmmoCounter
+
+- type: entity
+  id: WeaponMechSpecialBananaMortar
+  parent: [ BaseMechWeaponRange, SpecialMechEquipment ]
+  name: banana mortar
+  description: Mounted banana peel launcher.
+  components:
+  - type: Sprite
+    state: mecha_bananamrtr
+  - type: Gun
+    minAngle: 24
+    maxAngle: 25
+    angleIncrease: 4
+    angleDecay: 16
+    fireRate: 0.5
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot: { path: /Audio/Weapons/Guns/Gunshots/grenade_launcher.ogg }
+    soundEmpty: { path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg }
+  - type: BatteryAmmoProvider
+    proto: TrashBananaPeel
+    fireCost: 100
+  - type: AmmoCounter

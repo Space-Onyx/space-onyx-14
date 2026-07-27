@@ -9,8 +9,8 @@
 - type: entity
   parent: BaseMechAction
   id: ActionMechCycleEquipment
-  name: Cycle
-  description: Cycles currently selected equipment
+  name: Select equipment # <MechEquipmentSelector-edited>
+  description: Selects the active equipment module # <MechEquipmentSelector-edited>
   components:
   - type: Action
     useDelay: 0.5

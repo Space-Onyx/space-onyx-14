@@ -1,6 +1,12 @@
 research-technology-advanced-robotics = Advanced robotics
+research-technology-modsuits = Modular Technologies
 research-technology-pinpointing = Pinpointing Technologies
 research-technology-night-vision = Night Vision Technology
 research-technology-thermal-vision = Thermal Vision Technology
 research-technology-xenobiology = Slime Handling Equipment
 research-technology-xenobag-holding = Bluespace Slime Storage
+research-technology-ripley-mkii = Ripley MK-II
+research-technology-honk-weapons = Bananium Weapons
+research-technology-gygax = Gygax (Requires CentComm intervention)
+research-technology-explosive-mech-ammunition = Explosive Mech Ammunition
+research-technology-durand = Durand (Requires CentComm intervention)

@@ -5,6 +5,11 @@
   components:
   - type: MobMover
   - type: Mech
+    # <MechPilotBlacklist>
+    pilotBlacklist:
+      components:
+      - Zombie
+    # </MechPilotBlacklist>
   - type: MechAir
   - type: AirFilter
     # everything except oxygen and nitrogen
@@ -16,6 +21,10 @@
     - Ammonia
     - NitrousOxide
     - Frezon
+    # <MechBalance>
+    - BZ
+    - Nitrium
+    # </MechBalance>
     #- Helium3 TODO: fusion
     # remove everything except oxygen to maintain oxygen ratio
     overflowGases:
@@ -27,6 +36,12 @@
     - Ammonia
     - NitrousOxide
     - Frezon
+    # <MechBalance>
+    - BZ
+    - Healium
+    - Nitrium
+    - Pluoxium
+    # </MechBalance>
     #- Helium3 TODO: fusion
   - type: AirIntake
   # for intake and filter to work
@@ -41,6 +56,8 @@
     interfaces:
       enum.MechUiKey.Key:
         type: MechBoundUserInterface
+      enum.MechUiKey.EquipmentSelector: # <MechEquipmentSelector>
+        type: MechEquipmentSelectorBoundUserInterface
   - type: MeleeWeapon
     hidden: true
     attackRate: 0.75
@@ -54,9 +71,24 @@
     needsHands: false
   - type: InputMover
   - type: InteractionOutline
+  # <MechLights>
+  - type: UnpoweredFlashlight
+  - type: PointLight
+    enabled: false
+    softness: 5 # <MechLights-edited>
+    autoRot: true # <MechLights-edited>
+    mask: /Textures/Effects/LightMasks/cone.png # <MechLights-edited>
+    radius: 7 # <MechLights-edited>
+    energy: 3 # <MechLights-edited>
+  # </MechLights>
   - type: MovementSpeedModifier
-    baseWalkSpeed: 1
-    baseSprintSpeed: 2
+    baseWalkSpeed: 1.25 # <MechSpeed-edited>
+    baseSprintSpeed: 1.25 # <MechSpeed-edited>
+  # <MechSprint>
+  - type: Sprinter
+    sprintSpeedMultiplier: 1
+  - type: Stamina
+  # </MechSprint>
   - type: Tag
     tags:
     - DoorBumpOpener
@@ -84,10 +116,11 @@
       mech-pilot-slot: !type:ContainerSlot
       mech-equipment-container: !type:Container
       mech-battery-slot: !type:ContainerSlot
+      paper_label: !type:ContainerSlot # <MechBalance>
   - type: Damageable
-    damageModifierSet: Metallic
+    damageModifierSet: LightArmor # <MechBalance-edited>
   - type: Injurable
-    damageContainer: Inorganic
+    damageContainer: Silicon # <MechBalance-edited>
   - type: FootstepModifier
     footstepSoundCollection:
       path: /Audio/Mecha/mechmove03.ogg
@@ -98,7 +131,7 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 400
+        damage: 1000 # <MechBalance-edited>
       behaviors:
       - !type:PlaySoundBehavior
         sound:
@@ -107,10 +140,24 @@
         node: start
       - !type:DoActsBehavior
         acts: ["Destruction"]
+  # <MechBalance>
+  - type: PaperLabel
+    labelSlot:
+      insertVerbText: comp-paper-label-insert
+      ejectVerbText: comp-paper-label-eject
+      whitelist:
+        components:
+        - Paper
+      blacklist:
+        tags:
+        - Book
+  - type: StaticPrice
+    price: 450
+  # </MechBalance>
 
 - type: entity
   id: MechRipley
-  parent: BaseMech
+  parent: [ BaseMech, IndustrialMech, BaseCargoContraband ] # <MechBalance-edited>
   name: Ripley APLU
   description: Versatile and lightly armored, the Ripley is useful for almost any heavy work scenario. The "APLU" stands for Autonomous Power Loading Unit.
   components:
@@ -137,10 +184,11 @@
     attackRate: 1
     damage:
       types:
-        Blunt: 14 #intentionally shit so people realize that going into combat with the ripley is usually a bad idea.
+        Blunt: 25 # <MechBalance-edited>
+        Structural: 30 # <MechBalance>
   - type: MovementSpeedModifier
-    baseWalkSpeed: 2.25
-    baseSprintSpeed: 3.6
+    baseWalkSpeed: 2.8 # <MechSpeed-edited>
+    baseSprintSpeed: 2.8 # <MechSpeed-edited>
 
 - type: entity
   id: MechRipleyBattery
@@ -154,7 +202,7 @@
 
 # TODO: have a whitelist for honker equipment
 - type: entity
-  parent: BaseMech
+  parent: [ BaseMech, SpecialMech, BaseCivilianContraband ] # <MechBalance-edited>
   id: MechHonker
   name: H.O.N.K.
   description: "Produced by \"Tyranny of Honk, INC\", this exosuit is designed as heavy clown-support. Used to spread the fun and joy of life. HONK!"
@@ -176,9 +224,13 @@
     openState: honker-open
     brokenState: honker-broken
     mechToPilotDamageMultiplier: 0.5
+    airtight: true # <MechBalance>
     pilotWhitelist:
       components:
       - HumanoidProfile
+  - type: MovementSpeedModifier # <MechBalance>
+    baseWalkSpeed: 2.5 # <MechSpeed-edited>
+    baseSprintSpeed: 3.1 # <MechSpeed-edited>
 
 - type: entity
   parent: MechHonker
@@ -191,7 +243,7 @@
       - PowerCellHigh
 
 - type: entity
-  parent: BaseMech
+  parent: [ BaseMech, SmallMech ] # <MechEquipmentClasses-edited>
   id: MechHamtr
   name: HAMTR
   description: "An experimental mech which uses a brain–computer interface to connect directly to a hamsters brain."
@@ -227,8 +279,8 @@
         Blunt: 10 #thwack
         Structural: 2
   - type: MovementSpeedModifier
-    baseWalkSpeed: 2.4
-    baseSprintSpeed: 3.7
+    baseWalkSpeed: 3 # <MechSpeed-edited>
+    baseSprintSpeed: 3 # <MechSpeed-edited>
 
 - type: entity
   parent: MechHamtr
@@ -290,8 +342,8 @@
         Blunt: 10 #thwack
         Structural: 2
   - type: MovementSpeedModifier
-    baseWalkSpeed: 2.25
-    baseSprintSpeed: 3.6
+    baseWalkSpeed: 2.8 # <MechSpeed-edited>
+    baseSprintSpeed: 2.8 # <MechSpeed-edited>
   - type: Access
     tags:
     - Maintenance

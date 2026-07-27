@@ -1,5 +1,7 @@
 research-technology-onyx-basic-cybernetics = Basic cybernetics
 research-technology-onyx-advanced-cybernetics = Advanced cybernetics
+research-technology-basic-cybernatics-upgrade = Basic cybernetic upgrades
+research-technology-advandec-cybernatics-upgrade = Advanced cybernetic upgrades
 
 ent-MedicalBiofabricator = medical biofabricator
     .desc = Produces organs and bio-synthetic body parts from biomass.

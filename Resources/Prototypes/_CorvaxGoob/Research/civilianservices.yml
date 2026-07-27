@@ -8,12 +8,11 @@
   tier: 2
   cost: 10000
   recipeUnlocks:
-  - FillableMedipen
-  - MachineMedipenRefillerCircuitboard
-  position: -1,0
+    - FillableMedipen
+    - MachineMedipenRefillerCircuitboard
+  position: 4,3
   technologyPrerequisites:
-  - BiochemicalStasis
-
+    - BiochemicalStasis
 - type: technology
   id: Cloning
   name: research-technology-cloning
@@ -24,9 +23,9 @@
   tier: 3
   cost: 20000
   recipeUnlocks:
-  - CloningConsoleComputerCircuitboard
-  - CloningPodMachineCircuitboard
-  - MedicalScannerMachineCircuitboard
-  position: 0,-1
+    - CloningConsoleComputerCircuitboard
+    - CloningPodMachineCircuitboard
+    - MedicalScannerMachineCircuitboard
+  position: 4,2
   technologyPrerequisites:
-  - BiochemicalStasis
+    - BluespaceChemistry

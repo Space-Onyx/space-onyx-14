@@ -1,0 +1,19 @@
+- type: cargoBounty
+  id: BountyClarke
+  reward: 20000
+  description: clarke-bounty-desc
+  entries:
+  - name: clarke-bounty-name
+    amount: 1
+    whitelist:
+      tags: [ Clarke ]
+
+- type: cargoBounty
+  id: BountyRipleyMkII
+  reward: 15000
+  description: ripley-mkii-bounty-desc
+  entries:
+  - name: ripley-mkii-bounty-name
+    amount: 1
+    whitelist:
+      tags: [ RipleyMkII ]

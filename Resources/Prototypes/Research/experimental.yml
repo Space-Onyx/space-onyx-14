@@ -9,7 +9,7 @@
   cost: 5000
   recipeUnlocks:
     - ProximitySensor
-  position: 0,3
+  position: 2,0
   technologyPrerequisites: []
 - type: technology
   id: BasicAnomalousResearch
@@ -26,7 +26,7 @@
     - AnomalyLocatorWide
     - APECircuitboard
     - AnomalyVesselCircuitboard
-  position: 1,3
+  position: 1,0
   technologyPrerequisites:
     - BasicRobotics
 - type: technology
@@ -42,7 +42,7 @@
     - NodeScanner
     - AnalysisComputerCircuitboard
     - ArtifactAnalyzerMachineCircuitboard
-  position: 1,4
+  position: 1,3
   technologyPrerequisites:
     - BasicRobotics
 - type: technology
@@ -56,7 +56,7 @@
   cost: 5000
   recipeUnlocks:
     - TechDiskComputerCircuitboard
-  position: 1,2
+  position: 1,-1
   technologyPrerequisites:
     - BasicRobotics
 - type: technology
@@ -71,9 +71,9 @@
   recipeUnlocks:
     - ClothingShoesBootsMagSci
     - ClothingShoesBootsMoon
-  position: 3,4
+  position: 0,-1
   technologyPrerequisites:
-    - BasicXenoArcheology
+    - BasicRobotics
 - type: technology
   id: AnomalyCoreHarnessing
   name: research-technology-anomaly-harnessing
@@ -85,8 +85,9 @@
   cost: 10000
   recipeUnlocks:
     - WeaponGauntletGorilla
-  position: 2,3
+  position: 1,2
   technologyPrerequisites:
+    - BasicXenoArcheology
     - BasicAnomalousResearch
 - type: technology
   id: AbnormalArtifactManipulation
@@ -99,7 +100,7 @@
   cost: 5000
   recipeUnlocks:
     - ArtifactCrusherMachineCircuitboard
-  position: 2,4
+  position: 0,3
   technologyPrerequisites:
     - BasicXenoArcheology
 - type: technology
@@ -115,7 +116,7 @@
     - WeaponPistolCHIMP
     - AnomalySynchronizerCircuitboard
     - AnomalyVesselExperimentalCircuitboard
-  position: 3,3
+  position: 0,1
   technologyPrerequisites:
     - BasicAnomalousResearch
 - type: technology
@@ -130,9 +131,9 @@
   recipeUnlocks:
     - WeaponParticleDecelerator
     - HoloprojectorField
-  position: 2,2
+  position: -1,1
   technologyPrerequisites:
-    - AlternativeResearch
+    - AdvancedAnomalyResearch
 - type: technology
   id: GravityManipulation
   name: research-technology-gravity-manipulation
@@ -145,10 +146,10 @@
   recipeUnlocks:
     - WeaponForceGun
     - WeaponTetherGun
-  position: 4,4
+  position: 0,2
   technologyPrerequisites:
+    - AdvancedAnomalyResearch
     - AbnormalArtifactManipulation
-    - MagnetsTech
 - type: technology
   id: QuantumLeaping
   name: research-technology-quantum-leaping
@@ -160,9 +161,8 @@
   cost: 10000
   recipeUnlocks:
     - DeviceQuantumSpinInverter
-  position: 5,3
+  position: -2,3
   technologyPrerequisites:
-    - GravityManipulation
     - BluespaceTheory
 - type: technology
   id: BluespaceTimeManipulation
@@ -175,6 +175,6 @@
   cost: 10000
   recipeUnlocks:
     - DeviceDesynchronizer
-  position: 5,4
+  position: -2,1
   technologyPrerequisites:
     - QuantumLeaping

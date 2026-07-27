@@ -41,9 +41,11 @@ public sealed partial class BuildMech : IGraphAction
             return;
         }
 
+        // <MechAssembly-edited>
         if (container.ContainedEntities.Count != 1)
         {
             Logger.Warning($"Mech construct entity {uid} did not have exactly one item in the specified '{Container}' container! Aborting build mech action.");
+            return;
         }
 
         var cell = container.ContainedEntities[0];
@@ -54,16 +56,26 @@ public sealed partial class BuildMech : IGraphAction
             return;
         }
 
-        containerSystem.Remove(cell, container);
-
         var transform = entityManager.GetComponent<TransformComponent>(uid);
         var mech = entityManager.SpawnEntity(MechPrototype, transform.Coordinates);
 
-        if (entityManager.TryGetComponent<MechComponent>(mech, out var mechComp) && mechComp.BatterySlot.ContainedEntity == null)
+        if (!entityManager.TryGetComponent<MechComponent>(mech, out var mechComp) ||
+            mechComp.BatterySlot.ContainedEntity != null)
         {
-            mechSys.InsertBattery(mech, cell, mechComp, batteryComponent);
-            containerSystem.Insert(cell, mechComp.BatterySlot);
+            Logger.Warning($"Built mech entity {mech} did not have an empty battery slot! Aborting build mech action.");
+            entityManager.DeleteEntity(mech);
+            return;
         }
+
+        mechSys.InsertBattery(mech, cell, mechComp, batteryComponent);
+        if (mechComp.BatterySlot.ContainedEntity != cell)
+        {
+            Logger.Warning($"Could not transfer battery {cell} into built mech entity {mech}! Aborting build mech action.");
+            containerSystem.Insert(cell, container);
+            entityManager.DeleteEntity(mech);
+            return;
+        }
+        // </MechAssembly-edited>
 
         var entChangeEv = new ConstructionChangeEntityEvent(mech, uid);
         entityManager.EventBus.RaiseLocalEvent(uid, entChangeEv);

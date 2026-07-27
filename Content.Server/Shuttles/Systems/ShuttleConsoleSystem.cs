@@ -1,4 +1,9 @@
 using Content.Server.Power.EntitySystems;
+// <ShuttleSignalPorts>
+using Content.Server.DeviceLinking.Systems;
+using Content.Shared._Onyx.Shuttles.Events;
+using Content.Shared.DeviceLinking;
+// </ShuttleSignalPorts>
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
 using Content.Server.Station.Systems;
@@ -37,6 +42,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     [Dependency] private UserInterfaceSystem _ui = default!;
     [Dependency] private SharedContentEyeSystem _eyeSystem = default!;
     [Dependency] private EntityQuery<PilotComponent> _pilotQuery = default!;
+    [Dependency] private DeviceLinkSystem _deviceLink = default!; // <ShuttleSignalPorts>
 
     private static readonly ProtoId<TagPrototype> CanPilotTag = "CanPilot";
 
@@ -53,7 +59,10 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             subs.Event<ShuttleConsoleFTLBeaconMessage>(OnBeaconFTLMessage);
             subs.Event<ShuttleConsoleFTLPositionMessage>(OnPositionFTLMessage);
             subs.Event<BoundUIClosedEvent>(OnConsoleUIClose);
+            subs.Event<ShuttlePortButtonPressedMessage>(OnShuttlePortButtonPressed); // <ShuttleSignalPorts>
         });
+
+        SubscribeLocalEvent<ShuttleConsoleComponent, ComponentStartup>(OnConsoleStartup); // <ShuttleSignalPorts>
 
         SubscribeLocalEvent<DroneConsoleComponent, ConsoleShuttleEvent>(OnCargoGetConsole);
         SubscribeLocalEvent<DroneConsoleComponent, AfterActivatableUIOpenEvent>(OnDronePilotConsoleOpen);

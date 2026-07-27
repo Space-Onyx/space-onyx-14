@@ -1,4 +1,7 @@
 using Content.Client.Shuttles.UI;
+// <ShuttleSignalPorts>
+using Content.Shared._Onyx.Shuttles.Events;
+// </ShuttleSignalPorts>
 using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.Shuttles.Events;
 using JetBrains.Annotations;
@@ -26,7 +29,15 @@ public sealed class ShuttleConsoleBoundUserInterface : BoundUserInterface
         _window.RequestBeaconFTL += OnFTLBeaconRequest;
         _window.DockRequest += OnDockRequest;
         _window.UndockRequest += OnUndockRequest;
+        _window.NetworkPortButtonPressed += OnNetworkPortButtonPressed; // <ShuttleSignalPorts>
     }
+
+    // <ShuttleSignalPorts>
+    private void OnNetworkPortButtonPressed(string sourcePort)
+    {
+        SendMessage(new ShuttlePortButtonPressedMessage { SourcePort = sourcePort });
+    }
+    // </ShuttleSignalPorts>
 
     private void OnUndockRequest(NetEntity entity)
     {

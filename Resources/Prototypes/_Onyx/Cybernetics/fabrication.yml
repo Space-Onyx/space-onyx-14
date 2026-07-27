@@ -27,7 +27,7 @@
     runningState: building
     unlitIdleState: unlit
     unlitRunningState: unlit-building
-    staticPacks: [ OnyxBiofabricatorParts ]
+    staticPacks: [ BiofabricatorParts ]
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -57,7 +57,7 @@
   result: MedicalBiofabMachineBoard
 
 - type: latheRecipePack
-  id: OnyxBiofabricatorParts
+  id: BiofabricatorParts
   recipes:
   - SynthHeart
   - SynthLungs
@@ -75,7 +75,7 @@
   - SynthRightFoot
 
 - type: latheRecipePack
-  id: OnyxBasicCybernetics
+  id: BasicCybernetics
   recipes:
   - LeftArmCybernetic
   - RightArmCybernetic
@@ -91,7 +91,7 @@
   - BasicCyberneticLiver
 
 - type: latheRecipePack
-  id: OnyxAdvancedCybernetics
+  id: AdvancedCybernetics
   recipes:
   - UpgradedCyberneticHeart
   - UpgradedCyberneticLungs
@@ -102,11 +102,11 @@
   - DiagnosticCyberneticEyes
 
 - type: latheRecipePack
-  id: OnyxMedicalCybernetics
+  id: MedicalCybernetics
   recipes: [ MedicalCyberneticEyes ]
 
 - type: latheRecipePack
-  id: OnyxSecurityCybernetics
+  id: SecurityCybernetics
   recipes: [ SecurityCyberneticEyes ]
 
 - type: latheRecipe
@@ -195,119 +195,119 @@
 
 - type: latheRecipe
   abstract: true
-  id: OnyxCyberneticRecipeBase
+  id: CyberneticRecipeBase
   categories: [ Robotics ]
   completetime: 5
   materials: { Steel: 1000, Glass: 500, Plastic: 500, Gold: 300, Silver: 300 }
 
 - type: latheRecipe
-  parent: OnyxCyberneticRecipeBase
+  parent: CyberneticRecipeBase
   id: LeftArmCybernetic
   result: LeftArmCybernetic
 
 - type: latheRecipe
-  parent: OnyxCyberneticRecipeBase
+  parent: CyberneticRecipeBase
   id: RightArmCybernetic
   result: RightArmCybernetic
 
 - type: latheRecipe
-  parent: OnyxCyberneticRecipeBase
+  parent: CyberneticRecipeBase
   id: LeftHandCybernetic
   result: LeftHandCybernetic
 
 - type: latheRecipe
-  parent: OnyxCyberneticRecipeBase
+  parent: CyberneticRecipeBase
   id: RightHandCybernetic
   result: RightHandCybernetic
 
 - type: latheRecipe
-  parent: OnyxCyberneticRecipeBase
+  parent: CyberneticRecipeBase
   id: LeftLegCybernetic
   result: LeftLegCybernetic
 
 - type: latheRecipe
-  parent: OnyxCyberneticRecipeBase
+  parent: CyberneticRecipeBase
   id: RightLegCybernetic
   result: RightLegCybernetic
 
 - type: latheRecipe
-  parent: OnyxCyberneticRecipeBase
+  parent: CyberneticRecipeBase
   id: LeftFootCybernetic
   result: LeftFootCybernetic
 
 - type: latheRecipe
-  parent: OnyxCyberneticRecipeBase
+  parent: CyberneticRecipeBase
   id: RightFootCybernetic
   result: RightFootCybernetic
 
 - type: latheRecipe
-  parent: OnyxCyberneticRecipeBase
+  parent: CyberneticRecipeBase
   id: BasicCyberneticEyes
   result: BasicCyberneticEyes
 
 - type: latheRecipe
-  parent: OnyxCyberneticRecipeBase
+  parent: CyberneticRecipeBase
   id: BasicCyberneticHeart
   result: BasicCyberneticHeart
 
 - type: latheRecipe
-  parent: OnyxCyberneticRecipeBase
+  parent: CyberneticRecipeBase
   id: BasicCyberneticLiver
   result: BasicCyberneticLiver
 
 - type: latheRecipe
-  parent: OnyxCyberneticRecipeBase
+  parent: CyberneticRecipeBase
   id: BasicCyberneticLungs
   result: BasicCyberneticLungs
 
 - type: latheRecipe
   abstract: true
-  parent: OnyxCyberneticRecipeBase
-  id: OnyxAdvancedCyberneticRecipeBase
+  parent: CyberneticRecipeBase
+  id: AdvancedCyberneticRecipeBase
   completetime: 10
   materials: { Steel: 2000, Glass: 1000, Plastic: 1000, Gold: 1000, Silver: 600 }
 
 - type: latheRecipe
-  parent: OnyxAdvancedCyberneticRecipeBase
+  parent: AdvancedCyberneticRecipeBase
   id: UpgradedCyberneticHeart
   result: UpgradedCyberneticHeart
 
 - type: latheRecipe
-  parent: OnyxAdvancedCyberneticRecipeBase
+  parent: AdvancedCyberneticRecipeBase
   id: UpgradedCyberneticLungs
   result: UpgradedCyberneticLungs
 
 - type: latheRecipe
-  parent: OnyxAdvancedCyberneticRecipeBase
+  parent: AdvancedCyberneticRecipeBase
   id: JawsOfLifeLeftArm
   result: JawsOfLifeLeftArm
 
 - type: latheRecipe
-  parent: OnyxAdvancedCyberneticRecipeBase
+  parent: AdvancedCyberneticRecipeBase
   id: JawsOfLifeRightArm
   result: JawsOfLifeRightArm
 
 - type: latheRecipe
-  parent: OnyxAdvancedCyberneticRecipeBase
+  parent: AdvancedCyberneticRecipeBase
   id: SpeedLeftLeg
   result: SpeedLeftLeg
 
 - type: latheRecipe
-  parent: OnyxAdvancedCyberneticRecipeBase
+  parent: AdvancedCyberneticRecipeBase
   id: SpeedRightLeg
   result: SpeedRightLeg
 
 - type: latheRecipe
-  parent: OnyxAdvancedCyberneticRecipeBase
+  parent: AdvancedCyberneticRecipeBase
   id: MedicalCyberneticEyes
   result: MedicalCyberneticEyes
 
 - type: latheRecipe
-  parent: OnyxAdvancedCyberneticRecipeBase
+  parent: AdvancedCyberneticRecipeBase
   id: SecurityCyberneticEyes
   result: SecurityCyberneticEyes
 
 - type: latheRecipe
-  parent: OnyxAdvancedCyberneticRecipeBase
+  parent: AdvancedCyberneticRecipeBase
   id: DiagnosticCyberneticEyes
   result: DiagnosticCyberneticEyes
