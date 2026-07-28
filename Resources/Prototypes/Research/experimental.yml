@@ -180,3 +180,20 @@
   position: -3,3
   technologyPrerequisites:
     - QuantumLeaping
+  - DeviceDesynchronizer
+- type: technology
+  id: TeleSci
+  name: research-technology-telesci
+  icon:
+    sprite: Effects/portal.rsi
+    state: portal-artifact
+  discipline: Experimental
+  tier: 3
+  cost: 10000
+  position: -3,2
+  technologyPrerequisites:
+    - BluespaceTheory
+  recipeUnlocks:
+  - StationTeleportersControlCircuitboard
+  - StationTeleporterMachineCircuitboard
+  - TeleporterChipBlank

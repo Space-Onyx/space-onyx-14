@@ -23,6 +23,7 @@
   - DeviceQuantumSpinInverter
   - DeviceDesynchronizer
   - ClothingBackpackHarmpack
+  - TeleporterChipBlank
 
 - type: latheRecipePack
   id: ScienceClothing
@@ -79,8 +80,11 @@
   - AnomalySynchronizerCircuitboard
   - APECircuitboard
   - ArtifactAnalyzerMachineCircuitboard
-  - ArtifactCrusherMachineCircuitboard # <Onyx-SeedDnaResearch-edited>
+  - ArtifactCrusherMachineCircuitboard
  # </Onyx-GoobDepartmentBoards-edited>
+  - ArtifactCrusherMachineCircuitboard
+  - StationTeleportersControlCircuitboard
+  - StationTeleporterMachineCircuitboard
 
 - type: latheRecipePack
   id: CameraBoards
