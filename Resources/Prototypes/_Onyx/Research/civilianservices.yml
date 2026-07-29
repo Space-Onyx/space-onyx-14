@@ -14,7 +14,7 @@
     - AdvancedBoneGel
     - BorgModuleAdvancedSurgery
     - DefibrillatorCompact
-  position: 2,4
+  position: 1,4
   technologyPrerequisites:
     - MechanizedTreatment
 - type: technology
@@ -28,7 +28,7 @@
   cost: 15000
   recipeUnlocks:
     - OmnimedTool
-  position: 1,3
+  position: 1,7
   technologyPrerequisites:
     - AdvancedCybernaticsUpgrade
 - type: technology
@@ -156,6 +156,6 @@
     - SpeedLeftLeg
     - SpeedRightLeg
     - DiagnosticCyberneticEyes
-  position: 1,4
+  position: 1,6
   technologyPrerequisites:
     - BasicCybernaticsUpgrade

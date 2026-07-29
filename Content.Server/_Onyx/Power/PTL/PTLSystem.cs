@@ -40,9 +40,9 @@ public sealed partial class PTLSystem : EntitySystem
     [Dependency] private SharedBatterySystem _battery = default!;
     [Dependency] private RadiationSystem _radiation = default!;
 
-    [ValidatePrototypeId<StackPrototype>] private readonly string _creditStack = "Credit";
-    [ValidatePrototypeId<TagPrototype>] private readonly string _screwdriverTag = "Screwdriver";
-    [ValidatePrototypeId<TagPrototype>] private readonly string _multitoolTag = "Multitool";
+    private static readonly ProtoId<StackPrototype> CreditStack = "Credit";
+    private static readonly ProtoId<TagPrototype> ScrewdriverTag = "Screwdriver";
+    private static readonly ProtoId<TagPrototype> MultitoolTag = "Multitool";
 
     private readonly SoundPathSpecifier _cashSound = new("/Audio/Effects/kaching.ogg");
     private readonly SoundPathSpecifier _sparkSound = new("/Audio/Effects/sparks4.ogg");
@@ -152,7 +152,7 @@ public sealed partial class PTLSystem : EntitySystem
         if (args.Handled)
             return;
 
-        if (_tag.HasTag(args.Used, _screwdriverTag))
+        if (_tag.HasTag(args.Used, ScrewdriverTag))
         {
             var delay = ent.Comp.ShootDelay + ent.Comp.ShootDelayIncrement;
             ent.Comp.ShootDelay = delay > ent.Comp.ShootDelayThreshold.Max
@@ -165,11 +165,11 @@ public sealed partial class PTLSystem : EntitySystem
             return;
         }
 
-        if (!_tag.HasTag(args.Used, _multitoolTag) || !Transform(ent).Anchored)
+        if (!_tag.HasTag(args.Used, MultitoolTag) || !Transform(ent).Anchored)
             return;
 
         if (ent.Comp.SpesosHeld > 0)
-            _stack.SpawnAtPosition((int) ent.Comp.SpesosHeld, _prototypes.Index<StackPrototype>(_creditStack), Transform(args.User).Coordinates);
+            _stack.SpawnAtPosition((int) ent.Comp.SpesosHeld, _prototypes.Index(CreditStack), Transform(args.User).Coordinates);
         ent.Comp.SpesosHeld = 0;
         _popup.PopupEntity(Loc.GetString("ptl-interact-spesos"), ent, args.User);
         _audio.PlayPvs(_cashSound, args.User);

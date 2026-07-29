@@ -41,6 +41,7 @@
   # <Onyx-Surgery>
   - BoneGel
   - MedicalStitches
+  - Bonesetter
   # </Onyx-Surgery>
 
 - type: latheRecipePack
@@ -107,7 +108,6 @@
   - LauncherSyringe
   - MiniSyringe
   - AdvancedJetInjector
-  - DefibrillatorCompact # <Onyx-CompactDefibrillator>
 
 - type: latheRecipePack
   id: MedicalBoards

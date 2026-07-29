@@ -542,6 +542,7 @@
     dynamicPacks:
     - Chemistry
     - MedicalBoards
+    - RescueEquipment # <Onyx-RescueEquipment>
     # <Onyx-CorvaxGoobMedicalTechnology>
     - MedipenFilling
     - Cloning

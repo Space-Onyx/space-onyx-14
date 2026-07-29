@@ -1,0 +1,15 @@
+- type: entity
+  id: LockerShaftMiner
+  parent: LockerBase
+  name: shaft miner's locker
+  description: Contains equipment useful for planet exploration.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Storage/mining_closet.rsi
+  - type: Appearance
+  - type: EntityStorageVisuals
+    stateBaseClosed: mining
+    stateDoorOpen: mining_open
+    stateDoorClosed: mining_door
+  - type: AccessReader
+    access: [["Salvage"]]

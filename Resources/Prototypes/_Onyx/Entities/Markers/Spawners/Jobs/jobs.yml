@@ -65,3 +65,15 @@
     layers:
     - state: green
     - state: lawyer
+
+- type: entity
+  id: SpawnPointShaftMiner
+  parent: SpawnPointJobBase
+  name: shaft miner
+  components:
+  - type: SpawnPoint
+    job_id: ShaftMiner
+  - type: Sprite
+    layers:
+    - state: green
+    - state: salvagespecialist

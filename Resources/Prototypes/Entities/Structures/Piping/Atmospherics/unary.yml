@@ -28,6 +28,14 @@
   placement:
     mode: AlignAtmosPipeLayers # <Onyx-AtmosUnaryAltLayers-edited>
   components:
+    # <Onyx-VentCrawling>
+    - type: VentCrawlerTube
+      containerId: VentCrawlerTube
+    - type: VentCrawlerEntry
+    - type: ContainerContainer
+      containers:
+        VentCrawlerTube: !type:Container
+    # </Onyx-VentCrawling>
     - type: ApcPowerReceiver
     - type: ExtensionCableReceiver
     - type: DeviceNetwork
@@ -123,6 +131,16 @@
     - type: GuideHelp
       guides:
       - PassiveVent
+    # <Onyx-VentCrawling>
+    - type: VentCrawlerEntry
+    - type: VentCrawlerTube
+      containerId: VentCrawlerTube
+    - type: ContainerContainer
+      containers:
+        VentCrawlerTube: !type:Container
+    - type: Weldable
+      time: 3
+    # </Onyx-VentCrawling>
 
 - type: entity
   parent: [GasUnaryBase, AirSensorBase]
@@ -132,6 +150,14 @@
   placement:
     mode: AlignAtmosPipeLayers # <Onyx-AtmosUnaryAltLayers-edited>
   components:
+    # <Onyx-VentCrawling>
+    - type: VentCrawlerTube
+      containerId: VentCrawlerTube
+    - type: VentCrawlerEntry
+    - type: ContainerContainer
+      containers:
+        VentCrawlerTube: !type:Container
+    # </Onyx-VentCrawling>
     - type: ApcPowerReceiver
     - type: ExtensionCableReceiver
     - type: DeviceNetwork
@@ -239,6 +265,15 @@
     - type: GuideHelp
       guides:
       - AirInjector
+    # <Onyx-VentCrawling>
+    - type: VentCrawlerTube
+      containerId: VentCrawlerTube
+    - type: VentCrawlerJunction
+      degrees: [0]
+    - type: ContainerContainer
+      containers:
+        VentCrawlerTube: !type:Container
+    # </Onyx-VentCrawling>
 
 - type: entity
   parent: [ BaseMachinePowered, ConstructibleMachine ]

@@ -14,7 +14,7 @@
     - ClothingMaskWeldingGas
     - ClothingShoesBootsJump
     - MechEquipmentDrill
-  position: 2,1
+  position: 1,1
   technologyPrerequisites:
     - SpaceScanning
 - type: technology
@@ -45,9 +45,9 @@
     - PowerCellHigh
     - TurboItemRechargerCircuitboard
     - SMESAdvancedMachineCircuitboard
-  position: 3,0
+  position: 4,1
   technologyPrerequisites:
-    - IndustrialEngineering
+    - AdvancedToolsTechnology
 - type: technology
   id: MechanicalCompression
   name: research-technology-mechanical-compression
@@ -108,9 +108,9 @@
   recipeUnlocks:
     - ThermomachineFreezerMachineCircuitBoard
     - GasRecyclerMachineCircuitboard
-  position: 4,2
+  position: 2,1
   technologyPrerequisites:
-    - IndustrialEngineering
+    - MechanicalCompression
 - type: technology
   id: RipleyAPLU
   name: research-technology-ripley-aplu
@@ -129,10 +129,10 @@
     - RipleyCentralElectronics
     - RipleyPeripheralsElectronics
     - MechEquipmentGrabber
-  position: 2,0
+  position: 1,0
   technologyPrerequisites:
     - SalvageEquipment
-    - AdvancedPowercells
+    - BasicRobotics
 - type: technology
   id: Shuttlecraft
   name: research-technology-shuttlecraft
@@ -143,14 +143,14 @@
   tier: 2
   cost: 10000
   recipeUnlocks:
-    - ShuttleRemoteControlSystemCircuitboard # <ShuttleRemoteControl>
+    - ShuttleRemoteControlSystemCircuitboard
     - ShuttleConsoleCircuitboard
     - ThrusterMachineCircuitboard
     - GyroscopeMachineCircuitboard
     - MiniGravityGeneratorCircuitboard
-  position: 4,1
+  position: 4,2
   technologyPrerequisites:
-    - AtmosphericTech
+    - IndustrialEngineering
 - type: technology
   id: AdvancedAtmospherics
   name: research-technology-advanced-atmospherics
@@ -164,7 +164,7 @@
     - HellfireFreezerMachineCircuitBoard
     - PortableScrubberMachineCircuitBoard
     - HolofanProjector
-  position: 4,3
+  position: 2,0
   technologyPrerequisites:
     - AtmosphericTech
 - type: technology
@@ -183,9 +183,9 @@
     - BorgModuleAdvancedTool
     - Fulton
     - FultonBeacon
-  position: 4,0
+  position: 3,1
   technologyPrerequisites:
-    - Shuttlecraft
+    - IndustrialEngineering
 - type: technology
   id: MassExcavation
   name: research-technology-excavation
@@ -202,9 +202,9 @@
     - BorgModuleAdvancedMining
     - SalvageExpeditionsComputerCircuitboard
     - MechEquipmentDrillDiamond
-  position: 2,-1
+  position: 0,1
   technologyPrerequisites:
-    - RipleyAPLU
+    - SalvageEquipment
 - type: technology
   id: BluespaceStorage
   name: research-technology-bluespace-storage
@@ -218,11 +218,13 @@
     - ClothingBackpackHolding
     - ClothingBackpackSatchelHolding
     - ClothingBackpackDuffelHolding
-  position: 4,-1
+    - ClothingBackpackMessengerHolding
+  position: 3,0
   technologyPrerequisites:
     - OptimizedMicrogalvanism
     - AdvancedToolsTechnology
     - BluespaceTheory
+    - AtmosphericTech
 - type: technology
   id: OptimizedMicrogalvanism
   name: research-technology-optimized-microgalvanism
@@ -235,6 +237,6 @@
   recipeUnlocks:
     - PowerCellMicroreactor
     - PowerCellHyper
-  position: 3,-1
+  position: 4,0
   technologyPrerequisites:
     - AdvancedPowercells

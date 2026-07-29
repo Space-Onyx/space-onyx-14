@@ -51,13 +51,13 @@
   cost: 7500
   recipeUnlocks:
     - WeaponLaserCarbine
-    - WeaponTemperatureGun # <Onyx-GoobEnergyWeaponry>
+    - WeaponTemperatureGun
     - WeaponEnergyIonRifle
     - WeaponMechCombatFiredartLaser
-    - PowerCellIonRevolver # <Onyx-GoobEnergyWeaponry>
-  position: 2,2
+    - PowerCellIonRevolver
+  position: 1,2
   technologyPrerequisites:
-    - WeaponLaserCellRevolverTech
+    - DraconicMunitions
 - type: technology
   id: NonlethalAmmunition
   name: research-technology-nonlethal-ammunition
@@ -73,10 +73,9 @@
     - BoxBeanbag
     - WeaponDisabler
     - WeaponMechCombatDisabler
-  position: 0,4
+  position: -1,3
   technologyPrerequisites:
     - SalvageWeapons
-# <Onyx-RestraintTechnology>
 - type: technology
   id: RestraintTechnology
   name: research-technology-restraint
@@ -90,8 +89,8 @@
     - ClothingMaskMuzzleSecure
     - ClothingMaskMuzzleShock
   position: -1,5
-  technologyPrerequisites: []
-# </Onyx-RestraintTechnology>
+  technologyPrerequisites:
+    - NonlethalAmmunition
 - type: technology
   id: UraniumMunitions
   name: research-technology-uranium-munitions
@@ -129,7 +128,7 @@
     - TelescopicShield
     - HoloprojectorSecurity
     - WeaponDisablerSMG
-  position: 0,5
+  position: 0,4
   technologyPrerequisites:
     - NonlethalAmmunition
 - type: technology
@@ -165,9 +164,9 @@
   cost: 5000
   recipeUnlocks:
     - ClothingBackpackElectropack
-  position: -1,5
+  position: 0,5
   technologyPrerequisites:
-    - AdvancedRiotControl
+    - RestraintTechnology
 - type: technology
   id: ConcentratedLaserWeaponry
   name: research-technology-concentrated-laser-weaponry
@@ -180,9 +179,9 @@
   recipeUnlocks:
     - WeaponLaserCannon
     - WeaponMechCombatSolarisLaser
-  position: 2,1
+  position: 2,2
   technologyPrerequisites:
-    - WeaponLaserCellRevolverTech
+    - WeaponizedLaserManipulation
 - type: technology
   id: WaveParticleHarnessing
   name: research-technology-wave-particle-harnessing
@@ -198,7 +197,7 @@
     - PowerCellXrayRevolver
     - PowerCellXraySMG
     - PowerCellXraySniper
-  position: 3,2
+  position: 2,1
   technologyPrerequisites:
     - WeaponizedLaserManipulation
 - type: technology
@@ -216,7 +215,7 @@
     - PKAUpgradeFireRate
     - PKAUpgradePressure
     - PKAUpgradeSpace
-  position: -1,3
+  position: 0,2
   technologyPrerequisites:
     - SalvageWeapons
     - SalvageEquipment
@@ -239,7 +238,7 @@
     - ShuttleGunSvalinnMachineGunCircuitboard
     - ShuttleGunPerforatorCircuitboard
     - ShuttleGunFriendshipCircuitboard
-  position: 0,1
+  position: -1,2
   technologyPrerequisites:
     - Shuttlecraft
 - type: technology
@@ -253,9 +252,10 @@
   cost: 10000
   recipeUnlocks:
     - ClothingBackpackHarmpack
-  position: -1,4
+  position: 2,6
   technologyPrerequisites:
     - SpecialMeans
+    - Gygax
 - type: technology
   id: PortableMicrofusionWeaponry
   name: research-technology-portable-microfusion-weaponry
@@ -269,9 +269,9 @@
     - WeaponAdvancedLaser
     - PortableRecharger
     - WeaponMechCombatImmolationGun
-  position: 4,1
+  position: 6,1
   technologyPrerequisites:
-    - ConcentratedLaserWeaponry
+    - WaveParticleHarnessing
 - type: technology
   id: EnergyBoltBasedWeaponry
   name: research-technology-energy-bolt-weaponry
@@ -286,9 +286,9 @@
     - EnergyMagRifleIon
     - EnergyMagRifleDisabler
     - EnergyMagRifleLethal
-  position: 3,3
+  position: 4,2
   technologyPrerequisites:
-    - WaveParticleHarnessing
+    - WeaponLaserCellRevolverTech
 - type: technology
   id: AdvancedShuttleWeapon
   name: research-technology-advanced-shuttle-weapon
@@ -302,6 +302,6 @@
     - GrenadeEMP
     - PowerCageHigh
     - ShuttleGunDusterCircuitboard
-  position: 0,0
+  position: -1,1
   technologyPrerequisites:
     - BasicShuttleArmament

@@ -103,8 +103,10 @@ public sealed partial class RadioSystem : EntitySystem
         var evt = new TransformSpeakerNameEvent(messageSource, MetaData(messageSource).EntityName);
         RaiseLocalEvent(messageSource, evt);
 
-        var name = evt.VoiceName;
-        name = FormattedMessage.EscapeText(name);
+        // <Onyx-RadioJobTitles-edited>
+        var name = FormattedMessage.EscapeText(evt.VoiceName);
+        var radioName = AddJobTitle(messageSource, radioSource, name);
+        // </Onyx-RadioJobTitles-edited>
 
         SpeechVerbPrototype speech;
         if (evt.SpeechVerb != null && ProtoMan.Resolve(evt.SpeechVerb, out var evntProto))
@@ -142,7 +144,7 @@ public sealed partial class RadioSystem : EntitySystem
             ("fontSize", loudspeakerFontSize ?? speech.FontSize), // <Onyx-Loudspeaker-edited>
             ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
             ("channel", $"\\[{channel.LocalizedName}\\]"),
-            ("name", name),
+            ("name", radioName), // <Onyx-RadioJobTitles-edited>
             ("message", inlineFormattedMessage) // <Onyx-InlineActions>
         );
 

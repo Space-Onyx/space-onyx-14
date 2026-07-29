@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from tgstation at commit https://github.com/tgstation/tgstation/commit/97803f23f8a7e47fd510dc7c3a478c86824156f2",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    { "name": "generic" },
+    { "name": "generic_door" },
+    { "name": "locked" },
+    { "name": "unlocked" },
+    { "name": "welded" },
+    { "name": "cargo" },
+    { "name": "cargo_open" },
+    { "name": "salvage_door" },
+    { "name": "mining" },
+    { "name": "mining_open" },
+    { "name": "mining_door" }
+  ]
+}

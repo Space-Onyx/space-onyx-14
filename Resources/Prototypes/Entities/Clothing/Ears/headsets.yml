@@ -53,6 +53,10 @@
   name: cargo headset
   description: A headset used by supply employees.
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#b48b57"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -93,6 +97,10 @@
   name: CentComm headset
   description: A headset used by the upper echelons of Nanotrasen.
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#2681a5"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -109,6 +117,10 @@
   name: command headset
   description: A headset with a commanding channel.
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#fcdf03"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -124,6 +136,10 @@
   name: engineering headset
   description: A headset for engineers to chat while the station burns around them.
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#ff733c"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -153,6 +169,10 @@
   name: medical headset
   description: A headset for the trained staff of the medbay.
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#57b8f0"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -182,6 +202,10 @@
   name: science headset
   description: A sciency headset. Like usual.
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#cd7ccd"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -243,6 +267,10 @@
   name: security headset
   description: This is used by your elite security force.
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#ff4242"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -259,6 +287,10 @@
   name: brigmedic headset
   description: A headset that helps to hear the death cries.
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#ff4242"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -276,6 +308,10 @@
   name: service headset
   description: Headset used by the service staff, tasked with keeping the station full, happy and clean.
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#539c00"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -292,6 +328,10 @@
   name: freelancer headset
   description: This is used by a roaming group of freelancers.
   components:
+    # <Onyx-RadioJobTitles>
+    - type: Headset
+      color: "#f6ce64"
+    # </Onyx-RadioJobTitles>
     - type: ContainerFill
       containers:
         key_slots:
@@ -307,6 +347,10 @@
   name: wizard headset
   description: A headset used by the dreaded space wizards.
   components:
+    # <Onyx-RadioJobTitles>
+    - type: Headset
+      color: "#35d389"
+    # </Onyx-RadioJobTitles>
     - type: ContainerFill
       containers:
         key_slots:

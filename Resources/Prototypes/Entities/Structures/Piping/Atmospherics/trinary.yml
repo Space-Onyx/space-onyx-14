@@ -78,6 +78,15 @@
     - type: GuideHelp
       guides:
       - MixingAndFiltering
+    # <Onyx-VentCrawling>
+    - type: VentCrawlerTube
+      containerId: VentCrawlerTube
+    - type: VentCrawlerJunction
+      degrees: [0, -90, 180]
+    - type: ContainerContainer
+      containers:
+        VentCrawlerTube: !type:Container
+    # </Onyx-VentCrawling>
 
 - type: entity
   parent: GasFilter
@@ -177,6 +186,15 @@
     - type: GuideHelp
       guides:
       - MixingAndFiltering
+    # <Onyx-VentCrawling>
+    - type: VentCrawlerTube
+      containerId: VentCrawlerTube
+    - type: VentCrawlerJunction
+      degrees: [0, -90, 180]
+    - type: ContainerContainer
+      containers:
+        VentCrawlerTube: !type:Container
+    # </Onyx-VentCrawling>
 
 - type: entity
   parent: GasMixer
@@ -220,6 +238,15 @@
         pipeDirection: North
   - type: Construction
     node: mixerflipped
+  # <Onyx-VentCrawling>
+  - type: VentCrawlerTube
+    containerId: VentCrawlerTube
+  - type: VentCrawlerJunction
+    degrees: [0, -90, 180]
+  - type: ContainerContainer
+    containers:
+      VentCrawlerTube: !type:Container
+  # </Onyx-VentCrawling>
 
 - type: entity
   parent: GasPipeBase
@@ -285,3 +312,12 @@
       - PneumaticValve
       - Pumps
       - Valves
+    # <Onyx-VentCrawling>
+    - type: VentCrawlerTube
+      containerId: VentCrawlerTube
+    - type: VentCrawlerJunction
+      degrees: [0, -90, 180]
+    - type: ContainerContainer
+      containers:
+        VentCrawlerTube: !type:Container
+    # </Onyx-VentCrawling>

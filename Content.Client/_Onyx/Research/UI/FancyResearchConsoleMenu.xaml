@@ -23,7 +23,7 @@
                     <controls:StripeBack Name="TreeBackground" HorizontalExpand="True" VerticalExpand="True" HasMargins="False">
                         <onyx:ResearchesContainerPanel Name="DragContainer" HorizontalExpand="True" VerticalExpand="True" MouseFilter="Pass" RectClipContent="True"/>
                     </controls:StripeBack>
-                    <Button Name="RecenterButton" Text="{Loc 'research-console-menu-recenter-button'}" MinHeight="40" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5 -5" StyleClasses="ButtonSquare"/>
+                    <Button Name="RecenterButton" Text="{Loc 'research-console-menu-recenter-button'}" MinHeight="40" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 -5 5 -5" StyleClasses="ButtonSquare"/>
                 </PanelContainer>
             </BoxContainer>
             <PanelContainer Name="TechnologyInfoPanel" SizeFlagsStretchRatio="2" Visible="False">

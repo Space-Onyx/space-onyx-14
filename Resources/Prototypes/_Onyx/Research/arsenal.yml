@@ -20,9 +20,9 @@
     - WeaponMechCombatUltraRifle
   position: 2,4
   technologyPrerequisites:
-    - UraniumMunitions
     - ThermalVisionTech
-    - PortableMicrofusionWeaponry
+    - RipleyAPLU
+    - WeaponLaserCellRevolverTech
 - type: technology
   id: WeaponLaserCellRevolverTech
   name: research-technology-mag-fed-pistol
@@ -35,9 +35,9 @@
   recipeUnlocks:
     - WeaponLaserCellRevolver
     - PowerCellIRRevolver
-  position: 1,2
+  position: 3,2
   technologyPrerequisites:
-    - DraconicMunitions
+    - ConcentratedLaserWeaponry
 - type: technology
   id: ExplosiveMechAmmunition
   name: research-technology-explosive-mech-ammunition
@@ -89,7 +89,7 @@
     - WeaponLaserCellSMG
     - PowerCellIRSMG
     - PowerCellIonSMG
-  position: 1,0
+  position: 4,3
   technologyPrerequisites:
     - WeaponLaserCellRevolverTech
 - type: technology
@@ -105,9 +105,9 @@
     - WeaponLaserCellSniper
     - PowerCellIRSniper
     - PowerCellIonSniper
-  position: 2,0
+  position: 5,2
   technologyPrerequisites:
-    - WeaponLaserCellSMGTech
+    - EnergyBoltBasedWeaponry
 - type: technology
   id: WeaponLaserCellLMGTech
   name: research-technology-mag-fed-lmg
@@ -120,7 +120,7 @@
   recipeUnlocks:
     - ClothingBackpackLMGBattery
     - MilitaryPowerCellLMG
-  position: 1,-1
+  position: 6,3
   technologyPrerequisites:
     - WeaponLaserCellSMGTech
 - type: technology
@@ -137,7 +137,8 @@
     - PowerCellBluespaceSMG
     - PowerCellBluespaceSniper
     - MilitaryPowerCellBluespaceLMG
-  position: 2,-1
+  position: 6,2
   technologyPrerequisites:
-    - WeaponLaserCellLMGTech
     - WeaponLaserCellSniperTech
+    - WeaponLaserCellLMGTech
+    - PortableMicrofusionWeaponry

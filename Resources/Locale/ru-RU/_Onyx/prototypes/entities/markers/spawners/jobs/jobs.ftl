@@ -6,3 +6,4 @@ ent-SpawnPointRoboticist = робототехник
 ent-SpawnPointOnyxLawyer = адвокат
     .desc = { ent-SpawnPointJobBase.desc }
     .suffix = { ent-SpawnPointJobBase.suffix }
+ent-SpawnPointShaftMiner = шахтёр

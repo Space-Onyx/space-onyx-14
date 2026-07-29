@@ -4,7 +4,7 @@
     children:
     - id: OxygenTankFilled
     - id: ClothingShoesBootsMag
-    - id: ClothingOuterHardsuitSpatio
+    - id: ClothingOuterHardsuitSalvage # <Onyx-SalvageSpecialist-edited>
     - id: ClothingMaskGasExplorer
 
 - type: entityTable
@@ -12,15 +12,14 @@
   table: !type:AllSelector
     children:
     - id: ClothingBeltUtilityFilled
+    - id: UndeterminedWeaponSalvageSpecialist # <Onyx-SalvageSpecialist>
     - id: SurvivalKnife
-    - id: HandheldGPSBasic
-    - id: RadioHandheld
     - id: AppraisalTool
     - id: FireExtinguisher
-    - id: Flare
-      prob: 0.3
-      rolls: !type:ConstantNumberSelector
-        value: 3
+    # <Onyx-SalvageSpecialist>
+    - !type:NestedSelector
+      tableId: FillGeneralMiningExploration
+    # </Onyx-SalvageSpecialist>
     - id: PlushieLizardJobSalvagespecialist
       prob: 0.02
 

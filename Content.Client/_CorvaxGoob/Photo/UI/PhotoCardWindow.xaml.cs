@@ -35,16 +35,12 @@ public sealed partial class PhotoCardWindow : BaseWindow
         }
     }
 
-    protected override void Dispose(bool disposing)
+    protected override void ExitedTree()
     {
-        if (disposing)
-        {
-            ImageDisplay.Texture = null;
-            _imageTexture?.Dispose();
-            _imageTexture = null;
-        }
-
-        base.Dispose(disposing);
+        ImageDisplay.Texture = null;
+        _imageTexture?.Dispose();
+        _imageTexture = null;
+        base.ExitedTree();
     }
 
     protected override DragMode GetDragModeFor(Vector2 relativeMousePos)

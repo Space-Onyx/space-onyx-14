@@ -25,3 +25,36 @@
   components:
   - type: Pda
     id: VirologistIDCard
+
+- type: entity
+  parent: BasePDA
+  id: MinerPDA
+  name: miner PDA
+  description: Smells like ash.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Devices/miner_pda.rsi
+  - type: Pda
+    id: MinerIDCard
+  - type: Appearance
+    appearanceDataInit:
+      enum.PdaVisuals.PdaType:
+        !type:String
+        pda-shaftminer
+  - type: PdaBorderColor
+    borderColor: "#230a2c"
+    accentVColor: "#c900c9"
+  - type: Icon
+    sprite: _Onyx/Objects/Devices/miner_pda.rsi
+    state: pda-shaftminer
+  - type: EntityTableContainerFill
+    containers:
+      preinstalled-program-container: !type:AllSelector
+        children:
+        - id: CrewManifestCartridge
+        - id: NotekeeperCartridge
+        - id: NanoTaskCartridge
+        - id: NewsReaderCartridge
+        - id: AstroNavCartridge
+        - id: WalletCartridge
+        - id: NanoChatCartridge

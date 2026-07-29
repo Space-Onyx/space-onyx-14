@@ -9,6 +9,15 @@
 
 - type: latheRecipe
   parent: BaseSurgicalRecipe
+  id: Bonesetter
+  result: Bonesetter
+  completetime: 2
+  materials:
+    Steel: 400
+    Plastic: 200
+
+- type: latheRecipe
+  parent: BaseSurgicalRecipe
   id: EnergyScalpel
   result: EnergyScalpel
   completetime: 2

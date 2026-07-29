@@ -7,6 +7,7 @@ using System.Linq;
 using System.Numerics;
 using Content.Client.Atmos.EntitySystems;
 using Content.Client.Stylesheets;
+using Content.Client.Stylesheets.Palette;
 using Content.Shared._GoobStation.Supermatter.Components;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Prototypes;
@@ -63,9 +64,9 @@ public sealed partial class SupermatterEntryContainer : BoxContainer
         WasteBarLabel.FontOverride = monoFont;
         AbsorptionBarLabel.FontOverride = monoFont;
 
-        var red = StyleNano.DangerousRedFore;
-        var orange = StyleNano.ConcerningOrangeFore;
-        var green = StyleNano.GoodGreenFore;
+        var red = Palettes.Status.Critical;
+        var orange = Palettes.Status.Warning;
+        var green = Palettes.Status.Good;
         var turqoise = Color.FromHex("#009893");
 
         _engineDictionary = new Dictionary<string, EngineBarEntry>

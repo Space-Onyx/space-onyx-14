@@ -4,6 +4,8 @@
   name: lawyer headset
   description: Thanks to this device, your lawyer will hear your screams from the interrogation room.
   components:
+  - type: Headset
+    color: "#755C48"
   - type: ContainerFill
     containers:
       key_slots:

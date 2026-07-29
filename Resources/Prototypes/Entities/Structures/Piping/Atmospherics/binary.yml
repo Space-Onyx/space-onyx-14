@@ -90,6 +90,14 @@
   - type: GuideHelp
     guides:
     - Pumps
+  # <Onyx-VentCrawling>
+  - type: VentCrawlerTube
+    containerId: VentCrawlerTube
+  - type: VentCrawlerTransit
+  - type: ContainerContainer
+    containers:
+      VentCrawlerTube: !type:Container
+  # </Onyx-VentCrawling>
 
 - type: entity
   parent: GasBinaryBase
@@ -162,6 +170,14 @@
     - type: GuideHelp
       guides:
       - Pumps
+    # <Onyx-VentCrawling>
+    - type: VentCrawlerTube
+      containerId: VentCrawlerTube
+    - type: VentCrawlerTransit
+    - type: ContainerContainer
+      containers:
+        VentCrawlerTube: !type:Container
+    # </Onyx-VentCrawling>
 
 - type: entity
   parent: GasBinaryBase
@@ -264,6 +280,14 @@
     - type: GuideHelp
       guides:
       - PassiveGate
+    # <Onyx-VentCrawling>
+    - type: VentCrawlerTube
+      containerId: VentCrawlerTube
+    - type: VentCrawlerTransit
+    - type: ContainerContainer
+      containers:
+        VentCrawlerTube: !type:Container
+    # </Onyx-VentCrawling>
 
 - type: entity
   parent: GasBinaryBase
@@ -325,6 +349,14 @@
     - type: GuideHelp
       guides:
       - ManualValve
+    # <Onyx-VentCrawling>
+    - type: VentCrawlerTube
+      containerId: VentCrawlerTube
+    - type: VentCrawlerTransit
+    - type: ContainerContainer
+      containers:
+        VentCrawlerTube: !type:Container
+    # </Onyx-VentCrawling>
 
 - type: entity
   parent: GasBinaryBase
@@ -397,6 +429,14 @@
   - type: GuideHelp
     guides:
     - SignalValve
+  # <Onyx-VentCrawling>
+  - type: VentCrawlerTube
+    containerId: VentCrawlerTube
+  - type: VentCrawlerTransit
+  - type: ContainerContainer
+    containers:
+      VentCrawlerTube: !type:Container
+  # </Onyx-VentCrawling>
 
 - type: entity
   parent: GasBinaryBase
@@ -436,6 +476,15 @@
     - type: GuideHelp
       guides:
       - GasCanisters
+    # <Onyx-VentCrawling>
+    - type: VentCrawlerTube
+      containerId: VentCrawlerTube
+    - type: VentCrawlerJunction
+      degrees: [0]
+    - type: ContainerContainer
+      containers:
+        VentCrawlerTube: !type:Container
+    # </Onyx-VentCrawling>
 
 - type: entity
   parent: GasVentPump

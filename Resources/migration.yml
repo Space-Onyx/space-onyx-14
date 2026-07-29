@@ -222,8 +222,10 @@ FoodDonutBlumpkin: FoodDonutBluePumpkin
 FoodDonutJellyBlumpkin: FoodDonutJellyBluePumpkin
 
 # 2024-02-19
-Drone: null
-SpawnMobDrone: null
+# <Onyx-Drone-edited>
+ # Drone: null
+ # SpawnMobDrone: null
+# </Onyx-Drone-edited>
 Onestar: null # I dont think this is even mapped, but just in case
 
 # 2024-02-22

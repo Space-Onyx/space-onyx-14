@@ -58,7 +58,7 @@ public sealed class ItemSwitchStatusControl : PollingItemStatusControl<ItemSwitc
     public ItemSwitchStatusControl(Entity<ItemSwitchComponent> item)
     {
         _item = item;
-        _label = new RichTextLabel { StyleClasses = { StyleNano.StyleClassItemStatus } };
+        _label = new RichTextLabel { StyleClasses = { StyleClass.ItemStatus } };
 
         if (item.Comp.ShowLabel)
             AddChild(_label);

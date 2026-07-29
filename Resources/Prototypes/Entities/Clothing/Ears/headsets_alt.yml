@@ -15,6 +15,10 @@
   id: ClothingHeadsetAltCargo
   name: quartermaster's over-ear headset
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#b48b57"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -31,6 +35,10 @@
   id: ClothingHeadsetAltCentCom
   name: CentComm over-ear headset
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#2681a5"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -46,6 +54,10 @@
   id: ClothingHeadsetAltCommand
   name: command over-ear headset
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#fcdf03"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -60,6 +72,10 @@
   id: ClothingHeadsetAltEngineering
   name: chief engineer's over-ear headset
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#ff733c"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -76,6 +92,10 @@
   id: ClothingHeadsetAltMedical
   name: chief medical officer's over-ear headset
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#57b8f0"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -94,6 +114,10 @@
   id: ClothingHeadsetAltSecurity
   name: head of security's over-ear headset
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#ff4242"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -110,6 +134,10 @@
   id: ClothingHeadsetAltScience
   name: research director's over-ear headset
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#cd7ccd"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:
@@ -128,6 +156,7 @@
   description: An updated, modular syndicate intercom that fits over the head and takes encryption keys (there are 5 key slots.).
   components:
   - type: Headset
+    color: "#8f4a4b" # <Onyx-RadioJobTitles>
   - type: EncryptionKeyHolder
     keySlots: 5
   - type: ContainerFill
@@ -145,6 +174,7 @@
   name: freelancer's over-ear headset
   components:
     - type: Headset
+      color: "#f6ce64" # <Onyx-RadioJobTitles>
     - type: EncryptionKeyHolder
       keySlots: 5
     - type: ContainerFill
@@ -162,6 +192,7 @@
   name: wizard's over-ear headset
   components:
     - type: Headset
+      color: "#35d389" # <Onyx-RadioJobTitles>
     - type: EncryptionKeyHolder
       keySlots: 5
     - type: ContainerFill

@@ -1,0 +1,73 @@
+- type: entity
+  parent: VendingMachine
+  id: VendingMachineMiningDrobe
+  name: MiningDrobe
+  description: A highly advanced vending machine for buying mining-related clothing. Please do not mine Bitcoin with it.
+  components:
+  - type: VendingMachine
+    pack: MiningDrobeInventory
+    offState: off
+    brokenState: broken
+    normalState: normal-unshaded
+  - type: DatasetVocalizer
+    dataset: MiningDrobeAds
+  - type: SpeakOnUIClosed
+    pack: GenericVendGoodbyes
+  - type: Sprite
+    sprite: _Onyx/Structures/VendingMachines/minerdrobe.rsi
+    layers:
+    - state: off
+      map: ["enum.VendingMachineVisualLayers.Base"]
+    - state: off
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#b89e2a"
+  - type: AccessReader
+    access: [["Salvage"]]
+
+- type: localizedDataset
+  id: MiningDrobeAds
+  values:
+    prefix: advertisement-miningdrobe-
+    count: 3
+
+- type: vendingMachineInventory
+  id: MiningDrobeInventory
+  startingInventory:
+    ClothingUniformJumpsuitSalvageSpecialist: 3
+    ClothingUniformJumpskirtSalvageSpecialist: 3
+    ClothingUniformOverallsSalvageSpecialist: 3
+    ClothingUniformJumpsuitShaftMiner: 3
+    ClothingUniformJumpskirtShaftMiner: 3
+    ClothingUniformOverallsShaftMiner: 3
+    ClothingShoesBootsSalvage: 3
+    ClothingHandsGlovesColorBlack: 3
+    ClothingBackpackSalvage: 2
+    ClothingBackpackSatchelSalvage: 2
+    ClothingBackpackDuffelSalvage: 2
+    ClothingBackpackMessengerSalvage: 2
+    ClothingHeadsetMining: 4
+    ClothingOuterWinterMiner: 2
+  emaggedInventory:
+    PKAUpgradeDamage: 1
+  prices:
+    ClothingUniformJumpsuitSalvageSpecialist: 10
+    ClothingUniformJumpskirtSalvageSpecialist: 10
+    ClothingUniformOverallsSalvageSpecialist: 10
+    ClothingUniformJumpsuitShaftMiner: 10
+    ClothingUniformJumpskirtShaftMiner: 10
+    ClothingUniformOverallsShaftMiner: 10
+    ClothingShoesBootsSalvage: 10
+    ClothingHandsGlovesColorBlack: 10
+    ClothingBackpackSalvage: 10
+    ClothingBackpackSatchelSalvage: 11
+    ClothingBackpackDuffelSalvage: 10
+    ClothingBackpackMessengerSalvage: 10
+    ClothingHeadsetMining: 5
+    ClothingOuterWinterMiner: 14
+    PKAUpgradeDamage: 230

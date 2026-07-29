@@ -6,3 +6,4 @@ ent-SpawnPointVirologist = virologist spawn point
 ent-SpawnPointRoboticist = roboticist
     .desc = { ent-SpawnPointJobBase.desc }
     .suffix = { ent-SpawnPointJobBase.suffix }
+ent-SpawnPointShaftMiner = shaft miner

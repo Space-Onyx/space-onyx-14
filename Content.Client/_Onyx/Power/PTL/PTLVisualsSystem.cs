@@ -7,6 +7,7 @@ namespace Content.Client._Onyx.Power.PTL;
 public sealed partial class PTLVisualsSystem : EntitySystem
 {
     [Dependency] private IGameTiming _time = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     public override void Update(float frameTime)
     {
@@ -21,11 +22,11 @@ public sealed partial class PTLVisualsSystem : EntitySystem
         if (!TryComp<SpriteComponent>(ent, out var sprite) || !TryComp<PTLComponent>(ent, out var ptl))
             return;
 
-        sprite.LayerSetVisible(PTLVisualLayers.Unpowered, !ptl.Active);
-        sprite.LayerSetVisible(PTLVisualLayers.Charge, ptl.Active);
+        _sprite.LayerSetVisible((ent.Owner, sprite), PTLVisualLayers.Unpowered, !ptl.Active);
+        _sprite.LayerSetVisible((ent.Owner, sprite), PTLVisualLayers.Charge, ptl.Active);
         var remaining = (ptl.NextShotAt - _time.CurTime).Seconds;
         var state = Math.Clamp(remaining / ptl.ShootDelay * ent.Comp.MaxChargeStates, 1, ent.Comp.MaxChargeStates);
-        sprite.LayerSetState(PTLVisualLayers.Charge, $"{ent.Comp.ChargePrefix}{(int) state}");
+        _sprite.LayerSetRsiState((ent.Owner, sprite), PTLVisualLayers.Charge, $"{ent.Comp.ChargePrefix}{(int) state}");
     }
 }
 

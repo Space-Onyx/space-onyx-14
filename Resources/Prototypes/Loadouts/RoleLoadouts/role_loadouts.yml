@@ -365,6 +365,7 @@
   groups:
   - Inventory # Corvax-Loadouts
   - GroupTankHarness
+  - SalvageSpecialistJumpsuit # <Onyx-SalvageSpecialist>
   - SalvageSpecialistBackpack
   - SalvageSpecialistOuterClothing
   - SalvageSpecialistShoes

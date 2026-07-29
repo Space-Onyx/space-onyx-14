@@ -4,8 +4,10 @@ ent-LockerSteel = защищённый шкаф
     .desc = { ent-LockerBaseSecure.desc }
 ent-LockerQuarterMaster = шкаф квартирмейстера
     .desc = { ent-LockerBaseSecure.desc }
-ent-LockerSalvageSpecialist = снаряжение специалиста по утилизации
-    .desc = Не обращайте внимания на кирку.
+# <Onyx-SalvageSpecialist-edited>
+ent-LockerSalvageSpecialist = шкаф утилизатора
+    .desc = { ent-LockerBaseSecure.desc }
+# </Onyx-SalvageSpecialist-edited>
 ent-LockerCaptain = шкаф капитана
     .desc = { ent-LockerBaseSecure.desc }
 ent-LockerHeadOfPersonnel = шкаф главы персонала

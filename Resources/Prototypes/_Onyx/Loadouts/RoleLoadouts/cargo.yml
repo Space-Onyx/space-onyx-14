@@ -1,0 +1,17 @@
+- type: roleLoadout
+  id: JobShaftMiner
+  groups:
+  - Inventory
+  - GroupTankHarness
+  - ShaftMinerJumpsuit
+  - SalvageSpecialistBackpack
+  - SalvageSpecialistOuterClothing
+  - SalvageSpecialistShoes
+  - Glasses
+  - AssistiveItems
+  - Survival
+  - Trinkets
+  - GroupSpeciesBreathTool
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks

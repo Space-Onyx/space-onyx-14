@@ -1,0 +1,70 @@
+- type: entity
+  parent: ClothingBackpackSatchel
+  id: ClothingBackpackSatchelDrone
+  components:
+  - type: Tag
+    tags: [InnateDontDelete]
+
+- type: entity
+  parent: ClothingBackpackSatchelDrone
+  id: DroneSatchelUnremovable
+  suffix: Unremovable
+  components:
+  - type: Unremoveable
+  - type: Sprite
+    sprite: _Onyx/Drone/dronesatchel.rsi
+
+- type: entity
+  parent: trayScanner
+  id: trayScannerUnremoveable
+  suffix: Unremovable
+  components:
+  - type: Unremoveable
+
+- type: entity
+  parent: Omnitool
+  id: OmnitoolUnremoveable
+  suffix: Unremovable
+  components:
+  - type: Unremoveable
+
+- type: entity
+  parent: WelderExperimental
+  id: WelderExperimentalUnremoveable
+  suffix: Unremovable
+  components:
+  - type: Unremoveable
+
+- type: entity
+  parent: RCDRecharging
+  id: RCDRechargingUnremoveable
+  suffix: Unremovable
+  components:
+  - type: Unremoveable
+
+- type: entity
+  parent: NetworkConfigurator
+  id: NetworkConfiguratorUnremoveable
+  suffix: Unremovable
+  components:
+  - type: Unremoveable
+
+- type: entity
+  parent: PinpointerStationOnyx
+  id: PinpointerStationUnremoveable
+  description: You are the station. Find yourself. Press E to activate.
+  suffix: Unremovable
+  components:
+  - type: Unremoveable
+
+- type: startingGear
+  id: StartingGearDroneTools
+  equipment:
+    pocket1: trayScannerUnremoveable
+    pocket2: PinpointerStationUnremoveable
+    back: DroneSatchelUnremovable
+  inhand:
+  - OmnitoolUnremoveable
+  - WelderExperimentalUnremoveable
+  - RCDRechargingUnremoveable
+  - NetworkConfiguratorUnremoveable

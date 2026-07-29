@@ -26,6 +26,20 @@
     - CloningConsoleComputerCircuitboard
     - CloningPodMachineCircuitboard
     - MedicalScannerMachineCircuitboard
-  position: 3,2
+  position: 3,0
   technologyPrerequisites:
     - BluespaceChemistry
+- type: technology
+  id: RescueTechnology
+  name: research-technology-rescue
+  icon:
+    sprite: Objects/Specific/Medical/handheldcrewmonitor.rsi
+    state: scanner
+  discipline: CivilianServices
+  tier: 1
+  cost: 7500
+  recipeUnlocks:
+    - HandheldCrewMonitor
+  position: 3,2
+  technologyPrerequisites:
+    - BiochemicalStasis

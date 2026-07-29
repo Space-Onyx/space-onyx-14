@@ -23,3 +23,11 @@
   components:
   - type: PresetIdCard
     job: Virologist
+
+- type: entity
+  parent: SalvageIDCard
+  id: MinerIDCard
+  name: miner ID card
+  components:
+  - type: PresetIdCard
+    job: ShaftMiner

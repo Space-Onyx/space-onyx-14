@@ -4,6 +4,10 @@
   name: iaa headset
   description: A headset for internal affairs agent to hear the captain's last words.
   components:
+    # <Onyx-RadioJobTitles>
+    - type: Headset
+      color: "#755C48"
+    # </Onyx-RadioJobTitles>
     - type: ContainerFill
       containers:
         key_slots:
@@ -17,6 +21,10 @@
   name: magistrate's headset
   description: A headset for judge to hear the captain's last words.
   components:
+  # <Onyx-RadioJobTitles>
+  - type: Headset
+    color: "#755C48"
+  # </Onyx-RadioJobTitles>
   - type: ContainerFill
     containers:
       key_slots:

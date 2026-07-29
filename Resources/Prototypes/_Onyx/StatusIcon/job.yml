@@ -27,3 +27,11 @@
     sprite: /Textures/Interface/Misc/job_icons.rsi
     state: radiohost
   jobName: job-name-radiohost
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconLavaShaftMiner
+  icon:
+    sprite: /Textures/_Onyx/Interface/Misc/shaft_miner_job.rsi
+    state: LavaShaftMiner
+  jobName: job-name-shaftminer

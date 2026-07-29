@@ -93,6 +93,7 @@ public abstract partial class SharedChameleonClothingSystem : EntitySystem
 
         // world sprite icon
         UpdateSprite(uid, proto);
+        UpdateHeadsetColor(uid, proto); // <Onyx-RadioJobTitles>
 
         // copy name and description, unless its an ID card
         if (!HasComp<IdCardComponent>(uid))

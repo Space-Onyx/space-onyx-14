@@ -49,14 +49,20 @@
 - type: entity
   id: LockerSalvageSpecialist
   parent: LockerBase
-  name: salvage specialist's equipment
-  description: Nevermind the pickaxe.
+  name: salvage specialist's locker # <Onyx-SalvageSpecialist-edited>
+  description: Contains equipment useful for space exploration. # <Onyx-SalvageSpecialist-edited>
   components:
+  # <Onyx-SalvageSpecialist>
+  - type: Sprite
+    sprite: _Onyx/Structures/Storage/mining_closet.rsi
+  # </Onyx-SalvageSpecialist>
   - type: Appearance
   - type: EntityStorageVisuals
-    stateBaseClosed: mining
-    stateDoorOpen: mining_open
-    stateDoorClosed: mining_door
+    # <Onyx-SalvageSpecialist-edited>
+    stateBaseClosed: cargo
+    stateDoorOpen: cargo_open
+    stateDoorClosed: salvage_door
+    # </Onyx-SalvageSpecialist-edited>
   - type: AccessReader
     access: [["Salvage"]]
 

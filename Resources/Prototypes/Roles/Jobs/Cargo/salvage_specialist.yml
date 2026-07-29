@@ -18,13 +18,16 @@
 
 - type: startingGear
   id: SalvageSpecialistGear
+  # <Onyx-SalvageSpecialist-edited>
   equipment:
-    jumpsuit: ClothingUniformJumpsuitSalvageSpecialist
     id: SalvagePDA
     ears: ClothingHeadsetCargo
-  #storage:
-    #back:
-    #- Stuff
+  # </Onyx-SalvageSpecialist-edited>
+  # <Onyx-SalvageSpecialist>
+  storage:
+    back:
+    - MiningVoucher
+  # </Onyx-SalvageSpecialist>
 
 - type: chameleonOutfit
   id: SalvageSpecialistChameleonOutfit

@@ -12,9 +12,9 @@
     - ServiceTechFabCircuitboardRecipe
     - CargoTechFabCircuitboardRecipe
     - ScienceTechFabCircuitboardRecipe
-  position: 3,3
+  position: 2,3
   technologyPrerequisites:
-    - IndustrialEngineering
+    - MechanicalCompression
 - type: technology
   id: Ripley2
   name: research-technology-ripley-mkii
@@ -27,9 +27,9 @@
   recipeUnlocks:
     - RipleyMKIIHarness
     - RipleyUpgradeKit
-  position: 2,-2
+  position: 1,-1
   technologyPrerequisites:
-    - MassExcavation
+    - RipleyAPLU
 - type: technology
   id: SpecTechFabs
   name: research-technology-spec-tech-fabs
@@ -42,6 +42,7 @@
   recipeUnlocks:
     - MedicalTechFabCircuitboardRecipe
     - SecurityTechFabCircuitboardRecipe
-  position: 2,3
+  position: 3,3
   technologyPrerequisites:
+    - IndustrialEngineering
     - TechFabs

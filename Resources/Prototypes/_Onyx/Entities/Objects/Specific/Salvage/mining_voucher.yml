@@ -1,0 +1,15 @@
+- type: entity
+  parent: BaseItem
+  id: MiningVoucher
+  name: mining voucher
+  description: A token redeemable for a mining equipment kit. Use it on a salvage vendor.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Salvage/voucher.rsi
+    state: icon
+  - type: Item
+    size: Tiny
+  - type: MiningVoucher
+    vendorWhitelist:
+      components:
+      - SalvageMiningPointVendor

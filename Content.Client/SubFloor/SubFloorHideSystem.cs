@@ -13,6 +13,7 @@ public sealed partial class SubFloorHideSystem : SharedSubFloorHideSystem
     [Dependency] private IUserInterfaceManager _ui = default!;
 
     private bool _showAll;
+    private readonly HashSet<EntityUid> _ventPipes = []; // <Onyx-VentCrawling>
 
     [ViewVariables(VVAccess.ReadWrite)]
     public bool ShowAll
@@ -31,6 +32,35 @@ public sealed partial class SubFloorHideSystem : SharedSubFloorHideSystem
             RaiseNetworkEvent(ev);
         }
     }
+
+    // <Onyx-VentCrawling>
+    public void SetVentPipes(HashSet<EntityUid> ventPipes)
+    {
+        if (_ventPipes.SetEquals(ventPipes))
+            return;
+
+        foreach (var uid in _ventPipes)
+        {
+            if (!ventPipes.Contains(uid))
+                QueueUpdate(uid);
+        }
+
+        foreach (var uid in ventPipes)
+        {
+            if (!_ventPipes.Contains(uid))
+                QueueUpdate(uid);
+        }
+
+        _ventPipes.Clear();
+        _ventPipes.UnionWith(ventPipes);
+    }
+
+    private void QueueUpdate(EntityUid uid)
+    {
+        if (TryComp<AppearanceComponent>(uid, out var appearance))
+            _appearance.QueueUpdate(uid, appearance);
+    }
+    // </Onyx-VentCrawling>
 
     public override void Initialize()
     {
@@ -63,7 +93,8 @@ public sealed partial class SubFloorHideSystem : SharedSubFloorHideSystem
 
         scannerRevealed &= !ShowAll; // no transparency for show-subfloor mode.
 
-        var revealed = !covered || ShowAll || scannerRevealed;
+        var showVentPipe = _ventPipes.Contains(uid); // <Onyx-VentCrawling>
+        var revealed = !covered || ShowAll || scannerRevealed || showVentPipe; // <Onyx-VentCrawling-edited>
 
         // set visibility & color of each layer
         foreach (var layer in args.Sprite.AllLayers)
@@ -94,7 +125,7 @@ public sealed partial class SubFloorHideSystem : SharedSubFloorHideSystem
             var drawDepthDifference = Shared.DrawDepth.DrawDepth.ThickPipe - (Shared.DrawDepth.DrawDepth.Overdoors + 1);
             _sprite.SetDrawDepth((uid, args.Sprite), args.Sprite.DrawDepth - drawDepthDifference);
         }
-        else if (scannerRevealed)
+        else if (scannerRevealed || showVentPipe) // <Onyx-VentCrawling-edited>
         {
             // Allows a t-ray to show wires/pipes above carpets/puddles.
             if (component.OriginalDrawDepth is not null)

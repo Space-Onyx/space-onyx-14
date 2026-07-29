@@ -19,6 +19,22 @@
 
 - type: entity
   parent: BaseToolSurgery
+  id: Bonesetter
+  name: bone setter
+  description: Used for setting bones back into place.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/bonesetter.rsi
+    state: bonesetter
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/bonesetter.rsi
+  - type: BoneSetter
+  - type: SurgeryTool
+    startSound:
+      path: /Audio/_Onyx/Medical/Surgery/bone_setter.ogg
+
+- type: entity
+  parent: BaseToolSurgery
   id: MedicalStitches
   name: medical stitches
   description: A fine, curved needle with a length of absorbable polyglycolide suture thread.

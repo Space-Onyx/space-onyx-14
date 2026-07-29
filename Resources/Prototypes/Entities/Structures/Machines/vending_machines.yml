@@ -1546,6 +1546,22 @@
     - Salvage
   # <Onyx-SalvageMiningPoints>
   - type: SalvageMiningPointVendor
+  # <Onyx-MiningVoucher>
+  - type: MiningVendor
+    kits:
+    - MiningCombat
+    - MiningExtraction
+    - MiningSurvival
+    - MiningMedical
+  - type: UserInterface
+    interfaces:
+      enum.VendingMachineUiKey.Key:
+        type: VendingMachineBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+      enum.MiningVoucherUiKey.Key:
+        type: MiningVoucherBoundUserInterface
+  # </Onyx-MiningVoucher>
   # </Onyx-SalvageMiningPoints>
 
 - type: entity

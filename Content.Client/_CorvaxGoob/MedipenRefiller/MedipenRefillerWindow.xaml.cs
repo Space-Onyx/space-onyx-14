@@ -188,7 +188,7 @@ public sealed partial class MedipenRefillerWindow : FancyWindow
                     new Label
                     {
                         Text = $"{info.CurrentVolume}/{info.MaxVolume}",
-                        StyleClasses = { StyleNano.StyleClassLabelSecondaryColor }
+                        StyleClasses = { StyleClass.LabelWeak }
                     }
                 }
         });
@@ -211,7 +211,7 @@ public sealed partial class MedipenRefillerWindow : FancyWindow
                         new Label
                             {
                             Text = $"{reagent.Quantity}u",
-                            StyleClasses = { StyleNano.StyleClassLabelSecondaryColor }
+                            StyleClasses = { StyleClass.LabelWeak }
                         },
                     }
                 });

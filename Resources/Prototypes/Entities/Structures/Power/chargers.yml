@@ -255,6 +255,7 @@
     whitelist:
       components:
       - BorgChassis
+      - Drone # <Onyx-Drone>
   - type: Construction
     containers:
     - machine_parts
@@ -298,6 +299,7 @@
     whitelist:
       components:
       - BorgChassis
+      - Drone # <Onyx-Drone>
   - type: ContainerContainer
     containers:
       entity_storage: !type:Container
