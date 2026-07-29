@@ -2,6 +2,7 @@ using System.Collections.Frozen;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Content.Shared.ActionBlocker;
+using Content.Shared._Onyx.Language; // <Onyx-OSayLanguage>
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.Popups;
 using Content.Shared.Radio;
@@ -354,7 +355,8 @@ public abstract partial class SharedChatSystem : EntitySystem
         ICommonSession? player = null,
         string? nameOverride = null,
         bool checkRadioPrefix = true,
-        bool ignoreActionBlocker = false)
+        bool ignoreActionBlocker = false,
+        ProtoId<LanguagePrototype>? languageOverride = null) // <Onyx-OSayLanguage>
     { }
 
     /// <summary>
@@ -379,7 +381,8 @@ public abstract partial class SharedChatSystem : EntitySystem
         ICommonSession? player = null,
         string? nameOverride = null,
         bool checkRadioPrefix = true,
-        bool ignoreActionBlocker = false
+        bool ignoreActionBlocker = false,
+        ProtoId<LanguagePrototype>? languageOverride = null // <Onyx-OSayLanguage>
         )
     { }
 
@@ -481,7 +484,8 @@ public enum InGameICChatType : byte
 {
     Speak,
     Emote,
-    Whisper
+    Whisper,
+    CollectiveMind // <Onyx-CollectiveMind>
 }
 
 /// <summary>

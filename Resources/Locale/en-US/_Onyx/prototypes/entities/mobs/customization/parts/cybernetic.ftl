@@ -1,0 +1,16 @@
+ent-LeftArmCybernetic = cybernetic left arm
+ent-RightArmCybernetic = cybernetic right arm
+ent-LeftHandCybernetic = cybernetic left hand
+ent-RightHandCybernetic = cybernetic right hand
+ent-LeftLegCybernetic = cybernetic left leg
+ent-RightLegCybernetic = cybernetic right leg
+ent-LeftFootCybernetic = cybernetic left foot
+ent-RightFootCybernetic = cybernetic right foot
+ent-JawsOfLifeLeftArm = J.A.W.S. left arm
+    .desc = A cybernetic arm capable of prying open powered doors.
+ent-JawsOfLifeRightArm = J.A.W.S. right arm
+    .desc = A cybernetic arm capable of prying open powered doors.
+ent-SpeedLeftLeg = S.P.E.E.D. left leg
+    .desc = A cybernetic leg that increases movement speed.
+ent-SpeedRightLeg = S.P.E.E.D. right leg
+    .desc = A cybernetic leg that increases movement speed.

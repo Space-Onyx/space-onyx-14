@@ -58,12 +58,3 @@
     Plasma: 600
     Gold: 300
     Silver: 300
-
-- type: latheRecipePack
-  id: OnyxAdvancedSurgery
-  recipes:
-  - EnergyScalpel
-  - AdvancedRetractor
-  - EnergyCautery
-  - AdvancedBoneGel
-  - OmnimedTool

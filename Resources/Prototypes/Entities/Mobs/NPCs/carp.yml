@@ -168,6 +168,12 @@
   suffix: DragonBrood
   parent: MobCarp
   components:
+    # <Onyx-CollectiveMind>
+    - type: CollectiveMind
+      defaultChannel: Dragonmind
+      channels:
+      - Dragonmind
+    # </Onyx-CollectiveMind>
     - type: GhostRole
       allowMovement: true
       allowSpeech: true

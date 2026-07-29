@@ -1,0 +1,35 @@
+- type: Tag
+  id: SignEdit
+
+- type: Tag
+  id: IgnoreBalanceChecks
+
+- type: Tag
+  id: SpaceCash
+
+- type: Tag
+  id: SlotBlock
+
+- type: Tag
+  id: WallATMElectronics
+
+- type: Tag
+  id: SuppressFlammableParticles
+
+- type: Tag
+  id: MailCapsule
+
+- type: Tag
+  id: ATVKeys
+
+- type: Tag
+  id: ContractorUplink
+
+- type: Tag
+  id: ContravendUplink
+
+- type: Tag
+  id: LavalandJaunter
+
+- type: Tag
+  id: MarkerBeacon

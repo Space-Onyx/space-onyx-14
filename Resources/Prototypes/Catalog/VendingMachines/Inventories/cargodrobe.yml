@@ -4,6 +4,7 @@
     ClothingBackpackCargo: 3
     ClothingBackpackSatchelCargo: 3
     ClothingBackpackDuffelCargo: 3
+    ClothingBackpackMessengerCargo: 3 # <Onyx-VendingInventories>
     ClothingUniformJumpsuitCargo: 3
     ClothingUniformJumpskirtCargo: 3
     ClothingShoesColorBlack: 3
@@ -23,4 +24,5 @@
   # <Onyx-VendingPrices>
   prices:
     ClothingBackpackCargo: 10
+    ClothingBackpackMessengerCargo: 10 # <Onyx-VendingInventories>
   # </Onyx-VendingPrices>

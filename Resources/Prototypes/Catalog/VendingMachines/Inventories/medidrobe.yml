@@ -16,6 +16,7 @@
     ClothingBackpackMedical: 2
     ClothingBackpackDuffelMedical: 2
     ClothingBackpackSatchelMedical: 2
+    ClothingBackpackMessengerMedical: 4 # <Onyx-VendingInventories>
     ClothingUniformJumpsuitMedicalDoctor: 2
     ClothingUniformJumpskirtMedicalDoctor: 2
     UniformScrubsColorGreen: 2

@@ -45,6 +45,8 @@ public sealed partial class VendingMachineSystem
         component.NextItemToEject = entry.ID;
         component.ThrowNextItem = component.CanShoot;
 
+        Audio.PlayPvs(component.SoundVend, uid);
+
         if (TryComp(uid, out SpeakOnUIClosedComponent? speakComponent))
             _speakOn.TrySetFlag((uid, speakComponent));
 

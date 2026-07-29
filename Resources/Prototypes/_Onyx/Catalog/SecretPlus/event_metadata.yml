@@ -1,0 +1,240 @@
+- type: secretPlusRule
+  id: AnomalySpawn
+  rule: AnomalySpawn
+  eventType: Chaotic
+  chaosScore: 70
+
+- type: secretPlusRule
+  id: BluespaceArtifact
+  rule: BluespaceArtifact
+  eventType: Chaotic
+  chaosScore: 40
+
+- type: secretPlusRule
+  id: BluespaceLocker
+  rule: BluespaceLocker
+  eventType: Neutral
+  chaosScore: 40
+
+- type: secretPlusRule
+  id: BreakerFlip
+  rule: BreakerFlip
+  eventType: Maintenance
+  chaosScore: 60
+
+- type: secretPlusRule
+  id: BureaucraticError
+  rule: BureaucraticError
+  eventType: Neutral
+  chaosScore: 50
+
+- type: secretPlusRule
+  id: ClericalError
+  rule: ClericalError
+  eventType: Chaotic
+  chaosScore: 30
+
+- type: secretPlusRule
+  id: CockroachMigration
+  rule: CockroachMigration
+  eventType: Neutral
+  chaosScore: 20
+
+- type: secretPlusRule
+  id: GasLeak
+  rule: GasLeak
+  eventType: Maintenance
+  chaosScore: 80
+
+- type: secretPlusRule
+  id: GreytideVirus
+  rule: GreytideVirus
+  eventType: Maintenance
+  chaosScore: 160
+
+- type: secretPlusRule
+  id: IonStorm
+  rule: IonStorm
+  eventType: Chaotic
+  chaosScore: 150
+
+- type: secretPlusRule
+  id: KudzuGrowth
+  rule: KudzuGrowth
+  eventType: Maintenance
+  chaosScore: 80
+
+- type: secretPlusRule
+  id: MassHallucinations
+  rule: MassHallucinations
+  eventType: Chaotic
+  chaosScore: 30
+
+- type: secretPlusRule
+  id: MouseMigration
+  rule: MouseMigration
+  eventType: Neutral
+  chaosScore: 20
+
+- type: secretPlusRule
+  id: PowerGridCheck
+  rule: PowerGridCheck
+  eventType: Interference
+  chaosScore: 80
+
+- type: secretPlusRule
+  id: RandomSentience
+  rule: RandomSentience
+  eventType: Neutral
+  chaosScore: 20
+
+- type: secretPlusRule
+  id: SolarFlare
+  rule: SolarFlare
+  eventType: Interference
+  chaosScore: 60
+
+- type: secretPlusRule
+  id: ClosetSkeleton
+  rule: ClosetSkeleton
+  eventType: Chaotic
+  chaosScore: 60
+
+- type: secretPlusRule
+  id: DragonSpawn
+  rule: DragonSpawn
+  eventType: HostilesSpawn
+  chaosScore: 600
+
+- type: secretPlusRule
+  id: KingRatMigration
+  rule: KingRatMigration
+  eventType: HostilesSpawn
+  chaosScore: 25
+
+- type: secretPlusRule
+  id: NinjaSpawn
+  rule: NinjaSpawn
+  eventType: HostilesSpawn
+  chaosScore: 300
+
+- type: secretPlusRule
+  id: ParadoxCloneSpawn
+  rule: ParadoxCloneSpawn
+  eventType: Chaotic
+  chaosScore: 80
+
+- type: secretPlusRule
+  id: SleeperAgents
+  rule: SleeperAgents
+  eventType: HostilesSpawn
+  antagChaosScores:
+    TraitorSleeper: 200
+
+- type: secretPlusRule
+  id: ZombieOutbreak
+  rule: ZombieOutbreak
+  eventType: HostilesSpawn
+  chaosScore: 1400
+
+- type: secretPlusRule
+  id: LoneOpsSpawn
+  rule: LoneOpsSpawn
+  eventType: HostilesSpawn
+  chaosScore: 700
+
+- type: secretPlusRule
+  id: GiftsEngineering
+  rule: GiftsEngineering
+  eventType: FreeStuffUseful
+  chaosScore: -40
+
+- type: secretPlusRule
+  id: GiftsFireProtection
+  rule: GiftsFireProtection
+  eventType: FreeStuffUseful
+  chaosScore: -35
+
+- type: secretPlusRule
+  id: GiftsJanitor
+  rule: GiftsJanitor
+  eventType: FreeStuff
+  chaosScore: -20
+
+- type: secretPlusRule
+  id: GiftsMedical
+  rule: GiftsMedical
+  eventType: FreeStuffUseful
+  chaosScore: -40
+
+- type: secretPlusRule
+  id: GiftsPizzaPartyLarge
+  rule: GiftsPizzaPartyLarge
+  eventType: FreeStuff
+  chaosScore: -30
+
+- type: secretPlusRule
+  id: GiftsPizzaPartySmall
+  rule: GiftsPizzaPartySmall
+  eventType: FreeStuff
+  chaosScore: -15
+
+- type: secretPlusRule
+  id: GiftsSecurityGuns
+  rule: GiftsSecurityGuns
+  eventType: FreeStuffUseful
+  chaosScore: -90
+
+- type: secretPlusRule
+  id: GiftsSecurityRiot
+  rule: GiftsSecurityRiot
+  eventType: FreeStuffUseful
+  chaosScore: -80
+
+- type: secretPlusRule
+  id: GiftsSpacingSupplies
+  rule: GiftsSpacingSupplies
+  eventType: FreeStuffUseful
+  chaosScore: -40
+
+- type: secretPlusRule
+  id: GiftsVendingRestock
+  rule: GiftsVendingRestock
+  eventType: FreeStuff
+  chaosScore: -20
+
+- type: secretPlusRule
+  id: SnailMigrationLowPop
+  rule: SnailMigrationLowPop
+  eventType: Neutral
+  chaosScore: 20
+
+- type: secretPlusRule
+  id: SnailMigration
+  rule: SnailMigration
+  eventType: Chaotic
+  chaosScore: 30
+
+- type: secretPlusRule
+  id: UnknownShuttleHonki
+  rule: UnknownShuttleHonki
+  eventType: Chaotic
+  chaosScore: -80
+
+- type: secretPlusRule
+  id: UnknownShuttleSyndieEvacPod
+  rule: UnknownShuttleSyndieEvacPod
+  eventType: FriendlySpawn
+  chaosScore: -140
+
+- type: secretPlusRule
+  id: UnknownShuttleNTQuark
+  rule: UnknownShuttleNTQuark
+  eventType: FriendlySpawn
+  chaosScore: -140
+
+- type: secretPlusRule
+  id: UnknownShuttleInstigator
+  rule: UnknownShuttleInstigator
+  eventType: HostilesSpawn
+  chaosScore: 900

@@ -1,0 +1,16 @@
+ent-ParamedHypo = medical cartridge autoinjector
+    .desc = Used for rapid administration of medicine. Uses cartridges printable at the medical techfab.
+ent-SecHypo = security cartridge autoinjector
+    .desc = Used for rapid administration of medicine. Uses cartridges printable at the security techfab.
+ent-BaseAutoinjectorCartridge = autoinjector cartridge
+    .desc = Used in a cartridge autoinjector.
+ent-CartridgeEpinephrine = adrenaline autoinjector cartridge
+    .desc = Contains 7u of epinephrine and 3u of tranexamic acid, used in a cartridge autoinjector.
+ent-CartridgeSaline = airloss autoinjector cartridge
+    .desc = Contains 7u of saline and 3u of dexalin plus, used in a cartridge autoinjector.
+ent-CartridgeBicaridine = brute autoinjector cartridge
+    .desc = Contains 4u of bicaridine, 4u of ibuprofen, 1 unit of salicylic acid and 1u of tranexamic acid, used in a cartridge autoinjector.
+ent-CartridgeDermaline = burn autoinjector cartridge
+    .desc = Contains 5u of kelotane, 4u of dermaline 1u of leporazine, used in a cartridge autoinjector.
+ent-CartridgeAtropine = emergency autoinjector cartridge
+    .desc = Contains 10u of atropine, used in a cartridge autoinjector.

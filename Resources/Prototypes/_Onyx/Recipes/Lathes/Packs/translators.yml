@@ -1,0 +1,32 @@
+- type: latheRecipePack
+  id: OnyxTranslators
+  recipes:
+  - ChittinTranslatorRecipe
+  - RootSpeakTranslatorRecipe
+  - MofficTranslatorRecipe
+  - DraconicTranslatorRecipe
+  - BubblishTranslatorRecipe
+  - CalcicTranslatorRecipe
+  - NewKinPidginTranslatorRecipe
+  - CanilunztTranslatorRecipe
+  - SiikMaasTranslatorRecipe
+  - RobotTalkTranslatorRecipe
+  - NekomimeticTranslatorRecipe
+  - SolCommonTranslatorRecipe
+
+- type: latheRecipePack
+  id: OnyxTranslatorImplanters
+  recipes:
+  - ChittinTranslatorImplanterRecipe
+  - RootSpeakTranslatorImplanterRecipe
+  - MofficTranslatorImplanterRecipe
+  - DraconicTranslatorImplanterRecipe
+  - BubblishTranslatorImplanterRecipe
+  - CalcicTranslatorImplanterRecipe
+  - NewKinPidginTranslatorImplanterRecipe
+  - CanilunztTranslatorImplanterRecipe
+  - SiikMaasTranslatorImplanterRecipe
+  - RobotTalkTranslatorImplanterRecipe
+  - NekomimeticTranslatorImplanterRecipe
+  - SolCommonTranslatorImplanterRecipe
+  - SignTranslatorImplanterRecipe

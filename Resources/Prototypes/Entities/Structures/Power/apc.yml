@@ -63,6 +63,10 @@
     netsync: false
     maxCharge: 50000
     startingCharge: 0
+  # <Onyx-BatteryDrinker>
+  - type: BatteryDrinkerSource
+    maxAmount: 10000
+  # </Onyx-BatteryDrinker>
   - type: ExaminableBattery
   - type: NodeContainer
     examinable: true
@@ -200,6 +204,10 @@
   - type: Battery
     maxCharge: 50000
     startingCharge: 50000
+  # <Onyx-BatteryDrinker>
+  - type: BatteryDrinkerSource
+    maxAmount: 5000
+  # </Onyx-BatteryDrinker>
 
 - type: entity
   parent: BaseAPC
@@ -209,6 +217,10 @@
   - type: Battery
     maxCharge: 100000
     startingCharge: 100000
+  # <Onyx-BatteryDrinker>
+  - type: BatteryDrinkerSource
+    maxAmount: 12000
+  # </Onyx-BatteryDrinker>
 
 - type: entity
   parent: BaseAPC
@@ -218,6 +230,10 @@
   - type: Battery
     maxCharge: 150000
     startingCharge: 150000
+  # <Onyx-BatteryDrinker>
+  - type: BatteryDrinkerSource
+    maxAmount: 18000
+  # </Onyx-BatteryDrinker>
 
 - type: entity
   parent: BaseAPC
@@ -227,6 +243,10 @@
   - type: Battery
     maxCharge: 200000
     startingCharge: 200000
+  # <Onyx-BatteryDrinker>
+  - type: BatteryDrinkerSource
+    maxAmount: 26000
+  # </Onyx-BatteryDrinker>
 
 - type: entity
   parent: BaseAPC

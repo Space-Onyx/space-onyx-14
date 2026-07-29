@@ -16,3 +16,12 @@
     accentVColor: "#cc4d03"
   - type: Icon
     state: pda-roboticist
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: VirologistPDA
+  name: virology PDA
+  description: You're not sure if touching it is safe.
+  components:
+  - type: Pda
+    id: VirologistIDCard

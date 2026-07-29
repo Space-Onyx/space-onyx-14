@@ -40,7 +40,7 @@ public sealed partial class SelectableAmmoSystem : EntitySystem
             return;
 
         var selected = _prototype.Index(args.ProtoId);
-        _popup.PopupClient(Loc.GetString("mode-selected", ("mode", Loc.GetString("ent-" + selected.ProtoId))), ent, args.Actor);
+        _popup.PopupEntity(Loc.GetString("mode-selected", ("mode", Loc.GetString("ent-" + selected.ProtoId))), ent, args.Actor);
         _audio.PlayPredicted(ent.Comp.SoundSelect, ent, args.Actor);
     }
 

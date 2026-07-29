@@ -1,0 +1,25 @@
+- type: entity
+  parent:
+  - AppearanceArcan
+  - BaseSpeciesMobOrganic
+  id: MobArcan
+  name: Urisst' Mzhand Arcan
+  components:
+  - type: Damageable
+    damageModifierSet: Demon
+  - type: Speech
+    speechSounds: Lizard
+  - type: Vocal
+    sounds:
+      Male: MaleHuman
+      Female: FemaleHuman
+      Unsexed: FemaleHuman
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/Weapons/pierce.ogg
+    angle: 30
+    animation: WeaponArcPunch
+    damage:
+      types:
+        Slash: 2
+        Piercing: 3

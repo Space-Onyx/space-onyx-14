@@ -1,0 +1,55 @@
+- type: entity
+  parent: Holoprojector
+  id: HoloprojectorSecurityAdvanced
+  name: advanced holobarrier projector
+  description: An advanced projector capable of creating more durable and secure barriers.
+  components:
+  - type: HolosignProjector
+    signProto: HolosignSecurityAdvanced
+    chargeUse: 100
+  - type: Sprite
+    sprite: _Onyx/Objects/Devices/Holoprojectors/security.rsi
+    state: icon
+  - type: Tag
+    tags: [HolofanProjector, SecBeltEquip]
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellHigh
+
+- type: entity
+  id: HolosignSecurityAdvanced
+  parent: HolosignWetFloor
+  name: advanced holographic barrier
+  description: A durable hard-light barrier that completely blocks movement.
+  components:
+  - type: Physics
+    bodyType: Static
+    canCollide: true
+  - type: Sprite
+    sprite: _Onyx/Structures/Holo/field.rsi
+    state: icon
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask: [FullTileMask]
+        layer: [GlassLayer]
+  - type: TimedDespawn
+    lifetime: 180
+  - type: PointLight
+    enabled: true
+    radius: 3
+    color: red
+  - type: Clickable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [Destruction]

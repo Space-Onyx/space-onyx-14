@@ -1,0 +1,12 @@
+selectable-set-blueshield-shield-name = Большой щит
+selectable-set-blueshield-shield-description = Энергетический щит со встроенной булавой.
+selectable-set-blueshield-hardsuit-light-name = Лёгкий скафандр сопровождения
+selectable-set-blueshield-hardsuit-light-description = Мобильный бронированный скафандр для сопровождения.
+selectable-set-blueshield-revolver-name = EG-4 «Уравнитель»
+selectable-set-blueshield-revolver-description = Энергетический револьвер в наплечной кобуре.
+selectable-set-blueshield-dragon-name = Кунг-фу Дракона
+selectable-set-blueshield-dragon-description = Руководство по кунг-фу Дракона.
+selectable-set-blueshield-chester-name = «Честер»
+selectable-set-blueshield-chester-description = Рычажное ружьё с ЭМИ и связывающими боеприпасами.
+selectable-set-blueshield-syringe-name = Боевой инъектор
+selectable-set-blueshield-syringe-description = Боевой инъектор с омнизином и паксом.

@@ -1,0 +1,15 @@
+- type: roleLoadout
+  id: JobRadioHost
+  groups:
+  - Inventory
+  - GroupTankHarness
+  - RadioHostJumpsuit
+  - CommonBackpack
+  - Glasses
+  - AssistiveItems
+  - Survival
+  - Trinkets
+  - GroupSpeciesBreathTool
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks

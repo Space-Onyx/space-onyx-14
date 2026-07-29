@@ -333,6 +333,7 @@
     - diamond_2
     - diamond_3
   - type: Sprite
+    sprite: _Onyx/Objects/Materials/refined_ores.rsi
     state: diamond
     layers:
     - state: diamond
@@ -467,9 +468,10 @@
     materialComposition:
       Bananium: 150
   - type: Sprite
-    state: bananium_3
+    sprite: _Onyx/Objects/Materials/refined_ores.rsi
+    state: bananium_1
     layers:
-    - state: bananium_3
+    - state: bananium_1
       map: [ "base" ]
   - type: Stack
     stackType: Bananium
@@ -477,8 +479,7 @@
     baseLayer: base
     layerStates:
     - bananium
-    - bananium_2
-    - bananium_3
+    - bananium_1
   - type: FlavorProfile
     flavors:
     - banana

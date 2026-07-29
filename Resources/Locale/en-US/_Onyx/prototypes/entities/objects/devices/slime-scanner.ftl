@@ -1,9 +1,2 @@
-xenobio-scanner-none = none
-slime-scanner-examine-slime-description = It is a [color={$color}]{$name}[/color].
-slime-scanner-examine-slime-mutations = Its chance of mutation on mitosis is [color=yellow]{$chance}%[/color]. Its possible mutations are: {$mutations}.
-slime-scanner-examine-slime-extracts = If you were to grind it right now, it would yield [color=yellow]{$num}[/color] extracts.
-slime-scanner-examine-extract = Studies have proven that this extract seems to violently react with the following reagents: {$reagents}.
-slime-scanner-examine-extract-unreactive = [color=red]This extract has withered and will no longer provide any reactions.[/color]
-
 ent-SlimeScannerXenobio = slime scanner
     .desc = Using it on a slime or its products provides all the information you need. Essential equipment for any slime rancher!

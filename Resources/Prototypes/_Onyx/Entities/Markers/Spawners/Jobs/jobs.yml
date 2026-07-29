@@ -1,0 +1,67 @@
+# SPDX-FileCopyrightText: 2024 Aidenkrz <aiden@djkraz.com>
+# SPDX-FileCopyrightText: 2024 Piras314 <p1r4s@proton.me>
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: SpawnPointRadioHost
+  parent: SpawnPointJobBase
+  name: radio host
+  components:
+  - type: SpawnPoint
+    job_id: RadioHost
+  - type: Sprite
+    layers:
+    - sprite: Markers/jobs.rsi
+      state: green
+    - sprite: Markers/jobs.rsi
+      state: radiohost
+
+- type: entity
+  id: SpawnPointVirologist
+  parent: SpawnPointJobBase
+  name: virologist
+  components:
+  - type: SpawnPoint
+    job_id: Virologist
+  - type: Sprite
+    layers:
+    - state: green
+    - state: doctor
+
+- type: entity
+  id: SpawnPointBlueshieldOfficer
+  parent: SpawnPointJobBase
+  name: blueshieldofficer
+  components:
+  - type: SpawnPoint
+    job_id: BlueshieldOfficer
+  - type: Sprite
+    layers:
+    - state: green
+    - state: ertleader
+
+- type: entity
+  id: SpawnPointRoboticist
+  parent: SpawnPointJobBase
+  name: roboticist
+  components:
+  - type: SpawnPoint
+    job_id: Roboticist
+  - type: Sprite
+    layers:
+    - state: green
+    - state: scientist
+
+- type: entity
+  id: SpawnPointOnyxLawyer
+  parent: SpawnPointJobBase
+  name: lawyer
+  components:
+  - type: SpawnPoint
+    job_id: Lawyer
+  - type: Sprite
+    layers:
+    - state: green
+    - state: lawyer

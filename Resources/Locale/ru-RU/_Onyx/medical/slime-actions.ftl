@@ -1,0 +1,10 @@
+xenobio-slime-action-latch-name = Прицепиться
+xenobio-slime-action-latch-description = Прицепиться к живой цели и переваривать её. Повторное использование отпускает цель.
+xenobio-slime-latch-start = { CAPITALIZE($slime) } пытается прицепиться к { $target }!
+xenobio-slime-latch-success = { CAPITALIZE($slime) } цепляется за { $target }!
+xenobio-slime-latch-fail-dead = { CAPITALIZE($target) } уже мёртв.
+xenobio-slime-latch-fail-occupied = К { $target } уже кто-то прицепился.
+xenobio-slime-latch-fail-invalid = К { $target } нельзя прицепиться.
+xenobio-slime-tame-success = Похоже, вы теперь ему нравитесь!
+xenobio-slime-tame-fail = Похоже, новый хозяин его не интересует.
+xenobio-slime-extract-examine-used = Экстракт уже прореагировал.

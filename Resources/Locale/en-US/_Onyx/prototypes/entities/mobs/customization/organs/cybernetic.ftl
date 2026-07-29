@@ -1,0 +1,9 @@
+ent-BasicCyberneticEyes = cybernetic eyes
+ent-MedicalCyberneticEyes = cybernetic medical HUD eyes
+ent-SecurityCyberneticEyes = cybernetic security HUD eyes
+ent-DiagnosticCyberneticEyes = cybernetic diagnostic HUD eyes
+ent-BasicCyberneticHeart = cybernetic heart
+ent-UpgradedCyberneticHeart = upgraded cybernetic heart
+ent-BasicCyberneticLiver = cybernetic liver
+ent-BasicCyberneticLungs = cybernetic lungs
+ent-UpgradedCyberneticLungs = upgraded cybernetic lungs

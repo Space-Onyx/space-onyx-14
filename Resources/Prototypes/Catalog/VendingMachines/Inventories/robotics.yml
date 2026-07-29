@@ -11,7 +11,7 @@
     HandheldHealthAnalyzer: 3
     Scalpel: 2
     SawElectric: 2
-    #Bonesetter: 2 add when robotics
+    MedicalStitches: 2 # <Onyx-VendingInventories>
     NitrousOxideTankFilled: 2
     ClothingMaskBreathMedical: 5
     ClothingHeadHatWeldingMaskFlame: 1
@@ -19,7 +19,11 @@
     Screwdriver: 2
     Crowbar: 2
   contrabandInventory:
-    FoodBurgerRobot: 1  
+    FoodBurgerRobot: 1
+  # <Onyx-VendingInventories>
+  emaggedInventory:
+    JawsOfLife: 1
+  # </Onyx-VendingInventories>
   # <Onyx-VendingPrices>
   prices:
     CableApcStack: 40
@@ -32,10 +36,12 @@
     HandheldHealthAnalyzer: 10
     Scalpel: 21
     SawElectric: 30
+    MedicalStitches: 12 # <Onyx-VendingInventories>
     NitrousOxideTankFilled: 30
     ClothingMaskBreathMedical: 8
     ClothingHeadHatWeldingMaskFlame: 17
     Welder: 39
     Screwdriver: 40
     Crowbar: 22
+    JawsOfLife: 99 # <Onyx-VendingInventories>
   # </Onyx-VendingPrices>

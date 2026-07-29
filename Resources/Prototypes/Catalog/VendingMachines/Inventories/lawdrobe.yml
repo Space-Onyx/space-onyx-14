@@ -34,3 +34,7 @@
     # "Legally" obtained currency
     SpaceCash100: 2
     ToyFigurineLawyer: 1
+  # <Onyx-VendingInventories>
+  emaggedInventory:
+    CyberPen: 1
+  # </Onyx-VendingInventories>

@@ -82,7 +82,6 @@ public sealed partial class TapeRecorderSystem : SharedTapeRecorderSystem
             return;
 
         // TODO: Handle "Someone" when whispering from far away, needs chat refactor
-        
         //Handle someone using a voice changer
         var nameEv = new TransformSpeakerNameEvent(args.Source, Name(args.Source));
         RaiseLocalEvent(args.Source, nameEv);

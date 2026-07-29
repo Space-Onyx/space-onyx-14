@@ -61,7 +61,7 @@ public abstract partial class SharedBlockChargeSystem : EntitySystem
         if (weapon == null || block == null)
             return;
 
-        _popup.PopupPredicted(Loc.GetString("block-attack-notice",
+        _popup.PopupEntity(Loc.GetString("block-attack-notice",
             ("user", ent.Owner),
             ("blocked", args.Origin.Value)), ent.Owner, ent.Owner);
         block.HasCharge = false;
@@ -79,7 +79,7 @@ public abstract partial class SharedBlockChargeSystem : EntitySystem
         if (!user.BlockingWeapons.Contains(ent))
             user.BlockingWeapons.Add(ent);
         if (ent.Comp.HasCharge)
-            _popup.PopupClient(Loc.GetString("block-charge-startup", ("entity", ent.Owner)), args.User, args.User);
+            _popup.PopupEntity(Loc.GetString("block-charge-startup", ("entity", ent.Owner)), args.User, args.User);
         Dirty(args.User, user);
     }
 

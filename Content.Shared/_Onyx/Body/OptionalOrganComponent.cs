@@ -46,7 +46,7 @@ public sealed partial class OptionalOrganSystem : EntitySystem
         foreach (var (category, prototype) in initialBody.GetOptionalOrganPrototypes())
         {
             var entityPrototype = ProtoMan.Index<EntityPrototype>(prototype);
-            if (!entityPrototype.TryGetComponent<OptionalOrganComponent>(out var optional))
+            if (!entityPrototype.TryComp<OptionalOrganComponent>(out var optional, EntityManager.ComponentFactory))
                 continue;
 
             var slot = category.Id;

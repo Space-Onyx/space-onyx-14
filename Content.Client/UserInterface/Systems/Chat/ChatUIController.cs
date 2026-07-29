@@ -23,6 +23,8 @@ using Content.Shared.Damage.ForceSay;
 using Content.Shared.Decals;
 using Content.Shared.Input;
 using Content.Shared.Radio;
+using ClientCollectiveMindSystem = Content.Client._Onyx.Chat.CollectiveMindSystem; // <Onyx-CollectiveMind>
+using Content.Shared._Onyx.CollectiveMind; // <Onyx-CollectiveMind>
 using Content.Shared.Roles.RoleCodeword;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
@@ -67,6 +69,7 @@ public sealed partial class ChatUIController : UIController
     [UISystemDependency] private readonly TransformSystem? _transform = default;
     [UISystemDependency] private readonly MindSystem? _mindSystem = default!;
     [UISystemDependency] private readonly RoleCodewordSystem? _roleCodewordSystem = default!;
+    [UISystemDependency] private readonly ClientCollectiveMindSystem? _collectiveMind = default!; // <Onyx-CollectiveMind>
 
     private static readonly ProtoId<ColorPalettePrototype> ChatNamePalette = "ChatNames";
     private string[] _chatNameColors = default!;
@@ -85,6 +88,7 @@ public sealed partial class ChatUIController : UIController
         {SharedChatSystem.EmotesAltPrefix, ChatSelectChannel.Emotes},
         {SharedChatSystem.AdminPrefix, ChatSelectChannel.Admin},
         {SharedChatSystem.RadioCommonPrefix, ChatSelectChannel.Radio},
+        {SharedChatSystem.CollectiveMindPrefix, ChatSelectChannel.CollectiveMind}, // <Onyx-CollectiveMind>
         {SharedChatSystem.DeadPrefix, ChatSelectChannel.Dead}
     };
 
@@ -98,6 +102,7 @@ public sealed partial class ChatUIController : UIController
         {ChatSelectChannel.Emotes, SharedChatSystem.EmotesPrefix},
         {ChatSelectChannel.Admin, SharedChatSystem.AdminPrefix},
         {ChatSelectChannel.Radio, SharedChatSystem.RadioCommonPrefix},
+        {ChatSelectChannel.CollectiveMind, SharedChatSystem.CollectiveMindPrefix}, // <Onyx-CollectiveMind>
         {ChatSelectChannel.Dead, SharedChatSystem.DeadPrefix}
     };
 
@@ -179,6 +184,8 @@ public sealed partial class ChatUIController : UIController
         _sawmill = Logger.GetSawmill("chat");
         _sawmill.Level = LogLevel.Info;
         _admin.AdminStatusUpdated += UpdateChannelPermissions;
+        if (_collectiveMind != null) // <Onyx-CollectiveMind>
+            _collectiveMind.AccessChanged += UpdateChannelPermissions; // <Onyx-CollectiveMind>
         _player.LocalPlayerAttached += OnAttachedChanged;
         _player.LocalPlayerDetached += OnAttachedChanged;
         _state.OnStateChanged += StateChanged;
@@ -548,6 +555,14 @@ public sealed partial class ChatUIController : UIController
             }
         }
 
+        // <Onyx-CollectiveMind>
+        if (_collectiveMind?.CanHear == true)
+            FilterableChannels |= ChatChannel.CollectiveMind;
+
+        if (_collectiveMind?.CanSend == true)
+            CanSendChannels |= ChatSelectChannel.CollectiveMind;
+        // </Onyx-CollectiveMind>
+
         // Only ghosts and admins can send / see deadchat.
         if (_admin.HasFlag(AdminFlags.Admin) || _ghost is {IsGhost: true})
         {
@@ -563,6 +578,9 @@ public sealed partial class ChatUIController : UIController
             FilterableChannels |= ChatChannel.AdminChat;
             CanSendChannels |= ChatSelectChannel.Admin;
         }
+
+        if (_admin.HasFlag(AdminFlags.Admin)) // <Onyx-CollectiveMind>
+            FilterableChannels |= ChatChannel.CollectiveMind; // <Onyx-CollectiveMind>
 
         SelectableChannels = CanSendChannels;
 
@@ -693,21 +711,34 @@ public sealed partial class ChatUIController : UIController
            && _chatSys.TryProcessRadioMessage(uid, text, out _, out radioChannel, quiet: true);
     }
 
+    // <Onyx-CollectiveMind>
+    private bool TryGetCollectiveMind(string text, out CollectiveMindPrototype? collectiveMind)
+    {
+        collectiveMind = null;
+        return _player.LocalEntity is EntityUid { Valid: true } uid
+            && _chatSys != null
+            && _chatSys.TryProcessCollectiveMindMessage(uid, text, out _, out collectiveMind, quiet: true);
+    }
+    // </Onyx-CollectiveMind>
+
     public void UpdateSelectedChannel(ChatBox box)
     {
-        var (prefixChannel, _, radioChannel) = SplitInputContents(box.ChatInput.Input.Text.ToLower());
+        var (prefixChannel, _, radioChannel, collectiveMind) = SplitInputContents(box.ChatInput.Input.Text.ToLower()); // <Onyx-CollectiveMind-edited>
 
         if (prefixChannel == ChatSelectChannel.None)
             box.ChatInput.ChannelSelector.UpdateChannelSelectButton(box.SelectedChannel, null);
+        else if (prefixChannel == ChatSelectChannel.CollectiveMind) // <Onyx-CollectiveMind>
+            box.ChatInput.ChannelSelector.UpdateChannelSelectButton(prefixChannel, null, collectiveMind); // <Onyx-CollectiveMind>
         else
             box.ChatInput.ChannelSelector.UpdateChannelSelectButton(prefixChannel, radioChannel);
     }
 
-    public (ChatSelectChannel chatChannel, string text, RadioChannelPrototype? radioChannel) SplitInputContents(string text)
+    // <Onyx-CollectiveMind-edited>
+    public (ChatSelectChannel chatChannel, string text, RadioChannelPrototype? radioChannel, CollectiveMindPrototype? collectiveMind) SplitInputContents(string text)
     {
         text = text.Trim();
         if (text.Length == 0)
-            return (ChatSelectChannel.None, text, null);
+            return (ChatSelectChannel.None, text, null, null);
 
         // We only cut off prefix only if it is not a radio or local channel, which both map to the same /say command
         // because ????????
@@ -717,7 +748,7 @@ public sealed partial class ChatUIController : UIController
             && text[0] == SharedChatSystem.EmotesAltPrefix
             && text[1] == SharedChatSystem.EmotesAltPrefix)
         {
-            return (ChatSelectChannel.None, text[1..], null);
+            return (ChatSelectChannel.None, text[1..], null, null);
         }
         // </Onyx-InlineActions>
 
@@ -728,21 +759,25 @@ public sealed partial class ChatUIController : UIController
             chatChannel = PrefixToChannel.GetValueOrDefault(text[0]);
 
         if ((CanSendChannels & chatChannel) == 0)
-            return (ChatSelectChannel.None, text, null);
+            return (ChatSelectChannel.None, text, null, null);
 
         if (chatChannel == ChatSelectChannel.Radio)
-            return (chatChannel, text, radioChannel);
+            return (chatChannel, text, radioChannel, null);
+
+        if (chatChannel == ChatSelectChannel.CollectiveMind && TryGetCollectiveMind(text, out var collectiveMind))
+            return (chatChannel, text, null, collectiveMind);
 
         if (chatChannel == ChatSelectChannel.Local)
         {
             if (_ghost?.IsGhost != true)
-                return (chatChannel, text, null);
+                return (chatChannel, text, null, null);
             else
                 chatChannel = ChatSelectChannel.Dead;
         }
 
-        return (chatChannel, text[1..].TrimStart(), null);
+        return (chatChannel, text[1..].TrimStart(), null, null);
     }
+    // </Onyx-CollectiveMind-edited>
 
     public void SendMessage(ChatBox box, ChatSelectChannel channel)
     {
@@ -756,7 +791,7 @@ public sealed partial class ChatUIController : UIController
         if (string.IsNullOrWhiteSpace(text))
             return;
 
-        (var prefixChannel, text, var _) = SplitInputContents(text);
+        (var prefixChannel, text, var _, var _) = SplitInputContents(text); // <Onyx-CollectiveMind-edited>
 
         // Check if message is longer than the character limit
         if (text.Length > MaxMessageLength)
@@ -774,6 +809,9 @@ public sealed partial class ChatUIController : UIController
             // radio must have prefix as it goes through the say command.
             text = $";{text}";
         }
+
+        if (prefixChannel == ChatSelectChannel.None && channel == ChatSelectChannel.CollectiveMind) // <Onyx-CollectiveMind-edited>
+            text = $"+ {text}"; // <Onyx-CollectiveMind>
 
         _manager.SendMessage(text, prefixChannel == 0 ? channel : prefixChannel);
     }

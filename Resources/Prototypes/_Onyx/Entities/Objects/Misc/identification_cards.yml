@@ -15,3 +15,11 @@
       state: Roboticist
   - type: PresetIdCard
     job: Roboticist
+
+- type: entity
+  parent: IDCardStandard
+  id: VirologistIDCard
+  name: virology ID card
+  components:
+  - type: PresetIdCard
+    job: Virologist

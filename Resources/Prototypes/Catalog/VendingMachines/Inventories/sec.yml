@@ -21,6 +21,17 @@
     RiotBulletShield: 2
     RadioHandheldSecurity: 5
     Bola: 6
+    PanicButton: 5 # <Onyx-SecTechEquipment>
+    PepperSpray: 3 # <Onyx-SecTechEquipment>
+    # <Onyx-CartridgeAutoinjector>
+    SecHypo: 2
+    CartridgeEpinephrine: 2
+    CartridgeSaline: 2
+    CartridgeBicaridine: 2
+    CartridgeDermaline: 2
+    # </Onyx-CartridgeAutoinjector>
+    PolymerBaton: 1 # <Onyx-SecurityMeleeWeapons>
+    SpearTelescopic: 1 # <Onyx-SecurityMeleeWeapons>
   # security officers need to follow a diet regimen!
   contrabandInventory:
     WeaponMeleeNeedle: 2

@@ -1,0 +1,59 @@
+- type: latheRecipe
+  id: ParamedHypo
+  result: ParamedHypo
+  completetime: 3
+  materials:
+    Steel: 500
+    Plastic: 500
+    Glass: 500
+    Gold: 300
+
+- type: latheRecipe
+  id: SecHypo
+  result: SecHypo
+  completetime: 3
+  materials:
+    Steel: 500
+    Plastic: 500
+    Glass: 500
+    Gold: 300
+
+- type: latheRecipe
+  id: CartridgeEpinephrine
+  result: CartridgeEpinephrine
+  completetime: 1
+  materials:
+    Glass: 100
+    Plasma: 100
+
+- type: latheRecipe
+  id: CartridgeSaline
+  result: CartridgeSaline
+  completetime: 1
+  materials:
+    Glass: 100
+    Plasma: 50
+
+- type: latheRecipe
+  id: CartridgeBicaridine
+  result: CartridgeBicaridine
+  completetime: 1
+  materials:
+    Glass: 100
+    Plasma: 100
+
+- type: latheRecipe
+  id: CartridgeDermaline
+  result: CartridgeDermaline
+  completetime: 1
+  materials:
+    Glass: 100
+    Plasma: 100
+
+- type: latheRecipe
+  id: CartridgeAtropine
+  result: CartridgeAtropine
+  completetime: 1
+  materials:
+    Glass: 100
+    Plasma: 200

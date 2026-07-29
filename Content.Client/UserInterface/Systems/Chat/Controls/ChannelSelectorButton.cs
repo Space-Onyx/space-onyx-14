@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Shared.Chat;
+using Content.Shared._Onyx.CollectiveMind; // <Onyx-CollectiveMind>
 
 namespace Content.Client.UserInterface.Systems.Chat.Controls;
 
@@ -68,9 +69,14 @@ public sealed class ChannelSelectorButton : ChatPopupButton<ChannelSelectorPopup
         };
     }
 
-    public void UpdateChannelSelectButton(ChatSelectChannel channel, Shared.Radio.RadioChannelPrototype? radio)
+    // <Onyx-CollectiveMind-edited>
+    public void UpdateChannelSelectButton(
+        ChatSelectChannel channel,
+        Shared.Radio.RadioChannelPrototype? radio,
+        CollectiveMindPrototype? collectiveMind = null)
     {
-        Text = radio != null ? Loc.GetString(radio.Name) : ChannelSelectorName(channel);
-        Modulate = radio?.Color ?? ChannelSelectColor(channel);
+        Text = collectiveMind?.LocalizedName ?? (radio != null ? Loc.GetString(radio.Name) : ChannelSelectorName(channel));
+        Modulate = collectiveMind?.Color ?? radio?.Color ?? ChannelSelectColor(channel);
     }
+    // </Onyx-CollectiveMind-edited>
 }

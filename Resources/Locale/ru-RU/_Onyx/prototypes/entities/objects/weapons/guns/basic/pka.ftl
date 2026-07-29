@@ -1,0 +1,44 @@
+ent-WeaponProtoKineticShotgun = протокинетический дробовик
+    .desc = Выпускает множество кинетических зарядов с низким уроном, которые в два раза менее эффективны при добыче полезных ископаемых.
+ent-WeaponProtoKineticRepeater = протокинетический повторитель
+    .desc = Выпускает шквал кинетических разрядов среднего урона на близком расстоянии.
+ent-WeaponProtoKineticPistol = протокинетический пистолет
+    .desc = Стреляет кинетическими разрядами с низким уроном, обладает более высокой модулирующей способностью.
+ent-WeaponProtoKineticAcceleratorSpace = { ent-WeaponProtoKineticAccelerator }
+    .suffix = Космическое улучшение
+    .desc = { ent-WeaponProtoKineticAccelerator.desc }
+ent-WeaponProtoKineticShotgunSpace = { ent-WeaponProtoKineticShotgun }
+    .suffix = Космическое улучшение
+    .desc = { ent-WeaponProtoKineticShotgun.desc }
+ent-WeaponProtoKineticRepeaterSpace = { ent-WeaponProtoKineticRepeater }
+    .suffix = Космическое улучшение
+    .desc = { ent-WeaponProtoKineticRepeater.desc }
+ent-WeaponProtoKineticPistolSpace = { ent-WeaponProtoKineticPistol }
+    .suffix = Космическое улучшение
+    .desc = { ent-WeaponProtoKineticPistol.desc }
+
+ent-RapidBulletKinetic = снаряд
+    .desc = { ent-BulletKinetic.desc }
+ent-WeakBulletKinetic = { ent-BulletKinetic }
+    .desc = { ent-BulletKinetic.desc }
+ent-PelletKinetic = { ent-WeakBulletKinetic }
+    .desc = { ent-WeakBulletKinetic.desc }
+ent-PelletKineticSpread = { ent-PelletKinetic }
+    .desc = { ent-PelletKinetic.desc }
+
+ent-PKAUpgradePressure = набор улучшения протокинетики (давление)
+    .desc = { ent-BaseSyndicateContraband.desc }
+ent-PKAUpgradeSpace = набор улучшения протокинетики (космос)
+    .desc = { ent-BasePKAUpgrade.desc }
+ent-LavalandVampirismCrystal = красный кристалл
+    .desc = { ent-BasePKAUpgrade.desc }
+
+ent-ProtoKineticWeaponLootSpawner = спавнер случайного протокинетического оружия
+    .suffix = Лаваленд
+    .desc = { ent-MarkerBase.desc }
+ent-ProtoKineticWeaponSpaceLootSpawner = спавнер случайного космического протокинетического оружия
+    .suffix = Лаваленд, космическое улучшение
+    .desc = { ent-MarkerBase.desc }
+ent-ProtoKineticUpgradeLootSpawner = спавнер случайного улучшения протокинетического оружия
+    .suffix = Лаваленд
+    .desc = { ent-MarkerBase.desc }

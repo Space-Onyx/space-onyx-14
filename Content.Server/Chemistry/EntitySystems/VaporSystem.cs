@@ -3,6 +3,7 @@ using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
+using Content.Shared.Eye.Blinding.Systems; // <Onyx-PepperSpray>
 using Content.Shared.Physics;
 using Content.Shared.Throwing;
 using Content.Shared.Chemistry.EntitySystems;
@@ -38,6 +39,13 @@ namespace Content.Server.Chemistry.EntitySystems
         {
             var solution = Comp<SolutionComponent>(entity).Solution;
             _reactive.DoEntityReaction(args.OtherEntity, solution, ReactionMethod.Touch);
+
+            // <Onyx-PepperSpray>
+            var eyeProtection = new GetEyeProtectionEvent();
+            RaiseLocalEvent(args.OtherEntity, eyeProtection);
+            if (eyeProtection.Protection <= TimeSpan.Zero)
+                _reactive.DoEntityReaction(args.OtherEntity, solution, ReactionMethod.Eyes);
+            // </Onyx-PepperSpray>
 
             // Check for collision with a impassable object (e.g. wall) and stop
             if ((args.OtherFixture.CollisionLayer & (int)CollisionGroup.Impassable) != 0 && args.OtherFixture.Hard)

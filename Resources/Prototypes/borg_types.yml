@@ -163,6 +163,7 @@
   - BorgModuleChemical
   - BorgModuleTopicals
   - BorgModuleRescue
+  - BorgModuleSurgery # <Onyx-BorgSurgery>
 
   radioChannels:
   - Science

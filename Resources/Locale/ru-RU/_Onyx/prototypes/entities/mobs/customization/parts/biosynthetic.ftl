@@ -1,0 +1,9 @@
+ent-BioSynthHeadEmpty = пустая биосинтетическая голова
+ent-BioSynthLeftArm = биосинтетическая левая рука
+ent-BioSynthRightArm = биосинтетическая правая рука
+ent-BioSynthLeftHand = биосинтетическая левая кисть
+ent-BioSynthRightHand = биосинтетическая правая кисть
+ent-BioSynthLeftLeg = биосинтетическая левая нога
+ent-BioSynthRightLeg = биосинтетическая правая нога
+ent-BioSynthLeftFoot = биосинтетическая левая стопа
+ent-BioSynthRightFoot = биосинтетическая правая стопа

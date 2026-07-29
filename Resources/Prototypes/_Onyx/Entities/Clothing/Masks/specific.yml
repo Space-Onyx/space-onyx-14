@@ -20,3 +20,30 @@
         Heat: 0.9
   - type: IngestionBlocker
     blockSmokeIngestion: true
+
+- type: entity
+  parent: ClothingMaskBase
+  id: ClothingMaskMuzzleSecure
+  name: secure muzzle
+  description: Prevents biting and makes speech unintelligible.
+  components:
+  - type: Item
+    size: Tiny
+  - type: Sprite
+    sprite: _Onyx/Clothing/Mask/securemuzzle.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Mask/securemuzzle.rsi
+    equipDelay: 3
+    unequipDelay: 10
+  - type: IngestionBlocker
+  - type: MumbleAccent
+    relayAccent: true
+
+- type: entity
+  parent: ClothingMaskMuzzleSecure
+  id: ClothingMaskMuzzleShock
+  name: shock muzzle
+  description: A secure muzzle fitted with a behavior correction system.
+  components:
+  - type: ShockOnTrigger
+  - type: TriggerOnSpeak

@@ -1,0 +1,9 @@
+ent-LavalandWeaponKineticClaws = kinetic claws
+    .desc = Unleash your inner edgelord with this one-handed claw small enough to fit in your backpack.
+ent-LavalandWeaponKineticMachete = kinetic machete
+    .desc = A smaller, one-handed variant of the crusher which allows you to attack from afar and block incoming attacks.
+ent-WeaponPlasmaCutter = plasma cutter
+    .desc = A plasma-powered mining and self-defense weapon that exhausts organic targets.
+ent-WeaponPlasmaCutterEmpty = { ent-WeaponPlasmaCutter }
+ent-BulletPlasmaCutter = cutter bolt
+    .desc = A short-lived plasma bolt capable of gathering ore.

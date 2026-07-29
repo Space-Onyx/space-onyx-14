@@ -1,0 +1,48 @@
+- type: entity
+  name: pepper spray
+  id: PepperSpray
+  parent: [BaseItem, BaseSecurityContraband, SolutionSpray]
+  suffix: Filled
+  description: A small 50u canister of oleoresin capsaicin. Capable of blinding and slowing targets who are not wearing protective gear.
+  components:
+  - type: Sprite
+    sprite: /Textures/_Onyx/Objects/Specific/Security/pepperspray.rsi
+    layers:
+    - state: icon
+  - type: Item
+    size: Small
+    sprite: /Textures/_Onyx/Objects/Specific/Security/pepperspray.rsi
+  - type: RefillableSolution
+    solution: spray
+  - type: DrainableSolution
+    solution: spray
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: SolutionItemStatus
+    solution: spray
+  - type: TrashOnSolutionEmpty
+    solution: spray
+  - type: ExaminableSolution
+    solution: spray
+  - type: Solution
+    solution:
+      maxVol: 50
+      reagents:
+      - ReagentId: OleoresinCapsaicin
+        Quantity: 50
+  - type: Spray
+    solution: spray
+    transferAmount: 10
+    sprayVelocity: 3
+    sprayDistance: 2.5
+    spraySound:
+      path: /Audio/Effects/spray2.ogg
+  - type: UseDelay
+  - type: StaticPrice
+    price: 25
+  - type: Tag
+    tags:
+    - Spray
+    - PepperSpray
+    - Trash
+    - SecBeltEquip

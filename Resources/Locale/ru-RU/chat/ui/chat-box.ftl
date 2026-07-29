@@ -15,6 +15,9 @@ hud-chatbox-select-channel-OOC = OOC
 hud-chatbox-select-channel-Damage = Повреждения
 hud-chatbox-select-channel-Visual = Действия
 hud-chatbox-select-channel-Radio = Рация
+# <Onyx-CollectiveMind>
+hud-chatbox-select-channel-CollectiveMind = Коллективный разум
+# </Onyx-CollectiveMind>
 
 hud-chatbox-channel-Admin = Админ Разное
 hud-chatbox-channel-AdminAlert = Админ Уведомления
@@ -26,6 +29,9 @@ hud-chatbox-channel-Whisper = Шёпот
 hud-chatbox-channel-LOOC = LOOC
 hud-chatbox-channel-OOC = OOC
 hud-chatbox-channel-Radio = Рация
+# <Onyx-CollectiveMind>
+hud-chatbox-channel-CollectiveMind = Коллективный разум
+# </Onyx-CollectiveMind>
 hud-chatbox-channel-Notifications = Уведомления
 hud-chatbox-channel-Server = Сервер
 hud-chatbox-channel-Visual = Визуальный

@@ -1,0 +1,9 @@
+- type: cargoProduct
+  id: FunClowncar
+  icon:
+    sprite: _Onyx/Objects/Vehicles/clowncar.rsi
+    state: clowncar
+  product: CrateFunClownCarCargo
+  cost: 6000
+  category: cargoproduct-category-name-fun
+  group: market

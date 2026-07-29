@@ -1,0 +1,40 @@
+- type: roleLoadout
+  id: JobVirologist
+  groups:
+  - Inventory
+  - GroupTankHarness
+  - MedicalMask
+  - VirologistJumpsuit
+  - MedicalGloves
+  - VirologistBackpack
+  - VirologistOuterClothing
+  - MedicalShoes
+  - VirologistPDAGroup
+  - Glasses
+  - SurvivalMedical
+  - Trinkets
+  - GroupSpeciesBreathToolMedical
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+
+- type: roleLoadout
+  id: JobSurgeon
+  groups:
+  - Inventory
+  - GroupTankHarness
+  - SurgeonHead
+  - MedicalMask
+  - SurgeonJumpsuit
+  - MedicalBackpack
+  - MedicalDoctorOuterClothing
+  - MedicalShoes
+  - Glasses
+  - SurgeonScalpel
+  - AssistiveItems
+  - SurvivalMedical
+  - Trinkets
+  - GroupSpeciesBreathToolMedical
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks

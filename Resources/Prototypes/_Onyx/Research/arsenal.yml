@@ -24,6 +24,21 @@
     - ThermalVisionTech
     - PortableMicrofusionWeaponry
 - type: technology
+  id: WeaponLaserCellRevolverTech
+  name: research-technology-mag-fed-pistol
+  icon:
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/cell_revolver.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 1
+  cost: 5000
+  recipeUnlocks:
+    - WeaponLaserCellRevolver
+    - PowerCellIRRevolver
+  position: 1,2
+  technologyPrerequisites:
+    - DraconicMunitions
+- type: technology
   id: ExplosiveMechAmmunition
   name: research-technology-explosive-mech-ammunition
   icon:
@@ -34,7 +49,7 @@
   cost: 30000
   recipeUnlocks:
     - WeaponMechCombatMissileRack8
-  position: 1,4
+  position: 1,5
   technologyPrerequisites:
     - Gygax
 - type: technology
@@ -58,6 +73,71 @@
     - DurandTargetingElectronics
     - WeaponMechCombatShotgun
     - WeaponMechCombatShotgunIncendiary
-  position: 2,5
+  position: 3,5
   technologyPrerequisites:
     - Gygax
+- type: technology
+  id: WeaponLaserCellSMGTech
+  name: research-technology-mag-fed-smg
+  icon:
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/cell_smg.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+    - WeaponLaserCellSMG
+    - PowerCellIRSMG
+    - PowerCellIonSMG
+  position: 1,0
+  technologyPrerequisites:
+    - WeaponLaserCellRevolverTech
+- type: technology
+  id: WeaponLaserCellSniperTech
+  name: research-technology-mag-fed-sniper
+  icon:
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/cell_sniper_icon_48x.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 3
+  cost: 15000
+  recipeUnlocks:
+    - WeaponLaserCellSniper
+    - PowerCellIRSniper
+    - PowerCellIonSniper
+  position: 2,0
+  technologyPrerequisites:
+    - WeaponLaserCellSMGTech
+- type: technology
+  id: WeaponLaserCellLMGTech
+  name: research-technology-mag-fed-lmg
+  icon:
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/energy_lmg_icon_48x.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 3
+  cost: 15000
+  recipeUnlocks:
+    - ClothingBackpackLMGBattery
+    - MilitaryPowerCellLMG
+  position: 1,-1
+  technologyPrerequisites:
+    - WeaponLaserCellSMGTech
+- type: technology
+  id: BlueSpaceMunitions
+  name: research-technology-bluespace-munitions
+  icon:
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/energy_cell_revolver.rsi
+    state: bluespace_research
+  discipline: Arsenal
+  tier: 3
+  cost: 25000
+  recipeUnlocks:
+    - PowerCellBluespaceRevolver
+    - PowerCellBluespaceSMG
+    - PowerCellBluespaceSniper
+    - MilitaryPowerCellBluespaceLMG
+  position: 2,-1
+  technologyPrerequisites:
+    - WeaponLaserCellLMGTech
+    - WeaponLaserCellSniperTech

@@ -1,0 +1,221 @@
+- type: entity
+  id: WeaponLaserCellSMG
+  parent: [BaseItem, BaseSecurityContraband]
+  name: ER-5 Torrent
+  description: A specialized laser SMG, designed to put down suppressive fire through cover and be reloaded on the fly. Takes SMG power cells.
+  components:
+  - type: Item
+    size: Large
+  - type: Wieldable
+  - type: GunWieldBonus
+    minAngle: -19
+    maxAngle: -16
+  - type: Gun
+    minAngle: 21
+    maxAngle: 32
+    fireRate: 6
+    selectedMode: FullAuto
+    availableModes: [FullAuto]
+    soundGunshot:
+      path: /Audio/_Onyx/Weapons/Guns/Gunshots/laser_smg.ogg
+  - type: MagazineAmmoProvider
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: PowerCellIRSMG
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        whitelist:
+          tags: [MilitaryPowerCellSMG]
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/cell_smg.rsi
+    layers:
+    - state: icon
+      visible: false
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-4
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 5
+    zeroVisible: true
+  - type: PhysicalComposition
+    materialComposition: { Steel: 500, Gold: 125 }
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/cell_smg.rsi
+    quickEquip: false
+    slots: [back, suitStorage]
+  - type: SurgeryTool
+    endSound:
+      path: /Audio/_Onyx/Weapons/Guns/Gunshots/laser_smg.ogg
+  - type: Cautery
+    speed: 0.9
+  - type: AlwaysHot
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 12
+    angle: 0
+    wideAnimationRotation: 90
+    soundHit:
+      collection: MetalThud
+  - type: Multishot
+    missChance: 0.4
+    spreadMultiplier: 3
+    spreadAddition: 50
+  - type: AmmoCounter
+  - type: RestrictGunshotsByUserTag
+    doesntContain: [Oni]
+    messages: [oni-cannot-shoot-guns-1, oni-cannot-shoot-guns-2, oni-cannot-shoot-guns-3]
+  - type: BatteryDrinkerSource
+    maxAmount: 180
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+
+- type: entity
+  id: WeaponLaserCellSniper
+  parent: [BaseItem, BaseGunWieldable, BaseSecurityContraband]
+  name: ES-7 Multilens
+  description: A burst-fire laser sniper rifle that retains its power across extreme distances. Fitted with a standard magnifying scope. Takes sniper power cells.
+  components:
+  - type: Item
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/cell_sniper.rsi
+    size: Huge
+    shape:
+    - 0,0,6,1
+  - type: Gun
+    burstFireRate: 15
+    shotsPerBurst: 3
+    burstCooldown: 1.5
+    fireRate: 1.5
+    lockOnTargetBurst: true
+    selectedMode: Burst
+    availableModes: [Burst]
+    soundGunshot:
+      path: /Audio/_Onyx/Weapons/Guns/Gunshots/laser_lmg.ogg
+  - type: MagazineAmmoProvider
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: PowerCellIRSniper
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        whitelist:
+          tags: [MilitaryPowerCellSniper]
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/cell_sniper_icon_48x.rsi
+    layers:
+    - state: icon
+      visible: false
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: true
+    zeroNoAmmo: true
+  - type: PhysicalComposition
+    materialComposition: { Steel: 800, Silver: 300, Gold: 200 }
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/cell_sniper.rsi
+    quickEquip: false
+    slots: [back, suitStorage]
+  - type: GunRequiresWield
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 5
+    pvsIncrease: 0.5
+  - type: SpeedModifiedOnWield
+    walkModifier: 0.8
+    sprintModifier: 0.8
+  - type: SurgeryTool
+    endSound:
+      path: /Audio/_Onyx/Weapons/Guns/Gunshots/laser_lmg.ogg
+  - type: Cautery
+    speed: 0.9
+  - type: AlwaysHot
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 12
+    angle: 0
+    wideAnimationRotation: 90
+    soundHit:
+      collection: MetalThud
+  - type: Multishot
+    missChance: 0.4
+    spreadMultiplier: 3
+    spreadAddition: 50
+  - type: AmmoCounter
+  - type: RestrictGunshotsByUserTag
+    doesntContain: [Oni]
+    messages: [oni-cannot-shoot-guns-1, oni-cannot-shoot-guns-2, oni-cannot-shoot-guns-3]
+  - type: BatteryDrinkerSource
+    maxAmount: 180
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+
+- type: entity
+  id: WeaponLaserLMG
+  parent: [BaseItem, BaseSecurityContraband]
+  name: EL-20 HAMRR
+  description: An unwieldy laser LMG that draws power from its dedicated backpack storage rig. The compromises taken to allow for its overwhelming firerate and onboard cooling system make it both heavy and inaccurate.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/energy_lmg_icon_48x.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: light
+      shader: unshaded
+      map: ["enum.GunVisualLayers.BaseUnshaded"]
+  - type: Item
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/energy_lmg.rsi
+    size: Huge
+    shape:
+    - 0,0,4,3
+  - type: Wieldable
+  - type: GunWieldBonus
+    minAngle: -15
+    maxAngle: -15
+  - type: Gun
+    minAngle: 50
+    maxAngle: 20
+    angleIncrease: -5
+    angleDecay: -80
+    fireRate: 10
+    selectedMode: FullAuto
+    availableModes: [FullAuto]
+    soundGunshot:
+      path: /Audio/_Onyx/Weapons/Guns/Gunshots/laser_lmg.ogg
+  - type: ClothingSlotAmmoProvider
+  - type: SlotBasedConnectedContainer
+    targetSlot: BACK
+    containerWhitelist:
+      tags: [LaserLMGBackpack]
+  - type: AmmoCounter
+  - type: StaticPrice
+    price: 500
+  - type: UseDelay
+    delay: 1
+  - type: Appearance
+  - type: Cautery
+    speed: 0.9
+  - type: SurgeryTool
+    endSound:
+      path: /Audio/_Onyx/Weapons/Guns/Gunshots/laser_lmg.ogg
+  - type: Tag
+    tags: [LaserLMG]

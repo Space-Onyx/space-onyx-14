@@ -293,6 +293,8 @@ namespace Content.Server.VendingMachines
             component.NextItemToEject = entry.ID;
             component.ThrowNextItem = component.CanShoot;
 
+            Audio.PlayPvs(component.SoundVend, uid); // <Onyx-VendingSoundTiming>
+
             if (TryComp(uid, out SpeakOnUIClosedComponent? speakComponent))
                 _speakOn.TrySetFlag((uid, speakComponent));
 
@@ -341,10 +343,7 @@ namespace Content.Server.VendingMachines
                 }
             }
 
-            if (vendComponent.NextItemCount > 0)
-                Audio.PlayPvs(vendComponent.SoundVend, uid);
-
-            vendComponent.NextItemToEject = null;
+            vendComponent.NextItemToEject = null; // <Onyx-VendingSoundTiming-edited>
             vendComponent.ThrowNextItem = false;
             vendComponent.NextItemCount = 1;
         }

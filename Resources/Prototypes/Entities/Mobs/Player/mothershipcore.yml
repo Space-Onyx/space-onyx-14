@@ -149,6 +149,12 @@
     - Mothership
     - Xenoborg
     - Binary
+  # <Onyx-CollectiveMind>
+  - type: CollectiveMind
+    defaultChannel: Binary
+    channels:
+    - Binary
+  # </Onyx-CollectiveMind>
   - type: Xenoborg
     mindRole: MindRoleMothershipCore
     briefingText: mothership-welcome

@@ -1,0 +1,47 @@
+- type: markingsGroup
+  parent: Human
+  id: Felinid
+  limits:
+    enum.HumanoidVisualLayers.Ears: # <Onyx-VisualEars-edited>
+      limit: 1
+      required: true
+      default: [ FelinidEarsBasic ]
+    enum.HumanoidVisualLayers.Tail:
+      limit: 1
+      required: true
+      default: [ FelinidTailBasic ]
+
+- type: entity
+  parent: AppearanceHuman
+  id: AppearanceFelinid
+  categories: [ HideSpawnMenu ]
+  name: felinid appearance
+  components:
+  - type: InitialBody
+    organs:
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganFelinidChest
+      Groin: OrganFelinidGroin
+      # </Onyx-ChestGroin-edited>
+      Tail: OrganFelinidTail
+      Head: OrganFelinidHead
+      ArmLeft: OrganHumanArmLeft
+      ArmRight: OrganHumanArmRight
+      HandRight: OrganHumanHandRight
+      HandLeft: OrganHumanHandLeft
+      LegLeft: OrganHumanLegLeft
+      LegRight: OrganHumanLegRight
+      FootLeft: OrganHumanFootLeft
+      FootRight: OrganHumanFootRight
+      Brain: OrganHumanBrain
+      Eyes: OrganHumanEyes
+      Tongue: OrganHumanTongue
+      Appendix: OrganHumanAppendix
+      Ears: OrganFelinidEars
+      Lungs: OrganHumanLungs
+      Heart: OrganHumanHeart
+      Stomach: OrganHumanStomach
+      Liver: OrganHumanLiver
+      Kidneys: OrganHumanKidneys
+  - type: HumanoidProfile
+    species: Felinid

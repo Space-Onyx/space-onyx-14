@@ -1,7 +1,7 @@
 - type: vendingMachineInventory
   id: ChemVendInventory
   startingInventory:
-    Jug: 4
+    Jug: 8 # <Onyx-VendingInventories-edited>
     JugAluminium: 2
     JugCarbon: 4
     JugChlorine: 1
@@ -26,6 +26,11 @@
     DrinkLithiumFlask: 1
     StrangePill: 3
     ChemistryBottleToxin: 1
+    ChemistryBottleLead: 2 # <Onyx-VendingInventories>
+  # <Onyx-VendingInventories>
+  emaggedInventory:
+    VestineChemistryVial: 1
+  # </Onyx-VendingInventories>
 
 - type: vendingMachineInventory
   id: ChemVendInventorySyndicate

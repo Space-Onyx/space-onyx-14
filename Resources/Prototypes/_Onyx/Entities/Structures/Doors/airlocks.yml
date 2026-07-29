@@ -7,6 +7,34 @@
     access: [["Service"], ["Bar"], ["Kitchen"], ["Hydroponics"], ["Chapel"], ["Theatre"], ["Janitor"], ["HeadOfPersonnel"], ["Journalism"]]
 
 - type: entity
+  parent: AirlockServiceLocked
+  id: AirlockAllServiceLocked
+  suffix: All Service, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsAllService ]
+  - type: Wires
+    layoutId: AirlockService
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsCentralCommandCaptain
+  suffix: CentCommCap, Locked
+  components:
+  - type: AccessReader
+    access: [["CentralCommand"], ["Captain"]]
+
+- type: entity
+  parent: AirlockCommand
+  id: AirlockCommandCommandLocked
+  suffix: CentCommCap, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsCentralCommandCaptain ]
+
+- type: entity
   parent: AirlockServiceGlassLocked
   id: AirlockAllServiceGlassLocked
   suffix: All Service, Locked

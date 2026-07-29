@@ -6,6 +6,7 @@
     ClothingBackpackDuffel: 5
     ClothingBackpackSatchel: 3
     ClothingBackpackSatchelLeather: 2
+    ClothingBackpackMessenger: 5 # <Onyx-VendingInventories>
     ClothingRandomSpawner: 8
     ClothingUniformRandomShorts: 4
     ClothingHeadHatBeret: 4
@@ -93,6 +94,29 @@
     ClothingHandsGlovesColorOrange: 2
     ClothingHandsGlovesColorPurple: 2
     ClothingEyesGlassesCheapSunglasses: 3
+    # <Onyx-VendingInventories>
+    OnyxClothingUnderwearSocksNormal: 5
+    OnyxClothingUnderwearSocksHigh: 5
+    OnyxClothingUnderwearSocksStockingsWhite: 5
+    OnyxClothingUnderwearSocksThigh: 5
+    OnyxClothingUnderwearSocksThighBlack: 5
+    OnyxClothingUnderwearSocksBlack: 5
+    OnyxClothingUnderwearSocksThighPantyhose: 5
+    OnyxClothingUnderwearSocksFullFishnet: 5
+    OnyxClothingUnderwearSocksRabbit: 3
+    OnyxClothingUnderwearBottomBoxersWhite: 5
+    OnyxClothingUnderwearTopTShirt: 5
+    OnyxClothingUnderwearBottomPantiesWhite: 5
+    OnyxClothingUnderwearBottomPantiesComfyWhite: 3
+    OnyxClothingUnderwearTopBraComfyWhite: 3
+    OnyxClothingUniformSwimBlack: 3
+    OnyxClothingUniformSwimBlue: 3
+    OnyxClothingUniformSwimDarkGreen: 3
+    OnyxClothingUniformSwimGreen: 3
+    OnyxClothingUniformSwimPurple: 3
+    OnyxClothingUniformSwimRed: 3
+    OnyxClothingUniformSwimsuitWinth: 3
+    # </Onyx-VendingInventories>
     # DO NOT ADD MORE, USE UNIFORM DYING
   contrabandInventory:
     ClothingMaskNeckGaiter: 2
@@ -102,4 +126,15 @@
     ToyFigurineGreytider: 1
     ClothingBackpackSatchelSmugglerUnanchored: 1
     ClothingHeadHatSolidHeadband: 2
+    OnyxClothingUnderwearSocksSyndieRed: 1 # <Onyx-VendingInventories>
+    OnyxClothingUnderwearSocksThighSyndieRed: 1 # <Onyx-VendingInventories>
   # DO NOT ADD MORE, USE UNIFORM DYING
+  # <Onyx-VendingInventories>
+  emaggedInventory:
+    ClothingOuterCoatSyndieCapArmored: 1
+  prices:
+    OnyxClothingUnderwearBottomBoxersWhite: 12
+    OnyxClothingUnderwearBottomPantiesWhite: 12
+    OnyxClothingUnderwearBottomPantiesComfyWhite: 15
+    OnyxClothingUnderwearTopBraComfyWhite: 15
+  # </Onyx-VendingInventories>

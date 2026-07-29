@@ -12,7 +12,9 @@
     - AdvancedRetractor
     - EnergyCautery
     - AdvancedBoneGel
-  position: 4,3
+    - BorgModuleAdvancedSurgery
+    - DefibrillatorCompact
+  position: 2,4
   technologyPrerequisites:
     - MechanizedTreatment
 - type: technology
@@ -26,7 +28,7 @@
   cost: 15000
   recipeUnlocks:
     - OmnimedTool
-  position: 2,4
+  position: 1,3
   technologyPrerequisites:
     - AdvancedCybernaticsUpgrade
 - type: technology
@@ -51,7 +53,7 @@
     - RobotTalkTranslatorRecipe
     - NekomimeticTranslatorRecipe
     - SolCommonTranslatorRecipe
-  position: 1,-1
+  position: 0,-1
   technologyPrerequisites:
     - AdvancedEntertainment
 - type: technology
@@ -77,7 +79,7 @@
     - NekomimeticTranslatorImplanterRecipe
     - SolCommonTranslatorImplanterRecipe
     - SignTranslatorImplanterRecipe
-  position: 2,-1
+  position: 1,-1
   technologyPrerequisites:
     - BasicTranslation
 - type: technology
@@ -94,7 +96,7 @@
     - TapeDeckCircuitboard
     - StationRadioServerCircuitboard
     - StationRadioRigCircuitboard
-  position: 1,4
+  position: 0,4
   technologyPrerequisites:
     - AudioVisualCommunication
 - type: technology
@@ -109,7 +111,7 @@
   recipeUnlocks:
     - MechEquipmentHonkerBananaMortar
     - MechEquipmentHonkerMousetrapMortar
-  position: -1,4
+  position: -2,4
   technologyPrerequisites:
     - HONKMech
 - type: technology
@@ -134,7 +136,7 @@
     - BasicCyberneticHeart
     - BasicCyberneticLungs
     - BasicCyberneticLiver
-  position: 4,4
+  position: 1,5
   technologyPrerequisites:
     - AdvancedTreatment
 - type: technology
@@ -154,6 +156,6 @@
     - SpeedLeftLeg
     - SpeedRightLeg
     - DiagnosticCyberneticEyes
-  position: 3,4
+  position: 1,4
   technologyPrerequisites:
     - BasicCybernaticsUpgrade

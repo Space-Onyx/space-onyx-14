@@ -1,0 +1,9 @@
+ent-SurgeonPDA = surgeon PDA
+    .desc = Shiny and sterile.
+ent-SurgeonIDCard = surgeon ID card
+    .desc = { ent-IDCardStandard.desc }
+ent-ClothingBeltSurgicalBoard = surgical magnetic board
+    .desc = A magnetic board made for carrying surgical instruments.
+ent-ClothingBeltSurgicalBoardFilled = { ent-ClothingBeltSurgicalBoard }
+    .desc = { ent-ClothingBeltSurgicalBoard.desc }
+    .suffix = Filled

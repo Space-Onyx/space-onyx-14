@@ -216,6 +216,7 @@
     - Instruments
     - Equipment
     - FauxTiles
+    - SeedDnaDisks # <Onyx-SeedDnaResearch>
     # <Onyx-VisionGogglesAndPinpointers>
     - OnyxSpecOpsGoggles
     - OnyxPinpointers
@@ -281,6 +282,7 @@
     - SharedBoards
     - CameraBoards
     - ShuttleBoards
+    - SeedDnaBoards # <Onyx-SeedDnaResearch>
     # </Onyx-GoobDepartmentBoards-edited>
   - type: EmagLatheRecipes
     emagDynamicPacks:
@@ -396,6 +398,7 @@
   - type: EmagLatheRecipes
     emagStaticPacks:
     - HostileCubesStatic
+    - EmagCubesStatic # <Onyx-FelinidCube>
 
 - type: entity
   id: SecurityTechFab
@@ -439,6 +442,8 @@
     - SecurityAmmo
     - SecurityWeapons
     - SecurityDisablers
+    - MedipenFilling # <Onyx-CartridgeAutoinjector>
+    - PrisonerBodyBagDynamic # <Onyx-AdvancedBodyBags>
     # <MechProduction>
     - MechBoardsSecurity
     - MechWeaponsSecurityLight
@@ -549,7 +554,16 @@
     # </Onyx-Cybernetics>
     - OnyxTranslatorImplanters # <Onyx-LanguageTranslators>
     - PowerCells
+    # <Onyx-AdvancedBodyBags>
+    - BodyBagsDynamic
+    - BluespaceBodyBagDynamic
+    # </Onyx-AdvancedBodyBags>
     # </Onyx-DepartmentTechfabRecipes-edited>
+  # <Onyx-AdvancedBodyBags>
+  - type: EmagLatheRecipes
+    emagStaticPacks:
+    - SyndicateBodyBagsStatic
+  # </Onyx-AdvancedBodyBags>
   - type: Machine
     board: MedicalTechFabCircuitboard
   - type: StealTarget

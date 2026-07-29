@@ -81,14 +81,19 @@ namespace Content.Shared.Chat
         AdminChat = 1 << 13,
 
         /// <summary>
+        ///     Private communication shared by entities in the same collective mind.
+        /// </summary>
+        CollectiveMind = 1 << 14, // <Onyx-CollectiveMind>
+
+        /// <summary>
         ///     Unspecified.
         /// </summary>
-        Unspecified = 1 << 14,
+        Unspecified = 1 << 15, // <Onyx-CollectiveMind-edited>
 
         /// <summary>
         ///     Channels considered to be IC.
         /// </summary>
-        IC = Local | Whisper | Radio | Dead | Emotes | Damage | Visual | Notifications,
+        IC = Local | Whisper | Radio | Dead | Emotes | Damage | Visual | Notifications | CollectiveMind, // <Onyx-CollectiveMind-edited>
 
         AdminRelated = Admin | AdminAlert | AdminChat,
     }

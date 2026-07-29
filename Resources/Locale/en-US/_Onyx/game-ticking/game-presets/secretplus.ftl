@@ -1,0 +1,12 @@
+secretplus-low-title = Secret+ Light
+secretplus-low-description = Relatively calm. But not always.
+secretplus-calm-title = Secret+ Calm
+secretplus-calm-description = Calm at first. Possibly until the end.
+secretplus-mid-title = Secret+ Medium
+secretplus-mid-description = Face unknown but balanced threats.
+secretplus-admeme-title = Secret+ Chaos
+secretplus-admeme-description = If it can happen, it will.
+survivalplus-title = Survival+
+survivalplus-description = Starts fairly calm. Ends otherwise.
+secretplus-lowpop-title = Secret+ Low Population
+secretplus-lowpop-description = More active, less threatening. Intended for skeleton crews.

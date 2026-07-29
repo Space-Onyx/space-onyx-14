@@ -1,0 +1,238 @@
+- type: entity
+  id: BaseMilitaryPowerCell
+  abstract: true
+  parent: BasePowerCell
+  components:
+  - type: Battery
+    pricePerJoule: 0.15
+  - type: BatteryDrinkerSource
+  - type: PhysicalComposition
+    materialComposition: { Steel: 80, Gold: 40, Glass: 40, Plasma: 40 }
+    chemicalComposition: { Zinc: 7.5 }
+  - type: Tag
+    tags: [MilitaryPowerCell, PowerCell]
+
+- type: entity
+  id: BaseMilitaryPowerCellSMG
+  abstract: true
+  parent: BaseMilitaryPowerCell
+  components:
+  - type: Sprite
+    layers:
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: icon
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: o4
+      shader: unshaded
+  - type: Battery
+    maxCharge: 1000
+    startingCharge: 1000
+  - type: BatteryDrinkerSource
+    maxAmount: 200
+  - type: GenericVisualizer
+    visuals:
+      enum.BatteryVisuals.State:
+        enum.PowerCellVisualLayers.Unshaded:
+          Full: {visible: true, state: o4}
+          Neither: {visible: true, state: o2}
+          Empty: {visible: false}
+  - type: Tag
+    tags: [MilitaryPowerCellSMG, MilitaryPowerCell, PowerCell]
+
+- type: entity
+  id: PowerCellIRSMG
+  parent: BaseMilitaryPowerCellSMG
+  name: SMG power cell
+  description: A militarized power cell compatible with SMG scale lasers.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/energy_cell_pistol_lethal.rsi
+  - type: BatteryAmmoProvider
+    proto: SMGLaser
+    fireCost: 50
+
+- type: entity
+  id: PowerCellIonSMG
+  parent: BaseMilitaryPowerCellSMG
+  name: ion SMG power cell
+  description: A militarized power cell compatible with SMG scale lasers that fires ion beams.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/energy_cell_pistol_ion.rsi
+  - type: BatteryAmmoProvider
+    proto: SMGLaserIon
+    fireCost: 50
+
+- type: entity
+  id: PowerCellXraySMG
+  parent: BaseMilitaryPowerCellSMG
+  name: x-ray SMG power cell
+  description: A militarized power cell compatible with laser SMGs that fires x-rays.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/energy_cell_pistol_xray.rsi
+  - type: BatteryAmmoProvider
+    proto: SMGLaserXray
+    fireCost: 50
+
+- type: entity
+  id: PowerCellBluespaceSMG
+  parent: BaseMilitaryPowerCellSMG
+  name: bluespace SMG power cell
+  description: A militarized power cell compatible with SMG scale lasers that fires beams of calibrated bluespace particles that bypass few inches of armor.
+  suffix: Full
+  components:
+  - type: Battery
+    maxCharge: 1500
+    startingCharge: 1500
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/energy_cell_pistol_bluespace.rsi
+  - type: BatteryAmmoProvider
+    proto: SMGLaserBluespace
+    fireCost: 50
+
+- type: entity
+  id: BaseMilitaryPowerCellSniper
+  abstract: true
+  parent: BaseMilitaryPowerCell
+  components:
+  - type: Sprite
+    layers:
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: icon
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: o4
+      shader: unshaded
+  - type: Battery
+    maxCharge: 1200
+    startingCharge: 1200
+  - type: BatteryDrinkerSource
+    maxAmount: 200
+  - type: GenericVisualizer
+    visuals:
+      enum.BatteryVisuals.State:
+        enum.PowerCellVisualLayers.Unshaded:
+          Full: {visible: true, state: o4}
+          Neither: {visible: true, state: o2}
+          Empty: {visible: false}
+  - type: Tag
+    tags: [MilitaryPowerCellSniper, MilitaryPowerCell, PowerCell]
+  - type: PhysicalComposition
+    materialComposition: { Steel: 120, Gold: 60, Glass: 60, Plasma: 60 }
+    chemicalComposition: { Zinc: 10 }
+
+- type: entity
+  id: PowerCellIRSniper
+  parent: BaseMilitaryPowerCellSniper
+  name: sniper power cell
+  description: A militarized power cell compatible with laser snipers.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/energy_cell_rifle_lethal.rsi
+  - type: BatteryAmmoProvider
+    proto: SniperRedLaser
+    fireCost: 100
+
+- type: entity
+  id: PowerCellIonSniper
+  parent: BaseMilitaryPowerCellSniper
+  name: ion sniper power cell
+  description: A militarized power cell compatible with laser snipers that fires ion beams.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/energy_cell_rifle_ion.rsi
+  - type: BatteryAmmoProvider
+    proto: SniperIonLaser
+    fireCost: 100
+
+- type: entity
+  id: PowerCellXraySniper
+  parent: BaseMilitaryPowerCellSniper
+  name: x-ray sniper power cell
+  description: A militarized power cell compatible with laser sniper rifles that fires x-rays.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/energy_cell_rifle_xray.rsi
+  - type: BatteryAmmoProvider
+    proto: SniperXrayLaser
+    fireCost: 100
+
+- type: entity
+  id: PowerCellBluespaceSniper
+  parent: BaseMilitaryPowerCellSniper
+  name: bluespace sniper power cell
+  description: A militarized power cell compatible with laser snipers that fires beams of calibrated bluespace particles that bypass few inches of armor.
+  suffix: Full
+  components:
+  - type: Battery
+    maxCharge: 1800
+    startingCharge: 1800
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/energy_cell_rifle_bluespace.rsi
+  - type: BatteryAmmoProvider
+    proto: SniperBluespaceLaser
+    fireCost: 100
+
+- type: entity
+  id: MilitaryPowerCellLMG
+  parent: BaseMilitaryPowerCell
+  name: LMG battery
+  description: A car battery compatible with laser LMG, attachable to charge provider backpack.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/energy_cell_lmg.rsi
+    layers:
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: icon
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: o4
+      shader: unshaded
+  - type: Item
+    size: Large
+    shape:
+    - 0,0,2,1
+  - type: Battery
+    maxCharge: 3000
+    startingCharge: 3000
+  - type: BatteryDrinkerSource
+    maxAmount: 500
+  - type: GenericVisualizer
+    visuals:
+      enum.BatteryVisuals.State:
+        enum.PowerCellVisualLayers.Unshaded:
+          Full: {visible: true, state: o4}
+          Neither: {visible: true, state: o2}
+          Empty: {visible: false}
+  - type: BatteryAmmoProvider
+    proto: LMGLaser
+    fireCost: 15
+  - type: Tag
+    tags: [MilitaryPowerCellLMG, MilitaryPowerCell, PowerCell]
+  - type: Clothing
+    slots: BELT
+  - type: PhysicalComposition
+    materialComposition: { Steel: 300, Gold: 40, Glass: 160, Plasma: 200 }
+    chemicalComposition: { Zinc: 20 }
+
+- type: entity
+  id: MilitaryPowerCellBluespaceLMG
+  parent: MilitaryPowerCellLMG
+  name: bluespace LMG battery
+  description: Highly advanced bluespace battery firing energized bluespace photonic particles calibrated to easily bypass few inches of armor.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/energy_cell_lmg_bluespace.rsi
+  - type: Battery
+    maxCharge: 2100
+    startingCharge: 2100
+  - type: BatteryDrinkerSource
+    maxAmount: 500
+  - type: BatteryAmmoProvider
+    proto: LMGLaserBluespace
+    fireCost: 15

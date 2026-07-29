@@ -22,9 +22,8 @@
     # <Onyx-SeedDna>
     ADTBotanicalSeedDNADisk: 10
     # </Onyx-SeedDna>
-    #TO DO:
-    #plant analyzer
   contrabandInventory:
     ChemistryBottleUnstableMutagen: 1
+    Chainsaw: 1 # <Onyx-VendingInventories>
     Joint: 1
     ChemistryBottleLeft4Zed: 1

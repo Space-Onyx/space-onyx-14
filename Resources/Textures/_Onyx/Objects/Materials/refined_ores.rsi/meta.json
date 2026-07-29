@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Diamond sprites taken from tgstation at commit 71a232f03b887493531ae441c7c0f5c892866410. Bananium sprites made by brainfood1183 (github) for ss14. In-hand sprites by mubururu_ (github).",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "diamond"
+    },
+    {
+      "name": "diamond_2"
+    },
+    {
+      "name": "diamond_3"
+    },
+    {
+      "name": "diamond-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "diamond-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "bananium"
+    },
+    {
+      "name": "bananium_1"
+    },
+    {
+      "name": "bananium-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "bananium-inhand-right",
+      "directions": 4
+    }
+  ]
+}

@@ -15,3 +15,12 @@
   components:
   - type: Flatpack
     entity: Vaccinator
+
+- type: entity
+  parent: BaseFlatpack
+  id: MedicalBiofabricatorFlatpack
+  name: medical biofabricator flatpack
+  description: A flatpack used for constructing a medical biofabricator.
+  components:
+  - type: Flatpack
+    entity: MedicalBiofabricator

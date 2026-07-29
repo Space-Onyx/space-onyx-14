@@ -203,6 +203,11 @@
     fitsInCharger: true
   - type: PowerCellDraw
     drawRate: 0.8
+  # <Onyx-BatteryDrinker>
+  - type: BatteryDrinker
+    blacklist:
+      tags: [IPCDrinkBlacklist]
+  # </Onyx-BatteryDrinker>
   - type: AccessReader
     access: [ ["Ipc"] ]
   - type: Access
@@ -255,6 +260,9 @@
     - DoorBumpOpener
     - AnomalyHost
     - Ipc
+    # <Onyx-BatteryDrinker>
+    - IPCDrinkBlacklist
+    # </Onyx-BatteryDrinker>
 ###
   - type: Temperature
     currentTemperature: 310.15

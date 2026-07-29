@@ -5,6 +5,7 @@ using Content.Shared.Inventory;
 using Content.Shared.Storage;
 using Content.Shared.Timing;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Audio;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
@@ -51,7 +52,7 @@ public sealed partial class PreventChasmFallingSystem : EntitySystem
             args.Cancelled = true;
             _transform.SetCoordinates(args.Faller, coords);
             _transform.AttachToGridOrMap(args.Faller, Transform(args.Faller));
-            _audio.PlayPvs("/Audio/Items/Mining/fultext_launch.ogg", args.Faller);
+            _audio.PlayPvs(new SoundPathSpecifier("/Audio/Items/Mining/fultext_launch.ogg"), args.Faller);
             if (jaunter.Comp.DeleteOnUse)
             {
                 RemComp<PreventChasmFallingComponent>(jaunter);

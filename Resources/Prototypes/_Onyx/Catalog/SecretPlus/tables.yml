@@ -1,0 +1,121 @@
+- type: entityTable
+  id: SecretPlusTable
+  table: !type:AllSelector
+    children:
+    - id: AnomalySpawn
+    - id: BluespaceArtifact
+    - id: BluespaceLocker
+    - id: BreakerFlip
+    - id: BureaucraticError
+    - id: ClericalError
+    - id: CockroachMigration
+    - id: GasLeak
+    - id: GreytideVirus
+    - id: IonStorm
+    - id: KudzuGrowth
+    - id: MassHallucinations
+    - id: MouseMigration
+    - id: PowerGridCheck
+    - id: RandomSentience
+    - id: SolarFlare
+    - id: ClosetSkeleton
+    - id: DragonSpawn
+    - id: KingRatMigration
+    - id: NinjaSpawn
+    - id: ParadoxCloneSpawn
+    - id: SleeperAgents
+    - id: ZombieOutbreak
+    - id: LoneOpsSpawn
+    - id: GiftsEngineering
+    - id: GiftsFireProtection
+    - id: GiftsJanitor
+    - id: GiftsMedical
+    - id: GiftsPizzaPartyLarge
+    - id: GiftsPizzaPartySmall
+    - id: GiftsSecurityGuns
+    - id: GiftsSecurityRiot
+    - id: GiftsSpacingSupplies
+    - id: GiftsVendingRestock
+    - id: SnailMigrationLowPop
+    - id: SnailMigration
+    - id: UnknownShuttleHonki
+    - id: UnknownShuttleSyndieEvacPod
+    - id: UnknownShuttleNTQuark
+    - id: UnknownShuttleInstigator
+
+- type: entityTable
+  id: SecretPlusTableLowpop
+  table: !type:AllSelector
+    children:
+    - id: AnomalySpawn
+    - id: BluespaceArtifact
+    - id: BluespaceLocker
+    - id: BreakerFlip
+    - id: BureaucraticError
+    - id: ClericalError
+    - id: CockroachMigration
+    - id: GasLeak
+    - id: GreytideVirus
+    - id: IonStorm
+    - id: KudzuGrowth
+    - id: MassHallucinations
+    - id: MouseMigration
+    - id: PowerGridCheck
+    - id: RandomSentience
+    - id: SolarFlare
+    - id: ClosetSkeleton
+    - id: KingRatMigration
+    - id: NinjaSpawn
+    - id: ParadoxCloneSpawn
+    - id: SleeperAgents
+    - id: LoneOpsSpawn
+    - id: GiftsEngineering
+    - id: GiftsFireProtection
+    - id: GiftsJanitor
+    - id: GiftsMedical
+    - id: GiftsPizzaPartyLarge
+    - id: GiftsPizzaPartySmall
+    - id: GiftsSecurityGuns
+    - id: GiftsSecurityRiot
+    - id: GiftsSpacingSupplies
+    - id: GiftsVendingRestock
+    - id: SnailMigrationLowPop
+    - id: SnailMigration
+    - id: UnknownShuttleHonki
+    - id: UnknownShuttleSyndieEvacPod
+    - id: UnknownShuttleNTQuark
+    - id: UnknownShuttleInstigator
+
+- type: weightedRandom
+  id: SecretPlus
+  weights:
+    Thief: 0.2
+    Traitor: 0.25
+    Changeling: 0.1
+
+- type: weightedRandom
+  id: SecretPlusPrimary
+  weights:
+    Traitor: 0.25
+    Changeling: 0.1
+    Nukeops: 0.05
+    Revolutionary: 0.05
+    Zombie: 0.04
+    Wizard: 0.025
+
+- type: weightedRandom
+  id: SecretPlusChaos
+  weights:
+    Thief: 0.2
+    Traitor: 0.25
+    Changeling: 0.1
+    Nukeops: 0.05
+    Revolutionary: 0.05
+    Zombie: 0.04
+    Wizard: 0.025
+
+- type: weightedRandom
+  id: SecretPlusLowpop
+  weights:
+    Thief: 0.2
+    Traitor: 1

@@ -83,6 +83,12 @@
     - Supply
     - Syndicate
     globalReceive: true
+  # <Onyx-CollectiveMind>
+  - type: CollectiveMind
+    defaultChannel: Binary
+    channels:
+    - Binary
+  # </Onyx-CollectiveMind>
   - type: Physics
     bodyStatus: InAir
   - type: CanMoveInAir

@@ -1,0 +1,9 @@
+ent-BioSynthHeadEmpty = bio-synthetic hollow head
+ent-BioSynthLeftArm = bio-synthetic left arm
+ent-BioSynthRightArm = bio-synthetic right arm
+ent-BioSynthLeftHand = bio-synthetic left hand
+ent-BioSynthRightHand = bio-synthetic right hand
+ent-BioSynthLeftLeg = bio-synthetic left leg
+ent-BioSynthRightLeg = bio-synthetic right leg
+ent-BioSynthLeftFoot = bio-synthetic left foot
+ent-BioSynthRightFoot = bio-synthetic right foot

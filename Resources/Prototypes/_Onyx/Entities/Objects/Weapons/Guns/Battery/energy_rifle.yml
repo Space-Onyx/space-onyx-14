@@ -1,0 +1,140 @@
+- type: entity
+  id: WeaponEnergyRifle
+  parent: [BaseItem, BaseGunWieldable, BaseSecurityContraband]
+  name: CR-2 Hera
+  description: A versatile energy assault rifle that uses interchangeable energy magazines.
+  components:
+  - type: Item
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/energy_rifle.rsi
+    size: Huge
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/energy_rifle.rsi
+    quickEquip: false
+    slots: [back, suitStorage]
+  - type: Gun
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
+  - type: MagazineAmmoProvider
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: EnergyMagRifleLethal
+        insertSound: /Audio/Weapons/Guns/MagIn/revolver_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/revolver_magout.ogg
+        whitelist:
+          tags: [EnergyMagAmmo]
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/energy_rifle.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-unshaded-4
+      map: ["enum.GunVisualLayers.MagUnshaded"]
+      shader: unshaded
+  - type: MagazineVisuals
+    magState: mag
+    steps: 5
+    zeroVisible: true
+  - type: AmmoCounter
+  - type: RestrictGunshotsByUserTag
+    doesntContain: [Oni]
+    messages: [oni-cannot-shoot-guns-1, oni-cannot-shoot-guns-2, oni-cannot-shoot-guns-3]
+  - type: Appearance
+  - type: BatteryDrinkerSource
+    maxAmount: 180
+
+- type: entity
+  id: EnergyRifleMagBase
+  abstract: true
+  parent: BaseItem
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/energyriflemag.rsi
+  - type: Battery
+    maxCharge: 1000
+    startingCharge: 1000
+  - type: BatteryDrinkerSource
+    maxAmount: 200
+  - type: AmmoCounter
+  - type: Appearance
+  - type: Tag
+    tags: [EnergyMagAmmo]
+
+- type: entity
+  id: EnergyMagRifleLethal
+  parent: [EnergyRifleMagBase, BaseSecurityContraband]
+  name: energy rifle magazine (lethal)
+  description: A power cell with a converter that produces lethal energy bolts.
+  components:
+  - type: Sprite
+    state: erifle_lethal
+  - type: BatteryAmmoProvider
+    proto: RifleBulletEnergyGunLethal
+    fireCost: 50
+
+- type: entity
+  id: EnergyMagRifleDisabler
+  parent: [EnergyRifleMagBase, BaseSecurityContraband]
+  name: energy rifle magazine (disabler)
+  description: A power cell with a converter that produces disabling energy bolts.
+  components:
+  - type: Sprite
+    state: erifle_disabler
+  - type: BatteryAmmoProvider
+    proto: RifleBulletEnergyGunDisabler
+    fireCost: 50
+
+- type: entity
+  id: EnergyMagRifleIon
+  parent: [EnergyRifleMagBase, BaseSecurityContraband]
+  name: energy rifle magazine (ion)
+  description: A power cell with a converter that produces ionizing energy bolts.
+  components:
+  - type: Sprite
+    state: erifle_ion
+  - type: BatteryAmmoProvider
+    proto: RifleBulletEnergyGunIon
+    fireCost: 50
+
+- type: entity
+  id: RifleBulletEnergyGunLethal
+  parent: BaseBullet
+  categories: [HideSpawnMenu]
+  components:
+  - type: Reflective
+    reflective: [Energy]
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+    layers:
+    - state: heavylaser
+      shader: unshaded
+  - type: Projectile
+    impactEffect: BulletImpactEffectRedDisabler
+    damage:
+      types: { Heat: 17 }
+    soundHit:
+      collection: MeatLaserImpact
+
+- type: entity
+  id: RifleBulletEnergyGunDisabler
+  parent: BaseBullet
+  categories: [HideSpawnMenu]
+  components:
+  - type: Reflective
+    reflective: [Energy]
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+    layers:
+    - state: omnilaser
+      shader: unshaded
+  - type: StaminaDamageOnCollide
+    damage: 20
+  - type: Projectile
+    impactEffect: BulletImpactEffectBlueDisabler
+    damage: {}
+    soundHit:
+      collection: MeatLaserImpact

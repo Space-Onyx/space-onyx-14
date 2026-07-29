@@ -1,0 +1,12 @@
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: MedicalBiofabMachineBoard
+  name: medical biofabricator machine board
+  description: A machine printed circuit board for a medical biofabricator.
+  components:
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: MedicalBiofabricator
+    stackRequirements:
+      Manipulator: 4

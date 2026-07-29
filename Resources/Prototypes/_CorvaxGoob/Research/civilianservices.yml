@@ -10,7 +10,7 @@
   recipeUnlocks:
     - FillableMedipen
     - MachineMedipenRefillerCircuitboard
-  position: 4,3
+  position: 1,1
   technologyPrerequisites:
     - BiochemicalStasis
 - type: technology
@@ -26,6 +26,6 @@
     - CloningConsoleComputerCircuitboard
     - CloningPodMachineCircuitboard
     - MedicalScannerMachineCircuitboard
-  position: 4,2
+  position: 3,2
   technologyPrerequisites:
     - BluespaceChemistry

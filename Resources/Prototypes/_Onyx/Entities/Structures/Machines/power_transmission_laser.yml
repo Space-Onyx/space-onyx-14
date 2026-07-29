@@ -1,0 +1,100 @@
+- type: entity
+  id: MachinePowerTransmissionLaser
+  parent: BaseMachine
+  name: power transmission laser
+  description: Sends power over a giant laser beam to an NT power processing facility. Simply plug it in and come back tomorrow for a big stack of cash. Also, do not step in front of the firing line.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: PTL
+    baseBeamDamage:
+      types:
+        Heat: 5
+  - type: PTLVisuals
+  - type: Sprite
+    sprite: _Onyx/Structures/Machines/PTL/pt_laser.rsi
+    layers:
+    - state: base
+      map: ["enum.PTLVisualLayers.Base"]
+    - state: unpowered
+      shader: unshaded
+      map: ["enum.PTLVisualLayers.Unpowered"]
+    - state: charge-1
+      shader: unshaded
+      visible: false
+      map: ["enum.PTLVisualLayers.Charge"]
+  - type: Transform
+    anchored: true
+    noRot: false
+  - type: RadiationSource
+  - type: Appearance
+  - type: PowerNetworkBattery
+    maxChargeRate: 5000000
+  - type: Battery
+    startingCharge: 0
+    maxCharge: 100000000
+  - type: ExaminableBattery
+  - type: BatteryCharger
+    voltage: High
+    node: input
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      input:
+        !type:CableDeviceNode
+        nodeGroupID: HVPower
+  - type: StationInfiniteBatteryTarget
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallicStrong
+  - type: BatterySensor
+  - type: Gun
+    showExamineText: false
+    fireRate: 10
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
+  - type: BatteryAmmoProvider
+    proto: PTLHitscan
+    fireCost: 1000000
+  - type: Physics
+    bodyType: Static
+  - type: Rotatable
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.5,-1.5,1.5,1.5"
+        density: 50
+        mask:
+        - LargeMobMask
+        layer:
+        - WallLayer
+  - type: StationAiWhitelist
+  - type: AmbientSound
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/engine_hum.ogg
+
+- type: entity
+  id: PTLHitscan
+  parent: BasicHitscan
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Heat: 10
+  - type: HitscanBasicVisuals
+    muzzleFlash:
+      sprite: _Onyx/Structures/Machines/PTL/pt_beam.rsi
+      state: ptl_beam
+    travelFlash:
+      sprite: _Onyx/Structures/Machines/PTL/pt_beam.rsi
+      state: ptl_beam
+    impactFlash:
+      sprite: _Onyx/Structures/Machines/PTL/pt_beam.rsi
+      state: ptl_beam

@@ -18,7 +18,7 @@ public sealed partial class InitialBodySystem
 {
     private partial bool ShouldSkipInitialOrgan(EntProtoId prototype)
     {
-        return ProtoMan.Index<EntityPrototype>(prototype).TryGetComponent<OptionalOrganComponent>(out _);
+        return ProtoMan.Index<EntityPrototype>(prototype).TryComp<OptionalOrganComponent>(out _, EntityManager.ComponentFactory);
     }
 }
 

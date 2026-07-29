@@ -1,0 +1,54 @@
+- type: gamePreset
+  id: SecretPlusLow
+  alias: [secretpluslow, turbulence]
+  name: secretplus-low-title
+  description: secretplus-low-description
+  showInVote: true
+  rules:
+  - SecretPlusLow
+
+- type: gamePreset
+  id: SecretPlusCalm
+  alias: [secretpluscalm]
+  name: secretplus-calm-title
+  description: secretplus-calm-description
+  showInVote: true
+  rules:
+  - SecretPlusLow
+
+- type: gamePreset
+  id: SecretPlusMid
+  alias: [secretplusmid, secretplus, entropy]
+  name: secretplus-mid-title
+  description: secretplus-mid-description
+  showInVote: true
+  rules:
+  - SecretPlusMid
+
+- type: gamePreset
+  id: SecretPlusAdmeme
+  alias: [secretplusadmeme, secretplusevil, secretplushigh, chaos]
+  name: secretplus-admeme-title
+  description: secretplus-admeme-description
+  showInVote: false
+  rules:
+  - SecretPlusAdmeme
+
+- type: gamePreset
+  id: SurvivalPlusMid
+  alias: [survivalplus, newsurvival, survivalnew]
+  name: survivalplus-title
+  description: survivalplus-description
+  showInVote: true
+  rules:
+  - SecretPlusRampingMid
+
+- type: gamePreset
+  id: SecretPlusLowpop
+  alias: [secretpluslowpop, lowpopulation, bare]
+  name: secretplus-lowpop-title
+  description: secretplus-lowpop-description
+  showInVote: true
+  maxPlayers: 40
+  rules:
+  - SecretPlusLowpop

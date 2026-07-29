@@ -1,0 +1,25 @@
+ent-OrganBaseVisualTail = хвост
+    .desc = { ent-OrganBase.desc }
+ent-OrganHumanTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganFelinidTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganVulpkaninTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganReptilianTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganVoxTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganSlimePersonTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganTajaranTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganArcanTail = { ent-OrganBaseVisualTail }
+    .desc = { ent-OrganBaseVisualTail.desc }
+
+ent-OrganFelinidEars = { ent-OrganBaseEars }
+    .desc = { ent-OrganBaseEars.desc }
+ent-OrganArcanEars = { ent-OrganBaseEars }
+    .desc = { ent-OrganBaseEars.desc }
+ent-OrganSlimePersonEars = { ent-OrganBaseEars }
+    .desc = { ent-OrganBaseEars.desc }

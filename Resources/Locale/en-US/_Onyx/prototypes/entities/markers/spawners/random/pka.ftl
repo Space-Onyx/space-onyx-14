@@ -1,0 +1,9 @@
+ent-ProtoKineticWeaponLootSpawner = proto-kinetic weapon spawner
+    .suffix = Lavaland
+    .desc = { ent-MarkerBase.desc }
+ent-ProtoKineticWeaponSpaceLootSpawner = space proto-kinetic weapon spawner
+    .suffix = Lavaland, Space Upgrade
+    .desc = { ent-MarkerBase.desc }
+ent-ProtoKineticUpgradeLootSpawner = proto-kinetic upgrade spawner
+    .suffix = Lavaland
+    .desc = { ent-MarkerBase.desc }

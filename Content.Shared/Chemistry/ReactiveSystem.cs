@@ -37,6 +37,7 @@ public enum ReactionMethod
 Touch,
 Injection,
 Ingestion,
+Eyes, // <Onyx-PepperSpray>
 }
 
 [ByRefEvent]

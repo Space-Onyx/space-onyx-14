@@ -52,13 +52,13 @@ public sealed partial class TourniquetSystem : EntitySystem
         if (!TryComp(user, out TargetingComponent? targeting) ||
             !_targeting.TryResolveExact(body, targeting.Target, out var part))
         {
-            _popup.PopupClient(Loc.GetString("tourniquet-selected-part-missing"), body, user);
+            _popup.PopupEntity(Loc.GetString("tourniquet-selected-part-missing"), body, user);
             return false;
         }
 
         if (!CanApply(body, part))
         {
-            _popup.PopupClient(Loc.GetString("tourniquet-no-bleeding"), body, user);
+            _popup.PopupEntity(Loc.GetString("tourniquet-no-bleeding"), body, user);
             return false;
         }
 
@@ -89,7 +89,7 @@ public sealed partial class TourniquetSystem : EntitySystem
         if (!tourniquet.Comp.Damage.Empty)
             _damage.TryApplyPartDamage(body, part, tourniquet.Comp.Damage, args.Args.User);
         _audio.PlayPredicted(tourniquet.Comp.EndSound, body, args.Args.User);
-        _popup.PopupClient(Loc.GetString("tourniquet-applied"), body, args.Args.User);
+        _popup.PopupEntity(Loc.GetString("tourniquet-applied"), body, args.Args.User);
         if (_net.IsServer)
             QueueDel(tourniquet);
     }

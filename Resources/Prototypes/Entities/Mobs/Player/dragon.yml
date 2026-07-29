@@ -166,6 +166,12 @@
     speedModifier: 2.5 # fast because dragon strong
     useSound:
       path: /Audio/Items/crowbar.ogg
+  # <Onyx-CollectiveMind>
+  - type: CollectiveMind
+    defaultChannel: Dragonmind
+    channels:
+    - Dragonmind
+  # </Onyx-CollectiveMind>
 
 - type: entity
   parent: BaseMobDragon

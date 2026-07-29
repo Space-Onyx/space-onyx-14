@@ -1288,6 +1288,11 @@
 - type: Tag
   id: SecBeltEquip # Storage whitelist: ClothingBeltSecurity
 
+# <Onyx-CartridgeAutoinjector>
+- type: Tag
+  id: AutoinjectorCartridge
+# </Onyx-CartridgeAutoinjector>
+
 - type: Tag
   id: SecurePlasmaWindoor # Used in ConstructionGraph "Windoor" to navigate between Windoor, PlasmaWindoor, and UraniumWindoor airlocks.
 

@@ -1,0 +1,132 @@
+- type: entity
+  id: SMGLaser
+  parent: BasicHitscan
+  categories: [HideSpawnMenu]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types: { Heat: 10.5 }
+  - type: HitscanBasicVisuals
+    muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light }
+    travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light }
+    impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light }
+
+- type: entity
+  id: SMGLaserIon
+  parent: BasicHitscan
+  categories: [HideSpawnMenu]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types: { Ion: 15 }
+  - type: HitscanBasicVisuals
+    muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light_ion }
+    travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light_ion }
+    impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light_ion }
+
+- type: entity
+  id: SMGLaserBluespace
+  parent: BasicHitscan
+  categories: [HideSpawnMenu]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types: { Heat: 9 }
+      armorPenetration: 0.4
+  - type: HitscanBasicVisuals
+    muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light_pulse }
+    travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light_pulse }
+    impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light_pulse }
+
+- type: entity
+  id: SMGLaserXray
+  parent: BasicHitscan
+  categories: [HideSpawnMenu]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types: { Heat: 4.5, Radiation: 6 }
+  - type: HitscanBasicVisuals
+    muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light_xray }
+    travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light_xray }
+    impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light_xray }
+
+- type: entity
+  id: SniperRedLaser
+  parent: BasicHitscan
+  categories: [HideSpawnMenu]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types: { Heat: 15 }
+  - type: HitscanBasicVisuals
+    muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light }
+    travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light }
+    impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light }
+
+- type: entity
+  id: SniperIonLaser
+  parent: BasicHitscan
+  categories: [HideSpawnMenu]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types: { Ion: 21 }
+  - type: HitscanBasicVisuals
+    muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light_ion }
+    travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light_ion }
+    impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light_ion }
+
+- type: entity
+  id: SniperBluespaceLaser
+  parent: BasicHitscan
+  categories: [HideSpawnMenu]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types: { Heat: 14 }
+      armorPenetration: 0.4
+  - type: HitscanBasicVisuals
+    muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light_pulse }
+    travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light_pulse }
+    impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light_pulse }
+
+- type: entity
+  id: SniperXrayLaser
+  parent: BasicHitscan
+  categories: [HideSpawnMenu]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types: { Heat: 7.5, Radiation: 7.5 }
+  - type: HitscanBasicVisuals
+    muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light_xray }
+    travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light_xray }
+    impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light_xray }
+
+- type: entity
+  id: LMGLaser
+  parent: BasicHitscan
+  categories: [HideSpawnMenu]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types: { Heat: 10 }
+  - type: HitscanBasicVisuals
+    muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light }
+    travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light }
+    impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light }
+
+- type: entity
+  id: LMGLaserBluespace
+  parent: BasicHitscan
+  categories: [HideSpawnMenu]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types: { Heat: 9 }
+      armorPenetration: 0.4
+  - type: HitscanBasicVisuals
+    muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light_pulse }
+    travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light_pulse }
+    impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light_pulse }

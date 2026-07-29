@@ -1,7 +1,3 @@
-ent-TicketMachine = ticket machine
-    .desc = NEXT!
-ent-PaperTicket = ticket
-    .desc = Next!
 paper-component-ticket =
     Ticket No. { $queue }
     Wait for your turn

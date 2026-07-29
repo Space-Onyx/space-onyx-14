@@ -1,0 +1,9 @@
+ent-SurgeonPDA = КПК хирурга
+    .desc = Блестящий и стерильный.
+ent-SurgeonIDCard = ID-карта хирурга
+    .desc = { ent-IDCardStandard.desc }
+ent-ClothingBeltSurgicalBoard = магнитная доска хирурга
+    .desc = Магнитная доска для переноски хирургических инструментов.
+ent-ClothingBeltSurgicalBoardFilled = { ent-ClothingBeltSurgicalBoard }
+    .desc = { ent-ClothingBeltSurgicalBoard.desc }
+    .suffix = Заполненный

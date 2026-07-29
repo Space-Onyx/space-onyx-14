@@ -1,0 +1,16 @@
+ent-LeftArmCybernetic = кибернетическая левая рука
+ent-RightArmCybernetic = кибернетическая правая рука
+ent-LeftHandCybernetic = кибернетическая левая кисть
+ent-RightHandCybernetic = кибернетическая правая кисть
+ent-LeftLegCybernetic = кибернетическая левая нога
+ent-RightLegCybernetic = кибернетическая правая нога
+ent-LeftFootCybernetic = кибернетическая левая стопа
+ent-RightFootCybernetic = кибернетическая правая стопа
+ent-JawsOfLifeLeftArm = левая рука J.A.W.S.
+    .desc = Кибернетическая рука, способная вскрывать двери под напряжением.
+ent-JawsOfLifeRightArm = правая рука J.A.W.S.
+    .desc = Кибернетическая рука, способная вскрывать двери под напряжением.
+ent-SpeedLeftLeg = левая нога S.P.E.E.D.
+    .desc = Кибернетическая нога, повышающая скорость передвижения.
+ent-SpeedRightLeg = правая нога S.P.E.E.D.
+    .desc = Кибернетическая нога, повышающая скорость передвижения.

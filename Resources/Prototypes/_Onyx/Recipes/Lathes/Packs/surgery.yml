@@ -1,0 +1,8 @@
+- type: latheRecipePack
+  id: OnyxAdvancedSurgery
+  recipes:
+  - EnergyScalpel
+  - AdvancedRetractor
+  - EnergyCautery
+  - AdvancedBoneGel
+  - OmnimedTool

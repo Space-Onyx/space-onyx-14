@@ -33,3 +33,8 @@
     CandyBowl: 1
     BarSpoon: 2
     DrinkShaker: 2
+  # <Onyx-VendingInventories>
+  emaggedInventory:
+    CombatKnife: 1
+    ThrowingKnife: 1
+  # </Onyx-VendingInventories>

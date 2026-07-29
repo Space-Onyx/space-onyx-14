@@ -1,0 +1,11 @@
+ent-PillTramadol = таблетка
+    .suffix = Трамадол 7,5 ед.
+    .desc = { ent-Pill.desc }
+ent-PillCanisterTramadol = баночка для таблеток
+    .suffix = Трамадол 7,5 ед., 15
+    .desc = { ent-PillCanister.desc }
+ent-SyringeOxycodone = шприц
+    .desc = Мощное обезболивающее.
+    .suffix = Оксикодон 15 ед.
+pill-label-tramadol-7-5u = трамадол 7,5 ед.
+syringe-label-oxycodone = оксикодон

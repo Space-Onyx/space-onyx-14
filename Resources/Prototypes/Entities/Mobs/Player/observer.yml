@@ -93,6 +93,11 @@
       Asphyxiation: 1
     prefix: "ghost_"
   - type: GhostHearing
+  # <Onyx-CollectiveMind>
+  - type: CollectiveMind
+    hearAll: true
+    seeAllNames: true
+  # </Onyx-CollectiveMind>
   - type: ShowElectrocutionHUD
   - type: IntrinsicRadioReceiver
   - type: ActiveRadio

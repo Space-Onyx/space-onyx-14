@@ -39,6 +39,12 @@ research-technology-kinetic-modifications = Kinetic Modifications
 research-technology-basic-shuttle-armament = Shuttle Basic Armament
 research-technology-advanced-shuttle-weapon = Advanced Shuttle Weapons
 research-technology-thermal-weaponry = Thermal Weaponry
+# <Onyx-GoobEnergyWeaponry>
+research-technology-energy-bolt-weaponry = Energy Weaponry
+# </Onyx-GoobEnergyWeaponry>
+# <Onyx-RestraintTechnology>
+research-technology-restraint = Restraint Technologies
+# </Onyx-RestraintTechnology>
 research-technology-dual-wielding-technology = Dual Wielding Technology
 
 research-technology-basic-robotics = Basic Robotics

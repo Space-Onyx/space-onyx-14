@@ -107,6 +107,7 @@
   - LauncherSyringe
   - MiniSyringe
   - AdvancedJetInjector
+  - DefibrillatorCompact # <Onyx-CompactDefibrillator>
 
 - type: latheRecipePack
   id: MedicalBoards

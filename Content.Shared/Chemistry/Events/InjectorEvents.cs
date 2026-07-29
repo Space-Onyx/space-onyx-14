@@ -1,4 +1,5 @@
 ﻿using Content.Shared.DoAfter;
+using Content.Shared.FixedPoint; // <Onyx-CartridgeAutoinjector>
 using Content.Shared.Inventory;
 using Robust.Shared.Serialization;
 
@@ -9,6 +10,18 @@ namespace Content.Shared.Chemistry.Events;
 /// </summary>
 [Serializable, NetSerializable]
 public sealed partial class InjectorDoAfterEvent : SimpleDoAfterEvent;
+
+// <Onyx-CartridgeAutoinjector>
+/// <summary>
+/// Raised on an injector after solution was successfully transferred into a target.
+/// </summary>
+public sealed class InjectorInjectionCompletedEvent(EntityUid user, EntityUid target, FixedPoint2 amount) : EntityEventArgs
+{
+    public readonly EntityUid User = user;
+    public readonly EntityUid Target = target;
+    public readonly FixedPoint2 Amount = amount;
+}
+// </Onyx-CartridgeAutoinjector>
 
 /// <summary>
 /// The base injection attempt event. It'll be raised on the user and target when attempting to inject the target.

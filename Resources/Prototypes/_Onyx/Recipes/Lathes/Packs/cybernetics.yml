@@ -1,0 +1,52 @@
+- type: latheRecipePack
+  id: BiofabricatorParts
+  recipes:
+  - SynthHeart
+  - SynthLungs
+  - SynthLiver
+  - SynthEyes
+  - SynthTongue
+  - SynthHeadEmpty
+  - SynthLeftArm
+  - SynthRightArm
+  - SynthLeftHand
+  - SynthRightHand
+  - SynthLeftLeg
+  - SynthRightLeg
+  - SynthLeftFoot
+  - SynthRightFoot
+
+- type: latheRecipePack
+  id: BasicCybernetics
+  recipes:
+  - LeftArmCybernetic
+  - RightArmCybernetic
+  - LeftHandCybernetic
+  - RightHandCybernetic
+  - LeftLegCybernetic
+  - RightLegCybernetic
+  - LeftFootCybernetic
+  - RightFootCybernetic
+  - BasicCyberneticEyes
+  - BasicCyberneticHeart
+  - BasicCyberneticLungs
+  - BasicCyberneticLiver
+
+- type: latheRecipePack
+  id: AdvancedCybernetics
+  recipes:
+  - UpgradedCyberneticHeart
+  - UpgradedCyberneticLungs
+  - JawsOfLifeLeftArm
+  - JawsOfLifeRightArm
+  - SpeedLeftLeg
+  - SpeedRightLeg
+  - DiagnosticCyberneticEyes
+
+- type: latheRecipePack
+  id: MedicalCybernetics
+  recipes: [ MedicalCyberneticEyes ]
+
+- type: latheRecipePack
+  id: SecurityCybernetics
+  recipes: [ SecurityCyberneticEyes ]

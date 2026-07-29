@@ -12,6 +12,7 @@ using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Radio;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes; // <Onyx-OSayLanguage>
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
@@ -25,7 +26,8 @@ public sealed partial class ChatSystem
         ChatTransmitRange range,
         string? nameOverride,
         bool hideLog = false,
-        bool ignoreActionBlocker = false
+        bool ignoreActionBlocker = false,
+        ProtoId<LanguagePrototype>? languageOverride = null // <Onyx-OSayLanguage>
         )
     {
         if (!_actionBlocker.CanSpeak(source) && !ignoreActionBlocker)
@@ -78,7 +80,9 @@ public sealed partial class ChatSystem
             ("message", inlineFormattedMessage));
 
         // <Onyx-Languages-edited>
-        var language = _language.GetCurrentLanguage(source);
+        var language = languageOverride is { } languageId && ProtoMan.TryIndex(languageId, out LanguagePrototype? overrideLanguage)
+            ? overrideLanguage
+            : _language.GetCurrentLanguage(source); // <Onyx-OSayLanguage-edited>
         // <Onyx-SignLanguage>
         var isSignLanguage = language.ID == "Sign";
         // </Onyx-SignLanguage>
@@ -148,7 +152,8 @@ public sealed partial class ChatSystem
         RadioChannelPrototype? channel,
         string? nameOverride,
         bool hideLog = false,
-        bool ignoreActionBlocker = false
+        bool ignoreActionBlocker = false,
+        ProtoId<LanguagePrototype>? languageOverride = null // <Onyx-OSayLanguage>
         )
     {
         if (!_actionBlocker.CanSpeak(source) && !ignoreActionBlocker)
@@ -165,7 +170,9 @@ public sealed partial class ChatSystem
         // </Onyx-InlineActions>
 
         // <Onyx-Languages-edited>
-        var language = _language.GetCurrentLanguage(source);
+        var language = languageOverride is { } languageId && ProtoMan.TryIndex(languageId, out LanguagePrototype? overrideLanguage)
+            ? overrideLanguage
+            : _language.GetCurrentLanguage(source); // <Onyx-OSayLanguage-edited>
         // <Onyx-SignLanguage>
         var isSignLanguage = language.ID == "Sign";
         // </Onyx-SignLanguage>

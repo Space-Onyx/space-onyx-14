@@ -4,11 +4,16 @@
     ClothingBackpackSecurity: 3
     ClothingBackpackSatchelSecurity: 3
     ClothingBackpackDuffelSecurity: 3
+    ClothingBackpackMessengerSecurity: 3 # <Onyx-VendingInventories>
     ClothingUniformJumpsuitSec: 3
     ClothingShoesBootsJack: 3
     ClothingHeadHatBeretSecurity: 3
     ClothingHeadHatSecsoft: 3
     ClothingHeadBandRed: 3
+    # <Onyx-VendingInventories>
+    ClothingHeadHatBeretBrigmedic: 1
+    ClothingMaskGasSecurity: 5
+    # </Onyx-VendingInventories>
     ClothingMaskNeckGaiterRed: 3
     ClothingHandsGlovesColorBlack: 3
     ClothingHandsGlovesFingerless: 3
@@ -16,18 +21,29 @@
     ClothingUniformJumpsuitSecGrey: 3
     ClothingUniformJumpskirtSecGrey: 3
     ClothingUniformJumpsuitSecBlue: 3
+    # <Onyx-VendingInventories>
+    ClothingUniformJumpsuitBrigmedic: 1
+    ClothingUniformJumpskirtBrigmedic: 1
+    # </Onyx-VendingInventories>
     ClothingHeadsetSecurity: 3
     ClothingOuterWinterSec: 2
     ClothingOuterArmorBasic: 2
+    ClothingOuterCoatAMG: 1 # <Onyx-VendingInventories>
     ClothingNeckScarfStripedRed: 3
     ClothingOuterArmorBasicSlim: 2
     ClothingEyesBlindfold: 1
     ClothingShoesBootsCombat: 1
     ClothingShoesBootsWinterSec: 2
     ClothingHeadHelmetJustice: 1
+    ClothingHeadHelmetBasic: 2 # <Onyx-VendingInventories>
   contrabandInventory:
     ClothingMaskClownSecurity: 1
     ClothingMaskMimeSecurity: 1
     ToyFigurineSecurity: 1
     ToyFigurineWarden: 1
     ToyFigurineHeadOfSecurity: 1
+  # <Onyx-VendingInventories>
+  emaggedInventory:
+    ClothingOuterCoatSyndieCapArmored: 1
+    ClothingOuterWinterSyndieCapArmored: 1
+  # </Onyx-VendingInventories>

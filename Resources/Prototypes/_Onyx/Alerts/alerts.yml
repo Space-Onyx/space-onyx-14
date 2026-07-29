@@ -38,3 +38,12 @@
     state: brokenbones
   name: alerts-broken-bones-name
   description: alerts-broken-bones-desc
+
+- type: alert
+  id: Centered
+  category: TileMovement
+  icons:
+  - sprite: /Textures/_Onyx/Interface/Alerts/centered.rsi
+    state: plating
+  name: alerts-centered-name
+  description: alerts-centered-desc

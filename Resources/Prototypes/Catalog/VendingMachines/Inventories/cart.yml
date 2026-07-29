@@ -20,3 +20,7 @@
   contrabandInventory:
     BalloonNT: 2
     LuxuryPen: 1
+  # <Onyx-VendingInventories>
+  emaggedInventory:
+    AgentIDCard: 1
+  # </Onyx-VendingInventories>

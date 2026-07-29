@@ -1,0 +1,7 @@
+- type: latheRecipe
+  id: FelinidCube
+  result: FelinidCube
+  completetime: 30
+  materials:
+    Biomass: 70
+    Plasma: 250

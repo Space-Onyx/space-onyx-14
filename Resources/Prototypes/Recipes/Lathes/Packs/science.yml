@@ -79,10 +79,7 @@
   - AnomalySynchronizerCircuitboard
   - APECircuitboard
   - ArtifactAnalyzerMachineCircuitboard
-  - ArtifactCrusherMachineCircuitboard
-  # <Onyx-SeedDna>
-  - ADTBotanicalSeedDNAManipulatorCircuitboard
-  # </Onyx-SeedDna>
+  - ArtifactCrusherMachineCircuitboard # <Onyx-SeedDnaResearch-edited>
  # </Onyx-GoobDepartmentBoards-edited>
 
 - type: latheRecipePack

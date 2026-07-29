@@ -1,0 +1,9 @@
+ent-BasicCyberneticEyes = кибернетические глаза
+ent-MedicalCyberneticEyes = кибернетические глаза с медицинским HUD
+ent-SecurityCyberneticEyes = кибернетические глаза с охранным HUD
+ent-DiagnosticCyberneticEyes = кибернетические глаза с диагностическим HUD
+ent-BasicCyberneticHeart = кибернетическое сердце
+ent-UpgradedCyberneticHeart = улучшенное кибернетическое сердце
+ent-BasicCyberneticLiver = кибернетическая печень
+ent-BasicCyberneticLungs = кибернетические лёгкие
+ent-UpgradedCyberneticLungs = улучшенные кибернетические лёгкие

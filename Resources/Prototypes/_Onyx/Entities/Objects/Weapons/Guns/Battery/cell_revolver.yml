@@ -1,0 +1,287 @@
+- type: entity
+  id: PowerCellIRRevolver
+  parent: BasePowerCell
+  name: revolver power cell
+  description: A militarized power cell compatible with laser revolvers.
+  suffix: Full
+  components:
+  - type: Item
+    size: Tiny
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/energy_cell_revolver.rsi
+    layers:
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: lethal
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: lethal_charge
+      shader: unshaded
+  - type: Battery
+    maxCharge: 500
+    startingCharge: 500
+  - type: BatteryDrinkerSource
+    maxAmount: 100
+  - type: BatteryAmmoProvider
+    proto: RevolverRedLaser
+    fireCost: 62.5
+  - type: GenericVisualizer
+    visuals:
+      enum.BatteryVisuals.State:
+        enum.PowerCellVisualLayers.Unshaded:
+          Full: {visible: true, state: lethal_charge}
+          Neither: {visible: true, state: lethal_charge}
+          Empty: {visible: false}
+  - type: Tag
+    tags:
+    - MilitaryPowerCellRevolver
+    - MilitaryPowerCell
+    - PowerCell
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 40
+      Gold: 20
+      Glass: 20
+      Plasma: 20
+    chemicalComposition:
+      Zinc: 5
+
+- type: entity
+  id: WeaponLaserCellRevolver
+  parent: [BaseItem, BaseSecurityContraband]
+  name: EG-1 Taro
+  description: Originally designed as a sidearm for NanoTrasen security teams, the Taro is an obscure break action laser revolver platform. It was quickly scrapped due to an annoying firerate cap included to prevent overheating. Takes revolver power cells.
+  components:
+  - type: Item
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+  - type: Tag
+    tags:
+    - Sidearm
+  - type: Gun
+    selectedMode: SemiAuto
+    fireRate: 1.5
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: PowerCellIRRevolver
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        whitelist:
+          tags:
+          - MilitaryPowerCellRevolver
+  - type: MagazineAmmoProvider
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/cell_revolver.rsi
+    layers:
+    - state: icon
+      visible: false
+    - state: mag-0
+      visible: false
+      shader: unshaded
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: off
+      map: ["base"]
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 250
+      Silver: 50
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/cell_revolver.rsi
+    quickEquip: false
+    slots:
+    - suitStorage
+    - belt
+  - type: ItemToggle
+    soundActivate: /Audio/Weapons/Guns/Cock/revolver_cock.ogg
+    soundDeactivate: /Audio/Weapons/Guns/Cock/revolver_cock.ogg
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: true
+    zeroNoAmmo: true
+  - type: GenericVisualizer
+    visuals:
+      enum.ToggleableVisuals.Enabled:
+        base:
+          True: {state: on}
+          False: {state: off}
+  - type: CellRevolver
+    cellSlot: gun_magazine
+  - type: Cautery
+    speed: 0.9
+  - type: SurgeryTool
+    endSound:
+      path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
+  - type: AlwaysHot
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 8
+    angle: 0
+    wideAnimationRotation: 90
+    soundHit:
+      collection: MetalThud
+  - type: Multishot
+    missChance: 0.4
+    spreadMultiplier: 3
+    spreadAddition: 50
+  - type: AmmoCounter
+  - type: RestrictGunshotsByUserTag
+    doesntContain: [Oni]
+    messages: [oni-cannot-shoot-guns-1, oni-cannot-shoot-guns-2, oni-cannot-shoot-guns-3]
+  - type: BatteryDrinkerSource
+    maxAmount: 180
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+
+- type: entity
+  id: PowerCellBluespaceRevolver
+  parent: PowerCellIRRevolver
+  name: bluespace revolver power cell
+  description: A militarized power cell compatible with laser revolvers that fires beams of calibrated bluespace particles that bypass few inches of armor.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: bluespace
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: bluespace_charge
+      shader: unshaded
+  - type: Battery
+    maxCharge: 750
+    startingCharge: 750
+  - type: BatteryAmmoProvider
+    proto: RevolverBluespaceLaser
+    fireCost: 62.5
+  - type: GenericVisualizer
+    visuals:
+      enum.BatteryVisuals.State:
+        enum.PowerCellVisualLayers.Unshaded:
+          Full: {visible: true, state: bluespace_charge}
+          Neither: {visible: true, state: bluespace_charge}
+          Empty: {visible: false}
+
+- type: entity
+  id: PowerCellIonRevolver
+  parent: PowerCellIRRevolver
+  name: ion revolver power cell
+  description: A militarized power cell compatible with laser revolvers that fires ion beams.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: ion
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: ion_charge
+      shader: unshaded
+  - type: BatteryAmmoProvider
+    proto: RevolverIonLaser
+    fireCost: 62.5
+  - type: GenericVisualizer
+    visuals:
+      enum.BatteryVisuals.State:
+        enum.PowerCellVisualLayers.Unshaded:
+          Full: {visible: true, state: ion_charge}
+          Neither: {visible: true, state: ion_charge}
+          Empty: {visible: false}
+
+- type: entity
+  id: PowerCellXrayRevolver
+  parent: PowerCellIRRevolver
+  name: x-ray revolver power cell
+  description: A militarized power cell compatible with laser revolvers that fires x-rays.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: xray
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: xray_charge
+      shader: unshaded
+  - type: BatteryAmmoProvider
+    proto: RevolverXrayLaser
+    fireCost: 62.5
+  - type: GenericVisualizer
+    visuals:
+      enum.BatteryVisuals.State:
+        enum.PowerCellVisualLayers.Unshaded:
+          Full: {visible: true, state: xray_charge}
+          Neither: {visible: true, state: xray_charge}
+          Empty: {visible: false}
+
+- type: entity
+  id: RevolverRedLaser
+  parent: BasicHitscan
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Heat: 13
+  - type: HitscanBasicVisuals
+    muzzleFlash:
+      sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi
+      state: muzzle_beam_light
+    travelFlash:
+      sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi
+      state: beam_light
+    impactFlash:
+      sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi
+      state: impact_beam_light
+
+- type: entity
+  id: RevolverBluespaceLaser
+  parent: BasicHitscan
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Heat: 11.5
+      armorPenetration: 0.4
+  - type: HitscanBasicVisuals
+    muzzleFlash:
+      sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi
+      state: muzzle_beam_light_pulse
+    travelFlash:
+      sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi
+      state: beam_light_pulse
+    impactFlash:
+      sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi
+      state: impact_beam_light_pulse
+
+- type: entity
+  id: RevolverIonLaser
+  parent: BasicHitscan
+  categories: [HideSpawnMenu]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types: { Ion: 18 }
+  - type: HitscanBasicVisuals
+    muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light_ion }
+    travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light_ion }
+    impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light_ion }
+
+- type: entity
+  id: RevolverXrayLaser
+  parent: BasicHitscan
+  categories: [HideSpawnMenu]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types: { Heat: 6, Radiation: 6 }
+  - type: HitscanBasicVisuals
+    muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light_xray }
+    travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light_xray }
+    impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light_xray }

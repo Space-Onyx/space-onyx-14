@@ -1,7 +1,3 @@
-- type: entity
-  id: MartialArtsGenericSlowdownEffect
-  parent: StatusEffectSlowdown
-
 - type: martialArt
   id: CorporateJudo
   martialArtsForm: CorporateJudo

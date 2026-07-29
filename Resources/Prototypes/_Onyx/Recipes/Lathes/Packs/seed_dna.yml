@@ -1,0 +1,9 @@
+- type: latheRecipePack
+  id: SeedDnaDisks
+  recipes:
+  - ADTBotanicalSeedDNADisk
+
+- type: latheRecipePack
+  id: SeedDnaBoards
+  recipes:
+  - ADTBotanicalSeedDNAManipulatorCircuitboard

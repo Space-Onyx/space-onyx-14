@@ -1,13 +1,2 @@
-xenobio-slime-action-latch-name = Latch
-xenobio-slime-action-latch-description = Latch onto a living target and digest it. Use again to release it.
-xenobio-slime-latch-start = { CAPITALIZE(THE($slime)) } tries to latch onto { THE($target) }!
-xenobio-slime-latch-success = { CAPITALIZE(THE($slime)) } latches onto { THE($target) }!
-xenobio-slime-latch-fail-dead = { CAPITALIZE(THE($target)) } is already dead.
-xenobio-slime-latch-fail-occupied = Something is already latched onto { THE($target) }.
-xenobio-slime-latch-fail-invalid = { CAPITALIZE(THE($target)) } cannot be latched onto.
-xenobio-slime-tame-success = It seems to like you now!
-xenobio-slime-tame-fail = It does not seem interested in a new tamer.
-xenobio-slime-extract-examine-used = The extract has already reacted.
-
 ent-ActionXenobioSlimeLatch = latch
     .desc = Latch onto a living target and digest it. Use again to release it.

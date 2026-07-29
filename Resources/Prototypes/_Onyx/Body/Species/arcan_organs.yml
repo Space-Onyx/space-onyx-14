@@ -1,0 +1,97 @@
+- type: entity
+  id: OrganDemonMetabolizer
+  abstract: true
+  components:
+  - type: Metabolizer
+    metabolizerTypes: [ Demon ]
+
+- type: entity
+  parent: [ OrganAnimalHeart, OrganDemonMetabolizer ]
+  id: OrganDemonHeart
+  name: arcan heart
+  components:
+  - type: Metabolizer
+    maxReagents: 2
+
+- type: entity
+  parent: [ OrganAnimalStomach, OrganDemonMetabolizer ]
+  id: OrganDemonStomach
+  name: arcan stomach
+  components:
+  - type: SolutionManager
+    solutions:
+    - SolutionDemonStomach
+
+- type: entity
+  parent: Solution
+  id: SolutionDemonStomach
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Solution
+    id: stomach
+    solution:
+      maxVol: 50
+
+- type: entity
+  parent: OrganBaseOrganic
+  id: OrganArcan
+  abstract: true
+  suffix: Arcan
+
+- type: entity
+  parent: OrganArcan
+  id: OrganArcanExternal
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Onyx/Species/Arcan/parts.rsi
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Species/Arcan/parts.rsi
+  - type: VisualOrganMarkings
+    markingData:
+      group: Demon
+
+- type: entity
+  parent: [ OrganBaseTorsoSexed, OrganBaseTorso, OrganArcanExternal ]
+  id: OrganArcanTorso
+
+- type: entity
+  parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganArcanExternal ]
+  id: OrganArcanHead
+  components:
+  - type: VisualOrganMarkings
+    hideableLayers:
+    - enum.HumanoidVisualLayers.Hair
+
+- type: entity
+  parent: [ OrganBaseArmLeft, OrganArcanExternal ]
+  id: OrganArcanArmLeft
+
+- type: entity
+  parent: [ OrganBaseArmRight, OrganArcanExternal ]
+  id: OrganArcanArmRight
+
+- type: entity
+  parent: [ OrganBaseHandLeft, OrganArcanExternal ]
+  id: OrganArcanHandLeft
+
+- type: entity
+  parent: [ OrganBaseHandRight, OrganArcanExternal ]
+  id: OrganArcanHandRight
+
+- type: entity
+  parent: [ OrganBaseLegLeft, OrganArcanExternal ]
+  id: OrganArcanLegLeft
+
+- type: entity
+  parent: [ OrganBaseLegRight, OrganArcanExternal ]
+  id: OrganArcanLegRight
+
+- type: entity
+  parent: [ OrganBaseFootLeft, OrganArcanExternal ]
+  id: OrganArcanFootLeft
+
+- type: entity
+  parent: [ OrganBaseFootRight, OrganArcanExternal ]
+  id: OrganArcanFootRight

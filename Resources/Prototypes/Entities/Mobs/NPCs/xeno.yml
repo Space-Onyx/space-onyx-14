@@ -5,6 +5,12 @@
   parent: [ SimpleSpaceMobBase, MobNightVision ]
   description: They mostly come at night. Mostly.
   components:
+  # <Onyx-CollectiveMind>
+  - type: CollectiveMind
+    defaultChannel: Xenomorphivemind
+    channels:
+    - Xenomorphivemind
+  # </Onyx-CollectiveMind>
   - type: Insulated
   - type: CombatMode
   - type: InputMover
@@ -472,6 +478,12 @@
   parent: SimpleSpaceMobBase
   id: MobXenoLonePraetorianNoGhost
   components:
+  # <Onyx-CollectiveMind>
+  - type: CollectiveMind
+    defaultChannel: Xenomorphivemind
+    channels:
+    - Xenomorphivemind
+  # </Onyx-CollectiveMind>
   - type: Insulated
   - type: CombatMode
   - type: InputMover

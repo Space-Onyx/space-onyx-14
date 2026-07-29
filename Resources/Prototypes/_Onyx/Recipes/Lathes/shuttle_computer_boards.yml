@@ -1,4 +1,0 @@
-- type: latheRecipe
-  parent: [BaseGoldCircuitboardRecipe, BaseSupplyComputerRecipeCategory]
-  id: ShuttleRemoteControlSystemCircuitboard
-  result: ShuttleRemoteControlSystemCircuitboard

@@ -4,9 +4,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-- type: playTimeTracker
-  id: JobRadioHost
-
 - type: job
   id: RadioHost
   name: job-name-radiohost

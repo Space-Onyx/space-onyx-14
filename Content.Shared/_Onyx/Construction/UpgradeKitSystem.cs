@@ -41,7 +41,7 @@ public sealed partial class UpgradeKitSystem : EntitySystem
 
         if (!_wires.IsPanelOpen(target))
         {
-            _popup.PopupClient(Loc.GetString("construction-step-condition-wire-panel-open"), target, user);
+            _popup.PopupEntity(Loc.GetString("construction-step-condition-wire-panel-open"), target, user);
             return;
         }
 
@@ -77,7 +77,7 @@ public sealed partial class UpgradeKitSystem : EntitySystem
             _whitelist.IsWhitelistFail(ent.Comp.Blacklist, target))
             return true;
 
-        _popup.PopupClient(Loc.GetString("upgrade-kit-invalid-target"), target, user);
+        _popup.PopupEntity(Loc.GetString("upgrade-kit-invalid-target"), target, user);
         return false;
     }
 }

@@ -1,0 +1,29 @@
+- type: entity
+  parent: OrganHumanHeart
+  id: BioSynthHeart
+  name: bio-synthetic heart
+  description: A printed heart compatible with any organic patient.
+
+- type: entity
+  parent: OrganHumanLiver
+  id: BioSynthLiver
+  name: bio-synthetic liver
+  description: A printed liver compatible with any organic patient.
+
+- type: entity
+  parent: OrganHumanLungs
+  id: BioSynthLungs
+  name: bio-synthetic lungs
+  description: Printed lungs compatible with any organic patient.
+
+- type: entity
+  parent: OrganHumanEyes
+  id: BioSynthEyes
+  name: bio-synthetic eyes
+  description: Printed eyes compatible with any organic patient.
+
+- type: entity
+  parent: OrganHumanTongue
+  id: BioSynthTongue
+  name: bio-synthetic tongue
+  description: A printed tongue compatible with any organic patient.

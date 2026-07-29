@@ -1,0 +1,44 @@
+- type: entity
+  id: BorgModuleSurgery
+  parent: [BaseBorgModuleMedical, BaseProviderBorgModule]
+  name: surgery cyborg module
+  description: A medical cyborg module containing a complete set of surgical tools.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Robotics/borgmodule.rsi
+    layers:
+    - state: medical
+    - state: icon-surgery
+  - type: ItemBorgModule
+    hands:
+    - item: Scalpel
+    - item: SawElectric
+    - item: Drill
+    - item: Retractor
+    - item: Hemostat
+    - item: Cautery
+    - item: MedicalStitches
+    - item: BoneGel
+    - item: Bonesetter
+  - type: BorgModuleIcon
+    icon: { sprite: _Onyx/Interface/Actions/actions_borg.rsi, state: surgery-module }
+
+- type: entity
+  id: BorgModuleAdvancedSurgery
+  parent: [BaseBorgModuleMedical, BaseProviderBorgModule]
+  name: advanced surgery cyborg module
+  description: A medical cyborg module containing advanced surgical tools.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Robotics/borgmodule.rsi
+    layers:
+    - state: medical
+    - state: icon-advanced-surgery
+  - type: ItemBorgModule
+    hands:
+    - item: EnergyScalpel
+    - item: EnergyCautery
+    - item: AdvancedRetractor
+    - item: AdvancedBoneGel
+  - type: BorgModuleIcon
+    icon: { sprite: _Onyx/Interface/Actions/actions_borg.rsi, state: adv-surgery-module }

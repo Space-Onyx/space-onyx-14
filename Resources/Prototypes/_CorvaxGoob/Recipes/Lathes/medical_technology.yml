@@ -35,6 +35,15 @@
   recipes:
   - FillableMedipen
   - MachineMedipenRefillerCircuitboard
+  # <Onyx-CartridgeAutoinjector>
+  - ParamedHypo
+  - SecHypo
+  - CartridgeEpinephrine
+  - CartridgeSaline
+  - CartridgeBicaridine
+  - CartridgeDermaline
+  - CartridgeAtropine
+  # </Onyx-CartridgeAutoinjector>
 
 - type: latheRecipePack
   id: Cloning

@@ -1,0 +1,107 @@
+- type: entity
+  abstract: true
+  parent: OrganHumanInternal
+  id: OnyxCyberneticOrganBase
+  components:
+  - type: Cybernetics
+  - type: Sprite
+    sprite: _Onyx/Cybernetics/organs.rsi
+
+- type: entity
+  parent: [ OrganHumanEyes, OnyxCyberneticOrganBase ]
+  id: BasicCyberneticEyes
+  name: cybernetic eyes
+  description: Durable synthetic eyes with integrated flash protection.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Cybernetics/organs.rsi
+    layers:
+    - state: eyes
+
+- type: entity
+  parent: BasicCyberneticEyes
+  id: MedicalCyberneticEyes
+  name: cybernetic medical HUD eyes
+  description: Cybernetic eyes with an integrated medical HUD.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Cybernetics/organs.rsi
+    layers:
+    - state: eyes-medhud
+  - type: Cybernetics
+    effects: MedicalHud
+
+- type: entity
+  parent: BasicCyberneticEyes
+  id: SecurityCyberneticEyes
+  name: cybernetic security HUD eyes
+  description: Cybernetic eyes with an integrated security HUD.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Cybernetics/organs.rsi
+    layers:
+    - state: eyes-sechud
+  - type: Cybernetics
+    effects: SecurityHud
+
+- type: entity
+  parent: BasicCyberneticEyes
+  id: DiagnosticCyberneticEyes
+  name: cybernetic diagnostic HUD eyes
+  description: Cybernetic eyes with an integrated diagnostic HUD.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Cybernetics/organs.rsi
+    layers:
+    - state: eyes-diagnostic
+  - type: Cybernetics
+    effects: DiagnosticHud
+
+- type: entity
+  parent: [ OrganHumanHeart, OnyxCyberneticOrganBase ]
+  id: BasicCyberneticHeart
+  name: cybernetic heart
+  components:
+  - type: Sprite
+    sprite: _Onyx/Cybernetics/organs.rsi
+    state: heart-on
+
+- type: entity
+  parent: BasicCyberneticHeart
+  id: UpgradedCyberneticHeart
+  name: upgraded cybernetic heart
+  components:
+  - type: Sprite
+    sprite: _Onyx/Cybernetics/organs.rsi
+    state: heart-u-on
+
+- type: entity
+  parent: [ OrganHumanLiver, OnyxCyberneticOrganBase ]
+  id: BasicCyberneticLiver
+  name: cybernetic liver
+  components:
+  - type: Sprite
+    sprite: _Onyx/Cybernetics/organs.rsi
+    state: liver
+
+- type: entity
+  parent: [ OrganHumanLungs, OnyxCyberneticOrganBase ]
+  id: BasicCyberneticLungs
+  name: cybernetic lungs
+  components:
+  - type: Sprite
+    sprite: _Onyx/Cybernetics/organs.rsi
+    layers:
+    - state: lung-l
+    - state: lung-r
+
+- type: entity
+  parent: BasicCyberneticLungs
+  id: UpgradedCyberneticLungs
+  name: upgraded cybernetic lungs
+  components:
+  - type: Sprite
+    sprite: _Onyx/Cybernetics/organs.rsi
+    layers:
+    - state: lung-u-l
+    - state: lung-u-r

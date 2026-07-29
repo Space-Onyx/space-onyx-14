@@ -536,6 +536,8 @@ public sealed partial class InjectorSystem : EntitySystem
         // Log what happened.
         _adminLogger.Add(LogType.ForceFeed, $"{ToPrettyString(user):user} injected {ToPrettyString(target):target} with a solution {SharedSolutionContainerSystem.ToPrettyString(removedSolution):removedSolution} using a {ToPrettyString(injector):using}");
 
+        RaiseLocalEvent(injector.Owner, new InjectorInjectionCompletedEvent(user, target, removedSolution.Volume)); // <Onyx-CartridgeAutoinjector>
+
         AfterInject(injector, user, target);
         return true;
     }

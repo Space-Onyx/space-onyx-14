@@ -7,6 +7,10 @@
     storedRotation: -90
   - type: Battery
     pricePerJoule: 0.15
+  # <Onyx-BatteryDrinker>
+  - type: BatteryDrinkerSource
+    maxAmount: 360
+  # </Onyx-BatteryDrinker>
   - type: PowerCell
   - type: Explosive
     explosionType: Default

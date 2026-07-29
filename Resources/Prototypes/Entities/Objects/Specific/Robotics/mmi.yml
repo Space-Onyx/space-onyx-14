@@ -31,6 +31,12 @@
     channels:
     - Binary
     - Common
+  # <Onyx-CollectiveMind>
+  - type: CollectiveMind
+    defaultChannel: Binary
+    channels:
+    - Binary
+  # </Onyx-CollectiveMind>
   - type: NameIdentifier
     group: MMI
   - type: DoAfter
@@ -105,6 +111,12 @@
       channels:
       - Binary
       - Common
+    # <Onyx-CollectiveMind>
+    - type: CollectiveMind
+      defaultChannel: Binary
+      channels:
+      - Binary
+    # </Onyx-CollectiveMind>
     - type: NameIdentifier
       group: PositronicBrain
     - type: DoAfter

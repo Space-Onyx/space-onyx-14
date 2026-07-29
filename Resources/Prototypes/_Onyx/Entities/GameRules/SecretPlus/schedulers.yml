@@ -1,0 +1,72 @@
+- type: entity
+  id: SecretPlusMid
+  parent: BaseGameRule
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SecretPlus
+    minStartingChaos: 8
+    maxStartingChaos: 16
+    livingChaosChange: -0.018
+    deadChaosChange: 0.020
+    chaosChangeVariationMin: 0.65
+    chaosChangeVariationMax: 1.2
+    eventIntervalMin: 90
+    eventIntervalMax: 400
+    scheduledGameRules: !type:NestedSelector
+      tableId: SecretPlusTable
+
+- type: entity
+  id: SecretPlusAdmeme
+  parent: SecretPlusMid
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SecretPlus
+    minStartingChaos: 40
+    maxStartingChaos: 40
+    livingChaosChange: -0.03
+    deadChaosChange: 0.03
+    chaosExponent: 1
+    eventIntervalMin: 60
+    eventIntervalMax: 200
+    primaryAntagsWeightTable: SecretPlusChaos
+    ignoreIncompatible: true
+    ignoreTimings: true
+
+- type: entity
+  id: SecretPlusLow
+  parent: SecretPlusMid
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SecretPlus
+    minStartingChaos: 3
+    maxStartingChaos: 6
+    noRoundstartAntags: true
+    livingChaosChange: -0.008
+    deadChaosChange: 0.014
+    chaosExponent: 1.2
+    eventIntervalMin: 150
+    eventIntervalMax: 480
+
+- type: entity
+  id: SecretPlusRampingMid
+  parent: SecretPlusMid
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SecretPlus
+    minStartingChaos: 0
+    maxStartingChaos: 0
+    noRoundstartAntags: true
+    speedRamping: 0.0003
+
+- type: entity
+  id: SecretPlusLowpop
+  parent: SecretPlusMid
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SecretPlus
+    eventIntervalMin: 120
+    eventIntervalMax: 420
+    primaryAntagsWeightTable: SecretPlusLowpop
+    roundStartAntagsWeightTable: SecretPlusLowpop
+    scheduledGameRules: !type:NestedSelector
+      tableId: SecretPlusTableLowpop

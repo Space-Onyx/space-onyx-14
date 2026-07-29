@@ -1,0 +1,32 @@
+- type: entity
+  parent: OrganHumanTorso
+  id: OrganFelinidTorso
+  components:
+  - type: VisualOrganMarkings
+    markingData:
+      group: Felinid
+      layers:
+      - Chest
+      - Tail
+      - Overlay
+      - TailOverlay
+      - Special
+
+- type: entity
+  parent: OrganHumanHead
+  id: OrganFelinidHead
+  components:
+  - type: VisualOrganMarkings
+    hideableLayers:
+    - enum.HumanoidVisualLayers.Hair
+    - enum.HumanoidVisualLayers.Snout
+    markingData:
+      group: Felinid
+      layers:
+      - Head
+      - Hair
+      - FacialHair
+      - Snout
+      - SnoutCover
+      - HeadSide
+      - HeadTop

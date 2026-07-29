@@ -69,3 +69,32 @@
       amount: 1
   products:
     Ibuprofen: 3
+
+- type: reaction
+  id: SalicylicAcid
+  minTemp: 370
+  reactants:
+    TranexamicAcid:
+      amount: 1
+    FluorosulfuricAcid:
+      amount: 1
+    SodiumHydroxide:
+      amount: 1
+    Bicaridine:
+      amount: 1
+  products:
+    SalicylicAcid: 4
+
+- type: reaction
+  id: Atropine
+  reactants:
+    Acetone:
+      amount: 1
+    Diethylamine:
+      amount: 1
+    Phenol:
+      amount: 1
+    Ethanol:
+      amount: 1
+  products:
+    Atropine: 4

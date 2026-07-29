@@ -1,7 +1,3 @@
-ent-TicketMachine = машина тикетов
-    .desc = СЛЕДУЮЩИЙ!
-ent-PaperTicket = тикет
-    .desc = Следующий!
 paper-component-ticket =
     Тикет №{ $queue }
     Ожидайте своей очереди

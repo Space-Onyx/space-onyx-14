@@ -17,9 +17,3 @@
   parent: BaseLatheUpgradeKitRecipe
   id: LatheUpgradeKitCryo
   result: LatheUpgradeKitCryo
-
-- type: latheRecipePack
-  id: OnyxLatheUpgradeKits
-  recipes:
-  - LatheUpgradeKitHyper
-  - LatheUpgradeKitCryo

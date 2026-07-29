@@ -31,26 +31,3 @@
     ears: ClothingHeadsetMedical
     eyes: ClothingEyesHudViro
     belt: ClothingBeltMedicalFilled
-
-- type: playTimeTracker
-  id: JobVirologist
-
-- type: roleLoadout
-  id: JobVirologist
-  groups:
-  - Inventory
-  - GroupTankHarness
-  - MedicalMask
-  - VirologistJumpsuit
-  - MedicalGloves
-  - VirologistBackpack
-  - VirologistOuterClothing
-  - MedicalShoes
-  - VirologistPDAGroup
-  - Glasses
-  - SurvivalMedical
-  - Trinkets
-  - GroupSpeciesBreathToolMedical
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks

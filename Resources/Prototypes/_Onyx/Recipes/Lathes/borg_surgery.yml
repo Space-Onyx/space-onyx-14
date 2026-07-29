@@ -1,0 +1,19 @@
+- type: latheRecipe
+  id: BorgModuleSurgery
+  result: BorgModuleSurgery
+  categories: [Robotics]
+  completetime: 3
+  materials: { Steel: 250, Glass: 250, Plastic: 250 }
+
+- type: latheRecipe
+  id: BorgModuleAdvancedSurgery
+  result: BorgModuleAdvancedSurgery
+  categories: [Robotics]
+  completetime: 3
+  materials: { Steel: 500, Glass: 500, Plastic: 250, Gold: 50 }
+
+- type: latheRecipe
+  id: DefibrillatorCompact
+  result: DefibrillatorCompactEmpty
+  completetime: 5
+  materials: { Steel: 250, Silver: 50 }

@@ -14,8 +14,6 @@ ent-ClothingBeltAssaultFilled = { ent-ClothingBeltAssault }
 ent-HandheldCrewMonitorBSO = handheld command monitor
     .desc = A handheld crew monitor modified for blueshield officer's needs. It tracks command personnel and warns when they are in danger.
 
-ent-ParamedHypo = medical jet injector
-    .desc = A rapid medical injector issued to Blueshield officers.
 ent-MedkitBSOFilled = tactical medical kit
     .desc = Contains supplies for rapidly stabilizing an injured person.
 ent-MedkitBSOIPC = tactical repairing kit

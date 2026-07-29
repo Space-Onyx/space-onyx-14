@@ -5,8 +5,3 @@
   materials:
     Diamond: 20
     Plasma: 100
-
-- type: latheRecipePack
-  id: OnyxScienceMaterials
-  recipes:
-  - MaterialBSCrystal

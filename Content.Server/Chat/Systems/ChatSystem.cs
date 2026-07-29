@@ -16,6 +16,7 @@ using Content.Shared.Examine;
 using Content.Shared.Ghost;
 using Content.Shared.Mobs.Systems;
 using Content.Shared._Onyx.Loudspeaker.Events; // <Onyx-Loudspeaker>
+using Content.Server._Onyx.Chat; // <Onyx-CollectiveMind>
 using Content.Shared.Players.RateLimiting;
 using Robust.Server.Player;
 using Robust.Shared.Audio.Systems;
@@ -24,6 +25,7 @@ using Robust.Shared.Console;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Replays;
+using Robust.Shared.Utility; // <Onyx-CollectiveMind>
 
 namespace Content.Server.Chat.Systems;
 
@@ -51,6 +53,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private EntityQuery<GhostHearingComponent> _ghostHearingQuery = default!;
     // <Onyx-Languages>
     [Dependency] private LanguageSystem _language = default!;
+    [Dependency] private CollectiveMindSystem _collectiveMind = default!; // <Onyx-CollectiveMind>
     // </Onyx-Languages>
 
     // <Onyx-Loudspeaker>
@@ -163,9 +166,10 @@ public sealed partial class ChatSystem : SharedChatSystem
         ICommonSession? player = null,
         string? nameOverride = null,
         bool checkRadioPrefix = true,
-        bool ignoreActionBlocker = false)
+        bool ignoreActionBlocker = false,
+        Robust.Shared.Prototypes.ProtoId<Content.Shared._Onyx.Language.LanguagePrototype>? languageOverride = null) // <Onyx-OSayLanguage>
     {
-        TrySendInGameICMessage(source, message, desiredType, hideChat ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal, hideLog, shell, player, nameOverride, checkRadioPrefix, ignoreActionBlocker);
+        TrySendInGameICMessage(source, message, desiredType, hideChat ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal, hideLog, shell, player, nameOverride, checkRadioPrefix, ignoreActionBlocker, languageOverride); // <Onyx-OSayLanguage-edited>
     }
 
     /// <inheritdoc />
@@ -179,7 +183,8 @@ public sealed partial class ChatSystem : SharedChatSystem
         ICommonSession? player = null,
         string? nameOverride = null,
         bool checkRadioPrefix = true,
-        bool ignoreActionBlocker = false
+        bool ignoreActionBlocker = false,
+        Robust.Shared.Prototypes.ProtoId<Content.Shared._Onyx.Language.LanguagePrototype>? languageOverride = null // <Onyx-OSayLanguage>
         )
     {
         if (HasComp<GhostComponent>(source))
@@ -229,7 +234,17 @@ public sealed partial class ChatSystem : SharedChatSystem
         bool shouldCapitalizeTheWordI = (!CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Parent.Name == "en")
             || (CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Name == "en");
 
-        message = SanitizeInGameICMessage(source, message, out var emoteStr, shouldCapitalize, shouldPunctuate, shouldCapitalizeTheWordI);
+        // <Onyx-CollectiveMind-edited>
+        var collectivePrefix = string.Empty;
+        if (desiredType == InGameICChatType.CollectiveMind && message.StartsWith(CollectiveMindPrefix))
+        {
+            var prefixLength = message.Length > 1 && !char.IsWhiteSpace(message[1]) ? 2 : 1;
+            collectivePrefix = message[..prefixLength];
+            message = message[prefixLength..];
+        }
+
+        message = collectivePrefix + SanitizeInGameICMessage(source, message, out var emoteStr, shouldCapitalize, shouldPunctuate, shouldCapitalizeTheWordI);
+        // </Onyx-CollectiveMind-edited>
 
         // Was there an emote in the message? If so, send it.
         if (player != null && emoteStr != message && emoteStr != null)
@@ -250,19 +265,32 @@ public sealed partial class ChatSystem : SharedChatSystem
             // </Onyx-SignLanguage-edited>
             if (canUseRadio && TryProcessRadioMessage(source, message, out var modMessage, out var channel))
             {
-                SendEntityWhisper(source, modMessage, range, channel, nameOverride, hideLog, ignoreActionBlocker);
+                SendEntityWhisper(source, modMessage, range, channel, nameOverride, hideLog, ignoreActionBlocker, languageOverride); // <Onyx-OSayLanguage-edited>
                 return;
             }
         }
 
         // Otherwise, send whatever type.
+        // <Onyx-CollectiveMind>
+        if (desiredType == InGameICChatType.CollectiveMind)
+        {
+            if (TryProcessCollectiveMindMessage(source, message, out var collectiveMessage, out var collectiveChannel))
+            {
+                if (TryComp<Content.Shared._Onyx.CollectiveMind.CollectiveMindComponent>(source, out var collective) && collective.RespectAccents)
+                    collectiveMessage = TransformSpeech(source, collectiveMessage);
+                _collectiveMind.Send(source, FormattedMessage.RemoveMarkupOrThrow(collectiveMessage), collectiveChannel);
+            }
+            return;
+        }
+        // </Onyx-CollectiveMind>
+
         switch (desiredType)
         {
             case InGameICChatType.Speak:
-                SendEntitySpeak(source, message, range, nameOverride, hideLog, ignoreActionBlocker);
+                SendEntitySpeak(source, message, range, nameOverride, hideLog, ignoreActionBlocker, languageOverride); // <Onyx-OSayLanguage-edited>
                 break;
             case InGameICChatType.Whisper:
-                SendEntityWhisper(source, message, range, null, nameOverride, hideLog, ignoreActionBlocker);
+                SendEntityWhisper(source, message, range, null, nameOverride, hideLog, ignoreActionBlocker, languageOverride); // <Onyx-OSayLanguage-edited>
                 break;
             case InGameICChatType.Emote:
                 SendEntityEmote(source, message, range, nameOverride, hideLog: hideLog, ignoreActionBlocker: ignoreActionBlocker);

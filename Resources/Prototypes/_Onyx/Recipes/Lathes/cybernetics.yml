@@ -1,0 +1,207 @@
+- type: latheRecipe
+  parent: [ BaseGoldCircuitboardRecipe, BaseMedicalMachineRecipeCategory ]
+  id: MedicalBiofabMachineBoard
+  result: MedicalBiofabMachineBoard
+
+- type: latheRecipe
+  id: SynthHeart
+  result: BioSynthHeart
+  completetime: 10
+  materials: { Biomass: 10 }
+
+- type: latheRecipe
+  id: SynthLungs
+  result: BioSynthLungs
+  completetime: 10
+  materials: { Biomass: 10 }
+
+- type: latheRecipe
+  id: SynthLiver
+  result: BioSynthLiver
+  completetime: 10
+  materials: { Biomass: 10 }
+
+- type: latheRecipe
+  id: SynthEyes
+  result: BioSynthEyes
+  completetime: 10
+  materials: { Biomass: 10 }
+
+- type: latheRecipe
+  id: SynthTongue
+  result: BioSynthTongue
+  completetime: 10
+  materials: { Biomass: 5 }
+
+- type: latheRecipe
+  id: SynthHeadEmpty
+  result: BioSynthHeadEmpty
+  completetime: 10
+  materials: { Biomass: 5 }
+
+- type: latheRecipe
+  id: SynthLeftArm
+  result: BioSynthLeftArm
+  completetime: 5
+  materials: { Biomass: 7 }
+
+- type: latheRecipe
+  id: SynthRightArm
+  result: BioSynthRightArm
+  completetime: 5
+  materials: { Biomass: 7 }
+
+- type: latheRecipe
+  id: SynthLeftHand
+  result: BioSynthLeftHand
+  completetime: 5
+  materials: { Biomass: 3 }
+
+- type: latheRecipe
+  id: SynthRightHand
+  result: BioSynthRightHand
+  completetime: 5
+  materials: { Biomass: 3 }
+
+- type: latheRecipe
+  id: SynthLeftLeg
+  result: BioSynthLeftLeg
+  completetime: 5
+  materials: { Biomass: 7 }
+
+- type: latheRecipe
+  id: SynthRightLeg
+  result: BioSynthRightLeg
+  completetime: 5
+  materials: { Biomass: 7 }
+
+- type: latheRecipe
+  id: SynthLeftFoot
+  result: BioSynthLeftFoot
+  completetime: 5
+  materials: { Biomass: 3 }
+
+- type: latheRecipe
+  id: SynthRightFoot
+  result: BioSynthRightFoot
+  completetime: 5
+  materials: { Biomass: 3 }
+
+- type: latheRecipe
+  abstract: true
+  id: CyberneticRecipeBase
+  categories: [ Robotics ]
+  completetime: 5
+  materials: { Steel: 1000, Glass: 500, Plastic: 500, Gold: 300, Silver: 300 }
+
+- type: latheRecipe
+  parent: CyberneticRecipeBase
+  id: LeftArmCybernetic
+  result: LeftArmCybernetic
+
+- type: latheRecipe
+  parent: CyberneticRecipeBase
+  id: RightArmCybernetic
+  result: RightArmCybernetic
+
+- type: latheRecipe
+  parent: CyberneticRecipeBase
+  id: LeftHandCybernetic
+  result: LeftHandCybernetic
+
+- type: latheRecipe
+  parent: CyberneticRecipeBase
+  id: RightHandCybernetic
+  result: RightHandCybernetic
+
+- type: latheRecipe
+  parent: CyberneticRecipeBase
+  id: LeftLegCybernetic
+  result: LeftLegCybernetic
+
+- type: latheRecipe
+  parent: CyberneticRecipeBase
+  id: RightLegCybernetic
+  result: RightLegCybernetic
+
+- type: latheRecipe
+  parent: CyberneticRecipeBase
+  id: LeftFootCybernetic
+  result: LeftFootCybernetic
+
+- type: latheRecipe
+  parent: CyberneticRecipeBase
+  id: RightFootCybernetic
+  result: RightFootCybernetic
+
+- type: latheRecipe
+  parent: CyberneticRecipeBase
+  id: BasicCyberneticEyes
+  result: BasicCyberneticEyes
+
+- type: latheRecipe
+  parent: CyberneticRecipeBase
+  id: BasicCyberneticHeart
+  result: BasicCyberneticHeart
+
+- type: latheRecipe
+  parent: CyberneticRecipeBase
+  id: BasicCyberneticLiver
+  result: BasicCyberneticLiver
+
+- type: latheRecipe
+  parent: CyberneticRecipeBase
+  id: BasicCyberneticLungs
+  result: BasicCyberneticLungs
+
+- type: latheRecipe
+  abstract: true
+  parent: CyberneticRecipeBase
+  id: AdvancedCyberneticRecipeBase
+  completetime: 10
+  materials: { Steel: 2000, Glass: 1000, Plastic: 1000, Gold: 1000, Silver: 600 }
+
+- type: latheRecipe
+  parent: AdvancedCyberneticRecipeBase
+  id: UpgradedCyberneticHeart
+  result: UpgradedCyberneticHeart
+
+- type: latheRecipe
+  parent: AdvancedCyberneticRecipeBase
+  id: UpgradedCyberneticLungs
+  result: UpgradedCyberneticLungs
+
+- type: latheRecipe
+  parent: AdvancedCyberneticRecipeBase
+  id: JawsOfLifeLeftArm
+  result: JawsOfLifeLeftArm
+
+- type: latheRecipe
+  parent: AdvancedCyberneticRecipeBase
+  id: JawsOfLifeRightArm
+  result: JawsOfLifeRightArm
+
+- type: latheRecipe
+  parent: AdvancedCyberneticRecipeBase
+  id: SpeedLeftLeg
+  result: SpeedLeftLeg
+
+- type: latheRecipe
+  parent: AdvancedCyberneticRecipeBase
+  id: SpeedRightLeg
+  result: SpeedRightLeg
+
+- type: latheRecipe
+  parent: AdvancedCyberneticRecipeBase
+  id: MedicalCyberneticEyes
+  result: MedicalCyberneticEyes
+
+- type: latheRecipe
+  parent: AdvancedCyberneticRecipeBase
+  id: SecurityCyberneticEyes
+  result: SecurityCyberneticEyes
+
+- type: latheRecipe
+  parent: AdvancedCyberneticRecipeBase
+  id: DiagnosticCyberneticEyes
+  result: DiagnosticCyberneticEyes

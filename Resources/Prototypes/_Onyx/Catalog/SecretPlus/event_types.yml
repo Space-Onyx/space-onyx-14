@@ -1,0 +1,23 @@
+- type: eventType
+  id: Chaotic
+
+- type: eventType
+  id: Neutral
+
+- type: eventType
+  id: Maintenance
+
+- type: eventType
+  id: Interference
+
+- type: eventType
+  id: HostilesSpawn
+
+- type: eventType
+  id: FriendlySpawn
+
+- type: eventType
+  id: FreeStuff
+
+- type: eventType
+  id: FreeStuffUseful

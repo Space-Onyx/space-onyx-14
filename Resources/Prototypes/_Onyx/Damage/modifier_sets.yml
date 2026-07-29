@@ -59,3 +59,20 @@
   flatReductions:
     Blunt: 10
     Heat: 7
+
+- type: damageModifierSet
+  id: Felinid
+  coefficients:
+    Blunt: 1.15
+    Slash: 1.15
+    Piercing: 1.15
+
+- type: damageModifierSet
+  id: Demon
+  coefficients:
+    Piercing: 1.1
+    Slash: 1.05
+    Cold: 0.7
+    Heat: 0.85
+    Poison: 0.8
+    Cellular: 1.5

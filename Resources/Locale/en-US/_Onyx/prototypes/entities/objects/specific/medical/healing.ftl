@@ -1,0 +1,11 @@
+ent-PillTramadol = pill
+    .suffix = Tramadol 7.5u
+    .desc = { ent-Pill.desc }
+ent-PillCanisterTramadol = pill canister
+    .suffix = Tramadol 7.5u, 15
+    .desc = { ent-PillCanister.desc }
+ent-SyringeOxycodone = syringe
+    .desc = A potent painkiller.
+    .suffix = Oxycodone 15u
+pill-label-tramadol-7-5u = tramadol 7.5u
+syringe-label-oxycodone = oxycodone

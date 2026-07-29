@@ -9,3 +9,69 @@
 
 - type: Tag
   id: NonLethalGrenade
+
+- type: Tag
+  id: MilitaryPowerCellRevolver
+
+- type: Tag
+  id: MilitaryPowerCell
+
+- type: Tag
+  id: MilitaryPowerCellSMG
+
+- type: Tag
+  id: MilitaryPowerCellSniper
+
+- type: Tag
+  id: MilitaryPowerCellLMG
+
+- type: Tag
+  id: LaserLMG
+
+- type: Tag
+  id: LaserLMGBackpack
+
+- type: Tag
+  id: CartridgeLargeCaliber
+
+- type: Tag
+  id: MagazineLargeCaliber
+
+- type: Tag
+  id: Justice
+
+- type: Tag
+  id: WeaponEnergyGunLawbringer
+
+- type: Tag
+  id: PKAUpgradeSpace
+
+- type: Tag
+  id: GunUpgradeVampirism
+
+- type: Tag
+  id: CrusherUpgradeMain
+- type: Tag
+  id: CrusherUpgradeMainMarker
+- type: Tag
+  id: CrusherUpgradeMainRudeBuster
+- type: Tag
+  id: CrusherUpgradeBlade
+- type: Tag
+  id: CrusherUpgradeBladeLavaAspect
+- type: Tag
+  id: CrusherUpgradeBladeIceFrost
+- type: Tag
+  id: CrusherUpgradeBladeSharpness
+- type: Tag
+  id: CrusherUpgradeHandle
+- type: Tag
+  id: CrusherUpgradeHandleWeights
+- type: Tag
+  id: CrusherUpgradeHandleLightweight
+- type: Tag
+  id: CrusherUpgradeHandleRange
+- type: Tag
+  id: CrusherUpgradeFrame
+- type: Tag
+  id: EnergyMagAmmo

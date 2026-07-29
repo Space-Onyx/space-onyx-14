@@ -1,0 +1,49 @@
+- type: entity
+  name: pill
+  suffix: Tramadol 7.5u
+  parent: Pill
+  id: PillTramadol
+  components:
+  - type: Pill
+    pillType: 18
+  - type: Sprite
+    state: pill18
+  - type: Label
+    localizedLabel: pill-label-tramadol-7-5u
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Tramadol
+        Quantity: 7.5
+
+- type: entity
+  name: pill canister
+  parent: PillCanister
+  id: PillCanisterTramadol
+  suffix: Tramadol 7.5u, 15
+  components:
+  - type: Label
+    localizedLabel: pill-label-tramadol-7-5u
+  - type: Storage
+    grid:
+    - 0,0,4,2
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillTramadol
+        amount: 15
+
+- type: entity
+  parent: PrefilledSyringe
+  name: syringe
+  description: A potent painkiller.
+  id: SyringeOxycodone
+  suffix: Oxycodone 15u
+  components:
+  - type: Label
+    localizedLabel: syringe-label-oxycodone
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Oxycodone
+        Quantity: 15

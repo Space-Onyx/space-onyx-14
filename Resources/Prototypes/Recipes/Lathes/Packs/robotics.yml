@@ -16,6 +16,7 @@
   - BorgModuleFireExtinguisher
   - BorgModuleInflatable
   - BorgModuleArtistry
+  - BorgModuleSurgery # <Onyx-BorgSurgery>
 
 - type: latheRecipePack
   id: BorgLimbsStatic
@@ -42,6 +43,7 @@
   - BorgModuleAdvancedClowning
   - BorgModuleAdvancedTopical
   - BorgModuleAdvancedMining
+  - BorgModuleAdvancedSurgery # <Onyx-BorgSurgery>
 
 - type: latheRecipePack
   id: MechParts

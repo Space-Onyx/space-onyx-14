@@ -8,3 +8,15 @@
     contents:
     - id: VehicleATV
     - id: VehicleKeyATV
+
+- type: entity
+  id: CrateFunClownCarCargo
+  parent: CrateLivestock
+  name: clown car crate
+  suffix: Cargo Order
+  description: Contains one car, clown not included.
+  components:
+  - type: StorageFill
+    contents:
+    - id: VehicleClowncarTrainee
+    - id: BikeHorn

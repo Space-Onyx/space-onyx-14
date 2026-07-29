@@ -59,6 +59,8 @@
   - Stunbaton
   - CombatKnife
   - RiotShield
+  - PolymerBaton # <Onyx-SecurityMeleeWeapons>
+  - SpearTelescopic # <Onyx-SecurityMeleeWeapons>
 
 ## Dynamic recipes
 
@@ -67,12 +69,15 @@
   recipes:
   - ClothingBackpackElectropack
   - HoloprojectorSecurity
+  - HoloprojectorSecurityAdvanced # <Onyx-GoobEnergyWeaponry>
   - PortableRecharger
   - PowerCageHigh
   - PowerCageMedium
   - PowerCageSmall
   - TelescopicShield
   - ClothingBackpackHarmpack
+  - ClothingMaskMuzzleSecure # <Onyx-RestraintTechnology>
+  - ClothingMaskMuzzleShock # <Onyx-RestraintTechnology>
 
 - type: latheRecipePack
   id: SecurityBoards
@@ -99,6 +104,25 @@
 - type: latheRecipePack
   id: SecurityAmmo
   recipes:
+  - PowerCellIRRevolver # <Onyx-LaserCellRevolver>
+  - PowerCellIonRevolver # <Onyx-GoobEnergyWeaponry>
+  - PowerCellXrayRevolver # <Onyx-GoobEnergyWeaponry>
+  # <Onyx-EnergyCellWeapons>
+  - PowerCellIRSMG
+  - PowerCellIonSMG
+  - PowerCellXraySMG # <Onyx-GoobEnergyWeaponry>
+  - PowerCellBluespaceSMG
+  - PowerCellIRSniper
+  - PowerCellIonSniper
+  - PowerCellXraySniper # <Onyx-GoobEnergyWeaponry>
+  - EnergyMagRifleLethal # <Onyx-GoobEnergyWeaponry>
+  - EnergyMagRifleDisabler # <Onyx-GoobEnergyWeaponry>
+  - EnergyMagRifleIon # <Onyx-GoobEnergyWeaponry>
+  - PowerCellBluespaceSniper
+  - MilitaryPowerCellLMG
+  - MilitaryPowerCellBluespaceLMG
+  - PowerCellBluespaceRevolver
+  # </Onyx-EnergyCellWeapons>
   - BoxBeanbag
   - BoxShotgunIncendiary
   - BoxShotgunUranium
@@ -127,11 +151,18 @@
 - type: latheRecipePack
   id: SecurityWeapons
   recipes:
+  - WeaponLaserCellRevolver # <Onyx-LaserCellRevolver>
+  # <Onyx-EnergyCellWeapons>
+  - WeaponLaserCellSMG
+  - WeaponLaserCellSniper
+  - ClothingBackpackLMGBattery
+  # </Onyx-EnergyCellWeapons>
   - Truncheon
   - WeaponAdvancedLaser
   - WeaponLaserCannon
   - WeaponLaserCarbine
   - WeaponEnergyIonRifle # <Onyx-IonRifle>
+  - WeaponEnergyRifle # <Onyx-GoobEnergyWeaponry>
   - WeaponXrayCannon
   - WeaponTemperatureGun
 

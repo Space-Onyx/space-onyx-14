@@ -69,6 +69,12 @@
   - type: ActiveRadio
     channels:
     - Common
+  # <Onyx-CollectiveMind>
+  - type: CollectiveMind
+    defaultChannel: Binary
+    channels:
+    - Binary
+  # </Onyx-CollectiveMind>
   - type: HealthExaminable
     examinableTypes:
     - Blunt

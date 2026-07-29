@@ -1,4 +1,0 @@
-- type: latheRecipe
-  parent: [ BaseCircuitboardRecipe, BaseServiceMachineRecipeCategory ]
-  id: ElectricRangeMachineCircuitboard
-  result: ElectricRangeMachineCircuitboard

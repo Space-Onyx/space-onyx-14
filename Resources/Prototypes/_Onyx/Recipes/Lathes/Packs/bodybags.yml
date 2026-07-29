@@ -1,0 +1,21 @@
+- type: latheRecipePack
+  id: BodyBagsDynamic
+  recipes:
+  - NTBodyBag
+  - PrisonerBodyBag
+  - RadiationBodyBag
+
+- type: latheRecipePack
+  id: SyndicateBodyBagsStatic
+  recipes:
+  - SyndicateBodyBag
+
+- type: latheRecipePack
+  id: BluespaceBodyBagDynamic
+  recipes:
+  - BluespaceBodyBag
+
+- type: latheRecipePack
+  id: PrisonerBodyBagDynamic
+  recipes:
+  - PrisonerBodyBag

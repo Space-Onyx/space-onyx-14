@@ -20,7 +20,7 @@ public sealed partial class PassiveConsumableSystem : EntitySystem
     [Dependency] private SharedSolutionContainerSystem _solution = default!;
     [Dependency] private StomachSystem _stomach = default!;
     [Dependency] private ReactiveSystem _reactive = default!;
-    [Dependency] private BodySystem _body = default!;
+    [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private FlavorProfileSystem _flavor = default!;
     [Dependency] private IGameTiming _timing = default!;
 
@@ -89,9 +89,6 @@ public sealed partial class PassiveConsumableSystem : EntitySystem
         if (ent.Comp.Wearer is not { } wearer)
             return false;
 
-        if (!_body.TryGetOrgansWithComponent<StomachComponent>(wearer, out var stomachs))
-            return false;
-
         if (!_solution.TryGetSolution(ent.Owner, edible.Solution, out var solutionEntity, out var solution))
             return false;
 
@@ -100,14 +97,17 @@ public sealed partial class PassiveConsumableSystem : EntitySystem
 
         Entity<StomachComponent>? bestStomach = null;
         var highestAvailable = FixedPoint2.Zero;
-        foreach (var stomach in stomachs)
+        foreach (var organ in _body.GetBodyOrgans(wearer))
         {
-            if (!_solution.ResolveSolution(stomach.Owner, StomachSystem.DefaultSolutionName, ref stomach.Comp.Solution, out var stomachSolution)
-                || stomachSolution.AvailableVolume <= highestAvailable
-                || !_stomach.CanTransferSolution((stomach.Owner, stomach.Comp, null), split))
+            if (!TryComp(organ.Id, out StomachComponent? stomach))
                 continue;
 
-            bestStomach = stomach;
+            if (!_solution.ResolveSolution(organ.Id, StomachSystem.DefaultSolutionName, ref stomach.Solution, out var stomachSolution)
+                || stomachSolution.AvailableVolume <= highestAvailable
+                || !_stomach.CanTransferSolution((organ.Id, stomach, null), split))
+                continue;
+
+            bestStomach = (organ.Id, stomach);
             highestAvailable = stomachSolution.AvailableVolume;
         }
 

@@ -229,7 +229,7 @@ public partial class SharedDiseaseSystem
         var weights = new Dictionary<string, float>(effects.Weights);
         if (negativeOnly)
             weights = weights.Where(w => _proto.TryIndex<EntityPrototype>(w.Key, out var effProto)
-                                         && effProto.TryGetComponent<DiseaseEffectComponent>(out var effComp, EntityManager.ComponentFactory))
+                                          && effProto.TryComp<DiseaseEffectComponent>(out var effComp, EntityManager.ComponentFactory))
                 .ToDictionary(w => w.Key, w => w.Value);
 
         foreach (var diseaseEffect in ent.Comp.Effects.ContainedEntities) // no rolling effects we have
@@ -248,7 +248,7 @@ public partial class SharedDiseaseSystem
         var protoId = new EntProtoId(_random.Pick(weights));
         var proto = _proto.Index(protoId);
         Entity<DiseaseEffectComponent>? effect = null;
-        if (proto.TryGetComponent<DiseaseEffectComponent>(out var effectComp, _factory))
+        if (proto.TryComp<DiseaseEffectComponent>(out var effectComp, _factory))
             TryAdjustEffect((ent, ent.Comp), proto, out effect, _random.NextFloat(effectComp.MinSeverity, 1f));
 
         Dirty(ent);

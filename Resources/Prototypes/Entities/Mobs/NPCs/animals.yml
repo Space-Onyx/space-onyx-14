@@ -1919,6 +1919,12 @@
   id: MobMouse
   description: Squeak!
   components:
+  # <Onyx-CollectiveMind>
+  - type: CollectiveMind
+    defaultChannel: Mousemind
+    channels:
+    - Mousemind
+  # </Onyx-CollectiveMind>
   - type: GhostRole
     makeSentient: true
     allowSpeech: true

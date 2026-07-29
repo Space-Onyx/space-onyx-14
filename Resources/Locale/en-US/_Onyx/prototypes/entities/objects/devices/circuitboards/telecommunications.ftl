@@ -1,0 +1,12 @@
+ent-OnyxTelecomServerCircuitboard = telecommunication server machine board
+    .desc = A machine printed circuit board for a telecommunications server that uses the full signal chain.
+ent-TelecomBusCircuitboard = telecommunication bus machine board
+    .desc = A machine printed circuit board for a telecommunication bus.
+ent-TelecomReceiverCircuitboard = telecommunication receiver machine board
+    .desc = A machine printed circuit board for a telecommunication receiver.
+ent-TelecomProcessorCircuitboard = telecommunication processor machine board
+    .desc = A machine printed circuit board for a telecommunication signal processor.
+ent-TelecomBroadcasterCircuitboard = telecommunication broadcaster machine board
+    .desc = A machine printed circuit board for a telecommunication broadcaster.
+ent-TelecomTrafficConsoleCircuitboard = telecommunication monitoring console computer board
+    .desc = A computer printed circuit board for a telecommunication traffic monitoring console.

@@ -39,6 +39,12 @@ research-technology-kinetic-modifications = Кинетические модиф�
 research-technology-basic-shuttle-armament = Базовое корабельное вооружение
 research-technology-advanced-shuttle-weapon = Продвинутое корабельное оружие
 research-technology-thermal-weaponry = Термальное вооружение
+# <Onyx-GoobEnergyWeaponry>
+research-technology-energy-bolt-weaponry = Энергетическое оружие
+# </Onyx-GoobEnergyWeaponry>
+# <Onyx-RestraintTechnology>
+research-technology-restraint = Технологии сдерживания
+# </Onyx-RestraintTechnology>
 research-technology-dual-wielding-technology = Технология двойного оперирования
 
 research-technology-basic-robotics = Основы робототехники

@@ -1,0 +1,57 @@
+- type: secretPlusRule
+  id: Thief
+  rule: Thief
+  antagChaosScores:
+    Thief: 100
+
+- type: secretPlusRule
+  id: Traitor
+  rule: Traitor
+  antagChaosScores:
+    Traitor: 150
+
+- type: secretPlusRule
+  id: Changeling
+  rule: Changeling
+  antagChaosScores:
+    Changeling: 200
+
+- type: secretPlusRule
+  id: Nukeops
+  rule: Nukeops
+  antagChaosScores:
+    NukeopsCommander: 300
+    NukeopsMedic: 300
+    NukeopsOperative: 300
+
+- type: secretPlusRule
+  id: Revolutionary
+  rule: Revolutionary
+  chaosScore: 1000
+
+- type: secretPlusRule
+  id: Zombie
+  rule: Zombie
+  chaosScore: 1200
+  loneRule: true
+
+- type: secretPlusRule
+  id: Wizard
+  rule: Wizard
+  chaosScore: 900
+
+- type: incompatibleModes
+  id: Nukeops
+  modes: [Nukeops, Zombie, Revolutionary]
+
+- type: incompatibleModes
+  id: Wizard
+  modes: [Wizard]
+
+- type: incompatibleModes
+  id: Zombie
+  modes: [Nukeops]
+
+- type: incompatibleModes
+  id: Revolutionary
+  modes: [Nukeops]

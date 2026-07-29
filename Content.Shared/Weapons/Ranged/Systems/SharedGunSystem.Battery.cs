@@ -147,7 +147,20 @@ public abstract partial class SharedGunSystem
     // For when a power cell gets inserted or removed.
     private void OnPowerCellChanged(Entity<BatteryAmmoProviderComponent> ent, ref PowerCellChangedEvent args)
     {
+        // <Onyx-BatteryAmmoCounter-edited>
+        if (args.Ejected)
+        {
+            ent.Comp.Shots = 0;
+            ent.Comp.NextUpdate = null;
+            UpdateAmmoCount(ent);
+            Dirty(ent);
+            Appearance.SetData(ent.Owner, AmmoVisuals.HasAmmo, false);
+            Appearance.SetData(ent.Owner, AmmoVisuals.AmmoCount, 0);
+            return;
+        }
+
         UpdateShots(ent);
+        // </Onyx-BatteryAmmoCounter-edited>
     }
 
     // If the entity is has a PowerCellSlotComponent then this event is relayed from the power cell to the slot entity.

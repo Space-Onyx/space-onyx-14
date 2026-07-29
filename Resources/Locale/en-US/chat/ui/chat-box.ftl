@@ -15,6 +15,9 @@ hud-chatbox-select-channel-OOC = OOC
 hud-chatbox-select-channel-Damage = Damage
 hud-chatbox-select-channel-Visual = Actions
 hud-chatbox-select-channel-Radio = Radio
+# <Onyx-CollectiveMind>
+hud-chatbox-select-channel-CollectiveMind = Collective Mind
+# </Onyx-CollectiveMind>
 
 hud-chatbox-channel-Admin = Admin Misc
 hud-chatbox-channel-AdminAlert = Admin Alert
@@ -26,6 +29,9 @@ hud-chatbox-channel-Whisper = Whisper
 hud-chatbox-channel-LOOC = LOOC
 hud-chatbox-channel-OOC = OOC
 hud-chatbox-channel-Radio = Radio
+# <Onyx-CollectiveMind>
+hud-chatbox-channel-CollectiveMind = Collective Mind
+# </Onyx-CollectiveMind>
 hud-chatbox-channel-Notifications = Notifications
 hud-chatbox-channel-Server = Server
 hud-chatbox-channel-Visual = Actions

@@ -51,6 +51,8 @@
         /// </summary>
         Admin = ChatChannel.AdminChat,
 
+        CollectiveMind = ChatChannel.CollectiveMind, // <Onyx-CollectiveMind>
+
         Console = ChatChannel.Unspecified
     }
 }

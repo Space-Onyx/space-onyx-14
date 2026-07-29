@@ -1,0 +1,71 @@
+- type: markingsGroup
+  parent: Undergarments
+  id: Demon
+  limits:
+    enum.HumanoidVisualLayers.Hair:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.FacialHair:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.Head:
+      limit: 2
+      required: false
+    enum.HumanoidVisualLayers.HeadTop:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.HeadSide:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.Ears:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.Chest:
+      limit: 4
+      required: false
+    enum.HumanoidVisualLayers.Tail:
+      limit: 1
+      required: true
+      default: [ DemomTail ]
+
+- type: entity
+  parent: BaseSpeciesAppearance
+  id: AppearanceArcan
+  categories: [ HideSpawnMenu ]
+  name: arcan appearance
+  components:
+  - type: Inventory
+    femaleDisplacements:
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: _Onyx/Species/Arcan/displacement.rsi
+            state: jumpsuit-female
+  - type: InitialBody
+    organs:
+      # <Onyx-ChestGroin-edited>
+      Chest: OrganArcanChest
+      Groin: OrganArcanGroin
+      # </Onyx-ChestGroin-edited>
+      Tail: OrganArcanTail
+      Head: OrganArcanHead
+      ArmLeft: OrganArcanArmLeft
+      ArmRight: OrganArcanArmRight
+      HandRight: OrganArcanHandRight
+      HandLeft: OrganArcanHandLeft
+      LegLeft: OrganArcanLegLeft
+      LegRight: OrganArcanLegRight
+      FootLeft: OrganArcanFootLeft
+      FootRight: OrganArcanFootRight
+      Brain: OrganHumanBrain
+      Eyes: OrganHumanEyes
+      Tongue: OrganHumanTongue
+      Appendix: OrganHumanAppendix
+      Ears: OrganArcanEars
+      Lungs: OrganHumanLungs
+      Heart: OrganDemonHeart
+      Stomach: OrganDemonStomach
+      Liver: OrganHumanLiver
+      Kidneys: OrganHumanKidneys
+  - type: HumanoidProfile
+    species: Demon
