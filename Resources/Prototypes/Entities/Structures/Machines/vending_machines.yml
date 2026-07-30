@@ -1775,6 +1775,7 @@
     normalState: normal-unshaded
     # <Onyx-VendingPrices-edited>
     priceMultiplier: 1
+    useStaticPrice: true # <Onyx-CargoDrobeGoobParity>
     # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: CargoDrobeAds
@@ -1792,7 +1793,7 @@
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: PointLight
     radius: 1.5
-    energy: 3.0
+    energy: 1.6 # <Onyx-CargoDrobeGoobParity-edited>
     color: "#b89e2a"
   - type: AccessReader
     access: [["Cargo"]]

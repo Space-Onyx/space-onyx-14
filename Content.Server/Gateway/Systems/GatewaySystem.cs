@@ -99,7 +99,7 @@ public sealed partial class GatewaySystem : EntitySystem
 
         while (query.MoveNext(out var destUid, out var dest, out var destXform))
         {
-            if (!dest.Enabled || destUid == uid)
+            if (!dest.Enabled || destUid == uid || !IsGatewayPairAllowed(uid, comp, destUid, dest)) // <Onyx-GatewayTagRestriction-edited>
                 continue;
 
             // Show destination if either no destination comp on the map or it's ours.
@@ -156,6 +156,7 @@ public sealed partial class GatewaySystem : EntitySystem
         // If it's already open / not enabled / we're not ready DENY.
         if (!TryComp<GatewayComponent>(desto, out var dest) ||
             !dest.Enabled ||
+            !IsGatewayPairAllowed(uid, comp, desto, dest) || // <Onyx-GatewayTagRestriction>
             _timing.CurTime < _metadata.GetPauseTime(uid) + comp.NextReady)
         {
             return;

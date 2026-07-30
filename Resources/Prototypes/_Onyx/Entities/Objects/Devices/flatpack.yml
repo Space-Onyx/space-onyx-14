@@ -24,3 +24,12 @@
   components:
   - type: Flatpack
     entity: MedicalBiofabricator
+
+- type: entity
+  parent: BaseFlatpack
+  id: GatewayFlatpackLavaland
+  name: lavaland gateway flatpack
+  description: A flatpack used to bluespace in a gateway for travel to Lavaland.
+  components:
+  - type: Flatpack
+    entity: GatewayLavalandStation

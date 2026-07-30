@@ -373,11 +373,6 @@ public abstract partial class SharedBiomeSystem : EntitySystem
 
     private FastNoiseLite GetNoise(FastNoiseLite seedNoise, int seed)
     {
-        var noiseCopy = new FastNoiseLite();
-        _serManager.CopyTo(seedNoise, ref noiseCopy, notNullableOverride: true);
-        noiseCopy.SetSeed(noiseCopy.GetSeed() + seed);
-        // Ensure re-calculate is run.
-        noiseCopy.SetFractalOctaves(noiseCopy.GetFractalOctaves());
-        return noiseCopy;
+        return GetSeededNoise(seedNoise, seed); // <Onyx-BiomeNoiseCache-edited>
     }
 }

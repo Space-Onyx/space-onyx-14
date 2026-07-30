@@ -27,8 +27,6 @@
   - OreDiamond
   - OreBSCrystal
   addComponents:
-  - type: Parallax
-    parallax: bedrock
   - type: WeatherScheduler
     stages:
     - duration: { min: 600, max: 900 }

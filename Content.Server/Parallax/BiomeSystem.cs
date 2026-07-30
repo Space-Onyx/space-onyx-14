@@ -331,6 +331,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                 continue;
 
             _activeChunks.Add(biome, _tilePool.Get());
+            InitializeRuntimeOptimization(biome); // <Onyx-LavalandBiomeRuntimeOptimization>
             _markerChunks.GetOrNew(biome);
         }
 
@@ -389,7 +390,8 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             // Load new chunks
             LoadChunks(biome, gridUid, grid, biome.Seed);
             // Unload old chunks
-            UnloadChunks(biome, gridUid, grid, biome.Seed);
+            if (!TryUnloadRuntimeOptimizedChunks(biome, gridUid, grid, biome.Seed, frameTime)) // <Onyx-LavalandBiomeRuntimeOptimization-edited>
+                UnloadChunks(biome, gridUid, grid, biome.Seed); // <Onyx-LavalandBiomeRuntimeOptimization-edited>
         }
 
         }
@@ -403,40 +405,15 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             }
 
             _activeChunks.Clear();
+            ClearRuntimeOptimization(); // <Onyx-LavalandBiomeRuntimeOptimization>
             _markerChunks.Clear();
         }
         // </Onyx-LavalandBiomeCleanup-edited>
     }
 
-    // <Onyx-LavalandBiomeOptimization>
-    public bool IsMarkerChunkLoaded(
-        BiomeComponent component,
-        ProtoId<BiomeMarkerLayerPrototype> layer,
-        Vector2i chunk)
-    {
-        return component.LoadedMarkers.TryGetValue(layer, out var loaded) && loaded.Contains(chunk);
-    }
-
-    public bool PreloadMarkerChunk(
-        EntityUid gridUid,
-        BiomeComponent component,
-        ProtoId<BiomeMarkerLayerPrototype> layer,
-        Vector2i chunk)
-    {
-        if (!TryComp<MapGridComponent>(gridUid, out var grid))
-            return false;
-
-        var markerChunks = _markerChunks.GetOrNew(component);
-        foreach (var markerLayer in component.MarkerLayers)
-            markerChunks.GetOrNew(markerLayer);
-        markerChunks[layer].Add(chunk);
-        BuildMarkerChunks(component, gridUid, grid, component.Seed);
-        return true;
-    }
-    // </Onyx-LavalandBiomeOptimization>
-
     private void AddChunksInRange(BiomeComponent biome, Vector2 worldPos)
     {
+        TrackViewerChunk(biome, worldPos); // <Onyx-LavalandBiomeRuntimeOptimization>
         var enumerator = new ChunkIndicesEnumerator(_loadArea.Translated(worldPos), ChunkSize);
 
         while (enumerator.MoveNext(out var chunkOrigin))
@@ -474,6 +451,8 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         BuildMarkerChunks(component, gridUid, grid, seed);
 
         var active = _activeChunks[component];
+        if (TryLoadRuntimeOptimizedChunks(component, gridUid, grid, seed, active)) // <Onyx-LavalandBiomeRuntimeOptimization>
+            return; // <Onyx-LavalandBiomeRuntimeOptimization>
 
         foreach (var chunk in active)
         {
@@ -493,9 +472,11 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     /// </summary>
     private void BuildMarkerChunks(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, int seed)
     {
+        var chunkBudget = GetMarkerChunkBudget(gridUid); // <Onyx-LavalandBiomeRuntimeOptimization>
         var markers = _markerChunks[component];
         var loadedMarkers = component.LoadedMarkers;
         var idx = 0;
+        var remainingBudget = chunkBudget ?? int.MaxValue; // <Onyx-LavalandBiomeRuntimeOptimization>
 
         foreach (var (layer, chunks) in markers)
         {
@@ -503,7 +484,10 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             idx++;
             var localIdx = idx;
 
-            Parallel.ForEach(chunks, new ParallelOptions() { MaxDegreeOfParallelism = _parallel.ParallelProcessCount }, chunk =>
+            var forcedLayer = component.ForcedMarkerLayers.Contains(layer);
+            var chunksToBuild = GetMarkerChunksToBuild(chunks, loadedMarkers, layer, forcedLayer, chunkBudget, ref remainingBudget); // <Onyx-LavalandBiomeRuntimeOptimization>
+
+            Parallel.ForEach(chunksToBuild, new ParallelOptions() { MaxDegreeOfParallelism = _parallel.ParallelProcessCount }, chunk => // <Onyx-LavalandBiomeRuntimeOptimization-edited>
             {
                 if (loadedMarkers.TryGetValue(layer, out var mobChunks) && mobChunks.Contains(chunk))
                     return;
@@ -1063,6 +1047,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 
         EnsureComp<SunShadowComponent>(mapUid);
         EnsureComp<SunShadowCycleComponent>(mapUid);
+        EnsurePlanetParallax(mapUid); // <Onyx-PlanetBedrockParallax>
 
         var moles = new float[Atmospherics.AdjustedNumberOfGases];
         moles[(int)Gas.Oxygen] = 21.824779f;
