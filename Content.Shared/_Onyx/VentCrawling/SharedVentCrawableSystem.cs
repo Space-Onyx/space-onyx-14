@@ -106,7 +106,7 @@ public sealed partial class SharedVentCrawableSystem : EntitySystem
         {
             var crawler = holder.Container.ContainedEntities[0];
             var layerName = Loc.GetString($"atmos-pipe-layers-component-layer-{selectedLayer.ToString().ToLowerInvariant()}");
-            _popup.PopupPredicted(Loc.GetString("ventcrawling-pipe-layer-changed", ("layer", layerName)), holderUid, crawler);
+            _popup.PopupEntity(Loc.GetString("ventcrawling-pipe-layer-changed", ("layer", layerName)), holderUid, crawler);
         }
         return true;
     }

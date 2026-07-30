@@ -1,0 +1,10 @@
+- type: entity
+  id: LavalandInteriorRoomMarker
+  parent: BaseRoomMarker
+  name: Lavaland interior marker
+  suffix: 5x5
+  components:
+  - type: RoomFill
+    roomWhitelist:
+      tags:
+      - LavalandInterior5x5

@@ -31,7 +31,7 @@ public sealed partial class RestrictGunshotsByUserTagSystem : EntitySystem
         if (ent.Comp.Messages.Count != 0 && time > ent.Comp.LastPopup + TimeSpan.FromSeconds(1))
         {
             ent.Comp.LastPopup = time;
-            _popup.PopupClient(Loc.GetString(_random.Pick(ent.Comp.Messages)), args.User, args.User);
+            _popup.PopupEntity(Loc.GetString(_random.Pick(ent.Comp.Messages)), args.User, args.User);
         }
 
         args.Cancel();

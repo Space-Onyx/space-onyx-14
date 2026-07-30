@@ -1,4 +1,16 @@
 - type: latheRecipe
+  parent: [ BaseEngineeringMachineRecipeCategory ]
+  id: TelecomTransmitterCircuitboard
+  completetime: 4
+  materials:
+    Steel: 1500
+    Glass: 500
+    Gold: 500
+    Silver: 500
+  icon: { sprite: _Onyx/Structures/Machines/comms_transmitter.rsi, state: base }
+  result: TelecomTransmitterCircuitboard
+
+- type: latheRecipe
   parent: [ BaseCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
   id: OnyxTelecomServerCircuitboard
   icon: { sprite: Structures/Machines/telecomms.rsi, state: telecom-nopower }

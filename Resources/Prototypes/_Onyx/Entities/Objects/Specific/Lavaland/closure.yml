@@ -1,0 +1,144 @@
+- type: entity
+  parent: PlasmaWindoorSecureSyndicateLocked
+  id: PlasmaWindoorSecureSyndicateLockedIndestructable
+  name: secure plasma windoor?
+  description: You have a bad feeling about this.
+  suffix: Syndicate, Locked, Plasma, Indestructible
+  components:
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 2000000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: PosterBase
+  id: PosterLegitGoobFaded
+  name: faded poster
+  description: The subject has faded beyond recognition.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Posters/goob_faded.rsi
+    state: faded
+
+- type: entity
+  parent: BasePayload
+  id: ShrapnelPayload
+  name: shrapnel payload
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/payload.rsi
+    state: payload-explosive-armed
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 25
+      behaviors:
+      - !type:TriggerBehavior
+  - type: DeleteOnTrigger
+  - type: ContainerContainer
+    containers:
+      cluster-payload: !type:Container
+  - type: ProjectileGrenade
+    fillPrototype: PelletClusterLethal
+    capacity: 20
+
+- type: entity
+  parent: PrefilledSyringe
+  id: SyringePoisonLethalInjection
+  name: syringe
+  suffix: Lethal injection
+  description: A somewhat humane way to put down prisoners.
+  components:
+  - type: Label
+    currentLabel: Lethal Injection
+  - type: SolutionContainerManager
+    solutions:
+      injector:
+        maxVol: 15
+        reagents:
+        - ReagentId: Amatoxin
+          Quantity: 15
+
+- type: entity
+  parent: MonkeyCube
+  id: VulpkaninCube
+  name: vulpkanin cube
+  components:
+  - type: Rehydratable
+    possibleSpawns:
+    - MobVulpkaninRandom
+
+- type: entity
+  parent: Soap
+  id: SoapHomemadeBanana
+  name: banana soap
+  description: A homemade bar of soap. Smells of banana.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Janitorial/banana_soap.rsi
+    layers:
+    - state: bananasoap-4
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: SolutionContainerVisuals
+    fillBaseName: bananasoap-
+  - type: Slippery
+    slipData:
+      knockdownTime: 3.5
+      launchForwardsMultiplier: 2
+  - type: StepTrigger
+  - type: Item
+    heldPrefix: banana
+  - type: FlavorProfile
+    flavors: [clean, banana]
+  - type: Residue
+    residueAdjective: residue-slippery
+    residueColor: residue-yellow
+
+- type: entity
+  parent: BaseSword
+  id: FoamThrongler
+  name: Foam Throngler
+  description: Not the Throngler you wanted, but the Throngler you deserve.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Fun/foam_throngler.rsi
+  - type: StaminaDamageOnHit
+    damage: 8
+  - type: MeleeWeapon
+    attackRate: 1.5
+    damage:
+      types:
+        Blunt: 0
+  - type: Item
+    size: Large
+    sprite: _Onyx/Objects/Fun/foam_throngler_inhand.rsi
+  - type: DisarmMalus
+    malus: 0
+
+- type: entity
+  parent: BaseSword
+  id: FoamWonderprod
+  name: toy wonderprod
+  description: Using this will make security angry.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Fun/foam_wonderprod.rsi
+    state: icon
+  - type: StaminaDamageOnHit
+    damage: 8
+  - type: MeleeWeapon
+    soundHit:
+      collection: RubberHammer
+    soundNoDamage:
+      collection: RubberHammer
+    damage:
+      types:
+        Blunt: 0
+  - type: Item
+    sprite: _Onyx/Objects/Fun/foam_wonderprod.rsi
+    size: Small
+  - type: DisarmMalus
+    malus: 0

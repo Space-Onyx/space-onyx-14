@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Theodore Lukin <66275205+pheenty@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 gluesniffler <159397573+gluesniffler@users.noreply.github.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: [ClothingBackpack, BaseMajorContraband]
+  id: ClothingBackpackAbductor
+  name: alien backpack
+  description: An ordinary backpack woven from a durable fiber.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Abductor/abductor_backpack.rsi
+  - type: ExplosionResistance
+    damageCoefficient: 0.1
+
+- type: entity
+  parent: [UnsensoredClothingUniformBase, BaseMajorContraband]
+  id: ClothingUniformJumpsuitAbductor
+  name: abductor uniform
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Abductor/abductor_uniform.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Abductor/abductor_uniform.rsi
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieAbductor
+  name: alien plush
+  description: Glorp Zap Zeeble Glarp "Plush" Bleeble.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Abductor/toys.rsi
+    state: plushie_abductor
+  - type: UseDelay
+    delay: 15
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/_Onyx/Effects/Abductor/abducted.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/_Onyx/Effects/Abductor/abducted.ogg
+  - type: Edible
+    requiresSpecialDigestion: true
+    useSound:
+      path: /Audio/_Onyx/Effects/Abductor/abductor.ogg

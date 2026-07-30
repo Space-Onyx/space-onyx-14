@@ -1,0 +1,33 @@
+- type: entity
+  parent: SmokeGrenade
+  id: LubeGrenade
+  name: lube grenade
+  description: A grenade that releases space lube foam.
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Grenades/smoke.rsi
+  - type: SmokeOnTrigger
+    duration: 5
+    spreadAmount: 25
+    smokePrototype: Foam
+    solution:
+      reagents:
+      - ReagentId: SpaceLube
+        Quantity: 20
+
+- type: entity
+  parent: SmokeGrenade
+  id: GlueGrenade
+  name: glue grenade
+  description: A grenade that releases space glue smoke.
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Grenades/smoke.rsi
+  - type: SmokeOnTrigger
+    duration: 5
+    spreadAmount: 25
+    smokePrototype: Smoke
+    solution:
+      reagents:
+      - ReagentId: SpaceGlue
+        Quantity: 20

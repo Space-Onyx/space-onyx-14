@@ -7,6 +7,7 @@ using Content.Server.Power.Components;
 using Content.Server._Onyx.Chat;
 using Content.Server._Onyx.Telecommunications;
 using Content.Shared.Chat;
+using Content.Shared._Onyx.Telecommunications; // <Onyx-TelecomTransmitter>
 using Content.Shared.Database;
 using Content.Shared.Radio;
 using Content.Shared.Radio.Components;
@@ -192,10 +193,12 @@ public sealed partial class RadioSystem : EntitySystem
         _messages.Remove(message);
     }
 
-    /// <inheritdoc cref="TelecomServerComponent"/>
+    // <Onyx-TelecomTransmitter-edited>
+    /// <inheritdoc cref="TelecomTransmitterComponent"/>
     private bool HasActiveTransmitter(MapId mapId)
     {
-        return EntityQuery<TelecomServerComponent, ApcPowerReceiverComponent, TransformComponent>()
-            .Any(server => server.Item3.MapID == mapId && server.Item2.Powered);
+        return EntityQuery<TelecomTransmitterComponent, ApcPowerReceiverComponent, TransformComponent>()
+            .Any(transmitter => transmitter.Item3.MapID == mapId && transmitter.Item2.Powered);
     }
+    // </Onyx-TelecomTransmitter-edited>
 }

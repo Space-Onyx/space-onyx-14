@@ -1,0 +1,30 @@
+# SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
+# SPDX-FileCopyrightText: 2025 gluesniffler <linebarrelerenthusiast@gmail.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieCosmicCult
+  name: unknown plushie
+  description: A small stuffed doll resembling an indistinct cosmic force.
+  components:
+  - type: Item
+    size: Normal
+  - type: Sprite
+    sprite: _Onyx/Objects/CosmicCult/unknownplushie.rsi
+    state: plushie_cosmic
+
+- type: entity
+  parent: BaseFigurine
+  id: ToyFigurineCosmicCultist
+  name: cosmic cultist figure
+  description: A figurine depicting an iridescent alien-looking hardsuit.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/CosmicCult/figurines.rsi
+    layers:
+    - state: cosmiccultist
+    - state: cosmiccultist_unshaded
+      shader: unshaded
+  - type: SpeakOnTrigger
+    pack: FigurinesCosmicCultist

@@ -1,0 +1,48 @@
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: lavalandRuinPool
+  id: LavalandRuins
+  ruinDistance: 14
+  maxDistance: 172
+  gridRuins:
+    CorvaxSyndicateBase: 1
+    CorvaxLavaOutpost: 1
+    CorvaxLavaClownBase: 1
+    CorvaxRatvar: 1
+    CorvaxWeatherStation: 1
+    CorvaxLavaMiningPost: 2
+    CorvaxWarehouse: 2
+    CorvaxSyndicateShuttle: 1
+    CorvaxUnathi: 1
+    CorvaxCrystal: 3
+    HierophantArena: 1
+    RougeAI: 1
+    BiodomeBeach: 2
+    BiodomeSnow: 2
+    GolemShuttle: 1
+    ToyShop: 1
+    Chemistry: 1
+    Graveyard: 1
+    SeedVault: 1
+    Hermit: 2
+    WaffleCo: 1
+    ArrivalsBack: 1
+    ArrivalsFront: 1
+    VulpLab: 1
+    Shelter: 1
+    MiningPost: 3
+    AbductorDebris: 1
+    CultBase: 1
+    Hunter: 1
+    XenoNest: 1
+    Reclaimer: 1
+    CargoWreck: 1
+    Murder: 1
+    EscapePod: 2
+    Desk: 2
+    Generator: 3
+    Mug: 1
+    Temple: 1
+  markerRuins:
+    CommonRuin5x5: 50

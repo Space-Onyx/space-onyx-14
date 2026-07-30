@@ -1,0 +1,3 @@
+book-of-greentext-already-taken = You are already cursed by the book...
+book-of-greentext-use-message = The book's curse now affects you. Do not lose it!
+entity-effect-guidebook-wash-curse-of-greentext = Washes away the curse of success

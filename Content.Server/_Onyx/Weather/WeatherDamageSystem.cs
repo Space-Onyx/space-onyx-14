@@ -1,5 +1,6 @@
 using Content.Shared._Onyx.StatusEffects.Immunities;
 using Content.Shared._Onyx.Weather;
+using Content.Shared._Onyx.Salvage.Weapons;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
@@ -47,6 +48,8 @@ public sealed partial class WeatherDamageSystem : EntitySystem
         while (mobQuery.MoveNext(out var uid, out var mob, out var transform))
         {
             if (transform.MapUid != map || mob.CurrentState == MobState.Dead ||
+                HasComp<WeatherImmuneComponent>(uid) ||
+                HasComp<FaunaComponent>(uid) ||
                 _statuses.HasEffectComp<WeatherImmunityStatusEffectComponent>(uid))
                 continue;
 

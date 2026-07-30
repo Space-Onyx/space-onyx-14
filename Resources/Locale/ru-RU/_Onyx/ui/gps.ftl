@@ -1,0 +1,15 @@
+gps-window-title = СИСТЕМА ГЛОБАЛЬНОГО ПОЗИЦИОНИРОВАНИЯ
+gps-window-name-label = Обозначение
+gps-window-gps-position-label = GPS-координаты
+gps-window-tracked-position-label = Отслеживаемые координаты
+gps-window-position-none = Н/Д
+gps-window-position-unknown = Неизвестно
+gps-window-clear-tracking-button = Очистить
+gps-window-visibility-on = Видимость: вкл.
+gps-window-visibility-off = Видимость: выкл.
+gps-window-visibility-tooltip = Управляет видимостью этого GPS на других радарах.
+gps-window-alarm-tooltip = Кнопка тревоги подсвечивает этот GPS на других радарах. Используйте в экстренных ситуациях!
+gps-window-clear-tooltip = Сбрасывает выбор текущей цели.
+gps-window-footer-text = Не забудьте включить видимость, чтобы не потеряться!
+gps-entry-unknown = Неизвестный GPS
+gps-entry-beacon = Маяк

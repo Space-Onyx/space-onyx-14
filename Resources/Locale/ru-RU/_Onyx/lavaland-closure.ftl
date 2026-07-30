@@ -1,0 +1,9 @@
+tiles-abductor-floor = пол абдукторов
+tiles-cosmiccult-floor-glyph = зловещий глифический пол
+tiles-cosmiccult-floor-smooth = зловещий гладкий пол
+tiles-cosmiccult-floor-half = зловещий пол с половинным узором
+tiles-cosmiccult-floor-notched = зловещий нарезной пол
+tiles-cosmiccult-floor-split = зловещий разделённый пол
+figurines-cosmic-cultist-1 = Звёзды сошлись.
+figurines-cosmic-cultist-2 = Истина скрыта за завесой.
+figurines-cosmic-cultist-3 = Взгляни в бездну.

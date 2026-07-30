@@ -1,0 +1,14 @@
+- type: entity
+  parent: MarkerBase
+  id: ToySpawner
+  name: toy spawner
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Objects/Fun/bikehorn.rsi
+      state: icon
+  - type: EntityTableSpawner
+    table: !type:NestedSelector
+      tableId: AllToysTable
+      prob: 0.5

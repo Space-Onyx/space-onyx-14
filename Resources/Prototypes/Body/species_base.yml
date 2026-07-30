@@ -88,6 +88,7 @@
       methods: [Touch]
       effects:
       - !type:WashCreamPie
+      - !type:WashCurseOfGreentext
   - type: StatusEffects
     allowed:
     - Electrocution

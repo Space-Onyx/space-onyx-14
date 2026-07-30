@@ -320,6 +320,9 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+        // <Onyx-LavalandBiomeCleanup-edited>
+        try
+        {
         var biomes = AllEntityQuery<BiomeComponent>();
 
         while (biomes.MoveNext(out var biome))
@@ -389,16 +392,48 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             UnloadChunks(biome, gridUid, grid, biome.Seed);
         }
 
-        _handledEntities.Clear();
-
-        foreach (var tiles in _activeChunks.Values)
-        {
-            _tilePool.Return(tiles);
         }
+        finally
+        {
+            _handledEntities.Clear();
 
-        _activeChunks.Clear();
-        _markerChunks.Clear();
+            foreach (var tiles in _activeChunks.Values)
+            {
+                _tilePool.Return(tiles);
+            }
+
+            _activeChunks.Clear();
+            _markerChunks.Clear();
+        }
+        // </Onyx-LavalandBiomeCleanup-edited>
     }
+
+    // <Onyx-LavalandBiomeOptimization>
+    public bool IsMarkerChunkLoaded(
+        BiomeComponent component,
+        ProtoId<BiomeMarkerLayerPrototype> layer,
+        Vector2i chunk)
+    {
+        return component.LoadedMarkers.TryGetValue(layer, out var loaded) && loaded.Contains(chunk);
+    }
+
+    public bool PreloadMarkerChunk(
+        EntityUid gridUid,
+        BiomeComponent component,
+        ProtoId<BiomeMarkerLayerPrototype> layer,
+        Vector2i chunk)
+    {
+        if (!TryComp<MapGridComponent>(gridUid, out var grid))
+            return false;
+
+        var markerChunks = _markerChunks.GetOrNew(component);
+        foreach (var markerLayer in component.MarkerLayers)
+            markerChunks.GetOrNew(markerLayer);
+        markerChunks[layer].Add(chunk);
+        BuildMarkerChunks(component, gridUid, grid, component.Seed);
+        return true;
+    }
+    // </Onyx-LavalandBiomeOptimization>
 
     private void AddChunksInRange(BiomeComponent biome, Vector2 worldPos)
     {

@@ -1,0 +1,178 @@
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: lavalandGridRuin
+  id: HierophantArena
+  name: lavaland-ruin-hierophant
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_hierophant_arena.yml
+  priority: -1
+  patchToPlanet: false
+  componentsToGrant:
+  - type: HierophantBeat
+
+- type: lavalandGridRuin
+  id: BiodomeSnow
+  name: lavaland-ruin-biodome
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_snow_biodome.yml
+  priority: 1
+  patchToPlanet: false
+
+- type: lavalandGridRuin
+  id: BiodomeBeach
+  name: lavaland-ruin-biodome
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_beach_biodome.yml
+  priority: 2
+  patchToPlanet: false
+
+- type: lavalandGridRuin
+  id: GolemShuttle
+  name: lavaland-ruin-big-shuttle
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_golem_shuttle.yml
+  priority: 3
+
+- type: lavalandGridRuin
+  id: ToyShop
+  name: lavaland-ruin-wooden
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_toyshop.yml
+  priority: 4
+
+- type: lavalandGridRuin
+  id: RougeAI
+  name: lavaland-ruin-station
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_rouge_ai.yml
+  priority: 5
+
+- type: lavalandGridRuin
+  id: XenoNest
+  name: lavaland-ruin-desk
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_xeno_nest.yml
+  priority: 5
+
+- type: lavalandGridRuin
+  id: VulpLab
+  name: lavaland-ruin-laboratory
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_vulp_lab.yml
+  priority: 7
+
+- type: lavalandGridRuin
+  id: Chemistry
+  name: lavaland-ruin-laboratory
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_chemistry.yml
+  priority: 8
+
+- type: lavalandGridRuin
+  id: Shelter
+  name: lavaland-ruin-shelter
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_shelter.yml
+  priority: 9
+
+- type: lavalandGridRuin
+  id: MiningPost
+  name: lavaland-ruin-shelter
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_mining_outpost.yml
+  priority: 10
+  patchToPlanet: false
+
+- type: lavalandGridRuin
+  id: Hermit
+  name: lavaland-ruin-shelter
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_hermit.yml
+  priority: 11
+
+- type: lavalandGridRuin
+  id: SeedVault
+  name: lavaland-ruin-seed-vault
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_seed_vault.yml
+  priority: 13
+  patchToPlanet: false
+
+- type: lavalandGridRuin
+  id: Graveyard
+  name: lavaland-ruin-seed-graveyard
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_graveyard.yml
+  priority: 14
+
+- type: lavalandGridRuin
+  id: WaffleCo
+  name: lavaland-ruin-wooden
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_wafflecohouse.yml
+  priority: 15
+
+- type: lavalandGridRuin
+  id: ArrivalsBack
+  name: lavaland-ruin-arrivals-shuttle
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_arrivals_back.yml
+  priority: 16
+
+- type: lavalandGridRuin
+  id: ArrivalsFront
+  name: lavaland-ruin-arrivals-shuttle
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_arrivals_front.yml
+  priority: 17
+
+- type: lavalandGridRuin
+  id: AbductorDebris
+  name: lavaland-ruin-abductor
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_abductor.yml
+  priority: 19
+
+- type: lavalandGridRuin
+  id: CultBase
+  name: lavaland-ruin-cult
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_cult.yml
+  priority: 20
+
+- type: lavalandGridRuin
+  id: Hunter
+  name: lavaland-ruin-hunt
+  path: /Maps/_Onyx/Lavaland/Ruins/ruin_hunter.yml
+  priority: 22
+
+- type: lavalandGridRuin
+  id: CargoWreck
+  name: lavaland-ruin-cargo2
+  path: /Maps/_Onyx/Lavaland/Ruins/broken_cargo.yml
+  priority: 24
+
+- type: lavalandGridRuin
+  id: Murder
+  name: lavaland-ruin-murder
+  path: /Maps/_Onyx/Lavaland/Ruins/cave_murder.yml
+  priority: 25
+
+- type: lavalandGridRuin
+  id: EscapePod
+  name: lavaland-ruin-crash
+  path: /Maps/_Onyx/Lavaland/Ruins/escape_pod_crash.yml
+  priority: 26
+
+- type: lavalandGridRuin
+  id: Desk
+  name: lavaland-ruin-desk
+  path: /Maps/_Onyx/Lavaland/Ruins/front_desk.yml
+  priority: 27
+
+- type: lavalandGridRuin
+  id: Generator
+  name: lavaland-ruin-generator
+  path: /Maps/_Onyx/Lavaland/Ruins/generator_scrapyard.yml
+  priority: 28
+
+- type: lavalandGridRuin
+  id: Mug
+  name: lavaland-ruin-mug
+  path: /Maps/_Onyx/Lavaland/Ruins/mug_factory.yml
+  priority: 29
+
+- type: lavalandGridRuin
+  id: Temple
+  name: lavaland-ruin-temple
+  path: /Maps/_Onyx/Lavaland/Ruins/temple.yml
+  priority: 30
+
+- type: lavalandGridRuin
+  id: Reclaimer
+  name: lavaland-ruin-reclaimer
+  path: /Maps/_Onyx/Lavaland/Ruins/reclaimer_shuttle_ruin.yml
+  priority: -1
+  patchToPlanet: false

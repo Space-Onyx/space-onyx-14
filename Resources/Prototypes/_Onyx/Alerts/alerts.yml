@@ -47,3 +47,12 @@
     state: plating
   name: alerts-centered-name
   description: alerts-centered-desc
+
+- type: alert
+  id: HierophantBeat
+  category: TileMovement
+  icons:
+  - sprite: /Textures/_Onyx/Interface/Alerts/hierophantbeat.rsi
+    state: hierophant
+  name: alerts-hierophantbeat-name
+  description: alerts-hierophantbeat-desc

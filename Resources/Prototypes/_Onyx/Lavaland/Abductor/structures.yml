@@ -1,0 +1,106 @@
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Piras314 <p1r4s@proton.me>
+# SPDX-FileCopyrightText: 2025 gluesniffler <159397573+gluesniffler@users.noreply.github.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: BaseStructure
+  id: AbductorExperimentator
+  name: experimentator
+  description: A device that contains and analyzes an experimental subject.
+  components:
+  - type: AbductorExperimentator
+  - type: Sprite
+    noRot: true
+    sprite: _Onyx/Structures/Abductor/abductor_experimentator.rsi
+    layers:
+    - state: experimentator_0
+      map: ["base"]
+  - type: InteractionOutline
+  - type: Physics
+    canCollide: false
+  - type: DragInsertContainer
+    containerId: storage
+  - type: ExitContainerOnMove
+    containerId: storage
+  - type: ContainerContainer
+    containers:
+      storage: !type:ContainerSlot
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.AbductorExperimentatorVisuals.Full:
+        base:
+          True: { state: experimentator_1 }
+          False: { state: experimentator_0 }
+
+- type: entity
+  id: AbductorOperatingTable
+  parent: OperatingTable
+  name: abductor operating table
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Abductor/abductor_optable.rsi
+    state: operating_table
+    noRot: true
+  - type: Icon
+    sprite: _Onyx/Structures/Abductor/abductor_optable.rsi
+    state: operating_table
+
+- type: entity
+  id: TableAbductor
+  parent: TableBase
+  name: alien table
+  description: Literally the sturdiest thing you have ever seen.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Abductor/abductor_table.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Abductor/abductor_table.rsi
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepFloor
+
+- type: entity
+  parent: BaseWall
+  id: WallAbductor
+  name: alien wall
+  description: Keeps the air in and salvagers out.
+  components:
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallicStrong
+  - type: StaticPrice
+    price: 250
+  - type: RadiationBlocker
+    resistance: 5
+  - type: Sprite
+    sprite: _Onyx/Structures/Abductor/abductor_wall.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Abductor/abductor_wall.rsi
+    state: full
+  - type: IconSmooth
+    key: walls
+    base: state
+  - type: Reflect
+    reflectProb: 1
+
+- type: entity
+  parent: WallDiagonalBase
+  id: WallAbductorDiagonal
+  name: alien wall
+  suffix: Diagonal
+  description: Keeps the air in and salvagers out.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Abductor/abductor_diagonal.rsi
+    state: state0
+  - type: Icon
+    sprite: _Onyx/Structures/Abductor/abductor_diagonal.rsi
+    state: state0
+  - type: IconSmooth
+    mode: Diagonal
+    key: walls
+    base: state
+  - type: Reflect
+    reflectProb: 1

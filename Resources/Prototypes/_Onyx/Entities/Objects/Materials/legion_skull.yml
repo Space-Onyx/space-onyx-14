@@ -1,0 +1,31 @@
+- type: entity
+  parent: BaseItem
+  id: MaterialLegionSkull
+  name: legion skull
+  description: A grey deformed skull of a long gone humanoid. For a moment, it seems to stare into your soul.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Materials/legion.rsi
+    state: skull
+  - type: Appearance
+  - type: Stack
+    count: 10
+    stackType: LegionSkull
+  - type: StackPrice
+    price: 500
+
+- type: entity
+  parent: MaterialLegionSkull
+  id: MaterialLegionSkull1
+  suffix: 1
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: MaterialLegionSkull
+  id: MaterialLegionSkull5
+  suffix: 5
+  components:
+  - type: Stack
+    count: 5

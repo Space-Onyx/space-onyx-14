@@ -1,0 +1,56 @@
+- type: entity
+  id: HandheldHealthAnalyzerUnpowered
+  parent: BaseItem
+  name: health analyzer
+  suffix: Always Powered
+  description: A hand-held body scanner capable of distinguishing vital signs of the subject.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Medical/healthanalyzer.rsi
+    layers:
+    - state: icon
+    - state: analyzer
+      shader: unshaded
+  - type: Item
+    heldPrefix: analyzer
+    storedRotation: -90
+  - type: ActivatableUI
+    key: enum.HealthAnalyzerUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.HealthAnalyzerUiKey.Key:
+        type: HealthAnalyzerBoundUserInterface
+  - type: ItemToggle
+    onUse: false
+  - type: HealthAnalyzer
+    scanningEndSound:
+      path: /Audio/Items/Medical/healthscanner.ogg
+
+- type: entity
+  parent: PartRodMetal
+  id: PartRodMetalLingering0
+  suffix: Lingering, 0
+  components:
+  - type: Stack
+    lingering: true
+    count: 0
+
+- type: entity
+  id: RipleyChassis
+  parent: BaseRipleyPart
+  name: ripley chassis
+  description: An in-progress construction of the Ripley APLU mech.
+  components:
+  - type: Appearance
+  - type: ContainerContainer
+    containers:
+      battery-container: !type:Container
+  - type: MechAssemblyVisuals
+    statePrefix: ripley
+  - type: Sprite
+    noRot: true
+    state: ripley0
+  - type: Construction
+    graph: Ripley
+    node: start
+    defaultTarget: ripley

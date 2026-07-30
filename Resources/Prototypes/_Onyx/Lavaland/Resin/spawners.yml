@@ -1,0 +1,63 @@
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobXenomorphDrone
+  name: xeno drone spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [MobXenoDrone]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobXenomorphPraetorian
+  name: xeno praetorian spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [MobXenoPraetorian]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobXenomorphQueen
+  name: xeno queen spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [MobXenoQueen]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoDrone
+  name: xeno drone spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [MobXenoDrone]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoBurrower
+  name: xeno burrower spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [MobXeno]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoWarrior
+  name: xeno warrior spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [MobXenoPraetorian]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoCrusher
+  name: xeno crusher spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [MobXenoRavager]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoRavager
+  name: xeno ravager spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [MobXenoRavager]

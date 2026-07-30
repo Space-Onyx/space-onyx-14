@@ -1,0 +1,65 @@
+- type: entity
+  name: cactus fruit
+  parent: FoodProduceBase
+  id: FoodMealCactusFruit
+  description: A cactus fruit covered in a thick reddish skin and ash.
+  components:
+  - type: FlavorProfile
+    flavors: [ berry ]
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/flora.rsi
+    state: fruiting_cactus
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 18
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 5
+        - ReagentId: Water
+          Quantity: 5
+        - ReagentId: VitriumFroth
+          Quantity: 8
+
+- type: entity
+  name: seraka cap
+  parent: FoodProduceBase
+  id: FoodMealSerakaCap
+  description: Small, deeply flavorful mushrooms originally native to Tizira.
+  components:
+  - type: FlavorProfile
+    flavors: [ berry ]
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/flora.rsi
+    state: seraka_cap
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 10
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 3
+        - ReagentId: SerakaExtract
+          Quantity: 7
+
+- type: entity
+  name: tower-cap ashwood log
+  description: It is better than bad, it is good!
+  id: AshwoodLog
+  parent: ProduceBase
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Hydroponics/ashlog.rsi
+    state: produce
+  - type: Item
+    heldPrefix: produce
+  - type: SolutionContainerManager
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 10
+  - type: Produce
+    seedId: towercap
+  - type: Log
+    spawnedPrototype: MaterialAshwoodPlank1
+    spawnCount: 1

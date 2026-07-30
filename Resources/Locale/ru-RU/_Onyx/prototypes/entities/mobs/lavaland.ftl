@@ -1,0 +1,13 @@
+ent-MobCarpLavaland = космический карп
+    .desc = Это космический карп.
+    .suffix = Лаваленд
+ent-MobLavalandGoliath = { ent-MobGoliath }
+    .suffix = Лаваленд
+    .desc = { ent-MobGoliath.desc }
+ent-MobLavalandGoliathAncient = древний голиаф
+    .suffix = Лаваленд
+    .desc = { ent-MobGoliath.desc }
+ent-MobLegion = легион
+    .desc = Под растущей гнилой массой всё ещё можно увидеть то, что когда-то было человеком.
+ent-MobLegionSkull = череп легиона
+    .desc = Частица самого легиона, следующая за оригиналом. Одна она не представляет угрозы, но...

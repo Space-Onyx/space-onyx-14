@@ -1,14 +1,14 @@
 using Content.Shared.Speech;
 using Content.Shared.Speech.Components;
-using Content.Shared.Trigger.Systems;
 using Robust.Shared.Containers;
+using SharedTriggerSystem = Content.Shared.Trigger.Systems.TriggerSystem;
 
 namespace Content.Shared._Onyx.Trigger;
 
 public sealed partial class TriggerOnSpeakSystem : EntitySystem
 {
     [Dependency] private SharedContainerSystem _container = default!;
-    [Dependency] private TriggerSystem _trigger = default!;
+    [Dependency] private SharedTriggerSystem _trigger = default!;
 
     public override void Initialize()
     {

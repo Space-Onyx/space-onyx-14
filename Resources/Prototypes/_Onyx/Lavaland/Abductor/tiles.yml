@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: tile
+  id: FloorAbductor
+  name: tiles-abductor-floor
+  sprite: /Textures/_Onyx/Tiles/Abductor/abductor_tile.png
+  isSubfloor: true
+  footstepSounds:
+    collection: FootstepAsteroid
+  heatCapacity: 10000
+  weather: false
+  indestructible: true

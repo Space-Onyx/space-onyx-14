@@ -31,6 +31,8 @@ namespace Content.Server.Shuttles.Systems;
 
 public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 {
+    public event Action? FtlDestinationsChanged; // <Onyx-Lavaland>
+
     [Dependency] private SharedMapSystem _mapSystem = default!;
     [Dependency] private ActionBlockerSystem _blocker = default!;
     [Dependency] private AlertsSystem _alertsSystem = default!;
@@ -86,11 +88,13 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     private void OnFtlDestStartup(EntityUid uid, FTLDestinationComponent component, ComponentStartup args)
     {
         RefreshShuttleConsoles();
+        FtlDestinationsChanged?.Invoke(); // <Onyx-Lavaland>
     }
 
     private void OnFtlDestShutdown(EntityUid uid, FTLDestinationComponent component, ComponentShutdown args)
     {
         RefreshShuttleConsoles();
+        FtlDestinationsChanged?.Invoke(); // <Onyx-Lavaland>
     }
 
     private void OnDock(DockEvent ev)

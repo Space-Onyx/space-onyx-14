@@ -1,0 +1,9 @@
+- type: entity
+  id: MobCarpLavaland
+  parent: MobCarpDungeon
+  suffix: Lavaland
+  components:
+  - type: WeatherImmune
+  - type: Fauna
+  - type: NpcFactionMember
+    factions: [ Lavafauna ]

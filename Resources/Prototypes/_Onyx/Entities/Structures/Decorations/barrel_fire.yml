@@ -1,0 +1,25 @@
+- type: entity
+  id: BarrelFire
+  parent: BaseStructureDynamic
+  name: barrel fire
+  description: Perfectly warm for the perfectly jobless!
+  components:
+  - type: Anchorable
+  - type: Sprite
+    noRot: true
+    sprite: Structures/Storage/barrels.rsi
+    state: flamingmetalbarrel
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallicStrong
+  - type: Pullable
+  - type: PointLight
+    radius: 5
+    energy: 3
+    color: "#FFC90C"
+  - type: AmbientSound
+    volume: -5
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/fireplace.ogg
+  - type: AlwaysHot

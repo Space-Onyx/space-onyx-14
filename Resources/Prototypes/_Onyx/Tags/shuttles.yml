@@ -1,2 +1,11 @@
 - type: Tag
   id: DroneShuttleLinkable
+
+- type: Tag
+  id: DockMining
+
+- type: Tag
+  id: LavalandGateway
+
+- type: Tag
+  id: LavalandStationGateway

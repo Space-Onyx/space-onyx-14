@@ -1,0 +1,115 @@
+- type: entity
+  abstract: true
+  id: RMCContainerBase
+  name: cargo container
+  description: A huge industrial shipping container.
+  placement: { mode: SnapgridCenter }
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb { bounds: "-0.5,-0.5,0.5,1.5" }
+        density: 190
+        layer: [MobMask]
+  - type: Sprite
+    sprite: _Onyx/Structures/RMC/containers.rsi
+    offset: 0, 0.5
+  - type: Clickable
+  - type: Occluder
+    boundingBox: "-0.5,-0.5,0.5,1.5"
+
+- type: entity
+  parent: RMCContainerBase
+  id: RMCContainerNovarisLeft
+  name: Novaris cargo container
+  description: A huge industrial shipping container from Novaris.
+  suffix: Novaris, Left
+  components:
+  - type: Sprite
+    state: novariscontainerleft
+
+- type: entity
+  parent: RMCContainerNovarisLeft
+  id: RMCContainerNovarisMiddle
+  suffix: Novaris, Middle
+  components:
+  - type: Sprite
+    state: novariscontainermiddle
+
+- type: entity
+  parent: RMCContainerNovarisLeft
+  id: RMCContainerNovarisRight
+  suffix: Novaris, Right
+  components:
+  - type: Sprite
+    state: novariscontainerright
+
+- type: entity
+  id: RMCOverheadSign
+  abstract: true
+  name: sign
+  placement:
+    mode: SnapgridCenter
+    snap: [Wall]
+  components:
+  - type: SpriteFade
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    noRot: true
+    sprite: _Onyx/Structures/RMC/overhead_neon_signs.rsi
+    offset: 0.25,0.5
+    drawdepth: Overdoors
+  - type: Clickable
+
+- type: entity
+  parent: RMCOverheadSign
+  id: RMCOverheadSignNeonBar
+  components:
+  - type: Sprite
+    state: barsign_on
+  - type: PointLight
+    enabled: true
+    radius: 4
+    energy: 5
+    color: "#00AAFF"
+    mask: /Textures/Effects/LightMasks/cone.png
+
+- type: entity
+  parent: RMCOverheadSign
+  id: RMCOverheadSignNeonCafe
+  components:
+  - type: Sprite
+    offset: -0.25,0.5
+    state: cafe_on
+  - type: PointLight
+    enabled: true
+    radius: 4
+    energy: 5
+    color: "#00AAFF"
+    mask: /Textures/Effects/LightMasks/cone.png
+
+- type: entity
+  id: RMCOverheadRoadsignAlt3
+  name: road sign
+  description: A road sign.
+  placement:
+    mode: SnapgridCenter
+    snap: [Wall]
+  components:
+  - type: SpriteFade
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _Onyx/Structures/RMC/roadsigns.rsi
+    state: roadsign_alt_3
+    drawdepth: Effects
+    offset: 0.5,1
+  - type: Icon
+    sprite: _Onyx/Structures/RMC/roadsigns.rsi
+    state: roadsign_alt_3
+  - type: Clickable

@@ -1,0 +1,8 @@
+- type: stack
+  id: LegionSkull
+  name: stack-legion-skull
+  icon:
+    sprite: _Onyx/Objects/Materials/legion.rsi
+    state: skull
+  spawn: MaterialLegionSkull1
+  maxCount: 10

@@ -12,6 +12,8 @@
   - type: Item
     sprite: Objects/Devices/gps.rsi
   - type: HandheldGPS
+  # <Onyx-GPSUI>
+  - type: GPS
   - type: PhysicalComposition
     materialComposition:
       Steel: 400
@@ -19,6 +21,15 @@
   - type: Tag
     tags:
     - GPS
+  - type: ActivatableUI
+    key: enum.GpsUiKey.Key
+    inHandsOnly: true
+    singleUser: true
+  - type: UserInterface
+    interfaces:
+      enum.GpsUiKey.Key:
+        type: GpsBoundUserInterface
+  # </Onyx-GPSUI>
 
 - type: entity #why does this exist? Well, "global positioning system" is too long to fit in the cyborg's hand slot.
   name: integrated GPS

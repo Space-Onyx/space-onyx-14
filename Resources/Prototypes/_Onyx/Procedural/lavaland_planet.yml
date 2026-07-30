@@ -1,0 +1,43 @@
+- type: lavalandPlanet
+  id: LavalandPlanet
+  name: lavaland-planet-name-lavaland
+  restrictedRange: 512
+  mapLight: "#f0a959"
+  biome: LavaLand
+  atmosphere:
+    volume: 2500
+    immutable: true
+    temperature: 308.4523
+    moles:
+    - 10.524779
+    - 25.10312
+    - 8.21301
+  markers:
+  - RandomTendrilLavaland
+  - RandomMobLavaland
+  - OreIron
+  - OreCoal
+  - OreQuartz
+  - OreGold
+  - OreSilver
+  - OrePlasma
+  - OreUranium
+  - OreBananium
+  - OreArtifactFragment
+  - OreDiamond
+  - OreBSCrystal
+  addComponents:
+  - type: Parallax
+    parallax: bedrock
+  - type: WeatherScheduler
+    stages:
+    - duration: { min: 600, max: 900 }
+    - weather: WeatherAshfallLight
+      duration: { min: 90, max: 120 }
+    - weather: WeatherAshfall
+      duration: { min: 90, max: 120 }
+    - weather: WeatherAshfallLight
+      duration: { min: 30, max: 30 }
+  - type: LightCycle
+    duration: 1200
+    minLightLevel: 0.4

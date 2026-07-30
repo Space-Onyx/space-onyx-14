@@ -1,0 +1,15 @@
+ent-OrganXenomorphStomach = xenomorph stomach
+    .desc = Its walls are capable of both significantly expanding and contracting with enormous force.
+ent-WallResin = resin wall
+    .desc = Thick resin solidified into a wall.
+ent-ResinWeed = resin floor
+    .desc = A thick resin surface covers the floor.
+ent-ResinWeedNode = glowing resin
+    .desc = Blue bioluminescence shines from beneath the surface.
+ent-ResinNest = resin nest
+    .desc = Slimy and sticky mass representing a bed?....
+ent-ResinDoor = resin door
+    .desc = Thick resin solidified into a door.
+ent-XenomorphEggBurst = xenomorph egg
+    .suffix = Burst
+    .desc = A large, already burst mottled egg.

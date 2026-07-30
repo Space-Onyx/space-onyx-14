@@ -13,6 +13,22 @@
     table: !type:NestedSelector { tableId: LavalandWeapons }
 
 - type: entity
+  name: lavaland weapons loot spawner
+  id: LavalandWeaponLootSpawner
+  parent: MarkerBase
+  suffix: Lavaland
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Onyx/Objects/Weapons/Crushers/crusher.rsi
+      state: icon
+    - sprite: _Onyx/Objects/Weapons/Guns/Basic/kinetic_repeater.rsi
+      state: icon
+  - type: EntityTableSpawner
+    table: !type:NestedSelector { tableId: LavalandWeapons }
+
+- type: entity
   name: crusher upgrade spawner
   id: CrusherUpgradeLootSpawner
   parent: MarkerBase

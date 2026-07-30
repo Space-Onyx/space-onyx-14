@@ -1,0 +1,67 @@
+# SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
+# SPDX-FileCopyrightText: 2025 OnsenCapy <101037138+OnsenCapy@users.noreply.github.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: DeadRatvar
+  parent: BaseStructure
+  name: dead construct
+  description: The corpse of an ancient brass construct. It still hums with tremendous power.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Ratvar/deadratvar.rsi
+    state: dead_ratvar
+    noRot: true
+    drawdepth: OverMobs
+  - type: AmbientSound
+    volume: 2
+    range: 20
+    sound: { path: /Audio/_Onyx/Effects/Ratvar/ominous_pulse.ogg }
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb { bounds: "-6.3,-3.3,6.2,-1.5" }
+        density: 50
+        mask: [LargeMobMask]
+        layer: [MidImpassable, LowImpassable, BulletImpassable]
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallicStrong
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger { damage: 1000 }
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn: { SheetBrass1: { min: 30, max: 60 } }
+      - !type:DoActsBehavior { acts: [Destruction] }
+
+- type: entity
+  parent: Spear
+  id: RatvarianSpear
+  name: ancient spear
+  description: An ancient, highly mechanical brass spear.
+  components:
+  - type: Item
+    size: Large
+    sprite: _Onyx/Objects/Ratvar/ratvarian_spear.rsi
+  - type: Sprite
+    sprite: _Onyx/Objects/Ratvar/ratvarian_spear.rsi
+    layers:
+    - state: icon
+  - type: MeleeWeapon
+    range: 2.2
+    attackRate: 0.8
+    damage:
+      types:
+        Piercing: 18
+        Holy: 10
+    angle: 0
+    animation: WeaponArcThrust
+    soundHit: { path: /Audio/Weapons/bladeslice.ogg }
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Piercing: 25
+        Holy: 15

@@ -1,0 +1,3 @@
+book-of-greentext-already-taken = Вы уже прокляты книгой...
+book-of-greentext-use-message = Проклятие книги теперь действует на вас. Не потеряйте её!
+entity-effect-guidebook-wash-curse-of-greentext = Смывает проклятие успеха

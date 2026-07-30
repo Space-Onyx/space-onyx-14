@@ -1,0 +1,10 @@
+- type: damageModifierSet
+  id: Ashwood
+  coefficients:
+    Blunt: 0.5
+    Slash: 2
+    Piercing: 1
+    Heat: 0.5
+    Structural: 0.5
+  flatReductions:
+    Blunt: 6

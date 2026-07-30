@@ -1,0 +1,22 @@
+- type: entity
+  abstract: true
+  parent: MarkerBase
+  id: ProximitySpawnerBase
+  name: proximity spawner
+  description: Spawner that triggers when there is a player nearby.
+  components:
+  - type: Physics
+  - type: TriggerOnProximity
+    requiresAnchored: false
+    repeating: false
+    triggerSpeed: 0
+    shape: !type:PhysShapeCircle
+      radius: 20
+    layer:
+    - MobMask
+  - type: WhitelistTriggerCondition
+    userWhitelist:
+      components:
+      - Actor
+  - type: Appearance
+  - type: DeleteOnTrigger

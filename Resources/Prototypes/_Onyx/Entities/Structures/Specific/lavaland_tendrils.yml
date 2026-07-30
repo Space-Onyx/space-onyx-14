@@ -1,0 +1,100 @@
+- type: entity
+  id: LavalandTendrilBase
+  parent: BaseStructure
+  name: tendril
+  abstract: true
+  description: A huge structure.
+  components:
+  - type: Sprite
+    noRot: true
+    sprite: _Onyx/Structures/Specific/tendril.rsi
+    state: tendril
+    drawdepth: Mobs
+  - type: Damageable
+    damageContainer: Biological
+    damageModifierSet: Skeleton
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger { damage: 250 }
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          LavalandCrateNecropolisFilled: { min: 1, max: 1 }
+      - !type:SpawnChasmGridBehavior
+        size: 3
+      - !type:PopupBehavior
+        popup: tendril-destroyed-warning-message
+        popupType: LargeCaution
+  - type: Physics
+    bodyType: Static
+  - type: Transform
+    noRot: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb { bounds: "-0.25,-0.45,0.25,0.45" }
+        mask: [ MobMask ]
+        layer: [ MobLayer ]
+        density: 200
+  - type: TriggerOnProximity
+    cooldown: 10
+    requiresAnchored: false
+    repeating: true
+    triggerSpeed: 0
+    shape: !type:PhysShapeCircle { radius: 8 }
+    layer: [ MobMask ]
+  - type: TriggerCounter
+  - type: TriggerCounterLimit
+    maxCount: 5
+  - type: SpawnTableOnTrigger
+  - type: WhitelistTriggerCondition
+    userWhitelist:
+      components: [ Actor ]
+
+- type: entity
+  parent: LavalandTendrilBase
+  id: LavalandTendrilGoliath
+  suffix: Goliath
+  components:
+  - type: SpawnTableOnTrigger
+    table: { id: MobLavalandGoliath }
+  - type: TriggerCounterLimit
+    maxCount: 3
+  - type: TriggerOnProximity
+    cooldown: 15
+
+- type: entity
+  parent: LavalandTendrilBase
+  id: LavalandTendrilLavaWatcher
+  suffix: Watcher
+  components:
+  - type: SpawnTableOnTrigger
+    table: { id: MobWatcherLavaland }
+
+- type: entity
+  parent: LavalandTendrilBase
+  id: LavalandTendrilIcewingWatcher
+  suffix: Ice Watcher
+  components:
+  - type: SpawnTableOnTrigger
+    table: { id: MobWatcherIcewing }
+
+- type: entity
+  parent: LavalandTendrilBase
+  id: LavalandTendrilMagmawingWatcher
+  suffix: Magma Watcher
+  components:
+  - type: SpawnTableOnTrigger
+    table: { id: MobWatcherMagmawing }
+
+- type: entity
+  parent: LavalandTendrilBase
+  id: LavalandTendrilSpaceCarp
+  suffix: Carp
+  components:
+  - type: SpawnTableOnTrigger
+    table: { id: MobCarpLavaland }
+  - type: TriggerCounterLimit
+    maxCount: 7

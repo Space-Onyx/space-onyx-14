@@ -1,0 +1,9 @@
+station-beacon-ruin-lavaland = Лаваленд
+station-beacon-ruin-arrivals = Сигнал шаттла эвакуации
+station-beacon-ruin-beach-biodome = Пляжный биодом
+station-beacon-ruin-golem-shuttle = Сигнал фрилансеров
+station-beacon-ruin-hunter-shelter = Сигнал охотника
+station-beacon-ruin-small-outpost = Малый аванпост
+station-beacon-ruin-rouge-ai = Неизвестная лаборатория
+station-beacon-ruin-snow-biodome = Снежный биодом
+station-beacon-ruin-syndicate = Сигнал Синдиката

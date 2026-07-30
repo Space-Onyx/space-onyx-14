@@ -1,3 +1,5 @@
+ent-TelecomTransmitterCircuitboard = telecommunication transmitter machine board
+    .desc = A machine printed circuit board for a telecommunication transmitter.
 ent-OnyxTelecomServerCircuitboard = telecommunication server machine board
     .desc = A machine printed circuit board for a telecommunications server that uses the full signal chain.
 ent-TelecomBusCircuitboard = telecommunication bus machine board

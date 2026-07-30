@@ -1,0 +1,12 @@
+- type: entity
+  parent: ClothingHeadHelmetBasic
+  id: ClothingHeadHelmetBasicAlt
+  suffix: Alt
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Head/Helmets/Helmets/security.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Head/Helmets/Helmets/security.rsi
+  - type: Tag
+    tags:
+    - WhitelistChameleon
