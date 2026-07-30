@@ -74,6 +74,7 @@
     maxZoom: 1.44,1.44
   - type: Eye
     drawFov: false
+    visibilityMask: 31 # <Onyx-CosmicCult>
   - type: Input
     context: "ghost"
   - type: Examiner

@@ -1,0 +1,56 @@
+- type: antagSpecifier
+  parent: RestrictedAntag
+  id: RogueAscended
+  spawnerPrototype: SpawnPointRogueAscended
+  pickPlayer: false
+  mindRoles:
+  - MindRoleCosmicAscended
+  briefing:
+    text: rogue-ascended-role-greeting
+    color: CadetBlue
+    sound: /Audio/_Onyx/CosmicCult/antag_cosmic_briefing.ogg
+
+- type: entity
+  parent: BaseAntagGhostRoleRule
+  id: RogueAscendedSpawn
+  components:
+  - type: StationEvent
+    weight: 6.5
+    earliestStart: 30
+    reoccurrenceDelay: 20
+    minimumPlayers: 30
+    duration: null
+    occursDuringRoundEnd: false
+  - type: SpaceSpawnRule
+  - type: AntagSpawner
+    prototype: MobRogueAscended
+  - type: AntagObjectives
+    objectives:
+    - RogueAscendedInfectionObjective
+    - RogueAscendedSurviveObjective
+  - type: AntagSelection
+    agentName: rogue-ascended-round-end-agent-name
+    antags:
+    - !type:FixedAntagCount
+      proto: RogueAscended
+  - type: DynamicRuleCost
+    cost: 75
+
+- type: entity
+  categories: [ HideSpawnMenu, Spawner ]
+  parent: BaseAntagSpawner
+  id: SpawnPointRogueAscended
+  components:
+  - type: GhostRole
+    name: ghost-role-information-rogue-ascended-name
+    description: ghost-role-information-rogue-ascended-description
+    rules: ghost-role-information-rogue-ascended-rules
+    mindRoles:
+    - MindRoleCosmicAscended
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Mobs/astralrogue.rsi
+    layers:
+    - state: underlay
+      shader: unshaded
+    - state: base
+      shader: unshaded

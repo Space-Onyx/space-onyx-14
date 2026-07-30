@@ -107,6 +107,10 @@
   - type: Occluder
   - type: StaticPrice
     price: 70
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WindowCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   id: WindowRCDResistant

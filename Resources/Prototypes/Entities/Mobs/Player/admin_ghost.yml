@@ -12,6 +12,8 @@
   # </Onyx-SlotBlock>
   - type: ContentEye
     maxZoom: 8.916104, 8.916104
+  - type: Eye
+    visibilityMask: 31 # <Onyx-CosmicCult>
   - type: Tag
     tags:
     - InstantDoAfters

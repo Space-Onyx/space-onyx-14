@@ -222,6 +222,10 @@
       types:
         Blunt: 8
     bonkTime: 3
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: CosmicTable
+  # </Onyx-CosmicCult>
 
 - type: entity
   id: TableGlass
@@ -267,6 +271,10 @@
   - type: FootstepModifier
     footstepSoundCollection:
       collection: FootstepTile
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: CosmicTable
+  # </Onyx-CosmicCult>
 
 - type: entity
   id: TableCard
@@ -363,6 +371,10 @@
   - type: FootstepModifier
     footstepSoundCollection:
       collection: FootstepTile
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: CosmicTable
+  # </Onyx-CosmicCult>
 
 - type: entity
   id: TablePlasmaGlass
@@ -411,6 +423,10 @@
   - type: FootstepModifier
     footstepSoundCollection:
       collection: FootstepTile
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: CosmicTable
+  # </Onyx-CosmicCult>
 
 - type: entity
   id: TableBrass
@@ -449,6 +465,10 @@
   - type: Construction
     graph: Table
     node: TableBrass
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: CosmicTable
+  # </Onyx-CosmicCult>
 
 - type: entity
   id: TableWood
@@ -489,6 +509,10 @@
   - type: FootstepModifier
     footstepSoundCollection:
       collection: FootstepWood
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: CosmicTable
+  # </Onyx-CosmicCult>
 
 - type: entity
   id: TableCarpet
@@ -532,6 +556,10 @@
   - type: FootstepModifier
     footstepSoundCollection:
       collection: FootstepCarpet
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: CosmicTable
+  # </Onyx-CosmicCult>
 
 - type: entity
   id: TableStone
@@ -559,6 +587,10 @@
   - type: FootstepModifier
     footstepSoundCollection:
       collection: FootstepFloor
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: CosmicTable
+  # </Onyx-CosmicCult>
 
 - type: entity
   id: TableWeb
@@ -593,6 +625,10 @@
   - type: FootstepModifier
     footstepSoundCollection:
       collection: FootstepCarpet
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: CosmicTable
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: TableBase
@@ -660,6 +696,10 @@
   - type: FootstepModifier
     footstepSoundCollection:
       collection: FootstepCarpet
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: CosmicTable
+  # </Onyx-CosmicCult>
 
 - type: entity
   id: TableFancyBlue

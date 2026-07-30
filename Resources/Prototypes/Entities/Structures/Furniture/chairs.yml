@@ -112,6 +112,10 @@
   components:
   - type: Sprite
     state: chair-greyscale
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: CosmicChair
+  # </Onyx-CosmicCult>
 
 - type: entity
   name: stool
@@ -146,6 +150,10 @@
   - type: Construction
     graph: Seat
     node: chairBrass
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: CosmicChair
+  # </Onyx-CosmicCult>
 
 - type: entity
   name: white office chair
@@ -180,6 +188,10 @@
   - type: Construction
     graph: Seat
     node: chairComfy
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: CosmicChair
+  # </Onyx-CosmicCult>
 
 - type: entity
   name: pilot seat
@@ -192,6 +204,10 @@
   - type: Construction
     graph: Seat
     node: chairPilotSeat
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: CosmicChair
+  # </Onyx-CosmicCult>
 
 - type: entity
   name: wooden chair

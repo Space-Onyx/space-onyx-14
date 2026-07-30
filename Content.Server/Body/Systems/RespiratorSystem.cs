@@ -144,6 +144,11 @@ public sealed partial class RespiratorSystem : EntitySystem
                         ignoreActionBlocker: true);
                 }
 
+                if (TryComp<Content.Shared._Onyx.CosmicCult.Components.CosmicCultComponent>(uid, out var cult) &&
+                    !cult.Respiration &&
+                    !_mobState.IsIncapacitated(uid)) // <Onyx-CosmicCult>
+                    continue; // <Onyx-CosmicCult>
+
                 TakeSuffocationDamage((uid, respirator));
                 respirator.SuffocationCycles += 1;
                 continue;

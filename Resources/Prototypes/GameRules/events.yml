@@ -15,6 +15,7 @@
     - id: KudzuGrowth
     - id: MassHallucinations
     - id: MouseMigration
+    - id: MalignRiftSpawn # <Onyx-CosmicCult>
     - id: PowerGridCheck
     - id: RandomSentience
     - id: SlimesSpawnHorde
@@ -40,6 +41,7 @@
     children:
     - id: DragonSpawn
     - id: NinjaSpawn
+    - id: RogueAscendedSpawn # <Onyx-CosmicCult>
     - id: ParadoxCloneSpawn
     - id: SleeperAgents
     - id: ZombieOutbreak

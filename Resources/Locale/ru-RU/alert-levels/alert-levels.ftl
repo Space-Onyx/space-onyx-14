@@ -34,3 +34,7 @@ alert-level-delta-instructions = Обратитесь к главе своего
 alert-level-epsilon = Эпсилон
 alert-level-epsilon-announcement = Центральное Командование объявило уровень угрозы «Эпсилон». Все контракты расторгнуты. Спасибо, что выбрали корпорацию Nanotrasen.
 alert-level-epsilon-instructions = Все контракты расторгнуты. Спасибо, что выбрали корпорацию Nanotrasen.
+
+alert-level-octarine = Октяриновый
+alert-level-octarine-announcement = Станцию охватило непостижимое космическое влияние. Экипаж обязан любой ценой остановить финальное вознесение.
+alert-level-octarine-instructions = Найдите Космический культ и сорвите его финальный ритуал.

@@ -1,9 +1,1 @@
 tiles-abductor-floor = abductor floor
-tiles-cosmiccult-floor-glyph = malign glyph floor
-tiles-cosmiccult-floor-smooth = malign smooth floor
-tiles-cosmiccult-floor-half = malign half-pattern floor
-tiles-cosmiccult-floor-notched = malign notched floor
-tiles-cosmiccult-floor-split = malign split floor
-figurines-cosmic-cultist-1 = The stars are right.
-figurines-cosmic-cultist-2 = Truth lies beyond the veil.
-figurines-cosmic-cultist-3 = Gaze into the abyss.

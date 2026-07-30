@@ -99,6 +99,10 @@
         acts: [ "Destruction" ]
   - type: StaticPrice
     price: 66
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WindowCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: ReinforcedPlasmaWindow

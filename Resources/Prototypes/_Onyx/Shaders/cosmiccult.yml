@@ -1,0 +1,9 @@
+- type: shader
+  id: MonumentStars
+  kind: source
+  path: "/Textures/_Onyx/Shaders/monument_stars.swsl"
+
+- type: shader
+  id: MonumentPulse
+  kind: source
+  path: "/Textures/_Onyx/Shaders/monument_pulse.swsl"

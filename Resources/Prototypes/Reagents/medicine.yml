@@ -1196,6 +1196,11 @@
       effects:
       - !type:SatiateThirst
         factor: 3
+      - !type:CleanseCult # <Onyx-CosmicCult>
+        conditions:
+        - !type:ReagentCondition
+          reagent: Holywater
+          min: 10
       - !type:HealthChange
         conditions:
         damage:

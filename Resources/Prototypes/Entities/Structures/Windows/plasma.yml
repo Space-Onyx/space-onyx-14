@@ -44,6 +44,10 @@
     price: 100
   - type: RadiationBlocker
     resistance: 2
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WindowCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   id: PlasmaWindowDirectional

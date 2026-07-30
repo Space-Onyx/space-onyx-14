@@ -34,3 +34,7 @@ alert-level-delta-instructions = Crewmembers are advised to listen to heads of s
 alert-level-epsilon = Epsilon
 alert-level-epsilon-announcement = Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.
 alert-level-epsilon-instructions = Consider all contracts terminated.
+
+alert-level-octarine = Octarine
+alert-level-octarine-announcement = An unknowable cosmic influence has engulfed the station. All crew must prevent the final ascension at any cost.
+alert-level-octarine-instructions = Locate and stop the Cosmic Cult before its final ritual is completed.

@@ -115,6 +115,9 @@ namespace Content.Server.Bible
                 return;
             }
 
+            if (TryDoCosmicCultSmite(uid, args.User, args.Target.Value, useDelay, component)) // <Onyx-CosmicCult>
+                return;
+
             var userEnt = Identity.Entity(args.User, EntityManager);
             var targetEnt = Identity.Entity(args.Target.Value, EntityManager);
 

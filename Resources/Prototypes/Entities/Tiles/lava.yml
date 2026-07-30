@@ -72,3 +72,7 @@
   - type: Tag
     tags:
       - HideContextMenu
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: FloorCosmicDecay
+  # </Onyx-CosmicCult>

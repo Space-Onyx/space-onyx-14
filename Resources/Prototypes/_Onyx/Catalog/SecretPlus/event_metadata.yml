@@ -119,6 +119,12 @@
   chaosScore: 300
 
 - type: secretPlusRule
+  id: RogueAscendedSpawn
+  rule: RogueAscendedSpawn
+  eventType: HostilesSpawn
+  chaosScore: 450
+
+- type: secretPlusRule
   id: ParadoxCloneSpawn
   rule: ParadoxCloneSpawn
   eventType: Chaotic

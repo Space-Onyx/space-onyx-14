@@ -13,6 +13,7 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using Content.Shared.Roles.Components;
+using Content.Server._Onyx.CosmicCult.Components; // <Onyx-CosmicCult>
 
 namespace Content.Server.Administration.Systems;
 
@@ -222,6 +223,20 @@ public sealed partial class AdminVerbSystem
             Message = string.Join(": ", ninjaName, Loc.GetString("admin-verb-make-space-ninja")),
         };
         args.Verbs.Add(ninja);
+
+        // <Onyx-CosmicCult>
+        var cosmicCultName = Loc.GetString("admin-verb-text-make-cosmiccultist");
+        Verb cosmicCult = new()
+        {
+            Text = cosmicCultName,
+            Category = VerbCategory.Antag,
+            Icon = new SpriteSpecifier.Rsi(new("/Textures/_Onyx/CosmicCult/Icons/antag_icons.rsi"), "CosmicCult"),
+            Act = () => _antag.ForceMakeAntag<CosmicCultRuleComponent>(targetPlayer, "CosmicCult"),
+            Impact = LogImpact.High,
+            Message = string.Join(": ", cosmicCultName, Loc.GetString("admin-verb-make-cosmiccultist")),
+        };
+        args.Verbs.Add(cosmicCult);
+        // </Onyx-CosmicCult>
 
         if (HasComp<HumanoidProfileComponent>(args.Target)) // only humanoids can be cloned
             args.Verbs.Add(paradox);

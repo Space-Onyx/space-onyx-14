@@ -70,3 +70,14 @@
       emergencyLightColor: DarkViolet
       forceEnableEmergencyLights: true
       shuttleTime: 1200
+    # <Onyx-CosmicCult>
+    octarine:
+      announcement: alert-level-octarine-announcement
+      selectable: false
+      sound: /Audio/_Onyx/CosmicCult/tier3.ogg
+      disableSelection: true
+      color: CadetBlue
+      emergencyLightColor: CadetBlue
+      forceEnableEmergencyLights: true
+      shuttleTime: 600
+    # </Onyx-CosmicCult>

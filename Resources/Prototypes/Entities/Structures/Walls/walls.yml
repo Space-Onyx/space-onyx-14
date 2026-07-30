@@ -126,6 +126,10 @@
   - type: IconSmooth
     key: walls
     base: brick
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: BaseWall
@@ -155,6 +159,10 @@
   - type: IconSmooth
     key: walls
     base: clock
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: BaseWall
@@ -199,6 +207,10 @@
         layer:
         - WallLayer
         density: 8000 # really good ramming wall, bananium is rare so it's probably fine
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: BaseWall
@@ -319,6 +331,10 @@
   - type: IconSmooth
     key: walls
     base: diamond
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: BaseWall
@@ -363,6 +379,10 @@
   - type: IconSmooth
     key: walls
     base: gold
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: BaseWall
@@ -389,6 +409,10 @@
   - type: IconSmooth
     key: walls
     base: ice
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: BaseWall
@@ -424,6 +448,10 @@
     base: plasma
   - type: RadiationBlocker
     resistance: 5
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: BaseWall
@@ -457,6 +485,10 @@
   - type: IconSmooth
     key: walls
     base: plastic
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: BaseWall
@@ -620,6 +652,10 @@
         layer:
         - WallLayer
         density: 2000
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: WallReinforced
@@ -650,6 +686,10 @@
         node: girder
       - !type:DoActsBehavior
         acts: ["Destruction"]
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: WallDiagonalBase
@@ -778,6 +818,10 @@
   - type: IconSmooth
     key: walls
     base: silver
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 #shuttle walls
 - type: entity
@@ -901,6 +945,10 @@
         layer:
         - WallLayer
         density: 2000
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: BaseWall
@@ -935,6 +983,10 @@
   - type: IconSmooth
     key: walls
     base: solid
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: WallDiagonalBase
@@ -991,6 +1043,10 @@
         node: girder
       - !type:DoActsBehavior
         acts: ["Destruction"]
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: BaseWall
@@ -1146,6 +1202,10 @@
     base: uranium
   - type: RadiationBlocker
     resistance: 6
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: BaseWall
@@ -1176,6 +1236,10 @@
   - type: IconSmooth
     key: woods
     base: wood
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: BaseWall
@@ -1240,6 +1304,10 @@
   - type: IconSmooth
     key: walls
     base: necropolis
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: BaseWall
@@ -1266,6 +1334,10 @@
     - mining
     - miningB
   - type: Appearance
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: WallDiagonalBase
@@ -1328,6 +1400,10 @@
     key: walls
     base: alienvault
   # Corvax-Resprite-end
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: BaseWall # Corvax-Resprite
@@ -1442,6 +1518,10 @@
   - type: IconSmooth
     key: cobblebricks
     base: cobblebrick
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WallCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: WallCobblebrick

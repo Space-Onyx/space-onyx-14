@@ -40,6 +40,11 @@
   rule: Wizard
   chaosScore: 900
 
+- type: secretPlusRule
+  id: CosmicCult
+  rule: CosmicCult
+  chaosScore: 1200
+
 - type: incompatibleModes
   id: Nukeops
   modes: [Nukeops, Zombie, Revolutionary]

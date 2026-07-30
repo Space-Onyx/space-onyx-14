@@ -14,6 +14,7 @@ using Content.Shared.Database;
 using Content.Shared.Ghost;
 using Content.Shared.Players.PlayTimeTracking;
 using Content.Shared.Voting;
+using Content.Shared._Onyx.CosmicCult.Components; // <Onyx-CosmicCult>
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
@@ -453,6 +454,10 @@ namespace Content.Server.Voting.Managers
                     return false;
             }
 
+            if (eligibility == VoterEligibility.CosmicCult &&
+                !_entityManager.HasComponent<CosmicCultComponent>(player.AttachedEntity)) // <Onyx-CosmicCult>
+                return false; // <Onyx-CosmicCult>
+
             return true;
         }
 
@@ -550,7 +555,8 @@ namespace Content.Server.Voting.Managers
             All,
             Ghost, // Player needs to be a ghost
             GhostMinimumPlaytime, // Player needs to be a ghost, with a minimum playtime and deathtime as defined by votekick CCvars.
-            MinimumPlaytime //Player needs to have a minimum playtime and deathtime as defined by votekick CCvars.
+            MinimumPlaytime, //Player needs to have a minimum playtime and deathtime as defined by votekick CCvars.
+            CosmicCult // <Onyx-CosmicCult>
         }
 
         #endregion

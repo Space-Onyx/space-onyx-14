@@ -48,6 +48,10 @@
       sprite: Structures/Windows/cracks.rsi
   - type: StaticPrice
     price: 150
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WindowCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   parent: ShuttleWindow

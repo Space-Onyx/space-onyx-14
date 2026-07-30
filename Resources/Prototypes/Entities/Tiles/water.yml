@@ -81,3 +81,7 @@
     fishDefaultTimer: 25.0
     fishTimerVariety: 15.0
   # </Onyx-Fishing>
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: FloorCosmicDecay
+  # </Onyx-CosmicCult>

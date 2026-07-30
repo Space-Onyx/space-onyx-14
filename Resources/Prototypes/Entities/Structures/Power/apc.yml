@@ -90,6 +90,7 @@
     voltage: Apc
   - type: Apc
     voltage: Apc
+    maxLoad: 50000 # <Onyx-APCLoadLimit>
   - type: ExtensionCableProvider
   - type: UserInterface
     interfaces:

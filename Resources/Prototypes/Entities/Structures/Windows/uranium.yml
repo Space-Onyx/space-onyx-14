@@ -45,6 +45,10 @@
     price: 200
   - type: RadiationBlocker
     resistance: 3
+  # <Onyx-CosmicCult>
+  - type: CosmicCorruptible
+    convertTo: WindowCosmicCult
+  # </Onyx-CosmicCult>
 
 - type: entity
   id: UraniumWindowDirectional

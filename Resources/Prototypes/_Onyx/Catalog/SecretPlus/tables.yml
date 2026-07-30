@@ -22,6 +22,7 @@
     - id: DragonSpawn
     - id: KingRatMigration
     - id: NinjaSpawn
+    - id: RogueAscendedSpawn
     - id: ParadoxCloneSpawn
     - id: SleeperAgents
     - id: ZombieOutbreak
@@ -66,6 +67,7 @@
     - id: ClosetSkeleton
     - id: KingRatMigration
     - id: NinjaSpawn
+    - id: RogueAscendedSpawn
     - id: ParadoxCloneSpawn
     - id: SleeperAgents
     - id: LoneOpsSpawn
@@ -92,6 +94,7 @@
     Thief: 0.2
     Traitor: 0.25
     Changeling: 0.1
+    CosmicCult: 0.05
 
 - type: weightedRandom
   id: SecretPlusPrimary
@@ -102,6 +105,7 @@
     Revolutionary: 0.05
     Zombie: 0.04
     Wizard: 0.025
+    CosmicCult: 0.05
 
 - type: weightedRandom
   id: SecretPlusChaos
@@ -113,6 +117,7 @@
     Revolutionary: 0.05
     Zombie: 0.04
     Wizard: 0.025
+    CosmicCult: 0.05
 
 - type: weightedRandom
   id: SecretPlusLowpop
