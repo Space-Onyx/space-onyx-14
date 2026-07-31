@@ -30,7 +30,8 @@
 
 - type: entity
   id: HoloFan
-  parent: HolosignWetFloor
+  # <Onyx-HolofanProjector-edited>
+  parent: BaseHolosign
   name: holofan
   description: A barrier of hard light that blocks air, but nothing else.
   components:
@@ -43,10 +44,12 @@
         shape:
           !type:PhysShapeAabb
             bounds: "-0.5,-0.5,0.5,0.5"
-  - type: TimedDespawn
-    lifetime: 180
+  - type: Transform
+    noRot: true
   - type: Airtight
     noAirWhenFullyAirBlocked: false
+  - type: Holofan
+  # </Onyx-HolofanProjector-edited>
 
 - type: entity
   id: HoloPeel

@@ -38,7 +38,7 @@ public sealed partial class DockingSystem : SharedDockingSystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
-        foreach (var uid in _pendingDockRestore.ToArray())
+        foreach (var uid in new List<EntityUid>(_pendingDockRestore))
             if (_pendingDockRestore.Contains(uid))
                 TryRestoreDock(uid);
     }

@@ -11,8 +11,10 @@ using Content.Shared.Movement.Pulling.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Standing;
 using Content.Shared.Stunnable;
+using Content.Shared.Throwing;
 using Content.Shared.Verbs;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Physics.Components;
 
 namespace Content.Shared._Onyx.Carrying;
 
@@ -39,6 +41,7 @@ public sealed partial class CarryingSystem : EntitySystem
         SubscribeLocalEvent<CarryingComponent, MobStateChangedEvent>(OnCarrierStateChanged);
         SubscribeLocalEvent<CarryingComponent, EntParentChangedMessage>(OnCarrierParentChanged);
         SubscribeLocalEvent<CarryingComponent, VirtualItemDeletedEvent>(OnVirtualItemDeleted);
+        SubscribeLocalEvent<CarryingComponent, BeforeThrowEvent>(OnThrow);
     }
 
     private void AddCarryVerb(Entity<CarriableComponent> entity, ref GetVerbsEvent<AlternativeVerb> args)
@@ -141,6 +144,22 @@ public sealed partial class CarryingSystem : EntitySystem
     {
         if (args.BlockingEntity == entity.Comp.Carried)
             DropCarried(entity.Owner, entity.Comp.Carried);
+    }
+
+    private void OnThrow(Entity<CarryingComponent> entity, ref BeforeThrowEvent args)
+    {
+        if (entity.Owner != args.PlayerUid ||
+            !TryComp<VirtualItemComponent>(args.ItemUid, out var virtualItem) ||
+            virtualItem.BlockingEntity != entity.Comp.Carried)
+            return;
+
+        args.ItemUid = entity.Comp.Carried;
+        if (TryComp<PhysicsComponent>(entity.Owner, out var carrierPhysics) &&
+            TryComp<PhysicsComponent>(entity.Comp.Carried, out var carriedPhysics) &&
+            carriedPhysics.Mass > 0f)
+            args.ThrowSpeed = 5f * Math.Clamp(carrierPhysics.Mass / carriedPhysics.Mass, 0f, 2f);
+        else
+            args.ThrowSpeed = 5f;
     }
 
     public override void Update(float frameTime)

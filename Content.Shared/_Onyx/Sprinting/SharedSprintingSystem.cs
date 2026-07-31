@@ -73,9 +73,8 @@ public abstract partial class SharedSprintingSystem : EntitySystem
         var query = EntityQueryEnumerator<SprinterComponent, StaminaComponent>();
         while (query.MoveNext(out var uid, out var sprinter, out var stamina))
         {
-            if (sprinter.IsSprinting &&
-                !_stamina.TryTakeStamina(uid, sprinter.StaminaDrainRate * frameTime, stamina, uid))
-                ToggleSprint(uid, sprinter, false);
+            if (sprinter.IsSprinting)
+                _stamina.TakeStaminaDamage(uid, sprinter.StaminaDrainRate * frameTime, stamina, uid, visual: false);
         }
     }
 

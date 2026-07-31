@@ -1,7 +1,7 @@
 ent-ActionCombatModeToggleXenomorph = { ent-ActionCombatModeToggle }
     .desc = { ent-ActionCombatModeToggle.desc }
-ent-ToggleThermalVisionXenomorph = { ent-ToggleThermalVision }
-    .desc = { ent-ToggleThermalVision.desc }
+ent-ToggleThermalVisionXenomorph = { ent-ActionToggleThermalVision }
+    .desc = { ent-ActionToggleThermalVision.desc }
 ent-ActionEvolution = Evolve
     .desc = Evolve into a higher xenomorph caste.
 ent-ActionEvolutionPraetorian = Evolve to praetorian (500)

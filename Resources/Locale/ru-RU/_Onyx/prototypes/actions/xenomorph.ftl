@@ -1,7 +1,7 @@
 ent-ActionCombatModeToggleXenomorph = { ent-ActionCombatModeToggle }
     .desc = { ent-ActionCombatModeToggle.desc }
-ent-ToggleThermalVisionXenomorph = { ent-ToggleThermalVision }
-    .desc = { ent-ToggleThermalVision.desc }
+ent-ToggleThermalVisionXenomorph = { ent-ActionToggleThermalVision }
+    .desc = { ent-ActionToggleThermalVision.desc }
 ent-ActionEvolution = Эволюционировать
     .desc = Эволюционируйте в более высшую касту ксеноморфов.
 ent-ActionEvolutionPraetorian = Эволюционировать в Преторианца (500)
