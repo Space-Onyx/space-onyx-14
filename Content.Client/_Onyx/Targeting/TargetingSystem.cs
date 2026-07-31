@@ -79,6 +79,12 @@ public sealed partial class TargetingSystem : SharedTargetingSystem
         RaiseNetworkEvent(new TargetChangeRequest(part));
     }
 
+    public void RequestSelfExamine()
+    {
+        if (_player.LocalEntity is { } local && HasComp<TargetingComponent>(local))
+            RaiseNetworkEvent(new PartStatusExamineRequest());
+    }
+
     public bool TryGetLocal(out TargetBodyPart selected, out IReadOnlyDictionary<TargetBodyPart, PartStatus> statuses)
     {
         selected = TargetBodyPart.Chest;

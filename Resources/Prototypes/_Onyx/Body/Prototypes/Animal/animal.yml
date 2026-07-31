@@ -1,0 +1,31 @@
+- type: bodyGraph
+  id: AnimalBody
+  root: chest
+  slots:
+    chest:
+      part: ChestAnimal
+      connections: [groin]
+      organs:
+        Lungs: OrganAnimalLungs
+        Heart: OrganAnimalHeart
+    groin:
+      part: GroinAnimal
+      connections: [legs]
+      organs:
+        Stomach: OrganAnimalStomach
+        Liver: OrganAnimalLiver
+        Kidneys: OrganAnimalKidneys
+    legs: { part: LegsAnimal, connections: [feet] }
+    feet: { part: FeetAnimal }
+
+- type: bodyGraph
+  id: AghostBody
+  root: chest
+  slots:
+    chest:
+      part: ChestAghost
+      connections: [left_arm, right_arm]
+    left_arm: { part: ArmAghostLeft, connections: [left_hand] }
+    right_arm: { part: ArmAghostRight, connections: [right_hand] }
+    left_hand: { part: HandAghostLeft }
+    right_hand: { part: HandAghostRight }

@@ -1,0 +1,35 @@
+- type: antag
+  id: Xenomorph
+  name: roles-antag-xenomorph-name
+  antagonist: true
+  objective: roles-antag-xenomorph-objective
+
+- type: antag
+  id: XenomorphsInfestationRoundstart
+  name: roles-antag-xenomorph-name
+  antagonist: true
+  setPreference: true
+  objective: roles-antag-xenomorph-objective
+
+- type: antagSpecifier
+  parent: RestrictedAntag
+  id: XenomorphInfestation
+  spawnerPrototype: SpawnPointGhostXenomorph
+  pickPlayer: false
+  mindRoles:
+  - MindRoleXenomorph
+  briefing:
+    text: xenomorph-role-greeting
+    color: "#8c3986"
+
+- type: antagSpecifier
+  parent: RestrictedAntag
+  id: XenomorphInfestationRoundstart
+  prefRoles:
+  - XenomorphsInfestationRoundstart
+  spawnerPrototype: SpawnPointGhostXenomorph
+  mindRoles:
+  - MindRoleXenomorph
+  briefing:
+    text: xenomorph-role-greeting
+    color: "#8c3986"

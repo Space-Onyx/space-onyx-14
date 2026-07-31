@@ -1,0 +1,19 @@
+- type: bodyGraph
+  id: AnimalHemocyaninBody
+  root: chest
+  slots:
+    chest:
+      part: ChestAnimal
+      connections: [groin]
+      organs:
+        Lungs: OrganAnimalLungs
+        Heart: OrganArachnidHeart
+    groin:
+      part: GroinAnimal
+      connections: [legs]
+      organs:
+        Stomach: OrganAnimalStomach
+        Liver: OrganAnimalLiver
+        Kidneys: OrganAnimalKidneys
+    legs: { part: LegsAnimal, connections: [feet] }
+    feet: { part: FeetAnimal }

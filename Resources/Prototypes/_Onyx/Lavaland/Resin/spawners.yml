@@ -4,7 +4,7 @@
   name: xeno drone spawner
   components:
   - type: ConditionalSpawner
-    prototypes: [MobXenoDrone]
+    prototypes: [MobXenomorphDroneDungeon]
 
 - type: entity
   parent: MarkerBase
@@ -12,7 +12,7 @@
   name: xeno praetorian spawner
   components:
   - type: ConditionalSpawner
-    prototypes: [MobXenoPraetorian]
+    prototypes: [MobXenomorphPraetorianDungeon]
 
 - type: entity
   parent: MarkerBase
@@ -20,7 +20,7 @@
   name: xeno queen spawner
   components:
   - type: ConditionalSpawner
-    prototypes: [MobXenoQueen]
+    prototypes: [MobXenomorphQueenDungeon]
 
 - type: entity
   parent: MarkerBase
@@ -28,7 +28,7 @@
   name: xeno drone spawner
   components:
   - type: ConditionalSpawner
-    prototypes: [MobXenoDrone]
+    prototypes: [CMMobXenoDrone]
 
 - type: entity
   parent: MarkerBase
@@ -36,7 +36,7 @@
   name: xeno burrower spawner
   components:
   - type: ConditionalSpawner
-    prototypes: [MobXeno]
+    prototypes: [CMMobXenoBurrower]
 
 - type: entity
   parent: MarkerBase
@@ -44,7 +44,7 @@
   name: xeno warrior spawner
   components:
   - type: ConditionalSpawner
-    prototypes: [MobXenoPraetorian]
+    prototypes: [CMMobXenoWarrior]
 
 - type: entity
   parent: MarkerBase
@@ -52,7 +52,7 @@
   name: xeno crusher spawner
   components:
   - type: ConditionalSpawner
-    prototypes: [MobXenoRavager]
+    prototypes: [CMMobXenoCrusher]
 
 - type: entity
   parent: MarkerBase
@@ -60,4 +60,94 @@
   name: xeno ravager spawner
   components:
   - type: ConditionalSpawner
-    prototypes: [MobXenoRavager]
+    prototypes: [CMMobXenoRavager]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoKing
+  name: ancient king spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [CMMobXenoKing]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoQueen
+  name: ancient queen spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [CMMobXenoQueen]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoRogueKing
+  name: ancient rogue king spawner
+  suffix: DO NOT MAP
+  components:
+  - type: ConditionalSpawner
+    prototypes: [CMMobXenoRogueKing]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoDroneSentient
+  name: ancient drone spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [CMMobXenoDroneSentient]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoBurrowerSentient
+  name: ancient burrower spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [CMMobXenoBurrowerSentient]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoWarriorSentient
+  name: ancient warrior spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [CMMobXenoWarriorSentient]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoCrusherSentient
+  name: ancient crusher spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [CMMobXenoCrusherSentient]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoRavagerSentient
+  name: ancient ravager spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [CMMobXenoRavagerSentient]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoKingSentient
+  name: ancient king spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [CMMobXenoKingSentient]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoQueenSentient
+  name: ancient queen spawner
+  components:
+  - type: ConditionalSpawner
+    prototypes: [CMMobXenoQueenSentient]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnCMMobXenoRogueKingSentient
+  name: ancient rogue king spawner
+  suffix: DO NOT MAP
+  components:
+  - type: ConditionalSpawner
+    prototypes: [CMMobXenoRogueKingSentient]

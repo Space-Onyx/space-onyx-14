@@ -1,0 +1,27 @@
+- type: bodyGraph
+  id: AnimalSlimeBody
+  root: chest
+  slots:
+    chest:
+      part: ChestAnimal
+      connections: [groin]
+      organs:
+        Brain: OrganSlimePersonCore
+        Lungs: OrganSlimePersonLungs
+    groin: { part: GroinAnimal, connections: [legs] }
+    legs: { part: LegsAnimal, connections: [feet] }
+    feet: { part: FeetAnimal }
+
+- type: bodyGraph
+  id: XenobioSlimeBody
+  root: chest
+  slots:
+    chest:
+      part: ChestAnimal
+      connections: [groin]
+      organs:
+        Brain: XenobioSentientSlimesCore
+        Lungs: OrganSlimePersonLungs
+    groin: { part: GroinAnimal, connections: [legs] }
+    legs: { part: LegsAnimal, connections: [feet] }
+    feet: { part: FeetAnimal }

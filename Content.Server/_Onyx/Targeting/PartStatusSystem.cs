@@ -10,6 +10,7 @@ public sealed partial class PartStatusSystem : EntitySystem
 {
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private WoundSystem _wounds = default!;
+    [Dependency] private PainSystem _pain = default!;
     private float _refresh;
 
     public override void Initialize()
@@ -22,6 +23,7 @@ public sealed partial class PartStatusSystem : EntitySystem
         SubscribeLocalEvent<WoundableComponent, PartBleedingChangedEvent>(OnWoundChanged);
         SubscribeLocalEvent<WoundableComponent, FractureGradeChangedEvent>(OnWoundChanged);
         SubscribeLocalEvent<WoundableComponent, ScarCreatedEvent>(OnWoundChanged);
+        SubscribeLocalEvent<PainComponent, PainChangedEvent>(OnPainChanged);
     }
 
     public override void Update(float frameTime)
@@ -37,6 +39,12 @@ public sealed partial class PartStatusSystem : EntitySystem
 
     private void OnInit(Entity<PartStatusComponent> ent, ref ComponentInit args) => Refresh(ent);
     private void OnWoundChanged<T>(Entity<WoundableComponent> part, ref T args) where T : notnull
+    {
+        if (TryComp(part, out BodyPartComponent? bodyPart) && bodyPart.Body is { } body && TryComp(body, out PartStatusComponent? status))
+            Refresh((body, status));
+    }
+
+    private void OnPainChanged(Entity<PainComponent> part, ref PainChangedEvent args)
     {
         if (TryComp(part, out BodyPartComponent? bodyPart) && bodyPart.Body is { } body && TryComp(body, out PartStatusComponent? status))
             Refresh((body, status));
@@ -78,6 +86,10 @@ public sealed partial class PartStatusSystem : EntitySystem
                 fracture = found.Grade;
             scar |= HasComp<WoundScarComponent>(wound);
         }
-        return new(true, Content.Shared._Onyx.Targeting.PartStatusSystem.GetSeverity(damage), bleeding, fracture, scar);
+        var severity = Content.Shared._Onyx.Targeting.PartStatusSystem.GetSeverity(damage);
+        if (TryComp(part, out PainComponent? pain))
+            severity = (PartDamageSeverity) Math.Max((int) severity,
+                (int) Content.Shared._Onyx.Targeting.PartStatusSystem.GetSeverity(_pain.GetPain((part, pain)).Float()));
+        return new(true, severity, bleeding, fracture, scar);
     }
 }

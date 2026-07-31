@@ -1,0 +1,135 @@
+- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: BaseMetalBarricade
+  components:
+  - type: Sprite
+    drawdepth: WallTops
+    layers:
+    - state: base
+  - type: Fixtures
+    fixtures:
+      cade:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.49,-0.49,0.49,-0.38"
+        density: 500
+        mask:
+        - FullTileMask
+        layer:
+        - TableLayer
+        - LowImpassable
+  - type: RotationDrawDepth
+    southDrawDepth: OverMobs
+  - type: Anchorable
+  - type: Rotatable
+  - type: Climbable
+  - type: InteractionOutline
+  - type: Damageable
+    damageContainer: Barricade
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        path: /Audio/_Onyx/RMC/Structures/metalhit.ogg
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 250
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Construction
+    node: base
+
+- type: entity
+  abstract: true
+  parent: BaseMetalBarricade
+  id: BaseMetalBarricadeFolding
+  components:
+  - type: Sprite
+    layers:
+    - state: folding
+      map: ["enum.DoorVisualLayers.Base"]
+  - type: Appearance
+  - type: Door
+    openSpriteState: folding_folded
+    closedSpriteState: folding
+    canPry: false
+    occludes: false
+    changeAirtight: false
+    bumpOpen: false
+    clickOpen: true
+    canCrush: false
+    closeTimeOne: 0
+    closeTimeTwo: 0
+    openTimeOne: 0
+    openTimeTwo: 0
+    openingAnimationTime: 0
+    closingAnimationTime: 0
+    performCollisionCheck: false
+    openSound:
+      path: /Audio/Items/ratchet.ogg
+    closeSound:
+      path: /Audio/Items/ratchet.ogg
+  - type: AnimationPlayer
+  - type: Construction
+    node: folding
+
+- type: entity
+  abstract: true
+  id: BaseBarricadeSteel
+  components:
+  - type: Sprite
+    sprite: _Onyx/RMC/Structures/Walls/Barricades/steel.rsi
+  - type: Damageable
+    damageModifierSet: BarricadeSteel
+  - type: Construction
+    graph: BarricadeSteel
+
+- type: entity
+  parent: [BaseMetalBarricade, BaseBarricadeSteel]
+  id: BarricadeSteel
+  name: steel barricade
+  description: A tough barricade built to keep the bad out.
+
+- type: entity
+  parent: [BaseMetalBarricadeFolding, BaseBarricadeSteel]
+  id: BarricadeSteelFolding
+  name: folding steel barricade
+  description: A tough barricade built to keep the bad out. This one can be opened with a latch.
+  components:
+  - type: Damageable
+    damageModifierSet: BarricadeSteelFolding
+
+- type: entity
+  abstract: true
+  id: BaseBarricadePlasteel
+  components:
+  - type: Sprite
+    sprite: _Onyx/RMC/Structures/Walls/Barricades/plasteel.rsi
+  - type: Damageable
+    damageModifierSet: BarricadePlasteel
+  - type: Construction
+    graph: BarricadePlasteel
+
+- type: entity
+  parent: [BaseMetalBarricade, BaseBarricadePlasteel]
+  id: BarricadePlasteel
+  name: plasteel barricade
+  description: A hardened barricade built to keep the extra bad out.
+
+- type: entity
+  parent: [BaseMetalBarricadeFolding, BaseBarricadePlasteel]
+  id: BarricadePlasteelFolding
+  name: folding plasteel barricade
+  description: A hardened barricade built to keep the extra bad out. This one can be opened with a latch.
+  components:
+  - type: Damageable
+    damageModifierSet: BarricadePlasteelFolding

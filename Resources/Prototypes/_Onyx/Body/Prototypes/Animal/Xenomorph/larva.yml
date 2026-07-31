@@ -1,0 +1,24 @@
+- type: bodyGraph
+  id: XenomorphLarvaBody
+  root: chest
+  slots:
+    chest:
+      part: ChestXenomorph
+      connections: [head]
+      organs:
+        Liver: OrganXenomorphLiver
+        XenomorphPlasmaVessel: OrganXenomorphPlasmaVesselTiny
+    head:
+      part: HeadXenomorph
+      organs:
+        Brain: OrganXenomorphBrain
+        Eyes: OrganXenomorphEyes
+        XenomorphHiveNode: OrganXenomorphHiveNode
+
+- type: entity
+  id: XenomorphLarva
+  abstract: true
+  components:
+  - type: Body
+  - type: DeclarativeBody
+    prototype: XenomorphLarvaBody

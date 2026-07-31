@@ -1,0 +1,41 @@
+- type: entity
+  parent: BaseGameRule
+  id: XenomorphsInfestation
+  components:
+  - type: StationEvent
+    weight: 1.5 # Goobstation - was 7.5
+    duration: null
+    minimumPlayers: 50 # Goobstation - was 20
+    earliestStart: 30 # Goobstation
+    #reoccurrenceDelay: 50 # Goobstation - no longer needed
+    maxOccurrences: 1 # Goobstation
+    chaos:
+      Hostile: 400
+      Medical: 400
+      Death: 400
+    eventType: HostilesSpawn
+  - type: GameRule
+    chaosScore: 400
+  - type: XenomorphsRule
+    xenomorphInfestationSound:
+      path: /Audio/_Onyx/Music/Black_Swarm_Short.ogg
+      params:
+        volume: -8
+    xenomorphTakeoverSound:
+      path: /Audio/_Onyx/Music/mind_crawler_short.ogg
+      params:
+        volume: -8
+  - type: VentSpawnRule
+  - type: AntagSpawner
+    prototype: MobXenomorphLarva
+  - type: AntagObjectives
+    objectives:
+    - XenomorphSurviveObjective
+  - type: AntagSelection
+    agentName: xenomorph-round-end-agent-name
+    antags:
+    - !type:LinearAntagCount
+      proto: XenomorphInfestation
+      range:
+        min: 2
+        max: 4

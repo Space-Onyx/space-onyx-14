@@ -1,0 +1,67 @@
+- type: entity
+  parent: [BaseMobXenomorphAdult, XenomorphMaid]
+  id: MobXenomorphMaid
+  name: xenomorph maid
+  description: I mean, I guess it is kinda cute?
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Aliens/Xenomorphs/maid.rsi
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: xenomorph
+    - map: [ "pocket1" ]
+    - map: [ "pocket2" ]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
+      color: "#ffffff"
+      sprite: _Onyx/Objects/Misc/handcuffs.rsi
+      state: body-overlay-xenomorph
+      visible: false
+  - type: Xenomorph
+    caste: Maid
+  - type: PlasmaVessel
+    maxPlasma: 300
+    plasma: 100
+  - type: ActionGrant
+    actions: [ActionTransferPlasma, ActionSpawnResinWeedNode]
+  #- type: ActionGrant # Goobstation - moved to organ
+  #  actions:
+  #  - ActionTransferPlasma
+  #  - ActionSpawnResinWeedNode
+  - type: Cuffable
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      200: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      150: 0.9
+      170: 0.7
+      190: 0.6
+  - type: MeleeWeapon
+    damage:
+      groups:
+        Brute: 10
+  - type: OwOAccent
+  - type: Pacified
+  - type: GhostRole
+    allowMovement: true
+    allowSpeech: true
+    makeSentient: true
+    name: ghost-role-information-xenomorph-maid-name
+    description: ghost-role-information-xenomorph-maid-description
+    rules: ghost-role-information-nonantagonist-rules
+    raffle:
+      settings: default
+  - type: GhostTakeoverAvailable
+  - type: LanguageKnowledge
+    speaks:
+    - Xeno
+    - TauCetiBasic # Smart thing
+    understands:
+    - Xeno
+    - Hissing
+    - Draconic
+    - TauCetiBasic
+  # - type: GuideHelp
+  #   guides:
+  #   - XenomorphMaid

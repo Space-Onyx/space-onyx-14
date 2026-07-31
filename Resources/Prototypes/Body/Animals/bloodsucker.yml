@@ -22,13 +22,8 @@
   id: BaseMobBloodsucker
   abstract: true
   components:
+  # <Onyx-AnimalBodyParts-edited>
   - type: Body
-  - type: EntityTableContainerFill
-    containers:
-      body_organs: !type:AllSelector
-        children:
-        - id: OrganAnimalLungs
-        - id: OrganBloodsuckerHeart
-        - id: OrganBloodsuckerStomach
-        - id: OrganBloodsuckerLiver
-        - id: OrganAnimalKidneys
+  - type: DeclarativeBody
+    prototype: AnimalBloodsuckerBody
+  # </Onyx-AnimalBodyParts-edited>

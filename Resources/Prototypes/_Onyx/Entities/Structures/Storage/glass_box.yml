@@ -1,6 +1,35 @@
 - type: entity
-  id: GlassBoxLawbringer
   parent: GlassBox
+  id: GlassBoxLamarrFilled
+  suffix: Lamarr, Filled
+  components:
+  - type: Sprite
+    sprite: Structures/Storage/glassbox.rsi
+    layers:
+    - state: base
+    - sprite: _Onyx/Mobs/Aliens/Xenomorphs/old_facehugger.rsi
+      state: facehugger
+      map: ["enum.ItemCabinetVisuals.Layer"]
+      visible: true
+    - state: glass
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: locked
+      shader: unshaded
+      map: ["enum.LockVisualLayers.Lock"]
+  - type: AccessReader
+    access: [["ResearchDirector"]]
+  - type: ItemSlots
+    slots:
+      ItemCabinet:
+        startingItem: MobXenomorphFaceHuggerLamarr
+        ejectOnInteract: true
+        whitelist:
+          components:
+          - FaceHugger
+
+- type: entity
+  parent: GlassBox
+  id: GlassBoxLawbringer
   suffix: Lawbringer
   components:
   - type: Sprite
@@ -8,7 +37,7 @@
     sprite: Structures/Storage/glassbox.rsi
     layers:
     - state: base
-    - state: caplaser
+    - state: lawbringer
       map: ["enum.ItemCabinetVisuals.Layer"]
       visible: true
     - state: glass
@@ -31,8 +60,8 @@
         ejectSound: /Audio/Machines/machine_switch.ogg
 
 - type: entity
-  id: GlassBoxLawbringerFilled
   parent: GlassBoxLawbringer
+  id: GlassBoxLawbringerFilled
   suffix: Lawbringer, Filled
   components:
   - type: ContainerFill

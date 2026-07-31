@@ -1,0 +1,137 @@
+- type: damageModifierSet
+  id: XenomorphLamarr
+  coefficients:
+    Blunt: 0.8
+    Slash: 0.8
+    Piercing: 0.8
+    Cold: 0
+    Heat: 1.2
+    Poison: 0
+
+- type: entity
+  id: MobXenomorphFaceHuggerLamarr
+  parent: [BaseMob, ClothingMaskBase, MobDamageable]
+  name: Lamarr
+  description: A former nightmare candidate, now an exemplary pet.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Aliens/Xenomorphs/old_facehugger.rsi
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: facehugger
+  - type: Clothing
+    sprite: _Onyx/Mobs/Aliens/Xenomorphs/old_facehugger.rsi
+    slots: [mask]
+  - type: IngestionBlocker
+  - type: Blindfold
+  - type: AddAccentClothing
+    accent: ReplacementAccent
+    replacement: mumble
+  - type: Damageable
+    damageContainer: Biological
+    damageModifierSet: XenomorphLamarr
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      10: Dead
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: facehugger
+      Dead:
+        Base: facehugger_dead
+  - type: MeleeWeapon
+    hidden: true
+    canHeavyAttack: false
+    angle: 0
+    damage:
+      types:
+        Blunt: 0
+  - type: Temperature
+    heatDamageThreshold: 360
+    coldDamageThreshold: -150
+    currentTemperature: 310.15
+  - type: Butcherable
+    spawned:
+    - id: FoodMeatXeno
+      amount: 1
+  - type: FaceHugger
+    knockdownTime: 0
+    blacklist:
+      components:
+      - Silicon
+      - Ghost
+    damageOnImpact:
+      types:
+        Blunt: 2
+    sleepChem: Nocturine
+    sleepChemAmount: 10
+    minChemicalThreshold: 8
+    initialInjectionDelay: 5
+    attachAttemptDelay: 5
+    maskBlockDamage:
+      types:
+        Slash: 5
+    maskBlockSound:
+      collection: MetalThud
+  - type: StepTrigger
+    intersectRatio: 0.2
+    requiredTriggeredSpeed: 0
+  - type: NameIdentifier
+    group: GenericNumber
+  - type: NpcFactionMember
+    factions:
+    - Xeno
+  - type: Physics
+    bodyType: Dynamic
+  - type: CollisionWake
+    enabled: false
+  - type: RequireProjectileTarget
+    active: true
+  - type: Fixtures
+    fixtures:
+      slips:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        layer:
+        - SlipLayer
+        hard: false
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 10
+        mask:
+        - SmallMobMask
+        layer:
+        - SmallMobLayer
+      step:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        layer:
+        - LowImpassable
+        hard: false
+  - type: UseDelay
+    delay: 7
+  - type: StealTarget
+    stealGroup: AnimalLamarr
+
+- type: stealTargetGroup
+  id: AnimalLamarr
+  name: steal-target-groups-animal-lamarr
+  sprite:
+    sprite: _Onyx/Mobs/Aliens/Xenomorphs/old_facehugger.rsi
+    state: facehugger
+
+- type: entity
+  parent: BaseThiefStealAnimalObjective
+  id: LamarrStealObjective
+  components:
+  - type: NotJobRequirement
+    job: ResearchDirector
+  - type: StealCondition
+    stealGroup: AnimalLamarr
+  - type: Objective
+    difficulty: 2

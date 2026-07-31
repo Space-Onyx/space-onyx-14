@@ -1,0 +1,39 @@
+- type: construction
+  id: BarricadeSteel
+  graph: BarricadeSteel
+  targetNode: base
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+
+- type: construction
+  id: BarricadeSteelFolding
+  graph: BarricadeSteel
+  targetNode: folding
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+
+- type: construction
+  id: BarricadePlasteel
+  graph: BarricadePlasteel
+  targetNode: base
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+
+- type: construction
+  id: BarricadePlasteelFolding
+  graph: BarricadePlasteel
+  targetNode: folding
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true

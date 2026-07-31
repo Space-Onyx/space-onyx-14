@@ -40,6 +40,7 @@ public sealed partial class BodyPartComponent : Component
     [DataField, AutoNetworkedField] public EntityUid? Parent;
 
     [DataField, AutoNetworkedField] public Dictionary<string, BodyPartType> Children = new();
+    [DataField, AutoNetworkedField] public Dictionary<string, BodyPartSlot> ChildSlots = new();
     [DataField, AutoNetworkedField] public HashSet<string> Organs = new();
 
     [DataField, AutoNetworkedField] public BodyPartType PartType = BodyPartType.Other;
@@ -49,4 +50,18 @@ public sealed partial class BodyPartComponent : Component
 
     /// <summary>Legacy visual category retained while Corvax visual bodies migrate to graph queries.</summary>
     [DataField, AutoNetworkedField] public ProtoId<OrganCategoryPrototype>? Category;
+}
+
+[DataDefinition]
+[Serializable, NetSerializable]
+public partial record struct BodyPartSlot
+{
+    [DataField(required: true)] public BodyPartType Type;
+    [DataField] public BodyPartSymmetry Symmetry;
+
+    public BodyPartSlot(BodyPartType type, BodyPartSymmetry symmetry)
+    {
+        Type = type;
+        Symmetry = symmetry;
+    }
 }

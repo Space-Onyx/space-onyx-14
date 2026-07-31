@@ -1,0 +1,32 @@
+- type: entity
+  parent: BaseGameRule
+  id: XenomorphsInfestationRoundstart
+  components:
+  - type: GameRule
+    chaosScore: 2500 # Goobstation - 1.5x blob
+    minPlayers: 30
+  - type: AntagObjectives
+    objectives:
+    - XenomorphSurviveObjective
+  - type: XenomorphsRule
+    xenomorphInfestationSound:
+      path: /Audio/_Onyx/Music/Black_Swarm_Short.ogg
+      params:
+        volume: -8
+    xenomorphTakeoverSound:
+      path: /Audio/_Onyx/Music/mind_crawler_short.ogg
+      params:
+        volume: -8
+  - type: VentSpawnRule
+  - type: AntagSpawner
+    prototype: MobXenomorphLarva
+  - type: AntagSelection
+    selectionTime: PrePlayerSpawn
+    agentName: xenomorph-round-end-agent-name
+    antags:
+    - !type:LinearAntagCount
+      proto: XenomorphInfestationRoundstart
+      playerRatio: 15
+      range:
+        min: 2
+        max: 4

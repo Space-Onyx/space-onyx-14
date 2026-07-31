@@ -1,0 +1,101 @@
+- type: entity
+  id: BaseWeatherAdmeme
+  suffix: Admeme, Weather
+  abstract: true
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: SpriteFade
+  - type: Clickable
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: Sprite
+    noRot: true
+    sprite: /Textures/Effects/weather.rsi
+    state: rain
+    drawdepth: Overdoors
+
+- type: entity
+  id: WeatherAshfallAdmeme
+  parent: BaseWeatherAdmeme
+  components:
+  - type: Sprite
+    state: ashfall
+
+- type: entity
+  id: WeatherAshfallLightAdmeme
+  parent: BaseWeatherAdmeme
+  components:
+  - type: Sprite
+    state: ashfall_light
+
+- type: entity
+  id: WeatherAshfallHeavyAdmeme
+  parent: BaseWeatherAdmeme
+  components:
+  - type: Sprite
+    state: ashfall_heavy
+
+- type: entity
+  id: WeatherFalloutAdmeme
+  parent: BaseWeatherAdmeme
+  components:
+  - type: Sprite
+    state: fallout
+
+- type: entity
+  id: WeatherHailAdmeme
+  parent: BaseWeatherAdmeme
+  components:
+  - type: Sprite
+    state: hail
+
+- type: entity
+  id: WeatherRainAdmeme
+  parent: BaseWeatherAdmeme
+  components:
+  - type: Sprite
+    state: rain
+
+- type: entity
+  id: WeatherSandstormAdmeme
+  parent: BaseWeatherAdmeme
+  components:
+  - type: Sprite
+    state: sandstorm
+
+- type: entity
+  id: WeatherSandstormHeavyAdmeme
+  parent: BaseWeatherAdmeme
+  components:
+  - type: Sprite
+    state: sandstorm_heavy
+
+- type: entity
+  id: WeatherSnowfallLightAdmeme
+  parent: BaseWeatherAdmeme
+  components:
+  - type: Sprite
+    state: snowfall_light
+
+- type: entity
+  id: WeatherSnowfallMediumAdmeme
+  parent: BaseWeatherAdmeme
+  components:
+  - type: Sprite
+    state: snowfall_med
+
+- type: entity
+  id: WeatherSnowfallHeavyAdmeme
+  parent: BaseWeatherAdmeme
+  components:
+  - type: Sprite
+    state: snowfall_heavy
+
+- type: entity
+  id: WeatherStormAdmeme
+  parent: BaseWeatherAdmeme
+  components:
+  - type: Sprite
+    state: storm

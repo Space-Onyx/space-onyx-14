@@ -1,0 +1,95 @@
+- type: entity
+  parent: OrganAnimal
+  id: ChestAnimal
+  name: animal chest
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: BodyPart
+    partType: Chest
+    category: Chest
+
+- type: entity
+  parent: OrganAnimal
+  id: GroinAnimal
+  name: animal groin
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: BodyPart
+    partType: Groin
+    category: Groin
+
+- type: entity
+  parent: OrganAnimal
+  id: LegsAnimal
+  name: animal legs
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: BodyPart
+    partType: Leg
+
+- type: entity
+  parent: OrganAnimal
+  id: FeetAnimal
+  name: animal feet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: BodyPart
+    partType: Foot
+
+- type: entity
+  parent: OrganAnimal
+  id: ChestAghost
+  name: aghost chest
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: BodyPart
+    partType: Chest
+    category: Chest
+
+- type: entity
+  parent: OrganAnimal
+  id: ArmAghostLeft
+  name: left aghost arm
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: BodyPart
+    partType: Arm
+    symmetry: Left
+
+- type: entity
+  parent: OrganAnimal
+  id: ArmAghostRight
+  name: right aghost arm
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: BodyPart
+    partType: Arm
+    symmetry: Right
+
+- type: entity
+  parent: OrganAnimal
+  id: HandAghostLeft
+  name: left aghost hand
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: BodyPart
+    partType: Hand
+    symmetry: Left
+  - type: HandOrgan
+    handID: hand_left
+    data:
+      location: Left
+
+- type: entity
+  parent: OrganAnimal
+  id: HandAghostRight
+  name: right aghost hand
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: BodyPart
+    partType: Hand
+    symmetry: Right
+  - type: HandOrgan
+    handID: hand_right
+    data:
+      location: Right

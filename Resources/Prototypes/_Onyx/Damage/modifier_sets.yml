@@ -76,3 +76,23 @@
     Heat: 0.85
     Poison: 0.8
     Cellular: 1.5
+
+- type: damageModifierSet
+  id: Xenomorph
+  coefficients:
+    Blunt: 0.8
+    Slash: 0.8
+    Piercing: 0.8
+    Cold: 0
+    Heat: 1.2
+    Poison: 0
+
+- type: damageModifierSet
+  id: XenomorphDungeon
+  coefficients:
+    Blunt: 1
+    Slash: 1
+    Piercing: 1
+    Cold: 0
+    Heat: 1.5
+    Poison: 0

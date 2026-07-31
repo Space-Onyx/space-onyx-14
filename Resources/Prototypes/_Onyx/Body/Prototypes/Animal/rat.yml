@@ -1,0 +1,19 @@
+- type: bodyGraph
+  id: AnimalRatBody
+  root: chest
+  slots:
+    chest:
+      part: ChestAnimal
+      connections: [groin]
+      organs:
+        Lungs: OrganRatLungs
+        Heart: OrganAnimalHeart
+    groin:
+      part: GroinAnimal
+      connections: [legs]
+      organs:
+        Stomach: OrganAnimalStomach
+        Liver: OrganAnimalLiver
+        Kidneys: OrganAnimalKidneys
+    legs: { part: LegsAnimal, connections: [feet] }
+    feet: { part: FeetAnimal }

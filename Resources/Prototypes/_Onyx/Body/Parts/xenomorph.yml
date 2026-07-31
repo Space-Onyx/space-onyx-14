@@ -1,0 +1,201 @@
+- type: entity
+  parent: OrganBaseOrganic
+  id: PartXenomorph
+  abstract: true
+  components:
+  # <Goobstation>
+  - type: Sprite
+    sprite: _Onyx/Mobs/Species/Xenomorph/parts.rsi
+  # </Goobstation>
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: SulfuricAcid
+        Quantity: 3
+      - ReagentId: FluorosulfuricAcid
+        Quantity: 10
+  - type: Woundable
+    integrity: 750
+    integrityCap: 750
+    thresholds:
+      Minor: 700
+      Moderate: 600
+      Severe: 350
+      Critical: 150
+      Mangled: 0
+
+- type: entity
+  id: ChestXenomorph
+  name: xenomorph chest
+  parent: PartXenomorph
+  components:
+  - type: BodyPart
+    partType: Chest
+    category: Chest
+  - type: Sprite
+    state: chest_m
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: SulfuricAcid
+        Quantity: 10
+      - ReagentId: FluorosulfuricAcid
+        Quantity: 20
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Heat
+        damage: 1500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+
+- type: entity
+  id: GroinXenomorph
+  name: xenomorph groin
+  parent: PartXenomorph
+  components:
+  - type: BodyPart
+    partType: Groin
+    category: Groin
+  - type: Sprite
+    state: groin_m
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: SulfuricAcid
+        Quantity: 10
+      - ReagentId: FluorosulfuricAcid
+        Quantity: 20
+
+- type: entity
+  id: HeadXenomorph
+  name: xenomorph head
+  parent: PartXenomorph
+  components:
+  - type: BodyPart
+    partType: Head
+    vital: true
+    category: Head
+  - type: Sprite
+    state: head_m
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: SulfuricAcid
+        Quantity: 5
+      - ReagentId: FluorosulfuricAcid
+        Quantity: 10
+
+- type: entity
+  id: LeftArmXenomorph
+  name: left xenomorph arm
+  parent: PartXenomorph
+  components:
+  - type: BodyPart
+    partType: Arm
+    symmetry: Left
+    category: ArmLeft
+  - type: Tag
+    tags: [SurgeryLeft]
+  - type: Sprite
+    state: l_arm
+
+- type: entity
+  id: RightArmXenomorph
+  name: right xenomorph arm
+  parent: PartXenomorph
+  components:
+  - type: BodyPart
+    partType: Arm
+    symmetry: Right
+    category: ArmRight
+  - type: Tag
+    tags: [SurgeryRight]
+  - type: Sprite
+    state: r_arm
+
+- type: entity
+  id: LeftHandXenomorph
+  name: left xenomorph hand
+  parent: PartXenomorph
+  components:
+  - type: BodyPart
+    partType: Hand
+    symmetry: Left
+    category: HandLeft
+  - type: HandOrgan
+    handID: left
+    data:
+      location: Left
+  - type: Sprite
+    state: l_hand
+
+- type: entity
+  id: RightHandXenomorph
+  name: right xenomorph hand
+  parent: PartXenomorph
+  components:
+  - type: BodyPart
+    partType: Hand
+    symmetry: Right
+    category: HandRight
+  - type: HandOrgan
+    handID: right
+    data:
+      location: Right
+  - type: Sprite
+    state: r_hand
+
+- type: entity
+  id: LeftLegXenomorph
+  name: left xenomorph leg
+  parent: PartXenomorph
+  components:
+  - type: BodyPart
+    partType: Leg
+    symmetry: Left
+    category: LegLeft
+  - type: Tag
+    tags: [SurgeryLeft]
+  - type: Sprite
+    state: l_leg
+
+- type: entity
+  id: RightLegXenomorph
+  name: right xenomorph leg
+  parent: PartXenomorph
+  components:
+  - type: BodyPart
+    partType: Leg
+    symmetry: Right
+    category: LegRight
+  - type: Tag
+    tags: [SurgeryRight]
+  - type: Sprite
+    state: r_leg
+
+- type: entity
+  id: LeftFootXenomorph
+  name: left xenomorph foot
+  parent: PartXenomorph
+  components:
+  - type: BodyPart
+    partType: Foot
+    symmetry: Left
+    category: FootLeft
+  - type: Sprite
+    state: l_foot
+
+- type: entity
+  id: RightFootXenomorph
+  name: right xenomorph foot
+  parent: PartXenomorph
+  components:
+  - type: BodyPart
+    partType: Foot
+    symmetry: Right
+    category: FootRight
+  - type: Sprite
+    state: r_foot

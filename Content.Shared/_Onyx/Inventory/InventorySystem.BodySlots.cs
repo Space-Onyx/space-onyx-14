@@ -10,14 +10,13 @@ public partial class InventorySystem
 {
     [Dependency] private SharedBodySystem _onyxBody = default!;
 
-    public void RefreshBodySlots(Entity<InventoryComponent?> ent)
+    public void RefreshBodySlots(EntityUid ent)
     {
         // Container layout is authoritative. Client-side body events can arrive between
         // transform and container states and must never eject equipped items locally.
         if (_netManager.IsClient ||
             TerminatingOrDeleted(ent) ||
-            !Resolve(ent, ref ent.Comp) ||
-            ent.Comp is not { } inventory ||
+            !TryComp(ent, out InventoryComponent? inventory) ||
             !ProtoMan.Resolve(inventory.TemplateId, out var template))
             return;
 

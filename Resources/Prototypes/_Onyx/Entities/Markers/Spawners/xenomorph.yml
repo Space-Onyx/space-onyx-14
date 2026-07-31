@@ -1,0 +1,65 @@
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobXenomorphLarva
+  name: xeno larva spawner
+  suffix: Cant Evolve
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _Onyx/Mobs/Aliens/Xenomorphs/larva.rsi
+      state: xenomorph
+  - type: ConditionalSpawner
+    prototypes: [MobXenomorphLarvaDungeon]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobXenomorphHunter
+  name: xeno hunter spawner
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _Onyx/Mobs/Aliens/Xenomorphs/hunter.rsi
+      state: xenomorph
+  - type: ConditionalSpawner
+    prototypes: [MobXenomorphHunterDungeon]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobXenomorphSentinel
+  name: xeno sentinel spawner
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _Onyx/Mobs/Aliens/Xenomorphs/sentinel.rsi
+      state: xenomorph
+  - type: ConditionalSpawner
+    prototypes: [MobXenomorphSentinelDungeon]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobXenomorphMaid
+  name: xeno maid spawner
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _Onyx/Mobs/Aliens/Xenomorphs/maid.rsi
+      state: xenomorph
+  - type: ConditionalSpawner
+    prototypes: [MobXenomorphMaid]
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobXenomorphFaceHugger
+  name: xeno facehugger spawner
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _Onyx/Mobs/Aliens/Xenomorphs/facehugger.rsi
+      state: facehugger
+  - type: ConditionalSpawner
+    prototypes: [MobXenomorphFaceHugger]

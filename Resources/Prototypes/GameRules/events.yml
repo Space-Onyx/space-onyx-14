@@ -47,6 +47,7 @@
     - id: ZombieOutbreak
     - id: LoneOpsSpawn
     - id: WizardSpawn
+    - id: XenomorphsInfestation # <Onyx-Xenomorphs>
     - !type:NestedSelector
       tableId: DerelictBorgEventTable
 

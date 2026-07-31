@@ -1,0 +1,39 @@
+- type: bodyGraph
+  id: XenomorphDroneBody
+  root: chest
+  slots:
+    chest:
+      part: ChestXenomorph
+      connections: [head, groin, left_arm, right_arm]
+      organs:
+        XenomorphPlasmaVessel: OrganXenomorphPlasmaVesselLarge
+    head:
+      part: HeadXenomorph
+      organs:
+        Brain: OrganXenomorphBrain
+        Eyes: OrganXenomorphEyes
+        XenomorphHiveNode: OrganXenomorphHiveNode
+        XenomorphResinSpinner: OrganXenomorphResinSpinner
+        XenomorphAcidGland: OrganXenomorphAcidGland
+    groin:
+      part: GroinXenomorph
+      connections: [left_leg, right_leg]
+      organs:
+        Stomach: OrganXenomorphStomach
+        Liver: OrganXenomorphLiver
+    left_arm: { part: LeftArmXenomorph, connections: [left_hand] }
+    right_arm: { part: RightArmXenomorph, connections: [right_hand] }
+    left_hand: { part: LeftHandXenomorph }
+    right_hand: { part: RightHandXenomorph }
+    left_leg: { part: LeftLegXenomorph, connections: [left_foot] }
+    right_leg: { part: RightLegXenomorph, connections: [right_foot] }
+    left_foot: { part: LeftFootXenomorph }
+    right_foot: { part: RightFootXenomorph }
+
+- type: entity
+  id: XenomorphDrone
+  abstract: true
+  components:
+  - type: Body
+  - type: DeclarativeBody
+    prototype: XenomorphDroneBody

@@ -1,0 +1,19 @@
+- type: bodyGraph
+  id: AnimalBloodsuckerBody
+  root: chest
+  slots:
+    chest:
+      part: ChestAnimal
+      connections: [groin]
+      organs:
+        Lungs: OrganAnimalLungs
+        Heart: OrganBloodsuckerHeart
+    groin:
+      part: GroinAnimal
+      connections: [legs]
+      organs:
+        Stomach: OrganBloodsuckerStomach
+        Liver: OrganBloodsuckerLiver
+        Kidneys: OrganAnimalKidneys
+    legs: { part: LegsAnimal, connections: [feet] }
+    feet: { part: FeetAnimal }

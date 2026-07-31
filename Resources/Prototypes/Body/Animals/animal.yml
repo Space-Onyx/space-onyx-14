@@ -43,13 +43,8 @@
   id: BaseMobAnimal
   abstract: true
   components:
+  # <Onyx-AnimalBodyParts>
   - type: Body
-  - type: EntityTableContainerFill
-    containers:
-      body_organs: !type:AllSelector
-        children:
-        - id: OrganAnimalLungs
-        - id: OrganAnimalHeart
-        - id: OrganAnimalStomach
-        - id: OrganAnimalLiver
-        - id: OrganAnimalKidneys
+  - type: DeclarativeBody
+    prototype: AnimalBody
+  # </Onyx-AnimalBodyParts>

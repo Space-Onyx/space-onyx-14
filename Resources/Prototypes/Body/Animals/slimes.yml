@@ -2,10 +2,8 @@
   id: BaseMobSlimes
   abstract: true
   components:
+  # <Onyx-AnimalBodyParts-edited>
   - type: Body
-  - type: EntityTableContainerFill
-    containers:
-      body_organs: !type:AllSelector
-        children:
-        - id: OrganSlimePersonCore
-        - id: OrganSlimePersonLungs
+  - type: DeclarativeBody
+    prototype: AnimalSlimeBody
+  # </Onyx-AnimalBodyParts-edited>

@@ -1,0 +1,14 @@
+- type: gamePreset
+  id: Xenomorphs
+  alias:
+  - xeno
+  - xenomorphs
+  name: xenomorphs-title
+  description: xenomorphs-description
+  showInVote: false
+  rules:
+  - XenomorphsInfestationRoundstart
+  - SubGamemodesRule
+  - SpaceTrafficControlEventScheduler
+  - BasicRoundstartVariation
+  - BasicStationEventScheduler

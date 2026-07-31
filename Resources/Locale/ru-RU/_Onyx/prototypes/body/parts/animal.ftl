@@ -1,0 +1,14 @@
+ent-ChestAnimal = грудь животного
+    .desc = { ent-OrganAnimal.desc }
+ent-GroinAnimal = таз животного
+    .desc = { ent-OrganAnimal.desc }
+ent-ChestAghost = грудь админ-призрака
+    .desc = { ent-OrganAnimal.desc }
+ent-ArmAghostLeft = левая рука админ-призрака
+    .desc = { ent-OrganAnimal.desc }
+ent-ArmAghostRight = правая рука админ-призрака
+    .desc = { ent-OrganAnimal.desc }
+ent-HandAghostLeft = левая кисть админ-призрака
+    .desc = { ent-OrganAnimal.desc }
+ent-HandAghostRight = правая кисть админ-призрака
+    .desc = { ent-OrganAnimal.desc }

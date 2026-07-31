@@ -6,12 +6,8 @@
   description: ""
   components:
   - type: VentCrawler
-  - type: EntityTableContainerFill
-    containers:
-      body_organs: !type:AllSelector
-        children:
-        - id: XenobioSentientSlimesCore
-        - id: OrganSlimePersonLungs
+  - type: DeclarativeBody
+    prototype: XenobioSlimeBody
   - type: Appearance
   - type: Hunger
     startingHunger: 40

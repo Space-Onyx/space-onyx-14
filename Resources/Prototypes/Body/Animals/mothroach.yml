@@ -3,13 +3,8 @@
   id: BaseMobMothroach
   abstract: true
   components:
+  # <Onyx-AnimalBodyParts-edited>
   - type: Body
-  - type: EntityTableContainerFill
-    containers:
-      body_organs: !type:AllSelector
-        children:
-        - id: OrganAnimalLungs
-        - id: OrganAnimalHeart
-        - id: OrganMothStomach
-        - id: OrganAnimalLiver
-        - id: OrganAnimalKidneys
+  - type: DeclarativeBody
+    prototype: AnimalMothroachBody
+  # </Onyx-AnimalBodyParts-edited>

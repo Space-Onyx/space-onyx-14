@@ -45,6 +45,11 @@
     sortedHands:
     - hand_right
     - hand_left
+  # <Onyx-AnimalBodyParts>
+  - type: Body
+  - type: DeclarativeBody
+    prototype: AghostBody
+  # </Onyx-AnimalBodyParts>
   - type: ComplexInteraction
   # <GoobStation-Supermatter>
   - type: SupermatterImmune

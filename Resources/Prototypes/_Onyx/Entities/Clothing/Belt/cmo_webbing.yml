@@ -28,9 +28,12 @@
       - Dropper
       - Tourniquet
       - AutoinjectorCartridge
-      components:
       - Hypospray
+      - HandheldCrewMonitor
+      components:
       - Injector
+      - SurgeryTool
+      - Defibrillator
 
 - type: entity
   parent: ClothingBeltMilitaryWebbingCMO

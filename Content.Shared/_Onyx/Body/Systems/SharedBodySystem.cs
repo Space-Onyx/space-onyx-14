@@ -127,7 +127,7 @@ public sealed partial class SharedBodySystem : EntitySystem
         foreach (var (id, part) in parts)
         {
             part.Body = body;
-            part.Parent = GetParent(parts, id, part);
+            part.Parent ??= GetParent(parts, id, part);
             Dirty(id, part);
         }
     }
@@ -228,7 +228,8 @@ public sealed partial class SharedBodySystem : EntitySystem
             if (!_containers.Remove(part, container))
                 return false;
 
-            parentPart.Children.Remove(slot);
+            if (!parentPart.ChildSlots.ContainsKey(slot))
+                parentPart.Children.Remove(slot);
             Dirty(parent.Value, parentPart);
             return true;
         }
@@ -240,6 +241,22 @@ public sealed partial class SharedBodySystem : EntitySystem
     {
         if (!TryComp(parentId, out BodyPartComponent? parent) || !TryComp(partId, out BodyPartComponent? part) || part.Body != null)
             return false;
+
+        if (parent.ChildSlots.Count > 0)
+        {
+            string? matching = null;
+            foreach (var (candidate, descriptor) in parent.ChildSlots)
+            {
+                if (descriptor.Type != part.PartType || descriptor.Symmetry != part.Symmetry
+                    || IsPartSlotOccupied(parentId, candidate))
+                    continue;
+                if (matching != null)
+                    return false;
+                matching = candidate;
+            }
+
+            return matching != null && TryAttachPart(parentId, matching, partId);
+        }
 
         var slot = GetPartSlot(parent, part);
         if (slot == null || parent.Children.ContainsKey(slot))
@@ -278,7 +295,10 @@ public sealed partial class SharedBodySystem : EntitySystem
 
     public bool TryInsertOrgan(EntityUid partId, EntityUid organId, string slot)
     {
-        if (!TryComp(partId, out BodyPartComponent? part) || !TryComp(organId, out OrganComponent? organ) || organ.Body != null)
+        if (!TryComp(partId, out BodyPartComponent? part)
+            || !TryComp(organId, out OrganComponent? organ)
+            || organ.Body != null
+            || organ.Category is { } category && category.Id != slot)
             return false;
 
         var container = _containers.EnsureContainer<ContainerSlot>(partId, BodyPartComponent.OrganSlotPrefix + slot);
@@ -292,6 +312,88 @@ public sealed partial class SharedBodySystem : EntitySystem
             RaiseLocalEvent(body, new BodyOrganSlotChangedEvent(slot, organId, true));
 
         return true;
+    }
+
+    public bool TryCreatePartSlot(EntityUid parentId, string slot, BodyPartType type, BodyPartSymmetry symmetry)
+    {
+        if (string.IsNullOrWhiteSpace(slot) || !TryComp(parentId, out BodyPartComponent? parent))
+            return false;
+
+        var descriptor = new BodyPartSlot(type, symmetry);
+        if (parent.ChildSlots.TryGetValue(slot, out var existing) && existing != descriptor)
+            return false;
+
+        parent.ChildSlots[slot] = descriptor;
+        parent.Children[slot] = type;
+        _containers.EnsureContainer<ContainerSlot>(parentId, BodyPartComponent.PartSlotPrefix + slot);
+        Dirty(parentId, parent);
+        return true;
+    }
+
+    public bool TryAttachPart(EntityUid parentId, string slot, EntityUid partId)
+    {
+        if (!TryComp(parentId, out BodyPartComponent? parent)
+            || !TryComp(partId, out BodyPartComponent? part)
+            || part.Body != null
+            || !parent.ChildSlots.TryGetValue(slot, out var descriptor)
+            || descriptor.Type != part.PartType
+            || descriptor.Symmetry != part.Symmetry)
+            return false;
+
+        if (parentId == partId || GetBodyPartChildren(partId).Any(descendant => descendant.Id == parentId))
+            return false;
+
+        var container = _containers.EnsureContainer<ContainerSlot>(parentId, BodyPartComponent.PartSlotPrefix + slot);
+        if (container.ContainedEntity != null || !_containers.Insert(partId, container))
+            return false;
+
+        part.Parent = parentId;
+        Dirty(partId, part);
+        return true;
+    }
+
+    public bool TryCreateOrganSlot(EntityUid partId, string slot)
+    {
+        if (string.IsNullOrWhiteSpace(slot) || !TryComp(partId, out BodyPartComponent? part))
+            return false;
+
+        part.Organs.Add(slot);
+        _containers.EnsureContainer<ContainerSlot>(partId, BodyPartComponent.OrganSlotPrefix + slot);
+        Dirty(partId, part);
+        return true;
+    }
+
+    public void ActivateDeclarativeGraph(EntityUid root, EntityUid body)
+    {
+        var first = true;
+        foreach (var (partId, part) in GetBodyPartChildren(root))
+        {
+            part.Body = body;
+            if (TryComp(partId, out OrganComponent? organ))
+            {
+                organ.Body = body;
+                Dirty(partId, organ);
+            }
+            Dirty(partId, part);
+
+            foreach (var organSlot in part.Organs)
+            {
+                if (!_containers.TryGetContainer(partId, BodyPartComponent.OrganSlotPrefix + organSlot, out var container))
+                    continue;
+                foreach (var organId in container.ContainedEntities)
+                    if (TryComp(organId, out OrganComponent? childOrgan))
+                        UpdateOrgan(organId, childOrgan, body, inserted: true);
+            }
+
+            if (first)
+            {
+                first = false;
+                continue;
+            }
+
+            var inserted = new OrganGotInsertedEvent(body);
+            RaiseLocalEvent(partId, ref inserted);
+        }
     }
 
     public IEnumerable<(EntityUid Id, OrganComponent Component)> GetPartOrgans(EntityUid part)
@@ -337,6 +439,12 @@ public sealed partial class SharedBodySystem : EntitySystem
         }
 
         return false;
+    }
+
+    private bool IsPartSlotOccupied(EntityUid parent, string slot)
+    {
+        return _containers.TryGetContainer(parent, BodyPartComponent.PartSlotPrefix + slot, out var container)
+            && container is ContainerSlot { ContainedEntity: not null };
     }
 
     private static string? GetPartSlot(BodyPartComponent parent, BodyPartComponent child) => (parent.PartType, child.PartType, child.Symmetry) switch

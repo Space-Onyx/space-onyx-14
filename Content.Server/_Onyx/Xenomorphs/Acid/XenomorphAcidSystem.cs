@@ -1,0 +1,32 @@
+using Content.Shared._Onyx.Xenomorphs.Acid;
+using Content.Shared._Onyx.Xenomorphs.Acid.Components;
+using Content.Shared.Damage;
+using Content.Shared.Damage.Systems;
+
+namespace Content.Server._Onyx.Xenomorphs.Acid;
+
+public sealed partial class XenomorphAcidSystem : SharedXenomorphAcidSystem
+{
+    [Dependency] private DamageableSystem _damageable = default!;
+
+    public override void Update(float frameTime)
+    {
+        var time = Timing.CurTime;
+
+        var acidCorrodingQuery = EntityQueryEnumerator<AcidCorrodingComponent>();
+        while (acidCorrodingQuery.MoveNext(out var uid, out var acidCorrodingComponent))
+        {
+            if (time > acidCorrodingComponent.NextDamageAt)
+            {
+                _damageable.TryChangeDamage(uid, acidCorrodingComponent.DamagePerSecond);
+                acidCorrodingComponent.NextDamageAt = time + TimeSpan.FromSeconds(1);
+            }
+
+            if (time <= acidCorrodingComponent.AcidExpiresAt)
+                continue;
+
+            QueueDel(acidCorrodingComponent.Acid);
+            RemCompDeferred<AcidCorrodingComponent>(uid);
+        }
+    }
+}

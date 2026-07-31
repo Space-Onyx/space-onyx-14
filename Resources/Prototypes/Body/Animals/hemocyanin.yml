@@ -2,13 +2,8 @@
   id: BaseMobHemocyanin
   abstract: true
   components:
+  # <Onyx-AnimalBodyParts-edited>
   - type: Body
-  - type: EntityTableContainerFill
-    containers:
-      body_organs: !type:AllSelector
-        children:
-        - id: OrganAnimalLungs
-        - id: OrganArachnidHeart
-        - id: OrganAnimalStomach
-        - id: OrganAnimalLiver
-        - id: OrganAnimalKidneys
+  - type: DeclarativeBody
+    prototype: AnimalHemocyaninBody
+  # </Onyx-AnimalBodyParts-edited>

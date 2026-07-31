@@ -7,3 +7,6 @@ public sealed class TargetChangeRequest(TargetBodyPart requestedPart) : EntityEv
 {
     public readonly TargetBodyPart RequestedPart = requestedPart;
 }
+
+[Serializable, NetSerializable]
+public sealed class PartStatusExamineRequest : EntityEventArgs;

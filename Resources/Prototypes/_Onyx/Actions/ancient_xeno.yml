@@ -1,0 +1,8 @@
+- type: entity
+  parent: ActionGravityJump
+  id: ActionAncientXenoDash
+  name: Dash
+  description: Dash forward.
+  components:
+  - type: Action
+    useDelay: 6.5

@@ -1,0 +1,19 @@
+- type: bodyGraph
+  id: AnimalMothroachBody
+  root: chest
+  slots:
+    chest:
+      part: ChestAnimal
+      connections: [groin]
+      organs:
+        Lungs: OrganAnimalLungs
+        Heart: OrganAnimalHeart
+    groin:
+      part: GroinAnimal
+      connections: [legs]
+      organs:
+        Stomach: OrganMothStomach
+        Liver: OrganAnimalLiver
+        Kidneys: OrganAnimalKidneys
+    legs: { part: LegsAnimal, connections: [feet] }
+    feet: { part: FeetAnimal }

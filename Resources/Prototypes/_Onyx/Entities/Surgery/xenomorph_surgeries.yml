@@ -1,0 +1,43 @@
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveLarvaEmbryo
+  components:
+  - type: SurgeryRemoveXenomorphEffect
+    target: Embryo
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveLarva
+  components:
+  - type: SurgeryRemoveXenomorphEffect
+    target: Larva
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveLarvaEmbryo
+  name: Remove Larva Embryo
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps:
+    - SurgeryStepClampBleeders
+    - SurgeryStepRemoveLarvaEmbryo
+  - type: SurgeryPartCondition
+    part: Chest
+  - type: SurgeryXenomorphCondition
+    target: Embryo
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveLarva
+  name: Remove Larva
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps:
+    - SurgeryStepClampBleeders
+    - SurgeryStepRemoveLarva
+  - type: SurgeryPartCondition
+    part: Chest
+  - type: SurgeryXenomorphCondition
+    target: Larva

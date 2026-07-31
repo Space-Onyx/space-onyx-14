@@ -50,6 +50,12 @@ public sealed class TargetingUIController : UIController, IOnSystemChanged<Targe
             control.PartRequested += OnPartRequested;
         }
 
+        if (StatusControl is { } status)
+        {
+            status.ExamineRequested -= OnExamineRequested;
+            status.ExamineRequested += OnExamineRequested;
+        }
+
         Refresh();
     }
 
@@ -57,9 +63,12 @@ public sealed class TargetingUIController : UIController, IOnSystemChanged<Targe
     {
         if (Control is { } control)
             control.PartRequested -= OnPartRequested;
+        if (StatusControl is { } status)
+            status.ExamineRequested -= OnExamineRequested;
     }
 
     private void OnPartRequested(TargetBodyPart part) => _system.Request(part);
+    private void OnExamineRequested() => _system.RequestSelfExamine();
 
     private void Refresh()
     {

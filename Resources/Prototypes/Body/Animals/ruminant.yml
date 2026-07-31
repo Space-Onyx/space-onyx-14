@@ -27,13 +27,8 @@
   id: BaseMobRuminant
   abstract: true
   components:
+  # <Onyx-AnimalBodyParts-edited>
   - type: Body
-  - type: EntityTableContainerFill
-    containers:
-      body_organs: !type:AllSelector
-        children:
-        - id: OrganAnimalLungs
-        - id: OrganAnimalHeart
-        - id: OrganRuminantStomach
-        - id: OrganAnimalLiver
-        - id: OrganAnimalKidneys
+  - type: DeclarativeBody
+    prototype: AnimalRuminantBody
+  # </Onyx-AnimalBodyParts-edited>
