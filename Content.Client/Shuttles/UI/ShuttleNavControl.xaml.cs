@@ -55,6 +55,7 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
         _maps = EntManager.System<SharedMapSystem>();
         _shuttles = EntManager.System<SharedShuttleSystem>();
         _transform = EntManager.System<SharedTransformSystem>();
+        InitializeDetection(); // <Onyx-Detection>
     }
 
     public void SetMatrix(EntityCoordinates? coordinates, Angle? angle)
@@ -203,6 +204,9 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
             if (!_shuttles.CanDraw(gUid, gridBody, iff))
                 continue;
 
+            if (!TryGetDetectionLevel(grid, out var detectionLevel)) // <Onyx-Detection>
+                continue;
+
             var curGridToWorld = _transform.GetWorldMatrix(gUid);
             var curGridToView = curGridToWorld * worldToShuttle * shuttleToView;
 
@@ -213,6 +217,7 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
             // Color.FromHex("#FFC000FF")
             // Hostile default: Color.Firebrick
             var labelName = _shuttles.GetIFFLabel(grid, self: false, iff);
+            labelName = GetDetectionLabel(grid, detectionLevel, labelName); // <Onyx-Detection>
 
             if (ShowIFF &&
                  labelName != null)
@@ -274,8 +279,7 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
             if (!gridAABB.Intersects(viewAABB))
                 continue;
 
-            DrawGrid(handle, curGridToView, grid, labelColor);
-            DrawDocks(handle, gUid, curGridToView);
+            DrawDetectedGrid(handle, curGridToView, grid, labelColor, detectionLevel); // <Onyx-Detection-edited>
         }
 
         // If we've set the controlling console, and it's on a different grid

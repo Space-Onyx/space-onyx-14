@@ -24,6 +24,8 @@ public sealed partial class UnpoweredFlashlightComponent : Component
     [DataField, AutoNetworkedField]
     public EntityUid? ToggleActionEntity;
 
+    [DataField] public bool AddToggleVerb = true; // <Onyx-MechLights>
+
     /// <summary>
     ///  <see cref="ColorPalettePrototype"/> ID that determines the list
     /// of colors to select from when we get emagged

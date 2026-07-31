@@ -39,6 +39,13 @@
         Slash: 0.95
         Piercing: 0.95
         Heat: 0.95
+  # <Onyx-SlottedSurvivalBoxes>
+  - type: Tag
+    tags:
+    - PetWearable
+    - WhitelistChameleon
+    - SecurityBreathMask
+  # </Onyx-SlottedSurvivalBoxes>
 
 - type: entity
   parent: [ClothingMaskGas, BaseSyndicateContraband]
@@ -59,6 +66,13 @@
         Slash: 0.95
         Piercing: 0.95
         Heat: 0.95
+  # <Onyx-SlottedSurvivalBoxes>
+  - type: Tag
+    tags:
+    - HamsterWearable
+    - WhitelistChameleon
+    - SyndicateBreathMask
+  # </Onyx-SlottedSurvivalBoxes>
 
 - type: entity
   parent: ClothingMaskGas
@@ -137,6 +151,7 @@
     tags:
     - PetWearable
     - WhitelistChameleon
+    - BreathMask # <Onyx-SlottedSurvivalBoxes>
   - type: PhysicalComposition
     materialComposition:
       Steel: 50
@@ -180,6 +195,7 @@
     tags:
     - PetWearable
     - WhitelistChameleon
+    - BreathMask # <Onyx-SlottedSurvivalBoxes>
   - type: PhysicalComposition
     materialComposition:
       Steel: 50

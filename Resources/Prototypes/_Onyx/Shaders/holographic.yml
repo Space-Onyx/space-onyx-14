@@ -1,0 +1,7 @@
+- type: shader
+  id: Holographic
+  kind: source
+  path: "/Textures/_Onyx/Shaders/holographic.swsl"
+  params:
+    textureHeight: 32
+    hue: 0.64

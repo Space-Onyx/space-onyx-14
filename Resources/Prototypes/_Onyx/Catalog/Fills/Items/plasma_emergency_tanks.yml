@@ -1,0 +1,61 @@
+- type: entity
+  parent: EmergencyOxygenTank
+  id: EmergencyPlasmaTank
+  name: emergency plasma tank
+  description: An easily portable tank for emergencies. Contains very little plasma, rated for survival use only.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Tanks/Plasma/emergency.rsi
+  - type: Item
+    sprite: _Onyx/Objects/Tanks/Plasma/emergency.rsi
+    storedSprite:
+      state: storage
+      sprite: _Onyx/Objects/Tanks/Plasma/emergency.rsi
+  - type: Clothing
+    sprite: _Onyx/Objects/Tanks/Plasma/emergency.rsi
+  - type: Tag
+    tags: [GasTank, EmergencyOxygenTank, EmergencyPlasmaTank]
+
+- type: entity
+  id: EmergencyPlasmaTankFilled
+  parent: EmergencyPlasmaTank
+  suffix: Filled
+  components:
+  - type: GasTank
+    releasePressure: 5.325
+    air:
+      volume: 0.66
+      moles:
+        Plasma: 0.270782035
+      temperature: 293.15
+
+- type: entity
+  parent: ExtendedEmergencyOxygenTank
+  id: ExtendedEmergencyPlasmaTank
+  name: extended capacity emergency plasma tank
+  description: An emergency tank with extended capacity. Technically rated for prolonged use.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Tanks/Plasma/regular.rsi
+  - type: Item
+    sprite: _Onyx/Objects/Tanks/Plasma/regular.rsi
+    storedSprite:
+      state: storage
+      sprite: _Onyx/Objects/Tanks/Plasma/regular.rsi
+  - type: Clothing
+    sprite: _Onyx/Objects/Tanks/Plasma/regular.rsi
+  - type: Tag
+    tags: [GasTank, EmergencyOxygenTank, ExtendedEmergencyPlasmaTank]
+
+- type: entity
+  id: ExtendedEmergencyPlasmaTankFilled
+  parent: ExtendedEmergencyPlasmaTank
+  suffix: Filled
+  components:
+  - type: GasTank
+    releasePressure: 5.325
+    air:
+      volume: 1.5
+      moles:
+        Plasma: 0.615413715
+      temperature: 293.15

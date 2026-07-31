@@ -34,6 +34,7 @@ public sealed partial class MechPolicySystem : EntitySystem
         SubscribeLocalEvent<MechComponent, EmpPulseEvent>(OnEmpPulse);
         SubscribeLocalEvent<MechComponent, EmpDisabledRemovedEvent>(OnEmpDisabledRemoved);
         SubscribeLocalEvent<MechComponent, ToggleActionEvent>(OnToggleAction, before: [typeof(UnpoweredFlashlightSystem)]);
+        SubscribeLocalEvent<MechComponent, AttemptPointLightToggleEvent>(OnLightToggleAttempt);
         // ComponentStartup is a single-handler [ComponentEvent] already taken by the client EmpSystem.
         SubscribeLocalEvent<EmpDisabledComponent, ComponentInit>(OnEmpDisabled);
     }
@@ -83,8 +84,17 @@ public sealed partial class MechPolicySystem : EntitySystem
 
     private void OnToggleAction(Entity<MechComponent> mech, ref ToggleActionEvent args)
     {
-        if (HasComp<EmpDisabledComponent>(mech))
+        if (args.Handled ||
+            mech.Comp.PilotSlot.ContainedEntity != args.Performer ||
+            mech.Comp.Energy <= 0 ||
+            HasComp<EmpDisabledComponent>(mech))
             args.Handled = true;
+    }
+
+    private void OnLightToggleAttempt(Entity<MechComponent> mech, ref AttemptPointLightToggleEvent args)
+    {
+        if (args.Enabled && mech.Comp.Energy <= 0)
+            args.Cancelled = true;
     }
 
     private void CancelSelectedGun(Entity<MechComponent> mech)

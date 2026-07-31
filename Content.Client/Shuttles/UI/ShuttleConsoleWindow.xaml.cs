@@ -62,6 +62,7 @@ public sealed partial class ShuttleConsoleWindow : FancyWindow,
         {
             UndockRequest?.Invoke(entity);
         };
+        InitializeDampening(); // <Onyx-ShuttleDampening>
 
         // <ShuttleSignalPorts>
         InitializeSignalPorts();

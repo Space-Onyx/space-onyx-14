@@ -1,5 +1,6 @@
 using Content.Server.Shuttles.Components;
 using Content.Shared.CCVar;
+using Content.Shared.Emag.Systems; // <Onyx-IFFVesselVisibility>
 using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Events;
@@ -12,7 +13,10 @@ public sealed partial class ShuttleSystem
     {
         SubscribeLocalEvent<IFFConsoleComponent, AnchorStateChangedEvent>(OnIFFConsoleAnchor);
         SubscribeLocalEvent<IFFConsoleComponent, IFFShowIFFMessage>(OnIFFShow);
+        SubscribeLocalEvent<IFFConsoleComponent, IFFShowVesselMessage>(OnIFFShowVessel); // <Onyx-IFFVesselVisibility>
         SubscribeLocalEvent<IFFConsoleComponent, MapInitEvent>(OnInitIFFConsole);
+        SubscribeLocalEvent<IFFConsoleComponent, IFFApplyRadarSettingsMessage>(OnIFFApplyRadarSettings); // <Onyx-IFFSettings>
+        SubscribeLocalEvent<IFFConsoleComponent, GotEmaggedEvent>(OnIFFEmagged); // <Onyx-IFFVesselVisibility>
         SubscribeLocalEvent<GridSplitEvent>(OnGridSplit);
     }
 
@@ -42,15 +46,13 @@ public sealed partial class ShuttleSystem
             return;
         }
 
+        if (RejectStationIFF((uid, component), xform.GridUid.Value)) // <Onyx-IFFVesselVisibility>
+            return;
+
         if (!args.Show)
-        {
-            AddAllSupportedIFFFlags(xform, component);
-        }
+            AddIFFFlag(xform.GridUid.Value, IFFFlags.HideLabel); // <Onyx-IFFVesselVisibility-edited>
         else
-        {
             RemoveIFFFlag(xform.GridUid.Value, IFFFlags.HideLabel);
-            RemoveIFFFlag(xform.GridUid.Value, IFFFlags.Hide);
-        }
     }
 
     private void OnInitIFFConsole(EntityUid uid, IFFConsoleComponent component, MapInitEvent args)
@@ -60,6 +62,9 @@ public sealed partial class ShuttleSystem
             return;
         }
 
+        if (EnsureStationIFFVisible(xform.GridUid.Value)) // <Onyx-StationIFFSafety>
+            return;
+
         if (component.HideOnInit)
         {
             AddAllSupportedIFFFlags(xform, component);
@@ -68,6 +73,10 @@ public sealed partial class ShuttleSystem
 
     private void OnIFFConsoleAnchor(EntityUid uid, IFFConsoleComponent component, ref AnchorStateChangedEvent args)
     {
+        if (args.Anchored && TryComp(uid, out TransformComponent? anchoredXform) &&
+            anchoredXform.GridUid is { } anchoredGrid)
+            EnsureStationIFFVisible(anchoredGrid); // <Onyx-StationIFFSafety>
+
         // If we anchor / re-anchor then make sure flags up to date.
         if (!args.Anchored ||
             !TryComp(uid, out TransformComponent? xform) ||
@@ -77,6 +86,8 @@ public sealed partial class ShuttleSystem
             {
                 AllowedFlags = component.AllowedFlags,
                 Flags = IFFFlags.None,
+                Name = string.Empty, // <Onyx-IFFSettings>
+                Color = IFFComponent.IFFColor, // <Onyx-IFFSettings>
             });
         }
         else
@@ -85,6 +96,8 @@ public sealed partial class ShuttleSystem
             {
                 AllowedFlags = component.AllowedFlags,
                 Flags = iff.Flags,
+                Name = MetaData(xform.GridUid.Value).EntityName, // <Onyx-IFFSettings>
+                Color = iff.Color, // <Onyx-IFFSettings>
             });
         }
     }
@@ -103,6 +116,8 @@ public sealed partial class ShuttleSystem
             {
                 AllowedFlags = comp.AllowedFlags,
                 Flags = component.Flags,
+                Name = MetaData(gridUid).EntityName, // <Onyx-IFFSettings>
+                Color = component.Color, // <Onyx-IFFSettings>
             });
         }
     }

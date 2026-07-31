@@ -1,0 +1,71 @@
+- type: entity
+  parent: BaseFlatpack
+  id: ComputerFundingAllocationFlatpack
+  name: funding allocation computer flatpack
+  description: A flatpack used for constructing a funding allocation computer.
+  components:
+  - type: Flatpack
+    entity: ComputerFundingAllocation
+
+- type: entity
+  parent: BaseFlatpack
+  id: ComputerCargoRequestServiceFlatpack
+  name: service request computer flatpack
+  description: A flatpack used for constructing a service request computer.
+  components:
+  - type: Flatpack
+    entity: ComputerCargoOrdersService
+
+- type: entity
+  parent: BaseFlatpack
+  id: ComputerCargoRequestMedicalFlatpack
+  name: medical request computer flatpack
+  description: A flatpack used for constructing a medical request computer.
+  components:
+  - type: Flatpack
+    entity: ComputerCargoOrdersMedical
+
+- type: entity
+  parent: BaseFlatpack
+  id: ComputerCargoRequestScienceFlatpack
+  name: science request computer flatpack
+  description: A flatpack used for constructing a science request computer.
+  components:
+  - type: Flatpack
+    entity: ComputerCargoOrdersScience
+
+- type: entity
+  parent: BaseFlatpack
+  id: ComputerCargoRequestSecurityFlatpack
+  name: security request computer flatpack
+  description: A flatpack used for constructing a security request computer.
+  components:
+  - type: Flatpack
+    entity: ComputerCargoOrdersSecurity
+
+- type: entity
+  parent: BaseFlatpack
+  id: MachinePowerTransmissionLaserFlatpack
+  name: power transmission laser flatpack
+  description: A flatpack used for constructing a power transmission laser.
+  components:
+  - type: Flatpack
+    entity: MachinePowerTransmissionLaser
+
+- type: entity
+  parent: BaseFlatpack
+  id: ChemistryHotplateFlatPack
+  name: hotplate flatpack
+  description: A flatpack used for constructing a hotplate.
+  components:
+  - type: Flatpack
+    entity: ChemistryHotplate
+
+- type: entity
+  parent: BaseFlatpack
+  id: BiomassReclaimerFlatpack
+  name: biomass reclaimer flatpack
+  description: A flatpack used for constructing a biomass reclaimer.
+  components:
+  - type: Flatpack
+    entity: BiomassReclaimer

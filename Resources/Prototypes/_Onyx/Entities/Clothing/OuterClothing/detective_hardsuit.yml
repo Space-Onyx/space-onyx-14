@@ -1,0 +1,29 @@
+- type: entity
+  parent: [ ClothingOuterVoidsuitSecurity, BaseSecurityContraband ]
+  id: ClothingOuterHardsuitDetective
+  name: detective hardsuit
+  description: A hardsuit custom-made for the detective. It has a strong smell of alcohol and cigarettes.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/OuterClothing/Hardsuits/detective.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/OuterClothing/Hardsuits/detective.rsi
+  - type: ToggleableClothing
+    clothingPrototypes:
+      head: ClothingHeadHelmetHardsuitDetective
+
+- type: entity
+  parent: ClothingHeadHelmetVoidsuitSecurity
+  id: ClothingHeadHelmetHardsuitDetective
+  name: detective hardsuit helmet
+  description: A helmet with a built-in fedora for the detective's hardsuit.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Head/Hardsuits/detective.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Head/Hardsuits/detective.rsi
+  - type: PointLight
+    color: "#00FFFF"
+    rotation: 30
+    energy: 6
+    radius: 4

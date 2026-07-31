@@ -659,6 +659,11 @@
     damage:
       types:
         Blunt: 1 # bonk
+  # <Onyx-SlottedSurvivalBoxes>
+  - type: Tag
+    tags:
+    - BreadEmergency
+  # </Onyx-SlottedSurvivalBoxes>
 # Tastes like France.
 
 - type: entity
@@ -679,6 +684,7 @@
     tags:
     - Bread
     - ClothMade
+    - BreadEmergency # <Onyx-SlottedSurvivalBoxes>
   - type: Clothing
     equippedPrefix: baguette-cotton
   - type: Item

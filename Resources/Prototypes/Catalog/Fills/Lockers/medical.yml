@@ -81,27 +81,23 @@
   id: LockerFillChemistry
   table: !type:AllSelector
     children:
-    - id: ClothingEyesGlassesChemical
-    - id: ChemBag
-    - id: Dropper
-    - id: HandLabeler
-    - id: BarSpoon # Should be replaced by a stirring tool with medical theming, like a glass rod
+    # <Onyx-LockerInventories-edited>
+    - id: BoxSyringe
+    - id: BoxBeaker
+    - id: BoxBeaker
+      prob: 0.3
+    - id: BoxPillCanister
+    - id: BoxBottle
+    - id: BoxVial
     - id: PlasmaChemistryVial
-    - !type:AllSelector # The wonderful world of chemical storage
-      children:
-      - id: BoxSyringe
-      - id: BoxBottle
-      - id: BoxVial
-      - id: BoxBeaker
-      - id: BoxPillCanister
-      - !type:GroupSelector # Remind chemists once in a while of alternate storage options
-        prob: 0.2
-        children:
-        - id: SprayBottle
-        - id: Bucket
-        - id: DrinkCartonMilk
-    - id: PlushieLizardJobChemist
-      prob: 0.02
+    - id: ChemBag
+    - id: ClothingHandsGlovesLatex
+    - id: ClothingHeadsetMedical
+    - id: ClothingMaskSterile
+    - id: portableChemicalMixer
+    - id: HandLabeler
+      prob: 0.5
+    # </Onyx-LockerInventories-edited>
 
 - type: entity
   parent: LockerChemistry
@@ -117,19 +113,23 @@
   id: LockerFillParamedic
   table: !type:AllSelector
     children:
+    # <Onyx-LockerInventories-edited>
+    - id: UndeterminedVoidsuitParamedic
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterCoatParamedicWB
+    - id: ClothingHeadHatParamedicsoft
+    - id: ClothingOuterWinterPara
+    - id: ClothingUniformJumpsuitParamedic
+    - id: ClothingUniformJumpskirtParamedic
     - id: ClothingEyesHudMedical
-    - id: UndeterminedVoidsuitParamedic # <Onyx-VoidsuitSelectors-edited>
-    - id: ClothingBeltMedicalEMTFilled
-    - id: JetInjector
-    - id: HandheldHealthAnalyzer
-    - id: BoxBodyBag
-    - !type:GroupSelector
-      children:
-      - id: RollerBedSpawnFolded
-      - id: CheapRollerBedSpawnFolded
-      - id: EmergencyRollerBedSpawnFolded
-    - id: PlushieLizardJobParamedic
-      prob: 0.02
+    - id: ClothingHandsGlovesLatex
+    - id: ClothingHeadsetMedical
+    - id: ClothingMaskSterile
+    - id: HandheldGPSBasic
+    - id: MedkitFilled
+      prob: 0.3
+    # </Onyx-LockerInventories-edited>
 
 - type: entity
   parent: LockerParamedic

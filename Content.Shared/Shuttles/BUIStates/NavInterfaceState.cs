@@ -4,7 +4,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Shuttles.BUIStates;
 
 [Serializable, NetSerializable]
-public sealed class NavInterfaceState
+public sealed partial class NavInterfaceState // <Onyx-ShuttleDampening-edited>
 {
     public float MaxRange;
 

@@ -1,0 +1,33 @@
+- type: entity
+  name: autoinjector cartridge box
+  parent: BoxCardboard
+  id: BoxAutoinjectorCartidges
+  description: A box with autoinjector cartridges.
+  components:
+  - type: StorageFill
+    contents:
+    - id: CartridgeSaline
+      amount: 3
+    - id: CartridgeBicaridine
+      amount: 3
+    - id: CartridgeDermaline
+      amount: 3
+  - type: Sprite
+    sprite: _Onyx/Objects/Storage/medical_boxes.rsi
+
+- type: entity
+  parent: BoxCardboard
+  id: BoxTapeRecorder
+  name: tape recorder box
+  description: A box with colorful cassette tapes and a tape recorder.
+  components:
+  - type: Sprite
+    layers:
+    - state: box_security
+    - sprite: _Onyx/Objects/Storage/tape_recorder_box.rsi
+      state: recorder
+  - type: StorageFill
+    contents:
+    - id: CassetteTape
+      amount: 4
+    - id: TapeRecorder

@@ -93,6 +93,7 @@ public sealed partial class ShuttleSystem
     {
         QueueDel(ent.Comp.VisualizerEntity);
         ent.Comp.VisualizerEntity = null;
+        ClearActiveFTLDrive(ent.Owner); // <Onyx-FTLDrive>
     }
 
     private void OnStationPostInit(ref StationPostInitEvent ev)
@@ -268,14 +269,13 @@ public sealed partial class ShuttleSystem
         float? hyperspaceTime = null,
         string? priorityTag = null)
     {
-        if (!TrySetupFTL(shuttleUid, component, out var hyperspace))
+        if (!TrySetupFTLDrive(shuttleUid, component, out var hyperspace)) // <Onyx-FTLDrive-edited>
             return;
 
-        startupTime ??= DefaultStartupTime;
-        hyperspaceTime ??= DefaultTravelTime;
+        var (resolvedStartupTime, resolvedHyperspaceTime) = GetFTLDriveTimes(shuttleUid, startupTime, hyperspaceTime); // <Onyx-FTLDrive>
 
-        hyperspace.StartupTime = startupTime.Value;
-        hyperspace.TravelTime = hyperspaceTime.Value;
+        hyperspace.StartupTime = resolvedStartupTime;
+        hyperspace.TravelTime = resolvedHyperspaceTime;
         hyperspace.StateTime = StartEndTime.FromStartDuration(
             _gameTiming.CurTime,
             TimeSpan.FromSeconds(hyperspace.StartupTime));
@@ -303,15 +303,14 @@ public sealed partial class ShuttleSystem
         float? hyperspaceTime = null,
         string? priorityTag = null)
     {
-        if (!TrySetupFTL(shuttleUid, component, out var hyperspace))
+        if (!TrySetupFTLDrive(shuttleUid, component, out var hyperspace)) // <Onyx-FTLDrive-edited>
             return;
 
-        startupTime ??= DefaultStartupTime;
-        hyperspaceTime ??= DefaultTravelTime;
+        var (resolvedStartupTime, resolvedHyperspaceTime) = GetFTLDriveTimes(shuttleUid, startupTime, hyperspaceTime); // <Onyx-FTLDrive>
 
         var config = _dockSystem.GetDockingConfig(shuttleUid, target, priorityTag);
-        hyperspace.StartupTime = startupTime.Value;
-        hyperspace.TravelTime = hyperspaceTime.Value;
+        hyperspace.StartupTime = resolvedStartupTime;
+        hyperspace.TravelTime = resolvedHyperspaceTime;
         hyperspace.StateTime = StartEndTime.FromStartDuration(
             _gameTiming.CurTime,
             TimeSpan.FromSeconds(hyperspace.StartupTime));
@@ -410,7 +409,8 @@ public sealed partial class ShuttleSystem
         // Reset rotation so they always face the same direction.
         _transform.SetLocalRotation(entity, Angle.Zero, xform);
         _index += width + Buffer;
-        comp.StateTime = StartEndTime.FromCurTime(_gameTiming, comp.TravelTime - DefaultArrivalTime);
+        var arrivalTime = GetFTLArrivalTime(uid); // <Onyx-FTLDrive>
+        comp.StateTime = StartEndTime.FromCurTime(_gameTiming, Math.Max(0f, comp.TravelTime - arrivalTime)); // <Onyx-FTLDrive-edited>
 
         Enable(uid, component: body);
         _physics.SetLinearVelocity(uid, new Vector2(0f, 20f), body: body);
@@ -435,7 +435,9 @@ public sealed partial class ShuttleSystem
     {
         var shuttle = entity.Comp2;
         var comp = entity.Comp1;
-        comp.StateTime = StartEndTime.FromCurTime(_gameTiming, DefaultArrivalTime);
+        comp.StateTime = StartEndTime.FromCurTime(
+            _gameTiming,
+            GetFTLArrivalTime(entity.Owner)); // <Onyx-FTLDrive-edited>
         comp.State = FTLState.Arriving;
 
         if (entity.Comp1.VisualizerProto != null)
@@ -546,9 +548,7 @@ public sealed partial class ShuttleSystem
         }
 
         comp.State = FTLState.Cooldown;
-        var cooldown = entity.Comp2.FTLCooldownOverride ?? (HasComp<ArrivalsShuttleComponent>(uid)
-                ? ArrivalsFTLCooldown
-                : FTLCooldown);
+        var cooldown = entity.Comp2.FTLCooldownOverride ?? GetFTLCooldown(uid); // <Onyx-FTLDrive-edited>
         comp.StateTime = StartEndTime.FromCurTime(_gameTiming, cooldown);
         _console.RefreshShuttleConsoles(uid);
         _mapSystem.SetPaused(mapId, false);
@@ -615,7 +615,7 @@ public sealed partial class ShuttleSystem
         {
             foreach (var child in toKnock)
             {
-                _stuns.TryUpdateParalyzeDuration(child, _hyperspaceKnockdownTime);
+                _stuns.TryUpdateParalyzeDuration(child, GetFTLKnockdownTime(xform.GridUid)); // <Onyx-FTLDrive-edited>
 
                 // If the guy we knocked down is on a spaced tile, throw them too
                 if (grid != null)

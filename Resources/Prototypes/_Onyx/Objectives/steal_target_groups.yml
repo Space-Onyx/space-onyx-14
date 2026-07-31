@@ -1,13 +1,6 @@
 - type: stealTargetGroup
-  id: WeaponEnergyGunLawbringer
-  name: steal-target-groups-weapon-lawbringer
+  id: RapidSyringeGun
+  name: steal-target-groups-rapid-syringe-gun
   sprite:
-    sprite: _Onyx/Objects/Weapons/Guns/Battery/lawbringer.rsi
-    state: icon
-
-- type: stealTargetGroup
-  id: WeaponSecHeadSword
-  name: steal-target-groups-weapon-justice
-  sprite:
-    sprite: _Onyx/Objects/Weapons/Melee/justice.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Cannons/rapid_syringe_gun.rsi
     state: icon

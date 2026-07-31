@@ -39,6 +39,7 @@ public sealed partial class MechPilotPolicySystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<MetaDataComponent, AttemptMechInsertEvent>(OnAttemptInsert);
+        SubscribeLocalEvent<MetaDataComponent, AttemptMechEjectEvent>(OnAttemptEject);
         SubscribeLocalEvent<MetaDataComponent, MechInsertedEvent>(OnInserted);
         SubscribeLocalEvent<MetaDataComponent, MechEjectedEvent>(OnEjected);
         SubscribeLocalEvent<MechComponent, VirtualItemDeletedEvent>(OnVirtualItemDeleted);
@@ -48,6 +49,13 @@ public sealed partial class MechPilotPolicySystem : EntitySystem
     {
         if (args.Cancelled || !TryComp<MechComponent>(args.Mech, out var mech))
             return;
+
+        if (mech.Energy <= 0)
+        {
+            _popup.PopupEntity(Loc.GetString("mech-unpowered-entry-denied"), args.Mech, pilot);
+            args.Cancelled = true;
+            return;
+        }
 
         if (_whitelist.IsWhitelistFail(mech.PilotWhitelist, pilot) ||
             _whitelist.IsWhitelistPass(mech.PilotBlacklist, pilot))
@@ -62,6 +70,12 @@ public sealed partial class MechPilotPolicySystem : EntitySystem
 
         if (GetUsableHands((pilot, hands)).Count < RequiredHands)
             args.Cancelled = true;
+    }
+
+    private void OnAttemptEject(Entity<MetaDataComponent> pilot, ref AttemptMechEjectEvent args)
+    {
+        if (!args.Forced && TryComp<MechComponent>(args.Mech, out var mech) && mech.Energy <= 0)
+            _popup.PopupEntity(Loc.GetString("mech-emergency-eject"), args.Mech, pilot);
     }
 
     private void OnInserted(Entity<MetaDataComponent> pilot, ref MechInsertedEvent args)

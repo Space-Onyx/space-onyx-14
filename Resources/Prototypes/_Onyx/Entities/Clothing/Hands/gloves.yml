@@ -21,3 +21,16 @@
     canCreateVacuum: false
   - type: Tag
     tags: []
+
+- type: entity
+  parent: [ ClothingHandsGlovesColorYellow, BaseEngineeringContraband ]
+  id: ClothingHandsGlovesAtmosInsulated
+  name: insulated atmos gloves
+  description: Like normal insulated gloves, but simply better by virtue of being from the Atmospherics department.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Hands/Gloves/atmosinsuls.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Hands/Gloves/atmosinsuls.rsi
+  - type: Fiber
+    fiberColor: fibers-blue

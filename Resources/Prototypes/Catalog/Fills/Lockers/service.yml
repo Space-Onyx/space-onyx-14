@@ -17,7 +17,10 @@
     - id: DrinkShaker
     - id: ClothingEyesHudBeer
     - id: HandLabeler
-    - id: DrinkBeerBottleFull
+    # <Onyx-LockerInventories-edited>
+    - id: WeaponRussianRevolver
+    - id: MagazineBoxMagnumPractice
+    - id: DrinkBottleBeer
       amount: !type:BinomialNumberSelector
         trials: 3
     - !type:AllSelector
@@ -25,10 +28,7 @@
       children:
       - id: BoxBeanbag
       - id: RagItem
-    - id: PlushieLizardJobBartender
-      prob: 0.02
-    - id: PlushieLizardJobServiceworker
-      prob: 0.02
+    # </Onyx-LockerInventories-edited>
 
 #- type: entity
 #  id: LockerFormalFilled

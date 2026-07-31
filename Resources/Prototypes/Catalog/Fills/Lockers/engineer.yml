@@ -125,24 +125,46 @@
   suffix: Filled, Hardsuit
   parent: LockerAtmospherics
   components:
-  - type: EntityTableContainerFill
-    containers:
-      entity_storage: !type:AllSelector
-        children:
-        - !type:NestedSelector
-          tableId: FillLockerAtmospherics
-        - !type:NestedSelector
-          tableId: FillAtmosphericsHardsuit
+  # <Onyx-LockerInventories-edited>
+  - type: StorageFill
+    contents:
+    - id: ClothingModsuitAtmostechPowerCell
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingMaskGasAtmos
+    - id: ClothingOuterSuitAtmosFire
+    - id: ClothingHeadHelmetAtmosFire
+    - id: MedkitOxygenFilled
+    - id: HolofanProjector
+    - id: RPD # <Onyx-LockerInventories>
+    - id: RCD
+    - id: RCDAmmo
+    - id: AirGrenade
+    - id: ClothingHandsGlovesAtmosInsulated
+    - id: ClothingBackpackFirefighterTank
+    - id: ClothingShoesBootsMagAtmos
+  # </Onyx-LockerInventories-edited>
 
 - type: entity
   id: LockerAtmosphericsFilled
   suffix: Filled
   parent: LockerAtmospherics
   components:
-  - type: EntityTableContainerFill
-    containers:
-      entity_storage: !type:NestedSelector
-        tableId: FillLockerAtmospherics
+  # <Onyx-LockerInventories-edited>
+  - type: StorageFill
+    contents:
+    - id: ClothingMaskGasAtmos
+    - id: ClothingOuterSuitAtmosFire
+    - id: ClothingHeadHelmetAtmosFire
+    - id: MedkitOxygenFilled
+    - id: HolofanProjector
+    - id: RPD # <Onyx-LockerInventories>
+    - id: RCD
+    - id: RCDAmmo
+    - id: AirGrenade
+    - id: ClothingHandsGlovesAtmosInsulated
+    - id: ClothingBackpackFirefighterTank
+  # </Onyx-LockerInventories-edited>
 
 - type: entityTable
   id: FillLockerAtmospherics
@@ -173,14 +195,19 @@
   suffix: Filled, Hardsuit
   parent: LockerEngineer
   components:
-  - type: EntityTableContainerFill
-    containers:
-      entity_storage: !type:AllSelector
-        children:
-        - !type:NestedSelector
-          tableId: FillLockerEngineer
-        - !type:NestedSelector
-          tableId: FillEngineerHardsuit
+  # <Onyx-LockerInventories-edited>
+  - type: StorageFill
+    contents:
+    - id: UndeterminedVoidsuitEngineer
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingHandsGlovesColorYellow
+    - id: ClothingMaskGas
+    - id: ClothingShoesBootsMag
+    - id: RCD
+    - id: RCDAmmo
+    - id: MetalFoamGrenade
+  # </Onyx-LockerInventories-edited>
 
 - type: entity
   id: LockerEngineerFilled
@@ -196,16 +223,14 @@
   id: FillLockerEngineer
   table: !type:AllSelector
     children:
+    # <Onyx-LockerInventories-edited>
     - id: ClothingHandsGlovesColorYellow
     - id: ClothingMaskGas
     - id: trayScanner
     - id: RCD
     - id: RCDAmmo
     - id: MetalFoamGrenade
-    - id: PlushieLizardJobTechnicalassistant
-      prob: 0.02
-    - id: PlushieLizardJobStationengineer
-      prob: 0.02
+    # </Onyx-LockerInventories-edited>
 
 - type: entityTable
   id: FillEngineerHardsuit
@@ -213,8 +238,9 @@
     children:
     - id: UndeterminedVoidsuitEngineer # <Onyx-VoidsuitSelectors-edited>
     - id: OxygenTankFilled
+    - id: NitrogenTankFilled # <Onyx-LockerInventories-edited>
     - id: ClothingShoesBootsMag
-    - id: ClothingMaskBreath
+    - id: ClothingMaskGas # <Onyx-LockerInventories-edited>
 
 - type: entity
   id: ClosetRadiationSuitFilled

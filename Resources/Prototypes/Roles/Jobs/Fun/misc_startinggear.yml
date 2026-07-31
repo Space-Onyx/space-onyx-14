@@ -15,7 +15,7 @@
     ears: ClothingHeadsetGrey
   storage:
     back:
-    - BoxSurvival
+    - BoxSurvivalSlots # <Onyx-SlottedSurvivalBoxes-edited>
 
 # Syndicate Operative Outfit - Civilian
 - type: startingGear
@@ -42,7 +42,7 @@
     id: SyndiPDA
   storage:
     back:
-    - BoxSurvival
+    - BoxSurvivalSlots # <Onyx-SlottedSurvivalBoxes-edited>
 
 # Syndicate Footsoldier Gear
 - type: startingGear
@@ -58,7 +58,7 @@
     shoes: ClothingShoesBootsCombatFilled
   storage:
     back:
-    - BoxSurvivalSyndicate
+    - BoxSurvivalSlotsSyndicate # <Onyx-SlottedSurvivalBoxes-edited>
 
 - type: startingGear
   id: SyndicateFootsoldierTeamLeaderGear
@@ -86,7 +86,7 @@
     gloves: ClothingHandsGlovesCombat
   storage:
     back:
-    - BoxSurvivalSecurity
+    - BoxSurvivalSlotsSecurity # <Onyx-SlottedSurvivalBoxes-edited>
     - Flash
     - MagazinePistol
 

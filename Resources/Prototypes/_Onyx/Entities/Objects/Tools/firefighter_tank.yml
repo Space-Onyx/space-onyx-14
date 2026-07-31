@@ -1,0 +1,141 @@
+- type: entity
+  id: FirefighterNozzle
+  parent: BaseItem
+  name: firefighter nozzle
+  description: A specialized nozzle intended to fight fires.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Basic/extinguisher_nozzle.rsi
+    state: icon
+  - type: Item
+    sprite: _Onyx/Objects/Weapons/Guns/Basic/extinguisher_nozzle.rsi
+    size: Normal
+  - type: FirefighterTankRefillable
+  - type: SlotBasedConnectedContainer
+    targetSlot: BACK
+    containerWhitelist:
+      tags:
+      - AtmosBackTank
+  - type: Tag
+    tags:
+    - Nozzle
+  - type: Spray
+    solution: tank
+    transferAmount: 15
+    pushbackAmount: 60
+    spraySound:
+      path: /Audio/Effects/extinguish.ogg
+    sprayedPrototype: ExtinguisherSpray
+    vaporAmount: 5
+    vaporSpread: 120
+    sprayDistance: 5
+    sprayVelocity: 2
+  - type: PacifismAllowedGun
+  - type: Gun
+    fireRate: 1
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    - FullAuto
+    soundGunshot:
+      path: /Audio/Effects/thunk.ogg
+    soundEmpty:
+      path: /Audio/Items/hiss.ogg
+    clumsyProof: true
+  - type: ClothingSlotAmmoProvider
+  - type: UseDelay
+    delay: 0.5
+
+- type: entity
+  parent: [ BaseCivilianContraband, SmokeGrenade ]
+  categories: [ HideSpawnMenu ]
+  id: AtmosResin
+  name: atmos resin
+  description: A special grenade for atmospheric technicians.
+  components:
+  - type: TriggerOnSpawn
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Grenades/atmos_resin.rsi
+    state: icon
+  - type: SmokeOnTrigger
+    duration: 8
+    spreadAmount: 200
+    smokePrototype: Resin
+    keysIn:
+    - timer
+  - type: TimerTrigger
+    delay: 0.5
+
+- type: entity
+  parent: Clothing
+  id: ClothingBackpackFirefighterTank
+  name: firefighter water tank backpack
+  description: A refrigerated water tank backpack that can launch atmos resin or work as a high-pressure extinguisher.
+  components:
+  - type: Tag
+    tags:
+    - AtmosBackTank
+    - WhitelistChameleon
+  - type: Sprite
+    sprite: _Onyx/Clothing/Back/Backpacks/atmos_tank.rsi
+    state: icon
+  - type: Item
+    size: Ginormous
+  - type: Clothing
+    slots: BACK
+    sprite: _Onyx/Clothing/Back/Backpacks/atmos_tank.rsi
+  - type: SolutionAmmoProvider
+    solutionId: tank
+    proto: AtmosResin
+    fireCost: 25
+  - type: SolutionContainerManager
+    solutions:
+      tank:
+        maxVol: 1200
+        reagents:
+        - ReagentId: Water
+          Quantity: 1200
+  - type: DrawableSolution
+    solution: tank
+  - type: DrainableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+  - type: ItemSlots
+    slots:
+      nozzle_slot:
+        name: FirefighterNozzle
+        startingItem: FirefighterNozzle
+        whitelist:
+          tags:
+          - Nozzle
+  - type: FirefighterTankRefillable
+
+- type: entity
+  parent: BaseFoam
+  id: Resin
+  name: resin
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    color: "#ffffffcc"
+    sprite: _Onyx/Effects/resin_foam.rsi
+    layers:
+    - state: resin
+      map: [ "enum.FoamVisualLayers.Base" ]
+    - state: resin-south
+      map: [ "enum.EdgeLayer.South" ]
+    - state: resin-east
+      map: [ "enum.EdgeLayer.East" ]
+    - state: resin-north
+      map: [ "enum.EdgeLayer.North" ]
+    - state: resin-west
+      map: [ "enum.EdgeLayer.West" ]
+  - type: SmoothEdge
+  - type: IconSmooth
+    mode: NoSprite
+    key: resin
+  - type: FoamVisuals
+    animationTime: 0.6
+    animationState: resin-dissolve
+  - type: AtmosResinDespawn

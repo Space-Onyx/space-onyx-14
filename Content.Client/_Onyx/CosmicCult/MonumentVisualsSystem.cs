@@ -15,6 +15,7 @@ namespace Content.Client._Onyx.CosmicCult;
 public sealed partial class MonumentVisualizerSystem : EntitySystem
 {
     [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -28,26 +29,27 @@ public sealed partial class MonumentVisualizerSystem : EntitySystem
         if (args.Sprite == null)
             return;
 
-        args.Sprite.LayerMapTryGet(MonumentVisualLayers.TransformLayer, out var transformLayer);
-        args.Sprite.LayerMapTryGet(MonumentVisualLayers.MonumentLayer, out var baseLayer);
+        var sprite = (ent.Owner, args.Sprite);
+        _sprite.LayerMapTryGet(sprite, MonumentVisualLayers.TransformLayer, out var transformLayer, false);
+        _sprite.LayerMapTryGet(sprite, MonumentVisualLayers.MonumentLayer, out var baseLayer, false);
         _appearance.TryGetData<bool>(ent, MonumentVisuals.Transforming, out var transforming, args.Component);
         _appearance.TryGetData<bool>(ent, MonumentVisuals.Tier3, out var tier3, args.Component);
 
         if (!tier3)
-            args.Sprite.LayerSetState(transformLayer, "transform-stage2");
+            _sprite.LayerSetRsiState(sprite, transformLayer, "transform-stage2");
         else
-            args.Sprite.LayerSetState(transformLayer, "transform-stage3");
+            _sprite.LayerSetRsiState(sprite, transformLayer, "transform-stage3");
 
         if (transforming && HasComp<MonumentTransformingComponent>(ent))
         {
-            args.Sprite.LayerSetAnimationTime(transformLayer, 0f);
-            args.Sprite.LayerSetVisible(transformLayer, true);
-            args.Sprite.LayerSetVisible(baseLayer, false);
+            _sprite.LayerSetAnimationTime(sprite, transformLayer, 0f);
+            _sprite.LayerSetVisible(sprite, transformLayer, true);
+            _sprite.LayerSetVisible(sprite, baseLayer, false);
         }
         else
         {
-            args.Sprite.LayerSetVisible(transformLayer, false);
-            args.Sprite.LayerSetVisible(baseLayer, true);
+            _sprite.LayerSetVisible(sprite, transformLayer, false);
+            _sprite.LayerSetVisible(sprite, baseLayer, true);
         }
     }
 }

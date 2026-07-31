@@ -47,3 +47,22 @@
   components:
   - type: ShockOnTrigger
   - type: TriggerOnSpeak
+
+- type: entity
+  parent: [ ClothingMaskBreathMedical, BaseSecurityContraband ]
+  id: ClothingMaskSecurityMedicalRespirator
+  name: security medical respirator
+  description: A respirator that provides protection against viruses, dust and more.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Mask/security_medical_respirator.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Mask/security_medical_respirator.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9
+        Caustic: 0.9

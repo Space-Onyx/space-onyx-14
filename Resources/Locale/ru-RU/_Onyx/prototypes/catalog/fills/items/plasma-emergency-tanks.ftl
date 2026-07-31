@@ -1,0 +1,10 @@
+ent-EmergencyPlasmaTank = аварийный баллон с плазмой
+    .desc = Легко переносимый аварийный баллон. Содержит совсем немного плазмы и предназначен исключительно для выживания.
+ent-EmergencyPlasmaTankFilled = { ent-EmergencyPlasmaTank }
+    .suffix = Заполненный
+    .desc = { ent-EmergencyPlasmaTank.desc }
+ent-ExtendedEmergencyPlasmaTank = аварийный баллон с плазмой повышенной ёмкости
+    .desc = Аварийный баллон повышенной ёмкости. Технически рассчитан на длительное использование.
+ent-ExtendedEmergencyPlasmaTankFilled = { ent-ExtendedEmergencyPlasmaTank }
+    .suffix = Заполненный
+    .desc = { ent-ExtendedEmergencyPlasmaTank.desc }

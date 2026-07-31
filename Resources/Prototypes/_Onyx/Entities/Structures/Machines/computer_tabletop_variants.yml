@@ -963,3 +963,26 @@
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
       sprite: Structures/Machines/computers.rsi
       state: generic_panel_open
+- type: entity
+  id: ComputerGunneryConsoleTabletop
+  parent: [BaseStructureComputerTabletop, ComputerGunneryConsole]
+  suffix: Tabletop
+  components:
+  - type: Sprite
+    drawdepth: SmallObjects
+    sprite: _Onyx/Structures/Machines/computer_tabletop.rsi
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      sprite: _Onyx/Structures/Machines/gunnery_computer.rsi
+      state: gunnery_keyboard
+    - map: ["computerLayerScreen"]
+      sprite: _Onyx/Structures/Machines/gunnery_computer.rsi
+      state: gunnery_screen
+    - map: ["computerLayerKeys"]
+      sprite: _Onyx/Structures/Machines/gunnery_computer.rsi
+      state: gunnery_keys
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      sprite: Structures/Machines/computers.rsi
+      state: generic_panel_open

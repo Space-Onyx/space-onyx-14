@@ -63,6 +63,7 @@ public sealed partial class RCDSystem : EntitySystem
         SubscribeLocalEvent<RCDComponent, DoAfterAttemptEvent<RCDDoAfterEvent>>(OnDoAfterAttempt);
         SubscribeLocalEvent<RCDComponent, RCDSystemMessage>(OnRCDSystemMessage);
         SubscribeNetworkEvent<RCDConstructionGhostRotationEvent>(OnRCDconstructionGhostRotationEvent);
+        SubscribeNetworkEvent<RCDConstructionGhostFlipEvent>(OnRCDConstructionGhostFlipEvent); // <Onyx-RPD>
     }
 
     #region Event handling
@@ -324,6 +325,21 @@ public sealed partial class RCDSystem : EntitySystem
         Dirty(uid, rcd);
     }
 
+    // <Onyx-RPD>
+    private void OnRCDConstructionGhostFlipEvent(RCDConstructionGhostFlipEvent ev, EntitySessionEventArgs session)
+    {
+        var uid = GetEntity(ev.NetEntity);
+        if (session.SenderSession.AttachedEntity is not { } player || _hands.GetActiveItem(player) != uid)
+            return;
+
+        if (!TryComp(uid, out RCDComponent? rcd))
+            return;
+
+        rcd.UseMirrorPrototype = ev.UseMirrorPrototype;
+        Dirty(uid, rcd);
+    }
+    // </Onyx-RPD>
+
     #endregion
 
     #region Entity construction/deconstruction rule checks
@@ -372,7 +388,7 @@ public sealed partial class RCDSystem : EntitySystem
             case RcdMode.ConstructObject:
                 return IsConstructionLocationValid(uid, component, gridUid, mapGrid, tile, position, direction, user, popMsgs);
             case RcdMode.Deconstruct:
-                return IsDeconstructionStillValid(uid, tile, target, user, popMsgs);
+                return IsDeconstructionStillValid(uid, component, tile, target, user, popMsgs); // <Onyx-RPD-edited>
         }
 
         return false;
@@ -519,11 +535,19 @@ public sealed partial class RCDSystem : EntitySystem
         return true;
     }
 
-    private bool IsDeconstructionStillValid(EntityUid uid, TileRef tile, EntityUid? target, EntityUid user, bool popMsgs = true)
+    private bool IsDeconstructionStillValid(EntityUid uid, RCDComponent component, TileRef tile, EntityUid? target, EntityUid user, bool popMsgs = true) // <Onyx-RPD-edited>
     {
         // Attempt to deconstruct a floor tile
         if (target == null)
         {
+            // <Onyx-RPD>
+            if (component.IsRpd)
+            {
+                if (popMsgs)
+                    _popup.PopupEntity(Loc.GetString("rcd-component-deconstruct-target-not-on-whitelist-message"), uid, user);
+                return false;
+            }
+            // </Onyx-RPD>
             // The tile is empty
             if (tile.Tile.IsEmpty)
             {
@@ -558,7 +582,9 @@ public sealed partial class RCDSystem : EntitySystem
         else
         {
             // The object is not in the whitelist
-            if (!TryComp<RCDDeconstructableComponent>(target, out var deconstructible) || !deconstructible.Deconstructable)
+            if (!TryComp<RCDDeconstructableComponent>(target, out var deconstructible) ||
+                !deconstructible.Deconstructable ||
+                component.IsRpd && !deconstructible.RpdDeconstructable) // <Onyx-RPD-edited>
             {
                 if (popMsgs)
                     _popup.PopupEntity(Loc.GetString("rcd-component-deconstruct-target-not-on-whitelist-message"), uid, user);
@@ -595,7 +621,10 @@ public sealed partial class RCDSystem : EntitySystem
                 break;
 
             case RcdMode.ConstructObject:
-                var ent = Spawn(prototype.Prototype, _mapSystem.GridTileToLocal(gridUid, mapGrid, position));
+                var spawnPrototype = component.UseMirrorPrototype && !string.IsNullOrEmpty(prototype.MirrorPrototype)
+                    ? prototype.MirrorPrototype
+                    : prototype.Prototype; // <Onyx-RPD>
+                var ent = Spawn(spawnPrototype, _mapSystem.GridTileToLocal(gridUid, mapGrid, position)); // <Onyx-RPD-edited>
 
                 switch (prototype.Rotation)
                 {

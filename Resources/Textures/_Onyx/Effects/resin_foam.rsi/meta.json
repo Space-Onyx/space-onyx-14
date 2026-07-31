@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Resin sprites from Goob Station",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "resin"
+    },
+    {
+      "name": "resin-south"
+    },
+    {
+      "name": "resin-east"
+    },
+    {
+      "name": "resin-north"
+    },
+    {
+      "name": "resin-west"
+    },
+    {
+      "name": "resin-dissolve"
+    }
+  ]
+}

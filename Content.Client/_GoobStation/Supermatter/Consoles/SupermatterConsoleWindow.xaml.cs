@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Client.Message;
-using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Controls;
 using Content.Shared._GoobStation.Supermatter.Components;
 using Content.Shared._GoobStation.Supermatter.Monitor;
@@ -45,8 +44,8 @@ public sealed partial class SupermatterConsoleWindow : FancyWindow
     private Color _monitorBlipColor = Color.Cyan;
     private Color _untrackedEntColor = Color.DimGray;
     private Color _regionBaseColor = new Color(154, 154, 154);
-    private Color _inactiveColor = StyleNano.DisabledFore;
-    private Color _statusTextColor = StyleNano.GoodGreenFore;
+    private Color _inactiveColor = Color.FromHex("#5A5A5A"); // <Onyx-SupermatterStyles-edited>
+    private Color _statusTextColor = Color.FromHex("#31843E"); // <Onyx-SupermatterStyles-edited>
     private Color _goodColor = Color.LimeGreen;
     private Color _warningColor = new Color(255, 182, 72);
     private Color _dangerColor = new Color(255, 67, 67);

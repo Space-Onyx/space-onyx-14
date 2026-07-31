@@ -8,3 +8,7 @@ ent-BoxBodyBagRadiation = коробка противорадиационных 
     .desc = { ent-BoxBodyBag.desc }
 ent-BoxBodyBagSyndicate = коробка красных мешков для тел
     .desc = { ent-BoxBodyBag.desc }
+ent-BoxAutoinjectorCartidges = коробка с картриджами автоинжектора
+    .desc = Коробка с картриджами автоинжектора.
+ent-BoxSyringePax = коробка со шприцами с паксом
+    .desc = Коробка, полная шприцев с транквилизатором.

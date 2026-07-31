@@ -20,3 +20,22 @@
     sprite: _Onyx/Clothing/Ears/Headsets/blueshield.rsi
   - type: Headset
     color: "#2681a5"
+
+- type: entity
+  parent: [ ClothingHeadsetAlt, BaseSecurityContraband ]
+  id: ClothingHeadsetAltWarden
+  name: warden's over-ear headset
+  description: An updated, modular intercom, allowing for rapid communication with command personnel.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeySecurity
+      - EncryptionKeyCommand
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: _Onyx/Clothing/Ears/Headsets/warden.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Ears/Headsets/warden.rsi
+  - type: Headset
+    color: "#ff4242"

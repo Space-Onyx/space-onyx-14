@@ -1,8 +1,11 @@
 using Content.Shared.Mech.Components;
+using Content.Shared.Light.Components;
+using Content.Shared.Light.EntitySystems;
 using Content.Shared.Power;
 using Content.Shared.Power.Components;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Systems;
+using Content.Server._Onyx.Mech;
 using Robust.Shared.Containers;
 
 namespace Content.Server.Mech.Systems;
@@ -10,6 +13,8 @@ namespace Content.Server.Mech.Systems;
 public sealed partial class MechSystem
 {
     [Dependency] private SharedGunSystem _gun = default!;
+    [Dependency] private UnpoweredFlashlightSystem _flashlight = default!;
+    [Dependency] private MechPilotFeedbackSystem _pilotFeedback = default!;
 
     private void InitializeBatteryState()
     {
@@ -54,7 +59,19 @@ public sealed partial class MechSystem
         }
 
         Dirty(uid, component);
+        if (component.Energy <= 0 && TryComp<UnpoweredFlashlightComponent>(uid, out var flashlight))
+            _flashlight.SetLight((uid, flashlight), false, quiet: true);
+        _pilotFeedback.UpdatePilotVision(uid, component);
         _actionBlocker.UpdateCanMove(uid);
         UpdateUserInterface(uid, component);
+    }
+
+    private bool CanEnterPoweredMech(EntityUid uid, EntityUid user, MechComponent component)
+    {
+        if (component.Energy > 0)
+            return true;
+
+        _popup.PopupEntity(Loc.GetString("mech-unpowered-entry-denied"), uid, user);
+        return false;
     }
 }

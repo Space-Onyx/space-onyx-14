@@ -121,11 +121,13 @@
         #   protos:
         #   - VGRoid
         # </Onyx-DisableVGRoid-edited>
+        # <Onyx-SalvageShuttleSpawn-edited>
         # Corvax-Mapping-Start
-        mining: !type:GridSpawnGroup
-          paths:
-          - /Maps/Corvax/Shuttles/Tara NT-KA.yml
+        # mining: !type:GridSpawnGroup
+        #   paths:
+        #   - /Maps/Corvax/Shuttles/Tara NT-KA.yml
         # Corvax-Mapping-End
+        # </Onyx-SalvageShuttleSpawn-edited>
 
 - type: entity
   id: BaseStationCentcomm

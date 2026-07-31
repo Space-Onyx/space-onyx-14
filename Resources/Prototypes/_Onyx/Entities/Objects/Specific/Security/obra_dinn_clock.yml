@@ -1,0 +1,13 @@
+- type: entity
+  parent: BaseItem
+  id: ObraDinnClock
+  name: clock of the insurance evaluator
+  description: An old heirloom that seems to be ticking backwards.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Security/obra_dinn_clock.rsi
+    state: icon
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Security/obra_dinn_clock.rsi
+    size: Small
+  - type: ObraDinnClock

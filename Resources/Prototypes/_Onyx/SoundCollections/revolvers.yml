@@ -1,0 +1,11 @@
+- type: soundCollection
+  id: RevolversPickUp
+  files:
+  - /Audio/_Onyx/Items/Weapons/Revolver/pickup1.ogg
+  - /Audio/_Onyx/Items/Weapons/Revolver/pickup2.ogg
+
+- type: soundCollection
+  id: RevolversDrop
+  files:
+  - /Audio/_Onyx/Items/Weapons/Revolver/drop1.ogg
+  - /Audio/_Onyx/Items/Weapons/Revolver/drop2.ogg

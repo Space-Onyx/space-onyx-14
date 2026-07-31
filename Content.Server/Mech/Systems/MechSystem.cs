@@ -190,6 +190,9 @@ public sealed partial class MechSystem : SharedMechSystem
                 Text = Loc.GetString("mech-verb-enter"),
                 Act = () =>
                 {
+                    if (!CanEnterPoweredMech(uid, args.User, component)) // <Onyx-MechPowerPolicy>
+                        return;
+
                     var doAfterEventArgs = new DoAfterArgs(EntityManager, args.User, component.EntryDelay, new MechEntryEvent(), uid, target: uid)
                     {
                         BreakOnMove = true,

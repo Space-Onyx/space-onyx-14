@@ -9,6 +9,19 @@
                 <Button Name="ShowIFFOnButton" Text="{Loc 'iff-console-on'}" StyleClasses="OpenRight" />
                 <Button Name="ShowIFFOffButton" Text="{Loc 'iff-console-off'}" StyleClasses="OpenLeft" />
             </BoxContainer>
+            <!-- <Onyx-IFFVesselVisibility> -->
+            <Label Name="ShowVesselLabel" Text="{Loc 'iff-console-show-vessel-label'}" HorizontalExpand="True" StyleClasses="highlight" />
+            <BoxContainer Orientation="Horizontal" MinWidth="120">
+                <Button Name="ShowVesselOnButton" Text="{Loc 'iff-console-on'}" StyleClasses="OpenRight" />
+                <Button Name="ShowVesselOffButton" Text="{Loc 'iff-console-off'}" StyleClasses="OpenLeft" />
+            </BoxContainer>
+            <!-- </Onyx-IFFVesselVisibility> -->
         </GridContainer>
+        <!-- <Onyx-IFFSettings> -->
+        <Label Text="{Loc 'iff-console-label-radar-visualization'}" StyleClasses="LabelHeading" Margin="4 8 0 4" />
+        <LineEdit Name="ShuttleName" PlaceHolder="{Loc 'iff-console-textbox-shuttle-name'}" Margin="4 0 4 4" />
+        <ColorSelectorSliders Name="ColorPicker" Margin="4 0 4 4" />
+        <Button Name="ApplySettings" Text="{Loc 'iff-console-button-apply-settings'}" HorizontalAlignment="Right" Margin="4" />
+        <!-- </Onyx-IFFSettings> -->
     </BoxContainer>
 </controls:FancyWindow>

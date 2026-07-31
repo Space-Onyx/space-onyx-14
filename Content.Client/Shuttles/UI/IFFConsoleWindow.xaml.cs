@@ -14,7 +14,6 @@ public sealed partial class IFFConsoleWindow : FancyWindow,
 {
     private readonly ButtonGroup _showIFFButtonGroup = new();
     public event Action<bool>? ShowIFF;
-
     public IFFConsoleWindow()
     {
         RobustXamlLoader.Load(this);
@@ -22,6 +21,8 @@ public sealed partial class IFFConsoleWindow : FancyWindow,
         ShowIFFOnButton.Group = _showIFFButtonGroup;
         ShowIFFOnButton.OnPressed += args => ShowIFFPressed(true);
         ShowIFFOffButton.OnPressed += args => ShowIFFPressed(false);
+        InitializeVesselVisibility(); // <Onyx-IFFVesselVisibility>
+        InitializeIFFSettings(); // <Onyx-IFFSettings>
     }
 
     private void ShowIFFPressed(bool pressed)
@@ -31,12 +32,12 @@ public sealed partial class IFFConsoleWindow : FancyWindow,
 
     public void UpdateState(IFFConsoleBoundUserInterfaceState state)
     {
-        if ((state.AllowedFlags & IFFFlags.HideLabel) != 0x0 || (state.AllowedFlags & IFFFlags.Hide) != 0x0)
+        if ((state.AllowedFlags & IFFFlags.HideLabel) != 0x0)
         {
             ShowIFFOffButton.Disabled = false;
             ShowIFFOnButton.Disabled = false;
 
-            if ((state.Flags & IFFFlags.HideLabel) != 0x0 || (state.Flags & IFFFlags.Hide) != 0x0)
+            if ((state.Flags & IFFFlags.HideLabel) != 0x0)
             {
                 ShowIFFOffButton.Pressed = true;
             }
@@ -50,5 +51,8 @@ public sealed partial class IFFConsoleWindow : FancyWindow,
             ShowIFFOffButton.Disabled = true;
             ShowIFFOnButton.Disabled = true;
         }
+
+        UpdateVesselVisibility(state); // <Onyx-IFFVesselVisibility>
+        UpdateIFFSettings(state); // <Onyx-IFFSettings>
     }
 }

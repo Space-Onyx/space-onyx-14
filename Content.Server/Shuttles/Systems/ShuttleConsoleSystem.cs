@@ -62,6 +62,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             subs.Event<ShuttleConsoleFTLPositionMessage>(OnPositionFTLMessage);
             subs.Event<BoundUIClosedEvent>(OnConsoleUIClose);
             subs.Event<ShuttlePortButtonPressedMessage>(OnShuttlePortButtonPressed); // <ShuttleSignalPorts>
+            subs.Event<SetInertiaDampeningRequest>(OnSetInertiaDampening); // <Onyx-ShuttleDampening>
         });
 
         SubscribeLocalEvent<ShuttleConsoleComponent, ComponentStartup>(OnConsoleStartup); // <ShuttleSignalPorts>
@@ -171,6 +172,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     {
         DockingInterfaceState? dockState = null;
         UpdateState(uid, ref dockState);
+        UpdateDampeningPower(uid); // <Onyx-ShuttleDampening>
     }
 
     private bool TryPilot(EntityUid user, EntityUid uid)
@@ -407,11 +409,13 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         if (!Resolve(entity, ref entity.Comp1, ref entity.Comp2))
             return new NavInterfaceState(SharedRadarConsoleSystem.DefaultMaxRange, GetNetCoordinates(coordinates), angle, docks);
 
-        return new NavInterfaceState(
+        var state = new NavInterfaceState(
             entity.Comp1.MaxRange,
             GetNetCoordinates(coordinates),
             angle,
-            docks);
+            docks); // <Onyx-ShuttleDampening-edited>
+        UpdateDampeningState(state, entity.Comp2.GridUid); // <Onyx-ShuttleDampening>
+        return state; // <Onyx-ShuttleDampening>
     }
 
     /// <summary>

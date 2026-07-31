@@ -254,6 +254,8 @@
         Quantity: 15
       - ReagentId: TranexamicAcid
         Quantity: 5
+  - type: Tag # <Onyx-SlottedSurvivalBoxes>
+    tags: [Medipen, EmergencyMedipen, Trash] # <Onyx-SlottedSurvivalBoxes>
 
 - type: entity
   parent: ChemicalMedipen
@@ -536,6 +538,8 @@
         Quantity: 10
       - ReagentId: Barozine
         Quantity: 10
+  - type: Tag # <Onyx-SlottedSurvivalBoxes>
+    tags: [Medipen, SpaceMedipen, Trash] # <Onyx-SlottedSurvivalBoxes>
 
 - type: entity
   abstract: true

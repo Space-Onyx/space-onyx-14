@@ -1,0 +1,4 @@
+- type: sourcePort
+  id: SignalContrabandDetected
+  name: signal-port-name-contraband-detected
+  description: signal-port-description-contraband-detected

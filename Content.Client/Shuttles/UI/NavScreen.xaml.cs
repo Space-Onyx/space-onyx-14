@@ -30,6 +30,8 @@ public sealed partial class NavScreen : BoxContainer
         DockToggle.OnToggled += OnDockTogglePressed;
         DockToggle.Pressed = NavRadar.ShowDocks;
 
+        InitializeDampening(); // <Onyx-ShuttleDampening>
+
         // <ShuttleSignalPorts>
         InitializeSignalPorts();
         // </ShuttleSignalPorts>
@@ -61,6 +63,7 @@ public sealed partial class NavScreen : BoxContainer
     public void UpdateState(NavInterfaceState scc)
     {
         NavRadar.UpdateState(scc);
+        UpdateDampeningState(scc); // <Onyx-ShuttleDampening>
     }
 
     public void SetMatrix(EntityCoordinates? coordinates, Angle? angle)

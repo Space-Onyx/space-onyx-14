@@ -4,7 +4,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Shuttles.BUIStates;
 
 [Serializable, NetSerializable]
-public sealed class IFFConsoleBoundUserInterfaceState : BoundUserInterfaceState
+public sealed partial class IFFConsoleBoundUserInterfaceState : BoundUserInterfaceState // <Onyx-IFFSettings-edited>
 {
     public IFFFlags AllowedFlags;
     public IFFFlags Flags;

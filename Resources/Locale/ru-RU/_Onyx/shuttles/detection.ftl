@@ -1,0 +1,9 @@
+shuttle-detection-level-detected = опознано
+shuttle-detection-level-partial = тепловой контакт
+shuttle-detection-level-undetected = не обнаружено
+shuttle-detection-mass-unknown = масса неизвестна
+shuttle-detection-mass-small = малая масса
+shuttle-detection-mass-medium = средняя масса
+shuttle-detection-mass-large = большая масса
+shuttle-detection-mass-huge = огромная масса
+shuttle-detection-mass-supermassive = сверхмассивный контакт

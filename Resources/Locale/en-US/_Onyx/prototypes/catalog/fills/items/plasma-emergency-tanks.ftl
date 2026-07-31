@@ -1,0 +1,10 @@
+ent-EmergencyPlasmaTank = emergency plasma tank
+    .desc = An easily portable tank for emergencies. Contains very little plasma, rated for survival use only.
+ent-EmergencyPlasmaTankFilled = { ent-EmergencyPlasmaTank }
+    .suffix = Filled
+    .desc = { ent-EmergencyPlasmaTank.desc }
+ent-ExtendedEmergencyPlasmaTank = extended capacity emergency plasma tank
+    .desc = An emergency tank with extended capacity. Technically rated for prolonged use.
+ent-ExtendedEmergencyPlasmaTankFilled = { ent-ExtendedEmergencyPlasmaTank }
+    .suffix = Filled
+    .desc = { ent-ExtendedEmergencyPlasmaTank.desc }

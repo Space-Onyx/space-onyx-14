@@ -57,7 +57,7 @@ public sealed partial class UnpoweredFlashlightSystem : EntitySystem
 
     private void AddToggleLightVerbs(EntityUid uid, UnpoweredFlashlightComponent component, GetVerbsEvent<ActivationVerb> args)
     {
-        if (!args.CanAccess || !args.CanInteract)
+        if (!component.AddToggleVerb || !args.CanAccess || !args.CanInteract) // <Onyx-MechLights-edited>
             return;
 
         ActivationVerb verb = new()

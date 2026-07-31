@@ -165,7 +165,7 @@ public abstract partial class SharedShuttleSystem : EntitySystem
         return HasComp<MapComponent>(coordinates.EntityId);
     }
 
-    public float GetFTLRange(EntityUid shuttleUid) => FTLRange;
+    public float GetFTLRange(EntityUid shuttleUid) => GetConfiguredFTLRange(shuttleUid); // <Onyx-FTLDrive-edited>
 
     public float GetFTLBufferRange(EntityUid shuttleUid, MapGridComponent? grid = null)
     {
@@ -198,8 +198,11 @@ public abstract partial class SharedShuttleSystem : EntitySystem
         // This is the already adjusted position
         var targetPosition = mapCoordinates.Position;
 
+        if (!CanFTLToMap(shuttleUid, shuttleXform.MapID, mapCoordinates.MapId)) // <Onyx-FTLDrive>
+            return false;
+
         // Check range even if it's cross-map.
-        if ((targetPosition - ourPos).Length() > FTLRange)
+        if ((targetPosition - ourPos).Length() > GetFTLRange(shuttleUid)) // <Onyx-FTLDrive-edited>
         {
             return false;
         }

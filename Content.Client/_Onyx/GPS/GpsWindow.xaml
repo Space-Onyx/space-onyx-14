@@ -1,7 +1,7 @@
 <ui:GpsWindow xmlns="https://spacestation14.io"
               xmlns:ui="clr-namespace:Content.Client._Onyx.GPS"
               xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
-              SetWidth="400" SetHeight="670"
+               SetWidth="440" SetHeight="670"
               Resizable="False"
               MouseFilter="Stop">
     <PanelContainer Name="Background" StyleClasses="PdaBackgroundRect" ModulateSelfOverride="#505060" />

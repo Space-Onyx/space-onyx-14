@@ -1,8 +1,10 @@
 using Content.Shared.Chat;
+using Content.Shared.CCVar; // <Onyx-SpeechSoundsCVar>
 using Content.Shared._Onyx.Loudspeaker.Events; // <Onyx-Loudspeaker>
 using Content.Shared.Speech;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Configuration; // <Onyx-SpeechSoundsCVar>
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
@@ -13,6 +15,7 @@ namespace Content.Server.Speech
         [Dependency] private IGameTiming _gameTiming = default!;
         [Dependency] private IRobustRandom _random = default!;
         [Dependency] private SharedAudioSystem _audio = default!;
+        [Dependency] private IConfigurationManager _configuration = default!; // <Onyx-SpeechSoundsCVar>
 
         public override void Initialize()
         {
@@ -34,6 +37,11 @@ namespace Content.Server.Speech
             }
             else
             {
+                // <Onyx-SpeechSoundsCVar>
+                if (!_configuration.GetCVar(CCVars.SpeechSoundsEnabled))
+                    return null;
+                // </Onyx-SpeechSoundsCVar>
+
                 if (ent.Comp.SpeechSounds == null)
                     return null;
 

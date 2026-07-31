@@ -9,3 +9,6 @@ ent-SyringeOxycodone = syringe
     .suffix = Oxycodone 15u
 pill-label-tramadol-7-5u = tramadol 7.5u
 syringe-label-oxycodone = oxycodone
+ent-SyringePax = { ent-PrefilledSyringe }
+    .suffix = pax
+    .desc = { ent-PrefilledSyringe.desc }

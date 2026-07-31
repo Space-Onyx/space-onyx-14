@@ -148,6 +148,7 @@
     - ThrusterMachineCircuitboard
     - GyroscopeMachineCircuitboard
     - MiniGravityGeneratorCircuitboard
+    - MachineFTLDriveCircuitboard
   position: 4,2
   technologyPrerequisites:
     - IndustrialEngineering

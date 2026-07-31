@@ -1,10 +1,13 @@
 using Content.Client.Hands.Systems;
+using Content.Shared.Input;
 using Content.Shared.Interaction;
 using Content.Shared.RCD;
 using Content.Shared.RCD.Components;
 using Robust.Client.Placement;
 using Robust.Client.Player;
 using Robust.Shared.Enums;
+using Robust.Shared.Input;
+using Robust.Shared.Input.Binding;
 
 namespace Content.Client.RCD;
 
@@ -20,6 +23,42 @@ public sealed partial class RCDConstructionGhostSystem : EntitySystem
     [Dependency] private HandsSystem _hands = default!;
 
     private Direction _placementDirection = default;
+    private bool _useMirrorPrototype; // <Onyx-RPD>
+
+    // <Onyx-RPD>
+    public override void Initialize()
+    {
+        base.Initialize();
+        CommandBinds.Builder
+            .Bind(ContentKeyFunctions.EditorFlipObject,
+                new PointerInputCmdHandler(HandleFlip, outsidePrediction: true))
+            .Register<RCDConstructionGhostSystem>();
+    }
+
+    public override void Shutdown()
+    {
+        CommandBinds.Unregister<RCDConstructionGhostSystem>();
+        base.Shutdown();
+    }
+
+    private bool HandleFlip(in PointerInputCmdHandler.PointerInputCmdArgs args)
+    {
+        if (args.State != BoundKeyState.Down || !_placementManager.IsActive || _placementManager.Eraser)
+            return false;
+
+        var placer = _placementManager.CurrentPermission?.MobUid;
+        if (!TryComp(placer, out RCDComponent? rcd))
+            return false;
+
+        var prototype = ProtoMan.Index(rcd.ProtoId);
+        if (string.IsNullOrEmpty(prototype.MirrorPrototype))
+            return false;
+
+        _useMirrorPrototype = !rcd.UseMirrorPrototype;
+        RaiseNetworkEvent(new RCDConstructionGhostFlipEvent(GetNetEntity(placer.Value), _useMirrorPrototype));
+        return true;
+    }
+    // </Onyx-RPD>
 
     public override void Update(float frameTime)
     {
@@ -62,8 +101,12 @@ public sealed partial class RCDConstructionGhostSystem : EntitySystem
             RaiseNetworkEvent(new RCDConstructionGhostRotationEvent(GetNetEntity(heldEntity.Value), _placementDirection));
         }
 
+        var constructionPrototype = _useMirrorPrototype && !string.IsNullOrEmpty(prototype.MirrorPrototype)
+            ? prototype.MirrorPrototype
+            : prototype.Prototype; // <Onyx-RPD>
+
         // If the placer has not changed, exit
-        if (heldEntity == placerEntity && prototype.Prototype == placerProto)
+        if (heldEntity == placerEntity && constructionPrototype == placerProto)
             return;
 
         // Create a new placer
@@ -71,7 +114,7 @@ public sealed partial class RCDConstructionGhostSystem : EntitySystem
         {
             MobUid = heldEntity.Value,
             PlacementOption = PlacementMode,
-            EntityType = prototype.Prototype,
+            EntityType = constructionPrototype, // <Onyx-RPD-edited>
             Range = (int)Math.Ceiling(SharedInteractionSystem.InteractionRange),
             IsTile = (prototype.Mode == RcdMode.ConstructTile),
             UseEditorContext = false,

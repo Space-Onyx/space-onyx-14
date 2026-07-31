@@ -50,7 +50,7 @@
 - type: speechBark
   id: OneshotRobot
   name: bark-oneshot-robot-name # @@@ QWERTY barks addon folder
-  sound: /Audio/ADT/Voice/Vocal-Barks/oneshot-robot.ogg
+  sound: /Audio/_Onyx/Voice/Vocal-Barks/oneshot-robot.ogg
   roundStart: false
 
 - type: speechBark

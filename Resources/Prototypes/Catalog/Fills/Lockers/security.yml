@@ -26,35 +26,34 @@
   id: FillLockerWarden
   table: !type:AllSelector
     children:
+    # <Onyx-LockerInventories-edited>
     - id: FlashlightSeclite
-    - id: WeaponDisabler
     - id: ClothingBeltSecurityFilled
     - id: Flash
     - id: ClothingEyesGlassesSecurity
     - id: ClothingHandsGlovesCombat
-    # <MartialArts>
     - id: ClothingHandsGlovesKravMaga
-    # </MartialArts>
     - id: ClothingShoesBootsJack
     - id: ClothingOuterCoatWarden
     - id: ClothingOuterWinterWarden
     - id: RubberStampWarden
     - id: DoorRemoteArmory
-    - id: HoloprojectorSecurity
     - id: BookSpaceLaw
-    - id: ClothingHeadHatCapWardenAlt # Corvax-SecFashion
-    - id: ClothingOuterCoatWardenAlt # Corvax-SecFashion
-    - id: ClothingBackpackWarden # Corvax-SecFashion
     - id: ClothingBackpackElectropack
       amount: 2
     - id: RemoteSignaller
       amount: 2
-    - id: NetworkConfigurator
     - id: Binoculars
-    - id: PlushieLizardJobWarden
-      prob: 0.02
-    - id: SecApartmentTablet # Corvax-SecApartment
-    - id: SecurityMegaphone # <Onyx-Loudspeaker>
+    - id: WeaponEnergyShotgun
+    - id: BoxLethalInjection
+    - id: ClothingHeadsetAltWarden
+    - id: Multitool
+    - id: Wrench
+    - id: ContrabandDetectorFlatpack
+      amount: 2
+    - id: SecurityMegaphone
+    - id: SecApartmentTablet
+    # </Onyx-LockerInventories-edited>
 
 - type: entityTable
   id: FillLockerWardenHarduit
@@ -126,48 +125,20 @@
   id: FillLockerBrigmedic
   table: !type:AllSelector
     children:
-    - id: ClothingEyesGlassesSecurity
-    - id: WeaponDisabler
-    - id: TrackingImplanter
-      amount: 2
+    # <Onyx-LockerInventories-edited>
+    - id: ClothingBackpackDuffelSurgeryFilled
+    - id: ClothingHandsGlovesLatex
     - id: ClothingOuterHardsuitBrigmedic
-    - id: BoxSterileMask
-    - id: ClothingHeadHatBeretBrigmedic
-    - id: ClothingOuterCoatAMG
-    - id: ClothingUniformJumpsuitBrigmedic
-    - id: ClothingUniformJumpskirtBrigmedic
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
     - id: ClothingUniformJumpskirtOfLife
       prob: 0.1
-    - id: MedkitFilled
-    #Corvax Delete start
-    #- !type:GroupSelector
-    #  prob: 0.7
-    #  children:
-    #  - id: MedkitCombatFilled
-    #    weight: 1.6
-    #  - id: MedkitAdvancedFilled
-    #  - id: MedkitOxygenFilled
-    #    weight: 0.8
-    #  - id: MedkitBruteFilled
-    #    weight: 0.8
-    #  - id: MedkitToxinFilled
-    #    weight: 0.8
-    #  - id: MedkitBurnFilled
-    #    weight: 1.8
-    #Corvax Delete end
-    - id: ClothingNeckCloakMoth #bzzz Moth-pocalypse
-      prob: 0.15
-    - id: ClothingHeadHelmetSecurityMedic # Corvax-Resprite
-    - id: ClothingOuterVestSecurityMedic # Corvax-Resprite
-      prob: 0.5
-    - id: ClothingOuterCoatLabSecurityMedic # Corvax-Resprite
-      prob: 0.5
-      # Corvax-Brigmedic-Start
-    - id: ClothingMaskBreathMedicalSecurity
-    - id: BoxBodyBag
-    - id: Defibrillator
+    - id: MedkitOxygenFilled
     - id: MedkitAdvancedFilled
-      # Corvax-Brigmedic-End
+    - id: Defibrillator
+    - id: BoxSyringe
+    - id: BoxBodyBag
+    # </Onyx-LockerInventories-edited>
 
 - type: entity
   id: LockerDetectiveFilled
@@ -183,11 +154,16 @@
   id: FillLockerDetective
   table: !type:AllSelector
     children:
+    # <Onyx-LockerInventories-edited>
     - id: ClothingEyesGlassesNoir
     - id: ClothingHeadHatDetGadget
     - id: ClothingNeckTieDet
-    - id: ClothingOuterVestDetective
-    - id: ClothingOuterCoatDetectiveLoadout
+    - !type:GroupSelector
+      children:
+      - id: ClothingOuterVestDetective
+        weight: 0.5
+      - id: ClothingOuterCoatDetectiveLoadout
+        weight: 0.5
     - id: FlippoEngravedLighter
     - id: FlashlightSeclite
     - id: ForensicScanner
@@ -196,12 +172,13 @@
     - id: DrinkDetFlask
     - id: ClothingHandsGlovesForensic
     - id: RubberStampDetective
-    - id: BookBusido # Corvax-Books
     - id: HoloprojectorSecurity
     - id: BoxEvidenceMarkers
     - id: HandLabeler
-    - id: PlushieLizardJobDetective
-      prob: 0.02
+    - id: PhotoCameraFilled
+    - id: BloodTrak # Onyx
+    - id: ObraDinnClock # Onyx
+    # </Onyx-LockerInventories-edited>
 
 - type: entity
   id: ClosetBombFilled

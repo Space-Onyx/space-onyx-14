@@ -1,0 +1,4 @@
+- files: ["oneshot-robot.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Ported from Goob-Station commit 32af02859d1; original sound from OneShot"
+  source: "https://github.com/Goob-Station/Goob-Station"

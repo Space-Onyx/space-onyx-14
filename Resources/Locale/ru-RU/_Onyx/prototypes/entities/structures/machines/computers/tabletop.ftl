@@ -170,3 +170,6 @@ ent-StationAiUploadComputerTabletop = { ent-StationAiUploadComputer }
     .desc = { ent-StationAiUploadComputer.desc }
     .suffix = { ent-CentcommConsoleTabletop.suffix }
 
+ent-ComputerGunneryConsoleTabletop = { ent-ComputerGunneryConsole }
+    .desc = { ent-ComputerGunneryConsole.desc }
+    .suffix = { ent-CentcommConsoleTabletop.suffix }

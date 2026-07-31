@@ -1,0 +1,9 @@
+shuttle-detection-level-detected = identified
+shuttle-detection-level-partial = thermal contact
+shuttle-detection-level-undetected = undetected
+shuttle-detection-mass-unknown = unknown mass
+shuttle-detection-mass-small = small mass
+shuttle-detection-mass-medium = medium mass
+shuttle-detection-mass-large = large mass
+shuttle-detection-mass-huge = huge mass
+shuttle-detection-mass-supermassive = supermassive contact

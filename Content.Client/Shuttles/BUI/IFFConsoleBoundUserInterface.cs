@@ -8,7 +8,7 @@ using Robust.Client.UserInterface;
 namespace Content.Client.Shuttles.BUI;
 
 [UsedImplicitly]
-public sealed class IFFConsoleBoundUserInterface : BoundUserInterface
+public sealed partial class IFFConsoleBoundUserInterface : BoundUserInterface // <Onyx-IFFSettings-edited>
 {
     [ViewVariables]
     private IFFConsoleWindow? _window;
@@ -23,6 +23,8 @@ public sealed class IFFConsoleBoundUserInterface : BoundUserInterface
 
         _window = this.CreateWindowCenteredLeft<IFFConsoleWindow>();
         _window.ShowIFF += SendIFFMessage;
+        InitializeVesselVisibility(); // <Onyx-IFFVesselVisibility>
+        InitializeIFFSettings(); // <Onyx-IFFSettings>
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)

@@ -8,3 +8,7 @@ ent-BoxBodyBagRadiation = radiation body bag box
     .desc = Contains body bags.
 ent-BoxBodyBagSyndicate = syndicate body bag box
     .desc = Contains body bags.
+ent-BoxAutoinjectorCartidges = autoinjector cartridge box
+    .desc = A box with autoinjector cartridges.
+ent-BoxSyringePax = pax syringe box
+    .desc = A box full of tranquilizer syringes.

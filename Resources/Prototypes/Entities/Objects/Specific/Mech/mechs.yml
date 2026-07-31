@@ -11,6 +11,22 @@
       - Zombie
     # </MechPilotBlacklist>
   - type: MechAir
+  # <Onyx-MechFeedback>
+  - type: Speech
+  - type: SpeechBarks
+    data:
+      proto: OneshotRobot
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        collection: MetalThud
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+      Burn:
+        collection: MetalLaserImpact
+  # </Onyx-MechFeedback>
   - type: AirFilter
     # everything except oxygen and nitrogen
     gases:
@@ -60,6 +76,8 @@
         type: MechEquipmentSelectorBoundUserInterface
   - type: MeleeWeapon
     hidden: true
+    animation: WeaponArcPunch # <Onyx-MechUnarmed-edited>
+    wideAnimation: WeaponArcPunch # <Onyx-MechUnarmed-edited>
     attackRate: 0.75
     damage:
       types:
@@ -73,6 +91,7 @@
   - type: InteractionOutline
   # <MechLights>
   - type: UnpoweredFlashlight
+    addToggleVerb: false
   - type: PointLight
     enabled: false
     softness: 5 # <MechLights-edited>

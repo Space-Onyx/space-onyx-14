@@ -36,6 +36,42 @@
     - SecBeltEquip
 
 - type: entity
+  parent: [ BaseItem, BaseSecurityContraband, ClothingBeltBase ]
+  id: PoliceBaton
+  name: police baton
+  description: A wooden truncheon for beating criminal scum.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Melee/police_baton.rsi
+    state: icon
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Melee/police_baton.rsi
+  - type: Item
+    size: Normal
+    shape:
+    - 0,0,1,2
+  - type: MeleeWeapon
+    canWideSwing: false
+    attackRate: 0.8
+    damage:
+      types:
+        Blunt: 10
+    angle: 0
+    animation: WeaponArcThrust
+  - type: UseDelay
+    delays:
+      hit:
+        length: 2
+  - type: UseDelayBlockMelee
+    delays:
+    - hit
+  - type: StaminaDamageOnHit
+    damage: 35
+    sound: /Audio/_Onyx/Weapons/Baton/woodhit.ogg
+  - type: StaticPrice
+    price: 65
+
+- type: entity
   id: SpearTelescopic
   parent: [BaseItem, BaseSecurityContraband]
   name: telescopic spear

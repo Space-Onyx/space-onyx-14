@@ -2,20 +2,31 @@
   id: LockerFillQuarterMaster
   table: !type:AllSelector
     children:
+    # <Onyx-LockerInventories-edited>
     - id: BoxEncryptionKeyCargo
     - id: BoxFolderQmClipboard
-    - id: BoxQMCircuitboards
-    - id: BoxQMStamps
+    - id: CargoBountyComputerCircuitboard
+    - id: CargoRequestComputerCircuitboard
+    - id: CargoSaleComputerCircuitboard
+    - id: CargoShuttleConsoleCircuitboard
+    - id: SalvageMagnetMachineCircuitboard
     - id: CigPackGreen
-      prob: 0.50
+      prob: 0.75
     - id: ClothingHeadsetAltCargo
     - id: DoorRemoteCargo
+    - id: RubberStampApproved
+    - id: RubberStampDenied
+    - id: RubberStampQm
+    - id: LavalandShuttleConsoleCircuitboard
     - id: AstroNavCartridge
+    - id: CargoTechFabCircuitboard
+    - id: MailTeleporterMachineCircuitboard
     - id: ClothingHandsKnuckleDustersQM
-    - id: PlushieLizardJobQuartermaster
-      prob: 0.02
-    - id: PrinterDocFlatpack # Corvax-Printer
-    - id: CargoMegaphone # <Onyx-Loudspeaker>
+    - id: SalvageJobBoardComputerCircuitboard
+    - id: CargoMegaphone
+    - id: ComputerFundingAllocationFlatpack
+    - id: HoloprojectorCrate
+    # </Onyx-LockerInventories-edited>
 
 - type: entity
   id: LockerQuarterMasterFilled
@@ -32,12 +43,13 @@
   id: LockerFillCaptainNoLaser
   table: !type:AllSelector
     children:
+    # <Onyx-LockerInventories-edited>
     - id: CaptainIDCard
     - id: CigarGoldCase
       prob: 0.25
     - id: ClothingBeltSheathFilled
-    - id: ClothingOuterArmorCaptainCarapace
-    - id: BoxCaptainCircuitboards
+    - id: ClothingHeadsetAltCommand
+    - id: CommsComputerCircuitboard
     - id: DoorRemoteCustom
     - id: NukeDisk
     - id: PinpointerNuclear
@@ -45,18 +57,7 @@
       prob: 0.1
     - id: SpaceCash1000
     - id: WeaponDisabler
-    - id: ClothingEyesGlassesCommand
-    - id: OrganSkeletonPersonHead # A skull to accompany your skeleton crew
-      conditions:
-      - !type:PlayerCountCondition
-        max: 15
-    - id: PlushieLizardJobCaptain
-      prob: 0.02
-    # Corvax-Start
-    - id: PrinterDocFlatpack
-    - id: ClothingHeadCaptainHat
-    - id: ClothingOuterCoatCaptain
-    # Corvax-End
+    # </Onyx-LockerInventories-edited>
 
 # No laser table + Laser table
 - type: entityTable
@@ -76,6 +77,7 @@
     - id: ClothingMaskGasCaptain
     - id: JetpackCaptainFilled
     - id: OxygenTankFilled
+    - id: NitrogenTankFilled # <Onyx-LockerInventories-edited>
 
 # No laser locker, used when the antique laser is placed in the special display crate
 - type: entity
@@ -118,12 +120,11 @@
   id: LockerFillHeadOfPersonnel
   table: !type:AllSelector
     children:
+    # <Onyx-LockerInventories-edited>
     - id: AccessConfigurator
     - id: BoxEncryptionKeyPassenger
     - id: BoxEncryptionKeyService
     - id: BoxHeadset
-    - id: BoxHoPCircuitboards
-    - id: BoxHoPStamps
     - id: BoxID
     - id: BoxPDA
     - id: CigarGoldCase
@@ -132,17 +133,25 @@
       # Yes they do fuck you.
     - id: ClothingBackpackIan
       prob: 0.5
-    - id: ClothingHeadsetCommand
+    - id: ClothingHeadsetAltCommand
     - id: ClothingNeckGoldmedal
     - id: DoorRemoteService
     - id: HoPIDCard
+    - id: IDComputerCircuitboard
+    - id: PrinterDocFlatpack
+    - id: RubberStampApproved
+    - id: RubberStampDenied
+    - id: RubberStampHop
     - id: WeaponDisabler
     - id: ClothingEyesHudCommand
-    - id: PlushieLizardJobHeadofpersonnel
-      prob: 0.02
-    - id: ClothingOuterCoatHOP # Corvax-Resprite
-    - id: PrinterDocFlatpack # Corvax-Printer
-    - id: CommandMegaphone # <Onyx-Loudspeaker>
+    - id: ServiceTechFabCircuitboard
+    - id: CommandMegaphone
+    - id: ComputerCargoRequestServiceFlatpack
+    - id: ATMFlatpack
+    - id: ATMFlatpack
+    - id: Eftpos
+    - id: Eftpos
+    # </Onyx-LockerInventories-edited>
 
 - type: entity
   id: LockerHeadOfPersonnelFilled
@@ -159,6 +168,7 @@
   id: LockerFillChiefEngineerNoHardsuit
   table: !type:AllSelector
     children:
+    # <Onyx-LockerInventories-edited>
     - id: AccessConfigurator
     - id: BoxEncryptionKeyEngineering
     - id: CigarCase
@@ -168,18 +178,21 @@
     - id: ClothingHandsGlovesColorYellow
     - id: ClothingHeadsetAltEngineering
     - id: DoorRemoteEngineering
-    - id: BoxCECircuitboards
-    - id: RCD
+    - id: CargoRequestEngineeringComputerCircuitboard
+    - id: RCDAmmo
+    - id: RPD # <Onyx-LockerInventories>
     - id: RCDAmmo
     - id: RubberStampCE
     - id: MetalFoamGrenade
-    - id: PlushieLizardJobChiefengineer
-      prob: 0.02
-    - id: PrinterDocFlatpack # Corvax-Printer
-    # <GoobStation-Supermatter>
     - id: SupermatterComputerCircuitboard
     - id: BaseHandheldStationMapSupermatterCe
-    # </GoobStation-Supermatter>
+    - id: EngineeringTechFabCircuitboard
+    - id: CartridgeRocketSingularityBuster
+    - id: CartridgeRocketSingularityBuster
+    - id: WeaponLauncherSingularityBuster
+    - id: MachinePowerTransmissionLaserFlatpack
+    - id: RCDRechargingCE
+    # </Onyx-LockerInventories-edited>
 
 # Hardsuit table, used for suit storage as well
 - type: entityTable
@@ -191,6 +204,7 @@
     - id: ClothingShoesBootsMagAdv
     - id: JetpackVoidFilled
     - id: OxygenTankFilled
+    - id: NitrogenTankFilled # <Onyx-LockerInventories-edited>
 
 # No hardsuit locker
 - type: entity
@@ -223,27 +237,32 @@
   id: LockerFillChiefMedicalOfficerNoHardsuit
   table: !type:AllSelector
     children:
-    - id: ClothingEyesHudMedical
-    - id: ClothingBeltMedicalFilled
-    - id: HandheldCrewMonitor
-    - id: Hypospray
-    - id: MedTekCartridge
-    # Standard command gear
-    - id: RubberStampCMO
-    - id: ClothingHeadsetAltMedical
-    - id: DoorRemoteMedical
+    # <Onyx-LockerInventories-edited>
     - id: BoxEncryptionKeyMedical
-    - id: BoxCMOCircuitboards
-    # <Onyx-MedicalBiofabricator>
+    - id: ClothingCloakCmo
+    - id: ClothingEyesHudMedical
+    - id: ClothingHandsGlovesNitrile
+    - id: ClothingHeadHatBeretCmo
+    - id: ClothingHeadsetAltMedical
+    - id: ClothingMaskSterile
+    - id: DoorRemoteMedical
+    - id: Hypospray
+    - id: MedicalTechFabCircuitboard
+    - id: MedkitFilled
+    - id: RubberStampCMO
+    - id: Multitool
+    - id: MedTekCartridge
+    - id: RapidSyringeGun
+    - id: BoxSyringePax
+    - id: ClothingBeltMilitaryWebbingCMOFilled
+    - id: ComputerCargoRequestMedicalFlatpack
+    - id: ChemistryHotplateFlatPack
+    - id: BiomassReclaimerFlatpack
+    - id: ClothingBackpackDuffelSurgeryFilled
     - id: MedicalBiofabricatorFlatpack
-    # </Onyx-MedicalBiofabricator>
-    # <Onyx-VirologyMachines>
     - id: DiseaseDiagnoserFlatPack
     - id: VaccinatorFlatPack
-    # </Onyx-VirologyMachines>
-    - id: PlushieLizardJobChiefmedicalofficer
-      prob: 0.02
-    - id: PrinterDocFlatpack # Corvax-Printer
+    # </Onyx-LockerInventories-edited>
 
 # Hardsuit table, used for suit storage as well
 - type: entityTable
@@ -253,6 +272,7 @@
     - id: ClothingMaskBreathMedical
     - id: ClothingOuterHardsuitMedical
     - id: OxygenTankFilled
+    - id: NitrogenTankFilled # <Onyx-LockerInventories-edited>
 
 # No hardsuit locker
 - type: entity
@@ -285,17 +305,23 @@
   id: LockerFillResearchDirectorNoHardsuit
   table: !type:AllSelector
     children:
+    # <Onyx-LockerInventories-edited>
     - id: Intellicard
     - id: BoxEncryptionKeyScience
-    - id: BoxRDCircuitboards
     - id: ClothingBeltUtilityFilled
     - id: ClothingHeadsetAltScience
     - id: DoorRemoteResearch
     - id: HandTeleporter
+    - id: ResearchComputerCircuitboard
+    - id: ComputerCargoRequestScienceFlatpack
     - id: RubberStampRd
-    - id: PlushieLizardJobResearchdirector
-      prob: 0.02
-    - id: PrinterDocFlatpack # Corvax-Printer
+    - id: AnomalyLocator
+    - id: CigarCase
+      prob: 0.15
+    - id: ScienceTechFabCircuitboard
+    - id: XenobiologyBountyComputerCircuitboard
+    - id: MMI
+    # </Onyx-LockerInventories-edited>
 
 # Hardsuit table, used for suit storage as well
 - type: entityTable
@@ -305,6 +331,7 @@
     - id: ClothingMaskBreath
     - id: UndeterminedVoidsuitRD # <Onyx-VoidsuitSelectors-edited>
     - id: OxygenTankFilled
+    - id: NitrogenTankFilled # <Onyx-LockerInventories-edited>
 
 # No hardsuit locker
 - type: entity
@@ -337,7 +364,7 @@
   id: LockerFillHeadOfSecurityNoHardsuit
   table: !type:AllSelector
     children:
-    # - id: WeaponEnergyMagnum <Onyx-Removed>
+    # <Onyx-LockerInventories-edited>
     - id: BookSpaceLaw
     - id: BoxEncryptionKeySecurity
     - id: CigarGoldCase
@@ -345,27 +372,18 @@
     - id: ClothingBeltSecurityFilled
     - id: ClothingEyesGlassesSecurity
     - id: ClothingHeadsetAltSecurity
+    - id: ClothingMaskNeckGaiter
     - id: ClothingOuterCoatHoSTrench
-    - id: ClothingBeltSheathHeadOfSecurityFilled # <Onyx-JusticeSheath>
     - id: ClothingShoesBootsJack
-    - id: FlashlightSeclite
     - id: DoorRemoteSecurity
-    - id: HoloprojectorSecurity
     - id: RubberStampHos
-    - id: BoxHoSCircuitboards
-    - id: WeaponDisabler
+    - id: SecurityTechFabCircuitboard
+    - id: ComputerCargoRequestSecurityFlatpack
     - id: WantedListCartridge
     - id: DrinkHosFlask
-    - id: PlushieLizardJobHeadofsecurity
-      prob: 0.02
-    # Corvax-Start
-    - id: ClothingHeadHatCapHoS
-      prob: 0.5
-    - id: ClothingOuterCoatHoSGreatcoat
-    - id: BookBusido
+    - id: ClothingBeltSheathHeadOfSecurityFilled
     - id: SecApartmentTablet
-    - id: PrinterDocFlatpack
-    # Corvax-End
+    # </Onyx-LockerInventories-edited>
 
 # Hardsuit table, used for suit storage as well
 - type: entityTable
@@ -376,6 +394,7 @@
     - id: UndeterminedVoidsuitHeadOfSecurity # <Onyx-VoidsuitSelectors-edited>
     - id: JetpackSecurityFilled
     - id: OxygenTankFilled
+    - id: NitrogenTankFilled # <Onyx-LockerInventories-edited>
 
 # No hardsuit locker
 - type: entity

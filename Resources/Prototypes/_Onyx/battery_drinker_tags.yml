@@ -3,3 +3,51 @@
 
 - type: Tag
   id: IPCDrinkBlacklist
+
+- type: Tag
+  id: DisposableBattery
+
+- type: Tag
+  id: EmergencyPlasmaTank
+
+- type: Tag
+  id: ExtendedEmergencyPlasmaTank
+
+- type: Tag
+  id: BreadEmergency
+
+- type: Tag
+  id: FoodTinMRE
+
+- type: Tag
+  id: BreathMask
+
+- type: Tag
+  id: SecurityBreathMask
+
+- type: Tag
+  id: SyndicateBreathMask
+
+- type: Tag
+  id: EmergencyMedipen
+
+- type: Tag
+  id: SpaceMedipen
+
+- type: Tag
+  id: EmergencyOxygenTank
+
+- type: Tag
+  id: ExtendedEmergencyOxygenTank
+
+- type: Tag
+  id: ClownEmergencyOxygenTank
+
+- type: Tag
+  id: EmergencyNitrogenTank
+
+- type: Tag
+  id: ExtendedEmergencyNitrogenTank
+
+- type: Tag
+  id: Medipen
