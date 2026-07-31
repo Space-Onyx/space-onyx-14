@@ -114,35 +114,35 @@
   id: OrganGingerbreadHead
 
 - type: entity
-  parent: [ OrganBaseArmLeft, OrganGingerbreadExternal ]
+  parent: [ OrganGingerbreadExternal, OrganBaseArmLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganGingerbreadArmLeft
 
 - type: entity
-  parent: [ OrganBaseArmRight, OrganGingerbreadExternal ]
+  parent: [ OrganGingerbreadExternal, OrganBaseArmRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganGingerbreadArmRight
 
 - type: entity
-  parent: [ OrganBaseHandLeft, OrganGingerbreadExternal ]
+  parent: [ OrganGingerbreadExternal, OrganBaseHandLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganGingerbreadHandLeft
 
 - type: entity
-  parent: [ OrganBaseHandRight, OrganGingerbreadExternal ]
+  parent: [ OrganGingerbreadExternal, OrganBaseHandRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganGingerbreadHandRight
 
 - type: entity
-  parent: [ OrganBaseLegLeft, OrganGingerbreadExternal ]
+  parent: [ OrganGingerbreadExternal, OrganBaseLegLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganGingerbreadLegLeft
 
 - type: entity
-  parent: [ OrganBaseLegRight, OrganGingerbreadExternal ]
+  parent: [ OrganGingerbreadExternal, OrganBaseLegRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganGingerbreadLegRight
 
 - type: entity
-  parent: [ OrganBaseFootLeft, OrganGingerbreadExternal ]
+  parent: [ OrganGingerbreadExternal, OrganBaseFootLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganGingerbreadFootLeft
 
 - type: entity
-  parent: [ OrganBaseFootRight, OrganGingerbreadExternal ]
+  parent: [ OrganGingerbreadExternal, OrganBaseFootRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganGingerbreadFootRight
 
 - type: entity

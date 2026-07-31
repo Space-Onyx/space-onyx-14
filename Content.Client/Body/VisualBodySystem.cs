@@ -71,7 +71,11 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
     {
         RemoveVisual(ent, args.Target);
         // <Onyx-DetachedPartVisuals-edited>
-        ApplyVisual(ent, GetDetachedPartRoot(ent.Owner));
+        var detachedRoot = GetDetachedPartRoot(ent.Owner);
+        if (detachedRoot == ent.Owner && HasComp<Content.Shared.Body.Part.BodyPartComponent>(ent.Owner))
+            ClearDetachedBodyPartVisuals(detachedRoot);
+
+        ApplyVisual(ent, detachedRoot);
         // </Onyx-DetachedPartVisuals-edited>
     }
 
@@ -218,6 +222,16 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
 
     private void ApplyMarkings(Entity<VisualOrganMarkingsComponent> ent, Entity<SpriteComponent?> target)
     {
+        // <Onyx-DetachedOrganMarkings-edited>
+        if (!ent.Comp.ShowOnDetached &&
+            TryComp<OrganComponent>(ent.Owner, out var organ) &&
+            organ.Body == null)
+        {
+            ent.Comp.AppliedMarkings.Clear();
+            return;
+        }
+        // </Onyx-DetachedOrganMarkings-edited>
+
         if (!Resolve(target, ref target.Comp))
             return;
 

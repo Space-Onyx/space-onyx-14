@@ -236,33 +236,33 @@
     state: skull_icon
 
 - type: entity
-  parent: [ OrganBaseArmLeft, OrganSkeletonPersonExternal ]
+  parent: [ OrganSkeletonPersonExternal, OrganBaseArmLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSkeletonPersonArmLeft
 
 - type: entity
-  parent: [ OrganBaseArmRight, OrganSkeletonPersonExternal ]
+  parent: [ OrganSkeletonPersonExternal, OrganBaseArmRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSkeletonPersonArmRight
 
 - type: entity
-  parent: [ OrganBaseHandLeft, OrganSkeletonPersonExternal ]
+  parent: [ OrganSkeletonPersonExternal, OrganBaseHandLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSkeletonPersonHandLeft
 
 - type: entity
-  parent: [ OrganBaseHandRight, OrganSkeletonPersonExternal ]
+  parent: [ OrganSkeletonPersonExternal, OrganBaseHandRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSkeletonPersonHandRight
 
 - type: entity
-  parent: [ OrganBaseLegLeft, OrganSkeletonPersonExternal ]
+  parent: [ OrganSkeletonPersonExternal, OrganBaseLegLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSkeletonPersonLegLeft
 
 - type: entity
-  parent: [ OrganBaseLegRight, OrganSkeletonPersonExternal ]
+  parent: [ OrganSkeletonPersonExternal, OrganBaseLegRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSkeletonPersonLegRight
 
 - type: entity
-  parent: [ OrganBaseFootLeft, OrganSkeletonPersonExternal ]
+  parent: [ OrganSkeletonPersonExternal, OrganBaseFootLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSkeletonPersonFootLeft
 
 - type: entity
-  parent: [ OrganBaseFootRight, OrganSkeletonPersonExternal ]
+  parent: [ OrganSkeletonPersonExternal, OrganBaseFootRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSkeletonPersonFootRight

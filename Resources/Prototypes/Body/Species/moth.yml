@@ -264,35 +264,35 @@
     - enum.HumanoidVisualLayers.HeadTop
 
 - type: entity
-  parent: [ OrganBaseArmLeft, OrganMothExternal ]
+  parent: [ OrganMothExternal, OrganBaseArmLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganMothArmLeft
 
 - type: entity
-  parent: [ OrganBaseArmRight, OrganMothExternal ]
+  parent: [ OrganMothExternal, OrganBaseArmRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganMothArmRight
 
 - type: entity
-  parent: [ OrganBaseHandLeft, OrganMothExternal ]
+  parent: [ OrganMothExternal, OrganBaseHandLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganMothHandLeft
 
 - type: entity
-  parent: [ OrganBaseHandRight, OrganMothExternal ]
+  parent: [ OrganMothExternal, OrganBaseHandRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganMothHandRight
 
 - type: entity
-  parent: [ OrganBaseLegLeft, OrganMothExternal ]
+  parent: [ OrganMothExternal, OrganBaseLegLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganMothLegLeft
 
 - type: entity
-  parent: [ OrganBaseLegRight, OrganMothExternal ]
+  parent: [ OrganMothExternal, OrganBaseLegRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganMothLegRight
 
 - type: entity
-  parent: [ OrganBaseFootLeft, OrganMothExternal ]
+  parent: [ OrganMothExternal, OrganBaseFootLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganMothFootLeft
 
 - type: entity
-  parent: [ OrganBaseFootRight, OrganMothExternal ]
+  parent: [ OrganMothExternal, OrganBaseFootRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganMothFootRight
 
 - type: entity

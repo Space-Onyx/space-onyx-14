@@ -45,6 +45,7 @@ public sealed partial class IdCardConsoleComponent : Component
         "Armory",
         "Atmospherics",
         "Bar",
+        "BlueshieldOfficer", // <Onyx-ExtendedIdAccess>
         "Brig",
         "Detective",
         "Captain",
@@ -54,6 +55,7 @@ public sealed partial class IdCardConsoleComponent : Component
         "ChiefEngineer",
         "ChiefMedicalOfficer",
         "Command",
+        "CentralCommand", // <Onyx-ExtendedIdAccess>
         "Cryogenics",
         "Engineering",
         "External",
@@ -63,6 +65,7 @@ public sealed partial class IdCardConsoleComponent : Component
         "HeadOfSecurity",
         "Hydroponics",
         "Janitor",
+        "Journalism", // <Onyx-ExtendedIdAccess>
         "Kitchen",
         "Lawyer",
         "Maintenance",
@@ -70,6 +73,7 @@ public sealed partial class IdCardConsoleComponent : Component
         "Quartermaster",
         "Research",
         "ResearchDirector",
+        "Robotics", // <Onyx-ExtendedIdAccess>
         "Salvage",
         "Security",
         "Service",

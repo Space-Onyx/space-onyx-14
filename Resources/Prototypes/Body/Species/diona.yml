@@ -230,35 +230,35 @@
   id: OrganDionaHead
 
 - type: entity
-  parent: [ OrganBaseArmLeft, OrganDionaExternal ]
+  parent: [ OrganDionaExternal, OrganBaseArmLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaArmLeft
 
 - type: entity
-  parent: [ OrganBaseArmRight, OrganDionaExternal ]
+  parent: [ OrganDionaExternal, OrganBaseArmRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaArmRight
 
 - type: entity
-  parent: [ OrganBaseHandLeft, OrganDionaExternal ]
+  parent: [ OrganDionaExternal, OrganBaseHandLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaHandLeft
 
 - type: entity
-  parent: [ OrganBaseHandRight, OrganDionaExternal ]
+  parent: [ OrganDionaExternal, OrganBaseHandRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaHandRight
 
 - type: entity
-  parent: [ OrganBaseLegLeft, OrganDionaExternal ]
+  parent: [ OrganDionaExternal, OrganBaseLegLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaLegLeft
 
 - type: entity
-  parent: [ OrganBaseLegRight, OrganDionaExternal ]
+  parent: [ OrganDionaExternal, OrganBaseLegRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaLegRight
 
 - type: entity
-  parent: [ OrganBaseFootLeft, OrganDionaExternal ]
+  parent: [ OrganDionaExternal, OrganBaseFootLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaFootLeft
 
 - type: entity
-  parent: [ OrganBaseFootRight, OrganDionaExternal ]
+  parent: [ OrganDionaExternal, OrganBaseFootRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaFootRight
 
 - type: entity

@@ -2,7 +2,7 @@
   id: IpcBreakoutS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: breakout_s
@@ -11,7 +11,7 @@
   id: IpcNatureS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: nature_s
@@ -20,7 +20,7 @@
   id: IpcEightS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: eight_s
@@ -29,7 +29,7 @@
   id: IpcOrangeHespAltS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: orange_hesp_alt_s
@@ -38,7 +38,7 @@
   id: IpcPinkHespAltS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: pink_hesp_alt_s
@@ -47,7 +47,7 @@
   id: IpcSmokingS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: smoking_s
@@ -56,7 +56,7 @@
   id: IpcRainbowS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: rainbow_s
@@ -65,7 +65,7 @@
   id: IpcHeartS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: heart_s
@@ -74,7 +74,7 @@
   id: IpcScrollS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: scroll_s
@@ -83,7 +83,7 @@
   id: IpcScrollHespAltS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: scroll_hesp_alt_s
@@ -92,7 +92,7 @@
   id: IpcStaticS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: static_s
@@ -101,7 +101,7 @@
   id: IpcGreenS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: green_s
@@ -110,7 +110,7 @@
   id: IpcYellowS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: yellow_s
@@ -119,7 +119,7 @@
   id: IpcGolGliderS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: gol_glider_s
@@ -128,7 +128,7 @@
   id: IpcRgbHespAltS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: rgb_hesp_alt_s
@@ -137,7 +137,7 @@
   id: IpcGogglesHespAltS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: goggles_hesp_alt_s
@@ -146,7 +146,7 @@
   id: IpcOffHespAltS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: off_hesp_alt_s
@@ -155,7 +155,7 @@
   id: IpcPinkS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: pink_s
@@ -164,7 +164,7 @@
   id: IpcRedS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: red_s
@@ -173,7 +173,7 @@
   id: IpcShowerS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: shower_s
@@ -182,7 +182,7 @@
   id: IpcRainbowHespAltS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: rainbow_hesp_alt_s
@@ -191,7 +191,7 @@
   id: IpcGogglesS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: goggles_s
@@ -200,7 +200,7 @@
   id: IpcMonoeyeS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: monoeye_s
@@ -209,7 +209,7 @@
   id: IpcBlueS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: blue_s
@@ -218,7 +218,7 @@
   id: IpcTestS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: test_s
@@ -227,7 +227,7 @@
   id: IpcRgbS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: rgb_s
@@ -236,7 +236,7 @@
   id: IpcMusicS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: music_s
@@ -245,7 +245,7 @@
   id: IpcConsoleS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: console_s
@@ -254,7 +254,7 @@
   id: IpcPurpleS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: purple_s
@@ -263,7 +263,7 @@
   id: IpcOrangeS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: orange_s
@@ -272,7 +272,7 @@
   id: IpcWaitingS
   bodyPart: Snout
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/ips_face.rsi
       state: waiting_s

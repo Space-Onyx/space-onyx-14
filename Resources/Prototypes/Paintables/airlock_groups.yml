@@ -34,6 +34,7 @@
     hydroponics: AirlockHydroponicsGlass
     maintenance: AirlockMaintGlass
     medical: AirlockMedicalGlass
+    roboticist: AirlockRobotics # <Onyx-RoboticsAirlock>
     salvage: AirlockSalvageGlass
     science: AirlockScienceGlass
     security: AirlockSecurityGlass

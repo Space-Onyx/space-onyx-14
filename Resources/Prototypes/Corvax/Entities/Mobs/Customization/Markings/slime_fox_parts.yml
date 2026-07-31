@@ -2,7 +2,7 @@
   id: SlimeFoxEars # if cat ears from slime can exist, then why fox ears cannot?
   bodyPart: Ears # <Onyx-VisualEars-edited>
   groupWhitelist: [Slime]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
   - sprite: Corvax/Mobs/Customization/slime_fox_parts.rsi
     state: ears_slime_fox_outer

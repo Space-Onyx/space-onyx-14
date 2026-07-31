@@ -231,35 +231,35 @@
       - enum.HumanoidVisualLayers.SnoutCover
 
 - type: entity
-  parent: [ OrganBaseArmLeft, OrganTajaranExternal ]
+  parent: [ OrganTajaranExternal, OrganBaseArmLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganTajaranArmLeft
 
 - type: entity
-  parent: [ OrganBaseArmRight, OrganTajaranExternal ]
+  parent: [ OrganTajaranExternal, OrganBaseArmRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganTajaranArmRight
 
 - type: entity
-  parent: [ OrganBaseHandLeft, OrganTajaranExternal ]
+  parent: [ OrganTajaranExternal, OrganBaseHandLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganTajaranHandLeft
 
 - type: entity
-  parent: [ OrganBaseHandRight, OrganTajaranExternal ]
+  parent: [ OrganTajaranExternal, OrganBaseHandRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganTajaranHandRight
 
 - type: entity
-  parent: [ OrganBaseLegLeft, OrganTajaranExternal ]
+  parent: [ OrganTajaranExternal, OrganBaseLegLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganTajaranLegLeft
 
 - type: entity
-  parent: [ OrganBaseLegRight, OrganTajaranExternal ]
+  parent: [ OrganTajaranExternal, OrganBaseLegRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganTajaranLegRight
 
 - type: entity
-  parent: [ OrganBaseFootLeft, OrganTajaranExternal ]
+  parent: [ OrganTajaranExternal, OrganBaseFootLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganTajaranFootLeft
 
 - type: entity
-  parent: [ OrganBaseFootRight, OrganTajaranExternal ]
+  parent: [ OrganTajaranExternal, OrganBaseFootRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganTajaranFootRight
 
 - type: entity

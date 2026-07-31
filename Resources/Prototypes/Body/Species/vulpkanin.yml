@@ -339,35 +339,35 @@
             state: hair
 
 - type: entity
-  parent: [ OrganBaseArmLeft, OrganVulpkaninExternal ]
+  parent: [ OrganVulpkaninExternal, OrganBaseArmLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVulpkaninArmLeft
 
 - type: entity
-  parent: [ OrganBaseArmRight, OrganVulpkaninExternal ]
+  parent: [ OrganVulpkaninExternal, OrganBaseArmRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVulpkaninArmRight
 
 - type: entity
-  parent: [ OrganBaseHandLeft, OrganVulpkaninExternal ]
+  parent: [ OrganVulpkaninExternal, OrganBaseHandLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVulpkaninHandLeft
 
 - type: entity
-  parent: [ OrganBaseHandRight, OrganVulpkaninExternal ]
+  parent: [ OrganVulpkaninExternal, OrganBaseHandRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVulpkaninHandRight
 
 - type: entity
-  parent: [ OrganBaseLegLeft, OrganVulpkaninExternal ]
+  parent: [ OrganVulpkaninExternal, OrganBaseLegLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVulpkaninLegLeft
 
 - type: entity
-  parent: [ OrganBaseLegRight, OrganVulpkaninExternal ]
+  parent: [ OrganVulpkaninExternal, OrganBaseLegRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVulpkaninLegRight
 
 - type: entity
-  parent: [ OrganBaseFootLeft, OrganVulpkaninExternal ]
+  parent: [ OrganVulpkaninExternal, OrganBaseFootLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVulpkaninFootLeft
 
 - type: entity
-  parent: [ OrganBaseFootRight, OrganVulpkaninExternal ]
+  parent: [ OrganVulpkaninExternal, OrganBaseFootRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVulpkaninFootRight
 
 - type: entity

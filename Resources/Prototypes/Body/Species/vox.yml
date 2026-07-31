@@ -333,35 +333,35 @@
             state: hair
 
 - type: entity
-  parent: [ OrganBaseArmLeft, OrganVoxExternal ]
+  parent: [ OrganVoxExternal, OrganBaseArmLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVoxArmLeft
 
 - type: entity
-  parent: [ OrganBaseArmRight, OrganVoxExternal ]
+  parent: [ OrganVoxExternal, OrganBaseArmRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVoxArmRight
 
 - type: entity
-  parent: [ OrganBaseHandLeft, OrganVoxExternal ]
+  parent: [ OrganVoxExternal, OrganBaseHandLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVoxHandLeft
 
 - type: entity
-  parent: [ OrganBaseHandRight, OrganVoxExternal ]
+  parent: [ OrganVoxExternal, OrganBaseHandRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVoxHandRight
 
 - type: entity
-  parent: [ OrganBaseLegLeft, OrganVoxExternal ]
+  parent: [ OrganVoxExternal, OrganBaseLegLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVoxLegLeft
 
 - type: entity
-  parent: [ OrganBaseLegRight, OrganVoxExternal ]
+  parent: [ OrganVoxExternal, OrganBaseLegRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVoxLegRight
 
 - type: entity
-  parent: [ OrganBaseFootLeft, OrganVoxExternal ]
+  parent: [ OrganVoxExternal, OrganBaseFootLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVoxFootLeft
 
 - type: entity
-  parent: [ OrganBaseFootRight, OrganVoxExternal ]
+  parent: [ OrganVoxExternal, OrganBaseFootRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganVoxFootRight
 
 - type: entity

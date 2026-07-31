@@ -331,35 +331,35 @@
     - enum.HumanoidVisualLayers.Snout
 
 - type: entity
-  parent: [ OrganBaseArmLeft, OrganIpcExternal ]
+  parent: [ OrganIpcExternal, OrganBaseArmLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcArmLeft
 
 - type: entity
-  parent: [ OrganBaseArmRight, OrganIpcExternal ]
+  parent: [ OrganIpcExternal, OrganBaseArmRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcArmRight
 
 - type: entity
-  parent: [ OrganBaseHandLeft, OrganIpcExternal ]
+  parent: [ OrganIpcExternal, OrganBaseHandLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcHandLeft
 
 - type: entity
-  parent: [ OrganBaseHandRight, OrganIpcExternal ]
+  parent: [ OrganIpcExternal, OrganBaseHandRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcHandRight
 
 - type: entity
-  parent: [ OrganBaseLegLeft, OrganIpcExternal ]
+  parent: [ OrganIpcExternal, OrganBaseLegLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcLegLeft
 
 - type: entity
-  parent: [ OrganBaseLegRight, OrganIpcExternal ]
+  parent: [ OrganIpcExternal, OrganBaseLegRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcLegRight
 
 - type: entity
-  parent: [ OrganBaseFootLeft, OrganIpcExternal ]
+  parent: [ OrganIpcExternal, OrganBaseFootLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcFootLeft
 
 - type: entity
-  parent: [ OrganBaseFootRight, OrganIpcExternal ]
+  parent: [ OrganIpcExternal, OrganBaseFootRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcFootRight
 
 - type: entity

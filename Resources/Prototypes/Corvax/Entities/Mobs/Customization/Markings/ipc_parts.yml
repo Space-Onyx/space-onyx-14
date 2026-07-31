@@ -2,7 +2,7 @@
   id: IpcShellguardShellguardMonitorHead2
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_monitor.rsi
       state: head-2
@@ -11,7 +11,7 @@
   id: IpcShellguardShellguardMonitorHead1
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_monitor.rsi
       state: head-1
@@ -20,7 +20,7 @@
   id: IpcShellguardShellguardMainLLeg1
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: l_leg-1
@@ -29,7 +29,7 @@
   id: IpcShellguardShellguardMainRHand2
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: r_hand-2
@@ -38,7 +38,7 @@
   id: IpcShellguardShellguardMainLFoot1
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: l_foot-1
@@ -47,7 +47,7 @@
   id: IpcShellguardShellguardMainLHand1
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: l_hand-1
@@ -56,7 +56,7 @@
   id: IpcShellguardShellguardMainRArm2
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: r_arm-2
@@ -65,7 +65,7 @@
   id: IpcShellguardShellguardMainTorso2
   bodyPart: Chest
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: torso-2
@@ -74,7 +74,7 @@
   id: IpcShellguardShellguardMainTorso1
   bodyPart: Chest
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: torso-1
@@ -83,7 +83,7 @@
   id: IpcShellguardShellguardMainLArm2
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: l_arm-2
@@ -92,7 +92,7 @@
   id: IpcShellguardShellguardMainRHand1
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: r_hand-1
@@ -101,7 +101,7 @@
   id: IpcShellguardShellguardMainRLeg2
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: r_leg-2
@@ -110,7 +110,7 @@
   id: IpcShellguardShellguardMainRLeg1
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: r_leg-1
@@ -119,7 +119,7 @@
   id: IpcShellguardShellguardMainLArm1
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: l_arm-1
@@ -128,7 +128,7 @@
   id: IpcShellguardShellguardMainLHand2
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: l_hand-2
@@ -137,7 +137,7 @@
   id: IpcShellguardShellguardMainRArm1
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: r_arm-1
@@ -146,7 +146,7 @@
   id: IpcShellguardShellguardMainRFoot2
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: r_foot-2
@@ -155,7 +155,7 @@
   id: IpcShellguardShellguardMainRFoot1
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: r_foot-1
@@ -164,7 +164,7 @@
   id: IpcShellguardShellguardMainLFoot2
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: l_foot-2
@@ -173,7 +173,7 @@
   id: IpcShellguardShellguardMainLLeg2
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_main.rsi
       state: l_leg-2
@@ -182,7 +182,7 @@
   id: IpcShellguardShellguardAlt1Head2
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_alt1.rsi
       state: head-2
@@ -191,7 +191,7 @@
   id: IpcShellguardShellguardAlt1Head1
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/shellguard/shellguard_alt1.rsi
       state: head-1
@@ -200,7 +200,7 @@
   id: IpcZenghuZenghuMainLLeg1
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: l_leg-1
@@ -209,7 +209,7 @@
   id: IpcZenghuZenghuMainRHand2
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: r_hand-2
@@ -218,7 +218,7 @@
   id: IpcZenghuZenghuMainLFoot1
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: l_foot-1
@@ -227,7 +227,7 @@
   id: IpcZenghuZenghuMainLHand1
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: l_hand-1
@@ -236,7 +236,7 @@
   id: IpcZenghuZenghuMainRArm2
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: r_arm-2
@@ -245,7 +245,7 @@
   id: IpcZenghuZenghuMainTorso2
   bodyPart: Chest
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: torso-2
@@ -254,7 +254,7 @@
   id: IpcZenghuZenghuMainTorso1
   bodyPart: Chest
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: torso-1
@@ -263,7 +263,7 @@
   id: IpcZenghuZenghuMainLArm2
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: l_arm-2
@@ -272,7 +272,7 @@
   id: IpcZenghuZenghuMainRHand1
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: r_hand-1
@@ -281,7 +281,7 @@
   id: IpcZenghuZenghuMainRLeg2
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: r_leg-2
@@ -290,7 +290,7 @@
   id: IpcZenghuZenghuMainGroin
   bodyPart: Chest
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: groin
@@ -299,7 +299,7 @@
   id: IpcZenghuZenghuMainRLeg1
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: r_leg-1
@@ -308,7 +308,7 @@
   id: IpcZenghuZenghuMainHead2
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: head-2
@@ -317,7 +317,7 @@
   id: IpcZenghuZenghuMainLArm1
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: l_arm-1
@@ -326,7 +326,7 @@
   id: IpcZenghuZenghuMainLHand2
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: l_hand-2
@@ -335,7 +335,7 @@
   id: IpcZenghuZenghuMainRArm1
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: r_arm-1
@@ -344,7 +344,7 @@
   id: IpcZenghuZenghuMainRFoot2
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: r_foot-2
@@ -353,7 +353,7 @@
   id: IpcZenghuZenghuMainRFoot1
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: r_foot-1
@@ -362,7 +362,7 @@
   id: IpcZenghuZenghuMainLFoot2
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: l_foot-2
@@ -371,7 +371,7 @@
   id: IpcZenghuZenghuMainHead1
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: head-1
@@ -380,7 +380,7 @@
   id: IpcZenghuZenghuMainLLeg2
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/zenghu/zenghu_main.rsi
       state: l_leg-2
@@ -389,7 +389,7 @@
   id: IpcHesphiastosHesphiastosMainLLeg1
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: l_leg-1
@@ -398,7 +398,7 @@
   id: IpcHesphiastosHesphiastosMainRHand2
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: r_hand-2
@@ -407,7 +407,7 @@
   id: IpcHesphiastosHesphiastosMainLFoot1
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: l_foot-1
@@ -416,7 +416,7 @@
   id: IpcHesphiastosHesphiastosMainLHand1
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: l_hand-1
@@ -425,7 +425,7 @@
   id: IpcHesphiastosHesphiastosMainRArm2
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: r_arm-2
@@ -434,7 +434,7 @@
   id: IpcHesphiastosHesphiastosMainTorso2
   bodyPart: Chest
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: torso-2
@@ -443,7 +443,7 @@
   id: IpcHesphiastosHesphiastosMainTorso1
   bodyPart: Chest
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: torso-1
@@ -452,7 +452,7 @@
   id: IpcHesphiastosHesphiastosMainLArm2
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: l_arm-2
@@ -461,7 +461,7 @@
   id: IpcHesphiastosHesphiastosMainRHand1
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: r_hand-1
@@ -470,7 +470,7 @@
   id: IpcHesphiastosHesphiastosMainRLeg2
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: r_leg-2
@@ -479,7 +479,7 @@
   id: IpcHesphiastosHesphiastosMainRLeg1
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: r_leg-1
@@ -488,7 +488,7 @@
   id: IpcHesphiastosHesphiastosMainLArm1
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: l_arm-1
@@ -497,7 +497,7 @@
   id: IpcHesphiastosHesphiastosMainLHand2
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: l_hand-2
@@ -506,7 +506,7 @@
   id: IpcHesphiastosHesphiastosMainRArm1
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: r_arm-1
@@ -515,7 +515,7 @@
   id: IpcHesphiastosHesphiastosMainRFoot2
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: r_foot-2
@@ -524,7 +524,7 @@
   id: IpcHesphiastosHesphiastosMainRFoot1
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: r_foot-1
@@ -533,7 +533,7 @@
   id: IpcHesphiastosHesphiastosMainLFoot2
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: l_foot-2
@@ -542,7 +542,7 @@
   id: IpcHesphiastosHesphiastosMainLLeg2
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_main.rsi
       state: l_leg-2
@@ -551,7 +551,7 @@
   id: IpcHesphiastosHesphiastosMonitorHead2
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_monitor.rsi
       state: head-2
@@ -560,7 +560,7 @@
   id: IpcHesphiastosHesphiastosMonitorHead1
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_monitor.rsi
       state: head-1
@@ -569,7 +569,7 @@
   id: IpcHesphiastosHesphiastosAlt1Head2
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_alt1.rsi
       state: head-2
@@ -578,7 +578,7 @@
   id: IpcHesphiastosHesphiastosAlt1Head3
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_alt1.rsi
       state: head-3
@@ -587,7 +587,7 @@
   id: IpcHesphiastosHesphiastosAlt1Head1
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/hesphiastos/hesphiastos_alt1.rsi
       state: head-1
@@ -596,7 +596,7 @@
   id: IpcBishopBishopMonitorHead2
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_monitor.rsi
       state: head-2
@@ -605,7 +605,7 @@
   id: IpcBishopBishopMonitorHead
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_monitor.rsi
       state: head
@@ -614,7 +614,7 @@
   id: IpcBishopBishopAlt1Head
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_alt1.rsi
       state: head
@@ -623,7 +623,7 @@
   id: IpcBishopBishopMainLArmCombined
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: l_arm-combined
@@ -632,7 +632,7 @@
   id: IpcBishopBishopMainTorsoPrimary
   bodyPart: Chest
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: torso-primary
@@ -641,7 +641,7 @@
   id: IpcBishopBishopMainLLegSecondary
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: l_leg-secondary
@@ -650,7 +650,7 @@
   id: IpcBishopBishopMainRArmPrimary
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: r_arm-primary
@@ -659,7 +659,7 @@
   id: IpcBishopBishopMainLArmTertiary
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: l_arm-tertiary
@@ -668,7 +668,7 @@
   id: IpcBishopBishopMainRHand
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: r_hand
@@ -677,7 +677,7 @@
   id: IpcBishopBishopMainLArmPrimary
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: l_arm-primary
@@ -686,7 +686,7 @@
   id: IpcBishopBishopMainRLegPrimary
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: r_leg-primary
@@ -695,7 +695,7 @@
   id: IpcBishopBishopMainTorsoSecondary
   bodyPart: Chest
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: torso-secondary
@@ -704,7 +704,7 @@
   id: IpcBishopBishopMainRLegCombined
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: r_leg-combined
@@ -713,7 +713,7 @@
   id: IpcBishopBishopMainRArmSecondary
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: r_arm-secondary
@@ -722,7 +722,7 @@
   id: IpcBishopBishopMainHead
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: head
@@ -731,7 +731,7 @@
   id: IpcBishopBishopMainLFoot
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: l_foot
@@ -740,7 +740,7 @@
   id: IpcBishopBishopMainLArmSecondary
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: l_arm-secondary
@@ -749,7 +749,7 @@
   id: IpcBishopBishopMainLLegPrimary
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: l_leg-primary
@@ -758,7 +758,7 @@
   id: IpcBishopBishopMainRArmTertiary
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: r_arm-tertiary
@@ -767,7 +767,7 @@
   id: IpcBishopBishopMainLHand
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: l_hand
@@ -776,7 +776,7 @@
   id: IpcBishopBishopMainLLegCombined
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: l_leg-combined
@@ -785,7 +785,7 @@
   id: IpcBishopBishopMainRFoot
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: r_foot
@@ -794,7 +794,7 @@
   id: IpcBishopBishopMainRLegSecondary
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: r_leg-secondary
@@ -803,7 +803,7 @@
   id: IpcBishopBishopMainRArmCombined
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/bishop/bishop_main.rsi
       state: r_arm-combined
@@ -812,7 +812,7 @@
   id: IpcMorpheusMorpheusAlt1Head
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/morpheus/morpheus_alt1.rsi
       state: head
@@ -821,7 +821,7 @@
   id: IpcMorpheusMorpheusMainRHand
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/morpheus/morpheus_main.rsi
       state: r_hand
@@ -830,7 +830,7 @@
   id: IpcMorpheusMorpheusMainLArm
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/morpheus/morpheus_main.rsi
       state: l_arm
@@ -839,7 +839,7 @@
   id: IpcMorpheusMorpheusMainTorso
   bodyPart: Chest
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/morpheus/morpheus_main.rsi
       state: torso
@@ -848,7 +848,7 @@
   id: IpcMorpheusMorpheusMainHead
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/morpheus/morpheus_main.rsi
       state: head
@@ -857,7 +857,7 @@
   id: IpcMorpheusMorpheusMainRLeg
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/morpheus/morpheus_main.rsi
       state: r_leg
@@ -866,7 +866,7 @@
   id: IpcMorpheusMorpheusMainLFoot
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/morpheus/morpheus_main.rsi
       state: l_foot
@@ -875,7 +875,7 @@
   id: IpcMorpheusMorpheusMainLHand
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/morpheus/morpheus_main.rsi
       state: l_hand
@@ -884,7 +884,7 @@
   id: IpcMorpheusMorpheusMainRArm
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/morpheus/morpheus_main.rsi
       state: r_arm
@@ -893,7 +893,7 @@
   id: IpcMorpheusMorpheusMainRFoot
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/morpheus/morpheus_main.rsi
       state: r_foot
@@ -902,7 +902,7 @@
   id: IpcMorpheusMorpheusMainLLeg
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/morpheus/morpheus_main.rsi
       state: l_leg
@@ -911,7 +911,7 @@
   id: IpcWardtakahashiWardtakahashiMainRHand
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/wardtakahashi/wardtakahashi_main.rsi
       state: r_hand
@@ -920,7 +920,7 @@
   id: IpcWardtakahashiWardtakahashiMainLArm
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/wardtakahashi/wardtakahashi_main.rsi
       state: l_arm
@@ -929,7 +929,7 @@
   id: IpcWardtakahashiWardtakahashiMainTorso
   bodyPart: Chest
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/wardtakahashi/wardtakahashi_main.rsi
       state: torso
@@ -938,7 +938,7 @@
   id: IpcWardtakahashiWardtakahashiMainHead
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/wardtakahashi/wardtakahashi_main.rsi
       state: head
@@ -947,7 +947,7 @@
   id: IpcWardtakahashiWardtakahashiMainRLeg
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/wardtakahashi/wardtakahashi_main.rsi
       state: r_leg
@@ -956,7 +956,7 @@
   id: IpcWardtakahashiWardtakahashiMainLFoot
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/wardtakahashi/wardtakahashi_main.rsi
       state: l_foot
@@ -965,7 +965,7 @@
   id: IpcWardtakahashiWardtakahashiMainLHand
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/wardtakahashi/wardtakahashi_main.rsi
       state: l_hand
@@ -974,7 +974,7 @@
   id: IpcWardtakahashiWardtakahashiMainRArm
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/wardtakahashi/wardtakahashi_main.rsi
       state: r_arm
@@ -983,7 +983,7 @@
   id: IpcWardtakahashiWardtakahashiMainRFoot
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/wardtakahashi/wardtakahashi_main.rsi
       state: r_foot
@@ -992,7 +992,7 @@
   id: IpcWardtakahashiWardtakahashiMainLLeg
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/wardtakahashi/wardtakahashi_main.rsi
       state: l_leg
@@ -1001,7 +1001,7 @@
   id: IpcWardtakahashiWardtakahashiMonitorHead
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/wardtakahashi/wardtakahashi_monitor.rsi
       state: head
@@ -1010,7 +1010,7 @@
   id: IpcWardtakahashiWardtakahashiAlt1Head
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/wardtakahashi/wardtakahashi_alt1.rsi
       state: head
@@ -1019,7 +1019,7 @@
   id: IpcXionXionMonitorHead2
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_monitor.rsi
       state: head-2
@@ -1028,7 +1028,7 @@
   id: IpcXionXionMonitorHead1
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_monitor.rsi
       state: head-1
@@ -1037,7 +1037,7 @@
   id: IpcXionXionMainLLeg1
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: l_leg-1
@@ -1046,7 +1046,7 @@
   id: IpcXionXionMainRHand2
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: r_hand-2
@@ -1055,7 +1055,7 @@
   id: IpcXionXionMainLFoot1
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: l_foot-1
@@ -1064,7 +1064,7 @@
   id: IpcXionXionMainLHand1
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: l_hand-1
@@ -1073,7 +1073,7 @@
   id: IpcXionXionMainRArm2
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: r_arm-2
@@ -1082,7 +1082,7 @@
   id: IpcXionXionMainTorso2
   bodyPart: Chest
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: torso-2
@@ -1091,7 +1091,7 @@
   id: IpcXionXionMainTorso1
   bodyPart: Chest
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: torso-1
@@ -1100,7 +1100,7 @@
   id: IpcXionXionMainLArm2
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: l_arm-2
@@ -1109,7 +1109,7 @@
   id: IpcXionXionMainRHand1
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: r_hand-1
@@ -1118,7 +1118,7 @@
   id: IpcXionXionMainRLeg2
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: r_leg-2
@@ -1127,7 +1127,7 @@
   id: IpcXionXionMainRLeg1
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: r_leg-1
@@ -1136,7 +1136,7 @@
   id: IpcXionXionMainLArm1
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: l_arm-1
@@ -1145,7 +1145,7 @@
   id: IpcXionXionMainLHand2
   bodyPart: LArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: l_hand-2
@@ -1154,7 +1154,7 @@
   id: IpcXionXionMainRArm1
   bodyPart: RArm
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: r_arm-1
@@ -1163,7 +1163,7 @@
   id: IpcXionXionMainRFoot2
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: r_foot-2
@@ -1172,7 +1172,7 @@
   id: IpcXionXionMainRFoot1
   bodyPart: RLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: r_foot-1
@@ -1181,7 +1181,7 @@
   id: IpcXionXionMainLFoot2
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: l_foot-2
@@ -1190,7 +1190,7 @@
   id: IpcXionXionMainLLeg2
   bodyPart: LLeg
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_main.rsi
       state: l_leg-2
@@ -1199,7 +1199,7 @@
   id: IpcXionXionAlt1Head2
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_alt1.rsi
       state: head-2
@@ -1208,7 +1208,7 @@
   id: IpcXionXionAlt1Head1
   bodyPart: Head
   groupWhitelist: [Ipc]
-  sponsorOnly: true # Corvax-Sponsors
+  sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/Ipc/xion/xion_alt1.rsi
       state: head-1

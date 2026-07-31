@@ -65,33 +65,33 @@
     - enum.HumanoidVisualLayers.Hair
 
 - type: entity
-  parent: [ OrganBaseArmLeft, OrganArcanExternal ]
+  parent: [ OrganArcanExternal, OrganBaseArmLeft ]
   id: OrganArcanArmLeft
 
 - type: entity
-  parent: [ OrganBaseArmRight, OrganArcanExternal ]
+  parent: [ OrganArcanExternal, OrganBaseArmRight ]
   id: OrganArcanArmRight
 
 - type: entity
-  parent: [ OrganBaseHandLeft, OrganArcanExternal ]
+  parent: [ OrganArcanExternal, OrganBaseHandLeft ]
   id: OrganArcanHandLeft
 
 - type: entity
-  parent: [ OrganBaseHandRight, OrganArcanExternal ]
+  parent: [ OrganArcanExternal, OrganBaseHandRight ]
   id: OrganArcanHandRight
 
 - type: entity
-  parent: [ OrganBaseLegLeft, OrganArcanExternal ]
+  parent: [ OrganArcanExternal, OrganBaseLegLeft ]
   id: OrganArcanLegLeft
 
 - type: entity
-  parent: [ OrganBaseLegRight, OrganArcanExternal ]
+  parent: [ OrganArcanExternal, OrganBaseLegRight ]
   id: OrganArcanLegRight
 
 - type: entity
-  parent: [ OrganBaseFootLeft, OrganArcanExternal ]
+  parent: [ OrganArcanExternal, OrganBaseFootLeft ]
   id: OrganArcanFootLeft
 
 - type: entity
-  parent: [ OrganBaseFootRight, OrganArcanExternal ]
+  parent: [ OrganArcanExternal, OrganBaseFootRight ]
   id: OrganArcanFootRight

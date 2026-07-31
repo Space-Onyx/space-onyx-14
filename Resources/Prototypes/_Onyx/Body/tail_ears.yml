@@ -13,10 +13,15 @@
   - type: OptionalOrgan
     parentPart: Groin
     layers: [ Tail ]
+  - type: Sprite
+    noRot: true
+    enableOverrideDir: true
+    overrideDir: East
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.Tail
     data: {}
   - type: VisualOrganMarkings
+    showOnDetached: true
     markingData:
       layers: [ Tail, TailOverlay ]
 

@@ -1015,6 +1015,7 @@
   - type: Access
     tags:
     - NuclearOperative
+    - Robotics # <Onyx-ExtendedIdAccess>
     - SyndicateAgent
 
 - type: entity
@@ -1357,6 +1358,7 @@
     - AllAccess
     - Silicon
     tags:
+    - BlueshieldOfficer # <Onyx-ExtendedIdAccess>
     - CentralCommand
     - NuclearOperative
     - SyndicateAgent

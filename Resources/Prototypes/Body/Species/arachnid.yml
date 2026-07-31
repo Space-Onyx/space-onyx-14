@@ -201,35 +201,35 @@
   id: OrganArachnidHead
 
 - type: entity
-  parent: [ OrganBaseArmLeft, OrganArachnidExternal ]
+  parent: [ OrganArachnidExternal, OrganBaseArmLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganArachnidArmLeft
 
 - type: entity
-  parent: [ OrganBaseArmRight, OrganArachnidExternal ]
+  parent: [ OrganArachnidExternal, OrganBaseArmRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganArachnidArmRight
 
 - type: entity
-  parent: [ OrganBaseHandLeft, OrganArachnidExternal ]
+  parent: [ OrganArachnidExternal, OrganBaseHandLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganArachnidHandLeft
 
 - type: entity
-  parent: [ OrganBaseHandRight, OrganArachnidExternal ]
+  parent: [ OrganArachnidExternal, OrganBaseHandRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganArachnidHandRight
 
 - type: entity
-  parent: [ OrganBaseLegLeft, OrganArachnidExternal ]
+  parent: [ OrganArachnidExternal, OrganBaseLegLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganArachnidLegLeft
 
 - type: entity
-  parent: [ OrganBaseLegRight, OrganArachnidExternal ]
+  parent: [ OrganArachnidExternal, OrganBaseLegRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganArachnidLegRight
 
 - type: entity
-  parent: [ OrganBaseFootLeft, OrganArachnidExternal ]
+  parent: [ OrganArachnidExternal, OrganBaseFootLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganArachnidFootLeft
 
 - type: entity
-  parent: [ OrganBaseFootRight, OrganArachnidExternal ]
+  parent: [ OrganArachnidExternal, OrganBaseFootRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganArachnidFootRight
 
 - type: entity

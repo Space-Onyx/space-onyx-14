@@ -43,8 +43,17 @@
 	{
       "name": "unlocked"
     },
-	{
+    {
       "name": "locked"
+    },
+    {
+      "name": "pilot"
+    },
+    {
+      "name": "pilot_door"
+    },
+    {
+      "name": "pilot_open"
     }
   ]
 }

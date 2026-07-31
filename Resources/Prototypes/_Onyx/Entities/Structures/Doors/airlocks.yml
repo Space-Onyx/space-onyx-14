@@ -1,4 +1,17 @@
 - type: entity
+  parent: AirlockGlass
+  id: AirlockRobotics
+  suffix: Robotics
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsRobotics ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Glass/robotics.rsi
+  - type: Wires
+    layoutId: AirlockScience
+
+- type: entity
   parent: DoorElectronics
   id: DoorElectronicsAllService
   suffix: All Service, Locked

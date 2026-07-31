@@ -163,35 +163,35 @@
     - enum.HumanoidVisualLayers.FacialHair
 
 - type: entity
-  parent: [ OrganBaseArmLeft, OrganHumanExternal ]
+  parent: [ OrganHumanExternal, OrganBaseArmLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganHumanArmLeft
 
 - type: entity
-  parent: [ OrganBaseArmRight, OrganHumanExternal ]
+  parent: [ OrganHumanExternal, OrganBaseArmRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganHumanArmRight
 
 - type: entity
-  parent: [ OrganBaseHandLeft, OrganHumanExternal ]
+  parent: [ OrganHumanExternal, OrganBaseHandLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganHumanHandLeft
 
 - type: entity
-  parent: [ OrganBaseHandRight, OrganHumanExternal ]
+  parent: [ OrganHumanExternal, OrganBaseHandRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganHumanHandRight
 
 - type: entity
-  parent: [ OrganBaseLegLeft, OrganHumanExternal ]
+  parent: [ OrganHumanExternal, OrganBaseLegLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganHumanLegLeft
 
 - type: entity
-  parent: [ OrganBaseLegRight, OrganHumanExternal ]
+  parent: [ OrganHumanExternal, OrganBaseLegRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganHumanLegRight
 
 - type: entity
-  parent: [ OrganBaseFootLeft, OrganHumanExternal ]
+  parent: [ OrganHumanExternal, OrganBaseFootLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganHumanFootLeft
 
 - type: entity
-  parent: [ OrganBaseFootRight, OrganHumanExternal ]
+  parent: [ OrganHumanExternal, OrganBaseFootRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganHumanFootRight
 
 - type: entity

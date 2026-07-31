@@ -112,6 +112,9 @@
     tags: [ SurgeryLeft ]
   # </Onyx-Surgery>
   - type: Sprite
+    noRot: true # <Onyx-BodyPartNoRot>
+    enableOverrideDir: true # <Onyx-BodyPartNoRot>
+    overrideDir: North # <Onyx-BodyPartNoRot>
     state: l_arm
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.LArm
@@ -137,6 +140,9 @@
     tags: [ SurgeryRight ]
   # </Onyx-Surgery>
   - type: Sprite
+    noRot: true # <Onyx-BodyPartNoRot>
+    enableOverrideDir: true # <Onyx-BodyPartNoRot>
+    overrideDir: North # <Onyx-BodyPartNoRot>
     state: r_arm
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.RArm
@@ -164,6 +170,9 @@
     data:
       location: Left
   - type: Sprite
+    noRot: true # <Onyx-BodyPartNoRot>
+    enableOverrideDir: true # <Onyx-BodyPartNoRot>
+    overrideDir: North # <Onyx-BodyPartNoRot>
     state: l_hand
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.LHand
@@ -191,6 +200,9 @@
     data:
       location: Right
   - type: Sprite
+    noRot: true # <Onyx-BodyPartNoRot>
+    enableOverrideDir: true # <Onyx-BodyPartNoRot>
+    overrideDir: North # <Onyx-BodyPartNoRot>
     state: r_hand
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.RHand
@@ -216,6 +228,9 @@
     tags: [ SurgeryLeft ]
   # </Onyx-Surgery>
   - type: Sprite
+    noRot: true # <Onyx-BodyPartNoRot>
+    enableOverrideDir: true # <Onyx-BodyPartNoRot>
+    overrideDir: North # <Onyx-BodyPartNoRot>
     state: l_leg
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.LLeg
@@ -241,6 +256,9 @@
     tags: [ SurgeryRight ]
   # </Onyx-Surgery>
   - type: Sprite
+    noRot: true # <Onyx-BodyPartNoRot>
+    enableOverrideDir: true # <Onyx-BodyPartNoRot>
+    overrideDir: North # <Onyx-BodyPartNoRot>
     state: r_leg
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.RLeg
@@ -264,6 +282,9 @@
     category: FootLeft
   # </Onyx-Surgery>
   - type: Sprite
+    noRot: true # <Onyx-BodyPartNoRot>
+    enableOverrideDir: true # <Onyx-BodyPartNoRot>
+    overrideDir: North # <Onyx-BodyPartNoRot>
     state: l_foot
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.LFoot
@@ -287,6 +308,9 @@
     category: FootRight
   # </Onyx-Surgery>
   - type: Sprite
+    noRot: true # <Onyx-BodyPartNoRot>
+    enableOverrideDir: true # <Onyx-BodyPartNoRot>
+    overrideDir: North # <Onyx-BodyPartNoRot>
     state: r_foot
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.RFoot

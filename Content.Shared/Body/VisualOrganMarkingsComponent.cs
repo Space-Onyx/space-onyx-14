@@ -45,6 +45,14 @@ public sealed partial class VisualOrganMarkingsComponent : Component
     [DataField, AutoNetworkedField]
     public Dictionary<HumanoidVisualLayers, DisplacementData> MarkingsDisplacement = new();
 
+    // <Onyx-DetachedOrganMarkings>
+    /// <summary>
+    /// Whether markings should be rendered on the organ while it is outside a body.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public bool ShowOnDetached;
+    // </Onyx-DetachedOrganMarkings>
+
     /// <summary>
     /// Client only - the last markings applied by this component
     /// </summary>

@@ -5,6 +5,7 @@
   name: xenobiology slime
   description: ""
   components:
+  - type: VentCrawler
   - type: EntityTableContainerFill
     containers:
       body_organs: !type:AllSelector
