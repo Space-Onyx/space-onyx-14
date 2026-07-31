@@ -1,0 +1,13 @@
+- type: entity
+  parent: Jug
+  id: JugHolyWater
+  suffix: holy water
+  categories: [HideSpawnMenu]
+  components:
+  - type: Label
+    localizedLabel: reagent-name-holywater
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Holywater
+        Quantity: 240

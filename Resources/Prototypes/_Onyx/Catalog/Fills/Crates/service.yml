@@ -1,0 +1,11 @@
+- type: entity
+  id: CrateHolySupplies
+  parent: CratePlastic
+  name: holy supplies crate
+  description: Contains a Bible and two jugs of holy water for religious needs.
+  components:
+  - type: StorageFill
+    contents:
+    - id: JugHolyWater
+      amount: 2
+    - id: Bible
