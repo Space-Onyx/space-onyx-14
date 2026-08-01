@@ -17,7 +17,7 @@
     heldPrefix: firstaid
   - type: PhysicalComposition
     materialComposition:
-      Plastic: 150
+      Plastic: 75 # <Onyx-MedkitContents-edited>
   - type: Tag
     tags:
     - Medkit
@@ -76,6 +76,12 @@
     state: advkit
   - type: Item
     heldPrefix: advkit
+  # <Onyx-MedkitContents>
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,0,5,1
+  # </Onyx-MedkitContents>
 
 - type: entity
   name: radiation treatment kit
@@ -99,4 +105,8 @@
   - type: Item
     heldPrefix: blackkit
     size: Normal
+  # <Onyx-MedkitContents>
+  - type: Storage
+    defaultStorageOrientation: Vertical
+  # </Onyx-MedkitContents>
 

@@ -31,6 +31,10 @@
         - MachineLayer
   - type: Transform
     anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Clickable
+  - type: InteractionOutline
   - type: Rotatable
     rotateWhilePulling: false
     rotateWhileAnchored: false

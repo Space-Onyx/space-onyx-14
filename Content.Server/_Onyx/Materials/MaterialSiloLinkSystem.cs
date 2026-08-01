@@ -102,7 +102,7 @@ public sealed partial class OreSiloSystem
         if (!HasComp<OreSiloComponent>(args.Source) ||
             !TryComp<OreSiloClientComponent>(args.Sink, out var client) ||
             client.Silo is { } silo && silo != args.Source ||
-            !CanTransmitMaterials(args.Source, args.Sink))
+            !CanTransmitMaterials(args.Source, args.Sink, requirePower: false))
         {
             args.Cancel();
         }

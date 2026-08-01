@@ -1,26 +1,78 @@
 - type: entity
   name: EG-4 Equalizer
-  parent: [ BaseWeaponBatterySmall, BaseCentcommContraband ]
+  parent: [BaseItem, BaseCentcommContraband]
   id: WeaponEnergyRevolver
-  description: A compact energy revolver issued to Blueshield officers.
+  description: A modular energy revolver issued to Blueshield officers. Takes energy speedloaders.
   components:
+  - type: Item
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    heldPrefix: lethal
   - type: Sprite
     sprite: _Onyx/Objects/Weapons/Guns/Battery/erevolver.rsi
     layers:
     - state: base
-    - state: mag-unshaded-4
-      shader: unshaded
+      map: ["enum.GunVisualLayers.Base"]
+  - type: ItemMapper
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/erevolver.rsi
+    mapLayers:
+      mag-unshaded-4:
+        whitelist:
+          tags:
+          - EnergySpeedloaderLethal
+      mode-disabler:
+        whitelist:
+          tags:
+          - EnergySpeedloaderDisabler
   - type: Clothing
     sprite: _Onyx/Objects/Weapons/Guns/Battery/erevolver.rsi
+    quickEquip: false
+    slots:
+    - Belt
+    - suitStorage
   - type: Gun
+    fireRate: 2
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
-  - type: BatteryAmmoProvider
-    proto: RedLaser
-    fireCost: 100
-  - type: Battery
-    maxCharge: 1200
-    startingCharge: 1200
+  - type: MagazineAmmoProvider
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        startingItem: EnergySpeedloaderLethal
+        insertSound: /Audio/Weapons/Guns/MagIn/revolver_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/revolver_magout.ogg
+        whitelist:
+          tags:
+          - EnergySpeedloader
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 8
+    angle: 0
+    wideAnimationRotation: 90
+    soundHit:
+      collection: MetalThud
+  - type: RestrictGunshotsByUserTag
+    doesntContain: [Oni]
+    messages: [oni-cannot-shoot-guns-1, oni-cannot-shoot-guns-2, oni-cannot-shoot-guns-3]
+  - type: BatteryDrinkerSource
+    maxAmount: 180
+  - type: Multishot
+    missChance: 0.4
+    spreadMultiplier: 3
+    spreadAddition: 50
   - type: Tag
     tags:
     - Sidearm

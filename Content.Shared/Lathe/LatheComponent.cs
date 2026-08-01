@@ -122,6 +122,7 @@ namespace Content.Shared.Lathe
     public sealed partial class LatheGetResultEvent : EntityEventArgs
     {
         public readonly EntityUid ResultItem;
+        public bool Handled; // <Onyx-LatheMaterialOutput>
 
         public LatheGetResultEvent(EntityUid result)
         {

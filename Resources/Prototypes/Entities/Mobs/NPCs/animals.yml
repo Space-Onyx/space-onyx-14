@@ -1688,6 +1688,7 @@
   - type: StatusIcon
     bounds: -0.5,-0.5,0.5,0.5
   - type: JobStatus # marks them as crew
+  - type: DiseaseCarrier # <Onyx-PrimateDiseases>
 
 - type: entity
   name: monkey

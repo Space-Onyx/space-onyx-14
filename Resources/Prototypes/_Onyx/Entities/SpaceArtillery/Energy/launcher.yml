@@ -28,9 +28,7 @@
       path: /Audio/Weapons/Guns/Gunshots/laser_cannon2.ogg
     soundEmpty:
       path: /Audio/Weapons/Guns/EmptyAlarm/smg_empty_alarm.ogg
-  - type: BatterySelfRecharger #CorvaxGoob-ShuttleGuns-Rebalance
-    autoRecharge: true
-    autoRechargeRate: 1
+  - type: BatterySelfRecharger
   - type: SpaceArtillery
     powerChargeRate: 5 #CorvaxGoob-ShuttleGuns-Rebalance
     powerUsePassive: 2000
@@ -94,9 +92,7 @@
       path: /Audio/Weapons/Guns/Gunshots/laser_cannon2.ogg
     soundEmpty:
       path: /Audio/Weapons/Guns/EmptyAlarm/smg_empty_alarm.ogg
-  - type: BatterySelfRecharger #CorvaxGoob-ShuttleGuns-Rebalance
-    autoRecharge: true
-    autoRechargeRate: 0
+  - type: BatterySelfRecharger
   - type: SpaceArtillery
     powerChargeRate: 80 #CorvaxGoob-ShuttleGuns-Rebalance
     powerUsePassive: 125 #CorvaxGoob-ShuttleGuns-Rebalance
@@ -159,7 +155,6 @@
           !type:PhysShapeAabb
           bounds: "-0.75,-0.75,0.75,0.75"
         density: 1500
-  - type: Physics
   - type: Gun
     projectileSpeed: 90
     fireRate: 0.1
@@ -167,9 +162,7 @@
       path: /Audio/_Onyx/Weapons/Guns/Gunshots/laserfire.ogg
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
-  - type: BatterySelfRecharger #CorvaxGoob-ShuttleGuns-Rebalance
-    autoRecharge: true
-    autoRechargeRate: 100
+  - type: BatterySelfRecharger
   - type: SpaceArtillery
     powerChargeRate: 100 #CorvaxGoob-ShuttleGuns-Rebalance
     powerUsePassive: 20000

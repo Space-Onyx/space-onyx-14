@@ -38,7 +38,7 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvival
+    - BoxSurvivalSlots # <Onyx-SlottedSurvivalBoxes-edited>
 
 - type: loadout
   id: EmergencyNitrogen
@@ -47,7 +47,7 @@
     proto: NitrogenBreather
   storage:
     back:
-    - BoxSurvivalNitrogen
+    - BoxSurvivalSlotsNitrogen # <Onyx-SlottedSurvivalBoxes-edited>
 
 # Clown
 - type: loadout
@@ -57,7 +57,7 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvivalHug
+    - BoxHugSlots # <Onyx-SlottedSurvivalBoxes-edited>
 
 - type: loadout
   id: EmergencyNitrogenClown
@@ -66,7 +66,7 @@
     proto: NitrogenBreather
   storage:
     back:
-    - BoxSurvivalHugNitrogen
+    - BoxHugSlotsNitrogen # <Onyx-SlottedSurvivalBoxes-edited>
 
 # Engineering / Extended
 - type: loadout
@@ -76,7 +76,7 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvivalEngineering
+    - BoxSurvivalSlotsEngineering # <Onyx-SlottedSurvivalBoxes-edited>
 
 - type: loadout
   id: EmergencyNitrogenExtended
@@ -85,7 +85,7 @@
     proto: NitrogenBreather
   storage:
     back:
-    - BoxSurvivalEngineeringNitrogen
+    - BoxSurvivalSlotsEngineeringNitrogen # <Onyx-SlottedSurvivalBoxes-edited>
 
 # Medical
 - type: loadout
@@ -95,7 +95,7 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvivalMedical
+    - BoxSurvivalSlotsMedical # <Onyx-SlottedSurvivalBoxes-edited>
 
 - type: loadout
   id: EmergencyNitrogenMedical
@@ -104,7 +104,7 @@
     proto: NitrogenBreather
   storage:
     back:
-    - BoxSurvivalMedicalNitrogen
+    - BoxSurvivalSlotsMedicalNitrogen # <Onyx-SlottedSurvivalBoxes-edited>
 
 # Security
 - type: loadout
@@ -114,7 +114,7 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvivalSecurity
+    - BoxSurvivalSlotsSecurity # <Onyx-SlottedSurvivalBoxes-edited>
 
 - type: loadout
   id: EmergencyNitrogenSecurity
@@ -123,7 +123,7 @@
     proto: NitrogenBreather
   storage:
     back:
-    - BoxSurvivalSecurityNitrogen
+    - BoxSurvivalSlotsSecurityNitrogen # <Onyx-SlottedSurvivalBoxes-edited>
 
 # Antagonist
 
@@ -152,7 +152,7 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvivalSyndicate
+    - BoxSurvivalSlotsSyndicate # <Onyx-SlottedSurvivalBoxes-edited>
 
 - type: loadout
   id: EmergencyNitrogenSyndicate
@@ -161,7 +161,7 @@
     proto: NitrogenBreather
   storage:
     back:
-    - BoxSurvivalSyndicateNitrogen
+    - BoxSurvivalSlotsSyndicateNitrogen # <Onyx-SlottedSurvivalBoxes-edited>
 
 # Military / Double Extended
 - type: loadout

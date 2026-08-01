@@ -12,6 +12,7 @@
         - id: Ointment
         - id: Gauze
         - id: PillCanisterTricordrazine
+        - id: PillCanisterIron # <Onyx-MedkitContents>
       # see https://github.com/tgstation/blob/master/code/game/objects/items/storage/firstaid.dm for example contents
 
 - type: entity
@@ -23,10 +24,13 @@
     containers:
       storagebase: !type:AllSelector
         children:
+        # <Onyx-MedkitContents-edited>
         - id: Ointment
           amount: 2
-        - id: PillCanisterKelotane
+        - id: SprayBottleSilverSulfadiazine
+        - id: BurnAutoInjector
         - id: PillCanisterDermaline
+        # </Onyx-MedkitContents-edited>
 
 - type: entity
   id: MedkitBruteFilled
@@ -37,10 +41,13 @@
     containers:
       storagebase: !type:AllSelector
         children:
+        # <Onyx-MedkitContents-edited>
         - id: Brutepack
         - id: Gauze
+        - id: SprayBottleStypticPowder
+        - id: BruteAutoInjector
         - id: PillCanisterIron
-        - id: PillCanisterCopper
+        # </Onyx-MedkitContents-edited>
 
 - type: entity
   id: MedkitToxinFilled
@@ -99,6 +106,7 @@
         - id: RegenerativeMesh
         - id: Bloodpack
           amount: 2
+        - id: Tourniquet # <Onyx-MedkitContents>
 
 - type: entity
   id: MedkitCombatFilled
@@ -125,4 +133,4 @@
     containers:
       storagebase:
         id: StimpackMini
-        amount: 6
+        amount: 8 # <Onyx-MedkitContents-edited>

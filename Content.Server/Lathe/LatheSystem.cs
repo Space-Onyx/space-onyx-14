@@ -235,9 +235,13 @@ namespace Content.Server.Lathe
                 {
                     var result = Spawn(resultProto, Transform(uid).Coordinates);
                     //Corvax
-                    RaiseLocalEvent(uid, new LatheGetResultEvent(result));
+                    // <Onyx-LatheMaterialOutput-edited>
+                    var resultEvent = new LatheGetResultEvent(result);
+                    RaiseLocalEvent(uid, resultEvent);
                     //Corvax
-                    _stack.TryMergeToContacts(result);
+                    if (!resultEvent.Handled)
+                        _stack.TryMergeToContacts(result);
+                    // </Onyx-LatheMaterialOutput-edited>
                 }
 
                 if (currentRecipe.ResultReagents is { } resultReagents &&

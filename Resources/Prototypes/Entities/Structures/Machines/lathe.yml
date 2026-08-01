@@ -692,6 +692,7 @@
       whitelist:
         tags:
           - Ore
+    - type: LatheMaterialOutput # <Onyx-LatheMaterialOutput>
     # <Onyx-SalvageMiningPoints>
     - type: OreSiloClient
     - type: MaterialSiloLink

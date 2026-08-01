@@ -28,4 +28,5 @@
   - type: SetSelector
     possibleSets:
     - BSOHardsuitLightSet
+    - BSOModsuitSet
     maxSelectedSets: 1

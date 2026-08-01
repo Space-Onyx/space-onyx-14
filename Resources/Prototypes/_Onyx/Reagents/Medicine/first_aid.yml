@@ -1,0 +1,126 @@
+- type: reagent
+  id: Stasizium
+  name: reagent-name-stasizium
+  group: Medicine
+  desc: reagent-desc-stasizium
+  physicalDesc: reagent-physical-desc-stasizium
+  flavor: futuristic
+  color: "#8364BE"
+  worksOnTheDead: true
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:ModifyBloodLevel
+        amount: 10
+      - !type:ModifyBleed
+        amount: -2
+      - !type:ReduceRotting
+        seconds: 30
+        conditions:
+        - !type:MobStateCondition
+          mobstate: Dead
+      - !type:HealthChange
+        damage:
+          groups:
+            Brute: -20
+            Burn: -20
+            Airloss: -20
+            Toxin: -20
+            Genetic: -20
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Stasizium
+          min: 21
+        damage:
+          types:
+            Blunt: 100
+      - !type:AdjustTemperature
+        conditions:
+        - !type:TemperatureCondition
+          min: 263.15
+        amount: -50000
+
+- type: reagent
+  id: SilverSulfadiazine
+  name: reagent-name-silver-sulfadiazine
+  group: Medicine
+  desc: reagent-desc-silver-sulfadiazine
+  physicalDesc: reagent-physical-desc-viscous
+  flavor: bitter
+  color: "#ffed24"
+  plantMetabolism:
+  - !type:PlantAdjustWeeds
+    amount: -8
+  - !type:PlantAdjustHealth
+    amount: -20
+  worksOnTheDead: true
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch ]
+      effects:
+      - !type:HealthChange
+        scaleByQuantity: true
+        ignoreResistances: false
+        ignoreBlockers: false
+        damage:
+          types:
+            Heat: -1.5
+            Cold: -1.5
+            Shock: -1
+            Caustic: -1
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 3
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: -1
+            Cold: -1
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 2
+
+- type: reagent
+  id: StypticPowder
+  name: reagent-name-styptic-powder
+  group: Medicine
+  desc: reagent-desc-styptic-powder
+  physicalDesc: reagent-physical-desc-powdery
+  flavor: bitter
+  color: "#ff9b83"
+  plantMetabolism:
+  - !type:PlantAdjustWeeds
+    amount: -8
+  - !type:PlantAdjustHealth
+    amount: -20
+  worksOnTheDead: true
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch ]
+      effects:
+      - !type:HealthChange
+        scaleByQuantity: true
+        ignoreResistances: false
+        ignoreBlockers: false
+        damage:
+          types:
+            Blunt: -2
+            Piercing: -1
+            Slash: -2
+      - !type:ModifyBleed
+        amount: -2
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 3
+      effects:
+      - !type:HealthChange
+        damage:
+          groups:
+            Brute: -2
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 2

@@ -29,8 +29,6 @@
     soundEmpty:
       path: /Audio/Weapons/Guns/EmptyAlarm/smg_empty_alarm.ogg
   - type: BatterySelfRecharger
-    autoRecharge: true
-    autoRechargeRate: 200
   - type: SpaceArtillery
     powerChargeRate: 200
     powerUsePassive: 750
@@ -81,8 +79,6 @@
     powerChargeRate: 250
     powerUsePassive: 200
   - type: BatterySelfRecharger
-    autoRecharge: true
-    autoRechargeRate: 60
   - type: Actions
   - type: BatteryAmmoProvider
     proto: ShipMissileASM501
@@ -126,8 +122,6 @@
     soundEmpty:
       path: /Audio/Weapons/Guns/EmptyAlarm/smg_empty_alarm.ogg
   - type: BatterySelfRecharger
-    autoRecharge: true
-    autoRechargeRate: 60
   - type: Actions
   - type: BatteryAmmoProvider
     proto: ShipMissileASM302
@@ -192,8 +186,6 @@
     soundEmpty:
       path: /Audio/Weapons/Guns/EmptyAlarm/smg_empty_alarm.ogg
   - type: BatterySelfRecharger
-    autoRecharge: true
-    autoRechargeRate: 500
   - type: SpaceArtillery
     powerChargeRate: 500
     powerUsePassive: 2500

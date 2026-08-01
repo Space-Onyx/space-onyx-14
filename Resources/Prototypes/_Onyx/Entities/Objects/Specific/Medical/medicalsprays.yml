@@ -1,0 +1,39 @@
+- type: entity
+  parent: SprayBottle
+  id: SprayBottleStypticPowder
+  name: styptic powder spray bottle
+  suffix: Filled, Styptic powder
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Medical/Stypticspray.rsi
+    layers:
+    - state: icon
+  - type: Tag
+    tags:
+    - Spray
+  - type: Solution
+    solution:
+      maxVol: 100
+      reagents:
+      - ReagentId: StypticPowder
+        Quantity: 100
+
+- type: entity
+  parent: SprayBottle
+  id: SprayBottleSilverSulfadiazine
+  name: silver sulfadiazine spray bottle
+  suffix: Filled, Silver sulfadiazine
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Medical/Silverspray.rsi
+    layers:
+    - state: icon
+  - type: Tag
+    tags:
+    - Spray
+  - type: Solution
+    solution:
+      maxVol: 100
+      reagents:
+      - ReagentId: SilverSulfadiazine
+        Quantity: 100

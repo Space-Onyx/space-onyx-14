@@ -177,7 +177,6 @@
     - id: HandLabeler
     - id: PhotoCameraFilled
     - id: BloodTrak # Onyx
-    - id: ObraDinnClock # Onyx
     # </Onyx-LockerInventories-edited>
 
 - type: entity

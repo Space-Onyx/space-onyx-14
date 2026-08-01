@@ -1,8 +1,8 @@
 - type: entity
-  parent: MedkitCombatFilled
-  id: MedkitBSOFilled
+  parent: Medkit
+  id: MedkitBSO
   name: tactical medical kit
-  description: Contains supplies for rapidly stabilizing an injured person.
+  description: Contains everything you need to get a person back up quickly.
   components:
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/firstaidkits.rsi
@@ -10,9 +10,28 @@
   - type: Item
     sprite: _Onyx/Objects/Specific/Medical/firstaidkits.rsi
     heldPrefix: bsokit
+    size: Normal
+  - type: Storage
+    defaultStorageOrientation: Vertical
 
 - type: entity
-  parent: Medkit
+  parent: MedkitBSO
+  id: MedkitBSOFilled
+  suffix: Filled
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: MedicatedSuture
+        - id: RegenerativeMesh
+        - id: CartridgeBicaridine
+        - id: CartridgeDermaline
+        - id: CartridgeSaline
+        - id: CartridgeEpinephrine
+
+- type: entity
+  parent: MedkitBSO
   id: MedkitBSOIPC
   name: tactical repairing kit
   description: Contains supplies for rapidly repairing a silicon.
@@ -37,3 +56,81 @@
         - id: WelderIndustrial
         - id: CableApcStack
         - id: PowerCellHigh
+
+- type: entity
+  parent: Medkit
+  id: MedkitCombatBlue
+  name: combat medical kit
+  description: Contains most medicines you need to recover from injuries and illnesses, all in a convenient pill form.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/firstaidkits.rsi
+    state: blackbluekit
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Medical/firstaidkits.rsi
+    heldPrefix: blackbluekit
+    size: Normal
+
+- type: entity
+  parent: MedkitCombatBlue
+  id: MedkitCombatBlueFilled
+  suffix: Filled, Pills
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: PillCanisterBicaridine
+        - id: PillCanisterDermaline
+        - id: PillCanisterTricordrazine
+        - id: PillCanisterTramadol
+        - id: PillCanisterIron
+        - id: PillCanisterDexalin
+        - id: PillCanisterDylovene
+        - id: PillCanisterHyronalin
+
+- type: entity
+  parent: Medkit
+  id: MedkitCombatPurple
+  name: combat medical kit
+  description: For the IPCs among us.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/firstaidkits.rsi
+    state: blackpurplekit
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Medical/firstaidkits.rsi
+    heldPrefix: blackpurplekit
+    size: Normal
+  - type: Storage
+    defaultStorageOrientation: Vertical
+
+- type: entity
+  parent: MedkitCombatPurple
+  id: MedkitCombatPurpleFilled
+  suffix: Filled, IPC
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: ClothingEyesGlassesMeson
+        - id: WelderIndustrial
+        - id: CableApcStack
+        - id: PowerCellHigh
+
+- type: entity
+  parent: MedkitCombat
+  id: MedkitCombatStasiziumFilled
+  name: futuristic medkit
+  description: Medkit filled with medicines of the future.
+  suffix: Stasizium
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: StasiziumAutoInjector
+        amount: 8
+  - type: Sprite
+    sprite: Objects/Specific/Medical/firstaidkits.rsi
+    state: purplekit

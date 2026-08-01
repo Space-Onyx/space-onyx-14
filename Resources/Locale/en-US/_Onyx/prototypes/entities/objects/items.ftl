@@ -14,13 +14,6 @@ ent-ClothingBeltAssaultFilled = { ent-ClothingBeltAssault }
 ent-HandheldCrewMonitorBSO = handheld command monitor
     .desc = A handheld crew monitor modified for blueshield officer's needs. It tracks command personnel and warns when they are in danger.
 
-ent-MedkitBSOFilled = tactical medical kit
-    .desc = Contains supplies for rapidly stabilizing an injured person.
-ent-MedkitBSOIPC = tactical repairing kit
-    .desc = Contains supplies for rapidly repairing a silicon.
-ent-MedkitBSOIPCFilled = { ent-MedkitBSOIPC }
-    .desc = { ent-MedkitBSOIPC.desc }
-    .suffix = Filled
 ent-FlippoLighterBlueshield = blue flippo
     .desc = A blue lighter issued to Blueshield officers.
 ent-CigPackBlueshield = blueshield cigarette packet

@@ -85,6 +85,6 @@
           - Theatre
           - Botany
           - Bunker
-          - BluespaceHarvest
+          # - BluespaceHarvest
         - type: StationCargoShuttle
           path: /Maps/_CorvaxGoob/Stations/Silly/Shuttles/corvax_cargo_silly.yml

@@ -14,3 +14,6 @@ ent-CartridgeDermaline = burn autoinjector cartridge
     .desc = Contains 5u of kelotane, 4u of dermaline 1u of leporazine, used in a cartridge autoinjector.
 ent-CartridgeAtropine = emergency autoinjector cartridge
     .desc = Contains 10u of atropine, used in a cartridge autoinjector.
+ent-StasiziumAutoInjector = futuristic medipen
+    .desc = A dose of medicinal substances from the future that can raise even the dead to their feet.
+    .suffix = DO NOT MAP

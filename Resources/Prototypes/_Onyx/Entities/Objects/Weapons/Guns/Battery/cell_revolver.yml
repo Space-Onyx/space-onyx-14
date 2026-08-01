@@ -220,6 +220,97 @@
           Empty: {visible: false}
 
 - type: entity
+  id: BaseEnergySpeedloader
+  parent: PowerCellIRRevolver
+  abstract: true
+  components:
+  - type: BatterySelfRecharger
+    autoRechargeRate: 40
+    autoRechargePauseTime: 12
+  - type: Tag
+    tags:
+    - EnergySpeedloader
+    - MilitaryPowerCellRevolver
+    - MilitaryPowerCell
+    - PowerCell
+
+- type: entity
+  id: EnergySpeedloaderLethal
+  parent: [BaseEnergySpeedloader, BaseCentcommContraband]
+  name: energy speedloader (lethal)
+  description: A volatile self-recharging power cell for an energy revolver.
+  components:
+  - type: Tag
+    tags:
+    - EnergySpeedloader
+    - EnergySpeedloaderLethal
+    - MilitaryPowerCellRevolver
+    - MilitaryPowerCell
+    - PowerCell
+
+- type: entity
+  id: EnergySpeedloaderDisabler
+  parent: [BaseEnergySpeedloader, BaseCentcommContraband]
+  name: energy speedloader (disabler)
+  description: A volatile self-recharging power cell that fires disabling bolts.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: ion
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: ion_charge
+      shader: unshaded
+  - type: BatteryAmmoProvider
+    proto: BulletDisabler
+    fireCost: 50
+  - type: GenericVisualizer
+    visuals:
+      enum.BatteryVisuals.State:
+        enum.PowerCellVisualLayers.Unshaded:
+          Full: {visible: true, state: ion_charge}
+          Neither: {visible: true, state: ion_charge}
+          Empty: {visible: false}
+  - type: Tag
+    tags:
+    - EnergySpeedloader
+    - EnergySpeedloaderDisabler
+    - MilitaryPowerCellRevolver
+    - MilitaryPowerCell
+    - PowerCell
+
+- type: entity
+  id: EnergySpeedloaderPulse
+  parent: [BaseEnergySpeedloader, BaseCentcommContraband]
+  name: energy speedloader (pulse)
+  description: A volatile self-recharging power cell that fires destructive energy pulses.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: bluespace
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: bluespace_charge
+      shader: unshaded
+  - type: BatteryAmmoProvider
+    proto: Pulse
+    fireCost: 50
+  - type: GenericVisualizer
+    visuals:
+      enum.BatteryVisuals.State:
+        enum.PowerCellVisualLayers.Unshaded:
+          Full: {visible: true, state: bluespace_charge}
+          Neither: {visible: true, state: bluespace_charge}
+          Empty: {visible: false}
+  - type: Tag
+    tags:
+    - EnergySpeedloader
+    - EnergySpeedloaderPulse
+    - MilitaryPowerCellRevolver
+    - MilitaryPowerCell
+    - PowerCell
+
+- type: entity
   id: RevolverRedLaser
   parent: BasicHitscan
   categories: [ HideSpawnMenu ]

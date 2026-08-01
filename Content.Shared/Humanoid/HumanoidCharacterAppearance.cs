@@ -177,8 +177,7 @@ public sealed partial class HumanoidCharacterAppearance : IEquatable<HumanoidCha
         {
             var coloration = proto.Index(speciesProto.SkinColoration);
             var organs = markingManager.GetOrgans(species);
-            skinColor = coloration.Strategy.EnsureVerified(skinColor);
-            eyeColor = ClampEyeColorToStrategy(eyeColor, coloration);
+            skinColor = coloration.Strategy.EnsureVerified(skinColor); // <Onyx-EyeMarkingColor-edited>
 
             // Corvax-Sponsors-Start
             foreach (var (organ, layerMarkings) in validatedMarkings)

@@ -14,13 +14,6 @@ ent-ClothingBeltAssaultFilled = { ent-ClothingBeltAssault }
 ent-HandheldCrewMonitorBSO = портативный командный монитор
     .desc = Портативный монитор экипажа для офицера «Синий Щит». Отслеживает командный состав и предупреждает об опасности.
 
-ent-MedkitBSOFilled = тактическая медицинская аптечка
-    .desc = Содержит средства для быстрой стабилизации пострадавшего.
-ent-MedkitBSOIPC = тактический ремонтный набор
-    .desc = Содержит средства для быстрого ремонта синтетика.
-ent-MedkitBSOIPCFilled = { ent-MedkitBSOIPC }
-    .desc = { ent-MedkitBSOIPC.desc }
-    .suffix = Заполненный
 ent-FlippoLighterBlueshield = синяя зажигалка
     .desc = Синяя зажигалка офицера Синего Щита.
 ent-CigPackBlueshield = пачка сигарет Синего Щита

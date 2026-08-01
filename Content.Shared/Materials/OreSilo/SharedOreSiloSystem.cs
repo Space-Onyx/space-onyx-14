@@ -55,7 +55,7 @@ public abstract partial class SharedOreSiloSystem : EntitySystem
         if (clientComp.Silo == silo.Owner)
             return true;
 
-        if (clientComp.Silo != null || !CanTransmitMaterials((silo, silo), client))
+        if (clientComp.Silo != null || !CanTransmitMaterials((silo, silo), client, requirePower: false)) // <Onyx-MaterialSiloDeviceLink-edited>
             return false;
 
         var clientMats = _materialStorage.GetStoredMaterials(client, true);
@@ -174,12 +174,12 @@ public abstract partial class SharedOreSiloSystem : EntitySystem
     /// Checks if a given client fulfills the criteria to link/receive materials from an ore silo.
     /// </summary>
     [PublicAPI]
-    public bool CanTransmitMaterials(Entity<OreSiloComponent?, TransformComponent?> silo, EntityUid client)
+    public bool CanTransmitMaterials(Entity<OreSiloComponent?, TransformComponent?> silo, EntityUid client, bool requirePower = true) // <Onyx-MaterialSiloDeviceLink-edited>
     {
         if (!Resolve(silo, ref silo.Comp1, ref silo.Comp2))
             return false;
 
-        if (!_powerReceiver.IsPowered(silo.Owner))
+        if (requirePower && !_powerReceiver.IsPowered(silo.Owner)) // <Onyx-MaterialSiloDeviceLink-edited>
             return false;
 
         // <Onyx-MaterialSiloDeviceLink-edited>

@@ -10,6 +10,8 @@ selectable-set-blueshield-shield-name = Greatshield
 selectable-set-blueshield-shield-description = An energy greatshield containing a powered mace.
 selectable-set-blueshield-hardsuit-light-name = Light escort hardsuit
 selectable-set-blueshield-hardsuit-light-description = A mobile armored hardsuit for escort duty.
+selectable-set-blueshield-modsuit-name = Blueshield MOD suit
+selectable-set-blueshield-modsuit-description = A powered modular escort suit.
 
 ent-WeaponEnergyRevolver = EG-4 Equalizer
 ent-ClothingBeltHolsterFilledBlueshield = shoulder holster

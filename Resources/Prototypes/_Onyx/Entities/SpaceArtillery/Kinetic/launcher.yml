@@ -33,11 +33,10 @@
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
   - type: BatterySelfRecharger
-    autoRecharge: true
-    autoRechargeRate: 0 #CorvaxGoob-ShuttleGuns-Rebalance
   - type: SpaceArtillery
     powerChargeRate: 1000 #CorvaxGoob-ShuttleGuns-Rebalance
     powerUsePassive: 100
+    powerUseActive: 0
   - type: Actions
   - type: CombatMode
     isInCombatMode: true
@@ -86,8 +85,6 @@
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
   - type: BatterySelfRecharger
-    autoRecharge: false #CorvaxGoob-ShuttleGuns-Rebalance
-    autoRechargeRate: 0 #CorvaxGoob-ShuttleGuns-Rebalance
   - type: SpaceArtillery
     powerChargeRate: 30 #CorvaxGoob-ShuttleGuns-Rebalance
     powerUsePassive: 0
@@ -140,8 +137,6 @@
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
   - type: BatterySelfRecharger
-    autoRecharge: true
-    autoRechargeRate: 125
   - type: SpaceArtillery
     powerChargeRate: 400 #CorvaxGoob-ShuttleGuns-Rebalance
     powerUsePassive: 0 #CorvaxGoob-ShuttleGuns-Rebalance
@@ -189,8 +184,6 @@
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
   - type: BatterySelfRecharger
-    autoRecharge: true
-    autoRechargeRate: 214
   - type: SpaceArtillery
     powerChargeRate: 214
     powerUsePassive: 0 #CorvaxGoob-ShuttleGuns-Rebalance
@@ -255,8 +248,6 @@
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
   - type: BatterySelfRecharger
-    autoRecharge: true
-    autoRechargeRate: 12000
   - type: SpaceArtillery
     powerChargeRate: 12000
     powerUsePassive: 0 #CorvaxGoob-ShuttleGuns-Rebalance
@@ -321,8 +312,6 @@
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
   - type: BatterySelfRecharger
-    autoRecharge: true
-    autoRechargeRate: 1000 #CorvaxGoob-ShuttleGuns-Rebalance
   - type: SpaceArtillery
     powerChargeRate: 500 #CorvaxGoob-ShuttleGuns-Rebalance
     powerUsePassive: 500 #CorvaxGoob-ShuttleGuns-Rebalance
@@ -370,8 +359,6 @@
     soundEmpty:
       path: /Audio/Weapons/Guns/EmptyAlarm/smg_empty_alarm.ogg
   - type: BatterySelfRecharger
-    autoRecharge: true
-    autoRechargeRate: 350
   - type: SpaceArtillery
     powerChargeRate: 350
     powerUsePassive: 1000
@@ -459,9 +446,6 @@
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
   - type: BatterySelfRecharger
-    autoRecharge: true
-    autoRechargeRate: 12000
-    autoRechargePause: true
   - type: SpaceArtillery
     powerChargeRate: 800
     powerUsePassive: 1500
@@ -521,9 +505,6 @@
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
   - type: BatterySelfRecharger
-    autoRecharge: true
-    autoRechargeRate: 12000
-    autoRechargePause: true
   - type: SpaceArtillery
     powerChargeRate: 700
     powerUsePassive: 1500
