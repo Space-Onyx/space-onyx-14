@@ -16,8 +16,7 @@
     highPressureMultiplier: 0.05
     lowPressureMultiplier: 1000
   - type: TemperatureProtection
-    heatingCoefficient: 0.001
-    coolingCoefficient: 0.05
+    coefficient: 0.001
   - type: FireProtection
     reduction: 0.95
   - type: ExplosionResistance

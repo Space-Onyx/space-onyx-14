@@ -37,6 +37,7 @@ using Content.Server.Lightning;
 using Content.Server.Popups;
 using Content.Server.Station.Systems;
 using Content.Shared.Administration.Logs;
+using Content.Shared.AlertLevel;
 using Content.Shared.Atmos;
 using Content.Shared.Chat;
 using Content.Shared.Database;
@@ -454,8 +455,8 @@ public sealed partial class SupermatterSystem : SharedSupermatterSystem
             }
 
             var station = _station.GetOwningStation(uid);
-            if (station != null)
-                _alert.SetLevel((EntityUid) station, alertLevel, true, true, true, false);
+            if (station is { } stationUid && TryComp<AlertLevelComponent>(stationUid, out var alertComponent))
+                _alert.SetLevel((stationUid, alertComponent), new ProtoId<AlertLevelPrototype>(alertLevel), true, true, true, false); // <Onyx-AlertLevelNative>
 
             sb.AppendLine(Loc.GetString(loc));
             sb.AppendLine(Loc.GetString("supermatter-seconds-before-delam", ("seconds", sm.DelamTimer)));

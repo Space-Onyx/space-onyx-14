@@ -185,6 +185,9 @@
     state: icon
   - type: Item
     size: Ginormous
+    shape:
+    - 0,0,3,6
+    storedRotation: -45
     sprite: _Onyx/Objects/Weapons/Crushers/crusher-inhands.rsi # _Onyx-CrusherUpgrades
   - type: Clothing
     sprite: _Onyx/Objects/Weapons/Crushers/crusher.rsi # _Onyx-CrusherUpgrades
@@ -276,6 +279,9 @@
     state: icon
   - type: Item
     size: Ginormous
+    shape:
+    - 0,0,3,6
+    storedRotation: -45
     sprite: _Onyx/Objects/Weapons/Crushers/crusher_glaive-inhands.rsi # _Onyx-CrusherUpgrades
   - type: Clothing
     sprite: _Onyx/Objects/Weapons/Crushers/crusher_glaive.rsi # _Onyx-CrusherUpgrades

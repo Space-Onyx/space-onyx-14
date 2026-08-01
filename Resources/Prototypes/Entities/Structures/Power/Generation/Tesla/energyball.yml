@@ -92,7 +92,7 @@
     jumpMaxInterval: 15
   - type: WarpPoint
     follow: true
-    location: tesla ball
+    location: location-tesla-ball
   # <GoobStation-Supermatter>
   - type: SupermatterImmune
   # </GoobStation-Supermatter>

@@ -4,8 +4,14 @@
   parent: ActionCombatModeToggle
   components:
   - type: Action
-    icon: { sprite: _Onyx/Interface/Actions/xenomorph.rsi, state: help }
-    iconOn: { sprite: _Onyx/Interface/Actions/xenomorph.rsi, state: harm }
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/xenomorph.rsi
+    layers:
+    - state: help
+      map: ["enum.ActionVisuals.Icon"]
+    - state: harm
+      map: ["enum.ActionVisuals.IconToggled"]
+      visible: false
 
 # Thermal action
 - type: entity
@@ -13,8 +19,14 @@
   parent: ActionToggleThermalVision
   components:
   - type: Action
-    icon: { sprite: _Onyx/Interface/Actions/xenomorph.rsi, state: vision_off }
-    iconOn: { sprite: _Onyx/Interface/Actions/xenomorph.rsi, state: vision_on }
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/xenomorph.rsi
+    layers:
+    - state: vision_off
+      map: ["enum.ActionVisuals.Icon"]
+    - state: vision_on
+      map: ["enum.ActionVisuals.IconToggled"]
+      visible: false
 
 # Evolution actions
 - type: entity
@@ -27,7 +39,11 @@
     checkCanInteract: false
     itemIconStyle: BigAction
     useDelay: 0
-    icon: { sprite: _Onyx/Interface/Actions/xenomorph.rsi, state: evolve }
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/xenomorph.rsi
+    layers:
+    - state: evolve
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:EvolutionsActionEvent
 
@@ -38,7 +54,11 @@
   description: Evolve into the main defender of the hive.
   components:
   - type: Action
-    icon: { sprite: _Onyx/Interface/Actions/xenomorph.rsi, state: evolve_praetorian }
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/xenomorph.rsi
+    layers:
+    - state: evolve_praetorian
+      map: ["enum.ActionVisuals.Icon"]
   - type: PlasmaCostAction
     plasmaCost: 500
 
@@ -49,7 +69,11 @@
   description: Produce an internal egg sac capable of spawning children. Only one queen can exist at a time.
   components:
   - type: Action
-    icon: { sprite: _Onyx/Interface/Actions/xenomorph.rsi, state: evolve_queen }
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/xenomorph.rsi
+    layers:
+    - state: evolve_queen
+      map: ["enum.ActionVisuals.Icon"]
 
 # Structures actions
 - type: entity
@@ -61,7 +85,11 @@
   - type: Action
     itemIconStyle: BigAction
     useDelay: 2
-    icon: { sprite: _Onyx/Structures/Resin/xeno_weeds.rsi, state: constructionnode }
+  - type: Sprite
+    sprite: _Onyx/Structures/Resin/xeno_weeds.rsi
+    layers:
+    - state: constructionnode
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:SpawnTileEntityActionEvent
       entity: ResinWeedNode
@@ -84,7 +112,11 @@
     checkCanInteract: false
     itemIconStyle: BigAction
     useDelay: 2
-    icon: { sprite: _Onyx/Interface/Actions/xenomorph.rsi, state: egg }
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/xenomorph.rsi
+    layers:
+    - state: egg
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:SpawnTileEntityActionEvent
       entity: XenomorphEgg
@@ -106,7 +138,11 @@
   - type: Action
     useDelay: 2 # Goobstation
     itemIconStyle: BigAction
-    icon: { sprite: _Onyx/Structures/Resin/xeno_resin_wall.rsi, state: resin }
+  - type: Sprite
+    sprite: _Onyx/Structures/Resin/xeno_resin_wall.rsi
+    layers:
+    - state: resin
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     range: 2
   - type: WorldTargetAction
@@ -152,7 +188,11 @@
   - type: Action
     useDelay: 2
     itemIconStyle: BigAction
-    icon: { sprite: _Onyx/Structures/Resin/xeno_resin_door.rsi, state: resin }
+  - type: Sprite
+    sprite: _Onyx/Structures/Resin/xeno_resin_door.rsi
+    layers:
+    - state: resin
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     range: 2
   - type: WorldTargetAction
@@ -177,7 +217,11 @@
   - type: Action
     useDelay: 1
     itemIconStyle: BigAction
-    icon: { sprite: _Onyx/Structures/Resin/resin_nest.rsi, state: full }
+  - type: Sprite
+    sprite: _Onyx/Structures/Resin/resin_nest.rsi
+    layers:
+    - state: full
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     range: 2
   - type: WorldTargetAction
@@ -202,7 +246,11 @@
   - type: Action
     useDelay: 11
     itemIconStyle: BigAction
-    icon: { sprite : _Onyx/Interface/Actions/xenomorph.rsi, state: tail_attack }
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/xenomorph.rsi
+    layers:
+    - state: tail_attack
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     range: 10
   - type: WorldTargetAction
@@ -239,8 +287,14 @@
   - type: Action
     priority: 0
     useDelay: 3
-    icon: { sprite : _Onyx/Interface/Actions/xenomorph.rsi, state: leap_off }
-    iconOn: { sprite : _Onyx/Interface/Actions/xenomorph.rsi, state: leap_on }
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/xenomorph.rsi
+    layers:
+    - state: leap_off
+      map: ["enum.ActionVisuals.Icon"]
+    - state: leap_on
+      map: ["enum.ActionVisuals.IconToggled"]
+      visible: false
 
 # Transfer plasma action
 - type: entity
@@ -251,8 +305,14 @@
   components:
   - type: Action
     priority: 0
-    icon: { sprite : _Onyx/Interface/Actions/xenomorph.rsi, state: plasma_transfer_off }
-    iconOn: { sprite : _Onyx/Interface/Actions/xenomorph.rsi, state: plasma_transfer_on }
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/xenomorph.rsi
+    layers:
+    - state: plasma_transfer_off
+      map: ["enum.ActionVisuals.Icon"]
+    - state: plasma_transfer_on
+      map: ["enum.ActionVisuals.IconToggled"]
+      visible: false
   - type: TargetAction
     interactOnMiss: false
     range: 2
@@ -269,7 +329,11 @@
   - type: Action
     itemIconStyle: BigAction
     useDelay: 5 # Goobstation
-    icon: { sprite : _Onyx/Interface/Actions/xenomorph.rsi, state: promote }
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/xenomorph.rsi
+    layers:
+    - state: promote
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction # Goobstation start
     checkCanAccess: true
     range: 2

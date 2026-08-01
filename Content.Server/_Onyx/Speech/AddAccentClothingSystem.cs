@@ -1,5 +1,6 @@
-using Content.Server.Speech.Components;
-using Content.Server.Speech.Prototypes;
+using Content.Shared.Speech.Prototypes;
+using Content.Shared.Speech.Components;
+using Content.Shared.Speech.EntitySystems;
 using Content.Shared.Clothing;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
@@ -19,6 +20,8 @@ public sealed partial class AddAccentClothingComponent : Component
 
 public sealed partial class AddAccentClothingSystem : EntitySystem
 {
+    [Dependency] private ReplacementAccentSystem _replacementAccent = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -34,8 +37,8 @@ public sealed partial class AddAccentClothingSystem : EntitySystem
 
         var accent = (Component) Factory.GetComponent(type);
         AddComp(args.Wearer, accent);
-        if (accent is ReplacementAccentComponent replacement)
-            replacement.Accent = entity.Comp.ReplacementPrototype!;
+        if (accent is ReplacementAccentComponent && entity.Comp.ReplacementPrototype is { } prototype)
+            _replacementAccent.ApplyAccent(args.Wearer, prototype);
 
         entity.Comp.IsActive = true;
     }

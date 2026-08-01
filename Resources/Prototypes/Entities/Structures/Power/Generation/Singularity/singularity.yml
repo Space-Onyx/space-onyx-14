@@ -69,7 +69,7 @@
     - Power
   - type: WarpPoint
     follow: true
-    location: singularity
+    location: location-singularity
   # <GoobStation-Supermatter>
   - type: SupermatterImmune
   # </GoobStation-Supermatter>

@@ -88,10 +88,10 @@
       fix1:
         shape:
           !type:PolygonShape
-            vertices:
-            - "-0.5,-0.5"
-            - "0.5,0.5"
-            - "0.5,-0.5"
+          vertices:
+          - "-0.5,-0.5"
+          - "0.5,0.5"
+          - "0.5,-0.5"
         mask:
         - FullTileMask
         layer:
@@ -220,8 +220,8 @@
   components:
   - type: Tag
     tags:
-      - Wall
-      - Structure
+    - Wall
+    - Structure
   - type: Sprite
     sprite: Structures/Walls/meat.rsi
   - type: Icon
@@ -280,7 +280,7 @@
   components:
   - type: Tag
     tags:
-      - Wall
+    - Wall
   - type: Sprite
     sprite: Structures/Walls/debug.rsi
   - type: Icon
@@ -496,30 +496,30 @@
   name: plastitanium wall
   suffix: indestructible
   components:
-    - type: Sprite
-      sprite: Structures/Walls/plastitanium.rsi
-    - type: Icon
-      sprite: Structures/Walls/plastitanium.rsi
-    - type: IconSmooth
-      key: walls
-      base: plastitanium
-    - type: Fixtures
-      fixtures:
-        fix1:
-          shape:
-            !type:PhysShapeAabb
-            bounds: "-0.5,-0.5,0.5,0.5"
-          mask:
-          - FullTileMask
-          layer:
-          - WallLayer
-          density: 4000
-    - type: Damageable
-      damageModifierSet: StructuralMetallicStrong
-    - type: Injurable
-      damageContainer: StructuralInorganic
-    - type: RadiationBlocker
-      resistance: 5
+  - type: Sprite
+    sprite: Structures/Walls/plastitanium.rsi
+  - type: Icon
+    sprite: Structures/Walls/plastitanium.rsi
+  - type: IconSmooth
+    key: walls
+    base: plastitanium
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        density: 4000
+  - type: Damageable
+    damageModifierSet: StructuralMetallicStrong
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: RadiationBlocker
+    resistance: 5
 
 - type: entity
   parent: WallPlastitaniumIndestructible
@@ -580,16 +580,16 @@
         !type:DamageTrigger
         damage: 1000
       behaviors:
-        - !type:SpawnEntitiesBehavior
-          spawn:
-            Girder:
-              min: 1
-              max: 1
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-        - !type:PlaySoundBehavior
-          sound:
-            collection: MetalSlam
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          Girder:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalSlam
 
 - type: entity
   parent: BaseWall
@@ -673,23 +673,12 @@
   - type: IconSmooth
     key: walls
     base: reinf_over
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 350
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          collection: MetalSlam
-      - !type:ChangeConstructionNodeBehavior
-        node: girder
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
   # <Onyx-CosmicCult>
   - type: CosmicCorruptible
     convertTo: WallCosmicCult
   # </Onyx-CosmicCult>
+  - type: Damageable
+    damageModifierSet: StructuralMetallic # weaker because rust
 
 - type: entity
   parent: WallDiagonalBase
@@ -849,10 +838,10 @@
       fix1:
         shape:
           !type:PolygonShape
-            vertices:
-            - "-0.5,-0.5"
-            - "0.5,0.5"
-            - "0.5,-0.5"
+          vertices:
+          - "-0.5,-0.5"
+          - "0.5,0.5"
+          - "0.5,-0.5"
         mask:
         - FullTileMask
         layer:
@@ -1030,23 +1019,12 @@
   - type: IconSmooth
     key: walls
     base: solid
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 150
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          collection: MetalSlam
-      - !type:ChangeConstructionNodeBehavior
-        node: girder
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
   # <Onyx-CosmicCult>
   - type: CosmicCorruptible
     convertTo: WallCosmicCult
   # </Onyx-CosmicCult>
+  - type: Damageable
+    damageModifierSet: Metallic # weaker because rust
 
 - type: entity
   parent: BaseWall
@@ -1055,7 +1033,7 @@
   components:
   - type: Tag
     tags:
-      - Wall
+    - Wall
   - type: Destructible
     thresholds:
     - trigger:
@@ -1449,7 +1427,7 @@
     lifetime: 15
   - type: Tag
     tags:
-      - Wall
+    - Wall
   - type: Physics
     bodyType: Static
   - type: Fixtures
@@ -1457,7 +1435,7 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-            bounds: "-0.5,-0.5,0.5,0.5"
+          bounds: "-0.5,-0.5,0.5,0.5"
         mask:
         - FullTileMask
         layer:
@@ -1623,8 +1601,6 @@
         !type:DamageTrigger
         damage: 100
       behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
       - !type:PlaySoundBehavior
         sound:
           path: /Audio/Effects/break_stone.ogg

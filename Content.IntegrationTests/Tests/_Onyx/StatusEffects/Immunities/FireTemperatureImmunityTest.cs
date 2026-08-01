@@ -46,20 +46,20 @@ public sealed class FireTemperatureImmunityTest : GameTest
         });
 
         fire.SetFireStacks(target, 2, flammable, ignite: true);
-        heat.ForceChangeTemperature(target, Atmospherics.T20C + 100, temperature);
+        heat.ChangeHeat((target, temperature), temperature.HeatCapacity * 100);
         Assert.Multiple(() =>
         {
             Assert.That(flammable.OnFire, Is.False);
-            Assert.That(temperature.CurrentTemperature, Is.EqualTo(Atmospherics.T20C));
+            Assert.That(temperature.Temperature, Is.EqualTo(Atmospherics.T20C));
         });
 
         await RunSeconds(0.2f);
         fire.SetFireStacks(target, 2, flammable, ignite: true);
-        heat.ForceChangeTemperature(target, Atmospherics.T20C + 100, temperature);
+        heat.ChangeHeat((target, temperature), temperature.HeatCapacity * 100);
         Assert.Multiple(() =>
         {
             Assert.That(flammable.OnFire, Is.True);
-            Assert.That(temperature.CurrentTemperature, Is.EqualTo(Atmospherics.T20C + 100));
+            Assert.That(temperature.Temperature, Is.EqualTo(Atmospherics.T20C + 100));
         });
     }
 }

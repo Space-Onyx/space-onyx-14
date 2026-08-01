@@ -9,6 +9,8 @@ using Content.Shared.Movement.Events;
 using Content.Shared.Power.Components;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.Toggleable;
+using Content.Shared.Vehicle;
+using Content.Shared.Vehicle.Components;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Systems;
 
@@ -25,6 +27,7 @@ public sealed partial class MechPolicySystem : EntitySystem
     [Dependency] private SharedMechSystem _mech = default!;
     [Dependency] private ActionBlockerSystem _actionBlocker = default!;
     [Dependency] private SharedGunSystem _gun = default!;
+    [Dependency] private VehicleSystem _vehicle = default!;
 
     public override void Initialize()
     {
@@ -85,7 +88,7 @@ public sealed partial class MechPolicySystem : EntitySystem
     private void OnToggleAction(Entity<MechComponent> mech, ref ToggleActionEvent args)
     {
         if (args.Handled ||
-            mech.Comp.PilotSlot.ContainedEntity != args.Performer ||
+            _vehicle.GetOperatorOrNull(mech.Owner) != args.Performer || // <Onyx-MechVehicleNative>
             mech.Comp.Energy <= 0 ||
             HasComp<EmpDisabledComponent>(mech))
             args.Handled = true;

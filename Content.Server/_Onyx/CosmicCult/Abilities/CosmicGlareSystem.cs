@@ -8,7 +8,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using System.Linq;
-using Content.Server.Bible.Components;
+using Content.Shared.Bible.Components;
 using Content.Shared.Bible;
 
 using Content.Server.Flash;

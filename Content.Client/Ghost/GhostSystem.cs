@@ -1,4 +1,4 @@
-using Content.Client.Movement.Systems;
+﻿using Content.Client.Movement.Systems;
 using Content.Shared.Actions;
 using Content.Shared.Ghost;
 using Content.Shared._Onyx.Ghost;

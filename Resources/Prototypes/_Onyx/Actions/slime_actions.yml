@@ -5,10 +5,12 @@
   description: xenobio-slime-action-latch-description
   components:
   - type: Action
-    icon:
-      sprite: _Onyx/Xenobiology/Actions/actions_slime.rsi
-      state: slimeeat
     useDelay: 3
+  - type: Sprite
+    sprite: _Onyx/Xenobiology/Actions/actions_slime.rsi
+    layers:
+    - state: slimeeat
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     range: 1
   - type: EntityTargetAction

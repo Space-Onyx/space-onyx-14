@@ -9,9 +9,11 @@
     checkConsciousness: false
     itemIconStyle: BigAction
     priority: -20
-    icon:
-      sprite: _Onyx/Effects/bluespace_lifeline.rsi
-      state: bluespace_lifeline
+  - type: Sprite
+    sprite: _Onyx/Effects/bluespace_lifeline.rsi
+    layers:
+    - state: bluespace_lifeline
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:ActivateImplantEvent
 
@@ -26,8 +28,10 @@
     checkConsciousness: false
     itemIconStyle: BigAction
     priority: -20
-    icon:
-      sprite: _Onyx/Effects/redspace_lifeline.rsi
-      state: redspace_lifeline
+  - type: Sprite
+    sprite: _Onyx/Effects/redspace_lifeline.rsi
+    layers:
+    - state: redspace_lifeline
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:ActivateImplantEvent

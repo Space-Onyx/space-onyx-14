@@ -46,13 +46,11 @@ public sealed partial class VehicleComponent : Component
     [DataField, AutoNetworkedField]
     public bool RequiresHands = true;
 
-    // <Onyx-VehicleHands>
     /// <summary>
-    /// Number of hands occupied by virtual items while operating the vehicle.
+    /// Whether the operator can attack while operating this vehicle.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public int RequiredHands = 2;
-    // </Onyx-VehicleHands>
+    public bool CanAttack;
 }
 
 [Serializable, NetSerializable]

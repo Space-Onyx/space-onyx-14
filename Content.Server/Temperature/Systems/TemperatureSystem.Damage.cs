@@ -2,20 +2,17 @@ using Content.Server.Administration.Logs;
 using Content.Server.Body.Components;
 using Content.Server.Temperature.Components;
 using Content.Shared.Alert;
-// <Onyx-LocalizedTemperatureDamage>
-using Content.Shared.Damage;
-// </Onyx-LocalizedTemperatureDamage>
 using Content.Shared.Damage.Components;
+using Content.Shared.Damage; // <Onyx-LocalizedTemperatureDamage>
 using Content.Shared.Damage.Systems;
 using Content.Shared.Database;
+using Content.Shared._Onyx.StatusEffects.Immunities; // <Onyx-XenobiologyImmunities>
+using Content.Shared.StatusEffectNew; // <Onyx-XenobiologyImmunities>
 using Content.Shared.Rounding;
 using Content.Shared.Temperature;
 using Content.Shared.Temperature.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-// <Onyx-XenobiologyImmunities>
-using Content.Shared._Onyx.StatusEffects.Immunities;
-// </Onyx-XenobiologyImmunities>
 
 namespace Content.Server.Temperature.Systems;
 
@@ -29,6 +26,7 @@ public sealed partial class TemperatureSystem
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private IAdminLogManager _adminLogger = default!;
     [Dependency] private IGameTiming _gameTiming = default!;
+
     [Dependency] private EntityQuery<TemperatureDamageComponent> _tempDamageQuery = default!;
     [Dependency] private EntityQuery<ContainerTemperatureComponent> _containerTemperatureQuery = default!;
     [Dependency] private EntityQuery<ThermalRegulatorComponent> _thermalRegulatorQuery = default!;
@@ -57,9 +55,9 @@ public sealed partial class TemperatureSystem
 
     private void InitializeDamage()
     {
-        SubscribeLocalEvent<AlertsComponent, OnTemperatureChangeEvent>(ServerAlert);
+        SubscribeLocalEvent<AlertsComponent, TemperatureChangedEvent>(ServerAlert);
 
-        SubscribeLocalEvent<TemperatureDamageComponent, OnTemperatureChangeEvent>(EnqueueDamage);
+        SubscribeLocalEvent<TemperatureDamageComponent, TemperatureChangedEvent>(EnqueueDamage);
         SubscribeLocalEvent<TemperatureDamageComponent, EntityUnpausedEvent>(OnUnpaused);
 
         // Allows overriding thresholds based on the parent's thresholds.
@@ -103,15 +101,13 @@ public sealed partial class TemperatureSystem
         var heatDamageThreshold = entity.Comp.ParentHeatDamageThreshold ?? entity.Comp.HeatDamageThreshold;
         var coldDamageThreshold = entity.Comp.ParentColdDamageThreshold ?? entity.Comp.ColdDamageThreshold;
 
-        if (temperature.CurrentTemperature >= heatDamageThreshold)
+        if (temperature.Temperature >= heatDamageThreshold)
         {
-            // <Onyx-XenobiologyImmunities>
-            if (_statusEffects.HasEffectComp<HighTemperatureImmunityStatusEffectComponent>(entity.Owner))
+            if (_statusEffects.HasEffectComp<HighTemperatureImmunityStatusEffectComponent>(entity)) // <Onyx-XenobiologyImmunities>
             {
                 entity.Comp.TakingDamage = false;
                 return;
             }
-            // </Onyx-XenobiologyImmunities>
 
             if (!entity.Comp.TakingDamage)
             {
@@ -119,15 +115,13 @@ public sealed partial class TemperatureSystem
                 entity.Comp.TakingDamage = true;
             }
 
-            var diff = Math.Abs(temperature.CurrentTemperature - heatDamageThreshold);
+            var diff = Math.Abs(temperature.Temperature - heatDamageThreshold);
             var tempDamage = c / (1 + a * Math.Pow(Math.E, -heatK * diff)) - y;
-            // <Onyx-LocalizedTemperatureDamage-edited>
             var damage = entity.Comp.HeatDamage * tempDamage * deltaTime.TotalSeconds;
-            if (!TryApplyLocalizedTemperatureDamage(entity, damage))
+            if (!TryApplyLocalizedTemperatureDamage(entity, damage)) // <Onyx-LocalizedTemperatureDamage>
                 _damageable.TryChangeDamage(entity.Owner, damage, ignoreResistances: true, interruptsDoAfters: false);
-            // </Onyx-LocalizedTemperatureDamage-edited>
         }
-        else if (temperature.CurrentTemperature <= coldDamageThreshold)
+        else if (temperature.Temperature <= coldDamageThreshold)
         {
             if (!entity.Comp.TakingDamage)
             {
@@ -135,14 +129,12 @@ public sealed partial class TemperatureSystem
                 entity.Comp.TakingDamage = true;
             }
 
-            var diff = Math.Abs(temperature.CurrentTemperature - coldDamageThreshold);
+            var diff = Math.Abs(temperature.Temperature - coldDamageThreshold);
             var tempDamage =
                 Math.Sqrt(diff * (Math.Pow(entity.Comp.DamageCap.Double(), 2) / coldDamageThreshold));
-            // <Onyx-LocalizedTemperatureDamage-edited>
             var damage = entity.Comp.ColdDamage * tempDamage * deltaTime.TotalSeconds;
-            if (!TryApplyLocalizedTemperatureDamage(entity, damage))
+            if (!TryApplyLocalizedTemperatureDamage(entity, damage)) // <Onyx-LocalizedTemperatureDamage>
                 _damageable.TryChangeDamage(entity.Owner, damage, ignoreResistances: true, interruptsDoAfters: false);
-            // </Onyx-LocalizedTemperatureDamage-edited>
         }
         else if (entity.Comp.TakingDamage)
         {
@@ -151,9 +143,7 @@ public sealed partial class TemperatureSystem
         }
     }
 
-    private partial bool TryApplyLocalizedTemperatureDamage(Entity<TemperatureDamageComponent> entity, DamageSpecifier damage); // <Onyx-LocalizedTemperatureDamage>
-
-    private void ServerAlert(Entity<AlertsComponent> entity, ref OnTemperatureChangeEvent args)
+    private void ServerAlert(Entity<AlertsComponent> entity, ref TemperatureChangedEvent args)
     {
         ProtoId<AlertPrototype> type;
         float threshold;
@@ -198,7 +188,7 @@ public sealed partial class TemperatureSystem
             _alerts.ClearAlertCategory(entity.AsNullable(), TemperatureAlertCategory);
     }
 
-    private void EnqueueDamage(Entity<TemperatureDamageComponent> ent, ref OnTemperatureChangeEvent args)
+    private void EnqueueDamage(Entity<TemperatureDamageComponent> ent, ref TemperatureChangedEvent args)
     {
         if (ShouldUpdateDamage.Add(ent) && !ent.Comp.TakingDamage)
             ent.Comp.LastUpdate = _gameTiming.CurTime;

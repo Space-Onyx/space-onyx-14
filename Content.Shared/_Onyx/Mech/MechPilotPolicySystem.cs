@@ -11,6 +11,8 @@ using Content.Shared.NPC.Prototypes;
 using Content.Shared.NPC.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Whitelist;
+using Content.Shared.Vehicle.Components;
+using Content.Shared.Vehicle;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 
@@ -31,6 +33,7 @@ public sealed partial class MechPilotPolicySystem : EntitySystem
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private CarryingSystem _carrying = default!;
     [Dependency] private SharedSprintingSystem _sprinting = default!;
+    [Dependency] private VehicleSystem _vehicle = default!;
 
     private readonly HashSet<EntityUid> _rollingBack = new();
 
@@ -57,7 +60,8 @@ public sealed partial class MechPilotPolicySystem : EntitySystem
             return;
         }
 
-        if (_whitelist.IsWhitelistFail(mech.PilotWhitelist, pilot) ||
+        if (!TryComp<VehicleComponent>(args.Mech, out var vehicle) ||
+            _whitelist.IsWhitelistFail(vehicle.OperatorWhitelist, pilot) ||
             _whitelist.IsWhitelistPass(mech.PilotBlacklist, pilot))
         {
             _popup.PopupEntity(Loc.GetString("mech-no-enter", ("item", args.Mech)), pilot, pilot);
@@ -102,7 +106,8 @@ public sealed partial class MechPilotPolicySystem : EntitySystem
 
     private void OnVirtualItemDeleted(Entity<MechComponent> mech, ref VirtualItemDeletedEvent args)
     {
-        if (_rollingBack.Contains(args.User) || mech.Comp.PilotSlot.ContainedEntity != args.User)
+        if (_rollingBack.Contains(args.User) ||
+            _vehicle.GetOperatorOrNull(mech.Owner) != args.User) // <Onyx-MechVehicleNative>
             return;
 
         _containers.Remove(args.User, mech.Comp.PilotSlot, force: true);

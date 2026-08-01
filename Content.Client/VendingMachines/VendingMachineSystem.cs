@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.VendingMachines;
 using Robust.Client.Animations;
 using Robust.Client.GameObjects;
@@ -12,18 +11,7 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
     [Dependency] private SharedAppearanceSystem _appearanceSystem = default!;
     [Dependency] private SpriteSystem _sprite = default!;
 
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        SubscribeLocalEvent<VendingMachineComponent, AppearanceChangeEvent>(OnAppearanceChange);
-        SubscribeLocalEvent<VendingMachineComponent, AnimationCompletedEvent>(OnAnimationCompleted);
-    }
-
-    protected override void UpdateUI(Entity<VendingMachineComponent?> entity)
-    {
-    }
-
+    [SubscribeLocalEvent]
     private void OnAnimationCompleted(EntityUid uid, VendingMachineComponent component, AnimationCompletedEvent args)
     {
         if (!TryComp<SpriteComponent>(uid, out var sprite))
@@ -38,6 +26,7 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
         UpdateAppearance(uid, visualState, component, sprite);
     }
 
+    [SubscribeLocalEvent]
     private void OnAppearanceChange(EntityUid uid, VendingMachineComponent component, ref AppearanceChangeEvent args)
     {
         if (args.Sprite == null)

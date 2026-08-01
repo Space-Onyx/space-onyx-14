@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 
 """
 Sends updates to a Discord webhook for new changelog entries since the last GitHub Actions publish run.
@@ -30,11 +30,14 @@ TRUNCATION_SUFFIX = " [...]"
 CHANGELOG_FILES = ["Resources/Changelog/Changelog.yml", "Resources/Changelog/ChangelogSyndie.yml"] # Corvax-MultiChangelog
 
 TYPES_TO_EMOJI = {
-    "Fix":    "🐛",
-    "Add":    "✨", # Corvax: Use gitmoji 💥
-    "Remove": "❌",
-    "Tweak":  "⚒️"
+    "Fix":    "ЁЯРЫ",
+    "Add":    "тЬи", # Corvax: Use gitmoji ЁЯТе
+    "Remove": "тЭМ",
+    "Tweak":  "тЪТя╕П"
 }
+
+EXPERIMENTAL_LABEL = "Intent: Experimental"
+EXPERIMENTAL_EMOJI = "ЁЯзк"
 
 ChangelogEntry = dict[str, Any]
 
@@ -237,8 +240,11 @@ def changelog_entries_to_message_lines(entries: Iterable[ChangelogEntry]) -> lis
                 url = None
 
             for change in entry["changes"]:
-                emoji = TYPES_TO_EMOJI.get(change["type"], "❓")
+                emoji = TYPES_TO_EMOJI.get(change["type"], "тЭУ")
                 message = change["message"]
+
+                if EXPERIMENTAL_LABEL in entry["labels"]:
+                    emoji = f"{emoji}{EXPERIMENTAL_EMOJI}"
 
                 message_lines.append(create_change_line(emoji, message, url))
 

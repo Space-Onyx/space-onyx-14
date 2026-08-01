@@ -80,9 +80,6 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
-    # <Onyx-NanoChat-edited>
-    diskSpace: 10
-    # </Onyx-NanoChat-edited>
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -1017,9 +1014,6 @@
     silent: true
   - type: CartridgeLoader
     notificationsEnabled: false
-    # <Onyx-NanoChat-edited>
-    diskSpace: 10
-    # </Onyx-NanoChat-edited>
   - type: EntityTableContainerFill
     containers:
       preinstalled-program-container: !type:AllSelector

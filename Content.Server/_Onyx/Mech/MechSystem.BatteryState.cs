@@ -62,7 +62,7 @@ public sealed partial class MechSystem
         if (component.Energy <= 0 && TryComp<UnpoweredFlashlightComponent>(uid, out var flashlight))
             _flashlight.SetLight((uid, flashlight), false, quiet: true);
         _pilotFeedback.UpdatePilotVision(uid, component);
-        _actionBlocker.UpdateCanMove(uid);
+        Vehicle.RefreshCanRun(uid);
         UpdateUserInterface(uid, component);
     }
 

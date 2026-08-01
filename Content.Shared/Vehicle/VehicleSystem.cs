@@ -4,15 +4,14 @@ using Content.Shared.ActionBlocker;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Hands.Components;
+using Content.Shared.Interaction.Events;
 using Content.Shared.Interaction.Components;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Vehicle.Components;
 using Content.Shared.Whitelist;
-// <Onyx-TileMovement>
 using Content.Shared._Onyx.TileMovement;
-// </Onyx-TileMovement>
 using JetBrains.Annotations;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
@@ -79,6 +78,29 @@ public sealed partial class VehicleSystem : EntitySystem
     }
 
     [SubscribeLocalEvent]
+    private void OnOperatorCanAttackFromContainer(Entity<VehicleOperatorComponent> ent, ref CanAttackFromContainerEvent args)
+    {
+        if (ent.Comp.Vehicle is not { } vehicleUid ||
+            !_vehicleQuery.TryComp(vehicleUid, out var vehicle) ||
+            !vehicle.CanAttack)
+            return;
+
+        args.CanAttack = true;
+    }
+
+    [SubscribeLocalEvent]
+    private void OnOperatorAttackAttempt(Entity<VehicleOperatorComponent> ent, ref AttackAttemptEvent args)
+    {
+        if (ent.Comp.Vehicle is not { } vehicleUid ||
+            !_vehicleQuery.TryComp(vehicleUid, out var vehicle) ||
+            !vehicle.CanAttack ||
+            args.Target != vehicleUid)
+            return;
+
+        args.Cancel();
+    }
+
+    [SubscribeLocalEvent]
     private void OnVehicleShutdown(Entity<VehicleComponent> ent, ref ComponentShutdown args)
     {
         if (_timing.ApplyingState)
@@ -141,9 +163,7 @@ public sealed partial class VehicleSystem : EntitySystem
         }
 
         _mover.SetRelay(operatorUid, entity);
-        // <Onyx-TileMovement>
         _mover.SyncRelayTileMovement(operatorUid, entity);
-        // </Onyx-TileMovement>
 
         var enterEvent = new OnVehicleEnteredEvent(entity, operatorUid);
         RaiseLocalEvent(operatorUid, ref enterEvent);
@@ -180,13 +200,11 @@ public sealed partial class VehicleSystem : EntitySystem
         }
 
         entity.Comp.Operator = null;
-        // <Onyx-TileMovement>
         if (HasComp<TileMovementRelayComponent>(entity))
         {
             RemComp<TileMovementComponent>(entity);
             RemComp<TileMovementRelayComponent>(entity);
         }
-        // </Onyx-TileMovement>
         ClearOperatorRelays(currentOperator, entity);
 
         RefreshCanRun((entity, entity.Comp));
@@ -314,7 +332,7 @@ public sealed partial class VehicleSystem : EntitySystem
         if (TerminatingOrDeleted(entity))
             return;
 
-        if (!Resolve(entity, ref entity.Comp))
+        if (!Resolve(entity, ref entity.Comp, false))
             return;
 
         _actionBlocker.UpdateCanMove(entity);

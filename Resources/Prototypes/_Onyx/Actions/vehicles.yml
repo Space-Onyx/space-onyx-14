@@ -6,10 +6,12 @@
   components:
   - type: Action
     useDelay: 3
-    icon:
-      sprite: _Onyx/Objects/Vehicles/forklift.rsi
-      state: forklift
     itemIconStyle: BigAction
+  - type: Sprite
+    sprite: _Onyx/Objects/Vehicles/forklift.rsi
+    layers:
+    - state: forklift
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     interactOnMiss: false
   - type: EntityTargetAction
@@ -26,7 +28,10 @@
   components:
   - type: Action
     useDelay: 1.5
-    icon: Interface/NavMap/beveled_arrow_south.png
+  - type: Sprite
+    layers:
+    - texture: Interface/NavMap/beveled_arrow_south.png
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:UnforkliftActionEvent
 
@@ -37,10 +42,12 @@
   description: Show the driver you enjoy being a passenger.
   components:
   - type: Action
-    icon:
-      sprite: _Onyx/Objects/Vehicles/clowncar.rsi
-      state: clowncar
     useDelay: 60
+  - type: Sprite
+    sprite: _Onyx/Objects/Vehicles/clowncar.rsi
+    layers:
+    - state: clowncar
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:ThankRiderActionEvent
 
@@ -51,9 +58,11 @@
   description: Reset the passengers' gratitude.
   components:
   - type: Action
-    icon:
-      sprite: _Onyx/Objects/Vehicles/clowncar.rsi
-      state: clowncar
     useDelay: 30
+  - type: Sprite
+    sprite: _Onyx/Objects/Vehicles/clowncar.rsi
+    layers:
+    - state: clowncar
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:QuietBackThereActionEvent

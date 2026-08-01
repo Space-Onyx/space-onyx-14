@@ -7,7 +7,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Server.Bible.Components;
+using Content.Shared.Bible.Components;
 using Content.Server._Onyx.CosmicCult.Components;
 using Content.Server.Popups;
 using Content.Shared._Onyx.CosmicCult.Components;

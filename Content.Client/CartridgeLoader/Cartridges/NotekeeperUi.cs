@@ -58,5 +58,6 @@ public sealed partial class NotekeeperUi : UIFragment
         var notekeeperMessage = new NotekeeperUiMessageEvent(action, null, noteId, title, content);
         var message = new CartridgeUiMessage(notekeeperMessage);
         userInterface?.SendPredictedMessage(message);
+        userInterface?.SendPredictedMessage(message);
     }
 }

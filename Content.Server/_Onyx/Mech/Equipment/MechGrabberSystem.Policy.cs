@@ -4,6 +4,7 @@ using Content.Shared.Mech.Components;
 using Content.Shared.Mech.Equipment.Components;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Wall;
+using Content.Shared.Vehicle;
 using Content.Shared.Whitelist;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
@@ -15,6 +16,7 @@ namespace Content.Server.Mech.Equipment.EntitySystems;
 public sealed partial class MechGrabberSystem
 {
     [Dependency] private EntityWhitelistSystem _whitelist = default!;
+    [Dependency] private VehicleSystem _vehicle = default!;
 
     private void InitializeGrabberPolicy()
     {
@@ -47,7 +49,7 @@ public sealed partial class MechGrabberSystem
     {
         if (Deleted(target) || target == mechUid ||
             !TryComp<MechComponent>(mechUid, out var mech) ||
-            mech.PilotSlot.ContainedEntity == target ||
+            _vehicle.GetOperatorOrNull(mechUid) == target || // <Onyx-MechVehicleNative>
             _container.IsEntityInContainer(target) ||
             component.ItemContainer.ContainedEntities.Count >= component.MaxContents ||
             Transform(target).Anchored ||

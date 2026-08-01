@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Content.Server.Gateway.Components;
 using Content.Server.Parallax;
 using Content.Server.Procedural;
@@ -78,9 +78,6 @@ public sealed partial class GatewayGeneratorSystem : EntitySystem
 
     private void OnGeneratorMapInit(EntityUid uid, GatewayGeneratorComponent generator, MapInitEvent args)
     {
-        if (!_cfgManager.GetCVar(CCVars.GatewayGeneratorEnabled))
-            return;
-
         generator.NextUnlock = TimeSpan.FromMinutes(5);
 
         for (var i = 0; i < 3; i++)

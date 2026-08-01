@@ -11,6 +11,8 @@ using Content.Shared.Storage.Components;
 using Content.Shared.Storage.EntitySystems;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
+using Content.Shared.Vehicle;
+using Content.Shared.Vehicle.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
@@ -27,6 +29,7 @@ public abstract partial class SharedCardboardBoxSystem : EntitySystem
     [Dependency] private SharedMoverController _mover = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private SharedStealthSystem _stealth = default!;
+    [Dependency] private VehicleSystem _vehicle = default!;
 
     [SubscribeLocalEvent]
     private void OnInteracted(Entity<CardboardBoxComponent> ent, ref ActivateInWorldEvent args)
@@ -45,7 +48,6 @@ public abstract partial class SharedCardboardBoxSystem : EntitySystem
 
         args.Handled = true;
         _storage.ToggleOpen(args.User, ent, box);
-
         if (!box.Contents.Contains(args.User) || box.Open)
             return;
 
@@ -70,14 +72,18 @@ public abstract partial class SharedCardboardBoxSystem : EntitySystem
             return;
 
         // Play effect & sound.
-        if (ent.Comp.Mover == null)
+        var mover = ent.Comp.Mover;
+        if (mover == null && _vehicle.TryGetOperator(ent.Owner, out var operatorEnt))
+            mover = operatorEnt.Value.Owner;
+
+        if (mover == null)
             return;
 
         if (_timing.CurTime <= ent.Comp.EffectCooldown)
             return;
 
         if (_net.IsServer)
-            RaiseNetworkEvent(new PlayBoxEffectMessage(GetNetEntity(ent), GetNetEntity(ent.Comp.Mover.Value)));
+            RaiseNetworkEvent(new PlayBoxEffectMessage(GetNetEntity(ent), GetNetEntity(mover.Value)));
 
         _audio.PlayPredicted(ent.Comp.EffectSound, ent, args.User);
         ent.Comp.EffectCooldown = _timing.CurTime + ent.Comp.CooldownDuration;
@@ -152,5 +158,14 @@ public abstract partial class SharedCardboardBoxSystem : EntitySystem
         RemComp<RelayInputMoverComponent>(ent.Comp.Mover.Value);
         ent.Comp.Mover = null;
         Dirty(ent);
+    }
+
+    [SubscribeLocalEvent]
+    private void OnOperatorSet(Entity<CardboardBoxComponent> ent, ref VehicleOperatorSetEvent args)
+    {
+        if (args.NewOperator != null || args.OldOperator == null)
+            return;
+
+        _physics.SetLinearVelocity(ent, Vector2.Zero);
     }
 }

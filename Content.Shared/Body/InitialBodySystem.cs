@@ -20,6 +20,7 @@ public sealed partial class InitialBodySystem : EntitySystem
     // <Onyx-Surgery>
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private OrganRelationSystem _organRelation = default!;
 
     public override void Initialize()
     {
@@ -44,6 +45,7 @@ public sealed partial class InitialBodySystem : EntitySystem
 
         var xform = Transform(ent);
         var coords = new EntityCoordinates(ent, Vector2.Zero);
+        var spawned = new Dictionary<ProtoId<OrganCategoryPrototype>, EntityUid>();
 
         var external = new Dictionary<BodyPartType, Dictionary<BodyPartSymmetry, EntityUid>>();
         var internalOrgans = new List<(ProtoId<OrganCategoryPrototype> Category, EntProtoId Prototype)>();

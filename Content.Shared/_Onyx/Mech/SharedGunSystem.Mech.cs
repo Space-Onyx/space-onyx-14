@@ -1,6 +1,7 @@
 using Content.Shared.Mech.Components;
 using Content.Shared.Mech.Equipment.Components;
 using Content.Shared._Onyx.Mech;
+using Content.Shared.Vehicle.Components;
 using Content.Shared.Weapons.Ranged.Components;
 
 namespace Content.Shared.Weapons.Ranged.Systems;
@@ -9,19 +10,23 @@ public abstract partial class SharedGunSystem
 {
     private EntityUid ResolveMechShooter(EntityUid user)
     {
-        return TryComp<MechPilotComponent>(user, out var pilot) ? pilot.Mech : user;
+        return TryComp<VehicleOperatorComponent>(user, out var pilot) &&
+               pilot.Vehicle is { } vehicle &&
+               HasComp<MechComponent>(vehicle)
+            ? vehicle
+            : user;
     }
 
     private bool TryGetMechGun(EntityUid entity, out Entity<GunComponent> gun)
     {
         gun = default;
-        if (!TryComp<MechPilotComponent>(entity, out var pilot) ||
-            !TryComp<MechComponent>(pilot.Mech, out var mech) ||
-            mech.PilotSlot.ContainedEntity != entity ||
+        if (!TryComp<VehicleOperatorComponent>(entity, out var pilot) ||
+            pilot.Vehicle is not { } mechUid ||
+            !TryComp<MechComponent>(mechUid, out var mech) ||
             mech.CurrentSelectedEquipment is not { } equipment ||
             !mech.EquipmentContainer.Contains(equipment) ||
             !TryComp<MechEquipmentComponent>(equipment, out var mechEquipment) ||
-            mechEquipment.EquipmentOwner != pilot.Mech ||
+            mechEquipment.EquipmentOwner != mechUid ||
             !TryComp<GunComponent>(equipment, out var mechGun))
             return false;
 

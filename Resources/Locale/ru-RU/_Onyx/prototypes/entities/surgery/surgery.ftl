@@ -18,6 +18,7 @@ ent-SurgeryOpenAbdomen = Вскрыть живот
 ent-SurgeryHideItem = Спрятать предмет
 ent-SurgeryTakeItem = Извлечь предмет
 ent-SurgeryAttachHead = Прикрепить голову
+ent-SurgeryAttachGroin = Пришить таз
 ent-SurgeryAttachLeftArm = Прикрепить левую руку
 ent-SurgeryAttachRightArm = Прикрепить правую руку
 ent-SurgeryAttachLeftLeg = Прикрепить левую ногу
@@ -85,6 +86,9 @@ ent-SurgeryStepMendRibcage = Восстановить рёбра костным 
 ent-SurgeryStepCloseIncision = Зашить разрез
 
 ent-SurgeryStepAttachHead = Прикрепить голову
+ent-SurgeryStepAttachGroin = Прикрепить таз
+ent-SurgeryStepMendAttachedGroin = Срастить кости таза
+ent-SurgeryStepSutureAttachedGroin = Пришить таз
 ent-SurgeryStepAttachLeftArm = Прикрепить левую руку
 ent-SurgeryStepAttachRightArm = Прикрепить правую руку
 ent-SurgeryStepAttachLeftLeg = Прикрепить левую ногу

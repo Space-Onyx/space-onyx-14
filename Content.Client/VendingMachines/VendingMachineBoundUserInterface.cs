@@ -1,70 +1,62 @@
 using Content.Client._Onyx.VendingMachines.UI;
+using Content.Shared._Onyx.Salvage.MiningPoints;
 using Content.Shared._Onyx.Materials;
 using Content.Shared.VendingMachines;
 using Robust.Client.UserInterface;
 
-namespace Content.Client.VendingMachines
+namespace Content.Client.VendingMachines;
+
+public sealed class VendingMachineBoundUserInterface(EntityUid owner, Enum uiKey) : BoundUserInterface(owner, uiKey)
 {
-    public sealed class VendingMachineBoundUserInterface : BoundUserInterface
+    [ViewVariables]
+    private FancyVendingMachineMenu? _menu;
+
+    protected override void Open()
     {
-        [ViewVariables]
-        private FancyVendingMachineMenu? _menu;
+        base.Open();
 
-        public VendingMachineBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        _menu = EntMan.HasComponent<SalvageMiningPointVendorComponent>(Owner)
+            ? new SalvageVendingMachineMenu()
+            : new FancyVendingMachineMenu();
+        _menu.Title = EntMan.GetComponent<MetaDataComponent>(Owner).EntityName;
+        _menu.OnClose += Close;
+        _menu.OnItemSelected += OnItemSelected;
+        _menu.OnWithdraw += OnWithdraw;
+        _menu.OpenCentered();
+    }
 
-        protected override void Open()
-        {
-            base.Open();
+    private void OnItemSelected(VendingMachineInventoryEntry entry)
+    {
+        SendPredictedMessage(new VendingMachineEjectCountMessage(entry, 1));
+    }
 
-            _menu = EntMan.HasComponent<SalvageMiningPointVendorComponent>(Owner)
-                ? new SalvageVendingMachineMenu()
-                : new FancyVendingMachineMenu();
-            _menu.Title = EntMan.GetComponent<MetaDataComponent>(Owner).EntityName;
+    private void OnWithdraw()
+    {
+        SendMessage(new VendingMachineWithdrawMessage());
+    }
 
-            _menu.OnClose += Close;
-            _menu.OnItemSelected += OnItemSelected;
-            _menu.OnWithdraw += OnWithdraw;
-            _menu.OpenCentered();
-        }
+    protected override void UpdateState(BoundUserInterfaceState state)
+    {
+        base.UpdateState(state);
 
-        private void OnItemSelected(VendingMachineInventoryEntry entry)
-        {
-            SendPredictedMessage(new VendingMachineEjectCountMessage(entry, 1));
-        }
+        if (state is not VendingMachineInterfaceState vendingState)
+            return;
 
-        private void OnWithdraw()
-        {
-            SendMessage(new VendingMachineWithdrawMessage());
-        }
+        _menu?.Populate(Owner, vendingState.Inventory, vendingState.PriceMultiplier, vendingState.Credits,
+            vendingState.ShowWithdraw, vendingState.BalanceLabel, vendingState.InfiniteStock,
+            vendingState.UsesIdCardMiningPoints);
+    }
 
-        protected override void UpdateState(BoundUserInterfaceState state)
-        {
-            base.UpdateState(state);
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+        if (!disposing || _menu == null)
+            return;
 
-            if (state is not VendingMachineInterfaceState vendState)
-                return;
-
-            _menu?.Populate(Owner, vendState.Inventory, vendState.PriceMultiplier, vendState.Credits,
-                vendState.ShowWithdraw, vendState.BalanceLabel, vendState.InfiniteStock,
-                vendState.UsesIdCardMiningPoints); // <Onyx-SalvageVendorCatalog-edited>
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-            if (!disposing)
-                return;
-
-            if (_menu == null)
-                return;
-
-            _menu.OnClose -= Close;
-            _menu.OnItemSelected -= OnItemSelected;
-            _menu.OnWithdraw -= OnWithdraw;
-            _menu.Close();
-            _menu.Dispose();
-        }
+        _menu.OnClose -= Close;
+        _menu.OnItemSelected -= OnItemSelected;
+        _menu.OnWithdraw -= OnWithdraw;
+        _menu.Close();
+        _menu.Dispose();
     }
 }

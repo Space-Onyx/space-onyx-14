@@ -162,8 +162,7 @@
       50: 0.5
   - type: Temperature
     heatDamageThreshold: 5000
-    currentTemperature: 310.15
-    specificHeat: 42
+    temperature: 310.15
     heatDamage:
       types:
         Heat: 1

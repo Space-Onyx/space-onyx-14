@@ -1,8 +1,7 @@
 using System.Numerics;
 using Content.Client.Graphics;
 using Content.Shared.Light.Components;
-using Content.Shared.Light.EntitySystems;
-using Content.Shared.Maps;
+using Content.Client.Light.EntitySystems;
 using Robust.Client.Graphics;
 using Robust.Shared.Enums;
 using Robust.Shared.Map;
@@ -22,8 +21,8 @@ public sealed partial class SunShadowOverlay : Overlay
     [Dependency] private IEntityManager _entManager = default!;
     [Dependency] private IPrototypeManager _protoManager = default!;
     private readonly EntityLookupSystem _lookup;
-    private readonly SharedMapSystem _mapSystem; // <Onyx-Planetar>
-    private readonly SharedRoofSystem _roofSystem; // <Onyx-Planetar>
+    private readonly SharedMapSystem _mapSys;
+    private readonly RoofSystem _roof;
     private readonly SharedTransformSystem _xformSys;
 
     private readonly HashSet<Entity<SunShadowCastComponent>> _shadows = new();
@@ -34,9 +33,9 @@ public sealed partial class SunShadowOverlay : Overlay
     {
         IoCManager.InjectDependencies(this);
         _xformSys = _entManager.System<SharedTransformSystem>();
+        _mapSys = _entManager.System<SharedMapSystem>();
+        _roof = _entManager.System<RoofSystem>();
         _lookup = _entManager.System<EntityLookupSystem>();
-        _mapSystem = _entManager.System<SharedMapSystem>(); // <Onyx-Planetar>
-        _roofSystem = _entManager.System<SharedRoofSystem>(); // <Onyx-Planetar>
         ZIndex = AfterLightTargetOverlay.ContentZIndex + 1;
     }
 
@@ -51,11 +50,9 @@ public sealed partial class SunShadowOverlay : Overlay
             return;
 
         _grids.Clear();
-        // <Onyx-Planetar-edited>
-        _mapSystem.FindGridsIntersecting(args.MapId,
+        _mapSys.FindGridsIntersecting(args.MapId,
             args.WorldBounds.Enlarged(SunShadowComponent.MaxLength),
             ref _grids);
-        // </Onyx-Planetar-edited>
 
         var worldHandle = args.WorldHandle;
         var mapId = args.MapId;
@@ -83,10 +80,7 @@ public sealed partial class SunShadowOverlay : Overlay
 
         foreach (var grid in _grids)
         {
-            // <Onyx-Planetar>
-            if (!_entManager.TryGetComponent(grid.Owner, out SunShadowComponent? sun) &&
-                !_entManager.TryGetComponent(args.MapUid, out sun))
-            // </Onyx-Planetar>
+            if (!_entManager.TryGetComponent(grid.Owner, out SunShadowComponent? sun))
             {
                 continue;
             }
@@ -111,15 +105,6 @@ public sealed partial class SunShadowOverlay : Overlay
                     var invMatrix =
                         res.Target.GetWorldToLocalMatrix(eye, scale);
                     var indices = new Vector2[PhysicsConstants.MaxPolygonVertices * 2];
-                    // <Onyx-Planetar>
-                    DrawRoofShadows(
-                        worldHandle,
-                        invMatrix,
-                        grid,
-                        expandedBounds,
-                        direction,
-                        sun);
-                    // </Onyx-Planetar>
 
                     // Go through shadows in range.
 

@@ -4,8 +4,10 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: Action
-    icon:
-      sprite: _Onyx/Actions/modsuit.rsi
-      state: stim
+  - type: Sprite
+    sprite: _Onyx/Actions/modsuit.rsi
+    layers:
+    - state: stim
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:ActionActivateAutoInjectorEvent {}

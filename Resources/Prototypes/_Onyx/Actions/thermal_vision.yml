@@ -9,8 +9,10 @@
     itemIconStyle: BigAction
     priority: -20
     useDelay: 4
-    icon:
-      sprite: _Onyx/Clothing/Eyes/Goggles/thermal.rsi
-      state: icon
+  - type: Sprite
+    sprite: _Onyx/Clothing/Eyes/Goggles/thermal.rsi
+    layers:
+    - state: icon
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:ToggleThermalVisionEvent

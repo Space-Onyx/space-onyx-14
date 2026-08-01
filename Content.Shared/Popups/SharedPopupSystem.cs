@@ -1,4 +1,4 @@
-using Robust.Shared.Map;
+﻿using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
@@ -99,6 +99,7 @@ public abstract partial class SharedPopupSystem : EntitySystem
     /// <param name="message">The message to display.</param>
     /// <param name="uid">The entity above which to display the popup.</param>
     /// <param name="recipient">The entity whose attached player will see the popup.</param
+    /// <param name="recipient">The entity whose attached player will see the popup.</param>
     /// <param name="type">Used to customize how this popup should appear visually.</param>
     public abstract void PopupEntity(string? message, EntityUid uid, EntityUid? recipient, PopupType type = PopupType.Small);
 

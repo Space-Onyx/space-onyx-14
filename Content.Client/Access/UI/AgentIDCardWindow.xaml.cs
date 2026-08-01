@@ -1,4 +1,4 @@
-using Content.Client.Stylesheets;
+﻿using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.Access.Components;
 using Content.Shared.CCVar;
@@ -79,6 +79,7 @@ public sealed partial class AgentIDCardWindow : FancyWindow
         ContainerButton? matchingGroupButton = null;
         IReadOnlyList<ProtoId<JobIconPrototype>>? matchingGroupIcons = null;
 
+
         foreach (var group in jobGroups)
         {
             if (!_prototypeManager.TryIndex(group, out var groupProto))
@@ -91,6 +92,7 @@ public sealed partial class AgentIDCardWindow : FancyWindow
 
             firstGroupButton ??= groupButton;
             firstGroupIcons ??= groupProto.Icons;
+
 
             // Prefer the group that actually contains the card's current icon so
             // the opened window shows the relevant set rather than always the first.

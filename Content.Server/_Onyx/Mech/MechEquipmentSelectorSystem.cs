@@ -17,7 +17,7 @@ public sealed partial class MechSystem
 
     private void OnOpenEquipmentSelector(EntityUid uid, MechComponent component, MechToggleEquipmentEvent args)
     {
-        if (args.Handled || component.PilotSlot.ContainedEntity is not { } pilot ||
+        if (args.Handled || Vehicle.GetOperatorOrNull(uid) is not { } pilot ||
             !TryComp<ActorComponent>(pilot, out var actor))
             return;
 
@@ -27,7 +27,7 @@ public sealed partial class MechSystem
 
     private void OnSelectEquipment(EntityUid uid, MechComponent component, MechEquipmentSelectMessage args)
     {
-        if (args.Actor != component.PilotSlot.ContainedEntity)
+        if (args.Actor != Vehicle.GetOperatorOrNull(uid))
             return;
 
         EntityUid? equipment = args.Equipment is { } netEntity ? GetEntity(netEntity) : null;

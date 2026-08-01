@@ -1,7 +1,5 @@
 - type: tile
-  # <Onyx-AllTileWeather>
-  weather: true
-  # </Onyx-AllTileWeather>
+  weather: false
   id: FloorIronsandTile
   name: tiles-ironsand-tile
   sprite: /Textures/Tiles/Asteroid/ironsand_tile.png
@@ -13,9 +11,7 @@
   heatCapacity: 10000
 
 - type: tile
-  # <Onyx-AllTileWeather>
-  weather: true
-  # </Onyx-AllTileWeather>
+  weather: false
   id: FloorIronsandConcrete
   name: tiles-ironsand-concrete-tile
   sprite: /Textures/Tiles/Planet/Concrete/ironsandconcrete.png
@@ -29,9 +25,7 @@
   heatCapacity: 10000
 
 - type: tile
-  # <Onyx-AllTileWeather>
-  weather: true
-  # </Onyx-AllTileWeather>
+  weather: false
   id: FloorIronsandConcreteMono
   name: tiles-ironsand-concrete-slab
   sprite: /Textures/Tiles/Planet/Concrete/ironsandconcrete_mono.png
@@ -45,9 +39,7 @@
   heatCapacity: 10000
 
 - type: tile
-  # <Onyx-AllTileWeather>
-  weather: true
-  # </Onyx-AllTileWeather>
+  weather: false
   id: FloorIronsandConcreteSmooth
   name: tiles-ironsand-concrete-smooth
   sprite: /Textures/Tiles/Planet/Concrete/ironsandconcrete_smooth.png
@@ -61,9 +53,7 @@
   heatCapacity: 10000
 
 - type: tile
-  # <Onyx-AllTileWeather>
-  weather: true
-  # </Onyx-AllTileWeather>
+  weather: false
   id: IronsandPacked
   name: tiles-ironsand-packed
   sprite: /Textures/Tiles/Asteroid/ironsand_packed.png
@@ -76,9 +66,7 @@
   heatCapacity: 10000
 
 - type: tile
-  # <Onyx-AllTileWeather>
-  weather: true
-  # </Onyx-AllTileWeather>
+  weather: false
   id: IronsandPaved
   name: tiles-ironsand-paved
   sprite: /Textures/Tiles/Asteroid/ironsand_uneven_paved.png

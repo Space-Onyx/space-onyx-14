@@ -1,7 +1,7 @@
 - type: entity
   id: Vaccinator
   # <Onyx-VirologyMachineConstruction-edited>
-  parent: [ BaseMachinePowered, SmallConstructibleMachine ]
+  parent: [ BaseMachinePowered, BaseMachineDestructible, SmallConstructibleMachine ]
   # </Onyx-VirologyMachineConstruction-edited>
   name: vaccinator
   description: A machine that creates vaccines.
@@ -64,3 +64,11 @@
       machine_parts: !type:Container
       disease_swab_slot: !type:ContainerSlot
   - type: RequireProjectileTarget
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 175
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak

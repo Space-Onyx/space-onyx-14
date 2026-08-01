@@ -29,8 +29,7 @@
         Heat: 0.75
         Piercing: 0.85
   - type: TemperatureProtection
-    heatingCoefficient: 0.3
-    coolingCoefficient: 0.3
+    coefficient: 0.3
   - type: ExplosionResistance
     damageCoefficient: 0.5
   - type: ZombificationResistance

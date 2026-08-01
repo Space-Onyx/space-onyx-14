@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.Advertise.Components;
@@ -70,6 +70,42 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
             subs.Event<VendingMachineWithdrawMessage>(OnWithdrawMessage);
             //</Onyx Economy>
         });
+    }
+
+    private void OnVendingGetState(Entity<VendingMachineComponent> entity, ref ComponentGetState args)
+    {
+        var component = entity.Comp;
+
+        var inventory = new Dictionary<string, VendingMachineInventoryEntry>();
+        var emaggedInventory = new Dictionary<string, VendingMachineInventoryEntry>();
+        var contrabandInventory = new Dictionary<string, VendingMachineInventoryEntry>();
+
+        foreach (var weh in component.Inventory)
+        {
+            inventory[weh.Key] = new(weh.Value);
+        }
+
+        foreach (var weh in component.EmaggedInventory)
+        {
+            emaggedInventory[weh.Key] = new(weh.Value);
+        }
+
+        foreach (var weh in component.ContrabandInventory)
+        {
+            contrabandInventory[weh.Key] = new(weh.Value);
+        }
+
+        args.State = new VendingMachineComponentState()
+        {
+            Inventory = inventory,
+            EmaggedInventory = emaggedInventory,
+            ContrabandInventory = contrabandInventory,
+            Contraband = component.Contraband,
+            EjectEnd = component.EjectEnd,
+            DenyEnd = component.DenyEnd,
+            DispenseOnHitEnd = component.DispenseOnHitEnd,
+            Broken = component.Broken,
+        };
     }
 
     public override void Update(float frameTime)
@@ -235,6 +271,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     /// <param name="type">The type of inventory the item is from</param>
     /// <param name="itemId">The prototype ID of the item</param>
     /// <param name="throwItem">Whether the item should be thrown in a random direction after ejection</param>
+    /// <param name="user"></param>
     /// <param name="vendComponent"></param>
     public void TryEjectVendorItem(EntityUid uid, InventoryType type, string itemId, bool throwItem, EntityUid? user = null, VendingMachineComponent? vendComponent = null,
         //<Onyx Economy>
@@ -259,6 +296,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
             else
                 Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-invalid-item"), uid, uid);
             //</Onyx Economy>
+            Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-invalid-item"), uid, uid);
             Deny((uid, vendComponent));
             return;
         }
@@ -271,6 +309,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
             else
                 Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-out-of-stock"), uid, uid);
             //</Onyx Economy>
+            Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-out-of-stock"), uid, uid);
             Deny((uid, vendComponent));
             return;
         }
@@ -307,7 +346,9 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
             return;
 
         entity.Comp.DenyEnd = Timing.CurTime + entity.Comp.DenyDelay;
-        Audio.PlayPredicted(entity.Comp.SoundDeny, entity.Owner, user, AudioParams.Default.WithVolume(-2f));
+        var audioParams = entity.Comp.SoundDeny?.Params ?? AudioParams.Default;
+        audioParams = audioParams.AddVolume(-2f);
+        Audio.PlayPredicted(entity.Comp.SoundDeny, entity.Owner, user, audioParams);
         TryUpdateVisualState(entity);
         Dirty(entity);
     }
@@ -474,6 +515,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         foreach (var (id, amount) in entries)
         {
             if (ProtoMan.TryIndex<EntityPrototype>(id, out var proto))
+            if (ProtoMan.HasIndex<EntityPrototype>(id))
             {
                 var restock = amount;
                 var chanceOfMissingStock = 1 - restockQuality;

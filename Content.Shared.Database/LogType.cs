@@ -488,7 +488,6 @@ public enum LogType
     /// Silicon law changes.
     /// </summary>
     SiliconLaw = 105,
-
     // <GoobStation-Supermatter>
     /// <summary>
     /// Supermatter events, mostly activations.

@@ -103,6 +103,19 @@
 
 - type: entity
   parent: SurgeryBase
+  id: SurgeryAttachGroin
+  name: Attach pelvis
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepAttachGroin, SurgeryStepMendAttachedGroin, SurgeryStepSutureAttachedGroin ]
+  - type: SurgeryPartCondition
+    part: Chest
+  - type: SurgeryMissingPartCondition
+    part: Groin
+
+- type: entity
+  parent: SurgeryBase
   id: SurgeryAttachLeftArm
   name: Attach left arm
   components:
@@ -408,7 +421,7 @@
   name: Remove liver
   components:
   - type: Surgery
-    requirement: SurgeryOpenAbdomen
+    requirement: SurgeryOpenIncision
     steps: [ SurgeryStepRemoveLiver ]
   - type: SurgeryOrganCondition
     slot: Liver
@@ -420,7 +433,7 @@
   name: Implant liver
   components:
   - type: Surgery
-    requirement: SurgeryOpenAbdomen
+    requirement: SurgeryOpenIncision
     steps: [ SurgeryStepInsertLiver ]
   - type: SurgeryOrganCondition
     slot: Liver
@@ -458,7 +471,7 @@
   name: Remove kidneys
   components:
   - type: Surgery
-    requirement: SurgeryOpenAbdomen
+    requirement: SurgeryOpenIncision
     steps: [ SurgeryStepRemoveKidneys ]
   - type: SurgeryOrganCondition
     slot: Kidneys
@@ -470,7 +483,7 @@
   name: Implant kidneys
   components:
   - type: Surgery
-    requirement: SurgeryOpenAbdomen
+    requirement: SurgeryOpenIncision
     steps: [ SurgeryStepInsertKidneys ]
   - type: SurgeryOrganCondition
     slot: Kidneys
@@ -483,7 +496,7 @@
   name: Remove appendix
   components:
   - type: Surgery
-    requirement: SurgeryOpenAbdomen
+    requirement: SurgeryOpenIncision
     steps: [ SurgeryStepRemoveAppendix ]
   - type: SurgeryOrganCondition
     slot: Appendix
@@ -495,7 +508,7 @@
   name: Implant appendix
   components:
   - type: Surgery
-    requirement: SurgeryOpenAbdomen
+    requirement: SurgeryOpenIncision
     steps: [ SurgeryStepInsertAppendix ]
   - type: SurgeryOrganCondition
     slot: Appendix

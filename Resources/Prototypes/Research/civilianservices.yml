@@ -172,6 +172,7 @@
     - AdvMopItem
     - MegaSprayBottle
     - BorgModuleAdvancedCleaning
+    - TrashBagHolding
   position: -3,0
   technologyPrerequisites:
     - AdvancedEntertainment

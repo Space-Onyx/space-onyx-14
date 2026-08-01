@@ -1,4 +1,4 @@
-using Content.Server.Chat.Systems;
+﻿using Content.Server.Chat.Systems;
 using Content.Shared.Chat;
 using Content.Shared.Teleportation;
 using Content.Shared.Teleportation.Components;
@@ -70,7 +70,7 @@ public sealed partial class TeleportLocationsSystem : SharedTeleportLocationsSys
 
                 continue;
 
-            ent.Comp.AvailableWarps.Add(new TeleportPoint(warpPointComp.Location, GetNetEntity(warpEnt)));
+            ent.Comp.AvailableWarps.Add(new TeleportPoint(Loc.GetString(warpPointComp.Location), GetNetEntity(warpEnt)));
         }
 
         Dirty(ent);

@@ -12,9 +12,7 @@ agent-id-ui-tab-job-icons = Job Icons
 
 agent-id-ui-input-name = Name:
 agent-id-ui-input-job = Job:
-# <Onyx-AgentIDNanoChat>
 agent-id-ui-input-nanochat-number = NanoChat number:
-# </Onyx-AgentIDNanoChat>
 
 agent-id-ui-os = Nuke#OS ™
 agent-id-ui-os-flavor = When in doubt, nobody questions a mime

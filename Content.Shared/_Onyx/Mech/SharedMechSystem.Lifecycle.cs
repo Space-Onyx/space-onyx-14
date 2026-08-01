@@ -13,7 +13,6 @@ public abstract partial class SharedMechSystem
 
     private void InitializeMechLifecycle()
     {
-        SubscribeLocalEvent<MechPilotComponent, EntGotRemovedFromContainerMessage>(OnPilotRemovedFromContainer);
         SubscribeLocalEvent<MechEquipmentComponent, EntGotRemovedFromContainerMessage>(OnEquipmentRemovedFromContainer);
     }
 
@@ -21,28 +20,6 @@ public abstract partial class SharedMechSystem
     {
         if (equipment is { } uid && TryComp<GunComponent>(uid, out var gun))
             _gun.CancelShooting((uid, gun));
-    }
-
-    private void OnPilotRemovedFromContainer(EntityUid uid, MechPilotComponent component,
-        EntGotRemovedFromContainerMessage args)
-    {
-        if (args.Container.Owner != component.Mech ||
-            !TryComp<MechComponent>(component.Mech, out var mech) ||
-            args.Container != mech.PilotSlot)
-        {
-            return;
-        }
-
-        CleanupEjectedPilot(component.Mech, uid, mech);
-    }
-
-    private void CleanupEjectedPilot(EntityUid mech, EntityUid pilot, MechComponent? component = null)
-    {
-        RemoveUser(mech, pilot);
-        UpdateAppearance(mech, component);
-
-        var ev = new MechEjectedEvent(mech);
-        RaiseLocalEvent(pilot, ref ev);
     }
 
     private void OnEquipmentRemovedFromContainer(Entity<MechEquipmentComponent> equipment,

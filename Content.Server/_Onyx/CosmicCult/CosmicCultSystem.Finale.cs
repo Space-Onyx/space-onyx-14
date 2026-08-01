@@ -2,11 +2,13 @@ using Content.Server._Onyx.CosmicCult.Components;
 using Content.Shared._Onyx.CosmicCult;
 using Content.Shared._Onyx.CosmicCult.Components;
 using Content.Shared.Audio;
+using Content.Shared.AlertLevel;
 using Content.Shared.DoAfter;
 using Content.Shared.Humanoid;
 using Content.Shared.Interaction;
 using Content.Shared.UserInterface;
 using Robust.Shared.Utility;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._Onyx.CosmicCult;
 
@@ -113,8 +115,8 @@ public sealed partial class CosmicCultSystem : SharedCosmicCultSystem
 
         var stationUid = _station.GetStationInMap(Transform(uid).MapID);
 
-        if (stationUid != null)
-            _alert.SetLevel(stationUid.Value, "octarine", true, true, true, true);
+        if (stationUid is { } station && TryComp<AlertLevelComponent>(station, out var alertLevel))
+            _alert.SetLevel((station, alertLevel), new ProtoId<AlertLevelPrototype>("octarine"), true, true, true, true); // <Onyx-AlertLevelNative>
 
         EnsureComp<ActivatableUIComponent>(uid).Key = MonumentKey.Key;
 
@@ -136,8 +138,8 @@ public sealed partial class CosmicCultSystem : SharedCosmicCultSystem
 
         var stationUid = _station.GetOwningStation(uid);
 
-        if (stationUid != null)
-            _alert.SetLevel(stationUid.Value, "green", true, true, true);
+        if (stationUid is { } station && TryComp<AlertLevelComponent>(station, out var alertLevel))
+            _alert.SetLevel((station, alertLevel), new ProtoId<AlertLevelPrototype>("green"), true, true, true); // <Onyx-AlertLevelNative>
 
         _sound.PlayGlobalOnStation(uid, _audio.ResolveSound(comp.CancelEventSound));
         _sound.StopStationEventMusic(uid, StationEventMusicType.CosmicCult);

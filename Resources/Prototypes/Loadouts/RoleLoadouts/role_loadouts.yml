@@ -13,11 +13,6 @@
   - Trinkets
   #- CaptainJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTopCap
-  - OnyxBottomCap
-  - OnyxSocksCaptain
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobHeadOfPersonnel
@@ -35,11 +30,6 @@
   - Trinkets
   #- HoPJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTopHOP
-  - OnyxBottomHOP
-  - OnyxSocksHOP
-  # </Onyx-Underwear-edited>
 
 # Silicons
 - type: roleLoadout
@@ -71,11 +61,6 @@
   - Trinkets
   #- PassengerJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobBartender
@@ -92,11 +77,6 @@
   - Trinkets
   - BartenderJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobServiceWorker
@@ -111,11 +91,6 @@
   - Trinkets
   #- ServiceWorkerJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobChef
@@ -133,11 +108,6 @@
   - Trinkets
   #- ChefJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobLibrarian
@@ -152,11 +122,6 @@
   - Trinkets
   #- LibrarianJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobLawyer
@@ -172,11 +137,6 @@
   - Trinkets
   #- LawyerJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobChaplain
@@ -197,11 +157,6 @@
   - Trinkets
   #- ChaplainJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobJanitor
@@ -219,11 +174,6 @@
   - Trinkets
   - JanitorJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobBotanist
@@ -240,11 +190,6 @@
   - Trinkets
   #- BotanistJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobClown
@@ -262,11 +207,6 @@
   - SurvivalClown
   - Trinkets
   - ClownJobTrinkets
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocksClown
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobMime
@@ -282,14 +222,9 @@
   - MimeBelt
   - Glasses
   - AssistiveItems
-  - SurvivalMime
+  - Survival
   - Trinkets
   #- MimeJobTrinkets
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocksMime
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobMusician
@@ -307,11 +242,6 @@
   - Trinkets
   #- MusicianJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 # Cargo
 - type: roleLoadout
@@ -331,11 +261,6 @@
   - Trinkets
   #- QuartermasterJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTopQM
-  - OnyxBottomQM
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobCargoTechnician
@@ -354,18 +279,12 @@
   - Trinkets
   #- CargoTechnicianJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobSalvageSpecialist
   groups:
   - Inventory # Corvax-Loadouts
   - GroupTankHarness
-  - SalvageSpecialistJumpsuit # <Onyx-SalvageSpecialist>
   - SalvageSpecialistBackpack
   - SalvageSpecialistOuterClothing
   - SalvageSpecialistShoes
@@ -375,11 +294,6 @@
   - Trinkets
   #- SalvageSpecialistJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 # Engineering
 - type: roleLoadout
@@ -398,11 +312,6 @@
   - Trinkets
   #- ChiefEngineerJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTopCE
-  - OnyxBottomCE
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobTechnicalAssistant
@@ -416,11 +325,6 @@
   - Trinkets
   #- TechnicalAssistantJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobStationEngineer
@@ -438,11 +342,6 @@
   - Trinkets
   #- StationEngineerJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobAtmosphericTechnician
@@ -458,11 +357,6 @@
   - Trinkets
   #- AtmosphericTechnicianJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 # Science
 - type: roleLoadout
@@ -483,11 +377,6 @@
   - Trinkets
   #- ResearchDirectorJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTopRD
-  - OnyxBottomRD
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobScientist
@@ -508,11 +397,6 @@
   - Trinkets
   #- ScientistJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobResearchAssistant
@@ -527,11 +411,6 @@
   - Trinkets
   #- ResearchAssistantJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 # Security
 - type: roleLoadout
@@ -550,11 +429,6 @@
   - Trinkets
   - HeadofSecurityJobTrinkets
   - GroupSpeciesBreathToolSecurity
-  # <Onyx-Underwear-edited>
-  - OnyxTopHOS
-  - OnyxBottomHOS
-  - OnyxSocksHOS
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobWarden
@@ -571,11 +445,6 @@
   - Trinkets
   - WardenJobTrinkets
   - GroupSpeciesBreathToolSecurity
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobSecurityOfficer
@@ -593,11 +462,6 @@
   - Trinkets
   - SecurityJobTrinkets
   - GroupSpeciesBreathToolSecurity
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobDetective
@@ -614,11 +478,6 @@
   - Trinkets
   - DetectiveJobTrinkets
   - GroupSpeciesBreathToolSecurity
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobSecurityCadet
@@ -631,11 +490,6 @@
   - Trinkets
   #- SecurityCadetJobTrinkets
   - GroupSpeciesBreathToolSecurity
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 # Wildcards
 - type: roleLoadout
@@ -653,11 +507,6 @@
   - Trinkets
   #- ReporterJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 - type: roleLoadout
   id: JobPsychologist
@@ -672,11 +521,6 @@
   - Trinkets
   #- PsychologistJobTrinkets
   - GroupSpeciesBreathTool
-  # <Onyx-Underwear-edited>
-  - OnyxTop
-  - OnyxBottom
-  - OnyxSocks
-  # </Onyx-Underwear-edited>
 
 # These loadouts are used for non-crew spawns, like off-station antags and event mobs
 # They will be used without player configuration, thus they will only ever apply what is forced by MinLimit
@@ -713,6 +557,13 @@
   id: RoleSurvivalExtended
   groups:
   - SurvivalExtended
+  - GroupSpeciesBreathTool
+  - GroupTankHarness
+
+- type: roleLoadout
+  id: RoleSurvivalExtendedAntag # Used by antagonists that spawn off-station (e.g wizards)
+  groups:
+  - SurvivalExtendedAntag
   - GroupSpeciesBreathTool
   - GroupTankHarness
 
@@ -754,6 +605,12 @@
   groups:
   - GroupEVATank
   - SurvivalExtended
+
+- type: roleLoadout
+  id: RoleSurvivalEVAAntag # Used by antagonists that spawn off-station AND in space (e.g ninjas)
+  groups:
+  - GroupEVATank
+  - SurvivalExtendedAntag
 
 - type: roleLoadout
   id: RoleSurvivalSpaceNinja

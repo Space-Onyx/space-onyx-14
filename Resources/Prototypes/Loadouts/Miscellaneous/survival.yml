@@ -18,10 +18,6 @@
     - Human
     - Moth
     - Reptilian
-    # <Onyx-FelinidArcan>
-    - Felinid
-    - Demon
-    # </Onyx-FelinidArcan>
     #Corvax-Species-Start
     - Vulpkanin
     - Tajaran
@@ -42,7 +38,7 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvivalSlots # <Onyx-SlottedSurvivalBoxes-edited>
+    - BoxSurvival
 
 - type: loadout
   id: EmergencyNitrogen
@@ -51,7 +47,7 @@
     proto: NitrogenBreather
   storage:
     back:
-    - BoxSurvivalSlotsNitrogen # <Onyx-SlottedSurvivalBoxes-edited>
+    - BoxSurvivalNitrogen
 
 # Clown
 - type: loadout
@@ -61,7 +57,7 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxHugSlots # <Onyx-SlottedSurvivalBoxes-edited>
+    - BoxSurvivalHug
 
 - type: loadout
   id: EmergencyNitrogenClown
@@ -70,61 +66,7 @@
     proto: NitrogenBreather
   storage:
     back:
-    - BoxHugSlotsNitrogen # <Onyx-SlottedSurvivalBoxes-edited>
-
-# Mime
-- type: loadoutEffectGroup
-  id: OxygenBreatherMime
-  effects:
-  - !type:SpeciesLoadoutEffect
-    species:
-    - Arachnid
-    - Diona
-    - Dwarf
-    - Human
-    - Reptilian
-    # <Onyx-FelinidArcan>
-    - Felinid
-    - Demon
-    # </Onyx-FelinidArcan>
-    #Corvax-Species-Start
-    - Vulpkanin
-    - Tajaran
-    #Corvax-Species-End
-
-- type: loadoutEffectGroup
-  id: OxygenBreatherMimeMoth
-  effects:
-  - !type:SpeciesLoadoutEffect
-    species:
-    - Moth
-
-- type: loadout
-  id: EmergencyOxygenMime
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: OxygenBreatherMime
-  storage:
-    back:
-    - BoxMimeSlots # <Onyx-SlottedSurvivalBoxes-edited>
-
-- type: loadout
-  id: EmergencyNitrogenMime
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: NitrogenBreather
-  storage:
-    back:
-    - BoxMimeSlotsNitrogen # <Onyx-SlottedSurvivalBoxes-edited>
-
-- type: loadout
-  id: EmergencySpeciesMothMime
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: OxygenBreatherMimeMoth
-  storage:
-    back:
-    - BoxMimeMothSlots # <Onyx-SlottedSurvivalBoxes-edited>
+    - BoxSurvivalHugNitrogen
 
 # Engineering / Extended
 - type: loadout
@@ -134,7 +76,7 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvivalSlotsEngineering # <Onyx-SlottedSurvivalBoxes-edited>
+    - BoxSurvivalEngineering
 
 - type: loadout
   id: EmergencyNitrogenExtended
@@ -143,7 +85,7 @@
     proto: NitrogenBreather
   storage:
     back:
-    - BoxSurvivalSlotsEngineeringNitrogen # <Onyx-SlottedSurvivalBoxes-edited>
+    - BoxSurvivalEngineeringNitrogen
 
 # Medical
 - type: loadout
@@ -153,7 +95,7 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvivalSlotsMedical # <Onyx-SlottedSurvivalBoxes-edited>
+    - BoxSurvivalMedical
 
 - type: loadout
   id: EmergencyNitrogenMedical
@@ -162,7 +104,7 @@
     proto: NitrogenBreather
   storage:
     back:
-    - BoxSurvivalSlotsMedicalNitrogen # <Onyx-SlottedSurvivalBoxes-edited>
+    - BoxSurvivalMedicalNitrogen
 
 # Security
 - type: loadout
@@ -172,7 +114,7 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvivalSlotsSecurity # <Onyx-SlottedSurvivalBoxes-edited>
+    - BoxSurvivalSecurity
 
 - type: loadout
   id: EmergencyNitrogenSecurity
@@ -181,9 +123,28 @@
     proto: NitrogenBreather
   storage:
     back:
-    - BoxSurvivalSlotsSecurityNitrogen # <Onyx-SlottedSurvivalBoxes-edited>
+    - BoxSurvivalSecurityNitrogen
 
-# Syndicate
+# Antagonist
+
+- type: loadout
+  id: EmergencyOxygenExtendedAntag
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: OxygenBreather
+  storage:
+    back:
+    - BoxSurvivalDeluxeExtended
+
+- type: loadout
+  id: EmergencyNitrogenExtendedAntag
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: NitrogenBreather
+  storage:
+    back:
+    - BoxSurvivalDeluxeExtendedNitrogen
+
 - type: loadout
   id: EmergencyOxygenSyndicate
   effects:
@@ -191,7 +152,7 @@
     proto: OxygenBreather
   storage:
     back:
-    - BoxSurvivalSlotsSyndicate # <Onyx-SlottedSurvivalBoxes-edited>
+    - BoxSurvivalSyndicate
 
 - type: loadout
   id: EmergencyNitrogenSyndicate
@@ -200,7 +161,7 @@
     proto: NitrogenBreather
   storage:
     back:
-    - BoxSurvivalSlotsSyndicateNitrogen # <Onyx-SlottedSurvivalBoxes-edited>
+    - BoxSurvivalSyndicateNitrogen
 
 # Military / Double Extended
 - type: loadout

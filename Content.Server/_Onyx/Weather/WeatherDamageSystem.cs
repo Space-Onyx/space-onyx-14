@@ -1,6 +1,8 @@
 using Content.Shared._Onyx.StatusEffects.Immunities;
 using Content.Shared._Onyx.Weather;
 using Content.Shared._Onyx.Salvage.Weapons;
+using Content.Shared._Onyx.Targeting;
+using Content.Shared._Onyx.Wounds;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
@@ -15,6 +17,7 @@ namespace Content.Server._Onyx.Weather;
 public sealed partial class WeatherDamageSystem : EntitySystem
 {
     [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private WoundDamageRoutingSystem _woundDamageRouting = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedMapSystem _maps = default!;
     [Dependency] private StatusEffectsSystem _statuses = default!;
@@ -60,7 +63,12 @@ public sealed partial class WeatherDamageSystem : EntitySystem
                     continue;
             }
 
-            _damageable.TryChangeDamage(uid, damage, interruptsDoAfters: false);
+            if (!HasComp<WoundHostComponent>(uid) ||
+                !_woundDamageRouting.TryApplyDistributedDamage(uid, damage, TargetBodyPart.All,
+                    DamageDistribution.SplitByPartWeight, interruptsDoAfters: false)) // <Onyx-WeatherWounds>
+            {
+                _damageable.TryChangeDamage(uid, damage, interruptsDoAfters: false);
+            }
         }
     }
 }

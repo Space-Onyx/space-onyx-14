@@ -1,4 +1,4 @@
-using Content.Client.UserInterface.Fragments;
+﻿using Content.Client.UserInterface.Fragments;
 using Content.Shared.CartridgeLoader;
 using Robust.Client.UserInterface;
 
@@ -69,6 +69,7 @@ public abstract class CartridgeLoaderBoundUserInterface : BoundUserInterface
         // <Onyx-CartridgeState-edited>
         SendMessage(message);
         // </Onyx-CartridgeState-edited>
+        SendPredictedMessage(message);
     }
 
     protected void DeactivateActiveCartridge()
@@ -80,6 +81,7 @@ public abstract class CartridgeLoaderBoundUserInterface : BoundUserInterface
         // <Onyx-CartridgeState-edited>
         SendMessage(message);
         // </Onyx-CartridgeState-edited>
+        SendPredictedMessage(message);
     }
 
     protected void InstallCartridge(EntityUid cartridgeUid)
@@ -88,6 +90,7 @@ public abstract class CartridgeLoaderBoundUserInterface : BoundUserInterface
         // <Onyx-CartridgeState-edited>
         SendMessage(message);
         // </Onyx-CartridgeState-edited>
+        SendPredictedMessage(message);
     }
 
     protected void UninstallCartridge(EntityUid cartridgeUid)
@@ -96,6 +99,7 @@ public abstract class CartridgeLoaderBoundUserInterface : BoundUserInterface
         // <Onyx-CartridgeState-edited>
         SendMessage(message);
         // </Onyx-CartridgeState-edited>
+        SendPredictedMessage(message);
     }
 
     private List<(EntityUid, CartridgeComponent)> GetCartridgeComponents(List<EntityUid> programs)

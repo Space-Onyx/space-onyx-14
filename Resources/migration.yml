@@ -495,7 +495,7 @@ PresentRandomAsh: PresentRandomCoal
 CrateCrewMonitoringBoards: CrateCrewMonitoring
 
 # 2024-11-25
-CrateSlimepersonLifeSupport: CrateNitrogenInternals
+CrateSlimepersonLifeSupport: CrateEmergencyEVA
 
 # 2024-12-01
 DungeonMasterCircuitBoard: GameMasterCircuitBoard
@@ -744,6 +744,10 @@ DrinkDaiquiriGlass: DrinkDaiquiri
 DrinkEspressoMartiniGlass: DrinkEspressoMartini
 DrinkMoscowMuleGlass: DrinkMoscowMule
 
+# 2025-08-06
+TrashBagBlue: TrashBagHolding
+BagOfSummoningGarbage: null
+
 # 2025-08-01
 FoodDonutJellySlugcat: FoodDonutJellyScurret
 
@@ -877,7 +881,7 @@ CrateVendingMachineRestockCondimentStationFilled: VendingMachineRestockCondiment
 CrateVendingMachineRestockDinnerwareFilled: VendingMachineRestockDinnerware
 CrateVendingMachineRestockGamesFilled: VendingMachineRestockGames
 CrateVendingMachineRestockPTechFilled: VendingMachineRestockPTech
-CrateVendingMachineRestockSalvageEquipmentFilled: null # <Onyx-SalvageVendorRestock-edited>
+CrateVendingMachineRestockSalvageEquipmentFilled: VendingMachineRestockSalvageEquipment
 CrateVendingMachineRestockVendomatFilled: VendingMachineRestockVendomat
 CrateVendingMachineRestockTankDispenserFilled: VendingMachineRestockTankDispenser
 # The crates below contained _two_ of the restock items, so these are technically not direct migrations. But eh.
@@ -957,3 +961,30 @@ DefaultStationBeaconParamedic: null
 TaskBottle: null
 DVSmartFridgeMedical: SmartFridgeMedical
 SpawnMobBingleCargo: SpawnMobGorillaLargo
+
+# 2026-07-19 upstream
+BoxHugNitrogen: BoxSurvivalHugNitrogen
+BoxMime: BoxSurvival
+BoxMimeNitrogen: BoxSurvivalNitrogen
+BoxMimeMoth: BoxSurvival
+CrateChemistryVials: null
+CrateSecurityHelmet: null
+CrateEmergencyInternals: CrateEmergencyEVA
+CrateEmergencyInternalsLarge: CrateEmergencyEVA
+CrateNitrogenInternals: CrateEmergencyEVA
+CrateServiceCleanerGrenades: CrateJanitorialCleanerGrenades
+CrateServiceColorfulLights: CrateJanitorialColorfulLights
+CrateServiceHolidayLights: CrateJanitorialHolidayLights
+CrateMousetrapBoxes: CrateJanitorialMousetraps
+CrateServiceReplacementLights: CrateJanitorialReplacementLights
+CrateServiceJanitorialSupplies: CrateJanitorialSupplies
+CrateMaterialTextiles: CrateMaterialCloth
+CrateFoodBarSupply: CrateServiceBarSupply
+CrateFoodCooking: CrateServiceCooking
+CrateFoodDinnerware: CrateServiceDinnerware
+CrateFoodGetMore: CrateServiceGetMore
+CrateEngineeringGyroscope: CrateSpaceGyroscope
+CrateEngineeringJetpack: CrateSpaceMiniJetpack
+CrateEngineeringMiniJetpack: CrateSpaceMiniJetpack
+CrateEngineeringShuttle: CrateSpaceShuttlePower
+CrateEngineeringThruster: CrateSpaceThruster

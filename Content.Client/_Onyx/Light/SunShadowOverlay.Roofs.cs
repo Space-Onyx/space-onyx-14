@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Shared.Light.Components;
+using Content.Shared.Light.EntitySystems;
 using Robust.Client.Graphics;
 using Robust.Shared.Map.Components;
 
@@ -35,12 +36,12 @@ public sealed partial class SunShadowOverlay
         worldHandle.SetTransform(Matrix3x2.Multiply(gridMatrix, inverseRenderMatrix));
 
         var sourceBounds = worldBounds.Enlarged(worldOffset.Length() + 0.01f);
-        var tiles = _mapSystem.GetTilesEnumerator(grid.Owner, grid.Comp, sourceBounds);
+        var tiles = _mapSys.GetTilesEnumerator(grid.Owner, grid.Comp, sourceBounds);
 
         while (tiles.MoveNext(out var tile))
         {
             if (!hasImplicitRoof &&
-                (roof == null || _roofSystem.GetColor((grid.Owner, grid.Comp, roof), tile.GridIndices) == null))
+                (roof == null || _roof.GetColor((grid.Owner, grid.Comp, roof), tile.GridIndices) == null))
             {
                 continue;
             }

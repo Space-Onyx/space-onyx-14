@@ -7,7 +7,10 @@
   - type: Action
     checkCanInteract: false
     checkConsciousness: false
-    icon: Interface/Actions/pai-midi.png
+  - type: Sprite
+    layers:
+    - texture: Interface/Actions/pai-midi.png
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:OpenUiActionEvent
       key: enum.InstrumentUiKey.Key
@@ -19,10 +22,16 @@
   description: View a station map interface.
   components:
   - type: Action
-    icon: { sprite: Interface/Actions/actions_ai.rsi, state: mass_scanner }
-    iconOn: { sprite: Interface/Actions/actions_ai.rsi, state: mass_scanner }
     keywords: [AI, console, interface]
     priority: -8
+  - type: Sprite
+    sprite: Interface/Actions/actions_ai.rsi
+    layers:
+    - state: mass_scanner
+      map: ["enum.ActionVisuals.Icon"]
+    - state: mass_scanner
+      map: ["enum.ActionVisuals.IconToggled"]
+      visible: false
   - type: InstantAction
     event: !type:ToggleIntrinsicUIEvent
       key: enum.StationMapUiKey.Key

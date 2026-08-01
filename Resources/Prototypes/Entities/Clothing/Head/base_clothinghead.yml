@@ -103,7 +103,7 @@
 
 - type: entity
   abstract: true
-  parent: ClothingHeadBase
+  parent: [ ClothingHeadBase, TemperatureProtection ]
   id: ClothingHeadEVAHelmetBase
   name: base space helmet
   components:
@@ -117,9 +117,6 @@
   - type: PressureProtection
     highPressureMultiplier: 0.6
     lowPressureMultiplier: 1000
-  - type: TemperatureProtection
-    heatingCoefficient: 0.2
-    coolingCoefficient: 0.2
   - type: IngestionBlocker
   - type: Clothing
     #Copies ClothingHeadHardsuitBase behavior
@@ -142,7 +139,7 @@
 
 - type: entity
   abstract: true
-  # No parent since we aren't actually an item.
+  parent: TemperatureProtection
   id: ClothingHeadHardsuitBase
   name: base hardsuit helmet
   categories: [ HideSpawnMenu ]
@@ -165,9 +162,6 @@
   - type: PressureProtection
     highPressureMultiplier: 0.3
     lowPressureMultiplier: 1000
-  - type: TemperatureProtection
-    heatingCoefficient: 0.1
-    coolingCoefficient: 0.1
   - type: Armor
     modifiers:
       coefficients:
@@ -189,6 +183,11 @@
     - HeadTop
     - HeadSide
     - FacialHair
+
+- type: entity
+  abstract: true
+  parent: [ TemperatureProtection, ClothingHeadHardsuitBase ]
+  id: ClothingHeadHardsuitInsulatedBase
 
 - type: entity
   abstract: true
@@ -250,6 +249,7 @@
 
 - type: entity
   abstract: true
+  parent: TemperatureProtectionMinimal
   id: ClothingHeadHatHoodWinterBase
   name: base winter coat hood
   description: A hood, made to keep your head warm.
@@ -263,9 +263,6 @@
     unequipSound: /Audio/Effects/rustle2.ogg
     quickEquip: false
     slots: [ HEAD ]
-  - type: TemperatureProtection
-    heatingCoefficient: 1.05
-    coolingCoefficient: 0.7
   - type: ZombificationResistance
     zombificationResistanceCoefficient: 0.90
   - type: Armor # so zombification resistance shows up

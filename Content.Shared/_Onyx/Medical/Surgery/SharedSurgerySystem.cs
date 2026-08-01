@@ -883,7 +883,10 @@ public abstract partial class SharedSurgerySystem : EntitySystem
             throw new ArgumentException($"Surgery {surgery} has a requirement loop");
 
         requirements.Add(surgery);
-        if (surgery.Comp.Requirement is { } requirementId && GetSingleton(requirementId) is { } requirement && GetNextStep(body, part, requirement, requirements) is { } requiredNext)
+        if (surgery.Comp.Requirement is { } requirementId && GetSingleton(requirementId) is { } requirement &&
+            TryComp(requirement, out SurgeryComponent? requirementComp) &&
+            !IsSurgeryComplete(body, (requirement, requirementComp)) &&
+            GetNextStep(body, part, (requirement, requirementComp), requirements) is { } requiredNext)
             return requiredNext;
 
         for (var i = 0; i < surgery.Comp.Steps.Count; i++)
@@ -896,7 +899,9 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     public bool PreviousStepsComplete(EntityUid body, EntityUid part, Entity<SurgeryComponent> surgery, EntProtoId step)
     {
         if (surgery.Comp.Requirement is { } requirement &&
-            (GetSingleton(requirement) is not { } requiredEnt || !TryComp(requiredEnt, out SurgeryComponent? requiredComp) || !PreviousStepsComplete(body, part, (requiredEnt, requiredComp), step)))
+            (GetSingleton(requirement) is not { } requiredEnt ||
+             !TryComp(requiredEnt, out SurgeryComponent? requiredComp) ||
+             !IsSurgeryComplete(body, (requiredEnt, requiredComp))))
             return false;
 
         foreach (var surgeryStep in surgery.Comp.Steps)
@@ -908,6 +913,17 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         }
 
         return true;
+    }
+
+    private bool IsSurgeryComplete(EntityUid body, Entity<SurgeryComponent> surgery)
+    {
+        foreach (var part in _body.GetBodyPartChildren(body))
+        {
+            if (surgery.Comp.Steps.All(step => IsStepComplete(body, part.Id, step)))
+                return true;
+        }
+
+        return false;
     }
 
     public bool IsStepComplete(EntityUid body, EntityUid part, EntProtoId stepId)

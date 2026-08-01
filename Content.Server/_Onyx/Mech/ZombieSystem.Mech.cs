@@ -1,5 +1,6 @@
 using Content.Server.Mech.Systems;
 using Content.Shared.Mech.Components;
+using Content.Shared.Vehicle.Components;
 
 namespace Content.Server.Zombies;
 
@@ -9,7 +10,9 @@ public sealed partial class ZombieSystem
 
     private void EjectMechPilot(EntityUid target)
     {
-        if (TryComp<MechPilotComponent>(target, out var pilot))
-            _mech.TryEject(pilot.Mech, forced: true);
+        if (TryComp<VehicleOperatorComponent>(target, out var pilot) &&
+            pilot.Vehicle is { } vehicle &&
+            HasComp<MechComponent>(vehicle))
+            _mech.TryEject(vehicle, forced: true);
     }
 }

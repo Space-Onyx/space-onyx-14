@@ -469,7 +469,7 @@
     state: pill17
   # <Onyx-HyronalinLabel-edited>
   - type: Label
-    localizedLabel: reagent-name-hyronalin
+    localizedLabel: pill-label-hyronalin-20u
   # </Onyx-HyronalinLabel-edited>
   - type: Solution
     solution:
@@ -485,7 +485,7 @@
   components:
   # <Onyx-HyronalinLabel-edited>
   - type: Label
-    localizedLabel: reagent-name-hyronalin
+    localizedLabel: pill-label-hyronalin-20u
   # </Onyx-HyronalinLabel-edited>
   - type: EntityTableContainerFill
     containers:

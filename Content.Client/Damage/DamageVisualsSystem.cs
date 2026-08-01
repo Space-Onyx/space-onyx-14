@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 // <Onyx-PartDamageVisuals>
 using Content.Shared._Onyx.Wounds;
 // </Onyx-PartDamageVisuals>

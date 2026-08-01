@@ -1,4 +1,4 @@
-using Content.Server.Clothing.Systems;
+﻿using Content.Server.Clothing.Systems;
 using Content.Server.Implants;
 // <Onyx-AgentIDNanoChat>
 using Content.Shared._DV.NanoChat;
@@ -20,17 +20,6 @@ public sealed partial class AgentIdCardSystem : SharedAgentIdCardSystem
     [Dependency] private ChameleonControllerSystem _chamController = default!;
     // <Onyx-AgentIDNanoChat>
     [Dependency] private SharedNanoChatSystem _nanoChat = default!;
-    // </Onyx-AgentIDNanoChat>
-
-    // <Onyx-AgentIDNanoChat>
-    [SubscribeLocalEvent]
-    private void OnNumberChanged(Entity<AgentIDCardComponent> ent, ref AgentIDCardNumberChangedMessage args)
-    {
-        if (args.Number is < 1 or > 9999 || !TryComp<NanoChatCardComponent>(ent, out var nanoChat))
-            return;
-
-        _nanoChat.SetNumber((ent, nanoChat), args.Number);
-    }
     // </Onyx-AgentIDNanoChat>
 
     [SubscribeLocalEvent]
@@ -73,4 +62,15 @@ public sealed partial class AgentIdCardSystem : SharedAgentIdCardSystem
         if (TryComp<ChameleonClothingComponent>(ent, out var chameleonComp) && chameleonComp.CanBeSetByController)
             _chameleon.SetSelectedPrototype(ent, comp.IdCard, component: chameleonComp);
     }
+
+    // <Onyx-AgentIDNanoChat>
+    [SubscribeLocalEvent]
+    private void OnNumberChanged(Entity<AgentIDCardComponent> ent, ref AgentIDCardNumberChangedMessage args)
+    {
+        if (args.Number is < 1 or > 9999 || !TryComp<NanoChatCardComponent>(ent, out var nanoChat))
+            return;
+
+        _nanoChat.SetNumber((ent, nanoChat), args.Number);
+    }
+    // </Onyx-AgentIDNanoChat>
 }

@@ -32,17 +32,6 @@ public sealed partial class DockingSystem : SharedDockingSystem
     [Dependency] private EntityQuery<DockingComponent> _dockingQuery = default!;
 
     private const string DockingJoint = "docking";
-    // <Onyx-DockingRestore>
-    private readonly HashSet<EntityUid> _pendingDockRestore = [];
-
-    public override void Update(float frameTime)
-    {
-        base.Update(frameTime);
-        foreach (var uid in new List<EntityUid>(_pendingDockRestore))
-            if (_pendingDockRestore.Contains(uid))
-                TryRestoreDock(uid);
-    }
-    // </Onyx-DockingRestore>
 
     private readonly HashSet<Entity<DockingComponent>> _dockingSet = new();
     private readonly HashSet<Entity<DockingComponent, DoorBoltComponent>> _dockingBoltSet = new();
@@ -87,33 +76,17 @@ public sealed partial class DockingSystem : SharedDockingSystem
         // This little gem is for docking deserialization
         if (component.DockedWith != null)
         {
-            // <Onyx-DockingRestore-edited>
-            if (!TryRestoreDock(uid))
-                _pendingDockRestore.Add(uid);
-            // </Onyx-DockingRestore-edited>
+            // They're still initialising so we'll just wait for both to be ready.
+            if (MetaData(component.DockedWith.Value).EntityLifeStage < EntityLifeStage.Initialized)
+                return;
+
+            var otherDock = _dockingQuery.Comp(component.DockedWith.Value);
+            DebugTools.Assert(otherDock.DockedWith != null);
+
+            Dock((uid, component), (component.DockedWith.Value, otherDock));
+            DebugTools.Assert(component.Docked && otherDock.Docked);
         }
     }
-
-    // <Onyx-DockingRestore>
-    private bool TryRestoreDock(EntityUid uid)
-    {
-        if (!TryComp(uid, out DockingComponent? dock) || dock.DockedWith is not { } otherUid ||
-            !TryComp(otherUid, out DockingComponent? otherDock))
-        {
-            _pendingDockRestore.Remove(uid);
-            return true;
-        }
-
-        if (MetaData(otherUid).EntityLifeStage < EntityLifeStage.Initialized ||
-            Transform(uid).GridUid == null || Transform(otherUid).GridUid == null)
-            return false;
-
-        Dock((uid, dock), (otherUid, otherDock));
-        _pendingDockRestore.Remove(uid);
-        _pendingDockRestore.Remove(otherUid);
-        return true;
-    }
-    // </Onyx-DockingRestore>
 
     [SubscribeLocalEvent]
     private void OnAnchorChange(Entity<DockingComponent> entity, ref AnchorStateChangedEvent args)

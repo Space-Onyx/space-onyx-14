@@ -1,4 +1,4 @@
-using Content.Server.Bible.Components;
+using Content.Shared.Bible.Components;
 using Content.Server._Onyx.CosmicCult.Components;
 using Content.Shared._Onyx.CosmicCult;
 using Content.Shared._Onyx.CosmicCult.Components;

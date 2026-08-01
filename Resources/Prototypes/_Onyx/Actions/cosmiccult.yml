@@ -16,9 +16,11 @@
   - type: Action
     useDelay: 15
     itemIconStyle: NoItem
-    icon:
-      sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: siphon
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
+    layers:
+    - state: siphon
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     deselectOnMiss: true
   - type: EntityTargetAction
@@ -40,9 +42,11 @@
   - type: Action
     useDelay: 120
     itemIconStyle: NoItem
-    icon:
-      sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: blank
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
+    layers:
+    - state: blank
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     deselectOnMiss: true
   - type: EntityTargetAction
@@ -65,9 +69,11 @@
   - type: Action
     useDelay: 999
     itemIconStyle: NoItem
-    icon:
-      sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: monument
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
+    layers:
+    - state: monument
+      map: ["enum.ActionVisuals.Icon"]
   - type: ConfirmableAction
     popup: cosmicability-monument-spawn-confirm
     primeTime: 10 #increased to give you more time to figure out where you want to put it
@@ -86,9 +92,11 @@
   - type: Action
     useDelay: 600
     itemIconStyle: NoItem
-    icon:
-      sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: monument-relocate
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
+    layers:
+    - state: monument-relocate
+      map: ["enum.ActionVisuals.Icon"]
   - type: ConfirmableAction
     popup: cosmicability-monument-move-confirm
     primeTime: 10 #increased to give you more time to figure out where you want to put it
@@ -107,9 +115,11 @@
   - type: Action
     itemIconStyle: NoItem
     useDelay: 0
-    icon:
-      sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: return
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
+    layers:
+    - state: return
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:EventCosmicReturn {}
 
@@ -123,9 +133,11 @@
   - type: Action
     useDelay: 24
     itemIconStyle: NoItem
-    icon:
-      sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: lapse
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
+    layers:
+    - state: lapse
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     deselectOnMiss: true
   - type: EntityTargetAction
@@ -145,9 +157,11 @@
   - type: Action
     useDelay: 30
     itemIconStyle: NoItem
-    icon:
-      sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: glare
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
+    layers:
+    - state: glare
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:EventCosmicGlare {}
 
@@ -161,9 +175,11 @@
   - type: Action
     useDelay: 5
     itemIconStyle: NoItem
-    icon:
-      sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: ingress
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
+    layers:
+    - state: ingress
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     deselectOnMiss: true
   - type: EntityTargetAction
@@ -182,9 +198,11 @@
   - type: Action
     useDelay: 60
     itemIconStyle: NoItem
-    icon:
-      sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: entropic
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
+    layers:
+    - state: entropic
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:EventCosmicImposition {}
 
@@ -199,9 +217,11 @@
     useDelay: 30
     raiseOnUser: true
     itemIconStyle: NoItem
-    icon:
-      sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: nova
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
+    layers:
+    - state: nova
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     range: 60
   - type: WorldTargetAction
@@ -220,9 +240,11 @@
     useDelay: 10
     raiseOnUser: true
     itemIconStyle: NoItem
-    icon:
-      sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: roguenova
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
+    layers:
+    - state: roguenova
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     range: 60
   - type: WorldTargetAction
@@ -238,9 +260,11 @@
   - type: Action
     useDelay: 5
     itemIconStyle: NoItem
-    icon:
-      sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: rogueinfect
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
+    layers:
+    - state: rogueinfect
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     deselectOnMiss: true
   - type: EntityTargetAction
@@ -264,9 +288,11 @@
   - type: Action
     useDelay: 55
     itemIconStyle: NoItem
-    icon:
-      sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: rogueshatter
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
+    layers:
+    - state: rogueshatter
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     deselectOnMiss: true
   - type: EntityTargetAction
@@ -290,8 +316,10 @@
   - type: Action
     useDelay: 100
     itemIconStyle: NoItem
-    icon:
-      sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
-      state: rogueshunt
+  - type: Sprite
+    sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
+    layers:
+    - state: rogueshunt
+      map: ["enum.ActionVisuals.Icon"]
   - type: InstantAction
     event: !type:EventRogueGrandShunt {}

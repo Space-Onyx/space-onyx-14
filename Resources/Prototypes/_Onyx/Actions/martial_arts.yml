@@ -16,10 +16,11 @@
   description: Sweeps a standing target's legs for four seconds.
   components:
   - type: Action
-    icon: {sprite: _Onyx/Actions/kravmaga.rsi, state: legsweep}
   - type: Sprite
     sprite: _Onyx/Actions/kravmaga.rsi
-    state: legsweep
+    layers:
+    - state: legsweep
+      map: ["enum.ActionVisuals.Icon"]
   - type: KravMagaAction
     configuration: LegSweep
     effectTime: 4
@@ -30,10 +31,11 @@
   description: Silences the next struck target for twenty seconds.
   components:
   - type: Action
-    icon: {sprite: _Onyx/Actions/kravmaga.rsi, state: neckchop}
   - type: Sprite
     sprite: _Onyx/Actions/kravmaga.rsi
-    state: neckchop
+    layers:
+    - state: neckchop
+      map: ["enum.ActionVisuals.Icon"]
   - type: KravMagaAction
     configuration: NeckChop
     effectTime: 20
@@ -44,10 +46,11 @@
   description: Deals 40 stamina damage and prevents breathing for ten seconds.
   components:
   - type: Action
-    icon: {sprite: _Onyx/Actions/kravmaga.rsi, state: lungpunch}
   - type: Sprite
     sprite: _Onyx/Actions/kravmaga.rsi
-    state: lungpunch
+    layers:
+    - state: lungpunch
+      map: ["enum.ActionVisuals.Icon"]
   - type: KravMagaAction
     configuration: LungPunch
     staminaDamage: 40

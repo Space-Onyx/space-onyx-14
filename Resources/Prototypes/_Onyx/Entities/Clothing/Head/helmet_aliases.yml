@@ -1,5 +1,5 @@
 - type: entity
-  parent: ClothingHeadHelmetBasic
+  parent: [ ClothingHeadHelmetArmoredBase, BaseSecurityContraband ]
   id: ClothingHeadHelmetBasicAlt
   suffix: Alt
   components:
@@ -7,6 +7,9 @@
     sprite: _Onyx/Clothing/Head/Helmets/Helmets/security.rsi
   - type: Clothing
     sprite: _Onyx/Clothing/Head/Helmets/Helmets/security.rsi
+  - type: HideLayerClothing
+    layers:
+      Hair: HEAD
   - type: Tag
     tags:
     - WhitelistChameleon

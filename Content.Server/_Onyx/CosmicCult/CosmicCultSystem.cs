@@ -12,7 +12,6 @@ using Content.Server._Onyx.CosmicCult.EntitySystems;
 using Content.Server._Onyx.CosmicCult.Components;
 
 using Content.Server.Actions;
-using Content.Server.AlertLevel;
 using Content.Server.Audio;
 using Content.Server.Antag;
 using Content.Server.Chat.Systems;
@@ -23,6 +22,7 @@ using Content.Server.Station.Systems;
 using Content.Shared._Onyx.CosmicCult.Components;
 using Content.Shared._Onyx.CosmicCult;
 using Content.Shared.Alert;
+using Content.Shared.AlertLevel;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Eye;

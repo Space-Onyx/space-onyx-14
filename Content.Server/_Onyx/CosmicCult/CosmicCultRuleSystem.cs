@@ -75,7 +75,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using System.Linq;
-using Content.Server.Bible.Components;
+using Content.Shared.Bible.Components;
 using Content.Server.Station.Systems;
 using Content.Shared.Cuffs.Components;
 using Content.Server.Cuffs;

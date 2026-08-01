@@ -23,6 +23,7 @@ using Content.Shared.Light.EntitySystems;
 using Content.Shared.Mech.Components;
 using Content.Shared.Mech.Equipment.Components;
 using Content.Shared.Movement.Components;
+using Content.Shared.Vehicle.Components;
 using Content.Shared.NPC.Components;
 using Content.Shared.Power.Components;
 using Content.Shared.Power.EntitySystems;
@@ -905,7 +906,8 @@ public sealed class MechLifecycleTest : GameTest
         Assert.Multiple(() =>
         {
             Assert.That(component.PilotSlot.ContainedEntity, Is.EqualTo(pilot));
-            Assert.That(SComp<MechPilotComponent>(pilot).Mech, Is.EqualTo(mech));
+            Assert.That(SComp<VehicleOperatorComponent>(pilot).Vehicle, Is.EqualTo(mech));
+            Assert.That(SComp<VehicleComponent>(mech).Operator, Is.EqualTo(pilot));
             Assert.That(SComp<RelayInputMoverComponent>(pilot).RelayEntity, Is.EqualTo(mech));
             Assert.That(SComp<MovementRelayTargetComponent>(mech).Source, Is.EqualTo(pilot));
             Assert.That(SComp<InteractionRelayComponent>(pilot).RelayEntity, Is.EqualTo(mech));
@@ -918,7 +920,8 @@ public sealed class MechLifecycleTest : GameTest
         {
             Assert.That(component.PilotSlot.ContainedEntity, Is.Null);
             Assert.That(_container.IsEntityInContainer(pilot), Is.False);
-            Assert.That(SEntMan.HasComponent<MechPilotComponent>(pilot), Is.False);
+            Assert.That(SEntMan.HasComponent<VehicleOperatorComponent>(pilot), Is.False);
+            Assert.That(SComp<VehicleComponent>(mech).Operator, Is.Null);
             Assert.That(SEntMan.HasComponent<RelayInputMoverComponent>(pilot), Is.False);
             Assert.That(SEntMan.HasComponent<MovementRelayTargetComponent>(mech), Is.False);
             Assert.That(SEntMan.HasComponent<InteractionRelayComponent>(pilot), Is.False);

@@ -252,6 +252,21 @@
   components: [ { type: SurgeryMendAttachedPartEffect, part: Head } ]
 
 - type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachGroin
+  components: [ { type: SurgeryAttachPartEffect, part: Groin } ]
+
+- type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepMendAttachedGroin
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Groin } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureAttachedGroin
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Groin } ]
+
+- type: entity
   parent: SurgeryStepSutureAttachedPart
   id: SurgeryStepSutureAttachedHead
   components: [ { type: SurgerySutureAttachedPartEffect, part: Head } ]

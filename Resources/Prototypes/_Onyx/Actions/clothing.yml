@@ -23,11 +23,13 @@
     checkCanInteract: true
     checkConsciousness: true
     itemIconStyle: NoItem
-    icon:
-      sprite: _Onyx/Actions/modsuit.rsi
-      state: activate
-    iconOn:
-      sprite: _Onyx/Actions/modsuit.rsi
-      state: activate-ready
+  - type: Sprite
+    sprite: _Onyx/Actions/modsuit.rsi
+    layers:
+    - state: activate
+      map: ["enum.ActionVisuals.Icon"]
+    - state: activate-ready
+      map: ["enum.ActionVisuals.IconToggled"]
+      visible: false
   - type: InstantAction
     event: !type:SealClothingEvent {}

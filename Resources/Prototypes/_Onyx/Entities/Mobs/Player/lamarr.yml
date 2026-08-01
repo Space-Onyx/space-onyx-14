@@ -50,7 +50,7 @@
   - type: Temperature
     heatDamageThreshold: 360
     coldDamageThreshold: -150
-    currentTemperature: 310.15
+    temperature: 310.15
   - type: Butcherable
     spawned:
     - id: FoodMeatXeno

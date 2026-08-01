@@ -166,12 +166,11 @@ public sealed partial class HumanoidCharacterAppearance : IEquatable<HumanoidCha
 
     public static HumanoidCharacterAppearance EnsureValid(HumanoidCharacterAppearance appearance, ProtoId<SpeciesPrototype> species, Sex sex, string[] sponsorPrototypes) // Corvax-Sponsors
     {
-
         var proto = IoCManager.Resolve<IPrototypeManager>();
         var markingManager = IoCManager.Resolve<MarkingManager>();
 
         var skinColor = appearance.SkinColor;
-        var eyeColor = appearance.EyeColor;
+        var eyeColor = ClampColor(appearance.EyeColor); // not using ClampEyeColorToStrategy so characters can have fun eye colours
         var validatedMarkings = appearance.Markings.ShallowClone();
 
         if (proto.TryIndex(species, out var speciesProto))
