@@ -62,6 +62,7 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
 
         _userDbData.AddOnLoadPlayer(CachePlayerData);
         _userDbData.AddOnPlayerDisconnect(ClearPlayerData);
+        InitializeBanWebhook(); // <Onyx-BanWebhook>
     }
 
     private async Task CachePlayerData(ICommonSession player, CancellationToken cancel)
@@ -124,7 +125,7 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
     {
         var (banDef, expires) = await CreateBanDef(banInfo, BanType.Server, null);
 
-        await _db.AddBanAsync(banDef);
+        banDef = await _db.AddBanAsync(banDef); // <Onyx-BanWebhook-edited>
 
         if (_cfg.GetCVar(CCVars.ServerBanResetLastReadRules))
         {
@@ -167,6 +168,7 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
 
         _sawmill.Info(logMessage);
         _chat.SendAdminAlert(logMessage);
+        _ = SendBanWebhook(banDef); // <Onyx-BanWebhook>
 
         KickMatchingConnectedPlayers(banDef, "newly placed ban");
     }
@@ -235,7 +237,8 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
 
         var (banDef, expires) = await CreateBanDef(banInfo, BanType.Role, roleDefs);
 
-        await AddRoleBan(banDef);
+        banDef = await AddRoleBan(banDef); // <Onyx-BanWebhook-edited>
+        _ = SendBanWebhook(banDef); // <Onyx-BanWebhook>
 
         var length = expires == null
             ? Loc.GetString("cmd-roleban-inf")
@@ -344,7 +347,7 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
         throw new ArgumentException($"Unknown prototype kind for role bans: {typeof(T)}");
     }
 
-    private async Task AddRoleBan(BanDef banDef)
+    private async Task<BanDef> AddRoleBan(BanDef banDef) // <Onyx-BanWebhook-edited>
     {
         banDef = await _db.AddBanAsync(banDef);
 
@@ -356,6 +359,8 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
                 cachedBans.Add(banDef);
             }
         }
+
+        return banDef; // <Onyx-BanWebhook>
     }
 
     public async Task<string> PardonRoleBan(int banId, NetUserId? unbanningAdmin, DateTimeOffset unbanTime)

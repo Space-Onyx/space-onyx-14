@@ -174,7 +174,7 @@ entities:
       duration: 2700
       clipLevel: '#E0C090FF'
     - type: SunShadow
-      roofHeight: 1
+      roofHeight: 0.2
       castRoofShadows: True
     - type: SunShadowCycle
       pathRotation: 45
