@@ -83,6 +83,14 @@
     - type: Examiner
     - type: Speech
       speechVerb: Robotic
+    # <Onyx-GuardianLanguage>
+    - type: LanguageSpeaker
+    - type: LanguageKnowledge
+      speaks:
+      - TauCetiBasic
+      understands:
+      - TauCetiBasic
+    # </Onyx-GuardianLanguage>
     - type: TypingIndicator
       proto: guardian
     - type: Pullable

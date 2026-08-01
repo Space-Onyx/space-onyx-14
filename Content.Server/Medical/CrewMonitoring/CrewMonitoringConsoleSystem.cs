@@ -1,6 +1,7 @@
 using System.Linq;
 using Content.Server.DeviceNetwork;
 using Content.Server.DeviceNetwork.Systems;
+using Content.Shared._Onyx.CrewMonitoring; // <Onyx-CommandTrackingImplant>
 using Content.Shared.PowerCell;
 using Content.Shared.DeviceNetwork;
 using Content.Shared.DeviceNetwork.Events;
@@ -69,8 +70,12 @@ public sealed partial class CrewMonitoringConsoleSystem : EntitySystem
         if (xform.GridUid != null)
             EnsureComp<NavMapComponent>(xform.GridUid.Value);
 
-        // Update all sensors info
-        var allSensors = component.ConnectedSensors.Values.ToList();
+        // <Onyx-CommandTrackingImplant-edited>
+        var commandOnly = HasComp<CrewMonitorScanningComponent>(uid);
+        var allSensors = component.ConnectedSensors.Values
+            .Where(sensor => sensor.IsCommandTracker == commandOnly)
+            .ToList();
+        // </Onyx-CommandTrackingImplant-edited>
         _uiSystem.SetUiState(uid, CrewMonitoringUIKey.Key, new CrewMonitoringState(allSensors));
     }
 }

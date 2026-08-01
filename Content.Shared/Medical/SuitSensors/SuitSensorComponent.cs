@@ -25,6 +25,14 @@ public sealed partial class SuitSensorComponent : Component
     [DataField, AutoNetworkedField]
     public bool ControlsLocked = false;
 
+    // <Onyx-CommandTrackingImplant>
+    /// <summary>
+    /// Whether this sensor reports to command-only crew monitors.
+    /// </summary>
+    [DataField]
+    public bool CommandTracker;
+    // </Onyx-CommandTrackingImplant>
+
     /// <summary>
     ///  How much time it takes to change another player's sensors
     /// </summary>

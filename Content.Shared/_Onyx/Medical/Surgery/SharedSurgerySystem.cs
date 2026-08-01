@@ -65,6 +65,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestartCleanup);
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
         SubscribeLocalEvent<BodyPartComponent, ComponentStartup>(OnBodyPartStartup);
+        SubscribeLocalEvent<SurgeryTargetComponent, ComponentStartup>(OnSurgeryTargetStartup);
         SubscribeLocalEvent<SurgeryTargetComponent, SurgeryDoAfterEvent>(OnTargetDoAfter);
         SubscribeLocalEvent<SurgeryCloseIncisionConditionComponent, SurgeryValidEvent>(OnCloseIncisionValid);
         SubscribeLocalEvent<SurgerySpeciesConditionComponent, SurgeryValidEvent>(OnSpeciesConditionValid);
@@ -111,6 +112,10 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     private void OnBodyPartStartup(Entity<BodyPartComponent> ent, ref ComponentStartup args)
     {
         EnsureComp<SurgeryTargetComponent>(ent);
+    }
+
+    private void OnSurgeryTargetStartup(Entity<SurgeryTargetComponent> ent, ref ComponentStartup args)
+    {
         var ui = EnsureComp<UserInterfaceComponent>(ent);
         _ui.SetUi((ent.Owner, ui), SurgeryUIKey.Key, new InterfaceData("SurgeryBoundUserInterface"));
     }
