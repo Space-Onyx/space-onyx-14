@@ -11,7 +11,6 @@
     BodyBagFolded: 5
     ClothingEyesHudMedical: 2
     ClothingEyesEyepatchHudMedical: 2
-    LightImplanter: 2
   prices:
     HandheldHealthAnalyzer: 15
     Brutepack: 9
@@ -23,4 +22,3 @@
     BodyBagFolded: 9
     ClothingEyesHudMedical: 15
     ClothingEyesEyepatchHudMedical: 15
-    LightImplanter: 20
