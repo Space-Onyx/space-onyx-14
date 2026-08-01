@@ -3,10 +3,12 @@
   parent: ClothingBeltHolster
   suffix: Filled, EG-4
   components:
-  - type: EntityTableContainerFill
+  - type: ContainerFill
     containers:
       item:
-        id: WeaponEnergyRevolver
+      - WeaponEnergyRevolver
+  - type: EntityTableContainerFill
+    containers:
       storagebase: !type:AllSelector
         children:
         - id: EnergySpeedloaderLethal
@@ -30,3 +32,39 @@
     - id: CombatInjector
     - id: ChemistryBottleOmnizine
     - id: ChemistryBottlePax
+
+- type: entity
+  id: ClothingBeltMedicalFilled
+  parent: ClothingBeltMedical
+  suffix: Filled
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: Brutepack
+          amount: 2
+        - id: Ointment
+        - id: Bloodpack
+        - id: Gauze
+        - id: EmergencyMedipen
+
+- type: entity
+  id: ClothingBeltMedicalEMTFilled
+  parent: ClothingBeltMedicalEMT
+  suffix: Paramedic, Filled
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: Brutepack
+        - id: Ointment
+        - id: Bloodpack
+        - id: Gauze
+        - id: HandheldCrewMonitor
+        - id: ParamedHypo
+        - id: CartridgeSaline
+        - id: CartridgeBicaridine
+        - id: CartridgeDermaline
+        - id: CartridgeAtropine

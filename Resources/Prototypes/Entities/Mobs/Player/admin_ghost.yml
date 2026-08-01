@@ -130,6 +130,7 @@
   - type: ShowContrabandDetails
   - type: Inventory
     templateId: aghost
+    bodySlotFiltering: false # <Onyx-AGhostInventory-edited>
   - type: Loadout
     prototypes: [ MobAghostGear ]
   - type: BypassInteractionChecks

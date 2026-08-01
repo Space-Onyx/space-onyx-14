@@ -22,6 +22,11 @@
     - Vulpkanin
     - Tajaran
     #Corvax-Species-End
+    # <Onyx-SurvivalKits>
+    - Felinid
+    - Demon
+    - Ipc
+    # </Onyx-SurvivalKits>
 
 - type: loadoutEffectGroup
   id: EffectSpeciesVox

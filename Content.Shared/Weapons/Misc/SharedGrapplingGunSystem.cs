@@ -1,6 +1,5 @@
 using System.Numerics;
 using Content.Shared.CombatMode;
-using Content.Shared.Gravity;
 using Content.Shared.Hands;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
@@ -33,7 +32,6 @@ public abstract partial class SharedGrapplingGunSystem : VirtualController
     [Dependency] private SharedGunSystem _gun = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
-    [Dependency] private SharedGravitySystem _gravity = default!;
     [Dependency] private SharedContainerSystem _container = default!;
 
     /// <summary>
@@ -270,64 +268,21 @@ public abstract partial class SharedGrapplingGunSystem : VirtualController
             }
             else if (ropeLength >= distance.MaxLength - grappling.RopeMargin)
             {
-                // Checks if the entity is "tied" to the grid it is on via extra-gravity technology (e.g. magboots). If so, for the purposes of reeling it counts as if you're weighing the same as the grid.
-                bool attachedToGrid;
-
-                // If the entities being targetted are on the same grid. If they are, the grid itself should not be affected with any pushing, to avoid becoming a "grappling hook-powered shuttle".
-                var sameGrid = false;
-
-                if (_transform.GetGrid(joint.BodyAUid) == _transform.GetGrid(joint.BodyBUid))
-                {
-                    attachedToGrid = false;
-                    sameGrid = true;
-                }
-                else
-                {
-                    if (jointComp.Relay != null)
-                    {
-                        _physics.WakeBody(jointComp.Relay.Value);
-                        attachedToGrid = Transform(jointComp.Relay.Value).Anchored ||
-                                         !_gravity.IsWeightless(jointComp.Relay.Value) &&
-                                         !_gravity.IsWeightlessStatusFromGrid(jointComp.Relay.Value);
-                    }
-                    else
-                    {
-                        attachedToGrid = Transform(joint.BodyAUid).Anchored ||
-                                         !_gravity.IsWeightless(joint.BodyAUid) &&
-                                         !_gravity.IsWeightlessStatusFromGrid(joint.BodyAUid);
-                    }
-                }
-
+                // <Onyx-GrapplingGun-edited>
                 var targetDirection = (bodyAWorldPos - bodyBWorldPos).Normalized();
 
                 var grapplerUidA = _container.TryGetOuterContainer(physicalHook, Transform(physicalHook), out var containerA) ? containerA.Owner : physicalHook;
-                var grapplerOffsetA = _transform.GetRelativePosition(Transform(joint.BodyAUid), grapplerUidA);
                 var grapplerBodyA = Comp<PhysicsComponent>(grapplerUidA);
 
                 var grapplerUidB = _container.TryGetOuterContainer(physicalGrapple, Transform(physicalGrapple), out var containerB) ? containerB.Owner : physicalGrapple;
-                if (attachedToGrid)
-                    grapplerUidB = _transform.GetGrid(joint.BodyBUid) ?? grapplerUidB;
-                var grapplerOffsetB = _transform.GetRelativePosition(Transform(joint.BodyBUid), grapplerUidB);
                 var grapplerBodyB = Comp<PhysicsComponent>(grapplerUidB);
 
-                // Note that this way of calculating the impulse does not take into account objects being stuck on things, e.g. a movable grapple point stuck behind a wall.
-                // Ideally the contraction of the joint itself should take this into account, but alas, this works for now.
+                var massFactorA = MathF.Min(grapplerBodyA.InvMass * grappling.ReelMassCoefficient, 1f);
+                _physics.ApplyLinearImpulse(grapplerUidA, -targetDirection * grappling.ReelForce * massFactorA * frameTime, body: grapplerBodyA);
 
-                var massFactorA = 1f;
-                var massFactorB = 1f;
-
-                // To prevent small things go zoomies
-                // Technically doesn't preserve momentum but it's either this or things start being yeeted at light speed.
-                if (grapplerBodyA.Mass < BaseWeightMass)
-                    massFactorA *= grapplerBodyA.Mass / BaseWeightMass;
-
-                if (grapplerBodyB.Mass < BaseWeightMass)
-                    massFactorB *= grapplerBodyB.Mass / BaseWeightMass;
-
-                if (sameGrid && physicalHook != _transform.GetGrid(joint.BodyAUid))
-                    _physics.ApplyLinearImpulse(grapplerUidA, -targetDirection * massFactorA * grappling.ReelForce * frameTime, grapplerOffsetA, body: grapplerBodyA);
-
-                _physics.ApplyLinearImpulse(grapplerUidB, targetDirection * massFactorB * grappling.ReelForce * frameTime, grapplerOffsetB, body: grapplerBodyB);
+                var massFactorB = MathF.Min(grapplerBodyB.InvMass * grappling.ReelMassCoefficient, 1f);
+                _physics.ApplyLinearImpulse(grapplerUidB, targetDirection * grappling.ReelForce * massFactorB * frameTime, body: grapplerBodyB);
+                // </Onyx-GrapplingGun-edited>
             }
 
             Dirty(uid, jointComp);
@@ -413,7 +368,7 @@ public abstract partial class SharedGrapplingGunSystem : VirtualController
     }
 
     /// <summary>
-    /// Updates the relay of any grappling hook to ensure it uses either the embedded entity, or the grid if the entity is anchored.
+    /// Updates the relay of any grappling hook to use the embedded entity. // <Onyx-GrapplingGun-edited>
     /// </summary>
     private void RefreshJointRelay(Entity<GrapplingProjectileEmbedComponent> entity)
     {
@@ -425,17 +380,10 @@ public abstract partial class SharedGrapplingGunSystem : VirtualController
             if (!jointComp.GetJoints.TryGetValue(GrapplingJoint, out var joint))
                 continue;
 
-            if (Transform(entity).Anchored && _transform.GetGrid(entity.Owner) != null)
-            {
-                joint.LocalAnchorA = _transform.GetRelativePosition(Transform(hook), _transform.GetGrid(entity.Owner)!.Value);
-                _joints.SetRelay(hook, _transform.GetGrid(entity.Owner));
-
-            }
-            else
-            {
-                joint.LocalAnchorA = Vector2.Zero;
-                _joints.SetRelay(hook, entity.Owner, jointComp);
-            }
+            // <Onyx-GrapplingGun-edited>
+            joint.LocalAnchorA = Vector2.Zero;
+            _joints.SetRelay(hook, entity.Owner, jointComp);
+            // </Onyx-GrapplingGun-edited>
         }
     }
 

@@ -282,20 +282,21 @@
   parent: ClothingModsuitCorporate
   suffix: Filled
   components:
-    - type: StorageFill
-      contents:
-          - id: BoxSurvivalSlotsEngineering
-          - id: HandheldFaxOfficial # NTRs fax is huge, do you expect me to use some POOR person fax?
-          - id: BoxFolderCentComClipboard # Solely for holding and looking menacing.
-          - id: DeterrentCaseFilled
-          - id: ClothingMaskGasCentcom
-          - id: WeaponDisablerAdvanced
-          - id: CentralCommandBusinessCard
-          - id: JawsOfLife
-          - id: PowerDrill
-          - id: WelderExperimental
-          - id: Multitool
-          - id: MedkitCombatFilled
+    - type: ContainerFill
+      containers:
+        storagebase:
+          - BoxSurvivalSlotsEngineering
+          - HandheldFaxOfficial # NTRs fax is huge, do you expect me to use some POOR person fax?
+          - BoxFolderCentComClipboard # Solely for holding and looking menacing.
+          - DeterrentCaseFilled
+          - ClothingMaskGasCentcom
+          - WeaponDisablerAdvanced
+          - CentralCommandBusinessCard
+          - JawsOfLife
+          - PowerDrill
+          - WelderExperimental
+          - Multitool
+          - MedkitCombatFilled
           
 #NCT
 - type: entity
@@ -414,17 +415,18 @@
   parent: ClothingModsuitTrainer
   suffix: Filled
   components:
-    - type: StorageFill
-      contents:
-          - id: BoxSurvivalSlotsEngineering
-          - id: HandheldFaxOfficial # NTRs fax is huge, do you expect me to use some POOR person fax?
-          - id: BoxFolderCentComClipboard # Solely for holding and looking menacing.
-          - id: DeterrentCaseFilled
-          - id: ClothingMaskGasCentcom
-          - id: WeaponDisablerAdvanced
-          - id: CentralCommandBusinessCard
-          - id: JawsOfLife
-          - id: PowerDrill
-          - id: WelderExperimental
-          - id: Multitool
-          - id: MedkitCombatFilled
+    - type: ContainerFill
+      containers:
+        storagebase:
+          - BoxSurvivalSlotsEngineering
+          - HandheldFaxOfficial # NTRs fax is huge, do you expect me to use some POOR person fax?
+          - BoxFolderCentComClipboard # Solely for holding and looking menacing.
+          - DeterrentCaseFilled
+          - ClothingMaskGasCentcom
+          - WeaponDisablerAdvanced
+          - CentralCommandBusinessCard
+          - JawsOfLife
+          - PowerDrill
+          - WelderExperimental
+          - Multitool
+          - MedkitCombatFilled

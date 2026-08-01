@@ -37,14 +37,6 @@ public sealed partial class InventoryComponent : Component
     [ViewVariables]
     public ContainerSlot[] Containers = Array.Empty<ContainerSlot>();
 
-    // <Onyx-BodyInventorySlots>
-    /// <summary>
-    /// Slots currently supported by the entity's body parts.
-    /// </summary>
-    [DataField, AutoNetworkedField]
-    public SlotFlags AvailableSlots = SlotFlags.All;
-    // </Onyx-BodyInventorySlots>
-
     [DataField, AutoNetworkedField]
     public Dictionary<string, DisplacementData> Displacements = new();
 

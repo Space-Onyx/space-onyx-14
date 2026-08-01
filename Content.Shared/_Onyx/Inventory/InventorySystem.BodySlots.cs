@@ -20,6 +20,14 @@ public partial class InventorySystem
             !ProtoMan.Resolve(inventory.TemplateId, out var template))
             return;
 
+        if (!inventory.BodySlotFiltering)
+        {
+            _readyBodySlots.Remove(ent);
+            _pendingBodySlots.Remove(ent);
+            ApplyBodySlots(ent, SlotFlags.All, inventory, template);
+            return;
+        }
+
         var available = SlotFlags.All;
         if (!_onyxBody.BodyHasPartType(ent, BodyPartType.Head))
             available &= ~(SlotFlags.HEAD | SlotFlags.EYES | SlotFlags.EARS | SlotFlags.MASK);

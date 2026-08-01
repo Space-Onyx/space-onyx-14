@@ -1,0 +1,83 @@
+- type: entity
+  id: HandheldFax
+  parent: BaseItem
+  name: handheld fax
+  description: A portable fax machine.
+  components:
+  - type: Item
+    size: Huge
+  - type: Sprite
+    sprite: Structures/Machines/fax_machine.rsi
+    drawdepth: SmallObjects
+    layers:
+    - state: icon
+      map: [ "enum.FaxMachineVisuals.VisualState" ]
+  - type: Icon
+    sprite: Structures/Machines/fax_machine.rsi
+    state: icon
+  - type: Appearance
+  - type: ActivatableUI
+    key: enum.FaxUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.FaxUiKey.Key:
+        type: FaxBoundUi
+  - type: Faxecute
+    damage:
+      types:
+        Blunt: 100
+  - type: ApcPowerReceiver
+    needsPower: false
+    powerLoad: 250
+  - type: FaxMachine
+    paperSlot:
+      insertSound: /Audio/Machines/scanning.ogg
+      ejectSound: /Audio/Machines/tray_eject.ogg
+      whitelist:
+        components:
+        - FaxableObject
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        enum.FaxMachineVisuals.VisualState:
+          True: { state: idle }
+          False: { state: icon }
+      enum.FaxMachineVisuals.VisualState:
+        enum.FaxMachineVisuals.VisualState:
+          Printing: { state: printing }
+          Normal: { state: idle }
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: Fax
+    transmitFrequencyId: Fax
+  - type: ItemSlots
+  - type: ContainerContainer
+    containers:
+      Paper: !type:ContainerSlot
+
+- type: entity
+  id: HandheldFaxOfficial
+  parent: HandheldFax
+  name: CentComm official handheld fax
+  suffix: CentComm Official
+  components:
+  - type: FaxMachine
+    name: "CentComm Official"
+  - type: Item
+    size: Normal
+    sprite: _Onyx/Objects/Tools/official_fax.rsi
+  - type: Prayable
+    sentMessage: prayer-popup-notify-centcom-sent
+    notificationPrefix: prayer-chat-notify-centcom
+    verb: prayer-verbs-call
+    verbImage: null
+    notificationSound:
+      path: /Audio/_Onyx/Misc/phone_ring.ogg
+  - type: Sprite
+    sprite: _Onyx/Objects/Tools/official_fax.rsi
+    drawdepth: SmallObjects
+    layers:
+    - state: icon
+      map: [ "enum.FaxMachineVisuals.VisualState" ]
+    - state: scanner
+      shader: unshaded

@@ -18,18 +18,11 @@
     baseWalkSpeed: 0.1
     baseSprintSpeed: 0.1
   - type: PassiveDamage
-    allowedStates: [ Alive ]
+    allowedStates: [ Alive, Critical ]
     damageCap: 20
     damage:
       types:
         Asphyxiation: 1
-  - type: Respirator
-    damage:
-      types:
-        Asphyxiation: 1
-    damageRecovery:
-      types:
-        Asphyxiation: 0
   - type: Butcherable
     spawned:
     - id: FoodMeatFishRaw

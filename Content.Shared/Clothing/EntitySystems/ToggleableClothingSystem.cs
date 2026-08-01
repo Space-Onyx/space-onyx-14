@@ -227,8 +227,15 @@ public sealed partial class ToggleableClothingSystem : EntitySystem
             return;
         }
 
+        // <Onyx-Modsuit-edited>
+        // MOD parts must always be folded through their controller, never removed as standalone clothing.
         if (args.User == args.UnEquipTarget)
+        {
+            _inventorySystem.TryUnequip(args.User, args.UnEquipTarget, slot, force: true);
+            args.Cancel();
             return;
+        }
+        // </Onyx-Modsuit-edited>
 
         StartAttachedDoAfter(args.User, uid, component, args.UnEquipTarget, toggleable, slot);
         args.Cancel();
