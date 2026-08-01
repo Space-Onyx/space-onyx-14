@@ -231,7 +231,7 @@ public sealed partial class ShuttleSystem
         if (TryComp<PhysicsComponent>(shuttleUid, out var shuttlePhysics))
         {
             var massLimit = customMassLimit ?? FTLMassLimit;
-            if (massLimit > 0 && shuttlePhysics.Mass > massLimit)
+            if (massLimit > 0 && shuttlePhysics.Mass > massLimit && !HasPoweredFTLDrive(shuttleUid)) // <Onyx-FTLDrive-edited>
             {
                 reason = Loc.GetString("shuttle-console-mass");
                 return false;

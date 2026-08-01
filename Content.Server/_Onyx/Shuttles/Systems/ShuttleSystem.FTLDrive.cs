@@ -13,11 +13,10 @@ public sealed partial class ShuttleSystem
         ShuttleComponent shuttle,
         [NotNullWhen(true)] out FTLComponent? component)
     {
-        component = null;
-        if (!TryComp<FTLDriveComponent>(uid, out var drive) || !TrySetupFTL(uid, shuttle, out component))
+        if (!TrySetupFTL(uid, shuttle, out component))
             return false;
 
-        EnsureComp<ActiveFTLDriveComponent>(uid).Data = drive.Data;
+        EnsureComp<ActiveFTLDriveComponent>(uid).Data = CompOrNull<FTLDriveComponent>(uid)?.Data ?? FTLDriveComponent.DefaultData;
         return true;
     }
 
@@ -32,6 +31,11 @@ public sealed partial class ShuttleSystem
     private FTLDriveData GetActiveFTLDrive(EntityUid uid)
     {
         return CompOrNull<ActiveFTLDriveComponent>(uid)?.Data ?? FTLDriveComponent.DefaultData;
+    }
+
+    private bool HasPoweredFTLDrive(EntityUid uid)
+    {
+        return TryComp<FTLDriveComponent>(uid, out var drive) && drive.Data != FTLDriveComponent.DefaultData;
     }
 
     private TimeSpan GetFTLKnockdownTime(EntityUid? uid)

@@ -27,7 +27,10 @@ public sealed partial class FTLDriveSystem : EntitySystem
     private void OnGridInit(GridInitializeEvent args)
     {
         if (!HasComp<MapComponent>(args.EntityUid))
+        {
             EnsureComp<FTLDriveComponent>(args.EntityUid);
+            RefreshGrid(args.EntityUid);
+        }
     }
 
     private void OnStartup(Entity<FTLDriveGeneratorComponent> ent, ref ComponentStartup args)
