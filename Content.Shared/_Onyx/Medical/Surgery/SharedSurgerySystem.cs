@@ -885,7 +885,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         requirements.Add(surgery);
         if (surgery.Comp.Requirement is { } requirementId && GetSingleton(requirementId) is { } requirement &&
             TryComp(requirement, out SurgeryComponent? requirementComp) &&
-            !IsSurgeryComplete(body, (requirement, requirementComp)) &&
+            !IsSurgeryComplete(body, part, (requirement, requirementComp)) &&
             GetNextStep(body, part, (requirement, requirementComp), requirements) is { } requiredNext)
             return requiredNext;
 
@@ -901,7 +901,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         if (surgery.Comp.Requirement is { } requirement &&
             (GetSingleton(requirement) is not { } requiredEnt ||
              !TryComp(requiredEnt, out SurgeryComponent? requiredComp) ||
-             !IsSurgeryComplete(body, (requiredEnt, requiredComp))))
+             !IsSurgeryComplete(body, part, (requiredEnt, requiredComp))))
             return false;
 
         foreach (var surgeryStep in surgery.Comp.Steps)
@@ -915,19 +915,9 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         return true;
     }
 
-    private bool IsSurgeryComplete(EntityUid body, Entity<SurgeryComponent> surgery)
+    private bool IsSurgeryComplete(EntityUid body, EntityUid part, Entity<SurgeryComponent> surgery)
     {
-        var parts = HasComp<BodyPartComponent>(body)
-            ? _body.GetBodyPartChildren(body)
-            : _body.GetBodyChildren(body);
-
-        foreach (var part in parts)
-        {
-            if (surgery.Comp.Steps.All(step => IsStepComplete(body, part.Id, step)))
-                return true;
-        }
-
-        return false;
+        return surgery.Comp.Steps.All(step => IsStepComplete(body, part, step));
     }
 
     public bool IsStepComplete(EntityUid body, EntityUid part, EntProtoId stepId)

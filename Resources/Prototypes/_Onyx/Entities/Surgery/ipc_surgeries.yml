@@ -15,8 +15,8 @@
     priority: -1
     steps:
     - SurgeryStepIpcUnfastenPanel
-    - SurgeryStepIpcDisconnectWiring
     - SurgeryStepIpcOpenPanel
+    - SurgeryStepIpcDisconnectWiring
 
 - type: entity
   parent: SurgeryIpcBase
@@ -26,8 +26,8 @@
   - type: Surgery
     priority: 1
     steps:
-    - SurgeryStepIpcClosePanel
     - SurgeryStepIpcReconnectWiring
+    - SurgeryStepIpcClosePanel
     - SurgeryStepIpcFastenPanel
   - type: SurgeryCloseIncisionCondition
 

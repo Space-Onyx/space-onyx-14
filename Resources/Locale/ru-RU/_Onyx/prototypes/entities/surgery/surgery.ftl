@@ -178,6 +178,34 @@ ent-SurgeryStepIpcInsertEyes = Установить оптические сен�
 ent-SurgeryStepIpcRemoveTongue = Отсоединить голосовой модулятор
 ent-SurgeryStepIpcInsertTongue = Установить голосовой модулятор
 
+ent-SurgeryStepIpcAttachHead = Установить голову в крепления корпуса
+ent-SurgeryStepIpcSecureHead = Закрепить голову болтами
+ent-SurgeryStepIpcConnectHead = Подключить проводку головы
+ent-SurgeryStepIpcAttachLeftArm = Установить левую руку в крепления корпуса
+ent-SurgeryStepIpcSecureLeftArm = Закрепить левую руку болтами
+ent-SurgeryStepIpcConnectLeftArm = Подключить проводку левой руки
+ent-SurgeryStepIpcAttachRightArm = Установить правую руку в крепления корпуса
+ent-SurgeryStepIpcSecureRightArm = Закрепить правую руку болтами
+ent-SurgeryStepIpcConnectRightArm = Подключить проводку правой руки
+ent-SurgeryStepIpcAttachLeftLeg = Установить левую ногу в крепления корпуса
+ent-SurgeryStepIpcSecureLeftLeg = Закрепить левую ногу болтами
+ent-SurgeryStepIpcConnectLeftLeg = Подключить проводку левой ноги
+ent-SurgeryStepIpcAttachRightLeg = Установить правую ногу в крепления корпуса
+ent-SurgeryStepIpcSecureRightLeg = Закрепить правую ногу болтами
+ent-SurgeryStepIpcConnectRightLeg = Подключить проводку правой ноги
+ent-SurgeryStepIpcAttachLeftHand = Установить левую кисть в крепления руки
+ent-SurgeryStepIpcSecureLeftHand = Закрепить левую кисть болтами
+ent-SurgeryStepIpcConnectLeftHand = Подключить проводку левой кисти
+ent-SurgeryStepIpcAttachRightHand = Установить правую кисть в крепления руки
+ent-SurgeryStepIpcSecureRightHand = Закрепить правую кисть болтами
+ent-SurgeryStepIpcConnectRightHand = Подключить проводку правой кисти
+ent-SurgeryStepIpcAttachLeftFoot = Установить левую стопу в крепления ноги
+ent-SurgeryStepIpcSecureLeftFoot = Закрепить левую стопу болтами
+ent-SurgeryStepIpcConnectLeftFoot = Подключить проводку левой стопы
+ent-SurgeryStepIpcAttachRightFoot = Установить правую стопу в крепления ноги
+ent-SurgeryStepIpcSecureRightFoot = Закрепить правую стопу болтами
+ent-SurgeryStepIpcConnectRightFoot = Подключить проводку правой стопы
+
 ent-OrganIpcTongue = голосовой модулятор
     .desc = Голосовой модулятор, используемый для воспроизведения речи.
 
