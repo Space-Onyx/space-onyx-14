@@ -76,6 +76,7 @@
     - id: FoodMeatGoliath
       amount: 3
     - id: MaterialGoliathHide1
-      amount: 3
+      amount: 1
+      maxAmount: 2
     - id: MaterialBones1
       amount: 3

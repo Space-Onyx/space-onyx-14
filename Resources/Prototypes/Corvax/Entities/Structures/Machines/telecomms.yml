@@ -7,3 +7,5 @@
     containers:
       key_slots:
       - EncryptionKeyLegal
+  - type: Label # <Onyx-Telecomms>
+    localizedLabel: telecom-server-label-legal # <Onyx-Telecomms>

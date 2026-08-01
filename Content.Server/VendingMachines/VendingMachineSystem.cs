@@ -317,6 +317,8 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
             return;
         }
 
+        Audio.PlayPvs(vendComponent.SoundVend, uid); // <Onyx-VendingSound>
+
         // Default spawn coordinates
         var xform = Transform(uid);
         var spawnCoordinates = xform.Coordinates;

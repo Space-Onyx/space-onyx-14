@@ -11,8 +11,9 @@
     state: tendril
     drawdepth: Mobs
   - type: Damageable
-    damageContainer: Biological
     damageModifierSet: Skeleton
+  - type: Injurable
+    damageContainer: Biological
   - type: Destructible
     thresholds:
     - trigger: !type:DamageTrigger { damage: 250 }

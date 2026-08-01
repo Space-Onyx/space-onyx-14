@@ -1,7 +1,7 @@
 ﻿- type: entity
   name: watcher
   id: MobWatcherBase
-  parent: [ SimpleSpaceMobBase, FlyingMobBase, BaseSlicingRefinable, BaseMobDestructible ]
+  parent: [ SimpleSpaceMobBase, FlyingMobBase, BaseMobDestructible ] # <Onyx-WatcherTrophies-edited>
   abstract: true
   description: It's like it's staring right through you.
   components:
@@ -52,6 +52,7 @@
     spawned:
     - id: DiamondOre1
     - id: MaterialWatcherWing1
+      amount: 1
       maxAmount: 2
   # </Onyx-WatcherTrophies>
   - type: MovementSpeedModifier
@@ -104,6 +105,7 @@
     spawned:
     - id: DiamondOre1
     - id: MaterialWatcherWing1
+      amount: 1
       maxAmount: 2
   # </Onyx-WatcherTrophies>
 
@@ -129,6 +131,7 @@
     spawned:
     - id: DiamondOre1
     - id: MaterialWatcherIceWing1
+      amount: 1
       maxAmount: 2
   # </Onyx-WatcherTrophies>
 
@@ -157,6 +160,7 @@
     spawned:
     - id: DiamondOre1
     - id: MaterialWatcherMagmaWing1
+      amount: 1
       maxAmount: 2
   # </Onyx-WatcherTrophies>
 

@@ -30,7 +30,7 @@
 
 - type: entity
   id: MobGoliath
-  parent: [ BaseMobAsteroid, MobBloodstream, BaseSlicingRefinable, BaseMobDestructible ]
+  parent: [ BaseMobAsteroid, MobBloodstream, BaseMobDestructible ] # <Onyx-GoliathTrophies-edited>
   name: goliath
   description: A massive beast that uses long tentacles to ensnare its prey, threatening them is not advised under any conditions.
   components:
@@ -89,12 +89,15 @@
     - Goliath
     - FootstepSound
   - type: NoSlip
-  - type: ToolRefinable
-    refineResult:
+  # <Onyx-GoliathTrophies>
+  - type: Butcherable
+    spawned:
     - id: FoodMeatGoliath
       amount: 3
     - id: MaterialGoliathHide1
-      amount: 3
+      amount: 1
+      maxAmount: 2
+  # </Onyx-GoliathTrophies>
 
 - type: entity
   parent: BaseAction

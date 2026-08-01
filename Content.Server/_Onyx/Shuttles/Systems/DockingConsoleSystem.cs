@@ -186,7 +186,6 @@ public sealed partial class DockingConsoleSystem : SharedDockingConsoleSystem
             !TryComp<DockingShuttleComponent>(shuttle, out var docking) ||
             !TryComp<ShuttleComponent>(shuttle, out var shuttleComponent) ||
             !_access.IsAllowed(args.Actor, ent) ||
-            !_shuttle.CanFTL(shuttle, out _) ||
             !IsAllowedDestination((shuttle, docking), args.Destination) ||
             args.Destination == Transform(shuttle).MapID ||
             FindLargestGrid(args.Destination) is not { } grid)

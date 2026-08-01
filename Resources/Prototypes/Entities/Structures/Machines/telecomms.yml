@@ -231,7 +231,7 @@
     - TelecomServerMonitorOutput
     range: 25
   - type: Label
-    currentLabel: telecom-server-label-unassigned
+    localizedLabel: telecom-server-label-unassigned # <Onyx-Telecomms-edited>
   # </Onyx-Telecomms>
 
 
@@ -252,6 +252,8 @@
       - EncryptionKeyService
       - EncryptionKeyCommand
       - EncryptionKeyLegal # Corvax Legal
+  - type: Label # <Onyx-Telecomms>
+    localizedLabel: telecom-server-label-all # <Onyx-Telecomms>
 
 - type: entity
   parent: TelecomServer
@@ -263,7 +265,7 @@
       key_slots:
       - EncryptionKeyCommon
   - type: Label # <Onyx-Telecomms>
-    currentLabel: telecom-server-label-common
+    localizedLabel: telecom-server-label-common # <Onyx-Telecomms-edited>
 
 - type: entity
   parent: TelecomServer
@@ -275,7 +277,7 @@
       key_slots:
       - EncryptionKeyCargo
   - type: Label # <Onyx-Telecomms>
-    currentLabel: telecom-server-label-cargo
+    localizedLabel: telecom-server-label-cargo # <Onyx-Telecomms-edited>
 
 - type: entity
   parent: TelecomServer
@@ -287,7 +289,7 @@
       key_slots:
       - EncryptionKeyEngineering
   - type: Label # <Onyx-Telecomms>
-    currentLabel: telecom-server-label-engineering
+    localizedLabel: telecom-server-label-engineering # <Onyx-Telecomms-edited>
 
 - type: entity
   parent: TelecomServer
@@ -299,7 +301,7 @@
       key_slots:
       - EncryptionKeyMedical
   - type: Label # <Onyx-Telecomms>
-    currentLabel: telecom-server-label-medical
+    localizedLabel: telecom-server-label-medical # <Onyx-Telecomms-edited>
 
 - type: entity
   parent: TelecomServer
@@ -311,7 +313,7 @@
       key_slots:
       - EncryptionKeyScience
   - type: Label # <Onyx-Telecomms>
-    currentLabel: telecom-server-label-science
+    localizedLabel: telecom-server-label-science # <Onyx-Telecomms-edited>
 
 - type: entity
   parent: TelecomServer
@@ -324,7 +326,7 @@
       - EncryptionKeySecurity
       - EncryptionKeyLegal # Corvax Legal
   - type: Label # <Onyx-Telecomms>
-    currentLabel: telecom-server-label-security
+    localizedLabel: telecom-server-label-security # <Onyx-Telecomms-edited>
 
 - type: entity
   parent: TelecomServer
@@ -336,7 +338,7 @@
       key_slots:
       - EncryptionKeyService
   - type: Label # <Onyx-Telecomms>
-    currentLabel: telecom-server-label-service
+    localizedLabel: telecom-server-label-service # <Onyx-Telecomms-edited>
 
 - type: entity
   parent: TelecomServer
@@ -348,4 +350,4 @@
       key_slots:
       - EncryptionKeyCommand
   - type: Label # <Onyx-Telecomms>
-    currentLabel: telecom-server-label-command
+    localizedLabel: telecom-server-label-command # <Onyx-Telecomms-edited>

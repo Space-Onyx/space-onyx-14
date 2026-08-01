@@ -152,7 +152,7 @@ public sealed partial class MonumentSystem : SharedMonumentSystem
 
     private void OnMonumentPhaseOut(Entity<MonumentComponent> ent)
     {
-        //todo check if anything gets messed up by doing this to the monument?
+        _transform.Unanchor(ent.Owner);
         _transform.SetParent(ent, EnsureStorageMapExists());
 
         if (ent.Comp.CurrentGlyph is not null) //delete the scribed glyph as well
@@ -173,12 +173,14 @@ public sealed partial class MonumentSystem : SharedMonumentSystem
             return;
 
         var xform = Transform(ent);
-        _transform.SetCoordinates(ent.Comp.Monument.Value, xform.Coordinates);
-        _transform.AnchorEntity(ent.Comp.Monument.Value); //no idea if this does anything but let's be safe about it
+        var monument = ent.Comp.Monument.Value;
+        _transform.Unanchor(monument);
+        _transform.SetCoordinates(monument, xform.Coordinates);
+        _transform.AnchorEntity(monument);
         Spawn(MonumentCollider, xform.Coordinates);
 
-        if (TryComp<CosmicCorruptingComponent>(ent.Comp.Monument.Value, out var cosmicCorruptingComp))
-            _corrupting.RecalculateStartingTiles((ent.Comp.Monument.Value, cosmicCorruptingComp));
+        if (TryComp<CosmicCorruptingComponent>(monument, out var cosmicCorruptingComp))
+            _corrupting.RecalculateStartingTiles((monument, cosmicCorruptingComp));
     }
 
     private EntityUid EnsureStorageMapExists()

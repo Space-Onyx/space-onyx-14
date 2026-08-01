@@ -141,6 +141,7 @@ public sealed partial class ResearchSystem
             return points;
 
         var ev = new ResearchServerGetPointsPerSecondEvent(uid, points);
+        RaiseLocalEvent(uid, ref ev); // <Onyx-RDServerPoints>
         foreach (var client in component.Clients)
         {
             RaiseLocalEvent(client, ref ev);

@@ -24,8 +24,9 @@
     key: walls
     base: resin
   - type: Damageable
-    damageContainer: Biological
     damageModifierSet: Resin
+  - type: Injurable
+    damageContainer: Biological
   - type: Destructible
     thresholds:
     - trigger: !type:DamageTypeTrigger { damageType: Blunt, damage: 200 }
@@ -56,8 +57,9 @@
     base: weed_dir
     mode: CardinalFlags
   - type: Damageable
-    damageContainer: Biological
     damageModifierSet: Resin
+  - type: Injurable
+    damageContainer: Biological
   - type: Physics
     canCollide: false
   - type: Destructible
@@ -111,8 +113,9 @@
         layer: [BulletImpassable]
   - type: RequireProjectileTarget
   - type: Damageable
-    damageContainer: Biological
     damageModifierSet: Resin
+  - type: Injurable
+    damageContainer: Biological
   - type: HealOnBuckle
     damage:
       types:
@@ -153,8 +156,9 @@
     openSound: { path: /Audio/_Onyx/Effects/Resin/alien_resin_move1.ogg }
     closeSound: { path: /Audio/_Onyx/Effects/Resin/alien_resin_move2.ogg }
   - type: Damageable
-    damageContainer: Biological
     damageModifierSet: Resin
+  - type: Injurable
+    damageContainer: Biological
 
 - type: entity
   parent: BaseStructure
@@ -171,8 +175,9 @@
     sprite: _Onyx/Structures/Resin/xenomorph_egg.rsi
     state: egg_burst
   - type: Damageable
-    damageContainer: Biological
     damageModifierSet: Resin
+  - type: Injurable
+    damageContainer: Biological
   - type: Fixtures
     fixtures:
       fix1:

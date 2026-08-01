@@ -68,8 +68,9 @@
   description: Keeps the air in and salvagers out.
   components:
   - type: Damageable
-    damageContainer: StructuralInorganic
     damageModifierSet: StructuralMetallicStrong
+  - type: Injurable
+    damageContainer: StructuralInorganic
   - type: StaticPrice
     price: 250
   - type: RadiationBlocker
