@@ -103,7 +103,10 @@
       map: [ "sealed" ]
   - type: HideLayerClothing
     slots:
+    - Hair
     - Snout
+    - HeadTop
+    - HeadSide
     hideOnToggle: true
   - type: SealableClothing
     sealUpPopup: sealable-clothing-seal-up-helmet
@@ -214,7 +217,10 @@
       map: [ "sealed" ]
   - type: HideLayerClothing
     slots:
+    - Hair
     - Snout
+    - HeadTop
+    - HeadSide
   - type: SealableClothing
     sealUpPopup: sealable-clothing-seal-up-helmet
     sealDownPopup: sealable-clothing-seal-down-helmet
@@ -494,6 +500,11 @@
       visible: false
       map: [ "sealed" ]
   - type: HideLayerClothing
+    slots:
+    - Hair
+    - Snout
+    - HeadTop
+    - HeadSide
     hideOnToggle: true
   - type: IdentityBlocker
   - type: IngestionBlocker
@@ -581,7 +592,10 @@
       map: [ "sealed" ]
   - type: HideLayerClothing
     slots:
+    - Hair
     - Snout
+    - HeadTop
+    - HeadSide
   - type: IngestionBlocker
   - type: Clothing
     clothingVisuals:
@@ -786,7 +800,10 @@
       map: [ "sealed" ]
   - type: HideLayerClothing
     slots:
+    - Hair
     - Snout
+    - HeadTop
+    - HeadSide
   - type: SealableClothing
     sealUpPopup: sealable-clothing-seal-up-helmet
     sealDownPopup: sealable-clothing-seal-down-helmet

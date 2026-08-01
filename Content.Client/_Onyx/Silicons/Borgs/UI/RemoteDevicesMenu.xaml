@@ -1,0 +1,9 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      Title="{Loc ai-remote-ui-menu-title}"
+                      MinSize="355 100"
+                      SetSize="355 415">
+    <ScrollContainer HScrollEnabled="False" HorizontalExpand="True" VerticalExpand="True" Margin="10">
+        <BoxContainer Name="RemoteDevicesDisplayContainer" Orientation="Vertical" VerticalExpand="True" />
+    </ScrollContainer>
+</controls:FancyWindow>

@@ -1,0 +1,7 @@
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: CivilianFlatpackerMachineCircuitboard
+  result: CivilianFlatpackerMachineCircuitboard
+  icon:
+    sprite: _Onyx/Structures/Machines/flatpacker.rsi
+    state: base

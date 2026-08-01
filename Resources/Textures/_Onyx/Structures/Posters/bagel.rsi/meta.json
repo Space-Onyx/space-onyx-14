@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Sprites made by LevitatingTree on Discord and GitHub",
+  "size": { "x": 32, "y": 32 },
+  "states": [
+    { "name": "goob_poster1_legit" },
+    { "name": "goob_poster2_legit" },
+    { "name": "goob_poster6_legit" }
+  ]
+}

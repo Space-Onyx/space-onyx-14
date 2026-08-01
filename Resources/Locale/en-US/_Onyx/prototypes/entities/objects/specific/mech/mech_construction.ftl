@@ -48,3 +48,5 @@ ent-GygaxRLeg = gygax right leg
     .desc = The right leg of the Gygax. It belongs on the chassis of the mech.
 ent-GygaxRArm = gygax right arm
     .desc = The right arm of the Gygax. It belongs on the chassis of the mech.
+ent-GygaxChassis = gygax chassis
+    .desc = An in-progress construction of the Gygax mech with all body parts installed.

@@ -53,8 +53,6 @@ public sealed partial class RoofOverlay : Overlay
         var lightRes = lightoverlay.GetCachedForViewport(args.Viewport);
         var bounds = lightoverlay.EnlargedBounds;
         var target = lightRes.EnlargedLightTarget;
-        var mapUid = args.MapUid; // <Onyx-Planetar>
-
         _grids.Clear();
         _mapSystem.FindGridsIntersecting(args.MapId, bounds, ref _grids, approx: true, includeMap: true);
         var lightScale = viewport.LightRenderTarget.Size / (Vector2) viewport.Size;
@@ -65,18 +63,9 @@ public sealed partial class RoofOverlay : Overlay
             {
                 var invMatrix = target.GetWorldToLocalMatrix(eye, scale);
 
-                for (var i = 0; i < _grids.Count; i++)
+                for (var i = 0; i < _grids.Count; i++) // <Onyx-RoofSunlight-edited>
                 {
                     var grid = _grids[i];
-                    // <Onyx-Planetar>
-                    if (UsesProjectedRoofShadows(grid.Owner, mapUid))
-                    {
-                        _grids.RemoveAt(i);
-                        i--;
-                        continue;
-                    }
-                    // </Onyx-Planetar>
-
                     if (!_entManager.TryGetComponent(grid.Owner, out ImplicitRoofComponent? roof))
                         continue;
 

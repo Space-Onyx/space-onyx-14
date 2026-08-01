@@ -119,7 +119,8 @@
   parent: Girder
   id: DiagonalShuttleWall
   name: construction-recipe-diagonal-shuttle-wall
-  targetNode: diagonalshuttleWall
+  graph: GirderDiagonal # <Onyx-DiagonalGirders>
+  targetNode: shuttleWallDiagonal # <Onyx-DiagonalGirders-edited>
   canRotate: true
 
 - type: construction

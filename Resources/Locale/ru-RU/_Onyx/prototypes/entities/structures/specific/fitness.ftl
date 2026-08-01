@@ -4,3 +4,7 @@ ent-FitnessWeightLifter = скамья со штангой
     .desc = { ent-FitnessWeightsBench1.desc }
 ent-FitnessPunchingBagBopClown = клоунская боксёрская груша
     .desc = Боксёрская груша с принтом клоуна.
+ent-FitnessPunchingBag = боксёрская груша
+    .desc = Груша для фитнес-тренировок.
+ent-FitnessPunchingBagCaptain = { ent-FitnessPunchingBag }
+    .desc = Боксёрская груша с принтом капитана.

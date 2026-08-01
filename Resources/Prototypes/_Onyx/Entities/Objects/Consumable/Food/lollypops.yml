@@ -14,6 +14,12 @@
   - type: Item
     sprite: _Onyx/Objects/Consumable/Food/lollypop.rsi
     size: Tiny
+  - type: SpawnItemsOnUse
+    items:
+    - id: FoodSnackLollypopTrash
+    - id: FoodSnackLollypop
+    sound:
+      path: /Audio/Effects/unwrap.ogg
 
 - type: entity
   parent: [ FoodBase, FoodInjectableBase ]
@@ -72,6 +78,78 @@
   id: FoodSnackLollypop
   name: lollypop
   description: A plain old lollypop. It's cherry flavoured!
+
+- type: entity
+  parent: FoodSnackLollypopWrappedBase
+  id: FoodSnackLollypopWrappedRainbow
+  name: wrapped rainbow lollypop
+  description: A rainbow colored lollypop. How fancy!
+  components:
+  - type: SpawnItemsOnUse
+    items:
+    - id: FoodSnackLollypopTrash
+    - id: FoodSnackLollypopRainbow
+    sound:
+      path: /Audio/Effects/unwrap.ogg
+
+- type: entity
+  parent: FoodSnackLollypopBase
+  id: FoodSnackLollypopRainbow
+  name: rainbow lollypop
+  description: A rainbow colored lollypop. Flavored with unicorn tears.
+  components:
+  - type: FlavorProfile
+    flavors:
+    - unicorntears
+  - type: Sprite
+    layers:
+    - state: lollypop
+    - state: lollypop-rainbow
+
+- type: entity
+  parent: FoodSnackLollypopWrappedBase
+  id: FoodSnackLollypopWrappedTricordrazine
+  name: wrapped tricordrazine lollypop
+  description: A Tricordrazine filled lollypop. It's still in a wrapper.
+  components:
+  - type: SpawnItemsOnUse
+    items:
+    - id: FoodSnackLollypopTrash
+    - id: FoodSnackLollypopTricordrazine
+    sound:
+      path: /Audio/Effects/unwrap.ogg
+
+- type: entity
+  parent: FoodSnackLollypopWrappedBase
+  id: FoodSnackLollypopWrappedWeh
+  name: wrapped weh lollypop
+  description: A Weh! filled lollypop. It's still in a wrapper.
+  components:
+  - type: SpawnItemsOnUse
+    items:
+    - id: FoodSnackLollypopTrash
+    - id: FoodSnackLollypopWeh
+    sound:
+      path: /Audio/Effects/unwrap.ogg
+
+- type: entity
+  parent: FoodSnackLollypopBase
+  id: FoodSnackLollypopWeh
+  name: Weh! lollypop
+  description: A Weh! filled lollypop. Weh!
+  components:
+  - type: Sprite
+    layers:
+    - state: lollypop-weh
+    - state: lollypop-weh
+  - type: Solution
+    solution:
+      maxVol: 20
+      reagents:
+      - ReagentId: Sugar
+        Quantity: 5
+      - ReagentId: JuiceThatMakesYouWeh
+        Quantity: 10
 
 - type: entity
   parent: FoodSnackLollypopBase

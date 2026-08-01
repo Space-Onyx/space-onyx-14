@@ -1,0 +1,16 @@
+ent-PoweredFloorLightEmpty = floor light
+    .desc = A floor-mounted light fixture. Draws power and produces light when equipped with a light bulb.
+    .suffix = Empty
+ent-PoweredFloorLight = floor light
+    .desc = A floor-mounted light fixture. Draws power and produces light when equipped with a light bulb.
+ent-PoweredFloorTileLight = floor tile light
+    .desc = Tile. It glows. That is all.
+ent-EmptyPoweredFloorTileLight = { ent-PoweredFloorTileLight }
+    .desc = { ent-PoweredFloorTileLight.desc }
+    .suffix = Empty
+ent-PoweredFloorTileLightRGB = { ent-PoweredFloorTileLight }
+    .desc = { ent-PoweredFloorTileLight.desc }
+    .suffix = RGB
+ent-EmptyPoweredFloorTileLightRGB = { ent-PoweredFloorTileLightRGB }
+    .desc = { ent-PoweredFloorTileLightRGB.desc }
+    .suffix = Empty

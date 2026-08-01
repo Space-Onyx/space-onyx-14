@@ -141,3 +141,11 @@
   id: SecurityTechFabCircuitboardRecipe
   icon: { sprite: Structures/Machines/techfab.rsi, state: icon }
   result: SecurityTechFabCircuitboard
+
+- type: latheRecipe
+  parent: BaseGoldCircuitboardRecipe
+  id: RadiationCollectorCircuitboard
+  result: RadiationCollectorCircuitboard
+  icon:
+    sprite: Structures/Power/Generation/Singularity/collector.rsi
+    state: ca_on

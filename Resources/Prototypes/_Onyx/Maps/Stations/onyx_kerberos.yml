@@ -1,0 +1,98 @@
+- type: gameMap
+  id: OnyxKerberos
+  mapName: 'ИСН Керберос TG'
+  mapPath: /Maps/_Onyx/Stations/Kerberos/onyx_kerberos.yml
+  maxRandomOffset: 0
+  randomRotation: false
+  minPlayers: 50
+  stations:
+    NextDelta:
+      stationProto: StandardNanotrasenStation
+      components:
+        - type: StationNameSetup
+          mapNameTemplate: '{prefix}-{number} Керберос {prefixCreator} {1}'
+          nameGenerator:
+            !type:NanotrasenNameGenerator
+            prefix: 'ИСН'
+            prefixCreator: 'TG'
+        - type: StationEmergencyShuttle
+          emergencyShuttlePath: /Maps/_CorvaxGoob/Stations/Delta/Shuttles/corvax_emergency_delta.yml
+        - type: StationJobs
+          availableJobs:
+            # command
+            Captain: [ 1, 1 ]
+            BlueshieldOfficer: [ 1, 1 ]
+            # cargo
+            Quartermaster: [ 1, 1 ]
+            SalvageSpecialist: [ 3, 3 ]
+            ShaftMiner: [ 2, 2 ]
+            CargoTechnician: [ 4, 4 ]
+            # engineering
+            ChiefEngineer: [ 1, 1 ]
+            AtmosphericTechnician: [ 2, 3 ]
+            StationEngineer: [ 5, 5 ]
+            TechnicalAssistant: [ 3, 3 ]
+            # medical
+            ChiefMedicalOfficer: [ 1, 1 ]
+            MedicalDoctor: [ 5, 5 ]
+            MedicalIntern: [ 3, 3 ]
+            Psychologist: [ 1, 1 ]
+            Paramedic: [ 1, 1 ]
+            Chemist: [ 2, 2 ]
+            Virologist: [ 3, 3 ]
+            Surgeon: [ 1, 1 ]
+            #Geneticist: [ 2, 2 ]
+            # science
+            ResearchDirector: [ 1, 1 ]
+            Scientist: [ 4, 6 ]
+            ResearchAssistant: [ 3, 3 ]
+            # security
+            HeadOfSecurity: [ 1, 1 ]
+            Warden: [ 1, 1 ]
+            SecurityOfficer: [ 5, 6 ]
+            SecurityCadet: [ 3, 3 ]
+            Detective: [ 1, 1 ]
+            Pilot: [ 1, 1 ]
+            Brigmedic: [ 1, 1 ]
+            Lawyer: [ 1, 1 ]
+            # service
+            HeadOfPersonnel: [ 1, 1 ]
+            Bartender: [ 1, 1 ]
+            Botanist: [ 3, 4 ]
+            Boxer: [ 2, 2 ]
+            Chaplain: [ 1, 1 ]
+            Chef: [ 1, 2 ]
+            Clown: [ 1, 2 ]
+            Janitor: [ 1, 2 ]
+            Librarian: [ 1, 1 ]
+            Mime: [ 1, 2 ]
+            Musician: [ 2, 2 ]
+            Reporter: [ 2, 2 ]
+            ServiceWorker: [ 3, 3 ]
+            Zookeeper: [ 1, 1 ]
+            RadioHost: [ 1, 1 ]
+            Passenger: [ -1, -1 ]
+            # silicon
+            StationAi: [ 1, 1 ]
+            Borg: [ 2, 4 ]
+        - type: StationGoal
+          goals:
+          - Singularity
+          - SolarPanels
+          - Artifacts
+          - Bank
+          - Zoo
+          - MiningOutpost
+          - Tesla
+          - SecurityTraining
+          - ShuttleMed
+          - ShuttleSec
+          - ShuttleRnd
+          - ShuttleSrv
+          - ShuttleEmergency
+          - Theatre
+          - CellAI
+          - Botany
+          - Bunker
+          - VirusologyAmbusol
+          - BluespaceHarvest

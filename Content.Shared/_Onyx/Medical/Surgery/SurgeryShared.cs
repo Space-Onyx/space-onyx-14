@@ -23,6 +23,9 @@ public sealed class SurgeryBuiState(Dictionary<NetEntity, List<EntProtoId>> choi
 }
 
 [Serializable, NetSerializable]
+public sealed class SurgeryStateRequest : BoundUserInterfaceMessage;
+
+[Serializable, NetSerializable]
 public sealed class SurgeryStepChosenBuiMsg(NetEntity part, EntProtoId surgery, EntProtoId step) : BoundUserInterfaceMessage
 {
     public readonly NetEntity Part = part;

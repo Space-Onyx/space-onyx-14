@@ -19,8 +19,8 @@ public sealed partial class FractureAlertSystem : EntitySystem
 
         foreach (var (part, _) in _body.GetBodyChildren(uid))
         {
-            if (_fractures.GetFracture(part) is { Comp2.Grade: not FractureGrade.None,
-                                                  Comp2.Treatment: not FractureTreatment.Mended })
+            if (_fractures.GetFracture(part) is { Comp2.Grade: >= FractureGrade.Simple,
+                                                   Comp2.Treatment: not FractureTreatment.Mended })
             {
                 _alerts.ShowAlert(uid, BrokenBonesAlert);
                 return;

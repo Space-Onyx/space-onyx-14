@@ -1,0 +1,55 @@
+- type: entity
+  parent: BoxCardboard
+  id: BaseColoredPaperBox
+  abstract: true
+
+- type: entity
+  parent: BaseColoredPaperBox
+  id: YellowPaperBox
+  name: box with yellow paper
+  components: [{ type: StorageFill, contents: [{ id: YellowPaper, amount: 9 }] }]
+- type: entity
+  parent: BaseColoredPaperBox
+  id: RedPaperBox
+  name: box with red paper
+  components: [{ type: StorageFill, contents: [{ id: RedPaper, amount: 9 }] }]
+- type: entity
+  parent: BaseColoredPaperBox
+  id: OrangePaperBox
+  name: box with orange paper
+  components: [{ type: StorageFill, contents: [{ id: OrangePaper, amount: 9 }] }]
+- type: entity
+  parent: BaseColoredPaperBox
+  id: GreenPaperBox
+  name: box with green paper
+  components: [{ type: StorageFill, contents: [{ id: GreenPaper, amount: 9 }] }]
+- type: entity
+  parent: BaseColoredPaperBox
+  id: CyanPaperBox
+  name: box with cyan paper
+  components: [{ type: StorageFill, contents: [{ id: CyanPaper, amount: 9 }] }]
+- type: entity
+  parent: BaseColoredPaperBox
+  id: BluePaperBox
+  name: box with blue paper
+  components: [{ type: StorageFill, contents: [{ id: BluePaper, amount: 9 }] }]
+- type: entity
+  parent: BaseColoredPaperBox
+  id: VioletPaperBox
+  name: box with violet paper
+  components: [{ type: StorageFill, contents: [{ id: VioletPaper, amount: 9 }] }]
+- type: entity
+  parent: BaseColoredPaperBox
+  id: PinkPaperBox
+  name: box with pink paper
+  components: [{ type: StorageFill, contents: [{ id: PinkPaper, amount: 9 }] }]
+- type: entity
+  parent: BaseColoredPaperBox
+  id: GreyPaperBox
+  name: box with grey paper
+  components: [{ type: StorageFill, contents: [{ id: GreyPaper, amount: 9 }] }]
+- type: entity
+  parent: [ BaseColoredPaperBox, BaseSyndicateContraband ]
+  id: BloodRedPaperBox
+  name: box with blood-red paper
+  components: [{ type: StorageFill, contents: [{ id: BloodRedPaper, amount: 9 }] }]

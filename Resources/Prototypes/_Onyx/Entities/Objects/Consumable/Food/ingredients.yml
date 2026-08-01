@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: BaseFoodCondimentPacket
+  id: FoodCondimentPacketProtein
+  components:
+  - type: Solution
+    solution:
+      maxVol: 10
+      reagents:
+      - ReagentId: Protein
+        Quantity: 10
+  - type: Icon
+    state: packet-greygoo
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 2
+    fillBaseName: packet-solid-

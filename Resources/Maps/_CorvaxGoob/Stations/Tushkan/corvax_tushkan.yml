@@ -9335,7 +9335,7 @@ entities:
     - type: RadiationGridResistance
     - type: NavMap
     - type: BecomesStation
-      id: CorvaxTushkan
+      id: CorvaxGoobTushkan
     - type: ImplicitRoof
     - type: FTLDrive
   - uid: 7863

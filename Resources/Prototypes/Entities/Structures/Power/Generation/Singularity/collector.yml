@@ -83,6 +83,10 @@
           - GasTank
   - type: UseDelay
     delay: 1
+  # <Onyx-RadiationCollectorCircuitboard>
+  - type: Machine
+    board: RadiationCollectorCircuitboard
+  # </Onyx-RadiationCollectorCircuitboard>
 
 - type: entity
   id: RadiationCollectorNoTank

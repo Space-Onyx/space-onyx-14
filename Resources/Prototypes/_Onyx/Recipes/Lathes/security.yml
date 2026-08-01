@@ -198,3 +198,12 @@
   id: PowerCellBluespaceSMG
   result: PowerCellBluespaceSMG
   materials: { Steel: 400, Gold: 200, Glass: 400, Plasma: 1000, BSCrystal: 100 }
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: Terminus
+  result: Terminus
+  materials:
+    Steel: 1250
+    Plastic: 750
+    Gold: 500

@@ -938,8 +938,8 @@ CableApcStackLingering10: CableApcStack10
 ChemDispenser: EnergyChemDispenser
 
 # 2026-07-24 Onyx
-AirlockNanotrasenRepresentativeCommandLocked: null
-AirlockNanotrasenRepresentativeCommandGlassLocked: null
+AirlockNanotrasenRepresentativeCommandLocked: AirlockMaintLocked
+AirlockNanotrasenRepresentativeCommandGlassLocked: AirlockMaintLocked
 DefaultStationBeaconRepresenterNT: null
 UniqueLockerNanorepFilled: null
 DefaultStationBeaconCentcommOffice: null
@@ -988,3 +988,12 @@ CrateEngineeringJetpack: CrateSpaceMiniJetpack
 CrateEngineeringMiniJetpack: CrateSpaceMiniJetpack
 CrateEngineeringShuttle: CrateSpaceShuttlePower
 CrateEngineeringThruster: CrateSpaceThruster
+
+# 2026-08-01
+AirlockCentralCommandCommandLocked: AirlockMaintLocked
+RandomVendingSnacksMidpop: RandomVendingSnacks
+SlotMachine: null
+AugmentBotanyPanelElectronics: null
+ClawMachine: null
+XenoCompatibilityImplanter: null
+SyringeHeroin: null

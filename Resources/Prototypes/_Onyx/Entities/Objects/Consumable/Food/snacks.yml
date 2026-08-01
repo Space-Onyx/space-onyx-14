@@ -14,3 +14,40 @@
     quickEquip: false
     sprite: _Onyx/Objects/Consumable/Food/lollypop.rsi
     slots: [ mask ]
+
+- type: entity
+  parent: FoodSnackBase
+  id: FoodSnackProteinbar
+  components:
+  - type: FlavorProfile
+    flavors:
+    - chalky
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/Food/proteinbar.rsi
+    state: icon
+  - type: Item
+  - type: Edible
+    trash:
+    - FoodPacketProteinbarTrash
+  - type: Solution
+    solution:
+      maxVol: 15
+      reagents:
+      - ReagentId: Nutriment
+        Quantity: 4
+      - ReagentId: Protein
+        Quantity: 4
+      - ReagentId: CocoaPowder
+        Quantity: 1
+      - ReagentId: Theobromine
+        Quantity: 1
+
+- type: entity
+  categories: [ HideSpawnMenu ]
+  parent: FoodPacketTrash
+  id: FoodPacketProteinbarTrash
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/Food/proteinbar.rsi
+    state: trash
+  - type: Item

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Nanotrasen card by SolsticOfTheWinter. paper_stamp-generic taken from tgstation at https://github.com/tgstation/tgstation/commit/e1142f20f5e4661cb6845cfcf2dd69f864d67432.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "nanotrasen_card"
+    },
+    {
+      "name": "paper_stamp-generic"
+    }
+  ]
+}

@@ -7,3 +7,8 @@
   id: ChemistMessenger
   equipment:
     back: ClothingBackpackMessengerChemistry
+
+- type: loadout
+  id: CMOMJ
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMilitaryCMO

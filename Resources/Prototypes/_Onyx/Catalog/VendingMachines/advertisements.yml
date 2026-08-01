@@ -15,3 +15,9 @@
   values:
     prefix: advertisement-maildrobe-
     count: 2
+
+- type: localizedDataset
+  id: FitnessVendAds
+  values:
+    prefix: advertisement-fitness-
+    count: 9

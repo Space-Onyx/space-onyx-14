@@ -8,3 +8,14 @@
     sprite: _Onyx/Clothing/Neck/Mantle/bsomantle.rsi
   - type: Clothing
     sprite: _Onyx/Clothing/Neck/Mantle/bsomantle.rsi
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckOldClothWrap
+  name: old cloth wrap
+  description: A tattered fabric wrap, faded over the years. Smells faintly of cigars.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Mantles/oldmantle.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Neck/Mantles/oldmantle.rsi

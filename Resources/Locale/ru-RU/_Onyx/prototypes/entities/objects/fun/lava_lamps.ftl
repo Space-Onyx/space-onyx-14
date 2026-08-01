@@ -1,0 +1,10 @@
+ent-LavaLamp = лавовая лампа
+    .desc = Светящееся устройство, любимое мотыльками.
+ent-RedLavaLamp = { ent-LavaLamp }
+ent-BlueLavaLamp = { ent-LavaLamp }
+ent-YellowLavaLamp = { ent-LavaLamp }
+ent-OrangeLavaLamp = { ent-LavaLamp }
+ent-GreenLavaLamp = { ent-LavaLamp }
+ent-PinkLavaLamp = { ent-LavaLamp }
+ent-RGBLavaLamp = { ent-LavaLamp }
+lava-lamp-boiling = Лавовая лампа начинает булькать...

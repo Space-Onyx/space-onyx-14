@@ -1,0 +1,9 @@
+- type: cargoProduct
+  id: ColoredPaper
+  icon:
+    sprite: Objects/Misc/bureaucracy.rsi
+    state: nano_paper
+  product: CrateColoredPaper
+  cost: 650
+  category: cargoproduct-category-name-fun
+  group: market

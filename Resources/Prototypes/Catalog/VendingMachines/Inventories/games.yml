@@ -25,12 +25,24 @@
     CardBoxBlack: 3
     CardBoxNanotrasen: 3
     CardBoxKotahi: 3
+    PokerChipsBox: 1 # <Onyx-PokerChips>
+    # <Onyx-ColoredPaper>
+    YellowPaperBox: 2
+    RedPaperBox: 2
+    OrangePaperBox: 2
+    GreenPaperBox: 2
+    CyanPaperBox: 2
+    BluePaperBox: 2
+    VioletPaperBox: 2
+    # </Onyx-ColoredPaper>
     # </Onyx-PlayingCards>
   contrabandInventory:
     Basketball: 1
     FoodSnackBoritos: 3
     DrinkSpaceMountainWindCan: 3
+    GreyPaperBox: 2 # <Onyx-ColoredPaper>
   # <Onyx-PlayingCards>
   emaggedInventory:
     CardBoxSyndicate: 1
+    BloodRedPaperBox: 2 # <Onyx-ColoredPaper>
   # </Onyx-PlayingCards>

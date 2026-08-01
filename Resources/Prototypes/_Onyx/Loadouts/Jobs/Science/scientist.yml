@@ -2,3 +2,16 @@
   id: ScientistMessenger
   equipment:
     back: ClothingBackpackMessengerScience
+
+- type: loadout
+  id: ResearchDirectorMJ
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMilitaryResearchDirector
+
+- type: loadout
+  id: ResearchDirectorLabCoatPurple
+  equipment:
+    outerClothing: ClothingOuterCoatRDPurple
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MasterRD

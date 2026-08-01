@@ -1,0 +1,20 @@
+- type: entity
+  parent: BaseItem
+  id: ToyBladeEldritch
+  name: toy blade
+  description: A plastic yellow crescent blade, decorated with an ornamental eye. You feel like you're being watched...
+  components:
+  - type: Sprite
+    sprite: _Onyx/Heretic/Blades/eldrich_blade-toy.rsi
+    state: icon
+  - type: MeleeWeapon
+    attackRate: 1.5
+    wideAnimationRotation: -125
+    damage:
+      types:
+        Blunt: 0
+    soundHit:
+      path: /Audio/Weapons/bladeslice.ogg
+  - type: Item
+    size: Small
+    sprite: _Onyx/Heretic/Blades/eldrich_blade-toy-inhands.rsi

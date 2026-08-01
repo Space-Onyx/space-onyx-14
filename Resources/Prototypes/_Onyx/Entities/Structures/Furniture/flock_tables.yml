@@ -1,0 +1,60 @@
+- type: entity
+  id: BaseTableFlock
+  parent: BaseStructure
+  name: humming surface
+  description: A table? An alien supercomputer? Well, it's flat, you can put stuff on it.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _Onyx/Flock/Structures/Furniture/table.rsi
+    state: full
+  - type: GlassTable
+    climberDamage:
+      types:
+        Slash: 30
+    tableDamage:
+      types:
+        Blunt: 10
+    tableMassLimit: 10
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [Destruction]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: GlassBreak
+  - type: Animateable
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Metallic
+  - type: PlaceableSurface
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 55
+        mask:
+        - TableMask
+        layer:
+        - TableLayer
+        - BulletImpassable
+  - type: Climbable
+  - type: Bonkable
+    bonkDamage:
+      types:
+        Slash: 15
+  - type: Clickable
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepHull
+  - type: Tag
+    tags:
+    - ForceFixRotations
+  - type: RequireProjectileTarget
+    ignoreThrow: true

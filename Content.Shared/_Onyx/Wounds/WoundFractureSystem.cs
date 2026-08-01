@@ -64,6 +64,8 @@ public sealed partial class WoundFractureSystem : EntitySystem
             return;
 
         SetBoneDamage((wound, core, wound.Comp), FixedPoint2.Min(wound.Comp.BoneDamage, args.Severity), profile);
+        if (wound.Comp.Grade == FractureGrade.None)
+            _wounds.RemoveWound((wound.Owner, core));
     }
 
     public Entity<WoundComponent, WoundFractureComponent>? GetFracture(Entity<WoundableComponent?> part)

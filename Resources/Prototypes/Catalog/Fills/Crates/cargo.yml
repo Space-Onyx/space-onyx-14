@@ -85,6 +85,7 @@
     - id: FoodFrozenPopsicleTrash
     - id: FoodCornTrash
     - id: FoodTinBeansTrash
+    - id: ClothingEyesGlassesBroken # <Onyx-GoobClothing>
 
 - type: entityTable
   id: LotteryCanistersEntityTable
@@ -122,6 +123,10 @@
     - id: ThrowingStar
     - id: WeaponLaserGun
       weight: 0.1
+    # <Onyx-Terminus>
+    - id: Terminus
+      weight: 0.005
+    # </Onyx-Terminus>
     - id: WeaponShotgunHandmade
     - id: WeaponFlareGun
     - id: Bola

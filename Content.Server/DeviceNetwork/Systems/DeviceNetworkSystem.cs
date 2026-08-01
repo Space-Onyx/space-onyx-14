@@ -142,7 +142,8 @@ namespace Content.Server.DeviceNetwork.Systems
 
             foreach (var list in component.Configurators)
             {
-                _configurator.OnDeviceShutdown(list, (uid, component));
+                if (TryComp<NetworkConfiguratorComponent>(list, out var configurator)) // <Onyx-NetworkCleanup-edited>
+                    _configurator.OnDeviceShutdown((list, configurator), (uid, component)); // <Onyx-NetworkCleanup-edited>
             }
 
             GetNetwork(component.DeviceNetId).Remove(component);

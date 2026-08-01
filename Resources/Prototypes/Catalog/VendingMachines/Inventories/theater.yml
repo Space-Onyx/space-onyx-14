@@ -58,6 +58,10 @@
     ClothingShoesBootsCowboyWhite: 1
     ClothingHeadHatWizardFake: 1
     ClothingOuterWizardFake: 1
+    # <Onyx-GoobClothing>
+    ClothingHeadSanabi: 1
+    ClothingNeckCloakSanabi: 1
+    # </Onyx-GoobClothing>
   contrabandInventory:
     ClothingHeadHatRichard: 1
     ToyFigurineBoxer: 1

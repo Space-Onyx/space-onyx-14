@@ -41,6 +41,7 @@
     actions:
     - ActionJumpToCore
     - ActionAIViewLaws
+    - ActionOpenRemoteDevicesMenu # <Onyx-AiRemoteBrain>
   - type: UserInterface
     interfaces:
       enum.RadarConsoleUiKey.Key:
@@ -53,6 +54,11 @@
         type: SiliconLawBoundUserInterface
       enum.CommunicationsConsoleUiKey.Key:
         type: CommunicationsConsoleBoundUserInterface
+      # <Onyx-AiRemoteBrain>
+      enum.RemoteDeviceUiKey.Key:
+        type: RemoteDevicesBoundUserInterface
+        requireInputValidation: false
+      # </Onyx-AiRemoteBrain>
   - type: IntrinsicUI
     uis:
       enum.RadarConsoleUiKey.Key:

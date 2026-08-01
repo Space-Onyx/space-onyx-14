@@ -50,8 +50,22 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
         SubscribeLocalEvent<SurgeryCloseIncisionEffectComponent, SurgeryStepEvent>(OnCloseIncisionComplete);
         SubscribeLocalEvent<SurgeryStepEmoteEffectComponent, SurgeryStepEvent>(OnStepEmoteComplete);
         Subs.BuiEvents<SurgeryTargetComponent>(SurgeryUIKey.Key, subs =>
-            subs.Event<SurgeryStepsStateRequest>(OnStepsStateRequest));
+        {
+            subs.Event<BoundUIOpenedEvent>(OnUiOpened);
+            subs.Event<SurgeryStateRequest>(OnStateRequest);
+            subs.Event<SurgeryStepsStateRequest>(OnStepsStateRequest);
+        });
         LoadPrototypes();
+    }
+
+    private void OnUiOpened(Entity<SurgeryTargetComponent> ent, ref BoundUIOpenedEvent args)
+    {
+        RefreshUI(ent);
+    }
+
+    private void OnStateRequest(Entity<SurgeryTargetComponent> ent, ref SurgeryStateRequest args)
+    {
+        RefreshUI(ent);
     }
 
     protected override void OnToolStepCompleted(Entity<SurgeryStepComponent> ent, ref SurgeryStepEvent args)
@@ -163,7 +177,6 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
         }
 
         _ui.OpenUi(target.Owner, SurgeryUIKey.Key, user);
-        RefreshUI(target.Owner);
     }
 
     private void OnStepBleedComplete(Entity<SurgeryStepBleedEffectComponent> ent, ref SurgeryStepEvent args)

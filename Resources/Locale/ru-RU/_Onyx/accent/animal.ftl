@@ -1,0 +1,11 @@
+accent-words-frog-1 = Кваа!!
+accent-words-frog-2 = Квеее!!
+accent-words-frog-3 = КВЕЕЕ!!
+accent-words-frog-4 = КВЕЕЕЕ!!
+accent-words-alt-frog-1 = ХУУУУУ!!
+accent-words-alt-frog-2 = Я В ЗАХЛЕБЕ!
+accent-words-alt-frog-3 = Привет, моя малышка, привет, моя радость, привет, моя ретро-девчонка.
+accent-words-alt-frog-4 = Печаль, брат.
+accent-words-alt-frog-5 = УБЕРИТЕ ЭТОГО ПАРНЯ С МЕНЯ!!
+accent-words-alt-frog-6 = КТО-НИБУДЬ ОСТАНОВИТЕ МЕНЯ!!
+accent-words-alt-frog-7 = ВОН!!

@@ -47093,7 +47093,7 @@ entities:
     - type: GasTileOverlay
     - type: RadiationGridResistance
     - type: BecomesStation
-      id: CorvaxGlacier
+      id: CorvaxGoobGlacier
     - type: Roof
       data:
         -3,-9: 18156262967073110264

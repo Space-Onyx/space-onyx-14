@@ -2,3 +2,8 @@
   id: SecurityMessenger
   equipment:
     back: ClothingBackpackMessengerSecurity
+
+- type: loadout
+  id: HeadofSecurityVestWeb
+  equipment:
+    outerClothing: ClothingOuterArmorHoSVestWeb

@@ -123,6 +123,11 @@
     - id: PosterLegitTyrone
     - id: PosterLegitHelio
     - id: PosterLegitBotanyFear
+    # <Onyx-BagelPosters>
+    - id: PosterLegitGoobWorkHard
+    - id: PosterLegitGoobMakeshift
+    - id: PosterLegitGoobSuperMatter
+    # </Onyx-BagelPosters>
 
 - type: entity
   parent: MarkerBase

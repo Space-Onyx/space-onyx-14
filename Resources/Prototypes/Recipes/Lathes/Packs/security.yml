@@ -165,6 +165,7 @@
   - WeaponEnergyRifle # <Onyx-GoobEnergyWeaponry>
   - WeaponXrayCannon
   - WeaponTemperatureGun
+  - Terminus # <Onyx-Terminus>
 
 - type: latheRecipePack
   id: SecurityDisablers

@@ -60,3 +60,13 @@
     - id: ClothingHandsGlovesCombat
     - id: ClothingBeltUtilityFilled
     - id: ClothingOuterWinterPilot
+
+- type: entityTable
+  id: FillLockerPilotHarduit
+  table: !type:AllSelector
+    children:
+    - id: JetpackSecurityFilled
+    - id: DoubleEmergencyOxygenTankFilled
+    - id: ClothingOuterHardsuitSecPilotFilled
+    - id: ClothingMaskBreath
+    - id: ClothingShoesBootsMag

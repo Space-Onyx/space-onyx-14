@@ -1,0 +1,53 @@
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformEnvirosuitPrisoner
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Envirosuits/custom.rsi
+    layers:
+    - state: icon
+      color: "#ff8300"
+    - state: plaintop-icon
+      color: "#ff8300"
+    - state: accentprisoner-icon
+      color: "#404040"
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: inhand-left
+        color: "#ff8300"
+      - state: plaintop-inhand-left
+        color: "#ff8300"
+      - state: accentprisoner-inhand-left
+        color: "#404040"
+      right:
+      - state: inhand-right
+        color: "#ff8300"
+      - state: plaintop-inhand-right
+        color: "#ff8300"
+      - state: accentprisoner-inhand-right
+        color: "#404040"
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Envirosuits/custom.rsi
+    clothingVisuals:
+      jumpsuit:
+      - state: equipped-INNERCLOTHING
+        color: "#ff8300"
+      - state: plaintop-equipped-INNERCLOTHING
+        color: "#ff8300"
+      - state: accentprisoner-equipped-INNERCLOTHING
+        color: "#404040"
+      - state: loweraccent-equipped-INNERCLOTHING
+        color: "#404040"
+      - state: soles-equipped-INNERCLOTHING
+        color: "#bababa"
+  - type: SuitSensor
+    controlsLocked: true
+    randomMode: false
+    mode: SensorCords
+  - type: Tag
+    tags:
+    - ClothMade
+    - Recyclable
+    - WhitelistChameleon
+    - PrisonUniform

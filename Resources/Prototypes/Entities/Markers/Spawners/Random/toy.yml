@@ -162,6 +162,7 @@
     - id: ToyFigurineWarden
     - id: ToyFigurineDetective
     - id: ToyFigurineSecurity
+    - id: ToyFigurineBrigmedic # <Onyx-BrigmedicFigurine>
     # Service
     - id: ToyFigurineHeadOfPersonnel
     - id: ToyFigurinePassenger
@@ -176,6 +177,7 @@
     - id: ToyFigurineBartender
     - id: ToyFigurineBotanist
     - id: ToyFigurineJanitor
+    - id: ToyFigurineDevil # <Onyx-DevilFigurine>
     - id: ToyFigurineLawyer
     # Silicon
     - id: ToyAi

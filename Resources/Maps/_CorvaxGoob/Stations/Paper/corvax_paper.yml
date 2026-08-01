@@ -10247,7 +10247,7 @@ entities:
     - type: GravityShake
       shakeTimes: 10
     - type: BecomesStation
-      id: CorvaxPaper
+      id: CorvaxGoobPaper
     - type: NavMap
     - type: ImplicitRoof
     - type: FTLDrive
@@ -135738,8 +135738,6 @@ entities:
           length: 8
     - type: BallisticAmmoProvider
       unspawnedCount: 1
-    - type: MeleeWeapon
-      nextAttack: -68.1003796
     - type: EmitSoundOnCollide
       nextSound: -2148.9316331
     - type: Physics

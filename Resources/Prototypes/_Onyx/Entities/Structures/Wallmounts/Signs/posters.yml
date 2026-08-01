@@ -7,3 +7,27 @@
   - type: Sprite
     sprite: _Onyx/Structures/Posters/big_brother_ai.rsi
     state: goob_poster12_legit
+
+- type: entity
+  parent: PosterBase
+  id: PosterLegitGoobWorkHard
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Posters/bagel.rsi
+    state: goob_poster1_legit
+
+- type: entity
+  parent: PosterBase
+  id: PosterLegitGoobMakeshift
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Posters/bagel.rsi
+    state: goob_poster2_legit
+
+- type: entity
+  parent: PosterBase
+  id: PosterLegitGoobSuperMatter
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Posters/bagel.rsi
+    state: goob_poster6_legit

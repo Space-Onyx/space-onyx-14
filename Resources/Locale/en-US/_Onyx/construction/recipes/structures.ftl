@@ -1,0 +1,4 @@
+construction-recipe-diagonal-girder = girder (diagonal)
+construction-recipe-diagonal-reinforced-girder = reinforced girder (diagonal)
+construction-recipe-diagonal-wall = wall (diagonal)
+construction-recipe-diagonal-reinforced-wall = reinforced wall (diagonal)

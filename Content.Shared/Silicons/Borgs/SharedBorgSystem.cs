@@ -1,4 +1,5 @@
 using Content.Shared.Access.Systems;
+using Content.Shared._Onyx.Silicons.Borgs.Components; // <Onyx-AiRemoteBrain>
 using Content.Shared.Actions;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Containers.ItemSlots;
@@ -21,6 +22,7 @@ using Content.Shared.PowerCell;
 using Content.Shared.PowerCell.Components;
 using Content.Shared.Roles;
 using Content.Shared.Silicons.Borgs.Components;
+using Content.Shared.StationAi; // <Onyx-AiRemoteBrain>
 using Content.Shared.Throwing;
 using Content.Shared.UserInterface;
 using Content.Shared.Whitelist;
@@ -184,6 +186,15 @@ public abstract partial class SharedBorgSystem : EntitySystem
         {
             _mind.TransferTo(mindId, args.Entity, mind: mind);
         }
+
+        // <Onyx-AiRemoteBrain>
+        if (HasComp<AiRemoteBrainComponent>(args.Entity))
+        {
+            SetActive(chassis, false);
+            RemComp<AiRemoteControllerComponent>(chassis);
+            RemComp<StationAiVisionComponent>(chassis);
+        }
+        // </Onyx-AiRemoteBrain>
     }
 
     private void OnMindAdded(Entity<BorgChassisComponent> chassis, ref MindAddedMessage args)
@@ -219,10 +230,11 @@ public abstract partial class SharedBorgSystem : EntitySystem
         var used = args.Used;
         TryComp<BorgBrainComponent>(used, out var brain);
         TryComp<BorgModuleComponent>(used, out var module);
+        TryComp<AiRemoteBrainComponent>(used, out var remoteBrain); // <Onyx-AiRemoteBrain>
 
         if (TryComp<WiresPanelComponent>(chassis, out var panel) && !panel.Open)
         {
-            if (brain != null || module != null)
+            if (brain != null || module != null || remoteBrain != null) // <Onyx-AiRemoteBrain-edited>
             {
                 _popup.PopupEntity(Loc.GetString("borg-panel-not-open"), chassis, args.User);
             }
@@ -244,6 +256,20 @@ public abstract partial class SharedBorgSystem : EntitySystem
             args.Handled = true;
             return;
         }
+
+        // <Onyx-AiRemoteBrain>
+        if (chassis.Comp.BrainEntity == null && remoteBrain != null &&
+            _whitelist.IsWhitelistPassOrNull(chassis.Comp.BrainWhitelist, used))
+        {
+            EnsureComp<AiRemoteControllerComponent>(chassis);
+            _container.Insert(used, chassis.Comp.BrainContainer);
+            _adminLog.Add(LogType.Action, LogImpact.Medium,
+                $"{args.User} installed AI remote brain {used} into borg {chassis.Owner}");
+            args.Handled = true;
+            TryActivate(chassis, args.User);
+            return;
+        }
+        // </Onyx-AiRemoteBrain>
 
         if (module != null && CanInsertModule(chassis.AsNullable(), (used, module), args.User))
         {

@@ -1,0 +1,41 @@
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: ClothingOuterDavidsJacket
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/OuterClothing/Coats/david_jacket.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/OuterClothing/Coats/david_jacket.rsi
+  - type: AddAccentClothing
+    accent: StreetpunkAccent
+
+- type: entity
+  parent: ClothingOuterCoatJensenSyndie
+  id: ClothingOuterCoatJensenFilled
+
+- type: entity
+  parent: [ ClothingOuterStorageFoldableBase, ClothingOuterCoatRD ]
+  id: ClothingOuterCoatRDPurple
+  name: research director's experimental lab coat
+  description: Woven with experimental technology... this labcoat seems no more protective than your usual one. At least it looks nice.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/OuterClothing/Coats/rdaltcoat.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/OuterClothing/Coats/rdaltcoat.rsi
+  - type: Armor
+    coverage:
+    - Chest
+    - Groin
+    - Tail
+    - Arm
+    - Leg
+    modifiers:
+      coefficients:
+        Caustic: 0.6
+        Radiation: 0.6
+
+- type: entity
+  parent: [ ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatRD ]
+  id: ClothingOuterCoatRDPurpleOpened
+  name: research director's experimental lab coat

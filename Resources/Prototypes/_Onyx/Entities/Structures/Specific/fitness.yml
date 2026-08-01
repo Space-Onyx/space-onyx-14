@@ -36,3 +36,20 @@
   - type: Sprite
     sprite: _Onyx/Structures/Specific/fitness.rsi
     state: bopbag
+
+- type: entity
+  id: FitnessPunchingBag
+  parent: BaseStructure
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Specific/fitness.rsi
+    state: punchingbag
+
+- type: entity
+  id: FitnessPunchingBagCaptain
+  parent: FitnessPunchingBag
+  suffix: captain
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Specific/fitness.rsi
+    state: punchingbagcaptain

@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: reagent
+  id: MilkChoco
+  name: reagent-name-milk-choco
+  parent: BaseDrink
+  desc: reagent-desc-milk-choco
+  physicalDesc: reagent-physical-desc-opaque
+  flavor: chocolate
+  color: "#664300"
+  recognizable: true
+  plantMetabolism:
+    - !type:PlantAdjustNutrition
+      amount: 0.1
+    - !type:PlantAdjustWater
+      amount: 0.9
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateThirst
+        factor: 4

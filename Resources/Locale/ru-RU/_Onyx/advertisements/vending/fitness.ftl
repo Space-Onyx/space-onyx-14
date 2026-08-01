@@ -1,0 +1,9 @@
+advertisement-fitness-1 = SweatMAX, стань крепче!
+advertisement-fitness-2 = Боль — это просто слабость, покидающая тело!
+advertisement-fitness-3 = Беги! Твой жир тебя догоняет!
+advertisement-fitness-4 = Никогда не забывай день ног!
+advertisement-fitness-5 = Выталкивай!
+advertisement-fitness-6 = Это единственный перерыв, который у тебя будет сегодня.
+advertisement-fitness-7 = Не плачь, потей!
+advertisement-fitness-8 = Здоровье — это одежда, которая идет всем.
+advertisement-fitness-9 = Хочешь скрыться от властей ТСФ? Не волнуйся, они не знают, как выглядит тренажёрный зал.

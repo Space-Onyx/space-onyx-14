@@ -1,0 +1,110 @@
+- type: entity
+  parent: Paper
+  id: BaseColoredPaper
+  abstract: true
+  components:
+  - type: PaperVisuals
+
+- type: entity
+  parent: BaseColoredPaper
+  id: YellowPaper
+  name: yellow paper
+  components:
+  - type: Sprite
+    color: "#fffb1f"
+  - type: PaperVisuals
+    backgroundModulate: "#fffb1f"
+
+- type: entity
+  parent: BaseColoredPaper
+  id: RedPaper
+  name: red paper
+  components:
+  - type: Sprite
+    color: "#d40606"
+  - type: PaperVisuals
+    backgroundModulate: "#d40606"
+
+- type: entity
+  parent: BaseColoredPaper
+  id: OrangePaper
+  name: orange paper
+  components:
+  - type: Sprite
+    color: "#ff9729"
+  - type: PaperVisuals
+    backgroundModulate: "#ff9729"
+
+- type: entity
+  parent: BaseColoredPaper
+  id: GreenPaper
+  name: green paper
+  components:
+  - type: Sprite
+    color: "#2a9e03"
+  - type: PaperVisuals
+    backgroundModulate: "#2a9e03"
+
+- type: entity
+  parent: BaseColoredPaper
+  id: CyanPaper
+  name: cyan paper
+  components:
+  - type: Sprite
+    color: "#13c0d4"
+  - type: PaperVisuals
+    backgroundModulate: "#13c0d4"
+
+- type: entity
+  parent: BaseColoredPaper
+  id: BluePaper
+  name: blue paper
+  components:
+  - type: Sprite
+    color: "#003db8"
+  - type: PaperVisuals
+    backgroundModulate: "#003db8"
+
+- type: entity
+  parent: BaseColoredPaper
+  id: VioletPaper
+  name: violet paper
+  components:
+  - type: Sprite
+    color: "#8200ad"
+  - type: PaperVisuals
+    backgroundModulate: "#8200ad"
+
+- type: entity
+  parent: BaseColoredPaper
+  id: PinkPaper
+  name: pink paper
+  components:
+  - type: Sprite
+    color: "#ff00f2"
+  - type: PaperVisuals
+    backgroundModulate: "#ff00f2"
+
+- type: entity
+  parent: BaseColoredPaper
+  id: GreyPaper
+  name: grey paper
+  components:
+  - type: Sprite
+    color: "#6b6b6b"
+  - type: PaperVisuals
+    backgroundModulate: "#6b6b6b"
+
+- type: entity
+  parent: [ BaseColoredPaper, BaseSyndicateContraband ]
+  id: BloodRedPaper
+  name: blood-red paper
+  components:
+  - type: Sprite
+    color: "#b50012"
+  - type: PaperVisuals
+    headerImagePath: /Textures/Interface/Paper/paper_heading_syndicate_logo.svg.96dpi.png
+    headerMargin: 8.0, 8.0, 8.0, 12.0
+    backgroundImagePath: /Textures/Interface/Paper/paper_background_blood_red.svg.96dpi.png
+    backgroundPatchMargin: 8.0, 8.0, 8.0, 8.0
+    contentMargin: 12.0, 12.0, 12.0, 12.0

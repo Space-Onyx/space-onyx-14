@@ -1,0 +1,9 @@
+advertisement-fitness-1 = SweatMAX, get robust!
+advertisement-fitness-2 = Pain is just weakness leaving the body!
+advertisement-fitness-3 = Run! Your fat is catching up to you!
+advertisement-fitness-4 = Never forget leg day!
+advertisement-fitness-5 = Push out!
+advertisement-fitness-6 = This is the only break you get today.
+advertisement-fitness-7 = Don't cry, sweat!
+advertisement-fitness-8 = Healthy is an outfit that looks good on everybody.
+advertisement-fitness-9 = Want to hide from the Solarian authorities? Don't worry, they don't know what the inside of a gym looks like.

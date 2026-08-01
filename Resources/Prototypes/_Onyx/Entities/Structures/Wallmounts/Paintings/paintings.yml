@@ -1,0 +1,7 @@
+- type: entity
+  parent: PaintingBase
+  id: PaintingBlunt
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Wallmounts/Paintings/blunt.rsi
+    state: bluntpainting

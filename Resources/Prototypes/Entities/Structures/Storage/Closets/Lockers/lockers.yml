@@ -602,6 +602,7 @@
   - type: StorageFill
     contents:
     - id: ClownMegaphone
+    - id: PinkPaperBox # <Onyx-ColoredPaper>
   # </Onyx-Loudspeaker>
 
 # Mime

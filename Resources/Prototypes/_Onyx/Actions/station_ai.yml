@@ -1,0 +1,37 @@
+- type: entity
+  parent: BaseAction
+  id: ActionBackToAi
+  name: Back to AI
+  description: Sends your mind back to the core.
+  components:
+  - type: Action
+    checkConsciousness: false
+    checkCanInteract: false
+    priority: -9
+    itemIconStyle: BigAction
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/ai_remote.rsi
+    layers:
+    - state: ai_core
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:ReturnMindIntoAiEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionOpenRemoteDevicesMenu
+  name: Open list of remote devices
+  description: Opens a menu with available remote devices.
+  components:
+  - type: Action
+    checkConsciousness: false
+    checkCanInteract: false
+    priority: -9
+    itemIconStyle: BigAction
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/ai_remote.rsi
+    layers:
+    - state: borg_control
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:ToggleRemoteDevicesScreenEvent

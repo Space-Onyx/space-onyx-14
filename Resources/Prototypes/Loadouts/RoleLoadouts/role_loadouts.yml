@@ -13,6 +13,11 @@
   - Trinkets
   #- CaptainJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTopCap
+  - OnyxBottomCap
+  - OnyxSocksCaptain
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobHeadOfPersonnel
@@ -30,6 +35,11 @@
   - Trinkets
   #- HoPJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTopHOP
+  - OnyxBottomHOP
+  - OnyxSocksHOP
+  # </Onyx-Underwear>
 
 # Silicons
 - type: roleLoadout
@@ -61,6 +71,11 @@
   - Trinkets
   #- PassengerJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobBartender
@@ -77,6 +92,11 @@
   - Trinkets
   - BartenderJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobServiceWorker
@@ -91,6 +111,11 @@
   - Trinkets
   #- ServiceWorkerJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobChef
@@ -108,6 +133,11 @@
   - Trinkets
   #- ChefJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobLibrarian
@@ -122,6 +152,11 @@
   - Trinkets
   #- LibrarianJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobLawyer
@@ -137,6 +172,11 @@
   - Trinkets
   #- LawyerJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobChaplain
@@ -157,6 +197,11 @@
   - Trinkets
   #- ChaplainJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobJanitor
@@ -174,6 +219,11 @@
   - Trinkets
   - JanitorJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobBotanist
@@ -190,6 +240,11 @@
   - Trinkets
   #- BotanistJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobClown
@@ -207,6 +262,11 @@
   - SurvivalClown
   - Trinkets
   - ClownJobTrinkets
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocksClown
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobMime
@@ -225,6 +285,11 @@
   - Survival
   - Trinkets
   #- MimeJobTrinkets
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocksMime
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobMusician
@@ -242,6 +307,11 @@
   - Trinkets
   #- MusicianJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 # Cargo
 - type: roleLoadout
@@ -261,6 +331,11 @@
   - Trinkets
   #- QuartermasterJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTopQM
+  - OnyxBottomQM
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobCargoTechnician
@@ -279,6 +354,11 @@
   - Trinkets
   #- CargoTechnicianJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobSalvageSpecialist
@@ -294,6 +374,11 @@
   - Trinkets
   #- SalvageSpecialistJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 # Engineering
 - type: roleLoadout
@@ -312,6 +397,11 @@
   - Trinkets
   #- ChiefEngineerJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTopCE
+  - OnyxBottomCE
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobTechnicalAssistant
@@ -325,6 +415,11 @@
   - Trinkets
   #- TechnicalAssistantJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobStationEngineer
@@ -342,6 +437,11 @@
   - Trinkets
   #- StationEngineerJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobAtmosphericTechnician
@@ -357,6 +457,11 @@
   - Trinkets
   #- AtmosphericTechnicianJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 # Science
 - type: roleLoadout
@@ -377,6 +482,11 @@
   - Trinkets
   #- ResearchDirectorJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTopRD
+  - OnyxBottomRD
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobScientist
@@ -397,6 +507,11 @@
   - Trinkets
   #- ScientistJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobResearchAssistant
@@ -411,6 +526,11 @@
   - Trinkets
   #- ResearchAssistantJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 # Security
 - type: roleLoadout
@@ -429,6 +549,11 @@
   - Trinkets
   - HeadofSecurityJobTrinkets
   - GroupSpeciesBreathToolSecurity
+  # <Onyx-Underwear>
+  - OnyxTopHOS
+  - OnyxBottomHOS
+  - OnyxSocksHOS
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobWarden
@@ -445,6 +570,11 @@
   - Trinkets
   - WardenJobTrinkets
   - GroupSpeciesBreathToolSecurity
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobSecurityOfficer
@@ -462,6 +592,11 @@
   - Trinkets
   - SecurityJobTrinkets
   - GroupSpeciesBreathToolSecurity
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobDetective
@@ -478,6 +613,11 @@
   - Trinkets
   - DetectiveJobTrinkets
   - GroupSpeciesBreathToolSecurity
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobSecurityCadet
@@ -490,6 +630,11 @@
   - Trinkets
   #- SecurityCadetJobTrinkets
   - GroupSpeciesBreathToolSecurity
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 # Wildcards
 - type: roleLoadout
@@ -507,6 +652,11 @@
   - Trinkets
   #- ReporterJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 - type: roleLoadout
   id: JobPsychologist
@@ -521,6 +671,11 @@
   - Trinkets
   #- PsychologistJobTrinkets
   - GroupSpeciesBreathTool
+  # <Onyx-Underwear>
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+  # </Onyx-Underwear>
 
 # These loadouts are used for non-crew spawns, like off-station antags and event mobs
 # They will be used without player configuration, thus they will only ever apply what is forced by MinLimit

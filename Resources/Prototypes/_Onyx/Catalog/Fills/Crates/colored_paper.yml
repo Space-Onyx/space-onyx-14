@@ -1,0 +1,18 @@
+- type: entity
+  id: CrateColoredPaper
+  parent: CrateGenericSteel
+  name: crate with colored paper
+  description: A crate filled with boxes of paper in every color of the rainbow.
+  components:
+  - type: StorageFill
+    contents:
+    - { id: YellowPaperBox }
+    - { id: RedPaperBox }
+    - { id: OrangePaperBox }
+    - { id: GreenPaperBox }
+    - { id: CyanPaperBox }
+    - { id: BluePaperBox }
+    - { id: VioletPaperBox }
+    - { id: PinkPaperBox }
+    - { id: GreyPaperBox }
+    - { id: BloodRedPaperBox }

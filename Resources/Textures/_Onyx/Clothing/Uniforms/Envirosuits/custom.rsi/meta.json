@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from TG station at commit https://github.com/tgstation/tgstation/commit/a3849062b8756e3c2176fa0b9bd80aef9facc3ef modified by Skubman for Space Station 14",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
+    },
+    {
+      "name": "equipped-INNERCLOTHING",
+      "directions": 4
+    },
+    {
+      "name": "inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "accentprisoner-icon"
+    },
+    {
+      "name": "accentprisoner-equipped-INNERCLOTHING",
+      "directions": 4
+    },
+    {
+      "name": "accentprisoner-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "accentprisoner-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "loweraccent-equipped-INNERCLOTHING",
+      "directions": 4
+    },
+    {
+      "name": "plaintop-icon"
+    },
+    {
+      "name": "plaintop-equipped-INNERCLOTHING",
+      "directions": 4
+    },
+    {
+      "name": "plaintop-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "plaintop-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "soles-equipped-INNERCLOTHING",
+      "directions": 4
+    }
+  ]
+}

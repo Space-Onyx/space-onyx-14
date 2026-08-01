@@ -1,0 +1,29 @@
+- type: tile
+  abstract: true
+  parent: FloorWood
+  id: RMCFloorHybrisaWoodBase
+  name: wood floor
+
+- type: tile
+  parent: RMCFloorHybrisaWoodBase
+  id: RMCFloorHybrisaWood
+  sprite: /Textures/_Onyx/RMC/Tiles/hybrisa/darkerwood.png
+  variants: 1
+
+- type: tile
+  parent: RMCFloorHybrisaWoodBase
+  id: RMCFloorHybrisaWoodGrey
+  sprite: /Textures/_Onyx/RMC/Tiles/hybrisa/greywood.png
+  variants: 1
+
+- type: tile
+  parent: RMCFloorHybrisaWoodBase
+  id: RMCFloorHybrisaWoodRed
+  sprite: /Textures/_Onyx/RMC/Tiles/hybrisa/redwood.png
+  variants: 1
+
+- type: tile
+  parent: RMCFloorHybrisaWoodBase
+  id: RMCFloorHybrisaWoodBlack
+  sprite: /Textures/_Onyx/RMC/Tiles/hybrisa/blackwood.png
+  variants: 1

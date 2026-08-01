@@ -54,3 +54,14 @@
   - type: FoldableClothing
     foldedEquippedPrefix: up
     foldedHeldPrefix: up
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadSanabi
+  name: brigadier general hat
+  description: Smells like steel.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Head/Hats/Hats/sanabi.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Head/Hats/Hats/sanabi.rsi

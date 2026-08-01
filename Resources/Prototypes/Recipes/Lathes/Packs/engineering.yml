@@ -102,6 +102,7 @@
   # </Onyx-Telecommunications>
   - SMESAdvancedMachineCircuitboard
   - HolopadMachineCircuitboard
+  - RadiationCollectorCircuitboard # <Onyx-RadiationCollectorCircuitboard>
   # <Onyx-DepartmentTechfabs>
   - EngineeringTechFabCircuitboardRecipe
   - ServiceTechFabCircuitboardRecipe

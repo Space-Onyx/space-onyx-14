@@ -13170,7 +13170,7 @@ entities:
     - type: RadiationGridResistance
     - type: NavMap
     - type: BecomesStation
-      id: CorvaxMaus
+      id: CorvaxGoobMaus
     - type: ImplicitRoof
     - type: FTLDrive
   - uid: 6882

@@ -428,3 +428,19 @@
   - type: Tag
     tags:
     - GygaxRArm
+
+- type: entity
+  parent: GygaxHarness
+  id: GygaxChassis
+  name: gygax chassis
+  description: An in-progress construction of the Gygax mech with all body parts installed.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      mech-assembly-container: !type:AllSelector
+        children:
+        - id: GygaxHead
+        - id: GygaxLArm
+        - id: GygaxRArm
+        - id: GygaxLLeg
+        - id: GygaxRLeg

@@ -1,0 +1,23 @@
+- type: constructionGraph
+  id: LavaLampExplosion
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: popup
+      completed:
+      - !type:PopupEveryone
+        text: lava-lamp-boiling
+      steps:
+      - minTemperature: 373.15
+  - node: popup
+    edges:
+    - to: explode
+      completed:
+      - !type:DamageEntity
+        damage:
+          types:
+            Blunt: 5
+      steps:
+      - minTemperature: 473.15
+  - node: explode

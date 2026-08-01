@@ -1,0 +1,18 @@
+- type: entity
+  parent: BaseFigurine
+  id: ToyFigurineDevil
+  components:
+  - type: Sprite
+    state: lawyer
+  - type: SpeakOnTrigger
+    pack: FigurinesDevil
+
+- type: entity
+  parent: BaseFigurine
+  id: ToyFigurineBrigmedic
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Fun/figurines.rsi
+    state: brigmedic
+  - type: SpeakOnTrigger
+    pack: FigurinesBrigmedic

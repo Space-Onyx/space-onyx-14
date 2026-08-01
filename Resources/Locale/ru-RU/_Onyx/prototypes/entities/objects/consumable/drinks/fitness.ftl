@@ -1,0 +1,10 @@
+ent-DrinkFitnessShakerBlack = фитнес-шейкер
+    .desc = Достаточно большой, чтобы вместить достаточно белка для идеального накачивания. Не обращайте внимания на частицы.
+ent-DrinkFitnessShakerRed = { ent-DrinkFitnessShakerBlack }
+    .desc = { ent-DrinkFitnessShakerBlack.desc }
+ent-DrinkFitnessShakerBlue = { ent-DrinkFitnessShakerBlack }
+    .desc = { ent-DrinkFitnessShakerBlack.desc }
+ent-DrinkMilkCartonMini = мини-молоко
+    .desc = Непрозрачная белая жидкость, производимая молочными железами млекопитающих.
+ent-DrinkMilkCartonMiniChocolate = мини-шоколадное молоко
+    .desc = Молочный напиток со вкусом шоколада.

@@ -1,0 +1,10 @@
+ent-LavaLamp = lava lamp
+    .desc = A light-emitting device, moths' favorite.
+ent-RedLavaLamp = { ent-LavaLamp }
+ent-BlueLavaLamp = { ent-LavaLamp }
+ent-YellowLavaLamp = { ent-LavaLamp }
+ent-OrangeLavaLamp = { ent-LavaLamp }
+ent-GreenLavaLamp = { ent-LavaLamp }
+ent-PinkLavaLamp = { ent-LavaLamp }
+ent-RGBLavaLamp = { ent-LavaLamp }
+lava-lamp-boiling = The lava lamp begins to bubble...

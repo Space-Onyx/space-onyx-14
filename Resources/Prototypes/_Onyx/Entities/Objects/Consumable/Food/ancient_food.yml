@@ -1,0 +1,49 @@
+- type: entity
+  parent: FoodSnackBase
+  id: FoodSnackAncientBurger
+  suffix: Ancient
+  components:
+  - type: FlavorProfile
+    flavors: [ terrible ]
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/Food/ancient_food.rsi
+    state: ancient_burger
+  - type: Item
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 3
+  - type: RandomFillSolution
+    solution: food
+    weightedRandomId: RandomFillSpaceshroom
+
+- type: entity
+  parent: FoodSnackAncientBurger
+  id: FoodSnackAncientPizza
+  components:
+  - type: Sprite
+    state: ancient_pizza
+
+- type: entity
+  parent: FoodSnackAncientBurger
+  id: FoodSnackAncientFries
+  components:
+  - type: Sprite
+    state: ancient_fries
+
+- type: entity
+  parent: FoodSnackAncientBurger
+  id: FoodSnackAncientHotdog
+  components:
+  - type: Sprite
+    state: ancient_hotdog
+
+- type: entity
+  parent: FoodSnackAncientBurger
+  id: FoodSnackAncientTaco
+  components:
+  - type: Sprite
+    state: ancient_taco

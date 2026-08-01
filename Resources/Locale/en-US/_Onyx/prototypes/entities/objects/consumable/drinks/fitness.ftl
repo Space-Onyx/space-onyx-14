@@ -1,0 +1,10 @@
+ent-DrinkFitnessShakerBlack = fitness shaker
+    .desc = Big enough to contain enough protein to get perfectly swole. Don't mind the bits.
+ent-DrinkFitnessShakerRed = { ent-DrinkFitnessShakerBlack }
+    .desc = { ent-DrinkFitnessShakerBlack.desc }
+ent-DrinkFitnessShakerBlue = { ent-DrinkFitnessShakerBlack }
+    .desc = { ent-DrinkFitnessShakerBlack.desc }
+ent-DrinkMilkCartonMini = mini milk
+    .desc = An opaque white liquid produced by the mammary glands of mammals.
+ent-DrinkMilkCartonMiniChocolate = mini choco milk
+    .desc = A milk drink flavored with chocolate.

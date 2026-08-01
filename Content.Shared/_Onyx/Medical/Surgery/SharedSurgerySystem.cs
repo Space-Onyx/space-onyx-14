@@ -917,7 +917,11 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
     private bool IsSurgeryComplete(EntityUid body, Entity<SurgeryComponent> surgery)
     {
-        foreach (var part in _body.GetBodyPartChildren(body))
+        var parts = HasComp<BodyPartComponent>(body)
+            ? _body.GetBodyPartChildren(body)
+            : _body.GetBodyChildren(body);
+
+        foreach (var part in parts)
         {
             if (surgery.Comp.Steps.All(step => IsStepComplete(body, part.Id, step)))
                 return true;

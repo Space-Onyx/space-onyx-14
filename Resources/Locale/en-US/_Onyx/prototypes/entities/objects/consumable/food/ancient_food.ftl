@@ -1,0 +1,10 @@
+ent-FoodSnackAncientBurger = space burger
+    .desc = At some point in time this probably looked delicious.
+ent-FoodSnackAncientPizza = space pizza
+    .desc = At some point in time this probably looked delicious.
+ent-FoodSnackAncientFries = space fries
+    .desc = The salt appears to have preserved these, still stale and gross.
+ent-FoodSnackAncientHotdog = space dog
+    .desc = This one is probably only marginally less safe to eat than when it was first created.
+ent-FoodSnackAncientTaco = space taco
+    .desc = Interestingly, the shell has gone soft and the contents have gone stale.

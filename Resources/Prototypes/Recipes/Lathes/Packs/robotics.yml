@@ -35,6 +35,7 @@
   recipes:
   - ProximitySensor
   - Drone # <Onyx-Drone>
+  - AiRemoteBrain # <Onyx-AiRemoteBrain>
 
 - type: latheRecipePack
   id: BorgModules

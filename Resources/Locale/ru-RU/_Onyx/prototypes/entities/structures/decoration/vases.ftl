@@ -1,0 +1,16 @@
+ent-VaseBase = ваза
+    .desc = Ваза для цветов.
+ent-VasePlant1 = { ent-VaseBase }
+    .desc = { ent-VaseBase.desc }
+ent-VasePlant3 = { ent-VaseBase }
+    .desc = { ent-VaseBase.desc }
+ent-VasePlant4 = { ent-VaseBase }
+    .desc = { ent-VaseBase.desc }
+ent-VasePlant5 = { ent-VaseBase }
+    .desc = { ent-VaseBase.desc }
+ent-VasePlant6 = { ent-VaseBase }
+    .desc = { ent-VaseBase.desc }
+ent-VasePlant7 = { ent-VaseBase }
+    .desc = { ent-VaseBase.desc }
+ent-VasePlant8 = { ent-VaseBase }
+    .desc = { ent-VaseBase.desc }

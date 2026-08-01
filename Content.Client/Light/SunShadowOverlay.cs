@@ -80,10 +80,13 @@ public sealed partial class SunShadowOverlay : Overlay
 
         foreach (var grid in _grids)
         {
-            if (!_entManager.TryGetComponent(grid.Owner, out SunShadowComponent? sun))
+            // <Onyx-RoofSunlight-edited>
+            if (!_entManager.TryGetComponent(grid.Owner, out SunShadowComponent? sun) &&
+                !_entManager.TryGetComponent(args.MapUid, out sun))
             {
                 continue;
             }
+            // </Onyx-RoofSunlight-edited>
 
             var direction = sun.Direction;
             var alpha = Math.Clamp(sun.Alpha, 0f, 1f);
@@ -104,6 +107,7 @@ public sealed partial class SunShadowOverlay : Overlay
                 {
                     var invMatrix =
                         res.Target.GetWorldToLocalMatrix(eye, scale);
+                    DrawRoofShadows(worldHandle, invMatrix, grid, worldBounds, direction, sun); // <Onyx-RoofSunlight>
                     var indices = new Vector2[PhysicsConstants.MaxPolygonVertices * 2];
 
                     // Go through shadows in range.
@@ -161,7 +165,7 @@ public sealed partial class SunShadowOverlay : Overlay
                     var maskShader = _protoManager.Index(MixShader).Instance();
                     worldHandle.UseShader(maskShader);
 
-                    worldHandle.DrawTextureRect(res.Target.Texture, worldBounds, Color.Black.WithAlpha(alpha));
+                    worldHandle.DrawTextureRect(res.BlurTarget!.Texture, worldBounds, Color.Black.WithAlpha(alpha)); // <Onyx-RoofSunlight-edited>
                 }, null);
         }
     }

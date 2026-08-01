@@ -1,0 +1,16 @@
+ent-PoweredFloorLightEmpty = { ent-PoweredFloorLight }
+    .desc = { ent-PoweredFloorLight.desc }
+    .suffix = Пустой
+ent-PoweredFloorLight = напольный светильник
+    .desc = Напольный светильник. Использует электроэнергию и светится при наличии лампы.
+ent-PoweredFloorTileLight = светящаяся плитка
+    .desc = Плитка. Светится. Это всё.
+ent-EmptyPoweredFloorTileLight = { ent-PoweredFloorTileLight }
+    .desc = { ent-PoweredFloorTileLight.desc }
+    .suffix = Пустой
+ent-PoweredFloorTileLightRGB = { ent-PoweredFloorTileLight }
+    .desc = { ent-PoweredFloorTileLight.desc }
+    .suffix = RGB
+ent-EmptyPoweredFloorTileLightRGB = { ent-PoweredFloorTileLightRGB }
+    .desc = { ent-PoweredFloorTileLightRGB.desc }
+    .suffix = Пустой

@@ -6,7 +6,7 @@ namespace Content.Shared._Onyx.Medical.Surgery;
 
 public sealed partial class SurgeryToolExamineSystem : EntitySystem
 {
-    private const string ScalpelIcon = "/Textures/_Onyx/Objects/Specific/Medical/Surgery/scalpel.rsi/scalpel.png";
+    private const string ScalpelIcon = "/Textures/_Onyx/Interface/VerbIcons/scalpel.png";
 
     [Dependency] private ExamineSystemShared _examine = default!;
 

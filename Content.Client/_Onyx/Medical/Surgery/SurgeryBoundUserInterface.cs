@@ -33,6 +33,7 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
         _window.PartsButton.OnPressed += _ => ShowParts();
         _window.SurgeriesButton.OnPressed += _ => ShowSurgeries();
         _window.StepsButton.OnPressed += _ => ShowPreviousSurgery();
+        SendMessage(new SurgeryStateRequest());
 
         if (State is SurgeryBuiState state)
             Update(state);

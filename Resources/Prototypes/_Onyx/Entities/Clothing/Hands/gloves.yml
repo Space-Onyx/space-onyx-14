@@ -34,3 +34,18 @@
     sprite: _Onyx/Clothing/Hands/Gloves/atmosinsuls.rsi
   - type: Fiber
     fiberColor: fibers-blue
+
+- type: entity
+  parent: ClothingHandsGlovesBoxingBlue
+  id: ClothingHandsGlovesBoxingRigged
+  suffix: Rigged
+  components:
+  - type: StaminaDamageOnHit
+    damage: 25
+  - type: MeleeWeapon
+    attackRate: 1.4
+    damage:
+      types:
+        Blunt: 8
+    bluntStaminaDamageFactor: 0.0
+    mustBeEquippedToUse: true

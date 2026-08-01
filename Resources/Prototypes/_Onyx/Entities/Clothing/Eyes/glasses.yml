@@ -26,3 +26,23 @@
   - type: EyeProtection
   - type: Tag
     tags: [ MesonGoggles ]
+
+- type: entity
+  parent: ClothingEyesBase
+  id: ClothingEyesGlassesBroken
+  name: broken glasses
+  description: My glasses! I can't see without my glasses!
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Eyes/Eyes/Glasses/brokenglasses.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Eyes/Eyes/Glasses/brokenglasses.rsi
+  - type: Tag
+    tags:
+    - Trash
+  - type: PhysicalComposition
+    materialComposition:
+      Glass: 125
+      Steel: 125
+  - type: StaticPrice
+    price: 38

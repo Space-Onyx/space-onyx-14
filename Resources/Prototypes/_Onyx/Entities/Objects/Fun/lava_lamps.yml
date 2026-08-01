@@ -1,0 +1,197 @@
+- type: entity
+  id: LavaLamp
+  parent: BaseItem
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Fun/lavalamp.rsi
+    layers:
+    - state: lavalamp
+    - state: lavalamp-on
+      shader: unshaded
+      visible: false
+      map: [ light ]
+  - type: Item
+    size: Small
+  - type: PointLight
+    enabled: false
+    netsync: false
+    radius: 3
+    energy: 2
+  - type: ItemToggle
+    soundActivate:
+      path: /Audio/Effects/Chemistry/bubbles.ogg
+      params: { pitch: 3, volume: -3 }
+    soundDeactivate:
+      path: /Audio/_Onyx/Machines/terminal_off.ogg
+      params: { pitch: 4, volume: -1 }
+  - type: ToggleableVisuals
+    spriteLayer: light
+  - type: ItemTogglePointLight
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      Plastic: 50
+  - type: SolutionContainerManager
+    solutions:
+      lamp:
+        maxVol: 5
+        reagents:
+        - ReagentId: Oil
+          Quantity: 3
+        - ReagentId: Phlogiston
+          Quantity: 2
+  - type: Temperature
+  - type: DamageOnLand
+    damage:
+      types:
+        Blunt: 5
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 4
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 5
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: GlassBreak
+      - !type:SpillBehavior
+        solution: lamp
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlastic: { min: 1, max: 1 }
+        transferForensics: true
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Construction
+    graph: LavaLampExplosion
+    node: start
+  - type: Physics
+    canCollide: false
+  - type: Tag
+    tags: [ Recyclable ]
+
+- type: entity
+  id: RedLavaLamp
+  parent: LavaLamp
+  suffix: Red
+  components:
+  - type: Sprite
+    layers:
+    - state: lavalamp
+    - state: lavalamp-on
+      shader: unshaded
+      visible: false
+      color: "#fb4747"
+      map: [ light ]
+  - type: PointLight
+    enabled: false
+    radius: 3
+    energy: 2.5
+    color: "#fb4747"
+
+- type: entity
+  id: BlueLavaLamp
+  parent: LavaLamp
+  suffix: Blue
+  components:
+  - type: Sprite
+    layers:
+    - state: lavalamp
+    - state: lavalamp-on
+      shader: unshaded
+      visible: false
+      color: "#39a1ff"
+      map: [ light ]
+  - type: PointLight
+    enabled: false
+    radius: 3
+    energy: 2.5
+    color: "#39a1ff"
+
+- type: entity
+  id: YellowLavaLamp
+  parent: LavaLamp
+  suffix: Yellow
+  components:
+  - type: Sprite
+    layers:
+    - state: lavalamp
+    - state: lavalamp-on
+      shader: unshaded
+      visible: false
+      color: "#ffde46"
+      map: [ light ]
+  - type: PointLight
+    enabled: false
+    radius: 3
+    energy: 2.5
+    color: "#ffde46"
+
+- type: entity
+  id: OrangeLavaLamp
+  parent: LavaLamp
+  suffix: Orange
+  components:
+  - type: Sprite
+    layers:
+    - state: lavalamp
+    - state: lavalamp-on
+      shader: unshaded
+      visible: false
+      color: "#ff8227"
+      map: [ light ]
+  - type: PointLight
+    enabled: false
+    radius: 3
+    energy: 2.5
+    color: "#ff8227"
+
+- type: entity
+  id: GreenLavaLamp
+  parent: LavaLamp
+  suffix: Green
+  components:
+  - type: Sprite
+    layers:
+    - state: lavalamp
+    - state: lavalamp-on
+      shader: unshaded
+      visible: false
+      color: "#52ff39"
+      map: [ light ]
+  - type: PointLight
+    enabled: false
+    radius: 3
+    energy: 2.5
+    color: "#52ff39"
+
+- type: entity
+  id: PinkLavaLamp
+  parent: LavaLamp
+  suffix: Pink
+  components:
+  - type: Sprite
+    layers:
+    - state: lavalamp
+    - state: lavalamp-on
+      shader: unshaded
+      visible: false
+      color: "#ff66cc"
+      map: [ light ]
+  - type: PointLight
+    enabled: false
+    radius: 3
+    energy: 2.5
+    color: "#ff66cc"
+
+- type: entity
+  id: RGBLavaLamp
+  parent: LavaLamp
+  suffix: RGB
+  components:
+  - type: RgbLightController

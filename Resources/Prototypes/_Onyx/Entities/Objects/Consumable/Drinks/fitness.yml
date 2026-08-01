@@ -1,0 +1,57 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: [DrinkBaseMaterialPlastic, DrinkBase]
+  id: DrinkFitnessShakerBlack
+  components:
+  - type: Solution
+    solution:
+      maxVol: 50
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/Drinks/shakerblack.rsi
+    state: icon
+  - type: Shakeable
+
+- type: entity
+  parent: DrinkFitnessShakerBlack
+  id: DrinkFitnessShakerRed
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/Drinks/shakerred.rsi
+    state: icon
+
+- type: entity
+  parent: DrinkFitnessShakerBlack
+  id: DrinkFitnessShakerBlue
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/Drinks/shakerblue.rsi
+    state: icon
+
+- type: entity
+  parent: DrinkCartonBaseFull
+  id: DrinkMilkCartonMini
+  components:
+  - type: Solution
+    solution:
+      maxVol: 25
+      reagents:
+      - ReagentId: Milk
+        Quantity: 25
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/Drinks/milkmini.rsi
+    state: icon
+
+- type: entity
+  parent: DrinkCartonBaseFull
+  id: DrinkMilkCartonMiniChocolate
+  components:
+  - type: Solution
+    solution:
+      maxVol: 25
+      reagents:
+      - ReagentId: MilkChoco
+        Quantity: 25
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/Drinks/milkminichoco.rsi
+    state: icon
