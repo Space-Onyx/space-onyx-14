@@ -1,0 +1,17 @@
+- type: species
+  id: Monkey
+  name: species-name-monkey
+  roundStart: false
+  prototype: MobMonkey
+  dollPrototype: MobMonkey
+  skinColoration: Hues
+  defaultSkinTone: "#ffffff"
+
+- type: species
+  id: Kobold
+  name: species-name-kobold
+  roundStart: false
+  prototype: MobKobold
+  dollPrototype: MobKobold
+  skinColoration: Hues
+  defaultSkinTone: "#9a7c5a"

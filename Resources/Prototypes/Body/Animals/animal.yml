@@ -43,6 +43,7 @@
   id: BaseMobAnimal
   abstract: true
   components:
+  - type: Targeting # <Onyx-AnimalTargeting>
   # <Onyx-AnimalBodyParts>
   - type: Body
   - type: DeclarativeBody

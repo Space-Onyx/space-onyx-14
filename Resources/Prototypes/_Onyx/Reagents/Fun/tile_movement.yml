@@ -7,7 +7,7 @@
   flavor: tears
   color: "#fcb8f5"
   metabolisms:
-    Poison:
+    Bloodstream:
       effects:
       - !type:PopupMessage
         type: Local
@@ -33,7 +33,7 @@
   flavor: robust
   color: "#ffd648"
   metabolisms:
-    Drink:
+    Digestion:
       metabolismRate: 0.1
       effects:
       - !type:GenericStatusEffect

@@ -5,3 +5,10 @@
   materials:
     Diamond: 20
     Plasma: 100
+
+- type: latheRecipe
+  id: MaterialBSCrystalSmelting
+  result: MaterialBSCrystal1
+  completetime: 0
+  materials:
+    BSCrystalUnprocessed: 100

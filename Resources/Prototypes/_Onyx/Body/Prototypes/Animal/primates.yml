@@ -1,0 +1,61 @@
+- type: bodyGraph
+  id: MonkeyBody
+  root: chest
+  slots:
+    chest:
+      part: ChestMonkey
+      connections: [groin, head, left_arm, right_arm]
+      organs:
+        Lungs: OrganAnimalLungs
+        Heart: OrganAnimalHeart
+    groin:
+      part: GroinMonkey
+      connections: [left_leg, right_leg]
+      organs:
+        Stomach: OrganAnimalStomach
+        Liver: OrganAnimalLiver
+        Kidneys: OrganAnimalKidneys
+    head:
+      part: HeadMonkey
+      organs:
+        Brain: OrganPrimateBrain
+        Eyes: OrganPrimateEyes
+    left_arm: { part: LeftArmMonkey, connections: [left_hand] }
+    right_arm: { part: RightArmMonkey, connections: [right_hand] }
+    left_hand: { part: LeftHandMonkey }
+    right_hand: { part: RightHandMonkey }
+    left_leg: { part: LeftLegMonkey, connections: [left_foot] }
+    right_leg: { part: RightLegMonkey, connections: [right_foot] }
+    left_foot: { part: LeftFootMonkey }
+    right_foot: { part: RightFootMonkey }
+
+- type: bodyGraph
+  id: KoboldBody
+  root: chest
+  slots:
+    chest:
+      part: ChestKobold
+      connections: [groin, head, left_arm, right_arm]
+      organs:
+        Lungs: OrganAnimalLungs
+        Heart: OrganAnimalHeart
+    groin:
+      part: GroinKobold
+      connections: [left_leg, right_leg]
+      organs:
+        Stomach: OrganAnimalStomach
+        Liver: OrganAnimalLiver
+        Kidneys: OrganAnimalKidneys
+    head:
+      part: HeadKobold
+      organs:
+        Brain: OrganPrimateBrain
+        Eyes: OrganPrimateEyes
+    left_arm: { part: LeftArmKobold, connections: [left_hand] }
+    right_arm: { part: RightArmKobold, connections: [right_hand] }
+    left_hand: { part: LeftHandKobold }
+    right_hand: { part: RightHandKobold }
+    left_leg: { part: LeftLegKobold, connections: [left_foot] }
+    right_leg: { part: RightLegKobold, connections: [right_foot] }
+    left_foot: { part: LeftFootKobold }
+    right_foot: { part: RightFootKobold }

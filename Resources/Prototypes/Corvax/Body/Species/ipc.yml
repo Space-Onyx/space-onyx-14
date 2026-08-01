@@ -100,6 +100,10 @@
     damageModifierSet: Ipc
   - type: Injurable
     damageContainer: SiliconIpc
+  # <Onyx-IPCSurgeryTargeting>
+  - type: SurgeryTarget
+  - type: Targeting
+  # </Onyx-IPCSurgeryTargeting>
   - type: DamageVisuals
     damageOverlayGroups:
       Brute:
@@ -374,19 +378,26 @@
       map: ["base"]
 
 - type: entity
-  parent:
-  - OrganBase
-  - OrganBaseChildInternal
+  parent: [ OrganBaseEyes, OrganIpc ]
   id: OrganIPCEyes
+  name: robotic eyes
+  description: "01001001 00100000 01110011 01100101 01100101 00100000 01111001 01101111 01110101 00100001"
   components:
-  # <Onyx-IpcSurgery>
-  - type: Organ
-    category: Eyes
+  # <Onyx-IPCEyes-edited>
   - type: MechanicalOrgan
-  # </Onyx-IpcSurgery>
   - type: Sprite
-    sprite: Objects/Misc/proximity_sensor.rsi
-    state: icon
+    sprite: _Onyx/Mobs/Species/IPCOrgans.rsi
+    layers:
+    - state: eyeball-l
+    - state: eyeball-r
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Mobs/Species/IPCOrgans.rsi
+      state: eyes
+  - type: VisualOrganMarkings
+    markingData:
+      group: Ipc
+  # </Onyx-IPCEyes-edited>
 
 # <Onyx-IpcVoiceModulator>
 - type: entity

@@ -7,7 +7,7 @@
   flavor: terrible
   color: "#A2AF8A"
   metabolisms:
-    Medicine:
+    Bloodstream:
       effects:
       - !type:ImmunityModifier
         gainRateModifier: 0.000366666666666
@@ -23,7 +23,7 @@
   flavor: medicine
   color: "#559955"
   metabolisms:
-    Medicine:
+    Bloodstream:
       effects:
       - !type:DiseaseProgressChange
         affectedType: Bacterial
@@ -42,7 +42,7 @@
   flavor: medicine
   color: "#995555"
   metabolisms:
-    Medicine:
+    Bloodstream:
       effects:
       - !type:DiseaseProgressChange
         affectedType: Viral
@@ -61,7 +61,7 @@
   flavor: sour
   color: "#d9f929"
   metabolisms:
-    Medicine:
+    Bloodstream:
       effects:
       - !type:SatiateThirst
       - !type:HealthChange

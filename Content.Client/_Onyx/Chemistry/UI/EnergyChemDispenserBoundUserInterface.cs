@@ -5,7 +5,7 @@ using Robust.Client.UserInterface;
 
 namespace Content.Client._Onyx.Chemistry.UI;
 
-public sealed class EnergyReagentDispenserBoundUserInterface(EntityUid owner, Enum uiKey) : BoundUserInterface(owner, uiKey)
+public sealed class EnergyChemDispenserBoundUserInterface(EntityUid owner, Enum uiKey) : BoundUserInterface(owner, uiKey)
 {
     private EnergyReagentDispenserWindow? _window;
 

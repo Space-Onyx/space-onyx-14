@@ -109,6 +109,7 @@
     soundHit:
       path: /Audio/Effects/hit_kick.ogg
   - type: Pullable
+  - type: Grabbable # <Onyx-AllMobsGrabbable>
   - type: LightningTarget
     priority: 2
     lightningExplode: false

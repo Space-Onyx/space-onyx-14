@@ -37,7 +37,7 @@ public sealed partial class SurgeryInfectionSystem : EntitySystem
         };
 
         if (damage > 0)
-            _damage.TryChangeDamage(args.Part,
+            _damage.TryChangeDamage(args.Body,
                 new DamageSpecifier(_prototypes.Index(Poison), damage),
                 true,
                 origin: args.User);

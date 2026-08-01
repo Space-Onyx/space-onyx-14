@@ -11,7 +11,8 @@ public sealed partial class ShuttleConsoleSystem
 {
     private void OnSetInertiaDampening(Entity<ShuttleConsoleComponent> ent, ref SetInertiaDampeningRequest args)
     {
-        var grid = Transform(ent).GridUid;
+        var targetConsole = GetDroneConsole(ent.Owner) ?? ent.Owner;
+        var grid = Transform(targetConsole).GridUid;
         if (grid == null || !TrySetInertiaDampening(grid.Value, args.Mode))
         {
             RefreshShuttleConsoles(grid ?? ent.Owner);

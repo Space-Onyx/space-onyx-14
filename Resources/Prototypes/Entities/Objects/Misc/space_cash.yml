@@ -5,6 +5,11 @@
   description: You gotta have money.
   components:
   - type: Cash
+  # <Onyx-VendingCash>
+  - type: Currency
+    price:
+      SpaceCash: 1
+  # </Onyx-VendingCash>
   - type: Item
     shape:
     - 0,0,1,0

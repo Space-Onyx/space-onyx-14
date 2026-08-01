@@ -29,6 +29,14 @@
   id: SodaDispenser
   suffix: Filled
   components:
+  # <Onyx-RegularReagentDispenserUI>
+  - type: ActivatableUI
+    key: enum.ReagentDispenserUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.ReagentDispenserUiKey.Key:
+        type: ReagentDispenserBoundUserInterface
+  # </Onyx-RegularReagentDispenserUI>
   - type: EntityTableContainerFill
     containers:
       storagebase: !type:AllSelector

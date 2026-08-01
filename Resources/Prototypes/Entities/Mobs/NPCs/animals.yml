@@ -1565,6 +1565,13 @@
   - type: Inventory
     templateId: monkey
     speciesId: monkey
+  # <Onyx-PrimateSurgeryTargeting>
+  - type: VisualBody
+  - type: SurgeryTarget
+  - type: Targeting
+  - type: PartStatus
+  - type: WoundHost
+  # </Onyx-PrimateSurgeryTargeting>
   - type: Deathgasp
     prototype: MonkeyDeathgasp
   - type: Cuffable
@@ -1586,25 +1593,37 @@
   - type: Sprite
     drawdepth: Mobs
     layers:
-    - map: ["enum.DamageStateVisualLayers.Base"]
-      state: monkey
-      sprite: Mobs/Animals/monkey.rsi
+    # <Onyx-PrimateAnatomy-edited>
+    - map: [ "enum.HumanoidVisualLayers.Chest" ]
+    - map: [ "enum.HumanoidVisualLayers.Groin" ]
+    - map: [ "enum.HumanoidVisualLayers.Head" ]
+    - map: [ "enum.HumanoidVisualLayers.Eyes" ]
+    - map: [ "enum.HumanoidVisualLayers.RArm" ]
+    - map: [ "enum.HumanoidVisualLayers.LArm" ]
+    - map: [ "enum.HumanoidVisualLayers.RLeg" ]
+    - map: [ "enum.HumanoidVisualLayers.LLeg" ]
     - map: [ "jumpsuit" ]
+    - map: [ "enum.HumanoidVisualLayers.LFoot" ]
+    - map: [ "enum.HumanoidVisualLayers.RFoot" ]
+    - map: [ "enum.HumanoidVisualLayers.LHand" ]
+    - map: [ "enum.HumanoidVisualLayers.RHand" ]
     - map: [ "enum.HumanoidVisualLayers.Handcuffs" ]
       color: "#ffffff"
       sprite: Objects/Misc/handcuffs.rsi
       state: body-overlay-2
       visible: false
+    - map: [ "eyes" ]
     - map: [ "ears" ]
     - map: [ "id" ]
     - map: [ "outerClothing" ]
+    - map: [ "belt" ]
+    - map: [ "back" ]
     - map: [ "mask" ]
     - map: [ "head" ]
+    - map: [ "pocket1" ]
+    - map: [ "pocket2" ]
+    # </Onyx-PrimateAnatomy-edited>
   - type: Hands
-    activeHandId: Hand
-    hands:
-      Hand:
-        location: Left
   - type: ComplexInteraction
   - type: CreamPied
     sprite:
@@ -1676,6 +1695,12 @@
   parent: MobBaseAncestor
   description: New church of neo-darwinists actually believe that EVERY animal evolved from a monkey. Tastes like pork, and killing them is both fun and relaxing.
   components:
+  # <Onyx-PrimateAnatomy>
+  - type: DeclarativeBody
+    prototype: MonkeyBody
+  - type: HumanoidProfile
+    species: Monkey
+  # </Onyx-PrimateAnatomy>
   - type: NameIdentifier
     group: Monkey
   - type: Speech
@@ -1712,6 +1737,12 @@
   description: New church of neo-darwinists actually believe that EVERY animal evolved from a monkey. Tastes like pork, and killing them is both fun and relaxing.
   suffix: syndicate base
   components:
+  # <Onyx-PrimateAnatomy>
+  - type: DeclarativeBody
+    prototype: MonkeyBody
+  - type: HumanoidProfile
+    species: Monkey
+  # </Onyx-PrimateAnatomy>
   - type: NameIdentifier
     group: Monkey
   - type: SentienceTarget
@@ -1763,6 +1794,12 @@
   components:
   - type: NameIdentifier
     group: Kobold
+  # <Onyx-PrimateAnatomy>
+  - type: DeclarativeBody
+    prototype: KoboldBody
+  - type: HumanoidProfile
+    species: Kobold
+  # </Onyx-PrimateAnatomy>
   - type: LizardAccent
   - type: ReplacementAccent
     accent: kobold
@@ -1805,43 +1842,6 @@
   - type: TemperatureDamage
     heatDamageThreshold: 360
     coldDamageThreshold: 285
-  - type: Sprite
-    drawdepth: Mobs
-    layers:
-    - map: ["enum.DamageStateVisualLayers.Base"]
-      sprite: Mobs/Animals/kobold.rsi
-      state: kobold
-    - map: [ "outline" ]
-      sprite: Mobs/Animals/kobold.rsi
-      state: outline
-    - map: [ "horns" ]
-      sprite: Mobs/Customization/reptilian_parts.rsi
-      state: horns_short
-    - map: [ "enum.HumanoidVisualLayers.Handcuffs" ]
-      color: "#ffffff"
-      sprite: Objects/Misc/handcuffs.rsi
-      state: body-overlay-2
-      visible: false
-    - map: [ "ears" ]
-    - map: [ "id" ]
-    - map: [ "mask" ]
-    - map: [ "head" ]
-  - type: RandomSprite
-    getAllGroups: true
-    available:
-      - enum.DamageStateVisualLayers.Base:
-          kobold: KoboldColors
-      - horns:
-          horns_curled: KoboldHornColors
-          horns_ram: KoboldHornColors
-          horns_short: KoboldHornColors
-          horns_myrsore: KoboldHornColors
-          horns_bighorn: KoboldHornColors
-          horns_argali: KoboldHornColors
-          horns_ayrshire: KoboldHornColors
-          horns_floppy_kobold_ears: Inherit
-          horns_double: Inherit
-          horns_kobold_ears: Inherit
   - type: Butcherable
     spawned:
     - id: FoodMeat

@@ -47,6 +47,9 @@
   components:
   - type: Stack
     stackType: BSCrystalUnprocessed
+  - type: PhysicalComposition
+    materialComposition:
+      BSCrystalUnprocessed: 100
 
 - type: entity
   parent: MaterialBSCrystalUnprocessed

@@ -7,7 +7,7 @@
   flavor: medicine
   color: "#ffff64"
   metabolisms:
-    Medicine:
+    Bloodstream:
       effects:
       - !type:HealthChange
         damage:
@@ -72,7 +72,7 @@
   flavor: medicine
   color: "#ffc41a"
   metabolisms:
-    Medicine:
+    Bloodstream:
       metabolismRate: 0.05
       effects:
       - !type:Vomit
@@ -91,7 +91,7 @@
   flavor: terrible
   color: "#cc9c14"
   metabolisms:
-    Medicine:
+    Bloodstream:
       effects:
       - !type:HealthChange
         damage:
@@ -102,7 +102,7 @@
         amount: -0.5
       - !type:ModifyBloodLevel
         amount: 3
-    Food:
+    Digestion:
       effects:
       - !type:SatiateHunger
         factor: 1.5
@@ -121,7 +121,7 @@
   - !type:PlantAdjustHealth
     amount: -10
   metabolisms:
-    Medicine:
+    Bloodstream:
       metabolismRate: 0.15
       effects:
       - !type:SuppressPain
@@ -172,7 +172,7 @@
   - !type:PlantAdjustHealth
     amount: -10
   metabolisms:
-    Medicine:
+    Bloodstream:
       effects:
       - !type:HealthChange
         damage:
@@ -222,7 +222,7 @@
   - !type:PlantAdjustHealth
     amount: -5
   metabolisms:
-    Medicine:
+    Bloodstream:
       metabolismRate: 0.25
       effects:
       - !type:HealthChange
@@ -277,7 +277,7 @@
   color: "#302f70"
   recognizable: true
   metabolisms:
-    Medicine:
+    Bloodstream:
       effects:
       - !type:HealthChange
         damage:
@@ -302,7 +302,7 @@
   flavor: medicine
   color: "#ad2cfa"
   metabolisms:
-    Medicine:
+    Bloodstream:
       metabolismRate: 0.1
       effects:
       - !type:SuppressPain
@@ -331,7 +331,7 @@
   flavor: medicine
   color: "#2cfa76"
   metabolisms:
-    Medicine:
+    Bloodstream:
       metabolismRate: 0.1
       effects:
       - !type:SuppressPain

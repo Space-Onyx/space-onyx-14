@@ -7,7 +7,7 @@
   flavor: sweet
   color: "#d3a308"
   metabolisms:
-    Medicine:
+    Bloodstream:
       effects:
       - !type:HealthChange
         damage:
@@ -27,7 +27,7 @@
   flavor: metallic
   color: "#00767c"
   metabolisms:
-    Medicine:
+    Bloodstream:
       effects:
       - !type:HealthChange
         damage:

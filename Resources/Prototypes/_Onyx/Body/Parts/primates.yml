@@ -1,0 +1,123 @@
+- type: entity
+  abstract: true
+  parent: OrganAnimal
+  id: OrganPrimateExternal
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: Fat
+        Quantity: 3
+      - ReagentId: Blood
+        Quantity: 10
+
+- type: entity
+  parent: [ OrganBaseBrain, OrganAnimalInternal ]
+  id: OrganPrimateBrain
+  categories: [ HideSpawnMenu ]
+
+- type: entity
+  parent: [ OrganBaseEyes, OrganAnimalInternal ]
+  id: OrganPrimateEyes
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: VisualOrganMarkings
+    markingData:
+      group: None
+
+- type: entity
+  abstract: true
+  parent: OrganPrimateExternal
+  id: OrganMonkeyExternal
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Monkey.rsi
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Mobs/Monkey.rsi
+  - type: VisualOrganMarkings
+    markingData:
+      group: None
+
+- type: entity
+  parent: [ OrganBaseChestSexed, OrganBaseChest, OrganMonkeyExternal ]
+  id: ChestMonkey
+- type: entity
+  parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganMonkeyExternal ]
+  id: GroinMonkey
+- type: entity
+  parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganMonkeyExternal ]
+  id: HeadMonkey
+- type: entity
+  parent: [ OrganMonkeyExternal, OrganBaseArmLeft ]
+  id: LeftArmMonkey
+- type: entity
+  parent: [ OrganMonkeyExternal, OrganBaseArmRight ]
+  id: RightArmMonkey
+- type: entity
+  parent: [ OrganMonkeyExternal, OrganBaseHandLeft ]
+  id: LeftHandMonkey
+- type: entity
+  parent: [ OrganMonkeyExternal, OrganBaseHandRight ]
+  id: RightHandMonkey
+- type: entity
+  parent: [ OrganMonkeyExternal, OrganBaseLegLeft ]
+  id: LeftLegMonkey
+- type: entity
+  parent: [ OrganMonkeyExternal, OrganBaseLegRight ]
+  id: RightLegMonkey
+- type: entity
+  parent: [ OrganMonkeyExternal, OrganBaseFootLeft ]
+  id: LeftFootMonkey
+- type: entity
+  parent: [ OrganMonkeyExternal, OrganBaseFootRight ]
+  id: RightFootMonkey
+
+- type: entity
+  abstract: true
+  parent: OrganPrimateExternal
+  id: OrganKoboldExternal
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Kobold.rsi
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Mobs/Kobold.rsi
+  - type: VisualOrganMarkings
+    markingData:
+      group: None
+
+- type: entity
+  parent: [ OrganBaseChestSexed, OrganBaseChest, OrganKoboldExternal ]
+  id: ChestKobold
+- type: entity
+  parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganKoboldExternal ]
+  id: GroinKobold
+- type: entity
+  parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganKoboldExternal ]
+  id: HeadKobold
+- type: entity
+  parent: [ OrganKoboldExternal, OrganBaseArmLeft ]
+  id: LeftArmKobold
+- type: entity
+  parent: [ OrganKoboldExternal, OrganBaseArmRight ]
+  id: RightArmKobold
+- type: entity
+  parent: [ OrganKoboldExternal, OrganBaseHandLeft ]
+  id: LeftHandKobold
+- type: entity
+  parent: [ OrganKoboldExternal, OrganBaseHandRight ]
+  id: RightHandKobold
+- type: entity
+  parent: [ OrganKoboldExternal, OrganBaseLegLeft ]
+  id: LeftLegKobold
+- type: entity
+  parent: [ OrganKoboldExternal, OrganBaseLegRight ]
+  id: RightLegKobold
+- type: entity
+  parent: [ OrganKoboldExternal, OrganBaseFootLeft ]
+  id: LeftFootKobold
+- type: entity
+  parent: [ OrganKoboldExternal, OrganBaseFootRight ]
+  id: RightFootKobold

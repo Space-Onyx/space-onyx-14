@@ -67,6 +67,7 @@ public sealed class NetworkConfiguratorBoundUserInterface : BoundUserInterface
                 {
                     SendMessage(new NetworkConfiguratorClearLinksMessage());
                 };
+                Update<DeviceLinkUserInterfaceState>(); // <Onyx-NetworkConfiguratorLinkState>
                 break;
         }
     }
@@ -88,9 +89,14 @@ public sealed class NetworkConfiguratorBoundUserInterface : BoundUserInterface
             case DeviceListUserInterfaceState listState:
                 _configurationMenu?.UpdateState(listState);
                 break;
+            // <Onyx-NetworkConfiguratorLinkState-edited>
             case DeviceLinkUserInterfaceState linkState:
-                _linkMenu?.UpdateState(linkState);
+                _linkMenu?.UpdateState(
+                    UiSystem.TryGetUiState<DeviceLinkUserInterfaceState>(Owner, UiKey, out var currentState)
+                        ? currentState
+                        : linkState);
                 break;
+            // </Onyx-NetworkConfiguratorLinkState-edited>
         }
     }
 

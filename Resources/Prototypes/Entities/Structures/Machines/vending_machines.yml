@@ -74,15 +74,15 @@
     speechVerb: Robotic
     speechSounds: Vending
   - type: Vocalizer
+    minVocalizeInterval: 8m
+    maxVocalizeInterval: 10m
+    hideChat: true
   # <Onyx-CollectiveMind>
   - type: CollectiveMind
     defaultChannel: Binary
     channels:
     - Binary
   # </Onyx-CollectiveMind>
-    minVocalizeInterval: 8m
-    maxVocalizeInterval: 10m
-    hideChat: true
   - type: VocalizerRequiresPower
   - type: SpookySpeaker
     messageSet: SpookySpeakerMessagesGeneric
