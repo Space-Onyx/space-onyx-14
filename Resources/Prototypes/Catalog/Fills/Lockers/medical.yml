@@ -4,17 +4,17 @@
   id: LockerFillMedicine
   table: !type:AllSelector
     children:
-    - !type:NestedSelector
-      tableId: CoreMedicineReagentBottleTable
-      rolls: 2
-    - !type:GroupSelector # Basic topicals
-      rolls: 7
-      children:
-      - id: Brutepack
-      - id: Ointment
-      - id: Bloodpack
-      - id: Gauze
-        weight: 0.5
+    # <Onyx-MedicineLockerContents-edited>
+    - id: BoxSyringe
+    - id: ChemistryBottleEpinephrine
+    - id: Brutepack
+      amount: 2
+    - id: Ointment
+      amount: 2
+    - id: Bloodpack
+      amount: 2
+    - id: Gauze
+    # </Onyx-MedicineLockerContents-edited>
 
 - type: entity
   parent: LockerMedicine

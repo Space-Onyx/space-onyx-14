@@ -57,6 +57,10 @@
     thresholds:
     - trigger: *DamageTrigger10
       behaviors:
+      # <Onyx-CarpetDestruction-edited>
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      # </Onyx-CarpetDestruction-edited>
       - !type:SpawnEntitiesBehavior
         spawn:
           FloorCarpetItemRed: &BaseCarpetSpawn
@@ -77,6 +81,10 @@
     thresholds:
     - trigger: *DamageTrigger10
       behaviors:
+      # <Onyx-CarpetDestruction-edited>
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      # </Onyx-CarpetDestruction-edited>
       - !type:SpawnEntitiesBehavior
         spawn:
           FloorCarpetItemBlack: *BaseCarpetSpawn
@@ -95,6 +103,10 @@
     thresholds:
     - trigger: *DamageTrigger10
       behaviors:
+      # <Onyx-CarpetDestruction-edited>
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      # </Onyx-CarpetDestruction-edited>
       - !type:SpawnEntitiesBehavior
         spawn:
           FloorCarpetItemPink: *BaseCarpetSpawn
@@ -113,6 +125,10 @@
     thresholds:
     - trigger: *DamageTrigger10
       behaviors:
+      # <Onyx-CarpetDestruction-edited>
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      # </Onyx-CarpetDestruction-edited>
       - !type:SpawnEntitiesBehavior
         spawn:
           FloorCarpetItemBlue: *BaseCarpetSpawn
@@ -131,6 +147,10 @@
     thresholds:
     - trigger: *DamageTrigger10
       behaviors:
+      # <Onyx-CarpetDestruction-edited>
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      # </Onyx-CarpetDestruction-edited>
       - !type:SpawnEntitiesBehavior
         spawn:
           FloorCarpetItemGreen: *BaseCarpetSpawn
@@ -149,6 +169,10 @@
     thresholds:
     - trigger: *DamageTrigger10
       behaviors:
+      # <Onyx-CarpetDestruction-edited>
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      # </Onyx-CarpetDestruction-edited>
       - !type:SpawnEntitiesBehavior
         spawn:
           FloorCarpetItemOrange: *BaseCarpetSpawn
@@ -167,6 +191,10 @@
     thresholds:
     - trigger: *DamageTrigger10
       behaviors:
+      # <Onyx-CarpetDestruction-edited>
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      # </Onyx-CarpetDestruction-edited>
       - !type:SpawnEntitiesBehavior
         spawn:
           FloorCarpetItemSkyBlue: *BaseCarpetSpawn
@@ -185,6 +213,10 @@
     thresholds:
     - trigger: *DamageTrigger10
       behaviors:
+      # <Onyx-CarpetDestruction-edited>
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      # </Onyx-CarpetDestruction-edited>
       - !type:SpawnEntitiesBehavior
         spawn:
           FloorCarpetItemPurple: *BaseCarpetSpawn
@@ -203,6 +235,10 @@
     thresholds:
     - trigger: *DamageTrigger10
       behaviors:
+      # <Onyx-CarpetDestruction-edited>
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      # </Onyx-CarpetDestruction-edited>
       - !type:SpawnEntitiesBehavior
         spawn:
           FloorCarpetItemCyan: *BaseCarpetSpawn
@@ -221,6 +257,10 @@
     thresholds:
     - trigger: *DamageTrigger10
       behaviors:
+      # <Onyx-CarpetDestruction-edited>
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      # </Onyx-CarpetDestruction-edited>
       - !type:SpawnEntitiesBehavior
         spawn:
           FloorCarpetItemWhite: *BaseCarpetSpawn
