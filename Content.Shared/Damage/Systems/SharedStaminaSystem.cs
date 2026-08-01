@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Goobstation.Shared.MartialArts;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Alert;
 using Content.Shared.CCVar;
@@ -163,7 +164,16 @@ public abstract partial class SharedStaminaSystem : EntitySystem
             return;
         }
 
-        var ev = new StaminaDamageOnHitAttemptEvent();
+        // <Onyx-MartialArtBlocked>
+        if (TryComp<MartialArtBlockedComponent>(uid, out var blocked) &&
+            TryComp<MartialArtsKnowledgeComponent>(args.User, out var knowledge) &&
+            knowledge.MartialArtsForm == blocked.Form)
+        {
+            return;
+        }
+        // </Onyx-MartialArtBlocked>
+
+        var ev = new StaminaDamageOnHitAttemptEvent(args.User); // <Onyx-MartialArtBlocked-edited>
         RaiseLocalEvent(uid, ref ev);
         if (ev.Cancelled)
             return;

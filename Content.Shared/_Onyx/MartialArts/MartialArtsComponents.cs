@@ -7,6 +7,13 @@ namespace Content.Goobstation.Shared.MartialArts;
 [RegisterComponent]
 public sealed partial class MartialArtsPolymorphComponent : Component;
 
+[RegisterComponent]
+public sealed partial class MartialArtBlockedComponent : Component
+{
+    [DataField]
+    public MartialArtsForms Form;
+}
+
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
 public sealed partial class MartialArtsKnowledgeComponent : Component
 {

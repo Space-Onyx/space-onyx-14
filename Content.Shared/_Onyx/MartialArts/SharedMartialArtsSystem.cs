@@ -9,6 +9,7 @@ using Content.Shared.Clothing;
 using Content.Shared.Changeling.Components;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
+using Content.Shared.Damage.Events;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Eye.Blinding.Components;
@@ -17,6 +18,7 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Interaction;
+using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
@@ -77,6 +79,9 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<MartialArtsKnowledgeComponent, ComboAttackPerformedEvent>(OnAttack);
         SubscribeLocalEvent<MartialArtsKnowledgeComponent, ShotAttemptedEvent>(OnShotAttempt);
+        SubscribeLocalEvent<MartialArtBlockedComponent, ShotAttemptedEvent>(OnBlockedShot);
+        SubscribeLocalEvent<MartialArtBlockedComponent, StaminaDamageOnHitAttemptEvent>(OnBlockedStaminaHit);
+        SubscribeLocalEvent<MartialArtBlockedComponent, ItemToggleActivateAttemptEvent>(OnBlockedToggle);
         SubscribeLocalEvent<MartialArtsKnowledgeComponent, ComponentShutdown>(OnKnowledgeShutdown);
         SubscribeLocalEvent<CanPerformComboComponent, GetPerformedAttackTypesEvent>(OnGetAttackTypes);
         SubscribeLocalEvent<KravMagaSilencedComponent, SpeakAttemptEvent>(OnSpeakAttempt);
@@ -102,6 +107,39 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
         SubscribeLocalEvent<MartialArtModifiersComponent, RefreshMovementSpeedModifiersEvent>(OnMoveSpeed);
         SubscribeLocalEvent<DragonKungFuComponent, BeforeDamageChangedEvent>(OnDragonDamaged);
         SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
+    }
+
+    private bool IsMartialArtBlocked(EntityUid user, MartialArtBlockedComponent blocked)
+    {
+        return TryComp<MartialArtsKnowledgeComponent>(user, out var knowledge) &&
+               knowledge.MartialArtsForm == blocked.Form;
+    }
+
+    private void OnBlockedShot(Entity<MartialArtBlockedComponent> ent, ref ShotAttemptedEvent args)
+    {
+        if (!IsMartialArtBlocked(args.User, ent.Comp))
+            return;
+
+        args.Cancel();
+        _popup.PopupClient(Loc.GetString("martial-arts-blocked-weapon"), args.User, args.User);
+    }
+
+    private void OnBlockedStaminaHit(Entity<MartialArtBlockedComponent> ent, ref StaminaDamageOnHitAttemptEvent args)
+    {
+        if (args.User is not { } user || !IsMartialArtBlocked(user, ent.Comp))
+            return;
+
+        args.Cancelled = true;
+        _popup.PopupClient(Loc.GetString("martial-arts-blocked-weapon"), user, user);
+    }
+
+    private void OnBlockedToggle(Entity<MartialArtBlockedComponent> ent, ref ItemToggleActivateAttemptEvent args)
+    {
+        if (args.User is not { } user || !IsMartialArtBlocked(user, ent.Comp))
+            return;
+
+        args.Cancelled = true;
+        _popup.PopupClient(Loc.GetString("martial-arts-blocked-weapon"), user, user);
     }
 
     public override void Update(float frameTime)

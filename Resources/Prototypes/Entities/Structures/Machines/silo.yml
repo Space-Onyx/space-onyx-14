@@ -23,6 +23,8 @@
   - type: MaterialSiloLink
   - type: DeviceLinkSource
     range: 300
+    ports:
+    - MaterialSilo
   # </Onyx-MaterialSiloDeviceLink-edited>
   - type: MaterialStorage
     whitelist:

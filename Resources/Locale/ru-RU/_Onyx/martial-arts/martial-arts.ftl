@@ -31,6 +31,7 @@ krav-maga-move-neckchop = удар по шее
 krav-maga-move-lungpunch = удар по лёгким
 martial-arts-action-sender = Вы применили на {$name} приём «{$move}».
 martial-arts-action-receiver = {$name} применяет на вас приём «{$move}».
+martial-arts-blocked-weapon = Корпоративное дзюдо не позволяет использовать электрошокеры.
 capoeira-fail-low-velocity = Вы слишком медленны для этого приёма!
 martial-arts-combo-PushKick = толчковый удар ногой
 martial-arts-combo-CircleKick = круговой удар ногой

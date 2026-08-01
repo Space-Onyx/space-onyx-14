@@ -698,6 +698,11 @@
     - type: SalvageMiningPointProcessor
     - type: MiningPoints
     # </Onyx-SalvageMiningPoints>
+    # <Onyx-MaterialSiloDeviceLink>
+    - type: DeviceLinkSink
+      ports:
+      - MaterialSiloUtilizer
+    # </Onyx-MaterialSiloDeviceLink>
     - type: Lathe
       idleState: icon
       runningState: building

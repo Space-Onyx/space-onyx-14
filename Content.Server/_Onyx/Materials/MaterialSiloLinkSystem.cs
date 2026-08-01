@@ -27,6 +27,8 @@ public sealed partial class OreSiloSystem
         SubscribeLocalEvent<MaterialSiloLinkComponent, LinkAttemptEvent>(OnMaterialSiloLinkAttempt);
         SubscribeLocalEvent<MaterialSiloLinkComponent, NewLinkEvent>(OnMaterialSiloNewLink);
         SubscribeLocalEvent<MaterialSiloLinkComponent, PortDisconnectedEvent>(OnMaterialSiloPortDisconnected);
+        SubscribeLocalEvent<OreSiloComponent, ComponentStartup>(OnOreSiloStartup);
+        SubscribeLocalEvent<OreSiloClientComponent, ComponentStartup>(OnOreSiloClientStartup);
         SubscribeLocalEvent<SalvageMiningPointProcessorComponent, MaterialEntityInsertedEvent>(OnMiningPointOreInserted);
     }
 
@@ -68,6 +70,18 @@ public sealed partial class OreSiloSystem
             _deviceLink.EnsureSourcePorts(ent, MaterialSiloSourcePort);
 
         if (HasComp<OreSiloClientComponent>(ent))
+            _deviceLink.EnsureSinkPorts(ent, MaterialSiloSinkPort);
+    }
+
+    private void OnOreSiloStartup(Entity<OreSiloComponent> ent, ref ComponentStartup args)
+    {
+        if (HasComp<MaterialSiloLinkComponent>(ent))
+            _deviceLink.EnsureSourcePorts(ent, MaterialSiloSourcePort);
+    }
+
+    private void OnOreSiloClientStartup(Entity<OreSiloClientComponent> ent, ref ComponentStartup args)
+    {
+        if (HasComp<MaterialSiloLinkComponent>(ent))
             _deviceLink.EnsureSinkPorts(ent, MaterialSiloSinkPort);
     }
 

@@ -11,6 +11,8 @@
       map: [ "enum.ToggleableVisuals.Layer" ]
   - type: Stunbaton
     energyPerUse: 50
+  - type: MartialArtBlocked # <Onyx-CorporateJudo>
+    form: CorporateJudo
   - type: ItemToggle
     onActivate: false
     soundActivate:

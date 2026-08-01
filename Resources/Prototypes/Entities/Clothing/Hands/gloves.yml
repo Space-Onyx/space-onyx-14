@@ -648,6 +648,8 @@
         volume: 5
   - type: Stunbaton
     energyPerUse: 50
+  - type: MartialArtBlocked # <Onyx-CorporateJudo>
+    form: CorporateJudo
   - type: ItemToggleMeleeWeapon
     activatedDamage:
       types:

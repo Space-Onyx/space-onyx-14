@@ -20,6 +20,7 @@
   - type: Tool
     qualities:
     - Slicing
+  - type: Sharp # <Onyx-SharpKnives>
 
 #Shortswords
 - type: entity

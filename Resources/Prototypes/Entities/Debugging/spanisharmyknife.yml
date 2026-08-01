@@ -19,6 +19,7 @@
         Slash: 10
   - type: ToolTileCompatible
   - type: Tool
+  - type: Sharp # <Onyx-SharpKnives>
   - type: Prying
   - type: MultipleTool
     statusShowBehavior: true

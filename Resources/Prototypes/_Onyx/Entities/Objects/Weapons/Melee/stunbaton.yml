@@ -25,6 +25,8 @@
         Heat: 1
   - type: Stunbaton
     energyPerUse: 40
+  - type: MartialArtBlocked
+    form: CorporateJudo
   - type: MeleeWeapon
     angle: 0
     wideAnimationRotation: -135

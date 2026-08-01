@@ -31,6 +31,7 @@ krav-maga-move-neckchop = neck chop
 krav-maga-move-lungpunch = lung punch
 martial-arts-action-sender = You hit {$name} with {$move}.
 martial-arts-action-receiver = {$name} hit you with {$move}.
+martial-arts-blocked-weapon = Corporate Judo prevents you from using electroshock weapons.
 capoeira-fail-low-velocity = You are too slow to perform this combo!
 martial-arts-combo-PushKick = a push kick
 martial-arts-combo-CircleKick = a circle kick
