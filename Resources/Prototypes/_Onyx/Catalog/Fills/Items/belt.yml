@@ -3,14 +3,11 @@
   parent: ClothingBeltHolster
   suffix: Filled, EG-4
   components:
-  - type: ContainerFill
-    containers:
-      item:
-      - WeaponEnergyRevolver
   - type: EntityTableContainerFill
     containers:
       storagebase: !type:AllSelector
         children:
+        - id: WeaponEnergyRevolver
         - id: EnergySpeedloaderLethal
           amount: 2
         - id: EnergySpeedloaderDisabler

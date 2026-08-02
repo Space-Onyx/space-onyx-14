@@ -1,8 +1,10 @@
 using Content.Shared.Actions;
+using Content.Shared.Damage;
+using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Goobstation.Shared.MartialArts;
+namespace Content.Shared._Onyx.MartialArts;
 
 [Prototype]
 public sealed partial class MartialArtPrototype : IPrototype
@@ -26,7 +28,7 @@ public sealed partial class ComboPrototype : IPrototype
     [DataField(required: true)] public MartialArtsForms MartialArtsForm;
     [DataField("attacks", required: true)] public List<ComboAttackType> AttackTypes = [];
     [DataField(required: true)] public string Name = string.Empty;
-    [DataField(required: true)] public MartialArtEffect Effect;
+    [DataField("event", required: true)] public object? ResultEvent;
     [DataField] public float ExtraDamage;
     [DataField] public float StaminaDamage;
     [DataField] public float ParalyzeTime;
@@ -39,6 +41,7 @@ public sealed partial class ComboPrototype : IPrototype
     [DataField] public float StaminaToHeal;
     [DataField] public float AttackSpeedMultiplier = 1f;
     [DataField] public float AttackSpeedMultiplierTime;
+    [DataField] public SoundSpecifier? Sound;
 }
 
 [Prototype]
@@ -57,17 +60,6 @@ public enum MartialArtsForms : byte
     KungFuDragon,
     Ninjutsu,
     HellRip,
-}
-
-public enum MartialArtEffect : byte
-{
-    JudoDiscombobulate, JudoEyePoke, JudoThrow, JudoArmbar, JudoWheelThrow,
-    CqcSlam, CqcKick, CqcRestrain, CqcPressure, CqcConsecutive,
-    CarpGnashingTeeth, CarpKneeHaul, CarpCrashingWaves,
-    PushKick, CircleKick, SweepKick, SpinKick, KickUp,
-    DragonClaw, DragonTail, DragonStrike,
-    BiteTheDust, DirtyKill,
-    HellRipDropKick, HellRipHeadRip, HellRipTearDown, HellRipSlam,
 }
 
 [Serializable, NetSerializable]
@@ -95,6 +87,9 @@ public sealed class MartialArtsPolymorphCopyEvent(EntityUid destination) : Entit
 {
     public EntityUid Destination { get; } = destination;
 }
+
+[ByRefEvent]
+public record struct GetMeleeTargetModifiersEvent(List<DamageModifierSet> Modifiers);
 
 public sealed class SleepingCarpSaying(LocId saying) : EntityEventArgs
 {

@@ -53,6 +53,7 @@
     belt: EnergyKatana
   inhand:
     - JetpackBlackFilled
+    - NinjutsuScroll # <Onyx-Ninjutsu>
   storage:
     back: # belt holds katana so satchel has the tools for sabotaging things
     - Crowbar

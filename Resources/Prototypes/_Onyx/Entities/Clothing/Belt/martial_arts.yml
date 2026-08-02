@@ -20,9 +20,12 @@
   id: ClothingBeltCorporateJudoFilled
   suffix: Filled
   components:
-  - type: StorageFill
-    contents:
-    - id: Stunbaton
-    - id: Handcuffs
-    - id: Handcuffs
-    - id: WeaponDisabler
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: Handcuffs
+          amount: 2
+        - id: HoloprojectorSecurity
+        - id: RadioHandheldSecurity
+        - id: WeaponDisabler

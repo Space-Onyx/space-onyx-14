@@ -220,6 +220,7 @@
       - DiscreteHealthAnalyzer
       - SurgeryTool
       - Dropper
+      - HandheldCrewMonitor # <Onyx-ParamedicBeltMonitor>
       components:
       - Injector
       - Pill

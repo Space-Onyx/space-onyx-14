@@ -385,3 +385,25 @@
   conditions:
   - !type:ListingLimitedStockCondition
     stock: 1
+
+# <Onyx-MartialArts>
+- type: listing
+  id: SpellbookNinjutsuScroll
+  name: spellbook-ninjutsu-name
+  description: spellbook-ninjutsu-desc
+  productEntity: NinjutsuScroll
+  cost:
+    WizCoin: 2
+  categories: [SpellbookEquipment]
+  disableRefund: true
+
+- type: listing
+  id: SpellbookHellRipScroll
+  name: spellbook-hell-rip-name
+  description: spellbook-hell-rip-desc
+  productEntity: HellRipScroll
+  cost:
+    WizCoin: 2
+  categories: [SpellbookEquipment]
+  disableRefund: true
+# </Onyx-MartialArts>

@@ -1,4 +1,4 @@
-using Content.Goobstation.Shared.MartialArts;
+using Content.Shared._Onyx.MartialArts;
 using Content.Shared._Onyx.Grab;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Alert;

@@ -1,5 +1,5 @@
 using System.Linq;
-using Content.Goobstation.Shared.MartialArts;
+using Content.Shared._Onyx.MartialArts;
 using Content.Server.Administration;
 using Content.Shared.Administration;
 using Robust.Shared.Console;

@@ -1,4 +1,4 @@
-using Content.Goobstation.Shared.MartialArts;
+using Content.Shared._Onyx.MartialArts;
 using Content.Server.Chat.Systems;
 using Content.Shared.Chat;
 

@@ -1,4 +1,4 @@
-using Content.Goobstation.Shared.MartialArts;
+using Content.Shared._Onyx.MartialArts;
 
 namespace Content.Client._Onyx.MartialArts;
 

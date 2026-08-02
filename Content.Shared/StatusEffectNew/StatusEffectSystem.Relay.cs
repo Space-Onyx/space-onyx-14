@@ -1,4 +1,5 @@
 using Content.Shared.Body.Events;
+using Content.Shared._Onyx.MartialArts; // <Onyx-MartialArts>
 using Content.Shared.Damage.Events;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Eye.Blinding.Systems;
@@ -36,6 +37,8 @@ public sealed partial class StatusEffectsSystem
         SubscribeLocalEvent<StatusEffectContainerComponent, StunEndAttemptEvent>(RefRelayStatusEffectEvent);
         SubscribeLocalEvent<StatusEffectContainerComponent, RefreshStaminaCritThresholdEvent>(RefRelayStatusEffectEvent);
         SubscribeLocalEvent<StatusEffectContainerComponent, CanSeeAttemptEvent>(RelayStatusEffectEvent);
+        SubscribeLocalEvent<StatusEffectContainerComponent, GetBlurEvent>(RelayStatusEffectEvent); // <Onyx-MartialArts>
+        SubscribeLocalEvent<StatusEffectContainerComponent, GetMeleeTargetModifiersEvent>(RefRelayStatusEffectEvent); // <Onyx-MartialArts>
         SubscribeLocalEvent<StatusEffectContainerComponent, FlashAttemptEvent>(RefRelayStatusEffectEvent);
 
         SubscribeLocalEvent<StatusEffectContainerComponent, BeforeForceSayEvent>(RelayStatusEffectEvent);

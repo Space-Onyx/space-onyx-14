@@ -3,3 +3,6 @@
 
 - type: alertCategory
   id: Counter
+
+- type: alertCategory
+  id: Ninjutsu

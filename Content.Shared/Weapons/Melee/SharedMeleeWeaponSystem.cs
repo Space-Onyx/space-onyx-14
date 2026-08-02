@@ -3,7 +3,7 @@ using System.Linq;
 using System.Numerics;
 using Content.Shared.ActionBlocker;
 // <Onyx-GoobShove>
-using Content.Goobstation.Shared.MartialArts;
+using Content.Shared._Onyx.MartialArts;
 using Content.Shared.Item;
 using Content.Shared.Throwing;
 using Robust.Shared.Physics.Components;
@@ -586,6 +586,8 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         var attackedEvent = new AttackedEvent(meleeUid, user, targetXform.Coordinates);
         RaiseLocalEvent(target.Value, attackedEvent);
 
+        var targetModifiers = new GetMeleeTargetModifiersEvent(hitEvent.ModifiersList); // <Onyx-MartialArts>
+        RaiseLocalEvent(target.Value, ref targetModifiers); // <Onyx-MartialArts>
         var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, hitEvent.ModifiersList);
 
         var damageChanged = Damageable.TryChangeDamage(target.Value,
@@ -755,7 +757,12 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
 
             var attackedEvent = new AttackedEvent(meleeUid, user, GetCoordinates(ev.Coordinates));
             RaiseLocalEvent(entity, attackedEvent);
-            var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, hitEvent.ModifiersList);
+            // <Onyx-MartialArts>
+            var modifiers = new List<DamageModifierSet>(hitEvent.ModifiersList);
+            var targetModifiers = new GetMeleeTargetModifiersEvent(modifiers);
+            RaiseLocalEvent(entity, ref targetModifiers);
+            // </Onyx-MartialArts>
+            var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, modifiers); // <Onyx-MartialArts-edited>
 
             var damageResult = Damageable.ChangeDamage(entity, modifiedDamage, origin: user, ignoreResistances: resistanceBypass);
 

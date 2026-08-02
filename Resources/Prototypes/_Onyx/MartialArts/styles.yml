@@ -9,41 +9,51 @@
 - type: combo
   id: JudoDiscombobulate
   name: Discombobulate
-  effect: JudoDiscombobulate
+  event: !type:JudoDiscombobulateEvent
   martialArtsForm: CorporateJudo
   attacks: [Disarm, Grab]
+  sound:
+    path: /Audio/Weapons/genhit3.ogg
 - type: combo
   id: JudoEyePoke
   name: Eye Poke
-  effect: JudoEyePoke
+  event: !type:JudoEyePokeEvent
   martialArtsForm: CorporateJudo
   attacks: [Disarm, Harm]
   extraDamage: 5
+  sound:
+    path: /Audio/Weapons/genhit3.ogg
 - type: combo
   id: JudoThrow
   name: Judo Throw
-  effect: JudoThrow
+  event: !type:JudoThrowEvent
   martialArtsForm: CorporateJudo
   attacks: [Grab, Disarm]
   paralyzeTime: 4
   staminaDamage: 5
   canDoWhileProne: false
+  sound:
+    path: /Audio/Weapons/genhit3.ogg
 - type: combo
   id: JudoArmbar
   name: Armbar
-  effect: JudoArmbar
+  event: !type:JudoArmbarEvent
   martialArtsForm: CorporateJudo
   attacks: [Disarm, Disarm, Grab]
   paralyzeTime: 5
   staminaDamage: 10
   dropItems: true
+  sound:
+    path: /Audio/Weapons/genhit3.ogg
 - type: combo
   id: JudoWheelThrow
   name: Wheel Throw
-  effect: JudoWheelThrow
+  event: !type:JudoWheelThrowEvent
   martialArtsForm: CorporateJudo
   attacks: [Grab, Disarm, Harm]
   staminaDamage: 120
+  sound:
+    path: /Audio/Weapons/genhit3.ogg
 
 - type: martialArt
   id: CloseQuartersCombat
@@ -55,23 +65,27 @@
 - type: combo
   id: CQCSlam
   name: Slam
-  effect: CqcSlam
+  event: !type:CqcSlamEvent
   martialArtsForm: CloseQuartersCombat
   attacks: [Grab, Harm]
   extraDamage: 10
   paralyzeTime: 12
+  sound:
+    path: /Audio/Weapons/genhit3.ogg
 - type: combo
   id: CQCKick
   name: Kick
-  effect: CqcKick
+  event: !type:CqcKickEvent
   martialArtsForm: CloseQuartersCombat
   attacks: [Harm, Harm]
   extraDamage: 10
   staminaDamage: 25
+  sound:
+    path: /Audio/Weapons/genhit2.ogg
 - type: combo
   id: CQCRestrain
   name: Restrain
-  effect: CqcRestrain
+  event: !type:CqcRestrainEvent
   martialArtsForm: CloseQuartersCombat
   attacks: [Grab, Grab]
   paralyzeTime: 10
@@ -79,18 +93,20 @@
 - type: combo
   id: CQCPressure
   name: Pressure
-  effect: CqcPressure
+  event: !type:CqcPressureEvent
   martialArtsForm: CloseQuartersCombat
   attacks: [Disarm, Grab]
   staminaDamage: 65
 - type: combo
   id: CQCConsecutive
   name: Consecutive
-  effect: CqcConsecutive
+  event: !type:CqcConsecutiveEvent
   martialArtsForm: CloseQuartersCombat
   attacks: [Disarm, Disarm, Harm]
   extraDamage: 10
   staminaDamage: 70
+  sound:
+    path: /Audio/Weapons/genhit1.ogg
 
 - type: martialArt
   id: SleepingCarp
@@ -107,27 +123,33 @@
 - type: combo
   id: SleepingCarpGnashingTeeth
   name: Gnashing Teeth
-  effect: CarpGnashingTeeth
+  event: !type:CarpGnashingTeethEvent
   martialArtsForm: SleepingCarp
   attacks: [Harm, Harm]
   damageType: Slash
   extraDamage: 20
+  sound:
+    path: /Audio/Weapons/genhit1.ogg
 - type: combo
   id: SleepingCarpKneeHaul
   name: Knee Haul
-  effect: CarpKneeHaul
+  event: !type:CarpKneeHaulEvent
   martialArtsForm: SleepingCarp
   attacks: [Harm, Grab]
   extraDamage: 10
   paralyzeTime: 6
   staminaDamage: 60
+  sound:
+    path: /Audio/Weapons/genhit3.ogg
 - type: combo
   id: SleepingCarpCrashingWaves
   name: Crashing Waves
-  effect: CarpCrashingWaves
+  event: !type:CarpCrashingWavesEvent
   martialArtsForm: SleepingCarp
   attacks: [Harm, Disarm]
   staminaDamage: 25
+  sound:
+    path: /Audio/Weapons/genhit2.ogg
 
 - type: martialArt
   id: Capoeira
@@ -139,26 +161,30 @@
 - type: combo
   id: PushKick
   name: Push Kick
-  effect: PushKick
+  event: !type:PushKickEvent
   martialArtsForm: Capoeira
   attacks: [Grab, Harm, Harm]
   paralyzeTime: 2
   dropItems: true
   canDoWhileProne: false
   staminaToHeal: -30
+  sound:
+    path: /Audio/Weapons/genhit3.ogg
 - type: combo
   id: CircleKick
   name: Circle Kick
-  effect: CircleKick
+  event: !type:CircleKickEvent
   martialArtsForm: Capoeira
   attacks: [Disarm, Disarm, Harm]
   extraDamage: 15
   canDoWhileProne: false
   staminaToHeal: -40
+  sound:
+    path: /Audio/Weapons/genhit2.ogg
 - type: combo
   id: SweepKick
   name: Sweep Kick
-  effect: SweepKick
+  event: !type:SweepKickEvent
   martialArtsForm: Capoeira
   attacks: [Harm, Harm, Disarm]
   extraDamage: 10
@@ -169,10 +195,12 @@
   attackSpeedMultiplier: 1.5
   attackSpeedMultiplierTime: 5
   canDoWhileProne: false
+  sound:
+    path: /Audio/Weapons/genhit1.ogg
 - type: combo
   id: SpinKick
   name: Spin Kick
-  effect: SpinKick
+  event: !type:SpinKickEvent
   martialArtsForm: Capoeira
   attacks: [Grab, Harm, Disarm, Harm]
   extraDamage: 25
@@ -183,10 +211,12 @@
   attackSpeedMultiplier: 1.5
   attackSpeedMultiplierTime: 5
   canDoWhileProne: false
+  sound:
+    path: /Audio/Weapons/genhit1.ogg
 - type: combo
   id: KickUp
   name: Kick Up
-  effect: KickUp
+  event: !type:KickUpEvent
   martialArtsForm: Capoeira
   attacks: [Disarm, Disarm]
   performOnSelf: true
@@ -201,27 +231,33 @@
 - type: combo
   id: DragonClaw
   name: Dragon Claw
-  effect: DragonClaw
+  event: !type:DragonClawEvent
   martialArtsForm: KungFuDragon
   attacks: [Disarm, Disarm]
   staminaDamage: 50
+  sound:
+    path: /Audio/Weapons/genhit3.ogg
 - type: combo
   id: DragonTail
   name: Dragon Tail
-  effect: DragonTail
+  event: !type:DragonTailEvent
   martialArtsForm: KungFuDragon
   attacks: [Disarm, Grab, Harm]
   extraDamage: 15
   staminaDamage: 30
   paralyzeTime: 6
+  sound:
+    path: /Audio/Weapons/genhit2.ogg
 - type: combo
   id: DragonStrike
   name: Dragon Strike
-  effect: DragonStrike
+  event: !type:DragonStrikeEvent
   martialArtsForm: KungFuDragon
   attacks: [Disarm, Harm, Harm]
   extraDamage: 40
   paralyzeTime: 2
+  sound:
+    path: /Audio/Weapons/genhit1.ogg
 
 - type: martialArt
   id: Ninjutsu
@@ -233,19 +269,23 @@
 - type: combo
   id: BiteTheDust
   name: Bite The Dust
-  effect: BiteTheDust
+  event: !type:BiteTheDustEvent
   martialArtsForm: Ninjutsu
   attacks: [Harm, Grab]
   extraDamage: 10
   paralyzeTime: 9
+  sound:
+    path: /Audio/Weapons/genhit3.ogg
 - type: combo
   id: DirtyKill
   name: Dirty Kill
-  effect: DirtyKill
+  event: !type:DirtyKillEvent
   martialArtsForm: Ninjutsu
   attacks: [Disarm, Disarm]
   extraDamage: 20
   paralyzeTime: 7
+  sound:
+    path: /Audio/Weapons/genhit2.ogg
 
 - type: martialArt
   id: HellRip
@@ -259,7 +299,7 @@
 - type: combo
   id: DropKick
   name: Flying DropKick
-  effect: HellRipDropKick
+  event: !type:HellRipDropKickEvent
   martialArtsForm: HellRip
   attacks: [Disarm, Disarm]
   damageType: Slash
@@ -269,7 +309,7 @@
 - type: combo
   id: HeadRip
   name: Head Rip
-  effect: HellRipHeadRip
+  event: !type:HellRipHeadRipEvent
   martialArtsForm: HellRip
   attacks: [Harm, Harm, Harm, Grab]
   damageType: Slash
@@ -278,7 +318,7 @@
 - type: combo
   id: TearDown
   name: Tear Down
-  effect: HellRipTearDown
+  event: !type:HellRipTearDownEvent
   martialArtsForm: HellRip
   attacks: [Harm, Disarm, Grab]
   staminaDamage: 50
@@ -286,7 +326,7 @@
 - type: combo
   id: Slam
   name: Hellish Slam
-  effect: HellRipSlam
+  event: !type:HellRipSlamEvent
   martialArtsForm: HellRip
   attacks: [Disarm, Harm]
   paralyzeTime: 8

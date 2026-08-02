@@ -1,7 +1,7 @@
 using System.Numerics;
 using Content.Client.Hands.Systems;
 // <Onyx-MartialArts>
-using Content.Goobstation.Shared.MartialArts;
+using Content.Shared._Onyx.MartialArts;
 using Robust.Client.Player;
 using Robust.Client.ResourceManagement;
 using Robust.Shared.Utility;

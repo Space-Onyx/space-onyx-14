@@ -1,8 +1,9 @@
+using Content.Shared.Damage;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Goobstation.Shared.MartialArts;
+namespace Content.Shared._Onyx.MartialArts;
 
 [RegisterComponent]
 public sealed partial class MartialArtsPolymorphComponent : Component;
@@ -30,6 +31,8 @@ public sealed partial class CanPerformComboComponent : Component
     [DataField] public TimeSpan ResetAfter = TimeSpan.FromSeconds(5);
     [AutoNetworkedField] public TimeSpan ResetAt;
     [AutoNetworkedField] public int ConsecutiveGnashes;
+    public ProtoId<ComboPrototype>? BeingPerformed;
+    public EntityUid? MoveTarget;
 }
 
 public abstract partial class GrantMartialArtKnowledgeComponent : Component
@@ -126,15 +129,41 @@ public sealed partial class NinjutsuSneakAttackComponent : Component
 {
     public TimeSpan SurpriseReadyAt;
     [DataField] public float Multiplier = 2f;
+    [DataField] public float AssassinateDamage = 180f;
+    [DataField] public float AssassinateUnarmedDamage = 115f;
+    [DataField] public float TakedownSlowdownTime = 5f;
+    [DataField] public float TakedownMuteTime = 10f;
+    [DataField] public float TakedownSpeedModifier = 0.2f;
+    [DataField] public SoundSpecifier AssassinateSoundUnarmed = new SoundPathSpecifier("/Audio/Weapons/genhit1.ogg");
+    [DataField] public SoundSpecifier AssassinateSoundArmed = new SoundPathSpecifier("/Audio/_Onyx/Weapons/Effects/guillotine.ogg");
+}
+
+[RegisterComponent]
+public sealed partial class MartialArtsBlurryVisionStatusEffectComponent : Component;
+
+[RegisterComponent]
+public sealed partial class MeleeVulnerabilityStatusEffectComponent : Component
+{
+    [DataField] public DamageModifierSet Modifiers = new()
+    {
+        Coefficients =
+        {
+            { "Blunt", 1.25f },
+            { "Slash", 1.25f },
+            { "Piercing", 1.25f },
+        },
+    };
 }
 
 [RegisterComponent]
 public sealed partial class DragonKungFuComponent : Component
 {
     public TimeSpan LastMoveTime;
-    [DataField] public float MinVelocity = 0.2f;
-    [DataField] public TimeSpan PauseDuration = TimeSpan.FromSeconds(2);
-    public bool PowerReady;
+    public TimeSpan BuffUntil;
+    public bool AlertShown;
+    [DataField] public float MinVelocitySquared = 0.25f;
+    [DataField] public TimeSpan PauseDuration = TimeSpan.FromSeconds(1);
+    [DataField] public TimeSpan BuffLength = TimeSpan.FromSeconds(5);
 }
 
 [RegisterComponent]
@@ -146,6 +175,7 @@ public sealed partial class MartialArtModifiersComponent : Component
     public TimeSpan AttackRateUntil;
     public TimeSpan DamageUntil;
     public TimeSpan MoveSpeedUntil;
+    public bool DamageUnarmedOnly;
 }
 
 [RegisterComponent]

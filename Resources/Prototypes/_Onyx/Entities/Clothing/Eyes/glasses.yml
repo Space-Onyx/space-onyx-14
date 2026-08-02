@@ -1,4 +1,33 @@
 - type: entity
+  id: ShowHealthRelatedIcons
+  abstract: true
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ShowHealthBars
+    damageContainers:
+    - Biological
+    - Inorganic
+    - Silicon
+    - SiliconRadiation
+  - type: ShowHealthIcons
+    damageContainers:
+    - Biological
+  - type: ShowDiseaseIcons
+
+- type: entity
+  parent: [ ClothingEyesBase, ShowHealthRelatedIcons, BaseCentcommContraband, ClothingEyesGlassesSunglasses ]
+  id: ClothingEyesGlassesBSO
+  name: blueshield officer glasses
+  description: Sunglasses with a medical, job and diagnostic HUD.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Eyes/Glasses/bsoglasses.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Eyes/Glasses/bsoglasses.rsi
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+
+- type: entity
   parent: [ ClothingEyesBase, ClothingEyesGlassesSunglasses ]
   id: ClothingEyesGlassesDiag
   name: diagnostic glasses

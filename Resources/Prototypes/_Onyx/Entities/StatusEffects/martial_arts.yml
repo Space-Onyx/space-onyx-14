@@ -1,3 +1,17 @@
 - type: entity
-  id: MartialArtsGenericSlowdownEffect
+  parent: MobStatusEffectDebuff
+  id: StatusEffectMartialArtsBlurryVision
+  name: blurry vision
+  components:
+  - type: MartialArtsBlurryVisionStatusEffect
+
+- type: entity
+  parent: MobStatusEffectDebuff
+  id: StatusEffectMeleeVulnerability
+  name: melee vulnerability
+  components:
+  - type: MeleeVulnerabilityStatusEffect
+
+- type: entity
   parent: StatusEffectSlowdown
+  id: MartialArtsGenericSlowdownEffect
