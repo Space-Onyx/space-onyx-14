@@ -1,5 +1,6 @@
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Inventory;
+using Content.Shared.Item.ItemToggle.Components; // <Onyx-OreStorageMagnet>
 using Content.Shared.Storage.Components;
 using Content.Shared.Whitelist;
 using Robust.Shared.Physics.Components;
@@ -49,6 +50,11 @@ public sealed partial class MagnetPickupSystem : EntitySystem
 
         while (query.MoveNext(out var uid, out var comp, out var storage, out var xform, out var meta))
         {
+            // <Onyx-OreStorageMagnet>
+            if (TryComp<ItemToggleComponent>(uid, out var toggle) && !toggle.Activated)
+                continue;
+            // </Onyx-OreStorageMagnet>
+
             if (comp.NextScan > currentTime)
                 continue;
 

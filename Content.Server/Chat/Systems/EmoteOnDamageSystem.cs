@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Chat;
 using Content.Shared.Chat.Prototypes;
@@ -22,35 +23,16 @@ public sealed partial class EmoteOnDamageSystem : EntitySystem
 
     private void OnDamage(EntityUid uid, EmoteOnDamageComponent emoteOnDamage, DamageChangedEvent args)
     {
+        OnyxHandleDamageEmote(uid, emoteOnDamage, args); // <Onyx-PainSounds>
+
         if (!args.DamageIncreased)
             return;
-
-        if (emoteOnDamage.LastEmoteTime + emoteOnDamage.EmoteCooldown > _gameTiming.CurTime)
-            return;
-
-        if (emoteOnDamage.Emotes.Count == 0)
-            return;
-
-        if (!_random.Prob(emoteOnDamage.EmoteChance))
-            return;
-
-        var emote = _random.Pick(emoteOnDamage.Emotes);
-        if (emoteOnDamage.WithChat)
-        {
-            _chatSystem.TryEmoteWithChat(uid, emote, emoteOnDamage.HiddenFromChatWindow ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal);
-        }
-        else
-        {
-            _chatSystem.TryEmoteWithoutChat(uid,emote);
-        }
-
-        emoteOnDamage.LastEmoteTime = _gameTiming.CurTime;
     }
 
     /// <summary>
     /// Try to add an emote to the entity, which will be performed at an interval.
     /// </summary>
-    public bool AddEmote(EntityUid uid, string emotePrototypeId, EmoteOnDamageComponent? emoteOnDamage = null)
+    public bool AddEmote(EntityUid uid, float threshold, string emotePrototypeId, EmoteOnDamageComponent? emoteOnDamage = null) // <Onyx-PainSounds-edited>
     {
         if (!Resolve(uid, ref emoteOnDamage, logMissing: false))
             return false;
@@ -58,25 +40,33 @@ public sealed partial class EmoteOnDamageSystem : EntitySystem
         DebugTools.Assert(emoteOnDamage.LifeStage <= ComponentLifeStage.Running);
         DebugTools.Assert(ProtoMan.HasIndex<EmotePrototype>(emotePrototypeId), "Prototype not found. Did you make a typo?");
 
-        return emoteOnDamage.Emotes.Add(emotePrototypeId);
+        if (!emoteOnDamage.EmotesThreshold.TryGetValue(threshold, out var emotes))
+            return emoteOnDamage.EmotesThreshold.TryAdd(threshold, [emotePrototypeId]);
+        return emotes.Add(emotePrototypeId);
     }
+
+    public bool AddEmote(EntityUid uid, string emotePrototypeId, EmoteOnDamageComponent? component = null)
+        => AddEmote(uid, 0f, emotePrototypeId, component);
 
     /// <summary>
     /// Stop preforming an emote. Note that by default this will queue empty components for removal.
     /// </summary>
-    public bool RemoveEmote(EntityUid uid, string emotePrototypeId, EmoteOnDamageComponent? emoteOnDamage = null, bool removeEmpty = true)
+    public bool RemoveEmote(EntityUid uid, float threshold, string emotePrototypeId, EmoteOnDamageComponent? emoteOnDamage = null, bool removeEmpty = true) // <Onyx-PainSounds-edited>
     {
         if (!Resolve(uid, ref emoteOnDamage, logMissing: false))
             return false;
 
         DebugTools.Assert(ProtoMan.HasIndex<EmotePrototype>(emotePrototypeId), "Prototype not found. Did you make a typo?");
 
-        if (!emoteOnDamage.Emotes.Remove(emotePrototypeId))
+        if (!emoteOnDamage.EmotesThreshold.TryGetValue(threshold, out var emotes) || !emotes.Remove(emotePrototypeId))
             return false;
 
-        if (removeEmpty && emoteOnDamage.Emotes.Count == 0)
+        if (removeEmpty && emoteOnDamage.EmotesThreshold.Values.All(set => set.Count == 0))
             RemCompDeferred(uid, emoteOnDamage);
 
         return true;
     }
+
+    public bool RemoveEmote(EntityUid uid, string emotePrototypeId, EmoteOnDamageComponent? component = null, bool removeEmpty = true)
+        => RemoveEmote(uid, 0f, emotePrototypeId, component, removeEmpty);
 }

@@ -5,8 +5,7 @@
   description: Equipment for mining exosuits. This is the drill that'll pierce the rocks!
   components:
   - type: Sprite
-    sprite: _Onyx/Objects/Specific/Mech/chainsword.rsi
-    state: mecha_chainsword
+    state: mecha_drill
   - type: Tag
     tags: [ Pickaxe, IndustrialMech ]
   - type: MeleeWeapon
@@ -54,7 +53,8 @@
   description: Equipment for combat exosuits. A mechanical chainsword built to tear through armor.
   components:
   - type: Sprite
-    state: mecha_drill
+    sprite: _Onyx/Objects/Specific/Mech/chainsword.rsi
+    state: mecha_chainsword
   - type: MeleeWeapon
     autoAttack: true
     angle: 0

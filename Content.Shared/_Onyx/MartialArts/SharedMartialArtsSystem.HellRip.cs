@@ -28,7 +28,6 @@ public abstract partial class SharedMartialArtsSystem
     {
         if (!_mobState.IsDead(context.Target))
             return MoveResult.Failed;
-        Damage(context.Target, context.Performer, "Blunt", 300);
         StopPull(context.Target, context.Performer);
         var head = _body.GetBodyChildrenOfType(context.Target, BodyPartType.Head).FirstOrDefault().Id;
         if (head != default)

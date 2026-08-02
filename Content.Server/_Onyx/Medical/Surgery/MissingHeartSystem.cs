@@ -55,7 +55,7 @@ public sealed partial class MissingHeartSystem : EntitySystem
                 RemComp<MissingEarsComponent>(args.Target);
                 break;
             case "Lungs":
-                RemComp<LungDependentComponent>(args.Target);
+                EnsureComp<LungDependentComponent>(args.Target);
                 break;
         }
 

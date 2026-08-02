@@ -141,7 +141,7 @@ public sealed class SlimeLatchTest : GameTest
             Assert.That(blood.Comp.Solution.Volume, Is.LessThan(FixedPoint2.New(10)));
             Assert.That(metabolites.Comp.Solution.GetTotalPrototypeQuantity("Ethanol"), Is.LessThan(FixedPoint2.New(10)));
             Assert.That(temporary.Comp.Solution.Volume, Is.LessThan(FixedPoint2.New(10)));
-            Assert.That(metabolites.Comp.Solution.GetTotalPrototypeQuantity("XenobioSlimeToxin"), Is.GreaterThan(FixedPoint2.Zero));
+            Assert.That(blood.Comp.Solution.GetTotalPrototypeQuantity("XenobioSlimeToxin"), Is.GreaterThan(FixedPoint2.Zero));
             Assert.That(stomachSolution.Comp.Solution.Volume, Is.EqualTo(FixedPoint2.New(2.5)));
             Assert.That(hungerSystem.GetHunger(hunger), Is.GreaterThan(10f));
         });

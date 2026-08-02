@@ -101,9 +101,7 @@ public sealed partial class RCDConstructionGhostSystem : EntitySystem
             RaiseNetworkEvent(new RCDConstructionGhostRotationEvent(GetNetEntity(heldEntity.Value), _placementDirection));
         }
 
-        var constructionPrototype = _useMirrorPrototype && !string.IsNullOrEmpty(prototype.MirrorPrototype)
-            ? prototype.MirrorPrototype
-            : prototype.Prototype; // <Onyx-RPD>
+        var constructionPrototype = GetPipeLayerConstructionPrototype(prototype, rcd); // <Onyx-RPDPipeLayers-edited>
 
         // If the placer has not changed, exit
         if (heldEntity == placerEntity && constructionPrototype == placerProto)

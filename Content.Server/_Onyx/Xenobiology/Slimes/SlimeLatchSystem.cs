@@ -332,15 +332,14 @@ public sealed partial class SlimeLatchSystem : EntitySystem
         var sources = new List<(Entity<SolutionComponent> Solution, FixedPoint2 Volume)>();
         if (_solutions.ResolveSolution(target.Owner, bloodstream.BloodSolutionName, ref bloodstream.BloodSolution) &&
             bloodstream.BloodSolution is { } blood)
+        {
             AddSource(blood, target.Comp.ToxinReagent, sources);
+            _solutions.TryAddReagent(blood, target.Comp.ToxinReagent, target.Comp.ToxinUnits, out _);
+        }
         if (_solutions.ResolveSolution(target.Owner, bloodstream.MetabolitesSolutionName, ref bloodstream.MetabolitesSolution) &&
             bloodstream.MetabolitesSolution is { } metabolites)
         {
             AddSource(metabolites, target.Comp.ToxinReagent, sources);
-            _solutions.TryAddReagent(metabolites,
-                target.Comp.ToxinReagent,
-                target.Comp.ToxinUnits,
-                out _);
         }
         if (_solutions.ResolveSolution(target.Owner, bloodstream.BloodTemporarySolutionName, ref bloodstream.TemporarySolution) &&
             bloodstream.TemporarySolution is { } temporary)

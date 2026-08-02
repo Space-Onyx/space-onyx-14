@@ -1,4 +1,5 @@
 using Content.Shared.Administration.Logs;
+using Content.Shared.Atmos.Components; // <Onyx-RPDPipeLayers>
 using Content.Shared.Charges.Systems;
 using Content.Shared.Construction;
 using Content.Shared.Database;
@@ -64,6 +65,7 @@ public sealed partial class RCDSystem : EntitySystem
         SubscribeLocalEvent<RCDComponent, RCDSystemMessage>(OnRCDSystemMessage);
         SubscribeNetworkEvent<RCDConstructionGhostRotationEvent>(OnRCDconstructionGhostRotationEvent);
         SubscribeNetworkEvent<RCDConstructionGhostFlipEvent>(OnRCDConstructionGhostFlipEvent); // <Onyx-RPD>
+        InitializePipeLayers(); // <Onyx-RPDPipeLayers>
     }
 
     #region Event handling
@@ -94,6 +96,7 @@ public sealed partial class RCDSystem : EntitySystem
 
         // Set the current RCD prototype to the one supplied
         component.ProtoId = args.ProtoId;
+        component.ConstructionPipeLayer = AtmosPipeLayer.Primary; // <Onyx-RPDPipeLayers>
 
         _adminLogger.Add(LogType.RCD, LogImpact.Low, $"{args.Actor} set RCD mode to: {prototype.Mode} : {prototype.Prototype}");
 
@@ -220,6 +223,7 @@ public sealed partial class RCDSystem : EntitySystem
             GetNetEntity(gridUid.Value),
             component.ConstructionDirection,
             component.ProtoId,
+            component.ConstructionPipeLayer, // <Onyx-RPDPipeLayers>
             cost,
             GetNetEntity(effect));
         var doAfterArgs = new DoAfterArgs(EntityManager, user, delay, ev, uid, target: args.Target, used: uid)
@@ -245,7 +249,8 @@ public sealed partial class RCDSystem : EntitySystem
             return;
 
         // Exit if the RCD prototype has changed
-        if (component.ProtoId != args.Event.StartingProtoId)
+        if (component.ProtoId != args.Event.StartingProtoId ||
+            component.ConstructionPipeLayer != args.Event.StartingPipeLayer) // <Onyx-RPDPipeLayers-edited>
         {
             args.Cancel();
             return;
@@ -338,6 +343,7 @@ public sealed partial class RCDSystem : EntitySystem
         rcd.UseMirrorPrototype = ev.UseMirrorPrototype;
         Dirty(uid, rcd);
     }
+
     // </Onyx-RPD>
 
     #endregion
@@ -479,7 +485,9 @@ public sealed partial class RCDSystem : EntitySystem
         {
             // If the entity is the exact same prototype as what we are trying to build, then block it.
             // This is to prevent spamming objects on the same tile (e.g. lights)
-            if (prototype.Prototype != null && MetaData(ent).EntityPrototype?.ID == prototype.Prototype)
+            var constructionPrototype = GetConstructionPrototype(prototype, component); // <Onyx-RPDPipeLayers>
+            var isSamePrototype = constructionPrototype != null && MetaData(ent).EntityPrototype?.ID == constructionPrototype;
+            if (isSamePrototype)
             {
                 var isIdentical = true;
 
@@ -621,9 +629,9 @@ public sealed partial class RCDSystem : EntitySystem
                 break;
 
             case RcdMode.ConstructObject:
-                var spawnPrototype = component.UseMirrorPrototype && !string.IsNullOrEmpty(prototype.MirrorPrototype)
-                    ? prototype.MirrorPrototype
-                    : prototype.Prototype; // <Onyx-RPD>
+                var spawnPrototype = GetConstructionPrototype(prototype, component); // <Onyx-RPDPipeLayers-edited>
+                if (spawnPrototype == null) // <Onyx-RPDPipeLayers>
+                    return; // <Onyx-RPDPipeLayers>
                 var ent = Spawn(spawnPrototype, _mapSystem.GridTileToLocal(gridUid, mapGrid, position)); // <Onyx-RPD-edited>
 
                 switch (prototype.Rotation)
@@ -692,6 +700,9 @@ public sealed partial class RCDDoAfterEvent : DoAfterEvent
     public ProtoId<RCDPrototype> StartingProtoId { get; private set; }
 
     [DataField]
+    public AtmosPipeLayer StartingPipeLayer { get; private set; } // <Onyx-RPDPipeLayers>
+
+    [DataField]
     public int Cost { get; private set; } = 1;
 
     [DataField("fx")]
@@ -705,6 +716,7 @@ public sealed partial class RCDDoAfterEvent : DoAfterEvent
         Direction direction,
         ProtoId<RCDPrototype>
         startingProtoId,
+        AtmosPipeLayer startingPipeLayer,
         int cost,
         NetEntity? effect = null)
     {
@@ -712,6 +724,7 @@ public sealed partial class RCDDoAfterEvent : DoAfterEvent
         TargetGridId = targetGridId;
         Direction = direction;
         StartingProtoId = startingProtoId;
+        StartingPipeLayer = startingPipeLayer;
         Cost = cost;
         Effect = effect;
     }

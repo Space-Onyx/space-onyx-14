@@ -33,7 +33,7 @@
     - AdvancedCybernaticsUpgrade
 - type: technology
   id: BasicTranslation
-  name: research-technology-onyx-basic-translation
+  name: research-technology-basic-translation
   icon:
     sprite: _Onyx/Objects/Devices/translator.rsi
     state: icon
@@ -58,7 +58,7 @@
     - AdvancedEntertainment
 - type: technology
   id: AdvancedTranslation
-  name: research-technology-onyx-advanced-translation
+  name: research-technology-advanced-translation
   icon:
     sprite: Objects/Specific/Medical/implanter.rsi
     state: implanter0
@@ -141,7 +141,7 @@
     - AdvancedTreatment
 - type: technology
   id: AdvancedCybernaticsUpgrade
-  name: research-technology-advandec-cybernatics-upgrade
+  name: research-technology-advanced-cybernatics-upgrade
   icon:
     sprite: _Onyx/Cybernetics/organs.rsi
     state: heart-u-on

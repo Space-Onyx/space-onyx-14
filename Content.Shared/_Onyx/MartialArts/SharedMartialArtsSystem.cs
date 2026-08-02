@@ -6,6 +6,7 @@ using Content.Shared.Actions;
 using Content.Shared.Alert;
 using Content.Shared._Onyx.Sprinting;
 using Content.Shared._Onyx.Targeting;
+using Content.Shared._Onyx.Wounds;
 using Content.Shared.Bed.Sleep;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
@@ -66,6 +67,7 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
     [Dependency] private DamageableSystem _damage = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private MobThresholdSystem _mobThreshold = default!;
     [Dependency] private MovementModStatusSystem _movement = default!;
     [Dependency] private MovementSpeedModifierSystem _movementSpeed = default!;
     [Dependency] private NpcFactionSystem _faction = default!;
@@ -84,8 +86,10 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
     [Dependency] private ThrowingSystem _throwing = default!;
     [Dependency] private SharedBloodstreamSystem _bloodstream = default!;
     [Dependency] private SharedMeleeWeaponSystem _melee = default!;
+    [Dependency] private WoundDamageRoutingSystem _woundDamage = default!;
 
     private static readonly EntProtoId SlowdownEffect = "MartialArtsGenericSlowdownEffect";
+    private static readonly ProtoId<DamageTypePrototype> BluntDamage = "Blunt";
     private static readonly ProtoId<AlertPrototype> DragonPowerAlert = "DragonPower";
     private static readonly ProtoId<AlertPrototype> SneakAttackAlert = "SneakAttack";
     private static readonly ProtoId<AlertPrototype> LossOfSurpriseAlert = "LossOfSurprise";
@@ -210,6 +214,7 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
             if (ninja.SurpriseReadyAt == TimeSpan.Zero || _timing.CurTime < ninja.SurpriseReadyAt)
                 continue;
             ninja.SurpriseReadyAt = TimeSpan.Zero;
+            _alerts.ClearAlert(uid, LossOfSurpriseAlert);
             _alerts.ShowAlert(uid, SneakAttackAlert);
         }
 
@@ -247,6 +252,7 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
                 continue;
             }
             if (!_actionBlocker.CanInteract(uid, null)
+                || dragon.AlertShown
                 || _timing.CurTime < dragon.LastMoveTime + dragon.PauseDuration)
                 continue;
 
@@ -536,6 +542,8 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
         }
         if (ent.Comp.MartialArtsForm == MartialArtsForms.CloseQuartersCombat
             && args.Type == ComboAttackType.Harm
+            && !_mobState.IsDead(args.Target)
+            && !HasComp<GodmodeComponent>(args.Target)
             && TryComp<PullerComponent>(ent, out var puller)
             && puller.Pulling == args.Target
             && TryComp<GrabIntentComponent>(ent, out var grab)
@@ -543,9 +551,13 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
             && TryComp<StaminaComponent>(args.Target, out var stamina)
             && stamina.Critical
             && TryComp<TargetingComponent>(ent, out var targeting)
-            && targeting.Target == TargetBodyPart.Head)
+            && targeting.Target == TargetBodyPart.Head
+            && _mobThreshold.TryGetDeadThreshold(args.Target, out var damageToKill))
         {
-            Damage(args.Target, ent, "Blunt", 300);
+            StopPull(args.Target, ent);
+            var damage = new DamageSpecifier(_prototypes.Index(BluntDamage), damageToKill.Value);
+            if (!_woundDamage.TryApplyTargetedDamage(args.Target, damage, TargetBodyPart.Head, ent, out _, true))
+                _damage.TryChangeDamage(args.Target, damage, true, origin: ent);
             ComboPopup(ent, args.Target, "NeckSnap");
         }
         if (ent.Comp.MartialArtsForm == MartialArtsForms.Capoeira)
@@ -815,6 +827,7 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
     private void ResetSurprise(EntityUid uid, NinjutsuSneakAttackComponent sneak)
     {
         sneak.SurpriseReadyAt = _timing.CurTime + TimeSpan.FromSeconds(5);
+        _alerts.ClearAlert(uid, SneakAttackAlert);
         _alerts.ShowAlert(uid, LossOfSurpriseAlert, cooldown: (_timing.CurTime, sneak.SurpriseReadyAt));
     }
 
@@ -829,6 +842,12 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
         if (TryComp<MartialArtModifiersComponent>(args.User, out var modifier)
             && (!modifier.DamageUnarmedOnly || args.Weapon == args.User))
             args.Damage *= modifier.Damage;
+
+        if (TryComp<DragonKungFuComponent>(args.User, out var dragon)
+            && _timing.CurTime < dragon.BuffUntil
+            && _actionBlocker.CanInteract(args.User, null))
+            args.Damage *= 1.2f;
+
     }
 
     private void OnMoveSpeed(Entity<MartialArtModifiersComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
@@ -842,9 +861,6 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
             return;
 
         args.Modifiers.Add(DragonPowerResistance);
-        var modifier = EnsureComp<MartialArtModifiersComponent>(ent);
-        modifier.Damage = 1.2f;
-        modifier.DamageUntil = _timing.CurTime + TimeSpan.FromSeconds(5);
     }
 
     private void OnKravInit(Entity<KravMagaComponent> ent, ref ComponentInit args)

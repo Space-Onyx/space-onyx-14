@@ -21,8 +21,8 @@ public sealed partial class EmoteOnDamageComponent : Component
     /// A set of emotes that will be randomly picked from.
     /// <see cref="EmotePrototype"/>
     /// </summary>
-    [DataField("emotes", customTypeSerializer: typeof(PrototypeIdHashSetSerializer<EmotePrototype>)), ViewVariables(VVAccess.ReadWrite)]
-    public HashSet<string> Emotes = new();
+    [DataField("emotes"), ViewVariables(VVAccess.ReadWrite)]
+    public Dictionary<float, HashSet<string>> EmotesThreshold = new(); // <Onyx-PainSounds-edited>
 
     /// <summary>
     /// Also send the emote in chat.
@@ -49,4 +49,15 @@ public sealed partial class EmoteOnDamageComponent : Component
     /// </summary>
     [DataField("emoteCooldown"), ViewVariables(VVAccess.ReadWrite)]
     public TimeSpan EmoteCooldown = TimeSpan.FromSeconds(2);
+
+    // <Onyx-PainSounds>
+    [DataField]
+    public HashSet<string> AllowedDamageType = ["Blunt", "Caustic", "Heat", "Cold", "Piercing", "Shock", "Slash"];
+
+    [DataField]
+    public float PainThreshold = 6f;
+
+    [ViewVariables]
+    public float LastTotalDamage;
+    // </Onyx-PainSounds>
 }

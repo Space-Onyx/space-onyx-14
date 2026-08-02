@@ -8,6 +8,8 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Maps;
 using Content.Shared.Popups;
 using Content.Shared.Storage;
+using Content.Shared.SubFloor;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
@@ -73,12 +75,33 @@ public sealed partial class ChargeHolosignSystem : EntitySystem
 
         if (_signs.Count > 0)
             TryRemoveSign((ent, ent, charges), _signs.First(), args.User);
-        else if (_turf.GetEntitiesInTile(coordinates, LookupFlags.Uncontained).Count == 0)
+        else if (!HasBuildingOnTile(coordinates))
             TryPlaceSign((ent, ent, charges), coordinates, args.User);
         else
             _popup.PopupClient(Loc.GetString("charge-holoprojector-tile-occupied"), ent, args.User);
 
         args.Handled = true;
+    }
+
+    private bool HasBuildingOnTile(EntityCoordinates coordinates)
+    {
+        if (!_turf.TryGetTileRef(coordinates, out var targetTile))
+            return true;
+
+        foreach (var entity in _turf.GetEntitiesInTile(coordinates, LookupFlags.Uncontained))
+        {
+            if (HasComp<SubFloorHideComponent>(entity) || !HasComp<PhysicsComponent>(entity))
+                continue;
+
+            if (!_turf.TryGetTileRef(Transform(entity).Coordinates, out var entityTile) ||
+                entityTile.Value.GridUid != targetTile.Value.GridUid ||
+                entityTile.Value.GridIndices != targetTile.Value.GridIndices)
+                continue;
+
+            return true;
+        }
+
+        return false;
     }
 
     private void OnUseInHand(Entity<ChargeHolosignProjectorComponent> ent, ref UseInHandEvent args)

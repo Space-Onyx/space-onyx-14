@@ -927,11 +927,16 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
     {
         var target = GetEntity(ev.Target);
 
-        if (Deleted(target) ||
-            user == target)
+        if (Deleted(target))
         {
             return false;
         }
+
+        if (user == target) // <Onyx-MartialArts-edited>
+        {
+            RaiseOnyxSelfDisarmCombo(user, meleeUid);
+            return false;
+        } // </Onyx-MartialArts-edited>
 
 
         // <Onyx-GoobShove-edited>

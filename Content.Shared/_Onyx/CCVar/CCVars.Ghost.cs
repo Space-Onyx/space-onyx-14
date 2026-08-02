@@ -14,7 +14,7 @@ public sealed partial class CCVars
     /// Кулдаун перед тем, как гост  сможет вернуться в лобби (в секундах).
     /// </summary>
     public static readonly CVarDef<int> GhostReturnToLobbyDelay =
-        CVarDef.Create("ghost.return_to_lobby_delay", 300, CVar.SERVER | CVar.REPLICATED | CVar.ARCHIVE);
+        CVarDef.Create("ghost.return_to_lobby_delay", 300, CVar.SERVER | CVar.REPLICATED);
 
     /// <summary>
     /// Максимальное количество игроков онлайн, при котором всё ещё разрешён возврат госта в лобби.

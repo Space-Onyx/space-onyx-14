@@ -1,3 +1,4 @@
+using Content.Shared.Atmos.Components; // <Onyx-RPDPipeLayers>
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
@@ -22,6 +23,13 @@ public sealed class RCDConstructionGhostFlipEvent(NetEntity netEntity, bool useM
 {
     public readonly NetEntity NetEntity = netEntity;
     public readonly bool UseMirrorPrototype = useMirrorPrototype;
+}
+
+[Serializable, NetSerializable]
+public sealed class RCDConstructionGhostPipeLayerEvent(NetEntity netEntity, AtmosPipeLayer layer) : EntityEventArgs
+{
+    public readonly NetEntity NetEntity = netEntity;
+    public readonly AtmosPipeLayer Layer = layer;
 }
 // </Onyx-RPD>
 

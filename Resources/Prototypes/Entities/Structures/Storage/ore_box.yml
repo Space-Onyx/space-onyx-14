@@ -4,6 +4,10 @@
   description: A large storage container for holding unprocessed ores.
   parent: BaseStructureDynamic
   components:
+  # <Onyx-OreBoxMagnet>
+  - type: MagnetPickup
+    slotFlags: null
+  # </Onyx-OreBoxMagnet>
   - type: StaticPrice
     price: 500
   - type: Anchorable

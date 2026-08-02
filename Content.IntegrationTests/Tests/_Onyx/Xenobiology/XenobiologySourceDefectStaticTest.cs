@@ -72,7 +72,7 @@ public sealed class XenobiologySourceDefectStaticTest
         Assert.That(source, Does.Contain("bloodstream.BloodSolutionName, ref bloodstream.BloodSolution"));
         Assert.That(source, Does.Contain("bloodstream.MetabolitesSolutionName, ref bloodstream.MetabolitesSolution"));
         Assert.That(source, Does.Contain("bloodstream.BloodTemporarySolutionName, ref bloodstream.TemporarySolution"));
-        Assert.That(source, Does.Contain("AddSource(metabolites, target.Comp.ToxinReagent, sources);"));
+        Assert.That(source, Does.Contain("_solutions.TryAddReagent(blood, target.Comp.ToxinReagent, target.Comp.ToxinUnits, out _);"));
         Assert.That(source, Does.Contain("AddSource(temporary, target.Comp.ToxinReagent, sources);"));
     }
 

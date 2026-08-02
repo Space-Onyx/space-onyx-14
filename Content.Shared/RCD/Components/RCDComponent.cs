@@ -1,3 +1,4 @@
+using Content.Shared.Atmos.Components; // <Onyx-RPDPipeLayers>
 using Content.Shared.RCD.Systems;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
@@ -41,6 +42,9 @@ public sealed partial class RCDComponent : Component
 
     [AutoNetworkedField, ViewVariables(VVAccess.ReadOnly)]
     public bool UseMirrorPrototype; // <Onyx-RPD>
+
+    [AutoNetworkedField, ViewVariables(VVAccess.ReadOnly)]
+    public AtmosPipeLayer ConstructionPipeLayer; // <Onyx-RPDPipeLayers>
 
     /// <summary>
     /// The direction constructed entities will face upon spawning

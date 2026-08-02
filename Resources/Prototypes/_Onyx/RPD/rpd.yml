@@ -15,6 +15,7 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/straight.png
   mode: ConstructObject
   prototype: GasPipeStraight
+  allowMultiDirection: true
   cost: 1
   delay: 0
   rotation: User
@@ -26,6 +27,7 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/bend.png
   mode: ConstructObject
   prototype: GasPipeBend
+  allowMultiDirection: true
   cost: 1
   delay: 0
   rotation: User
@@ -37,9 +39,9 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/tjunction.png
   mode: ConstructObject
   prototype: GasPipeTJunction
+  allowMultiDirection: true
   cost: 1
   delay: 0
-  collisionMask: Impassable
   rotation: User
   fx: EffectRCDConstruct0
 

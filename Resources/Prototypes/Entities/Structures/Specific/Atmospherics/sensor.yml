@@ -25,6 +25,12 @@
       Ammonia: stationAmmonia
       NitrousOxide: stationNO
       Frezon: danger
+      # <Onyx-GoobGases>
+      BZ: danger
+      Healium: ignore
+      Nitrium: danger
+      Pluoxium: ignore
+      # </Onyx-GoobGases>
   - type: GuideHelp
     guides:
     - DeviceMonitoringAndControl

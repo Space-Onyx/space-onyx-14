@@ -15,6 +15,8 @@ namespace Content.Client.RCD;
 
 public sealed partial class AlignRCDConstruction : PlacementMode
 {
+    private partial void OnPipeLayerPlacement(EntityUid gridId);
+
     [Dependency] private IEntityManager _entityManager = default!;
     private readonly SharedMapSystem _mapSystem;
     private readonly HandsSystem _handsSystem;
@@ -67,6 +69,9 @@ public sealed partial class AlignRCDConstruction : PlacementMode
             MouseCoords = new EntityCoordinates(MouseCoords.EntityId, new Vector2(CurrentTile.X + tileSize / 2 + pManager.PlacementOffset.X,
                 CurrentTile.Y + tileSize / 2 + pManager.PlacementOffset.Y));
         }
+
+        OnPipeLayerPlacement(gridId.Value); // <Onyx-RPDPipeLayers>
+
     }
 
     public override bool IsValidPosition(EntityCoordinates position)

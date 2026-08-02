@@ -120,6 +120,16 @@
       types:
         Blunt: 5
   - type: SleepEmitSound
+  # <Onyx-PainSounds>
+  - type: EmoteOnDamage
+    emotes:
+      50: ["Scream"]
+      80: ["Scream", "Crying"]
+    emoteChance: 0.6
+    withChat: true
+    hiddenFromChatWindow: true
+    emoteCooldown: 8
+  # </Onyx-PainSounds>
   - type: SSDIndicator
   - type: StandingState
   - type: Crawler
@@ -207,6 +217,7 @@
   id: BaseSpeciesMobOrganic
   save: false
   components:
+  - type: LungDependent # <Onyx-OrganConsequences>
   - type: Hunger
   - type: Thirst
   - type: Barotrauma
