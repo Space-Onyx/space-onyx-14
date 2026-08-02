@@ -29,10 +29,12 @@
   - type: Action
     priority: -23
     useDelay: 30
-    icon:
-      sprite: /Textures/_Onyx/Interface/Alerts/hierophantbeat.rsi
-      state: hierophant
     itemIconStyle: NoItem
+  - type: Sprite
+    sprite: _Onyx/Interface/Alerts/hierophantbeat.rsi
+    layers:
+    - state: hierophant
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     range: 5
   - type: EntityTargetAction
@@ -48,9 +50,11 @@
     raiseOnUser: true
     priority: -24
     useDelay: 10
-    icon:
-      sprite: _Onyx/Salvage/Objects/hierophant_club.rsi
-      state: icon
+  - type: Sprite
+    sprite: _Onyx/Salvage/Objects/hierophant_club.rsi
+    layers:
+    - state: icon
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     range: 10
   - type: WorldTargetAction

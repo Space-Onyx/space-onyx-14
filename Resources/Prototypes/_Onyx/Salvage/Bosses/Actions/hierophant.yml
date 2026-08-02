@@ -8,10 +8,12 @@
   - type: Action
     priority: -21
     useDelay: 2
-    icon:
-      sprite: _Onyx/Salvage/Objects/hierophant_club.rsi
-      state: icon
     itemIconStyle: NoItem
+  - type: Sprite
+    sprite: _Onyx/Salvage/Objects/hierophant_club.rsi
+    layers:
+    - state: icon
+      map: ["enum.ActionVisuals.Icon"]
   - type: TargetAction
     checkCanAccess: false
     range: 30
