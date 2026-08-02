@@ -479,6 +479,9 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
 
     private void OnAttack(Entity<MartialArtsKnowledgeComponent> ent, ref ComboAttackPerformedEvent args)
     {
+        if (_net.IsClient)
+            return;
+
         if (ent.Comp.Blocked || args.Weapon != ent.Owner || !HasComp<MobStateComponent>(args.Target))
             return;
         if (!TryComp<CanPerformComboComponent>(ent, out var combo))
@@ -509,6 +512,9 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
                 continue;
             combo.BeingPerformed = move.ID;
             combo.MoveTarget = move.PerformOnSelf ? ent.Owner : args.Target;
+            combo.LastAttacks.Clear();
+            combo.ConsecutiveGnashes = 0;
+            combo.CurrentTarget = null;
             RaiseLocalEvent(ent.Owner, move.ResultEvent);
             break;
         }
