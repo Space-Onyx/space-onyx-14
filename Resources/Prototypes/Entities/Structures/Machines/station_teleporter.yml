@@ -17,7 +17,7 @@
       visible: false
       map: ["enum.PowerDeviceVisualLayers.Powered"]
     - sprite: Effects/portal.rsi
-      state: portal-gray
+      state: portal-artifact # <Onyx-StationTeleporterArtifactPortal-edited>
       map: ["portal"]
       shader: unshaded
       visible: false

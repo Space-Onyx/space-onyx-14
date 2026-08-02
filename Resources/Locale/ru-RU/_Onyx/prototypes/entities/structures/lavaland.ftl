@@ -1,8 +1,3 @@
-ent-GatewayLavaland = врата Лаваленда
-    .desc = Прямо в пекло.
-ent-GatewayLavalandStation = врата Лаваленда
-    .desc = Прямо в пекло.
-    .suffix = Станция
 ent-LavalandTendrilGoliath = шип Некрополя
     .desc = Огромное строение.
     .suffix = Голиаф

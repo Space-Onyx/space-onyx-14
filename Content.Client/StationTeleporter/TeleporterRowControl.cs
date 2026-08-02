@@ -33,10 +33,11 @@ public sealed class TeleporterRowControl : PanelContainer
         if (selected)
             bgColor = SelectedBackgroundColor;
 
+        // <Onyx-StationTeleporterUI-edited>
         HorizontalAlignment = HAlignment.Center;
         VerticalAlignment = VAlignment.Center;
         HorizontalExpand = true;
-        Margin = new Thickness(10);
+        Margin = new Thickness(4, 2, 4, 2);
         PanelOverride = new StyleBoxFlat
         {
             BackgroundColor = bgColor,
@@ -55,28 +56,33 @@ public sealed class TeleporterRowControl : PanelContainer
         var nameLabel = new RichTextLabel
         {
             HorizontalExpand = true,
-            HorizontalAlignment = HAlignment.Center,
-            Margin = new Thickness(0, 5),
+            HorizontalAlignment = HAlignment.Left,
+            MaxWidth = 280f,
+            Margin = new Thickness(10, 8, 10, 0),
         };
         nameLabel.SetMarkup($"[bold]{teleporter.Name}[/bold]");
         mainBox.AddChild(nameLabel);
 
-        // Left subpart
-        var leftBox = new BoxContainer
+        var statusLabel = new Label
         {
-            SetWidth = 30,
-            Orientation = LayoutOrientation.Vertical,
-            HorizontalExpand = true,
+            Text = Loc.GetString(!teleporter.Powered
+                ? "teleporter-console-user-interface-status-no-power"
+                : linked
+                    ? "teleporter-console-user-interface-status-linked"
+                    : "teleporter-console-user-interface-status-ready"),
+            Margin = new Thickness(10, 2, 10, 6),
         };
-        mainBox.AddChild(leftBox);
+        statusLabel.AddStyleClass("LabelSubText");
+        mainBox.AddChild(statusLabel);
 
-        // Right subpart
-        var rightBox = new BoxContainer
+        var buttonBox = new BoxContainer
         {
-            Orientation = LayoutOrientation.Vertical,
+            Orientation = LayoutOrientation.Horizontal,
             HorizontalExpand = true,
+            SeparationOverride = 6,
+            Margin = new Thickness(10, 0, 10, 10),
         };
-        mainBox.AddChild(rightBox);
+        mainBox.AddChild(buttonBox);
 
         // Locating button
         LocateButton = new TeleporterButton
@@ -84,10 +90,9 @@ public sealed class TeleporterRowControl : PanelContainer
             Text = Loc.GetString("teleporter-console-user-interface-locate"),
             TeleporterUid = teleporter.TeleporterUid,
             Coordinates = coordinates,
-            HorizontalAlignment = HAlignment.Right,
-            SetWidth = 200f,
+            HorizontalExpand = true,
         };
-        rightBox.AddChild(LocateButton);
+        buttonBox.AddChild(LocateButton);
 
         // Link/Unlink button
         var buttonLoc = "teleporter-console-user-interface-start-connection";
@@ -101,11 +106,11 @@ public sealed class TeleporterRowControl : PanelContainer
             Text = Loc.GetString(buttonLoc),
             TeleporterUid = teleporter.TeleporterUid,
             Coordinates = coordinates,
-            HorizontalAlignment = HAlignment.Right,
-            SetWidth = 200f,
+            HorizontalExpand = true,
             Disabled = !teleporter.Powered,
         };
-        rightBox.AddChild(LinkButton);
+        buttonBox.AddChild(LinkButton);
+        // </Onyx-StationTeleporterUI-edited>
     }
 }
 

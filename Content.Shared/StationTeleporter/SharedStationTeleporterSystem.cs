@@ -141,6 +141,11 @@ public abstract partial class SharedStationTeleporterSystem : EntitySystem
 
     private void OnLinkedChanged(Entity<StationTeleporterComponent> ent, ref LinkedEntityChangedEvent args)
     {
+        // <Onyx-StationTeleporterDeletionAudio>
+        if (TerminatingOrDeleted(ent))
+            return;
+        // </Onyx-StationTeleporterDeletionAudio>
+
         var xform = Transform(ent);
         if (args.NewLinks.Count > 0)
         {

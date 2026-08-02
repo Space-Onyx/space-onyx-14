@@ -180,7 +180,6 @@
   position: -3,3
   technologyPrerequisites:
     - QuantumLeaping
-  - DeviceDesynchronizer
 - type: technology
   id: TeleSci
   name: research-technology-telesci
@@ -190,7 +189,7 @@
   discipline: Experimental
   tier: 3
   cost: 10000
-  position: -3,2
+  position: -2,5
   technologyPrerequisites:
     - BluespaceTheory
   recipeUnlocks:

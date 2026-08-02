@@ -989,7 +989,7 @@ CrateEngineeringMiniJetpack: CrateSpaceMiniJetpack
 CrateEngineeringShuttle: CrateSpaceShuttlePower
 CrateEngineeringThruster: CrateSpaceThruster
 
-# 2026-08-01
+# 2026-08-01 Onyx
 AirlockCentralCommandCommandLocked: AirlockMaintLocked
 RandomVendingSnacksMidpop: RandomVendingSnacks
 SlotMachine: null
@@ -997,3 +997,7 @@ AugmentBotanyPanelElectronics: null
 ClawMachine: null
 XenoCompatibilityImplanter: null
 SyringeHeroin: null
+
+# 2026-08-02 Onyx
+GatewayLavaland: null
+GatewayLavalandStation: null

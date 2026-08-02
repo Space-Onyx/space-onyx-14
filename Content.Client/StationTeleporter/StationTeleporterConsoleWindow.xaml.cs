@@ -125,17 +125,19 @@ public sealed partial class StationTeleporterConsoleWindow : FancyWindow
                 var coordsOne = _entManager.GetCoordinates(teleporter.Coordinates);
                 var coordsTwo = _entManager.GetCoordinates(teleporter.LinkCoordinates);
 
+                // <Onyx-StationTeleporterCrossMapUI-edited>
                 if (coordsOne is null || coordsTwo is null)
-                    return;
+                    continue;
 
                 var mapId1 = _xformSystem.GetMapId(coordsOne.Value);
                 var mapId2 = _xformSystem.GetMapId(coordsTwo.Value);
 
                 if (mapId1 != mapId2)
-                    return;
+                    continue;
 
                 if (mapId1 == MapId.Nullspace || mapId2 == MapId.Nullspace)
-                    return;
+                    continue;
+                // </Onyx-StationTeleporterCrossMapUI-edited>
 
                 NavMap.AddTeleporterLink(
                     _xformSystem.ToMapCoordinates(coordsOne.Value).Position,
