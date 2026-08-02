@@ -7,7 +7,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._Onyx.Salvage.Procedural.Systems;
 
-public sealed partial class LavalandBiomeOptimizationSystem : EntitySystem
+public sealed partial class LavalandBiomeWarmupSystem : EntitySystem
 {
     [Dependency] private BiomeSystem _biome = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
@@ -16,10 +16,10 @@ public sealed partial class LavalandBiomeOptimizationSystem : EntitySystem
     {
         base.Initialize();
         UpdatesBefore.Add(typeof(BiomeSystem));
-        SubscribeLocalEvent<LavalandBiomeOptimizationComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<LavalandBiomeWarmupComponent, MapInitEvent>(OnMapInit);
     }
 
-    private void OnMapInit(Entity<LavalandBiomeOptimizationComponent> ent, ref MapInitEvent args)
+    private void OnMapInit(Entity<LavalandBiomeWarmupComponent> ent, ref MapInitEvent args)
     {
         if (!TryComp<BiomeComponent>(ent, out var biome))
             return;
@@ -45,7 +45,7 @@ public sealed partial class LavalandBiomeOptimizationSystem : EntitySystem
 
     public override void Update(float frameTime)
     {
-        var query = AllEntityQuery<LavalandBiomeOptimizationComponent, BiomeComponent>();
+        var query = AllEntityQuery<LavalandBiomeWarmupComponent, BiomeComponent>();
         while (query.MoveNext(out var uid, out var optimization, out var biome))
         {
             while (optimization.WarmupQueue.TryPeek(out var entry))
@@ -56,8 +56,7 @@ public sealed partial class LavalandBiomeOptimizationSystem : EntitySystem
                     continue;
                 }
 
-                if (_biome.PreloadMarkerChunk(uid, biome, entry.Layer, entry.Chunk))
-                    optimization.WarmupQueue.Dequeue();
+                _biome.PreloadMarkerChunk(uid, biome, entry.Layer, entry.Chunk);
                 break;
             }
         }

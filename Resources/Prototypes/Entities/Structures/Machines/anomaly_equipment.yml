@@ -276,6 +276,10 @@
     - Plasma
   - type: OreSiloClient
   # <Onyx-MaterialSiloDeviceLink>
+  - type: DeviceLinkSink
+    ports:
+    - MaterialSiloUtilizer
+  # </Onyx-MaterialSiloDeviceLink>
   - type: MaterialSiloLink
   # </Onyx-MaterialSiloDeviceLink>
   - type: Fixtures

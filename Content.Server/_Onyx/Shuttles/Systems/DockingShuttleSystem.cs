@@ -43,7 +43,7 @@ public sealed partial class DockingShuttleSystem : SharedDockingShuttleSystem
         _shuttleConsole.FtlDestinationsChanged -= RefreshAllDestinations;
     }
 
-    private void RefreshAllDestinations()
+    public void RefreshAllDestinations()
     {
         var query = EntityQueryEnumerator<DockingShuttleComponent>();
         while (query.MoveNext(out var uid, out var comp))

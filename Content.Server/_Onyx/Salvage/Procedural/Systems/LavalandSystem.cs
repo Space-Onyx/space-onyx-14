@@ -1,5 +1,6 @@
 using Content.Server._Onyx.Salvage.DeathRattle;
 using Content.Server._Onyx.Salvage.Procedural.Components;
+using Content.Server._Onyx.Shuttles.Systems;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Decals;
 using Content.Server.GameTicking;
@@ -40,6 +41,7 @@ public sealed partial class LavalandSystem : EntitySystem
     [Dependency] private MapLoaderSystem _mapLoader = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private ShuttleSystem _shuttle = default!;
+    [Dependency] private DockingShuttleSystem _dockingShuttle = default!;
 
     private bool _enabled;
     private EntityQuery<MapGridComponent> _gridQuery;
@@ -87,7 +89,6 @@ public sealed partial class LavalandSystem : EntitySystem
         {
             if (!SetupLavalandPlanet(selected.Value, preloader, out _))
                 throw new InvalidOperationException($"Failed to create required Lavaland planet '{selected}'.");
-            _map.DeleteMap(Transform(preloader).MapID);
         }
         catch
         {
@@ -98,10 +99,49 @@ public sealed partial class LavalandSystem : EntitySystem
         }
     }
 
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+
+        var query = AllEntityQuery<LavalandPlanetComponent>();
+        while (query.MoveNext(out var uid, out var lavaland))
+        {
+            try
+            {
+                if (ProcessNextRuin((uid, lavaland)))
+                    continue;
+
+                if (lavaland.GenerationStage == LavalandGenerationStage.Initializing)
+                {
+                    var mapConfig = _prototypes.Index(lavaland.Prototype);
+                    var planet = _prototypes.Index(mapConfig.Planet);
+                    if (planet.AddComponents != null)
+                        EntityManager.AddComponents(uid, planet.AddComponents);
+
+                    _map.InitializeMap(Transform(uid).MapID, unpause: false);
+                    if (!TerminatingOrDeleted(lavaland.Preloader))
+                        _map.DeleteMap(Transform(lavaland.Preloader).MapID);
+                    EnsureComp<LavalandMapComponent>(uid);
+                    _map.SetPaused(Transform(uid).MapID, false);
+                    lavaland.GenerationStage = LavalandGenerationStage.Ready;
+                    _dockingShuttle.RefreshAllDestinations();
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Error($"Failed to finish Lavaland generation: {exception}");
+                var preloader = lavaland.Preloader;
+                Del(uid);
+                if (!TerminatingOrDeleted(preloader))
+                    _map.DeleteMap(Transform(preloader).MapID);
+            }
+        }
+    }
+
     private void OnRoundRestart(RoundRestartCleanupEvent ev)
     {
         DeleteAllLavalands();
-        var query = EntityQueryEnumerator<LavalandPreloaderComponent>();
+        var query = AllEntityQuery<LavalandPreloaderComponent>();
         while (query.MoveNext(out var uid, out _))
             _map.DeleteMap(Transform(uid).MapID);
     }
@@ -157,13 +197,13 @@ public sealed partial class LavalandSystem : EntitySystem
 
     private bool HasLavaland()
     {
-        var query = EntityQueryEnumerator<LavalandPlanetComponent>();
+        var query = AllEntityQuery<LavalandPlanetComponent>();
         return query.MoveNext(out _, out _);
     }
 
     private void DeleteAllLavalands()
     {
-        var query = EntityQueryEnumerator<LavalandPlanetComponent>();
+        var query = AllEntityQuery<LavalandPlanetComponent>();
         while (query.MoveNext(out var uid, out _))
             Del(uid);
     }

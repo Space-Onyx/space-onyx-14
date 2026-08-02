@@ -1,5 +1,4 @@
 using System.Numerics;
-using System.Threading.Tasks;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Decals;
 using Content.Server.Ghost.Roles.Components;
@@ -9,6 +8,7 @@ using Content.Shared.Atmos;
 using Content.Shared.Ghost;
 using Content.Shared.Gravity;
 using Content.Shared.Light.Components;
+using Content.Shared.GameTicking;
 using Content.Shared.Parallax.Biomes;
 using Content.Shared.Parallax.Biomes.Layers;
 using Content.Shared.Parallax.Biomes.Markers;
@@ -26,7 +26,6 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Robust.Shared.Threading;
 using Robust.Shared.Utility;
 using ChunkIndicesEnumerator = Robust.Shared.Map.Enumerators.ChunkIndicesEnumerator;
 
@@ -36,7 +35,6 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 {
     [Dependency] private IConfigurationManager _configManager = default!;
     [Dependency] private IConsoleHost _console = default!;
-    [Dependency] private IParallelManager _parallel = default!;
     [Dependency] private IPlayerManager _playerManager = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private AtmosphereSystem _atmos = default!;
@@ -85,6 +83,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         Subs.CVar(_configManager, CVars.NetMaxUpdateRange, SetLoadRange, true);
         InitializeCommands();
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(ProtoReload);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnMarkerGenerationCleanup);
     }
 
     private void ProtoReload(PrototypesReloadedEventArgs obj)
@@ -320,6 +319,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+        ProcessMarkerGeneration(); // <Onyx-BiomeMarkerGeneration>
         // <Onyx-LavalandBiomeCleanup-edited>
         try
         {
@@ -485,89 +485,13 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             var localIdx = idx;
 
             var forcedLayer = component.ForcedMarkerLayers.Contains(layer);
-            var chunksToBuild = GetMarkerChunksToBuild(chunks, loadedMarkers, layer, forcedLayer, chunkBudget, ref remainingBudget); // <Onyx-LavalandBiomeRuntimeOptimization>
+            var chunksToBuild = GetMarkerChunksToBuild(component, chunks, loadedMarkers, layer, forcedLayer, chunkBudget, ref remainingBudget); // <Onyx-LavalandBiomeRuntimeOptimization-edited>
 
-            Parallel.ForEach(chunksToBuild, new ParallelOptions() { MaxDegreeOfParallelism = _parallel.ParallelProcessCount }, chunk => // <Onyx-LavalandBiomeRuntimeOptimization-edited>
+            foreach (var chunk in chunksToBuild)
             {
-                if (loadedMarkers.TryGetValue(layer, out var mobChunks) && mobChunks.Contains(chunk))
-                    return;
-
-                var forced = component.ForcedMarkerLayers.Contains(layer);
-
-                // Make a temporary version and copy back in later.
-                var pending = new Dictionary<Vector2i, Dictionary<string, List<Vector2i>>>();
-
-                // Essentially get the seed + work out a buffer to adjacent chunks so we don't
-                // inadvertantly spawn too many near the edges.
-                var layerProto = ProtoMan.Index<BiomeMarkerLayerPrototype>(layer);
-                var markerSeed = seed + chunk.X * ChunkSize + chunk.Y + localIdx;
-                var rand = new RobustRandom();
-                rand.SetSeed(markerSeed);
-                var buffer = (int)(layerProto.Radius / 2f);
-                var bounds = new Box2i(chunk + buffer, chunk + layerProto.Size - buffer);
-                var count = (int)(bounds.Area / (layerProto.Radius * layerProto.Radius));
-                count = Math.Min(count, layerProto.MaxCount);
-
-                GetMarkerNodes(gridUid, component, grid, layerProto, forced, bounds, count, rand,
-                    out var spawnSet, out var existing);
-
-                // Forcing markers to spawn so delete any that were found to be in the way.
-                if (forced && existing.Count > 0)
-                {
-                    // Lock something so we can delete these safely.
-                    lock (component.PendingMarkers)
-                    {
-                        foreach (var ent in existing)
-                        {
-                            Del(ent);
-                        }
-                    }
-                }
-
-                foreach (var node in spawnSet.Keys)
-                {
-                    var chunkOrigin = SharedMapSystem.GetChunkIndices(node, ChunkSize) * ChunkSize;
-
-                    if (!pending.TryGetValue(chunkOrigin, out var pendingMarkers))
-                    {
-                        pendingMarkers = new Dictionary<string, List<Vector2i>>();
-                        pending[chunkOrigin] = pendingMarkers;
-                    }
-
-                    if (!pendingMarkers.TryGetValue(layer, out var layerMarkers))
-                    {
-                        layerMarkers = new List<Vector2i>();
-                        pendingMarkers[layer] = layerMarkers;
-                    }
-
-                    layerMarkers.Add(node);
-                }
-
-                lock (loadedMarkers)
-                {
-                    if (!loadedMarkers.TryGetValue(layer, out var lockMobChunks))
-                    {
-                        lockMobChunks = new HashSet<Vector2i>();
-                        loadedMarkers[layer] = lockMobChunks;
-                    }
-
-                    lockMobChunks.Add(chunk);
-
-                    foreach (var (chunkOrigin, layers) in pending)
-                    {
-                        if (!component.PendingMarkers.TryGetValue(chunkOrigin, out var lockMarkers))
-                        {
-                            lockMarkers = new Dictionary<string, List<Vector2i>>();
-                            component.PendingMarkers[chunkOrigin] = lockMarkers;
-                        }
-
-                        foreach (var (lockLayer, nodes) in layers)
-                        {
-                            lockMarkers[lockLayer] = nodes;
-                        }
-                    }
-                }
-            });
+                QueueMarkerChunkGeneration(component, gridUid, grid, layer, chunk, seed, localIdx,
+                    forcedLayer); // <Onyx-BiomeMarkerGeneration-edited>
+            }
         }
 
         component.ForcedMarkerLayers.Clear();
@@ -899,7 +823,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         var active = _activeChunks[component];
         List<(Vector2i, Tile)>? tiles = null;
 
-        foreach (var chunk in component.LoadedChunks)
+        foreach (var chunk in new List<Vector2i>(component.LoadedChunks)) // <Onyx-BiomeRuntimeOptimization-edited>
         {
             if (active.Contains(chunk) || !component.LoadedChunks.Remove(chunk))
                 continue;

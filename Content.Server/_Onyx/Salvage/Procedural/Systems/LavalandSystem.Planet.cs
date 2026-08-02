@@ -32,7 +32,6 @@ public sealed partial class LavalandSystem
 
         try
         {
-            EnsureComp<LavalandMapComponent>(mapUid);
             var state = EnsureComp<LavalandPlanetComponent>(mapUid);
             lavaland = (mapUid, state);
             state.Seed = seed ?? _random.Next();
@@ -40,17 +39,14 @@ public sealed partial class LavalandSystem
 
             SetupPlanet(mapUid, planet, state.Seed);
             // ponytail: Warm the fixed arrival area; expand this if the Lavaland outpost moves away from the origin.
-            EnsureComp<LavalandBiomeOptimizationComponent>(mapUid).WarmupArea = new Box2(-64, -64, 64, 64);
+            EnsureComp<LavalandBiomeWarmupComponent>(mapUid).WarmupArea = new Box2(-64, -64, 64, 64);
             _map.SetPaused(mapId, true);
             LoadLayout((mapUid, state), mapId, layout);
-            SetupRuins(ruins, (mapUid, state), preloader);
+            PrepareRuins(ruins, (mapUid, state), preloader);
 
             foreach (var grid in _map.GetAllGrids(mapId))
                 _shuttle.AddIFFFlag(grid, IFFFlags.HideLabel);
 
-            if (planet.AddComponents != null)
-                EntityManager.AddComponents(mapUid, planet.AddComponents);
-            _map.InitializeMap(mapId);
             return true;
         }
         catch

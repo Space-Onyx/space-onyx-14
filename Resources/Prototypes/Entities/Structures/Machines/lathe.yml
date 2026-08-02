@@ -19,6 +19,11 @@
           - MachineLayer
   - type: Lathe
   - type: MaterialStorage
+  # <Onyx-MaterialSiloDeviceLink>
+  - type: DeviceLinkSink
+    ports:
+    - MaterialSiloUtilizer
+  # </Onyx-MaterialSiloDeviceLink>
   - type: Destructible
     thresholds:
     - trigger:

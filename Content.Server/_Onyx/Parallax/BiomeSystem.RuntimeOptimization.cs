@@ -1,5 +1,7 @@
 using System.Numerics;
-using Content.Server._Onyx.Salvage.Procedural.Components;
+using Content.Server._Onyx.Parallax.Components;
+using Content.Server.Ghost.Roles.Components;
+using Content.Shared.Ghost;
 using Content.Shared.Parallax.Biomes;
 using Content.Shared.Parallax.Biomes.Markers;
 using Content.Shared.Parallax;
@@ -15,21 +17,22 @@ public sealed partial class BiomeSystem
     private const string PlanetParallax = "bedrock";
 
     private readonly Dictionary<BiomeComponent, List<Vector2i>> _viewerChunks = new();
-    private readonly List<Vector2i> _orderedChunks = new();
-    private bool _preloadingMarkerChunk;
+    private readonly List<(Vector2i Chunk, long Distance)> _orderedChunks = new();
+    private readonly List<Vector2i> _chunksToUnload = new();
 
-    private LavalandBiomeOptimizationComponent? GetRuntimeOptimization(EntityUid gridUid)
+    private BiomeRuntimeOptimizationComponent? GetRuntimeOptimization(EntityUid gridUid)
     {
-        return TryComp<LavalandBiomeOptimizationComponent>(gridUid, out var optimization) ? optimization : null;
+        return TryComp<BiomeRuntimeOptimizationComponent>(gridUid, out var optimization) ? optimization : null;
     }
 
     private int? GetMarkerChunkBudget(EntityUid gridUid)
     {
-        return _preloadingMarkerChunk ? null : GetRuntimeOptimization(gridUid)?.MarkerChunksPerTick;
+        return GetRuntimeOptimization(gridUid)?.MarkerChunksPerTick;
     }
 
     private void EnsurePlanetParallax(EntityUid mapUid)
     {
+        EnsureComp<BiomeRuntimeOptimizationComponent>(mapUid);
         var parallax = EnsureComp<ParallaxComponent>(mapUid);
         parallax.Parallax = PlanetParallax;
         Dirty(mapUid, parallax);
@@ -51,17 +54,13 @@ public sealed partial class BiomeSystem
         _viewerChunks[biome].Add(SharedMapSystem.GetChunkIndices(tile, ChunkSize) * ChunkSize);
     }
 
-    private IEnumerable<Vector2i> GetChunksToLoad(
-        BiomeComponent component,
-        HashSet<Vector2i> active,
-        LavalandBiomeOptimizationComponent? optimization)
+    private List<(Vector2i Chunk, long Distance)> GetChunksToLoad(BiomeComponent component, HashSet<Vector2i> active)
     {
-        if (optimization == null)
-            return active;
-
         _orderedChunks.Clear();
-        _orderedChunks.AddRange(active);
-        _orderedChunks.Sort((a, b) => GetViewerDistanceSquared(component, a).CompareTo(GetViewerDistanceSquared(component, b)));
+        foreach (var chunk in active)
+            _orderedChunks.Add((chunk, GetViewerDistanceSquared(component, chunk)));
+
+        _orderedChunks.Sort(static (a, b) => a.Distance.CompareTo(b.Distance));
         return _orderedChunks;
     }
 
@@ -76,40 +75,120 @@ public sealed partial class BiomeSystem
         if (optimization == null)
             return false;
 
-        var remainingLoads = optimization.ChunkLoadsPerTick;
-        var remainingMarkerLoads = optimization.MarkerLoadsPerTick;
-        foreach (var chunk in GetChunksToLoad(component, active, optimization))
+        var remainingLoads = Math.Max(0, optimization.ChunkLoadsPerTick);
+        var remainingMarkerLoads = Math.Max(0, optimization.MarkerLoadsPerTick);
+        var remainingMarkerNodes = Math.Max(0, optimization.MarkerNodesPerTick);
+        foreach (var (chunk, _) in GetChunksToLoad(component, active))
         {
-            var immediate = IsImmediateChunk(component, chunk, optimization.ImmediateLoadRadius);
-            if ((immediate || remainingMarkerLoads > 0) && component.PendingMarkers.ContainsKey(chunk))
+            if (remainingMarkerLoads > 0 && remainingMarkerNodes > 0 && component.PendingMarkers.ContainsKey(chunk))
             {
-                LoadChunkMarkers(component, gridUid, grid, chunk, seed);
-                if (!immediate)
-                    remainingMarkerLoads--;
+                remainingMarkerNodes -= LoadChunkMarkersRuntimeOptimized(
+                    component,
+                    gridUid,
+                    grid,
+                    chunk,
+                    seed,
+                    remainingMarkerNodes);
+                remainingMarkerLoads--;
             }
 
-            if (component.LoadedChunks.Contains(chunk) || (!immediate && remainingLoads <= 0))
+            if (component.LoadedChunks.Contains(chunk) || remainingLoads <= 0)
                 continue;
 
             component.LoadedChunks.Add(chunk);
-            if (!immediate)
-                remainingLoads--;
+            remainingLoads--;
             LoadChunk(component, gridUid, grid, chunk, seed);
         }
 
         return true;
     }
 
-    private bool IsImmediateChunk(BiomeComponent component, Vector2i chunk, int radius)
+    private int LoadChunkMarkersRuntimeOptimized(
+        BiomeComponent component,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        Vector2i chunk,
+        int seed,
+        int budget)
     {
-        var maxDistance = radius * ChunkSize;
-        foreach (var viewer in _viewerChunks[component])
+        if (!component.PendingMarkers.TryGetValue(chunk, out var layers))
+            return 0;
+
+        component.ModifiedTiles.TryGetValue(chunk, out var modified);
+        modified ??= _tilePool.Get();
+        var loaded = 0;
+
+        foreach (var (layer, nodes) in new List<KeyValuePair<string, List<Vector2i>>>(layers))
         {
-            if (Math.Abs(chunk.X - viewer.X) <= maxDistance && Math.Abs(chunk.Y - viewer.Y) <= maxDistance)
-                return true;
+            var layerProto = ProtoMan.Index<BiomeMarkerLayerPrototype>(layer);
+            while (nodes.Count > 0 && loaded < budget)
+            {
+                var node = nodes[^1];
+                nodes.RemoveAt(nodes.Count - 1);
+                if (modified.Contains(node))
+                    continue;
+
+                if (TryGetBiomeTile(node, component.Layers, seed, (gridUid, grid), out var tile))
+                    _mapSystem.SetTile(gridUid, grid, node, tile.Value);
+
+                string? prototype;
+                if (TryGetEntity(node, component, (gridUid, grid), out var biomePrototype) &&
+                    layerProto.EntityMask.TryGetValue(biomePrototype, out var maskedPrototype))
+                {
+                    prototype = maskedPrototype;
+                    RemoveLoadedBiomeEntity(component, chunk, node);
+                }
+                else
+                {
+                    prototype = layerProto.Prototype;
+                }
+
+                var uid = EntityManager.CreateEntityUninitialized(
+                    prototype,
+                    _mapSystem.GridTileToLocal(gridUid, grid, node));
+                RemComp<GhostTakeoverAvailableComponent>(uid);
+                RemComp<GhostRoleComponent>(uid);
+                EntityManager.InitializeAndStartEntity(uid);
+                modified.Add(node);
+                loaded++;
+            }
+
+            if (nodes.Count == 0)
+                layers.Remove(layer);
+            if (loaded >= budget)
+                break;
         }
 
-        return false;
+        if (layers.Count == 0)
+            component.PendingMarkers.Remove(chunk);
+
+        if (modified.Count == 0)
+        {
+            component.ModifiedTiles.Remove(chunk);
+            _tilePool.Return(modified);
+        }
+        else
+        {
+            component.ModifiedTiles[chunk] = modified;
+        }
+
+        return loaded;
+    }
+
+    private void RemoveLoadedBiomeEntity(BiomeComponent component, Vector2i chunk, Vector2i node)
+    {
+        if (!component.LoadedEntities.TryGetValue(chunk, out var entities))
+            return;
+
+        foreach (var (uid, origin) in new List<KeyValuePair<EntityUid, Vector2i>>(entities))
+        {
+            if (origin != node)
+                continue;
+
+            entities.Remove(uid);
+            Del(uid);
+            return;
+        }
     }
 
     private long GetViewerDistanceSquared(BiomeComponent component, Vector2i chunk)
@@ -125,26 +204,31 @@ public sealed partial class BiomeSystem
         return nearest;
     }
 
-    private static List<Vector2i> GetMarkerChunksToBuild(
+    private List<Vector2i> GetMarkerChunksToBuild(
+        BiomeComponent component,
         HashSet<Vector2i> chunks,
         Dictionary<string, HashSet<Vector2i>> loadedMarkers,
         string layer,
         int budget)
     {
-        var selected = new List<Vector2i>(Math.Min(chunks.Count, budget));
+        _orderedChunks.Clear();
         foreach (var chunk in chunks)
         {
-            if (selected.Count >= budget)
-                break;
-
             if (!loadedMarkers.TryGetValue(layer, out var loaded) || !loaded.Contains(chunk))
-                selected.Add(chunk);
+                _orderedChunks.Add((chunk, GetViewerDistanceSquared(component, chunk)));
         }
+
+        _orderedChunks.Sort(static (a, b) => a.Distance.CompareTo(b.Distance));
+        var count = Math.Min(_orderedChunks.Count, Math.Max(0, budget));
+        var selected = new List<Vector2i>(count);
+        for (var i = 0; i < count; i++)
+            selected.Add(_orderedChunks[i].Chunk);
 
         return selected;
     }
 
-    private static IEnumerable<Vector2i> GetMarkerChunksToBuild(
+    private IEnumerable<Vector2i> GetMarkerChunksToBuild(
+        BiomeComponent component,
         HashSet<Vector2i> chunks,
         Dictionary<string, HashSet<Vector2i>> loadedMarkers,
         string layer,
@@ -155,13 +239,13 @@ public sealed partial class BiomeSystem
         if (forced || budget == null)
             return chunks;
 
-        var selected = GetMarkerChunksToBuild(chunks, loadedMarkers, layer, remainingBudget);
+        var selected = GetMarkerChunksToBuild(component, chunks, loadedMarkers, layer, remainingBudget);
         remainingBudget -= selected.Count;
         return selected;
     }
 
     private static bool CanUnloadChunk(
-        LavalandBiomeOptimizationComponent? optimization,
+        BiomeRuntimeOptimizationComponent? optimization,
         Vector2i chunk,
         float frameTime,
         int remainingUnloads)
@@ -187,7 +271,8 @@ public sealed partial class BiomeSystem
 
         var active = _activeChunks[component];
         List<(Vector2i, Tile)>? tiles = null;
-        var remainingUnloads = optimization.ChunkUnloadsPerTick;
+        var remainingUnloads = Math.Max(0, optimization.ChunkUnloadsPerTick);
+        _chunksToUnload.Clear();
         foreach (var chunk in component.LoadedChunks)
         {
             if (active.Contains(chunk))
@@ -196,13 +281,18 @@ public sealed partial class BiomeSystem
                 continue;
             }
 
-            if (!CanUnloadChunk(optimization, chunk, frameTime, remainingUnloads) || !component.LoadedChunks.Remove(chunk))
+            if (!CanUnloadChunk(optimization, chunk, frameTime, remainingUnloads))
                 continue;
 
+            _chunksToUnload.Add(chunk);
+            remainingUnloads--;
+        }
+
+        foreach (var chunk in _chunksToUnload)
+        {
             tiles ??= new List<(Vector2i, Tile)>(ChunkSize * ChunkSize);
             UnloadChunk(component, gridUid, grid, chunk, seed, tiles);
             optimization.InactiveChunks.Remove(chunk);
-            remainingUnloads--;
         }
 
         return true;
@@ -229,15 +319,17 @@ public sealed partial class BiomeSystem
         foreach (var markerLayer in component.MarkerLayers)
             markerChunks.GetOrNew(markerLayer);
         markerChunks[layer].Add(chunk);
-        _preloadingMarkerChunk = true;
-        try
+
+        var layerIndex = 0;
+        foreach (var markerLayer in component.MarkerLayers)
         {
-            BuildMarkerChunks(component, gridUid, grid, component.Seed);
+            layerIndex++;
+            if (markerLayer == layer)
+                break;
         }
-        finally
-        {
-            _preloadingMarkerChunk = false;
-        }
-        return true;
+
+        QueueMarkerChunkGeneration(component, gridUid, grid, layer, chunk, component.Seed, layerIndex,
+            component.ForcedMarkerLayers.Contains(layer));
+        return false;
     }
 }

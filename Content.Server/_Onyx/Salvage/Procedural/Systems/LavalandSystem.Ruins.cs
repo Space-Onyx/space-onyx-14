@@ -17,26 +17,68 @@ public sealed partial class LavalandSystem
     private readonly List<(Vector2i, Tile)> _tiles = new();
     private readonly Dictionary<ProtoId<LavalandGridRuinPrototype>, Box2> _ruinBounds = new();
 
-    private void SetupRuins(
+    private void PrepareRuins(
         LavalandRuinPoolPrototype pool,
         Entity<LavalandPlanetComponent> lavaland,
         Entity<LavalandPreloaderComponent> preloader)
     {
         var random = new Random(lavaland.Comp.Seed);
-        var usedSpace = GetLayoutBounds(lavaland);
-        var coordinates = GetCoordinates(pool.RuinDistance, pool.MaxDistance);
-        Shuffle(coordinates, random);
+        lavaland.Comp.Preloader = preloader;
+        lavaland.Comp.UsedSpace = GetLayoutBounds(lavaland);
+        lavaland.Comp.RuinCoordinates = GetCoordinates(pool.RuinDistance, pool.MaxDistance);
+        Shuffle(lavaland.Comp.RuinCoordinates, random);
+        lavaland.Comp.GridRuins = new Queue<LavalandGridRuinPrototype>(
+            Expand(pool.GridRuins).OrderBy(prototype => prototype.Priority));
+        lavaland.Comp.DungeonRuins = new Queue<LavalandDungeonRuinPrototype>(
+            Expand(pool.DungeonRuins).OrderBy(prototype => prototype.Priority));
+        lavaland.Comp.MarkerRuins = new Queue<LavalandMarkerRuinPrototype>(
+            Expand(pool.MarkerRuins).OrderBy(prototype => prototype.Priority));
+        lavaland.Comp.GenerationStage = LavalandGenerationStage.GridRuins;
+    }
 
-        foreach (var ruin in Expand(pool.GridRuins).OrderBy(prototype => prototype.Priority))
-            LoadGridRuin(ruin, lavaland, preloader, coordinates, usedSpace);
-        RemoveOccupiedCoordinates(coordinates, usedSpace);
-
-        foreach (var ruin in Expand(pool.DungeonRuins).OrderBy(prototype => prototype.Priority))
-            LoadDungeonRuin(ruin, lavaland, coordinates, usedSpace);
-        RemoveOccupiedCoordinates(coordinates, usedSpace);
-
-        foreach (var ruin in Expand(pool.MarkerRuins).OrderBy(prototype => prototype.Priority))
-            LoadMarkerRuin(ruin, lavaland, coordinates, usedSpace);
+    private bool ProcessNextRuin(Entity<LavalandPlanetComponent> lavaland)
+    {
+        switch (lavaland.Comp.GenerationStage)
+        {
+            case LavalandGenerationStage.GridRuins:
+                if (lavaland.Comp.GridRuins.TryDequeue(out var gridRuin))
+                {
+                    LoadGridRuin(gridRuin,
+                        lavaland,
+                        (lavaland.Comp.Preloader, Comp<LavalandPreloaderComponent>(lavaland.Comp.Preloader)),
+                        lavaland.Comp.RuinCoordinates,
+                        lavaland.Comp.UsedSpace);
+                    return true;
+                }
+                RemoveOccupiedCoordinates(lavaland.Comp.RuinCoordinates, lavaland.Comp.UsedSpace);
+                lavaland.Comp.GenerationStage = LavalandGenerationStage.DungeonRuins;
+                return true;
+            case LavalandGenerationStage.DungeonRuins:
+                if (lavaland.Comp.DungeonRuins.TryDequeue(out var dungeonRuin))
+                {
+                    LoadDungeonRuin(dungeonRuin,
+                        lavaland,
+                        lavaland.Comp.RuinCoordinates,
+                        lavaland.Comp.UsedSpace);
+                    return true;
+                }
+                RemoveOccupiedCoordinates(lavaland.Comp.RuinCoordinates, lavaland.Comp.UsedSpace);
+                lavaland.Comp.GenerationStage = LavalandGenerationStage.MarkerRuins;
+                return true;
+            case LavalandGenerationStage.MarkerRuins:
+                if (lavaland.Comp.MarkerRuins.TryDequeue(out var markerRuin))
+                {
+                    LoadMarkerRuin(markerRuin,
+                        lavaland,
+                        lavaland.Comp.RuinCoordinates,
+                        lavaland.Comp.UsedSpace);
+                    return true;
+                }
+                lavaland.Comp.GenerationStage = LavalandGenerationStage.Initializing;
+                return true;
+            default:
+                return false;
+        }
     }
 
     private List<Box2> GetLayoutBounds(Entity<LavalandPlanetComponent> lavaland)
