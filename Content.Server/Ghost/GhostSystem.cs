@@ -224,7 +224,7 @@ namespace Content.Server.Ghost
             }
 
             _eye.RefreshVisibilityMask(uid);
-            var time = _gameTiming.RealTime;
+            var time = _gameTiming.CurTime; // <Onyx-GhostTimer-edited>
             component.TimeOfDeath = time;
 
             // <Onyx-Ghost>
