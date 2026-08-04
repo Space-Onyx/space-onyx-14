@@ -5,6 +5,7 @@ using Content.Shared.Effects;
 using Content.Shared.Speech.Components;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Weapons.Melee.Events;
+using Content.Shared.Vehicle.Components; // <Onyx-MechMeleeRange>
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 using System.Linq;
@@ -47,8 +48,11 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
         // Could also check the arc though future effort + if they're aimbotting it's not really going to make a difference.
 
         // (This runs lagcomp internally and is what clickattacks use)
-        if (!Interaction.InRangeUnobstructed(ignore, targetUid, range + 0.1f, overlapCheck: false))
+        // <Onyx-MechMeleeRange-edited>
+        var attackOrigin = CompOrNull<VehicleOperatorComponent>(ignore)?.Vehicle ?? ignore;
+        if (!Interaction.InRangeUnobstructed(attackOrigin, targetUid, range + 0.1f, overlapCheck: false))
             return false;
+        // </Onyx-MechMeleeRange-edited>
 
         // TODO: Check arc though due to the aforementioned aimbot + damage split comments it's less important.
         return true;
@@ -56,6 +60,7 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
 
     protected override bool InRange(EntityUid user, EntityUid target, float range, ICommonSession? session)
     {
+        user = CompOrNull<VehicleOperatorComponent>(user)?.Vehicle ?? user; // <Onyx-MechMeleeRange>
         EntityCoordinates targetCoordinates;
         Angle targetLocalAngle;
 

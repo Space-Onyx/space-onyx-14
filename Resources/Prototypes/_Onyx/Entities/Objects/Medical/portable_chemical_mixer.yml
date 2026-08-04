@@ -38,11 +38,11 @@
         whitelistFailPopup: chem-master-component-cannot-put-entity-message
         whitelist:
           tags: [ Bottle, PillCanister ]
-  - type: SolutionContainerManager
-    solutions:
-      buffer:
-        maxVol: 600
-        canReact: false
+  - type: Solution
+    id: buffer
+    solution:
+      maxVol: 600
+      canReact: false
   - type: DumpableSolution
     solution: buffer
   - type: GuideHelp

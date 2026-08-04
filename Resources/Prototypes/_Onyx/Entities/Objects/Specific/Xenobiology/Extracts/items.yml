@@ -8,6 +8,21 @@
     sprite: _Onyx/Xenobiology/Items/volatile_organ.rsi
     layers:
     - state: icon
+      map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+  - type: Item
+    size: Normal
+    inhandVisuals:
+      left:
+      - state: inhand-left
+      right:
+      - state: inhand-right
+  - type: GenericVisualizer
+    visuals:
+      enum.BatteryVisuals.State:
+        enum.PowerCellVisualLayers.Unshaded:
+          Full: { state: icon }
+          Neither: { state: icon }
+          Empty: { state: icon }
   - type: Battery
     pricePerJoule: 0.15
     maxCharge: 5200

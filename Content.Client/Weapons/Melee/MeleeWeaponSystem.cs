@@ -10,6 +10,7 @@ using Content.Shared.Weapons.Melee;
 using Content.Shared.Weapons.Melee.Components;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Weapons.Ranged.Components;
+using Content.Shared.Vehicle.Components; // <Onyx-MechMeleeRange>
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.Input;
@@ -186,13 +187,16 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
         if (targetMap.MapId != userXform.MapID)
             return;
 
-        var userPos = TransformSystem.GetWorldPosition(userXform);
+        // <Onyx-MechMeleeRange-edited>
+        var attackOrigin = CompOrNull<VehicleOperatorComponent>(user)?.Vehicle ?? user;
+        var userPos = TransformSystem.GetWorldPosition(Transform(attackOrigin));
         var direction = targetMap.Position - userPos;
         var distance = MathF.Min(component.Range, direction.Length());
 
         // This should really be improved. GetEntitiesInArc uses pos instead of bounding boxes.
         // Server will validate it with InRangeUnobstructed.
-        var entities = GetNetEntityList(ArcRayCast(userPos, direction.ToWorldAngle(), component.Angle, distance, userXform.MapID, user).ToList());
+        var entities = GetNetEntityList(ArcRayCast(userPos, direction.ToWorldAngle(), component.Angle, distance, userXform.MapID, attackOrigin).ToList());
+        // </Onyx-MechMeleeRange-edited>
         RaisePredictiveEvent(new HeavyAttackEvent(GetNetEntity(meleeUid), entities.GetRange(0, Math.Min(MaxTargets, entities.Count)), GetNetCoordinates(coordinates)));
     }
 

@@ -9,9 +9,7 @@
   - type: Tag
     tags: [ Pickaxe, IndustrialMech ]
   - type: MeleeWeapon
-    canWideSwing: false
     autoAttack: true
-    angle: 0
     wideAnimationRotation: -90
     attackRate: 3.5
     soundHit:
@@ -33,9 +31,7 @@
   - type: Tag
     tags: [ Pickaxe, IndustrialMech ]
   - type: MeleeWeapon
-    canWideSwing: false
     autoAttack: true
-    angle: 0
     wideAnimationRotation: -90
     attackRate: 4
     soundHit:
@@ -57,7 +53,6 @@
     state: mecha_chainsword
   - type: MeleeWeapon
     autoAttack: true
-    angle: 0
     wideAnimationRotation: -90
     attackRate: 3.5
     soundHit:

@@ -32,3 +32,6 @@
     walkModifier: 0.5
     sprintModifier: 0.5
   - type: HeldSpeedModifier
+  - type: MeleeWeapon
+    angle: 0
+    range: 1

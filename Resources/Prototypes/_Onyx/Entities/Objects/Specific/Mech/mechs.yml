@@ -58,13 +58,21 @@
     baseState: ripleymkii
     openState: ripleymkii-open
     brokenState: ripleymkii-broken
-    mechToPilotDamageMultiplier: 0.4
     airtight: true
     maxIntegrity: 250
     maxEquipmentAmount: 3
-    pilotWhitelist:
+  - type: Vehicle
+    operatorWhitelist:
       components:
       - HumanoidProfile
+    transferDamageModifier:
+      coefficients:
+        Blunt: 0.4
+        Slash: 0.4
+        Piercing: 0.4
+        Cold: 0.4
+        Heat: 0.4
+        Shock: 0.4
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -108,13 +116,21 @@
     baseState: clarke
     openState: clarke-open
     brokenState: clarke-broken
-    mechToPilotDamageMultiplier: 0.5
     airtight: true
     maxIntegrity: 250
     maxEquipmentAmount: 3
-    pilotWhitelist:
+  - type: Vehicle
+    operatorWhitelist:
       components:
       - HumanoidProfile
+    transferDamageModifier:
+      coefficients:
+        Blunt: 0.5
+        Slash: 0.5
+        Piercing: 0.5
+        Cold: 0.5
+        Heat: 0.5
+        Shock: 0.5
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -158,13 +174,21 @@
     baseState: gygax
     openState: gygax-open
     brokenState: gygax-broken
-    mechToPilotDamageMultiplier: 0.3
     airtight: true
     maxIntegrity: 250
     maxEquipmentAmount: 3
-    pilotWhitelist:
+  - type: Vehicle
+    operatorWhitelist:
       components:
       - HumanoidProfile
+    transferDamageModifier:
+      coefficients:
+        Blunt: 0.3
+        Slash: 0.3
+        Piercing: 0.3
+        Cold: 0.3
+        Heat: 0.3
+        Shock: 0.3
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -262,13 +286,21 @@
     baseState: marauder
     openState: marauder-open
     brokenState: marauder-broken
-    mechToPilotDamageMultiplier: 0.1
     airtight: true
     maxIntegrity: 500
     maxEquipmentAmount: 4
-    pilotWhitelist:
+  - type: Vehicle
+    operatorWhitelist:
       components:
       - HumanoidProfile
+    transferDamageModifier:
+      coefficients:
+        Blunt: 0.1
+        Slash: 0.1
+        Piercing: 0.1
+        Cold: 0.1
+        Heat: 0.1
+        Shock: 0.1
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -337,13 +369,21 @@
     baseState: seraph
     openState: seraph-open
     brokenState: seraph-broken
-    mechToPilotDamageMultiplier: 0.05
     airtight: true
     maxIntegrity: 550
     maxEquipmentAmount: 5
-    pilotWhitelist:
+  - type: Vehicle
+    operatorWhitelist:
       components:
       - HumanoidProfile
+    transferDamageModifier:
+      coefficients:
+        Blunt: 0.05
+        Slash: 0.05
+        Piercing: 0.05
+        Cold: 0.05
+        Heat: 0.05
+        Shock: 0.05
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -413,13 +453,21 @@
     baseState: darkgygax
     openState: darkgygax-open
     brokenState: darkgygax-broken
-    mechToPilotDamageMultiplier: 0.15
     airtight: true
     maxIntegrity: 300
     maxEquipmentAmount: 4
-    pilotWhitelist:
+  - type: Vehicle
+    operatorWhitelist:
       components:
       - HumanoidProfile
+    transferDamageModifier:
+      coefficients:
+        Blunt: 0.15
+        Slash: 0.15
+        Piercing: 0.15
+        Cold: 0.15
+        Heat: 0.15
+        Shock: 0.15
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -488,13 +536,21 @@
     baseState: mauler
     openState: mauler-open
     brokenState: mauler-broken
-    mechToPilotDamageMultiplier: 0.1
     airtight: true
     maxIntegrity: 500
     maxEquipmentAmount: 5
-    pilotWhitelist:
+  - type: Vehicle
+    operatorWhitelist:
       components:
       - HumanoidProfile
+    transferDamageModifier:
+      coefficients:
+        Blunt: 0.1
+        Slash: 0.1
+        Piercing: 0.1
+        Cold: 0.1
+        Heat: 0.1
+        Shock: 0.1
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -564,13 +620,21 @@
     baseState: durand
     openState: durand-open
     brokenState: durand-broken
-    mechToPilotDamageMultiplier: 0.25
     airtight: true
     maxIntegrity: 400
     maxEquipmentAmount: 3
-    pilotWhitelist:
+  - type: Vehicle
+    operatorWhitelist:
       components:
       - HumanoidProfile
+    transferDamageModifier:
+      coefficients:
+        Blunt: 0.25
+        Slash: 0.25
+        Piercing: 0.25
+        Cold: 0.25
+        Heat: 0.25
+        Shock: 0.25
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
