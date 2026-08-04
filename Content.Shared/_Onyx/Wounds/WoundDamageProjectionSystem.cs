@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Shared.Body;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
@@ -136,7 +137,21 @@ public sealed partial class WoundDamageProjectionSystem : EntitySystem
 
         try
         {
-            var total = CompOrNull<SystemicDamageComponent>(body)?.Damage.Clone() ?? new DamageSpecifier();
+            var total = new DamageSpecifier();
+            if (TryComp(body, out SystemicDamageComponent? systemic))
+            {
+                foreach (var (type, amount) in systemic.Damage.DamageDict.ToArray())
+                {
+                    if (_damage.CanBeDamagedBy(body, type))
+                    {
+                        total.DamageDict[type] = amount;
+                        continue;
+                    }
+
+                    systemic.Damage.DamageDict.Remove(type);
+                    Dirty(body, systemic);
+                }
+            }
             var visual = EnsureComp<PartDamageVisualsComponent>(body);
             visual.Damage.Clear();
             foreach (var (part, _) in _body.GetBodyChildren(body))

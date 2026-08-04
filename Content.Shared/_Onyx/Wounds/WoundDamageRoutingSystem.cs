@@ -452,6 +452,9 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         var changed = false;
         foreach (var (type, amount) in change.DamageDict)
         {
+            if (!_damage.CanBeDamagedBy(body, type))
+                continue;
+
             var oldValue = systemic.Damage.DamageDict.GetValueOrDefault(type);
             var value = FixedPoint2.Max(FixedPoint2.Zero, systemic.Damage.DamageDict.GetValueOrDefault(type) + amount);
             if (value == oldValue)
