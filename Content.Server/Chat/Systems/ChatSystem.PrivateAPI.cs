@@ -10,6 +10,7 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Eye.Blinding.Components;
 // </Onyx-SignLanguage>
 using Content.Shared.Radio;
+using Content.Shared.Speech; // <Onyx-LanguageAppearance>
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes; // <Onyx-OSayLanguage>
@@ -72,20 +73,21 @@ public sealed partial class ChatSystem
         // <Onyx-Loudspeaker>
         var loudspeakerFontSize = GetLoudspeakerFontSize(source, false);
         // </Onyx-Loudspeaker>
-        var wrappedMessage = Loc.GetString(speech.Bold ? "chat-manager-entity-say-bold-wrap-message" : "chat-manager-entity-say-wrap-message",
-            ("entityName", name),
-            ("verb", speechVerb),
-            ("fontType", speech.FontId),
-            ("fontSize", loudspeakerFontSize ?? speech.FontSize), // <Onyx-Loudspeaker-edited>
-            ("message", inlineFormattedMessage));
-
         // <Onyx-Languages-edited>
         var language = languageOverride is { } languageId && ProtoMan.TryIndex(languageId, out LanguagePrototype? overrideLanguage)
             ? overrideLanguage
             : _language.GetCurrentLanguage(source); // <Onyx-OSayLanguage-edited>
-        // <Onyx-SignLanguage>
-        var isSignLanguage = language.ID == "Sign";
-        // </Onyx-SignLanguage>
+        var wrappedMessage = WrapLanguageMessage(
+            speech.Bold ? "chat-manager-entity-say-language-bold-wrap-message" : "chat-manager-entity-say-language-wrap-message",
+            name,
+            speechVerb,
+            inlineFormattedMessage,
+            speech,
+            language,
+            loudspeakerFontSize);
+        // <Onyx-SignLanguage-edited>
+        var isSignLanguage = language.RequiresSight;
+        // </Onyx-SignLanguage-edited>
         var obfuscated = InlineActionFormatter.RestoreActions(_language.Obfuscate(protectedMessage, language), inlineReplacements);
         foreach (var (session, data) in GetRecipients(source, VoiceRange))
         {
@@ -107,12 +109,14 @@ public sealed partial class ChatSystem
             var understood = _language.CanUnderstand(listener, language.ID);
             var perceived = understood ? restoredMessage : obfuscated;
             var perceivedContent = InlineActionFormatter.Format(FormattedMessage.EscapeText(perceived));
-            var perceivedWrap = Loc.GetString(speech.Bold ? "chat-manager-entity-say-bold-wrap-message" : "chat-manager-entity-say-wrap-message",
-                ("entityName", name),
-                ("verb", speechVerb),
-                ("fontType", speech.FontId),
-                ("fontSize", loudspeakerFontSize ?? speech.FontSize), // <Onyx-Loudspeaker-edited>
-                ("message", perceivedContent));
+            var perceivedWrap = WrapLanguageMessage(
+                speech.Bold ? "chat-manager-entity-say-language-bold-wrap-message" : "chat-manager-entity-say-language-wrap-message",
+                name,
+                speechVerb,
+                perceivedContent,
+                speech,
+                language,
+                loudspeakerFontSize);
             _chatManager.ChatMessageToOne(ChatChannel.Local, perceived, perceivedWrap, source,
                 entRange == MessageRangeCheckResult.HideChat, session.Channel);
         }
@@ -173,9 +177,9 @@ public sealed partial class ChatSystem
         var language = languageOverride is { } languageId && ProtoMan.TryIndex(languageId, out LanguagePrototype? overrideLanguage)
             ? overrideLanguage
             : _language.GetCurrentLanguage(source); // <Onyx-OSayLanguage-edited>
-        // <Onyx-SignLanguage>
-        var isSignLanguage = language.ID == "Sign";
-        // </Onyx-SignLanguage>
+        // <Onyx-SignLanguage-edited>
+        var isSignLanguage = language.RequiresSight;
+        // </Onyx-SignLanguage-edited>
         var languageObfuscatedMessage = InlineActionFormatter.RestoreActions(_language.Obfuscate(protectedMessage, language), inlineReplacements);
         var obfuscatedMessage = ObfuscateMessageReadability(restoredMessage, 0.2f);
         // </Onyx-Languages-edited>
@@ -198,8 +202,7 @@ public sealed partial class ChatSystem
 
         var content = FormattedMessage.EscapeText(restoredMessage);
         var inlineFormattedMessage = InlineActionFormatter.Format(content); // <Onyx-InlineActions>
-        var wrappedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
-            ("entityName", name), ("message", inlineFormattedMessage));
+        var wrappedMessage = WrapLanguageWhisper(name, inlineFormattedMessage, language);
 
         foreach (var (session, data) in GetRecipients(source, WhisperMuffledRange))
         {
@@ -221,9 +224,10 @@ public sealed partial class ChatSystem
 
             // <Onyx-Languages-edited>
             var understoodMessage = _language.CanUnderstand(listener, language.ID) ? restoredMessage : languageObfuscatedMessage;
-            var understoodWrap = Loc.GetString("chat-manager-entity-whisper-wrap-message",
-                ("entityName", name),
-                ("message", InlineActionFormatter.Format(FormattedMessage.EscapeText(understoodMessage))));
+            var understoodWrap = WrapLanguageWhisper(
+                name,
+                InlineActionFormatter.Format(FormattedMessage.EscapeText(understoodMessage)),
+                language);
 
             if (data.Range <= WhisperClearRange || data.Observer)
                 _chatManager.ChatMessageToOne(ChatChannel.Whisper, understoodMessage, understoodWrap, source, false, session.Channel);
@@ -231,17 +235,21 @@ public sealed partial class ChatSystem
             else if (_examineSystem.InRangeUnOccluded(source, listener, WhisperMuffledRange))
             {
                 var muffled = ObfuscateMessageReadability(understoodMessage, 0.2f);
-                var muffledWrap = Loc.GetString("chat-manager-entity-whisper-wrap-message",
-                    ("entityName", nameIdentity),
-                    ("message", InlineActionFormatter.Format(FormattedMessage.EscapeText(muffled))));
+                var muffledWrap = WrapLanguageWhisper(
+                    nameIdentity,
+                    InlineActionFormatter.Format(FormattedMessage.EscapeText(muffled)),
+                    language);
                 _chatManager.ChatMessageToOne(ChatChannel.Whisper, muffled, muffledWrap, source, false, session.Channel);
             }
             //If listener is too far and has no line of sight, they can't identify the whisperer's identity
             else
             {
                 var muffled = ObfuscateMessageReadability(understoodMessage, 0.2f);
-                var unknownWrap = Loc.GetString("chat-manager-entity-whisper-unknown-wrap-message",
-                    ("message", InlineActionFormatter.Format(FormattedMessage.EscapeText(muffled))));
+                var unknownWrap = WrapLanguageWhisper(
+                    string.Empty,
+                    InlineActionFormatter.Format(FormattedMessage.EscapeText(muffled)),
+                    language,
+                    "chat-manager-entity-whisper-unknown-language-wrap-message");
                 _chatManager.ChatMessageToOne(ChatChannel.Whisper, muffled, unknownWrap, source, false, session.Channel);
             }
             // </Onyx-Languages-edited>
@@ -269,6 +277,49 @@ public sealed partial class ChatSystem
                     $"Whisper from {source}, original: {originalMessage}, transformed: {message}.");
             }
     }
+
+    // <Onyx-LanguageAppearance>
+    private string WrapLanguageMessage(
+        LocId wrapId,
+        string name,
+        string verb,
+        string message,
+        SpeechVerbPrototype speech,
+        LanguagePrototype language,
+        int? fontSize = null)
+    {
+        var color = language.Speech.Color is { } overrideColor
+            ? Color.InterpolateBetween(Color.White, overrideColor, overrideColor.A)
+            : Color.White;
+
+        return Loc.GetString(wrapId,
+            ("entityName", name),
+            ("verb", verb),
+            ("color", color),
+            ("fontType", language.Speech.FontId ?? speech.FontId),
+            ("boldFontType", language.Speech.BoldFontId ?? language.Speech.FontId ?? speech.FontId),
+            ("fontSize", fontSize ?? language.Speech.FontSize ?? speech.FontSize),
+            ("message", message));
+    }
+
+    private string WrapLanguageWhisper(
+        string name,
+        string message,
+        LanguagePrototype language,
+        string wrapId = "chat-manager-entity-whisper-language-wrap-message")
+    {
+        var color = language.Speech.Color is { } overrideColor
+            ? Color.InterpolateBetween(Color.White, overrideColor, overrideColor.A)
+            : Color.White;
+
+        return Loc.GetString(wrapId,
+            ("entityName", name),
+            ("color", color),
+            ("fontType", language.Speech.FontId ?? "DefaultItalic"),
+            ("fontSize", language.Speech.FontSize ?? 11),
+            ("message", message));
+    }
+    // </Onyx-LanguageAppearance>
 
     protected override void SendEntityEmote(
         EntityUid source,

@@ -1,0 +1,3 @@
+paper-language-cannot-write = The selected language cannot be written on paper.
+paper-language-loading = The writing is coming into focus...
+paper-language-cannot-edit-unknown = You cannot partially modify text in an unknown language. You can erase or replace it entirely.

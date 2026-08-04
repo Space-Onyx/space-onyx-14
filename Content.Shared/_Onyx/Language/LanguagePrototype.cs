@@ -12,11 +12,36 @@ public sealed partial class LanguagePrototype : IPrototype
     [DataField]
     public bool IsVisibleLanguage;
 
+    [DataField]
+    public bool AlwaysUnderstood;
+
+    [DataField]
+    public bool RequiresSight;
+
+    [DataField]
+    public LanguageSpeechOverride Speech = new();
+
     [DataField("obfuscation")]
     public ObfuscationMethod Obfuscation = new ReplacementObfuscation();
 
     public string Name => Loc.GetString($"language-{ID}-name");
     public string Description => Loc.GetString($"language-{ID}-description");
+}
+
+[DataDefinition]
+public sealed partial class LanguageSpeechOverride
+{
+    [DataField]
+    public Color? Color;
+
+    [DataField]
+    public string? FontId;
+
+    [DataField]
+    public string? BoldFontId;
+
+    [DataField]
+    public int? FontSize;
 }
 
 [ImplicitDataDefinitionForInheritors]

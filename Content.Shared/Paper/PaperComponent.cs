@@ -8,7 +8,7 @@ namespace Content.Shared.Paper;
 public sealed partial class PaperComponent : Component
 {
     public PaperAction Mode;
-    [DataField("content"), AutoNetworkedField]
+    [DataField("content")] // <Onyx-PaperLanguages-edited>
     public string Content { get; set; } = "";
 
     [DataField("contentSize")]

@@ -1,0 +1,123 @@
+- type: language
+  id: Tradeband
+  speech:
+    color: "#597d35"
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - ла
+    - ди
+    - фа
+    - ри
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Freespeak
+  speech:
+    color: "#91c756"
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - ба
+    - ха
+    - ра
+    - ка
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Elyran
+  speech:
+    color: "#c480e8aa"
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - аф
+    - ха
+    - ра
+    - за
+    minSyllables: 1
+    maxSyllables: 4
+- type: language
+  id: NovuNederic
+  speech:
+    color: "#df6e14dd"
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - ба
+    - брем
+    - деуф
+    - клом
+    minSyllables: 1
+    maxSyllables: 4
+- type: language
+  id: Marish
+  speech:
+    color: "#be3cc5"
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - мра
+    - шр
+    - ис
+    - са
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: ValyrianStandard
+  speech:
+    color: "#46ce83"
+    fontSize: 13
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - ва
+    - ли
+    - ри
+    - ан
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: SpaceItalian
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - mamma
+    - mia
+    - pasta
+    - pizza
+    minSyllables: 1
+    maxSyllables: 1
+- type: language
+  id: YowKriol
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - a
+    - kin
+    - mob
+    - wan
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Gruntish
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - бах
+    - грр
+    - уг
+    - бругх
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Nehina
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - ка
+    - па
+    - та
+    - ма
+    minSyllables: 2
+    maxSyllables: 5

@@ -12,6 +12,7 @@ using Robust.Shared.Audio.Systems;
 using static Content.Shared.Paper.PaperComponent;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
+using Content.Shared._Onyx.Language.Paper; // <Onyx-PaperLanguages>
 
 namespace Content.Shared.Paper;
 
@@ -76,6 +77,8 @@ public sealed partial class PaperSystem : EntitySystem
     {
         entity.Comp.Mode = PaperAction.Read;
         UpdateUserInterface(entity);
+        var prepareView = new PaperLanguageViewPrepareEvent(args.User); // <Onyx-PaperLanguages>
+        RaiseLocalEvent(entity, ref prepareView); // <Onyx-PaperLanguages>
     }
 
     private void OnExamined(Entity<PaperComponent> entity, ref ExaminedEvent args)
@@ -144,6 +147,8 @@ public sealed partial class PaperSystem : EntitySystem
                 RaiseLocalEvent(args.Used, ref writeEvent);
 
                 entity.Comp.Mode = PaperAction.Write;
+                var prepareView = new PaperLanguageViewPrepareEvent(args.User, true); // <Onyx-PaperLanguages>
+                RaiseLocalEvent(entity, ref prepareView); // <Onyx-PaperLanguages>
                 _uiSystem.OpenUi(entity.Owner, PaperUiKey.Key, args.User);
                 UpdateUserInterface(entity);
             }
@@ -187,27 +192,35 @@ public sealed partial class PaperSystem : EntitySystem
             return;
 
         if (args.Text.Length <= entity.Comp.ContentSize)
+            ApplyWrittenContent(entity, args.Actor, args.Text); // <Onyx-PaperLanguages-edited>
+        else
         {
-            SetContent(entity, args.Text);
-
-            var paperStatus = string.IsNullOrWhiteSpace(args.Text) ? PaperStatus.Blank : PaperStatus.Written;
-
-            if (TryComp<AppearanceComponent>(entity, out var appearance))
-                _appearance.SetData(entity, PaperVisuals.Status, paperStatus, appearance);
-
-            if (TryComp(entity, out MetaDataComponent? meta))
-                _metaSystem.SetEntityDescription(entity, "", meta);
-
-            _adminLogger.Add(LogType.Chat,
-                LogImpact.Low,
-                $"{ToPrettyString(args.Actor):player} has written on {ToPrettyString(entity):entity} the following text: {args.Text}");
-
-            _audio.PlayPvs(entity.Comp.Sound, entity);
+            entity.Comp.Mode = PaperAction.Read;
+            UpdateUserInterface(entity);
         }
+    }
 
+    // <Onyx-PaperLanguages>
+    public void ApplyWrittenContent(Entity<PaperComponent> entity, EntityUid actor, string content)
+    {
         entity.Comp.Mode = PaperAction.Read;
+        SetContent(entity, content);
+
+        var paperStatus = string.IsNullOrWhiteSpace(content) ? PaperStatus.Blank : PaperStatus.Written;
+        if (TryComp<AppearanceComponent>(entity, out var appearance))
+            _appearance.SetData(entity, PaperVisuals.Status, paperStatus, appearance);
+
+        if (TryComp(entity, out MetaDataComponent? meta))
+            _metaSystem.SetEntityDescription(entity, "", meta);
+
+        _adminLogger.Add(LogType.Chat,
+            LogImpact.Low,
+            $"{ToPrettyString(actor):player} has written on {ToPrettyString(entity):entity} the following text: {content}");
+        _audio.PlayPvs(entity.Comp.Sound, entity);
+
         UpdateUserInterface(entity);
     }
+    // </Onyx-PaperLanguages>
 
     private void OnRandomPaperContentMapInit(Entity<RandomPaperContentComponent> ent, ref MapInitEvent args)
     {
@@ -290,6 +303,9 @@ public sealed partial class PaperSystem : EntitySystem
         Dirty(entity);
         UpdateUserInterface(entity);
 
+        var contentChanged = new PaperContentChangedEvent(); // <Onyx-PaperLanguages>
+        RaiseLocalEvent(entity, ref contentChanged); // <Onyx-PaperLanguages>
+
         if (!TryComp<AppearanceComponent>(entity, out var appearance))
             return;
 
@@ -302,7 +318,7 @@ public sealed partial class PaperSystem : EntitySystem
 
     private void UpdateUserInterface(Entity<PaperComponent> entity)
     {
-        _uiSystem.SetUiState(entity.Owner, PaperUiKey.Key, new PaperBoundUserInterfaceState(entity.Comp.Content, entity.Comp.StampedBy, entity.Comp.Mode));
+        _uiSystem.SetUiState(entity.Owner, PaperUiKey.Key, new PaperBoundUserInterfaceState(string.Empty, entity.Comp.StampedBy, entity.Comp.Mode)); // <Onyx-PaperLanguages-edited>
     }
 }
 

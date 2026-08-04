@@ -1,0 +1,39 @@
+- type: language
+  id: Eldritch
+  speech:
+    color: "#dc143c"
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - шр
+    - кх
+    - рр
+    - аа
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Blob
+  speech:
+    color: "#800080"
+    fontId: Monospace
+    boldFontId: MonospaceBold
+  obfuscation:
+    !type:ReplacementObfuscation
+    replacement:
+    - блип
+    - блоп
+    - блаб
+- type: language
+  id: Revolutionary
+  obfuscation:
+    !type:ReplacementObfuscation
+    replacement:
+    - liberé
+- type: language
+  id: Bingle
+  obfuscation:
+    !type:ReplacementObfuscation
+    replacement:
+    - бингл
+    - бонгл
+    - дингл

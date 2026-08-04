@@ -1,9 +1,9 @@
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
-using Robust.Client.UserInterface.Controls;
-using Robust.Shared.Utility;
 using Content.Shared.Paper;
 using static Content.Shared.Paper.PaperComponent;
+using Content.Client._Onyx.Language.Paper; // <Onyx-PaperLanguages>
+using Content.Shared._Onyx.Language.Paper; // <Onyx-PaperLanguages>
 
 namespace Content.Client.Paper.UI;
 
@@ -22,7 +22,7 @@ public sealed class PaperBoundUserInterface : BoundUserInterface
         base.Open();
 
         _window = this.CreateWindow<PaperWindow>();
-        _window.OnSaved += InputOnTextEntered;
+        _window.OnLanguageSaved += InputOnTextEntered; // <Onyx-PaperLanguages-edited>
 
         if (EntMan.TryGetComponent<PaperComponent>(Owner, out var paper))
         {
@@ -32,6 +32,7 @@ public sealed class PaperBoundUserInterface : BoundUserInterface
         {
             _window.InitVisuals(Owner, visuals);
         }
+        EntMan.System<PaperLanguageViewSystem>().PopulatePrefetched(Owner, _window); // <Onyx-PaperLanguages>
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)
@@ -40,14 +41,22 @@ public sealed class PaperBoundUserInterface : BoundUserInterface
         _window?.Populate((PaperBoundUserInterfaceState) state);
     }
 
-    private void InputOnTextEntered(string text)
+    // <Onyx-PaperLanguages>
+    protected override void ReceiveMessage(BoundUserInterfaceMessage message)
     {
-        SendMessage(new PaperInputTextMessage(text));
-
-        if (_window != null)
+        base.ReceiveMessage(message);
+        if (message is PaperLanguageViewMessage view)
         {
-            _window.Input.TextRope = Rope.Leaf.Empty;
-            _window.Input.CursorPosition = new TextEdit.CursorPos(0, TextEdit.LineBreakBias.Top);
+            EntMan.System<PaperLanguageViewSystem>().Store(Owner, view); // <Onyx-PaperLanguages>
+            PopulateLanguage(view);
         }
+    }
+    // </Onyx-PaperLanguages>
+
+    public void PopulateLanguage(PaperLanguageViewMessage view) => _window?.PopulateLanguage(view); // <Onyx-PaperLanguages>
+
+    private void InputOnTextEntered(uint revision, ulong viewGeneration, List<PaperLanguageEditOperation> operations) // <Onyx-PaperLanguages-edited>
+    {
+        SendMessage(new PaperLanguageSaveMessage(revision, viewGeneration, operations)); // <Onyx-PaperLanguages-edited>
     }
 }

@@ -1,19 +1,23 @@
 - type: language
   id: Universal
+  alwaysUnderstood: true
   obfuscation:
     !type:ReplacementObfuscation
-    replacement: ["*incomprehensible*"]
+    replacement:
+    - "*incomprehensible*"
 
 - type: language
   id: Psychomantic
-  isVisibleLanguage: true
+  alwaysUnderstood: true
+  speech:
+    color: "#C29EFF"
   obfuscation:
     !type:ReplacementObfuscation
-    replacement: ["<?>"]
+    replacement:
+    - "<?>"
 
 - type: language
   id: TauCetiBasic
-  isVisibleLanguage: true
   obfuscation:
     !type:SyllableObfuscation
     minSyllables: 1
@@ -32,7 +36,8 @@
 
 - type: language
   id: Chittin
-  isVisibleLanguage: true
+  speech:
+    color: "#7d7d7d"
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -43,7 +48,8 @@
 
 - type: language
   id: RootSpeak
-  isVisibleLanguage: true
+  speech:
+    color: "#a64e14dd"
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -54,7 +60,8 @@
 
 - type: language
   id: Moffic
-  isVisibleLanguage: true
+  speech:
+    color: "#c7df2edd"
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -65,7 +72,8 @@
 
 - type: language
   id: Draconic
-  isVisibleLanguage: true
+  speech:
+    color: "#2aca2add"
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -76,7 +84,8 @@
 
 - type: language
   id: Bubblish
-  isVisibleLanguage: true
+  speech:
+    color: "#24d1b9"
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -87,7 +96,8 @@
 
 - type: language
   id: Calcic
-  isVisibleLanguage: true
+  speech:
+    color: "#e3dac9"
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -98,7 +108,9 @@
 
 - type: language
   id: NewKinPidgin
-  isVisibleLanguage: true
+  speech:
+    color: "#a489a0"
+    fontSize: 12
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -109,7 +121,8 @@
 
 - type: language
   id: Canilunzt
-  isVisibleLanguage: true
+  speech:
+    color: "#d69b3dcc"
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -120,7 +133,8 @@
 
 - type: language
   id: SiikMaas
-  isVisibleLanguage: true
+  speech:
+    color: "#d6a36eee"
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -131,7 +145,9 @@
 
 - type: language
   id: RobotTalk
-  isVisibleLanguage: true
+  speech:
+    fontId: Monospace
+    boldFontId: MonospaceBold
   obfuscation:
     !type:SyllableObfuscation
     minSyllables: 2
@@ -142,7 +158,8 @@
 
 - type: language
   id: Nekomimetic
-  isVisibleLanguage: true
+  speech:
+    color: "#df57aaee"
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -153,7 +170,8 @@
 
 - type: language
   id: SolCommon
-  isVisibleLanguage: true
+  speech:
+    color: "#8282fbaa"
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -164,7 +182,9 @@
 
 - type: language
   id: Sign
-  isVisibleLanguage: true
+  requiresSight: true
+  speech:
+    color: "#dddddd"
   obfuscation:
     !type:ReplacementObfuscation
     replacement:

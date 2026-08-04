@@ -25,6 +25,7 @@ public sealed partial class LanguageSystem : EntitySystem
         ent.Comp.CurrentLanguage = state.CurrentLanguage;
         ent.Comp.SpokenLanguages = state.SpokenLanguages;
         ent.Comp.UnderstoodLanguages = state.UnderstoodLanguages;
+        ent.Comp.UnderstandsAllLanguages = state.UnderstandsAllLanguages;
 
         if (ent.Owner == _player.LocalEntity)
             LanguagesChanged?.Invoke();

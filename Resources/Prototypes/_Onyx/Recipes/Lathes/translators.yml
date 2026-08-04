@@ -2,7 +2,11 @@
   id: OnyxTranslatorRecipeBase
   abstract: true
   completetime: 2
-  materials: { Steel: 500, Glass: 100, Plastic: 50, Gold: 50 }
+  materials:
+    Steel: 500
+    Glass: 100
+    Plastic: 50
+    Gold: 50
 
 - type: latheRecipe
   id: OnyxTranslatorImplanterRecipeBase
@@ -11,7 +15,12 @@
   icon:
     sprite: Objects/Specific/Medical/implanter.rsi
     state: implanter0
-  materials: { Steel: 500, Glass: 500, Plastic: 100, Gold: 50, Silver: 50 }
+  materials:
+    Steel: 500
+    Glass: 500
+    Plastic: 100
+    Gold: 50
+    Silver: 50
 
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
@@ -127,3 +136,105 @@
   id: SignTranslatorImplanterRecipe
   name: lathe-recipe-translator-implanter-sign
   result: SignTranslatorImplanter
+
+- type: latheRecipe
+  parent: OnyxTranslatorRecipeBase
+  id: NovuNedericTranslatorRecipe
+  result: NovuNedericTranslator
+- type: latheRecipe
+  parent: OnyxTranslatorRecipeBase
+  id: XenoTranslatorRecipe
+  result: XenoTranslator
+- type: latheRecipe
+  parent: OnyxTranslatorRecipeBase
+  id: AnimalTranslatorRecipe
+  result: AnimalTranslator
+- type: latheRecipe
+  parent: OnyxTranslatorRecipeBase
+  id: ValyrianStandardTranslatorRecipe
+  result: ValyrianStandardTranslator
+- type: latheRecipe
+  parent: OnyxTranslatorRecipeBase
+  id: AzazibaTranslatorRecipe
+  result: AzazibaTranslator
+- type: latheRecipe
+  parent: OnyxTranslatorRecipeBase
+  id: MarishTranslatorRecipe
+  result: MarishTranslator
+- type: latheRecipe
+  parent: OnyxTranslatorRecipeBase
+  id: SchechiTranslatorRecipe
+  result: SchechiTranslator
+- type: latheRecipe
+  parent: OnyxTranslatorRecipeBase
+  id: GruntishTranslatorRecipe
+  result: GruntishTranslator
+- type: latheRecipe
+  parent: OnyxTranslatorRecipeBase
+  id: YowKriolTranslatorRecipe
+  result: YowKriolTranslator
+- type: latheRecipe
+  parent: OnyxTranslatorRecipeBase
+  id: XeeplianTranslatorRecipe
+  result: XeeplianTranslator
+
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: BasicGalaticCommonTranslatorImplanterRecipe
+  result: BasicGalaticCommonTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: AdvancedGalaticCommonTranslatorImplanterRecipe
+  result: AdvancedGalaticCommonTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: NovuNedericTranslatorImplanterRecipe
+  result: NovuNedericTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: MarishTranslatorImplanterRecipe
+  result: MarishTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: ValyrianStandardTranslatorImplanterRecipe
+  result: ValyrianStandardTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: AzazibaTranslatorImplanterRecipe
+  result: AzazibaTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: SchechiTranslatorImplanterRecipe
+  result: SchechiTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: GruntishTranslatorImplanterRecipe
+  result: GruntishTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: SpaceItalianTranslatorImplanterRecipe
+  result: SpaceItalianTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: BasicSpaceItalianTranslatorImplanterRecipe
+  result: BasicSpaceItalianTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: AdvancedSpaceItalianTranslatorImplanterRecipe
+  result: AdvancedSpaceItalianTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: YowKriolTranslatorImplanterRecipe
+  result: YowKriolTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: ChevalTranslatorImplanterRecipe
+  result: ChevalTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: ZookeeperTranslatorImplanterRecipe
+  result: ZookeeperTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: LibrarianTranslatorImplanterRecipe
+  result: LibrarianTranslatorImplanter

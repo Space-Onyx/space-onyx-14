@@ -17,17 +17,21 @@ public sealed partial class LanguageSpeakerComponent : Component
 
     [DataField]
     public HashSet<ProtoId<LanguagePrototype>> UnderstoodLanguages = new();
+
+    public bool UnderstandsAllLanguages;
 }
 
 [Serializable, NetSerializable]
 public sealed class LanguageSpeakerComponentState(
     ProtoId<LanguagePrototype> currentLanguage,
     HashSet<ProtoId<LanguagePrototype>> spokenLanguages,
-    HashSet<ProtoId<LanguagePrototype>> understoodLanguages) : ComponentState
+    HashSet<ProtoId<LanguagePrototype>> understoodLanguages,
+    bool understandsAllLanguages) : ComponentState
 {
     public ProtoId<LanguagePrototype> CurrentLanguage = currentLanguage;
     public HashSet<ProtoId<LanguagePrototype>> SpokenLanguages = spokenLanguages;
     public HashSet<ProtoId<LanguagePrototype>> UnderstoodLanguages = understoodLanguages;
+    public bool UnderstandsAllLanguages = understandsAllLanguages;
 }
 
 [RegisterComponent]
@@ -45,6 +49,12 @@ public sealed partial class UniversalLanguageSpeakerComponent : Component
 {
     [DataField, AutoNetworkedField]
     public bool Enabled = true;
+
+    [DataField]
+    public HashSet<ProtoId<LanguagePrototype>> SpokenLanguages = new() { "Psychomantic" };
+
+    [DataField]
+    public bool UnderstandsAllLanguages = true;
 }
 
 public abstract partial class BaseTranslatorComponent : Component

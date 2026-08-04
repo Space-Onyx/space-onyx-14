@@ -193,8 +193,11 @@
           On: { state: drone }
   - type: LanguageSpeaker
   - type: LanguageKnowledge
-    speaks: [DroneTalk]
-    understands: [DroneTalk, TauCetiBasic]
+    speaks:
+    - DroneTalk
+    understands:
+    - DroneTalk
+    - TauCetiBasic
   - type: TypingIndicator
     proto: robot
   - type: Speech

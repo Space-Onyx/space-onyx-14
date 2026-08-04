@@ -64,9 +64,20 @@ public sealed partial class LanguageMenuWindow : DefaultWindow
 
             var entry = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical };
             entry.AddChild(row);
-            var description = new RichTextLabel();
+
+            var body = new CollapsibleBody
+            {
+                HorizontalExpand = true,
+                Margin = new Thickness(4f, 4f),
+            };
+            var description = new RichTextLabel { HorizontalExpand = true };
             description.SetMessage(language.Description);
-            entry.AddChild(description);
+            body.AddChild(description);
+            entry.AddChild(new Collapsible(Loc.GetString("language-menu-description-header"), body)
+            {
+                Orientation = BoxContainer.LayoutOrientation.Vertical,
+                HorizontalExpand = true,
+            });
 
             var panel = new PanelContainer();
             panel.StyleClasses.Add("PdaBorderRect");

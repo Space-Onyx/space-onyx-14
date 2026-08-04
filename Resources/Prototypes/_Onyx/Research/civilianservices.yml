@@ -53,6 +53,16 @@
     - RobotTalkTranslatorRecipe
     - NekomimeticTranslatorRecipe
     - SolCommonTranslatorRecipe
+    - NovuNedericTranslatorRecipe
+    - XenoTranslatorRecipe
+    - AnimalTranslatorRecipe
+    - ValyrianStandardTranslatorRecipe
+    - AzazibaTranslatorRecipe
+    - MarishTranslatorRecipe
+    - SchechiTranslatorRecipe
+    - GruntishTranslatorRecipe
+    - YowKriolTranslatorRecipe
+    - XeeplianTranslatorRecipe
   position: 0,-1
   technologyPrerequisites:
     - AdvancedEntertainment
@@ -79,6 +89,21 @@
     - NekomimeticTranslatorImplanterRecipe
     - SolCommonTranslatorImplanterRecipe
     - SignTranslatorImplanterRecipe
+    - BasicGalaticCommonTranslatorImplanterRecipe
+    - AdvancedGalaticCommonTranslatorImplanterRecipe
+    - NovuNedericTranslatorImplanterRecipe
+    - MarishTranslatorImplanterRecipe
+    - ValyrianStandardTranslatorImplanterRecipe
+    - AzazibaTranslatorImplanterRecipe
+    - SchechiTranslatorImplanterRecipe
+    - GruntishTranslatorImplanterRecipe
+    - SpaceItalianTranslatorImplanterRecipe
+    - BasicSpaceItalianTranslatorImplanterRecipe
+    - AdvancedSpaceItalianTranslatorImplanterRecipe
+    - YowKriolTranslatorImplanterRecipe
+    - ChevalTranslatorImplanterRecipe
+    - ZookeeperTranslatorImplanterRecipe
+    - LibrarianTranslatorImplanterRecipe
   position: 1,-1
   technologyPrerequisites:
     - BasicTranslation

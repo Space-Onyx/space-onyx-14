@@ -81,6 +81,13 @@
       accent: genericAggressive
     - type: Speech
       speechVerb: LargeMob
+    # <Onyx-Animals-edited>
+    - type: LanguageKnowledge
+      speaks:
+      - Carptongue
+      understands:
+      - Carptongue
+    # </Onyx-Animals-edited>
     - type: InteractionPopup
       interactSuccessString: petting-success-carp
       interactFailureString: petting-failure-carp

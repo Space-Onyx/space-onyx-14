@@ -1,6 +1,5 @@
 - type: language
   id: DroneTalk
-  isVisibleLanguage: true
   speech:
     fontId: Monospace
     boldFontId: MonospaceBold

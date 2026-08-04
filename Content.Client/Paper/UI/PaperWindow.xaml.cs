@@ -41,8 +41,6 @@ namespace Content.Client.Paper.UI
         // we're able to resize this UI or not. Default to everything enabled:
         private DragMode _allowedResizeModes = ~DragMode.None;
 
-        public event Action<string>? OnSaved;
-
         private int _MaxInputLength = -1;
         public int MaxInputLength
         {
@@ -64,6 +62,7 @@ namespace Content.Client.Paper.UI
 
             // We can't configure the RichTextLabel contents from xaml, so do it here:
             BlankPaperIndicator.SetMessage(Loc.GetString("paper-ui-blank-page-message"), null, DefaultTextColor);
+            InitializeLanguageView(); // <Onyx-PaperLanguages>
 
             // Hook up the close button:
             CloseButton.OnPressed += _ => Close();
@@ -84,6 +83,7 @@ namespace Content.Client.Paper.UI
 
             Input.OnTextChanged += args =>
             {
+                TrackLanguageEdit(Rope.Collapse(args.TextRope), args.Control.SelectionLower.Index, args.Control.SelectionUpper.Index); // <Onyx-PaperLanguages>
                 UpdateFillState();
             };
 
@@ -246,6 +246,9 @@ namespace Content.Client.Paper.UI
         /// </summary>
         public void Populate(PaperComponent.PaperBoundUserInterfaceState state)
         {
+            if (!_applyingLanguageView) // <Onyx-PaperLanguages-edited> Personalized text arrives separately.
+                return;
+
             bool isEditing = state.Mode == PaperComponent.PaperAction.Write;
             bool wasEditing = InputContainer.Visible;
             InputContainer.Visible = isEditing;
@@ -272,7 +275,7 @@ namespace Content.Client.Paper.UI
             {
                 msg.AddMarkupPermissive("\r\n");
             }
-            WrittenTextLabel.SetMessage(msg, UserFormattableTags.BaseAllowedTags, _writtenTextColor);
+            WrittenTextLabel.SetMessage(msg, PaperAllowedTags, _writtenTextColor); // <Onyx-PaperLanguages-edited>
 
             WrittenTextLabel.Visible = !isEditing && state.Text.Length > 0;
             BlankPaperIndicator.Visible = !isEditing && state.Text.Length == 0;
@@ -325,7 +328,8 @@ namespace Content.Client.Paper.UI
         {
             // Prevent further saving while text processing still in
             SaveButton.Disabled = true;
-            OnSaved?.Invoke(Rope.Collapse(Input.TextRope));
+            var text = Rope.Collapse(Input.TextRope);
+            SaveLanguageText(text); // <Onyx-PaperLanguages-edited>
         }
 
         private void UpdateFillState()

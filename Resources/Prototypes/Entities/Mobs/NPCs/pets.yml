@@ -374,6 +374,13 @@
   - type: Speech
     speechVerb: Canine
     speechSounds: Dog
+  # <Onyx-Animals-edited>
+  - type: LanguageKnowledge
+    speaks:
+    - Dog
+    understands:
+    - Dog
+  # </Onyx-Animals-edited>
   - type: Tag
     tags:
     - CannotSuicide

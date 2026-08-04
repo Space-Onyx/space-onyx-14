@@ -1,0 +1,100 @@
+- type: language
+  id: Azaziba
+  speech:
+    color: "#2aca2add"
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - си
+    - нта
+    - аза
+    - зи
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Schechi
+  speech:
+    color: "#4DBFD9"
+    fontSize: 14
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - ши
+    - че
+    - чи
+    - си
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Xeeplian
+  speech:
+    color: "#a4bb98"
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - нарп
+    - хлорп
+    - злиб
+    - горп
+    minSyllables: 1
+    maxSyllables: 1
+- type: language
+  id: Hydraspeak
+  speech:
+    color: "#6e6cfedd"
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - ра
+    - ви
+    - ти
+    - ки
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: NalRasan
+  speech:
+    color: "#dddddd"
+  obfuscation:
+    !type:ReplacementObfuscation
+    replacement:
+    - ""
+- type: language
+  id: SiikTajr
+  speech:
+    color: "#f58c9aee"
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - мрр
+    - рр
+    - таджр
+    - кир
+    minSyllables: 2
+    maxSyllables: 3
+- type: language
+  id: YaSsa
+  speech:
+    color: "#9a69f5ee"
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - хрр
+    - тарж
+    - кхир
+    - ражх
+    minSyllables: 3
+    maxSyllables: 5
+- type: language
+  id: Delvahii
+  speech:
+    color: "#b1c472ee"
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - дел
+    - ва
+    - хи
+    - ии
+    minSyllables: 1
+    maxSyllables: 3

@@ -3,60 +3,388 @@
   parent: BaseSubdermalImplant
   abstract: true
   name: translator implant
-  categories: [HideSpawnMenu]
+  categories:
+  - HideSpawnMenu
 
 - type: entity
   id: ChittinTranslatorImplant
   parent: OnyxTranslatorImplantBase
-  components: [{ type: TranslatorImplant, spoken: [Chittin], understood: [Chittin], requires: [TauCetiBasic] }]
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken:
+    - Chittin
+    understood:
+    - Chittin
+    requires:
+    - TauCetiBasic
 - type: entity
   id: RootSpeakTranslatorImplant
   parent: OnyxTranslatorImplantBase
-  components: [{ type: TranslatorImplant, spoken: [RootSpeak], understood: [RootSpeak], requires: [TauCetiBasic] }]
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken:
+    - RootSpeak
+    understood:
+    - RootSpeak
+    requires:
+    - TauCetiBasic
 - type: entity
   id: MofficTranslatorImplant
   parent: OnyxTranslatorImplantBase
-  components: [{ type: TranslatorImplant, spoken: [Moffic], understood: [Moffic], requires: [TauCetiBasic] }]
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken:
+    - Moffic
+    understood:
+    - Moffic
+    requires:
+    - TauCetiBasic
 - type: entity
   id: DraconicTranslatorImplant
   parent: OnyxTranslatorImplantBase
-  components: [{ type: TranslatorImplant, spoken: [Draconic], understood: [Draconic], requires: [TauCetiBasic] }]
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken:
+    - Draconic
+    understood:
+    - Draconic
+    requires:
+    - TauCetiBasic
 - type: entity
   id: BubblishTranslatorImplant
   parent: OnyxTranslatorImplantBase
-  components: [{ type: TranslatorImplant, spoken: [Bubblish], understood: [Bubblish], requires: [TauCetiBasic] }]
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken:
+    - Bubblish
+    understood:
+    - Bubblish
+    requires:
+    - TauCetiBasic
 - type: entity
   id: CalcicTranslatorImplant
   parent: OnyxTranslatorImplantBase
-  components: [{ type: TranslatorImplant, spoken: [Calcic], understood: [Calcic], requires: [TauCetiBasic] }]
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken:
+    - Calcic
+    understood:
+    - Calcic
+    requires:
+    - TauCetiBasic
 - type: entity
   id: NewKinPidginTranslatorImplant
   parent: OnyxTranslatorImplantBase
-  components: [{ type: TranslatorImplant, spoken: [NewKinPidgin], understood: [NewKinPidgin], requires: [TauCetiBasic] }]
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken:
+    - NewKinPidgin
+    understood:
+    - NewKinPidgin
+    requires:
+    - TauCetiBasic
 - type: entity
   id: CanilunztTranslatorImplant
   parent: OnyxTranslatorImplantBase
-  components: [{ type: TranslatorImplant, spoken: [Canilunzt], understood: [Canilunzt], requires: [TauCetiBasic] }]
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken:
+    - Canilunzt
+    understood:
+    - Canilunzt
+    requires:
+    - TauCetiBasic
 - type: entity
   id: SiikMaasTranslatorImplant
   parent: OnyxTranslatorImplantBase
-  components: [{ type: TranslatorImplant, spoken: [SiikMaas], understood: [SiikMaas], requires: [TauCetiBasic] }]
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken:
+    - SiikMaas
+    understood:
+    - SiikMaas
+    requires:
+    - TauCetiBasic
 - type: entity
   id: RobotTalkTranslatorImplant
   parent: OnyxTranslatorImplantBase
-  components: [{ type: TranslatorImplant, spoken: [RobotTalk], understood: [RobotTalk], requires: [TauCetiBasic] }]
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken:
+    - RobotTalk
+    understood:
+    - RobotTalk
+    requires:
+    - TauCetiBasic
 - type: entity
   id: NekomimeticTranslatorImplant
   parent: OnyxTranslatorImplantBase
-  components: [{ type: TranslatorImplant, spoken: [Nekomimetic], understood: [Nekomimetic], requires: [TauCetiBasic] }]
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken:
+    - Nekomimetic
+    understood:
+    - Nekomimetic
+    requires:
+    - TauCetiBasic
 - type: entity
   id: SolCommonTranslatorImplant
   parent: OnyxTranslatorImplantBase
-  components: [{ type: TranslatorImplant, spoken: [SolCommon], understood: [SolCommon], requires: [TauCetiBasic] }]
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken:
+    - SolCommon
+    understood:
+    - SolCommon
+    requires:
+    - TauCetiBasic
 - type: entity
   id: SignTranslatorImplant
   parent: OnyxTranslatorImplantBase
-  components: [{ type: TranslatorImplant, spoken: [Sign], understood: [Sign], requires: [TauCetiBasic] }]
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken:
+    - Sign
+    understood:
+    - Sign
+    requires:
+    - TauCetiBasic
+
+- type: entity
+  id: BasicTauCetiBasicTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    understood: [TauCetiBasic]
+- type: entity
+  id: TauCetiBasicTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken: [TauCetiBasic]
+    understood: [TauCetiBasic]
+- type: entity
+  id: NovuNedericTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken: [NovuNederic]
+    understood: [NovuNederic]
+    requires: [TauCetiBasic]
+- type: entity
+  id: MarishTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken: [Marish]
+    understood: [Marish]
+    requires: [TauCetiBasic]
+- type: entity
+  id: ValyrianStandardTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken: [ValyrianStandard]
+    understood: [ValyrianStandard]
+    requires: [TauCetiBasic]
+- type: entity
+  id: AzazibaTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken: [Azaziba]
+    understood: [Azaziba]
+    requires: [Draconic]
+- type: entity
+  id: SchechiTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken: [Schechi]
+    understood: [Schechi]
+    requires: [TauCetiBasic]
+- type: entity
+  id: GruntishTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken: [Gruntish]
+    understood: [Gruntish]
+    requires: [TauCetiBasic]
+- type: entity
+  id: SpaceItalianTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken: [SpaceItalian]
+    understood: [SpaceItalian]
+- type: entity
+  id: BasicSpaceItalianTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    understood: [SpaceItalian]
+- type: entity
+  id: YowKriolTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken: [YowKriol]
+    understood: [YowKriol]
+    requires: [TauCetiBasic]
+- type: entity
+  id: ChevalTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken: [Cheval]
+    understood: [Cheval]
+- type: entity
+  id: ZookeeperTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    understood:
+    - Cat
+    - Dog
+    - Fox
+    - Xeno
+    - Monkey
+    - Mouse
+    - Chicken
+    - Duck
+    - Cow
+    - Sheep
+    - Kangaroo
+    - Pig
+    - Crab
+    - Kobold
+    - Hissing
+    - Penguin
+    - Deer
+    - Bingle
+    - Cheval
+- type: entity
+  id: LibrarianTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: TranslatorImplant
+    spoken:
+    - TauCetiBasic
+    - SolCommon
+    - Elyran
+    - Freespeak
+    - NovuNederic
+    - Tradeband
+    - Sign
+    - SpaceItalian
+    - Bubblish
+    - Calcic
+    - Canilunzt
+    - Chittin
+    - Gruntish
+    - NewKinPidgin
+    - Marish
+    - Moffic
+    - Nehina
+    - Nekomimetic
+    - RobotTalk
+    - RootSpeak
+    - SiikMaas
+    - Draconic
+    - Schechi
+    - ValyrianStandard
+    - YowKriol
+    - Azaziba
+    - Cheval
+    - Mouse
+    - Monkey
+    - Kobold
+    understood:
+    - TauCetiBasic
+    - SolCommon
+    - Elyran
+    - Freespeak
+    - NovuNederic
+    - Tradeband
+    - Sign
+    - SpaceItalian
+    - Bubblish
+    - Calcic
+    - Canilunzt
+    - Chittin
+    - Gruntish
+    - NewKinPidgin
+    - Marish
+    - Moffic
+    - Nehina
+    - Nekomimetic
+    - RobotTalk
+    - RootSpeak
+    - SiikMaas
+    - Draconic
+    - Schechi
+    - ValyrianStandard
+    - YowKriol
+    - Azaziba
+    - Cheval
+    - Mouse
+    - Monkey
+    - Kobold
 
 - type: entity
   id: OnyxTranslatorImplanterBase
@@ -65,54 +393,171 @@
   name: translator implanter
 
 - type: entity
+  id: BasicGalaticCommonTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: BasicTauCetiBasicTranslatorImplant
+- type: entity
+  id: AdvancedGalaticCommonTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: TauCetiBasicTranslatorImplant
+- type: entity
+  id: NovuNedericTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: NovuNedericTranslatorImplant
+- type: entity
+  id: MarishTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: MarishTranslatorImplant
+- type: entity
+  id: ValyrianStandardTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: ValyrianStandardTranslatorImplant
+- type: entity
+  id: AzazibaTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: AzazibaTranslatorImplant
+- type: entity
+  id: SchechiTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: SchechiTranslatorImplant
+- type: entity
+  id: GruntishTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: GruntishTranslatorImplant
+- type: entity
+  id: SpaceItalianTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: SpaceItalianTranslatorImplant
+- type: entity
+  id: BasicSpaceItalianTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: BasicSpaceItalianTranslatorImplant
+- type: entity
+  id: AdvancedSpaceItalianTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: SpaceItalianTranslatorImplant
+- type: entity
+  id: YowKriolTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: YowKriolTranslatorImplant
+- type: entity
+  id: ChevalTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: ChevalTranslatorImplant
+- type: entity
+  id: ZookeeperTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: ZookeeperTranslatorImplant
+- type: entity
+  id: LibrarianTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: LibrarianTranslatorImplant
+
+- type: entity
   id: ChittinTranslatorImplanter
   parent: OnyxTranslatorImplanterBase
-  components: [{ type: Implanter, implant: ChittinTranslatorImplant }]
+  components:
+  - type: Implanter
+    implant: ChittinTranslatorImplant
 - type: entity
   id: RootSpeakTranslatorImplanter
   parent: OnyxTranslatorImplanterBase
-  components: [{ type: Implanter, implant: RootSpeakTranslatorImplant }]
+  components:
+  - type: Implanter
+    implant: RootSpeakTranslatorImplant
 - type: entity
   id: MofficTranslatorImplanter
   parent: OnyxTranslatorImplanterBase
-  components: [{ type: Implanter, implant: MofficTranslatorImplant }]
+  components:
+  - type: Implanter
+    implant: MofficTranslatorImplant
 - type: entity
   id: DraconicTranslatorImplanter
   parent: OnyxTranslatorImplanterBase
-  components: [{ type: Implanter, implant: DraconicTranslatorImplant }]
+  components:
+  - type: Implanter
+    implant: DraconicTranslatorImplant
 - type: entity
   id: BubblishTranslatorImplanter
   parent: OnyxTranslatorImplanterBase
-  components: [{ type: Implanter, implant: BubblishTranslatorImplant }]
+  components:
+  - type: Implanter
+    implant: BubblishTranslatorImplant
 - type: entity
   id: CalcicTranslatorImplanter
   parent: OnyxTranslatorImplanterBase
-  components: [{ type: Implanter, implant: CalcicTranslatorImplant }]
+  components:
+  - type: Implanter
+    implant: CalcicTranslatorImplant
 - type: entity
   id: NewKinPidginTranslatorImplanter
   parent: OnyxTranslatorImplanterBase
-  components: [{ type: Implanter, implant: NewKinPidginTranslatorImplant }]
+  components:
+  - type: Implanter
+    implant: NewKinPidginTranslatorImplant
 - type: entity
   id: CanilunztTranslatorImplanter
   parent: OnyxTranslatorImplanterBase
-  components: [{ type: Implanter, implant: CanilunztTranslatorImplant }]
+  components:
+  - type: Implanter
+    implant: CanilunztTranslatorImplant
 - type: entity
   id: SiikMaasTranslatorImplanter
   parent: OnyxTranslatorImplanterBase
-  components: [{ type: Implanter, implant: SiikMaasTranslatorImplant }]
+  components:
+  - type: Implanter
+    implant: SiikMaasTranslatorImplant
 - type: entity
   id: RobotTalkTranslatorImplanter
   parent: OnyxTranslatorImplanterBase
-  components: [{ type: Implanter, implant: RobotTalkTranslatorImplant }]
+  components:
+  - type: Implanter
+    implant: RobotTalkTranslatorImplant
 - type: entity
   id: NekomimeticTranslatorImplanter
   parent: OnyxTranslatorImplanterBase
-  components: [{ type: Implanter, implant: NekomimeticTranslatorImplant }]
+  components:
+  - type: Implanter
+    implant: NekomimeticTranslatorImplant
 - type: entity
   id: SolCommonTranslatorImplanter
   parent: OnyxTranslatorImplanterBase
-  components: [{ type: Implanter, implant: SolCommonTranslatorImplant }]
+  components:
+  - type: Implanter
+    implant: SolCommonTranslatorImplant
 - type: entity
   id: SignTranslatorImplanter
   parent: OnyxTranslatorImplanterBase
-  components: [{ type: Implanter, implant: SignTranslatorImplant }]
+  components:
+  - type: Implanter
+    implant: SignTranslatorImplant

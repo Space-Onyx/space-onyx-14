@@ -13,6 +13,16 @@
   - RobotTalkTranslatorRecipe
   - NekomimeticTranslatorRecipe
   - SolCommonTranslatorRecipe
+  - NovuNedericTranslatorRecipe
+  - XenoTranslatorRecipe
+  - AnimalTranslatorRecipe
+  - ValyrianStandardTranslatorRecipe
+  - AzazibaTranslatorRecipe
+  - MarishTranslatorRecipe
+  - SchechiTranslatorRecipe
+  - GruntishTranslatorRecipe
+  - YowKriolTranslatorRecipe
+  - XeeplianTranslatorRecipe
 
 - type: latheRecipePack
   id: OnyxTranslatorImplanters
@@ -30,3 +40,18 @@
   - NekomimeticTranslatorImplanterRecipe
   - SolCommonTranslatorImplanterRecipe
   - SignTranslatorImplanterRecipe
+  - BasicGalaticCommonTranslatorImplanterRecipe
+  - AdvancedGalaticCommonTranslatorImplanterRecipe
+  - NovuNedericTranslatorImplanterRecipe
+  - MarishTranslatorImplanterRecipe
+  - ValyrianStandardTranslatorImplanterRecipe
+  - AzazibaTranslatorImplanterRecipe
+  - SchechiTranslatorImplanterRecipe
+  - GruntishTranslatorImplanterRecipe
+  - SpaceItalianTranslatorImplanterRecipe
+  - BasicSpaceItalianTranslatorImplanterRecipe
+  - AdvancedSpaceItalianTranslatorImplanterRecipe
+  - YowKriolTranslatorImplanterRecipe
+  - ChevalTranslatorImplanterRecipe
+  - ZookeeperTranslatorImplanterRecipe
+  - LibrarianTranslatorImplanterRecipe

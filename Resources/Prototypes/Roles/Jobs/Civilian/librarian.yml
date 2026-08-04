@@ -6,6 +6,11 @@
   startingGear: LibrarianGear
   icon: "JobIconLibrarian"
   supervisors: job-supervisors-hop
+  # <Onyx-LibrarianTranslator>
+  special:
+  - !type:AddImplantSpecial
+    implants: [ LibrarianTranslatorImplant ]
+  # </Onyx-LibrarianTranslator>
   access:
   - Service
   - Maintenance

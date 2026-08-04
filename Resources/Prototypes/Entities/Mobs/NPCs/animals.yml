@@ -230,6 +230,13 @@
   - type: Speech
     speechVerb: SmallMob
     speechSounds: Cluck
+  # <Onyx-Animals-edited>
+  - type: LanguageKnowledge
+    speaks:
+    - Chicken
+    understands:
+    - Chicken
+  # </Onyx-Animals-edited>
   - type: Tag
     tags:
     - DoorBumpOpener
@@ -516,6 +523,13 @@
     speechVerb: Moth
     speechSounds: Squeak
     allowedEmotes: ['Chitter', 'Squeak', 'Flap']
+  # <Onyx-Animals>
+  - type: LanguageKnowledge
+    speaks:
+    - Moffic
+    understands:
+    - Moffic
+  # </Onyx-Animals>
   - type: FaxableObject
     insertingState: inserting_mothroach
   - type: MothAccent
@@ -665,6 +679,13 @@
   id: MobDuckMallard
   description: An adorable mallard duck, it's fluffy and soft!
   components:
+  # <Onyx-Animals>
+  - type: LanguageKnowledge
+    speaks:
+    - Duck
+    understands:
+    - Duck
+  # </Onyx-Animals>
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -868,6 +889,13 @@
   id: MobCow
   description: Moo.
   components:
+  # <Onyx-Animals>
+  - type: LanguageKnowledge
+    speaks:
+    - Cow
+    understands:
+    - Cow
+  # </Onyx-Animals>
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -959,6 +987,13 @@
   id: MobCrab
   description: A folk legend goes around that his claw snaps spacemen out of existence over distasteful remarks. Be polite and tolerant for your own safety.
   components:
+  # <Onyx-Animals>
+  - type: LanguageKnowledge
+    speaks:
+    - Crab
+    understands:
+    - Crab
+  # </Onyx-Animals>
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -1140,6 +1175,13 @@
   name: sheepBase
   description: A sheep.
   components:
+  # <Onyx-Animals>
+  - type: LanguageKnowledge
+    speaks:
+    - Sheep
+    understands:
+    - Sheep
+  # </Onyx-Animals>
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -1468,6 +1510,13 @@
   id: MobKangaroo
   description: A large marsupial herbivore. It has powerful hind legs, with nails that resemble long claws.
   components:
+  # <Onyx-Animals>
+  - type: LanguageKnowledge
+    speaks:
+    - Kangaroo
+    understands:
+    - Kangaroo
+  # </Onyx-Animals>
   - type: MovementSpeedModifier
     baseWalkSpeed: 3.5
     baseSprintSpeed: 4.5
@@ -1696,6 +1745,13 @@
   parent: MobBaseAncestor
   description: New church of neo-darwinists actually believe that EVERY animal evolved from a monkey. Tastes like pork, and killing them is both fun and relaxing.
   components:
+  # <Onyx-Animals>
+  - type: LanguageKnowledge
+    speaks:
+    - Monkey
+    understands:
+    - Monkey
+  # </Onyx-Animals>
   # <Onyx-PrimateAnatomy>
   - type: DeclarativeBody
     prototype: MonkeyBody
@@ -1864,6 +1920,13 @@
   parent: MobBaseKobold
   description: Cousins to the sentient race of lizard people, kobolds blend in with their natural habitat and are as nasty as monkeys; ready to pull out your hair and stab you to death.
   components:
+  # <Onyx-Animals>
+  - type: LanguageKnowledge
+    speaks:
+    - Kobold
+    understands:
+    - Kobold
+  # </Onyx-Animals>
   - type: Clumsy
     gunShootFailDamage:
       types:
@@ -1923,6 +1986,13 @@
   id: MobMouse
   description: Squeak!
   components:
+  # <Onyx-Animals>
+  - type: LanguageKnowledge
+    speaks:
+    - Mouse
+    understands:
+    - Mouse
+  # </Onyx-Animals>
   # <Onyx-VentCrawling>
   - type: VentCrawler
     enterDelay: 0.5
@@ -2499,6 +2569,13 @@
   id: MobPenguin
   description: Their lives are constant pain due to their inner-body knees.
   components:
+  # <Onyx-Animals>
+  - type: LanguageKnowledge
+    speaks:
+    - Penguin
+    understands:
+    - Penguin
+  # </Onyx-Animals>
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -3034,6 +3111,13 @@
   id: MobFox
   description: They're a fox.
   components:
+  # <Onyx-Animals>
+  - type: LanguageKnowledge
+    speaks:
+    - Fox
+    understands:
+    - Fox
+  # </Onyx-Animals>
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Animals/fox.rsi
@@ -3117,6 +3201,13 @@
   name: corgi
   description: Finally, a space corgi!
   components:
+  # <Onyx-Animals>
+  - type: LanguageKnowledge
+    speaks:
+    - Dog
+    understands:
+    - Dog
+  # </Onyx-Animals>
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Pets/corgi.rsi
@@ -3298,6 +3389,13 @@
   id: MobCat
   description: Feline pet, very funny.
   components:
+  # <Onyx-Animals>
+  - type: LanguageKnowledge
+    speaks:
+    - Cat
+    understands:
+    - Cat
+  # </Onyx-Animals>
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Pets/cat.rsi
@@ -3800,6 +3898,13 @@
   id: MobPig
   description: Oink.
   components:
+  # <Onyx-Animals>
+  - type: LanguageKnowledge
+    speaks:
+    - Pig
+    understands:
+    - Pig
+  # </Onyx-Animals>
   - type: Sprite
     drawdepth: Mobs
     layers:

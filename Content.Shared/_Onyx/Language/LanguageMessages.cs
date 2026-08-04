@@ -8,3 +8,10 @@ public sealed class SetLanguageMessage(ProtoId<LanguagePrototype> language) : En
 {
     public ProtoId<LanguagePrototype> Language = language;
 }
+
+public sealed class CollectLanguageKnowledgeEvent : EntityEventArgs
+{
+    public readonly HashSet<ProtoId<LanguagePrototype>> SpokenLanguages = new();
+    public readonly HashSet<ProtoId<LanguagePrototype>> UnderstoodLanguages = new();
+    public bool UnderstandsAllLanguages;
+}

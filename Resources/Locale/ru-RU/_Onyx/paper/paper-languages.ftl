@@ -1,0 +1,3 @@
+paper-language-cannot-write = На выбранном языке нельзя писать на бумаге.
+paper-language-loading = Текст проявляется...
+paper-language-cannot-edit-unknown = Нельзя частично изменять текст на неизвестном языке. Его можно стереть или заменить целиком.

@@ -1,0 +1,196 @@
+- type: language
+  id: Cat
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - мурр
+    - мяу
+    minSyllables: 1
+    maxSyllables: 2
+- type: language
+  id: Dog
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - вуф
+    - гаф
+    - гоф
+    minSyllables: 1
+    maxSyllables: 2
+- type: language
+  id: Fox
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - руфф
+    - рафф
+    - йип
+    minSyllables: 1
+    maxSyllables: 2
+- type: language
+  id: Xeno
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - с
+    - С
+    minSyllables: 1
+    maxSyllables: 8
+- type: language
+  id: Monkey
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - А
+    - Г
+    - У
+    minSyllables: 1
+    maxSyllables: 8
+- type: language
+  id: Mouse
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - ску
+    - ик
+    - пи
+    - чуу
+    minSyllables: 2
+    maxSyllables: 3
+- type: language
+  id: Chicken
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - ку
+    - куу
+    - дах
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Duck
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - кв
+    - ак
+    - квак
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Cow
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - му
+    - мууу
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Sheep
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - бе
+    - бее
+    - аа
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Kangaroo
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - шре
+    - екк
+    - чуу
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Pig
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - хрюю
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Crab
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - клац
+    - клак
+    - щёлк
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Kobold
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - йип
+    - йап
+    - гар
+    - хисс
+    minSyllables: 2
+    maxSyllables: 4
+- type: language
+  id: Hissing
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - хисс
+    - сс
+    - хи
+    minSyllables: 2
+    maxSyllables: 4
+- type: language
+  id: Penguin
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - пен
+    - пенг
+    - вонк
+    minSyllables: 2
+    maxSyllables: 3
+- type: language
+  id: Deer
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - ни
+    - брр
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Carptongue
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - грр
+    - карп
+    - сс
+    minSyllables: 1
+    maxSyllables: 3
+- type: language
+  id: Cheval
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - и-го
+    - и-го
+    - фрр
+    minSyllables: 1
+    maxSyllables: 2
+- type: language
+  id: FloorGoblin
+  obfuscation:
+    !type:SyllableObfuscation
+    replacement:
+    - ми
+    - мими
+    - бя
+    minSyllables: 1
+    maxSyllables: 3

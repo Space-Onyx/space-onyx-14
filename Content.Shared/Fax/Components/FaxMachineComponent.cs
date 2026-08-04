@@ -1,5 +1,6 @@
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Paper;
+using Content.Shared._Onyx.Language.Paper; // <Onyx-PaperLanguages>
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
@@ -188,13 +189,16 @@ public sealed partial class FaxPrintout
     public bool Locked { get; private set; }
 
     [DataField]
+    public List<PaperLanguageSegment> LanguageSegments { get; private set; } = new(); // <Onyx-PaperLanguages>
+
+    [DataField]
     public string? SenderFaxName { get; private set; } = default!;
 
     private FaxPrintout()
     {
     }
 
-    public FaxPrintout(string content, string name, string? label = null, string? prototypeId = null, string? stampState = null, List<StampDisplayInfo>? stampedBy = null, bool locked = false, string? senderFaxName = null)
+    public FaxPrintout(string content, string name, string? label = null, string? prototypeId = null, string? stampState = null, List<StampDisplayInfo>? stampedBy = null, bool locked = false, string? senderFaxName = null, List<PaperLanguageSegment>? languageSegments = null) // <Onyx-PaperLanguages-edited>
     {
         Content = content;
         Name = name;
@@ -204,5 +208,6 @@ public sealed partial class FaxPrintout
         StampedBy = stampedBy ?? new List<StampDisplayInfo>();
         Locked = locked;
         SenderFaxName = senderFaxName;
+        LanguageSegments = languageSegments ?? PaperLanguageSegments.ForText(content, "Universal"); // <Onyx-PaperLanguages>
     }
 }

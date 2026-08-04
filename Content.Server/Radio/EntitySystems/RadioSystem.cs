@@ -6,6 +6,7 @@ using Content.Server.Ghost;
 using Content.Server.Power.Components;
 using Content.Server._Onyx.Chat;
 using Content.Server._Onyx.Telecommunications;
+using Content.Shared._Onyx.Language; // <Onyx-LanguageAppearance>
 using Content.Shared.Chat;
 using Content.Shared._Onyx.Telecommunications; // <Onyx-TelecomTransmitter>
 using Content.Shared.Database;
@@ -35,6 +36,7 @@ public sealed partial class RadioSystem : EntitySystem
     [Dependency] private IChatManager _chatManager = default!;
     [Dependency] private GhostSystem _ghost = default!;
     [Dependency] private TelecommunicationsChainSystem _telecommunications = default!;
+    [Dependency] private Content.Server._Onyx.Language.LanguageSystem _languages = default!; // <Onyx-LanguageAppearance>
 
     private EntityQuery<TelecomExemptComponent> _exemptQuery;
 
@@ -139,15 +141,25 @@ public sealed partial class RadioSystem : EntitySystem
 
         var inlineFormattedMessage = InlineActionFormatter.Format(content); // <Onyx-InlineActions>
         var loudspeakerFontSize = _chat.GetLoudspeakerFontSize(messageSource, true); // <Onyx-Loudspeaker>
-        var wrappedMessage = Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold" : "chat-radio-message-wrap",
+        // <Onyx-LanguageAppearance>
+        var language = _languages.GetCurrentLanguage(messageSource);
+        var languageColor = language.Speech.Color is { } overrideColor
+            ? Color.InterpolateBetween(Color.White, overrideColor, overrideColor.A)
+            : channel.Color;
+        var wrappedMessage = Loc.GetString(speech.Bold
+                ? "chat-radio-message-language-wrap-bold"
+                : "chat-radio-message-language-wrap",
             ("color", channel.Color),
-            ("fontType", speech.FontId),
-            ("fontSize", loudspeakerFontSize ?? speech.FontSize), // <Onyx-Loudspeaker-edited>
+            ("languageColor", languageColor),
+            ("fontType", language.Speech.FontId ?? speech.FontId),
+            ("boldFontType", language.Speech.BoldFontId ?? language.Speech.FontId ?? speech.FontId),
+            ("fontSize", loudspeakerFontSize ?? language.Speech.FontSize ?? speech.FontSize),
             ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
             ("channel", $"\\[{channel.LocalizedName}\\]"),
             ("name", radioName), // <Onyx-RadioJobTitles-edited>
             ("message", inlineFormattedMessage) // <Onyx-InlineActions>
         );
+        // </Onyx-LanguageAppearance>
 
         // most radios are relayed to chat, so lets parse the chat message beforehand
         var chat = new ChatMessage(

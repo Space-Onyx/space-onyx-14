@@ -1,3 +1,4 @@
+using System;
 using Content.Shared._Onyx.Ghost;
 using NUnit.Framework;
 using Robust.Shared.Timing;
