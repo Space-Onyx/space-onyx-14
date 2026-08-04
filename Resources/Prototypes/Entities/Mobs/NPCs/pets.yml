@@ -358,8 +358,7 @@
     refineResult:
     - id: FoodMeat
       amount: 2
-  - type: ReplacementAccent
-    accent: dog
+  # <Onyx-Animals-edited>
   - type: InteractionPopup
     successChance: 0.5
     interactSuccessString: petting-success-dog
@@ -367,6 +366,7 @@
     interactSuccessSpawn: EffectHearts
     interactSuccessSound:
       path: /Audio/Animals/small_dog_bark_happy.ogg
+  # </Onyx-Animals-edited>
   - type: Grammar
     attributes:
       proper: true

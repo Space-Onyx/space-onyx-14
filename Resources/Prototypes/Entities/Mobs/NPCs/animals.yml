@@ -281,10 +281,10 @@
   - type: EggLayer
     eggSpawn:
     - id: FoodEgg
+  # <Onyx-Animals-edited>
   - type: ExaminableHunger
-  - type: ReplacementAccent
-    accent: chicken
   - type: SentienceTarget
+  # </Onyx-Animals-edited>
     flavorKind: station-event-random-sentience-flavor-organic
   - type: NpcFactionMember
     factions:
@@ -747,10 +747,10 @@
   - type: EggLayer
     eggSpawn:
     - id: FoodEgg
+  # <Onyx-Animals-edited>
   - type: ExaminableHunger
-  - type: ReplacementAccent
-    accent: duck
   - type: SentienceTarget
+  # </Onyx-Animals-edited>
     flavorKind: station-event-random-sentience-flavor-organic
   - type: NpcFactionMember
     factions:
@@ -1042,13 +1042,13 @@
     interactSuccessSpawn: EffectHearts
     interactSuccessSound:
       path: /Audio/Voice/Arachnid/arachnid_chitter.ogg
-  - type: ReplacementAccent
-    accent: crab
+  # <Onyx-Animals-edited>
   - type: Bloodstream
     bloodReferenceSolution:
       reagents:
       - ReagentId: CopperBlood
         Quantity: 50
+  # </Onyx-Animals-edited>
   - type: Tag
     tags:
     - VimPilot
@@ -1131,7 +1131,7 @@
     speechVerb: Goat
   - type: Vocal
     emoteSounds: Goat
-  - type: BleatingAccent
+  # <Onyx-Animals-edited>
   - type: InteractionPopup
     successChance: 0.2
     interactSuccessString: petting-success-goat
@@ -1283,6 +1283,7 @@
       collection: Sheep
       params:
         variation: 0.05
+  # </Onyx-Animals-edited>
   - type: Perishable
     molsPerSecondPerUnitMass: 0.0015
   - type: NpcFactionMember
@@ -1541,11 +1542,11 @@
   - type: Inventory
     speciesId: kangaroo
     templateId: kangaroo
-  - type: ReplacementAccent
-    accent: kangaroo
+  # <Onyx-Animals-edited>
   - type: ToolRefinable
     refineResult:
     - id: FoodMeat
+  # </Onyx-Animals-edited>
   - type: DamageStateVisuals
     states:
       Alive:
@@ -1763,9 +1764,10 @@
   - type: Speech
     speechSounds: Monkey
     speechVerb: Monkey
-  - type: MonkeyAccent
+  # <Onyx-Animals-edited>
   - type: SentienceTarget
     flavorKind: station-event-random-sentience-flavor-primate
+  # </Onyx-Animals-edited>
   - type: AlwaysRevolutionaryConvertible
   - type: GhostRole
     prob: 0.05
@@ -1857,9 +1859,6 @@
   - type: HumanoidProfile
     species: Kobold
   # </Onyx-PrimateAnatomy>
-  - type: LizardAccent
-  - type: ReplacementAccent
-    accent: kobold
   - type: Speech
     speechSounds: Lizard
     speechVerb: Reptilian
@@ -1944,6 +1943,11 @@
   parent: MobBaseKobold
   suffix: syndicate base
   components:
+  # <Onyx-Animals-edited>
+  - type: LizardAccent
+  - type: ReplacementAccent
+    accent: kobold
+  # </Onyx-Animals-edited>
   - type: MobThresholds
     thresholds:
       0: Alive
@@ -2111,8 +2115,7 @@
     refineResult:
     - id: FoodMeatRat
       amount: 1
-  - type: ReplacementAccent
-    accent: mouse
+  # <Onyx-Animals-edited>
   - type: Tag
     tags:
     - Trash
@@ -2120,6 +2123,7 @@
     - ChefPilot
     - Mouse
     - Meat
+  # </Onyx-Animals-edited>
   - type: Respirator
     damage:
       types:
@@ -3287,11 +3291,11 @@
     refineResult:
     - id: FoodMeat
       amount: 2
-  - type: ReplacementAccent
-    accent: dog
+  # <Onyx-Animals-edited>
   - type: Tag
     tags:
     - VimPilot
+  # </Onyx-Animals-edited>
 
 - type: entity
   name: corrupted corgi
@@ -3432,8 +3436,7 @@
     refineResult:
     - id: FoodMeat
       amount: 3
-  - type: ReplacementAccent
-    accent: cat
+  # <Onyx-Animals-edited>
   - type: InteractionPopup
     successChance: 0.7
     interactSuccessString: petting-success-cat
@@ -3441,6 +3444,7 @@
     interactSuccessSpawn: EffectHearts
     interactSuccessSound:
       path: /Audio/Animals/cat_meow.ogg
+  # </Onyx-Animals-edited>
   - type: MeleeWeapon
     altDisarm: false
     angle: 0
@@ -3959,10 +3963,10 @@
     interactSuccessSpawn: EffectHearts
     interactSuccessSound:
       path: /Audio/Animals/pig_oink.ogg
-  - type: ReplacementAccent
-    accent: pig
+  # <Onyx-Animals-edited>
   - type: SentienceTarget
     flavorKind: station-event-random-sentience-flavor-organic
+  # </Onyx-Animals-edited>
   - type: NpcFactionMember
     factions:
     - Passive

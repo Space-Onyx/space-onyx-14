@@ -19,6 +19,13 @@ namespace Content.Server._Onyx.Language.Paper;
 public sealed partial class PaperLanguageSystem : EntitySystem
 {
     private static readonly ProtoId<LanguagePrototype> Universal = "Universal";
+    private static readonly HashSet<ProtoId<LanguagePrototype>> NonWrittenLanguages =
+    [
+        "Universal", "Psychomantic", "Sign", "NalRasan",
+        "Cat", "Dog", "Fox", "Xeno", "Monkey", "Mouse", "Chicken", "Duck", "Cow", "Sheep",
+        "Kangaroo", "Pig", "Crab", "Kobold", "Hissing", "Penguin", "Deer", "Carptongue", "Cheval",
+        "FloorGoblin",
+    ];
     private const float PreloadRange = 8f;
     private const float PreloadInterval = 0.25f;
     private const int MaxEditOperations = 256;
@@ -51,8 +58,30 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         SubscribeLocalEvent<PaperComponent, PaperLanguageViewPrepareEvent>(OnPrepareView);
         SubscribeLocalEvent<PaperComponent, PaperLanguageSaveMessage>(OnSaveMessage);
         SubscribeLocalEvent<PaperComponent, PaperContentChangedEvent>(OnContentChanged);
+        SubscribeLocalEvent<PaperComponent, PaperLanguageExaminedEvent>(OnExamined);
         SubscribeLocalEvent<PaperComponent, ComponentShutdown>(OnPaperShutdown);
         SubscribeLocalEvent<PaperLanguageComponent, CloningItemEvent>(OnClonePaper, after: new[] { typeof(CloningSystem) });
+    }
+
+    private void OnExamined(Entity<PaperComponent> ent, ref PaperLanguageExaminedEvent args)
+    {
+        if (!args.Examine.IsInDetailsRange || ent.Comp.Content.Length == 0)
+            return;
+
+        var languages = EnsureLanguageData(ent).Segments
+            .Select(segment => segment.Language)
+            .Where(language => !NonWrittenLanguages.Contains(language))
+            .Distinct();
+
+        foreach (var language in languages)
+        {
+            var description = Loc.GetString($"paper-language-writing-{language}");
+            args.Examine.PushMarkup(_languages.CanUnderstand(args.Examine.Examiner, language)
+                ? Loc.GetString("paper-language-writing-known",
+                    ("language", Loc.GetString($"language-{language}-name")),
+                    ("description", description))
+                : Loc.GetString("paper-language-writing-unknown", ("description", description)));
+        }
     }
 
     private void OnPaperShutdown(Entity<PaperComponent> ent, ref ComponentShutdown args)

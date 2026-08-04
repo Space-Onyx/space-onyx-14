@@ -90,6 +90,7 @@ public sealed partial class PaperSystem : EntitySystem
         {
             if (entity.Comp.Content != "")
             {
+                var languageExamine = new PaperLanguageExaminedEvent(args); RaiseLocalEvent(entity, ref languageExamine); // <Onyx-PaperLanguages>
                 args.PushMarkup(
                     Loc.GetString(
                         "paper-component-examine-detail-has-words",

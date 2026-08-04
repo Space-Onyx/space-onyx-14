@@ -125,7 +125,6 @@
   - type: NoSlip
   - type: Perishable
     molsPerSecondPerUnitMass: 0.0005
-  - type: LizardAccent
   - type: Speech
     speechSounds: Xenomorph
     speechVerb: SmallMob

@@ -77,10 +77,10 @@
         - Carp
         - DoorBumpOpener
         - CannotSuicide
-    - type: ReplacementAccent
-      accent: genericAggressive
+    # <Onyx-Animals-edited>
     - type: Speech
       speechVerb: LargeMob
+    # </Onyx-Animals-edited>
     # <Onyx-Animals-edited>
     - type: LanguageKnowledge
       speaks:

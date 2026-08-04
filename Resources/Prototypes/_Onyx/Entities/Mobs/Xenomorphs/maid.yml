@@ -41,7 +41,6 @@
     damage:
       groups:
         Brute: 10
-  - type: OwOAccent
   - type: Pacified
   - type: GhostRole
     allowMovement: true

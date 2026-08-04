@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared.Examine;
 using Content.Shared.Paper;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -205,6 +206,9 @@ public record struct PaperContentChangedEvent;
 
 [ByRefEvent]
 public record struct PaperLanguageViewPrepareEvent(EntityUid Actor, bool CanWrite = false);
+
+[ByRefEvent]
+public record struct PaperLanguageExaminedEvent(ExaminedEvent Examine);
 
 public static class PaperLanguageSegments
 {

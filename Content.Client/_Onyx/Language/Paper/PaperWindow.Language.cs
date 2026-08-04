@@ -1,6 +1,5 @@
 using Content.Client._Onyx.Language.Paper;
 using Content.Client.RichText;
-using Content.Client.UserInterface.RichText;
 using Content.Shared._Onyx.Language.Paper;
 using Content.Shared.Paper;
 using Robust.Client.UserInterface.Controls;
@@ -22,7 +21,6 @@ public sealed partial class PaperWindow
     private bool _populating;
     private bool _applyingLanguageView;
     private readonly List<PaperLanguageEditOperation> _operations = new();
-    private readonly List<(string Text, int OperationCount)> _editHistory = new();
 
     private void InitializeLanguageView()
     {
@@ -67,8 +65,6 @@ public sealed partial class PaperWindow
         _operations.Clear();
         _baseText = state.EditableText;
         _lastText = state.EditableText;
-        _editHistory.Clear();
-        _editHistory.Add((_baseText, 0));
 
         Populate(new PaperComponent.PaperBoundUserInterfaceState(state.Text, state.StampedBy, state.Mode));
         Input.TextRope = Rope.Leaf.Empty;
@@ -92,20 +88,7 @@ public sealed partial class PaperWindow
                     selectionStart,
                     selectionEnd - selectionStart,
                     text.Substring(selectionStart, selectionEnd - selectionStart)));
-                _editHistory.Add((text, _operations.Count));
             }
-            return;
-        }
-
-        for (var i = _editHistory.Count - 1; i >= 0; i--)
-        {
-            if (_editHistory[i].Text != text)
-                continue;
-
-            _operations.RemoveRange(_editHistory[i].OperationCount,
-                _operations.Count - _editHistory[i].OperationCount);
-            _editHistory.RemoveRange(i + 1, _editHistory.Count - i - 1);
-            _lastText = text;
             return;
         }
 
@@ -115,7 +98,6 @@ public sealed partial class PaperWindow
         var insertLength = text.Length - start - suffix;
         _operations.Add(new PaperLanguageEditOperation(start, deleteLength, text.Substring(start, insertLength)));
         _lastText = text;
-        _editHistory.Add((text, _operations.Count));
     }
 
     private static int CommonPrefix(string left, string right)
