@@ -255,7 +255,7 @@ namespace Content.Client.Paper.UI
             EditButtons.Visible = isEditing;
 
             var msg = new FormattedMessage();
-            msg.AddMarkupPermissive(state.Text);
+            msg.AddMarkupPermissive(RenderSignatures(state.Text, state.SignedBy)); // <Onyx-PaperSignatures-edited>
 
             // For premade documents, we want to be able to edit them rather than
             // replace them.

@@ -69,7 +69,7 @@
   name: Report on object Investigation
   components:
     - type: Paper
-      content: doc-text-printer-Report-study-object
+      content: doc-text-printer-report-study-object
 
 - type: entity
   parent: PrintedDocument

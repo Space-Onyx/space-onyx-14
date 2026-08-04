@@ -28,6 +28,10 @@ health-examinable-part-wound-closed = { $count } closed { $count ->
     [one] wound
    *[other] wounds
 }
+health-examinable-part-incision-open = { $count } open { $count ->
+    [one] incision
+   *[other] incisions
+}
 health-examinable-part-bleeding = active bleeding
 health-examinable-part-fracture-hairline = hairline fracture
 health-examinable-part-fracture-simple = simple fracture

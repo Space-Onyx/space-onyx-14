@@ -8,6 +8,7 @@
         <Label Name="Gender"/>
         <Label Name="Fingerprint"/>
         <Label Name="Dna"/>
+        <Label Name="Handwriting"/> <!-- <Onyx-PaperSignatures> -->
         <Button Visible="False" Name="DeleteButton" Text="{Loc 'general-station-record-console-delete'}"/>
     </BoxContainer>
 </Control>

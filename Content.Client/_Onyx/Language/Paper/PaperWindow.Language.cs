@@ -2,6 +2,7 @@ using Content.Client._Onyx.Language.Paper;
 using Content.Client.RichText;
 using Content.Shared._Onyx.Language.Paper;
 using Content.Shared.Paper;
+using Robust.Client.UserInterface.RichText;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Utility;
 
@@ -12,7 +13,7 @@ public sealed partial class PaperWindow
     public event Action<uint, ulong, List<PaperLanguageEditOperation>>? OnLanguageSaved;
 
     private static readonly Type[] PaperAllowedTags =
-        [..UserFormattableTags.BaseAllowedTags, typeof(PaperLanguageTag)];
+        [..UserFormattableTags.BaseAllowedTags, typeof(FontTag), typeof(PaperLanguageTag)];
 
     private uint _revision;
     private ulong _viewGeneration;
@@ -66,7 +67,7 @@ public sealed partial class PaperWindow
         _baseText = state.EditableText;
         _lastText = state.EditableText;
 
-        Populate(new PaperComponent.PaperBoundUserInterfaceState(state.Text, state.StampedBy, state.Mode));
+        Populate(new PaperComponent.PaperBoundUserInterfaceState(state.Text, state.StampedBy, state.SignedBy, state.Mode));
         Input.TextRope = Rope.Leaf.Empty;
         Input.CursorPosition = new TextEdit.CursorPos();
         Input.InsertAtCursor(state.EditableText);

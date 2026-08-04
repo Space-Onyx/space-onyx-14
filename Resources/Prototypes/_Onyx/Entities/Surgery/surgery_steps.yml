@@ -20,7 +20,6 @@
   - type: SurgeryStepBleedEffect
     damage: 10
   - type: SurgeryStepEmoteEffect
-  - type: SurgeryCloseIncisionEffect
 
 - type: entity
   parent: SurgeryStepBase
@@ -129,6 +128,7 @@
     sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
     state: stitches
   - type: SurgeryStepEmoteEffect
+  - type: SurgeryCloseIncisionEffect
 
 - type: entity
   parent: SurgeryStepBase

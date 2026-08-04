@@ -69,4 +69,9 @@ public sealed partial record GeneralStationRecord : StationRecord
     /// </summary>
     [DataField]
     public string? DNA;
+
+    // <Onyx-PaperSignatures>
+    [DataField]
+    public string? HandwritingId;
+    // </Onyx-PaperSignatures>
 }

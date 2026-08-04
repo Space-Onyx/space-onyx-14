@@ -137,6 +137,7 @@
   - type: Sprinter
   # </Onyx-Sprinting>
   - type: Dna
+  - type: SignatureIdentity # <Onyx-PaperSignatures>
   - type: MindContainer
   - type: MindExaminable
   - type: CanEnterCryostorage

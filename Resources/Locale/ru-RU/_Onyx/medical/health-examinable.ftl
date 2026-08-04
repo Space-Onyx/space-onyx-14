@@ -31,6 +31,11 @@ health-examinable-part-wound-closed = { $count } { $count ->
     [few] закрытые раны
    *[other] закрытых ран
 }
+health-examinable-part-incision-open = { $count } { $count ->
+    [one] открытый разрез
+    [few] открытых разреза
+   *[other] открытых разрезов
+}
 health-examinable-part-bleeding = активное кровотечение
 health-examinable-part-fracture-hairline = трещина кости
 health-examinable-part-fracture-simple = простой перелом

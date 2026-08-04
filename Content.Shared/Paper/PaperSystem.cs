@@ -13,6 +13,7 @@ using static Content.Shared.Paper.PaperComponent;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Content.Shared._Onyx.Language.Paper; // <Onyx-PaperLanguages>
+using Content.Shared._Onyx.Paper; // <Onyx-PaperSignatures>
 
 namespace Content.Shared.Paper;
 
@@ -110,6 +111,15 @@ public sealed partial class PaperSystem : EntitySystem
                         ("stamps", commaSeparated))
                 );
             }
+
+            // <Onyx-PaperSignatures>
+            if (entity.Comp.SignedBy.Count > 0)
+            {
+                args.PushMarkup(Loc.GetString("paper-component-examine-detail-signed-by",
+                    ("paper", entity),
+                    ("signatures", string.Join(", ", entity.Comp.SignedBy.Select(signature => signature.SignedName)))));
+            }
+            // </Onyx-PaperSignatures>
         }
     }
 
@@ -153,6 +163,7 @@ public sealed partial class PaperSystem : EntitySystem
                 _uiSystem.OpenUi(entity.Owner, PaperUiKey.Key, args.User);
                 UpdateUserInterface(entity);
             }
+
             args.Handled = true;
             return;
         }
@@ -319,7 +330,7 @@ public sealed partial class PaperSystem : EntitySystem
 
     private void UpdateUserInterface(Entity<PaperComponent> entity)
     {
-        _uiSystem.SetUiState(entity.Owner, PaperUiKey.Key, new PaperBoundUserInterfaceState(string.Empty, entity.Comp.StampedBy, entity.Comp.Mode)); // <Onyx-PaperLanguages-edited>
+        _uiSystem.SetUiState(entity.Owner, PaperUiKey.Key, new PaperBoundUserInterfaceState(string.Empty, entity.Comp.StampedBy, entity.Comp.SignedBy, entity.Comp.Mode)); // <Onyx-PaperSignatures-edited>
     }
 }
 

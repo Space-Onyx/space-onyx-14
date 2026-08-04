@@ -8,6 +8,7 @@ using Content.Shared.Preferences;
 using Content.Shared.Roles;
 using Content.Shared.StationRecords.Components;
 using Content.Shared.StationRecords.Events;
+using Content.Shared._Onyx.Paper; // <Onyx-PaperSignatures>
 using Robust.Shared.Enums;
 using Robust.Shared.Timing;
 
@@ -45,6 +46,7 @@ public sealed partial class StationRecordsSystem : EntitySystem
     [Dependency] private EntityQuery<StationRecordKeyStorageComponent> _keyStorageQuery = default!;
     [Dependency] private EntityQuery<FingerprintComponent> _fingerprintQuery = default!;
     [Dependency] private EntityQuery<DnaComponent> _dnaQuery = default!;
+    [Dependency] private EntityQuery<SignatureIdentityComponent> _signatureIdentityQuery = default!; // <Onyx-PaperSignatures>
 
     [SubscribeLocalEvent]
     private void OnPlayerSpawn(PlayerSpawnCompleteEvent args)
@@ -96,6 +98,7 @@ public sealed partial class StationRecordsSystem : EntitySystem
 
         _fingerprintQuery.TryComp(player, out var fingerprintComponent);
         _dnaQuery.TryComp(player, out var dnaComponent);
+        _signatureIdentityQuery.TryComp(player, out var signatureIdentity); // <Onyx-PaperSignatures>
 
         CreateGeneralRecord(
             station,
@@ -107,6 +110,7 @@ public sealed partial class StationRecordsSystem : EntitySystem
             jobId,
             fingerprintComponent?.Fingerprint,
             dnaComponent?.DNA,
+            signatureIdentity?.HandwritingId, // <Onyx-PaperSignatures>
             profile);
     }
 
@@ -130,6 +134,7 @@ public sealed partial class StationRecordsSystem : EntitySystem
     /// </param>
     /// <param name="mobFingerprint">Fingerprint of the character.</param>
     /// <param name="dna">DNA of the character.</param>
+    /// <param name="handwritingId">Handwriting identifier of the character.</param> // <Onyx-PaperSignatures>
     ///
     /// <param name="profile">
     ///     Profile for the related player. This is so that other systems can get further information
@@ -146,6 +151,7 @@ public sealed partial class StationRecordsSystem : EntitySystem
         string jobId,
         string? mobFingerprint,
         string? dna,
+        string? handwritingId, // <Onyx-PaperSignatures>
         HumanoidCharacterProfile profile)
     {
         if (!ProtoMan.TryIndex<JobPrototype>(jobId, out var jobPrototype))
@@ -170,7 +176,8 @@ public sealed partial class StationRecordsSystem : EntitySystem
             Gender = gender,
             DisplayPriority = jobPrototype.RealDisplayWeight,
             Fingerprint = mobFingerprint,
-            DNA = dna
+            DNA = dna,
+            HandwritingId = handwritingId // <Onyx-PaperSignatures>
         };
 
         var key = AddRecordEntry(station.AsNullable(), record);

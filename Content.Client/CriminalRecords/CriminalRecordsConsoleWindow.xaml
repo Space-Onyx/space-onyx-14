@@ -84,6 +84,17 @@
                                FontColorOverride="DarkGray" />
                         <Label Name="PersonDna" />
                     </BoxContainer>
+                    <!-- <Onyx-PaperSignatures> -->
+                    <BoxContainer Orientation="Horizontal"
+                                  Margin="0 0 0 5">
+                        <Label Text="{Loc 'general-station-record-handwriting-filter'}"
+                               FontColorOverride="DarkGray" />
+                        <Label Text=":"
+                               Margin="0 0 6 0"
+                               FontColorOverride="DarkGray" />
+                        <Label Name="PersonHandwriting" />
+                    </BoxContainer>
+                    <!-- </Onyx-PaperSignatures> -->
                     <PanelContainer StyleClasses="LowDivider"
                                     Margin="0 5 0 5" />
                     <BoxContainer Orientation="Horizontal"

@@ -1,6 +1,7 @@
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
+using Content.Shared._Onyx.Paper; // <Onyx-PaperSignatures>
 
 namespace Content.Shared.Paper;
 
@@ -16,6 +17,11 @@ public sealed partial class PaperComponent : Component
 
     [DataField("stampedBy"), AutoNetworkedField]
     public List<StampDisplayInfo> StampedBy { get; set; } = new();
+
+    // <Onyx-PaperSignatures>
+    [DataField("signedBy"), AutoNetworkedField]
+    public List<SignatureDisplayInfo> SignedBy { get; set; } = new();
+    // </Onyx-PaperSignatures>
 
     /// <summary>
     ///     Stamp to be displayed on the paper, state from bureaucracy.rsi
@@ -37,12 +43,14 @@ public sealed partial class PaperComponent : Component
     {
         public readonly string Text;
         public readonly List<StampDisplayInfo> StampedBy;
+        public readonly List<SignatureDisplayInfo> SignedBy; // <Onyx-PaperSignatures>
         public readonly PaperAction Mode;
 
-        public PaperBoundUserInterfaceState(string text, List<StampDisplayInfo> stampedBy, PaperAction mode = PaperAction.Read)
+        public PaperBoundUserInterfaceState(string text, List<StampDisplayInfo> stampedBy, List<SignatureDisplayInfo> signedBy, PaperAction mode = PaperAction.Read) // <Onyx-PaperSignatures-edited>
         {
             Text = text;
             StampedBy = stampedBy;
+            SignedBy = signedBy; // <Onyx-PaperSignatures>
             Mode = mode;
         }
     }

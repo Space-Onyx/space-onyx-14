@@ -5,6 +5,7 @@ using Content.Server.Cloning;
 using Content.Server.Examine;
 using Content.Shared._Onyx.Language.Paper;
 using Content.Shared._Onyx.Language;
+using Content.Shared._Onyx.Paper;
 using Content.Shared.Cloning.Events;
 using Content.Shared.Examine;
 using Content.Shared.Paper;
@@ -49,7 +50,7 @@ public sealed partial class PaperLanguageSystem : EntitySystem
     private float _preloadAccumulator;
     private ulong _nextViewGeneration;
 
-    private readonly record struct ViewVersion(uint Revision, PaperAction Mode, int Knowledge, int Stamps);
+    private readonly record struct ViewVersion(uint Revision, PaperAction Mode, int Knowledge, int Stamps, int Signatures);
 
     public override void Initialize()
     {
@@ -198,10 +199,14 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         foreach (var stamp in ent.Comp.StampedBy)
             stamps = HashCode.Combine(stamps, stamp.GetHashCode());
 
+        var signatures = 0;
+        foreach (var signature in ent.Comp.SignedBy)
+            signatures = HashCode.Combine(signatures, signature.GetHashCode());
+
         var mode = _writers.Contains((ent.Owner, actor)) || _pendingWriters.Contains((ent.Owner, actor))
             ? PaperAction.Write
             : PaperAction.Read;
-        return new ViewVersion(revision, mode, knowledge, stamps);
+        return new ViewVersion(revision, mode, knowledge, stamps, signatures);
     }
 
     private void OnSaveMessage(Entity<PaperComponent> ent, ref PaperLanguageSaveMessage args)
@@ -382,6 +387,14 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         _ui.ServerSendUiMessage(ent.Owner, PaperUiKey.Key, BuildViewMessage(ent, actor, preserveEditor), actor);
     }
 
+    public void RefreshViews(Entity<PaperComponent> ent)
+    {
+        foreach (var key in _sentViews.Keys.Where(key => key.Paper == ent.Owner).ToList())
+            _sentViews.Remove(key);
+        foreach (var actor in _ui.GetActors(ent.Owner, PaperUiKey.Key).ToList())
+            SendView(ent, actor);
+    }
+
     private PaperLanguageViewMessage BuildViewMessage(
         Entity<PaperComponent> ent,
         EntityUid actor,
@@ -395,7 +408,8 @@ public sealed partial class PaperLanguageSystem : EntitySystem
             ? PaperAction.Write
             : PaperAction.Read;
         return new PaperLanguageViewMessage(rendered, editable, data.Revision, generation, mode,
-            new List<StampDisplayInfo>(ent.Comp.StampedBy), preserveEditor);
+            new List<StampDisplayInfo>(ent.Comp.StampedBy),
+            new List<SignatureDisplayInfo>(ent.Comp.SignedBy), preserveEditor);
     }
 
     private (string Editable, string Rendered) BuildViews(
@@ -465,6 +479,7 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         var tags = new List<string>();
         var escaped = false;
         var inTag = false;
+        var tagEnd = '\0';
         var tag = new StringBuilder();
 
         for (var i = 0; i < value.Length; i++)
@@ -484,10 +499,12 @@ public sealed partial class PaperLanguageSystem : EntitySystem
                 continue;
             }
 
-            if (!inTag && character == '[' &&
-                PaperLanguageMarkup.IsAllowedTag(value, i))
+            if (!inTag &&
+                (character == '[' && PaperLanguageMarkup.IsAllowedTag(value, i) ||
+                    PaperLanguageMarkup.TryGetSignatureTagLength(value, i, out _)))
             {
                 inTag = true;
+                tagEnd = character == '<' ? '>' : ']';
                 tag.Append(character);
                 continue;
             }
@@ -497,7 +514,7 @@ public sealed partial class PaperLanguageSystem : EntitySystem
             else
                 protectedText.Append(character);
 
-            if (inTag && character == ']')
+            if (inTag && character == tagEnd)
             {
                 inTag = false;
                 tags.Add(tag.ToString());

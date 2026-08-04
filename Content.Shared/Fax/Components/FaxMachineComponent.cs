@@ -1,6 +1,7 @@
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Paper;
 using Content.Shared._Onyx.Language.Paper; // <Onyx-PaperLanguages>
+using Content.Shared._Onyx.Paper; // <Onyx-PaperSignatures>
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
@@ -185,6 +186,9 @@ public sealed partial class FaxPrintout
     [DataField("stampedBy")]
     public List<StampDisplayInfo> StampedBy { get; private set; } = new();
 
+    [DataField("signedBy")]
+    public List<SignatureDisplayInfo> SignedBy { get; private set; } = new(); // <Onyx-PaperSignatures>
+
     [DataField]
     public bool Locked { get; private set; }
 
@@ -198,7 +202,7 @@ public sealed partial class FaxPrintout
     {
     }
 
-    public FaxPrintout(string content, string name, string? label = null, string? prototypeId = null, string? stampState = null, List<StampDisplayInfo>? stampedBy = null, bool locked = false, string? senderFaxName = null, List<PaperLanguageSegment>? languageSegments = null) // <Onyx-PaperLanguages-edited>
+    public FaxPrintout(string content, string name, string? label = null, string? prototypeId = null, string? stampState = null, List<StampDisplayInfo>? stampedBy = null, bool locked = false, string? senderFaxName = null, List<PaperLanguageSegment>? languageSegments = null, List<SignatureDisplayInfo>? signedBy = null) // <Onyx-PaperSignatures-edited>
     {
         Content = content;
         Name = name;
@@ -206,6 +210,7 @@ public sealed partial class FaxPrintout
         PrototypeId = prototypeId ?? "";
         StampState = stampState;
         StampedBy = stampedBy ?? new List<StampDisplayInfo>();
+        SignedBy = signedBy ?? new List<SignatureDisplayInfo>(); // <Onyx-PaperSignatures>
         Locked = locked;
         SenderFaxName = senderFaxName;
         LanguageSegments = languageSegments ?? PaperLanguageSegments.ForText(content, "Universal"); // <Onyx-PaperLanguages>

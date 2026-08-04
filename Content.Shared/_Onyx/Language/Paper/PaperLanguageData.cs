@@ -1,6 +1,8 @@
 using System.Linq;
+using System.Text.RegularExpressions;
 using Content.Shared.Examine;
 using Content.Shared.Paper;
+using Content.Shared._Onyx.Paper;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
@@ -49,6 +51,7 @@ public sealed class PaperLanguageViewMessage(
     ulong viewGeneration,
     PaperComponent.PaperAction mode,
     List<StampDisplayInfo> stampedBy,
+    List<SignatureDisplayInfo> signedBy,
     bool preserveEditor = false) : BoundUserInterfaceMessage
 {
     public readonly string Text = text;
@@ -57,6 +60,7 @@ public sealed class PaperLanguageViewMessage(
     public readonly ulong ViewGeneration = viewGeneration;
     public readonly PaperComponent.PaperAction Mode = mode;
     public readonly List<StampDisplayInfo> StampedBy = stampedBy;
+    public readonly List<SignatureDisplayInfo> SignedBy = signedBy;
     public readonly bool PreserveEditor = preserveEditor;
 }
 
@@ -278,6 +282,10 @@ public static class PaperLanguageSegments
 
 public static class PaperLanguageMarkup
 {
+    private static readonly Regex SignatureTag = new(
+        @"(?:<\s*(?:sign\s*=\s*\d+|sign_(?:repeat_)?limit\s*=\s*\d+)\s*>|\[\s*(?:sign\s*=\s*\d+|sign_(?:repeat_)?limit\s*=\s*\d+)\s*\])",
+        RegexOptions.IgnoreCase);
+
     private static readonly HashSet<string> AllowedTags =
     [
         "bolditalic",
@@ -305,6 +313,20 @@ public static class PaperLanguageMarkup
             !AllowedTags.Contains(name))
             return false;
 
+        return true;
+    }
+
+    public static bool TryGetSignatureTagLength(string text, int start, out int length)
+    {
+        length = 0;
+        if (start < 0 || start >= text.Length || text[start] is not ('<' or '['))
+            return false;
+
+        var match = SignatureTag.Match(text, start);
+        if (!match.Success || match.Index != start)
+            return false;
+
+        length = match.Length;
         return true;
     }
 }

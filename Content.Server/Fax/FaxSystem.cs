@@ -26,6 +26,7 @@ using Content.Shared.Power;
 using Content.Shared.Tools;
 using Content.Shared.UserInterface;
 using Content.Shared._Onyx.Language.Paper; // <Onyx-PaperLanguages>
+using Content.Shared._Onyx.Paper; // <Onyx-PaperSignatures>
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
@@ -308,12 +309,13 @@ public sealed partial class FaxSystem : EntitySystem
                     args.Data.TryGetValue(FaxConstants.FaxPaperLabelData, out string? label);
                     args.Data.TryGetValue(FaxConstants.FaxPaperStampStateData, out string? stampState);
                     args.Data.TryGetValue(FaxConstants.FaxPaperStampedByData, out List<StampDisplayInfo>? stampedBy);
+                    args.Data.TryGetValue(FaxConstants.FaxPaperSignedByData, out List<SignatureDisplayInfo>? signedBy); // <Onyx-PaperSignatures>
                     args.Data.TryGetValue(FaxConstants.FaxPaperPrototypeData, out string? prototypeId);
                     args.Data.TryGetValue(FaxConstants.FaxPaperLockedData, out bool? locked);
                     args.Data.TryGetValue(FaxConstants.FaxPaperSenderFaxNameData, out string? senderFaxName);
                     args.Data.TryGetValue(FaxConstants.FaxPaperLanguageSegmentsData, out List<PaperLanguageSegment>? languageSegments); // <Onyx-PaperLanguages>
 
-                    var printout = new FaxPrintout(content, name, label, prototypeId, stampState, stampedBy, locked ?? false, senderFaxName, languageSegments); // <Onyx-PaperLanguages-edited>
+                    var printout = new FaxPrintout(content, name, label, prototypeId, stampState, stampedBy, locked ?? false, senderFaxName, languageSegments, signedBy); // <Onyx-PaperSignatures-edited>
                     Receive(uid, printout, args.SenderAddress);
 
                     break;
@@ -488,7 +490,8 @@ public sealed partial class FaxSystem : EntitySystem
                                        paper.StampState,
                                        paper.StampedBy,
                                        paper.EditingDisabled,
-                                       languageSegments: _paperLanguages.CopySegments(sendEntity.Value)); // <Onyx-PaperLanguages-edited>
+                                       languageSegments: _paperLanguages.CopySegments(sendEntity.Value),
+                                       signedBy: new List<SignatureDisplayInfo>(paper.SignedBy)); // <Onyx-PaperSignatures-edited>
 
         component.PrintingQueue.Enqueue(printout);
         component.SendTimeoutRemaining += component.SendTimeout;
@@ -570,7 +573,8 @@ public sealed partial class FaxSystem : EntitySystem
             { FaxConstants.FaxPaperContentData, content },
             { FaxConstants.FaxPaperLockedData, paper.EditingDisabled },
             { FaxConstants.FaxPaperSenderFaxNameData, component.FaxName ?? Loc.GetString("fax-machine-popup-source-unknown") },
-            { FaxConstants.FaxPaperLanguageSegmentsData, languageSegments } // <Onyx-PaperLanguages>
+            { FaxConstants.FaxPaperLanguageSegmentsData, languageSegments }, // <Onyx-PaperLanguages>
+            { FaxConstants.FaxPaperSignedByData, new List<SignatureDisplayInfo>(paper.SignedBy) } // <Onyx-PaperSignatures>
         };
 
         if (metadata.EntityPrototype != null)
@@ -651,6 +655,8 @@ public sealed partial class FaxSystem : EntitySystem
                     _paperSystem.TryStamp((printed, paper), stamp, printout.StampState);
                 }
             }
+
+            paper.SignedBy = new List<SignatureDisplayInfo>(printout.SignedBy); // <Onyx-PaperSignatures>
 
             paper.EditingDisabled = printout.Locked;
             Dirty(printed, paper); // <Onyx-PaperLanguages>

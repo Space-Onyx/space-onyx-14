@@ -13,6 +13,8 @@ namespace Content.Shared.HealthExaminable;
 
 public sealed partial class HealthExaminableSystem
 {
+    private static readonly ProtoId<WoundPrototype> SurgicalIncision = "SurgicalIncisionWound";
+
     [Dependency] private WoundSystem _wounds = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
 
@@ -55,6 +57,7 @@ public sealed partial class HealthExaminableSystem
             var bleeding = false;
             var fracture = FractureGrade.None;
             var scars = 0;
+            var openIncisions = 0;
             foreach (var wound in _wounds.GetWounds(part))
             {
                 if (HasComp<WoundScarComponent>(wound))
@@ -67,8 +70,15 @@ public sealed partial class HealthExaminableSystem
                 if (wound.Comp.State is WoundState.Healed or WoundState.Scarred)
                     continue;
 
-                woundStates[wound.Comp.State] = woundStates.GetValueOrDefault(wound.Comp.State) + 1;
                 bleeding |= CompOrNull<WoundBleedingComponent>(wound)?.CurrentRate > 0f;
+                if (wound.Comp.Prototype == SurgicalIncision)
+                {
+                    if (wound.Comp.State == WoundState.Open)
+                        openIncisions++;
+                    continue;
+                }
+
+                woundStates[wound.Comp.State] = woundStates.GetValueOrDefault(wound.Comp.State) + 1;
                 if (CompOrNull<WoundFractureComponent>(wound) is { } found && found.Grade > fracture)
                     fracture = found.Grade;
             }
@@ -79,6 +89,9 @@ public sealed partial class HealthExaminableSystem
                     details.Add(Loc.GetString($"health-examinable-part-wound-{state.ToString().ToLowerInvariant()}",
                         ("count", count)));
             }
+
+            if (openIncisions > 0)
+                details.Add(Loc.GetString("health-examinable-part-incision-open", ("count", openIncisions)));
 
             if (bleeding)
                 details.Add(Loc.GetString("health-examinable-part-bleeding"));

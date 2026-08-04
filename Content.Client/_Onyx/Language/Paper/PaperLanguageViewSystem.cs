@@ -54,6 +54,7 @@ public sealed partial class PaperLanguageViewSystem : EntitySystem
             view.ViewGeneration,
             component.Mode,
             view.StampedBy,
+            view.SignedBy,
             view.PreserveEditor);
     }
 
