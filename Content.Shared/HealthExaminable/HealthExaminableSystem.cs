@@ -100,9 +100,9 @@ public sealed partial class HealthExaminableSystem : EntitySystem
             msg.AddMarkupOrThrow(Loc.GetString($"health-examinable-{component.LocPrefix}-none"));
         }
 
-        // <Onyx-SelfPainExamine>
-        AddPainMarkup(uid, examiner, msg);
-        // </Onyx-SelfPainExamine>
+        // <Onyx-PartHealthExamine-edited>
+        AddPartStatusMarkup(uid, examiner, msg);
+        // </Onyx-PartHealthExamine-edited>
 
         // Anything else want to add on to this?
         RaiseLocalEvent(uid, new HealthBeingExaminedEvent(msg), true);

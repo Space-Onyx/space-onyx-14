@@ -278,9 +278,14 @@ namespace Content.Client.Examine
                 if (string.IsNullOrWhiteSpace(text))
                     continue;
 
-                var richLabel = new RichTextLabel() { Margin = new Thickness(4, 4, 0, 4)};
-                richLabel.SetMessage(message);
-                vBox.AddChild(richLabel);
+                // <Onyx-PartHealthExamine-edited>
+                if (!TryAddPartStatusMessage(vBox, message))
+                {
+                    var richLabel = new RichTextLabel() { Margin = new Thickness(4, 4, 0, 4)};
+                    richLabel.SetMessage(message);
+                    vBox.AddChild(richLabel);
+                }
+                // </Onyx-PartHealthExamine-edited>
                 break;
             }
 

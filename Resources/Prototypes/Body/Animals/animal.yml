@@ -48,4 +48,5 @@
   - type: Body
   - type: DeclarativeBody
     prototype: AnimalBody
+  - type: WoundHost
   # </Onyx-AnimalBodyParts>
