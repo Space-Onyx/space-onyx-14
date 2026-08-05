@@ -9,6 +9,13 @@ ent-DiseaseCancer = рак
 ent-DiseaseGravitosisA = гравитоз А
     .desc = Странная болезнь.
 
+ent-MobMousePlague = { ent-MobMouse }
+    .desc = { ent-MobMouse.desc }
+    .suffix = Заражённая
+ent-MobMousePandemic = { ent-MobMouse }
+    .desc = { ent-MobMouse.desc }
+    .suffix = Заражённая, Админ
+
 ent-DiseaseBehaviorVomit = рвота
     .desc = Периодически вызывает рвоту.
 ent-DiseaseBehaviorFeelUnwell = недомогание

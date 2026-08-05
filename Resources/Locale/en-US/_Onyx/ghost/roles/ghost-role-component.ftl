@@ -21,3 +21,6 @@ ghost-role-information-xenomorph-sentinel-description = You're a xenomorph senti
 ghost-role-information-rules-default-xeno = You are a [color={ role-type-team-antagonist-color }][bold]Xenomorph[/bold][/color].
     Your objective is to protect your Queen and expand your Hive.
     Achieve this by bringing your Queen crewmembers to infest.
+
+ghost-role-information-plague-mouse-name = Plague Mouse
+ghost-role-information-plague-mouse-description = A hungry and mischievous mouse. This one carries a disease and will spread it on bite.

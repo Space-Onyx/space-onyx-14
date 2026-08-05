@@ -16,3 +16,6 @@ ghost-role-information-rules-default-xeno =
     Ты — [color={ role-type-team-antagonist-color }][bold]Ксеноморф[/bold][/color].
     Твоя цель — защищать королеву и расширять улей.
     Добейся этого, принося королеве членов экипажа для заражения.
+
+ghost-role-information-plague-mouse-name = Чумная мышь
+ghost-role-information-plague-mouse-description = Голодная и озорная мышь. Она переносит болезнь и распространяет её укусами.

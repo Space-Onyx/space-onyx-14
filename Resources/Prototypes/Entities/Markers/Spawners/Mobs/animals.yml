@@ -213,11 +213,17 @@
     - sprite: Mobs/Animals/mouse.rsi
       state: icon-2
     - state: ai
-  - type: ConditionalSpawner
+  # <Onyx-MouseDiseases-edited>
+  - type: RandomSpawner
     prototypes:
     - MobMouse
     - MobMouse1
     - MobMouse2
+    rareChance: 0.06
+    offset: 0
+    rarePrototypes:
+    - MobMousePlague
+  # </Onyx-MouseDiseases-edited>
 
 - type: entity
   parent: MarkerBase
