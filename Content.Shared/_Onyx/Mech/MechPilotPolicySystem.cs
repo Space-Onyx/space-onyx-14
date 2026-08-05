@@ -12,7 +12,7 @@ using Content.Shared.NPC.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Whitelist;
 using Content.Shared.Vehicle.Components;
-using Content.Shared.Vehicle;
+using Content.Shared.Vehicle.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 

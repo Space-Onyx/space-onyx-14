@@ -3,7 +3,7 @@ using Content.Shared._Onyx.Mech;
 using Content.Shared.Chat;
 using Content.Shared.Eye.Blinding.Systems;
 using Content.Shared.Mech.Components;
-using Content.Shared.Vehicle;
+using Content.Shared.Vehicle.Systems;
 using Content.Shared.Vehicle.Components;
 
 namespace Content.Server._Onyx.Mech;

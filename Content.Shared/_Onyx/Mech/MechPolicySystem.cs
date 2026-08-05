@@ -9,7 +9,7 @@ using Content.Shared.Movement.Events;
 using Content.Shared.Power.Components;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.Toggleable;
-using Content.Shared.Vehicle;
+using Content.Shared.Vehicle.Systems;
 using Content.Shared.Vehicle.Components;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Systems;

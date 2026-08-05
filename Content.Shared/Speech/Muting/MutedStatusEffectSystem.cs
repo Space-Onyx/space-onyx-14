@@ -1,8 +1,10 @@
+using Content.Shared.Abilities.Mime;
 using Content.Shared.Chat;
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.Popups;
 using Content.Shared.StatusEffectNew;
 using Content.Shared.StatusEffectNew.Components;
+using Content.Shared._Onyx.Language; // <Onyx-SignLanguage>
 
 namespace Content.Shared.Speech.Muting;
 
@@ -54,6 +56,13 @@ public sealed partial class MutedStatusEffectSystem : EntitySystem
             return;
 
         var target = args.Args.Uid;
+
+        // <Onyx-SignLanguage>
+        if (HasComp<MimePowersComponent>(target) &&
+            TryComp<LanguageSpeakerComponent>(target, out var speaker) &&
+            speaker.CurrentLanguage == "Sign")
+            return;
+        // </Onyx-SignLanguage>
 
         _popup.PopupEntity(Loc.GetString(ent.Comp.SpeakPopup), target, target);
 
