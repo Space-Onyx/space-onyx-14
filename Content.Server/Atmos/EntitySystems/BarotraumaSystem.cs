@@ -20,6 +20,7 @@ namespace Content.Server.Atmos.EntitySystems
         [Dependency] private AlertsSystem _alertsSystem = default!;
         [Dependency] private IAdminLogManager _adminLogger= default!;
         [Dependency] private InventorySystem _inventorySystem = default!;
+        [Dependency] private SharedContainerSystem _containerSystem = default!; // <Onyx-ModsuitPressure>
 
         private const float UpdateTimer = 1f;
         private float _timer;
@@ -28,8 +29,8 @@ namespace Content.Server.Atmos.EntitySystems
         {
             SubscribeLocalEvent<PressureProtectionComponent, GotEquippedEvent>(OnPressureProtectionEquipped);
             SubscribeLocalEvent<PressureProtectionComponent, GotUnequippedEvent>(OnPressureProtectionUnequipped);
-            SubscribeLocalEvent<PressureProtectionComponent, ComponentInit>(OnUpdateResistance);
-            SubscribeLocalEvent<PressureProtectionComponent, ComponentRemove>(OnUpdateResistance);
+            SubscribeLocalEvent<PressureProtectionComponent, ComponentInit>(OnPressureProtectionChanged); // <Onyx-ModsuitPressure-edited>
+            SubscribeLocalEvent<PressureProtectionComponent, ComponentRemove>(OnPressureProtectionChanged); // <Onyx-ModsuitPressure-edited>
 
             SubscribeLocalEvent<PressureImmunityComponent, ComponentInit>(OnPressureImmuneInit);
             SubscribeLocalEvent<PressureImmunityComponent, ComponentRemove>(OnPressureImmuneRemove);
@@ -51,16 +52,26 @@ namespace Content.Server.Atmos.EntitySystems
             }
         }
 
-        /// <summary>
-        /// Generic method for updating resistance on component Lifestage events
-        /// </summary>
-        private void OnUpdateResistance(EntityUid uid, PressureProtectionComponent pressureProtection, EntityEventArgs args)
+        // <Onyx-ModsuitPressure>
+        private void OnPressureProtectionChanged(EntityUid uid, PressureProtectionComponent pressureProtection, EntityEventArgs args)
         {
-            if (TryComp<BarotraumaComponent>(uid, out var barotrauma))
+            var protectionTarget = uid;
+            string? slotTarget = null;
+
+            if (_containerSystem.TryGetContainingContainer(uid, out var container)
+                && _inventorySystem.TryGetContainingSlot(uid, out var slot))
             {
-                UpdateCachedResistances(uid, barotrauma);
+                protectionTarget = container.Owner;
+                slotTarget = slot.Name;
             }
+
+            if (!TryComp<BarotraumaComponent>(protectionTarget, out var barotrauma)
+                || slotTarget != null && !barotrauma.ProtectionSlots.Contains(slotTarget))
+                return;
+
+            UpdateCachedResistances(protectionTarget, barotrauma);
         }
+        // </Onyx-ModsuitPressure>
 
         private void OnPressureProtectionEquipped(EntityUid uid, PressureProtectionComponent pressureProtection, GotEquippedEvent args)
         {

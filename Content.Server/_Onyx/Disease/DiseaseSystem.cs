@@ -204,7 +204,7 @@ public sealed partial class DiseaseProgressChangeEntityEffectSystem
     protected override void Effect(Entity<DiseaseCarrierComponent> entity,
         ref EntityEffectEvent<DiseaseProgressChange> args)
     {
-        foreach (var diseaseUid in entity.Comp.Diseases.ContainedEntities)
+        foreach (var diseaseUid in entity.Comp.Diseases.ContainedEntities.ToList())
         {
             if (!TryComp<DiseaseComponent>(diseaseUid, out var disease) ||
                 disease.DiseaseType != args.Effect.AffectedType)
@@ -212,6 +212,9 @@ public sealed partial class DiseaseProgressChangeEntityEffectSystem
 
             var scale = args.Effect.Scaled ? args.Scale * args.Effect.Scale * args.Effect.Quantity : 1f;
             _disease.ChangeInfectionProgress((diseaseUid, disease), args.Effect.ProgressModifier * scale);
+
+            if (disease.InfectionProgress <= 0f)
+                _disease.TryCure((entity, entity.Comp), diseaseUid);
         }
     }
 }

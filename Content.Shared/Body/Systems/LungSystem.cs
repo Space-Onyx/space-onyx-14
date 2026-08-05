@@ -4,7 +4,9 @@ using Content.Shared.Atmos.EntitySystems;
 using Content.Shared.Body.Components;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Inventory; // <Onyx-ModsuitInternals>
 using Content.Shared.Inventory.Events;
+using Robust.Shared.Containers; // <Onyx-ModsuitInternals>
 using Robust.Shared.Prototypes;
 using BreathToolComponent = Content.Shared.Atmos.Components.BreathToolComponent;
 using InternalsComponent = Content.Shared.Body.Components.InternalsComponent;
@@ -15,12 +17,15 @@ public sealed partial class LungSystem : EntitySystem
 {
     [Dependency] private SharedAtmosphereSystem _atmos = default!;
     [Dependency] private SharedInternalsSystem _internals = default!;
+    [Dependency] private InventorySystem _inventory = default!; // <Onyx-ModsuitInternals>
+    [Dependency] private SharedContainerSystem _container = default!; // <Onyx-ModsuitInternals>
     [Dependency] private SharedSolutionContainerSystem _solutionContainerSystem = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<LungComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<BreathToolComponent, ComponentInit>(OnBreathToolInit); // <Onyx-ModsuitInternals>
         SubscribeLocalEvent<BreathToolComponent, GotEquippedEvent>(OnGotEquipped);
         SubscribeLocalEvent<BreathToolComponent, GotUnequippedEvent>(OnGotUnequipped);
     }
@@ -43,6 +48,19 @@ public sealed partial class LungSystem : EntitySystem
             _internals.ConnectBreathTool((args.EquipTarget, internals), ent);
         }
     }
+
+    // <Onyx-ModsuitInternals>
+    private void OnBreathToolInit(Entity<BreathToolComponent> ent, ref ComponentInit args)
+    {
+        if (!_container.TryGetContainingContainer(ent.Owner, out var container)
+            || !_inventory.TryGetContainingSlot(ent.Owner, out var slot)
+            || (slot.SlotFlags & ent.Comp.AllowedSlots) == 0
+            || !TryComp(container.Owner, out InternalsComponent? internals))
+            return;
+
+        _internals.ConnectBreathTool((container.Owner, internals), ent);
+    }
+    // </Onyx-ModsuitInternals>
 
     private void OnMapInit(Entity<LungComponent> entity, ref MapInitEvent args)
     {
