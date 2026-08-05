@@ -33,6 +33,7 @@ public sealed partial class PaperSystem : EntitySystem
 
     private static readonly ProtoId<TagPrototype> WriteIgnoreStampsTag = "WriteIgnoreStamps";
     private static readonly ProtoId<TagPrototype> WriteTag = "Write";
+    private static readonly ProtoId<TagPrototype> SignEditTag = "SignEdit"; // <Onyx-PaperSignatures>
 
 
     public override void Initialize()
@@ -125,8 +126,11 @@ public sealed partial class PaperSystem : EntitySystem
 
     private void OnInteractUsing(Entity<PaperComponent> entity, ref InteractUsingEvent args)
     {
-        // only allow editing if there are no stamps or when using a cyberpen
-        var editable = entity.Comp.StampedBy.Count == 0 || _tagSystem.HasTag(args.Used, WriteIgnoreStampsTag);
+        // <Onyx-PaperSignatures-edited>
+        var editable = entity.Comp.StampedBy.Count == 0 && entity.Comp.SignedBy.Count == 0 ||
+            _tagSystem.HasTag(args.Used, WriteIgnoreStampsTag) ||
+            entity.Comp.StampedBy.Count == 0 && _tagSystem.HasTag(args.Used, SignEditTag);
+        // </Onyx-PaperSignatures-edited>
         if (_tagSystem.HasTag(args.Used, WriteTag))
         {
             if (editable)

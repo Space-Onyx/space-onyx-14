@@ -136,6 +136,11 @@
       Stomach: OrganMothStomach
       Liver: OrganMothLiver
       Kidneys: OrganMothKidneys
+  # <Onyx-MothWings>
+  - type: ProfileOrgans
+    organs:
+      Wings: { prototype: OrganMothWings, parent: Chest, presenceLayers: [ Tail, TailOverlay ] }
+  # </Onyx-MothWings>
   - type: HumanoidProfile
     species: Moth
 

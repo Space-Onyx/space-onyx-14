@@ -1,6 +1,30 @@
 - type: organCategory
   id: Tail
 
+- type: organCategory
+  id: Wings
+
+- type: entity
+  parent: OrganBaseOrganic
+  id: OrganMothWings
+  name: moth wings
+  components:
+  - type: GibbableOrgan
+  - type: Organ
+    category: Wings
+  - type: Sprite
+    noRot: true
+    enableOverrideDir: true
+    overrideDir: North
+  - type: VisualOrgan
+    layer: enum.HumanoidVisualLayers.Tail
+    data: {}
+  - type: VisualOrganMarkings
+    showOnDetached: true
+    markingData:
+      layers: [ Tail, TailOverlay ]
+      group: Moth
+
 - type: entity
   parent: OrganBaseOrganic
   id: OrganBaseVisualTail
@@ -10,9 +34,6 @@
   - type: GibbableOrgan
   - type: Organ
     category: Tail
-  - type: OptionalOrgan
-    parentPart: Groin
-    layers: [ Tail ]
   - type: Sprite
     noRot: true
     enableOverrideDir: true
@@ -24,6 +45,8 @@
     showOnDetached: true
     markingData:
       layers: [ Tail, TailOverlay ]
+  - type: VisualOrganActivity
+    action: ActionToggleWagging
 
 - type: entity
   parent: OrganBaseVisualTail
@@ -43,6 +66,8 @@
   parent: OrganBaseVisualTail
   id: OrganVulpkaninTail
   components:
+  - type: VisualOrganActivity
+    action: ActionToggleWaggingVulpkanin
   - type: VisualOrganMarkings
     markingData: { layers: [ Tail, TailOverlay ], group: Vulpkanin }
 
@@ -64,6 +89,8 @@
   parent: OrganBaseVisualTail
   id: OrganSlimePersonTail
   components:
+  - type: TransplantCompatibility
+    profile: Slime
   - type: VisualOrganMarkings
     markingData: { layers: [ Tail, TailOverlay ], group: Slime }
 
@@ -99,6 +126,8 @@
   parent: [ OrganBaseEars, OrganSlimePersonInternal ]
   id: OrganSlimePersonEars
   components:
+  - type: TransplantCompatibility
+    profile: Slime
   - type: Sprite
     sprite: Mobs/Species/Human/organs.rsi
   - type: VisualOrganMarkings

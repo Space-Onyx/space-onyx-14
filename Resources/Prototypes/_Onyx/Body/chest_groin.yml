@@ -143,6 +143,8 @@
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganSlimePersonExternal ]
   id: OrganSlimePersonChest
   components:
+  - type: TransplantCompatibility
+    profile: Slime
   - type: Sprite
     sprite: _Onyx/Body/Species/Slime/parts.rsi
   - type: VisualOrgan
@@ -152,6 +154,8 @@
   parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganSlimePersonExternal ]
   id: OrganSlimePersonGroin
   components:
+  - type: TransplantCompatibility
+    profile: Slime
   - type: Sprite
     sprite: _Onyx/Body/Species/Slime/parts.rsi
   - type: VisualOrgan
@@ -163,6 +167,8 @@
   parent: [ OrganBaseChest, OrganDionaExternal ]
   id: OrganDionaChest
   components:
+  - type: TransplantCompatibility
+    profile: Plant
   - type: Sprite
     sprite: _Onyx/Body/Species/Diona/parts.rsi
   - type: VisualOrgan
@@ -172,6 +178,8 @@
   parent: [ OrganBaseGroin, OrganDionaExternal ]
   id: OrganDionaGroin
   components:
+  - type: TransplantCompatibility
+    profile: Plant
   - type: Sprite
     sprite: _Onyx/Body/Species/Diona/parts.rsi
   - type: VisualOrgan
@@ -188,7 +196,7 @@
     data: { sprite: _Onyx/Body/Species/Moth/parts.rsi }
   - type: VisualOrganMarkings
     markingData:
-      layers: [ Chest, Tail, Overlay, TailOverlay, Special ]
+      layers: [ Chest, Overlay, Special ]
       group: Moth
 
 - type: entity
@@ -316,6 +324,8 @@
   parent: [ OrganBaseChest, OrganIpcExternal ]
   id: OrganIpcChest
   components:
+  - type: TransplantCompatibility
+    profile: Mechanical
   - type: Sprite
     sprite: _Onyx/Body/Species/IPC/parts.rsi
   - type: VisualOrgan
@@ -329,6 +339,8 @@
   parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganIpcExternal ]
   id: OrganIpcGroin
   components:
+  - type: TransplantCompatibility
+    profile: Mechanical
   - type: Sprite
     sprite: _Onyx/Body/Species/IPC/parts.rsi
   - type: VisualOrgan

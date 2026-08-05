@@ -75,7 +75,6 @@
       Chest: OrganTajaranChest
       Groin: OrganTajaranGroin
       # </Onyx-ChestGroin-edited>
-      Tail: OrganTajaranTail # <Onyx-VisualTail>
       Head: OrganTajaranHead
       ArmLeft: OrganTajaranArmLeft
       ArmRight: OrganTajaranArmRight
@@ -95,6 +94,9 @@
       Stomach: OrganTajaranStomach
       Liver: OrganTajaranLiver
       Kidneys: OrganTajaranKidneys
+  - type: ProfileOrgans # <Onyx-ProfileOrgans>
+    organs:
+      Tail: { prototype: OrganTajaranTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Tajaran
   - type: Inventory
@@ -169,7 +171,6 @@
     damageRecovery:
       types:
         Asphyxiation: -2.0
-  - type: Wagging
 
 - type: entity
   parent: OrganBase

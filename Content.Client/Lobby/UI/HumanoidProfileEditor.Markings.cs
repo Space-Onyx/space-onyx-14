@@ -9,9 +9,11 @@ public sealed partial class HumanoidProfileEditor
             return;
         }
 
-        _markingsModel.OrganData = _markingManager.GetMarkingData(Profile.Species);
+        // <Onyx-MarkingsTabs-edited>
         _markingsModel.OrganProfileData = _markingManager.GetProfileData(Profile.Species, Profile.Sex, Profile.Appearance.SkinColor, Profile.Appearance.EyeColor);
         _markingsModel.Markings = Profile.Appearance.Markings;
+        _markingsModel.OrganData = _markingManager.GetMarkingData(Profile.Species);
+        // </Onyx-MarkingsTabs-edited>
     }
 
     private void OnMarkingChange()

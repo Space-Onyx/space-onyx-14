@@ -47,7 +47,6 @@
       Chest: OrganArcanChest
       Groin: OrganArcanGroin
       # </Onyx-ChestGroin-edited>
-      Tail: OrganArcanTail
       Head: OrganArcanHead
       ArmLeft: OrganArcanArmLeft
       ArmRight: OrganArcanArmRight
@@ -67,5 +66,8 @@
       Stomach: OrganDemonStomach
       Liver: OrganHumanLiver
       Kidneys: OrganHumanKidneys
+  - type: ProfileOrgans
+    organs:
+      Tail: { prototype: OrganArcanTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Demon

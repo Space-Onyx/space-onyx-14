@@ -3,51 +3,62 @@
   id: BioSynthHeadEmpty
   name: bio-synthetic hollow head
   description: A printed head without internal organs.
+  components: &biosyntheticPartComponents
+  - type: TransplantCompatibility
+    profile: Biosynthetic
 
 - type: entity
   parent: OrganHumanArmLeft
   id: BioSynthLeftArm
   name: bio-synthetic left arm
   description: A printed left arm compatible with any organic patient.
+  components: *biosyntheticPartComponents
 
 - type: entity
   parent: OrganHumanArmRight
   id: BioSynthRightArm
   name: bio-synthetic right arm
   description: A printed right arm compatible with any organic patient.
+  components: *biosyntheticPartComponents
 
 - type: entity
   parent: OrganHumanHandLeft
   id: BioSynthLeftHand
   name: bio-synthetic left hand
   description: A printed left hand compatible with any organic patient.
+  components: *biosyntheticPartComponents
 
 - type: entity
   parent: OrganHumanHandRight
   id: BioSynthRightHand
   name: bio-synthetic right hand
   description: A printed right hand compatible with any organic patient.
+  components: *biosyntheticPartComponents
 
 - type: entity
   parent: OrganHumanLegLeft
   id: BioSynthLeftLeg
   name: bio-synthetic left leg
   description: A printed left leg compatible with any organic patient.
+  components: *biosyntheticPartComponents
 
 - type: entity
   parent: OrganHumanLegRight
   id: BioSynthRightLeg
   name: bio-synthetic right leg
   description: A printed right leg compatible with any organic patient.
+  components: *biosyntheticPartComponents
 
 - type: entity
   parent: OrganHumanFootLeft
   id: BioSynthLeftFoot
   name: bio-synthetic left foot
   description: A printed left foot compatible with any organic patient.
+  components: *biosyntheticPartComponents
 
 - type: entity
   parent: OrganHumanFootRight
   id: BioSynthRightFoot
   name: bio-synthetic right foot
   description: A printed right foot compatible with any organic patient.
+  components: *biosyntheticPartComponents

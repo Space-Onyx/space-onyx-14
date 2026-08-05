@@ -95,7 +95,9 @@ public sealed partial class AutosurgeonSystem : EntitySystem
         if (!oldPart.Id.Valid)
             return TryAttachToBody(body, replacement);
 
-        if (oldPart.Component.Parent is not { } parent || !_body.TryDetachPart(oldPart.Id))
+        if (oldPart.Component.Parent is not { } parent ||
+            !_body.AreTransplantsCompatible(parent, replacement) ||
+            !_body.TryDetachPart(oldPart.Id))
             return false;
 
         if (_body.TryAttachPart(parent, replacement))
@@ -127,6 +129,9 @@ public sealed partial class AutosurgeonSystem : EntitySystem
             .FirstOrDefault(part => part.Component.Symmetry == parentSymmetry)
             .Id;
         if (!parent.Valid)
+            return false;
+
+        if (!_body.CanInsertOrgan(parent, replacement, slot, ignoreOccupied: true))
             return false;
 
         var hadOldOrgan = _body.TryRemoveOrgan(parent, slot, out var oldOrgan);

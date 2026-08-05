@@ -387,8 +387,14 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         _ui.ServerSendUiMessage(ent.Owner, PaperUiKey.Key, BuildViewMessage(ent, actor, preserveEditor), actor);
     }
 
-    public void RefreshViews(Entity<PaperComponent> ent)
+    public void RefreshViews(Entity<PaperComponent> ent, bool cancelEditors = false)
     {
+        if (cancelEditors)
+        {
+            _writers.RemoveWhere(key => key.Paper == ent.Owner);
+            _pendingWriters.RemoveWhere(key => key.Paper == ent.Owner);
+        }
+
         foreach (var key in _sentViews.Keys.Where(key => key.Paper == ent.Owner).ToList())
             _sentViews.Remove(key);
         foreach (var actor in _ui.GetActors(ent.Owner, PaperUiKey.Key).ToList())

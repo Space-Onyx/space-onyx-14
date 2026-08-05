@@ -110,7 +110,7 @@ public sealed partial class SignatureSystem : EntitySystem
 
         paper.Comp.SignedBy.Add(signature);
         Dirty(paper);
-        _paperLanguage.RefreshViews(paper);
+        _paperLanguage.RefreshViews(paper, cancelEditors: true);
 
         var other = Loc.GetString("paper-signed-other", ("user", signer), ("target", paper.Owner));
         _popup.PopupEntity(other, signer, Filter.PvsExcept(signer, entityManager: EntityManager), true);

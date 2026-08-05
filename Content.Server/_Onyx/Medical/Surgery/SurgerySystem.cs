@@ -93,7 +93,7 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
         string? popup = null;
         var reason = StepInvalidReason.None;
         if (nextStep >= 0 && GetSingleton(surgeryComp.Steps[nextStep]) is { } stepEnt)
-            available = CanPerformStep(args.Actor, ent, partComp.PartType, stepEnt, false, out popup, out reason, out _);
+            available = CanPerformStep(args.Actor, ent, part, partComp.PartType, stepEnt, false, out popup, out reason, out _);
 
         _ui.ServerSendUiMessage(ent.Owner, SurgeryUIKey.Key,
             new SurgeryStepsStateResponse(args.Part, args.Surgery, completed, nextStep, available, popup, reason),

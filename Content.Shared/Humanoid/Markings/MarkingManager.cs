@@ -2,6 +2,7 @@ using System.Collections.Frozen;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Shared.Body;
+using Content.Shared._Onyx.Body; // <Onyx-ProfileOrgans>
 using Content.Shared.Humanoid.Prototypes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
@@ -274,10 +275,13 @@ public sealed partial class MarkingManager
         var speciesPrototype = _prototype.Index(species);
         var appearancePrototype = _prototype.Index(speciesPrototype.DollPrototype);
 
-        if (!appearancePrototype.TryComp<InitialBodyComponent>(out var initialBody, _component))
-            return new();
-
-        return initialBody.Organs;
+        var organs = appearancePrototype.TryComp<InitialBodyComponent>(out var initialBody, _component)
+            ? new Dictionary<ProtoId<OrganCategoryPrototype>, EntProtoId>(initialBody.Organs)
+            : new();
+        if (appearancePrototype.TryComp<ProfileOrgansComponent>(out var profileOrgans, _component)) // <Onyx-ProfileOrgans>
+            foreach (var (category, data) in profileOrgans.Organs) // <Onyx-ProfileOrgans>
+                organs[category] = data.Prototype; // <Onyx-ProfileOrgans>
+        return organs;
     }
 
     /// <summary>

@@ -36,6 +36,8 @@
   - type: Sprite
     sprite: _Onyx/Mobs/Resin/xenomorph_organs.rsi
   - type: Organ
+  - type: TransplantCompatibility
+    profile: Xenomorph
   - type: Edible
   - type: Extractable
     grindableSolutionName: organ
@@ -63,6 +65,11 @@
   name: xenomorph brain
   description: We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?
   components:
+  - type: TransplantCompatibility
+    profile: Xenomorph
+  - type: Sprite
+    sprite: _Onyx/Mobs/Resin/xenomorph_organs.rsi
+    state: brain
   - type: Solution
     solution:
       maxVol: 5
@@ -76,6 +83,10 @@
   name: xenomorph eyes
   description: It turned out they had them after all!
   components:
+  - type: Sprite
+    layers:
+    - state: eyeball-l
+    - state: eyeball-r
   - type: GibbableOrgan
   - type: Organ
     category: Eyes
@@ -85,12 +96,24 @@
   id: OrganXenomorphTongue
   name: xenomorph tongue
   description: According to leading xenobiologists the evolutionary benefit of having a second mouth in your mouth is "that it looks badass".
+  components:
+  - type: TransplantCompatibility
+    profile: Xenomorph
+  - type: Sprite
+    sprite: _Onyx/Mobs/Resin/xenomorph_organs.rsi
+    state: tongue
 
 - type: entity
   parent: [BaseXenomorphOrgan, OrganReptilianStomach]
   id: OrganXenomorphStomach
   name: xenomorph stomach
   description: Its walls are capable of both significantly expanding and contracting with enormous force.
+  components:
+  - type: TransplantCompatibility
+    profile: Xenomorph
+  - type: Sprite
+    sprite: _Onyx/Mobs/Resin/xenomorph_organs.rsi
+    state: stomach
   # TODO port xeno devouring
 
 - type: entity
@@ -99,6 +122,11 @@
   name: xenomorph liver
   description: A liver that used to belong to a killer alien, who knows what it used to eat.
   components:
+  - type: TransplantCompatibility
+    profile: Xenomorph
+  - type: Sprite
+    sprite: _Onyx/Mobs/Resin/xenomorph_organs.rsi
+    state: liver
   - type: Metabolizer
     metabolizerTypes: [Xenomorph]
     groups:

@@ -85,6 +85,7 @@
     - Write
     - WriteIgnoreStamps
     - Pen
+    - SignEdit # <Onyx-PaperSignatures>
   - type: MeleeWeapon
     wideAnimationRotation: -45
     damage:
@@ -138,6 +139,8 @@
   - type: SignTool
     signColor: "#319CF7FF"
   # </Onyx-PaperSignatures>
+  - type: Tag
+    tags: [ Write, Pen, SignEdit ] # <Onyx-PaperSignatures>
 
 - type: entity
   name: HoP's fountain pen
@@ -151,6 +154,8 @@
   - type: SignTool
     signColor: "#7CCCEDFF"
   # </Onyx-PaperSignatures>
+  - type: Tag
+    tags: [ Write, Pen, SignEdit ] # <Onyx-PaperSignatures>
 
 - type: entity
   name: wizard's magical pen

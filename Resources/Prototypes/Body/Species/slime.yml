@@ -76,7 +76,6 @@
       Chest: OrganSlimePersonChest
       Groin: OrganSlimePersonGroin
       # </Onyx-ChestGroin-edited>
-      Tail: OrganSlimePersonTail # <Onyx-VisualTail>
       Head: OrganSlimePersonHead
       ArmLeft: OrganSlimePersonArmLeft
       ArmRight: OrganSlimePersonArmRight
@@ -89,6 +88,9 @@
       Brain: OrganSlimePersonCore
       Eyes: OrganSlimePersonEyes
       Lungs: OrganSlimePersonLungs
+  - type: ProfileOrgans # <Onyx-ProfileOrgans>
+    organs:
+      Tail: { prototype: OrganSlimePersonTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: SlimePerson
 
@@ -204,6 +206,9 @@
   id: OrganSlimePerson
   abstract: true
   suffix: slime person
+  components:
+  - type: TransplantCompatibility # <Onyx-TransplantCompatibility>
+    profile: Slime # <Onyx-TransplantCompatibility>
 
 - type: entity
   id: OrganSlimePersonMetabolizer

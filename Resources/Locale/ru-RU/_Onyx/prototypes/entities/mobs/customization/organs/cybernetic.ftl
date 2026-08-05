@@ -1,7 +1,11 @@
 ent-BasicCyberneticEyes = кибернетические глаза
+    .desc = Прочные искусственные глаза со встроенной защитой от вспышек.
 ent-MedicalCyberneticEyes = кибернетические глаза с медицинским HUD
+    .desc = Кибернетические глаза со встроенным медицинским HUD.
 ent-SecurityCyberneticEyes = кибернетические глаза с охранным HUD
+    .desc = Кибернетические глаза со встроенным охранным HUD.
 ent-DiagnosticCyberneticEyes = кибернетические глаза с диагностическим HUD
+    .desc = Кибернетические глаза со встроенным диагностическим HUD.
 ent-BasicCyberneticHeart = кибернетическое сердце
 ent-UpgradedCyberneticHeart = улучшенное кибернетическое сердце
 ent-BasicCyberneticLiver = кибернетическая печень

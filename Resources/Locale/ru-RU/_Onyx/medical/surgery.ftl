@@ -19,6 +19,7 @@ surgery-ui-reason-clothing = снимите мешающую одежду
 surgery-ui-reason-tool = Инструмент в выбранной руке не подходит.
 surgery-ui-reason-part = Возьмите подходящую часть тела в выбранную руку.
 surgery-ui-reason-organ = Возьмите подходящий орган в выбранную руку.
+surgery-ui-reason-incompatible-transplant = несовместимая физиология
 surgery-ui-reason-cavity-item = Возьмите в выбранную руку небольшой или маленький предмет.
 surgery-ui-reason-material = В выбранной руке недостаточно подходящего материала.
 surgery-ui-reason-unavailable = этот этап пока недоступен

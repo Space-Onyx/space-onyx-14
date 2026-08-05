@@ -1,3 +1,4 @@
+using Content.Shared.Access.Components;
 using Content.Shared.Body;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
@@ -5,9 +6,11 @@ using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Emp;
+using Content.Shared.Flash.Components;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Overlays;
 using Content.Shared.Prying.Components;
+using Content.Shared.Contraband;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
@@ -45,7 +48,11 @@ public sealed partial class CyberneticsSystem : EntitySystem
     private void OnEmpPulse(Entity<CyberneticsComponent> ent, ref EmpPulseEvent args)
     {
         if (ent.Comp.Disabled)
+        {
+            args.Affected = true;
+            args.Disabled = true;
             return;
+        }
 
         args.Affected = true;
         args.Disabled = true;
@@ -118,7 +125,7 @@ public sealed partial class CyberneticsSystem : EntitySystem
             effects.HasFlag(CyberneticEffect.MedicalHud) || effects.HasFlag(CyberneticEffect.DiagnosticHud),
             ref state.OwnsHealthBars);
         SetOwned<ShowHealthIconsComponent>(body,
-            effects.HasFlag(CyberneticEffect.MedicalHud) || effects.HasFlag(CyberneticEffect.DiagnosticHud),
+            effects.HasFlag(CyberneticEffect.MedicalHud),
             ref state.OwnsHealthIcons);
         if (state.OwnsHealthBars && TryComp(body, out ShowHealthBarsComponent? bars))
         {
@@ -133,6 +140,14 @@ public sealed partial class CyberneticsSystem : EntitySystem
         SetOwned<ShowJobIconsComponent>(body, effects.HasFlag(CyberneticEffect.SecurityHud), ref state.OwnsJobIcons);
         SetOwned<ShowMindShieldIconsComponent>(body, effects.HasFlag(CyberneticEffect.SecurityHud), ref state.OwnsMindShieldIcons);
         SetOwned<ShowCriminalRecordIconsComponent>(body, effects.HasFlag(CyberneticEffect.SecurityHud), ref state.OwnsCriminalRecordIcons);
+        SetOwned<ShowSquadIconsComponent>(body, effects.HasFlag(CyberneticEffect.SecurityHud), ref state.OwnsSquadIcons);
+        SetOwned<ShowContrabandDetailsComponent>(body, effects.HasFlag(CyberneticEffect.SecurityHud), ref state.OwnsContrabandDetails);
+        SetOwned<ShowAccessReaderSettingsComponent>(body,
+            effects.HasFlag(CyberneticEffect.DiagnosticHud),
+            ref state.OwnsAccessReaderSettings);
+        SetOwned<FlashImmunityComponent>(body,
+            effects.HasFlag(CyberneticEffect.FlashProtection),
+            ref state.OwnsFlashImmunity);
         EntityManager.System<MovementSpeedModifierSystem>().RefreshMovementSpeedModifiers(body);
     }
 

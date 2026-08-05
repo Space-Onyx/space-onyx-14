@@ -82,6 +82,7 @@
 
 - type: marking
   id: FelinidTailBasic
+  activeVariant: FelinidTailBasicAnimated
   bodyPart: Tail
   groupWhitelist: [ Felinid ]
   sprites:
@@ -94,6 +95,7 @@
 
 - type: marking
   id: FelinidTailBasicWithBow
+  activeVariant: FelinidTailBasicWithBowAnimated
   bodyPart: Tail
   groupWhitelist: [ Felinid ]
   sprites:
@@ -108,6 +110,7 @@
 
 - type: marking
   id: FelinidTailBasicWithBell
+  activeVariant: FelinidTailBasicWithBellAnimated
   bodyPart: Tail
   groupWhitelist: [ Felinid ]
   sprites:
@@ -122,6 +125,7 @@
 
 - type: marking
   id: FelinidTailBasicWithBowAndBell
+  activeVariant: FelinidTailBasicWithBowAndBellAnimated
   bodyPart: Tail
   groupWhitelist: [ Felinid ]
   sprites:

@@ -73,7 +73,6 @@
       Chest: OrganHumanChest
       Groin: OrganHumanGroin
       # </Onyx-ChestGroin-edited>
-      Tail: OrganHumanTail # <Onyx-VisualTail>
       Head: OrganHumanHead
       ArmLeft: OrganHumanArmLeft
       ArmRight: OrganHumanArmRight
@@ -93,6 +92,9 @@
       Stomach: OrganHumanStomach
       Liver: OrganHumanLiver
       Kidneys: OrganHumanKidneys
+  - type: ProfileOrgans # <Onyx-ProfileOrgans>
+    organs:
+      Tail: { prototype: OrganHumanTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Human
 

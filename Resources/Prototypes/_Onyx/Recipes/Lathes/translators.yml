@@ -25,50 +25,62 @@
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: ChittinTranslatorRecipe
+  name: lathe-recipe-translator-chittin
   result: ChittinTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: RootSpeakTranslatorRecipe
+  name: lathe-recipe-translator-rootspeak
   result: RootSpeakTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: MofficTranslatorRecipe
+  name: lathe-recipe-translator-moffic
   result: MofficTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: DraconicTranslatorRecipe
+  name: lathe-recipe-translator-draconic
   result: DraconicTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: BubblishTranslatorRecipe
+  name: lathe-recipe-translator-bubblish
   result: BubblishTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: CalcicTranslatorRecipe
+  name: lathe-recipe-translator-calcic
   result: CalcicTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: NewKinPidginTranslatorRecipe
+  name: lathe-recipe-translator-new-kin-pidgin
   result: NewKinPidginTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: CanilunztTranslatorRecipe
+  name: lathe-recipe-translator-canilunzt
   result: CanilunztTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: SiikMaasTranslatorRecipe
+  name: lathe-recipe-translator-siik-maas
   result: SiikMaasTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: RobotTalkTranslatorRecipe
+  name: lathe-recipe-translator-robot-talk
   result: RobotTalkTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: NekomimeticTranslatorRecipe
+  name: lathe-recipe-translator-nekomimetic
   result: NekomimeticTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: SolCommonTranslatorRecipe
+  name: lathe-recipe-translator-sol-common
   result: SolCommonTranslator
 
 - type: latheRecipe
@@ -140,101 +152,126 @@
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: NovuNedericTranslatorRecipe
+  name: lathe-recipe-NovuNedericTranslatorRecipe
   result: NovuNedericTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: XenoTranslatorRecipe
+  name: lathe-recipe-XenoTranslatorRecipe
   result: XenoTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: AnimalTranslatorRecipe
+  name: lathe-recipe-AnimalTranslatorRecipe
   result: AnimalTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: ValyrianStandardTranslatorRecipe
+  name: lathe-recipe-ValyrianStandardTranslatorRecipe
   result: ValyrianStandardTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: AzazibaTranslatorRecipe
+  name: lathe-recipe-AzazibaTranslatorRecipe
   result: AzazibaTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: MarishTranslatorRecipe
+  name: lathe-recipe-MarishTranslatorRecipe
   result: MarishTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: SchechiTranslatorRecipe
+  name: lathe-recipe-SchechiTranslatorRecipe
   result: SchechiTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: GruntishTranslatorRecipe
+  name: lathe-recipe-GruntishTranslatorRecipe
   result: GruntishTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: YowKriolTranslatorRecipe
+  name: lathe-recipe-YowKriolTranslatorRecipe
   result: YowKriolTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
   id: XeeplianTranslatorRecipe
+  name: lathe-recipe-XeeplianTranslatorRecipe
   result: XeeplianTranslator
 
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: BasicGalaticCommonTranslatorImplanterRecipe
+  name: lathe-recipe-BasicGalaticCommonTranslatorImplanterRecipe
   result: BasicGalaticCommonTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: AdvancedGalaticCommonTranslatorImplanterRecipe
+  name: lathe-recipe-AdvancedGalaticCommonTranslatorImplanterRecipe
   result: AdvancedGalaticCommonTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: NovuNedericTranslatorImplanterRecipe
+  name: lathe-recipe-NovuNedericTranslatorImplanterRecipe
   result: NovuNedericTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: MarishTranslatorImplanterRecipe
+  name: lathe-recipe-MarishTranslatorImplanterRecipe
   result: MarishTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: ValyrianStandardTranslatorImplanterRecipe
+  name: lathe-recipe-ValyrianStandardTranslatorImplanterRecipe
   result: ValyrianStandardTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: AzazibaTranslatorImplanterRecipe
+  name: lathe-recipe-AzazibaTranslatorImplanterRecipe
   result: AzazibaTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: SchechiTranslatorImplanterRecipe
+  name: lathe-recipe-SchechiTranslatorImplanterRecipe
   result: SchechiTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: GruntishTranslatorImplanterRecipe
+  name: lathe-recipe-GruntishTranslatorImplanterRecipe
   result: GruntishTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: SpaceItalianTranslatorImplanterRecipe
+  name: lathe-recipe-SpaceItalianTranslatorImplanterRecipe
   result: SpaceItalianTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: BasicSpaceItalianTranslatorImplanterRecipe
+  name: lathe-recipe-BasicSpaceItalianTranslatorImplanterRecipe
   result: BasicSpaceItalianTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: AdvancedSpaceItalianTranslatorImplanterRecipe
+  name: lathe-recipe-AdvancedSpaceItalianTranslatorImplanterRecipe
   result: AdvancedSpaceItalianTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: YowKriolTranslatorImplanterRecipe
+  name: lathe-recipe-YowKriolTranslatorImplanterRecipe
   result: YowKriolTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: ChevalTranslatorImplanterRecipe
+  name: lathe-recipe-ChevalTranslatorImplanterRecipe
   result: ChevalTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: ZookeeperTranslatorImplanterRecipe
+  name: lathe-recipe-ZookeeperTranslatorImplanterRecipe
   result: ZookeeperTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: LibrarianTranslatorImplanterRecipe
+  name: lathe-recipe-LibrarianTranslatorImplanterRecipe
   result: LibrarianTranslatorImplanter

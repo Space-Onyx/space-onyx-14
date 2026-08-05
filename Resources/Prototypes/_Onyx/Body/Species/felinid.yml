@@ -23,7 +23,6 @@
       Chest: OrganFelinidChest
       Groin: OrganFelinidGroin
       # </Onyx-ChestGroin-edited>
-      Tail: OrganFelinidTail
       Head: OrganFelinidHead
       ArmLeft: OrganHumanArmLeft
       ArmRight: OrganHumanArmRight
@@ -43,5 +42,8 @@
       Stomach: OrganHumanStomach
       Liver: OrganHumanLiver
       Kidneys: OrganHumanKidneys
+  - type: ProfileOrgans
+    organs:
+      Tail: { prototype: OrganFelinidTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Felinid

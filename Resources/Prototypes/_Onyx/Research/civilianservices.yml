@@ -41,28 +41,23 @@
   tier: 2
   cost: 7500
   recipeUnlocks:
-    - ChittinTranslatorRecipe
+    - BasicGalaticCommonTranslatorImplanterRecipe
+    - CanilunztTranslatorRecipe
+    - BubblishTranslatorRecipe
+    - NekomimeticTranslatorRecipe
+    - DraconicTranslatorRecipe
+    - SolCommonTranslatorRecipe
     - RootSpeakTranslatorRecipe
     - MofficTranslatorRecipe
-    - DraconicTranslatorRecipe
-    - BubblishTranslatorRecipe
-    - CalcicTranslatorRecipe
-    - NewKinPidginTranslatorRecipe
-    - CanilunztTranslatorRecipe
-    - SiikMaasTranslatorRecipe
-    - RobotTalkTranslatorRecipe
-    - NekomimeticTranslatorRecipe
-    - SolCommonTranslatorRecipe
-    - NovuNedericTranslatorRecipe
-    - XenoTranslatorRecipe
-    - AnimalTranslatorRecipe
     - ValyrianStandardTranslatorRecipe
-    - AzazibaTranslatorRecipe
+    - ChittinTranslatorRecipe
+    - SiikMaasTranslatorRecipe
     - MarishTranslatorRecipe
+    - ChevalTranslatorImplanterRecipe
+    - NewKinPidginTranslatorRecipe
     - SchechiTranslatorRecipe
     - GruntishTranslatorRecipe
     - YowKriolTranslatorRecipe
-    - XeeplianTranslatorRecipe
   position: 0,-1
   technologyPrerequisites:
     - AdvancedEntertainment
@@ -76,34 +71,26 @@
   tier: 3
   cost: 10000
   recipeUnlocks:
-    - ChittinTranslatorImplanterRecipe
+    - AdvancedGalaticCommonTranslatorImplanterRecipe
+    - CanilunztTranslatorImplanterRecipe
+    - BubblishTranslatorImplanterRecipe
+    - NekomimeticTranslatorImplanterRecipe
+    - DraconicTranslatorImplanterRecipe
+    - SolCommonTranslatorImplanterRecipe
     - RootSpeakTranslatorImplanterRecipe
     - MofficTranslatorImplanterRecipe
-    - DraconicTranslatorImplanterRecipe
-    - BubblishTranslatorImplanterRecipe
-    - CalcicTranslatorImplanterRecipe
-    - NewKinPidginTranslatorImplanterRecipe
-    - CanilunztTranslatorImplanterRecipe
-    - SiikMaasTranslatorImplanterRecipe
-    - RobotTalkTranslatorImplanterRecipe
-    - NekomimeticTranslatorImplanterRecipe
-    - SolCommonTranslatorImplanterRecipe
-    - SignTranslatorImplanterRecipe
-    - BasicGalaticCommonTranslatorImplanterRecipe
-    - AdvancedGalaticCommonTranslatorImplanterRecipe
-    - NovuNedericTranslatorImplanterRecipe
-    - MarishTranslatorImplanterRecipe
     - ValyrianStandardTranslatorImplanterRecipe
-    - AzazibaTranslatorImplanterRecipe
+    - ChittinTranslatorImplanterRecipe
+    - SiikMaasTranslatorImplanterRecipe
+    - MarishTranslatorImplanterRecipe
     - SchechiTranslatorImplanterRecipe
+    - NewKinPidginTranslatorImplanterRecipe
+    - AnimalTranslatorRecipe
+    - XenoTranslatorRecipe
     - GruntishTranslatorImplanterRecipe
-    - SpaceItalianTranslatorImplanterRecipe
-    - BasicSpaceItalianTranslatorImplanterRecipe
-    - AdvancedSpaceItalianTranslatorImplanterRecipe
+    - XeeplianTranslatorRecipe
     - YowKriolTranslatorImplanterRecipe
-    - ChevalTranslatorImplanterRecipe
-    - ZookeeperTranslatorImplanterRecipe
-    - LibrarianTranslatorImplanterRecipe
+    - SignTranslatorImplanterRecipe
   position: 1,-1
   technologyPrerequisites:
     - BasicTranslation
@@ -180,6 +167,8 @@
     - JawsOfLifeRightArm
     - SpeedLeftLeg
     - SpeedRightLeg
+    - MedicalCyberneticEyes
+    - SecurityCyberneticEyes
     - DiagnosticCyberneticEyes
   position: 1,6
   technologyPrerequisites:

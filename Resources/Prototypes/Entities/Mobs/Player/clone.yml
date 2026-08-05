@@ -150,7 +150,6 @@
   eventComponents:
   # these need special treatment in the event subscription
   - Inventory # arachnid pockets and diona feet
-  - Wagging # lizard tails
   - Storage # slime storage
   - Rootable # diona
   - Sericulture # arachnids

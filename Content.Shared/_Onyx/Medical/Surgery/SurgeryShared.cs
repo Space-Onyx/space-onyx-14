@@ -74,7 +74,7 @@ public sealed partial class SurgeryDoAfterEvent : SimpleDoAfterEvent
     }
 }
 
-public enum StepInvalidReason { None, OutOfRange, NeedsOperatingTable, Clothing, MissingTool }
+public enum StepInvalidReason { None, OutOfRange, NeedsOperatingTable, Clothing, MissingTool, IncompatibleTransplant }
 
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(SharedSurgerySystem))]
@@ -261,6 +261,7 @@ public sealed partial class SurgeryStepEmoteEffectComponent : Component
 public record struct SurgeryCanPerformStepEvent(
     EntityUid User,
     EntityUid Body,
+    EntityUid Part,
     List<EntityUid> Tools,
     SlotFlags TargetSlots,
     string? Popup = null,

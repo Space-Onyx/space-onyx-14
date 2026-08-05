@@ -21,6 +21,7 @@ public enum CyberneticEffect : byte
     DiagnosticHud = 1 << 2,
     Prying = 1 << 3,
     Speed = 1 << 4,
+    FlashProtection = 1 << 5,
 }
 
 [RegisterComponent]
@@ -32,5 +33,9 @@ public sealed partial class CyberneticBodyEffectsComponent : Component
     public bool OwnsJobIcons;
     public bool OwnsMindShieldIcons;
     public bool OwnsCriminalRecordIcons;
+    public bool OwnsSquadIcons;
+    public bool OwnsContrabandDetails;
+    public bool OwnsAccessReaderSettings;
+    public bool OwnsFlashImmunity;
     public int SpeedLegs;
 }

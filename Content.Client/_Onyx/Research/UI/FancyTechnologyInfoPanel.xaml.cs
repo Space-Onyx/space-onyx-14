@@ -33,10 +33,16 @@ public sealed partial class FancyTechnologyInfoPanel : Control
         InitializePrerequisites(proto, _entity.System<ResearchSystem>(), sprite);
         InitializeRecipeUnlocks(proto, _entity.System<LatheSystem>(), sprite);
 
-        ResearchButton.ToolTip = hasAccess ? null : Loc.GetString("research-console-no-access-popup");
-        if (availability == ResearchAvailability.Researched)
-            ResearchButton.Text = Loc.GetString("research-console-menu-server-researched-button");
+        UpdateAvailability(hasAccess, availability);
+        ResearchButton.OnPressed += Bought;
+    }
 
+    public void UpdateAvailability(bool hasAccess, ResearchAvailability availability)
+    {
+        ResearchButton.ToolTip = hasAccess ? null : Loc.GetString("research-console-no-access-popup");
+        ResearchButton.Text = Loc.GetString(availability == ResearchAvailability.Researched
+            ? "research-console-menu-server-researched-button"
+            : "research-console-menu-server-research-button");
         var color = availability switch
         {
             ResearchAvailability.Researched => Color.LimeGreen,
@@ -44,10 +50,9 @@ public sealed partial class FancyTechnologyInfoPanel : Control
             _ => (Color?) null
         };
         TechnologyCostLabel.SetMessage(
-            FormattedMessage.FromMarkupOrThrow(Loc.GetString("research-console-cost", ("amount", proto.Cost))),
+            FormattedMessage.FromMarkupOrThrow(Loc.GetString("research-console-cost", ("amount", Prototype.Cost))),
             defaultColor: color);
         ResearchButton.Disabled = !hasAccess || availability != ResearchAvailability.Available;
-        ResearchButton.OnPressed += Bought;
     }
 
     private void InitializePrerequisites(TechnologyPrototype proto, ResearchSystem research, SpriteSystem sprite)

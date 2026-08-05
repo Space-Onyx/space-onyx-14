@@ -169,6 +169,7 @@
 
 - type: marking
   id: VoxTail
+  activeVariant: VoxTailAnimated
   bodyPart: Tail
   groupWhitelist: [Vox]
   forcedColoring: true
@@ -187,6 +188,7 @@
 
 - type: marking
   id: VoxTailShort
+  activeVariant: VoxTailShortAnimated
   bodyPart: Tail
   groupWhitelist: [Vox]
   forcedColoring: true
@@ -205,6 +207,7 @@
 
 - type: marking
   id: VoxTailBig
+  activeVariant: VoxTailBigAnimated
   bodyPart: Tail
   groupWhitelist: [Vox]
   forcedColoring: true
@@ -223,6 +226,7 @@
 
 - type: marking
   id: VoxTailSpikes
+  activeVariant: VoxTailSpikesAnimated
   bodyPart: Tail
   groupWhitelist: [Vox]
   forcedColoring: true
@@ -241,6 +245,7 @@
 
 - type: marking
   id: VoxTailDocked
+  activeVariant: VoxTailDockedAnimated
   bodyPart: Tail
   groupWhitelist: [Vox]
   forcedColoring: true
@@ -260,6 +265,7 @@
 
 - type: marking
   id: VoxTailSplit
+  activeVariant: VoxTailSplitAnimated
   bodyPart: Tail
   groupWhitelist: [Vox]
   forcedColoring: true

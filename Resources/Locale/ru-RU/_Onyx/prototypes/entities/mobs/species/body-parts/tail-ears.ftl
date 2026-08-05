@@ -16,6 +16,8 @@ ent-OrganTajaranTail = { ent-OrganBaseVisualTail }
     .desc = { ent-OrganBaseVisualTail.desc }
 ent-OrganArcanTail = { ent-OrganBaseVisualTail }
     .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganMothWings = крылья нианы
+    .desc = Пара мягких крыльев нианы.
 
 ent-OrganFelinidEars = { ent-OrganBaseEars }
     .desc = { ent-OrganBaseEars.desc }

@@ -3,6 +3,8 @@
   id: OnyxCyberneticPartBase
   components:
   - type: Cybernetics
+  - type: TransplantCompatibility
+    profile: Cybernetic
   - type: Damageable
   - type: Injurable
     damageContainer: Silicon

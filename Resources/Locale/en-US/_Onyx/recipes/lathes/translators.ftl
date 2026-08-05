@@ -1,3 +1,30 @@
+lathe-recipe-translator-chittin = Chittin translator
+lathe-recipe-translator-rootspeak = RootSpeak translator
+lathe-recipe-translator-moffic = Moffic translator
+lathe-recipe-translator-draconic = Sinta'Unathi translator
+lathe-recipe-translator-bubblish = Bubblish translator
+lathe-recipe-translator-calcic = Calcic translator
+lathe-recipe-translator-new-kin-pidgin = Ka'rakk translator
+lathe-recipe-translator-canilunzt = Canilunzt translator
+lathe-recipe-translator-siik-maas = Siik'maas translator
+lathe-recipe-translator-robot-talk = Robot Talk translator
+lathe-recipe-translator-nekomimetic = Nekomimetic translator
+lathe-recipe-translator-sol-common = Sol Common translator
+
+lathe-recipe-translator-implanter-chittin = Chittin translator implanter
+lathe-recipe-translator-implanter-rootspeak = RootSpeak translator implanter
+lathe-recipe-translator-implanter-moffic = Moffic translator implanter
+lathe-recipe-translator-implanter-draconic = Sinta'Unathi translator implanter
+lathe-recipe-translator-implanter-bubblish = Bubblish translator implanter
+lathe-recipe-translator-implanter-calcic = Calcic translator implanter
+lathe-recipe-translator-implanter-new-kin-pidgin = Ka'rakk translator implanter
+lathe-recipe-translator-implanter-canilunzt = Canilunzt translator implanter
+lathe-recipe-translator-implanter-siik-maas = Siik'maas translator implanter
+lathe-recipe-translator-implanter-robot-talk = Robot Talk translator implanter
+lathe-recipe-translator-implanter-nekomimetic = Nekomimetic translator implanter
+lathe-recipe-translator-implanter-sol-common = Sol Common translator implanter
+lathe-recipe-translator-implanter-sign = Sign Language translator implanter
+
 lathe-recipe-NovuNedericTranslatorRecipe = Novu-Nederic translator
 lathe-recipe-XenoTranslatorRecipe = Xeno translator
 lathe-recipe-AnimalTranslatorRecipe = Animal translator

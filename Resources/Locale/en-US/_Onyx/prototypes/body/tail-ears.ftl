@@ -16,8 +16,11 @@ ent-OrganTajaranTail = { ent-OrganBaseVisualTail }
     .desc = { ent-OrganBaseVisualTail.desc }
 ent-OrganArcanTail = { ent-OrganBaseVisualTail }
     .desc = { ent-OrganBaseVisualTail.desc }
+ent-OrganMothWings = moth wings
+    .desc = A pair of soft moth wings.
 
 markings-organ-Tail = Tail
+markings-organ-Wings = Wings
 markings-organ-Ears = Ears
 markings-layer-Ears = Ears
 markings-layer-EarsOverlay = Ear overlay

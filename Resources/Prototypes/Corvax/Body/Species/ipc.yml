@@ -298,6 +298,8 @@
   # <Onyx-IpcSurgery>
   components:
   - type: MechanicalOrgan
+  - type: TransplantCompatibility # <Onyx-TransplantCompatibility>
+    profile: Mechanical # <Onyx-TransplantCompatibility>
   # </Onyx-IpcSurgery>
 
 - type: entity

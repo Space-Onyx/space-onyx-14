@@ -1,6 +1,7 @@
 # Tail Markings
 - type: marking
   id: VulpTailFennec
+  activeVariant: VulpTailFennecAnimated
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
@@ -11,6 +12,7 @@
 
 - type: marking
   id: VulpTailFluffy
+  activeVariant: VulpTailFluffyAnimated
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
@@ -21,6 +23,7 @@
 
 - type: marking
   id: VulpTailHusky
+  activeVariant: VulpTailHuskyAnimated
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
@@ -33,6 +36,7 @@
 
 - type: marking
   id: VulpTailLong
+  activeVariant: VulpTailLongAnimated
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
@@ -43,6 +47,7 @@
 
 - type: marking
   id: VulpTailVulp
+  activeVariant: VulpTailVulpAnimated
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
@@ -53,6 +58,7 @@
 
 - type: marking
   id: VulpTailVulpFade
+  activeVariant: VulpTailVulpFadeAnimated
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
@@ -63,6 +69,7 @@
 
 - type: marking
   id: VulpTailCoyote
+  activeVariant: VulpTailCoyoteAnimated
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:

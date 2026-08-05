@@ -1,7 +1,10 @@
+using Content.Shared._Onyx.Body;
+using Content.Shared._Onyx.Body.Prototypes;
 using Content.Shared.Body.Part;
 using Content.Shared.Containers;
 using System.Linq;
 using Robust.Shared.Containers;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Body.Systems;
 
@@ -11,6 +14,7 @@ namespace Content.Shared.Body.Systems;
 public sealed partial class SharedBodySystem : EntitySystem
 {
     [Dependency] private SharedContainerSystem _containers = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
     public override void Initialize()
     {
         SubscribeLocalEvent<BodyComponent, OrganInsertedIntoEvent>(OnOrganInserted);
@@ -239,7 +243,8 @@ public sealed partial class SharedBodySystem : EntitySystem
 
     public bool TryAttachPart(EntityUid parentId, EntityUid partId)
     {
-        if (!TryComp(parentId, out BodyPartComponent? parent) || !TryComp(partId, out BodyPartComponent? part) || part.Body != null)
+        if (!TryComp(parentId, out BodyPartComponent? parent) || !TryComp(partId, out BodyPartComponent? part) || part.Body != null ||
+            !AreTransplantsCompatible(parentId, partId))
             return false;
 
         if (parent.ChildSlots.Count > 0)
@@ -293,12 +298,9 @@ public sealed partial class SharedBodySystem : EntitySystem
         return true;
     }
 
-    public bool TryInsertOrgan(EntityUid partId, EntityUid organId, string slot)
+    public bool TryInsertOrgan(EntityUid partId, EntityUid organId, string slot, bool checkCompatibility = true)
     {
-        if (!TryComp(partId, out BodyPartComponent? part)
-            || !TryComp(organId, out OrganComponent? organ)
-            || organ.Body != null
-            || organ.Category is { } category && category.Id != slot)
+        if (!CanInsertOrgan(partId, organId, slot, false, checkCompatibility, out var part))
             return false;
 
         var container = _containers.EnsureContainer<ContainerSlot>(partId, BodyPartComponent.OrganSlotPrefix + slot);
@@ -312,6 +314,38 @@ public sealed partial class SharedBodySystem : EntitySystem
             RaiseLocalEvent(body, new BodyOrganSlotChangedEvent(slot, organId, true));
 
         return true;
+    }
+
+    public bool CanInsertOrgan(EntityUid partId, EntityUid organId, string slot, bool ignoreOccupied = false) =>
+        CanInsertOrgan(partId, organId, slot, ignoreOccupied, true, out _);
+
+    private bool CanInsertOrgan(EntityUid partId, EntityUid organId, string slot, bool ignoreOccupied,
+        bool checkCompatibility, out BodyPartComponent part)
+    {
+        part = default!;
+        if (!TryComp(partId, out BodyPartComponent? foundPart)
+            || !TryComp(organId, out OrganComponent? organ)
+            || organ.Body != null
+            || organ.Category is { } category && category.Id != slot
+            || checkCompatibility && !AreTransplantsCompatible(partId, organId)
+            || !ignoreOccupied && _containers.TryGetContainer(partId, BodyPartComponent.OrganSlotPrefix + slot, out var container) &&
+                container is ContainerSlot { ContainedEntity: not null })
+            return false;
+
+        part = foundPart;
+        return true;
+    }
+
+    public bool AreTransplantsCompatible(EntityUid recipient, EntityUid transplant)
+    {
+        var hasRecipientProfile = TryComp(recipient, out TransplantCompatibilityComponent? recipientProfile);
+        var hasTransplantProfile = TryComp(transplant, out TransplantCompatibilityComponent? transplantProfile);
+        if (!hasRecipientProfile || !hasTransplantProfile)
+            return hasRecipientProfile == hasTransplantProfile;
+
+        return _prototypes.TryIndex(recipientProfile!.Profile, out var recipientPrototype) &&
+            _prototypes.TryIndex(transplantProfile!.Profile, out var transplantPrototype) &&
+            recipientPrototype.Accepts.Overlaps(transplantPrototype.Provides);
     }
 
     public bool TryCreatePartSlot(EntityUid parentId, string slot, BodyPartType type, BodyPartSymmetry symmetry)
@@ -335,6 +369,7 @@ public sealed partial class SharedBodySystem : EntitySystem
         if (!TryComp(parentId, out BodyPartComponent? parent)
             || !TryComp(partId, out BodyPartComponent? part)
             || part.Body != null
+            || !AreTransplantsCompatible(parentId, partId)
             || !parent.ChildSlots.TryGetValue(slot, out var descriptor)
             || descriptor.Type != part.PartType
             || descriptor.Symmetry != part.Symmetry)

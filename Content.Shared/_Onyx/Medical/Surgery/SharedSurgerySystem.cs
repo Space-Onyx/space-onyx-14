@@ -4,9 +4,7 @@ using Content.Shared.Body.Systems;
 using Content.Shared.Buckle.Components;
 using Content.Shared.CCVar;
 using Content.Shared.DoAfter;
-using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
-using Content.Shared.Damage.Systems;
 using Content.Shared.GameTicking;
 using Content.Shared.FixedPoint;
 using Content.Shared.Hands.EntitySystems;
@@ -39,7 +37,6 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     [Dependency] private IComponentFactory _compFactory = default!;
     [Dependency] private IConfigurationManager _configuration = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private SharedInteractionSystem _interaction = default!;
     [Dependency] private SharedItemSystem _item = default!;
@@ -146,7 +143,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
             !IsSurgeryValid(ent, targetPart, args.Surgery, args.Step, out var surgery, out var part, out var step) ||
             !PreviousStepsComplete(ent, part, surgery, args.Step) ||
             IsStepComplete(ent, part, args.Step) ||
-            !CanPerformStep(args.User, ent, part.Comp.PartType, step, false))
+            !CanPerformStep(args.User, ent, part, part.Comp.PartType, step, false))
             return;
 
         var ev = new SurgeryStepEvent(args.User, ent, part, GetActiveTool(args.User));
@@ -155,7 +152,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         if (_net.IsServer &&
             (HasComp<SurgeryOrganHealEffectComponent>(step) || HasComp<SurgeryClampBleedingEffectComponent>(step)) &&
             !IsStepComplete(ent, part, args.Step) &&
-            CanPerformStep(args.User, ent, part.Comp.PartType, step, false, out _, out _, out var validTools))
+            CanPerformStep(args.User, ent, part, part.Comp.PartType, step, false, out _, out _, out var validTools))
             StartSurgeryDoAfter(ent, part, args.Surgery, args.Step, args.User, step, validTools);
         // </Onyx-OrganHealing>
         RefreshUI(ent);
@@ -234,7 +231,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
     private void OnDetachPartCheck(Entity<SurgeryDetachPartEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
     {
-        if (_body.BodyHasChild(args.Body, args.Part))
+        if (IsPartOfTarget(args.Body, args.Part))
             args.Cancelled = true;
     }
 
@@ -249,7 +246,6 @@ public abstract partial class SharedSurgerySystem : EntitySystem
             RemComp<BodyPartSuturedComponent>(part);
             EnsureComp<BodyPartReattachedComponent>(part);
             EnsurePartDamageable(part);
-            ApplyTransplantDamage(args.Body, part);
             _inventory.RefreshBodySlots(args.Body);
         }
     }
@@ -258,19 +254,6 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     {
         if (!_body.BodyHasPartType(ent, BodyPartType.Head))
             args.Cancel();
-    }
-
-    private void ApplyTransplantDamage(EntityUid body, EntityUid part)
-    {
-        if (!TryComp(body, out HumanoidProfileComponent? patient) ||
-            Comp<BodyPartComponent>(part).Species is not { } donor || donor == patient.Species)
-            return;
-
-        var damage = new DamageSpecifier
-        {
-            DamageDict = { ["Cellular"] = 5 },
-        };
-        _damageable.TryChangeDamage(part, damage, true, origin: body);
     }
 
     private void EnsurePartDamageable(EntityUid part)
@@ -349,6 +332,13 @@ public abstract partial class SharedSurgerySystem : EntitySystem
             return;
         }
 
+        if (!_body.AreTransplantsCompatible(args.Part, part))
+        {
+            args.Invalid = StepInvalidReason.IncompatibleTransplant;
+            args.Popup = Loc.GetString("surgery-ui-reason-incompatible-transplant");
+            return;
+        }
+
         args.ValidTools ??= new HashSet<EntityUid>();
         args.ValidTools.Add(part);
     }
@@ -387,6 +377,13 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         {
             args.Invalid = StepInvalidReason.MissingTool;
             args.Popup = Loc.GetString("surgery-ui-reason-organ");
+            return;
+        }
+
+        if (!_body.AreTransplantsCompatible(args.Part, organ))
+        {
+            args.Invalid = StepInvalidReason.IncompatibleTransplant;
+            args.Popup = Loc.GetString("surgery-ui-reason-incompatible-transplant");
             return;
         }
 
@@ -639,7 +636,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         if (!PreviousStepsComplete(ent, part, surgery, args.Step) || IsStepComplete(ent, part, args.Step))
             return;
 
-        if (!CanPerformStep(user, ent, part.Comp.PartType, step, true, out _, out _, out var validTools))
+        if (!CanPerformStep(user, ent, part, part.Comp.PartType, step, true, out _, out _, out var validTools))
             return;
 
         if (_net.IsServer && validTools?.Count > 0)
@@ -935,7 +932,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         return !ev.Cancelled;
     }
 
-    public bool CanPerformStep(EntityUid user, EntityUid body, BodyPartType part, EntityUid step, bool doPopup, out string? popup, out StepInvalidReason reason, out HashSet<EntityUid>? validTools)
+    public bool CanPerformStep(EntityUid user, EntityUid body, EntityUid targetPart, BodyPartType part, EntityUid step, bool doPopup, out string? popup, out StepInvalidReason reason, out HashSet<EntityUid>? validTools)
     {
         if (!_interaction.InRangeUnobstructed(user, body, popup: doPopup))
         {
@@ -969,7 +966,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
             }
         }
 
-        var check = new SurgeryCanPerformStepEvent(user, body, GetActiveTool(user), slot);
+        var check = new SurgeryCanPerformStepEvent(user, body, targetPart, GetActiveTool(user), slot);
         RaiseLocalEvent(step, ref check);
         popup = check.Popup;
         validTools = check.ValidTools;
@@ -987,8 +984,8 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         return false;
     }
 
-    public bool CanPerformStep(EntityUid user, EntityUid body, BodyPartType part, EntityUid step, bool doPopup)
-        => CanPerformStep(user, body, part, step, doPopup, out _, out _, out _);
+    public bool CanPerformStep(EntityUid user, EntityUid body, EntityUid targetPart, BodyPartType part, EntityUid step, bool doPopup)
+        => CanPerformStep(user, body, targetPart, part, step, doPopup, out _, out _, out _);
 
     protected virtual void RefreshUI(EntityUid body) { }
 }

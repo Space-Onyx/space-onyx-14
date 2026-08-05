@@ -122,7 +122,6 @@
       Chest: OrganReptilianChest
       Groin: OrganReptilianGroin
       # </Onyx-ChestGroin-edited>
-      Tail: OrganReptilianTail # <Onyx-VisualTail>
       Head: OrganReptilianHead
       ArmLeft: OrganReptilianArmLeft
       ArmRight: OrganReptilianArmRight
@@ -142,6 +141,9 @@
       Stomach: OrganReptilianStomach
       Liver: OrganReptilianLiver
       Kidneys: OrganReptilianKidneys
+  - type: ProfileOrgans # <Onyx-ProfileOrgans>
+    organs:
+      Tail: { prototype: OrganReptilianTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Reptilian
 
@@ -202,7 +204,6 @@
       301: 0.9
       295: 0.8
       285: 0.7
-  - type: Wagging
 
 - type: entity
   parent: OrganBaseOrganic

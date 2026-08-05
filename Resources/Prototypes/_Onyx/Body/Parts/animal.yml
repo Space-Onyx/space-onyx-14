@@ -37,6 +37,28 @@
     partType: Foot
 
 - type: entity
+  parent: ChestAnimal
+  id: ChestAnimalSlime
+  components: &animalSlimeCompatibility
+  - type: TransplantCompatibility
+    profile: Slime
+
+- type: entity
+  parent: GroinAnimal
+  id: GroinAnimalSlime
+  components: *animalSlimeCompatibility
+
+- type: entity
+  parent: LegsAnimal
+  id: LegsAnimalSlime
+  components: *animalSlimeCompatibility
+
+- type: entity
+  parent: FeetAnimal
+  id: FeetAnimalSlime
+  components: *animalSlimeCompatibility
+
+- type: entity
   parent: OrganAnimal
   id: ChestAghost
   name: aghost chest

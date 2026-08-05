@@ -3,25 +3,25 @@
   root: chest
   slots:
     chest:
-      part: ChestAnimal
+      part: ChestAnimalSlime
       connections: [groin]
       organs:
         Brain: OrganSlimePersonCore
         Lungs: OrganSlimePersonLungs
-    groin: { part: GroinAnimal, connections: [legs] }
-    legs: { part: LegsAnimal, connections: [feet] }
-    feet: { part: FeetAnimal }
+    groin: { part: GroinAnimalSlime, connections: [legs] }
+    legs: { part: LegsAnimalSlime, connections: [feet] }
+    feet: { part: FeetAnimalSlime }
 
 - type: bodyGraph
   id: XenobioSlimeBody
   root: chest
   slots:
     chest:
-      part: ChestAnimal
+      part: ChestAnimalSlime
       connections: [groin]
       organs:
         Brain: XenobioSentientSlimesCore
         Lungs: OrganSlimePersonLungs
-    groin: { part: GroinAnimal, connections: [legs] }
-    legs: { part: LegsAnimal, connections: [feet] }
-    feet: { part: FeetAnimal }
+    groin: { part: GroinAnimalSlime, connections: [legs] }
+    legs: { part: LegsAnimalSlime, connections: [feet] }
+    feet: { part: FeetAnimalSlime }

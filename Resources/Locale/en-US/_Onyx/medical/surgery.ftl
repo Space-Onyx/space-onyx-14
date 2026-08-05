@@ -19,6 +19,7 @@ surgery-ui-reason-clothing = remove obstructing clothing
 surgery-ui-reason-tool = The instrument in your active hand is not suitable.
 surgery-ui-reason-part = Hold a compatible body part in your active hand.
 surgery-ui-reason-organ = Hold a compatible organ in your active hand.
+surgery-ui-reason-incompatible-transplant = incompatible physiology
 surgery-ui-reason-cavity-item = Hold a Tiny or Small item in your active hand.
 surgery-ui-reason-material = Hold enough of the required material in your active hand.
 surgery-ui-reason-unavailable = this step is currently unavailable

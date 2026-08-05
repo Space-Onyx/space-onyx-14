@@ -7,7 +7,7 @@ namespace Content.Shared.Body;
 /// Liable to change as the body becomes more complex.
 /// </summary>
 [RegisterComponent]
-[Access(typeof(InitialBodySystem))]
+[Access(typeof(InitialBodySystem))] // <Onyx-ProfileOrgans-edited>
 public sealed partial class InitialBodyComponent : Component
 {
     // <Onyx-Surgery-edited>

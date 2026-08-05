@@ -67,7 +67,6 @@
       Chest: OrganVulpkaninChest
       Groin: OrganVulpkaninGroin
       # </Onyx-ChestGroin-edited>
-      Tail: OrganVulpkaninTail # <Onyx-VisualTail>
       Head: OrganVulpkaninHead
       ArmLeft: OrganVulpkaninArmLeft
       ArmRight: OrganVulpkaninArmRight
@@ -87,6 +86,9 @@
       Stomach: OrganVulpkaninStomach
       Liver: OrganVulpkaninLiver
       Kidneys: OrganVulpkaninKidneys
+  - type: ProfileOrgans # <Onyx-ProfileOrgans>
+    organs:
+      Tail: { prototype: OrganVulpkaninTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Vulpkanin
   - type: Inventory
@@ -222,8 +224,6 @@
     heatDamage:
       types:
         Heat: 2.5 # Per second, scales with temperature & other constants
-  - type: Wagging
-    action: ActionToggleWaggingVulpkanin
   - type: JumpAbility
     action: ActionVulpkaninGravityJump
     canCollide: true

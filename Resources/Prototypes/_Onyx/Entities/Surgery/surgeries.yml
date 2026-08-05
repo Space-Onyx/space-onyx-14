@@ -367,6 +367,31 @@
 
 - type: entity
   parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveWings
+  name: Remove wings
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepRemoveWings ]
+  - type: SurgeryOrganCondition
+    slot: Wings
+    part: Chest
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertWings
+  name: Implant wings
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepInsertWings ]
+  - type: SurgeryOrganCondition
+    slot: Wings
+    inverse: true
+    part: Chest
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
   id: SurgeryRemoveHeart
   name: Remove heart
   components:

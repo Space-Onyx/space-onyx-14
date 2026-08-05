@@ -135,7 +135,6 @@
       Chest: OrganVoxChest
       Groin: OrganVoxGroin
       # </Onyx-ChestGroin-edited>
-      Tail: OrganVoxTail # <Onyx-VisualTail>
       Head: OrganVoxHead
       ArmLeft: OrganVoxArmLeft
       ArmRight: OrganVoxArmRight
@@ -155,6 +154,9 @@
       Stomach: OrganVoxStomach
       Liver: OrganVoxLiver
       Kidneys: OrganVoxKidneys
+  - type: ProfileOrgans # <Onyx-ProfileOrgans>
+    organs:
+      Tail: { prototype: OrganVoxTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Vox
 
@@ -237,7 +239,6 @@
     damage:
       types:
         Slash: 5 # Reduce?
-  - type: Wagging
 
 - type: entity
   parent: OrganBaseOrganic

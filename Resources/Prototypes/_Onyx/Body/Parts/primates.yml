@@ -75,6 +75,26 @@
   id: RightFootMonkey
 
 - type: entity
+  parent: [ OrganBaseVisualTail, OrganPrimateExternal ]
+  id: OrganMonkeyTail
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Monkey.rsi
+    state: tail
+  - type: VisualOrgan
+    layer: enum.HumanoidVisualLayers.Tail
+    colorFromProfile: false
+    data:
+      sprite: _Onyx/Mobs/Monkey.rsi
+      state: tail
+  - type: VisualOrganMarkings
+    showOnDetached: false
+    markingData:
+      layers: []
+      group: None
+
+- type: entity
   abstract: true
   parent: OrganPrimateExternal
   id: OrganKoboldExternal

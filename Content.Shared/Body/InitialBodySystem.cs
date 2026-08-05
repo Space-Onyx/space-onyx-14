@@ -51,8 +51,6 @@ public sealed partial class InitialBodySystem : EntitySystem
         var internalOrgans = new List<(ProtoId<OrganCategoryPrototype> Category, EntProtoId Prototype)>();
         foreach (var (category, proto) in ent.Comp.Organs)
         {
-            if (ShouldSkipInitialOrgan(proto)) // <Onyx-OptionalOrgans>
-                continue;
             var spawn = Spawn(proto, coords);
             if (TryComp(spawn, out BodyPartComponent? part))
             {
@@ -138,8 +136,6 @@ public sealed partial class InitialBodySystem : EntitySystem
         }
         // </Onyx-ChestGroin-edited>
     }
-
-    private partial bool ShouldSkipInitialOrgan(EntProtoId prototype); // <Onyx-OptionalOrgans>
 
     private bool InsertOrgan(EntityUid body, EntityUid parent, string slot, EntityUid organ, OrganComponent component)
     {

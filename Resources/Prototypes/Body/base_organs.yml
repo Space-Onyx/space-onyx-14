@@ -22,6 +22,8 @@
   abstract: true
   parent: [ OrganBase, SolutionFood, SolutionTiny ]
   components:
+  - type: TransplantCompatibility # <Onyx-TransplantCompatibility>
+    profile: Flesh # <Onyx-TransplantCompatibility>
   - type: FlavorProfile
     flavors:
     - chicken # INTRODUCING OUR NEW EVERY-MEAT BURRITO, IT'S GOT EVERY MEAT!

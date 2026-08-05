@@ -1,0 +1,34 @@
+- type: transplantCompatibility
+  id: Flesh
+  provides: [ Flesh ]
+  accepts: [ Flesh, UniversalOrganic ]
+
+- type: transplantCompatibility
+  id: Slime
+  provides: [ Slime ]
+  accepts: [ Slime, UniversalOrganic ]
+
+- type: transplantCompatibility
+  id: Plant
+  provides: [ Plant ]
+  accepts: [ Plant, UniversalOrganic ]
+
+- type: transplantCompatibility
+  id: Xenomorph
+  provides: [ Xenomorph ]
+  accepts: [ Xenomorph, UniversalOrganic ]
+
+- type: transplantCompatibility
+  id: Mechanical
+  provides: [ Mechanical ]
+  accepts: [ Mechanical ]
+
+- type: transplantCompatibility
+  id: Cybernetic
+  provides: [ Mechanical, UniversalOrganic ]
+  accepts: [ Mechanical ]
+
+- type: transplantCompatibility
+  id: Biosynthetic
+  provides: [ UniversalOrganic ]
+  accepts: [ Flesh, Slime, Plant, Xenomorph, UniversalOrganic ]

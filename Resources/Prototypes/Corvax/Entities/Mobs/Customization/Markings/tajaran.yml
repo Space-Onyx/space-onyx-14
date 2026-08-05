@@ -432,6 +432,7 @@
 
 - type: marking
   id: TajaranTailFluffy
+  activeVariant: TajaranTailFluffyAnimated
   bodyPart: Tail
   groupWhitelist: [Tajaran]
   sponsorOnly: false # <Onyx-SponsorDisable>
@@ -478,6 +479,7 @@
 
 - type: marking
   id: TajaranTailM
+  activeVariant: TajaranTailMAnimated
   bodyPart: Tail
   groupWhitelist: []
   sprites:
@@ -486,6 +488,7 @@
 
 - type: marking
   id: TajaranTailRing
+  activeVariant: TailRingAnimated
   bodyPart: Tail
   groupWhitelist: [Tajaran]
   sponsorOnly: false # <Onyx-SponsorDisable>
@@ -497,6 +500,7 @@
 
 - type: marking
   id: TajaranTailSkeleton
+  activeVariant: TailSkeletonAnimated
   bodyPart: Tail
   groupWhitelist: [Tajaran]
   sponsorOnly: false # <Onyx-SponsorDisable>
@@ -508,6 +512,7 @@
 
 - type: marking
   id: TajaranTailTip
+  activeVariant: TailTipAnimated
   bodyPart: Tail
   groupWhitelist: [Tajaran]
   sponsorOnly: false # <Onyx-SponsorDisable>
@@ -519,6 +524,7 @@
 
 - type: marking
   id: TajaranTailFluffySkeleton
+  activeVariant: TailFluffySkeletonAnimated
   bodyPart: Tail
   groupWhitelist: [Tajaran]
   sponsorOnly: false # <Onyx-SponsorDisable>
@@ -531,6 +537,7 @@
 
 - type: marking
   id: TajaranTailWingler1
+  activeVariant: TailWingler1Animated
   bodyPart: Tail
   groupWhitelist: [Tajaran]
   sponsorOnly: false # <Onyx-SponsorDisable>
@@ -542,6 +549,7 @@
 
 - type: marking
   id: TajaranTailWingler2
+  activeVariant: TailWingler2Animated
   bodyPart: Tail
   groupWhitelist: [Tajaran]
   sponsorOnly: false # <Onyx-SponsorDisable>
@@ -553,6 +561,7 @@
 
 - type: marking
   id: TajaranTailWingler3
+  activeVariant: TailWingler3Animated
   bodyPart: Tail
   groupWhitelist: [Tajaran]
   sponsorOnly: false # <Onyx-SponsorDisable>

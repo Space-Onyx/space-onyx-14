@@ -186,6 +186,9 @@
   id: OrganDiona
   abstract: true
   suffix: Diona
+  components:
+  - type: TransplantCompatibility # <Onyx-TransplantCompatibility>
+    profile: Plant # <Onyx-TransplantCompatibility>
 
 - type: entity
   id: OrganDionaMetabolizer

@@ -1,7 +1,11 @@
 ent-BasicCyberneticEyes = cybernetic eyes
+    .desc = Durable synthetic eyes with integrated flash protection.
 ent-MedicalCyberneticEyes = cybernetic medical HUD eyes
+    .desc = Cybernetic eyes with an integrated medical HUD.
 ent-SecurityCyberneticEyes = cybernetic security HUD eyes
+    .desc = Cybernetic eyes with an integrated security HUD.
 ent-DiagnosticCyberneticEyes = cybernetic diagnostic HUD eyes
+    .desc = Cybernetic eyes with an integrated diagnostic HUD.
 ent-BasicCyberneticHeart = cybernetic heart
 ent-UpgradedCyberneticHeart = upgraded cybernetic heart
 ent-BasicCyberneticLiver = cybernetic liver

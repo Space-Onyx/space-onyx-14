@@ -15,6 +15,7 @@
         Stomach: OrganAnimalStomach
         Liver: OrganAnimalLiver
         Kidneys: OrganAnimalKidneys
+        Tail: OrganMonkeyTail
     head:
       part: HeadMonkey
       organs:

@@ -114,6 +114,7 @@
 
 - type: marking
   id: LizardTailSmooth
+  activeVariant: LizardTailSmoothAnimated
   bodyPart: Tail
   groupWhitelist: [Reptilian]
   sprites:
@@ -124,6 +125,7 @@
 
 - type: marking
   id: LizardTailLarge
+  activeVariant: LizardTailLargeAnimated
   bodyPart: Tail
   groupWhitelist: [Reptilian]
   sprites:
@@ -132,6 +134,7 @@
 
 - type: marking
   id: LizardTailSpikes
+  activeVariant: LizardTailSpikesAnimated
   bodyPart: Tail
   groupWhitelist: [Reptilian]
   sprites:
@@ -140,6 +143,7 @@
 
 - type: marking
   id: LizardTailLTiger
+  activeVariant: LizardTailLTigerAnimated
   bodyPart: Tail
   groupWhitelist: [Reptilian]
   sprites:
@@ -148,6 +152,7 @@
 
 - type: marking
   id: LizardTailDTiger
+  activeVariant: LizardTailDTigerAnimated
   bodyPart: Tail
   groupWhitelist: [Reptilian]
   sprites:
@@ -156,6 +161,7 @@
 
 - type: marking
   id: LizardTailAquatic
+  activeVariant: LizardTailAquaticAnimated
   bodyPart: Tail
   groupWhitelist: [Reptilian]
   sprites:

@@ -263,7 +263,7 @@ public sealed partial class FaceHuggerSystem : EntitySystem
             return;
 
         var infection = Spawn(prototype);
-        if (!_body.TryInsertOrgan(part.Value, infection, component.InfectionSlotId))
+        if (!_body.TryInsertOrgan(part.Value, infection, component.InfectionSlotId, checkCompatibility: false))
         {
             QueueDel(infection);
             return;

@@ -331,6 +331,12 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
     private void ShowInfo(TechnologyPrototype tech, ResearchAvailability availability)
     {
         TechnologyInfoPanel.Visible = true;
+        if (InfoContainer.Children.FirstOrDefault() is FancyTechnologyInfoPanel current && current.Prototype == tech)
+        {
+            current.UpdateAvailability(HasAccess(), availability);
+            return;
+        }
+
         InfoContainer.RemoveAllChildren();
         var panel = new FancyTechnologyInfoPanel(tech, HasAccess(), availability, _sprite);
         panel.BuyAction += bought =>

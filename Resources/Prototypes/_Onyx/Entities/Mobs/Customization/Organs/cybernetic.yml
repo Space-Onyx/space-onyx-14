@@ -4,6 +4,8 @@
   id: OnyxCyberneticOrganBase
   components:
   - type: Cybernetics
+  - type: TransplantCompatibility
+    profile: Cybernetic
   - type: Sprite
     sprite: _Onyx/Cybernetics/organs.rsi
 
@@ -17,6 +19,14 @@
     sprite: _Onyx/Cybernetics/organs.rsi
     layers:
     - state: eyes
+  - type: VisualOrgan
+    layer: enum.HumanoidVisualLayers.Eyes
+    colorFromProfile: false
+    data:
+      state: eyes
+      color: "#00FF00"
+  - type: Cybernetics
+    effects: FlashProtection
 
 - type: entity
   parent: BasicCyberneticEyes
@@ -29,7 +39,11 @@
     layers:
     - state: eyes-medhud
   - type: Cybernetics
-    effects: MedicalHud
+    effects: MedicalHud, FlashProtection
+  - type: VisualOrgan
+    data:
+      state: eyes
+      color: "#00BFFF"
 
 - type: entity
   parent: BasicCyberneticEyes
@@ -42,7 +56,11 @@
     layers:
     - state: eyes-sechud
   - type: Cybernetics
-    effects: SecurityHud
+    effects: SecurityHud, FlashProtection
+  - type: VisualOrgan
+    data:
+      state: eyes
+      color: "#FF0000"
 
 - type: entity
   parent: BasicCyberneticEyes
@@ -55,7 +73,11 @@
     layers:
     - state: eyes-diagnostic
   - type: Cybernetics
-    effects: DiagnosticHud
+    effects: DiagnosticHud, FlashProtection
+  - type: VisualOrgan
+    data:
+      state: eyes
+      color: "#FF9900"
 
 - type: entity
   parent: [ OrganHumanHeart, OnyxCyberneticOrganBase ]

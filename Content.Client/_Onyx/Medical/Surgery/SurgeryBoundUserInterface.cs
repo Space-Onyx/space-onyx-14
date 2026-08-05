@@ -286,6 +286,7 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
         StepInvalidReason.NeedsOperatingTable => "surgery-ui-reason-operating-table",
         StepInvalidReason.Clothing => "surgery-ui-reason-clothing",
         StepInvalidReason.MissingTool => "surgery-ui-reason-tool",
+        StepInvalidReason.IncompatibleTransplant => "surgery-ui-reason-incompatible-transplant",
         _ => "surgery-ui-reason-unavailable",
     });
 

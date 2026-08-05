@@ -3,6 +3,8 @@
   id: PartXenomorph
   abstract: true
   components:
+  - type: TransplantCompatibility
+    profile: Xenomorph
   # <Goobstation>
   - type: Sprite
     sprite: _Onyx/Mobs/Species/Xenomorph/parts.rsi

@@ -48,6 +48,11 @@ namespace Content.Shared.Humanoid.Markings
         [DataField]
         public Dictionary<string, string>? Shaders { get; private set; }
 
+        // <Onyx-VisualOrganActivity>
+        [DataField]
+        public ProtoId<MarkingPrototype>? ActiveVariant { get; private set; }
+        // </Onyx-VisualOrganActivity>
+
         public Marking AsMarking()
         {
             return new Marking(ID, Sprites.Count);

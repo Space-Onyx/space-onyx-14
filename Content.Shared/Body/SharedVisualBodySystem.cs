@@ -30,6 +30,7 @@ public abstract partial class SharedVisualBodySystem : EntitySystem
 
         InitializeModifiers();
         InitializeInitial();
+        InitializeProfileOrgans(); // <Onyx-ProfileOrgans>
     }
 
     private List<Marking> ResolveMarkings(List<Marking> markings, Color? skinColor, Color? eyeColor, Dictionary<Enum, MarkingsAppearance> appearances)
@@ -89,6 +90,14 @@ public abstract partial class SharedVisualBodySystem : EntitySystem
         ent.Comp.Markings = markings;
         Dirty(ent);
     }
+
+    // <Onyx-VisualOrganActivity>
+    public void ApplyOrganMarkings(EntityUid organ, Dictionary<HumanoidVisualLayers, List<Marking>> markings)
+    {
+        if (TryComp(organ, out VisualOrganMarkingsComponent? visual))
+            SetOrganMarkings((organ, visual), markings);
+    }
+    // </Onyx-VisualOrganActivity>
 
     private void OnVisualOrganCopyAppearance(Entity<VisualOrganComponent> ent, ref BodyRelayedEvent<OrganCopyAppearanceEvent> args)
     {
@@ -219,11 +228,11 @@ public readonly record struct ApplyOrganProfileDataEvent(OrganProfileData? Base,
 [ByRefEvent]
 public readonly record struct ApplyOrganMarkingsEvent(Dictionary<ProtoId<OrganCategoryPrototype>, Dictionary<HumanoidVisualLayers, List<Marking>>> Markings);
 
-// <Onyx-DynamicWagging>
+// <Onyx-VisualOrganActivity>
 /// <summary>
 /// Raised after a visual body's markings have changed.
 /// </summary>
 public sealed class VisualBodyMarkingsChangedEvent : EntityEventArgs
 {
 }
-// </Onyx-DynamicWagging>
+// </Onyx-VisualOrganActivity>

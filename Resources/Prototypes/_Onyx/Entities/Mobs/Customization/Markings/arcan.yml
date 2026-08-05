@@ -1,5 +1,6 @@
 - type: marking
   id: DemomTail
+  activeVariant: DemomTailAnimated
   bodyPart: Tail
   groupWhitelist: [ Demon, Human ]
   sprites:
@@ -8,6 +9,7 @@
 
 - type: marking
   id: DemomTail1
+  activeVariant: DemomTail1Animated
   bodyPart: Tail
   groupWhitelist: [ Demon, Human ]
   sprites:
@@ -18,6 +20,7 @@
 
 - type: marking
   id: DemomTailLong
+  activeVariant: DemomTailLongAnimated
   bodyPart: Tail
   groupWhitelist: [ Demon, Human ]
   sprites:
@@ -28,6 +31,7 @@
 
 - type: marking
   id: DemomTailUp
+  activeVariant: DemomTailUpAnimated
   bodyPart: Tail
   groupWhitelist: [ Demon, Human ]
   sprites:
