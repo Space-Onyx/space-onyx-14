@@ -1,0 +1,46 @@
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: MantisBlade
+  name: mantis blade
+  description: They will not see the steel until it is too late.
+  categories: [ DoNotMap ]
+  components:
+  - type: Sharp
+  - type: Execution
+    doAfterDuration: 4
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Melee/mantis_blade.rsi
+    state: icon
+  - type: MeleeWeapon
+    animationRotation: 120
+    swingLeft: true
+    wideAnimationRotation: 135
+    attackRate: 1.5
+    damage:
+      types: { Slash: 10, Piercing: 4, Structural: 15 }
+    soundHit: { path: /Audio/Weapons/bladeslice.ogg }
+  - type: Item
+    size: Ginormous
+    heldPrefix: popout
+  - type: Tool
+    qualities: [ Slicing ]
+  - type: Tag
+    tags: [ MantisBlade ]
+
+- type: entity
+  parent: BaseAugmentItemPanel
+  id: AugmentManitBladePanel
+  name: mantis blade panel augment
+  description: An arm implant containing a mantis blade.
+  components:
+  - type: Sprite
+    state: engineering
+  - type: AugmentItemPanel
+    itemPrototype: MantisBlade
+    extendPowerCost: 3.5
+    retractPowerCost: 3
+    icon: { sprite: _Onyx/Objects/Weapons/Melee/mantis_blade.rsi, state: icon }
+    extendSound: { path: /Audio/_Onyx/Weapons/MantisBlades/mantis_extend.ogg }
+    retractSound: { collection: MantisBladeRetract }
+    extendHeldPrefix: popout
+    extendHeldPrefixDuration: 0.3

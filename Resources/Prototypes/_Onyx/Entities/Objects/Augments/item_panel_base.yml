@@ -1,0 +1,35 @@
+- type: entity
+  parent: BaseAugmentAction
+  id: ActionAugmentToggleItemPanel
+  name: Toggle item panel
+  description: Deploy or retract the built-in item.
+  components:
+  - type: InstantAction
+    event: !type:AugmentItemPanelActionEvent
+
+- type: entity
+  parent: ActionAugmentToggleItemPanel
+  id: ActionAugmentToggleItemPanelLeft
+  name: Toggle item panel (left arm)
+  description: Deploy or retract the built-in item from your left arm.
+
+- type: entity
+  parent: ActionAugmentToggleItemPanel
+  id: ActionAugmentToggleItemPanelRight
+  name: Toggle item panel (right arm)
+  description: Deploy or retract the built-in item from your right arm.
+
+- type: entity
+  abstract: true
+  parent: BaseArmAugment
+  id: BaseAugmentItemPanel
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Augments/arm.rsi
+    state: base
+  - type: ItemToggle
+    activated: false
+    onUse: false
+    onActivate: false
+  - type: AugmentAction
+    action: ActionAugmentToggleItemPanel

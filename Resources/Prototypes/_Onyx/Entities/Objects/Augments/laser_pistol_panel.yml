@@ -1,0 +1,13 @@
+- type: entity
+  parent: BaseAugmentItemPanel
+  id: AugmentLaserPistolPanel
+  name: laser pistol panel augment
+  description: An arm implant containing a self-recharging laser pistol.
+  components:
+  - type: Sprite
+    state: strength
+  - type: AugmentItemPanel
+    itemPrototype: WeaponAdvancedLaser
+    extendPowerCost: 3.5
+    retractPowerCost: 3
+    icon: { sprite: Objects/Weapons/Guns/Battery/advancedlasergun.rsi, state: base }

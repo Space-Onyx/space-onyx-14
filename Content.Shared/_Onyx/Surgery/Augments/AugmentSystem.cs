@@ -1,0 +1,95 @@
+using System.Linq;
+using Content.Shared.Actions;
+using Content.Shared.Body;
+using Content.Shared.Item.ItemToggle;
+using Content.Shared.Power.EntitySystems;
+using Content.Shared.PowerCell;
+using Content.Shared.UserInterface;
+using Content.Shared._Onyx.Cybernetics;
+
+namespace Content.Shared._Onyx.Surgery.Augments;
+
+public sealed partial class AugmentSystem : EntitySystem
+{
+    [Dependency] private ActionContainerSystem _actionContainer = default!;
+    [Dependency] private SharedActionsSystem _actions = default!;
+    [Dependency] private SharedBatterySystem _battery = default!;
+    [Dependency] private ItemToggleSystem _toggle = default!;
+    [Dependency] private PowerCellSystem _powerCell = default!;
+    [Dependency] private SharedUserInterfaceSystem _ui = default!;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        InitializeLifecycle();
+        InitializeActions();
+        InitializePower();
+        InitializeStrength();
+    }
+
+    public EntityUid? GetBody(EntityUid augment) => CompOrNull<OrganComponent>(augment)?.Body;
+
+    public IEnumerable<EntityUid> ResolveAugments(InstalledAugmentsComponent installed)
+    {
+        foreach (var net in installed.Augments)
+        {
+            var uid = GetEntity(net);
+            if (Exists(uid))
+                yield return uid;
+        }
+    }
+
+    public bool HasInstalled<T>(EntityUid body) where T : Component
+    {
+        return TryComp(body, out InstalledAugmentsComponent? installed) && ResolveAugments(installed).Any(HasComp<T>);
+    }
+
+    public EntityUid? GetPowerSlot(EntityUid body)
+    {
+        return TryComp(body, out InstalledAugmentsComponent? installed)
+            ? ResolveAugments(installed).FirstOrDefault(HasComp<AugmentPowerCellSlotComponent>)
+            : null;
+    }
+
+    public bool TryUseCharge(EntityUid body, float charge, EntityUid? user = null) =>
+        GetPowerSlot(body) is { Valid: true } slot && _powerCell.TryUseCharge(slot, charge, user);
+
+    /// <summary>
+    /// Draws energy for an augment-owned consumer. Consumers only need an
+    /// <see cref="AugmentPowerReceiverComponent"/> linked to their provider augment.
+    /// </summary>
+    public bool TryUsePower(Entity<AugmentPowerReceiverComponent?> receiver, float charge, EntityUid? user = null)
+    {
+        if (charge <= 0f || !Resolve(receiver, ref receiver.Comp, false) || receiver.Comp.Provider is not { } provider ||
+            GetBody(provider) is not { } body || !IsEnabled(provider))
+            return false;
+
+        return TryUseCharge(body, charge, user);
+    }
+
+    public void SetPowerProvider(EntityUid receiver, EntityUid? provider)
+    {
+        var component = EnsureComp<AugmentPowerReceiverComponent>(receiver);
+        component.Provider = provider;
+        Dirty(receiver, component);
+    }
+
+    public bool HasPower(EntityUid body) =>
+        GetPowerSlot(body) is { Valid: true } slot && _powerCell.HasCharge(slot, 0.01f);
+
+    public bool CanUse(EntityUid augment, EntityUid user) =>
+        GetBody(augment) == user && IsEnabled(augment) &&
+        (!HasComp<AugmentPowerDrawComponent>(augment) || HasPower(user));
+
+    private bool IsEnabled(EntityUid augment) =>
+        !TryComp(augment, out CyberneticsComponent? cyber) || !cyber.Disabled;
+
+    private void Disable(EntityUid augment)
+    {
+        _toggle.TryDeactivate(augment);
+        if (TryComp(augment, out AugmentActionComponent? action))
+            _actions.SetToggled(action.ActionEntity, false);
+        if (TryComp(augment, out AugmentActivatableUIComponent? ui) && ui.Key is { } key)
+            _ui.CloseUi(augment, key);
+    }
+}

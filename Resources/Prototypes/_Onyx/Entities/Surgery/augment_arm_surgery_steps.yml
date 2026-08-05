@@ -1,0 +1,14 @@
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertArmAugment
+  name: Insert arm augment
+  components:
+  - type: SurgeryInsertOrganEffect
+    slot: AugmentArm
+    requireMechanical: true
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveArmAugment
+  name: Remove arm augment
+  components: [ { type: SurgeryRemoveOrganEffect, slot: AugmentArm } ]

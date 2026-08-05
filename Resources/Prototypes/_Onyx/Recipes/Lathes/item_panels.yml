@@ -1,0 +1,35 @@
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: AugmentStunnerPanelCasing
+  result: AugmentStunnerPanelCasing
+  materials: { Steel: 500, Glass: 250, Plastic: 350 }
+
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: AugmentStunnerPanelElectronics
+  result: AugmentStunnerPanelElectronics
+  materials: { Glass: 300, Silver: 200, Gold: 300 }
+
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: AugmentStunbatonPanelCasing
+  result: AugmentStunbatonPanelCasing
+  materials: { Steel: 600, Glass: 200, Plastic: 300 }
+
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: AugmentStunbatonPanelElectronics
+  result: AugmentStunbatonPanelElectronics
+  materials: { Glass: 250, Silver: 250, Gold: 250 }
+
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: AugmentLaserPistolPanelCasing
+  result: AugmentLaserPistolPanelCasing
+  materials: { Steel: 1500, Glass: 500, Plastic: 1000 }
+
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: AugmentLaserPistolPanelElectronics
+  result: AugmentLaserPistolPanelElectronics
+  materials: { Glass: 500, Silver: 600, Gold: 1000, Plasma: 400 }

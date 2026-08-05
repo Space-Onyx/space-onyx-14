@@ -682,6 +682,8 @@
         Plastic: 25
     - type: StaticPrice
       price: 15
+    - type: Tag # <Onyx-Augments>
+      tags: [ AugmentRechargerBoard ] # <Onyx-Augments>
 
 - type: entity
   id: PowerCageRechargerCircuitboard
@@ -725,6 +727,8 @@
         Plastic: 25
     - type: StaticPrice
       price: 15
+    - type: Tag # <Onyx-Augments>
+      tags: [ AugmentStationBoard ] # <Onyx-Augments>
 
 - type: entity
   id: WeaponCapacitorRechargerCircuitboard

@@ -1,0 +1,31 @@
+- type: entity
+  parent: Stunbaton
+  id: StunbatonAugment
+  name: implant stun baton
+  description: A stun baton powered by its host's internal augment battery.
+  categories: [ DoNotMap ]
+  components:
+  - type: Battery
+    maxCharge: 500
+    startingCharge: 0
+  - type: AugmentBatteryCharger
+    chargeRate: 25
+  - type: Tag
+    tags: [ Stunbaton ]
+
+- type: entity
+  parent: BaseAugmentItemPanel
+  id: AugmentStunbatonPanel
+  name: stun baton panel augment
+  description: An arm implant containing a stun baton powered by the host's augment battery.
+  components:
+  - type: Sprite
+    state: strength
+  - type: AugmentItemPanel
+    itemPrototype: StunbatonAugment
+    extendPowerCost: 2.5
+    retractPowerCost: 1.5
+    icon: { sprite: Objects/Weapons/Melee/stunbaton.rsi, state: stunbaton_off }
+  - type: Construction
+    graph: AugmentStunbatonPanel
+    node: augment

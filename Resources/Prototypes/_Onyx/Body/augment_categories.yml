@@ -1,0 +1,8 @@
+- type: organCategory
+  id: AugmentPowerCell
+
+- type: organCategory
+  id: AugmentCharger
+
+- type: organCategory
+  id: AugmentArm

@@ -1,0 +1,110 @@
+- type: constructionGraph
+  id: AugmentStunnerPanel
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: casing
+      steps:
+      - tag: AugmentStunnerPanelCasing
+        name: construction-graph-tag-stunner-panel-casing
+  - node: casing
+    entity: AugmentStunnerPanelCasing
+    edges:
+    - to: electronics
+      steps:
+      - tag: AugmentStunnerPanelElectronics
+        name: construction-graph-tag-stunner-panel-electronics
+        doAfter: 2
+  - node: electronics
+    entity: AugmentStunnerPanelBoard
+    edges:
+    - to: cables
+      steps:
+      - material: Cable
+        amount: 2
+        doAfter: 2
+  - node: cables
+    entity: AugmentStunnerPanelCables
+    edges:
+    - to: augment
+      steps:
+      - tag: AugmentDisablerInput
+        name: construction-graph-tag-disabler
+        doAfter: 3
+  - node: augment
+    entity: AugmentStunnerPanel
+
+- type: constructionGraph
+  id: AugmentStunbatonPanel
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: casing
+      steps:
+      - tag: AugmentStunbatonPanelCasing
+        name: construction-graph-tag-stunbaton-panel-casing
+  - node: casing
+    entity: AugmentStunbatonPanelCasing
+    edges:
+    - to: electronics
+      steps:
+      - tag: AugmentStunbatonPanelElectronics
+        name: construction-graph-tag-stunbaton-panel-electronics
+        doAfter: 2
+  - node: electronics
+    entity: AugmentStunbatonPanelBoard
+    edges:
+    - to: cables
+      steps:
+      - material: Cable
+        amount: 2
+        doAfter: 2
+  - node: cables
+    entity: AugmentStunbatonPanelCables
+    edges:
+    - to: augment
+      steps:
+      - tag: AugmentStunbatonInput
+        name: construction-graph-tag-stunbaton
+        doAfter: 3
+  - node: augment
+    entity: AugmentStunbatonPanel
+
+- type: constructionGraph
+  id: AugmentLaserPistolPanel
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: casing
+      steps:
+      - tag: AugmentLaserPistolPanelCasing
+        name: construction-graph-tag-laser-pistol-panel-casing
+  - node: casing
+    entity: AugmentLaserPistolPanelCasing
+    edges:
+    - to: electronics
+      steps:
+      - tag: AugmentLaserPistolPanelElectronics
+        name: construction-graph-tag-laser-pistol-panel-electronics
+        doAfter: 2
+  - node: electronics
+    entity: AugmentLaserPistolPanelBoard
+    edges:
+    - to: cables
+      steps:
+      - material: Cable
+        amount: 2
+        doAfter: 2
+  - node: cables
+    entity: AugmentLaserPistolPanelCables
+    edges:
+    - to: augment
+      steps:
+      - tag: AugmentLaserPistolInput
+        name: construction-graph-tag-advanced-laser-pistol
+        doAfter: 3
+  - node: augment
+    entity: AugmentLaserPistolPanel

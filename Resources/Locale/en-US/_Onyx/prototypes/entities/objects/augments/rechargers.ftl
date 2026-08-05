@@ -1,0 +1,10 @@
+ent-BaseAugmentRecharger = augment recharger
+    .desc = An implant used to recharge an internal augment battery.
+ent-AugmentRechargerCasing = augment recharger casing
+    .desc = An incomplete casing for a recharging implant.
+ent-AugmentRechargerCables = wired augment recharger casing
+    .desc = An incomplete recharger casing with installed wiring.
+ent-AugmentRechargerAPC = APC recharger augment
+    .desc = Allows an internal battery to charge from compatible power sources.
+ent-AugmentRechargerStation = station recharger augment
+    .desc = Allows an internal battery to charge inside cyborg charging stations.

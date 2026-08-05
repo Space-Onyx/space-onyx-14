@@ -1,0 +1,181 @@
+- type: entity
+  abstract: true
+  parent: BaseAugment
+  id: BaseArmAugment
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Augments/arm.rsi
+  - type: Organ
+    category: AugmentArm
+  - type: Tag
+    tags: [ ArmAugment ]
+
+- type: entity
+  parent: BaseAugmentAction
+  id: ActionAugmentOpenToolsPanel
+  name: Open tools panel
+  description: Select or retract an implanted tool.
+  components:
+  - type: Sprite
+    sprite: Clothing/Belt/utility.rsi
+    layers:
+    - state: icon
+      map: ["enum.ActionVisuals.Icon"]
+
+- type: entity
+  abstract: true
+  parent: BaseArmAugment
+  id: BaseAugmentToolPanel
+  components:
+  - type: Sprite
+    state: base
+  - type: Storage
+    maxItemSize: Normal
+    defaultStorageOrientation: Vertical
+    grid:
+    - 0,0,9,1
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container {}
+  - type: ItemToggle
+    activated: false
+    onUse: false
+    onActivate: false
+  - type: AugmentPowerDraw
+    draw: 6
+  - type: AugmentToolPanel
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+      enum.AugmentToolPanelUiKey.Key:
+        type: AugmentToolPanelBoundUserInterface
+        interactionRange: 0
+  - type: AugmentActivatableUI
+    key: enum.AugmentToolPanelUiKey.Key
+  - type: AugmentAction
+    action: ActionAugmentOpenToolsPanel
+  - type: Construction
+    graph: AugmentToolsPanel
+
+- type: entity
+  abstract: true
+  parent: BaseElectronics
+  id: BaseAugmentElectronics
+
+- type: entity
+  parent: BaseAugmentElectronics
+  id: AugmentUtilityPanelElectronics
+  name: utility tool-panel electronics
+  components: [ { type: Tag, tags: [ AugmentUtilityToolElectronics ] } ]
+
+- type: entity
+  parent: BaseAugmentElectronics
+  id: AugmentBotanyPanelElectronics
+  name: botany tool-panel electronics
+  components: [ { type: Tag, tags: [ AugmentBotanyToolElectronics ] } ]
+
+- type: entity
+  parent: BaseAugmentElectronics
+  id: AugmentSurgeryPanelElectronics
+  name: surgery tool-panel electronics
+  components: [ { type: Tag, tags: [ AugmentSurgeryToolElectronics ] } ]
+
+- type: entity
+  parent: BaseAugmentElectronics
+  id: AugmentPaperworkPanelElectronics
+  name: paperwork tool-panel electronics
+  components: [ { type: Tag, tags: [ AugmentPaperworkToolElectronics ] } ]
+
+- type: entity
+  parent: BaseAugmentElectronics
+  id: AugmentStrengthElectronics
+  name: strength augment electronics
+  components: [ { type: Tag, tags: [ AugmentStrengthElectronics ] } ]
+
+- type: entity
+  parent: BaseItem
+  id: AugmentToolPanelCasing
+  name: tool-panel augment casing
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Augments/arm.rsi
+    state: base
+  - type: Construction
+    graph: AugmentToolsPanel
+    node: casing
+    defaultTarget: utility
+  - type: Tag
+    tags: [ AugmentToolPanelCasing ]
+
+- type: entity
+  parent: BaseItem
+  id: AugmentToolPanelCables
+  name: wired tool-panel augment casing
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Augments/arm.rsi
+    state: base_cables
+  - type: Construction
+    graph: AugmentToolsPanel
+    node: cables
+    defaultTarget: utility
+
+- type: entity
+  parent: BaseAugmentToolPanel
+  id: AugmentToolsPanel
+  name: utility tools panel augment
+  description: An arm implant holding utility tools selected through an action.
+  components:
+  - type: Sprite
+    state: engineering
+  - type: Storage
+    whitelist:
+      tags: [ Wirecutter, Crowbar, Screwdriver, Wrench, GeigerCounter, Powerdrill, JawsOfLife, HolofanProjector, Multitool, AppraisalTool ]
+      components: [ StationMap, SprayPainter, NetworkConfigurator, RCD, RCDAmmo, Welder, PowerCell, Geiger, TrayScanner, GasAnalyzer ]
+  - type: Construction
+    node: utility
+
+- type: entity
+  parent: BaseAugmentToolPanel
+  id: AugmentBotanyPanel
+  name: botanical tools panel augment
+  description: An arm implant holding botanical tools selected through an action.
+  components:
+  - type: Sprite
+    state: botany
+  - type: Storage
+    whitelist:
+      tags: [ PlantSampleTaker, BotanyShovel, BotanyHoe, BotanyHatchet, Dropper ]
+      components: [ HandLabeler ]
+  - type: Construction
+    node: botany
+
+- type: entity
+  parent: BaseAugmentToolPanel
+  id: AugmentPaperworkPanel
+  name: paperwork tools panel augment
+  description: An arm implant holding paperwork tools selected through an action.
+  components:
+  - type: Sprite
+    state: paperwork
+  - type: Storage
+    whitelist:
+      tags: [ Folder ]
+      components: [ HandLabeler, Stamp, TapeRecorder ]
+  - type: Construction
+    node: paperwork
+
+- type: entity
+  parent: BaseAugmentToolPanel
+  id: AugmentSurgicalPanel
+  name: surgical tools panel augment
+  description: An arm implant holding surgical tools selected through an action.
+  components:
+  - type: Sprite
+    state: surgical
+  - type: Storage
+    whitelist:
+      components: [ SurgeryTool ]
+  - type: Construction
+    node: surgery

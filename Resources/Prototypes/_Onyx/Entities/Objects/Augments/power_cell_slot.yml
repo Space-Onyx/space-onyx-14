@@ -1,0 +1,59 @@
+- type: entity
+  parent: BaseItem
+  id: AugmentPowerCellSlotCasing
+  name: augment power cell slot casing
+  description: An incomplete implant casing for an internal power cell.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Augments/power.rsi
+    state: incomplete_cell
+  - type: Construction
+    graph: AugmentPowerCellSlot
+    node: casing
+    defaultTarget: augment
+  - type: Tag
+    tags: [ AugmentCellCasing ]
+
+- type: entity
+  parent: BaseItem
+  id: AugmentPowerCellSlotCables
+  name: wired augment power cell slot casing
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Augments/power.rsi
+    state: incomplete_cell_cables
+  - type: Construction
+    graph: AugmentPowerCellSlot
+    node: cables
+    defaultTarget: augment
+
+- type: entity
+  parent: BaseAugment
+  id: AugmentPowerCellSlot
+  name: augment power cell slot
+  description: An internal power-cell socket that supplies installed body augments.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Augments/power.rsi
+    state: cell
+  - type: Organ
+    category: AugmentPowerCell
+  - type: AugmentPowerCellSlot
+  - type: Construction
+    graph: AugmentPowerCellSlot
+    node: augment
+  - type: ContainerContainer
+    containers:
+      cell_slot: !type:ContainerSlot {}
+  - type: PowerCellSlot
+    cellSlotId: cell_slot
+  - type: PowerCellDraw
+    drawRate: 0
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        whitelist:
+          components: [ PowerCell ]
+        blacklist:
+          tags: [ PowerCage ]

@@ -342,6 +342,8 @@
     # <Onyx-Cybernetics>
     - BasicCybernetics
     - AdvancedCybernetics
+    - PowerAugments # <Onyx-Augments>
+    - ToolAugments # <Onyx-Augments>
     # </Onyx-Cybernetics>
   # <MechProduction>
   - type: EmagLatheRecipes
@@ -452,6 +454,8 @@
     # </MechProduction>
     # <Onyx-Cybernetics>
     - SecurityCybernetics
+    - IntegratedWeaponAugments # <Onyx-AugmentItemPanel>
+    - IntegratedAdvancedWeaponAugments # <Onyx-AugmentItemPanel>
     # </Onyx-Cybernetics>
     - PowerCells
     # </Onyx-DepartmentTechfabRecipes-edited>

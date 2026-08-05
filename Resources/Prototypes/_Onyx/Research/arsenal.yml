@@ -23,6 +23,7 @@
     - ThermalVisionTech
     - RipleyAPLU
     - WeaponLaserCellRevolverTech
+    - DualWieldingTechnology
 - type: technology
   id: WeaponLaserCellRevolverTech
   name: research-technology-mag-fed-pistol
@@ -142,3 +143,36 @@
     - WeaponLaserCellSniperTech
     - WeaponLaserCellLMGTech
     - PortableMicrofusionWeaponry
+- type: technology
+  id: IntegratedWeaponAugments
+  name: research-technology-integrated-weapon-augments
+  icon:
+    sprite: _Onyx/Objects/Augments/arm.rsi
+    state: strength
+  discipline: Arsenal
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+    - AugmentStunnerPanelCasing
+    - AugmentStunnerPanelElectronics
+    - AugmentStunbatonPanelCasing
+    - AugmentStunbatonPanelElectronics
+  position: 3,7
+  technologyPrerequisites:
+    - BasicAugmentation
+    - AdvancedRiotControl
+- type: technology
+  id: IntegratedAdvancedWeaponAugments
+  name: research-technology-integrated-advanced-weapon-augments
+  icon:
+    sprite: Objects/Weapons/Guns/Battery/advancedlasergun.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 3
+  cost: 15000
+  recipeUnlocks:
+    - AugmentLaserPistolPanelCasing
+    - AugmentLaserPistolPanelElectronics
+  position: 3,6
+  technologyPrerequisites:
+    - IntegratedWeaponAugments

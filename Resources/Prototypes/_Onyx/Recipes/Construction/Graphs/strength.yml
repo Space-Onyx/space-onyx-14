@@ -1,0 +1,28 @@
+- type: constructionGraph
+  id: AugmentStrength
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: casing
+      steps: [ { tag: AugmentStrengthCasing, name: construction-graph-tag-casing } ]
+  - node: casing
+    entity: AugmentStrengthCasing
+    edges:
+    - to: cables
+      steps: [ { material: Cable, amount: 1 } ]
+  - node: cables
+    entity: AugmentStrengthCables
+    edges:
+    - to: augment
+      steps:
+      - tag: AugmentStrengthElectronics
+        name: construction-graph-tag-strength-augment-electronics
+      - material: Plasteel
+        amount: 4
+      - material: Steel
+        amount: 12
+      - tool: Welding
+        doAfter: 4
+  - node: augment
+    entity: AugmentStrength

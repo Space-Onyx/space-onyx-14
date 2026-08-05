@@ -1,0 +1,9 @@
+construction-graph-tag-stunner-panel-casing = каркас импланта панели станнера
+construction-graph-tag-stunbaton-panel-casing = каркас импланта панели дубинки-шокера
+construction-graph-tag-stunner-panel-electronics = электроника импланта панели станнера
+construction-graph-tag-stunbaton-panel-electronics = электроника импланта панели дубинки-шокера
+construction-graph-tag-disabler = станнер
+construction-graph-tag-stunbaton = дубинка-шокер
+construction-graph-tag-laser-pistol-panel-casing = каркас импланта панели лазерного пистолета
+construction-graph-tag-laser-pistol-panel-electronics = электроника импланта панели лазерного пистолета
+construction-graph-tag-advanced-laser-pistol = продвинутый лазерный пистолет

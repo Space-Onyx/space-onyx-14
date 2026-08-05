@@ -1,0 +1,134 @@
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: BaseAugmentItemPanelCasing
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Augments/arm.rsi
+    state: base
+
+- type: entity
+  parent: BaseAugmentItemPanelCasing
+  id: AugmentStunnerPanelCasing
+  name: stunner panel augment casing
+  components:
+  - type: Construction
+    graph: AugmentStunnerPanel
+    node: casing
+    defaultTarget: augment
+  - type: Tag
+    tags: [ AugmentStunnerPanelCasing ]
+
+- type: entity
+  parent: BaseAugmentItemPanelCasing
+  id: AugmentStunnerPanelBoard
+  name: stunner panel augment casing with electronics
+  components:
+  - type: Construction
+    graph: AugmentStunnerPanel
+    node: electronics
+    defaultTarget: augment
+
+- type: entity
+  parent: BaseAugmentItemPanelCasing
+  id: AugmentStunnerPanelCables
+  name: wired stunner panel augment casing
+  components:
+  - type: Sprite
+    state: base_cables
+  - type: Construction
+    graph: AugmentStunnerPanel
+    node: cables
+    defaultTarget: augment
+
+- type: entity
+  parent: BaseAugmentItemPanelCasing
+  id: AugmentStunbatonPanelCasing
+  name: stun baton panel augment casing
+  components:
+  - type: Construction
+    graph: AugmentStunbatonPanel
+    node: casing
+    defaultTarget: augment
+  - type: Tag
+    tags: [ AugmentStunbatonPanelCasing ]
+
+- type: entity
+  parent: BaseAugmentItemPanelCasing
+  id: AugmentStunbatonPanelBoard
+  name: stun baton panel augment casing with electronics
+  components:
+  - type: Construction
+    graph: AugmentStunbatonPanel
+    node: electronics
+    defaultTarget: augment
+
+- type: entity
+  parent: BaseAugmentItemPanelCasing
+  id: AugmentStunbatonPanelCables
+  name: wired stun baton panel augment casing
+  components:
+  - type: Sprite
+    state: base_cables
+  - type: Construction
+    graph: AugmentStunbatonPanel
+    node: cables
+    defaultTarget: augment
+
+- type: entity
+  parent: BaseAugmentItemPanelCasing
+  id: AugmentLaserPistolPanelCasing
+  name: laser pistol panel augment casing
+  components:
+  - type: Construction
+    graph: AugmentLaserPistolPanel
+    node: casing
+    defaultTarget: augment
+  - type: Tag
+    tags: [ AugmentLaserPistolPanelCasing ]
+
+- type: entity
+  parent: BaseAugmentItemPanelCasing
+  id: AugmentLaserPistolPanelBoard
+  name: laser pistol panel augment casing with electronics
+  components:
+  - type: Construction
+    graph: AugmentLaserPistolPanel
+    node: electronics
+    defaultTarget: augment
+
+- type: entity
+  parent: BaseAugmentItemPanelCasing
+  id: AugmentLaserPistolPanelCables
+  name: wired laser pistol panel augment casing
+  components:
+  - type: Sprite
+    state: base_cables
+  - type: Construction
+    graph: AugmentLaserPistolPanel
+    node: cables
+    defaultTarget: augment
+
+- type: entity
+  parent: BaseAugmentElectronics
+  id: AugmentStunnerPanelElectronics
+  name: stunner panel augment electronics
+  components:
+  - type: Tag
+    tags: [ AugmentStunnerPanelElectronics ]
+
+- type: entity
+  parent: BaseAugmentElectronics
+  id: AugmentStunbatonPanelElectronics
+  name: stun baton panel augment electronics
+  components:
+  - type: Tag
+    tags: [ AugmentStunbatonPanelElectronics ]
+
+- type: entity
+  parent: BaseAugmentElectronics
+  id: AugmentLaserPistolPanelElectronics
+  name: laser pistol panel augment electronics
+  components:
+  - type: Tag
+    tags: [ AugmentLaserPistolPanelElectronics ]

@@ -1,0 +1,31 @@
+- type: latheRecipe
+  abstract: true
+  id: BaseAugmentRecipe
+  categories: [ Robotics ]
+  completetime: 3
+
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: AugmentToolPanelCasing
+  result: AugmentToolPanelCasing
+  materials: { Steel: 500, Glass: 250, Plastic: 250 }
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: AugmentUtilityPanelElectronics
+  result: AugmentUtilityPanelElectronics
+  materials: { Steel: 100, Glass: 200, Gold: 100 }
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: AugmentBotanyPanelElectronics
+  result: AugmentBotanyPanelElectronics
+  materials: { Steel: 100, Glass: 200, Gold: 100 }
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: AugmentSurgeryPanelElectronics
+  result: AugmentSurgeryPanelElectronics
+  materials: { Steel: 100, Glass: 200, Gold: 100 }
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: AugmentPaperworkPanelElectronics
+  result: AugmentPaperworkPanelElectronics
+  materials: { Steel: 100, Glass: 200, Gold: 100 }

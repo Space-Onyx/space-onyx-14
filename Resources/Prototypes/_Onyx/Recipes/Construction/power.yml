@@ -1,0 +1,23 @@
+- type: construction
+  id: AugmentPowerCellSlot
+  graph: AugmentPowerCellSlot
+  startNode: start
+  targetNode: augment
+  category: construction-category-utilities
+  canBuildInImpassable: false
+
+- type: construction
+  id: AugmentRechargerAPC
+  graph: AugmentRecharger
+  startNode: start
+  targetNode: apc
+  category: construction-category-utilities
+  canBuildInImpassable: false
+
+- type: construction
+  id: AugmentRechargerStation
+  graph: AugmentRecharger
+  startNode: start
+  targetNode: station
+  category: construction-category-utilities
+  canBuildInImpassable: false

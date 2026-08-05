@@ -1,0 +1,37 @@
+- type: Tag
+  id: AugmentToolPanelCasing
+- type: Tag
+  id: AugmentUtilityToolElectronics
+- type: Tag
+  id: AugmentBotanyToolElectronics
+- type: Tag
+  id: AugmentSurgeryToolElectronics
+- type: Tag
+  id: AugmentPaperworkToolElectronics
+
+- type: Tag
+  id: AugmentStunnerPanelCasing
+
+- type: Tag
+  id: AugmentStunbatonPanelCasing
+
+- type: Tag
+  id: AugmentStunnerPanelElectronics
+
+- type: Tag
+  id: AugmentStunbatonPanelElectronics
+
+- type: Tag
+  id: AugmentLaserPistolPanelCasing
+
+- type: Tag
+  id: AugmentLaserPistolPanelElectronics
+
+- type: Tag
+  id: AugmentDisablerInput
+
+- type: Tag
+  id: AugmentStunbatonInput
+
+- type: Tag
+  id: AugmentLaserPistolInput

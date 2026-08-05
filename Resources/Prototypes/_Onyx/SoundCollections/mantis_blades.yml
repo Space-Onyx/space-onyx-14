@@ -1,0 +1,5 @@
+- type: soundCollection
+  id: MantisBladeRetract
+  files:
+  - /Audio/_Onyx/Weapons/MantisBlades/mantis_retract1.ogg
+  - /Audio/_Onyx/Weapons/MantisBlades/mantis_retract2.ogg

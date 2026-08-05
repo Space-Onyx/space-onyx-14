@@ -1,0 +1,24 @@
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertArmAugment
+  name: Implant arm augment
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepInsertArmAugment ]
+  - type: SurgeryOrganCondition
+    slot: AugmentArm
+    inverse: true
+    part: Arm
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveArmAugment
+  name: Remove arm augment
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepRemoveArmAugment ]
+  - type: SurgeryOrganCondition
+    slot: AugmentArm
+    part: Arm

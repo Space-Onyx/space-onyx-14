@@ -72,6 +72,10 @@
           False: {state: stunbaton_off}
   - type: StaticPrice
     price: 80
+  # <Onyx-AugmentItemPanels>
+  - type: Tag
+    tags: [ Stunbaton, AugmentStunbatonInput ]
+  # </Onyx-AugmentItemPanels>
   - type: Riggable
   - type: SolutionManager
     solutions:

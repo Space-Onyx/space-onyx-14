@@ -1,0 +1,45 @@
+- type: constructionGraph
+  id: AugmentPowerCellSlot
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: casing
+      steps: [ { tag: AugmentCellCasing, name: construction-graph-tag-casing } ]
+  - node: casing
+    entity: AugmentPowerCellSlotCasing
+    edges:
+    - to: cables
+      steps: [ { material: Cable, amount: 1 } ]
+  - node: cables
+    entity: AugmentPowerCellSlotCables
+    edges:
+    - to: augment
+      steps: [ { material: Plastic, amount: 1 } ]
+  - node: augment
+    entity: AugmentPowerCellSlot
+
+- type: constructionGraph
+  id: AugmentRecharger
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: casing
+      steps: [ { tag: AugmentRechargerCasing, name: construction-graph-tag-casing } ]
+  - node: casing
+    entity: AugmentRechargerCasing
+    edges:
+    - to: cables
+      steps: [ { material: Cable, amount: 1 } ]
+  - node: cables
+    entity: AugmentRechargerCables
+    edges:
+    - to: apc
+      steps: [ { tag: AugmentRechargerBoard, name: construction-graph-tag-cell-recharger } ]
+    - to: station
+      steps: [ { tag: AugmentStationBoard, name: construction-graph-tag-cyborg-recharger } ]
+  - node: apc
+    entity: AugmentRechargerAPC
+  - node: station
+    entity: AugmentRechargerStation

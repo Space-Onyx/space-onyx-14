@@ -88,7 +88,7 @@
   recipeUnlocks:
     - ClothingMaskMuzzleSecure
     - ClothingMaskMuzzleShock
-  position: -1,5
+  position: 0,4
   technologyPrerequisites:
     - NonlethalAmmunition
 - type: technology
@@ -128,8 +128,8 @@
     - TelescopicShield
     - HoloprojectorSecurity
     - WeaponDisablerSMG
-    - Terminus # <Onyx-Terminus>
-  position: 0,4
+    - Terminus
+  position: -1,7
   technologyPrerequisites:
     - NonlethalAmmunition
 - type: technology
@@ -256,7 +256,6 @@
   position: 2,6
   technologyPrerequisites:
     - SpecialMeans
-    - Gygax
 - type: technology
   id: PortableMicrofusionWeaponry
   name: research-technology-portable-microfusion-weaponry

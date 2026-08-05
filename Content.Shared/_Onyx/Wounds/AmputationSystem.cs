@@ -31,7 +31,8 @@ public sealed partial class AmputationSystem : EntitySystem
             return;
 
         var parent = bodyPart.Parent.Value;
-        if (!TryComp(part, out DamageableComponent? damageable) ||
+        if (!HasAmputationDamage(args.Damage, thresholds) ||
+            !TryComp(part, out DamageableComponent? damageable) ||
             !ReachedThreshold(_damageable.GetPositiveDamage((part.Owner, damageable)), thresholds))
             return;
 
@@ -44,6 +45,19 @@ public sealed partial class AmputationSystem : EntitySystem
             pushbackRatio: 0f, doSpin: true);
         var ev = new PartAmputatedEvent(args.Body, part.Owner, parent);
         RaiseLocalEvent(part.Owner, ref ev);
+    }
+
+    private static bool HasAmputationDamage(
+        DamageSpecifier damage,
+        IReadOnlyDictionary<ProtoId<DamageTypePrototype>, FixedPoint2> thresholds)
+    {
+        foreach (var type in thresholds.Keys)
+        {
+            if (damage.DamageDict.GetValueOrDefault(type) > FixedPoint2.Zero)
+                return true;
+        }
+
+        return false;
     }
 
     private static FixedPoint2 GetDismembermentSeverity(BodyPartType type) => type switch

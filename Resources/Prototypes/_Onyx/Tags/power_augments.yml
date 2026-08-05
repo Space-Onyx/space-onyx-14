@@ -1,0 +1,11 @@
+- type: Tag
+  id: AugmentCellCasing
+
+- type: Tag
+  id: AugmentRechargerCasing
+
+- type: Tag
+  id: AugmentRechargerBoard
+
+- type: Tag
+  id: AugmentStationBoard

@@ -1,0 +1,13 @@
+- type: latheRecipePack
+  id: IntegratedWeaponAugments
+  recipes:
+  - AugmentStunnerPanelCasing
+  - AugmentStunnerPanelElectronics
+  - AugmentStunbatonPanelCasing
+  - AugmentStunbatonPanelElectronics
+
+- type: latheRecipePack
+  id: IntegratedAdvancedWeaponAugments
+  recipes:
+  - AugmentLaserPistolPanelCasing
+  - AugmentLaserPistolPanelElectronics

@@ -1,0 +1,16 @@
+ent-BaseAugmentItemPanel = item-panel augment
+    .desc = An arm implant containing a retractable item.
+ent-AugmentManitBladePanel = mantis blade panel augment
+    .desc = An arm implant containing a mantis blade.
+ent-MantisBlade = mantis blade
+    .desc = They will not see the steel until it is too late.
+ent-AugmentStunnerPanel = stunner panel augment
+    .desc = An arm implant containing a disabler charged from the host's internal augment battery.
+ent-AugmentStunbatonPanel = stun baton panel augment
+    .desc = An arm implant containing a stun baton charged from the host's internal augment battery.
+ent-AugmentLaserPistolPanel = laser pistol panel augment
+    .desc = An arm implant containing a self-recharging laser pistol.
+ent-WeaponDisablerAugment = implant disabler
+    .desc = A disabler whose battery is charged by its host's augment power network.
+ent-StunbatonAugment = implant stun baton
+    .desc = A stun baton whose battery is charged by its host's augment power network.

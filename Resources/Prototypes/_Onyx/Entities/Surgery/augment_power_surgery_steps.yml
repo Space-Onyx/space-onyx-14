@@ -1,0 +1,30 @@
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertAugmentPowerCell
+  name: Insert augment power-cell slot
+  components:
+  - type: SurgeryInsertOrganEffect
+    slot: AugmentPowerCell
+    requireMechanical: true
+    required: [ { type: AugmentPowerCellSlot } ]
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveAugmentPowerCell
+  name: Remove augment power-cell slot
+  components: [ { type: SurgeryRemoveOrganEffect, slot: AugmentPowerCell } ]
+
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertAugmentCharger
+  name: Insert augment recharger
+  components:
+  - type: SurgeryInsertOrganEffect
+    slot: AugmentCharger
+    requireMechanical: true
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveAugmentCharger
+  name: Remove augment recharger
+  components: [ { type: SurgeryRemoveOrganEffect, slot: AugmentCharger } ]

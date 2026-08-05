@@ -1,0 +1,32 @@
+- type: constructionGraph
+  id: AugmentToolsPanel
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: casing
+      steps: [ { tag: AugmentToolPanelCasing, name: construction-graph-tag-casing } ]
+  - node: casing
+    entity: AugmentToolPanelCasing
+    edges:
+    - to: cables
+      steps: [ { material: Cable, amount: 1 } ]
+  - node: cables
+    entity: AugmentToolPanelCables
+    edges:
+    - to: utility
+      steps: [ { tag: AugmentUtilityToolElectronics, name: construction-graph-tag-utility-tools-electronics } ]
+    - to: botany
+      steps: [ { tag: AugmentBotanyToolElectronics, name: construction-graph-tag-botany-tools-electronics } ]
+    - to: paperwork
+      steps: [ { tag: AugmentPaperworkToolElectronics, name: construction-graph-tag-paperwork-tools-electronics } ]
+    - to: surgery
+      steps: [ { tag: AugmentSurgeryToolElectronics, name: construction-graph-tag-surgery-tools-electronics } ]
+  - node: utility
+    entity: AugmentToolsPanel
+  - node: botany
+    entity: AugmentBotanyPanel
+  - node: paperwork
+    entity: AugmentPaperworkPanel
+  - node: surgery
+    entity: AugmentSurgicalPanel

@@ -1,0 +1,9 @@
+construction-graph-tag-stunner-panel-casing = stunner panel augment casing
+construction-graph-tag-stunbaton-panel-casing = stun baton panel augment casing
+construction-graph-tag-stunner-panel-electronics = stunner panel augment electronics
+construction-graph-tag-stunbaton-panel-electronics = stun baton panel augment electronics
+construction-graph-tag-disabler = disabler
+construction-graph-tag-stunbaton = stun baton
+construction-graph-tag-laser-pistol-panel-casing = laser pistol panel implant casing
+construction-graph-tag-laser-pistol-panel-electronics = laser pistol panel implant electronics
+construction-graph-tag-advanced-laser-pistol = advanced laser pistol

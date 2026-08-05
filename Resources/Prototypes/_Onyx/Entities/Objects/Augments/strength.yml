@@ -1,0 +1,64 @@
+- type: entity
+  parent: BaseItem
+  id: AugmentStrengthCasing
+  name: strength augment casing
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Augments/arm.rsi
+    state: base
+  - type: Construction
+    graph: AugmentStrength
+    node: casing
+    defaultTarget: augment
+  - type: Tag
+    tags: [ AugmentStrengthCasing ]
+
+- type: entity
+  parent: BaseItem
+  id: AugmentStrengthCables
+  name: wired strength augment casing
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Augments/arm.rsi
+    state: base_cables
+  - type: Construction
+    graph: AugmentStrength
+    node: cables
+    defaultTarget: augment
+
+- type: entity
+  parent: BaseAugmentAction
+  id: ActionAugmentToggleStrength
+  name: Toggle strength augment
+  description: Increase melee damage by 25% while consuming 30 W.
+  components:
+  - type: Sprite
+    layers:
+    - texture: Interface/Default/blocked.png
+      map: ["enum.ActionVisuals.Icon"]
+    - sprite: Objects/Tools/Toolboxes/toolbox_blue.rsi
+      state: icon
+      map: ["enum.ActionVisuals.IconToggled"]
+      visible: false
+  - type: InstantAction
+    event: !type:AugmentToggleActionEvent
+
+- type: entity
+  parent: BaseArmAugment
+  id: AugmentStrength
+  name: strength augment
+  description: An arm implant that boosts armed and unarmed melee damage.
+  components:
+  - type: Sprite
+    state: strength
+  - type: ItemToggle
+    onUse: false
+    onActivate: false
+  - type: AugmentStrength
+  - type: AugmentPowerDraw
+    draw: 30
+  - type: AugmentAction
+    action: ActionAugmentToggleStrength
+  - type: Construction
+    graph: AugmentStrength
+    node: augment

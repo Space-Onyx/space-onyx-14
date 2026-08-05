@@ -1,0 +1,7 @@
+- type: construction
+  id: AugmentStrength
+  graph: AugmentStrength
+  startNode: start
+  targetNode: augment
+  category: construction-category-utilities
+  canBuildInImpassable: false

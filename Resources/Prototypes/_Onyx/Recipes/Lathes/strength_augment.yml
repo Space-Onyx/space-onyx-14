@@ -1,0 +1,11 @@
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: AugmentStrengthCasing
+  result: AugmentStrengthCasing
+  materials: { Steel: 750, Plasteel: 250, Plastic: 250 }
+
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: AugmentStrengthElectronics
+  result: AugmentStrengthElectronics
+  materials: { Steel: 100, Glass: 200, Gold: 250 }

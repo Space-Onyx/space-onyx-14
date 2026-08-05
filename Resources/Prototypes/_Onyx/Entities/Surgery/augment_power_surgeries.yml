@@ -1,0 +1,49 @@
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertAugmentPowerCell
+  name: Implant augment power-cell slot
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepInsertAugmentPowerCell ]
+  - type: SurgeryOrganCondition
+    slot: AugmentPowerCell
+    inverse: true
+    part: Chest
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveAugmentPowerCell
+  name: Remove augment power-cell slot
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepRemoveAugmentPowerCell ]
+  - type: SurgeryOrganCondition
+    slot: AugmentPowerCell
+    part: Chest
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertAugmentCharger
+  name: Implant augment recharger
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepInsertAugmentCharger ]
+  - type: SurgeryOrganCondition
+    slot: AugmentCharger
+    inverse: true
+    part: Chest
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveAugmentCharger
+  name: Remove augment recharger
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps: [ SurgeryStepRemoveAugmentCharger ]
+  - type: SurgeryOrganCondition
+    slot: AugmentCharger
+    part: Chest

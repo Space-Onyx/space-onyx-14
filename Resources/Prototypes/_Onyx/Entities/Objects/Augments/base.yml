@@ -1,0 +1,25 @@
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: BaseAugment
+  components:
+  - type: Augment
+  - type: Organ
+  - type: MechanicalOrgan
+  - type: Cybernetics
+  - type: TransplantCompatibility
+    profile: Cybernetic
+  - type: SurgeryTool
+    ignoreToggle: true
+  - type: Item
+    size: Huge
+  - type: Tag
+    tags: [ Augment ]
+
+- type: entity
+  abstract: true
+  parent: BaseAction
+  id: BaseAugmentAction
+  components:
+  - type: InstantAction
+    event: !type:AugmentActionEvent

@@ -1,0 +1,31 @@
+- type: entity
+  parent: WeaponDisabler
+  id: WeaponDisablerAugment
+  name: implant disabler
+  description: A disabler powered by its host's internal augment battery.
+  categories: [ DoNotMap ]
+  components:
+  - type: Battery
+    maxCharge: 500
+    startingCharge: 0
+  - type: AugmentBatteryCharger
+    chargeRate: 25
+  - type: Tag
+    tags: [ Taser, Sidearm ]
+
+- type: entity
+  parent: BaseAugmentItemPanel
+  id: AugmentStunnerPanel
+  name: stunner panel augment
+  description: An arm implant containing a disabler powered by the host's augment battery.
+  components:
+  - type: Sprite
+    state: strength
+  - type: AugmentItemPanel
+    itemPrototype: WeaponDisablerAugment
+    extendPowerCost: 2.5
+    retractPowerCost: 3.5
+    icon: { sprite: Objects/Weapons/Guns/Battery/disabler.rsi, state: base }
+  - type: Construction
+    graph: AugmentStunnerPanel
+    node: augment
