@@ -1,23 +1,24 @@
 ﻿using Robust.Shared.Audio;
+using Robust.Shared.GameStates;
 
 namespace Content.Shared._Onyx.Virology;
 
-[RegisterComponent]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DiseasePenComponent : Component
 {
-    [ViewVariables]
+    [ViewVariables, AutoNetworkedField]
     public int? Genotype;
 
-    [ViewVariables]
+    [ViewVariables, AutoNetworkedField]
     public EntityUid? DiseaseUid;
 
-    [ViewVariables]
+    [ViewVariables, AutoNetworkedField]
     public bool Used = false;
 
     [DataField, ViewVariables]
     public SoundSpecifier InjectSound = new SoundPathSpecifier("/Audio/Items/hypospray.ogg");
 
-    [DataField]
+    [DataField, AutoNetworkedField]
     public bool Vaccine = true;
 
     [DataField]

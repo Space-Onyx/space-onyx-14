@@ -23,7 +23,7 @@ public sealed partial class DiseaseSwabSystem : EntitySystem
 
     private void OnInteract(Entity<DiseaseSwabComponent> ent, ref AfterInteractEvent args)
     {
-        if (!args.CanReach || args.Target is not { } target)
+        if (!args.CanReach || args.Target is not { } target || ent.Comp.DiseaseUid != null)
             return;
 
         if (!TryComp<DiseaseCarrierComponent>(target, out var carrier))

@@ -61,15 +61,3 @@
     genotype: 56441
     effects:
       DiseaseBehaviorGravitosisA: 1
-
-- type: entity
-  id: DiseaseGunemia
-  parent: DiseaseBase
-  name: gunemia
-  description: A strange disease.
-  components:
-  - type: Disease
-    diseaseType: Bacterial
-    genotype: 666323
-    effects:
-      DiseaseBehaviorGunemia: 1

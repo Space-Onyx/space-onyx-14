@@ -8,5 +8,3 @@ ent-DiseaseCancer = cancer
     .desc = Deals genetic damage to the infected. Doesn't go away by itself.
 ent-DiseaseGravitosisA = gravitosis A
     .desc = A strange disease.
-ent-DiseaseGunemia = gunemia
-    .desc = A strange disease.

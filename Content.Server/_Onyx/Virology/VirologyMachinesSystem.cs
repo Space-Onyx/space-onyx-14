@@ -8,6 +8,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using System.Text;
 using Content.Shared._Onyx.Disease.Components;
+using Content.Shared._Onyx.Disease.Systems;
 using Content.Shared.Ghost;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
@@ -26,6 +27,7 @@ public sealed partial class VirologyMachinesSystem : EntitySystem
     [Dependency] private PowerReceiverSystem _power = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private SharedDiseaseSystem _disease = default!;
 
     public override void Initialize()
     {
@@ -36,6 +38,7 @@ public sealed partial class VirologyMachinesSystem : EntitySystem
         SubscribeLocalEvent<VirologyMachineComponent, VirologyMachineCheckEvent>(OnAnalyzerCheck);
         SubscribeLocalEvent<VirologyMachineComponent, VirologyMachineDoneEvent>(OnMachineDone);
         SubscribeLocalEvent<VirologyMachineComponent, GetVerbsEvent<AlternativeVerb>>(AddAltVerb);
+        SubscribeLocalEvent<DiseasePenComponent, ComponentShutdown>(OnPenShutdown);
     }
 
     public override void Update(float frameTime)
@@ -60,7 +63,7 @@ public sealed partial class VirologyMachinesSystem : EntitySystem
                 continue;
             }
 
-            if (_timing.CurTime > comp.EndTime)
+            if (_timing.CurTime >= comp.EndTime)
             {
                 SetAppearance(uid, false);
                 var doneEv = new VirologyMachineDoneEvent(true);
@@ -77,10 +80,16 @@ public sealed partial class VirologyMachinesSystem : EntitySystem
         if (args.Container.ID != VirologyMachineComponent.SwabSlotId)
             return;
 
-        if (!TryComp<DiseaseSwabComponent>(args.Entity, out _))
+        if (!TryComp<DiseaseSwabComponent>(args.Entity, out var swab) || swab.DiseaseUid == null)
             return;
 
         EnsureComp<ActiveVirologyMachineComponent>(ent, out var active);
+        if (ent.Comp.SoundEntity != null)
+        {
+            _audio.Stop(ent.Comp.SoundEntity);
+            ent.Comp.SoundEntity = null;
+        }
+
         var audio = _audio.PlayPvs(ent.Comp.AnalysisSound, ent, AudioParams.Default.WithLoop(true).WithVariation(0.15f));
         if (audio.HasValue)
             ent.Comp.SoundEntity = audio.Value.Entity;
@@ -128,12 +137,31 @@ public sealed partial class VirologyMachinesSystem : EntitySystem
 
         var vaccine = Spawn(ent.Comp.VaccinePrototype, Transform(ent).Coordinates);
         if (!TryComp<DiseasePenComponent>(vaccine, out var vaccineComponent))
+        {
+            QueueDel(vaccine);
             return;
+        }
 
         vaccineComponent.Genotype = disease.Genotype;
-        vaccineComponent.DiseaseUid = swab.Comp.DiseaseUid.Value;
+        vaccineComponent.DiseaseUid = vaccineComponent.Vaccine
+            ? null
+            : _disease.TryClone(swab.Comp.DiseaseUid.Value);
+
+        if (!vaccineComponent.Vaccine && vaccineComponent.DiseaseUid == null)
+        {
+            QueueDel(vaccine);
+            return;
+        }
+
+        Dirty(vaccine, vaccineComponent);
 
         _itemSlots.TryEject(ent, ent.Comp.SwabSlot, null, out _);
+    }
+
+    private void OnPenShutdown(Entity<DiseasePenComponent> ent, ref ComponentShutdown args)
+    {
+        if (ent.Comp.DiseaseUid != null)
+            QueueDel(ent.Comp.DiseaseUid);
     }
 
     private void AnalyzeSwab(Entity<VirologyMachineComponent> ent, Entity<DiseaseSwabComponent?> swab)

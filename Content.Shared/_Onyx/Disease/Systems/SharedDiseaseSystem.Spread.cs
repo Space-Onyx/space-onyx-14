@@ -213,7 +213,7 @@ public partial class SharedDiseaseSystem
                 var done = false;
                 for (var i = 0; i < 20 && !done; i++) // no infinite loops
                 {
-                    var effectUid = ent.Comp.Effects.ContainedEntities[_random.Next(ent.Comp.Effects.Count - 1)];
+                    var effectUid = ent.Comp.Effects.ContainedEntities[_random.Next(ent.Comp.Effects.Count)];
                     if (!EffectQuery.TryComp(effectUid, out var effect))
                         continue;
 

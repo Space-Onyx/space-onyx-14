@@ -10,12 +10,15 @@ using Content.Shared._Onyx.Disease.Components;
 using Content.Shared._Onyx.Disease.Systems;
 using Content.Shared._Onyx.EntityEffects.Disease;
 using Content.Shared.EntityEffects;
+using Content.Shared.Body.Components;
+using Content.Shared.Body.Systems;
 
 namespace Content.Server._Onyx.Disease;
 
 public sealed partial class DiseaseSystem : SharedDiseaseSystem
 {
     [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedInternalsSystem _internals = default!;
 
     public override void Initialize()
     {
@@ -23,7 +26,7 @@ public sealed partial class DiseaseSystem : SharedDiseaseSystem
 
         SubscribeLocalEvent<DiseaseComponent, DiseaseCloneEvent>(OnClonedInto);
         SubscribeLocalEvent<GrantDiseaseComponent, MapInitEvent>(OnGrantDiseaseInit);
-        // SubscribeLocalEvent<InternalsComponent, DiseaseIncomingSpreadAttemptEvent>(OnInternalsIncomingSpread); // TODO: fix
+        SubscribeLocalEvent<InternalsComponent, DiseaseIncomingSpreadAttemptEvent>(OnInternalsIncomingSpread);
         SubscribeLocalEvent<DiseaseCarrierComponent, RejuvenateEvent>(OnRejuvenate);
     }
 
@@ -59,7 +62,7 @@ public sealed partial class DiseaseSystem : SharedDiseaseSystem
 
     private void OnGrantDiseaseInit(Entity<GrantDiseaseComponent> ent, ref MapInitEvent args)
     {
-        var disease = MakeRandomDisease(ent.Comp.BaseDisease, ent.Comp.Complexity);
+        var disease = MakeRandomDisease(ent.Comp.BaseDisease, ent.Comp.Complexity, 0.2f);
 
         if (disease == null)
             return;
@@ -76,15 +79,13 @@ public sealed partial class DiseaseSystem : SharedDiseaseSystem
             QueueDel(disease);
     }
 
-    /* TODO: fix
-    private void OnInternalsIncomingSpread(EntityUid uid, InternalsComponent internals, DiseaseIncomingSpreadAttemptEvent args)
+    private void OnInternalsIncomingSpread(Entity<InternalsComponent> ent, ref DiseaseIncomingSpreadAttemptEvent args)
     {
-        if (_proto.TryIndex<DiseaseSpreadPrototype>(args.Type, out var spreadProto) && _internals.AreInternalsWorking(uid, internals))
-        {
-            args.ApplyModifier(internals.IncomingInfectionModifier);
-        }
+        if (_proto.TryIndex(args.Type, out var spreadProto)
+            && spreadProto.BlockedByInternals
+            && _internals.AreInternalsWorking(ent))
+            args.Chance = 0f;
     }
-    */
 
     private void OnRejuvenate(Entity<DiseaseCarrierComponent> ent, ref RejuvenateEvent args)
     {
@@ -116,7 +117,7 @@ public sealed partial class DiseaseSystem : SharedDiseaseSystem
         EnsureComp<DiseaseComponent>(ent, out var disease);
         disease.Complexity = complexity;
         disease.Genotype = _random.Next();
-        MutateDisease(ent);
+        MutateDisease(ent, mutationRate);
         return ent;
     }
 

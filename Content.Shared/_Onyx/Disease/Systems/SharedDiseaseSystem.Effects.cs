@@ -211,7 +211,7 @@ public partial class SharedDiseaseSystem
             return null;
         }
 
-        var index = _random.Next(effects.Count - 1);
+        var index = _random.Next(effects.Count);
         var effectUid = effects[index];
         TryRemoveEffect((ent, ent.Comp), effectUid);
 

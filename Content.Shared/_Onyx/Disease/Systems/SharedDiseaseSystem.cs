@@ -192,7 +192,7 @@ public abstract partial class SharedDiseaseSystem : EntitySystem
         if (!Resolve(ent, ref ent.Comp))
             return;
 
-        ent.Comp.InfectionProgress = Math.Min(ent.Comp.InfectionProgress + amount, 1f);
+        ent.Comp.InfectionProgress = Math.Clamp(ent.Comp.InfectionProgress + amount, 0f, 1f);
         Dirty(ent);
     }
 
@@ -293,7 +293,9 @@ public abstract partial class SharedDiseaseSystem : EntitySystem
             return false;
 
         _transform.SetCoordinates(disease, new EntityCoordinates(ent, Vector2.Zero));
-        ContainerSystem.Insert(disease, ent.Comp.Diseases);
+        if (!ContainerSystem.Insert(disease, ent.Comp.Diseases))
+            return false;
+
         var ev = new DiseaseGainedEvent((disease, diseaseComp));
         RaiseLocalEvent(ent, ref ev);
         Dirty(ent);

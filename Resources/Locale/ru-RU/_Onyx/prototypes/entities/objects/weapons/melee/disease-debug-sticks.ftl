@@ -10,6 +10,3 @@ ent-MeleeDebugInfectFlu = палка Гриппа
 ent-MeleeDebugInfectGravitosisA = палка Гравитоза
     .desc = Даёт вам Гравитоз А.
     .suffix = DEBUG
-ent-MeleeDebugInfectGunemia = палка Пулемии
-    .desc = Даёт вам пулемию.
-    .suffix = DEBUG

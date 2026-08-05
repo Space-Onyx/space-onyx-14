@@ -1,9 +1,11 @@
+using Robust.Shared.GameStates;
+
 namespace Content.Shared._Onyx.Disease.Chemistry;
 
-[RegisterComponent]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class ImmunityModifierMetabolismComponent : Component
 {
-    [DataField] public float GainRateModifier;
-    [DataField] public float StrengthModifier;
-    [DataField] public TimeSpan ModifierTimer;
+    [DataField, AutoNetworkedField] public float GainRateModifier;
+    [DataField, AutoNetworkedField] public float StrengthModifier;
+    [DataField, AutoNetworkedField] public TimeSpan ModifierTimer;
 }

@@ -68,7 +68,10 @@ public partial class SharedDiseaseSystem
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
 
-        ent.Comp.ImmuneTo.Add(genotype);
+        if (!ent.Comp.ImmuneTo.Add(genotype))
+            return false;
+
+        Dirty(ent);
         return true;
     }
 

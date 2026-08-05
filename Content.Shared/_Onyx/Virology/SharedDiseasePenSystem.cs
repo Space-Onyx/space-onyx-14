@@ -27,7 +27,9 @@ public sealed partial class SharedDiseasePenSystem : EntitySystem
             || !_disease.TryInfect(args.Target.Value, ent.Comp.DiseaseUid.Value))
             return;
 
+        ent.Comp.DiseaseUid = null;
         ent.Comp.Used = true;
+        Dirty(ent);
         _audio.PlayPredicted(ent.Comp.InjectSound, args.User, args.User);
         _appearance.SetData(ent, DiseasePenVisuals.Used, true);
     }
@@ -63,8 +65,11 @@ public sealed partial class SharedDiseasePenSystem : EntitySystem
             || args.Target == null)
             return;
 
-        immunity.ImmuneTo.Add(ent.Comp.Genotype.Value);
+        if (!_disease.TryAddImmunity((args.Target.Value, immunity), ent.Comp.Genotype.Value))
+            return;
+
         ent.Comp.Used = true;
+        Dirty(ent);
 
         _audio.PlayPredicted(ent.Comp.InjectSound, args.User, args.User);
         _appearance.SetData(ent, DiseasePenVisuals.Used, true);

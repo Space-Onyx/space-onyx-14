@@ -6,4 +6,6 @@ namespace Content.Shared._Onyx.Disease;
 public sealed partial class DiseaseSpreadPrototype : IPrototype
 {
     [IdDataField] public string ID { get; private set; } = default!;
+
+    [DataField] public bool BlockedByInternals;
 }

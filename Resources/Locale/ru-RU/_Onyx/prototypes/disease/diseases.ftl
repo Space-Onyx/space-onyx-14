@@ -8,8 +8,6 @@ ent-DiseaseCancer = рак
     .desc = Периодически наносит генетический урон. Не проходит сам по себе.
 ent-DiseaseGravitosisA = гравитоз А
     .desc = Странная болезнь.
-ent-DiseaseGunemia = пулемия
-    .desc = Странная болезнь.
 
 ent-DiseaseBehaviorVomit = рвота
     .desc = Периодически вызывает рвоту.
@@ -31,8 +29,6 @@ ent-DiseaseBehaviorPoison = отравление
     .desc = Постепенно наносит токсический урон.
 ent-DiseaseBehaviorBlunt = разрушение тканей
     .desc = Постепенно наносит урон от ушибов.
-ent-DiseaseBehaviorGunemia = пулемия
-    .desc = Заставляет носителя кашлять пулями. Механизм неизвестен.
 ent-DiseaseBehaviorFightImmunity = устойчивость к иммунитету
     .desc = Позволяет заболеванию сопротивляться развившемуся иммунитету.
 ent-DiseaseBehaviorSluggish = вялость

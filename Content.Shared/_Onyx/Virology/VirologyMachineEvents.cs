@@ -1,4 +1,6 @@
 namespace Content.Shared._Onyx.Virology;
 
-public sealed class VirologyMachineCheckEvent : EntityEventArgs { public bool Cancelled; }
-public sealed class VirologyMachineDoneEvent(bool success) : EntityEventArgs { public bool Success { get; } = success; }
+[ByRefEvent]
+public record struct VirologyMachineCheckEvent(bool Cancelled = false);
+
+public record struct VirologyMachineDoneEvent(bool Success);

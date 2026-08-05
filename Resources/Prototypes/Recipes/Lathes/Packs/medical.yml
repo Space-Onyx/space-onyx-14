@@ -93,6 +93,8 @@
   - ChemMasterMachineCircuitboard
   - CondenserMachineCircuitBoard
   - HotplateMachineCircuitboard
+  - VirologyComputerCircuitboard # <Onyx-Virology>
+  - VirologyServerMachineCircuitboard # <Onyx-Virology>
 
 ## Dynamic
 

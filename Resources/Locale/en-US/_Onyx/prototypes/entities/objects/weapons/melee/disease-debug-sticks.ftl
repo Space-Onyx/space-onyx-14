@@ -6,5 +6,3 @@ ent-MeleeDebugInfectFlu = flu stick
     .desc = Gives you the flu. And people wonder where it comes from.
 ent-MeleeDebugInfectGravitosisA = gravitosis stick
     .desc = Gives you gravitosis A.
-ent-MeleeDebugInfectGunemia = gunemia stick
-    .desc = Gives you gunemia.

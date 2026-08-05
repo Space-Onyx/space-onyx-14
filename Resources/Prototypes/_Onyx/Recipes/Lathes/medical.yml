@@ -15,3 +15,13 @@
   materials:
     Steel: 250
     Silver: 50
+
+- type: latheRecipe
+  parent: [ BaseCircuitboardRecipe, BaseMedicalComputerRecipeCategory ]
+  id: VirologyComputerCircuitboard
+  result: VirologyComputerCircuitboard
+
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: VirologyServerMachineCircuitboard
+  result: VirologyServerMachineCircuitboard

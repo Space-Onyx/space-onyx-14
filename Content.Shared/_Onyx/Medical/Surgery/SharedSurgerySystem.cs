@@ -683,6 +683,9 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         if (user == target.Owner)
             duration *= Math.Max(0.01f, _configuration.GetCVar(CCVars.SurgerySelfMultiplier));
 
+        if (TryComp<SurgerySpeedModifierComponent>(user, out var speedModifier))
+            duration /= Math.Max(0.01f, speedModifier.SpeedModifier);
+
         var doAfter = new DoAfterArgs(EntityManager, user, duration, ev, target, target)
         {
             NeedHand = true,

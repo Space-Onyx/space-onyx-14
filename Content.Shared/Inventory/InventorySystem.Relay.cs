@@ -45,6 +45,7 @@ using Content.Shared.Wieldable;
 using Content.Shared.Zombies;
 // <Onyx-DiseaseProtection>
 using Content.Shared._Onyx.Disease;
+using Content.Shared._Onyx.Disease.Components;
 // </Onyx-DiseaseProtection>
 // <Onyx-Flashbang>
 using Content.Shared._Onyx.Flashbang;
@@ -139,6 +140,7 @@ public partial class InventorySystem
         // <Onyx-ThermalVision>
         SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ThermalVisionComponent>>(RefRelayInventoryEvent);
         // </Onyx-ThermalVision>
+        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowDiseaseIconsComponent>>(RefRelayInventoryEvent); // <Onyx-Virology>
 
         SubscribeLocalEvent<InventoryComponent, GetVerbsEvent<EquipmentVerb>>(OnGetEquipmentVerbs);
         SubscribeLocalEvent<InventoryComponent, GetVerbsEvent<InnateVerb>>(OnGetInnateVerbs);
