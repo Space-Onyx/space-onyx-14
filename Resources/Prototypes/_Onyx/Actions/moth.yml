@@ -1,0 +1,24 @@
+- type: entity
+  parent: BaseAction
+  id: ActionWingDash
+  name: Wing dash
+  description: Sharply flap your wings, dashing to the side!
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    useDelay: 6.5
+    itemIconStyle: NoItem
+    sound: !type:SoundPathSpecifier
+      path: /Audio/_Onyx/Effects/moth_wings.ogg
+      params:
+        volume: 6.5
+  - type: Sprite
+    sprite: _Onyx/Actions/dash.rsi
+    layers:
+    - state: icon
+      map: ["enum.ActionVisuals.Icon"]
+  - type: TargetAction
+    checkCanAccess: false
+    range: 0
+  - type: WorldTargetAction
+    event: !type:WingDashActionEvent

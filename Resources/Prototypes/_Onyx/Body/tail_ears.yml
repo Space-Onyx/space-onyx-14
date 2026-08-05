@@ -24,6 +24,8 @@
     markingData:
       layers: [ Tail, TailOverlay ]
       group: Moth
+  - type: OrganAction
+    action: ActionWingDash
 
 - type: entity
   parent: OrganBaseOrganic
