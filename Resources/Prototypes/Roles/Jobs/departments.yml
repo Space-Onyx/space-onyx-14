@@ -30,6 +30,7 @@
   - Reporter
   - Visitor
   - ServiceWorker
+  - TramDriver
 
 - type: department
   id: CentralCommand
@@ -155,6 +156,7 @@
   roles:
   - Reporter
   - Psychologist
+  - TramDriver
   - Pilot # Corvax-Pilot
   # <Onyx-RadioHost-edited>
   - RadioHost

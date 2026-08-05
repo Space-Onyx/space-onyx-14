@@ -608,8 +608,9 @@ public abstract partial class SharedDoorSystem : EntitySystem
             if (!otherPhysics.Comp.CanCollide)
                 continue;
 
-            // <Onyx-WindoorAdjacentWalls>
-            // Fixture lookups include polygon skin and can slightly overlap adjacent tiles.
+            // Skip anchored static entities on adjacent tiles.
+            // The fixture-based AABB lookup may slightly overlap neighboring tiles
+            // due to PolygonRadius enlargement, picking up walls and other structures.
             if (otherPhysics.Comp.BodyType == BodyType.Static)
             {
                 var otherXform = Transform(otherPhysics.Owner);
@@ -620,7 +621,6 @@ public abstract partial class SharedDoorSystem : EntitySystem
                         continue;
                 }
             }
-            // </Onyx-WindoorAdjacentWalls>
 
             //TODO: Make only shutters ignore these objects upon colliding instead of all airlocks
             // Excludes Glasslayer for windows, GlassAirlockLayer for windoors, TableLayer for tables

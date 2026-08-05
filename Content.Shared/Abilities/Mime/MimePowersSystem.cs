@@ -7,25 +7,28 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Maps;
 using Content.Shared.Paper;
 using Content.Shared.Physics;
-using Content.Shared.Speech.Muting;
 // <Onyx-SignLanguage>
 using Content.Shared._Onyx.Language;
-using Robust.Shared.Prototypes;
 // </Onyx-SignLanguage>
+using Content.Shared.StatusEffectNew;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Shared.Abilities.Mime;
 
 public sealed partial class MimePowersSystem : EntitySystem
 {
+    public static readonly EntProtoId MutedEffect = "StatusEffectMimeMuted";
+
     // <Onyx-SignLanguage>
     private static readonly ProtoId<LanguagePrototype> SignLanguage = "Sign";
     // </Onyx-SignLanguage>
     [Dependency] private SharedPopupSystem _popupSystem = default!;
     [Dependency] private SharedActionsSystem _actionsSystem = default!;
     [Dependency] private AlertsSystem _alertsSystem = default!;
+    [Dependency] private StatusEffectsSystem _statusEffects = default!;
     [Dependency] private TurfSystem _turf = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private IGameTiming _timing = default!;
@@ -34,7 +37,7 @@ public sealed partial class MimePowersSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<MimePowersComponent, ComponentInit>(OnComponentInit);
+        SubscribeLocalEvent<MimePowersComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<MimePowersComponent, ComponentShutdown>(OnComponentShutdown);
         SubscribeLocalEvent<MimePowersComponent, InvisibleWallActionEvent>(OnInvisibleWall);
 
@@ -62,9 +65,10 @@ public sealed partial class MimePowersSystem : EntitySystem
         }
     }
 
-    private void OnComponentInit(Entity<MimePowersComponent> ent, ref ComponentInit args)
+    private void OnMapInit(Entity<MimePowersComponent> ent, ref MapInitEvent args)
     {
-        EnsureComp<MutedComponent>(ent);
+        if (!ent.Comp.VowBroken)
+            _statusEffects.TrySetStatusEffectDuration(ent, MutedEffect);
 
         // <Onyx-SignLanguage>
         if (TryComp<LanguageKnowledgeComponent>(ent, out var knowledge))
@@ -89,12 +93,13 @@ public sealed partial class MimePowersSystem : EntitySystem
             Dirty(ent, illiterateComponent);
         }
 
-        _alertsSystem.ShowAlert(ent.Owner, ent.Comp.VowAlert);
         _actionsSystem.AddAction(ent, ref ent.Comp.InvisibleWallActionEntity, ent.Comp.InvisibleWallAction);
     }
 
     private void OnComponentShutdown(Entity<MimePowersComponent> ent, ref ComponentShutdown args)
     {
+        _statusEffects.TryRemoveStatusEffect(ent, MutedEffect);
+
         // <Onyx-SignLanguage>
         if (TryComp<LanguageKnowledgeComponent>(ent, out var knowledge))
         {
@@ -182,11 +187,10 @@ public sealed partial class MimePowersSystem : EntitySystem
         mimePowers.VowBroken = true;
         mimePowers.VowRepentTime = _timing.CurTime + mimePowers.VowCooldown;
         Dirty(uid, mimePowers);
-        RemComp<MutedComponent>(uid);
+        _statusEffects.TryRemoveStatusEffect(uid, MutedEffect);
         if (mimePowers.PreventWriting)
             RemComp<BlockWritingComponent>(uid);
 
-        _alertsSystem.ClearAlert(uid, mimePowers.VowAlert);
         _alertsSystem.ShowAlert(uid, mimePowers.VowBrokenAlert);
         _actionsSystem.RemoveAction(uid, mimePowers.InvisibleWallActionEntity);
     }
@@ -209,7 +213,7 @@ public sealed partial class MimePowersSystem : EntitySystem
         mimePowers.ReadyToRepent = false;
         mimePowers.VowBroken = false;
         Dirty(uid, mimePowers);
-        AddComp<MutedComponent>(uid);
+        _statusEffects.TrySetStatusEffectDuration(uid, MutedEffect);
         if (mimePowers.PreventWriting)
         {
             EnsureComp<BlockWritingComponent>(uid, out var illiterateComponent);
@@ -218,7 +222,6 @@ public sealed partial class MimePowersSystem : EntitySystem
         }
 
         _alertsSystem.ClearAlert(uid, mimePowers.VowBrokenAlert);
-        _alertsSystem.ShowAlert(uid, mimePowers.VowAlert);
         _actionsSystem.AddAction(uid, ref mimePowers.InvisibleWallActionEntity, mimePowers.InvisibleWallAction, uid);
     }
 }

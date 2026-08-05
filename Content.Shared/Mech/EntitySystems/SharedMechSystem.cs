@@ -13,7 +13,7 @@ using Content.Shared._Onyx.Mech;
 using Content.Shared.Light.Components;
 using Content.Shared.Popups;
 using Content.Shared.Storage.Components;
-using Content.Shared.Vehicle;
+using Content.Shared.Vehicle.Systems;
 using Content.Shared.Vehicle.Components;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Whitelist;

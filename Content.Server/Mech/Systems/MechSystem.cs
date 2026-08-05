@@ -54,8 +54,8 @@ public sealed partial class MechSystem : SharedMechSystem
     [SubscribeLocalEvent]
     private void OnMechCanMoveEvent(Entity<MechComponent> ent, ref VehicleCanRunEvent args)
     {
-        if (ent.Comp.Broken || ent.Comp.Integrity <= 0 || ent.Comp.Energy <= 0 || HasComp<EmpDisabledComponent>(ent))
-            args = args with { CanRun = false };
+        if (ent.Comp.Broken || ent.Comp.Integrity <= 0 || ent.Comp.Energy <= 0)
+            args.CanRun = false;
     }
 
     [SubscribeLocalEvent]

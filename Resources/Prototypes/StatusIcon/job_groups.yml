@@ -37,6 +37,7 @@
   - JobIconStationEngineer
   - JobIconTechnicalAssistant
   - JobIconAtmosphericTechnician
+  - JobIconSeniorEngineer # Corvax-mentor
 
 - type: jobIconGroup
   id: MedicalIconGroup
@@ -53,6 +54,7 @@
   - JobIconParamedic
   - JobIconPsychologist
   - JobIconVirologist
+  - JobIconSeniorPhysician # Corvax-mentor
 
 - type: jobIconGroup
   id: ResearchIconGroup
@@ -65,6 +67,7 @@
   - JobIconScientist
   - JobIconResearchAssistant
   - JobIconRoboticist
+  - JobIconSeniorResearcher # Corvax-mentor
 
 - type: jobIconGroup
   id: SecurityIconGroup
@@ -79,6 +82,7 @@
   - JobIconBrigmedic
   - JobIconDetective
   - JobIconWarden
+  - JobIconSeniorOfficer # Corvax-mentor
 
 - type: jobIconGroup
   id: ServiceIconGroup
@@ -167,6 +171,7 @@
     sprite: /Textures/Interface/Misc/job_icons.rsi
     state: Syndicate
   icons:
+  - JobIconCluwne
   - JobIconNinja
   - JobIconPirate
   - JobIconPrisoner
@@ -175,6 +180,7 @@
   - JobIconSyndicateCorpsman
   - JobIconSyndicateOperative
   - JobIconWizard
+  - JobIconSus
 
 - type: jobIconGroup
   id: AdminIconGroup
@@ -184,9 +190,8 @@
     state: Admin
   icons:
   - JobIconAdmin
-  - JobIconCluwne
   - JobIconZombie
-  - JobIconSeniorEngineer
-  - JobIconSeniorPhysician
-  - JobIconSeniorResearcher
-  - JobIconSeniorOfficer
+  #- JobIconSeniorEngineer # Corvax-mentor
+  #- JobIconSeniorPhysician # Corvax-mentor
+  #- JobIconSeniorResearcher # Corvax-mentor
+  #- JobIconSeniorOfficer # Corvax-mentor
