@@ -573,15 +573,15 @@ public sealed class WoundDamageFoundationTest : GameTest
                                                part.Component.Symmetry == BodyPartSymmetry.Left).Id;
 
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Blunt", 10)));
-            Assert.That(pain.GetPain(head), Is.EqualTo(FixedPoint2.New(15)));
-            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(15)));
+            Assert.That(pain.GetPain(head), Is.EqualTo(FixedPoint2.New(8.7)));
+            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(8.7)));
 
             Assert.That(routing.TryApplyPartDamage(body, leftArm, Spec("Heat", 10)));
             Assert.That(damage.GetAllDamage(leftArm).GetTotal(), Is.EqualTo(FixedPoint2.Zero));
             Assert.That(entityManager.GetComponent<SystemicDamageComponent>(body).Damage.GetTotal(),
                 Is.EqualTo(FixedPoint2.New(10)));
             Assert.That(pain.GetPain(leftArm), Is.EqualTo(FixedPoint2.Zero));
-            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(15)));
+            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(8.7)));
 
             var healingBody = entityManager.SpawnEntity("WoundFoundationBody", map.GridCoords);
             var healingHead = graph.GetBodyChildren(healingBody)
@@ -589,8 +589,8 @@ public sealed class WoundDamageFoundationTest : GameTest
             Assert.That(routing.TryApplyPartDamage(healingBody, healingHead, Spec("Blunt", 10)));
             Assert.That(routing.TryApplyPartDamage(healingBody, healingHead, Spec("Blunt", -10)));
             Assert.That(damage.GetAllDamage(healingHead).GetTotal(), Is.EqualTo(FixedPoint2.Zero));
-            Assert.That(pain.GetRawPain(healingHead), Is.EqualTo(FixedPoint2.New(3)));
-            Assert.That(pain.GetRawPain(healingBody), Is.EqualTo(FixedPoint2.New(3)));
+            Assert.That(pain.GetRawPain(healingHead), Is.EqualTo(FixedPoint2.New(8.7)));
+            Assert.That(pain.GetRawPain(healingBody), Is.EqualTo(FixedPoint2.New(8.7)));
 
             var suppressant = new SuppressPain
             {
@@ -598,10 +598,10 @@ public sealed class WoundDamageFoundationTest : GameTest
                 DecayDuration = TimeSpan.FromSeconds(10),
             };
             effects.ApplyEffect(body, suppressant);
-            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(13)));
-            Assert.That(pain.GetRawPain(body), Is.EqualTo(FixedPoint2.New(15)));
+            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(6.7)));
+            Assert.That(pain.GetRawPain(body), Is.EqualTo(FixedPoint2.New(8.7)));
             effects.ApplyEffect(body, suppressant);
-            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(11)));
+            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(4.7)));
             Assert.That(entityManager.GetComponent<PainComponent>(body).Suppression, Is.EqualTo(FixedPoint2.New(4)));
 
             effects.ApplyEffect(body, new SuppressPain
@@ -610,19 +610,22 @@ public sealed class WoundDamageFoundationTest : GameTest
                 DecayDuration = TimeSpan.FromSeconds(10),
                 Identifier = "SecondSuppressant",
             });
-            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(10)));
+            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(3.7)));
             Assert.That(pain.DecayPainSuppression(body, 1f));
             Assert.That(entityManager.GetComponent<PainComponent>(body).Suppression, Is.EqualTo(FixedPoint2.New(4.5)));
-            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(10.5)));
+            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(4.2)));
 
-            Assert.That(pain.RecoverPain(head, 1f));
-            Assert.That(pain.GetRawPain(head), Is.EqualTo(FixedPoint2.New(14.92)));
-            Assert.That(pain.GetRawPain(body), Is.EqualTo(FixedPoint2.New(14.92)));
+            Assert.That(pain.RecoverPain(head, 1f), Is.False);
+            Assert.That(pain.GetRawPain(head), Is.EqualTo(FixedPoint2.New(8.7)));
+            Assert.That(pain.GetRawPain(body), Is.EqualTo(FixedPoint2.New(8.7)));
+            Assert.That(pain.RecoverPain(healingHead, 1f));
+            Assert.That(pain.GetRawPain(healingHead), Is.EqualTo(FixedPoint2.New(8.62)));
+            Assert.That(pain.GetRawPain(healingBody), Is.EqualTo(FixedPoint2.New(8.62)));
 
             Assert.That(graph.TryDetachPart(head));
             Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.Zero));
             Assert.That(damage.TryChangeDamage(head, Spec("Blunt", 5)));
-            Assert.That(pain.GetPain(head), Is.EqualTo(FixedPoint2.New(22.42)));
+            Assert.That(pain.GetPain(head), Is.EqualTo(FixedPoint2.New(13.05)));
 
             Assert.That(pain.SetPain(head, FixedPoint2.New(-1)), Is.True);
             Assert.That(pain.GetPain(head), Is.EqualTo(FixedPoint2.Zero));

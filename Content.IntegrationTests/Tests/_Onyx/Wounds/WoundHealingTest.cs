@@ -100,7 +100,7 @@ public sealed class WoundHealingTest : GameTest
             var head = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Head).Id;
 
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Blunt", 15)));
-            Assert.That(pain.GetRawPain(body), Is.EqualTo(FixedPoint2.New(22.5)));
+            Assert.That(pain.GetRawPain(body), Is.EqualTo(FixedPoint2.New(13.05)));
             var wound = wounds.GetWounds((head, entityManager.GetComponent<WoundableComponent>(head)))
                 .Single(candidate => candidate.Comp.Prototype == new ProtoId<WoundPrototype>("BluntWound"));
             Assert.That(healing.TryApplyHealing(body, head, (item, entityManager.GetComponent<HealingComponent>(item)),
@@ -108,8 +108,8 @@ public sealed class WoundHealingTest : GameTest
             Assert.That(damage.GetAllDamage(head).GetTotal(), Is.EqualTo(FixedPoint2.New(5)));
             Assert.That(wound.Comp.Severity, Is.EqualTo(FixedPoint2.New(5)));
             Assert.That(damage.GetAllDamage(body).GetTotal(), Is.EqualTo(FixedPoint2.New(5)));
-            Assert.That(pain.GetRawPain(head), Is.EqualTo(FixedPoint2.New(10.5)));
-            Assert.That(pain.GetRawPain(body), Is.EqualTo(FixedPoint2.New(10.5)));
+            Assert.That(pain.GetRawPain(head), Is.EqualTo(FixedPoint2.New(13.05)));
+            Assert.That(pain.GetRawPain(body), Is.EqualTo(FixedPoint2.New(13.05)));
         });
     }
 

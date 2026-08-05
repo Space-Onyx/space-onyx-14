@@ -56,15 +56,25 @@ public sealed partial class PainComponent : Component
     public FixedPoint2 Suppression;
 
     [DataField]
-    public HashSet<ProtoId<DamageTypePrototype>> DamageTypes =
-    [
-        "Blunt",
-        "Slash",
-        "Piercing",
-    ];
+    public Dictionary<ProtoId<DamageTypePrototype>, float> DamageMultipliers = new()
+    {
+        ["Blunt"] = 0.87f,
+        ["Slash"] = 0.67f,
+        ["Piercing"] = 0.67f,
+        ["Heat"] = 0.8f,
+        ["Cold"] = 0.75f,
+        ["Shock"] = 0.7f,
+        ["Cellular"] = 0.32f,
+        ["Caustic"] = 0.12f,
+        ["Radiation"] = 0.12f,
+        ["Poison"] = 0.7f,
+    };
 
     [DataField]
     public FixedPoint2 RecoveryPerSecond = FixedPoint2.New(1f / 12f);
+
+    [DataField]
+    public FixedPoint2 SoftPainCap = 120;
 
     [ViewVariables]
     public Dictionary<string, PainSuppressionModifier> SuppressionModifiers = new();

@@ -1,7 +1,9 @@
 using System.Linq;
 using Content.Shared.Body.Part;
 using Content.Shared.Damage;
+using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
+using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
@@ -10,9 +12,8 @@ namespace Content.Shared._Onyx.Wounds;
 
 public sealed partial class PainSystem : EntitySystem
 {
+    [Dependency] private DamageableSystem _damage = default!;
     [Dependency] private INetManager _net = default!;
-
-    private const float HealingPainReduction = 0.8f;
 
     private float _recoveryAccumulator;
 
@@ -54,7 +55,7 @@ public sealed partial class PainSystem : EntitySystem
         if (!_net.IsServer || !Resolve(entity, ref entity.Comp, false))
             return false;
 
-        value = FixedPoint2.Max(FixedPoint2.Zero, value);
+        value = FixedPoint2.Clamp(value, FixedPoint2.Zero, entity.Comp.SoftPainCap);
         var old = entity.Comp.Value;
         if (old == value)
             return false;
@@ -85,7 +86,12 @@ public sealed partial class PainSystem : EntitySystem
             entity.Comp.Value <= FixedPoint2.Zero || entity.Comp.RecoveryPerSecond <= FixedPoint2.Zero)
             return false;
 
-        return ChangePain(entity, -entity.Comp.RecoveryPerSecond * seconds);
+        var minimum = FixedPoint2.Zero;
+        if (TryComp(entity, out DamageableComponent? damageable))
+            minimum = CalculatePain(_damage.GetPositiveDamage((entity, damageable)), entity.Comp.DamageMultipliers);
+
+        var recovered = FixedPoint2.Max(minimum, entity.Comp.Value - entity.Comp.RecoveryPerSecond * seconds);
+        return SetPain(entity, recovered);
     }
 
     public bool SuppressPain(Entity<PainComponent?> entity, string identifier, FixedPoint2 amount, TimeSpan decayDuration)
@@ -142,28 +148,19 @@ public sealed partial class PainSystem : EntitySystem
         if (!Resolve(part, ref bodyPart, ref pain, false))
             return false;
 
-        var change = CalculatePain(delta, bodyPart.PartType, pain.DamageTypes) -
-                     CalculatePain(delta * -1f, bodyPart.PartType, pain.DamageTypes) * HealingPainReduction;
+        var change = CalculatePain(delta, pain.DamageMultipliers);
         return change != FixedPoint2.Zero && ChangePain((part, pain), change);
     }
 
-    public FixedPoint2 CalculatePain(DamageSpecifier damage, BodyPartType partType,
-        IReadOnlySet<ProtoId<DamageTypePrototype>> painTypes)
+    public FixedPoint2 CalculatePain(DamageSpecifier damage,
+        IReadOnlyDictionary<ProtoId<DamageTypePrototype>, float> painMultipliers)
     {
         var painfulDamage = FixedPoint2.Zero;
         foreach (var (type, amount) in damage.DamageDict)
-            if (amount > FixedPoint2.Zero && painTypes.Contains(type))
-                painfulDamage += amount;
+            if (amount > FixedPoint2.Zero && painMultipliers.TryGetValue(type, out var multiplier))
+                painfulDamage += amount * multiplier;
 
-        var multiplier = partType switch
-        {
-            BodyPartType.Head => 1.5f,
-            BodyPartType.Hand or BodyPartType.Foot => 0.8f,
-            BodyPartType.Arm or BodyPartType.Leg => 0.6f,
-            BodyPartType.Tail => 0.5f,
-            _ => 1f,
-        };
-        return FixedPoint2.Max(FixedPoint2.Zero, painfulDamage * multiplier);
+        return FixedPoint2.Max(FixedPoint2.Zero, painfulDamage);
     }
 
     private void RefreshSuppression(Entity<PainComponent> entity)
