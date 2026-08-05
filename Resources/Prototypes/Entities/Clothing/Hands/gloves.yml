@@ -182,6 +182,10 @@
   - type: Fiber
     fiberMaterial: fibers-latex
   - type: FingerprintMask
+  # <Onyx-SurgeryInfection>
+  - type: SurgeryInfectionProtection
+    chanceMultiplier: 0.25
+  # </Onyx-SurgeryInfection>
   # <Onyx-SurgeryPPE>
   - type: Tag
     tags: [ SurgerySterileGloves ]
@@ -200,6 +204,10 @@
   - type: Fiber
     fiberMaterial: fibers-nitrile
   - type: FingerprintMask
+  # <Onyx-SurgeryInfection>
+  - type: SurgeryInfectionProtection
+    chanceMultiplier: 0.15384616
+  # </Onyx-SurgeryInfection>
   # <Onyx-SurgeryPPE>
   - type: Tag
     tags: [ SurgerySterileGloves ]

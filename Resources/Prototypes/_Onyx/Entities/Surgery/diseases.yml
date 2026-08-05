@@ -1,0 +1,22 @@
+- type: weightedRandom
+  id: DiseaseBehaviorsSurgicalSiteInfection
+  weights:
+    DiseaseBehaviorPoison: 1
+    DiseaseBehaviorBlunt: 0.75
+    DiseaseBehaviorFeelUnwell: 2
+    DiseaseBehaviorHeadache: 1
+    DiseaseBehaviorTemperature: 1.5
+    DiseaseBehaviorCold: 0.5
+    DiseaseBehaviorSluggish: 0.75
+
+- type: entity
+  id: DiseaseSurgicalSiteInfection
+  parent: DiseaseBase
+  name: surgical site infection
+  description: A bacterial infection introduced into an open surgical wound.
+  components:
+  - type: SurgicalSiteInfection
+  - type: Disease
+    diseaseType: Bacterial
+    infectionRate: 0.003333333333
+    availableEffects: DiseaseBehaviorsSurgicalSiteInfection
