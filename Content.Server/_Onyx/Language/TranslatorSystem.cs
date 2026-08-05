@@ -7,6 +7,7 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.PowerCell;
 using Robust.Shared.Containers;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Server._Onyx.Language;
@@ -34,8 +35,7 @@ public sealed partial class TranslatorSystem : EntitySystem
 
     private void OnCollectLanguages(Entity<LanguageSpeakerComponent> ent, ref CollectLanguageKnowledgeEvent args)
     {
-        if (!TryComp<LanguageKnowledgeComponent>(ent, out var intrinsic))
-            return;
+        var translators = new List<BaseTranslatorComponent>();
 
         if (TryComp<ContainerManagerComponent>(ent, out var manager) && manager.Containers != null)
         {
@@ -44,32 +44,63 @@ public sealed partial class TranslatorSystem : EntitySystem
                 foreach (var contained in container.ContainedEntities)
                 {
                     if (TryComp<HandheldTranslatorComponent>(contained, out var translator))
-                        AddTranslatorLanguages(translator, intrinsic, args);
+                        translators.Add(translator);
                 }
             }
         }
 
-        if (!TryComp<ImplantedComponent>(ent, out var implanted))
-            return;
-
-        foreach (var implant in implanted.ImplantContainer.ContainedEntities)
+        if (TryComp<ImplantedComponent>(ent, out var implanted))
         {
-            if (TryComp<TranslatorImplantComponent>(implant, out var translator))
-                AddTranslatorLanguages(translator, intrinsic, args);
+            foreach (var implant in implanted.ImplantContainer.ContainedEntities)
+            {
+                if (TryComp<TranslatorImplantComponent>(implant, out var translator))
+                    translators.Add(translator);
+            }
         }
+
+        var spoken = TryComp<LanguageKnowledgeComponent>(ent, out var intrinsic)
+            ? intrinsic.SpokenLanguages
+            : [];
+        var understood = intrinsic?.UnderstoodLanguages ?? [];
+        AddTranslatorLanguages(translators, spoken, understood, args);
     }
 
     private static void AddTranslatorLanguages(
-        BaseTranslatorComponent translator,
-        LanguageKnowledgeComponent intrinsic,
+        List<BaseTranslatorComponent> translators,
+        ICollection<ProtoId<LanguagePrototype>> intrinsicSpoken,
+        ICollection<ProtoId<LanguagePrototype>> intrinsicUnderstood,
         CollectLanguageKnowledgeEvent knowledge)
     {
-        if (!translator.Enabled ||
-            !RequirementsMet(translator.RequiredLanguages, intrinsic.UnderstoodLanguages, translator.RequiresAllLanguages))
-            return;
+        var spoken = new HashSet<ProtoId<LanguagePrototype>>(intrinsicSpoken);
+        var understood = new HashSet<ProtoId<LanguagePrototype>>(intrinsicUnderstood);
+        var remaining = translators.Where(translator => translator.Enabled).ToList();
 
-        knowledge.SpokenLanguages.UnionWith(translator.SpokenLanguages);
-        knowledge.UnderstoodLanguages.UnionWith(translator.UnderstoodLanguages);
+        while (remaining.Count > 0)
+        {
+            var changed = false;
+            for (var i = remaining.Count - 1; i >= 0; i--)
+            {
+                var translator = remaining[i];
+                var canSpeak = RequirementsMet(translator.RequiredLanguages, spoken, translator.RequiresAllLanguages);
+                var canUnderstand = RequirementsMet(translator.RequiredLanguages, understood, translator.RequiresAllLanguages);
+                if (!canSpeak && !canUnderstand)
+                    continue;
+
+                if (canSpeak)
+                    spoken.UnionWith(translator.SpokenLanguages);
+                if (canUnderstand)
+                    understood.UnionWith(translator.UnderstoodLanguages);
+
+                remaining.RemoveAt(i);
+                changed = true;
+            }
+
+            if (!changed)
+                break;
+        }
+
+        knowledge.SpokenLanguages.UnionWith(spoken);
+        knowledge.UnderstoodLanguages.UnionWith(understood);
     }
 
     public static bool RequirementsMet<T>(ICollection<T> required, ICollection<T> provided, bool requireAll)
