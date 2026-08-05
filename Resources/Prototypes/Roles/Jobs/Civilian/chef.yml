@@ -17,6 +17,11 @@
   extendedAccess:
   - Hydroponics
   - Bar
+  # <Onyx-ChefSpaceItalian>
+  special:
+  - !type:AddImplantSpecial
+    implants: [ SpaceItalianTranslatorImplant ]
+  # </Onyx-ChefSpaceItalian>
 
 - type: startingGear
   id: ChefGear
