@@ -1,4 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Numerics;
 using Content.Server._Onyx.Salvage.Procedural.Components;
@@ -8,7 +10,12 @@ using Content.Shared.Decals;
 using Content.Shared.Maps;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.EntitySerialization;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.Markdown;
+using Robust.Shared.Serialization.Markdown.Mapping;
+using Robust.Shared.Serialization.Markdown.Sequence;
+using Robust.Shared.Serialization.Markdown.Value;
 
 namespace Content.Server._Onyx.Salvage.Procedural.Systems;
 
@@ -16,6 +23,49 @@ public sealed partial class LavalandSystem
 {
     private readonly List<(Vector2i, Tile)> _tiles = new();
     private readonly Dictionary<ProtoId<LavalandGridRuinPrototype>, Box2> _ruinBounds = new();
+    private readonly Queue<StagedTerrainEntity> _stagedTerrain = new();
+    private readonly Queue<EntityUid> _stagedTerrainAllocated = new();
+    private readonly HashSet<string> _stagingFallbackLogged = new();
+
+    // ponytail: Only transform-only grid children are staged; add prototypes after verifying they have no serialized links.
+    private static readonly HashSet<string> StagedTerrainPrototypes = new()
+    {
+        "BasaltRandom",
+        "FloorLavaEntity",
+        "WallRockBasalt",
+        "WallRockBasaltBananium",
+        "WallRockBasaltCoal",
+        "WallRockBasaltPlasma",
+        "WallRockBasaltQuartz",
+        "WallRockBasaltUranium",
+        "WallRockChromite",
+    };
+
+    private static readonly Dictionary<string, HashSet<string>> StagedTerrainComponents = new()
+    {
+        ["BasaltRandom"] = new()
+        {
+            "Clickable", "MetaData", "RandomSprite", "RequiresTile", "Sprite", "SyncSprite", "Tag", "Transform",
+        },
+        ["FloorLavaEntity"] = new()
+        {
+            "Clickable", "CosmicCorruptible", "FishingSpot", "Fixtures", "Icon", "IconSmooth", "MetaData",
+            "Physics", "Sprite", "StepTrigger", "SyncSprite", "Tag", "TileEmission", "TileEntityEffect", "Transform",
+        },
+        ["WallRockBasalt"] = WallRockComponents(oreVein: false),
+        ["WallRockBasaltBananium"] = WallRockComponents(oreVein: true),
+        ["WallRockBasaltCoal"] = WallRockComponents(oreVein: true),
+        ["WallRockBasaltPlasma"] = WallRockComponents(oreVein: true),
+        ["WallRockBasaltQuartz"] = WallRockComponents(oreVein: true),
+        ["WallRockBasaltUranium"] = WallRockComponents(oreVein: true),
+        ["WallRockChromite"] = WallRockComponents(oreVein: false),
+    };
+
+    private readonly record struct StagedTerrainEntity(
+        string Prototype,
+        EntityUid Grid,
+        Vector2 Position,
+        Angle Rotation);
 
     private void PrepareRuins(
         LavalandRuinPoolPrototype pool,
@@ -121,37 +171,264 @@ public sealed partial class LavalandSystem
             return;
         }
 
-        if (!_mapLoader.TryLoadGrid(Transform(preloader).MapID, ruin.Path, out var loaded))
+        if (!_mapLoader.TryReadFile(ruin.Path, out var data))
+        {
+            Log.Error($"Failed to read Lavaland grid ruin '{ruin.ID}' from '{ruin.Path}'.");
+            return;
+        }
+
+        var stagedTerrain = ExtractStagedTerrain(data);
+        if (stagedTerrain.Count > 0)
+            Log.Debug($"Staging {stagedTerrain.Count} terrain entities from Lavaland ruin '{ruin.ID}'.");
+        var options = new MapLoadOptions
+        {
+            MergeMap = Transform(preloader).MapID,
+            ExpectedCategory = FileCategory.Grid,
+        };
+        if (!_mapLoader.TryLoadGeneric(data, ruin.Path.ToString(), out var result, options))
         {
             Log.Error($"Failed to preload Lavaland grid ruin '{ruin.ID}' from '{ruin.Path}'.");
             return;
         }
+        if (result.Grids.Count != 1)
+        {
+            Log.Error($"Lavaland grid ruin '{ruin.ID}' must contain exactly one grid.");
+            _mapLoader.Delete(result);
+            return;
+        }
 
-        var grid = loaded.Value;
-        _ruinBounds[ruin.ID] = grid.Comp.LocalAABB;
-        if (!TryPlaceRuin(grid.Comp.LocalAABB, ruin.SpawnAttempts, coordinates, usedSpace, out var position))
+        var grid = result.Grids.First();
+        var placementBounds = GetPlacementBounds(grid.Comp.LocalAABB, stagedTerrain);
+        _ruinBounds[ruin.ID] = placementBounds;
+        if (!TryPlaceRuin(placementBounds, ruin.SpawnAttempts, coordinates, usedSpace, out var position))
         {
             Log.Warning($"No valid placement found for Lavaland grid ruin '{ruin.ID}'.");
             Del(grid.Owner);
             return;
         }
 
-        var worldBounds = grid.Comp.LocalAABB.Translated(position.Value);
+        var worldBounds = placementBounds.Translated(position.Value);
         usedSpace.Add(worldBounds);
         coordinates.Remove(position.Value);
         _transform.SetCoordinates(grid.Owner, new EntityCoordinates(preloader, position.Value));
 
+        if (stagedTerrain.Count > 0)
+        {
+            var restoreGrid = grid;
+            var restoreOffset = Vector2i.Zero;
+            if (ruin.PatchToPlanet)
+            {
+                restoreGrid = (lavaland.Owner, _gridQuery.Comp(lavaland.Owner));
+                restoreOffset = position.Value;
+                PatchToPlanet(grid, restoreGrid, position.Value);
+            }
+            else
+            {
+                FinishGridRuin(ruin, lavaland, grid, position.Value);
+            }
+
+            foreach (var terrain in stagedTerrain)
+                _stagedTerrain.Enqueue(terrain with
+                {
+                    Grid = restoreGrid.Owner,
+                    Position = terrain.Position + restoreOffset,
+                });
+            return;
+        }
+
+        FinishGridRuin(ruin, lavaland, grid, position.Value);
+    }
+
+    private bool RestoreStagedTerrain()
+    {
+        var stopwatch = Stopwatch.StartNew();
+        while (_stagedTerrain.Count > 0 && stopwatch.Elapsed < TimeSpan.FromMilliseconds(4))
+        {
+            var terrain = _stagedTerrain.Dequeue();
+            var uid = EntityManager.CreateEntityUninitialized(
+                terrain.Prototype,
+                new EntityCoordinates(terrain.Grid, terrain.Position),
+                rotation: terrain.Rotation);
+            _stagedTerrainAllocated.Enqueue(uid);
+        }
+
+        while (_stagedTerrain.Count == 0 &&
+               _stagedTerrainAllocated.Count > 0 &&
+               stopwatch.Elapsed < TimeSpan.FromMilliseconds(4))
+            EntityManager.InitializeAndStartEntity(_stagedTerrainAllocated.Dequeue());
+
+        return _stagedTerrain.Count == 0 && _stagedTerrainAllocated.Count == 0;
+    }
+
+    private static Box2 GetPlacementBounds(Box2 gridBounds, List<StagedTerrainEntity> terrain)
+    {
+        var bounds = gridBounds;
+        foreach (var entity in terrain)
+            bounds = bounds.Union(Box2.FromDimensions(entity.Position - new Vector2(0.5f), Vector2.One));
+        return bounds;
+    }
+
+    private void ClearStagedTerrain()
+    {
+        _stagedTerrain.Clear();
+        while (_stagedTerrainAllocated.TryDequeue(out var uid))
+        {
+            if (!TerminatingOrDeleted(uid))
+                Del(uid);
+        }
+    }
+
+    private void FinishGridRuin(
+        LavalandGridRuinPrototype ruin,
+        Entity<LavalandPlanetComponent> lavaland,
+        Entity<MapGridComponent> grid,
+        Vector2i position)
+    {
+
         if (ruin.PatchToPlanet)
         {
-            PatchToPlanet(grid, (lavaland.Owner, _gridQuery.Comp(lavaland.Owner)), position.Value);
+            PatchToPlanet(grid, (lavaland.Owner, _gridQuery.Comp(lavaland.Owner)), position);
             return;
         }
 
         _metadata.SetEntityName(grid.Owner, Loc.GetString(ruin.Name));
-        _transform.SetCoordinates(grid.Owner, new EntityCoordinates(lavaland, position.Value));
+        _transform.SetCoordinates(grid.Owner, new EntityCoordinates(lavaland, position));
         var grant = EnsureComp<LavalandGridGrantComponent>(grid.Owner);
         foreach (var (name, component) in ruin.ComponentsToGrant)
             grant.ComponentsToGrant[name] = component;
+    }
+
+    private List<StagedTerrainEntity> ExtractStagedTerrain(MappingDataNode data)
+    {
+        var staged = new List<StagedTerrainEntity>();
+        var groups = data.Get<SequenceDataNode>("entities");
+        var scalarCounts = new Dictionary<string, int>();
+        CountScalars(data, scalarCounts);
+        var groupsToRemove = new List<int>();
+
+        for (var groupIndex = 0; groupIndex < groups.Count; groupIndex++)
+        {
+            if (groups[groupIndex] is not MappingDataNode group ||
+                !group.TryGet<ValueDataNode>("proto", out var prototype) ||
+                !StagedTerrainPrototypes.Contains(prototype.Value) ||
+                !HasExpectedComponents(prototype.Value) ||
+                !group.TryGet<SequenceDataNode>("entities", out var entities))
+                continue;
+
+            var extracted = new List<StagedTerrainEntity>(entities.Count);
+            foreach (var node in entities)
+            {
+                if (node is not MappingDataNode entity ||
+                    !TryExtractTerrainEntity(prototype.Value, entity, scalarCounts, out var terrain))
+                {
+                    extracted.Clear();
+                    break;
+                }
+                extracted.Add(terrain);
+            }
+
+            if (extracted.Count == 0)
+                continue;
+
+            foreach (var terrain in extracted)
+                staged.Add(terrain);
+            groupsToRemove.Add(groupIndex);
+        }
+
+        for (var i = groupsToRemove.Count - 1; i >= 0; i--)
+            groups.RemoveAt(groupsToRemove[i]);
+
+        return staged;
+    }
+
+    private bool HasExpectedComponents(string prototype)
+    {
+        var actual = _prototypes.Index<EntityPrototype>(prototype).Components.Keys;
+        if (StagedTerrainComponents[prototype].SetEquals(actual))
+            return true;
+
+        if (_stagingFallbackLogged.Add(prototype))
+            Log.Warning($"Lavaland terrain staging disabled for changed prototype '{prototype}'. Using the standard map loader.");
+        return false;
+    }
+
+    private static bool TryExtractTerrainEntity(
+        string prototype,
+        MappingDataNode entity,
+        Dictionary<string, int> scalarCounts,
+        out StagedTerrainEntity terrain)
+    {
+        terrain = default;
+        if (entity.Count != 2 ||
+            !entity.TryGet<ValueDataNode>("uid", out var uid) ||
+            !scalarCounts.TryGetValue(uid.Value, out var references) ||
+            references != 1 ||
+            !entity.TryGet<SequenceDataNode>("components", out var components) ||
+            components.Count != 1 ||
+            components[0] is not MappingDataNode transform ||
+            !transform.TryGet<ValueDataNode>("type", out var type) ||
+            type.Value != "Transform" ||
+            !transform.TryGet<ValueDataNode>("pos", out var position) ||
+            !transform.TryGet<ValueDataNode>("parent", out var parent) ||
+            parent.Value != "1" ||
+            transform.Count != (transform.Has("rot") ? 4 : 3) ||
+            !TryParseVector(position.Value, out var parsedPosition))
+            return false;
+
+        var rotation = Angle.Zero;
+        if (transform.TryGet<ValueDataNode>("rot", out var rotationNode))
+        {
+            var value = rotationNode.Value;
+            if (!value.EndsWith(" rad", StringComparison.Ordinal) ||
+                !double.TryParse(value[..^4], NumberStyles.Float, CultureInfo.InvariantCulture, out var radians))
+                return false;
+            rotation = new Angle(radians);
+        }
+
+        terrain = new StagedTerrainEntity(prototype, EntityUid.Invalid, parsedPosition, rotation);
+        return true;
+    }
+
+    private static void CountScalars(DataNode node, Dictionary<string, int> counts)
+    {
+        switch (node)
+        {
+            case ValueDataNode value:
+                counts[value.Value] = counts.GetValueOrDefault(value.Value) + 1;
+                break;
+            case MappingDataNode mapping:
+                foreach (var child in mapping.Values)
+                    CountScalars(child, counts);
+                break;
+            case SequenceDataNode sequence:
+                foreach (var child in sequence.Sequence)
+                    CountScalars(child, counts);
+                break;
+        }
+    }
+
+    private static HashSet<string> WallRockComponents(bool oreVein)
+    {
+        var components = new HashSet<string>
+        {
+            "Airtight", "Anchorable", "BlockWeather", "Clickable", "Damageable", "Destructible", "Fixtures",
+            "Gatherable", "GravityAffected", "Icon", "IconSmooth", "Injurable", "IsRoof", "MetaData",
+            "MiningScannerViewable", "Occluder", "Physics", "PlacementReplacement", "Pullable", "RadiationBlocker",
+            "RangedDamageSound", "Rotatable", "SmoothEdge", "SoundOnGather", "Sprite", "StaticPrice", "SunShadowCast",
+            "Tag", "Transform", "Wall",
+        };
+        if (oreVein)
+            components.Add("OreVein");
+        return components;
+    }
+
+    private static bool TryParseVector(string value, out Vector2 vector)
+    {
+        vector = default;
+        var separator = value.IndexOf(',');
+        return separator > 0 &&
+               float.TryParse(value.AsSpan(0, separator), NumberStyles.Float, CultureInfo.InvariantCulture, out vector.X) &&
+               float.TryParse(value.AsSpan(separator + 1), NumberStyles.Float, CultureInfo.InvariantCulture, out vector.Y);
     }
 
     private void LoadDungeonRuin(
@@ -192,7 +469,31 @@ public sealed partial class LavalandSystem
 
         usedSpace.Add(localBounds.Translated(position.Value));
         coordinates.Remove(position.Value);
-        Spawn(ruin.SpawnedMarker, new EntityCoordinates(lavaland, position.Value));
+
+        var marker = _prototypes.Index<EntityPrototype>(ruin.SpawnedMarker);
+        if (!marker.Components.TryGetValue(Factory.GetComponentName<RoomFillComponent>(), out var entry) ||
+            entry.Component is not RoomFillComponent roomFill)
+            throw new InvalidOperationException($"Lavaland marker ruin '{ruin.ID}' must spawn an entity with RoomFill.");
+
+        var room = _dungeon.GetRoomPrototype(_random,
+            roomFill.RoomWhitelist,
+            roomFill.MinSize,
+            roomFill.MaxSize);
+        if (room == null)
+        {
+            Log.Error($"Unable to find matching room prototype for Lavaland marker ruin '{ruin.ID}'.");
+            return;
+        }
+
+        _dungeon.SpawnRoom(
+            lavaland.Owner,
+            _gridQuery.Comp(lavaland.Owner),
+            position.Value - new Vector2i(room.Size.X / 2, room.Size.Y / 2),
+            room,
+            _random,
+            null,
+            clearExisting: roomFill.ClearExisting,
+            rotation: roomFill.Rotation);
     }
 
     private static bool TryPlaceRuin(

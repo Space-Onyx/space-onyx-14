@@ -31,5 +31,6 @@ public enum LavalandGenerationStage : byte
     DungeonRuins,
     MarkerRuins,
     Initializing,
+    RestoringTerrain,
     Ready,
 }

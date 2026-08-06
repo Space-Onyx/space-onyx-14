@@ -119,6 +119,14 @@ public sealed partial class LavalandSystem : EntitySystem
                         EntityManager.AddComponents(uid, planet.AddComponents);
 
                     _map.InitializeMap(Transform(uid).MapID, unpause: false);
+                    lavaland.GenerationStage = LavalandGenerationStage.RestoringTerrain;
+                }
+
+                if (lavaland.GenerationStage == LavalandGenerationStage.RestoringTerrain)
+                {
+                    if ((_stagedTerrain.Count > 0 || _stagedTerrainAllocated.Count > 0) && !RestoreStagedTerrain())
+                        continue;
+
                     if (!TerminatingOrDeleted(lavaland.Preloader))
                         _map.DeleteMap(Transform(lavaland.Preloader).MapID);
                     EnsureComp<LavalandMapComponent>(uid);
@@ -130,6 +138,7 @@ public sealed partial class LavalandSystem : EntitySystem
             catch (Exception exception)
             {
                 Log.Error($"Failed to finish Lavaland generation: {exception}");
+                ClearStagedTerrain();
                 var preloader = lavaland.Preloader;
                 Del(uid);
                 if (!TerminatingOrDeleted(preloader))
@@ -140,6 +149,7 @@ public sealed partial class LavalandSystem : EntitySystem
 
     private void OnRoundRestart(RoundRestartCleanupEvent ev)
     {
+        ClearStagedTerrain();
         DeleteAllLavalands();
         var query = AllEntityQuery<LavalandPreloaderComponent>();
         while (query.MoveNext(out var uid, out _))
