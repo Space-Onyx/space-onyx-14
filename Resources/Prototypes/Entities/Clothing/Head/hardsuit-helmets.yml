@@ -531,6 +531,16 @@
   - type: PointLight
     radius: 7
     energy: 3
+  # <Onyx-LuxuryMiningHardsuit>
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.8
+        Piercing: 0.9
+        Radiation: 0.15
+        Caustic: 0.8
+  # </Onyx-LuxuryMiningHardsuit>
 
 #ANTAG HARDSUITS
 #Blood-red Hardsuit

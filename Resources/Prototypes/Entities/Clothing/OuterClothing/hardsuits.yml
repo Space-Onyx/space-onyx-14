@@ -508,23 +508,31 @@
   - type: PressureProtection
     highPressureMultiplier: 0.5
     lowPressureMultiplier: 1000
+  # <Onyx-LuxuryMiningHardsuit-edited>
   - type: ExplosionResistance
-    damageCoefficient: 0.9
+    damageCoefficient: 0.5
   - type: Armor
     modifiers:
       coefficients:
         Blunt: 0.9
         Slash: 0.8
         Piercing: 0.9
-        Heat: 0.9
-        Radiation: 0.5
+        Radiation: 0.15
         Caustic: 0.8
+  # </Onyx-LuxuryMiningHardsuit-edited>
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
   - type: HeldSpeedModifier
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHelmetHardsuitLuxury
+  # <Onyx-LuxuryMiningHardsuit>
+  - type: ModifyDelayedKnockdown
+    delayDelta: 2
+    knockdownTimeDelta: -2
+  - type: StaminaResistance
+    damageCoefficient: 0.7
+  # </Onyx-LuxuryMiningHardsuit>
 
 #ANTAG HARDSUITS
 #Blood-red Hardsuit
