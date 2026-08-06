@@ -394,8 +394,8 @@
     - state: eyeball-r
   - type: VisualOrgan
     data:
-      sprite: _Onyx/Mobs/Species/IPCOrgans.rsi
-      state: eyes
+      sprite: Mobs/Customization/eyes.rsi
+      state: no_eyes
   - type: VisualOrganMarkings
     markingData:
       group: Ipc
