@@ -35,6 +35,7 @@
   - type: Eye
   - type: ContentEye
   - type: CameraRecoil
+  - type: CEZPhysics # <Onyx-ZLevels>
   - type: MindContainer
   - type: RequireProjectileTarget
     active: False

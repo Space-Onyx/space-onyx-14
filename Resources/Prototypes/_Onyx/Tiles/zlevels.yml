@@ -1,0 +1,58 @@
+- type: tile
+  id: ElevatorSolidMetalGrate
+  parent: FloorSteel
+  name: solid metal grate
+  zTransparent: true
+  sprite: /Textures/_Onyx/Tiles/Elevator/solidgrate5.png
+  variants: 1
+  placementVariants: [1.0]
+  footstepSounds:
+    collection: FootstepCatwalk
+
+- type: tile
+  id: ElevatorPlatformTile
+  parent: FloorSteel
+  name: elevator platform
+  sprite: /Textures/Tiles/lattice.png
+  variants: 1
+  placementVariants: [1.0]
+  footstepSounds:
+    collection: FootstepCatwalk
+
+- type: tile
+  id: ElevatorLinearTransportModule
+  parent: FloorSteel
+  name: linear transport module
+  sprite: /Textures/_Onyx/Tiles/Elevator/catwalk.png
+  variants: 1
+  placementVariants: [1.0]
+  footstepSounds:
+    collection: FootstepCatwalk
+
+- type: tile
+  id: PlatingCornerNE
+  parent: Plating
+  name: NE plating
+  sprite: /Textures/_Onyx/Tiles/plating/ne.png
+  vertices: ["1, 0", "1, 1", "0, 1"]
+
+- type: tile
+  id: PlatingCornerNW
+  parent: Plating
+  name: NW plating
+  sprite: /Textures/_Onyx/Tiles/plating/nw.png
+  vertices: ["0, 0", "1, 1", "0, 1"]
+
+- type: tile
+  id: PlatingCornerSE
+  parent: Plating
+  name: SE plating
+  sprite: /Textures/_Onyx/Tiles/plating/se.png
+  vertices: ["0, 0", "1, 0", "1, 1"]
+
+- type: tile
+  id: PlatingCornerSW
+  parent: Plating
+  name: SW plating
+  sprite: /Textures/_Onyx/Tiles/plating/sw.png
+  vertices: ["0, 0", "1, 0", "0, 1"]

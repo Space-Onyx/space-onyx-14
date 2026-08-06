@@ -127,6 +127,13 @@ public sealed partial class ContentTileDefinition : IPrototype, IInheritingProto
     /// </summary>
     [DataField] public bool Indestructible = false;
 
+    // <Onyx-ZLevels>
+    [DataField] public bool ZTransparent;
+    [DataField] public bool ZSightPermeable;
+    [DataField] public bool ZSoundPermeable;
+    [DataField] public bool ZShotPermeable;
+    // </Onyx-ZLevels>
+
     /// <summary>
     /// Hide this tile in the tile placement editor.
     /// </summary>

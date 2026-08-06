@@ -18,6 +18,7 @@
 
                 <!-- Map view tab -->
                 <BoxContainer Name="{Loc 'surveillance-camera-monitor-ui-tab-map'}" Orientation="Vertical" VerticalExpand="True">
+                    <BoxContainer Name="ZLevelSelector" Orientation="Horizontal" HorizontalAlignment="Center" Visible="False"/> <!-- <Onyx-ZLevels> -->
                     <local:SurveillanceCameraNavMapControl Name="CameraMap"
                                                            VerticalExpand="True"
                                                            HorizontalExpand="True"

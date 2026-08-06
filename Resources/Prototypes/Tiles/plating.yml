@@ -95,6 +95,7 @@
   weather: false
   id: Lattice
   name: tiles-lattice
+  zTransparent: true # <Onyx-ZLevels>
   sprite: /Textures/Tiles/lattice.png
   baseTurf: Space
   isSubfloor: true

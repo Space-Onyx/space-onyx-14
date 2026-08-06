@@ -1,4 +1,5 @@
 using Content.Shared.Input;
+using Content.Shared._Onyx.Input; // <Onyx-ZLevels>
 using Robust.Shared.Input;
 
 namespace Content.Client.Input
@@ -91,6 +92,7 @@ namespace Content.Client.Input
             human.AddFunction(ContentKeyFunctions.RotateObjectClockwise);
             human.AddFunction(ContentKeyFunctions.RotateObjectCounterclockwise);
             human.AddFunction(ContentKeyFunctions.FlipObject);
+            human.AddFunction(CEKeyFunctions.CEToggleShootDownZLevel); // <Onyx-ZLevels>
             human.AddFunction(ContentKeyFunctions.ArcadeUp);
             human.AddFunction(ContentKeyFunctions.ArcadeDown);
             human.AddFunction(ContentKeyFunctions.ArcadeLeft);

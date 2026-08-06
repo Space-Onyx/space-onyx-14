@@ -8,6 +8,11 @@ namespace Content.Shared.Shuttles.Components;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class FTLMapComponent : Component
 {
+    // <Onyx-ZLevels>
+    [DataField]
+    public int Depth;
+    // </Onyx-ZLevels>
+
     /// <summary>
     /// Offset for FTLing shuttles so they don't overlap each other.
     /// </summary>

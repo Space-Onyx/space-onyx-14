@@ -8,6 +8,7 @@ using Content.Server._Onyx.Chat;
 using Content.Server._Onyx.Telecommunications;
 using Content.Shared._Onyx.Language; // <Onyx-LanguageAppearance>
 using Content.Shared.Chat;
+using Content.Shared._Onyx.ZLevels.Core.EntitySystems; // <Onyx-ZLevels>
 using Content.Shared._Onyx.Telecommunications; // <Onyx-TelecomTransmitter>
 using Content.Shared.Database;
 using Content.Shared.Radio;
@@ -37,6 +38,7 @@ public sealed partial class RadioSystem : EntitySystem
     [Dependency] private GhostSystem _ghost = default!;
     [Dependency] private TelecommunicationsChainSystem _telecommunications = default!;
     [Dependency] private Content.Server._Onyx.Language.LanguageSystem _languages = default!; // <Onyx-LanguageAppearance>
+    [Dependency] private CESharedZLevelsSystem _zLevels = default!; // <Onyx-ZLevels>
 
     private EntityQuery<TelecomExemptComponent> _exemptQuery;
 
@@ -122,6 +124,7 @@ public sealed partial class RadioSystem : EntitySystem
         RaiseLocalEvent(radioSource, ref sendAttemptEv);
         var canSend = !sendAttemptEv.Cancelled;
 
+        var sourceCoverage = _zLevels.GetGridCoverage(radioSource); // <Onyx-ZLevels>
         var sourceXform = Transform(radioSource);
         var sourceMapId = sourceXform.MapID;
         var sourceServerExempt = _exemptQuery.HasComp(radioSource);
@@ -181,7 +184,7 @@ public sealed partial class RadioSystem : EntitySystem
                     continue;
             }
 
-            if (!channel.LongRange && transform.MapID != sourceMapId && !radio.GlobalReceive
+            if (!channel.LongRange && !_zLevels.IsInCoverage(sourceCoverage, receiver, transform) && !radio.GlobalReceive // <Onyx-ZLevels-edited>
                 && !(HasActiveTransmitter(transform.MapID) && HasActiveTransmitter(sourceMapId)))
                 continue;
 

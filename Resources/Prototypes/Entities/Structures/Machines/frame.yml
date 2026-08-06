@@ -26,6 +26,7 @@
   - type: Anchorable
   - type: Rotatable
   - type: Pullable
+  - type: CEZPhysics # <Onyx-ZLevels>
   - type: Construction
     containers:
       - machine_board
@@ -85,6 +86,7 @@
   - type: Anchorable
   - type: Rotatable
   - type: Pullable
+  - type: CEZPhysics # <Onyx-ZLevels>
   - type: Construction
     graph: Machine
     node: machineFrame

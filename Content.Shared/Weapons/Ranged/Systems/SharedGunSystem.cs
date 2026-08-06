@@ -24,6 +24,7 @@ using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Whitelist;
 using Content.Shared._Onyx.Targeting;
+using Content.Shared._Onyx.ZLevels.Shooting; // <Onyx-ZLevels>
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
@@ -68,6 +69,7 @@ public abstract partial class SharedGunSystem : EntitySystem
     [Dependency] protected TagSystem TagSystem = default!;
     [Dependency] protected ThrowingSystem ThrowingSystem = default!;
     [Dependency] private TargetingSnapshotSystem _targetingSnapshots = default!;
+    [Dependency] private CMUZLevelShootingSystem _zLevelShooting = default!; // <Onyx-ZLevels>
 
     /// <summary>
     /// Default projectile speed
@@ -359,6 +361,20 @@ public abstract partial class SharedGunSystem : EntitySystem
         }
 
         var fromCoordinates = Transform(user).Coordinates;
+
+        // <Onyx-ZLevels>
+        var sourceFromCoordinates = fromCoordinates;
+        if (!_zLevelShooting.TryAdjustShotCoordinates(user, fromCoordinates, toCoordinates.Value, out fromCoordinates, out var zAdjustedTo))
+        {
+            gun.Comp.NextFire = TimeSpan.FromSeconds(Math.Max(lastFire.TotalSeconds + SafetyNextFire, gun.Comp.NextFire.TotalSeconds));
+            return false;
+        }
+        toCoordinates = zAdjustedTo;
+
+        if (_zLevelShooting.TryGetProjectileVisualOffset(user, sourceFromCoordinates, fromCoordinates, out var barrelShift, out var shotDepth))
+            _zLevelShooting.BeginShotOffset(barrelShift, shotDepth);
+        // </Onyx-ZLevels>
+
         // Remove ammo
         var ev = new TakeAmmoEvent(shots, [], fromCoordinates, user);
 
@@ -377,6 +393,7 @@ public abstract partial class SharedGunSystem : EntitySystem
 
         if (ev.Ammo.Count <= 0)
         {
+            _zLevelShooting.EndShotOffset(); // <Onyx-ZLevels>
             // triggers effects on the gun if it's empty
             var emptyGunShotEvent = new OnEmptyGunShotEvent(user);
             RaiseLocalEvent(gun, ref emptyGunShotEvent);
@@ -419,6 +436,7 @@ public abstract partial class SharedGunSystem : EntitySystem
 
         // Shoot confirmed - sounds also played here in case it's invalid (e.g. cartridge already spent).
         Shoot(gun, ev.Ammo, fromCoordinates, toCoordinates.Value, out var userImpulse, user, throwItems: attemptEv.ThrowItems);
+        _zLevelShooting.EndShotOffset(); // <Onyx-ZLevels>
         var shotEv = new GunShotEvent(user, ev.Ammo);
         RaiseLocalEvent(gun, ref shotEv);
 
@@ -475,6 +493,7 @@ public abstract partial class SharedGunSystem : EntitySystem
         _targetingSnapshots.Capture(uid, shooter);
 
         TransformSystem.SetWorldRotation(uid, direction.ToWorldAngle() + projectile.Angle);
+        _zLevelShooting.ApplyPendingProjectileVisualOffset(uid); // <Onyx-ZLevels>
     }
 
     /// <summary>

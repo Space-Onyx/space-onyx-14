@@ -1,4 +1,5 @@
 using Content.Client.Shuttles.UI;
+using Content.Shared._Onyx.ZLevels.Shuttles; // <Onyx-ZLevels>
 // <ShuttleSignalPorts>
 using Content.Shared._Onyx.Shuttles.Events;
 // </ShuttleSignalPorts>
@@ -29,6 +30,8 @@ public sealed partial class ShuttleConsoleBoundUserInterface : BoundUserInterfac
         _window.RequestBeaconFTL += OnFTLBeaconRequest;
         _window.DockRequest += OnDockRequest;
         _window.UndockRequest += OnUndockRequest;
+        _window.RequestFlyUp += () => SendMessage(new CEShuttleConsoleFlyUpMessage()); // <Onyx-ZLevels>
+        _window.RequestFlyDown += () => SendMessage(new CEShuttleConsoleFlyDownMessage()); // <Onyx-ZLevels>
         _window.NetworkPortButtonPressed += OnNetworkPortButtonPressed; // <ShuttleSignalPorts>
         InitializeDampening(); // <Onyx-ShuttleDampening>
     }

@@ -115,6 +115,13 @@ public partial class AtmosphereSystem
             return null;
 
         var indices = XformSystem.GetGridTilePositionOrDefault(entity);
+        // <Onyx-ZLevels>
+        if (ShouldTryZLevelProtectedMixture(entity, entity.Comp.GridUid, indices) &&
+            TryGetZLevelProtectedTileMixtureForEntity(entity, excite, out var zMixture))
+        {
+            return zMixture;
+        }
+        // </Onyx-ZLevels>
         return GetTileMixture(entity.Comp.GridUid, entity.Comp.MapUid, indices, excite);
     }
 
@@ -159,6 +166,13 @@ public partial class AtmosphereSystem
             return mixture;
 
         var position = XformSystem.GetGridTilePositionOrDefault((ent, ent.Comp));
+        // <Onyx-ZLevels>
+        if (ShouldTryZLevelProtectedMixture(ent, grid?.Owner, position) &&
+            TryGetZLevelProtectedTileMixtureForEntity(ent, excite, out var zMixture))
+        {
+            return zMixture;
+        }
+        // </Onyx-ZLevels>
         return GetTileMixture(grid, map, position, excite);
     }
 

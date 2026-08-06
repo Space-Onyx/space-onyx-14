@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Client.Shuttles.Systems;
+using Content.Shared._Onyx.ZLevels.Core.Components; // <Onyx-ZLevels>
 using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Systems;
@@ -36,6 +37,7 @@ public sealed partial class ShuttleDockControl : BaseShuttleControl
     public DockingInterfaceState? DockState = null;
 
     private List<Entity<MapGridComponent>> _grids = new();
+    private readonly HashSet<EntityUid> _zPeerGrids = new(); // <Onyx-ZLevels>
 
     private readonly HashSet<DockingPortState> _drawnDocks = new();
     private readonly Dictionary<DockingPortState, Button> _dockButtons = new();
@@ -124,6 +126,26 @@ public sealed partial class ShuttleDockControl : BaseShuttleControl
         _grids.Clear();
         _maps.FindGridsIntersecting(gridXform.MapID, viewBoundsWorld, ref _grids);
 
+        // <Onyx-ZLevels>
+        _zPeerGrids.Clear();
+        if (EntManager.TryGetComponent(GridEntity, out CEZLinkedGridComponent? linked))
+        {
+            var seenMaps = new HashSet<MapId> { gridXform.MapID };
+            foreach (var peer in linked.PeerGrids.Values)
+            {
+                if (!EntManager.TryGetComponent(peer, out TransformComponent? peerXform) || !seenMaps.Add(peerXform.MapID))
+                    continue;
+                var peerGrids = new List<Entity<MapGridComponent>>();
+                _maps.FindGridsIntersecting(peerXform.MapID, viewBoundsWorld, ref peerGrids);
+                foreach (var grid in peerGrids)
+                {
+                    _zPeerGrids.Add(grid.Owner);
+                    _grids.Add(grid);
+                }
+            }
+        }
+        // </Onyx-ZLevels>
+
         // offset the dotted-line position to the bounds.
         Vector2? viewedDockPos = _viewedState != null ? MidPointVector : null;
 
@@ -145,8 +167,13 @@ public sealed partial class ShuttleDockControl : BaseShuttleControl
             var curGridToWorld = _xformSystem.GetWorldMatrix(grid.Owner);
             var curGridToView = curGridToWorld * worldToSelectedDock * selectedDockToView;
             var color = _shuttles.GetIFFColor(grid.Owner, grid.Owner == GridEntity, component: iffComp);
+            if (_zPeerGrids.Contains(grid.Owner)) // <Onyx-ZLevels>
+                color = color.WithAlpha(color.A * 0.4f);
 
             DrawGrid(handle, curGridToView, grid, color);
+
+            if (_zPeerGrids.Contains(grid.Owner)) // <Onyx-ZLevels>
+                continue;
 
             // Draw any docks on that grid
             if (!DockState.Docks.TryGetValue(EntManager.GetNetEntity(grid), out var gridDocks))

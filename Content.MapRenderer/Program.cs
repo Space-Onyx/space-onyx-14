@@ -29,6 +29,16 @@ namespace Content.MapRenderer
             var testContext = new ExternalTestContext("Content.MapRenderer", Console.Out);
 
             PoolManager.Startup();
+
+            // <Onyx-ZLevels-edited>
+            if (arguments.RenderZMaps)
+            {
+                await _Onyx.ZMapRenderer.RenderZMaps(arguments, testContext);
+                PoolManager.Shutdown();
+                return;
+            }
+            // </Onyx-ZLevels-edited>
+
             if (arguments.Maps.Count == 0)
             {
                 Console.WriteLine("Didn't specify any maps to paint! Loading the map list...");

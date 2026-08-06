@@ -10,6 +10,18 @@
   fx: EffectRCDConstruct0
 
 - type: rcd
+  id: CEMultizAtmosPipeAdapter
+  name: floor pipe adapter
+  category: Piping
+  sprite: /Textures/_Onyx/Interface/Radial/RPD/pipe_adapter.png
+  mode: ConstructObject
+  prototype: CEMultizAtmosPipeAdapter
+  cost: 1
+  delay: 0
+  rotation: User
+  fx: EffectRCDConstruct0
+
+- type: rcd
   id: PipeStraight
   category: Piping
   sprite: /Textures/_Onyx/Interface/Radial/RPD/straight.png
@@ -240,6 +252,7 @@
     - PipeStraight
     - PipeBend
     - PipeTJunction
+    - CEMultizAtmosPipeAdapter
     - OutletInjector
     - ManualValve
     - VolumetricPump

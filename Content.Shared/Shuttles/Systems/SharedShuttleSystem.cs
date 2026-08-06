@@ -181,7 +181,7 @@ public abstract partial class SharedShuttleSystem : EntitySystem
     /// <summary>
     /// Returns true if the spot is free to be FTLd to (not close to any objects and in range).
     /// </summary>
-    public bool FTLFree(EntityUid shuttleUid, EntityCoordinates coordinates, Angle angle, List<ShuttleExclusionObject>? exclusionZones)
+    public bool FTLFree(EntityUid shuttleUid, EntityCoordinates coordinates, Angle angle, List<ShuttleExclusionObject>? exclusionZones, bool allowSameMap = false) // <Onyx-ZLevels-edited>
     {
         if (!_physicsQuery.TryGetComponent(shuttleUid, out var shuttlePhysics) ||
             !TryComp(shuttleUid, out TransformComponent? shuttleXform))
@@ -198,7 +198,7 @@ public abstract partial class SharedShuttleSystem : EntitySystem
         // This is the already adjusted position
         var targetPosition = mapCoordinates.Position;
 
-        if (!CanFTLToMap(shuttleUid, shuttleXform.MapID, mapCoordinates.MapId)) // <Onyx-FTLDrive>
+        if (!allowSameMap && !CanFTLToMap(shuttleUid, shuttleXform.MapID, mapCoordinates.MapId)) // <Onyx-FTLDrive> <Onyx-ZLevels-edited>
             return false;
 
         // Check range even if it's cross-map.

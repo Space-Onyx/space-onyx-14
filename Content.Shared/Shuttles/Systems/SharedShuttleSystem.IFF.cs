@@ -1,4 +1,5 @@
 using Content.Shared.Shuttles.Components;
+using Content.Shared._Onyx.ZLevels.Core.Components; // <Onyx-ZLevels>
 using JetBrains.Annotations;
 
 namespace Content.Shared.Shuttles.Systems;
@@ -28,7 +29,7 @@ public abstract partial class SharedShuttleSystem
 
     public string? GetIFFLabel(EntityUid gridUid, bool self = false, IFFComponent? component = null)
     {
-        var entName = MetaData(gridUid).EntityName;
+        var entName = MetaData(ResolveLinkedGridForLabel(gridUid)).EntityName; // <Onyx-ZLevels-edited>
 
         if (self)
         {
@@ -42,6 +43,27 @@ public abstract partial class SharedShuttleSystem
 
         return string.IsNullOrEmpty(entName) ? Loc.GetString("shuttle-console-unknown") : entName;
     }
+
+    // <Onyx-ZLevels>
+    private EntityUid ResolveLinkedGridForLabel(EntityUid gridUid)
+    {
+        if (!TryComp<CEZLinkedGridComponent>(gridUid, out var linked))
+            return gridUid;
+
+        var result = gridUid;
+        var depth = linked.Depth;
+        foreach (var (peerDepth, peer) in linked.PeerGrids)
+        {
+            if (peerDepth < depth && Exists(peer))
+            {
+                result = peer;
+                depth = peerDepth;
+            }
+        }
+
+        return result;
+    }
+    // </Onyx-ZLevels>
 
     /// <summary>
     /// Sets the color for this grid to appear as on radar.

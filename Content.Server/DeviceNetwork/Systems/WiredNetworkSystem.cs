@@ -1,4 +1,5 @@
 using Content.Server.DeviceNetwork.Components;
+using Content.Shared._Onyx.ZLevels.Core.Components; // <Onyx-ZLevels>
 using Content.Shared.DeviceNetwork.Events;
 using JetBrains.Annotations;
 
@@ -18,11 +19,28 @@ namespace Content.Server.DeviceNetwork.Systems
         /// </summary>
         private void OnBeforePacketSent(EntityUid uid, WiredNetworkComponent component, BeforePacketSentEvent args)
         {
-            if (Transform(uid).GridUid != args.SenderTransform.GridUid)
+            // <Onyx-ZLevels-edited>
+            var receiverGrid = Transform(uid).GridUid;
+            var senderGrid = args.SenderTransform.GridUid;
+            if (receiverGrid != senderGrid && !AreZLinkedGrids(senderGrid, receiverGrid))
             {
                 args.Cancel();
             }
+            // </Onyx-ZLevels-edited>
         }
+
+        // <Onyx-ZLevels>
+        private bool AreZLinkedGrids(EntityUid? senderGrid, EntityUid? receiverGrid)
+        {
+            if (senderGrid == null || receiverGrid == null)
+                return false;
+
+            return TryComp<CEZLinkedGridComponent>(senderGrid.Value, out var senderLinked)
+                   && TryComp<CEZLinkedGridComponent>(receiverGrid.Value, out var receiverLinked)
+                   && senderLinked.LinkNetwork.IsValid()
+                   && senderLinked.LinkNetwork == receiverLinked.LinkNetwork;
+        }
+        // </Onyx-ZLevels>
 
         //Things to do in a future PR:
         //Abstract out the connection between the apcExtensionCable and the apcPowerReceiver

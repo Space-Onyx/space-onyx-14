@@ -7,6 +7,8 @@ using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.Consoles;
 using Content.Shared.Atmos.Monitor;
 using Content.Shared.Atmos.Monitor.Components;
+using Content.Shared._Onyx.ZLevels.Core.Components; // <Onyx-ZLevels>
+using Content.Shared._Onyx.ZLevels.Monitoring; // <Onyx-ZLevels>
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.Pinpointer;
 using Robust.Server.GameObjects;
@@ -31,6 +33,7 @@ public sealed partial class AtmosAlertsComputerSystem : SharedAtmosAlertsCompute
 
     // Note: this data does not need to be saved
     private float _updateTimer = 1.0f;
+    private readonly Dictionary<EntityUid, EntityUid> _selectedMonitorGrids = new(); // <Onyx-ZLevels>
 
     public override void Initialize()
     {
@@ -40,6 +43,8 @@ public sealed partial class AtmosAlertsComputerSystem : SharedAtmosAlertsCompute
         SubscribeLocalEvent<AtmosAlertsComputerComponent, ComponentInit>(OnConsoleInit);
         SubscribeLocalEvent<AtmosAlertsComputerComponent, EntParentChangedMessage>(OnConsoleParentChanged);
         SubscribeLocalEvent<AtmosAlertsComputerComponent, AtmosAlertsComputerFocusChangeMessage>(OnFocusChangedMessage);
+        SubscribeLocalEvent<AtmosAlertsComputerComponent, CEZMonitoringConsoleLevelSelectedMessage>(OnZLevelSelected); // <Onyx-ZLevels>
+        SubscribeLocalEvent<AtmosAlertsComputerComponent, ComponentShutdown>(OnConsoleShutdown); // <Onyx-ZLevels>
 
         // Grid events
         SubscribeLocalEvent<GridSplitEvent>(OnGridSplit);
@@ -60,6 +65,46 @@ public sealed partial class AtmosAlertsComputerSystem : SharedAtmosAlertsCompute
     {
         InitalizeConsole(uid, component);
     }
+
+    // <Onyx-ZLevels>
+    private void OnConsoleShutdown(EntityUid uid, AtmosAlertsComputerComponent component, ComponentShutdown args)
+    {
+        _selectedMonitorGrids.Remove(uid);
+    }
+
+    private void OnZLevelSelected(EntityUid uid, AtmosAlertsComputerComponent component, CEZMonitoringConsoleLevelSelectedMessage args)
+    {
+        var target = GetEntity(args.Grid);
+        var source = Transform(uid).GridUid;
+        if (target is not { } grid || source is not { } sourceGrid || !IsValidMonitoringGrid(sourceGrid, grid))
+            return;
+
+        _selectedMonitorGrids[uid] = grid;
+        component.FocusDevice = null;
+        EnsureComp<NavMapComponent>(grid);
+        var xform = Transform(uid);
+        UpdateUIState(uid,
+            GetAlarmStateData(grid, AtmosAlertsComputerGroup.AirAlarm).ToArray(),
+            GetAlarmStateData(grid, AtmosAlertsComputerGroup.FireAlarm).ToArray(), component, xform);
+    }
+
+    private bool IsValidMonitoringGrid(EntityUid source, EntityUid target)
+    {
+        return source == target ||
+               TryComp<CEZLinkedGridComponent>(source, out var sourceLinked) &&
+               TryComp<CEZLinkedGridComponent>(target, out var targetLinked) &&
+               sourceLinked.LinkNetwork.IsValid() && sourceLinked.LinkNetwork == targetLinked.LinkNetwork;
+    }
+
+    private EntityUid GetMonitoringGrid(EntityUid uid, TransformComponent xform)
+    {
+        var source = xform.GridUid!.Value;
+        if (_selectedMonitorGrids.TryGetValue(uid, out var selected) && IsValidMonitoringGrid(source, selected))
+            return selected;
+        _selectedMonitorGrids.Remove(uid);
+        return source;
+    }
+    // </Onyx-ZLevels>
 
     private void OnFocusChangedMessage(EntityUid uid, AtmosAlertsComputerComponent component, AtmosAlertsComputerFocusChangeMessage args)
     {
@@ -158,16 +203,17 @@ public sealed partial class AtmosAlertsComputerSystem : SharedAtmosAlertsCompute
                     continue;
 
                 // Make a list of alarm state data for all the air and fire alarms on the grid
-                if (!airAlarmEntriesForEachGrid.TryGetValue(entXform.GridUid.Value, out var airAlarmEntries))
+                var monitorGrid = GetMonitoringGrid(ent, entXform); // <Onyx-ZLevels-edited>
+                if (!airAlarmEntriesForEachGrid.TryGetValue(monitorGrid, out var airAlarmEntries))
                 {
-                    airAlarmEntries = GetAlarmStateData(entXform.GridUid.Value, AtmosAlertsComputerGroup.AirAlarm).ToArray();
-                    airAlarmEntriesForEachGrid[entXform.GridUid.Value] = airAlarmEntries;
+                    airAlarmEntries = GetAlarmStateData(monitorGrid, AtmosAlertsComputerGroup.AirAlarm).ToArray();
+                    airAlarmEntriesForEachGrid[monitorGrid] = airAlarmEntries;
                 }
 
-                if (!fireAlarmEntriesForEachGrid.TryGetValue(entXform.GridUid.Value, out var fireAlarmEntries))
+                if (!fireAlarmEntriesForEachGrid.TryGetValue(monitorGrid, out var fireAlarmEntries))
                 {
-                    fireAlarmEntries = GetAlarmStateData(entXform.GridUid.Value, AtmosAlertsComputerGroup.FireAlarm).ToArray();
-                    fireAlarmEntriesForEachGrid[entXform.GridUid.Value] = fireAlarmEntries;
+                    fireAlarmEntries = GetAlarmStateData(monitorGrid, AtmosAlertsComputerGroup.FireAlarm).ToArray();
+                    fireAlarmEntriesForEachGrid[monitorGrid] = fireAlarmEntries;
                 }
 
                 // Determine the highest level of alert for the console (based on non-silenced alarms)
@@ -205,7 +251,7 @@ public sealed partial class AtmosAlertsComputerSystem : SharedAtmosAlertsCompute
         if (!_userInterfaceSystem.IsUiOpen(uid, AtmosAlertsComputerUiKey.Key))
             return;
 
-        var gridUid = xform.GridUid!.Value;
+        var gridUid = GetMonitoringGrid(uid, xform); // <Onyx-ZLevels-edited>
 
         if (!HasComp<MapGridComponent>(gridUid))
             return;

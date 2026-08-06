@@ -1,4 +1,5 @@
 using Content.Shared.Medical.CrewMonitoring;
+using Content.Shared._Onyx.ZLevels.Monitoring; // <Onyx-ZLevels>
 using Robust.Client.UserInterface;
 
 namespace Content.Client.Medical.CrewMonitoring;
@@ -31,7 +32,15 @@ public sealed class CrewMonitoringBoundUserInterface : BoundUserInterface
 
         _menu = this.CreateWindow<CrewMonitoringWindow>();
         _menu.Set(stationName, gridUid);
+        _menu.SendZLevelSelectedMessageAction += SendZLevelSelectedMessage; // <Onyx-ZLevels>
     }
+
+    // <Onyx-ZLevels>
+    private void SendZLevelSelectedMessage(NetEntity? grid, int depth)
+    {
+        SendMessage(new CEZMonitoringConsoleLevelSelectedMessage(grid, depth));
+    }
+    // </Onyx-ZLevels>
 
     protected override void UpdateState(BoundUserInterfaceState state)
     {

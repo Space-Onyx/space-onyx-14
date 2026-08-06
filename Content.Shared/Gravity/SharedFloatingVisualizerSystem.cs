@@ -1,5 +1,6 @@
 using System.Numerics;
 using Robust.Shared.Map;
+using Content.Shared._Onyx.ZLevels.Core.EntitySystems; // <Onyx-ZLevels>
 
 namespace Content.Shared.Gravity;
 
@@ -16,6 +17,7 @@ public abstract partial class SharedFloatingVisualizerSystem : EntitySystem
 
         SubscribeLocalEvent<FloatingVisualsComponent, ComponentStartup>(OnComponentStartup);
         SubscribeLocalEvent<FloatingVisualsComponent, WeightlessnessChangedEvent>(OnWeightlessnessChanged);
+        SubscribeLocalEvent<FloatingVisualsComponent, EntParentChangedMessage>(OnEntParentChanged); // <Onyx-ZLevels>
     }
 
     /// <summary>
@@ -26,6 +28,14 @@ public abstract partial class SharedFloatingVisualizerSystem : EntitySystem
     protected bool CanFloat(Entity<FloatingVisualsComponent> entity)
     {
         entity.Comp.CanFloat = _gravity.IsWeightless(entity.Owner);
+        // <Onyx-ZLevels>
+        if (entity.Comp.CanFloat &&
+            EntityManager.TrySystem<CESharedZLevelsSystem>(out var zLevels) &&
+            zLevels.HasZGravityInfluenceFromBelow(entity.Owner))
+        {
+            entity.Comp.CanFloat = false;
+        }
+        // </Onyx-ZLevels>
         Dirty(entity);
         return entity.Comp.CanFloat;
     }
@@ -47,4 +57,12 @@ public abstract partial class SharedFloatingVisualizerSystem : EntitySystem
         if (args.Weightless)
             FloatAnimation(entity, entity.Comp.Offset, entity.Comp.AnimationKey, entity.Comp.AnimationTime);
     }
+
+    // <Onyx-ZLevels>
+    private void OnEntParentChanged(Entity<FloatingVisualsComponent> entity, ref EntParentChangedMessage args)
+    {
+        if (CanFloat(entity))
+            FloatAnimation(entity, entity.Comp.Offset, entity.Comp.AnimationKey, entity.Comp.AnimationTime);
+    }
+    // </Onyx-ZLevels>
 }

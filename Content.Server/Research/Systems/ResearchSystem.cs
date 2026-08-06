@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Server.Administration.Logs;
 using Content.Server.Radio.EntitySystems;
+using Content.Shared._Onyx.ZLevels.Core.EntitySystems; // <Onyx-ZLevels>
 using Content.Shared.Access.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Research.Components;
@@ -22,6 +23,7 @@ namespace Content.Server.Research.Systems
         [Dependency] private UserInterfaceSystem _uiSystem = default!;
         [Dependency] private SharedPopupSystem _popup = default!;
         [Dependency] private RadioSystem _radio = default!;
+        [Dependency] private CESharedZLevelsSystem _zLevels = default!; // <Onyx-ZLevels>
 
         public override void Initialize()
         {
@@ -79,12 +81,13 @@ namespace Content.Server.Research.Systems
 
         public HashSet<Entity<ResearchServerComponent>> GetServers(EntityUid client)
         {
-            var clientXform = Transform(client);
-            if (clientXform.GridUid is not { } grid)
+            var coverage = _zLevels.GetGridCoverage(client); // <Onyx-ZLevels-edited>
+            if (!coverage.HasGrid)
                 return [];
 
             var set = new HashSet<Entity<ResearchServerComponent>>();
-            _lookup.GetGridEntities(grid, set);
+            foreach (var grid in coverage.GridUids) // <Onyx-ZLevels-edited>
+                _lookup.GetGridEntities(grid, set);
             return set;
         }
 

@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Server.Station.Components;
+using Content.Server._Onyx.ZLevels.Spawning; // <Onyx-ZLevels>
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Station.Components;
 using Robust.Shared.Collections;
@@ -13,6 +14,7 @@ namespace Content.Server.GameTicking.Rules;
 
 public abstract partial class GameRuleSystem<T> where T: IComponent
 {
+    [Dependency] private CEZLevelFloorGridsSystem _zFloors = default!; // <Onyx-ZLevels>
     protected EntityQueryEnumerator<ActiveGameRuleComponent, T, GameRuleComponent> QueryActiveRules()
     {
         return EntityQueryEnumerator<ActiveGameRuleComponent, T, GameRuleComponent>();
@@ -93,7 +95,11 @@ public abstract partial class GameRuleSystem<T> where T: IComponent
         // Weight grid choice by tilecount
         var totalTiles = 0;
         var grids = new List<(Entity<MapGridComponent> Entity, int Count, List<TileRef> Tiles)>();
-        foreach (var possibleTarget in station.Comp.Grids)
+        // <Onyx-ZLevels-edited>
+        var possibleTargets = station.Comp.Grids.ToHashSet();
+        foreach (var stationGrid in station.Comp.Grids)
+            possibleTargets.UnionWith(_zFloors.GetFloorGrids(stationGrid));
+        foreach (var possibleTarget in possibleTargets)
         {
             if (!TryComp<MapGridComponent>(possibleTarget, out var comp))
                 continue;
@@ -108,6 +114,7 @@ public abstract partial class GameRuleSystem<T> where T: IComponent
                 totalTiles += tileCount;
             }
         }
+        // </Onyx-ZLevels-edited>
 
         if (grids.Count == 0)
         {

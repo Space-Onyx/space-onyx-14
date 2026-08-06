@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Server.Audio;
+using Content.Shared._Onyx.ZLevels.Core.Components; // <Onyx-ZLevels>
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Shuttles.Components;
@@ -193,7 +194,7 @@ public sealed partial class ThrusterSystem : EntitySystem
 
         if (!component.Enabled ||
             !TryComp(uid, out TransformComponent? xform) ||
-            !TryComp(xform.GridUid, out ShuttleComponent? shuttleComponent))
+            !TryComp(ResolveZLinkedRoot(xform.GridUid), out ShuttleComponent? shuttleComponent)) // <Onyx-ZLevels-edited>
         {
             return;
         }
@@ -224,7 +225,7 @@ public sealed partial class ThrusterSystem : EntitySystem
 
         if (args.ParentChanged)
         {
-            oldShuttleComponent = Comp<ShuttleComponent>(args.OldPosition.EntityId);
+            oldShuttleComponent = Comp<ShuttleComponent>(ResolveZLinkedRoot(args.OldPosition.EntityId) ?? args.OldPosition.EntityId); // <Onyx-ZLevels-edited>
 
             // If no parent change doesn't matter for angular.
             if (component.Type == ThrusterType.Angular)
@@ -314,7 +315,7 @@ public sealed partial class ThrusterSystem : EntitySystem
             return;
         }
 
-        if (!TryComp(xform.GridUid, out ShuttleComponent? shuttleComponent))
+        if (!TryComp(ResolveZLinkedRoot(xform.GridUid), out ShuttleComponent? shuttleComponent)) // <Onyx-ZLevels-edited>
             return;
 
         component.IsOn = true;
@@ -410,6 +411,7 @@ public sealed partial class ThrusterSystem : EntitySystem
             return;
         }
 
+        gridId = ResolveZLinkedRoot(gridId); // <Onyx-ZLevels>
         if (!TryComp(gridId, out ShuttleComponent? shuttleComponent))
             return;
 
@@ -634,4 +636,14 @@ public sealed partial class ThrusterSystem : EntitySystem
     {
         return (int)Math.Log2((int)flag);
     }
+
+    // <Onyx-ZLevels>
+    private EntityUid? ResolveZLinkedRoot(EntityUid? gridUid)
+    {
+        if (gridUid == null || !TryComp<CEZLinkedGridComponent>(gridUid.Value, out var linked) || linked.Depth == 0)
+            return gridUid;
+
+        return linked.PeerGrids.TryGetValue(0, out var root) ? root : gridUid;
+    }
+    // </Onyx-ZLevels>
 }

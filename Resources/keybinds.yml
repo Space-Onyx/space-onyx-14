@@ -716,3 +716,10 @@ binds:
   key: NumpadNum1
   mod1: Control
 # </Onyx-Targeting>
+# <Onyx-ZLevels-edited>
+- function: CEToggleShootDownZLevel
+  type: State
+  key: Z
+  mod1: Shift
+  mod2: Control
+# </Onyx-ZLevels-edited>

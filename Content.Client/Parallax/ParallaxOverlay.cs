@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Client.Parallax.Managers;
+using Content.Client.Viewport; // <Onyx-ZLevels>
 using Content.Shared.CCVar;
 using Content.Shared.Parallax.Biomes;
 using Robust.Client.GameObjects;
@@ -21,6 +22,7 @@ public sealed partial class ParallaxOverlay : Overlay
     [Dependency] private IParallaxManager _manager = default!;
     private readonly SharedMapSystem _mapSystem;
     private readonly ParallaxSystem _parallax;
+    public bool ZPassDrawEnabled = true; // <Onyx-ZLevels>
 
     public override OverlaySpace Space => OverlaySpace.WorldSpaceBelowWorld;
 
@@ -34,10 +36,18 @@ public sealed partial class ParallaxOverlay : Overlay
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
+        // <Onyx-ZLevels-edited>
         if (args.MapId == MapId.Nullspace || _entManager.HasComponent<BiomeComponent>(_mapSystem.GetMapOrInvalid(args.MapId)))
             return false;
 
+        if (!ZPassDrawEnabled)
+            return false;
+
+        if (args.Viewport.Eye is ScalingViewport.ZEye zEye)
+            return zEye.DrawParallax;
+
         return true;
+        // </Onyx-ZLevels-edited>
     }
 
     protected override void Draw(in OverlayDrawArgs args)

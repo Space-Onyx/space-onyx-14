@@ -19,6 +19,7 @@ using JetBrains.Annotations;
 using Content.Shared.Atmos;
 using System.Linq;
 using Robust.Shared.Utility;
+using Content.Shared._Onyx.ZLevels.Core.Components; // <Onyx-ZLevels>
 
 namespace Content.Client.Pinpointer.UI;
 
@@ -34,12 +35,17 @@ public partial class NavMapControl : MapGridControl
 
     public EntityUid? Owner;
     public EntityUid? MapUid;
+    // <Onyx-ZLevels>
+    public bool ZLevelSelectorEnabled;
+    public bool ZFilterTrackedBlipsToDisplayedMap;
+    // </Onyx-ZLevels>
 
     protected override bool Draggable => true;
 
     // Actions
     public event Action<NetEntity?>? TrackedEntitySelectedAction;
     public event Action<DrawingHandleScreen>? PostWallDrawingAction;
+    public event Action<EntityUid, int>? ZLevelSelectedAction; // <Onyx-ZLevels>
 
     // Tracked data
     public Dictionary<EntityCoordinates, (bool Visible, Color Color)> TrackedCoordinates = new();
@@ -113,6 +119,12 @@ public partial class NavMapControl : MapGridControl
         Pressed = true,
     };
 
+    // <Onyx-ZLevels>
+    private readonly PanelContainer _zLevelSelectorPanel;
+    private readonly BoxContainer _zLevelSelectorRow;
+    private EntityUid? _zLevelSelectorRoot;
+    // </Onyx-ZLevels>
+
     public NavMapControl() : base(MinDisplayedRange, MaxDisplayedRange, DefaultDisplayedRange)
     {
         IoCManager.InjectDependencies(this);
@@ -147,6 +159,28 @@ public partial class NavMapControl : MapGridControl
             }
         };
 
+        // <Onyx-ZLevels>
+        _zLevelSelectorRow = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            HorizontalAlignment = HAlignment.Center,
+            HorizontalExpand = true,
+            Margin = new Thickness(4f, 2f),
+        };
+        _zLevelSelectorPanel = new PanelContainer
+        {
+            PanelOverride = new StyleBoxFlat
+            {
+                BackgroundColor = StyleNano.ButtonColorContext.WithAlpha(1f),
+                BorderColor = StyleNano.PanelDark,
+            },
+            HorizontalExpand = true,
+            SetWidth = 650f,
+            Visible = false,
+            Children = { _zLevelSelectorRow },
+        };
+        // </Onyx-ZLevels>
+
         var topContainer = new BoxContainer()
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
@@ -154,6 +188,7 @@ public partial class NavMapControl : MapGridControl
             Children =
             {
                 topPanel,
+                _zLevelSelectorPanel, // <Onyx-ZLevels>
                 new Control()
                 {
                     Name = "DrawingControl",
@@ -183,7 +218,64 @@ public partial class NavMapControl : MapGridControl
         EntManager.TryGetComponent(MapUid, out _fixtures);
 
         UpdateNavMap();
+        RefreshZLevelSelector(); // <Onyx-ZLevels>
     }
+
+    // <Onyx-ZLevels>
+    public void SetZLevelSelectorRoot(EntityUid? gridUid)
+    {
+        _zLevelSelectorRoot = gridUid;
+        RefreshZLevelSelector();
+    }
+    // </Onyx-ZLevels>
+
+    // <Onyx-ZLevels>
+    private void RefreshZLevelSelector()
+    {
+        _zLevelSelectorRow.RemoveAllChildren();
+        if (!ZLevelSelectorEnabled || _zLevelSelectorRoot == null ||
+            !EntManager.TryGetComponent<CEZLinkedGridComponent>(_zLevelSelectorRoot.Value, out var linked))
+        {
+            _zLevelSelectorPanel.Visible = false;
+            return;
+        }
+
+        var levels = new SortedDictionary<int, EntityUid>(linked.PeerGrids)
+        {
+            [linked.Depth] = _zLevelSelectorRoot.Value,
+        };
+        if (levels.Count <= 1)
+        {
+            _zLevelSelectorPanel.Visible = false;
+            return;
+        }
+
+        _zLevelSelectorPanel.Visible = true;
+        _zLevelSelectorRow.AddChild(new Label
+        {
+            Text = Loc.GetString("pinpointer-z-label"),
+            VerticalAlignment = VAlignment.Center,
+            Margin = new Thickness(0f, 0f, 4f, 0f),
+        });
+        foreach (var (depth, gridUid) in levels)
+        {
+            var button = new Button
+            {
+                Text = depth.ToString(),
+                Disabled = MapUid == gridUid,
+                Margin = new Thickness(2f, 0f),
+                MinSize = new Vector2(28f, 0f),
+            };
+            button.OnPressed += _ =>
+            {
+                MapUid = gridUid;
+                ForceNavMapUpdate();
+                ZLevelSelectedAction?.Invoke(gridUid, depth);
+            };
+            _zLevelSelectorRow.AddChild(button);
+        }
+    }
+    // </Onyx-ZLevels>
 
     public void CenterToCoordinates(EntityCoordinates coordinates)
     {
@@ -232,7 +324,12 @@ public partial class NavMapControl : MapGridControl
                 if (!blip.Selectable)
                     continue;
 
-                var currentDistance = (_transformSystem.ToMapCoordinates(blip.Coordinates).Position - worldPosition).Length();
+                // <Onyx-ZLevels-edited>
+                var blipMapPos = _transformSystem.ToMapCoordinates(blip.Coordinates);
+                if (ZFilterTrackedBlipsToDisplayedMap && blipMapPos.MapId != Xform.MapID)
+                    continue;
+                var currentDistance = (blipMapPos.Position - worldPosition).Length();
+                // </Onyx-ZLevels-edited>
 
                 if (closestDistance < currentDistance || currentDistance * MinimapScale > MaxSelectableDistance)
                     continue;

@@ -119,21 +119,40 @@ public sealed partial class ShuttleConsoleSystem
 
         var shuttleUid = Transform(consoleUid.Value).GridUid;
 
-        if (!TryComp(shuttleUid, out ShuttleComponent? shuttleComp))
+        if (shuttleUid == null)
+            return;
+
+        var selectedShuttleUid = shuttleUid.Value; // <Onyx-ZLevels>
+        var actualShuttleUid = _shuttle.ResolveFTLShuttle(selectedShuttleUid); // <Onyx-ZLevels>
+
+        if (!TryComp(actualShuttleUid, out ShuttleComponent? shuttleComp))
             return;
 
         if (shuttleComp.Enabled == false)
             return;
 
         // Check shuttle can even FTL
-        if (!_shuttle.CanFTL(shuttleUid.Value, out var reason))
+        if (!_shuttle.CanFTL(actualShuttleUid, out var reason)) // <Onyx-ZLevels-edited>
         {
             _popup.PopupEntity(reason, ent, user, PopupType.MediumCaution); // <Onyx-FTLDrive-edited>
             return;
         }
 
         // Check shuttle can FTL to this target.
-        if (!_shuttle.CanFTLTo(shuttleUid.Value, targetMap, ent))
+        if (_ztravel.IsTraversing(actualShuttleUid)) // <Onyx-ZLevels>
+            return;
+
+        if (!TryComp(actualShuttleUid, out PhysicsComponent? shuttlePhysics))
+            return;
+
+        // <Onyx-ZLevels-edited>
+        var adjustedCoordinates = targetCoordinates.Offset(targetAngle.RotateVec(-shuttlePhysics.LocalCenter));
+        var actualTargetCoordinates = _shuttle.ResolveFTLTargetCoordinates(selectedShuttleUid, adjustedCoordinates);
+        var actualTargetMap = _transform.GetMapId(actualTargetCoordinates);
+        var selectedMap = Transform(selectedShuttleUid).MapID;
+        var allowResolvedSameMap = selectedShuttleUid != actualShuttleUid && selectedMap != targetMap;
+
+        if (!_shuttle.CanFTLTo(actualShuttleUid, actualTargetMap, ent))
         {
             return;
         }
@@ -141,25 +160,18 @@ public sealed partial class ShuttleConsoleSystem
         List<ShuttleExclusionObject>? exclusions = null;
         GetExclusions(ref exclusions);
 
-        if (!_shuttle.FTLFree(shuttleUid.Value, targetCoordinates, targetAngle, exclusions))
+        if (!_shuttle.FTLFree(actualShuttleUid, actualTargetCoordinates, targetAngle, exclusions, allowResolvedSameMap))
         {
             return;
         }
-
-        if (!TryComp(shuttleUid.Value, out PhysicsComponent? shuttlePhysics))
-        {
-            return;
-        }
-
-        // Client sends the "adjusted" coordinates and we adjust it back to get the actual transform coordinates.
-        var adjustedCoordinates = targetCoordinates.Offset(targetAngle.RotateVec(-shuttlePhysics.LocalCenter));
+        // </Onyx-ZLevels-edited>
 
         var tagEv = new FTLTagEvent();
-        RaiseLocalEvent(shuttleUid.Value, ref tagEv);
+        RaiseLocalEvent(actualShuttleUid, ref tagEv); // <Onyx-ZLevels-edited>
 
         var ev = new ShuttleConsoleFTLTravelStartEvent(ent.Owner);
         RaiseLocalEvent(ref ev);
 
-        _shuttle.FTLToCoordinates(shuttleUid.Value, shuttleComp, adjustedCoordinates, targetAngle);
+        _shuttle.FTLToCoordinates(actualShuttleUid, shuttleComp, actualTargetCoordinates, targetAngle); // <Onyx-ZLevels-edited>
     }
 }

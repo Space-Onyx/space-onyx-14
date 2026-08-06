@@ -2,6 +2,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
 using Content.Server.Shuttles.Components;
+using Content.Server._Onyx.ZLevels.Shuttles; // <Onyx-ZLevels>
+using Content.Shared._Onyx.ZLevels.Core.Components; // <Onyx-ZLevels>
 using Content.Server.Shuttles.Events;
 using Content.Server.Station.Events;
 using Content.Shared.Body;
@@ -91,6 +93,10 @@ public sealed partial class ShuttleSystem
 
     private void OnFtlShutdown(Entity<FTLComponent> ent, ref ComponentShutdown args)
     {
+        // <Onyx-ZLevels>
+        ent.Comp.TravelStream = _audio.Stop(ent.Comp.TravelStream);
+        StopPeerFTLTravelAudio(ent.Comp);
+        // </Onyx-ZLevels>
         QueueDel(ent.Comp.VisualizerEntity);
         ent.Comp.VisualizerEntity = null;
         ClearActiveFTLDrive(ent.Owner); // <Onyx-FTLDrive>
@@ -114,19 +120,21 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Ensures the FTL map exists and returns it.
     /// </summary>
-    private EntityUid EnsureFTLMap()
+    private EntityUid EnsureFTLMap(int depth = 0) // <Onyx-ZLevels-edited>
     {
         var query = AllEntityQuery<FTLMapComponent>();
 
-        while (query.MoveNext(out var uid, out _))
+        while (query.MoveNext(out var uid, out var comp))
         {
-            return uid;
+            if (comp.Depth == depth) // <Onyx-ZLevels-edited>
+                return uid;
         }
 
         var mapUid = _mapSystem.CreateMap(out var mapId);
         var ftlMap = AddComp<FTLMapComponent>(mapUid);
+        ftlMap.Depth = depth; // <Onyx-ZLevels>
 
-        _metadata.SetEntityName(mapUid, "FTL");
+        _metadata.SetEntityName(mapUid, depth == 0 ? "FTL" : $"FTL [{depth}]"); // <Onyx-ZLevels-edited>
         Log.Debug($"Setup hyperspace map at {mapUid}");
         DebugTools.Assert(!_mapSystem.IsPaused(mapId));
         var parallax = EnsureComp<ParallaxComponent>(mapUid);
@@ -134,6 +142,77 @@ public sealed partial class ShuttleSystem
 
         return mapUid;
     }
+
+    // <Onyx-ZLevels>
+    public EntityUid ResolveFTLShuttle(EntityUid shuttleUid)
+    {
+        if (TryComp<CEZLinkedGridComponent>(shuttleUid, out var linked) &&
+            linked.Depth != 0 &&
+            linked.PeerGrids.TryGetValue(0, out var root) &&
+            HasComp<ShuttleComponent>(root))
+            return root;
+
+        return shuttleUid;
+    }
+
+    public EntityCoordinates ResolveFTLTargetCoordinates(EntityUid shuttleUid, EntityCoordinates target)
+    {
+        if (!TryComp<CEZLinkedGridComponent>(shuttleUid, out var linked) || linked.Depth == 0)
+            return target;
+
+        var mapCoords = _transform.ToMapCoordinates(target);
+        var mapUid = _mapSystem.GetMapOrInvalid(mapCoords.MapId);
+        return mapUid.IsValid() && _zLevels.TryMapOffset(mapUid, -linked.Depth, out var rootMap)
+            ? new EntityCoordinates(rootMap.Value, mapCoords.Position)
+            : target;
+    }
+
+    private EntityUid ResolvePeerArrivalMap(EntityUid rootMap, int rootDepth, int peerDepth)
+    {
+        return _zLevels.TryMapOffset(rootMap, peerDepth - rootDepth, out var peerMap)
+            ? peerMap.Value
+            : rootMap;
+    }
+
+    private void PlayFTLSoundForPeers(EntityUid root, SoundSpecifier? sound, List<EntityUid>? streams = null)
+    {
+        if (sound == null || !TryComp<CEZLinkedGridComponent>(root, out var linked))
+            return;
+
+        foreach (var peer in linked.PeerGrids.Values)
+        {
+            if (!Exists(peer))
+                continue;
+
+            var audio = _audio.PlayPvs(sound, peer);
+            if (audio != null)
+                _audio.SetMapAudio(audio);
+            if (audio?.Entity is { } stream)
+                streams?.Add(stream);
+        }
+    }
+
+    private void StopPeerFTLTravelAudio(FTLComponent component)
+    {
+        if (component.ZPeerTravelStreams == null)
+            return;
+
+        foreach (var stream in component.ZPeerTravelStreams)
+            _audio.Stop(stream);
+        component.ZPeerTravelStreams.Clear();
+    }
+
+    private void SetFTLCueAudio(EntityUid root, Entity<AudioComponent>? audio)
+    {
+        if (audio == null)
+            return;
+
+        if (HasComp<CEZLinkedGridComponent>(root))
+            _audio.SetMapAudio(audio);
+        else
+            _audio.SetGridAudio(audio);
+    }
+    // </Onyx-ZLevels>
 
     public StartEndTime GetStateTime(FTLComponent component)
     {
@@ -215,6 +294,12 @@ public sealed partial class ShuttleSystem
     /// </summary>
     public bool CanFTL(EntityUid shuttleUid, [NotNullWhen(false)] out string? reason)
     {
+        shuttleUid = ResolveFTLShuttle(shuttleUid); // <Onyx-ZLevels>
+        if (HasComp<CEZShuttleTraversalComponent>(shuttleUid))
+        {
+            reason = Loc.GetString("shuttle-console-in-ftl");
+            return false;
+        }
         // Currently in FTL already
         if (HasComp<FTLComponent>(shuttleUid))
         {
@@ -269,6 +354,12 @@ public sealed partial class ShuttleSystem
         float? hyperspaceTime = null,
         string? priorityTag = null)
     {
+        coordinates = ResolveFTLTargetCoordinates(shuttleUid, coordinates); // <Onyx-ZLevels>
+        shuttleUid = ResolveFTLShuttle(shuttleUid); // <Onyx-ZLevels>
+        if (!TryComp<ShuttleComponent>(shuttleUid, out var rootShuttle))
+            return;
+        component = rootShuttle;
+
         if (!TrySetupFTLDrive(shuttleUid, component, out var hyperspace)) // <Onyx-FTLDrive-edited>
             return;
 
@@ -303,6 +394,11 @@ public sealed partial class ShuttleSystem
         float? hyperspaceTime = null,
         string? priorityTag = null)
     {
+        shuttleUid = ResolveFTLShuttle(shuttleUid); // <Onyx-ZLevels>
+        if (!TryComp<ShuttleComponent>(shuttleUid, out var rootShuttle))
+            return;
+        component = rootShuttle;
+
         if (!TrySetupFTLDrive(shuttleUid, component, out var hyperspace)) // <Onyx-FTLDrive-edited>
             return;
 
@@ -355,8 +451,16 @@ public sealed partial class ShuttleSystem
         component = AddComp<FTLComponent>(uid);
         component.State = FTLState.Starting;
         var audio = _audio.PlayPvs(_startupSound, uid);
-        _audio.SetGridAudio(audio);
+        SetFTLCueAudio(uid, audio); // <Onyx-ZLevels-edited>
         component.StartupStream = audio?.Entity;
+        component.ZPeerTravelStreams = new List<EntityUid>(); // <Onyx-ZLevels>
+        PlayFTLSoundForPeers(uid, _startupSound);
+
+        if (TryComp<CEZLinkedGridComponent>(uid, out var linked))
+        {
+            foreach (var depth in linked.PeerGrids.Keys)
+                EnsureFTLMap(depth);
+        }
 
         // Make sure the map is setup before we leave to avoid pop-in (e.g. parallax).
         EnsureFTLMap();
@@ -408,6 +512,31 @@ public sealed partial class ShuttleSystem
 
         // Reset rotation so they always face the same direction.
         _transform.SetLocalRotation(entity, Angle.Zero, xform);
+
+        // <Onyx-ZLevels>
+        if (TryComp<CEZLinkedGridComponent>(uid, out var linked))
+        {
+            foreach (var (depth, peer) in linked.PeerGrids)
+            {
+                if (!TryComp(peer, out TransformComponent? peerXform) || peerXform.MapUid == null)
+                    continue;
+
+                var oldPeerMap = peerXform.MapUid;
+                var oldPeerMatrix = _transform.GetWorldMatrix(peerXform);
+                DoTheDinosaur(peerXform);
+                _transform.SetCoordinates(peer, peerXform,
+                    new EntityCoordinates(EnsureFTLMap(depth), ftlStart.Position), rotation: Angle.Zero);
+                LeaveNoFTLBehind((peer, peerXform), oldPeerMatrix, oldPeerMap);
+
+                if (_physicsQuery.TryGetComponent(peer, out var peerBody))
+                {
+                    Enable(peer, component: peerBody);
+                    _physics.SetLinearVelocity(peer, new Vector2(0f, 20f), body: peerBody);
+                    _physics.SetAngularVelocity(peer, 0f, body: peerBody);
+                }
+            }
+        }
+        // </Onyx-ZLevels>
         _index += width + Buffer;
         var arrivalTime = GetFTLArrivalTime(uid); // <Onyx-FTLDrive>
         comp.StateTime = StartEndTime.FromCurTime(_gameTiming, Math.Max(0f, comp.TravelTime - arrivalTime)); // <Onyx-FTLDrive-edited>
@@ -425,7 +554,10 @@ public sealed partial class ShuttleSystem
         // Audio
         var wowdio = _audio.PlayPvs(comp.TravelSound, uid);
         comp.TravelStream = wowdio?.Entity;
-        _audio.SetGridAudio(wowdio);
+        SetFTLCueAudio(uid, wowdio); // <Onyx-ZLevels-edited>
+        comp.ZPeerTravelStreams ??= new List<EntityUid>();
+        comp.ZPeerTravelStreams.Clear();
+        PlayFTLSoundForPeers(uid, comp.TravelSound, comp.ZPeerTravelStreams);
     }
 
     /// <summary>
@@ -519,6 +651,34 @@ public sealed partial class ShuttleSystem
             _transform.SetCoordinates(uid, xform, target, rotation: entity.Comp1.TargetAngle);
         }
 
+        // <Onyx-ZLevels>
+        if (xform.MapUid is { } arrivalMap && TryComp<CEZLinkedGridComponent>(uid, out var linked))
+        {
+            var arrivalPosition = _transform.GetWorldPosition(xform);
+            var arrivalRotation = _transform.GetWorldRotation(xform);
+            foreach (var (depth, peer) in linked.PeerGrids)
+            {
+                if (!TryComp(peer, out TransformComponent? peerXform))
+                    continue;
+
+                DoTheDinosaur(peerXform);
+                _transform.SetCoordinates(peer, peerXform,
+                    new EntityCoordinates(ResolvePeerArrivalMap(arrivalMap, linked.Depth, depth), arrivalPosition),
+                    rotation: arrivalRotation);
+
+                if (_physicsQuery.TryGetComponent(peer, out var peerBody))
+                {
+                    _physics.SetLinearVelocity(peer, Vector2.Zero, body: peerBody);
+                    _physics.SetAngularVelocity(peer, 0f, body: peerBody);
+                    if (_mapGridQuery.HasComp(Transform(peer).MapUid))
+                        Disable(peer, component: peerBody);
+                    else
+                        Enable(peer, component: peerBody);
+                }
+            }
+        }
+        // </Onyx-ZLevels>
+
         if (_physicsQuery.TryGetComponent(uid, out body))
         {
             _physics.SetLinearVelocity(uid, Vector2.Zero, body: body);
@@ -539,8 +699,10 @@ public sealed partial class ShuttleSystem
         _thruster.DisableLinearThrusters(entity.Comp2);
 
         comp.TravelStream = _audio.Stop(comp.TravelStream);
+        StopPeerFTLTravelAudio(comp); // <Onyx-ZLevels>
         var audio = _audio.PlayPvs(_arrivalSound, uid);
-        _audio.SetGridAudio(audio);
+        SetFTLCueAudio(uid, audio); // <Onyx-ZLevels-edited>
+        PlayFTLSoundForPeers(uid, _arrivalSound);
 
         if (TryComp<FTLDestinationComponent>(uid, out var dest))
         {

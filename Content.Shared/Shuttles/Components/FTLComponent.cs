@@ -61,4 +61,9 @@ public sealed partial class FTLComponent : Component
 
     [DataField]
     public EntityUid? TravelStream;
+
+    // <Onyx-ZLevels>
+    [DataField]
+    public List<EntityUid>? ZPeerTravelStreams;
+    // </Onyx-ZLevels>
 }

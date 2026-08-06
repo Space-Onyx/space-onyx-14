@@ -1,0 +1,170 @@
+- type: entity
+  id: CEZLevelsStairsWoodenBase
+  abstract: true
+  name: wooden stairs
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Architecture/Ladders/wooden.rsi
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Wood
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger { damage: 20 }
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank1: { min: 1, max: 2 }
+      - !type:PlaySoundBehavior
+        sound: { collection: WoodDestroy }
+      - !type:DoActsBehavior
+        acts: [Destruction]
+
+- type: entity
+  parent: [CEZLevelStairsBase, CEZLevelsStairsWoodenBase]
+  id: CEZLevelStairsWooden
+  components:
+  - type: Construction
+    graph: CEZLevelStairsWooden
+    node: CEZLevelStairsWooden
+
+- type: entity
+  parent: [CEZLevelStairsCornerBase, CEZLevelsStairsWoodenBase]
+  id: CEZLevelStairsWoodenCorner
+  suffix: Corner
+  components:
+  - type: Construction
+    graph: CEZLevelStairsWooden
+    node: CEZLevelStairsWoodenCorner
+
+- type: entity
+  id: CEZLevelsStairsStoneBase
+  abstract: true
+  name: stone stairs
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Architecture/Ladders/stone.rsi
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Rock
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger { damage: 30 }
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params: { volume: -6 }
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1: { min: 1, max: 2 }
+      - !type:DoActsBehavior
+        acts: [Destruction]
+
+- type: entity
+  parent: [CEZLevelStairsBase, CEZLevelsStairsStoneBase]
+  id: CEZLevelStairsStone
+  components:
+  - type: Construction
+    graph: CEZLevelStairsStone
+    node: CEZLevelStairsStone
+
+- type: entity
+  parent: [CEZLevelStairsCornerBase, CEZLevelsStairsStoneBase]
+  id: CEZLevelStairsStoneCorner
+  suffix: Corner
+  components:
+  - type: Construction
+    graph: CEZLevelStairsStone
+    node: CEZLevelStairsStoneCorner
+
+- type: entity
+  parent: [CEZLevelStairsCornerInnerBase, CEZLevelsStairsStoneBase]
+  id: CEZLevelStairsStoneCornerInner
+  suffix: Inner Corner
+  components:
+  - type: Construction
+    graph: CEZLevelStairsStone
+    node: CEZLevelStairsStoneCornerInner
+
+- type: entity
+  id: CEZLevelsStairsRoofBase
+  name: roof tile
+  description: Roof tiles, for covering building roofs.
+  abstract: true
+  components:
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Rock
+
+- type: entity
+  parent: [CEZLevelStairsBase, CEZLevelsStairsRoofBase]
+  id: CEZLevelsStairsRoofRed
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Architecture/Ladders/roof_red.rsi
+
+- type: entity
+  parent: [CEZLevelStairsCornerBase, CEZLevelsStairsRoofBase]
+  id: CEZLevelsStairsRoofRedCorner
+  suffix: Corner
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Architecture/Ladders/roof_red.rsi
+
+- type: entity
+  parent: [CEZLevelStairsCornerInnerBase, CEZLevelsStairsRoofBase]
+  id: CEZLevelsStairsRoofRedCornerInner
+  suffix: Inner Corner
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Architecture/Ladders/roof_red.rsi
+
+- type: entity
+  parent: [CEZLevelStairsBase, CEZLevelsStairsRoofBase]
+  id: CEZLevelsStairsRoofGreen
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Architecture/Ladders/roof_green.rsi
+
+- type: entity
+  parent: [CEZLevelStairsCornerBase, CEZLevelsStairsRoofBase]
+  id: CEZLevelsStairsRoofGreenCorner
+  suffix: Corner
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Architecture/Ladders/roof_green.rsi
+
+- type: entity
+  parent: [CEZLevelStairsCornerInnerBase, CEZLevelsStairsRoofBase]
+  id: CEZLevelsStairsRoofGreenCornerInner
+  suffix: Inner Corner
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Architecture/Ladders/roof_green.rsi
+
+- type: entity
+  id: CEZLevelsStairsDirtCliffBase
+  abstract: true
+  name: dirt cliff
+  description: A rough dirt cliff face that can be climbed between floors.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Architecture/Ladders/dirt_cliff.rsi
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Rock
+
+- type: entity
+  parent: [CEZLevelStairsBase, CEZLevelsStairsDirtCliffBase]
+  id: CEZLevelStairsDirtCliff
+
+- type: entity
+  parent: [CEZLevelStairsCornerBase, CEZLevelsStairsDirtCliffBase]
+  id: CEZLevelStairsDirtCliffCorner
+  suffix: Corner
+
+- type: entity
+  parent: [CEZLevelStairsCornerInnerBase, CEZLevelsStairsDirtCliffBase]
+  id: CEZLevelStairsDirtCliffCornerInner
+  suffix: Inner Corner

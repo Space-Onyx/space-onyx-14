@@ -64,6 +64,7 @@ public sealed partial class AtmosphereSystem : SharedAtmosphereSystem
         InitializeCVars();
         InitializeGridAtmosphere();
         InitializeMap();
+        InitializeZAtmos(); // <Onyx-ZLevels>
 
         SubscribeLocalEvent<TileChangedEvent>(OnTileChanged);
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
@@ -84,6 +85,7 @@ public sealed partial class AtmosphereSystem : SharedAtmosphereSystem
         foreach (var change in ev.Changes)
         {
             InvalidateTile(ev.Entity.Owner, change.GridIndices);
+            InvalidateZAtmosPeers(ev.Entity, change.GridIndices); // <Onyx-ZLevels>
         }
     }
 

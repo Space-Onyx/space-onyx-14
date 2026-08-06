@@ -1,4 +1,5 @@
 using Content.Server.Antag;
+using Content.Server._Onyx.ZLevels.Spawning; // <Onyx-ZLevels>
 using Content.Server.StationEvents.Components;
 using Content.Shared.GameTicking.Components;
 using Robust.Shared.Map;
@@ -13,6 +14,7 @@ namespace Content.Server.StationEvents.Events;
 public sealed partial class SpaceSpawnRule : StationEventSystem<SpaceSpawnRuleComponent>
 {
     [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private CEZLevelFloorGridsSystem _zFloors = default!; // <Onyx-ZLevels>
 
     public override void Initialize()
     {
@@ -33,6 +35,8 @@ public sealed partial class SpaceSpawnRule : StationEventSystem<SpaceSpawnRuleCo
 
         // find a station grid
         var gridUid = StationSystem.GetLargestGrid(station.Value);
+        if (gridUid != null)
+            gridUid = _zFloors.GetRandomFloorGrid(gridUid.Value); // <Onyx-ZLevels>
         if (gridUid == null || !TryComp<MapGridComponent>(gridUid, out var grid))
         {
             Sawmill.Warning("Chosen station has no grids, cannot pick location for {ToPrettyString(uid):rule}");

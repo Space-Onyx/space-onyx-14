@@ -70,7 +70,13 @@ public sealed partial class AtmosPipeAppearanceSystem : SharedAtmosPipeAppearanc
             if (pipeIndex >= numberOfPipeLayers)
                 continue;
 
-            var otherTile = _map.TileIndicesFor(xform.GridUid.Value, grid, Transform(neighbour).Coordinates);
+            // <Onyx-ZLevels>
+            var neighbourXform = Transform(neighbour);
+            if (neighbourXform.MapID != xform.MapID)
+                continue;
+            // </Onyx-ZLevels>
+
+            var otherTile = _map.TileIndicesFor(xform.GridUid.Value, grid, neighbourXform.Coordinates); // <Onyx-ZLevels-edited>
             var pipeLayerDirections = connectedDirections[pipeIndex];
 
             pipeLayerDirections |= (otherTile - tile) switch

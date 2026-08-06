@@ -17,7 +17,7 @@ public sealed partial class GridGravityDefaultsSystem : EntitySystem
         SubscribeLocalEvent<GridGravityDefaultsComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<GridGravityDefaultsComponent, ComponentShutdown>(OnComponentShutdown);
         SubscribeLocalEvent<GridInitializeEvent>(OnGridInit);
-        SubscribeLocalEvent<MapGridComponent, EntParentChangedMessage>(OnGridParentChanged);
+        SubscribeLocalEvent<TransformComponent, MapUidChangedEvent>(OnGridMapChanged);
     }
 
     private void OnMapInit(Entity<GridGravityDefaultsComponent> ent, ref MapInitEvent args)
@@ -47,8 +47,11 @@ public sealed partial class GridGravityDefaultsSystem : EntitySystem
         RefreshGrid(args.EntityUid);
     }
 
-    private void OnGridParentChanged(Entity<MapGridComponent> ent, ref EntParentChangedMessage args)
+    private void OnGridMapChanged(Entity<TransformComponent> ent, ref MapUidChangedEvent args)
     {
+        if (!HasComp<MapGridComponent>(ent))
+            return;
+
         RefreshGrid(ent.Owner);
     }
 

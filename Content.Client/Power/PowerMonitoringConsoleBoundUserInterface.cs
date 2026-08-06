@@ -1,4 +1,5 @@
 using Content.Shared.Power;
+using Content.Shared._Onyx.ZLevels.Monitoring; // <Onyx-ZLevels>
 using Robust.Client.UserInterface;
 
 namespace Content.Client.Power;
@@ -17,7 +18,15 @@ public sealed class PowerMonitoringConsoleBoundUserInterface : BoundUserInterfac
         _menu = this.CreateWindow<PowerMonitoringWindow>();
         _menu.SetEntity(Owner);
         _menu.SendPowerMonitoringConsoleMessageAction += SendPowerMonitoringConsoleMessage;
+        _menu.SendZLevelSelectedMessageAction += SendZLevelSelectedMessage; // <Onyx-ZLevels>
     }
+
+    // <Onyx-ZLevels>
+    private void SendZLevelSelectedMessage(NetEntity? grid, int depth)
+    {
+        SendMessage(new CEZMonitoringConsoleLevelSelectedMessage(grid, depth));
+    }
+    // </Onyx-ZLevels>
 
     protected override void UpdateState(BoundUserInterfaceState state)
     {

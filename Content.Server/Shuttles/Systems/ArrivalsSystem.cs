@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Server._Onyx.ZLevels.Spawning; // <Onyx-ZLevels>
 using System.Numerics;
 using Content.Server.Administration;
 using Content.Server.Antag;
@@ -61,6 +62,7 @@ public sealed partial class ArrivalsSystem : EntitySystem
     [Dependency] private ShuttleSystem _shuttles = default!;
     [Dependency] private StationSpawningSystem _stationSpawning = default!;
     [Dependency] private StationSystem _station = default!;
+    [Dependency] private CEZLevelFloorGridsSystem _floorGrids = default!; // <Onyx-ZLevels>
     [Dependency] private AntagSelectionSystem _antag = default!;
 
     [Dependency] private EntityQuery<PendingClockInComponent> _pendingQuery = default!;
@@ -220,7 +222,7 @@ public sealed partial class ArrivalsSystem : EntitySystem
 
             if (component.FirstRun)
             {
-                var station = _station.GetLargestGrid(component.Station);
+                var station = _floorGrids.GetStationDefaultGrid(component.Station); // <Onyx-ZLevels-edited>
                 sourceMap = station == null ? null : Transform(station.Value)?.MapUid;
                 arrivalsDelay += RoundStartFTLDuration;
                 component.FirstRun = false;
@@ -505,7 +507,8 @@ public sealed partial class ArrivalsSystem : EntitySystem
                 // Go to station
                 else
                 {
-                    var targetGrid = _station.GetLargestGrid(comp.Station);
+                    var targetGrid = _floorGrids.FindStationFloorWithPriorityDock(comp.Station, "DockArrivals")
+                        ?? _floorGrids.GetStationDefaultGrid(comp.Station); // <Onyx-ZLevels-edited>
 
                     if (targetGrid != null)
                         _shuttles.FTLToDock(uid, shuttle, targetGrid.Value);

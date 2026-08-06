@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking.Rules;
+using Content.Server._Onyx.ZLevels.Spawning; // <Onyx-ZLevels>
 using Content.Server.Station.Systems;
 using Content.Server.StationEvents.Components;
 using Content.Shared.GameTicking.Components;
@@ -20,6 +21,7 @@ public sealed partial class MeteorSwarmSystem : GameRuleSystem<MeteorSwarmCompon
     [Dependency] private AudioSystem _audio = default!;
     [Dependency] private ChatSystem _chat = default!;
     [Dependency] private StationSystem _station = default!;
+    [Dependency] private CEZLevelFloorGridsSystem _zFloors = default!; // <Onyx-ZLevels>
 
     protected override void Added(EntityUid uid, MeteorSwarmComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
@@ -50,6 +52,7 @@ public sealed partial class MeteorSwarmSystem : GameRuleSystem<MeteorSwarmCompon
         var station = RobustRandom.Pick(_station.GetStations());
         if (_station.GetLargestGrid(station) is not { } grid)
             return;
+        grid = _zFloors.GetRandomFloorGrid(grid); // <Onyx-ZLevels>
 
         var mapId = Transform(grid).MapID;
         var playableArea = _physics.GetWorldAABB(grid);

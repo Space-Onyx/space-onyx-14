@@ -9,6 +9,8 @@ using Content.Server.Power.Components;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.Consoles;
+using Content.Shared._Onyx.ZLevels.Core.Components; // <Onyx-ZLevels>
+using Content.Shared._Onyx.ZLevels.Monitoring; // <Onyx-ZLevels>
 using Content.Shared.Labels.Components;
 using Content.Shared.Pinpointer;
 using Robust.Server.GameObjects;
@@ -32,6 +34,7 @@ public sealed partial class AtmosMonitoringConsoleSystem : SharedAtmosMonitoring
     // Private variables
     // Note: this data does not need to be saved
     private Dictionary<EntityUid, Dictionary<Vector2i, AtmosPipeChunk>> _gridAtmosPipeChunks = new();
+    private readonly Dictionary<EntityUid, EntityUid> _selectedMonitorGrids = new(); // <Onyx-ZLevels>
     private float _updateTimer = 1.0f;
 
     // Constants
@@ -46,6 +49,8 @@ public sealed partial class AtmosMonitoringConsoleSystem : SharedAtmosMonitoring
         SubscribeLocalEvent<AtmosMonitoringConsoleComponent, ComponentInit>(OnConsoleInit);
         SubscribeLocalEvent<AtmosMonitoringConsoleComponent, AnchorStateChangedEvent>(OnConsoleAnchorChanged);
         SubscribeLocalEvent<AtmosMonitoringConsoleComponent, EntParentChangedMessage>(OnConsoleParentChanged);
+        SubscribeLocalEvent<AtmosMonitoringConsoleComponent, ComponentShutdown>(OnConsoleShutdown); // <Onyx-ZLevels>
+        SubscribeLocalEvent<AtmosMonitoringConsoleComponent, CEZMonitoringConsoleLevelSelectedMessage>(OnZLevelSelected); // <Onyx-ZLevels>
 
         // Tracked device events
         SubscribeLocalEvent<AtmosMonitoringConsoleDeviceComponent, NodeGroupsRebuilt>(OnEntityNodeGroupsRebuilt);
@@ -74,6 +79,43 @@ public sealed partial class AtmosMonitoringConsoleSystem : SharedAtmosMonitoring
         component.ForceFullUpdate = true;
         InitializeAtmosMonitoringConsole(uid, component);
     }
+
+    // <Onyx-ZLevels>
+    private void OnConsoleShutdown(EntityUid uid, AtmosMonitoringConsoleComponent component, ComponentShutdown args)
+    {
+        _selectedMonitorGrids.Remove(uid);
+    }
+
+    private void OnZLevelSelected(EntityUid uid, AtmosMonitoringConsoleComponent component, CEZMonitoringConsoleLevelSelectedMessage args)
+    {
+        var target = GetEntity(args.Grid);
+        var source = Transform(uid).GridUid;
+        if (target is not { } grid || source is not { } sourceGrid || !IsValidMonitoringGrid(sourceGrid, grid))
+            return;
+
+        _selectedMonitorGrids[uid] = grid;
+        InitializeAtmosMonitoringConsole(uid, component);
+        UpdateUIState(uid, component, Transform(uid));
+    }
+
+    private bool IsValidMonitoringGrid(EntityUid source, EntityUid target)
+    {
+        return source == target ||
+               TryComp<CEZLinkedGridComponent>(source, out var sourceLinked) &&
+               TryComp<CEZLinkedGridComponent>(target, out var targetLinked) &&
+               sourceLinked.LinkNetwork.IsValid() && sourceLinked.LinkNetwork == targetLinked.LinkNetwork;
+    }
+
+    private EntityUid GetMonitoringGrid(EntityUid uid, TransformComponent xform)
+    {
+        if (xform.GridUid is not { } source)
+            return EntityUid.Invalid;
+        if (_selectedMonitorGrids.TryGetValue(uid, out var selected) && IsValidMonitoringGrid(source, selected))
+            return selected;
+        _selectedMonitorGrids.Remove(uid);
+        return source;
+    }
+    // </Onyx-ZLevels>
 
     private void OnEntityNodeGroupsRebuilt(EntityUid uid, AtmosMonitoringConsoleDeviceComponent component, NodeGroupsRebuilt args)
     {
@@ -154,7 +196,7 @@ public sealed partial class AtmosMonitoringConsoleSystem : SharedAtmosMonitoring
         if (!_userInterfaceSystem.IsUiOpen(uid, AtmosMonitoringConsoleUiKey.Key))
             return;
 
-        var gridUid = xform.GridUid!.Value;
+        var gridUid = GetMonitoringGrid(uid, xform); // <Onyx-ZLevels-edited>
 
         if (!TryComp<MapGridComponent>(gridUid, out var mapGrid))
             return;
@@ -171,7 +213,7 @@ public sealed partial class AtmosMonitoringConsoleSystem : SharedAtmosMonitoring
 
         while (query.MoveNext(out var ent, out var entSensor, out var entXform))
         {
-            if (entXform?.GridUid != xform.GridUid)
+            if (entXform?.GridUid != gridUid) // <Onyx-ZLevels-edited>
                 continue;
 
             if (!entXform.Anchored)
@@ -486,7 +528,7 @@ public sealed partial class AtmosMonitoringConsoleSystem : SharedAtmosMonitoring
         if (xform.GridUid == null)
             return;
 
-        var grid = xform.GridUid.Value;
+        var grid = GetMonitoringGrid(uid, xform); // <Onyx-ZLevels-edited>
 
         if (!TryComp<MapGridComponent>(grid, out var map))
             return;

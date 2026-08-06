@@ -22,6 +22,8 @@ public sealed partial class ShuttleConsoleWindow : FancyWindow,
 
     public event Action<NetEntity, NetEntity>? DockRequest;
     public event Action<NetEntity>? UndockRequest;
+    public event Action? RequestFlyUp; // <Onyx-ZLevels>
+    public event Action? RequestFlyDown; // <Onyx-ZLevels>
 
     public ShuttleConsoleWindow()
     {
@@ -62,6 +64,8 @@ public sealed partial class ShuttleConsoleWindow : FancyWindow,
         {
             UndockRequest?.Invoke(entity);
         };
+        MapContainer.RequestFlyUp += () => RequestFlyUp?.Invoke(); // <Onyx-ZLevels>
+        MapContainer.RequestFlyDown += () => RequestFlyDown?.Invoke(); // <Onyx-ZLevels>
         InitializeDampening(); // <Onyx-ShuttleDampening>
 
         // <ShuttleSignalPorts>

@@ -1,4 +1,5 @@
 ﻿using Content.Server.Anomaly;
+using Content.Server._Onyx.ZLevels.Spawning; // <Onyx-ZLevels>
 using Content.Server.StationEvents.Components;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Station.Components;
@@ -8,6 +9,7 @@ namespace Content.Server.StationEvents.Events;
 public sealed partial class AnomalySpawnRule : StationEventSystem<AnomalySpawnRuleComponent>
 {
     [Dependency] private AnomalySystem _anomaly = default!;
+    [Dependency] private CEZLevelFloorGridsSystem _zFloors = default!; // <Onyx-ZLevels>
 
     protected override void Added(EntityUid uid, AnomalySpawnRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
@@ -39,7 +41,7 @@ public sealed partial class AnomalySpawnRule : StationEventSystem<AnomalySpawnRu
         var amountToSpawn = 1;
         for (var i = 0; i < amountToSpawn; i++)
         {
-            _anomaly.SpawnOnRandomGridLocation(grid.Value, component.AnomalySpawnerPrototype);
+            _anomaly.SpawnOnRandomGridLocation(_zFloors.GetRandomFloorGrid(grid.Value), component.AnomalySpawnerPrototype); // <Onyx-ZLevels-edited>
         }
     }
 }

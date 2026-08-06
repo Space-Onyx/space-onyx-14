@@ -20,6 +20,9 @@
         <controls1:StripeBack MinSize="48 48">
             <controls:Label Name="DockingPortsLabel" Text="{controls:Loc 'shuttle-console-docks-label'}" HorizontalAlignment="Center"/>
         </controls1:StripeBack>
+        <!-- <Onyx-ZLevels> -->
+        <controls:BoxContainer Name="LayerSelectorRow" Visible="False" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 4 0 4"/>
+        <!-- </Onyx-ZLevels> -->
         <controls:ScrollContainer VerticalExpand="True" HScrollEnabled="False"
                                   ReturnMeasure="True">
             <controls:BoxContainer Name="DockPorts" Orientation="Vertical"/>

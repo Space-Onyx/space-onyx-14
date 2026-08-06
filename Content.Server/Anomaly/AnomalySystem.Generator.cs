@@ -1,4 +1,5 @@
 using Content.Server.Anomaly.Components;
+using Content.Server._Onyx.ZLevels.Spawning; // <Onyx-ZLevels>
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Anomaly;
 using Content.Shared.CCVar;
@@ -23,6 +24,7 @@ public sealed partial class AnomalySystem
     [Dependency] private SharedMapSystem _mapSystem = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private EntityQuery<PhysicsComponent> _physicsQuery = default!;
+    [Dependency] private CEZLevelFloorGridsSystem _zFloors = default!; // <Onyx-ZLevels>
 
     private void InitializeGenerator()
     {
@@ -172,7 +174,7 @@ public sealed partial class AnomalySystem
             grid = xform.GridUid.Value;
         }
 
-        SpawnOnRandomGridLocation(grid, component.SpawnerPrototype);
+        SpawnOnRandomGridLocation(_zFloors.GetRandomFloorGrid(grid), component.SpawnerPrototype); // <Onyx-ZLevels-edited>
         RemComp<GeneratingAnomalyGeneratorComponent>(uid);
         Appearance.SetData(uid, AnomalyGeneratorVisuals.Generating, false);
         Audio.PlayPvs(component.GeneratingFinishedSound, uid);

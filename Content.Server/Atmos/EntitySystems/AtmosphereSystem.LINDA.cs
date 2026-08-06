@@ -99,6 +99,8 @@ namespace Content.Server.Atmos.EntitySystems
                 }
             }
 
+            ShareZLevelAtmos(ent, tile, fireCount); // <Onyx-ZLevels>
+
             if(tile.Air != null)
                 React(tile.Air, tile);
 

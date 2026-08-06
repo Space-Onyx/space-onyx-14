@@ -80,6 +80,7 @@
   - type: Examiner
     skipChecks: true
   - type: Ghost
+  - type: CEZLevelGhostMover # <Onyx-ZLevels>
   - type: GhostSpriteState
     damageMap:
       Blunt: 3

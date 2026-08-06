@@ -1,4 +1,5 @@
 using Content.Shared.Gravity;
+using Content.Shared._Onyx.ZLevels.Core.Components; // <Onyx-ZLevels>
 using JetBrains.Annotations;
 using Robust.Shared.Map.Components;
 
@@ -21,32 +22,28 @@ namespace Content.Server.Gravity
             if (!GravityQuery.Resolve(uid, ref gravity))
                 return;
 
-            if (gravity.Inherent)
+            if (gravity.Inherent && !TryComp<CEZLinkedGridComponent>(uid, out _)) // <Onyx-ZLevels-edited>
                 return;
 
-            var enabled = false;
-
-            foreach (var (comp, xform) in EntityQuery<GravityGeneratorComponent, TransformComponent>(true))
+            // <Onyx-ZLevels-edited>
+            var targets = GetGravityTargets(uid);
+            var enabled = LinkedTargetsHaveInherentGravity(targets) || LinkedTargetsHaveActiveGravityGenerator(targets);
+            foreach (var targetUid in targets)
             {
-                if (!comp.GravityActive || xform.ParentUid != uid)
+                if (!TryComp<GravityComponent>(targetUid, out var targetGravity) ||
+                    targetGravity.Inherent ||
+                    targetGravity.Enabled == enabled)
                     continue;
 
-                enabled = true;
-                break;
-            }
+                targetGravity.Enabled = enabled;
+                var ev = new GravityChangedEvent(targetUid, enabled);
+                RaiseLocalEvent(targetUid, ref ev, true);
+                Dirty(targetUid, targetGravity);
 
-            if (enabled != gravity.Enabled)
-            {
-                gravity.Enabled = enabled;
-                var ev = new GravityChangedEvent(uid, enabled);
-                RaiseLocalEvent(uid, ref ev, true);
-                Dirty(uid, gravity);
-
-                if (HasComp<MapGridComponent>(uid))
-                {
-                    StartGridShake(uid);
-                }
+                if (enabled && HasComp<MapGridComponent>(targetUid))
+                    StartGridShake(targetUid);
             }
+            // </Onyx-ZLevels-edited>
         }
 
         private void OnGravityInit(EntityUid uid, GravityComponent component, ComponentInit args)
@@ -64,6 +61,14 @@ namespace Content.Server.Gravity
             if (!GravityQuery.Resolve(uid, ref gravity))
                 return;
 
+            // <Onyx-ZLevels>
+            if (TryComp<CEZLinkedGridComponent>(uid, out _))
+            {
+                RefreshGravity(uid, gravity);
+                return;
+            }
+            // </Onyx-ZLevels>
+
             if (gravity.Enabled || gravity.Inherent)
                 return;
 
@@ -77,5 +82,42 @@ namespace Content.Server.Gravity
                 StartGridShake(uid);
             }
         }
+
+        // <Onyx-ZLevels>
+        private List<EntityUid> GetGravityTargets(EntityUid uid)
+        {
+            var targets = new List<EntityUid> { uid };
+            if (!TryComp<CEZLinkedGridComponent>(uid, out var linked))
+                return targets;
+
+            foreach (var peerUid in linked.PeerGrids.Values)
+            {
+                if (!targets.Contains(peerUid))
+                    targets.Add(peerUid);
+            }
+            return targets;
+        }
+
+        private bool LinkedTargetsHaveInherentGravity(List<EntityUid> targets)
+        {
+            foreach (var targetUid in targets)
+            {
+                if (TryComp<GravityComponent>(targetUid, out var gravity) && gravity.Inherent)
+                    return true;
+            }
+            return false;
+        }
+
+        private bool LinkedTargetsHaveActiveGravityGenerator(List<EntityUid> targets)
+        {
+            var query = EntityQueryEnumerator<GravityGeneratorComponent, TransformComponent>();
+            while (query.MoveNext(out _, out var gravity, out var xform))
+            {
+                if (gravity.GravityActive && targets.Contains(xform.ParentUid))
+                    return true;
+            }
+            return false;
+        }
+        // </Onyx-ZLevels>
     }
 }

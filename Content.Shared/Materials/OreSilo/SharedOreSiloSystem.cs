@@ -1,3 +1,5 @@
+using System.Numerics; // <Onyx-ZLevels>
+using Content.Shared._Onyx.ZLevels.Core.EntitySystems; // <Onyx-ZLevels>
 using Content.Shared.Power.EntitySystems;
 using JetBrains.Annotations;
 using Robust.Shared.Utility;
@@ -9,6 +11,7 @@ public abstract partial class SharedOreSiloSystem : EntitySystem
     [Dependency] private SharedMaterialStorageSystem _materialStorage = default!;
     [Dependency] private SharedPowerReceiverSystem _powerReceiver = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private CESharedZLevelsSystem _zLevels = default!; // <Onyx-ZLevels>
 
     [Dependency] private EntityQuery<OreSiloClientComponent> _clientQuery = default!;
 
@@ -182,10 +185,22 @@ public abstract partial class SharedOreSiloSystem : EntitySystem
         if (requirePower && !_powerReceiver.IsPowered(silo.Owner)) // <Onyx-MaterialSiloDeviceLink-edited>
             return false;
 
-        // <Onyx-MaterialSiloDeviceLink-edited>
-        if (!_transform.GetMapCoordinates(silo.Owner).InRange(_transform.GetMapCoordinates(client), silo.Comp1.Range))
+        // <Onyx-MaterialSiloDeviceLink-edited> <Onyx-ZLevels-edited>
+        var siloGrid = _transform.GetGrid(silo.Owner);
+        var clientGrid = _transform.GetGrid(client);
+        if (siloGrid != clientGrid)
+        {
+            if (siloGrid is not { } sg || clientGrid is not { } cg || !_zLevels.AreGridsLinked(sg, cg))
+                return false;
+
+            var siloLocal = Vector2.Transform(_transform.GetWorldPosition(silo.Owner), _transform.GetInvWorldMatrix(sg));
+            var clientLocal = Vector2.Transform(_transform.GetWorldPosition(client), _transform.GetInvWorldMatrix(cg));
+            if ((siloLocal - clientLocal).LengthSquared() >= silo.Comp1.Range * silo.Comp1.Range)
+                return false;
+        }
+        else if (!_transform.GetMapCoordinates(silo.Owner).InRange(_transform.GetMapCoordinates(client), silo.Comp1.Range))
             return false;
-        // </Onyx-MaterialSiloDeviceLink-edited>
+        // </Onyx-ZLevels-edited> </Onyx-MaterialSiloDeviceLink-edited>
 
         return true;
     }

@@ -219,10 +219,19 @@ namespace Content.MapRenderer.Painters
                     gridCanvas.Mutate(e => e.Flip(FlipMode.Vertical));
                 });
 
+                // <Onyx-ZLevels-edited>
+                // Aligns z-level grids on the compositor canvas.
+                var bottomLeftLocal = grid.LocalAABB.IsEmpty()
+                    ? new Vector2(minX, minY) * grid.TileSize
+                    : new Vector2(grid.LocalAABB.Left, grid.LocalAABB.Bottom);
+                var worldBottomLeft = xformSystem.GetWorldPosition(uid) + bottomLeftLocal;
+                // </Onyx-ZLevels-edited>
+
                 var renderedImage = new RenderedGridImage<Rgba32>(gridCanvas)
                 {
                     GridUid = uid,
                     Offset = xformSystem.GetWorldPosition(uid),
+                    WorldBottomLeft = worldBottomLeft, // <Onyx-ZLevels-edited>
                 };
 
                 yield return renderedImage;

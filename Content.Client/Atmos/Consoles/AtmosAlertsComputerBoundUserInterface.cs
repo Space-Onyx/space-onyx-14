@@ -1,4 +1,5 @@
 using Content.Shared.Atmos.Components;
+using Content.Shared._Onyx.ZLevels.Monitoring; // <Onyx-ZLevels>
 
 namespace Content.Client.Atmos.Consoles;
 
@@ -16,7 +17,15 @@ public sealed class AtmosAlertsComputerBoundUserInterface : BoundUserInterface
         _menu = new AtmosAlertsComputerWindow(this, Owner);
         _menu.OpenCentered();
         _menu.OnClose += Close;
+        _menu.SendZLevelSelectedMessageAction += SendZLevelSelectedMessage; // <Onyx-ZLevels>
     }
+
+    // <Onyx-ZLevels>
+    private void SendZLevelSelectedMessage(NetEntity? grid, int depth)
+    {
+        SendMessage(new CEZMonitoringConsoleLevelSelectedMessage(grid, depth));
+    }
+    // </Onyx-ZLevels>
 
     protected override void UpdateState(BoundUserInterfaceState state)
     {

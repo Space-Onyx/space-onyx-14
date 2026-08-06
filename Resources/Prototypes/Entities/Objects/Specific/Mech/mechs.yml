@@ -121,6 +121,7 @@
   - type: Pullable
   - type: Physics
     bodyType: KinematicController
+  - type: CEZPhysics # <Onyx-ZLevels>
   - type: GravityAffected
   - type: Clickable
   - type: WiresPanel

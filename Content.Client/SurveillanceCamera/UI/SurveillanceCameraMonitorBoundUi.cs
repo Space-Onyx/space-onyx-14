@@ -74,16 +74,17 @@ public sealed class SurveillanceCameraMonitorBoundUserInterface : BoundUserInter
 
     protected override void UpdateState(BoundUserInterfaceState state)
     {
-        if (_window == null || state is not SurveillanceCameraMonitorUiState cast)
+        if (_window is not { } window || state is not SurveillanceCameraMonitorUiState cast)
         {
             return;
         }
 
         var active = EntMan.GetEntity(cast.ActiveCamera);
+        window.SetZLevelViewEntity(active); // <Onyx-ZLevels>
 
         if (active == null)
         {
-            _window.UpdateState(null, cast.Subnets, cast.ActiveAddress, cast.ActiveSubnet, cast.Cameras);
+            window.UpdateState(null, cast.Subnets, cast.ActiveAddress, cast.ActiveSubnet, cast.Cameras);
 
             if (_currentCamera != null)
             {
@@ -108,7 +109,7 @@ public sealed class SurveillanceCameraMonitorBoundUserInterface : BoundUserInter
 
             if (EntMan.TryGetComponent<EyeComponent>(active, out var eye))
             {
-                _window.UpdateState(eye.Eye, cast.Subnets, cast.ActiveAddress, cast.ActiveSubnet, cast.Cameras);
+                window.UpdateState(eye.Eye, cast.Subnets, cast.ActiveAddress, cast.ActiveSubnet, cast.Cameras);
             }
         }
     }

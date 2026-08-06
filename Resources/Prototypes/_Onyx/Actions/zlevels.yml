@@ -1,0 +1,135 @@
+- type: entity
+  parent: BaseMentalAction
+  id: ActionStationAiViewUp
+  name: View deck above
+  description: Move your eye to the deck above.
+  components:
+  - type: Action
+    checkCanInteract: false
+    priority: -8
+    itemIconStyle: BigAction
+  - type: Sprite
+    sprite: _Onyx/Actions/zLevels.rsi
+    layers:
+    - state: up
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:CEZViewUpEvent
+
+- type: entity
+  parent: BaseMentalAction
+  id: ActionStationAiViewDown
+  name: View deck below
+  description: Move your eye to the deck below.
+  components:
+  - type: Action
+    checkCanInteract: false
+    priority: -7
+    itemIconStyle: BigAction
+  - type: Sprite
+    sprite: _Onyx/Actions/zLevels.rsi
+    layers:
+    - state: down
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:CEZViewDownEvent
+
+- type: entity
+  id: CEActionZLevelUp
+  name: Move up
+  description: Move up one floor
+  components:
+  - type: Action
+    checkCanInteract: false
+  - type: Sprite
+    sprite: _Onyx/Actions/zLevels.rsi
+    layers:
+    - state: up
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:CEZLevelActionUp
+
+- type: entity
+  id: CEActionZLevelDown
+  name: Move down
+  description: Move down one floor
+  components:
+  - type: Action
+    checkCanInteract: false
+  - type: Sprite
+    sprite: _Onyx/Actions/zLevels.rsi
+    layers:
+    - state: down
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:CEZLevelActionDown
+
+- type: entity
+  id: CEActionWeightlessZLevelUp
+  parent: CEActionZLevelUp
+
+- type: entity
+  id: CEActionWeightlessZLevelDown
+  parent: CEActionZLevelDown
+
+- type: entity
+  id: CEActionToggleLookUp
+  name: Look up
+  description: You lift your head and look up at the sky.
+  components:
+  - type: Action
+    checkCanInteract: false
+  - type: Sprite
+    sprite: _Onyx/Actions/zLevels.rsi
+    layers:
+    - state: eye
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:CEToggleZLevelLookUpAction
+
+- type: entity
+  id: CEActionZFlightUp
+  name: Move up
+  description: Move up one floor
+  components:
+  - type: Action
+    useDelay: 1.5
+  - type: Sprite
+    sprite: _Onyx/Actions/zLevels.rsi
+    layers:
+    - state: up
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:CEZFlightActionUp
+
+- type: entity
+  id: CEActionZFlightDown
+  name: Move down
+  description: Move down one floor
+  components:
+  - type: Action
+    useDelay: 1.5
+  - type: Sprite
+    sprite: _Onyx/Actions/zLevels.rsi
+    layers:
+    - state: down
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:CEZFlightActionDown
+
+- type: entity
+  parent: BaseToggleAction
+  id: CEActionZFlightToggle
+  name: Toggle flight mode
+  description: Toggle flight mode on or off
+  components:
+  - type: Action
+    useDelay: 1.5
+  - type: Sprite
+    sprite: _Onyx/Actions/zLevels.rsi
+    layers:
+    - state: toggle_flight
+      map: ["enum.ActionVisuals.Icon"]
+    - state: toggle_flight_on
+      map: ["enum.ActionVisuals.IconToggled"]
+      visible: false

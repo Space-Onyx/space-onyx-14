@@ -14,6 +14,7 @@ public sealed class CommandLineArguments
     public bool ArgumentsAreFileNames { get; set; } = false;
     public bool ShowMarkers { get; set; } = false;
     public bool OutputParallax { get; set; } = false;
+    public bool RenderZMaps { get; set; } = false; // <Onyx-ZLevels-edited>
 
     public static bool TryParse(IReadOnlyList<string> args, [NotNullWhen(true)] out CommandLineArguments? parsed)
     {
@@ -75,6 +76,13 @@ public sealed class CommandLineArguments
                     parsed.OutputParallax = true;
                     break;
 
+                // <Onyx-ZLevels-edited>
+                case "-z":
+                case "--zmap":
+                    parsed.RenderZMaps = true;
+                    break;
+                // </Onyx-ZLevels-edited>
+
                 default:
                     if (argument.StartsWith('-'))
                     {
@@ -118,6 +126,12 @@ Options:
         Output images and data used for map viewer parallax.
     -h / --help
         Displays this help text");
+
+        // <Onyx-ZLevels-edited>
+        Console.WriteLine(@"    -z / --zmap
+        Treat the given ids as zMap (z-level network) prototypes. Each level is rendered on top of
+        the levels below it (dimmed and parallax-shifted). With no ids, lists zMaps to pick from.");
+        // </Onyx-ZLevels-edited>
     }
 }
 

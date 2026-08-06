@@ -2,6 +2,8 @@ using System.Linq;
 using Content.Server.DeviceNetwork;
 using Content.Server.DeviceNetwork.Systems;
 using Content.Shared._Onyx.CrewMonitoring; // <Onyx-CommandTrackingImplant>
+using Content.Shared._Onyx.ZLevels.Core.Components; // <Onyx-ZLevels>
+using Content.Shared._Onyx.ZLevels.Monitoring; // <Onyx-ZLevels>
 using Content.Shared.PowerCell;
 using Content.Shared.DeviceNetwork;
 using Content.Shared.DeviceNetwork.Events;
@@ -9,6 +11,7 @@ using Content.Shared.Medical.CrewMonitoring;
 using Content.Shared.Medical.SuitSensor;
 using Content.Shared.Pinpointer;
 using Robust.Server.GameObjects;
+using Robust.Shared.Map.Components; // <Onyx-ZLevels>
 
 namespace Content.Server.Medical.CrewMonitoring;
 
@@ -23,7 +26,25 @@ public sealed partial class CrewMonitoringConsoleSystem : EntitySystem
         SubscribeLocalEvent<CrewMonitoringConsoleComponent, ComponentRemove>(OnRemove);
         SubscribeLocalEvent<CrewMonitoringConsoleComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
         SubscribeLocalEvent<CrewMonitoringConsoleComponent, BoundUIOpenedEvent>(OnUIOpened);
+        SubscribeLocalEvent<CrewMonitoringConsoleComponent, CEZMonitoringConsoleLevelSelectedMessage>(OnZLevelSelected); // <Onyx-ZLevels>
     }
+
+    // <Onyx-ZLevels>
+    private void OnZLevelSelected(EntityUid uid, CrewMonitoringConsoleComponent component, CEZMonitoringConsoleLevelSelectedMessage args)
+    {
+        var target = GetEntity(args.Grid);
+        var source = Transform(uid).GridUid;
+        if (target is not { } grid || source is not { } sourceGrid || !HasComp<MapGridComponent>(grid))
+            return;
+
+        if (sourceGrid != grid && (!TryComp<CEZLinkedGridComponent>(sourceGrid, out var sourceLinked) ||
+            !TryComp<CEZLinkedGridComponent>(grid, out var targetLinked) || !sourceLinked.LinkNetwork.IsValid() ||
+            sourceLinked.LinkNetwork != targetLinked.LinkNetwork))
+            return;
+
+        EnsureComp<NavMapComponent>(grid);
+    }
+    // </Onyx-ZLevels>
 
     private void OnRemove(EntityUid uid, CrewMonitoringConsoleComponent component, ComponentRemove args)
     {

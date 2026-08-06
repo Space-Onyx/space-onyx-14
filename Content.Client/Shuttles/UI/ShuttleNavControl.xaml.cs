@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Shared.Shuttles.BUIStates;
+using Content.Shared._Onyx.ZLevels.Core.EntitySystems; // <Onyx-ZLevels>
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Systems;
 using JetBrains.Annotations;
@@ -48,6 +49,7 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
     public Action<EntityCoordinates>? OnRadarClick;
 
     private List<Entity<MapGridComponent>> _grids = new();
+    private readonly HashSet<EntityUid> _zLevelGrids = new(); // <Onyx-ZLevels>
 
     public ShuttleNavControl() : base(64f, 256f, 256f)
     {
@@ -191,6 +193,30 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
         _grids.Clear();
         _maps.FindGridsIntersecting(xform.MapID, new Box2(mapPos.Position - MaxRadarRangeVector, mapPos.Position + MaxRadarRangeVector), ref _grids, approx: true, includeMap: false);
 
+        // <Onyx-ZLevels>
+        _zLevelGrids.Clear();
+        var zLevels = EntManager.System<CESharedZLevelsSystem>();
+        if (xform.MapUid is { } radarMap)
+        {
+            for (var offset = -1; offset <= 1; offset += 2)
+            {
+                if (!zLevels.TryMapOffset(radarMap, offset, out var adjacent) ||
+                    !EntManager.TryGetComponent(adjacent.Value, out MapComponent? adjacentMap))
+                    continue;
+
+                var adjacentGrids = new List<Entity<MapGridComponent>>();
+                _maps.FindGridsIntersecting(adjacentMap.MapId,
+                    new Box2(mapPos.Position - MaxRadarRangeVector, mapPos.Position + MaxRadarRangeVector),
+                    ref adjacentGrids, approx: true, includeMap: false);
+                foreach (var grid in adjacentGrids)
+                {
+                    _zLevelGrids.Add(grid.Owner);
+                    _grids.Add(grid);
+                }
+            }
+        }
+        // </Onyx-ZLevels>
+
         // Draw other grids... differently
         foreach (var grid in _grids)
         {
@@ -211,6 +237,8 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
             var curGridToView = curGridToWorld * worldToShuttle * shuttleToView;
 
             var labelColor = _shuttles.GetIFFColor(grid, self: false, iff);
+            if (_zLevelGrids.Contains(gUid)) // <Onyx-ZLevels>
+                labelColor = labelColor.WithAlpha(labelColor.A * 0.4f);
             var coordColor = new Color(labelColor.R * 0.8f, labelColor.G * 0.8f, labelColor.B * 0.8f, 0.5f);
 
             // Others default:
@@ -219,7 +247,7 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
             var labelName = _shuttles.GetIFFLabel(grid, self: false, iff);
             labelName = GetDetectionLabel(grid, detectionLevel, labelName); // <Onyx-Detection>
 
-            if (ShowIFF &&
+            if (ShowIFF && !_zLevelGrids.Contains(gUid) && // <Onyx-ZLevels-edited>
                  labelName != null)
             {
                 var gridBounds = grid.Comp.LocalAABB;

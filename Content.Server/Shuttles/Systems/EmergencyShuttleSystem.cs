@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Server._Onyx.ZLevels.Spawning; // <Onyx-ZLevels>
 using System.Numerics;
 using System.Threading;
 using Content.Server.Access.Systems;
@@ -65,6 +66,7 @@ public sealed partial class EmergencyShuttleSystem : SharedEmergencyShuttleSyste
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private ShuttleSystem _shuttle = default!;
     [Dependency] private StationSystem _station = default!;
+    [Dependency] private CEZLevelFloorGridsSystem _floorGrids = default!; // <Onyx-ZLevels>
     [Dependency] private TransformSystem _transformSystem = default!;
     [Dependency] private UserInterfaceSystem _uiSystem = default!;
 
@@ -183,7 +185,8 @@ public sealed partial class EmergencyShuttleSystem : SharedEmergencyShuttleSyste
             return;
         }
 
-        var targetGrid = _station.GetLargestGrid(station.Value);
+        var targetGrid = _floorGrids.FindStationFloorWithPriorityDock(station.Value, DockTag)
+            ?? _floorGrids.GetStationDefaultGrid(station.Value); // <Onyx-ZLevels-edited>
         if (targetGrid == null)
             return;
 
@@ -272,7 +275,8 @@ public sealed partial class EmergencyShuttleSystem : SharedEmergencyShuttleSyste
             return null;
         }
 
-        var targetGrid = _station.GetLargestGrid(stationUid);
+        var targetGrid = _floorGrids.FindStationFloorWithPriorityDock(stationUid, DockTag)
+            ?? _floorGrids.GetStationDefaultGrid(stationUid); // <Onyx-ZLevels-edited>
 
         // UHH GOOD LUCK
         if (targetGrid == null)

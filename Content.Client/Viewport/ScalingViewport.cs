@@ -166,7 +166,7 @@ namespace Content.Client.Viewport
 
             DebugTools.AssertNotNull(_viewport);
 
-            _viewport!.Render();
+            RenderZLevels(_viewport!, handle.DrawingHandleScreen); // <Onyx-ZLevels-edited>
 
             if (_queuedScreenshots.Count != 0)
             {

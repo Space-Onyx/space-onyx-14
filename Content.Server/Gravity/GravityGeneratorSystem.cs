@@ -65,5 +65,12 @@ public sealed partial class GravityGeneratorSystem : SharedGravityGeneratorSyste
         {
             _gravitySystem.RefreshGravity(args.OldParent.Value, gravity);
         }
+
+        // <Onyx-ZLevels>
+        if (component.GravityActive && TryComp(args.Transform.ParentUid, out GravityComponent? newGravity))
+        {
+            _gravitySystem.RefreshGravity(args.Transform.ParentUid, newGravity);
+        }
+        // </Onyx-ZLevels>
     }
 }

@@ -10,6 +10,7 @@ public sealed class RenderedGridImage<T> where T : unmanaged, IPixel<T>
 {
     public Image<T> Image;
     public Vector2 Offset { get; set; } = Vector2.Zero;
+    public Vector2 WorldBottomLeft { get; set; } = Vector2.Zero; // <Onyx-ZLevels-edited>
     public EntityUid? GridUid { get; set; }
 
     public RenderedGridImage(Image<T> image)

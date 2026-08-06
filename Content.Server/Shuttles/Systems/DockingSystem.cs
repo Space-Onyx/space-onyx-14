@@ -2,6 +2,7 @@ using Content.Server.Doors.Systems;
 using Content.Server.NPC.Pathfinding;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
+using Content.Shared._Onyx.ZLevels.Core.Components; // <Onyx-ZLevels>
 using Content.Shared.Doors;
 using Content.Shared.Doors.Components;
 using Content.Shared.Popups;
@@ -165,7 +166,7 @@ public sealed partial class DockingSystem : SharedDockingSystem
 
         // Cheating?
         if (!TryComp(ourDock, out TransformComponent? xformA) ||
-            xformA.GridUid != shuttleUid)
+            !IsDockOnConsoleNetwork(xformA.GridUid, shuttleUid)) // <Onyx-ZLevels-edited>
         {
             _popup.PopupCursor(Loc.GetString("shuttle-console-dock-fail"), args.Actor);
             return;
@@ -181,6 +182,20 @@ public sealed partial class DockingSystem : SharedDockingSystem
 
         Dock((ourDock.Value, ourDockComp), (targetDock.Value, targetDockComp));
     }
+
+    // <Onyx-ZLevels>
+    private bool IsDockOnConsoleNetwork(EntityUid? dockGrid, EntityUid? consoleGrid)
+    {
+        if (dockGrid == null || consoleGrid == null)
+            return false;
+        if (dockGrid == consoleGrid)
+            return true;
+        if (!TryComp<CEZLinkedGridComponent>(dockGrid.Value, out var dockLinked) ||
+            !TryComp<CEZLinkedGridComponent>(consoleGrid.Value, out var consoleLinked))
+            return false;
+        return dockLinked.LinkNetwork.IsValid() && dockLinked.LinkNetwork == consoleLinked.LinkNetwork;
+    }
+    // </Onyx-ZLevels>
 
     private void Cleanup(EntityUid dockAUid, DockingComponent dockA)
     {
@@ -374,6 +389,13 @@ public sealed partial class DockingSystem : SharedDockingSystem
     {
         _dockingSet.Clear();
         _lookup.GetChildEntities(gridUid, _dockingSet);
+        // <Onyx-ZLevels>
+        if (TryComp<CEZLinkedGridComponent>(gridUid, out var linked))
+        {
+            foreach (var peer in linked.PeerGrids.Values)
+                _lookup.GetChildEntities(peer, _dockingSet);
+        }
+        // </Onyx-ZLevels>
 
         foreach (var dock in _dockingSet)
         {
@@ -385,6 +407,13 @@ public sealed partial class DockingSystem : SharedDockingSystem
     {
         _dockingBoltSet.Clear();
         _lookup.GetChildEntities(gridUid, _dockingBoltSet);
+        // <Onyx-ZLevels>
+        if (TryComp<CEZLinkedGridComponent>(gridUid, out var linked))
+        {
+            foreach (var peer in linked.PeerGrids.Values)
+                _lookup.GetChildEntities(peer, _dockingBoltSet);
+        }
+        // </Onyx-ZLevels>
 
         foreach (var entity in _dockingBoltSet)
         {

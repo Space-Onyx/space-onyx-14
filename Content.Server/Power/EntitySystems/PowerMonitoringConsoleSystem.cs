@@ -15,6 +15,8 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Utility;
 using System.Linq;
 using Content.Shared.NodeContainer;
+using Content.Shared._Onyx.ZLevels.Core.Components; // <Onyx-ZLevels>
+using Content.Shared._Onyx.ZLevels.Monitoring; // <Onyx-ZLevels>
 
 namespace Content.Server.Power.EntitySystems;
 
@@ -27,6 +29,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
     // Note: this data does not need to be saved
     private Dictionary<EntityUid, Dictionary<Vector2i, PowerCableChunk>> _gridPowerCableChunks = new();
+    private readonly Dictionary<EntityUid, EntityUid> _selectedMonitorGrids = new(); // <Onyx-ZLevels>
     private float _updateTimer = 1.0f;
 
     private const float UpdateTime = 1.0f;
@@ -39,11 +42,13 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         // Console events
         SubscribeLocalEvent<PowerMonitoringConsoleComponent, ComponentInit>(OnConsoleInit);
         SubscribeLocalEvent<PowerMonitoringConsoleComponent, EntParentChangedMessage>(OnConsoleParentChanged);
+        SubscribeLocalEvent<PowerMonitoringConsoleComponent, ComponentShutdown>(OnConsoleShutdown); // <Onyx-ZLevels>
         SubscribeLocalEvent<PowerMonitoringCableNetworksComponent, ComponentInit>(OnCableNetworksInit);
         SubscribeLocalEvent<PowerMonitoringCableNetworksComponent, EntParentChangedMessage>(OnCableNetworksParentChanged);
 
         // UI events
         SubscribeLocalEvent<PowerMonitoringConsoleComponent, PowerMonitoringConsoleMessage>(OnPowerMonitoringConsoleMessage);
+        SubscribeLocalEvent<PowerMonitoringConsoleComponent, CEZMonitoringConsoleLevelSelectedMessage>(OnZLevelSelected); // <Onyx-ZLevels>
         SubscribeLocalEvent<PowerMonitoringConsoleComponent, BoundUIOpenedEvent>(OnBoundUIOpened);
 
         // Grid events
@@ -68,6 +73,44 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
     {
         RefreshPowerMonitoringConsole(uid, component);
     }
+
+    // <Onyx-ZLevels>
+    private void OnConsoleShutdown(EntityUid uid, PowerMonitoringConsoleComponent component, ComponentShutdown args)
+    {
+        _selectedMonitorGrids.Remove(uid);
+    }
+
+    private void OnZLevelSelected(EntityUid uid, PowerMonitoringConsoleComponent component, CEZMonitoringConsoleLevelSelectedMessage args)
+    {
+        var target = GetEntity(args.Grid);
+        var source = Transform(uid).GridUid;
+        if (target is not { } grid || source is not { } sourceGrid || !IsValidMonitoringGrid(sourceGrid, grid))
+            return;
+
+        _selectedMonitorGrids[uid] = grid;
+        RefreshPowerMonitoringConsole(uid, component);
+        if (TryComp<PowerMonitoringCableNetworksComponent>(uid, out var cables))
+            RefreshPowerMonitoringCableNetworks(uid, cables);
+        UpdateUIState(uid, component);
+    }
+
+    private bool IsValidMonitoringGrid(EntityUid source, EntityUid target)
+    {
+        return source == target ||
+               TryComp<CEZLinkedGridComponent>(source, out var sourceLinked) &&
+               TryComp<CEZLinkedGridComponent>(target, out var targetLinked) &&
+               sourceLinked.LinkNetwork.IsValid() && sourceLinked.LinkNetwork == targetLinked.LinkNetwork;
+    }
+
+    private EntityUid GetMonitoringGrid(EntityUid uid, TransformComponent xform)
+    {
+        var source = xform.GridUid!.Value;
+        if (_selectedMonitorGrids.TryGetValue(uid, out var selected) && IsValidMonitoringGrid(source, selected))
+            return selected;
+        _selectedMonitorGrids.Remove(uid);
+        return source;
+    }
+    // </Onyx-ZLevels>
 
     private void OnCableNetworksInit(EntityUid uid, PowerMonitoringCableNetworksComponent component, ComponentInit args)
     {
@@ -300,7 +343,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         if (consoleXform?.GridUid == null)
             return;
 
-        var gridUid = consoleXform.GridUid.Value;
+        var gridUid = GetMonitoringGrid(uid, consoleXform); // <Onyx-ZLevels-edited>
 
         if (!TryComp<MapGridComponent>(gridUid, out var mapGrid))
             return;
@@ -953,7 +996,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         if (xform.GridUid == null)
             return;
 
-        var grid = xform.GridUid.Value;
+        var grid = GetMonitoringGrid(uid, xform); // <Onyx-ZLevels-edited>
 
         var query = AllEntityQuery<PowerMonitoringDeviceComponent, TransformComponent>();
         while (query.MoveNext(out var ent, out var entDevice, out var entXform))
@@ -994,7 +1037,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         if (xform.GridUid == null)
             return;
 
-        var grid = xform.GridUid.Value;
+        var grid = GetMonitoringGrid(uid, xform); // <Onyx-ZLevels-edited>
 
         if (!TryComp<MapGridComponent>(grid, out var map))
             return;

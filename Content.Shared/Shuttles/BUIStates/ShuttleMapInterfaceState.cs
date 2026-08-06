@@ -1,4 +1,5 @@
 using Content.Shared.Shuttles.Systems;
+using Content.Shared._Onyx.ZLevels.Shuttles; // <Onyx-ZLevels>
 using Content.Shared.Shuttles.UI.MapObjects;
 using Content.Shared.Timing;
 using Robust.Shared.Serialization;
@@ -24,6 +25,13 @@ public sealed class ShuttleMapInterfaceState
     public List<ShuttleBeaconObject> Destinations;
 
     public List<ShuttleExclusionObject> Exclusions;
+
+    // <Onyx-ZLevels>
+    public CEZTraversalState ZTraversalState;
+    public StartEndTime ZTraversalTime;
+    public bool CanFlyUp;
+    public bool CanFlyDown;
+    // </Onyx-ZLevels>
 
     public ShuttleMapInterfaceState(
         FTLState ftlState,

@@ -1,0 +1,116 @@
+- type: constructionGraph
+  id: CEZLevelStairsWooden
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: CEZLevelStairsWooden
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: WoodPlank
+        amount: 2
+        doAfter: 2
+  - node: CEZLevelStairsWooden
+    entity: CEZLevelStairsWooden
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialWoodPlank1
+        amount: 2
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 2
+    - to: CEZLevelStairsWoodenCorner
+      steps:
+      - tool: Prying
+        doAfter: 2
+  - node: CEZLevelStairsWoodenCorner
+    entity: CEZLevelStairsWoodenCorner
+    edges:
+    - to: CEZLevelStairsWooden
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+- type: constructionGraph
+  id: CEZLevelStairsStone
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: CEZLevelStairsStone
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Steel
+        amount: 2
+        doAfter: 2
+  - node: CEZLevelStairsStone
+    entity: CEZLevelStairsStone
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 2
+    - to: CEZLevelStairsStoneCorner
+      steps:
+      - tool: Prying
+        doAfter: 2
+  - node: CEZLevelStairsStoneCorner
+    entity: CEZLevelStairsStoneCorner
+    edges:
+    - to: CEZLevelStairsStoneCornerInner
+      steps:
+      - tool: Prying
+        doAfter: 2
+  - node: CEZLevelStairsStoneCornerInner
+    entity: CEZLevelStairsStoneCornerInner
+    edges:
+    - to: CEZLevelStairsStone
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+- type: constructionGraph
+  id: CEMultizCableHub
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: hub
+      steps:
+      - material: Cable
+        amount: 5
+        doAfter: 1
+      - material: CableMV
+        amount: 5
+        doAfter: 1
+      - material: CableHV
+        amount: 5
+        doAfter: 1
+  - node: hub
+    entity: CEMultizCableHub
+    edges:
+    - to: start
+      completed:
+      - !type:GivePrototype
+        prototype: CableApcStack1
+        amount: 5
+      - !type:GivePrototype
+        prototype: CableMVStack1
+        amount: 5
+      - !type:GivePrototype
+        prototype: CableHVStack1
+        amount: 5
+      - !type:DeleteEntity
+      steps:
+      - tool: Cutting
+        doAfter: 1

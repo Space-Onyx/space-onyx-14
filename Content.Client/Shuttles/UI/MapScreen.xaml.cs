@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Numerics;
 using Content.Client.Shuttles.Systems;
+using Content.Shared._Onyx.ZLevels.Core.Components; // <Onyx-ZLevels>
+using Content.Shared._Onyx.ZLevels.Shuttles; // <Onyx-ZLevels>
 using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Systems;
@@ -39,6 +41,8 @@ public sealed partial class MapScreen : BoxContainer
 
     private FTLState _state;
     private StartEndTime _ftlTime;
+    private CEZTraversalState _zState; // <Onyx-ZLevels>
+    private StartEndTime _zTime; // <Onyx-ZLevels>
 
     private List<ShuttleBeaconObject> _beacons = new();
     private List<ShuttleExclusionObject> _exclusions = new();
@@ -51,9 +55,12 @@ public sealed partial class MapScreen : BoxContainer
     private float _maxMapDequeue = 0.25f;
 
     private StyleBoxFlat _ftlStyle;
+    private readonly StyleBoxFlat _zStyle; // <Onyx-ZLevels>
 
     public event Action<MapCoordinates, Angle>? RequestFTL;
     public event Action<NetEntity, Angle>? RequestBeaconFTL;
+    public event Action? RequestFlyUp; // <Onyx-ZLevels>
+    public event Action? RequestFlyDown; // <Onyx-ZLevels>
 
     private readonly Dictionary<MapId, BoxContainer> _mapHeadings = new();
     private readonly Dictionary<MapId, List<IMapObject>> _mapObjects = new();
@@ -84,6 +91,10 @@ public sealed partial class MapScreen : BoxContainer
 
         _ftlStyle = new StyleBoxFlat(Color.LimeGreen);
         FTLBar.ForegroundStyleBoxOverride = _ftlStyle;
+        _zStyle = new StyleBoxFlat(Color.FromHex("#80C71F")); // <Onyx-ZLevels>
+        ZTraversalBar.ForegroundStyleBoxOverride = _zStyle;
+        FlyUpButton.OnPressed += _ => RequestFlyUp?.Invoke();
+        FlyDownButton.OnPressed += _ => RequestFlyDown?.Invoke();
 
         // Just pass it on up.
         MapRadar.RequestFTL += (coords, angle) =>
@@ -112,6 +123,17 @@ public sealed partial class MapScreen : BoxContainer
         _ftlTime = state.FTLTime;
         MapRadar.InFtl = true;
         MapFTLState.Text = Loc.GetString($"shuttle-console-ftl-state-{_state.ToString()}");
+        _zState = state.ZTraversalState; // <Onyx-ZLevels>
+        _zTime = state.ZTraversalTime;
+        ZTraversalStateLabel.Text = Loc.GetString($"shuttle-console-ztravel-state-{_zState}");
+        FlyUpButton.Disabled = !state.CanFlyUp;
+        FlyDownButton.Disabled = !state.CanFlyDown;
+        _zStyle.BackgroundColor = _zState switch
+        {
+            CEZTraversalState.Starting => Color.FromHex("#169C9C"),
+            CEZTraversalState.Cooldown => Color.FromHex("#F9801D"),
+            _ => Color.FromHex("#80C71F"),
+        };
 
         switch (_state)
         {
@@ -266,6 +288,8 @@ public sealed partial class MapScreen : BoxContainer
             {
                 continue;
             }
+            if (_entManager.TryGetComponent(mapUid, out CEZLevelMapComponent? zMap) && zMap.Depth != 0) // <Onyx-ZLevels>
+                continue;
             var mapName = mapMetadata.EntityName;
 
             if (string.IsNullOrEmpty(mapName))
@@ -524,6 +548,8 @@ public sealed partial class MapScreen : BoxContainer
 
         var progress = _ftlTime.ProgressAt(curTime);
         FTLBar.Value = float.IsFinite(progress) ? progress : 1;
+        var zProgress = _zTime.ProgressAt(curTime); // <Onyx-ZLevels>
+        ZTraversalBar.Value = float.IsFinite(zProgress) ? zProgress : 1;
     }
 
     protected override void Draw(DrawingHandleScreen handle)

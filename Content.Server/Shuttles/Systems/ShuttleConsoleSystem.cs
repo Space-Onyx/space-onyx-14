@@ -1,4 +1,5 @@
 ﻿using Content.Server.Power.EntitySystems;
+using Content.Server._Onyx.ZLevels.Shuttles; // <Onyx-ZLevels>
 // <ShuttleSignalPorts>
 using Content.Server.DeviceLinking.Systems;
 using Content.Shared._Onyx.Shuttles.Events;
@@ -11,6 +12,8 @@ using Content.Shared.ActionBlocker;
 using Content.Shared.Alert;
 using Content.Shared.Popups;
 using Content.Shared.Shuttles.BUIStates;
+using Content.Shared._Onyx.ZLevels.Core.Components; // <Onyx-ZLevels>
+using Content.Shared._Onyx.ZLevels.Shuttles; // <Onyx-ZLevels>
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Events;
 using Content.Shared.Shuttles.Systems;
@@ -63,6 +66,8 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             subs.Event<BoundUIClosedEvent>(OnConsoleUIClose);
             subs.Event<ShuttlePortButtonPressedMessage>(OnShuttlePortButtonPressed); // <ShuttleSignalPorts>
             subs.Event<SetInertiaDampeningRequest>(OnSetInertiaDampening); // <Onyx-ShuttleDampening>
+            subs.Event<CEShuttleConsoleFlyUpMessage>(OnConsoleFlyUp); // <Onyx-ZLevels>
+            subs.Event<CEShuttleConsoleFlyDownMessage>(OnConsoleFlyDown); // <Onyx-ZLevels>
         });
 
         SubscribeLocalEvent<ShuttleConsoleComponent, ComponentStartup>(OnConsoleStartup); // <ShuttleSignalPorts>
@@ -118,14 +123,23 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 
         while (query.MoveNext(out var uid, out _, out var xform))
         {
-            if (xform.ParentUid == gridUid
+            if (IsGridInNetwork(xform.GridUid, gridUid) // <Onyx-ZLevels-edited>
                 || TryComp<DroneConsoleComponent>(uid, out var drone)
                 && drone.Entity is { } puppetConsoleUid
-                && Transform(puppetConsoleUid).ParentUid == gridUid)
+                && IsGridInNetwork(Transform(puppetConsoleUid).GridUid, gridUid)) // <Onyx-ZLevels-edited>
             {
                 UpdateState(uid, ref dockState);
             }
         }
+    }
+
+    private bool IsGridInNetwork(EntityUid? candidate, EntityUid root)
+    {
+        if (candidate == root)
+            return true;
+        if (candidate == null || !TryComp<CEZLinkedGridComponent>(root, out var linked))
+            return false;
+        return linked.PeerGrids.ContainsValue(candidate.Value);
     }
 
     /// <summary>
@@ -273,7 +287,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         if (shuttleGridUid != null && entity != null)
         {
             navState = GetNavState(entity.Value, dockState.Docks);
-            mapState = GetMapState(shuttleGridUid.Value);
+            mapState = GetMapState(_shuttle.ResolveFTLShuttle(shuttleGridUid.Value)); // <Onyx-ZLevels-edited>
         }
         else
         {
@@ -447,10 +461,12 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         GetBeacons(ref beacons);
         GetExclusions(ref exclusions);
 
-        return new ShuttleMapInterfaceState(
+        var state = new ShuttleMapInterfaceState(
             ftlState,
             stateDuration,
             beacons ?? new List<ShuttleBeaconObject>(),
             exclusions ?? new List<ShuttleExclusionObject>());
+        _ztravel.WriteConsoleState(shuttle.Owner, state); // <Onyx-ZLevels>
+        return state;
     }
 }

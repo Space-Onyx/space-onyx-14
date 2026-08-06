@@ -1,4 +1,5 @@
 using Content.Server.Antag;
+using Content.Server._Onyx.ZLevels.Spawning; // <Onyx-ZLevels>
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Popups;
@@ -34,6 +35,7 @@ public sealed partial class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponen
     [Dependency] private SharedMindSystem _mindSystem = default!;
     [Dependency] private SharedRoleSystem _roles = default!;
     [Dependency] private StationSystem _station = default!;
+    [Dependency] private CEZLevelFloorGridsSystem _zFloors = default!; // <Onyx-ZLevels>
     [Dependency] private ZombieSystem _zombie = default!;
     [Dependency] private EntityQuery<ZombieComponent> _zombieQuery = default!;
 
@@ -193,7 +195,7 @@ public sealed partial class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponen
         {
             foreach (var station in _station.GetStationsSet())
             {
-                if (_station.GetLargestGrid(station) is { } grid)
+                foreach (var grid in _zFloors.GetStationFloorGrids(station)) // <Onyx-ZLevels-edited>
                     stationGrids.Add(grid);
             }
         }

@@ -1,4 +1,5 @@
 using Content.Server.Administration.Logs;
+using Content.Server._Onyx.ZLevels.Core; // <Onyx-ZLevels>
 using Content.Server.Buckle.Systems;
 using Content.Server.Parallax;
 using Content.Server.Procedural;
@@ -59,6 +60,7 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
     [Dependency] private ThrusterSystem _thruster = default!;
     [Dependency] private UserInterfaceSystem _uiSystem = default!;
     [Dependency] private TurfSystem _turf = default!;
+    [Dependency] private CEZLevelsSystem _zLevels = default!; // <Onyx-ZLevels>
 
     [Dependency] private EntityQuery<BuckleComponent> _buckleQuery = default!;
     [Dependency] private EntityQuery<MapGridComponent> _gridQuery = default!;

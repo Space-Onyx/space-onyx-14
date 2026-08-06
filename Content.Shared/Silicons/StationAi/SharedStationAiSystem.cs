@@ -177,11 +177,15 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         // Similar to the inrange check but more optimised so server doesn't die.
         var targetXform = Transform(args.Target);
 
-        // No cross-grid
-        if (targetXform.GridUid != args.Actor.Comp.GridUid)
+        // <Onyx-ZLevels-edited>
+        var viewer = TryComp<RelayInputMoverComponent>(args.Actor, out var relay)
+            ? relay.RelayEntity
+            : args.Actor.Owner;
+        if (targetXform.GridUid != Transform(viewer).GridUid)
         {
             return;
         }
+        // </Onyx-ZLevels-edited>
 
         if (!_broadphaseQuery.TryComp(targetXform.GridUid, out var broadphase) || !_gridQuery.TryComp(targetXform.GridUid, out var grid))
         {
@@ -202,13 +206,18 @@ public abstract partial class SharedStationAiSystem : EntitySystem
     private void OnAiInRange(Entity<StationAiOverlayComponent> ent, ref InRangeOverrideEvent args)
     {
         args.Handled = true;
-        var targetXform = Transform(args.Target);
+        // <Onyx-ZLevels-edited>
+        var target = args.Target;
+        var viewer = args.User;
+        if (TryComp(ent, out RelayInputMoverComponent? relay))
+            viewer = relay.RelayEntity;
 
-        // No cross-grid
-        if (targetXform.GridUid != Transform(args.User).GridUid)
+        var targetXform = Transform(target);
+        if (targetXform.GridUid != Transform(viewer).GridUid)
         {
             return;
         }
+        // </Onyx-ZLevels-edited>
 
         // Validate it's in camera range yes this is expensive.
         // Yes it needs optimising
