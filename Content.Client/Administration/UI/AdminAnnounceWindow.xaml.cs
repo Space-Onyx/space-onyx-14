@@ -4,6 +4,7 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Client.UserInterface.XAML;
+using Robust.Shared.Map; // <Onyx-AdminAnnouncements>
 using Robust.Shared.Utility;
 
 namespace Content.Client.Administration.UI
@@ -19,11 +20,22 @@ namespace Content.Client.Administration.UI
             IoCManager.InjectDependencies(this);
 
             Announcement.Placeholder = new Rope.Leaf(_localization.GetString("admin-announce-announcement-placeholder"));
-            AnnounceMethod.AddItem(_localization.GetString("admin-announce-type-station"));
-            AnnounceMethod.SetItemMetadata(0, AdminAnnounceType.Station);
+            SoundInput.Text = "/Audio/Corvax/Announcements/centcomm.ogg"; // <Onyx-AdminAnnouncements>
+            // <Onyx-AdminAnnouncements-edited>
+            AnnounceMethod.AddItem(_localization.GetString("admin-announce-type-all-stations"));
+            AnnounceMethod.SetItemMetadata(0, AdminAnnounceType.AllStations);
+            AnnounceMethod.AddItem(_localization.GetString("admin-announce-type-specific-station"));
+            AnnounceMethod.SetItemMetadata(1, AdminAnnounceType.SpecificStation);
+            AnnounceMethod.AddItem(_localization.GetString("admin-announce-type-specific-map"));
+            AnnounceMethod.SetItemMetadata(2, AdminAnnounceType.SpecificMap);
             AnnounceMethod.AddItem(_localization.GetString("admin-announce-type-server"));
-            AnnounceMethod.SetItemMetadata(1, AdminAnnounceType.Server);
+            AnnounceMethod.SetItemMetadata(3, AdminAnnounceType.Server);
+            // </Onyx-AdminAnnouncements-edited>
             AnnounceMethod.OnItemSelected += AnnounceMethodOnOnItemSelected;
+            // <Onyx-AdminAnnouncements>
+            StationSelector.OnItemSelected += args => StationSelector.SelectId(args.Id);
+            MapSelector.OnItemSelected += args => MapSelector.SelectId(args.Id);
+            // </Onyx-AdminAnnouncements>
             Announcement.OnKeyBindUp += AnnouncementOnOnTextChanged;
         }
 
@@ -35,7 +47,34 @@ namespace Content.Client.Administration.UI
         private void AnnounceMethodOnOnItemSelected(OptionButton.ItemSelectedEventArgs args)
         {
             AnnounceMethod.SelectId(args.Id);
-            Announcer.Editable = ((AdminAnnounceType?)args.Button.SelectedMetadata ?? AdminAnnounceType.Station) == AdminAnnounceType.Station;
+            // <Onyx-AdminAnnouncements-edited>
+            var type = (AdminAnnounceType?)args.Button.SelectedMetadata ?? AdminAnnounceType.AllStations;
+            Announcer.Editable = type != AdminAnnounceType.Server;
+            StationSelector.Visible = type == AdminAnnounceType.SpecificStation;
+            MapSelector.Visible = type == AdminAnnounceType.SpecificMap;
+            // </Onyx-AdminAnnouncements-edited>
         }
+
+        // <Onyx-AdminAnnouncements>
+        public void SetStations(Dictionary<NetEntity, string> stations)
+        {
+            StationSelector.Clear();
+            foreach (var (station, name) in stations)
+            {
+                StationSelector.AddItem(name);
+                StationSelector.SetItemMetadata(StationSelector.ItemCount - 1, station);
+            }
+        }
+
+        public void SetMaps(Dictionary<MapId, string> maps)
+        {
+            MapSelector.Clear();
+            foreach (var (map, name) in maps)
+            {
+                MapSelector.AddItem(name);
+                MapSelector.SetItemMetadata(MapSelector.ItemCount - 1, map);
+            }
+        }
+        // </Onyx-AdminAnnouncements>
     }
 }
