@@ -156,7 +156,7 @@ public sealed partial class SpeciesPrototype : IPrototype
     public int MinWeightKg = 50;
 
     [DataField]
-    public int MaxWeightKg = 95;
+    public int MaxWeightKg = 75;
 
     [DataField]
     public bool ScaleWidth = true;

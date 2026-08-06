@@ -20,7 +20,7 @@
   minHeightCm: 140
   maxHeightCm: 220
   minWeightKg: 50
-  maxWeightKg: 95
+  maxWeightKg: 85
   # </Onyx-SpeciesDimensions>
   defaultSoundsBySex:
   - UnisexArachnid
