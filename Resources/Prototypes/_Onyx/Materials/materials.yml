@@ -9,7 +9,7 @@
 
 - type: material
   id: BSCrystalUnprocessed
-  stackEntity: MaterialBSCrystal1Unprocessed
+  stackEntity: MaterialBSCrystalClaimed1
   name: materials-bscrystal-unprocessed
   unit: materials-unit-piece
   icon: { sprite: _Onyx/Objects/Materials/bluespace_crystal.rsi, state: bluespace_crystal }

@@ -50,10 +50,31 @@
   - type: PhysicalComposition
     materialComposition:
       BSCrystalUnprocessed: 100
+  - type: UnclaimedOre
+    halfUnits: 500
 
 - type: entity
   parent: MaterialBSCrystalUnprocessed
   id: MaterialBSCrystal1Unprocessed
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: MaterialBSCrystal
+  id: MaterialBSCrystalClaimed
+  name: unprocessed bluespace crystal
+  components:
+  - type: Stack
+    stackType: BSCrystalClaimed
+  - type: PhysicalComposition
+    materialComposition:
+      BSCrystalUnprocessed: 100
+
+- type: entity
+  parent: MaterialBSCrystalClaimed
+  id: MaterialBSCrystalClaimed1
   suffix: Single
   components:
   - type: Stack

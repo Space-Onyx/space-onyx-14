@@ -9,6 +9,8 @@
   - type: PhysicalComposition
     materialComposition:
       Coal: 300
+  - type: UnclaimedOre
+    halfUnits: 2
 
 - type: entity
   parent: CoalUnprocessed
@@ -57,3 +59,139 @@
   components:
   - type: Stack
     count: 90
+
+- type: entity
+  parent: GoldOre
+  id: GoldOreUnprocessed
+  components:
+  - type: Stack
+    stackType: GoldOreUnprocessed
+  - type: UnclaimedOre
+    halfUnits: 24
+
+- type: entity
+  parent: GoldOreUnprocessed
+  id: GoldOre1Unprocessed
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: DiamondOre
+  id: DiamondOreUnprocessed
+  components:
+  - type: Stack
+    stackType: DiamondOreUnprocessed
+  - type: UnclaimedOre
+    halfUnits: 2000
+
+- type: entity
+  parent: DiamondOreUnprocessed
+  id: DiamondOre1Unprocessed
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: SteelOre
+  id: SteelOreUnprocessed
+  components:
+  - type: Stack
+    stackType: SteelOreUnprocessed
+  - type: UnclaimedOre
+    halfUnits: 6
+
+- type: entity
+  parent: SteelOreUnprocessed
+  id: SteelOre1Unprocessed
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: PlasmaOre
+  id: PlasmaOreUnprocessed
+  components:
+  - type: Stack
+    stackType: PlasmaOreUnprocessed
+  - type: UnclaimedOre
+    halfUnits: 12
+
+- type: entity
+  parent: PlasmaOreUnprocessed
+  id: PlasmaOre1Unprocessed
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: SilverOre
+  id: SilverOreUnprocessed
+  components:
+  - type: Stack
+    stackType: SilverOreUnprocessed
+  - type: UnclaimedOre
+    halfUnits: 24
+
+- type: entity
+  parent: SilverOreUnprocessed
+  id: SilverOre1Unprocessed
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: SpaceQuartz
+  id: SpaceQuartzUnprocessed
+  components:
+  - type: Stack
+    stackType: SpaceQuartzUnprocessed
+  - type: UnclaimedOre
+    halfUnits: 7
+
+- type: entity
+  parent: SpaceQuartzUnprocessed
+  id: SpaceQuartz1Unprocessed
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: UraniumOre
+  id: UraniumOreUnprocessed
+  components:
+  - type: Stack
+    stackType: UraniumOreUnprocessed
+  - type: UnclaimedOre
+    halfUnits: 48
+
+- type: entity
+  parent: UraniumOreUnprocessed
+  id: UraniumOre1Unprocessed
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: BananiumOre
+  id: BananiumOreUnprocessed
+  components:
+  - type: Stack
+    stackType: BananiumOreUnprocessed
+  - type: UnclaimedOre
+    halfUnits: 138
+
+- type: entity
+  parent: BananiumOreUnprocessed
+  id: BananiumOre1Unprocessed
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1

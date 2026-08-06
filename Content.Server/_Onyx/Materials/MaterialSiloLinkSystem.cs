@@ -5,7 +5,6 @@ using Content.Shared.DeviceLinking;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Materials;
 using Content.Shared.Materials.OreSilo;
-using Content.Shared.Stacks;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.Materials;
@@ -42,26 +41,11 @@ public sealed partial class OreSiloSystem
             return;
         }
 
-        if (!TryComp<StackComponent>(args.Inserted, out var stack))
+        if (!TryComp<UnclaimedOreComponent>(args.Inserted, out var unclaimedOre))
             return;
 
-        var halfUnits = stack.StackTypeId.Id switch
-        {
-            "CoalUnprocessed" => 2,
-            "SteelOre" => 6,
-            "SpaceQuartz" => 7,
-            "PlasmaOre" => 12,
-            "GoldOre" => 24,
-            "SilverOre" => 24,
-            "UraniumOre" => 48,
-            "BananiumOre" => 138,
-            "BSCrystalUnprocessed" => 500,
-            "DiamondOre" => 2000,
-            _ => 0,
-        };
-
         if (TryComp<MiningPointsComponent>(ent, out var points))
-            _miningPoints.AddHalfUnits((ent.Owner, points), (long) halfUnits * args.Count);
+            _miningPoints.AddHalfUnits((ent.Owner, points), (long) unclaimedOre.HalfUnits * args.Count);
     }
 
     private void OnMaterialSiloLinkStartup(Entity<MaterialSiloLinkComponent> ent, ref ComponentStartup args)

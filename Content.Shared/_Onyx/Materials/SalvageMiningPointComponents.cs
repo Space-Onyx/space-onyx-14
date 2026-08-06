@@ -8,4 +8,11 @@ namespace Content.Shared._Onyx.Materials
     [RegisterComponent, NetworkedComponent]
     public sealed partial class SalvageMiningPointVendorComponent : Component;
 
+    [RegisterComponent]
+    public sealed partial class UnclaimedOreComponent : Component
+    {
+        [DataField(required: true)]
+        public int HalfUnits;
+    }
+
 }

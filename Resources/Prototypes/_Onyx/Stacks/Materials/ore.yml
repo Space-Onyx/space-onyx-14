@@ -4,3 +4,59 @@
   icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: coal }
   spawn: Coal1Unprocessed
   maxCount: 90
+
+- type: stack
+  parent: BaseMediumStack
+  id: GoldOreUnprocessed
+  name: stack-unprocessed-gold-ore
+  icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: gold }
+  spawn: GoldOre1Unprocessed
+
+- type: stack
+  parent: BaseMediumStack
+  id: DiamondOreUnprocessed
+  name: stack-unprocessed-diamond-ore
+  icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: diamond }
+  spawn: DiamondOre1Unprocessed
+
+- type: stack
+  parent: BaseMediumStack
+  id: SteelOreUnprocessed
+  name: stack-unprocessed-steel-ore
+  icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: iron }
+  spawn: SteelOre1Unprocessed
+
+- type: stack
+  parent: BaseMediumStack
+  id: PlasmaOreUnprocessed
+  name: stack-unprocessed-plasma-ore
+  icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: plasma }
+  spawn: PlasmaOre1Unprocessed
+
+- type: stack
+  parent: BaseMediumStack
+  id: SilverOreUnprocessed
+  name: stack-unprocessed-silver-ore
+  icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: silver }
+  spawn: SilverOre1Unprocessed
+
+- type: stack
+  parent: BaseMediumStack
+  id: SpaceQuartzUnprocessed
+  name: stack-unprocessed-quartz-ore
+  icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: spacequartz }
+  spawn: SpaceQuartz1Unprocessed
+
+- type: stack
+  parent: BaseMediumStack
+  id: UraniumOreUnprocessed
+  name: stack-unprocessed-uranium-ore
+  icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: uranium }
+  spawn: UraniumOre1Unprocessed
+
+- type: stack
+  parent: BaseMediumStack
+  id: BananiumOreUnprocessed
+  name: stack-unprocessed-bananium-ore
+  icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: bananium }
+  spawn: BananiumOre1Unprocessed

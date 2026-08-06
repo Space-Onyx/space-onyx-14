@@ -4,13 +4,13 @@
 # High yields
 - type: ore
   id: OreSteel
-  oreEntity: SteelOre1
+  oreEntity: SteelOre1Unprocessed # <Onyx-SalvageMiningPoints-edited>
   minOreYield: 1
   maxOreYield: 5
 
 - type: ore
   id: OreSpaceQuartz
-  oreEntity: SpaceQuartz1
+  oreEntity: SpaceQuartz1Unprocessed # <Onyx-SalvageMiningPoints-edited>
   minOreYield: 1
   maxOreYield: 5
 
@@ -23,13 +23,13 @@
 # Medium yields
 - type: ore
   id: OreGold
-  oreEntity: GoldOre1
+  oreEntity: GoldOre1Unprocessed # <Onyx-SalvageMiningPoints-edited>
   minOreYield: 1
   maxOreYield: 3
 
 - type: ore
   id: OreSilver
-  oreEntity: SilverOre1
+  oreEntity: SilverOre1Unprocessed # <Onyx-SalvageMiningPoints-edited>
   minOreYield: 1
   maxOreYield: 3
 
@@ -42,25 +42,25 @@
 # Low yields
 - type: ore
   id: OrePlasma
-  oreEntity: PlasmaOre1
+  oreEntity: PlasmaOre1Unprocessed # <Onyx-SalvageMiningPoints-edited>
   minOreYield: 1
   maxOreYield: 2
 
 - type: ore
   id: OreUranium
-  oreEntity: UraniumOre1
+  oreEntity: UraniumOre1Unprocessed # <Onyx-SalvageMiningPoints-edited>
   minOreYield: 1
   maxOreYield: 2
 
 - type: ore
   id: OreBananium
-  oreEntity: BananiumOre1
+  oreEntity: BananiumOre1Unprocessed # <Onyx-SalvageMiningPoints-edited>
   minOreYield: 1
   maxOreYield: 2
 
 - type: ore
   id: OreDiamond
-  oreEntity: DiamondOre1
+  oreEntity: DiamondOre1Unprocessed # <Onyx-SalvageMiningPoints-edited>
   minOreYield: 1
   maxOreYield: 2
 
