@@ -5,6 +5,7 @@
   prototype: MobDwarf
   dollPrototype: AppearanceDwarf
   skinColoration: HumanToned
+  description: "/ServerInfo/Guidebook/Mobs/Dwarf.xml" # <Onyx-SpeciesSelector>
   defaultSoundsBySex:
   - UnisexDwarf
   - FemaleDwarf

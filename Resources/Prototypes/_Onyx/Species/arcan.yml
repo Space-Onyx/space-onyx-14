@@ -5,6 +5,7 @@
   prototype: MobArcan
   dollPrototype: AppearanceArcan
   skinColoration: Hues
+  category: Unusual
   defaultSkinTone: "#34a223"
   minAge: 35
   youngAge: 101
@@ -16,3 +17,4 @@
   maxHeightCm: 210
   minWeightKg: 50
   maxWeightKg: 85
+  description: "/ServerInfo/_Onyx/Guidebook/Mobs/Demon.xml"

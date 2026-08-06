@@ -19,7 +19,6 @@ public sealed partial class HumanoidProfileEditor
     public event Action<List<ProtoId<GuideEntryPrototype>>>? OnOpenGuidebook;
 
     private ColorSelectorSliders _rgbSkinColorSelector;
-    private List<SpeciesPrototype> _species = new();
     private List<EmoteSoundsPrototype> _voices = new();
     private static readonly ProtoId<GuideEntryPrototype> DefaultSpeciesGuidebook = "Species";
     // <Onyx-HeightWidth>
@@ -282,41 +281,7 @@ public sealed partial class HumanoidProfileEditor
     /// <summary>
     /// Refreshes the species selector.
     /// </summary>
-    public void RefreshSpecies()
-    {
-        SpeciesButton.Clear();
-        _species.Clear();
-
-        _species.AddRange(_prototypeManager.EnumeratePrototypes<SpeciesPrototype>().Where(o => o.RoundStart));
-        _species.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.CurrentCultureIgnoreCase));
-        var speciesIds = _species.Select(o => o.ID).ToList();
-
-        for (var i = 0; i < _species.Count; i++)
-        {
-            var name = Loc.GetString(_species[i].Name);
-
-            // Corvax-Sponsors-start
-            if (_species[i].SponsorOnly)
-                name += GetSponsorOnlySuffix(_species[i].ID);
-            // Corvax-Sponsors-end
-
-            SpeciesButton.AddItem(name, i);
-
-            if (Profile?.Species.Equals(_species[i].ID) == true)
-            {
-                SpeciesButton.SelectId(i);
-            }
-        }
-
-        // If our species isn't available then reset it to default.
-        if (Profile != null)
-        {
-            if (!speciesIds.Contains(Profile.Species))
-            {
-                SetSpecies(HumanoidCharacterProfile.DefaultSpecies);
-            }
-        }
-    }
+    public void RefreshSpecies() => RefreshSpeciesSelector(); // <Onyx-SpeciesSelector-edited>
 
     private void SetSpecies(string newSpecies)
     {

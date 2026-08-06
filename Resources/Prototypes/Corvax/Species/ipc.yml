@@ -7,6 +7,8 @@
   defaultSkinTone: "#eb943d"
   dollPrototype: AppearanceIpc
   skinColoration: Hues
+  category: Special # <Onyx-SpeciesSelector>
+  description: "/ServerInfo/_Onyx/Guidebook/Mobs/IPCs.xml" # <Onyx-SpeciesSelector>
   maleFirstNames: NamesIpcFirstMale
   femaleFirstNames: NamesIpcFirstFemale
   maleLastNames: NamesIpcLast # Corvax-LastnameGender

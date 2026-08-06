@@ -6,6 +6,8 @@
   defaultSkinTone: "#ffda93"
   dollPrototype: AppearanceMoth
   skinColoration: Hues
+  category: Unusual # <Onyx-SpeciesSelector>
+  description: "/ServerInfo/Guidebook/Mobs/Moth.xml" # <Onyx-SpeciesSelector>
   maleFirstNames: NamesMothFirstMale
   femaleFirstNames: NamesMothFirstFemale
   # lastNames: NamesMothLast # Corvax-LastnameGender

@@ -231,14 +231,7 @@ namespace Content.Client.Lobby.UI
             #endregion
             // </Onyx-Barks>
 
-            RefreshSpecies();
-
-            SpeciesButton.OnItemSelected += args =>
-            {
-                SpeciesButton.SelectId(args.Id);
-                SetSpecies(_species[args.Id].ID);
-                OnSkinColorOnValueChanged();
-            };
+            InitializeSpeciesSelector(); // <Onyx-SpeciesSelector-edited>
 
 
             #region Skin
@@ -464,6 +457,7 @@ namespace Content.Client.Lobby.UI
 
             _loadoutWindow?.Dispose();
             _loadoutWindow = null;
+            DisposeSpeciesSelector(); // <Onyx-SpeciesSelector>
         }
 
         protected override void EnteredTree()

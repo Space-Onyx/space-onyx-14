@@ -6,6 +6,7 @@
   defaultSkinTone: "#34a223"
   dollPrototype: AppearanceReptilian
   skinColoration: Hues
+  description: "/ServerInfo/Guidebook/Mobs/Reptilian.xml" # <Onyx-SpeciesSelector>
   maleFirstNames: NamesReptilianMale
   femaleFirstNames: NamesReptilianFemale
   naming: FirstDashFirst

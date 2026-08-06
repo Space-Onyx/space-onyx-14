@@ -5,6 +5,8 @@
   prototype: MobVox
   dollPrototype: AppearanceVox
   skinColoration: VoxFeathers
+  category: Unusual # <Onyx-SpeciesSelector>
+  description: "/ServerInfo/Guidebook/Mobs/Vox.xml" # <Onyx-SpeciesSelector>
   defaultSkinTone: "#6c741d"
   maleFirstNames: NamesVox
   femaleFirstNames: NamesVox

@@ -74,7 +74,7 @@
                                     <TextureButton Name="SpeciesInfoButton" Scale="0.3 0.3"
                                                    VerticalAlignment="Center"
                                                    ToolTip="{Loc 'humanoid-profile-editor-guidebook-button-tooltip'}"/>
-                                    <OptionButton Name="SpeciesButton" HorizontalAlignment="Right" />
+                                    <Button Name="SpeciesButton" HorizontalAlignment="Right" ToggleMode="True" /> <!-- <Onyx-SpeciesSelector-edited> -->
                                 </BoxContainer>
                                 <!-- Age -->
                                 <BoxContainer HorizontalExpand="True">

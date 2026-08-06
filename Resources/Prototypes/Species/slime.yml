@@ -6,6 +6,7 @@
   defaultSkinTone: "#b8b8b8"
   dollPrototype: AppearanceSlimePerson
   skinColoration: Hues
+  description: "/ServerInfo/Guidebook/Mobs/SlimePerson.xml" # <Onyx-SpeciesSelector>
   defaultSoundsBySex:
   - MaleSlime
   - FemaleSlime

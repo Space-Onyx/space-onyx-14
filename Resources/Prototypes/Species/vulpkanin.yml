@@ -6,6 +6,8 @@
   defaultSkinTone:  "#eb943d" #Corvax-Vulp_Port "#5a3f2d"
   dollPrototype: AppearanceVulpkanin
   skinColoration: Hues #Corvax-Vulp_Port VulpkaninColors
+  category: Unusual # <Onyx-SpeciesSelector>
+  description: "/ServerInfo/Guidebook/Mobs/Vulpkanin.xml" # <Onyx-SpeciesSelector>
   maleFirstNames: NamesVulpFirstMale #Corvax-Vulp_Port names_vulpkanin_male
   femaleFirstNames: NamesVulpFirstFemale #Corvax-Vulp_Port names_vulpkanin_female
   maleLastNames: NamesVulpLast # Corvax-LastnameGender

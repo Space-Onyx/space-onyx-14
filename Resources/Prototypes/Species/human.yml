@@ -5,3 +5,4 @@
   prototype: MobHuman
   dollPrototype: AppearanceHuman
   skinColoration: HumanToned
+  description: "/ServerInfo/Guidebook/Mobs/Human.xml" # <Onyx-SpeciesSelector>

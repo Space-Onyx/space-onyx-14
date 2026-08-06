@@ -6,6 +6,7 @@
   defaultSkinTone: "#385878"
   dollPrototype: AppearanceArachnid
   skinColoration: Hues
+  description: "/ServerInfo/Guidebook/Mobs/Arachnid.xml" # <Onyx-SpeciesSelector>
   maleFirstNames: NamesArachnidFirst
   femaleFirstNames: NamesArachnidFirst
   maleLastNames: NamesArachnidLast # Corvax-LastnameGender

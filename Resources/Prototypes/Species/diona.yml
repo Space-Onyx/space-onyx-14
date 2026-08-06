@@ -6,6 +6,8 @@
   defaultSkinTone: "#cdb369"
   dollPrototype: AppearanceDiona
   skinColoration: Hues
+  category: Unusual # <Onyx-SpeciesSelector>
+  description: "/ServerInfo/Guidebook/Mobs/Diona.xml" # <Onyx-SpeciesSelector>
   maleFirstNames: NamesDionaFirst
   femaleFirstNames: NamesDionaFirst
   maleLastNames: NamesDionaLast # Corvax-LastnameGender
