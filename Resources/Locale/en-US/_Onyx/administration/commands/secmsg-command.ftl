@@ -1,0 +1,13 @@
+cmd-secmsg-desc = Sends a prominent private popup to selected players.
+cmd-secmsg-help = secmsg "message" [popup-type] All | cKey1 [cKey2 ...]
+secmsg-command-arg-message = message
+secmsg-command-arg-target-n = target { $target } (cKey)
+secmsg-command-arg-target-or-type = popup type or target (Small, Medium, Large, SmallCaution, MediumCaution, LargeCaution, All, cKey)
+secmsg-command-error-args = Invalid number of arguments. Usage: secmsg "message" [popup-type] All or secmsg "message" [popup-type] cKey1 cKey2 ... (up to 20 players).
+secmsg-command-error-empty-message = Message cannot be empty.
+secmsg-command-error-no-targets = Specify All or at least one cKey.
+secmsg-command-error-too-many-targets = Too many targets. Maximum is { $max }.
+secmsg-command-error-player-not-found = Player { $username } was not found.
+secmsg-command-error-no-valid-targets = No valid attached players found. Message was not sent.
+secmsg-command-error-all-with-extra = Additional targets cannot be specified with All.
+secmsg-command-success = Message sent to { $count } players.

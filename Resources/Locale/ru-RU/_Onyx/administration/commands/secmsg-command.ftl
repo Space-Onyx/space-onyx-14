@@ -1,0 +1,13 @@
+cmd-secmsg-desc = Отправляет выбранным игрокам заметное личное всплывающее сообщение.
+cmd-secmsg-help = secmsg "сообщение" [тип] All | cKey1 [cKey2 ...]
+secmsg-command-arg-message = сообщение
+secmsg-command-arg-target-n = цель { $target } (cKey)
+secmsg-command-arg-target-or-type = тип сообщения или цель (Small, Medium, Large, SmallCaution, MediumCaution, LargeCaution, All, cKey)
+secmsg-command-error-args = Недопустимое число аргументов. Использование: secmsg "сообщение" [тип] All или secmsg "сообщение" [тип] cKey1 cKey2 ... (до 20 игроков).
+secmsg-command-error-empty-message = Сообщение не может быть пустым.
+secmsg-command-error-no-targets = Укажите All или хотя бы один cKey.
+secmsg-command-error-too-many-targets = Слишком много целей. Максимум: { $max }.
+secmsg-command-error-player-not-found = Игрок { $username } не найден.
+secmsg-command-error-no-valid-targets = Подходящие игроки с активной сущностью не найдены. Сообщение не отправлено.
+secmsg-command-error-all-with-extra = Вместе с All нельзя указывать дополнительные цели.
+secmsg-command-success = Сообщение отправлено игрокам: { $count }.
