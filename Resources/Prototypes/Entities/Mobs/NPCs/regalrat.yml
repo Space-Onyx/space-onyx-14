@@ -110,6 +110,15 @@
   - type: MobsterAccent
   - type: Speech
     speechVerb: SmallMob
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - TauCetiBasic
+    - Mouse
+    understands:
+    - TauCetiBasic
+    - Mouse
+  # </Onyx-CreatureLanguages>
   - type: ToolRefinable
     refineResult:
     - id: ClothingHeadHatFancyCrown #how did that get there?
@@ -211,6 +220,14 @@
     - map: [ "enum.DamageStateVisualLayers.BaseUnshaded"]
       state: eyes
       shader: unshaded
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Mouse
+    understands:
+    - Mouse
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: SpriteMovement
     movementLayers:
       movement:

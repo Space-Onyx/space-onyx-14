@@ -54,6 +54,14 @@
       reagents:
       - ReagentId: Blood
         Quantity: 50
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Mouse
+    understands:
+    - Mouse
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: ReplacementAccent
     accent: mouse
   - type: MeleeWeapon
@@ -230,13 +238,14 @@
   - type: Speech
     speechVerb: SmallMob
     speechSounds: Cluck
-  # <Onyx-Animals-edited>
+  # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
     speaks:
     - Chicken
     understands:
     - Chicken
-  # </Onyx-Animals-edited>
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages-edited>
   - type: Tag
     tags:
     - DoorBumpOpener
@@ -440,6 +449,14 @@
   name: cockroach
   description: This station is just crawling with bugs.
   components:
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Hissing
+    understands:
+    - Hissing
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: Sprite
     sprite: Mobs/Animals/cockroach.rsi
     layers:
@@ -523,13 +540,14 @@
     speechVerb: Moth
     speechSounds: Squeak
     allowedEmotes: ['Chitter', 'Squeak', 'Flap']
-  # <Onyx-Animals>
+  # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
     speaks:
     - Moffic
     understands:
     - Moffic
-  # </Onyx-Animals>
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages-edited>
   - type: FaxableObject
     insertingState: inserting_mothroach
   - type: MothAccent
@@ -679,13 +697,14 @@
   id: MobDuckMallard
   description: An adorable mallard duck, it's fluffy and soft!
   components:
-  # <Onyx-Animals>
+  # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
     speaks:
     - Duck
     understands:
     - Duck
-  # </Onyx-Animals>
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages-edited>
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -987,13 +1006,14 @@
   id: MobCrab
   description: A folk legend goes around that his claw snaps spacemen out of existence over distasteful remarks. Be polite and tolerant for your own safety.
   components:
-  # <Onyx-Animals>
+  # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
     speaks:
     - Crab
     understands:
     - Crab
-  # </Onyx-Animals>
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages-edited>
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -1511,13 +1531,14 @@
   id: MobKangaroo
   description: A large marsupial herbivore. It has powerful hind legs, with nails that resemble long claws.
   components:
-  # <Onyx-Animals>
+  # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
     speaks:
     - Kangaroo
     understands:
     - Kangaroo
-  # </Onyx-Animals>
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages-edited>
   - type: MovementSpeedModifier
     baseWalkSpeed: 3.5
     baseSprintSpeed: 4.5
@@ -1746,13 +1767,14 @@
   parent: MobBaseAncestor
   description: New church of neo-darwinists actually believe that EVERY animal evolved from a monkey. Tastes like pork, and killing them is both fun and relaxing.
   components:
-  # <Onyx-Animals>
+  # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
     speaks:
     - Monkey
     understands:
     - Monkey
-  # </Onyx-Animals>
+    - Kobold
+  # </Onyx-CreatureLanguages-edited>
   # <Onyx-PrimateAnatomy>
   - type: DeclarativeBody
     prototype: MonkeyBody
@@ -1809,6 +1831,15 @@
   - type: Speech
     speechSounds: Monkey
     speechVerb: Monkey
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Monkey
+    understands:
+    - Monkey
+    - Kobold
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: MonkeyAccent
   - type: NpcFactionMember
     factions:
@@ -1853,6 +1884,15 @@
   components:
   - type: NameIdentifier
     group: Kobold
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Kobold
+    understands:
+    - Kobold
+    - Monkey
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   # <Onyx-PrimateAnatomy>
   - type: DeclarativeBody
     prototype: KoboldBody
@@ -1967,6 +2007,15 @@
     # make the player a traitor once its taken
   - type: AutoTraitor
     profile: TraitorReinforcement
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Kobold
+    understands:
+    - Monkey
+    - Kobold
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   id: MobKoboldSyndicateAgentNukeops # Reinforcement exclusive to nukeops uplink
@@ -1990,13 +2039,14 @@
   id: MobMouse
   description: Squeak!
   components:
-  # <Onyx-Animals>
+  # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
     speaks:
     - Mouse
     understands:
     - Mouse
-  # </Onyx-Animals>
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages-edited>
   # <Onyx-VentCrawling>
   - type: VentCrawler
     enterDelay: 0.5
@@ -2535,6 +2585,13 @@
     speechVerb: Parrot
   - type: Vocal
     emoteSounds: Parrot
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - TauCetiBasic
+    understands:
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: ActiveListener
   - type: Vocalizer
   - type: RadioVocalizer
@@ -2583,13 +2640,14 @@
   id: MobPenguin
   description: Their lives are constant pain due to their inner-body knees.
   components:
-  # <Onyx-Animals>
+  # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
     speaks:
     - Penguin
     understands:
     - Penguin
-  # </Onyx-Animals>
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages-edited>
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -2768,6 +2826,14 @@
         Quantity: 50
   - type: Damageable
     damageModifierSet: Scale
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Hissing
+    understands:
+    - Hissing
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 # Code unique spider prototypes or combine them all into one spider and get a
 # random sprite state when you spawn it.
@@ -2803,6 +2869,14 @@
   - type: MeleeChemicalInjector
     transferAmount: 0.75
     solution: melee
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Xeno
+    understands:
+    - Xeno
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: ReplacementAccent
     accent: xeno
   - type: InteractionPopup
@@ -2988,6 +3062,13 @@
   description: This spider looks a little magical
   suffix: Wizard
   components:
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Universal
+    understands:
+    - Universal
+  # </Onyx-CreatureLanguages>
   - type: Accentless
     removes:
     - type: ReplacementAccent
@@ -2999,6 +3080,14 @@
   id: MobPossum
   description: '"O Possum! My Possum!" -- Walt Whitman, 1865'
   components:
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Hissing
+    understands:
+    - Hissing
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Animals/possum.rsi
@@ -3072,6 +3161,14 @@
   id: MobRaccoon
   description: Trash panda!
   components:
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Hissing
+    understands:
+    - Hissing
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Animals/raccoon.rsi
@@ -3125,13 +3222,14 @@
   id: MobFox
   description: They're a fox.
   components:
-  # <Onyx-Animals>
+  # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
     speaks:
     - Fox
     understands:
     - Fox
-  # </Onyx-Animals>
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages-edited>
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Animals/fox.rsi
@@ -3301,6 +3399,14 @@
     refineResult:
     - id: FoodMeat
       amount: 2
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Dog
+    understands:
+    - Dog
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   # <Onyx-Animals-edited>
   - type: Tag
     tags:
@@ -3403,13 +3509,14 @@
   id: MobCat
   description: Feline pet, very funny.
   components:
-  # <Onyx-Animals>
+  # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
     speaks:
     - Cat
     understands:
     - Cat
-  # </Onyx-Animals>
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages-edited>
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Pets/cat.rsi
@@ -3501,6 +3608,14 @@
   parent: MobCatSpace
   description: Explosive kitten.
   components:
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Cat
+    understands:
+    - Cat
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: Sprite
     layers:
     - map: ["enum.DamageStateVisualLayers.Base"]
@@ -3646,6 +3761,14 @@
   id: MobSloth
   description: Very slow animal. For people with low energy.
   components:
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Hissing
+    understands:
+    - Hissing
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: MovementSpeedModifier
     baseWalkSpeed : 0.5
     baseSprintSpeed : 1
@@ -3703,6 +3826,14 @@
   id: MobFerret
   description: Just a silly little guy!
   components:
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Hissing
+    understands:
+    - Hissing
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Pets/ferret.rsi
@@ -3847,6 +3978,14 @@
     refineResult:
     - id: FoodMeat
       amount: 1
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Mouse
+    understands:
+    - Mouse
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: ReplacementAccent
     accent: mouse
   - type: Tag
@@ -3912,13 +4051,14 @@
   id: MobPig
   description: Oink.
   components:
-  # <Onyx-Animals>
+  # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
     speaks:
     - Pig
     understands:
     - Pig
-  # </Onyx-Animals>
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages-edited>
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -4063,6 +4203,14 @@
     reformTime: 10
     popupText: diona-reform-attempt
     reformPrototype: MobDionaReformed
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - RootSpeak
+    understands:
+    - RootSpeak
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: TTS # Corvax-TTS
     voice: Omu
 
@@ -4138,6 +4286,14 @@
       task: SimpleHostileCompound
   - type: Puller
     needsHands: false
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Deer
+    understands:
+    - Deer
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   name: reindeer doe

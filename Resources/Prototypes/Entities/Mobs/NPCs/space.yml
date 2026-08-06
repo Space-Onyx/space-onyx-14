@@ -163,6 +163,14 @@
     templateId: spacekangaroo
   - type: Vocal
     emoteSounds: Kangaroo
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Kangaroo
+    understands:
+    - Kangaroo
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: ReplacementAccent
     accent: kangaroo
   - type: ToolRefinable
@@ -247,6 +255,14 @@
   - type: MeleeChemicalInjector
     solution: melee
     transferAmount: 4
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Xeno
+    understands:
+    - Xeno
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: ReplacementAccent
     accent: xeno
   - type: InteractionPopup
@@ -358,6 +374,14 @@
     - type: MeleeChemicalInjector
       solution: melee
       transferAmount: 6
+    # <Onyx-CreatureLanguages>
+    - type: LanguageKnowledge
+      speaks:
+      - Xeno
+      understands:
+      - Xeno
+      - TauCetiBasic
+    # </Onyx-CreatureLanguages>
     - type: ReplacementAccent
       accent: xeno
     - type: InteractionPopup

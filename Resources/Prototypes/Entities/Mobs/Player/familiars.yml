@@ -32,6 +32,14 @@
     - PetsNT
   - type: Alerts
   - type: Familiar
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Mouse
+    understands:
+    - Mouse
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   name: Cerberus
@@ -91,3 +99,11 @@
   - type: Familiar
   - type: Vocal
     emoteSounds: Cerberus
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Dog
+    understands:
+    - Dog
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>

@@ -66,6 +66,11 @@
     breed: MobSlimeXenobioBabyGrey
     breedName: xenobio-breed-grey
   - type: RandomizeXenobioSlime
+  - type: LanguageKnowledge
+    speaks:
+    - Bubblish
+    understands:
+    - Bubblish
   - type: GuideHelp
     guides: [ XenobiologyGuide ]
 

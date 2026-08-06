@@ -170,6 +170,15 @@
     speedModifier: 2.5 # fast because dragon strong
     useSound:
       path: /Audio/Items/crowbar.ogg
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - TauCetiBasic
+    - Carptongue
+    understands:
+    - TauCetiBasic
+    - Carptongue
+  # </Onyx-CreatureLanguages>
   # <Onyx-CollectiveMind>
   - type: CollectiveMind
     defaultChannel: Dragonmind

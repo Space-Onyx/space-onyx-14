@@ -66,6 +66,14 @@
     - VimPilot
   - type: StealTarget
     stealGroup: AnimalIan
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Dog
+    understands:
+    - Dog
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ MobCorgiIan, BaseSlicingRefinable ]
@@ -174,6 +182,14 @@
     - id: MaterialHideCorgi
   - type: StealTarget
     stealGroup: AnimalIan
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Dog
+    understands:
+    - Dog
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, MobCat ]
@@ -197,6 +213,14 @@
     - VimPilot
   - type: StealTarget
     stealGroup: AnimalNamedCat
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Cat
+    understands:
+    - Cat
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, MobCatCalico ]
@@ -217,6 +241,14 @@
     - VimPilot
   - type: StealTarget
     stealGroup: AnimalNamedCat
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Cat
+    understands:
+    - Cat
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, MobCatCaracal ]
@@ -244,6 +276,14 @@
     - VimPilot
   - type: StealTarget
     stealGroup: AnimalNamedCat
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Cat
+    understands:
+    - Cat
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, MobFerret ]
@@ -259,6 +299,14 @@
     tags:
     - CannotSuicide
     - VimPilot
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Hissing
+    understands:
+    - Hissing
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, SimpleMobBase, StripableInventoryBase, BaseSlicingRefinable , BaseMobDestructible ]
@@ -316,6 +364,14 @@
     - VimPilot
   - type: StealTarget
     stealGroup: AnimalNamedCat
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Cat
+    understands:
+    - Cat
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, SimpleMobBase, StripableInventoryBase, BaseSlicingRefinable , BaseMobDestructible ]
@@ -385,13 +441,16 @@
   - type: Speech
     speechVerb: Canine
     speechSounds: Dog
+  # <Onyx-CreatureLanguages-edited>
   # <Onyx-Animals-edited>
   - type: LanguageKnowledge
     speaks:
     - Dog
     understands:
     - Dog
+    - TauCetiBasic
   # </Onyx-Animals-edited>
+  # </Onyx-CreatureLanguages-edited>
   - type: Tag
     tags:
     - CannotSuicide
@@ -433,6 +492,14 @@
     attributes:
       proper: true
       gender: male
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Hissing
+    understands:
+    - Hissing
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, SimpleMobBase, StripableInventoryBase, BaseSlicingRefinable , BaseMobDestructible ]
@@ -496,6 +563,14 @@
     speechVerb: Canine
     speechSounds: Dog
   - type: MessyDrinker
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Dog
+    understands:
+    - Dog
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, MobPossum ]
@@ -520,6 +595,14 @@
     - VimPilot
   - type: StealTarget
     stealGroup: AnimalMorty
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Hissing
+    understands:
+    - Hissing
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: MobPossumMorty
@@ -584,6 +667,14 @@
     tags:
     - CannotSuicide
     - VimPilot
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Hissing
+    understands:
+    - Hissing
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, MobPig ]
@@ -606,6 +697,14 @@
     tags:
     - CannotSuicide
     - VimPilot
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Pig
+    understands:
+    - Pig
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, MobFox, BaseSlicingRefinable ]
@@ -636,6 +735,14 @@
     - VimPilot
   - type: StealTarget
     stealGroup: AnimalRenault
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Fox
+    understands:
+    - Fox
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, MobHamster, BaseSlicingRefinable ]
@@ -689,6 +796,14 @@
     flavors:
     - meaty
     - sadness
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Mouse
+    understands:
+    - Mouse
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: MobHamsterHamlet
@@ -772,6 +887,14 @@
     - FootstepSound
   - type: StealTarget
     stealGroup: AnimalShiva
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Xeno
+    understands:
+    - Xeno
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, MobKangaroo ]
@@ -803,6 +926,14 @@
   - type: GhostTakeoverAvailable
   - type: Loadout
     prototypes: [ BoxingKangarooGear ]
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Kangaroo
+    understands:
+    - Kangaroo
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, MobAdultSlimes, StripableInventoryBase, BaseSlicingRefinable ]
@@ -886,6 +1017,14 @@
       gender: female
   - type: TTS # Corvax-TTS
     voice: Dryad
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Bubblish
+    understands:
+    - Bubblish
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, MobMonkey ]
@@ -920,6 +1059,15 @@
     attributes:
       proper: true
       gender: male
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Monkey
+    understands:
+    - Monkey
+    - Kobold
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, MobCrab ]
@@ -947,6 +1095,14 @@
 #  - type: AlwaysRevolutionaryConvertible
   - type: StealTarget
     stealGroup: AnimalTropico
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Crab
+    understands:
+    - Crab
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
 
 - type: entity
   parent: [ BaseUniquePet, MobParrotBase ]

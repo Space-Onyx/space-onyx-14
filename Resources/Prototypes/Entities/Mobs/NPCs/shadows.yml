@@ -52,6 +52,14 @@
   - type: Physics
   - type: ReplacementAccent
     accent: cat
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Cat
+    understands:
+    - Cat
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: InteractionPopup
     successChance: 0.01 # you cant pet shadow cat... almost
     interactSuccessString: petting-success-cat

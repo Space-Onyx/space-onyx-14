@@ -16,6 +16,14 @@
     sprite: Mobs/Aliens/Argocyte/argocyte_common.rsi
   - type: ReplacementAccent
     accent: xeno
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Xeno
+    understands:
+    - Xeno
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: Bloodstream
     bloodReferenceSolution:
       reagents:

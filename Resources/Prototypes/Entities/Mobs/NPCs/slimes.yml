@@ -117,6 +117,14 @@
   components:
   - type: ReplacementAccent
     accent: slimes
+  # <Onyx-CreatureLanguages>
+  - type: LanguageKnowledge
+    speaks:
+    - Bubblish
+    understands:
+    - Bubblish
+    - TauCetiBasic
+  # </Onyx-CreatureLanguages>
   - type: GhostTakeoverAvailable
   - type: GhostRole
     makeSentient: true
