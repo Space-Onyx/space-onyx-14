@@ -1666,6 +1666,13 @@ public abstract partial class SharedStorageSystem : EntitySystem
         }
     }
 
+    // <Onyx-ModStorage>
+    public void RefreshStorageGrid(Entity<StorageComponent> ent)
+    {
+        UpdateOccupied(ent);
+    }
+    // </Onyx-ModStorage>
+
     private void AddOccupiedEntity(Entity<StorageComponent> storageEnt, Entity<ItemComponent?> itemEnt, ItemStorageLocation location)
     {
         AddOccupied(itemEnt, location, storageEnt.Comp.OccupiedGrid);

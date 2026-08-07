@@ -2,6 +2,7 @@ using System.Linq;
 using Content.Shared._Onyx.Clothing.Components;
 using Content.Shared._Onyx.Clothing.Modsuits.Components;
 using Content.Shared.Storage;
+using Content.Shared.Storage.EntitySystems;
 using Robust.Shared.Containers;
 
 namespace Content.Server._Onyx.Clothing.Modsuits.Systems;
@@ -9,6 +10,7 @@ namespace Content.Server._Onyx.Clothing.Modsuits.Systems;
 public sealed partial class ModModuleStorageSystem : EntitySystem
 {
     [Dependency] private SharedContainerSystem _containers = default!;
+    [Dependency] private SharedStorageSystem _storage = default!;
     public override void Initialize()
     {
         base.Initialize();
@@ -23,7 +25,7 @@ public sealed partial class ModModuleStorageSystem : EntitySystem
             return;
         module.Comp.OriginalGrid = new(controller.Grid);
         controller.Grid = new(source.Grid);
-        Dirty(args.Controller, controller);
+        _storage.RefreshStorageGrid((args.Controller, controller));
         Dirty(module);
     }
 
@@ -37,8 +39,8 @@ public sealed partial class ModModuleStorageSystem : EntitySystem
         foreach (var item in storage.Container.ContainedEntities.ToArray())
             _containers.Remove(item, storage.Container, destination: destination);
         storage.Grid = new(original);
+        _storage.RefreshStorageGrid((args.Controller, storage));
         module.Comp.OriginalGrid = null;
-        Dirty(args.Controller, storage);
         Dirty(module);
     }
 }
