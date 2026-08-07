@@ -98,16 +98,42 @@ public sealed partial class SyllableObfuscation : ReplacementObfuscation
             if (word.Length == 0)
                 return;
 
+            var casePattern = new bool[word.Length];
+            for (var i = 0; i < word.Length; i++)
+                casePattern[i] = char.IsUpper(word[i]);
+
             var seed = StableHash(word) ^ roundId;
             var count = MinSyllables + StableIndex(seed, MaxSyllables - MinSyllables + 1);
+
+            var syllables = new StringBuilder();
             for (var i = 0; i < count; i++)
-                output.Append(Replacement[StableIndex(seed + i, Replacement.Count)]);
+                syllables.Append(Replacement[StableIndex(seed + i, Replacement.Count)]);
+
+            var lastIdx = casePattern.Length - 1;
+            for (var i = 0; i < syllables.Length; i++)
+            {
+                var ch = syllables[i];
+                if (!char.IsLetter(ch))
+                {
+                    output.Append(ch);
+                    continue;
+                }
+                var caseIdx = Math.Min(i, lastIdx);
+                ch = casePattern[caseIdx] ? char.ToUpperInvariant(ch) : char.ToLowerInvariant(ch);
+                output.Append(ch);
+            }
+
             word.Clear();
         }
 
         foreach (var character in message)
         {
-            if (char.IsLetterOrDigit(character))
+            if (char.IsDigit(character))
+            {
+                FlushWord();
+                output.Append(character);
+            }
+            else if (char.IsLetter(character))
                 word.Append(character);
             else
             {
