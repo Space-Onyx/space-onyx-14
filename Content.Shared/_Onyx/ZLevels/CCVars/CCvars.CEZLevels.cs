@@ -141,6 +141,10 @@ public sealed partial class CCVars
     public static readonly CVarDef<bool>
         CEZProjectedLightingEnabled = CVarDef.Create("zlevels.ce_projected_lighting_enabled", true, CVar.CLIENTONLY | CVar.ARCHIVE);
 
+    /// <summary>Refresh rate for client-only projected Z lights. Lower values reduce client CPU cost. Default 20 Hz.</summary>
+    public static readonly CVarDef<float>
+        CEZProjectedLightingUpdateHz = CVarDef.Create("zlevels.ce_projected_lighting_update_hz", 20f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
     /// <summary>Maximum number of projected lights per adjacent Z layer. Caps render cost. Default 16.</summary>
     public static readonly CVarDef<int>
         CEZMaxProjectedLightsPerLevel = CVarDef.Create("zlevels.ce_max_projected_lights_per_level", 16, CVar.CLIENTONLY | CVar.ARCHIVE);

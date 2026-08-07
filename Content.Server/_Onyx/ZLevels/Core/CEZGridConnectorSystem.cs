@@ -18,12 +18,24 @@ public sealed partial class CEZGridConnectorSystem : EntitySystem
     private bool _hasConnectors;
     private readonly Dictionary<EntityUid, HashSet<EntityUid>> _adjacency = new();
     private readonly List<HashSet<EntityUid>> _components = new();
+    private readonly Stack<HashSet<EntityUid>> _setPool = new();
     private readonly HashSet<EntityUid> _visited = new();
     private readonly Queue<EntityUid> _queue = new();
     private readonly Dictionary<EntityUid, EntityUid> _targets = new();
     private readonly HashSet<EntityUid> _claimedNetworks = new();
     private readonly HashSet<EntityUid> _connectorGrids = new();
     private readonly List<EntityUid> _remove = new();
+
+    private HashSet<EntityUid> RentSet()
+    {
+        return _setPool.Count > 0 ? _setPool.Pop() : new HashSet<EntityUid>();
+    }
+
+    private void ReturnSet(HashSet<EntityUid> set)
+    {
+        set.Clear();
+        _setPool.Push(set);
+    }
 
     public override void Initialize()
     {
@@ -149,6 +161,11 @@ public sealed partial class CEZGridConnectorSystem : EntitySystem
                 _zLevels.RebuildGridLinkage((networkUid, network));
         }
 
+        foreach (var component in _components)
+        {
+            ReturnSet(component);
+        }
+
         _components.Clear();
     }
 
@@ -162,7 +179,13 @@ public sealed partial class CEZGridConnectorSystem : EntitySystem
             if (_claimedNetworks.Contains(uid))
                 continue;
 
-            var overlap = network.Grids.Count(component.Contains);
+            var overlap = 0;
+            foreach (var grid in network.Grids)
+            {
+                if (component.Contains(grid))
+                    overlap++;
+            }
+
             if (overlap <= bestOverlap)
                 continue;
 
@@ -186,7 +209,7 @@ public sealed partial class CEZGridConnectorSystem : EntitySystem
             if (!_visited.Add(start))
                 continue;
 
-            var component = new HashSet<EntityUid>();
+            var component = RentSet();
             _queue.Clear();
             _queue.Enqueue(start);
             while (_queue.TryDequeue(out var grid))
@@ -201,6 +224,13 @@ public sealed partial class CEZGridConnectorSystem : EntitySystem
 
             _components.Add(component);
         }
+
+        foreach (var neighbors in _adjacency.Values)
+        {
+            ReturnSet(neighbors);
+        }
+
+        _adjacency.Clear();
     }
 
     private void AddConnectorEdges()
@@ -268,9 +298,9 @@ public sealed partial class CEZGridConnectorSystem : EntitySystem
     private void AddEdge(EntityUid first, EntityUid second)
     {
         if (!_adjacency.TryGetValue(first, out var firstPeers))
-            _adjacency[first] = firstPeers = new HashSet<EntityUid>();
+            _adjacency[first] = firstPeers = RentSet();
         if (!_adjacency.TryGetValue(second, out var secondPeers))
-            _adjacency[second] = secondPeers = new HashSet<EntityUid>();
+            _adjacency[second] = secondPeers = RentSet();
         firstPeers.Add(second);
         secondPeers.Add(first);
     }

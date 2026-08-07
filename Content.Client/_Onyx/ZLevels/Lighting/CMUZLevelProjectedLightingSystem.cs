@@ -69,6 +69,7 @@ public sealed partial class CMUZLevelProjectedLightingSystem : EntitySystem
     private readonly List<List<int>> _acceptedCandidateBucketPool = new();
     private readonly ProjectedLightAlongAxisComparer _alongAxisComparer = new();
     private float _acceptedCandidateCellSize = 0.75f;
+    private float _updateAccumulator;
 
     private EntityQuery<CMUZProjectedLightComponent> _projectedQuery;
     private EntityQuery<PointLightComponent> _pointLightQuery;
@@ -107,6 +108,13 @@ public sealed partial class CMUZLevelProjectedLightingSystem : EntitySystem
             CleanupAllProjectedLights();
             return;
         }
+
+        var updateHz = Math.Clamp(_config.GetCVar(CCVars.CEZProjectedLightingUpdateHz), 1f, 60f);
+        _updateAccumulator += frameTime;
+        if (_updateAccumulator < 1f / updateHz)
+            return;
+
+        _updateAccumulator = 0f;
 
         var maxPerLevel = Math.Max(0, _config.GetCVar(CCVars.CEZMaxProjectedLightsPerLevel));
         if (maxPerLevel == 0)
