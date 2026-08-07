@@ -31,3 +31,7 @@ research-technology-integrated-advanced-weapon-augments = Advanced integrated we
 research-technology-basic-augmentation = Basic augmentation
 research-technology-implanted-tools = Implanted tools
 research-technology-combat-augmentation = Combat augmentation
+research-technology-suit-module-utility = Utility suit modules
+research-technology-suit-module-medical = Medical suit modules
+research-technology-suit-module-industrial = Industrial suit modules
+research-technology-suit-module-advanced = Advanced suit modules

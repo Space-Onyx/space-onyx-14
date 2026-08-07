@@ -1,0 +1,4 @@
+- type: shader
+  id: OnyxRave
+  kind: source
+  path: "/Textures/_Onyx/Shaders/rave.swsl"

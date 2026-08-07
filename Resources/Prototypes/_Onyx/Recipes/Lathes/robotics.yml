@@ -79,3 +79,225 @@
     Glass: 400
     Gold: 400
     Silver: 200
+
+- type: latheRecipe
+  abstract: true
+  id: BaseSuitModuleRecipe
+  categories: [ Modsuit ]
+  completetime: 3
+  materials:
+    Steel: 500
+    Glass: 500
+    Plastic: 250
+
+- type: latheRecipe
+  abstract: true
+  parent: BaseSuitModuleRecipe
+  id: BaseAdvancedSuitModuleRecipe
+  materials:
+    Steel: 500
+    Glass: 500
+    Plastic: 250
+    Gold: 100
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: VisorMedicalSuitModule
+  result: VisorMedicalSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: VisorDiagnosticSuitModule
+  result: VisorDiagnosticSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: VisorSecuritySuitModule
+  result: VisorSecuritySuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: VisorMesonSuitModule
+  result: VisorMesonSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: SolutionScannerSuitModule
+  result: SolutionScannerSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: WeldingSuitModule
+  result: WeldingSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: TRaySuitModule
+  result: TRaySuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: HealthAnalyzerSuitModule
+  result: HealthAnalyzerSuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: DefibrillatorSuitModule
+  result: DefibrillatorSuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: JetpackSuitModule
+  result: JetpackSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: MagnetSuitModule
+  result: MagnetSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: TetherSuitModule
+  result: TetherSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: RadiationShieldSuitModule
+  result: RadiationShieldSuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: EMPShieldSuitModule
+  result: EMPShieldSuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: TemperatureRegulatorSuitModule
+  result: TemperatureRegulatorSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: GPSSuitModule
+  result: GPSSuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: ConstructorSuitModule
+  result: ConstructorSuitModule
+  materials:
+    Steel: 500
+    Glass: 500
+    Plastic: 250
+    Gold: 100
+    Diamond: 100
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: DrillSuitModule
+  result: DrillSuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: InjectorSuitModule
+  result: InjectorSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: BikeHornSuitModule
+  result: BikeHornSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: OreBagSuitModule
+  result: OreBagSuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: KinesisSuitModule
+  result: KinesisSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: StorageSuitModule
+  result: StorageSuitModule
+  materials:
+    Steel: 250
+    Glass: 100
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: StorageLargeSuitModule
+  result: StorageLargeSuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: StorageHoldingSuitModule
+  result: StorageHoldingSuitModule
+  materials:
+    Steel: 2000
+    Silver: 750
+    Plasma: 1500
+    Uranium: 150
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: FlashlightSuitModule
+  result: FlashlightSuitModule
+  materials:
+    Steel: 250
+    Glass: 100
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: AdvancedFlashlightSuitModule
+  result: AdvancedFlashlightSuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: AntiGravitySuitModule
+  result: AntiGravitySuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: TeleporterSuitModule
+  result: TeleporterSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: HolsterSuitModule
+  result: HolsterSuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: QuickCarrySuitModule
+  result: QuickCarrySuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: GrabberSuitModule
+  result: GrabberSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: MicrowaveBeamSuitModule
+  result: MicrowaveBeamSuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: ApparatusSuitModule
+  result: ApparatusSuitModule
+
+- type: latheRecipe
+  parent: BaseSuitModuleRecipe
+  id: PaperDispenserSuitModule
+  result: PaperDispenserSuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: BurgerDispenserSuitModule
+  result: BurgerDispenserSuitModule
+
+- type: latheRecipe
+  parent: BaseAdvancedSuitModuleRecipe
+  id: ArmorBoosterSuitModule
+  result: ArmorBoosterSuitModule

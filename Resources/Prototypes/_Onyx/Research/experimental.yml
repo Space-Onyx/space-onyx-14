@@ -51,7 +51,7 @@
   cost: 10000
   recipeUnlocks:
     - ClothingEyesNightVisionGoggles
-  position: -4,0
+  position: -4,-2
   technologyPrerequisites:
     - ModsuitsTech
 - type: technology
@@ -116,7 +116,7 @@
   cost: 7500
   recipeUnlocks:
     - MaterialBSCrystal
-  position: -2,4
+  position: -4,4
   technologyPrerequisites:
     - DeterrenceTechnologies
 - type: technology
@@ -133,4 +133,95 @@
   position: 1,4
   technologyPrerequisites:
     - Xenobiology
+    - BluespaceTheory
+- type: technology
+  id: SuitModuleUtility
+  name: research-technology-suit-module-utility
+  icon:
+    sprite: _Onyx/Objects/Specific/Robotics/modules.rsi
+    state: storage
+  discipline: Experimental
+  tier: 1
+  cost: 7500
+  recipeUnlocks:
+    - TRaySuitModule
+    - TetherSuitModule
+    - GPSSuitModule
+    - BikeHornSuitModule
+    - StorageSuitModule
+    - FlashlightSuitModule
+    - HolsterSuitModule
+    - PaperDispenserSuitModule
+  position: -4,0
+  technologyPrerequisites:
+    - ModsuitsTech
+- type: technology
+  id: SuitModuleMedical
+  name: research-technology-suit-module-medical
+  icon:
+    sprite: _Onyx/Objects/Specific/Robotics/modules.rsi
+    state: health
+  discipline: Experimental
+  tier: 1
+  cost: 10000
+  recipeUnlocks:
+    - VisorMedicalSuitModule
+    - VisorDiagnosticSuitModule
+    - HealthAnalyzerSuitModule
+    - DefibrillatorSuitModule
+    - InjectorSuitModule
+    - SolutionScannerSuitModule
+    - ApparatusSuitModule
+  position: -2,0
+  technologyPrerequisites: []
+- type: technology
+  id: SuitModuleIndustrial
+  name: research-technology-suit-module-industrial
+  icon:
+    sprite: _Onyx/Objects/Specific/Robotics/modules.rsi
+    state: drill
+  discipline: Experimental
+  tier: 1
+  cost: 10000
+  recipeUnlocks:
+    - WeldingSuitModule
+    - VisorMesonSuitModule
+    - MagnetSuitModule
+    - RadiationShieldSuitModule
+    - TemperatureRegulatorSuitModule
+    - ConstructorSuitModule
+    - DrillSuitModule
+    - OreBagSuitModule
+    - StorageLargeSuitModule
+    - QuickCarrySuitModule
+    - GrabberSuitModule
+    - MicrowaveBeamSuitModule
+  position: -3,1
+  technologyPrerequisites:
+    - ModsuitsTech
+    - SalvageEquipment
+- type: technology
+  id: SuitModuleAdvanced
+  name: research-technology-suit-module-advanced
+  icon:
+    sprite: _Onyx/Objects/Specific/Robotics/modules.rsi
+    state: teleporter
+  discipline: Experimental
+  tier: 2
+  cost: 15000
+  recipeUnlocks:
+    - VisorSecuritySuitModule
+    - JetpackSuitModule
+    - EMPShieldSuitModule
+    - KinesisSuitModule
+    - StorageHoldingSuitModule
+    - AdvancedFlashlightSuitModule
+    - AntiGravitySuitModule
+    - TeleporterSuitModule
+    - BurgerDispenserSuitModule
+    - ArmorBoosterSuitModule
+  position: -4,1
+  technologyPrerequisites:
+    - SuitModuleUtility
+    - SuitModuleIndustrial
     - BluespaceTheory

@@ -200,6 +200,11 @@
       prob: 0.33
       rolls: !type:RangeNumberSelector
         range: 0, 2
+    # <Onyx-ModsuitModules>
+    - !type:NestedSelector
+      tableId: MaintModsuitModulesTable
+      prob: 0.01
+    # </Onyx-ModsuitModules>
     # Plushies
     - !type:NestedSelector
       tableId: AllPlushiesTable

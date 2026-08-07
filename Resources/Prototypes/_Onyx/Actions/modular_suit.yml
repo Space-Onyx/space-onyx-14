@@ -1,0 +1,124 @@
+- type: entity
+  parent: BaseAction
+  id: ActionToggleSuitModuleLight
+  components:
+  - type: Action
+    useDelay: 1
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/actions_modules.rsi
+    layers:
+    - state: light-off
+      map: ["enum.ActionVisuals.Icon"]
+    - state: light-on
+      map: ["enum.ActionVisuals.IconToggled"]
+      visible: false
+  - type: InstantAction
+    event: !type:ModModuleToggleLightEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionActivateSuitModuleTeleporter
+  components:
+  - type: Action
+    startDelay: true
+    useDelay: 20
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/actions_modules.rsi
+    layers:
+    - state: teleporter
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:ModModuleTeleportEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionToggleSuitModuleHolster
+  components:
+  - type: Action
+    startDelay: true
+    useDelay: 10
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/actions_modules.rsi
+    layers:
+    - state: holster-in
+      map: ["enum.ActionVisuals.Icon"]
+    - state: holster-out
+      map: ["enum.ActionVisuals.IconToggled"]
+      visible: false
+  - type: InstantAction
+    event: !type:ModModuleHolsterEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionActivateSuitModulePaperDispenser
+  components:
+  - type: Action
+    startDelay: true
+    useDelay: 30
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/actions_modules.rsi
+    layers:
+    - state: paper
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:ModModuleDispenseEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionActivateSuitModuleBurgerDispenser
+  components:
+  - type: Action
+    startDelay: true
+    useDelay: 120
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/actions_modules.rsi
+    layers:
+    - state: dispenser
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:ModModuleDispenseEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionActivateSuitModuleEnergyShield
+  components:
+  - type: Action
+    startDelay: true
+    useDelay: 60
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/actions_modules.rsi
+    layers:
+    - state: energyshield
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:ModModuleEnergyShieldEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionActivateSuitModuleTanning
+  components:
+  - type: Action
+    startDelay: true
+    useDelay: 30
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/actions_modules.rsi
+    layers:
+    - state: tanning
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:ModModuleTanningEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionActivateSuitModuleAtrocinator
+  components:
+  - type: Action
+    startDelay: true
+    useDelay: 300
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/actions_modules.rsi
+    layers:
+    - state: atrocinator
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:ModModuleAtrocinatorEvent

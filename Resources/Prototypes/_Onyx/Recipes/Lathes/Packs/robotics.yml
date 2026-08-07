@@ -7,3 +7,40 @@
   - ModsuitGauntlets
   - ModsuitShell
   - ModsuitPlatingExternal
+  - VisorMedicalSuitModule
+  - VisorDiagnosticSuitModule
+  - VisorSecuritySuitModule
+  - VisorMesonSuitModule
+  - SolutionScannerSuitModule
+  - WeldingSuitModule
+  - TRaySuitModule
+  - HealthAnalyzerSuitModule
+  - DefibrillatorSuitModule
+  - JetpackSuitModule
+  - MagnetSuitModule
+  - TetherSuitModule
+  - RadiationShieldSuitModule
+  - EMPShieldSuitModule
+  - TemperatureRegulatorSuitModule
+  - GPSSuitModule
+  - ConstructorSuitModule
+  - DrillSuitModule
+  - InjectorSuitModule
+  - BikeHornSuitModule
+  - OreBagSuitModule
+  - KinesisSuitModule
+  - StorageSuitModule
+  - StorageLargeSuitModule
+  - StorageHoldingSuitModule
+  - FlashlightSuitModule
+  - AdvancedFlashlightSuitModule
+  - AntiGravitySuitModule
+  - TeleporterSuitModule
+  - HolsterSuitModule
+  - QuickCarrySuitModule
+  - GrabberSuitModule
+  - MicrowaveBeamSuitModule
+  - ApparatusSuitModule
+  - PaperDispenserSuitModule
+  - BurgerDispenserSuitModule
+  - ArmorBoosterSuitModule

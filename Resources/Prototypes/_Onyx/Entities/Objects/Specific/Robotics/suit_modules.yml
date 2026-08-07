@@ -1,0 +1,940 @@
+- type: entity
+  parent: BaseItem
+  id: BaseSuitModule
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: &modules-rsi _Onyx/Objects/Specific/Robotics/modules.rsi
+
+- type: entity
+  parent: BaseSuitModule
+  id: BaseStorageSuitModule
+  abstract: true
+  components:
+  - type: Item
+    size: Huge
+  - type: ModModule
+    id: storage
+    conflictTags: [ Storage ]
+    canBeDisabled: false
+    active: true
+  - type: ModModuleStorage
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+  - type: Storage
+    showVerb: false
+    clickInsert: false
+    openOnActivate: false
+    maxItemSize: Huge
+    grid:
+    - 0,0,6,3
+
+- type: entity
+  parent: BaseStorageSuitModule
+  id: StorageSuitModule
+  components:
+  - type: Sprite
+    state: storage
+
+- type: entity
+  parent: BaseStorageSuitModule
+  id: StorageLargeSuitModule
+  components:
+  - type: Sprite
+    state: storage_large
+  - type: Storage
+    grid:
+    - 0,0,7,4
+
+- type: entity
+  parent: BaseStorageSuitModule
+  id: StorageSyndicateSuitModule
+  components:
+  - type: Sprite
+    state: storage_syndi
+  - type: Storage
+    grid:
+    - 0,0,8,4
+
+- type: entity
+  parent: BaseStorageSuitModule
+  id: StorageHoldingSuitModule
+  components:
+  - type: Sprite
+    state: storage_holding
+  - type: Storage
+    grid:
+    - 0,0,14,5
+
+- type: entity
+  parent: BaseSuitModule
+  id: BaseFlashlightSuitModule
+  abstract: true
+  components:
+  - type: Sprite
+    state: flashlight
+  - type: ModModule
+    id: flashlight
+    requiredPart: Helmet
+    drawRate: 0.005
+    conflictTags: [ Flashlight ]
+    canBeDisabled: false
+    active: true
+    actions:
+    - action: ActionToggleSuitModuleLight
+  - type: ModModuleLight
+
+- type: entity
+  parent: BaseFlashlightSuitModule
+  id: FlashlightSuitModule
+
+- type: entity
+  parent: BaseFlashlightSuitModule
+  id: AdvancedFlashlightSuitModule
+  components:
+  - type: ModModuleLight
+    energy: 3
+    radius: 6
+
+- type: entity
+  parent: FlashlightSuitModule
+  id: FlashlightSuitModuleCyan
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ModModuleLight
+    color: "#79f8e6"
+
+- type: entity
+  parent: FlashlightSuitModule
+  id: FlashlightSuitModuleAqua
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ModModuleLight
+    color: "#a4fef4"
+
+- type: entity
+  parent: FlashlightSuitModule
+  id: FlashlightSuitModuleRed
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ModModuleLight
+    color: "#e40000"
+
+- type: entity
+  parent: FlashlightSuitModule
+  id: FlashlightSuitModuleMint
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ModModuleLight
+    color: "#77e3bf"
+
+- type: entity
+  parent: FlashlightSuitModule
+  id: FlashlightSuitModuleLavender
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ModModuleLight
+    color: "#907993"
+
+- type: entity
+  parent: FlashlightSuitModule
+  id: FlashlightSuitModuleDarkOrange
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ModModuleLight
+    color: "#ee8e2e"
+
+- type: entity
+  parent: FlashlightSuitModule
+  id: FlashlightSuitModuleGreen
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ModModuleLight
+    color: "#83db2b"
+
+- type: entity
+  parent: AdvancedFlashlightSuitModule
+  id: AdvancedFlashlightSuitModuleAmber
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ModModuleLight
+    color: "#cc793d"
+
+- type: entity
+  parent: AdvancedFlashlightSuitModule
+  id: AdvancedFlashlightSuitModuleAqua
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ModModuleLight
+    color: "#a4fef4"
+
+- type: entity
+  parent: AdvancedFlashlightSuitModule
+  id: AdvancedFlashlightSuitModuleGold
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ModModuleLight
+    color: "#ffd480"
+
+- type: entity
+  parent: AdvancedFlashlightSuitModule
+  id: AdvancedFlashlightSuitModulePurple
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ModModuleLight
+    color: "#b88ae5"
+
+- type: entity
+  parent: AdvancedFlashlightSuitModule
+  id: AdvancedFlashlightSuitModulePink
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ModModuleLight
+    color: "#f7e0e1"
+
+- type: entity
+  parent: AdvancedFlashlightSuitModule
+  id: AdvancedFlashlightSuitModuleOrange
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: ModModuleLight
+    color: "#facb3e"
+
+- type: entity
+  parent: BaseSuitModule
+  id: VisorMedicalSuitModule
+  components:
+  - type: Sprite
+    state: medhud_visor
+  - type: ModModule
+    id: medical-visor
+    requiredPart: Helmet
+    drawRate: 0.3
+    conflictTags: [ Visor ]
+    effects:
+      Helmet:
+      - type: ShowHealthBars
+      - type: ShowHealthIcons
+
+- type: entity
+  parent: BaseSuitModule
+  id: VisorDiagnosticSuitModule
+  components:
+  - type: Sprite
+    state: diaghud_visor
+  - type: ModModule
+    id: diagnostic-visor
+    requiredPart: Helmet
+    drawRate: 0.3
+    conflictTags: [ Visor ]
+    effects:
+      Helmet:
+      - type: ShowHealthBars
+        damageContainers: [ Inorganic, Silicon ]
+
+- type: entity
+  parent: BaseSuitModule
+  id: VisorSecuritySuitModule
+  components:
+  - type: Sprite
+    state: sechud_visor
+  - type: ModModule
+    id: security-visor
+    requiredPart: Helmet
+    drawRate: 0.3
+    conflictTags: [ Visor ]
+    effects:
+      Helmet:
+      - type: ShowJobIcons
+      - type: ShowMindShieldIcons
+      - type: ShowCriminalRecordIcons
+      - type: ShowContrabandDetails
+
+- type: entity
+  parent: BaseSuitModule
+  id: VisorMesonSuitModule
+  components:
+  - type: Sprite
+    state: meson_visor
+  - type: ModModule
+    id: meson-visor
+    requiredPart: Helmet
+    drawRate: 0.3
+    conflictTags: [ Visor, WeldingVisor ]
+    effects:
+      Helmet:
+      - type: EyeProtection
+
+- type: entity
+  parent: BaseSuitModule
+  id: SolutionScannerSuitModule
+  components:
+  - type: Sprite
+    state: scanner
+  - type: ModModule
+    id: solution-scanner
+    requiredPart: Helmet
+    drawRate: 0.2
+    conflictTags: [ Visor ]
+    effects:
+      Helmet:
+      - type: SolutionScanner
+
+- type: entity
+  parent: BaseSuitModule
+  id: WeldingSuitModule
+  components:
+  - type: Sprite
+    state: welding
+  - type: ModModule
+    id: welding-visor
+    requiredPart: Helmet
+    conflictTags: [ WeldingVisor ]
+    canBeDisabled: false
+    active: true
+    effects:
+      Helmet:
+      - type: FlashImmunity
+      - type: EyeProtection
+
+- type: entity
+  parent: BaseSuitModule
+  id: AntiGravitySuitModule
+  components:
+  - type: Sprite
+    state: antigrav
+  - type: ModModule
+    id: anti-gravity
+    drawRate: 0.45
+  - type: ModModuleAntiGravity
+  - type: RadiationBlockingContainer
+    resistance: 5
+
+- type: entity
+  parent: BaseSuitModule
+  id: TeleporterSuitModule
+  components:
+  - type: Sprite
+    state: teleporter
+  - type: ModModule
+    id: teleporter
+    canBeDisabled: false
+    active: true
+    actions:
+    - action: ActionActivateSuitModuleTeleporter
+      useCost: 25
+  - type: ModModuleTeleporter
+    radius: 5
+
+- type: entity
+  parent: BaseSuitModule
+  id: TRaySuitModule
+  components:
+  - type: Sprite
+    state: tray
+  - type: ModModule
+    id: tray-scanner
+    requiredPart: Gloves
+    drawRate: 0.15
+    integratedItems:
+    - item: trayScanner
+
+- type: entity
+  parent: BaseSuitModule
+  id: HealthAnalyzerSuitModule
+  components:
+  - type: Sprite
+    state: health
+  - type: ModModule
+    id: health-analyzer
+    requiredPart: Gloves
+    drawRate: 0.75
+    integratedItems:
+    - item: HandheldHealthAnalyzer
+
+- type: entity
+  parent: BaseSuitModule
+  id: DefibrillatorSuitModule
+  components:
+  - type: Sprite
+    state: defibrillator
+  - type: ModModule
+    id: defibrillator
+    requiredPart: Gloves
+    drawRate: 2
+    integratedItems:
+    - item: DefibrillatorOneHandedUnpowered
+
+- type: entity
+  parent: JetpackBlue
+  id: JetpackSuitModuleDevice
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Jetpack
+    moleUsage: 0
+
+- type: entity
+  parent: BaseSuitModule
+  id: JetpackSuitModule
+  components:
+  - type: Sprite
+    state: jetpack
+  - type: ModModule
+    id: jetpack
+    requiredPart: Torso
+    drawRate: 1.25
+    conflictTags: [ Jetpack ]
+    integratedItems:
+    - item: JetpackSuitModuleDevice
+
+- type: entity
+  parent: JetpackSecurity
+  id: JetpackAdvancedSuitModuleDevice
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Jetpack
+    acceleration: 2
+    weightlessModifier: 2.4
+    friction: 0.125
+    moleUsage: 0
+
+- type: entity
+  parent: JetpackSuitModule
+  id: JetpackAdvancedSuitModule
+  components:
+  - type: Sprite
+    state: jetpack_advanced
+  - type: ModModule
+    id: advanced-jetpack
+    drawRate: 3
+    integratedItems:
+    - item: JetpackAdvancedSuitModuleDevice
+
+- type: entity
+  parent: BaseSuitModule
+  id: MagnetSuitModule
+  components:
+  - type: Sprite
+    state: magnet
+  - type: ModModule
+    id: magnetic-stability
+    requiredPart: Boots
+    drawRate: 0.4
+    conflictTags: [ Traction ]
+    effects:
+      Boots:
+      - type: NoSlip
+      - type: ClothingSpeedModifier
+        walkModifier: 0.8
+        sprintModifier: 0.8
+  - type: ModModuleMagnetic
+
+- type: entity
+  parent: BaseSuitModule
+  id: HolsterSuitModule
+  components:
+  - type: Sprite
+    state: holster
+  - type: ModModule
+    id: holster
+    requiredPart: Torso
+    canBeDisabled: false
+    active: true
+    actions:
+    - action: ActionToggleSuitModuleHolster
+      useCost: 2.5
+  - type: ModModuleHolster
+  - type: ContainerContainer
+    containers:
+      module_weapon: !type:ContainerSlot
+  - type: ItemSlots
+    slots:
+      module_weapon:
+        name: module-weapon-slot-name-default
+        whitelist:
+          components:
+          - BallisticAmmoProvider
+          - ChamberMagazineAmmoProvider
+
+- type: entity
+  parent: MagnetSuitModule
+  id: MagnetAdvancedSuitModule
+  components:
+  - type: ModModule
+    id: advanced-magnetic-stability
+    drawRate: 0
+    effects:
+      Boots:
+      - type: NoSlip
+
+- type: entity
+  parent: BaseSuitModule
+  id: TetherSuitModule
+  components:
+  - type: Sprite
+    state: tether
+  - type: ModModule
+    id: tether
+    drawRate: 0.15
+    integratedItems:
+    - item: WeaponGrapplingGun
+
+- type: entity
+  parent: BaseSuitModule
+  id: RadiationShieldSuitModule
+  components:
+  - type: Sprite
+    state: radshield
+  - type: ModModule
+    id: radiation-monitor
+    requiredPart: Torso
+    drawRate: 0.3
+    effects:
+      Torso:
+      - type: RadiationReceiver
+      - type: Geiger
+        attachedToSuit: true
+  - type: ModModuleGeiger
+
+- type: entity
+  parent: BaseSuitModule
+  id: EMPShieldSuitModule
+  components:
+  - type: Sprite
+    state: empshield
+  - type: ModModule
+    id: emp-shield
+    requiredPart: Torso
+    drawRate: 0.3
+    effects:
+      Controller:
+      - type: EmpResistance
+        strengthMultiplier: 0
+      Wearer:
+      - type: EmpResistance
+        strengthMultiplier: 0
+
+- type: entity
+  parent: BaseSuitModule
+  id: TemperatureRegulatorSuitModule
+  components:
+  - type: Sprite
+    state: regulator
+  - type: ModModule
+    id: temperature-regulator
+    requiredPart: Torso
+    drawRate: 0.15
+    permanent: true
+    canBeDisabled: false
+    active: true
+    effects:
+      Torso:
+      - type: TemperatureProtection
+        heatingCoefficient: 0.001
+        coolingCoefficient: 0.001
+
+- type: entity
+  parent: EMPShieldSuitModule
+  id: EMPShieldAdvancedSuitModule
+  components:
+  - type: ModModule
+    id: advanced-emp-shield
+    drawRate: 0
+
+- type: entity
+  parent: BaseSuitModule
+  id: GPSSuitModule
+  components:
+  - type: Sprite
+    state: gps
+  - type: ModModule
+    id: gps
+    integratedItems:
+    - item: BorgHandheldGPSBasic
+
+- type: entity
+  parent: BaseSuitModule
+  id: ConstructorSuitModule
+  components:
+  - type: Sprite
+    state: constructor
+  - type: ModModule
+    id: constructor
+    requiredPart: Gloves
+    drawRate: 1
+    conflictTags: [ ArmUtility ]
+    integratedItems:
+    - item: RCDRecharging
+
+- type: entity
+  parent: BaseSuitModule
+  id: QuickCarrySuitModule
+  components:
+  - type: Sprite
+    state: carry
+  - type: ModModule
+    id: quick-carry
+    requiredPart: Gloves
+    drawRate: 0.3
+    conflictTags: [ ArmUtility ]
+  - type: ModModuleQuickCarry
+    multiplier: 0.33
+
+- type: entity
+  parent: BaseItem
+  id: SuitModuleGrabberTool
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: *modules-rsi
+    state: clamp
+  - type: ModModuleGrabberTool
+    maxContents: 2
+    delay: 3
+    useCost: 10
+
+- type: entity
+  parent: BaseSuitModule
+  id: GrabberSuitModule
+  components:
+  - type: Sprite
+    state: clamp
+  - type: ModModule
+    id: grabber
+    requiredPart: Gloves
+    integratedItems:
+    - item: SuitModuleGrabberTool
+
+- type: entity
+  parent: BaseItem
+  id: SuitModuleMicrowaveTool
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: *modules-rsi
+    state: microwave_beam
+  - type: ModModuleMicrowaveTool
+    delay: 3
+    heat: 1500
+    useCost: 10
+
+- type: entity
+  parent: BaseSuitModule
+  id: MicrowaveBeamSuitModule
+  components:
+  - type: Sprite
+    state: microwave_beam
+  - type: ModModule
+    id: microwave-beam
+    requiredPart: Gloves
+    integratedItems:
+    - item: SuitModuleMicrowaveTool
+
+- type: entity
+  parent: BaseSuitModule
+  id: DrillSuitModule
+  components:
+  - type: Sprite
+    state: drill
+  - type: ModModule
+    id: drill
+    requiredPart: Gloves
+    drawRate: 0.5
+    integratedItems:
+    - item: MiningDrill
+
+- type: entity
+  parent: BaseSuitModule
+  id: InjectorSuitModule
+  components:
+  - type: Sprite
+    state: injector
+  - type: ModModule
+    id: injector
+    requiredPart: Gloves
+    drawRate: 0.3
+    integratedItems:
+    - item: AdvancedJetInjector
+
+- type: entity
+  parent: BaseSuitModule
+  id: BikeHornSuitModule
+  components:
+  - type: Sprite
+    state: bikehorn
+  - type: ModModule
+    id: bike-horn
+    requiredPart: Gloves
+    integratedItems:
+    - item: BikeHorn
+
+- type: entity
+  parent: BaseSuitModule
+  id: OreBagSuitModule
+  components:
+  - type: Sprite
+    state: ore
+  - type: ModModule
+    id: ore-bag
+    requiredPart: Gloves
+    integratedItems:
+    - item: BorgOreBag
+
+- type: entity
+  parent: BaseItem
+  id: KinesisSuitModuleHand
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: *modules-rsi
+    state: kinesis-core
+  - type: ForceGun
+    frequency: 15
+    dampingRatio: 4
+    massLimit: 50
+    lineColor: "#18a2d5"
+    soundLaunch:
+      path: /Audio/Weapons/soup.ogg
+
+- type: entity
+  parent: BaseSuitModule
+  id: KinesisSuitModule
+  components:
+  - type: Sprite
+    state: kinesis
+  - type: ModModule
+    id: kinesis
+    requiredPart: Gloves
+    drawRate: 0.7
+    integratedItems:
+    - item: KinesisSuitModuleHand
+
+- type: entity
+  parent: BaseSuitModule
+  id: ApparatusSuitModule
+  components:
+  - type: Sprite
+    state: apparatus
+  - type: ModModule
+    id: apparatus
+    requiredPart: Helmet
+    canBeDisabled: false
+    active: true
+  - type: ModModuleApparatus
+
+- type: entity
+  parent: BaseSuitModule
+  id: PaperDispenserSuitModule
+  components:
+  - type: Sprite
+    state: paper_maker
+  - type: ModModule
+    id: paper-dispenser
+    requiredPart: Gloves
+    canBeDisabled: false
+    active: true
+    actions:
+    - action: ActionActivateSuitModulePaperDispenser
+      useCost: 10
+  - type: ModModuleDispenser
+    prototypes: [ Paper, PaperOffice ]
+
+- type: entity
+  parent: BaseSuitModule
+  id: BurgerDispenserSuitModule
+  components:
+  - type: Sprite
+    state: dispenser
+  - type: ModModule
+    id: burger-dispenser
+    requiredPart: Gloves
+    canBeDisabled: false
+    active: true
+    actions:
+    - action: ActionActivateSuitModuleBurgerDispenser
+      useCost: 10
+  - type: ModModuleDispenser
+    prototypes:
+    - FoodBurgerAppendix
+    - FoodBurgerBacon
+    - FoodBurgerBaseball
+    - FoodBurgerBear
+    - FoodBurgerBig
+    - FoodBurgerBrain
+    - FoodBurgerCat
+    - FoodBurgerCheese
+    - FoodBurgerChicken
+    - FoodBurgerClown
+    - FoodBurgerCorgi
+    - FoodBurgerCrab
+    - FoodBurgerCrazy
+    - FoodBurgerDuck
+    - FoodBurgerCarp
+    - FoodBurgerFive
+    - FoodBurgerGhost
+    - FoodBurgerHuman
+    - FoodBurgerMcguffin
+    - FoodBurgerMcrib
+    - FoodBurgerMime
+    - FoodBurgerPlain
+    - FoodBurgerRat
+    - FoodBurgerRobot
+    - FoodBurgerSoy
+    - FoodBurgerSpell
+    - FoodBurgerSuper
+    - FoodBurgerTofu
+    - FoodBurgerXeno
+    - FoodBurgerMothRoach
+
+- type: entity
+  parent: BaseSuitModule
+  id: SpringlockSuitModule
+  components:
+  - type: Sprite
+    state: springlock
+  - type: ModModule
+    id: springlock
+    canBeDisabled: false
+    active: true
+  - type: ModModuleSpringlock
+
+- type: entity
+  parent: BaseSuitModule
+  id: RaveVisorSuitModule
+  components:
+  - type: Sprite
+    state: rave_visor
+  - type: ModModule
+    id: rave-visor
+    requiredPart: Helmet
+    conflictTags: [ Visor ]
+    canBeDisabled: false
+    active: true
+    effects:
+      Helmet:
+      - type: RaveOverlay
+
+- type: entity
+  parent: BaseSuitModule
+  id: TanningSuitModule
+  components:
+  - type: Sprite
+    state: tanning
+  - type: ModModule
+    id: tanning
+    canBeDisabled: false
+    active: true
+    actions:
+    - action: ActionActivateSuitModuleTanning
+      useCost: 25
+  - type: ModModuleTanning
+
+- type: entity
+  parent: BaseSuitModule
+  id: AtrocinatorSuitModule
+  components:
+  - type: Sprite
+    state: atrocinator
+  - type: ModModule
+    id: atrocinator
+    canBeDisabled: false
+    active: true
+    actions:
+    - action: ActionActivateSuitModuleAtrocinator
+      useCost: 5
+  - type: ModModuleAtrocinator
+
+- type: entity
+  parent: BaseSuitModule
+  id: EnergyShieldSuitModule
+  components:
+  - type: Sprite
+    state: energy_shield
+  - type: ModModule
+    id: energy-shield
+    requiredPart: Torso
+    drawRate: 0.4
+    actions:
+    - action: ActionActivateSuitModuleEnergyShield
+      useCost: 10
+  - type: ModModuleEnergyShield
+
+- type: entity
+  parent: BaseSuitModule
+  id: ArmorBoosterSuitModule
+  components:
+  - type: Sprite
+    state: armor_booster
+  - type: ModModule
+    id: armor-booster
+    requiredPart: Torso
+    drawRate: 0.3
+    conflictTags: [ ArmorBooster, Compression ]
+    canBeDisabled: false
+    active: true
+  - type: ModModuleArmorBooster
+    modifiers:
+      coefficients:
+        Blunt: 0.8
+        Slash: 0.8
+        Piercing: 0.8
+        Heat: 0.8
+        Shock: 0.8
+        Caustic: 0.8
+
+- type: entity
+  parent: ArmorBoosterSuitModule
+  id: AdvancedArmorBoosterSuitModule
+  components:
+  - type: ModModule
+    id: advanced-armor-booster
+    effects:
+      Torso:
+      - type: PressureProtection
+        highPressureMultiplier: 1
+        lowPressureMultiplier: 1
+  - type: ModModuleArmorBooster
+    modifiers:
+      coefficients:
+        Blunt: 0.5
+        Slash: 0.5
+        Piercing: 0.5
+        Heat: 0.5
+        Shock: 0.5
+        Caustic: 0.5
+
+- type: entity
+  parent: BaseSuitModule
+  id: NoSlipSuitModule
+  components:
+  - type: Sprite
+    state: noslip
+  - type: ModModule
+    id: no-slip
+    requiredPart: Boots
+    conflictTags: [ Traction ]
+    canBeDisabled: false
+    active: true
+    effects:
+      Boots:
+      - type: NoSlip
+
+- type: entity
+  parent: BaseSuitModule
+  id: PlateCompressionSuitModule
+  components:
+  - type: Sprite
+    state: plate_compression
+  - type: ModModule
+    id: plate-compression
+    requiredPart: Torso
+    permanent: true
+    canBeDisabled: false
+    active: true
+    conflictTags: [ Compression, ArmorBooster ]
+    effects:
+      Controller:
+      - type: SelfUnremovableClothing
+      Wearer:
+      - type: VentCrawler

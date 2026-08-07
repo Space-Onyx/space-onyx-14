@@ -51,6 +51,8 @@
         type: StorageBoundUserInterface
       enum.ToggleClothingUiKey.Key:
         type: ToggleableClothingBoundUserInterface
+      enum.ModSuitUiKey.Key:
+        type: ModSuitBoundUserInterface
   - type: UseDelay
     delay: 0.5
   - type: ExplosionResistance
@@ -84,6 +86,9 @@
     fitsInCharger: false
   - type: DoAfter
   - type: SealableClothingControl
+  - type: ModModuleContainer
+    installDuration: 2.0
+    removeDuration: 2.0
   - type: SealableClothingRequiresPower
   - type: SealableClothingVisuals
     spriteLayer: sealed
@@ -126,6 +131,8 @@
         type: StorageBoundUserInterface
       enum.ToggleClothingUiKey.Key:
         type: ToggleableClothingBoundUserInterface
+      enum.ModSuitUiKey.Key:
+        type: ModSuitBoundUserInterface
   - type: UseDelay
     delay: 0.5
   - type: ExplosionResistance
@@ -159,6 +166,9 @@
     fitsInCharger: false
   - type: DoAfter
   - type: SealableClothingControl
+  - type: ModModuleContainer
+    installDuration: 2.0
+    removeDuration: 2.0
   - type: SealableClothingRequiresPower
   - type: Construction
     graph: Modsuit

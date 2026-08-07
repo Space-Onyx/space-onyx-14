@@ -31,3 +31,7 @@ research-technology-integrated-advanced-weapon-augments = Продвинутые
 research-technology-basic-augmentation = Базовые импланты
 research-technology-implanted-tools = Имплантированные инструменты
 research-technology-combat-augmentation = Боевые импланты
+research-technology-suit-module-utility = Вспомогательные модули скафандра
+research-technology-suit-module-medical = Медицинские модули скафандра
+research-technology-suit-module-industrial = Промышленные модули скафандра
+research-technology-suit-module-advanced = Продвинутые модули скафандра

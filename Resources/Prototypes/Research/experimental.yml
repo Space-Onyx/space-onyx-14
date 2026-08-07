@@ -10,7 +10,7 @@
   recipeUnlocks:
     - ProximitySensor
     - Drone
-    - AiRemoteBrain # <Onyx-AiRemoteBrain>
+    - AiRemoteBrain
   position: 0,1
   technologyPrerequisites: []
 - type: technology
@@ -163,7 +163,7 @@
   cost: 10000
   recipeUnlocks:
     - DeviceQuantumSpinInverter
-  position: -3,4
+  position: -5,4
   technologyPrerequisites:
     - BluespaceTheory
 - type: technology
@@ -177,7 +177,7 @@
   cost: 10000
   recipeUnlocks:
     - DeviceDesynchronizer
-  position: -3,3
+  position: -5,3
   technologyPrerequisites:
     - QuantumLeaping
 - type: technology
@@ -189,10 +189,10 @@
   discipline: Experimental
   tier: 3
   cost: 10000
-  position: -2,5
+  position: -4,5
   technologyPrerequisites:
     - BluespaceTheory
   recipeUnlocks:
-  - StationTeleportersControlCircuitboard
-  - StationTeleporterMachineCircuitboard
-  - TeleporterChipBlank
+    - StationTeleportersControlCircuitboard
+    - StationTeleporterMachineCircuitboard
+    - TeleporterChipBlank
