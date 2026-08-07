@@ -63,7 +63,6 @@
       NerveDamage: 0
   - type: HideLayerClothing
     slots:
-    - Hair
     - Snout
     - HeadTop
     - HeadSide
@@ -81,7 +80,6 @@
   - type: IngestionBlocker
   - type: HideLayerClothing
     slots:
-    - Hair
     - Snout
     - HeadTop
     - HeadSide
@@ -103,7 +101,6 @@
       map: [ "sealed" ]
   - type: HideLayerClothing
     slots:
-    - Hair
     - Snout
     - HeadTop
     - HeadSide
@@ -143,7 +140,6 @@
       blockSmokeIngestion: True
     - type: HideLayerClothing
       slots:
-      - Hair
       - Snout
       - HeadTop
       - HeadSide
@@ -217,7 +213,6 @@
       map: [ "sealed" ]
   - type: HideLayerClothing
     slots:
-    - Hair
     - Snout
     - HeadTop
     - HeadSide
@@ -261,7 +256,6 @@
     - type: IngestionBlocker
     - type: HideLayerClothing
       slots:
-      - Hair
       - Snout
       - HeadTop
       - HeadSide
@@ -501,7 +495,6 @@
       map: [ "sealed" ]
   - type: HideLayerClothing
     slots:
-    - Hair
     - Snout
     - HeadTop
     - HeadSide
@@ -592,7 +585,6 @@
       map: [ "sealed" ]
   - type: HideLayerClothing
     slots:
-    - Hair
     - Snout
     - HeadTop
     - HeadSide
@@ -641,7 +633,6 @@
     - type: IdentityBlocker
     - type: HideLayerClothing
       slots:
-      - Hair
       - Snout
       - HeadTop
       - HeadSide
@@ -800,7 +791,6 @@
       map: [ "sealed" ]
   - type: HideLayerClothing
     slots:
-    - Hair
     - Snout
     - HeadTop
     - HeadSide
@@ -845,7 +835,6 @@
     - type: IngestionBlocker
     - type: HideLayerClothing
       slots:
-      - Hair
       - Snout
       - HeadTop
       - HeadSide
