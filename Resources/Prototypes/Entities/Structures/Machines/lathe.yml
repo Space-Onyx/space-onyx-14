@@ -458,6 +458,7 @@
     - IntegratedAdvancedWeaponAugments # <Onyx-AugmentItemPanel>
     # </Onyx-Cybernetics>
     - PowerCells
+    - SuitModulesSecurity # <Onyx-SuitModuleRecipes>
     # </Onyx-DepartmentTechfabRecipes-edited>
   - type: EmagLatheRecipes
     emagStaticPacks:
@@ -564,6 +565,7 @@
     - BodyBagsDynamic
     - BluespaceBodyBagDynamic
     # </Onyx-AdvancedBodyBags>
+    - SuitModulesMedical # <Onyx-SuitModuleRecipes>
     # </Onyx-DepartmentTechfabRecipes-edited>
   # <Onyx-AdvancedBodyBags>
   - type: EmagLatheRecipes

@@ -57,7 +57,7 @@
     - OnyxTelecomServerCircuitboard
     - TelecomBusCircuitboard
     - TelecomReceiverCircuitboard
-    - TelecomTransmitterCircuitboard # <Onyx-TelecomTransmitter>
+    - TelecomTransmitterCircuitboard
     - TelecomProcessorCircuitboard
     - TelecomBroadcasterCircuitboard
     - TelecomTrafficConsoleCircuitboard

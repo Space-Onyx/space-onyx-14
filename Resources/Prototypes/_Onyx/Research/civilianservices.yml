@@ -173,36 +173,72 @@
   position: 1,6
   technologyPrerequisites:
     - BasicCybernaticsUpgrade
-
 - type: technology
   id: BasicAugmentation
   name: research-technology-basic-augmentation
-  icon: { sprite: _Onyx/Objects/Augments/power.rsi, state: cell }
+  icon:
+    sprite: _Onyx/Objects/Augments/power.rsi
+    state: cell
   discipline: CivilianServices
   tier: 2
   cost: 5000
-  recipeUnlocks: [ AugmentPowerCellSlotCasing, AugmentRechargerCasing ]
+  recipeUnlocks:
+    - AugmentPowerCellSlotCasing
+    - AugmentRechargerCasing
   position: 2,5
-  technologyPrerequisites: [ BasicCybernaticsUpgrade ]
-
+  technologyPrerequisites:
+    - BasicCybernaticsUpgrade
 - type: technology
   id: ImplantedTools
   name: research-technology-implanted-tools
-  icon: { sprite: _Onyx/Objects/Augments/arm.rsi, state: base }
+  icon:
+    sprite: _Onyx/Objects/Augments/arm.rsi
+    state: base
   discipline: CivilianServices
   tier: 2
   cost: 10000
-  recipeUnlocks: [ AugmentToolPanelCasing, AugmentUtilityPanelElectronics, AugmentBotanyPanelElectronics, AugmentSurgeryPanelElectronics, AugmentPaperworkPanelElectronics ]
+  recipeUnlocks:
+    - AugmentToolPanelCasing
+    - AugmentUtilityPanelElectronics
+    - AugmentBotanyPanelElectronics
+    - AugmentSurgeryPanelElectronics
+    - AugmentPaperworkPanelElectronics
   position: 2,6
-  technologyPrerequisites: [ BasicAugmentation ]
-
+  technologyPrerequisites:
+    - BasicAugmentation
 - type: technology
   id: CombatAugmentation
   name: research-technology-combat-augmentation
-  icon: { sprite: _Onyx/Objects/Augments/arm.rsi, state: strength }
+  icon:
+    sprite: _Onyx/Objects/Augments/arm.rsi
+    state: strength
   discipline: CivilianServices
   tier: 2
   cost: 10000
-  recipeUnlocks: [ AugmentStrengthCasing, AugmentStrengthElectronics ]
+  recipeUnlocks:
+    - AugmentStrengthCasing
+    - AugmentStrengthElectronics
   position: 3,5
-  technologyPrerequisites: [ BasicAugmentation ]
+  technologyPrerequisites:
+    - BasicAugmentation
+- type: technology
+  id: SuitModuleMedical
+  name: research-technology-suit-module-medical
+  icon:
+    sprite: _Onyx/Objects/Specific/Robotics/modules.rsi
+    state: health
+  discipline: Experimental
+  tier: 1
+  cost: 10000
+  recipeUnlocks:
+    - VisorMedicalSuitModule
+    - VisorDiagnosticSuitModule
+    - HealthAnalyzerSuitModule
+    - DefibrillatorSuitModule
+    - InjectorSuitModule
+    - SolutionScannerSuitModule
+    - ApparatusSuitModule
+  position: 3,3
+  technologyPrerequisites:
+    - ModsuitsTech
+    - BiochemicalStasis

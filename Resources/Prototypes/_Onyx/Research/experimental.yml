@@ -156,25 +156,6 @@
   technologyPrerequisites:
     - ModsuitsTech
 - type: technology
-  id: SuitModuleMedical
-  name: research-technology-suit-module-medical
-  icon:
-    sprite: _Onyx/Objects/Specific/Robotics/modules.rsi
-    state: health
-  discipline: Experimental
-  tier: 1
-  cost: 10000
-  recipeUnlocks:
-    - VisorMedicalSuitModule
-    - VisorDiagnosticSuitModule
-    - HealthAnalyzerSuitModule
-    - DefibrillatorSuitModule
-    - InjectorSuitModule
-    - SolutionScannerSuitModule
-    - ApparatusSuitModule
-  position: -2,0
-  technologyPrerequisites: []
-- type: technology
   id: SuitModuleIndustrial
   name: research-technology-suit-module-industrial
   icon:

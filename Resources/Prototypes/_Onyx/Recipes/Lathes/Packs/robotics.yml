@@ -7,40 +7,64 @@
   - ModsuitGauntlets
   - ModsuitShell
   - ModsuitPlatingExternal
+
+- type: latheRecipePack
+  id: SuitModulesMedical
+  recipes:
   - VisorMedicalSuitModule
   - VisorDiagnosticSuitModule
-  - VisorSecuritySuitModule
-  - VisorMesonSuitModule
   - SolutionScannerSuitModule
-  - WeldingSuitModule
-  - TRaySuitModule
   - HealthAnalyzerSuitModule
   - DefibrillatorSuitModule
-  - JetpackSuitModule
-  - MagnetSuitModule
-  - TetherSuitModule
-  - RadiationShieldSuitModule
-  - EMPShieldSuitModule
-  - TemperatureRegulatorSuitModule
-  - GPSSuitModule
-  - ConstructorSuitModule
-  - DrillSuitModule
   - InjectorSuitModule
-  - BikeHornSuitModule
-  - OreBagSuitModule
-  - KinesisSuitModule
-  - StorageSuitModule
-  - StorageLargeSuitModule
-  - StorageHoldingSuitModule
-  - FlashlightSuitModule
+  - ApparatusSuitModule
+
+- type: latheRecipePack
+  id: SuitModulesEngineering
+  recipes:
+  - VisorMesonSuitModule
+  - WeldingSuitModule
+  - MagnetSuitModule
+  - RadiationShieldSuitModule
+  - TemperatureRegulatorSuitModule
+  - ConstructorSuitModule
   - AdvancedFlashlightSuitModule
-  - AntiGravitySuitModule
-  - TeleporterSuitModule
-  - HolsterSuitModule
+
+- type: latheRecipePack
+  id: SuitModulesCargo
+  recipes:
+  - TetherSuitModule
+  - GPSSuitModule
+  - DrillSuitModule
+  - OreBagSuitModule
+  - StorageLargeSuitModule
   - QuickCarrySuitModule
   - GrabberSuitModule
+
+- type: latheRecipePack
+  id: SuitModulesService
+  recipes:
+  - TRaySuitModule
+  - BikeHornSuitModule
+  - StorageSuitModule
+  - FlashlightSuitModule
   - MicrowaveBeamSuitModule
-  - ApparatusSuitModule
   - PaperDispenserSuitModule
   - BurgerDispenserSuitModule
+
+- type: latheRecipePack
+  id: SuitModulesSecurity
+  recipes:
+  - VisorSecuritySuitModule
+  - HolsterSuitModule
+  - EMPShieldSuitModule
   - ArmorBoosterSuitModule
+
+- type: latheRecipePack
+  id: SuitModulesScience
+  recipes:
+  - JetpackSuitModule
+  - KinesisSuitModule
+  - StorageHoldingSuitModule
+  - AntiGravitySuitModule
+  - TeleporterSuitModule

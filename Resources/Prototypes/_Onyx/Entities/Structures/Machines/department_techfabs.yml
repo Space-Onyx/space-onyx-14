@@ -46,6 +46,7 @@
     - SharedBoards
     - CameraBoards
     - ShuttleBoards
+    - SuitModulesEngineering
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityBoards
@@ -106,6 +107,7 @@
     - ShuttleBoards
     - SalvageSecurityBoards
     - SalvageSecurityWeapons
+    - SuitModulesCargo
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityExplosives
@@ -169,6 +171,7 @@
     - AdvancedRoboticsBoards
     - ScienceBoardsXenobiology
     - OnyxScienceMaterials
+    - SuitModulesScience
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - MechBoardsSecurity
@@ -226,6 +229,7 @@
     - SharedBoards
     - CameraBoards
     - OnyxTranslators
+    - SuitModulesService
   - type: MaterialStorage
     whitelist: *DepartmentTechFabMaterialWhitelist
   - type: OreSiloClient
