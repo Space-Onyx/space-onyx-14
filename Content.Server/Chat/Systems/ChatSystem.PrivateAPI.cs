@@ -376,7 +376,7 @@ public sealed partial class ChatSystem
             ("entityName", name),
             ("message", FormattedMessage.EscapeText(message)));
 
-        SendInVoiceRange(ChatChannel.LOOC, message, wrappedMessage, source, hideChat ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal, player.UserId);
+        SendInVoiceRange(ChatChannel.LOOC, message, wrappedMessage, source, hideChat ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal, player.UserId, requiresHearing: false); // <Onyx-OrganHearing-edited>
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"LOOC from {source}: {message}");
     }
 

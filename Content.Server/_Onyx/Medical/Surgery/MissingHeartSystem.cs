@@ -5,6 +5,7 @@ using Content.Shared.Body;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
 using Content.Shared.Buckle.Components;
+using Content.Shared.Eye.Blinding.Systems;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Power.Components;
@@ -16,6 +17,7 @@ namespace Content.Server._Onyx.Medical.Surgery;
 public sealed partial class MissingHeartSystem : EntitySystem
 {
     [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] private BlindableSystem _blindable = default!;
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private IRobustRandom _random = default!;
 
@@ -24,6 +26,7 @@ public sealed partial class MissingHeartSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<OrganComponent, OrganGotRemovedEvent>(OnOrganChanged);
         SubscribeLocalEvent<OrganComponent, OrganGotInsertedEvent>(OnOrganChanged);
+        SubscribeLocalEvent<MissingEyesComponent, CanSeeAttemptEvent>(OnCanSee);
     }
 
     private void OnOrganChanged(Entity<OrganComponent> ent, ref OrganGotRemovedEvent args)
@@ -33,6 +36,9 @@ public sealed partial class MissingHeartSystem : EntitySystem
 
         switch (ent.Comp.Category?.Id)
         {
+            case "Eyes":
+                EnsureComp<MissingEyesComponent>(args.Target);
+                break;
             case "Ears":
                 EnsureComp<MissingEarsComponent>(args.Target);
                 break;
@@ -41,6 +47,7 @@ public sealed partial class MissingHeartSystem : EntitySystem
                 break;
         }
 
+        _blindable.UpdateIsBlind(args.Target);
         Refresh(args.Target);
     }
 
@@ -51,6 +58,9 @@ public sealed partial class MissingHeartSystem : EntitySystem
 
         switch (ent.Comp.Category?.Id)
         {
+            case "Eyes":
+                RemComp<MissingEyesComponent>(args.Target);
+                break;
             case "Ears":
                 RemComp<MissingEarsComponent>(args.Target);
                 break;
@@ -59,7 +69,13 @@ public sealed partial class MissingHeartSystem : EntitySystem
                 break;
         }
 
+        _blindable.UpdateIsBlind(args.Target);
         Refresh(args.Target);
+    }
+
+    private void OnCanSee(Entity<MissingEyesComponent> ent, ref CanSeeAttemptEvent args)
+    {
+        args.Cancel();
     }
 
     private void Refresh(EntityUid body)

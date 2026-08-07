@@ -6,6 +6,9 @@ namespace Content.Shared._Onyx.Body;
 public sealed partial class MissingEarsComponent : Component;
 
 [RegisterComponent]
+public sealed partial class MissingEyesComponent : Component;
+
+[RegisterComponent]
 public sealed partial class LungDependentComponent : Component;
 
 [RegisterComponent]
