@@ -25,7 +25,7 @@
   - type: ResearchServer
   # <Onyx-RDServerPoints>
   - type: ResearchPointSource
-    pointspersecond: 5
+    pointspersecond: 15
     active: true
   # </Onyx-RDServerPoints>
   - type: TechnologyDatabase
