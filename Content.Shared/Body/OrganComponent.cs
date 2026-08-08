@@ -10,7 +10,7 @@ namespace Content.Shared.Body;
 /// <seealso cref="BodySystem" />
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 // <Onyx-OrganDamage-edited>
-[Access(typeof(BodySystem), typeof(InitialBodySystem), typeof(Systems.SharedBodySystem), typeof(_Onyx.Wounds.OrganDamageSystem), typeof(_Onyx.Medical.Surgery.SharedSurgerySystem))]
+[Access(typeof(BodySystem), typeof(InitialBodySystem), typeof(Systems.SharedBodySystem), typeof(_Onyx.Wounds.OrganDamageSystem), typeof(_Onyx.Medical.Surgery.SharedSurgerySystem), typeof(_Onyx.Body.Systems.OrganHealthSystem))]
 // </Onyx-OrganDamage-edited>
 public sealed partial class OrganComponent : Component
 {

@@ -9,36 +9,36 @@
     Foot: OrganicFractureProfile
   amputationThresholds:
     Head:
-      Slash: 140
-      Piercing: 220
-      Blunt: 280
+      Slash: 200
+      Piercing: 500
+      Blunt: 350
     Groin:
-      Slash: 160
-      Piercing: 250
-      Blunt: 320
+      Slash: 220
+      Piercing: 550
+      Blunt: 400
     Arm:
-      Slash: 90
-      Piercing: 160
-      Blunt: 200
+      Slash: 130
+      Piercing: 350
+      Blunt: 250
     Hand:
-      Slash: 50
-      Piercing: 90
-      Blunt: 120
+      Slash: 70
+      Piercing: 200
+      Blunt: 150
     Leg:
-      Slash: 110
-      Piercing: 190
-      Blunt: 240
+      Slash: 150
+      Piercing: 400
+      Blunt: 300
     Foot:
-      Slash: 60
-      Piercing: 100
-      Blunt: 140
+      Slash: 80
+      Piercing: 220
+      Blunt: 170
   organDamageChances:
-    Head: 0.15
-    Torso: 0.08
-    Arm: 0.02
-    Hand: 0.005
-    Leg: 0.02
-    Foot: 0.005
+    Head: 0.02
+    Torso: 0.015
+    Arm: 0.004
+    Hand: 0.001
+    Leg: 0.004
+    Foot: 0.001
   organDamageWeights:
     Brain: 1.0
     Eyes: 0.35
@@ -51,12 +51,12 @@
     Kidneys: 0.6
     Appendix: 0.15
   organDamageMultipliers:
-    Blunt: 0.35
-    Slash: 0.8
-    Piercing: 1.25
-    Heat: 0.5
-    Cold: 0.3
-    Shock: 0.8
+    Blunt: 0.1
+    Slash: 0.25
+    Piercing: 0.35
+    Heat: 0.15
+    Cold: 0.05
+    Shock: 0.25
 
 - type: woundableProfile
   id: IpcWoundableProfile
@@ -86,12 +86,12 @@
       Piercing: 300
       Blunt: 420
   organDamageChances:
-    Head: 0.15
-    Torso: 0.08
-    Arm: 0.02
-    Hand: 0.005
-    Leg: 0.02
-    Foot: 0.005
+    Head: 0.02
+    Torso: 0.015
+    Arm: 0.004
+    Hand: 0.001
+    Leg: 0.004
+    Foot: 0.001
   organDamageWeights:
     Brain: 1.0
     Eyes: 0.35
@@ -104,54 +104,54 @@
     Kidneys: 0.6
     Appendix: 0.15
   organDamageMultipliers:
-    Blunt: 0.35
-    Slash: 0.8
-    Piercing: 1.25
-    Heat: 0.5
-    Cold: 0.3
-    Shock: 0.8
+    Blunt: 0.1
+    Slash: 0.25
+    Piercing: 0.35
+    Heat: 0.15
+    Cold: 0.05
+    Shock: 0.25
 
 - type: woundableProfile
   id: SlimeWoundableProfile
   amputationThresholds:
     Head:
-      Slash: 140
-      Piercing: 220
-      Blunt: 280
+      Slash: 200
+      Piercing: 500
+      Blunt: 350
     Groin:
-      Slash: 160
-      Piercing: 250
-      Blunt: 320
+      Slash: 220
+      Piercing: 550
+      Blunt: 400
     Arm:
-      Slash: 90
-      Piercing: 160
-      Blunt: 200
+      Slash: 130
+      Piercing: 350
+      Blunt: 250
     Hand:
-      Slash: 50
-      Piercing: 90
-      Blunt: 120
+      Slash: 70
+      Piercing: 200
+      Blunt: 150
     Leg:
-      Slash: 110
-      Piercing: 190
-      Blunt: 240
+      Slash: 150
+      Piercing: 400
+      Blunt: 300
     Foot:
-      Slash: 60
-      Piercing: 100
-      Blunt: 140
+      Slash: 80
+      Piercing: 220
+      Blunt: 170
   organDamageChances:
-    Head: 0.15
-    Torso: 0.08
+    Head: 0.02
+    Torso: 0.015
   organDamageWeights:
     Brain: 1.0
     Eyes: 0.35
     Lungs: 1.2
   organDamageMultipliers:
-    Blunt: 0.35
-    Slash: 0.8
-    Piercing: 1.25
-    Heat: 0.5
-    Cold: 0.3
-    Shock: 0.8
+    Blunt: 0.1
+    Slash: 0.25
+    Piercing: 0.35
+    Heat: 0.15
+    Cold: 0.05
+    Shock: 0.25
 
 - type: fractureProfile
   id: OrganicFractureProfile

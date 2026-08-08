@@ -5,6 +5,7 @@ using Content.Shared._Onyx.Targeting;
 using Content.Shared._Onyx.Medical;
 using Content.Shared._Onyx.Wounds;
 using Content.Shared.Damage;
+using Content.Client._Onyx.Medical.HealthAnalyzer; // <Onyx-HealthAnalyzerOrgans>
 // </Onyx-HealthAnalyzer-StatusDoll>
 using Content.Shared.Atmos;
 using Content.Shared.Damage.Components;
@@ -338,7 +339,13 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
             };
             icon.SetEntity(organEntity.Value);
             row.AddChild(icon);
-            row.AddChild(new Label { Text = name, HorizontalExpand = true });
+            var nameLabel = new EllipsisLabel
+            {
+                HorizontalExpand = true,
+                Text = name,
+                ToolTip = name,
+            };
+            row.AddChild(nameLabel);
             row.AddChild(new Label
             {
                 Text = Loc.GetString("health-analyzer-window-organ-health",
