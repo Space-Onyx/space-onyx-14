@@ -281,13 +281,18 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
             if (!hadRequestedPart)
             {
                 var localized = new DamageSpecifier();
+                var localizedDamage = false;
                 foreach (var (type, amount) in damage.DamageDict)
                 {
                     if (body.Comp.LocalizedDamageTypes.Contains(type))
+                    {
                         localized.DamageDict[type] = amount;
+                        if (amount > FixedPoint2.Zero)
+                            localizedDamage = true;
+                    }
                 }
 
-                if (!localized.Empty)
+                if (!localized.Empty && localizedDamage)
                 {
                     if (origin is { } source &&
                         TryComp(source, out TargetingSnapshotComponent? snapshot) &&
@@ -339,6 +344,9 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
             _applied.Add(body);
 
         EntityUid? part = _requestedParts.TryGetValue(body, out var requestedPart) ? requestedPart : null;
+        if (part is null && !localized.Empty)
+            part = ResolveDamagePart(body, null, localized);
+
         if (!localized.Empty && part is { } target)
         {
             if (!TryComp(target, out BodyPartComponent? partComponent))

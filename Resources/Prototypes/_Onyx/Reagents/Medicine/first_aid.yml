@@ -38,7 +38,7 @@
         conditions:
         - !type:TemperatureCondition
           min: 263.15
-        amount: -50000
+        amount: -1000000
 
 - type: reagent
   id: SilverSulfadiazine
