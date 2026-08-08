@@ -16,11 +16,6 @@ health-examinable-part-severity-minor = [color=yellow]слегка повреж�
 health-examinable-part-severity-moderate = [color=orange]повреждена[/color]
 health-examinable-part-severity-severe = [color=red]сильно повреждена[/color]
 health-examinable-part-severity-critical = [color=crimson]изувечена[/color]
-health-examinable-part-wound-open = { $count } { $count ->
-    [one] открытая рана
-    [few] открытые раны
-   *[other] открытых ран
-}
 health-examinable-part-wound-stabilized = { $count } { $count ->
     [one] стабилизированная рана
     [few] стабилизированные раны

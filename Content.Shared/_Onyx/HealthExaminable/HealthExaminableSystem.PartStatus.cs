@@ -83,7 +83,7 @@ public sealed partial class HealthExaminableSystem
                     fracture = found.Grade;
             }
 
-            foreach (var state in new[] { WoundState.Open, WoundState.Stabilized, WoundState.Closed })
+            foreach (var state in new[] { WoundState.Stabilized, WoundState.Closed })
             {
                 if (woundStates.TryGetValue(state, out var count))
                     details.Add(Loc.GetString($"health-examinable-part-wound-{state.ToString().ToLowerInvariant()}",

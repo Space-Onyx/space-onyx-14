@@ -16,10 +16,6 @@ health-examinable-part-severity-minor = [color=yellow]slightly damaged[/color]
 health-examinable-part-severity-moderate = [color=orange]damaged[/color]
 health-examinable-part-severity-severe = [color=red]badly damaged[/color]
 health-examinable-part-severity-critical = [color=crimson]mangled[/color]
-health-examinable-part-wound-open = { $count } open { $count ->
-    [one] wound
-   *[other] wounds
-}
 health-examinable-part-wound-stabilized = { $count } stabilized { $count ->
     [one] wound
    *[other] wounds
