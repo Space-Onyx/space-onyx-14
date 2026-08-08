@@ -462,7 +462,11 @@ public sealed partial class ExplosionSystem
                 // TODO EXPLOSIONS turn explosions into entities, and pass the the entity in as the damage origin.
                 // Onyx-Wounds-edited-start
                 if (HasComp<WoundHostComponent>(entity))
-                    _woundDamageRouting.TryApplyDistributedDamage(entity, damage, TargetBodyPart.All, DamageDistribution.SplitByPartWeight);
+                {
+                    if (!_woundDamageRouting.TryApplyDistributedDamage(entity, damage, TargetBodyPart.All,
+                            DamageDistribution.SplitByPartWeight, ignoreResistances: true, interruptsDoAfters: false))
+                        _damageableSystem.ChangeDamage((entity, damageable), damage);
+                }
                 else
                     _damageableSystem.ChangeDamage((entity, damageable), damage);
                 // Onyx-Wounds-edited-end
