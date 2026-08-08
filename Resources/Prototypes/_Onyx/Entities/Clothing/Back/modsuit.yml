@@ -89,6 +89,8 @@
   - type: ModModuleContainer
     installDuration: 2.0
     removeDuration: 2.0
+    startingModules:
+    - FlashlightSuitModule
   - type: SealableClothingRequiresPower
   - type: SealableClothingVisuals
     spriteLayer: sealed
@@ -169,6 +171,8 @@
   - type: ModModuleContainer
     installDuration: 2.0
     removeDuration: 2.0
+    startingModules:
+    - FlashlightSuitModule
   - type: SealableClothingRequiresPower
   - type: Construction
     graph: Modsuit

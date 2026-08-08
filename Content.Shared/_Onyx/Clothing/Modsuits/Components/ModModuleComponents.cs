@@ -25,6 +25,12 @@ public sealed partial class ModModuleContainerComponent : Component
     [DataField]
     public float RemoveDuration = 2f;
 
+    /// <summary>
+    ///     Modules that are installed into this suit by default when it is created.
+    /// </summary>
+    [DataField]
+    public List<EntProtoId> StartingModules = new();
+
     [AutoNetworkedField]
     public bool Powered = true;
 }

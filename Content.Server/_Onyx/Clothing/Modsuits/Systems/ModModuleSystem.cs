@@ -73,6 +73,14 @@ public sealed partial class ModModuleSystem : EntitySystem
         _containers.EnsureContainer<Container>(ent, ModModuleContainerComponent.ContainerId);
         if (ent.Comp.MaxModules < 0)
             Log.Error($"{ToPrettyString(ent)} has negative maxModules; its module bay will reject all modules.");
+        foreach (var moduleId in ent.Comp.StartingModules)
+        {
+            if (!_containers.TryGetContainer(ent, ModModuleContainerComponent.ContainerId, out var container))
+                continue;
+            var module = Spawn(moduleId, Transform(ent).Coordinates);
+            if (!_containers.Insert(module, container, force: true))
+                QueueDel(module);
+        }
         RefreshPower(ent);
     }
 
