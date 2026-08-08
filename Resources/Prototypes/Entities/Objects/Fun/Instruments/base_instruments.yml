@@ -8,7 +8,7 @@
     state: icon
   - type: Instrument
   - type: ActivatableUI
-    inHandsOnly: true
+    inHandsOnly: false # <Onyx-InstrumentFromPocket-edited>
     singleUser: true
     verbText: verb-instrument-openui
     key: enum.InstrumentUiKey.Key
