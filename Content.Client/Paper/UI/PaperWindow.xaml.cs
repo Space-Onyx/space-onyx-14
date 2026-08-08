@@ -286,6 +286,8 @@ namespace Content.Client.Paper.UI
             {
                 StampDisplay.AddStamp(new StampWidget{ StampInfo = stamper });
             }
+
+            AddSignatureStamps(state.Text, state.SignedBy); // <Onyx-PaperSignatures>
         }
 
         /// <summary>

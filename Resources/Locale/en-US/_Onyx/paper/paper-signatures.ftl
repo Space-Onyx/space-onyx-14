@@ -1,7 +1,16 @@
 paper-sign-verb = Sign
+paper-sign-dialog-title = Signature
+paper-sign-dialog-placeholder = Signature text (leave empty to cancel)
+ent-SignatureScanner = signature scanner
+    .desc = A handheld device that prints out every signature found on a document along with the handwriting sample it was written in.
+ent-SignatureScannerReportPaper = signature scanner report
+    .desc = A printout listing the signatures found on a document and their handwriting. The Head of Personnel can compare these samples with the personnel records.
 paper-signed-other = {CAPITALIZE(THE($user))} signs {THE($target)}.
 paper-signed-self = You sign {THE($target)}.
 paper-signed-failure = You cannot sign {THE($target)}.
 paper-component-examine-detail-signed-by = {CAPITALIZE(THE($paper))} has been signed by: {$signatures}.
+signature-scanner-no-signatures = No signatures found on this document.
+signature-scanner-report-title = Signatures report
+signature-scanner-report-line = {$name}: {$handwriting}
 general-station-record-handwriting-filter = Handwriting
 general-station-record-console-record-handwriting = Handwriting: {$handwriting}

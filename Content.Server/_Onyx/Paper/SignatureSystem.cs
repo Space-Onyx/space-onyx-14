@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Content.Server.Access.Systems;
+using Content.Server.Administration;
 using Content.Server.Popups;
 using Content.Server._Onyx.Language.Paper;
 using Content.Shared._Onyx.Paper;
@@ -23,6 +24,7 @@ public sealed partial class SignatureSystem : EntitySystem
     [Dependency] private IdCardSystem _idCard = default!;
     [Dependency] private PaperLanguageSystem _paperLanguage = default!;
     [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private QuickDialogSystem _quickDialog = default!;
     [Dependency] private TagSystem _tags = default!;
 
     public override void Initialize()
@@ -56,14 +58,35 @@ public sealed partial class SignatureSystem : EntitySystem
         var user = args.User;
         args.Verbs.Add(new AlternativeVerb
         {
-            Act = () => TrySignPaper(ent, user, pen),
+            Act = () =>
+            {
+                if (TryComp<ActorComponent>(user, out var actor))
+                {
+                    _quickDialog.OpenDialogDynamic(actor.PlayerSession,
+                        Loc.GetString("paper-sign-dialog-title"),
+                        new[] { string.Empty },
+                        new[] { Loc.GetString("paper-sign-dialog-placeholder") },
+                        texts =>
+                        {
+                            var value = texts[0];
+                            if (string.IsNullOrWhiteSpace(value))
+                                return;
+
+                            TrySignPaper(ent, user, pen, value.Trim());
+                        });
+                }
+                else
+                {
+                    TrySignPaper(ent, user, pen);
+                }
+            },
             Text = Loc.GetString("paper-sign-verb"),
             DoContactInteraction = true,
             Priority = 10,
         });
     }
 
-    public bool TrySignPaper(Entity<PaperComponent> paper, EntityUid signer, EntityUid pen)
+    public bool TrySignPaper(Entity<PaperComponent> paper, EntityUid signer, EntityUid pen, string? signatureText = null)
     {
         var penEvent = new SignAttemptEvent(paper, signer);
         RaiseLocalEvent(pen, ref penEvent);
@@ -75,7 +98,7 @@ public sealed partial class SignatureSystem : EntitySystem
         if (paperEvent.Cancelled)
             return false;
 
-        var name = DetermineSignature(signer);
+        var name = string.IsNullOrWhiteSpace(signatureText) ? DetermineSignature(signer) : signatureText;
         var signatureIdentity = EnsureComp<SignatureIdentityComponent>(signer);
         if (string.IsNullOrEmpty(signatureIdentity.HandwritingId))
         {

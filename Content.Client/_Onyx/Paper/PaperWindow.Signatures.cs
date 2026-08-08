@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using Content.Shared._Onyx.Paper;
+using Content.Shared.Paper;
 using Robust.Shared.Utility;
 
 namespace Content.Client.Paper.UI;
@@ -13,6 +14,24 @@ public sealed partial class PaperWindow
     private static readonly Regex SignatureControl = new(
         @"(?:<|\[)\s*sign_(?:repeat_)?limit\s*=\s*\d+\s*(?:>|\])",
         RegexOptions.IgnoreCase);
+
+    private void AddSignatureStamps(string text, IReadOnlyList<SignatureDisplayInfo> signatures)
+    {
+        if (signatures.Count == 0 || SignaturePlaceholder.IsMatch(text))
+            return;
+
+        foreach (var signature in signatures)
+        {
+            StampDisplay.AddStamp(new StampWidget
+            {
+                StampInfo = new StampDisplayInfo
+                {
+                    StampedName = signature.SignedName,
+                    StampedColor = signature.SignColor,
+                }
+            });
+        }
+    }
 
     private static string RenderSignatures(string text, IReadOnlyList<SignatureDisplayInfo> signatures)
     {

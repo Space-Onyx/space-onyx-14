@@ -59,7 +59,10 @@ public sealed partial class DialogWindow : FancyWindow
             var entry = entries[i];
 
             var box = new BoxContainer();
-            box.AddChild(new Label() { Text = entry.Prompt, HorizontalExpand = true, SizeFlagsStretchRatio = 0.5f });
+            // <Onyx-SignScannerField-edited>
+            if (!string.IsNullOrEmpty(entry.Prompt))
+                box.AddChild(new Label() { Text = entry.Prompt, HorizontalExpand = true, SizeFlagsStretchRatio = 0.5f });
+            // </Onyx-SignScannerField-edited>
 
             var edit = new LineEdit() { HorizontalExpand = true };
 

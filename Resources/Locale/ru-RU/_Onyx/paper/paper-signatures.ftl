@@ -1,7 +1,16 @@
 paper-sign-verb = Подписать
+paper-sign-dialog-title = Подпись
+paper-sign-dialog-placeholder = Текст подписи (пусто — отмена)
+ent-SignatureScanner = сканер подписей
+    .desc = Ручное устройство, распечатывающее все подписи, найденные на документе, вместе с образцом почерка, которым они были написаны.
+ent-SignatureScannerReportPaper = отчёт о подписях
+    .desc = Распечатка со списком подписей, найденных на документе, и их почерком. Глава Персонала может сверить эти образцы с записями о персонале.
 paper-signed-other = { CAPITALIZE($user) } подписывает { $target }.
 paper-signed-self = Вы подписали { $target }.
 paper-signed-failure = Вы не можете подписать { $target }.
 paper-component-examine-detail-signed-by = На { CAPITALIZE($paper) } имеются подписи: { $signatures }.
+signature-scanner-no-signatures = На документе нет подписей.
+signature-scanner-report-title = Отчёт о подписях
+signature-scanner-report-line = { $name }: { $handwriting }
 general-station-record-handwriting-filter = Почерк
 general-station-record-console-record-handwriting = Почерк: { $handwriting }

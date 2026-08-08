@@ -142,6 +142,7 @@
     - id: RubberStampApproved
     - id: RubberStampDenied
     - id: RubberStampHop
+    - id: SignatureScanner
     - id: WeaponDisabler
     - id: ClothingEyesHudCommand
     - id: ServiceTechFabCircuitboard
