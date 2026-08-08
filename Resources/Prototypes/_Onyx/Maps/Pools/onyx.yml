@@ -2,7 +2,7 @@
   id: OnyxMapPool
   maps:
   # Highpop 50+
-  #- OnyxBox
+  - OnyxBox
   #- OnyxKerberos
   - OnyxGate
   - OnyxOrigin

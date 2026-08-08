@@ -8,3 +8,18 @@
     sprite: _Onyx/Objects/Consumable/Smokeables/Cigarettes/Packs/blueshield.rsi
   - type: Item
     sprite: _Onyx/Objects/Consumable/Smokeables/Cigarettes/Packs/blueshield.rsi
+
+- type: entity
+  id: CigPackMedical
+  parent: CigPackBase
+  name: Chemlab cigarette packet
+  description: Made for and by big pharma. Contains 10 super absorbent cigarettes.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/Smokeables/Cigarettes/Packs/chem.rsi
+  - type: Item
+    sprite: _Onyx/Objects/Consumable/Smokeables/Cigarettes/Packs/chem.rsi
+  - type: StorageFill
+    contents:
+    - id: CigaretteMedical
+      amount: 10

@@ -52,6 +52,7 @@
     CartridgeBicaridine: 4
     CartridgeDermaline: 4
     CartridgeAtropine: 4
+    CigPackMedical: 2 # <Onyx-Vending-MedicalCigs>
   contrabandInventory:
     PillCanisterRandom: 3
     PillSpaceDrugs: 3

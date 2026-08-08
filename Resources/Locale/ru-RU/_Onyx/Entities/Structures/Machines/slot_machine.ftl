@@ -1,0 +1,11 @@
+ent-BaseSlotMachine = слот-машина
+ent-SlotMachine = слот-машина
+    .desc = Азартные игры для асоциальных личностей.
+ent-SlotMachineHighRoller = личная слот-машина
+    .desc = Дорогая версия слота: 100 000 кредитов за спин, зато можно выиграть аж 1 МИЛЛИОН!
+slotmachine-verbose = Крутить
+slotmachine-message = Тяни за рычаг и проверь свою удачу!
+slotmachine-no-money = Недостаточно денег!
+slotmachine-win-normal = Грац, вы выиграли { $amount } кредитов!
+slotmachine-win-jackpot = ДЖЕКПОТ!!!
+slotmachine-win-godpot = ПРЕВЫШЕНО МАКСИМАЛЬНОЕ ЗНАЧЕНИЕ, ВЫДАЧА "МЕГАДЖЕКПОТА"

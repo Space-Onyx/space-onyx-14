@@ -1,0 +1,11 @@
+ent-BaseSlotMachine = slot machine
+ent-SlotMachine = slot machine
+    .desc = Gambling for the antisocial.
+ent-SlotMachineHighRoller = the QM's personal slot machine
+    .desc = A high roller version of the slot machine, takes a whopping 100k per spin, but you can win 1 MILLION from it!
+slotmachine-verbose = Spin
+slotmachine-message = Pull the lever and test your luck on the slot machine!
+slotmachine-no-money = Not enough money!
+slotmachine-win-normal = Congrats, you have won { $amount } spesos!
+slotmachine-win-jackpot = CONGRATULATIONS, YOU HIT THE JACKPOT!!
+slotmachine-win-godpot = ERROR INTEGER OVERFLOW, DISPENSING "GODPOT"

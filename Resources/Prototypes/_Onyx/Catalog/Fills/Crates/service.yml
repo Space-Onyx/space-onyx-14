@@ -9,3 +9,15 @@
     - id: JugHolyWater
       amount: 2
     - id: Bible
+
+- type: entity
+  id: CrateGambling
+  parent: CrateGenericSteel
+  name: gambling crate
+  description: A large crate containing flatpacks for a slot machine, a coin flipper and a claw machine. All the gambling a station could ask for.
+  components:
+  - type: StorageFill
+    contents:
+    - id: SlotMachineFlatpack
+    - id: CoinFlipperFlatPack
+    - id: ClawMachineFlatPack

@@ -1,0 +1,13 @@
+- type: entity
+  id: CigaretteMedical
+  suffix: Medical
+  description: An extra absorbent chemlab cigarette.
+  parent: Cigarette
+  name: cigarette
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      smokable:
+        maxVol: 10
+  - type: RefillableSolution
+    solution: smokable

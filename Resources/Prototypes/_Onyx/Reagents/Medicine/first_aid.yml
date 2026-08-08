@@ -19,14 +19,13 @@
         conditions:
         - !type:MobStateCondition
           mobstate: Dead
-      - !type:HealthChange
+      - !type:EvenHealthChange
         damage:
-          groups:
-            Brute: -20
-            Burn: -20
-            Airloss: -20
-            Toxin: -20
-            Genetic: -20
+          Brute: -20
+          Burn: -20
+          Airloss: -20
+          Toxin: -20
+          Genetic: -20
       - !type:HealthChange
         conditions:
         - !type:ReagentCondition

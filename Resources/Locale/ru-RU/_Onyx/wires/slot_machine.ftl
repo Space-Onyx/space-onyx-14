@@ -1,0 +1,1 @@
+wires-board-name-slot-machine = Слот-машина
