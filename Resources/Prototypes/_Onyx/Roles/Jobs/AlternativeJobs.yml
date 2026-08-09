@@ -145,6 +145,38 @@
   id: AlternativeJobCorrespondent
   jobName: job-alternative-name-correspondent
   parentJobId: Reporter
+- type: alternativeJob
+  id: AlternativeJobSecurityCommander
+  jobName: job-alternative-name-security-commander
+  parentJobId: HeadOfSecurity
+- type: alternativeJob
+  id: AlternativeJobCommandOfficer
+  jobName: job-alternative-name-command-officer
+  parentJobId: Captain
+- type: alternativeJob
+  id: AlternativeJobHeadOfResearch
+  jobName: job-alternative-name-head-of-research
+  parentJobId: ResearchDirector
+- type: alternativeJob
+  id: AlternativeJobResearchDirector
+  jobName: job-alternative-name-research-director
+  parentJobId: ResearchDirector
+- type: alternativeJob
+  id: AlternativeJobChiefEngineer
+  jobName: job-alternative-name-chief-engineer
+  parentJobId: ChiefEngineer
+- type: alternativeJob
+  id: AlternativeJobMedicalOfficer
+  jobName: job-alternative-name-medical-officer
+  parentJobId: ChiefMedicalOfficer
+- type: alternativeJob
+  id: AlternativeJobHeadOfLogistics
+  jobName: job-alternative-name-head-of-logistics
+  parentJobId: Quartermaster
+- type: alternativeJob
+  id: AlternativeJobIntendant
+  jobName: job-alternative-name-intendant
+  parentJobId: Quartermaster
 
 - type: jobIcon
   parent: JobIcon
