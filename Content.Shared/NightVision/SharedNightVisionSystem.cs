@@ -14,7 +14,7 @@ public abstract partial class SharedNightVisionSystem : EntitySystem
     [Dependency] private SharedActionsSystem _actions = default!;
 
     [SubscribeLocalEvent]
-    private void OnStartup(Entity<NightVisionComponent> ent, ref MapInitEvent args)
+    private void OnStartup(Entity<NightVisionComponent> ent, ref ComponentStartup args) // <Onyx-ShadowkinEyes-edited>
     {
         if (ent.Comp.RelayOverlay)
             return;
