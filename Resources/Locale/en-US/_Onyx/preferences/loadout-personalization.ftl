@@ -1,6 +1,7 @@
 loadout-search-placeholder = Search loadouts
 loadout-role-selector = Role
 loadout-role-selector-hint = Configure loadout
+loadout-customization-tab = Customization
 loadout-selected-count = Selected: {$count}
 loadout-selected-filter = Selected ({$count})
 loadout-selected-filter-active = Showing selected ({$count})

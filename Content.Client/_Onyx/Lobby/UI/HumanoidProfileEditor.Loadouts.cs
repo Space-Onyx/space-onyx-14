@@ -2,6 +2,7 @@ using System.Linq;
 using Content.Client._Onyx.Lobby.UI.Loadouts;
 using Content.Client._Onyx.Loadouts;
 using Content.Corvax.Interfaces.Shared;
+using Content.Shared.CCVar;
 using Content.Shared.Clothing;
 using Content.Shared.Inventory;
 using Content.Shared.GameTicking;
@@ -93,6 +94,8 @@ public sealed partial class HumanoidProfileEditor
             .ToList();
         UpdateSelectedLoadoutsToggle(loadout.SelectedLoadouts.Values.Sum(items => items.Count));
 
+        AddRoleCustomization(roleId.Value, roleProto, loadout);
+
         if (_showSelectedLoadouts)
         {
             AddSelectedLoadoutsView(roleId.Value, groups, loadout, collection, loadoutSystem);
@@ -134,6 +137,50 @@ public sealed partial class HumanoidProfileEditor
             LoadoutSlotTabs.SetTabTitle(LoadoutSlotTabs.ChildCount - 1, Loc.GetString(group.Name));
         }
 
+    }
+
+    private void AddRoleCustomization(ProtoId<RoleLoadoutPrototype> role, RoleLoadoutPrototype roleProto, RoleLoadout loadout)
+    {
+        if (!roleProto.CanCustomizeName)
+            return;
+
+        var name = new LineEdit
+        {
+            Text = loadout.EntityName ?? string.Empty,
+            HorizontalExpand = true,
+            ToolTip = Loc.GetString("loadout-name-edit-tooltip", ("max", _cfgManager.GetCVar(CCVars.MaxLoadoutNameLength))),
+        };
+        name.IsValid = text => text.Length <= _cfgManager.GetCVar(CCVars.MaxLoadoutNameLength);
+        name.OnTextChanged += args => SetRoleLoadoutName(role, args.Text);
+
+        var body = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            Margin = new Thickness(10),
+            Children =
+            {
+                new Label
+                {
+                    Text = Loc.GetString(roleProto.NameDataset == null ? "loadout-name-edit-label" : "loadout-name-edit-label-dataset"),
+                    HorizontalExpand = true,
+                },
+                name,
+            },
+        };
+        LoadoutSlotTabs.AddChild(body);
+        LoadoutSlotTabs.SetTabTitle(LoadoutSlotTabs.ChildCount - 1, Loc.GetString("loadout-customization-tab"));
+    }
+
+    private void SetRoleLoadoutName(ProtoId<RoleLoadoutPrototype> role, string name)
+    {
+        if (Profile == null || name.Length > _cfgManager.GetCVar(CCVars.MaxLoadoutNameLength))
+            return;
+
+        var loadout = Profile.Loadouts.TryGetValue(role, out var existing) ? existing.Clone() : new RoleLoadout(role);
+        loadout.EntityName = string.IsNullOrWhiteSpace(name) ? null : name.Trim();
+        Profile = Profile.WithLoadout(loadout);
+        SetDirty();
+        ReloadPreview();
     }
 
     private void AddSelectedLoadoutsView(ProtoId<RoleLoadoutPrototype> role, List<LoadoutGroupPrototype> groups, RoleLoadout loadout, IDependencyCollection collection, LoadoutSystem system)
