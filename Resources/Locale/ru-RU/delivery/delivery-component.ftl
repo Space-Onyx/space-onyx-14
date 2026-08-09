@@ -4,14 +4,14 @@ delivery-earnings-examine = Доставка этого принесёт ста�
 delivery-recipient-no-name = Безымянный
 delivery-recipient-no-job = Неизвестно
 
-delivery-unlocked-self = Вы разблокировали { $delivery } отпечатком пальца.
+delivery-unlocked-self = Вы разблокировали { $delivery } ID-картой.
 delivery-opened-self = Вы вскрываете { $delivery }.
 delivery-unlocked-others = { CAPITALIZE($recipient) } { GENDER($recipient) ->
     [male] разблокировал
     [female] разблокировала
     [epicene] разблокировали
     *[neuter] разблокировало
-} { $delivery } используя свой отпечаток пальца.
+} { $delivery } своей ID-картой.
 delivery-opened-others = { CAPITALIZE($recipient) } { GENDER($recipient) ->
     [male] открыл
     [female] открыла

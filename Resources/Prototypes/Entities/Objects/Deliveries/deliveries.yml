@@ -38,7 +38,6 @@
           Primed: { visible: true }
   - type: Label
     examinable: false
-  - type: FingerprintReader
   - type: Delivery
   - type: DeliveryRandomMultiplier
   - type: ContainerContainer
@@ -59,25 +58,27 @@
   name: package
   components:
   - type: Sprite
-    sprite: Objects/Specific/Cargo/mail_large.rsi
+    sprite: _Onyx/Objects/Specific/Cargo/mail_large.rsi # <Onyx-MailDelivery-edited>
+    scale: 0.8, 0.8 # <Onyx-MailDelivery>
     layers:
     - state: icon
       map: [ "enum.DeliveryVisualLayers.Icon" ]
     - state: trash
       map: [ "enum.DeliveryVisualLayers.Trash" ]
       visible: false
+    - state: postmark
+    - map: [ "enum.DeliveryVisualLayers.JobStamp" ]
+      scale: 0.8, 0.8
+      offset: 0.235, -0.01
+    - state: fragile
+      map: [ "enum.DeliveryVisualLayers.FragileStamp" ]
+      visible: false
+    - state: locked
+      map: [ "enum.DeliveryVisualLayers.Lock" ]
     - state: priority
       map: [ "enum.DeliveryVisualLayers.PriorityTape" ]
       visible: false
       shader: unshaded
-    - state: fragile
-      map: [ "enum.DeliveryVisualLayers.FragileStamp" ]
-      visible: false
-    - state: postmark
-    - map: [ "enum.DeliveryVisualLayers.JobStamp" ]
-      offset: -0.21875, -0.25
-    - state: locked
-      map: [ "enum.DeliveryVisualLayers.Lock" ]
     - state: broken
       map: [ "enum.DeliveryVisualLayers.Breakage" ]
       visible: false
@@ -112,25 +113,27 @@
   name: letter
   components:
   - type: Sprite
-    sprite: Objects/Specific/Cargo/mail.rsi
+    sprite: _Onyx/Objects/Specific/Cargo/mail.rsi # <Onyx-MailDelivery-edited>
+    scale: 0.7, 0.7 # <Onyx-MailDelivery>
     layers:
     - state: icon
       map: [ "enum.DeliveryVisualLayers.Icon" ]
     - state: trash
       map: [ "enum.DeliveryVisualLayers.Trash" ]
       visible: false
+    - state: postmark
+    - map: [ "enum.DeliveryVisualLayers.JobStamp" ]
+      scale: 0.8, 0.8
+      offset: 0.225, 0.165
+    - state: fragile
+      map: [ "enum.DeliveryVisualLayers.FragileStamp" ]
+      visible: false
+    - state: locked
+      map: [ "enum.DeliveryVisualLayers.Lock" ]
     - state: priority
       map: [ "enum.DeliveryVisualLayers.PriorityTape" ]
       visible: false
       shader: unshaded
-    - state: fragile
-      map: [ "enum.DeliveryVisualLayers.FragileStamp" ]
-      visible: false
-    - state: postmark
-    - map: [ "enum.DeliveryVisualLayers.JobStamp" ]
-      offset: -0.125, -0.0625
-    - state: locked
-      map: [ "enum.DeliveryVisualLayers.Lock" ]
     - state: broken
       map: [ "enum.DeliveryVisualLayers.Breakage" ]
       visible: false

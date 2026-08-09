@@ -1,9 +1,10 @@
 using System.Linq;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Examine;
-using Content.Shared.FingerprintReader;
+using Content.Shared.Access.Components; // <Onyx-MailDelivery-edited>
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.IdentityManagement;
+using Content.Shared.Interaction; // <Onyx-MailDelivery>
 using Content.Shared.Interaction.Events;
 using Content.Shared.NameModifier.EntitySystems;
 using Content.Shared.Objectives.Components;
@@ -26,7 +27,9 @@ public abstract partial class SharedDeliverySystem : EntitySystem
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
-    [Dependency] private FingerprintReaderSystem _fingerprintReader = default!;
+    // <Onyx-MailDelivery>
+    [Dependency] private Content.Shared.Access.Systems.SharedIdCardSystem _idCard = default!;
+    // </Onyx-MailDelivery>
     [Dependency] private TagSystem _tag = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
@@ -41,6 +44,7 @@ public abstract partial class SharedDeliverySystem : EntitySystem
 
         SubscribeLocalEvent<DeliveryComponent, ExaminedEvent>(OnDeliveryExamine);
         SubscribeLocalEvent<DeliveryComponent, UseInHandEvent>(OnUseInHand);
+        SubscribeLocalEvent<DeliveryComponent, AfterInteractUsingEvent>(OnAfterInteractUsing); // <Onyx-MailDelivery>
         SubscribeLocalEvent<DeliveryComponent, GetVerbsEvent<AlternativeVerb>>(OnGetDeliveryVerbs);
         SubscribeLocalEvent<DeliveryComponent, AttemptSimpleToolUseEvent>(OnAttemptSimpleToolUse);
         SubscribeLocalEvent<DeliveryComponent, SimpleToolDoAfterEvent>(OnSimpleToolUse);
@@ -86,17 +90,36 @@ public abstract partial class SharedDeliverySystem : EntitySystem
             return;
 
         if (ent.Comp.IsLocked)
-            TryUnlockDelivery(ent, args.User);
+            _popup.PopupEntity(Loc.GetString("delivery-locked-id"), ent, args.User); // <Onyx-MailDelivery-edited>
         else
             OpenDelivery(ent, args.User);
     }
+
+    // <Onyx-MailDelivery>
+    private void OnAfterInteractUsing(Entity<DeliveryComponent> ent, ref AfterInteractUsingEvent args)
+    {
+        if (!args.CanReach || !ent.Comp.IsLocked ||
+            !_idCard.TryGetIdCard(args.Used, out Entity<IdCardComponent> idCard))
+            return;
+
+        if (idCard.Comp.FullName != ent.Comp.RecipientName ||
+            idCard.Comp.LocalizedJobTitle != ent.Comp.RecipientJobTitle)
+        {
+            _popup.PopupEntity(Loc.GetString("delivery-recipient-mismatch"), ent, args.User);
+            return;
+        }
+
+        TryUnlockDelivery(ent, args.User);
+    }
+    // </Onyx-MailDelivery>
 
     private void OnGetDeliveryVerbs(Entity<DeliveryComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands == null || ent.Comp.IsOpened)
             return;
 
-        if (_hands.IsHolding(args.User, ent))
+        // <Onyx-MailDelivery-edited>
+        if (_hands.IsHolding(args.User, ent) || ent.Comp.IsLocked)
             return;
 
         var user = args.User;
@@ -105,13 +128,11 @@ public abstract partial class SharedDeliverySystem : EntitySystem
         {
             Act = () =>
             {
-                if (ent.Comp.IsLocked)
-                    TryUnlockDelivery(ent, user);
-                else
-                    OpenDelivery(ent, user, false);
+                OpenDelivery(ent, user, false);
             },
-            Text = ent.Comp.IsLocked ? Loc.GetString("delivery-unlock-verb") : Loc.GetString("delivery-open-verb"),
+            Text = Loc.GetString("delivery-open-verb"),
         });
+        // </Onyx-MailDelivery-edited>
     }
 
 
@@ -159,12 +180,9 @@ public abstract partial class SharedDeliverySystem : EntitySystem
         });
     }
 
+    // <Onyx-MailDelivery-edited>
     private bool TryUnlockDelivery(Entity<DeliveryComponent> ent, EntityUid user, bool rewardMoney = true, bool force = false)
     {
-        // Check fingerprint access if there is a reader on the mail
-        if (!force && !_fingerprintReader.IsAllowed(ent.Owner, user, out _))
-            return false;
-
         var deliveryName = _nameModifier.GetBaseName(ent.Owner);
 
         if (!force)
@@ -190,6 +208,7 @@ public abstract partial class SharedDeliverySystem : EntitySystem
 
         return true;
     }
+    // </Onyx-MailDelivery-edited>
 
     private void OpenDelivery(Entity<DeliveryComponent> ent, EntityUid user, bool attemptPickup = true, bool force = false)
     {

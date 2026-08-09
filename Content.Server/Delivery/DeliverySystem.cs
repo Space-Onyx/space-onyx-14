@@ -5,7 +5,6 @@ using Content.Shared.Cargo.Components;
 using Content.Shared.Cargo.Prototypes;
 using Content.Shared.Chat;
 using Content.Shared.Delivery;
-using Content.Shared.FingerprintReader;
 using Content.Shared.Labels.EntitySystems;
 using Content.Shared.StationRecords;
 using Content.Shared.StationRecords.Systems;
@@ -26,7 +25,6 @@ public sealed partial class DeliverySystem : SharedDeliverySystem
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private StationRecordsSystem _records = default!;
     [Dependency] private StationSystem _station = default!;
-    [Dependency] private FingerprintReaderSystem _fingerprintReader = default!;
     [Dependency] private LabelSystem _label = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private ChatSystem _chat = default!;
@@ -63,12 +61,9 @@ public sealed partial class DeliverySystem : SharedDeliverySystem
 
         _label.Label(ent, ent.Comp.RecipientName);
 
-        if (TryComp<FingerprintReaderComponent>(ent, out var reader) && entry.Fingerprint != null)
-        {
-            _fingerprintReader.AddAllowedFingerprint((ent.Owner, reader), entry.Fingerprint);
-        }
-
+        // <Onyx-MailDelivery-edited>
         Dirty(ent);
+        // </Onyx-MailDelivery-edited>
     }
 
     protected override void GrantSpesoReward(Entity<DeliveryComponent?> ent)

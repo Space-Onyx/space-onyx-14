@@ -4,9 +4,9 @@ delivery-earnings-examine = Delivering this will earn the station [color=yellow]
 delivery-recipient-no-name = Unnamed
 delivery-recipient-no-job = Unknown
 
-delivery-unlocked-self = You unlock the {$delivery} with your fingerprint.
+delivery-unlocked-self = You unlock the {$delivery} with your ID card.
 delivery-opened-self = You open the {$delivery}.
-delivery-unlocked-others = {CAPITALIZE($recipient)} unlocked the {$delivery} with {POSS-ADJ($possadj)} fingerprint.
+delivery-unlocked-others = {CAPITALIZE($recipient)} unlocked the {$delivery} with {POSS-ADJ($possadj)} ID card.
 delivery-opened-others = {CAPITALIZE($recipient)} opened the {$delivery}.
 
 delivery-unlock-verb = Unlock
