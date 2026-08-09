@@ -784,6 +784,7 @@ namespace Content.Shared.Preferences
             if (PreferenceUnavailable != other.PreferenceUnavailable) return false;
             if (SpawnPriority != other.SpawnPriority) return false;
             if (!_jobPriorities.SequenceEqual(other._jobPriorities)) return false;
+            if (!_jobAlternatives.SequenceEqual(other._jobAlternatives)) return false; // <Onyx-AlternativeJobs>
             if (!_antagPreferences.SequenceEqual(other._antagPreferences)) return false;
             if (!_traitPreferences.SequenceEqual(other._traitPreferences)) return false;
             if (!Loadouts.SequenceEqual(other.Loadouts)) return false;
@@ -1082,6 +1083,7 @@ namespace Content.Shared.Preferences
         {
             var hashCode = new HashCode();
             hashCode.Add(_jobPriorities);
+            hashCode.Add(_jobAlternatives); // <Onyx-AlternativeJobs>
             hashCode.Add(_antagPreferences);
             hashCode.Add(_traitPreferences);
             hashCode.Add(_loadouts);

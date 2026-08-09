@@ -98,7 +98,7 @@
   id: AlternativeJobNuclearPhysicist
   jobName: job-alternative-name-nuclear-physicist
   jobIconProtoId: JobIconNuclearPhysicist
-  parentJobId: StationEngineerr
+  parentJobId: StationEngineer
 - type: alternativeJob
   id: AlternativeJobNecrologist
   jobName: job-alternative-name-necrologist
