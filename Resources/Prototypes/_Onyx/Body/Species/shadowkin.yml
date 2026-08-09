@@ -1,0 +1,54 @@
+- type: markingsGroup
+  parent: Human
+  id: Shadowkin
+  limits:
+    enum.HumanoidVisualLayers.Ears:
+      limit: 1
+      required: true
+      default: [ EarsShadowkin ]
+    enum.HumanoidVisualLayers.Tail:
+      limit: 1
+      required: true
+      default: [ TailShadowkin ]
+    enum.HumanoidVisualLayers.Eyes:
+      limit: 1
+      required: true
+      default: [ ShadowkinGlowingEyes ]
+    enum.HumanoidVisualLayers.Overlay:
+      limit: 18
+      required: false
+
+- type: entity
+  parent: BaseSpeciesAppearance
+  id: AppearanceShadowkin
+  categories: [ HideSpawnMenu ]
+  name: shadowkin appearance
+  components:
+  - type: InitialBody
+    organs:
+      Chest: OrganShadowkinChest
+      Groin: OrganShadowkinGroin
+      Head: OrganShadowkinHead
+      ArmLeft: OrganShadowkinArmLeft
+      ArmRight: OrganShadowkinArmRight
+      HandRight: OrganShadowkinHandRight
+      HandLeft: OrganShadowkinHandLeft
+      LegLeft: OrganShadowkinLegLeft
+      LegRight: OrganShadowkinLegRight
+      FootLeft: OrganShadowkinFootLeft
+      FootRight: OrganShadowkinFootRight
+      Brain: OrganShadowkinBrain
+      Eyes: OrganShadowkinEyes
+      Tongue: OrganShadowkinTongue
+      Appendix: OrganShadowkinAppendix
+      Ears: OrganShadowkinEars
+      Lungs: OrganShadowkinCore
+      Heart: OrganShadowkinHeart
+      Stomach: OrganShadowkinStomach
+      Liver: OrganShadowkinLiver
+      Kidneys: OrganShadowkinKidneys
+  - type: ProfileOrgans
+    organs:
+      Tail: { prototype: OrganShadowkinTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
+  - type: HumanoidProfile
+    species: Shadowkin

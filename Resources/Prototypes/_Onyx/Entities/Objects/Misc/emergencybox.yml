@@ -76,6 +76,7 @@
           - ExtendedEmergencyNitrogenTank
           - EmergencyPlasmaTank
           - ExtendedEmergencyPlasmaTank
+          - EmergencyWaterVaporTank
       mask:
         ejectOnInteract: false
         whitelist:
@@ -161,6 +162,10 @@
         whitelist:
           tags:
           - EmergencyNitrogenTank
+      vapor:
+        whitelist:
+          tags:
+          - EmergencyWaterVaporTank
       battery:
         whitelist:
           tags:

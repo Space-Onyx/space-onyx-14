@@ -1,0 +1,16 @@
+- type: entity
+  parent: BoxSurvivalSlots
+  id: BoxSurvivalSlotsWaterVapor
+  suffix: Standard H2O
+  components:
+  - type: ContainerFill
+    containers:
+      water: [ DrinkWaterBottleFull ]
+      nutriblock: [ FoodTinMRE ]
+      flare: [ Flare ]
+      tank: [ EmergencyWaterVaporTankFilled ]
+      mask: [ ClothingMaskBreath ]
+      emergencypen: [ EmergencyMedipen ]
+      spacepen: [ SpaceMedipen ]
+  - type: Label
+    localizedLabel: reagent-name-water

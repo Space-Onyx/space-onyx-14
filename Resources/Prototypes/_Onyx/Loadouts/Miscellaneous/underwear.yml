@@ -2,13 +2,13 @@
   id: OnyxUnderwearBottomSpeciesRestrictions
   effects:
   - !type:SpeciesLoadoutEffect
-    species: [Human, Reptilian, SlimePerson, Dwarf, Moth, Vulpkanin, Tajaran, Felinid, Demon]
+    species: [Human, Reptilian, SlimePerson, Dwarf, Moth, Vulpkanin, Tajaran, Felinid, Demon, Feroxi]
 
 - type: loadoutEffectGroup
   id: OnyxUnderwearTopSpeciesRestrictions
   effects:
   - !type:SpeciesLoadoutEffect
-    species: [Human, Reptilian, SlimePerson, Dwarf, Moth, Vulpkanin, Tajaran, Felinid, Demon]
+    species: [Human, Reptilian, SlimePerson, Dwarf, Moth, Vulpkanin, Tajaran, Felinid, Demon, Feroxi]
 
 - type: loadoutEffectGroup
   id: OnyxUnderwearSocksSpeciesRestrictions

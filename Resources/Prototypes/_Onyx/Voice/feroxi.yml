@@ -1,0 +1,10 @@
+- type: emote
+  id: Gnash
+  name: chat-emote-name-gnash
+  category: Vocal
+  available: false
+  icon: Interface/Emotes/vocal.png
+  whitelist:
+    components: [ Vocal ]
+  chatMessages: [ chat-emote-msg-gnash ]
+  chatTriggers: [ gnash, gnashes, gnashing, gnashed ]

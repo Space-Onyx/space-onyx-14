@@ -68,6 +68,23 @@
     Piercing: 1.15
 
 - type: damageModifierSet
+  id: Feroxi
+  coefficients:
+    Blunt: 0.9
+    Cold: 0.9
+    Slash: 1.1
+
+- type: damageModifierSet
+  id: Shadowkin
+  coefficients:
+    Blunt: 1.25
+    Slash: 1.25
+    Piercing: 1.25
+    Asphyxiation: 0.5
+    Heat: 1.4
+  ignoreArmorPierceFlags: All
+
+- type: damageModifierSet
   id: Demon
   coefficients:
     Piercing: 1.1

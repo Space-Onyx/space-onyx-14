@@ -1,0 +1,56 @@
+- type: entity
+  parent: OxygenTank
+  id: WaterVaporTank
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Tanks/WaterVapor/water_vapor.rsi
+  - type: Item
+    sprite: _Onyx/Objects/Tanks/WaterVapor/water_vapor.rsi
+  - type: Clothing
+    sprite: _Onyx/Objects/Tanks/WaterVapor/water_vapor.rsi
+
+- type: entity
+  parent: EmergencyOxygenTank
+  id: EmergencyWaterVaporTank
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Tanks/WaterVapor/emergency_water_vapor.rsi
+  - type: Item
+    sprite: _Onyx/Objects/Tanks/WaterVapor/emergency_water_vapor.rsi
+    storedSprite:
+      state: storage
+      sprite: _Onyx/Objects/Tanks/WaterVapor/emergency_water_vapor.rsi
+  - type: Clothing
+    sprite: _Onyx/Objects/Tanks/WaterVapor/emergency_water_vapor.rsi
+  - type: Tag
+    tags: [ EmergencyWaterVaporTank ]
+
+- type: entity
+  parent: ExtendedEmergencyOxygenTank
+  id: ExtendedEmergencyWaterVaporTank
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Tanks/WaterVapor/emergency_extended_water_vapor.rsi
+  - type: Item
+    sprite: _Onyx/Objects/Tanks/WaterVapor/emergency_extended_water_vapor.rsi
+    storedSprite:
+      state: storage
+      sprite: _Onyx/Objects/Tanks/WaterVapor/emergency_extended_water_vapor.rsi
+  - type: Clothing
+    sprite: _Onyx/Objects/Tanks/WaterVapor/emergency_extended_water_vapor.rsi
+  - type: Tag
+    tags: [ ExtendedEmergencyWaterVaporTank ]
+
+- type: entity
+  parent: DoubleEmergencyOxygenTank
+  id: DoubleEmergencyWaterVaporTank
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Tanks/WaterVapor/emergency_double_water_vapor.rsi
+  - type: Item
+    sprite: _Onyx/Objects/Tanks/WaterVapor/emergency_double_water_vapor.rsi
+    storedSprite:
+      state: storage
+      sprite: _Onyx/Objects/Tanks/WaterVapor/emergency_double_water_vapor.rsi
+  - type: Clothing
+    sprite: _Onyx/Objects/Tanks/WaterVapor/emergency_double_water_vapor.rsi

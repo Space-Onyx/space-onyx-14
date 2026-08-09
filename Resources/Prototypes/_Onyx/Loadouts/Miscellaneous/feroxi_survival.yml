@@ -1,0 +1,45 @@
+- type: loadoutEffectGroup
+  id: WaterBreather
+  effects:
+  - !type:SpeciesLoadoutEffect
+    species: [ Feroxi ]
+
+- type: loadout
+  id: EmergencyWaterVapor
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: WaterBreather
+  storage:
+    back: [ BoxSurvivalSlotsWaterVapor ]
+
+- type: loadout
+  id: EmergencyWaterVaporClown
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: WaterBreather
+  storage:
+    back: [ BoxSurvivalSlotsWaterVapor ]
+
+- type: loadout
+  id: EmergencyWaterVaporExtended
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: WaterBreather
+  storage:
+    back: [ BoxSurvivalSlotsWaterVapor ]
+
+- type: loadout
+  id: EmergencyWaterVaporMedical
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: WaterBreather
+  storage:
+    back: [ BoxSurvivalSlotsWaterVapor ]
+
+- type: loadout
+  id: EmergencyWaterVaporSecurity
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: WaterBreather
+  storage:
+    back: [ BoxSurvivalSlotsWaterVapor ]

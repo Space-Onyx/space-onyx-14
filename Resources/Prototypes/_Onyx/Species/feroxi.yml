@@ -1,0 +1,30 @@
+- type: species
+  id: Feroxi
+  name: species-name-feroxi
+  category: Unusual
+  roundStart: true
+  prototype: MobFeroxi
+  dollPrototype: AppearanceFeroxi
+  skinColoration: Hues
+  defaultHeightCm: 175
+  defaultWeightKg: 60
+  minHeightCm: 140
+  maxHeightCm: 200
+  minWeightKg: 40
+  maxWeightKg: 75
+  maleFirstNames: NamesFeroxiFirstMale
+  femaleFirstNames: NamesFeroxiFirstFemale
+  lastNames: NamesFeroxiLast
+  description: /ServerInfo/_Onyx/Guidebook/Mobs/Feroxi.xml
+
+- type: localizedDataset
+  id: NamesFeroxiFirstMale
+  values: { prefix: names-feroxi-first-male-dataset-, count: 41 }
+
+- type: localizedDataset
+  id: NamesFeroxiFirstFemale
+  values: { prefix: names-feroxi-first-female-dataset-, count: 41 }
+
+- type: localizedDataset
+  id: NamesFeroxiLast
+  values: { prefix: names-feroxi-last-dataset-, count: 87 }

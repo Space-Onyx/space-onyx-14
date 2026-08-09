@@ -1,0 +1,41 @@
+- type: entity
+  parent: WaterVaporTank
+  id: WaterVaporTankFilled
+  suffix: Filled
+  components:
+  - type: GasTank
+    releasePressure: 21.3
+    air: { volume: 5, moles: { WaterVapor: 2.051379050 }, temperature: 293.15 }
+
+- type: entity
+  parent: EmergencyWaterVaporTank
+  id: EmergencyWaterVaporTankFilled
+  suffix: Filled
+  components:
+  - type: GasTank
+    releasePressure: 21.3
+    air: { volume: 0.66, moles: { WaterVapor: 0.270782035 }, temperature: 293.15 }
+  - type: Tag
+    tags: [ EmergencyWaterVaporTank ]
+
+- type: entity
+  parent: ExtendedEmergencyWaterVaporTank
+  id: ExtendedEmergencyWaterVaporTankFilled
+  suffix: Filled
+  components:
+  - type: GasTank
+    releasePressure: 21.3
+    air: { volume: 1.5, moles: { WaterVapor: 0.615413715 }, temperature: 293.15 }
+  - type: Tag
+    tags: [ EmergencyWaterVaporTank ]
+
+- type: entity
+  parent: DoubleEmergencyWaterVaporTank
+  id: DoubleEmergencyWaterVaporTankFilled
+  suffix: Filled
+  components:
+  - type: GasTank
+    releasePressure: 21.3
+    air: { volume: 2.5, moles: { WaterVapor: 1.025689525 }, temperature: 293.15 }
+  - type: Tag
+    tags: [ EmergencyWaterVaporTank ]

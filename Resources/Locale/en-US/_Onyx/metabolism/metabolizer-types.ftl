@@ -1,1 +1,1 @@
-metabolizer-type-xenomorph = Xenomorph
+metabolizer-type-shadowkin = Shadowkin

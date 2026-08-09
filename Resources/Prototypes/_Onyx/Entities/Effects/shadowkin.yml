@@ -1,0 +1,26 @@
+- type: entity
+  id: EffectFlashShadowkinShadeskip
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: PointLight
+    radius: 5
+    energy: 3.5
+    color: "#7100bd"
+  - type: TimedDespawn
+    lifetime: 3
+  - type: EmitSoundOnSpawn
+    sound: { path: /Audio/_Onyx/Effects/Shadowkin/shadeskip.ogg }
+
+- type: entity
+  parent: ShadowKudzuWeak
+  id: ShadowkinShadow
+  name: shadowkin haze
+  components:
+  - type: RandomSpawner
+    deleteSpawnerAfterSpawn: false
+    rareChance: 0
+    offset: 0.2
+    chance: 0.45
+    prototypes: [ ShadowBasaltRandom ]
+  - type: TimedDespawn
+    lifetime: 30

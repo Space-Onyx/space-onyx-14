@@ -1,0 +1,9 @@
+marking-EyesShadowkin = Тенекин
+marking-ShadowkinGlowingEyes = Светящиеся глаза
+marking-TailShadowkin = Тенекин
+marking-TailShadowkinBig = Тенекин (большой)
+marking-TailShadowkinShorter = Тенекин (короткий)
+marking-TailShadowkinMedium = Тенекин (средний)
+marking-TailShadowkinBigFluff = Тенекин (большой и пушистый)
+marking-EarsShadowkin = Тенекин
+marking-EarsShadowkinStriped = Тенекин (полосатый)

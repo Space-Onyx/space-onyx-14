@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Made by Nimfar11 (GitHub) for Space Station 14, resprite by @linkblyat. Reptilian edit by kuro(388673708753027083), vox edit by Flareguy",
+  "copyright": "Made by Nimfar11 (GitHub) for Space Station 14, resprite by @linkblyat. Reptilian edit by kuro(388673708753027083), vox edit by Flareguy Feroxi clothing sprites by RedTerror.",
   "size": {
     "x": 32,
     "y": 32
@@ -28,6 +28,10 @@
     },
     {
       "name": "inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "equipped-MASK-feroxi",
       "directions": 4
     }
   ]

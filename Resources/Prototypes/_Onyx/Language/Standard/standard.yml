@@ -112,6 +112,10 @@
     maxSyllables: 3
 - type: language
   id: Nehina
+  isVisibleLanguage: true
+  speech:
+    color: "#8DB9D6"
+    speechVerbOverrides: [ chat-speech-verb-feroxi ]
   obfuscation:
     !type:SyllableObfuscation
     replacement:

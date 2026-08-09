@@ -1,0 +1,5 @@
+- type: Tag
+  id: EmergencyWaterVaporTank
+
+- type: Tag
+  id: ExtendedEmergencyWaterVaporTank

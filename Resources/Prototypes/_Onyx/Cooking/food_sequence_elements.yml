@@ -1,0 +1,11 @@
+- type: foodSequenceElement
+  id: FSE_OrganShadowkinStomach
+  name: food-sequence-content-stomach
+  sprites: [ { sprite: _Onyx/Species/Shadowkin/organs.rsi, state: stomach } ]
+  tags: [ Meat, Organ, Stomach ]
+
+- type: foodSequenceElement
+  id: FSE_OrganShadowkinLiver
+  name: food-sequence-content-liver
+  sprites: [ { sprite: _Onyx/Species/Shadowkin/organs.rsi, state: liver } ]
+  tags: [ Meat, Organ, Liver ]

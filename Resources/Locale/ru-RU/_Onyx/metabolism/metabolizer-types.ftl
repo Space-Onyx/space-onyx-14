@@ -1,1 +1,1 @@
-metabolizer-type-xenomorph = Ксеноморф
+metabolizer-type-shadowkin = Тенекин

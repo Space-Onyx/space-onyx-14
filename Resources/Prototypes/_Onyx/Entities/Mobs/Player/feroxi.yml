@@ -1,0 +1,36 @@
+- type: entity
+  parent: [ AppearanceFeroxi, BaseSpeciesMobOrganic ]
+  id: MobFeroxi
+  name: Urist McFin
+  components:
+  - type: Hunger
+  - type: Thirst
+    baseDecayRate: 0.2
+  - type: Speech
+    speechSounds: Tenor
+    speechVerb: Feroxi
+    allowedEmotes: [ Gnash, Thump ]
+  - type: MeleeWeapon
+    hidden: true
+    soundHit: { path: /Audio/Effects/bite.ogg }
+    animation: WeaponArcBite
+    damage: { types: { Piercing: 7 } }
+  - type: Damageable
+    damageModifierSet: Feroxi
+  - type: FeroxiDehydrate
+    hydratedMetabolizer: Feroxi
+    dehydratedMetabolizer: FeroxiDehydrated
+    dehydrationThreshold: 150
+  - type: SwimmingModifier
+    speedMultiplier: 1.5
+    staminaCostMultiplier: 0.6
+  - type: LanguageKnowledge
+    speaks: [ TauCetiBasic, Nehina ]
+    understands: [ TauCetiBasic, Nehina ]
+- type: entity
+  parent: MobFeroxi
+  id: MobFeroxiRandom
+  name: Urist McFin
+  suffix: Random Appearance
+  components:
+  - type: RandomHumanoidAppearance

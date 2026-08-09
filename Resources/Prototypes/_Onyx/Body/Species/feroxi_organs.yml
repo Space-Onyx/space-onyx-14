@@ -1,0 +1,127 @@
+- type: entity
+  parent: OrganBaseOrganic
+  id: OrganFeroxi
+  abstract: true
+
+- type: entity
+  parent: OrganFeroxi
+  id: OrganFeroxiInternal
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/organs.rsi
+
+- type: entity
+  parent: OrganFeroxi
+  id: OrganFeroxiExternal
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Onyx/Species/Feroxi/parts.rsi
+  - type: VisualOrgan
+    data: { sprite: _Onyx/Species/Feroxi/parts.rsi }
+  - type: VisualOrganMarkings
+    markingData: { group: Feroxi }
+
+- type: entity
+  parent: [ OrganBaseChestSexed, OrganBaseChest, OrganFeroxiExternal ]
+  id: OrganFeroxiChest
+
+- type: entity
+  parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganFeroxiExternal ]
+  id: OrganFeroxiGroin
+
+- type: entity
+  parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganFeroxiExternal ]
+  id: OrganFeroxiHead
+  components:
+  - type: VisualOrganMarkings
+    hideableLayers: [ enum.HumanoidVisualLayers.Snout, enum.HumanoidVisualLayers.HeadTop, enum.HumanoidVisualLayers.HeadSide, enum.HumanoidVisualLayers.Hair, enum.HumanoidVisualLayers.FacialHair ]
+    dependentHidingLayers:
+      enum.HumanoidVisualLayers.Snout: [ enum.HumanoidVisualLayers.SnoutCover ]
+
+- type: entity
+  parent: [ OrganFeroxiExternal, OrganBaseArmLeft ]
+  id: OrganFeroxiArmLeft
+
+- type: entity
+  parent: [ OrganFeroxiExternal, OrganBaseArmRight ]
+  id: OrganFeroxiArmRight
+
+- type: entity
+  parent: [ OrganFeroxiExternal, OrganBaseHandLeft ]
+  id: OrganFeroxiHandLeft
+
+- type: entity
+  parent: [ OrganFeroxiExternal, OrganBaseHandRight ]
+  id: OrganFeroxiHandRight
+
+- type: entity
+  parent: [ OrganFeroxiExternal, OrganBaseLegLeft ]
+  id: OrganFeroxiLegLeft
+
+- type: entity
+  parent: [ OrganFeroxiExternal, OrganBaseLegRight ]
+  id: OrganFeroxiLegRight
+
+- type: entity
+  parent: [ OrganFeroxiExternal, OrganBaseFootLeft ]
+  id: OrganFeroxiFootLeft
+
+- type: entity
+  parent: [ OrganFeroxiExternal, OrganBaseFootRight ]
+  id: OrganFeroxiFootRight
+
+- type: entity
+  parent: [ OrganBaseEars, OrganFeroxiInternal ]
+  id: OrganFeroxiEars
+  components:
+  - type: VisualOrganMarkings
+    markingData: { layers: [ Ears, EarsOverlay ], group: Feroxi }
+
+- type: entity
+  parent: [ OrganBaseLungs, OrganFeroxiInternal ]
+  id: OrganFeroxiLungs
+  components:
+  - type: Metabolizer
+    metabolizerTypes: [ Feroxi ]
+    groups:
+    - id: Gas
+      rateModifier: 100
+
+- type: entity
+  parent: [ OrganBaseStomach, OrganFeroxiInternal ]
+  id: OrganFeroxiStomach
+  components:
+  - type: Stomach
+    specialDigestible:
+      tags: [ ReptilianFood, Meat, Pill, Crayon, Paper ]
+  - type: Metabolizer
+    metabolizerTypes: [ Feroxi, Animal ]
+  - type: SolutionManager
+    solutions: [ SolutionFeroxiStomach, SolutionFeroxiFood ]
+
+- type: entity
+  parent: SolutionStomach
+  id: SolutionFeroxiStomach
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Solution
+    solution: { maxVol: 50 }
+
+- type: entity
+  parent: SolutionFood
+  id: SolutionFeroxiFood
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Solution
+    solution:
+      maxVol: 5
+      reagents: [ { ReagentId: UncookedAnimalProteins, Quantity: 5 } ]
+
+- type: entity
+  parent: OrganBaseVisualTail
+  id: OrganFeroxiTail
+  components:
+  - type: VisualOrganMarkings
+    markingData: { layers: [ Tail, TailOverlay ], group: Feroxi }

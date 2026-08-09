@@ -1,0 +1,80 @@
+- type: markingsGroup
+  parent: Undergarments
+  id: Feroxi
+  limits:
+    enum.HumanoidVisualLayers.Hair: { limit: 1, required: false }
+    enum.HumanoidVisualLayers.FacialHair: { limit: 1, required: false, onlyGroupWhitelisted: true }
+    enum.HumanoidVisualLayers.Head: { limit: 3, required: false }
+    enum.HumanoidVisualLayers.Ears: { limit: 1, required: true, default: [ FeroxiEars ] }
+    enum.HumanoidVisualLayers.Snout: { limit: 1, required: true, default: [ FeroxiSnout ] }
+    enum.HumanoidVisualLayers.SnoutCover: { limit: 3, required: false }
+    enum.HumanoidVisualLayers.Tail: { limit: 1, required: true, default: [ FeroxiTailAndDorsal ] }
+    enum.HumanoidVisualLayers.Chest: { limit: 3, required: false }
+    enum.HumanoidVisualLayers.LArm: { limit: 2, required: false }
+    enum.HumanoidVisualLayers.RArm: { limit: 2, required: false }
+    enum.HumanoidVisualLayers.LHand: { limit: 2, required: false }
+    enum.HumanoidVisualLayers.RHand: { limit: 2, required: false }
+    enum.HumanoidVisualLayers.LLeg: { limit: 2, required: false }
+    enum.HumanoidVisualLayers.RLeg: { limit: 2, required: false }
+    enum.HumanoidVisualLayers.LFoot: { limit: 2, required: false }
+    enum.HumanoidVisualLayers.RFoot: { limit: 2, required: false }
+
+- type: entity
+  parent: BaseSpeciesAppearance
+  id: AppearanceFeroxi
+  categories: [ HideSpawnMenu ]
+  name: feroxi appearance
+  components:
+  - type: InitialBody
+    organs:
+      Chest: OrganFeroxiChest
+      Groin: OrganFeroxiGroin
+      Head: OrganFeroxiHead
+      ArmLeft: OrganFeroxiArmLeft
+      ArmRight: OrganFeroxiArmRight
+      HandLeft: OrganFeroxiHandLeft
+      HandRight: OrganFeroxiHandRight
+      LegLeft: OrganFeroxiLegLeft
+      LegRight: OrganFeroxiLegRight
+      FootLeft: OrganFeroxiFootLeft
+      FootRight: OrganFeroxiFootRight
+      Brain: OrganHumanBrain
+      Eyes: OrganHumanEyes
+      Tongue: OrganHumanTongue
+      Appendix: OrganHumanAppendix
+      Ears: OrganFeroxiEars
+      Lungs: OrganFeroxiLungs
+      Heart: OrganAnimalHeart
+      Stomach: OrganFeroxiStomach
+      Liver: OrganAnimalLiver
+      Kidneys: OrganHumanKidneys
+  - type: ProfileOrgans
+    organs:
+      Tail: { prototype: OrganFeroxiTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
+  - type: HumanoidProfile
+    species: Feroxi
+  - type: Inventory
+    templateId: humanNoSocks
+    speciesId: feroxi
+    femaleDisplacements:
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: Corvax/Mobs/Species/displacement.rsi
+            state: jumpsuit-female
+      shoes:
+        sizeMaps:
+          32:
+            sprite: Corvax/Mobs/Species/displacement.rsi
+            state: shoes
+    displacements:
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: Corvax/Mobs/Species/displacement.rsi
+            state: jumpsuit
+      shoes:
+        sizeMaps:
+          32:
+            sprite: Corvax/Mobs/Species/displacement.rsi
+            state: shoes

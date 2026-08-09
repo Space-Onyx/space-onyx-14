@@ -12,6 +12,8 @@
   - SlimePerson
   - Vox
   - Vulpkanin
+  - Shadowkin # <Onyx-Shadowkin>
+  - Feroxi # <Onyx-Feroxi>
 
 - type: guideEntry
   id: Arachnid
@@ -57,3 +59,17 @@
   id: Vulpkanin
   name: species-name-vulpkanin
   text: "/ServerInfo/Guidebook/Mobs/Vulpkanin.xml"
+
+# <Onyx-Shadowkin>
+- type: guideEntry
+  id: Shadowkin
+  name: species-name-shadowkin
+  text: "/ServerInfo/_Onyx/Guidebook/Mobs/Shadowkin.xml"
+# </Onyx-Shadowkin>
+
+# <Onyx-Feroxi>
+- type: guideEntry
+  id: Feroxi
+  name: species-name-feroxi
+  text: "/ServerInfo/_Onyx/Guidebook/Mobs/Feroxi.xml"
+# </Onyx-Feroxi>

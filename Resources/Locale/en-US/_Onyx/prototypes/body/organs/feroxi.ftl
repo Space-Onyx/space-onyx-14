@@ -1,0 +1,17 @@
+ent-OrganFeroxiChest = feroxian chest
+ent-OrganFeroxiGroin = feroxian pelvis
+ent-OrganFeroxiHead = feroxian head
+ent-OrganFeroxiArmLeft = left feroxian arm
+ent-OrganFeroxiArmRight = right feroxian arm
+ent-OrganFeroxiHandLeft = left feroxian hand
+ent-OrganFeroxiHandRight = right feroxian hand
+ent-OrganFeroxiLegLeft = left feroxian leg
+ent-OrganFeroxiLegRight = right feroxian leg
+ent-OrganFeroxiFootLeft = left feroxian foot
+ent-OrganFeroxiFootRight = right feroxian foot
+ent-OrganFeroxiEars = feroxian ears
+ent-OrganFeroxiStomach = feroxian stomach
+    .desc = { ent-OrganAnimalStomach.desc }
+ent-OrganFeroxiLungs = feroxian lungs and gills
+    .desc = A pair of amphibious lungs along with gills, filtering oxygen out of the air continuously.
+ent-OrganFeroxiTail = feroxian tail

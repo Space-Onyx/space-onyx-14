@@ -1,0 +1,24 @@
+- type: species
+  id: Shadowkin
+  name: species-name-shadowkin
+  roundStart: true
+  prototype: MobShadowkin
+  dollPrototype: AppearanceShadowkin
+  skinColoration: Hues
+  defaultHeightCm: 175
+  defaultWeightKg: 65
+  minHeightCm: 140
+  maxHeightCm: 200
+  minAge: 18
+  maxAge: 250
+  youngAge: 80
+  oldAge: 175
+  sexes: [ Male, Female ]
+  maleFirstNames: NamesShadowkin
+  femaleFirstNames: NamesShadowkin
+  description: /ServerInfo/_Onyx/Guidebook/Mobs/Shadowkin.xml
+  category: Unusual
+
+- type: localizedDataset
+  id: NamesShadowkin
+  values: { prefix: names-shadowkin-dataset-, count: 81 }

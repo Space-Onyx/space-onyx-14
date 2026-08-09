@@ -1,0 +1,209 @@
+- type: entity
+  parent: OrganBaseOrganic
+  id: OrganShadowkin
+  abstract: true
+
+- type: entity
+  parent: OrganShadowkin
+  id: OrganShadowkinInternal
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Onyx/Species/Shadowkin/organs.rsi
+
+- type: entity
+  parent: OrganShadowkin
+  id: OrganShadowkinExternal
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Onyx/Species/Shadowkin/parts.rsi
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Species/Shadowkin/parts.rsi
+  - type: VisualOrganMarkings
+    markingData:
+      group: Shadowkin
+
+- type: entity
+  parent: [ OrganBaseChestSexed, OrganBaseChest, OrganShadowkinExternal ]
+  id: OrganShadowkinChest
+  components:
+  - type: VisualOrganMarkings
+    markingData:
+      group: Shadowkin
+
+- type: entity
+  parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganShadowkinExternal ]
+  id: OrganShadowkinGroin
+  components:
+  - type: VisualOrganMarkings
+    markingData:
+      group: Shadowkin
+
+- type: entity
+  parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganShadowkinExternal ]
+  id: OrganShadowkinHead
+  components:
+  - type: VisualOrganMarkings
+    hideableLayers: [ enum.HumanoidVisualLayers.Hair ]
+    markingData:
+      group: Shadowkin
+      layers: [ Head, Hair, FacialHair, Snout, SnoutCover, HeadSide, HeadTop ]
+
+- type: entity
+  parent: [ OrganShadowkinExternal, OrganBaseArmLeft ]
+  id: OrganShadowkinArmLeft
+
+- type: entity
+  parent: [ OrganShadowkinExternal, OrganBaseArmRight ]
+  id: OrganShadowkinArmRight
+
+- type: entity
+  parent: [ OrganShadowkinExternal, OrganBaseHandLeft ]
+  id: OrganShadowkinHandLeft
+
+- type: entity
+  parent: [ OrganShadowkinExternal, OrganBaseHandRight ]
+  id: OrganShadowkinHandRight
+
+- type: entity
+  parent: [ OrganShadowkinExternal, OrganBaseLegLeft ]
+  id: OrganShadowkinLegLeft
+
+- type: entity
+  parent: [ OrganShadowkinExternal, OrganBaseLegRight ]
+  id: OrganShadowkinLegRight
+
+- type: entity
+  parent: [ OrganShadowkinExternal, OrganBaseFootLeft ]
+  id: OrganShadowkinFootLeft
+
+- type: entity
+  parent: [ OrganShadowkinExternal, OrganBaseFootRight ]
+  id: OrganShadowkinFootRight
+
+- type: entity
+  parent: [ OrganBaseBrain, OrganShadowkinInternal ]
+  id: OrganShadowkinBrain
+
+- type: entity
+  parent: [ OrganBaseEyes, OrganShadowkinInternal ]
+  id: OrganShadowkinEyes
+  components:
+  - type: Sprite
+    layers:
+    - state: eyes
+  - type: VisualOrgan
+    layer: enum.HumanoidVisualLayers.Eyes
+    data:
+      sprite: _Onyx/Species/Shadowkin/parts.rsi
+      state: eyes
+      shader: unshaded
+  - type: VisualOrganMarkings
+    markingData: { group: Shadowkin, layers: [ Eyes ] }
+  - type: ShadowkinEyes
+
+- type: entity
+  parent: [ OrganBaseTongue, OrganShadowkinInternal ]
+  id: OrganShadowkinTongue
+
+- type: entity
+  parent: [ OrganBaseAppendix, OrganShadowkinInternal ]
+  id: OrganShadowkinAppendix
+
+- type: entity
+  parent: [ OrganBaseEars, OrganShadowkinInternal ]
+  id: OrganShadowkinEars
+  components:
+  - type: VisualOrganMarkings
+    markingData: { group: Shadowkin, layers: [ Ears, EarsOverlay ] }
+
+- type: entity
+  parent: [ OrganBaseLungs, OrganShadowkinInternal ]
+  id: OrganShadowkinCore
+  components:
+  - type: Sprite
+    layers:
+    - state: core
+
+- type: entity
+  parent: [ OrganBaseHeart, OrganShadowkinInternal ]
+  id: OrganShadowkinHeart
+  components:
+  - type: Sprite
+    layers:
+    - state: heart
+  - type: Metabolizer
+    metabolizerTypes: [ Shadowkin ]
+    groups: [ Medicine, Poison, Narcotic ]
+
+- type: entity
+  parent: [ OrganBaseStomach, OrganShadowkinInternal ]
+  id: OrganShadowkinStomach
+  components:
+  - type: SolutionManager
+    solutions:
+    - SolutionShadowkinStomach
+    - SolutionShadowkinFood
+  - type: Metabolizer
+    metabolizerTypes: [ Shadowkin ]
+    groups: [ Food, Drink ]
+  - type: FoodSequenceElement
+    entries:
+      Burger: FSE_OrganShadowkinStomach
+      Taco: FSE_OrganShadowkinStomach
+
+- type: entity
+  parent: SolutionStomach
+  id: SolutionShadowkinStomach
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Solution
+    solution:
+      maxVol: 40
+
+- type: entity
+  parent: Solution
+  id: SolutionShadowkinFood
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Solution
+    id: food
+    solution:
+      maxVol: 5
+      reagents:
+      - ReagentId: UncookedAnimalProteins
+        Quantity: 5
+
+- type: entity
+  parent: [ OrganBaseLiver, OrganShadowkinInternal ]
+  id: OrganShadowkinLiver
+  components:
+  - type: Metabolizer
+    metabolizerTypes: [ Shadowkin ]
+    groups:
+    - id: Alcohol
+      rateModifier: 0.1
+  - type: FoodSequenceElement
+    entries:
+      Burger: FSE_OrganShadowkinLiver
+      Taco: FSE_OrganShadowkinLiver
+
+- type: entity
+  parent: [ OrganBaseKidneys, OrganShadowkinInternal ]
+  id: OrganShadowkinKidneys
+  components:
+  - type: Sprite
+    layers:
+    - state: kidneys
+  - type: Metabolizer
+    metabolizerTypes: [ Shadowkin ]
+    removeEmpty: true
+
+- type: entity
+  parent: OrganBaseVisualTail
+  id: OrganShadowkinTail
+  components:
+  - type: VisualOrganMarkings
+    markingData: { layers: [ Tail, TailOverlay ], group: Shadowkin }

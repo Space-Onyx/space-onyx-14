@@ -340,5 +340,19 @@ public sealed partial class MetabolizerSystem : EntitySystem
 
         return ent.Comp.MetabolizerTypes.Add(metabolizer);
     }
+
+    // <Onyx>
+    /// <summary>
+    /// Replaces an organ's metabolizer types.
+    /// </summary>
+    public void SetMetabolizerTypes(Entity<MetabolizerComponent?> ent, params ProtoId<MetabolizerTypePrototype>[] metabolizers) // <Onyx-Feroxi>
+    {
+        if (!Resolve(ent, ref ent.Comp, false))
+            return;
+
+        ent.Comp.MetabolizerTypes = [.. metabolizers];
+        Dirty(ent);
+    }
+    // </Onyx>
 }
 

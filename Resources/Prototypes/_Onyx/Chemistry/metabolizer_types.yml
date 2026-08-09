@@ -1,3 +1,15 @@
 - type: metabolizerType
   id: Xenomorph
   name: metabolizer-type-xenomorph
+
+- type: metabolizerType
+  id: Shadowkin
+  name: metabolizer-type-shadowkin
+
+- type: metabolizerType
+  id: Feroxi
+  name: metabolizer-type-feroxi
+
+- type: metabolizerType
+  id: FeroxiDehydrated
+  name: metabolizer-type-feroxi-dehydrated

@@ -452,6 +452,24 @@
         damage:
           types:
             Heat: 3
+      # <Onyx-Feroxi>
+      - !type:Oxygenate
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [ Feroxi, FeroxiDehydrated ]
+      - !type:SatiateThirst
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [ Feroxi, FeroxiDehydrated ]
+        factor: 2
+      - !type:ModifyLungGas
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [ Feroxi, FeroxiDehydrated ]
+        ratios:
+          CarbonDioxide: 0.5
+          WaterVapor: -1
+      # </Onyx-Feroxi>
 
 - type: reagent
   id: Ice

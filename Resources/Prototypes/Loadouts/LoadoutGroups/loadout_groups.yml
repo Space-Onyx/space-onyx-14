@@ -93,6 +93,7 @@
   loadouts:
   - EmergencyNitrogen
   - EmergencyOxygen
+  - EmergencyWaterVapor # <Onyx-Feroxi>
   - LoadoutSpeciesVoxNitrogen
 
 # nitrogen or oxygen tank, depending on what your species needs
@@ -589,6 +590,7 @@
   loadouts:
   - EmergencyNitrogenClown
   - EmergencyOxygenClown
+  - EmergencyWaterVaporClown # <Onyx-Feroxi>
   - LoadoutSpeciesVoxNitrogen
 
 - type: loadoutGroup
@@ -994,6 +996,7 @@
   loadouts:
   - EmergencyNitrogenExtended
   - EmergencyOxygenExtended
+  - EmergencyWaterVaporExtended # <Onyx-Feroxi>
   - LoadoutSpeciesVoxNitrogen
 
 # Science
@@ -1345,6 +1348,7 @@
   loadouts:
   - EmergencyNitrogenSecurity
   - EmergencyOxygenSecurity
+  - EmergencyWaterVaporSecurity # <Onyx-Feroxi>
   - LoadoutSpeciesVoxNitrogen
 
 # Wildcards

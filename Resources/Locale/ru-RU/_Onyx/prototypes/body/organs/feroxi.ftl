@@ -1,0 +1,17 @@
+ent-OrganFeroxiChest = грудь ферокси
+ent-OrganFeroxiGroin = таз ферокси
+ent-OrganFeroxiHead = голова ферокси
+ent-OrganFeroxiArmLeft = левая рука ферокси
+ent-OrganFeroxiArmRight = правая рука ферокси
+ent-OrganFeroxiHandLeft = левая кисть ферокси
+ent-OrganFeroxiHandRight = правая кисть ферокси
+ent-OrganFeroxiLegLeft = левая нога ферокси
+ent-OrganFeroxiLegRight = правая нога ферокси
+ent-OrganFeroxiFootLeft = левая стопа ферокси
+ent-OrganFeroxiFootRight = правая стопа ферокси
+ent-OrganFeroxiEars = уши ферокси
+ent-OrganFeroxiStomach = желудок ферокси
+    .desc = { ent-OrganAnimalStomach.desc }
+ent-OrganFeroxiLungs = лёгкие ферокси
+    .desc = Пара лёгких с жабрами, постоянно фильтрующие кислород из воздуха.
+ent-OrganFeroxiTail = хвост ферокси

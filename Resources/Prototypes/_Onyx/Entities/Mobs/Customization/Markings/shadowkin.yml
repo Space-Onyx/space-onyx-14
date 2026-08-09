@@ -1,0 +1,663 @@
+# Ears
+
+- type: marking
+  id: ShadowkinGlowingEyes
+  bodyPart: Eyes
+  groupWhitelist: [ Shadowkin ]
+  coloring:
+    default:
+      type: !type:EyeColoring {}
+  sprites:
+  - sprite: _Onyx/Species/Shadowkin/parts.rsi
+    state: eyes
+  shader: unshaded
+
+- type: marking
+  id: EarsShadowkin
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  forcedColoring: true
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/ears.rsi
+      state: shadowkin
+
+- type: marking
+  id: EarsShadowkinStriped
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  coloring:
+    default:
+      type:
+        !type:SkinColoring
+    layers:
+      shadowkin_stripes:
+        type:
+          !type:SimpleColoring
+            color: "#FFFFFF"
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/ears.rsi
+      state: shadowkin
+    - sprite: _Onyx/Species/Shadowkin/ears.rsi
+      state: shadowkin_stripes
+
+# Tails
+
+- type: marking
+  id: TailShadowkin
+  bodyPart: Tail
+  groupWhitelist: [ Shadowkin ]
+  forcedColoring: true
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/tails64x32.rsi
+      state: shadowkin
+
+- type: marking
+  id: TailShadowkinBig
+  bodyPart: Tail
+  groupWhitelist: [ Shadowkin ]
+  forcedColoring: true
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/tails64x32.rsi
+      state: shadowkin_big
+
+- type: marking
+  id: TailShadowkinBigFluff
+  bodyPart: Tail
+  groupWhitelist: [ Shadowkin ]
+  forcedColoring: true
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/tails64x32.rsi
+      state: shadowkin_big_fluff
+
+- type: marking
+  id: TailShadowkinShorter
+  bodyPart: Tail
+  groupWhitelist: [ Shadowkin ]
+  forcedColoring: true
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/tails32x32.rsi
+      state: shadowkin_shorter
+
+- type: marking
+  id: TailShadowkinMedium
+  bodyPart: Tail
+  groupWhitelist: [ Shadowkin ]
+  forcedColoring: true
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/tails32x32.rsi
+      state: shadowkin_medium
+
+- type: marking
+  id: EarsShadekinMotley
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  coloring:
+    default:
+      type:
+        !type:SkinColoring
+    layers:
+      motley_secondary:
+        type:
+          !type:SimpleColoring
+            color: "#FFFFFF"
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/ears.rsi
+      state: shadowkin
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: motley_secondary
+
+- type: marking
+  id: EarsShadekinShady
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: shady
+
+- type: marking
+  id: EarsShadekinPiercingAll
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  coloring:
+    default:
+      type:
+        !type:SkinColoring
+    layers:
+      piercing_all:
+        type:
+          !type:SimpleColoring
+            color: "#FFFFFF"
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/ears.rsi
+      state: shadowkin
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: piercing_all
+
+- type: marking
+  id: EarsShadekinPiercingLeft
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  coloring:
+    default:
+      type:
+        !type:SkinColoring
+    layers:
+      piercing_left:
+        type:
+          !type:SimpleColoring
+            color: "#FFFFFF"
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/ears.rsi
+      state: shadowkin
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: piercing_left
+
+- type: marking
+  id: EarsShadekinPiercingRight
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  coloring:
+    default:
+      type:
+        !type:SkinColoring
+    layers:
+      piercing_right:
+        type:
+          !type:SimpleColoring
+            color: "#FFFFFF"
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/ears.rsi
+      state: shadowkin
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: piercing_right
+
+- type: marking
+  id: EarsShadekinRingedAll
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  coloring:
+    default:
+      type:
+        !type:SkinColoring
+    layers:
+      ringed_all_secondary:
+        type:
+          !type:SimpleColoring
+            color: "#FFFFFF"
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/ears.rsi
+      state: shadowkin
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: ringed_all_secondary
+
+- type: marking
+  id: EarsShadekinRingedLeft
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  coloring:
+    default:
+      type:
+        !type:SkinColoring
+    layers:
+      ringed_left_secondary:
+        type:
+          !type:SimpleColoring
+            color: "#FFFFFF"
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/ears.rsi
+      state: shadowkin
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: ringed_left_secondary
+
+- type: marking
+  id: EarsShadekinRingedRight
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  coloring:
+    default:
+      type:
+        !type:SkinColoring
+    layers:
+      ringed_right_secondary:
+        type:
+          !type:SimpleColoring
+            color: "#FFFFFF"
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/ears.rsi
+      state: shadowkin
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: ringed_right_secondary
+
+- type: marking
+  id: EarsShadekinGauzedAll
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/ears.rsi
+      state: shadowkin
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: gauze_ear_all_default
+
+- type: marking
+  id: EarsShadekinGauzedLeft
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/ears.rsi
+      state: shadowkin
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: gauze_ear_l_default
+
+- type: marking
+  id: EarsShadekinGauzedRight
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/ears.rsi
+      state: shadowkin
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: gauze_ear_r_default
+
+- type: marking
+  id: EarsShadekinFluffy
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_default
+
+- type: marking
+  id: EarsShadekinFluffyButterfly
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_butterfly
+
+- type: marking
+  id: EarsShadekinFluffyCowling
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_cowling
+
+- type: marking
+  id: EarsShadekinFluffyCrow
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_crow
+
+- type: marking
+  id: EarsShadekinFluffyMotley
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_motley
+
+- type: marking
+  id: EarsShadekinFluffySpidy
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_spidy
+
+- type: marking
+  id: EarsShadekinFluffyRingedAll
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_ringed_all
+
+- type: marking
+  id: EarsShadekinFluffyRingedLeft
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_ringed_left
+
+- type: marking
+  id: EarsShadekinFluffyRingedRight
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: fluffy_ringed_right
+
+- type: marking
+  id: EarsShadekinSaggy
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: saggy_default
+
+- type: marking
+  id: EarsShadekinSaggyBrawly
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: saggy_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: saggy_brawly
+
+- type: marking
+  id: EarsShadekinSaggyZebra
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: saggy_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: saggy_zebra
+
+- type: marking
+  id: EarsShadekinSaggyGradient
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: saggy_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: saggy_gradient
+
+- type: marking
+  id: EarsShadekinSaggyGauzedAll
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: saggy_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: saggy_gauze_all
+
+- type: marking
+  id: EarsShadekinSaggyGauzedLeft
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: saggy_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: saggy_gauze_l
+
+- type: marking
+  id: EarsShadekinSaggyGauzedRight
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: saggy_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: saggy_gauze_r
+
+- type: marking
+  id: EarsShadekinShort
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: short_default
+
+- type: marking
+  id: EarsShadekinShortButterfly
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: short_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: short_butterfly
+
+- type: marking
+  id: EarsShadekinShortRingedAll
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: short_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: short_ringed_all
+
+- type: marking
+  id: EarsShadekinShortRingedLeft
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: short_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: short_ringed_left
+
+- type: marking
+  id: EarsShadekinShortRingedRight
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: short_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: short_ringed_right
+
+- type: marking
+  id: EarsShadekinBull
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: bull_default
+
+- type: marking
+  id: EarsShadekinBullSmooth
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: bull_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: bull_smooth
+
+- type: marking
+  id: EarsShadekinAqua
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: aqua_default
+
+- type: marking
+  id: EarsShadekinAquaIncolor
+  bodyPart: Ears
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: aqua_default
+    - sprite: _Onyx/Species/Shadowkin/shadekin_ears_32x32.rsi
+      state: aqua_incolor
+
+- type: marking
+  id: BodyShadekinArrow
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_arrow
+
+- type: marking
+  id: BodyShadekinBlackHole
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_blackhole
+
+- type: marking
+  id: BodyShadekinBrace
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_brace
+
+- type: marking
+  id: BodyShadekinBrawly
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_brawly
+
+- type: marking
+  id: BodyShadekinHeart
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_heart
+
+- type: marking
+  id: BodyShadekinInk
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_ink
+
+- type: marking
+  id: BodyShadekinInk2
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_ink2
+
+- type: marking
+  id: BodyShadekinInk3
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_ink3
+
+- type: marking
+  id: BodyShadekinInk4
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_ink4
+
+- type: marking
+  id: BodyShadekinInk5
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_ink5
+
+- type: marking
+  id: BodyShadekinInk6
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_ink6
+
+- type: marking
+  id: BodyShadekinInkAnim
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_ink_anim
+
+- type: marking
+  id: BodyShadekinLines
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_lines
+
+- type: marking
+  id: BodyShadekinNeck
+  bodyPart: Chest
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_neck
+
+- type: marking
+  id: BodyShadekinShield
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_shield
+
+- type: marking
+  id: BodyShadekinVacuum
+  bodyPart: Overlay
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_overlay.rsi
+      state: body_vacuum
+
+- type: marking
+  id: TailShadekinShorter
+  bodyPart: Tail
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_tails_32x32.rsi
+      state: shadekin_shorter
+
+- type: marking
+  id: TailShadekinShorterBrush
+  bodyPart: Tail
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_tails_32x32.rsi
+      state: shadekin_shorter
+    - sprite: _Onyx/Species/Shadowkin/shadekin_tails_32x32.rsi
+      state: shorter_brush
+
+- type: marking
+  id: TailShadekinMedium
+  bodyPart: Tail
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_tails_32x32.rsi
+      state: shadekin_medium
+
+- type: marking
+  id: TailShadekinMediumTwoColored
+  bodyPart: Tail
+  groupWhitelist: [ Shadowkin ]
+  sprites:
+    - sprite: _Onyx/Species/Shadowkin/shadekin_tails_32x32.rsi
+      state: shadekin_medium
+    - sprite: _Onyx/Species/Shadowkin/shadekin_tails_32x32.rsi
+      state: medium_twocolored

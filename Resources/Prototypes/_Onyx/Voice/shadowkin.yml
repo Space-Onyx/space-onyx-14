@@ -1,0 +1,63 @@
+- type: soundCollection
+  id: ShadowkinMars
+  files: [ /Audio/_Onyx/Voice/Shadowkin/mar.ogg ]
+
+- type: emoteSounds
+  id: MaleShadowkin
+  params: { variation: 0.125 }
+  sounds:
+    Scream: { collection: MaleScreams }
+    Laugh: { collection: MaleLaugh }
+    Sneeze: { collection: MaleSneezes }
+    Cough: { collection: MaleCoughs }
+    Yawn: { collection: MaleYawn }
+    Snore: { collection: Snores }
+    Honk: { collection: BikeHorn }
+    Sigh: { collection: MaleSigh }
+    Crying: { collection: MaleCry }
+    Whistle: { collection: Whistles }
+    Weh: { collection: Weh }
+    Mars: { collection: ShadowkinMars }
+    Wurble: { path: /Audio/_Goobstation/Voice/Resomi/wurble.ogg }
+
+- type: emoteSounds
+  id: FemaleShadowkin
+  params: { variation: 0.125 }
+  sounds:
+    Scream: { collection: FemaleScreams }
+    Laugh: { collection: FemaleLaugh }
+    Sneeze: { collection: FemaleSneezes }
+    Cough: { collection: FemaleCoughs }
+    Yawn: { collection: FemaleYawn }
+    Snore: { collection: Snores }
+    Honk: { collection: BikeHorn }
+    Sigh: { collection: FemaleSigh }
+    Crying: { collection: FemaleCry }
+    Whistle: { collection: Whistles }
+    Weh: { collection: Weh }
+    Mars: { collection: ShadowkinMars }
+    Wurble: { path: /Audio/_Goobstation/Voice/Resomi/wurble.ogg }
+
+- type: emote
+  id: Mars
+  name: chat-emote-name-mars
+  category: Vocal
+  available: false
+  icon: Interface/Emotes/vocal.png
+  whitelist:
+    components: [ Vocal ]
+    tags: [ ShadowkinEmotes ]
+  chatMessages: [ chat-emote-msg-mars ]
+  chatTriggers: [ mars, marsing, marsed ]
+
+- type: emote
+  id: Wurble
+  name: chat-emote-name-wurble
+  category: Vocal
+  available: false
+  icon: Interface/Emotes/vocal.png
+  whitelist:
+    components: [ Vocal ]
+    tags: [ ShadowkinEmotes ]
+  chatMessages: [ chat-emote-msg-wurble ]
+  chatTriggers: [ wurble, wurbles, wurbling, wurbled ]
