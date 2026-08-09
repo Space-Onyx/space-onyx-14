@@ -20,6 +20,9 @@
   - type: SurgeryStepBleedEffect
     damage: 10
   - type: SurgeryStepEmoteEffect
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    sleepModifier: 0.12
 
 - type: entity
   parent: SurgeryStepBase
@@ -65,6 +68,9 @@
     state: circular-saw
   - type: SurgeryStepEmoteEffect
   - type: SurgeryOperatingTableCondition
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    sleepModifier: 0
 
 - type: entity
   parent: SurgeryStepBase
@@ -129,6 +135,9 @@
     state: stitches
   - type: SurgeryStepEmoteEffect
   - type: SurgeryCloseIncisionEffect
+  - type: SurgeryStepPainInflicter
+    amount: 9
+    sleepModifier: 0.34
 
 - type: entity
   parent: SurgeryStepBase
@@ -181,6 +190,9 @@
     sprite: _Onyx/Objects/Specific/Medical/Surgery/circular-saw.rsi
     state: circular-saw
   - type: SurgeryStepEmoteEffect
+  - type: SurgeryStepPainInflicter
+    amount: 50
+    sleepModifier: 0.14
 
 - type: entity
   parent: SurgeryStepBase
@@ -228,6 +240,9 @@
     sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
     state: hemostat
   - type: SurgeryStepEmoteEffect
+  - type: SurgeryStepPainInflicter
+    amount: 90
+    sleepModifier: 0
 
 - type: entity
   parent: SurgeryStepBase
@@ -238,6 +253,9 @@
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
     state: hemostat
+  - type: SurgeryStepPainInflicter
+    amount: 90
+    sleepModifier: 0
 
 - type: entity
   parent: SurgeryStepAttachPart

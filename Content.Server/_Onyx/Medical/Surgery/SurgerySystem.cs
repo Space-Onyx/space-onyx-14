@@ -106,6 +106,7 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
             return;
 
         var surgeries = new Dictionary<NetEntity, List<EntProtoId>>();
+        var completed = new Dictionary<NetEntity, HashSet<EntProtoId>>();
         var parts = TryComp(body, out BodyPartComponent? rootPart)
             ? _body.GetBodyPartChildren(body).ToArray()
             : _body.GetBodyChildren(body).ToArray();
@@ -126,10 +127,19 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
                     surgeries[netPart] = partSurgeries = new List<EntProtoId>();
 
                 partSurgeries.Add(surgery);
+
+                if (TryComp(surgeryEnt, out SurgeryComponent? surgeryComp) &&
+                    surgeryComp.Steps.All(step => IsStepComplete(body, part.Id, step)))
+                {
+                    if (!completed.TryGetValue(netPart, out var partCompleted))
+                        completed[netPart] = partCompleted = new HashSet<EntProtoId>();
+
+                    partCompleted.Add(surgery);
+                }
             }
         }
 
-        _ui.SetUiState(body, SurgeryUIKey.Key, new SurgeryBuiState(surgeries));
+        _ui.SetUiState(body, SurgeryUIKey.Key, new SurgeryBuiState(surgeries, completed));
     }
 
     private void OnGetSurgeryVerb(Entity<SurgeryTargetComponent> ent, ref GetVerbsEvent<InteractionVerb> args)

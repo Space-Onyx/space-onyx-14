@@ -161,12 +161,19 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
         if (surgery.Requirement is { } requirement && _prototypes.TryIndex<EntityPrototype>(requirement, out var requirementProto))
         {
             var required = Choice(Loc.GetString("surgery-ui-requires", ("surgery", requirementProto.Name)));
-            required.Button.Modulate = Color.FromHex("#F2C94C");
-            required.Button.OnPressed += _ =>
+            var completed = State is SurgeryBuiState state &&
+                            state.Completed.TryGetValue(netPart, out var partCompleted) &&
+                            partCompleted.Contains(requirement);
+            required.Button.Modulate = Color.FromHex(completed ? "#1F5D37" : "#F2C94C");
+            required.Button.Disabled = completed;
+            if (!completed)
             {
-                _history.Add(surgeryId);
-                ShowSurgery(requirement);
-            };
+                required.Button.OnPressed += _ =>
+                {
+                    _history.Add(surgeryId);
+                    ShowSurgery(requirement);
+                };
+            }
             _window.Steps.AddChild(required);
         }
 

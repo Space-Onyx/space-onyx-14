@@ -17,9 +17,12 @@ namespace Content.Shared._Onyx.Medical.Surgery;
 public enum SurgeryUIKey { Key }
 
 [Serializable, NetSerializable]
-public sealed class SurgeryBuiState(Dictionary<NetEntity, List<EntProtoId>> choices) : BoundUserInterfaceState
+public sealed class SurgeryBuiState(
+    Dictionary<NetEntity, List<EntProtoId>> choices,
+    Dictionary<NetEntity, HashSet<EntProtoId>> completed) : BoundUserInterfaceState
 {
     public readonly Dictionary<NetEntity, List<EntProtoId>> Choices = choices;
+    public readonly Dictionary<NetEntity, HashSet<EntProtoId>> Completed = completed;
 }
 
 [Serializable, NetSerializable]
@@ -102,6 +105,13 @@ public sealed partial class SurgeryStepComponent : Component
     [DataField] public ComponentRegistry? Add;
     [DataField] public ComponentRegistry? Remove;
     [DataField] public ComponentRegistry? BodyRemove;
+}
+
+[RegisterComponent]
+public sealed partial class SurgeryStepPainInflicterComponent : Component
+{
+    [DataField] public FixedPoint2 Amount = 5;
+    [DataField] public FixedPoint2 SleepModifier = 1;
 }
 
 [RegisterComponent] public sealed partial class MechanicalSurgeryStepComponent : Component;

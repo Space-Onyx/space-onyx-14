@@ -11,7 +11,10 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Inventory;
 using Content.Shared.Item;
+using Content.Shared.IdentityManagement;
 using Content.Shared.Humanoid;
+using Content.Shared.Bed.Sleep;
+using Content.Shared._Onyx.Wounds;
 using Content.Shared.Popups;
 using Content.Shared.Prototypes;
 using Content.Shared.Standing;
@@ -43,6 +46,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private PainSystem _pain = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private RotateToFaceSystem _rotateToFace = default!;
     [Dependency] private StandingStateSystem _standing = default!;
@@ -79,6 +83,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         SubscribeLocalEvent<SurgeryStepComponent, SurgeryStepEvent>(OnToolStep);
         SubscribeLocalEvent<SurgeryStepComponent, SurgeryStepCompleteCheckEvent>(OnToolCheck);
         SubscribeLocalEvent<SurgeryStepComponent, SurgeryCanPerformStepEvent>(OnToolCanPerform);
+        SubscribeLocalEvent<SurgeryStepPainInflicterComponent, SurgeryStepEvent>(OnPainInflicterStep);
         SubscribeLocalEvent<SurgeryDetachPartEffectComponent, SurgeryStepEvent>(OnDetachPart);
         SubscribeLocalEvent<SurgeryDetachPartEffectComponent, SurgeryStepCompleteCheckEvent>(OnDetachPartCheck);
         SubscribeLocalEvent<SurgeryAttachPartEffectComponent, SurgeryStepEvent>(OnAttachPart);
@@ -541,6 +546,15 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         OnToolStepCompleted(ent, ref args);
     }
 
+    private void OnPainInflicterStep(Entity<SurgeryStepPainInflicterComponent> ent, ref SurgeryStepEvent args)
+    {
+        var amount = ent.Comp.Amount;
+        if (HasComp<SleepingComponent>(args.Body))
+            amount *= ent.Comp.SleepModifier;
+
+        _pain.ChangePain((args.Part, null), amount);
+    }
+
     protected virtual void OnToolStepCompleted(Entity<SurgeryStepComponent> ent, ref SurgeryStepEvent args)
     {
     }
@@ -692,7 +706,17 @@ public abstract partial class SharedSurgerySystem : EntitySystem
             BreakOnMove = true,
             MovementThreshold = 0.5f,
         };
-        _doAfter.TryStartDoAfter(doAfter);
+        if (!_doAfter.TryStartDoAfter(doAfter))
+            return;
+
+        var userName = Identity.Entity(user, EntityManager);
+        var targetName = Identity.Entity(target, EntityManager);
+        var procedureKey = $"surgery-popup-procedure-{surgery}-step-{stepId}";
+        if (!Loc.TryGetString(procedureKey, out var popup, ("user", userName), ("target", targetName), ("part", part)))
+            Loc.TryGetString($"surgery-popup-step-{stepId}", out popup, ("user", userName), ("target", targetName), ("part", part));
+
+        if (popup != null)
+            _popup.PopupPredicted(popup, user, user);
     }
     // </Onyx-OrganHealing>
 
