@@ -42,8 +42,10 @@ public sealed partial class HumanoidProfileEditor
                 ? _loadoutRoles[args.Id]
                 : (ProtoId<RoleLoadoutPrototype>?) null;
             UpdateLoadoutRoleIcon(args.Id);
+            UpdateLoadoutPreview();
             RefreshLoadoutPersonalization();
         };
+        TabContainer.OnTabChanged += _ => UpdateLoadoutPreview();
         LoadoutRoleSelector.StyleBoxOverride = new StyleBoxFlat
         {
             BackgroundColor = Color.FromHex("#182535"),
@@ -59,6 +61,19 @@ public sealed partial class HumanoidProfileEditor
 
     private readonly List<ProtoId<RoleLoadoutPrototype>> _loadoutRoles = new();
     private readonly List<JobPrototype> _loadoutRoleJobs = new();
+
+    private void UpdateLoadoutPreview()
+    {
+        var job = TabContainer.CurrentTab == 2 && _selectedLoadoutRole != null
+            ? _loadoutRoleJobs.ElementAtOrDefault(_loadoutRoles.IndexOf(_selectedLoadoutRole.Value))
+            : null;
+
+        if (JobOverride == job)
+            return;
+
+        JobOverride = job;
+        ReloadPreview();
+    }
 
     private void DisposeLoadoutPersonalization()
     {
@@ -269,6 +284,7 @@ public sealed partial class HumanoidProfileEditor
         {
             LoadoutRoleSelector.SelectId(index);
             UpdateLoadoutRoleIcon(index);
+            UpdateLoadoutPreview();
         }
     }
 
