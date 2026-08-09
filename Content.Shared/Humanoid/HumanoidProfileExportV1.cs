@@ -92,7 +92,7 @@ public sealed partial class HumanoidCharacterProfileV1
             // <Onyx-HeightWidth>
             1f, 1f,
             // </Onyx-HeightWidth>
-            Sex, GetDefaultVoice(Species, Sex), Gender, Appearance.ToV2(Species), SpawnPriority, JobPriorities, PreferenceUnavailable, AntagPreferences, TraitPreferences, Loadouts,
+            Sex, GetDefaultVoice(Species, Sex), Gender, Appearance.ToV2(Species), SpawnPriority, JobPriorities, new(), PreferenceUnavailable, AntagPreferences, TraitPreferences, Loadouts, // <Onyx-AlternativeJobs>
             // <Onyx-Barks>
             new BarkData()
             // </Onyx-Barks>

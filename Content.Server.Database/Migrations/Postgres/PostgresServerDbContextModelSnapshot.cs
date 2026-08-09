@@ -982,6 +982,10 @@ namespace Content.Server.Database.Migrations.Postgres
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ActiveAlternativeJobId")
+                        .HasColumnType("text")
+                        .HasColumnName("active_alternative_job_id");
+
                     b.Property<string>("JobName")
                         .IsRequired()
                         .HasColumnType("text")
@@ -1225,7 +1229,7 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("species");
 
-                    b.Property<string>("TTSVoice")  // Corvax-TTS
+                    b.Property<string>("TTSVoice")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("ttsvoice");
@@ -1259,7 +1263,6 @@ namespace Content.Server.Database.Migrations.Postgres
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    // <Onyx-LoadoutPersonalization>
                     b.Property<string>("CustomColorTint")
                         .HasMaxLength(16)
                         .HasColumnType("character varying(16)")
@@ -1272,7 +1275,6 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.Property<string>("CustomName")
                         .HasColumnType("text")
                         .HasColumnName("custom_name");
-                    // </Onyx-LoadoutPersonalization>
 
                     b.Property<string>("LoadoutName")
                         .IsRequired()

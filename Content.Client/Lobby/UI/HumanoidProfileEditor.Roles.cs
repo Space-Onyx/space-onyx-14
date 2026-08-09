@@ -2,6 +2,8 @@ using System.Linq;
 using System.Numerics;
 using Content.Client.Lobby.UI.Loadouts;
 using Content.Client.Lobby.UI.Roles;
+using Content.Client._Onyx.AlternativeJobs;
+using Content.Shared._Onyx.AlternativeJobs;
 using Content.Shared.Clothing;
 using Content.Shared.Preferences;
 using Content.Shared.Preferences.Loadouts;
@@ -25,6 +27,7 @@ public sealed partial class HumanoidProfileEditor
     private LoadoutWindow? _loadoutWindow;
 
     private List<(string, RequirementsSelector)> _jobPriorities = new();
+    private readonly Dictionary<string, AlternativeJobSelector> _jobAlternatives = new(); // <Onyx-AlternativeJobs>
 
     private readonly Dictionary<string, BoxContainer> _jobCategories;
 
@@ -38,6 +41,15 @@ public sealed partial class HumanoidProfileEditor
             var priority = Profile?.JobPriorities.GetValueOrDefault(jobId, JobPriority.Never) ?? JobPriority.Never;
             prioritySelector.Select((int)priority);
         }
+    }
+
+    private void UpdateAlternativeJobs()
+    {
+        if (Profile is null)
+            return;
+
+        foreach (var (jobId, selector) in _jobAlternatives)
+            selector.SelectAlternative(Profile.JobAlternatives.GetValueOrDefault(jobId));
     }
 
     /// <summary>
@@ -116,6 +128,7 @@ public sealed partial class HumanoidProfileEditor
         JobList.RemoveAllChildren();
         _jobCategories.Clear();
         _jobPriorities.Clear();
+        _jobAlternatives.Clear(); // <Onyx-AlternativeJobs>
         var firstCategory = true;
 
         // Get all displayed departments
@@ -289,13 +302,22 @@ public sealed partial class HumanoidProfileEditor
                 }
 
                 _jobPriorities.Add((job.ID, selector));
+                var alternativeSelector = new AlternativeJobSelector(job.ID); // <Onyx-AlternativeJobs>
+                alternativeSelector.OnAlternativeSelected += alternativeId => // <Onyx-AlternativeJobs>
+                {
+                    Profile = Profile?.WithJobAlternative(job.ID, alternativeId);
+                    SetDirty();
+                };
+                _jobAlternatives[job.ID] = alternativeSelector; // <Onyx-AlternativeJobs>
                 jobContainer.AddChild(selector);
+                jobContainer.AddChild(alternativeSelector); // <Onyx-AlternativeJobs>
                 jobContainer.AddChild(loadoutWindowBtn);
                 category.AddChild(jobContainer);
             }
         }
 
         UpdateJobPriorities();
+        UpdateAlternativeJobs(); // <Onyx-AlternativeJobs>
     }
 
     public void RefreshAntags()

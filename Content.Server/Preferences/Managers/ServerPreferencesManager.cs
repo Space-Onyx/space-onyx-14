@@ -8,6 +8,7 @@ using Content.Corvax.Interfaces.Shared;
 using Content.Server.Database;
 using Content.Shared.Body;
 using Content.Shared.CCVar;
+using Content.Shared._Onyx.AlternativeJobs;
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Markings;
@@ -98,6 +99,9 @@ namespace Content.Server.Preferences.Managers
         {
 
             var jobs = profile.Jobs.ToDictionary(j => new ProtoId<JobPrototype>(j.JobName), j => (JobPriority) j.Priority);
+            var alternatives = profile.Jobs
+                .Where(j => !string.IsNullOrWhiteSpace(j.ActiveAlternativeJobId))
+                .ToDictionary(j => new ProtoId<JobPrototype>(j.JobName), j => new ProtoId<AlternativeJobPrototype>(j.ActiveAlternativeJobId!)); // <Onyx-AlternativeJobs>
             var antags = profile.Antags.Select(a => new ProtoId<AntagPrototype>(a.AntagName));
             var traits = profile.Traits.Select(t => new ProtoId<TraitPrototype>(t.TraitName));
 
@@ -211,6 +215,7 @@ namespace Content.Server.Preferences.Managers
                 ),
                 spawnPriority,
                 jobs,
+                alternatives, // <Onyx-AlternativeJobs>
                 (PreferenceUnavailableMode) profile.PreferenceUnavailable,
                 antags.ToHashSet(),
                 traits.ToHashSet(),

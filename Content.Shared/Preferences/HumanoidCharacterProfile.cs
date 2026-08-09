@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Content.Shared.CCVar;
+using Content.Shared._Onyx.AlternativeJobs;
 using Content.Shared.Corvax.TTS;
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.EntityEffects.Effects;
@@ -53,6 +54,9 @@ namespace Content.Shared.Preferences
                 SharedGameTicker.FallbackOverflowJob, JobPriority.High
             }
         };
+
+        [DataField]
+        private Dictionary<ProtoId<JobPrototype>, ProtoId<AlternativeJobPrototype>> _jobAlternatives = new(); // <Onyx-AlternativeJobs>
 
         /// <summary>
         /// Antags we have opted in to.
@@ -134,6 +138,8 @@ namespace Content.Shared.Preferences
         /// </summary>
         public IReadOnlyDictionary<ProtoId<JobPrototype>, JobPriority> JobPriorities => _jobPriorities;
 
+        public IReadOnlyDictionary<ProtoId<JobPrototype>, ProtoId<AlternativeJobPrototype>> JobAlternatives => _jobAlternatives; // <Onyx-AlternativeJobs>
+
         /// <summary>
         /// <see cref="_antagPreferences"/>
         /// </summary>
@@ -167,6 +173,7 @@ namespace Content.Shared.Preferences
             HumanoidCharacterAppearance appearance,
             SpawnPriorityPreference spawnPriority,
             Dictionary<ProtoId<JobPrototype>, JobPriority> jobPriorities,
+            Dictionary<ProtoId<JobPrototype>, ProtoId<AlternativeJobPrototype>> jobAlternatives, // <Onyx-AlternativeJobs>
             PreferenceUnavailableMode preferenceUnavailable,
             HashSet<ProtoId<AntagPrototype>> antagPreferences,
             HashSet<ProtoId<TraitPrototype>> traitPreferences,
@@ -191,6 +198,7 @@ namespace Content.Shared.Preferences
             Appearance = appearance;
             SpawnPriority = spawnPriority;
             _jobPriorities = jobPriorities;
+            _jobAlternatives = jobAlternatives; // <Onyx-AlternativeJobs>
             PreferenceUnavailable = preferenceUnavailable;
             _antagPreferences = antagPreferences;
             _traitPreferences = traitPreferences;
@@ -231,6 +239,7 @@ namespace Content.Shared.Preferences
                 other.Appearance.Clone(),
                 other.SpawnPriority,
                 new Dictionary<ProtoId<JobPrototype>, JobPriority>(other.JobPriorities),
+                new Dictionary<ProtoId<JobPrototype>, ProtoId<AlternativeJobPrototype>>(other.JobAlternatives), // <Onyx-AlternativeJobs>
                 other.PreferenceUnavailable,
                 new HashSet<ProtoId<AntagPrototype>>(other.AntagPreferences),
                 new HashSet<ProtoId<TraitPrototype>>(other.TraitPreferences),
@@ -595,6 +604,17 @@ namespace Content.Shared.Preferences
             {
                 _jobPriorities = dictionary
             };
+        }
+
+        public HumanoidCharacterProfile WithJobAlternative(ProtoId<JobPrototype> jobId, ProtoId<AlternativeJobPrototype>? alternativeId)
+        {
+            var alternatives = new Dictionary<ProtoId<JobPrototype>, ProtoId<AlternativeJobPrototype>>(_jobAlternatives);
+            if (alternativeId is { } alternative)
+                alternatives[jobId] = alternative;
+            else
+                alternatives.Remove(jobId);
+
+            return new(this) { _jobAlternatives = alternatives };
         }
 
         /// <summary>

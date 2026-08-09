@@ -9,6 +9,7 @@ using Content.Shared.Roles;
 using Content.Shared.StationRecords.Components;
 using Content.Shared.StationRecords.Events;
 using Content.Shared._Onyx.Paper; // <Onyx-PaperSignatures>
+using Content.Shared._Onyx.AlternativeJobs;
 using Robust.Shared.Enums;
 using Robust.Shared.Timing;
 
@@ -165,12 +166,18 @@ public sealed partial class StationRecordsSystem : EntitySystem
             return;
         }
 
+        var alternative = profile.JobAlternatives.TryGetValue(jobId, out var alternativeId) &&
+                          ProtoMan.TryIndex(alternativeId, out AlternativeJobPrototype? alternativePrototype) &&
+                          alternativePrototype.ParentJobId == jobId
+            ? alternativePrototype
+            : null; // <Onyx-AlternativeJobs>
+
         var record = new GeneralStationRecord
         {
             Name = name,
             Age = age,
-            JobTitle = jobPrototype.LocalizedName,
-            JobIcon = jobPrototype.Icon,
+            JobTitle = alternative?.LocalizedJobName ?? jobPrototype.LocalizedName, // <Onyx-AlternativeJobs>
+            JobIcon = alternative?.JobIconProtoId ?? jobPrototype.Icon, // <Onyx-AlternativeJobs>
             JobPrototype = jobId,
             Species = species,
             Gender = gender,

@@ -1,0 +1,146 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Interdyne and CaptainInterdyne icon made by Nazar_m | Other Interdyne icon made by kraftorset (discord), AdminAssistant made by noctyrnal (github), (All security, CBURN): made by Vareniko, BloodBrother made by Ermucat (GitHub), Hitman icon by stormyatt (GitHub), SecurityK9Officer by BarryNorfolk (GitHub)",
+
+    "size": {
+        "x": 8,
+        "y": 8
+    },
+    "states": [
+        {
+            "name": "Interdyne"
+        },
+        {
+            "name": "CaptainInterdyne"
+        },
+		{
+            "name": "InterdyneEngineer"
+        },
+		{
+            "name": "InterdyneMed"
+        },
+		{
+            "name": "InterdyneSecure"
+        },
+		{
+            "name": "InterdyneService"
+        },
+		{
+            "name": "InterdyneShaftMiners"
+        },
+		{
+            "name": "InterdyneDeputy"
+        },
+		{
+            "name": "InterdynePilot"
+        },
+        {
+            "name": "anomalist"
+        },
+        {
+            "name": "xenoarcheologist"
+        },
+        {
+            "name": "furry"
+        },
+        {
+            "name": "cryo-specialist"
+        },
+        {
+            "name": "electrician"
+        },
+        {
+            "name": "NuclearPhysicist"
+        },
+        {
+            "name": "flora-engineer"
+        },
+        {
+            "name": "surgeon"
+        },
+        {
+            "name": "AdminAssistant"
+        },
+        {
+            "name": "dungeonmaster"
+        },
+        {
+            "name": "attorney"
+        },
+
+        {
+            "name": "clerk"
+        },
+
+        {
+            "name": "prosecutor"
+        },
+        {
+            "name": "atheist"
+        },
+        {
+            "name": "rabbi"
+        },
+        {
+            "name": "imam"
+        },
+        {
+            "name": "lama"
+        },
+        {
+            "name": "guru"
+        },
+        {
+            "name": "kannushi"
+        },
+        {
+            "name": "mobed"
+        },
+        {
+            "name": "druid"
+        },
+        {
+            "name": "holyfather"
+        },
+        {
+            "name": "preacher"
+        },
+        {
+            "name": "CBURN"
+        },
+        {
+            "name": "ERT"
+        },
+        {
+            "name": "Brigmedic"
+        },
+        {
+            "name": "Detective"
+        },
+		{
+            "name": "SecurityCadet"
+        },
+		{
+            "name": "SecurityOfficer"
+        },
+		{
+            "name": "Warden"
+        },
+		{
+            "name": "SecurityInstructor"
+        },
+		{
+            "name": "SecurityPilot"
+        },
+        {
+            "name": "BloodBrother"
+        },
+        {
+            "name": "Hitman"
+        },
+        {
+            "name": "SecurityK9Officer"
+        }
+    ]
+}

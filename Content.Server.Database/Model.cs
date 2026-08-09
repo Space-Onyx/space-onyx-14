@@ -377,6 +377,7 @@ namespace Content.Server.Database
         public int ProfileId { get; set; }
 
         public string JobName { get; set; } = null!;
+        public string? ActiveAlternativeJobId { get; set; } // <Onyx-AlternativeJobs>
         public DbJobPriority Priority { get; set; }
     }
 

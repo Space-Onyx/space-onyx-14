@@ -255,7 +255,12 @@ namespace Content.Server.Database
             profile.Jobs.AddRange(
                 humanoid.JobPriorities
                     .Where(j => j.Value != JobPriority.Never)
-                    .Select(j => new Job {JobName = j.Key, Priority = (DbJobPriority) j.Value})
+                    .Select(j => new Job
+                    {
+                        JobName = j.Key,
+                        Priority = (DbJobPriority) j.Value,
+                        ActiveAlternativeJobId = humanoid.JobAlternatives.TryGetValue(j.Key, out var alternativeId) ? alternativeId.Id : null // <Onyx-AlternativeJobs>
+                    })
             );
 
             profile.Antags.Clear();
