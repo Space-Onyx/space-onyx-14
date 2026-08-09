@@ -11,3 +11,6 @@
     extendPowerCost: 3.5
     retractPowerCost: 3
     icon: { sprite: Objects/Weapons/Guns/Battery/advancedlasergun.rsi, state: base }
+  - type: Construction
+    graph: AugmentLaserPistolPanel
+    node: augment
