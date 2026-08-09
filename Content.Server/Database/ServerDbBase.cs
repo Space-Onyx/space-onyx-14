@@ -292,6 +292,11 @@ namespace Content.Server.Database
                         profileGroup.Loadouts.Add(new ProfileLoadout()
                         {
                             LoadoutName = loadout.Prototype,
+                            // <Onyx-LoadoutPersonalization>
+                            CustomColorTint = loadout.CustomColorTint,
+                            CustomName = loadout.CustomName,
+                            CustomDescription = loadout.CustomDescription,
+                            // </Onyx-LoadoutPersonalization>
                         });
                     }
 

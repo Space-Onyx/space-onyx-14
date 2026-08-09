@@ -479,9 +479,14 @@ namespace Content.Server.Database
         /// </summary>
         public string LoadoutName { get; set; } = string.Empty;
 
-        /*
-         * Insert extra data here like custom descriptions or colors or whatever.
-         */
+        // <Onyx-LoadoutPersonalization>
+        [MaxLength(16)]
+        public string? CustomColorTint { get; set; }
+
+        public string? CustomName { get; set; }
+
+        public string? CustomDescription { get; set; }
+        // </Onyx-LoadoutPersonalization>
     }
 
     #endregion

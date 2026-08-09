@@ -108,6 +108,8 @@ namespace Content.Client.Lobby.UI
             _maxNameLength = _cfgManager.GetCVar(CCVars.MaxNameLength);
             _allowFlavorText = _cfgManager.GetCVar(CCVars.FlavorText);
 
+            InitializeLoadoutPersonalization(); // <Onyx-LoadoutPersonalization>
+
             Markings.SetModel(_markingsModel);
 
             ImportButton.OnPressed += args =>
@@ -284,6 +286,7 @@ namespace Content.Client.Lobby.UI
             #region Jobs
 
             TabContainer.SetTabTitle(1, Loc.GetString("humanoid-profile-editor-jobs-tab"));
+            TabContainer.SetTabTitle(2, Loc.GetString("loadout-window")); // <Onyx-LoadoutPersonalization>
 
             PreferenceUnavailableButton.AddItem(
                 Loc.GetString("humanoid-profile-editor-preference-unavailable-stay-in-lobby-button"),
@@ -307,15 +310,15 @@ namespace Content.Client.Lobby.UI
 
             #endregion Jobs
 
-            TabContainer.SetTabTitle(2, Loc.GetString("humanoid-profile-editor-antags-tab"));
+            TabContainer.SetTabTitle(3, Loc.GetString("humanoid-profile-editor-antags-tab")); // <Onyx-LoadoutPersonalization-edited>
 
             RefreshTraits();
 
-            TabContainer.SetTabTitle(3, Loc.GetString("humanoid-profile-editor-traits-tab")); // Corvax-TTS-Edit
+            TabContainer.SetTabTitle(4, Loc.GetString("humanoid-profile-editor-traits-tab")); // <Onyx-LoadoutPersonalization-edited>
 
             #region Markings
 
-            TabContainer.SetTabTitle(4, Loc.GetString("humanoid-profile-editor-markings-tab"));
+            TabContainer.SetTabTitle(5, Loc.GetString("humanoid-profile-editor-markings-tab")); // <Onyx-LoadoutPersonalization-edited>
 
             _markingsModel.MarkingsChanged += (_, _) => OnMarkingChange();
             _markingsModel.MarkingsReset += OnMarkingChange;
@@ -456,6 +459,7 @@ namespace Content.Client.Lobby.UI
                 return;
 
             _loadoutWindow?.Dispose();
+            DisposeLoadoutPersonalization(); // <Onyx-LoadoutPersonalization>
             _loadoutWindow = null;
             DisposeSpeciesSelector(); // <Onyx-SpeciesSelector>
         }

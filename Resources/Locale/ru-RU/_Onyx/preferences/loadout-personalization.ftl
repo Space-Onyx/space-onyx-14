@@ -1,0 +1,16 @@
+loadout-search-placeholder = Поиск лодаутов
+loadout-role-selector = Должность
+loadout-role-selector-hint = Настройка снаряжения
+loadout-selected-count = Выбрано: {$count}
+loadout-selected-filter = Выбранное ({$count})
+loadout-selected-filter-active = Показано выбранное ({$count})
+loadout-selected-filter-tab = Выбранное
+loadout-selected-empty = Нет выбранных лодаутов, подходящих под поиск.
+loadout-customize = Настроить
+loadout-custom-name = Название
+loadout-custom-description = Описание
+loadout-custom-color = Цвет
+loadout-custom-apply = Применить
+loadout-group-limit = Выбрано: {$selected}/{$max}
+loadout-tooltip-available = ДОСТУПНО
+loadout-tooltip-locked = НЕДОСТУПНО

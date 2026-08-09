@@ -46,6 +46,7 @@ public sealed partial class HumanoidProfileEditor
     public void RefreshLoadouts()
     {
         _loadoutWindow?.Dispose();
+        RefreshLoadoutPersonalization(); // <Onyx-LoadoutPersonalization>
     }
 
     private void OpenLoadout(JobPrototype? jobProto, RoleLoadout roleLoadout, RoleLoadoutPrototype roleLoadoutProto)
@@ -242,6 +243,7 @@ public sealed partial class HumanoidProfileEditor
 
                     // TODO: Only reload on high change (either to or from).
                     ReloadPreview();
+                    RefreshLoadoutPersonalization(); // <Onyx-LoadoutPersonalization>
 
                     UpdateJobPriorities();
                     SetDirty();
@@ -254,6 +256,8 @@ public sealed partial class HumanoidProfileEditor
                     VerticalAlignment = VAlignment.Center,
                     Margin = new Thickness(3f, 3f, 0f, 0f),
                 };
+
+                loadoutWindowBtn.Visible = false; // <Onyx-LoadoutPersonalization>
 
                 var collection = IoCManager.Instance!;
                 var protoManager = collection.Resolve<IPrototypeManager>();

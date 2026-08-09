@@ -12,11 +12,42 @@ public sealed partial class Loadout : IEquatable<Loadout>
     [DataField]
     public ProtoId<LoadoutPrototype> Prototype;
 
+    // <Onyx-LoadoutPersonalization>
+    [DataField]
+    public string? CustomColorTint;
+
+    [DataField]
+    public string? CustomName;
+
+    [DataField]
+    public string? CustomDescription;
+
+    public bool IsValidColorTint()
+    {
+        return string.IsNullOrEmpty(CustomColorTint) ||
+               CustomColorTint.Length <= 16 && Color.TryFromHex(CustomColorTint, out _);
+    }
+
+    public Loadout Clone()
+    {
+        return new Loadout
+        {
+            Prototype = Prototype,
+            CustomColorTint = CustomColorTint,
+            CustomName = CustomName,
+            CustomDescription = CustomDescription,
+        };
+    }
+    // </Onyx-LoadoutPersonalization>
+
     public bool Equals(Loadout? other)
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
-        return Prototype.Equals(other.Prototype);
+        return Prototype.Equals(other.Prototype) // <Onyx-LoadoutPersonalization-edited>
+               && CustomColorTint == other.CustomColorTint
+               && CustomName == other.CustomName
+               && CustomDescription == other.CustomDescription;
     }
 
     public override bool Equals(object? obj)
@@ -26,6 +57,6 @@ public sealed partial class Loadout : IEquatable<Loadout>
 
     public override int GetHashCode()
     {
-        return Prototype.GetHashCode();
+        return HashCode.Combine(Prototype, CustomColorTint, CustomName, CustomDescription); // <Onyx-LoadoutPersonalization-edited>
     }
 }

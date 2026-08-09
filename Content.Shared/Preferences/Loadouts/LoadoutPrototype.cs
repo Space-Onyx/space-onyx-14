@@ -28,6 +28,11 @@ public sealed partial class LoadoutPrototype : IPrototype, IEquipmentLoadout
     [DataField]
     public EntProtoId? DummyEntity;
 
+    // <Onyx-LoadoutPersonalization>
+    [DataField]
+    public bool CustomColorTint;
+    // </Onyx-LoadoutPersonalization>
+
     [DataField]
     public ProtoId<StartingGearPrototype>? StartingGear;
 

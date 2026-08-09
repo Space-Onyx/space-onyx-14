@@ -1,0 +1,16 @@
+loadout-search-placeholder = Search loadouts
+loadout-role-selector = Role
+loadout-role-selector-hint = Configure loadout
+loadout-selected-count = Selected: {$count}
+loadout-selected-filter = Selected ({$count})
+loadout-selected-filter-active = Showing selected ({$count})
+loadout-selected-filter-tab = Selected
+loadout-selected-empty = No selected loadouts match this search.
+loadout-customize = Customize
+loadout-custom-name = Name
+loadout-custom-description = Description
+loadout-custom-color = Color
+loadout-custom-apply = Apply
+loadout-group-limit = Selected: {$selected}/{$max}
+loadout-tooltip-available = AVAILABLE
+loadout-tooltip-locked = LOCKED

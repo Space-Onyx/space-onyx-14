@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared._Onyx.Loadouts; // <Onyx-LoadoutPersonalization>
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Inventory;
@@ -41,7 +42,7 @@ public abstract partial class SharedStationSpawningSystem : EntitySystem
                     continue;
                 }
 
-                EquipStartingGear(entity, loadoutProto, raiseEvent: false);
+                EquipStartingGear(entity, loadoutProto, raiseEvent: false, onyxLoadout: items); // <Onyx-LoadoutPersonalization>
             }
         }
 
@@ -71,27 +72,27 @@ public abstract partial class SharedStationSpawningSystem : EntitySystem
         }
     }
 
-    public void EquipStartingGear(EntityUid entity, LoadoutPrototype loadout, bool raiseEvent = true)
+    public void EquipStartingGear(EntityUid entity, LoadoutPrototype loadout, bool raiseEvent = true, Loadout? onyxLoadout = null) // <Onyx-LoadoutPersonalization-edited>
     {
-        EquipStartingGear(entity, loadout.StartingGear, raiseEvent);
-        EquipStartingGear(entity, (IEquipmentLoadout) loadout, raiseEvent);
+        EquipStartingGear(entity, loadout.StartingGear, raiseEvent, onyxLoadout); // <Onyx-LoadoutPersonalization>
+        EquipStartingGear(entity, (IEquipmentLoadout) loadout, raiseEvent, onyxLoadout); // <Onyx-LoadoutPersonalization>
     }
 
     /// <summary>
     /// <see cref="EquipStartingGear(Robust.Shared.GameObjects.EntityUid,System.Nullable{Robust.Shared.Prototypes.ProtoId{Content.Shared.Roles.StartingGearPrototype}},bool)"/>
     /// </summary>
-    public void EquipStartingGear(EntityUid entity, ProtoId<StartingGearPrototype>? startingGear, bool raiseEvent = true)
+    public void EquipStartingGear(EntityUid entity, ProtoId<StartingGearPrototype>? startingGear, bool raiseEvent = true, Loadout? onyxLoadout = null) // <Onyx-LoadoutPersonalization-edited>
     {
         ProtoMan.Resolve(startingGear, out var gearProto);
-        EquipStartingGear(entity, gearProto, raiseEvent);
+        EquipStartingGear(entity, gearProto, raiseEvent, onyxLoadout); // <Onyx-LoadoutPersonalization>
     }
 
     /// <summary>
     /// <see cref="EquipStartingGear(Robust.Shared.GameObjects.EntityUid,System.Nullable{Robust.Shared.Prototypes.ProtoId{Content.Shared.Roles.StartingGearPrototype}},bool)"/>
     /// </summary>
-    public void EquipStartingGear(EntityUid entity, StartingGearPrototype? startingGear, bool raiseEvent = true)
+    public void EquipStartingGear(EntityUid entity, StartingGearPrototype? startingGear, bool raiseEvent = true, Loadout? onyxLoadout = null) // <Onyx-LoadoutPersonalization-edited>
     {
-        EquipStartingGear(entity, (IEquipmentLoadout?) startingGear, raiseEvent);
+        EquipStartingGear(entity, (IEquipmentLoadout?) startingGear, raiseEvent, onyxLoadout); // <Onyx-LoadoutPersonalization>
     }
 
     /// <summary>
@@ -100,7 +101,7 @@ public abstract partial class SharedStationSpawningSystem : EntitySystem
     /// <param name="entity">Entity to load out.</param>
     /// <param name="startingGear">Starting gear to use.</param>
     /// <param name="raiseEvent">Should we raise the event for equipped. Set to false if you will call this manually</param>
-    public void EquipStartingGear(EntityUid entity, IEquipmentLoadout? startingGear, bool raiseEvent = true)
+    public void EquipStartingGear(EntityUid entity, IEquipmentLoadout? startingGear, bool raiseEvent = true, Loadout? onyxLoadout = null) // <Onyx-LoadoutPersonalization-edited>
     {
         if (startingGear == null)
             return;
@@ -115,6 +116,7 @@ public abstract partial class SharedStationSpawningSystem : EntitySystem
                 if (!string.IsNullOrEmpty(equipmentStr))
                 {
                     var equipmentEntity = Spawn(equipmentStr, xform.Coordinates);
+                    ApplyLoadoutCustomization(equipmentEntity, onyxLoadout); // <Onyx-LoadoutPersonalization>
                     InventorySystem.TryEquip(entity, equipmentEntity, slot.Name, silent: true, force: true);
                 }
             }
@@ -127,6 +129,7 @@ public abstract partial class SharedStationSpawningSystem : EntitySystem
             foreach (var prototype in inhand)
             {
                 var inhandEntity = Spawn(prototype, coords);
+                ApplyLoadoutCustomization(inhandEntity, onyxLoadout); // <Onyx-LoadoutPersonalization>
 
                 if (_handsSystem.TryGetEmptyHand((entity, handsComponent), out var emptyHand))
                 {
@@ -153,6 +156,7 @@ public abstract partial class SharedStationSpawningSystem : EntitySystem
                     foreach (var entProto in entProtos)
                     {
                         var spawnedEntity = Spawn(entProto, coords);
+                        ApplyLoadoutCustomization(spawnedEntity, onyxLoadout); // <Onyx-LoadoutPersonalization>
 
                         _storage.Insert(slotEnt.Value, spawnedEntity, out _, storageComp: storage, playSound: false);
                     }
@@ -166,6 +170,27 @@ public abstract partial class SharedStationSpawningSystem : EntitySystem
             RaiseLocalEvent(entity, ref ev);
         }
     }
+
+    // <Onyx-LoadoutPersonalization>
+    public void ApplyLoadoutCustomization(EntityUid entity, Loadout? loadout)
+    {
+        if (loadout == null)
+            return;
+
+        if (!string.IsNullOrWhiteSpace(loadout.CustomName))
+            _metadata.SetEntityName(entity, loadout.CustomName);
+
+        if (!string.IsNullOrWhiteSpace(loadout.CustomDescription))
+            _metadata.SetEntityDescription(entity, loadout.CustomDescription);
+
+        if (string.IsNullOrEmpty(loadout.CustomColorTint) || !Color.TryFromHex(loadout.CustomColorTint, out var color))
+            return;
+
+        var tint = EnsureComp<LoadoutTintComponent>(entity);
+        tint.Color = color;
+        Dirty(entity, tint);
+    }
+    // </Onyx-LoadoutPersonalization>
 
     /// <summary>
     ///     Gets all the gear for a given slot when passed a loadout.

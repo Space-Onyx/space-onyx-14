@@ -2,8 +2,9 @@
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:humanoid="clr-namespace:Content.Client.Humanoid"
          xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
-         xmlns:ui="clr-namespace:Content.Client.Lobby.UI"
-         xmlns:profile="clr-namespace:Content.Client.Lobby.UI.ProfileEditorControls"
+          xmlns:ui="clr-namespace:Content.Client.Lobby.UI"
+          xmlns:profile="clr-namespace:Content.Client.Lobby.UI.ProfileEditorControls"
+          xmlns:onyxLoadouts="clr-namespace:Content.Client._Onyx.Lobby.UI.Loadouts"
          HorizontalExpand="True">
         <!-- Left side -->
         <BoxContainer Orientation="Vertical" Margin="10 10 10 10" HorizontalExpand="True">
@@ -162,6 +163,24 @@
                         <BoxContainer Name="JobList" Orientation="Vertical" />
                     </ScrollContainer>
                 </BoxContainer>
+                <!-- <Onyx-LoadoutPersonalization> -->
+                <BoxContainer Name="LoadoutsTab" Orientation="Vertical" Margin="10">
+                    <BoxContainer Orientation="Horizontal" Margin="0 0 0 6">
+                        <BoxContainer Orientation="Vertical" VerticalAlignment="Center">
+                            <Label Text="{Loc 'loadout-role-selector'}" StyleClasses="font-small" />
+                            <Label Text="{Loc 'loadout-role-selector-hint'}" StyleClasses="font-small" Modulate="#A6B3CC" /> <!-- <Onyx-LoadoutPersonalization> -->
+                        </BoxContainer>
+                        <Control HorizontalExpand="True" />
+                        <onyxLoadouts:LoadoutRoleSelector Name="LoadoutRoleSelector" MinWidth="280" MinHeight="38" Filterable="True" /> <!-- <Onyx-LoadoutPersonalization> -->
+                    </BoxContainer>
+                    <BoxContainer Orientation="Horizontal" Margin="0 0 0 6">
+                        <LineEdit Name="LoadoutSearchBar" HorizontalExpand="True" />
+                        <Button Name="LoadoutSearchClear" Text="X" />
+                        <Button Name="SelectedLoadoutsToggle" MinWidth="132" ToggleMode="True" /> <!-- <Onyx-LoadoutPersonalization> -->
+                    </BoxContainer>
+                    <TabContainer Name="LoadoutSlotTabs" HorizontalExpand="True" VerticalExpand="True" />
+                </BoxContainer>
+                <!-- </Onyx-LoadoutPersonalization> -->
                 <BoxContainer Orientation="Vertical" Margin="10">
                     <!-- Antags -->
                     <ScrollContainer VerticalExpand="True">

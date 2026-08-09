@@ -178,6 +178,11 @@ namespace Content.Server.Preferences.Managers
                         groupLoadouts.Add(new Loadout()
                         {
                             Prototype = profLoadout.LoadoutName,
+                            // <Onyx-LoadoutPersonalization>
+                            CustomColorTint = profLoadout.CustomColorTint,
+                            CustomName = profLoadout.CustomName,
+                            CustomDescription = profLoadout.CustomDescription,
+                            // </Onyx-LoadoutPersonalization>
                         });
                     }
                 }

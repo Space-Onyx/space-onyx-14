@@ -1259,6 +1259,21 @@ namespace Content.Server.Database.Migrations.Postgres
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    // <Onyx-LoadoutPersonalization>
+                    b.Property<string>("CustomColorTint")
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)")
+                        .HasColumnName("custom_color_tint");
+
+                    b.Property<string>("CustomDescription")
+                        .HasColumnType("text")
+                        .HasColumnName("custom_description");
+
+                    b.Property<string>("CustomName")
+                        .HasColumnType("text")
+                        .HasColumnName("custom_name");
+                    // </Onyx-LoadoutPersonalization>
+
                     b.Property<string>("LoadoutName")
                         .IsRequired()
                         .HasColumnType("text")

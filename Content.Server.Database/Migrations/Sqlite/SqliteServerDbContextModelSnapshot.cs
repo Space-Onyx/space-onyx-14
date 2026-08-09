@@ -1190,6 +1190,21 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasColumnName("profile_loadout_id");
 
+                    // <Onyx-LoadoutPersonalization>
+                    b.Property<string>("CustomColorTint")
+                        .HasMaxLength(16)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("custom_color_tint");
+
+                    b.Property<string>("CustomDescription")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("custom_description");
+
+                    b.Property<string>("CustomName")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("custom_name");
+                    // </Onyx-LoadoutPersonalization>
+
                     b.Property<string>("LoadoutName")
                         .IsRequired()
                         .HasColumnType("TEXT")

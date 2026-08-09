@@ -49,7 +49,7 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
 
         foreach (var selected in SelectedLoadouts)
         {
-            weh.SelectedLoadouts.Add(selected.Key, new List<Loadout>(selected.Value));
+            weh.SelectedLoadouts.Add(selected.Key, selected.Value.Select(loadout => loadout.Clone()).ToList()); // <Onyx-LoadoutPersonalization-edited>
         }
 
         weh.EntityName = EntityName;
@@ -172,6 +172,14 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                     continue;
                 }
 
+                // <Onyx-LoadoutPersonalization>
+                if (!loadoutProto.CustomColorTint || string.IsNullOrEmpty(loadout.CustomColorTint) || !loadout.IsValidColorTint())
+                    loadout.CustomColorTint = null;
+
+                loadout.CustomName = SanitizeCustomText(loadout.CustomName, configManager.GetCVar(CCVars.MaxNameLength));
+                loadout.CustomDescription = SanitizeCustomText(loadout.CustomDescription, MaxLoadoutDescriptionLength);
+                // </Onyx-LoadoutPersonalization>
+
                 Apply(loadoutProto);
             }
 
@@ -221,6 +229,19 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
             effect.Apply(this);
         }
     }
+
+    // <Onyx-LoadoutPersonalization>
+    private const int MaxLoadoutDescriptionLength = 256;
+
+    private static string? SanitizeCustomText(string? text, int maxLength)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+            return null;
+
+        var trimmed = text.Trim();
+        return trimmed.Length > maxLength ? trimmed[..maxLength] : trimmed;
+    }
+    // </Onyx-LoadoutPersonalization>
 
     /// <summary>
     /// Resets the selected loadouts to default if no data is present.

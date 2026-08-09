@@ -97,7 +97,7 @@ public sealed partial class ProfilePreviewSpriteView
                 if (!_prototypeManager.Resolve(loadout.Prototype, out var loadoutProto))
                     continue;
 
-                spawnSys.EquipStartingGear(PreviewDummy, loadoutProto);
+                spawnSys.EquipStartingGear(PreviewDummy, loadoutProto, onyxLoadout: loadout); // <Onyx-LoadoutPersonalization>
             }
         }
     }
@@ -137,6 +137,7 @@ public sealed partial class ProfilePreviewSpriteView
                             if (itemType != string.Empty)
                             {
                                 var item = EntMan.SpawnEntity(itemType, MapCoordinates.Nullspace);
+                                EntMan.System<StationSpawningSystem>().ApplyLoadoutCustomization(item, loadout); // <Onyx-LoadoutPersonalization>
                                 inventorySys.TryEquip(PreviewDummy, item, slot.Name, true, true);
                             }
                         }
@@ -152,6 +153,7 @@ public sealed partial class ProfilePreviewSpriteView
                             if (itemType != string.Empty)
                             {
                                 var item = EntMan.SpawnEntity(itemType, MapCoordinates.Nullspace);
+                                EntMan.System<StationSpawningSystem>().ApplyLoadoutCustomization(item, loadout); // <Onyx-LoadoutPersonalization>
                                 inventorySys.TryEquip(PreviewDummy, item, slot.Name, true, true);
                             }
                         }
