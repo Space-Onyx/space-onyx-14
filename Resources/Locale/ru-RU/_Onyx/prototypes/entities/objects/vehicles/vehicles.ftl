@@ -3,6 +3,9 @@ ent-VehicleATV = квадроцикл
 
 ent-VehicleWheelchair = инвалидная коляска
     .desc = Кресло с большими колёсами. Похоже, на нём можно передвигаться самостоятельно.
+ent-VehicleWheelchairFolded = { ent-VehicleWheelchair }
+    .suffix = сложено
+    .desc = { ent-VehicleWheelchair.desc }
 
 ent-VehicleJanicart = уборочная машина
     .desc = Верный конь уборщика.
