@@ -16,12 +16,12 @@ public sealed class LoadoutCustomizeWindow : DefaultWindow
     private readonly TextEdit _descriptionEdit = new() { HorizontalExpand = true, VerticalExpand = true };
     private readonly ColorSelectorSliders? _colorSelector;
 
-    public LoadoutCustomizeWindow(string title, string name, string description, Color? color)
+    public LoadoutCustomizeWindow(string title, string name, string description, Color? color, int maxNameLength, int maxDescriptionLength)
     {
         Title = title;
         MinSize = new Vector2(360, color == null ? 320 : 560);
-        _nameEdit.Text = name;
-        _descriptionEdit.TextRope = new Rope.Leaf(description);
+        _nameEdit.Text = name[..Math.Min(name.Length, maxNameLength)];
+        _descriptionEdit.TextRope = new Rope.Leaf(description[..Math.Min(description.Length, maxDescriptionLength)]);
 
         var body = new BoxContainer
         {
@@ -48,7 +48,12 @@ public sealed class LoadoutCustomizeWindow : DefaultWindow
         apply.OnPressed += _ =>
         {
             _applied = true;
-            OnSubmitted?.Invoke(_nameEdit.Text, Rope.Collapse(_descriptionEdit.TextRope), _colorSelector?.Color);
+            var nameText = _nameEdit.Text;
+            var descriptionText = Rope.Collapse(_descriptionEdit.TextRope);
+            OnSubmitted?.Invoke(
+                nameText[..Math.Min(nameText.Length, maxNameLength)],
+                descriptionText[..Math.Min(descriptionText.Length, maxDescriptionLength)],
+                _colorSelector?.Color);
             Close();
         };
         body.AddChild(apply);

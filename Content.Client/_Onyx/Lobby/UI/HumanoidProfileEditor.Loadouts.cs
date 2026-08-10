@@ -385,7 +385,13 @@ public sealed partial class HumanoidProfileEditor
         }
 
         var savedColor = Color.FromHex(selected?.CustomColorTint ?? Color.White.ToHex());
-        var window = new LoadoutCustomizeWindow(title, selected?.CustomName ?? defaultName, selected?.CustomDescription ?? defaultDescription, prototype.CustomColorTint ? savedColor : null);
+        var window = new LoadoutCustomizeWindow(
+            title,
+            selected?.CustomName ?? defaultName,
+            selected?.CustomDescription ?? defaultDescription,
+            prototype.CustomColorTint ? savedColor : null,
+            _cfgManager.GetCVar(CCVars.MaxCustomLoadoutNameLength),
+            _cfgManager.GetCVar(CCVars.MaxCustomLoadoutDescriptionLength));
         window.OnSubmitted += (name, description, color) =>
         {
             SetPersonalizedLoadoutCustomization(role, group, prototype, NormalizeLoadoutText(name, defaultName), NormalizeLoadoutText(description, defaultDescription), color?.ToHex());

@@ -176,8 +176,8 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                 if (!loadoutProto.CustomColorTint || string.IsNullOrEmpty(loadout.CustomColorTint) || !loadout.IsValidColorTint())
                     loadout.CustomColorTint = null;
 
-                loadout.CustomName = SanitizeCustomText(loadout.CustomName, configManager.GetCVar(CCVars.MaxNameLength));
-                loadout.CustomDescription = SanitizeCustomText(loadout.CustomDescription, MaxLoadoutDescriptionLength);
+                loadout.CustomName = SanitizeCustomText(loadout.CustomName, configManager.GetCVar(CCVars.MaxCustomLoadoutNameLength)); // <Onyx-LoadoutPersonalization-edited>
+                loadout.CustomDescription = SanitizeCustomText(loadout.CustomDescription, configManager.GetCVar(CCVars.MaxCustomLoadoutDescriptionLength)); // <Onyx-LoadoutPersonalization-edited>
                 // </Onyx-LoadoutPersonalization>
 
                 Apply(loadoutProto);
@@ -231,8 +231,6 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
     }
 
     // <Onyx-LoadoutPersonalization>
-    private const int MaxLoadoutDescriptionLength = 256;
-
     private static string? SanitizeCustomText(string? text, int maxLength)
     {
         if (string.IsNullOrWhiteSpace(text))
