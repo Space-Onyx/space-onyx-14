@@ -676,3 +676,64 @@
   - type: SurgeryStep
     tool: [ { type: BoneGel } ]
   - type: SurgeryMendFractureEffect
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepPacification
+  name: Pacify patient
+  components:
+  - type: SurgeryStep
+    duration: 5
+    tool: [ { type: Drill } ]
+  - type: SurgeryPacificationEffect
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/drill.rsi
+    state: drill
+  - type: SurgeryStepEmoteEffect
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepRemovePacification
+  name: Remove pacification
+  components:
+  - type: SurgeryStep
+    duration: 4
+    tool: [ { type: Hemostat } ]
+  - type: SurgeryPacificationEffect
+    remove: true
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
+    state: hemostat
+  - type: SurgeryStepEmoteEffect
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepCutVocalCords
+  name: Cut vocal cords
+  components:
+  - type: SurgeryStep
+    duration: 4
+    tool: [ { type: Scalpel } ]
+  - type: SurgeryMutingEffect
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/scalpel.rsi
+    state: scalpel
+  - type: SurgeryStepEmoteEffect
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    sleepModifier: 0.12
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepRestoreVocalCords
+  name: Restore vocal cords
+  components:
+  - type: SurgeryStep
+    duration: 4
+    tool: [ { type: Stitches } ]
+  - type: SurgeryMutingEffect
+    remove: true
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
+    state: stitches
+  - type: SurgeryStepEmoteEffect

@@ -258,6 +258,32 @@ public sealed partial class SurgeryCavityConditionComponent : Component
 [RegisterComponent] public sealed partial class SurgeryRemoveCavityItemEffectComponent : Component;
 
 [RegisterComponent]
+public sealed partial class SurgeryPacificationConditionComponent : Component
+{
+    [DataField] public bool Pacified;
+}
+
+[RegisterComponent]
+public sealed partial class SurgeryPacificationEffectComponent : Component
+{
+    [DataField] public bool Remove;
+}
+
+[RegisterComponent] public sealed partial class SurgicallyPacifiedComponent : Component;
+
+[RegisterComponent]
+public sealed partial class SurgeryMutingConditionComponent : Component
+{
+    [DataField] public bool Muted;
+}
+
+[RegisterComponent]
+public sealed partial class SurgeryMutingEffectComponent : Component
+{
+    [DataField] public bool Remove;
+}
+
+[RegisterComponent]
 public sealed partial class SurgeryStepEmoteEffectComponent : Component
 {
     [DataField] public string Emote = "Scream";

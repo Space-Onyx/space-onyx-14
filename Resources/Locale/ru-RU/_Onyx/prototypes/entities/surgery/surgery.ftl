@@ -158,6 +158,14 @@ ent-SurgeryMendFracture = Срастить перелом
 ent-SurgeryStepClampWoundBleeding = Остановить кровотечение медицинскими швами
 ent-SurgeryStepReduceFracture = Вправить перелом
 ent-SurgeryStepMendFracture = Срастить перелом
+ent-SurgeryPacification = Пацификация
+ent-SurgeryRemovePacification = Удалить пацификацию
+ent-SurgeryStepPacification = Сделать пациента пацифистом
+ent-SurgeryStepRemovePacification = Удалить пацификацию
+ent-SurgeryCutVocalCords = Перерезать голосовые связки
+ent-SurgeryRestoreVocalCords = Восстановить голосовые связки
+ent-SurgeryStepCutVocalCords = Перерезать голосовые связки
+ent-SurgeryStepRestoreVocalCords = Восстановить голосовые связки
 ent-MedicalStitches = медицинские швы
     .desc = Тонкая изогнутая игла с рассасывающейся полигликолидной хирургической нитью.
 

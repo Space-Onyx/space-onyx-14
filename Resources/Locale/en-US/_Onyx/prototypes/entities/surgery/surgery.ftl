@@ -77,6 +77,14 @@ ent-SurgeryMendFracture = Mend fracture
 ent-SurgeryStepClampWoundBleeding = Stop bleeding with medical stitches
 ent-SurgeryStepReduceFracture = Reduce fracture
 ent-SurgeryStepMendFracture = Mend fracture
+ent-SurgeryPacification = Pacification
+ent-SurgeryRemovePacification = Remove pacification
+ent-SurgeryStepPacification = Pacify patient
+ent-SurgeryStepRemovePacification = Remove pacification
+ent-SurgeryCutVocalCords = Cut vocal cords
+ent-SurgeryRestoreVocalCords = Restore vocal cords
+ent-SurgeryStepCutVocalCords = Cut vocal cords
+ent-SurgeryStepRestoreVocalCords = Restore vocal cords
 ent-MedicalStitches = medical stitches
     .desc = A fine, curved needle with a length of absorbable polyglycolide suture thread.
 

@@ -202,6 +202,7 @@
       BoneGel: 3
       Tweezers: 3
       Stitches: 3
+      Drill: 3
   - type: Scalpel
   - type: Hemostat
   - type: Retractor
@@ -210,3 +211,4 @@
   - type: BoneGel
   - type: Tweezers
   - type: Stitches
+  - type: Drill

@@ -76,6 +76,7 @@
   - type: SurgeryTool
     startSound:
       path: /Audio/_Onyx/Medical/Surgery/saw.ogg
+  - type: Drill
   # </Onyx-Surgery>
 
 # Scalpel

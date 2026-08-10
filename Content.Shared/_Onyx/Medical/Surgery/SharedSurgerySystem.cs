@@ -3,6 +3,7 @@ using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
 using Content.Shared.Buckle.Components;
 using Content.Shared.CCVar;
+using Content.Shared.CombatMode.Pacification;
 using Content.Shared.DoAfter;
 using Content.Shared.Damage.Components;
 using Content.Shared.GameTicking;
@@ -19,6 +20,7 @@ using Content.Shared.Popups;
 using Content.Shared.Prototypes;
 using Content.Shared.Standing;
 using Content.Shared.Stacks;
+using Content.Shared.StatusEffectNew;
 using Content.Shared.Tools;
 using Content.Shared.Tools.Components;
 using Content.Shared.Tools.Systems;
@@ -51,12 +53,14 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     [Dependency] private RotateToFaceSystem _rotateToFace = default!;
     [Dependency] private StandingStateSystem _standing = default!;
     [Dependency] private SharedStackSystem _stacks = default!;
+    [Dependency] private StatusEffectsSystem _statusEffects = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private SharedToolSystem _tools = default!;
     [Dependency] private SharedContainerSystem _containers = default!;
     [Dependency] private SharedUserInterfaceSystem _ui = default!;
 
     private const string CavityContainer = "surgery_cavity";
+    private static readonly EntProtoId SurgicallyMutedEffect = "StatusEffectSurgicallyMuted";
 
     private readonly Dictionary<EntProtoId, EntityUid> _singletons = new();
 
@@ -74,12 +78,16 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         SubscribeLocalEvent<SurgeryMissingPartConditionComponent, SurgeryValidEvent>(OnMissingPartConditionValid);
         SubscribeLocalEvent<SurgeryDetachablePartConditionComponent, SurgeryValidEvent>(OnDetachablePartConditionValid);
         SubscribeLocalEvent<SurgeryOrganConditionComponent, SurgeryValidEvent>(OnOrganConditionValid);
-        // <Onyx-OrganHealing>
         SubscribeLocalEvent<SurgeryOrganHealEffectComponent, SurgeryValidEvent>(OnOrganHealValid);
         SubscribeLocalEvent<SurgeryOrganHealEffectComponent, SurgeryStepEvent>(OnOrganHeal);
         SubscribeLocalEvent<SurgeryOrganHealEffectComponent, SurgeryStepCompleteCheckEvent>(OnOrganHealCheck);
-        // </Onyx-OrganHealing>
         SubscribeLocalEvent<SurgeryCavityConditionComponent, SurgeryValidEvent>(OnCavityConditionValid);
+        SubscribeLocalEvent<SurgeryPacificationConditionComponent, SurgeryValidEvent>(OnPacificationConditionValid);
+        SubscribeLocalEvent<SurgeryPacificationEffectComponent, SurgeryStepEvent>(OnPacificationEffect);
+        SubscribeLocalEvent<SurgeryPacificationEffectComponent, SurgeryStepCompleteCheckEvent>(OnPacificationEffectCheck);
+        SubscribeLocalEvent<SurgeryMutingConditionComponent, SurgeryValidEvent>(OnMutingConditionValid);
+        SubscribeLocalEvent<SurgeryMutingEffectComponent, SurgeryStepEvent>(OnMutingEffect);
+        SubscribeLocalEvent<SurgeryMutingEffectComponent, SurgeryStepCompleteCheckEvent>(OnMutingEffectCheck);
         SubscribeLocalEvent<SurgeryStepComponent, SurgeryStepEvent>(OnToolStep);
         SubscribeLocalEvent<SurgeryStepComponent, SurgeryStepCompleteCheckEvent>(OnToolCheck);
         SubscribeLocalEvent<SurgeryStepComponent, SurgeryCanPerformStepEvent>(OnToolCanPerform);
@@ -153,13 +161,11 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
         var ev = new SurgeryStepEvent(args.User, ent, part, GetActiveTool(args.User));
         RaiseLocalEvent(step, ref ev);
-        // <Onyx-OrganHealing>
         if (_net.IsServer &&
             (HasComp<SurgeryOrganHealEffectComponent>(step) || HasComp<SurgeryClampBleedingEffectComponent>(step)) &&
             !IsStepComplete(ent, part, args.Step) &&
             CanPerformStep(args.User, ent, part, part.Comp.PartType, step, false, out _, out _, out var validTools))
             StartSurgeryDoAfter(ent, part, args.Surgery, args.Step, args.User, step, validTools);
-        // </Onyx-OrganHealing>
         RefreshUI(ent);
     }
 
@@ -218,6 +224,61 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     private void OnCavityConditionValid(Entity<SurgeryCavityConditionComponent> ent, ref SurgeryValidEvent args)
     {
         if (!HasComp<AbdominalCavityOpenComponent>(args.Part) || CavityOccupied(args.Part) != ent.Comp.Occupied)
+            args.Cancelled = true;
+    }
+
+    private void OnPacificationConditionValid(Entity<SurgeryPacificationConditionComponent> ent, ref SurgeryValidEvent args)
+    {
+        var surgicallyPacified = HasComp<SurgicallyPacifiedComponent>(args.Body);
+        if (ent.Comp.Pacified ? !surgicallyPacified : surgicallyPacified || HasComp<PacifiedComponent>(args.Body))
+            args.Cancelled = true;
+    }
+
+    private void OnPacificationEffect(Entity<SurgeryPacificationEffectComponent> ent, ref SurgeryStepEvent args)
+    {
+        if (!_net.IsServer)
+            return;
+
+        if (ent.Comp.Remove)
+        {
+            if (!RemComp<SurgicallyPacifiedComponent>(args.Body))
+                return;
+
+            RemComp<PacifiedComponent>(args.Body);
+            return;
+        }
+
+        if (HasComp<PacifiedComponent>(args.Body))
+            return;
+
+        EnsureComp<PacifiedComponent>(args.Body);
+        EnsureComp<SurgicallyPacifiedComponent>(args.Body);
+    }
+
+    private void OnPacificationEffectCheck(Entity<SurgeryPacificationEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
+    {
+        var surgicallyPacified = HasComp<SurgicallyPacifiedComponent>(args.Body);
+        if (ent.Comp.Remove ? surgicallyPacified : !surgicallyPacified || !HasComp<PacifiedComponent>(args.Body))
+            args.Cancelled = true;
+    }
+
+    private void OnMutingConditionValid(Entity<SurgeryMutingConditionComponent> ent, ref SurgeryValidEvent args)
+    {
+        if (_statusEffects.HasStatusEffect(args.Body, SurgicallyMutedEffect) != ent.Comp.Muted)
+            args.Cancelled = true;
+    }
+
+    private void OnMutingEffect(Entity<SurgeryMutingEffectComponent> ent, ref SurgeryStepEvent args)
+    {
+        if (ent.Comp.Remove)
+            _statusEffects.TryRemoveStatusEffect(args.Body, SurgicallyMutedEffect);
+        else
+            _statusEffects.TrySetStatusEffectDuration(args.Body, SurgicallyMutedEffect);
+    }
+
+    private void OnMutingEffectCheck(Entity<SurgeryMutingEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
+    {
+        if (_statusEffects.HasStatusEffect(args.Body, SurgicallyMutedEffect) == ent.Comp.Remove)
             args.Cancelled = true;
     }
 
@@ -664,7 +725,6 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         StartSurgeryDoAfter(ent, part, args.Surgery, args.Step, user, step, validTools);
     }
 
-    // <Onyx-OrganHealing>
     private void StartSurgeryDoAfter(Entity<SurgeryTargetComponent> target, Entity<BodyPartComponent> part,
         EntProtoId surgery, EntProtoId stepId, EntityUid user, EntityUid step, HashSet<EntityUid>? validTools = null)
     {
@@ -718,9 +778,6 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         if (popup != null)
             _popup.PopupPredicted(popup, user, user);
     }
-    // </Onyx-OrganHealing>
-
-    // <Onyx-OrganHealing>
     private void OnOrganHealValid(Entity<SurgeryOrganHealEffectComponent> ent, ref SurgeryValidEvent args)
     {
         if (ent.Comp.Amount <= FixedPoint2.Zero || !TryFindOrgan(args.Part, ent.Comp.Slot, out var organ) ||
@@ -752,7 +809,6 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         organ = (organId, component);
         return true;
     }
-    // </Onyx-OrganHealing>
 
     protected bool IsSurgeryValid(EntityUid body, EntityUid targetPart, EntProtoId surgery, EntProtoId stepId, out Entity<SurgeryComponent> surgeryEnt, out Entity<BodyPartComponent> part, out EntityUid step)
     {

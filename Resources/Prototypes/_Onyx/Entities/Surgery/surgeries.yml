@@ -703,3 +703,59 @@
   - type: Surgery
     steps: [ SurgeryStepMendFracture ]
   - type: SurgeryFractureGradeCondition
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryPacification
+  name: Pacification
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepPacification, SurgeryStepCloseIncision ]
+  - type: SurgeryPartCondition
+    part: Head
+  - type: SurgeryOrganCondition
+    slot: Brain
+    part: Head
+  - type: SurgeryPacificationCondition
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryRemovePacification
+  name: Remove pacification
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepRemovePacification, SurgeryStepCloseIncision ]
+  - type: SurgeryPartCondition
+    part: Head
+  - type: SurgeryOrganCondition
+    slot: Brain
+    part: Head
+  - type: SurgeryPacificationCondition
+    pacified: true
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryCutVocalCords
+  name: Cut vocal cords
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepCutVocalCords, SurgeryStepCloseIncision ]
+  - type: SurgeryPartCondition
+    part: Head
+  - type: SurgeryMutingCondition
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryRestoreVocalCords
+  name: Restore vocal cords
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepRestoreVocalCords, SurgeryStepCloseIncision ]
+  - type: SurgeryPartCondition
+    part: Head
+  - type: SurgeryMutingCondition
+    muted: true

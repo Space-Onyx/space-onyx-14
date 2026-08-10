@@ -1,0 +1,4 @@
+- type: entity
+  parent: MutedStatusEffectBase
+  id: StatusEffectSurgicallyMuted
+  name: surgically muted
