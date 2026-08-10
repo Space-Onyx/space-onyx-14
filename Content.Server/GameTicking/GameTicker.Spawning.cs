@@ -208,9 +208,14 @@ namespace Content.Server.GameTicking
                     speciesId = weights.Pick(_robustRandom);
                 }
 
-                // The random profile must retain the job priorities set by the player
+                // <Onyx-AlternativeJobs-edited>
+                // The random profile must retain the job preferences set by the player
                 var jobs = character.JobPriorities;
+                var alternatives = character.JobAlternatives;
                 character = HumanoidCharacterProfile.RandomWithSpecies(speciesId).WithJobPriorities(jobs);
+                foreach (var (job, alternative) in alternatives)
+                    character = character.WithJobAlternative(job, alternative);
+                // </Onyx-AlternativeJobs-edited>
 
                 // This does not utilize overflow job slots, so if the character profile
                 // had no available job priorities (ie Captain on Dev) set, then the player will spawn as a ghost
