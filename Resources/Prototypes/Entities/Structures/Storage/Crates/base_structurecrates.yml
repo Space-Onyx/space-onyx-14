@@ -36,6 +36,8 @@
   - type: StaticPrice
     price: 75
   - type: RequireProjectileTarget
+  - type: Tag
+    tags: [Crate] # <Onyx-Forklift>
 
 - type: entity
   parent: BaseCrate

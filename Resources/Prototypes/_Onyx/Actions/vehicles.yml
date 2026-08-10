@@ -22,6 +22,18 @@
 
 - type: entity
   parent: BaseAction
+  id: ActionVehicleHorn
+  name: Honk!
+  description: Sound vehicle horn.
+  components:
+  - type: Action
+    useDelay: 1
+    icon: { sprite: Objects/Fun/bikehorn.rsi, state: icon }
+  - type: InstantAction
+    event: !type:VehicleHornActionEvent
+
+- type: entity
+  parent: BaseAction
   id: ActionUnforklift
   name: Drop lift
   description: Put down the front crate.

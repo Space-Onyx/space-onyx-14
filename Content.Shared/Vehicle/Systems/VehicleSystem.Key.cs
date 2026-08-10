@@ -27,6 +27,7 @@ public sealed partial class VehicleSystem
         if (!_vehicleQuery.TryComp(ent, out var vehicle))
             return;
 
+        _ambientSound.SetAmbience(ent, true); // <Onyx-VehicleIdle>
         RefreshCanRun((ent.Owner, vehicle));
     }
 
@@ -39,6 +40,7 @@ public sealed partial class VehicleSystem
         if (!_vehicleQuery.TryComp(ent, out var vehicle))
             return;
 
+        _ambientSound.SetAmbience(ent, false); // <Onyx-VehicleIdle>
         RefreshCanRun((ent.Owner, vehicle));
     }
 

@@ -79,6 +79,11 @@
         - TableLayer
   - type: StaticPrice
     price: 70
+  - type: VehicleHorn # <Onyx-VehicleHorn>
+    sound: # <Onyx-VehicleHorn>
+      collection: BikeHorn # <Onyx-VehicleHorn>
+      params: # <Onyx-VehicleHorn>
+        variation: 0.125 # <Onyx-VehicleHorn>
 
 - type: entity
   id: VehicleJanicart
@@ -160,6 +165,13 @@
     containers:
       key_slot: !type:ContainerSlot
       trashbag_slot: !type:ContainerSlot
+  # <Onyx-VehicleIdle>
+  - type: AmbientSound
+    sound: /Audio/Effects/Vehicle/vehicleengineidle.ogg
+    range: 10
+    volume: -10
+    enabled: false
+  # </Onyx-VehicleIdle>
   - type: ItemMapper
     mapLayers:
       storage:

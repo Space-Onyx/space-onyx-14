@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Access.Components;
 using Content.Shared.ActionBlocker;
+using Content.Shared.Audio; // <Onyx-VehicleIdle>
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Hands.Components;
@@ -26,6 +27,7 @@ namespace Content.Shared.Vehicle.Systems;
 public sealed partial class VehicleSystem : EntitySystem
 {
     [Dependency] private ActionBlockerSystem _actionBlocker = default!;
+    [Dependency] private SharedAmbientSoundSystem _ambientSound = default!; // <Onyx-VehicleIdle>
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private DamageableSystem _damageable = default!;
