@@ -71,7 +71,7 @@ public sealed partial class PainComponent : Component
     };
 
     [DataField]
-    public FixedPoint2 RecoveryPerSecond = FixedPoint2.New(1f / 12f);
+    public FixedPoint2 RecoveryPerSecond = FixedPoint2.New(1f / 9f);
 
     [DataField]
     public FixedPoint2 SoftPainCap = 120;

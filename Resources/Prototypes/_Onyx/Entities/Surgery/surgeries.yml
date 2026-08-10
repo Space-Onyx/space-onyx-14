@@ -711,7 +711,7 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepPacification, SurgeryStepCloseIncision ]
+    steps: [ SurgeryStepPacification ]
   - type: SurgeryPartCondition
     part: Head
   - type: SurgeryOrganCondition
@@ -726,7 +726,7 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepRemovePacification, SurgeryStepCloseIncision ]
+    steps: [ SurgeryStepRemovePacification ]
   - type: SurgeryPartCondition
     part: Head
   - type: SurgeryOrganCondition
@@ -742,7 +742,7 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepCutVocalCords, SurgeryStepCloseIncision ]
+    steps: [ SurgeryStepCutVocalCords ]
   - type: SurgeryPartCondition
     part: Head
   - type: SurgeryMutingCondition
@@ -754,7 +754,7 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepRestoreVocalCords, SurgeryStepCloseIncision ]
+    steps: [ SurgeryStepRestoreVocalCords ]
   - type: SurgeryPartCondition
     part: Head
   - type: SurgeryMutingCondition

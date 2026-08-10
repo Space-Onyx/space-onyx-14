@@ -229,6 +229,9 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
     private void OnPacificationConditionValid(Entity<SurgeryPacificationConditionComponent> ent, ref SurgeryValidEvent args)
     {
+        if (_net.IsClient)
+            return;
+
         var surgicallyPacified = HasComp<SurgicallyPacifiedComponent>(args.Body);
         if (ent.Comp.Pacified ? !surgicallyPacified : surgicallyPacified || HasComp<PacifiedComponent>(args.Body))
             args.Cancelled = true;
@@ -264,6 +267,9 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
     private void OnMutingConditionValid(Entity<SurgeryMutingConditionComponent> ent, ref SurgeryValidEvent args)
     {
+        if (_net.IsClient)
+            return;
+
         if (_statusEffects.HasStatusEffect(args.Body, SurgicallyMutedEffect) != ent.Comp.Muted)
             args.Cancelled = true;
     }
