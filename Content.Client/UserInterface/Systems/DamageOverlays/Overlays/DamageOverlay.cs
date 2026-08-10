@@ -157,7 +157,7 @@ public sealed partial class DamageOverlay : Overlay
 
             _bruteShader.SetParameter("time", pulse);
             _bruteShader.SetParameter("color", new Vector3(1f, 0f, 0f));
-            _bruteShader.SetParameter("darknessAlphaOuter", 0.8f);
+            _bruteShader.SetParameter("darknessAlphaOuter", 0.8f * level); // <Onyx-PartPain-edited>
 
             _bruteShader.SetParameter("outerCircleRadius", outerRadius);
             _bruteShader.SetParameter("outerCircleMaxRadius", outerRadius + 0.2f * distance);

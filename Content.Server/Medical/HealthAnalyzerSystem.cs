@@ -7,6 +7,7 @@ using Content.Shared._Onyx.Wounds;
 using Content.Shared.Body.Systems;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
+using Content.Shared.FixedPoint; // <Onyx-HealthAnalyzerPain>
 // </Onyx-HealthAnalyzer-StatusDoll>
 using Content.Shared.Body.Components;
 using Content.Shared.Chemistry.EntitySystems;
@@ -47,6 +48,7 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private WoundSystem _wounds = default!;
+    [Dependency] private PainSystem _pain = default!; // <Onyx-HealthAnalyzerPain>
     // </Onyx-HealthAnalyzer-StatusDoll>
 
     public override void Initialize()
@@ -317,6 +319,11 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
             var bleedingTreatment = BleedingTreatment.None;
             var highestBleedingRate = 0f;
             ushort scarCount = 0;
+            // <Onyx-HealthAnalyzerPain>
+            var pain = TryComp(part, out PainComponent? painComponent)
+                ? _pain.GetPain((part, painComponent))
+                : FixedPoint2.Zero;
+            // </Onyx-HealthAnalyzerPain>
 
             foreach (var wound in _wounds.GetWounds((part, woundable)))
             {
@@ -342,12 +349,15 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
                     scarCount++;
             }
 
+            // <Onyx-HealthAnalyzerPain-edited>
             var diagnostic = new HealthAnalyzerWoundDiagnostic(
                 fracture,
                 fractureTreatment,
                 bleedingRate,
                 bleedingTreatment,
-                scarCount);
+                scarCount,
+                pain);
+            // </Onyx-HealthAnalyzerPain-edited>
             if (diagnostic.HasFindings)
                 result[target] = diagnostic;
         }

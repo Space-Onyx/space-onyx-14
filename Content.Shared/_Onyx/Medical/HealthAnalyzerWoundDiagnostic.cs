@@ -1,5 +1,6 @@
 using Content.Shared._Onyx.Targeting;
 using Content.Shared._Onyx.Wounds;
+using Content.Shared.FixedPoint;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._Onyx.Medical;
@@ -10,10 +11,11 @@ public readonly record struct HealthAnalyzerWoundDiagnostic(
     FractureTreatment FractureTreatment,
     float BleedingRate,
     BleedingTreatment BleedingTreatment,
-    ushort ScarCount)
+    ushort ScarCount,
+    FixedPoint2 Pain)
 {
     public bool HasFindings =>
-        Fracture != FractureGrade.None || BleedingRate > 0f || ScarCount > 0;
+        Fracture != FractureGrade.None || BleedingRate > 0f || ScarCount > 0 || Pain > FixedPoint2.Zero;
 }
 
 [Serializable, NetSerializable]

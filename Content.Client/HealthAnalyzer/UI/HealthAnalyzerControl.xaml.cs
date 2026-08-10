@@ -274,6 +274,13 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                         : "health-analyzer-wound-scar-multiple",
                     ("part", partName),
                     ("count", diagnostic.ScarCount)));
+
+            // <Onyx-HealthAnalyzerPain>
+            if (diagnostic.Pain > FixedPoint2.Zero)
+                AddWoundFinding(Loc.GetString("health-analyzer-wound-pain",
+                    ("part", partName),
+                    ("pain", diagnostic.Pain)));
+            // </Onyx-HealthAnalyzerPain>
         }
     }
 
