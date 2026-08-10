@@ -35,3 +35,4 @@ research-technology-suit-module-utility = Utility suit modules
 research-technology-suit-module-medical = Medical suit modules
 research-technology-suit-module-industrial = Industrial suit modules
 research-technology-suit-module-advanced = Advanced suit modules
+research-technology-crystallizer = Crystallizer

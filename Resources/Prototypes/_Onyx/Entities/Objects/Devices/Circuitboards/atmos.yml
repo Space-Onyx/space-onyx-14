@@ -1,0 +1,15 @@
+- type: entity
+  id: CrystallizerMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  name: crystallizer machine board
+  description: A machine printed circuit board for a crystallizer.
+  components:
+  - type: MachineBoard
+    prototype: Crystallizer
+    requirements:
+      Capacitor: 2
+      Manipulator: 4
+      MatterBin: 4
+    stackRequirements:
+      Steel: 5
+      Glass: 5

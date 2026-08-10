@@ -1,0 +1,23 @@
+ent-Crystallizer = кристаллизатор
+    .desc = Используется для кристаллизации или затвердевания газов.
+
+crystallizer-recipe-plastic = Пластик (10)
+crystallizer-recipe-plasteel = Пласталь (10)
+crystallizer-recipe-plasma = Плазма (1)
+crystallizer-recipe-diamond = Алмаз (1)
+crystallizer-ui-controls = Управление
+crystallizer-ui-power = Питание:
+crystallizer-ui-recipe = Рецепт:
+crystallizer-ui-gas-input = Подача газа (моль/с):
+crystallizer-ui-progress-and-requirements = Прогресс и требования
+crystallizer-ui-progress = Прогресс:
+crystallizer-ui-temperature = Температура:
+crystallizer-ui-gases = Газы:
+crystallizer-ui-select-recipe-prompt = Выберите рецепт.
+crystallizer-ui-nothing = Ничего
+crystallizer-ui-recipe-minimum =  - Минимум: {$temp}K
+crystallizer-ui-recipe-maximum =  - Максимум: {$temp}K
+crystallizer-ui-gas-requirement =  - {$gas}: {$moles} моль
+crystallizer-ui-reaction-exothermic = Эта реакция экзотермическая.
+crystallizer-ui-reaction-endothermic = Эта реакция эндотермическая.
+crystallizer-ui-moles = {$moles} моль

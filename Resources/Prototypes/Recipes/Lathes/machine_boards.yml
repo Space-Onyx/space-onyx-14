@@ -145,6 +145,14 @@
   id: GasRecyclerMachineCircuitboard
   result: GasRecyclerMachineCircuitboard
 
+# <Onyx-Crystallizer>
+- type: latheRecipe
+  parent: [ BaseGoldCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
+  id: CrystallizerMachineCircuitboard
+  icon: { sprite: _Onyx/Structures/Machines/crystallizer.rsi, state: off }
+  result: CrystallizerMachineCircuitboard
+# </Onyx-Crystallizer>
+
 # Power
 - type: latheRecipe
   parent: [ BaseGoldCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]

@@ -86,6 +86,7 @@
   - SolarControlComputerCircuitboard
   - SolarTrackerElectronics
   - GasRecyclerMachineCircuitboard
+  - CrystallizerMachineCircuitboard # <Onyx-Crystallizer>
   - PortableGeneratorPacmanMachineCircuitboard
   - PortableGeneratorSuperPacmanMachineCircuitboard
   - PortableGeneratorJrPacmanMachineCircuitboard

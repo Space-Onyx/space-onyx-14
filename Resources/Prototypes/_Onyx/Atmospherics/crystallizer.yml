@@ -1,0 +1,35 @@
+- type: crystallizerRecipe
+  id: PlasticRecipe
+  name: crystallizer-recipe-plastic
+  minimumTemperature: 500
+  maximumTemperature: 800
+  energyRelease: -200
+  products: { SheetPlastic10: 1 }
+  minimumRequirements: [0, 0, 4, 0, 0, 6, 0, 0, 0, 0, 0, 0]
+
+- type: crystallizerRecipe
+  id: Plasteel
+  name: crystallizer-recipe-plasteel
+  minimumTemperature: 1750
+  maximumTemperature: 2500
+  energyRelease: -2040
+  products: { SheetPlasteel10: 1 }
+  minimumRequirements: [6, 0, 8, 5, 0, 0, 0, 0, 0, 0, 0, 0]
+
+- type: crystallizerRecipe
+  id: Plasma
+  name: crystallizer-recipe-plasma
+  minimumTemperature: 40
+  maximumTemperature: 60
+  energyRelease: 60
+  products: { SheetPlasma1: 1 }
+  minimumRequirements: [1, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0]
+
+- type: crystallizerRecipe
+  id: Diamond
+  name: crystallizer-recipe-diamond
+  minimumTemperature: 30100
+  maximumTemperature: 31000
+  energyRelease: -4250
+  products: { MaterialDiamond1: 1 }
+  minimumRequirements: [0, 0, 500, 0, 0, 0, 0, 0, 0, 0, 0, 0]
