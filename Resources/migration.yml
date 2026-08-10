@@ -938,8 +938,8 @@ CableApcStackLingering10: CableApcStack10
 ChemDispenser: EnergyChemDispenser
 
 # 2026-07-24 Onyx
-AirlockNanotrasenRepresentativeCommandLocked: AirlockMaintLocked
-AirlockNanotrasenRepresentativeCommandGlassLocked: AirlockMaintLocked
+AirlockNanotrasenRepresentativeCommandLocked: AirlockCentralCommandLocked
+AirlockNanotrasenRepresentativeCommandGlassLocked: AirlockCentralCommandGlassLocked
 DefaultStationBeaconRepresenterNT: null
 UniqueLockerNanorepFilled: null
 DefaultStationBeaconCentcommOffice: null
