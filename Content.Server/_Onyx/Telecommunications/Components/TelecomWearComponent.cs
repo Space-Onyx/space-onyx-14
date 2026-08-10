@@ -14,4 +14,7 @@ public sealed partial class TelecomWearComponent : Component
 
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float DamageLossMultiplier = 0.1f;
+
+    [DataField, ViewVariables(VVAccess.ReadWrite)]
+    public bool MaintenanceFree;
 }

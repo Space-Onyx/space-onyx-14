@@ -209,7 +209,7 @@
     loadLatencyThreshold: 0.5
     loadLatencyMultiplier: 1200
   - type: TelecomCalibration
-    decayPerHour: 12
+    decayPerHour: 13
   - type: TelecomProcessor
     maxBuses: 0
     garbleQualityThreshold: 0.95

@@ -1,5 +1,6 @@
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Radio;
+using Content.Server._Onyx.Telecommunications; // <Onyx-Telecomms>
 using Robust.Shared.Random;
 using Content.Server.Light.EntitySystems;
 using Content.Server.Light.Components;
@@ -28,6 +29,11 @@ public sealed partial class SolarFlareRule : StationEventSystem<SolarFlareRuleCo
     protected override void Started(EntityUid uid, SolarFlareRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
         base.Started(uid, comp, gameRule, args);
+
+        // <Onyx-Telecomms>
+        var telecomEvent = new TelecomSolarFlareEvent(RobustRandom.NextFloat(7f, 10f));
+        RaiseLocalEvent(ref telecomEvent);
+        // </Onyx-Telecomms>
 
         for (var i = 0; i < comp.ExtraCount; i++)
         {

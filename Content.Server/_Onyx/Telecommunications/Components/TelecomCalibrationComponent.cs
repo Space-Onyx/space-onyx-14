@@ -10,8 +10,11 @@ public sealed partial class TelecomCalibrationComponent : Component
     public float Calibration = 100f;
 
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public float DecayPerHour = 12f;
+    public float DecayPerHour = 3f;
 
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float DamageLossMultiplier = 0.15f;
+
+    [DataField, ViewVariables(VVAccess.ReadWrite)]
+    public bool MaintenanceFree;
 }

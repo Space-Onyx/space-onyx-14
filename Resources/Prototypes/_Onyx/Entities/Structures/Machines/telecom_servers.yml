@@ -10,6 +10,19 @@
     board: OnyxTelecomServerCircuitboard
 
 - type: entity
+  parent: TelecomServer
+  id: AutonomousTelecomServer
+  suffix: Autonomous, Signal Chain
+  components:
+  - type: TelecomCalibration
+    maintenanceFree: true
+  - type: TelecomWear
+    maintenanceFree: true
+  - type: TelecomRouter
+    maxBuses: 1
+    standalone: false
+
+- type: entity
   parent: TelecomServerFilled
   id: OnyxTelecomServerFilled
   suffix: Filled All, Signal Chain
@@ -19,6 +32,11 @@
     standalone: false
   - type: Machine
     board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: [TelecomServerFilled, AutonomousTelecomServer]
+  id: AutonomousTelecomServerFilled
+  suffix: Filled All, Autonomous, Signal Chain
 
 - type: entity
   parent: TelecomServerFilledCommon
@@ -32,6 +50,11 @@
     board: OnyxTelecomServerCircuitboard
 
 - type: entity
+  parent: [TelecomServerFilledCommon, AutonomousTelecomServer]
+  id: AutonomousTelecomServerFilledCommon
+  suffix: Common, Autonomous, Signal Chain
+
+- type: entity
   parent: TelecomServerFilledCargo
   id: OnyxTelecomServerFilledCargo
   suffix: Cargo, Signal Chain
@@ -41,6 +64,11 @@
     standalone: false
   - type: Machine
     board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: [TelecomServerFilledCargo, AutonomousTelecomServer]
+  id: AutonomousTelecomServerFilledCargo
+  suffix: Cargo, Autonomous, Signal Chain
 
 - type: entity
   parent: TelecomServerFilledEngineering
@@ -54,6 +82,11 @@
     board: OnyxTelecomServerCircuitboard
 
 - type: entity
+  parent: [TelecomServerFilledEngineering, AutonomousTelecomServer]
+  id: AutonomousTelecomServerFilledEngineering
+  suffix: Engineering, Autonomous, Signal Chain
+
+- type: entity
   parent: TelecomServerFilledMedical
   id: OnyxTelecomServerFilledMedical
   suffix: Medical, Signal Chain
@@ -63,6 +96,11 @@
     standalone: false
   - type: Machine
     board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: [TelecomServerFilledMedical, AutonomousTelecomServer]
+  id: AutonomousTelecomServerFilledMedical
+  suffix: Medical, Autonomous, Signal Chain
 
 - type: entity
   parent: TelecomServerFilledScience
@@ -76,6 +114,11 @@
     board: OnyxTelecomServerCircuitboard
 
 - type: entity
+  parent: [TelecomServerFilledScience, AutonomousTelecomServer]
+  id: AutonomousTelecomServerFilledScience
+  suffix: Science, Autonomous, Signal Chain
+
+- type: entity
   parent: TelecomServerFilledSecurity
   id: OnyxTelecomServerFilledSecurity
   suffix: Security, Signal Chain
@@ -85,6 +128,11 @@
     standalone: false
   - type: Machine
     board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: [TelecomServerFilledSecurity, AutonomousTelecomServer]
+  id: AutonomousTelecomServerFilledSecurity
+  suffix: Security, Autonomous, Signal Chain
 
 - type: entity
   parent: TelecomServerFilledService
@@ -98,6 +146,11 @@
     board: OnyxTelecomServerCircuitboard
 
 - type: entity
+  parent: [TelecomServerFilledService, AutonomousTelecomServer]
+  id: AutonomousTelecomServerFilledService
+  suffix: Service, Autonomous, Signal Chain
+
+- type: entity
   parent: TelecomServerFilledCommand
   id: OnyxTelecomServerFilledCommand
   suffix: Command, Signal Chain
@@ -109,6 +162,11 @@
     board: OnyxTelecomServerCircuitboard
 
 - type: entity
+  parent: [TelecomServerFilledCommand, AutonomousTelecomServer]
+  id: AutonomousTelecomServerFilledCommand
+  suffix: Command, Autonomous, Signal Chain
+
+- type: entity
   parent: TelecomServerFilledLegal
   id: OnyxTelecomServerFilledLegal
   suffix: Legal, Signal Chain
@@ -118,3 +176,8 @@
     standalone: false
   - type: Machine
     board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: [TelecomServerFilledLegal, AutonomousTelecomServer]
+  id: AutonomousTelecomServerFilledLegal
+  suffix: Legal, Autonomous, Signal Chain

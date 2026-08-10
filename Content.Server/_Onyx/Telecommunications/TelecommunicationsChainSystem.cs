@@ -104,7 +104,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         var query = EntityQueryEnumerator<TelecomCalibrationComponent>();
         while (query.MoveNext(out var uid, out var calibration))
         {
-            if (!IsIntegratedProcessorActive(uid))
+            if (calibration.MaintenanceFree || !IsIntegratedProcessorActive(uid))
                 continue;
 
             calibration.Calibration = Math.Clamp(
@@ -116,6 +116,9 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         var wearQuery = EntityQueryEnumerator<TelecomWearComponent>();
         while (wearQuery.MoveNext(out _, out var wear))
         {
+            if (wear.MaintenanceFree)
+                continue;
+
             wear.Condition = Math.Clamp(
                 wear.Condition - wear.WearPerHour / 3600f * maintenanceDelta,
                 0f,
@@ -1470,7 +1473,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
 
     private void OnCalibrationInteract(Entity<TelecomCalibrationComponent> ent, ref InteractUsingEvent args)
     {
-        if (!IsIntegratedProcessorActive(ent.Owner))
+        if (ent.Comp.MaintenanceFree || !IsIntegratedProcessorActive(ent.Owner))
             return;
 
         if (args.Handled || !_tools.HasQuality(args.Used, SharedToolSystem.PulseQuality))
@@ -1499,7 +1502,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         Entity<TelecomCalibrationComponent> ent,
         ref TelecomCalibrationFinishedEvent args)
     {
-        if (!IsIntegratedProcessorActive(ent.Owner))
+        if (ent.Comp.MaintenanceFree || !IsIntegratedProcessorActive(ent.Owner))
             return;
 
         if (args.Cancelled || args.Handled)
@@ -1518,7 +1521,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         Entity<TelecomCalibrationComponent> ent,
         ref DamageDealtEvent args)
     {
-        if (!IsIntegratedProcessorActive(ent.Owner))
+        if (ent.Comp.MaintenanceFree || !IsIntegratedProcessorActive(ent.Owner))
             return;
 
         ent.Comp.Calibration = Math.Max(
@@ -1529,7 +1532,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
 
     private void OnCalibrationEmp(Entity<TelecomCalibrationComponent> ent, ref EmpPulseEvent args)
     {
-        if (!IsIntegratedProcessorActive(ent.Owner))
+        if (ent.Comp.MaintenanceFree || !IsIntegratedProcessorActive(ent.Owner))
             return;
 
         var loss = Math.Clamp(args.EnergyConsumption / 1000f * 15f, 5f, 25f);
@@ -1557,7 +1560,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
 
     private void OnWearInteract(Entity<TelecomWearComponent> ent, ref InteractUsingEvent args)
     {
-        if (args.Handled || !_tools.HasQuality(args.Used, WeldingQuality))
+        if (ent.Comp.MaintenanceFree || args.Handled || !_tools.HasQuality(args.Used, WeldingQuality))
             return;
 
         if (TryComp<WiresPanelComponent>(ent.Owner, out var panel) && !panel.Open)
@@ -1598,6 +1601,9 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
 
     private void OnWearDamaged(Entity<TelecomWearComponent> ent, ref DamageDealtEvent args)
     {
+        if (ent.Comp.MaintenanceFree)
+            return;
+
         ent.Comp.Condition = Math.Max(
             0f,
             ent.Comp.Condition -
@@ -1606,6 +1612,9 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
 
     private void OnWearEmp(Entity<TelecomWearComponent> ent, ref EmpPulseEvent args)
     {
+        if (ent.Comp.MaintenanceFree)
+            return;
+
         var loss = Math.Clamp(args.EnergyConsumption / 1000f * 6f, 2f, 10f);
         ent.Comp.Condition = Math.Max(0f, ent.Comp.Condition - loss);
         args.Affected = true;
@@ -1634,7 +1643,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         var query = EntityQueryEnumerator<TelecomCalibrationComponent>();
         while (query.MoveNext(out var uid, out var calibration))
         {
-            if (!IsIntegratedProcessorActive(uid))
+            if (calibration.MaintenanceFree || !IsIntegratedProcessorActive(uid))
                 continue;
 
             var variance = _random.NextFloat(0.8f, 1.2f);
