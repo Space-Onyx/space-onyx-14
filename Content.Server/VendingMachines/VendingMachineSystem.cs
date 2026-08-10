@@ -168,6 +168,7 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
         component.ThrowNextItem = component.CanShoot;
         if (!component.InfiniteStock)
             entry.Amount--;
+        Audio.PlayPvs(component.SoundVend, uid); // <Onyx-VendingSound>
         Dirty(uid, component);
         UpdateUI((uid, component));
         TryUpdateVisualState((uid, component));
@@ -316,8 +317,6 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
             vendComponent.ThrowNextItem = false;
             return;
         }
-
-        Audio.PlayPvs(vendComponent.SoundVend, uid); // <Onyx-VendingSound>
 
         // Default spawn coordinates
         var xform = Transform(uid);
