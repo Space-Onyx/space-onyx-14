@@ -48,6 +48,10 @@
   - type: SlotBlock
     slots: [underweart, underwearb]
   # </Onyx-SlotBlock>
+  # <Onyx-HideStripMenuSlots>
+  - type: HideStripMenuSlots
+    slots: [underweart, underwearb]
+  # </Onyx-HideStripMenuSlots>
   - type: SuitSensor
   - type: DeviceNetwork
     deviceNetId: Wireless
@@ -69,6 +73,10 @@
   - type: SlotBlock
     slots: [underweart]
   # </Onyx-SlotBlock>
+  # <Onyx-HideStripMenuSlots>
+  - type: HideStripMenuSlots
+    slots: [underweart]
+  # </Onyx-HideStripMenuSlots>
 
 - type: entity
   abstract: true

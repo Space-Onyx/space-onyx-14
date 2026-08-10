@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared._Onyx.Clothing.Components; // <Onyx-HideStripMenuSlots>
 using Content.Shared.Administration.Logs;
 using Content.Shared.CombatMode;
 using Content.Shared.Cuffs;
@@ -300,7 +301,7 @@ public abstract partial class SharedStrippableSystem : EntitySystem
 
         if (!stealth)
         {
-            if (IsStripHidden(slotDef, user))
+            if (IsStripHidden(target, slotDef, user)) // <Onyx-HideStripMenuSlots-edited>
             {
                 _popupSystem.PopupEntity(
                     Loc.GetString("strippable-component-alert-owner-hidden",
@@ -698,14 +699,18 @@ public abstract partial class SharedStrippableSystem : EntitySystem
             args.Handled = true;
     }
 
-    public bool IsStripHidden(SlotDefinition definition, EntityUid? viewer)
+    // <Onyx-HideStripMenuSlots-edited>
+    public bool IsStripHidden(EntityUid inventory, SlotDefinition definition, EntityUid? viewer)
     {
-        if (!definition.StripHidden)
+        if (viewer != null && HasComp<BypassInteractionChecksComponent>(viewer))
             return false;
 
-        if (viewer == null)
+        if (definition.StripHidden)
             return true;
 
-        return !HasComp<BypassInteractionChecksComponent>(viewer);
+        var ev = new IsStripMenuSlotHiddenEvent(definition.SlotFlags);
+        RaiseLocalEvent(inventory, ref ev);
+        return ev.Hidden;
     }
+    // </Onyx-HideStripMenuSlots-edited>
 }

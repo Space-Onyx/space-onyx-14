@@ -1382,7 +1382,7 @@ namespace Content.Shared.Interaction
             if (wearer == user)
                 return true;
 
-            if (_strippable.IsStripHidden(slotDef, user))
+            if (_strippable.IsStripHidden(wearer, slotDef, user)) // <Onyx-HideStripMenuSlots-edited>
                 return false;
 
             return InRangeUnobstructed(user, wearer) && _containerSystem.IsInSameOrParentContainer(user, wearer);
