@@ -11,6 +11,22 @@
     size: Tiny
   - type: Clothing
     slots: UNDERWEARB
+  - type: Storage
+    grid:
+    - 0,0,0,1
+    maxItemSize: Small
+    whitelist:
+      sizes:
+      - Tiny
+      - Small
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: []
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
   - type: Tag
     tags:
       - ClothMade
