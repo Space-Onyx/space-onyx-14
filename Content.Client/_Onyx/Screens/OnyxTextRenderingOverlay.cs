@@ -70,8 +70,8 @@ public sealed partial class OnyxTextRenderingOverlay : Overlay
                     {
                         var distance = dimensions.X + queued.Entity.Comp.MarqueeWidth + queued.Entity.Comp.MarqueePadding * 2;
                         var elapsed = _timing.CurTime.TotalSeconds;
-                        offset.X = -dimensions.X - queued.Entity.Comp.MarqueePadding
-                            + (float) ((elapsed / queued.Entity.Comp.MarqueeRate.TotalSeconds) % distance);
+                        offset.X = queued.Entity.Comp.MarqueeWidth + queued.Entity.Comp.MarqueePadding
+                            - (float) ((elapsed / queued.Entity.Comp.MarqueeRate.TotalSeconds) % distance);
                     }
 
                     screenHandle.DrawString(queued.Font, offset, row.Text, FontScale, Color.White);
