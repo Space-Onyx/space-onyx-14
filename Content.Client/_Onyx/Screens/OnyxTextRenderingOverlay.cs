@@ -59,9 +59,10 @@ public sealed partial class OnyxTextRenderingOverlay : Overlay
                     row.Texture = _clyde.CreateRenderTarget(size,
                         new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8),
                         name: $"onyx-text-visuals-{queued.Entity.Owner.Id}");
-                    _sprite.LayerSetTexture(queued.Entity.Owner, row.Layer, row.Texture.Texture);
-                    _sprite.LayerSetOffset(queued.Entity.Owner, row.Layer, row.Offset);
                 }
+
+                _sprite.LayerSetTexture(queued.Entity.Owner, row.Layer, row.Texture.Texture);
+                _sprite.LayerSetOffset(queued.Entity.Owner, row.Layer, row.Offset);
 
                 args.DrawingHandle.RenderInRenderTarget(row.Texture, () =>
                 {
