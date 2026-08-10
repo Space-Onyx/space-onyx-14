@@ -11,7 +11,7 @@ public sealed partial class SuppressPainEntityEffectSystem : EntityEffectSystem<
     protected override void Effect(Entity<PainComponent> entity, ref EntityEffectEvent<SuppressPain> args)
     {
         _pain.SuppressPain((entity.Owner, entity.Comp), args.Effect.Identifier,
-            args.Effect.Amount * args.Scale, args.Effect.DecayDuration);
+            args.Effect.Amount * args.Scale, args.Effect.DecayDuration, args.Effect.RecoveryMultiplier);
     }
 }
 
@@ -26,9 +26,13 @@ public sealed partial class SuppressPain : EntityEffectBase<SuppressPain>
     [DataField]
     public string Identifier = "PainSuppressant";
 
+    [DataField]
+    public float RecoveryMultiplier = 1f;
+
     public override string EntityEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
         => Loc.GetString("entity-effect-guidebook-suppress-pain",
             ("chance", Probability),
             ("amount", Amount.Float()),
-            ("duration", DecayDuration.TotalSeconds));
+            ("duration", DecayDuration.TotalSeconds),
+            ("recoveryMultiplier", RecoveryMultiplier));
 }

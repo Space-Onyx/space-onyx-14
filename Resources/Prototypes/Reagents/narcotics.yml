@@ -49,9 +49,10 @@
         time: 2
       # <Onyx-PartPain>
       - !type:SuppressPain
-        amount: 2
-        decayDuration: 4
+        amount: 0.75
+        decayDuration: 9
         identifier: Desoxyephedrine
+        recoveryMultiplier: 1.1
       # </Onyx-PartPain>
       # Interactions
       - !type:ModifyStatusEffect
@@ -473,9 +474,10 @@
       effects:
       # <Onyx-PartPain>
       - !type:SuppressPain
-        amount: 0.75
-        decayDuration: 6
+        amount: 0.4
+        decayDuration: 9
         identifier: Happiness
+        recoveryMultiplier: 1
       # </Onyx-PartPain>
       - !type:Emote
         emote: Laugh

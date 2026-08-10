@@ -74,13 +74,20 @@ public sealed partial class PainComponent : Component
     public FixedPoint2 RecoveryPerSecond = FixedPoint2.New(1f / 9f);
 
     [DataField]
-    public FixedPoint2 SoftPainCap = 120;
+    public FixedPoint2 SoftPainCap = 135;
 
     [ViewVariables]
     public Dictionary<string, PainSuppressionModifier> SuppressionModifiers = new();
 }
 
-public sealed record PainSuppressionModifier(FixedPoint2 Amount, FixedPoint2 DecayPerSecond);
+public sealed record PainSuppressionModifier(FixedPoint2 Amount, FixedPoint2 DecayPerSecond, float RecoveryMultiplier);
+
+[RegisterComponent]
+public sealed partial class PainShockComponent : Component
+{
+    [DataField]
+    public bool WasSleeping;
+}
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class WoundableComponent : Component

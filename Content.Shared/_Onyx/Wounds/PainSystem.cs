@@ -1,10 +1,15 @@
 using System.Linq;
+using Content.Shared.Bed.Sleep;
 using Content.Shared.Body.Part;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
+using Content.Shared.Mobs;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Rejuvenate;
+using Content.Shared.StatusEffectNew;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
@@ -14,8 +19,20 @@ public sealed partial class PainSystem : EntitySystem
 {
     [Dependency] private DamageableSystem _damage = default!;
     [Dependency] private INetManager _net = default!;
+    [Dependency] private SleepingSystem _sleeping = default!;
+    [Dependency] private StatusEffectsSystem _statusEffects = default!;
 
+    private static readonly EntProtoId PainShockEffect = "StatusEffectPainShock";
+    private static readonly FixedPoint2 PainShockThreshold = 130;
+    private static readonly FixedPoint2 PainShockRecoveryThreshold = 115;
     private float _recoveryAccumulator;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        SubscribeLocalEvent<PainComponent, ComponentShutdown>(OnPainShutdown);
+        SubscribeLocalEvent<PainComponent, RejuvenateEvent>(OnRejuvenate);
+    }
 
     public override void Update(float frameTime)
     {
@@ -29,12 +46,22 @@ public sealed partial class PainSystem : EntitySystem
 
         var elapsed = _recoveryAccumulator;
         _recoveryAccumulator = 0f;
-        var query = EntityQueryEnumerator<PainComponent>();
-        while (query.MoveNext(out var uid, out var pain))
+
+        var suppressionQuery = EntityQueryEnumerator<PainComponent>();
+        while (suppressionQuery.MoveNext(out var suppressionUid, out var suppressionPain))
+            DecayPainSuppression((suppressionUid, suppressionPain), elapsed);
+
+        var recoveryQuery = EntityQueryEnumerator<PainComponent>();
+        while (recoveryQuery.MoveNext(out var partUid, out var partPain))
         {
-            if (HasComp<BodyPartComponent>(uid))
-                RecoverPain((uid, pain), elapsed);
-            DecayPainSuppression((uid, pain), elapsed);
+            if (TryComp(partUid, out BodyPartComponent? part))
+                RecoverPain((partUid, partPain), elapsed, part);
+        }
+
+        var bodyQuery = EntityQueryEnumerator<PainComponent, MobStateComponent>();
+        while (bodyQuery.MoveNext(out var bodyUid, out var bodyPain, out var mobState))
+        {
+            UpdatePainShock((bodyUid, bodyPain), mobState);
         }
     }
 
@@ -80,7 +107,7 @@ public sealed partial class PainSystem : EntitySystem
         return SetPain(entity, entity.Comp.Value + delta);
     }
 
-    public bool RecoverPain(Entity<PainComponent?> entity, float seconds)
+    public bool RecoverPain(Entity<PainComponent?> entity, float seconds, BodyPartComponent? part = null)
     {
         if (!Resolve(entity, ref entity.Comp, false) || seconds <= 0f ||
             entity.Comp.Value <= FixedPoint2.Zero || entity.Comp.RecoveryPerSecond <= FixedPoint2.Zero)
@@ -90,23 +117,99 @@ public sealed partial class PainSystem : EntitySystem
         if (TryComp(entity, out DamageableComponent? damageable))
             minimum = CalculatePain(_damage.GetPositiveDamage((entity, damageable)), entity.Comp.DamageMultipliers);
 
-        var recovered = FixedPoint2.Max(minimum, entity.Comp.Value - entity.Comp.RecoveryPerSecond * seconds);
+        var recovery = entity.Comp.RecoveryPerSecond;
+        if (Resolve(entity, ref part, false) && part.Body is { } body &&
+            TryComp(body, out PainComponent? bodyPain) && bodyPain.Value > FixedPoint2.Zero)
+        {
+            var suppressedPain = FixedPoint2.Min(bodyPain.Suppression, bodyPain.Value);
+            var suppressionRatio = suppressedPain.Float() / bodyPain.Value.Float();
+            recovery *= 1f + (GetRecoveryMultiplier(bodyPain) - 1f) * suppressionRatio;
+        }
+
+        var recovered = FixedPoint2.Max(minimum, entity.Comp.Value - recovery * seconds);
         return SetPain(entity, recovered);
     }
 
-    public bool SuppressPain(Entity<PainComponent?> entity, string identifier, FixedPoint2 amount, TimeSpan decayDuration)
+    private void UpdatePainShock(Entity<PainComponent> entity, MobStateComponent mobState)
+    {
+        var pain = GetPain((entity.Owner, entity.Comp));
+        if (!HasComp<PainShockComponent>(entity))
+        {
+            if (mobState.CurrentState != MobState.Alive || pain < PainShockThreshold)
+                return;
+
+            var wasAlreadySleeping = HasComp<SleepingComponent>(entity);
+            if (!_statusEffects.TrySetStatusEffectDuration(entity, PainShockEffect))
+                return;
+
+            EnsureComp<PainShockComponent>(entity).WasSleeping = wasAlreadySleeping;
+            return;
+        }
+
+        if (mobState.CurrentState == MobState.Dead)
+        {
+            _statusEffects.TryRemoveStatusEffect(entity, PainShockEffect);
+            RemComp<PainShockComponent>(entity);
+            return;
+        }
+
+        if (mobState.CurrentState != MobState.Alive || pain > PainShockRecoveryThreshold)
+        {
+            if (!_statusEffects.HasStatusEffect(entity, PainShockEffect) &&
+                !_statusEffects.TrySetStatusEffectDuration(entity, PainShockEffect))
+                RemComp<PainShockComponent>(entity);
+            return;
+        }
+
+        if (_statusEffects.HasStatusEffect(entity, PainShockEffect))
+        {
+            _statusEffects.TryRemoveStatusEffect(entity, PainShockEffect);
+            return;
+        }
+
+        var wasSleepingBeforeShock = Comp<PainShockComponent>(entity).WasSleeping;
+        RemComp<PainShockComponent>(entity);
+        if (!wasSleepingBeforeShock && mobState.CurrentState == MobState.Alive)
+            _sleeping.TryWaking(entity.Owner);
+    }
+
+    private void OnRejuvenate(Entity<PainComponent> entity, ref RejuvenateEvent args)
+    {
+        if (_net.IsServer)
+            ClearPainShock(entity);
+    }
+
+    private void OnPainShutdown(Entity<PainComponent> entity, ref ComponentShutdown args)
+    {
+        if (_net.IsServer)
+            ClearPainShock(entity);
+    }
+
+    private void ClearPainShock(EntityUid entity)
+    {
+        _statusEffects.TryRemoveStatusEffect(entity, PainShockEffect);
+        RemComp<PainShockComponent>(entity);
+    }
+
+    public bool SuppressPain(Entity<PainComponent?> entity, string identifier, FixedPoint2 amount,
+        TimeSpan decayDuration, float recoveryMultiplier = 1f)
     {
         if (!_net.IsServer || string.IsNullOrWhiteSpace(identifier) || amount <= FixedPoint2.Zero ||
-            decayDuration <= TimeSpan.Zero || !Resolve(entity, ref entity.Comp, false))
+            decayDuration <= TimeSpan.Zero || !float.IsFinite(recoveryMultiplier) || recoveryMultiplier < 1f ||
+            !Resolve(entity, ref entity.Comp, false))
             return false;
 
         var accumulated = amount;
         if (entity.Comp.SuppressionModifiers.TryGetValue(identifier, out var current))
+        {
             accumulated += current.Amount;
+            recoveryMultiplier = Math.Max(recoveryMultiplier, current.RecoveryMultiplier);
+        }
 
         entity.Comp.SuppressionModifiers[identifier] = new PainSuppressionModifier(
             accumulated,
-            accumulated / (float) decayDuration.TotalSeconds);
+            accumulated / (float) decayDuration.TotalSeconds,
+            recoveryMultiplier);
         RefreshSuppression((entity.Owner, entity.Comp));
         return true;
     }
@@ -174,5 +277,17 @@ public sealed partial class PainSystem : EntitySystem
 
         entity.Comp.Suppression = value;
         Dirty(entity);
+    }
+
+    private static float GetRecoveryMultiplier(PainComponent pain)
+    {
+        if (pain.Suppression <= FixedPoint2.Zero)
+            return 1f;
+
+        var weightedMultiplier = 0f;
+        foreach (var modifier in pain.SuppressionModifiers.Values)
+            weightedMultiplier += modifier.Amount.Float() * modifier.RecoveryMultiplier;
+
+        return Math.Max(1f, weightedMultiplier / pain.Suppression.Float());
     }
 }

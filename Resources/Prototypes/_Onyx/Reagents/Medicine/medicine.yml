@@ -188,9 +188,10 @@
       metabolismRate: 0.15
       effects:
       - !type:SuppressPain
-        amount: 10
-        decayDuration: 30
+        amount: 0.5
+        decayDuration: 27
         identifier: Ibuprofen
+        recoveryMultiplier: 1.35
       - !type:HealthChange
         damage:
           groups:
@@ -369,9 +370,10 @@
       metabolismRate: 0.1
       effects:
       - !type:SuppressPain
-        amount: 25
-        decayDuration: 30
+        amount: 1.25
+        decayDuration: 45
         identifier: Tramadol
+        recoveryMultiplier: 1.75
       - !type:GenericStatusEffect
         key: Adrenaline
         component: IgnoreSlowOnDamage
@@ -398,9 +400,10 @@
       metabolismRate: 0.1
       effects:
       - !type:SuppressPain
-        amount: 400
-        decayDuration: 30
+        amount: 2
+        decayDuration: 60
         identifier: Oxycodone
+        recoveryMultiplier: 2.25
       - !type:GenericStatusEffect
         key: Adrenaline
         component: IgnoreSlowOnDamage

@@ -151,9 +151,10 @@
           Brute: -1.5
       # <Onyx-PartPain>
       - !type:SuppressPain
-        amount: 1.5
-        decayDuration: 10
+        amount: 0.75
+        decayDuration: 18
         identifier: Bicaridine
+        recoveryMultiplier: 1.1
       # </Onyx-PartPain>
       - !type:HealthChange
         conditions:
