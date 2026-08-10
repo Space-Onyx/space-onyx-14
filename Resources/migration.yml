@@ -1006,3 +1006,7 @@ GatewayLavalandStation: null
 EvilPlushieTwofish: null
 Bone: null
 BoneWeak: null
+
+# 2026-08-10 Onyx
+Screen: StatusDisplay
+ArrivalsShuttleTimer: StatusDisplayShuttle
