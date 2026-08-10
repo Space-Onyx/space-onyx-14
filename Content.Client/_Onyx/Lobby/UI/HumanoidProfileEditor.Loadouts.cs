@@ -82,6 +82,8 @@ public sealed partial class HumanoidProfileEditor
 
     private void RefreshLoadoutPersonalization()
     {
+        if (_showSelectedLoadouts && LoadoutSlotTabs.ChildCount > 0 && LoadoutSlotTabs.CurrentTab != 0)
+            LoadoutSlotTabs.CurrentTab = 0;
         LoadoutSlotTabs.DisposeAllChildren();
 
         if (Profile == null || _playerManager.LocalSession == null)
