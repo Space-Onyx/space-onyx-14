@@ -281,7 +281,7 @@ public abstract partial class SharedBloodstreamSystem : EntitySystem
         }
 
         // If the mob's blood level is below the damage threshhold, the pale message is added.
-        if (GetBloodLevel(ent.AsNullable()) < ent.Comp.BloodlossThreshold)
+        if (!HasComp<WoundHostComponent>(ent) && GetBloodLevel(ent.AsNullable()) < ent.Comp.BloodlossThreshold) // <Onyx-PartHealthExamine-edited>
         {
             args.Message.PushNewline();
             args.Message.AddMarkupOrThrow(Loc.GetString("bloodstream-component-looks-pale", ("target", ent.Owner)));

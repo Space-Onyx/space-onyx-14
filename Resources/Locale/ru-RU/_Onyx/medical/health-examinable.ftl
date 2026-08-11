@@ -10,7 +10,14 @@ health-examinable-part-summary-pain = [bold]{ CAPITALIZE($part) }[/bold]: { $sev
 health-examinable-part-chat-line = [font size=10]{ $summary }[/font]
 health-examinable-part-chat-line-details = [font size=10]{ $summary }
     { "    " }[color=Gray]{ $details }[/color][/font]
-health-examinable-part-damage = { $type }
+health-examinable-part-injuries = [color=#B8B8B8]Травмы:[/color] { $types }
+health-examinable-part-damage-blunt = ушибы
+health-examinable-part-damage-slash = порезы
+health-examinable-part-damage-piercing = колотые раны
+health-examinable-part-damage-heat = ожоги
+health-examinable-part-damage-cold = обморожение
+health-examinable-part-healthy-summary = Неповреждённые части: [color=green]{ $count }[/color]
+health-examinable-part-healthy-details = [color=green]{ $parts }[/color]
 health-examinable-part-severity-none = [color=green]в порядке[/color]
 health-examinable-part-severity-minor = [color=yellow]слегка повреждена[/color]
 health-examinable-part-severity-moderate = [color=orange]повреждена[/color]

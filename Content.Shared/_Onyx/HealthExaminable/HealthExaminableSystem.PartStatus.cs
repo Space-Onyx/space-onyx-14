@@ -27,7 +27,8 @@ public sealed partial class HealthExaminableSystem
         if (parts.Count == 0)
             return;
 
-        message.PushNewline();
+        if (!message.IsEmpty)
+            message.PushNewline();
         message.AddMarkupOrThrow(Loc.GetString(examined == examiner
                 ? "health-examinable-part-title-self"
                 : "health-examinable-part-title-other",
@@ -35,9 +36,11 @@ public sealed partial class HealthExaminableSystem
         message.PushNewline();
         message.AddMarkupOrThrow(Loc.GetString("health-examinable-part-border"));
 
+        var healthyParts = new List<string>();
         foreach (var (part, _) in parts)
         {
             var details = new List<string>();
+            var injuries = new List<string>();
             var totalDamage = 0f;
             if (TryComp(part, out DamageableComponent? damageable))
             {
@@ -48,10 +51,15 @@ public sealed partial class HealthExaminableSystem
                         continue;
 
                     totalDamage += amount.Float();
-                    details.Add(Loc.GetString("health-examinable-part-damage",
-                        ("type", damageType.LocalizedName)));
+                    var injury = Loc.GetString($"health-examinable-part-damage-{type.Id.ToLowerInvariant()}");
+                    injuries.Add(injury.StartsWith("health-examinable-part-damage-")
+                        ? damageType.LocalizedName
+                        : injury);
                 }
             }
+
+            if (injuries.Count > 0)
+                details.Add(Loc.GetString("health-examinable-part-injuries", ("types", string.Join(", ", injuries))));
 
             var woundStates = new Dictionary<WoundState, int>();
             var bleeding = false;
@@ -108,15 +116,34 @@ public sealed partial class HealthExaminableSystem
                 ("part", Name(part)),
                 ("severity", Loc.GetString($"health-examinable-part-severity-{severity}")),
                 ("pain", painLevel == null ? string.Empty : Loc.GetString($"health-examinable-pain-{painLevel}")));
-            var detail = details.Count == 0 ? string.Empty : string.Join(", ", details);
+            var detail = details.Count == 0 ? string.Empty : string.Join(" · ", details);
 
-            message.PushNewline();
+            if (totalDamage <= 0f && painLevel == null && details.Count == 0)
+            {
+                healthyParts.Add(Name(part));
+                continue;
+            }
+
             message.AddMarkupOrThrow($"[partstatus summary=\"{FormattedMessage.EscapeStringParameter(summary)}\" details=\"{FormattedMessage.EscapeStringParameter(detail)}\" /]");
+            message.PushNewline();
             message.AddMarkupOrThrow(Loc.GetString(detail.Length == 0
                     ? "health-examinable-part-chat-line"
                     : "health-examinable-part-chat-line-details",
                 ("summary", summary),
                 ("details", detail)));
+            message.AddMarkupOrThrow("[partstatusend /]");
+        }
+
+        if (healthyParts.Count > 0)
+        {
+            var summary = Loc.GetString("health-examinable-part-healthy-summary", ("count", healthyParts.Count));
+            var detail = Loc.GetString("health-examinable-part-healthy-details",
+                ("parts", string.Join("\n", healthyParts.Select(part => $"• {part}"))));
+            message.AddMarkupOrThrow($"[partstatus summary=\"{FormattedMessage.EscapeStringParameter(summary)}\" details=\"{FormattedMessage.EscapeStringParameter(detail)}\" /]");
+            message.PushNewline();
+            message.AddMarkupOrThrow(Loc.GetString("health-examinable-part-chat-line-details",
+                ("summary", summary),
+                ("details", detail.Replace("\n", "\n    "))));
             message.AddMarkupOrThrow("[partstatusend /]");
         }
     }

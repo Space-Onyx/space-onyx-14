@@ -41,7 +41,7 @@ public sealed partial class TargetingSystem : SharedTargetingSystem
             return;
 
         _lastExamine[args.SenderSession.UserId] = _timing.RealTime;
-        var text = $"{Loc.GetString("part-status-self-examine-title")}\n{_health.CreateMarkup(actor, actor, health, damage).ToMarkup()}";
+        var text = _health.CreateMarkup(actor, actor, health, damage).ToMarkup();
         _chat.ChatMessageToOne(ChatChannel.Emotes, text, text, EntityUid.Invalid, false,
             args.SenderSession.Channel, recordReplay: false);
     }

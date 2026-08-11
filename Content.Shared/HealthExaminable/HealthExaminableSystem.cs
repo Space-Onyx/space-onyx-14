@@ -1,5 +1,6 @@
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
+using Content.Shared._Onyx.Wounds; // <Onyx-PartHealthExamine-edited>
 using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
 using Content.Shared.IdentityManagement;
@@ -53,52 +54,55 @@ public sealed partial class HealthExaminableSystem : EntitySystem
         var msg = new FormattedMessage();
 
         var first = true;
-        var damageSpecifier = _damageable.GetAllDamage((uid, damage));
-        foreach (var type in component.ExaminableTypes)
+        // <Onyx-PartHealthExamine-edited>
+        if (!HasComp<WoundHostComponent>(uid))
         {
-            if (!damageSpecifier.DamageDict.TryGetValue(type, out var dmg))
-                continue;
-
-            if (dmg == FixedPoint2.Zero)
-                continue;
-
-            FixedPoint2 closest = FixedPoint2.Zero;
-
-            string chosenLocStr = string.Empty;
-            foreach (var threshold in component.Thresholds)
+            var damageSpecifier = _damageable.GetAllDamage((uid, damage));
+            foreach (var type in component.ExaminableTypes)
             {
-                var str = $"health-examinable-{component.LocPrefix}-{type}-{threshold}";
-                var tempLocStr = Loc.GetString($"health-examinable-{component.LocPrefix}-{type}-{threshold}", ("target", Identity.Entity(uid, EntityManager)));
-
-                // i.e., this string doesn't exist, because theres nothing for that threshold
-                if (tempLocStr == str)
+                if (!damageSpecifier.DamageDict.TryGetValue(type, out var dmg))
                     continue;
 
-                if (dmg > threshold && threshold > closest)
+                if (dmg == FixedPoint2.Zero)
+                    continue;
+
+                FixedPoint2 closest = FixedPoint2.Zero;
+
+                string chosenLocStr = string.Empty;
+                foreach (var threshold in component.Thresholds)
                 {
-                    chosenLocStr = tempLocStr;
-                    closest = threshold;
+                    var str = $"health-examinable-{component.LocPrefix}-{type}-{threshold}";
+                    var tempLocStr = Loc.GetString($"health-examinable-{component.LocPrefix}-{type}-{threshold}", ("target", Identity.Entity(uid, EntityManager)));
+
+                    // i.e., this string doesn't exist, because theres nothing for that threshold
+                    if (tempLocStr == str)
+                        continue;
+
+                    if (dmg > threshold && threshold > closest)
+                    {
+                        chosenLocStr = tempLocStr;
+                        closest = threshold;
+                    }
                 }
+
+                if (closest == FixedPoint2.Zero)
+                    continue;
+
+                if (!first)
+                {
+                    msg.PushNewline();
+                }
+                else
+                {
+                    first = false;
+                }
+                msg.AddMarkupOrThrow(chosenLocStr);
             }
 
-            if (closest == FixedPoint2.Zero)
-                continue;
-
-            if (!first)
-            {
-                msg.PushNewline();
-            }
-            else
-            {
-                first = false;
-            }
-            msg.AddMarkupOrThrow(chosenLocStr);
+            if (msg.IsEmpty)
+                msg.AddMarkupOrThrow(Loc.GetString($"health-examinable-{component.LocPrefix}-none"));
         }
-
-        if (msg.IsEmpty)
-        {
-            msg.AddMarkupOrThrow(Loc.GetString($"health-examinable-{component.LocPrefix}-none"));
-        }
+        // </Onyx-PartHealthExamine-edited>
 
         // <Onyx-PartHealthExamine-edited>
         AddPartStatusMarkup(uid, examiner, msg);

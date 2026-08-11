@@ -162,7 +162,9 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         var ev = new SurgeryStepEvent(args.User, ent, part, GetActiveTool(args.User));
         RaiseLocalEvent(step, ref ev);
         if (_net.IsServer &&
-            (HasComp<SurgeryOrganHealEffectComponent>(step) || HasComp<SurgeryClampBleedingEffectComponent>(step)) &&
+            (HasComp<SurgeryOrganHealEffectComponent>(step) ||
+             HasComp<SurgeryClampBleedingEffectComponent>(step) ||
+             HasComp<SurgeryTendWoundsEffectComponent>(step)) &&
             !IsStepComplete(ent, part, args.Step) &&
             CanPerformStep(args.User, ent, part, part.Comp.PartType, step, false, out _, out _, out var validTools))
             StartSurgeryDoAfter(ent, part, args.Surgery, args.Step, args.User, step, validTools);
@@ -171,8 +173,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
     private void OnCloseIncisionValid(Entity<SurgeryCloseIncisionConditionComponent> ent, ref SurgeryValidEvent args)
     {
-        if (!HasComp<IncisionOpenComponent>(args.Part) ||
-            !HasComp<SkinRetractedComponent>(args.Part))
+        if (!HasComp<IncisionOpenComponent>(args.Part))
             args.Cancelled = true;
     }
 

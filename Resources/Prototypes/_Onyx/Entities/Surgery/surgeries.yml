@@ -687,6 +687,26 @@
 
 - type: entity
   parent: SurgeryBase
+  id: SurgeryTendWoundsBrute
+  name: Tend bruise wounds
+  components:
+  - type: Surgery
+    steps: [ SurgeryStepCarefulIncisionScalpel, SurgeryStepRepairBruteTissue ]
+  - type: SurgeryWoundedCondition
+    damageGroup: Brute
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryTendWoundsBurn
+  name: Tend burn wounds
+  components:
+  - type: Surgery
+    steps: [ SurgeryStepCarefulIncisionScalpel, SurgeryStepRepairBurnTissue ]
+  - type: SurgeryWoundedCondition
+    damageGroup: Burn
+
+- type: entity
+  parent: SurgeryBase
   id: SurgeryReduceFracture
   name: Reduce fracture
   components:

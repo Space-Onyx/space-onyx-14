@@ -14,7 +14,7 @@
     - AdvancedBoneGel
     - BorgModuleAdvancedSurgery
     - DefibrillatorCompact
-  position: 1,4
+  position: 1,5
   technologyPrerequisites:
     - MechanizedTreatment
 - type: technology
@@ -28,7 +28,7 @@
   cost: 15000
   recipeUnlocks:
     - OmnimedTool
-  position: 1,7
+  position: 2,7
   technologyPrerequisites:
     - AdvancedCybernaticsUpgrade
 - type: technology
@@ -148,7 +148,7 @@
     - BasicCyberneticHeart
     - BasicCyberneticLungs
     - BasicCyberneticLiver
-  position: 1,5
+  position: 2,5
   technologyPrerequisites:
     - AdvancedTreatment
 - type: technology
@@ -170,7 +170,7 @@
     - MedicalCyberneticEyes
     - SecurityCyberneticEyes
     - DiagnosticCyberneticEyes
-  position: 1,6
+  position: 2,6
   technologyPrerequisites:
     - BasicCybernaticsUpgrade
 - type: technology
@@ -185,7 +185,7 @@
   recipeUnlocks:
     - AugmentPowerCellSlotCasing
     - AugmentRechargerCasing
-  position: 2,5
+  position: 3,5
   technologyPrerequisites:
     - BasicCybernaticsUpgrade
 - type: technology
@@ -203,7 +203,7 @@
     - AugmentBotanyPanelElectronics
     - AugmentSurgeryPanelElectronics
     - AugmentPaperworkPanelElectronics
-  position: 2,6
+  position: 3,6
   technologyPrerequisites:
     - BasicAugmentation
 - type: technology
@@ -218,7 +218,7 @@
   recipeUnlocks:
     - AugmentStrengthCasing
     - AugmentStrengthElectronics
-  position: 3,5
+  position: 4,5
   technologyPrerequisites:
     - BasicAugmentation
 - type: technology
@@ -238,7 +238,21 @@
     - InjectorSuitModule
     - SolutionScannerSuitModule
     - ApparatusSuitModule
-  position: 3,3
+  position: 3,4
   technologyPrerequisites:
     - ModsuitsTech
     - BiochemicalStasis
+- type: technology
+  id: AccessibilityTech
+  name: research-technology-accessibility
+  icon:
+    sprite: _Onyx/Objects/Vehicles/hoverchair.rsi
+    state: vehicle
+  discipline: CivilianServices
+  tier: 1
+  cost: 4500
+  recipeUnlocks:
+    - VehicleHoverchairSci
+  position: 2,0
+  technologyPrerequisites:
+    - AdvancedEntertainment

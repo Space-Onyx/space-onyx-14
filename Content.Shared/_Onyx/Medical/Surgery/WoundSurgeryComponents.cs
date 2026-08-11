@@ -1,4 +1,6 @@
 using Content.Shared._Onyx.Wounds;
+using Content.Shared.Damage;
+using Content.Shared.Damage.Prototypes;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Prototypes;
 
@@ -45,3 +47,23 @@ public sealed partial class SurgeryReduceFractureEffectComponent : Component;
 
 [RegisterComponent]
 public sealed partial class SurgeryMendFractureEffectComponent : Component;
+
+[RegisterComponent]
+public sealed partial class SurgeryWoundedConditionComponent : Component
+{
+    [DataField]
+    public ProtoId<DamageGroupPrototype> DamageGroup = "Brute";
+}
+
+[RegisterComponent]
+public sealed partial class SurgeryTendWoundsEffectComponent : Component
+{
+    [DataField]
+    public ProtoId<DamageGroupPrototype> DamageGroup = "Brute";
+
+    [DataField(required: true)]
+    public DamageSpecifier Damage = new();
+
+    [DataField]
+    public float HealMultiplier = 0.07f;
+}

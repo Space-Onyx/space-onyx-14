@@ -313,7 +313,9 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
 
         if (state.NextStep < 0 && state.Completed.All(static completed => completed))
         {
-            if (ChangesBodyParts(_surgery.Value))
+            if (_history.Count > 0)
+                ShowPreviousSurgery();
+            else if (ChangesBodyParts(_surgery.Value))
                 ShowParts();
             else
                 ShowSurgeries();

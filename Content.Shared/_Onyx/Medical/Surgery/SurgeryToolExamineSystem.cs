@@ -36,8 +36,14 @@ public sealed partial class SurgeryToolExamineSystem : EntitySystem
             {
                 message.PushNewline();
                 var speed = ent.Comp.SpeedModifiers.GetValueOrDefault(task, 1f);
+                var color = speed switch
+                {
+                    < 1f => "red",
+                    > 1f => "green",
+                    _ => "white",
+                };
                 message.AddMarkupOrThrow(Loc.GetString("surgery-tool-examine-use",
-                    ("use", Loc.GetString(use)), ("multiplier", speed)));
+                    ("use", Loc.GetString(use)), ("multiplier", speed), ("color", color)));
             }
         }
 
@@ -61,6 +67,9 @@ public sealed partial class SurgeryToolExamineSystem : EntitySystem
         AddUse<BoneGelComponent>(tool, "surgery-tool-use-bone-gel", uses);
         AddUse<TweezersComponent>(tool, "surgery-tool-use-tweezers", uses);
         AddUse<StitchesComponent>(tool, "surgery-tool-use-stitches", uses);
+        AddUse<DrillComponent>(tool, "surgery-tool-use-drill", uses);
+        AddUse<BoneSetterComponent>(tool, "surgery-tool-use-bone-setter", uses);
+        AddUse<TendingComponent>(tool, "surgery-tool-use-tending", uses);
 
         foreach (var use in component.CustomUses)
         {

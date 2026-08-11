@@ -46,16 +46,19 @@ surgery-popup-procedure-SurgeryRemoveLungs-step-SurgeryStepRemoveOrgan = { $user
 surgery-popup-procedure-SurgeryRemoveEyes-step-SurgeryStepRemoveOrgan = { $user } удаляет глаза из { $part } у { $target }!
 surgery-popup-procedure-SurgeryRemoveStomach-step-SurgeryStepRemoveOrgan = { $user } удаляет желудок из { $part } у { $target }!
 
-surgery-tool-examine-verb-text = Хирургические показатели
-surgery-tool-examine-verb-message = Изучить показатели хирургического инструмента.
-surgery-tool-examine-uses = Подходит для:
-surgery-tool-examine-use = - [color=yellow]{ $use }[/color]: [color=cyan]{ $multiplier }×[/color]
+surgery-tool-examine-verb-text = Хирургический инструмент
+surgery-tool-examine-verb-message = Изучить применение этого инструмента в операциях.
+surgery-tool-examine-uses = Этот инструмент можно использовать в операциях как:
+surgery-tool-examine-use = - [color=yellow]{ $use }[/color] с [color={ $color }]{ $multiplier }x[/color] скоростью
 surgery-tool-examine-use-none = - [color=gray]Нет подходящих хирургических процедур.[/color]
-surgery-tool-use-scalpel = выполнения разрезов
-surgery-tool-use-hemostat = пережатия сосудов и кровотечений
-surgery-tool-use-retractor = разведения тканей и костей
-surgery-tool-use-bone-saw = распиливания костей и ампутации
-surgery-tool-use-cautery = прижигания и закрытия разрезов
-surgery-tool-use-bone-gel = восстановления костей
-surgery-tool-use-tweezers = извлечения органов и предметов
-surgery-tool-use-stitches = остановки кровотечений и сшивания ран
+surgery-tool-use-scalpel = скальпель
+surgery-tool-use-hemostat = гемостат
+surgery-tool-use-retractor = ретрактор
+surgery-tool-use-bone-saw = костная пила
+surgery-tool-use-cautery = термокаутер
+surgery-tool-use-bone-gel = костный гель
+surgery-tool-use-tweezers = пинцет
+surgery-tool-use-stitches = хирургическая нить
+surgery-tool-use-drill = дрель
+surgery-tool-use-bone-setter = установщик костей
+surgery-tool-use-tending = инструмент для обработки ран

@@ -25,3 +25,12 @@
   parent: BaseCircuitboardRecipe
   id: VirologyServerMachineCircuitboard
   result: VirologyServerMachineCircuitboard
+
+- type: latheRecipe
+  id: VehicleHoverchairSci
+  result: VehicleHoverchair
+  completetime: 5
+  materials:
+    Steel: 500
+    Gold: 300
+    Plasma: 250

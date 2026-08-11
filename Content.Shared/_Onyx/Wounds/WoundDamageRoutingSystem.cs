@@ -5,7 +5,10 @@ using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Body.Part;
+using Content.Shared.Hands.Components;
+using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Inventory;
+using Content.Shared.Light.Components;
 using Content.Shared._Onyx.Targeting;
 using Robust.Shared.Network;
 using Robust.Shared.Random;
@@ -16,6 +19,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
 {
     [Dependency] private DamageableSystem _damage = default!;
     [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private WoundDamageProjectionSystem _projection = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private IRobustRandom _random = default!;
@@ -265,6 +269,35 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         return candidates[^1].Part;
     }
 
+    private bool TryGetActiveHandPart(EntityUid body, out EntityUid handPart)
+    {
+        handPart = EntityUid.Invalid;
+        if (!TryComp(body, out HandsComponent? hands) ||
+            _hands.GetActiveHand((body, hands)) is not { } activeHand ||
+            !_hands.TryGetHand((body, hands), activeHand, out var hand))
+            return false;
+
+        var symmetry = hand.Value.Location switch
+        {
+            HandLocation.Left => BodyPartSymmetry.Left,
+            HandLocation.Right => BodyPartSymmetry.Right,
+            _ => BodyPartSymmetry.None,
+        };
+        if (symmetry == BodyPartSymmetry.None)
+            return false;
+
+        foreach (var candidate in _body.GetBodyChildrenOfType(body, BodyPartType.Hand))
+        {
+            if (candidate.Component.Symmetry != symmetry || !HasComp<WoundableComponent>(candidate.Id))
+                continue;
+
+            handPart = candidate.Id;
+            return true;
+        }
+
+        return false;
+    }
+
     private bool RouteThroughBodyModifiers(
         Entity<WoundHostComponent> body,
         DamageSpecifier damage,
@@ -298,6 +331,9 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                         TryComp(source, out TargetingSnapshotComponent? snapshot) &&
                         _targetResolver.TryResolve(body, snapshot.RequestedTarget, snapshot.Shooter, out var snapshotPart))
                         _requestedParts[body] = snapshotPart;
+                    else if (origin is { } light && HasComp<PoweredLightComponent>(light) &&
+                             TryGetActiveHandPart(body, out var handPart))
+                        _requestedParts[body] = handPart;
                     else if (origin is { } targetingSource && _targetResolver.TryResolve(body, targetingSource, out var targetedPart))
                         _requestedParts[body] = targetedPart;
                     else if (ResolveDamagePart(body, null, localized) is { } randomPart)

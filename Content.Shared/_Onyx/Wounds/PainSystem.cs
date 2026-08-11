@@ -10,6 +10,7 @@ using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Rejuvenate;
 using Content.Shared.StatusEffectNew;
+using Content.Shared.Traits.Assorted;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
@@ -67,7 +68,7 @@ public sealed partial class PainSystem : EntitySystem
 
     public FixedPoint2 GetPain(Entity<PainComponent?> entity)
     {
-        return Resolve(entity, ref entity.Comp, false)
+        return Resolve(entity, ref entity.Comp, false) && !IsPainNumb(entity.Owner)
             ? FixedPoint2.Max(FixedPoint2.Zero, entity.Comp.Value - entity.Comp.Suppression)
             : FixedPoint2.Zero;
     }
@@ -189,6 +190,15 @@ public sealed partial class PainSystem : EntitySystem
     {
         _statusEffects.TryRemoveStatusEffect(entity, PainShockEffect);
         RemComp<PainShockComponent>(entity);
+    }
+
+    private bool IsPainNumb(EntityUid entity)
+    {
+        if (TryComp(entity, out BodyPartComponent? part) && part.Body is { } body)
+            entity = body;
+
+        return _statusEffects.EnumerateStatusEffects<PainNumbnessStatusEffectComponent>(entity)
+            .Any(effect => effect.Comp1.Applied);
     }
 
     public bool SuppressPain(Entity<PainComponent?> entity, string identifier, FixedPoint2 amount,

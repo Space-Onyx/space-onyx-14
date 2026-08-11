@@ -243,6 +243,7 @@
       path: /Audio/_Onyx/Medical/Surgery/hemostat1.ogg
   - type: Hemostat
   - type: Tweezers
+  - type: Tending
   # </Onyx-Surgery>
 
   # - type: entity
@@ -297,6 +298,11 @@
       path: /Audio/Weapons/bladeslice.ogg
   - type: Tool
     speedModifier: 0.5
+  # <Onyx-SurgeryTools>
+  - type: SurgeryTool
+    speedModifiers:
+      BoneSaw: 0.5
+  # </Onyx-SurgeryTools>
 
 - type: entity
   name: circular saw
@@ -324,6 +330,8 @@
   - type: SurgeryTool
     startSound:
       path: /Audio/_Onyx/Medical/Surgery/saw.ogg
+    speedModifiers:
+      BoneSaw: 1.5
   - type: Tag
     tags:
     - SawElectric
@@ -345,3 +353,8 @@
     attackRate: 1.5
   - type: Tool
     speedModifier: 2.0
+  # <Onyx-SurgeryTools>
+  - type: SurgeryTool
+    speedModifiers:
+      BoneSaw: 2
+  # </Onyx-SurgeryTools>

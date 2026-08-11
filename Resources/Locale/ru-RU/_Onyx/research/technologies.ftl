@@ -36,3 +36,4 @@ research-technology-suit-module-medical = Медицинские модули с
 research-technology-suit-module-industrial = Промышленные модули скафандра
 research-technology-suit-module-advanced = Продвинутые модули скафандра
 research-technology-crystallizer = Кристаллизатор
+research-technology-accessibility = Технологии помощи экипажу

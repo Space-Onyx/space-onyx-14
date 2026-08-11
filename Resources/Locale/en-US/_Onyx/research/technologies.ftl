@@ -36,3 +36,4 @@ research-technology-suit-module-medical = Medical suit modules
 research-technology-suit-module-industrial = Industrial suit modules
 research-technology-suit-module-advanced = Advanced suit modules
 research-technology-crystallizer = Crystallizer
+research-technology-accessibility = Crew Assistance Technologies

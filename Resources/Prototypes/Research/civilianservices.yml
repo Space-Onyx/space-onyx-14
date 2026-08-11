@@ -141,9 +141,9 @@
     - NTBodyBag
     - PrisonerBodyBag
     - RadiationBodyBag
-  position: 2,0
+  position: 2,1
   technologyPrerequisites:
-    - AdvancedEntertainment
+    - AccessibilityTech
 - type: technology
   id: MechanizedTreatment
   name: research-technology-mechanized-treatment
@@ -156,7 +156,7 @@
   recipeUnlocks:
     - BorgModuleAdvancedTopical
     - AdvancedJetInjector
-  position: 1,3
+  position: 1,4
   technologyPrerequisites:
     - BiochemicalStasis
 - type: technology
@@ -257,7 +257,7 @@
     - BluespaceBeaker
     - SyringeBluespace
     - BluespaceBodyBag
-  position: 3,1
+  position: 3,2
   technologyPrerequisites:
     - BiochemicalStasis
 - type: technology
@@ -272,6 +272,6 @@
   recipeUnlocks:
     - LauncherSyringe
     - MiniSyringe
-  position: 1,2
+  position: 1,3
   technologyPrerequisites:
     - BiochemicalStasis

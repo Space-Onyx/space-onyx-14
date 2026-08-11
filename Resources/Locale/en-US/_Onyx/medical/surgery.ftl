@@ -46,16 +46,19 @@ surgery-popup-procedure-SurgeryRemoveLungs-step-SurgeryStepRemoveOrgan = { $user
 surgery-popup-procedure-SurgeryRemoveEyes-step-SurgeryStepRemoveOrgan = { $user } is removing the eyes from { $target }'s { $part }!
 surgery-popup-procedure-SurgeryRemoveStomach-step-SurgeryStepRemoveOrgan = { $user } is removing the stomach from { $target }'s { $part }!
 
-surgery-tool-examine-verb-text = Surgical properties
-surgery-tool-examine-verb-message = Examine the surgical tool properties.
-surgery-tool-examine-uses = Suitable for:
-surgery-tool-examine-use = - [color=yellow]{ $use }[/color]: [color=cyan]{ $multiplier }×[/color]
+surgery-tool-examine-verb-text = Surgical tool
+surgery-tool-examine-verb-message = Examine this tool's uses in surgery.
+surgery-tool-examine-uses = This tool can be used in surgery for:
+surgery-tool-examine-use = - [color=yellow]{ $use }[/color] at [color={ $color }]{ $multiplier }x[/color] speed
 surgery-tool-examine-use-none = - [color=gray]No compatible surgical procedures.[/color]
-surgery-tool-use-scalpel = making incisions
-surgery-tool-use-hemostat = clamping blood vessels and bleeding
-surgery-tool-use-retractor = retracting tissue and bones
-surgery-tool-use-bone-saw = sawing bones and amputating body parts
-surgery-tool-use-cautery = cauterizing and closing incisions
-surgery-tool-use-bone-gel = mending bones
-surgery-tool-use-tweezers = extracting organs and items
-surgery-tool-use-stitches = stopping bleeding and suturing wounds
+surgery-tool-use-scalpel = a scalpel
+surgery-tool-use-hemostat = a hemostat
+surgery-tool-use-retractor = a retractor
+surgery-tool-use-bone-saw = a bone saw
+surgery-tool-use-cautery = a cautery
+surgery-tool-use-bone-gel = bone gel
+surgery-tool-use-tweezers = tweezers
+surgery-tool-use-stitches = surgical stitches
+surgery-tool-use-drill = a drill
+surgery-tool-use-bone-setter = a bone setter
+surgery-tool-use-tending = a wound tending tool

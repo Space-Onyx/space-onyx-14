@@ -66,7 +66,7 @@ public sealed partial class ExamineSystem
 
         var label = new RichTextLabel
         {
-            Margin = new Thickness(4, 4, 0, 4),
+            Margin = new Thickness(4, 4, 0, 0),
             MaxWidth = PartStatusMaxWidth,
         };
         label.SetMessage(FormattedMessage.FromMarkupPermissive(markup),
@@ -88,7 +88,7 @@ public sealed partial class ExamineSystem
         var arrow = new Label
         {
             Text = hasDetails ? "▸" : " ",
-            MinWidth = 14,
+            MinWidth = 10,
             FontColorOverride = Color.Gray,
         };
         var summaryLabel = new RichTextLabel { MaxWidth = PartStatusTextMaxWidth };
@@ -103,7 +103,7 @@ public sealed partial class ExamineSystem
         var headingRow = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
-            SeparationOverride = 2,
+            SeparationOverride = 1,
             MaxWidth = PartStatusMaxWidth,
         };
         headingRow.AddChild(arrow);
@@ -112,7 +112,7 @@ public sealed partial class ExamineSystem
 
         var detailLabel = new RichTextLabel
         {
-            Margin = new Thickness(18, 1, 0, 4),
+            Margin = new Thickness(11, 0, 0, 2),
             Visible = false,
             MaxWidth = PartStatusTextMaxWidth,
         };
@@ -123,7 +123,7 @@ public sealed partial class ExamineSystem
             Orientation = BoxContainer.LayoutOrientation.Vertical,
             MaxWidth = PartStatusMaxWidth,
             HorizontalAlignment = Control.HAlignment.Left,
-            Margin = new Thickness(4, 0, 0, 2),
+            Margin = new Thickness(4, 0, 0, 1),
         };
         container.AddChild(heading);
         container.AddChild(detailLabel);

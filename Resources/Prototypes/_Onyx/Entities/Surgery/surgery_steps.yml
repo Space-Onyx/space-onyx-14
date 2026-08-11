@@ -661,11 +661,60 @@
 
 - type: entity
   parent: SurgeryStepBase
+  id: SurgeryStepCarefulIncisionScalpel
+  name: Make a careful incision
+  components:
+  - type: SurgeryStep
+    tool: [ { type: Scalpel } ]
+    add: [ { type: IncisionOpen } ]
+    duration: 3
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/scalpel.rsi
+    state: scalpel
+  - type: SurgeryStepPainInflicter
+    amount: 17
+    sleepModifier: 0
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepRepairBruteTissue
+  name: Repair mechanically damaged tissue
+  components:
+  - type: SurgeryStep
+    tool: [ { type: Tending } ]
+    duration: 1
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
+    state: hemostat
+  - type: SurgeryTendWoundsEffect
+    damage:
+      groups:
+        Brute: -15
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepRepairBurnTissue
+  name: Repair physically damaged tissue
+  components:
+  - type: SurgeryStep
+    tool: [ { type: Tending } ]
+    duration: 1
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
+    state: hemostat
+  - type: SurgeryTendWoundsEffect
+    damageGroup: Burn
+    damage:
+      groups:
+        Burn: -20
+
+- type: entity
+  parent: SurgeryStepBase
   id: SurgeryStepReduceFracture
   name: Reduce fracture
   components:
   - type: SurgeryStep
-    tool: [ { type: Hemostat } ]
+    tool: [ { type: BoneSetter } ]
   - type: SurgeryReduceFractureEffect
 
 - type: entity
