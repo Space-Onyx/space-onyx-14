@@ -7,6 +7,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using System.Numerics;
+using System.Linq;
 using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Atmos.Components;
@@ -24,6 +25,8 @@ namespace Content.Shared._Onyx.VentCrawling;
 
 public sealed partial class SharedVentCrawableSystem : EntitySystem
 {
+    private static readonly Direction[] VentDirections = [Direction.North, Direction.South, Direction.East, Direction.West];
+
     [Dependency] private SharedVentTubeSystem _ventTubeSystem = default!;
     [Dependency] private SharedPhysicsSystem _physicsSystem = default!;
     [Dependency] private SharedContainerSystem _containerSystem = default!;
@@ -101,6 +104,7 @@ public sealed partial class SharedVentCrawableSystem : EntitySystem
         {
             holder.PipeLayer = selectedLayer;
             holder.LayerSelectionSequence++;
+            UpdateVisibleTubes(holder);
         }
         if (!_net.IsClient && holder.Container.ContainedEntities.Count > 0)
         {
@@ -173,6 +177,7 @@ public sealed partial class SharedVentCrawableSystem : EntitySystem
         holder.CurrentTube = toUid;
         holder.PipeLayer = _ventTubeSystem.GetLayer(toUid);
         _transformSystem.SetCoordinates(holderUid, tubeTransform.Coordinates);
+        UpdateVisibleTubes(holder);
         Dirty(holderUid, holder);
         return true;
     }
@@ -185,6 +190,8 @@ public sealed partial class SharedVentCrawableSystem : EntitySystem
         var query = EntityQueryEnumerator<VentCrawlerHolderComponent>();
         while (query.MoveNext(out var uid, out var holder))
         {
+            UpdateVisibleTubes(holder);
+
             if (holder.CurrentTube == null || holder.CurrentDirection == Direction.Invalid && !holder.DirectionQueued)
             {
                 if (!_net.IsClient)
@@ -273,6 +280,7 @@ public sealed partial class SharedVentCrawableSystem : EntitySystem
                 holder.NextTube = null;
                 holder.TravelDirection = Direction.Invalid;
                 holder.Progress = 0f;
+                UpdateVisibleTubes(holder);
                 Dirty(uid, holder);
 
                 var welded = TryComp<WeldableComponent>(nextTubeUid, out var weldable) && weldable.IsWelded;
@@ -285,6 +293,46 @@ public sealed partial class SharedVentCrawableSystem : EntitySystem
 
                 holder.FirstEntry = false;
             }
+        }
+    }
+
+    private void UpdateVisibleTubes(VentCrawlerHolderComponent holder)
+    {
+        if (_net.IsClient || holder.CurrentTube is not { } currentTube || !Exists(currentTube))
+            return;
+
+        var center = _transformSystem.GetWorldPosition(currentTube);
+        var visible = new HashSet<EntityUid> { currentTube };
+        var pending = new Queue<EntityUid>();
+        pending.Enqueue(currentTube);
+
+        while (pending.TryDequeue(out var tube))
+        {
+            foreach (var direction in VentDirections)
+            {
+                if (_ventTubeSystem.NextTubeFor(tube, direction, holder.PipeLayer) is not { } next ||
+                    !visible.Add(next))
+                    continue;
+
+                var offset = _transformSystem.GetWorldPosition(next) - center;
+                if (MathF.Abs(offset.X) > 1f || MathF.Abs(offset.Y) > 1f)
+                {
+                    visible.Remove(next);
+                    continue;
+                }
+
+                pending.Enqueue(next);
+            }
+        }
+
+        foreach (var crawlerUid in holder.Container.ContainedEntities)
+        {
+            if (!TryComp<VentCrawlerComponent>(crawlerUid, out var crawler) ||
+                crawler.VisibleTubes.Count == visible.Count && crawler.VisibleTubes.All(visible.Contains))
+                continue;
+
+            crawler.VisibleTubes = visible.ToList();
+            Dirty(crawlerUid, crawler);
         }
     }
 

@@ -1,0 +1,4 @@
+- type: guideEntry
+  id: Rodentia
+  name: species-name-rodentia
+  text: /ServerInfo/_Onyx/Guidebook/Mobs/Rodentia.xml

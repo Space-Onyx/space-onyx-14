@@ -18,6 +18,9 @@ public sealed partial class VentCrawlerComponent : Component
     [ViewVariables, AutoNetworkedField]
     public bool InTube;
 
+    [ViewVariables, AutoNetworkedField]
+    public List<EntityUid> VisibleTubes = [];
+
     [DataField]
     public float EnterDelay = 2.5f;
 

@@ -1,0 +1,21 @@
+- type: entity
+  id: CheekStorage
+  name: ent-CheekStorage
+  description: ent-CheekStorage-desc
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Storage
+    clickInsert: false
+    grid:
+    - 0,0,1,1
+    maxItemSize: Small
+    blacklist:
+      components: [ Sharp, MindContainer ]
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container {}
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: Dumpable

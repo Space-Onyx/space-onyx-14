@@ -1,0 +1,284 @@
+# SPDX-FileCopyrightText: 2024 DEATHB4DEFEAT <77995199+DEATHB4DEFEAT@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2024 portfiend <109661617+portfiend@users.noreply.github.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHeadTopEarDefault
+  bodyPart: Ears
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: mouse }, { sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: mouse_overlay }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaTailDefault
+  bodyPart: Tail
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: mouse }]
+
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHeadTopEarBat
+  bodyPart: Ears
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: bat }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHeadTopEarBatLarge
+  bodyPart: Ears
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: bat_large }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHeadTopEarHamster
+  bodyPart: Ears
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: hamster }, { sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: hamster_overlay }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHeadTopEarLong
+  bodyPart: Ears
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: long }, { sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: long_overlay }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHeadTopEarMouse
+  bodyPart: Ears
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: mouse }, { sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: mouse_overlay }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHeadTopEarMouseLarge
+  bodyPart: Ears
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: mouse_large }, { sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: mouse_large_overlay }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHeadTopEarNone
+  bodyPart: Ears
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: none }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHeadTopEarPointy
+  bodyPart: Ears
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: pointy }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHeadTopEarRabbit
+  bodyPart: Ears
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: rabbit }, { sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: rabbit_overlay }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHeadTopEarSmall
+  bodyPart: Ears
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: small }]
+
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaSnoutBat
+  bodyPart: Snout
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: bat }, { sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: bat_nose }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaSnoutBatCounter
+  bodyPart: Snout
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: bat }, { sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: bat_nose }, { sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: bat_overlay }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaSnoutFlat
+  bodyPart: Snout
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: flat }, { sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: flat_nose }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaSnoutFlatCounter
+  bodyPart: Snout
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: flat }, { sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: flat_nose }, { sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: flat_overlay }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaSnoutRound
+  bodyPart: Snout
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: round }, { sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: round_nose }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaSnoutRoundCounter
+  bodyPart: Snout
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: round }, { sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: round_nose }, { sprite: _Onyx/Mobs/Customization/Rodentia/snout_markings.rsi, state: round_overlay }]
+
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaCheeksRound
+  bodyPart: HeadSide
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/cheek_markings.rsi, state: cheeks }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaCheeksRoundCounter
+  bodyPart: HeadSide
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/cheek_markings.rsi, state: cheeks }, { sprite: _Onyx/Mobs/Customization/Rodentia/cheek_markings.rsi, state: cheeks_overlay }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaCheeksFluff
+  bodyPart: HeadSide
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/cheek_markings.rsi, state: fluff }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaCheeksFluffCounter
+  bodyPart: HeadSide
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/cheek_markings.rsi, state: fluff }, { sprite: _Onyx/Mobs/Customization/Rodentia/cheek_markings.rsi, state: fluff_overlay }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaCheeksFluffAlt
+  bodyPart: HeadSide
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/cheek_markings.rsi, state: fluff_alt }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaCheeksFluffAltCounter
+  bodyPart: HeadSide
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/cheek_markings.rsi, state: fluff_alt }, { sprite: _Onyx/Mobs/Customization/Rodentia/cheek_markings.rsi, state: fluff_alt_overlay }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaCheeksWhiskers
+  bodyPart: Head
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/cheek_markings.rsi, state: whiskers }]
+
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaTailBeaver
+  bodyPart: Tail
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: beaver }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaTailHamster
+  bodyPart: Tail
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: hamster }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaTailLong
+  bodyPart: Tail
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: long }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaTailLongCounter
+  bodyPart: Tail
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: long }, { sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: long_overlay }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaTailLongCounterTip
+  bodyPart: Tail
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: long }, { sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: long_overlay }, { sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: long_tip }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaTailMouse
+  bodyPart: Tail
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: mouse }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaTailRabbit
+  bodyPart: Tail
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: rabbit }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaTailRabbitCounter
+  bodyPart: Tail
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: rabbit }, { sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: rabbit_overlay }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaTailShort
+  bodyPart: Tail
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: short }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaTailSquirrel
+  bodyPart: Tail
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: squirrel }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaTailSquirrelBicolor
+  bodyPart: Tail
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: squirrel }, { sprite: _Onyx/Mobs/Customization/Rodentia/tail_markings.rsi, state: squirrel_overlay }]
+
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaChestCountershade
+  bodyPart: Chest
+  sexRestriction: Male
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/body_markings.rsi, state: countershade }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaChestCountershadeF
+  bodyPart: Chest
+  sexRestriction: Female
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/body_markings.rsi, state: countershade_f }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaLegLeftCountershade
+  bodyPart: LLeg
+  sprites: [{ sprite: _Onyx/Mobs/Species/Rodentia/parts.rsi, state: l_leg }, { sprite: _Onyx/Mobs/Customization/Rodentia/body_markings.rsi, state: countershade_lleg }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaLegRightCountershade
+  bodyPart: RLeg
+  sprites: [{ sprite: _Onyx/Mobs/Species/Rodentia/parts.rsi, state: r_leg }, { sprite: _Onyx/Mobs/Customization/Rodentia/body_markings.rsi, state: countershade_rleg }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaChestFawn
+  bodyPart: Chest
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/body_markings.rsi, state: fawn }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaChestHooded
+  bodyPart: Chest
+  sexRestriction: Male
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/body_markings.rsi, state: hooded }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaChestHoodedF
+  bodyPart: Chest
+  sexRestriction: Female
+  sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/body_markings.rsi, state: hooded_f }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHeadBlaze
+  bodyPart: Head
+  sprites: [{ sprite: _Onyx/Mobs/Species/Rodentia/parts.rsi, state: head_m }, { sprite: _Onyx/Mobs/Customization/Rodentia/head_markings.rsi, state: blaze }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHeadRound
+  bodyPart: Head
+  sprites: [{ sprite: _Onyx/Mobs/Species/Rodentia/parts.rsi, state: head_m }, { sprite: _Onyx/Mobs/Customization/Rodentia/head_markings.rsi, state: round }]
+
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHeadBasic
+  bodyPart: Head
+  sprites: [{ sprite: _Onyx/Mobs/Species/Rodentia/parts.rsi, state: head_m }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaArmLeftBasic
+  bodyPart: LArm
+  sprites: [{ sprite: _Onyx/Mobs/Species/Rodentia/parts.rsi, state: l_arm }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaArmRightBasic
+  bodyPart: RArm
+  sprites: [{ sprite: _Onyx/Mobs/Species/Rodentia/parts.rsi, state: r_arm }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaLegLeftBasic
+  bodyPart: LLeg
+  sprites: [{ sprite: _Onyx/Mobs/Species/Rodentia/parts.rsi, state: l_leg }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaLegRightBasic
+  bodyPart: RLeg
+  sprites: [{ sprite: _Onyx/Mobs/Species/Rodentia/parts.rsi, state: r_leg }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHandLeftBasic
+  bodyPart: LHand
+  sprites: [{ sprite: _Onyx/Mobs/Species/Rodentia/parts.rsi, state: l_hand }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaHandRightBasic
+  bodyPart: RHand
+  sprites: [{ sprite: _Onyx/Mobs/Species/Rodentia/parts.rsi, state: r_hand }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaFootLeftBasic
+  bodyPart: LFoot
+  sprites: [{ sprite: _Onyx/Mobs/Species/Rodentia/parts.rsi, state: l_foot }]
+- type: marking
+  groupWhitelist: [ Rodentia ]
+  id: RodentiaFootRightBasic
+  bodyPart: RFoot
+  sprites: [{ sprite: _Onyx/Mobs/Species/Rodentia/parts.rsi, state: r_foot }]

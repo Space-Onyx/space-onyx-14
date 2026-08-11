@@ -28,6 +28,11 @@
     - tasks:
         - !type:HTNCompoundTask
           task: FoodCompound
+    # <Onyx-Rodentia>
+    - tasks:
+        - !type:HTNCompoundTask
+          task: MeleeCombatCompound
+    # </Onyx-Rodentia>
     - tasks:
         - !type:HTNCompoundTask
           task: IdleCompound

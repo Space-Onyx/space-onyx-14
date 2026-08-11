@@ -8,6 +8,7 @@
 
 using System.Linq;
 using Content.Shared._Onyx.VentCrawling;
+using Content.Shared.Eye;
 using Robust.Shared.Containers;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
@@ -20,6 +21,7 @@ public sealed partial class VentCrawableSystem : EntitySystem
     [Dependency] private SharedContainerSystem _containerSystem = default!;
     [Dependency] private SharedTransformSystem _transformSystem = default!;
     [Dependency] private SharedVentCrawableSystem _ventCrawableSystem = default!;
+    [Dependency] private SharedEyeSystem _eye = default!;
 
     public override void Initialize()
     {
@@ -57,7 +59,9 @@ public sealed partial class VentCrawableSystem : EntitySystem
             if (TryComp<VentCrawlerComponent>(entity, out var crawler))
             {
                 crawler.InTube = false;
+                crawler.VisibleTubes.Clear();
                 Dirty(entity, crawler);
+                _eye.RefreshVisibilityMask(entity);
             }
 
             if (TryComp<PhysicsComponent>(entity, out var physics))
@@ -84,7 +88,9 @@ public sealed partial class VentCrawableSystem : EntitySystem
             if (TryComp<VentCrawlerComponent>(entity, out var crawler))
             {
                 crawler.InTube = false;
+                crawler.VisibleTubes.Clear();
                 Dirty(entity, crawler);
+                _eye.RefreshVisibilityMask(entity);
             }
 
             if (TryComp<PhysicsComponent>(entity, out var physics))

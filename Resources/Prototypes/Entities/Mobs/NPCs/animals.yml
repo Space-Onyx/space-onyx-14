@@ -65,6 +65,7 @@
   - type: ReplacementAccent
     accent: mouse
   - type: MeleeWeapon
+    altDisarm: false # <Onyx-Rodentia>
     soundHit:
         path: /Audio/Effects/bite.ogg
     angle: 0
@@ -441,7 +442,13 @@
     animation: WeaponArcBite
     damage:
       types:
-        Piercing: 0
+        Slash: 1 # <Onyx-Rodentia-edited>
+  # <Onyx-Rodentia>
+  - type: NPCRetaliation
+    attackMemoryLength: 5
+  - type: GroupRetaliation
+    range: 5
+  # </Onyx-Rodentia>
 
 - type: entity
   parent: BaseCockroach
@@ -2039,6 +2046,14 @@
   id: MobMouse
   description: Squeak!
   components:
+  - type: MobCallable # <Onyx-Rodentia>
+  # <Onyx-Rodentia>
+  - type: ActionGrant
+    actions: [ ActionMouseCall ]
+  - type: MobCallSource
+    range: 25
+    whitelist: { tags: [ Mouse ] }
+  # </Onyx-Rodentia>
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
     speaks:
@@ -2197,7 +2212,7 @@
     animation: WeaponArcBite
     damage:
       types:
-        Piercing: 0
+        Slash: 1 # <Onyx-MouseBiteDamage-edited>
   # <Onyx-MouseDiseases>
   - type: DiseaseOnHit
     spreadParams:

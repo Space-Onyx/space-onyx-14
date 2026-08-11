@@ -206,6 +206,7 @@ public enum SpeciesNaming : byte
 {
     First,
     FirstLast,
+    LastFirst, // <Onyx-Rodentia>
     FirstDashFirst,
     TheFirstofLast,
 }

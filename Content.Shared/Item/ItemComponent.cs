@@ -12,7 +12,7 @@ namespace Content.Shared.Item;
 /// </summary>
 [RegisterComponent]
 [NetworkedComponent]
-[Access(typeof(SharedItemSystem)), AutoGenerateComponentState(true)]
+[Access(typeof(SharedItemSystem), typeof(Content.Shared._Onyx.Item.PseudoItem.SharedPseudoItemSystem)), AutoGenerateComponentState(true)] // <Onyx-Rodentia-edited>
 public sealed partial class ItemComponent : Component
 {
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]

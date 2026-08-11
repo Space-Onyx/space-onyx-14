@@ -14,6 +14,7 @@ using Content.Server.Popups;
 using Content.Shared._Onyx.VentCrawling;
 using Content.Shared.Destructible;
 using Content.Shared.DoAfter;
+using Content.Shared.Eye;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Movement.Components;
@@ -32,6 +33,7 @@ public sealed partial class VentCrawlerTubeSystem : EntitySystem
     [Dependency] private SharedMoverController _mover = default!;
     [Dependency] private ServerInventorySystem _inventory = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private SharedEyeSystem _eye = default!;
 
     public override void Initialize()
     {
@@ -158,6 +160,7 @@ public sealed partial class VentCrawlerTubeSystem : EntitySystem
             _ventCrawableSystem.SetMovementInput(holderComponent, input.HeldMoveButtons);
         crawler.InTube = true;
         Dirty(entity, crawler);
+        _eye.RefreshVisibilityMask(entity);
         return _ventCrawableSystem.EnterTube(holder, uid, holderComponent);
     }
 

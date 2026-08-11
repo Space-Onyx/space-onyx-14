@@ -4,6 +4,7 @@
   name: duffel bag
   description: A large duffel bag for holding extra things.
   components:
+  - type: AllowsSleepInside # <Onyx-Rodentia>
   - type: Sprite
     sprite: Clothing/Back/Duffels/duffel.rsi
   - type: Storage

@@ -37,6 +37,10 @@ namespace Content.Shared.Humanoid
                 case SpeciesNaming.FirstDashFirst:
                     return Loc.GetString("namepreset-firstdashfirst",
                         ("first1", GetFirstName(speciesProto, gender)), ("first2", GetFirstName(speciesProto, gender)));
+                // <Onyx-Rodentia>
+                case SpeciesNaming.LastFirst:
+                    return Loc.GetString("namepreset-lastfirst", ("last", GetLastName(speciesProto, gender)), ("first", GetFirstName(speciesProto, gender)));
+                // </Onyx-Rodentia>
                 case SpeciesNaming.FirstLast:
                 default:
                     return Loc.GetString("namepreset-firstlast",

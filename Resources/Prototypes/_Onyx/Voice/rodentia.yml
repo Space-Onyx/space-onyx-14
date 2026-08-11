@@ -1,0 +1,44 @@
+- type: speechVerb
+  id: Rodentia
+  name: chat-speech-verb-name-rodentia
+  speechVerbStrings:
+  - chat-speech-verb-rodentia-1
+  - chat-speech-verb-rodentia-2
+  - chat-speech-verb-rodentia-3
+  - chat-speech-verb-rodentia-4
+
+- type: emoteSounds
+  id: MaleRodentia
+  params: { variation: 0.125 }
+  sounds:
+    Scream: { path: /Audio/Animals/mouse_squeak.ogg }
+    Laugh: { collection: MaleLaugh }
+    Sneeze: { collection: MaleSneezes }
+    Cough: { collection: MaleCoughs }
+    Yawn: { collection: MaleYawn }
+    Snore: { collection: Snores }
+    Honk: { collection: BikeHorn }
+    Sigh: { collection: MaleSigh }
+    Crying: { collection: MaleCry }
+    Whistle: { collection: Whistles }
+    Squeak: { path: /Audio/Animals/mouse_squeak.ogg }
+    Gasp: { collection: MaleGasp }
+    DefaultDeathgasp: { collection: MaleDeathGasp }
+
+- type: emoteSounds
+  id: FemaleRodentia
+  params: { variation: 0.125 }
+  sounds:
+    Scream: { path: /Audio/Animals/mouse_squeak.ogg }
+    Laugh: { collection: FemaleLaugh }
+    Sneeze: { collection: FemaleSneezes }
+    Cough: { collection: FemaleCoughs }
+    Yawn: { collection: FemaleYawn }
+    Snore: { collection: Snores }
+    Honk: { collection: BikeHorn }
+    Sigh: { collection: FemaleSigh }
+    Crying: { collection: FemaleCry }
+    Whistle: { collection: Whistles }
+    Squeak: { path: /Audio/Animals/mouse_squeak.ogg }
+    Gasp: { collection: FemaleGasp }
+    DefaultDeathgasp: { collection: FemaleDeathGasp }

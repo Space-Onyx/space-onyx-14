@@ -1,0 +1,49 @@
+- type: entity
+  parent: BaseAction
+  id: ActionOpenMouthStorage
+  name: Open cheek storage
+  description: Store small items in your cheeks.
+  components:
+  - type: Action
+    itemIconStyle: BigAction
+    priority: -10
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/mouth_storage.rsi
+    layers:
+    - state: icon
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:OpenStorageImplantEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionToggleSneakMode
+  name: Toggle sneak mode
+  description: Crawl underneath tables.
+  components:
+  - type: Action
+    itemIconStyle: BigAction
+    useDelay: 3
+  - type: Sprite
+    sprite: Structures/Furniture/Tables/generic.rsi
+    layers:
+    - state: full
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:ToggleCrawlingStateEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionMouseCall
+  name: Mouse call
+  description: Call nearby mice to your location.
+  components:
+  - type: Action
+    useDelay: 15
+  - type: Sprite
+    sprite: _Onyx/Actions/mouse_call.rsi
+    layers:
+    - state: icon
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:MobCallActionEvent

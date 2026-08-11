@@ -6,3 +6,12 @@
   - type: Rehydratable
     possibleSpawns:
     - MobFelinidRandom
+
+- type: entity
+  parent: MonkeyCube
+  id: RodentiaCube
+  name: ent-RodentiaCube
+  components:
+  - type: Rehydratable
+    possibleSpawns:
+    - MobRodentiaRandom

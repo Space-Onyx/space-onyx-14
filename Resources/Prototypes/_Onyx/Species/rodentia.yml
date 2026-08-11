@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: 2024 DEATHB4DEFEAT <77995199+DEATHB4DEFEAT@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2024 portfiend <109661617+portfiend@users.noreply.github.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: species
+  id: Rodentia
+  name: species-name-rodentia
+  category: Unusual
+  roundStart: true
+  prototype: MobRodentia
+  dollPrototype: AppearanceRodentia
+  skinColoration: Hues
+  defaultSkinTone: "#747474"
+  baseScale: "0.85, 0.85"
+  defaultHeightCm: 155
+  defaultWeightKg: 58
+  minHeightCm: 135
+  maxHeightCm: 170
+  maleFirstNames: NamesRodentiaMale
+  femaleFirstNames: NamesRodentiaFemale
+  maleLastNames: NamesRodentiaLast
+  femaleLastNames: NamesRodentiaLast
+  naming: LastFirst
+  defaultSoundsBySex: [ MaleRodentia, FemaleRodentia, MaleRodentia ]
+  voices: [ MaleRodentia, FemaleRodentia ]
+  description: /ServerInfo/_Onyx/Guidebook/Mobs/Rodentia.xml

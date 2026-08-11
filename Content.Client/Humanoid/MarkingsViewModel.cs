@@ -96,11 +96,52 @@ public sealed partial class MarkingsViewModel
     /// <param name="skinColor">The new skin color</param>
     public void SetOrganSkinColor(Color skinColor)
     {
+        // <Onyx-SkinColoredMarkings-edited>
+        var markingsChanged = false;
         foreach (var (organ, data) in _organProfileData)
         {
+            var oldSkinColor = data.SkinColor;
             _organProfileData[organ] = data with { SkinColor = skinColor };
+
+            if (!_markings.TryGetValue(organ, out var organMarkings))
+                continue;
+
+            foreach (var layerMarkings in organMarkings.Values)
+            {
+                for (var markingIndex = 0; markingIndex < layerMarkings.Count; markingIndex++)
+                {
+                    var marking = layerMarkings[markingIndex];
+                    if (!_prototype.TryIndex(marking.MarkingId, out var markingPrototype))
+                        continue;
+
+                    var oldColors = MarkingColoring.GetMarkingLayerColors(markingPrototype,
+                        oldSkinColor,
+                        data.EyeColor,
+                        layerMarkings);
+                    var newColors = MarkingColoring.GetMarkingLayerColors(markingPrototype,
+                        skinColor,
+                        data.EyeColor,
+                        layerMarkings);
+
+                    for (var colorIndex = 0;
+                         colorIndex < marking.MarkingColors.Count && colorIndex < oldColors.Count && colorIndex < newColors.Count;
+                         colorIndex++)
+                    {
+                        if (marking.MarkingColors[colorIndex] != oldColors[colorIndex] || oldColors[colorIndex] == newColors[colorIndex])
+                            continue;
+
+                        marking = marking.WithColorAt(colorIndex, newColors[colorIndex]);
+                        markingsChanged = true;
+                    }
+
+                    layerMarkings[markingIndex] = marking;
+                }
+            }
         }
         OrganProfileDataChanged?.Invoke(false);
+        if (markingsChanged)
+            MarkingsReset?.Invoke();
+        // </Onyx-SkinColoredMarkings-edited>
     }
 
     /// <summary>

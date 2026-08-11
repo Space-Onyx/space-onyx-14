@@ -1,4 +1,5 @@
 using Content.Shared.Item.ItemToggle.Components;
+using Content.Shared._Onyx.Abilities; // <Onyx-Rodentia>
 using Content.Shared.Trigger.Systems;
 using Content.Shared.StepTrigger.Systems;
 using Robust.Shared.Physics.Components;
@@ -12,7 +13,7 @@ public sealed class MousetrapSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<MousetrapComponent, BeforeDamageOnTriggerEvent>(BeforeDamageOnTrigger);
-        SubscribeLocalEvent<MousetrapComponent, StepTriggerAttemptEvent>(OnStepTriggerAttempt);
+        SubscribeLocalEvent<MousetrapComponent, StepTriggerAttemptEvent>(OnStepTriggerAttempt, after: [typeof(StepTriggerImmuneSystem)]); // <Onyx-Rodentia-edited>
     }
 
     // only allow step triggers to trigger if the trap is armed
@@ -20,6 +21,11 @@ public sealed class MousetrapSystem : EntitySystem
     // they should just use the new trigger conditions
     private void OnStepTriggerAttempt(Entity<MousetrapComponent> ent, ref StepTriggerAttemptEvent args)
     {
+        // <Onyx-Rodentia>
+        if (HasComp<AlwaysTriggerMousetrapComponent>(args.Tripper))
+            args.Cancelled = false;
+        // </Onyx-Rodentia>
+
         if (!TryComp<ItemToggleComponent>(ent, out var toggle))
             return;
 

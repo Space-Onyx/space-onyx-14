@@ -1,0 +1,6 @@
+- type: typingIndicator
+  id: rodentia
+  spritePath: /Textures/_Onyx/Effects/speech_rodentia.rsi
+  typingState: rodentia0
+  idleState: rodentia0
+  offset: 0, 0.2

@@ -19,6 +19,21 @@ public sealed partial class RummageableComponent : Component
     [AutoNetworkedField]
     public bool Looted;
 
+    // <Onyx-Rodentia>
+    /// <summary>
+    /// Last successful rummage. Null keeps object immediately available after initialization.
+    /// </summary>
+    [ViewVariables]
+    public TimeSpan? LastLooted;
+
+    /// <summary>
+    /// Minimum delay between successful rummages.
+    /// </summary>
+    [DataField, ViewVariables(VVAccess.ReadWrite)]
+    [AutoNetworkedField]
+    public TimeSpan RummageCooldown = TimeSpan.FromMinutes(1);
+    // </Onyx-Rodentia>
+
     /// <summary>
     /// How long it takes to rummage through a rummageable container.
     /// </summary>

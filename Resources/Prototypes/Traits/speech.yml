@@ -16,6 +16,9 @@
     - type: ReplacementAccent
       accent: scottish
     - type: GrowlingAccent # Corvax-Vulps
+    # <Onyx-Rodentia>
+    - type: CheeseAccent
+    # </Onyx-Rodentia>
 
 # 1 Cost
 
