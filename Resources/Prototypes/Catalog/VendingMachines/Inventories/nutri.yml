@@ -19,6 +19,7 @@
     BoxAgrichem: 1
     MortarAndPestle: 1
     HandheldJuicer: 1
+    PlantAnalyzer: 3 # <Onyx-PlantAnalyzer>
     # <Onyx-SeedDna>
     ADTBotanicalSeedDNADisk: 10
     # </Onyx-SeedDna>

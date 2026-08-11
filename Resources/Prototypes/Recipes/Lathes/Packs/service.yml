@@ -27,6 +27,7 @@
   - WetFloorSign
   - WireBrush
   - PhotoCamera # <Onyx-PhotoCamera>
+  - PlantAnalyzer # <Onyx-PlantAnalyzer>
 
 - type: latheRecipePack
   id: ServiceBoardsStatic

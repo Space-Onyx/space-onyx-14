@@ -285,6 +285,7 @@
     whitelist:
       tags:
       - PlantSampleTaker
+      - PlantAnalyzer # <Onyx-PlantAnalyzer>
       - BotanyShovel
       - BotanyHoe
       - BotanyHatchet
@@ -316,6 +317,12 @@
         whitelist:
           tags:
           - PlantBGone
+      # <Onyx-PlantAnalyzer>
+      hydro:
+        whitelist:
+          tags:
+          - PlantAnalyzer
+      # </Onyx-PlantAnalyzer>
       bottle:
         whitelist:
           tags:

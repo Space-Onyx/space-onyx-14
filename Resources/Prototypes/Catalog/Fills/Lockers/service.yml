@@ -145,6 +145,7 @@
     - id: ChemistryBottleRobustHarvest
       prob: 0.3
     - id: ClothingBeltPlantFilled
+    - id: PlantAnalyzer # <Onyx-PlantAnalyzer>
     - id: PlantBag ##Some maps don't have nutrivend
     - id: BoxMouthSwab
     - id: Dropper
