@@ -137,7 +137,16 @@ public abstract partial class SharedBuckleSystem
             return;
         }
 
-        var delta = (xform.LocalPosition - strapComp.BuckleOffset).LengthSquared();
+        // <Onyx-DoubleBed-edited>
+        if (!strapComp.BuckleOffsets.TryGetValue(buckle, out var buckleOffset))
+        {
+            buckleOffset = xform.LocalPosition;
+            strapComp.BuckleOffsets[buckle] = buckleOffset;
+            Dirty(strapUid, strapComp);
+        }
+
+        var delta = (xform.LocalPosition - buckleOffset).LengthSquared();
+        // </Onyx-DoubleBed-edited>
         if (delta > 1e-5)
             Unbuckle(buckle, (strapUid, strapComp), null);
     }
@@ -194,12 +203,14 @@ public abstract partial class SharedBuckleSystem
         if (TryComp(buckle.Comp.BuckledTo, out StrapComponent? old))
         {
             old.BuckledEntities.Remove(buckle);
+            old.BuckleOffsets.Remove(buckle); // <Onyx-DoubleBed>
             Dirty(buckle.Comp.BuckledTo.Value, old);
         }
 
         if (strap is {} strapEnt && Resolve(strapEnt.Owner, ref strapEnt.Comp))
         {
             strapEnt.Comp.BuckledEntities.Add(buckle);
+            strapEnt.Comp.BuckleOffsets[buckle] = strapEnt.Comp.BuckleOffset; // <Onyx-DoubleBed>
             Dirty(strapEnt);
             _alerts.ShowAlert(buckle.Owner, strapEnt.Comp.BuckledAlertType);
         }
@@ -374,7 +385,7 @@ public abstract partial class SharedBuckleSystem
         _rotationVisuals.SetHorizontalAngle(buckle.Owner, strap.Comp.Rotation);
 
         var xform = Transform(buckle);
-        var coords = new EntityCoordinates(strap, strap.Comp.BuckleOffset);
+        var coords = new EntityCoordinates(strap, GetBuckleOffset(strap.Comp, buckle)); // <Onyx-DoubleBed-edited>
         _transform.SetCoordinates(buckle, xform, coords, rotation: Angle.Zero);
 
         _joints.SetRelay(buckle, strap);
@@ -458,6 +469,7 @@ public abstract partial class SharedBuckleSystem
 
         _audio.PlayPredicted(strap.Comp.UnbuckleSound, strap, user);
 
+        var buckleOffset = GetBuckleOffset(strap.Comp, buckle); // <Onyx-DoubleBed>
         SetBuckledTo(buckle, null);
 
         var buckleXform = Transform(buckle);
@@ -472,10 +484,12 @@ public abstract partial class SharedBuckleSystem
             _transform.SetWorldRotationNoLerp((buckle, buckleXform), oldBuckledToWorldRot);
 
             // TODO: This is doing 4 moveevents this is why I left the warning in, if you're going to remove it make it only do 1 moveevent.
-            if (strap.Comp.BuckleOffset != Vector2.Zero)
+            // <Onyx-DoubleBed-edited>
+            if (buckleOffset != Vector2.Zero)
             {
-                _transform.SetCoordinates(buckle, buckleXform, oldBuckledXform.Coordinates.Offset(strap.Comp.BuckleOffset));
+                _transform.SetCoordinates(buckle, buckleXform, oldBuckledXform.Coordinates.Offset(buckleOffset));
             }
+            // </Onyx-DoubleBed-edited>
         }
 
         _rotationVisuals.ResetHorizontalAngle(buckle.Owner);
@@ -495,6 +509,13 @@ public abstract partial class SharedBuckleSystem
         var strapEv = new UnstrappedEvent(strap, buckle);
         RaiseLocalEvent(strap, ref strapEv);
     }
+
+    // <Onyx-DoubleBed>
+    private static Vector2 GetBuckleOffset(StrapComponent strap, EntityUid buckle)
+    {
+        return strap.BuckleOffsets.GetValueOrDefault(buckle, strap.BuckleOffset);
+    }
+    // </Onyx-DoubleBed>
 
     public bool CanUnbuckle(Entity<BuckleComponent?> buckle, EntityUid user, bool popup)
     {

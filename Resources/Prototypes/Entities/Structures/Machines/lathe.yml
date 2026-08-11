@@ -619,6 +619,7 @@
     - Scarves
     - Carpets
     - Bedsheets
+    - DoubleBedsheets # <Onyx-DoubleBed>
     - CorvaxClothing # Corvax-Clothing
   - type: EmagLatheRecipes
     emagStaticPacks:

@@ -1,4 +1,5 @@
 using Content.Shared.Actions;
+using Content.Shared._Onyx.Bed.Components; // <Onyx-DoubleBed>
 using Content.Shared.Bed.Components;
 using Content.Shared.Bed.Sleep;
 using Content.Shared.Body.Events;
@@ -45,6 +46,11 @@ public sealed partial class BedSystem : EntitySystem
 
     private void OnHealMapInit(Entity<HealOnBuckleComponent> ent, ref MapInitEvent args)
     {
+        // <Onyx-DoubleBed>
+        if (HasComp<DoubleBedComponent>(ent))
+            return;
+        // </Onyx-DoubleBed>
+
         _actConts.EnsureAction(ent.Owner, ref ent.Comp.SleepAction, SleepingSystem.SleepActionId);
         Dirty(ent);
     }
@@ -53,23 +59,49 @@ public sealed partial class BedSystem : EntitySystem
     {
         EnsureComp<HealOnBuckleHealingComponent>(bed);
         bed.Comp.NextHealTime = _timing.CurTime + TimeSpan.FromSeconds(bed.Comp.HealTime);
-        _actionsSystem.AddAction(args.Buckle, ref bed.Comp.SleepAction, SleepingSystem.SleepActionId, bed);
+        // <Onyx-DoubleBed-edited>
+        if (TryComp<DoubleBedComponent>(bed, out var doubleBed))
+        {
+            EntityUid? sleepAction = null;
+            if (_actionsSystem.AddAction(args.Buckle, ref sleepAction, SleepingSystem.SleepActionId, bed) && sleepAction != null)
+                doubleBed.SleepActions[args.Buckle] = sleepAction.Value;
+            Dirty(bed.Owner, doubleBed);
+        }
+        else
+        {
+            _actionsSystem.AddAction(args.Buckle, ref bed.Comp.SleepAction, SleepingSystem.SleepActionId, bed);
+            DebugTools.AssertEqual(args.Strap.Comp.BuckledEntities.Count, 1);
+        }
+        // </Onyx-DoubleBed-edited>
         Dirty(bed);
-
-        // Single action entity, cannot strap multiple entities to the same bed.
-        DebugTools.AssertEqual(args.Strap.Comp.BuckledEntities.Count, 1);
     }
 
     private void OnUnstrapped(Entity<HealOnBuckleComponent> bed, ref UnstrappedEvent args)
     {
+        // <Onyx-DoubleBed-edited>
+        if (TryComp<DoubleBedComponent>(bed, out var doubleBed) &&
+            doubleBed.SleepActions.Remove(args.Buckle, out var sleepAction))
+        {
+            if (!Terminating(args.Buckle.Owner))
+                _actionsSystem.RemoveAction(args.Buckle.Owner, sleepAction);
+
+            PredictedQueueDel(sleepAction);
+            Dirty(bed.Owner, doubleBed);
+        }
         // If the entity being unbuckled is terminating, we shouldn't try to act upon it, as some components may be gone
         if (!Terminating(args.Buckle.Owner))
         {
-            _actionsSystem.RemoveAction(args.Buckle.Owner, bed.Comp.SleepAction);
+            if (doubleBed == null)
+                _actionsSystem.RemoveAction(args.Buckle.Owner, bed.Comp.SleepAction);
+
             _sleepingSystem.TryWaking(args.Buckle.Owner);
         }
+        // </Onyx-DoubleBed-edited>
 
-        RemComp<HealOnBuckleHealingComponent>(bed);
+        // <Onyx-DoubleBed-edited>
+        if (args.Strap.Comp.BuckledEntities.Count == 0)
+            RemComp<HealOnBuckleHealingComponent>(bed);
+        // </Onyx-DoubleBed-edited>
     }
 
     private void OnStasisStrapped(Entity<StasisBedComponent> ent, ref StrappedEvent args)

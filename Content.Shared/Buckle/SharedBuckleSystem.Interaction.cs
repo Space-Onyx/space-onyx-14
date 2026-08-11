@@ -104,11 +104,15 @@ public abstract partial class SharedBuckleSystem
         }
 
         // Unbuckle others
-        if (component.BuckledEntities.TryFirstOrNull(out var buckled) && TryUnbuckle(buckled.Value, args.User))
+        // <Onyx-DoubleBed-edited>
+        if (component.BuckledEntities.Count == 1 &&
+            component.BuckledEntities.TryFirstOrNull(out var buckled) &&
+            TryUnbuckle(buckled.Value, args.User))
         {
             args.Handled = true;
             return;
         }
+        // </Onyx-DoubleBed-edited>
 
         // TODO BUCKLE add out bool for whether a pop-up was generated or not.
     }

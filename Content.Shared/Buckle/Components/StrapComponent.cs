@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Shared._Onyx.Bed.Systems; // <Onyx-DoubleBed>
 using Content.Shared.Alert;
 using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
@@ -9,7 +10,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Buckle.Components;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-[Access(typeof(SharedBuckleSystem))]
+[Access(typeof(SharedBuckleSystem), typeof(DoubleBedSystem))] // <Onyx-DoubleBed-edited>
 public sealed partial class StrapComponent : Component
 {
     /// <summary>
