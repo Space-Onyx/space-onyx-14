@@ -245,6 +245,11 @@ binds:
 - function: ReleasePulledObject
   type: State
   key: H
+# <Onyx-ItemOffer>
+- function: OfferItem
+  type: State
+  key: H
+# </Onyx-ItemOffer>
 - function: OpenCraftingMenu
   type: State
   key: G

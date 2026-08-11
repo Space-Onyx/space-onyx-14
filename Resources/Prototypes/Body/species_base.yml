@@ -204,6 +204,7 @@
   # </Onyx-InteractionVerbs>
   - type: Posing # <Onyx-Posing>
   - type: SpeechBarks # <Onyx-Barks>
+  - type: ItemOffer # <Onyx-ItemOffer>
 
 - type: entity
   abstract: true

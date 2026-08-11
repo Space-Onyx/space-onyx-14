@@ -75,6 +75,7 @@ namespace Content.Client.Input
             human.AddFunction(ContentKeyFunctions.TryPullObject);
             human.AddFunction(ContentKeyFunctions.MovePulledObject);
             human.AddFunction(ContentKeyFunctions.ReleasePulledObject);
+            human.AddFunction(ContentKeyFunctions.OfferItem); // <Onyx-ItemOffer>
             human.AddFunction(ContentKeyFunctions.OpenCraftingMenu);
             // <Onyx-LanguageMenu>
             human.AddFunction(ContentKeyFunctions.OpenLanguageMenu);

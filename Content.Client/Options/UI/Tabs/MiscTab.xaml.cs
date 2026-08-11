@@ -52,6 +52,7 @@ public sealed partial class MiscTab : Control
         // </Onyx-ChatOptions>
         Control.AddOptionCheckBox(CCVars.HudHeldItemShow, ShowHeldItemCheckBox);
         Control.AddOptionCheckBox(CCVars.CombatModeIndicatorsPointShow, ShowCombatModeIndicatorsCheckBox);
+        Control.AddOptionCheckBox(CCVars.ItemOfferCursorIndicator, ShowItemOfferIndicatorCheckBox); // <Onyx-ItemOffer>
         Control.AddOptionCheckBox(CCVars.OpaqueStorageWindow, OpaqueStorageWindowCheckBox);
         Control.AddOptionCheckBox(CCVars.ChatEnableFancyBubbles, FancySpeechBubblesCheckBox);
         Control.AddOptionCheckBox(CCVars.ChatFancyNameBackground, FancyNameBackgroundsCheckBox);

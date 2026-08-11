@@ -1,0 +1,8 @@
+- type: alert
+  id: ItemOffer
+  clickEvent: !type:AcceptItemOfferAlertEvent
+  icons:
+  - sprite: /Textures/_Onyx/Interface/Alerts/item_offer.rsi
+    state: item_offer
+  name: alerts-item-offer-name
+  description: alerts-item-offer-description
