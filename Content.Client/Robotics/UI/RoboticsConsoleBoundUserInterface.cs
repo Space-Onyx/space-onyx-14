@@ -28,6 +28,12 @@ public sealed class RoboticsConsoleBoundUserInterface : BoundUserInterface
         {
             SendMessage(new RoboticsConsoleDestroyMessage(address));
         };
+        // <Onyx-RoboticsLawUpload>
+        _window.OnChangeLawsPressed += address =>
+        {
+            SendMessage(new RoboticsConsoleChangeLawsMessage(address));
+        };
+        // </Onyx-RoboticsLawUpload>
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)

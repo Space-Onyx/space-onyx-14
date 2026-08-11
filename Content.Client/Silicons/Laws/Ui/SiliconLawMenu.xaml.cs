@@ -72,7 +72,7 @@ public sealed partial class SiliconLawMenu : FancyWindow
         var law = _queuedLaws.Dequeue().law;
         var identifier = law.LawIdentifierOverride ?? $"{law.Order}";
         var lawIdentifier = Loc.GetString("laws-ui-law-header", ("id", identifier));
-        var lawDescription = Loc.GetString(law.LawString);
+        var lawDescription = law.GetDisplayString(); // <Onyx-CustomLawboard-edited>
         var lawIdentifierPlaintext = FormattedMessage.RemoveMarkupPermissive(lawIdentifier);
         var lawDescriptionPlaintext = FormattedMessage.RemoveMarkupPermissive(lawDescription);
 

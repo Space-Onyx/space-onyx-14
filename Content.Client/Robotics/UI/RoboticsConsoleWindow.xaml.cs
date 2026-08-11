@@ -22,6 +22,7 @@ public sealed partial class RoboticsConsoleWindow : FancyWindow
 
     public Action<string>? OnDisablePressed;
     public Action<string>? OnDestroyPressed;
+    public Action<string>? OnChangeLawsPressed; // <Onyx-RoboticsLawUpload>
 
     private string? _selected;
     private Dictionary<string, CyborgControlData> _cyborgs = new();
@@ -29,6 +30,10 @@ public sealed partial class RoboticsConsoleWindow : FancyWindow
     public EntityUid Entity;
 
     private bool _allowBorgControl = true;
+    // <Onyx-RoboticsLawUpload>
+    private bool _allowLawUpload;
+    private bool _hasLawboard;
+    // </Onyx-RoboticsLawUpload>
 
     public RoboticsConsoleWindow()
     {
@@ -61,6 +66,13 @@ public sealed partial class RoboticsConsoleWindow : FancyWindow
         {
             OnDestroyPressed?.Invoke(_selected!);
         };
+        // <Onyx-RoboticsLawUpload>
+        ChangeLawsButton.OnPressed += _ =>
+        {
+            if (_selected is { } address)
+                OnChangeLawsPressed?.Invoke(address);
+        };
+        // </Onyx-RoboticsLawUpload>
 
         // cant put multiple styles in xaml for some reason
         DestroyButton.StyleClasses.Add(StyleClass.Negative);
@@ -75,6 +87,10 @@ public sealed partial class RoboticsConsoleWindow : FancyWindow
     {
         _cyborgs = state.Cyborgs;
         _allowBorgControl = state.AllowBorgControl;
+        // <Onyx-RoboticsLawUpload>
+        _allowLawUpload = state.AllowLawUpload;
+        _hasLawboard = state.HasLawboard;
+        // </Onyx-RoboticsLawUpload>
 
         // clear invalid selection
         if (_selected is {} selected && !_cyborgs.ContainsKey(selected))
@@ -88,8 +104,14 @@ public sealed partial class RoboticsConsoleWindow : FancyWindow
         PopulateData();
 
         var locked = _lock.IsLocked(Entity);
-        DangerZone.Visible = !locked && _allowBorgControl;
-        LockedMessage.Visible = locked && _allowBorgControl; // Only show if locked AND control is allowed
+        // <Onyx-RoboticsLawUpload-edited>
+        var hasActions = _allowBorgControl || _allowLawUpload;
+        DangerZone.Visible = !locked && hasActions;
+        LockedMessage.Visible = locked && hasActions;
+        DisableButton.Visible = _allowBorgControl;
+        DestroyButton.Visible = _allowBorgControl;
+        ChangeLawsButton.Visible = _allowLawUpload;
+        // </Onyx-RoboticsLawUpload-edited>
     }
 
     private void PopulateCyborgs()
@@ -151,6 +173,7 @@ public sealed partial class RoboticsConsoleWindow : FancyWindow
         // how the turntables
         DisableButton.Disabled = !_allowBorgControl || !(data.HasBrain && data.CanDisable);
         DestroyButton.Disabled = !_allowBorgControl;
+        ChangeLawsButton.Disabled = !_allowLawUpload || !_hasLawboard; // <Onyx-RoboticsLawUpload>
     }
 
     protected override void FrameUpdate(FrameEventArgs args)

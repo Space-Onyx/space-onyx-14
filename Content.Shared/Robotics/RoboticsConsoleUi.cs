@@ -24,11 +24,24 @@ public sealed class RoboticsConsoleState : BoundUserInterfaceState
     /// </summary>
     public bool AllowBorgControl;
 
-    public RoboticsConsoleState(Dictionary<string, CyborgControlData> cyborgs, bool allowBorgControl)
+    // <Onyx-RoboticsLawUpload>
+    public bool AllowLawUpload;
+    public bool HasLawboard;
+    // </Onyx-RoboticsLawUpload>
+
+    // <Onyx-RoboticsLawUpload-edited>
+    public RoboticsConsoleState(
+        Dictionary<string, CyborgControlData> cyborgs,
+        bool allowBorgControl,
+        bool allowLawUpload,
+        bool hasLawboard)
     {
         Cyborgs = cyborgs;
         AllowBorgControl = allowBorgControl;
+        AllowLawUpload = allowLawUpload;
+        HasLawboard = hasLawboard;
     }
+    // </Onyx-RoboticsLawUpload-edited>
 }
 
 /// <summary>

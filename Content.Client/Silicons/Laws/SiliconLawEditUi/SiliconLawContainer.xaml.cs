@@ -59,7 +59,7 @@ public sealed partial class SiliconLawContainer : BoxContainer
     public void SetLaw(SiliconLaw law)
     {
         _law = law;
-        LawContent.TextRope = new Rope.Leaf(Loc.GetString(law.LawString));
+        LawContent.TextRope = new Rope.Leaf(law.GetDisplayString()); // <Onyx-CustomLawboard-edited>
         PositionText.Text = law.Order.ToString();
         Corrupted.Pressed = law.Corrupted;
     }

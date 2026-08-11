@@ -1,0 +1,28 @@
+<!--
+SPDX-FileCopyrightText: 2024 Aiden <aiden@djkraz.com>
+SPDX-FileCopyrightText: 2024 Simon <63975668+Simyon264@users.noreply.github.com>
+SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<controls:FancyWindow
+    xmlns="https://spacestation14.io"
+    xmlns:controls="using:Content.Client.UserInterface.Controls"
+    Title="{Loc custom-lawboard-ui-title}"
+    MinSize="600 400">
+    <BoxContainer Orientation="Vertical">
+        <BoxContainer Orientation="Horizontal" Margin="0 0 0 8">
+            <Button Name="Import" Text="{Loc custom-lawboard-import}" StyleClasses="OpenRight" />
+            <Button Name="Export" Text="{Loc custom-lawboard-export}" StyleClasses="OpenLeft" />
+            <Control HorizontalExpand="True" />
+            <Button Name="NewLawButton" Text="{Loc silicon-law-ui-new-law}" StyleClasses="OpenRight" />
+            <Button Name="Save" Text="{Loc silicon-law-ui-save}" StyleClasses="OpenLeft" />
+        </BoxContainer>
+        <ScrollContainer VerticalExpand="True" HorizontalExpand="True" HScrollEnabled="False">
+            <PanelContainer VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" Name="LawContainer" VerticalExpand="True" />
+            </PanelContainer>
+        </ScrollContainer>
+    </BoxContainer>
+</controls:FancyWindow>

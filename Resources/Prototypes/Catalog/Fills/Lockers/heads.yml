@@ -322,6 +322,7 @@
     - id: ScienceTechFabCircuitboard
     - id: XenobiologyBountyComputerCircuitboard
     - id: MMI
+    - id: NTCustomLawboard # <Onyx-CustomLawboard>
     # </Onyx-LockerInventories-edited>
 
 # Hardsuit table, used for suit storage as well

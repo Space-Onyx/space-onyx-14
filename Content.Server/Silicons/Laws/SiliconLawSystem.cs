@@ -398,7 +398,7 @@ public sealed class LawsCommand : ToolshedCommand
 
         foreach (var law in _law.GetLaws(lawbound).Laws)
         {
-            yield return $"law {law.LawIdentifierOverride ?? law.Order.ToString()}: {Loc.GetString(law.LawString)}";
+            yield return $"law {law.LawIdentifierOverride ?? law.Order.ToString()}: {law.GetDisplayString()}"; // <Onyx-CustomLawboard-edited>
         }
     }
 }

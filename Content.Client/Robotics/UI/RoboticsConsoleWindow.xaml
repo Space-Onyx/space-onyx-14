@@ -30,6 +30,9 @@
             </BoxContainer>
             <controls:StripeBack>
                 <BoxContainer Name="DangerZone" Margin="5" Orientation="Horizontal" HorizontalExpand="True" HorizontalAlignment="Center" Visible="False">
+                    <!-- <Onyx-RoboticsLawUpload> -->
+                    <Button Name="ChangeLawsButton" Text="{Loc 'robotics-console-change-laws'}" StyleClasses="OpenRight" Visible="False" Disabled="True"/>
+                    <!-- </Onyx-RoboticsLawUpload> -->
                     <Button Name="DisableButton" Text="{Loc 'robotics-console-disable'}" StyleClasses="OpenRight"/>
                     <Button Name="DestroyButton" Text="{Loc 'robotics-console-destroy'}" StyleClasses="OpenLeft"/>
                 </BoxContainer>
