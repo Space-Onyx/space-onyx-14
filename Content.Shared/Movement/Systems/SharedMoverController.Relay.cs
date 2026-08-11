@@ -1,5 +1,6 @@
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Events;
+using Robust.Shared.Player; // <Onyx-AttachedCameraRotation>
 
 namespace Content.Shared.Movement.Systems;
 
@@ -33,7 +34,7 @@ public abstract partial class SharedMoverController
 
     protected virtual void OnInputMoverCanMoveUpdated(Entity<InputMoverComponent> ent, ref CanMoveUpdatedEvent args)
     {
-        if (!args.CanMove)
+        if (!args.CanMove && !HasComp<ActorComponent>(ent)) // <Onyx-AttachedCameraRotation-edited>
         {
             // Remove from active mover query when entity cannot move
             RemCompDeferred<ActiveInputMoverComponent>(ent);
