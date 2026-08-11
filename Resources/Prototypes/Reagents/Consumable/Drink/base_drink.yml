@@ -45,6 +45,7 @@
   id: BaseAlcohol
   group: Drinks
   abstract: true
+  flammability: 0.3 # <Onyx-BurningPuddles>
   slipData:
     requiredSlipSpeed: 3.5
   friction: 0.4

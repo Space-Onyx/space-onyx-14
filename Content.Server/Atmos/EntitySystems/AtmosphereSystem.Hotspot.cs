@@ -85,10 +85,14 @@ public sealed partial class AtmosphereSystem
         if (tile.ExcitedGroup != null)
             ExcitedGroupResetCooldowns(tile.ExcitedGroup);
 
-        if (tile.Hotspot.Temperature < Atmospherics.FireMinimumTemperatureToExist ||
+        // <Onyx-BurningPuddles-edited>
+        var hasPuddleFuel = tile.PuddleSolutionFlammability > 0;
+        if ((!hasPuddleFuel && tile.Hotspot.Temperature < Atmospherics.FireMinimumTemperatureToExist) ||
             tile.Hotspot.Volume <= 1f ||
             tile.Air == null ||
-            !IsMixtureIgnitable(tile.Air))
+            !IsMixtureOxidizer(tile.Air) ||
+            (!hasPuddleFuel && !IsMixtureFuel(tile.Air)))
+        // </Onyx-BurningPuddles-edited>
         {
             tile.Hotspot = new Hotspot();
             InvalidateVisuals(ent, tile);
@@ -99,7 +103,7 @@ public sealed partial class AtmosphereSystem
 
         // This tile has now turned into a full-blown tile-fire.
         // Start applying fire effects and spreading to adjacent tiles.
-        if (tile.Hotspot.Bypassing)
+        if (tile.Hotspot.Bypassing || hasPuddleFuel) // <Onyx-BurningPuddles-edited>
         {
             tile.Hotspot.State = 3;
 
@@ -205,22 +209,29 @@ public sealed partial class AtmosphereSystem
             return;
 
         var isFlammable = IsMixtureFuel(tile.Air);
+        var puddleFlammability = tile.PuddleSolutionFlammability; // <Onyx-BurningPuddles>
 
         if (tile.Hotspot.Valid)
         {
             if (soh)
             {
-                if (isFlammable)
+                if (isFlammable || puddleFlammability > 0) // <Onyx-BurningPuddles-edited>
                 {
                     tile.Hotspot.Temperature = MathF.Max(tile.Hotspot.Temperature, exposedTemperature);
                     tile.Hotspot.Volume = MathF.Max(tile.Hotspot.Volume, exposedVolume);
                 }
             }
 
+            if (puddleFlammability > 0)
+                tile.Hotspot.Temperature = AddClampedPuddleTemperature(tile.Hotspot.Temperature, puddleFlammability); // <Onyx-BurningPuddles>
+
             return;
         }
 
-        if (exposedTemperature > Atmospherics.PlasmaMinimumBurnTemperature && isFlammable)
+        // <Onyx-BurningPuddles-edited>
+        if ((exposedTemperature > Atmospherics.PlasmaMinimumBurnTemperature && isFlammable) ||
+            (puddleFlammability > 0 && exposedTemperature > 573.15f - 50f * puddleFlammability))
+        // </Onyx-BurningPuddles-edited>
         {
             if (sparkSourceUid.HasValue)
             {
@@ -233,7 +244,9 @@ public sealed partial class AtmosphereSystem
             tile.Hotspot = new Hotspot
             {
                 Volume = exposedVolume * 25f,
-                Temperature = exposedTemperature,
+                Temperature = puddleFlammability > 0
+                    ? AddClampedPuddleTemperature(exposedTemperature, puddleFlammability)
+                    : exposedTemperature, // <Onyx-BurningPuddles-edited>
                 SkippedFirstProcess = tile.CurrentCycle > gridAtmosphere.UpdateCounter,
                 Valid = true,
                 State = 1
@@ -252,6 +265,8 @@ public sealed partial class AtmosphereSystem
     {
         if (tile.Air == null || !tile.Hotspot.Valid)
             return;
+
+        var puddleVolume = tile.PuddleSolutionFlammability > 0 ? tile.Hotspot.Volume : 0f; // <Onyx-BurningPuddles>
 
         // Determine if the tile has become a full-blown fire if the volume of the fire has effectively reached
         // the volume of the tile's air.
@@ -274,6 +289,17 @@ public sealed partial class AtmosphereSystem
             tile.Hotspot.Volume = affected.ReactionResults[(byte)GasReaction.Fire] * Atmospherics.FireGrowthRate;
             Merge(tile.Air, affected);
         }
+
+        // <Onyx-BurningPuddles>
+        // Liquid fuel burns independently from gas reactions, which may produce zero fire volume.
+        if (tile.PuddleSolutionFlammability > 0)
+        {
+            tile.Hotspot.Volume = MathF.Max(tile.Hotspot.Volume, puddleVolume);
+            tile.Hotspot.Temperature = AddClampedPuddleTemperature(
+                tile.Hotspot.Temperature,
+                tile.PuddleSolutionFlammability);
+        }
+        // </Onyx-BurningPuddles>
 
         var fireEvent = new TileFireEvent(tile.Hotspot.Temperature, tile.Hotspot.Volume);
         _entSet.Clear();

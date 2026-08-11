@@ -31,15 +31,19 @@ public sealed partial class GasTileFireOverlay : Overlay
     private readonly SharedMapSystem _mapSystem = default!;
     private readonly ShaderInstance _shader;
 
-    private readonly float[] _timer;
-    private readonly float[][] _frameDelays;
-    private readonly int[] _frameCounter;
+    // <Onyx-BurningPuddles-edited>
+    private readonly float[,] _timer;
+    private readonly float[][][] _frameDelays;
+    private readonly int[,] _frameCounter;
 
     // TODO combine textures into a single texture atlas.
-    private readonly Texture[][] _frames;
+    private readonly Texture[][][] _frames;
+    // </Onyx-BurningPuddles-edited>
 
     private const int FireStates = 3;
     private const string FireRsiPath = "/Textures/Effects/fire.rsi";
+    private const string PuddleFireRsiPath = "/Textures/_Onyx/Effects/puddle_fire.rsi"; // <Onyx-BurningPuddles>
+    private const int FireTypes = 2; // <Onyx-BurningPuddles>
 
     public const int GasOverlayZIndex = (int)Shared.DrawDepth.DrawDepth.Effects; // Under ghosts, above mostly everything else
 
@@ -51,42 +55,57 @@ public sealed partial class GasTileFireOverlay : Overlay
         _shader = _protoMan.Index(UnshadedShader).Instance();
         ZIndex = GasOverlayZIndex;
 
-        _timer = new float[FireStates];
-        _frameDelays = new float[FireStates][];
-        _frameCounter = new int[FireStates];
-        _frames = new Texture[FireStates][];
+        // <Onyx-BurningPuddles-edited>
+        _timer = new float[FireTypes, FireStates];
+        _frameDelays = new float[FireTypes][][];
+        _frameCounter = new int[FireTypes, FireStates];
+        _frames = new Texture[FireTypes][][];
 
-        var fire = _resourceCache.GetResource<RSIResource>(FireRsiPath).RSI;
-
-        for (var i = 0; i < FireStates; i++)
+        var fires = new[]
         {
-            if (!fire.TryGetState((i + 1).ToString(), out var state))
-                throw new ArgumentOutOfRangeException($"Fire RSI doesn't have state \"{i}\"!");
+            _resourceCache.GetResource<RSIResource>(FireRsiPath).RSI,
+            _resourceCache.GetResource<RSIResource>(PuddleFireRsiPath).RSI,
+        };
 
-            _frames[i] = state.GetFrames(RsiDirection.South);
-            _frameDelays[i] = state.GetDelays();
-            _frameCounter[i] = 0;
+        for (var type = 0; type < FireTypes; type++)
+        {
+            _frames[type] = new Texture[FireStates][];
+            _frameDelays[type] = new float[FireStates][];
+            for (var stateIndex = 0; stateIndex < FireStates; stateIndex++)
+            {
+                if (!fires[type].TryGetState((stateIndex + 1).ToString(), out var state))
+                    throw new ArgumentOutOfRangeException($"Fire RSI doesn't have state \"{stateIndex + 1}\"!");
+
+                _frames[type][stateIndex] = state.GetFrames(RsiDirection.South);
+                _frameDelays[type][stateIndex] = state.GetDelays();
+            }
         }
+        // </Onyx-BurningPuddles-edited>
     }
 
     protected override void FrameUpdate(FrameEventArgs args)
     {
         base.FrameUpdate(args);
 
-        for (var i = 0; i < FireStates; i++)
+        // <Onyx-BurningPuddles-edited>
+        for (var type = 0; type < FireTypes; type++)
         {
-            var delays = _frameDelays[i];
-            if (delays.Length == 0)
-                continue;
+            for (var state = 0; state < FireStates; state++)
+            {
+                var delays = _frameDelays[type][state];
+                if (delays.Length == 0)
+                    continue;
 
-            var frameCount = _frameCounter[i];
-            _timer[i] += args.DeltaSeconds;
-            var time = delays[frameCount];
+                var frameCount = _frameCounter[type, state];
+                _timer[type, state] += args.DeltaSeconds;
+                var time = delays[frameCount];
 
-            if (_timer[i] < time) continue;
-            _timer[i] -= time;
-            _frameCounter[i] = (frameCount + 1) % _frames[i].Length;
+                if (_timer[type, state] < time) continue;
+                _timer[type, state] -= time;
+                _frameCounter[type, state] = (frameCount + 1) % _frames[type][state].Length;
+            }
         }
+        // </Onyx-BurningPuddles-edited>
     }
 
     protected override void Draw(in OverlayDrawArgs args)
@@ -116,8 +135,10 @@ public sealed partial class GasTileFireOverlay : Overlay
             static (EntityUid uid, MapGridComponent grid,
                 ref (Box2Rotated WorldBounds,
                     DrawingHandleWorld drawHandle,
-                    Texture[][] frames,
-                    int[] frameCounter,
+                    // <Onyx-BurningPuddles-edited>
+                    Texture[][][] frames,
+                    int[,] frameCounter,
+                    // </Onyx-BurningPuddles-edited>
                     ShaderInstance shader,
                     EntityQuery<GasTileOverlayComponent> overlayQuery,
                     EntityQuery<TransformComponent> xformQuery,
@@ -157,7 +178,8 @@ public sealed partial class GasTileFireOverlay : Overlay
                             continue;
 
                         var fireState = gas.FireState - 1;
-                        var texture = state.frames[fireState][state.frameCounter[fireState]];
+                        var fireType = Math.Min((int) gas.FireType, FireTypes - 1); // <Onyx-BurningPuddles>
+                        var texture = state.frames[fireType][fireState][state.frameCounter[fireType, fireState]]; // <Onyx-BurningPuddles-edited>
                         state.drawHandle.DrawTexture(texture, index);
                     }
                 }

@@ -68,6 +68,7 @@ public abstract partial class SharedGasTileOverlaySystem : EntitySystem
     {
         [ViewVariables] public readonly byte FireState;
         [ViewVariables] public readonly byte[] Opacity;
+        [ViewVariables] public readonly byte FireType; // <Onyx-BurningPuddles>
         // TODO change fire color based on ByteTemp
 
         /// <summary>
@@ -78,17 +79,21 @@ public abstract partial class SharedGasTileOverlaySystem : EntitySystem
         public readonly ThermalByte ByteGasTemperature;
 
 
-        public GasOverlayData(byte fireState, byte[] opacity, ThermalByte byteTemp)
+        public GasOverlayData(byte fireState, byte[] opacity, ThermalByte byteTemp, byte fireType = 0) // <Onyx-BurningPuddles-edited>
         {
             FireState = fireState;
             Opacity = opacity;
             ByteGasTemperature = byteTemp;
+            FireType = fireType; // <Onyx-BurningPuddles>
         }
 
         public bool Equals(GasOverlayData other)
         {
             if (FireState != other.FireState)
                 return false;
+
+            if (FireType != other.FireType) // <Onyx-BurningPuddles>
+                return false; // <Onyx-BurningPuddles>
 
             if (Opacity?.Length != other.Opacity?.Length)
                 return false;

@@ -122,6 +122,8 @@ public abstract partial class SharedPuddleSystem : EntitySystem
         if (args.Solution.Comp.Id != entity.Comp.SolutionName)
             return;
 
+        OnPuddleBurningStateChanged(entity); // <Onyx-BurningPuddles>
+
         if (args.Solution.Comp.Solution.Volume <= 0)
         {
             _deletionQueue.Add(entity);
@@ -176,8 +178,14 @@ public abstract partial class SharedPuddleSystem : EntitySystem
 
     private void OnAnchorChanged(Entity<PuddleComponent> entity, ref AnchorStateChangedEvent args)
     {
+        OnPuddleBurningStateChanged(entity); // <Onyx-BurningPuddles>
+
         if (!args.Anchored)
             PredictedQueueDel(entity.Owner);
+    }
+
+    protected virtual void OnPuddleBurningStateChanged(Entity<PuddleComponent> entity) // <Onyx-BurningPuddles>
+    {
     }
 
     // Workaround for https://github.com/space-wizards/space-station-14/pull/35314

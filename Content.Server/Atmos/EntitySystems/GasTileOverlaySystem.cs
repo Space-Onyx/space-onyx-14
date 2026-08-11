@@ -227,14 +227,25 @@ namespace Content.Server.Atmos.EntitySystems
             if (oldData.Equals(default))
             {
                 changed = true;
-                oldData = new GasOverlayData(tile.Hotspot.State, new byte[VisibleGasId.Length], newByteTemp);
+                // <Onyx-BurningPuddles-edited>
+                oldData = new GasOverlayData(tile.Hotspot.State,
+                    new byte[VisibleGasId.Length],
+                    newByteTemp,
+                    tile.PuddleSolutionFlammability > 0 ? (byte) 1 : (byte) 0);
+                // </Onyx-BurningPuddles-edited>
             }
             else if (oldData.FireState != tile.Hotspot.State ||
+                     oldData.FireType != (tile.PuddleSolutionFlammability > 0 ? (byte) 1 : (byte) 0) || // <Onyx-BurningPuddles>
                      Math.Abs(oldData.ByteGasTemperature.Value - newByteTemp.Value) > 1 || // Dirty Temperature when there is more then 1 byte difference. That should measure up to minimum 4 degreese difference, 6 degreese on average.
                      (oldData.ByteGasTemperature.Value != newByteTemp.Value && newByteTemp.Value > ThermalByte.TempResolution)) // change of special ThermalByte value
             {
                 changed = true;
-                oldData = new GasOverlayData(tile.Hotspot.State, oldData.Opacity, newByteTemp);
+                // <Onyx-BurningPuddles-edited>
+                oldData = new GasOverlayData(tile.Hotspot.State,
+                    oldData.Opacity,
+                    newByteTemp,
+                    tile.PuddleSolutionFlammability > 0 ? (byte) 1 : (byte) 0);
+                // </Onyx-BurningPuddles-edited>
             }
 
             if (tile is {Air: not null, NoGridTile: false})

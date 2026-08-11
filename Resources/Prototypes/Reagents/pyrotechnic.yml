@@ -45,6 +45,7 @@
   contrabandSeverity: Major
   flavor: bitter
   color: "#FA00AF"
+  flammability: 5 # <Onyx-BurningPuddles>
   tileReactions:
   - !type:FlammableTileReaction
     temperatureMultiplier: 5
@@ -161,6 +162,7 @@
   recognizable: true
   boilingPoint: -84.7 # Acetylene. Close enough.
   meltingPoint: -80.7
+  flammability: 3 # <Onyx-BurningPuddles>
   friction: 0.4
   tileReactions:
   - !type:FlammableTileReaction {}
