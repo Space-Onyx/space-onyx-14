@@ -52,7 +52,7 @@
           white: { state: alert_border_white }
           yellow: { state: alert_border_yellow }
           violet: { state: alert_border_violet }
-          delta: { state: alert_border_delta }
+          deltanuke: { state: alert_border_deltanuke }
           epsilon: { state: alert_border_epsilon }
           gamma: { state: alert_border_gamma }
           octarine: { state: alert_border_octarine }
@@ -64,7 +64,7 @@
           white: { state: status_display_white }
           yellow: { state: status_display_yellow }
           violet: { state: status_display_violet }
-          delta: { state: status_display_delta }
+          deltanuke: { state: status_display_deltanuke }
           epsilon: { state: status_display_epsilon }
           gamma: { state: status_display_gamma }
           octarine: { state: status_display_octarine }
