@@ -126,6 +126,8 @@
   - type: Sprite
     layers:
     - state: core
+  - type: Metabolizer
+    metabolizerTypes: [ Human ]
 
 - type: entity
   parent: [ OrganBaseHeart, OrganShadowkinInternal ]
