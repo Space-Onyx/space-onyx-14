@@ -157,6 +157,16 @@
     - trayScanner
     - AccessConfiguratorUniversal
     - Multitool
+    # <Onyx-AdminSatchelContents>
+    - WeaponForceGunAdmin
+    - WeaponTetherGunAdmin
+    - DoorRemoteAll
+    - HolofanProjector
+    - EmagUnlimited
+    - BluespaceBeaker
+    - Omnitool
+    - SyringeBluespace
+    # </Onyx-AdminSatchelContents>
 
 #Gladiator with spear
 - type: startingGear
