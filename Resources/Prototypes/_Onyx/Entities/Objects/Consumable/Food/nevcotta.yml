@@ -1,0 +1,36 @@
+- type: entity
+  name: nevcotta log
+  description: When planted outside its native habitat, it grows into an entirely different plant.
+  id: Nevcotta
+  parent: ProduceBase
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _Onyx/Objects/Specific/Hydroponics/nevcotta.rsi
+      state: icon
+  - type: Produce
+    seedId: towercap
+  - type: Log
+    spawnedPrototype: NevcottaBark
+    spawnCount: 2
+
+- type: entity
+  name: nevcotta bark
+  description: Bark from a nevcotta tree.
+  id: NevcottaBark
+  parent: BaseItem
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _Onyx/Objects/Specific/Hydroponics/nevcotta.rsi
+      state: bark
+  - type: Extractable
+    grindableSolutionName: food
+  - type: Solution
+    solution:
+      maxVol: 10
+      reagents:
+      - ReagentId: NevcottaPowder
+        Quantity: 5
+      - ReagentId: Fiber
+        Quantity: 4

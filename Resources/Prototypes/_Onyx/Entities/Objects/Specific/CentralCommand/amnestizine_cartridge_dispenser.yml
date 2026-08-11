@@ -1,0 +1,18 @@
+- type: entity
+  parent: [ BaseAmmoProvider, BaseCentcommContraband ]
+  id: BoxAmnestizineCartridge
+  name: amnestic cartridge dispenser
+  description: Dispenses amnestic cartridges for cartridge autoinjectors. Almost like a forbidden candy dispenser.
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _Onyx/Objects/Specific/Medical/amnestic_dispenser.rsi
+      state: icon
+  - type: Item
+    size: Small
+  - type: BallisticAmmoProvider
+    whitelist:
+      components:
+      - SolutionCartridge
+    proto: CartridgeAmnestic
+    capacity: 30

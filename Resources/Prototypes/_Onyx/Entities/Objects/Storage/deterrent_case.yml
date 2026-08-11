@@ -1,0 +1,34 @@
+- type: entity
+  id: DeterrentCase
+  name: deterrent case
+  description: A small green case filled with a Central Command member's best friends. Warm to the touch.
+  parent: [ BaseStorageItem, BaseBagOpenClose, BaseCentcommContraband ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Storage/deterrentcase.rsi
+    layers:
+    - state: closed
+      map: ["closeLayer"]
+    - state: open
+      map: ["openLayer"]
+  - type: Appearance
+  - type: Item
+    sprite: _Onyx/Objects/Storage/deterrentcase.rsi
+    size: Normal
+  - type: Storage
+    grid:
+    - 0,0,1,4
+
+- type: entity
+  id: DeterrentCaseFilled
+  parent: DeterrentCase
+  suffix: Filled, CentComm
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: AmnestizineHypospray
+        - id: BoxAmnestizineCartridge
+        - id: TelescopicBatonAdvanced
+        - id: HyperFlash

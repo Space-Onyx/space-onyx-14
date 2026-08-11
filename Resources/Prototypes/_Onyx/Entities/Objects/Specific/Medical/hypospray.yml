@@ -57,6 +57,22 @@
     tags:
     - SecBeltEquip
 
+- type: entity
+  parent: [ ParamedHypo, BaseCentcommContraband ]
+  id: AmnestizineHypospray
+  name: amnestic spray
+  description: A specialized cartridge injector intended for Central Command personnel. Primarily used to inject amnestics.
+  suffix: DO NOT MAP
+  components:
+  - type: Sprite
+    layers:
+    - sprite: _Onyx/Objects/Specific/Medical/amnestic_hypo.rsi
+      state: icon
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Medical/amnestic_hypo.rsi
+  - type: UseDelay
+    delay: 3
+
 - type: injectorMode
   parent: [ BaseJetInjectorMode, BaseInjectMode ]
   id: CartridgeAutoinjectorInjectMode
@@ -188,6 +204,39 @@
       reagents:
       - ReagentId: Atropine
         Quantity: 10
+
+- type: entity
+  parent: [ BaseAutoinjectorCartridge, BaseCentcommContraband ]
+  id: CartridgeAmnestic
+  name: amnestic autoinjector cartridge
+  description: Contains 10u of dimtrimethic-neuramincyl acid, used in a cartridge autoinjector.
+  components:
+  - type: Sprite
+    layers:
+    - state: base
+    - state: filling
+      color: "#FAF9F6"
+  - type: SolutionCartridge
+    solution:
+      maxVol: 10
+      reagents:
+      - ReagentId: Amnestizine
+        Quantity: 10
+  - type: Solution
+    id: food
+    solution:
+      maxVol: 10
+      reagents:
+      - ReagentId: Amnestizine
+        Quantity: 10
+  - type: Edible
+    delay: 0.2
+    forceFeedDelay: 1.5
+    transferAmount: null
+    edible: Pill
+  - type: BadFood
+  - type: FlavorProfile
+    ignoreReagents: []
 
 - type: entity
   parent: ChemicalMedipen

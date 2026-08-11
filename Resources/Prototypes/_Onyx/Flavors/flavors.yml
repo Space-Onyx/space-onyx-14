@@ -22,3 +22,8 @@
   id: futuristic
   flavorType: Base
   description: flavor-base-futuristic
+
+- type: flavor
+  id: fentanyl
+  flavorType: Complex
+  description: flavor-complex-fentanyl

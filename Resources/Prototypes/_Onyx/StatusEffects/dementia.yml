@@ -1,0 +1,6 @@
+- type: entity
+  parent: MobStatusEffectDebuff
+  id: StatusEffectDementia
+  name: dementia
+  components:
+  - type: DementiaAccent

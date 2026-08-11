@@ -47,3 +47,98 @@
       reagents:
       - ReagentId: Oxycodone
         Quantity: 15
+
+- type: entity
+  name: pill
+  suffix: Oxycodone 5u
+  parent: Pill
+  id: PillOxycodone
+  components:
+  - type: Pill
+    pillType: 19
+  - type: Sprite
+    state: pill19
+  - type: Label
+    localizedLabel: pill-label-oxycodone-5u
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Oxycodone
+        Quantity: 5
+
+- type: entity
+  name: pill canister
+  parent: PillCanister
+  id: PillCanisterOxycodone
+  suffix: Oxycodone 5u, 15
+  components:
+  - type: Label
+    localizedLabel: pill-label-oxycodone-5u
+  - type: Storage
+    grid:
+    - 0,0,4,2
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillOxycodone
+        amount: 15
+
+- type: entity
+  parent: PrefilledSyringe
+  name: syringe
+  description: A potent painkiller.
+  id: SyringeTramadol
+  suffix: Tramadol 15u
+  components:
+  - type: Label
+    localizedLabel: syringe-label-tramadol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Tramadol
+        Quantity: 15
+
+- type: entity
+  parent: PrefilledSyringe
+  name: used fentanyl syringe
+  description: A partially used syringe containing fentanyl.
+  id: SyringePoisonFentUsed
+  suffix: Fentanyl 7u
+  components:
+  - type: Label
+    localizedLabel: syringe-label-fentanyl
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Fentanyl
+        Quantity: 7
+
+- type: entity
+  parent: PrefilledSyringe
+  name: fentanyl syringe
+  description: A syringe filled with a highly potent opioid.
+  id: SyringePoisonFent
+  suffix: Fentanyl 15u
+  components:
+  - type: Label
+    localizedLabel: syringe-label-fentanyl
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Fentanyl
+        Quantity: 15
+
+- type: entity
+  parent: PrefilledSyringe
+  name: syringe
+  description: An illicit opioid in a prefilled syringe.
+  id: SyringeHeroin
+  suffix: Heroin 15u
+  components:
+  - type: Label
+    localizedLabel: syringe-label-heroin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Heroin
+        Quantity: 15

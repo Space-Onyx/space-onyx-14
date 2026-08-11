@@ -296,7 +296,7 @@
   parent: ChemicalMedipen
   id: BruteAutoInjector
   name: brute auto-injector
-  description: A single-dose, non-refillable medipen containing bicaridine and tranexamic acid, used to quickly and easily treat simple physical injuries. Commonly used as a combat medicine.
+  description: A single-dose, non-refillable medipen containing salicylic acid, bicaridine, tranexamic acid, and tramadol. Commonly used as a combat medicine. # <Onyx-PainkillerInjectors-edited>
   components:
   - type: Item
     inhandVisuals:
@@ -322,16 +322,22 @@
   - type: Solution
     solution:
       reagents:
+      # <Onyx-PainkillerInjectors-edited>
+      - ReagentId: SalicylicAcid
+        Quantity: 10
       - ReagentId: Bicaridine
-        Quantity: 15
+        Quantity: 5
       - ReagentId: TranexamicAcid
         Quantity: 5
+      - ReagentId: Tramadol
+        Quantity: 5
+      # </Onyx-PainkillerInjectors-edited>
 
 - type: entity
   parent: ChemicalMedipen
   id: BurnAutoInjector
   name: burn auto-injector
-  description: A single-dose, non-refillable medipen containing dermaline and leporazine, used to quickly and easily treat non-chemical burns. Commonly used as a combat medicine.
+  description: A single-dose, non-refillable medipen containing oxandrolone, leporazine, and tramadol. Commonly used as a combat medicine. # <Onyx-PainkillerInjectors-edited>
   components:
   - type: Item
     inhandVisuals:
@@ -357,10 +363,14 @@
   - type: Solution
     solution:
       reagents:
-      - ReagentId: Dermaline
+      # <Onyx-PainkillerInjectors-edited>
+      - ReagentId: Oxandrolone
         Quantity: 10
       - ReagentId: Leporazine
         Quantity: 10
+      - ReagentId: Tramadol
+        Quantity: 5
+      # </Onyx-PainkillerInjectors-edited>
 
 - type: entity
   parent: ChemicalMedipen

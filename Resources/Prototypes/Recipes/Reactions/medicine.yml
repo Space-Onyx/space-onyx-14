@@ -561,8 +561,10 @@
   id: Opporozidone
   minTemp: 400 #Maybe if a method of reducing reagent temp exists one day, this could be -50
   reactants:
-    Cognizine:
-      amount: 1
+    # <Onyx-EasierOpporozidoneRecipe-edited>
+    Phalanximine:
+      amount: 2
+    # </Onyx-EasierOpporozidoneRecipe-edited>
     Plasma:
       amount: 2
     Doxarubixadone:
