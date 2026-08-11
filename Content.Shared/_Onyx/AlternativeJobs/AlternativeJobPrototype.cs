@@ -20,4 +20,7 @@ public sealed partial class AlternativeJobPrototype : IPrototype
 
     [DataField(required: true)]
     public ProtoId<JobPrototype> ParentJobId { get; private set; } = default!;
+
+    [DataField]
+    public HashSet<JobRequirement>? Requirements { get; private set; }
 }

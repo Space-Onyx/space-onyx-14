@@ -1,6 +1,7 @@
 time-transfer-panel-title = Передача времени
 time-transfer-panel-player-label = Игрок
 time-transfer-panel-time = Время
+time-transfer-panel-overall-playtime = Общее игровое время
 time-transfer-panel-add-time = Добавить время
 time-transfer-panel-set-time = Установить время
 time-transfer-panel-set-time-confirm = Подтвердить

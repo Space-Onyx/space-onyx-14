@@ -155,6 +155,16 @@ public sealed partial class JobRequirementsManager : ISharedPlaytimeManager
         return true;
     }
 
+    // <Onyx-AlternativeJobs>
+    public bool AreRequirementsMet(
+        HashSet<JobRequirement>? requirements,
+        HumanoidCharacterProfile? profile,
+        [NotNullWhen(false)] out FormattedMessage? reason)
+    {
+        return CheckRoleRequirements(requirements, profile, out reason);
+    }
+    // </Onyx-AlternativeJobs>
+
     /// <summary>
     /// Check the antag prototype against the current player, for requirements and bans
     /// </summary>

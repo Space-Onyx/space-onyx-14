@@ -16,13 +16,18 @@ public sealed partial class TimeTransferEntry : BoxContainer
     public string Time => TimeEdit.Text ?? string.Empty;
 
     public TimeTransferEntry(JobPrototype job, SpriteSystem sprites, IPrototypeManager prototypes)
+        : this(job.PlayTimeTracker.Id, job.LocalizedName)
     {
-        RobustXamlLoader.Load(this);
-        PlaytimeTracker = job.PlayTimeTracker.Id;
-        JobName = job.LocalizedName;
-        JobLabel.Text = JobName;
         if (prototypes.TryIndex<JobIconPrototype>(job.Icon, out var icon))
             JobIcon.Texture = sprites.Frame0(icon.Icon);
+    }
+
+    public TimeTransferEntry(string playtimeTracker, string name)
+    {
+        RobustXamlLoader.Load(this);
+        PlaytimeTracker = playtimeTracker;
+        JobName = name;
+        JobLabel.Text = JobName;
     }
 
     public void UpdateGroupVisibility(bool grouped)

@@ -4,12 +4,14 @@ using Content.Server.Administration;
 using Content.Server.Administration.Managers;
 using Content.Server.Database;
 using Content.Server.EUI;
+using Content.Server.Players.PlayTimeTracking;
 using Content.Shared.Administration;
 using Content.Shared.Eui;
 using Content.Shared._Onyx.Administration.TimeTransfer;
 using Content.Shared.Players.PlayTimeTracking;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
+using Robust.Server.Player;
 
 namespace Content.Server._Onyx.Administration.TimeTransfer;
 
@@ -20,6 +22,8 @@ public sealed partial class TimeTransferPanelEui : BaseEui
     [Dependency] private IPlayerLocator _players = default!;
     [Dependency] private IServerDbManager _database = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
+    [Dependency] private IPlayerManager _playerManager = default!;
+    [Dependency] private PlayTimeTrackingManager _playTime = default!;
 
     private readonly ISawmill _sawmill;
 
@@ -62,19 +66,44 @@ public sealed partial class TimeTransferPanelEui : BaseEui
             return;
         }
 
-        var current = message.Overwrite
+        if (_playerManager.TryGetSessionById(player.UserId, out var session))
+        {
+            _playTime.FlushTracker(session);
+            var liveTimes = _playTime.GetPlayTimes(session);
+            foreach (var data in message.TimeData)
+            {
+                TryParseMinutes(data.TimeString, out var minutes);
+                var requested = TimeSpan.FromMinutes(minutes);
+                var delta = message.Overwrite
+                    ? requested - liveTimes.GetValueOrDefault(data.PlaytimeTracker)
+                    : requested;
+                _playTime.AddTimeToTracker(session, data.PlaytimeTracker, delta);
+            }
+
+            _playTime.QueueSendTimers(session);
+            _playTime.SaveSession(session);
+            SendSuccess(message, message.TimeData.Count, player.UserId);
+            return;
+        }
+
+        var storedTimes = message.Overwrite
             ? new Dictionary<string, TimeSpan>()
             : (await _database.GetPlayTimes(player.UserId.UserId)).ToDictionary(entry => entry.Tracker, entry => entry.TimeSpent);
         var updates = new List<PlayTimeUpdate>();
         foreach (var data in message.TimeData)
         {
             TryParseMinutes(data.TimeString, out var minutes);
-            var time = TimeSpan.FromMinutes(minutes) + current.GetValueOrDefault(data.PlaytimeTracker);
+            var time = TimeSpan.FromMinutes(minutes) + storedTimes.GetValueOrDefault(data.PlaytimeTracker);
             updates.Add(new PlayTimeUpdate(player.UserId, data.PlaytimeTracker, time));
         }
 
         await _database.UpdatePlayTimes(updates);
-        _sawmill.Info($"{Player.Name} ({Player.UserId}) {(message.Overwrite ? "set" : "added")} {updates.Count} playtime trackers for {player.UserId}");
+        SendSuccess(message, updates.Count, player.UserId);
+    }
+
+    private void SendSuccess(TimeTransferEuiMessage message, int trackerCount, NetUserId userId)
+    {
+        _sawmill.Info($"{Player.Name} ({Player.UserId}) {(message.Overwrite ? "set" : "added")} {trackerCount} playtime trackers for {userId}");
         SendMessage(new TimeTransferWarningEuiMessage(
             Loc.GetString(message.Overwrite ? "time-transfer-panel-warning-set-success" : "time-transfer-panel-warning-add-success"),
             Color.LightGreen));

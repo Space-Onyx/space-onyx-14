@@ -268,6 +268,12 @@ namespace Content.Server.GameTicking
 
             DoSpawn(player, character, station, jobId, silent, out var mob, out var jobPrototype, out var jobName);
 
+            // <Onyx-AlternativeJobs>
+            if (EntityManager.System<Content.Server._Onyx.AlternativeJobs.AlternativeJobSystem>()
+                .TryGetAlternativeJob(jobPrototype.ID, character, player, out var alternativeJob))
+                jobName = alternativeJob.LocalizedJobName;
+            // </Onyx-AlternativeJobs>
+
             if (lateJoin && !silent)
             {
                 if (jobPrototype.JoinNotifyCrew)

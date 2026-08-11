@@ -1,6 +1,7 @@
 time-transfer-panel-title = Time Transfer
 time-transfer-panel-player-label = Player
 time-transfer-panel-time = Time
+time-transfer-panel-overall-playtime = Overall playtime
 time-transfer-panel-add-time = Add time
 time-transfer-panel-set-time = Set time
 time-transfer-panel-set-time-confirm = Confirm

@@ -177,6 +177,26 @@
   id: AlternativeJobIntendant
   jobName: job-alternative-name-intendant
   parentJobId: Quartermaster
+- type: alternativeJob
+  id: AlternativeJobPersonnelOfficer
+  jobName: job-alternative-name-personnel-officer
+  parentJobId: HeadOfPersonnel
+- type: alternativeJob
+  id: AlternativeJobSecurityMentor
+  jobName: job-alternative-name-security-mentor
+  parentJobId: SeniorOfficer
+- type: alternativeJob
+  id: AlternativeJobRecuperator
+  jobName: job-alternative-name-recuperator
+  parentJobId: SalvageSpecialist
+- type: alternativeJob
+  id: AlternativeJobBlueshieldMarshal
+  jobName: job-alternative-name-blueshield-marshal
+  parentJobId: BlueshieldOfficer
+  requirements:
+  - !type:RoleTimeRequirement
+    role: JobBlueshieldOfficer
+    time: 108000
 
 - type: jobIcon
   parent: JobIcon

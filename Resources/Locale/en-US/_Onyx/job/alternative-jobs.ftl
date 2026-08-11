@@ -1,4 +1,5 @@
 alternative-job-notify = Your role is now called {$newJobName}, but you are still {$parentJobName}. Your duties have not changed.
+alternative-job-requirement-locked = Alternative job is unavailable:
 job-alternative-name-mailman = Mailman
 job-alternative-name-dungeon-master = Dungeon Master
 job-alternative-name-archivist = Archivist
@@ -43,3 +44,7 @@ job-alternative-name-chief-engineer = Chief Engineer
 job-alternative-name-medical-officer = Medical Officer
 job-alternative-name-head-of-logistics = Head of Logistics
 job-alternative-name-intendant = Intendant
+job-alternative-name-personnel-officer = Personnel Officer
+job-alternative-name-security-mentor = Security Mentor
+job-alternative-name-recuperator = Recuperator
+job-alternative-name-blueshield-marshal = Blueshield Marshal

@@ -4,9 +4,10 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Onyx.Lobby.UI.Loadouts;
 
-public sealed class LoadoutRoleSelector : OptionButton
+[Virtual]
+public class LoadoutRoleSelector : OptionButton
 {
-    private const string IconPadding = "     ";
+    private const string IconPadding = "          ";
     private readonly TextureRect _selectedIcon;
     private Texture? _addingIcon;
 

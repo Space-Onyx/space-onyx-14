@@ -302,7 +302,7 @@ public sealed partial class HumanoidProfileEditor
                 }
 
                 _jobPriorities.Add((job.ID, selector));
-                var alternativeSelector = new AlternativeJobSelector(job.ID); // <Onyx-AlternativeJobs>
+                var alternativeSelector = new AlternativeJobSelector(job.ID, _sprite, _requirements, Profile); // <Onyx-AlternativeJobs-edited>
                 alternativeSelector.OnAlternativeSelected += alternativeId => // <Onyx-AlternativeJobs>
                 {
                     Profile = Profile?.WithJobAlternative(job.ID, alternativeId);
