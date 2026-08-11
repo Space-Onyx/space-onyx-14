@@ -21,7 +21,23 @@ public sealed partial class OceanSwimmingVisualSystem : EntitySystem
         base.Initialize();
 
         _shaderPrototype = _prototypes.Index(OceanSubmersionShader);
+        SubscribeLocalEvent<SpriteComponent, ComponentShutdown>(OnSpriteShutdown);
     }
+
+    public override void Shutdown()
+    {
+        foreach (var shader in _shaders.Values)
+            shader.Dispose();
+        _shaders.Clear();
+        base.Shutdown();
+    }
+
+    private void OnSpriteShutdown(Entity<SpriteComponent> ent, ref ComponentShutdown args)
+    {
+        if (_shaders.Remove(ent.Owner, out var shader))
+            shader.Dispose();
+    }
+
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
@@ -63,6 +79,7 @@ public sealed partial class OceanSwimmingVisualSystem : EntitySystem
                 return true;
 
             _shaders.Remove(uid);
+            shader.Dispose();
             shader = default!;
             return false;
         }
@@ -87,5 +104,6 @@ public sealed partial class OceanSwimmingVisualSystem : EntitySystem
 
         if (sprite.PostShader == shader)
             sprite.PostShader = null;
+        shader.Dispose();
     }
 }

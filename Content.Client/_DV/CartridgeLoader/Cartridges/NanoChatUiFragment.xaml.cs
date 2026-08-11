@@ -302,4 +302,15 @@ public sealed partial class NanoChatUiFragment : BoxContainer
         UpdateMessages(state.Messages);
         LookupView.UpdateContactList(state);
     }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _newChatPopup.Dispose();
+            OnMessageSent = null;
+        }
+
+        base.Dispose(disposing);
+    }
 }

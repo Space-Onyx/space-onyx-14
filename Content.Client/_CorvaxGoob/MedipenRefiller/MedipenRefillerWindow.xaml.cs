@@ -28,6 +28,7 @@ public sealed partial class MedipenRefillerWindow : FancyWindow
     private string _previewPrototype = "FillableMedipen";
     private int _medipenMaxVolume = 0;
     private bool _medipenInserted = false;
+    private EntityUid? _previewEntity;
 
     public void SetOwner(EntityUid owner)
     {
@@ -55,10 +56,7 @@ public sealed partial class MedipenRefillerWindow : FancyWindow
 
         _sprite = _entManager.System<SpriteSystem>();
 
-        if (_prototypeManager.HasIndex(_previewPrototype))
-            MedipenPreview.SetEntity(_entManager.SpawnEntity(_previewPrototype, MapCoordinates.Nullspace));
-        else
-            MedipenPreview.SetEntity(_entManager.SpawnEntity("Error", MapCoordinates.Nullspace));
+        SetPreviewEntity();
 
         ColorPicker.OnColorChanged += _ =>
         {
@@ -140,13 +138,31 @@ public sealed partial class MedipenRefillerWindow : FancyWindow
         LabelLineEdit.Editable = _medipenInserted;
         ApplySettingsButton.Disabled = !_medipenInserted;
 
+        SetPreviewEntity();
         if (_prototypeManager.HasIndex(_previewPrototype))
-        {
-            MedipenPreview.SetEntity(_entManager.SpawnEntity(_previewPrototype, MapCoordinates.Nullspace));
             UpdateColor(ColorPicker.Color);
+    }
+
+    private void SetPreviewEntity()
+    {
+        if (_previewEntity is { } oldPreview)
+            _entManager.DeleteEntity(oldPreview);
+
+        var prototype = _prototypeManager.HasIndex(_previewPrototype) ? _previewPrototype : "Error";
+        _previewEntity = _entManager.SpawnEntity(prototype, MapCoordinates.Nullspace);
+        MedipenPreview.SetEntity(_previewEntity);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && _previewEntity is { } preview)
+        {
+            MedipenPreview.SetEntity(null);
+            _entManager.DeleteEntity(preview);
+            _previewEntity = null;
         }
-        else
-            MedipenPreview.SetEntity(_entManager.SpawnEntity("Error", MapCoordinates.Nullspace));
+
+        base.Dispose(disposing);
     }
 
     private void UpdateColor(Color? color)

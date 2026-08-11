@@ -45,6 +45,9 @@ public sealed partial class OnyxTextRenderingOverlay : Overlay
                 if (row.Text == string.Empty)
                 {
                     _sprite.LayerSetTexture(queued.Entity.Owner, row.Layer, null);
+                    row.Texture?.Dispose();
+                    row.Texture = null;
+                    row.Marquee = false;
                     continue;
                 }
 

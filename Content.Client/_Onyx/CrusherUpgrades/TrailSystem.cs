@@ -64,7 +64,7 @@ public sealed class TrailOverlay(IEntityManager entities, IGameTiming timing, IP
     {
         var handle = args.WorldHandle;
         if (trail.Shader != null && prototypes.TryIndex<ShaderPrototype>(trail.Shader, out var shader))
-            handle.UseShader(shader.InstanceUnique());
+            handle.UseShader(shader.Instance());
 
         foreach (var point in points)
         {

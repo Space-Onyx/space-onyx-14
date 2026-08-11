@@ -18,6 +18,7 @@ namespace Content.Client._DV.CartridgeLoader.Cartridges;
 public sealed partial class NanoChatUi : UIFragment
 {
     private NanoChatUiFragment? _fragment;
+    private BoundUserInterface? _userInterface;
 
     public override Control GetUIFragmentRoot()
     {
@@ -26,6 +27,11 @@ public sealed partial class NanoChatUi : UIFragment
 
     public override void Setup(BoundUserInterface userInterface, EntityUid? fragmentOwner)
     {
+        if (_fragment is { Disposed: false } && ReferenceEquals(_userInterface, userInterface))
+            return;
+
+        _fragment?.Dispose();
+        _userInterface = userInterface;
         _fragment = new NanoChatUiFragment();
 
         _fragment.OnMessageSent += (type, number, content, job) =>
