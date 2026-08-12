@@ -173,7 +173,8 @@ public sealed partial class CarryingSystem : EntitySystem
                 continue;
             }
 
-            _transform.SetLocalPosition(carried, System.Numerics.Vector2.Zero);
+            if (transform.LocalPosition != System.Numerics.Vector2.Zero)
+                _transform.SetLocalPosition(carried, System.Numerics.Vector2.Zero);
         }
     }
 }

@@ -56,13 +56,13 @@ public abstract partial class SharedDiseaseSystem : EntitySystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+        if (_net.IsClient)
+            return;
+
         if (_timing.CurTime < _lastUpdated + _updateInterval)
             return;
 
         _lastUpdated += _updateInterval;
-
-        if (!_timing.IsFirstTimePredicted)
-            return;
 
         var diseaseCarriers = EntityQueryEnumerator<DiseaseCarrierComponent>();
         // so that we can EnsureComp disease carriers while we're looping over them without erroring
