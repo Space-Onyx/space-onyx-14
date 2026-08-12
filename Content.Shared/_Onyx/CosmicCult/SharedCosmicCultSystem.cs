@@ -1,6 +1,6 @@
 using Content.Shared._Onyx.CosmicCult.Components;
 using Content.Shared.Antag;
-using Content.Shared.Ghost;
+using Content.Shared.Ghost.Components;
 using Content.Shared.Mind;
 using Content.Shared.Roles;
 using Content.Shared._Onyx.Roles;

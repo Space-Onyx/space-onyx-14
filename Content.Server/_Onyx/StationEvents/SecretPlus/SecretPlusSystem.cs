@@ -14,7 +14,7 @@ using Content.Shared.CCVar;
 using Content.Shared.Database;
 using Content.Shared.EntityTable;
 using Content.Shared.GameTicking.Components;
-using Content.Shared.Ghost;
+using Content.Shared.Ghost.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Random;
 using Content.Shared.Random.Helpers;

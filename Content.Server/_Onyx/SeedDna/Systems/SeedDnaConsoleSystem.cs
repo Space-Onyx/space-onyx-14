@@ -1,12 +1,16 @@
-using Content.Server.Botany;
-using Content.Server.Botany.Components;
 using Content.Shared._Onyx.SeedDna;
 using Content.Shared._Onyx.SeedDna.Components;
 using Content.Shared._Onyx.SeedDna.Systems;
+using Content.Shared.Atmos;
+using Content.Shared.Botany.Components;
+using Content.Shared.Botany.Items.Components;
+using Content.Shared.Botany.Systems;
+using Content.Shared.Botany.Traits.Components;
+using Content.Shared.Chemistry.Reagent;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
-using System.Linq;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._Onyx.SeedDna.Systems;
 
@@ -14,29 +18,25 @@ namespace Content.Server._Onyx.SeedDna.Systems;
 public sealed partial class SeedDnaConsoleSystem : SharedSeedDnaConsoleSystem
 {
     [Dependency] private UserInterfaceSystem _userInterface = default!;
+    [Dependency] private BotanySystem _botany = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-
         SubscribeLocalEvent<SeedDnaConsoleComponent, WriteToTargetSeedDataMessage>(OnWriteToTargetSeedDataMessage);
-
         SubscribeLocalEvent<SeedDnaConsoleComponent, ComponentStartup>(OnUpdateUserInterface);
         SubscribeLocalEvent<SeedDnaConsoleComponent, EntInsertedIntoContainerMessage>(OnUpdateUserInterface);
         SubscribeLocalEvent<SeedDnaConsoleComponent, EntRemovedFromContainerMessage>(OnUpdateUserInterface);
     }
 
-    private void OnUpdateUserInterface(EntityUid uid, SeedDnaConsoleComponent component, EntityEventArgs args)
-    {
-        UpdateUserInterface(uid, component);
-    }
+    private void OnUpdateUserInterface(EntityUid uid, SeedDnaConsoleComponent component, EntityEventArgs args) => UpdateUserInterface(uid, component);
 
     private void OnWriteToTargetSeedDataMessage(EntityUid uid, SeedDnaConsoleComponent component, WriteToTargetSeedDataMessage args)
     {
-        if (args.Target == TargetSeedData.Seed && component.SeedSlot.Item is { Valid: true } seedItem)
-            RewriteSeedData(seedItem, args.SeedDataDto);
-        else if (args.Target == TargetSeedData.DnaDisk && component.DnaDiskSlot.Item is { Valid: true } dnaDiskItem)
-            RewriteDnaDiskData(dnaDiskItem, args.SeedDataDto);
+        if (args.Target == TargetSeedData.Seed && component.SeedSlot.Item is { Valid: true } seed)
+            RewriteSeedData(seed, args.SeedDataDto);
+        else if (args.Target == TargetSeedData.DnaDisk && component.DnaDiskSlot.Item is { Valid: true } disk)
+            Comp<DnaDiskComponent>(disk).SeedData = args.SeedDataDto;
 
         UpdateUserInterface(uid, component);
     }
@@ -47,172 +47,161 @@ public sealed partial class SeedDnaConsoleSystem : SharedSeedDnaConsoleSystem
             return;
 
         var (seedPresent, seedName, seedData) = ProcessSeedSlot(component);
-        var (dnaDiskPresent, dnaDiskName, dnaDiskData) = ProcessDiskSlot(component);
-
-        var newState = new SeedDnaConsoleBoundUserInterfaceState(
-            seedPresent,
-            seedName,
-            seedData,
-            dnaDiskPresent,
-            dnaDiskName,
-            dnaDiskData
-        );
-        _userInterface.SetUiState(uid, SeedDnaConsoleUiKey.Key, newState);
+        var (diskPresent, diskName, diskData) = ProcessDiskSlot(component);
+        _userInterface.SetUiState(uid, SeedDnaConsoleUiKey.Key,
+            new SeedDnaConsoleBoundUserInterfaceState(seedPresent, seedName, seedData, diskPresent, diskName, diskData));
     }
 
     private (bool, string, SeedDataDto?) ProcessSeedSlot(SeedDnaConsoleComponent component)
     {
-        return component.SeedSlot.Item is not { Valid: true } seedItem
+        return component.SeedSlot.Item is not { Valid: true } seed
             ? (false, string.Empty, null)
-            : (true, Comp<MetaDataComponent>(seedItem).EntityName, ExtractSeedData(seedItem));
-    }
-
-    private void RewriteSeedData(EntityUid seed, SeedDataDto seedDataDto)
-    {
-        var seedComponent = Comp<SeedComponent>(seed);
-        var originalSeedData = seedComponent.Seed;
-
-        // Clone the original seed to preserve appearance data like PlantRsi
-        var seedData = originalSeedData?.Clone() ?? new SeedData();
-        seedComponent.Seed = seedData;
-
-        //@formatter:off
-        if (seedDataDto.ConsumeGasses != null) seedData.ConsumeGasses = seedDataDto.ConsumeGasses;
-        if (seedDataDto.ExudeGasses != null) seedData.ExudeGasses = seedDataDto.ExudeGasses;
-        if (seedDataDto.NutrientConsumption != null) seedData.NutrientConsumption = seedDataDto.NutrientConsumption.Value;
-        if (seedDataDto.WaterConsumption != null) seedData.WaterConsumption = seedDataDto.WaterConsumption.Value;
-        if (seedDataDto.IdealHeat != null) seedData.IdealHeat = seedDataDto.IdealHeat.Value;
-        if (seedDataDto.HeatTolerance != null) seedData.HeatTolerance = seedDataDto.HeatTolerance.Value;
-        if (seedDataDto.ToxinsTolerance != null) seedData.ToxinsTolerance = seedDataDto.ToxinsTolerance.Value;
-        if (seedDataDto.LowPressureTolerance != null) seedData.LowPressureTolerance = seedDataDto.LowPressureTolerance.Value;
-        if (seedDataDto.HighPressureTolerance != null) seedData.HighPressureTolerance = seedDataDto.HighPressureTolerance.Value;
-        if (seedDataDto.PestTolerance != null) seedData.PestTolerance = seedDataDto.PestTolerance.Value;
-        if (seedDataDto.WeedTolerance != null) seedData.WeedTolerance = seedDataDto.WeedTolerance.Value;
-        if (seedDataDto.Endurance != null) seedData.Endurance = seedDataDto.Endurance.Value;
-        if (seedDataDto.Yield != null) seedData.Yield = seedDataDto.Yield.Value;
-        if (seedDataDto.Lifespan != null) seedData.Lifespan = seedDataDto.Lifespan.Value;
-        if (seedDataDto.Maturation != null) seedData.Maturation = seedDataDto.Maturation.Value;
-        if (seedDataDto.Production != null) seedData.Production = seedDataDto.Production.Value;
-        if (seedDataDto.HarvestRepeat != null) seedData.HarvestRepeat = (HarvestType)(byte)seedDataDto.HarvestRepeat.Value;
-        if (seedDataDto.Potency != null) seedData.Potency = seedDataDto.Potency.Value;
-        if (seedDataDto.Seedless != null) seedData.Seedless = seedDataDto.Seedless.Value;
-        if (seedDataDto.Viable != null) seedData.Viable = seedDataDto.Viable.Value;
-        if (seedDataDto.Ligneous != null) seedData.Ligneous = seedDataDto.Ligneous.Value;
-        if (seedDataDto.CanScream != null) seedData.CanScream = seedDataDto.CanScream.Value;
-        //@formatter:on
-
-        if (seedDataDto.Chemicals != null)
-        {
-            // Clear old chemicals first
-            seedData.Chemicals.Clear();
-
-            // Add new chemicals in order, removing older ones if total exceeds 100u
-            const float MaxProduceVolume = 100f;
-            float currentVolume = 0f;
-
-            foreach (var (key, value) in seedDataDto.Chemicals)
-            {
-                var seedChemQuantity = new SeedChemQuantity
-                {
-                    Min = value.Min,
-                    Max = value.Max,
-                    PotencyDivisor = value.PotencyDivisor,
-                    Inherent = value.Inherent,
-                };
-
-                float chemVolume = value.Max.Float();
-
-                // Check if adding this chemical would exceed the limit
-                if (currentVolume + chemVolume > MaxProduceVolume)
-                {
-                    // Calculate how much volume needs to be freed
-                    float volumeNeeded = currentVolume + chemVolume - MaxProduceVolume;
-
-                    // Remove the oldest chemicals to make room for the new one
-                    var chemicalKeys = seedData.Chemicals.Keys.ToList();
-                    int keyIndex = 0;
-                    while (volumeNeeded > 0 && keyIndex < chemicalKeys.Count)
-                    {
-                        var oldKey = chemicalKeys[keyIndex];
-                        var oldChem = seedData.Chemicals[oldKey];
-                        float chemMax = oldChem.Max.Float();
-
-                        currentVolume -= chemMax;
-                        volumeNeeded -= chemMax;
-                        seedData.Chemicals.Remove(oldKey);
-
-                        keyIndex++;
-                    }
-                }
-
-                seedData.Chemicals[key] = seedChemQuantity;
-                currentVolume += chemVolume;
-            }
-        }
-    }
-
-    private void RewriteDnaDiskData(EntityUid dnaDisk, SeedDataDto dnaDiskDataDto)
-    {
-        Comp<DnaDiskComponent>(dnaDisk).SeedData = dnaDiskDataDto;
-    }
-
-    private SeedDataDto? ExtractSeedData(EntityUid seed)
-    {
-        var seedData = Comp<SeedComponent>(seed).Seed;
-        if (seedData == null)
-            return null;
-
-        var seedDataDto = new SeedDataDto
-        {
-            ConsumeGasses = seedData.ConsumeGasses,
-            ExudeGasses = seedData.ExudeGasses,
-            NutrientConsumption = seedData.NutrientConsumption,
-            WaterConsumption = seedData.WaterConsumption,
-            IdealHeat = seedData.IdealHeat,
-            HeatTolerance = seedData.HeatTolerance,
-            ToxinsTolerance = seedData.ToxinsTolerance,
-            LowPressureTolerance = seedData.LowPressureTolerance,
-            HighPressureTolerance = seedData.HighPressureTolerance,
-            PestTolerance = seedData.PestTolerance,
-            WeedTolerance = seedData.WeedTolerance,
-            Endurance = seedData.Endurance,
-            Yield = seedData.Yield,
-            Lifespan = seedData.Lifespan,
-            Maturation = seedData.Maturation,
-            Production = seedData.Production,
-            HarvestRepeat = (SharedHarvestTypeDto)(byte)seedData.HarvestRepeat,
-            Potency = seedData.Potency,
-            Seedless = seedData.Seedless,
-            Viable = seedData.Viable,
-            Ligneous = seedData.Ligneous,
-            CanScream = seedData.CanScream,
-        };
-
-        seedDataDto.Chemicals = new Dictionary<string, SeedChemQuantityDto>();
-        foreach (var (key, value) in seedData.Chemicals)
-        {
-            var dto = new SeedChemQuantityDto
-            {
-                Min = value.Min,
-                Max = value.Max,
-                PotencyDivisor = value.PotencyDivisor,
-                Inherent = value.Inherent,
-            };
-            seedDataDto.Chemicals[key] = dto;
-        }
-
-        return seedDataDto;
+            : (true, MetaData(seed).EntityName, ExtractSeedData(seed));
     }
 
     private (bool, string, SeedDataDto?) ProcessDiskSlot(SeedDnaConsoleComponent component)
     {
-        return component.DnaDiskSlot.Item is not { Valid: true } diskItem
+        return component.DnaDiskSlot.Item is not { Valid: true } disk
             ? (false, string.Empty, null)
-            : (true, Comp<MetaDataComponent>(diskItem).EntityName, ExtractDiskData(diskItem));
+            : (true, MetaData(disk).EntityName, Comp<DnaDiskComponent>(disk).SeedData);
     }
 
-    private SeedDataDto? ExtractDiskData(EntityUid dnaDisk)
+    private void RewriteSeedData(EntityUid seed, SeedDataDto dto)
     {
-        return Comp<DnaDiskComponent>(dnaDisk).SeedData;
+        var seedComp = Comp<SeedComponent>(seed);
+        var snapshot = EnsureSnapshot(seed, seedComp);
+        if (snapshot == null)
+            return;
+
+        Apply(dto, snapshot.Value);
+        seedComp.PlantData = snapshot;
+        Dirty(seed, seedComp);
+    }
+
+    private EntityUid? EnsureSnapshot(EntityUid seed, SeedComponent seedComp)
+    {
+        if (seedComp.PlantData is { } existing && !EntityManager.IsQueuedForDeletion(existing))
+            return existing;
+
+        var source = Spawn(seedComp.PlantProtoId, doMapInit: false);
+        var snapshot = _botany.ClonePlantSnapshotData(source, parent: seed);
+        QueueDel(source);
+        return snapshot;
+    }
+
+    private void Apply(SeedDataDto dto, EntityUid plant)
+    {
+        if (TryComp<PlantComponent>(plant, out var growth))
+        {
+            if (dto.Endurance != null) growth.Endurance = dto.Endurance.Value;
+            if (dto.Yield != null) growth.Yield = dto.Yield.Value;
+            if (dto.Lifespan != null) growth.Lifespan = dto.Lifespan.Value;
+            if (dto.Maturation != null) growth.Maturation = dto.Maturation.Value;
+            if (dto.Production != null) growth.Production = dto.Production.Value;
+            if (dto.Potency != null) growth.Potency = dto.Potency.Value;
+        }
+
+        if (TryComp<PlantGrowthComponent>(plant, out var water))
+        {
+            if (dto.WaterConsumption != null) water.WaterConsumption = dto.WaterConsumption.Value;
+            if (dto.NutrientConsumption != null) water.NutrientConsumption = dto.NutrientConsumption.Value;
+        }
+
+        if (TryComp<PlantAtmosphericComponent>(plant, out var atmosphere))
+        {
+            var ideal = dto.IdealHeat;
+            var tolerance = dto.HeatTolerance;
+            if (ideal != null || tolerance != null)
+            {
+                var center = ideal ?? (atmosphere.LowHeatTolerance + atmosphere.HighHeatTolerance) / 2f;
+                var halfRange = tolerance ?? (atmosphere.HighHeatTolerance - atmosphere.LowHeatTolerance) / 2f;
+                atmosphere.LowHeatTolerance = center - halfRange;
+                atmosphere.HighHeatTolerance = center + halfRange;
+            }
+            if (dto.LowPressureTolerance != null) atmosphere.LowPressureTolerance = dto.LowPressureTolerance.Value;
+            if (dto.HighPressureTolerance != null) atmosphere.HighPressureTolerance = dto.HighPressureTolerance.Value;
+        }
+
+        if (TryComp<PlantToxinsComponent>(plant, out var toxins) && dto.ToxinsTolerance != null)
+            toxins.ToxinsTolerance = dto.ToxinsTolerance.Value;
+        if (TryComp<PlantWeedPestComponent>(plant, out var pests))
+        {
+            if (dto.PestTolerance != null) pests.PestTolerance = dto.PestTolerance.Value;
+            if (dto.WeedTolerance != null) pests.WeedTolerance = dto.WeedTolerance.Value;
+        }
+        if (TryComp<PlantConsumeExudeGasComponent>(plant, out var gases))
+        {
+            if (dto.ConsumeGasses != null) gases.ConsumeGasses = dto.ConsumeGasses;
+            if (dto.ExudeGasses != null) gases.ExudeGasses = dto.ExudeGasses;
+        }
+        if (TryComp<PlantHarvestComponent>(plant, out var harvest) && dto.HarvestRepeat != null)
+            harvest.HarvestRepeat = (HarvestType)(byte)dto.HarvestRepeat.Value;
+        if (TryComp<PlantChemicalsComponent>(plant, out var chemicals) && dto.Chemicals != null)
+        {
+            chemicals.Chemicals.Clear();
+            foreach (var (id, value) in dto.Chemicals)
+                chemicals.Chemicals[new ProtoId<ReagentPrototype>(id)] = new PlantChemQuantity
+                {
+                    Min = value.Min, Max = value.Max, PotencyDivisor = value.PotencyDivisor, Inherent = value.Inherent
+                };
+        }
+
+        SetTrait<PlantTraitSeedlessComponent>(plant, dto.Seedless);
+        SetTrait<PlantTraitUnviableComponent>(plant, dto.Viable == false);
+        SetTrait<PlantTraitLigneousComponent>(plant, dto.Ligneous);
+        SetTrait<PlantTraitScreamComponent>(plant, dto.CanScream);
+    }
+
+    private void SetTrait<T>(EntityUid plant, bool? enabled) where T : PlantTraitsComponent, new()
+    {
+        if (enabled == null)
+            return;
+        if (enabled.Value)
+            EnsureComp<T>(plant);
+        else
+            RemComp<T>(plant);
+    }
+
+    private SeedDataDto? ExtractSeedData(EntityUid seed)
+    {
+        var comp = Comp<SeedComponent>(seed);
+        if (!_botany.TryGetPlantComponent<PlantComponent>(comp.PlantData, comp.PlantProtoId, out var plant))
+            return null;
+
+        _botany.TryGetPlantComponent<PlantConsumeExudeGasComponent>(comp.PlantData, comp.PlantProtoId, out var gases);
+        _botany.TryGetPlantComponent<PlantGrowthComponent>(comp.PlantData, comp.PlantProtoId, out var growth);
+
+        var result = new SeedDataDto
+        {
+            Chemicals = null,
+            ConsumeGasses = gases?.ConsumeGasses,
+            ExudeGasses = gases?.ExudeGasses,
+            NutrientConsumption = growth?.NutrientConsumption,
+            WaterConsumption = growth?.WaterConsumption,
+            Endurance = plant.Endurance, Yield = plant.Yield, Lifespan = plant.Lifespan,
+            Maturation = plant.Maturation, Production = plant.Production, Potency = plant.Potency,
+            Seedless = _botany.TryGetPlantComponent<PlantTraitSeedlessComponent>(comp.PlantData, comp.PlantProtoId, out _),
+            Viable = !_botany.TryGetPlantComponent<PlantTraitUnviableComponent>(comp.PlantData, comp.PlantProtoId, out _),
+            Ligneous = _botany.TryGetPlantComponent<PlantTraitLigneousComponent>(comp.PlantData, comp.PlantProtoId, out _),
+            CanScream = _botany.TryGetPlantComponent<PlantTraitScreamComponent>(comp.PlantData, comp.PlantProtoId, out _),
+        };
+
+        if (_botany.TryGetPlantComponent<PlantAtmosphericComponent>(comp.PlantData, comp.PlantProtoId, out var atmosphere))
+        {
+            result.IdealHeat = (atmosphere.LowHeatTolerance + atmosphere.HighHeatTolerance) / 2f;
+            result.HeatTolerance = (atmosphere.HighHeatTolerance - atmosphere.LowHeatTolerance) / 2f;
+            result.LowPressureTolerance = atmosphere.LowPressureTolerance;
+            result.HighPressureTolerance = atmosphere.HighPressureTolerance;
+        }
+        if (_botany.TryGetPlantComponent<PlantToxinsComponent>(comp.PlantData, comp.PlantProtoId, out var toxins)) result.ToxinsTolerance = toxins.ToxinsTolerance;
+        if (_botany.TryGetPlantComponent<PlantWeedPestComponent>(comp.PlantData, comp.PlantProtoId, out var pests)) { result.PestTolerance = pests.PestTolerance; result.WeedTolerance = pests.WeedTolerance; }
+        if (_botany.TryGetPlantComponent<PlantHarvestComponent>(comp.PlantData, comp.PlantProtoId, out var harvest)) result.HarvestRepeat = (SharedHarvestTypeDto)(byte)harvest.HarvestRepeat;
+        if (_botany.TryGetPlantComponent<PlantChemicalsComponent>(comp.PlantData, comp.PlantProtoId, out var chemicals))
+        {
+            result.Chemicals = new Dictionary<string, SeedChemQuantityDto>();
+            foreach (var (id, value) in chemicals.Chemicals)
+                result.Chemicals[id.Id] = new SeedChemQuantityDto { Min = value.Min, Max = value.Max, PotencyDivisor = value.PotencyDivisor, Inherent = value.Inherent };
+        }
+        return result;
     }
 }

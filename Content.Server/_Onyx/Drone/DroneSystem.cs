@@ -4,7 +4,7 @@ using Content.Shared._Onyx.Drone;
 using Content.Shared.Alert;
 using Content.Shared.Emoting;
 using Content.Shared.Examine;
-using Content.Shared.Ghost;
+using Content.Shared.Ghost.Components;
 using Content.Shared.Gibbing;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction.Events;

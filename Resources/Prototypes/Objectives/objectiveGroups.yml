@@ -148,7 +148,7 @@
   id: ChangelingObjectiveGroupDevour
   weights:
     ChangelingUniqueIdentityObjective: 1
-    # eventually: devour most
+    ChangelingDevourMostObjective: 1
 
 - type: weightedRandom
   id: ChangelingObjectiveGroupEscapeDummy

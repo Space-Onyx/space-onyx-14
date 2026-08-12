@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.Advertise.Components;
@@ -12,463 +12,119 @@ using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.UserInterface;
-using Robust.Shared.Audio;
+using Content.Shared.VendingMachines.Components;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Configuration;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-//<Onyx Economy>
-using Robust.Shared.Configuration;
 using Content.Shared._Onyx.Economy;
 using Content.Shared.CCVar;
-//</Onyx Economy>
 
 namespace Content.Shared.VendingMachines;
 
 public abstract partial class SharedVendingMachineSystem : EntitySystem
 {
     [Dependency] protected IGameTiming Timing = default!;
-    //<Onyx Economy>
-    [Dependency] protected AccessReaderSystem _accessReader = default!;
-    //</Onyx Economy>
-    [Dependency] private SharedAppearanceSystem _appearanceSystem = default!;
     [Dependency] protected SharedAudioSystem Audio = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
-    [Dependency] protected SharedPointLightSystem Light = default!;
-    //<Onyx Economy>
-    [Dependency] protected SharedPowerReceiverSystem _receiver = default!;
-    //</Onyx Economy>
     [Dependency] protected SharedPopupSystem Popup = default!;
-    //<Onyx Economy>
-    [Dependency] protected SharedSpeakOnUIClosedSystem _speakOn = default!;
-    //</Onyx Economy>
+    [Dependency] protected SharedPowerReceiverSystem _receiver = default!;
     [Dependency] protected SharedUserInterfaceSystem UISystem = default!;
     [Dependency] protected IRobustRandom Randomizer = default!;
     [Dependency] private EmagSystem _emag = default!;
-    //<Onyx Economy>
     [Dependency] private IConfigurationManager _cfg = default!;
-    //</Onyx Economy>
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<VendingMachineComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<VendingMachineComponent, GotEmaggedEvent>(OnEmagged);
-        SubscribeLocalEvent<VendingMachineComponent, EmpPulseEvent>(OnEmpPulse);
-        SubscribeLocalEvent<VendingMachineComponent, RestockDoAfterEvent>(OnRestockDoAfter);
-        SubscribeLocalEvent<VendingMachineComponent, ActivatableUIOpenAttemptEvent>(OnActivatableUIOpenAttempt);
-        SubscribeLocalEvent<VendingMachineComponent, BreakageEventArgs>(OnBreak);
-
-        SubscribeLocalEvent<VendingMachineRestockComponent, AfterInteractEvent>(OnAfterInteract);
-
         Subs.BuiEvents<VendingMachineComponent>(VendingMachineUiKey.Key, subs =>
         {
             subs.Event<VendingMachineEjectMessage>(OnInventoryEjectMessage);
-            //<Onyx Economy>
             subs.Event<VendingMachineEjectCountMessage>(OnInventoryEjectCountMessage);
             subs.Event<VendingMachineWithdrawMessage>(OnWithdrawMessage);
-            //</Onyx Economy>
         });
     }
 
+    [SubscribeLocalEvent]
     private void OnVendingGetState(Entity<VendingMachineComponent> entity, ref ComponentGetState args)
     {
-        var component = entity.Comp;
-
-        var inventory = new Dictionary<string, VendingMachineInventoryEntry>();
-        var emaggedInventory = new Dictionary<string, VendingMachineInventoryEntry>();
-        var contrabandInventory = new Dictionary<string, VendingMachineInventoryEntry>();
-
-        foreach (var weh in component.Inventory)
+        var state = new VendingMachineComponentState
         {
-            inventory[weh.Key] = new(weh.Value);
-        }
-
-        foreach (var weh in component.EmaggedInventory)
-        {
-            emaggedInventory[weh.Key] = new(weh.Value);
-        }
-
-        foreach (var weh in component.ContrabandInventory)
-        {
-            contrabandInventory[weh.Key] = new(weh.Value);
-        }
-
-        args.State = new VendingMachineComponentState()
-        {
-            Inventory = inventory,
-            EmaggedInventory = emaggedInventory,
-            ContrabandInventory = contrabandInventory,
-            Contraband = component.Contraband,
-            EjectEnd = component.EjectEnd,
-            DenyEnd = component.DenyEnd,
-            DispenseOnHitEnd = component.DispenseOnHitEnd,
-            Broken = component.Broken,
+            Contraband = entity.Comp.Contraband,
+            Broken = entity.Comp.Broken,
+            AllForFree = entity.Comp.AllForFree,
+            UiButtonBorderColor = entity.Comp.UiButtonBorderColor,
+            UiButtonBaseColor = entity.Comp.UiButtonBaseColor,
+            UiButtonHoveredColor = entity.Comp.UiButtonHoveredColor,
+            UiButtonDisabledColor = entity.Comp.UiButtonDisabledColor,
         };
+        CopyInventory(entity.Comp.Inventory, state.Inventory);
+        CopyInventory(entity.Comp.EmaggedInventory, state.EmaggedInventory);
+        CopyInventory(entity.Comp.ContrabandInventory, state.ContrabandInventory);
+        args.State = state;
+    }
+
+    protected static void CopyInventory(Dictionary<string, VendingMachineInventoryEntry> source, Dictionary<string, VendingMachineInventoryEntry> target)
+    {
+        target.Clear();
+        foreach (var entry in source) target.Add(entry.Key, new(entry.Value));
     }
 
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
-
-        var query = EntityQueryEnumerator<VendingMachineComponent>();
+        var query = EntityQueryEnumerator<VendingMachineComponent, VendingMachineEjectComponent>();
         var curTime = Timing.CurTime;
-
-        while (query.MoveNext(out var uid, out var comp))
-        {
-            if (comp.Ejecting)
-            {
-                if (curTime > comp.EjectEnd)
-                {
-                    comp.EjectEnd = null;
-                    Dirty(uid, comp);
-
-                    EjectItem(uid, comp);
-                    UpdateUI((uid, comp));
-                }
-            }
-
-            if (comp.Denying)
-            {
-                if (curTime > comp.DenyEnd)
-                {
-                    comp.DenyEnd = null;
-                    Dirty(uid, comp);
-
-                    TryUpdateVisualState((uid, comp));
-                }
-            }
-
-            if (comp.DispenseOnHitCoolingDown)
-            {
-                if (curTime > comp.DispenseOnHitEnd)
-                {
-                    comp.DispenseOnHitEnd = null;
-                    Dirty(uid, comp);
-                }
-            }
-        }
+        while (query.MoveNext(out var uid, out var comp, out var eject)) UpdateEjectState((uid, comp, eject), curTime);
     }
 
-    private void OnInventoryEjectMessage(Entity<VendingMachineComponent> entity, ref VendingMachineEjectMessage args)
+    protected virtual int GetEntryPrice(EntityPrototype proto, VendingMachineComponent component) => 5;
+
+    private void OnInventoryEjectCountMessage(EntityUid uid, VendingMachineComponent component, VendingMachineEjectCountMessage args)
     {
-        if (!_receiver.IsPowered(entity.Owner) || Deleted(entity))
-            return;
-
-        if (args.Actor is not { Valid: true } actor)
-            return;
-
-        AuthorizedVend(entity.Owner, actor, args.Type, args.ID, entity.Comp, 1); // <Onyx-SalvageMiningPoints-edited>
-    }
-
-    //<Onyx Economy>
-    protected virtual int GetEntryPrice(EntityPrototype proto, VendingMachineComponent component)
-    {
-        return 5;
-    }
-
-    protected virtual void OnInventoryEjectCountMessage(EntityUid uid, VendingMachineComponent component, VendingMachineEjectCountMessage args)
-    {
-        if (!_receiver.IsPowered(uid))
-            return;
-
-        if (args.Actor is not { Valid: true } entity || Deleted(entity))
-            return;
-
-        AuthorizedVend(uid, entity, args.Entry.Type, args.Entry.ID, component, args.Count);
+        if (!_receiver.IsPowered(uid) || args.Actor is not { Valid: true } actor || Deleted(actor)) return;
+        AuthorizedVend(uid, actor, args.Entry.Type, args.Entry.ID, component, args.Count);
     }
 
     protected virtual void AuthorizedVend(EntityUid uid, EntityUid sender, InventoryType type, string itemId, VendingMachineComponent component, int count)
     {
-        if (IsAuthorized(uid, sender, component))
-        {
-            TryEjectVendorItem(uid, type, itemId, component.CanShoot, sender, component);
-        }
+        if (!IsAuthorized(uid, sender, component) || !TryComp<VendingMachineEjectComponent>(uid, out var eject)) return;
+        TryEjectVendorItem(uid, type, itemId, ShouldThrowVendItem((uid, eject)), sender, component, eject);
     }
 
-    protected virtual int GetPrice(VendingMachineInventoryEntry entry, VendingMachineComponent comp, int count)
+    protected virtual int GetPrice(VendingMachineInventoryEntry entry, VendingMachineComponent comp, int count) =>
+        (int) (entry.Price * count * comp.PriceMultiplier * _cfg.GetCVar(CCVars.VendingPriceMultiplier));
+
+    protected virtual void UpdateVendingMachineInterfaceState(EntityUid uid, VendingMachineComponent component) { }
+    protected virtual void OnWithdrawMessage(EntityUid uid, VendingMachineComponent component, VendingMachineWithdrawMessage args) => UpdateVendingMachineInterfaceState(uid, component);
+
+    [SubscribeLocalEvent]
+    protected virtual void OnMapInit(EntityUid uid, VendingMachineComponent component, MapInitEvent args) => RestockInventoryFromPrototype(uid, component, component.InitialStockQuality);
+
+    [SubscribeLocalEvent]
+    private void OnEmagged(EntityUid uid, VendingMachineComponent component, ref GotEmaggedEvent args)
     {
-        return (int)(entry.Price * count * GetEffectivePriceMultiplier(comp)); // <Onyx-VendingMechanicsReview-edited>
+        if (_emag.CompareFlag(args.Type, EmagType.Interaction) && !_emag.CheckFlag(uid, EmagType.Interaction)) args.Handled = component.EmaggedInventory.Count > 0 || component.PriceMultiplier > 0;
     }
 
-    // <Onyx-VendingMechanicsReview>
-    protected double GetEffectivePriceMultiplier(VendingMachineComponent comp)
-    {
-        return comp.PriceMultiplier * _cfg.GetCVar(CCVars.VendingPriceMultiplier);
-    }
-    // </Onyx-VendingMechanicsReview>
+    [SubscribeLocalEvent]
+    private void OnActivatableUIOpenAttempt(EntityUid uid, VendingMachineComponent component, ActivatableUIOpenAttemptEvent args) { if (component.Broken) args.Cancel(); }
 
-    protected virtual void UpdateVendingMachineInterfaceState(EntityUid uid, VendingMachineComponent component)
-    {
-    }
-
-    protected virtual void OnWithdrawMessage(EntityUid uid, VendingMachineComponent component, VendingMachineWithdrawMessage args)
-    {
-        component.Credits = 0;
-        Audio.PlayPvs(component.SoundWithdrawCurrency, uid);
-        UpdateVendingMachineInterfaceState(uid, component);
-    }
-    //</Onyx Economy>
-    protected virtual void OnMapInit(EntityUid uid, VendingMachineComponent component, MapInitEvent args)
-    {
-        RestockInventoryFromPrototype(uid, component, component.InitialStockQuality);
-    }
-
-    private void OnEmpPulse(Entity<VendingMachineComponent> ent, ref EmpPulseEvent args)
-    {
-        if (!ent.Comp.Broken && _receiver.IsPowered(ent.Owner))
-        {
-            args.Affected = true;
-            args.Disabled = true;
-            ent.Comp.NextEmpEject = Timing.CurTime;
-        }
-    }
-
-    protected virtual void EjectItem(EntityUid uid, VendingMachineComponent? vendComponent = null, bool forceEject = false) { }
-
-    /// <summary>
-    /// Checks if the user is authorized to use this vending machine
-    /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="sender">Entity trying to use the vending machine</param>
-    /// <param name="vendComponent"></param>
-    public bool IsAuthorized(EntityUid uid, EntityUid sender, VendingMachineComponent? vendComponent = null)
-    {
-        if (!Resolve(uid, ref vendComponent))
-            return false;
-
-        if (!TryComp<AccessReaderComponent>(uid, out var accessReader))
-            return true;
-
-        if (_accessReader.IsAllowed(sender, uid, accessReader) || HasComp<EmaggedComponent>(uid))
-            return true;
-
-        Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-access-denied"), uid, sender);
-        Deny((uid, vendComponent), sender);
-        return false;
-    }
-
-    protected VendingMachineInventoryEntry? GetEntry(EntityUid uid, string entryId, InventoryType type, VendingMachineComponent? component = null)
-    {
-        if (!Resolve(uid, ref component))
-            return null;
-
-        if (type == InventoryType.Emagged && HasComp<EmaggedComponent>(uid))
-            return component.EmaggedInventory.GetValueOrDefault(entryId);
-
-        if (type == InventoryType.Contraband && component.Contraband)
-            return component.ContrabandInventory.GetValueOrDefault(entryId);
-
-        return component.Inventory.GetValueOrDefault(entryId);
-    }
-
-    /// <summary>
-    /// Tries to eject the provided item. Will do nothing if the vending machine is incapable of ejecting, already ejecting
-    /// or the item doesn't exist in its inventory.
-    /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="type">The type of inventory the item is from</param>
-    /// <param name="itemId">The prototype ID of the item</param>
-    /// <param name="throwItem">Whether the item should be thrown in a random direction after ejection</param>
-    /// <param name="user"></param>
-    /// <param name="vendComponent"></param>
-    public void TryEjectVendorItem(EntityUid uid, InventoryType type, string itemId, bool throwItem, EntityUid? user = null, VendingMachineComponent? vendComponent = null,
-        //<Onyx Economy>
-        EntityUid? sender = null)
-        //</Onyx Economy>
-    {
-        if (!Resolve(uid, ref vendComponent))
-            return;
-
-        if (vendComponent.Ejecting || vendComponent.Broken || !_receiver.IsPowered(uid))
-        {
-            return;
-        }
-
-        var entry = GetEntry(uid, itemId, type, vendComponent);
-
-        if (string.IsNullOrEmpty(entry?.ID))
-        {
-            //<Onyx Economy>
-            if (sender.HasValue)
-                Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-invalid-item"), uid, sender.Value);
-            else
-                Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-invalid-item"), uid, uid);
-            //</Onyx Economy>
-            Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-invalid-item"), uid, uid);
-            Deny((uid, vendComponent));
-            return;
-        }
-
-        if (!vendComponent.InfiniteStock && entry.Amount <= 0) // <Onyx-VendingMechanicsReview-edited>
-        {
-            //<Onyx Economy>
-            if (sender.HasValue)
-                Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-out-of-stock"), uid, sender.Value);
-            else
-                Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-out-of-stock"), uid, uid);
-            //</Onyx Economy>
-            Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-out-of-stock"), uid, uid);
-            Deny((uid, vendComponent));
-            return;
-        }
-
-
-        //</Onyx Economy>
-        //<Onyx ServerEconomy>
-        // Economy moved to ServerVendingMachineSystem due to shared assembly restrictions
-        //</Onyx ServerEconomy>
-
-        // Start Ejecting, and prevent users from ordering while anim playing
-        vendComponent.EjectEnd = Timing.CurTime + vendComponent.EjectDelay;
-        vendComponent.NextItemToEject = entry.ID;
-        vendComponent.ThrowNextItem = throwItem;
-
-        if (TryComp(uid, out SpeakOnUIClosedComponent? speakComponent))
-            _speakOn.TrySetFlag((uid, speakComponent));
-
-        // <Onyx-VendingMechanicsReview-edited>
-        if (!vendComponent.InfiniteStock)
-            entry.Amount--;
-        // </Onyx-VendingMechanicsReview-edited>
-        Dirty(uid, vendComponent);
-        UpdateUI((uid, vendComponent));
-        TryUpdateVisualState((uid, vendComponent));
-    }
-
-    public void Deny(Entity<VendingMachineComponent?> entity, EntityUid? user = null)
-    {
-        if (!Resolve(entity.Owner, ref entity.Comp))
-            return;
-
-        if (entity.Comp.Denying)
-            return;
-
-        entity.Comp.DenyEnd = Timing.CurTime + entity.Comp.DenyDelay;
-        var audioParams = entity.Comp.SoundDeny?.Params ?? AudioParams.Default;
-        audioParams = audioParams.AddVolume(-2f);
-        Audio.PlayPredicted(entity.Comp.SoundDeny, entity.Owner, user, audioParams);
-        TryUpdateVisualState(entity);
-        Dirty(entity);
-    }
+    [SubscribeLocalEvent]
+    private void OnBreak(EntityUid uid, VendingMachineComponent component, BreakageEventArgs args) { component.Broken = true; Dirty(uid, component); UISystem.CloseUi(uid, VendingMachineUiKey.Key); }
 
     protected virtual void UpdateUI(Entity<VendingMachineComponent?> entity) { }
 
-    /// <summary>
-    /// Tries to update the visuals of the component based on its current state.
-    /// </summary>
-    public void TryUpdateVisualState(Entity<VendingMachineComponent?> entity)
-    {
-        if (!Resolve(entity.Owner, ref entity.Comp))
-            return;
-
-        var finalState = VendingMachineVisualState.Normal;
-        if (entity.Comp.Broken)
-        {
-            finalState = VendingMachineVisualState.Broken;
-        }
-        else if (entity.Comp.Ejecting)
-        {
-            finalState = VendingMachineVisualState.Eject;
-        }
-        else if (entity.Comp.Denying)
-        {
-            finalState = VendingMachineVisualState.Deny;
-        }
-        else if (!_receiver.IsPowered(entity.Owner))
-        {
-            finalState = VendingMachineVisualState.Off;
-        }
-
-        // TODO: You know this should really live on the client with netsync off because client knows the state.
-        if (Light.TryGetLight(entity.Owner, out var pointlight))
-        {
-            var lightEnabled = finalState != VendingMachineVisualState.Broken && finalState != VendingMachineVisualState.Off;
-            Light.SetEnabled(entity.Owner, lightEnabled, pointlight);
-        }
-
-        _appearanceSystem.SetData(entity.Owner, VendingMachineVisuals.VisualState, finalState);
-    }
-
-    /// <summary>
-    /// Checks whether the user is authorized to use the vending machine, then ejects the provided item if true
-    /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="sender">Entity that is trying to use the vending machine</param>
-    /// <param name="type">The type of inventory the item is from</param>
-    /// <param name="itemId">The prototype ID of the item</param>
-    /// <param name="component"></param>
-    public void AuthorizedVend(EntityUid uid, EntityUid sender, InventoryType type, string itemId, VendingMachineComponent component)
-    {
-        if (IsAuthorized(uid, sender, component))
-        {
-            TryEjectVendorItem(uid, type, itemId, component.CanShoot, sender, component);
-        }
-    }
-
-    public void RestockInventoryFromPrototype(EntityUid uid,
-        VendingMachineComponent? component = null, float restockQuality = 1f)
-    {
-        if (!Resolve(uid, ref component))
-        {
-            return;
-        }
-
-        if (!ProtoMan.TryIndex(component.PackPrototypeId, out VendingMachineInventoryPrototype? packPrototype))
-            return;
-
-        AddInventoryFromPrototype(uid, packPrototype.StartingInventory, InventoryType.Regular,
-            //<Onyx Economy>
-            packPrototype,
-            //</Onyx Economy>
-            component, restockQuality);
-        AddInventoryFromPrototype(uid, packPrototype.EmaggedInventory, InventoryType.Emagged,
-            //<Onyx Economy>
-            packPrototype,
-            //</Onyx Economy>
-            component, restockQuality);
-        AddInventoryFromPrototype(uid, packPrototype.ContrabandInventory, InventoryType.Contraband,
-            //<Onyx Economy>
-            packPrototype,
-            //</Onyx Economy>
-            component, restockQuality);
-        Dirty(uid, component);
-    }
-
-    private void OnEmagged(EntityUid uid, VendingMachineComponent component, ref GotEmaggedEvent args)
-    {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
-            return;
-
-        if (_emag.CheckFlag(uid, EmagType.Interaction))
-            return;
-
-        // only emag if there are emag-only items
-        args.Handled = component.EmaggedInventory.Count > 0
-            //<Onyx Economy>
-            || component.PriceMultiplier > 0;
-            //</Onyx Economy>
-    }
-
-    /// <summary>
-    /// Returns all of the vending machine's inventory. Only includes emagged and contraband inventories if
-    /// <see cref="EmaggedComponent"/> with the EmagType.Interaction flag exists and <see cref="VendingMachineComponent.Contraband"/> is true
-    /// are <c>true</c> respectively.
-    /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="component"></param>
-    /// <returns></returns>
     public List<VendingMachineInventoryEntry> GetAllInventory(EntityUid uid, VendingMachineComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return new();
 
         var inventory = new List<VendingMachineInventoryEntry>(component.Inventory.Values);
-
         if (_emag.CheckFlag(uid, EmagType.Interaction))
             inventory.AddRange(component.EmaggedInventory.Values);
-
         if (component.Contraband)
             inventory.AddRange(component.ContrabandInventory.Values);
 
@@ -480,89 +136,75 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return new();
 
-        return GetAllInventory(uid, component).Where(entry => component.InfiniteStock || entry.Amount > 0).ToList(); // <Onyx-VendingMechanicsReview-edited>
+        return GetAllInventory(uid, component).Where(entry => component.InfiniteStock || entry.Amount > 0).ToList();
     }
 
-    private void AddInventoryFromPrototype(EntityUid uid, Dictionary<string, uint>? entries,
+    public void RestockInventoryFromPrototype(EntityUid uid,
+        VendingMachineComponent? component = null,
+        float restockQuality = 1f)
+    {
+        if (!Resolve(uid, ref component) ||
+            !ProtoMan.TryIndex(component.PackPrototypeId, out VendingMachineInventoryPrototype? pack))
+            return;
+
+        AddInventoryFromPrototype(uid, pack.StartingInventory, InventoryType.Regular, pack, component, restockQuality);
+        AddInventoryFromPrototype(uid, pack.EmaggedInventory, InventoryType.Emagged, pack, component, restockQuality);
+        AddInventoryFromPrototype(uid, pack.ContrabandInventory, InventoryType.Contraband, pack, component, restockQuality);
+        Dirty(uid, component);
+    }
+
+    private void AddInventoryFromPrototype(EntityUid uid,
+        Dictionary<string, uint>? entries,
         InventoryType type,
-        //<Onyx Economy>
-        VendingMachineInventoryPrototype packPrototype,
-        //</Onyx Economy>
-        VendingMachineComponent? component = null, float restockQuality = 1.0f)
+        VendingMachineInventoryPrototype pack,
+        VendingMachineComponent? component,
+        float restockQuality)
     {
         if (!Resolve(uid, ref component) || entries == null)
-        {
             return;
-        }
 
-        Dictionary<string, VendingMachineInventoryEntry> inventory;
-        switch (type)
+        var inventory = type switch
         {
-            case InventoryType.Regular:
-                inventory = component.Inventory;
-                break;
-            case InventoryType.Emagged:
-                inventory = component.EmaggedInventory;
-                break;
-            case InventoryType.Contraband:
-                inventory = component.ContrabandInventory;
-                break;
-            default:
-                return;
-        }
+            InventoryType.Regular => component.Inventory,
+            InventoryType.Emagged => component.EmaggedInventory,
+            InventoryType.Contraband => component.ContrabandInventory,
+            _ => throw new ArgumentOutOfRangeException(nameof(type)),
+        };
 
-        var order = 0; // <Onyx-SalvageVendorCatalog>
+        var order = 0;
         foreach (var (id, amount) in entries)
         {
-            if (ProtoMan.TryIndex<EntityPrototype>(id, out var proto))
-            if (ProtoMan.HasIndex<EntityPrototype>(id))
+            if (!ProtoMan.TryIndex<EntityPrototype>(id, out var proto))
             {
-                var restock = amount;
-                var chanceOfMissingStock = 1 - restockQuality;
-
-                var result = Randomizer.NextFloat(0, 1);
-                if (result < chanceOfMissingStock)
-                {
-                    restock = (uint) Math.Floor(amount * result / chanceOfMissingStock);
-                }
-
-                if (inventory.TryGetValue(id, out var entry))
-                    // Prevent a machine's stock from going over three times
-                    // the prototype's normal amount. This is an arbitrary
-                    // number and meant to be a convenience for someone
-                    // restocking a machine who doesn't want to force vend out
-                    // all the items just to restock one empty slot without
-                    // losing the rest of the restock.
-                    entry.Amount = Math.Min(entry.Amount + amount, 3 * amount);
-                else
-                {
-                    //<Onyx Economy>
-                    var price = packPrototype.Prices.TryGetValue(id, out var p) ? p : GetEntryPrice(proto, component);
-                    // <Onyx-SalvageVendorCatalog-edited>
-                    inventory.Add(id, new VendingMachineInventoryEntry(type, id, amount, price,
-                        packPrototype.Categories.GetValueOrDefault(id),
-                        packPrototype.OverrideNames.GetValueOrDefault(id), order));
-                    // </Onyx-SalvageVendorCatalog-edited>
-                    //</Onyx Economy>
-                }
+                order++;
+                continue;
             }
 
-            order++; // <Onyx-SalvageVendorCatalog>
+            var restock = amount;
+            var missingStockChance = 1 - restockQuality;
+            var result = Randomizer.NextFloat();
+            if (result < missingStockChance)
+                restock = (uint) Math.Floor(amount * result / missingStockChance);
+
+            if (inventory.TryGetValue(id, out var entry))
+            {
+                entry.Amount = Math.Min(entry.Amount + restock, 3 * amount);
+            }
+            else
+            {
+                var price = pack.Prices.TryGetValue(id, out var configuredPrice)
+                    ? configuredPrice
+                    : GetEntryPrice(proto, component);
+                inventory.Add(id, new VendingMachineInventoryEntry(type,
+                    id,
+                    restock,
+                    price,
+                    pack.Categories.GetValueOrDefault(id),
+                    pack.OverrideNames.GetValueOrDefault(id),
+                    order));
+            }
+
+            order++;
         }
-    }
-
-    private void OnActivatableUIOpenAttempt(EntityUid uid, VendingMachineComponent component, ActivatableUIOpenAttemptEvent args)
-    {
-        if (component.Broken)
-            args.Cancel();
-    }
-
-    private void OnBreak(EntityUid uid, VendingMachineComponent vendComponent, BreakageEventArgs eventArgs)
-    {
-        vendComponent.Broken = true;
-        Dirty(uid, vendComponent);
-        TryUpdateVisualState((uid, vendComponent));
-
-        UISystem.CloseUi(uid, VendingMachineUiKey.Key);
     }
 }

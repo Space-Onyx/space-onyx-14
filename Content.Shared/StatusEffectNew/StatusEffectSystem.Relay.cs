@@ -1,5 +1,6 @@
 using Content.Shared.Body.Events;
 using Content.Shared._Onyx.MartialArts; // <Onyx-MartialArts>
+using Content.Shared.Atmos;
 using Content.Shared.Chat;
 using Content.Shared.Damage.Events;
 using Content.Shared.Damage.Systems;
@@ -54,6 +55,7 @@ public sealed partial class StatusEffectsSystem
 
         SubscribeLocalEvent<StatusEffectContainerComponent, BleedModifierEvent>(RefRelayStatusEffectEvent);
         SubscribeLocalEvent<StatusEffectContainerComponent, DamageModifyEvent>(RelayStatusEffectEvent);
+        SubscribeLocalEvent<StatusEffectContainerComponent, RefreshPressureImmunityEvent>(RefRelayStatusEffectEvent);
     }
 
     private void RefRelayStatusEffectEvent<T>(EntityUid uid, StatusEffectContainerComponent component, ref T args) where T : struct

@@ -2,7 +2,7 @@ using Content.Server._Onyx.Xenomorphs.FaceHugger;
 using Content.Server.Popups;
 using Content.Shared._Onyx.Xenomorphs.Egg;
 using Content.Shared._Onyx.Xenomorphs.Xenomorph;
-using Content.Shared.Ghost;
+using Content.Shared.Ghost.Components;
 using Content.Shared.Interaction;
 using Content.Shared.Inventory;
 using Content.Shared.StepTrigger.Systems;

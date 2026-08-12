@@ -36,6 +36,8 @@ using Content.Shared.Ghost.Roles.Components;
 using Content.Shared.Roles.Components;
 using Content.Server._Onyx.CloneProjector; // <Onyx-CloneProjector>
 using Content.Server.Players.PlayTimeTracking; // <Onyx-CloneProjector>
+using Content.Shared.Ghost.Systems;
+using Content.Shared.Ghost.Components;
 
 namespace Content.Server.Ghost.Roles;
 

@@ -1,7 +1,7 @@
 using Content.Client._Onyx.VendingMachines.UI;
-using Content.Shared._Onyx.Salvage.MiningPoints;
 using Content.Shared._Onyx.Materials;
 using Content.Shared.VendingMachines;
+using Content.Shared.VendingMachines.Components;
 using Robust.Client.UserInterface;
 
 namespace Content.Client.VendingMachines;

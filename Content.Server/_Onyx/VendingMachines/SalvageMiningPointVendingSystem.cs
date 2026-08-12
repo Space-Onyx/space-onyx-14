@@ -1,7 +1,7 @@
-using Content.Shared._Onyx.Salvage.MiningPoints;
 using Content.Shared._Onyx.Materials;
-using Content.Shared.Advertise.Components;
+using Content.Shared._Onyx.Salvage.MiningPoints;
 using Content.Shared.VendingMachines;
+using Content.Shared.VendingMachines.Components;
 
 namespace Content.Server.VendingMachines;
 
@@ -20,12 +20,13 @@ public sealed partial class VendingMachineSystem
         if (!IsSalvageMiningPointVendor(uid))
             return false;
 
-        if (!IsAuthorized(uid, sender, component) || component.Ejecting || component.Broken || !_receiver.IsPowered(uid))
+        if (!TryComp<VendingMachineEjectComponent>(uid, out var eject) ||
+            !IsAuthorized(uid, sender, component) || eject.Ejecting || component.Broken || !_receiver.IsPowered(uid))
             return true;
 
         if ((!component.InfiniteStock && entry.Amount == 0) || string.IsNullOrEmpty(entry.ID))
         {
-            Deny((uid, component), sender);
+            Deny((uid, component), sender, eject);
             return true;
         }
 
@@ -36,23 +37,11 @@ public sealed partial class VendingMachineSystem
         {
             UpdateVendingMachineInterfaceState(uid, component);
             Popup.PopupEntity(Loc.GetString("vending-machine-component-no-mining-points"), uid, sender);
-            Deny((uid, component), sender);
+            Deny((uid, component), sender, eject);
             return true;
         }
 
-        component.NextItemCount = 1;
-        component.EjectEnd = Timing.CurTime + component.EjectDelay;
-        component.NextItemToEject = entry.ID;
-        component.ThrowNextItem = component.CanShoot;
-
-        Audio.PlayPvs(component.SoundVend, uid);
-
-        if (TryComp(uid, out SpeakOnUIClosedComponent? speakComponent))
-            _speakOn.TrySetFlag((uid, speakComponent));
-
-        Dirty(uid, component);
-        UpdateUI((uid, component));
-        TryUpdateVisualState((uid, component));
+        TryEjectVendorItem(uid, entry.Type, entry.ID, ShouldThrowVendItem((uid, eject)), sender, component, eject);
         UpdateVendingMachineInterfaceState(uid, component);
         return true;
     }

@@ -1,9 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Content.Server.Botany.Components;
 using Content.Server.Popups;
 using Content.Shared._Onyx.AbstractAnalyzer;
 using Content.Shared._Onyx.Botany.PlantAnalyzer;
+using Content.Shared.Botany.Components;
+using Content.Shared.Botany.Traits.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Labels.EntitySystems;
@@ -56,45 +57,57 @@ public sealed partial class PlantAnalyzerSystem : AbstractAnalyzerSystem<PlantAn
 
         if (TryComp<PlantHolderComponent>(target, out var holder))
         {
-            if (holder.Seed is { } seed)
+            if (TryComp<PlantComponent>(target, out var plant)
+                && TryComp<PlantDataComponent>(target, out var speciesData))
             {
-                plantData = new PlantAnalyzerPlantData(seed.DisplayName,
+                TryComp<PlantGrowthComponent>(target, out var growth);
+                TryComp<PlantAtmosphericComponent>(target, out var atmosphere);
+                TryComp<PlantToxinsComponent>(target, out var toxins);
+                TryComp<PlantWeedPestComponent>(target, out var pests);
+                TryComp<PlantConsumeExudeGasComponent>(target, out var gases);
+                TryComp<PlantChemicalsComponent>(target, out var chemicals);
+
+                plantData = new PlantAnalyzerPlantData(speciesData.Name,
                     holder.Health,
-                    seed.Endurance,
+                    plant.Endurance,
                     holder.Age,
-                    seed.Lifespan,
+                    plant.Lifespan,
                     holder.Dead,
-                    seed.Viable,
+                    !HasComp<PlantTraitUnviableComponent>(target),
                     holder.MutationLevel > 0f,
-                    seed.TurnIntoKudzu);
-                tolerancesData = new PlantAnalyzerTolerancesData(seed.NutrientConsumption,
-                    seed.WaterConsumption,
-                    seed.IdealHeat,
-                    seed.HeatTolerance,
-                    seed.IdealLight,
-                    seed.LightTolerance,
-                    seed.ToxinsTolerance,
-                    seed.LowPressureTolerance,
-                    seed.HighPressureTolerance,
-                    seed.PestTolerance,
-                    seed.WeedTolerance,
-                    [.. seed.ConsumeGasses.Keys]);
-                produceData = new PlantAnalyzerProduceData(seed.ProductPrototypes.Count == 0
+                    HasComp<PlantTraitKudzuComponent>(target));
+                tolerancesData = new PlantAnalyzerTolerancesData(growth?.NutrientConsumption ?? 0f,
+                    growth?.WaterConsumption ?? 0f,
+                    atmosphere is null ? 0f : (atmosphere.LowHeatTolerance + atmosphere.HighHeatTolerance) / 2f,
+                    atmosphere is null ? 0f : (atmosphere.HighHeatTolerance - atmosphere.LowHeatTolerance) / 2f,
+                    0f,
+                    0f,
+                    toxins?.ToxinsTolerance ?? 0f,
+                    atmosphere?.LowPressureTolerance ?? 0f,
+                    atmosphere?.HighPressureTolerance ?? 0f,
+                    pests?.PestTolerance ?? 0f,
+                    pests?.WeedTolerance ?? 0f,
+                    gases is null ? [] : [.. gases.ConsumeGasses.Keys]);
+                produceData = new PlantAnalyzerProduceData(speciesData.ProductPrototypes.Count == 0
                         ? 0
-                        : CalculateTotalYield(seed.Yield, holder.YieldMod),
-                    seed.Potency,
-                    [.. seed.Chemicals.Keys],
-                    seed.ProductPrototypes,
-                    [.. seed.ExudeGasses.Keys],
-                    seed.Seedless);
+                        : CalculateTotalYield(plant.Yield, holder.YieldMod),
+                    plant.Potency,
+                    chemicals is null ? [] : [.. chemicals.Chemicals.Keys.Select(id => id.Id)],
+                    speciesData.ProductPrototypes,
+                    gases is null ? [] : [.. gases.ExudeGasses.Keys],
+                    HasComp<PlantTraitSeedlessComponent>(target));
             }
 
-            trayData = new PlantAnalyzerTrayData(holder.WaterLevel,
-                holder.NutritionLevel,
-                holder.Toxins,
-                holder.PestLevel,
-                holder.WeedLevel,
-                holder.SoilSolution?.Comp.Solution.Contents.Select(reagent => reagent.Reagent.Prototype).ToList());
+            var tray = Transform(target.Value).ParentUid;
+            if (TryComp<PlantTrayComponent>(tray, out var trayComp))
+            {
+                trayData = new PlantAnalyzerTrayData(trayComp.WaterLevel,
+                    trayComp.NutritionLevel,
+                    trayComp.ToxinLevel,
+                    trayComp.PestLevel,
+                    trayComp.WeedLevel,
+                    trayComp.SoilSolution?.Comp.Solution.Contents.Select(reagent => reagent.Reagent.Prototype).ToList());
+            }
         }
 
         return new PlantAnalyzerScannedUserMessage(GetNetEntity(target),

@@ -4,7 +4,7 @@ using Content.Shared._Onyx.Swimming.Events;
 using Content.Shared._Onyx.Swimming.Systems;
 using Content.Shared.Damage.Components;
 using Content.Shared.Movement.Components;
-using Content.Shared.Ghost;
+using Content.Shared.Ghost.Components;
 using Robust.Shared.Network;
 
 namespace Content.Shared.Movement.Systems;

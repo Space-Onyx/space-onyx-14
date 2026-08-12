@@ -1,6 +1,6 @@
 using Content.Shared._Onyx.Swimming.Components;
 using Content.Shared.Movement.Events;
-using Content.Shared.Ghost;
+using Content.Shared.Ghost.Components;
 using Content.Shared.Movement.Components;
 
 namespace Content.Shared._Onyx.Swimming.Systems;

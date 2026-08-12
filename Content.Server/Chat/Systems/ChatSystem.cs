@@ -13,6 +13,7 @@ using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Examine;
 using Content.Shared.Ghost;
+using Content.Shared.Ghost.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared._Onyx.Loudspeaker.Events; // <Onyx-Loudspeaker>
 using Content.Server._Onyx.Chat; // <Onyx-CollectiveMind>

@@ -9,7 +9,7 @@ using Robust.Shared.Timing;
 using System.Text;
 using Content.Shared._Onyx.Disease.Components;
 using Content.Shared._Onyx.Disease.Systems;
-using Content.Shared.Ghost;
+using Content.Shared.Ghost.Components;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Robust.Shared.Audio;

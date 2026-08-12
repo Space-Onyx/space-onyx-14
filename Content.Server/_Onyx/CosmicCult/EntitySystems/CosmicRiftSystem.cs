@@ -143,7 +143,7 @@ public sealed partial class CosmicRiftSystem : EntitySystem
         comp.CosmicImpositionDuration = TimeSpan.FromSeconds(7.2);
         comp.Respiration = false;
         EnsureComp<CosmicEmpoweredSpeedComponent>(args.User);
-        EnsureComp<PressureImmunityComponent>(args.User);
+        EnsureComp<PressureImmunityStatusEffectComponent>(args.User);
         EnsureComp<TemperatureImmunityComponent>(args.User);
         _popup.PopupCoordinates(
             Loc.GetString("cosmiccult-rift-absorb", ("NAME", Identity.Entity(args.Args.User, EntityManager))),

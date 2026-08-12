@@ -575,7 +575,7 @@ public sealed partial class LavalandSystem
         if (TryComp<DecalGridComponent>(source.Owner, out var decals))
         {
             EnsureComp<DecalGridComponent>(destination.Owner);
-            foreach (var (_, decal) in _decals.GetDecalsIntersecting(source.Owner, source.Comp.LocalAABB, decals))
+            foreach (var (_, decal) in _decals.GetDecalsIntersecting(source.Owner, source.Comp.LocalAABB))
             {
                 _decals.TryAddDecal(
                     decal.Id,

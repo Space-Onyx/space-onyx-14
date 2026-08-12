@@ -754,7 +754,7 @@ public sealed partial class CosmicCultRuleSystem : GameRuleSystem<CosmicCultRule
                 cultComp.UnlockedInfluences.Add(influenceProto.ID);
 
             EnsureComp<CosmicStarMarkComponent>(uid);
-            EnsureComp<PressureImmunityComponent>(uid);
+            EnsureComp<PressureImmunityStatusEffectComponent>(uid);
             EnsureComp<TemperatureImmunityComponent>(uid);
         }
         else if (cosmicGamerule.CurrentTier == 2)
@@ -806,7 +806,7 @@ public sealed partial class CosmicCultRuleSystem : GameRuleSystem<CosmicCultRule
         RemComp<InfluenceVitalityComponent>(uid);
         RemComp<InfluenceStrideComponent>(uid);
         RemComp<CosmicEmpoweredSpeedComponent>(uid);
-        RemComp<PressureImmunityComponent>(uid);
+        RemComp<PressureImmunityStatusEffectComponent>(uid);
         RemComp<TemperatureImmunityComponent>(uid);
         RemComp<CosmicStarMarkComponent>(uid);
 

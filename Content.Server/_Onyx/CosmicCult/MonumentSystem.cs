@@ -412,7 +412,7 @@ public sealed partial class MonumentSystem : SharedMonumentSystem
         var query = EntityQueryEnumerator<CosmicCultComponent>();
         while (query.MoveNext(out var cultist, out var cultComp))
         {
-            EnsureComp<PressureImmunityComponent>(cultist);
+            EnsureComp<PressureImmunityStatusEffectComponent>(cultist);
             EnsureComp<TemperatureImmunityComponent>(cultist);
             _cosmicRule.EnsureHolyWeakness(cultist, cultComp);
 

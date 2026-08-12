@@ -1,7 +1,7 @@
 using System.Numerics;
 using Content.Server._Onyx.Parallax.Components;
 using Content.Server.Ghost.Roles.Components;
-using Content.Shared.Ghost;
+using Content.Shared.Ghost.Components;
 using Content.Shared.Parallax.Biomes;
 using Content.Shared.Parallax.Biomes.Markers;
 using Content.Shared.Parallax;
