@@ -35,13 +35,13 @@ public partial class VoiceMaskSystem
 
     private void TransformBark(VoiceMaskComponent component, TransformSpeakerBarkEvent args)
     {
-        if (!ProtoMan.TryIndex<BarkPrototype>(component.BarkId, out var proto))
+        if (!ProtoMan.HasIndex<BarkPrototype>(component.BarkId))
             return;
 
         args.Data.Pitch = Math.Clamp(component.BarkPitch, _cfgManager.GetCVar(ADTCCVars.BarksMinPitch), _cfgManager.GetCVar(ADTCCVars.BarksMaxPitch));
         args.Data.MinVar = Math.Clamp(component.MinVar, _cfgManager.GetCVar(ADTCCVars.BarksMinDelay), _cfgManager.GetCVar(ADTCCVars.BarksMaxDelay));
         args.Data.MaxVar = Math.Clamp(component.MaxVar, _cfgManager.GetCVar(ADTCCVars.BarksMinDelay), _cfgManager.GetCVar(ADTCCVars.BarksMaxDelay));
-        args.Data.Sound = proto.Sound;
+        args.Data.Proto = component.BarkId;
     }
 
     private void OnChangeBark(EntityUid uid, VoiceMaskComponent component, VoiceMaskChangeBarkMessage message)

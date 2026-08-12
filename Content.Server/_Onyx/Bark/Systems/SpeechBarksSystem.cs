@@ -122,12 +122,6 @@ public sealed partial class SpeechBarksSystem : EntitySystem
         if (minVar > maxVar)
             (minVar, maxVar) = (maxVar, minVar);
 
-        if (data.Sound != null)
-        {
-            sound = data.Sound;
-            return true;
-        }
-
         if (!_proto.TryIndex<BarkPrototype>(data.Proto, out var proto))
             return false;
 

@@ -33,9 +33,6 @@ public sealed partial class BarkData
     public ProtoId<BarkPrototype> Proto = "Human1";
 
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public SoundSpecifier? Sound = null;
-
-    [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float MinVar = 0.1f;
 
     [DataField, ViewVariables(VVAccess.ReadWrite)]
@@ -84,7 +81,6 @@ public sealed partial class BarkData
         return new BarkData()
         {
             Proto = Proto,
-            Sound = Sound,
             Pitch = Pitch,
             MinVar = MinVar,
             MaxVar = MaxVar
@@ -94,7 +90,6 @@ public sealed partial class BarkData
     public bool MemberwiseEquals(BarkData other)
     {
         if (Proto != other.Proto) return false;
-        if (Sound != other.Sound) return false;
         if (Pitch != other.Pitch) return false;
         if (MinVar != other.MinVar) return false;
         if (MaxVar != other.MaxVar) return false;
