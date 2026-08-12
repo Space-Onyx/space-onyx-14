@@ -45,7 +45,7 @@ public sealed partial class RCDSystem
             ? prototype.MirrorPrototype
             : prototype.Prototype;
 
-        if (!component.IsRpd || selected == null ||
+        if (!component.IsRpd || !prototype.PipeLayers || selected == null ||
             !ProtoMan.TryIndex<EntityPrototype>(selected, out var entityPrototype) ||
             !entityPrototype.TryComp<AtmosPipeLayersComponent>(out var layers, EntityManager.ComponentFactory) ||
             !_pipeLayers.TryGetAlternativePrototype(layers, component.ConstructionPipeLayer, out var alternative))

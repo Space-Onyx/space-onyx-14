@@ -22,7 +22,8 @@ namespace Content.Client.Atmos;
 /// <remarks>
 /// This placement mode is not on the engine because it is content specific.
 /// </remarks>
-public sealed partial class AlignAtmosPipeLayers : SnapgridCenter
+[Virtual] // <Onyx-RPDPipeLayers>
+public partial class AlignAtmosPipeLayers : SnapgridCenter // <Onyx-RPDPipeLayers-edited>
 {
     [Dependency] private IEntityManager _entityManager = default!;
     [Dependency] private IPrototypeManager _protoManager = default!;
@@ -35,12 +36,15 @@ public sealed partial class AlignAtmosPipeLayers : SnapgridCenter
     private readonly ConstructionSystem _constructionSystem;
 
     private const float SearchBoxSize = 2f;
-    private EntityCoordinates _unalignedMouseCoords = default;
+    protected EntityCoordinates UnalignedMouseCoords { get; private set; } // <Onyx-RPDPipeLayers-edited>
+    protected AtmosPipeLayer CurrentPipeLayer { get; private set; } // <Onyx-RPDPipeLayers>
     private const float MouseDeadzoneRadius = 0.25f;
 
     private Color _guideColor = new Color(0, 0, 0.5785f);
     private const float GuideRadius = 0.1f;
     private const float GuideOffset = 0.21875f;
+
+    protected virtual bool UsesPipeLayers() => true; // <Onyx-RPDPipeLayers>
 
     public AlignAtmosPipeLayers(PlacementManager pMan) : base(pMan)
     {
@@ -62,7 +66,7 @@ public sealed partial class AlignAtmosPipeLayers : SnapgridCenter
             return;
 
         // Draw guide circles for each pipe layer if we are not in line/grid placing mode
-        if (pManager.PlacementType == PlacementTypes.None)
+        if (pManager.PlacementType == PlacementTypes.None && UsesPipeLayers()) // <Onyx-RPDPipeLayers-edited>
         {
             var gridRotation = _transformSystem.GetWorldRotation(gridUid.Value);
             var worldPosition = _mapSystem.LocalToWorld(gridUid.Value, Grid, MouseCoords.Position);
@@ -80,14 +84,14 @@ public sealed partial class AlignAtmosPipeLayers : SnapgridCenter
     /// <inheritdoc/>
     public override void AlignPlacementMode(ScreenCoordinates mouseScreen)
     {
-        _unalignedMouseCoords = ScreenToCursorGrid(mouseScreen);
+        UnalignedMouseCoords = ScreenToCursorGrid(mouseScreen); // <Onyx-RPDPipeLayers-edited>
         base.AlignPlacementMode(mouseScreen);
 
         // Exit early if we are in line/grid placing mode
         if (pManager.PlacementType != PlacementTypes.None)
             return;
 
-        MouseCoords = _unalignedMouseCoords.AlignWithClosestGridTile(SearchBoxSize, _entityManager);
+        MouseCoords = UnalignedMouseCoords.AlignWithClosestGridTile(SearchBoxSize, _entityManager); // <Onyx-RPDPipeLayers-edited>
 
         var gridId = _transformSystem.GetGrid(MouseCoords);
 
@@ -104,7 +108,7 @@ public sealed partial class AlignAtmosPipeLayers : SnapgridCenter
             CurrentTile.Y + tileSize / 2 + pManager.PlacementOffset.Y));
 
         // Calculate the position of the mouse cursor with respect to the center of the tile to determine which layer to use
-        var mouseCoordsDiff = _unalignedMouseCoords.Position - MouseCoords.Position;
+        var mouseCoordsDiff = UnalignedMouseCoords.Position - MouseCoords.Position; // <Onyx-RPDPipeLayers-edited>
         var layer = AtmosPipeLayer.Primary;
 
         if (mouseCoordsDiff.Length() > MouseDeadzoneRadius)
@@ -113,6 +117,8 @@ public sealed partial class AlignAtmosPipeLayers : SnapgridCenter
             var direction = (new Angle(mouseCoordsDiff) + _eyeManager.CurrentEye.Rotation + gridRotation + Math.PI / 2).GetCardinalDir();
             layer = (direction == Direction.North || direction == Direction.East) ? AtmosPipeLayer.Secondary : AtmosPipeLayer.Tertiary;
         }
+
+        CurrentPipeLayer = layer; // <Onyx-RPDPipeLayers>
 
         // Update the construction menu placer
         if (pManager.Hijack != null)

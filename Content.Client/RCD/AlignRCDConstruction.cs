@@ -1,7 +1,8 @@
-using System.Numerics;
+using Content.Client.Atmos; // <Onyx-RPDPipeLayers>
 using Content.Client.Gameplay;
 using Content.Client.Hands.Systems;
 using Content.Shared.Hands.Components;
+using Content.Shared.RCD; // <Onyx-RPDPipeLayers>
 using Content.Shared.Interaction;
 using Content.Shared.RCD.Components;
 using Content.Shared.RCD.Systems;
@@ -10,14 +11,14 @@ using Robust.Client.Player;
 using Robust.Client.State;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Prototypes; // <Onyx-RPDPipeLayers>
 
 namespace Content.Client.RCD;
 
-public sealed partial class AlignRCDConstruction : PlacementMode
+public sealed partial class AlignRCDConstruction : AlignAtmosPipeLayers // <Onyx-RPDPipeLayers-edited>
 {
-    private partial void OnPipeLayerPlacement(EntityUid gridId);
-
     [Dependency] private IEntityManager _entityManager = default!;
+    [Dependency] private IPrototypeManager _prototypeManager = default!; // <Onyx-RPDPipeLayers>
     private readonly SharedMapSystem _mapSystem;
     private readonly HandsSystem _handsSystem;
     private readonly RCDSystem _rcdSystem;
@@ -25,10 +26,7 @@ public sealed partial class AlignRCDConstruction : PlacementMode
     [Dependency] private IPlayerManager _playerManager = default!;
     [Dependency] private IStateManager _stateManager = default!;
 
-    private const float SearchBoxSize = 2f;
     private const float PlaceColorBaseAlpha = 0.5f;
-
-    private EntityCoordinates _unalignedMouseCoords = default;
 
     /// <summary>
     /// This placement mode is not on the engine because it is content specific (i.e., for the RCD)
@@ -46,32 +44,23 @@ public sealed partial class AlignRCDConstruction : PlacementMode
 
     public override void AlignPlacementMode(ScreenCoordinates mouseScreen)
     {
-        _unalignedMouseCoords = ScreenToCursorGrid(mouseScreen);
-        MouseCoords = _unalignedMouseCoords.AlignWithClosestGridTile(SearchBoxSize, _entityManager);
+        base.AlignPlacementMode(mouseScreen); // <Onyx-RPDPipeLayers-edited>
+        if (!UsesPipeLayers()) // <Onyx-RPDPipeLayers>
+            return; // <Onyx-RPDPipeLayers>
 
-        var gridId = _transformSystem.GetGrid(MouseCoords);
+        var player = _playerManager.LocalSession?.AttachedEntity; // <Onyx-RPDPipeLayers>
+        if (player != null && _handsSystem.TryGetActiveItem(player.Value, out var held) && // <Onyx-RPDPipeLayers>
+            _entityManager.TryGetComponent<RCDComponent>(held, out var rcd) && rcd.IsRpd) // <Onyx-RPDPipeLayers>
+            _rcdSystem.SetConstructionPipeLayer((held.Value, rcd), CurrentPipeLayer); // <Onyx-RPDPipeLayers>
+    }
 
-        if (!_entityManager.TryGetComponent<MapGridComponent>(gridId, out var mapGrid))
-            return;
+    protected override bool UsesPipeLayers() // <Onyx-RPDPipeLayers>
+    {
+        if (pManager.CurrentPermission?.MobUid is not { } rcd || // <Onyx-RPDPipeLayers>
+            !_entityManager.TryGetComponent<RCDComponent>(rcd, out var component)) // <Onyx-RPDPipeLayers>
+            return false; // <Onyx-RPDPipeLayers>
 
-        CurrentTile = _mapSystem.GetTileRef(gridId.Value, mapGrid, MouseCoords);
-
-        float tileSize = mapGrid.TileSize;
-        GridDistancing = tileSize;
-
-        if (pManager.CurrentPermission!.IsTile)
-        {
-            MouseCoords = new EntityCoordinates(MouseCoords.EntityId, new Vector2(CurrentTile.X + tileSize / 2,
-                CurrentTile.Y + tileSize / 2));
-        }
-        else
-        {
-            MouseCoords = new EntityCoordinates(MouseCoords.EntityId, new Vector2(CurrentTile.X + tileSize / 2 + pManager.PlacementOffset.X,
-                CurrentTile.Y + tileSize / 2 + pManager.PlacementOffset.Y));
-        }
-
-        OnPipeLayerPlacement(gridId.Value); // <Onyx-RPDPipeLayers>
-
+        return _prototypeManager.TryIndex<RCDPrototype>(component.ProtoId, out var prototype) && prototype.PipeLayers; // <Onyx-RPDPipeLayers>
     }
 
     public override bool IsValidPosition(EntityCoordinates position)
@@ -113,7 +102,7 @@ public sealed partial class AlignRCDConstruction : PlacementMode
         if (currentState is not GameplayStateBase screen)
             return false;
 
-        var target = screen.GetClickedEntity(_transformSystem.ToMapCoordinates(_unalignedMouseCoords));
+        var target = screen.GetClickedEntity(_transformSystem.ToMapCoordinates(UnalignedMouseCoords)); // <Onyx-RPDPipeLayers-edited>
 
         // Determine if the RCD operation is valid or not
         if (!_rcdSystem.IsRCDOperationStillValid(heldEntity.Value, rcd, gridUid.Value, mapGrid, tile, posVector, target, player.Value, false))

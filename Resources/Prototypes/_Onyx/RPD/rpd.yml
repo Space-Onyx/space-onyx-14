@@ -4,6 +4,7 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/fourway.png
   mode: ConstructObject
   prototype: GasPipeFourway
+  pipeLayers: true
   cost: 1
   delay: 0
   rotation: User
@@ -15,6 +16,7 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/straight.png
   mode: ConstructObject
   prototype: GasPipeStraight
+  pipeLayers: true
   allowMultiDirection: true
   cost: 1
   delay: 0
@@ -27,6 +29,7 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/bend.png
   mode: ConstructObject
   prototype: GasPipeBend
+  pipeLayers: true
   allowMultiDirection: true
   cost: 1
   delay: 0
@@ -39,6 +42,7 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/tjunction.png
   mode: ConstructObject
   prototype: GasPipeTJunction
+  pipeLayers: true
   allowMultiDirection: true
   cost: 1
   delay: 0
@@ -51,6 +55,7 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/pump_pressure.png
   mode: ConstructObject
   prototype: GasPressurePump
+  pipeLayers: true
   cost: 2
   delay: 0
   collisionMask: Impassable
@@ -63,6 +68,7 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/pump_volume.png
   mode: ConstructObject
   prototype: GasVolumePump
+  pipeLayers: true
   cost: 2
   delay: 0
   collisionMask: Impassable
@@ -75,6 +81,7 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/pump_manual_valve.png
   mode: ConstructObject
   prototype: GasValve
+  pipeLayers: true
   cost: 2
   delay: 0
   collisionMask: Impassable
@@ -87,6 +94,7 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/pump_signal_valve.png
   mode: ConstructObject
   prototype: SignalControlledValve
+  pipeLayers: true
   cost: 2
   delay: 0
   collisionMask: Impassable
@@ -111,6 +119,7 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/injector.png
   mode: ConstructObject
   prototype: GasOutletInjector
+  pipeLayers: true
   cost: 2
   delay: 0
   collisionMask: Impassable
@@ -123,6 +132,7 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/scrub_off.png
   mode: ConstructObject
   prototype: GasVentScrubber
+  pipeLayers: true
   cost: 2
   delay: 0
   collisionMask: Impassable
@@ -135,6 +145,7 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/vent_off.png
   mode: ConstructObject
   prototype: GasVentPump
+  pipeLayers: true
   cost: 2
   delay: 0
   collisionMask: Impassable
@@ -159,6 +170,7 @@
   sprite: /Textures/_Onyx/Interface/Radial/RPD/vent_passive.png
   mode: ConstructObject
   prototype: GasPassiveVent
+  pipeLayers: true
   cost: 2
   delay: 0
   collisionMask: Impassable

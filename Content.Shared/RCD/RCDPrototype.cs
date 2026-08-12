@@ -47,6 +47,9 @@ public sealed partial class RCDPrototype : IPrototype
     [DataField, ViewVariables(VVAccess.ReadOnly)]
     public string? MirrorPrototype { get; private set; } // <Onyx-RPD>
 
+    [DataField, ViewVariables(VVAccess.ReadOnly)]
+    public bool PipeLayers { get; private set; } // <Onyx-RPDPipeLayers>
+
     /// <summary>
     /// If true, allows placing the entity once per direction (North, West, South and East)
     /// </summary>
