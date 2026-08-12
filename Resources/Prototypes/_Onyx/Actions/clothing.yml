@@ -33,3 +33,23 @@
       visible: false
   - type: InstantAction
     event: !type:SealClothingEvent {}
+
+- type: entity
+  parent: BaseAction
+  id: ActionActivateProjector
+  name: Toggle Clone
+  description: Generates or dissipates your connected gemini.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    useDelay: 1
+    checkCanInteract: false
+    checkConsciousness: true
+    itemIconStyle: NoItem
+  - type: Sprite
+    sprite: Mobs/Silicon/station_ai.rsi
+    layers:
+    - state: default
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:CloneProjectorActivatedEvent {}

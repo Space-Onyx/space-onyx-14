@@ -4,3 +4,10 @@
   sprite:
     sprite: _Onyx/Objects/Weapons/Guns/Cannons/rapid_syringe_gun.rsi
     state: icon
+
+- type: stealTargetGroup
+  id: ClothingBeltGeminiHoloProjector
+  name: steal-target-groups-gemini-projector
+  sprite:
+    sprite: _Onyx/Clothing/Belt/Belt/geminiprojector.rsi
+    state: icon

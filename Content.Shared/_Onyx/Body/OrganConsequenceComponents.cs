@@ -11,6 +11,12 @@ public sealed partial class MissingEyesComponent : Component;
 [RegisterComponent]
 public sealed partial class LungDependentComponent : Component;
 
+/// <summary>
+/// Prevents breathing and suffocation damage.
+/// </summary>
+[RegisterComponent]
+public sealed partial class BreathingImmunityComponent : Component;
+
 [RegisterComponent]
 public sealed partial class MissingHeadComponent : Component
 {

@@ -7,6 +7,7 @@ using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Movement.Components;
 using Content.Server.Body.Components;
+using Content.Shared._Onyx.Body;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
@@ -118,6 +119,7 @@ public sealed partial class OceanSwimmingStaminaSystem : EntitySystem
         TimeSpan now)
     {
         if (!HasComp<RespiratorComponent>(uid) ||
+            HasComp<BreathingImmunityComponent>(uid) ||
             stamina.CritThreshold <= 0f)
         {
             return;

@@ -323,6 +323,7 @@
     - id: XenobiologyBountyComputerCircuitboard
     - id: MMI
     - id: NTCustomLawboard # <Onyx-CustomLawboard>
+    - id: ClothingBeltGeminiHoloProjector # <Onyx-CloneProjector>
     # </Onyx-LockerInventories-edited>
 
 # Hardsuit table, used for suit storage as well

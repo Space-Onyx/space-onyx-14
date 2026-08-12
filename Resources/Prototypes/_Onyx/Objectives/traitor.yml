@@ -1,0 +1,9 @@
+- type: entity
+  parent: BaseRDStealObjective
+  id: GeminiProjectorStealObjective
+  components:
+  - type: StealCondition
+    stealGroup: ClothingBeltGeminiHoloProjector
+    descriptionText: objective-condition-steal-gemini-projector-description
+  - type: Objective
+    difficulty: 3.5

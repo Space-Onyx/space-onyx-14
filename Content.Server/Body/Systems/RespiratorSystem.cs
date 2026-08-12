@@ -89,7 +89,7 @@ public sealed partial class RespiratorSystem : EntitySystem
 
             respirator.NextUpdate += respirator.AdjustedUpdateInterval;
 
-            if (_mobState.IsDead(uid))
+            if (_mobState.IsDead(uid) || HasComp<BreathingImmunityComponent>(uid)) // <Onyx-BreathingImmunity-edited>
                 continue;
 
             // <Onyx-GoobGrab>

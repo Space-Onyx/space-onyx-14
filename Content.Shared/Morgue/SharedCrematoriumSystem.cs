@@ -12,6 +12,7 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Network;
 using Robust.Shared.Timing;
+using Content.Shared._Onyx.CloneProjector; // <Onyx-CloneProjector>
 
 namespace Content.Shared.Morgue;
 
@@ -141,6 +142,10 @@ public abstract partial class SharedCrematoriumSystem : EntitySystem
             for (var i = ent.Comp2.Contents.ContainedEntities.Count - 1; i >= 0; i--)
             {
                 var item = ent.Comp2.Contents.ContainedEntities[i];
+                // <Onyx-CloneProjector>
+                if (HasComp<CrematoriumImmuneComponent>(item))
+                    continue;
+                // </Onyx-CloneProjector>
                 _container.Remove(item, ent.Comp2.Contents);
                 PredictedDel(item);
             }

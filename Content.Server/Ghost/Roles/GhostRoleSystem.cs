@@ -34,6 +34,8 @@ using Content.Shared.Verbs;
 using Robust.Shared.Collections;
 using Content.Shared.Ghost.Roles.Components;
 using Content.Shared.Roles.Components;
+using Content.Server._Onyx.CloneProjector; // <Onyx-CloneProjector>
+using Content.Server.Players.PlayTimeTracking; // <Onyx-CloneProjector>
 
 namespace Content.Server.Ghost.Roles;
 
@@ -52,6 +54,7 @@ public sealed partial class GhostRoleSystem : EntitySystem
     [Dependency] private SharedRoleSystem _roleSystem = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private PopupSystem _popupSystem = default!;
+    [Dependency] private PlayTimeTrackingManager _playTime = default!; // <Onyx-CloneProjector>
 
     private uint _nextRoleIdentifier;
     private bool _needsUpdateGhostRoleCount = true;
@@ -460,6 +463,12 @@ public sealed partial class GhostRoleSystem : EntitySystem
     {
         if (!_ghostRoles.TryGetValue(identifier, out var roleEnt))
             return;
+
+        // <Onyx-CloneProjector>
+        if (TryComp<GhostRolePlaytimeRequirementComponent>(roleEnt, out var playtimeRequirement) &&
+            _playTime.GetPlayTimeForTracker(player, playtimeRequirement.Tracker) < playtimeRequirement.Time)
+            return;
+        // </Onyx-CloneProjector>
 
         TryPrototypes(roleEnt, out var antags, out var jobs);
 
