@@ -682,14 +682,17 @@
   components:
   - type: SurgeryStep
     tool: [ { type: Tending } ]
-    duration: 1
+    duration: 2
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
     state: hemostat
   - type: SurgeryTendWoundsEffect
+    healMultiplier: 0.005
     damage:
-      groups:
-        Brute: -15
+      types:
+        Slash: -1
+        Blunt: -1
+        Piercing: -1
 
 - type: entity
   parent: SurgeryStepBase
@@ -698,15 +701,16 @@
   components:
   - type: SurgeryStep
     tool: [ { type: Tending } ]
-    duration: 1
+    duration: 2
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
     state: hemostat
   - type: SurgeryTendWoundsEffect
-    damageGroup: Burn
+    healMultiplier: 0.005
     damage:
-      groups:
-        Burn: -20
+      group:
+        Heat: -1.5
+        Cold: -1.5
 
 - type: entity
   parent: SurgeryStepBase
