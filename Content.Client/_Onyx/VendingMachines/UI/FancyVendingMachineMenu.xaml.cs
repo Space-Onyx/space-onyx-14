@@ -1,6 +1,7 @@
 using System.Numerics;
 using System.Linq;
 using Content.Shared.VendingMachines;
+using Content.Shared.VendingMachines.Components;
 using Content.Shared._Onyx.Salvage.MiningPoints;
 using Content.Shared.Access.Systems;
 using Content.Client.Access;

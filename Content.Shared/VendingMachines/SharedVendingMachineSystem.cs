@@ -45,6 +45,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
             subs.Event<VendingMachineEjectCountMessage>(OnInventoryEjectCountMessage);
             subs.Event<VendingMachineWithdrawMessage>(OnWithdrawMessage);
         });
+        SubscribeLocalEvent<VendingMachineComponent, GotEmaggedEvent>(OnEmagged);
     }
 
     [SubscribeLocalEvent]
@@ -103,7 +104,6 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     [SubscribeLocalEvent]
     protected virtual void OnMapInit(EntityUid uid, VendingMachineComponent component, MapInitEvent args) => RestockInventoryFromPrototype(uid, component, component.InitialStockQuality);
 
-    [SubscribeLocalEvent]
     private void OnEmagged(EntityUid uid, VendingMachineComponent component, ref GotEmaggedEvent args)
     {
         if (_emag.CompareFlag(args.Type, EmagType.Interaction) && !_emag.CheckFlag(uid, EmagType.Interaction)) args.Handled = component.EmaggedInventory.Count > 0 || component.PriceMultiplier > 0;
