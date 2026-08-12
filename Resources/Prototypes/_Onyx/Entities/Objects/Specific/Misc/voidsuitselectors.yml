@@ -18,6 +18,7 @@
     possibleSets:
     - VoidsuitSelectorParamedicVoidsuit
     - VoidsuitSelectorParamedicHardsuit
+    - VoidsuitSelectorParamedicRescueModsuit
 
 # security
 - type: entity
@@ -63,6 +64,36 @@
     possibleSets:
     - VoidsuitSelectorEngineerVoidsuit
     - VoidsuitSelectorEngineerHardsuit
+
+# atmospheric technician
+- type: entity
+  id: UndeterminedVoidsuitAtmos
+  name: atmospheric technician hardsuit selector
+  description: A small remote utilizing bluespace technology to drop in a hardsuit or modsuit of your choosing.
+  parent: [ BaseItem, BaseSetSelector, BaseEngineeringContraband ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Devices/unique_teleporters.rsi
+    state: standard
+  - type: SetSelector
+    possibleSets:
+    - VoidsuitSelectorAtmosVoidsuit
+    - VoidsuitSelectorAtmosModsuit
+
+# clown
+- type: entity
+  id: UndeterminedVoidsuitClown
+  name: clown hardsuit selector
+  description: A small remote utilizing bluespace technology to drop in a hardsuit or modsuit of your choosing.
+  parent: [ BaseItem, BaseSetSelector ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Devices/unique_teleporters.rsi
+    state: standard
+  - type: SetSelector
+    possibleSets:
+    - VoidsuitSelectorClownHardsuit
+    - VoidsuitSelectorClownModsuit
 
 # Cappy Suit
 - type: entity

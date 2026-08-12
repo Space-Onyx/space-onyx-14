@@ -84,6 +84,7 @@
     - ModsuitGauntlets
     - ModsuitShell
     - ModsuitPlatingExternal
+    - ModsuitPlatingCivilian
   position: -3,0
   technologyPrerequisites:
     - AdvancedRobotics
@@ -167,6 +168,7 @@
   recipeUnlocks:
     - WeldingSuitModule
     - VisorMesonSuitModule
+    - ModsuitPlatingEngineer
     - MagnetSuitModule
     - RadiationShieldSuitModule
     - TemperatureRegulatorSuitModule

@@ -165,6 +165,7 @@
   cost: 5000
   recipeUnlocks:
     - ClothingBackpackElectropack
+    - ModsuitPlatingSecurity # <Onyx-ModsuitPlating>
   position: 0,5
   technologyPrerequisites:
     - RestraintTechnology

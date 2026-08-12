@@ -112,6 +112,186 @@
     reduction: 0.5
 
 - type: entity
+  parent: ClothingOuterModsuitBase
+  id: ClothingModsuitChestplateCivilian
+  name: civilian modsuit chestplate
+  description: A lightweight civilian chestplate. Provides minimal protection but maximum mobility.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/OuterClothing/Modsuits/civilian.rsi
+    layers:
+    - state: icon
+    - state: icon-sealed
+      visible: false
+      map: [ "sealed" ]
+  - type: Clothing
+    equipSound: /Audio/Mecha/mechmove03.ogg
+    unequipSound: /Audio/Mecha/mechmove03.ogg
+    slots: [ outerClothing ]
+    clothingVisuals:
+      outerClothing:
+      - state: equipped-OUTERCLOTHING
+      outerClothing-reptilian:
+      - state: equipped-OUTERCLOTHING-reptilian
+      outerClothing-vox:
+      - state: equipped-OUTERCLOTHING-vox
+  - type: SealableClothing
+    sealUpPopup: sealable-clothing-seal-up-chestplate
+    sealDownPopup: sealable-clothing-seal-down-chestplate
+  - type: SealableClothingVisuals
+    spriteLayer: sealed
+    clothingVisuals:
+      outerClothing:
+      - state: sealed-equipped-OUTERCLOTHING
+      outerClothing-reptilian:
+      - state: sealed-equipped-OUTERCLOTHING-reptilian
+      outerClothing-vox:
+      - state: sealed-equipped-OUTERCLOTHING-vox
+  - type: Armor
+    coverage:
+    - Chest
+    - Groin
+    - Arm
+    - Hand
+    - Leg
+    - Foot
+    - Tail
+    - Other
+    modifiers:
+      coefficients:
+        Blunt: 0.95
+        Slash: 0.95
+        Piercing: 0.95
+        Heat: 0.95
+        Radiation: 0.4
+  - type: DiseaseProtection
+    incoming:
+      chanceMultipliers:
+        Aerial: 0.9286
+        Blood: 0.9286
+
+- type: entity
+  parent: ClothingOuterModsuitBase
+  id: ClothingModsuitChestplateCosmohonk
+  name: cosmohonk modsuit chestplate
+  description: A clown-themed chestplate. Surprisingly durable for something so silly.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/OuterClothing/Modsuits/cosmohonk.rsi
+    layers:
+    - state: icon
+    - state: icon-sealed
+      visible: false
+      map: [ "sealed" ]
+  - type: Clothing
+    equipSound: /Audio/Mecha/mechmove03.ogg
+    unequipSound: /Audio/Mecha/mechmove03.ogg
+    slots: [ outerClothing ]
+    clothingVisuals:
+      outerClothing:
+      - state: equipped-OUTERCLOTHING
+      outerClothing-reptilian:
+      - state: equipped-OUTERCLOTHING-reptilian
+      outerClothing-vox:
+      - state: equipped-OUTERCLOTHING-vox
+  - type: SealableClothing
+    sealUpPopup: sealable-clothing-seal-up-chestplate
+    sealDownPopup: sealable-clothing-seal-down-chestplate
+  - type: SealableClothingVisuals
+    spriteLayer: sealed
+    clothingVisuals:
+      outerClothing:
+      - state: sealed-equipped-OUTERCLOTHING
+      outerClothing-reptilian:
+      - state: sealed-equipped-OUTERCLOTHING-reptilian
+      outerClothing-vox:
+      - state: sealed-equipped-OUTERCLOTHING-vox
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9
+        Radiation: 0.25
+        Caustic: 0.8
+  - type: ExplosionResistance
+    damageCoefficient: 0.9
+  - type: ComponentToggler
+    components:
+    - type: PressureProtection
+      highPressureMultiplier: 0.5
+      lowPressureMultiplier: 1000
+    - type: TemperatureProtection
+      coefficient: 0.01
+  - type: DiseaseProtection
+    incoming:
+      chanceMultipliers:
+        Aerial: 0.9286
+        Blood: 0.9286
+
+- type: entity
+  parent: ClothingOuterModsuitBase
+  id: ClothingModsuitChestplateRescue
+  name: rescue modsuit chestplate
+  description: A rescue chestplate with excellent environmental protection.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/OuterClothing/Modsuits/rescue.rsi
+    layers:
+    - state: icon
+    - state: icon-sealed
+      visible: false
+      map: [ "sealed" ]
+  - type: Clothing
+    equipSound: /Audio/Mecha/mechmove03.ogg
+    unequipSound: /Audio/Mecha/mechmove03.ogg
+    slots: [ outerClothing ]
+    clothingVisuals:
+      outerClothing:
+      - state: equipped-OUTERCLOTHING
+      outerClothing-reptilian:
+      - state: equipped-OUTERCLOTHING-reptilian
+      outerClothing-vox:
+      - state: equipped-OUTERCLOTHING-vox
+  - type: SealableClothing
+    sealUpPopup: sealable-clothing-seal-up-chestplate
+    sealDownPopup: sealable-clothing-seal-down-chestplate
+  - type: SealableClothingVisuals
+    spriteLayer: sealed
+    clothingVisuals:
+      outerClothing:
+      - state: sealed-equipped-OUTERCLOTHING
+      outerClothing-reptilian:
+      - state: sealed-equipped-OUTERCLOTHING-reptilian
+      outerClothing-vox:
+      - state: sealed-equipped-OUTERCLOTHING-vox
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.95
+        Heat: 0.9
+        Radiation: 0.75
+        Caustic: 0.5
+  - type: ComponentToggler
+    components:
+    - type: PressureProtection
+      highPressureMultiplier: 0.3
+      lowPressureMultiplier: 1000
+    - type: TemperatureProtection
+      coefficient: 0.01
+  - type: DiseaseProtection
+    incoming:
+      chanceMultipliers:
+        Aerial: 0.7857
+        Blood: 0.7857
+
+- type: entity
   parent: ClothingOuterBase
   id: ClothingModsuitChestplateSecurity
   name: soldat modsuit chestplate

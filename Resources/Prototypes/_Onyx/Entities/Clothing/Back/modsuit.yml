@@ -196,6 +196,160 @@
             - PowerCell
 
 - type: entity
+  parent: ClothingModsuitStandard
+  id: ClothingModsuitCivilian
+  name: civilian modsuit control unit
+  description: A lightweight controller for civilian use.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Back/Modsuits/civilian.rsi
+    layers:
+    - state: icon
+    - state: icon-sealed
+      visible: false
+      map: [ "sealed" ]
+  - type: ToggleableClothing
+    clothingPrototypes:
+      head: ClothingModsuitHelmetCivilian
+      gloves: ClothingModsuitGauntletsCivilian
+      outerClothing: ClothingModsuitChestplateCivilian
+      shoes: ClothingModsuitBootsCivilian
+  - type: Construction
+    graph: Modsuit
+    node: civilian
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.9
+  - type: ModModuleContainer
+    startingModules: []
+  - type: SealableClothingVisuals
+    spriteLayer: sealed
+    clothingVisuals:
+      back:
+      - state: sealed-equipped-BACKPACK
+
+- type: entity
+  parent: ClothingModsuitStandard
+  id: ClothingModsuitCosmohonk
+  name: cosmohonk modsuit control unit
+  description: A controller from Honk Ltd. Most of the tech went into reducing power consumption.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Back/Modsuits/cosmohonk.rsi
+    layers:
+    - state: icon
+    - state: icon-sealed
+      visible: false
+      map: [ "sealed" ]
+  - type: ToggleableClothing
+    clothingPrototypes:
+      head: ClothingModsuitHelmetCosmohonk
+      gloves: ClothingModsuitGauntletsCosmohonk
+      outerClothing: ClothingModsuitChestplateCosmohonk
+      shoes: ClothingModsuitBootsCosmohonk
+  - type: Construction
+    graph: Modsuit
+    node: cosmohonk
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.9
+  - type: ModModuleContainer
+    startingModules: []
+  - type: SealableClothingVisuals
+    spriteLayer: sealed
+    clothingVisuals:
+      back:
+      - state: sealed-equipped-BACKPACK
+
+- type: entity
+  parent: [ClothingModsuitStandard, BaseMedicalContraband]
+  id: ClothingModsuitRescue
+  name: rescue modsuit control unit
+  description: An advanced medical controller designed for rescue in hazardous environments.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Back/Modsuits/rescue.rsi
+    layers:
+    - state: icon
+    - state: icon-sealed
+      visible: false
+      map: [ "sealed" ]
+  - type: ToggleableClothing
+    clothingPrototypes:
+      head: ClothingModsuitHelmetRescue
+      gloves: ClothingModsuitGauntletsRescue
+      outerClothing: ClothingModsuitChestplateRescue
+      shoes: ClothingModsuitBootsRescue
+  - type: Construction
+    graph: Modsuit
+    node: rescue
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.9
+  - type: ModModuleContainer
+    startingModules: []
+  - type: SealableClothingVisuals
+    spriteLayer: sealed
+    clothingVisuals:
+      back:
+      - state: sealed-equipped-BACKPACK
+
+- type: entity
+  parent: ClothingModsuitCivilian
+  id: ClothingModsuitCivilianPowerCell
+  suffix: Battery
+  components:
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellSmall
+        whitelist:
+          components:
+          - PowerCell
+
+- type: entity
+  parent: ClothingModsuitCosmohonk
+  id: ClothingModsuitCosmohonkPowerCell
+  suffix: Battery
+  components:
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellSmall
+        whitelist:
+          components:
+          - PowerCell
+  - type: ModModuleContainer
+    startingModules:
+    - BikeHornSuitModule
+    - StorageSuitModule
+    - FlashlightSuitModuleRed
+
+- type: entity
+  parent: ClothingModsuitRescue
+  id: ClothingModsuitRescuePowerCell
+  suffix: High-Capacity Battery
+  components:
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellHigh
+        whitelist:
+          components:
+          - PowerCell
+  - type: ModModuleContainer
+    startingModules:
+    - HealthAnalyzerSuitModule
+    - DefibrillatorSuitModule
+    - VisorMedicalSuitModule
+    - QuickCarrySuitModule
+    - StorageSuitModule
+    - AdvancedFlashlightSuitModulePink
+
+- type: entity
   parent: [ClothingModsuitStandard, BaseSecurityContraband]
   id: ClothingModsuitSecurity
   name: security soldat modsuit control unit

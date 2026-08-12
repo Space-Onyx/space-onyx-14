@@ -66,9 +66,74 @@
   - Modsuit
   completetime: 5
   materials:
-    Steel: 300
+    Steel: 400
+    Plasteel: 100
+
+- type: latheRecipe
+  id: ModsuitPlatingEngineer
+  result: ModsuitPlatingEngineer
+  categories:
+  - Modsuit
+  completetime: 5
+  materials:
+    Steel: 500
+    Plasteel: 200
     Glass: 150
-    Plasma: 50
+
+- type: latheRecipe
+  id: ModsuitPlatingAtmostech
+  result: ModsuitPlatingAtmostech
+  categories:
+  - Modsuit
+  completetime: 5
+  materials:
+    Steel: 500
+    Plasteel: 250
+    Glass: 200
+
+- type: latheRecipe
+  id: ModsuitPlatingParamedic
+  result: ModsuitPlatingParamedic
+  categories:
+  - Modsuit
+  completetime: 5
+  materials:
+    Steel: 400
+    Glass: 400
+    Plasteel: 100
+
+- type: latheRecipe
+  id: ModsuitPlatingSecurity
+  result: ModsuitPlatingSecurity
+  categories:
+  - Modsuit
+  completetime: 5
+  materials:
+    Steel: 1000
+    Plasteel: 500
+    Glass: 400
+
+- type: latheRecipe
+  id: ModsuitPlatingCivilian
+  result: ModsuitPlatingCivilian
+  categories:
+  - Modsuit
+  completetime: 5
+  materials:
+    Steel: 500
+    Plasteel: 150
+    Glass: 100
+
+- type: latheRecipe
+  id: ModsuitPlatingCosmohonk
+  result: ModsuitPlatingCosmohonk
+  categories:
+  - Modsuit
+  completetime: 5
+  materials:
+    Steel: 500
+    Bananium: 200
+    Glass: 100
 
 - type: latheRecipe
   id: AiRemoteBrain

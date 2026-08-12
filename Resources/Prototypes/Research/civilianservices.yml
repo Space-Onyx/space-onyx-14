@@ -241,6 +241,7 @@
   recipeUnlocks:
     - PushHorn
     - BorgModuleAdvancedClowning
+    - ModsuitPlatingCosmohonk # <Onyx-ModsuitPlating>
   position: -2,2
   technologyPrerequisites:
     - CritterMechs

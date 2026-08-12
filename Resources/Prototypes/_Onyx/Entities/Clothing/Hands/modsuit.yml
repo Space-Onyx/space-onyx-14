@@ -69,6 +69,56 @@
     clothingVisuals:
       gloves:
       - state: equipped-HAND-sealed
+
+- type: entity
+  parent: ClothingHandModsuitBase
+  id: ClothingModsuitGauntletsCivilian
+  name: civilian modsuit gauntlets
+  description: Lightweight civilian gauntlets for everyday tasks.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Hands/Modsuits/civilian.rsi
+    layers:
+    - state: icon
+    - state: icon-sealed
+      visible: false
+      map: [ "sealed" ]
+  - type: Clothing
+    equipSound: /Audio/Mecha/mechmove03.ogg
+    unequipSound: /Audio/Mecha/mechmove03.ogg
+    slots: [ gloves ]
+    clothingVisuals:
+      gloves:
+      - state: equipped-HAND
+  - type: SealableClothing
+    sealUpPopup: sealable-clothing-seal-up-gauntlets
+    sealDownPopup: sealable-clothing-seal-down-gauntlets
+  - type: SealableClothingVisuals
+    spriteLayer: sealed
+    clothingVisuals:
+      gloves:
+      - state: sealed-equipped-HAND
+
+- type: entity
+  parent: ClothingModsuitGauntletsCivilian
+  id: ClothingModsuitGauntletsCosmohonk
+  name: cosmohonk modsuit gauntlets
+  description: Clown-themed gauntlets. Perfect for delivering honks.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Hands/Modsuits/cosmohonk.rsi
+
+- type: entity
+  parent: ClothingModsuitGauntletsCivilian
+  id: ClothingModsuitGauntletsRescue
+  name: rescue modsuit gauntlets
+  description: Rescue gauntlets with partial insulation.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Hands/Modsuits/rescue.rsi
+  - type: Insulated
+    coefficient: 0.5
 - type: entity
   parent: ClothingHandModsuitBase
   id: ClothingModsuitGauntletsSecurity

@@ -63,3 +63,18 @@ selectable-set-research-director-modsuit-desc =
     Модульный скафандр идеально подходит для того, чтобы превратить вас в исследовательский танк,
     даже самые опасные эксперименты не причинят вам вреда,
     а самый худший из ассистентов дважды подумает, прежде чем вломиться в НИО.
+
+selectable-set-atmos-voidsuit-name = атмосферный скафандр
+selectable-set-atmos-voidsuit-desc = Огнестойкий скафандр для ликвидации атмосферных аварий.
+
+selectable-set-atmos-modsuit-name = скафандр MOD "Эол"
+selectable-set-atmos-modsuit-desc = Модульный скафандр с повышенной термической и атмосферной защитой.
+
+selectable-set-paramedic-rescue-modsuit-name = спасательный скафандр MOD
+selectable-set-paramedic-rescue-modsuit-desc = Медицинский спасательный скафандр с защитой от опасной среды и болезней.
+
+selectable-set-clown-hardsuit-name = клоунский скафандр
+selectable-set-clown-hardsuit-desc = Герметичный клоунский скафандр для опасных хонков.
+
+selectable-set-clown-modsuit-name = скафандр MOD "Космохонк"
+selectable-set-clown-modsuit-desc = Модульный клоунский скафандр от Honk Ltd. с пониженным энергопотреблением.

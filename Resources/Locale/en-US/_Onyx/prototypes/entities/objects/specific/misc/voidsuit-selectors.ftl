@@ -10,3 +10,7 @@ ent-UndeterminedVoidsuitCaptain = captain hardsuit selector
     .desc = A small remote utilizing bluespace technology to drop in a hardsuit or modsuit of your choosing.
 ent-UndeterminedVoidsuitRD = research director hardsuit selector
     .desc = A small remote utilizing bluespace technology to drop in a hardsuit or modsuit of your choosing.
+ent-UndeterminedVoidsuitAtmos = atmospheric technician hardsuit selector
+    .desc = A small remote utilizing bluespace technology to drop in a hardsuit or modsuit of your choosing.
+ent-UndeterminedVoidsuitClown = clown hardsuit selector
+    .desc = A small remote utilizing bluespace technology to drop in a hardsuit or modsuit of your choosing.

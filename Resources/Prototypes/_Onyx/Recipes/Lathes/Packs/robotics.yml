@@ -7,10 +7,12 @@
   - ModsuitGauntlets
   - ModsuitShell
   - ModsuitPlatingExternal
+  - ModsuitPlatingCivilian
 
 - type: latheRecipePack
   id: SuitModulesMedical
   recipes:
+  - ModsuitPlatingParamedic
   - VisorMedicalSuitModule
   - VisorDiagnosticSuitModule
   - SolutionScannerSuitModule
@@ -22,6 +24,8 @@
 - type: latheRecipePack
   id: SuitModulesEngineering
   recipes:
+  - ModsuitPlatingEngineer
+  - ModsuitPlatingAtmostech
   - VisorMesonSuitModule
   - WeldingSuitModule
   - MagnetSuitModule
@@ -44,6 +48,7 @@
 - type: latheRecipePack
   id: SuitModulesService
   recipes:
+  - ModsuitPlatingCosmohonk
   - TRaySuitModule
   - BikeHornSuitModule
   - StorageSuitModule
@@ -55,6 +60,7 @@
 - type: latheRecipePack
   id: SuitModulesSecurity
   recipes:
+  - ModsuitPlatingSecurity
   - VisorSecuritySuitModule
   - HolsterSuitModule
   - EMPShieldSuitModule

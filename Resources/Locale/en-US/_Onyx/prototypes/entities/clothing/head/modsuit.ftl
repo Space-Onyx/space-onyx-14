@@ -1,5 +1,5 @@
 ent-BaseClothingModsuitHelmet = base modsuit helmet
-    .desc = { "" }
+    .desc = A folded helmet component for a modular suit.
 ent-BaseClothingModsuitHelmetHideIdentity = base modsuit helmet
     .desc = { ent-BaseClothingModsuitHelmet.desc }
 ent-ClothingModsuitHelmetStandard = standard modsuit helmet
@@ -18,3 +18,9 @@ ent-ClothingModsuitHelmetResearchDirector = minerva modsuit helmet
     .desc = A dark dark dark visor protecting your precious face from shrap and blast.
 ent-ClothingModsuitHelmetCaptain = magnate modsuit helmet
     .desc = The visor is made from 10,000 year old amythest.
+ent-ClothingModsuitHelmetCivilian = civilian modsuit helmet
+    .desc = A lightweight civilian helmet with a cyan visor. Not rated for vacuum exposure.
+ent-ClothingModsuitHelmetCosmohonk = cosmohonk modsuit helmet
+    .desc = A clown-themed helmet with a red visor. Honk!
+ent-ClothingModsuitHelmetRescue = rescue modsuit helmet
+    .desc = A medical rescue helmet designed for extracting patients from hazardous environments.

@@ -62,6 +62,63 @@
     clothingVisuals:
       shoes:
       - state: equipped-FEET-sealed
+
+- type: entity
+  parent: ClothingShoesModsuitBase
+  id: ClothingModsuitBootsCivilian
+  name: civilian modsuit boots
+  description: Lightweight civilian boots comfortable for extended wear.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Shoes/Modsuits/civilian.rsi
+    layers:
+    - state: icon
+    - state: icon-sealed
+      visible: false
+      map: [ "sealed" ]
+  - type: Clothing
+    equipSound: /Audio/Mecha/mechmove03.ogg
+    unequipSound: /Audio/Mecha/mechmove03.ogg
+    slots: [ feet ]
+    clothingVisuals:
+      shoes:
+      - state: equipped-FEET
+      shoes-reptilian:
+      - state: equipped-FEET-reptilian
+  - type: SealableClothing
+    sealUpPopup: sealable-clothing-seal-up-boots
+    sealDownPopup: sealable-clothing-seal-down-boots
+  - type: SealableClothingVisuals
+    spriteLayer: sealed
+    clothingVisuals:
+      shoes:
+      - state: sealed-equipped-FEET
+      shoes-reptilian:
+      - state: sealed-equipped-FEET-reptilian
+
+- type: entity
+  parent: ClothingModsuitBootsCivilian
+  id: ClothingModsuitBootsCosmohonk
+  name: cosmohonk modsuit boots
+  description: Clown-themed boots that honk with every step.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Shoes/Modsuits/cosmohonk.rsi
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepClown
+      params:
+        variation: 0.17
+
+- type: entity
+  parent: ClothingModsuitBootsCivilian
+  id: ClothingModsuitBootsRescue
+  name: rescue modsuit boots
+  description: Rescue boots designed for rapid response and patient evacuation.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Shoes/Modsuits/rescue.rsi
 - type: entity
   parent: ClothingShoesBase
   id: ClothingModsuitBootsSecurity

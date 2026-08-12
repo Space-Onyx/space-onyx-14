@@ -118,6 +118,90 @@
         - tool: Anchoring
           doAfter: 1
 
+    - to: engineer
+      steps:
+        - tag: ModsuitPlatingEngineer
+          name: construction-graph-tag-mod-plating
+          doAfter: 1
+          completed:
+          - !type:PlaySound
+            sound: /Audio/Items/screwdriver2.ogg
+
+        - tool: Anchoring
+          doAfter: 1
+
+    - to: atmostech
+      steps:
+        - tag: ModsuitPlatingAtmostech
+          name: construction-graph-tag-mod-plating
+          doAfter: 1
+          completed:
+          - !type:PlaySound
+            sound: /Audio/Items/screwdriver2.ogg
+
+        - tool: Anchoring
+          doAfter: 1
+
+    - to: paramedic
+      steps:
+        - tag: ModsuitPlatingParamedic
+          name: construction-graph-tag-mod-plating
+          doAfter: 1
+          completed:
+          - !type:PlaySound
+            sound: /Audio/Items/screwdriver2.ogg
+
+        - tool: Anchoring
+          doAfter: 1
+
+    - to: security
+      steps:
+        - tag: ModsuitPlatingSecurity
+          name: construction-graph-tag-mod-plating
+          doAfter: 1
+          completed:
+          - !type:PlaySound
+            sound: /Audio/Items/screwdriver2.ogg
+
+        - tool: Anchoring
+          doAfter: 1
+
+    - to: civilian
+      steps:
+        - tag: ModsuitPlatingCivilian
+          name: construction-graph-tag-mod-plating
+          doAfter: 1
+          completed:
+          - !type:PlaySound
+            sound: /Audio/Items/screwdriver2.ogg
+
+        - tool: Anchoring
+          doAfter: 1
+
+    - to: cosmohonk
+      steps:
+        - tag: ModsuitPlatingCosmohonk
+          name: construction-graph-tag-mod-plating
+          doAfter: 1
+          completed:
+          - !type:PlaySound
+            sound: /Audio/Items/screwdriver2.ogg
+
+        - tool: Anchoring
+          doAfter: 1
+
+    - to: rescue
+      steps:
+        - tag: ModsuitPlatingRescue
+          name: construction-graph-tag-mod-plating
+          doAfter: 1
+          completed:
+          - !type:PlaySound
+            sound: /Audio/Items/screwdriver2.ogg
+
+        - tool: Anchoring
+          doAfter: 1
+
   - node: standard
     entity: ClothingModsuitStandard
 
@@ -141,3 +225,12 @@
 
   - node: captain
     entity: ClothingModsuitCaptain
+
+  - node: civilian
+    entity: ClothingModsuitCivilian
+
+  - node: cosmohonk
+    entity: ClothingModsuitCosmohonk
+
+  - node: rescue
+    entity: ClothingModsuitRescue

@@ -128,7 +128,7 @@
   # <Onyx-LockerInventories-edited>
   - type: StorageFill
     contents:
-    - id: ClothingModsuitAtmostechPowerCell
+    - id: UndeterminedVoidsuitAtmos # <Onyx-VoidsuitSelectors-edited>
     - id: OxygenTankFilled
     - id: NitrogenTankFilled
     - id: ClothingMaskGasAtmos
@@ -186,7 +186,7 @@
   id: FillAtmosphericsHardsuit
   table: !type:AllSelector
     children:
-    - id: ClothingOuterHardsuitAtmos
+    - id: UndeterminedVoidsuitAtmos # <Onyx-VoidsuitSelectors-edited>
     - id: OxygenTankFilled
     - id: ClothingMaskBreath
 

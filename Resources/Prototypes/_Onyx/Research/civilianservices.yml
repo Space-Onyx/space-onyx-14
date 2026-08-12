@@ -231,6 +231,7 @@
   tier: 1
   cost: 10000
   recipeUnlocks:
+    - ModsuitPlatingParamedic
     - VisorMedicalSuitModule
     - VisorDiagnosticSuitModule
     - HealthAnalyzerSuitModule

@@ -67,6 +67,10 @@
     - HeadTop
     - HeadSide
   - type: FaceHuggerBlocker
+  - type: PointLight
+    enabled: false
+    lightMask: ConeSingle
+    autoRot: true
 
 - type: entity
   abstract: true
@@ -150,6 +154,200 @@
   - type: IgniteFromGasImmunity
     parts:
     - Head
+
+- type: entity
+  parent: BaseClothingModsuitHelmet
+  id: ClothingModsuitHelmetCivilian
+  name: civilian modsuit helmet
+  description: A lightweight civilian helmet with a cyan visor. Not rated for vacuum exposure.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Appearance
+  - type: Sprite
+    sprite: _Onyx/Clothing/Head/Modsuits/civilian.rsi
+    layers:
+    - state: icon
+    - state: icon-sealed
+      visible: false
+      map: [ "sealed" ]
+  - type: Clothing
+    clothingVisuals:
+      head:
+      - state: equipped-HELMET
+      head-reptilian:
+      - state: equipped-HELMET-reptilian
+      head-vox:
+      - state: equipped-HELMET-vox
+  - type: SealableClothing
+    sealUpPopup: sealable-clothing-seal-up-helmet
+    sealDownPopup: sealable-clothing-seal-down-helmet
+  - type: SealableClothingVisuals
+    spriteLayer: sealed
+    clothingVisuals:
+      head:
+      - state: sealed-equipped-HELMET
+      - state: visor-unshaded
+        shader: unshaded
+        color: "#a4fef4"
+      head-reptilian:
+      - state: sealed-equipped-HELMET-reptilian
+      - state: visor-unshaded-reptilian
+        shader: unshaded
+        color: "#a4fef4"
+      head-vox:
+      - state: sealed-equipped-HELMET-vox
+      - state: visor-unshaded-vox
+        shader: unshaded
+        color: "#a4fef4"
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.95
+        Slash: 0.95
+        Piercing: 0.95
+        Heat: 0.95
+        Radiation: 0.4
+  - type: DiseaseProtection
+    incoming:
+      chanceMultipliers:
+        Aerial: 0.9286
+        Blood: 0.9286
+  - type: ComponentToggler
+    components:
+    - type: BreathMask
+    - type: IdentityBlocker
+    - type: IngestionBlocker
+      blockSmokeIngestion: true
+
+- type: entity
+  parent: ClothingModsuitHelmetStandard
+  id: ClothingModsuitHelmetCosmohonk
+  name: cosmohonk modsuit helmet
+  description: A clown-themed helmet with a red visor. Honk!
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Head/Modsuits/cosmohonk.rsi
+    layers:
+    - state: icon
+    - state: icon-sealed
+      visible: false
+      map: [ "sealed" ]
+  - type: Clothing
+    clothingVisuals:
+      head:
+      - state: equipped-HELMET
+      head-reptilian:
+      - state: equipped-HELMET-reptilian
+      head-vox:
+      - state: equipped-HELMET-vox
+  - type: SealableClothingVisuals
+    spriteLayer: sealed
+    clothingVisuals:
+      head:
+      - state: sealed-equipped-HELMET
+      - state: visor-unshaded
+        shader: unshaded
+        color: "#e40000"
+      head-reptilian:
+      - state: sealed-equipped-HELMET-reptilian
+      - state: visor-unshaded-reptilian
+        shader: unshaded
+        color: "#e40000"
+      head-vox:
+      - state: sealed-equipped-HELMET-vox
+      - state: visor-unshaded-vox
+        shader: unshaded
+        color: "#e40000"
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.95
+        Heat: 0.9
+        Radiation: 0.25
+  - type: DiseaseProtection
+    incoming:
+      chanceMultipliers:
+        Aerial: 0.9286
+        Blood: 0.9286
+  - type: ComponentToggler
+    components:
+    - type: BreathMask
+    - type: PressureProtection
+      highPressureMultiplier: 0.3
+      lowPressureMultiplier: 1000
+    - type: TemperatureProtection
+      coefficient: 0.1
+    - type: IdentityBlocker
+    - type: IngestionBlocker
+      blockSmokeIngestion: true
+
+- type: entity
+  parent: ClothingModsuitHelmetStandard
+  id: ClothingModsuitHelmetRescue
+  name: rescue modsuit helmet
+  description: A medical rescue helmet designed for extracting patients from hazardous environments.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Head/Modsuits/rescue.rsi
+    layers:
+    - state: icon
+    - state: icon-sealed
+      visible: false
+      map: [ "sealed" ]
+  - type: Clothing
+    clothingVisuals:
+      head:
+      - state: equipped-HELMET
+      head-reptilian:
+      - state: equipped-HELMET-reptilian
+      head-vox:
+      - state: equipped-HELMET-vox
+  - type: SealableClothingVisuals
+    spriteLayer: sealed
+    clothingVisuals:
+      head:
+      - state: sealed-equipped-HELMET
+      - state: visor-unshaded
+        shader: unshaded
+        color: "#f7e0e1"
+      head-reptilian:
+      - state: sealed-equipped-HELMET-reptilian
+      - state: visor-unshaded-reptilian
+        shader: unshaded
+        color: "#f7e0e1"
+      head-vox:
+      - state: sealed-equipped-HELMET-vox
+      - state: visor-unshaded-vox
+        shader: unshaded
+        color: "#f7e0e1"
+  - type: DiseaseProtection
+    incoming:
+      chanceMultipliers:
+        Aerial: 0.7857
+        Blood: 0.7857
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.95
+        Heat: 0.9
+        Radiation: 0.75
+  - type: ComponentToggler
+    components:
+    - type: BreathMask
+    - type: PressureProtection
+      highPressureMultiplier: 0.3
+      lowPressureMultiplier: 1000
+    - type: TemperatureProtection
+      coefficient: 0.1
+    - type: IdentityBlocker
+    - type: IngestionBlocker
+      blockSmokeIngestion: true
 
 - type: entity
   parent: BaseClothingModsuitHelmet

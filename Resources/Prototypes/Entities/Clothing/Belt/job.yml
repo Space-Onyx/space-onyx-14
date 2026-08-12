@@ -221,6 +221,7 @@
       - SurgeryTool
       - Dropper
       - HandheldCrewMonitor # <Onyx-ParamedicBeltMonitor>
+      - AutoinjectorCartridge # <Onyx-CartridgeAutoinjector>
       components:
       - Injector
       - Pill

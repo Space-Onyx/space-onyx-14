@@ -104,6 +104,8 @@
   components:
   - type: ModModuleLight
     color: "#79f8e6"
+    energy: 2
+    radius: 3
 
 - type: entity
   parent: FlashlightSuitModule
@@ -112,6 +114,8 @@
   components:
   - type: ModModuleLight
     color: "#a4fef4"
+    energy: 2
+    radius: 3
 
 - type: entity
   parent: FlashlightSuitModule
@@ -120,6 +124,8 @@
   components:
   - type: ModModuleLight
     color: "#e40000"
+    energy: 2
+    radius: 3
 
 - type: entity
   parent: FlashlightSuitModule
@@ -128,6 +134,8 @@
   components:
   - type: ModModuleLight
     color: "#77e3bf"
+    energy: 2
+    radius: 3
 
 - type: entity
   parent: FlashlightSuitModule
@@ -136,6 +144,8 @@
   components:
   - type: ModModuleLight
     color: "#907993"
+    energy: 2
+    radius: 3
 
 - type: entity
   parent: FlashlightSuitModule
@@ -144,6 +154,8 @@
   components:
   - type: ModModuleLight
     color: "#ee8e2e"
+    energy: 2
+    radius: 3
 
 - type: entity
   parent: FlashlightSuitModule
@@ -152,6 +164,8 @@
   components:
   - type: ModModuleLight
     color: "#83db2b"
+    energy: 2
+    radius: 3
 
 - type: entity
   parent: AdvancedFlashlightSuitModule
@@ -160,6 +174,8 @@
   components:
   - type: ModModuleLight
     color: "#cc793d"
+    energy: 3
+    radius: 6
 
 - type: entity
   parent: AdvancedFlashlightSuitModule
@@ -168,6 +184,8 @@
   components:
   - type: ModModuleLight
     color: "#a4fef4"
+    energy: 3
+    radius: 6
 
 - type: entity
   parent: AdvancedFlashlightSuitModule
@@ -176,6 +194,8 @@
   components:
   - type: ModModuleLight
     color: "#ffd480"
+    energy: 3
+    radius: 6
 
 - type: entity
   parent: AdvancedFlashlightSuitModule
@@ -184,6 +204,8 @@
   components:
   - type: ModModuleLight
     color: "#b88ae5"
+    energy: 3
+    radius: 6
 
 - type: entity
   parent: AdvancedFlashlightSuitModule
@@ -192,6 +214,8 @@
   components:
   - type: ModModuleLight
     color: "#f7e0e1"
+    energy: 3
+    radius: 6
 
 - type: entity
   parent: AdvancedFlashlightSuitModule
@@ -200,6 +224,8 @@
   components:
   - type: ModModuleLight
     color: "#facb3e"
+    energy: 3
+    radius: 6
 
 - type: entity
   parent: BaseSuitModule

@@ -62,3 +62,18 @@ selectable-set-research-director-modsuit-desc =
     A modular hardsuit armored perfectly to turn you into a research tank,
     not even the most dangerous of experiments will harm you in this,
     and the worst of assistants will think twice before breaking in sci.
+
+selectable-set-atmos-voidsuit-name = Atmospheric hardsuit
+selectable-set-atmos-voidsuit-desc = A fire-resistant hardsuit designed for atmospheric emergencies.
+
+selectable-set-atmos-modsuit-name = Atmospheric 'Aeolus' modsuit
+selectable-set-atmos-modsuit-desc = A modular hardsuit with extreme thermal and atmospheric protection.
+
+selectable-set-paramedic-rescue-modsuit-name = Rescue modsuit
+selectable-set-paramedic-rescue-modsuit-desc = A medical rescue modsuit with environmental and disease protection.
+
+selectable-set-clown-hardsuit-name = Clown hardsuit
+selectable-set-clown-hardsuit-desc = A spaceworthy clown suit for hazardous honking.
+
+selectable-set-clown-modsuit-name = Cosmohonk modsuit
+selectable-set-clown-modsuit-desc = A modular clown suit from Honk Ltd. with reduced power consumption.

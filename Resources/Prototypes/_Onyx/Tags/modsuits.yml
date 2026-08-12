@@ -1,0 +1,44 @@
+- type: Tag
+  id: ModsuitBoots
+
+- type: Tag
+  id: ModsuitChestplate
+
+- type: Tag
+  id: ModsuitCore
+
+- type: Tag
+  id: ModsuitGauntlets
+
+- type: Tag
+  id: ModsuitHelmet
+
+- type: Tag
+  id: ModsuitPart
+
+- type: Tag
+  id: ModsuitPlatingExternal
+
+- type: Tag
+  id: ModsuitPlatingAtmostech
+
+- type: Tag
+  id: ModsuitPlatingEngineer
+
+- type: Tag
+  id: ModsuitPlatingParamedic
+
+- type: Tag
+  id: ModsuitPlatingSecurity
+
+- type: Tag
+  id: ModsuitPlatingCivilian
+
+- type: Tag
+  id: ModsuitPlatingCosmohonk
+
+- type: Tag
+  id: ModsuitPlatingRescue
+
+- type: Tag
+  id: ModsuitShell

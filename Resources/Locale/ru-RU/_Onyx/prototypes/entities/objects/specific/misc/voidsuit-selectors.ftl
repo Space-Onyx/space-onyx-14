@@ -10,3 +10,7 @@ ent-UndeterminedVoidsuitCaptain = селектор скафандра капит
     .desc = { ent-UndeterminedVoidsuitParamedic.desc }
 ent-UndeterminedVoidsuitRD = селектор скафандра научного руководителя
     .desc = { ent-UndeterminedVoidsuitParamedic.desc }
+ent-UndeterminedVoidsuitAtmos = селектор скафандра атмосферного техника
+    .desc = { ent-UndeterminedVoidsuitParamedic.desc }
+ent-UndeterminedVoidsuitClown = селектор скафандра клоуна
+    .desc = { ent-UndeterminedVoidsuitParamedic.desc }

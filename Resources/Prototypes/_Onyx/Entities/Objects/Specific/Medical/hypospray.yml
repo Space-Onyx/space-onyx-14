@@ -13,6 +13,7 @@
       visible: false
   - type: Item
     sprite: _Onyx/Objects/Specific/Medical/autoinjector.rsi
+    size: Small
   - type: ExaminableSolution
     solution: hypospray
   - type: SolutionContainerVisuals

@@ -603,6 +603,7 @@
     contents:
     - id: ClownMegaphone
     - id: PinkPaperBox # <Onyx-ColoredPaper>
+    - id: UndeterminedVoidsuitClown # <Onyx-VoidsuitSelectors>
   # </Onyx-Loudspeaker>
 
 # Mime

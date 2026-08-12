@@ -47,13 +47,15 @@ public sealed partial class ModModuleActionSystem : EntitySystem
             pointLight = EnsureComp<PointLightComponent>(target.Value);
             EnsureComp<ModModuleOwnedLightComponent>(target.Value).Module = module.Owner;
         }
-        else if (!TryComp<ModModuleOwnedLightComponent>(target, out var ownership) || ownership.Module != module.Owner)
+        else if (!TryComp<ModModuleOwnedLightComponent>(target, out var ownership))
+            EnsureComp<ModModuleOwnedLightComponent>(target.Value).Module = module.Owner;
+        else if (ownership.Module != module.Owner)
             return;
         module.Comp.Enabled = !module.Comp.Enabled;
-        _light.SetColor(target.Value, module.Comp.Color, pointLight);
         _light.SetEnergy(target.Value, module.Comp.Energy, pointLight);
         _light.SetRadius(target.Value, module.Comp.Radius, pointLight);
         _light.SetEnabled(target.Value, module.Comp.Enabled, pointLight);
+        _light.SetColor(target.Value, module.Comp.Color, pointLight);
         _actions.SetToggled(args.Action.AsNullable(), module.Comp.Enabled);
         Dirty(module);
         args.Handled = true;
@@ -67,7 +69,8 @@ public sealed partial class ModModuleActionSystem : EntitySystem
         if (FindHelmet(controller) is not { } helmet ||
             !TryComp<ModModuleOwnedLightComponent>(helmet, out var owned) || owned.Module != module.Owner)
             return;
-        RemComp<PointLightComponent>(helmet);
+        if (TryComp<PointLightComponent>(helmet, out var pointLight))
+            _light.SetEnabled(helmet, false, pointLight);
         RemComp<ModModuleOwnedLightComponent>(helmet);
         module.Comp.Enabled = false;
         Dirty(module);

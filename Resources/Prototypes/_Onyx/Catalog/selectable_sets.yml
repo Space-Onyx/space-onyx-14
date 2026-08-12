@@ -85,6 +85,59 @@
   content:
   - ClothingModsuitEngineerPowerCell
 
+# atmospheric technician
+- type: selectableSet
+  id: VoidsuitSelectorAtmosVoidsuit
+  name: selectable-set-atmos-voidsuit-name
+  description: selectable-set-atmos-voidsuit-desc
+  sprite:
+    sprite: Clothing/OuterClothing/Hardsuits/atmospherics.rsi
+    state: icon
+  content:
+  - ClothingOuterHardsuitAtmos
+
+- type: selectableSet
+  id: VoidsuitSelectorAtmosModsuit
+  name: selectable-set-atmos-modsuit-name
+  description: selectable-set-atmos-modsuit-desc
+  sprite:
+    sprite: _Onyx/Clothing/Back/Modsuits/atmostech.rsi
+    state: control
+  content:
+  - ClothingModsuitAtmostechPowerCell
+
+# paramedic rescue
+- type: selectableSet
+  id: VoidsuitSelectorParamedicRescueModsuit
+  name: selectable-set-paramedic-rescue-modsuit-name
+  description: selectable-set-paramedic-rescue-modsuit-desc
+  sprite:
+    sprite: _Onyx/Clothing/Back/Modsuits/rescue.rsi
+    state: icon
+  content:
+  - ClothingModsuitRescuePowerCell
+
+# clown
+- type: selectableSet
+  id: VoidsuitSelectorClownHardsuit
+  name: selectable-set-clown-hardsuit-name
+  description: selectable-set-clown-hardsuit-desc
+  sprite:
+    sprite: Clothing/OuterClothing/Hardsuits/clown.rsi
+    state: icon
+  content:
+  - ClothingOuterHardsuitClown
+
+- type: selectableSet
+  id: VoidsuitSelectorClownModsuit
+  name: selectable-set-clown-modsuit-name
+  description: selectable-set-clown-modsuit-desc
+  sprite:
+    sprite: _Onyx/Clothing/Back/Modsuits/cosmohonk.rsi
+    state: icon
+  content:
+  - ClothingModsuitCosmohonkPowerCell
+
 # Head Of Security
 
 - type: selectableSet
