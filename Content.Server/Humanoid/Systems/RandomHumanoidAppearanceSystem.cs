@@ -15,7 +15,7 @@ public sealed partial class RandomHumanoidAppearanceSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<RandomHumanoidAppearanceComponent, MapInitEvent>(OnMapInit, after: [typeof(InitialBodySystem)]); // <Onyx-ProfileOrgans-edited>
+        SubscribeLocalEvent<RandomHumanoidAppearanceComponent, MapInitEvent>(OnMapInit, after: [typeof(InitialBodySystem), typeof(SharedVisualBodySystem)]); // <Onyx-RandomAppearanceColors-edited>
     }
 
     private void OnMapInit(EntityUid uid, RandomHumanoidAppearanceComponent component, MapInitEvent args)
@@ -24,7 +24,11 @@ public sealed partial class RandomHumanoidAppearanceSystem : EntitySystem
         if (!TryComp<HumanoidProfileComponent>(uid, out var humanoid))
             return;
 
-        var profile = HumanoidCharacterProfile.RandomWithSpecies(humanoid.Species);
+        // <Onyx-RandomAppearanceMarkings-edited>
+        var randomize = HumanoidCharacterProfile.RandomizeConfigAll ^ HumanoidCharacterProfile.RandomizeCfg.Species ^ HumanoidCharacterProfile.RandomizeCfg.Markings;
+        var profile = HumanoidCharacterProfile.Random(randomize,
+            new HumanoidCharacterProfile().WithSpecies(humanoid.Species));
+        // </Onyx-RandomAppearanceMarkings-edited>
 
         _visualBody.ApplyProfileTo(uid, profile);
         _humanoidProfile.ApplyProfileTo(uid, profile);
