@@ -19,7 +19,7 @@ public sealed partial class DeliveryComponent : Component
     public bool IsOpened;
 
     /// <summary>
-    /// Whether this delivery is still locked using the fingerprint reader.
+    /// Whether this delivery is still locked using the recipient's ID card. // <Onyx-MailDelivery-edited>
     /// </summary>
     [DataField, AutoNetworkedField]
     public bool IsLocked = true;

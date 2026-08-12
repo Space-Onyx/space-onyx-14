@@ -23,10 +23,12 @@
         enum.DeliveryVisualLayers.Breakage:
           True: { visible: true }
           False: { visible: false }
+      # <Onyx-MailDelivery-edited>
       enum.DeliveryVisuals.IsTrash:
-        enum.DeliveryVisualLayers.Trash:
-          True: { visible: true }
-          False: { visible: false }
+        enum.DeliveryVisualLayers.Icon:
+          True: { state: trash }
+          False: { state: icon }
+      # </Onyx-MailDelivery-edited>
       enum.DeliveryVisuals.IsBomb:
         enum.DeliveryVisualLayers.Bomb:
           Off: { visible: false }
@@ -61,12 +63,11 @@
     sprite: _Onyx/Objects/Specific/Cargo/mail_large.rsi # <Onyx-MailDelivery-edited>
     scale: 0.8, 0.8 # <Onyx-MailDelivery>
     layers:
+    # <Onyx-MailDelivery-edited>
     - state: icon
       map: [ "enum.DeliveryVisualLayers.Icon" ]
-    - state: trash
-      map: [ "enum.DeliveryVisualLayers.Trash" ]
-      visible: false
     - state: postmark
+    # </Onyx-MailDelivery-edited>
     - map: [ "enum.DeliveryVisualLayers.JobStamp" ]
       scale: 0.8, 0.8
       offset: 0.235, -0.01
@@ -116,12 +117,11 @@
     sprite: _Onyx/Objects/Specific/Cargo/mail.rsi # <Onyx-MailDelivery-edited>
     scale: 0.7, 0.7 # <Onyx-MailDelivery>
     layers:
+    # <Onyx-MailDelivery-edited>
     - state: icon
       map: [ "enum.DeliveryVisualLayers.Icon" ]
-    - state: trash
-      map: [ "enum.DeliveryVisualLayers.Trash" ]
-      visible: false
     - state: postmark
+    # </Onyx-MailDelivery-edited>
     - map: [ "enum.DeliveryVisualLayers.JobStamp" ]
       scale: 0.8, 0.8
       offset: 0.225, 0.165
