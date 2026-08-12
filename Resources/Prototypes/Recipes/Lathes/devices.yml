@@ -111,6 +111,7 @@
     Steel: 50
     Plastic: 50
     Plasma: 25
+    BSCrystal: 100 # <Onyx-BluespaceCrafting>
 
 - type: latheRecipe
   parent: BaseToolRecipe

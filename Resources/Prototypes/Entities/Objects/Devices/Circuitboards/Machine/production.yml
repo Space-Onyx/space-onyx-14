@@ -299,6 +299,7 @@
       Manipulator: 3
       Cable: 5
       PlasmaGlass: 10
+      BSCrystal: 10 # <Onyx-BluespaceCrafting>
 
 - type: entity
   parent: BaseMachineCircuitboard

@@ -303,6 +303,7 @@
     Silver: 750
     Plasma: 1500
     Uranium: 150
+    BSCrystal: 500
 
 - type: latheRecipe
   parent: BaseSuitModuleRecipe
