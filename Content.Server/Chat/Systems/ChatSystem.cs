@@ -238,7 +238,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         var collectivePrefix = string.Empty;
         if (desiredType == InGameICChatType.CollectiveMind && message.StartsWith(CollectiveMindPrefix))
         {
-            var prefixLength = message.Length > 1 && !char.IsWhiteSpace(message[1]) ? 2 : 1;
+            var prefixLength = Math.Min(message.Length, 2);
             collectivePrefix = message[..prefixLength];
             message = message[prefixLength..];
         }
