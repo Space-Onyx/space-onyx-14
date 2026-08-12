@@ -73,7 +73,7 @@
     baseWalkSpeed: 2.7
     baseSprintSpeed: 4.5
   - type: Speech
-    allowedEmotes: [ Mars, Wurble ]
+    allowedEmotes: [ Mars, Wurble, Hiss, Meow, Mew, Growl, Purr ]
   - type: Vocal
     sounds:
       Male: MaleShadowkin

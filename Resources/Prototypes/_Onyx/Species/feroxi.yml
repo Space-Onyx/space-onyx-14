@@ -15,6 +15,8 @@
   maleFirstNames: NamesFeroxiFirstMale
   femaleFirstNames: NamesFeroxiFirstFemale
   lastNames: NamesFeroxiLast
+  defaultSoundsBySex: [ MaleFeroxi, FemaleFeroxi, MaleFeroxi ]
+  voices: [ MaleFeroxi, FemaleFeroxi ]
   description: /ServerInfo/_Onyx/Guidebook/Mobs/Feroxi.xml
 
 - type: localizedDataset

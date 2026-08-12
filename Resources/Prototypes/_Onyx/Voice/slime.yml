@@ -1,0 +1,55 @@
+- type: soundCollection
+  id: SlimeMaleLaughs
+  files:
+  - /Audio/_Onyx/Voice/Slime/slime_laugh_m1.ogg
+  - /Audio/_Onyx/Voice/Slime/slime_laugh_m2.ogg
+
+- type: soundCollection
+  id: SlimeFemaleLaughs
+  files: [ /Audio/_Onyx/Voice/Slime/slime_laugh_f1.ogg ]
+
+- type: soundCollection
+  id: SlimeMaleScreams
+  files:
+  - /Audio/_Onyx/Voice/Slime/slime_scream_m1.ogg
+  - /Audio/_Onyx/Voice/Slime/slime_scream_m2.ogg
+
+- type: soundCollection
+  id: SlimeFemaleScreams
+  files:
+  - /Audio/_Onyx/Voice/Slime/slime_scream_f1.ogg
+  - /Audio/_Onyx/Voice/Slime/slime_scream_f2.ogg
+
+- type: soundCollection
+  id: SlimeBubbles
+  files: [ /Audio/_Onyx/Voice/Slime/s_bubble.ogg ]
+
+- type: soundCollection
+  id: SlimePops
+  files: [ /Audio/_Onyx/Voice/Slime/s_pop.ogg ]
+
+- type: emote
+  id: Bubble
+  name: chat-emote-name-bubble
+  category: Vocal
+  available: false
+  icon: Interface/Emotes/squish.png
+  whitelist:
+    components: [ Vocal ]
+  blacklist:
+    components: [ BorgChassis ]
+  chatMessages: [ chat-emote-msg-bubble ]
+  chatTriggers: [ bubble, bubbles, bubbling, bubbled ]
+
+- type: emote
+  id: Pop
+  name: chat-emote-name-pop
+  category: Vocal
+  available: false
+  icon: Interface/Emotes/squish.png
+  whitelist:
+    components: [ Vocal ]
+  blacklist:
+    components: [ BorgChassis ]
+  chatMessages: [ chat-emote-msg-pop ]
+  chatTriggers: [ pop, pops, popping, popped ]

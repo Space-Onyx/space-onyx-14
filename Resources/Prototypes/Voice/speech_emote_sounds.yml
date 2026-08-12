@@ -53,6 +53,7 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: MaleDeathGasp
+    Gulp: { path: /Audio/_Onyx/Voice/Human/gulp.ogg } # <Onyx-RacialEmoteSounds>
 
 - type: emoteSounds
   id: FemaleHuman
@@ -108,6 +109,7 @@
       collection: FemaleGasp
     DefaultDeathgasp:
       collection: FemaleDeathGasp
+    Gulp: { path: /Audio/_Onyx/Voice/Human/gulp.ogg } # <Onyx-RacialEmoteSounds>
 
 - type: emoteSounds
   id: MaleReptilian
@@ -133,6 +135,14 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: DeathGasp
+    # <Onyx-RacialEmoteSounds>
+    Yip: { collection: ReptilianYips }
+    Hiss: { collection: ReptilianHisses }
+    Sigh: { collection: MaleSigh }
+    Cough: { collection: MaleCoughs }
+    Yawn: { collection: MaleYawn }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
+    # </Onyx-RacialEmoteSounds>
 
 - type: emoteSounds
   id: FemaleReptilian
@@ -158,6 +168,14 @@
       collection: FemaleGasp
     DefaultDeathgasp:
       collection: FemaleDeathGasp
+    # <Onyx-RacialEmoteSounds>
+    Yip: { collection: ReptilianYips }
+    Hiss: { collection: ReptilianHisses }
+    Sigh: { collection: FemaleSigh }
+    Cough: { collection: FemaleCoughs }
+    Yawn: { collection: FemaleYawn }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
+    # </Onyx-RacialEmoteSounds>
 
 - type: emoteSounds
   id: MaleSlime
@@ -165,10 +183,14 @@
   sounds:
     Squish:
       collection: Squishes
+    # <Onyx-RacialEmoteSounds>
+    Bubble: { collection: SlimeBubbles }
+    Pop: { collection: SlimePops }
+    # </Onyx-RacialEmoteSounds>
     Scream:
-      collection: MaleScreams
+      collection: SlimeMaleScreams # <Onyx-RacialEmoteSounds-edited>
     Laugh:
-      collection: MaleLaugh
+      collection: SlimeMaleLaughs # <Onyx-RacialEmoteSounds-edited>
     Sneeze:
       collection: MaleSneezes
     Cough:
@@ -201,6 +223,7 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: MaleDeathGasp
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg } # <Onyx-RacialEmoteSounds>
   params:
     variation: 0.125
 
@@ -210,10 +233,14 @@
   sounds:
     Squish:
       collection: Squishes
+    # <Onyx-RacialEmoteSounds>
+    Bubble: { collection: SlimeBubbles }
+    Pop: { collection: SlimePops }
+    # </Onyx-RacialEmoteSounds>
     Scream:
-      collection: FemaleScreams
+      collection: SlimeFemaleScreams # <Onyx-RacialEmoteSounds-edited>
     Laugh:
-      collection: FemaleLaugh
+      collection: SlimeFemaleLaughs # <Onyx-RacialEmoteSounds-edited>
     Sneeze:
       collection: FemaleSneezes
     Cough:
@@ -246,6 +273,7 @@
       collection: FemaleGasp
     DefaultDeathgasp:
       collection: FemaleDeathGasp
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg } # <Onyx-RacialEmoteSounds>
   params:
     variation: 0.125
 
@@ -254,19 +282,19 @@
   voiceSelectorName: humanoid-profile-editor-voice-neutral
   sounds:
     Scream:
-      path: /Audio/Voice/Vox/shriek1.ogg
+      collection: VoxScreams # <Onyx-RacialEmoteSounds-edited>
     Laugh:
       path: /Audio/Voice/Vox/vox_laugh.ogg
     Sneeze:
       path: /Audio/Voice/Vox/vox_sneeze.ogg
     Cough:
-      path: /Audio/Voice/Vox/vox_cough.ogg
+      collection: VoxCoughs # <Onyx-RacialEmoteSounds-edited>
     Sigh:
       path: /Audio/Voice/Vox/vox_sigh.ogg
     Click:
       path: /Audio/Voice/Vox/vox_click.ogg
     Chitter:
-      path: /Audio/Voice/Vox/vox_chitter.ogg
+      collection: VoxChitters # <Onyx-RacialEmoteSounds-edited>
     Honk:
       collection: BikeHorn
     Crying:
@@ -279,6 +307,13 @@
       path: /Audio/Effects/Gasp/vox_gasp.ogg
     DefaultDeathgasp:
       path: /Audio/Effects/Gasp/vox_DeathGasp.ogg
+    # <Onyx-RacialEmoteSounds>
+    Yawn: { path: /Audio/_Onyx/Voice/Vox/vox_yawn.ogg }
+    Snore: { path: /Audio/_Onyx/Voice/Vox/vox_snore.ogg }
+    Hiss: { collection: VoxHisses }
+    Whistle: { collection: Whistles }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
+    # </Onyx-RacialEmoteSounds>
   params:
     variation: 0.125
     # TODO: We need vox sounds for the other emotes
@@ -305,6 +340,14 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: DeathGasp
+    # <Onyx-RacialEmoteSounds>
+    Crying: { collection: DionaCry }
+    Whistle: { collection: DionaWhistles }
+    Cough: { collection: DionaCoughs }
+    Yawn: { collection: DionaYawns }
+    Sigh: { collection: DionaSighs }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
+    # </Onyx-RacialEmoteSounds>
   params:
     variation: 0.125
 
@@ -332,6 +375,7 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: DeathGasp
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg } # <Onyx-RacialEmoteSounds>
 
 - type: emoteSounds
   id: UnisexDwarf
@@ -373,6 +417,7 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: MaleDeathGasp
+    Gulp: { path: /Audio/_Onyx/Voice/Human/gulp.ogg } # <Onyx-RacialEmoteSounds>
   params:
     variation: 0.125
     pitch: 0.75
@@ -417,6 +462,7 @@
       collection: FemaleGasp
     DefaultDeathgasp:
       collection: FemaleDeathGasp
+    Gulp: { path: /Audio/_Onyx/Voice/Human/gulp.ogg } # <Onyx-RacialEmoteSounds>
   params:
     variation: 0.125
     pitch: 0.75
@@ -447,6 +493,16 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: MothDeathGasp
+    # <Onyx-RacialEmoteSounds>
+    Yawn: { collection: MaleYawn }
+    Snore: { collection: Snores }
+    Sigh: { collection: MaleSigh }
+    Crying: { collection: MaleCry }
+    Whistle: { collection: Whistles }
+    Sneeze: { collection: MaleSneezes }
+    Cough: { collection: MaleCoughs }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
+    # </Onyx-RacialEmoteSounds>
 
 - type: emoteSounds
   id: UnisexSilicon
@@ -545,6 +601,7 @@
       collection: VulpkaninWhines
     Howl:
       collection: VulpkaninHowls
+    Awoo: { collection: VulpkaninHowls } # <Onyx-RacialEmoteSounds>
     Weh:
       collection: Weh
     Hew:
@@ -555,6 +612,10 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: MaleDeathGasp
+    # <Onyx-RacialEmoteSounds>
+    Snore: { collection: Snores }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
+    # </Onyx-RacialEmoteSounds>
 
 - type: emoteSounds
   id: FemaleVulpkanin
@@ -588,6 +649,7 @@
       collection: VulpkaninWhines
     Howl:
       collection: VulpkaninHowls
+    Awoo: { collection: VulpkaninHowls } # <Onyx-RacialEmoteSounds>
     Weh:
       collection: Weh
     Hew:
@@ -598,6 +660,10 @@
       collection: FemaleGasp
     DefaultDeathgasp:
       collection: FemaleDeathGasp
+    # <Onyx-RacialEmoteSounds>
+    Snore: { collection: Snores }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
+    # </Onyx-RacialEmoteSounds>
 
 # body emotes
 - type: emoteSounds

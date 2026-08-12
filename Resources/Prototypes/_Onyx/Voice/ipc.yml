@@ -1,0 +1,26 @@
+- type: soundCollection
+  id: IPCWhirrs
+  files:
+  - /Audio/_Onyx/Voice/IPC/whirr1.ogg
+  - /Audio/_Onyx/Voice/IPC/whirr2.ogg
+  - /Audio/_Onyx/Voice/IPC/whirr3.ogg
+
+- type: emote
+  id: Boop
+  name: chat-emote-name-boop
+  category: Vocal
+  available: false
+  chatMessages: [ chat-emote-msg-boop ]
+  chatTriggers: [ boop, boops ]
+  whitelist:
+    components: [ Vocal ]
+
+- type: emote
+  id: Whirr
+  name: chat-emote-name-whirr
+  category: Vocal
+  available: false
+  chatMessages: [ chat-emote-msg-whirr ]
+  chatTriggers: [ whirr, whirrs ]
+  whitelist:
+    components: [ Vocal ]

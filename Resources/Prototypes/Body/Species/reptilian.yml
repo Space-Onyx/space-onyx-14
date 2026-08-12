@@ -164,7 +164,7 @@
   - type: Speech
     speechSounds: Lizard
     speechVerb: Reptilian
-    allowedEmotes: ['Thump']
+    allowedEmotes: [ 'Thump', 'Yip', 'Hiss' ] # <Onyx-RacialEmoteSounds-edited>
   - type: TypingIndicator
     proto: lizard
   - type: CreamPied

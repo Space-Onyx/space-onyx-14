@@ -17,8 +17,16 @@
     Crying: { collection: MaleCry }
     Whistle: { collection: Whistles }
     Weh: { collection: Weh }
+    Hiss: { collection: FelinidHisses }
+    Meow: { collection: FelinidMeows }
+    Mew: { collection: FelinidMews }
+    Growl: { collection: FelinidGrowls }
+    Purr: { collection: FelinidPurrs }
     Mars: { collection: ShadowkinMars }
-    Wurble: { path: /Audio/_Goobstation/Voice/Resomi/wurble.ogg }
+    Wurble: { path: /Audio/_Onyx/Voice/Shadowkin/wurble.ogg }
+    Gasp: { collection: MaleGasp }
+    DefaultDeathgasp: { collection: MaleDeathGasp }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
 
 - type: emoteSounds
   id: FemaleShadowkin
@@ -35,8 +43,16 @@
     Crying: { collection: FemaleCry }
     Whistle: { collection: Whistles }
     Weh: { collection: Weh }
+    Hiss: { collection: FelinidHisses }
+    Meow: { collection: FelinidMeows }
+    Mew: { collection: FelinidMews }
+    Growl: { collection: FelinidGrowls }
+    Purr: { collection: FelinidPurrs }
     Mars: { collection: ShadowkinMars }
-    Wurble: { path: /Audio/_Goobstation/Voice/Resomi/wurble.ogg }
+    Wurble: { path: /Audio/_Onyx/Voice/Shadowkin/wurble.ogg }
+    Gasp: { collection: FemaleGasp }
+    DefaultDeathgasp: { collection: FemaleDeathGasp }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
 
 - type: emote
   id: Mars

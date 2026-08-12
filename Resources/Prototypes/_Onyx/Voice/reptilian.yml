@@ -1,0 +1,20 @@
+- type: soundCollection
+  id: ReptilianYips
+  files: [ /Audio/_Onyx/Voice/Reptilian/yip.ogg ]
+
+- type: soundCollection
+  id: ReptilianHisses
+  files: [ /Audio/_Onyx/Voice/Reptilian/hiss.ogg ]
+
+- type: emote
+  id: Yip
+  name: chat-emote-name-yip
+  category: Vocal
+  available: false
+  icon: { sprite: Mobs/Animals/kobold.rsi, state: full }
+  whitelist:
+    components: [ Vocal ]
+  blacklist:
+    components: [ BorgChassis ]
+  chatMessages: [ chat-emote-msg-yip ]
+  chatTriggers: [ yip, yips ]

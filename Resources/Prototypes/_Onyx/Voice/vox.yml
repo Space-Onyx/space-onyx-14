@@ -1,0 +1,23 @@
+- type: soundCollection
+  id: VoxScreams
+  files:
+  - /Audio/Voice/Vox/shriek1.ogg
+  - /Audio/_Onyx/Voice/Vox/scream3.ogg
+  - /Audio/_Onyx/Voice/Vox/scream4.ogg
+
+- type: soundCollection
+  id: VoxCoughs
+  files:
+  - /Audio/Voice/Vox/vox_cough.ogg
+  - /Audio/_Onyx/Voice/Vox/vox_cough2.ogg
+
+- type: soundCollection
+  id: VoxChitters
+  files:
+  - /Audio/Voice/Vox/vox_chitter.ogg
+  - /Audio/_Onyx/Voice/Vox/vox_chitter1.ogg
+  - /Audio/_Onyx/Voice/Vox/vox_chitter2.ogg
+
+- type: soundCollection
+  id: VoxHisses
+  files: [ /Audio/_Onyx/Voice/Vox/voxhiss.ogg ]

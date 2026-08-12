@@ -1,0 +1,76 @@
+- type: soundCollection
+  id: FelinidScreams
+  files:
+  - /Audio/_Onyx/Voice/Felinid/cat_scream2.ogg
+  - /Audio/_Onyx/Voice/Felinid/cat_scream3.ogg
+
+- type: soundCollection
+  id: FelinidHisses
+  files:
+  - /Audio/_Onyx/Voice/Felinid/cat_hiss1.ogg
+  - /Audio/_Onyx/Voice/Felinid/cat_hiss2.ogg
+
+- type: soundCollection
+  id: FelinidMeows
+  files:
+  - /Audio/_Onyx/Voice/Felinid/cat_meow1.ogg
+  - /Audio/_Onyx/Voice/Felinid/cat_meow2.ogg
+  - /Audio/_Onyx/Voice/Felinid/cat_meow3.ogg
+
+- type: soundCollection
+  id: FelinidMews
+  files:
+  - /Audio/_Onyx/Voice/Felinid/cat_mew1.ogg
+  - /Audio/_Onyx/Voice/Felinid/cat_mew2.ogg
+
+- type: soundCollection
+  id: FelinidGrowls
+  files: [ /Audio/_Onyx/Voice/Felinid/cat_growl1.ogg ]
+
+- type: soundCollection
+  id: FelinidPurrs
+  files: [ /Audio/_Onyx/Voice/Felinid/cat_purr1.ogg ]
+
+- type: emoteSounds
+  id: MaleFelinid
+  params: { variation: 0.125 }
+  sounds:
+    Scream: { collection: FelinidScreams }
+    Laugh: { collection: MaleLaugh }
+    Sneeze: { collection: MaleSneezes }
+    Cough: { collection: MaleCoughs }
+    Yawn: { collection: MaleYawn }
+    Snore: { collection: Snores }
+    Sigh: { collection: MaleSigh }
+    Crying: { collection: MaleCry }
+    Whistle: { collection: Whistles }
+    Hiss: { collection: FelinidHisses }
+    Meow: { collection: FelinidMeows }
+    Mew: { collection: FelinidMews }
+    Growl: { collection: FelinidGrowls }
+    Purr: { collection: FelinidPurrs }
+    Gasp: { collection: MaleGasp }
+    DefaultDeathgasp: { collection: MaleDeathGasp }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
+
+- type: emoteSounds
+  id: FemaleFelinid
+  params: { variation: 0.125 }
+  sounds:
+    Scream: { collection: FelinidScreams }
+    Laugh: { collection: FemaleLaugh }
+    Sneeze: { collection: FemaleSneezes }
+    Cough: { collection: FemaleCoughs }
+    Yawn: { collection: FemaleYawn }
+    Snore: { collection: Snores }
+    Sigh: { collection: FemaleSigh }
+    Crying: { collection: FemaleCry }
+    Whistle: { collection: Whistles }
+    Hiss: { collection: FelinidHisses }
+    Meow: { collection: FelinidMeows }
+    Mew: { collection: FelinidMews }
+    Growl: { collection: FelinidGrowls }
+    Purr: { collection: FelinidPurrs }
+    Gasp: { collection: FemaleGasp }
+    DefaultDeathgasp: { collection: FemaleDeathGasp }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }

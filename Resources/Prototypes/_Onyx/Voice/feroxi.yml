@@ -8,3 +8,45 @@
     components: [ Vocal ]
   chatMessages: [ chat-emote-msg-gnash ]
   chatTriggers: [ gnash, gnashes, gnashing, gnashed ]
+
+- type: soundCollection
+  id: FeroxiGnashes
+  files: [ /Audio/Effects/bite.ogg ]
+
+- type: emoteSounds
+  id: MaleFeroxi
+  params: { variation: 0.125 }
+  sounds:
+    Scream: { collection: MaleScreams }
+    Laugh: { collection: MaleLaugh }
+    Sneeze: { collection: MaleSneezes }
+    Cough: { collection: MaleCoughs }
+    Yawn: { collection: MaleYawn }
+    Snore: { collection: Snores }
+    Sigh: { collection: MaleSigh }
+    Crying: { collection: MaleCry }
+    Whistle: { collection: Whistles }
+    Hiss: { path: /Audio/Animals/snake_hiss.ogg }
+    Gnash: { collection: FeroxiGnashes }
+    Gasp: { collection: MaleGasp }
+    DefaultDeathgasp: { collection: MothDeathGasp }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
+
+- type: emoteSounds
+  id: FemaleFeroxi
+  params: { variation: 0.125 }
+  sounds:
+    Scream: { collection: FemaleScreams }
+    Laugh: { collection: FemaleLaugh }
+    Sneeze: { collection: FemaleSneezes }
+    Cough: { collection: FemaleCoughs }
+    Yawn: { collection: FemaleYawn }
+    Snore: { collection: Snores }
+    Sigh: { collection: FemaleSigh }
+    Crying: { collection: FemaleCry }
+    Whistle: { collection: Whistles }
+    Hiss: { path: /Audio/Animals/snake_hiss.ogg }
+    Gnash: { collection: FeroxiGnashes }
+    Gasp: { collection: FemaleGasp }
+    DefaultDeathgasp: { collection: MothDeathGasp }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }

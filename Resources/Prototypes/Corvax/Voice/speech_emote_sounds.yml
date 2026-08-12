@@ -30,6 +30,13 @@
       path: /Audio/Corvax/Effects/Tajaran/gasp.ogg
     DefaultDeathgasp:
       collection: MaleDeathGasp
+    # <Onyx-RacialEmoteSounds>
+    Hiss: { collection: FelinidHisses }
+    Meow: { collection: FelinidMeows }
+    Mew: { collection: FelinidMews }
+    Growl: { collection: FelinidGrowls }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
+    # </Onyx-RacialEmoteSounds>
 
 - type: emoteSounds
   id: FemaleTajaran
@@ -62,23 +69,43 @@
       path: /Audio/Corvax/Effects/Tajaran/gasp.ogg
     DefaultDeathgasp:
       collection: FemaleDeathGasp
+    # <Onyx-RacialEmoteSounds>
+    Hiss: { collection: FelinidHisses }
+    Meow: { collection: FelinidMeows }
+    Mew: { collection: FelinidMews }
+    Growl: { collection: FelinidGrowls }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
+    # </Onyx-RacialEmoteSounds>
 
 # species
 - type: emoteSounds
   id: UnisexIpc
   params:
-    variation: 0.125
+    variation: 0 # <Onyx-RacialEmoteSounds-edited>
   sounds:
     Scream:
-      path: /Audio/Corvax/Effects/Ipc/scream.ogg
+      path: /Audio/_Onyx/Voice/IPC/robot-scream.ogg # <Onyx-RacialEmoteSounds-edited>
     Laugh:
-      path: /Audio/Corvax/Effects/Ipc/laugh.ogg
+      path: /Audio/_Onyx/Voice/IPC/robot-laugh_3.ogg # <Onyx-RacialEmoteSounds-edited>
     Snore:
       path: /Audio/Machines/buzz-two.ogg
     Crying:
-      path: /Audio/Corvax/Effects/Ipc/cry.ogg
+      path: /Audio/_Onyx/Voice/IPC/cry_robot_1.ogg # <Onyx-RacialEmoteSounds-edited>
     Weh:
       collection: Weh
+    # <Onyx-RacialEmoteSounds>
+    Sigh: { path: /Audio/Voice/Talk/pai.ogg, params: { variation: 0.125 } }
+    Whistle: { path: /Audio/_Onyx/Voice/IPC/pai_whistle.ogg, params: { variation: 0.125 } }
+    Beep: { path: /Audio/_Onyx/Voice/IPC/beep_2000.ogg }
+    Boop: { path: /Audio/_Onyx/Voice/IPC/beep_500.ogg }
+    Buzz: { path: /Audio/Machines/buzz-sigh.ogg }
+    Honk: { path: /Audio/Items/bikehorn.ogg, params: { variation: 0.125 } }
+    Chime: { path: /Audio/Effects/Cargo/ping.ogg }
+    Buzz-Two: { path: /Audio/Machines/buzz-two.ogg }
+    Ping: { path: /Audio/Effects/beep1.ogg, params: { variation: 0.125 } }
+    Whirr: { collection: IPCWhirrs }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
+    # </Onyx-RacialEmoteSounds>
 
 - type: emoteSounds
   id: IpcEmotes

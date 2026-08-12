@@ -146,7 +146,7 @@
     baseDecayRate: 0.15
   - type: ContentEye
   - type: Speech
-    allowedEmotes: ['Purr']
+    allowedEmotes: [ 'Purr', 'Hiss', 'Meow', 'Mew', 'Growl' ] # <Onyx-RacialEmoteSounds-edited>
   - type: Vocal
     emoteSounds: MaleTajaran
   # <Onyx-Languages>

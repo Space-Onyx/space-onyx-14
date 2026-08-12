@@ -24,6 +24,7 @@
     Squeak: { path: /Audio/Animals/mouse_squeak.ogg }
     Gasp: { collection: MaleGasp }
     DefaultDeathgasp: { collection: MaleDeathGasp }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
 
 - type: emoteSounds
   id: FemaleRodentia
@@ -42,3 +43,4 @@
     Squeak: { path: /Audio/Animals/mouse_squeak.ogg }
     Gasp: { collection: FemaleGasp }
     DefaultDeathgasp: { collection: FemaleDeathGasp }
+    Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }

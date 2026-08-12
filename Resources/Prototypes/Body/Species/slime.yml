@@ -125,7 +125,7 @@
   - type: Speech
     speechVerb: Slime
     speechSounds: Slime
-    allowedEmotes: ['Squish']
+    allowedEmotes: [ 'Squish', 'Bubble', 'Pop' ] # <Onyx-RacialEmoteSounds-edited>
   - type: TypingIndicator
     proto: slime
   - type: Vocal

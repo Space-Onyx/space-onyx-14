@@ -1,0 +1,12 @@
+- type: emote
+  id: Awoo
+  name: chat-emote-name-awoo
+  category: Vocal
+  available: false
+  icon: _Onyx/Interface/Emotes/awoo.png
+  whitelist:
+    components: [ Vocal ]
+  blacklist:
+    components: [ BorgChassis ]
+  chatMessages: [ chat-emote-msg-awoo ]
+  chatTriggers: [ awoo, awoos, awooing, awooed ]

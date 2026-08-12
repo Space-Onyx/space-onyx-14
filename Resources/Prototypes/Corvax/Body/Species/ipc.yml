@@ -121,9 +121,10 @@
       80: 0.5
   - type: Speech
     speechSounds: Alto
+    allowedEmotes: [ Boop, Whirr ] # <Onyx-RacialEmoteSounds>
   - type: ZombieImmune
   - type: Vocal
-    emoteSounds: UnsexedIpc
+    emoteSounds: UnisexIpc # <Onyx-RacialEmoteSounds-edited>
   # <Onyx-Languages>
   - type: LanguageKnowledge
     speaks: [TauCetiBasic, RobotTalk]

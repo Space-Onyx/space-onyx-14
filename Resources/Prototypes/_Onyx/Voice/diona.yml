@@ -1,0 +1,21 @@
+- type: soundCollection
+  id: DionaCry
+  files: [ /Audio/_Onyx/Voice/Diona/dionacry.ogg ]
+
+- type: soundCollection
+  id: DionaWhistles
+  files:
+  - /Audio/_Onyx/Voice/Diona/dionawhistle1.ogg
+  - /Audio/_Onyx/Voice/Diona/dionawhistle2.ogg
+
+- type: soundCollection
+  id: DionaCoughs
+  files: [ /Audio/_Onyx/Voice/Diona/dionacough.ogg ]
+
+- type: soundCollection
+  id: DionaYawns
+  files: [ /Audio/_Onyx/Voice/Diona/dionayawn.ogg ]
+
+- type: soundCollection
+  id: DionaSighs
+  files: [ /Audio/_Onyx/Voice/Diona/dionasigh.ogg ]

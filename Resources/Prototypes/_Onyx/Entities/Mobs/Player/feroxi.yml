@@ -9,7 +9,12 @@
   - type: Speech
     speechSounds: Tenor
     speechVerb: Feroxi
-    allowedEmotes: [ Gnash, Thump ]
+    allowedEmotes: [ Gnash, Thump, Hiss ]
+  - type: Vocal
+    sounds:
+      Male: MaleFeroxi
+      Female: FemaleFeroxi
+      Unsexed: MaleFeroxi
   - type: MeleeWeapon
     hidden: true
     soundHit: { path: /Audio/Effects/bite.ogg }
