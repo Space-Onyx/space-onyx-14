@@ -114,7 +114,7 @@ public sealed partial class RespiratorSystem : EntitySystem
             // </Onyx-OrganConsequences-edited>
 
             // <Onyx-GoobGrab-edited>
-            UpdateSaturation(uid, -(float) respirator.UpdateInterval.TotalSeconds, respirator);
+            UpdateSaturation(uid, -(float) respirator.UpdateInterval.TotalSeconds * respirator.SaturationLoss, respirator); // <Onyx-ShadowkinBreathing-edited>
             // </Onyx-GoobGrab-edited>
 
             // <Onyx-GoobGrab-edited>

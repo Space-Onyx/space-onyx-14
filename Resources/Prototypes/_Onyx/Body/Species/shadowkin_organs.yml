@@ -120,14 +120,13 @@
     markingData: { group: Shadowkin, layers: [ Ears, EarsOverlay ] }
 
 - type: entity
-  parent: [ OrganBaseLungs, OrganShadowkinInternal ]
+  parent: [ OrganHumanLungs, OrganShadowkinInternal ]
   id: OrganShadowkinCore
   components:
   - type: Sprite
+    sprite: _Onyx/Species/Shadowkin/organs.rsi
     layers:
     - state: core
-  - type: Metabolizer
-    metabolizerTypes: [ Human ]
 
 - type: entity
   parent: [ OrganBaseHeart, OrganShadowkinInternal ]
