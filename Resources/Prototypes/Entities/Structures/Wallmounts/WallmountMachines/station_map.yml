@@ -30,7 +30,7 @@
   suffix: Wall
   components:
   - type: WallMount
-    arc: 360
+    arc: 180 # <Onyx-WallMountDirectionalVisibility-edited>
   - type: Appearance
   - type: StationMap
   - type: Sprite
