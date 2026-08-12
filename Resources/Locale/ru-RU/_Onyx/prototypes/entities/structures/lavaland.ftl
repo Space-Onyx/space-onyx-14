@@ -1,6 +1,9 @@
 ent-LavalandTendrilGoliath = шип Некрополя
     .desc = Огромное строение.
     .suffix = Голиаф
+ent-LavalandTendrilLegion = шип Некрополя
+    .desc = Огромное строение.
+    .suffix = Легион
 ent-LavalandTendrilLavaWatcher = шип Некрополя
     .desc = Огромное строение.
     .suffix = Наблюдатель

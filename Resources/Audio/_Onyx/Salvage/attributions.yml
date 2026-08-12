@@ -2,3 +2,28 @@
   license: "CC-BY-SA-3.0"
   copyright: "made by whateverusername0"
   source: "https://knowyourmeme.com/memes/source-i-made-it-up"
+
+- files: ["Bosses/Parabellum.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Made by Bolgarich"
+  source: "https://www.youtube.com/watch?v=SRbHDwLaGKY"
+
+- files: ["Bosses/bubblegum.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Made by QwertyQwerty"
+  source: "https://www.youtube.com/watch?v=bOn7B3Xw_Rs"
+
+- files: ["Bosses/tearofveil.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Made by Bolgarich"
+  source: "https://www.youtube.com/watch?v=NqNHKfTAvcw"
+
+- files: ["Bosses/miniboss_fight.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Made by Visager"
+  source: "https://visager.bandcamp.com/album/songs-from-an-unmade-world-2"
+
+- files: ["Bosses/meteorimpact.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from /tg/station"
+  source: "https://github.com/tgstation/tgstation/blob/master/sound/effects/meteorimpact.ogg"

@@ -10,3 +10,16 @@
     damage:
       types:
         Caustic: 1
+
+- type: entity
+  id: LavalandBossKineticProjectile
+  parent: BulletKineticShuttle
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 40
+        Structural: 35
+  - type: TimedDespawn
+    lifetime: 0.3

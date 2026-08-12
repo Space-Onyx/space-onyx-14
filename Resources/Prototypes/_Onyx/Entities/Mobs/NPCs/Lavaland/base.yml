@@ -1,0 +1,29 @@
+- type: entity
+  id: LavalandMobBase
+  parent: [ BaseMob, MobCombat ]
+  abstract: true
+  components:
+  - type: Damageable
+    damageModifierSet: Hierophant
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: MobState
+  - type: WeatherImmune
+  - type: Fauna
+  - type: NpcFactionMember
+    factions: [ Lavafauna ]
+  - type: Reactive
+    groups:
+      Flammable: [ Touch ]
+      Extinguish: [ Touch ]
+      Acidic: [ Touch, Ingestion, Eyes ]
+  - type: Climbing
+  - type: NameIdentifier
+    group: GenericNumber
+  - type: StatusEffects
+    allowed:
+    - SlowedDown
+    - TemporaryBlindness
+    - RadiationProtection
+  - type: Tag
+    tags: [ DoorBumpOpener ]

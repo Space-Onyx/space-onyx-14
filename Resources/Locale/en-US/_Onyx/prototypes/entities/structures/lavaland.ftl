@@ -1,6 +1,9 @@
 ent-LavalandTendrilGoliath = tendril
     .desc = A huge structure.
     .suffix = Goliath
+ent-LavalandTendrilLegion = tendril
+    .desc = A huge structure.
+    .suffix = Legion
 ent-LavalandTendrilLavaWatcher = tendril
     .desc = A huge structure.
     .suffix = Watcher

@@ -1,0 +1,207 @@
+- type: entity
+  id: LavalandBossColossus
+  parent: LavalandMobBase
+  name: Colossus
+  description: A monstrous creature protected by heavy shielding.
+  components:
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb { bounds: "-1,-2,1,1" }
+        density: 1000
+        mask: [ LargeMobMask ]
+        layer: [ LargeMobLayer ]
+  - type: HTN
+    rootTask: { task: SimpleRangedHostileCompound }
+  - type: Sprite
+    sprite: _Onyx/Mobs/Lavaland/Bosses/96x96.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: eva
+  - type: BatteryAmmoProvider
+    proto: LavalandBossKineticProjectile
+    fireCost: 50
+  - type: BatterySelfRecharger
+    autoRecharge: true
+    autoRechargeRate: 50
+  - type: Battery
+    maxCharge: 1000
+    startingCharge: 1000
+  - type: Gun
+    projectileSpeed: 20
+    fireRate: 0.65
+    useKey: false
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot: /Audio/Weapons/plasma_cutter.ogg
+  - type: MeleeWeapon
+    soundHit: { path: /Audio/Effects/demon_attack1.ogg }
+    damage:
+      types: { Blunt: 20, Slash: 15, Structural: 150 }
+  - type: Tag
+    tags: [ CannotSuicide ]
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 3
+    baseSprintSpeed: 3
+  - type: MobThresholds
+    thresholds: { 0: Alive, 2500: Dead }
+  - type: DatasetVocalizer
+    dataset: ColossusWords
+  - type: FootstepModifier
+    footstepSoundCollection:
+      path: /Audio/_Onyx/Salvage/Bosses/meteorimpact.ogg
+      params: { volume: 5 }
+  - type: TileMovement
+  - type: BossMusic
+    soundId: Colossus
+  - type: Aggressive
+    forgiveRange: 20
+
+- type: entity
+  id: LavalandBossBubblegum
+  parent: LavalandMobBase
+  name: Bubblegum
+  description: In what passes for a hierarchy among slaughter demons, this one is king.
+  components:
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb { bounds: "-1,-2,1,1" }
+        density: 1000
+        mask: [ LargeMobMask ]
+        layer: [ LargeMobLayer ]
+  - type: HTN
+    rootTask: { task: SimpleHostileCompound }
+  - type: Sprite
+    sprite: _Onyx/Mobs/Lavaland/Bosses/96x96.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: bubblegum
+  - type: MeleeWeapon
+    altDisarm: false
+    angle: 0
+    soundHit: { path: /Audio/Effects/demon_attack1.ogg }
+    animation: WeaponArcBite
+    damage:
+      types: { Piercing: 15, Slash: 15, Blunt: 15, Structural: 200 }
+  - type: Tag
+    tags: [ CannotSuicide, FootstepSound ]
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 4
+    baseSprintSpeed: 4
+  - type: MobThresholds
+    thresholds: { 0: Alive, 2500: Dead }
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: BossImpactFootstep
+      params: { volume: -5 }
+  - type: TileMovement
+  - type: BossMusic
+    soundId: Bubblegum
+  - type: Aggressive
+    forgiveRange: 20
+
+- type: entity
+  id: LavalandBossAshDrake
+  parent: LavalandMobBase
+  name: ash drake
+  description: Guardian of the Necropolis.
+  components:
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb { bounds: "-1,-1,1,1" }
+        density: 1000
+        mask: [ LargeMobMask ]
+        layer: [ LargeMobLayer ]
+  - type: HTN
+    rootTask: { task: SimpleRangedHostileCompound }
+  - type: Sprite
+    sprite: _Onyx/Mobs/Lavaland/Bosses/96x96.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: dragon
+  - type: DamageStateVisuals
+    states:
+      Alive: { Base: dragon }
+      Dead: { Base: dragon_dead }
+  - type: BatteryAmmoProvider
+    proto: ProjectileFireball
+    fireCost: 50
+  - type: BatterySelfRecharger
+    autoRecharge: true
+    autoRechargeRate: 50
+  - type: Battery
+    maxCharge: 1000
+    startingCharge: 1000
+  - type: Gun
+    projectileSpeed: 10
+    fireRate: 0.3
+    useKey: false
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot: /Audio/Magic/fireball.ogg
+  - type: MeleeWeapon
+    soundHit: { path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg }
+    damage:
+      types: { Slash: 20, Structural: 150 }
+  - type: Tag
+    tags: [ CannotSuicide ]
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 3
+    baseSprintSpeed: 3
+  - type: MobThresholds
+    thresholds: { 0: Alive, 2500: Dead }
+  - type: Butcherable
+    spawned:
+    - id: FireballSpellbook
+      amount: 1
+  - type: TileMovement
+  - type: BossMusic
+    soundId: AshDrake
+  - type: Aggressive
+    forgiveRange: 20
+
+- type: entity
+  id: LavalandBossMegaLegion
+  parent: LavalandMobBase
+  name: Legion
+  description: One of many.
+  components:
+  - type: EmitSoundOnSpawn
+    sound:
+      path: /Audio/_Onyx/Salvage/Mobs/legion_spawn.ogg
+      params: { volume: 5, maxDistance: 30 }
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb { bounds: "-0.5,-0.5,0.5,0.5" }
+        density: 1000
+        mask: [ LargeMobMask ]
+        layer: [ LargeMobLayer ]
+  - type: HTN
+    rootTask: { task: SimpleHostileCompound }
+  - type: Sprite
+    sprite: _Onyx/Mobs/Lavaland/Bosses/96x96.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mega_legion
+  - type: MeleeWeapon
+    altDisarm: false
+    angle: 0
+    soundHit: { collection: AlienClaw }
+    animation: WeaponArcBite
+    damage:
+      types: { Blunt: 35, Structural: 200 }
+  - type: Tag
+    tags: [ CannotSuicide ]
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 5
+    baseSprintSpeed: 5
+  - type: MobThresholds
+    thresholds: { 0: Alive, 700: Dead }
+  - type: TileMovement
+  - type: BossMusic
+    soundId: AshDrake
+  - type: Aggressive
+    forgiveRange: 20

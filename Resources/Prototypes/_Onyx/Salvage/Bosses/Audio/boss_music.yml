@@ -32,3 +32,44 @@
   positionOnEnd: 0
   sound:
     collection: HierophantMusic
+
+- type: bossMusic
+  id: Colossus
+  fade: true
+  fadeInTime: 5
+  fadeOutTime: 8
+  positionOnEnd: 0
+  sound:
+    path: /Audio/_Onyx/Salvage/Bosses/Parabellum.ogg
+
+- type: bossMusic
+  id: Bubblegum
+  fade: true
+  fadeInTime: 5
+  fadeOutTime: 8
+  positionOnEnd: 0
+  sound:
+    path: /Audio/_Onyx/Salvage/Bosses/bubblegum.ogg
+
+- type: bossMusic
+  id: AshDrake
+  fade: true
+  fadeInTime: 5
+  fadeOutTime: 8
+  positionOnEnd: 0
+  sound:
+    path: /Audio/_Onyx/Salvage/Bosses/tearofveil.ogg
+
+- type: bossMusic
+  id: Miniboss
+  fade: true
+  fadeInTime: 5
+  fadeOutTime: 8
+  positionOnEnd: 0
+  sound:
+    path: /Audio/_Onyx/Salvage/Bosses/miniboss_fight.ogg
+
+- type: soundCollection
+  id: BossImpactFootstep
+  files:
+  - /Audio/_Onyx/Salvage/Bosses/meteorimpact.ogg
