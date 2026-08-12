@@ -1182,12 +1182,12 @@
       Min: 1
       Max: 20
       PotencyDivisor: 5
-    # <Onyx-Heroin>
-    Heroin:
+    # <Onyx-Opium-edited>
+    Opium:
       Min: 1
       Max: 2
       PotencyDivisor: 50
-    # </Onyx-Heroin>
+    # </Onyx-Opium-edited>
 
 - type: seed
   id: aloe

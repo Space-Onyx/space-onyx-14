@@ -127,6 +127,56 @@
         boozePower: 10
 
 - type: reagent
+  id: Opium
+  name: reagent-name-opium
+  group: Narcotics
+  desc: reagent-desc-opium
+  physicalDesc: reagent-physical-desc-thick
+  flavor: medicine
+  color: "#6b4526"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.25
+      effects:
+      - !type:SuppressPain
+        amount: 0.6
+        decayDuration: 24
+        identifier: Opium
+        recoveryMultiplier: 1.3
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectDrowsiness
+        time: 1.5
+        type: Update
+      - !type:Drunk
+        boozePower: 3
+      - !type:Emote
+        emote: Yawn
+        showInChat: true
+        probability: 0.06
+      - !type:PopupMessage
+        type: Local
+        visualType: Medium
+        messages: ["opium-effect-warm", "opium-effect-heavy", "opium-effect-calm"]
+        probability: 0.06
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Opium
+          min: 10
+        damage:
+          types:
+            Poison: 0.5
+            Asphyxiation: 0.75
+      - !type:ModifyStatusEffect
+        conditions:
+        - !type:ReagentCondition
+          reagent: Opium
+          min: 10
+        effectProto: StatusEffectDrowsiness
+        time: 4
+        type: Update
+
+- type: reagent
   id: Amnestizine
   name: reagent-name-amnestizine
   group: Narcotics

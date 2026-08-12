@@ -4,6 +4,12 @@ reagent-name-fentanyl = фентанил
 reagent-desc-fentanyl = Ужасающе токсичный уличный наркотик с длинным списком побочных эффектов.
 reagent-name-heroin = героин
 reagent-desc-heroin = Нелегальный наркотик, прежде применявшийся в медицине, но заменённый трамадолом.
+reagent-name-opium = опиум
+reagent-desc-opium = Густой наркотический экстракт мака. Подавляет боль и вызывает сонливость; передозировка угнетает дыхание.
+
+opium-effect-warm = По телу разливается тяжёлое тепло.
+opium-effect-heavy = Веки становятся тяжёлыми.
+opium-effect-calm = Всё вокруг кажется далёким и неважным.
 
 fentanyl-effect-lostsomething = Где это?
 fentanyl-effect-fakepresence = Кажется, кто-то смотрит вам через плечо.

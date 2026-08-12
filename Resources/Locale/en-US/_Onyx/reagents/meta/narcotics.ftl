@@ -4,6 +4,12 @@ reagent-name-fentanyl = fentanyl
 reagent-desc-fentanyl = A horrifyingly toxic street drug with a long list of side effects.
 reagent-name-heroin = heroin
 reagent-desc-heroin = An illegal street drug once used in medicine before being replaced by tramadol.
+reagent-name-opium = opium
+reagent-desc-opium = A thick narcotic poppy extract. Suppresses pain and causes drowsiness; overdose depresses breathing.
+
+opium-effect-warm = A heavy warmth spreads through your body.
+opium-effect-heavy = Your eyelids feel heavy.
+opium-effect-calm = Everything around you feels distant and unimportant.
 
 fentanyl-effect-lostsomething = Where is it?
 fentanyl-effect-fakepresence = You feel someone looking over your shoulder.

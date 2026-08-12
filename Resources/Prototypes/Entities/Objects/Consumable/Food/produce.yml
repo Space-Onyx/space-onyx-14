@@ -1549,10 +1549,10 @@
         Quantity: 5
       - ReagentId: Bicaridine
         Quantity: 10
-      # <Onyx-Heroin>
-      - ReagentId: Heroin
+      # <Onyx-Opium-edited>
+      - ReagentId: Opium
         Quantity: 2
-      # </Onyx-Heroin>
+      # </Onyx-Opium-edited>
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/poppy.rsi
   - type: Produce

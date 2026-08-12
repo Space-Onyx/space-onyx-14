@@ -27,3 +27,18 @@
       amount: 2
   products:
     Amnestizine: 1
+
+- type: reaction
+  id: Heroin
+  impact: Medium
+  minTemp: 335
+  reactants:
+    Opium:
+      amount: 2
+    Acetone:
+      amount: 1
+    Plasma:
+      amount: 1
+      catalyst: true
+  products:
+    Heroin: 1
