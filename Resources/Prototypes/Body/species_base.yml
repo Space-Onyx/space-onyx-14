@@ -51,6 +51,7 @@
     defaultRotation: 90
     horizontalRotation: 90
   - type: HumanoidProfile
+  - type: PainShockTarget # <Onyx-PainShock>
   - type: TypingIndicator
   - type: SlowOnDamage
     speedModifierThresholds:

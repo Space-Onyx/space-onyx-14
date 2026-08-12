@@ -83,6 +83,9 @@ public sealed partial class PainComponent : Component
 public sealed record PainSuppressionModifier(FixedPoint2 Amount, FixedPoint2 DecayPerSecond, float RecoveryMultiplier);
 
 [RegisterComponent]
+public sealed partial class PainShockTargetComponent : Component;
+
+[RegisterComponent]
 public sealed partial class PainShockComponent : Component
 {
     [DataField]

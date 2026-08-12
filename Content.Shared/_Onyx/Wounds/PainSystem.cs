@@ -59,8 +59,8 @@ public sealed partial class PainSystem : EntitySystem
                 RecoverPain((partUid, partPain), elapsed, part);
         }
 
-        var bodyQuery = EntityQueryEnumerator<PainComponent, MobStateComponent>();
-        while (bodyQuery.MoveNext(out var bodyUid, out var bodyPain, out var mobState))
+        var bodyQuery = EntityQueryEnumerator<PainComponent, MobStateComponent, PainShockTargetComponent>();
+        while (bodyQuery.MoveNext(out var bodyUid, out var bodyPain, out var mobState, out _))
         {
             UpdatePainShock((bodyUid, bodyPain), mobState);
         }
