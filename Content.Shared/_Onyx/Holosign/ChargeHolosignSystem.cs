@@ -8,10 +8,10 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Maps;
 using Content.Shared.Popups;
 using Content.Shared.Storage;
-using Content.Shared.SubFloor;
-using Robust.Shared.Physics.Components;
+using Content.Shared.Tag;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Timing;
 
@@ -24,11 +24,14 @@ public sealed partial class ChargeHolosignSystem : EntitySystem
     [Dependency] private INetManager _net = default!;
     [Dependency] private SharedChargesSystem _charges = default!;
     [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private TagSystem _tag = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private TurfSystem _turf = default!;
 
     private readonly HashSet<Entity<IComponent>> _signs = new();
+    private const string StructureTag = "Structure";
 
     public override void Initialize()
     {
@@ -85,23 +88,12 @@ public sealed partial class ChargeHolosignSystem : EntitySystem
 
     private bool HasBuildingOnTile(EntityCoordinates coordinates)
     {
-        if (!_turf.TryGetTileRef(coordinates, out var targetTile))
+        if (!_turf.TryGetTileRef(coordinates, out var targetTile) ||
+            !TryComp<MapGridComponent>(targetTile.Value.GridUid, out var grid))
             return true;
 
-        foreach (var entity in _turf.GetEntitiesInTile(coordinates, LookupFlags.Uncontained))
-        {
-            if (HasComp<SubFloorHideComponent>(entity) || !HasComp<PhysicsComponent>(entity))
-                continue;
-
-            if (!_turf.TryGetTileRef(Transform(entity).Coordinates, out var entityTile) ||
-                entityTile.Value.GridUid != targetTile.Value.GridUid ||
-                entityTile.Value.GridIndices != targetTile.Value.GridIndices)
-                continue;
-
-            return true;
-        }
-
-        return false;
+        return _map.GetAnchoredEntities((targetTile.Value.GridUid, grid), targetTile.Value.GridIndices)
+            .Any(entity => _tag.HasTag(entity, StructureTag));
     }
 
     private void OnUseInHand(Entity<ChargeHolosignProjectorComponent> ent, ref UseInHandEvent args)
