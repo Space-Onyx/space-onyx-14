@@ -34,7 +34,8 @@ public sealed partial class StatusDisplaySystem : EntitySystem
     private void OnPacket(Entity<StatusDisplayComponent> ent, ref DeviceNetworkPacketEvent args)
     {
         if (!TryComp<DeviceNetworkComponent>(ent, out var network)
-            || network.ReceiveFrequency is { } frequency && frequency != args.Frequency)
+            || network.ReceiveFrequency is { } frequency && frequency != args.Frequency
+            || args.Data.TryGetValue(ScreenPackets.Grid, out EntityUid? grid) && Transform(ent).GridUid != grid)
             return;
 
         if (args.Data.TryGetValue(ShuttleTimerMasks.ShuttleMap, out _))

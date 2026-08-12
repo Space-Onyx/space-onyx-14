@@ -52,8 +52,10 @@
         type: GeneralStationRecordConsoleBoundUserInterface
       enum.SiliconLawsUiKey.Key:
         type: SiliconLawBoundUserInterface
-      enum.CommunicationsConsoleUiKey.Key:
-        type: CommunicationsConsoleBoundUserInterface
+      # <Onyx-CommunicationsConsole-edited>
+      enum.OnyxCommunicationsConsoleUi.Key:
+        type: OnyxCommunicationsConsoleBoundUserInterface
+      # </Onyx-CommunicationsConsole-edited>
       # <Onyx-AiRemoteBrain>
       enum.RemoteDeviceUiKey.Key:
         type: RemoteDevicesBoundUserInterface
@@ -67,7 +69,7 @@
         toggleAction: ActionAGhostShowCrewMonitoring
       enum.GeneralStationRecordConsoleKey.Key:
         toggleAction: ActionAGhostShowStationRecords
-      enum.CommunicationsConsoleUiKey.Key:
+      enum.OnyxCommunicationsConsoleUi.Key: # <Onyx-CommunicationsConsole-edited>
         toggleAction: ActionAGhostShowCommunications
   - type: CrewMonitoringConsole
   - type: GeneralStationRecordConsole
@@ -77,11 +79,13 @@
     transmitFrequencyId: ShuttleTimer
   - type: RadarConsole
     followEntity: false
-  - type: CommunicationsConsole
-    canShuttle: false
-    title: comms-console-announcement-title-station-ai
-    color: "#5ed7aa"
-    sound: /Audio/Corvax/Announcements/aiannounce.ogg # Corvax-Announcements
+  # <Onyx-CommunicationsConsole-edited>
+  - type: OnyxCommunicationsConsole
+    canCallShuttles: false
+    announcementTitle: comms-console-announcement-title-station-ai
+    announcementColor: "#5ed7aa"
+    announcementSound: /Audio/Corvax/Announcements/aiannounce.ogg # Corvax-Announcements
+  # </Onyx-CommunicationsConsole-edited>
   - type: ShowJobIcons
   - type: ShowCrewIcons
   - type: DamagedSiliconAccent

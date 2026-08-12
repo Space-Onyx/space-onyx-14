@@ -116,6 +116,7 @@ public enum OnyxCommunicationsConsoleUi : byte
 public static class ScreenPackets
 {
     public const string Content = "onyx-screen-content";
+    public const string Grid = "onyx-screen-grid";
     public const string ShowBorders = "onyx-screen-borders";
     public const string Text = "onyx-screen-text";
 }

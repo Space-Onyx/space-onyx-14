@@ -26,7 +26,7 @@ namespace Content.Client.Info
             var uriOpener = IoCManager.Resolve<IUriOpener>();
             _cfg = IoCManager.Resolve<IConfigurationManager>();
 
-            var rulesButton = new Button() {Text = Loc.GetString("server-info-rules-button")};
+            var rulesButton = new Button { Text = Loc.GetString("server-info-rules-button"), StyleClasses = { "OpenRight" } }; // <Onyx-LobbyButtons-edited>
             rulesButton.OnPressed += args => new RulesAndInfoWindow().Open();
             buttons.AddChild(rulesButton);
 
@@ -37,20 +37,20 @@ namespace Content.Client.Info
             AddInfoButton("server-info-telegram-button", CCVars.InfoLinksTelegram);
 
             var guidebookController = UserInterfaceManager.GetUIController<GuidebookUIController>();
-            var guidebookButton = new Button() { Text = Loc.GetString("server-info-guidebook-button") };
+            var guidebookButton = new Button { Text = Loc.GetString("server-info-guidebook-button"), StyleClasses = { "OpenBoth" } }; // <Onyx-LobbyButtons-edited>
             guidebookButton.OnPressed += _ =>
             {
                 guidebookController.ToggleGuidebook();
             };
             buttons.AddChild(guidebookButton);
 
-            var changelogButton = new ChangelogButton();
+            var changelogButton = new ChangelogButton { StyleClasses = { "OpenLeft" } }; // <Onyx-LobbyButtons-edited>
             changelogButton.OnPressed += args => UserInterfaceManager.GetUIController<ChangelogUIController>().ToggleWindow();
             buttons.AddChild(changelogButton);
 
             void AddInfoButton(string loc, CVarDef<string> cVar)
             {
-                var button = new Button { Text = Loc.GetString(loc) };
+                var button = new Button { Text = Loc.GetString(loc), StyleClasses = { "OpenBoth" } }; // <Onyx-LobbyButtons-edited>
                 button.OnPressed += _ => uriOpener.OpenUri(_cfg.GetCVar(cVar));
                 buttons.AddChild(button);
                 _infoLinks.Add((cVar, button));

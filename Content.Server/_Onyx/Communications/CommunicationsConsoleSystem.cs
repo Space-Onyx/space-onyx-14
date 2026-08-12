@@ -47,6 +47,7 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
         SubscribeLocalEvent<OnyxCommunicationsConsoleComponent, DeviceNetworkPacketEvent>(OnPacketReceive);
         Subs.BuiEvents<OnyxCommunicationsConsoleComponent>(OnyxCommunicationsConsoleUi.Key, subs =>
         {
+            subs.Event<BoundUIOpenedEvent>(OnUiOpened);
             subs.Event<CommunicationsConsoleAnnouncementMessage>(OnAnnouncement);
             subs.Event<CommunicationsConsoleAlertLevelMessage>(OnAlertLevel);
             subs.Event<CommunicationsConsoleEvacuationShuttleMessage>(OnEvacuationShuttle);
@@ -61,18 +62,7 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
     {
         ent.Comp.CanAnnounceAt = _timing.CurTime + ent.Comp.InitialAnnouncementDelay;
         ent.Comp.ShuttlesCallable = CanCallOrRecall();
-
-        if (_station.GetOwningStation(ent) is { } station && TryComp<AlertLevelComponent>(station, out var alert))
-        {
-            ent.Comp.CurrentAlertLevel = alert.CurrentAlertLevel;
-            ent.Comp.CanSetAlertAt = alert.IsLevelLocked ? null : alert.DelayedUntil ?? _timing.CurTime;
-            foreach (var level in _alertLevel.GetSelectableAlertLevels((station, alert)))
-            {
-                var prototype = _prototypes.Index(level);
-                ent.Comp.AlertLevels.Add(new($"alert-level-{level}", $"alert-level-{level}-announcement", level, prototype.Selectable, prototype.Color));
-            }
-        }
-
+        RefreshStationState(ent);
         ent.Comp.ExpectedEvacuationArrival = _roundEnd.ExpectedCountdownEnd;
         ent.Comp.ExpectedEvacuationDuration = _roundEnd.ExpectedShuttleLength;
         Dirty(ent);
@@ -80,6 +70,9 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
 
     private void OnPacketReceive(Entity<OnyxCommunicationsConsoleComponent> ent, ref DeviceNetworkPacketEvent args)
     {
+        if (args.Data.TryGetValue(ScreenPackets.Grid, out EntityUid? grid) && Transform(ent).GridUid != grid)
+            return;
+
         var changed = false;
         if (args.Data.TryGetValue(ScreenPackets.Text, out (string, string)? text))
         {
@@ -131,7 +124,7 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
 
     private void OnAlertLevel(Entity<OnyxCommunicationsConsoleComponent> ent, ref CommunicationsConsoleAlertLevelMessage args)
     {
-        if (args.Actor is not { Valid: true } actor || !ent.Comp.CanAlertLevel || _station.GetOwningStation(ent) is not { } station)
+        if (args.Actor is not { Valid: true } actor || !ent.Comp.CanAlertLevel || RefreshStationState(ent) is not { } station)
             return;
 
         if (!HasAccess(ent, actor))
@@ -192,12 +185,45 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
         ent.Comp.LastConfiguredLine1 = args.Line1;
         ent.Comp.LastConfiguredLine2 = args.Line2;
         Dirty(ent);
+        var grid = Transform(ent).GridUid;
+        if (grid is null)
+            return;
+
         _deviceNetwork.QueuePacket(ent, null, new NetworkPayload
         {
             [ScreenPackets.Content] = args.Content,
+            [ScreenPackets.Grid] = grid.Value,
             [ScreenPackets.ShowBorders] = args.ShowBorder,
             [ScreenPackets.Text] = (args.Line1, args.Line2),
         });
+    }
+
+    private void OnUiOpened(Entity<OnyxCommunicationsConsoleComponent> ent, ref BoundUIOpenedEvent args)
+    {
+        RefreshStationState(ent);
+    }
+
+    private EntityUid? RefreshStationState(Entity<OnyxCommunicationsConsoleComponent> ent)
+    {
+        ent.Comp.AlertLevels.Clear();
+        if (_station.GetOwningStation(ent) is not { } station || !TryComp<AlertLevelComponent>(station, out var alert))
+        {
+            ent.Comp.CurrentAlertLevel = string.Empty;
+            ent.Comp.CanSetAlertAt = null;
+            Dirty(ent);
+            return null;
+        }
+
+        ent.Comp.CurrentAlertLevel = alert.CurrentAlertLevel;
+        ent.Comp.CanSetAlertAt = alert.IsLevelLocked ? null : alert.DelayedUntil ?? _timing.CurTime;
+        foreach (var level in _alertLevel.GetSelectableAlertLevels((station, alert)))
+        {
+            var prototype = _prototypes.Index(level);
+            ent.Comp.AlertLevels.Add(new($"alert-level-{level}", $"alert-level-{level}-announcement", level, prototype.Selectable, prototype.Color));
+        }
+
+        Dirty(ent);
+        return station;
     }
 
     private void OnAlertLevelChanged(ref AlertLevelChangedEvent args)

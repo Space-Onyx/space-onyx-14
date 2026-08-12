@@ -28,8 +28,8 @@
                                     <info:LinkBanner Name="LinkBanner" VerticalExpand="False" HorizontalAlignment="Left" Margin="0 0 8 0" />
                                     <Control HorizontalExpand="True" />
                                     <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right" SeparationOverride="6">
-                                        <vote:VoteCallMenuButton Name="CallVoteButton" />
-                                        <Button Name="AHelpButton" Access="Public" Text="{Loc 'ui-lobby-ahelp-button'}" />
+                                        <vote:VoteCallMenuButton Name="CallVoteButton" StyleClasses="OpenRight" /> <!-- <Onyx-LobbyButtons-edited> -->
+                                        <Button Name="AHelpButton" Access="Public" Text="{Loc 'ui-lobby-ahelp-button'}" StyleClasses="OpenLeft" /> <!-- <Onyx-LobbyButtons-edited> -->
                                     </BoxContainer>
                                 </BoxContainer>
                             </BoxContainer>
@@ -62,22 +62,20 @@
                                     <BoxContainer Orientation="Vertical" HorizontalAlignment="Center" SeparationOverride="6" MinWidth="280">
                                         <lobbyUi:LobbyCharacterPreviewPanel Name="CharacterPreview" Access="Public" HorizontalAlignment="Center" />
                                         <controls:HLine Color="{x:Static style:StyleNano.NanoGold}" Thickness="2" />
-                                        <!-- <Onyx-LobbyStartTime-edited> -->
-                                        <PanelContainer Name="StartTimeContainer" Access="Public" StyleClasses="AngleRect" ModulateSelfOverride="#333333CC" HorizontalExpand="True" Margin="0 -9 0 2">
-                                            <Label Name="StartTime" Access="Public" Align="Center" HorizontalAlignment="Center" HorizontalExpand="True" Margin="0 9 0 9"/>
+                                        <PanelContainer Name="StartTimeContainer" Access="Public" StyleClasses="AngleRect" ModulateSelfOverride="#333333CC" HorizontalExpand="True" MinHeight="32" MaxHeight="32">
+                                            <Label Name="StartTime" Access="Public" Align="Center" HorizontalAlignment="Center" HorizontalExpand="True" VerticalAlignment="Center" />
                                         </PanelContainer>
-                                        <!-- </Onyx-LobbyStartTime-edited> -->
-                                        <Button Name="ReadyButton" Access="Public" ToggleMode="True" Text="{Loc 'ui-lobby-ready-up-button'}" StyleClasses="ButtonBig" HorizontalExpand="True" />
-                                        <cc:UICommandButton Command="observe" Name="ObserveButton" Access="Public" Text="{Loc 'ui-lobby-observe-button'}" WindowType="{x:Type lobbyUi:ObserveWarningWindow}" HorizontalExpand="True" />
+                                        <Button Name="ReadyButton" Access="Public" ToggleMode="True" Text="{Loc 'ui-lobby-ready-up-button'}" StyleClasses="ButtonBig OpenLeft" HorizontalExpand="True" /> <!-- <Onyx-LobbyButtons-edited> -->
+                                        <cc:UICommandButton Command="observe" Name="ObserveButton" Access="Public" Text="{Loc 'ui-lobby-observe-button'}" WindowType="{x:Type lobbyUi:ObserveWarningWindow}" HorizontalExpand="True" StyleClasses="OpenBoth" />
                                         <cc:UICommandButton Name="DiscordLinkButton"
                                                             Access="Public"
                                                             Command="ui-lobby-discord-linc"
                                                             Text="{Loc 'ui-lobby-discord-linc-button-main'}"
                                                             WindowType="{x:Type lobbyUi:DiscordLinkWindow}"
-                                                            StyleClasses="Caution"
+                                                            StyleClasses="Caution OpenBoth"
                                                             HorizontalExpand="True" />
-                                        <Button Name="OptionsButton" Access="Public" Text="{Loc 'ui-lobby-options-button'}" HorizontalExpand="True" />
-                                        <Button Name="LeaveButton" Access="Public" Text="{Loc 'ui-lobby-leave-button'}" HorizontalExpand="True" />
+                                        <Button Name="OptionsButton" Access="Public" Text="{Loc 'ui-lobby-options-button'}" HorizontalExpand="True" StyleClasses="OpenBoth" />
+                                        <Button Name="LeaveButton" Access="Public" Text="{Loc 'ui-lobby-leave-button'}" HorizontalExpand="True" StyleClasses="OpenRight" /> <!-- <Onyx-LobbyButtons-edited> -->
                                     </BoxContainer>
                                     <Control VerticalExpand="True" />
                                     <RichTextLabel Name="PlaytimeComment" Visible="False" Access="Public" HorizontalAlignment="Center" />
