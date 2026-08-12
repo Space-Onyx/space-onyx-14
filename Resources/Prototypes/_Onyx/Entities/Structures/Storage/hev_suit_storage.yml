@@ -37,8 +37,9 @@
         - MachineMask
         layer:
         - MachineLayer
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: Glass
   - type: MeleeSound
     soundGroups:

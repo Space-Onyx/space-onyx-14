@@ -31,8 +31,9 @@
   - type: Sprite
     sprite: _Onyx/Structures/Walls/girder_diagonal.rsi
     state: wall_girder
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:

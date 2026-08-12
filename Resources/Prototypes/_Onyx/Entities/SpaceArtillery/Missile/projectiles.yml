@@ -43,7 +43,7 @@
     scanArc: 40
     launchSpeed: 60
     maxSpeed: 150
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
@@ -99,7 +99,7 @@
     scanArc: 40
     launchSpeed: 100
     maxSpeed: 180
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
@@ -155,7 +155,7 @@
     scanArc: 50
     launchSpeed: 50
     maxSpeed: 110
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
@@ -216,7 +216,7 @@
     scanArc: 50
     launchSpeed: 100
     maxSpeed: 300
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
   - type: Destructible
     thresholds:

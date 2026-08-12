@@ -16,6 +16,7 @@
         density: 200
   - type: InteractionOutline
   - type: Clickable
-  - type: Damageable
+  - type: Injurable
     damageContainer: Biological
+  - type: Damageable
     damageModifierSet: Wood

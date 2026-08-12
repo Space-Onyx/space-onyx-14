@@ -201,8 +201,9 @@
     radius: 8
     softness: 1
     offset: "0, -0.5"
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
     damageModifierSet: Metallic
   - type: RCDDeconstructable
     deconstructable: false
@@ -310,8 +311,9 @@
     range: 15
     sound:
       path: /Audio/_Onyx/CosmicCult/spire_draining.ogg
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: Metallic
   - type: RCDDeconstructable
     deconstructable: false
@@ -364,8 +366,9 @@
   - type: Icon
     sprite: _Onyx/CosmicCult/Tileset/cosmictable.rsi
     state: full
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: Metallic
   - type: CosmicCultExamine
     cultistText: cosmic-examine-text-forthecult

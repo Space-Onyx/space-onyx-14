@@ -22,8 +22,9 @@
           Bursting: { state: egg_bursting }
           Grown: { state: egg_grown }
           Growning: { state: egg_growing }
-  - type: Damageable
+  - type: Injurable
     damageContainer: Biological
+  - type: Damageable
     damageModifierSet: Resin
   - type: Destructible
     thresholds:

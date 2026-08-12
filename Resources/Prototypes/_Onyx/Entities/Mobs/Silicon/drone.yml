@@ -16,7 +16,7 @@
     soundHit:
       collection: MetalThud
   - type: Clickable
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
   - type: Bloodstream
     bloodReagent: Oil

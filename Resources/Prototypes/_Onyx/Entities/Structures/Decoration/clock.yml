@@ -17,8 +17,9 @@
       fix1:
         shape: !type:PhysShapeCircle
           radius: 0
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:

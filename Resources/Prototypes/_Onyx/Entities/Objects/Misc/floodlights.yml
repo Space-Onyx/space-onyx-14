@@ -20,7 +20,7 @@
         visible: false
         map: [ "light" ]
   - type: InteractionOutline
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
   - type: PointLight
     enabled: true
@@ -80,7 +80,7 @@
     offset: "0.0,0.5"
     drawdepth: Mobs
   - type: InteractionOutline
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
   - type: PointLight
     enabled: false
@@ -309,7 +309,7 @@
         layer:
         - WallLayer
   - type: InteractionOutline
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
   - type: Destructible
     thresholds:

@@ -34,8 +34,9 @@
         mask: [ FullTileMask ]
         layer: [ WallLayer ]
   - type: Repairable
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:

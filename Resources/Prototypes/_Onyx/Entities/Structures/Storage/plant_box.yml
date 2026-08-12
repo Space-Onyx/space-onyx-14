@@ -6,8 +6,9 @@
     price: 500
   - type: Anchorable
   - type: InteractionOutline
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: Wood
   - type: Destructible
     thresholds:

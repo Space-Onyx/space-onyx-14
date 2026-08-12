@@ -23,8 +23,9 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Damageable
+  - type: Injurable
     damageContainer: Biological
+  - type: Damageable
     damageModifierSet: Wood
   - type: Appearance
   - type: PlacementReplacement

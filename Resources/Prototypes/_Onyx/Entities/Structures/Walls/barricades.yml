@@ -24,7 +24,7 @@
   - type: Rotatable
   - type: Climbable
   - type: InteractionOutline
-  - type: Damageable
+  - type: Injurable
     damageContainer: Barricade
   - type: MeleeSound
     soundGroups:

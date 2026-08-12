@@ -30,8 +30,9 @@
   - type: Harvestable
     delay: 2.5
     loot: FoodMealCactusFruit
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: Wood
   - type: Destructible
     thresholds:

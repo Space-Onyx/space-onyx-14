@@ -44,8 +44,9 @@
         !type:CableDeviceNode
         nodeGroupID: HVPower
   - type: StationInfiniteBatteryTarget
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: StructuralMetallicStrong
   - type: BatterySensor
   - type: Gun

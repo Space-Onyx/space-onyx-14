@@ -45,7 +45,7 @@
       thresholds:
         0: Alive
         42: Dead
-    - type: Damageable
+    - type: Injurable
       damageContainer: Biological
     - type: StatusEffects
       allowed:

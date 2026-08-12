@@ -51,17 +51,59 @@ public abstract partial class SharedArmorSystem : EntitySystem
 
     private void OnDamageModify(EntityUid uid, ArmorComponent component, InventoryRelayedEvent<DamageModifyEvent> args)
     {
-        // <Onyx-WoundSystem-edited>
-        // Wound hosts apply equipped armor after resolving the struck part.
-        if (HasComp<WoundHostComponent>(args.Owner))
-            return;
-        // </Onyx-WoundSystem-edited>
-
         if (TryComp<MaskComponent>(uid, out var mask) && mask.IsToggled)
             return;
 
+        // <Onyx-WoundSystem-edited>
+        // Wound hosts apply equipped armor to systemic (whole body) damage here;
+        // localized part damage is armored after the struck body part is resolved via PartDamageModifyEvent.
+        if (TryComp(args.Owner, out WoundHostComponent? host))
+        {
+            args.Args.Damage = ApplyWoundSystemicArmor(args.Args.Damage, component.Modifiers, host);
+            return;
+        }
+        // </Onyx-WoundSystem-edited>
+
         args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, component.Modifiers);
     }
+
+    // <Onyx-WoundSystem>
+    /// <summary>
+    /// Applies armor modifiers to a wound host's systemic damage only. Localized part
+    /// damage is left untouched so it can be armored after the struck part is resolved.
+    /// </summary>
+    private static DamageSpecifier ApplyWoundSystemicArmor(
+        DamageSpecifier damage,
+        DamageModifierSet modifiers,
+        WoundHostComponent host)
+    {
+        var systemic = new DamageSpecifier(damage);
+        var hasSystemic = false;
+        foreach (var (type, value) in damage.DamageDict)
+        {
+            if (host.LocalizedDamageTypes.Contains(type))
+                systemic.DamageDict.Remove(type);
+            else if (value != 0)
+                hasSystemic = true;
+        }
+
+        if (!hasSystemic)
+            return damage;
+
+        var reduced = DamageSpecifier.ApplyModifierSet(systemic, modifiers);
+
+        var result = damage.Clone();
+        foreach (var (type, _) in systemic.DamageDict)
+        {
+            if (reduced.DamageDict.TryGetValue(type, out var value))
+                result.DamageDict[type] = value;
+            else
+                result.DamageDict.Remove(type);
+        }
+
+        return result;
+    }
+    // </Onyx-WoundSystem>
 
     // <Onyx-WoundSystem>
     private void OnPartDamageModify(EntityUid uid, ArmorComponent component, InventoryRelayedEvent<PartDamageModifyEvent> args)
@@ -79,11 +121,11 @@ public abstract partial class SharedArmorSystem : EntitySystem
             return;
         }
 
-        if (component.Coverage.Count != 0 && !component.Coverage.Contains(args.Args.PartType) ||
-            component.CoverageSymmetry.Count != 0 && !component.CoverageSymmetry.Contains(args.Args.Symmetry))
-            return;
-
+        // <Onyx-ArmorGlobalProtection-edited>
+        // The armor's global modifiers protect the whole body; they are never skipped
+        // for an individual body part that is not listed in @Coverage/@CoverageSymmetry.
         args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, component.Modifiers);
+        // </Onyx-ArmorGlobalProtection-edited>
     }
     // </Onyx-WoundSystem>
 

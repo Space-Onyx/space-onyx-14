@@ -9,8 +9,9 @@
     noRot: true
     sprite: Structures/Storage/barrels.rsi
     state: flamingmetalbarrel
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: StructuralMetallicStrong
   - type: Pullable
   - type: PointLight

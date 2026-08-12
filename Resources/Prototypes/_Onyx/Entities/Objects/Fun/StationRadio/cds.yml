@@ -9,8 +9,9 @@
   - type: Sprite
     sprite: _Onyx/StationRadio/Media/cds.rsi
     state: icon
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
     damageModifierSet: Wood
   - type: Destructible
     thresholds:

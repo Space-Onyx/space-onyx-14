@@ -28,8 +28,9 @@
         sound:
           collection: GlassBreak
   - type: Animateable
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: Metallic
   - type: PlaceableSurface
   - type: Fixtures

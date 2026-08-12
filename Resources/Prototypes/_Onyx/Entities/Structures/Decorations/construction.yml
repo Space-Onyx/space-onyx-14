@@ -9,8 +9,9 @@
     noRot: true
     sprite: _Onyx/Structures/Decoration/construction.rsi
     state: construction
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: StructuralMetallicStrong
   - type: Pullable
   - type: Climbable

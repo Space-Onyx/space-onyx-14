@@ -14,8 +14,9 @@
           radius: 0.2
   - type: Clickable
   - type: InteractionOutline
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: Wood
   - type: Destructible
     thresholds:

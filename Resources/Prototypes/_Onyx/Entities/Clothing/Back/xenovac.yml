@@ -19,8 +19,9 @@
     containers:
       item: !type:ContainerSlot
       xenovac-storage: !type:Container
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:

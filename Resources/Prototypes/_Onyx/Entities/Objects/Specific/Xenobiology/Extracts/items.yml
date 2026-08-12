@@ -45,7 +45,7 @@
     state: icon
   - type: Item
     size: Normal
-  - type: Damageable
+  - type: Injurable
     damageContainer: Biological
   - type: DamageOnHighSpeedImpact
     minimumSpeed: 0.1
@@ -87,8 +87,9 @@
     state: goo-wall
     drawdepth: WallMountedItems
   - type: Clickable
-  - type: Damageable
+  - type: Injurable
     damageContainer: Biological
+  - type: Damageable
     damageModifierSet: Slime
   - type: Destructible
     thresholds:

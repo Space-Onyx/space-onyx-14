@@ -37,6 +37,7 @@
         layer:
         - WallLayer
         hard: false
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
     damageModifierSet: Metallic

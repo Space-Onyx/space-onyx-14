@@ -40,8 +40,9 @@
   - type: ExtensionCableReceiver
   - type: Anchorable
   - type: Pullable
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: Metallic
   - type: ContainerContainer
     containers:

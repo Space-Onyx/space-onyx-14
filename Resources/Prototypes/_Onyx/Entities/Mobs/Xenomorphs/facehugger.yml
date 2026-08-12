@@ -17,8 +17,9 @@
   - type: AddAccentClothing
     accent: ReplacementAccent
     replacement: mumble
-  - type: Damageable
+  - type: Injurable
     damageContainer: Biological
+  - type: Damageable
     damageModifierSet: Xenomorph
   - type: MobThresholds
     thresholds:

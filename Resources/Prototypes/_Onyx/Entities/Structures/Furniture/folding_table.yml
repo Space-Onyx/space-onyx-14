@@ -54,8 +54,9 @@
   - type: MeleeWeapon
     damage: { types: { Blunt: 8 } }
     soundHit: { collection: MetalThud }
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:

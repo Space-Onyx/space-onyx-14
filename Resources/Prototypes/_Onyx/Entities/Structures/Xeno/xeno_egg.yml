@@ -28,7 +28,7 @@
     drawdepth: Items
     layers:
      - state: egg_item
-  - type: Damageable
+  - type: Injurable
     damageContainer: Biological
   - type: Destructible
     thresholds:
@@ -75,7 +75,7 @@
     drawdepth: Items
     layers:
      - state: egg_exploded
-  - type: Damageable
+  - type: Injurable
     damageContainer: Biological
   - type: Destructible
     thresholds:

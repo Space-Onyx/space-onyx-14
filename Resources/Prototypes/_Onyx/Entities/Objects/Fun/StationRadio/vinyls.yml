@@ -10,8 +10,9 @@
     sprite: _Onyx/StationRadio/Media/vinyls.rsi
   - type: EmbeddableProjectile
     sound: /Audio/Weapons/star_hit.ogg
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
     damageModifierSet: Wood
   - type: Destructible
     thresholds:

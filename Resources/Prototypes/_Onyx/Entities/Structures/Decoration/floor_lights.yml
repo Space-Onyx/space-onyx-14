@@ -106,8 +106,9 @@
       state: glow
       shader: unshaded
   - type: Appearance
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
     damageModifierSet: Metallic
   - type: Physics
     bodyType: Static

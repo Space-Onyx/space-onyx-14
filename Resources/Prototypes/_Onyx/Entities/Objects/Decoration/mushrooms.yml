@@ -30,8 +30,9 @@
   - type: Harvestable
     delay: 3.5
     loot: FoodSpaceshroom # TODO: make lavashroom food
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
@@ -72,8 +73,9 @@
   - type: Harvestable
     delay: 3.5
     loot: FoodMealSerakaCap
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: Wood
   - type: Destructible
     thresholds:

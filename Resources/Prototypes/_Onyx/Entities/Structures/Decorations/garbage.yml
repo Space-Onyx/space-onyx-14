@@ -8,8 +8,9 @@
     noRot: true
     sprite: _Onyx/Structures/Decoration/garbage.rsi
     state: garbage
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: Wood
   - type: Pullable
   - type: AmbientSound

@@ -73,7 +73,7 @@
           - Paper
     sprite: _Onyx/Objects/Misc/mail_capsule.rsi
   - type: Dumpable
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
   - type: Destructible
     thresholds:

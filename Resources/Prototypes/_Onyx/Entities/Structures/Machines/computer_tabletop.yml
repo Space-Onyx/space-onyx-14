@@ -38,8 +38,9 @@
         - map: [ "computerLayerKeys" ]
           sprite: Structures/Machines/computers.rsi
           state: generic_keys
-    - type: Damageable
+    - type: Injurable
       damageContainer: Inorganic
+    - type: Damageable
       damageModifierSet: Electronic
     - type: Destructible
       thresholds:

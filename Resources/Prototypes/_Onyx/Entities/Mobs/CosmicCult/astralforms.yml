@@ -187,8 +187,9 @@
     - ActionRogueGrandShunt
     - ActionRogueCosmicNova
     - ActionRogueSlumber
-  - type: Damageable
+  - type: Injurable
     damageContainer: ManifestedSpirit
+  - type: Damageable
     damageModifierSet: ManifestedSpirit
   - type: Fixtures
     fixtures:

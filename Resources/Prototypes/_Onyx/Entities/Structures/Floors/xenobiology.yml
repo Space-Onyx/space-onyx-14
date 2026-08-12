@@ -15,8 +15,9 @@
     anchored: true
   - type: FootstepModifier
     footstepSoundCollection: { collection: FootstepHoverBorg }
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
@@ -58,8 +59,9 @@
     anchored: true
   - type: FootstepModifier
     footstepSoundCollection: { collection: FootstepFloor }
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
+  - type: Damageable
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:

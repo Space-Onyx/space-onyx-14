@@ -46,8 +46,9 @@
     board: CrystallizerMachineCircuitboard
   - type: WiresVisuals
   - type: WiresPanel
-  - type: Damageable
+  - type: Injurable
     damageContainer: StructuralInorganic
+  - type: Damageable
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:
