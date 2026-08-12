@@ -18,12 +18,17 @@ public record struct DisarmedEvent(EntityUid Target, EntityUid Source, float Pus
     /// </summary>
     public readonly float PushProbability = PushProb;
 
-    // <Onyx-GoobShove>
+    // <Onyx-GoobShove-edited>
     /// <summary>
     /// Fixed stamina damage for Goob-style shoves. Negative values use the legacy probability formula.
     /// </summary>
     public float StaminaDamage = -1f;
-    // </Onyx-GoobShove>
+
+    /// <summary>
+    /// Whether this event may force an item out of the target's hand.
+    /// </summary>
+    public bool AllowItemDisarm = true;
+    // </Onyx-GoobShove-edited>
 
     /// <summary>
     /// Prefix for the popup message that will be displayed on a successful push.

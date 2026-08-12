@@ -10,7 +10,6 @@ using Content.Shared.Throwing;
 using Robust.Shared.Physics.Components;
 // </Onyx-GoobShove>
 using Content.Shared.Actions.Events;
-using Content.Shared.Administration.Components;
 using Content.Shared.Administration.Logs;
 using Content.Shared.CombatMode;
 using Content.Shared.Damage;
@@ -39,8 +38,6 @@ using Content.Shared._Onyx.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
-using Robust.Shared.Audio;
-using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Physics;
@@ -65,14 +62,13 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private MeleeSoundSystem _meleeSound = default!;
     [Dependency] protected MobStateSystem MobState = default!;
-    [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] protected SharedCombatModeSystem CombatMode = default!;
     [Dependency] protected SharedMapSystem Maps = default!;
     [Dependency] protected SharedInteractionSystem Interaction = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
-    // <Onyx-GoobShove>
+    // <Onyx-GoobShove-edited>
     [Dependency] private ThrowingSystem _throwing = default!;
-    // </Onyx-GoobShove>
+    // </Onyx-GoobShove-edited>
     [Dependency] protected SharedPopupSystem PopupSystem = default!;
     [Dependency] protected SharedTransformSystem TransformSystem = default!;
     [Dependency] private SharedStaminaSystem _stamina = default!;
@@ -899,24 +895,6 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         return highestDamageType;
     }
 
-    private float CalculateDisarmChance(EntityUid disarmer, EntityUid disarmed, EntityUid? inTargetHand, CombatModeComponent disarmerComp)
-    {
-        if (HasComp<DisarmProneComponent>(disarmer))
-            return 1.0f;
-
-        if (HasComp<DisarmProneComponent>(disarmed))
-            return 0.0f;
-
-        var chance = disarmerComp.BaseDisarmFailChance;
-
-        if (inTargetHand != null && TryComp<DisarmMalusComponent>(inTargetHand, out var malus))
-        {
-            chance += malus.Malus;
-        }
-
-        return Math.Clamp(chance, 0f, 1f);
-    }
-
     // <Onyx-GoobShove>
     private float CalculateShoveStaminaDamage(EntityUid user, EntityUid target)
     {
@@ -960,7 +938,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             return false;
         }
 
-        // <Onyx-GoobShove>
+        // <Onyx-GoobShove-edited>
         if (!InRange(user, target.Value, GetRange(meleeUid, user, component), session)) // _Onyx-CrusherUpgrades
             return false;
 
@@ -969,105 +947,37 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             new ComboAttackPerformedEvent(user, target.Value, meleeUid, ComboAttackType.Disarm)); // <MartialArts-edited>
         Interaction.DoContactInteraction(user, target);
 
-        if (MobState.IsIncapacitated(target.Value))
-            return true;
-        // </Onyx-GoobShove>
-
-        // Need hands or to be able to be shoved over.
-        if (!TryComp<HandsComponent>(target, out var targetHandsComponent))
-        {
-            if (!TryComp<StatusEffectsComponent>(target, out var status) ||
-                !status.AllowedEffects.Contains("KnockedDown"))
-            {
-                // Notify disarmable
-                if (HasComp<MobStateComponent>(target.Value))
-                    PopupSystem.PopupEntity(Loc.GetString("disarm-action-disarmable", ("targetName", target.Value)), target.Value, target.Value);
-
-                // <Onyx-GoobShove-edited>
-                return true;
-                // </Onyx-GoobShove-edited>
-            }
-        }
-
-        if (!InRange(user, target.Value, GetRange(meleeUid, user, component), session)) // _Onyx-CrusherUpgrades
-        {
-            return false;
-        }
-
-        EntityUid? inTargetHand = null;
-
-        if (_hands.TryGetActiveItem(target.Value, out var activeHeldEntity))
-        {
-            inTargetHand = activeHeldEntity.Value;
-        }
-
-        var attemptEvent = new DisarmAttemptEvent(target.Value, user, inTargetHand);
-
-        if (inTargetHand != null)
-        {
-            RaiseLocalEvent(inTargetHand.Value, ref attemptEvent);
-        }
-
-        RaiseLocalEvent(target.Value, ref attemptEvent);
-
-        if (attemptEvent.Cancelled)
-            return true; // <Onyx-GoobShove-edited>
-
-        var chance = CalculateDisarmChance(user, target.Value, inTargetHand, combatMode);
-
-        // At this point we diverge
         if (_netMan.IsClient)
         {
-            // Play a sound to give instant feedback; same with playing the animations
             _meleeSound.PlaySwingSound(user, meleeUid, component);
             return true;
         }
 
-        // <Onyx-GoobShove-edited>
-        var eventArgs = new DisarmedEvent(target.Value, user, 1 - chance)
+        var eventArgs = new DisarmedEvent(target.Value, user, 0f)
         {
+            AllowItemDisarm = false,
             StaminaDamage = CalculateShoveStaminaDamage(user, target.Value),
         };
-        // </Onyx-GoobShove-edited>
         RaiseLocalEvent(target.Value, ref eventArgs);
 
-        // Nothing handled it so abort.
-        if (!eventArgs.Handled)
-        {
-            return true; // <Onyx-GoobShove-edited>
-        }
-
-        Interaction.DoContactInteraction(user, target);
-        AdminLogger.Add(LogType.DisarmedAction, $"{ToPrettyString(user):user} used disarm on {ToPrettyString(target):target}");
-
-        AdminLogger.Add(LogType.DisarmedAction, $"{ToPrettyString(user):user} used disarm on {ToPrettyString(target):target}");
-
-        _audio.PlayPvs(combatMode.DisarmSuccessSound, target.Value, AudioParams.Default.WithVariation(0.025f).WithVolume(5f));
+        AdminLogger.Add(LogType.DisarmedAction, $"{ToPrettyString(user):user} shoved {ToPrettyString(target):target}");
         var targetEnt = Identity.Entity(target.Value, EntityManager);
         var userEnt = Identity.Entity(user, EntityManager);
 
         var msgOther = Loc.GetString(
-            eventArgs.PopupPrefix + "popup-message-other-clients",
+            "disarm-action-shove-popup-message-other-clients",
             ("performerName", userEnt),
             ("targetName", targetEnt));
 
-        var msgUser = Loc.GetString(eventArgs.PopupPrefix + "popup-message-cursor", ("targetName", targetEnt));
+        var msgUser = Loc.GetString("disarm-action-shove-popup-message-cursor", ("targetName", targetEnt));
 
         var filterOther = Filter.PvsExcept(user, entityManager: EntityManager);
 
         PopupSystem.PopupEntity(msgOther, user, filterOther, true);
         PopupSystem.PopupEntity(msgUser, target.Value, user);
 
-        if (eventArgs.IsStunned)
-        {
-
-            PopupSystem.PopupEntity(Loc.GetString("stunned-component-disarm-success-others", ("source", userEnt), ("target", targetEnt)), targetEnt, Filter.PvsExcept(user), true, PopupType.LargeCaution);
-            PopupSystem.PopupCursor(Loc.GetString("stunned-component-disarm-success", ("target", targetEnt)), user, PopupType.Large);
-
-            AdminLogger.Add(LogType.DisarmedKnockdown, LogImpact.Medium, $"{ToPrettyString(user):user} knocked down {ToPrettyString(target):target}");
-        }
-
         return true;
+        // </Onyx-GoobShove-edited>
     }
 
     private void DoLungeAnimation(EntityUid user, EntityUid weapon, Angle angle, MapCoordinates coordinates, float length, string? animation)
@@ -1094,15 +1004,9 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         DoLunge(user, weapon, angle, localPos, animation);
     }
 
-    // <Onyx-GoobShove>
+    // <Onyx-GoobShove-edited>
     private void PhysicalShove(EntityUid user, EntityUid target)
     {
-        if (!TryComp<PhysicsComponent>(user, out var userPhysics)
-            || !TryComp<PhysicsComponent>(target, out var targetPhysics)
-            || userPhysics.InvMass <= 0f
-            || targetPhysics.InvMass <= 0f)
-            return;
-
         var userPos = TransformSystem.GetWorldPosition(user);
         var targetPos = TransformSystem.GetWorldPosition(target);
         var offset = targetPos - userPos;
@@ -1111,17 +1015,12 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
 
         const float shoveRange = 0.6f;
         const float shoveSpeed = 4f;
-        const float shoveMassFactor = 3f;
-        var massRatio = Math.Clamp(targetPhysics.InvMass / userPhysics.InvMass,
-            0f,
-            1f + shoveMassFactor);
-        var force = shoveRange * massRatio;
         _throwing.TryThrow(target,
-            offset.Normalized() * force,
-            force * shoveSpeed,
+            offset.Normalized() * shoveRange,
+            shoveSpeed,
             animated: HasComp<ItemComponent>(target));
     }
-    // </Onyx-GoobShove>
+    // </Onyx-GoobShove-edited>
 
     public abstract void DoLunge(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, bool predicted = true);
 
