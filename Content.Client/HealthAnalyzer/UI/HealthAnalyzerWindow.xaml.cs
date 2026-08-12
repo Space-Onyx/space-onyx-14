@@ -11,8 +11,11 @@ public sealed partial class HealthAnalyzerWindow : FancyWindow
     public HealthAnalyzerWindow()
     {
         RobustXamlLoader.Load(this);
-        BodyButton.OnPressed += _ => HealthAnalyzer.SelectDiagnosticTab(false);
-        OrgansButton.OnPressed += _ => HealthAnalyzer.SelectDiagnosticTab(true);
+        // <Onyx-HealthAnalyzerChemicals-edited>
+        BodyButton.OnPressed += _ => HealthAnalyzer.SelectBodyTab();
+        OrgansButton.OnPressed += _ => HealthAnalyzer.SelectOrgansTab();
+        ChemicalsButton.OnPressed += _ => HealthAnalyzer.SelectChemicalsTab();
+        // </Onyx-HealthAnalyzerChemicals-edited>
     }
 
     public void Populate(HealthAnalyzerScannedUserMessage msg)

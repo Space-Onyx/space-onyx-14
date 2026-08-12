@@ -40,6 +40,7 @@ public struct HealthAnalyzerUiState
     // <Onyx-HealthAnalyzerOrgans-edited>
     public List<HealthAnalyzerOrganInfo>? Organs;
     // </Onyx-HealthAnalyzerOrgans-edited>
+    public List<HealthAnalyzerChemicalInfo>? Chemicals; // <Onyx-HealthAnalyzerChemicals>
     // </Onyx-HealthAnalyzer-StatusDoll>
 
     public HealthAnalyzerUiState() {}
@@ -54,7 +55,8 @@ public struct HealthAnalyzerUiState
         bool? unrevivable,
         Dictionary<TargetBodyPart, DamageSpecifier>? partDamage = null,
         HealthAnalyzerWoundDiagnostics? woundDiagnostics = null,
-        List<HealthAnalyzerOrganInfo>? organs = null)
+        List<HealthAnalyzerOrganInfo>? organs = null,
+        List<HealthAnalyzerChemicalInfo>? chemicals = null) // <Onyx-HealthAnalyzerChemicals-edited>
     {
         TargetEntity = targetEntity;
         Temperature = temperature;
@@ -68,6 +70,7 @@ public struct HealthAnalyzerUiState
         // <Onyx-HealthAnalyzerOrgans-edited>
         Organs = organs;
         // </Onyx-HealthAnalyzerOrgans-edited>
+        Chemicals = chemicals; // <Onyx-HealthAnalyzerChemicals>
         // </Onyx-HealthAnalyzer-StatusDoll>
     }
     // </Onyx-HealthAnalyzer-StatusDoll-edited>

@@ -17,6 +17,17 @@ health-analyzer-window-organs-tab = Органы
 health-analyzer-window-organs-unavailable = Данные об органах недоступны.
 health-analyzer-window-organ-health = { $percent } %
 # </Onyx-HealthAnalyzerOrgans-edited>
+# <Onyx-HealthAnalyzerChemicals>
+health-analyzer-window-chemicals-tab = Химикаты
+health-analyzer-window-chemicals-unavailable = Данные о химикатах недоступны.
+health-analyzer-window-chemicals-no-vessels = Метаболические сосуды не обнаружены.
+health-analyzer-window-solution-bloodstream = Кровоток
+health-analyzer-window-solution-metabolites = Метаболиты
+health-analyzer-window-solution-stomach = Желудок
+health-analyzer-window-solution-lung = Лёгкие
+health-analyzer-window-solution-empty = Реагенты не обнаружены
+health-analyzer-window-solution-reagent = { $reagent }: { $quantity } ед.
+# </Onyx-HealthAnalyzerChemicals>
 
 health-analyzer-window-damage-group-text = { $damageGroup }: { $amount }
 health-analyzer-window-damage-type-text = { $damageType }: { $amount }

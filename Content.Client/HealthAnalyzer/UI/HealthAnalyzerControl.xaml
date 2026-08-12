@@ -60,6 +60,11 @@
     <ScrollContainer Name="OrgansTab" HorizontalExpand="True" VerticalExpand="True" Visible="False" HScrollEnabled="False">
         <BoxContainer Name="OrgansContainer" Orientation="Vertical" Margin="5" HorizontalExpand="True" />
     </ScrollContainer>
+    <!-- <Onyx-HealthAnalyzerChemicals> -->
+    <ScrollContainer Name="ChemicalsTab" HorizontalExpand="True" VerticalExpand="True" Visible="False" HScrollEnabled="False">
+        <BoxContainer Name="ChemicalsContainer" Orientation="Vertical" Margin="5" HorizontalExpand="True" />
+    </ScrollContainer>
+    <!-- </Onyx-HealthAnalyzerChemicals> -->
     </BoxContainer>
     <!-- </Onyx-HealthAnalyzerOrgans-edited> -->
 

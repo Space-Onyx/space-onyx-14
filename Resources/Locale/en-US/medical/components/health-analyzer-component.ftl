@@ -17,6 +17,17 @@ health-analyzer-window-organs-tab = Organs
 health-analyzer-window-organs-unavailable = Organ data unavailable.
 health-analyzer-window-organ-health = { $percent } %
 # </Onyx-HealthAnalyzerOrgans-edited>
+# <Onyx-HealthAnalyzerChemicals>
+health-analyzer-window-chemicals-tab = Chemicals
+health-analyzer-window-chemicals-unavailable = Chemical data unavailable.
+health-analyzer-window-chemicals-no-vessels = No metabolic vessels detected.
+health-analyzer-window-solution-bloodstream = Bloodstream
+health-analyzer-window-solution-metabolites = Metabolites
+health-analyzer-window-solution-stomach = Stomach
+health-analyzer-window-solution-lung = Lungs
+health-analyzer-window-solution-empty = No reagents detected
+health-analyzer-window-solution-reagent = { $reagent }: { $quantity } u
+# </Onyx-HealthAnalyzerChemicals>
 
 health-analyzer-window-damage-group-text = {$damageGroup}: {$amount}
 health-analyzer-window-damage-type-text = {$damageType}: {$amount}

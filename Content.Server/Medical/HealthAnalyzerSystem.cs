@@ -10,6 +10,7 @@ using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint; // <Onyx-HealthAnalyzerPain>
 // </Onyx-HealthAnalyzer-StatusDoll>
 using Content.Shared.Body.Components;
+using Content.Shared.Chemistry.Components; // <Onyx-HealthAnalyzerChemicals>
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage.Components;
 using Content.Shared.DoAfter;
@@ -273,8 +274,9 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
             BuildPartDamage(entity),
             BuildWoundDiagnostics(entity),
             // <Onyx-HealthAnalyzerOrgans-edited>
-            BuildOrganInfo(entity)
+            BuildOrganInfo(entity),
             // </Onyx-HealthAnalyzerOrgans-edited>
+            BuildChemicalInfo(entity, bloodstream) // <Onyx-HealthAnalyzerChemicals>
             // </Onyx-HealthAnalyzer-StatusDoll>
         );
     }
@@ -400,5 +402,45 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
         _ => 10,
     };
     // </Onyx-HealthAnalyzerOrgans-edited>
+
+    // <Onyx-HealthAnalyzerChemicals>
+    private List<HealthAnalyzerChemicalInfo> BuildChemicalInfo(EntityUid body, BloodstreamComponent? bloodstream)
+    {
+        var result = new List<HealthAnalyzerChemicalInfo>();
+        if (bloodstream != null)
+        {
+            if (_solutionContainerSystem.TryGetSolution(body, bloodstream.BloodSolutionName, out _, out var blood))
+                AddChemicalInfo(result, HealthAnalyzerSolutionType.Bloodstream, blood);
+
+            if (_solutionContainerSystem.TryGetSolution(body, bloodstream.MetabolitesSolutionName, out _, out var metabolites))
+                AddChemicalInfo(result, HealthAnalyzerSolutionType.Metabolites, metabolites);
+        }
+
+        foreach (var (organ, _) in _body.GetBodyOrgans(body))
+        {
+            if (HasComp<StomachComponent>(organ) &&
+                _solutionContainerSystem.TryGetSolution(organ, StomachSystem.DefaultSolutionName, out _, out var stomach))
+                AddChemicalInfo(result, HealthAnalyzerSolutionType.Stomach, stomach);
+
+            if (TryComp(organ, out LungComponent? lung) &&
+                _solutionContainerSystem.TryGetSolution(organ, lung.SolutionName, out _, out var lungs))
+                AddChemicalInfo(result, HealthAnalyzerSolutionType.Lung, lungs);
+        }
+
+        return result;
+    }
+
+    private static void AddChemicalInfo(
+        List<HealthAnalyzerChemicalInfo> result,
+        HealthAnalyzerSolutionType type,
+        Solution solution)
+    {
+        var reagents = new List<HealthAnalyzerReagentInfo>();
+        foreach (var reagent in solution.Contents)
+            reagents.Add(new HealthAnalyzerReagentInfo(reagent.Reagent.Prototype, reagent.Quantity));
+
+        result.Add(new HealthAnalyzerChemicalInfo(type, reagents));
+    }
+    // </Onyx-HealthAnalyzerChemicals>
     // </Onyx-HealthAnalyzer-StatusDoll>
 }

@@ -8,7 +8,8 @@
     <BoxContainer Orientation="Vertical" VerticalExpand="True">
         <BoxContainer Orientation="Horizontal" Margin="8 10 8 5">
             <Button Name="BodyButton" Text="{Loc health-analyzer-window-body-tab}" MinWidth="130" MinHeight="30" HorizontalExpand="True" StyleClasses="OpenRight" />
-            <Button Name="OrgansButton" Text="{Loc health-analyzer-window-organs-tab}" MinWidth="130" MinHeight="30" HorizontalExpand="True" StyleClasses="OpenLeft" />
+            <Button Name="OrgansButton" Text="{Loc health-analyzer-window-organs-tab}" MinWidth="130" MinHeight="30" HorizontalExpand="True" StyleClasses="OpenBoth" /> <!-- <Onyx-HealthAnalyzerChemicals-edited> -->
+            <Button Name="ChemicalsButton" Text="{Loc health-analyzer-window-chemicals-tab}" MinWidth="130" MinHeight="30" HorizontalExpand="True" StyleClasses="OpenLeft" /> <!-- <Onyx-HealthAnalyzerChemicals> -->
         </BoxContainer>
         <PanelContainer StyleClasses="LowDivider" />
         <ScrollContainer Margin="5 5 5 5" ReturnMeasure="True" VerticalExpand="True">

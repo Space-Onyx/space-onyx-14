@@ -11,6 +11,7 @@ using Content.Shared.Atmos;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
+using Content.Shared.Chemistry.Reagent; // <Onyx-HealthAnalyzerChemicals>
 using Content.Shared.FixedPoint;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
@@ -46,6 +47,10 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
     private NetEntity? _displayedTarget;
     private TargetBodyPart? _selectedPart;
     private EntityUid? _target;
+    // <Onyx-HealthAnalyzerOrgans>
+    private readonly Dictionary<NetEntity, (BoxContainer Row, EllipsisLabel Name, Label Health)> _organRows = new();
+    private bool _organsUnavailable;
+    // </Onyx-HealthAnalyzerOrgans>
     // </Onyx-HealthAnalyzer-StatusDoll>
 
     public HealthAnalyzerControl()
@@ -78,7 +83,8 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
             AlertsDivider.Visible = false;
             AlertsContainer.Visible = false;
             GroupsContainer.RemoveAllChildren();
-            OrgansContainer.RemoveAllChildren();
+            ClearOrganRows(); // <Onyx-HealthAnalyzerOrgans-edited>
+            ChemicalsContainer.RemoveAllChildren(); // <Onyx-HealthAnalyzerChemicals>
             _target = null;
             _displayedTarget = null;
             _selectedPart = null;
@@ -130,6 +136,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         // <Onyx-HealthAnalyzerOrgans-edited>
         DrawOrgans(state);
         // </Onyx-HealthAnalyzerOrgans-edited>
+        DrawChemicals(state); // <Onyx-HealthAnalyzerChemicals>
         // </Onyx-HealthAnalyzer-StatusDoll-edited>
 
         var name = new FormattedMessage();
@@ -299,39 +306,140 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         WoundFindingsContainer.AddChild(label);
     }
 
-    // <Onyx-HealthAnalyzerOrgans-edited>
-    public void SelectDiagnosticTab(bool organs)
+    // <Onyx-HealthAnalyzerChemicals-edited>
+    public void SelectBodyTab()
     {
-        BodyTab.Visible = !organs;
-        OrgansTab.Visible = organs;
+        BodyTab.Visible = true;
+        OrgansTab.Visible = false;
+        ChemicalsTab.Visible = false; // <Onyx-HealthAnalyzerChemicals>
     }
-    // </Onyx-HealthAnalyzerOrgans-edited>
 
-    // <Onyx-HealthAnalyzerOrgans-edited>
-    private void DrawOrgans(HealthAnalyzerUiState state)
+    public void SelectOrgansTab()
     {
-        OrgansContainer.RemoveAllChildren();
+        BodyTab.Visible = false;
+        OrgansTab.Visible = true;
+        ChemicalsTab.Visible = false; // <Onyx-HealthAnalyzerChemicals>
+    }
+    // </Onyx-HealthAnalyzerChemicals-edited>
 
-        if (state.ScanMode != true || state.Organs == null)
+    // <Onyx-HealthAnalyzerChemicals>
+    public void SelectChemicalsTab()
+    {
+        BodyTab.Visible = false;
+        OrgansTab.Visible = false;
+        ChemicalsTab.Visible = true;
+    }
+
+    private void DrawChemicals(HealthAnalyzerUiState state)
+    {
+        ChemicalsContainer.RemoveAllChildren();
+
+        if (state.ScanMode != true || state.Chemicals == null)
         {
-            OrgansContainer.AddChild(new Label
+            ChemicalsContainer.AddChild(new Label
             {
-                Text = Loc.GetString("health-analyzer-window-organs-unavailable"),
+                Text = Loc.GetString("health-analyzer-window-chemicals-unavailable"),
             });
             return;
         }
 
+        if (state.Chemicals.Count == 0)
+        {
+            ChemicalsContainer.AddChild(new Label
+            {
+                Text = Loc.GetString("health-analyzer-window-chemicals-no-vessels"),
+            });
+            return;
+        }
+
+        foreach (var vessel in state.Chemicals)
+        {
+            var group = new BoxContainer
+            {
+                Align = AlignMode.Begin,
+                Orientation = LayoutOrientation.Vertical,
+            };
+            group.AddChild(CreateDiagnosticGroupTitle(
+                Loc.GetString($"health-analyzer-window-solution-{vessel.Type.ToString().ToLowerInvariant()}"),
+                "metaphysical"));
+
+            if (vessel.Reagents.Count == 0)
+            {
+                group.AddChild(CreateDiagnosticItemLabel(
+                    $" · {Loc.GetString("health-analyzer-window-solution-empty")}"));
+            }
+            else
+            {
+                foreach (var reagent in vessel.Reagents.OrderByDescending(reagent => reagent.Quantity))
+                {
+                    var name = _prototypes.TryIndex(reagent.Prototype, out ReagentPrototype? prototype)
+                        ? prototype.LocalizedName
+                        : Loc.GetString("chem-master-window-unknown-reagent-text");
+                    group.AddChild(CreateDiagnosticItemLabel(
+                        $" · {Loc.GetString("health-analyzer-window-solution-reagent", ("reagent", name), ("quantity", reagent.Quantity))}"));
+                }
+            }
+
+            ChemicalsContainer.AddChild(group);
+        }
+    }
+    // </Onyx-HealthAnalyzerChemicals>
+
+    // <Onyx-HealthAnalyzerOrgans-edited>
+    private void DrawOrgans(HealthAnalyzerUiState state)
+    {
+        if (state.ScanMode != true || state.Organs == null)
+        {
+            if (_organsUnavailable)
+                return;
+
+            ClearOrganRows();
+            OrgansContainer.AddChild(new Label
+            {
+                Text = Loc.GetString("health-analyzer-window-organs-unavailable"),
+            });
+            _organsUnavailable = true;
+            return;
+        }
+
+        if (_organsUnavailable)
+        {
+            OrgansContainer.RemoveAllChildren();
+            _organsUnavailable = false;
+        }
+
+        var present = new HashSet<NetEntity>();
+        var position = 0;
         foreach (var organ in state.Organs.OrderBy(organ => organ.Order))
         {
             if (!_entityManager.TryGetEntity(organ.Entity, out var organEntity) || organ.MaxHealth == 0)
                 continue;
 
+            present.Add(organ.Entity);
             var name = _entityManager.HasComponent<MetaDataComponent>(organEntity.Value)
                 ? Capitalize(Identity.Name(organEntity.Value, _entityManager))
                 : Loc.GetString("health-analyzer-window-entity-unknown-value-text");
             var percent = float.IsFinite((float) organ.Health / (float) organ.MaxHealth)
                 ? (int) MathF.Round(Math.Clamp((float) organ.Health / (float) organ.MaxHealth * 100f, 0f, 100f))
                 : 0;
+
+            if (_organRows.TryGetValue(organ.Entity, out var existing))
+            {
+                if (existing.Name.Text != name)
+                {
+                    existing.Name.Text = name;
+                    existing.Name.ToolTip = name;
+                }
+
+                var health = Loc.GetString("health-analyzer-window-organ-health", ("percent", percent));
+                if (existing.Health.Text != health)
+                    existing.Health.Text = health;
+
+                if (existing.Row.GetPositionInParent() != position)
+                    existing.Row.SetPositionInParent(position);
+                position++;
+                continue;
+            }
 
             var row = new BoxContainer
             {
@@ -353,13 +461,29 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                 ToolTip = name,
             };
             row.AddChild(nameLabel);
-            row.AddChild(new Label
+            var healthLabel = new Label
             {
                 Text = Loc.GetString("health-analyzer-window-organ-health",
                     ("percent", percent)),
-            });
+            };
+            row.AddChild(healthLabel);
             OrgansContainer.AddChild(row);
+            row.SetPositionInParent(position++);
+            _organRows[organ.Entity] = (row, nameLabel, healthLabel);
         }
+
+        foreach (var entity in _organRows.Keys.Where(entity => !present.Contains(entity)).ToArray())
+        {
+            OrgansContainer.RemoveChild(_organRows[entity].Row);
+            _organRows.Remove(entity);
+        }
+    }
+
+    private void ClearOrganRows()
+    {
+        OrgansContainer.RemoveAllChildren();
+        _organRows.Clear();
+        _organsUnavailable = false;
     }
 
     private static string Capitalize(string text) =>
