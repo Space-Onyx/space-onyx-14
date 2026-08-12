@@ -1,6 +1,7 @@
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking;
 using Content.Server.Ninja.Systems;
+using Content.Shared._Onyx.Communications; // <Onyx-NinjaCommsHack>
 using Content.Shared.Communications;
 using Content.Shared.DoAfter;
 using Content.Shared.Interaction;
@@ -32,7 +33,7 @@ public sealed partial class CommsHackerSystem : SharedCommsHackerSystem
     /// </summary>
     private void OnBeforeInteractHand(EntityUid uid, CommsHackerComponent comp, BeforeInteractHandEvent args)
     {
-        if (args.Handled || !HasComp<CommunicationsConsoleComponent>(args.Target))
+        if (args.Handled || (!HasComp<CommunicationsConsoleComponent>(args.Target) && !HasComp<OnyxCommunicationsConsoleComponent>(args.Target))) // <Onyx-NinjaCommsHack-edited>
             return;
 
         // TODO: generic check event
