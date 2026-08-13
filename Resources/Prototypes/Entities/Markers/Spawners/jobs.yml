@@ -247,10 +247,10 @@
 - type: entity
   id: SpawnPointLawyer
   parent: SpawnPointJobBase
-  name: internal affairs agent # <Onyx-LawyerSeparation-edited>
+  name: lawyer # <Onyx-LawyerSeparation-edited>
   components:
   - type: SpawnPoint
-    job_id: IAA # Corvax-IAA: Lawyer replaced with IAA
+    job_id: Lawyer # <Onyx-LawyerSeparation-edited>
   - type: Sprite
     layers:
       - state: green

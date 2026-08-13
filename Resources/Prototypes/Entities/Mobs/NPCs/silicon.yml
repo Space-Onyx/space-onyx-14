@@ -332,9 +332,22 @@
       Critical:
         reagent: SpaceDrugs
         quantity: 25
+  # <Onyx-ColoredMedibot-edited>
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        medibot: ""
+      enum.DamageStateVisualLayers.BaseUnshaded:
+        powered: Rainbow
   - type: Sprite
-    sprite: Mobs/Silicon/Bots/medibot.rsi
-    state: medibot
+    sprite: _Onyx/Mobs/Silicon/Bots/medibot.rsi
+    layers:
+    - state: medibot
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+    - state: powered
+      map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      shader: unshaded
+  # </Onyx-ColoredMedibot-edited>
   - type: HTN
     rootTask:
       task: MedibotCompound

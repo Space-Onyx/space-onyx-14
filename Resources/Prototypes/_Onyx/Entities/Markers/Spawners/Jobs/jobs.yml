@@ -55,12 +55,12 @@
     - state: scientist
 
 - type: entity
-  id: SpawnPointOnyxLawyer
+  id: SpawnPointIAA
   parent: SpawnPointJobBase
-  name: lawyer
+  name: internal affairs agent
   components:
   - type: SpawnPoint
-    job_id: Lawyer
+    job_id: IAA
   - type: Sprite
     layers:
     - state: green

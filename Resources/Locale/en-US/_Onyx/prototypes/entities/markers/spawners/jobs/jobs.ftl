@@ -1,4 +1,4 @@
-ent-SpawnPointOnyxLawyer = lawyer
+ent-SpawnPointIAA = internal affairs agent
     .desc = { ent-SpawnPointJobBase.desc }
     .suffix = { ent-SpawnPointJobBase.suffix }
 ent-SpawnPointRadioHost = radio host
