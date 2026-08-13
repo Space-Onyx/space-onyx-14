@@ -185,10 +185,12 @@ namespace Content.Client.Viewport
 
             var drawBox = GetDrawBox();
             var drawBoxGlobal = drawBox.Translated(GlobalPixelPosition);
+            var screenTransform = handle.DrawingHandleScreen.GetTransform(); // <Onyx-CameraViewportPosition>
             _viewport.RenderScreenOverlaysBelow(handle, this, drawBoxGlobal);
 
             ApplySharpnessShader(handle);
 
+            handle.DrawingHandleScreen.SetTransform(screenTransform); // <Onyx-CameraViewportPosition>
             handle.DrawingHandleScreen.DrawTextureRect(_viewport.RenderTarget.Texture, drawBox);
 
             if (_sharpnessStrength > 0)
