@@ -55,6 +55,7 @@ public sealed partial class RoofOverlay : Overlay
         var lightRes = lightoverlay.GetCachedForViewport(args.Viewport);
         var bounds = lightoverlay.EnlargedBounds;
         var target = lightRes.EnlargedLightTarget;
+        var mapUid = args.MapUid; // <Onyx-RoofSunlight>
         _grids.Clear();
         _mapSystem.FindGridsIntersecting(args.MapId, bounds, ref _grids, approx: true, includeMap: true);
         var lightScale = viewport.LightRenderTarget.Size / (Vector2) viewport.Size;
@@ -71,16 +72,25 @@ public sealed partial class RoofOverlay : Overlay
                     if (!_entManager.TryGetComponent(grid.Owner, out ImplicitRoofComponent? roof))
                         continue;
 
+                    var usesProjectedRoofShadows = UsesProjectedRoofShadows(grid.Owner, mapUid); // <Onyx-RoofSunlight>
+
                     var gridMatrix = _xformSystem.GetWorldMatrix(grid.Owner);
                     var matty = Matrix3x2.Multiply(gridMatrix, invMatrix);
 
                     worldHandle.SetTransform(matty);
 
-                    var tileEnumerator = _mapSystem.GetTilesEnumerator(grid.Owner, grid, bounds);
+                    var tileEnumerator = _mapSystem.GetTilesIntersecting(grid.Owner, grid, bounds); // <Onyx-RoofSunlight-edited>
                     var color = roof.Color;
 
                     while (tileEnumerator.MoveNext(out var tileRef))
                     {
+                        // <Onyx-RoofSunlight>
+                        if (usesProjectedRoofShadows && !IsEnclosed(grid, tileRef.GridIndices))
+                        {
+                            continue;
+                        }
+                        // </Onyx-RoofSunlight>
+
                         if (_turf.IsSpace(tileRef))
                             continue;
 
@@ -104,17 +114,26 @@ public sealed partial class RoofOverlay : Overlay
                     if (!_entManager.TryGetComponent(grid.Owner, out RoofComponent? roof))
                         continue;
 
+                    var usesProjectedRoofShadows = UsesProjectedRoofShadows(grid.Owner, mapUid); // <Onyx-RoofSunlight>
+
                     var gridMatrix = _xformSystem.GetWorldMatrix(grid.Owner);
                     var matty = Matrix3x2.Multiply(gridMatrix, invMatrix);
 
                     worldHandle.SetTransform(matty);
 
-                    var tileEnumerator = _mapSystem.GetTilesEnumerator(grid.Owner, grid, bounds);
+                    var tileEnumerator = _mapSystem.GetTilesIntersecting(grid.Owner, grid, bounds); // <Onyx-RoofSunlight-edited>
                     var roofEnt = (grid.Owner, grid.Comp, roof);
 
                     // Due to stencilling we essentially draw on unrooved tiles
                     while (tileEnumerator.MoveNext(out var tileRef))
                     {
+                        // <Onyx-RoofSunlight>
+                        if (usesProjectedRoofShadows && !IsEnclosed(grid, tileRef.GridIndices))
+                        {
+                            continue;
+                        }
+                        // </Onyx-RoofSunlight>
+
                         if (_turf.IsSpace(tileRef))
                             continue;
 
