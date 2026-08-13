@@ -16,6 +16,8 @@ health-examinable-part-damage-slash = порезы
 health-examinable-part-damage-piercing = колотые раны
 health-examinable-part-damage-heat = ожоги
 health-examinable-part-damage-cold = обморожение
+health-examinable-part-damage-shock = электрические ожоги
+health-examinable-part-damage-caustic = химические ожоги
 health-examinable-part-healthy-summary = Неповреждённые части: [color=green]{ $count }[/color]
 health-examinable-part-healthy-details = [color=green]{ $parts }[/color]
 health-examinable-part-severity-none = [color=green]в порядке[/color]

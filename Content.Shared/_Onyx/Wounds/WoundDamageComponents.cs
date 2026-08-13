@@ -36,6 +36,8 @@ public sealed partial class WoundHostComponent : Component
         "Piercing",
         "Heat",
         "Cold",
+        "Shock",
+        "Caustic",
     ];
 }
 

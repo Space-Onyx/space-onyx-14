@@ -16,6 +16,8 @@ health-examinable-part-damage-slash = cuts
 health-examinable-part-damage-piercing = puncture wounds
 health-examinable-part-damage-heat = burns
 health-examinable-part-damage-cold = frostbite
+health-examinable-part-damage-shock = electrical burns
+health-examinable-part-damage-caustic = chemical burns
 health-examinable-part-healthy-summary = Unharmed parts: [color=green]{ $count }[/color]
 health-examinable-part-healthy-details = [color=green]{ $parts }[/color]
 health-examinable-part-severity-none = [color=green]fine[/color]

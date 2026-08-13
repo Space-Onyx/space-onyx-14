@@ -294,12 +294,20 @@ public sealed class WoundDamageFoundationTest : GameTest
             Assert.That(damage.GetAllDamage(torso).GetTotal(), Is.EqualTo(FixedPoint2.Zero));
             Assert.That(damage.GetAllDamage(body).GetTotal(), Is.EqualTo(FixedPoint2.New(10)));
 
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Caustic", 3)));
+            Assert.That(routing.TryApplyPartDamage(body, torso, Spec("Shock", 2)));
+            Assert.That(damage.GetAllDamage(head).DamageDict[new ProtoId<DamageTypePrototype>("Caustic")],
+                Is.EqualTo(FixedPoint2.New(3)));
+            Assert.That(damage.GetAllDamage(torso).DamageDict[new ProtoId<DamageTypePrototype>("Shock")],
+                Is.EqualTo(FixedPoint2.New(2)));
+            Assert.That(entityManager.HasComponent<SystemicDamageComponent>(body), Is.False);
+
             Assert.That(routing.TryApplyDamage(body, Spec("Asphyxiation", 4)));
             Assert.That(entityManager.GetComponent<SystemicDamageComponent>(body).Damage.GetTotal(), Is.EqualTo(FixedPoint2.New(4)));
-            Assert.That(damage.GetAllDamage(body).GetTotal(), Is.EqualTo(FixedPoint2.New(14)));
+            Assert.That(damage.GetAllDamage(body).GetTotal(), Is.EqualTo(FixedPoint2.New(19)));
 
             Assert.That(graph.TryDetachPart(head));
-            Assert.That(damage.GetAllDamage(body).GetTotal(), Is.EqualTo(FixedPoint2.New(4)));
+            Assert.That(damage.GetAllDamage(body).GetTotal(), Is.EqualTo(FixedPoint2.New(6)));
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Blunt", 1)), Is.False);
         });
     }

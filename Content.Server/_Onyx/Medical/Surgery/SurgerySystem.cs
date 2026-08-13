@@ -40,6 +40,8 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
     [Dependency] private UserInterfaceSystem _ui = default!;
 
     private readonly List<EntProtoId> _surgeries = new();
+    private HashSet<EntityUid> _pendingUiRefresh = new();
+    private HashSet<EntityUid> _processingUiRefresh = new();
 
     public override void Initialize()
     {
@@ -49,6 +51,12 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
         SubscribeLocalEvent<SurgeryClampBleedEffectComponent, SurgeryStepEvent>(OnStepClampBleedComplete);
         SubscribeLocalEvent<SurgeryCloseIncisionEffectComponent, SurgeryStepEvent>(OnCloseIncisionComplete);
         SubscribeLocalEvent<SurgeryStepEmoteEffectComponent, SurgeryStepEvent>(OnStepEmoteComplete);
+        SubscribeLocalEvent<WoundComponent, WoundCreatedEvent>(OnPatientStateChanged);
+        SubscribeLocalEvent<WoundComponent, WoundChangedEvent>(OnPatientStateChanged);
+        SubscribeLocalEvent<WoundComponent, WoundRemovedEvent>(OnPatientStateChanged);
+        SubscribeLocalEvent<WoundComponent, WoundBleedingChangedEvent>(OnPatientStateChanged);
+        SubscribeLocalEvent<WoundComponent, FractureGradeChangedEvent>(OnPatientStateChanged);
+        SubscribeLocalEvent<WoundComponent, FractureTreatmentChangedEvent>(OnPatientStateChanged);
         Subs.BuiEvents<SurgeryTargetComponent>(SurgeryUIKey.Key, subs =>
         {
             subs.Event<BoundUIOpenedEvent>(OnUiOpened);
@@ -56,6 +64,29 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
             subs.Event<SurgeryStepsStateRequest>(OnStepsStateRequest);
         });
         LoadPrototypes();
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+
+        if (_pendingUiRefresh.Count == 0)
+            return;
+
+        (_pendingUiRefresh, _processingUiRefresh) = (_processingUiRefresh, _pendingUiRefresh);
+        foreach (var body in _processingUiRefresh)
+        {
+            if (_ui.IsUiOpen(body, SurgeryUIKey.Key))
+                RefreshUI(body);
+        }
+        _processingUiRefresh.Clear();
+    }
+
+    private void OnPatientStateChanged<T>(Entity<WoundComponent> wound, ref T args) where T : notnull
+    {
+        var target = CompOrNull<BodyPartComponent>(wound.Comp.HoldingPart)?.Body ?? wound.Comp.HoldingPart;
+        if (_ui.IsUiOpen(target, SurgeryUIKey.Key))
+            _pendingUiRefresh.Add(target);
     }
 
     private void OnUiOpened(Entity<SurgeryTargetComponent> ent, ref BoundUIOpenedEvent args)

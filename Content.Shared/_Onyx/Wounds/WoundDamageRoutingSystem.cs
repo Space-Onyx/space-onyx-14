@@ -56,7 +56,12 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         RouteAppliedDamage(ent, damage, args.Origin, args.InterruptsDoAfters);
     }
 
-    public bool TryApplyDamage(EntityUid body, DamageSpecifier damage, EntityUid? origin = null, EntityUid? requestedPart = null)
+    public bool TryApplyDamage(
+        EntityUid body,
+        DamageSpecifier damage,
+        EntityUid? origin = null,
+        EntityUid? requestedPart = null,
+        bool ignoreResistances = false)
     {
         if (!TryComp(body, out WoundHostComponent? host) || !_net.IsServer || _routing.Contains(body))
             return false;
@@ -70,7 +75,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
 
         try
         {
-            return RouteThroughBodyModifiers((body, host), damage, origin);
+            return RouteThroughBodyModifiers((body, host), damage, origin, ignoreResistances);
         }
         finally
         {
@@ -78,9 +83,14 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         }
     }
 
-    public bool TryApplyPartDamage(EntityUid body, EntityUid part, DamageSpecifier damage, EntityUid? origin = null)
+    public bool TryApplyPartDamage(
+        EntityUid body,
+        EntityUid part,
+        DamageSpecifier damage,
+        EntityUid? origin = null,
+        bool ignoreResistances = false)
     {
-        return TryApplyDamage(body, damage, origin, part);
+        return TryApplyDamage(body, damage, origin, part, ignoreResistances);
     }
 
     public bool TryApplyDistributedDamage(

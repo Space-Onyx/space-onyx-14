@@ -1,7 +1,9 @@
 ## Damage command loc.
 
 damage-command-description = Добавить или убрать урон сущности.
-damage-command-help = Использование: { $command } <type/group> <amount> [ignoreResistances] [uid]
+# <Onyx-PartDamageCommand-edited>
+damage-command-help = Использование: { $command } <type/group> <amount> [ignoreResistances] [uid] [частьТела]
+# </Onyx-PartDamageCommand-edited>
 
 damage-command-arg-type = <damage type or group>
 damage-command-arg-quantity = [quantity]

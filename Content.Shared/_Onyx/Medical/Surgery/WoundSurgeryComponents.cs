@@ -62,8 +62,18 @@ public sealed partial class SurgeryTendWoundsEffectComponent : Component
     public ProtoId<DamageGroupPrototype> DamageGroup = "Brute";
 
     [DataField(required: true)]
-    public DamageSpecifier Damage = new();
+    public SurgeryTendWoundsDamage Damage = new();
 
     [DataField]
     public float HealMultiplier = 0.07f;
+}
+
+[DataDefinition]
+public sealed partial class SurgeryTendWoundsDamage
+{
+    [DataField]
+    public Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2> Types = new();
+
+    [DataField]
+    public Dictionary<ProtoId<DamageGroupPrototype>, FixedPoint2> Groups = new();
 }

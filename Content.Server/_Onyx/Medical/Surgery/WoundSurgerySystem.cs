@@ -101,23 +101,40 @@ public sealed partial class WoundSurgerySystem : EntitySystem
         if (!TryComp(args.Part, out DamageableComponent? damageable))
             return;
 
-        var remaining = -ent.Comp.Damage.GetTotal();
-        remaining += severity * ent.Comp.HealMultiplier * (_mobState.IsDead(args.Body) ? 0.2f : 1f);
+        var bonus = severity * ent.Comp.HealMultiplier * (_mobState.IsDead(args.Body) ? 0.2f : 1f);
         var current = _damage.GetPositiveDamage((args.Part, damageable));
-        var damage = new DamageSpecifier();
-        foreach (var type in _prototypes.Index(ent.Comp.DamageGroup).DamageTypes)
+        var adjusted = new DamageSpecifier();
+        foreach (var (type, amount) in ent.Comp.Damage.Types)
+            adjusted.DamageDict[type] = amount;
+        foreach (var (groupId, amount) in ent.Comp.Damage.Groups)
         {
-            var healed = FixedPoint2.Min(remaining, current.DamageDict.GetValueOrDefault(type));
+            var group = _prototypes.Index(groupId);
+            var remainingTypes = group.DamageTypes.Count;
+            var remainingDamage = amount;
+            foreach (var type in group.DamageTypes)
+            {
+                var share = remainingDamage / FixedPoint2.New(remainingTypes);
+                adjusted.DamageDict[type] = adjusted.DamageDict.GetValueOrDefault(type) + share;
+                remainingDamage -= share;
+                remainingTypes--;
+            }
+        }
+
+        foreach (var type in _prototypes.Index(ent.Comp.DamageGroup).DamageTypes)
+            adjusted.DamageDict[type] = adjusted.DamageDict.GetValueOrDefault(type) - bonus;
+
+        var damage = new DamageSpecifier();
+        foreach (var (type, amount) in adjusted.DamageDict)
+        {
+            var healed = FixedPoint2.Min(-amount, current.DamageDict.GetValueOrDefault(type));
             if (healed <= FixedPoint2.Zero)
                 continue;
 
             damage.DamageDict[type] = -healed;
-            remaining -= healed;
-            if (remaining <= FixedPoint2.Zero)
-                break;
         }
 
-        _damageRouting.TryApplyPartDamage(args.Body, args.Part, damage, args.User);
+        if (!damage.Empty)
+            _damageRouting.TryApplyPartDamage(args.Body, args.Part, damage, args.User);
     }
 
     private void OnTendWoundsCheck(Entity<SurgeryTendWoundsEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)

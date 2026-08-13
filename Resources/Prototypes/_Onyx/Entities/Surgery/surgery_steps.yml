@@ -687,12 +687,9 @@
     sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
     state: hemostat
   - type: SurgeryTendWoundsEffect
-    healMultiplier: 0.005
     damage:
-      types:
-        Slash: -1
-        Blunt: -1
-        Piercing: -1
+      groups:
+        Brute: -5
 
 - type: entity
   parent: SurgeryStepBase
@@ -706,11 +703,10 @@
     sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
     state: hemostat
   - type: SurgeryTendWoundsEffect
-    healMultiplier: 0.005
+    damageGroup: Burn
     damage:
-      group:
-        Heat: -1.5
-        Cold: -1.5
+      groups:
+        Burn: -10
 
 - type: entity
   parent: SurgeryStepBase
