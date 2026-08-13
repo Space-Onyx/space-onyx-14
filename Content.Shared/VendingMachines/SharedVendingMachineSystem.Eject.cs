@@ -205,6 +205,11 @@ public abstract partial class SharedVendingMachineSystem
         if (!TryComp<VendingMachineEjectComponent>(uid, out var ejectComponent))
             return;
 
+        // <Onyx-VendingPaymentSound>
+        if (_net.IsClient && GetEntry(uid, itemId, type, component) is { } entry && GetPrice(entry, component, 1) > 0 && !component.AllForFree)
+            return;
+        // </Onyx-VendingPaymentSound>
+
         TryEjectVendorItem(uid, type, itemId, ShouldThrowVendItem((uid, ejectComponent)), sender, component, ejectComponent);
     }
 }

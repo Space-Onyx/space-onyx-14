@@ -242,12 +242,13 @@
   components:
   - type: VendingMachine
     pack: AmmoVendInventory
-    offState: off
-    brokenState: broken
-    normalState: normal-unshaded
     # <Onyx-VendingPrices-edited>
     priceMultiplier: 0
     # </Onyx-VendingPrices-edited>
+  - type: VendingMachineVisuals
+    offState: off
+    brokenState: broken
+    normalState: normal-unshaded
   - type: DatasetVocalizer
     dataset: CondimentVendAds
   - type: SpeakOnUIClosed
@@ -270,11 +271,11 @@
   description: A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one.
   components:
   - type: VendingMachine
+    priceMultiplier: 0
     pack: BoozeOMatInventory
   - type: VendingMachineVisuals
     denyState: deny-unshaded
     loopDenyAnimation: false
-    priceMultiplier: 0
   - type: DatasetVocalizer
     dataset: BoozeOMatAds
   - type: SpeakOnUIClosed
@@ -304,12 +305,12 @@
   components:
   - type: VendingMachine
     pack: BoozeOMatInventory
-  - type: VendingMachineVisuals
-    denyState: deny-unshaded
-    loopDenyAnimation: false
     # <Onyx-VendingPrices-edited>
     priceMultiplier: 0
     # </Onyx-VendingPrices-edited>
+  - type: VendingMachineVisuals
+    denyState: deny-unshaded
+    loopDenyAnimation: false
   - type: DatasetVocalizer
     dataset: BruiseOMatAds
   - type: SpeakOnUIClosed
@@ -339,12 +340,12 @@
   components:
   - type: VendingMachine
     pack: PTechInventory
-  - type: VendingMachineVisuals
-    ejectState: eject-unshaded
-    denyState: deny-unshaded
     # <Onyx-VendingPrices-edited>
     priceMultiplier: 0
     # </Onyx-VendingPrices-edited>
+  - type: VendingMachineVisuals
+    ejectState: eject-unshaded
+    denyState: deny-unshaded
   - type: Sprite
     sprite: Structures/Machines/VendingMachines/cart.rsi
     layers:
@@ -370,9 +371,9 @@
   components:
   - type: VendingMachine
     pack: ChefvendInventory
+    priceMultiplier: 0
   - type: VendingMachineVisuals
     ejectState: eject-unshaded
-    priceMultiplier: 0
   - type: DatasetVocalizer
     dataset: ChefvendAds
   - type: SpeakOnUIClosed
@@ -430,9 +431,6 @@
     pack: ClothesMateInventory
   - type: VendingMachineVisuals
     denyState: deny-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: ClothesMateAds
   - type: SpeakOnUIClosed
@@ -462,9 +460,6 @@
     pack: WinterDrobeInventory
   - type: VendingMachineVisuals
     denyState: deny-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: ClothesMateAds
   - type: SpeakOnUIClosed
@@ -802,9 +797,9 @@
   components:
   - type: VendingMachine
     pack: DinnerwareInventory
+    priceMultiplier: 0
   - type: VendingMachineVisuals
     ejectState: eject-unshaded
-    priceMultiplier: 0
   - type: DatasetVocalizer
     dataset: DinnerwareAds
   - type: SpeakOnUIClosed
@@ -954,11 +949,11 @@
   components:
   - type: VendingMachine
     pack: NanoMedPlusInventory
-  - type: VendingMachineVisuals
-    offState: off
     # <Onyx-VendingPrices-edited>
     priceMultiplier: 0
     # </Onyx-VendingPrices-edited>
+  - type: VendingMachineVisuals
+    offState: off
   - type: Sprite
     layers:
     - state: "off"
@@ -979,10 +974,10 @@
   components:
   - type: VendingMachine
     pack: NutriMaxInventory
+    priceMultiplier: 0
   - type: VendingMachineVisuals
     ejectState: eject-unshaded
     denyState: deny-unshaded
-    priceMultiplier: 0
   - type: DatasetVocalizer
     dataset: NutriMaxAds
   - type: SpeakOnUIClosed
@@ -1015,9 +1010,6 @@
   - type: VendingMachineVisuals
     ejectState: eject-unshaded
     denyState: deny-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 0
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: SecTechAds
   - type: SpeakOnUIClosed
@@ -1052,12 +1044,12 @@
   components:
   - type: VendingMachine
     pack: MegaSeedServitorInventory
-  - type: VendingMachineVisuals
-    ejectState: eject-unshaded
-    denyState: deny-unshaded
     # <Onyx-VendingPrices-edited>
     priceMultiplier: 0
     # </Onyx-VendingPrices-edited>
+  - type: VendingMachineVisuals
+    ejectState: eject-unshaded
+    denyState: deny-unshaded
   - type: DatasetVocalizer
     dataset: MegaSeedAds
   - type: SpeakOnUIClosed
@@ -1127,9 +1119,6 @@
   - type: VendingMachineVisuals
     ejectState: eject-unshaded
     denyState: deny-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 0
-    # </Onyx-VendingPrices-edited>
   - type: Sprite
     sprite: Structures/Machines/VendingMachines/sustenance.rsi
     layers:
@@ -1270,9 +1259,6 @@
     ejectState: eject-unshaded
     denyState: deny-unshaded
     screenState: screen
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: AutoDrobeAds
   - type: SpeakOnUIClosed
@@ -1371,9 +1357,6 @@
   - type: VendingMachineVisuals
     ejectState: eject-unshaded
     denyState: deny-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: Sprite
     sprite: Structures/Machines/VendingMachines/youtool.rsi
     layers:
@@ -1397,11 +1380,11 @@
   components:
   - type: VendingMachine
     pack: GoodCleanFunInventory
-  - type: VendingMachineEject
-    ejectDelay: 1.8
     # <Onyx-VendingPrices-edited>
     priceMultiplier: 0
     # </Onyx-VendingPrices-edited>
+  - type: VendingMachineEject
+    ejectDelay: 1.8
   - type: VendingMachineVisuals
     ejectState: eject-unshaded
   - type: DatasetVocalizer
@@ -1464,6 +1447,7 @@
     balanceLabel: vending-ui-salvage-points-amount
     infiniteStock: true
     # </Onyx-SalvageVendorCatalog>
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
@@ -1545,12 +1529,10 @@
   components:
   - type: VendingMachine
     pack: HyDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: HyDrobeAds
   - type: SpeakOnUIClosed
@@ -1580,12 +1562,10 @@
   components:
   - type: VendingMachine
     pack: LawDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: LawDrobeAds
   - type: SpeakOnUIClosed
@@ -1611,12 +1591,10 @@
   components:
   - type: VendingMachine
     pack: SecDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: SecDrobeAds
   - type: SpeakOnUIClosed
@@ -1646,12 +1624,10 @@
   components:
   - type: VendingMachine
     pack: BarDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: BarDrobeAds
   - type: SpeakOnUIClosed
@@ -1678,9 +1654,6 @@
     pack: PietyVendInventory
   - type: VendingMachineVisuals
     denyState: deny-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: Sprite
     sprite: Structures/Machines/VendingMachines/chapdrobe.rsi
     layers:
@@ -1706,13 +1679,13 @@
   components:
   - type: VendingMachine
     pack: CargoDrobeInventory
+    # <Onyx-VendingPrices-edited>
+    useStaticPrice: true
+    # </Onyx-VendingPrices-edited>
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    useStaticPrice: true # <Onyx-CargoDrobeGoobParity>
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: CargoDrobeAds
   - type: SpeakOnUIClosed
@@ -1742,12 +1715,10 @@
   components:
   - type: VendingMachine
     pack: MediDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: MediDrobeAds
   - type: SpeakOnUIClosed
@@ -1773,12 +1744,10 @@
   components:
   - type: VendingMachine
     pack: ChemDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: ChemDrobeAds
   - type: SpeakOnUIClosed
@@ -1805,12 +1774,10 @@
   components:
   - type: VendingMachine
     pack: CuraDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: CuraDrobeAds
   - type: SpeakOnUIClosed
@@ -1836,12 +1803,10 @@
   components:
   - type: VendingMachine
     pack: AtmosDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: AtmosDrobeAds
   - type: SpeakOnUIClosed
@@ -1872,12 +1837,10 @@
   components:
   - type: VendingMachine
     pack: EngiDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: EngiDrobeAds
   - type: SpeakOnUIClosed
@@ -1908,12 +1871,10 @@
   components:
   - type: VendingMachine
     pack: ChefDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: ChefDrobeAds
   - type: SpeakOnUIClosed
@@ -1939,12 +1900,10 @@
   components:
   - type: VendingMachine
     pack: DetDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: DetDrobeAds
   - type: SpeakOnUIClosed
@@ -1970,12 +1929,10 @@
   components:
   - type: VendingMachine
     pack: JaniDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: JaniDrobeAds
   - type: SpeakOnUIClosed
@@ -2005,12 +1962,10 @@
   components:
   - type: VendingMachine
     pack: SciDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: SciDrobeAds
   - type: SpeakOnUIClosed
@@ -2036,12 +1991,13 @@
   components:
   - type: VendingMachine
     pack: SyndieDrobeInventory
-    offState: off
-    brokenState: broken
-    normalState: normal-unshaded
     # <Onyx-VendingPrices-edited>
     priceMultiplier: 0
     # </Onyx-VendingPrices-edited>
+  - type: VendingMachineVisuals
+    offState: off
+    brokenState: broken
+    normalState: normal-unshaded
   - type: DatasetVocalizer
     dataset: SyndieDrobeAds
   - type: SpeakOnUIClosed
@@ -2071,12 +2027,10 @@
   components:
   - type: VendingMachine
     pack: RoboDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: RoboDrobeAds
   - type: SpeakOnUIClosed
@@ -2102,12 +2056,10 @@
   components:
   - type: VendingMachine
     pack: GeneDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: GeneDrobeAds
   - type: SpeakOnUIClosed
@@ -2134,12 +2086,10 @@
   components:
   - type: VendingMachine
     pack: ViroDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: ViroDrobeAds
   - type: SpeakOnUIClosed
@@ -2166,12 +2116,13 @@
   components:
   - type: VendingMachine
     pack: CentDrobeInventory
-    offState: off
-    brokenState: broken
-    normalState: normal-unshaded
     # <Onyx-VendingPrices-edited>
     priceMultiplier: 0
     # </Onyx-VendingPrices-edited>
+  - type: VendingMachineVisuals
+    offState: off
+    brokenState: broken
+    normalState: normal-unshaded
   - type: Sprite
     sprite: Structures/Machines/VendingMachines/centdrobe.rsi
     layers:
@@ -2234,12 +2185,10 @@
   components:
   - type: VendingMachine
     pack: PrideDrobeInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    # <Onyx-VendingPrices-edited>
-    priceMultiplier: 1
-    # </Onyx-VendingPrices-edited>
   - type: DatasetVocalizer
     dataset: PrideDrobeAds
   - type: SpeakOnUIClosed

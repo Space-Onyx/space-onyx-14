@@ -16,6 +16,7 @@ using Content.Shared.VendingMachines.Components;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.GameStates;
+using Robust.Shared.Network; // <Onyx-VendingPaymentSound>
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
@@ -35,6 +36,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     [Dependency] protected IRobustRandom Randomizer = default!;
     [Dependency] private EmagSystem _emag = default!;
     [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private INetManager _net = default!; // <Onyx-VendingPaymentSound>
 
     public override void Initialize()
     {
@@ -92,6 +94,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     protected virtual void AuthorizedVend(EntityUid uid, EntityUid sender, InventoryType type, string itemId, VendingMachineComponent component, int count)
     {
         if (!IsAuthorized(uid, sender, component) || !TryComp<VendingMachineEjectComponent>(uid, out var eject)) return;
+        if (_net.IsClient && GetEntry(uid, itemId, type, component) is { } entry && GetPrice(entry, component, count) > 0 && !component.AllForFree) return; // <Onyx-VendingPaymentSound>
         TryEjectVendorItem(uid, type, itemId, ShouldThrowVendItem((uid, eject)), sender, component, eject);
     }
 
