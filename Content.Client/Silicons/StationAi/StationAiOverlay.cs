@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Client.Graphics;
 using Content.Shared.CCVar;
+using Content.Shared.Movement.Components; // <Onyx-AbductorObservationConsole>
 using Content.Shared.Silicons.StationAi;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
@@ -68,6 +69,13 @@ public sealed partial class StationAiOverlay : Overlay
         var worldBounds = args.WorldBounds;
 
         var playerEnt = _player.LocalEntity;
+
+        // <Onyx-AbductorObservationConsole>
+        if (_entManager.TryGetComponent(playerEnt, out RelayInputMoverComponent? relay)
+            && relay.RelayEntity != EntityUid.Invalid)
+            playerEnt = relay.RelayEntity;
+        // </Onyx-AbductorObservationConsole>
+
         _entManager.TryGetComponent(playerEnt, out TransformComponent? playerXform);
         var gridUid = playerXform?.GridUid ?? EntityUid.Invalid;
         _entManager.TryGetComponent(gridUid, out MapGridComponent? grid);

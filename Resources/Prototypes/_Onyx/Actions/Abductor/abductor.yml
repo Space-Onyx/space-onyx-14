@@ -1,0 +1,63 @@
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Piras314 <p1r4s@proton.me>
+# SPDX-FileCopyrightText: 2025 gluesniffler <159397573+gluesniffler@users.noreply.github.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Actions
+- type: entity
+  parent: BaseMentalAction
+  id: ActionExitConsole
+  name: Exit console
+  description: Exit console.
+  components:
+  - type: Action
+    checkCanInteract: false
+    priority: -20
+    itemIconStyle: BigAction
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/actions_abductor.rsi
+    layers:
+    - state: exit
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:ExitConsoleEvent
+
+- type: entity
+  parent: BaseMentalAction
+  id: ActionSendYourself
+  name: Send yourself
+  description: You need to FTL to the same map as the station to use this ability!
+  components:
+  - type: Action
+    itemIconStyle: BigAction
+    checkCanInteract: false
+    useDelay: 10
+    priority: -19
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/actions_abductor.rsi
+    layers:
+    - state: send-yourself
+      map: ["enum.ActionVisuals.Icon"]
+  - type: TargetAction
+    checkCanAccess: false
+    allowCrossMap: true
+    range: -1
+  - type: WorldTargetAction
+    event: !type:SendYourselfEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionReturnToShip
+  name: return
+  description: return to the ship.
+  components:
+  - type: Action
+    useDelay: 30
+    priority: -12
+  - type: Sprite
+    sprite: _Onyx/Interface/Actions/actions_abductor.rsi
+    layers:
+    - state: take
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:AbductorReturnToShipEvent

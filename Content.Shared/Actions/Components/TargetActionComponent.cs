@@ -50,6 +50,14 @@ public sealed partial class TargetActionComponent : Component
     [DataField]
     public float Range = SharedInteractionSystem.InteractionRange;
 
+    // <Onyx-AbductorObservationConsole>
+    /// <summary>
+    /// Allows targeting coordinates on another map.
+    /// </summary>
+    [DataField]
+    public bool AllowCrossMap;
+    // </Onyx-AbductorObservationConsole>
+
     /// <summary>
     ///     If the target is invalid, this bool determines whether the left-click will default to performing a standard-interaction
     /// </summary>

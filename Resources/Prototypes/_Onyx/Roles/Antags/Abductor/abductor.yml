@@ -1,0 +1,198 @@
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 CerberusWolfie <wb.johnb.willis@gmail.com>
+# SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
+# SPDX-FileCopyrightText: 2025 Piras314 <p1r4s@proton.me>
+# SPDX-FileCopyrightText: 2025 SX-7 <sn1.test.preria.2002@gmail.com>
+# SPDX-FileCopyrightText: 2025 Theodore Lukin <66275205+pheenty@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 gluesniffler <159397573+gluesniffler@users.noreply.github.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: antag
+  id: LoneAbductorAntag
+  name: abductor-lone-ghost-role-name
+  antagonist: true
+  objective: roles-antag-abductor-objective
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 18000 #5 hours
+  - !type:DepartmentTimeRequirement
+    department: Medical
+    time: 7200 #2 hours
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 7200 #2 hours
+
+- type: antag
+  id: AbductorScientistAntag
+  name: abductor-scientist-ghost-role-name
+  antagonist: true
+  objective: roles-antag-abductor-objective
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 18000 #5 hours
+  - !type:DepartmentTimeRequirement
+    department: Medical
+    time: 10800 #3 hours
+
+- type: antag
+  id: AbductorAgentAntag
+  name: abductor-agent-ghost-role-name
+  antagonist: true
+  objective: roles-antag-abductor-objective
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 18000 #5 hours
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 10800 #3 hours
+
+- type: antag
+  id: AbductorVictimAntag
+  name: abductor-victim-role-name
+  antagonist: true
+  objective: roles-antag-abductor-victim
+
+- type: antagSpecifier
+  id: LoneAbductor
+  spawnerPrototype: LoneAbductorSpawner
+  pickPlayer: false
+  startingGear: LoneAbductorGear
+  briefing:
+    text: abductor-role-greeting
+    color: Green
+    sound: /Audio/_Onyx/Abductor/abductor.ogg
+  components:
+  - type: Abductor
+  - type: ActionGrant
+    actions:
+    - ActionReturnToShip
+  - type: GhostRole
+    name: abductor-lone-ghost-role-name
+    description: abductor-lone-ghost-role-desc
+    rules: abductors-ghost-role-rules
+    mindRoles:
+    - MindRoleLoneAbductor
+    raffle:
+      settings: default
+  - type: GhostTakeoverAvailable
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+  - type: RandomMetadata
+    nameSegments:
+    - AbductorScientistPrefix
+    - AbductorNames
+    nameFormat: name-format-standard
+  - type: Tag
+    tags:
+    - Abductor
+    - AbductorScientist
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+  - type: AbductorScientist
+  - type: SurgerySpeedModifier
+    speedModifier: 1.5
+  mindRoles:
+  - MindRoleLoneAbductor
+
+- type: antagSpecifier
+  id: AbductorScientist
+  spawnerPrototype: AbductorScientistSpawner
+  pickPlayer: false
+  startingGear: AbductorScientistGear
+  briefing:
+    text: abductor-role-greeting
+    color: Green
+    sound: /Audio/_Onyx/Abductor/abductor.ogg
+  components:
+  - type: Abductor
+  - type: ActionGrant
+    actions:
+    - ActionReturnToShip
+  - type: GhostRole
+    name: abductor-scientist-ghost-role-name
+    description: abductor-scientist-ghost-role-desc
+    rules: abductors-ghost-role-rules
+    mindRoles:
+    - MindRoleAbductorScientist
+    raffle:
+      settings: default
+  - type: GhostTakeoverAvailable
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+  - type: RandomMetadata
+    nameSegments:
+    - AbductorScientistPrefix
+    - AbductorNames
+    nameFormat: name-format-standard
+  - type: Tag
+    tags:
+    - Abductor
+    - AbductorScientist
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+  - type: AbductorScientist
+  - type: SurgerySpeedModifier
+    speedModifier: 1.5
+  mindRoles:
+  - MindRoleAbductorScientist
+
+- type: antagSpecifier
+  id: AbductorAgent
+  spawnerPrototype: AbductorAgentSpawner
+  pickPlayer: false
+  startingGear: AbductorAgentGear
+  briefing:
+    text: abductor-role-greeting
+    color: Green
+    sound: /Audio/_Onyx/Abductor/abductor.ogg
+  components:
+  - type: Abductor
+  - type: ActionGrant
+    actions:
+    - ActionReturnToShip
+  - type: GhostRole
+    name: abductor-agent-ghost-role-name
+    description: abductor-agent-ghost-role-desc
+    rules: abductors-ghost-role-rules
+    mindRoles:
+    - MindRoleAbductorAgent
+    raffle:
+      settings: default
+  - type: GhostTakeoverAvailable
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+  - type: RandomMetadata
+    nameSegments:
+    - AbductorAgentPrefix
+    - AbductorNames
+    nameFormat: name-format-standard
+  - type: Tag
+    tags:
+    - Abductor
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+  - type: AbductorScientist # Should be removed when we have proper teleportation system
+  mindRoles:
+  - MindRoleAbductorAgent
+
+- type: antagSpecifier
+  id: AbductorVictim
+  mindRoles:
+  - MindRoleAbductorVictim
+  briefing:
+    text: abductor-victim-role-greeting
+    color: Red
+    sound: /Audio/_Onyx/Abductor/abducted.ogg
+
+- type: roleType
+  id: AbductorVictimRole
+  name: abductor-victim-role-name-freeagent
+  color: "#ffff00"
+  symbol: "☯"

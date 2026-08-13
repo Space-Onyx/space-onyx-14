@@ -1,0 +1,11 @@
+ent-OrganAbductorChest = инопланетная грудь
+ent-OrganAbductorGroin = инопланетный таз
+ent-OrganAbductorHead = инопланетная голова
+ent-OrganAbductorArmLeft = инопланетная левая рука
+ent-OrganAbductorArmRight = инопланетная правая рука
+ent-OrganAbductorHandLeft = инопланетная левая кисть
+ent-OrganAbductorHandRight = инопланетная правая кисть
+ent-OrganAbductorLegLeft = инопланетная левая нога
+ent-OrganAbductorLegRight = инопланетная правая нога
+ent-OrganAbductorFootLeft = инопланетная левая стопа
+ent-OrganAbductorFootRight = инопланетная правая стопа

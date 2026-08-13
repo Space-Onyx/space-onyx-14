@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2024 Piras314 <p1r4s@proton.me>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entityTable
+  id: UnknownShuttlesFriendlyTable
+  table: !type:AllSelector
+    children:
+    - id: UnknownShuttleAlienTourist
+
+- type: entity
+  id: UnknownShuttleAlienTourist
+  parent: BaseUnknownShuttleAnnouncedRule
+  components:
+  - type: StationEvent
+    weight: 4
+    earliestStart: 20
+  - type: LoadMapRule
+    gridPath: /Maps/_Onyx/Shuttles/ShuttleEvent/alien_tourist.yml

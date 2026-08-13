@@ -1,0 +1,91 @@
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
+# SPDX-FileCopyrightText: 2025 Ilya246 <57039557+Ilya246@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Piras314 <p1r4s@proton.me>
+# SPDX-FileCopyrightText: 2025 Poips <Hanakohashbrown@gmail.com>
+# SPDX-FileCopyrightText: 2025 Rinary <72972221+Rinary1@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Solstice <solsticeofthewinter@gmail.com>
+# SPDX-FileCopyrightText: 2025 Theodore Lukin <66275205+pheenty@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 coderabbitai[bot] <136622811+coderabbitai[bot]@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 deltanedas <@deltanedas:kde.org>
+# SPDX-FileCopyrightText: 2025 gluesniffler <159397573+gluesniffler@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 kamkoi <poiiiple1@gmail.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+ # Corvax-Goob-GreySpecies-start
+- type: entity
+  save: false
+  abstract: true
+  id: BaseMobAbductor
+  parent:
+  - AppearanceAbductor
+  - BaseSpeciesMobOrganic
+  components:
+  - type: Icon
+    sprite: _Onyx/Mobs/Species/Abductor/parts.rsi
+    state: full
+  - type: LanguageKnowledge # Einstein Engines - Language
+    speaks:
+    - Xeeplian
+    understands:
+    - TauCetiBasic # Can understand, but cannot speak it.
+    - Xeeplian
+  - type: Bloodstream
+    bloodReagent: AlienBlood
+  - type: Temperature
+    heatDamageThreshold: 320
+    currentTemperature: 310.15
+    specificHeat: 46
+    heatDamage:
+      types:
+        Heat: 2
+  - type: Barotrauma
+    damage:
+      types:
+        Blunt: 0.07
+  - type: Tag
+    tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - Abductor
+
+- type: entity
+  save: false
+  name: Urist McAlien
+  parent:
+  - BaseMobAbductor
+  id: MobAbductor
+  components:
+  - type: CollectiveMind
+    defaultChannel: Abductormind
+    channels:
+    - Abductormind
+#  - type: DamageVisuals
+#    damageOverlayGroups:
+#      Brute:
+#        sprite: Mobs/Effects/brute_damage.rsi
+#        color: "#878787"
+#      Burn:
+#        sprite: Mobs/Effects/burn_damage.rsi
+#  - type: PassiveDamage
+#    allowedStates:
+#    - Alive
+#    damageCap: 40
+#    damage:
+#      types:
+#        Heat: -0.14
+#      groups:
+#        Brute: -0.14
+  - type: SurgeryTarget
+  - type: Bloodstream
+    bloodReagent: AlienBlood
+
+  - type: Flammable
+    damage:
+      types:
+        Heat: 1
+  - type: Hunger
+  - type: Thirst
+# Corvax-Goob-GreySpecies-end

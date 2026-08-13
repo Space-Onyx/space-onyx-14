@@ -19,6 +19,11 @@
   accepts: [ Xenomorph, UniversalOrganic ]
 
 - type: transplantCompatibility
+  id: Abductor
+  provides: [ Abductor ]
+  accepts: [ Abductor, UniversalOrganic, Mechanical ]
+
+- type: transplantCompatibility
   id: Mechanical
   provides: [ Mechanical ]
   accepts: [ Mechanical ]

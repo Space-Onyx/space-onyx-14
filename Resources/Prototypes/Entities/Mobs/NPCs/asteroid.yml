@@ -53,6 +53,10 @@
       reagents:
       - ReagentId: Blood
         Quantity: 350
+  # <Onyx-GoliathHeart>
+  - type: DeclarativeBody
+    prototype: GoliathBody
+  # </Onyx-GoliathHeart>
   - type: MobThresholds
     thresholds:
       0: Alive

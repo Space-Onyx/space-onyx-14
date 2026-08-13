@@ -95,6 +95,7 @@
   - EmergencyOxygen
   - EmergencyWaterVapor # <Onyx-Feroxi>
   - LoadoutSpeciesVoxNitrogen
+  - LoadoutSpeciesAbductorTranslator # <Onyx-AbductorTouristTranslator>
 
 # nitrogen or oxygen tank, depending on what your species needs
 - type: loadoutGroup

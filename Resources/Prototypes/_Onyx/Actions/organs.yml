@@ -1,0 +1,24 @@
+- type: entity
+  parent: BaseAction
+  id: ActionGoliathTentacleCrew
+  name: Tentacle Slam
+  description: Use your tentacles to grab and stun a target.
+  components:
+  - type: Action
+    useDelay: 80
+    raiseOnUser: true
+    itemIconStyle: BigAction
+    sound:
+      path: /Audio/Weapons/slash.ogg
+  - type: Sprite
+    sprite: Mobs/Aliens/Asteroid/goliath.rsi
+    layers:
+    - state: goliath_tentacle_spawn
+      map: ["enum.ActionVisuals.Icon"]
+    - state: goliath_tentacle_wiggle
+      map: ["enum.ActionVisuals.IconToggled"]
+      visible: false
+  - type: TargetAction
+    range: 10
+  - type: WorldTargetAction
+    event: !type:GoliathSummonTentacleAction

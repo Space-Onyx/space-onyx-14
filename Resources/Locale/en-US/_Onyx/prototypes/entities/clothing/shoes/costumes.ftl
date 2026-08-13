@@ -1,0 +1,3 @@
+ent-ClothingShoesFakeJordans = air jordans
+    .desc = Upon closer inspection, something feels off about these. Are they.. creased? No, it can't be that. Wait, the logo looks a little off...
+    .suffix = fake

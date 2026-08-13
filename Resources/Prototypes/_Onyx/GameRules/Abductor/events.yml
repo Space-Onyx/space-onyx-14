@@ -1,0 +1,106 @@
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Armok <155400926+ARMOKS@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Errant <35878406+Errant-4@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
+# SPDX-FileCopyrightText: 2025 Ilya246 <57039557+Ilya246@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Ilya246 <ilyukarno@gmail.com>
+# SPDX-FileCopyrightText: 2025 Piras314 <p1r4s@proton.me>
+# SPDX-FileCopyrightText: 2025 Poips <Hanakohashbrown@gmail.com>
+# SPDX-FileCopyrightText: 2025 Solstice <solsticeofthewinter@gmail.com>
+# SPDX-FileCopyrightText: 2025 SolsticeOfTheWinter <solsticeofthewinter@gmail.com>
+# SPDX-FileCopyrightText: 2025 Theodore Lukin <66275205+pheenty@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 gluesniffler <159397573+gluesniffler@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 grub <unalterableness@gmail.com>
+# SPDX-FileCopyrightText: 2025 gus <august.eymann@gmail.com>
+# SPDX-FileCopyrightText: 2025 shityaml <unalterableness@gmail.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: BaseGameRule
+  id: LoneAbductorSpawn
+  components:
+  - type: StationEvent
+    earliestStart: 15
+    reoccurrenceDelay: 45
+    weight: 3 # Goobstation - 7.5 -> 4 # CorvaxGoob Changes: 4 > 3
+    maxOccurrences: 1 # CorvaxGoob Changes: abductors spawn balance
+    minimumPlayers: 25 # CorvaxGoob Changes: 10 > 25
+    duration: null # Goobstation - chud
+    chaos:
+      Hostile: 75
+      Medical: 75
+    eventType: HostilesSpawn
+  - type: GameRule
+    chaosScore: 100
+  - type: RuleGrids
+  - type: LoadMapRule
+    mapPath: /Maps/_Onyx/Shuttles/ShuttleEvent/abductor_shuttle.yml
+  - type: AntagObjectives
+    objectives:
+    - AbductObjective
+  - type: AntagLoadProfileRule
+    speciesHardOverride: Abductor
+  - type: AntagSelection
+    antags:
+    - !type:LinearAntagCount
+      proto: LoneAbductor
+      range:
+        min: 1
+        max: 1
+
+- type: entity
+  parent: BaseGameRule
+  id: AbductorVictim
+  components:
+  - type: AbductorVictimRule
+  - type: AntagSelection
+    antags:
+    - !type:LinearAntagCount
+      proto: AbductorVictim
+      range:
+        min: 1
+        max: 1
+  - type: AntagRandomObjectives
+    maxDifficulty: 1
+    sets:
+    - maxPicks: 1
+      groups: AbductorVictimObjectiveGroups
+
+- type: entity
+  parent: BaseGameRule
+  id: DuoAbductorSpawn
+  components:
+  - type: StationEvent
+    earliestStart: 15
+    reoccurrenceDelay: 45
+    weight: 3.5 # Goobstation - 7.5 -> 4 # CorvaxGoob Changes: 4 > 3.5
+    maxOccurrences: 1 # CorvaxGoob Changes: abductors spawn balance
+    minimumPlayers: 35 # CorvaxGoob Changes: 20 > 35
+    duration: null # Goobstation - chud
+    chaos:
+      Hostile: 150
+      Medical: 150
+    eventType: HostilesSpawn
+  - type: GameRule
+    chaosScore: 150
+  - type: RuleGrids
+  - type: LoadMapRule
+    mapPath: /Maps/_Onyx/Shuttles/ShuttleEvent/duo_abductor_shuttle.yml
+  - type: AntagObjectives
+    objectives:
+    - AbductObjective
+  - type: AntagLoadProfileRule
+    speciesHardOverride: Abductor
+  - type: AntagSelection
+    antags:
+    - !type:LinearAntagCount
+      proto: AbductorScientist
+      range:
+        min: 1
+        max: 1
+    - !type:LinearAntagCount
+      proto: AbductorAgent
+      range:
+        min: 1
+        max: 1

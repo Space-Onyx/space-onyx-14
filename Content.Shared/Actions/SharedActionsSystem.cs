@@ -460,7 +460,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
 
         // even if we don't check for obstructions, we may still need to check the range.
         var xform = Transform(user);
-        if (xform.MapID != _transform.GetMapId(coords))
+        if (!comp.AllowCrossMap && xform.MapID != _transform.GetMapId(coords)) // <Onyx-AbductorObservationConsole-edited>
             return false;
 
         if (comp.Range <= 0)

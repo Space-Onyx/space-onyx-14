@@ -1,0 +1,11 @@
+ent-OrganAbductorChest = abductor chest
+ent-OrganAbductorGroin = abductor groin
+ent-OrganAbductorHead = abductor head
+ent-OrganAbductorArmLeft = left abductor arm
+ent-OrganAbductorArmRight = right abductor arm
+ent-OrganAbductorHandLeft = left abductor hand
+ent-OrganAbductorHandRight = right abductor hand
+ent-OrganAbductorLegLeft = left abductor leg
+ent-OrganAbductorLegRight = right abductor leg
+ent-OrganAbductorFootLeft = left abductor foot
+ent-OrganAbductorFootRight = right abductor foot

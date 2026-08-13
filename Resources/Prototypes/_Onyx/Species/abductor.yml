@@ -1,0 +1,27 @@
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Piras314 <p1r4s@proton.me>
+# SPDX-FileCopyrightText: 2025 gluesniffler <159397573+gluesniffler@users.noreply.github.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: species
+  id: Abductor
+  name: species-name-abductor
+  roundStart: false
+  prototype: MobAbductor
+  dollPrototype: AppearanceAbductor
+  skinColoration: Hues # CorvaxGoob-Species : from HumanToned
+  defaultSkinTone: "#BFC2C7"
+  # CorvaxGoob-Species-Start
+  sexes:
+  - Unsexed
+  maleFirstNames: AbductorNames
+  femaleFirstNames: AbductorNames
+  naming: First
+  # CorvaxGoob-Species-End
+  # <Onyx>
+  defaultHeightCm: 175
+  defaultWeightKg: 65
+  minHeightCm: 140
+  maxHeightCm: 200
+  # </Onyx>

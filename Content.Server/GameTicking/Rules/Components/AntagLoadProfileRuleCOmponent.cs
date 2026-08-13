@@ -20,4 +20,9 @@ public sealed partial class AntagLoadProfileRuleComponent : Component
     /// </summary>
     [DataField]
     public HashSet<ProtoId<SpeciesPrototype>>? SpeciesOverrideBlacklist;
+
+    // <Onyx-Abductors>
+    [DataField]
+    public ProtoId<SpeciesPrototype>? SpeciesHardOverride;
+    // </Onyx-Abductors>
 }

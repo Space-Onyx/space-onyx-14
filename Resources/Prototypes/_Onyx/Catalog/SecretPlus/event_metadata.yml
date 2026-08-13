@@ -244,3 +244,9 @@
   rule: UnknownShuttleInstigator
   eventType: HostilesSpawn
   chaosScore: 900
+
+- type: secretPlusRule
+  id: UnknownShuttleAlienTourist
+  rule: UnknownShuttleAlienTourist
+  eventType: FriendlySpawn
+  chaosScore: -80

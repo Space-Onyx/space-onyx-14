@@ -43,6 +43,7 @@
     - id: UnknownShuttleSyndieEvacPod
     - id: UnknownShuttleNTQuark
     - id: UnknownShuttleInstigator
+    - id: UnknownShuttleAlienTourist
 
 - type: entityTable
   id: SecretPlusTableLowpop
@@ -87,6 +88,7 @@
     - id: UnknownShuttleSyndieEvacPod
     - id: UnknownShuttleNTQuark
     - id: UnknownShuttleInstigator
+    - id: UnknownShuttleAlienTourist
 
 - type: weightedRandom
   id: SecretPlus

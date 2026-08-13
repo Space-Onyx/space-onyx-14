@@ -21,6 +21,7 @@
     canCollide: false
   - type: DragInsertContainer
     containerId: storage
+    useVerbs: false
   - type: ExitContainerOnMove
     containerId: storage
   - type: ContainerContainer

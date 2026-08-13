@@ -43,6 +43,11 @@ public sealed partial class AntagLoadProfileRuleSystem : GameRuleSystem<AntagLoa
             species = ProtoMan.Index(ent.Comp.SpeciesOverride.Value);
         }
 
+        // <Onyx-Abductors>
+        if (ent.Comp.SpeciesHardOverride is not null)
+            species = ProtoMan.Index(ent.Comp.SpeciesHardOverride.Value);
+        // </Onyx-Abductors>
+
         args.Entity = Spawn(species.Prototype, args.Coords);
         if (profile?.WithSpecies(species.ID) is { } humanoidProfile)
         {

@@ -1,0 +1,71 @@
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Piras314 <p1r4s@proton.me>
+# SPDX-FileCopyrightText: 2025 gluesniffler <159397573+gluesniffler@users.noreply.github.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: OrganAbductorInternal
+  abstract: true
+  components:
+  - type: TransplantCompatibility
+    profile: Abductor
+
+- type: entity
+  id: OrganAbductorEyes
+  parent: [ OrganHumanEyes, OrganAbductorInternal ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Species/Abductor/organs.rsi
+    state: eyeballs
+    layers:
+      - state: eyeballs
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Mobs/Species/Abductor/parts.rsi
+      state: eyes
+  - type: VisualOrganMarkings
+    markingData:
+      group: Abductor
+
+- type: entity
+  id: OrganAbductorEars
+  parent: [ OrganHumanEars, OrganAbductorInternal ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Species/Abductor/organs.rsi
+    state: ears
+
+- type: entity
+  id: OrganAbductorStomach
+  parent: [ OrganHumanStomach, OrganAbductorInternal ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Species/Abductor/organs.rsi
+    state: stomach
+
+- type: entity
+  id: OrganAbductorLiver
+  parent: [ OrganHumanLiver, OrganAbductorInternal ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Species/Abductor/organs.rsi
+    state: liver
+
+- type: entity
+  id: OrganAbductorKidneys
+  parent: [ OrganHumanKidneys, OrganAbductorInternal ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Species/Abductor/organs.rsi
+    layers:
+      - state: kidney-l
+      - state: kidney-r
+
+- type: entity
+  id: OrganAbductorTongue
+  parent: [ OrganHumanTongue, OrganAbductorInternal ]
+
+- type: entity
+  id: OrganAbductorAppendix
+  parent: [ OrganHumanAppendix, OrganAbductorInternal ]

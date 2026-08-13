@@ -435,7 +435,11 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         if (!_net.IsServer || FindHeldOrgan(args.Tools, ent.Comp.Slot, ent.Comp.RequireMechanical, ent.Comp.Required) is not { } organ)
             return;
 
-        _body.TryInsertOrgan(args.Part, organ, ent.Comp.Slot.Id);
+        if (_body.TryInsertOrgan(args.Part, organ, ent.Comp.Slot.Id))
+        {
+            var inserted = new SurgeryOrganInsertedEvent(args.User, args.Body, args.Part);
+            RaiseLocalEvent(organ, ref inserted);
+        }
     }
 
     private void OnInsertOrganCheck(Entity<SurgeryInsertOrganEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)

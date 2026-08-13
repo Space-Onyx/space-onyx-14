@@ -1,0 +1,106 @@
+# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Piras314 <p1r4s@proton.me>
+# SPDX-FileCopyrightText: 2025 gluesniffler <159397573+gluesniffler@users.noreply.github.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: markingsGroup
+  parent: Undergarments
+  id: Abductor
+  limits: {}
+
+- type: entity
+  parent: BaseSpeciesAppearance
+  id: AppearanceAbductor
+  categories: [ HideSpawnMenu ]
+  name: abductor appearance
+  components:
+  - type: InitialBody
+    organs:
+      Chest: OrganAbductorChest
+      Groin: OrganAbductorGroin
+      Head: OrganAbductorHead
+      ArmLeft: OrganAbductorArmLeft
+      ArmRight: OrganAbductorArmRight
+      HandLeft: OrganAbductorHandLeft
+      HandRight: OrganAbductorHandRight
+      LegLeft: OrganAbductorLegLeft
+      LegRight: OrganAbductorLegRight
+      FootLeft: OrganAbductorFootLeft
+      FootRight: OrganAbductorFootRight
+      Brain: OrganAbductorBrain
+      Eyes: OrganAbductorEyes
+      Tongue: OrganAbductorTongue
+      Appendix: OrganAbductorAppendix
+      Ears: OrganAbductorEars
+      Lungs: OrganAbductorLungs
+      Heart: OrganAbductorHeart
+      Stomach: OrganAbductorStomach
+      Liver: OrganAbductorLiver
+      Kidneys: OrganAbductorKidneys
+  - type: HumanoidProfile
+    species: Abductor
+  - type: Inventory
+    templateId: humanNoSocks
+    speciesId: abductor
+
+- type: entity
+  parent: OrganBaseOrganic
+  id: OrganAbductorExternal
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Species/Abductor/parts.rsi
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Mobs/Species/Abductor/parts.rsi
+  - type: VisualOrganMarkings
+    markingData:
+      group: Abductor
+  - type: TransplantCompatibility
+    profile: Abductor
+
+- type: entity
+  parent: [ OrganBaseChest, OrganAbductorExternal ]
+  id: OrganAbductorChest
+  components:
+  - type: Sprite
+    state: chest
+  - type: VisualOrgan
+    data:
+      state: chest
+- type: entity
+  parent: [ OrganBaseGroin, OrganAbductorExternal ]
+  id: OrganAbductorGroin
+  components:
+  - type: Sprite
+    state: groin
+  - type: VisualOrgan
+    data:
+      state: groin
+- type: entity
+  parent: [ OrganBaseHead, OrganAbductorExternal ]
+  id: OrganAbductorHead
+- type: entity
+  parent: [ OrganAbductorExternal, OrganBaseArmLeft ]
+  id: OrganAbductorArmLeft
+- type: entity
+  parent: [ OrganAbductorExternal, OrganBaseArmRight ]
+  id: OrganAbductorArmRight
+- type: entity
+  parent: [ OrganAbductorExternal, OrganBaseHandLeft ]
+  id: OrganAbductorHandLeft
+- type: entity
+  parent: [ OrganAbductorExternal, OrganBaseHandRight ]
+  id: OrganAbductorHandRight
+- type: entity
+  parent: [ OrganAbductorExternal, OrganBaseLegLeft ]
+  id: OrganAbductorLegLeft
+- type: entity
+  parent: [ OrganAbductorExternal, OrganBaseLegRight ]
+  id: OrganAbductorLegRight
+- type: entity
+  parent: [ OrganAbductorExternal, OrganBaseFootLeft ]
+  id: OrganAbductorFootLeft
+- type: entity
+  parent: [ OrganAbductorExternal, OrganBaseFootRight ]
+  id: OrganAbductorFootRight

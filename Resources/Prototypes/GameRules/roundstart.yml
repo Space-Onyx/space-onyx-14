@@ -407,8 +407,14 @@
 
 - type: entityTable
   id: SpaceTrafficControlTable
-  table: !type:NestedSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    tableId: UnknownShuttlesHostileTable
+  # <Onyx-AbductorTourists-edited>
+  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
+    children:
+    - !type:NestedSelector
+      tableId: UnknownShuttlesFriendlyTable
+    - !type:NestedSelector
+      tableId: UnknownShuttlesHostileTable
+  # </Onyx-AbductorTourists-edited>
 
 - type: entity
   id: BasicStationEventScheduler

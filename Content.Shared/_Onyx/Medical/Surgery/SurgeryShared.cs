@@ -292,6 +292,7 @@ public sealed partial class SurgeryStepEmoteEffectComponent : Component
 [ByRefEvent] public record struct SurgeryValidEvent(EntityUid Body, EntityUid Part, bool Cancelled = false);
 [ByRefEvent] public record struct SurgeryStepEvent(EntityUid User, EntityUid Body, EntityUid Part, List<EntityUid> Tools);
 [ByRefEvent] public record struct SurgeryStepCompleteCheckEvent(EntityUid Body, EntityUid Part, bool Cancelled = false);
+[ByRefEvent] public record struct SurgeryOrganInsertedEvent(EntityUid User, EntityUid Body, EntityUid Part);
 
 [ByRefEvent]
 public record struct SurgeryCanPerformStepEvent(

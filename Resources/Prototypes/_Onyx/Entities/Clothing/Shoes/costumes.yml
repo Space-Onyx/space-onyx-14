@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: 2025 Piras314 <p1r4s@proton.me>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: [ClothingShoesBaseButcherable, BaseMinorContraband]
+  id: ClothingShoesFakeJordans
+  name: air jordans
+  suffix: fake
+  description: Upon closer inspection, something feels off about these. Are they.. creased? No, it can't be that. Wait, the logo looks a little off...
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Costumes/Abductor/jordans.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Costumes/Abductor/jordans.rsi

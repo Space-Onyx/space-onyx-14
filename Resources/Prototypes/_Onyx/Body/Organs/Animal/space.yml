@@ -1,0 +1,17 @@
+- type: entity
+  parent: [ OrganAnimalHeart, BaseMajorContraband ]
+  id: OrganGoliathHeart
+  name: goliath heart
+  suffix: Goliath
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Species/Space/Goliath/organs.rsi
+    state: heart-on
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: heart-inhand-left
+      right:
+      - state: heart-inhand-right
+  - type: OrganAction
+    action: ActionGoliathTentacleCrew

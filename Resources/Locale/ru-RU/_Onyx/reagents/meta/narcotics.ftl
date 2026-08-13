@@ -33,3 +33,6 @@ amnestizine-effect-peaceful = Вы ощущаете странное чувст�
 amnestizine-effect-soul = Вам кажется, что кто-то смотрит прямо вам в душу.
 amnestizine-effect-widen = Ваше зрение почти мгновенно расширяется...
 amnestizine-effect-listen = Вы... должны слушать своих начальников.
+
+reagent-name-nocturine-wonderprod = инопланетный седатив
+reagent-desc-nocturine-wonderprod = Внеземное седативное средство, используемое исключительно похитителями. Восстановиться после него проще, чем от его древнего предшественника.

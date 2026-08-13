@@ -1,0 +1,38 @@
+# SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
+# SPDX-FileCopyrightText: 2025 Ilya246 <ilyukarno@gmail.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: MobAbductorTourist
+  parent: MobAbductor
+  name: alien tourist
+  components:
+  - type: GhostTakeoverAvailable
+  - type: GhostRole
+    name: ghost-role-information-alien-tourist-name
+    description: ghost-role-information-alien-tourist-description
+    rules: ghost-role-information-nonantagonist-rules
+    raffle:
+      settings: default
+  - type: RandomMetadata
+    nameSegments:
+    - AbductorNames
+    - AbductorNames
+  - type: IdBind
+  - type: Loadout
+    prototypes: [ VisitorAlien ]
+    roleLoadout: [ RoleSurvivalStandard ]
+
+- type: entity
+  id: VisitorAlienSpawner
+  parent: MarkerBase
+  name: visiting alien spawner
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Markers/jobs.rsi
+      state: passenger
+  - type: RandomSpawner
+    prototypes:
+    - MobAbductorTourist
