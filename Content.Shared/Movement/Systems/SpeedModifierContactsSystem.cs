@@ -95,6 +95,9 @@ public sealed partial class SpeedModifierContactsSystem : EntitySystem
 
             if (TryComp<SpeedModifierContactsComponent>(ent, out var slowContactsComponent))
             {
+                if (IsIgnoredByContact(ent, slowContactsComponent)) // <Onyx-CatwalkBridges-edited>
+                    continue;
+
                 if (_whitelistSystem.IsWhitelistPass(slowContactsComponent.IgnoreWhitelist, uid))
                     continue;
 

@@ -337,13 +337,11 @@
   id: Catwalk
   graph: Catwalk
   targetNode: Catwalk
+  # <Onyx-CatwalkBridges-edited>
   conditions:
   - !type:TileNotBlocked
     failIfSpace: false
-  - !type:TileType
-    targets:
-    - Lattice
-    - Plating
+  # </Onyx-CatwalkBridges-edited>
 
 - type: construction
   parent: BaseStructureFullTile

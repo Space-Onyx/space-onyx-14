@@ -6,7 +6,7 @@ namespace Content.Shared.Movement.Systems;
 /// <summary>
 /// Applies an occlusion shader for any relevant entities.
 /// </summary>
-public abstract class SharedFloorOcclusionSystem : EntitySystem
+public abstract partial class SharedFloorOcclusionSystem : EntitySystem // <Onyx-CatwalkBridges-edited>
 {
     public override void Initialize()
     {
@@ -17,6 +17,9 @@ public abstract class SharedFloorOcclusionSystem : EntitySystem
 
     private void OnStartCollide(Entity<FloorOccluderComponent> entity, ref StartCollideEvent args)
     {
+        if (IsOcclusionBlocked(entity)) // <Onyx-CatwalkBridges>
+            return;
+
         var other = args.OtherEntity;
 
         if (!TryComp<FloorOcclusionComponent>(other, out var occlusion) ||

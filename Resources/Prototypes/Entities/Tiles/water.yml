@@ -9,6 +9,7 @@
     - Wall
   components:
   - type: FloorOccluder
+    ignoreWhenOnTileWithTag: Catwalk # <Onyx-CatwalkBridges>
   - type: Transform
     anchored: true
   - type: SyncSprite
@@ -37,6 +38,7 @@
   - type: SpeedModifierContacts
     walkSpeedModifier: 0.5
     sprintSpeedModifier: 0.5
+    ignoreWhenContactingTag: Catwalk # <Onyx-CatwalkBridges>
   - type: Physics
     bodyType: Static
   - type: Fixtures
@@ -44,7 +46,7 @@
       fix1:
         shape:
           !type:PhysShapeAabb
-          bounds: "-0.5,-0.5,0.5,0.5"
+          bounds: "-0.4,-0.4,0.4,0.4" # <Onyx-CatwalkBridges-edited>
         layer:
           - SlipLayer
         mask:
