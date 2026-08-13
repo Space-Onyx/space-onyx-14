@@ -21,6 +21,9 @@
     - map: [ "enum.HumanoidVisualLayers.RLeg" ]
     - map: [ "enum.HumanoidVisualLayers.LLeg" ]
 
+    # Stuff that goes over the body but below equipment
+    - map: [ "enum.HumanoidVisualLayers.Overlay" ] # <Onyx-SpeciesMarkingLayers-edited>
+
     # Underwear & clothing
     # <Onyx-Underwear-edited>
     # Marking layers removed in favor of wearable underwear items.
@@ -39,9 +42,6 @@
     # </Onyx-Underwear>
     - map: ["enum.HumanoidVisualLayers.LHand"]
     - map: ["enum.HumanoidVisualLayers.RHand"]
-
-    # Stuff that goes over the body but below equipment
-    - map: ["enum.HumanoidVisualLayers.Overlay"]
 
     # More equipment
     - map: [ "gloves" ]
