@@ -96,3 +96,7 @@
           - Bunker
           - VirusologyAmbusol
           # - BluespaceHarvest
+        - type: StationBlobConfig
+          stageBegin: 40
+          stageCritical: 1400
+          stageTheEnd: 2000

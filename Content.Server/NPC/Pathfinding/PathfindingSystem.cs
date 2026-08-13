@@ -378,7 +378,7 @@ namespace Content.Server.NPC.Pathfinding
             CancellationToken cancelToken,
             PathFlags flags = PathFlags.None)
         {
-            var path = await GetPath(uid, start, end, range, cancelToken);
+            var path = await GetPath(uid, start, end, range, cancelToken, flags); // <Onyx-Blob-edited>
             RaiseLocalEvent(uid, path);
         }
 
@@ -461,6 +461,13 @@ namespace Content.Server.NPC.Pathfinding
             {
                 flags |= PathFlags.Interact;
             }
+
+            // <Onyx-Blob>
+            if (blackboard.TryGetValue<bool>(NPCBlackboard.NavBlob, out var blob, EntityManager) && blob)
+            {
+                flags |= PathFlags.Blob;
+            }
+            // </Onyx-Blob>
 
             return flags;
         }

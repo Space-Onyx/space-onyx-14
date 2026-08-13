@@ -70,3 +70,9 @@
             SeniorPhysician: [ 1, 1 ]
             SeniorResearcher: [ 1, 1 ]
             SeniorOfficer: [ 1, 1 ]
+        # <Onyx-Blob>
+        - type: StationBlobConfig
+          stageBegin: 40
+          stageCritical: 500
+          stageTheEnd: 900
+        # </Onyx-Blob>

@@ -88,7 +88,7 @@ public sealed partial class PickNearbyInjectableOperator : HTNOperator
 
                 //Needed to make sure it doesn't sometimes stop right outside it's interaction range
                 var pathRange = SharedInteractionSystem.InteractionRange - 1f;
-                var path = await _pathfinding.GetPath(owner, entity, pathRange, cancelToken);
+                var path = await _pathfinding.GetPath(owner, entity, pathRange, cancelToken, _pathfinding.GetFlags(blackboard)); // <Onyx-Blob-edited>
 
                 if (path.Result == PathResult.NoPath)
                     continue;

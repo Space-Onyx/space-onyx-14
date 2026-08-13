@@ -1,4 +1,5 @@
 using Content.Shared._Onyx.EntityEffects.Effects.Transform;
+using Content.Shared._Onyx.Teleportation;
 using Content.Shared.EntityEffects;
 using Content.Shared.Examine;
 using Content.Shared.Maps;
@@ -35,6 +36,11 @@ public sealed partial class TeleportNearbyEntityEffectSystem
             if (_tag.HasTag(target, BrainTag) ||
                 !_examine.InRangeUnOccluded(entity.Owner, target, effect.Range) ||
                 !TryComp<PhysicsComponent>(target, out var physics))
+                continue;
+
+            var teleportAttempt = new TeleportAttemptEvent(false);
+            RaiseLocalEvent(target, ref teleportAttempt);
+            if (teleportAttempt.Cancelled)
                 continue;
 
             var origin = Transform(target).Coordinates;

@@ -1,0 +1,31 @@
+- type: entity
+  parent: MobMouse
+  id: MobMouseBlob
+  suffix: Blob
+  components:
+  - type: BlobCarrier
+  - type: StatusIcon
+
+- type: entity
+  id: SpawnPointGhostBlobRat
+  name: Mouse Blob Spawn Point
+  suffix: Blob Ghost Role
+  parent: BaseAntagSpawner
+  components:
+  - type: GhostRoleMobSpawner
+    prototype: MobMouseBlob
+  - type: GhostRole
+    makeSentient: true
+    name: blob-carrier-role-name
+    description: blob-carrier-role-desc
+    rules: blob-carrier-role-rules
+    mindRoles:
+    - MindRoleGhostRoleSoloAntagonist
+    raffle:
+      settings: default
+  - type: Sprite
+    sprite: Markers/jobs.rsi
+    layers:
+    - state: green
+    - sprite: Mobs/Animals/bat.rsi
+      state: bat

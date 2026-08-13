@@ -82,3 +82,9 @@
           - CellAI
           - VirusologyAmbusol
           - AstraRepair
+        # <Onyx-Blob>
+        - type: StationBlobConfig
+          stageBegin: 40
+          stageCritical: 700
+          stageTheEnd: 1200
+        # </Onyx-Blob>

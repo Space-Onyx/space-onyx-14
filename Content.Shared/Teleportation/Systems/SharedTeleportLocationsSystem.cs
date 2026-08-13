@@ -1,4 +1,5 @@
-﻿using Content.Shared.Maths;
+﻿using Content.Shared._Onyx.Teleportation; // <Onyx-Blob>
+using Content.Shared.Maths;
 using Content.Shared.Teleportation.Components;
 using Content.Shared.Timing;
 using Content.Shared.UserInterface;
@@ -50,6 +51,14 @@ public abstract partial class SharedTeleportLocationsSystem : EntitySystem
 
         var comp = ent.Comp;
         var originEnt = args.Actor;
+
+        // <Onyx-Blob>
+        var teleportAttempt = new TeleportAttemptEvent();
+        RaiseLocalEvent(originEnt, ref teleportAttempt);
+        if (teleportAttempt.Cancelled)
+            return;
+        // </Onyx-Blob>
+
         var telePointXForm = Transform(telePointEnt.Value);
 
         // Spawn effect even if the target is unsafe - the failure is funny.

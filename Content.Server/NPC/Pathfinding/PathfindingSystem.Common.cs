@@ -1,6 +1,7 @@
 using Content.Shared.Gravity;
 using Content.Shared.Maps;
 using Content.Shared.NPC;
+using Content.Shared.Physics; // <Onyx-Blob>
 using Robust.Shared.Map.Components;
 using Robust.Shared.Spawners;
 
@@ -52,8 +53,14 @@ public sealed partial class PathfindingSystem
             return 0f;
         }
 
+        // <Onyx-Blob>
+        var collisionMask = request.CollisionMask;
+        if ((request.Flags & PathFlags.Blob) != 0x0)
+            collisionMask &= ~(int) CollisionGroup.BlobImpassable;
+        // </Onyx-Blob>
+
         if ((request.CollisionLayer & end.Data.CollisionMask) != 0x0 ||
-            (request.CollisionMask & end.Data.CollisionLayer) != 0x0)
+            (collisionMask & end.Data.CollisionLayer) != 0x0) // <Onyx-Blob-edited>
         {
             var isDoor = (end.Data.Flags & PathfindingBreadcrumbFlag.Door) != 0x0;
             var isAccess = (end.Data.Flags & PathfindingBreadcrumbFlag.Access) != 0x0;

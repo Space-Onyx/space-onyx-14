@@ -30,6 +30,11 @@ public sealed partial class RandomTeleportOnUseSystem : EntitySystem
         if (args.Handled || !TryComp<PhysicsComponent>(args.User, out var physics))
             return;
 
+        var teleportAttempt = new TeleportAttemptEvent();
+        RaiseLocalEvent(args.User, ref teleportAttempt);
+        if (teleportAttempt.Cancelled)
+            return;
+
         var origin = Transform(args.User).Coordinates;
         for (var i = 0; i < ent.Comp.TeleportAttempts; i++)
         {

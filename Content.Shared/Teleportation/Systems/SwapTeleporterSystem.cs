@@ -1,3 +1,4 @@
+using Content.Shared._Onyx.Teleportation; // <Onyx-Blob>
 using Content.Shared.Examine;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
@@ -108,6 +109,13 @@ public sealed partial class SwapTeleporterSystem : EntitySystem
         var user = args.User;
         if (comp.TeleportTime != null)
             return;
+
+        // <Onyx-Blob>
+        var teleportAttempt = new TeleportAttemptEvent();
+        RaiseLocalEvent(user, ref teleportAttempt);
+        if (teleportAttempt.Cancelled)
+            return;
+        // </Onyx-Blob>
 
         if (comp.LinkedEnt == null)
         {

@@ -72,6 +72,12 @@
             # silicon
             StationAi: [ 1, 1 ]
             Borg: [ 2, 2 ]
+        # <Onyx-Blob>
+        - type: StationBlobConfig
+          stageBegin: 20
+          stageCritical: 300
+          stageTheEnd: 600
+        # </Onyx-Blob>
         - type: StationGoal
           goals:
           - SolarPanels

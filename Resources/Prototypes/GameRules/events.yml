@@ -32,6 +32,7 @@
     - id: ClosetSkeleton
     - id: KingRatMigration
     - id: RevenantSpawn
+    - id: BlobSpawn # <Onyx-Blob>
     - !type:NestedSelector
       tableId: DerelictBorgEventTable
 
@@ -48,6 +49,7 @@
     - id: LoneOpsSpawn
     - id: WizardSpawn
     - id: XenomorphsInfestation # <Onyx-Xenomorphs>
+    - id: BlobMidround # <Onyx-Blob>
     - !type:NestedSelector
       tableId: DerelictBorgEventTable
 

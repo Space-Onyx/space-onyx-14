@@ -71,6 +71,12 @@
             SeniorPhysician: [ 1, 1 ]
             SeniorResearcher: [ 1, 1 ]
             SeniorOfficer: [ 1, 1 ]
+        # <Onyx-Blob>
+        - type: StationBlobConfig
+          stageBegin: 40
+          stageCritical: 1400
+          stageTheEnd: 2000
+        # </Onyx-Blob>
         - type: StationGoal
           goals:
           - Singularity

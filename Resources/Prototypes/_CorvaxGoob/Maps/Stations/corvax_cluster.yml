@@ -68,3 +68,9 @@
             #silicon
             StationAi: [ 1, 1 ]
             Borg: [ 1, 1 ]
+        # <Onyx-Blob>
+        - type: StationBlobConfig
+          stageBegin: 25
+          stageCritical: 350
+          stageTheEnd: 700
+        # </Onyx-Blob>

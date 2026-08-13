@@ -14,6 +14,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using Content.Shared.Roles.Components;
 using Content.Server._Onyx.CosmicCult.Components; // <Onyx-CosmicCult>
+using Content.Shared._Onyx.Blob; // <Onyx-Blob>
 
 namespace Content.Server.Administration.Systems;
 
@@ -95,6 +96,20 @@ public sealed partial class AdminVerbSystem
             Message = string.Join(": ", zombieName, Loc.GetString("admin-verb-make-zombie")),
         };
         args.Verbs.Add(zombie);
+
+        // <Onyx-Blob>
+        var blobName = Loc.GetString("admin-verb-text-make-blob");
+        Verb blob = new()
+        {
+            Text = blobName,
+            Category = VerbCategory.Antag,
+            Icon = new SpriteSpecifier.Rsi(new("/Textures/_Onyx/Blob/Actions/blob.rsi"), "blobFactory"),
+            Act = () => EnsureComp<BlobCarrierComponent>(args.Target).HasMind = true,
+            Impact = LogImpact.High,
+            Message = blobName,
+        };
+        args.Verbs.Add(blob);
+        // </Onyx-Blob>
 
         var nukeOpName = Loc.GetString("admin-verb-text-make-nuclear-operative");
         Verb nukeOp = new()

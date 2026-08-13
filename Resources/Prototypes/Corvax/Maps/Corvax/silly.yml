@@ -84,3 +84,9 @@
           - Theatre
           - Botany
           - Bunker
+        # <Onyx-Blob>
+        - type: StationBlobConfig
+          stageBegin: 10
+          stageCritical: 300
+          stageTheEnd: 600
+        # </Onyx-Blob>

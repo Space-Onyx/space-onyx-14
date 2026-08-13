@@ -87,4 +87,9 @@
           - CellAI
           - Botany
           - Bunker
-
+        # <Onyx-Blob>
+        - type: StationBlobConfig
+          stageBegin: 40
+          stageCritical: 450
+          stageTheEnd: 900
+        # </Onyx-Blob>

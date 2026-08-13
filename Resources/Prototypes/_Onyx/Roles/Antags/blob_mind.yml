@@ -1,0 +1,26 @@
+- type: entity
+  parent: BaseMindRoleAntag
+  id: MindRoleBlob
+  name: Blob Role
+  components:
+  - type: MindRole
+    antagPrototype: Blob
+    exclusiveAntag: true
+    roleType: SoloAntagonist
+    subtype: role-subtype-blob
+  - type: BlobRole
+
+- type: factionIcon
+  id: BlobFaction
+  isShaded: false
+  priority: 10
+  showTo:
+    components:
+    - BlobCarrier
+    - BlobObserver
+    - ZombieBlob
+    - Blobbernaut
+    - BlobMob
+  icon:
+    sprite: /Textures/_Onyx/Blob/Interface/Misc/antag_icon.rsi
+    state: blob

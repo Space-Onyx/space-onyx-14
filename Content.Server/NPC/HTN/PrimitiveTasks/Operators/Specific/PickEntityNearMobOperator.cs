@@ -104,7 +104,7 @@ public sealed partial class PickEntityNearMobOperator : HTNOperator
                     continue;
 
                 var pathRange = SharedInteractionSystem.InteractionRange;
-                var path = await _pathfinding.GetPath(owner, mob, pathRange, cancelToken);
+                var path = await _pathfinding.GetPath(owner, mob, pathRange, cancelToken, _pathfinding.GetFlags(blackboard)); // <Onyx-Blob-edited>
 
                 if (path.Result == PathResult.NoPath)
                     return (false, null);

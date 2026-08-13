@@ -71,3 +71,7 @@
             # silicon
             StationAi: [ 1, 1 ]
             Borg: [ 2, 2 ]
+        - type: StationBlobConfig
+          stageBegin: 20
+          stageCritical: 300
+          stageTheEnd: 600

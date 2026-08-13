@@ -51,6 +51,8 @@ namespace Content.Shared.DrawDepth
         /// </summary>
         HighFloorObjects = DrawDepthTag.Default - 5,
 
+        BlobTiles = DrawDepthTag.Default - 4, // <Onyx-Blob>
+
         DeadMobs = DrawDepthTag.Default - 4,
 
         /// <summary>

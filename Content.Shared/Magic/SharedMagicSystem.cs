@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Shared._Onyx.Teleportation; // <Onyx-Blob>
 using Content.Shared.ActionBlocker;
 using Content.Shared.Charges.Components;
 using Content.Shared.Charges.Systems;
@@ -317,6 +318,13 @@ public abstract partial class SharedMagicSystem : EntitySystem
     {
         if (args.Handled || !PassesSpellPrerequisites(args.Action, args.Performer))
             return;
+
+        // <Onyx-Blob>
+        var teleportAttempt = new TeleportAttemptEvent();
+        RaiseLocalEvent(args.Performer, ref teleportAttempt);
+        if (teleportAttempt.Cancelled)
+            return;
+        // </Onyx-Blob>
 
         var transform = Transform(args.Performer);
         if (transform.MapID != _transform.GetMapId(args.Target) || !_interaction.InRangeUnobstructed(args.Performer, args.Target, range: 1000F, collisionMask: CollisionGroup.Opaque, popup: true))

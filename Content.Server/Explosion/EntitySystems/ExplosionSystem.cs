@@ -136,6 +136,23 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
             args.DamageCoefficient *= modifier;
     }
 
+    // <Onyx-Blob>
+    public void SetExplosionResistance(
+        EntityUid uid,
+        float coefficient,
+        bool? worn = null,
+        ExplosionResistanceComponent? component = null)
+    {
+        if (!Resolve(uid, ref component))
+            return;
+
+        component.DamageCoefficient = coefficient;
+        if (worn != null)
+            component.Worn = worn.Value;
+        Dirty(uid, component);
+    }
+    // </Onyx-Blob>
+
     /// <inheritdoc/>
     public override void TriggerExplosive(EntityUid uid, ExplosiveComponent? explosive = null, bool delete = true, float? totalIntensity = null, float? radius = null, EntityUid? user = null)
     {

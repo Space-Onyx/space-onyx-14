@@ -1,0 +1,12 @@
+- type: npcFaction
+  id: Blob
+  hostile:
+  - NanoTrasen
+  - Syndicate
+  - Xeno
+  - PetsNT
+  - Zombie
+  - Dragon
+  - Revolutionary
+  - Changeling
+  - Wizard
