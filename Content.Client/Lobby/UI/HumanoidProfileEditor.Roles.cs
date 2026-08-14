@@ -88,7 +88,7 @@ public sealed partial class HumanoidProfileEditor
         foreach (var (department, card) in _jobCards)
         {
             card.Visible = (_jobDepartmentFilter == null || department == _jobDepartmentFilter) &&
-                           (!_showSelectedJobs || card.Priority != JobPriority.Never) &&
+                           (!_showSelectedJobs || card.IsAvailable && card.Priority != JobPriority.Never) &&
                            card.Matches(_jobSearch);
         }
 

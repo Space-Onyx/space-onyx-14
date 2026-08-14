@@ -20,6 +20,7 @@ public sealed class JobPreferenceCard : PanelContainer
 {
     private readonly AlternativeJobSelector _jobSelector;
     private readonly TextureRect _icon;
+    private readonly Label _roleName;
     private readonly JobCardOptionButton _priority = new();
     private readonly string[] _searchNames;
     private readonly StyleBoxFlat _availableStyle = Style("#1B1E24", "#3F4651");
@@ -29,6 +30,7 @@ public sealed class JobPreferenceCard : PanelContainer
 
     public string JobId { get; }
     public JobPriority Priority => (JobPriority) _priority.SelectedId;
+    public bool IsAvailable => !_locked;
 
     public event Action<JobPriority>? OnPrioritySelected;
     public event Action<ProtoId<AlternativeJobPrototype>?>? OnAlternativeSelected;
@@ -74,9 +76,19 @@ public sealed class JobPreferenceCard : PanelContainer
         };
         _jobSelector.SetSelectedIconVisible(false);
         _jobSelector.SetJobCardStyle(_locked);
+        _roleName = new Label
+        {
+            Text = job.LocalizedName,
+            StyleClasses = { "font-large", "font-bold" },
+            FontColorOverride = Color.FromHex(_locked ? "#C7BBA7" : "#C7D5E0"),
+            ClipText = true,
+            HorizontalExpand = true,
+            VerticalAlignment = VAlignment.Center,
+        };
         _jobSelector.OnAlternativeSelected += alternative =>
         {
             _icon.Texture = _jobSelector.SelectedIcon;
+            _roleName.Text = _jobSelector.SelectedName;
             OnAlternativeSelected?.Invoke(alternative);
         };
 
@@ -88,6 +100,39 @@ public sealed class JobPreferenceCard : PanelContainer
         {
             _priority.SelectId(args.Id);
             OnPrioritySelected?.Invoke((JobPriority) args.Id);
+        };
+
+        var roleNameRow = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            SeparationOverride = 6,
+            HorizontalExpand = true,
+            Children = { _roleName },
+        };
+
+        if (_jobSelector.HasAlternatives)
+        {
+            _jobSelector.ToolTip = Loc.GetString("job-personalization-role-name-hint");
+            _jobSelector.MinWidth = 40;
+            _jobSelector.MaxWidth = 40;
+            _jobSelector.HorizontalExpand = false;
+            _jobSelector.SetCompactDisplay(_locked);
+            roleNameRow.AddChild(_jobSelector);
+        }
+        else
+            _jobSelector.Visible = false;
+
+        var controls = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            SeparationOverride = 6,
+            HorizontalExpand = true,
+            Children =
+            {
+                roleNameRow,
+                new PanelContainer { StyleClasses = { "LowDivider" } },
+                _priority,
+            },
         };
 
         var description = new RichTextLabel
@@ -158,13 +203,7 @@ public sealed class JobPreferenceCard : PanelContainer
             Children =
             {
                 _icon,
-                new BoxContainer
-                {
-                    Orientation = BoxContainer.LayoutOrientation.Vertical,
-                    SeparationOverride = 5,
-                    HorizontalExpand = true,
-                    Children = { _jobSelector, _priority },
-                },
+                controls,
             },
         };
 
@@ -215,6 +254,7 @@ public sealed class JobPreferenceCard : PanelContainer
     {
         _jobSelector.SelectAlternative(alternative);
         _icon.Texture = _jobSelector.SelectedIcon;
+        _roleName.Text = _jobSelector.SelectedName;
     }
 
     private void AddPriorityItems()

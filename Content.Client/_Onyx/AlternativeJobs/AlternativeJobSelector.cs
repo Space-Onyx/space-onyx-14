@@ -24,11 +24,14 @@ public sealed partial class AlternativeJobSelector : LoadoutRoleSelector
     private readonly HashSet<ProtoId<AlternativeJobPrototype>> _lockedAlternatives = [];
     private readonly SpriteSystem _spriteSystem;
     private readonly ProtoId<JobIconPrototype> _parentJobIcon;
+    private readonly string _parentJobName;
     private FormattedMessage? _addingRequirement;
     private bool _jobCardStyle;
     private bool _jobCardLocked;
 
     public Texture SelectedIcon => GetSelectedIcon(SelectedId);
+    public string SelectedName => SelectedId == 0 ? _parentJobName : _alternatives[SelectedId - 1].LocalizedJobName;
+    public bool HasAlternatives => _alternatives.Count > 0;
 
     public void SetJobCardStyle(bool locked)
     {
@@ -52,11 +55,13 @@ public sealed partial class AlternativeJobSelector : LoadoutRoleSelector
         if (_prototypeManager.TryIndex(parentJobId, out var job))
         {
             _parentJobIcon = job.Icon;
+            _parentJobName = job.LocalizedName;
             AddJob(job.LocalizedName, GetIcon(job.Icon), 0);
         }
         else
         {
             _parentJobIcon = "JobIconUnknown";
+            _parentJobName = parentJobId;
             AddItem(parentJobId, 0);
         }
 
