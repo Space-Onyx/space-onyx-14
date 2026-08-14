@@ -24,14 +24,14 @@ ent-RightLegCyberneticBishop = кибернетическая правая но�
 ent-LeftFootCyberneticBishop = кибернетическая левая стопа «Бишоп»
 ent-RightFootCyberneticBishop = кибернетическая правая стопа «Бишоп»
 
-ent-LeftArmCyberneticHephaestus = кибернетическая левая рука «Гефес»
-ent-RightArmCyberneticHephaestus = кибернетическая правая рука «Гефес»
-ent-LeftHandCyberneticHephaestus = кибернетическая левая кисть «Гефес»
-ent-RightHandCyberneticHephaestus = кибернетическая правая кисть «Гефес»
-ent-LeftLegCyberneticHephaestus = кибернетическая левая нога «Гефес»
-ent-RightLegCyberneticHephaestus = кибернетическая правая нога «Гефес»
-ent-LeftFootCyberneticHephaestus = кибернетическая левая стопа «Гефес»
-ent-RightFootCyberneticHephaestus = кибернетическая правая стопа «Гефес»
+ent-LeftArmCyberneticHephaestus = кибернетическая левая рука «Гефест»
+ent-RightArmCyberneticHephaestus = кибернетическая правая рука «Гефест»
+ent-LeftHandCyberneticHephaestus = кибернетическая левая кисть «Гефест»
+ent-RightHandCyberneticHephaestus = кибернетическая правая кисть «Гефест»
+ent-LeftLegCyberneticHephaestus = кибернетическая левая нога «Гефест»
+ent-RightLegCyberneticHephaestus = кибернетическая правая нога «Гефест»
+ent-LeftFootCyberneticHephaestus = кибернетическая левая стопа «Гефест»
+ent-RightFootCyberneticHephaestus = кибернетическая правая стопа «Гефест»
 
 ent-LeftArmCyberneticXion = кибернетическая левая рука «Ксион»
 ent-RightArmCyberneticXion = кибернетическая правая рука «Ксион»
