@@ -223,6 +223,7 @@ namespace Content.Server.Database
             profile.Height = humanoid.Height;
             profile.Width = humanoid.Width;
             // </Onyx-HeightWidth>
+            profile.CyberneticIds = humanoid.Cybernetics.Select(id => id.Id).ToList(); // <Onyx-CyberneticsPersonalization>
             profile.Sex = humanoid.Sex.ToString();
             profile.Voice = humanoid.Voice.ToString();
             profile.Gender = humanoid.Gender.ToString();

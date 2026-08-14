@@ -1,8 +1,11 @@
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
+using Content.Client._Onyx.Body; // <Onyx-DirectionalLimbLayers>
+using Robust.Client.GameObjects; // <Onyx-DirectionalLimbLayers>
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Maths; // <Onyx-DirectionalLimbLayers>
 
 namespace Content.Client.Lobby.UI.ProfileEditorControls;
 
@@ -33,10 +36,21 @@ public sealed partial class ProfilePreviewSpriteView : SpriteView
         PreviewDummy = EntityUid.Invalid;
 
         LoadHumanoidEntity(profile, jobOverride, showClothes);
+        UpdateDirectionalLimbLayers(OverrideDirection ?? Direction.South); // <Onyx-DirectionalLimbLayers>
 
         SetEntity(PreviewDummy);
         SetName(profile.Name);
     }
+
+    // <Onyx-DirectionalLimbLayers>
+    public void UpdateDirectionalLimbLayers(Direction direction)
+    {
+        if (!EntMan.TryGetComponent(PreviewDummy, out SpriteComponent? sprite))
+            return;
+
+        EntMan.System<DirectionalLimbLayerSystem>().Update((PreviewDummy, sprite), direction);
+    }
+    // </Onyx-DirectionalLimbLayers>
 
     /// <summary>
     /// Sets the preview entity's name without reloading anything else.

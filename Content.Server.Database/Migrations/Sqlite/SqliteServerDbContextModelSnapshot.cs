@@ -1084,6 +1084,13 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("char_name");
 
+                    // <Onyx-CyberneticsPersonalization>
+                    b.PrimitiveCollection<string>("CyberneticIds")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("cybernetic_ids");
+                    // </Onyx-CyberneticsPersonalization>
+
                     b.Property<string>("EyeColor")
                         .IsRequired()
                         .HasColumnType("TEXT")

@@ -5,6 +5,7 @@ using Content.Server.PDA;
 using Content.Server.Station.Components;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
+using Content.Shared._Onyx.Cybernetics.Personalization; // <Onyx-CyberneticsPersonalization>
 using Content.Shared.Body;
 using Content.Shared.CCVar;
 using Content.Shared.Clothing;
@@ -43,6 +44,7 @@ public sealed partial class StationSpawningSystem : SharedStationSpawningSystem
     [Dependency] private MetaDataSystem _metaSystem = default!;
     [Dependency] private PdaSystem _pdaSystem = default!;
     [Dependency] private MindSystem _mindSystem = default!;
+    [Dependency] private RoundstartCyberneticsSystem _roundstartCybernetics = default!; // <Onyx-CyberneticsPersonalization>
 
     /// <summary>
     /// Attempts to spawn a player character onto the given station.
@@ -130,6 +132,7 @@ public sealed partial class StationSpawningSystem : SharedStationSpawningSystem
         if (!ProtoMan.TryIndex<SpeciesPrototype>(speciesId, out var species))
             throw new ArgumentException($"Invalid species prototype was used: {speciesId}");
 
+        var spawnedEntity = entity == null; // <Onyx-CyberneticsPersonalization>
         entity ??= Spawn(species.Prototype, coordinates);
 
         if (profile != null)
@@ -143,6 +146,15 @@ public sealed partial class StationSpawningSystem : SharedStationSpawningSystem
                 AddComp<DetailExaminableComponent>(entity.Value).Content = profile.FlavorText;
             }
         }
+
+        // <Onyx-CyberneticsPersonalization>
+        if (profile is { Cybernetics.Count: > 0 } && !_roundstartCybernetics.TryApply(entity.Value, profile))
+        {
+            if (spawnedEntity)
+                QueueDel(entity.Value);
+            throw new InvalidOperationException($"Failed to apply round-start cybernetics to profile {profile.Name}.");
+        }
+        // </Onyx-CyberneticsPersonalization>
 
         if (loadout != null)
         {

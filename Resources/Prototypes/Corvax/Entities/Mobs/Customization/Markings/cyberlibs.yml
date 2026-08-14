@@ -2,7 +2,7 @@
 - type: marking
   id: CyberlimbRArmBishop
   bodyPart: RArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -16,7 +16,7 @@
 - type: marking
   id: CyberlimbLArmBishop
   bodyPart: LArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -30,7 +30,7 @@
 - type: marking
   id: CyberlimbRHandBishop
   bodyPart: RHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -44,7 +44,7 @@
 - type: marking
   id: CyberlimbLHandBishop
   bodyPart: LHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -58,7 +58,7 @@
 - type: marking
   id: CyberlimbRLegBishop
   bodyPart: RLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -72,7 +72,7 @@
 - type: marking
   id: CyberlimbLLegBishop
   bodyPart: LLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -86,7 +86,7 @@
 - type: marking
   id: CyberlimbLFootBishop
   bodyPart: LFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -100,7 +100,7 @@
 - type: marking
   id: CyberlimbRFootBishop
   bodyPart: RFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -129,7 +129,7 @@
 - type: marking
   id: CyberlimbRArmHephaestus
   bodyPart: RArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -143,7 +143,7 @@
 - type: marking
   id: CyberlimbLArmHephaestus
   bodyPart: LArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -157,7 +157,7 @@
 - type: marking
   id: CyberlimbRHandHephaestus
   bodyPart: RHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -171,7 +171,7 @@
 - type: marking
   id: CyberlimbLHandHephaestus
   bodyPart: LHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -185,7 +185,7 @@
 - type: marking
   id: CyberlimbRLegHephaestus
   bodyPart: RLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -199,7 +199,7 @@
 - type: marking
   id: CyberlimbLLegHephaestus
   bodyPart: LLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -213,7 +213,7 @@
 - type: marking
   id: CyberlimbLFootHephaestus
   bodyPart: LFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -227,7 +227,7 @@
 - type: marking
   id: CyberlimbRFootHephaestus
   bodyPart: RFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -256,7 +256,7 @@
 - type: marking
   id: CyberlimbRArmHephaestusTitan
   bodyPart: RArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -270,7 +270,7 @@
 - type: marking
   id: CyberlimbLArmHephaestusTitan
   bodyPart: LArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -284,7 +284,7 @@
 - type: marking
   id: CyberlimbRHandHephaestusTitan
   bodyPart: RHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -298,7 +298,7 @@
 - type: marking
   id: CyberlimbLHandHephaestusTitan
   bodyPart: LHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -312,7 +312,7 @@
 - type: marking
   id: CyberlimbRLegHephaestusTitan
   bodyPart: RLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -326,7 +326,7 @@
 - type: marking
   id: CyberlimbLLegHephaestusTitan
   bodyPart: LLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -340,7 +340,7 @@
 - type: marking
   id: CyberlimbLFootHephaestusTitan
   bodyPart: LFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -354,7 +354,7 @@
 - type: marking
   id: CyberlimbRFootHephaestusTitan
   bodyPart: RFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -383,7 +383,7 @@
 - type: marking
   id: CyberlimbRArmMorpheus
   bodyPart: RArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -397,7 +397,7 @@
 - type: marking
   id: CyberlimbLArmMorpheus
   bodyPart: LArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -411,7 +411,7 @@
 - type: marking
   id: CyberlimbRHandMorpheus
   bodyPart: RHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -425,7 +425,7 @@
 - type: marking
   id: CyberlimbLHandMorpheus
   bodyPart: LHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -439,7 +439,7 @@
 - type: marking
   id: CyberlimbRLegMorpheus
   bodyPart: RLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -453,7 +453,7 @@
 - type: marking
   id: CyberlimbLLegMorpheus
   bodyPart: LLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -467,7 +467,7 @@
 - type: marking
   id: CyberlimbLFootMorpheus
   bodyPart: LFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -481,7 +481,7 @@
 - type: marking
   id: CyberlimbRFootMorpheus
   bodyPart: RFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -511,7 +511,7 @@
 - type: marking
   id: CyberlimbRArmWardtakahashi
   bodyPart: RArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -525,7 +525,7 @@
 - type: marking
   id: CyberlimbLArmWardtakahashi
   bodyPart: LArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -539,7 +539,7 @@
 - type: marking
   id: CyberlimbRHandWardtakahashi
   bodyPart: RHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -553,7 +553,7 @@
 - type: marking
   id: CyberlimbLHandWardtakahashi
   bodyPart: LHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -567,7 +567,7 @@
 - type: marking
   id: CyberlimbRLegWardtakahashi
   bodyPart: RLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -581,7 +581,7 @@
 - type: marking
   id: CyberlimbLLegWardtakahashi
   bodyPart: LLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -595,7 +595,7 @@
 - type: marking
   id: CyberlimbLFootWardtakahashi
   bodyPart: LFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -609,7 +609,7 @@
 - type: marking
   id: CyberlimbRFootWardtakahashi
   bodyPart: RFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -654,7 +654,7 @@
 - type: marking
   id: CyberlimbRArmZenghu
   bodyPart: RArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -668,7 +668,7 @@
 - type: marking
   id: CyberlimbLArmZenghu
   bodyPart: LArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -682,7 +682,7 @@
 - type: marking
   id: CyberlimbRHandZenghu
   bodyPart: RHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -696,7 +696,7 @@
 - type: marking
   id: CyberlimbLHandZenghu
   bodyPart: LHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -710,7 +710,7 @@
 - type: marking
   id: CyberlimbRLegZenghu
   bodyPart: RLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -724,7 +724,7 @@
 - type: marking
   id: CyberlimbLLegZenghu
   bodyPart: LLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -738,7 +738,7 @@
 - type: marking
   id: CyberlimbLFootZenghu
   bodyPart: LFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -752,7 +752,7 @@
 - type: marking
   id: CyberlimbRFootZenghu
   bodyPart: RFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -781,7 +781,7 @@
 - type: marking
   id: CyberlimbRArmNanotrasen
   bodyPart: RArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -795,7 +795,7 @@
 - type: marking
   id: CyberlimbLArmNanotrasen
   bodyPart: LArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -809,7 +809,7 @@
 - type: marking
   id: CyberlimbRHandNanotrasen
   bodyPart: RHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -823,7 +823,7 @@
 - type: marking
   id: CyberlimbLHandNanotrasen
   bodyPart: LHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -837,7 +837,7 @@
 - type: marking
   id: CyberlimbRLegNanotrasen
   bodyPart: RLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -851,7 +851,7 @@
 - type: marking
   id: CyberlimbLLegNanotrasen
   bodyPart: LLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -865,7 +865,7 @@
 - type: marking
   id: CyberlimbLFootNanotrasen
   bodyPart: LFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -879,7 +879,7 @@
 - type: marking
   id: CyberlimbRFootNanotrasen
   bodyPart: RFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -908,7 +908,7 @@
 - type: marking
   id: CyberlimbRArmXion
   bodyPart: RArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -922,7 +922,7 @@
 - type: marking
   id: CyberlimbLArmXion
   bodyPart: LArm
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -936,7 +936,7 @@
 - type: marking
   id: CyberlimbRHandXion
   bodyPart: RHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -950,7 +950,7 @@
 - type: marking
   id: CyberlimbLHandXion
   bodyPart: LHand
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -964,7 +964,7 @@
 - type: marking
   id: CyberlimbRLegXion
   bodyPart: RLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -978,7 +978,7 @@
 - type: marking
   id: CyberlimbLLegXion
   bodyPart: LLeg
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -992,7 +992,7 @@
 - type: marking
   id: CyberlimbLFootXion
   bodyPart: LFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -1006,7 +1006,7 @@
 - type: marking
   id: CyberlimbRFootXion
   bodyPart: RFoot
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [] # <Onyx-CyberneticProstheses-edited>
   sponsorOnly: true
   coloring:
     default:

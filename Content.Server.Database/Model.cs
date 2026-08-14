@@ -344,6 +344,7 @@ namespace Content.Server.Database
         public float Height { get; set; } = 1f;
         public float Width { get; set; } = 1f;
         // </Onyx-HeightWidth>
+        public List<string> CyberneticIds { get; set; } = []; // <Onyx-CyberneticsPersonalization>
         public string Sex { get; set; } = null!;
         public string? Voice { get; set; } = null!; // If null, the voice gets defaulted to the sex associated value
         public string Gender { get; set; } = null!;

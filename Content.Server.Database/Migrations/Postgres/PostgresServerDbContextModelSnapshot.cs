@@ -1151,6 +1151,13 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("char_name");
 
+                    // <Onyx-CyberneticsPersonalization>
+                    b.PrimitiveCollection<List<string>>("CyberneticIds")
+                        .IsRequired()
+                        .HasColumnType("text[]")
+                        .HasColumnName("cybernetic_ids");
+                    // </Onyx-CyberneticsPersonalization>
+
                     b.Property<string>("EyeColor")
                         .IsRequired()
                         .HasColumnType("text")

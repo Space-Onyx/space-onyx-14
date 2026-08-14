@@ -46,7 +46,8 @@ public sealed partial class BodyInventorySlotSystem : EntitySystem
         _partDamage.OnPartRemoved(ent, args.Target);
         _bleeding.OnPartChanged(args.Target);
         _cybernetics.RefreshBody(args.Target);
-        KnockDownIfMissingLeg(args.Target);
+        if (!HasComp<BodyPartReplacementComponent>(args.Target))
+            KnockDownIfMissingLeg(args.Target);
     }
 
     private void OnStandAttempt(Entity<InitiallyLeggedComponent> ent, ref StandUpAttemptEvent args)

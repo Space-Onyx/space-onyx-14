@@ -13,6 +13,7 @@ using Content.Shared.Preferences.Loadouts;
 using Content.Shared.Roles;
 using Content.Shared.Speech.Components;
 using Content.Shared.Traits;
+using Content.Shared._Onyx.Cybernetics.Personalization; // <Onyx-CyberneticsPersonalization>
 using Robust.Shared.Collections;
 using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
@@ -249,6 +250,7 @@ namespace Content.Shared.Preferences
                 // </Onyx-Barks>
                 )
         {
+            _cybernetics = new List<EntProtoId>(other.Cybernetics); // <Onyx-CyberneticsPersonalization>
         }
 
         /// <summary>
@@ -458,6 +460,7 @@ namespace Content.Shared.Preferences
             // <Onyx-Barks>
             profile.Bark = baseProfile.Bark.Copy();
             // </Onyx-Barks>
+            profile._cybernetics = new List<EntProtoId>(baseProfile.Cybernetics); // <Onyx-CyberneticsPersonalization>
 
             profile.Appearance = HumanoidCharacterAppearance.Random(speciesProto, profile.Sex, randomizeCfg, baseProfile.Appearance);
 
@@ -787,6 +790,7 @@ namespace Content.Shared.Preferences
             if (!_jobAlternatives.SequenceEqual(other._jobAlternatives)) return false; // <Onyx-AlternativeJobs>
             if (!_antagPreferences.SequenceEqual(other._antagPreferences)) return false;
             if (!_traitPreferences.SequenceEqual(other._traitPreferences)) return false;
+            if (!_cybernetics.SequenceEqual(other._cybernetics)) return false; // <Onyx-CyberneticsPersonalization>
             if (!Loadouts.SequenceEqual(other.Loadouts)) return false;
             if (FlavorText != other.FlavorText) return false;
             // <Onyx-Barks>
@@ -800,6 +804,7 @@ namespace Content.Shared.Preferences
         {
             var configManager = collection.Resolve<IConfigurationManager>();
             var prototypeManager = collection.Resolve<IPrototypeManager>();
+            var componentFactory = collection.Resolve<IComponentFactory>(); // <Onyx-CyberneticsPersonalization>
 
             if (!prototypeManager.TryIndex(Species, out var speciesPrototype) || speciesPrototype.RoundStart == false)
             {
@@ -936,6 +941,14 @@ namespace Content.Shared.Preferences
                          .Where(prototypeManager.HasIndex)
                          .ToList();
 
+            // <Onyx-CyberneticsPersonalization>
+            var cybernetics = RoundstartCyberneticsResolver.Normalize(
+                Cybernetics,
+                speciesPrototype.RoundstartCyberwareCapacity,
+                prototypeManager,
+                componentFactory);
+            // </Onyx-CyberneticsPersonalization>
+
             Name = name;
             FlavorText = flavortext;
             Age = age;
@@ -963,6 +976,8 @@ namespace Content.Shared.Preferences
 
             _traitPreferences.Clear();
             _traitPreferences.UnionWith(GetValidTraits(traits, prototypeManager));
+
+            _cybernetics = cybernetics; // <Onyx-CyberneticsPersonalization>
 
             // Corvax-TTS-Start
             prototypeManager.TryIndex<TTSVoicePrototype>(TTSVoice, out var TTS_voice);
@@ -1086,6 +1101,8 @@ namespace Content.Shared.Preferences
             hashCode.Add(_jobAlternatives); // <Onyx-AlternativeJobs>
             hashCode.Add(_antagPreferences);
             hashCode.Add(_traitPreferences);
+            foreach (var cybernetic in _cybernetics) // <Onyx-CyberneticsPersonalization>
+                hashCode.Add(cybernetic);
             hashCode.Add(_loadouts);
             hashCode.Add(Name);
             hashCode.Add(FlavorText);

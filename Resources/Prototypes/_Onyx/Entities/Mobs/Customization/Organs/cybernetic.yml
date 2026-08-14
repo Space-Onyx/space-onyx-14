@@ -87,6 +87,8 @@
   - type: Sprite
     sprite: _Onyx/Cybernetics/organs.rsi
     state: heart-on
+  - type: Metabolizer
+    metabolizerTypes: [ Cybernetic ]
 
 - type: entity
   parent: BasicCyberneticHeart
@@ -105,6 +107,8 @@
   - type: Sprite
     sprite: _Onyx/Cybernetics/organs.rsi
     state: liver
+  - type: Metabolizer
+    metabolizerTypes: [ Cybernetic ]
 
 - type: entity
   parent: [ OrganHumanLungs, OnyxCyberneticOrganBase ]
@@ -116,6 +120,8 @@
     layers:
     - state: lung-l
     - state: lung-r
+  - type: Metabolizer
+    metabolizerTypes: [ Cybernetic ]
 
 - type: entity
   parent: BasicCyberneticLungs

@@ -319,6 +319,8 @@ namespace Content.Client.Lobby.UI
             #region Markings
 
             TabContainer.SetTabTitle(5, Loc.GetString("humanoid-profile-editor-markings-tab")); // <Onyx-LoadoutPersonalization-edited>
+            TabContainer.SetTabTitle(6, Loc.GetString("cybernetics-personalization-tab")); // <Onyx-CyberneticsPersonalization>
+            InitializeCybernetics(); // <Onyx-CyberneticsPersonalization>
 
             _markingsModel.MarkingsChanged += (_, _) => OnMarkingChange();
             _markingsModel.MarkingsReset += OnMarkingChange;
@@ -430,6 +432,7 @@ namespace Content.Client.Lobby.UI
             RefreshSpecies();
             RefreshTraits();
             RefreshFlavorText();
+            RefreshCybernetics(); // <Onyx-CyberneticsPersonalization>
             ReloadPreview();
 
             if (Profile != null)
@@ -478,7 +481,9 @@ namespace Content.Client.Lobby.UI
 
         private void SetPreviewRotation(Direction direction)
         {
-            SpriteView.OverrideDirection = (Direction)((int)direction % 4 * 2);
+            var renderDirection = (Direction)((int)direction % 4 * 2); // <Onyx-DirectionalLimbLayers-edited>
+            SpriteView.OverrideDirection = renderDirection; // <Onyx-DirectionalLimbLayers-edited>
+            SpriteView.UpdateDirectionalLimbLayers(renderDirection); // <Onyx-DirectionalLimbLayers>
         }
     }
 }

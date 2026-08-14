@@ -8,6 +8,8 @@
   - type: Damageable
   - type: Injurable
     damageContainer: Silicon
+  - type: Pain
+    damageMultipliers: {}
   - type: Sprite
     sprite: _Onyx/Cybernetics/bishop_main.rsi
   - type: VisualOrgan
@@ -19,96 +21,1074 @@
   id: LeftArmCybernetic
   name: cybernetic left arm
   components:
+  - type: TransplantCompatibility
+    profile: Cybernetic
   - type: Sprite
     sprite: _Onyx/Cybernetics/bishop_main.rsi
     state: l_arm-combined
   - type: VisualOrgan
     colorFromProfile: false
     data: { sprite: _Onyx/Cybernetics/bishop_main.rsi, state: l_arm-combined }
+  - type: RoundstartCybernetics
+    selectable: false
+    dependencies: [ LeftHandCybernetic ]
 
 - type: entity
   parent: [ OrganHumanArmRight, OnyxCyberneticPartBase ]
   id: RightArmCybernetic
   name: cybernetic right arm
   components:
+  - type: TransplantCompatibility
+    profile: Cybernetic
   - type: Sprite
     sprite: _Onyx/Cybernetics/bishop_main.rsi
     state: r_arm-combined
   - type: VisualOrgan
     colorFromProfile: false
     data: { sprite: _Onyx/Cybernetics/bishop_main.rsi, state: r_arm-combined }
+  - type: RoundstartCybernetics
+    selectable: false
+    dependencies: [ RightHandCybernetic ]
 
 - type: entity
   parent: [ OrganHumanHandLeft, OnyxCyberneticPartBase ]
   id: LeftHandCybernetic
   name: cybernetic left hand
   components:
+  - type: TransplantCompatibility
+    profile: Cybernetic
   - type: Sprite
     sprite: _Onyx/Cybernetics/bishop_main.rsi
     state: l_hand
   - type: VisualOrgan
     colorFromProfile: false
     data: { sprite: _Onyx/Cybernetics/bishop_main.rsi, state: l_hand }
+  - type: RoundstartCybernetics
+    selectable: false
 
 - type: entity
   parent: [ OrganHumanHandRight, OnyxCyberneticPartBase ]
   id: RightHandCybernetic
   name: cybernetic right hand
   components:
+  - type: TransplantCompatibility
+    profile: Cybernetic
   - type: Sprite
     sprite: _Onyx/Cybernetics/bishop_main.rsi
     state: r_hand
   - type: VisualOrgan
     colorFromProfile: false
     data: { sprite: _Onyx/Cybernetics/bishop_main.rsi, state: r_hand }
+  - type: RoundstartCybernetics
+    selectable: false
 
 - type: entity
   parent: [ OrganHumanLegLeft, OnyxCyberneticPartBase ]
   id: LeftLegCybernetic
   name: cybernetic left leg
   components:
+  - type: TransplantCompatibility
+    profile: Cybernetic
   - type: Sprite
     sprite: _Onyx/Cybernetics/bishop_main.rsi
     state: l_leg-combined
   - type: VisualOrgan
     colorFromProfile: false
     data: { sprite: _Onyx/Cybernetics/bishop_main.rsi, state: l_leg-combined }
+  - type: DirectionalLimbLayer
+  - type: RoundstartCybernetics
+    selectable: false
+    cost: 2
+    dependencies: [ LeftFootCybernetic ]
 
 - type: entity
   parent: [ OrganHumanLegRight, OnyxCyberneticPartBase ]
   id: RightLegCybernetic
   name: cybernetic right leg
   components:
+  - type: TransplantCompatibility
+    profile: Cybernetic
   - type: Sprite
     sprite: _Onyx/Cybernetics/bishop_main.rsi
     state: r_leg-combined
   - type: VisualOrgan
     colorFromProfile: false
     data: { sprite: _Onyx/Cybernetics/bishop_main.rsi, state: r_leg-combined }
+  - type: DirectionalLimbLayer
+  - type: RoundstartCybernetics
+    selectable: false
+    cost: 2
+    dependencies: [ RightFootCybernetic ]
 
 - type: entity
   parent: [ OrganHumanFootLeft, OnyxCyberneticPartBase ]
   id: LeftFootCybernetic
   name: cybernetic left foot
   components:
+  - type: TransplantCompatibility
+    profile: Cybernetic
   - type: Sprite
     sprite: _Onyx/Cybernetics/bishop_main.rsi
     state: l_foot
   - type: VisualOrgan
     colorFromProfile: false
     data: { sprite: _Onyx/Cybernetics/bishop_main.rsi, state: l_foot }
+  - type: DirectionalLimbLayer
+  - type: RoundstartCybernetics
+    selectable: false
 
 - type: entity
   parent: [ OrganHumanFootRight, OnyxCyberneticPartBase ]
   id: RightFootCybernetic
   name: cybernetic right foot
   components:
+  - type: TransplantCompatibility
+    profile: Cybernetic
   - type: Sprite
     sprite: _Onyx/Cybernetics/bishop_main.rsi
     state: r_foot
   - type: VisualOrgan
     colorFromProfile: false
     data: { sprite: _Onyx/Cybernetics/bishop_main.rsi, state: r_foot }
+  - type: DirectionalLimbLayer
+  - type: RoundstartCybernetics
+    selectable: false
+
+# Bishop
+- type: entity
+  parent: LeftArmCybernetic
+  id: LeftArmCyberneticBishop
+  name: Bishop cybernetic left arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi
+    state: l_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi, state: l_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftHandCyberneticBishop ]
+
+- type: entity
+  parent: RightArmCybernetic
+  id: RightArmCyberneticBishop
+  name: Bishop cybernetic right arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi
+    state: r_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi, state: r_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightHandCyberneticBishop ]
+
+- type: entity
+  parent: LeftHandCybernetic
+  id: LeftHandCyberneticBishop
+  name: Bishop cybernetic left hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi
+    state: l_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi, state: l_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightHandCybernetic
+  id: RightHandCyberneticBishop
+  name: Bishop cybernetic right hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi
+    state: r_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi, state: r_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: LeftLegCybernetic
+  id: LeftLegCyberneticBishop
+  name: Bishop cybernetic left leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi
+    state: l_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi, state: l_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftFootCyberneticBishop ]
+
+- type: entity
+  parent: RightLegCybernetic
+  id: RightLegCyberneticBishop
+  name: Bishop cybernetic right leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi
+    state: r_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi, state: r_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightFootCyberneticBishop ]
+
+- type: entity
+  parent: LeftFootCybernetic
+  id: LeftFootCyberneticBishop
+  name: Bishop cybernetic left foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi
+    state: l_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi, state: l_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightFootCybernetic
+  id: RightFootCyberneticBishop
+  name: Bishop cybernetic right foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi
+    state: r_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/bishop.rsi, state: r_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+# Hephaestus
+- type: entity
+  parent: LeftArmCybernetic
+  id: LeftArmCyberneticHephaestus
+  name: Hephaestus cybernetic left arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi
+    state: l_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi, state: l_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftHandCyberneticHephaestus ]
+
+- type: entity
+  parent: RightArmCybernetic
+  id: RightArmCyberneticHephaestus
+  name: Hephaestus cybernetic right arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi
+    state: r_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi, state: r_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightHandCyberneticHephaestus ]
+
+- type: entity
+  parent: LeftHandCybernetic
+  id: LeftHandCyberneticHephaestus
+  name: Hephaestus cybernetic left hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi
+    state: l_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi, state: l_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightHandCybernetic
+  id: RightHandCyberneticHephaestus
+  name: Hephaestus cybernetic right hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi
+    state: r_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi, state: r_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: LeftLegCybernetic
+  id: LeftLegCyberneticHephaestus
+  name: Hephaestus cybernetic left leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi
+    state: l_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi, state: l_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftFootCyberneticHephaestus ]
+
+- type: entity
+  parent: RightLegCybernetic
+  id: RightLegCyberneticHephaestus
+  name: Hephaestus cybernetic right leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi
+    state: r_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi, state: r_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightFootCyberneticHephaestus ]
+
+- type: entity
+  parent: LeftFootCybernetic
+  id: LeftFootCyberneticHephaestus
+  name: Hephaestus cybernetic left foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi
+    state: l_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi, state: l_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightFootCybernetic
+  id: RightFootCyberneticHephaestus
+  name: Hephaestus cybernetic right foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi
+    state: r_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus.rsi, state: r_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+# Xion
+- type: entity
+  parent: LeftArmCybernetic
+  id: LeftArmCyberneticXion
+  name: Xion cybernetic left arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi
+    state: l_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi, state: l_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftHandCyberneticXion ]
+
+- type: entity
+  parent: RightArmCybernetic
+  id: RightArmCyberneticXion
+  name: Xion cybernetic right arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi
+    state: r_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi, state: r_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightHandCyberneticXion ]
+
+- type: entity
+  parent: LeftHandCybernetic
+  id: LeftHandCyberneticXion
+  name: Xion cybernetic left hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi
+    state: l_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi, state: l_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightHandCybernetic
+  id: RightHandCyberneticXion
+  name: Xion cybernetic right hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi
+    state: r_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi, state: r_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: LeftLegCybernetic
+  id: LeftLegCyberneticXion
+  name: Xion cybernetic left leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi
+    state: l_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi, state: l_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftFootCyberneticXion ]
+
+- type: entity
+  parent: RightLegCybernetic
+  id: RightLegCyberneticXion
+  name: Xion cybernetic right leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi
+    state: r_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi, state: r_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightFootCyberneticXion ]
+
+- type: entity
+  parent: LeftFootCybernetic
+  id: LeftFootCyberneticXion
+  name: Xion cybernetic left foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi
+    state: l_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi, state: l_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightFootCybernetic
+  id: RightFootCyberneticXion
+  name: Xion cybernetic right foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi
+    state: r_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/xion.rsi, state: r_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+# Hephaestus Titan
+- type: entity
+  parent: LeftArmCybernetic
+  id: LeftArmCyberneticHephaestusTitan
+  name: Hephaestus Titan cybernetic left arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi
+    state: l_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi, state: l_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftHandCyberneticHephaestusTitan ]
+
+- type: entity
+  parent: RightArmCybernetic
+  id: RightArmCyberneticHephaestusTitan
+  name: Hephaestus Titan cybernetic right arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi
+    state: r_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi, state: r_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightHandCyberneticHephaestusTitan ]
+
+- type: entity
+  parent: LeftHandCybernetic
+  id: LeftHandCyberneticHephaestusTitan
+  name: Hephaestus Titan cybernetic left hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi
+    state: l_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi, state: l_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightHandCybernetic
+  id: RightHandCyberneticHephaestusTitan
+  name: Hephaestus Titan cybernetic right hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi
+    state: r_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi, state: r_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: LeftLegCybernetic
+  id: LeftLegCyberneticHephaestusTitan
+  name: Hephaestus Titan cybernetic left leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi
+    state: l_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi, state: l_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftFootCyberneticHephaestusTitan ]
+
+- type: entity
+  parent: RightLegCybernetic
+  id: RightLegCyberneticHephaestusTitan
+  name: Hephaestus Titan cybernetic right leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi
+    state: r_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi, state: r_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightFootCyberneticHephaestusTitan ]
+
+- type: entity
+  parent: LeftFootCybernetic
+  id: LeftFootCyberneticHephaestusTitan
+  name: Hephaestus Titan cybernetic left foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi
+    state: l_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi, state: l_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightFootCybernetic
+  id: RightFootCyberneticHephaestusTitan
+  name: Hephaestus Titan cybernetic right foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi
+    state: r_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/hephaestus_titan.rsi, state: r_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+# Zeng-Hu
+- type: entity
+  parent: LeftArmCybernetic
+  id: LeftArmCyberneticZengHu
+  name: Zeng-Hu cybernetic left arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi
+    state: l_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi, state: l_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftHandCyberneticZengHu ]
+
+- type: entity
+  parent: RightArmCybernetic
+  id: RightArmCyberneticZengHu
+  name: Zeng-Hu cybernetic right arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi
+    state: r_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi, state: r_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightHandCyberneticZengHu ]
+
+- type: entity
+  parent: LeftHandCybernetic
+  id: LeftHandCyberneticZengHu
+  name: Zeng-Hu cybernetic left hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi
+    state: l_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi, state: l_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightHandCybernetic
+  id: RightHandCyberneticZengHu
+  name: Zeng-Hu cybernetic right hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi
+    state: r_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi, state: r_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: LeftLegCybernetic
+  id: LeftLegCyberneticZengHu
+  name: Zeng-Hu cybernetic left leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi
+    state: l_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi, state: l_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftFootCyberneticZengHu ]
+
+- type: entity
+  parent: RightLegCybernetic
+  id: RightLegCyberneticZengHu
+  name: Zeng-Hu cybernetic right leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi
+    state: r_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi, state: r_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightFootCyberneticZengHu ]
+
+- type: entity
+  parent: LeftFootCybernetic
+  id: LeftFootCyberneticZengHu
+  name: Zeng-Hu cybernetic left foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi
+    state: l_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi, state: l_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightFootCybernetic
+  id: RightFootCyberneticZengHu
+  name: Zeng-Hu cybernetic right foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi
+    state: r_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/zenghu.rsi, state: r_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+# Morpheus
+- type: entity
+  parent: LeftArmCybernetic
+  id: LeftArmCyberneticMorpheus
+  name: Morpheus cybernetic left arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi
+    state: l_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi, state: l_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftHandCyberneticMorpheus ]
+
+- type: entity
+  parent: RightArmCybernetic
+  id: RightArmCyberneticMorpheus
+  name: Morpheus cybernetic right arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi
+    state: r_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi, state: r_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightHandCyberneticMorpheus ]
+
+- type: entity
+  parent: LeftHandCybernetic
+  id: LeftHandCyberneticMorpheus
+  name: Morpheus cybernetic left hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi
+    state: l_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi, state: l_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightHandCybernetic
+  id: RightHandCyberneticMorpheus
+  name: Morpheus cybernetic right hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi
+    state: r_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi, state: r_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: LeftLegCybernetic
+  id: LeftLegCyberneticMorpheus
+  name: Morpheus cybernetic left leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi
+    state: l_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi, state: l_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftFootCyberneticMorpheus ]
+
+- type: entity
+  parent: RightLegCybernetic
+  id: RightLegCyberneticMorpheus
+  name: Morpheus cybernetic right leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi
+    state: r_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi, state: r_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightFootCyberneticMorpheus ]
+
+- type: entity
+  parent: LeftFootCybernetic
+  id: LeftFootCyberneticMorpheus
+  name: Morpheus cybernetic left foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi
+    state: l_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi, state: l_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightFootCybernetic
+  id: RightFootCyberneticMorpheus
+  name: Morpheus cybernetic right foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi
+    state: r_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/morpheus.rsi, state: r_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+# Nanotrasen
+- type: entity
+  parent: LeftArmCybernetic
+  id: LeftArmCyberneticNanotrasen
+  name: Nanotrasen cybernetic left arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi
+    state: l_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi, state: l_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftHandCyberneticNanotrasen ]
+
+- type: entity
+  parent: RightArmCybernetic
+  id: RightArmCyberneticNanotrasen
+  name: Nanotrasen cybernetic right arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi
+    state: r_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi, state: r_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightHandCyberneticNanotrasen ]
+
+- type: entity
+  parent: LeftHandCybernetic
+  id: LeftHandCyberneticNanotrasen
+  name: Nanotrasen cybernetic left hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi
+    state: l_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi, state: l_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightHandCybernetic
+  id: RightHandCyberneticNanotrasen
+  name: Nanotrasen cybernetic right hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi
+    state: r_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi, state: r_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: LeftLegCybernetic
+  id: LeftLegCyberneticNanotrasen
+  name: Nanotrasen cybernetic left leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi
+    state: l_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi, state: l_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftFootCyberneticNanotrasen ]
+
+- type: entity
+  parent: RightLegCybernetic
+  id: RightLegCyberneticNanotrasen
+  name: Nanotrasen cybernetic right leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi
+    state: r_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi, state: r_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightFootCyberneticNanotrasen ]
+
+- type: entity
+  parent: LeftFootCybernetic
+  id: LeftFootCyberneticNanotrasen
+  name: Nanotrasen cybernetic left foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi
+    state: l_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi, state: l_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightFootCybernetic
+  id: RightFootCyberneticNanotrasen
+  name: Nanotrasen cybernetic right foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi
+    state: r_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/nanotrasen.rsi, state: r_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+# Ward-Takahashi
+- type: entity
+  parent: LeftArmCybernetic
+  id: LeftArmCyberneticWardTakahashi
+  name: Ward-Takahashi cybernetic left arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi
+    state: l_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi, state: l_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftHandCyberneticWardTakahashi ]
+
+- type: entity
+  parent: RightArmCybernetic
+  id: RightArmCyberneticWardTakahashi
+  name: Ward-Takahashi cybernetic right arm
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi
+    state: r_arm
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi, state: r_arm }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightHandCyberneticWardTakahashi ]
+
+- type: entity
+  parent: LeftHandCybernetic
+  id: LeftHandCyberneticWardTakahashi
+  name: Ward-Takahashi cybernetic left hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi
+    state: l_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi, state: l_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightHandCybernetic
+  id: RightHandCyberneticWardTakahashi
+  name: Ward-Takahashi cybernetic right hand
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi
+    state: r_hand
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi, state: r_hand }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: LeftLegCybernetic
+  id: LeftLegCyberneticWardTakahashi
+  name: Ward-Takahashi cybernetic left leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi
+    state: l_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi, state: l_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ LeftFootCyberneticWardTakahashi ]
+
+- type: entity
+  parent: RightLegCybernetic
+  id: RightLegCyberneticWardTakahashi
+  name: Ward-Takahashi cybernetic right leg
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi
+    state: r_leg
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi, state: r_leg }
+  - type: RoundstartCybernetics
+    selectable: true
+    dependencies: [ RightFootCyberneticWardTakahashi ]
+
+- type: entity
+  parent: LeftFootCybernetic
+  id: LeftFootCyberneticWardTakahashi
+  name: Ward-Takahashi cybernetic left foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi
+    state: l_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi, state: l_foot }
+  - type: RoundstartCybernetics
+    selectable: true
+
+- type: entity
+  parent: RightFootCybernetic
+  id: RightFootCyberneticWardTakahashi
+  name: Ward-Takahashi cybernetic right foot
+  components:
+  - type: Sprite
+    sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi
+    state: r_foot
+  - type: VisualOrgan
+    colorFromProfile: false
+    data: { sprite: Corvax/Mobs/Customization/Cyberlimbs/wardtakahashi.rsi, state: r_foot }
+  - type: RoundstartCybernetics
+    selectable: true
 
 - type: entity
   parent: LeftArmCybernetic
@@ -118,6 +1098,8 @@
   components:
   - type: Cybernetics
     effects: Prying
+  - type: RoundstartCybernetics
+    selectable: false
 
 - type: entity
   parent: RightArmCybernetic
@@ -127,6 +1109,8 @@
   components:
   - type: Cybernetics
     effects: Prying
+  - type: RoundstartCybernetics
+    selectable: false
 
 - type: entity
   parent: LeftLegCybernetic
@@ -136,6 +1120,8 @@
   components:
   - type: Cybernetics
     effects: Speed
+  - type: RoundstartCybernetics
+    selectable: false
 
 - type: entity
   parent: RightLegCybernetic
@@ -145,3 +1131,5 @@
   components:
   - type: Cybernetics
     effects: Speed
+  - type: RoundstartCybernetics
+    selectable: false

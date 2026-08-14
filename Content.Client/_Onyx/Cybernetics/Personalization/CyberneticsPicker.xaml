@@ -1,0 +1,86 @@
+<BoxContainer xmlns="https://spacestation14.io"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+              Orientation="Vertical"
+              HorizontalExpand="True"
+              VerticalExpand="True"
+              SeparationOverride="8">
+    <PanelContainer HorizontalExpand="True">
+        <PanelContainer.PanelOverride>
+            <gfx:StyleBoxFlat BackgroundColor="#20232A" BorderColor="#454B57" BorderThickness="1" />
+        </PanelContainer.PanelOverride>
+        <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="5">
+            <BoxContainer Orientation="Horizontal">
+                <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+                    <Label Text="{Loc 'cybernetics-personalization-header'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" />
+                    <Label Text="{Loc 'cybernetics-personalization-subtitle'}" StyleClasses="font-small" Modulate="#8F9BAA" />
+                </BoxContainer>
+                <PanelContainer MinWidth="152" VerticalAlignment="Center">
+                    <PanelContainer.PanelOverride>
+                        <gfx:StyleBoxFlat BackgroundColor="#16191F" BorderColor="#3A526D" BorderThickness="1" ContentMarginLeftOverride="8" ContentMarginTopOverride="5" ContentMarginRightOverride="8" ContentMarginBottomOverride="5" />
+                    </PanelContainer.PanelOverride>
+                    <Label Name="PointsLabel" Align="Center" StyleClasses="font-bold" Modulate="#8BC5FF" />
+                </PanelContainer>
+            </BoxContainer>
+            <PanelContainer StyleClasses="LowDivider" />
+            <ProgressBar Name="CapacityBar" HorizontalExpand="True" MinValue="0" MaxValue="1" SetHeight="12">
+                <ProgressBar.ForegroundStyleBoxOverride>
+                    <gfx:StyleBoxFlat BackgroundColor="#62A7D8" />
+                </ProgressBar.ForegroundStyleBoxOverride>
+            </ProgressBar>
+            <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                <LineEdit Name="SearchBar" HorizontalExpand="True" PlaceHolder="{Loc 'cybernetics-personalization-search-placeholder'}" />
+                <Button Name="ClearSearchButton" Text="×" MinWidth="34" ToolTip="{Loc 'cybernetics-personalization-clear-search'}" />
+                <OptionButton Name="CategoryButton" MinWidth="150" />
+            </BoxContainer>
+        </BoxContainer>
+    </PanelContainer>
+
+    <BoxContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="8">
+        <PanelContainer HorizontalExpand="True" VerticalExpand="True">
+            <PanelContainer.PanelOverride>
+                <gfx:StyleBoxFlat BackgroundColor="#1B1E24" BorderColor="#3F4651" BorderThickness="1" />
+            </PanelContainer.PanelOverride>
+            <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="6" VerticalExpand="True">
+                <BoxContainer Orientation="Horizontal">
+                    <Label Text="{Loc 'cybernetics-personalization-available'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" />
+                    <Control HorizontalExpand="True" />
+                    <Label Name="AvailableCountLabel" StyleClasses="font-small" Modulate="#8F9BAA" />
+                </BoxContainer>
+                <PanelContainer StyleClasses="LowDivider" />
+                <ItemList Name="AvailableList" VerticalExpand="True" ItemSeparation="2" />
+                <Button Name="InstallButton" Text="{Loc 'cybernetics-personalization-install'}" Disabled="True" HorizontalExpand="True" MinHeight="34" />
+            </BoxContainer>
+        </PanelContainer>
+
+        <PanelContainer HorizontalExpand="True" VerticalExpand="True">
+            <PanelContainer.PanelOverride>
+                <gfx:StyleBoxFlat BackgroundColor="#1B1E24" BorderColor="#3F4651" BorderThickness="1" />
+            </PanelContainer.PanelOverride>
+            <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="6" VerticalExpand="True">
+                <BoxContainer Orientation="Horizontal">
+                    <Label Text="{Loc 'cybernetics-personalization-installed'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" />
+                    <Control HorizontalExpand="True" />
+                    <Label Name="InstalledCountLabel" StyleClasses="font-small" Modulate="#8F9BAA" />
+                </BoxContainer>
+                <PanelContainer StyleClasses="LowDivider" />
+                <ItemList Name="InstalledList" VerticalExpand="True" ItemSeparation="2" />
+                <Button Name="RemoveButton" Text="{Loc 'cybernetics-personalization-remove'}" Disabled="True" HorizontalExpand="True" MinHeight="34" />
+            </BoxContainer>
+        </PanelContainer>
+    </BoxContainer>
+
+    <PanelContainer HorizontalExpand="True" MinHeight="76">
+        <PanelContainer.PanelOverride>
+            <gfx:StyleBoxFlat BackgroundColor="#16191F" BorderColor="#353B45" BorderThickness="1" />
+        </PanelContainer.PanelOverride>
+        <BoxContainer Orientation="Horizontal" Margin="8 6" SeparationOverride="8">
+            <TextureRect Name="DetailsIcon" SetSize="48 48" Stretch="KeepAspectCentered" Visible="False" VerticalAlignment="Center" />
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="2">
+                <Label Name="DetailsTitle" Text="{Loc 'cybernetics-personalization-select-prompt'}" StyleClasses="font-bold" Modulate="#C7D5E0" />
+                <RichTextLabel Name="DetailsDescription" HorizontalExpand="True" MaxHeight="34" />
+                <Label Name="DetailsStatus" StyleClasses="font-small" Modulate="#8F9BAA" />
+            </BoxContainer>
+        </BoxContainer>
+    </PanelContainer>
+</BoxContainer>

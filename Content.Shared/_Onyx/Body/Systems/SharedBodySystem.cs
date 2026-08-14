@@ -219,7 +219,7 @@ public sealed partial class SharedBodySystem : EntitySystem
         return true;
     }
 
-    public bool TryDetachPart(EntityUid part)
+    public bool TryDetachPart(EntityUid part, bool reparent = true)
     {
         if (!TryGetParentBodyPart(part, out var parent, out var parentPart) || parent == null || parentPart == null)
             return false;
@@ -229,7 +229,7 @@ public sealed partial class SharedBodySystem : EntitySystem
             if (!_containers.TryGetContainer(parent.Value, BodyPartComponent.PartSlotPrefix + slot, out var container) || container is not ContainerSlot { ContainedEntity: { } child } || child != part)
                 continue;
 
-            if (!_containers.Remove(part, container))
+            if (!_containers.Remove(part, container, reparent: reparent))
                 return false;
 
             if (!parentPart.ChildSlots.ContainsKey(slot))
@@ -298,7 +298,17 @@ public sealed partial class SharedBodySystem : EntitySystem
         return true;
     }
 
-    public bool TryInsertOrgan(EntityUid partId, EntityUid organId, string slot, bool checkCompatibility = true)
+    public bool TryInsertOrgan(EntityUid partId, EntityUid organId, string slot)
+    {
+        return TryInsertOrgan(partId, organId, slot, true);
+    }
+
+    public bool TryInsertOrganIgnoringCompatibility(EntityUid partId, EntityUid organId, string slot)
+    {
+        return TryInsertOrgan(partId, organId, slot, false);
+    }
+
+    private bool TryInsertOrgan(EntityUid partId, EntityUid organId, string slot, bool checkCompatibility)
     {
         if (!CanInsertOrgan(partId, organId, slot, false, checkCompatibility, out var part))
             return false;
@@ -338,13 +348,12 @@ public sealed partial class SharedBodySystem : EntitySystem
 
     public bool AreTransplantsCompatible(EntityUid recipient, EntityUid transplant)
     {
-        var hasRecipientProfile = TryComp(recipient, out TransplantCompatibilityComponent? recipientProfile);
-        var hasTransplantProfile = TryComp(transplant, out TransplantCompatibilityComponent? transplantProfile);
-        if (!hasRecipientProfile || !hasTransplantProfile)
-            return hasRecipientProfile == hasTransplantProfile;
+        if (!TryComp(recipient, out TransplantCompatibilityComponent? recipientProfile) ||
+            !TryComp(transplant, out TransplantCompatibilityComponent? transplantProfile))
+            return false;
 
-        return _prototypes.TryIndex(recipientProfile!.Profile, out var recipientPrototype) &&
-            _prototypes.TryIndex(transplantProfile!.Profile, out var transplantPrototype) &&
+        return _prototypes.TryIndex(recipientProfile.Profile, out var recipientPrototype) &&
+            _prototypes.TryIndex(transplantProfile.Profile, out var transplantPrototype) &&
             recipientPrototype.Accepts.Overlaps(transplantPrototype.Provides);
     }
 

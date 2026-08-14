@@ -8,6 +8,7 @@ using Content.Shared.Damage.Components;
 using Content.Shared.Humanoid;
 // <Onyx-BodyConsequences>
 using Content.Shared._Onyx.Body;
+using Content.Shared.Body.Systems; // <Onyx-TransplantCompatibility>
 // </Onyx-BodyConsequences>
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
@@ -21,6 +22,7 @@ public sealed partial class InitialBodySystem : EntitySystem
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private OrganRelationSystem _organRelation = default!;
+    [Dependency] private SharedBodySystem _body = default!; // <Onyx-TransplantCompatibility>
 
     public override void Initialize()
     {
@@ -139,6 +141,9 @@ public sealed partial class InitialBodySystem : EntitySystem
 
     private bool InsertOrgan(EntityUid body, EntityUid parent, string slot, EntityUid organ, OrganComponent component)
     {
+        if (!_body.AreTransplantsCompatible(parent, organ)) // <Onyx-TransplantCompatibility>
+            return false;
+
         var container = _container.EnsureContainer<ContainerSlot>(parent, BodyPartComponent.OrganSlotPrefix + slot);
         if (!TryComp(parent, out BodyPartComponent? part) || !_container.Insert(organ, container))
             return false;
@@ -152,6 +157,15 @@ public sealed partial class InitialBodySystem : EntitySystem
     {
         if (parent == null || !parts.TryGetValue(type, out var matching) || !matching.TryGetValue(symmetry, out var child) || !TryComp(parent, out BodyPartComponent? parentPart) || !TryComp(child, out BodyPartComponent? childPart))
             return;
+
+        // <Onyx-TransplantCompatibility>
+        if (!_body.AreTransplantsCompatible(parent.Value, child))
+        {
+            Log.Error($"Initial body part {ToPrettyString(child)} is incompatible with parent {ToPrettyString(parent.Value)}.");
+            Del(child);
+            return;
+        }
+        // </Onyx-TransplantCompatibility>
 
         var container = _container.EnsureContainer<ContainerSlot>(parent.Value, BodyPartComponent.PartSlotPrefix + slot);
         parentPart.Children[slot] = type;

@@ -293,6 +293,7 @@ public sealed partial class HumanoidProfileEditor
         RefreshJobs();
         // In case there's species restrictions for loadouts
         RefreshLoadouts();
+        RefreshCybernetics(); // <Onyx-CyberneticsPersonalization>
         UpdateSexControls(); // update sex for new species
         UpdateVoiceControls();
         UpdateTTSVoicesControls(); // Corvax-TTS

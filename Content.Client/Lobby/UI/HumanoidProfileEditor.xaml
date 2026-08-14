@@ -1,11 +1,14 @@
+<!-- <Onyx-CyberneticsPersonalization> -->
 <BoxContainer xmlns="https://spacestation14.io"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:humanoid="clr-namespace:Content.Client.Humanoid"
          xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
           xmlns:ui="clr-namespace:Content.Client.Lobby.UI"
           xmlns:profile="clr-namespace:Content.Client.Lobby.UI.ProfileEditorControls"
-          xmlns:onyxLoadouts="clr-namespace:Content.Client._Onyx.Lobby.UI.Loadouts"
-         HorizontalExpand="True">
+           xmlns:onyxLoadouts="clr-namespace:Content.Client._Onyx.Lobby.UI.Loadouts"
+           xmlns:onyxCybernetics="clr-namespace:Content.Client._Onyx.Cybernetics.Personalization"
+          HorizontalExpand="True">
+        <!-- </Onyx-CyberneticsPersonalization> -->
         <!-- Left side -->
         <BoxContainer Orientation="Vertical" Margin="10 10 10 10" HorizontalExpand="True">
             <!-- Middle container -->
@@ -197,6 +200,11 @@
                     <!-- Markings -->
                     <humanoid:MarkingPicker Name="Markings" HorizontalExpand="True" VerticalExpand="True" />
                 </BoxContainer>
+                <!-- <Onyx-CyberneticsPersonalization> -->
+                <BoxContainer Orientation="Vertical" Margin="10">
+                    <onyxCybernetics:CyberneticsPicker Name="CyberneticsPicker" VerticalExpand="True" />
+                </BoxContainer>
+                <!-- </Onyx-CyberneticsPersonalization> -->
             </TabContainer>
         </BoxContainer>
         <!-- Right side -->

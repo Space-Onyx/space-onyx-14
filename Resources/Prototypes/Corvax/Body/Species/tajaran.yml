@@ -177,6 +177,11 @@
   id: OrganTajaran
   abstract: true
   suffix: tajaran
+  # <Onyx-TransplantCompatibility>
+  components:
+  - type: TransplantCompatibility
+    profile: Flesh
+  # </Onyx-TransplantCompatibility>
 
 - type: entity
   id: OrganTajaranMetabolizer

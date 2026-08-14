@@ -194,7 +194,7 @@ namespace Content.Server.Preferences.Managers
                 loadouts[role.RoleName] = loadout;
             }
 
-            return new HumanoidCharacterProfile(
+            var result = new HumanoidCharacterProfile( // <Onyx-CyberneticsPersonalization-edited>
                 profile.CharacterName,
                 profile.FlavorText,
                 species,
@@ -222,6 +222,7 @@ namespace Content.Server.Preferences.Managers
                 loadouts,
                 new BarkData()
             );
+            return result.WithCybernetics(profile.CyberneticIds.Select(id => new EntProtoId(id))); // <Onyx-CyberneticsPersonalization>
         }
 
         private async void HandleSelectCharacterMessage(MsgSelectCharacter message)

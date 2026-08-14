@@ -1,6 +1,7 @@
 using System.Linq;
 using Content.Client.Humanoid;
 using Content.Client.Station;
+using Content.Shared._Onyx.Cybernetics.Personalization; // <Onyx-CyberneticsPersonalization>
 using Content.Shared.Body;
 using Content.Shared.Clothing;
 using Content.Shared.GameTicking;
@@ -53,6 +54,7 @@ public sealed partial class ProfilePreviewSpriteView
             var dummy = _prototypeManager.Index(humanoid.Species).DollPrototype;
             PreviewDummy = EntMan.SpawnEntity(dummy, MapCoordinates.Nullspace);
             EntMan.System<SharedVisualBodySystem>().ApplyProfileTo(PreviewDummy, humanoid);
+            EntMan.System<RoundstartCyberneticsSystem>().TryApply(PreviewDummy, humanoid); // <Onyx-CyberneticsPersonalization>
         }
         else
         {

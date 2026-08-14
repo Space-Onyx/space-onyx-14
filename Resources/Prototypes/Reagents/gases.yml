@@ -48,7 +48,7 @@
       - !type:Oxygenate
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Human, Animal, Rat, Plant, Arachnid, Moth, Feroxi ] # <Onyx-Feroxi-edited>
+          type: [ Human, Animal, Rat, Plant, Arachnid, Moth, Feroxi, Cybernetic ] # <Onyx-Feroxi-edited> <Onyx-CyberneticMetabolism-edited>
       # Convert Oxygen into CO2.
       - !type:ModifyLungGas
         conditions:
