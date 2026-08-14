@@ -38,6 +38,9 @@ humanoid-profile-editor-reset-button = Сбросить
 humanoid-profile-editor-spawn-priority-label = Приоритет спавна:
 humanoid-profile-editor-eyes-label = Цвет глаз:
 humanoid-profile-editor-jobs-tab = Должности
+# <Onyx-RolesPersonalization>
+humanoid-profile-editor-roles-tab = Роли
+# </Onyx-RolesPersonalization>
 humanoid-profile-editor-preference-unavailable-stay-in-lobby-button = Остаться в лобби, если должность недоступна.
 humanoid-profile-editor-preference-unavailable-spawn-as-overflow-button = Получить должность "{ $overflowJob }", если должность недоступна.
 humanoid-profile-editor-preference-jumpsuit = Комбинезон

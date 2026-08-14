@@ -38,6 +38,9 @@ humanoid-profile-editor-reset-button = Reset
 humanoid-profile-editor-spawn-priority-label = Spawn priority:
 humanoid-profile-editor-eyes-label = Eye color:
 humanoid-profile-editor-jobs-tab = Jobs
+# <Onyx-RolesPersonalization>
+humanoid-profile-editor-roles-tab = Roles
+# </Onyx-RolesPersonalization>
 humanoid-profile-editor-preference-unavailable-stay-in-lobby-button = Stay in lobby if preference unavailable.
 humanoid-profile-editor-preference-unavailable-spawn-as-overflow-button = Be {INDEFINITE($overflowJob)} {$overflowJob} if preference unavailable.
 humanoid-profile-editor-preference-jumpsuit = Jumpsuit

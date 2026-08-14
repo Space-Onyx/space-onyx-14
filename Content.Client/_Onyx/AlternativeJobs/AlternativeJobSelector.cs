@@ -1,5 +1,7 @@
 using System.Linq;
+using System.Numerics;
 using Content.Client._Onyx.Lobby.UI.Loadouts;
+using Content.Client._Onyx.Lobby.UI.Roles;
 using Content.Client.Players.PlayTimeTracking;
 using Content.Shared._Onyx.AlternativeJobs;
 using Content.Shared.Preferences;
@@ -23,6 +25,17 @@ public sealed partial class AlternativeJobSelector : LoadoutRoleSelector
     private readonly SpriteSystem _spriteSystem;
     private readonly ProtoId<JobIconPrototype> _parentJobIcon;
     private FormattedMessage? _addingRequirement;
+    private bool _jobCardStyle;
+    private bool _jobCardLocked;
+
+    public Texture SelectedIcon => GetSelectedIcon(SelectedId);
+
+    public void SetJobCardStyle(bool locked)
+    {
+        _jobCardStyle = true;
+        _jobCardLocked = locked;
+        UpdateJobCardStyle();
+    }
 
     public event Action<ProtoId<AlternativeJobPrototype>?>? OnAlternativeSelected;
 
@@ -30,7 +43,8 @@ public sealed partial class AlternativeJobSelector : LoadoutRoleSelector
         ProtoId<JobPrototype> parentJobId,
         SpriteSystem spriteSystem,
         JobRequirementsManager requirements,
-        HumanoidCharacterProfile? profile)
+        HumanoidCharacterProfile? profile,
+        bool alwaysVisible = false)
     {
         IoCManager.InjectDependencies(this);
         _spriteSystem = spriteSystem;
@@ -65,7 +79,7 @@ public sealed partial class AlternativeJobSelector : LoadoutRoleSelector
             _addingRequirement = null;
         }
 
-        Visible = _alternatives.Count > 0;
+        Visible = alwaysVisible || _alternatives.Count > 0;
         OnItemSelected += args =>
         {
             SelectId(args.Id);
@@ -108,5 +122,27 @@ public sealed partial class AlternativeJobSelector : LoadoutRoleSelector
         var tooltip = new Tooltip();
         tooltip.SetMessage(_addingRequirement);
         button.TooltipSupplier = _ => tooltip;
+    }
+
+    protected override void DrawModeChanged()
+    {
+        base.DrawModeChanged();
+        UpdateJobCardStyle();
+    }
+
+    private void UpdateJobCardStyle()
+    {
+        if (!_jobCardStyle)
+            return;
+
+        StyleBoxOverride = JobCardStyles.Button(DrawMode, _jobCardLocked, false);
+    }
+
+    protected override Vector2 MeasureOverride(Vector2 availableSize)
+    {
+        var measured = base.MeasureOverride(availableSize);
+        return float.IsPositiveInfinity(availableSize.X)
+            ? measured
+            : new Vector2(Math.Min(measured.X, availableSize.X), measured.Y);
     }
 }

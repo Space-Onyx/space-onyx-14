@@ -159,37 +159,60 @@
                         </BoxContainer>
                     </ScrollContainer>
                 </BoxContainer>
-                <BoxContainer Orientation="Vertical">
-                    <!-- Jobs -->
-                    <OptionButton Name="PreferenceUnavailableButton" />
-                    <ScrollContainer VerticalExpand="True">
-                        <BoxContainer Name="JobList" Orientation="Vertical" />
-                    </ScrollContainer>
-                </BoxContainer>
-                <!-- <Onyx-LoadoutPersonalization> -->
-                <BoxContainer Name="LoadoutsTab" Orientation="Vertical" Margin="10">
-                    <BoxContainer Orientation="Horizontal" Margin="0 0 0 6">
-                        <BoxContainer Orientation="Vertical" VerticalAlignment="Center">
-                            <Label Text="{Loc 'loadout-role-selector'}" StyleClasses="font-small" />
-                            <Label Text="{Loc 'loadout-role-selector-hint'}" StyleClasses="font-small" Modulate="#A6B3CC" /> <!-- <Onyx-LoadoutPersonalization> -->
+                <!-- <Onyx-RolesPersonalization-edited> -->
+                <BoxContainer Name="RolesTab" Orientation="Vertical" Margin="10" VerticalExpand="True">
+                    <TabContainer Name="RolesTabContainer" HorizontalExpand="True" VerticalExpand="True">
+                        <BoxContainer Orientation="Vertical" Margin="8" VerticalExpand="True">
+                            <ui:HighlightedContainer>
+                                <BoxContainer Orientation="Vertical">
+                                    <Label Text="{Loc 'humanoid-profile-editor-jobs-tab'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" />
+                                    <PanelContainer StyleClasses="LowDivider" Margin="0 4" />
+                                    <OptionButton Name="PreferenceUnavailableButton" HorizontalExpand="True" />
+                                    <BoxContainer Orientation="Horizontal" SeparationOverride="6" Margin="0 6 0 0">
+                                        <LineEdit Name="JobSearchBar" HorizontalExpand="True" PlaceHolder="{Loc 'job-personalization-search-placeholder'}" />
+                                        <Button Name="JobSearchClear" Text="×" MinWidth="34" ToolTip="{Loc 'job-personalization-clear-search'}" />
+                                        <OptionButton Name="JobDepartmentFilter" MinWidth="180" />
+                                        <Button Name="SelectedJobsToggle" Text="{Loc 'job-personalization-show-selected'}" MinWidth="150" ToggleMode="True" />
+                                    </BoxContainer>
+                                </BoxContainer>
+                            </ui:HighlightedContainer>
+                            <cc:HSeparator StyleClasses="HighDivider" Margin="0 6 0 2" /> <!-- <Onyx-RolesPersonalization> -->
+                            <ScrollContainer Margin="0 6 0 0" VerticalExpand="True">
+                                <BoxContainer Name="JobList" Orientation="Vertical" HorizontalExpand="True" /> <!-- <Onyx-RolesPersonalization-edited> -->
+                            </ScrollContainer>
                         </BoxContainer>
-                        <Control HorizontalExpand="True" />
-                        <onyxLoadouts:LoadoutRoleSelector Name="LoadoutRoleSelector" MinWidth="280" MinHeight="38" Filterable="True" /> <!-- <Onyx-LoadoutPersonalization> -->
-                    </BoxContainer>
-                    <BoxContainer Orientation="Horizontal" Margin="0 0 0 6">
-                        <LineEdit Name="LoadoutSearchBar" HorizontalExpand="True" />
-                        <Button Name="LoadoutSearchClear" Text="X" />
-                        <Button Name="SelectedLoadoutsToggle" MinWidth="132" ToggleMode="True" /> <!-- <Onyx-LoadoutPersonalization> -->
-                    </BoxContainer>
-                    <TabContainer Name="LoadoutSlotTabs" HorizontalExpand="True" VerticalExpand="True" />
+                        <BoxContainer Orientation="Vertical" Margin="8" VerticalExpand="True">
+                            <ui:HighlightedContainer>
+                                <BoxContainer Orientation="Vertical">
+                                    <Label Text="{Loc 'humanoid-profile-editor-antags-tab'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" />
+                                    <PanelContainer StyleClasses="LowDivider" Margin="0 4" />
+                                </BoxContainer>
+                            </ui:HighlightedContainer>
+                            <ScrollContainer Margin="0 8 0 0" VerticalExpand="True">
+                                <BoxContainer Name="AntagList" Orientation="Vertical" />
+                            </ScrollContainer>
+                        </BoxContainer>
+                        <!-- <Onyx-LoadoutPersonalization> -->
+                        <BoxContainer Name="LoadoutsTab" Orientation="Vertical" Margin="10">
+                            <BoxContainer Orientation="Horizontal" Margin="0 0 0 6">
+                                <BoxContainer Orientation="Vertical" VerticalAlignment="Center">
+                                    <Label Text="{Loc 'loadout-role-selector'}" StyleClasses="font-small" />
+                                    <Label Text="{Loc 'loadout-role-selector-hint'}" StyleClasses="font-small" Modulate="#A6B3CC" /> <!-- <Onyx-LoadoutPersonalization> -->
+                                </BoxContainer>
+                                <Control HorizontalExpand="True" />
+                                <onyxLoadouts:LoadoutRoleSelector Name="LoadoutRoleSelector" MinWidth="280" MinHeight="38" Filterable="True" /> <!-- <Onyx-LoadoutPersonalization> -->
+                            </BoxContainer>
+                            <BoxContainer Orientation="Horizontal" Margin="0 0 0 6">
+                                <LineEdit Name="LoadoutSearchBar" HorizontalExpand="True" />
+                                <Button Name="LoadoutSearchClear" Text="X" />
+                                <Button Name="SelectedLoadoutsToggle" MinWidth="132" ToggleMode="True" /> <!-- <Onyx-LoadoutPersonalization> -->
+                            </BoxContainer>
+                            <TabContainer Name="LoadoutSlotTabs" HorizontalExpand="True" VerticalExpand="True" />
+                        </BoxContainer>
+                        <!-- </Onyx-LoadoutPersonalization> -->
+                    </TabContainer>
                 </BoxContainer>
-                <!-- </Onyx-LoadoutPersonalization> -->
-                <BoxContainer Orientation="Vertical" Margin="10">
-                    <!-- Antags -->
-                    <ScrollContainer VerticalExpand="True">
-                        <BoxContainer Name="AntagList" Orientation="Vertical" />
-                    </ScrollContainer>
-                </BoxContainer>
+                <!-- </Onyx-RolesPersonalization-edited> -->
                 <BoxContainer Orientation="Vertical" Margin="10">
                     <!-- Traits -->
                     <ScrollContainer VerticalExpand="True">

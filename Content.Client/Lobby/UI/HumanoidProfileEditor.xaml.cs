@@ -285,8 +285,12 @@ namespace Content.Client.Lobby.UI
 
             #region Jobs
 
-            TabContainer.SetTabTitle(1, Loc.GetString("humanoid-profile-editor-jobs-tab"));
-            TabContainer.SetTabTitle(2, Loc.GetString("loadout-window")); // <Onyx-LoadoutPersonalization>
+            // <Onyx-RolesPersonalization-edited>
+            TabContainer.SetTabTitle(1, Loc.GetString("humanoid-profile-editor-roles-tab"));
+            RolesTabContainer.SetTabTitle(0, Loc.GetString("humanoid-profile-editor-jobs-tab"));
+            RolesTabContainer.SetTabTitle(1, Loc.GetString("humanoid-profile-editor-antags-tab"));
+            RolesTabContainer.SetTabTitle(2, Loc.GetString("loadout-window"));
+            // </Onyx-RolesPersonalization-edited>
 
             PreferenceUnavailableButton.AddItem(
                 Loc.GetString("humanoid-profile-editor-preference-unavailable-stay-in-lobby-button"),
@@ -304,22 +308,21 @@ namespace Content.Client.Lobby.UI
             };
 
             _jobCategories = new Dictionary<string, BoxContainer>();
+            InitializeJobFilters(); // <Onyx-RolesPersonalization>
 
             RefreshAntags();
             RefreshJobs();
 
             #endregion Jobs
 
-            TabContainer.SetTabTitle(3, Loc.GetString("humanoid-profile-editor-antags-tab")); // <Onyx-LoadoutPersonalization-edited>
-
             RefreshTraits();
 
-            TabContainer.SetTabTitle(4, Loc.GetString("humanoid-profile-editor-traits-tab")); // <Onyx-LoadoutPersonalization-edited>
+            TabContainer.SetTabTitle(2, Loc.GetString("humanoid-profile-editor-traits-tab")); // <Onyx-RolesPersonalization-edited>
 
             #region Markings
 
-            TabContainer.SetTabTitle(5, Loc.GetString("humanoid-profile-editor-markings-tab")); // <Onyx-LoadoutPersonalization-edited>
-            TabContainer.SetTabTitle(6, Loc.GetString("cybernetics-personalization-tab")); // <Onyx-CyberneticsPersonalization>
+            TabContainer.SetTabTitle(3, Loc.GetString("humanoid-profile-editor-markings-tab")); // <Onyx-RolesPersonalization-edited>
+            TabContainer.SetTabTitle(4, Loc.GetString("cybernetics-personalization-tab")); // <Onyx-RolesPersonalization-edited>
             InitializeCybernetics(); // <Onyx-CyberneticsPersonalization>
 
             _markingsModel.MarkingsChanged += (_, _) => OnMarkingChange();

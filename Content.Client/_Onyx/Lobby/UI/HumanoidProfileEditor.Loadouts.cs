@@ -46,6 +46,7 @@ public sealed partial class HumanoidProfileEditor
             RefreshLoadoutPersonalization();
         };
         TabContainer.OnTabChanged += _ => UpdateLoadoutPreview();
+        RolesTabContainer.OnTabChanged += _ => UpdateLoadoutPreview();
         LoadoutRoleSelector.StyleBoxOverride = new StyleBoxFlat
         {
             BackgroundColor = Color.FromHex("#182535"),
@@ -64,7 +65,9 @@ public sealed partial class HumanoidProfileEditor
 
     private void UpdateLoadoutPreview()
     {
-        var job = TabContainer.CurrentTab == 2 && _selectedLoadoutRole != null
+        var job = TabContainer.CurrentTab == RolesTab.GetPositionInParent() &&
+                  RolesTabContainer.CurrentTab == LoadoutsTab.GetPositionInParent() &&
+                  _selectedLoadoutRole != null
             ? _loadoutRoleJobs.ElementAtOrDefault(_loadoutRoles.IndexOf(_selectedLoadoutRole.Value))
             : null;
 

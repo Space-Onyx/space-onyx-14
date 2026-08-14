@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client.Stylesheets;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface.Controls;
 
@@ -13,6 +14,7 @@ public class LoadoutRoleSelector : OptionButton
 
     public LoadoutRoleSelector()
     {
+        AddStyleClass(StyleClass.ButtonSquare);
         Prefix = IconPadding;
         PrefixMargin = false;
         _selectedIcon = new TextureRect
@@ -32,6 +34,12 @@ public class LoadoutRoleSelector : OptionButton
         _selectedIcon.Texture = icon;
     }
 
+    public void SetSelectedIconVisible(bool visible)
+    {
+        _selectedIcon.Visible = visible;
+        Prefix = visible ? IconPadding : string.Empty;
+    }
+
     public void AddJob(string name, Texture icon, int id)
     {
         _addingIcon = icon;
@@ -42,6 +50,7 @@ public class LoadoutRoleSelector : OptionButton
     public override void ButtonOverride(Button button)
     {
         base.ButtonOverride(button);
+        button.AddStyleClass(StyleClass.ButtonSquare);
         button.Text = IconPadding + button.Text;
         button.AddChild(new TextureRect
         {
