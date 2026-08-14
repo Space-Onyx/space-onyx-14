@@ -192,9 +192,11 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
 
     private void UpdateActiveTab(string discipline)
     {
+        if (_disciplineControls.TryGetValue(discipline, out var selected))
+            selected.Tab.Pressed = true;
+
         foreach (var (id, (tab, _)) in _disciplineControls)
         {
-            tab.Pressed = id == discipline;
             tab.Disabled = _searchText.Length > 0 && (!_technologiesByDiscipline.TryGetValue(id, out var techs) || techs.All(tech => !_matchIds.Contains(tech.ID)));
         }
 
