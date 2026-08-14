@@ -3,11 +3,6 @@
   jobName: job-alternative-name-mailman
   parentJobId: CargoTechnician
 - type: alternativeJob
-  id: AlternativeJobDungeonMaster
-  jobName: job-alternative-name-dungeon-master
-  jobIconProtoId: JobIconDungeonMaster
-  parentJobId: Librarian
-- type: alternativeJob
   id: AlternativeJobArchivist
   jobName: job-alternative-name-archivist
   parentJobId: Librarian
@@ -85,6 +80,10 @@
   id: AlternativeJobAtmosphericTEGSpecialist
   jobName: job-alternative-name-teg-specialist
   parentJobId: AtmosphericTechnician
+  requirements:
+  - !type:RoleTimeRequirement
+    role: JobAtmosphericTechnician
+    time: 18000 
 - type: alternativeJob
   id: AlternativeJobEngineSpecialist
   jobName: job-alternative-name-engine-specialist
@@ -223,11 +222,6 @@
   id: JobIconAnomalist
   icon: { sprite: /Textures/_Onyx/Interface/Misc/alternative_job_icons.rsi, state: anomalist }
   jobName: job-alternative-name-anomalist
-- type: jobIcon
-  parent: JobIcon
-  id: JobIconDungeonMaster
-  icon: { sprite: /Textures/_Onyx/Interface/Misc/alternative_job_icons.rsi, state: dungeonmaster }
-  jobName: job-alternative-name-dungeon-master
 - type: jobIcon
   parent: JobIcon
   id: JobIconAttorney

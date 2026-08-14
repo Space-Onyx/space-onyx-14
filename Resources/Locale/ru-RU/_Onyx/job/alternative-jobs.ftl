@@ -1,7 +1,6 @@
 alternative-job-notify = Ваша роль теперь называется «{$newJobName}», но вы всё ещё {$parentJobName}. Обязанности не изменились.
 alternative-job-requirement-locked = Альтернативная должность недоступна:
 job-alternative-name-mailman = почтальон
-job-alternative-name-dungeon-master = мастер подземелий
 job-alternative-name-archivist = архивариус
 job-alternative-name-bbq-master = гриль-мастер
 job-alternative-name-baker = пекарь
