@@ -68,6 +68,8 @@
   - type: VisualOrgan
     data:
       state: chest
+  - type: TransplantCompatibility
+    profile: Abductor
 - type: entity
   parent: [ OrganBaseGroin, OrganAbductorExternal ]
   id: OrganAbductorGroin
@@ -77,30 +79,59 @@
   - type: VisualOrgan
     data:
       state: groin
+  - type: TransplantCompatibility
+    profile: Abductor
 - type: entity
   parent: [ OrganBaseHead, OrganAbductorExternal ]
   id: OrganAbductorHead
+  components:
+  - type: TransplantCompatibility
+    profile: Abductor
 - type: entity
   parent: [ OrganAbductorExternal, OrganBaseArmLeft ]
   id: OrganAbductorArmLeft
+  components:
+  - type: TransplantCompatibility
+    profile: Abductor
 - type: entity
   parent: [ OrganAbductorExternal, OrganBaseArmRight ]
   id: OrganAbductorArmRight
+  components:
+  - type: TransplantCompatibility
+    profile: Abductor
 - type: entity
   parent: [ OrganAbductorExternal, OrganBaseHandLeft ]
   id: OrganAbductorHandLeft
+  components:
+  - type: TransplantCompatibility
+    profile: Abductor
 - type: entity
   parent: [ OrganAbductorExternal, OrganBaseHandRight ]
   id: OrganAbductorHandRight
+  components:
+  - type: TransplantCompatibility
+    profile: Abductor
 - type: entity
   parent: [ OrganAbductorExternal, OrganBaseLegLeft ]
   id: OrganAbductorLegLeft
+  components:
+  - type: TransplantCompatibility
+    profile: Abductor
 - type: entity
   parent: [ OrganAbductorExternal, OrganBaseLegRight ]
   id: OrganAbductorLegRight
+  components:
+  - type: TransplantCompatibility
+    profile: Abductor
 - type: entity
   parent: [ OrganAbductorExternal, OrganBaseFootLeft ]
   id: OrganAbductorFootLeft
+  components:
+  - type: TransplantCompatibility
+    profile: Abductor
 - type: entity
   parent: [ OrganAbductorExternal, OrganBaseFootRight ]
   id: OrganAbductorFootRight
+  components:
+  - type: TransplantCompatibility
+    profile: Abductor

@@ -14,6 +14,7 @@
   id: OrganDubiousBase
   parent: [ OrganHumanHeart, BaseMajorContraband ]
   name: mysterious gland
+  suffix: ""
   categories: [ HideSpawnMenu ]
   abstract: true
   description: Suspicious alien gland, replaces the heart.
@@ -23,6 +24,8 @@
     layers:
     - state: gland
   - type: AbductorOrgan
+  - type: TransplantCompatibility
+    profile: Biosynthetic
 
 - type: entity
   id: OrganDubiousHealth

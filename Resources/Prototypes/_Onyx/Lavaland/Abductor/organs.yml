@@ -10,6 +10,8 @@
   - type: Sprite
     sprite: _Onyx/Mobs/Abductor/organs.rsi
     state: brain
+  - type: TransplantCompatibility
+    profile: Abductor
 
 - type: entity
   id: OrganAbductorLungs
@@ -22,6 +24,8 @@
     - state: lung-r
   - type: Lung
     alert: LowNitrogen
+  - type: TransplantCompatibility
+    profile: Abductor
 
 - type: entity
   id: OrganAbductorHeart
@@ -30,3 +34,5 @@
   - type: Sprite
     sprite: _Onyx/Mobs/Abductor/organs.rsi
     state: heart-on
+  - type: TransplantCompatibility
+    profile: Abductor

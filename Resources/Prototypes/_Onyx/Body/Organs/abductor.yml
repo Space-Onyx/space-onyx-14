@@ -27,6 +27,8 @@
   - type: VisualOrganMarkings
     markingData:
       group: Abductor
+  - type: TransplantCompatibility
+    profile: Abductor
 
 - type: entity
   id: OrganAbductorEars
@@ -35,6 +37,8 @@
   - type: Sprite
     sprite: _Onyx/Mobs/Species/Abductor/organs.rsi
     state: ears
+  - type: TransplantCompatibility
+    profile: Abductor
 
 - type: entity
   id: OrganAbductorStomach
@@ -43,6 +47,8 @@
   - type: Sprite
     sprite: _Onyx/Mobs/Species/Abductor/organs.rsi
     state: stomach
+  - type: TransplantCompatibility
+    profile: Abductor
 
 - type: entity
   id: OrganAbductorLiver
@@ -51,6 +57,8 @@
   - type: Sprite
     sprite: _Onyx/Mobs/Species/Abductor/organs.rsi
     state: liver
+  - type: TransplantCompatibility
+    profile: Abductor
 
 - type: entity
   id: OrganAbductorKidneys
@@ -61,11 +69,19 @@
     layers:
       - state: kidney-l
       - state: kidney-r
+  - type: TransplantCompatibility
+    profile: Abductor
 
 - type: entity
   id: OrganAbductorTongue
   parent: [ OrganHumanTongue, OrganAbductorInternal ]
+  components:
+  - type: TransplantCompatibility
+    profile: Abductor
 
 - type: entity
   id: OrganAbductorAppendix
   parent: [ OrganHumanAppendix, OrganAbductorInternal ]
+  components:
+  - type: TransplantCompatibility
+    profile: Abductor
