@@ -11,25 +11,29 @@
     Torso: 200
   amputationThresholds:
     Head:
-      Slash: 70
-      Piercing: 110
-      Blunt: 140
+      Slash: 200
+      Piercing: 200
+      Blunt: 350
+    Groin:
+      Slash: 220
+      Piercing: 250
+      Blunt: 400
     Arm:
-      Slash: 45
-      Piercing: 80
-      Blunt: 100
+      Slash: 130
+      Piercing: 250
+      Blunt: 250
     Hand:
-      Slash: 25
-      Piercing: 45
-      Blunt: 60
+      Slash: 70
+      Piercing: 200
+      Blunt: 150
     Leg:
-      Slash: 55
-      Piercing: 95
-      Blunt: 120
+      Slash: 150
+      Piercing: 250
+      Blunt: 300
     Foot:
-      Slash: 30
-      Piercing: 50
-      Blunt: 70
+      Slash: 80
+      Piercing: 220
+      Blunt: 170
   organDamageChances:
     Head: 0.02
     Torso: 0.015
@@ -62,25 +66,29 @@
     Torso: 200
   amputationThresholds:
     Head:
-      Slash: 150
-      Piercing: 230
-      Blunt: 300
+      Slash: 420
+      Piercing: 360
+      Blunt: 840
+    Groin:
+      Slash: 480
+      Piercing: 450
+      Blunt: 960
     Arm:
-      Slash: 95
-      Piercing: 170
-      Blunt: 210
+      Slash: 270
+      Piercing: 400
+      Blunt: 600
     Hand:
-      Slash: 55
-      Piercing: 95
-      Blunt: 125
+      Slash: 150
+      Piercing: 270
+      Blunt: 360
     Leg:
-      Slash: 115
-      Piercing: 200
-      Blunt: 250
+      Slash: 330
+      Piercing: 470
+      Blunt: 520
     Foot:
-      Slash: 65
-      Piercing: 105
-      Blunt: 150
+      Slash: 180
+      Piercing: 300
+      Blunt: 220
   organDamageChances:
     Head: 0.02
     Torso: 0.015
