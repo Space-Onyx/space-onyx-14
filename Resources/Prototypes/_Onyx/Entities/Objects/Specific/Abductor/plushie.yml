@@ -4,27 +4,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 - type: entity
-  parent: [ClothingBackpack, BaseMajorContraband]
-  id: ClothingBackpackAbductor
-  name: alien backpack
-  description: An ordinary backpack woven from a durable fiber.
-  components:
-  - type: Sprite
-    sprite: _Onyx/Clothing/Abductor/abductor_backpack.rsi
-  - type: ExplosionResistance
-    damageCoefficient: 0.1
-
-- type: entity
-  parent: [UnsensoredClothingUniformBase, BaseMajorContraband]
-  id: ClothingUniformJumpsuitAbductor
-  name: abductor uniform
-  components:
-  - type: Sprite
-    sprite: _Onyx/Clothing/Abductor/abductor_uniform.rsi
-  - type: Clothing
-    sprite: _Onyx/Clothing/Abductor/abductor_uniform.rsi
-
-- type: entity
   parent: BasePlushie
   id: PlushieAbductor
   name: alien plush

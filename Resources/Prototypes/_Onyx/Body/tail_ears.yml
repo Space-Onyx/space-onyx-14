@@ -12,6 +12,9 @@
   - type: GibbableOrgan
   - type: Organ
     category: Wings
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-implant-wings
   - type: Sprite
     noRot: true
     enableOverrideDir: true
@@ -36,6 +39,9 @@
   - type: GibbableOrgan
   - type: Organ
     category: Tail
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-implant-tail
   - type: Sprite
     noRot: true
     enableOverrideDir: true

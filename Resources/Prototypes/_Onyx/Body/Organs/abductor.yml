@@ -85,3 +85,37 @@
   components:
   - type: TransplantCompatibility
     profile: Abductor
+
+- type: entity
+  id: OrganAbductorBrain
+  parent: [ OrganHumanBrain, OrganAbductorInternal ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Abductor/organs.rsi
+    state: brain
+  - type: TransplantCompatibility
+    profile: Abductor
+
+- type: entity
+  id: OrganAbductorLungs
+  parent: [ OrganHumanLungs, OrganAbductorInternal ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Abductor/organs.rsi
+    layers:
+    - state: lung-l
+    - state: lung-r
+  - type: Lung
+    alert: LowNitrogen
+  - type: TransplantCompatibility
+    profile: Abductor
+
+- type: entity
+  id: OrganAbductorHeart
+  parent: [ OrganHumanHeart, OrganAbductorInternal ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Mobs/Abductor/organs.rsi
+    state: heart-on
+  - type: TransplantCompatibility
+    profile: Abductor

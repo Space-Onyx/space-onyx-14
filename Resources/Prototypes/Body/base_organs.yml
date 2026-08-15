@@ -53,6 +53,9 @@
     vital: true
     category: Torso
   # </Onyx-Surgery>
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     state: torso
   - type: VisualOrgan
@@ -86,6 +89,11 @@
     vital: true
     category: Head
   # </Onyx-Surgery>
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-attach-head
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     state: head
   - type: VisualOrgan
@@ -122,6 +130,11 @@
   - type: Tag
     tags: [ SurgeryLeft ]
   # </Onyx-Surgery>
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-attach-left-arm
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     noRot: true # <Onyx-BodyPartNoRot>
     enableOverrideDir: true # <Onyx-BodyPartNoRot>
@@ -153,6 +166,11 @@
   - type: Tag
     tags: [ SurgeryRight ]
   # </Onyx-Surgery>
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-attach-right-arm
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     noRot: true # <Onyx-BodyPartNoRot>
     enableOverrideDir: true # <Onyx-BodyPartNoRot>
@@ -181,6 +199,11 @@
     symmetry: Left
     category: HandLeft
   # </Onyx-Surgery>
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-attach-left-hand
+  # </Onyx-SurgeryToolExamine>
   - type: HandOrgan
     handID: left
     data:
@@ -213,6 +236,11 @@
     symmetry: Right
     category: HandRight
   # </Onyx-Surgery>
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-attach-right-hand
+  # </Onyx-SurgeryToolExamine>
   - type: HandOrgan
     handID: right
     data:
@@ -248,6 +276,11 @@
   - type: Tag
     tags: [ SurgeryLeft ]
   # </Onyx-Surgery>
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-attach-left-leg
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     noRot: true # <Onyx-BodyPartNoRot>
     enableOverrideDir: true # <Onyx-BodyPartNoRot>
@@ -279,6 +312,11 @@
   - type: Tag
     tags: [ SurgeryRight ]
   # </Onyx-Surgery>
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-attach-right-leg
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     noRot: true # <Onyx-BodyPartNoRot>
     enableOverrideDir: true # <Onyx-BodyPartNoRot>
@@ -307,6 +345,11 @@
     symmetry: Left
     category: FootLeft
   # </Onyx-Surgery>
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-attach-left-foot
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     noRot: true # <Onyx-BodyPartNoRot>
     enableOverrideDir: true # <Onyx-BodyPartNoRot>
@@ -335,6 +378,11 @@
     symmetry: Right
     category: FootRight
   # </Onyx-Surgery>
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-attach-right-foot
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     noRot: true # <Onyx-BodyPartNoRot>
     enableOverrideDir: true # <Onyx-BodyPartNoRot>
@@ -360,6 +408,11 @@
   - type: GibbableOrgan
   - type: Organ
     category: Brain
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-implant-brain
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     layers:
     - state: brain
@@ -395,6 +448,11 @@
   - type: GibbableOrgan
   - type: Organ
     category: Eyes
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-implant-eyes
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     layers:
     - state: eyeball-l
@@ -420,6 +478,11 @@
   - type: GibbableOrgan
   - type: Organ
     category: Tongue
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-implant-tongue
+  # </Onyx-SurgeryToolExamine>
   - type: Tongue
   - type: Sprite
     layers:
@@ -436,6 +499,11 @@
   - type: GibbableOrgan
   - type: Organ
     category: Appendix
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-implant-appendix
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     layers:
     - state: appendix
@@ -451,6 +519,11 @@
   - type: GibbableOrgan
   - type: Organ
     category: Ears
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-implant-ears
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     layers:
     - state: ears
@@ -471,6 +544,11 @@
   - type: GibbableOrgan
   - type: Organ
     category: Lungs
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-implant-lungs
+  # </Onyx-SurgeryToolExamine>
   - type: Lung
   - type: Metabolizer
     stages: [ Respiration ]
@@ -506,6 +584,11 @@
   - type: GibbableOrgan
   - type: Organ
     category: Heart
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-implant-heart
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     layers:
     - state: heart-on
@@ -524,6 +607,11 @@
   - type: GibbableOrgan
   - type: Organ
     category: Stomach
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-implant-stomach
+  # </Onyx-SurgeryToolExamine>
   - type: Stomach
   - type: SolutionManager
     solutions:
@@ -558,6 +646,11 @@
   - type: GibbableOrgan
   - type: Organ
     category: Liver
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-implant-liver
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     layers:
     - state: liver
@@ -578,6 +671,11 @@
   - type: GibbableOrgan
   - type: Organ
     category: Kidneys
+  # <Onyx-SurgeryToolExamine>
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-implant-kidneys
+  # </Onyx-SurgeryToolExamine>
   - type: Sprite
     layers:
       - state: kidney-l

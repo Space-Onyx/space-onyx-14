@@ -4,74 +4,9 @@
   categories: [ HideSpawnMenu ]
   name: dwarf appearance
   components:
-  - type: Inventory
-    femaleDisplacements: { } # Necessary due to MobHuman inheritance for MobDwarf
-    displacements:
-      jumpsuit:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      outerClothing:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      suitstorage:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      id:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      mask:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      belt:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      eyes:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      gloves:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      head:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      neck:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      back:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      ears:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      shoes:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
+  # <Onyx-NoDwarfDisplacement>
+  # Dwarfism displacement maps removed: dwarfs render at standard size via the growth/weight system.
+  # </Onyx-NoDwarfDisplacement>
   - type: InitialBody
     organs:
       # <Onyx-ChestGroin-edited>
@@ -97,27 +32,15 @@
       Stomach: OrganDwarfStomach
       Liver: OrganDwarfLiver
       Kidneys: OrganHumanKidneys
-  - type: Hands
-    leftHandDisplacement:
-      sizeMaps:
-        32:
-          sprite: Mobs/Species/Human/displacement.rsi
-          state: dwarfism_hand_left
-    rightHandDisplacement:
-      sizeMaps:
-        32:
-          sprite: Mobs/Species/Human/displacement.rsi
-          state: dwarfism_hand_right
+  # <Onyx-NoDwarfDisplacement>
+  # Dwarf hand displacement removed.
+  # </Onyx-NoDwarfDisplacement>
   - type: HumanoidProfile
     species: Dwarf
 
-- type: displacementData
-  id: Dwarfism
-  displacement:
-    sizeMaps:
-      32:
-        sprite: Mobs/Species/Human/displacement.rsi
-        state: dwarfism
+# <Onyx-NoDwarfDisplacement>
+# Dwarfism displacementData removed.
+# </Onyx-NoDwarfDisplacement>
 
 - type: entity
   parent:
@@ -131,33 +54,22 @@
     speaks: [TauCetiBasic, SolCommon]
     understands: [TauCetiBasic, SolCommon]
   # </Onyx-Languages>
-  - type: Fixtures
-    fixtures: # TODO: This needs a second fixture just for mob collisions.
-      fix1:
-        shape:
-          !type:PhysShapeCircle
-          radius: 0.35
-        # they r smaller
-        density: 120
-        restitution: 0.0
-        mask:
-        - MobMask
-        layer:
-        - MobLayer
+  # <Onyx-NoDwarfDisplacement>
+  # Dwarf fixture size override removed: standard collision size.
+  # </Onyx-NoDwarfDisplacement>
   - type: Vocal
     emoteSounds: UnisexDwarf
   - type: ReplacementAccent
     accent: scottish
   - type: Speech
     speechSounds: Bass
+  # <Onyx-NoDwarfDisplacement>
+  # Dwarfism overlays displacement removed.
+  # </Onyx-NoDwarfDisplacement>
   - type: CreamPied
-    displacement: Dwarfism
   - type: Damageable
-    displacement: Dwarfism
   - type: Flammable
-    displacement: Dwarfism
   - type: InnerBodyAnomalyVisuals
-    displacement: Dwarfism
 
 - type: entity
   parent: OrganBaseOrganic
@@ -174,7 +86,9 @@
   - type: VisualOrgan
     data:
       sprite: Mobs/Species/Human/parts.rsi
-    displacement: Dwarfism
+  # <Onyx-NoDwarfDisplacement>
+  # Dwarfism organ displacement removed.
+  # </Onyx-NoDwarfDisplacement>
 
 - type: entity
   parent: OrganDwarf
@@ -188,195 +102,80 @@
 - type: entity
   parent: [ OrganHumanChest, OrganDwarfAppearance ]
   id: OrganDwarfChest
-  components:
-  - type: VisualOrganMarkings
-    markingsDisplacement:
-      Chest:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      Tail:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      Overlay:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      UndergarmentTop:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      Special:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
+  # <Onyx-NoDwarfDisplacement-edited>
+  # Dwarfism chest markings displacement removed.
+  # </Onyx-NoDwarfDisplacement-edited>
 
 - type: entity
   parent: [ OrganHumanGroin, OrganDwarfAppearance ]
   id: OrganDwarfGroin
-  components:
-  - type: VisualOrganMarkings
-    markingsDisplacement:
-      Tail:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      TailOverlay:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      UndergarmentBottom:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
+  # <Onyx-NoDwarfDisplacement-edited>
+  # Dwarfism groin markings displacement removed.
+  # </Onyx-NoDwarfDisplacement-edited>
 # </Onyx-ChestGroin-edited>
 
 - type: entity
   parent: [ OrganHumanHead, OrganDwarfAppearance ]
   id: OrganDwarfHead
-  components:
-  - type: VisualOrganMarkings
-    markingsDisplacement:
-      Head:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      Hair:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      FacialHair:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      Snout:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      SnoutCover:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      HeadSide:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
-      HeadTop:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
+  # <Onyx-NoDwarfDisplacement-edited>
+  # Dwarfism head markings displacement removed.
+  # </Onyx-NoDwarfDisplacement-edited>
 
 - type: entity
   parent: [ OrganHumanArmLeft, OrganDwarfAppearance ]
   id: OrganDwarfArmLeft
-  components:
-  - type: VisualOrganMarkings
-    markingsDisplacement:
-      LArm:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
+  # <Onyx-NoDwarfDisplacement-edited>
+  # Dwarfism left arm markings displacement removed.
+  # </Onyx-NoDwarfDisplacement-edited>
 
 - type: entity
   parent: [ OrganHumanArmRight, OrganDwarfAppearance ]
   id: OrganDwarfArmRight
-  components:
-  - type: VisualOrganMarkings
-    markingsDisplacement:
-      RArm:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
+  # <Onyx-NoDwarfDisplacement-edited>
+  # Dwarfism right arm markings displacement removed.
+  # </Onyx-NoDwarfDisplacement-edited>
 
 - type: entity
   parent: [ OrganHumanHandRight, OrganDwarfAppearance ]
   id: OrganDwarfHandRight
-  components:
-  - type: VisualOrganMarkings
-    markingsDisplacement:
-      RHand:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
+  # <Onyx-NoDwarfDisplacement-edited>
+  # Dwarfism right hand markings displacement removed.
+  # </Onyx-NoDwarfDisplacement-edited>
 
 - type: entity
   parent: [ OrganHumanHandLeft, OrganDwarfAppearance ]
   id: OrganDwarfHandLeft
-  components:
-  - type: VisualOrganMarkings
-    markingsDisplacement:
-      LHand:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
+  # <Onyx-NoDwarfDisplacement-edited>
+  # Dwarfism left hand markings displacement removed.
+  # </Onyx-NoDwarfDisplacement-edited>
 
 - type: entity
   parent: [ OrganHumanLegLeft, OrganDwarfAppearance ]
   id: OrganDwarfLegLeft
-  components:
-  - type: VisualOrganMarkings
-    markingsDisplacement:
-      LLeg:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
+  # <Onyx-NoDwarfDisplacement-edited>
+  # Dwarfism left leg markings displacement removed.
+  # </Onyx-NoDwarfDisplacement-edited>
 
 - type: entity
   parent: [ OrganHumanLegRight, OrganDwarfAppearance ]
   id: OrganDwarfLegRight
-  components:
-  - type: VisualOrganMarkings
-    markingsDisplacement:
-      RLeg:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
+  # <Onyx-NoDwarfDisplacement-edited>
+  # Dwarfism right leg markings displacement removed.
+  # </Onyx-NoDwarfDisplacement-edited>
 
 - type: entity
   parent: [ OrganHumanFootLeft, OrganDwarfAppearance ]
   id: OrganDwarfFootLeft
-  components:
-  - type: VisualOrganMarkings
-    markingsDisplacement:
-      LFoot:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
+  # <Onyx-NoDwarfDisplacement-edited>
+  # Dwarfism left foot markings displacement removed.
+  # </Onyx-NoDwarfDisplacement-edited>
 
 - type: entity
   parent: [ OrganHumanFootRight, OrganDwarfAppearance ]
   id: OrganDwarfFootRight
-  components:
-  - type: VisualOrganMarkings
-    markingsDisplacement:
-      RFoot:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
+  # <Onyx-NoDwarfDisplacement-edited>
+  # Dwarfism right foot markings displacement removed.
+  # </Onyx-NoDwarfDisplacement-edited>
 
 - type: entity
   parent: [ OrganHumanEyes, OrganDwarfAppearance ]
@@ -385,14 +184,9 @@
   - type: VisualOrgan
     data:
       sprite: Mobs/Customization/eyes.rsi
-    displacement: Dwarfism
-  - type: VisualOrganMarkings
-    markingsDisplacement:
-      Eyes:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Human/displacement.rsi
-            state: dwarfism
+  # <Onyx-NoDwarfDisplacement-edited>
+  # Dwarfism eyes displacement removed.
+  # </Onyx-NoDwarfDisplacement-edited>
 
 - type: entity
   parent: [ OrganDwarfMetabolizer, OrganHumanStomach ]

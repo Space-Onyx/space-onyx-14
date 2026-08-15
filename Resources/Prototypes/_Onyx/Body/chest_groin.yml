@@ -13,6 +13,7 @@
   - type: BodyPart
     partType: Chest
     category: Chest
+  - type: SurgeryTool
   - type: Sprite
     state: chest_m
   - type: VisualOrgan
@@ -35,6 +36,9 @@
   - type: BodyPart
     partType: Groin
     category: Groin
+  - type: SurgeryTool
+    customUses:
+    - surgery-tool-use-attach-groin
   - type: Sprite
     state: groin_m
   - type: VisualOrgan

@@ -193,12 +193,12 @@ namespace Content.Client.Lobby.UI
             HeightEdit.OnTextChanged += args =>
             {
                 if (!_updatingDimensionControls && int.TryParse(args.Text, out var value))
-                    SetHeightCm(value);
+                    SetHeightCm(value, updateText: false);
             };
             WidthEdit.OnTextChanged += args =>
             {
                 if (!_updatingDimensionControls && int.TryParse(args.Text, out var value))
-                    SetWidthKg(value);
+                    SetWidthKg(value, updateText: false);
             };
             HeightSlider.OnValueChanged += _ => SetHeightSlider();
             WidthSlider.OnValueChanged += _ => SetWidthSlider();

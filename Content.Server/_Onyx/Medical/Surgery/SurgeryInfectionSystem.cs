@@ -18,8 +18,6 @@ public sealed partial class SurgeryInfectionSystem : EntitySystem
     private static readonly TimeSpan InfectionAttemptCooldown = TimeSpan.FromSeconds(30);
 
     private const float BaseInfectionChance = 0.65f;
-    private const float GenericMaskMultiplier = 0.6f;
-    private const float GenericGlovesMultiplier = 0.5f;
     private const float MinimumComplexity = 12f;
     private const float MaximumComplexity = 24f;
 
@@ -33,40 +31,19 @@ public sealed partial class SurgeryInfectionSystem : EntitySystem
     public void OnStep(ref SurgeryStepEvent args)
     {
         var chance = BaseInfectionChance;
-        var sterileCap = false;
-        var sterileMask = false;
-        var sterileGloves = false;
+        var sterile = false;
 
-        if (_inventory.TryGetSlotEntity(args.User, "head", out var head) &&
-            TryComp<SurgeryInfectionProtectionComponent>(head, out var headProtection))
+        var slots = _inventory.GetSlotEnumerator(args.User);
+        while (slots.NextItem(out var item, out _))
         {
-            chance *= headProtection.ChanceMultiplier;
-            sterileCap = true;
+            if (!TryComp<SurgeryInfectionProtectionComponent>(item, out var protection))
+                continue;
+
+            chance *= protection.ChanceMultiplier;
+            sterile = true;
         }
 
-        if (_inventory.TryGetSlotEntity(args.User, "mask", out var mask))
-        {
-            if (TryComp<SurgeryInfectionProtectionComponent>(mask, out var protection))
-            {
-                chance *= protection.ChanceMultiplier;
-                sterileMask = true;
-            }
-            else
-                chance *= GenericMaskMultiplier;
-        }
-
-        if (_inventory.TryGetSlotEntity(args.User, "gloves", out var gloves))
-        {
-            if (TryComp<SurgeryInfectionProtectionComponent>(gloves, out var protection))
-            {
-                chance *= protection.ChanceMultiplier;
-                sterileGloves = true;
-            }
-            else
-                chance *= GenericGlovesMultiplier;
-        }
-
-        if (!sterileCap || !sterileMask || !sterileGloves)
+        if (!sterile)
             _damage.TryChangeDamage(args.Body,
                 new DamageSpecifier(_prototypes.Index(Poison), 1),
                 true,

@@ -62,7 +62,7 @@ public sealed partial class HumanoidProfileEditor
     }
 
     // <Onyx-HeightWidth>
-    private void UpdateDimensionControls()
+    private void UpdateDimensionControls(bool updateText = true)
     {
         if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
             return;
@@ -75,8 +75,11 @@ public sealed partial class HumanoidProfileEditor
         _updatingDimensionControls = true;
         HeightSlider.Value = ToSlider(species.HeightScaleToCm(height), species.MinHeightCm, species.MaxHeightCm);
         WidthSlider.Value = ToSlider(species.WidthScaleToKg(width), species.MinWeightKg, species.MaxWeightKg);
-        HeightEdit.Text = MathF.Round(species.HeightScaleToCm(height)).ToString("0");
-        WidthEdit.Text = MathF.Round(species.WidthScaleToKg(width)).ToString("0");
+        if (updateText)
+        {
+            HeightEdit.Text = MathF.Round(species.HeightScaleToCm(height)).ToString("0");
+            WidthEdit.Text = MathF.Round(species.WidthScaleToKg(width)).ToString("0");
+        }
         UpdateCalculatedWeightLabel(species);
         _updatingDimensionControls = false;
     }
@@ -102,25 +105,25 @@ public sealed partial class HumanoidProfileEditor
         SetWidthKg((int)MathF.Round(MathHelper.Lerp(species.MinWeightKg, species.MaxWeightKg, WidthSlider.Value)));
     }
 
-    private void SetHeightCm(int value)
+    private void SetHeightCm(int value, bool updateText = true)
     {
         if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
             return;
 
         value = Math.Clamp(value, Math.Min(species.MinHeightCm, species.MaxHeightCm), Math.Max(species.MinHeightCm, species.MaxHeightCm));
         Profile = Profile.WithHeight(species.ClampHeight(species.HeightCmToScale(value)));
-        UpdateDimensionControls();
+        UpdateDimensionControls(updateText);
         ReloadProfilePreview();
     }
 
-    private void SetWidthKg(int value)
+    private void SetWidthKg(int value, bool updateText = true)
     {
         if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
             return;
 
         value = Math.Clamp(value, Math.Min(species.MinWeightKg, species.MaxWeightKg), Math.Max(species.MinWeightKg, species.MaxWeightKg));
         Profile = Profile.WithWidth(species.ClampWidth(species.WeightKgToScale(value)));
-        UpdateDimensionControls();
+        UpdateDimensionControls(updateText);
         ReloadProfilePreview();
     }
 
