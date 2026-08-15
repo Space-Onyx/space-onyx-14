@@ -54,3 +54,4 @@
     antagPrototype: AbductorVictimAntag
     subtype: role-subtype-abductor-victim
   - type: AbductorVictim
+  - type: AbductorVictimRole
