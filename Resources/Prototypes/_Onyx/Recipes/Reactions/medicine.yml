@@ -125,3 +125,17 @@
       catalyst: true
   products:
     Oxycodone: 1
+
+- type: reaction
+  id: Oxandrolone
+  reactants:
+    SodiumCarbonate:
+      amount: 1
+    Dermaline:
+      amount: 1
+    Phenol:
+      amount: 1
+    Leporazine:
+      amount: 1
+  products:
+    Oxandrolone: 4

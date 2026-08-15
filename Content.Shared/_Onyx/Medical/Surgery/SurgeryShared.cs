@@ -77,7 +77,7 @@ public sealed partial class SurgeryDoAfterEvent : SimpleDoAfterEvent
     }
 }
 
-public enum StepInvalidReason { None, OutOfRange, NeedsOperatingTable, Clothing, MissingTool, IncompatibleTransplant }
+public enum StepInvalidReason { None, OutOfRange, NeedsOperatingTable, Clothing, MissingTool, IncompatibleTransplant, AmputationConsequence }
 
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(SharedSurgerySystem))]

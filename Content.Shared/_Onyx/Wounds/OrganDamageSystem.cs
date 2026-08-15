@@ -17,8 +17,8 @@ public sealed partial class OrganDamageSystem : EntitySystem
     [Dependency] private INetManager _net = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private WoundFractureSystem _fractures = default!;
-    [Dependency] private AmputationSystem _amputation = default!;
     [Dependency] private WoundSystem _wounds = default!;
+    [Dependency] private AmputationSystem _amputation = default!;
 
     public override void Initialize()
     {

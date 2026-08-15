@@ -717,6 +717,17 @@
 
 - type: entity
   parent: SurgeryBase
+  id: SurgeryHealAmputationConsequence
+  name: Repair amputation damage
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps: [ SurgeryStepHealAmputationConsequence ]
+  - type: SurgeryHasWoundCondition
+    woundPrototype: AmputationConsequenceWound
+
+- type: entity
+  parent: SurgeryBase
   id: SurgeryMendFracture
   name: Mend fracture
   components:

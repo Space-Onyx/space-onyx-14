@@ -56,6 +56,13 @@ public sealed partial class WoundDamageProjectionSystem : EntitySystem
                         _pain.SetPain((part, pain), FixedPoint2.Zero);
                         _pain.ClearPainSuppression((part, pain));
                     }
+
+                    if (TryComp(part, out WoundableComponent? woundable) &&
+                        woundable.AmputationOverflow != FixedPoint2.Zero)
+                    {
+                        woundable.AmputationOverflow = FixedPoint2.Zero;
+                        Dirty(part, woundable);
+                    }
                 }
 
             if (TryComp(body, out PainComponent? bodyPain))

@@ -21,6 +21,7 @@ using Content.Shared.Item.ItemToggle;
 using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.MedicalScanner;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems; // <Onyx-VitalDamage>
 using Content.Shared.Popups;
 using Content.Shared.PowerCell;
 using Content.Shared.Temperature.Components;
@@ -45,12 +46,13 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
     [Dependency] private TransformSystem _transformSystem = default!;
     [Dependency] private SharedPopupSystem _popupSystem = default!;
     [Dependency] private BloodstreamSystem _bloodstreamSystem = default!;
-    // <Onyx-HealthAnalyzer-StatusDoll>
+// <Onyx-HealthAnalyzer-StatusDoll>
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private WoundSystem _wounds = default!;
     [Dependency] private PainSystem _pain = default!; // <Onyx-HealthAnalyzerPain>
     // </Onyx-HealthAnalyzer-StatusDoll>
+    [Dependency] private MobThresholdSystem _mobThreshold = default!; // <Onyx-VitalDamage>
 
     public override void Initialize()
     {
@@ -260,8 +262,17 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
             bleeding = bloodstream.BleedAmount > 0;
         }
 
-        if (TryComp<UnrevivableComponent>(entity, out var unrevivableComp) && unrevivableComp.Analyzable)
+if (TryComp<UnrevivableComponent>(entity, out var unrevivableComp) && unrevivableComp.Analyzable)
             unrevivable = true;
+
+        // <Onyx-VitalDamage>
+        FixedPoint2? vitalDamage = null;
+        if (HasComp<WoundHostComponent>(entity))
+        {
+            var damageable = Comp<DamageableComponent>(entity);
+            vitalDamage = _mobThreshold.CheckVitalDamage(entity, damageable);
+        }
+        // </Onyx-VitalDamage>
 
         return new HealthAnalyzerUiState(
             GetNetEntity(entity),
@@ -273,6 +284,9 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
             // <Onyx-HealthAnalyzer-StatusDoll>
             BuildPartDamage(entity),
             BuildWoundDiagnostics(entity),
+            // <Onyx-VitalDamage>
+            vitalDamage,
+            // </Onyx-VitalDamage>
             // <Onyx-HealthAnalyzerOrgans-edited>
             BuildOrganInfo(entity),
             // </Onyx-HealthAnalyzerOrgans-edited>

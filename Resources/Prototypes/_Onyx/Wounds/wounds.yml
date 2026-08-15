@@ -7,31 +7,29 @@
     Hand: OrganicFractureProfile
     Leg: OrganicFractureProfile
     Foot: OrganicFractureProfile
+  damageCaps:
+    Torso: 200
   amputationThresholds:
     Head:
-      Slash: 200
-      Piercing: 500
-      Blunt: 350
-    Groin:
-      Slash: 220
-      Piercing: 550
-      Blunt: 400
-    Arm:
-      Slash: 130
-      Piercing: 350
-      Blunt: 250
-    Hand:
       Slash: 70
-      Piercing: 200
-      Blunt: 150
+      Piercing: 110
+      Blunt: 140
+    Arm:
+      Slash: 45
+      Piercing: 80
+      Blunt: 100
+    Hand:
+      Slash: 25
+      Piercing: 45
+      Blunt: 60
     Leg:
-      Slash: 150
-      Piercing: 400
-      Blunt: 300
+      Slash: 55
+      Piercing: 95
+      Blunt: 120
     Foot:
-      Slash: 80
-      Piercing: 220
-      Blunt: 170
+      Slash: 30
+      Piercing: 50
+      Blunt: 70
   organDamageChances:
     Head: 0.02
     Torso: 0.015
@@ -60,31 +58,29 @@
 
 - type: woundableProfile
   id: IpcWoundableProfile
+  damageCaps:
+    Torso: 200
   amputationThresholds:
     Head:
-      Slash: 420
-      Piercing: 660
-      Blunt: 840
-    Groin:
-      Slash: 480
-      Piercing: 750
-      Blunt: 960
-    Arm:
-      Slash: 270
-      Piercing: 480
-      Blunt: 600
-    Hand:
       Slash: 150
-      Piercing: 270
-      Blunt: 360
+      Piercing: 230
+      Blunt: 300
+    Arm:
+      Slash: 95
+      Piercing: 170
+      Blunt: 210
+    Hand:
+      Slash: 55
+      Piercing: 95
+      Blunt: 125
     Leg:
-      Slash: 330
-      Piercing: 570
-      Blunt: 720
+      Slash: 115
+      Piercing: 200
+      Blunt: 250
     Foot:
-      Slash: 180
-      Piercing: 300
-      Blunt: 420
+      Slash: 65
+      Piercing: 105
+      Blunt: 150
   organDamageChances:
     Head: 0.02
     Torso: 0.015
@@ -113,31 +109,29 @@
 
 - type: woundableProfile
   id: SlimeWoundableProfile
+  damageCaps:
+    Torso: 200
   amputationThresholds:
     Head:
-      Slash: 200
-      Piercing: 500
-      Blunt: 350
-    Groin:
-      Slash: 220
-      Piercing: 550
-      Blunt: 400
-    Arm:
-      Slash: 130
-      Piercing: 350
-      Blunt: 250
-    Hand:
       Slash: 70
-      Piercing: 200
-      Blunt: 150
+      Piercing: 110
+      Blunt: 140
+    Arm:
+      Slash: 45
+      Piercing: 80
+      Blunt: 100
+    Hand:
+      Slash: 25
+      Piercing: 45
+      Blunt: 60
     Leg:
-      Slash: 150
-      Piercing: 400
-      Blunt: 300
+      Slash: 55
+      Piercing: 95
+      Blunt: 120
     Foot:
-      Slash: 80
-      Piercing: 220
-      Blunt: 170
+      Slash: 30
+      Piercing: 50
+      Blunt: 70
   organDamageChances:
     Head: 0.02
     Torso: 0.015
@@ -206,6 +200,12 @@
   bleedingChance: 1
   awakeBleedingMultiplier: 1.5
   automaticClottingTimeMultiplier: 4
+
+- type: wound
+  id: AmputationConsequenceWound
+  damageTypes: []
+  mergeMode: SeparateInstances
+  maximumSeverity: 200
 
 - type: wound
   id: MedicalScarWound

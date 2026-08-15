@@ -12,6 +12,7 @@ using Content.Shared.Light.Components;
 using Content.Shared.Medical;
 using Content.Shared._Onyx.Targeting;
 using Robust.Shared.Network;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
 namespace Content.Shared._Onyx.Wounds;
@@ -26,6 +27,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private TargetResolverSystem _targetResolver = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
 
     private readonly HashSet<EntityUid> _routing = new();
     private readonly Dictionary<EntityUid, EntityUid> _requestedParts = new();
@@ -418,6 +420,19 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                 return;
             }
 
+            var overflow = AccumulateAmputationOverflow(target, partComponent.PartType, ref localized);
+            if (!overflow.Empty)
+            {
+                var overflowed = new PartDamageOverflowedEvent(body, target, overflow);
+                RaiseLocalEvent(target, ref overflowed);
+            }
+
+            if (localized.Empty || !_body.BodyHasChild(body, target))
+            {
+                _projection.RefreshBodyDamage(body);
+                return;
+            }
+
             if (_damage.TryChangeDamage(target,
                     localized,
                     out var appliedDamage,
@@ -434,6 +449,64 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         }
 
         _projection.RefreshBodyDamage(body);
+    }
+
+    private DamageSpecifier AccumulateAmputationOverflow(EntityUid part, BodyPartType partType, ref DamageSpecifier damage)
+    {
+        var overflow = new DamageSpecifier();
+        if (!TryComp(part, out WoundableComponent? woundable) ||
+            !_prototypes.TryIndex(woundable.Profile, out var profile) ||
+            !profile.DamageCaps.TryGetValue(partType, out var cap) ||
+            cap <= FixedPoint2.Zero ||
+            !TryComp(part, out DamageableComponent? damageable))
+            return overflow;
+
+        var current = _damage.GetPositiveDamage((part, damageable)).GetTotal();
+        var remaining = cap - current;
+
+        if (remaining > FixedPoint2.Zero && woundable.AmputationOverflow != FixedPoint2.Zero)
+        {
+            woundable.AmputationOverflow = FixedPoint2.Zero;
+            Dirty(part, woundable);
+        }
+
+        if (remaining <= FixedPoint2.Zero)
+        {
+            foreach (var (type, amount) in damage.DamageDict.ToArray())
+            {
+                if (amount <= FixedPoint2.Zero)
+                    continue;
+
+                overflow.DamageDict[type] = amount;
+                damage.DamageDict.Remove(type);
+            }
+        }
+        else
+        {
+            foreach (var (type, amount) in damage.DamageDict.ToArray())
+            {
+                if (amount <= FixedPoint2.Zero)
+                    continue;
+
+                var fits = FixedPoint2.Min(amount, remaining);
+                if (fits == amount)
+                {
+                    remaining -= fits;
+                    continue;
+                }
+
+                damage.DamageDict[type] = fits;
+                overflow.DamageDict[type] = amount - fits;
+                remaining = FixedPoint2.Zero;
+            }
+        }
+
+        if (overflow.Empty)
+            return overflow;
+
+        woundable.AmputationOverflow += overflow.GetTotal();
+        Dirty(part, woundable);
+        return overflow;
     }
 
     private bool ApplyLocalizedHealing(

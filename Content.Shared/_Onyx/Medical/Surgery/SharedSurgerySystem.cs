@@ -39,6 +39,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 {
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] private AmputationSystem _amputation = default!;
     [Dependency] private IComponentFactory _compFactory = default!;
     [Dependency] private IConfigurationManager _configuration = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
@@ -292,12 +293,14 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     private void OnDetachPart(Entity<SurgeryDetachPartEffectComponent> ent, ref SurgeryStepEvent args)
     {
         var removedHead = Comp<BodyPartComponent>(args.Part).PartType == BodyPartType.Head;
-        if (!_net.IsServer || !_body.TryDetachPart(args.Part))
+        if (!_net.IsServer || !_body.TryGetParentBodyPart(args.Part, out var parent, out _) ||
+            parent is not { } parentPart || !_body.TryDetachPart(args.Part))
             return;
 
         if (removedHead)
             _standing.Down(args.Body, force: true);
 
+        _amputation.ApplyAmputationConsequences(args.Body, parentPart);
         _inventory.RefreshBodySlots(args.Body);
         _hands.TryPickupAnyHand(args.User, args.Part);
     }
@@ -409,6 +412,13 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         {
             args.Invalid = StepInvalidReason.IncompatibleTransplant;
             args.Popup = Loc.GetString("surgery-ui-reason-incompatible-transplant");
+            return;
+        }
+
+        if (_body.HasAmputationConsequence(args.Part))
+        {
+            args.Invalid = StepInvalidReason.AmputationConsequence;
+            args.Popup = Loc.GetString("surgery-ui-reason-amputation-consequence");
             return;
         }
 

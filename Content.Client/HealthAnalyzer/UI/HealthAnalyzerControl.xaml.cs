@@ -170,6 +170,19 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         // <Onyx-HealthAnalyzer-StatusDoll-edited>
         DrawDamage(target.Value);
         // </Onyx-HealthAnalyzer-StatusDoll-edited>
+        // <Onyx-VitalDamage>
+        if (state.VitalDamage is { } vitalDamage)
+        {
+            VitalDamageLabel.Visible = true;
+            VitalDamageValueLabel.Visible = true;
+            VitalDamageValueLabel.Text = vitalDamage.ToString();
+        }
+        else
+        {
+            VitalDamageLabel.Visible = false;
+            VitalDamageValueLabel.Visible = false;
+        }
+        // </Onyx-VitalDamage>
 
         // Alerts
 

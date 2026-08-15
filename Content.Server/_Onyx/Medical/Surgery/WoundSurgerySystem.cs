@@ -35,6 +35,8 @@ public sealed partial class WoundSurgerySystem : EntitySystem
         SubscribeLocalEvent<SurgeryWoundedConditionComponent, SurgeryValidEvent>(OnWoundedValid);
         SubscribeLocalEvent<SurgeryTendWoundsEffectComponent, SurgeryStepEvent>(OnTendWounds);
         SubscribeLocalEvent<SurgeryTendWoundsEffectComponent, SurgeryStepCompleteCheckEvent>(OnTendWoundsCheck);
+        SubscribeLocalEvent<SurgeryHealAmputationConsequenceEffectComponent, SurgeryStepEvent>(OnHealAmputationConsequence);
+        SubscribeLocalEvent<SurgeryHealAmputationConsequenceEffectComponent, SurgeryStepCompleteCheckEvent>(OnHealAmputationConsequenceCheck);
     }
 
     private void OnHasWoundValid(Entity<SurgeryHasWoundConditionComponent> ent, ref SurgeryValidEvent args)
@@ -141,6 +143,37 @@ public sealed partial class WoundSurgerySystem : EntitySystem
     {
         if (GetGroupSeverity(args.Part, ent.Comp.DamageGroup) > FixedPoint2.Zero)
             args.Cancelled = true;
+    }
+
+    private void OnHealAmputationConsequence(Entity<SurgeryHealAmputationConsequenceEffectComponent> ent, ref SurgeryStepEvent args)
+    {
+        foreach (var wound in _wounds.GetWounds(args.Part).ToArray())
+        {
+            if (wound.Comp.Prototype == "AmputationConsequenceWound")
+                _wounds.RemoveWound(new Entity<WoundComponent?>(wound.Owner, wound.Comp));
+        }
+
+        var healing = new DamageSpecifier
+        {
+            DamageDict =
+            {
+                ["Blunt"] = -15,
+                ["Slash"] = -20,
+            }
+        };
+        _damageRouting.TryApplyPartDamage(args.Body, args.Part, healing, args.User);
+    }
+
+    private void OnHealAmputationConsequenceCheck(Entity<SurgeryHealAmputationConsequenceEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
+    {
+        foreach (var wound in _wounds.GetWounds(args.Part))
+        {
+            if (wound.Comp.Prototype == "AmputationConsequenceWound")
+            {
+                args.Cancelled = true;
+                return;
+            }
+        }
     }
 
     private FixedPoint2 GetGroupSeverity(EntityUid part, ProtoId<DamageGroupPrototype> groupId)

@@ -11,6 +11,9 @@ health-analyzer-window-entity-temperature-text = Temperature:
 health-analyzer-window-entity-blood-level-text = Blood Level:
 health-analyzer-window-entity-status-text = Status:
 health-analyzer-window-entity-damage-total-text = Total Damage:
+# <Onyx-VitalDamage>
+health-analyzer-window-entity-vital-damage-text = Vital damage:
+# </Onyx-VitalDamage>
 # <Onyx-HealthAnalyzerOrgans-edited>
 health-analyzer-window-body-tab = Body
 health-analyzer-window-organs-tab = Organs

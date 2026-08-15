@@ -45,6 +45,13 @@ public readonly record struct PainChangedEvent(EntityUid Entity, FixedPoint2 Old
 [ByRefEvent]
 public readonly record struct PartDamageAppliedEvent(EntityUid Body, EntityUid Part, DamageSpecifier Damage);
 
+/// <summary>
+/// Raised when damage is dealt to a part that is already at (or pushed past) its
+/// integrity cap. Carries the excess damage that was not applied to the part.
+/// </summary>
+[ByRefEvent]
+public readonly record struct PartDamageOverflowedEvent(EntityUid Body, EntityUid Part, DamageSpecifier Damage);
+
 [ByRefEvent]
 public readonly record struct FractureGradeChangedEvent(
     EntityUid? Body,

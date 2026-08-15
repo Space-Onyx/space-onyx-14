@@ -3,6 +3,7 @@ using Robust.Shared.Serialization;
 using Content.Shared.Damage;
 using Content.Shared._Onyx.Medical;
 using Content.Shared._Onyx.Targeting;
+using Content.Shared.FixedPoint;
 using System.Collections.Generic;
 // </Onyx-HealthAnalyzer-StatusDoll>
 
@@ -34,9 +35,12 @@ public struct HealthAnalyzerUiState
     public bool? ScanMode;
     public bool? Bleeding;
     public bool? Unrevivable;
-    // <Onyx-HealthAnalyzer-StatusDoll>
+// <Onyx-HealthAnalyzer-StatusDoll>
     public Dictionary<TargetBodyPart, DamageSpecifier>? PartDamage;
     public HealthAnalyzerWoundDiagnostics? WoundDiagnostics;
+    // <Onyx-VitalDamage>
+    public FixedPoint2? VitalDamage;
+    // </Onyx-VitalDamage>
     // <Onyx-HealthAnalyzerOrgans-edited>
     public List<HealthAnalyzerOrganInfo>? Organs;
     // </Onyx-HealthAnalyzerOrgans-edited>
@@ -55,6 +59,7 @@ public struct HealthAnalyzerUiState
         bool? unrevivable,
         Dictionary<TargetBodyPart, DamageSpecifier>? partDamage = null,
         HealthAnalyzerWoundDiagnostics? woundDiagnostics = null,
+        FixedPoint2? vitalDamage = null, // <Onyx-VitalDamage>
         List<HealthAnalyzerOrganInfo>? organs = null,
         List<HealthAnalyzerChemicalInfo>? chemicals = null) // <Onyx-HealthAnalyzerChemicals-edited>
     {
@@ -67,6 +72,9 @@ public struct HealthAnalyzerUiState
         // <Onyx-HealthAnalyzer-StatusDoll>
         PartDamage = partDamage;
         WoundDiagnostics = woundDiagnostics;
+        // <Onyx-VitalDamage>
+        VitalDamage = vitalDamage;
+        // </Onyx-VitalDamage>
         // <Onyx-HealthAnalyzerOrgans-edited>
         Organs = organs;
         // </Onyx-HealthAnalyzerOrgans-edited>

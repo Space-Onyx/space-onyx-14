@@ -104,6 +104,9 @@ public sealed partial class WoundableComponent : Component
 
     [ViewVariables]
     public Container WoundsContainer = default!;
+
+    [ViewVariables]
+    public FixedPoint2 AmputationOverflow;
 }
 
 [RegisterComponent]

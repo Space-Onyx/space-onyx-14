@@ -1,5 +1,6 @@
 using Content.Shared._Onyx.Body;
 using Content.Shared._Onyx.Body.Prototypes;
+using Content.Shared._Onyx.Wounds;
 using Content.Shared.Body.Part;
 using Content.Shared.Containers;
 using System.Linq;
@@ -219,6 +220,20 @@ public sealed partial class SharedBodySystem : EntitySystem
         return true;
     }
 
+    public bool HasAmputationConsequence(EntityUid part)
+    {
+        if (!_containers.TryGetContainer(part, WoundableComponent.ContainerId, out var container))
+            return false;
+
+        foreach (var entity in container.ContainedEntities)
+        {
+            if (TryComp(entity, out WoundComponent? wound) && wound.Prototype == AmputationSystem.AmputationConsequenceWound)
+                return true;
+        }
+
+        return false;
+    }
+
     public bool TryDetachPart(EntityUid part, bool reparent = true)
     {
         if (!TryGetParentBodyPart(part, out var parent, out var parentPart) || parent == null || parentPart == null)
@@ -244,7 +259,7 @@ public sealed partial class SharedBodySystem : EntitySystem
     public bool TryAttachPart(EntityUid parentId, EntityUid partId)
     {
         if (!TryComp(parentId, out BodyPartComponent? parent) || !TryComp(partId, out BodyPartComponent? part) || part.Body != null ||
-            !AreTransplantsCompatible(parentId, partId))
+            !AreTransplantsCompatible(parentId, partId) || HasAmputationConsequence(parentId))
             return false;
 
         if (parent.ChildSlots.Count > 0)
@@ -379,6 +394,7 @@ public sealed partial class SharedBodySystem : EntitySystem
             || !TryComp(partId, out BodyPartComponent? part)
             || part.Body != null
             || !AreTransplantsCompatible(parentId, partId)
+            || HasAmputationConsequence(parentId)
             || !parent.ChildSlots.TryGetValue(slot, out var descriptor)
             || descriptor.Type != part.PartType
             || descriptor.Symmetry != part.Symmetry)

@@ -3,13 +3,21 @@
   id: OnyxCyberneticPartBase
   components:
   - type: Cybernetics
+  - type: Scarless
   - type: TransplantCompatibility
     profile: Cybernetic
   - type: Damageable
   - type: Injurable
     damageContainer: Silicon
   - type: Pain
-    damageMultipliers: {}
+    damageMultipliers:
+      Blunt: 0.52
+      Slash: 0.40
+      Cellular: 0.19
+      Caustic: 0.07
+      Radiation: 0.07
+      Poison: 0.42
+      Shock: 0.42
   - type: Sprite
     sprite: _Onyx/Cybernetics/bishop_main.rsi
   - type: VisualOrgan

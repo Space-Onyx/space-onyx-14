@@ -43,7 +43,14 @@
     <GridContainer Margin="0 5 0 0" Columns="2">
         <Label Name="DamageScopeLabel" Text="{Loc 'health-analyzer-window-entity-damage-total-text'}" />
         <Label Name="DamageLabel" />
+        <!-- <Onyx-VitalDamage> -->
+        <Label Name="VitalDamageLabel" Text="{Loc 'health-analyzer-window-entity-vital-damage-text'}" />
+        <Label Name="VitalDamageValueLabel" />
+        <!-- </Onyx-VitalDamage> -->
     </GridContainer>
+    <!-- <Onyx-DamageDivider> -->
+    <PanelContainer Margin="0 5 0 0" StyleClasses="LowDivider" />
+    <!-- </Onyx-DamageDivider> -->
     <PanelContainer Name="AlertsDivider" Visible="False" StyleClasses="LowDivider" />
 
     <BoxContainer Name="AlertsContainer" Visible="False" Margin="0 5" Orientation="Vertical" HorizontalAlignment="Center">

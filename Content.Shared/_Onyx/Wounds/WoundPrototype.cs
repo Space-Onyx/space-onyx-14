@@ -57,6 +57,19 @@ public sealed partial class WoundableProfilePrototype : IPrototype
     [DataField]
     public Dictionary<BodyPartType, ProtoId<FractureProfilePrototype>> FractureProfiles = new();
 
+/// <summary>
+/// Integrity cap for body parts of the given type. Damage dealt beyond the cap is not
+/// applied to the part (wounds, bleeding and pain stop growing once the part is destroyed),
+/// but instead accumulates as tear-off pressure. Once pressure reaches the cap the part
+/// tears off deterministically.
+/// </summary>
+    [DataField]
+    public Dictionary<BodyPartType, FixedPoint2> DamageCaps = new();
+
+/// <summary>
+/// Damage thresholds per body part type and damage type. Once the part's total damage reaches
+/// the threshold (progress summed across damage types), the part is torn off.
+/// </summary>
     [DataField]
     public Dictionary<BodyPartType, Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2>> AmputationThresholds = new();
 

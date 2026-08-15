@@ -174,7 +174,7 @@ public sealed class WoundBleedingTest : GameTest
             var head = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Head).Id;
             var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Torso).Id;
 
-            Assert.That(entityManager.System<WoundDamageRoutingSystem>().TryApplyPartDamage(body, head, Spec("Slash", 140)));
+            Assert.That(entityManager.System<WoundDamageRoutingSystem>().TryApplyPartDamage(body, head, Spec("Slash", 180)));
             Assert.That(graph.BodyHasChild(body, head), Is.False);
             Assert.That(entityManager.System<WoundSystem>()
                 .GetWounds((torso, entityManager.GetComponent<WoundableComponent>(torso)))

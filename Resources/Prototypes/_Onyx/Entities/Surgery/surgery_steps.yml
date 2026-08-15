@@ -719,6 +719,19 @@
 
 - type: entity
   parent: SurgeryStepBase
+  id: SurgeryStepHealAmputationConsequence
+  name: Repair amputation damage
+  components:
+  - type: SurgeryStep
+    tool: [ { type: Tending } ]
+    duration: 2
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
+    state: hemostat
+  - type: SurgeryHealAmputationConsequenceEffect
+
+- type: entity
+  parent: SurgeryStepBase
   id: SurgeryStepMendFracture
   name: Mend fracture
   components:

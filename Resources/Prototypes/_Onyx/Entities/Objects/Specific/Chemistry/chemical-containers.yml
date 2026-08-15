@@ -11,3 +11,17 @@
       reagents:
       - ReagentId: Holywater
         Quantity: 240
+
+- type: entity
+  parent: Jug
+  id: JugOxandrolone
+  suffix: oxandrolone
+  categories: [HideSpawnMenu]
+  components:
+  - type: Label
+    localizedLabel: reagent-name-oxandrolone
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Oxandrolone
+        Quantity: 240

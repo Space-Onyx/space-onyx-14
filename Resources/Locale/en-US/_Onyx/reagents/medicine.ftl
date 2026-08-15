@@ -17,3 +17,5 @@ reagent-name-salicylic-acid = salicylic acid
 reagent-desc-salicylic-acid = Powerful healing agent, excelling at restoring the most mangled bodies. Difficult to overdose.
 reagent-name-atropine = atropine
 reagent-desc-atropine = Shuts down many body functions to safely heal patients in critical condition. Best used outside combat due to severe mental impairment.
+reagent-name-oxandrolone = oxandrolone
+reagent-desc-oxandrolone = Gelatinous chemical that heals burn damage faster the more burnt patient's body is. Difficult to overdose.

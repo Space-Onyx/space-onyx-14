@@ -340,7 +340,7 @@ public sealed partial class MobThresholdSystem : EntitySystem
     {
         foreach (var (threshold, mobState) in thresholdsComponent.Thresholds.Reverse())
         {
-            if (_damageable.GetTotalDamage((target, damageableComponent)) < threshold)
+            if (CheckVitalDamage(target, damageableComponent) < threshold)
                 continue;
 
             TriggerThreshold(target, mobState, mobStateComponent, thresholdsComponent, origin);
@@ -406,7 +406,7 @@ public sealed partial class MobThresholdSystem : EntitySystem
             }
 
             if (TryGetNextState(target, currentMobState, out var nextState, threshold) &&
-                TryGetPercentageForState(target, nextState.Value, _damageable.GetTotalDamage((target, damageable)), out var percentage))
+                TryGetPercentageForState(target, nextState.Value, CheckVitalDamage(target, damageable), out var percentage))
             {
                 percentage = FixedPoint2.Clamp(percentage.Value, 0, 1);
 

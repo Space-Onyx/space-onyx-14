@@ -46,6 +46,9 @@ public sealed partial class SurgeryFractureGradeConditionComponent : Component
 public sealed partial class SurgeryReduceFractureEffectComponent : Component;
 
 [RegisterComponent]
+public sealed partial class SurgeryHealAmputationConsequenceEffectComponent : Component;
+
+[RegisterComponent]
 public sealed partial class SurgeryMendFractureEffectComponent : Component;
 
 [RegisterComponent]
