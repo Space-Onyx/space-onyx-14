@@ -67,7 +67,7 @@
 - type: marking
   id: VulpEarFox
   bodyPart: Ears # <Onyx-VisualEars-edited>
-  groupWhitelist: [ Vulpkanin ]
+  groupWhitelist: [ Vulpkanin, Human ] # <Onyx-HumanFoxFeatures>
   sprites:
     - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: fox

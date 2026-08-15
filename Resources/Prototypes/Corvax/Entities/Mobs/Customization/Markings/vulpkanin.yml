@@ -11,7 +11,7 @@
   id: FoxTail
   activeVariant: FoxTailAnimated
   bodyPart: Tail
-  groupWhitelist: [Vulpkanin]
+  groupWhitelist: [Vulpkanin, Human] # <Onyx-HumanFoxFeatures>
   sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Corvax/Mobs/Customization/vulpkanin.rsi
@@ -22,7 +22,7 @@
 - type: marking
   id: FoxEar
   bodyPart: Ears # <Onyx-VisualEars-edited>
-  groupWhitelist: [Vulpkanin]
+  groupWhitelist: [Vulpkanin, Human] # <Onyx-HumanFoxFeatures>
   sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
     - sprite: Corvax/Mobs/Customization/vulpkanin.rsi
