@@ -11,6 +11,7 @@
   femaleFirstNames: NamesTajaranFirstFemale
   maleLastNames: NamesTajaranLast # Corvax-LastnameGender
   femaleLastNames: NamesTajaranLast # Corvax-LastnameGender
+  category: Unusual # <Onyx-SpeciesSelector>
   defaultSoundsBySex:
   - MaleTajaran
   - FemaleTajaran
