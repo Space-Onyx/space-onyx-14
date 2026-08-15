@@ -78,7 +78,7 @@
         amount: 2
         decayDuration: 60
         identifier: Fentanyl
-        recoveryMultiplier: 2.25
+        recoveryMultiplier: 4.5
 
 - type: reagent
   id: Heroin
@@ -96,7 +96,7 @@
         amount: 0.75
         decayDuration: 30
         identifier: Heroin
-        recoveryMultiplier: 1.5
+        recoveryMultiplier: 3
       - !type:GenericStatusEffect
         key: Adrenaline
         component: IgnoreSlowOnDamage
@@ -142,7 +142,7 @@
         amount: 0.6
         decayDuration: 24
         identifier: Opium
-        recoveryMultiplier: 1.3
+        recoveryMultiplier: 2
       - !type:ModifyStatusEffect
         effectProto: StatusEffectDrowsiness
         time: 1.5

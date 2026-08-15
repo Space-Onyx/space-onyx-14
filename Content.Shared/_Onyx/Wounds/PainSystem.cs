@@ -68,9 +68,18 @@ public sealed partial class PainSystem : EntitySystem
 
     public FixedPoint2 GetPain(Entity<PainComponent?> entity)
     {
-        return Resolve(entity, ref entity.Comp, false) && !IsPainNumb(entity.Owner)
-            ? FixedPoint2.Max(FixedPoint2.Zero, entity.Comp.Value - entity.Comp.Suppression)
-            : FixedPoint2.Zero;
+        if (!Resolve(entity, ref entity.Comp, false) || IsPainNumb(entity.Owner))
+            return FixedPoint2.Zero;
+
+        var suppression = entity.Comp.Suppression;
+        if (TryComp(entity, out BodyPartComponent? part) && part.Body is { } body &&
+            TryComp(body, out PainComponent? bodyPain) && bodyPain.Value > FixedPoint2.Zero)
+        {
+            var share = entity.Comp.Value.Float() / bodyPain.Value.Float();
+            suppression += bodyPain.Suppression * share;
+        }
+
+        return FixedPoint2.Max(FixedPoint2.Zero, entity.Comp.Value - suppression);
     }
 
     public FixedPoint2 GetRawPain(Entity<PainComponent?> entity)

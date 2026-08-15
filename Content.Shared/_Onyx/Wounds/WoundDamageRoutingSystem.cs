@@ -9,6 +9,7 @@ using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Inventory;
 using Content.Shared.Light.Components;
+using Content.Shared.Medical;
 using Content.Shared._Onyx.Targeting;
 using Robust.Shared.Network;
 using Robust.Shared.Random;
@@ -346,6 +347,9 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                         _requestedParts[body] = handPart;
                     else if (origin is { } targetingSource && _targetResolver.TryResolve(body, targetingSource, out var targetedPart))
                         _requestedParts[body] = targetedPart;
+                    else if (origin is { } defibrillator && HasComp<DefibrillatorComponent>(defibrillator) &&
+                             _targetResolver.TryResolveAvailable(body, TargetBodyPart.Chest, out var chestPart))
+                        _requestedParts[body] = chestPart;
                     else if (ResolveDamagePart(body, null, localized) is { } randomPart)
                         _requestedParts[body] = randomPart;
                 }

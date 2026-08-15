@@ -191,7 +191,7 @@
         amount: 0.5
         decayDuration: 27
         identifier: Ibuprofen
-        recoveryMultiplier: 1.35
+        recoveryMultiplier: 2.5
       - !type:HealthChange
         damage:
           groups:
@@ -373,7 +373,7 @@
         amount: 1.25
         decayDuration: 45
         identifier: Tramadol
-        recoveryMultiplier: 1.75
+        recoveryMultiplier: 3.5
       - !type:GenericStatusEffect
         key: Adrenaline
         component: IgnoreSlowOnDamage
@@ -403,7 +403,7 @@
         amount: 2
         decayDuration: 60
         identifier: Oxycodone
-        recoveryMultiplier: 2.25
+        recoveryMultiplier: 4.5
       - !type:GenericStatusEffect
         key: Adrenaline
         component: IgnoreSlowOnDamage

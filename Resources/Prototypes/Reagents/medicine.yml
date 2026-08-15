@@ -154,7 +154,7 @@
         amount: 0.75
         decayDuration: 18
         identifier: Bicaridine
-        recoveryMultiplier: 1.1
+        recoveryMultiplier: 1.75
       # </Onyx-PartPain>
       - !type:HealthChange
         conditions:
