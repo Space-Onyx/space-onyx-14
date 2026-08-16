@@ -12,7 +12,7 @@ health-analyzer-window-entity-blood-level-text = Уровень крови:
 health-analyzer-window-entity-status-text = Статус:
 health-analyzer-window-entity-damage-total-text = Общие повреждения:
 # <Onyx-VitalDamage>
-health-analyzer-window-entity-vital-damage-text = Витальные повреждения:
+health-analyzer-window-entity-vital-damage-text = Жизнеопасные повреждения:
 # </Onyx-VitalDamage>
 # <Onyx-HealthAnalyzerOrgans-edited>
 health-analyzer-window-body-tab = Тело
