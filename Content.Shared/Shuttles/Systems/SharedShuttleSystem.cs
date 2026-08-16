@@ -201,11 +201,13 @@ public abstract partial class SharedShuttleSystem : EntitySystem
         if (!CanFTLToMap(shuttleUid, shuttleXform.MapID, mapCoordinates.MapId)) // <Onyx-FTLDrive>
             return false;
 
-        // Check range even if it's cross-map.
-        if ((targetPosition - ourPos).Length() > GetFTLRange(shuttleUid)) // <Onyx-FTLDrive-edited>
+        // <Onyx-FTLDrive-edited>
+        if (shuttleXform.MapID == mapCoordinates.MapId &&
+            (targetPosition - ourPos).Length() > GetFTLRange(shuttleUid))
         {
             return false;
         }
+        // </Onyx-FTLDrive-edited>
 
         // Check exclusion zones.
         // This needs to be passed in manually due to PVS.

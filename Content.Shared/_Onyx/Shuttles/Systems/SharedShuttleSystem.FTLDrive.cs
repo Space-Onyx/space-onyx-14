@@ -14,7 +14,6 @@ public abstract partial class SharedShuttleSystem
 
     private bool CanFTLToMap(EntityUid shuttleUid, MapId currentMap, MapId targetMap)
     {
-        return currentMap != targetMap ||
-               TryComp<FTLDriveComponent>(shuttleUid, out var drive) && drive.Data.FTLToSameMap;
+        return true;
     }
 }
