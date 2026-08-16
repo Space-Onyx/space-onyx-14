@@ -208,13 +208,16 @@ public abstract partial class SharedDefibrillatorSystem : EntitySystem
             if (_mobState.IsDead(target, targetMobState))
                 _damageable.TryChangeDamage(target, ent.Comp.ZapHeal, true, origin: user);
 
-            if (TryComp<MobThresholdsComponent>(target, out var targetThresholds) &&
+            // <Onyx-VitalDamage-edited>
+            if (TryComp<DamageableComponent>(target, out var targetDamageable) &&
+                TryComp<MobThresholdsComponent>(target, out var targetThresholds) &&
                 _mobThreshold.TryGetThresholdForState(target, MobState.Dead, out var threshold, targetThresholds) &&
-                _damageable.GetTotalDamage(target) < threshold)
+                _mobThreshold.CheckVitalDamage(target, targetDamageable) < threshold)
             {
                 _mobState.ChangeMobState(target, MobState.Critical, targetMobState, user);
                 failedRevive = false;
             }
+            // </Onyx-VitalDamage-edited>
 
             if (_mind.TryGetMind(target, out var mindUid, out var mindComp) &&
                 _player.TryGetSessionById(mindComp.UserId, out var playerSession))
