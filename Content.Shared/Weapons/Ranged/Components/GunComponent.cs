@@ -271,6 +271,13 @@ public sealed partial class GunComponent : Component
     /// </summary>
     [DataField]
     public Vector2 DefaultDirection = new Vector2(0, -1);
+    // <Onyx-GunExecution>
+    /// <summary>
+    /// How long should it take to execute with this gun.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public float GunExecutionTime = 3.5f;
+    // </Onyx-GunExecution>
 }
 
 [Flags]

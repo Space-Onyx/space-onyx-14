@@ -3,6 +3,7 @@
   supportedGroups:
     - Brute
     - Burn
+    - Electronic # <Onyx-IonDamage>
   supportedTypes:
     - Heat
     - Shock

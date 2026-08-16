@@ -1,0 +1,7 @@
+# Ion damage type ported from Goob-Station.
+# Source: Resources/Prototypes/_Goobstation/Damage/types.yml
+- type: damageType
+  id: Ion
+  name: damage-type-ion
+  armorCoefficientPrice: 1
+  armorFlatPrice: 1

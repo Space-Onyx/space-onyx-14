@@ -1,5 +1,4 @@
 # Mech armor sets ported from Goob-Station.
-# Source Ion coefficient 1.0 omitted: target has no Ion damage type and 1.0 is a no-op.
 - type: damageModifierSet
   id: LightArmor
   coefficients:
@@ -8,6 +7,7 @@
     Piercing: 0.7
     Shock: 1.2
     Heat: 0.7
+    Ion: 1.0
   flatReductions:
     Blunt: 5
     Heat: 5
@@ -20,6 +20,7 @@
     Piercing: 0.65
     Shock: 1.4
     Heat: 0.7
+    Ion: 1.0
   flatReductions:
     Blunt: 8
     Heat: 10
@@ -32,6 +33,7 @@
     Piercing: 0.35
     Shock: 1.8
     Heat: 0.6
+    Ion: 1.0
   flatReductions:
     Blunt: 15
     Heat: 15
@@ -44,6 +46,7 @@
     Piercing: 0.6
     Shock: 1.4
     Heat: 0.75
+    Ion: 1.0
   flatReductions:
     Blunt: 8
     Heat: 5
@@ -56,6 +59,7 @@
     Piercing: 0.4
     Shock: 1.8
     Heat: 0.7
+    Ion: 1.0
   flatReductions:
     Blunt: 10
     Heat: 7

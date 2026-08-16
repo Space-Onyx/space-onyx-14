@@ -1,0 +1,7 @@
+# Electronic damage group ported from Goob-Station.
+# Source: Resources/Prototypes/_Goobstation/Damage/groups.yml
+- type: damageGroup
+  id: Electronic
+  name: damage-group-electronic
+  damageTypes:
+    - Ion

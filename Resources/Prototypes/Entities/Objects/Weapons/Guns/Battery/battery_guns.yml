@@ -540,6 +540,7 @@
     - Taser
     - Sidearm
   - type: PacifismAllowedGun
+  - type: GunExecutionBlacklist # <Onyx-GunExecution>
   - type: MartialArtBlocked # <Onyx-CorporateJudo>
     form: CorporateJudo
 
@@ -616,6 +617,7 @@
   - type: StaticPrice
     price: 260
   - type: PacifismAllowedGun
+  - type: GunExecutionBlacklist # <Onyx-GunExecution>
   - type: MartialArtBlocked # <Onyx-CorporateJudo>
     form: CorporateJudo
 
@@ -657,6 +659,7 @@
     zeroVisible: true
   - type: Appearance
   - type: PacifismAllowedGun
+  - type: GunExecutionBlacklist # <Onyx-GunExecution>
   - type: MartialArtBlocked # <Onyx-CorporateJudo>
     form: CorporateJudo
 

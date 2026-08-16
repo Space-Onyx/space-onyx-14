@@ -28,6 +28,7 @@
   id: Silicon
   supportedGroups:
     - Brute
+    - Electronic # <Onyx-IonDamage>
   supportedTypes:
     - Heat
     - Shock
