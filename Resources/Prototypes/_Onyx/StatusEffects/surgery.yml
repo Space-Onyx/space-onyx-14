@@ -1,4 +1,6 @@
 - type: entity
-  parent: MutedStatusEffectBase
+  parent: MobStatusEffectBase
   id: StatusEffectSurgicallyMuted
-  name: surgically muted
+  name: raspy voice
+  components:
+  - type: RaspyAccent

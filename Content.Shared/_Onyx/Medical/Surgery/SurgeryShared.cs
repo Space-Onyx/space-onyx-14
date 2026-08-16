@@ -5,6 +5,7 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Inventory;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Stacks;
+using Content.Shared.Tag;
 using Content.Shared.Tools;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
@@ -171,6 +172,21 @@ public sealed partial class SurgerySpeciesConditionComponent : Component
 {
     [DataField(required: true)]
     public HashSet<ProtoId<SpeciesPrototype>> Species = new();
+
+    [DataField]
+    public bool Inverse;
+}
+
+/// <summary>
+/// Gates surgery on an organ tag. Without inversion requires the operated part to contain an
+/// organ with the tag (removal). With inversion requires the organ being implanted to have the
+/// tag (insertion, placed on the insert step).
+/// </summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class SurgeryOrganTagConditionComponent : Component
+{
+    [DataField(required: true)]
+    public ProtoId<TagPrototype> Tag;
 
     [DataField]
     public bool Inverse;

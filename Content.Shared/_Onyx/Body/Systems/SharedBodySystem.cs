@@ -484,6 +484,67 @@ public sealed partial class SharedBodySystem : EntitySystem
         return true;
     }
 
+    /// <summary>
+    /// Checks whether a body has an organ slot with the given category/slot name, regardless of occupancy.
+    /// </summary>
+    public bool HasOrganSlot(EntityUid body, string category)
+    {
+        foreach (var (_, part) in GetBodyChildren(body))
+        {
+            if (part.Organs.Contains(category))
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Checks whether a body has an organ with the given category/slot name.
+    /// </summary>
+    public bool HasOrgan(EntityUid body, string category)
+    {
+        foreach (var (partId, part) in GetBodyChildren(body))
+        {
+            if (part.Organs.Contains(category) && TryGetOrganInSlot(partId, category, out _))
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Tries to get an organ with the given category/slot name on a body.
+    /// </summary>
+    public bool TryGetOrgan(EntityUid body, string category, out EntityUid organ)
+    {
+        organ = default;
+        foreach (var (partId, part) in GetBodyChildren(body))
+        {
+            if (!part.Organs.Contains(category))
+                continue;
+
+            if (TryGetOrganInSlot(partId, category, out organ))
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Counts how many organs of the given category/slot name are present on a body.
+    /// </summary>
+    public int CountOrgans(EntityUid body, string category)
+    {
+        var count = 0;
+        foreach (var (partId, part) in GetBodyChildren(body))
+        {
+            if (part.Organs.Contains(category) && TryGetOrganInSlot(partId, category, out _))
+                count++;
+        }
+
+        return count;
+    }
+
     public bool HasPartChild(EntityUid parentId, BodyPartType type, BodyPartSymmetry symmetry)
     {
         if (!TryComp(parentId, out BodyPartComponent? parent))

@@ -10,6 +10,9 @@ using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+// <Onyx-MissingHead>
+using Content.Shared._Onyx.Body;
+// </Onyx-MissingHead>
 
 namespace Content.Shared.Speech.EntitySystems;
 
@@ -48,6 +51,14 @@ public sealed partial class VocalSystem : EntitySystem
     {
         if (args.Handled || !args.Emote.Category.HasFlag(EmoteCategory.Vocal))
             return;
+
+        // <Onyx-MissingHead>
+        if (HasComp<MissingHeadComponent>(ent.Owner))
+        {
+            args.Handled = true;
+            return;
+        }
+        // </Onyx-MissingHead>
 
         // snowflake case for wilhelm scream easter egg
         if (args.Emote == ent.Comp.ScreamId)

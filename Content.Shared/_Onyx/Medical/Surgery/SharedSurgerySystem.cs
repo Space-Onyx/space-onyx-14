@@ -15,6 +15,7 @@ using Content.Shared.Item;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Humanoid;
 using Content.Shared.Bed.Sleep;
+using Content.Shared._Onyx.Body;
 using Content.Shared._Onyx.Wounds;
 using Content.Shared.Popups;
 using Content.Shared.Prototypes;
@@ -24,6 +25,7 @@ using Content.Shared.StatusEffectNew;
 using Content.Shared.Tools;
 using Content.Shared.Tools.Components;
 using Content.Shared.Tools.Systems;
+using Content.Shared.Tag;
 using Content.Shared.UserInterface;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
@@ -55,6 +57,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     [Dependency] private StandingStateSystem _standing = default!;
     [Dependency] private SharedStackSystem _stacks = default!;
     [Dependency] private StatusEffectsSystem _statusEffects = default!;
+    [Dependency] private TagSystem _tags = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private SharedToolSystem _tools = default!;
     [Dependency] private SharedContainerSystem _containers = default!;
@@ -75,6 +78,8 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         SubscribeLocalEvent<SurgeryTargetComponent, SurgeryDoAfterEvent>(OnTargetDoAfter);
         SubscribeLocalEvent<SurgeryCloseIncisionConditionComponent, SurgeryValidEvent>(OnCloseIncisionValid);
         SubscribeLocalEvent<SurgerySpeciesConditionComponent, SurgeryValidEvent>(OnSpeciesConditionValid);
+        SubscribeLocalEvent<SurgeryOrganTagConditionComponent, SurgeryValidEvent>(OnOrganTagConditionValid);
+        SubscribeLocalEvent<SurgeryOrganTagConditionComponent, SurgeryCanPerformStepEvent>(OnOrganTagConditionCanPerform);
         SubscribeLocalEvent<SurgeryPartConditionComponent, SurgeryValidEvent>(OnPartConditionValid);
         SubscribeLocalEvent<SurgeryMissingPartConditionComponent, SurgeryValidEvent>(OnMissingPartConditionValid);
         SubscribeLocalEvent<SurgeryDetachablePartConditionComponent, SurgeryValidEvent>(OnDetachablePartConditionValid);
@@ -185,6 +190,47 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         var matches = species is { } id && ent.Comp.Species.Contains(id);
         if (matches == ent.Comp.Inverse)
             args.Cancelled = true;
+    }
+
+    private void OnOrganTagConditionValid(Entity<SurgeryOrganTagConditionComponent> ent, ref SurgeryValidEvent args)
+    {
+        if (ent.Comp.Inverse)
+            return;
+
+        if (!TryComp(args.Part, out BodyPartComponent? partComp)
+            || partComp.Body != args.Body)
+        {
+            args.Cancelled = true;
+            return;
+        }
+
+        var found = false;
+        foreach (var (organId, _) in _body.GetPartOrgans(args.Part))
+        {
+            if (_tags.HasTag(organId, ent.Comp.Tag))
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found)
+            args.Cancelled = true;
+    }
+
+    private void OnOrganTagConditionCanPerform(Entity<SurgeryOrganTagConditionComponent> ent, ref SurgeryCanPerformStepEvent args)
+    {
+        if (!ent.Comp.Inverse)
+            return;
+
+        foreach (var tool in args.Tools)
+        {
+            if (HasComp<OrganComponent>(tool) && _tags.HasTag(tool, ent.Comp.Tag))
+                return;
+        }
+
+        args.Invalid = StepInvalidReason.MissingTool;
+        args.Popup = Loc.GetString("surgery-ui-reason-organ");
     }
 
     private void OnPartConditionValid(Entity<SurgeryPartConditionComponent> ent, ref SurgeryValidEvent args)

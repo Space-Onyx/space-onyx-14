@@ -1,3 +1,5 @@
+using Content.Shared._Onyx.Body;
+
 namespace Content.Shared.Speech
 {
     public sealed class SpeechSystem : EntitySystem
@@ -26,7 +28,8 @@ namespace Content.Shared.Speech
 
         private void OnSpeakAttempt(SpeakAttemptEvent args)
         {
-            if (!TryComp(args.Uid, out SpeechComponent? speech) || !speech.Enabled)
+            if (HasComp<MissingHeadComponent>(args.Uid) ||
+                !TryComp(args.Uid, out SpeechComponent? speech) || !speech.Enabled)
                 args.Cancel();
         }
     }

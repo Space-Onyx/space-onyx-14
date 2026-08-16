@@ -1,6 +1,13 @@
+using Robust.Shared.GameObjects;
 using Robust.Shared.GameStates;
 
 namespace Content.Shared._Onyx.Body;
+
+/// <summary>
+/// Raised on a body after its organs changed, used to trigger systems that depend on the whole organ graph.
+/// </summary>
+[ByRefEvent]
+public readonly record struct BodyOrgansChangedEvent(EntityUid Body);
 
 [RegisterComponent, NetworkedComponent]
 public sealed partial class MissingEarsComponent : Component;
