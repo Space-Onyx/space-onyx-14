@@ -1,3 +1,4 @@
+using Robust.Shared.GameObjects;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Content.Shared.FixedPoint;
@@ -33,4 +34,12 @@ public sealed partial class OrganComponent : Component
     /// </summary>
     [DataField]
     public ProtoId<OrganCategoryPrototype>? Category;
+
+    // <Onyx-OrganEffects>
+    /// <summary>
+    /// Components added to the body when this organ is inserted and removed when it is taken out.
+    /// </summary>
+    [DataField]
+    public ComponentRegistry? OnAdd;
+    // </Onyx-OrganEffects>
 }

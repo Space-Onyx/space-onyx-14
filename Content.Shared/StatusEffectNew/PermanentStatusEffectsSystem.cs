@@ -10,6 +10,19 @@ public sealed partial class PermanentStatusEffectsSystem : EntitySystem
 {
     [Dependency] private StatusEffectsSystem _statusEffects = default!;
 
+    // <Onyx-OrganEffects>
+    // Applies the effects when the component is added at runtime (e.g. via an organ's onAdd),
+    // since MapInit won't fire for runtime-added components.
+    [SubscribeLocalEvent]
+    private void OnComponentInit(Entity<PermanentStatusEffectsComponent> ent, ref ComponentInit args)
+    {
+        foreach (var effect in ent.Comp.StatusEffects)
+        {
+            _statusEffects.TrySetStatusEffectDuration(ent, effect);
+        }
+    }
+    // </Onyx-OrganEffects>
+
     [SubscribeLocalEvent]
     private void OnMapInit(Entity<PermanentStatusEffectsComponent> ent, ref MapInitEvent args)
     {

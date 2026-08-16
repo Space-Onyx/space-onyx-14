@@ -40,7 +40,6 @@
       allowedStates:
       - Alive
       - Critical
-      damageCap: 150
       damage:
         groups:
           Brute: -0.14
