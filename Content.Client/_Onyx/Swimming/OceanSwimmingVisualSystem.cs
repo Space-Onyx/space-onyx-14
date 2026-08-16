@@ -10,8 +10,10 @@ namespace Content.Client._Onyx.Swimming;
 public sealed partial class OceanSwimmingVisualSystem : EntitySystem
 {
     private static readonly ProtoId<ShaderPrototype> OceanSubmersionShader = "OnyxOceanSubmersion";
+    private const string OceanSubmersionPostShaderId = "ocean-submersion";
     [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private SharedOceanSwimmingSystem _sharedOceanSystem = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
     private readonly Dictionary<EntityUid, ShaderInstance> _shaders = new();
     private ShaderPrototype _shaderPrototype = default!;
 
@@ -70,7 +72,7 @@ public sealed partial class OceanSwimmingVisualSystem : EntitySystem
         {
             if (TryComp(uid, out TransformComponent? xform) && xform.MapUid == ent.Owner &&
                 TryComp<SpriteComponent>(uid, out var sprite))
-                RemoveShader(uid, sprite);
+                RemoveShader((uid, sprite));
         }
     }
 
@@ -126,48 +128,29 @@ public sealed partial class OceanSwimmingVisualSystem : EntitySystem
             }
         }
         else
-            RemoveShader(ent, ent.Comp);
+            RemoveShader(ent);
     }
 
     private bool TryApplyShader(EntityUid uid, SpriteComponent sprite, out ShaderInstance shader)
     {
-        if (_shaders.TryGetValue(uid, out shader!))
+        if (!_shaders.TryGetValue(uid, out shader!))
         {
-            if (sprite.PostShader == null)
-            {
-                sprite.PostShader = shader;
-                return true;
-            }
-
-            if (sprite.PostShader == shader)
-                return true;
-
-            _shaders.Remove(uid);
-            shader.Dispose();
-            shader = default!;
-            return false;
+            shader = _shaderPrototype.InstanceUnique();
+            _shaders.Add(uid, shader);
         }
 
-        if (sprite.PostShader != null)
-        {
-            shader = default!;
-            return false;
-        }
-
-        shader = _shaderPrototype.InstanceUnique();
-        _shaders.Add(uid, shader);
-        sprite.PostShader = shader;
+        _sprite.SetPostShader(new Entity<SpriteComponent?>(uid, sprite),
+            new SpriteComponent.PostShaderArgs(OceanSubmersionPostShaderId, shader));
 
         return true;
     }
 
-    private void RemoveShader(EntityUid uid, SpriteComponent sprite)
+    private void RemoveShader(Entity<SpriteComponent> ent)
     {
-        if (!_shaders.Remove(uid, out var shader))
+        if (!_shaders.Remove(ent.Owner, out var shader))
             return;
 
-        if (sprite.PostShader == shader)
-            sprite.PostShader = null;
+        _sprite.RemovePostShader(ent.AsNullable(), OceanSubmersionPostShaderId);
         shader.Dispose();
     }
 }
