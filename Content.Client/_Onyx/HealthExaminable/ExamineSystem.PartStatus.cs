@@ -10,7 +10,7 @@ namespace Content.Client.Examine;
 
 public sealed partial class ExamineSystem
 {
-    private const float PartStatusMaxWidth = 480f;
+    private const float PartStatusMaxWidth = 520f;
     private const float PartStatusMarkerWidth = 12f;
     private const float PartStatusListMaxHeight = 360f;
 
@@ -32,6 +32,8 @@ public sealed partial class ExamineSystem
         var segment = new StringBuilder();
         var skipChatCopy = false;
         BoxContainer? statusList = null;
+        var textSegments = new List<RichTextLabel>();
+        var statusIndex = 0;
         foreach (var node in message.Nodes)
         {
             if (node.Name == "partstatusend")
@@ -49,7 +51,7 @@ public sealed partial class ExamineSystem
                 continue;
             }
 
-            AddTextSegment(parent, segment);
+            AddTextSegment(parent, segment, textSegments);
             if (PartStatusTag.TryRead(node, out var summary, out var severity, out var details))
             {
                 if (statusList == null)
@@ -59,7 +61,6 @@ public sealed partial class ExamineSystem
                         Orientation = BoxContainer.LayoutOrientation.Vertical,
                         SeparationOverride = 2,
                         MaxWidth = PartStatusMaxWidth,
-                        HorizontalExpand = true,
                     };
                     parent.AddChild(new ScrollContainer
                     {
@@ -67,22 +68,27 @@ public sealed partial class ExamineSystem
                         MaxHeight = PartStatusListMaxHeight,
                         ReturnMeasure = true,
                         HScrollEnabled = false,
-                        HorizontalExpand = true,
                         Children = { statusList },
                     });
                 }
 
-                statusList.AddChild(CreatePartStatus(summary, severity, details));
+                statusList.AddChild(CreatePartStatus(summary, severity, details, statusIndex++));
             }
             skipChatCopy = true;
         }
 
-        AddTextSegment(parent, segment);
+        AddTextSegment(parent, segment, textSegments);
+        if (statusList != null)
+        {
+            statusList.Measure(Vector2Helpers.Infinity);
+            foreach (var label in textSegments)
+                label.MaxWidth = statusList.DesiredSize.X;
+        }
         parent.AddChild(new Control { MinHeight = 8 });
         return true;
     }
 
-    private static void AddTextSegment(Control parent, StringBuilder segment)
+    private static void AddTextSegment(Control parent, StringBuilder segment, List<RichTextLabel> textSegments)
     {
         var markup = segment.ToString();
         segment.Clear();
@@ -92,7 +98,8 @@ public sealed partial class ExamineSystem
         var label = new RichTextLabel
         {
             Margin = new Thickness(4, 4, 0, 0),
-            MaxWidth = PartStatusMaxWidth,
+            HorizontalExpand = false,
+            HorizontalAlignment = Control.HAlignment.Left,
         };
         label.SetMessage(FormattedMessage.FromMarkupPermissive(markup),
         [
@@ -105,9 +112,10 @@ public sealed partial class ExamineSystem
             typeof(ItalicTag),
         ]);
         parent.AddChild(label);
+        textSegments.Add(label);
     }
 
-    private static Control CreatePartStatus(string summary, string severity, string details)
+    private static Control CreatePartStatus(string summary, string severity, string details, int index)
     {
         var hasDetails = !string.IsNullOrWhiteSpace(details);
         var arrow = new Label
@@ -120,7 +128,6 @@ public sealed partial class ExamineSystem
         var summaryLabel = new RichTextLabel
         {
             MaxWidth = PartStatusMaxWidth - PartStatusMarkerWidth - 10f,
-            HorizontalExpand = true,
         };
         summaryLabel.SetMessage(FormattedMessage.FromMarkupOrThrow(summary));
 
@@ -128,8 +135,6 @@ public sealed partial class ExamineSystem
         {
             MouseFilter = hasDetails ? Control.MouseFilterMode.Stop : Control.MouseFilterMode.Ignore,
             MaxWidth = PartStatusMaxWidth,
-            HorizontalExpand = true,
-            HorizontalAlignment = Control.HAlignment.Stretch,
             StyleBoxOverride = new StyleBoxFlat
             {
                 BackgroundColor = Color.Transparent,
@@ -144,7 +149,6 @@ public sealed partial class ExamineSystem
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
             SeparationOverride = 1,
             MaxWidth = PartStatusMaxWidth,
-            HorizontalExpand = true,
         };
         headingRow.AddChild(arrow);
         headingRow.AddChild(summaryLabel);
@@ -152,32 +156,42 @@ public sealed partial class ExamineSystem
 
         var detailLabel = new RichTextLabel
         {
-            Margin = new Thickness(18, 1, 4, 3),
-            Visible = false,
+            Margin = new Thickness(4, 0, 4, 4),
             MaxWidth = PartStatusMaxWidth - 22f,
-            HorizontalExpand = true,
         };
         detailLabel.SetMessage(FormattedMessage.FromMarkupOrThrow(details));
+
+        var detailPanel = new PanelContainer
+        {
+            Visible = false,
+            MaxWidth = PartStatusMaxWidth - PartStatusMarkerWidth,
+            PanelOverride = new StyleBoxFlat
+            {
+                BackgroundColor = Color.FromHex("#121820C0"),
+                ContentMarginLeftOverride = 14,
+                ContentMarginTopOverride = 4,
+                ContentMarginRightOverride = 4,
+                ContentMarginBottomOverride = 1,
+            },
+            Children = { detailLabel },
+        };
 
         var container = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
             MaxWidth = PartStatusMaxWidth,
-            HorizontalExpand = true,
-            HorizontalAlignment = Control.HAlignment.Stretch,
         };
         container.AddChild(heading);
-        container.AddChild(detailLabel);
+        container.AddChild(detailPanel);
 
         var entry = new PanelContainer
         {
             MaxWidth = PartStatusMaxWidth,
-            HorizontalExpand = true,
             PanelOverride = new StyleBoxFlat
             {
-                BackgroundColor = Color.FromHex("#11151A40"),
-                BorderColor = Color.FromHex("#59616D70"),
-                BorderThickness = new Thickness(0, 0, 0, 1),
+                BackgroundColor = index % 2 == 0
+                    ? Color.FromHex("#1B222B90")
+                    : Color.FromHex("#252E3A90"),
             },
             Children = { container },
         };
@@ -186,8 +200,8 @@ public sealed partial class ExamineSystem
         {
             heading.OnPressed += _ =>
             {
-                detailLabel.Visible = !detailLabel.Visible;
-                arrow.Text = detailLabel.Visible ? "▾" : "▸";
+                detailPanel.Visible = !detailPanel.Visible;
+                arrow.Text = detailPanel.Visible ? "▾" : "▸";
                 InvalidateParents(entry);
             };
         }

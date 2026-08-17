@@ -201,7 +201,7 @@ namespace Content.Client.Examine
             }
 
             // Actually open the tooltip.
-            _examineTooltipOpen = new Popup { MaxWidth = 500 }; // <Onyx-PartHealthExamine-edited>
+            _examineTooltipOpen = new Popup { MaxWidth = 540 }; // <Onyx-PartHealthExamine-edited>
             _userInterfaceManager.ModalRoot.AddChild(_examineTooltipOpen);
             var panel = new PanelContainer() { Name = "ExaminePopupPanel" };
             panel.AddStyleClass(StyleClassEntityTooltip);
