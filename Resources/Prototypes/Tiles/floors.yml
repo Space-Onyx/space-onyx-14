@@ -25,6 +25,17 @@
   - FloorDirt
   - PlatingRCD
   - FloorHullReinforced
+  # <Onyx-PlanetFloorConstruction>
+  - FloorSnowDug
+  - FloorIce
+  - FloorGrass
+  - FloorAstroGrass
+  - FloorJungleAstroGrass
+  - FloorLightAstroGrass
+  - FloorDarkAstroGrass
+  - FloorAstroSnow
+  - FloorAstroAsteroidSand
+  # </Onyx-PlanetFloorConstruction>
 
 - type: tile
   weather: false
