@@ -234,7 +234,24 @@
   - AncientJumpsuit
   - RainbowJumpsuit
   - RainbowJumpskirt
-  - RedMJ # <Onyx-GoobClothing>
+   # <Onyx-GoobClothing-edited>
+   - GreyMJ
+   - BlackMJ
+   - BlueMJ
+   - DarkBlueMJ
+   - TealMJ
+   - GreenMJ
+   - DarkGreenMJ
+   - OrangeMJ
+   - PinkMJ
+   - RedMJ
+   - YellowMJ
+   - PurpleMJ
+   - LightBrownMJ
+   - BrownMJ
+   - MaroonMJ
+   - ServiceMJ
+   # </Onyx-GoobClothing-edited>
 
 - type: loadoutGroup
   id: PassengerFace
