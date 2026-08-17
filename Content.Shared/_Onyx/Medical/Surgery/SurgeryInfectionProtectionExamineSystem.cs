@@ -1,12 +1,15 @@
 using Content.Shared.Examine;
 using Content.Shared.Verbs;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
 namespace Content.Shared._Onyx.Medical.Surgery;
 
 public sealed partial class SurgeryInfectionProtectionExamineSystem : EntitySystem
 {
-    private const string InfectionIcon = "/Textures/Clothing/Mask/sterile.rsi/icon.png";
+    private static readonly SpriteSpecifier InfectionIcon = new SpriteSpecifier.Rsi(
+        new ResPath("/Textures/Clothing/Mask/sterile.rsi"),
+        "icon");
 
     [Dependency] private ExamineSystemShared _examine = default!;
 
@@ -33,13 +36,16 @@ public sealed partial class SurgeryInfectionProtectionExamineSystem : EntitySyst
         var message = new FormattedMessage();
         message.AddMarkupOrThrow(Loc.GetString("surgery-infection-protection-examine",
             ("tier", tier), ("protection", protection)));
+        var user = args.User;
+        var target = args.Target;
 
-        _examine.AddDetailedExamineVerb(
-            args,
-            ent.Comp,
-            message,
-            Loc.GetString("surgery-infection-protection-examine-verb-text"),
-            InfectionIcon,
-            Loc.GetString("surgery-infection-protection-examine-verb-message"));
+        args.Verbs.Add(new ExamineVerb
+        {
+            Act = () => _examine.SendExamineTooltip(user, target, message, false, false),
+            Text = Loc.GetString("surgery-infection-protection-examine-verb-text"),
+            Message = Loc.GetString("surgery-infection-protection-examine-verb-message"),
+            Category = VerbCategory.Examine,
+            Icon = InfectionIcon,
+        });
     }
 }
