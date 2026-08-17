@@ -8,6 +8,14 @@ namespace Content.Shared.Warps;
 [RegisterComponent, NetworkedComponent]
 public sealed partial class WarpPointComponent : Component
 {
+    // <Onyx-WarpLadders>
+    /// <summary>
+    /// Unique identifier used by interactive warpers to find this point across loaded maps.
+    /// </summary>
+    [DataField]
+    public string Id = string.Empty;
+    // </Onyx-WarpLadders>
+
     [DataField]
     public LocId? Location;
 
