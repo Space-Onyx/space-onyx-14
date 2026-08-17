@@ -20,9 +20,19 @@ public sealed partial class ModModuleStorageSystem : EntitySystem
 
     private void OnInstalled(Entity<ModModuleStorageComponent> module, ref ModModuleInstalledEvent args)
     {
-        if (module.Comp.OriginalGrid != null || !TryComp<StorageComponent>(module, out var source) ||
-            !TryComp<StorageComponent>(args.Controller, out var controller))
+        if (module.Comp.OriginalGrid != null || !TryComp<StorageComponent>(module, out var source))
             return;
+
+        module.Comp.ControllerHadStorage = TryComp<StorageComponent>(args.Controller, out var controller);
+        if (controller == null)
+        {
+            _storage.CopyComponent((module.Owner, source), args.Controller);
+            controller = Comp<StorageComponent>(args.Controller);
+            controller.OpenOnActivate = true;
+            controller.ClickInsert = true;
+            controller.ShowVerb = true;
+        }
+
         module.Comp.OriginalGrid = new(controller.Grid);
         controller.Grid = new(source.Grid);
         _storage.RefreshStorageGrid((args.Controller, controller));
@@ -33,14 +43,24 @@ public sealed partial class ModModuleStorageSystem : EntitySystem
     {
         if (module.Comp.OriginalGrid is not { } original || !TryComp<StorageComponent>(args.Controller, out var storage))
             return;
+
         var destination = TryComp<SealableClothingControlComponent>(args.Controller, out var seal) && seal.WearerEntity is { } wearer
             ? Transform(wearer).Coordinates
             : Transform(args.Controller).Coordinates;
+
         foreach (var item in storage.Container.ContainedEntities.ToArray())
             _containers.Remove(item, storage.Container, destination: destination);
-        storage.Grid = new(original);
-        _storage.RefreshStorageGrid((args.Controller, storage));
+
+        if (!module.Comp.ControllerHadStorage)
+            RemComp<StorageComponent>(args.Controller);
+        else
+        {
+            storage.Grid = new(original);
+            _storage.RefreshStorageGrid((args.Controller, storage));
+        }
+
         module.Comp.OriginalGrid = null;
+        module.Comp.ControllerHadStorage = false;
         Dirty(module);
     }
 }

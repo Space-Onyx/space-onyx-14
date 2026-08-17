@@ -115,6 +115,9 @@ public sealed partial class ModModuleStorageComponent : Component
 
     [DataField]
     public List<Box2i>? OriginalGrid;
+
+    [DataField]
+    public bool ControllerHadStorage;
 }
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
