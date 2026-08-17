@@ -177,7 +177,7 @@
                                 </BoxContainer>
                             </ui:HighlightedContainer>
                             <cc:HSeparator StyleClasses="HighDivider" Margin="0 6 0 2" /> <!-- <Onyx-RolesPersonalization> -->
-                            <ScrollContainer Margin="0 6 0 0" VerticalExpand="True">
+                            <ScrollContainer Margin="0 6 0 0" VerticalExpand="True" HScrollEnabled="False">
                                 <BoxContainer Name="JobList" Orientation="Vertical" HorizontalExpand="True" /> <!-- <Onyx-RolesPersonalization-edited> -->
                             </ScrollContainer>
                         </BoxContainer>

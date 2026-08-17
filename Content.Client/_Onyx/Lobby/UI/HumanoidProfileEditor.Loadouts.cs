@@ -85,7 +85,7 @@ public sealed partial class HumanoidProfileEditor
 
     private void RefreshLoadoutPersonalization()
     {
-        if (_showSelectedLoadouts && LoadoutSlotTabs.ChildCount > 0 && LoadoutSlotTabs.CurrentTab != 0)
+        if (LoadoutSlotTabs.ChildCount > 0 && LoadoutSlotTabs.CurrentTab != 0)
             LoadoutSlotTabs.CurrentTab = 0;
         LoadoutSlotTabs.DisposeAllChildren();
 
