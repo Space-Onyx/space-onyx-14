@@ -223,6 +223,42 @@
         immediate: false
 
 - type: reagent
+  id: Ketorolac
+  name: reagent-name-ketorolac
+  group: Medicine
+  desc: reagent-desc-ketorolac
+  physicalDesc: reagent-physical-desc-pungent
+  flavor: medicine
+  color: "#d6b75a"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.12
+      effects:
+      - !type:SuppressPain
+        amount: 0.9
+        decayDuration: 50
+        identifier: Ketorolac
+        recoveryMultiplier: 3
+      - !type:HealthChange
+        damage:
+          groups:
+            Brute: -0.5
+      - !type:ModifyBleed
+        conditions:
+        - !type:ReagentCondition
+          reagent: Ketorolac
+          min: 12
+        amount: 0.15
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Ketorolac
+          min: 18
+        damage:
+          types:
+            Poison: 0.5
+
+- type: reagent
   id: SalicylicAcid
   name: reagent-name-salicylic-acid
   group: Medicine

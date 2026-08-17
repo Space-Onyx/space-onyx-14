@@ -71,6 +71,22 @@
     Ibuprofen: 3
 
 - type: reaction
+  id: Ketorolac
+  minTemp: 350
+  reactants:
+    Ibuprofen:
+      amount: 1
+    Tramadol:
+      amount: 1
+    Carbon:
+      amount: 1
+    Plasma:
+      amount: 1
+      catalyst: true
+  products:
+    Ketorolac: 1
+
+- type: reaction
   id: SalicylicAcid
   minTemp: 370
   reactants:

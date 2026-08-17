@@ -17,6 +17,36 @@
     SpaceGlue: 2
 
 - type: reaction
+  id: FentanylFromHeroin
+  minTemp: 410
+  maxTemp: 420
+  reactants:
+    Heroin:
+      amount: 2
+    Impedrezene:
+      amount: 1
+    Plasma:
+      amount: 1
+      catalyst: true
+  products:
+    Fentanyl: 1
+    VentCrud: 2
+
+- type: reaction
+  id: Remifentanil
+  reactants:
+    Fentanyl:
+      amount: 1
+    Dylovene:
+      amount: 1
+    Inaprovaline:
+      amount: 1
+    Epinephrine:
+      amount: 1
+  products:
+    Remifentanil: 1
+
+- type: reaction
   id: Amnestizine
   reactants:
     Mercury:

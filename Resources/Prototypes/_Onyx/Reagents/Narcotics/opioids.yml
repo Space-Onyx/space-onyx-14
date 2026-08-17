@@ -127,6 +127,41 @@
         boozePower: 10
 
 - type: reagent
+  id: Remifentanil
+  name: reagent-name-remifentanil
+  group: Medicine
+  desc: reagent-desc-remifentanil
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: medicine
+  color: "#d9eef2"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.5
+      effects:
+      - !type:SuppressPain
+        amount: 1.75
+        decayDuration: 25
+        identifier: Remifentanil
+        recoveryMultiplier: 4
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Remifentanil
+          min: 10
+        damage:
+          types:
+            Poison: 0.4
+            Asphyxiation: 1.2
+      - !type:ModifyStatusEffect
+        conditions:
+        - !type:ReagentCondition
+          reagent: Remifentanil
+          min: 10
+        effectProto: StatusEffectDrowsiness
+        time: 2
+        type: Update
+
+- type: reagent
   id: Opium
   name: reagent-name-opium
   group: Narcotics

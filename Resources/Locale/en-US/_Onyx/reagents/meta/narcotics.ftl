@@ -4,6 +4,8 @@ reagent-name-fentanyl = fentanyl
 reagent-desc-fentanyl = A horrifyingly toxic street drug with a long list of side effects.
 reagent-name-heroin = heroin
 reagent-desc-heroin = An illegal street drug once used in medicine before being replaced by tramadol.
+reagent-name-remifentanil = remifentanil
+reagent-desc-remifentanil = A fast-acting medical painkiller derived from fentanyl. Its controlled duration suits surgery, but it wears off quickly and suppresses breathing in overdose.
 reagent-name-opium = opium
 reagent-desc-opium = A thick narcotic poppy extract. Suppresses pain and causes drowsiness; overdose depresses breathing.
 
