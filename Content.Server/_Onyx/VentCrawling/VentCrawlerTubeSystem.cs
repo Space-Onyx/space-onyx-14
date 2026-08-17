@@ -10,14 +10,17 @@
 using System.Linq;
 using Content.Server.Construction.Completions;
 using Content.Server.Inventory;
+using Content.Server.NodeContainer.Nodes;
 using Content.Server.Popups;
 using Content.Shared._Onyx.VentCrawling;
+using Content.Shared.Atmos.Components;
 using Content.Shared.Destructible;
 using Content.Shared.DoAfter;
 using Content.Shared.Eye;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Movement.Components;
+using Content.Shared.NodeContainer;
 using Content.Shared.Tools.Components;
 using Content.Shared.Verbs;
 using Robust.Shared.Containers;
@@ -27,6 +30,7 @@ namespace Content.Server._Onyx.VentCrawling;
 public sealed partial class VentCrawlerTubeSystem : EntitySystem
 {
     [Dependency] private SharedVentCrawableSystem _ventCrawableSystem = default!;
+    [Dependency] private SharedVentTubeSystem _ventTubeSystem = default!;
     [Dependency] private SharedContainerSystem _containerSystem = default!;
     [Dependency] private SharedDoAfterSystem _doAfterSystem = default!;
     [Dependency] private PopupSystem _popup = default!;
@@ -161,7 +165,21 @@ public sealed partial class VentCrawlerTubeSystem : EntitySystem
         crawler.InTube = true;
         Dirty(entity, crawler);
         _eye.RefreshVisibilityMask(entity);
-        return _ventCrawableSystem.EnterTube(holder, uid, holderComponent);
+        return _ventCrawableSystem.EnterTube(holder, uid, GetEntryPipeLayer(uid), holderComponent);
+    }
+
+    private AtmosPipeLayer GetEntryPipeLayer(EntityUid uid)
+    {
+        if (TryComp<NodeContainerComponent>(uid, out var nodeContainer))
+        {
+            foreach (var node in nodeContainer.Nodes.Values)
+            {
+                if (node is PipeNode pipe)
+                    return pipe.CurrentPipeLayer;
+            }
+        }
+
+        return _ventTubeSystem.GetLayer(uid);
     }
 
     private bool IsHoldingItems(EntityUid uid)

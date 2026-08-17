@@ -83,9 +83,10 @@ public sealed partial class HumanoidProfileEditor
         LoadoutSlotTabs.DisposeAllChildren();
     }
 
-    private void RefreshLoadoutPersonalization()
+    private void RefreshLoadoutPersonalization(bool preserveCurrentTab = false)
     {
-        if (LoadoutSlotTabs.ChildCount > 0 && LoadoutSlotTabs.CurrentTab != 0)
+        var currentTab = preserveCurrentTab ? LoadoutSlotTabs.CurrentTab : 0;
+        if (!preserveCurrentTab && LoadoutSlotTabs.ChildCount > 0 && LoadoutSlotTabs.CurrentTab != 0)
             LoadoutSlotTabs.CurrentTab = 0;
         LoadoutSlotTabs.DisposeAllChildren();
 
@@ -156,6 +157,9 @@ public sealed partial class HumanoidProfileEditor
             LoadoutSlotTabs.AddChild(scroll);
             LoadoutSlotTabs.SetTabTitle(LoadoutSlotTabs.ChildCount - 1, Loc.GetString(group.Name));
         }
+
+        if (preserveCurrentTab && LoadoutSlotTabs.ChildCount > 0)
+            LoadoutSlotTabs.CurrentTab = Math.Min(currentTab, LoadoutSlotTabs.ChildCount - 1);
 
     }
 
@@ -369,7 +373,7 @@ public sealed partial class HumanoidProfileEditor
 
         Profile = Profile.WithLoadout(loadout);
         SetDirty();
-        RefreshLoadoutPersonalization();
+        RefreshLoadoutPersonalization(true);
         ReloadPreview();
     }
 
@@ -435,7 +439,7 @@ public sealed partial class HumanoidProfileEditor
         item.CustomColorTint = prototype.CustomColorTint ? tint : null;
         Profile = Profile.WithLoadout(loadout);
         SetDirty();
-        RefreshLoadoutPersonalization();
+        RefreshLoadoutPersonalization(true);
         ReloadPreview();
     }
 

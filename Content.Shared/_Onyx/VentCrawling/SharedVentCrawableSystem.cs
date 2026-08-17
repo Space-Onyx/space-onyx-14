@@ -142,6 +142,7 @@ public sealed partial class SharedVentCrawableSystem : EntitySystem
 
     public bool EnterTube(EntityUid holderUid,
         EntityUid toUid,
+        AtmosPipeLayer? pipeLayer = null,
         VentCrawlerHolderComponent? holder = null,
         TransformComponent? holderTransform = null,
         VentCrawlerTubeComponent? tube = null,
@@ -175,7 +176,7 @@ public sealed partial class SharedVentCrawableSystem : EntitySystem
         }
 
         holder.CurrentTube = toUid;
-        holder.PipeLayer = _ventTubeSystem.GetLayer(toUid);
+        holder.PipeLayer = pipeLayer ?? _ventTubeSystem.GetLayer(toUid);
         _transformSystem.SetCoordinates(holderUid, tubeTransform.Coordinates);
         UpdateVisibleTubes(holder);
         Dirty(holderUid, holder);

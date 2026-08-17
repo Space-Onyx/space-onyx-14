@@ -1,6 +1,6 @@
 using Content.Server.Power.Components;
-using Content.Server.Power.EntitySystems;
 using Content.Shared._Onyx.Shuttles.Components;
+using Content.Shared.Power;
 using Robust.Shared.Map.Components;
 
 namespace Content.Server._Onyx.Shuttles.Systems;
@@ -19,8 +19,7 @@ public sealed partial class FTLDriveSystem : EntitySystem
         SubscribeLocalEvent<FTLDriveGeneratorComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<FTLDriveGeneratorComponent, EntParentChangedMessage>(OnParentChanged);
         SubscribeLocalEvent<FTLDriveGeneratorComponent, AnchorStateChangedEvent>(OnAnchorChanged);
-        SubscribeLocalEvent<FTLDriveGeneratorComponent, ChargedMachineActivatedEvent>(OnActivated);
-        SubscribeLocalEvent<FTLDriveGeneratorComponent, ChargedMachineDeactivatedEvent>(OnDeactivated);
+        SubscribeLocalEvent<FTLDriveGeneratorComponent, PowerChangedEvent>(OnPowerChanged);
         SubscribeLocalEvent<GridInitializeEvent>(OnGridInit);
     }
 
@@ -35,9 +34,8 @@ public sealed partial class FTLDriveSystem : EntitySystem
 
     private void OnStartup(Entity<FTLDriveGeneratorComponent> ent, ref ComponentStartup args)
     {
-        ent.Comp.Ready = TryComp<PowerChargeComponent>(ent, out var charge) &&
-                         charge.Active &&
-                         charge.Intact &&
+        ent.Comp.Ready = TryComp<ApcPowerReceiverComponent>(ent, out var power) &&
+                         power.Powered &&
                          Transform(ent).Anchored;
         RefreshGrid(Transform(ent).GridUid);
     }
@@ -57,21 +55,14 @@ public sealed partial class FTLDriveSystem : EntitySystem
     private void OnAnchorChanged(Entity<FTLDriveGeneratorComponent> ent, ref AnchorStateChangedEvent args)
     {
         ent.Comp.Ready = args.Anchored &&
-                         TryComp<PowerChargeComponent>(ent, out var charge) &&
-                         charge.Active &&
-                         charge.Intact;
+                         TryComp<ApcPowerReceiverComponent>(ent, out var power) &&
+                         power.Powered;
         RefreshGrid(Transform(ent).GridUid);
     }
 
-    private void OnActivated(Entity<FTLDriveGeneratorComponent> ent, ref ChargedMachineActivatedEvent args)
+    private void OnPowerChanged(Entity<FTLDriveGeneratorComponent> ent, ref PowerChangedEvent args)
     {
-        ent.Comp.Ready = Transform(ent).Anchored;
-        RefreshGrid(Transform(ent).GridUid);
-    }
-
-    private void OnDeactivated(Entity<FTLDriveGeneratorComponent> ent, ref ChargedMachineDeactivatedEvent args)
-    {
-        ent.Comp.Ready = false;
+        ent.Comp.Ready = args.Powered && Transform(ent).Anchored;
         RefreshGrid(Transform(ent).GridUid);
     }
 

@@ -92,10 +92,19 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
                 var cardEntity = item;
                 if (TryComp(item, out PdaComponent? pda) && pda.ContainedId is { Valid: true } id) cardEntity = id;
                 if (!TryComp(cardEntity, out BankCardComponent? card) || !card.AccountId.HasValue || !_bankCard.TryGetAccount(card.AccountId.Value, out var account) || account.Balance < price || !_bankCard.TryChangeBalance(card.AccountId.Value, -price)) continue;
+                // <Onyx-VendingPurchaseHistory>
+                var itemName = ProtoMan.TryIndex<EntityPrototype>(entry.ID, out var proto) ? proto.Name : entry.ID;
+                account.AddTransaction(new TransactionRecord(
+                    TransactionRecord.TransactionType.Purchase,
+                    $"Покупка: {itemName}",
+                    -price,
+                    Color.Red,
+                    DateTime.MinValue.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))));
+                // </Onyx-VendingPurchaseHistory>
                 paid = true;
                 break;
             }
-            if (!paid) { Popup.PopupEntity(Loc.GetString("vending-machine-component-no-balance"), uid, sender); Deny((uid, component), sender, eject); return; }
+            if (!paid) { Popup.PopupEntity(Loc.GetString("vending-machine-component-no-balance"), uid, sender); Deny((uid, component), ejectComponent: eject); return; } // <Onyx-VendingPaymentSound-edited>
         }
         TryEjectVendorItem(uid, type, itemId, ShouldThrowVendItem((uid, eject)), sender, component, eject);
         UpdateVendingMachineInterfaceState(uid, component);
@@ -139,7 +148,7 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
         var available = GetAvailableInventory(entity.Owner, entity.Comp1);
         if (available.Count == 0) return;
         var item = _random.Pick(available);
-        if (forceEject) { entity.Comp2.NextItemToEject = item.ID; entity.Comp2.ThrowNextItem = throwItem; if (!entity.Comp1.InfiniteStock) GetEntry(entity.Owner, item.ID, item.Type, entity.Comp1)!.Amount--; Dirty(entity.Owner, entity.Comp1); EjectItem(entity, true); }
+        if (forceEject) { entity.Comp2.NextItemToEject = item.ID; entity.Comp2.ThrowNextItem = throwItem; if (!entity.Comp1.InfiniteStock) GetEntry(entity.Owner, item.ID, item.Type, entity.Comp1)!.Amount--; Dirty(entity.Owner, entity.Comp1); Audio.PlayPvs(entity.Comp2.SoundVend, entity.Owner); EjectItem(entity, true); } // <Onyx-VendingForcedEjectSound-edited>
         else TryEjectVendorItem(entity.Owner, item.Type, item.ID, throwItem, vendComponent: entity.Comp1, ejectComponent: entity.Comp2);
     }
 }
