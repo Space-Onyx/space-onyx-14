@@ -4,11 +4,13 @@ namespace Content.Client._Onyx.HealthExaminable;
 
 public static class PartStatusTag
 {
-    public static bool TryRead(MarkupNode node, out string summary, out string details)
+    public static bool TryRead(MarkupNode node, out string summary, out string severity, out string details)
     {
         summary = string.Empty;
+        severity = string.Empty;
         details = string.Empty;
         return TryGetAttribute(node, "summary", out summary) &&
+               TryGetAttribute(node, "severity", out severity) &&
                TryGetAttribute(node, "details", out details);
     }
 

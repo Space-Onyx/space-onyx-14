@@ -4,7 +4,6 @@ health-examinable-pain-terrible = [color=red]ужасно болит[/color]
 health-examinable-pain-agony = [color=crimson]в агонии[/color]
 health-examinable-part-title-self = [font size=11][color=DarkGray]Вы осматриваете себя на наличие повреждений.[/color][/font]
 health-examinable-part-title-other = [font size=11][color=DarkGray]Вы осматриваете { $entity } на наличие повреждений.[/color][/font]
-health-examinable-part-border = [color=Gray]────────────────────────[/color]
 health-examinable-part-summary = [bold]{ CAPITALIZE($part) }[/bold]: { $severity }
 health-examinable-part-summary-pain = [bold]{ CAPITALIZE($part) }[/bold]: { $severity }, { $pain }
 health-examinable-part-chat-line = [font size=10]{ $summary }[/font]
@@ -18,8 +17,6 @@ health-examinable-part-damage-heat = ожоги
 health-examinable-part-damage-cold = обморожение
 health-examinable-part-damage-shock = электрические ожоги
 health-examinable-part-damage-caustic = химические ожоги
-health-examinable-part-healthy-summary = Неповреждённые части: [color=green]{ $count }[/color]
-health-examinable-part-healthy-details = [color=green]{ $parts }[/color]
 health-examinable-part-severity-none = [color=green]в порядке[/color]
 health-examinable-part-severity-minor = [color=yellow]слегка повреждена[/color]
 health-examinable-part-severity-moderate = [color=orange]повреждена[/color]

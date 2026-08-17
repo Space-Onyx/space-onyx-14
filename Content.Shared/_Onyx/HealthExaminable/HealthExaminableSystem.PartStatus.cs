@@ -33,10 +33,7 @@ public sealed partial class HealthExaminableSystem
                 ? "health-examinable-part-title-self"
                 : "health-examinable-part-title-other",
             ("entity", Identity.Name(examined, EntityManager))));
-        message.PushNewline();
-        message.AddMarkupOrThrow(Loc.GetString("health-examinable-part-border"));
 
-        var healthyParts = new List<string>();
         foreach (var (part, _) in parts)
         {
             var details = new List<string>();
@@ -118,32 +115,13 @@ public sealed partial class HealthExaminableSystem
                 ("pain", painLevel == null ? string.Empty : Loc.GetString($"health-examinable-pain-{painLevel}")));
             var detail = details.Count == 0 ? string.Empty : string.Join(" · ", details);
 
-            if (totalDamage <= 0f && painLevel == null && details.Count == 0)
-            {
-                healthyParts.Add(Name(part));
-                continue;
-            }
-
-            message.AddMarkupOrThrow($"[partstatus summary=\"{FormattedMessage.EscapeStringParameter(summary)}\" details=\"{FormattedMessage.EscapeStringParameter(detail)}\" /]");
+            message.AddMarkupOrThrow($"[partstatus summary=\"{FormattedMessage.EscapeStringParameter(summary)}\" severity=\"{severity}\" details=\"{FormattedMessage.EscapeStringParameter(detail)}\" /]");
             message.PushNewline();
             message.AddMarkupOrThrow(Loc.GetString(detail.Length == 0
                     ? "health-examinable-part-chat-line"
                     : "health-examinable-part-chat-line-details",
                 ("summary", summary),
                 ("details", detail)));
-            message.AddMarkupOrThrow("[partstatusend /]");
-        }
-
-        if (healthyParts.Count > 0)
-        {
-            var summary = Loc.GetString("health-examinable-part-healthy-summary", ("count", healthyParts.Count));
-            var detail = Loc.GetString("health-examinable-part-healthy-details",
-                ("parts", string.Join("\n", healthyParts.Select(part => $"• {part}"))));
-            message.AddMarkupOrThrow($"[partstatus summary=\"{FormattedMessage.EscapeStringParameter(summary)}\" details=\"{FormattedMessage.EscapeStringParameter(detail)}\" /]");
-            message.PushNewline();
-            message.AddMarkupOrThrow(Loc.GetString("health-examinable-part-chat-line-details",
-                ("summary", summary),
-                ("details", detail.Replace("\n", "\n    "))));
             message.AddMarkupOrThrow("[partstatusend /]");
         }
     }
