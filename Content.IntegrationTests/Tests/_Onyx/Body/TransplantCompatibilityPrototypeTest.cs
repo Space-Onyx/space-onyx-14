@@ -64,7 +64,7 @@ public sealed class TransplantCompatibilityPrototypeTest : GameTest
         foreach (var id in BasicCybernetics)
         {
             var prototype = _prototypes.Index(id);
-            Assert.That(prototype.TryGetComponent(out TransplantCompatibilityComponent compatibility, _componentFactory), Is.True,
+            Assert.That(prototype.TryComp(out TransplantCompatibilityComponent compatibility, _componentFactory), Is.True,
                 $"{id} has no transplant compatibility profile.");
             Assert.That(compatibility!.Profile, Is.EqualTo(Cybernetic),
                 $"{id} must reject organic children even though it also inherits from an organic body part.");

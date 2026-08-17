@@ -51,6 +51,12 @@
     powerLoad: 250
   - type: Machine
     board: MachineMedipenRefillerCircuitboard
+  - type: Construction
+    graph: Machine
+    node: machine
+    containers:
+    - machine_board
+    - machine_parts
   - type: GenericVisualizer
     visuals:
       enum.PowerDeviceVisuals.Powered:

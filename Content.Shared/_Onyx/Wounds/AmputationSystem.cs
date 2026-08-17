@@ -71,7 +71,8 @@ public sealed partial class AmputationSystem : EntitySystem
         if (!TryComp(part, out BodyPartComponent? bodyPart) || bodyPart.Body == null ||
             bodyPart.PartType is BodyPartType.Torso or BodyPartType.Chest || bodyPart.Parent == null ||
             !_prototypes.TryIndex(part.Comp.Profile, out var profile) ||
-            !profile.AmputationThresholds.TryGetValue(bodyPart.PartType, out var thresholds))
+            !profile.AmputationThresholds.TryGetValue(bodyPart.PartType, out var thresholds) ||
+            !args.Damage.DamageDict.Any(entry => entry.Value > FixedPoint2.Zero && thresholds.ContainsKey(entry.Key)))
             return;
 
         var parent = bodyPart.Parent.Value;

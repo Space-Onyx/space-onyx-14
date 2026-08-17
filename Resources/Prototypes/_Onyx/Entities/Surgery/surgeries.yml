@@ -1,3 +1,8 @@
+- type: entityCategory
+  id: SurgeryPrototypes
+  components: [ Surgery, SurgeryStep ]
+  hideSpawnMenu: true
+
 - type: entity
   id: SurgeryBase
   categories: [ HideSpawnMenu ]
@@ -13,9 +18,14 @@
   components:
   - type: Surgery
     priority: -1
+    icon: { sprite: _Onyx/Objects/Specific/Medical/Surgery/scalpel.rsi, state: scalpel }
     steps:
-    - SurgeryStepOpenIncisionScalpel
-    - SurgeryStepRetractSkin
+      default:
+        steps:
+        - SurgeryStepOpenIncisionScalpel
+        - SurgeryStepRetractSkin
+  - type: SurgeryMarkerCondition
+    missingAny: [ IncisionOpen, SkinRetracted ]
 
 - type: entity
   parent: SurgeryBase
@@ -24,11 +34,52 @@
   components:
   - type: Surgery
     priority: 1
+    icon: { sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi, state: stitches }
     steps:
-    - SurgeryStepCloseBones
-    - SurgeryStepMendRibcage
-    - SurgeryStepCloseIncision
-  - type: SurgeryCloseIncisionCondition
+      default:
+        steps:
+        - SurgeryStepCloseIncision
+  - type: SurgeryMarkerCondition
+    all: [ IncisionOpen ]
+  - type: SurgeryPartCondition
+    part: Chest
+    inverse: true
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryCloseRibcage
+  name: Close Ribcage
+  components:
+  - type: Surgery
+    priority: 1
+    icon: { sprite: _Onyx/Objects/Specific/Medical/Surgery/bone-gel.rsi, state: bone-gel }
+    steps:
+      default:
+        steps:
+        - SurgeryStepCloseBones
+        - SurgeryStepMendRibcage
+  - type: SurgeryPartCondition
+    part: Chest
+  - type: SurgeryMarkerCondition
+    any: [ RibcageOpen, RibcageSawed ]
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryCloseChestIncision
+  name: Close Chest Incision
+  components:
+  - type: Surgery
+    priority: 1
+    icon: { sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi, state: stitches }
+    requirement: SurgeryCloseRibcage
+    steps:
+      default:
+        steps:
+        - SurgeryStepCloseIncision
+  - type: SurgeryMarkerCondition
+    all: [ IncisionOpen ]
+  - type: SurgeryPartCondition
+    part: Chest
 
 - type: entity
   parent: SurgeryBase
@@ -36,12 +87,17 @@
   name: Open Ribcage
   components:
   - type: Surgery
+    icon: { sprite: _Onyx/Objects/Specific/Medical/Surgery/circular-saw.rsi, state: circular-saw }
     requirement: SurgeryOpenIncision
     steps:
-    - SurgeryStepSawBones
-    - SurgeryStepPriseOpenBones
+      default:
+        steps:
+        - SurgeryStepSawBones
+        - SurgeryStepPriseOpenBones
   - type: SurgeryPartCondition
     part: Chest
+  - type: SurgeryMarkerCondition
+    missingAny: [ RibcageSawed, RibcageOpen ]
 
 - type: entity
   parent: SurgeryBase
@@ -49,9 +105,12 @@
   name: Amputate
   components:
   - type: Surgery
+    useTargetPartIcon: true
     requirement: SurgeryOpenIncision
     steps:
-    - SurgeryStepRemovePart
+      default:
+        steps:
+        - SurgeryStepRemovePart
   - type: SurgeryDetachablePartCondition
 
 - type: entity
@@ -60,10 +119,16 @@
   name: Open abdomen
   components:
   - type: Surgery
+    icon: { sprite: _Onyx/Objects/Specific/Medical/Surgery/scalpel.rsi, state: scalpel }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepOpenAbdomen ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepOpenAbdomen
   - type: SurgeryPartCondition
     part: Chest
+  - type: SurgeryMarkerCondition
+    none: [ AbdominalCavityOpen ]
 
 - type: entity
   parent: SurgeryBase
@@ -71,10 +136,15 @@
   name: Hide item
   components:
   - type: Surgery
-    steps: [ SurgeryStepHideItem ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepHideItem
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryCavityCondition
+  - type: SurgeryMarkerCondition
+    all: [ AbdominalCavityOpen ]
 
 - type: entity
   parent: SurgeryBase
@@ -82,11 +152,16 @@
   name: Take item
   components:
   - type: Surgery
-    steps: [ SurgeryStepTakeItem ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepTakeItem
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryCavityCondition
     occupied: true
+  - type: SurgeryMarkerCondition
+    all: [ AbdominalCavityOpen ]
 
 - type: entity
   parent: SurgeryBase
@@ -94,8 +169,15 @@
   name: Attach head
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/parts.rsi, state: head_m }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachHead, SurgeryStepMendAttachedHead, SurgeryStepSutureAttachedHead ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepConnectHeadSpine
+        - SurgeryStepAttachHead
+        - SurgeryStepMendAttachedHead
+        - SurgeryStepSutureAttachedHead
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryMissingPartCondition
@@ -107,8 +189,14 @@
   name: Attach pelvis
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/parts.rsi, state: torso_m }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachGroin, SurgeryStepMendAttachedGroin, SurgeryStepSutureAttachedGroin ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepAttachGroin
+        - SurgeryStepMendAttachedGroin
+        - SurgeryStepSutureAttachedGroin
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryMissingPartCondition
@@ -120,8 +208,21 @@
   name: Attach left arm
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/parts.rsi, state: l_arm }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachLeftArm, SurgeryStepMendAttachedLeftArm, SurgeryStepSutureAttachedLeftArm ]
+    steps:
+      organic:
+        steps:
+        - SurgeryStepAttachLeftArm
+        - SurgeryStepMendAttachedLeftArm
+        - SurgeryStepSutureAttachedLeftArm
+      cybernetic:
+        required:
+        - type: Cybernetics
+        steps:
+        - SurgeryStepAttachCyberneticLeftArm
+        - SurgeryStepIntegrateCyberneticLeftArm
+        - SurgeryStepSutureCyberneticLeftArm
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryMissingPartCondition
@@ -134,8 +235,21 @@
   name: Attach right arm
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/parts.rsi, state: r_arm }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachRightArm, SurgeryStepMendAttachedRightArm, SurgeryStepSutureAttachedRightArm ]
+    steps:
+      organic:
+        steps:
+        - SurgeryStepAttachRightArm
+        - SurgeryStepMendAttachedRightArm
+        - SurgeryStepSutureAttachedRightArm
+      cybernetic:
+        required:
+        - type: Cybernetics
+        steps:
+        - SurgeryStepAttachCyberneticRightArm
+        - SurgeryStepIntegrateCyberneticRightArm
+        - SurgeryStepSutureCyberneticRightArm
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryMissingPartCondition
@@ -148,8 +262,21 @@
   name: Attach left leg
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/parts.rsi, state: l_leg }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachLeftLeg, SurgeryStepMendAttachedLeftLeg, SurgeryStepSutureAttachedLeftLeg ]
+    steps:
+      organic:
+        steps:
+        - SurgeryStepAttachLeftLeg
+        - SurgeryStepMendAttachedLeftLeg
+        - SurgeryStepSutureAttachedLeftLeg
+      cybernetic:
+        required:
+        - type: Cybernetics
+        steps:
+        - SurgeryStepAttachCyberneticLeftLeg
+        - SurgeryStepIntegrateCyberneticLeftLeg
+        - SurgeryStepSutureCyberneticLeftLeg
   - type: SurgeryPartCondition
     part: Groin
   - type: SurgeryMissingPartCondition
@@ -162,8 +289,21 @@
   name: Attach right leg
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/parts.rsi, state: r_leg }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachRightLeg, SurgeryStepMendAttachedRightLeg, SurgeryStepSutureAttachedRightLeg ]
+    steps:
+      organic:
+        steps:
+        - SurgeryStepAttachRightLeg
+        - SurgeryStepMendAttachedRightLeg
+        - SurgeryStepSutureAttachedRightLeg
+      cybernetic:
+        required:
+        - type: Cybernetics
+        steps:
+        - SurgeryStepAttachCyberneticRightLeg
+        - SurgeryStepIntegrateCyberneticRightLeg
+        - SurgeryStepSutureCyberneticRightLeg
   - type: SurgeryPartCondition
     part: Groin
   - type: SurgeryMissingPartCondition
@@ -176,8 +316,21 @@
   name: Attach left hand
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/parts.rsi, state: l_hand }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachLeftHand, SurgeryStepMendAttachedLeftHand, SurgeryStepSutureAttachedLeftHand ]
+    steps:
+      organic:
+        steps:
+        - SurgeryStepAttachLeftHand
+        - SurgeryStepMendAttachedLeftHand
+        - SurgeryStepSutureAttachedLeftHand
+      cybernetic:
+        required:
+        - type: Cybernetics
+        steps:
+        - SurgeryStepAttachCyberneticLeftHand
+        - SurgeryStepIntegrateCyberneticLeftHand
+        - SurgeryStepSutureCyberneticLeftHand
   - type: SurgeryPartCondition
     part: Arm
     symmetry: Left
@@ -191,8 +344,21 @@
   name: Attach right hand
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/parts.rsi, state: r_hand }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachRightHand, SurgeryStepMendAttachedRightHand, SurgeryStepSutureAttachedRightHand ]
+    steps:
+      organic:
+        steps:
+        - SurgeryStepAttachRightHand
+        - SurgeryStepMendAttachedRightHand
+        - SurgeryStepSutureAttachedRightHand
+      cybernetic:
+        required:
+        - type: Cybernetics
+        steps:
+        - SurgeryStepAttachCyberneticRightHand
+        - SurgeryStepIntegrateCyberneticRightHand
+        - SurgeryStepSutureCyberneticRightHand
   - type: SurgeryPartCondition
     part: Arm
     symmetry: Right
@@ -206,8 +372,21 @@
   name: Attach left foot
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/parts.rsi, state: l_foot }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachLeftFoot, SurgeryStepMendAttachedLeftFoot, SurgeryStepSutureAttachedLeftFoot ]
+    steps:
+      organic:
+        steps:
+        - SurgeryStepAttachLeftFoot
+        - SurgeryStepMendAttachedLeftFoot
+        - SurgeryStepSutureAttachedLeftFoot
+      cybernetic:
+        required:
+        - type: Cybernetics
+        steps:
+        - SurgeryStepAttachCyberneticLeftFoot
+        - SurgeryStepIntegrateCyberneticLeftFoot
+        - SurgeryStepSutureCyberneticLeftFoot
   - type: SurgeryPartCondition
     part: Leg
     symmetry: Left
@@ -221,8 +400,21 @@
   name: Attach right foot
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/parts.rsi, state: r_foot }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepAttachRightFoot, SurgeryStepMendAttachedRightFoot, SurgeryStepSutureAttachedRightFoot ]
+    steps:
+      organic:
+        steps:
+        - SurgeryStepAttachRightFoot
+        - SurgeryStepMendAttachedRightFoot
+        - SurgeryStepSutureAttachedRightFoot
+      cybernetic:
+        required:
+        - type: Cybernetics
+        steps:
+        - SurgeryStepAttachCyberneticRightFoot
+        - SurgeryStepIntegrateCyberneticRightFoot
+        - SurgeryStepSutureCyberneticRightFoot
   - type: SurgeryPartCondition
     part: Leg
     symmetry: Right
@@ -246,8 +438,12 @@
   name: Remove brain
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: brain }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepRemoveBrain ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveBrain
   - type: SurgeryOrganCondition
     slot: Brain
     part: Head
@@ -258,8 +454,12 @@
   name: Implant brain
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: brain }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepInsertBrain ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertBrain
   - type: SurgeryOrganCondition
     slot: Brain
     inverse: true
@@ -271,8 +471,12 @@
   name: Remove eyes
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: eyeball-l }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepRemoveEyes ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveEyes
   - type: SurgeryOrganCondition
     slot: Eyes
     part: Head
@@ -283,8 +487,12 @@
   name: Implant eyes
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: eyeball-l }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepInsertEyes ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertEyes
   - type: SurgeryOrganCondition
     slot: Eyes
     inverse: true
@@ -296,8 +504,12 @@
   name: Remove tongue
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: tongue }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepRemoveTongue ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveTongue
   - type: SurgeryOrganCondition
     slot: Tongue
     part: Head
@@ -308,8 +520,12 @@
   name: Implant tongue
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: tongue }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepInsertTongue ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertTongue
   - type: SurgeryOrganCondition
     slot: Tongue
     inverse: true
@@ -321,8 +537,12 @@
   name: Remove ears
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: ears }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepRemoveEars ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveEars
   - type: SurgeryOrganCondition
     slot: Ears
     part: Head
@@ -333,8 +553,12 @@
   name: Implant ears
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: ears }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepInsertEars ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertEars
   - type: SurgeryOrganCondition
     slot: Ears
     inverse: true
@@ -347,7 +571,10 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepRemoveTail ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveTail
   - type: SurgeryOrganCondition
     slot: Tail
     part: Groin
@@ -359,7 +586,10 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepInsertTail ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertTail
   - type: SurgeryOrganCondition
     slot: Tail
     inverse: true
@@ -372,7 +602,10 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepRemoveWings ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveWings
   - type: SurgeryOrganCondition
     slot: Wings
     part: Chest
@@ -384,7 +617,10 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepInsertWings ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertWings
   - type: SurgeryOrganCondition
     slot: Wings
     inverse: true
@@ -396,8 +632,12 @@
   name: Remove heart
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: heart-off }
     requirement: SurgeryOpenRibcage
-    steps: [ SurgeryStepRemoveHeart ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveHeart
   - type: SurgeryOrganCondition
     slot: Heart
     part: Chest
@@ -408,8 +648,12 @@
   name: Implant heart
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: heart-off }
     requirement: SurgeryOpenRibcage
-    steps: [ SurgeryStepInsertHeart ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertHeart
   - type: SurgeryOrganCondition
     slot: Heart
     inverse: true
@@ -421,8 +665,12 @@
   name: Remove lungs
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: lung-l }
     requirement: SurgeryOpenRibcage
-    steps: [ SurgeryStepRemoveLungs ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveLungs
   - type: SurgeryOrganCondition
     slot: Lungs
     part: Chest
@@ -433,8 +681,12 @@
   name: Implant lungs
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: lung-l }
     requirement: SurgeryOpenRibcage
-    steps: [ SurgeryStepInsertLungs ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertLungs
   - type: SurgeryOrganCondition
     slot: Lungs
     inverse: true
@@ -446,8 +698,12 @@
   name: Remove liver
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: liver }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepRemoveLiver ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveLiver
   - type: SurgeryOrganCondition
     slot: Liver
     part: Groin
@@ -458,8 +714,12 @@
   name: Implant liver
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: liver }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepInsertLiver ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertLiver
   - type: SurgeryOrganCondition
     slot: Liver
     inverse: true
@@ -471,8 +731,12 @@
   name: Remove stomach
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: stomach }
     requirement: SurgeryOpenRibcage
-    steps: [ SurgeryStepRemoveStomach ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveStomach
   - type: SurgeryOrganCondition
     slot: Stomach
     part: Chest
@@ -483,8 +747,12 @@
   name: Implant stomach
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: stomach }
     requirement: SurgeryOpenRibcage
-    steps: [ SurgeryStepInsertStomach ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertStomach
   - type: SurgeryOrganCondition
     slot: Stomach
     inverse: true
@@ -496,8 +764,12 @@
   name: Remove kidneys
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: kidney-l }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepRemoveKidneys ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveKidneys
   - type: SurgeryOrganCondition
     slot: Kidneys
     part: Groin
@@ -508,8 +780,12 @@
   name: Implant kidneys
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: kidney-l }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepInsertKidneys ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertKidneys
   - type: SurgeryOrganCondition
     slot: Kidneys
     inverse: true
@@ -521,8 +797,12 @@
   name: Remove appendix
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: appendix }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepRemoveAppendix ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveAppendix
   - type: SurgeryOrganCondition
     slot: Appendix
     part: Groin
@@ -533,8 +813,12 @@
   name: Implant appendix
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: appendix }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepInsertAppendix ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertAppendix
   - type: SurgeryOrganCondition
     slot: Appendix
     inverse: true
@@ -554,7 +838,11 @@
   name: Heal brain
   components:
   - type: Surgery
-    steps: [ SurgeryStepHealBrain ]
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: brain }
+    steps:
+      default:
+        steps:
+        - SurgeryStepHealBrain
   - type: SurgeryOrganCondition
     slot: Brain
     damaged: true
@@ -566,7 +854,11 @@
   name: Heal eyes
   components:
   - type: Surgery
-    steps: [ SurgeryStepHealEyes ]
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: eyeball-l }
+    steps:
+      default:
+        steps:
+        - SurgeryStepHealEyes
   - type: SurgeryOrganCondition
     slot: Eyes
     damaged: true
@@ -578,7 +870,11 @@
   name: Heal tongue
   components:
   - type: Surgery
-    steps: [ SurgeryStepHealTongue ]
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: tongue }
+    steps:
+      default:
+        steps:
+        - SurgeryStepHealTongue
   - type: SurgeryOrganCondition
     slot: Tongue
     damaged: true
@@ -590,7 +886,11 @@
   name: Heal ears
   components:
   - type: Surgery
-    steps: [ SurgeryStepHealEars ]
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: ears }
+    steps:
+      default:
+        steps:
+        - SurgeryStepHealEars
   - type: SurgeryOrganCondition
     slot: Ears
     damaged: true
@@ -602,8 +902,12 @@
   name: Heal heart
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: heart-off }
     requirement: SurgeryOpenRibcage
-    steps: [ SurgeryStepHealHeart ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepHealHeart
   - type: SurgeryOrganCondition
     slot: Heart
     damaged: true
@@ -615,8 +919,12 @@
   name: Heal lungs
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: lung-l }
     requirement: SurgeryOpenRibcage
-    steps: [ SurgeryStepHealLungs ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepHealLungs
   - type: SurgeryOrganCondition
     slot: Lungs
     damaged: true
@@ -628,8 +936,12 @@
   name: Heal liver
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: liver }
     requirement: SurgeryOpenAbdomen
-    steps: [ SurgeryStepHealLiver ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepHealLiver
   - type: SurgeryOrganCondition
     slot: Liver
     damaged: true
@@ -641,8 +953,12 @@
   name: Heal stomach
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: stomach }
     requirement: SurgeryOpenRibcage
-    steps: [ SurgeryStepHealStomach ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepHealStomach
   - type: SurgeryOrganCondition
     slot: Stomach
     damaged: true
@@ -654,8 +970,12 @@
   name: Heal kidneys
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: kidney-l }
     requirement: SurgeryOpenAbdomen
-    steps: [ SurgeryStepHealKidneys ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepHealKidneys
   - type: SurgeryOrganCondition
     slot: Kidneys
     damaged: true
@@ -667,8 +987,12 @@
   name: Heal appendix
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: appendix }
     requirement: SurgeryOpenAbdomen
-    steps: [ SurgeryStepHealAppendix ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepHealAppendix
   - type: SurgeryOrganCondition
     slot: Appendix
     damaged: true
@@ -680,7 +1004,11 @@
   name: Stop bleeding
   components:
   - type: Surgery
-    steps: [ SurgeryStepClampWoundBleeding ]
+    icon: { sprite: Interface/Alerts/bleed.rsi, state: bleed5 }
+    steps:
+      default:
+        steps:
+        - SurgeryStepClampWoundBleeding
   - type: SurgeryHasWoundCondition
     state: Open
     bleeding: true
@@ -691,7 +1019,11 @@
   name: Tend bruise wounds
   components:
   - type: Surgery
-    steps: [ SurgeryStepCarefulIncisionScalpel, SurgeryStepRepairBruteTissue ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepCarefulIncisionScalpel
+        - SurgeryStepRepairBruteTissue
   - type: SurgeryWoundedCondition
     damageGroup: Brute
 
@@ -701,7 +1033,11 @@
   name: Tend burn wounds
   components:
   - type: Surgery
-    steps: [ SurgeryStepCarefulIncisionScalpel, SurgeryStepRepairBurnTissue ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepCarefulIncisionScalpel
+        - SurgeryStepRepairBurnTissue
   - type: SurgeryWoundedCondition
     damageGroup: Burn
 
@@ -711,7 +1047,11 @@
   name: Reduce fracture
   components:
   - type: Surgery
-    steps: [ SurgeryStepReduceFracture ]
+    icon: { sprite: _Onyx/Interface/Alerts/fracture.rsi, state: brokenbones }
+    steps:
+      default:
+        steps:
+        - SurgeryStepReduceFracture
   - type: SurgeryFractureGradeCondition
     minGrade: Displaced
 
@@ -721,8 +1061,12 @@
   name: Repair amputation damage
   components:
   - type: Surgery
+    useTargetPartIcon: true
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepHealAmputationConsequence ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepHealAmputationConsequence
   - type: SurgeryHasWoundCondition
     woundPrototype: AmputationConsequenceWound
 
@@ -732,7 +1076,11 @@
   name: Mend fracture
   components:
   - type: Surgery
-    steps: [ SurgeryStepMendFracture ]
+    icon: { sprite: _Onyx/Interface/Alerts/fracture.rsi, state: brokenbones }
+    steps:
+      default:
+        steps:
+        - SurgeryStepMendFracture
   - type: SurgeryFractureGradeCondition
 
 - type: entity
@@ -741,8 +1089,12 @@
   name: Pacification
   components:
   - type: Surgery
+    icon: { sprite: Interface/Alerts/pacified.rsi, state: icon }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepPacification ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepPacification
   - type: SurgeryPartCondition
     part: Head
   - type: SurgeryOrganCondition
@@ -756,8 +1108,12 @@
   name: Remove pacification
   components:
   - type: Surgery
+    icon: { sprite: Interface/Alerts/pacified.rsi, state: icon }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepRemovePacification ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemovePacification
   - type: SurgeryPartCondition
     part: Head
   - type: SurgeryOrganCondition
@@ -772,8 +1128,12 @@
   name: Cut vocal cords
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: tongue }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepCutVocalCords ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepCutVocalCords
   - type: SurgeryPartCondition
     part: Head
   - type: SurgeryMutingCondition
@@ -784,8 +1144,12 @@
   name: Restore vocal cords
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Human/organs.rsi, state: tongue }
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepRestoreVocalCords ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRestoreVocalCords
   - type: SurgeryPartCondition
     part: Head
   - type: SurgeryMutingCondition

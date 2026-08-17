@@ -166,6 +166,30 @@ public sealed class AmputationConsequenceTest : GameTest
         });
     }
 
+    [Test]
+    public async Task HealingPartAboveThresholdDoesNotAmputateTest()
+    {
+        var server = Pair.Server;
+        await server.WaitIdleAsync();
+        var entities = server.ResolveDependency<IEntityManager>();
+        var map = await Pair.CreateTestMap();
+
+        await server.WaitAssertion(() =>
+        {
+            var body = entities.SpawnEntity("AmputationConsequenceTestBody", map.GridCoords);
+            var graph = entities.System<SharedBodySystem>();
+            var routing = entities.System<WoundDamageRoutingSystem>();
+            var damage = entities.System<DamageableSystem>();
+            var head = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Head).Id;
+
+            damage.SetDamage(head, Spec("Slash", 80));
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", -1)));
+
+            Assert.That(graph.BodyHasChild(body, head), Is.True);
+            Assert.That(damage.GetAllDamage(head).DamageDict["Slash"], Is.EqualTo(FixedPoint2.New(79)));
+        });
+    }
+
     private static void RaiseStep(EntityUid effect, EntityUid body, EntityUid part, IEntityManager entities)
     {
         var ev = new SurgeryStepEvent(EntityUid.Invalid, body, part, []);

@@ -206,7 +206,7 @@ public sealed partial class WoundDamageProjectionSystem : EntitySystem
         EnsureComp<DamageableComponent>(part);
         EnsureComp<PainComponent>(part);
         var injurable = EnsureComp<InjurableComponent>(part);
-        if (injurable.DamageContainer == "Biological")
+        if (injurable.DamageContainer != null)
             return;
 
         injurable.DamageContainer = "Biological";

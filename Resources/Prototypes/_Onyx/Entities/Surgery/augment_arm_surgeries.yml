@@ -5,7 +5,10 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepInsertArmAugment ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertArmAugment
   - type: SurgeryOrganCondition
     slot: AugmentArm
     inverse: true
@@ -18,7 +21,10 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenIncision
-    steps: [ SurgeryStepRemoveArmAugment ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveArmAugment
   - type: SurgeryOrganCondition
     slot: AugmentArm
     part: Arm

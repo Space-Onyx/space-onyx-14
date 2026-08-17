@@ -1,9 +1,12 @@
 - type: entity
   abstract: true
   id: OnyxCyberneticPartBase
+  suffix: ""
   components:
   - type: Cybernetics
   - type: Scarless
+  - type: Woundable
+    profile: CyberneticWoundableProfile
   - type: TransplantCompatibility
     profile: Cybernetic
   - type: Damageable

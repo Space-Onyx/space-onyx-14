@@ -155,6 +155,26 @@
     Cold: 0.05
     Shock: 0.25
 
+- type: woundableProfile
+  id: CyberneticWoundableProfile
+  amputationThresholds:
+    Arm:
+      Slash: 270
+      Piercing: 400
+      Blunt: 600
+    Hand:
+      Slash: 150
+      Piercing: 270
+      Blunt: 360
+    Leg:
+      Slash: 330
+      Piercing: 470
+      Blunt: 520
+    Foot:
+      Slash: 180
+      Piercing: 300
+      Blunt: 220
+
 - type: fractureProfile
   id: OrganicFractureProfile
 

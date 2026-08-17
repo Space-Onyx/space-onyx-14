@@ -1,6 +1,7 @@
 using Content.Shared._Onyx.Medical.Surgery;
 using Content.Shared.Body.Part;
 using Robust.Client.GameObjects;
+using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Prototypes;
@@ -14,14 +15,18 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
     [Dependency] private IPrototypeManager _prototypes = default!;
 
     private readonly SurgerySystem _system;
+    private readonly SpriteSystem _sprites;
     private SurgeryWindow? _window;
     private EntityUid? _part;
     private EntProtoId? _surgery;
+    private uint _stepsRequestId;
+    private bool _stepsRequestPending;
     private readonly List<EntProtoId> _history = new();
 
     public SurgeryBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
         _system = EntMan.System<SurgerySystem>();
+        _sprites = EntMan.System<SpriteSystem>();
     }
 
     protected override void Open()
@@ -33,8 +38,6 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
         _window.PartsButton.OnPressed += _ => ShowParts();
         _window.SurgeriesButton.OnPressed += _ => ShowSurgeries();
         _window.StepsButton.OnPressed += _ => ShowPreviousSurgery();
-        SendMessage(new SurgeryStateRequest());
-
         if (State is SurgeryBuiState state)
             Update(state);
     }
@@ -56,19 +59,34 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
         if (_window == null)
             return;
 
-        if (_part is { } selectedPart && !state.Choices.ContainsKey(EntMan.GetNetEntity(selectedPart)))
+        if (_part is not { } selectedPart)
         {
             ShowParts();
             UpdateDisabledPanel();
             return;
         }
 
-        if (_part != null && _surgery != null)
-            ShowSurgery(_surgery.Value);
-        else if (_part != null)
-            ShowSurgeries();
-        else
+        var netPart = EntMan.GetNetEntity(selectedPart);
+        if (!state.Choices.TryGetValue(netPart, out var surgeries))
+        {
+            if (_history.Count > 0)
+            {
+                ShowPreviousSurgery();
+                UpdateDisabledPanel();
+                return;
+            }
+
             ShowParts();
+            UpdateDisabledPanel();
+            return;
+        }
+
+        if (_surgery is { } surgery && surgeries.Contains(surgery))
+            RequestStepsState();
+        else if (_history.Count > 0)
+            ShowPreviousSurgery();
+        else
+            ShowSurgeries();
 
         UpdateDisabledPanel();
     }
@@ -79,7 +97,7 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
             return;
 
         var ready = _system.IsReadyForSurgery(Owner);
-        if (ready && _part != null && _surgery != null)
+        if (_part != null && _surgery != null && !_stepsRequestPending)
             RequestStepsState();
 
         UpdateDisabledPanel(ready);
@@ -92,6 +110,7 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
 
         _part = null;
         _surgery = null;
+        _stepsRequestPending = false;
         _history.Clear();
         _window.Parts.RemoveAllChildren();
 
@@ -127,6 +146,7 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
             return;
 
         _surgery = null;
+        _stepsRequestPending = false;
         _history.Clear();
         _window.Surgeries.RemoveAllChildren();
         var surgeries = new List<(EntProtoId Id, EntityPrototype Proto, SurgeryComponent Component)>();
@@ -139,7 +159,7 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
 
         foreach (var surgery in surgeries.OrderBy(surgery => surgery.Component.Priority).ThenBy(surgery => surgery.Proto.Name))
         {
-            var button = Choice(surgery.Proto.Name);
+            var button = ChoiceWithTexture(surgery.Proto.Name, SurgeryIcon(surgery.Component));
             button.Button.OnPressed += _ => ShowSurgery(surgery.Id);
             _window.Surgeries.AddChild(button);
         }
@@ -155,12 +175,16 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
             return;
 
         _surgery = surgeryId;
+        _stepsRequestPending = false;
         _window.Steps.RemoveAllChildren();
         var netPart = EntMan.GetNetEntity(_part.Value);
 
         if (surgery.Requirement is { } requirement && _prototypes.TryIndex<EntityPrototype>(requirement, out var requirementProto))
         {
-            var required = Choice(Loc.GetString("surgery-ui-requires", ("surgery", requirementProto.Name)));
+            requirementProto.TryComp(out SurgeryComponent? requirementSurgery, EntMan.ComponentFactory);
+            var required = ChoiceWithTexture(
+                Loc.GetString("surgery-ui-requires", ("surgery", requirementProto.Name)),
+                requirementSurgery == null ? null : SurgeryIcon(requirementSurgery));
             var completed = State is SurgeryBuiState state &&
                             state.Completed.TryGetValue(netPart, out var partCompleted) &&
                             partCompleted.Contains(requirement);
@@ -177,16 +201,7 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
             _window.Steps.AddChild(required);
         }
 
-        foreach (var stepId in surgery.Steps)
-        {
-            if (!_prototypes.TryIndex<EntityPrototype>(stepId, out var stepProto))
-                continue;
-
-            var stepEntity = _system.GetSingleton(stepId);
-            var button = StepChoice(stepId, stepProto.Name, stepEntity);
-            button.Button.OnPressed += _ => SendPredictedMessage(new SurgeryStepChosenBuiMsg(netPart, surgeryId, stepId));
-            _window.Steps.AddChild(button);
-        }
+        RebuildSteps(_system.GetPredictedSteps(Owner, _part.Value, surgeryId));
 
         View(ViewType.Steps);
         RequestStepsState();
@@ -200,6 +215,22 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
             : null;
         control.Set(text, texture);
         return control;
+    }
+
+    private static SurgeryChoiceControl ChoiceWithTexture(string text, Texture? texture)
+    {
+        var control = new SurgeryChoiceControl();
+        control.Set(text, texture);
+        return control;
+    }
+
+    private Texture? SurgeryIcon(SurgeryComponent surgery)
+    {
+        if (surgery.UseTargetPartIcon && _part is { } part &&
+            EntMan.TryGetComponent(part, out SpriteComponent? partSprite))
+            return partSprite.Icon?.Default;
+
+        return surgery.Icon is { } icon ? _sprites.Frame0(icon) : null;
     }
 
     private SurgeryStepButton StepChoice(EntProtoId stepId, string text, EntityUid? icon)
@@ -300,19 +331,26 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
 
     private void RequestStepsState()
     {
-        if (_part == null || _surgery == null)
+        if (_part == null || _surgery == null || _stepsRequestPending)
             return;
 
-        SendMessage(new SurgeryStepsStateRequest(EntMan.GetNetEntity(_part.Value), _surgery.Value));
+        _stepsRequestId++;
+        _stepsRequestPending = true;
+        SendMessage(new SurgeryStepsStateRequest(EntMan.GetNetEntity(_part.Value), _surgery.Value, _stepsRequestId));
     }
 
     private void RefreshSteps(SurgeryStepsStateResponse state)
     {
         if (_window == null || _part == null || _surgery == null ||
-            state.Part != EntMan.GetNetEntity(_part.Value) || state.Surgery != _surgery)
+            state.Part != EntMan.GetNetEntity(_part.Value) || state.Surgery != _surgery ||
+            state.RequestId != _stepsRequestId)
             return;
 
-        if (state.NextStep < 0 && state.Completed.All(static completed => completed))
+        _stepsRequestPending = false;
+
+        RebuildSteps(state.Steps);
+
+        if (state.SelectionState == SurgerySelectionState.Completed)
         {
             if (_history.Count > 0)
                 ShowPreviousSurgery();
@@ -322,6 +360,18 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
                 ShowSurgeries();
             return;
         }
+
+        if (state.SelectionState == SurgerySelectionState.Invalid)
+        {
+            if (State is not SurgeryBuiState uiState ||
+                !uiState.Choices.ContainsKey(EntMan.GetNetEntity(_part.Value)) ||
+                ChangesBodyParts(_surgery.Value))
+                ShowParts();
+            else
+                ShowSurgeries();
+            return;
+        }
+
 
         var index = 0;
         foreach (var child in _window.Steps.Children)
@@ -350,15 +400,40 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
         }
     }
 
+    private void RebuildSteps(IEnumerable<EntProtoId> steps)
+    {
+        if (_window == null || _part == null || _surgery == null)
+            return;
+
+        var stepIds = steps as IReadOnlyCollection<EntProtoId> ?? steps.ToArray();
+        var current = _window.Steps.Children.OfType<SurgeryStepButton>().Select(button => button.StepId);
+        if (current.SequenceEqual(stepIds))
+            return;
+
+        foreach (var button in _window.Steps.Children.OfType<SurgeryStepButton>().ToArray())
+            button.Orphan();
+
+        var netPart = EntMan.GetNetEntity(_part.Value);
+        foreach (var stepId in stepIds)
+        {
+            if (!_prototypes.TryIndex<EntityPrototype>(stepId, out var stepProto))
+                continue;
+
+            var button = StepChoice(stepId, stepProto.Name, _system.GetSurgeryStepEntity(stepId));
+            button.Button.OnPressed += _ => SendMessage(new SurgeryStepChosenBuiMsg(netPart, _surgery.Value, stepId));
+            _window.Steps.AddChild(button);
+        }
+    }
+
     private bool ChangesBodyParts(EntProtoId surgeryId)
     {
         if (!_prototypes.TryIndex<EntityPrototype>(surgeryId, out var surgeryProto) ||
             !surgeryProto.TryComp(out SurgeryComponent? surgery, EntMan.ComponentFactory))
             return false;
 
-        foreach (var stepId in surgery.Steps)
+        foreach (var stepId in surgery.Steps.Values.SelectMany(sequence => sequence.Steps))
         {
-            if (_system.GetSingleton(stepId) is { } step &&
+            if (_system.GetSurgeryStepEntity(stepId) is { } step &&
                 (EntMan.HasComponent<SurgeryDetachPartEffectComponent>(step) ||
                  EntMan.HasComponent<SurgeryAttachPartEffectComponent>(step)))
                 return true;

@@ -20,8 +20,10 @@
   - type: Surgery
     requirement: SurgeryOpenRibcage
     steps:
-    - SurgeryStepClampBleeders
-    - SurgeryStepRemoveLarvaEmbryo
+      default:
+        steps:
+        - SurgeryStepClampBleeders
+        - SurgeryStepRemoveLarvaEmbryo
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryXenomorphCondition
@@ -35,8 +37,10 @@
   - type: Surgery
     requirement: SurgeryOpenRibcage
     steps:
-    - SurgeryStepClampBleeders
-    - SurgeryStepRemoveLarva
+      default:
+        steps:
+        - SurgeryStepClampBleeders
+        - SurgeryStepRemoveLarva
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryXenomorphCondition

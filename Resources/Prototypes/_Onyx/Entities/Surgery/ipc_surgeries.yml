@@ -13,10 +13,15 @@
   components:
   - type: Surgery
     priority: -1
+    icon: { sprite: Objects/Tools/screwdriver.rsi, state: screwdriver }
     steps:
-    - SurgeryStepIpcUnfastenPanel
-    - SurgeryStepIpcOpenPanel
-    - SurgeryStepIpcDisconnectWiring
+      default:
+        steps:
+        - SurgeryStepIpcUnfastenPanel
+        - SurgeryStepIpcOpenPanel
+        - SurgeryStepIpcDisconnectWiring
+  - type: SurgeryMarkerCondition
+    missingAny: [ IncisionOpen, SkinRetracted, BleedersClamped ]
 
 - type: entity
   parent: SurgeryIpcBase
@@ -25,11 +30,15 @@
   components:
   - type: Surgery
     priority: 1
+    icon: { sprite: Objects/Tools/screwdriver.rsi, state: screwdriver }
     steps:
-    - SurgeryStepIpcReconnectWiring
-    - SurgeryStepIpcClosePanel
-    - SurgeryStepIpcFastenPanel
-  - type: SurgeryCloseIncisionCondition
+      default:
+        steps:
+        - SurgeryStepIpcReconnectWiring
+        - SurgeryStepIpcClosePanel
+        - SurgeryStepIpcFastenPanel
+  - type: SurgeryMarkerCondition
+    all: [ IncisionOpen ]
 
 - type: entity
   parent: SurgeryIpcBase
@@ -37,8 +46,12 @@
   name: Detach body part
   components:
   - type: Surgery
+    useTargetPartIcon: true
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcDetachPart ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcDetachPart
   - type: SurgeryDetachablePartCondition
 
 - type: entity
@@ -48,7 +61,12 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcAttachHead, SurgeryStepIpcSecureHead, SurgeryStepIpcConnectHead ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcAttachHead
+        - SurgeryStepIpcSecureHead
+        - SurgeryStepIpcConnectHead
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryMissingPartCondition
@@ -61,7 +79,12 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcAttachLeftArm, SurgeryStepIpcSecureLeftArm, SurgeryStepIpcConnectLeftArm ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcAttachLeftArm
+        - SurgeryStepIpcSecureLeftArm
+        - SurgeryStepIpcConnectLeftArm
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryMissingPartCondition
@@ -75,7 +98,12 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcAttachRightArm, SurgeryStepIpcSecureRightArm, SurgeryStepIpcConnectRightArm ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcAttachRightArm
+        - SurgeryStepIpcSecureRightArm
+        - SurgeryStepIpcConnectRightArm
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryMissingPartCondition
@@ -89,7 +117,12 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcAttachLeftLeg, SurgeryStepIpcSecureLeftLeg, SurgeryStepIpcConnectLeftLeg ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcAttachLeftLeg
+        - SurgeryStepIpcSecureLeftLeg
+        - SurgeryStepIpcConnectLeftLeg
   - type: SurgeryPartCondition
     part: Groin
   - type: SurgeryMissingPartCondition
@@ -103,7 +136,12 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcAttachRightLeg, SurgeryStepIpcSecureRightLeg, SurgeryStepIpcConnectRightLeg ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcAttachRightLeg
+        - SurgeryStepIpcSecureRightLeg
+        - SurgeryStepIpcConnectRightLeg
   - type: SurgeryPartCondition
     part: Groin
   - type: SurgeryMissingPartCondition
@@ -117,7 +155,12 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcAttachLeftHand, SurgeryStepIpcSecureLeftHand, SurgeryStepIpcConnectLeftHand ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcAttachLeftHand
+        - SurgeryStepIpcSecureLeftHand
+        - SurgeryStepIpcConnectLeftHand
   - type: SurgeryPartCondition
     part: Arm
     symmetry: Left
@@ -132,7 +175,12 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcAttachRightHand, SurgeryStepIpcSecureRightHand, SurgeryStepIpcConnectRightHand ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcAttachRightHand
+        - SurgeryStepIpcSecureRightHand
+        - SurgeryStepIpcConnectRightHand
   - type: SurgeryPartCondition
     part: Arm
     symmetry: Right
@@ -147,7 +195,12 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcAttachLeftFoot, SurgeryStepIpcSecureLeftFoot, SurgeryStepIpcConnectLeftFoot ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcAttachLeftFoot
+        - SurgeryStepIpcSecureLeftFoot
+        - SurgeryStepIpcConnectLeftFoot
   - type: SurgeryPartCondition
     part: Leg
     symmetry: Left
@@ -162,7 +215,12 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcAttachRightFoot, SurgeryStepIpcSecureRightFoot, SurgeryStepIpcConnectRightFoot ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcAttachRightFoot
+        - SurgeryStepIpcSecureRightFoot
+        - SurgeryStepIpcConnectRightFoot
   - type: SurgeryPartCondition
     part: Leg
     symmetry: Right
@@ -177,7 +235,10 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcRemoveBrain ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcRemoveBrain
   - type: SurgeryOrganCondition
     slot: Brain
     part: Chest
@@ -189,7 +250,10 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcInsertBrain ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcInsertBrain
   - type: SurgeryOrganCondition
     slot: Brain
     inverse: true
@@ -202,7 +266,10 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcRemoveEyes ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcRemoveEyes
   - type: SurgeryOrganCondition
     slot: Eyes
     part: Head
@@ -214,7 +281,10 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcInsertEyes ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcInsertEyes
   - type: SurgeryOrganCondition
     slot: Eyes
     inverse: true
@@ -227,7 +297,10 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcRemoveTongue ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcRemoveTongue
   - type: SurgeryOrganCondition
     slot: Tongue
     part: Head
@@ -239,7 +312,10 @@
   components:
   - type: Surgery
     requirement: SurgeryIpcOpenPanel
-    steps: [ SurgeryStepIpcInsertTongue ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepIpcInsertTongue
   - type: SurgeryOrganCondition
     slot: Tongue
     inverse: true

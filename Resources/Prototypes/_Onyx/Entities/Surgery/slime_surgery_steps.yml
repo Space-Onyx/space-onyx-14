@@ -19,47 +19,73 @@
 - type: entity
   parent: SurgeryStepSlimeAttachPart
   id: SurgeryStepSlimeAttachHead
-  components: [ { type: SurgeryAttachPartEffect, part: Head } ]
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Head
 
 - type: entity
   parent: SurgeryStepSlimeAttachPart
   id: SurgeryStepSlimeAttachLeftArm
-  components: [ { type: SurgeryAttachPartEffect, part: Arm, symmetry: Left } ]
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Arm
+    symmetry: Left
 
 - type: entity
   parent: SurgeryStepSlimeAttachPart
   id: SurgeryStepSlimeAttachRightArm
-  components: [ { type: SurgeryAttachPartEffect, part: Arm, symmetry: Right } ]
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Arm
+    symmetry: Right
 
 - type: entity
   parent: SurgeryStepSlimeAttachPart
   id: SurgeryStepSlimeAttachLeftLeg
-  components: [ { type: SurgeryAttachPartEffect, part: Leg, symmetry: Left } ]
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Leg
+    symmetry: Left
 
 - type: entity
   parent: SurgeryStepSlimeAttachPart
   id: SurgeryStepSlimeAttachRightLeg
-  components: [ { type: SurgeryAttachPartEffect, part: Leg, symmetry: Right } ]
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Leg
+    symmetry: Right
 
 - type: entity
   parent: SurgeryStepSlimeAttachPart
   id: SurgeryStepSlimeAttachLeftHand
-  components: [ { type: SurgeryAttachPartEffect, part: Hand, symmetry: Left } ]
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Hand
+    symmetry: Left
 
 - type: entity
   parent: SurgeryStepSlimeAttachPart
   id: SurgeryStepSlimeAttachRightHand
-  components: [ { type: SurgeryAttachPartEffect, part: Hand, symmetry: Right } ]
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Hand
+    symmetry: Right
 
 - type: entity
   parent: SurgeryStepSlimeAttachPart
   id: SurgeryStepSlimeAttachLeftFoot
-  components: [ { type: SurgeryAttachPartEffect, part: Foot, symmetry: Left } ]
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Foot
+    symmetry: Left
 
 - type: entity
   parent: SurgeryStepSlimeAttachPart
   id: SurgeryStepSlimeAttachRightFoot
-  components: [ { type: SurgeryAttachPartEffect, part: Foot, symmetry: Right } ]
+  components:
+  - type: SurgeryAttachPartEffect
+    part: Foot
+    symmetry: Right
 
 - type: entity
   parent: SurgeryStepRemoveOrgan

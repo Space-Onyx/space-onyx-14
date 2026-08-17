@@ -14,7 +14,7 @@
   components:
   - type: SurgeryStep
     toolQuality: Screwing
-    add: [ { type: IncisionOpen } ]
+    addMarkers: [ IncisionOpen ]
   - type: Sprite
     sprite: Objects/Tools/screwdriver.rsi
     layers:
@@ -28,7 +28,7 @@
   components:
   - type: SurgeryStep
     toolQuality: Cutting
-    add: [ { type: BleedersClamped } ]
+    addMarkers: [ BleedersClamped ]
   - type: Sprite
     sprite: Objects/Tools/wirecutters.rsi
     layers:
@@ -42,7 +42,7 @@
   components:
   - type: SurgeryStep
     toolQuality: Prying
-    add: [ { type: SkinRetracted } ]
+    addMarkers: [ SkinRetracted ]
   - type: Sprite
     sprite: Objects/Tools/crowbar.rsi
     state: icon
@@ -54,7 +54,7 @@
   components:
   - type: SurgeryStep
     toolQuality: Prying
-    remove: [ { type: SkinRetracted } ]
+    removeMarkers: [ SkinRetracted ]
   - type: Sprite
     sprite: Objects/Tools/crowbar.rsi
     state: icon
@@ -67,7 +67,7 @@
   - type: SurgeryStep
     consumedStackType: CableHV
     consumedAmount: 1
-    remove: [ { type: BleedersClamped } ]
+    removeMarkers: [ BleedersClamped ]
   - type: Sprite
     sprite: Objects/Tools/cable-coils.rsi
     state: coilhv-10
@@ -79,7 +79,7 @@
   components:
   - type: SurgeryStep
     toolQuality: Screwing
-    remove: [ { type: IncisionOpen } ]
+    removeMarkers: [ IncisionOpen ]
   - type: Sprite
     sprite: Objects/Tools/screwdriver.rsi
     layers:

@@ -3,6 +3,7 @@ using Content.Server._Onyx.Chat;
 // <Onyx-Languages>
 using Content.Shared._Onyx.Language;
 // </Onyx-Languages>
+using Content.Shared._Onyx.Speech; // <Onyx-RaspyAccent>
 using Content.Shared.Chat;
 using Content.Shared.Database;
 using Content.Shared.IdentityManagement;
@@ -33,6 +34,14 @@ public sealed partial class ChatSystem
     {
         if (!_actionBlocker.CanSpeak(source) && !ignoreActionBlocker)
             return;
+
+        // <Onyx-RaspyAccent>
+        if (HasComp<RaspyAccentComponent>(source))
+        {
+            SendEntityWhisper(source, originalMessage, range, null, nameOverride, hideLog, ignoreActionBlocker, languageOverride);
+            return;
+        }
+        // </Onyx-RaspyAccent>
 
         var message = TransformSpeech(source, originalMessage);
 

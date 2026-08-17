@@ -13,9 +13,14 @@
   components:
   - type: Surgery
     priority: -1
+    icon: { sprite: _Onyx/Objects/Specific/Medical/Surgery/scalpel.rsi, state: scalpel }
     steps:
-    - SurgeryStepOpenIncisionScalpel
-    - SurgeryStepRetractSkin
+      default:
+        steps:
+        - SurgeryStepOpenIncisionScalpel
+        - SurgeryStepRetractSkin
+  - type: SurgeryMarkerCondition
+    missingAny: [ IncisionOpen, SkinRetracted ]
 
 - type: entity
   parent: SurgerySlimeBase
@@ -24,8 +29,13 @@
   components:
   - type: Surgery
     priority: 1
-    steps: [ SurgeryStepCloseIncision ]
-  - type: SurgeryCloseIncisionCondition
+    icon: { sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi, state: stitches }
+    steps:
+      default:
+        steps:
+        - SurgeryStepCloseIncision
+  - type: SurgeryMarkerCondition
+    all: [ IncisionOpen ]
 
 - type: entity
   parent: SurgerySlimeBase
@@ -33,8 +43,12 @@
   name: Separate body part
   components:
   - type: Surgery
+    useTargetPartIcon: true
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepSlimeSeparatePart ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepSlimeSeparatePart
   - type: SurgeryDetachablePartCondition
 
 - type: entity
@@ -44,7 +58,10 @@
   components:
   - type: Surgery
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepSlimeAttachHead ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepSlimeAttachHead
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryMissingPartCondition
@@ -57,7 +74,10 @@
   components:
   - type: Surgery
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepSlimeAttachLeftArm ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepSlimeAttachLeftArm
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryMissingPartCondition
@@ -71,7 +91,10 @@
   components:
   - type: Surgery
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepSlimeAttachRightArm ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepSlimeAttachRightArm
   - type: SurgeryPartCondition
     part: Chest
   - type: SurgeryMissingPartCondition
@@ -85,7 +108,10 @@
   components:
   - type: Surgery
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepSlimeAttachLeftLeg ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepSlimeAttachLeftLeg
   - type: SurgeryPartCondition
     part: Groin
   - type: SurgeryMissingPartCondition
@@ -99,7 +125,10 @@
   components:
   - type: Surgery
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepSlimeAttachRightLeg ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepSlimeAttachRightLeg
   - type: SurgeryPartCondition
     part: Groin
   - type: SurgeryMissingPartCondition
@@ -113,7 +142,10 @@
   components:
   - type: Surgery
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepSlimeAttachLeftHand ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepSlimeAttachLeftHand
   - type: SurgeryPartCondition
     part: Arm
     symmetry: Left
@@ -128,7 +160,10 @@
   components:
   - type: Surgery
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepSlimeAttachRightHand ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepSlimeAttachRightHand
   - type: SurgeryPartCondition
     part: Arm
     symmetry: Right
@@ -143,7 +178,10 @@
   components:
   - type: Surgery
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepSlimeAttachLeftFoot ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepSlimeAttachLeftFoot
   - type: SurgeryPartCondition
     part: Leg
     symmetry: Left
@@ -158,7 +196,10 @@
   components:
   - type: Surgery
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepSlimeAttachRightFoot ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepSlimeAttachRightFoot
   - type: SurgeryPartCondition
     part: Leg
     symmetry: Right
@@ -172,8 +213,12 @@
   name: Remove slime core
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Slime/organs.rsi, state: brain }
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepSlimeRemoveCore ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepSlimeRemoveCore
   - type: SurgeryOrganCondition
     slot: Brain
     part: Groin
@@ -184,8 +229,12 @@
   name: Insert slime core
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Slime/organs.rsi, state: brain }
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepSlimeInsertCore ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepSlimeInsertCore
   - type: SurgeryOrganCondition
     slot: Brain
     inverse: true
@@ -197,8 +246,12 @@
   name: Restore slime core
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Slime/organs.rsi, state: brain }
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepHealBrain ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepHealBrain
   - type: SurgeryOrganCondition
     slot: Brain
     damaged: true
@@ -210,8 +263,12 @@
   name: Remove eyes
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Slime/organs.rsi, state: eyeball-l }
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepRemoveEyes ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveEyes
   - type: SurgeryOrganCondition
     slot: Eyes
     part: Head
@@ -222,8 +279,12 @@
   name: Insert eyes
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Slime/organs.rsi, state: eyeball-l }
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepInsertEyes ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertEyes
   - type: SurgeryOrganCondition
     slot: Eyes
     inverse: true
@@ -235,8 +296,12 @@
   name: Restore eyes
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Slime/organs.rsi, state: eyeball-l }
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepHealEyes ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepHealEyes
   - type: SurgeryOrganCondition
     slot: Eyes
     damaged: true
@@ -249,7 +314,10 @@
   components:
   - type: Surgery
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepRemoveEars ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveEars
   - type: SurgeryOrganCondition
     slot: Ears
     part: Head
@@ -261,7 +329,10 @@
   components:
   - type: Surgery
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepInsertEars ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertEars
   - type: SurgeryOrganCondition
     slot: Ears
     inverse: true
@@ -274,7 +345,10 @@
   components:
   - type: Surgery
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepRemoveTail ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveTail
   - type: SurgeryOrganCondition
     slot: Tail
     part: Groin
@@ -286,7 +360,10 @@
   components:
   - type: Surgery
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepInsertTail ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertTail
   - type: SurgeryOrganCondition
     slot: Tail
     inverse: true
@@ -298,8 +375,12 @@
   name: Remove gas sacs
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Slime/organs.rsi, state: lung-l }
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepRemoveLungs ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveLungs
   - type: SurgeryOrganCondition
     slot: Lungs
     part: Chest
@@ -310,8 +391,12 @@
   name: Insert gas sacs
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Slime/organs.rsi, state: lung-l }
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepInsertLungs ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertLungs
   - type: SurgeryOrganCondition
     slot: Lungs
     inverse: true
@@ -323,8 +408,12 @@
   name: Restore gas sacs
   components:
   - type: Surgery
+    icon: { sprite: Mobs/Species/Slime/organs.rsi, state: lung-l }
     requirement: SurgerySlimeOpenIncision
-    steps: [ SurgeryStepHealLungs ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepHealLungs
   - type: SurgeryOrganCondition
     slot: Lungs
     damaged: true
@@ -336,7 +425,11 @@
   name: Stop leaking
   components:
   - type: Surgery
-    steps: [ SurgeryStepClampWoundBleeding ]
+    icon: { sprite: Interface/Alerts/bleed.rsi, state: bleed5 }
+    steps:
+      default:
+        steps:
+        - SurgeryStepClampWoundBleeding
   - type: SurgeryHasWoundCondition
     state: Open
     bleeding: true

@@ -1,25 +1,20 @@
 using Content.Shared._Onyx.Medical.Surgery;
+using Robust.Client.Player;
+using Robust.Shared.Prototypes;
 
 namespace Content.Client._Onyx.Medical.Surgery;
 
-public sealed class SurgerySystem : SharedSurgerySystem
+public sealed partial class SurgerySystem : SharedSurgerySystem
 {
+    [Dependency] private IPlayerManager _player = default!;
+
     public event Action? OnRefresh;
     private float _refreshAt;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<IncisionOpenComponent, ComponentStartup>(Refresh);
-        SubscribeLocalEvent<IncisionOpenComponent, ComponentShutdown>(Refresh);
-        SubscribeLocalEvent<BleedersClampedComponent, ComponentStartup>(Refresh);
-        SubscribeLocalEvent<BleedersClampedComponent, ComponentShutdown>(Refresh);
-        SubscribeLocalEvent<SkinRetractedComponent, ComponentStartup>(Refresh);
-        SubscribeLocalEvent<SkinRetractedComponent, ComponentShutdown>(Refresh);
-        SubscribeLocalEvent<RibcageSawedComponent, ComponentStartup>(Refresh);
-        SubscribeLocalEvent<RibcageSawedComponent, ComponentShutdown>(Refresh);
-        SubscribeLocalEvent<RibcageOpenComponent, ComponentStartup>(Refresh);
-        SubscribeLocalEvent<RibcageOpenComponent, ComponentShutdown>(Refresh);
+        SubscribeLocalEvent<SurgeryMarkerComponent, ComponentStartup>(Refresh);
     }
 
     private void Refresh<TComponent, TEvent>(Entity<TComponent> ent, ref TEvent args) where TComponent : IComponent
@@ -36,5 +31,15 @@ public sealed class SurgerySystem : SharedSurgerySystem
 
         _refreshAt = 0.25f;
         OnRefresh.Invoke();
+    }
+
+    public IReadOnlyList<EntProtoId> GetPredictedSteps(EntityUid body, EntityUid part, EntProtoId surgery)
+    {
+        if (_player.LocalEntity is not { } user ||
+            GetSurgeryEntity(surgery) is not { } surgeryEntity ||
+            !TryComp(surgeryEntity, out SurgeryComponent? surgeryComponent))
+            return [];
+
+        return GetSurgerySteps(body, part, (surgeryEntity, surgeryComponent), GetActiveTool(user));
     }
 }

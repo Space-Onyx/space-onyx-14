@@ -12,8 +12,7 @@
   - type: SurgeryStep
     tool:
     - type: Scalpel
-    add:
-    - type: IncisionOpen
+    addMarkers: [ IncisionOpen ]
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/scalpel.rsi
     state: scalpel
@@ -32,8 +31,7 @@
   - type: SurgeryStep
     tool:
     - type: Stitches
-    add:
-    - type: BleedersClamped
+    addMarkers: [ BleedersClamped ]
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
     state: stitches
@@ -47,8 +45,7 @@
   - type: SurgeryStep
     tool:
     - type: Retractor
-    add:
-    - type: SkinRetracted
+    addMarkers: [ SkinRetracted ]
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/retractor.rsi
     state: retractor
@@ -61,8 +58,7 @@
   - type: SurgeryStep
     tool:
     - type: BoneSaw
-    add:
-    - type: RibcageSawed
+    addMarkers: [ RibcageSawed ]
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/circular-saw.rsi
     state: circular-saw
@@ -80,8 +76,7 @@
   - type: SurgeryStep
     tool:
     - type: Retractor
-    add:
-    - type: RibcageOpen
+    addMarkers: [ RibcageOpen ]
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/retractor.rsi
     state: retractor
@@ -95,8 +90,7 @@
   - type: SurgeryStep
     tool:
     - type: Retractor
-    remove:
-    - type: RibcageOpen
+    removeMarkers: [ RibcageOpen ]
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/retractor.rsi
     state: retractor
@@ -110,8 +104,7 @@
   - type: SurgeryStep
     tool:
     - type: BoneGel
-    remove:
-    - type: RibcageSawed
+    removeMarkers: [ RibcageSawed ]
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/bone-gel.rsi
     state: bone-gel
@@ -125,11 +118,7 @@
   - type: SurgeryStep
     tool:
     - type: Stitches
-    remove:
-    - type: SkinRetracted
-    - type: BleedersClamped
-    - type: IncisionOpen
-    - type: AbdominalCavityOpen
+    removeMarkers: [ SkinRetracted, BleedersClamped, IncisionOpen, AbdominalCavityOpen ]
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
     state: stitches
@@ -147,8 +136,7 @@
   - type: SurgeryStep
     tool:
     - type: Scalpel
-    add:
-    - type: AbdominalCavityOpen
+    addMarkers: [ AbdominalCavityOpen ]
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/scalpel.rsi
     state: scalpel
@@ -185,6 +173,8 @@
   - type: SurgeryStep
     tool:
     - type: BoneSaw
+    parentRemoveMarkers: [ HeadSpineConnected ]
+    parentRemoveMarkersPart: Head
   - type: SurgeryDetachPartEffect
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/circular-saw.rsi
@@ -256,6 +246,19 @@
   - type: SurgeryStepPainInflicter
     amount: 90
     sleepModifier: 0
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepConnectHeadSpine
+  name: Connect spine and spinal cord
+  components:
+  - type: SurgeryStep
+    duration: 3
+    tool: [ { type: Stitches } ]
+    addMarkers: [ HeadSpineConnected ]
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
+    state: stitches
 
 - type: entity
   parent: SurgeryStepAttachPart
@@ -431,6 +434,150 @@
 - type: entity
   parent: SurgeryStepSutureAttachedPart
   id: SurgeryStepSutureAttachedRightFoot
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Foot, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachCyberneticLeftArm
+  name: Position cybernetic left arm
+  components: [ { type: SurgeryAttachPartEffect, part: Arm, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepIntegrateCyberneticLeftArm
+  name: Integrate cybernetic left arm mount
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Arm, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureCyberneticLeftArm
+  name: Suture around cybernetic left arm
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Arm, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachCyberneticRightArm
+  name: Position cybernetic right arm
+  components: [ { type: SurgeryAttachPartEffect, part: Arm, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepIntegrateCyberneticRightArm
+  name: Integrate cybernetic right arm mount
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Arm, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureCyberneticRightArm
+  name: Suture around cybernetic right arm
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Arm, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachCyberneticLeftLeg
+  name: Position cybernetic left leg
+  components: [ { type: SurgeryAttachPartEffect, part: Leg, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepIntegrateCyberneticLeftLeg
+  name: Integrate cybernetic left leg mount
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Leg, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureCyberneticLeftLeg
+  name: Suture around cybernetic left leg
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Leg, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachCyberneticRightLeg
+  name: Position cybernetic right leg
+  components: [ { type: SurgeryAttachPartEffect, part: Leg, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepIntegrateCyberneticRightLeg
+  name: Integrate cybernetic right leg mount
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Leg, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureCyberneticRightLeg
+  name: Suture around cybernetic right leg
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Leg, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachCyberneticLeftHand
+  name: Position cybernetic left hand
+  components: [ { type: SurgeryAttachPartEffect, part: Hand, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepIntegrateCyberneticLeftHand
+  name: Integrate cybernetic left hand mount
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Hand, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureCyberneticLeftHand
+  name: Suture around cybernetic left hand
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Hand, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachCyberneticRightHand
+  name: Position cybernetic right hand
+  components: [ { type: SurgeryAttachPartEffect, part: Hand, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepIntegrateCyberneticRightHand
+  name: Integrate cybernetic right hand mount
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Hand, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureCyberneticRightHand
+  name: Suture around cybernetic right hand
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Hand, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachCyberneticLeftFoot
+  name: Position cybernetic left foot
+  components: [ { type: SurgeryAttachPartEffect, part: Foot, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepIntegrateCyberneticLeftFoot
+  name: Integrate cybernetic left foot mount
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Foot, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureCyberneticLeftFoot
+  name: Suture around cybernetic left foot
+  components: [ { type: SurgerySutureAttachedPartEffect, part: Foot, symmetry: Left } ]
+
+- type: entity
+  parent: SurgeryStepAttachPart
+  id: SurgeryStepAttachCyberneticRightFoot
+  name: Position cybernetic right foot
+  components: [ { type: SurgeryAttachPartEffect, part: Foot, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepMendAttachedPart
+  id: SurgeryStepIntegrateCyberneticRightFoot
+  name: Integrate cybernetic right foot mount
+  components: [ { type: SurgeryMendAttachedPartEffect, part: Foot, symmetry: Right } ]
+
+- type: entity
+  parent: SurgeryStepSutureAttachedPart
+  id: SurgeryStepSutureCyberneticRightFoot
+  name: Suture around cybernetic right foot
   components: [ { type: SurgerySutureAttachedPartEffect, part: Foot, symmetry: Right } ]
 
 - type: entity
@@ -666,7 +813,7 @@
   components:
   - type: SurgeryStep
     tool: [ { type: Scalpel } ]
-    add: [ { type: IncisionOpen } ]
+    addMarkers: [ IncisionOpen ]
     duration: 3
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/scalpel.rsi

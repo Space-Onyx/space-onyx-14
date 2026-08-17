@@ -5,7 +5,10 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenRibcage
-    steps: [ SurgeryStepInsertAugmentPowerCell ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertAugmentPowerCell
   - type: SurgeryOrganCondition
     slot: AugmentPowerCell
     inverse: true
@@ -18,7 +21,10 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenRibcage
-    steps: [ SurgeryStepRemoveAugmentPowerCell ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveAugmentPowerCell
   - type: SurgeryOrganCondition
     slot: AugmentPowerCell
     part: Chest
@@ -30,7 +36,10 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenRibcage
-    steps: [ SurgeryStepInsertAugmentCharger ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepInsertAugmentCharger
   - type: SurgeryOrganCondition
     slot: AugmentCharger
     inverse: true
@@ -43,7 +52,10 @@
   components:
   - type: Surgery
     requirement: SurgeryOpenRibcage
-    steps: [ SurgeryStepRemoveAugmentCharger ]
+    steps:
+      default:
+        steps:
+        - SurgeryStepRemoveAugmentCharger
   - type: SurgeryOrganCondition
     slot: AugmentCharger
     part: Chest
