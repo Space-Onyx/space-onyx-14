@@ -61,7 +61,7 @@ public sealed partial class SecretPlusComponent : Component
     public float MaximumAbsoluteChaos = 10000f;
 
     [DataField]
-    public float ChaosDeadZone = 5f;
+    public float ChaosDeadZone = 1f;
 
     [DataField]
     public float SpeedRamping;
