@@ -106,8 +106,9 @@ public sealed partial class ChatSystem
             // <Onyx-SignLanguage-edited>
             if (isSignLanguage
                     ? TryComp<BlindableComponent>(listener, out var blind) && blind.IsBlind ||
-                      !_examineSystem.InRangeUnOccluded(source, listener, VoiceRange)
-                    : !CanHear(listener))
+                      !_examineSystem.InRangeUnOccluded(source, listener, VoiceRange) ||
+                      !CanSeeSource(listener, source) // <Onyx-HearingVisibility-edited>
+                    : !CanHearSource(listener, source)) // <Onyx-HearingVisibility-edited>
                 continue;
             // </Onyx-SignLanguage-edited>
 
@@ -222,8 +223,9 @@ public sealed partial class ChatSystem
             // <Onyx-SignLanguage-edited>
             if (isSignLanguage
                     ? TryComp<BlindableComponent>(listener, out var blind) && blind.IsBlind ||
-                      !_examineSystem.InRangeUnOccluded(source, listener, WhisperMuffledRange)
-                    : !CanHear(listener))
+                      !_examineSystem.InRangeUnOccluded(source, listener, WhisperMuffledRange) ||
+                      !CanSeeSource(listener, source) // <Onyx-HearingVisibility-edited>
+                    : !CanHearSource(listener, source)) // <Onyx-HearingVisibility-edited>
                 continue;
             // </Onyx-SignLanguage-edited>
             // </Onyx-OrganHearing>
@@ -358,7 +360,7 @@ public sealed partial class ChatSystem
             !TryEmoteChatInput(source, action))
             return;
 
-        SendInVoiceRange(ChatChannel.Emotes, action, wrappedMessage, source, range, author, requiresHearing: false); // <Onyx-OrganHearing-edited>
+        SendInVoiceRange(ChatChannel.Emotes, action, wrappedMessage, source, range, author, requiresHearing: false, requiresVisibility: true); // <Onyx-OrganHearing-edited> <Onyx-HearingVisibility-edited>
         if (!hideLog)
             if (name != Name(source))
                 _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Emote from {source} as {name}: {action}");
