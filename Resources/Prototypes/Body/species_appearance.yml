@@ -31,13 +31,13 @@
     # <Onyx-Underwear>
     - map: [ "underwearb" ]
     - map: [ "underweart" ]
+    - map: ["enum.HumanoidVisualLayers.LFoot"]
+    - map: ["enum.HumanoidVisualLayers.RFoot"]
     - map: [ "socks" ]
     # </Onyx-Underwear>
     - map: ["jumpsuit"]
 
     # Extremities
-    - map: ["enum.HumanoidVisualLayers.LFoot"]
-    - map: ["enum.HumanoidVisualLayers.RFoot"]
     - map: ["enum.HumanoidVisualLayers.LHand"]
     - map: ["enum.HumanoidVisualLayers.RHand"]
 
