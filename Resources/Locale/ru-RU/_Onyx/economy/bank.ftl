@@ -52,3 +52,11 @@ bank-program-ui-exit-history = Выйти из истории
 bank-program-ui-transaction-history = История транзакций
 bank-program-ui-transaction-comment = Комментарий: { $comment }
 bank-program-ui-salary-description = Выплата зарплаты
+bank-program-ui-transaction-entry = [color={ $color }]{ $amount }[/color] - { $description } ({ $timestamp }){ $comment }
+bank-program-ui-transaction-transfer-sent = Перевод на счет { $account } ({ $name })
+bank-program-ui-transaction-transfer-received = Получено со счета { $account } ({ $name })
+bank-program-ui-transaction-purchase-sent = Безналичная оплата на счет { $account } ({ $name })
+bank-program-ui-transaction-purchase-received = Безналичная оплата со счета { $account } ({ $name })
+bank-program-ui-transaction-deposit-atm = Пополнение через банкомат
+bank-program-ui-transaction-withdraw-atm = Снятие через банкомат
+bank-program-ui-transaction-vending-purchase = Покупка в торгомате: { $item }

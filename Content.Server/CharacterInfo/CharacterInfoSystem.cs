@@ -2,6 +2,7 @@ using Content.Server.Mind;
 using Content.Server.Roles;
 using Content.Server.Roles.Jobs;
 using Content.Shared.CharacterInfo;
+using Content.Shared.Mind;
 using Content.Shared.Objectives;
 using Content.Shared.Objectives.Components;
 using Content.Shared.Objectives.Systems;
@@ -64,15 +65,16 @@ public sealed partial class CharacterInfoSystem : EntitySystem
             briefing = _roles.MindGetBriefing(mindId);
         }
 
-        // Get memory // <Onyx Economy>
+        // <Onyx-CharacterMemory-edited>
         var memory = new Dictionary<string, string>();
-        if (_minds.TryGetMind(entity, out _, out var mindComp))
+        if (TryComp<CharacterMemoryComponent>(entity, out var memoryComponent))
         {
-            foreach (var m in mindComp.Memories)
+            foreach (var m in memoryComponent.Memories)
             {
                 memory[m.Name] = m.Value;
             }
         }
+        // </Onyx-CharacterMemory-edited>
 
         RaiseNetworkEvent(new CharacterInfoEvent(GetNetEntity(entity), objectives, briefing, job, memory), args.SenderSession);
     }

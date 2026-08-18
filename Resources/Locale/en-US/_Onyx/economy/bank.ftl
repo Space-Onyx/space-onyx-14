@@ -52,3 +52,11 @@ bank-program-ui-exit-history = Exit History
 bank-program-ui-transaction-history = Transaction History
 bank-program-ui-transaction-comment = Comment: { $comment }
 bank-program-ui-salary-description = Salary Payment
+bank-program-ui-transaction-entry = [color={ $color }]{ $amount }[/color] - { $description } ({ $timestamp }){ $comment }
+bank-program-ui-transaction-transfer-sent = Transfer to account { $account } ({ $name })
+bank-program-ui-transaction-transfer-received = Received from account { $account } ({ $name })
+bank-program-ui-transaction-purchase-sent = Cashless payment to account { $account } ({ $name })
+bank-program-ui-transaction-purchase-received = Cashless payment from account { $account } ({ $name })
+bank-program-ui-transaction-deposit-atm = Deposit via ATM
+bank-program-ui-transaction-withdraw-atm = Withdrawal via ATM
+bank-program-ui-transaction-vending-purchase = Vending machine purchase: { $item }

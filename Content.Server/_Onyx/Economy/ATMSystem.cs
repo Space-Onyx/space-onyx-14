@@ -144,10 +144,9 @@ public sealed partial class ATMSystem : SharedATMSystem
             {
                 acc.AddTransaction(new TransactionRecord(
                     TransactionRecord.TransactionType.Deposit,
-                    $"Пополнение через банкомат",
+                    Loc.GetString("bank-program-ui-transaction-deposit-atm"),
                     amount,
-                    Robust.Shared.Maths.Color.Lime,
-                    DateTime.MinValue.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
+                    DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
                 ));
             }
         }
@@ -231,10 +230,9 @@ public sealed partial class ATMSystem : SharedATMSystem
         {
             account.AddTransaction(new TransactionRecord(
                 TransactionRecord.TransactionType.Withdraw,
-                $"Снятие через банкомат",
+                    Loc.GetString("bank-program-ui-transaction-withdraw-atm"),
                 -args.Amount,
-                Robust.Shared.Maths.Color.Red,
-                DateTime.MinValue.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
+                    DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
             ));
         }
 

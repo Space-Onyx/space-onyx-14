@@ -94,13 +94,14 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
                 if (TryComp(item, out PdaComponent? pda) && pda.ContainedId is { Valid: true } id) cardEntity = id;
                 if (!TryComp(cardEntity, out BankCardComponent? card) || !card.AccountId.HasValue || !_bankCard.TryGetAccount(card.AccountId.Value, out var account) || account.Balance < price || !_bankCard.TryChangeBalance(card.AccountId.Value, -price)) continue;
                 // <Onyx-VendingPurchaseHistory>
-                var itemName = ProtoMan.TryIndex<EntityPrototype>(entry.ID, out var proto) ? proto.Name : entry.ID;
-                account.AddTransaction(new TransactionRecord(
-                    TransactionRecord.TransactionType.Purchase,
-                    $"Покупка: {itemName}",
+                 var itemName = ProtoMan.TryIndex<EntityPrototype>(entry.ID, out var proto)
+                     ? Loc.GetString(proto.Name)
+                     : entry.ID;
+                 account.AddTransaction(new TransactionRecord(
+                     TransactionRecord.TransactionType.Purchase,
+                     Loc.GetString("bank-program-ui-transaction-vending-purchase", ("item", itemName)),
                     -price,
-                    Color.Red,
-                    DateTime.MinValue.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))));
+                    DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan)))); // <Onyx-VendingPurchaseHistory-edited>
                 // </Onyx-VendingPurchaseHistory>
                 paid = true;
                 break;

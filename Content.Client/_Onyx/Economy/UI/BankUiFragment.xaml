@@ -1,96 +1,96 @@
 <ui1:BankUiFragment xmlns="https://spacestation14.io"
-                   xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
-                   xmlns:ui1="clr-namespace:Content.Client._Onyx.Economy.UI">
+                    xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                    xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+                    xmlns:ui1="clr-namespace:Content.Client._Onyx.Economy.UI">
 
     <ScrollContainer VerticalExpand="True" HScrollEnabled="False" HorizontalExpand="True" SetWidth="525" SetHeight="323">
-        <BoxContainer Orientation="Vertical" Margin="8" VerticalExpand="True" MinSize="315 150" HorizontalExpand="True">
-            <!-- История транзакций: поиск и выход, только в режиме истории -->
-            <LineEdit Name="HistorySearchLineEdit" PlaceHolder="{Loc 'bank-program-ui-history-search-placeholder'}" Visible="False" HorizontalExpand="True" />
-            <Button Name="ExitHistoryButton" Text="{Loc 'bank-program-ui-exit-history'}" Visible="False" HorizontalExpand="True" HorizontalAlignment="Center" />
-            <!-- История транзакций -->
-            <BoxContainer Name="HistoryScroll" Visible="False" HorizontalExpand="True">
-                <BoxContainer Name="HistoryList" Orientation="Vertical" HorizontalExpand="True" />
-            </BoxContainer>
-            <BoxContainer Name="LinkedAccount" Orientation="Vertical" Visible="False" HorizontalExpand="True">
-                <BoxContainer Orientation="Horizontal" HorizontalExpand="True" HorizontalAlignment="Right">
-                    <Button Name="RefreshButton" ToolTip="{Loc 'bank-program-ui-refresh-tooltip'}" MinWidth="30" MinHeight="30" Margin="0 0 4 0">
-                        <Control HorizontalExpand="True" VerticalExpand="True">
-                            <TextureRect Name="RefreshIcon"
-                                        StyleClasses="ButtonSquare"
-                                        TexturePath="/Textures/Interface/VerbIcons/refresh.svg.192dpi.png"
-                                        Stretch="KeepAspectCentered"
-                                        MaxWidth="20" MaxHeight="20"/>
-                        </Control>
+        <BoxContainer Orientation="Vertical" Margin="8" VerticalExpand="True" MinSize="315 150" HorizontalExpand="True" SeparationOverride="6">
+            <controls:StripeBack MinSize="0 42">
+                <BoxContainer Orientation="Horizontal" Margin="10 6" HorizontalExpand="True">
+                    <TextureRect TexturePath="/Textures/Interface/Nano/ntlogo.svg.png" MinSize="26 26" MaxSize="26 26" Stretch="KeepAspectCentered" VerticalAlignment="Center" />
+                    <BoxContainer Orientation="Vertical" Margin="8 0" VerticalAlignment="Center" HorizontalExpand="True">
+                        <Label Text="{Loc 'bank-program-name'}" StyleClasses="LabelHeading" />
+                    </BoxContainer>
+                    <Button Name="RefreshButton" ToolTip="{Loc 'bank-program-ui-refresh-tooltip'}" MinWidth="30" MinHeight="30" VerticalAlignment="Center">
+                        <TextureRect Name="RefreshIcon" StyleClasses="ButtonSquare" TexturePath="/Textures/Interface/VerbIcons/refresh.svg.192dpi.png" Stretch="KeepAspectCentered" MaxWidth="20" MaxHeight="20" />
                     </Button>
                 </BoxContainer>
-                <Label Name="LinkedAccountNameLabel"
-                       FontColorOverride="#a88b5e"
-                       StyleClasses="LabelHeading"
-                       HorizontalAlignment="Center" />
-                <BoxContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="False" HorizontalAlignment="Center">
-                    <Label Name="BalanceLabelText"
-                           Text="{Loc 'bank-program-ui-balance-label'}"
-                           FontColorOverride="#a88b5e"
-                           Margin="0 0 4 0" />
-                    <Label Name="LinkedAccountBalanceLabel"
-                           FontColorOverride="#32CD32" />
+            </controls:StripeBack>
+
+            <!-- History mode -->
+            <BoxContainer Name="HistoryScroll" Visible="False" Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
+                <BoxContainer Orientation="Horizontal" HorizontalExpand="True" SeparationOverride="6">
+                    <LineEdit Name="HistorySearchLineEdit" PlaceHolder="{Loc 'bank-program-ui-history-search-placeholder'}" Visible="False" HorizontalExpand="True" />
+                    <Button Name="ExitHistoryButton" Text="{Loc 'bank-program-ui-exit-history'}" Visible="False" MinWidth="120" />
                 </BoxContainer>
-                <BoxContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="False" HorizontalAlignment="Center">
-                    <Label Name="AccountLabelText"
-                           Text="{Loc 'bank-program-ui-account-label'}"
-                           FontColorOverride="#a88b5e"
-                           Margin="0 0 4 0" />
-                    <RichTextLabel Name="LinkedAccountNumberLabel" />
-                </BoxContainer>
-                <PanelContainer StyleClasses="LowDivider" Margin="0 4 0 4" />
-                <!-- Change PIN Section Toggle Button -->
+                <PanelContainer StyleClasses="AngleRect" Margin="0 4 0 0" HorizontalExpand="True" VerticalExpand="True">
+                    <ScrollContainer HorizontalExpand="True" VerticalExpand="True" HScrollEnabled="False">
+                        <BoxContainer Name="HistoryList" Orientation="Vertical" HorizontalExpand="True" Margin="6" />
+                    </ScrollContainer>
+                </PanelContainer>
+            </BoxContainer>
+
+            <BoxContainer Name="LinkedAccount" Orientation="Vertical" Visible="False" HorizontalExpand="True" SeparationOverride="6">
+                <PanelContainer>
+                    <PanelContainer.PanelOverride>
+                        <gfx:StyleBoxFlat BackgroundColor="#20232A" BorderColor="#454B57" BorderThickness="1" />
+                    </PanelContainer.PanelOverride>
+                    <BoxContainer Orientation="Vertical" Margin="10 8" HorizontalExpand="True" SeparationOverride="3">
+                        <Label Name="LinkedAccountNameLabel" StyleClasses="LabelHeading" HorizontalAlignment="Center" />
+                        <PanelContainer StyleClasses="LowDivider" Margin="0 2" />
+                        <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label Name="BalanceLabelText" Text="{Loc 'bank-program-ui-balance-label'}" Margin="0 0 4 0" />
+                            <Label Name="LinkedAccountBalanceLabel" FontColorOverride="#75D68A" StyleClasses="LabelHeading" />
+                        </BoxContainer>
+                        <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label Text="{Loc 'bank-program-ui-account-label'}" Margin="0 0 4 0" />
+                            <RichTextLabel Name="LinkedAccountNumberLabel" />
+                        </BoxContainer>
+                    </BoxContainer>
+                </PanelContainer>
+
                 <RichTextLabel Name="ChangePinResultLabel" Visible="False" />
-                <Button Name="ChangePinShowButton" Text="{Loc 'bank-program-ui-change-pin-title'}" HorizontalExpand="True" HorizontalAlignment="Center" />
-                <!-- Change PIN Section (hidden by default) -->
-                <PanelContainer Name="ChangePinPanel" StyleClasses="BackgroundLight" Margin="5 5 5 5" Visible="False">
-                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="False" Margin="5">
-                        <Label Text="{Loc 'bank-program-ui-change-pin-title'}" />
-                        <GridContainer Columns="2" Rows="1" HorizontalExpand="True" Margin="0 4 0 0">
+                <Button Name="ChangePinShowButton" Text="{Loc 'bank-program-ui-change-pin-title'}" HorizontalExpand="True" />
+                <PanelContainer Name="ChangePinPanel" StyleClasses="BackgroundLight" Margin="0 1" Visible="False">
+                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" Margin="8" SeparationOverride="4">
+                        <Label Text="{Loc 'bank-program-ui-change-pin-title'}" StyleClasses="LabelKeyText" />
+                        <GridContainer Columns="2" Rows="1" HorizontalExpand="True" HSeparationOverride="6">
                             <LineEdit Name="OldPinLineEdit" PlaceHolder="{Loc 'bank-program-ui-old-pin'}" HorizontalExpand="True" />
                             <LineEdit Name="NewPinLineEdit" PlaceHolder="{Loc 'bank-program-ui-new-pin'}" HorizontalExpand="True" />
                         </GridContainer>
-                        <GridContainer Columns="2" Rows="1" HorizontalExpand="True" Margin="0 4 0 0">
+                        <GridContainer Columns="2" Rows="1" HorizontalExpand="True" HSeparationOverride="6">
                             <Button Name="SavePinButton" Text="{Loc 'bank-program-ui-save-pin'}" HorizontalExpand="True" />
                             <Button Name="ChangePinCancelButton" Text="{Loc 'bank-program-ui-link-cancel'}" HorizontalExpand="True" />
                         </GridContainer>
                     </BoxContainer>
                 </PanelContainer>
-                <!-- Transfer Section Toggle Button -->
-                <Button Name="TransferShowButton" Text="{Loc 'bank-program-ui-transfer-title'}" HorizontalExpand="True" HorizontalAlignment="Center" />
-                <!-- История транзакций: Кнопка под переводом -->
-                <Button Name="HistoryButton" ToolTip="{Loc 'bank-program-ui-transaction-history'}" Text="{Loc 'bank-program-ui-transaction-history'}" HorizontalExpand="True" HorizontalAlignment="Center" />
-                <!-- Transfer Section (hidden by default) -->
-                <PanelContainer Name="TransferPanel" StyleClasses="BackgroundLight" Margin="5 5 5 5" Visible="False">
-                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="False" Margin="5">
-                        <Label Text="{Loc 'bank-program-ui-transfer-title'}" />
-                        <GridContainer Columns="2" Rows="2" HorizontalExpand="True" Margin="0 4 0 0">
+
+                <Button Name="TransferShowButton" Text="{Loc 'bank-program-ui-transfer-title'}" HorizontalExpand="True" />
+                <Button Name="HistoryButton" ToolTip="{Loc 'bank-program-ui-transaction-history'}" Text="{Loc 'bank-program-ui-transaction-history'}" HorizontalExpand="True" />
+                <PanelContainer Name="TransferPanel" StyleClasses="BackgroundLight" Margin="0 1" Visible="False">
+                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" Margin="8" SeparationOverride="4">
+                        <Label Text="{Loc 'bank-program-ui-transfer-title'}" StyleClasses="LabelKeyText" />
+                        <GridContainer Columns="2" Rows="2" HorizontalExpand="True" HSeparationOverride="6" VSeparationOverride="4">
                             <LineEdit Name="TransferAccountLineEdit" PlaceHolder="{Loc 'bank-program-ui-transfer-account'}" HorizontalExpand="True" />
                             <LineEdit Name="TransferAmountLineEdit" PlaceHolder="{Loc 'bank-program-ui-transfer-amount'}" HorizontalExpand="True" />
                             <LineEdit Name="TransferPinLineEdit" PlaceHolder="{Loc 'bank-program-ui-transfer-pin'}" HorizontalExpand="True" />
                             <LineEdit Name="TransferCommentLineEdit" PlaceHolder="{Loc 'bank-program-ui-transfer-comment'}" HorizontalExpand="True" />
                         </GridContainer>
-                        <GridContainer Columns="2" Rows="1" HorizontalExpand="True" Margin="0 4 0 0">
+                        <GridContainer Columns="2" Rows="1" HorizontalExpand="True" HSeparationOverride="6">
                             <Button Name="TransferConfirmButton" Text="{Loc 'bank-program-ui-transfer-confirm'}" HorizontalExpand="True" />
                             <Button Name="TransferCancelButton" Text="{Loc 'bank-program-ui-transfer-cancel'}" HorizontalExpand="True" />
                         </GridContainer>
                     </BoxContainer>
                 </PanelContainer>
             </BoxContainer>
+
             <RichTextLabel Name="NoLinkedAccountLabel" Visible="False" />
             <controls:StripeBack>
-                <Button Name="AccountLinkButton" HorizontalExpand="True" HorizontalAlignment="Center"
-                        Text="{Loc 'bank-program-ui-link-account'}" Visible="False" />
-                <BoxContainer Name="AccountLink" Orientation="Vertical" Visible="False" HorizontalExpand="True"
-                            Margin="0 5 0 5">
+                <Button Name="AccountLinkButton" HorizontalExpand="True" Text="{Loc 'bank-program-ui-link-account'}" Visible="False" />
+                <BoxContainer Name="AccountLink" Orientation="Vertical" Visible="False" HorizontalExpand="True" Margin="8" SeparationOverride="4">
                     <RichTextLabel Name="AccountLinkMessageLabel" />
-                    <GridContainer HorizontalExpand="True" Columns="2" Rows="2">
-                        <LineEdit Name="AccountLineEdit" HorizontalExpand="True"
-                                PlaceHolder="{Loc 'bank-program-ui-account-number'}" />
+                    <GridContainer HorizontalExpand="True" Columns="2" Rows="2" HSeparationOverride="6" VSeparationOverride="4">
+                        <LineEdit Name="AccountLineEdit" HorizontalExpand="True" PlaceHolder="{Loc 'bank-program-ui-account-number'}" />
                         <Button Name="LinkConfirmButton" Text="{Loc 'bank-program-ui-link-confirm'}" />
                         <LineEdit Name="PinLineEdit" HorizontalExpand="True" PlaceHolder="PIN" />
                         <Button Name="LinkCancelButton" Text="{Loc 'bank-program-ui-link-cancel'}" />

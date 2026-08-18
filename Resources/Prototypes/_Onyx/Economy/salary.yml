@@ -1,59 +1,62 @@
 - type: salary
   id: Salaries
   salaries:
-    Nanotrasen: 1000
-    NanotrasenTrainer: 3000
-    CentCommChief: 2700
-    CentCommOSO: 2200
-    CentCommOperator: 1000
-    CentCommOfficial: 1000
-    CentCommServiceWorker: 600
-    Blueshield: 700
-    NanotrasenRepresentative: 600
+    # Heads
+    BlueshieldOfficer: 730
     Captain: 710
+    IAA: 540
     ChiefEngineer: 600
     ChiefMedicalOfficer: 600
     HeadOfPersonnel: 610
-    HeadOfSecurity: 620
-    ResearchDirector: 610
-    QuarterMaster: 600
+    HeadOfSecurity: 610
+    ResearchDirector: 600
+    QuarterMaster: 510
+    # Law
+    Lawyer: 150
+    # Cargo
     CargoTechnician: 200
-    LavaShaftMiner: 310
     ShaftMiner: 310
-    Bartender: 200
-    Botanist: 200
-    Boxer: 100
-    Chaplain: 100
-    Chef: 150
-    Clown: 100
-    Janitor: 180
-    Pilot: 280
-    Brigmedic: 320
-    WardenHelper: 300
-    Librarian: 120
-    Mime: 100
-    Musician: 110
-    Passenger: 80
-    Reporter: 120
-    Zookeeper: 120
-    RadioHost: 150
-    ServiceWorker: 120
-    AtmosphericTechnician: 300
-    StationEngineer: 220
-    TechnicalAssistant: 110
+    SalvageSpecialist: 310
+    # Medical
+    SeniorPhysician: 315
     Chemist: 250
-    Geneticist: 150
     Virologist: 250
+    Paramedic: 310
     Surgeon: 300
     MedicalDoctor: 230
     MedicalIntern: 150
     Psychologist: 140
-    Paramedic: 300
-    SecurityCadet: 150
+    # Secure
+    SeniorOfficer: 315
+    Pilot: 280
+    Brigmedic: 310
+    Detective: 280
+    Warden: 400
     SecurityOfficer: 200
-    Detective: 300
-    Warden: 420
+    SecurityCadet: 130
+    # Engi
+    SeniorEngineer: 315
+    AtmosphericTechnician: 310
+    StationEngineer: 240
+    TechnicalAssistant: 120
+    # RnD
+    SeniorResearcher: 295
     Scientist: 210
     Roboticist: 210
-    ResearchAssistant: 110
-    Lawyer: 150
+    ResearchAssistant: 120
+    # Service
+    RadioHost: 160
+    Librarian: 130
+    Mime: 110
+    Musician: 110
+    Reporter: 120
+    Bartender: 180
+    Botanist: 200
+    Chaplain: 120
+    Chef: 190
+    Clown: 110
+    Janitor: 170
+    ServiceWorker: 120
+    Passenger: 85
+    # Other
+    Visitor: 0

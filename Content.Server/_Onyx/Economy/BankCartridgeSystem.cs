@@ -2,8 +2,6 @@ using Content.Server.CartridgeLoader;
 using Content.Shared.CartridgeLoader;
 using Content.Shared._Onyx.Economy;
 using Content.Shared.PDA;
-using Content.Shared.Mind;
-using System.Linq;
 using Content.Shared.Chat;
 using Robust.Shared.Utility;
 using Robust.Shared.Maths;
@@ -120,20 +118,20 @@ public sealed partial class BankCartridgeSystem : EntitySystem
 
         fromAccount.AddTransaction(new TransactionRecord(
             TransactionRecord.TransactionType.TransferSent,
-            $"Перевод на счет {toAccount.AccountId} ({toAccount.Name})",
+            Loc.GetString("bank-program-ui-transaction-transfer-sent",
+                ("account", toAccount.AccountId), ("name", toAccount.Name)),
             -args.Amount,
-            Robust.Shared.Maths.Color.Red,
-            DateTime.MinValue.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan)),
+            DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan)),
             counterpartyAccount: toAccount.AccountId.ToString(),
             counterpartyName: toAccount.Name,
             comment: string.IsNullOrWhiteSpace(args.Comment) ? null : args.Comment
         ));
         toAccount.AddTransaction(new TransactionRecord(
             TransactionRecord.TransactionType.TransferReceived,
-            $"Получено со счета {fromAccount.AccountId} ({fromAccount.Name})",
+            Loc.GetString("bank-program-ui-transaction-transfer-received",
+                ("account", fromAccount.AccountId), ("name", fromAccount.Name)),
             args.Amount,
-            Robust.Shared.Maths.Color.Lime,
-            DateTime.MinValue.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan)),
+            DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan)),
             counterpartyAccount: fromAccount.AccountId.ToString(),
             counterpartyName: fromAccount.Name,
             comment: string.IsNullOrWhiteSpace(args.Comment) ? null : args.Comment
@@ -178,21 +176,6 @@ public sealed partial class BankCartridgeSystem : EntitySystem
             TryComp(pda.ContainedId.Value, out BankCardComponent? bankCard))
         {
             bankCard.Pin = args.NewPin;
-        }
-
-        if (account.Mind != null)
-        {
-            var mindComponent = account.Mind.Value.Comp;
-
-            // Memories API removed in engine upgrade
-            // var oldPinMemory = mindComponent.Memories.FirstOrDefault(m => m.Name == "PIN");
-            // if (oldPinMemory != null)
-            // {
-            //     mindComponent.Memories.Remove(oldPinMemory);
-            // }
-
-            // var netEntity = EntityManager.GetNetEntity(mindComponent.CurrentEntity);
-            // mindComponent.AddMemory(new Memory("PIN", args.NewPin.ToString(), netEntity));
         }
 
         component.AccountLinkResult = Loc.GetString("bank-program-ui-change-pin-success");
@@ -274,7 +257,7 @@ public sealed partial class BankCartridgeSystem : EntitySystem
         {
             return;
         }
-        var records = account.GetTransactions(1000);
+        var records = account.GetTransactions(msg.Count);
         _cartridgeLoaderSystem.UpdateCartridgeUiState(loaderUid, new BankTransactionHistoryResponseMessage(records));
     }
 }

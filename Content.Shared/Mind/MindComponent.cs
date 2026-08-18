@@ -50,26 +50,6 @@ public sealed partial class MindComponent : Component
     // This is a net entity, because this field currently does not get set to null when this entity is deleted.
     // This is a lazy way to ensure that people check that the entity still exists.
     // TODO MIND Fix this properly by adding an OriginalMindContainerComponent or something like that.
-
-    [DataField, AutoNetworkedField]
-    public HashSet<Memory> Memories = new(); //<Onyx Economy>
-
-    /// <summary>
-    ///     Add a memory to the mind.
-    /// </summary>
-    [ViewVariables]
-    public IEnumerable<Memory> AllMemories => Memories; //<Onyx Economy>
-
-    public void AddMemory(Memory memory) //<Onyx Economy>
-    {
-        if (Memories.Contains(memory))
-        {
-            return;
-        }
-
-        Memories.Add(memory);
-    }
-
     [ViewVariables]
     public bool IsVisitingEntity => VisitingEntity != null;
 

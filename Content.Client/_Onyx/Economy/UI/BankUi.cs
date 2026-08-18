@@ -18,6 +18,9 @@ public sealed partial class BankUi : UIFragment
 
     public override void Setup(BoundUserInterface userInterface, EntityUid? fragmentOwner)
     {
+        if (_fragment is { Disposed: false })
+            return;
+
         _fragment = new BankUiFragment();
 
         _fragment.OnLinkAttempt += message => userInterface.SendMessage(new CartridgeUiMessage(message));

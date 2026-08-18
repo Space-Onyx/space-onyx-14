@@ -144,10 +144,10 @@ public sealed partial class EftposSystem : EntitySystem
                     receiverName = string.IsNullOrWhiteSpace(receiverAcc.Name) ? receiverAcc.AccountId.ToString() : receiverAcc.Name;
                 payerAccount.AddTransaction(new TransactionRecord(
                     TransactionRecord.TransactionType.Purchase,
-                    $"Безналичная оплата, счет: {component.BankAccountId.Value} ({receiverName})",
+                    Loc.GetString("bank-program-ui-transaction-purchase-sent",
+                        ("account", component.BankAccountId.Value), ("name", receiverName)),
                     -component.Amount,
-                    Robust.Shared.Maths.Color.Red,
-                    DateTime.MinValue.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
+                    DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
                 ));
             }
             if (_bankCardSystem.TryGetAccount(component.BankAccountId.Value, out var receiverAccount))
@@ -155,10 +155,10 @@ public sealed partial class EftposSystem : EntitySystem
                 string payerName = component.PendingPayerName;
                 receiverAccount.AddTransaction(new TransactionRecord(
                     TransactionRecord.TransactionType.Purchase,
-                    $"Безналичная оплата, счет: {component.PendingPayerAccountId.Value} ({payerName})",
+                    Loc.GetString("bank-program-ui-transaction-purchase-received",
+                        ("account", component.PendingPayerAccountId.Value), ("name", payerName)),
                     component.Amount,
-                    Robust.Shared.Maths.Color.Lime,
-                    DateTime.MinValue.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
+                    DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
                 ));
             }
         }

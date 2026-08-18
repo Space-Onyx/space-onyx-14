@@ -42,6 +42,7 @@ public sealed partial class BankCardSystem : EntitySystem
     [Dependency] private CartridgeLoaderSystem _cartridgeLoader = default!;
     [Dependency] private IConfigurationManager _cfg = default!;
     [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private JobSystem _job = default!;
 
     private int SalaryDelay => _cfg.GetCVar(CCVars.SalaryTime);
 
@@ -67,6 +68,9 @@ public sealed partial class BankCardSystem : EntitySystem
 
         if (!_consoleHost.AvailableCommands.ContainsKey("bankaccountadjust"))
             _consoleHost.RegisterCommand(new Content.Server.Commands.BankAccountAdjustCommand());
+
+        if (!_consoleHost.AvailableCommands.ContainsKey("setmindjob"))
+            _consoleHost.RegisterCommand(new Content.Server.Commands.SetMindJobCommand());
 
         SubscribeLocalEvent<BankCardComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
@@ -98,7 +102,7 @@ public sealed partial class BankCardSystem : EntitySystem
             return;
 
         var idCardQuery = EntityQueryEnumerator<IdCardComponent, BankCardComponent>();
-        while (idCardQuery.MoveNext(out _, out var idCard, out var bankCard))
+        while (idCardQuery.MoveNext(out _, out _, out var bankCard))
         {
             if (!bankCard.AccountId.HasValue || !TryGetAccount(bankCard.AccountId.Value, out var account))
                 continue;
@@ -113,29 +117,25 @@ public sealed partial class BankCardSystem : EntitySystem
                 _mobState.IsDead(account.Mind.Value.Comp.CurrentEntity!.Value))
                 continue;
 
-            var salary = GetSalary(idCard);
+            var salary = GetSalary(account.Mind.Value.Owner);
             account.Balance += salary;
             account.AddTransaction(new TransactionRecord(
                 TransactionRecord.TransactionType.Deposit,
                 Loc.GetString("bank-program-ui-salary-description"),
                 salary,
-                Robust.Shared.Maths.Color.Lime,
-                DateTime.MinValue.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
+                DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
             ));
         }
 
         _chatSystem.DispatchGlobalAnnouncement(Loc.GetString("salary-pay-announcement"), Loc.GetString("salary-pay-sender"), colorOverride: Color.FromHex("#18abf5"));
     }
 
-    private int GetSalary(IdCardComponent idCard)
+    private int GetSalary(EntityUid? mind)
     {
-        var jobIcon = $"{idCard.JobIcon}";
-        if (string.IsNullOrEmpty(jobIcon))
+        if (!_job.MindTryGetJob(mind, out var job) || !_salaries.Salaries.TryGetValue(job.ID, out var salary))
             return 0;
-        var jobKey = jobIcon.StartsWith("JobIcon") ? jobIcon.Substring(7) : jobIcon;
-        if (_salaries.Salaries.TryGetValue(jobKey, out var salary))
-            return (int)(salary * _cfg.GetCVar(CCVars.SalaryMultiplier));
-        return 0;
+
+        return (int)(salary * _cfg.GetCVar(CCVars.SalaryMultiplier));
     }
 
     private void OnMapInit(EntityUid uid, BankCardComponent component, MapInitEvent args)
@@ -181,13 +181,11 @@ public sealed partial class BankCardSystem : EntitySystem
             if (!TryComp(mind.Mind, out MindComponent? mindComponent))
                 return;
 
-            if (!TryComp<IdCardComponent>(id, out var idCardComp))
-                return;
-
-            bankAccount.Balance = GetSalary(idCardComp) + 100;
+            bankAccount.Balance = GetSalary(mind.Mind) + 100;
             var netEntity = GetNetEntity(ev.Mob);
-            mindComponent.AddMemory(new Memory("PIN", bankAccount.AccountPin.ToString(), netEntity));
-            mindComponent.AddMemory(new Memory(Loc.GetString("character-info-memories-account-number"),
+            var memory = EnsureComp<CharacterMemoryComponent>(ev.Mob);
+            memory.AddMemory(new Memory("PIN", bankAccount.AccountPin.ToString(), netEntity));
+            memory.AddMemory(new Memory(Loc.GetString("character-info-memories-account-number"),
                 bankAccount.AccountId.ToString(), netEntity));
             bankAccount.Mind = (mind.Mind.Value, mindComponent);
             bankAccount.Name = Name(ev.Mob);
@@ -295,13 +293,11 @@ public sealed partial class BankCardSystem : EntitySystem
             return false;
 
         var type = amount >= 0 ? TransactionRecord.TransactionType.Deposit : TransactionRecord.TransactionType.Withdraw;
-        var color = amount >= 0 ? Robust.Shared.Maths.Color.Lime : Robust.Shared.Maths.Color.Red;
         account.AddTransaction(new TransactionRecord(
             type,
             description,
             amount,
-            color,
-            DateTime.MinValue.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
+            DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
         ));
 
         return true;

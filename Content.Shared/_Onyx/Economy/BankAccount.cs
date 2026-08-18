@@ -7,8 +7,8 @@ namespace Content.Shared._Onyx.Economy;
 
 public sealed class BankAccount
 {
-    private const int MaxTransactions = 1000;
-    private readonly TransactionRecord[] _transactions = new TransactionRecord[MaxTransactions];
+    public const int MaxTransactions = 1000;
+    private readonly TransactionRecord?[] _transactions = new TransactionRecord?[MaxTransactions];
     private int _transactionStart;
     private int _transactionCount;
 
@@ -26,16 +26,16 @@ public sealed class BankAccount
         _transactionStart = (_transactionStart + 1) % MaxTransactions;
     }
 
-    public List<TransactionRecord> GetTransactions(int count = 1000)
+    public List<TransactionRecord> GetTransactions(int count = MaxTransactions)
     {
         if (count <= 0)
-            return new List<TransactionRecord>();
+            return [];
 
         if (count > MaxTransactions)
             count = MaxTransactions;
 
         if (_transactionCount == 0)
-            return new List<TransactionRecord>();
+            return [];
 
         if (count > _transactionCount)
             count = _transactionCount;
@@ -44,7 +44,8 @@ public sealed class BankAccount
         for (var i = 0; i < count; i++)
         {
             var index = (_transactionStart + _transactionCount - 1 - i + MaxTransactions) % MaxTransactions;
-            result.Add(_transactions[index]);
+            if (_transactions[index] is { } transaction)
+                result.Add(transaction);
         }
 
         return result;
