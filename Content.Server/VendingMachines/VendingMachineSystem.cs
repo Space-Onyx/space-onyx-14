@@ -46,6 +46,7 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
     [Dependency] private GameTicker _gameTicker = default!;
     [Dependency] private AccessReaderSystem _serverAccess = default!;
     private static readonly ProtoId<TagPrototype> IgnoreBalanceTag = "IgnoreBalanceChecks";
+    private const float WallVendEjectDistanceFromWall = 1f;
 
     public override void Initialize()
     {
@@ -114,31 +115,159 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
 
     protected override void EjectItem(Entity<VendingMachineComponent?, VendingMachineEjectComponent?> entity, bool forceEject = false)
     {
-        if (!Resolve(entity.Owner, ref entity.Comp1, ref entity.Comp2) || entity.Comp2.NextItemToEject is not { } item) { if (entity.Comp2 != null) entity.Comp2.ThrowNextItem = false; return; }
-        var coordinates = Transform(entity.Owner).Coordinates;
-        if (TryComp<WallMountComponent>(entity.Owner, out var wall)) coordinates = coordinates.Offset((wall.Direction + Transform(entity.Owner).LocalRotation - Math.PI / 2).ToVec());
-        var spawned = Spawn(item, coordinates);
-        if (entity.Comp2.ThrowNextItem) _throwingSystem.TryThrow(spawned, new Vector2(_random.NextFloat(-entity.Comp2.NonLimitedEjectRange, entity.Comp2.NonLimitedEjectRange), _random.NextFloat(-entity.Comp2.NonLimitedEjectRange, entity.Comp2.NonLimitedEjectRange)), entity.Comp2.NonLimitedEjectForce);
-        entity.Comp2.NextItemToEject = null; entity.Comp2.ThrowNextItem = false;
+        if (!Resolve(entity.Owner, ref entity.Comp1, ref entity.Comp2))
+            return;
+
+        var uid = entity.Owner;
+        var ejectComponent = entity.Comp2;
+
+        if (ejectComponent.NextItemToEject is not { } item)
+        {
+            ejectComponent.ThrowNextItem = false;
+            return;
+        }
+
+        var xform = Transform(uid);
+        var spawnCoordinates = xform.Coordinates;
+        if (TryComp<WallMountComponent>(uid, out var wallMountComponent))
+        {
+            var offset = (wallMountComponent.Direction + xform.LocalRotation - Math.PI / 2).ToVec() * WallVendEjectDistanceFromWall;
+            spawnCoordinates = spawnCoordinates.Offset(offset);
+        }
+
+        var spawned = Spawn(item, spawnCoordinates);
+        if (ejectComponent.ThrowNextItem)
+        {
+            var range = ejectComponent.NonLimitedEjectRange;
+            var direction = new Vector2(_random.NextFloat(-range, range), _random.NextFloat(-range, range));
+            _throwingSystem.TryThrow(spawned, direction, ejectComponent.NonLimitedEjectForce);
+        }
+
+        ejectComponent.NextItemToEject = null;
+        ejectComponent.ThrowNextItem = false;
     }
 
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
-        var query = EntityQueryEnumerator<EmpDisabledComponent, VendingMachineComponent, VendingMachineEjectComponent>();
-        while (query.MoveNext(out var uid, out _, out var comp, out var eject)) if (eject.NextEmpEject < Timing.CurTime) { EjectRandom((uid, comp, eject), true); eject.NextEmpEject += 5 * eject.EjectDelay; }
+        var curTime = Timing.CurTime;
+        var dispenseOnHitQuery = EntityQueryEnumerator<VendingMachineDispenseOnHitComponent>();
+        while (dispenseOnHitQuery.MoveNext(out _, out var dispenseOnHit))
+        {
+            if (dispenseOnHit.NextDispenseTime is not { } nextDispenseTime || curTime <= nextDispenseTime)
+                continue;
+
+            dispenseOnHit.NextDispenseTime = null;
+        }
+
+        var disabled = EntityQueryEnumerator<EmpDisabledComponent, VendingMachineComponent, VendingMachineEjectComponent>();
+        while (disabled.MoveNext(out var uid, out _, out var comp, out var eject))
+        {
+            if (eject.NextEmpEject >= curTime)
+                continue;
+
+            EjectRandom((uid, comp, eject), true, false);
+            eject.NextEmpEject += 5 * eject.EjectDelay;
+        }
     }
 
     [SubscribeLocalEvent]
     private void OnVendingPrice(Entity<VendingMachineComponent> entity, ref PriceCalculationEvent args)
     {
-        foreach (var entry in entity.Comp.Inventory.Values) if (ProtoMan.TryIndex<EntityPrototype>(entry.ID, out var proto)) args.Price += entry.Amount * _pricing.GetEstimatedPrice(proto);
+        var price = 0.0;
+
+        foreach (var entry in entity.Comp.Inventory.Values)
+        {
+            if (!ProtoMan.TryIndex<EntityPrototype>(entry.ID, out var proto))
+            {
+                Log.Error($"Unable to find entity prototype {entry.ID} on {ToPrettyString(entity)} vending.");
+                continue;
+            }
+
+            price += entry.Amount * _pricing.GetEstimatedPrice(proto);
+        }
+
+        args.Price += price;
+    }
+
+    [SubscribeLocalEvent]
+    private void OnDamageChanged(Entity<VendingMachineComponent> entity, ref DamageChangedEvent args)
+    {
+        if (!args.DamageIncreased && entity.Comp.Broken)
+        {
+            entity.Comp.Broken = false;
+            Dirty(entity);
+            return;
+        }
+
+        if (!TryComp<VendingMachineDispenseOnHitComponent>(entity.Owner, out var dispenseOnHit) ||
+            entity.Comp.Broken ||
+            dispenseOnHit.CoolingDown ||
+            args.DamageDelta == null)
+        {
+            return;
+        }
+
+        if (!args.DamageIncreased ||
+            args.DamageDelta.GetTotal() < dispenseOnHit.Threshold ||
+            !_random.Prob(dispenseOnHit.Chance))
+        {
+            return;
+        }
+
+        if (dispenseOnHit.NextDispenseDelay != null)
+            dispenseOnHit.NextDispenseTime = Timing.CurTime + dispenseOnHit.NextDispenseDelay.Value;
+
+        EjectRandom((entity.Owner, entity.Comp), throwItem: true, forceEject: true);
+    }
+
+    [SubscribeLocalEvent]
+    private void OnSelfDispense(Entity<VendingMachineComponent> entity, ref VendingMachineSelfDispenseEvent args)
+    {
+        if (args.Handled)
+            return;
+
+        args.Handled = true;
+        EjectRandom((entity.Owner, entity.Comp), throwItem: true, forceEject: false);
+    }
+
+    [SubscribeLocalEvent]
+    private void OnPriceCalculation(Entity<VendingMachineRestockComponent> entity, ref PriceCalculationEvent args)
+    {
+        List<double> priceSets = new();
+
+        foreach (var vendingInventory in entity.Comp.CanRestock)
+        {
+            double total = 0;
+
+            if (ProtoMan.TryIndex(vendingInventory, out VendingMachineInventoryPrototype? inventoryPrototype))
+            {
+                foreach (var (item, amount) in inventoryPrototype.StartingInventory)
+                {
+                    if (ProtoMan.TryIndex(item, out EntityPrototype? prototype))
+                        total += _pricing.GetEstimatedPrice(prototype) * amount;
+                }
+            }
+
+            priceSets.Add(total);
+        }
+
+        args.Price += priceSets.Max();
     }
 
     [SubscribeLocalEvent]
     private void OnTryVocalize(Entity<VendingMachineComponent> ent, ref TryVocalizeEvent args) => args.Cancelled |= ent.Comp.Broken;
 
-    public void SetShooting(Entity<VendingMachineEjectComponent?> entity, bool canShoot) { if (canShoot) EnsureComp<VendingMachineShootComponent>(entity.Owner); else RemComp<VendingMachineShootComponent>(entity.Owner); }
+    public void SetShooting(Entity<VendingMachineEjectComponent?> entity, bool canShoot)
+    {
+        if (!Resolve(entity.Owner, ref entity.Comp))
+            return;
+
+        if (canShoot)
+            EnsureComp<VendingMachineShootComponent>(entity.Owner);
+        else
+            RemComp<VendingMachineShootComponent>(entity.Owner);
+    }
 
     public void SetContraband(Entity<VendingMachineComponent> entity, bool contraband) { entity.Comp.Contraband = contraband; Dirty(entity); }
 

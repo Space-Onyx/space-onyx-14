@@ -94,7 +94,13 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     protected virtual void AuthorizedVend(EntityUid uid, EntityUid sender, InventoryType type, string itemId, VendingMachineComponent component, int count)
     {
         if (!IsAuthorized(uid, sender, component) || !TryComp<VendingMachineEjectComponent>(uid, out var eject)) return;
-        if (_net.IsClient && GetEntry(uid, itemId, type, component) is { } entry && GetPrice(entry, component, count) > 0 && !component.AllForFree) return; // <Onyx-VendingPaymentSound>
+        // <Onyx-VendingPaymentSound-edited>
+        if (_net.IsClient && GetEntry(uid, itemId, type, component) is { } entry && GetPrice(entry, component, count) > 0 && !component.AllForFree)
+        {
+            Audio.PlayPredicted(eject.SoundVend, uid, sender);
+            return;
+        }
+        // </Onyx-VendingPaymentSound-edited>
         TryEjectVendorItem(uid, type, itemId, ShouldThrowVendItem((uid, eject)), sender, component, eject);
     }
 
@@ -191,7 +197,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
 
             if (inventory.TryGetValue(id, out var entry))
             {
-                entry.Amount = Math.Min(entry.Amount + restock, 3 * amount);
+                entry.Amount = Math.Min(entry.Amount + amount, 3 * restock);
             }
             else
             {

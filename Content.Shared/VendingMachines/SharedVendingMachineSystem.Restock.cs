@@ -47,7 +47,12 @@ public abstract partial class SharedVendingMachineSystem
     private void OnRestockDoAfter(Entity<VendingMachineComponent> ent, ref RestockDoAfterEvent args)
     {
         if (args.Cancelled) { if (Timing.IsFirstTimePredicted) ent.Comp.RestockStream = Audio.Stop(ent.Comp.RestockStream); return; }
-        if (args.Handled || args.Used == null || !TryComp<VendingMachineRestockComponent>(args.Used, out var restock)) return;
+        if (args.Handled || args.Used == null) return;
+        if (!TryComp<VendingMachineRestockComponent>(args.Used, out var restock))
+        {
+            Log.Error($"{ToPrettyString(args.User)} tried to restock {ToPrettyString(ent)} with {ToPrettyString(args.Used.Value)} which did not have a VendingMachineRestockComponent.");
+            return;
+        }
         TryRestockInventory(ent, ent.Comp);
         Popup.PopupEntity(Loc.GetString("vending-machine-restock-done-self", ("target", ent)), Loc.GetString("vending-machine-restock-done-others", ("user", Identity.Entity(args.User, EntityManager)), ("target", ent)), ent, args.User, PopupType.Medium);
         Audio.PlayPredicted(restock.SoundRestockDone, ent, args.User);
