@@ -163,7 +163,7 @@ public abstract partial class SharedSurgerySystem
         var slot = part switch
         {
             BodyPartType.Head => SlotFlags.HEAD,
-            BodyPartType.Torso or BodyPartType.Chest or BodyPartType.Groin or BodyPartType.Arm => SlotFlags.OUTERCLOTHING | SlotFlags.INNERCLOTHING,
+            BodyPartType.Chest or BodyPartType.Groin or BodyPartType.Arm => SlotFlags.OUTERCLOTHING | SlotFlags.INNERCLOTHING,
             BodyPartType.Hand => SlotFlags.GLOVES,
             BodyPartType.Leg => SlotFlags.OUTERCLOTHING | SlotFlags.LEGS,
             BodyPartType.Foot => SlotFlags.FEET,

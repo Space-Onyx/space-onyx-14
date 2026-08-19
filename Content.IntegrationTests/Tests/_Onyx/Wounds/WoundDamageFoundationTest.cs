@@ -42,7 +42,7 @@ public sealed class WoundDamageFoundationTest : GameTest
   - type: WoundHost
   - type: InitialBody
     organs:
-      Torso: WoundFoundationTorso
+      Chest: WoundFoundationTorso
       Head: WoundFoundationHead
       ArmLeft: WoundFoundationLeftArm
       ArmRight: WoundFoundationRightArm
@@ -51,7 +51,7 @@ public sealed class WoundDamageFoundationTest : GameTest
   id: WoundFoundationTorso
   components:
   - type: BodyPart
-    partType: Torso
+    partType: Chest
 
 - type: entity
   id: WoundFoundationHead
@@ -112,7 +112,7 @@ public sealed class WoundDamageFoundationTest : GameTest
   - type: Clothing
     slots: [outerClothing]
   - type: Armor
-    coverage: [Torso]
+    coverage: [Chest]
     modifiers:
       coefficients:
         Blunt: 0.8
@@ -152,9 +152,9 @@ public sealed class WoundDamageFoundationTest : GameTest
     public async Task TargetingContractAndRoutingTest()
     {
         Assert.That(SharedTargetingSystem.TryConvert(TargetBodyPart.Chest, out var chest, out _), Is.True);
-        Assert.That(chest, Is.EqualTo(BodyPartType.Torso));
+        Assert.That(chest, Is.EqualTo(BodyPartType.Chest));
         Assert.That(SharedTargetingSystem.TryConvert(TargetBodyPart.Groin, out var groin, out _), Is.True);
-        Assert.That(groin, Is.EqualTo(BodyPartType.Torso));
+        Assert.That(groin, Is.EqualTo(BodyPartType.Groin));
         Assert.That(SharedTargetingSystem.IsSelectable((TargetBodyPart) ushort.MaxValue), Is.False);
         Assert.That(SharedTargetingSystem.IsSelectable(TargetBodyPart.Arms), Is.False);
         Assert.That(TargetingComponent.DefaultOdds()[TargetBodyPart.RightFoot].Keys,
@@ -286,7 +286,7 @@ public sealed class WoundDamageFoundationTest : GameTest
             var damage = entityManager.System<DamageableSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
-            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
 
             Assert.That(entityManager.HasComponent<WoundableComponent>(head));
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Blunt", 10)));
@@ -354,7 +354,7 @@ public sealed class WoundDamageFoundationTest : GameTest
             var routing = entityManager.System<WoundDamageRoutingSystem>();
             var damage = entityManager.System<DamageableSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
-            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
             var leftArm = parts.Single(part => part.Component.PartType == BodyPartType.Arm &&
                                                part.Component.Symmetry == BodyPartSymmetry.Left).Id;
@@ -422,7 +422,7 @@ public sealed class WoundDamageFoundationTest : GameTest
             Assert.That(graph.TryDetachPart(head));
             Assert.That(wounds.GetWounds((head, entityManager.GetComponent<WoundableComponent>(head)))
                 .Single(candidate => candidate.Comp.Prototype == new ProtoId<WoundPrototype>("BluntWound")).Owner, Is.EqualTo(wound.Owner));
-            var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Chest).Id;
             Assert.That(graph.TryAttachPart(torso, head));
             Assert.That(wounds.GetWounds((head, entityManager.GetComponent<WoundableComponent>(head)))
                 .Single(candidate => candidate.Comp.Prototype == new ProtoId<WoundPrototype>("BluntWound")).Owner, Is.EqualTo(wound.Owner));
@@ -454,7 +454,7 @@ public sealed class WoundDamageFoundationTest : GameTest
             var damage = entityManager.System<DamageableSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
-            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
 
             Assert.That(inventory.TryEquip(body, armor, "outerClothing"), Is.True);
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Blunt", 10)));
@@ -481,7 +481,7 @@ public sealed class WoundDamageFoundationTest : GameTest
             var routing = entityManager.System<WoundDamageRoutingSystem>();
             var damage = entityManager.System<DamageableSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
-            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
             var leftArm = parts.Single(part => part.Component.PartType == BodyPartType.Arm &&
                                                part.Component.Symmetry == BodyPartSymmetry.Left).Id;
             var rightArm = parts.Single(part => part.Component.PartType == BodyPartType.Arm &&
@@ -519,7 +519,7 @@ public sealed class WoundDamageFoundationTest : GameTest
             var damage = entityManager.System<DamageableSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
-            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
             var leftArm = parts.Single(part => part.Component.PartType == BodyPartType.Arm &&
                                                part.Component.Symmetry == BodyPartSymmetry.Left).Id;
             var rightArm = parts.Single(part => part.Component.PartType == BodyPartType.Arm &&

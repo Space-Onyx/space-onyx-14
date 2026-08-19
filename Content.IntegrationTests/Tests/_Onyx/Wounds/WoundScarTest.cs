@@ -24,14 +24,14 @@ public sealed class WoundScarTest : GameTest
   - type: WoundHost
   - type: InitialBody
     organs:
-      Torso: WoundScarTorso
+      Chest: WoundScarTorso
       Head: WoundScarHead
 
 - type: entity
   id: WoundScarTorso
   components:
   - type: BodyPart
-    partType: Torso
+    partType: Chest
 
 - type: entity
   id: WoundScarHead
@@ -54,7 +54,7 @@ public sealed class WoundScarTest : GameTest
             var graph = entities.System<SharedBodySystem>();
             var wounds = entities.System<WoundSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
-            var torso = parts.Single(candidate => candidate.Component.PartType == BodyPartType.Torso).Id;
+            var torso = parts.Single(candidate => candidate.Component.PartType == BodyPartType.Chest).Id;
             var part = parts.Single(candidate => candidate.Component.PartType == BodyPartType.Head).Id;
             var woundable = entities.GetComponent<WoundableComponent>(part);
 

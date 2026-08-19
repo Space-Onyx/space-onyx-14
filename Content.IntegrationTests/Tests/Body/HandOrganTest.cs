@@ -53,7 +53,7 @@ public sealed class HandOrganTest : GameTest
   - type: Hands
   - type: InitialBody
     organs:
-      Torso: GraphTorso
+      Chest: GraphTorso
       ArmLeft: GraphArm
       HandLeft: GraphHand
 
@@ -61,7 +61,7 @@ public sealed class HandOrganTest : GameTest
   id: GraphTorso
   components:
   - type: BodyPart
-    partType: Torso
+    partType: Chest
 
 - type: entity
   id: GraphArm
@@ -140,7 +140,7 @@ public sealed class HandOrganTest : GameTest
             var parts = graph.GetBodyChildren(body).ToList();
             Assert.That(parts.Count, Is.EqualTo(3));
 
-            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
             var arm = parts.Single(part => part.Component.PartType == BodyPartType.Arm).Id;
             var armContainer = containers.GetContainer(torso, BodyPartComponent.PartSlotPrefix + "left_arm");
             containers.Remove(arm, armContainer);

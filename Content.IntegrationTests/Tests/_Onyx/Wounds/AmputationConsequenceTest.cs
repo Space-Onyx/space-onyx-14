@@ -40,14 +40,14 @@ public sealed class AmputationConsequenceTest : GameTest
   - type: WoundHost
   - type: InitialBody
     organs:
-      Torso: AmputationConsequenceTestTorso
+      Chest: AmputationConsequenceTestTorso
       Head: AmputationConsequenceTestHead
 
 - type: entity
   id: AmputationConsequenceTestTorso
   components:
   - type: BodyPart
-    partType: Torso
+    partType: Chest
   - type: Woundable
     profile: AmputationConsequenceTestWoundableProfile
   - type: TransplantCompatibility
@@ -83,7 +83,7 @@ public sealed class AmputationConsequenceTest : GameTest
             var routing = entities.System<WoundDamageRoutingSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
-            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
 
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 180)));
             Assert.That(graph.BodyHasChild(body, head), Is.False);
@@ -120,7 +120,7 @@ public sealed class AmputationConsequenceTest : GameTest
             var routing = entities.System<WoundDamageRoutingSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
-            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
 
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 180)));
             Assert.That(graph.HasAmputationConsequence(torso), Is.True);
@@ -153,7 +153,7 @@ public sealed class AmputationConsequenceTest : GameTest
             var routing = entities.System<WoundDamageRoutingSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
-            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
 
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 180)));
             Assert.That(graph.HasAmputationConsequence(torso), Is.True);

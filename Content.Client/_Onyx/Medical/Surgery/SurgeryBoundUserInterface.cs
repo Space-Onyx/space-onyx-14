@@ -299,7 +299,7 @@ public sealed partial class SurgeryBoundUserInterface : BoundUserInterface
     private static int PartOrder(BodyPartType part) => part switch
     {
         BodyPartType.Head => 1,
-        BodyPartType.Torso or BodyPartType.Chest => 2,
+        BodyPartType.Chest => 2,
         BodyPartType.Groin => 3,
         BodyPartType.Arm => 3,
         BodyPartType.Hand => 4,

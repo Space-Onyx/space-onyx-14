@@ -129,7 +129,7 @@ public sealed partial class HealthExaminableSystem
     private static int PartOrder(BodyPartType type) => type switch
     {
         BodyPartType.Head => 0,
-        BodyPartType.Torso or BodyPartType.Chest => 1,
+        BodyPartType.Chest => 1,
         BodyPartType.Groin => 2,
         BodyPartType.Arm => 3,
         BodyPartType.Hand => 4,

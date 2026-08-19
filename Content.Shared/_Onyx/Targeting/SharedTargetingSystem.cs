@@ -77,7 +77,7 @@ public abstract class SharedTargetingSystem : EntitySystem
         target = (type, symmetry) switch
         {
             (BodyPartType.Head, _) => TargetBodyPart.Head,
-            (BodyPartType.Torso or BodyPartType.Chest, _) => TargetBodyPart.Chest,
+            (BodyPartType.Chest, _) => TargetBodyPart.Chest,
             (BodyPartType.Groin, _) => TargetBodyPart.Groin,
             (BodyPartType.Arm, BodyPartSymmetry.Left) => TargetBodyPart.LeftArm,
             (BodyPartType.Arm, BodyPartSymmetry.Right) => TargetBodyPart.RightArm,

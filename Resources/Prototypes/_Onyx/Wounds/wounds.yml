@@ -2,13 +2,15 @@
   id: OrganicWoundableProfile
   fractureProfiles:
     Head: OrganicFractureProfile
-    Torso: OrganicFractureProfile
+    Chest: OrganicFractureProfile
+    Groin: OrganicFractureProfile
     Arm: OrganicFractureProfile
     Hand: OrganicFractureProfile
     Leg: OrganicFractureProfile
     Foot: OrganicFractureProfile
   damageCaps:
-    Torso: 200
+    Chest: 200
+    Groin: 200
   amputationThresholds:
     Head:
       Slash: 200
@@ -36,7 +38,8 @@
       Blunt: 170
   organDamageChances:
     Head: 0.02
-    Torso: 0.015
+    Chest: 0.015
+    Groin: 0.015
     Arm: 0.004
     Hand: 0.001
     Leg: 0.004
@@ -63,7 +66,8 @@
 - type: woundableProfile
   id: IpcWoundableProfile
   damageCaps:
-    Torso: 200
+    Chest: 200
+    Groin: 200
   amputationThresholds:
     Head:
       Slash: 420
@@ -91,7 +95,8 @@
       Blunt: 220
   organDamageChances:
     Head: 0.02
-    Torso: 0.015
+    Chest: 0.015
+    Groin: 0.015
     Arm: 0.004
     Hand: 0.001
     Leg: 0.004
@@ -118,7 +123,8 @@
 - type: woundableProfile
   id: SlimeWoundableProfile
   damageCaps:
-    Torso: 200
+    Chest: 200
+    Groin: 200
   amputationThresholds:
     Head:
       Slash: 70
@@ -142,7 +148,8 @@
       Blunt: 70
   organDamageChances:
     Head: 0.02
-    Torso: 0.015
+    Chest: 0.015
+    Groin: 0.015
   organDamageWeights:
     Brain: 1.0
     Eyes: 0.35

@@ -37,14 +37,14 @@ public sealed class WoundHealingTest : GameTest
   - type: Repairable
   - type: InitialBody
     organs:
-      Torso: WoundHealingTorso
+      Chest: WoundHealingTorso
       Head: WoundHealingHead
 
 - type: entity
   id: WoundHealingTorso
   components:
   - type: BodyPart
-    partType: Torso
+    partType: Chest
 
 - type: entity
   id: WoundHealingHead
@@ -134,7 +134,7 @@ public sealed class WoundHealingTest : GameTest
             var damage = entityManager.System<DamageableSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
-            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
             var foreignPart = graph.GetBodyChildren(otherBody).First().Id;
 
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 10)));
@@ -171,7 +171,7 @@ public sealed class WoundHealingTest : GameTest
             var routing = entities.System<WoundDamageRoutingSystem>();
             var damage = entities.System<DamageableSystem>();
             var head = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Head).Id;
-            var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Chest).Id;
 
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Blunt", 10)));
             Assert.That(routing.TryApplyPartDamage(body, torso, Spec("Blunt", 10)));
@@ -201,7 +201,7 @@ public sealed class WoundHealingTest : GameTest
             var body = entities.SpawnEntity("WoundHealingBody", map.GridCoords);
             var graph = entities.System<SharedBodySystem>();
             var resolver = entities.System<TargetResolverSystem>();
-            var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Chest).Id;
             var head = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Head).Id;
 
             Assert.That(resolver.TryResolveExact(body, TargetBodyPart.Head, out var selected), Is.True);

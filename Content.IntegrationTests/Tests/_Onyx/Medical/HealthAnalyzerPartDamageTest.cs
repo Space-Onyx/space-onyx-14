@@ -38,7 +38,7 @@ public sealed class HealthAnalyzerPartDamageTest : GameTest
   - type: WoundHost
   - type: InitialBody
     organs:
-      Torso: HealthAnalyzerPartDamageTorso
+      Chest: HealthAnalyzerPartDamageTorso
       Head: HealthAnalyzerPartDamageHead
       ArmLeft: HealthAnalyzerPartDamageLeftArm
 
@@ -51,7 +51,7 @@ public sealed class HealthAnalyzerPartDamageTest : GameTest
   id: HealthAnalyzerPartDamageTorso
   components:
   - type: BodyPart
-    partType: Torso
+    partType: Chest
 
 - type: entity
   id: HealthAnalyzerPartDamageHead
@@ -83,7 +83,7 @@ public sealed class HealthAnalyzerPartDamageTest : GameTest
             var damage = entities.System<DamageableSystem>();
             var analyzer = entities.System<HealthAnalyzerSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
-            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
             var arm = parts.Single(part => part.Component.PartType == BodyPartType.Arm).Id;
 
@@ -126,7 +126,7 @@ public sealed class HealthAnalyzerPartDamageTest : GameTest
             var routing = entities.System<WoundDamageRoutingSystem>();
             var analyzer = entities.System<HealthAnalyzerSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
-            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
             var arm = parts.Single(part => part.Component.PartType == BodyPartType.Arm).Id;
 

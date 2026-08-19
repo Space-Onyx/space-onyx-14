@@ -139,20 +139,16 @@ public sealed partial class SharedBodySystem : EntitySystem
 
     private static EntityUid? GetParent(List<(EntityUid Id, BodyPartComponent Component)> parts, EntityUid id, BodyPartComponent part)
     {
-        if (part.PartType is BodyPartType.Chest or BodyPartType.Torso)
+        if (part.PartType is BodyPartType.Chest)
             return null;
 
         var parentType = part.PartType switch
         {
             BodyPartType.Hand => BodyPartType.Arm,
             BodyPartType.Foot => BodyPartType.Leg,
-            BodyPartType.Leg => parts.Any(candidate => candidate.Component.PartType == BodyPartType.Groin)
-                ? BodyPartType.Groin
-                : BodyPartType.Torso,
+            BodyPartType.Leg => BodyPartType.Groin,
             BodyPartType.Groin => BodyPartType.Chest,
-            _ => parts.Any(candidate => candidate.Component.PartType == BodyPartType.Chest)
-                ? BodyPartType.Chest
-                : BodyPartType.Torso,
+            _ => BodyPartType.Chest,
         };
 
         foreach (var (candidate, candidatePart) in parts)
@@ -576,11 +572,6 @@ public sealed partial class SharedBodySystem : EntitySystem
         (BodyPartType.Chest, BodyPartType.Arm, BodyPartSymmetry.Right) => "right_arm",
         (BodyPartType.Groin, BodyPartType.Leg, BodyPartSymmetry.Left) => "left_leg",
         (BodyPartType.Groin, BodyPartType.Leg, BodyPartSymmetry.Right) => "right_leg",
-        (BodyPartType.Torso, BodyPartType.Head, _) => "head",
-        (BodyPartType.Torso, BodyPartType.Arm, BodyPartSymmetry.Left) => "left_arm",
-        (BodyPartType.Torso, BodyPartType.Arm, BodyPartSymmetry.Right) => "right_arm",
-        (BodyPartType.Torso, BodyPartType.Leg, BodyPartSymmetry.Left) => "left_leg",
-        (BodyPartType.Torso, BodyPartType.Leg, BodyPartSymmetry.Right) => "right_leg",
         (BodyPartType.Arm, BodyPartType.Hand, BodyPartSymmetry.Left) when parent.Symmetry == BodyPartSymmetry.Left => "left_hand",
         (BodyPartType.Arm, BodyPartType.Hand, BodyPartSymmetry.Right) when parent.Symmetry == BodyPartSymmetry.Right => "right_hand",
         (BodyPartType.Leg, BodyPartType.Foot, BodyPartSymmetry.Left) when parent.Symmetry == BodyPartSymmetry.Left => "left_foot",

@@ -36,14 +36,14 @@ public sealed class WoundBleedingTest : GameTest
   - type: WoundHost
   - type: InitialBody
     organs:
-      Torso: WoundBleedingTorso
+      Chest: WoundBleedingTorso
       Head: WoundBleedingHead
 
 - type: entity
   id: WoundBleedingTorso
   components:
   - type: BodyPart
-    partType: Torso
+    partType: Chest
 
 - type: entity
   id: WoundBleedingHead
@@ -69,7 +69,7 @@ public sealed class WoundBleedingTest : GameTest
             var bleeding = entityManager.System<WoundBleedingSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
-            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
             var bloodstream = entityManager.GetComponent<BloodstreamComponent>(body);
 
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 15)));
@@ -147,7 +147,7 @@ public sealed class WoundBleedingTest : GameTest
             var routing = entities.System<WoundDamageRoutingSystem>();
             var bleeding = entities.System<WoundBleedingSystem>();
             var head = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Head).Id;
-            var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Chest).Id;
 
             Assert.That(entities.HasComponent<TourniquetComponent>(tourniquet), Is.True);
             Assert.That(entities.HasComponent<HealingComponent>(tourniquet), Is.False);
@@ -172,7 +172,7 @@ public sealed class WoundBleedingTest : GameTest
             var body = entityManager.SpawnEntity("WoundBleedingBody", map.GridCoords);
             var graph = entityManager.System<SharedBodySystem>();
             var head = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Head).Id;
-            var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+            var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Chest).Id;
 
             Assert.That(entityManager.System<WoundDamageRoutingSystem>().TryApplyPartDamage(body, head, Spec("Slash", 180)));
             Assert.That(graph.BodyHasChild(body, head), Is.False);
@@ -206,7 +206,7 @@ public sealed class WoundBleedingTest : GameTest
 
                 body = entityManager.SpawnEntity("WoundBleedingBody", map.GridCoords);
                 var parts = entityManager.System<SharedBodySystem>().GetBodyChildren(body).ToList();
-                light = parts.Single(part => part.Component.PartType == BodyPartType.Torso).Id;
+                light = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
                 heavy = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
                 var wounds = entityManager.System<WoundSystem>();
                 wounds.CreateOrMergeWound(light, new ProtoId<WoundPrototype>("SlashWound"), 1);

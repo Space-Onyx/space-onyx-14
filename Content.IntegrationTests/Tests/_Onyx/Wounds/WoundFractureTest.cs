@@ -30,7 +30,7 @@ public sealed class WoundFractureTest : GameTest
   - type: WoundHost
   - type: InitialBody
     organs:
-      Torso: WoundFractureTorso
+      Chest: WoundFractureTorso
       ArmLeft: WoundFractureArm
       LegLeft: WoundFractureLeg
 
@@ -38,7 +38,7 @@ public sealed class WoundFractureTest : GameTest
   id: WoundFractureTorso
   components:
   - type: BodyPart
-    partType: Torso
+    partType: Chest
 
 - type: entity
   id: WoundFractureArm

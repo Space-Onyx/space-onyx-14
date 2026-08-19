@@ -16,7 +16,6 @@ public sealed partial class WoundHostComponent : Component
     [DataField]
     public Dictionary<BodyPartType, float> TargetWeights = new()
     {
-        [BodyPartType.Torso] = 4f,
         [BodyPartType.Chest] = 2.5f,
         [BodyPartType.Groin] = 1.5f,
         [BodyPartType.Head] = 1f,

@@ -84,7 +84,7 @@ public sealed partial class InitialBodySystem : EntitySystem
         }
 
         // <Onyx-ChestGroin-edited>
-        var rootType = external.ContainsKey(BodyPartType.Chest) ? BodyPartType.Chest : BodyPartType.Torso;
+        var rootType = BodyPartType.Chest;
         if (!external.TryGetValue(rootType, out var roots) || !roots.TryGetValue(BodyPartSymmetry.None, out var chest) || !_container.Insert(chest, rootContainer, containerXform: xform))
             return;
 

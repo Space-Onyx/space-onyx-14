@@ -18,7 +18,7 @@ public sealed class WoundSurgeryScarTest : GameTest
   id: WoundSurgeryPart
   components:
   - type: BodyPart
-    partType: Torso
+    partType: Chest
   - type: Woundable
 
 - type: entity

@@ -59,8 +59,7 @@ public sealed partial class TargetResolverSystem : EntitySystem
             type == BodyPartType.Foot && TryFind(body, BodyPartType.Leg, symmetry, out part))
             return true;
 
-        return TryFind(body, BodyPartType.Chest, BodyPartSymmetry.None, out part) ||
-               TryFind(body, BodyPartType.Torso, BodyPartSymmetry.None, out part);
+        return TryFind(body, BodyPartType.Chest, BodyPartSymmetry.None, out part);
     }
 
     public bool TryResolveExact(EntityUid body, TargetBodyPart target, out EntityUid part)
@@ -115,7 +114,7 @@ public sealed partial class TargetResolverSystem : EntitySystem
     {
         foreach (var candidate in _body.GetBodyChildrenOfType(body, type))
         {
-            if (type is not BodyPartType.Torso and not BodyPartType.Chest and not BodyPartType.Groin and not BodyPartType.Head && candidate.Component.Symmetry != symmetry)
+            if (type is not BodyPartType.Chest and not BodyPartType.Groin and not BodyPartType.Head && candidate.Component.Symmetry != symmetry)
                 continue;
             part = candidate.Id;
             return true;

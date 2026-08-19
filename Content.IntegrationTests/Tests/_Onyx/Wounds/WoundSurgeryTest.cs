@@ -50,13 +50,13 @@ public sealed class WoundSurgeryTest : GameTest
   - type: WoundHost
   - type: InitialBody
     organs:
-      Torso: WoundSurgeryTestTorso
+      Chest: WoundSurgeryTestTorso
       ArmLeft: WoundSurgeryTestArm
 - type: entity
   id: WoundSurgeryTestTorso
   components:
   - type: BodyPart
-    partType: Torso
+    partType: Chest
 - type: entity
   id: WoundSurgeryTestArm
   components:

@@ -15,7 +15,7 @@ public sealed partial class MobThresholdSystem
     [Dependency] private SharedBodySystem _body = default!;
 
     /// <summary>
-    /// Calculates the total damage from vital body parts (Head, Chest, Groin, Torso), for complex bodies,
+    /// Calculates the total damage from vital body parts (Head, Chest, Groin), for complex bodies,
     /// including systemic damage. For non-complex bodies or if no vital parts are found, returns the total
     /// damage from the target entity.
     /// </summary>
@@ -31,7 +31,6 @@ public sealed partial class MobThresholdSystem
             BodyPartType.Head,
             BodyPartType.Chest,
             BodyPartType.Groin,
-            BodyPartType.Torso,
         };
 
         var result = FixedPoint2.Zero;

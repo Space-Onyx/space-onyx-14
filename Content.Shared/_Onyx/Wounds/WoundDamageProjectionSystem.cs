@@ -229,7 +229,7 @@ public sealed partial class WoundDamageProjectionSystem : EntitySystem
 
         switch (component.PartType, component.Symmetry)
         {
-            case (BodyPartType.Torso or BodyPartType.Chest, _): layer = HumanoidVisualLayers.Chest; return true;
+            case (BodyPartType.Chest, _): layer = HumanoidVisualLayers.Chest; return true;
             case (BodyPartType.Groin, _): layer = HumanoidVisualLayers.Groin; return true;
             case (BodyPartType.Head, _): layer = HumanoidVisualLayers.Head; return true;
             case (BodyPartType.Arm, BodyPartSymmetry.Left): layer = HumanoidVisualLayers.LArm; return true;
