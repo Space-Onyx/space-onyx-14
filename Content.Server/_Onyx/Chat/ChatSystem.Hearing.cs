@@ -1,4 +1,4 @@
-using Content.Shared._Onyx.Body;
+﻿using Content.Shared._Onyx.Body;
 
 namespace Content.Server.Chat.Systems;
 
@@ -22,7 +22,8 @@ public sealed partial class ChatSystem
     /// <summary>
     ///     Returns true if <paramref name="listener"/> can see <paramref name="source"/>,
     ///     i.e. the source's cumulative visibility mask (from MetaData, incl. parents and the always-on bit)
-    ///     is fully contained in the listener's eye visibility mask. Mirrors the engine's PVS check.
+    ///     is fully contained in the listener's effective visibility mask. Mirrors the engine's PVS check
+    ///     where session VisMask = DefaultVisibilityMask | eye.VisibilityMask.
     /// </summary>
     private bool CanSeeSource(EntityUid listener, EntityUid source)
     {
@@ -30,7 +31,9 @@ public sealed partial class ChatSystem
             return true;
 
         var sourceMask = Comp<MetaDataComponent>(source).VisibilityMask;
-        var eyeMask = TryComp(listener, out EyeComponent? eye) ? eye.VisibilityMask : EyeComponent.DefaultVisibilityMask;
+        var eyeMask = EyeComponent.DefaultVisibilityMask;
+        if (TryComp(listener, out EyeComponent? eye))
+            eyeMask |= eye.VisibilityMask;
         return (eyeMask & sourceMask) == sourceMask;
     }
     // </Onyx-HearingVisibility>
