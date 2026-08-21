@@ -30,6 +30,12 @@ public sealed class WoundDamageFoundationTest : GameTest
 {
     [TestPrototypes]
     private const string Prototypes = @"
+- type: bodyPartProfile
+  id: WoundFoundationRestrictedProfile
+  bleedingMultiplier: 0
+  acceptedDamageTypes: [Blunt]
+  supportedWounds: [BluntWound, SurgicalIncisionWound]
+
 - type: entity
   id: WoundFoundationBody
   parent: InventoryBase
@@ -300,7 +306,7 @@ public sealed class WoundDamageFoundationTest : GameTest
                 Is.EqualTo(FixedPoint2.New(3)));
             Assert.That(damage.GetAllDamage(torso).DamageDict[new ProtoId<DamageTypePrototype>("Shock")],
                 Is.EqualTo(FixedPoint2.New(2)));
-            Assert.That(entityManager.HasComponent<SystemicDamageComponent>(body), Is.False);
+            Assert.That(entityManager.GetComponent<SystemicDamageComponent>(body).Damage.Empty, Is.True);
 
             Assert.That(routing.TryApplyDamage(body, Spec("Asphyxiation", 4)));
             Assert.That(entityManager.GetComponent<SystemicDamageComponent>(body).Damage.GetTotal(), Is.EqualTo(FixedPoint2.New(4)));
@@ -410,8 +416,9 @@ public sealed class WoundDamageFoundationTest : GameTest
             var wounds = entityManager.System<WoundSystem>();
             var head = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Head).Id;
 
-            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Blunt", 10)));
-            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Blunt", 5)));
+            var created = wounds.CreateOrMergeWound(head, "BluntWound", 10);
+            Assert.That(created, Is.Not.Null);
+            Assert.That(wounds.CreateOrMergeWound(head, "BluntWound", 5), Is.EqualTo(created));
             var wound = wounds.GetWounds((head, entityManager.GetComponent<WoundableComponent>(head)))
                 .Single(candidate => candidate.Comp.Prototype == new ProtoId<WoundPrototype>("BluntWound"));
             Assert.That(wound.Comp.Prototype, Is.EqualTo(new ProtoId<WoundPrototype>("BluntWound")));
@@ -427,12 +434,41 @@ public sealed class WoundDamageFoundationTest : GameTest
             Assert.That(wounds.GetWounds((head, entityManager.GetComponent<WoundableComponent>(head)))
                 .Single(candidate => candidate.Comp.Prototype == new ProtoId<WoundPrototype>("BluntWound")).Owner, Is.EqualTo(wound.Owner));
 
-            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Blunt", -15)));
+            Assert.That(wounds.ChangeSeverity(wound, -15));
             Assert.That(wounds.GetWounds((head, entityManager.GetComponent<WoundableComponent>(head))), Is.Empty);
 
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 4)));
             entityManager.EventBus.RaiseLocalEvent(body, new RejuvenateEvent());
             Assert.That(wounds.GetWounds((head, entityManager.GetComponent<WoundableComponent>(head))), Is.Empty);
+        });
+    }
+
+    [Test]
+    public async Task BodyPartProfileContractsTest()
+    {
+        var server = Pair.Server;
+        await server.WaitIdleAsync();
+        var entityManager = server.ResolveDependency<IEntityManager>();
+        var map = await Pair.CreateTestMap();
+
+        await server.WaitAssertion(() =>
+        {
+            var body = entityManager.SpawnEntity("WoundFoundationBody", map.GridCoords);
+            var head = entityManager.System<SharedBodySystem>().GetBodyChildren(body)
+                .Single(part => part.Component.PartType == BodyPartType.Head).Id;
+            var woundable = entityManager.GetComponent<WoundableComponent>(head);
+            woundable.Profile = "WoundFoundationRestrictedProfile";
+
+            var routing = entityManager.System<WoundDamageRoutingSystem>();
+            var damage = entityManager.System<DamageableSystem>();
+            var wounds = entityManager.System<WoundSystem>();
+
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 10)), Is.False);
+            Assert.That(damage.GetAllDamage(head).Empty, Is.True);
+            Assert.That(wounds.CreateOrMergeWound(head, "SlashWound", 10), Is.Null);
+            var incision = wounds.CreateOrMergeWound(head, "SurgicalIncisionWound", 10);
+            Assert.That(incision, Is.Not.Null);
+            Assert.That(entityManager.HasComponent<WoundBleedingComponent>(incision.Value), Is.False);
         });
     }
 
@@ -577,19 +613,23 @@ public sealed class WoundDamageFoundationTest : GameTest
             var effects = entityManager.System<SharedEntityEffectsSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
-            var leftArm = parts.Single(part => part.Component.PartType == BodyPartType.Arm &&
-                                               part.Component.Symmetry == BodyPartSymmetry.Left).Id;
 
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Blunt", 10)));
             Assert.That(pain.GetPain(head), Is.EqualTo(FixedPoint2.New(8.7)));
             Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(8.7)));
 
-            Assert.That(routing.TryApplyPartDamage(body, leftArm, Spec("Heat", 10)));
-            Assert.That(damage.GetAllDamage(leftArm).GetTotal(), Is.EqualTo(FixedPoint2.Zero));
-            Assert.That(entityManager.GetComponent<SystemicDamageComponent>(body).Damage.GetTotal(),
+            var systemicBody = entityManager.SpawnEntity("WoundFoundationBody", map.GridCoords);
+            var systemicParts = graph.GetBodyChildren(systemicBody).ToList();
+            var systemicTorso = systemicParts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
+            var systemicArm = systemicParts.Single(part => part.Component.PartType == BodyPartType.Arm &&
+                                                           part.Component.Symmetry == BodyPartSymmetry.Left).Id;
+            Assert.That(routing.TryApplyPartDamage(systemicBody, systemicArm, Spec("Poison", 10)));
+            Assert.That(damage.GetAllDamage(systemicArm).GetTotal(), Is.EqualTo(FixedPoint2.Zero));
+            Assert.That(entityManager.GetComponent<SystemicDamageComponent>(systemicBody).Damage.GetTotal(),
                 Is.EqualTo(FixedPoint2.New(10)));
-            Assert.That(pain.GetPain(leftArm), Is.EqualTo(FixedPoint2.Zero));
-            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(8.7)));
+            Assert.That(pain.GetPain(systemicArm), Is.EqualTo(FixedPoint2.Zero));
+            Assert.That(pain.GetPain(systemicTorso), Is.EqualTo(FixedPoint2.New(7)));
+            Assert.That(pain.GetPain(systemicBody), Is.EqualTo(FixedPoint2.New(7)));
 
             var healingBody = entityManager.SpawnEntity("WoundFoundationBody", map.GridCoords);
             var healingHead = graph.GetBodyChildren(healingBody)

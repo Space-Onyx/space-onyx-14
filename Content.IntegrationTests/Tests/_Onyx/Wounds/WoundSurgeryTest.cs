@@ -118,7 +118,7 @@ public sealed class WoundSurgeryTest : GameTest
             var reduce = entities.SpawnEntity("WoundSurgeryTestReduce", map.GridCoords);
             var mend = entities.SpawnEntity("WoundSurgeryTestMend", map.GridCoords);
 
-            Assert.That(entities.System<WoundDamageRoutingSystem>().TryApplyPartDamage(body, arm, Blunt(25)));
+            Assert.That(entities.System<WoundDamageRoutingSystem>().TryApplyPartDamage(body, arm, Blunt(75)));
             var fracture = fractures.GetFracture(arm)!.Value;
             RaiseStep(mend, arm, entities);
             Assert.That(fracture.Comp2.Treatment, Is.EqualTo(FractureTreatment.None));

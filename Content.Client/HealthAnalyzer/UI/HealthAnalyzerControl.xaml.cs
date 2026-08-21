@@ -5,7 +5,7 @@ using Content.Shared._Onyx.Targeting;
 using Content.Shared._Onyx.Medical;
 using Content.Shared._Onyx.Wounds;
 using Content.Shared.Damage;
-using Content.Client._Onyx.Medical.HealthAnalyzer; // <Onyx-HealthAnalyzerOrgans>
+using Content.Client._Onyx.Medical.HealthAnalyzer;
 // </Onyx-HealthAnalyzer-StatusDoll>
 using Content.Shared.Atmos;
 using Content.Shared.Damage.Components;
@@ -276,31 +276,42 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                 continue;
 
             var partName = Loc.GetString($"targeting-part-{PartKey(part)}");
-            var partGenitive = Loc.GetString($"health-analyzer-wound-part-{PartKey(part)}-genitive");
+            var details = new List<string>();
 
-            if (diagnostic.Fracture != FractureGrade.None)
-                AddWoundFinding(Loc.GetString(diagnostic.Fracture == FractureGrade.Hairline
-                        ? "health-analyzer-wound-fracture-hairline"
-                        : "health-analyzer-wound-fracture",
-                    ("part", partGenitive)));
+            if (diagnostic.VisibleWounds.Count > 0)
+            {
+                var wounds = diagnostic.VisibleWounds.Select(wound =>
+                {
+                    var type = Loc.GetString(wound.Name);
+                    var stage = wound.StageName is { } stageName
+                        ? $" ({Loc.GetString(stageName)})"
+                        : string.Empty;
+                    return $"{type}{stage}{(wound.Count > 1 ? $" ×{wound.Count}" : string.Empty)}";
+                });
+                details.Add(string.Join(", ", wounds));
+            }
 
             if (diagnostic.BleedingRate > 0f)
-                AddWoundFinding(Loc.GetString("health-analyzer-wound-bleeding-active",
-                    ("part", partGenitive)));
+                details.Add(Loc.GetString("health-analyzer-wound-bleeding-short"));
+
+            if (diagnostic.InternalBleedingRate > 0f)
+                details.Add(Loc.GetString("health-analyzer-wound-internal-bleeding-short"));
+
+            if (diagnostic.ClottingPhase is HealthAnalyzerClottingPhase.InProgress or HealthAnalyzerClottingPhase.Complete or HealthAnalyzerClottingPhase.Mixed)
+                details.Add(Loc.GetString($"health-analyzer-wound-clotting-{diagnostic.ClottingPhase.ToString().ToLowerInvariant()}"));
 
             if (diagnostic.ScarCount > 0)
-                AddWoundFinding(Loc.GetString(diagnostic.ScarCount == 1
-                        ? "health-analyzer-wound-scar-single"
-                        : "health-analyzer-wound-scar-multiple",
-                    ("part", partName),
-                    ("count", diagnostic.ScarCount)));
+                details.Add(Loc.GetString("health-analyzer-wound-scars-short", ("count", diagnostic.ScarCount)));
 
-            // <Onyx-HealthAnalyzerPain>
             if (diagnostic.Pain > FixedPoint2.Zero)
-                AddWoundFinding(Loc.GetString("health-analyzer-wound-pain",
-                    ("part", partName),
-                    ("pain", diagnostic.Pain)));
-            // </Onyx-HealthAnalyzerPain>
+                details.Add(Loc.GetString("health-analyzer-wound-pain-short", ("pain", diagnostic.Pain)));
+
+            if (diagnostic.Functionality != BodyPartFunctionalityState.Functional)
+                details.Add(Loc.GetString($"health-analyzer-wound-functionality-{diagnostic.Functionality.ToString().ToLowerInvariant()}"));
+
+            if (details.Count > 0)
+                AddWoundFinding(Loc.GetString("health-analyzer-wound-part-summary",
+                    ("part", partName), ("details", string.Join(" · ", details))));
         }
     }
 

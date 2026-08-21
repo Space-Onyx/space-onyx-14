@@ -19,6 +19,7 @@
 - type: latheRecipePack
   id: BasicCybernetics
   recipes:
+  - SyntheticRepairTool
   - LeftArmCybernetic
   - RightArmCybernetic
   - LeftHandCybernetic

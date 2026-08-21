@@ -7,6 +7,12 @@
   - Chemist
   - Cloning
   - Cryogenics
+  # <Onyx-WoundGuidebook>
+  - BodyPartDamage
+  - Wounds
+  - WoundTreatment
+  - Surgery
+  # </Onyx-WoundGuidebook>
 
 - type: guideEntry
   id: MedicalDoctor

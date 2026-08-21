@@ -7,6 +7,8 @@
   - type: BodyPart
     partType: Chest
     category: Chest
+    fractureProfile: OrganicFractureProfile
+    maxDamage: 250
 
 - type: entity
   parent: OrganAnimal
@@ -17,6 +19,11 @@
   - type: BodyPart
     partType: Groin
     category: Groin
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 220
+      Piercing: 250
+      Blunt: 400
 
 - type: entity
   parent: OrganAnimal
@@ -26,6 +33,11 @@
   components:
   - type: BodyPart
     partType: Leg
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 150
+      Piercing: 250
+      Blunt: 300
 
 - type: entity
   parent: OrganAnimal
@@ -35,6 +47,11 @@
   components:
   - type: BodyPart
     partType: Foot
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 80
+      Piercing: 220
+      Blunt: 170
 
 - type: entity
   parent: ChestAnimal
@@ -67,6 +84,8 @@
   - type: BodyPart
     partType: Chest
     category: Chest
+    fractureProfile: OrganicFractureProfile
+    maxDamage: 250
 
 - type: entity
   parent: OrganAnimal
@@ -77,6 +96,11 @@
   - type: BodyPart
     partType: Arm
     symmetry: Left
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 130
+      Piercing: 250
+      Blunt: 250
 
 - type: entity
   parent: OrganAnimal
@@ -87,6 +111,11 @@
   - type: BodyPart
     partType: Arm
     symmetry: Right
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 130
+      Piercing: 250
+      Blunt: 250
 
 - type: entity
   parent: OrganAnimal
@@ -97,6 +126,11 @@
   - type: BodyPart
     partType: Hand
     symmetry: Left
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 70
+      Piercing: 200
+      Blunt: 150
   - type: HandOrgan
     handID: hand_left
     data:
@@ -111,6 +145,11 @@
   - type: BodyPart
     partType: Hand
     symmetry: Right
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 70
+      Piercing: 200
+      Blunt: 150
   - type: HandOrgan
     handID: hand_right
     data:

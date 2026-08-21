@@ -196,6 +196,16 @@
   result: WeldingSuitModule
 
 - type: latheRecipe
+  parent: BaseToolRecipe
+  id: SyntheticRepairTool
+  result: SyntheticRepairTool
+  completetime: 4
+  materials:
+    Steel: 600
+    Glass: 200
+    Plastic: 200
+
+- type: latheRecipe
   parent: BaseSuitModuleRecipe
   id: TRaySuitModule
   result: TRaySuitModule

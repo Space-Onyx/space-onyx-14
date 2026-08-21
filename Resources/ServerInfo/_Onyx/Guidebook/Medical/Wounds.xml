@@ -1,0 +1,27 @@
+<Document>
+  <FTLTextpart Key="guidebook-onyx-wounds-content"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-effects"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-traumatic-heading"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-blunt"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-slash"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-piercing"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-burn"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-electrical"/>
+  <Box>
+    <GuideEntityEmbed Entity="Gauze"/>
+    <GuideEntityEmbed Entity="Bonesetter"/>
+  </Box>
+  <FTLTextpart Key="guidebook-onyx-wounds-special-heading"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-fracture"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-incision"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-dismemberment-wound"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-amputation-consequence"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-internal-bleeding"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-medical-scar"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-material-heading"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-slime-plant"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-ipc-mechanical"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-cybernetic-mechanical"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-material-electrical"/>
+  <FTLTextpart Key="guidebook-onyx-wounds-dismemberment"/>
+</Document>

@@ -35,13 +35,14 @@ public sealed partial class WoundSurgerySystem : EntitySystem
         SubscribeLocalEvent<SurgeryWoundedConditionComponent, SurgeryValidEvent>(OnWoundedValid);
         SubscribeLocalEvent<SurgeryTendWoundsEffectComponent, SurgeryStepEvent>(OnTendWounds);
         SubscribeLocalEvent<SurgeryTendWoundsEffectComponent, SurgeryStepCompleteCheckEvent>(OnTendWoundsCheck);
-        SubscribeLocalEvent<SurgeryHealAmputationConsequenceEffectComponent, SurgeryStepEvent>(OnHealAmputationConsequence);
-        SubscribeLocalEvent<SurgeryHealAmputationConsequenceEffectComponent, SurgeryStepCompleteCheckEvent>(OnHealAmputationConsequenceCheck);
+        SubscribeLocalEvent<SurgeryTreatWoundEffectComponent, SurgeryStepEvent>(OnTreatWound);
+        SubscribeLocalEvent<SurgeryTreatWoundEffectComponent, SurgeryStepCompleteCheckEvent>(OnTreatWoundCheck);
     }
 
     private void OnHasWoundValid(Entity<SurgeryHasWoundConditionComponent> ent, ref SurgeryValidEvent args)
     {
-        if (FindWound(args.Part, ent.Comp.WoundPrototype, ent.Comp.Visibility, ent.Comp.State, ent.Comp.Bleeding) == null)
+        if (FindWound(args.Part, ent.Comp.WoundPrototype, ent.Comp.Visibility, ent.Comp.State,
+                ent.Comp.Bleeding, ent.Comp.InternalBleeding) == null)
             args.Cancelled = true;
     }
 
@@ -90,7 +91,8 @@ public sealed partial class WoundSurgerySystem : EntitySystem
 
     private void OnWoundedValid(Entity<SurgeryWoundedConditionComponent> ent, ref SurgeryValidEvent args)
     {
-        if (GetGroupSeverity(args.Part, ent.Comp.DamageGroup) <= FixedPoint2.Zero)
+        var severity = GetGroupSeverity(args.Part, ent.Comp.DamageGroup);
+        if (severity <= FixedPoint2.Zero || severity < ent.Comp.MinSeverity || severity > ent.Comp.MaxSeverity)
             args.Cancelled = true;
     }
 
@@ -125,18 +127,31 @@ public sealed partial class WoundSurgerySystem : EntitySystem
         foreach (var type in _prototypes.Index(ent.Comp.DamageGroup).DamageTypes)
             adjusted.DamageDict[type] = adjusted.DamageDict.GetValueOrDefault(type) - bonus;
 
-        var damage = new DamageSpecifier();
+        var treatment = new DamageSpecifier();
         foreach (var (type, amount) in adjusted.DamageDict)
         {
-            var healed = FixedPoint2.Min(-amount, current.DamageDict.GetValueOrDefault(type));
-            if (healed <= FixedPoint2.Zero)
+            if (amount >= FixedPoint2.Zero)
                 continue;
 
-            damage.DamageDict[type] = -healed;
+            treatment.DamageDict[type] = amount;
         }
 
-        if (!damage.Empty)
-            _damageRouting.TryApplyPartDamage(args.Body, args.Part, damage, args.User);
+        if (ent.Comp.HealDamage)
+        {
+            var damage = new DamageSpecifier();
+            foreach (var (type, amount) in treatment.DamageDict)
+            {
+                var healed = FixedPoint2.Min(-amount, current.DamageDict.GetValueOrDefault(type));
+                if (healed > FixedPoint2.Zero)
+                    damage.DamageDict[type] = -healed;
+            }
+
+            if (!damage.Empty)
+                _damageRouting.TryApplyPartDamage(args.Body, args.Part, damage, args.User, healWounds: false);
+        }
+
+        if (ent.Comp.HealWounds && !treatment.Empty)
+            _wounds.TryHealWounds(args.Part, treatment);
     }
 
     private void OnTendWoundsCheck(Entity<SurgeryTendWoundsEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
@@ -145,35 +160,21 @@ public sealed partial class WoundSurgerySystem : EntitySystem
             args.Cancelled = true;
     }
 
-    private void OnHealAmputationConsequence(Entity<SurgeryHealAmputationConsequenceEffectComponent> ent, ref SurgeryStepEvent args)
+    private void OnTreatWound(Entity<SurgeryTreatWoundEffectComponent> ent, ref SurgeryStepEvent args)
     {
-        foreach (var wound in _wounds.GetWounds(args.Part).ToArray())
-        {
-            if (wound.Comp.Prototype == "AmputationConsequenceWound")
-                _wounds.RemoveWound(new Entity<WoundComponent?>(wound.Owner, wound.Comp));
-        }
+        if (FindWound(args.Part, ent.Comp.WoundPrototype, damageGroup: ent.Comp.DamageGroup,
+                internalBleeding: ent.Comp.InternalBleeding) is { } wound)
+            _wounds.TreatWound(wound.Owner, ent.Comp.Amount);
 
-        var healing = new DamageSpecifier
-        {
-            DamageDict =
-            {
-                ["Blunt"] = -15,
-                ["Slash"] = -20,
-            }
-        };
-        _damageRouting.TryApplyPartDamage(args.Body, args.Part, healing, args.User);
+        if (!ent.Comp.Damage.Empty)
+            _damageRouting.TryApplyPartDamage(args.Body, args.Part, ent.Comp.Damage, args.User, healWounds: false);
     }
 
-    private void OnHealAmputationConsequenceCheck(Entity<SurgeryHealAmputationConsequenceEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
+    private void OnTreatWoundCheck(Entity<SurgeryTreatWoundEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
     {
-        foreach (var wound in _wounds.GetWounds(args.Part))
-        {
-            if (wound.Comp.Prototype == "AmputationConsequenceWound")
-            {
-                args.Cancelled = true;
-                return;
-            }
-        }
+        if (FindWound(args.Part, ent.Comp.WoundPrototype, damageGroup: ent.Comp.DamageGroup,
+                internalBleeding: ent.Comp.InternalBleeding) != null)
+            args.Cancelled = true;
     }
 
     private FixedPoint2 GetGroupSeverity(EntityUid part, ProtoId<DamageGroupPrototype> groupId)
@@ -187,7 +188,7 @@ public sealed partial class WoundSurgerySystem : EntitySystem
         {
             if (HasComp<WoundScarComponent>(wound) ||
                 !_prototypes.TryIndex(wound.Comp.Prototype, out var prototype) ||
-                !prototype.DamageTypes.Any(types.Contains))
+                !prototype.DamageTypes.Keys.Any(types.Contains))
                 continue;
 
             severity += wound.Comp.Severity;
@@ -201,22 +202,39 @@ public sealed partial class WoundSurgerySystem : EntitySystem
         ProtoId<WoundPrototype>? prototype = null,
         WoundVisibility? visibility = null,
         WoundState? state = null,
-        bool bleeding = false)
+        bool bleeding = false,
+        bool internalBleeding = false,
+        ProtoId<DamageGroupPrototype>? damageGroup = null)
     {
         if (!Resolve(part, ref part.Comp, false))
             return null;
 
         Entity<WoundComponent>? selected = null;
+        HashSet<ProtoId<DamageTypePrototype>>? groupTypes = null;
+        if (damageGroup is { } group && _prototypes.TryIndex(group, out var groupPrototype))
+            groupTypes = groupPrototype.DamageTypes.ToHashSet();
+
         foreach (var wound in _wounds.GetWounds(part))
         {
             if (HasComp<WoundScarComponent>(wound) ||
                 prototype is { } prototypeId && wound.Comp.Prototype != prototypeId ||
-                state is { } woundState && wound.Comp.State != woundState ||
-                visibility is { } woundVisibility &&
-                (!_prototypes.TryIndex(wound.Comp.Prototype, out var woundPrototype) || woundPrototype.Visibility != woundVisibility) ||
-                bleeding && (!TryComp(wound, out WoundBleedingComponent? bleedingComp) ||
-                    wound.Comp.State != WoundState.Open || bleedingComp.CurrentRate <= 0f) ||
-                selected is { } current && current.Comp.Severity >= wound.Comp.Severity)
+                state is { } woundState && wound.Comp.State != woundState)
+                continue;
+
+            if (!_prototypes.TryIndex(wound.Comp.Prototype, out var woundPrototype) ||
+                groupTypes != null && !woundPrototype.DamageTypes.Keys.Any(groupTypes.Contains) ||
+                visibility is { } woundVisibility && woundPrototype.Visibility != woundVisibility)
+                continue;
+
+            if (bleeding && (!TryComp(wound, out WoundBleedingComponent? bleedingComp) ||
+                    wound.Comp.State != WoundState.Open || bleedingComp.CurrentRate <= 0f))
+                continue;
+
+            if (internalBleeding && (!TryComp(wound, out WoundInternalBleedingComponent? internalBleedingComp) ||
+                    wound.Comp.State != WoundState.Open || internalBleedingComp.Severity <= FixedPoint2.Zero))
+                continue;
+
+            if (selected is { } current && current.Comp.Severity >= wound.Comp.Severity)
                 continue;
 
             selected = wound;

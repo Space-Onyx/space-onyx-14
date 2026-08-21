@@ -1,0 +1,30 @@
+<Document>
+  <FTLTextpart Key="guidebook-onyx-wound-treatment-content"/>
+  <Box>
+    <GuideEntityEmbed Entity="HandheldHealthAnalyzer"/>
+  </Box>
+  <FTLTextpart Key="guidebook-onyx-wound-treatment-biological"/>
+  <Box>
+    <GuideEntityEmbed Entity="Brutepack"/>
+    <GuideEntityEmbed Entity="Ointment"/>
+    <GuideEntityEmbed Entity="Gauze"/>
+    <GuideEntityEmbed Entity="MedicatedSuture"/>
+    <GuideEntityEmbed Entity="RegenerativeMesh"/>
+  </Box>
+  <FTLTextpart Key="guidebook-onyx-wound-treatment-chemistry"/>
+  <Box>
+    <GuideEntityEmbed Entity="ChemDispenser"/>
+    <GuideEntityEmbed Entity="Syringe"/>
+  </Box>
+  <FTLTextpart Key="guidebook-onyx-wound-treatment-fractures"/>
+  <Box>
+    <GuideEntityEmbed Entity="Bonesetter"/>
+    <GuideEntityEmbed Entity="BoneGel"/>
+  </Box>
+  <FTLTextpart Key="guidebook-onyx-wound-treatment-mechanical"/>
+  <Box>
+    <GuideEntityEmbed Entity="Welder"/>
+    <GuideEntityEmbed Entity="SyntheticRepairTool"/>
+    <GuideEntityEmbed Entity="CableApcStack"/>
+  </Box>
+</Document>

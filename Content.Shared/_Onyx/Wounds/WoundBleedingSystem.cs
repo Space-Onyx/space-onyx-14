@@ -27,11 +27,18 @@ public sealed partial class WoundBleedingSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<WoundBleedingComponent, ComponentInit>(OnBleedingInit);
+        SubscribeLocalEvent<WoundBleedingComponent, ComponentShutdown>(OnBleedingShutdown);
         SubscribeLocalEvent<WoundBleedingComponent, WoundCreatedEvent>(OnWoundCreated);
         SubscribeLocalEvent<WoundBleedingComponent, WoundChangedEvent>(OnWoundChanged);
         SubscribeLocalEvent<WoundBleedingComponent, WoundStateChangedEvent>(OnWoundStateChanged);
         SubscribeLocalEvent<WoundBleedingComponent, WoundRemovedEvent>(OnWoundRemoved);
         SubscribeLocalEvent<WoundHostComponent, SleepStateChangedEvent>(OnSleepStateChanged);
+    }
+
+    private void OnBleedingShutdown(Entity<WoundBleedingComponent> wound, ref ComponentShutdown args)
+    {
+        if (TryComp(wound, out WoundComponent? core))
+            RefreshBodyForPart(core.HoldingPart);
     }
 
     private void OnBleedingInit(Entity<WoundBleedingComponent> wound, ref ComponentInit args) => RestartAutomaticClotting(wound);
@@ -119,24 +126,6 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         return true;
     }
 
-    public bool TreatMostBleedingWound(Entity<WoundableComponent?> part, BleedingTreatment treatment)
-    {
-        if (!Resolve(part, ref part.Comp, false))
-            return false;
-
-        Entity<WoundComponent, WoundBleedingComponent>? selected = null;
-        foreach (var wound in _wounds.GetWounds(part))
-        {
-            if (!TryComp(wound, out WoundBleedingComponent? bleeding) || bleeding.CurrentRate <= 0f ||
-                selected is { } current && current.Comp2.CurrentRate >= bleeding.CurrentRate)
-                continue;
-
-            selected = (wound, wound.Comp, bleeding);
-        }
-
-        return selected is { } target && SetTreatment(target.Owner, treatment);
-    }
-
     public int TreatPart(Entity<WoundableComponent?> part, BleedingTreatment treatment,
         ProtoId<WoundPrototype>? prototype = null)
     {
@@ -200,11 +189,9 @@ public sealed partial class WoundBleedingSystem : EntitySystem
             RaiseLocalEvent(part, ref partChanged);
         }
 
-        var bodyChanged = new BodyBleedingProjectionChangedEvent(body, rate);
-        RaiseLocalEvent(body, ref bodyChanged);
     }
 
-    private void RefreshWound(Entity<WoundBleedingComponent> wound, bool refreshBody = true)
+    public void RefreshWound(Entity<WoundBleedingComponent> wound, bool refreshBody = true)
     {
         if (!_net.IsServer || !TryComp(wound, out WoundComponent? core) ||
             !_prototypes.TryIndex(core.Prototype, out var prototype))
@@ -218,13 +205,14 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         WoundPrototype prototype,
         bool refreshBody = true)
     {
-        if (!_net.IsServer)
+        if (!_net.IsServer || !prototype.TryGetBehavior(core.Severity, out WoundBleedingBehavior behavior) ||
+            !TryGetBleedingMultiplier(core.HoldingPart, out var bleedingMultiplier))
             return;
 
-        wound.Comp.BaseRate = wound.Comp.BleedingSeverity.Float() * prototype.BleedingRate;
-        if (prototype.AwakeBleedingMultiplier > 1f && TryGetBody(core.HoldingPart, out var patient) &&
+        wound.Comp.BaseRate = wound.Comp.BleedingSeverity.Float() * behavior.Rate * bleedingMultiplier;
+        if (behavior.AwakeMultiplier > 1f && TryGetBody(core.HoldingPart, out var patient) &&
             !HasComp<SleepingComponent>(patient))
-            wound.Comp.BaseRate *= prototype.AwakeBleedingMultiplier;
+            wound.Comp.BaseRate *= behavior.AwakeMultiplier;
         var multiplier = core.State == WoundState.Open ? TreatmentMultiplier(wound.Comp.Treatment) : 0f;
         wound.Comp.CurrentRate = Math.Max(0f, wound.Comp.BaseRate * multiplier - wound.Comp.NaturalClotting);
         Dirty(wound);
@@ -237,6 +225,20 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         RefreshBody(body);
     }
 
+    private bool TryGetBleedingMultiplier(EntityUid part, out float multiplier)
+    {
+        multiplier = 1f;
+        if (!TryComp(part, out WoundableComponent? woundable) ||
+            !_prototypes.TryIndex(woundable.Profile, out var profile))
+            return true;
+
+        if (profile.BleedingMultiplier <= 0f)
+            return false;
+
+        multiplier = profile.BleedingMultiplier;
+        return true;
+    }
+
     private void RestartAutomaticClotting(Entity<WoundBleedingComponent> wound)
     {
         wound.Comp.NaturalClotting = 0f;
@@ -247,13 +249,14 @@ public sealed partial class WoundBleedingSystem : EntitySystem
     private void RecomputeAutomaticClotting(Entity<WoundBleedingComponent> wound)
     {
         if (!_net.IsServer || !TryComp(wound, out WoundComponent? core) ||
-            !_prototypes.TryIndex(core.Prototype, out var prototype))
+            !_prototypes.TryIndex(core.Prototype, out var prototype) ||
+            !prototype.TryGetBehavior(core.Severity, out WoundBleedingBehavior behavior))
             return;
 
         var secondsPerSeverity = _configuration.GetCVar(CCVars.WoundsBleedingAutoStopSecondsPerSeverity);
         var maximum = _configuration.GetCVar(CCVars.WoundsBleedingAutoStopMaxSeconds);
         if (core.State != WoundState.Open || !_configuration.GetCVar(CCVars.WoundsBleedingAutoStopEnabled) ||
-            secondsPerSeverity <= 0f || maximum <= 0f || prototype.AutomaticClottingTimeMultiplier <= 0f)
+            secondsPerSeverity <= 0f || maximum <= 0f || behavior.ClottingMultiplier <= 0f)
         {
             wound.Comp.AutomaticClottingStartedAt = null;
             wound.Comp.AutomaticClottingAt = null;
@@ -262,7 +265,7 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         }
 
         var minimum = Math.Clamp(_configuration.GetCVar(CCVars.WoundsBleedingAutoStopMinSeconds), 0f, maximum);
-        var duration = Math.Clamp(core.Severity.Float() * secondsPerSeverity * prototype.AutomaticClottingTimeMultiplier,
+        var duration = Math.Clamp(core.Severity.Float() * secondsPerSeverity * behavior.ClottingMultiplier,
             minimum,
             maximum);
         wound.Comp.AutomaticClottingStartedAt ??= _timing.CurTime;
@@ -272,10 +275,10 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         {
             wound.Comp.AutomaticClottingStartedAt = null;
             wound.Comp.AutomaticClottingAt = null;
-            var rate = wound.Comp.BleedingSeverity.Float() * prototype.BleedingRate;
-            if (prototype.AwakeBleedingMultiplier > 1f && TryGetBody(core.HoldingPart, out var patient) &&
+            var rate = wound.Comp.BleedingSeverity.Float() * behavior.Rate;
+            if (behavior.AwakeMultiplier > 1f && TryGetBody(core.HoldingPart, out var patient) &&
                 !HasComp<SleepingComponent>(patient))
-                rate *= prototype.AwakeBleedingMultiplier;
+                rate *= behavior.AwakeMultiplier;
             wound.Comp.NaturalClotting = Math.Max(wound.Comp.NaturalClotting, rate);
         }
 

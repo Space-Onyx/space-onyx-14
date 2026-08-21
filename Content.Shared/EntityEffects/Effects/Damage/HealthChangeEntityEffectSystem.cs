@@ -19,15 +19,7 @@ public sealed partial class HealthChangeEntityEffectSystem : EntityEffectSystem<
 
     protected override void Effect(Entity<DamageableComponent> entity, ref EntityEffectEvent<HealthChange> args)
     {
-        var damageSpec = new DamageSpecifier(args.Effect.Damage);
-
-        damageSpec *= args.Scale;
-
-        _damageable.TryChangeDamage(
-                entity.AsNullable(),
-                damageSpec,
-                args.Effect.IgnoreResistances,
-                interruptsDoAfters: false);
+        ApplyTreatment(entity, args); // <Onyx-ReagentTreatmentCapabilities-edited>
     }
 }
 

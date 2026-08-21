@@ -18,10 +18,7 @@ public sealed partial class EvenHealthChangeEntityEffectSystem : EntityEffectSys
 
     protected override void Effect(Entity<DamageableComponent> entity, ref EntityEffectEvent<EvenHealthChange> args)
     {
-        foreach (var (group, amount) in args.Effect.Damage)
-        {
-            _damageable.HealEvenly(entity.AsNullable(), amount * args.Scale, group);
-        }
+        ApplyTreatment(entity, args); // <Onyx-ReagentTreatmentCapabilities-edited>
     }
 }
 

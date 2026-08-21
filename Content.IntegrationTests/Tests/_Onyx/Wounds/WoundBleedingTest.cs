@@ -64,7 +64,6 @@ public sealed class WoundBleedingTest : GameTest
         {
             var body = entityManager.SpawnEntity("WoundBleedingBody", map.GridCoords);
             var graph = entityManager.System<SharedBodySystem>();
-            var routing = entityManager.System<WoundDamageRoutingSystem>();
             var wounds = entityManager.System<WoundSystem>();
             var bleeding = entityManager.System<WoundBleedingSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
@@ -72,8 +71,8 @@ public sealed class WoundBleedingTest : GameTest
             var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
             var bloodstream = entityManager.GetComponent<BloodstreamComponent>(body);
 
-            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 15)));
-            Assert.That(routing.TryApplyPartDamage(body, torso, Spec("Piercing", 10)));
+            Assert.That(wounds.CreateOrMergeWound(head, "SlashWound", 15), Is.Not.Null);
+            Assert.That(wounds.CreateOrMergeWound(torso, "PiercingWound", 10), Is.Not.Null);
             Assert.That(bloodstream.BleedAmount, Is.EqualTo(3f).Within(0.001f));
 
             var headWound = wounds.GetWounds((head, entityManager.GetComponent<WoundableComponent>(head))).Single();
@@ -174,7 +173,11 @@ public sealed class WoundBleedingTest : GameTest
             var head = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Head).Id;
             var torso = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Chest).Id;
 
-            Assert.That(entityManager.System<WoundDamageRoutingSystem>().TryApplyPartDamage(body, head, Spec("Slash", 180)));
+            var routing = entityManager.System<WoundDamageRoutingSystem>();
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 200)));
+            Assert.That(graph.BodyHasChild(body, head), Is.True);
+            Assert.That(entityManager.GetComponent<WoundableComponent>(head).Severable, Is.True);
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 15)));
             Assert.That(graph.BodyHasChild(body, head), Is.False);
             Assert.That(entityManager.System<WoundSystem>()
                 .GetWounds((torso, entityManager.GetComponent<WoundableComponent>(torso)))

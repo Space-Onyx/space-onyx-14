@@ -221,6 +221,13 @@
   id: OrganDionaExternal
   abstract: true
   components:
+  # <Onyx-PlantMaterial>
+  - type: Woundable
+    profile: PlantBodyPartProfile
+  - type: BodyPart
+    fractureProfile: null
+    amputationThresholds: {}
+  # </Onyx-PlantMaterial>
   - type: Sprite
     sprite: Mobs/Species/Diona/parts.rsi
 
@@ -231,38 +238,65 @@
 - type: entity
   parent: [ OrganBaseHead, OrganDionaExternal ]
   id: OrganDionaHead
+  components:
+  - type: BodyPart
+    amputationThresholds: {}
 
 - type: entity
   parent: [ OrganDionaExternal, OrganBaseArmLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaArmLeft
+  components:
+  - type: BodyPart
+    amputationThresholds: {}
 
 - type: entity
   parent: [ OrganDionaExternal, OrganBaseArmRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaArmRight
+  components:
+  - type: BodyPart
+    amputationThresholds: {}
 
 - type: entity
   parent: [ OrganDionaExternal, OrganBaseHandLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaHandLeft
+  components:
+  - type: BodyPart
+    amputationThresholds: {}
 
 - type: entity
   parent: [ OrganDionaExternal, OrganBaseHandRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaHandRight
+  components:
+  - type: BodyPart
+    amputationThresholds: {}
 
 - type: entity
   parent: [ OrganDionaExternal, OrganBaseLegLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaLegLeft
+  components:
+  - type: BodyPart
+    amputationThresholds: {}
 
 - type: entity
   parent: [ OrganDionaExternal, OrganBaseLegRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaLegRight
+  components:
+  - type: BodyPart
+    amputationThresholds: {}
 
 - type: entity
   parent: [ OrganDionaExternal, OrganBaseFootLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaFootLeft
+  components:
+  - type: BodyPart
+    amputationThresholds: {}
 
 - type: entity
   parent: [ OrganDionaExternal, OrganBaseFootRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganDionaFootRight
+  components:
+  - type: BodyPart
+    amputationThresholds: {}
 
 - type: entity
   parent: [ OrganBaseBrain, OrganDionaInternal ]

@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Numerics;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
 using Content.Shared.Damage;
@@ -8,7 +8,6 @@ using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
 using Content.Shared.Throwing;
 
 namespace Content.Shared._Onyx.Wounds;
@@ -17,34 +16,45 @@ public sealed partial class AmputationSystem : EntitySystem
 {
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private DamageableSystem _damageable = default!;
-    [Dependency] private WoundDamageRoutingSystem _damageRouting = default!;
-    [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private WoundSystem _wounds = default!;
     [Dependency] private ThrowingSystem _throwing = default!;
-    [Dependency] private IRobustRandom _random = default!;
 
-    public const string AmputationConsequenceWound = "AmputationConsequenceWound";
+    public override void Initialize()
+    {
+        base.Initialize();
+        SubscribeLocalEvent<WoundableComponent, PartDamageOverflowedEvent>(OnPartDamageOverflowed);
+    }
 
-    private static readonly FixedPoint2 AmputationConsequenceSeverity = 35;
-    private static readonly FixedPoint2 AmputationConsequenceBlunt = 15;
-    private static readonly FixedPoint2 AmputationConsequenceSlash = 20;
+    private void OnPartDamageOverflowed(Entity<WoundableComponent> part, ref PartDamageOverflowedEvent args)
+    {
+        if (!_net.IsServer ||
+            !TryComp(part, out BodyPartComponent? bodyPart) || bodyPart.Body == null ||
+            bodyPart.PartType == BodyPartType.Chest ||
+            bodyPart.MaxDamage <= FixedPoint2.Zero)
+            return;
+
+        if (!part.Comp.Severable)
+        {
+            if (part.Comp.AmputationOverflow >= bodyPart.MaxDamage)
+                SetSeverable(part, true);
+            return;
+        }
+
+        if (IsFinishingHit(args.Body, bodyPart, args.Damage))
+            TryAmputate(args.Body, part.Owner);
+    }
 
     public void ApplyAmputationConsequences(EntityUid body, EntityUid parent)
     {
-        if (!_net.IsServer || !HasComp<WoundableComponent>(parent))
+        if (!_net.IsServer || !HasComp<WoundableComponent>(parent) ||
+            !TryComp(parent, out BodyPartComponent? parentPart))
             return;
 
-        _wounds.CreateOrMergeWound(parent, AmputationConsequenceWound, AmputationConsequenceSeverity);
-        var damage = new DamageSpecifier
-        {
-            DamageDict =
-            {
-                ["Blunt"] = AmputationConsequenceBlunt,
-                ["Slash"] = AmputationConsequenceSlash,
-            }
-        };
-        _damageRouting.TryApplyPartDamage(body, parent, damage);
+        if (!TryComp(body, out WoundHostComponent? host))
+            return;
+
+        _wounds.CreateOrMergeWound(parent, host.AmputationConsequenceWound, parentPart.AmputationConsequenceSeverity);
     }
 
     public void HandlePartDamageApplied(Entity<WoundableComponent> part, ref PartDamageAppliedEvent args)
@@ -52,46 +62,67 @@ public sealed partial class AmputationSystem : EntitySystem
         if (!_net.IsServer)
             return;
 
-        var healed = FixedPoint2.Zero;
-        foreach (var (type, amount) in args.Damage.DamageDict)
-        {
-            if (amount < FixedPoint2.Zero && (type == "Blunt" || type == "Slash"))
-                healed += -amount;
-        }
-
-        if (healed > FixedPoint2.Zero)
-        {
-            foreach (var wound in _wounds.GetWounds((part.Owner, (WoundableComponent?) part.Comp)).ToArray())
-            {
-                if (wound.Comp.Prototype == AmputationConsequenceWound)
-                    _wounds.ChangeSeverity(new Entity<WoundComponent?>(wound.Owner, wound.Comp), -healed);
-            }
-        }
-
         if (!TryComp(part, out BodyPartComponent? bodyPart) || bodyPart.Body == null ||
             bodyPart.PartType is BodyPartType.Chest || bodyPart.Parent == null ||
-            !_prototypes.TryIndex(part.Comp.Profile, out var profile) ||
-            !profile.AmputationThresholds.TryGetValue(bodyPart.PartType, out var thresholds) ||
-            !args.Damage.DamageDict.Any(entry => entry.Value > FixedPoint2.Zero && thresholds.ContainsKey(entry.Key)))
+            bodyPart.AmputationThresholds.Count == 0 ||
+            !TryComp(part, out DamageableComponent? damageable))
             return;
 
-        var parent = bodyPart.Parent.Value;
-        if (!TryComp(part, out DamageableComponent? damageable) ||
-            !ReachedThreshold(_damageable.GetAllDamage((part.Owner, damageable)), thresholds))
+        var damage = _damageable.GetAllDamage((part.Owner, damageable));
+        if (!part.Comp.Severable)
+        {
+            if (ReachedThreshold(damage, bodyPart.AmputationThresholds))
+                SetSeverable(part, true);
             return;
+        }
 
-        if (!_body.TryDetachPart(part.Owner))
+        if (GetThresholdProgress(damage, bodyPart.AmputationThresholds) < GetResetRatio(args.Body))
+        {
+            SetSeverable(part, false);
             return;
+        }
 
-        _wounds.CreateOrMergeWound(parent, "DismembermentWound", GetDismembermentSeverity(bodyPart.PartType));
-        ApplyAmputationConsequences(args.Body, parent);
-        _throwing.TryThrow(part.Owner, _random.NextVector2(0.8f, 1.2f), baseThrowSpeed: 3f,
+        var damageBeforeHit = damage.Clone();
+        foreach (var (type, amount) in args.Damage.DamageDict)
+            if (amount > FixedPoint2.Zero)
+                damageBeforeHit.DamageDict[type] = FixedPoint2.Max(FixedPoint2.Zero,
+                    damageBeforeHit.DamageDict.GetValueOrDefault(type) - amount);
+
+        if (ReachedThreshold(damageBeforeHit, bodyPart.AmputationThresholds) &&
+            IsFinishingHit(args.Body, bodyPart, args.Damage))
+            TryAmputate(args.Body, part.Owner);
+    }
+
+    /// <summary>
+    /// Detaches the part deterministically and applies amputation consequences.
+    /// </summary>
+    public bool TryAmputate(EntityUid body, EntityUid part)
+    {
+        if (!_net.IsServer || !TryComp(part, out BodyPartComponent? bodyPart) || bodyPart.Body == null ||
+            bodyPart.PartType == BodyPartType.Chest)
+            return false;
+
+        var parent = bodyPart.Parent ?? part;
+        if (!_body.TryDetachPart(part))
+            return false;
+
+        if (TryComp(body, out WoundHostComponent? host))
+            _wounds.CreateOrMergeWound(parent, host.DismembermentWound,
+                bodyPart.DismembermentSeverity ?? GetDismembermentSeverity(host, bodyPart.PartType));
+        ApplyAmputationConsequences(body, parent);
+        _throwing.TryThrow(part, Vector2.UnitY, baseThrowSpeed: 3f,
             pushbackRatio: 0f, doSpin: true);
-        var ev = new PartAmputatedEvent(args.Body, part.Owner, parent);
-        RaiseLocalEvent(part.Owner, ref ev);
+        return true;
     }
 
     private static bool ReachedThreshold(
+        DamageSpecifier damage,
+        IReadOnlyDictionary<ProtoId<DamageTypePrototype>, FixedPoint2> thresholds)
+    {
+        return GetThresholdProgress(damage, thresholds) >= 1f;
+    }
+
+    private static float GetThresholdProgress(
         DamageSpecifier damage,
         IReadOnlyDictionary<ProtoId<DamageTypePrototype>, FixedPoint2> thresholds)
     {
@@ -102,18 +133,46 @@ public sealed partial class AmputationSystem : EntitySystem
                 continue;
             progress += (float) damage.DamageDict.GetValueOrDefault(type) / (float) threshold;
         }
-        return progress >= 1f;
+        return progress;
     }
 
-    private static FixedPoint2 GetDismembermentSeverity(BodyPartType type) => type switch
+    private bool IsFinishingHit(EntityUid body, BodyPartComponent part, DamageSpecifier damage)
     {
-        BodyPartType.Head => 200,
-        BodyPartType.Groin => 160,
-        BodyPartType.Arm or BodyPartType.Leg => 120,
-        BodyPartType.Hand or BodyPartType.Foot => 80,
-        _ => 100,
-    };
-}
+        if (!TryComp(body, out WoundHostComponent? host))
+            return false;
 
-[ByRefEvent]
-public readonly record struct PartAmputatedEvent(EntityUid Body, EntityUid Part, EntityUid Parent);
+        foreach (var (type, amount) in damage.DamageDict)
+        {
+            if (amount <= FixedPoint2.Zero || !part.AmputationThresholds.ContainsKey(type))
+                continue;
+
+            var minimum = part.DismembermentFinishingDamage.GetValueOrDefault(type,
+                host.DefaultDismembermentFinishingDamage.GetValueOrDefault(type));
+            if (minimum > FixedPoint2.Zero && amount >= minimum)
+                return true;
+        }
+
+        return false;
+    }
+
+    private float GetResetRatio(EntityUid body)
+    {
+        return TryComp(body, out WoundHostComponent? host)
+            ? Math.Clamp(host.SeverableResetRatio, 0f, 1f)
+            : 0.8f;
+    }
+
+    private void SetSeverable(Entity<WoundableComponent> part, bool value)
+    {
+        if (part.Comp.Severable == value)
+            return;
+
+        part.Comp.Severable = value;
+        Dirty(part);
+    }
+
+    private static FixedPoint2 GetDismembermentSeverity(WoundHostComponent host, BodyPartType type)
+    {
+        return host.DismembermentSeverities.GetValueOrDefault(type, host.DefaultDismembermentSeverity);
+    }
+}

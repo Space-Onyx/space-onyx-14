@@ -1,10 +1,7 @@
 using System.Linq;
-using Content.Shared.Bed.Sleep;
 using Content.Shared.Body.Part;
 using Content.Shared.Damage;
-using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
-using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
@@ -18,14 +15,15 @@ namespace Content.Shared._Onyx.Wounds;
 
 public sealed partial class PainSystem : EntitySystem
 {
-    [Dependency] private DamageableSystem _damage = default!;
     [Dependency] private INetManager _net = default!;
-    [Dependency] private SleepingSystem _sleeping = default!;
     [Dependency] private StatusEffectsSystem _statusEffects = default!;
+    [Dependency] private WoundSystem _wounds = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
 
     private static readonly EntProtoId PainShockEffect = "StatusEffectPainShock";
     private static readonly FixedPoint2 PainShockThreshold = 130;
-    private static readonly FixedPoint2 PainShockRecoveryThreshold = 115;
+    private static readonly FixedPoint2 PainShockRearmThreshold = 110;
+    private static readonly TimeSpan PainShockStunTime = TimeSpan.FromSeconds(2f);
     private float _recoveryAccumulator;
 
     public override void Initialize()
@@ -33,6 +31,69 @@ public sealed partial class PainSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<PainComponent, ComponentShutdown>(OnPainShutdown);
         SubscribeLocalEvent<PainComponent, RejuvenateEvent>(OnRejuvenate);
+    }
+
+    public void ApplyOneTimePain(EntityUid part, EntityUid woundUid, FixedPoint2? delta = null)
+    {
+        if (!_net.IsServer || !CanFeelPain(part) || !TryComp(woundUid, out WoundComponent? wound))
+            return;
+
+        if (!_prototypes.TryIndex(wound.Prototype, out var prototype) ||
+            !prototype.TryGetBehavior(wound.Severity, out WoundPainBehavior behavior) || !behavior.OneTime)
+            return;
+
+        if (behavior.MinSeverity is { } minimum && wound.Severity < minimum)
+            return;
+
+        var amount = delta ?? wound.Severity;
+        if (amount <= FixedPoint2.Zero)
+            return;
+
+        ChangePain((part, EnsureComp<PainComponent>(part)), amount * behavior.PainPerSeverity);
+    }
+
+    /// <summary>
+    /// Recomputes the pain floor produced by the part's wounds. The floor is the minimum
+    /// pain the part settles to while a wound is present; it does not add pain instantly
+    /// (damage already does). When a wound is removed the floor drops and normal recovery
+    /// decays the remaining pain down to it (accelerated decay of the wound source).
+    /// </summary>
+    public void RefreshWoundPain(Entity<WoundableComponent?> part)
+    {
+        if (!_net.IsServer || !Resolve(part, ref part.Comp, false) ||
+            !TryComp(part, out PainComponent? pain))
+            return;
+
+        if (!CanFeelPain(part))
+        {
+            pain.WoundPain = FixedPoint2.Zero;
+            SetPain((part.Owner, pain), FixedPoint2.Zero);
+            Dirty(part.Owner, pain);
+            return;
+        }
+
+        var floor = FixedPoint2.Zero;
+        foreach (var wound in _wounds.GetWounds(part))
+        {
+            if (wound.Comp.State is WoundState.Healed or WoundState.Scarred ||
+                !_prototypes.TryIndex(wound.Comp.Prototype, out var prototype) ||
+                !prototype.TryGetBehavior(wound.Comp.Severity, out WoundPainBehavior behavior))
+                continue;
+
+            if (behavior.MinSeverity is { } minimum && wound.Comp.Severity < minimum)
+                continue;
+
+            if (behavior.OneTime)
+                continue;
+
+            floor += wound.Comp.Severity * behavior.PainPerSeverity;
+        }
+
+        if (pain.WoundPain == floor)
+            return;
+
+        pain.WoundPain = floor;
+        Dirty(part, pain);
     }
 
     public override void Update(float frameTime)
@@ -60,9 +121,9 @@ public sealed partial class PainSystem : EntitySystem
         }
 
         var bodyQuery = EntityQueryEnumerator<PainComponent, MobStateComponent, PainShockTargetComponent>();
-        while (bodyQuery.MoveNext(out var bodyUid, out var bodyPain, out var mobState, out _))
+        while (bodyQuery.MoveNext(out var bodyUid, out var bodyPain, out var mobState, out var shockTarget))
         {
-            UpdatePainShock((bodyUid, bodyPain), mobState);
+            UpdatePainShock((bodyUid, bodyPain), mobState, shockTarget);
         }
     }
 
@@ -123,9 +184,7 @@ public sealed partial class PainSystem : EntitySystem
             entity.Comp.Value <= FixedPoint2.Zero || entity.Comp.RecoveryPerSecond <= FixedPoint2.Zero)
             return false;
 
-        var minimum = FixedPoint2.Zero;
-        if (TryComp(entity, out DamageableComponent? damageable))
-            minimum = CalculatePain(_damage.GetPositiveDamage((entity, damageable)), entity.Comp.DamageMultipliers);
+        var minimum = FixedPoint2.Max(entity.Comp.WoundPain, FixedPoint2.Zero);
 
         var recovery = entity.Comp.RecoveryPerSecond;
         if (Resolve(entity, ref part, false) && part.Body is { } body &&
@@ -140,53 +199,54 @@ public sealed partial class PainSystem : EntitySystem
         return SetPain(entity, recovered);
     }
 
-    private void UpdatePainShock(Entity<PainComponent> entity, MobStateComponent mobState)
+    private void UpdatePainShock(Entity<PainComponent> entity, MobStateComponent mobState,
+        PainShockTargetComponent shockTarget)
     {
-        var pain = GetPain((entity.Owner, entity.Comp));
-        if (!HasComp<PainShockComponent>(entity))
-        {
-            if (mobState.CurrentState != MobState.Alive || pain < PainShockThreshold)
-                return;
-
-            var wasAlreadySleeping = HasComp<SleepingComponent>(entity);
-            if (!_statusEffects.TrySetStatusEffectDuration(entity, PainShockEffect))
-                return;
-
-            EnsureComp<PainShockComponent>(entity).WasSleeping = wasAlreadySleeping;
-            return;
-        }
-
         if (mobState.CurrentState == MobState.Dead)
         {
-            _statusEffects.TryRemoveStatusEffect(entity, PainShockEffect);
-            RemComp<PainShockComponent>(entity);
+            if (_statusEffects.HasStatusEffect(entity, PainShockEffect))
+                _statusEffects.TryRemoveStatusEffect(entity, PainShockEffect);
+            if (shockTarget.Armed)
+            {
+                shockTarget.Armed = false;
+                Dirty(entity.Owner, shockTarget);
+            }
             return;
         }
 
-        if (mobState.CurrentState != MobState.Alive || pain > PainShockRecoveryThreshold)
+        if (mobState.CurrentState != MobState.Alive)
+            return;
+
+        var pain = GetPain((entity.Owner, entity.Comp));
+        if (!shockTarget.Armed)
         {
-            if (!_statusEffects.HasStatusEffect(entity, PainShockEffect) &&
-                !_statusEffects.TrySetStatusEffectDuration(entity, PainShockEffect))
-                RemComp<PainShockComponent>(entity);
+            if (pain < PainShockRearmThreshold)
+            {
+                shockTarget.Armed = true;
+                Dirty(entity.Owner, shockTarget);
+            }
             return;
         }
 
-        if (_statusEffects.HasStatusEffect(entity, PainShockEffect))
-        {
-            _statusEffects.TryRemoveStatusEffect(entity, PainShockEffect);
+        if (pain < PainShockThreshold)
             return;
-        }
 
-        var wasSleepingBeforeShock = Comp<PainShockComponent>(entity).WasSleeping;
-        RemComp<PainShockComponent>(entity);
-        if (!wasSleepingBeforeShock && mobState.CurrentState == MobState.Alive)
-            _sleeping.TryWaking(entity.Owner);
+        shockTarget.Armed = false;
+        Dirty(entity.Owner, shockTarget);
+        _statusEffects.TrySetStatusEffectDuration(entity, PainShockEffect, PainShockStunTime);
     }
 
     private void OnRejuvenate(Entity<PainComponent> entity, ref RejuvenateEvent args)
     {
         if (_net.IsServer)
+        {
             ClearPainShock(entity);
+            if (TryComp(entity, out PainShockTargetComponent? shockTarget))
+            {
+                shockTarget.Armed = true;
+                Dirty(entity.Owner, shockTarget);
+            }
+        }
     }
 
     private void OnPainShutdown(Entity<PainComponent> entity, ref ComponentShutdown args)
@@ -198,7 +258,6 @@ public sealed partial class PainSystem : EntitySystem
     private void ClearPainShock(EntityUid entity)
     {
         _statusEffects.TryRemoveStatusEffect(entity, PainShockEffect);
-        RemComp<PainShockComponent>(entity);
     }
 
     private bool IsPainNumb(EntityUid entity)
@@ -267,11 +326,18 @@ public sealed partial class PainSystem : EntitySystem
     public bool ApplyDamage(EntityUid part, DamageSpecifier delta, BodyPartComponent? bodyPart = null,
         PainComponent? pain = null)
     {
-        if (!Resolve(part, ref bodyPart, ref pain, false))
+        if (!CanFeelPain(part) || !Resolve(part, ref bodyPart, ref pain, false))
             return false;
 
         var change = CalculatePain(delta, pain.DamageMultipliers);
         return change != FixedPoint2.Zero && ChangePain((part, pain), change);
+    }
+
+    public bool CanFeelPain(EntityUid part)
+    {
+        return !TryComp(part, out WoundableComponent? woundable) ||
+               !_prototypes.TryIndex(woundable.Profile, out var profile) ||
+               profile.CanFeelPain;
     }
 
     public FixedPoint2 CalculatePain(DamageSpecifier damage,

@@ -1,0 +1,71 @@
+- type: entity
+  id: WelderRepairModes
+  abstract: true
+  components:
+  - type: Welder
+  - type: WelderRepairModes
+    repairMode: mechanical
+    repairModes:
+      mechanical:
+        name: repair-mode-mechanical
+        damageGroup: Brute
+        repairMultiplier: 0.5
+        delayMultiplier: 1.35
+        fuelMultiplier: 1.2
+      physical:
+        name: repair-mode-physical
+        damageGroup: Burn
+        repairMultiplier: 0.4
+        delayMultiplier: 1.5
+        fuelMultiplier: 1.35
+
+- type: entity
+  id: SyntheticRepairTool
+  parent: [SolutionToolWelder, BaseItem]
+  name: synthetic repair tool
+  description: A fuel-powered precision tool for repairing positronic chassis and cybernetic parts.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/e-cautery.rsi
+    state: e-cautery
+    layers:
+    - state: e-cautery
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/e-cautery.rsi
+    heldPrefix: cautery
+    size: Small
+  - type: ItemToggle
+    predictable: false
+    soundActivate:
+      collection: WelderOn
+    soundDeactivate:
+      collection: WelderOff
+  - type: RefillableSolution
+    solution: welder
+  - type: Welder
+  - type: WelderRepairModes
+    repairMode: mechanical
+    repairModes:
+      mechanical:
+        name: repair-mode-mechanical
+        damageGroup: Brute
+        repairMultiplier: 0.75
+        delayMultiplier: 1.05
+        fuelMultiplier: 1.05
+      physical:
+        name: repair-mode-physical
+        damageGroup: Burn
+        repairMultiplier: 0.6
+        delayMultiplier: 1.25
+        fuelMultiplier: 1.3
+  - type: Tool
+    useSound:
+      collection: Welder
+    qualities: Welding
+  - type: PointLight
+    enabled: false
+    radius: 1.2
+    color: lightblue
+    netsync: false
+  - type: ItemTogglePointLight
+  - type: Appearance

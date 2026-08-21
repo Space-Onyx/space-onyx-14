@@ -25,11 +25,8 @@ public sealed class AmputationConsequenceTest : GameTest
   provides: [ AmputationConsequenceTest ]
   accepts: [ AmputationConsequenceTest ]
 
-- type: woundableProfile
+- type: bodyPartProfile
   id: AmputationConsequenceTestWoundableProfile
-  amputationThresholds:
-    Head:
-      Slash: 70
 
 - type: entity
   id: AmputationConsequenceTestBody
@@ -58,6 +55,8 @@ public sealed class AmputationConsequenceTest : GameTest
   components:
   - type: BodyPart
     partType: Head
+    amputationThresholds:
+      Slash: 70
   - type: Woundable
     profile: AmputationConsequenceTestWoundableProfile
   - type: TransplantCompatibility
@@ -65,7 +64,13 @@ public sealed class AmputationConsequenceTest : GameTest
 
 - type: entity
   id: AmputationConsequenceTestHeal
-  components: [ { type: SurgeryHealAmputationConsequenceEffect } ]
+  components:
+  - type: SurgeryTreatWoundEffect
+    woundPrototype: AmputationConsequenceWound
+    damage:
+      types:
+        Blunt: -15
+        Slash: -20
 ";
 
     [Test]
@@ -85,7 +90,11 @@ public sealed class AmputationConsequenceTest : GameTest
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
             var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
 
-            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 180)));
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 70)));
+            Assert.That(graph.BodyHasChild(body, head), Is.True);
+            Assert.That(entities.GetComponent<WoundableComponent>(head).Severable, Is.True);
+
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 15)));
             Assert.That(graph.BodyHasChild(body, head), Is.False);
 
             var wound = entities.System<WoundSystem>()
@@ -95,10 +104,7 @@ public sealed class AmputationConsequenceTest : GameTest
             Assert.That(graph.HasAmputationConsequence(torso), Is.True);
             var damage = entities.System<DamageableSystem>()
                 .GetAllDamage((torso, entities.GetComponent<DamageableComponent>(torso)));
-            Assert.That(damage.DamageDict["Blunt"],
-                Is.EqualTo(FixedPoint2.New(15)));
-            Assert.That(damage.DamageDict["Slash"],
-                Is.EqualTo(FixedPoint2.New(20)));
+            Assert.That(damage.GetTotal(), Is.EqualTo(FixedPoint2.Zero));
 
             var spare = entities.SpawnEntity("AmputationConsequenceTestHead", map.GridCoords);
             Assert.That(graph.TryAttachPart(torso, spare), Is.False);
@@ -122,7 +128,8 @@ public sealed class AmputationConsequenceTest : GameTest
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
             var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
 
-            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 180)));
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 70)));
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 15)));
             Assert.That(graph.HasAmputationConsequence(torso), Is.True);
 
             var heal = entities.SpawnEntity("AmputationConsequenceTestHeal", map.GridCoords);
@@ -139,7 +146,7 @@ public sealed class AmputationConsequenceTest : GameTest
     }
 
     [Test]
-    public async Task HealingDamageRemovesConsequenceAndUnblocksTest()
+    public async Task HealingDamageKeepsConsequenceBlockedTest()
     {
         var server = Pair.Server;
         await server.WaitIdleAsync();
@@ -155,14 +162,15 @@ public sealed class AmputationConsequenceTest : GameTest
             var head = parts.Single(part => part.Component.PartType == BodyPartType.Head).Id;
             var torso = parts.Single(part => part.Component.PartType == BodyPartType.Chest).Id;
 
-            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 180)));
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 70)));
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 15)));
             Assert.That(graph.HasAmputationConsequence(torso), Is.True);
 
             Assert.That(routing.TryApplyPartDamage(body, torso, Healing(15, 20)));
-            Assert.That(graph.HasAmputationConsequence(torso), Is.False);
+            Assert.That(graph.HasAmputationConsequence(torso), Is.True);
 
             var spare = entities.SpawnEntity("AmputationConsequenceTestHead", map.GridCoords);
-            Assert.That(graph.TryAttachPart(torso, spare), Is.True);
+            Assert.That(graph.TryAttachPart(torso, spare), Is.False);
         });
     }
 
@@ -187,6 +195,32 @@ public sealed class AmputationConsequenceTest : GameTest
 
             Assert.That(graph.BodyHasChild(body, head), Is.True);
             Assert.That(damage.GetAllDamage(head).DamageDict["Slash"], Is.EqualTo(FixedPoint2.New(79)));
+        });
+    }
+
+    [Test]
+    public async Task HealingBelowResetRatioClearsSeverableTest()
+    {
+        var server = Pair.Server;
+        await server.WaitIdleAsync();
+        var entities = server.ResolveDependency<IEntityManager>();
+        var map = await Pair.CreateTestMap();
+
+        await server.WaitAssertion(() =>
+        {
+            var body = entities.SpawnEntity("AmputationConsequenceTestBody", map.GridCoords);
+            var graph = entities.System<SharedBodySystem>();
+            var routing = entities.System<WoundDamageRoutingSystem>();
+            var head = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Head).Id;
+
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 70)));
+            Assert.That(entities.GetComponent<WoundableComponent>(head).Severable, Is.True);
+
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", -15)));
+            Assert.That(entities.GetComponent<WoundableComponent>(head).Severable, Is.False);
+
+            Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 15)));
+            Assert.That(graph.BodyHasChild(body, head), Is.True);
         });
     }
 

@@ -46,8 +46,26 @@ public sealed partial class SurgeryMarkerComponent : Component
 
 [RegisterComponent] public sealed partial class MechanicalSurgeryStepComponent : Component;
 
+/// <summary>Repeats this step until all of its completion bricks report success.</summary>
+[RegisterComponent] public sealed partial class RepeatSurgeryStepComponent : Component;
+
+[Serializable]
+public enum SurgeryEntityTarget : byte
+{
+    Body,
+    Part,
+}
+
 [RegisterComponent] public sealed partial class MechanicalOrganComponent : Component;
 
 [RegisterComponent] public sealed partial class SlimeCoreComponent : Component;
 
 [RegisterComponent] public sealed partial class TorsoOrganComponent : Component;
+
+/// <summary>
+/// Marker for surgery steps whose sequence should be chosen by the target part itself.
+/// When present, <see cref="SurgeryGetStepSequenceContextEvent"/> sets Context to the operated part,
+/// so alternative <c>required</c> sections can match components on the part (e.g. Cybernetics for frame fractures).
+/// </summary>
+[RegisterComponent]
+public sealed partial class SurgeryTargetPartContextComponent : Component;

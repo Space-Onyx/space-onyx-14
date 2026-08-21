@@ -76,6 +76,12 @@ public abstract partial class SharedSurgerySystem
             return false;
         }
 
+        if (surgery.Steps.Any(entry => entry.Value.Steps.Count == 0))
+        {
+            Log.Error($"Surgery prototype {id} contains an empty step section and will be ignored.");
+            return false;
+        }
+
         foreach (var stepId in surgery.Steps.Values.SelectMany(sequence => sequence.Steps))
         {
             if (!_prototypes.TryIndex<EntityPrototype>(stepId, out var stepPrototype) ||

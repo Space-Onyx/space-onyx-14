@@ -4,6 +4,9 @@
   id: OnyxCyberneticOrganBase
   components:
   - type: Cybernetics
+  - type: Organ
+    destructionWound: null
+    destructionWoundSeverity: 0
   - type: TransplantCompatibility
     profile: Cybernetic
   - type: Sprite

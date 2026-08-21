@@ -127,6 +127,22 @@
         amount: 0.125
 
 - type: reagent
+  id: Osteogen
+  name: reagent-name-osteogen
+  group: Medicine
+  desc: reagent-desc-osteogen
+  physicalDesc: reagent-physical-desc-opaque
+  flavor: medicine
+  color: "#d9e6c3"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:MendFractures
+        amount: 1
+        wounds: [BoneFractureWound]
+        maximumGrade: Simple
+
+- type: reagent
   id: Mitogen
   name: reagent-name-mitogen
   group: Medicine

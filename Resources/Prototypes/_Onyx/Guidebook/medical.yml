@@ -2,3 +2,23 @@
   id: Virology
   name: guide-entry-virology
   text: "/ServerInfo/_Onyx/Guidebook/Medical/Virology.xml"
+
+- type: guideEntry
+  id: BodyPartDamage
+  name: guide-entry-body-part-damage
+  text: "/ServerInfo/_Onyx/Guidebook/Medical/BodyPartDamage.xml"
+
+- type: guideEntry
+  id: Wounds
+  name: guide-entry-wounds
+  text: "/ServerInfo/_Onyx/Guidebook/Medical/Wounds.xml"
+
+- type: guideEntry
+  id: WoundTreatment
+  name: guide-entry-wound-treatment
+  text: "/ServerInfo/_Onyx/Guidebook/Medical/WoundTreatment.xml"
+
+- type: guideEntry
+  id: Surgery
+  name: guide-entry-surgery
+  text: "/ServerInfo/_Onyx/Guidebook/Medical/Surgery.xml"

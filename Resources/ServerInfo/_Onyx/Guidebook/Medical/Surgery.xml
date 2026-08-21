@@ -1,0 +1,21 @@
+<Document>
+  <FTLTextpart Key="guidebook-onyx-surgery-content"/>
+  <FTLTextpart Key="guidebook-onyx-surgery-procedure"/>
+  <FTLTextpart Key="guidebook-onyx-surgery-tools"/>
+  <Box>
+    <GuideEntityEmbed Entity="Scalpel"/>
+    <GuideEntityEmbed Entity="Hemostat"/>
+    <GuideEntityEmbed Entity="Retractor"/>
+    <GuideEntityEmbed Entity="Cautery"/>
+  </Box>
+  <FTLTextpart Key="guidebook-onyx-surgery-access"/>
+  <Box>
+    <GuideEntityEmbed Entity="Bonesetter"/>
+    <GuideEntityEmbed Entity="BoneGel"/>
+  </Box>
+  <FTLTextpart Key="guidebook-onyx-surgery-synthetics"/>
+  <Box>
+    <GuideEntityEmbed Entity="SyntheticRepairTool"/>
+    <GuideEntityEmbed Entity="CableApcStack"/>
+  </Box>
+</Document>

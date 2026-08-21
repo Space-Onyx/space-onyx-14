@@ -176,15 +176,18 @@
     blockingWireType: Apc
 ##Corvax-species-start
   - type: Healing
+    treatmentCapabilities: [Electrical] # <Onyx-WoundTreatment>
+    healWounds: true # <Onyx-WoundTreatment>
     damageContainers:
       - SiliconIpc
     damage:
       types:
-        Shock: -6
-        Blunt: -6
-        Slash: -6
-        Piercing: -6
-        Heat: -6
+        Blunt: -3
+        Slash: -3
+        Piercing: -3
+        Heat: -3
+        Shock: -5
+    delay: 3.5
     healingBeginSound:
       path: "/Audio/Items/Medical/brutepack_begin.ogg"
     healingEndSound:

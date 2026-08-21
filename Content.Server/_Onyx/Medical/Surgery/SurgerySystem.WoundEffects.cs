@@ -36,7 +36,7 @@ public sealed partial class SurgerySystem
 
             _bleeding.SetTreatment(wound.Owner, BleedingTreatment.Cauterized);
             _wounds.CloseWound(wound.Owner);
-            if (_random.Prob(chance))
+            if (chance > 0f && _random.Prob(chance))
                 _scars.CreateScar(wound.Owner);
         }
     }

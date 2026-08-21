@@ -3,6 +3,7 @@ using Content.Shared.Body.Part;
 using Content.Shared.Damage;
 using Content.Shared.Inventory;
 using Content.Shared.Damage.Prototypes;
+using Robust.Shared.Serialization;
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Onyx.Wounds;
@@ -37,13 +38,14 @@ public readonly record struct WoundBleedingChangedEvent(EntityUid Body, EntityUi
 public readonly record struct PartBleedingChangedEvent(EntityUid Body, EntityUid Part, float Rate);
 
 [ByRefEvent]
-public readonly record struct BodyBleedingProjectionChangedEvent(EntityUid Body, float Rate);
-
-[ByRefEvent]
 public readonly record struct PainChangedEvent(EntityUid Entity, FixedPoint2 OldPain, FixedPoint2 Pain);
 
 [ByRefEvent]
-public readonly record struct PartDamageAppliedEvent(EntityUid Body, EntityUid Part, DamageSpecifier Damage);
+public readonly record struct PartDamageAppliedEvent(
+    EntityUid Body,
+    EntityUid Part,
+    DamageSpecifier Damage,
+    bool HealWounds = true);
 
 /// <summary>
 /// Raised when damage is dealt to a part that is already at (or pushed past) its
@@ -61,14 +63,6 @@ public readonly record struct FractureGradeChangedEvent(
     FractureGrade Grade);
 
 [ByRefEvent]
-public record struct FractureTreatmentAttemptEvent(
-    EntityUid? Body,
-    EntityUid Part,
-    EntityUid Wound,
-    FractureTreatment Treatment,
-    bool Cancelled = false);
-
-[ByRefEvent]
 public readonly record struct FractureTreatmentChangedEvent(
     EntityUid? Body,
     EntityUid Part,
@@ -79,9 +73,35 @@ public readonly record struct FractureTreatmentChangedEvent(
 [ByRefEvent]
 public readonly record struct ScarCreatedEvent(EntityUid? Body, EntityUid Part, EntityUid Wound);
 
-/// <summary>Raised by actions before choosing their do-after duration.</summary>
+[Serializable, NetSerializable]
+public enum BodyPartFunctionalityState : byte
+{
+    /// <summary>Part works normally.</summary>
+    Functional,
+
+    /// <summary>Part still works, but at reduced effectiveness (wounds, minor damage).</summary>
+    Impaired,
+
+    /// <summary>Part does not work at all (severe damage, untreated fracture).</summary>
+    Disabled,
+
+    /// <summary>Part is missing or detached from the body.</summary>
+    Unavailable,
+}
+
+/// <summary>
+/// Raised when the computed functionality of a body part changes.
+/// </summary>
 [ByRefEvent]
-public record struct GetManipulationDurationMultiplierEvent(float Multiplier = 1f);
+public readonly record struct BodyPartFunctionalityChangedEvent(
+    EntityUid Body,
+    EntityUid Part,
+    BodyPartFunctionalityState OldState,
+    BodyPartFunctionalityState State);
+
+/// <summary>Raised before a do-after starts to account for the body parts manipulating the used item.</summary>
+[ByRefEvent]
+public record struct GetManipulationDurationMultiplierEvent(EntityUid? Used, float Multiplier = 1f);
 
 /// <summary>
 /// Public adapter contract for medical items and future explicit part targeting.
@@ -91,8 +111,11 @@ public record struct ResolveHealingPartEvent(
     EntityUid Body,
     DamageSpecifier Healing,
     IReadOnlyList<ProtoId<DamageContainerPrototype>>? DamageContainers,
+    IReadOnlySet<TreatmentCapability> TreatmentCapabilities,
+    IReadOnlySet<string>? AllowedWoundStages,
     float BloodlossModifier,
     EntityUid? RequestedPart,
+    bool HealWounds = true,
     EntityUid? Part = null,
     bool Accepted = false);
 

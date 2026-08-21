@@ -79,14 +79,14 @@ public sealed class WoundFractureTest : GameTest
             var profile = prototypes.Index(profileId);
             Assert.Multiple(() =>
             {
-                Assert.That(WoundFractureSystem.GetGrade(profile, 7), Is.EqualTo(FractureGrade.None));
-                Assert.That(WoundFractureSystem.GetGrade(profile, 8), Is.EqualTo(FractureGrade.Hairline));
-                Assert.That(WoundFractureSystem.GetGrade(profile, 14), Is.EqualTo(FractureGrade.Hairline));
-                Assert.That(WoundFractureSystem.GetGrade(profile, 15), Is.EqualTo(FractureGrade.Simple));
-                Assert.That(WoundFractureSystem.GetGrade(profile, 24), Is.EqualTo(FractureGrade.Simple));
-                Assert.That(WoundFractureSystem.GetGrade(profile, 25), Is.EqualTo(FractureGrade.Displaced));
-                Assert.That(WoundFractureSystem.GetGrade(profile, 39), Is.EqualTo(FractureGrade.Displaced));
-                Assert.That(WoundFractureSystem.GetGrade(profile, 40), Is.EqualTo(FractureGrade.Comminuted));
+                Assert.That(WoundFractureSystem.GetGrade(profile, 14), Is.EqualTo(FractureGrade.None));
+                Assert.That(WoundFractureSystem.GetGrade(profile, 15), Is.EqualTo(FractureGrade.Hairline));
+                Assert.That(WoundFractureSystem.GetGrade(profile, 29), Is.EqualTo(FractureGrade.Hairline));
+                Assert.That(WoundFractureSystem.GetGrade(profile, 30), Is.EqualTo(FractureGrade.Simple));
+                Assert.That(WoundFractureSystem.GetGrade(profile, 49), Is.EqualTo(FractureGrade.Simple));
+                Assert.That(WoundFractureSystem.GetGrade(profile, 50), Is.EqualTo(FractureGrade.Displaced));
+                Assert.That(WoundFractureSystem.GetGrade(profile, 74), Is.EqualTo(FractureGrade.Displaced));
+                Assert.That(WoundFractureSystem.GetGrade(profile, 75), Is.EqualTo(FractureGrade.Comminuted));
             });
         });
     }
@@ -110,10 +110,10 @@ public sealed class WoundFractureTest : GameTest
             var leg = graph.GetBodyChildren(body).Single(part => part.Component.PartType == BodyPartType.Leg).Id;
 
             Assert.That(inventory.TryEquip(body, armor, "outerClothing"));
-            Assert.That(routing.TryApplyPartDamage(body, leg, Spec(50)));
+            Assert.That(routing.TryApplyPartDamage(body, leg, Spec(150)));
             var fracture = fractures.GetFracture(leg).Value;
-            Assert.That(fracture.Comp2.BoneDamage, Is.EqualTo(FixedPoint2.New(25)));
-            Assert.That(fracture.Comp2.Grade, Is.EqualTo(FractureGrade.Displaced));
+            Assert.That(fracture.Comp1.Severity, Is.EqualTo(FixedPoint2.New(75)));
+            Assert.That(fracture.Comp2.Grade, Is.EqualTo(FractureGrade.Comminuted));
             Assert.That(fractures.TryMend(fracture.Owner), Is.False);
             Assert.That(fractures.TryReduce(fracture.Owner));
             Assert.That(fractures.TryMend(fracture.Owner));
@@ -135,17 +135,17 @@ public sealed class WoundFractureTest : GameTest
             var graph = entityManager.System<SharedBodySystem>();
             var routing = entityManager.System<WoundDamageRoutingSystem>();
             var fractures = entityManager.System<WoundFractureSystem>();
-            var manipulation = entityManager.System<FractureManipulationSystem>();
+            var manipulation = entityManager.System<FractureEffectSystem>();
             var parts = graph.GetBodyChildren(body).ToList();
             var leg = parts.Single(part => part.Component.PartType == BodyPartType.Leg).Id;
             var arm = parts.Single(part => part.Component.PartType == BodyPartType.Arm).Id;
 
-            Assert.That(routing.TryApplyPartDamage(body, leg, Spec(25)));
+            Assert.That(routing.TryApplyPartDamage(body, leg, Spec(75)));
             Assert.That(entityManager.GetComponent<MovementSpeedModifierComponent>(body).WalkSpeedModifier,
-                Is.EqualTo(0.6f).Within(0.001f));
+                Is.EqualTo(0.4f).Within(0.001f));
 
-            Assert.That(routing.TryApplyPartDamage(body, arm, Spec(15)));
-            Assert.That(manipulation.GetDurationMultiplier(body), Is.EqualTo(1.25f).Within(0.001f));
+            Assert.That(routing.TryApplyPartDamage(body, arm, Spec(75)));
+            Assert.That(manipulation.GetDurationMultiplier(body), Is.EqualTo(2f).Within(0.001f));
             Assert.That(fractures.TryMend(fractures.GetFracture(arm).Value.Owner));
             Assert.That(fractures.GetFracture(arm), Is.Null);
             Assert.That(manipulation.GetDurationMultiplier(body), Is.EqualTo(1f).Within(0.001f));

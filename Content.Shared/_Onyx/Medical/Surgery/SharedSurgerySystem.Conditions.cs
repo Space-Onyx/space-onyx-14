@@ -95,17 +95,29 @@ public abstract partial class SharedSurgerySystem
             args.Cancelled = true;
     }
 
+    private void OnComponentConditionValid(Entity<SurgeryComponentConditionComponent> ent, ref SurgeryValidEvent args)
+    {
+        if (_net.IsClient)
+            return;
+
+        var target = ent.Comp.Target == SurgeryEntityTarget.Body ? args.Body : args.Part;
+        if (ent.Comp.All.Values.Any(component => !HasComp(target, component.Component.GetType())) ||
+            ent.Comp.None.Values.Any(component => HasComp(target, component.Component.GetType())))
+            args.Cancelled = true;
+    }
+
     private void OnOrganConditionValid(Entity<SurgeryOrganConditionComponent> ent, ref SurgeryValidEvent args)
     {
         if (!TryComp(args.Part, out BodyPartComponent? part) ||
-            ent.Comp.Part is { } requiredPart && part.PartType != requiredPart ||
-            _body.TryGetOrganInSlot(args.Part, ent.Comp.Slot.Id, out var organId) == ent.Comp.Inverse)
+            ent.Comp.Part is { } requiredPart && part.PartType != requiredPart)
         {
             args.Cancelled = true;
             return;
         }
 
-        if (ent.Comp.Damaged && (!TryComp(organId, out OrganComponent? organ) || organ.Health >= organ.MaxHealth))
+        var found = TryFindMatchingOrgan(args.Part, ent.Comp.Slot, ent.Comp.Required, out var organ, out _);
+        if (found == ent.Comp.Inverse ||
+            found && ent.Comp.Damaged && organ.Comp.Health >= organ.Comp.MaxHealth)
             args.Cancelled = true;
     }
 }

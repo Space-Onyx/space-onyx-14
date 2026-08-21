@@ -11,7 +11,9 @@ public abstract partial class SharedSurgerySystem
 {
     private void OnRemoveOrgan(Entity<SurgeryRemoveOrganEffectComponent> ent, ref SurgeryStepEvent args)
     {
-        if (!_net.IsServer || !_body.TryRemoveOrgan(args.Part, ent.Comp.Slot.Id, out var organ))
+        if (!_net.IsServer ||
+            !TryFindMatchingOrgan(args.Part, ent.Comp.Slot, ent.Comp.Required, out _, out var slot) ||
+            !_body.TryRemoveOrgan(args.Part, slot, out var organ))
             return;
 
         _hands.TryPickupAnyHand(args.User, organ);
@@ -19,7 +21,7 @@ public abstract partial class SharedSurgerySystem
 
     private void OnRemoveOrganCheck(Entity<SurgeryRemoveOrganEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
     {
-        if (_body.TryGetOrganInSlot(args.Part, ent.Comp.Slot.Id, out _))
+        if (TryFindMatchingOrgan(args.Part, ent.Comp.Slot, ent.Comp.Required, out _, out _))
             args.Cancelled = true;
     }
 
@@ -122,4 +124,37 @@ public abstract partial class SharedSurgerySystem
         organ = (organId, component);
         return true;
     }
+
+    private bool TryFindMatchingOrgan(
+        EntityUid part,
+        ProtoId<OrganCategoryPrototype>? slot,
+        ComponentRegistry required,
+        out Entity<OrganComponent> organ,
+        out string organSlot)
+    {
+        organ = default;
+        organSlot = string.Empty;
+        if (!TryComp(part, out BodyPartComponent? bodyPart))
+            return false;
+
+        foreach (var candidateSlot in bodyPart.Organs)
+        {
+            if (slot is { } category && candidateSlot != category.Id ||
+                !_body.TryGetOrganInSlot(part, candidateSlot, out var candidate) ||
+                !TryComp(candidate, out OrganComponent? component) ||
+                !HasRequiredComponents(candidate, required))
+                continue;
+
+            if (organ.Owner.Valid)
+                return false;
+
+            organ = (candidate, component);
+            organSlot = candidateSlot;
+        }
+
+        return organ.Owner.Valid;
+    }
+
+    private bool HasRequiredComponents(EntityUid entity, ComponentRegistry required) =>
+        required.Values.All(component => HasComp(entity, component.Component.GetType()));
 }

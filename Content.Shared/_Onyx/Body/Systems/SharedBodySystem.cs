@@ -9,9 +9,6 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Body.Systems;
 
-/// <summary>
-/// Surgical body-part query API. Parts are backed by Corvax external organs during the graph migration.
-/// </summary>
 public sealed partial class SharedBodySystem : EntitySystem
 {
     [Dependency] private SharedContainerSystem _containers = default!;
@@ -218,12 +215,14 @@ public sealed partial class SharedBodySystem : EntitySystem
 
     public bool HasAmputationConsequence(EntityUid part)
     {
-        if (!_containers.TryGetContainer(part, WoundableComponent.ContainerId, out var container))
+        if (!TryComp(part, out BodyPartComponent? bodyPart) || bodyPart.Body is not { } body ||
+            !TryComp(body, out WoundHostComponent? host) ||
+            !_containers.TryGetContainer(part, WoundableComponent.ContainerId, out var container))
             return false;
 
         foreach (var entity in container.ContainedEntities)
         {
-            if (TryComp(entity, out WoundComponent? wound) && wound.Prototype == AmputationSystem.AmputationConsequenceWound)
+            if (TryComp(entity, out WoundComponent? wound) && wound.Prototype == host.AmputationConsequenceWound)
                 return true;
         }
 

@@ -55,7 +55,8 @@ public sealed partial class SurgeryOrganTagConditionComponent : Component
 [RegisterComponent]
 public sealed partial class SurgeryOrganConditionComponent : Component
 {
-    [DataField(required: true)] public ProtoId<OrganCategoryPrototype> Slot;
+    [DataField] public ProtoId<OrganCategoryPrototype>? Slot;
+    [DataField] public ComponentRegistry Required = new();
     [DataField] public bool Inverse;
     [DataField] public bool Damaged;
     [DataField] public BodyPartType? Part;
@@ -70,16 +71,24 @@ public sealed partial class SurgeryMissingPartConditionComponent : Component
 
 [RegisterComponent] public sealed partial class SurgeryDetachablePartConditionComponent : Component;
 
+/// <summary>Checks component presence on the patient or operated body part.</summary>
+[RegisterComponent]
+public sealed partial class SurgeryComponentConditionComponent : Component
+{
+    [DataField]
+    public SurgeryEntityTarget Target;
+
+    [DataField]
+    public ComponentRegistry All = new();
+
+    [DataField]
+    public ComponentRegistry None = new();
+}
+
 [RegisterComponent]
 public sealed partial class SurgeryCavityConditionComponent : Component
 {
     [DataField] public bool Occupied;
-}
-
-[RegisterComponent]
-public sealed partial class SurgeryPacificationConditionComponent : Component
-{
-    [DataField] public bool Pacified;
 }
 
 [RegisterComponent]

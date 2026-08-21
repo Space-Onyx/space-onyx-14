@@ -93,9 +93,24 @@
   parent:
   - AppearanceIpc
   - BaseSpeciesMob
+  - MobBloodstream # <Onyx-IPCWounds>
   id: MobIpc
   name: Urist McHands
   components:
+  # <Onyx-IPCWounds>
+  - type: WoundHost
+  - type: Bloodstream
+    bloodReferenceSolution:
+      reagents:
+        - ReagentId: Oil
+          Quantity: 250
+    bloodlossDamage:
+      types:
+        Bloodloss: 0.5
+    bloodlossHealDamage:
+      types:
+        Bloodloss: -1
+  # </Onyx-IPCWounds>
   - type: Damageable
     damageModifierSet: Ipc
   - type: Injurable
@@ -175,7 +190,7 @@
     spriteLayer: light
   - type: PointLight
     enabled: false
-    mask: /Textures/Effects/LightMasks/cone.png
+    lightMask: ConeSingle
     autoRot: true
     radius: 4
     netsync: false
@@ -184,22 +199,6 @@
     wattage: 0.2
     blinkingBehaviourId: blinking
     radiatingBehaviourId: radiating
-  - type: LightBehaviour
-    behaviours:
-    - !type:FadeBehaviour
-      id: radiating
-      maxDuration: 2.0
-      startValue: 3.0
-      endValue: 2.0
-      isLooped: true
-      reverseWhenFinished: true
-    - !type:PulseBehaviour
-      id: blinking
-      interpolate: Nearest
-      maxDuration: 1.0
-      startValue: 0.1
-      endValue: 2.0
-      isLooped: true
 ###
   - type: TypingIndicator
     proto: robot
@@ -233,10 +232,21 @@
     containers:
       cell_slot: !type:ContainerSlot { }
   - type: Ipc
+  # <Onyx-CyberneticRepair>
   - type: Repairable
-    fuelCost: 30
-    doAfterDelay: 20
+    treatmentCapabilities: [Mechanical]
+    damage:
+      types:
+        Blunt: -8
+        Slash: -6
+        Piercing: -5
+        Heat: -7
+        Cold: -6
+        Caustic: -4
+    fuelCost: 5
+    doAfterDelay: 3
     selfRepairPenalty: 2
+  # </Onyx-CyberneticRepair>
   - type: DamagedSiliconAccent
   - type: Reflect
     reflectProb: 0.05
@@ -310,8 +320,9 @@
   components:
   # <Onyx-IPCDismemberment>
   - type: Woundable
-    profile: IpcWoundableProfile
-  - type: Scarless
+    profile: IpcBodyPartProfile
+  - type: BodyPart
+    fractureProfile: null
   # </Onyx-IPCDismemberment>
   - type: Sprite
     sprite: Corvax/Mobs/Species/Ipc/parts.rsi
@@ -330,6 +341,11 @@
   parent: [ OrganBaseHead, OrganIpcExternal ]
   id: OrganIpcHead
   components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 420
+      Piercing: 360
+      Blunt: 840
   - type: VisualOrganMarkings
     hideableLayers:
     - enum.HumanoidVisualLayers.Hair
@@ -338,34 +354,82 @@
 - type: entity
   parent: [ OrganIpcExternal, OrganBaseArmLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcArmLeft
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 270
+      Piercing: 400
+      Blunt: 600
 
 - type: entity
   parent: [ OrganIpcExternal, OrganBaseArmRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcArmRight
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 270
+      Piercing: 400
+      Blunt: 600
 
 - type: entity
   parent: [ OrganIpcExternal, OrganBaseHandLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcHandLeft
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 150
+      Piercing: 270
+      Blunt: 360
 
 - type: entity
   parent: [ OrganIpcExternal, OrganBaseHandRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcHandRight
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 150
+      Piercing: 270
+      Blunt: 360
 
 - type: entity
   parent: [ OrganIpcExternal, OrganBaseLegLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcLegLeft
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 330
+      Piercing: 470
+      Blunt: 520
 
 - type: entity
   parent: [ OrganIpcExternal, OrganBaseLegRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcLegRight
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 330
+      Piercing: 470
+      Blunt: 520
 
 - type: entity
   parent: [ OrganIpcExternal, OrganBaseFootLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcFootLeft
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 180
+      Piercing: 300
+      Blunt: 220
 
 - type: entity
   parent: [ OrganIpcExternal, OrganBaseFootRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganIpcFootRight
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 180
+      Piercing: 300
+      Blunt: 220
 
 - type: entity
   parent: [ OrganBaseBrain, OrganIpc ]

@@ -45,9 +45,7 @@ public abstract partial class SharedSurgerySystem
 
         var ev = new SurgeryStepEvent(args.User, ent, part, tools);
         RaiseLocalEvent(step, ref ev);
-        if ((HasComp<SurgeryOrganHealEffectComponent>(step) ||
-             HasComp<SurgeryClampBleedingEffectComponent>(step) ||
-             HasComp<SurgeryTendWoundsEffectComponent>(step)) &&
+        if (HasComp<RepeatSurgeryStepComponent>(step) &&
             !IsStepComplete(ent, part, args.Step) &&
             CanPerformStep(args.User, ent, part, part.Comp.PartType, step, false, out _, out _, out var validTools))
         {

@@ -19,10 +19,7 @@ public sealed partial class DistributedHealthChangeEntityEffectSystem : EntityEf
 
     protected override void Effect(Entity<DamageableComponent> entity, ref EntityEffectEvent<DistributedHealthChange> args)
     {
-        foreach (var (group, amount) in args.Effect.Damage)
-        {
-            _damageable.HealDistributed(entity.AsNullable(), amount * args.Scale, group);
-        }
+        ApplyTreatment(entity, args); // <Onyx-ReagentTreatmentCapabilities-edited>
     }
 }
 

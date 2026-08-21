@@ -1,4 +1,5 @@
 using Content.Shared.Damage.Prototypes;
+using Content.Shared.Alert;
 using Content.Shared.Body;
 using Content.Shared.Body.Part;
 using Content.Shared.FixedPoint;
@@ -14,7 +15,14 @@ public sealed partial class WoundPrototype : IPrototype
     public string ID { get; private set; } = default!;
 
     [DataField(required: true)]
-    public HashSet<ProtoId<DamageTypePrototype>> DamageTypes = new();
+    public LocId Name;
+
+    /// <summary>
+    /// Damage types that can create or heal this wound and their conversion settings.
+    /// Multiple wound prototypes may react to the same damage type.
+    /// </summary>
+    [DataField(required: true)]
+    public Dictionary<ProtoId<DamageTypePrototype>, WoundDamageTypeSettings> DamageTypes = new();
 
     [DataField]
     public WoundMergeMode MergeMode = WoundMergeMode.MergeByPrototype;
@@ -28,59 +36,207 @@ public sealed partial class WoundPrototype : IPrototype
     [DataField]
     public WoundVisibility Visibility = WoundVisibility.Visible;
 
+    /// <summary>
+    /// Optional behavior bricks this wound is assembled from.
+    /// </summary>
     [DataField]
-    public float BleedingRate;
+    public List<WoundBehavior> Behaviors = new();
 
+    /// <summary>
+    /// Severity stages of the wound. Each stage names the severity band above its
+    /// threshold; the current stage is the stage with the highest threshold not
+    /// exceeding the wound's severity. Thresholds are absolute and wound-specific.
+    /// </summary>
     [DataField]
-    public float BleedingChance = 1f;
+    public Dictionary<string, WoundStageDefinition> Stages = new();
 
-    [DataField]
-    public float AwakeBleedingMultiplier = 1f;
+    /// <summary>
+    /// Returns the current stage for the given severity, or null if no stages are defined.
+    /// </summary>
+    public string? GetStage(FixedPoint2 severity)
+    {
+        string? current = null;
+        var threshold = FixedPoint2.Zero;
+        foreach (var (id, stage) in Stages)
+        {
+            if (stage.Severity <= severity && stage.Severity >= threshold)
+            {
+                threshold = stage.Severity;
+                current = id;
+            }
+        }
 
-    [DataField]
-    public float AutomaticClottingTimeMultiplier = 1f;
+        return current;
+    }
 
-    [DataField]
-    public FixedPoint2? ScarThreshold;
+    /// <summary>
+    /// Returns the current stage definition for the given severity, or null if no stage applies.
+    /// </summary>
+    public WoundStageDefinition? GetStageDefinition(FixedPoint2 severity)
+    {
+        if (GetStage(severity) is not { } id || !Stages.TryGetValue(id, out var stage))
+            return null;
+
+        return stage;
+    }
+
+    /// <summary>
+    /// Enumerates the behaviors active at the given severity: behaviors of the current stage
+    /// first (so they override base behaviors of the same type), then the prototype's base behaviors.
+    /// </summary>
+    public IEnumerable<WoundBehavior> GetBehaviors(FixedPoint2 severity)
+    {
+        if (GetStageDefinition(severity) is { } stage)
+        {
+            foreach (var behavior in stage.Behaviors)
+                yield return behavior;
+        }
+
+        foreach (var behavior in Behaviors)
+            yield return behavior;
+    }
+
+    /// <summary>
+    /// Severity-aware behavior lookup: prefers a behavior provided by the current stage over the
+    /// prototype's base behavior of the same type. Falls back to the base behavior when the stage
+    /// does not define one.
+    /// </summary>
+    public bool TryGetBehavior<T>(FixedPoint2 severity, out T behavior) where T : WoundBehavior
+    {
+        foreach (var candidate in GetBehaviors(severity))
+        {
+            if (candidate is T typed)
+            {
+                behavior = typed;
+                return true;
+            }
+        }
+
+        behavior = null!;
+        return false;
+    }
 
 }
 
+[DataDefinition]
+public sealed partial class WoundDamageTypeSettings
+{
+    /// <summary>Effective trauma required to create or worsen the wound.</summary>
+    [DataField]
+    public FixedPoint2 MinimumDamage;
+
+    /// <summary>Minimum damage from the current hit required to evaluate wound creation.</summary>
+    [DataField]
+    public FixedPoint2 MinimumHitDamage = 3;
+
+    /// <summary>Fraction of existing damage of this type counted as accumulated trauma.</summary>
+    [DataField]
+    public float AccumulationMultiplier = 0.5f;
+
+    /// <summary>Minimum positive damage in one hit required to reopen a closed or stabilized wound.</summary>
+    [DataField]
+    public FixedPoint2 ReopenMinimumDamage;
+
+    /// <summary>Chance at MinimumDamage effective trauma that positive damage creates or worsens the wound.</summary>
+    [DataField]
+    public float Chance = 1f;
+
+    /// <summary>Effective trauma at which the chance reaches 100%. Non-positive keeps a fixed chance.</summary>
+    [DataField]
+    public FixedPoint2 GuaranteedDamage;
+
+    /// <summary>Wound severity gained or healed per point of damage.</summary>
+    [DataField]
+    public float SeverityMultiplier = 1f;
+}
+
 [Prototype]
-public sealed partial class WoundableProfilePrototype : IPrototype
+public sealed partial class BodyPartProfilePrototype : IPrototype
 {
     [IdDataField]
     public string ID { get; private set; } = default!;
 
+    /// <summary>
+    /// Damage types that parts using this profile can receive. An empty set allows all damage types.
+    /// Whether damage is localized is configured by WoundHostComponent instead.
+    /// </summary>
     [DataField]
-    public ProtoId<FractureProfilePrototype>? FractureProfile;
+    public HashSet<ProtoId<DamageTypePrototype>> AcceptedDamageTypes = new();
+
+    /// <summary>
+    /// Wounds that may be created on body parts using this profile.
+    /// </summary>
+    [DataField]
+    public HashSet<ProtoId<WoundPrototype>> SupportedWounds = new();
 
     [DataField]
-    public Dictionary<BodyPartType, ProtoId<FractureProfilePrototype>> FractureProfiles = new();
+    public HashSet<TreatmentCapability> TreatmentCapabilities = [TreatmentCapability.Biological];
+
+    /// <summary>
+    /// Bleeding multiplier applied to every bleeding wound on parts with this profile.
+    /// A non-positive value disables bleeding.
+    /// </summary>
+    [DataField]
+    public float BleedingMultiplier = 1f;
+
+    /// <summary>
+    /// If false, wounds on parts with this profile cannot leave scars.
+    /// </summary>
+    [DataField]
+    public bool Scarrable = true;
+
+    [DataField]
+    public bool CanFeelPain = true;
+
+    /// <summary>Multiplier for negative damage applied by the entity's PassiveDamageComponent.</summary>
+    [DataField]
+    public float PassiveRecoveryMultiplier = 1f;
+
+    /// <summary>Multiplier for negative damage applied by HealOnBuckleComponent.</summary>
+    [DataField]
+    public float BedRecoveryMultiplier = 1f;
+
+    /// <summary>
+    /// Organ damage behavior for parts using this profile.
+    /// </summary>
+    [DataField]
+    public OrganDamageSettings OrganDamage = new();
+}
 
 /// <summary>
-/// Integrity cap for body parts of the given type. Damage dealt beyond the cap is not
-/// applied to the part (wounds, bleeding and pain stop growing once the part is destroyed),
-/// but instead accumulates as tear-off pressure. Once pressure reaches the cap the part
-/// tears off deterministically.
+/// Configures how parts take organ damage. The per-part chance is rolled on damage;
+/// on success up to <see cref="MaxAffected"/> organs are damaged by the scaled hit.
 /// </summary>
+[DataDefinition]
+public sealed partial class OrganDamageSettings
+{
+    /// <summary>Chance an organ is damaged when a part of a given type takes damage.</summary>
     [DataField]
-    public Dictionary<BodyPartType, FixedPoint2> DamageCaps = new();
+    public Dictionary<BodyPartType, float> Chances = new();
 
-/// <summary>
-/// Damage thresholds per body part type and damage type. Once the part's total damage reaches
-/// the threshold (progress summed across damage types), the part is torn off.
-/// </summary>
+    /// <summary>Selection weight per organ category; missing category defaults to 1.</summary>
     [DataField]
-    public Dictionary<BodyPartType, Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2>> AmputationThresholds = new();
+    public Dictionary<ProtoId<OrganCategoryPrototype>, float> Weights = new();
 
+    /// <summary>Organ damage dealt per unit of each damage type; missing type = no organ damage.</summary>
     [DataField]
-    public Dictionary<BodyPartType, float> OrganDamageChances = new();
+    public Dictionary<ProtoId<DamageTypePrototype>, float> DamageMultipliers = new();
 
+    /// <summary>Organ damage cap per hit as a fraction of the organ's MaxHealth (0.3 = 30%). Non-positive = uncapped.</summary>
     [DataField]
-    public Dictionary<ProtoId<OrganCategoryPrototype>, float> OrganDamageWeights = new();
+    public float MaxDamageFraction;
 
+    /// <summary>How many organs are damaged on a successful roll (>= 1).</summary>
     [DataField]
-    public Dictionary<ProtoId<DamageTypePrototype>, float> OrganDamageMultipliers = new();
+    public int MaxAffected = 1;
+}
+
+[Serializable, NetSerializable]
+public enum TreatmentCapability : byte
+{
+    Biological,
+    Mechanical,
+    Electrical,
 }
 
 [Prototype]
@@ -90,49 +246,87 @@ public sealed partial class FractureProfilePrototype : IPrototype
     public string ID { get; private set; } = default!;
 
     [DataField]
-    public FixedPoint2 HairlineThreshold = 8;
+    public ProtoId<DamageTypePrototype> DamageType = "Blunt";
 
     [DataField]
-    public FixedPoint2 SimpleThreshold = 15;
+    public ProtoId<WoundPrototype> Wound = "BoneFractureWound";
 
     [DataField]
-    public FixedPoint2 DisplacedThreshold = 25;
+    public float SeverityMultiplier = 1f;
 
     [DataField]
-    public FixedPoint2 ComminutedThreshold = 40;
+    public bool ResetTreatmentOnDamage = true;
 
     [DataField]
-    public float HairlineMovementModifier = 0.9f;
+    public FixedPoint2 WorsenMinimumDamage;
 
     [DataField]
-    public float SimpleMovementModifier = 0.8f;
+    public FixedPoint2 MinimumHitDamage;
 
     [DataField]
-    public float DisplacedMovementModifier = 0.6f;
+    public float AccumulationMultiplier;
 
     [DataField]
-    public float ComminutedMovementModifier = 0.4f;
+    public FractureGrade ReductionMinimumGrade = FractureGrade.Displaced;
 
     [DataField]
-    public float FootEffectScale = 0.5f;
+    public bool ReductionRequiredToMend = true;
 
     [DataField]
-    public float HairlineManipulationModifier = 1.1f;
+    public bool RemoveWoundWhenMended = true;
 
     [DataField]
-    public float SimpleManipulationModifier = 1.25f;
+    public ProtoId<AlertPrototype>? Alert = "BrokenBones";
 
     [DataField]
-    public float DisplacedManipulationModifier = 1.5f;
+    public FractureGrade AlertMinimumGrade = FractureGrade.Simple;
 
     [DataField]
-    public float ComminutedManipulationModifier = 2f;
+    public HashSet<FractureTreatment> AlertHiddenTreatments = [FractureTreatment.Mended];
 
     [DataField]
-    public float HandEffectScale = 0.75f;
+    public Dictionary<FractureTreatment, float> TreatmentEffectScales = new()
+    {
+        [FractureTreatment.None] = 1f,
+        [FractureTreatment.Reduced] = 0.25f,
+        [FractureTreatment.Mended] = 0f,
+    };
 
     [DataField]
-    public float ReducedEffectScale = 0.25f;
+    public Dictionary<FractureGrade, FractureGradeSettings> Grades = new()
+    {
+        [FractureGrade.Hairline] = new(8, 0.9f, 1.1f),
+        [FractureGrade.Simple] = new(15, 0.8f, 1.25f),
+        [FractureGrade.Displaced] = new(25, 0.6f, 1.5f),
+        [FractureGrade.Comminuted] = new(40, 0.4f, 2f),
+    };
+}
+
+[DataDefinition]
+public sealed partial class FractureGradeSettings
+{
+    [DataField(required: true)]
+    public FixedPoint2 Threshold;
+
+    [DataField]
+    public float CreationChance = 1f;
+
+    [DataField]
+    public float MovementModifier = 1f;
+
+    [DataField]
+    public float ManipulationModifier = 1f;
+
+    public FractureGradeSettings()
+    {
+    }
+
+    public FractureGradeSettings(FixedPoint2 threshold, float movementModifier, float manipulationModifier)
+    {
+        Threshold = threshold;
+        MovementModifier = movementModifier;
+        ManipulationModifier = manipulationModifier;
+    }
 }
 
 [Serializable, NetSerializable]

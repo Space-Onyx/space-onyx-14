@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Content.IntegrationTests.Fixtures;
 using Content.Shared._Onyx.Wounds;
@@ -80,7 +81,7 @@ public sealed class WoundHealingTest : GameTest
 ";
 
     [Test]
-    public async Task HealsSelectedPartWoundAndProjectionTest()
+    public async Task HealsSelectedPartDamageWithoutWoundTest()
     {
         var server = Pair.Server;
         await server.WaitIdleAsync();
@@ -106,7 +107,7 @@ public sealed class WoundHealingTest : GameTest
             Assert.That(healing.TryApplyHealing(body, head, (item, entityManager.GetComponent<HealingComponent>(item)),
                 body, out _, out _));
             Assert.That(damage.GetAllDamage(head).GetTotal(), Is.EqualTo(FixedPoint2.New(5)));
-            Assert.That(wound.Comp.Severity, Is.EqualTo(FixedPoint2.New(5)));
+            Assert.That(wound.Comp.Severity, Is.EqualTo(FixedPoint2.New(13.5)));
             Assert.That(damage.GetAllDamage(body).GetTotal(), Is.EqualTo(FixedPoint2.New(5)));
             Assert.That(pain.GetRawPain(head), Is.EqualTo(FixedPoint2.New(13.05)));
             Assert.That(pain.GetRawPain(body), Is.EqualTo(FixedPoint2.New(13.05)));
@@ -140,7 +141,8 @@ public sealed class WoundHealingTest : GameTest
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 10)));
             Assert.That(routing.TryApplyPartDamage(body, torso, Spec("Slash", 20)));
             Assert.That(healing.ResolveHealingPart(body, null,
-                entityManager.GetComponent<HealingComponent>(item).Damage, ["Biological"], -10), Is.EqualTo(torso));
+                entityManager.GetComponent<HealingComponent>(item).Damage, ["Biological"],
+                new HashSet<TreatmentCapability> { TreatmentCapability.Biological }, null, -10), Is.EqualTo(torso));
 
             Assert.That(healing.TryApplyHealing(body, null, (item, entityManager.GetComponent<HealingComponent>(item)),
                 body, out _, out var stopped));

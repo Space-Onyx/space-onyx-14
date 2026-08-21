@@ -11,6 +11,18 @@
     Probital: 4
 
 - type: reaction
+  id: Osteogen
+  reactants:
+    Bicaridine:
+      amount: 1
+    Milk:
+      amount: 1
+    Phosphorus:
+      amount: 1
+  products:
+    Osteogen: 3
+
+- type: reaction
   id: MitotrophinNutriment
   sound:
     path: /Audio/Effects/Chemistry/bubbles.ogg

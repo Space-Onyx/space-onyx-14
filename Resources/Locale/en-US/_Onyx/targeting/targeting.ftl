@@ -41,3 +41,9 @@ targeting-badge-fracture = F({$grade})
 targeting-badge-scar = S
 targeting-selected-part-missing = The selected body part is missing.
 targeting-selected-part-healthy = The selected body part does not need repair.
+targeting-selected-part-incompatible = The selected tool is incompatible with this body part.
+repair-mode-current = Repair mode: [color=lightblue]{ $mode }[/color].
+repair-mode-changed = Repair mode switched to: { $mode }.
+repair-mode-invalid = Repair mode is not configured.
+repair-mode-mechanical = Mechanical damage
+repair-mode-physical = Physical damage

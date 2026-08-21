@@ -24,6 +24,12 @@
         steps:
         - SurgeryStepOpenIncisionScalpel
         - SurgeryStepRetractSkin
+      cybernetic:
+        required:
+        - type: Cybernetics
+        steps:
+        - SurgeryStepCutCyberneticCasing
+        - SurgeryStepSpreadCyberneticCasing
   - type: SurgeryMarkerCondition
     missingAny: [ IncisionOpen, SkinRetracted ]
 
@@ -39,6 +45,11 @@
       default:
         steps:
         - SurgeryStepCloseIncision
+      cybernetic:
+        required:
+        - type: Cybernetics
+        steps:
+        - SurgeryStepWeldCyberneticCasing
   - type: SurgeryMarkerCondition
     all: [ IncisionOpen ]
   - type: SurgeryPartCondition
@@ -76,6 +87,11 @@
       default:
         steps:
         - SurgeryStepCloseIncision
+      cybernetic:
+        required:
+        - type: Cybernetics
+        steps:
+        - SurgeryStepWeldCyberneticCasing
   - type: SurgeryMarkerCondition
     all: [ IncisionOpen ]
   - type: SurgeryPartCondition
@@ -699,7 +715,7 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: liver }
-    requirement: SurgeryOpenIncision
+    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -715,7 +731,7 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: liver }
-    requirement: SurgeryOpenIncision
+    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -765,7 +781,7 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: kidney-l }
-    requirement: SurgeryOpenIncision
+    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -781,7 +797,7 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: kidney-l }
-    requirement: SurgeryOpenIncision
+    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -798,7 +814,7 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: appendix }
-    requirement: SurgeryOpenIncision
+    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -814,7 +830,7 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: appendix }
-    requirement: SurgeryOpenIncision
+    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -1016,35 +1032,67 @@
 - type: entity
   parent: SurgeryBase
   id: SurgeryTendWoundsBrute
-  name: Tend bruise wounds
+  name: Treat moderate brute wounds
   components:
   - type: Surgery
     steps:
       default:
         steps:
-        - SurgeryStepCarefulIncisionScalpel
         - SurgeryStepRepairBruteTissue
   - type: SurgeryWoundedCondition
     damageGroup: Brute
+    minSeverity: 50
+    maxSeverity: 99.99
 
 - type: entity
   parent: SurgeryBase
   id: SurgeryTendWoundsBurn
-  name: Tend burn wounds
+  name: Treat moderate burn wounds
   components:
   - type: Surgery
     steps:
       default:
         steps:
-        - SurgeryStepCarefulIncisionScalpel
         - SurgeryStepRepairBurnTissue
   - type: SurgeryWoundedCondition
     damageGroup: Burn
+    minSeverity: 50
+    maxSeverity: 99.99
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryTendWoundsBruteDeep
+  name: Treat severe brute wounds
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps:
+      default:
+        steps:
+        - SurgeryStepRepairBruteTissue
+  - type: SurgeryWoundedCondition
+    damageGroup: Brute
+    minSeverity: 100
+
+- type: entity
+  parent: SurgeryBase
+  id: SurgeryTendWoundsBurnDeep
+  name: Treat severe burn wounds
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps:
+      default:
+        steps:
+        - SurgeryStepRepairBurnTissue
+  - type: SurgeryWoundedCondition
+    damageGroup: Burn
+    minSeverity: 100
 
 - type: entity
   parent: SurgeryBase
   id: SurgeryReduceFracture
-  name: Reduce fracture
+  name: Stabilize fracture
   components:
   - type: Surgery
     icon: { sprite: _Onyx/Interface/Alerts/fracture.rsi, state: brokenbones }
@@ -1052,8 +1100,13 @@
       default:
         steps:
         - SurgeryStepReduceFracture
+      cybernetic:
+        required:
+        - type: Cybernetics
+        steps:
+        - SurgeryStepReduceFrameFracture
   - type: SurgeryFractureGradeCondition
-    minGrade: Displaced
+    minGrade: Simple
 
 - type: entity
   parent: SurgeryBase
@@ -1072,15 +1125,36 @@
 
 - type: entity
   parent: SurgeryBase
+  id: SurgeryStopInternalBleeding
+  name: Stop internal bleeding
+  components:
+  - type: Surgery
+    useTargetPartIcon: true
+    requirement: SurgeryOpenIncision
+    steps:
+      default:
+        steps:
+        - SurgeryStepStopInternalBleeding
+  - type: SurgeryHasWoundCondition
+    internalBleeding: true
+
+- type: entity
+  parent: SurgeryBase
   id: SurgeryMendFracture
   name: Mend fracture
   components:
   - type: Surgery
     icon: { sprite: _Onyx/Interface/Alerts/fracture.rsi, state: brokenbones }
+    requirement: SurgeryOpenIncision
     steps:
       default:
         steps:
         - SurgeryStepMendFracture
+      cybernetic:
+        required:
+        - type: Cybernetics
+        steps:
+        - SurgeryStepMendFrameFracture
   - type: SurgeryFractureGradeCondition
 
 - type: entity
@@ -1100,7 +1174,11 @@
   - type: SurgeryOrganCondition
     slot: Brain
     part: Head
-  - type: SurgeryPacificationCondition
+  - type: SurgeryComponentCondition
+    target: Body
+    none:
+    - type: Pacified
+    - type: SurgicallyPacified
 
 - type: entity
   parent: SurgeryBase
@@ -1119,8 +1197,10 @@
   - type: SurgeryOrganCondition
     slot: Brain
     part: Head
-  - type: SurgeryPacificationCondition
-    pacified: true
+  - type: SurgeryComponentCondition
+    target: Body
+    all:
+    - type: SurgicallyPacified
 
 - type: entity
   parent: SurgeryBase

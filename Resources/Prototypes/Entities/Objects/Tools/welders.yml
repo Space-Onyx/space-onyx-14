@@ -1,6 +1,6 @@
 - type: entity
   abstract: true
-  parent: [SolutionWelder, BaseItem]
+  parent: [SolutionWelder, BaseItem, WelderRepairModes] # <Onyx-WelderRepairModes>
   id: BaseWelder
   components:
   - type: Sprite
@@ -81,7 +81,6 @@
     useSound:
       collection: Welder
     qualities: Welding
-  - type: Welder
   - type: PointLight
     enabled: false
     radius: 1.5

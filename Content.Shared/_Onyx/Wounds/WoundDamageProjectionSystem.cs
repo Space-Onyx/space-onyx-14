@@ -200,11 +200,15 @@ public sealed partial class WoundDamageProjectionSystem : EntitySystem
         RefreshBodyDamage(body);
     }
 
-    private void SetupPart(EntityUid part)
+private void SetupPart(EntityUid part)
     {
         EnsureComp<WoundableComponent>(part);
         EnsureComp<DamageableComponent>(part);
-        EnsureComp<PainComponent>(part);
+        if (_pain.CanFeelPain(part))
+            EnsureComp<PainComponent>(part);
+        else
+            RemComp<PainComponent>(part);
+        EnsureComp<BodyPartFunctionalityComponent>(part);
         var injurable = EnsureComp<InjurableComponent>(part);
         if (injurable.DamageContainer != null)
             return;

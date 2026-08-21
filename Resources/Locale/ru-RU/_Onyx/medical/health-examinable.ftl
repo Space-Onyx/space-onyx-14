@@ -38,10 +38,14 @@ health-examinable-part-incision-open = { $count } { $count ->
    *[other] открытых разрезов
 }
 health-examinable-part-bleeding = активное кровотечение
-health-examinable-part-fracture-hairline = трещина кости
-health-examinable-part-fracture-simple = простой перелом
-health-examinable-part-fracture-displaced = перелом со смещением
-health-examinable-part-fracture-comminuted = оскольчатый перелом
+wound-examine-fracture-hairline = небольшая припухлость
+wound-examine-fracture-simple = сильная припухлость
+wound-examine-fracture-displaced = неестественная деформация
+wound-examine-fracture-comminuted = раздробленная кость
+wound-examine-frame-hairline = тонкие трещины каркаса
+wound-examine-frame-simple = глубокие трещины каркаса
+wound-examine-frame-displaced = деформация каркаса
+wound-examine-frame-comminuted = разрушенный каркас
 health-examinable-part-scars = { $count } { $count ->
     [one] шрам
     [few] шрама

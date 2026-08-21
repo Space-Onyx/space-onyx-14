@@ -13,6 +13,8 @@
   - type: BodyPart
     partType: Chest
     category: Chest
+    fractureProfile: OrganicFractureProfile
+    maxDamage: 250
   - type: SurgeryTool
   - type: Sprite
     state: chest_m
@@ -36,6 +38,11 @@
   - type: BodyPart
     partType: Groin
     category: Groin
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 220
+      Piercing: 250
+      Blunt: 400
   - type: SurgeryTool
     customUses:
     - surgery-tool-use-attach-groin
@@ -147,6 +154,9 @@
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganSlimePersonExternal ]
   id: OrganSlimePersonChest
   components:
+  - type: BodyPart
+    fractureProfile: null
+    amputationThresholds: {}
   - type: TransplantCompatibility
     profile: Slime
   - type: Sprite
@@ -158,6 +168,9 @@
   parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganSlimePersonExternal ]
   id: OrganSlimePersonGroin
   components:
+  - type: BodyPart
+    fractureProfile: null
+    amputationThresholds: {}
   - type: TransplantCompatibility
     profile: Slime
   - type: Sprite
@@ -171,6 +184,9 @@
   parent: [ OrganBaseChest, OrganDionaExternal ]
   id: OrganDionaChest
   components:
+  - type: BodyPart
+    fractureProfile: null
+    amputationThresholds: {}
   - type: TransplantCompatibility
     profile: Plant
   - type: Sprite
@@ -182,6 +198,9 @@
   parent: [ OrganBaseGroin, OrganDionaExternal ]
   id: OrganDionaGroin
   components:
+  - type: BodyPart
+    fractureProfile: null
+    amputationThresholds: {}
   - type: TransplantCompatibility
     profile: Plant
   - type: Sprite
@@ -328,6 +347,8 @@
   parent: [ OrganBaseChest, OrganIpcExternal ]
   id: OrganIpcChest
   components:
+  - type: BodyPart
+    fractureProfile: null
   - type: TransplantCompatibility
     profile: Mechanical
   - type: Sprite
@@ -343,6 +364,12 @@
   parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganIpcExternal ]
   id: OrganIpcGroin
   components:
+  - type: BodyPart
+    fractureProfile: null
+    amputationThresholds:
+      Slash: 480
+      Piercing: 450
+      Blunt: 960
   - type: TransplantCompatibility
     profile: Mechanical
   - type: Sprite

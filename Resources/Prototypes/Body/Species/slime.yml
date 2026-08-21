@@ -232,8 +232,9 @@
   components:
   # <Onyx-SlimeSurgery>
   - type: Woundable
-    profile: SlimeWoundableProfile
-  - type: Scarless
+    profile: SlimeBodyPartProfile
+  - type: BodyPart
+    fractureProfile: null
   # </Onyx-SlimeSurgery>
   - type: Sprite
     sprite: Mobs/Species/Slime/parts.rsi
@@ -251,38 +252,92 @@
 - type: entity
   parent: [ OrganBaseHead, OrganSlimePersonExternal ]
   id: OrganSlimePersonHead
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 70
+      Piercing: 110
+      Blunt: 140
 
 - type: entity
   parent: [ OrganSlimePersonExternal, OrganBaseArmLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSlimePersonArmLeft
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 45
+      Piercing: 80
+      Blunt: 100
 
 - type: entity
   parent: [ OrganSlimePersonExternal, OrganBaseArmRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSlimePersonArmRight
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 45
+      Piercing: 80
+      Blunt: 100
 
 - type: entity
   parent: [ OrganSlimePersonExternal, OrganBaseHandLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSlimePersonHandLeft
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 25
+      Piercing: 45
+      Blunt: 60
 
 - type: entity
   parent: [ OrganSlimePersonExternal, OrganBaseHandRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSlimePersonHandRight
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 25
+      Piercing: 45
+      Blunt: 60
 
 - type: entity
   parent: [ OrganSlimePersonExternal, OrganBaseLegLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSlimePersonLegLeft
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 55
+      Piercing: 95
+      Blunt: 120
 
 - type: entity
   parent: [ OrganSlimePersonExternal, OrganBaseLegRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSlimePersonLegRight
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 55
+      Piercing: 95
+      Blunt: 120
 
 - type: entity
   parent: [ OrganSlimePersonExternal, OrganBaseFootLeft ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSlimePersonFootLeft
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 30
+      Piercing: 50
+      Blunt: 70
 
 - type: entity
   parent: [ OrganSlimePersonExternal, OrganBaseFootRight ] # <Onyx-BodyPartNoRot-edited>
   id: OrganSlimePersonFootRight
+  components:
+  - type: BodyPart
+    amputationThresholds:
+      Slash: 30
+      Piercing: 50
+      Blunt: 70
 
 - type: entity
   parent: [ OrganBaseBrain, OrganSlimePersonInternal, OrganSlimePersonMetabolizer ]

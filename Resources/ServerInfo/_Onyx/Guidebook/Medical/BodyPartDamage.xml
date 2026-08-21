@@ -1,0 +1,8 @@
+<Document>
+  <FTLTextpart Key="guidebook-onyx-body-part-damage-content"/>
+  <FTLTextpart Key="guidebook-onyx-body-part-damage-examination"/>
+  <Box>
+    <GuideEntityEmbed Entity="HandheldHealthAnalyzer"/>
+  </Box>
+  <FTLTextpart Key="guidebook-onyx-body-part-damage-difference"/>
+</Document>

@@ -79,6 +79,8 @@
   - type: Item
     heldPrefix: regenerative-mesh
   - type: Healing
+    healWounds: true # <Onyx-WoundTreatment>
+    allowedWoundStages: [Minor] # <Onyx-WoundTreatment>
     damageContainers:
       - Biological
     damage:
@@ -175,6 +177,8 @@
     heldPrefix: medicated-suture
     storedRotation: -90
   - type: Healing
+    healWounds: true # <Onyx-WoundTreatment>
+    allowedWoundStages: [Minor] # <Onyx-WoundTreatment>
     damageContainers:
       - Biological
     damage:
@@ -367,6 +371,7 @@
     sprite: Objects/Specific/Medical/healing_toolbox.rsi
     state: icon
   - type: Healing
+    healWounds: true # <Onyx-WoundTreatment>
     damageContainers:
     - Biological
     damage:

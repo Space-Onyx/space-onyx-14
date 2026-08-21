@@ -55,6 +55,9 @@ public sealed partial class PermanentSpeciesChangeSystem : EntitySystem
     [Dependency] private PolymorphSystem _polymorph = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private WoundSystem _wounds = default!;
+    [Dependency] private WoundBleedingSystem _bleeding = default!;
+    [Dependency] private WoundStatusEffectSystem _statusEffects = default!;
+    [Dependency] private FractureEffectSystem _fractureEffects = default!;
 
     public EntityUid? TryChange(EntityUid uid, ProtoId<SpeciesPrototype> speciesId)
     {
@@ -103,11 +106,12 @@ public sealed partial class PermanentSpeciesChangeSystem : EntitySystem
                 continue;
 
             if (!targetParts.TryGetValue((part.PartType, part.Symmetry), out var targetPart) ||
-                !TryComp<WoundableComponent>(targetPart, out _))
-                return false;
+                !HasComp<WoundableComponent>(targetPart))
+                continue;
 
             foreach (var wound in wounds)
-                transfers.Add((wound, sourcePart, targetPart));
+                if (_wounds.CanCreateWound(targetPart, wound.Comp.Prototype))
+                    transfers.Add((wound, sourcePart, targetPart));
         }
 
         var transferred = new List<(Entity<WoundComponent> Wound, EntityUid SourcePart)>();
@@ -143,6 +147,20 @@ public sealed partial class PermanentSpeciesChangeSystem : EntitySystem
             Dirty(wound);
             transferred.Add((wound, sourcePart));
         }
+
+        foreach (var (wound, _, _) in transfers)
+        {
+            _wounds.RefreshRuntimeComponents(wound.AsNullable());
+            if (TryComp(wound, out WoundBleedingComponent? bleeding))
+                _bleeding.RefreshWound((wound.Owner, bleeding), false);
+        }
+
+        foreach (var targetPart in transfers.Select(transfer => transfer.TargetPart).Distinct())
+        {
+            _statusEffects.RefreshPartWounds(targetPart);
+            _fractureEffects.RefreshTransferredPart(targetPart);
+        }
+        _bleeding.OnPartChanged(target);
 
         return true;
     }

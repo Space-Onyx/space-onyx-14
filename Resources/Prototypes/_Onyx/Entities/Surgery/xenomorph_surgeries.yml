@@ -2,15 +2,17 @@
   parent: SurgeryStepRemoveOrgan
   id: SurgeryStepRemoveLarvaEmbryo
   components:
-  - type: SurgeryRemoveXenomorphEffect
-    target: Embryo
+  - type: SurgeryRemoveOrganEffect
+    required:
+    - type: XenomorphInfection
 
 - type: entity
   parent: SurgeryStepRemoveOrgan
   id: SurgeryStepRemoveLarva
   components:
-  - type: SurgeryRemoveXenomorphEffect
-    target: Larva
+  - type: SurgeryRemoveOrganEffect
+    required:
+    - type: XenomorphLarva
 
 - type: entity
   parent: BaseSurgeryRemoveOrgan
@@ -26,8 +28,10 @@
         - SurgeryStepRemoveLarvaEmbryo
   - type: SurgeryPartCondition
     part: Chest
-  - type: SurgeryXenomorphCondition
-    target: Embryo
+  - type: SurgeryOrganCondition
+    part: Chest
+    required:
+    - type: XenomorphInfection
 
 - type: entity
   parent: BaseSurgeryRemoveOrgan
@@ -43,5 +47,7 @@
         - SurgeryStepRemoveLarva
   - type: SurgeryPartCondition
     part: Chest
-  - type: SurgeryXenomorphCondition
-    target: Larva
+  - type: SurgeryOrganCondition
+    part: Chest
+    required:
+    - type: XenomorphLarva

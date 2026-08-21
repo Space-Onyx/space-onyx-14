@@ -1,5 +1,9 @@
 using Content.Shared.Body;
 using Content.Shared.Humanoid.Prototypes;
+using Content.Shared.Damage.Prototypes;
+using Content.Shared.Damage;
+using Content.Shared.FixedPoint;
+using Content.Shared._Onyx.Wounds;
 using Robust.Shared.Prototypes;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
@@ -24,19 +28,13 @@ public enum BodyPartType : ushort
 [Serializable, NetSerializable]
 public enum BodyPartSymmetry { None, Left, Right }
 
-/// <summary>Maps a Corvax external organ to a surgical body part without replacing its organ system.</summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(raiseAfterAutoHandleState: true)]
 public sealed partial class BodyPartComponent : Component
 {
     public const string PartSlotPrefix = "body_part_slot_";
     public const string OrganSlotPrefix = "body_organ_slot_";
-    /// <summary>Owning body. Mirrored from the legacy OrganComponent during migration.</summary>
     [DataField, AutoNetworkedField] public EntityUid? Body;
 
-    /// <summary>
-    /// Logical parent in the RMC-compatible part graph.
-    /// Corvax stores external organs flat, so the graph is reconstructed from their categories.
-    /// </summary>
     [DataField, AutoNetworkedField] public EntityUid? Parent;
 
     [DataField, AutoNetworkedField] public Dictionary<string, BodyPartType> Children = new();
@@ -48,8 +46,37 @@ public sealed partial class BodyPartComponent : Component
     [DataField("vital"), AutoNetworkedField] public bool IsVital;
     [DataField, AutoNetworkedField] public ProtoId<SpeciesPrototype>? Species;
 
-    /// <summary>Legacy visual category retained while Corvax visual bodies migrate to graph queries.</summary>
     [DataField, AutoNetworkedField] public ProtoId<OrganCategoryPrototype>? Category;
+
+    /// <summary>Fracture profile for this part. Null = no fractures.</summary>
+    [DataField]
+    public ProtoId<FractureProfilePrototype>? FractureProfile;
+
+    /// <summary>
+    /// Maximum structural damage the part can take before further damage becomes overflow.
+    /// Damage beyond the cap is not applied to the part (wounds, bleeding and pain stop
+    /// growing once the part is destroyed), but instead accumulates as tear-off pressure.
+    /// Once pressure reaches the cap the part becomes severable.
+    /// </summary>
+    [DataField]
+    public FixedPoint2 MaxDamage;
+
+    /// <summary>
+    /// Damage thresholds per damage type. Once the part's total damage reaches
+    /// the threshold (progress summed across damage types), the part becomes severable.
+    /// </summary>
+    [DataField]
+    public Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2> AmputationThresholds = new();
+
+    /// <summary>Minimum follow-up hit per structural damage type required to detach a ruined part.</summary>
+    [DataField]
+    public Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2> DismembermentFinishingDamage = new();
+
+    [DataField]
+    public FixedPoint2 AmputationConsequenceSeverity = 35;
+
+    [DataField]
+    public FixedPoint2? DismembermentSeverity;
 }
 
 [DataDefinition]

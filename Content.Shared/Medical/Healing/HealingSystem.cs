@@ -16,8 +16,8 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
-using Content.Shared._Onyx.Targeting;
-using Content.Shared._Onyx.Wounds; // Onyx-WoundSystem-edited
+using Content.Shared._Onyx.Targeting; // <Onyx-WoundTreatment>
+using Content.Shared._Onyx.Wounds; // <Onyx-WoundTreatment>
 using Robust.Shared.Audio.Systems;
 
 namespace Content.Shared.Medical.Healing;
@@ -28,6 +28,7 @@ public sealed partial class HealingSystem : EntitySystem
     [Dependency] private ISharedAdminLogManager _adminLogger = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private SharedBloodstreamSystem _bloodstreamSystem = default!;
+    [Dependency] private SharedBodySystem _bodySystem = default!; // <Onyx-TargetedHealingFeedback>
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private SharedStackSystem _stacks = default!;
     [Dependency] private SharedInteractionSystem _interactionSystem = default!;
@@ -55,14 +56,19 @@ public sealed partial class HealingSystem : EntitySystem
         if (!TryComp(args.Used, out HealingComponent? healing))
             return;
 
+        // <Onyx-WoundTreatment>
         // Onyx-WoundSystem-edited: localized healing belongs to the selected part, never the body projection.
         if (HasComp<WoundHostComponent>(target))
         {
             EntityUid? requestedPart = args.RequestedPart is { } netPart ? GetEntity(netPart) : null;
             if (requestedPart is { } concretePart && _woundHealing.ResolveHealingPart(target, concretePart,
-                    healing.Damage, healing.DamageContainers, healing.BloodlossModifier) != concretePart)
+                    healing.Damage, healing.DamageContainers, healing.TreatmentCapabilities,
+                    healing.AllowedWoundStages, healing.BloodlossModifier, healing.HealWounds) != concretePart)
             {
-                _popupSystem.PopupClient(Loc.GetString("targeting-selected-part-missing"), target, args.User);
+                var message = _bodySystem.BodyHasChild(target, concretePart)
+                    ? "targeting-selected-part-incompatible"
+                    : "targeting-selected-part-missing";
+                _popupSystem.PopupClient(Loc.GetString(message), target, args.User);
                 return;
             }
 
@@ -85,6 +91,7 @@ public sealed partial class HealingSystem : EntitySystem
             FinishHealing(target, ref args, healing, woundHealed);
             return;
         }
+        // </Onyx-WoundTreatment>
 
         if (!TryComp<InjurableComponent>(target, out var injurable))
             return;
@@ -180,18 +187,26 @@ public sealed partial class HealingSystem : EntitySystem
         if (TryComp(target, out WoundHostComponent? host))
         {
             var resolve = new ResolveHealingPartEvent(target, healing.Comp.Damage, healing.Comp.DamageContainers,
-                healing.Comp.BloodlossModifier, requestedPart);
+                healing.Comp.TreatmentCapabilities, healing.Comp.AllowedWoundStages,
+                healing.Comp.BloodlossModifier, requestedPart, healing.Comp.HealWounds);
             RaiseLocalEvent(target, ref resolve);
             if (!resolve.Accepted)
                 return false;
 
-            foreach (var (type, amount) in healing.Comp.Damage.DamageDict)
+            if (healing.Comp.HealDamage)
             {
-                var source = host.LocalizedDamageTypes.Contains(type) ? resolve.Part : target.Owner;
-                if (amount < 0 && source is { } entity &&
-                    _damageable.GetAllDamage(entity).DamageDict.GetValueOrDefault(type) > 0)
-                    return true;
+                foreach (var (type, amount) in healing.Comp.Damage.DamageDict)
+                {
+                    var source = host.LocalizedDamageTypes.Contains(type) ? resolve.Part : target.Owner;
+                    if (amount < 0 && source is { } entity &&
+                        _damageable.GetAllDamage(entity).DamageDict.GetValueOrDefault(type) > 0)
+                        return true;
+                }
             }
+
+            if (healing.Comp.HealWounds && resolve.Part is { } woundPart &&
+                _woundHealing.HasTreatableWounds(woundPart, healing.Comp.Damage, healing.Comp.AllowedWoundStages))
+                return true;
 
             if (resolve.Part is { } bleedingPart && healing.Comp.BloodlossModifier < 0 &&
                 _woundHealing.CanTreatBleeding(bleedingPart))
@@ -279,6 +294,15 @@ public sealed partial class HealingSystem : EntitySystem
             return true;
         }
 
+        // <Onyx-TargetedHealingFeedback>
+        if (!_woundHealing.IsCompatiblePart(target, part, healing.Comp.DamageContainers,
+                healing.Comp.TreatmentCapabilities))
+        {
+            _popupSystem.PopupClient(Loc.GetString("targeting-selected-part-incompatible"), target, user);
+            return true;
+        }
+        // </Onyx-TargetedHealingFeedback>
+
         TryHeal(healing, target, user, part);
         return true;
     }
@@ -292,17 +316,23 @@ public sealed partial class HealingSystem : EntitySystem
         if (!TryComp<InjurableComponent>(target, out var injurable))
             return false;
 
+        // <Onyx-WoundTreatment>
         // Onyx-WoundSystem-edited: public explicit-part entry point for future Targeting.
-        if (HasComp<WoundHostComponent>(target))
+        var woundHost = HasComp<WoundHostComponent>(target);
+        var resolvedPart = false;
+        if (woundHost)
         {
             var resolve = new ResolveHealingPartEvent(target, healing.Comp.Damage, healing.Comp.DamageContainers,
-                healing.Comp.BloodlossModifier, requestedPart);
+                healing.Comp.TreatmentCapabilities, healing.Comp.AllowedWoundStages,
+                healing.Comp.BloodlossModifier, requestedPart, healing.Comp.HealWounds);
             RaiseLocalEvent(target, ref resolve);
             if (!resolve.Accepted)
                 return false;
+            resolvedPart = resolve.Part != null;
         }
+        // </Onyx-WoundTreatment>
 
-        if (healing.Comp.DamageContainers is not null &&
+        if (!resolvedPart && healing.Comp.DamageContainers is not null &&
             injurable.DamageContainer is not null &&
             !healing.Comp.DamageContainers.Contains(injurable.DamageContainer.Value))
         {

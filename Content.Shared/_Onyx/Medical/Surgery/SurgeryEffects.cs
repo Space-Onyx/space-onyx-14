@@ -60,7 +60,8 @@ public sealed partial class SurgeryOrganHealEffectComponent : Component
 [RegisterComponent]
 public sealed partial class SurgeryRemoveOrganEffectComponent : Component
 {
-    [DataField(required: true)] public ProtoId<OrganCategoryPrototype> Slot;
+    [DataField] public ProtoId<OrganCategoryPrototype>? Slot;
+    [DataField] public ComponentRegistry Required = new();
 }
 
 [RegisterComponent]
@@ -74,10 +75,18 @@ public sealed partial class SurgeryInsertOrganEffectComponent : Component
 [RegisterComponent] public sealed partial class SurgeryInsertCavityItemEffectComponent : Component;
 [RegisterComponent] public sealed partial class SurgeryRemoveCavityItemEffectComponent : Component;
 
+/// <summary>Adds and removes components on the patient or operated body part.</summary>
 [RegisterComponent]
-public sealed partial class SurgeryPacificationEffectComponent : Component
+public sealed partial class SurgeryComponentEffectComponent : Component
 {
-    [DataField] public bool Remove;
+    [DataField]
+    public SurgeryEntityTarget Target;
+
+    [DataField]
+    public ComponentRegistry Add = new();
+
+    [DataField]
+    public ComponentRegistry Remove = new();
 }
 
 [RegisterComponent] public sealed partial class SurgicallyPacifiedComponent : Component;

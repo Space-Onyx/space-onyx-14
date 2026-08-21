@@ -1,7 +1,9 @@
 using System.Linq;
 using Content.Shared.Body.Systems;
+using Content.Shared.Bed.Components;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
+using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Body.Part;
@@ -27,17 +29,21 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private TargetResolverSystem _targetResolver = default!;
+    [Dependency] private PainSystem _pain = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
 
     private readonly HashSet<EntityUid> _routing = new();
     private readonly Dictionary<EntityUid, EntityUid> _requestedParts = new();
     private readonly HashSet<EntityUid> _applied = new();
+    private readonly HashSet<EntityUid> _skipWoundHealing = new();
+    private readonly Dictionary<EntityUid, IReadOnlySet<TreatmentCapability>> _treatmentCapabilities = new();
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<WoundHostComponent, BeforeDamageChangedEvent>(OnBeforeDamageChanged);
         SubscribeLocalEvent<WoundHostComponent, DamageDealtEvent>(OnDamageDealt, before: [typeof(DamageableSystem)]);
+        SubscribeLocalEvent<WoundableComponent, BeforeDamageChangedEvent>(OnBeforePartDamageChanged);
     }
 
     private void OnBeforeDamageChanged(Entity<WoundHostComponent> ent, ref BeforeDamageChangedEvent args)
@@ -59,12 +65,37 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         RouteAppliedDamage(ent, damage, args.Origin, args.InterruptsDoAfters);
     }
 
+    public void WithTreatmentCapabilities(EntityUid body, IReadOnlySet<TreatmentCapability> capabilities, Action action)
+    {
+        _treatmentCapabilities[body] = capabilities;
+        try
+        {
+            action();
+        }
+        finally
+        {
+            _treatmentCapabilities.Remove(body);
+        }
+    }
+
+    private void OnBeforePartDamageChanged(Entity<WoundableComponent> part, ref BeforeDamageChangedEvent args)
+    {
+        var filtered = FilterPartDamage(part, args.Damage, args.Origin);
+        if (ReferenceEquals(filtered, args.Damage))
+            return;
+
+        args.Damage.DamageDict.Clear();
+        foreach (var (type, amount) in filtered.DamageDict)
+            args.Damage.DamageDict[type] = amount;
+    }
+
     public bool TryApplyDamage(
         EntityUid body,
         DamageSpecifier damage,
         EntityUid? origin = null,
         EntityUid? requestedPart = null,
-        bool ignoreResistances = false)
+        bool ignoreResistances = false,
+        bool healWounds = true)
     {
         if (!TryComp(body, out WoundHostComponent? host) || !_net.IsServer || _routing.Contains(body))
             return false;
@@ -78,10 +109,13 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
 
         try
         {
+            if (!healWounds)
+                _skipWoundHealing.Add(body);
             return RouteThroughBodyModifiers((body, host), damage, origin, ignoreResistances);
         }
         finally
         {
+            _skipWoundHealing.Remove(body);
             _requestedParts.Remove(body);
         }
     }
@@ -91,9 +125,10 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         EntityUid part,
         DamageSpecifier damage,
         EntityUid? origin = null,
-        bool ignoreResistances = false)
+        bool ignoreResistances = false,
+        bool healWounds = true)
     {
-        return TryApplyDamage(body, damage, origin, part, ignoreResistances);
+        return TryApplyDamage(body, damage, origin, part, ignoreResistances, healWounds);
     }
 
     public bool TryApplyDistributedDamage(
@@ -218,6 +253,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
             return false;
 
         var before = _damage.GetPositiveDamage((part, partDamageable));
+        var systemicBefore = CompOrNull<SystemicDamageComponent>(body)?.Damage.Clone() ?? new DamageSpecifier();
         _requestedParts[body] = part;
         try
         {
@@ -237,6 +273,18 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                 if (!before.DamageDict.ContainsKey(type) && newAmount != FixedPoint2.Zero)
                     damageDealt.DamageDict[type] = newAmount;
             }
+
+            var systemicAfter = CompOrNull<SystemicDamageComponent>(body)?.Damage;
+            if (systemicAfter != null)
+            {
+                foreach (var type in systemicBefore.DamageDict.Keys.Concat(systemicAfter.DamageDict.Keys).Distinct())
+                {
+                    var delta = systemicAfter.DamageDict.GetValueOrDefault(type) -
+                                systemicBefore.DamageDict.GetValueOrDefault(type);
+                    if (delta != FixedPoint2.Zero)
+                        damageDealt.DamageDict[type] = damageDealt.DamageDict.GetValueOrDefault(type) + delta;
+                }
+            }
             return true;
         }
         finally
@@ -245,7 +293,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         }
     }
 
-    public EntityUid? ResolveDamagePart(EntityUid body, EntityUid? requestedPart, DamageSpecifier damage)
+    public EntityUid? ResolveDamagePart(EntityUid body, EntityUid? requestedPart)
     {
         if (requestedPart is { } requested)
             return IsAttachedWoundablePart(body, requested) ? requested : null;
@@ -352,7 +400,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                     else if (origin is { } defibrillator && HasComp<DefibrillatorComponent>(defibrillator) &&
                              _targetResolver.TryResolveAvailable(body, TargetBodyPart.Chest, out var chestPart))
                         _requestedParts[body] = chestPart;
-                    else if (ResolveDamagePart(body, null, localized) is { } randomPart)
+                    else if (ResolveDamagePart(body, null) is { } randomPart)
                         _requestedParts[body] = randomPart;
                 }
             }
@@ -378,8 +426,8 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
 
         if (!systemic.Empty)
         {
-            ApplySystemicDamage(body, systemic);
-            _applied.Add(body);
+            if (ApplySystemicDamage(body, systemic))
+                _applied.Add(body);
         }
 
         var healing = new DamageSpecifier();
@@ -397,12 +445,19 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
 
         EntityUid? part = _requestedParts.TryGetValue(body, out var requestedPart) ? requestedPart : null;
         if (part is null && !localized.Empty)
-            part = ResolveDamagePart(body, null, localized);
+            part = ResolveDamagePart(body, null);
 
         if (!localized.Empty && part is { } target)
         {
             if (!TryComp(target, out BodyPartComponent? partComponent))
                 return;
+
+            localized = FilterPartDamage(target, localized);
+            if (localized.Empty)
+            {
+                _projection.RefreshBodyDamage(body);
+                return;
+            }
 
             var modify = new PartDamageModifyEvent(
                 body,
@@ -420,7 +475,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                 return;
             }
 
-            var overflow = AccumulateAmputationOverflow(target, partComponent.PartType, ref localized);
+            var overflow = AccumulateAmputationOverflow(target, ref localized);
             if (!overflow.Empty)
             {
                 var overflowed = new PartDamageOverflowedEvent(body, target, overflow);
@@ -442,7 +497,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                     ignoreGlobalModifiers: true))
             {
                 _applied.Add(body);
-                var applied = new PartDamageAppliedEvent(body, target, appliedDamage);
+                var applied = new PartDamageAppliedEvent(body, target, appliedDamage, !_skipWoundHealing.Contains(body));
                 RaiseLocalEvent(target, ref applied);
                 return;
             }
@@ -451,18 +506,17 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         _projection.RefreshBodyDamage(body);
     }
 
-    private DamageSpecifier AccumulateAmputationOverflow(EntityUid part, BodyPartType partType, ref DamageSpecifier damage)
+    private DamageSpecifier AccumulateAmputationOverflow(EntityUid part, ref DamageSpecifier damage)
     {
         var overflow = new DamageSpecifier();
         if (!TryComp(part, out WoundableComponent? woundable) ||
-            !_prototypes.TryIndex(woundable.Profile, out var profile) ||
-            !profile.DamageCaps.TryGetValue(partType, out var cap) ||
-            cap <= FixedPoint2.Zero ||
+            !TryComp(part, out BodyPartComponent? bodyPart) ||
+            bodyPart.MaxDamage <= FixedPoint2.Zero ||
             !TryComp(part, out DamageableComponent? damageable))
             return overflow;
 
         var current = _damage.GetPositiveDamage((part, damageable)).GetTotal();
-        var remaining = cap - current;
+        var remaining = bodyPart.MaxDamage - current;
 
         if (remaining > FixedPoint2.Zero && woundable.AmputationOverflow != FixedPoint2.Zero)
         {
@@ -516,11 +570,13 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         bool interruptsDoAfters)
     {
         if (_requestedParts.TryGetValue(body, out var requestedPart))
-            return ApplyPartChange(body, requestedPart, healing, origin, interruptsDoAfters);
+            return CanTreatPart(body, requestedPart) &&
+                   ApplyPartChange(body, requestedPart, healing, origin, interruptsDoAfters);
 
         var parts = new List<(EntityUid Part, DamageableComponent Damageable)>();
         foreach (var (part, _) in _body.GetBodyChildren(body))
-            if (HasComp<WoundableComponent>(part) && TryComp(part, out DamageableComponent? damageable))
+            if (HasComp<WoundableComponent>(part) && CanTreatPart(body, part) &&
+                TryComp(part, out DamageableComponent? damageable))
                 parts.Add((part, damageable));
 
         var changes = parts.ToDictionary(part => part.Part, _ => new DamageSpecifier());
@@ -528,13 +584,17 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         {
             var totalDamage = FixedPoint2.Zero;
             foreach (var part in parts)
-                totalDamage += _damage.GetPositiveDamage((part.Part, part.Damageable)).DamageDict.GetValueOrDefault(type);
+            {
+                if (CanPartReceiveDamage(part.Part, type))
+                    totalDamage += _damage.GetPositiveDamage((part.Part, part.Damageable)).DamageDict.GetValueOrDefault(type);
+            }
 
             if (totalDamage <= FixedPoint2.Zero)
                 continue;
 
             var remaining = amount.Value;
             var damaged = parts.Where(part =>
+                    CanPartReceiveDamage(part.Part, type) &&
                     _damage.GetPositiveDamage((part.Part, part.Damageable)).DamageDict.GetValueOrDefault(type) > FixedPoint2.Zero)
                 .ToArray();
             for (var i = 0; i < damaged.Length; i++)
@@ -556,6 +616,16 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         return applied;
     }
 
+    private bool CanTreatPart(EntityUid body, EntityUid part)
+    {
+        if (!_treatmentCapabilities.TryGetValue(body, out var capabilities))
+            return true;
+
+        return TryComp(part, out WoundableComponent? woundable) &&
+               _prototypes.TryIndex(woundable.Profile, out var profile) &&
+               profile.TreatmentCapabilities.Overlaps(capabilities);
+    }
+
     private bool ApplyPartChange(
         Entity<WoundHostComponent> body,
         EntityUid part,
@@ -563,6 +633,10 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         EntityUid? origin,
         bool interruptsDoAfters)
     {
+        change = FilterPartDamage(part, change);
+        if (change.Empty)
+            return false;
+
         if (!_damage.TryChangeDamage(part,
                 change,
                 out var appliedDamage,
@@ -572,14 +646,57 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                 ignoreGlobalModifiers: true))
             return false;
 
-        var applied = new PartDamageAppliedEvent(body, part, appliedDamage);
+        var applied = new PartDamageAppliedEvent(body, part, appliedDamage, !_skipWoundHealing.Contains(body));
         RaiseLocalEvent(part, ref applied);
         return true;
     }
 
-    private void ApplySystemicDamage(EntityUid body, DamageSpecifier change)
+    private DamageSpecifier FilterPartDamage(EntityUid part, DamageSpecifier damage, EntityUid? origin = null)
+    {
+        if (!TryComp(part, out WoundableComponent? woundable) ||
+            !_prototypes.TryIndex(woundable.Profile, out var profile))
+            return damage;
+
+        var filtered = damage.Clone();
+        foreach (var type in filtered.DamageDict.Keys.ToArray())
+        {
+            if (profile.AcceptedDamageTypes.Count != 0 && !profile.AcceptedDamageTypes.Contains(type))
+                filtered.DamageDict.Remove(type);
+        }
+
+        var recoveryMultiplier = 1f;
+        if (origin is { } source && HasComp<PassiveDamageComponent>(source))
+            recoveryMultiplier = profile.PassiveRecoveryMultiplier;
+        else if (origin is { } bed && HasComp<HealOnBuckleComponent>(bed))
+            recoveryMultiplier = profile.BedRecoveryMultiplier;
+
+        if (!float.IsFinite(recoveryMultiplier))
+            recoveryMultiplier = 1f;
+        recoveryMultiplier = Math.Max(0f, recoveryMultiplier);
+        if (recoveryMultiplier != 1f)
+        {
+            foreach (var (type, amount) in filtered.DamageDict.ToArray())
+            {
+                if (amount < FixedPoint2.Zero)
+                    filtered.DamageDict[type] = amount * recoveryMultiplier;
+            }
+        }
+
+        return filtered;
+    }
+
+    private bool CanPartReceiveDamage(EntityUid part, ProtoId<DamageTypePrototype> type)
+    {
+        return !TryComp(part, out WoundableComponent? woundable) ||
+               !_prototypes.TryIndex(woundable.Profile, out var profile) ||
+               profile.AcceptedDamageTypes.Count == 0 ||
+               profile.AcceptedDamageTypes.Contains(type);
+    }
+
+    private bool ApplySystemicDamage(EntityUid body, DamageSpecifier change)
     {
         var systemic = EnsureComp<SystemicDamageComponent>(body);
+        var applied = new DamageSpecifier();
         var changed = false;
         foreach (var (type, amount) in change.DamageDict)
         {
@@ -592,14 +709,21 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                 continue;
 
             changed = true;
+            applied.DamageDict[type] = value - oldValue;
             if (value == FixedPoint2.Zero)
                 systemic.Damage.DamageDict.Remove(type);
             else
                 systemic.Damage.DamageDict[type] = value;
         }
 
-        if (changed)
-            Dirty(body, systemic);
+        if (!changed)
+            return false;
+
+        Dirty(body, systemic);
+        if (TryComp(body, out WoundHostComponent? host) &&
+            _targetResolver.TryResolveExact(body, host.SystemicPainTarget, out var painTarget))
+            _pain.ApplyDamage(painTarget, applied);
+        return true;
     }
 
     private bool IsAttachedWoundablePart(EntityUid body, EntityUid part)

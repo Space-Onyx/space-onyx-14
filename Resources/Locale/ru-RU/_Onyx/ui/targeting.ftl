@@ -41,3 +41,9 @@ targeting-badge-fracture = П({$grade})
 targeting-badge-scar = Ш
 targeting-selected-part-missing = Выбранная часть тела отсутствует.
 targeting-selected-part-healthy = Выбранная часть тела не нуждается в ремонте.
+targeting-selected-part-incompatible = Выбранное средство не подходит для этой части тела.
+repair-mode-current = Режим ремонта: [color=lightblue]{ $mode }[/color].
+repair-mode-changed = Режим ремонта переключён: { $mode }.
+repair-mode-invalid = Режим ремонта не настроен.
+repair-mode-mechanical = Механические повреждения
+repair-mode-physical = Физические повреждения

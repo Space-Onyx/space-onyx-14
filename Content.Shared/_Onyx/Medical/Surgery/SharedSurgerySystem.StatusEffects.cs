@@ -1,47 +1,7 @@
-using Content.Shared.CombatMode.Pacification;
-
 namespace Content.Shared._Onyx.Medical.Surgery;
 
 public abstract partial class SharedSurgerySystem
 {
-    private void OnPacificationConditionValid(Entity<SurgeryPacificationConditionComponent> ent, ref SurgeryValidEvent args)
-    {
-        if (_net.IsClient)
-            return;
-
-        var surgicallyPacified = HasComp<SurgicallyPacifiedComponent>(args.Body);
-        if (ent.Comp.Pacified ? !surgicallyPacified : surgicallyPacified || HasComp<PacifiedComponent>(args.Body))
-            args.Cancelled = true;
-    }
-
-    private void OnPacificationEffect(Entity<SurgeryPacificationEffectComponent> ent, ref SurgeryStepEvent args)
-    {
-        if (!_net.IsServer)
-            return;
-
-        if (ent.Comp.Remove)
-        {
-            if (!RemComp<SurgicallyPacifiedComponent>(args.Body))
-                return;
-
-            RemComp<PacifiedComponent>(args.Body);
-            return;
-        }
-
-        if (HasComp<PacifiedComponent>(args.Body))
-            return;
-
-        EnsureComp<PacifiedComponent>(args.Body);
-        EnsureComp<SurgicallyPacifiedComponent>(args.Body);
-    }
-
-    private void OnPacificationEffectCheck(Entity<SurgeryPacificationEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
-    {
-        var surgicallyPacified = HasComp<SurgicallyPacifiedComponent>(args.Body);
-        if (ent.Comp.Remove ? surgicallyPacified : !surgicallyPacified || !HasComp<PacifiedComponent>(args.Body))
-            args.Cancelled = true;
-    }
-
     private void OnMutingConditionValid(Entity<SurgeryMutingConditionComponent> ent, ref SurgeryValidEvent args)
     {
         if (_net.IsClient)

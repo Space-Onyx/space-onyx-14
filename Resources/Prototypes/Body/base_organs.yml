@@ -88,6 +88,11 @@
     partType: Head
     vital: true
     category: Head
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 200
+      Piercing: 200
+      Blunt: 350
   # </Onyx-Surgery>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
@@ -127,6 +132,11 @@
     partType: Arm
     symmetry: Left
     category: ArmLeft
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 130
+      Piercing: 250
+      Blunt: 250
   - type: Tag
     tags: [ SurgeryLeft ]
   # </Onyx-Surgery>
@@ -163,6 +173,11 @@
     partType: Arm
     symmetry: Right
     category: ArmRight
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 130
+      Piercing: 250
+      Blunt: 250
   - type: Tag
     tags: [ SurgeryRight ]
   # </Onyx-Surgery>
@@ -198,6 +213,11 @@
     partType: Hand
     symmetry: Left
     category: HandLeft
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 70
+      Piercing: 200
+      Blunt: 150
   # </Onyx-Surgery>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
@@ -235,6 +255,11 @@
     partType: Hand
     symmetry: Right
     category: HandRight
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 70
+      Piercing: 200
+      Blunt: 150
   # </Onyx-Surgery>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
@@ -273,6 +298,11 @@
     partType: Leg
     symmetry: Left
     category: LegLeft
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 150
+      Piercing: 250
+      Blunt: 300
   - type: Tag
     tags: [ SurgeryLeft ]
   # </Onyx-Surgery>
@@ -309,6 +339,11 @@
     partType: Leg
     symmetry: Right
     category: LegRight
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 150
+      Piercing: 250
+      Blunt: 300
   - type: Tag
     tags: [ SurgeryRight ]
   # </Onyx-Surgery>
@@ -344,6 +379,11 @@
     partType: Foot
     symmetry: Left
     category: FootLeft
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 80
+      Piercing: 220
+      Blunt: 170
   # </Onyx-Surgery>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
@@ -377,6 +417,11 @@
     partType: Foot
     symmetry: Right
     category: FootRight
+    fractureProfile: OrganicFractureProfile
+    amputationThresholds:
+      Slash: 80
+      Piercing: 220
+      Blunt: 170
   # </Onyx-Surgery>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
@@ -408,6 +453,15 @@
   - type: GibbableOrgan
   - type: Organ
     category: Brain
+    # <Onyx-OrganDamage>
+    damageChanceMultiplier: 0.8
+    selectionMultiplier: 0.75
+    damageMultipliers:
+      Blunt: 1.15
+      Piercing: 1.2
+      Shock: 1.25
+    # Brain destruction is handled through mob state, not an internal bleeding wound.
+    # </Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -451,6 +505,15 @@
   - type: GibbableOrgan
   - type: Organ
     category: Eyes
+    # <Onyx-OrganDamage>
+    damageChanceMultiplier: 0.7
+    selectionMultiplier: 0.65
+    damageMultipliers:
+      Blunt: 1.15
+      Slash: 1.2
+      Piercing: 1.25
+    # Small paired organs do not create major internal bleeding on destruction.
+    # </Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -481,6 +544,8 @@
   - type: GibbableOrgan
   - type: Organ
     category: Tongue
+    damageChanceMultiplier: 0.5 # <Onyx-OrganDamage>
+    selectionMultiplier: 0.4 # <Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -502,6 +567,8 @@
   - type: GibbableOrgan
   - type: Organ
     category: Appendix
+    damageChanceMultiplier: 0.35 # <Onyx-OrganDamage>
+    selectionMultiplier: 0.25 # <Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -522,6 +589,8 @@
   - type: GibbableOrgan
   - type: Organ
     category: Ears
+    damageChanceMultiplier: 0.45 # <Onyx-OrganDamage>
+    selectionMultiplier: 0.35 # <Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -547,6 +616,15 @@
   - type: GibbableOrgan
   - type: Organ
     category: Lungs
+    # <Onyx-OrganDamage>
+    damageChanceMultiplier: 1.1
+    selectionMultiplier: 1.15
+    damageMultipliers:
+      Piercing: 1.2
+      Heat: 1.1
+    destructionWound: InternalBleedingWound
+    destructionWoundSeverity: 35
+    # </Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -587,6 +665,15 @@
   - type: GibbableOrgan
   - type: Organ
     category: Heart
+    # <Onyx-OrganDamage>
+    damageChanceMultiplier: 0.8
+    selectionMultiplier: 0.8
+    damageMultipliers:
+      Piercing: 1.3
+      Shock: 1.35
+    destructionWound: InternalBleedingWound
+    destructionWoundSeverity: 45
+    # </Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -610,6 +697,16 @@
   - type: GibbableOrgan
   - type: Organ
     category: Stomach
+    # <Onyx-OrganDamage>
+    damageChanceMultiplier: 0.85
+    selectionMultiplier: 0.8
+    damageMultipliers:
+      Slash: 1.1
+      Piercing: 1.15
+      Caustic: 1.2
+    destructionWound: InternalBleedingWound
+    destructionWoundSeverity: 25
+    # </Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -649,6 +746,15 @@
   - type: GibbableOrgan
   - type: Organ
     category: Liver
+    # <Onyx-OrganDamage>
+    damageChanceMultiplier: 1.1
+    selectionMultiplier: 1.1
+    damageMultipliers:
+      Slash: 1.2
+      Piercing: 1.25
+    destructionWound: InternalBleedingWound
+    destructionWoundSeverity: 40
+    # </Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -674,6 +780,15 @@
   - type: GibbableOrgan
   - type: Organ
     category: Kidneys
+    # <Onyx-OrganDamage>
+    damageChanceMultiplier: 0.9
+    selectionMultiplier: 0.85
+    damageMultipliers:
+      Piercing: 1.15
+      Caustic: 1.2
+    destructionWound: InternalBleedingWound
+    destructionWoundSeverity: 30
+    # </Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:

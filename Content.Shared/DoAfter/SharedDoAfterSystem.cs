@@ -234,6 +234,10 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             return false;
         }
 
+        var manipulation = new Content.Shared._Onyx.Wounds.GetManipulationDurationMultiplierEvent(args.Used); // <Onyx-WoundFunctionality>
+        RaiseLocalEvent(args.User, ref manipulation); // <Onyx-WoundFunctionality>
+        args.Delay *= manipulation.Multiplier; // <Onyx-WoundFunctionality>
+
         // Duplicate blocking & cancellation.
         if (!ProcessDuplicates(args, comp))
         {

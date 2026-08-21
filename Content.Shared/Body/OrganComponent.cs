@@ -1,6 +1,7 @@
 using Robust.Shared.GameObjects;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
+using Content.Shared.Damage.Prototypes; // <Onyx-OrganDamage>
 using Content.Shared.FixedPoint;
 
 namespace Content.Shared.Body;
@@ -22,6 +23,35 @@ public sealed partial class OrganComponent : Component
     [DataField, AutoNetworkedField]
     public FixedPoint2 MaxHealth = FixedPoint2.New(15);
     // </Onyx-OrganHealth>
+
+    // <Onyx-OrganDamage>
+    /// <summary>
+    /// Multiplies the body part profile's chance for this organ to take damage.
+    /// </summary>
+    [DataField]
+    public float DamageChanceMultiplier = 1f;
+
+    /// <summary>
+    /// Multiplies this organ's profile selection weight.
+    /// </summary>
+    [DataField]
+    public float SelectionMultiplier = 1f;
+
+    /// <summary>
+    /// Per-damage-type vulnerability. Missing damage types default to 1.
+    /// </summary>
+    [DataField]
+    public Dictionary<ProtoId<DamageTypePrototype>, float> DamageMultipliers = new();
+
+    /// <summary>
+    /// Optional wound created on the containing part when this organ is destroyed.
+    /// </summary>
+    [DataField]
+    public ProtoId<_Onyx.Wounds.WoundPrototype>? DestructionWound;
+
+    [DataField]
+    public FixedPoint2 DestructionWoundSeverity;
+    // </Onyx-OrganDamage>
 
     /// <summary>
     /// The body entity containing this organ, if any

@@ -2,7 +2,7 @@
 # Медбей
 Это отдел, куда люди обращаются с травмами, и только от работающих здесь людей зависит их устранение.
 
-В настоящее время медблок делится на два разных направления:
+В настоящее время медблок делится на три основных направления:
 
 ## Медицинская помощь
 <Box>
@@ -11,6 +11,13 @@
 <GuideEntityEmbed Entity="Ointment"/>
 <GuideEntityEmbed Entity="Gauze"/>
 <GuideEntityEmbed Entity="HandheldHealthAnalyzer"/>
+</Box>
+## Хирургия
+<Box>
+<GuideEntityEmbed Entity="Scalpel"/>
+<GuideEntityEmbed Entity="Hemostat"/>
+<GuideEntityEmbed Entity="Retractor"/>
+<GuideEntityEmbed Entity="Cautery"/>
 </Box>
 ## Химическое производство
 <Box>

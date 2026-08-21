@@ -35,7 +35,8 @@ public sealed partial class OrganDamageSystem : EntitySystem
             !_prototypes.TryIndex(part.Comp.Profile, out var profile))
             return;
 
-        var chance = profile.OrganDamageChances.GetValueOrDefault(bodyPart.PartType);
+        var settings = profile.OrganDamage;
+        var chance = settings.Chances.GetValueOrDefault(bodyPart.PartType);
         if (chance <= 0f || !_random.Prob(Math.Clamp(chance, 0f, 1f)))
             return;
 
@@ -43,32 +44,49 @@ public sealed partial class OrganDamageSystem : EntitySystem
         if (organs.Count == 0)
             return;
 
-        var organ = PickOrgan(organs, profile);
-        var damage = GetOrganDamage(args.Damage, profile);
-        if (damage <= FixedPoint2.Zero)
-            return;
+        var affected = Math.Max(1, settings.MaxAffected);
+        for (var i = 0; i < affected && organs.Count > 0; i++)
+        {
+            var organ = PickOrgan(organs, settings);
+            organs.Remove(organ);
 
-        organ.Component.Health = FixedPoint2.Clamp(organ.Component.Health - damage, FixedPoint2.Zero, organ.Component.MaxHealth);
-        Dirty(organ.Id, organ.Component);
-        var ev = new OrganDamageAppliedEvent(args.Body, part.Owner, organ.Id, damage);
-        RaiseLocalEvent(organ.Id, ref ev);
+            if (!_random.Prob(Math.Clamp(organ.Component.DamageChanceMultiplier, 0f, 1f)))
+                continue;
+
+            var applied = GetOrganDamage(args.Damage, settings, organ.Component);
+            if (applied <= FixedPoint2.Zero)
+                continue;
+
+            if (settings.MaxDamageFraction > 0f)
+                applied = FixedPoint2.Min(applied, organ.Component.MaxHealth * settings.MaxDamageFraction);
+
+            organ.Component.Health = FixedPoint2.Clamp(organ.Component.Health - applied, FixedPoint2.Zero, organ.Component.MaxHealth);
+            Dirty(organ.Id, organ.Component);
+        }
     }
 
-    private static FixedPoint2 GetOrganDamage(DamageSpecifier damage, WoundableProfilePrototype profile)
+    private static FixedPoint2 GetOrganDamage(
+        DamageSpecifier damage,
+        OrganDamageSettings settings,
+        OrganComponent organ)
     {
         var result = FixedPoint2.Zero;
         foreach (var (type, amount) in damage.DamageDict)
-            result += amount * profile.OrganDamageMultipliers.GetValueOrDefault(type, 0f);
+        {
+            var baseline = settings.DamageMultipliers.GetValueOrDefault(type, 0f);
+            var vulnerability = organ.DamageMultipliers.GetValueOrDefault(type, 1f);
+            result += amount * baseline * Math.Max(0f, vulnerability);
+        }
         return result;
     }
 
     private (EntityUid Id, OrganComponent Component) PickOrgan(
         List<(EntityUid Id, OrganComponent Component)> organs,
-        WoundableProfilePrototype profile)
+        OrganDamageSettings settings)
     {
         var totalWeight = 0f;
         foreach (var organ in organs)
-            totalWeight += GetWeight(profile, organ.Component);
+            totalWeight += GetWeight(settings, organ.Component);
 
         if (totalWeight <= 0f)
             return _random.Pick(organs);
@@ -76,24 +94,18 @@ public sealed partial class OrganDamageSystem : EntitySystem
         var roll = _random.NextFloat() * totalWeight;
         foreach (var organ in organs)
         {
-            roll -= GetWeight(profile, organ.Component);
+            roll -= GetWeight(settings, organ.Component);
             if (roll <= 0f)
                 return organ;
         }
         return organs[organs.Count - 1];
     }
 
-    private static float GetWeight(WoundableProfilePrototype profile, OrganComponent organ)
+    private static float GetWeight(OrganDamageSettings settings, OrganComponent organ)
     {
-        return organ.Category is { } category && profile.OrganDamageWeights.TryGetValue(category, out var weight)
+        var baseline = organ.Category is { } category && settings.Weights.TryGetValue(category, out var weight)
             ? Math.Max(0f, weight)
             : 1f;
+        return baseline * Math.Max(0f, organ.SelectionMultiplier);
     }
 }
-
-[ByRefEvent]
-public readonly record struct OrganDamageAppliedEvent(
-    EntityUid Body,
-    EntityUid Part,
-    EntityUid Organ,
-    FixedPoint2 Damage);

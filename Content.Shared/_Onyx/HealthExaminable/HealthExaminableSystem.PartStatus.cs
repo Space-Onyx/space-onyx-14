@@ -60,7 +60,7 @@ public sealed partial class HealthExaminableSystem
 
             var woundStates = new Dictionary<WoundState, int>();
             var bleeding = false;
-            var fracture = FractureGrade.None;
+            var woundObservations = new Dictionary<LocId, int>();
             var scars = 0;
             var openIncisions = 0;
             foreach (var wound in _wounds.GetWounds(part))
@@ -84,8 +84,8 @@ public sealed partial class HealthExaminableSystem
                 }
 
                 woundStates[wound.Comp.State] = woundStates.GetValueOrDefault(wound.Comp.State) + 1;
-                if (CompOrNull<WoundFractureComponent>(wound) is { } found && found.Grade > fracture)
-                    fracture = found.Grade;
+                if (prototype.GetStageDefinition(wound.Comp.Severity)?.ExamineDescription is { } observation)
+                    woundObservations[observation] = woundObservations.GetValueOrDefault(observation) + 1;
             }
 
             foreach (var state in new[] { WoundState.Stabilized, WoundState.Closed })
@@ -100,8 +100,11 @@ public sealed partial class HealthExaminableSystem
 
             if (bleeding)
                 details.Add(Loc.GetString("health-examinable-part-bleeding"));
-            if (fracture != FractureGrade.None)
-                details.Add(Loc.GetString($"health-examinable-part-fracture-{fracture.ToString().ToLowerInvariant()}"));
+            foreach (var (observation, count) in woundObservations)
+            {
+                var description = Loc.GetString(observation);
+                details.Add(count > 1 ? $"{description} ×{count}" : description);
+            }
             if (scars > 0)
                 details.Add(Loc.GetString("health-examinable-part-scars", ("count", scars)));
 

@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Server.Medical.Components;
 // <Onyx-HealthAnalyzer-StatusDoll>
 using Content.Shared._Onyx.Medical.Surgery;
@@ -30,6 +31,7 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
+using Robust.Shared.Prototypes;
 using Content.Server.Body.Systems;
 
 namespace Content.Server.Medical;
@@ -51,6 +53,8 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private WoundSystem _wounds = default!;
     [Dependency] private PainSystem _pain = default!; // <Onyx-HealthAnalyzerPain>
+    [Dependency] private BodyPartFunctionalitySystem _functionality = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
     // </Onyx-HealthAnalyzer-StatusDoll>
     [Dependency] private MobThresholdSystem _mobThreshold = default!; // <Onyx-VitalDamage>
 
@@ -335,6 +339,9 @@ if (TryComp<UnrevivableComponent>(entity, out var unrevivableComp) && unrevivabl
             var bleedingTreatment = BleedingTreatment.None;
             var highestBleedingRate = 0f;
             ushort scarCount = 0;
+            var visibleWounds = new Dictionary<(LocId Name, LocId? StageName), int>();
+            var clottingPhases = new HashSet<HealthAnalyzerClottingPhase>();
+            var internalBleedingRate = 0f;
             // <Onyx-HealthAnalyzerPain>
             var pain = TryComp(part, out PainComponent? painComponent)
                 ? _pain.GetPain((part, painComponent))
@@ -363,7 +370,41 @@ if (TryComp<UnrevivableComponent>(entity, out var unrevivableComp) && unrevivabl
 
                 if (HasComp<WoundScarComponent>(wound))
                     scarCount++;
+
+                if (TryComp(wound, out WoundInternalBleedingComponent? internalBleeding) &&
+                    wound.Comp.State == WoundState.Open && internalBleeding.Severity > FixedPoint2.Zero)
+                    internalBleedingRate += internalBleeding.Rate * internalBleeding.Severity.Float();
+
+                if (TryComp(wound, out WoundBleedingComponent? clotting) && wound.Comp.State == WoundState.Open)
+                {
+                    clottingPhases.Add(clotting.AutomaticClottingAt != null
+                        ? HealthAnalyzerClottingPhase.InProgress
+                        : clotting.NaturalClotting > 0f && clotting.CurrentRate <= 0f
+                            ? HealthAnalyzerClottingPhase.Complete
+                            : HealthAnalyzerClottingPhase.None);
+                }
+
+                if (!_prototypes.TryIndex(wound.Comp.Prototype, out WoundPrototype? prototype) ||
+                    prototype.Visibility != WoundVisibility.Visible ||
+                    wound.Comp.State is WoundState.Healed or WoundState.Scarred)
+                    continue;
+
+                var stageName = prototype.GetStageDefinition(wound.Comp.Severity)?.Name;
+                var key = (prototype.Name, stageName);
+                visibleWounds[key] = visibleWounds.GetValueOrDefault(key) + 1;
             }
+
+            var wounds = visibleWounds
+                .OrderBy(entry => entry.Key.Name)
+                .ThenBy(entry => entry.Key.StageName)
+                .Select(entry => new HealthAnalyzerVisibleWound(entry.Key.Name, entry.Key.StageName, entry.Value))
+                .ToList();
+            var clottingPhase = clottingPhases.Count switch
+            {
+                0 => HealthAnalyzerClottingPhase.NotApplicable,
+                1 => clottingPhases.Single(),
+                _ => HealthAnalyzerClottingPhase.Mixed,
+            };
 
             // <Onyx-HealthAnalyzerPain-edited>
             var diagnostic = new HealthAnalyzerWoundDiagnostic(
@@ -372,7 +413,11 @@ if (TryComp<UnrevivableComponent>(entity, out var unrevivableComp) && unrevivabl
                 bleedingRate,
                 bleedingTreatment,
                 scarCount,
-                pain);
+                pain,
+                wounds,
+                _functionality.GetState((part, woundable)),
+                internalBleedingRate,
+                clottingPhase);
             // </Onyx-HealthAnalyzerPain-edited>
             if (diagnostic.HasFindings)
                 result[target] = diagnostic;

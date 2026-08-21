@@ -26,6 +26,11 @@
           Airloss: -20
           Toxin: -20
           Genetic: -20
+      - !type:MendFractures
+        amount: 10
+        wounds: []
+        minimumGrade: Hairline
+        maximumGrade: Comminuted
       - !type:HealthChange
         conditions:
         - !type:ReagentCondition

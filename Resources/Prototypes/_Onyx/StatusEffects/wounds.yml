@@ -1,0 +1,9 @@
+- type: entity
+  parent: StatusEffectSlowdown
+  id: StatusEffectBurnSlowdown
+  name: burn slowdown
+
+- type: entity
+  parent: StatusEffectSlowdown
+  id: StatusEffectWoundImpairment
+  name: wound impairment

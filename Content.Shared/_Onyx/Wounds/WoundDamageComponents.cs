@@ -3,6 +3,7 @@ using Content.Shared.Damage.Prototypes;
 using Content.Shared.Body.Part;
 using Content.Shared.FixedPoint;
 using Content.Shared.Humanoid;
+using Content.Shared._Onyx.Targeting;
 using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
@@ -27,6 +28,9 @@ public sealed partial class WoundHostComponent : Component
         [BodyPartType.Other] = 1f,
     };
 
+    /// <summary>
+    /// Damage types routed to body parts. Other types remain systemic on the wound host.
+    /// </summary>
     [DataField]
     public HashSet<ProtoId<DamageTypePrototype>> LocalizedDamageTypes =
     [
@@ -38,6 +42,53 @@ public sealed partial class WoundHostComponent : Component
         "Shock",
         "Caustic",
     ];
+
+    [DataField]
+    public TargetBodyPart SystemicPainTarget = TargetBodyPart.Chest;
+
+    [DataField]
+    public Dictionary<BodyPartType, FixedPoint2> DismembermentSeverities = new()
+    {
+        [BodyPartType.Head] = 200,
+        [BodyPartType.Groin] = 160,
+        [BodyPartType.Arm] = 120,
+        [BodyPartType.Leg] = 120,
+        [BodyPartType.Hand] = 80,
+        [BodyPartType.Foot] = 80,
+    };
+
+    [DataField]
+    public FixedPoint2 DefaultDismembermentSeverity = 100;
+
+    [DataField]
+    public ProtoId<WoundPrototype> DismembermentWound = "DismembermentWound";
+
+    [DataField]
+    public ProtoId<WoundPrototype> AmputationConsequenceWound = "AmputationConsequenceWound";
+
+    [DataField]
+    public float SeverableResetRatio = 0.8f;
+
+    [DataField]
+    public Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2> DefaultDismembermentFinishingDamage = new()
+    {
+        ["Slash"] = 15,
+        ["Piercing"] = 40,
+        ["Blunt"] = 50,
+    };
+
+    [DataField]
+    public HashSet<BodyPartType> MobilityParts = [BodyPartType.Leg, BodyPartType.Foot];
+
+    [DataField]
+    public HashSet<BodyPartType> ManipulationParts = [BodyPartType.Arm, BodyPartType.Hand];
+
+    [DataField]
+    public Dictionary<BodyPartType, float> PartEffectScales = new()
+    {
+        [BodyPartType.Foot] = 0.5f,
+        [BodyPartType.Hand] = 0.75f,
+    };
 }
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(raiseAfterAutoHandleState: true)]
@@ -55,6 +106,13 @@ public sealed partial class PainComponent : Component
 
     [AutoNetworkedField]
     public FixedPoint2 Suppression;
+
+    /// <summary>
+    /// Pain floor produced by the part's wounds themselves (independent of damage).
+    /// Healing a wound removes ~half immediately, the rest decays via normal recovery.
+    /// </summary>
+    [AutoNetworkedField]
+    public FixedPoint2 WoundPain;
 
     [DataField]
     public Dictionary<ProtoId<DamageTypePrototype>, float> DamageMultipliers = new()
@@ -83,14 +141,11 @@ public sealed partial class PainComponent : Component
 
 public sealed record PainSuppressionModifier(FixedPoint2 Amount, FixedPoint2 DecayPerSecond, float RecoveryMultiplier);
 
-[RegisterComponent]
-public sealed partial class PainShockTargetComponent : Component;
-
-[RegisterComponent]
-public sealed partial class PainShockComponent : Component
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class PainShockTargetComponent : Component
 {
-    [DataField]
-    public bool WasSleeping;
+    [DataField, AutoNetworkedField]
+    public bool Armed = true;
 }
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
@@ -99,17 +154,24 @@ public sealed partial class WoundableComponent : Component
     public const string ContainerId = "wounds";
 
     [DataField, AutoNetworkedField]
-    public ProtoId<WoundableProfilePrototype> Profile = "OrganicWoundableProfile";
+    public ProtoId<BodyPartProfilePrototype> Profile = "OrganicBodyPartProfile";
 
     [ViewVariables]
     public Container WoundsContainer = default!;
 
     [ViewVariables]
     public FixedPoint2 AmputationOverflow;
+
+    [AutoNetworkedField]
+    public bool Severable;
 }
 
-[RegisterComponent]
-public sealed partial class ScarlessComponent : Component;
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class BodyPartFunctionalityComponent : Component
+{
+    [AutoNetworkedField]
+    public BodyPartFunctionalityState State = BodyPartFunctionalityState.Functional;
+}
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class WoundComponent : Component
@@ -131,6 +193,13 @@ public sealed partial class WoundComponent : Component
 
     [ViewVariables]
     public bool ScarCreatedForCurrentClosure;
+}
+
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class WoundFunctionalityComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public BodyPartFunctionalityState State;
 }
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
@@ -160,11 +229,21 @@ public sealed partial class WoundBleedingComponent : Component
 }
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class WoundFractureComponent : Component
+public sealed partial class WoundInternalBleedingComponent : Component
 {
     [DataField, AutoNetworkedField]
-    public FixedPoint2 BoneDamage;
+    public float Rate;
 
+    [DataField, AutoNetworkedField]
+    public FixedPoint2 Severity;
+}
+
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class WoundFractureComponent : Component
+{
+    /// <summary>
+    /// Cached severity grade. Bone damage is the wound's <see cref="WoundComponent.Severity"/>.
+    /// </summary>
     [DataField, AutoNetworkedField]
     public FractureGrade Grade;
 
@@ -172,16 +251,8 @@ public sealed partial class WoundFractureComponent : Component
     public FractureTreatment Treatment;
 }
 
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class WoundScarComponent : Component
-{
-    [DataField, AutoNetworkedField]
-    public ProtoId<WoundPrototype> SourcePrototype;
-
-    [DataField, AutoNetworkedField]
-    public FixedPoint2 SourcePeakSeverity;
-
-}
+[RegisterComponent, NetworkedComponent]
+public sealed partial class WoundScarComponent : Component;
 
 [Serializable, NetSerializable]
 public enum WoundState : byte

@@ -17,9 +17,6 @@ public sealed partial class PartStatusSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<PartStatusComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<WoundableComponent, WoundCreatedEvent>(OnWoundChanged);
-        SubscribeLocalEvent<WoundableComponent, WoundChangedEvent>(OnWoundChanged);
-        SubscribeLocalEvent<WoundableComponent, WoundRemovedEvent>(OnWoundChanged);
         SubscribeLocalEvent<WoundableComponent, PartBleedingChangedEvent>(OnWoundChanged);
         SubscribeLocalEvent<WoundableComponent, FractureGradeChangedEvent>(OnWoundChanged);
         SubscribeLocalEvent<WoundableComponent, ScarCreatedEvent>(OnWoundChanged);

@@ -35,10 +35,14 @@ health-examinable-part-incision-open = { $count } open { $count ->
    *[other] incisions
 }
 health-examinable-part-bleeding = active bleeding
-health-examinable-part-fracture-hairline = hairline fracture
-health-examinable-part-fracture-simple = simple fracture
-health-examinable-part-fracture-displaced = displaced fracture
-health-examinable-part-fracture-comminuted = comminuted fracture
+wound-examine-fracture-hairline = slight swelling
+wound-examine-fracture-simple = severe swelling
+wound-examine-fracture-displaced = unnatural deformation
+wound-examine-fracture-comminuted = shattered bone
+wound-examine-frame-hairline = thin frame cracks
+wound-examine-frame-simple = deep frame cracks
+wound-examine-frame-displaced = deformed frame
+wound-examine-frame-comminuted = destroyed frame
 health-examinable-part-scars = { $count } { $count ->
     [one] scar
    *[other] scars
