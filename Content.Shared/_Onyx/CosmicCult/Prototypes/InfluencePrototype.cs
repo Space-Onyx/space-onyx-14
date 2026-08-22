@@ -1,4 +1,6 @@
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Generic;
 using Robust.Shared.Utility;
 
 namespace Content.Shared._Onyx.CosmicCult.Prototypes;
@@ -33,8 +35,8 @@ public sealed partial class InfluencePrototype : IPrototype
     [DataField]
     public ComponentRegistry? Add;
 
-    [DataField]
-    public ComponentRegistry? Remove;
+    [DataField(customTypeSerializer: typeof(CustomHashSetSerializer<string, ComponentNameSerializer>))]
+    public HashSet<string>? Remove;
 
     [DataField(required: true)]
     public int Tier;

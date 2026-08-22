@@ -12,10 +12,9 @@
   - type: ItemToggleExaminableStatus
   - type: ItemToggleRequiresCharge
     requiredCharge: 50
-  - type: Stunbaton
-    energyPerUse: 50
   - type: MartialArtBlocked # <Onyx-CorporateJudo>
-    form: CorporateJudo  - type: ItemToggle
+    form: CorporateJudo
+  - type: ItemToggle
     onActivate: false
     soundActivate:
       collection: sparks
@@ -103,9 +102,6 @@
     guides:
     - Security
     - Antagonists
-  - type: Tag
-    tags:
-    - Stunbaton
 
 - type: entity
   name: truncheon

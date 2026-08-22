@@ -5,6 +5,8 @@ using Content.Shared.Whitelist;
 using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Generic;
 
 namespace Content.Shared._Onyx.CloneProjector;
 
@@ -35,8 +37,9 @@ public sealed partial class CloneProjectorComponent : Component
     [DataField]
     public ComponentRegistry? AddedComponents;
 
-    [DataField]
-    public ComponentRegistry? RemovedComponents;
+    [DataField(customTypeSerializer: typeof(CustomHashSetSerializer<string, ComponentNameSerializer>))]
+    [AlwaysPushInheritance]
+    public HashSet<string>? RemovedComponents;
 
     [DataField]
     public EntityWhitelist? ClonedItemBlacklist;

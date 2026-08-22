@@ -158,8 +158,6 @@
     allowOthersToUnbuckle: false
     unbuckleSound:
       collection: ClowncarCrash
-    whitelist:
-      components: [Clumsy]
   - type: ContainerContainer
     containers:
       key_slot: !type:ContainerSlot

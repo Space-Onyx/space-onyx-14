@@ -13,11 +13,10 @@
         Slash: 20
     soundHit:
       path: /Audio/Weapons/bladeslice.ogg
-  - type: DashAbility
-  - type: LimitedCharges
-    maxCharges: 1
-  - type: AutoRecharge
-    rechargeDuration: 1.5
+  - type: ActionGrant
+    actions:
+    - ActionRogueTailDash
+  - type: ItemActionGrant
   - type: UseDelay
     delay: 1.5
   - type: StaticPrice

@@ -32,12 +32,11 @@ public sealed partial class LavalandSystem
     {
         "BasaltRandom",
         "FloorLavaEntity",
-        "WallRockBasalt",
-        "WallRockBasaltBananium",
-        "WallRockBasaltCoal",
-        "WallRockBasaltPlasma",
-        "WallRockBasaltQuartz",
-        "WallRockBasaltUranium",
+        "WallRock",
+        "WallRockCoal",
+        "WallRockPlasma",
+        "WallRockQuartz",
+        "WallRockUranium",
         "WallRockChromite",
     };
 
@@ -52,12 +51,11 @@ public sealed partial class LavalandSystem
             "Clickable", "CosmicCorruptible", "FishingSpot", "Fixtures", "Icon", "IconSmooth", "MetaData",
             "Physics", "Sprite", "StepTrigger", "SyncSprite", "Tag", "TileEmission", "TileEntityEffect", "Transform",
         },
-        ["WallRockBasalt"] = WallRockComponents(oreVein: false),
-        ["WallRockBasaltBananium"] = WallRockComponents(oreVein: true),
-        ["WallRockBasaltCoal"] = WallRockComponents(oreVein: true),
-        ["WallRockBasaltPlasma"] = WallRockComponents(oreVein: true),
-        ["WallRockBasaltQuartz"] = WallRockComponents(oreVein: true),
-        ["WallRockBasaltUranium"] = WallRockComponents(oreVein: true),
+        ["WallRock"] = WallRockComponents(oreVein: false),
+        ["WallRockCoal"] = WallRockComponents(oreVein: true),
+        ["WallRockPlasma"] = WallRockComponents(oreVein: true),
+        ["WallRockQuartz"] = WallRockComponents(oreVein: true),
+        ["WallRockUranium"] = WallRockComponents(oreVein: true),
         ["WallRockChromite"] = WallRockComponents(oreVein: false),
     };
 
@@ -309,8 +307,14 @@ public sealed partial class LavalandSystem
         for (var groupIndex = 0; groupIndex < groups.Count; groupIndex++)
         {
             if (groups[groupIndex] is not MappingDataNode group ||
-                !group.TryGet<ValueDataNode>("proto", out var prototype) ||
-                !StagedTerrainPrototypes.Contains(prototype.Value) ||
+                !group.TryGet<ValueDataNode>("proto", out var prototype))
+                continue;
+
+            if (!_mapMigration.TryMigrateEntityPrototype(prototype.Value, out var migrated))
+                continue;
+
+            prototype.Value = migrated;
+            if (!StagedTerrainPrototypes.Contains(prototype.Value) ||
                 !HasExpectedComponents(prototype.Value) ||
                 !group.TryGet<SequenceDataNode>("entities", out var entities))
                 continue;

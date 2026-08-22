@@ -92,8 +92,7 @@
     sprite: _Onyx/CosmicCult/Icons/cosmiccult_abilities.rsi
     state: metabolism
   remove:
-  - type: Hunger
-  - type: Thirst
+  - Satiation
   tier: 1
 
 - type: influence

@@ -84,7 +84,7 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private ThrowingSystem _throwing = default!;
-    [Dependency] private SharedBloodstreamSystem _bloodstream = default!;
+    [Dependency] private BloodstreamSystem _bloodstream = default!;
     [Dependency] private SharedMeleeWeaponSystem _melee = default!;
     [Dependency] private WoundDamageRoutingSystem _woundDamage = default!;
 

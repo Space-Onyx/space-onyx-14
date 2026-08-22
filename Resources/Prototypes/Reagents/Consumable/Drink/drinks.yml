@@ -472,7 +472,8 @@
         conditions:
         - !type:MetabolizerTypeCondition
           type: [ Feroxi, FeroxiDehydrated ]
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         conditions:
         - !type:MetabolizerTypeCondition
           type: [ Feroxi, FeroxiDehydrated ]

@@ -100,11 +100,11 @@
     addToggleVerb: false
   - type: PointLight
     enabled: false
-    softness: 5 # <MechLights-edited>
-    autoRot: true # <MechLights-edited>
-    mask: /Textures/Effects/LightMasks/cone.png # <MechLights-edited>
-    radius: 7 # <MechLights-edited>
-    energy: 3 # <MechLights-edited>
+    softness: 5
+    autoRot: true
+    lightMask: ConeSingle
+    radius: 7
+    energy: 3
   # </MechLights>
   - type: MovementSpeedModifier
     baseWalkSpeed: 1.25 # <MechSpeed-edited>
@@ -143,7 +143,8 @@
       mech-battery-slot: !type:ContainerSlot
       paper_label: !type:ContainerSlot # <MechBalance>
   - type: Damageable
-    damageModifierSet: SteelMod  - type: FootstepModifier
+    damageModifierSet: SteelMod
+  - type: FootstepModifier
     footstepSoundCollection:
       path: /Audio/Mecha/mechmove03.ogg
   - type: GuideHelp
@@ -185,6 +186,7 @@
     baseState: ripley
     openState: ripley-open
     brokenState: ripley-broken
+  # <Onyx-MechHandBlockerInheritance-edited>
   - type: Vehicle
     transferDamageModifier:
       coefficients:
@@ -197,8 +199,7 @@
     operatorWhitelist:
       components:
         - HumanoidProfile
-  - type: VehicleHandBlocker
-    blockedHands: 2
+  # </Onyx-MechHandBlockerInheritance-edited>
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -244,6 +245,7 @@
     openState: honker-open
     brokenState: honker-broken
     airtight: true # <MechBalance>
+  # <Onyx-MechHandBlockerInheritance-edited>
   - type: Vehicle
     transferDamageModifier:
       coefficients:
@@ -256,8 +258,7 @@
     operatorWhitelist:
       components:
       - HumanoidProfile
-  - type: VehicleHandBlocker
-    blockedHands: 2
+  # </Onyx-MechHandBlockerInheritance-edited>
 - type: entity
   parent: MechHonker
   id: MechHonkerBattery

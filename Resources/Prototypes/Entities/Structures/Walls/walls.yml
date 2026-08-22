@@ -144,40 +144,7 @@
     sprite: Structures/Walls/brass.rsi
   - type: Icon
     sprite: Structures/Walls/brass.rsi
-    sprite: Structures/Walls/clock.rsi
   - type: Construction
-    graph: ClockworkGirder
-    node: clockworkWall
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 300
-      behaviors:
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          ClockworkGirder:
-            min: 1
-            max: 1
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-  - type: IconSmooth
-    key: walls
-    base: clock
-  # <Onyx-CosmicCult>
-  - type: CosmicCorruptible
-    convertTo: WallCosmicCult
-  # </Onyx-CosmicCult>
-
-- type: entity
-  parent: BaseWall
-  id: WallClown
-  name: bananium wall
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/clown.rsi
-  - type: Icon
-    sprite: Structures/Walls/clown.rsi  - type: Construction
     graph: Girder
     node: brassWall
   - type: Damageable
@@ -196,22 +163,11 @@
   - type: IconSmooth
     key: walls
     base: brass
-    base: clown
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeAabb
-          bounds: "-0.5,-0.5,0.5,0.5"
-        mask:
-        - FullTileMask
-        layer:
-        - WallLayer
-        density: 8000 # really good ramming wall, bananium is rare so it's probably fine
   # <Onyx-CosmicCult>
   - type: CosmicCorruptible
     convertTo: WallCosmicCult
   # </Onyx-CosmicCult>
+
 - type: entity
   parent: [ BaseWall, StructureHealthWallWeak ]
   id: WallMeat
@@ -270,41 +226,7 @@
 
 - type: entity
   parent: [ BaseWall, StructureHealthWallWeak ]
-  parent: BaseWall
-  id: WallDiamond
-  name: diamond wall
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/diamond.rsi
-  - type: Icon
-    sprite: Structures/Walls/diamond.rsi
-  - type: RCDDeconstructable
-    cost: 6
-    delay: 8
-    fx: EffectRCDDeconstruct8
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 300
-      behaviors:
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          Girder:
-            min: 1
-            max: 1
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-  - type: IconSmooth
-    key: walls
-    base: diamond
-  # <Onyx-CosmicCult>
-  - type: CosmicCorruptible
-    convertTo: WallCosmicCult
-  # </Onyx-CosmicCult>
-
-- type: entity
-  parent: BaseWall  id: WallGold
+  id: WallGold
   name: gold wall
   components:
   - type: Sprite
@@ -350,37 +272,7 @@
 
 - type: entity
   parent: [ BaseWall, StructureHealthWallWeak ]
-  parent: BaseWall
-  id: WallIce
-  name: ice wall
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/ice.rsi
-  - type: Icon
-    sprite: Structures/Walls/ice.rsi
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 300
-      behaviors:
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          Girder:
-            min: 1
-            max: 1
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-  - type: IconSmooth
-    key: walls
-    base: ice
-  # <Onyx-CosmicCult>
-  - type: CosmicCorruptible
-    convertTo: WallCosmicCult
-  # </Onyx-CosmicCult>
-
-- type: entity
-  parent: BaseWall  id: WallPlasma
+  id: WallPlasma
   name: plasma wall
   components:
   - type: Sprite
@@ -574,43 +466,11 @@
     key: walls
     base: reinf_over
   # Rusted walls should be made weaker through a damage mod status effect.
-  id: WallPlastic
-  name: plastic wall
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/plastic.rsi
-  - type: Icon
-    sprite: Structures/Walls/plastic.rsi
-  - type: Construction
-    graph: Girder
-    node: plasticWall
-  - type: RCDDeconstructable
-    cost: 6
-    delay: 8
-    fx: EffectRCDDeconstruct8
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 150
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          collection: MetalSlam
-      - !type:ChangeConstructionNodeBehavior
-        node: girder
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
-  - type: IconSmooth
-    key: walls
-    base: plastic
   # <Onyx-CosmicCult>
   - type: CosmicCorruptible
     convertTo: WallCosmicCult
   # </Onyx-CosmicCult>
 
-- type: entity
-  parent: BaseWall
 - type: entity
   parent: [ WallDiagonalBase, StructureHealthWallStrong ]
   id: WallReinforcedDiagonal
@@ -629,16 +489,11 @@
     thresholds:
     - trigger: *DamageWallStrong
       behaviors:
-      - *ChangeNodeReinforcedGirder
-      - *SoundMetalSlam
-      - *SpawnPlasteel
       - !type:ChangeConstructionNodeBehavior
         node: girderDiagonal # <Onyx-DiagonalGirders-edited>
-      - !type:PlaySoundBehavior
-        sound:
-          collection: MetalSlam
-      - !type:DoActsBehavior
-        acts: ["Destruction"]  - type: RadiationBlocker
+      - *SoundMetalSlam
+      - *SpawnPlasteel
+  - type: RadiationBlocker
     resistance: 5
   # <Onyx-DiagonalGirders>
   - type: Construction
@@ -773,17 +628,12 @@
     thresholds:
     - trigger: *DamageWallStrong
       behaviors:
-      - *ChangeNodeReinforcedGirder
-      - *SoundMetalSlam
-      - *SpawnPlasteel
       - !type:ChangeConstructionNodeBehavior
         node: girderDiagonal # <Onyx-DiagonalGirders-edited>
-      - !type:PlaySoundBehavior
-        sound:
-          collection: MetalSlam
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
-  # <Onyx-DiagonalGirders-edited>  - type: Construction
+      - *SoundMetalSlam
+      - *SpawnPlasteel
+  # <Onyx-DiagonalGirders-edited>
+  - type: Construction
     graph: GirderDiagonal
     node: shuttleWallDiagonal
   # </Onyx-DiagonalGirders-edited>
@@ -905,21 +755,16 @@
     thresholds:
     - trigger: *DamageWallNormal
       behaviors:
-      - *ChangeNodeGirder
-      - *SoundMetalSlam
-      - *SpawnSteel
       - !type:ChangeConstructionNodeBehavior
         node: girderDiagonal # <Onyx-DiagonalGirders-edited>
-      - !type:PlaySoundBehavior
-        sound:
-          collection: MetalSlam
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
+      - *SoundMetalSlam
+      - *SpawnSteel
   # <Onyx-DiagonalGirders>
   - type: Construction
     graph: GirderDiagonal
     node: wallDiagonal
   # </Onyx-DiagonalGirders>
+
 - type: entity
   parent: WallSolid
   id: WallSolidRust
@@ -941,8 +786,7 @@
   - type: CosmicCorruptible
     convertTo: WallCosmicCult
   # </Onyx-CosmicCult>
-  - type: Damageable
-    damageModifierSet: Metallic # weaker because rust
+
 - type: entity
   parent: [ BaseWall, StructureHealthWall ]
   id: WallSolidChitin
@@ -1160,32 +1004,7 @@
 
 - type: entity
   parent: [ BaseWall, StructureHealthWall ]
-  parent: BaseWall
-  id: WallNecropolis
-  name: stone wall
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/necropolis.rsi
-  - type: Icon
-    sprite: Structures/Walls/necropolis.rsi
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 1000
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-  - type: IconSmooth
-    key: walls
-    base: necropolis
-  # <Onyx-CosmicCult>
-  - type: CosmicCorruptible
-    convertTo: WallCosmicCult
-  # </Onyx-CosmicCult>
-
-- type: entity
-  parent: BaseWall  id: WallMining
+  id: WallMining
   name: mining wall
   components:
   - type: Sprite
@@ -1229,83 +1048,7 @@
       behaviors:
       - *SpawnGirder
       - *SoundMetalSlam
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          Girder:
-            min: 1
-            max: 1
-      - !type:PlaySoundBehavior
-        sound:
-          collection: MetalSlam
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
 
-
-# Vault Walls
-
-- type: entity
-  parent: BaseWall
-  id: WallVaultAlien
-  name: alien vault wall
-  description: A mysterious ornate looking wall. There may be ancient dangers inside.
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/vault.rsi
-    state: alienvault
-  - type: Icon
-    sprite: Structures/Walls/vault.rsi
-    state: alienvault
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 500
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-  # Corvax-Resprite-start
-  - type: IconSmooth
-    key: walls
-    base: alienvault
-  # Corvax-Resprite-end
-  # <Onyx-CosmicCult>
-  - type: CosmicCorruptible
-    convertTo: WallCosmicCult
-  # </Onyx-CosmicCult>
-
-- type: entity
-  parent: BaseWall # Corvax-Resprite
-  id: WallVaultRock
-  name: rock vault wall
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/vault.rsi
-    state: rockvault
-  - type: Icon
-    sprite: Structures/Walls/vault.rsi
-    state: rockvault
-  # Corvax-Resprite-start
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 500
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-  # Corvax-Resprite-end
-
-- type: entity
-  parent: WallVaultRock # Corvax-Resprite
-  id: WallVaultSandstone
-  name: sandstone vault wall
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/vault.rsi
-    state: sandstonevault
-  - type: Icon
-    sprite: Structures/Walls/vault.rsi
-    state: sandstonevault
 # Mime
 
 - type: entity
@@ -1379,123 +1122,7 @@
   - type: IconSmooth
     key: walls
     base: concrete
-    key: cobblebricks
-    base: cobblebrick
-  # <Onyx-CosmicCult>
-  - type: CosmicCorruptible
-    convertTo: WallCosmicCult
-  # </Onyx-CosmicCult>
 
-- type: entity
-  parent: WallCobblebrick
-  id: WallBasaltCobblebrick
-  name: basalt brick wall
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/cobblebrick_basalt.rsi
-  - type: Icon
-    sprite: Structures/Walls/cobblebrick_basalt.rsi
-  - type: IconSmooth
-    key: cobblebricks
-    base: cobblebrick
-
-- type: entity
-  parent: WallCobblebrick
-  id: WallSnowCobblebrick
-  name: snow brick wall
-  description: A cold, not-so-impenetrable wall.
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/cobblebrick_snow.rsi
-  - type: Icon
-    sprite: Structures/Walls/cobblebrick_snow.rsi
-  - type: IconSmooth
-    key: cobblebricks
-    base: cobblebrick
-
-- type: entity
-  parent: WallCobblebrick
-  id: WallAsteroidCobblebrick
-  name: asteroid stone brick wall
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/cobblebrick_asteroid.rsi
-  - type: Icon
-    sprite: Structures/Walls/cobblebrick_asteroid.rsi
-  - type: IconSmooth
-    key: cobblebricks
-    base: cobblebrick
-
-- type: entity
-  parent: WallCobblebrick
-  id: WallSandCobblebrick
-  name: sandstone brick wall
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/cobblebrick_sand.rsi
-  - type: Icon
-    sprite: Structures/Walls/cobblebrick_sand.rsi
-  - type: IconSmooth
-    key: cobblebricks
-    base: cobblebrick
-
-- type: entity
-  parent: WallCobblebrick
-  id: WallChromiteCobblebrick
-  name: chromite brick wall
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/cobblebrick_chromite.rsi
-  - type: Icon
-    sprite: Structures/Walls/cobblebrick_chromite.rsi
-  - type: IconSmooth
-    key: cobblebricks
-    base: cobblebrick
-
-- type: entity
-  parent: WallCobblebrick
-  id: WallAndesiteCobblebrick
-  name: andesite brick wall
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/cobblebrick_andesite.rsi
-  - type: Icon
-    sprite: Structures/Walls/cobblebrick_andesite.rsi
-  - type: IconSmooth
-    key: cobblebricks
-    base: cobblebrick
-
-- type: entity
-  parent: WallCobblebrick
-  id: WallIronsandCobblebrick
-  name: ironsand brick wall
-  description: The pale, rounded shapes that make up this wall look strikingly different from the iron sands they were allegedly made from.
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/cobblebrick_ironsand.rsi
-  - type: Icon
-    sprite: Structures/Walls/cobblebrick_ironsand.rsi
-  - type: IconSmooth
-    key: cobblebricks
-    base: cobblebrick
-  - type: RCDDeconstructable
-    deconstructable: false
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 100
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          path: /Audio/Effects/break_stone.ogg
-          params:
-            volume: -6
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          SteelOre1:
-            min: 0
-            max: 2
 # Cardboard
 
 - type: entity
@@ -1556,9 +1183,3 @@
   - type: Occluder
   - type: BlockWeather
   - type: SunShadowCast
-  # <Onyx-CosmicCult>
-  - type: CosmicCorruptible
-    convertTo: WallCosmicCult
-  # </Onyx-CosmicCult>
-  - type: Damageable
-    damageModifierSet: StructuralMetallic # weaker because rust

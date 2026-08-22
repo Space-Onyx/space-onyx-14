@@ -150,36 +150,6 @@
     layers:
       - map: [ "enum.DamageStateVisualLayers.Base" ]
         state: blob
-#      Vanila vs new type, idk
-#  - type: SlowContacts
-#    walkSpeedModifier: 0.3
-#    sprintSpeedModifier: 0.3
-#    ignoreWhitelist:
-#      tags:
-#        - BlobMob
-#  - type: DamageContacts
-#    damage:
-#      types:
-#        Poison: 1.5
-#        Piercing: 1.5
-#    ignoreWhitelist:
-#      tags:
-#        - BlobMob
-#  - type: Fixtures
-#    fixtures:
-#      fix1:
-#        density: 7
-#        shape:
-#          !type:PhysShapeAabb
-#          bounds: "-0.5,-0.5,0.5,0.5"
-#        layer:
-#          - BlobTileLayer
-#        mask:
-#          - BlobTileMask
-
-
-
-
 - type: entity
   parent: BaseBlob
   id: FactoryBlobTile
@@ -345,7 +315,6 @@
             - !type:DoActsBehavior
               acts: [ "Destruction" ]
     - type: Damageable
-      damageContainer: Blob
       damageModifierSet: BlobReflective
     - type: Reflect
       reflectProb: 1

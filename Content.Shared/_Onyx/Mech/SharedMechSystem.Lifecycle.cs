@@ -11,17 +11,13 @@ public abstract partial class SharedMechSystem
 {
     [Dependency] private SharedGunSystem _gun = default!;
 
-    private void InitializeMechLifecycle()
-    {
-        SubscribeLocalEvent<MechEquipmentComponent, EntGotRemovedFromContainerMessage>(OnEquipmentRemovedFromContainer);
-    }
-
     private void CancelEquipmentShooting(EntityUid? equipment)
     {
         if (equipment is { } uid && TryComp<GunComponent>(uid, out var gun))
             _gun.CancelShooting((uid, gun));
     }
 
+    [SubscribeLocalEvent]
     private void OnEquipmentRemovedFromContainer(Entity<MechEquipmentComponent> equipment,
         ref EntGotRemovedFromContainerMessage args)
     {

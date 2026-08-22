@@ -55,6 +55,13 @@
     clumsySound: *SoundReptileScream
   - type: ClumsyGunStatusEffect
     clumsySound: *SoundReptileScream
+    # <Onyx-KoboldClumsy-edited>
+    failDamage:
+      types:
+        Blunt: 2
+        Piercing: 7
+        Heat: 3
+    # </Onyx-KoboldClumsy-edited>
   - type: ClumsyInjectorStatusEffect
     clumsySound: *SoundReptileScream
   - type: ClumsyVaultStatusEffect

@@ -17,7 +17,7 @@ public sealed partial class CellRevolverSystem : EntitySystem
 
     private void OnToggled(Entity<CellRevolverComponent> ent, ref ItemToggledEvent args)
     {
-        _slots.SetLock(ent, ent.Comp.CellSlot, args.Activated);
+        _slots.SetLock(ent.Owner, ent.Comp.CellSlot, args.Activated);
     }
 
     private void OnShootAttempt(Entity<CellRevolverComponent> ent, ref AttemptShootEvent args)

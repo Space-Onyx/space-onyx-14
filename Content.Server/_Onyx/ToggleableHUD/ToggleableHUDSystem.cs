@@ -1,6 +1,7 @@
 using Content.Server.Actions;
 using Content.Shared._Onyx.ToggleableHUD;
 using Content.Shared.Damage.Prototypes;
+using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.Overlays;
 using Content.Shared.Popups;
 using Content.Shared.Toggleable;
@@ -68,8 +69,9 @@ public sealed partial class ToggleableHudSystem : EntitySystem
 
             EnsureComp<ShowSyndicateIconsComponent>(uid);
 
-            EnsureComp<ShowHungerIconsComponent>(uid);
-            EnsureComp<ShowThirstIconsComponent>(uid);
+            var satiation = EnsureComp<ShowSatiationIconsComponent>(uid);
+            satiation.ShownTypes = [SatiationSystem.Hunger, SatiationSystem.Thirst];
+            Dirty(uid, satiation);
         }
         else
         {
@@ -82,8 +84,7 @@ public sealed partial class ToggleableHudSystem : EntitySystem
 
             RemComp<ShowSyndicateIconsComponent>(uid);
 
-            RemComp<ShowHungerIconsComponent>(uid);
-            RemComp<ShowThirstIconsComponent>(uid);
+            RemComp<ShowSatiationIconsComponent>(uid);
         }
 
         _popup.PopupEntity(popupMessage, uid, uid);

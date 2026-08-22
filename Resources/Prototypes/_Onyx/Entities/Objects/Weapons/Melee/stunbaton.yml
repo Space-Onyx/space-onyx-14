@@ -12,6 +12,9 @@
     layers:
     - state: icon-off
       map: [ "enum.ToggleableVisuals.Layer" ]
+  - type: ItemToggleExaminableStatus
+  - type: ItemToggleRequiresCharge
+    requiredCharge: 40
   - type: ItemToggle
     soundActivate:
       collection: sparks
@@ -23,8 +26,6 @@
     activatedDamage:
       types:
         Heat: 1
-  - type: Stunbaton
-    energyPerUse: 40
   - type: MartialArtBlocked
     form: CorporateJudo
   - type: MeleeWeapon
@@ -38,6 +39,10 @@
     animation: WeaponArcThrust
     soundHit:
       path: /Audio/_Onyx/Weapons/Effects/metalcrush.ogg
+  - type: MeleeBatteryHitsLeft
+  - type: StaminaDamageOnHitRequiresToggle
+  - type: StaminaDamageOnHitRequiresCharge
+    requiredCharge: 40
   - type: StaminaDamageOnHit
     damage: 15
     sound: /Audio/Weapons/egloves.ogg

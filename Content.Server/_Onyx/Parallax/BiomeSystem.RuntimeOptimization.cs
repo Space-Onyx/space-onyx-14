@@ -7,6 +7,7 @@ using Content.Shared.Parallax.Biomes.Markers;
 using Content.Shared.Parallax;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Enumerators;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
@@ -52,6 +53,20 @@ public sealed partial class BiomeSystem
     {
         var tile = new Vector2i((int) MathF.Floor(worldPosition.X), (int) MathF.Floor(worldPosition.Y));
         _viewerChunks[biome].Add(SharedMapSystem.GetChunkIndices(tile, ChunkSize) * ChunkSize);
+    }
+
+    public void PinTerrainArea(EntityUid gridUid, Box2 area)
+    {
+        var optimization = EnsureComp<BiomeRuntimeOptimizationComponent>(gridUid);
+        var chunks = new ChunkIndicesEnumerator(area, ChunkSize);
+        while (chunks.MoveNext(out var chunk))
+            optimization.PinnedChunks.Add(chunk.Value * ChunkSize);
+    }
+
+    private void AddPinnedChunks(EntityUid gridUid, BiomeComponent biome)
+    {
+        if (GetRuntimeOptimization(gridUid) is { } optimization)
+            _activeChunks[biome].UnionWith(optimization.PinnedChunks);
     }
 
     private List<(Vector2i Chunk, long Distance)> GetChunksToLoad(BiomeComponent component, HashSet<Vector2i> active)
@@ -207,8 +222,8 @@ public sealed partial class BiomeSystem
     private List<Vector2i> GetMarkerChunksToBuild(
         BiomeComponent component,
         HashSet<Vector2i> chunks,
-        Dictionary<string, HashSet<Vector2i>> loadedMarkers,
-        string layer,
+        Dictionary<ProtoId<BiomeMarkerLayerPrototype>, HashSet<Vector2i>> loadedMarkers,
+        ProtoId<BiomeMarkerLayerPrototype> layer,
         int budget)
     {
         _orderedChunks.Clear();
@@ -230,8 +245,8 @@ public sealed partial class BiomeSystem
     private IEnumerable<Vector2i> GetMarkerChunksToBuild(
         BiomeComponent component,
         HashSet<Vector2i> chunks,
-        Dictionary<string, HashSet<Vector2i>> loadedMarkers,
-        string layer,
+        Dictionary<ProtoId<BiomeMarkerLayerPrototype>, HashSet<Vector2i>> loadedMarkers,
+        ProtoId<BiomeMarkerLayerPrototype> layer,
         bool forced,
         int? budget,
         ref int remainingBudget)

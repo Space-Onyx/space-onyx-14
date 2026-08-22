@@ -24,6 +24,7 @@ using Content.Shared.Mech.Components;
 using Content.Shared.Mech.Equipment.Components;
 using Content.Shared.Movement.Components;
 using Content.Shared.Vehicle.Components;
+using Content.Shared.Vehicle.Systems;
 using Content.Shared.NPC.Components;
 using Content.Shared.Power.Components;
 using Content.Shared.Power.EntitySystems;
@@ -231,6 +232,7 @@ public sealed class MechLifecycleTest : GameTest
 """;
 
     [SidedDependency(Side.Server)] private readonly MechSystem _mech = null!;
+    [SidedDependency(Side.Server)] private readonly VehicleSystem _vehicle = null!;
     [SidedDependency(Side.Server)] private readonly SharedContainerSystem _container = null!;
     [SidedDependency(Side.Server)] private readonly SharedBatterySystem _battery = null!;
     [SidedDependency(Side.Server)] private readonly SharedGunSystem _gun = null!;
@@ -247,10 +249,10 @@ public sealed class MechLifecycleTest : GameTest
         var pilot = SSpawn("TestMechPilot");
         var component = SComp<MechComponent>(mech);
 
-        Assert.That(_mech.TryInsert(mech, pilot, component), Is.True);
+        Assert.That(_vehicle.TryEnter(mech, pilot), Is.True);
         AssertPilotInserted(mech, pilot, component);
 
-        Assert.That(_mech.TryEject(mech, component), Is.True);
+        Assert.That(_vehicle.TryExit(mech), Is.True);
         AssertPilotRemoved(mech, pilot, component);
     }
 
@@ -262,10 +264,10 @@ public sealed class MechLifecycleTest : GameTest
         var pilot = SSpawn("TestMechPilot");
         var component = SComp<MechComponent>(mech);
 
-        Assert.That(_mech.TryInsert(mech, pilot, component), Is.True);
+        Assert.That(_vehicle.TryEnter(mech, pilot), Is.True);
         AssertPilotInserted(mech, pilot, component);
 
-        Assert.That(_container.Remove(pilot, component.PilotSlot, force: true), Is.True);
+        Assert.That(_vehicle.TryExit(mech), Is.True);
         AssertPilotRemoved(mech, pilot, component);
     }
 
@@ -306,12 +308,12 @@ public sealed class MechLifecycleTest : GameTest
         var pilot = SSpawn("TestMechPilot");
         var component = SComp<MechComponent>(mech);
 
-        Assert.That(_mech.TryInsert(mech, pilot, component), Is.True);
+        Assert.That(_vehicle.TryEnter(mech, pilot), Is.True);
         Assert.That(_hands.EnumerateHeld(pilot)
             .Count(held => SEntMan.HasComponent<VirtualItemComponent>(held)), Is.EqualTo(2));
         Assert.That(SComp<NpcFactionMemberComponent>(mech).Factions, Is.EquivalentTo(new[] { "Syndicate" }));
 
-        Assert.That(_mech.TryEject(mech, component), Is.True);
+        Assert.That(_vehicle.TryExit(mech), Is.True);
         Assert.That(_hands.EnumerateHeld(pilot).Any(), Is.False);
         Assert.That(SEntMan.HasComponent<NpcFactionMemberComponent>(mech), Is.False);
     }
@@ -329,18 +331,18 @@ public sealed class MechLifecycleTest : GameTest
 
         Assert.That(_hands.TryPickup(pilot, left, handIds[0], handsComp: hands), Is.True);
         Assert.That(_hands.TryPickup(pilot, right, handIds[1], handsComp: hands), Is.True);
-        Assert.That(_mech.TryInsert(mech, pilot), Is.True);
+        Assert.That(_vehicle.TryEnter(mech, pilot), Is.True);
         Assert.That(_hands.EnumerateHeld(pilot)
             .Count(item => SEntMan.HasComponent<VirtualItemComponent>(item)), Is.EqualTo(2));
         Assert.That(SEntMan.Deleted(left), Is.False);
         Assert.That(SEntMan.Deleted(right), Is.False);
-        Assert.That(_mech.TryEject(mech), Is.True);
+        Assert.That(_vehicle.TryExit(mech), Is.True);
 
         var blocked = SSpawn("TestMechUndroppableItem");
         Assert.That(_hands.TryPickup(pilot, blocked, handIds[0], handsComp: hands), Is.True);
-        Assert.That(_mech.TryInsert(mech, pilot), Is.False);
+        Assert.That(_vehicle.TryEnter(mech, pilot), Is.False);
         Assert.That(_hands.IsHolding((pilot, hands), blocked), Is.True);
-        Assert.That(SComp<MechComponent>(mech).PilotSlot.ContainedEntity, Is.Null);
+        Assert.That(SComp<VehicleComponent>(mech).Operator, Is.Null);
     }
 
     [Test]
@@ -351,8 +353,8 @@ public sealed class MechLifecycleTest : GameTest
         var handless = SSpawn("TestHandlessMechPilot");
         var allowed = SSpawn("TestNeutralMechPilot");
 
-        Assert.That(_mech.TryInsert(mech, handless), Is.False);
-        Assert.That(_mech.TryInsert(mech, allowed), Is.True);
+        Assert.That(_vehicle.TryEnter(mech, handless), Is.False);
+        Assert.That(_vehicle.TryEnter(mech, allowed), Is.True);
     }
 
     [Test]
@@ -365,7 +367,7 @@ public sealed class MechLifecycleTest : GameTest
 
         _carrying.Carry(pilot, carried);
         Assert.That(SEntMan.HasComponent<CarryingComponent>(pilot), Is.True);
-        Assert.That(_mech.TryInsert(mech, pilot), Is.True);
+        Assert.That(_vehicle.TryEnter(mech, pilot), Is.True);
         Assert.That(SEntMan.HasComponent<CarryingComponent>(pilot), Is.False);
         Assert.That(SEntMan.HasComponent<BeingCarriedComponent>(carried), Is.False);
         Assert.That(_hands.EnumerateHeld(pilot)
@@ -380,9 +382,9 @@ public sealed class MechLifecycleTest : GameTest
         var pilot = SSpawn("TestNeutralMechPilot");
         var component = SComp<MechComponent>(mech);
 
-        Assert.That(_mech.TryInsert(mech, pilot, component), Is.True);
+        Assert.That(_vehicle.TryEnter(mech, pilot), Is.True);
         Assert.That(SComp<NpcFactionMemberComponent>(mech).Factions, Is.Empty);
-        Assert.That(_mech.TryEject(mech, component, forced: true), Is.True);
+        Assert.That(_vehicle.TryExit(mech), Is.True);
         Assert.That(SComp<NpcFactionMemberComponent>(mech).Factions, Is.EquivalentTo(new[] { "NanoTrasen" }));
     }
 
@@ -413,14 +415,14 @@ public sealed class MechLifecycleTest : GameTest
         var vimPilot = SSpawn("TestVimMechPilot");
         var human = SSpawn("TestMechPilot");
 
-        Assert.That(_mech.TryInsert(hamtr, hamster), Is.True);
-        Assert.That(_mech.TryEject(hamtr), Is.True);
-        Assert.That(_mech.TryInsert(hamtr, human), Is.False);
-        Assert.That(_mech.TryInsert(vim, vimPilot), Is.True);
-        Assert.That(_mech.TryEject(vim), Is.True);
+        Assert.That(_vehicle.TryEnter(hamtr, hamster), Is.True);
+        Assert.That(_vehicle.TryExit(hamtr), Is.True);
+        Assert.That(_vehicle.TryEnter(hamtr, human), Is.False);
+        Assert.That(_vehicle.TryEnter(vim, vimPilot), Is.True);
+        Assert.That(_vehicle.TryExit(vim), Is.True);
 
         SEntMan.AddComponent<ZombieComponent>(human);
-        Assert.That(_mech.TryInsert(SSpawn("TestMech"), human), Is.False);
+        Assert.That(_vehicle.TryEnter(SSpawn("TestMech"), human), Is.False);
     }
 
     [Test]
@@ -431,10 +433,10 @@ public sealed class MechLifecycleTest : GameTest
         var pilot = SSpawn("TestMechPilot");
         SEntMan.AddComponent<TileMovementComponent>(pilot);
 
-        Assert.That(_mech.TryInsert(mech, pilot), Is.True);
+        Assert.That(_vehicle.TryEnter(mech, pilot), Is.True);
         Assert.That(SEntMan.HasComponent<TileMovementComponent>(mech), Is.True);
         Assert.That(SEntMan.HasComponent<TileMovementRelayComponent>(mech), Is.True);
-        Assert.That(_mech.TryEject(mech, forced: true), Is.True);
+        Assert.That(_vehicle.TryExit(mech), Is.True);
         Assert.That(SEntMan.HasComponent<TileMovementRelayComponent>(mech), Is.False);
         Assert.That(SEntMan.HasComponent<TileMovementComponent>(mech), Is.False);
     }
@@ -451,7 +453,7 @@ public sealed class MechLifecycleTest : GameTest
 
         pilotSprint.IsSprinting = true;
         mechSprint.IsSprinting = true;
-        Assert.That(_mech.TryInsert(mech, pilot, component), Is.True);
+        Assert.That(_vehicle.TryEnter(mech, pilot), Is.True);
         Assert.Multiple(() =>
         {
             Assert.That(pilotSprint.IsSprinting, Is.False);
@@ -462,7 +464,7 @@ public sealed class MechLifecycleTest : GameTest
         Assert.That(mechSprint.IsSprinting, Is.True);
         Assert.That(pilotSprint.IsSprinting, Is.False);
 
-        Assert.That(_container.Remove(pilot, component.PilotSlot, force: true), Is.True);
+        Assert.That(_vehicle.TryExit(mech), Is.True);
         Assert.That(mechSprint.IsSprinting, Is.False);
         Assert.That(pilotSprint.IsSprinting, Is.False);
     }
@@ -561,17 +563,17 @@ public sealed class MechLifecycleTest : GameTest
         var component = SComp<MechComponent>(mech);
         var flashlight = SComp<UnpoweredFlashlightComponent>(mech);
 
-        Assert.That(_mech.TryInsert(mech, pilot, component), Is.True);
+        Assert.That(_vehicle.TryEnter(mech, pilot), Is.True);
         Assert.That(_actions.GetActions(pilot).Count(action => action.Owner == flashlight.ToggleActionEntity), Is.EqualTo(1));
         var flashlightSystem = SEntMan.System<UnpoweredFlashlightSystem>();
         flashlightSystem.SetLight((mech, flashlight), true, pilot, quiet: true);
         Assert.That(flashlight.LightOn, Is.True);
-        Assert.That(_container.Remove(pilot, component.PilotSlot, force: true), Is.True);
+        Assert.That(_vehicle.TryExit(mech), Is.True);
         Assert.That(_actions.GetActions(pilot).Any(action => action.Owner == flashlight.ToggleActionEntity), Is.False);
-        Assert.That(_mech.TryInsert(mech, pilot, component), Is.True);
+        Assert.That(_vehicle.TryEnter(mech, pilot), Is.True);
         Assert.That(_actions.GetActions(pilot).Count(action => action.Owner == flashlight.ToggleActionEntity), Is.EqualTo(1));
         _mech.SetIntegrity(mech, 0, component);
-        Assert.That(component.PilotSlot.ContainedEntity, Is.Null);
+        Assert.That(SComp<VehicleComponent>(mech).Operator, Is.Null);
         Assert.That(_actions.GetActions(pilot).Any(action => action.Owner == flashlight.ToggleActionEntity), Is.False);
     }
 
@@ -707,7 +709,7 @@ public sealed class MechLifecycleTest : GameTest
         _mech.InsertEquipment(mech, second, component);
         _mech.CycleEquipment(mech, component);
         Assert.That(component.CurrentSelectedEquipment, Is.EqualTo(first));
-        Assert.That(_mech.TryInsert(mech, pilot, component), Is.True);
+        Assert.That(_vehicle.TryEnter(mech, pilot), Is.True);
         Assert.That(_gun.TryGetGun(pilot, out var selected), Is.True);
         Assert.That(selected.Owner, Is.EqualTo(first));
 
@@ -905,7 +907,7 @@ public sealed class MechLifecycleTest : GameTest
     {
         Assert.Multiple(() =>
         {
-            Assert.That(component.PilotSlot.ContainedEntity, Is.EqualTo(pilot));
+            Assert.That(SComp<VehicleComponent>(mech).Operator, Is.EqualTo(pilot));
             Assert.That(SComp<VehicleOperatorComponent>(pilot).Vehicle, Is.EqualTo(mech));
             Assert.That(SComp<VehicleComponent>(mech).Operator, Is.EqualTo(pilot));
             Assert.That(SComp<RelayInputMoverComponent>(pilot).RelayEntity, Is.EqualTo(mech));
@@ -918,7 +920,7 @@ public sealed class MechLifecycleTest : GameTest
     {
         Assert.Multiple(() =>
         {
-            Assert.That(component.PilotSlot.ContainedEntity, Is.Null);
+            Assert.That(SComp<VehicleComponent>(mech).Operator, Is.Null);
             Assert.That(_container.IsEntityInContainer(pilot), Is.False);
             Assert.That(SEntMan.HasComponent<VehicleOperatorComponent>(pilot), Is.False);
             Assert.That(SComp<VehicleComponent>(mech).Operator, Is.Null);

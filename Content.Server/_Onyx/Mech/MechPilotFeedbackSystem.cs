@@ -3,8 +3,8 @@ using Content.Shared._Onyx.Mech;
 using Content.Shared.Chat;
 using Content.Shared.Eye.Blinding.Systems;
 using Content.Shared.Mech.Components;
+using Content.Shared.Vehicle;
 using Content.Shared.Vehicle.Systems;
-using Content.Shared.Vehicle.Components;
 
 namespace Content.Server._Onyx.Mech;
 
@@ -17,25 +17,27 @@ public sealed partial class MechPilotFeedbackSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<TransformComponent, MechInsertedEvent>(OnInserted,
-            after: [typeof(MechPilotPolicySystem)]);
-        SubscribeLocalEvent<TransformComponent, MechEjectedEvent>(OnEjected);
+        SubscribeLocalEvent<TransformComponent, OnVehicleEnteredEvent>(OnEntered);
+        SubscribeLocalEvent<TransformComponent, OnVehicleExitedEvent>(OnExited);
     }
 
-    private void OnInserted(Entity<TransformComponent> pilot, ref MechInsertedEvent args)
+    private void OnEntered(Entity<TransformComponent> pilot, ref OnVehicleEnteredEvent args)
     {
-        if (args.Cancelled)
+        if (!TryComp<MechComponent>(args.Vehicle, out var mech))
             return;
 
-        UpdatePilotVision(args.Mech);
-        Speak(args.Mech, "mech-pilot-connected");
+        UpdatePilotVision(args.Vehicle, mech);
+        Speak(args.Vehicle, "mech-pilot-connected");
     }
 
-    private void OnEjected(Entity<TransformComponent> pilot, ref MechEjectedEvent args)
+    private void OnExited(Entity<TransformComponent> pilot, ref OnVehicleExitedEvent args)
     {
+        if (!HasComp<MechComponent>(args.Vehicle))
+            return;
+
         RemComp<MechPowerBlindnessComponent>(pilot);
         _blindable.UpdateIsBlind(pilot.Owner);
-        Speak(args.Mech, "mech-pilot-disconnected", emergency: true);
+        Speak(args.Vehicle, "mech-pilot-disconnected", emergency: true);
     }
 
     public void UpdatePilotVision(EntityUid mechUid, MechComponent? mech = null)

@@ -84,7 +84,7 @@
     containers:
       board: [ DoorElectronicsJournalism ]
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/maint.rsi
+    sprite: Structures/Doors/Airlocks/Standard/airlock-maints.rsi
 
 - type: entity
   parent: HighSecDoor

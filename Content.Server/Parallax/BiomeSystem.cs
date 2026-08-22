@@ -72,7 +72,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     private readonly Dictionary<BiomeComponent, HashSet<Vector2i>> _activeChunks = new();
 
     private readonly Dictionary<BiomeComponent,
-        Dictionary<string, HashSet<Vector2i>>> _markerChunks = new();
+        Dictionary<ProtoId<BiomeMarkerLayerPrototype>, HashSet<Vector2i>>> _markerChunks = new();
 
     public override void Initialize()
     {
@@ -387,6 +387,8 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 
             if (!biome.Enabled)
                 continue;
+
+            AddPinnedChunks(gridUid, biome); // <Onyx-LavalandBiomeWarmup>
 
             // Load new chunks
             LoadChunks(biome, gridUid, grid, biome.Seed);

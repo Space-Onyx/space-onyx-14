@@ -183,7 +183,8 @@
         amount: 3
     Digestion:
       effects:
-      - !type:SatiateHunger
+      - !type:Satiate
+        satiationType: Hunger
         factor: 1.5
 
 - type: reagent

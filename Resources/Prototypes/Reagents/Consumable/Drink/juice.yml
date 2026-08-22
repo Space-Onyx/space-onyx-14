@@ -92,7 +92,8 @@
   metabolisms:
     Digestion: # <Onyx-VirologyReagents-edited>
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
       - !type:ImmunityModifier
         gainRateModifier: 0.000211695098702
         strengthModifier: 0.00256600119637
@@ -111,7 +112,8 @@
   metabolisms:
     Digestion: # <Onyx-VirologyReagents-edited>
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
       - !type:ImmunityModifier
         gainRateModifier: 0.000211695098702
         strengthModifier: 0.00256600119637
@@ -144,7 +146,8 @@
   metabolisms:
     Digestion: # <Onyx-VirologyReagents-edited>
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
       - !type:ImmunityModifier
         gainRateModifier: 0.000211695098702
         strengthModifier: 0.00256600119637
@@ -163,7 +166,8 @@
   metabolisms:
     Digestion: # <Onyx-VirologyReagents-edited>
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
       - !type:ImmunityModifier
         gainRateModifier: 0.000211695098702
         strengthModifier: 0.00256600119637

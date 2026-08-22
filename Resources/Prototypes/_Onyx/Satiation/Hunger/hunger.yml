@@ -1,0 +1,34 @@
+- type: satiation
+  id: RodentiaHunger
+  parent: NormalSatiationHunger
+  baseChangeRate: -0.0467
+
+- type: satiation
+  id: XenobioSlimeHunger
+  baseChangeRate: -0.5
+  maximumValue: 150
+  thresholds:
+    Overfed: 150
+    Okay: 75
+    Peckish: 25
+    Starving: 10
+    Dead: 0
+  startingValueMinimum: 40
+  startingValueMaximum: 40
+  changeModifiers:
+    Overfed: 1.5
+    Okay: 1.5
+    Peckish: 0.4
+    Starving: 0.2
+    Dead: 0.1
+  alertCategory: Hunger
+  alerts:
+    Peckish: Peckish
+    Starving: Starving
+    Dead: Starving
+  icons:
+    Overfed: HungerIconOverfed
+    Okay: null
+    Peckish: HungerIconPeckish
+    Starving: HungerIconStarving
+    Dead: null

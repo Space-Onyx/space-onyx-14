@@ -5,6 +5,8 @@
   description: Displays current station status.
   components:
   - type: Rotatable
+  - type: WallMount
+    directionalVisibility: false
   - type: OnyxTextVisuals
     rows:
     - text: ""

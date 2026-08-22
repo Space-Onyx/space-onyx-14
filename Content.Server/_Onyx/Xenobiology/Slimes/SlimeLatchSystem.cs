@@ -36,7 +36,7 @@ public sealed partial class SlimeLatchSystem : EntitySystem
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private HungerSystem _hunger = default!;
+    [Dependency] private SatiationSystem _satiation = default!;
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private PullingSystem _pulling = default!;
@@ -313,8 +313,8 @@ public sealed partial class SlimeLatchSystem : EntitySystem
             target.Comp.Slime,
             ignoreResistances: true);
 
-        if (TryComp<HungerComponent>(target.Comp.Slime, out var hunger))
-            _hunger.ModifyHunger(target.Comp.Slime, target.Comp.Damage.GetTotal().Float(), hunger);
+        if (TryComp<SatiationComponent>(target.Comp.Slime, out var satiation))
+            _satiation.ModifyValue((target.Comp.Slime, satiation), SatiationSystem.Hunger, target.Comp.Damage.GetTotal().Float());
 
         if (_mobState.IsDead(target) || !TryComp<BloodstreamComponent>(target, out var bloodstream))
             return;

@@ -1,5 +1,5 @@
 using System.Numerics;
-using Content.Server.Forensics;
+using Content.Shared.Forensics.Systems;
 using Content.Shared._Onyx.Bloodtrak;
 using Content.Shared.Fluids.Components;
 using Content.Shared.Forensics.Components;

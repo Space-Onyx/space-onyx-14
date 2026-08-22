@@ -9,21 +9,16 @@
   - type: DeclarativeBody
     prototype: XenobioSlimeBody
   - type: Appearance
-  - type: Hunger
-    startingHunger: 40
-    thresholds:
-      Overfed: 150
-      Okay: 75
-      Peckish: 25
-      Starving: 10
-      Dead: 0
-    hungerThresholdDecayModifiers:
-      Okay: 1.5
-      Peckish: 0.4
-      Starving: 0.2
-      Dead: 0.1
-    baseDecayRate: 0.5
-    starvingSlowdownModifier: 0
+  - type: Satiation
+    satiations:
+      Hunger:
+        prototype: XenobioSlimeHunger
+  - type: SatiationSpeedModifier
+    satiations:
+      Hunger:
+        thresholds:
+          Peckish: 1
+          Starving: 0
   - type: MobThresholds
     thresholds:
       0: Alive

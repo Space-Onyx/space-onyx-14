@@ -11,11 +11,10 @@ public sealed partial class MechSystem
 {
     private void InitializeEquipmentSelector()
     {
-        SubscribeLocalEvent<MechComponent, MechToggleEquipmentEvent>(OnOpenEquipmentSelector);
         SubscribeLocalEvent<MechComponent, MechEquipmentSelectMessage>(OnSelectEquipment);
     }
 
-    private void OnOpenEquipmentSelector(EntityUid uid, MechComponent component, MechToggleEquipmentEvent args)
+    protected override void OnToggleEquipmentAction(EntityUid uid, MechComponent component, MechToggleEquipmentEvent args)
     {
         if (args.Handled || Vehicle.GetOperatorOrNull(uid) is not { } pilot ||
             !TryComp<ActorComponent>(pilot, out var actor))

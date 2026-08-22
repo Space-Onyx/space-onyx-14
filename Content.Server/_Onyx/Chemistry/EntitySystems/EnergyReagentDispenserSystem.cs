@@ -44,7 +44,7 @@ public sealed partial class EnergyReagentDispenserSystem : EntitySystem
     private void Update<T>(Entity<EnergyReagentDispenserComponent> ent, ref T _) => Update(ent);
     private void Update(Entity<EnergyReagentDispenserComponent> ent)
     {
-        var item = _slots.GetItemOrNull(ent, SharedEnergyReagentDispenser.OutputSlotName);
+        var item = _slots.GetItemOrNull(ent.Owner, SharedEnergyReagentDispenser.OutputSlotName);
         ContainerInfo? info = null;
         if (item is { Valid: true } && _solutions.TryGetFitsInDispenser(item.Value, out _, out var solution))
             info = new ContainerInfo(Name(item.Value), solution.Volume, solution.MaxVolume) { Reagents = solution.Contents };
@@ -62,7 +62,7 @@ public sealed partial class EnergyReagentDispenserSystem : EntitySystem
     private void OnAmount(Entity<EnergyReagentDispenserComponent> ent, ref EnergyReagentDispenserSetDispenseAmountMessage msg) { ent.Comp.Amount = msg.Amount; Update(ent); Click(ent); }
     private void OnDispense(Entity<EnergyReagentDispenserComponent> ent, ref EnergyReagentDispenserDispenseReagentMessage msg)
     {
-        var item = _slots.GetItemOrNull(ent, SharedEnergyReagentDispenser.OutputSlotName);
+        var item = _slots.GetItemOrNull(ent.Owner, SharedEnergyReagentDispenser.OutputSlotName);
         if (item is not { Valid: true } || !_solutions.TryGetFitsInDispenser(item.Value, out var solution, out _)
             || !TryComp(ent, out BatteryComponent? battery) || !ent.Comp.Reagents.TryGetValue(msg.ReagentId, out var cost)) return;
         var power = cost * (int) ent.Comp.Amount;
@@ -74,7 +74,7 @@ public sealed partial class EnergyReagentDispenserSystem : EntitySystem
 
     private void OnClear(Entity<EnergyReagentDispenserComponent> ent, ref EnergyReagentDispenserClearContainerSolutionMessage msg)
     {
-        var item = _slots.GetItemOrNull(ent, SharedEnergyReagentDispenser.OutputSlotName);
+        var item = _slots.GetItemOrNull(ent.Owner, SharedEnergyReagentDispenser.OutputSlotName);
         if (item is not { Valid: true } || !_solutions.TryGetFitsInDispenser(item.Value, out var solution, out var contents)) return;
         var refund = contents.Sum(reagent => ent.Comp.Reagents.TryGetValue(reagent.Reagent.Prototype, out var cost)
             ? cost * (int) reagent.Quantity
@@ -84,5 +84,5 @@ public sealed partial class EnergyReagentDispenserSystem : EntitySystem
         _solutions.RemoveAllSolution(solution.Value); Click(ent); Update(ent);
     }
     private void Click(Entity<EnergyReagentDispenserComponent> ent) => _audio.PlayPvs(ent.Comp.ClickSound, ent, AudioParams.Default.WithVolume(-2f));
-    private void OnMapInit(Entity<EnergyReagentDispenserComponent> ent, ref MapInitEvent _) => _slots.AddItemSlot(ent, SharedEnergyReagentDispenser.OutputSlotName, ent.Comp.BeakerSlot);
+    private void OnMapInit(Entity<EnergyReagentDispenserComponent> ent, ref MapInitEvent _) => _slots.AddItemSlot(ent.Owner, SharedEnergyReagentDispenser.OutputSlotName, ent.Comp.BeakerSlot);
 }

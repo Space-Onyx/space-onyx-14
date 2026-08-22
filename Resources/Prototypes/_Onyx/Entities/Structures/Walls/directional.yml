@@ -12,8 +12,7 @@
       Brute: { collection: MetalBulletImpact }
     soundTypes:
       Heat: { collection: MetalLaserImpact }
-  - type: Tag
-    tags: [ Wall ]
+  - type: Wall
   - type: MeleeSound
     soundGroups:
       Brute: { collection: MetalThud }

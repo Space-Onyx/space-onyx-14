@@ -61,7 +61,7 @@
   - type: Tool
     useSound:
       collection: Welder
-    qualities: Welding
+    qualities: [ Welding ]
   - type: PointLight
     enabled: false
     radius: 1.2

@@ -1,5 +1,5 @@
 - type: entity
-  parent: PlasmaWindoorSecureSyndicateLocked
+  parent: PlasmaWindoorSyndicateLocked
   id: PlasmaWindoorSecureSyndicateLockedIndestructable
   name: secure plasma windoor?
   description: You have a bad feeling about this.

@@ -1,14 +1,11 @@
 - type: entity
-  parent: BaseWall
+  parent: [ BaseWall, BaseStructureHealth ]
   id: WallCosmicCult
   name: malign wall
   description: A strange-looking wall. Staring at it for too long instills a sense of discomfort.
   components:
   - type: CosmicCultExamine
     cultistText: cosmic-examine-text-forthecult
-  - type: Tag
-    tags:
-      - Wall
   - type: Sprite
     sprite: _Onyx/CosmicCult/Tileset/cosmicwall.rsi
   - type: Icon
@@ -66,15 +63,9 @@
   - type: Injurable
     damageContainer: StructuralInorganic
   - type: Damageable
-    damageModifierSet: Glass
+    damageModifierSet: GlassMod
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 300
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
     - trigger:
         !type:DamageTrigger
         damage: 150

@@ -307,11 +307,7 @@
     - ActionAnimalLayEgg
   - type: ReplacementAccent
     accent: chicken
-  - type: EggLayer
-    eggSpawn:
-    - id: FoodEgg
   # <Onyx-Animals-edited>
-  - type: ExaminableHunger
   - type: SentienceTarget
   # </Onyx-Animals-edited>
     flavorKind: station-event-random-sentience-flavor-organic
@@ -812,11 +808,7 @@
     - ActionAnimalLayEgg
   - type: ReplacementAccent
     accent: duck
-  - type: EggLayer
-    eggSpawn:
-    - id: FoodEgg
   # <Onyx-Animals-edited>
-  - type: ExaminableHunger
   - type: SentienceTarget
   # </Onyx-Animals-edited>
     flavorKind: station-event-random-sentience-flavor-organic
@@ -2047,17 +2039,6 @@
     understands:
     - Kobold
   # </Onyx-Animals>
-  - type: Clumsy
-    gunShootFailDamage:
-      types:
-        Blunt: 2
-        Piercing: 7
-        Heat: 3
-    catchingFailDamage:
-      types:
-        Blunt: 1
-    clumsySound:
-      path: /Audio/Voice/Reptilian/reptilian_scream.ogg
 
 - type: entity
   id: MobBaseSyndicateKobold

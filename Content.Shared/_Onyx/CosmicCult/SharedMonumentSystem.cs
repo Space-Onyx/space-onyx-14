@@ -173,9 +173,10 @@ public abstract partial class SharedMonumentSystem : EntitySystem
 
         if (proto.Remove != null)
         {
-            foreach (var reg in proto.Remove.Values)
+            foreach (var name in proto.Remove)
             {
-                RemComp(cultist, reg.Component.GetType());
+                if (_componentFactory.TryGetRegistration(name, out var registration))
+                    RemComp(cultist, registration.Type);
             }
         }
     }

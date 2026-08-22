@@ -32,8 +32,6 @@
     activatedDamage:
       types:
         Shock: 5
-  - type: Stunbaton
-    energyPerUse: 120
   - type: MartialArtBlocked # <Onyx-CorporateJudo>
     form: CorporateJudo
   - type: MeleeWeapon

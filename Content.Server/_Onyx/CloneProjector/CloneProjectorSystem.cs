@@ -218,7 +218,13 @@ public sealed partial class CloneProjectorSystem : SharedCloneProjectorSystem
         if (projector.Comp.AddedComponents != null)
             EntityManager.AddComponents(clone, projector.Comp.AddedComponents);
         if (projector.Comp.RemovedComponents != null)
-            EntityManager.RemoveComponents(clone, projector.Comp.RemovedComponents);
+        {
+            foreach (var name in projector.Comp.RemovedComponents)
+            {
+                if (Factory.TryGetRegistration(name, out var registration))
+                    RemComp(clone, registration.Type);
+            }
+        }
 
         projector.Comp.CurrentHost = performer;
         projector.Comp.CloneUid = clone;

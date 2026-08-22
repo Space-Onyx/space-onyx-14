@@ -9,13 +9,14 @@ using Content.Shared.Mobs.Systems;
 using Content.Shared.NPC.Systems;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
+using Content.Shared.Nutrition.Prototypes;
 
 namespace Content.Server._Onyx.Xenobiology.Slimes.HTN;
 
 public sealed partial class PickSlimeLatchTargetOperator : HTNOperator
 {
     [Dependency] private IEntityManager _entManager = default!;
-    private HungerSystem _hunger = default!;
+    private SatiationSystem _satiation = default!;
     private SlimeLatchSystem _latch = default!;
     private MobStateSystem _mobState = default!;
     private NpcFactionSystem _factions = default!;
@@ -36,7 +37,7 @@ public sealed partial class PickSlimeLatchTargetOperator : HTNOperator
     public override void Initialize(IEntitySystemManager sysManager)
     {
         base.Initialize(sysManager);
-        _hunger = sysManager.GetEntitySystem<HungerSystem>();
+        _satiation = sysManager.GetEntitySystem<SatiationSystem>();
         _latch = sysManager.GetEntitySystem<SlimeLatchSystem>();
         _mobState = sysManager.GetEntitySystem<MobStateSystem>();
         _factions = sysManager.GetEntitySystem<NpcFactionSystem>();
@@ -52,19 +53,20 @@ public sealed partial class PickSlimeLatchTargetOperator : HTNOperator
             !_entManager.TryGetComponent<XenobioSlimeComponent>(owner, out var slime) ||
             !_entManager.TryGetComponent<MobGrowthComponent>(owner, out var growth) ||
             slime.LatchedTarget != null ||
-            !_entManager.TryGetComponent<HungerComponent>(owner, out var hunger))
+            !_entManager.TryGetComponent<SatiationComponent>(owner, out var satiation))
             return (false, null);
 
         var baby = growth.CurrentStage == growth.InitialStage;
-        var threshold = _hunger.GetHungerThreshold(hunger);
-        if (baby && threshold > HungerThreshold.Peckish)
+        SatiationValue peckish = "Peckish";
+        var isAbovePeckish = _satiation.IsValueInRange((owner, satiation), SatiationSystem.Hunger, above: peckish);
+        if (baby && isAbovePeckish)
             return (false, null);
 
         foreach (var target in _factions.GetNearbyHostiles(owner, range))
         {
             if (_mobState.IsDead(target) ||
                 !_latch.CanLatch((owner, slime), target) ||
-                target == slime.Tamer && (baby || threshold > HungerThreshold.Peckish))
+                target == slime.Tamer && (baby || isAbovePeckish))
                 continue;
 
             var path = await _pathfinding.GetPath(owner,

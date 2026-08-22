@@ -25,7 +25,7 @@ public sealed partial class SlimeBreedingSystem : EntitySystem
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private IConfigurationManager _configuration = default!;
-    [Dependency] private HungerSystem _hunger = default!;
+    [Dependency] private SatiationSystem _satiation = default!;
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
@@ -92,8 +92,8 @@ public sealed partial class SlimeBreedingSystem : EntitySystem
             return;
 
         var candidates = new List<EntityUid>();
-        var query = EntityQueryEnumerator<XenobioSlimeComponent, MobGrowthComponent, HungerComponent, MobStateComponent>();
-        while (query.MoveNext(out var uid, out var slime, out var growth, out var hunger, out var mobState))
+        var query = EntityQueryEnumerator<XenobioSlimeComponent, MobGrowthComponent, SatiationComponent, MobStateComponent>();
+        while (query.MoveNext(out var uid, out var slime, out var growth, out var satiation, out var mobState))
         {
             if (_timing.CurTime < slime.NextMitosis)
                 continue;
@@ -101,7 +101,7 @@ public sealed partial class SlimeBreedingSystem : EntitySystem
             slime.NextMitosis = _timing.CurTime + slime.MitosisInterval;
             if (!_mobState.IsAlive(uid, mobState) ||
                 growth.CurrentStage == growth.InitialStage ||
-                _hunger.GetHunger(hunger) < slime.MitosisHunger)
+                (_satiation.GetValueOrNull((uid, satiation), SatiationSystem.Hunger) ?? 0f) < slime.MitosisHunger)
                 continue;
 
             candidates.Add(uid);

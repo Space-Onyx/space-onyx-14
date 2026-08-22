@@ -4,6 +4,7 @@ using Content.Server._Onyx.Shuttles.Systems;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Decals;
 using Content.Server.GameTicking;
+using Content.Server.Maps;
 using Content.Server.Parallax;
 using Content.Server.Procedural;
 using Content.Server.Shuttles.Systems;
@@ -39,6 +40,7 @@ public sealed partial class LavalandSystem : EntitySystem
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private MetaDataSystem _metadata = default!;
     [Dependency] private MapLoaderSystem _mapLoader = default!;
+    [Dependency] private MapMigrationSystem _mapMigration = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private ShuttleSystem _shuttle = default!;
     [Dependency] private DockingShuttleSystem _dockingShuttle = default!;

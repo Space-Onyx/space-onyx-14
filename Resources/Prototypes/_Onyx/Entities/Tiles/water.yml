@@ -1,0 +1,9 @@
+- type: entity
+  parent: FloorWaterEntity
+  id: FloorWaterCenterEntity
+  suffix: Center
+  components:
+  - type: Sprite
+    state: water_full
+  - type: IconSmooth
+    mode: NoSprite

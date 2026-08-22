@@ -106,7 +106,7 @@ public sealed partial class PlantAnalyzerSystem : AbstractAnalyzerSystem<PlantAn
                     trayComp.ToxinLevel,
                     trayComp.PestLevel,
                     trayComp.WeedLevel,
-                    trayComp.SoilSolution?.Comp.Solution.Contents.Select(reagent => reagent.Reagent.Prototype).ToList());
+                    trayComp.SoilSolution?.Comp.Solution.Contents.Select(reagent => reagent.Reagent.Prototype.Id).ToList());
             }
         }
 

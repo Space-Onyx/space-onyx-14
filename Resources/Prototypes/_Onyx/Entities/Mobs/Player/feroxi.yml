@@ -3,9 +3,10 @@
   id: MobFeroxi
   name: Urist McFin
   components:
-  - type: Hunger
-  - type: Thirst
-    baseDecayRate: 0.2
+  - type: Satiation
+    satiations:
+      Thirst:
+        prototype: FeroxiThirst
   - type: Speech
     speechSounds: Tenor
     speechVerb: Feroxi

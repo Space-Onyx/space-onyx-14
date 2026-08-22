@@ -147,7 +147,7 @@ public partial class FancyVendingMachineMenu : FancyWindow
         VendingContents.RemoveAllChildren();
 
         var filter = SearchBar.Text;
-        var filtered = _cachedItems.Where(item => DataFilterCondition(filter, item)).ToList(); // <Onyx-VendingMechanicsReview-edited>
+        var filtered = _cachedItems.Where(item => DataFilterCondition(filter, item)).ToList();
 
         if (filtered.All(item => item.Entry.Category == null))
         {
@@ -157,7 +157,7 @@ public partial class FancyVendingMachineMenu : FancyWindow
             return;
         }
 
-        filtered = filtered.OrderBy(item => item.Entry.Order).ToList(); // <Onyx-VendingMechanicsReview>
+        filtered = filtered.OrderBy(item => item.Entry.Order).ToList();
 
         foreach (var category in filtered.Select(item => item.Entry.Category).Distinct())
         {
@@ -201,7 +201,7 @@ public partial class FancyVendingMachineMenu : FancyWindow
         {
             Columns = 6,
             HorizontalExpand = true,
-            HorizontalAlignment = HAlignment.Left, // <Onyx-VendingMechanicsReview-edited>
+            HorizontalAlignment = HAlignment.Left,
         };
     }
 

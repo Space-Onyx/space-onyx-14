@@ -67,9 +67,10 @@
   id: MobRodentia
   name: Urist McRat
   components:
-  - type: Hunger
-    baseDecayRate: 0.0467
-  - type: Thirst
+  - type: Satiation
+    satiations:
+      Hunger:
+        prototype: RodentiaHunger
   - type: Carriable
   - type: Damageable
     damageModifierSet: Rodentia

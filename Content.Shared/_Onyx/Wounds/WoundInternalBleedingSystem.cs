@@ -12,7 +12,7 @@ namespace Content.Shared._Onyx.Wounds;
 /// </summary>
 public sealed partial class WoundInternalBleedingSystem : EntitySystem
 {
-    [Dependency] private SharedBloodstreamSystem _bloodstream = default!;
+    [Dependency] private BloodstreamSystem _bloodstream = default!;
     [Dependency] private INetManager _net = default!;
 
     public override void Initialize()

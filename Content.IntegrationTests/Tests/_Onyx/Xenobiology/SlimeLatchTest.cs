@@ -104,9 +104,9 @@ public sealed class SlimeLatchTest : GameTest
         var target = SSpawn("MobMonkey");
         var latch = SEntMan.System<SlimeLatchSystem>();
         var body = SEntMan.System<SharedBodySystem>();
-        var hungerSystem = SEntMan.System<HungerSystem>();
+        var satiationSystem = SEntMan.System<SatiationSystem>();
         var solutions = SEntMan.System<SharedSolutionContainerSystem>();
-        var hunger = SComp<HungerComponent>(slime);
+        var satiation = SComp<SatiationComponent>(slime);
         var bloodstream = SComp<BloodstreamComponent>(target);
         var stomach = body.GetBodyOrgans(slime)
             .Select(organ => organ.Id)
@@ -131,7 +131,7 @@ public sealed class SlimeLatchTest : GameTest
         solutions.TryAddReagent(blood, "Blood", FixedPoint2.New(10), out _);
         solutions.TryAddReagent(metabolites, "Ethanol", FixedPoint2.New(10), out _);
         solutions.TryAddReagent(temporary, "Water", FixedPoint2.New(10), out _);
-        hungerSystem.SetHunger(slime, 10f, hunger);
+        satiationSystem.SetValue((slime, satiation), SatiationSystem.Hunger, 10f);
 
         latch.Latch((slime, SComp<XenobioSlimeComponent>(slime)), target);
         await RunSeconds(1.1f);
@@ -143,11 +143,11 @@ public sealed class SlimeLatchTest : GameTest
             Assert.That(temporary.Comp.Solution.Volume, Is.LessThan(FixedPoint2.New(10)));
             Assert.That(blood.Comp.Solution.GetTotalPrototypeQuantity("XenobioSlimeToxin"), Is.GreaterThan(FixedPoint2.Zero));
             Assert.That(stomachSolution.Comp.Solution.Volume, Is.EqualTo(FixedPoint2.New(2.5)));
-            Assert.That(hungerSystem.GetHunger(hunger), Is.GreaterThan(10f));
+            Assert.That(satiationSystem.GetValueOrNull((slime, satiation), SatiationSystem.Hunger) ?? 0f, Is.GreaterThan(10f));
         });
 
         var bloodBeforeFullTick = blood.Comp.Solution.Volume;
-        var hungerBeforeFullTick = hungerSystem.GetHunger(hunger);
+        var hungerBeforeFullTick = satiationSystem.GetValueOrNull((slime, satiation), SatiationSystem.Hunger) ?? 0f;
         solutions.TryAddReagent(stomachSolution,
             "Water",
             stomachSolution.Comp.Solution.AvailableVolume,
@@ -157,7 +157,7 @@ public sealed class SlimeLatchTest : GameTest
         Assert.Multiple(() =>
         {
             Assert.That(blood.Comp.Solution.Volume, Is.EqualTo(bloodBeforeFullTick));
-            Assert.That(hungerSystem.GetHunger(hunger), Is.LessThanOrEqualTo(hungerBeforeFullTick));
+            Assert.That(satiationSystem.GetValueOrNull((slime, satiation), SatiationSystem.Hunger) ?? 0f, Is.LessThanOrEqualTo(hungerBeforeFullTick));
         });
     }
 }

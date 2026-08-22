@@ -16,7 +16,7 @@ namespace Content.Shared._Onyx.Wounds;
 public sealed partial class WoundBleedingSystem : EntitySystem
 {
     [Dependency] private SharedBodySystem _body = default!;
-    [Dependency] private SharedBloodstreamSystem _bloodstream = default!;
+    [Dependency] private BloodstreamSystem _bloodstream = default!;
     [Dependency] private IConfigurationManager _configuration = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private INetManager _net = default!;

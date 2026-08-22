@@ -79,6 +79,12 @@ public abstract partial class SharedHandsSystem
 
     private void OnMapInit(Entity<HandsComponent> ent, ref MapInitEvent args)
     {
+        // <Onyx-DeclarativeBodyHands-edited>
+        ent.Comp.SortedHands = ent.Comp.Hands.Keys
+            .OrderBy(handId => ent.Comp.Hands[handId].Location)
+            .ToList();
+        // </Onyx-DeclarativeBodyHands-edited>
+
         foreach (var (handId, hand) in ent.Comp.StartingHands)
             AddHand(ent.AsNullable(), handId, hand);
 

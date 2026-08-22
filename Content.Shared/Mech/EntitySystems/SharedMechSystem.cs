@@ -5,6 +5,7 @@ using Content.Shared.DoAfter;
 using Content.Shared.FixedPoint;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Components;
+using Content.Shared.Light.Components;
 using Content.Shared.Mech.Components;
 using Content.Shared.Mech.Equipment.Components;
 using Content.Shared.Popups;
@@ -40,7 +41,7 @@ public abstract partial class SharedMechSystem : EntitySystem
     [Dependency] private EntityWhitelistSystem _whitelistSystem = default!;
 
     [SubscribeLocalEvent]
-    private void OnToggleEquipmentAction(EntityUid uid, MechComponent component, MechToggleEquipmentEvent args)
+    protected virtual void OnToggleEquipmentAction(EntityUid uid, MechComponent component, MechToggleEquipmentEvent args) // <Onyx-MechEquipmentSelector-edited>
     {
         if (args.Handled)
             return;
@@ -134,6 +135,10 @@ public abstract partial class SharedMechSystem : EntitySystem
         _actions.AddAction(pilot, ref component.MechCycleActionEntity, component.MechCycleAction, mech);
         _actions.AddAction(pilot, ref component.MechUiActionEntity, component.MechUiAction, mech);
         _actions.AddAction(pilot, ref component.MechEjectActionEntity, component.MechEjectAction, mech);
+        // <Onyx-MechLights>
+        if (TryComp<UnpoweredFlashlightComponent>(mech, out var flashlight))
+            _actions.AddAction(pilot, ref flashlight.ToggleActionEntity, flashlight.ToggleAction, mech);
+        // </Onyx-MechLights>
     }
 
     private void RemoveUser(EntityUid mech, EntityUid pilot)

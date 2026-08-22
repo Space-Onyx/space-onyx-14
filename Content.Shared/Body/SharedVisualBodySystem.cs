@@ -98,7 +98,7 @@ public abstract partial class SharedVisualBodySystem : EntitySystem
     public void ApplyOrganMarkings(EntityUid organ, Dictionary<HumanoidVisualLayers, List<Marking>> markings)
     {
         if (TryComp(organ, out VisualOrganMarkingsComponent? visual))
-            SetOrganMarkings((organ, visual), markings);
+            SetOrganMarkings((organ, visual), markings, visual.MarkingsDisplacement);
     }
     // </Onyx-VisualOrganActivity>
 

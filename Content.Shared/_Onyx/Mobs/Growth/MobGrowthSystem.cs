@@ -12,7 +12,7 @@ namespace Content.Shared._Onyx.Mobs.Growth;
 public sealed partial class MobGrowthSystem : EntitySystem
 {
     [Dependency] private IGameTiming _timing = default!;
-    [Dependency] private HungerSystem _hunger = default!;
+    [Dependency] private SatiationSystem _satiation = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private MetaDataSystem _metaData = default!;
     [Dependency] private MobStateSystem _mobState = default!;
@@ -55,8 +55,8 @@ public sealed partial class MobGrowthSystem : EntitySystem
         if (_net.IsClient)
             return;
 
-        var query = EntityQueryEnumerator<MobGrowthComponent, HungerComponent, MobStateComponent>();
-        while (query.MoveNext(out var uid, out var growth, out var hunger, out var mobState))
+        var query = EntityQueryEnumerator<MobGrowthComponent, SatiationComponent, MobStateComponent>();
+        while (query.MoveNext(out var uid, out var growth, out var satiation, out var mobState))
         {
             if (_timing.CurTime < growth.NextGrowth)
                 continue;
@@ -66,20 +66,22 @@ public sealed partial class MobGrowthSystem : EntitySystem
             if (!_mobState.IsAlive(uid, mobState))
                 continue;
 
-            TryGrow((uid, growth), hunger);
+            TryGrow((uid, growth), satiation);
         }
     }
 
-    public bool TryGrow(Entity<MobGrowthComponent> ent, HungerComponent? hunger = null)
+    public bool TryGrow(Entity<MobGrowthComponent> ent, SatiationComponent? satiation = null)
     {
         if (_net.IsClient ||
             TerminatingOrDeleted(ent) ||
             !TryComp<MobStateComponent>(ent, out var mobState) ||
             !_mobState.IsAlive(ent.Owner, mobState) ||
-            !Resolve(ent.Owner, ref hunger, false))
+            !Resolve(ent.Owner, ref satiation, false))
             return false;
 
-        if (_hunger.GetHunger(hunger) < ent.Comp.HungerRequired ||
+        var hungerValue = _satiation.GetValueOrNull((ent.Owner, satiation), SatiationSystem.Hunger);
+        if (hungerValue == null ||
+            hungerValue.Value < ent.Comp.HungerRequired ||
             !ent.Comp.Stages.TryGetValue(ent.Comp.CurrentStage, out var current) ||
             current.NextStage is not { } nextStage ||
             !ent.Comp.Stages.ContainsKey(nextStage))
@@ -88,7 +90,7 @@ public sealed partial class MobGrowthSystem : EntitySystem
         }
 
         var oldStage = ent.Comp.CurrentStage;
-        _hunger.ModifyHunger(ent.Owner, -ent.Comp.HungerCost, hunger);
+        _satiation.ModifyValue((ent.Owner, satiation), SatiationSystem.Hunger, -ent.Comp.HungerCost);
         ent.Comp.CurrentStage = nextStage;
         DirtyField(ent.Owner, ent.Comp, nameof(MobGrowthComponent.CurrentStage));
         ApplyStage(ent);

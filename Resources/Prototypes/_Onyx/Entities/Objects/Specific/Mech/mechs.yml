@@ -6,6 +6,8 @@
   - type: Mech
     equipmentWhitelist:
       tags: [ CombatMech ]
+  - type: VehicleHandBlocker
+    blockedHands: 2
 
 - type: entity
   id: IndustrialMech
@@ -15,6 +17,8 @@
   - type: Mech
     equipmentWhitelist:
       tags: [ IndustrialMech ]
+  - type: VehicleHandBlocker
+    blockedHands: 2
 
 - type: entity
   id: SpecialMech
@@ -24,6 +28,8 @@
   - type: Mech
     equipmentWhitelist:
       tags: [ SpecialMech ]
+  - type: VehicleHandBlocker
+    blockedHands: 2
 
 - type: entity
   id: SmallMech

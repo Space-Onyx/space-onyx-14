@@ -63,48 +63,30 @@
       - Unimplantable
       - SiliconEmotes
     removedComponents:
-    - type: Destructible
-    - type: SurgeryTarget
-    - type: Deathgasp
-    - type: Polymorphable
-    - type: HealthExaminable
-      examinableTypes:
-      - Shock
-    - type: Temperature
-    - type: TemperatureDamage
-    - type: AtmosExposed
-    - type: MovedByPressure
-    - type: ThermalRegulator
-    - type: SSDIndicator
-    - type: Flammable
-      damage:
-        types:
-          Heat: 0
-    - type: FireVisuals
-    - type: Respirator
-      damage:
-        types:
-          Asphyxiation: 0
-      damageRecovery:
-        types:
-          Asphyxiation: 0
-    - type: Internals
-    - type: Bloodstream
-      bloodlossDamage:
-        types:
-          Bloodloss: 0
-      bloodlossHealDamage:
-        types:
-          Bloodloss: 0
-    - type: InjectableSolution
-    - type: SolutionContainerManager
-    - type: Dna
-    - type: Fingerprint
-    - type: Perishable
-    - type: Hunger
-    - type: Thirst
-    - type: FootprintOwner
-    - type: ItemSlots
+    - Destructible
+    - SurgeryTarget
+    - Deathgasp
+    - Polymorphable
+    - HealthExaminable
+    - Temperature
+    - TemperatureDamage
+    - AtmosExposed
+    - MovedByPressure
+    - ThermalRegulator
+    - SSDIndicator
+    - Flammable
+    - FireVisuals
+    - Respirator
+    - Internals
+    - Bloodstream
+    - InjectableSolution
+    - SolutionContainerManager
+    - Dna
+    - Fingerprint
+    - Perishable
+    - Satiation
+    - FootprintOwner
+    - ItemSlots
 
 - type: entity
   parent: [ ClothingBeltBaseCloneProjector, BaseGrandTheftContraband ]
@@ -122,7 +104,7 @@
       components:
       - Clothing
     removedComponents:
-    - type: CanHostGuardian
+    - CanHostGuardian
     userBlacklist:
       components:
       - Zombie

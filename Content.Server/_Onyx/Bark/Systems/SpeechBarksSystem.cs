@@ -6,6 +6,7 @@ using Robust.Shared.Configuration;
 using Content.Shared._Onyx.CCVar;
 using Content.Server.Mind;
 using Content.Server.Radio;
+using Content.Shared.Radio;
 using Content.Shared.Radio.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Audio;

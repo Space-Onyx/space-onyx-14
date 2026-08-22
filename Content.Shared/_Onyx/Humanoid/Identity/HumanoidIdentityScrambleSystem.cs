@@ -11,7 +11,7 @@ namespace Content.Shared._Onyx.Humanoid.Identity;
 
 public sealed partial class HumanoidIdentityScrambleSystem : EntitySystem
 {
-    [Dependency] private SharedForensicsSystem _forensics = default!;
+    [Dependency] private ForensicsSystem _forensics = default!;
     [Dependency] private HumanoidProfileSystem _humanoidProfile = default!;
     [Dependency] private IdentitySystem _identity = default!;
     [Dependency] private MetaDataSystem _metaData = default!;

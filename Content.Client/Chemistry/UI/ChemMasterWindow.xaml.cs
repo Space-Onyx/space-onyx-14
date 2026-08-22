@@ -422,7 +422,7 @@ namespace Content.Client.Chemistry.UI
                 return true;
 
             return reagentName.Contains(_reagentSearch, StringComparison.OrdinalIgnoreCase)
-                   || reagentId.Prototype.Contains(_reagentSearch, StringComparison.OrdinalIgnoreCase);
+                   || reagentId.Prototype.Id.Contains(_reagentSearch, StringComparison.OrdinalIgnoreCase);
         }
         // </Onyx-Search>
 

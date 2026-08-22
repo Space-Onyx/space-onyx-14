@@ -1,7 +1,11 @@
 using System.Linq;
 using Content.Shared.Actions;
+using Content.Shared.Buckle;
 using Content.Shared.Buckle.Components;
+using Content.Shared.Clumsy.Components;
 using Content.Shared.Humanoid;
+using Content.Shared.Popups;
+using Content.Shared.StatusEffectNew;
 using Content.Shared.Stunnable;
 using Content.Shared.Vehicle.Components;
 using Content.Shared.Whitelist;
@@ -38,12 +42,15 @@ public sealed partial class ClowncarSystem : EntitySystem
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedContainerSystem _containers = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private StatusEffectsSystem _statusEffects = default!;
     [Dependency] private EntityWhitelistSystem _whitelist = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<ClowncarComponent, ComponentInit>(OnInit);
+        SubscribeLocalEvent<ClowncarComponent, StrapAttemptEvent>(OnStrapAttempt, before: [typeof(SharedBuckleSystem)]);
         SubscribeLocalEvent<ClowncarComponent, ContainerIsInsertingAttemptEvent>(OnInsertAttempt);
         SubscribeLocalEvent<ClowncarComponent, EntInsertedIntoContainerMessage>(OnInserted);
         SubscribeLocalEvent<ClowncarComponent, EntRemovedFromContainerMessage>(OnRemoved);
@@ -57,6 +64,16 @@ public sealed partial class ClowncarSystem : EntitySystem
     private void OnInit(Entity<ClowncarComponent> ent, ref ComponentInit args)
     {
         _containers.EnsureContainer<Container>(ent, ent.Comp.Container);
+    }
+
+    private void OnStrapAttempt(Entity<ClowncarComponent> ent, ref StrapAttemptEvent args)
+    {
+        if (_statusEffects.HasEffectComp<ClumsyCatchStatusEffectComponent>(args.Buckle))
+            return;
+
+        args.Cancelled = true;
+        if (args.Popup && args.User != null)
+            _popup.PopupClient(Loc.GetString("buckle-component-cannot-fit-message"), ent, args.User.Value);
     }
 
     private void OnInsertAttempt(Entity<ClowncarComponent> ent, ref ContainerIsInsertingAttemptEvent args)

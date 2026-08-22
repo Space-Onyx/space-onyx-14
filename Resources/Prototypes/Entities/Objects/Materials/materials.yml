@@ -468,19 +468,21 @@
     materialComposition:
       Bananium: 150
   - type: Sprite
-    sprite: Objects/Materials/bananium.rsi
-    state: bananium-3
-    sprite: _Onyx/Objects/Materials/refined_ores.rsi
-    state: bananium_1    layers:
-    - state: bananium-3      map: [ "base" ]
+    sprite: _Onyx/Objects/Materials/refined_ores.rsi # <Onyx-MaterialSprites-edited>
+    state: bananium_1 # <Onyx-MaterialSprites-edited>
+    layers:
+    - state: bananium_1 # <Onyx-MaterialSprites-edited>
+      map: [ "base" ]
   - type: Stack
     stackType: Bananium
     count: 10
     baseLayer: base
     layerStates:
-    - bananium-1
-    - bananium-2
-    - bananium-3  - type: FlavorProfile
+    # <Onyx-MaterialSprites-edited>
+    - bananium
+    - bananium_1
+    # </Onyx-MaterialSprites-edited>
+  - type: FlavorProfile
     flavors:
     - banana
   - type: Edible
@@ -506,7 +508,6 @@
         Quantity: 5
   - type: Item
     heldPrefix: bananium
-    sprite: Objects/Materials/bananium.rsi
 
 - type: entity
   parent: MaterialBananium
@@ -514,7 +515,7 @@
   suffix: Single
   components:
   - type: Sprite
-    state: bananium-1
+    state: bananium # <Onyx-MaterialSprites-edited>
   - type: Stack
     count: 1
 

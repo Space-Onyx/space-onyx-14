@@ -17,7 +17,7 @@
 
 ### ASTRO TILES
 - type: tile
-  parent: [ BaseStationTile, FloorDesert ]
+  parent: BaseStationTile # <Onyx-DesertAstroSandEdges-edited>
   id: FloorDesertAstroSand
   name: tiles-desert-astro-sand
   sprite: /Textures/Tiles/Desert/desert.png

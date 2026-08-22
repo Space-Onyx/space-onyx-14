@@ -24,6 +24,8 @@ public sealed partial class LavalandBiomeWarmupSystem : EntitySystem
         if (!TryComp<BiomeComponent>(ent, out var biome))
             return;
 
+        _biome.PinTerrainArea(ent, ent.Comp.WarmupArea);
+
         var chunks = new List<(ProtoId<BiomeMarkerLayerPrototype> Layer, Vector2i Chunk, float Distance)>();
         foreach (var layer in biome.MarkerLayers)
         {

@@ -53,8 +53,6 @@ public sealed partial class AutosurgeonSystem : EntitySystem
         if (!_doAfter.TryStartDoAfter(doAfter) || _net.IsClient)
             return;
 
-        var dna = new TransferDnaEvent { Donor = user, Recipient = ent };
-        RaiseLocalEvent(user, ref dna);
         ent.Comp.ActiveSound = _audio.PlayPvs(ent.Comp.Sound, ent)?.Entity;
     }
 

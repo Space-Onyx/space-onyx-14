@@ -235,7 +235,8 @@
   # <Onyx-CosmicCult>
   - type: CosmicCorruptible
     convertTo: CosmicChair
-  # </Onyx-CosmicCult>  - type: Destructible
+  # </Onyx-CosmicCult>
+  - type: Destructible
     thresholds: *ThresholdsFurnitureNormalSteel
 
 - type: entity
@@ -254,7 +255,8 @@
   # <Onyx-CosmicCult>
   - type: CosmicCorruptible
     convertTo: CosmicChair
-  # </Onyx-CosmicCult>  - type: Destructible
+  # </Onyx-CosmicCult>
+  - type: Destructible
     thresholds: *ThresholdsFurnitureNormalSteel
 
 - type: entity

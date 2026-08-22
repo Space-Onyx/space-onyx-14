@@ -50,7 +50,7 @@ public sealed partial class ModModuleToolSystem : EntitySystem
     private void OnHolster(Entity<ModModuleHolsterComponent> module, ref ModModuleHolsterEvent args)
     {
         if (args.Handled || !TryController(module.Owner, args.Performer, out var controller, out var framework) ||
-            !_slots.TryGetSlot(module, module.Comp.ContainerId, out var slot))
+            !_slots.TryGetSlot(module.Owner, module.Comp.ContainerId, out var slot))
             return;
         if (slot.Item is { } stored)
         {

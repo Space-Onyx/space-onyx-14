@@ -6,8 +6,10 @@ using System.Linq;
 using Content.Shared._Onyx.Religion;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
+using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Inventory;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._Onyx.Religion;
 
@@ -17,7 +19,7 @@ public sealed partial class WeakToHolySystem : EntitySystem
 
     private static readonly DamageModifierSet BlockHoly = new()
     {
-        Coefficients = new Dictionary<string, float> { ["Holy"] = 0f },
+        Coefficients = new Dictionary<ProtoId<DamageTypePrototype>, float> { [new ProtoId<DamageTypePrototype>("Holy")] = 0f },
     };
 
     public override void Initialize()

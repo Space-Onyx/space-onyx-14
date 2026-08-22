@@ -64,7 +64,7 @@ public sealed partial class RoboticsConsoleSystem
             !ent.Comp.LawUploadTargets.TryGetValue(args.Address, out var target) ||
             !IsValidTarget(ent, target) ||
             !TryComp<SiliconLawProviderComponent>(target, out var targetProvider) ||
-            !_slots.TryGetSlot(ent, ent.Comp.LawboardSlot, out var slot) ||
+            !_slots.TryGetSlot(ent.Owner, ent.Comp.LawboardSlot, out var slot) ||
             slot.Item is not { } board ||
             !HasComp<ItemComponent>(board) ||
             !TryComp<SiliconLawProviderComponent>(board, out var boardProvider))
@@ -101,7 +101,7 @@ public sealed partial class RoboticsConsoleSystem
     private bool HasLawboard(Entity<RoboticsConsoleComponent> ent)
     {
         return ent.Comp.AllowLawUpload &&
-               _slots.TryGetSlot(ent, ent.Comp.LawboardSlot, out var slot) &&
+               _slots.TryGetSlot(ent.Owner, ent.Comp.LawboardSlot, out var slot) &&
                slot.Item is { } board &&
                HasComp<SiliconLawProviderComponent>(board);
     }

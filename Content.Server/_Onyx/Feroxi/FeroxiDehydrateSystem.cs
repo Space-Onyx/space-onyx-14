@@ -3,6 +3,7 @@ using Content.Shared.Body.Components;
 using Content.Shared.Body.Systems;
 using Content.Shared.Metabolism;
 using Content.Shared.Nutrition.Components;
+using Content.Shared.Nutrition.EntitySystems;
 
 namespace Content.Server._Onyx.Feroxi;
 
@@ -10,12 +11,16 @@ public sealed partial class FeroxiDehydrateSystem : EntitySystem
 {
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private MetabolizerSystem _metabolizer = default!;
+    [Dependency] private SatiationSystem _satiation = default!;
 
     public override void Update(float frameTime)
     {
-        var query = EntityQueryEnumerator<FeroxiDehydrateComponent, ThirstComponent>();
-        while (query.MoveNext(out var uid, out var dehydrate, out var thirst))
-            SetDehydrated((uid, dehydrate), thirst.CurrentThirst <= dehydrate.DehydrationThreshold);
+        var query = EntityQueryEnumerator<FeroxiDehydrateComponent, SatiationComponent>();
+        while (query.MoveNext(out var uid, out var dehydrate, out var satiation))
+        {
+            var thirstValue = _satiation.GetValueOrNull((uid, satiation), SatiationSystem.Thirst) ?? 0f;
+            SetDehydrated((uid, dehydrate), thirstValue <= dehydrate.DehydrationThreshold);
+        }
     }
 
     private void SetDehydrated(Entity<FeroxiDehydrateComponent> ent, bool dehydrated)

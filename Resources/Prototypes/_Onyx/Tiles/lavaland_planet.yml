@@ -2,7 +2,7 @@
 - type: tile
   id: FloorBasaltLavaland
   name: tiles-basalt-floor-planetmap
-  sprite: /Textures/Tiles/Planet/basalt.png
+  sprite: /Textures/Tiles/Cave/cave.png
   isSubfloor: true
   footstepSounds:
     collection: FootstepAsteroid

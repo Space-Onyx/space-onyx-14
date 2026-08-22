@@ -134,7 +134,8 @@
       tableId: ToiletFishingLootTable
     fishDefaultTimer: 45.0
     fishTimerVariety: 15.0
-  # </Onyx-Fishing>  - type: Destructible
+  # </Onyx-Fishing>
+  - type: Destructible
     thresholds:
     - trigger:
         !type:DamageTrigger

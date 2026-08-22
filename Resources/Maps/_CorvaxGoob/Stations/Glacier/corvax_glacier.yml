@@ -251948,7 +251948,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -23.5,19.5
       parent: 2
-- proto: PlasmaWindoorSecureSyndicateLocked
+- proto: PlasmaWindoorSyndicateLocked # <Onyx-WindoorMigration-edited>
   entities:
   - uid: 54460
     components:

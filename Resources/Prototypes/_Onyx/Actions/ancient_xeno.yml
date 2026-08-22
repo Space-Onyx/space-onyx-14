@@ -11,3 +11,33 @@
     layers:
     - state: icon
       map: ["enum.ActionVisuals.Icon"]
+
+- type: entity
+  parent: BaseAction
+  id: ActionRogueTailDash
+  name: Rogue tail dash
+  description: Teleport to a visible location while holding the rogue king's tail.
+  components:
+  - type: Action
+    useDelay: 1.5
+    itemIconStyle: NoItem
+    sound:
+      path: /Audio/Magic/blink.ogg
+  - type: Sprite
+    sprite: Objects/Magic/magicactions.rsi
+    layers:
+    - state: blink
+  - type: TargetAction
+    checkCanAccess: false
+    range: 0
+  - type: WorldTargetAction
+    event: !type:TeleportActionEvent
+      stopBeingPulled: true
+      stopPulling: true
+  - type: ActionProviderHeld
+    onFailPopup: dash-ability-not-held
+  - type: LimitedCharges
+    maxCharges: 1
+    onFailPopup: limited-charges-no-charges
+  - type: AutoRecharge
+    rechargeDuration: 1.5

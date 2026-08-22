@@ -86,6 +86,4 @@
     damage:
       types:
         Heat: 1
-  - type: Hunger
-  - type: Thirst
 # Corvax-Goob-GreySpecies-end

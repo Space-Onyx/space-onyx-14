@@ -21,5 +21,6 @@ public sealed partial class BiomeRuntimeOptimizationComponent : Component
     [DataField]
     public float UnloadDelay = 10f;
 
+    public readonly HashSet<Vector2i> PinnedChunks = new();
     public readonly Dictionary<Vector2i, float> InactiveChunks = new();
 }

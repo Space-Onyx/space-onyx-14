@@ -668,7 +668,7 @@ public sealed partial class BlobCoreSystem : EntitySystem
 
         try
         {
-            if (!_storeSystem.TryAddCurrency(new Dictionary<string, FixedPoint2>
+            if (!_storeSystem.TryAddCurrency(new Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2>
                 {
                     { BlobMoney, amount }
                 },
@@ -718,7 +718,7 @@ public sealed partial class BlobCoreSystem : EntitySystem
                 return false;
             }
 
-            if (!_storeSystem.TryAddCurrency(new Dictionary<string, FixedPoint2> { { BlobMoney, -abilityCost } }, core, store))
+            if (!_storeSystem.TryAddCurrency(new Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> { { BlobMoney, -abilityCost } }, core, store))
                 return false;
 
             UpdateAllAlerts(core, store);

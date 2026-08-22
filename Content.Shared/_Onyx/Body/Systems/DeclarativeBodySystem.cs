@@ -3,6 +3,7 @@ using Content.Shared._Onyx.Body;
 using Content.Shared.Body;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
+using Content.Shared.Hands.EntitySystems;
 using System.Linq;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
@@ -21,7 +22,10 @@ public sealed partial class DeclarativeBodySystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<DeclarativeBodyComponent, MapInitEvent>(OnMapInit, before: [typeof(InitialBodySystem)]);
+        SubscribeLocalEvent<DeclarativeBodyComponent, MapInitEvent>(
+            OnMapInit,
+            before: [typeof(InitialBodySystem)],
+            after: [typeof(SharedHandsSystem)]);
     }
 
     private void OnMapInit(Entity<DeclarativeBodyComponent> entity, ref MapInitEvent args)

@@ -66,12 +66,4 @@ public sealed partial class MechSystem
         UpdateUserInterface(uid, component);
     }
 
-    private bool CanEnterPoweredMech(EntityUid uid, EntityUid user, MechComponent component)
-    {
-        if (component.Energy > 0)
-            return true;
-
-        _popup.PopupEntity(Loc.GetString("mech-unpowered-entry-denied"), uid, user);
-        return false;
-    }
 }

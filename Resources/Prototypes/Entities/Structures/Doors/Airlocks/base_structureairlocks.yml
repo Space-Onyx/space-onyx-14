@@ -180,11 +180,6 @@
     - board
   - type: PlacementReplacement
     key: walls
-  # <Onyx-AirlockWallSmoothing>
-  - type: IconSmooth
-    key: walls
-    mode: NoSprite
-  # </Onyx-AirlockWallSmoothing>
   - type: Paintable
     group: AirlockStandard
   - type: StaticPrice

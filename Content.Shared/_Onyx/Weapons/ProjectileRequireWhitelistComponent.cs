@@ -10,6 +10,9 @@ public sealed partial class ProjectileRequireWhitelistComponent : Component
     public EntityWhitelist? Whitelist;
 
     [DataField, AutoNetworkedField]
+    public bool RequireClumsy;
+
+    [DataField, AutoNetworkedField]
     public bool CollideWithWalls = true;
 
     [DataField, AutoNetworkedField]
