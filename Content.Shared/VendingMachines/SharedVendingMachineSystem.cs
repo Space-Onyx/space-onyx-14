@@ -145,9 +145,10 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return new();
 
-        return GetAllInventory(uid, component).Where(entry => component.InfiniteStock || entry.Amount > 0).ToList();
+        return GetAllInventory(uid, component).Where(entry => component.InfiniteStock || entry.Amount > 0).ToList(); // <Onyx-VendingCatalog-edited>
     }
 
+    // <Onyx-VendingCatalog-edited>
     public void RestockInventoryFromPrototype(EntityUid uid,
         VendingMachineComponent? component = null,
         float restockQuality = 1f)
@@ -162,8 +163,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         Dirty(uid, component);
     }
 
-    private void AddInventoryFromPrototype(EntityUid uid,
-        Dictionary<string, uint>? entries,
+    private void AddInventoryFromPrototype(EntityUid uid, Dictionary<EntProtoId, uint>? entries,
         InventoryType type,
         VendingMachineInventoryPrototype pack,
         VendingMachineComponent? component,
@@ -216,4 +216,5 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
             order++;
         }
     }
+    // </Onyx-VendingCatalog-edited>
 }

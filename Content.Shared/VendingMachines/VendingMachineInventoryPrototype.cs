@@ -1,5 +1,4 @@
-﻿using Robust.Shared.Prototypes;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared.VendingMachines;
 
@@ -10,23 +9,23 @@ public sealed partial class VendingMachineInventoryPrototype : IPrototype
     [IdDataField]
     public string ID { get; private set; } = default!;
 
-    [DataField(customTypeSerializer:typeof(PrototypeIdDictionarySerializer<uint, EntityPrototype>))]
-    public Dictionary<string, uint> StartingInventory { get; private set; } = new();
+    [DataField]
+    public Dictionary<EntProtoId, uint> StartingInventory { get; private set; } = new();
 
-    [DataField(customTypeSerializer:typeof(PrototypeIdDictionarySerializer<uint, EntityPrototype>))]
-    public Dictionary<string, uint>? EmaggedInventory { get; private set; }
+    [DataField]
+    public Dictionary<EntProtoId, uint>? EmaggedInventory { get; private set; }
 
-    [DataField(customTypeSerializer:typeof(PrototypeIdDictionarySerializer<uint, EntityPrototype>))]
-    public Dictionary<string, uint>? ContrabandInventory { get; private set; }
+    [DataField]
+    public Dictionary<EntProtoId, uint>? ContrabandInventory { get; private set; }
 
-    [DataField(customTypeSerializer:typeof(PrototypeIdDictionarySerializer<int, EntityPrototype>))]
-    public Dictionary<string, int> Prices { get; private set; } = new();
+    [DataField] // <Onyx-VendingCatalog>
+    public Dictionary<EntProtoId, int> Prices { get; private set; } = new();
 
     // <Onyx-SalvageVendorCatalog>
-    [DataField(customTypeSerializer:typeof(PrototypeIdDictionarySerializer<string, EntityPrototype>))]
-    public Dictionary<string, string> Categories { get; private set; } = new();
+    [DataField]
+    public Dictionary<EntProtoId, string> Categories { get; private set; } = new();
 
-    [DataField(customTypeSerializer:typeof(PrototypeIdDictionarySerializer<string, EntityPrototype>))]
-    public Dictionary<string, string> OverrideNames { get; private set; } = new();
+    [DataField]
+    public Dictionary<EntProtoId, string> OverrideNames { get; private set; } = new();
     // </Onyx-SalvageVendorCatalog>
 }

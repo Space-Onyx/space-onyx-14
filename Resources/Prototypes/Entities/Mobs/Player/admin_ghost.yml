@@ -37,7 +37,7 @@
     canInteract: true
   - type: GhostHearing
   - type: Hands
-    hands:
+    startingHands:
       hand_right:
         location: Right
       hand_left:

@@ -87,7 +87,7 @@ namespace Content.Shared.Damage
         public DamageSpecifier(DamageSpecifier damageSpec)
         {
             DamageDict = new(damageSpec.DamageDict);
-            ArmorPenetration = damageSpec.ArmorPenetration; // <ArmorPenetration>
+            ArmorPenetration = damageSpec.ArmorPenetration; // <Onyx-ArmorPenetration>
         }
 
         /// <summary>
@@ -132,8 +132,8 @@ namespace Content.Shared.Damage
             var penetration = float.IsFinite(damageSpec.ArmorPenetration)
                 ? Math.Clamp(damageSpec.ArmorPenetration, 0f, 1f)
                 : 0f;
-            DamageSpecifier newDamage = new(damageSpec); // <ArmorPenetration-edited>
-            newDamage.DamageDict.Clear(); // <ArmorPenetration>
+            DamageSpecifier newDamage = new(damageSpec); // <Onyx-ArmorPenetration-edited>
+            newDamage.DamageDict.Clear(); // <Onyx-ArmorPenetration>
             newDamage.DamageDict.EnsureCapacity(damageSpec.DamageDict.Count);
 
             foreach (var (key, value) in damageSpec.DamageDict)
@@ -149,13 +149,13 @@ namespace Content.Shared.Damage
 
                 float newValue = value.Float();
 
-                if (modifierSet.FlatReduction.TryGetValue(key, out var reduction))
-                    newValue = Math.Max(0f, newValue - reduction * (1f - penetration)); // <ArmorPenetration-edited>
+                if (modifierSet.FlatReductions.TryGetValue(key, out var reduction))
+                    newValue = Math.Max(0f, newValue - reduction * (1f - penetration)); // <Onyx-ArmorPenetration-edited>
 
                 if (modifierSet.Coefficients.TryGetValue(key, out var coefficient))
                     newValue *= coefficient is > 0 and < 1
                         ? MathF.Pow(coefficient, 1f - penetration)
-                        : coefficient; // <ArmorPenetration-edited>
+                        : coefficient; // <Onyx-ArmorPenetration-edited>
 
                 if (newValue != 0)
                     newDamage.DamageDict[key] = FixedPoint2.New(newValue);

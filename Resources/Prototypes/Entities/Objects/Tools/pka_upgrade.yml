@@ -34,8 +34,11 @@
     tags: [ GunUpgradeDamage ]
     examineText: gun-upgrade-examine-text-damage
   - type: GunUpgradeDamage
+    damage:
+      types:
+        Blunt: 10
+        Structural: 10
     modifier: 1.25 # Onyx: Goob tuning.
-
 - type: entity
   id: PKAUpgradeRange
   parent: BasePKAUpgrade

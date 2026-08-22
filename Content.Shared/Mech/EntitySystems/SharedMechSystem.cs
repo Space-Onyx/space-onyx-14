@@ -1,20 +1,19 @@
 using System.Linq;
-using Content.Shared.ActionBlocker;
 using Content.Shared.Actions;
 using Content.Shared.Destructible;
 using Content.Shared.DoAfter;
-using Content.Shared.DragDrop;
 using Content.Shared.FixedPoint;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Components;
 using Content.Shared.Mech.Components;
 using Content.Shared.Mech.Equipment.Components;
-using Content.Shared._Onyx.Mech;
-using Content.Shared.Light.Components;
 using Content.Shared.Popups;
 using Content.Shared.Storage.Components;
+using Content.Shared.Vehicle;
 using Content.Shared.Vehicle.Systems;
 using Content.Shared.Vehicle.Components;
+using Content.Shared.Verbs;
+using Content.Shared._Onyx.Mech; // <Onyx-Mech>
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Whitelist;
 using Robust.Shared.Containers;
@@ -31,20 +30,22 @@ public abstract partial class SharedMechSystem : EntitySystem
 {
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private INetManager _net = default!;
-    [Dependency] private ActionBlockerSystem _actionBlocker = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedInteractionSystem _interaction = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
-    [Dependency] private SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private SharedUserInterfaceSystem _userInterface = default!;
     [Dependency] protected VehicleSystem Vehicle = default!;
     [Dependency] private EntityWhitelistSystem _whitelistSystem = default!;
 
-    public override void Initialize()
+    [SubscribeLocalEvent]
+    private void OnToggleEquipmentAction(EntityUid uid, MechComponent component, MechToggleEquipmentEvent args)
     {
-        base.Initialize();
-        InitializeMechLifecycle();
+        if (args.Handled)
+            return;
+        args.Handled = true;
+        CycleEquipment(uid);
     }
 
     [SubscribeLocalEvent]
@@ -53,7 +54,32 @@ public abstract partial class SharedMechSystem : EntitySystem
         if (args.Handled)
             return;
         args.Handled = true;
-        TryEject(uid, component, forced: true);
+        Vehicle.TryExit(uid);
+    }
+
+    [SubscribeLocalEvent]
+    private void OnOpenUi(EntityUid uid, MechComponent component, MechOpenUiEvent args)
+    {
+        args.Handled = true;
+        ToggleMechUi(uid, component);
+    }
+
+    [SubscribeLocalEvent]
+    private void OnAlternativeVerb(EntityUid uid, MechComponent component, GetVerbsEvent<AlternativeVerb> args)
+    {
+        if (!args.CanAccess ||
+            !args.CanInteract ||
+            component.Broken ||
+            Vehicle.HasOperator(uid))
+            return;
+
+        var openUiVerb = new AlternativeVerb
+        {
+            Act = () => ToggleMechUi(uid, component, args.User),
+            Text = Loc.GetString("mech-ui-open-verb")
+        };
+
+        args.Verbs.Add(openUiVerb);
     }
 
     [SubscribeLocalEvent]
@@ -75,7 +101,6 @@ public abstract partial class SharedMechSystem : EntitySystem
     [SubscribeLocalEvent]
     private void OnStartup(EntityUid uid, MechComponent component, ComponentStartup args)
     {
-        component.PilotSlot = _container.EnsureContainer<ContainerSlot>(uid, component.PilotSlotId);
         component.EquipmentContainer = _container.EnsureContainer<Container>(uid, component.EquipmentContainerId);
         component.BatterySlot = _container.EnsureContainer<ContainerSlot>(uid, component.BatterySlotId);
         UpdateAppearance(uid, component);
@@ -109,15 +134,10 @@ public abstract partial class SharedMechSystem : EntitySystem
         _actions.AddAction(pilot, ref component.MechCycleActionEntity, component.MechCycleAction, mech);
         _actions.AddAction(pilot, ref component.MechUiActionEntity, component.MechUiAction, mech);
         _actions.AddAction(pilot, ref component.MechEjectActionEntity, component.MechEjectAction, mech);
-        if (TryComp<UnpoweredFlashlightComponent>(mech, out var flashlight))
-            _actions.AddAction(pilot, ref flashlight.ToggleActionEntity, flashlight.ToggleAction, mech);
     }
 
     private void RemoveUser(EntityUid mech, EntityUid pilot)
     {
-        if (TryComp<MechComponent>(mech, out var mechComp))
-            CancelEquipmentShooting(mechComp.CurrentSelectedEquipment);
-
         RemComp<InteractionRelayComponent>(pilot);
         _actions.RemoveProvidedActions(pilot, mech);
     }
@@ -132,7 +152,7 @@ public abstract partial class SharedMechSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return;
 
-        TryEject(uid, component);
+        Vehicle.TryExit(uid);
         var equipment = new List<EntityUid>(component.EquipmentContainer.ContainedEntities);
         foreach (var ent in equipment)
         {
@@ -153,7 +173,6 @@ public abstract partial class SharedMechSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return;
 
-        CancelEquipmentShooting(component.CurrentSelectedEquipment);
         var allEquipment = component.EquipmentContainer.ContainedEntities.ToList();
 
         var equipmentIndex = -1;
@@ -200,11 +219,8 @@ public abstract partial class SharedMechSystem : EntitySystem
         if (_whitelistSystem.IsWhitelistFail(component.EquipmentWhitelist, toInsert))
             return;
 
-        if (!_container.Insert(toInsert, component.EquipmentContainer))
-            return;
-
         equipmentComponent.EquipmentOwner = uid;
-        Dirty(toInsert, equipmentComponent);
+        _container.Insert(toInsert, component.EquipmentContainer);
         var ev = new MechEquipmentInsertedEvent(uid);
         RaiseLocalEvent(toInsert, ref ev);
         UpdateUserInterface(uid, component);
@@ -218,7 +234,7 @@ public abstract partial class SharedMechSystem : EntitySystem
     /// <param name="component"></param>
     /// <param name="equipmentComponent"></param>
     /// <param name="forced">
-    ///     Whether or not the removal can be cancelled, and if non-mech equipment should be ejected.
+    /// Whether or not the removal can be cancelled, and if non-mech equipment should be ejected.
     /// </param>
     public void RemoveEquipment(EntityUid uid, EntityUid toRemove, MechComponent? component = null,
         MechEquipmentComponent? equipmentComponent = null, bool forced = false)
@@ -240,7 +256,17 @@ public abstract partial class SharedMechSystem : EntitySystem
                 return;
         }
 
-        _container.Remove(toRemove, component.EquipmentContainer, force: forced);
+        var ev = new MechEquipmentRemovedEvent(uid);
+        RaiseLocalEvent(toRemove, ref ev);
+
+        if (component.CurrentSelectedEquipment == toRemove)
+            CycleEquipment(uid, component);
+
+        if (forced && equipmentComponent != null)
+            equipmentComponent.EquipmentOwner = null;
+
+        _container.Remove(toRemove, component.EquipmentContainer);
+        UpdateUserInterface(uid, component);
     }
 
     /// <summary>
@@ -293,33 +319,6 @@ public abstract partial class SharedMechSystem : EntitySystem
     }
 
     /// <summary>
-    /// Checks if an entity can be inserted into the mech.
-    /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="toInsert"></param>
-    /// <param name="component"></param>
-    /// <returns></returns>
-    public bool CanInsert(EntityUid uid, EntityUid toInsert, MechComponent? component = null)
-    {
-        if (!Resolve(uid, ref component))
-            return false;
-
-        if (!_actionBlocker.CanMove(toInsert))
-            return false;
-
-        if (!Vehicle.CanOperate(uid, toInsert))
-            return false;
-
-        if (Vehicle.GetOperatorOrNull(uid) == toInsert)
-            return false;
-
-        if (!_container.CanInsert(toInsert, component.PilotSlot))
-            return false;
-
-        return true;
-    }
-
-    /// <summary>
     /// Updates the user interface
     /// </summary>
     /// <remarks>
@@ -329,56 +328,17 @@ public abstract partial class SharedMechSystem : EntitySystem
     {
     }
 
-    /// <summary>
-    /// Attempts to insert a pilot into the mech.
-    /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="toInsert"></param>
-    /// <param name="component"></param>
-    /// <returns>Whether or not the entity was inserted</returns>
-    public bool TryInsert(EntityUid uid, EntityUid toInsert, MechComponent? component = null)
+    private void ToggleMechUi(EntityUid uid, MechComponent? component = null, EntityUid? user = null)
     {
         if (!Resolve(uid, ref component))
-            return false;
+            return;
 
-        if (!CanInsert(uid, toInsert, component))
-            return false;
+        user ??= Vehicle.GetOperatorOrNull(uid);
+        if (user == null)
+            return;
 
-        var attempt = new AttemptMechInsertEvent(uid);
-        RaiseLocalEvent(toInsert, ref attempt);
-        if (attempt.Cancelled || !_container.Insert(toInsert, component.PilotSlot))
-            return false;
-
-        var inserted = new MechInsertedEvent(uid);
-        RaiseLocalEvent(toInsert, ref inserted);
-        if (!inserted.Cancelled)
-            return true;
-
-        _container.Remove(toInsert, component.PilotSlot, force: true);
-        return false;
-    }
-
-    /// <summary>
-    /// Attempts to eject the current pilot from the mech
-    /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="component"></param>
-    /// <returns>Whether or not the pilot was ejected.</returns>
-    public bool TryEject(EntityUid uid, MechComponent? component = null, bool forced = false)
-    {
-        if (!Resolve(uid, ref component))
-            return false;
-
-        if (!Vehicle.TryGetOperator(uid, out var operatorEnt))
-            return false;
-
-        var pilot = operatorEnt.Value.Owner;
-        var attempt = new AttemptMechEjectEvent(uid, forced);
-        RaiseLocalEvent(pilot, ref attempt);
-        if (attempt.Cancelled && !forced)
-            return false;
-
-        return _container.Remove(pilot, component.PilotSlot, force: forced);
+        _userInterface.TryToggleUi(uid, MechUiKey.Key, user.Value);
+        UpdateUserInterface(uid, component);
     }
 
     [SubscribeLocalEvent]
@@ -409,27 +369,17 @@ public abstract partial class SharedMechSystem : EntitySystem
     }
 
     [SubscribeLocalEvent]
-    private void OnDragDrop(EntityUid uid, MechComponent component, ref DragDropTargetEvent args)
+    private void OnMechEntryAttempt(Entity<MechComponent> ent, ref ContainerVehicleEntryAttemptEvent args)
     {
-        if (args.Handled)
-            return;
-
-        args.Handled = true;
-
-        var doAfterEventArgs = new DoAfterArgs(EntityManager, args.Dragged, component.EntryDelay, new MechEntryEvent(), uid, target: uid)
-        {
-            BreakOnMove = true,
-        };
-
-        _doAfter.TryStartDoAfter(doAfterEventArgs);
+        if (ent.Comp.Broken)
+            args.Cancelled = true;
     }
 
     [SubscribeLocalEvent]
-    private void OnCanDragDrop(EntityUid uid, MechComponent component, ref CanDropTargetEvent args)
+    private void OnMechExitAttempt(Entity<MechComponent> ent, ref ContainerVehicleExitAttemptEvent args)
     {
-        args.Handled = true;
-
-        args.CanDrop |= !component.Broken && CanInsert(uid, args.Dragged, component);
+        if (ent.Comp.Broken)
+            args.Cancelled = true;
     }
 
     [SubscribeLocalEvent]
@@ -438,9 +388,6 @@ public abstract partial class SharedMechSystem : EntitySystem
         if (args.OldOperator is { } oldOperator)
         {
             RemoveUser(ent, oldOperator);
-
-            var ev = new MechEjectedEvent(ent);
-            RaiseLocalEvent(oldOperator, ref ev);
         }
 
         if (args.NewOperator is { } newOperator)
@@ -450,25 +397,15 @@ public abstract partial class SharedMechSystem : EntitySystem
 
         UpdateAppearance(ent);
         UpdateUserInterface(ent, ent);
+
+        if (args.NewOperator is null && args.OldOperator is not null)
+            _userInterface.CloseUi(ent.Owner, MechUiKey.Key);
     }
 }
 
 /// <summary>
-///     Event raised when the battery is successfully removed from the mech,
-///     on both success and failure
+/// Event raised when the battery is successfully removed from the mech,
+/// on both success and failure
 /// </summary>
 [Serializable, NetSerializable]
 public sealed partial class RemoveBatteryEvent : SimpleDoAfterEvent;
-
-/// <summary>
-///     Event raised when a person removes someone from a mech,
-///     on both success and failure
-/// </summary>
-[Serializable, NetSerializable]
-public sealed partial class MechExitEvent : SimpleDoAfterEvent;
-
-/// <summary>
-///     Event raised when a person enters a mech, on both success and failure
-/// </summary>
-[Serializable, NetSerializable]
-public sealed partial class MechEntryEvent : SimpleDoAfterEvent;

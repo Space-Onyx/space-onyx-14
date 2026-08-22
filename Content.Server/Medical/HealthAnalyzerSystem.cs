@@ -33,6 +33,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 using Robust.Shared.Prototypes;
 using Content.Server.Body.Systems;
+using Content.Shared.Body.Systems;
 
 namespace Content.Server.Medical;
 

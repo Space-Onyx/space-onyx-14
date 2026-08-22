@@ -32,6 +32,7 @@ verb-categories-power-level = Power Level
 verb-categories-interaction = Interact
 # </Onyx-InteractionVerbs>
 verb-categories-adjust = Adjust
+verb-categories-select-target = Set Target
 
 verb-common-toggle-light = Toggle light
 verb-common-close = Close

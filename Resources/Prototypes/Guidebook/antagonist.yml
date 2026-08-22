@@ -11,9 +11,9 @@
   - Wizard
   - Zombies
   - Xenoborgs
+  - Changelings
   - CosmicCult # <Onyx-CosmicCult>
-  - Blob # <Onyx-Blob>
-  - MinorAntagonists
+  - Blob # <Onyx-Blob>  - MinorAntagonists
 
 - type: guideEntry
   id: Traitors
@@ -34,6 +34,11 @@
   id: Revolutionaries
   name: guide-entry-revolutionaries
   text: "/ServerInfo/Guidebook/Antagonist/Revolutionaries.xml"
+
+- type: guideEntry
+  id: Changelings
+  name: guide-entry-changelings
+  text: "/ServerInfo/Guidebook/Antagonist/Changelings.xml"
 
 - type: guideEntry
   id: MinorAntagonists

@@ -182,14 +182,6 @@
   - type: Fiber
     fiberMaterial: fibers-latex
   - type: FingerprintMask
-  # <Onyx-SurgeryInfection>
-  - type: SurgeryInfectionProtection
-    chanceMultiplier: 0.25
-  # </Onyx-SurgeryInfection>
-  # <Onyx-SurgeryPPE>
-  - type: Tag
-    tags: [ SurgerySterileGloves ]
-  # </Onyx-SurgeryPPE>
 
 - type: entity
   parent: ClothingHandsButcherable
@@ -204,14 +196,6 @@
   - type: Fiber
     fiberMaterial: fibers-nitrile
   - type: FingerprintMask
-  # <Onyx-SurgeryInfection>
-  - type: SurgeryInfectionProtection
-    chanceMultiplier: 0.15384616
-  # </Onyx-SurgeryInfection>
-  # <Onyx-SurgeryPPE>
-  - type: Tag
-    tags: [ SurgerySterileGloves ]
-  # </Onyx-SurgeryPPE>
 
 - type: entity
   parent: ClothingHandsButcherable
@@ -637,6 +621,9 @@
           False: {state: knuckleduster_off}
   - type: ToggleClothing
     action: ActionToggleKnuckleDustersStun
+  - type: ItemToggleExaminableStatus
+  - type: ItemToggleRequiresCharge
+    requiredCharge: 50
   - type: ItemToggle
     predictable: false
     soundActivate:
@@ -654,10 +641,6 @@
       params:
         variation: 0.250
         volume: 5
-  - type: Stunbaton
-    energyPerUse: 50
-  - type: MartialArtBlocked # <Onyx-CorporateJudo>
-    form: CorporateJudo
   - type: ItemToggleMeleeWeapon
     activatedDamage:
       types:
@@ -669,6 +652,10 @@
         Blunt: 8
     bluntStaminaDamageFactor: 2.0
     animation: WeaponArcFist
+  - type: MeleeBatteryHitsLeft
+  - type: StaminaDamageOnHitRequiresToggle
+  - type: StaminaDamageOnHitRequiresCharge
+    requiredCharge: 50
   - type: StaminaDamageOnHit
     damage: 35
     sound: /Audio/Weapons/egloves.ogg
@@ -683,6 +670,12 @@
     guides:
     - Security
     - Antagonists
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+    - Stunbaton
+  - type: MartialArtBlocked # <Onyx-CorporateJudo>
+    form: CorporateJudo
 
 - type: entity #Admeme
   parent: ClothingHandsKnuckleDusters

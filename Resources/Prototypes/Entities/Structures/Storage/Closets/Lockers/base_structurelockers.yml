@@ -1,7 +1,7 @@
 - type: entity
-  id: LockerBase
-  parent: ClosetBase
   abstract: true
+  parent: [ ClosetBase, StructureHealthContainer ]
+  id: LockerBase
   components:
   - type: AccessReader
   - type: Lock
@@ -33,29 +33,22 @@
   - type: Paintable
     group: Locker
   - type: Damageable
-    damageModifierSet: StructuralMetallic
-  - type: Injurable
-    damageContainer: StructuralInorganic
+    damageModifierSet: PlasteelMod
   - type: Destructible
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 150
+        damage: 100
       behaviors:
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
           params:
             volume: -6
-
-- type: entity
-  id: LockerBaseSecure
-  parent: LockerBase
-  abstract: true
-  components:
-  - type: Damageable
-    damageModifierSet: StructuralMetallic
-  - type: Injurable
-    damageContainer: StructuralInorganic
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 2
+  - type: StaticPrice
+    price: 300

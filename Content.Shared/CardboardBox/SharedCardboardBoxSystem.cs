@@ -1,18 +1,13 @@
-﻿using System.Numerics;
-using Content.Shared.Access.Components;
+using System.Numerics;
 using Content.Shared.CardboardBox.Components;
-using Content.Shared.Damage.Systems;
 using Content.Shared.Interaction;
-using Content.Shared.Movement.Components;
-using Content.Shared.Movement.Systems;
 using Content.Shared.Stealth;
 using Content.Shared.Stealth.Components;
 using Content.Shared.Storage.Components;
 using Content.Shared.Storage.EntitySystems;
-using Robust.Shared.Audio.Systems;
-using Robust.Shared.Containers;
 using Content.Shared.Vehicle.Systems;
-using Content.Shared.Vehicle.Components;
+using Content.Shared.Vehicle;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
@@ -23,10 +18,8 @@ public abstract partial class SharedCardboardBoxSystem : EntitySystem
 {
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private INetManager _net = default!;
-    [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedEntityStorageSystem _storage = default!;
-    [Dependency] private SharedMoverController _mover = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private SharedStealthSystem _stealth = default!;
     [Dependency] private VehicleSystem _vehicle = default!;
@@ -48,21 +41,6 @@ public abstract partial class SharedCardboardBoxSystem : EntitySystem
 
         args.Handled = true;
         _storage.ToggleOpen(args.User, ent, box);
-        if (!box.Contents.Contains(args.User) || box.Open)
-            return;
-
-        _mover.SetRelay(args.User, ent);
-        ent.Comp.Mover = args.User;
-        Dirty(ent);
-    }
-
-    [SubscribeLocalEvent]
-    private void OnGetAdditionalAccess(Entity<CardboardBoxComponent> ent, ref GetAdditionalAccessEvent args)
-    {
-        if (ent.Comp.Mover == null)
-            return;
-
-        args.Entities.Add(ent.Comp.Mover.Value);
     }
 
     [SubscribeLocalEvent]
@@ -71,19 +49,14 @@ public abstract partial class SharedCardboardBoxSystem : EntitySystem
         if (ent.Comp.Quiet)
             return;
 
-        // Play effect & sound.
-        var mover = ent.Comp.Mover;
-        if (mover == null && _vehicle.TryGetOperator(ent.Owner, out var operatorEnt))
-            mover = operatorEnt.Value.Owner;
-
-        if (mover == null)
+        if (!_vehicle.TryGetOperator(ent.Owner, out var operatorEnt))
             return;
 
         if (_timing.CurTime <= ent.Comp.EffectCooldown)
             return;
 
         if (_net.IsServer)
-            RaiseNetworkEvent(new PlayBoxEffectMessage(GetNetEntity(ent), GetNetEntity(mover.Value)));
+            RaiseNetworkEvent(new PlayBoxEffectMessage(GetNetEntity(ent), GetNetEntity(operatorEnt.Value.Owner)));
 
         _audio.PlayPredicted(ent.Comp.EffectSound, ent, args.User);
         ent.Comp.EffectCooldown = _timing.CurTime + ent.Comp.CooldownDuration;
@@ -109,55 +82,6 @@ public abstract partial class SharedCardboardBoxSystem : EntitySystem
 
         _stealth.SetVisibility(ent, stealth.MaxVisibility, stealth);
         _stealth.SetEnabled(ent, true, stealth);
-    }
-
-    /// <summary>
-    /// Relay damage to the mover.
-    /// </summary>
-    [SubscribeLocalEvent]
-    private void OnDamage(Entity<CardboardBoxComponent> ent, ref DamageDealtEvent args)
-    {
-        if (ent.Comp.Mover is not { } mover)
-            return;
-
-        _damageable.ChangeDamage(mover, args.Damage, origin: args.Origin);
-    }
-
-    [SubscribeLocalEvent]
-    private void OnEntInserted(Entity<CardboardBoxComponent> ent, ref EntInsertedIntoContainerMessage args)
-    {
-        if (_timing.ApplyingState)
-            return;
-
-        if (!HasComp<MobMoverComponent>(args.Entity))
-            return;
-
-        if (ent.Comp.Mover != null)
-            return;
-
-        _mover.SetRelay(args.Entity, ent);
-        ent.Comp.Mover = args.Entity;
-        Dirty(ent);
-    }
-
-    /// <summary>
-    /// Through e.g. teleporting, it's possible for the mover to exit the box without opening it.
-    /// Handle those situations but don't play the sound.
-    /// </summary>
-    [SubscribeLocalEvent]
-    private void OnEntRemoved(Entity<CardboardBoxComponent> ent, ref EntRemovedFromContainerMessage args)
-    {
-        if (_timing.ApplyingState)
-            return;
-
-        if (args.Entity != ent.Comp.Mover)
-            return;
-
-        // Stops movement after exit.
-        _physics.SetLinearVelocity(ent, Vector2.Zero);
-        RemComp<RelayInputMoverComponent>(ent.Comp.Mover.Value);
-        ent.Comp.Mover = null;
-        Dirty(ent);
     }
 
     [SubscribeLocalEvent]

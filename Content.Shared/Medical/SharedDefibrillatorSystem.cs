@@ -1,7 +1,7 @@
 using Content.Shared.Atmos.Rotting;
 using Content.Shared.Chat;
-using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
+using Content.Shared.Damage.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.Electrocution;
 using Content.Shared.Interaction;
@@ -38,9 +38,9 @@ public abstract partial class SharedDefibrillatorSystem : EntitySystem
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedMindSystem _mind = default!;
     [Dependency] private UseDelaySystem _useDelay = default!;
-    [Dependency] private SharedInteractionSystem _interactionSystem = default!;
+    [Dependency] private SharedInteractionSystem _interaction = default!;
 
-    private readonly HashSet<EntityUid> _interacters = new();
+    private readonly HashSet<EntityUid> _interactors = new();
 
     public override void Initialize()
     {
@@ -77,9 +77,6 @@ public abstract partial class SharedDefibrillatorSystem : EntitySystem
     /// <param name="ent">The defbrillator being used.</param>
     /// <param name="target">Uid of the target getting defibbed.</param>
     /// <param name="user">Uid of the entity using the defibrillator.</param>
-    /// <param name="targetCanBeAlive">
-    /// If true, the target can be alive. If false, the function will check if the target is alive and will return false if they are.
-    /// </param>
     /// <returns>
     /// Returns true if the target is valid to be defibed, false otherwise.
     /// </returns>
@@ -106,7 +103,7 @@ public abstract partial class SharedDefibrillatorSystem : EntitySystem
         if (!targetCanBeAlive && _mobState.IsAlive(target, mobState))
             return false;
 
-        if (!targetCanBeAlive && !ent.Comp.CanDefibCrit && _mobState.IsCritical(target, mobState))
+        if (!targetCanBeAlive && _mobState.IsCritical(target, mobState))
             return false;
 
         return true;
@@ -130,6 +127,7 @@ public abstract partial class SharedDefibrillatorSystem : EntitySystem
             return false;
 
         _audio.PlayPredicted(ent.Comp.ChargeSound, ent.Owner, user);
+
         return _doAfter.TryStartDoAfter(
             new DoAfterArgs(EntityManager, user, ent.Comp.DoAfterDuration, new DefibrillatorZapDoAfterEvent(),
             ent.Owner, target, ent.Owner)
@@ -174,15 +172,15 @@ public abstract partial class SharedDefibrillatorSystem : EntitySystem
             return;
 
         _audio.PlayPredicted(ent.Comp.ZapSound, ent.Owner, user);
-        _electrocution.TryDoElectrocution(target, ent.Owner, ent.Comp.ZapDamage, ent.Comp.WritheDuration, true, ignoreInsulation: true);
+        _electrocution.TryDoElectrocution(target, ent.Owner, ent.Comp.ZapDamage, ent.Comp.WritheDuration, true,
+            ignoreInsulation: true);
 
-        _interactionSystem.GetEntitiesInteractingWithTarget(target, _interacters);
-        foreach (var other in _interacters)
+        _interaction.GetEntitiesInteractingWithTarget(target, _interactors);
+        foreach (var other in _interactors)
         {
             if (other == user)
                 continue;
 
-            // Anyone else still operating on the target gets zapped too
             _electrocution.TryDoElectrocution(other, null, ent.Comp.ZapDamage, ent.Comp.WritheDuration, true);
         }
 
@@ -195,13 +193,11 @@ public abstract partial class SharedDefibrillatorSystem : EntitySystem
         var failedRevive = true;
         if (_rotting.IsRotten(target))
         {
-            _chat.TrySendInGameICMessage(ent.Owner, Loc.GetString("defibrillator-rotten"),
-                InGameICChatType.Speak, true);
+            _chat.TrySendInGameICMessage(ent.Owner, Loc.GetString("defibrillator-rotten"), InGameICChatType.Speak, true);
         }
         else if (TryComp<UnrevivableComponent>(target, out var unrevivable))
         {
-            _chat.TrySendInGameICMessage(ent.Owner, Loc.GetString(unrevivable.ReasonMessage),
-                InGameICChatType.Speak, true);
+            _chat.TrySendInGameICMessage(ent.Owner, Loc.GetString(unrevivable.ReasonMessage), InGameICChatType.Speak, true);
         }
         else
         {
@@ -214,7 +210,7 @@ public abstract partial class SharedDefibrillatorSystem : EntitySystem
                 _mobThreshold.TryGetThresholdForState(target, MobState.Dead, out var threshold, targetThresholds) &&
                 _mobThreshold.CheckVitalDamage(target, targetDamageable) < threshold)
             {
-                _mobState.ChangeMobState(target, MobState.Critical, targetMobState, user);
+                _mobState.ChangeMobState(target, MobState.Critical, targetMobState, user); //if so revive them
                 failedRevive = false;
             }
             // </Onyx-VitalDamage-edited>
@@ -228,8 +224,7 @@ public abstract partial class SharedDefibrillatorSystem : EntitySystem
             }
             else
             {
-                _chat.TrySendInGameICMessage(ent.Owner, Loc.GetString("defibrillator-no-mind"),
-                    InGameICChatType.Speak, true);
+                _chat.TrySendInGameICMessage(ent.Owner, Loc.GetString("defibrillator-no-mind"), InGameICChatType.Speak, true);
             }
         }
 
@@ -238,11 +233,10 @@ public abstract partial class SharedDefibrillatorSystem : EntitySystem
             : ent.Comp.SuccessSound;
         _audio.PlayPredicted(sound, ent.Owner, user);
 
-        // if we don't have enough power left for another shot, turn it off
         if (!_powerCell.HasActivatableCharge(ent.Owner))
             _toggle.TryDeactivate(ent.Owner);
 
-        var ev = new TargetDefibrillatedEvent(user, (ent.Owner, ent.Comp));
+        var ev = new TargetDefibrillatedEvent(user, target, (ent.Owner, ent.Comp), _interactors);
         RaiseLocalEvent(target, ref ev);
     }
 

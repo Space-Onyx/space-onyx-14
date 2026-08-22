@@ -242,7 +242,8 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
                     GetNetEntity(otherDockXform.GridUid) :
                     null,
                 Color = comp.RadarColor,
-                HighlightedColor = comp.HighlightedRadarColor
+                HighlightedColor = comp.HighlightedRadarColor,
+                Category = comp.DockLegendCategory
             };
 
             gridDocks.Add(state);

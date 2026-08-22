@@ -1,8 +1,8 @@
 using System.Numerics;
-using Content.Server.Forensics;
-using Content.Server.Spawners.Components;
-using Content.Server.Spawners.EntitySystems;
+using Content.Server.Spawners.Components; // <Onyx-DelayedEntitySpawn>
+using Content.Server.Spawners.EntitySystems; // <Onyx-DelayedEntitySpawn>
 using Content.Shared.Destructible.Thresholds;
+using Content.Shared.Forensics.Components;
 using Content.Shared.Prototypes;
 using Content.Shared.Stacks;
 using Robust.Server.GameObjects;
@@ -16,7 +16,7 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
     [DataDefinition]
     public sealed partial class SpawnEntitiesBehavior : IThresholdBehavior
     {
-        private static readonly EntProtoId TempEntityProtoId = "TemporaryEntityForTimedDespawnSpawners";
+        private static readonly EntProtoId TempEntityProtoId = "TemporaryEntityForTimedDespawnSpawners"; // <Onyx-DelayedEntitySpawn>
 
         /// <summary>
         ///     Entities spawned on reaching this threshold, from a min to a max.
@@ -33,6 +33,7 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
         [DataField]
         public bool SpawnInContainer;
 
+        // <Onyx-DelayedEntitySpawn>
         /// <summary>
         /// Time in seconds to wait before spawning entities.
         /// </summary>
@@ -41,6 +42,7 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
         /// </remarks>
         [DataField]
         public float SpawnAfter;
+        // </Onyx-DelayedEntitySpawn>
 
         public void Execute(EntityUid owner, DestructibleSystem system, EntityUid? cause = null)
         {
@@ -66,6 +68,7 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
                     if (count == 0)
                         continue;
 
+                    // <Onyx-DelayedEntitySpawn>
                     if (SpawnAfter > 0)
                     {
                         // TODO: TransferForensics is not supported here because the actual entity UID is not known until the spawner spawns it.
@@ -78,6 +81,7 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
                             system.EntityManager.System<SpawnOnDespawnSystem>().SetPrototype((spawner, spawnOnDespawn), entityId);
                         }
                     }
+                    // </Onyx-DelayedEntitySpawn>
                     else if (EntityPrototypeHelpers.HasComponent<StackComponent>(entityId, system.PrototypeManager, system.EntityManager.ComponentFactory))
                     {
                         var spawned = SpawnInContainer

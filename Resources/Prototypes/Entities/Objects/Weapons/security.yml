@@ -9,11 +9,13 @@
     layers:
     - state: stunbaton_off
       map: [ "enum.ToggleableVisuals.Layer" ]
+  - type: ItemToggleExaminableStatus
+  - type: ItemToggleRequiresCharge
+    requiredCharge: 50
   - type: Stunbaton
     energyPerUse: 50
   - type: MartialArtBlocked # <Onyx-CorporateJudo>
-    form: CorporateJudo
-  - type: ItemToggle
+    form: CorporateJudo  - type: ItemToggle
     onActivate: false
     soundActivate:
       collection: sparks
@@ -42,6 +44,11 @@
     bluntStaminaDamageFactor: 2.0
     angle: 60
     animation: WeaponArcThrust
+    undamagedAlertThreshold: 0
+  - type: MeleeBatteryHitsLeft
+  - type: StaminaDamageOnHitRequiresToggle
+  - type: StaminaDamageOnHitRequiresCharge
+    requiredCharge: 50
   - type: StaminaDamageOnHit
     damage: 35
     sound: /Audio/Weapons/egloves.ogg
@@ -96,6 +103,9 @@
     guides:
     - Security
     - Antagonists
+  - type: Tag
+    tags:
+    - Stunbaton
 
 - type: entity
   name: truncheon

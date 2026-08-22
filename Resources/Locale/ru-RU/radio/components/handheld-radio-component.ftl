@@ -1,9 +1,9 @@
 handheld-radio-component-on-use = Радио { $radioState }.
-handheld-radio-component-on-examine = Настроено на работу на частоте { $frequency }.
 handheld-radio-component-on-state = включено
 handheld-radio-component-off-state = выключено
 handheld-radio-component-channel-set = Включён { $channel } канал
-handheld-radio-component-chennel-examine = Выбранный канал: { $channel }.
+# <Onyx-Radio>
 handheld-radio-component-preset-examine = Частота: { $channel } ({ $frequency }).
 handheld-radio-component-preset-verb = { $channel } ({ $frequency })
 handheld-radio-component-preset-current = Этот вариант уже выбран.
+# </Onyx-Radio>

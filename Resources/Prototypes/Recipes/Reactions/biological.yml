@@ -105,9 +105,9 @@
     ZombieBlood:
       amount: 4
   products:
-    Mold: 2
+    Romerodone: 2
     Protein: 1
-    Toxin: 1
+    Mold: 1
 
 - type: reaction
   id: CognizineCreateSlime

@@ -33,19 +33,16 @@
   - type: SyncSprite
   - type: Clickable
   - type: Sprite
-    sprite: Tiles/Planet/lava.rsi
+    sprite: Tiles/TileEntities/liquid-lava.rsi
     drawdepth: BelowFloor
-    layers:
-      - state: lava
-        shader: unshaded
   - type: Icon
-    sprite: Tiles/Planet/lava.rsi
+    sprite: Tiles/TileEntities/liquid-lava.rsi
     state: full
   - type: IconSmooth
-    key: floor
+    key: lava
+    base: water
     additionalKeys:
     - walls
-    base: lava
   - type: Physics
     bodyType: Static
   - type: Fixtures
@@ -76,3 +73,5 @@
   - type: CosmicCorruptible
     convertTo: FloorCosmicDecay
   # </Onyx-CosmicCult>
+  - type: PlacementReplacement
+    key: tileOverlay

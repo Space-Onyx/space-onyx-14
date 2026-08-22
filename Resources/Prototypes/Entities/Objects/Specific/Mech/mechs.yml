@@ -1,7 +1,8 @@
 - type: entity
+  abstract: true
+  parent: StructureHealthMachineMassive
   id: BaseMech
   save: false
-  abstract: true
   components:
   - type: MobMover
   - type: Mech
@@ -29,10 +30,9 @@
   # </Onyx-MechFeedback>
   - type: Vehicle
     canAttack: true
-  - type: VehicleHandBlocker
-    blockedHands: 2
   - type: ContainerVehicle
     containerId: "mech-pilot-slot"
+  - type: ContainerVehicleEntry
   - type: AirFilter
     # everything except oxygen and nitrogen
     gases:
@@ -88,7 +88,7 @@
     damage:
       types:
         Blunt: 25 #thwack
-        Structural: 20
+        Structural: 8
     soundHit:
       collection: MetalThud
   - type: Puller
@@ -143,10 +143,7 @@
       mech-battery-slot: !type:ContainerSlot
       paper_label: !type:ContainerSlot # <MechBalance>
   - type: Damageable
-    damageModifierSet: LightArmor # <MechBalance-edited>
-  - type: Injurable
-    damageContainer: Silicon # <MechBalance-edited>
-  - type: FootstepModifier
+    damageModifierSet: SteelMod  - type: FootstepModifier
     footstepSoundCollection:
       path: /Audio/Mecha/mechmove03.ogg
   - type: GuideHelp
@@ -161,25 +158,13 @@
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
-      - !type:ChangeConstructionNodeBehavior
-        node: start
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
-  # <MechBalance>
-  - type: PaperLabel
-    labelSlot:
-      insertVerbText: comp-paper-label-insert
-      ejectVerbText: comp-paper-label-eject
-      whitelist:
-        components:
-        - Paper
-      blacklist:
-        tags:
-        - Book
-  - type: StaticPrice
-    price: 450
-  # </MechBalance>
-
+    - trigger:
+        !type:DamageTrigger
+        damage: 275
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
 - type: entity
   id: MechRipley
   parent: [ BaseMech, IndustrialMech, BaseCargoContraband ] # <MechBalance-edited>
@@ -212,6 +197,8 @@
     operatorWhitelist:
       components:
         - HumanoidProfile
+  - type: VehicleHandBlocker
+    blockedHands: 2
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -269,10 +256,8 @@
     operatorWhitelist:
       components:
       - HumanoidProfile
-  - type: MovementSpeedModifier # <MechBalance>
-    baseWalkSpeed: 2.5 # <MechSpeed-edited>
-    baseSprintSpeed: 3.1 # <MechSpeed-edited>
-
+  - type: VehicleHandBlocker
+    blockedHands: 2
 - type: entity
   parent: MechHonker
   id: MechHonkerBattery
@@ -309,6 +294,7 @@
       tags:
       - SmallMech
   - type: Vehicle
+    requiresHands: false
     transferDamageModifier:
       coefficients:
         Blunt: 0.2
@@ -326,7 +312,6 @@
     damage:
       types:
         Blunt: 10 #thwack
-        Structural: 2
   - type: MovementSpeedModifier
     baseWalkSpeed: 3 # <MechSpeed-edited>
     baseSprintSpeed: 3 # <MechSpeed-edited>
@@ -379,6 +364,7 @@
     maxEquipmentAmount: 0
     airtight: true
   - type: Vehicle
+    requiresHands: false
     transferDamageModifier:
       coefficients:
         Blunt: 0.1
@@ -396,7 +382,6 @@
     damage:
       types:
         Blunt: 10 #thwack
-        Structural: 2
   - type: MovementSpeedModifier
     baseWalkSpeed: 2.8 # <MechSpeed-edited>
     baseSprintSpeed: 2.8 # <MechSpeed-edited>
