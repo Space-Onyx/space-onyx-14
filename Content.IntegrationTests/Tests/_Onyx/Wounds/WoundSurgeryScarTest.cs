@@ -47,8 +47,7 @@ public sealed class WoundSurgeryScarTest : GameTest
                 var noScarPart = entities.SpawnEntity("WoundSurgeryPart", map.GridCoords);
                 var noScar = wounds.CreateOrMergeWound(noScarPart, new ProtoId<WoundPrototype>("SurgicalIncisionWound"), 10)!.Value;
                 Raise(effect, noScarPart, entities);
-                Assert.That(entities.GetComponent<WoundComponent>(noScar).State, Is.EqualTo(WoundState.Closed));
-                Assert.That(entities.GetComponent<WoundBleedingComponent>(noScar).Treatment, Is.EqualTo(BleedingTreatment.Cauterized));
+                Assert.That(wounds.GetWounds(noScarPart).All(wound => wound.Owner != noScar), Is.True);
                 Assert.That(ScarCount(noScarPart, wounds, entities), Is.Zero);
 
                 configuration.SetCVar(CCVars.SurgeryScarChance, 1f);

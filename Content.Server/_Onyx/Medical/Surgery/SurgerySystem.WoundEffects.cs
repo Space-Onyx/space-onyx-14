@@ -38,6 +38,7 @@ public sealed partial class SurgerySystem
             _wounds.CloseWound(wound.Owner);
             if (chance > 0f && _random.Prob(chance))
                 _scars.CreateScar(wound.Owner);
+            _wounds.RemoveWound(wound.Owner);
         }
     }
 
