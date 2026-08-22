@@ -24,7 +24,8 @@ public sealed partial class SlotBlockSystem : EntitySystem
             return;
 
         // <Onyx-SlotBlock>
-        if (HasComp<StopBlockBypassComponent>(args.Args.EquipTarget))
+        if (HasComp<StopBlockBypassComponent>(args.Args.User) ||
+            HasComp<StopBlockBypassComponent>(args.Args.EquipTarget))
             return;
         // </Onyx-SlotBlock>
 
@@ -38,7 +39,8 @@ public sealed partial class SlotBlockSystem : EntitySystem
             return;
 
         // <Onyx-SlotBlock>
-        if (HasComp<StopBlockBypassComponent>(args.Args.UnEquipTarget))
+        if (HasComp<StopBlockBypassComponent>(args.Args.User) ||
+            HasComp<StopBlockBypassComponent>(args.Args.UnEquipTarget))
             return;
         // </Onyx-SlotBlock>
 

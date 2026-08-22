@@ -358,12 +358,18 @@
     stages: [ Digestion, Bloodstream, Metabolites ]
 
 - type: entity
-  parent: [ OrganBaseEyes, OrganSlimePersonInternal, OrganSlimePersonExternal ]
+  parent: [ OrganBaseEyes, OrganSlimePersonInternal ] # <Onyx-SlimeEyesSpawn-edited>
   id: OrganSlimePersonEyes
   components:
   - type: VisualOrgan
     data:
       sprite: Mobs/Customization/eyes.rsi
+  # <Onyx-SlimeEyesSpawn>
+  - type: VisualOrganMarkings
+    markingData:
+      group: Slime
+      layers: [ Eyes ]
+  # </Onyx-SlimeEyesSpawn>
 
 - type: entity
   parent: [ OrganBaseLungs, OrganSlimePersonInternal, OrganSlimePersonMetabolizer ]

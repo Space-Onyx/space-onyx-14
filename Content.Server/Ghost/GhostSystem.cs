@@ -707,7 +707,7 @@ namespace Content.Server.Ghost
                     {
                         var playerDeadThreshold = _mobThresholdSystem.GetThresholdForState(playerEntity.Value, MobState.Dead, thresholds);
                         dealtDamage = playerDeadThreshold -
-                                      _damageable.GetTotalDamage((playerEntity.Value, damageable));
+                                      _mobThresholdSystem.CheckVitalDamage(playerEntity.Value, damageable); // <Onyx-VitalDamage-edited>
                     }
 
                     DamageSpecifier damage = new(ProtoMan.Index(AsphyxiationDamageType), dealtDamage);
