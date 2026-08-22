@@ -139,7 +139,7 @@ public sealed partial class DisplacementMapSystem : EntitySystem
             if (shader != null)
                 sprite.Comp.LayerSetShader(key, shader);
             else
-                sprite.Comp.LayerSetShader(key, (ShaderInstance?) null);
+                sprite.Comp.LayerSetShader(key, null, null);
 
             return true;
         }
