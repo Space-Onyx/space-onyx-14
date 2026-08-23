@@ -307,7 +307,10 @@ public sealed partial class PullingSystem : EntitySystem
             return;
         }
 
-        args.ModifySpeed(component.WalkSpeedModifier, component.SprintSpeedModifier);
+        var modifier = TryComp<PullableComponent>(component.Pulling, out var pullable)
+            ? pullable.PullerSpeedModifier
+            : component.WalkSpeedModifier;
+        args.ModifySpeed(modifier, modifier); // <Onyx-WheelchairPulling-edited>
     }
 
     private void OnPullableMoveInput(EntityUid uid, PullableComponent component, ref MoveInputEvent args)

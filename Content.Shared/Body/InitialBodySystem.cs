@@ -103,6 +103,15 @@ public sealed partial class InitialBodySystem : EntitySystem
         // <Onyx-BodyConsequences>
         if (external.TryGetValue(BodyPartType.Leg, out var legs))
             EnsureComp<InitiallyLeggedComponent>(ent).InitialLegCount = legs.Count;
+
+        var initialLungCount = 0;
+        foreach (var organ in internalOrgans)
+        {
+            if (organ.Category.Id == "Lungs")
+                initialLungCount++;
+        }
+        if (initialLungCount > 0)
+            EnsureComp<InitiallyLungedComponent>(ent).InitialLungCount = initialLungCount;
         // </Onyx-BodyConsequences>
 
         // Hand parts live in the surgical part graph, not BodyComponent's organ container.

@@ -41,6 +41,11 @@ public sealed partial class PullableComponent : Component
 
     [DataField]
     public ProtoId<AlertPrototype> PulledAlert = "Pulled";
+
+    // <Onyx-WheelchairPulling>
+    [DataField]
+    public float PullerSpeedModifier = 0.95f;
+    // </Onyx-WheelchairPulling>
 }
 
 public sealed partial class StopBeingPulledAlertEvent : BaseAlertEvent;

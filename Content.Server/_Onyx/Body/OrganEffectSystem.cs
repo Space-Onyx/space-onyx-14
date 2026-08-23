@@ -44,9 +44,6 @@ public sealed partial class OrganEffectSystem : EntitySystem
             case "Ears":
                 EnsureComp<MissingEarsComponent>(args.Target);
                 break;
-            case "Lungs":
-                EnsureComp<LungDependentComponent>(args.Target);
-                break;
         }
 
         _blindable.UpdateIsBlind(args.Target);
@@ -67,9 +64,6 @@ public sealed partial class OrganEffectSystem : EntitySystem
                 break;
             case "Ears":
                 RemComp<MissingEarsComponent>(args.Target);
-                break;
-            case "Lungs":
-                EnsureComp<LungDependentComponent>(args.Target);
                 break;
         }
 

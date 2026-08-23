@@ -53,7 +53,10 @@ public sealed partial class BodyInventorySlotSystem : EntitySystem
     private void OnStandAttempt(Entity<InitiallyLeggedComponent> ent, ref StandUpAttemptEvent args)
     {
         if (_body.GetBodyChildrenOfType(ent, BodyPartType.Leg).Count() < ent.Comp.InitialLegCount)
+        {
             args.Cancelled = true;
+            args.Autostand = false;
+        }
     }
 
     private void KnockDownIfMissingLeg(EntityUid body)

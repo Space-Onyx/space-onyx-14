@@ -79,11 +79,10 @@
         - TableLayer
   - type: StaticPrice
     price: 70
-  - type: VehicleHorn # <Onyx-VehicleHorn>
-    sound: # <Onyx-VehicleHorn>
-      collection: BikeHorn # <Onyx-VehicleHorn>
-      params: # <Onyx-VehicleHorn>
-        variation: 0.125 # <Onyx-VehicleHorn>
+  # <Onyx-WheelchairPulling-edited>
+  - type: Pullable
+    pullerSpeedModifier: 1.45
+  # </Onyx-WheelchairPulling-edited>
 
 - type: entity
   id: VehicleJanicart

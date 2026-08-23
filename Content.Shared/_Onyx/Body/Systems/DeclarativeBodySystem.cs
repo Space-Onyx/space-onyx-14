@@ -98,6 +98,10 @@ public sealed partial class DeclarativeBodySystem : EntitySystem
         if (legCount > 0)
             EnsureComp<InitiallyLeggedComponent>(entity).InitialLegCount = legCount;
 
+        var lungCount = graph.Slots.Values.Sum(slot => slot.Organs.Keys.Count(category => category.Id == "Lungs"));
+        if (lungCount > 0)
+            EnsureComp<InitiallyLungedComponent>(entity).InitialLungCount = lungCount;
+
         RaiseLocalEvent(entity, new BodyGraphInitializedEvent());
     }
 

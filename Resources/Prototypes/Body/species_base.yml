@@ -219,7 +219,6 @@
   id: BaseSpeciesMobOrganic
   save: false
   components:
-  - type: LungDependent # <Onyx-OrganConsequences>
   - type: Satiation
     satiations:
       Hunger:

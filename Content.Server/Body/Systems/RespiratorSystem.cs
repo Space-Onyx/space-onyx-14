@@ -100,12 +100,12 @@ public sealed partial class RespiratorSystem : EntitySystem
             // <Onyx-MartialArts>
             var breathingBlocked = TryComp<KravMagaBlockedBreathingComponent>(uid, out var blockedBreathing)
                 && blockedBreathing.Until > _gameTiming.CurTime
-                && HasComp<LungDependentComponent>(uid);
+                && HasComp<InitiallyLungedComponent>(uid);
             // </Onyx-MartialArts>
 
             // <Onyx-OrganConsequences-edited>
-            // Bodies only become lung-dependent after actually having lungs.
-            if (!HasComp<LungDependentComponent>(uid) && !choked && !breathingBlocked) // <Onyx-MartialArts-edited>
+            // Bodies that started with lungs suffocate when those lungs are missing.
+            if (!HasComp<InitiallyLungedComponent>(uid) && !choked && !breathingBlocked) // <Onyx-MartialArts-edited>
             {
                 respirator.Saturation = respirator.MaxSaturation;
                 respirator.SuffocationCycles = 0;
@@ -245,7 +245,7 @@ public sealed partial class RespiratorSystem : EntitySystem
             return false;
 
         // <Onyx-OrganConsequences>
-        if (!HasComp<LungDependentComponent>(ent))
+        if (!HasComp<InitiallyLungedComponent>(ent))
             return true;
         // </Onyx-OrganConsequences>
 
@@ -274,7 +274,7 @@ public sealed partial class RespiratorSystem : EntitySystem
             return false;
 
         // <Onyx-OrganConsequences>
-        if (!HasComp<LungDependentComponent>(ent))
+        if (!HasComp<InitiallyLungedComponent>(ent))
             return true;
         // </Onyx-OrganConsequences>
 
