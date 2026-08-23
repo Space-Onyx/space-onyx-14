@@ -57,12 +57,16 @@ public sealed class WoundSurgeryTest : GameTest
   components:
   - type: BodyPart
     partType: Chest
+  - type: TransplantCompatibility
+    profile: Universal
 - type: entity
   id: WoundSurgeryTestArm
   components:
   - type: BodyPart
     partType: Arm
     symmetry: Left
+  - type: TransplantCompatibility
+    profile: Universal
 ";
 
     [Test]

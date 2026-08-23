@@ -63,14 +63,17 @@ public sealed partial class DamageOverlay : Overlay
 
     protected override void Draw(in OverlayDrawArgs args)
     {
-        if (!_entityManager.TryGetComponent(_playerManager.LocalEntity, out EyeComponent? eyeComp))
+        // <Onyx-PainDamageOverlay-edited>
+        if (_playerManager.LocalEntity is not { } localEntity ||
+            !_entityManager.TryGetComponent(localEntity, out EyeComponent? eyeComp))
             return;
 
         if (args.Viewport.Eye != eyeComp.Eye)
             return;
 
-        if (!_entityManager.TryGetComponent(_playerManager.LocalEntity, out DamageOverlayComponent? damageComp))
+        if (!_entityManager.TryGetComponent(localEntity, out DamageOverlayComponent? damageComp))
             return;
+        // </Onyx-PainDamageOverlay-edited>
 
         State = damageComp.CurrentState;
         CritLevel = damageComp.CritLevel;

@@ -51,7 +51,6 @@ public sealed partial class TargetingSystem : SharedTargetingSystem
         if (!_configuration.GetCVar(CCVars.TargetingEnabled) ||
             !IsSelectable(message.RequestedPart) || args.SenderSession.AttachedEntity is not { } actor ||
             !TryComp(actor, out TargetingComponent? targeting) ||
-            TryComp(actor, out PartStatusComponent? status) && !status.Parts.GetValueOrDefault(message.RequestedPart).Exists ||
             IsRateLimited(args.SenderSession.UserId))
             return;
 

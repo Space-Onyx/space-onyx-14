@@ -715,7 +715,6 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: liver }
-    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -731,7 +730,6 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: liver }
-    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -781,7 +779,6 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: kidney-l }
-    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -797,7 +794,6 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: kidney-l }
-    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -814,7 +810,6 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: appendix }
-    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -830,7 +825,6 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: appendix }
-    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -953,7 +947,6 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: liver }
-    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -987,7 +980,6 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: kidney-l }
-    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -1004,7 +996,6 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Human/organs.rsi, state: appendix }
-    requirement: SurgeryOpenAbdomen
     steps:
       default:
         steps:
@@ -1107,6 +1098,7 @@
         - SurgeryStepReduceFrameFracture
   - type: SurgeryFractureGradeCondition
     minGrade: Simple
+    treatment: None
 
 - type: entity
   parent: SurgeryBase

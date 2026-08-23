@@ -1,11 +1,10 @@
+using Content.Shared._Onyx.Wounds;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
-using Content.Shared.StatusEffectNew;
-using Content.Shared.Traits.Assorted;
 
 namespace Content.Shared.DamageOverlay;
 
@@ -14,12 +13,13 @@ namespace Content.Shared.DamageOverlay;
 /// </summary>
 public abstract partial class SharedDamageOverlaySystem : EntitySystem
 {
+    // <Onyx-PainDamageOverlay-edited>
     [Dependency] private MobThresholdSystem _mobThresholdSystem = default!;
     [Dependency] private DamageableSystem _damageable = default!;
-    [Dependency] private StatusEffectsSystem _statusEffects = default!;
+    [Dependency] private PainSystem _pain = default!;
 
-    [Dependency] private EntityQuery<InjurableComponent> _injurableQuery = default!;
     [Dependency] private EntityQuery<DamageableComponent> _damageableQuery = default!;
+    // </Onyx-PainDamageOverlay-edited>
     [Dependency] private EntityQuery<MobStateComponent> _mobStateQuery = default!;
     [Dependency] private EntityQuery<MobThresholdsComponent> _thresholdsQuery = default!;
 
@@ -42,6 +42,15 @@ public abstract partial class SharedDamageOverlaySystem : EntitySystem
         UpdateOverlays(entity, args.MobState, args.Damageable, args.Threshold);
     }
 
+    // <Onyx-PainDamageOverlay>
+    [SubscribeLocalEvent]
+    private void OnPainChanged(Entity<DamageOverlayComponent> entity, ref PainChangedEvent args)
+    {
+        UpdateOverlays(entity);
+    }
+
+    // </Onyx-PainDamageOverlay>
+
     protected void ClearOverlay(Entity<DamageOverlayComponent> entity)
     {
         entity.Comp.CurrentState = MobState.Alive;
@@ -58,16 +67,15 @@ public abstract partial class SharedDamageOverlaySystem : EntitySystem
     }
 
     //TODO: Jezi: adjust oxygen and hp overlays to use appropriate systems once bodysim is implemented
+    // <Onyx-PainDamageOverlay-edited>
     protected void UpdateOverlays(Entity<DamageOverlayComponent> entity,
         MobStateComponent? mobState = null,
         DamageableComponent? damageable = null,
-        MobThresholdsComponent? thresholds = null,
-        InjurableComponent? injurable = null)
+        MobThresholdsComponent? thresholds = null)
     {
         if (mobState == null && !_mobStateQuery.TryComp(entity, out mobState) ||
             thresholds == null && !_thresholdsQuery.TryComp(entity, out thresholds) ||
-            damageable == null && !_damageableQuery.TryComp(entity, out damageable) ||
-            injurable == null && !_injurableQuery.TryComp(entity, out injurable))
+            damageable == null && !_damageableQuery.TryComp(entity, out damageable))
             return;
 
         if (!_mobThresholdSystem.TryGetIncapThreshold(entity, out var foundThreshold, thresholds))
@@ -82,30 +90,16 @@ public abstract partial class SharedDamageOverlaySystem : EntitySystem
         var damagePerGroup = _damageable.GetDamagePerGroup((entity, damageable));
         var critThreshold = foundThreshold.Value;
         entity.Comp.CurrentState = mobState.CurrentState;
+        entity.Comp.PainLevel = TryComp(entity, out PainComponent? pain) && pain.SoftPainCap > FixedPoint2.Zero
+            ? FixedPoint2.Min(1f, _pain.GetPain((entity.Owner, pain)) / pain.SoftPainCap).Float()
+            : 0f;
+        if (entity.Comp.PainLevel < 0.05f)
+            entity.Comp.PainLevel = 0f;
 
         switch (mobState.CurrentState)
         {
             case MobState.Alive:
             {
-                FixedPoint2 painLevel = 0;
-                entity.Comp.PainLevel = 0;
-
-                if (!_statusEffects.TryEffectsWithComp<PainNumbnessStatusEffectComponent>(entity, out _))
-                {
-                    foreach (var painDamageType in injurable.PainDamageGroups)
-                    {
-                        damagePerGroup.TryGetValue(painDamageType, out var painDamage);
-                        painLevel += painDamage;
-                    }
-
-                    entity.Comp.PainLevel = FixedPoint2.Min(1f, painLevel / critThreshold).Float();
-
-                    if (entity.Comp.PainLevel < 0.05f) // Don't show damage overlay if they're near enough to max.
-                    {
-                        entity.Comp.PainLevel = 0;
-                    }
-                }
-
                 if (damagePerGroup.TryGetValue("Airloss", out var oxyDamage))
                 {
                     entity.Comp.OxygenLevel = FixedPoint2.Min(1f, oxyDamage / critThreshold).Float();
@@ -129,7 +123,6 @@ public abstract partial class SharedDamageOverlaySystem : EntitySystem
                     return;
                 entity.Comp.CritLevel = critLevel.Value.Float();
 
-                entity.Comp.PainLevel = 0;
                 entity.Comp.DeadLevel = 0;
 
                 DirtyField(entity, entity.Comp, nameof(DamageOverlayComponent.PainLevel));
@@ -152,6 +145,7 @@ public abstract partial class SharedDamageOverlaySystem : EntitySystem
 
         DirtyField(entity, entity.Comp, nameof(DamageOverlayComponent.CurrentState));
     }
+    // </Onyx-PainDamageOverlay-edited>
 
     protected virtual void EnsureOverlay(Entity<DamageOverlayComponent> entity) { }
 }

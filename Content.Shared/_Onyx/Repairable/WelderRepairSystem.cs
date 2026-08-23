@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Shared.Body.Systems;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
@@ -20,13 +21,13 @@ namespace Content.Shared._Onyx.Repairable;
 
 public sealed partial class WelderRepairSystem : EntitySystem
 {
-    [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedToolSystem _tools = default!;
-    [Dependency] private TargetResolverSystem _targetResolver = default!;
-    [Dependency] private WoundDamageRoutingSystem _routing = default!;
-    [Dependency] private WoundSystem _wounds = default!;
+    [Dependency] private TargetResolverSystem _targets = default!;
     [Dependency] private DamageableSystem _damage = default!;
+    [Dependency] private WoundDamageProjectionSystem _projection = default!;
+    [Dependency] private WoundSystem _wounds = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
 
     public override void Initialize()
@@ -34,9 +35,8 @@ public sealed partial class WelderRepairSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<WelderRepairModesComponent, ExaminedEvent>(OnExamine);
         SubscribeLocalEvent<WelderRepairModesComponent, GetVerbsEvent<ActivationVerb>>(OnGetVerbs);
-        SubscribeLocalEvent<TargetingComponent, InteractUsingEvent>(OnRepair,
-            before: [typeof(RepairableSystem)]);
-        SubscribeLocalEvent<TargetingComponent, WelderRepairDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<WoundHostComponent, InteractUsingEvent>(OnRepair);
+        SubscribeLocalEvent<WoundHostComponent, WelderRepairDoAfterEvent>(OnDoAfter);
     }
 
     private void OnExamine(Entity<WelderRepairModesComponent> welder, ref ExaminedEvent args)
@@ -50,183 +50,162 @@ public sealed partial class WelderRepairSystem : EntitySystem
         if (!args.CanAccess || !args.CanInteract)
             return;
 
-        var user = args.User;
         foreach (var (key, mode) in welder.Comp.RepairModes)
         {
+            var selected = key;
+            var user = args.User;
             args.Verbs.Add(new ActivationVerb
             {
                 Text = Loc.GetString(mode.Name),
                 Category = VerbCategory.SelectType,
                 Disabled = key == welder.Comp.RepairMode,
-                Act = () => SetMode(welder, key, user),
+                Act = () => SetMode(welder, selected, user),
             });
         }
     }
 
-    private void SetMode(Entity<WelderRepairModesComponent> welder, string key, EntityUid user)
+    private void SetMode(Entity<WelderRepairModesComponent> welder, string mode, EntityUid user)
     {
-        if (!welder.Comp.RepairModes.TryGetValue(key, out var mode) || welder.Comp.RepairMode == key)
+        if (!welder.Comp.RepairModes.TryGetValue(mode, out var selected) || welder.Comp.RepairMode == mode)
             return;
 
-        welder.Comp.RepairMode = key;
+        welder.Comp.RepairMode = mode;
         Dirty(welder);
-        _popup.PopupClient(Loc.GetString("repair-mode-changed", ("mode", Loc.GetString(mode.Name))), welder, user);
+        _popup.PopupClient(Loc.GetString("repair-mode-changed", ("mode", Loc.GetString(selected.Name))), welder, user);
     }
 
-    private void OnRepair(Entity<TargetingComponent> body, ref InteractUsingEvent args)
+    private void OnRepair(Entity<WoundHostComponent> body, ref InteractUsingEvent args)
     {
-        if (args.Handled || !TryComp(args.Used, out WelderComponent? welder) ||
-            !TryComp(args.Used, out WelderRepairModesComponent? repairModes) || repairModes.RepairModes.Count == 0)
+        if (args.Handled || !HasComp<WelderComponent>(args.Used) ||
+            !TryComp(args.Used, out WelderRepairModesComponent? modes) || modes.RepairModes.Count == 0)
             return;
 
         args.Handled = true;
-        if (!repairModes.RepairModes.TryGetValue(repairModes.RepairMode, out var mode))
-        {
-            _popup.PopupClient(Loc.GetString("repair-mode-invalid"), args.Used, args.User);
-            return;
-        }
-
-        if (!TryComp(args.User, out TargetingComponent? targeting) ||
-            !_targetResolver.TryResolveExact(body, targeting.Target, out var part))
+        if (!modes.RepairModes.TryGetValue(modes.RepairMode, out var mode) ||
+            !TryComp(args.User, out TargetingComponent? targeting) ||
+            !_targets.TryResolveExact(body, targeting.Target, out var part))
         {
             _popup.PopupClient(Loc.GetString("targeting-selected-part-missing"), body, args.User);
             return;
         }
 
-        DamageSpecifier? damage;
-        HashSet<TreatmentCapability> treatmentCapabilities;
-        float fuelCost;
-        ProtoId<Content.Shared.Tools.ToolQualityPrototype> qualityNeeded;
-        int doAfterDelay;
-        float selfRepairPenalty;
-        bool allowSelfRepair;
-        if (TryComp(body, out RepairableComponent? repairable))
-        {
-            damage = repairable.Damage;
-            treatmentCapabilities = repairable.TreatmentCapabilities;
-            fuelCost = repairable.FuelCost;
-            qualityNeeded = repairable.QualityNeeded;
-            doAfterDelay = repairable.DoAfterDelay;
-            selfRepairPenalty = repairable.SelfRepairPenalty;
-            allowSelfRepair = repairable.AllowSelfRepair;
-        }
-        else if (TryComp(part, out RepairableBodyPartComponent? repairablePart))
-        {
-            damage = repairablePart.Damage;
-            treatmentCapabilities = repairablePart.TreatmentCapabilities;
-            fuelCost = repairablePart.FuelCost;
-            qualityNeeded = repairablePart.QualityNeeded;
-            doAfterDelay = repairablePart.DoAfterDelay;
-            selfRepairPenalty = repairablePart.SelfRepairPenalty;
-            allowSelfRepair = repairablePart.AllowSelfRepair;
-        }
-        else
+        if (!TryGetSettings(body, part, out var settings) || !IsCompatible(body, part, settings.Capabilities, mode))
         {
             _popup.PopupClient(Loc.GetString("targeting-selected-part-incompatible"), body, args.User);
             return;
         }
 
-        if (!IsCompatiblePart(body, part, treatmentCapabilities, mode))
-        {
-            _popup.PopupClient(Loc.GetString("targeting-selected-part-incompatible"), body, args.User);
-            return;
-        }
-
-        var repair = GetRepair(damage, mode);
+        var repair = BuildRepair(settings.Damage, mode);
         if (!HasRepairableDamage(part, repair))
         {
             _popup.PopupClient(Loc.GetString("targeting-selected-part-healthy"), body, args.User);
             return;
         }
 
-        if (args.User == body.Owner && !allowSelfRepair)
+        if (args.User == body.Owner && !settings.AllowSelfRepair)
             return;
 
-        var delay = doAfterDelay * Math.Max(0f, mode.DelayMultiplier);
+        var delay = settings.Delay * Math.Max(0f, mode.DelayMultiplier);
         if (args.User == body.Owner)
-            delay *= selfRepairPenalty;
+            delay *= settings.SelfRepairPenalty;
 
-        _tools.UseTool(args.Used, args.User, body, delay, qualityNeeded,
-            new WelderRepairDoAfterEvent(GetNetEntity(part), repairModes.RepairMode),
-            fuelCost * Math.Max(0f, mode.FuelMultiplier));
+        _tools.UseTool(args.Used, args.User, body, delay, settings.Quality,
+            new WelderRepairDoAfterEvent(GetNetEntity(part), modes.RepairMode),
+            settings.Fuel * Math.Max(0f, mode.FuelMultiplier));
     }
 
-    private void OnDoAfter(Entity<TargetingComponent> body, ref WelderRepairDoAfterEvent args)
+    private void OnDoAfter(Entity<WoundHostComponent> body, ref WelderRepairDoAfterEvent args)
     {
         if (args.Cancelled || args.Used is not { } used || !HasComp<WelderComponent>(used) ||
-            !TryComp(used, out WelderRepairModesComponent? repairModes) ||
-            !repairModes.RepairModes.TryGetValue(args.Mode, out var mode))
+            !TryComp(used, out WelderRepairModesComponent? modes) ||
+            !modes.RepairModes.TryGetValue(args.Mode, out var mode))
             return;
 
         var part = GetEntity(args.Part);
-        DamageSpecifier? damage;
-        HashSet<TreatmentCapability> treatmentCapabilities;
-        bool autoDoAfter;
-        if (TryComp(body, out RepairableComponent? repairable))
-        {
-            damage = repairable.Damage;
-            treatmentCapabilities = repairable.TreatmentCapabilities;
-            autoDoAfter = repairable.AutoDoAfter;
-        }
-        else if (TryComp(part, out RepairableBodyPartComponent? repairablePart))
-        {
-            damage = repairablePart.Damage;
-            treatmentCapabilities = repairablePart.TreatmentCapabilities;
-            autoDoAfter = repairablePart.AutoDoAfter;
-        }
-        else
+        if (!_body.BodyHasChild(body, part) || !TryComp(part, out DamageableComponent? damageable) ||
+            !TryGetSettings(body, part, out var settings) ||
+            !IsCompatible(body, part, settings.Capabilities, mode))
             return;
 
-        if (!IsCompatiblePart(body, part, treatmentCapabilities, mode))
-            return;
+        var repair = BuildRepair(settings.Damage, mode);
+        if (_damage.TryChangeDamage((part, damageable), repair, out var applied,
+                ignoreResistances: true, interruptsDoAfters: false, ignoreGlobalModifiers: true))
+        {
+            var damageApplied = new PartDamageAppliedEvent(body, part, applied, HealWounds: false);
+            RaiseLocalEvent(part, ref damageApplied);
+        }
 
-        var repair = GetRepair(damage, mode);
-        _routing.TryApplyPartDamage(body, part, repair, args.User, healWounds: false);
         _wounds.TryHealWounds(part, repair);
-        args.Repeat = autoDoAfter && HasRepairableDamage(part, repair);
+        _projection.RefreshBodyDamage(body);
+        args.Repeat = settings.AutoDoAfter && HasRepairableDamage(part, repair);
         args.Args.Event.Repeat = args.Repeat;
         args.Handled = true;
     }
 
-    private bool IsCompatiblePart(EntityUid body, EntityUid part, HashSet<TreatmentCapability> treatmentCapabilities,
+    private bool TryGetSettings(EntityUid body, EntityUid part, out RepairSettings settings)
+    {
+        if (TryComp(part, out RepairableBodyPartComponent? partRepair))
+        {
+            settings = new(partRepair.Damage, partRepair.TreatmentCapabilities, partRepair.FuelCost,
+                partRepair.QualityNeeded, partRepair.DoAfterDelay, partRepair.SelfRepairPenalty,
+                partRepair.AllowSelfRepair, partRepair.AutoDoAfter);
+            return true;
+        }
+
+        if (TryComp(body, out RepairableComponent? bodyRepair))
+        {
+            settings = new(bodyRepair.Damage, bodyRepair.TreatmentCapabilities, bodyRepair.FuelCost,
+                bodyRepair.QualityNeeded, bodyRepair.DoAfterDelay, bodyRepair.SelfRepairPenalty,
+                bodyRepair.AllowSelfRepair, bodyRepair.AutoDoAfter);
+            return true;
+        }
+
+        settings = default;
+        return false;
+    }
+
+    private bool IsCompatible(EntityUid body, EntityUid part, HashSet<TreatmentCapability> capabilities,
         WelderRepairMode mode)
     {
-        return _body.BodyHasChild(body, part) && HasComp<DamageableComponent>(part) &&
-               TryComp(part, out WoundableComponent? woundable) &&
+        return _body.BodyHasChild(body, part) && TryComp(part, out WoundableComponent? woundable) &&
                _prototypes.TryIndex(woundable.Profile, out var profile) &&
-               profile.TreatmentCapabilities.Overlaps(treatmentCapabilities) &&
+               profile.TreatmentCapabilities.Overlaps(capabilities) &&
                profile.TreatmentCapabilities.Overlaps(mode.TreatmentCapabilities);
     }
 
-    private DamageSpecifier GetRepair(DamageSpecifier? damage, WelderRepairMode mode)
+    private DamageSpecifier BuildRepair(DamageSpecifier? damage, WelderRepairMode mode)
     {
-        if (damage == null)
-            return new DamageSpecifier();
-
         var repair = new DamageSpecifier();
-        if (!_prototypes.TryIndex(mode.DamageGroup, out DamageGroupPrototype? group))
+        if (damage == null || !_prototypes.TryIndex(mode.DamageGroup, out DamageGroupPrototype? group))
             return repair;
 
         foreach (var type in group.DamageTypes)
-        {
             if (damage.DamageDict.TryGetValue(type, out var amount))
                 repair.DamageDict[type] = amount * Math.Max(0f, mode.RepairMultiplier);
-        }
         return repair;
     }
 
     private bool HasRepairableDamage(EntityUid part, DamageSpecifier repair)
     {
-        if (_wounds.GetHealingPotential(part, repair) > 0 || !TryComp(part, out DamageableComponent? damageable))
-            return _wounds.GetHealingPotential(part, repair) > 0;
+        if (_wounds.GetHealingPotential(part, repair) > 0)
+            return true;
 
-        foreach (var (type, amount) in repair.DamageDict)
-        {
-            if (amount < 0 && _damage.GetPositiveDamage((part, damageable)).DamageDict.GetValueOrDefault(type) > 0)
-                return true;
-        }
-        return false;
+        if (!TryComp(part, out DamageableComponent? damageable))
+            return false;
+
+        var current = _damage.GetPositiveDamage((part, damageable));
+        return repair.DamageDict.Any(pair => pair.Value < 0 && current.DamageDict.GetValueOrDefault(pair.Key) > 0);
     }
+
+    private readonly record struct RepairSettings(
+        DamageSpecifier? Damage,
+        HashSet<TreatmentCapability> Capabilities,
+        float Fuel,
+        ProtoId<Content.Shared.Tools.ToolQualityPrototype> Quality,
+        int Delay,
+        float SelfRepairPenalty,
+        bool AllowSelfRepair,
+        bool AutoDoAfter);
 }
 
 [Serializable, NetSerializable]

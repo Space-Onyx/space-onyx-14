@@ -46,12 +46,16 @@ public sealed class WoundHealingTest : GameTest
   components:
   - type: BodyPart
     partType: Chest
+  - type: TransplantCompatibility
+    profile: Universal
 
 - type: entity
   id: WoundHealingHead
   components:
   - type: BodyPart
     partType: Head
+  - type: TransplantCompatibility
+    profile: Universal
 
 - type: entity
   id: WoundHealingItem

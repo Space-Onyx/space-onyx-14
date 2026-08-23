@@ -298,9 +298,11 @@ public sealed partial class PainSystem : EntitySystem
             entity.Comp.SuppressionModifiers.Count == 0 && entity.Comp.Suppression == FixedPoint2.Zero)
             return false;
 
+        var oldPain = GetPain(entity);
         entity.Comp.SuppressionModifiers.Clear();
         entity.Comp.Suppression = FixedPoint2.Zero;
         Dirty(entity);
+        RaisePainChanged(entity.Owner, entity.Comp, oldPain);
         return true;
     }
 
@@ -353,6 +355,7 @@ public sealed partial class PainSystem : EntitySystem
 
     private void RefreshSuppression(Entity<PainComponent> entity)
     {
+        var oldPain = GetPain((entity.Owner, entity.Comp));
         var value = FixedPoint2.Zero;
         foreach (var modifier in entity.Comp.SuppressionModifiers.Values)
             value += modifier.Amount;
@@ -362,6 +365,17 @@ public sealed partial class PainSystem : EntitySystem
 
         entity.Comp.Suppression = value;
         Dirty(entity);
+        RaisePainChanged(entity.Owner, entity.Comp, oldPain);
+    }
+
+    private void RaisePainChanged(EntityUid uid, PainComponent component, FixedPoint2 oldPain)
+    {
+        var pain = GetPain((uid, component));
+        if (pain == oldPain)
+            return;
+
+        var changed = new PainChangedEvent(uid, oldPain, pain);
+        RaiseLocalEvent(uid, ref changed);
     }
 
     private static float GetRecoveryMultiplier(PainComponent pain)

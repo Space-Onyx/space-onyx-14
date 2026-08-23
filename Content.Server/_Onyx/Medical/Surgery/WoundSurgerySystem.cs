@@ -61,7 +61,8 @@ public sealed partial class WoundSurgerySystem : EntitySystem
     private void OnFractureGradeValid(Entity<SurgeryFractureGradeConditionComponent> ent, ref SurgeryValidEvent args)
     {
         if (_fractures.GetFracture(args.Part) is not { } fracture ||
-            (ent.Comp.Grade is { } grade ? fracture.Comp2.Grade != grade : fracture.Comp2.Grade < ent.Comp.MinGrade))
+            (ent.Comp.Grade is { } grade ? fracture.Comp2.Grade != grade : fracture.Comp2.Grade < ent.Comp.MinGrade) ||
+            ent.Comp.Treatment is { } treatment && fracture.Comp2.Treatment != treatment)
             args.Cancelled = true;
     }
 

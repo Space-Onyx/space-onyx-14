@@ -43,6 +43,9 @@ public sealed partial class SurgeryFractureGradeConditionComponent : Component
 
     [DataField]
     public FractureGrade? Grade;
+
+    [DataField]
+    public FractureTreatment? Treatment;
 }
 
 [RegisterComponent]
