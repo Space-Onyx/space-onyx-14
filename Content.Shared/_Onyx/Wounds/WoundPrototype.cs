@@ -121,29 +121,9 @@ public sealed partial class WoundPrototype : IPrototype
 [DataDefinition]
 public sealed partial class WoundDamageTypeSettings
 {
-    /// <summary>Effective trauma required to create or worsen the wound.</summary>
-    [DataField]
-    public FixedPoint2 MinimumDamage;
-
-    /// <summary>Minimum damage from the current hit required to evaluate wound creation.</summary>
-    [DataField]
-    public FixedPoint2 MinimumHitDamage = 3;
-
-    /// <summary>Fraction of existing damage of this type counted as accumulated trauma.</summary>
-    [DataField]
-    public float AccumulationMultiplier = 0.5f;
-
     /// <summary>Minimum positive damage in one hit required to reopen a closed or stabilized wound.</summary>
     [DataField]
     public FixedPoint2 ReopenMinimumDamage;
-
-    /// <summary>Chance at MinimumDamage effective trauma that positive damage creates or worsens the wound.</summary>
-    [DataField]
-    public float Chance = 1f;
-
-    /// <summary>Effective trauma at which the chance reaches 100%. Non-positive keeps a fixed chance.</summary>
-    [DataField]
-    public FixedPoint2 GuaranteedDamage;
 
     /// <summary>Wound severity gained or healed per point of damage.</summary>
     [DataField]

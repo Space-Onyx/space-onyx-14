@@ -42,14 +42,14 @@ public sealed partial class WoundFractureSystem : EntitySystem
         if (damage < FixedPoint2.Max(FixedPoint2.Zero, profile.MinimumHitDamage))
             return;
 
-        var severity = GetEffectiveTrauma(part.Owner, profile, damage) * profile.SeverityMultiplier;
-        var hitGrade = GetGrade(profile, severity);
+        var effectiveTrauma = GetEffectiveTrauma(part.Owner, profile, damage);
+        var hitGrade = GetGrade(profile, effectiveTrauma);
         if (hitGrade == FractureGrade.None ||
             !profile.Grades.TryGetValue(hitGrade, out var gradeSettings) ||
             !_random.Prob(Math.Clamp(gradeSettings.CreationChance, 0f, 1f)))
             return;
 
-        if (_wounds.CreateOrMergeWound(part.Owner, profile.Wound, severity) is not { } wound ||
+        if (_wounds.CreateOrMergeWound(part.Owner, profile.Wound, damage * profile.SeverityMultiplier) is not { } wound ||
             !TryComp(wound, out WoundComponent? core))
             return;
 

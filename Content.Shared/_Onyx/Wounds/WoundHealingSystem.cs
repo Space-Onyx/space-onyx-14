@@ -120,12 +120,12 @@ public sealed partial class WoundHealingSystem : EntitySystem
         if (resolve.Part is { } part)
         {
             if (healing.Comp.HealDamage)
-                applied = _routing.TryApplyPartDamage(body, part, change, origin, healWounds: false);
-            if (healing.Comp.HealWounds)
+                applied = _routing.TryApplyPartDamage(body, part, change, origin, healWounds: healing.Comp.HealWounds);
+            if (healing.Comp.HealWounds && !healing.Comp.HealDamage)
                 applied |= _wounds.TryHealWounds(part, change, healing.Comp.AllowedWoundStages);
         }
         else if (healing.Comp.HealDamage)
-            applied = _routing.TryApplyDamage(body, change, origin, healWounds: false);
+            applied = _routing.TryApplyDamage(body, change, origin, healWounds: healing.Comp.HealWounds);
 
         if (healing.Comp.BloodlossModifier < 0 && resolve.Part is { } bleedingPart)
         {

@@ -226,25 +226,25 @@
     Mended: 0
   grades:
     Hairline:
-      threshold: 15
+      threshold: 20
       creationChance: 0.05
-      movementModifier: 0.9
-      manipulationModifier: 1.1
+      movementModifier: 0.625
+      manipulationModifier: 0.92
     Simple:
-      threshold: 30
+      threshold: 35
       creationChance: 0.25
-      movementModifier: 0.8
-      manipulationModifier: 1.25
+      movementModifier: 0.5
+      manipulationModifier: 0.84
     Displaced:
       threshold: 50
       creationChance: 0.65
-      movementModifier: 0.6
-      manipulationModifier: 1.5
+      movementModifier: 0
+      manipulationModifier: 0.75
     Comminuted:
-      threshold: 75
+      threshold: 60
       creationChance: 1
-      movementModifier: 0.4
-      manipulationModifier: 2
+      movementModifier: 0
+      manipulationModifier: 0.75
 
 - type: fractureProfile
   id: CyberneticFractureProfile
@@ -267,40 +267,37 @@
     Mended: 0
   grades:
     Hairline:
-      threshold: 15
+      threshold: 20
       creationChance: 0.05
-      movementModifier: 0.9
-      manipulationModifier: 1.1
+      movementModifier: 0.625
+      manipulationModifier: 0.92
     Simple:
-      threshold: 30
+      threshold: 35
       creationChance: 0.25
-      movementModifier: 0.8
-      manipulationModifier: 1.25
+      movementModifier: 0.5
+      manipulationModifier: 0.84
     Displaced:
       threshold: 50
       creationChance: 0.65
-      movementModifier: 0.6
-      manipulationModifier: 1.5
+      movementModifier: 0
+      manipulationModifier: 0.75
     Comminuted:
-      threshold: 75
+      threshold: 60
       creationChance: 1
-      movementModifier: 0.4
-      manipulationModifier: 2
+      movementModifier: 0
+      manipulationModifier: 0.75
 
 - type: wound
   id: BluntWound
   name: wound-name-blunt
   damageTypes:
     Blunt:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.35
-      guaranteedDamage: 30
-      severityMultiplier: 0.9
+      severityMultiplier: 1
   maximumSeverity: 200
   behaviors:
   - !type:WoundPainBehavior
-    painPerSeverity: 0.7
+    painPerSeverity: 0.87
     minSeverity: 10
   - !type:WoundScarBehavior
     threshold: 20
@@ -313,31 +310,35 @@
       - !type:WoundBleedingBehavior
         rate: 0.05
         chance: 0.25
+        minimumSeverity: 8
     Moderate:
       name: wound-stage-moderate
-      severity: 50
+      severity: 25
       behaviors:
       - !type:WoundBleedingBehavior
         rate: 0.08
         chance: 0.35
+        minimumSeverity: 8
     Severe:
       name: wound-stage-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Impaired
       - !type:WoundBleedingBehavior
         rate: 0.12
         chance: 0.5
+        minimumSeverity: 8
     Critical:
       name: wound-stage-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
       - !type:WoundBleedingBehavior
         rate: 0.18
         chance: 0.7
+        minimumSeverity: 8
 
 - type: wound
   id: BoneFractureWound
@@ -348,7 +349,7 @@
     Hairline:
       name: wound-stage-fracture-hairline
       examineDescription: wound-examine-fracture-hairline
-      severity: 15
+      severity: 20
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Impaired
@@ -359,7 +360,7 @@
     Simple:
       name: wound-stage-fracture-simple
       examineDescription: wound-examine-fracture-simple
-      severity: 30
+      severity: 35
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
@@ -381,7 +382,7 @@
     Comminuted:
       name: wound-stage-fracture-comminuted
       examineDescription: wound-examine-fracture-comminuted
-      severity: 75
+      severity: 60
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
@@ -399,14 +400,14 @@
     Hairline:
       name: wound-stage-frame-hairline
       examineDescription: wound-examine-frame-hairline
-      severity: 15
+      severity: 20
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Impaired
     Simple:
       name: wound-stage-frame-simple
       examineDescription: wound-examine-frame-simple
-      severity: 30
+      severity: 35
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
@@ -420,7 +421,7 @@
     Comminuted:
       name: wound-stage-frame-comminuted
       examineDescription: wound-examine-frame-comminuted
-      severity: 75
+      severity: 60
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
@@ -430,15 +431,12 @@
   name: wound-name-slash
   damageTypes:
     Slash:
-      minimumDamage: 10
       reopenMinimumDamage: 15
-      chance: 0.6
-      guaranteedDamage: 25
-      severityMultiplier: 1.1
+      severityMultiplier: 1
   maximumSeverity: 200
   behaviors:
   - !type:WoundPainBehavior
-    painPerSeverity: 0.6
+    painPerSeverity: 0.67
     minSeverity: 10
   - !type:WoundScarBehavior
     threshold: 15
@@ -450,43 +448,44 @@
       behaviors:
       - !type:WoundBleedingBehavior
         rate: 0.1
+        minimumSeverity: 9
     Moderate:
       name: wound-stage-moderate
-      severity: 50
+      severity: 25
       behaviors:
       - !type:WoundBleedingBehavior
         rate: 0.15
+        minimumSeverity: 9
     Severe:
       name: wound-stage-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Impaired
       - !type:WoundBleedingBehavior
         rate: 0.2
+        minimumSeverity: 9
     Critical:
       name: wound-stage-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
       - !type:WoundBleedingBehavior
         rate: 0.3
+        minimumSeverity: 9
 
 - type: wound
   id: PiercingWound
   name: wound-name-piercing
   damageTypes:
     Piercing:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.5
-      guaranteedDamage: 30
-      severityMultiplier: 1.15
+      severityMultiplier: 1
   maximumSeverity: 200
   behaviors:
   - !type:WoundPainBehavior
-    painPerSeverity: 0.9
+    painPerSeverity: 0.67
     minSeverity: 10
   - !type:WoundScarBehavior
     threshold: 15
@@ -498,50 +497,45 @@
       behaviors:
       - !type:WoundBleedingBehavior
         rate: 0.15
+        minimumSeverity: 9
     Moderate:
       name: wound-stage-moderate
-      severity: 50
+      severity: 25
       behaviors:
       - !type:WoundBleedingBehavior
         rate: 0.2
+        minimumSeverity: 9
     Severe:
       name: wound-stage-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Impaired
       - !type:WoundBleedingBehavior
         rate: 0.25
+        minimumSeverity: 9
     Critical:
       name: wound-stage-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
       - !type:WoundBleedingBehavior
         rate: 0.35
+        minimumSeverity: 9
 
 - type: wound
   id: BurnWound
   name: wound-name-burn
   damageTypes:
     Heat:
-      minimumDamage: 10
       reopenMinimumDamage: 15
-      chance: 0.4
-      guaranteedDamage: 25
     Cold:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.35
-      guaranteedDamage: 30
-      severityMultiplier: 0.8
+      severityMultiplier: 1
     Caustic:
-      minimumDamage: 8
       reopenMinimumDamage: 12
-      chance: 0.55
-      guaranteedDamage: 20
-      severityMultiplier: 1.1
+      severityMultiplier: 1
   maximumSeverity: 200
   behaviors:
   - !type:WoundScarBehavior
@@ -553,28 +547,28 @@
       severity: 0
       behaviors:
       - !type:WoundPainBehavior
-        painPerSeverity: 1.1
+        painPerSeverity: 0.8
         minSeverity: 10
     Moderate:
       name: wound-stage-moderate
-      severity: 50
+      severity: 25
       behaviors:
       - !type:WoundPainBehavior
-        painPerSeverity: 1.4
+        painPerSeverity: 0.8
         minSeverity: 10
     Severe:
       name: wound-stage-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundPainBehavior
-        painPerSeverity: 1.8
+        painPerSeverity: 0.8
         minSeverity: 10
     Critical:
       name: wound-stage-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundPainBehavior
-        painPerSeverity: 2.4
+        painPerSeverity: 0.8
         minSeverity: 10
 
 - type: wound
@@ -582,15 +576,12 @@
   name: wound-name-electrical
   damageTypes:
     Shock:
-      minimumDamage: 10
       reopenMinimumDamage: 15
-      chance: 0.4
-      guaranteedDamage: 25
-      severityMultiplier: 0.9
+      severityMultiplier: 1
   maximumSeverity: 200
   behaviors:
   - !type:WoundPainBehavior
-    painPerSeverity: 1
+    painPerSeverity: 0.7
     minSeverity: 8
     oneTime: true
   stages:
@@ -599,16 +590,16 @@
       severity: 0
     Moderate:
       name: wound-stage-electrical-moderate
-      severity: 50
+      severity: 25
     Severe:
       name: wound-stage-electrical-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Impaired
     Critical:
       name: wound-stage-electrical-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
@@ -642,46 +633,28 @@
   name: wound-name-ipc-mechanical-damage
   damageTypes:
     Blunt:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.35
-      guaranteedDamage: 30
-      severityMultiplier: 0.9
+      severityMultiplier: 1
     Slash:
-      minimumDamage: 10
       reopenMinimumDamage: 15
-      chance: 0.6
-      guaranteedDamage: 25
     Piercing:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.5
-      guaranteedDamage: 30
-      severityMultiplier: 1.1
+      severityMultiplier: 1
     Heat:
-      minimumDamage: 10
       reopenMinimumDamage: 15
-      chance: 0.4
-      guaranteedDamage: 25
     Cold:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.35
-      guaranteedDamage: 30
-      severityMultiplier: 0.8
+      severityMultiplier: 1
     Caustic:
-      minimumDamage: 8
       reopenMinimumDamage: 12
-      chance: 0.55
-      guaranteedDamage: 20
-      severityMultiplier: 1.1
+      severityMultiplier: 1
   maximumSeverity: 200
   behaviors:
   - !type:WoundBleedingBehavior
     rate: 0.08
     chance: 1
   - !type:WoundPainBehavior
-    painPerSeverity: 0.6
+    painPerSeverity: 0.87
     minSeverity: 10
   stages:
     Minor:
@@ -689,19 +662,19 @@
       severity: 0
     Moderate:
       name: wound-stage-mechanical-moderate
-      severity: 50
+      severity: 25
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Impaired
     Severe:
       name: wound-stage-mechanical-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
     Critical:
       name: wound-stage-mechanical-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
@@ -711,39 +684,21 @@
   name: wound-name-cybernetic-mechanical-damage
   damageTypes:
     Blunt:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.35
-      guaranteedDamage: 30
-      severityMultiplier: 0.9
+      severityMultiplier: 1
     Slash:
-      minimumDamage: 10
       reopenMinimumDamage: 15
-      chance: 0.6
-      guaranteedDamage: 25
     Piercing:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.5
-      guaranteedDamage: 30
-      severityMultiplier: 1.1
+      severityMultiplier: 1
     Heat:
-      minimumDamage: 10
       reopenMinimumDamage: 15
-      chance: 0.4
-      guaranteedDamage: 25
     Cold:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.35
-      guaranteedDamage: 30
-      severityMultiplier: 0.8
+      severityMultiplier: 1
     Caustic:
-      minimumDamage: 8
       reopenMinimumDamage: 12
-      chance: 0.55
-      guaranteedDamage: 20
-      severityMultiplier: 1.1
+      severityMultiplier: 1
   maximumSeverity: 200
   stages:
     Minor:
@@ -751,19 +706,19 @@
       severity: 0
     Moderate:
       name: wound-stage-mechanical-moderate
-      severity: 50
+      severity: 25
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Impaired
     Severe:
       name: wound-stage-mechanical-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
     Critical:
       name: wound-stage-mechanical-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
@@ -773,11 +728,8 @@
   name: wound-name-slime-blunt
   damageTypes:
     Blunt:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.35
-      guaranteedDamage: 30
-      severityMultiplier: 0.9
+      severityMultiplier: 1
   maximumSeverity: 200
   behaviors:
   - !type:WoundPainBehavior
@@ -793,14 +745,14 @@
         chance: 0.25
     Moderate:
       name: wound-stage-moderate
-      severity: 50
+      severity: 25
       behaviors:
       - !type:WoundBleedingBehavior
         rate: 0.08
         chance: 0.35
     Severe:
       name: wound-stage-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Impaired
@@ -809,7 +761,7 @@
         chance: 0.5
     Critical:
       name: wound-stage-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
@@ -822,15 +774,12 @@
   name: wound-name-slime-slash
   damageTypes:
     Slash:
-      minimumDamage: 10
       reopenMinimumDamage: 15
-      chance: 0.6
-      guaranteedDamage: 25
-      severityMultiplier: 1.1
+      severityMultiplier: 1
   maximumSeverity: 200
   behaviors:
   - !type:WoundPainBehavior
-    painPerSeverity: 0.6
+    painPerSeverity: 0.67
     minSeverity: 10
   stages:
     Minor:
@@ -841,13 +790,13 @@
         rate: 0.1
     Moderate:
       name: wound-stage-moderate
-      severity: 50
+      severity: 25
       behaviors:
       - !type:WoundBleedingBehavior
         rate: 0.15
     Severe:
       name: wound-stage-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Impaired
@@ -855,7 +804,7 @@
         rate: 0.2
     Critical:
       name: wound-stage-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
@@ -867,15 +816,12 @@
   name: wound-name-slime-piercing
   damageTypes:
     Piercing:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.5
-      guaranteedDamage: 30
-      severityMultiplier: 1.15
+      severityMultiplier: 1
   maximumSeverity: 200
   behaviors:
   - !type:WoundPainBehavior
-    painPerSeverity: 0.9
+    painPerSeverity: 0.67
     minSeverity: 10
   stages:
     Minor:
@@ -886,13 +832,13 @@
         rate: 0.15
     Moderate:
       name: wound-stage-moderate
-      severity: 50
+      severity: 25
       behaviors:
       - !type:WoundBleedingBehavior
         rate: 0.2
     Severe:
       name: wound-stage-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Impaired
@@ -900,7 +846,7 @@
         rate: 0.25
     Critical:
       name: wound-stage-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
@@ -912,22 +858,13 @@
   name: wound-name-slime-burn
   damageTypes:
     Heat:
-      minimumDamage: 10
       reopenMinimumDamage: 15
-      chance: 0.4
-      guaranteedDamage: 25
     Cold:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.35
-      guaranteedDamage: 30
-      severityMultiplier: 0.8
+      severityMultiplier: 1
     Caustic:
-      minimumDamage: 8
       reopenMinimumDamage: 12
-      chance: 0.55
-      guaranteedDamage: 20
-      severityMultiplier: 1.1
+      severityMultiplier: 1
   maximumSeverity: 200
   stages:
     Minor:
@@ -935,28 +872,28 @@
       severity: 0
       behaviors:
       - !type:WoundPainBehavior
-        painPerSeverity: 1.1
+        painPerSeverity: 0.8
         minSeverity: 10
     Moderate:
       name: wound-stage-moderate
-      severity: 50
+      severity: 25
       behaviors:
       - !type:WoundPainBehavior
-        painPerSeverity: 1.4
+        painPerSeverity: 0.8
         minSeverity: 10
     Severe:
       name: wound-stage-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundPainBehavior
-        painPerSeverity: 1.8
+        painPerSeverity: 0.8
         minSeverity: 10
     Critical:
       name: wound-stage-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundPainBehavior
-        painPerSeverity: 2.4
+        painPerSeverity: 0.8
         minSeverity: 10
 
 - type: wound
@@ -964,15 +901,12 @@
   name: wound-name-plant-blunt
   damageTypes:
     Blunt:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.35
-      guaranteedDamage: 30
-      severityMultiplier: 0.9
+      severityMultiplier: 1
   maximumSeverity: 200
   behaviors:
   - !type:WoundPainBehavior
-    painPerSeverity: 0.7
+    painPerSeverity: 0.87
     minSeverity: 10
   - !type:WoundScarBehavior
     threshold: 20
@@ -987,14 +921,14 @@
         chance: 0.25
     Moderate:
       name: wound-stage-moderate
-      severity: 50
+      severity: 25
       behaviors:
       - !type:WoundBleedingBehavior
         rate: 0.08
         chance: 0.35
     Severe:
       name: wound-stage-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Impaired
@@ -1003,7 +937,7 @@
         chance: 0.5
     Critical:
       name: wound-stage-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
@@ -1016,15 +950,12 @@
   name: wound-name-plant-slash
   damageTypes:
     Slash:
-      minimumDamage: 10
       reopenMinimumDamage: 15
-      chance: 0.6
-      guaranteedDamage: 25
-      severityMultiplier: 1.1
+      severityMultiplier: 1
   maximumSeverity: 200
   behaviors:
   - !type:WoundPainBehavior
-    painPerSeverity: 0.6
+    painPerSeverity: 0.67
     minSeverity: 10
   - !type:WoundScarBehavior
     threshold: 15
@@ -1038,13 +969,13 @@
         rate: 0.1
     Moderate:
       name: wound-stage-moderate
-      severity: 50
+      severity: 25
       behaviors:
       - !type:WoundBleedingBehavior
         rate: 0.15
     Severe:
       name: wound-stage-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Impaired
@@ -1052,7 +983,7 @@
         rate: 0.2
     Critical:
       name: wound-stage-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
@@ -1064,15 +995,12 @@
   name: wound-name-plant-piercing
   damageTypes:
     Piercing:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.5
-      guaranteedDamage: 30
-      severityMultiplier: 1.15
+      severityMultiplier: 1
   maximumSeverity: 200
   behaviors:
   - !type:WoundPainBehavior
-    painPerSeverity: 0.9
+    painPerSeverity: 0.67
     minSeverity: 10
   - !type:WoundScarBehavior
     threshold: 15
@@ -1086,13 +1014,13 @@
         rate: 0.15
     Moderate:
       name: wound-stage-moderate
-      severity: 50
+      severity: 25
       behaviors:
       - !type:WoundBleedingBehavior
         rate: 0.2
     Severe:
       name: wound-stage-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Impaired
@@ -1100,7 +1028,7 @@
         rate: 0.25
     Critical:
       name: wound-stage-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundFunctionalityBehavior
         state: Disabled
@@ -1112,22 +1040,13 @@
   name: wound-name-plant-burn
   damageTypes:
     Heat:
-      minimumDamage: 10
       reopenMinimumDamage: 15
-      chance: 0.4
-      guaranteedDamage: 25
     Cold:
-      minimumDamage: 12
       reopenMinimumDamage: 18
-      chance: 0.35
-      guaranteedDamage: 30
-      severityMultiplier: 0.8
+      severityMultiplier: 1
     Caustic:
-      minimumDamage: 8
       reopenMinimumDamage: 12
-      chance: 0.55
-      guaranteedDamage: 20
-      severityMultiplier: 1.1
+      severityMultiplier: 1
   maximumSeverity: 200
   behaviors:
   - !type:WoundScarBehavior
@@ -1139,28 +1058,28 @@
       severity: 0
       behaviors:
       - !type:WoundPainBehavior
-        painPerSeverity: 1.1
+        painPerSeverity: 0.8
         minSeverity: 10
     Moderate:
       name: wound-stage-moderate
-      severity: 50
+      severity: 25
       behaviors:
       - !type:WoundPainBehavior
-        painPerSeverity: 1.4
+        painPerSeverity: 0.8
         minSeverity: 10
     Severe:
       name: wound-stage-severe
-      severity: 100
+      severity: 50
       behaviors:
       - !type:WoundPainBehavior
-        painPerSeverity: 1.8
+        painPerSeverity: 0.8
         minSeverity: 10
     Critical:
       name: wound-stage-critical
-      severity: 150
+      severity: 80
       behaviors:
       - !type:WoundPainBehavior
-        painPerSeverity: 2.4
+        painPerSeverity: 0.8
         minSeverity: 10
 
 - type: wound

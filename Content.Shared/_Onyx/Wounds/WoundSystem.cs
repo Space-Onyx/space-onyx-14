@@ -2,7 +2,6 @@ using System.Linq;
 using Content.Shared.Body;
 using Content.Shared.Body.Systems;
 using Content.Shared.Damage;
-using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
@@ -19,7 +18,6 @@ public sealed partial class WoundSystem : EntitySystem
 {
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private SharedContainerSystem _containers = default!;
-    [Dependency] private DamageableSystem _damage = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private IRobustRandom _random = default!;
@@ -82,11 +80,7 @@ public sealed partial class WoundSystem : EntitySystem
 
                 if (amount > FixedPoint2.Zero)
                 {
-                    var trauma = GetEffectiveTrauma(part.Owner, type, amount, settings.AccumulationMultiplier);
-                    var chance = GetCreationChance(settings, trauma);
-                    if (amount < FixedPoint2.Max(FixedPoint2.Zero, settings.MinimumHitDamage) ||
-                        trauma < FixedPoint2.Max(FixedPoint2.Zero, settings.MinimumDamage) ||
-                        chance <= 0f || !CanCreateWound(part.AsNullable(), prototype.ID, type) || !_random.Prob(chance))
+                    if (!CanCreateWound(part.AsNullable(), prototype.ID, type))
                         continue;
 
                     CreateOrMergeWoundInternal(part.Owner, prototype, severity,
@@ -148,28 +142,6 @@ public sealed partial class WoundSystem : EntitySystem
             part.Comp.AmputationOverflow = FixedPoint2.Zero;
             Dirty(part);
         }
-    }
-
-    private FixedPoint2 GetEffectiveTrauma(EntityUid part, ProtoId<DamageTypePrototype> type, FixedPoint2 hit,
-        float accumulationMultiplier)
-    {
-        if (accumulationMultiplier <= 0f || !TryComp(part, out DamageableComponent? damageable))
-            return hit;
-
-        var current = _damage.GetPositiveDamage((part, damageable)).DamageDict.GetValueOrDefault(type);
-        var previous = FixedPoint2.Max(FixedPoint2.Zero, current - hit);
-        return hit + previous * accumulationMultiplier;
-    }
-
-    private static float GetCreationChance(WoundDamageTypeSettings settings, FixedPoint2 damage)
-    {
-        var minimumChance = Math.Clamp(settings.Chance, 0f, 1f);
-        if (settings.GuaranteedDamage <= settings.MinimumDamage || damage >= settings.GuaranteedDamage)
-            return settings.GuaranteedDamage > FixedPoint2.Zero ? 1f : minimumChance;
-
-        var progress = (float) (damage - settings.MinimumDamage) /
-                       (float) (settings.GuaranteedDamage - settings.MinimumDamage);
-        return MathHelper.Lerp(minimumChance, 1f, Math.Clamp(progress, 0f, 1f));
     }
 
     public IEnumerable<Entity<WoundComponent>> GetWounds(Entity<WoundableComponent?> part)
@@ -244,7 +216,7 @@ public sealed partial class WoundSystem : EntitySystem
     {
         if (CanBleed(wound.Comp.HoldingPart) &&
             prototype.TryGetBehavior(wound.Comp.Severity, out WoundBleedingBehavior bleedingBehavior) &&
-            bleedingBehavior.Rate > 0f)
+            bleedingBehavior.Rate > 0f && wound.Comp.Severity >= bleedingBehavior.MinimumSeverity)
         {
             if (!TryComp(wound, out WoundBleedingComponent? bleeding))
             {

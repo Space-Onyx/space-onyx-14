@@ -24,6 +24,9 @@ public sealed partial class WoundBleedingBehavior : WoundBehavior
     public float Rate;
 
     [DataField]
+    public FixedPoint2 MinimumSeverity;
+
+    [DataField]
     public float Chance = 1f;
 
     [DataField]

@@ -12,7 +12,7 @@ public sealed partial class HealingComponent
 
     /// <summary>Whether this item also reduces severity of wounds mapped to the healed damage types.</summary>
     [DataField, AutoNetworkedField]
-    public bool HealWounds;
+    public bool HealWounds = true;
 
     [DataField, AutoNetworkedField]
     public HashSet<TreatmentCapability> TreatmentCapabilities = [TreatmentCapability.Biological];

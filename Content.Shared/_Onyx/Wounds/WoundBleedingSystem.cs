@@ -206,8 +206,16 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         bool refreshBody = true)
     {
         if (!_net.IsServer || !prototype.TryGetBehavior(core.Severity, out WoundBleedingBehavior behavior) ||
+            core.Severity < behavior.MinimumSeverity ||
             !TryGetBleedingMultiplier(core.HoldingPart, out var bleedingMultiplier))
+        {
+            wound.Comp.BaseRate = 0f;
+            wound.Comp.CurrentRate = 0f;
+            Dirty(wound);
+            if (refreshBody)
+                RefreshBodyForPart(core.HoldingPart);
             return;
+        }
 
         wound.Comp.BaseRate = wound.Comp.BleedingSeverity.Float() * behavior.Rate * bleedingMultiplier;
         if (behavior.AwakeMultiplier > 1f && TryGetBody(core.HoldingPart, out var patient) &&
