@@ -42,3 +42,77 @@
     - FloorConcreteSmooth
   - type: Stack
     stackType: FloorTileConcreteSmooth
+
+# <Onyx-ConctereRevert>
+- type: entity
+  parent: FloorTileItemBase
+  id: FloorTileItemGrayConcrete
+  name: gray concrete tile
+  components:
+  - type: Sprite
+    state: grayconcrete
+  - type: FloorTile
+    outputs: [ Plating, FloorGrayConcrete ]
+  - type: Stack
+    stackType: FloorTileGrayConcrete
+
+- type: entity
+  parent: FloorTileItemGrayConcrete
+  id: FloorTileItemGrayConcreteMono
+  name: gray concrete mono tile
+  components:
+  - type: Sprite
+    state: grayconcrete-mono
+  - type: FloorTile
+    outputs: [ Plating, FloorGrayConcreteMono ]
+  - type: Stack
+    stackType: FloorTileGrayConcreteMono
+
+- type: entity
+  parent: FloorTileItemGrayConcrete
+  id: FloorTileItemGrayConcreteSmooth
+  name: gray concrete smooth tile
+  components:
+  - type: Sprite
+    state: grayconcrete-smooth
+  - type: FloorTile
+    outputs: [ Plating, FloorGrayConcreteSmooth ]
+  - type: Stack
+    stackType: FloorTileGrayConcreteSmooth
+
+- type: entity
+  parent: FloorTileItemBase
+  id: FloorTileItemOldConcrete
+  name: old concrete tile
+  components:
+  - type: Sprite
+    state: oldconcrete
+  - type: FloorTile
+    outputs: [ Plating, FloorOldConcrete ]
+  - type: Stack
+    stackType: FloorTileOldConcrete
+
+- type: entity
+  parent: FloorTileItemOldConcrete
+  id: FloorTileItemOldConcreteMono
+  name: old concrete mono tile
+  components:
+  - type: Sprite
+    state: oldconcrete-mono
+  - type: FloorTile
+    outputs: [ Plating, FloorOldConcreteMono ]
+  - type: Stack
+    stackType: FloorTileOldConcreteMono
+
+- type: entity
+  parent: FloorTileItemOldConcrete
+  id: FloorTileItemOldConcreteSmooth
+  name: old concrete smooth tile
+  components:
+  - type: Sprite
+    state: oldconcrete-smooth
+  - type: FloorTile
+    outputs: [ Plating, FloorOldConcreteSmooth ]
+  - type: Stack
+    stackType: FloorTileOldConcreteSmooth
+# </Onyx-ConctereRevert>

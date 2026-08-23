@@ -63,6 +63,14 @@
   - FloorTileItemConcrete
   - FloorTileItemConcreteMono
   - FloorTileItemConcreteSmooth
+# <Onyx-ConctereRevert>
+  - FloorTileItemGrayConcrete
+  - FloorTileItemGrayConcreteMono
+  - FloorTileItemGrayConcreteSmooth
+  - FloorTileItemOldConcrete
+  - FloorTileItemOldConcreteMono
+  - FloorTileItemOldConcreteSmooth
+# </Onyx-ConctereRevert>
 
 - type: latheRecipePack
   id: CircuitFloorsStatic

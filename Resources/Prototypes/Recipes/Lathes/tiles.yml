@@ -347,6 +347,33 @@
   id: FloorTileItemConcreteSmooth
   result: FloorTileItemConcreteSmooth
 
+# <Onyx-ConctereRevert>
+- type: latheRecipe
+  parent: BaseConcreteTileRecipe
+  id: FloorTileItemGrayConcrete
+  result: FloorTileItemGrayConcrete
+- type: latheRecipe
+  parent: BaseConcreteTileRecipe
+  id: FloorTileItemGrayConcreteMono
+  result: FloorTileItemGrayConcreteMono
+- type: latheRecipe
+  parent: BaseConcreteTileRecipe
+  id: FloorTileItemGrayConcreteSmooth
+  result: FloorTileItemGrayConcreteSmooth
+- type: latheRecipe
+  parent: BaseConcreteTileRecipe
+  id: FloorTileItemOldConcrete
+  result: FloorTileItemOldConcrete
+- type: latheRecipe
+  parent: BaseConcreteTileRecipe
+  id: FloorTileItemOldConcreteMono
+  result: FloorTileItemOldConcreteMono
+- type: latheRecipe
+  parent: BaseConcreteTileRecipe
+  id: FloorTileItemOldConcreteSmooth
+  result: FloorTileItemOldConcreteSmooth
+# </Onyx-ConctereRevert>
+
 # Faux
 - type: latheRecipe
   parent: BaseFauxTileRecipe

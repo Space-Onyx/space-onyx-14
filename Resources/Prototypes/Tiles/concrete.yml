@@ -26,3 +26,53 @@
   footstepSounds:
     collection: FootstepTile
   itemDrop: FloorTileItemConcreteSmooth
+
+# <Onyx-ConctereRevert>
+- type: tile
+  id: FloorGrayConcrete
+  parent: BaseStationTile
+  name: tiles-gray-concrete-tile
+  sprite: /Textures/Tiles/Planet/Concrete/grayconcrete.png
+  variants: 4
+  itemDrop: FloorTileItemGrayConcrete
+
+- type: tile
+  id: FloorGrayConcreteMono
+  parent: BaseStationTile
+  name: tiles-gray-concrete-slab
+  sprite: /Textures/Tiles/Planet/Concrete/grayconcrete_mono.png
+  variants: 4
+  itemDrop: FloorTileItemGrayConcreteMono
+
+- type: tile
+  id: FloorGrayConcreteSmooth
+  parent: BaseStationTile
+  name: tiles-gray-concrete-smooth
+  sprite: /Textures/Tiles/Planet/Concrete/grayconcrete_smooth.png
+  variants: 4
+  itemDrop: FloorTileItemGrayConcreteSmooth
+
+- type: tile
+  id: FloorOldConcrete
+  parent: BaseStationTile
+  name: tiles-old-concrete-tile
+  sprite: /Textures/Tiles/Planet/Concrete/oldconcrete.png
+  variants: 4
+  itemDrop: FloorTileItemOldConcrete
+
+- type: tile
+  id: FloorOldConcreteMono
+  parent: BaseStationTile
+  name: tiles-old-concrete-slab
+  sprite: /Textures/Tiles/Planet/Concrete/oldconcrete_mono.png
+  variants: 4
+  itemDrop: FloorTileItemOldConcreteMono
+
+- type: tile
+  id: FloorOldConcreteSmooth
+  parent: BaseStationTile
+  name: tiles-old-concrete-smooth
+  sprite: /Textures/Tiles/Planet/Concrete/oldconcrete_smooth.png
+  variants: 4
+  itemDrop: FloorTileItemOldConcreteSmooth
+# </Onyx-ConctereRevert>

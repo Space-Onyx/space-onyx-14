@@ -85,29 +85,26 @@
   id: FloorConcreteOutsideSmooth
   target: FloorConcreteSmooth
 
-- type: tileAlias
-  id: FloorGrayConcreteOutside
-  target: FloorGrayConcrete
-
-- type: tileAlias
-  id: FloorGrayConcreteOutsideMono
-  target: FloorGrayConcreteMono
-  
-- type: tileAlias
-  id: FloorGrayConcreteOutsideSmooth
-  target: FloorGrayConcreteSmooth
- 
-- type: tileAlias
-  id: FloorOldConcreteOutside
-  target: FloorOldConcrete
-
-- type: tileAlias
-  id: FloorOldConcreteOutsideMono
-  target: FloorOldConcreteMono
-  
-- type: tileAlias
-  id: FloorOldConcreteOutsideSmooth
-  target: FloorOldConcreteSmooth
+# <Onyx-ConctereRevert-edited>
+# - type: tileAlias
+#   id: FloorGrayConcreteOutside
+#   target: FloorGrayConcrete
+# - type: tileAlias
+#   id: FloorGrayConcreteOutsideMono
+#   target: FloorGrayConcreteMono
+# - type: tileAlias
+#   id: FloorGrayConcreteOutsideSmooth
+#   target: FloorGrayConcreteSmooth
+# - type: tileAlias
+#   id: FloorOldConcreteOutside
+#   target: FloorOldConcrete
+# - type: tileAlias
+#   id: FloorOldConcreteOutsideMono
+#   target: FloorOldConcreteMono
+# - type: tileAlias
+#   id: FloorOldConcreteOutsideSmooth
+#   target: FloorOldConcreteSmooth
+# </Onyx-ConctereRevert-edited>
 
 # 2026/07/22
 # The respritening! With this one simple trick, i give 200 mappers a collective aneurysm.
@@ -258,29 +255,26 @@
   id: FloorIronsandConcreteSmooth
   target: FloorAsteroidIronsand
 
-- type: tileAlias
-  id: FloorGrayConcrete
-  target: FloorConcrete
-
-- type: tileAlias
-  id: FloorGrayConcreteMono
-  target: FloorConcreteMono
-
-- type: tileAlias
-  id: FloorGrayConcreteSmooth
-  target: FloorConcreteSmooth
-
-- type: tileAlias
-  id: FloorOldConcrete
-  target: FloorConcrete
-
-- type: tileAlias
-  id: FloorOldConcreteMono
-  target: FloorConcreteMono
-
-- type: tileAlias
-  id: FloorOldConcreteSmooth
-  target: FloorConcreteSmooth
+# <Onyx-ConctereRevert-edited>
+# - type: tileAlias
+#   id: FloorGrayConcrete
+#   target: FloorConcrete
+# - type: tileAlias
+#   id: FloorGrayConcreteMono
+#   target: FloorConcreteMono
+# - type: tileAlias
+#   id: FloorGrayConcreteSmooth
+#   target: FloorConcreteSmooth
+# - type: tileAlias
+#   id: FloorOldConcrete
+#   target: FloorConcrete
+# - type: tileAlias
+#   id: FloorOldConcreteMono
+#   target: FloorConcreteMono
+# - type: tileAlias
+#   id: FloorOldConcreteSmooth
+#   target: FloorConcreteSmooth
+# </Onyx-ConctereRevert-edited>
 
 - type: tileAlias
   id: IronsandPacked

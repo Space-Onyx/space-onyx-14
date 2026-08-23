@@ -1082,12 +1082,14 @@ MetalDoor: SilverDoor
 MiningWindow: ReinforcedWindow
 MiningWindowDiagonal: ReinforcedWindowDiagonal
 FloorTileItemLightAstroGrass: null
-FloorTileItemGrayConcrete: null
-FloorTileItemGrayConcreteMono: null
-FloorTileItemGrayConcreteSmooth: null
-FloorTileItemOldConcrete: null
-FloorTileItemOldConcreteMono: null
-FloorTileItemOldConcreteSmooth: null
+# <Onyx-ConctereRevert-edited>
+# FloorTileItemGrayConcrete: null
+# FloorTileItemGrayConcreteMono: null
+# FloorTileItemGrayConcreteSmooth: null
+# FloorTileItemOldConcrete: null
+# FloorTileItemOldConcreteMono: null
+# FloorTileItemOldConcreteSmooth: null
+# </Onyx-ConctereRevert-edited>
 FloorTileItemIronsandConcrete: null
 FloorTileItemIronsandConcreteMono: null
 FloorTileItemIronsandConcreteSmooth: null
