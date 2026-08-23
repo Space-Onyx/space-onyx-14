@@ -475,6 +475,9 @@ public abstract partial class SharedGunSystem : EntitySystem
         _targetingSnapshots.Capture(uid, shooter);
 
         TransformSystem.SetWorldRotation(uid, direction.ToWorldAngle() + projectile.Angle);
+
+        var ev = new ProjectileShotEvent();
+        RaiseLocalEvent(uid, ref ev);
     }
 
     /// <summary>

@@ -1029,39 +1029,43 @@ CrateEngineeringThruster: CrateSpaceThruster
 BlastDoorXenoborg: BlastDoorXeno
 BlastDoorXenoborgOpen: BlastDoorXenoOpen
 
-# Dark
+### Dark Tiles
 FloorTileItemDarkDiagonalMini: FloorTileItemDark
-FloorTileItemDarkDiagonal: FloorTileItemDark
-FloorTileItemDarkOffset: FloorTileItemDark
-FloorTileItemDarkSlatsContinuous: FloorTileItemDark
+# Corvax-Sprites
+# FloorTileItemDarkDiagonal: FloorTileItemDark
+# FloorTileItemDarkOffset: FloorTileItemDark
+FloorTileItemDarkSlatsContinuous: FloorTileItemDarkVerticalSlatsBordered
 
-# Steel
+### Steel Tiles
 FloorTileItemSteelDiagonalMini: FloorTileItemSteel
-FloorTileItemSteelDiagonal: FloorTileItemSteel
-FloorTileItemSteelOffset: FloorTileItemSteel
+# Corvax-Sprites
+# FloorTileItemSteelDiagonal: FloorTileItemSteel
+# FloorTileItemSteelOffset: FloorTileItemSteel
 FloorTileItemShowroom: FloorTileItemSteel
-FloorTileItemSteelSlatsContinuous: FloorTileItemSteel
+FloorTileItemSteelSlatsContinuous: FloorTileItemSteelVerticalSlatsBordered
 
-# White
+### White Tiles
 FloorTileItemWhiteDiagonalMini: FloorTileItemWhite
-FloorTileItemWhiteDiagonal: FloorTileItemWhite
-FloorTileItemWhiteOffset: FloorTileItemWhite
-FloorTileItemWhiteSlatsContinuous: FloorTileItemWhite
+# Corvax-Sprites
+# FloorTileItemWhiteDiagonal: FloorTileItemWhite
+# FloorTileItemWhiteOffset: FloorTileItemWhite
+FloorTileItemWhiteSlatsContinuous: FloorTileItemWhiteVerticalSlatsBordered
 
-# Misc
+### Misc Tiles
 FloorTileItemUraniumMarble: FloorTileItemDarkMarble
 FloorTileItemPlasmaMarble: FloorTileItemWhiteMarble
 FloorTileItemEighties: FloorTileItemArcadeBlue
 FloorTileItemArcadeBlue2: FloorTileItemArcadeBlue
-FloorTileItemElevatorShaft: null
-FloorTileItemMining: null
-FloorTileItemMiningLight: null
-FloorTileItemMiningDark: null
-FloorTileItemRockVault: null
+# Corvax-Sprites
+# FloorTileItemElevatorShaft: null
+# FloorTileItemMining: null
+# FloorTileItemMiningLight: null
+# FloorTileItemMiningDark: null
+# FloorTileItemRockVault: null
 FloorTileItemBrassReebe: null
 FloorTileItemBrassFilled: null
 FloorBananiumEntity: null
-FloorTileItemMono: null
+FloorTileItemMono: FloorTileItemSteel
 
 # 2026-07-23
 AirAlarmAssemblyXeno: AirAlarmAssembly
@@ -1141,7 +1145,8 @@ FloorDesertChasm: FloorChasmEntity
 FloorChromiteChasm: FloorChasmEntity
 
 # 2026-08-06
-FloorTileItemHydro: null
+# Corvax-Sprites
+# FloorTileItemHydro: null
 WallRiveted: WallMarble
 WallSpawnAsteroidBananium: null
 WallSpawnAsteroidBananiumCrab: null
