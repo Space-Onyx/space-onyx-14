@@ -1,4 +1,5 @@
 using Content.Shared.Whitelist;
+using Content.Shared._Onyx.AnimationData;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
@@ -68,6 +69,11 @@ public sealed partial class EmotePrototype : IPrototype
     /// </summary>
     [DataField]
     public HashSet<string> ChatTriggers = new();
+
+    // <Onyx-AnimatedEmotes>
+    [DataField] public EntityEventArgs? Event;
+    [DataField] public List<BaseTargetEvent>? TargetEvents;
+    // </Onyx-AnimatedEmotes>
 }
 
 /// <summary>

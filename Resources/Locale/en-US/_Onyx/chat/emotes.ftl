@@ -1,0 +1,16 @@
+chat-emote-name-danc = Dance
+chat-emote-msg-dance-1 = dances.
+chat-emote-msg-dance-2 = starts dancing.
+chat-emote-msg-dance-3 = breaks into dance.
+chat-emote-name-dance-the-from-floor = Dance from the floor
+chat-emote-msg-dance-from-the-floor = dances from the floor.
+chat-emote-name-spinning-on-head = Spin on their head
+chat-emote-msg-spinning-on-head = spins on their head.
+chat-emote-name-flip = Flip
+chat-emote-msg-flip = does a flip.
+chat-emote-name-spin = Spin
+chat-emote-msg-spin = spins.
+chat-emote-name-jump = Jump
+chat-emote-msg-jump = jumps.
+chat-emote-name-flex = Flex
+chat-emote-msg-flex = flexes.

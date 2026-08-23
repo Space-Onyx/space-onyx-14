@@ -1,0 +1,80 @@
+- type: emote
+  id: Flip
+  name: chat-emote-name-flip
+  icon: _Onyx/Interface/Emotes/flip.png
+  chatMessages: ["chat-emote-msg-flip"]
+  chatTriggers: [flip, flips, "does a flip"]
+  targetEvents:
+  - !type:PlayAnimationTargetEvent
+    animationID: EmoteFlip
+
+- type: emote
+  id: Spin
+  name: chat-emote-name-spin
+  icon: Interface/Emotes/tailslap.png
+  category: Invalid
+  chatMessages: ["chat-emote-msg-spin"]
+  chatTriggers: [spin, spins]
+  event: !type:AnimationSpinEmoteEvent
+
+- type: emote
+  id: Jump
+  name: chat-emote-name-jump
+  icon: _Onyx/Interface/Emotes/jump.png
+  chatMessages: ["chat-emote-msg-jump"]
+  chatTriggers: [jump, jumps]
+  targetEvents:
+  - !type:PlayAnimationTargetEvent
+    animationID: EmoteJump
+
+- type: emote
+  id: Flex
+  name: chat-emote-name-flex
+  icon: Interface/Emotes/clap.png
+  chatMessages: ["chat-emote-msg-flex"]
+  whitelist:
+    tags: [Blobbernaut]
+  chatTriggers: [flex, flexes]
+  event: !type:AnimationFlexEmoteEvent
+
+- type: emote
+  id: DanceFromTheFloor
+  name: chat-emote-name-dance-the-from-floor
+  icon: _Onyx/Interface/Emotes/flip.png
+  chatMessages: ["chat-emote-msg-dance-from-the-floor"]
+  chatTriggers: ["dance from the floor"]
+  targetEvents:
+  - !type:PlayAnimationTargetEvent
+    animationID: EmoteDanceFromTheFloor
+  - !type:ApplyStatusEffectTargetEvent
+    key: SlowedDown
+    componentType: SlowedDown
+    time: 5
+
+- type: emote
+  id: SpinningOnHead
+  name: chat-emote-name-spinning-on-head
+  icon: Interface/Emotes/tailslap.png
+  chatMessages: ["chat-emote-msg-spinning-on-head"]
+  chatTriggers: ["spinning on their head"]
+  targetEvents:
+  - !type:PlayAnimationTargetEvent
+    animationID: EmoteSpinningOnHead
+  - !type:ApplyStatusEffectTargetEvent
+    key: SlowedDown
+    componentType: SlowedDown
+    time: 6.5
+
+- type: emote
+  id: Dance
+  name: chat-emote-name-danc
+  icon: Interface/Emotes/clap.png
+  chatMessages: ["chat-emote-msg-dance-1", "chat-emote-msg-dance-2", "chat-emote-msg-dance-3"]
+  chatTriggers: [dancing, dances]
+  targetEvents:
+  - !type:PlayAnimationTargetEvent
+    animationID: EmoteDance
+  - !type:ApplyStatusEffectTargetEvent
+    key: SlowedDown
+    componentType: SlowedDown
+    time: 6

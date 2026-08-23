@@ -53,6 +53,7 @@
   - type: InputMover
   - type: MobMover
   - type: MovementSpeedModifier
+  - type: AnimatedEmotes # <Onyx-AnimatedEmotes>
   # <Onyx-Languages>
   - type: LanguageSpeaker
   # </Onyx-Languages>

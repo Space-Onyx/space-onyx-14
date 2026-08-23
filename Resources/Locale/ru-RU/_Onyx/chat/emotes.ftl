@@ -1,0 +1,16 @@
+chat-emote-name-danc = Танцевать
+chat-emote-msg-dance-1 = танцует.
+chat-emote-msg-dance-2 = начинает танцевать.
+chat-emote-msg-dance-3 = пускается в пляс.
+chat-emote-name-dance-the-from-floor = Танец от пола
+chat-emote-msg-dance-from-the-floor = танцует от пола.
+chat-emote-name-spinning-on-head = Крутиться на голове
+chat-emote-msg-spinning-on-head = крутится на голове.
+chat-emote-name-flip = Кувырок
+chat-emote-msg-flip = делает кувырок.
+chat-emote-name-spin = Вращение
+chat-emote-msg-spin = вращается.
+chat-emote-name-jump = Прыжок
+chat-emote-msg-jump = прыгает.
+chat-emote-name-flex = Напрячь мышцы
+chat-emote-msg-flex = напрягает мышцы.
