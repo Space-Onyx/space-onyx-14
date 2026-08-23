@@ -1251,3 +1251,9 @@ BoneWeak: null
 # 2026-08-10 Onyx
 Screen: StatusDisplay
 ArrivalsShuttleTimer: StatusDisplayShuttle
+
+# 2026-08-23 Onyx
+AirlockBlueshieldOfficerCommandLocked: AirlockCentralCommandLocked
+AirlockBlueshieldOfficerCommand: AirlockCentralCommand
+AirlockBlueshieldOfficerCommandGlassLocked: AirlockCentralCommandGlassLocked
+AirlockBlueshieldOfficerCommandGlass: AirlockCentralCommandGlass

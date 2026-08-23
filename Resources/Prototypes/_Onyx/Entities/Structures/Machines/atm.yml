@@ -16,9 +16,6 @@
   - type: Sprite
     sprite: _Onyx/Structures/Machines/wall_atm.rsi
     layers:
-    - map: ["atmLayerBody"]
-      state: icon
-      directional: true
     - map: ["atmLayerScreen"]
       state: off
       directional: true

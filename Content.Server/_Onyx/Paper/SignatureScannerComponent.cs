@@ -1,6 +1,5 @@
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Server._Onyx.Paper;
 
@@ -15,6 +14,6 @@ public sealed partial class SignatureScannerComponent : Component
     [DataField("soundPrint")]
     public SoundSpecifier SoundPrint = new SoundPathSpecifier("/Audio/Machines/short_print_and_rip.ogg");
 
-    [DataField("machineOutput", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
-    public string MachineOutput = "SignatureScannerReportPaper";
+    [DataField("machineOutput")]
+    public EntProtoId MachineOutput = "SignatureScannerReportPaper";
 }

@@ -1,0 +1,352 @@
+﻿- type: tile
+  id: LatticeHalfV
+  parent: Lattice
+  name: tiles-lattice-half-v
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/half_v.png
+  vertices: ['0.25, 0', '0.75, 0', '0.75, 1', '0.25, 1']
+
+- type: tile
+  id: LatticeHalfH
+  parent: Lattice
+  name: tiles-lattice-half-h
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/half_h.png
+  vertices: ['0, 0.25', '0, 0.75', '1, 0.75', '1, 0.25']
+
+- type: tile
+  id: LatticeWedgeN
+  parent: Lattice
+  name: tiles-lattice-wedge-n
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/wedge_n.png
+  vertices: ['0, 1', '1, 1', '0.5, 0.5']
+
+- type: tile
+  id: LatticeWedgeE
+  parent: Lattice
+  name: tiles-lattice-wedge-e
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/wedge_e.png
+  vertices: ['1, 1', '1, 0', '0.5, 0.5']
+
+- type: tile
+  id: LatticeWedgeS
+  parent: Lattice
+  name: tiles-lattice-wedge-s
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/wedge_s.png
+  vertices: ['1, 0', '0, 0', '0.5, 0.5']
+
+- type: tile
+  id: LatticeWedgeW
+  parent: Lattice
+  name: tiles-lattice-wedge-w
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/wedge_w.png
+  vertices: ['0, 0', '0, 1', '0.5, 0.5']
+
+- type: tile
+  id: LatticeHalfTiltNESLower
+  parent: Lattice
+  name: tiles-lattice-half-tilt-nes-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_ne_s_l.png
+  vertices: ['0, 1', '1, 1', '1, 0', '0.5, 0']
+
+- type: tile
+  id: LatticeHalfTiltSEWLower
+  parent: Lattice
+  name: tiles-lattice-half-tilt-sew-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_se_w_l.png
+  vertices: ['1, 1', '1, 0', '0, 0', '0, 0.5']
+
+- type: tile
+  id: LatticeHalfTiltSWNLower
+  parent: Lattice
+  name: tiles-lattice-half-tilt-swn-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_sw_n_l.png
+  vertices: ['1, 0', '0, 0', '0, 1', '0.5, 1']
+
+- type: tile
+  id: LatticeHalfTiltNWELower
+  parent: Lattice
+  name: tiles-lattice-half-tilt-nwe-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_nw_e_l.png
+  vertices: ['0, 0', '0, 1', '1, 1', '1, 0.5']
+
+- type: tile
+  id: LatticeHalfTiltNESUpper
+  parent: Lattice
+  name: tiles-lattice-half-tilt-nes-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_ne_s_u.png
+  vertices: ['0.5, 1', '1, 1', '1, 0']
+
+- type: tile
+  id: LatticeHalfTiltSEWUpper
+  parent: Lattice
+  name: tiles-lattice-half-tilt-sew-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_se_w_u.png
+  vertices: ['1, 0.5', '1, 0', '0, 0']
+
+- type: tile
+  id: LatticeHalfTiltSWNUpper
+  parent: Lattice
+  name: tiles-lattice-half-tilt-swn-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_sw_n_u.png
+  vertices: ['0.5, 0', '0, 0', '0, 1']
+
+- type: tile
+  id: LatticeHalfTiltNWEUpper
+  parent: Lattice
+  name: tiles-lattice-half-tilt-nwe-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_nw_e_u.png
+  vertices: ['0, 0.5', '0, 1', '1, 1']
+
+- type: tile
+  id: LatticeHalfTiltNEWLower
+  parent: Lattice
+  name: tiles-lattice-half-tilt-new-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_ne_w_l.png
+  vertices: ['0, 1', '1, 1', '1, 0', '0, 0.5']
+
+- type: tile
+  id: LatticeHalfTiltSENLower
+  parent: Lattice
+  name: tiles-lattice-half-tilt-sen-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_se_n_l.png
+  vertices: ['1, 1', '1, 0', '0, 0', '0.5, 1']
+
+- type: tile
+  id: LatticeHalfTiltSWELower
+  parent: Lattice
+  name: tiles-lattice-half-tilt-swe-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_sw_e_l.png
+  vertices: ['1, 0', '0, 0', '0, 1', '1, 0.5']
+
+- type: tile
+  id: LatticeHalfTiltNWSLower
+  parent: Lattice
+  name: tiles-lattice-half-tilt-nws-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_nw_s_l.png
+  vertices: ['0, 0', '0, 1', '1, 1', '0.5, 0']
+
+- type: tile
+  id: LatticeHalfTiltNEWUpper
+  parent: Lattice
+  name: tiles-lattice-half-tilt-new-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_ne_w_u.png
+  vertices: ['0, 1', '1, 1', '1, 0.5']
+
+- type: tile
+  id: LatticeHalfTiltSENUpper
+  parent: Lattice
+  name: tiles-lattice-half-tilt-sen-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_se_n_u.png
+  vertices: ['1, 1', '1, 0', '0.5, 0']
+
+- type: tile
+  id: LatticeHalfTiltSWEUpper
+  parent: Lattice
+  name: tiles-lattice-half-tilt-swe-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_sw_e_u.png
+  vertices: ['1, 0', '0, 0', '0, 0.5']
+
+- type: tile
+  id: LatticeHalfTiltNWSUpper
+  parent: Lattice
+  name: tiles-lattice-half-tilt-nws-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/lattice/script/halftilt_nw_s_u.png
+  vertices: ['0, 0', '0, 1', '0.5, 1']
+
+- type: tile
+  id: PlatingHalfV
+  parent: Plating
+  name: tiles-plating-half-v
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/half_v.png
+  vertices: ['0.25, 0', '0.75, 0', '0.75, 1', '0.25, 1']
+
+- type: tile
+  id: PlatingHalfH
+  parent: Plating
+  name: tiles-plating-half-h
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/half_h.png
+  vertices: ['0, 0.25', '0, 0.75', '1, 0.75', '1, 0.25']
+
+- type: tile
+  id: PlatingWedgeN
+  parent: Plating
+  name: tiles-plating-wedge-n
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/wedge_n.png
+  vertices: ['0, 1', '1, 1', '0.5, 0.5']
+
+- type: tile
+  id: PlatingWedgeE
+  parent: Plating
+  name: tiles-plating-wedge-e
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/wedge_e.png
+  vertices: ['1, 1', '1, 0', '0.5, 0.5']
+
+- type: tile
+  id: PlatingWedgeS
+  parent: Plating
+  name: tiles-plating-wedge-s
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/wedge_s.png
+  vertices: ['1, 0', '0, 0', '0.5, 0.5']
+
+- type: tile
+  id: PlatingWedgeW
+  parent: Plating
+  name: tiles-plating-wedge-w
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/wedge_w.png
+  vertices: ['0, 0', '0, 1', '0.5, 0.5']
+
+- type: tile
+  id: PlatingHalfTiltNESLower
+  parent: Plating
+  name: tiles-plating-half-tilt-nes-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_ne_s_l.png
+  vertices: ['0, 1', '1, 1', '1, 0', '0.5, 0']
+
+- type: tile
+  id: PlatingHalfTiltSEWLower
+  parent: Plating
+  name: tiles-plating-half-tilt-sew-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_se_w_l.png
+  vertices: ['1, 1', '1, 0', '0, 0', '0, 0.5']
+
+- type: tile
+  id: PlatingHalfTiltSWNLower
+  parent: Plating
+  name: tiles-plating-half-tilt-swn-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_sw_n_l.png
+  vertices: ['1, 0', '0, 0', '0, 1', '0.5, 1']
+
+- type: tile
+  id: PlatingHalfTiltNWELower
+  parent: Plating
+  name: tiles-plating-half-tilt-nwe-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_nw_e_l.png
+  vertices: ['0, 0', '0, 1', '1, 1', '1, 0.5']
+
+- type: tile
+  id: PlatingHalfTiltNESUpper
+  parent: Plating
+  name: tiles-plating-half-tilt-nes-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_ne_s_u.png
+  vertices: ['0.5, 1', '1, 1', '1, 0']
+
+- type: tile
+  id: PlatingHalfTiltSEWUpper
+  parent: Plating
+  name: tiles-plating-half-tilt-sew-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_se_w_u.png
+  vertices: ['1, 0.5', '1, 0', '0, 0']
+
+- type: tile
+  id: PlatingHalfTiltSWNUpper
+  parent: Plating
+  name: tiles-plating-half-tilt-swn-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_sw_n_u.png
+  vertices: ['0.5, 0', '0, 0', '0, 1']
+
+- type: tile
+  id: PlatingHalfTiltNWEUpper
+  parent: Plating
+  name: tiles-plating-half-tilt-nwe-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_nw_e_u.png
+  vertices: ['0, 0.5', '0, 1', '1, 1']
+
+- type: tile
+  id: PlatingHalfTiltNEWLower
+  parent: Plating
+  name: tiles-plating-half-tilt-new-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_ne_w_l.png
+  vertices: ['0, 1', '1, 1', '1, 0', '0, 0.5']
+
+- type: tile
+  id: PlatingHalfTiltSENLower
+  parent: Plating
+  name: tiles-plating-half-tilt-sen-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_se_n_l.png
+  vertices: ['1, 1', '1, 0', '0, 0', '0.5, 1']
+
+- type: tile
+  id: PlatingHalfTiltSWELower
+  parent: Plating
+  name: tiles-plating-half-tilt-swe-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_sw_e_l.png
+  vertices: ['1, 0', '0, 0', '0, 1', '1, 0.5']
+
+- type: tile
+  id: PlatingHalfTiltNWSLower
+  parent: Plating
+  name: tiles-plating-half-tilt-nws-lower
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_nw_s_l.png
+  vertices: ['0, 0', '0, 1', '1, 1', '0.5, 0']
+
+- type: tile
+  id: PlatingHalfTiltNEWUpper
+  parent: Plating
+  name: tiles-plating-half-tilt-new-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_ne_w_u.png
+  vertices: ['0, 1', '1, 1', '1, 0.5']
+
+- type: tile
+  id: PlatingHalfTiltSENUpper
+  parent: Plating
+  name: tiles-plating-half-tilt-sen-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_se_n_u.png
+  vertices: ['1, 1', '1, 0', '0.5, 0']
+
+- type: tile
+  id: PlatingHalfTiltSWEUpper
+  parent: Plating
+  name: tiles-plating-half-tilt-swe-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_sw_e_u.png
+  vertices: ['1, 0', '0, 0', '0, 0.5']
+
+- type: tile
+  id: PlatingHalfTiltNWSUpper
+  parent: Plating
+  name: tiles-plating-half-tilt-nws-upper
+  variants: 1
+  sprite: /Textures/_Onyx/Tiles/plating/script/halftilt_nw_s_u.png
+  vertices: ['0, 0', '0, 1', '0.5, 1']
+

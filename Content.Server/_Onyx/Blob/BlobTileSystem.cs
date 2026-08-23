@@ -32,6 +32,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
 namespace Content.Server._Onyx.Blob;
@@ -52,8 +53,7 @@ public sealed partial class BlobTileSystem : SharedBlobTileSystem
     private EntityQuery<BlobTileComponent> _tileQuery;
     private EntityQuery<BlobObserverComponent> _observerQuery;
 
-    [ValidatePrototypeId<NpcFactionPrototype>]
-    private const string BlobFaction = "Blob";
+    private static readonly ProtoId<NpcFactionPrototype> BlobFaction = "Blob";
 
     public override void Initialize()
     {

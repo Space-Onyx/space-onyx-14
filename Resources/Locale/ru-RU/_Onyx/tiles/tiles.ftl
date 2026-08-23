@@ -1,0 +1,57 @@
+﻿# SPDX-FileCopyrightText: 2026
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+tiles-debug-lattice-radar-half-width = отладочная радарная решетка половинной ширины
+tiles-lattice-corner-ne = NE решетка
+tiles-lattice-corner-nw = NW решетка
+tiles-lattice-corner-se = SE решетка
+tiles-lattice-corner-sw = SW решетка
+tiles-lattice-half-h = H половина решетки
+tiles-lattice-half-tilt-nes-lower = NE-S нижняя полунаклонная решетка
+tiles-lattice-half-tilt-nes-upper = NE-S верхняя полунаклонная решетка
+tiles-lattice-half-tilt-new-lower = NE-W нижняя полунаклонная решетка
+tiles-lattice-half-tilt-new-upper = NE-W верхняя полунаклонная решетка
+tiles-lattice-half-tilt-nwe-lower = NW-E нижняя полунаклонная решетка
+tiles-lattice-half-tilt-nwe-upper = NW-E верхняя полунаклонная решетка
+tiles-lattice-half-tilt-nws-lower = NW-S нижняя полунаклонная решетка
+tiles-lattice-half-tilt-nws-upper = NW-S верхняя полунаклонная решетка
+tiles-lattice-half-tilt-sen-lower = SE-N нижняя полунаклонная решетка
+tiles-lattice-half-tilt-sen-upper = SE-N верхняя полунаклонная решетка
+tiles-lattice-half-tilt-sew-lower = SE-W нижняя полунаклонная решетка
+tiles-lattice-half-tilt-sew-upper = SE-W верхняя полунаклонная решетка
+tiles-lattice-half-tilt-swe-lower = SW-E нижняя полунаклонная решетка
+tiles-lattice-half-tilt-swe-upper = SW-E верхняя полунаклонная решетка
+tiles-lattice-half-tilt-swn-lower = SW-N нижняя полунаклонная решетка
+tiles-lattice-half-tilt-swn-upper = SW-N верхняя полунаклонная решетка
+tiles-lattice-half-v = V половина решетки
+tiles-lattice-wedge-e = восточный клин решетки
+tiles-lattice-wedge-n = северный клин решетки
+tiles-lattice-wedge-s = южный клин решетки
+tiles-lattice-wedge-w = западный клин решетки
+tiles-plating-corner-ne = NE покрытие
+tiles-plating-corner-nw = NW покрытие
+tiles-plating-corner-se = SE покрытие
+tiles-plating-corner-sw = SW покрытие
+tiles-plating-half-h = H половина покрытия
+tiles-plating-half-tilt-nes-lower = NE-S нижняя полунаклонное покрытие
+tiles-plating-half-tilt-nes-upper = NE-S верхняя полунаклонное покрытие
+tiles-plating-half-tilt-new-lower = NE-W нижняя полунаклонное покрытие
+tiles-plating-half-tilt-new-upper = NE-W верхняя полунаклонное покрытие
+tiles-plating-half-tilt-nwe-lower = NW-E нижняя полунаклонное покрытие
+tiles-plating-half-tilt-nwe-upper = NW-E верхняя полунаклонное покрытие
+tiles-plating-half-tilt-nws-lower = NW-S нижняя полунаклонное покрытие
+tiles-plating-half-tilt-nws-upper = NW-S верхняя полунаклонное покрытие
+tiles-plating-half-tilt-sen-lower = SE-N нижняя полунаклонное покрытие
+tiles-plating-half-tilt-sen-upper = SE-N верхняя полунаклонное покрытие
+tiles-plating-half-tilt-sew-lower = SE-W нижняя полунаклонное покрытие
+tiles-plating-half-tilt-sew-upper = SE-W верхняя полунаклонное покрытие
+tiles-plating-half-tilt-swe-lower = SW-E нижняя полунаклонное покрытие
+tiles-plating-half-tilt-swe-upper = SW-E верхняя полунаклонное покрытие
+tiles-plating-half-tilt-swn-lower = SW-N нижняя полунаклонное покрытие
+tiles-plating-half-tilt-swn-upper = SW-N верхняя полунаклонное покрытие
+tiles-plating-half-v = V половина покрытия
+tiles-plating-wedge-e = восточный клин покрытия
+tiles-plating-wedge-n = северный клин покрытия
+tiles-plating-wedge-s = южный клин покрытия
+tiles-plating-wedge-w = западный клин покрытия

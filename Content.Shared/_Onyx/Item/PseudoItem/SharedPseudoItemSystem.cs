@@ -28,11 +28,9 @@ public abstract partial class SharedPseudoItemSystem : EntitySystem
     [Dependency] private TagSystem _tags = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
 
-    [ValidatePrototypeId<TagPrototype>]
-    private const string PreventTag = "PreventLabel";
+    private static readonly ProtoId<TagPrototype> PreventTag = "PreventLabel";
 
-    [ValidatePrototypeId<EntityPrototype>]
-    private const string SleepAction = "ActionSleep";
+    private static readonly EntProtoId SleepAction = "ActionSleep";
 
     public override void Initialize()
     {

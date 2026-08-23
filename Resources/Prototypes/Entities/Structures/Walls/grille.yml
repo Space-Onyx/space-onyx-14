@@ -37,7 +37,7 @@
     key: grilles
   - type: IconSmooth
     index: 0
-    key: walls
+    key: grilles # <Onyx-GrilleNoWallSmooth-edited>
     base: grille
   - type: Electrified
     requirePower: true

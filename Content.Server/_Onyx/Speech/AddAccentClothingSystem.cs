@@ -2,7 +2,7 @@ using Content.Shared.Speech.Prototypes;
 using Content.Shared.Speech.Components;
 using Content.Shared.Speech.EntitySystems;
 using Content.Shared.Clothing;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._Onyx.Speech;
 
@@ -12,8 +12,8 @@ public sealed partial class AddAccentClothingComponent : Component
     [DataField(required: true)]
     public string Accent = default!;
 
-    [DataField("replacement", customTypeSerializer: typeof(PrototypeIdSerializer<ReplacementAccentPrototype>))]
-    public string? ReplacementPrototype;
+    [DataField("replacement")]
+    public ProtoId<ReplacementAccentPrototype>? ReplacementPrototype;
 
     public bool IsActive;
 }

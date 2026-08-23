@@ -1,0 +1,57 @@
+﻿# SPDX-FileCopyrightText: 2026
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+tiles-debug-lattice-radar-half-width = debug radar half width lattice
+tiles-lattice-corner-ne = NE lattice
+tiles-lattice-corner-nw = NW lattice
+tiles-lattice-corner-se = SE lattice
+tiles-lattice-corner-sw = SW lattice
+tiles-lattice-half-h = H half-lattice
+tiles-lattice-half-tilt-nes-lower = NE-S lower half-tilt lattice
+tiles-lattice-half-tilt-nes-upper = NE-S upper half-tilt lattice
+tiles-lattice-half-tilt-new-lower = NE-W lower half-tilt lattice
+tiles-lattice-half-tilt-new-upper = NE-W upper half-tilt lattice
+tiles-lattice-half-tilt-nwe-lower = NW-E lower half-tilt lattice
+tiles-lattice-half-tilt-nwe-upper = NW-E upper half-tilt lattice
+tiles-lattice-half-tilt-nws-lower = NW-S lower half-tilt lattice
+tiles-lattice-half-tilt-nws-upper = NW-S upper half-tilt lattice
+tiles-lattice-half-tilt-sen-lower = SE-N lower half-tilt lattice
+tiles-lattice-half-tilt-sen-upper = SE-N upper half-tilt lattice
+tiles-lattice-half-tilt-sew-lower = SE-W lower half-tilt lattice
+tiles-lattice-half-tilt-sew-upper = SE-W upper half-tilt lattice
+tiles-lattice-half-tilt-swe-lower = SW-E lower half-tilt lattice
+tiles-lattice-half-tilt-swe-upper = SW-E upper half-tilt lattice
+tiles-lattice-half-tilt-swn-lower = SW-N lower half-tilt lattice
+tiles-lattice-half-tilt-swn-upper = SW-N upper half-tilt lattice
+tiles-lattice-half-v = V half-lattice
+tiles-lattice-wedge-e = east wedge lattice
+tiles-lattice-wedge-n = north wedge lattice
+tiles-lattice-wedge-s = south wedge lattice
+tiles-lattice-wedge-w = west wedge lattice
+tiles-plating-corner-ne = NE plating
+tiles-plating-corner-nw = NW plating
+tiles-plating-corner-se = SE plating
+tiles-plating-corner-sw = SW plating
+tiles-plating-half-h = H half-plating
+tiles-plating-half-tilt-nes-lower = NE-S lower half-tilt plating
+tiles-plating-half-tilt-nes-upper = NE-S upper half-tilt plating
+tiles-plating-half-tilt-new-lower = NE-W lower half-tilt plating
+tiles-plating-half-tilt-new-upper = NE-W upper half-tilt plating
+tiles-plating-half-tilt-nwe-lower = NW-E lower half-tilt plating
+tiles-plating-half-tilt-nwe-upper = NW-E upper half-tilt plating
+tiles-plating-half-tilt-nws-lower = NW-S lower half-tilt plating
+tiles-plating-half-tilt-nws-upper = NW-S upper half-tilt plating
+tiles-plating-half-tilt-sen-lower = SE-N lower half-tilt plating
+tiles-plating-half-tilt-sen-upper = SE-N upper half-tilt plating
+tiles-plating-half-tilt-sew-lower = SE-W lower half-tilt plating
+tiles-plating-half-tilt-sew-upper = SE-W upper half-tilt plating
+tiles-plating-half-tilt-swe-lower = SW-E lower half-tilt plating
+tiles-plating-half-tilt-swe-upper = SW-E upper half-tilt plating
+tiles-plating-half-tilt-swn-lower = SW-N lower half-tilt plating
+tiles-plating-half-tilt-swn-upper = SW-N upper half-tilt plating
+tiles-plating-half-v = V half-plating
+tiles-plating-wedge-e = east wedge plating
+tiles-plating-wedge-n = north wedge plating
+tiles-plating-wedge-s = south wedge plating
+tiles-plating-wedge-w = west wedge plating

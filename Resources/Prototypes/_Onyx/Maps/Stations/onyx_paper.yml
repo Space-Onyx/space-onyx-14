@@ -1,18 +1,20 @@
 - type: gameMap
-  id: CorvaxGoobPaper
-  mapName: 'NTTG Пейпер'
-  mapPath: /Maps/_CorvaxGoob/Stations/Paper/corvax_paper.yml
+  id: OnyxPaper
+  mapName: 'ИСН Пейпер TG'
+  mapPath: /Maps/_Onyx/Stations/Paper/onyx_paper.yml
   maxRandomOffset: 0
   randomRotation: false
   minPlayers: 25
   maxPlayers: 55
   stations:
-    CorvaxGoobPaper:
+    OnyxPaper:
       stationProto: StandardNanotrasenStation
       components:
       - type: StationNameSetup
-        mapNameTemplate: '{0} Пейпер {1}'
-        nameGenerator: !type:NanotrasenNameGenerator
+        mapNameTemplate: '{prefix}-{number} Пейпер {prefixCreator} {1}'
+        nameGenerator:
+          !type:NanotrasenNameGenerator
+          prefix: 'ИСН'
           prefixCreator: 'TG'
       - type: StationEmergencyShuttle
         emergencyShuttlePath: /Maps/_CorvaxGoob/Stations/Paper/Shuttles/corvax_emergency_paper.yml

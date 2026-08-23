@@ -145,6 +145,12 @@
         key: Pacified
         component: Pacified
         time: 4
+      # <Onyx-VirologyReagents>
+      - !type:ImmunityModifier
+        gainRateModifier: -0.00111111111111
+        strengthModifier: -0.0088888888888
+        statusLifetime: 1.5
+      # </Onyx-VirologyReagents>
 
 - type: reagent
   id: Stimulants

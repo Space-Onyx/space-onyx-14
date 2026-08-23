@@ -65,13 +65,6 @@
         values: [ 0, 1, 2 ]
     - type: Appearance
     - type: PipeColorVisuals
-    # <Onyx-AtmosUnaryAltLayers>
-    - type: AtmosPipeLayers
-      alternativePrototypes:
-        Primary: GasVentPump
-        Secondary: GasVentPumpAlt1
-        Tertiary: GasVentPumpAlt2
-    # </Onyx-AtmosUnaryAltLayers>
     - type: GenericVisualizer
       visuals:
         enum.VentPumpVisuals.State:
@@ -130,13 +123,6 @@
         values: [ 0, 1, 2 ]
     - type: Appearance
     - type: PipeColorVisuals
-    # <Onyx-AtmosUnaryAltLayers>
-    - type: AtmosPipeLayers
-      alternativePrototypes:
-        Primary: GasPassiveVent
-        Secondary: GasPassiveVentAlt1
-        Tertiary: GasPassiveVentAlt2
-    # </Onyx-AtmosUnaryAltLayers>
     - type: GasPassiveVent
     - type: Construction
       graph: !type:CreateVariants
@@ -203,13 +189,6 @@
         values: [ 0, 1, 2 ]
     - type: Appearance
     - type: PipeColorVisuals
-    # <Onyx-AtmosUnaryAltLayers>
-    - type: AtmosPipeLayers
-      alternativePrototypes:
-        Primary: GasVentScrubber
-        Secondary: GasVentScrubberAlt1
-        Tertiary: GasVentScrubberAlt2
-    # </Onyx-AtmosUnaryAltLayers>
     - type: GenericVisualizer
       visuals:
         enum.ScrubberVisuals.State:
@@ -268,13 +247,6 @@
       pipeLayer: !type:CreateVariants
         values: [ 0, 1, 2 ]
     - type: Appearance
-    # <Onyx-AtmosUnaryAltLayers>
-    - type: AtmosPipeLayers
-      alternativePrototypes:
-        Primary: GasOutletInjector
-        Secondary: GasOutletInjectorAlt1
-        Tertiary: GasOutletInjectorAlt2
-    # </Onyx-AtmosUnaryAltLayers>
     - type: GenericVisualizer
       visuals:
        # toggle color of the unshaded light:

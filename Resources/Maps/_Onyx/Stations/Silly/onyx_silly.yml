@@ -3673,7 +3673,7 @@ entities:
     components:
     - type: Transform
       parent: 7582
-      rot: -1.5707963267948966 rad
+      rot: 0 rad
       pos: 7.5,-8.5
   - uid: 7588
     components:
@@ -3796,7 +3796,7 @@ entities:
     components:
     - type: Transform
       parent: 8996
-      rot: 1.5707963267948966 rad
+      rot: 0 rad
       pos: 0.5,11.5
 - proto: AirlockCentralCommandLocked
   entities:
@@ -3847,28 +3847,32 @@ entities:
   - uid: 8998
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 8996
       pos: 5.5,0.5
   - uid: 8999
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 8996
       pos: 3.5,0.5
   - uid: 9000
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 8996
       pos: -2.5,0.5
   - uid: 9001
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 8996
       pos: -4.5,0.5
   - uid: 9002
     components:
     - type: Transform
       parent: 8996
-      rot: -1.5707963267948966 rad
+      rot: 0 rad
       pos: 0.5,8.5
 - proto: AirlockCommandLocked
   entities:
@@ -3910,7 +3914,7 @@ entities:
     components:
     - type: Transform
       parent: 8996
-      rot: -1.5707963267948966 rad
+      rot: 0 rad
       pos: 0.5,-0.5
 - proto: AirlockEngineeringLocked
   entities:
@@ -4061,7 +4065,7 @@ entities:
     components:
     - type: Transform
       parent: 2
-      rot: -1.5707963267948966 rad
+      rot: 0 rad
       pos: 8.5,-8.5
 - proto: AirlockLawyerGlassLocked
   entities:
@@ -4119,7 +4123,7 @@ entities:
     components:
     - type: Transform
       parent: 2
-      rot: 1.5707963267948966 rad
+      rot: 0 rad
       pos: -23.5,-5.5
 - proto: AirlockMaintMedLocked
   entities:
@@ -4204,6 +4208,7 @@ entities:
   - uid: 7592
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 7582
       pos: 8.5,9.5
     - type: AccessReader
@@ -4212,6 +4217,7 @@ entities:
   - uid: 7593
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 7582
       pos: 11.5,9.5
     - type: AccessReader
@@ -4235,6 +4241,7 @@ entities:
   - uid: 7595
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 7582
       pos: -9.5,-0.5
     - type: AccessReader
@@ -4283,6 +4290,7 @@ entities:
   - uid: 7599
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 7582
       pos: 3.5,-9.5
     - type: AccessReader
@@ -4298,6 +4306,7 @@ entities:
   - uid: 7600
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 7582
       pos: 5.5,-9.5
     - type: AccessReader
@@ -49358,6 +49367,7 @@ entities:
   - uid: 8107
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 7582
       pos: 12.5,4.5
 - proto: HolofanProjector

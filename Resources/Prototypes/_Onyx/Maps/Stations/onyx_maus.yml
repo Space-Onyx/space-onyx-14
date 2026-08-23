@@ -1,22 +1,23 @@
 - type: gameMap
-  id: CorvaxGoobTushkan
-  mapName: 'NTTA Тушканчик'
-  mapPath: /Maps/_CorvaxGoob/Stations/Tushkan/corvax_tushkan.yml
+  id: OnyxMaus
+  mapName: 'ИСН Маус MG'
+  mapPath: /Maps/_Onyx/Stations/Maus/onyx_maus.yml
   maxRandomOffset: 0
   randomRotation: false
   minPlayers: 0
   maxPlayers: 25
   stations:
-    CorvaxGoobTushkan:
+    OnyxMaus:
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Тушканчик {1}'
+          mapNameTemplate: '{prefix}-{number} Маус {prefixCreator} {1}'
           nameGenerator:
             !type:NanotrasenNameGenerator
-            prefixCreator: 'TA'
+            prefix: 'ИСН'
+            prefixCreator: 'MG'
         - type: StationEmergencyShuttle
-          emergencyShuttlePath: /Maps/_CorvaxGoob/Base/Shuttles/corvax_emergency_small.yml
+          emergencyShuttlePath: /Maps/_CorvaxGoob/Stations/Maus/Shuttles/corvax_emergency_maus.yml
         - type: StationJobs
           availableJobs:
             # command
@@ -24,44 +25,44 @@
             BlueshieldOfficer: [ 1, 1 ]
             # cargo
             Quartermaster: [ 1, 1 ]
-            SalvageSpecialist: [ 2, 2 ]
-            ShaftMiner: [ 2, 2 ]
+            SalvageSpecialist: [ 1, 3 ]
             CargoTechnician: [ 2, 2 ]
             # engineering
             ChiefEngineer: [ 1, 1 ]
-            AtmosphericTechnician: [ 1, 1 ]
-            StationEngineer: [ 3, 3 ]
-            TechnicalAssistant: [ 1, 1 ]
+            AtmosphericTechnician: [ 2, 3 ]
+            StationEngineer: [ 2, 3 ]
+            TechnicalAssistant: [ 4, 4 ]
             # medical
             ChiefMedicalOfficer: [ 1, 1 ]
             MedicalDoctor: [ 2, 2 ]
-            MedicalIntern: [ 1, 1 ]
-            Virologist: [ 1, 1 ]
+            MedicalIntern: [ 4, 4 ]
             Psychologist: [ 1, 1 ]
-            Paramedic: [ 1, 1 ]
-            Chemist: [ 1, 1 ]
+            Paramedic: [1, 1]
+            Chemist: [ 2, 2 ]
             Surgeon: [ 1, 1 ]
+            Virologist: [ 1, 1 ]
             # science
             ResearchDirector: [ 1, 1 ]
-            Scientist: [ 2, 2 ]
-            ResearchAssistant: [ 1, 1 ]
+            Scientist: [ 3, 3 ]
+            ResearchAssistant: [ 4, 4 ]
             # security
             HeadOfSecurity: [ 1, 1 ]
             Warden: [ 1, 1 ]
-            SecurityOfficer: [ 3, 3 ]
-            SecurityCadet: [ 1, 1 ]
+            SecurityOfficer: [ 2, 4 ]
+            SecurityCadet: [ 2, 2 ]
             Detective: [ 1, 1 ]
             Pilot: [ 1, 1 ]
+            Brigmedic: [ 1, 1 ]
             Lawyer: [ 1, 1 ]
             # service
             HeadOfPersonnel: [ 1, 1 ]
             Bartender: [ 1, 1 ]
-            Botanist: [ 1, 1 ]
+            Botanist: [ 2, 2 ]
             Boxer: [ 1, 1 ]
             Chaplain: [ 1, 1 ]
             Chef: [ 1, 1 ]
             Clown: [ 1, 1 ]
-            Janitor: [ 1, 2 ]
+            Janitor: [ 1, 1 ]
             Librarian: [ 1, 1 ]
             Mime: [ 1, 1 ]
             Musician: [ 1, 1 ]

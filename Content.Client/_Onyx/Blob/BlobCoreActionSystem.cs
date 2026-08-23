@@ -28,7 +28,6 @@ public sealed partial class BlobCoreActionSystem : SharedBlobCoreActionSystem
         SubscribeNetworkEvent<BlobAttackEvent>(OnBlobAttack);
     }
 
-    [ValidatePrototypeId<EntityPrototype>]
     private const string Animation = "WeaponArcPunch";
 
     private void OnBlobAttack(BlobAttackEvent ev)
