@@ -32,6 +32,7 @@ verb-categories-power-level = Уровень мощности
 verb-categories-interaction = Взаимодействовать
 # </Onyx-InteractionVerbs>
 verb-categories-adjust = Отрегулировать
+verb-categories-select-target = Установить цель
 
 verb-common-toggle-light = Переключить свет
 verb-common-close = Закрыть

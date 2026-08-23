@@ -11,3 +11,6 @@ ui-escape-feedback = Обратная связь
 # <Onyx-EscapeCharacterEditor>
 ui-escape-character = Редактор персонажей
 # </Onyx-EscapeCharacterEditor>
+ui-escape-remarks = Админ заметки
+
+ui-escape-remarks-button-disabled = Данная функция отключена на сервере.
