@@ -1,5 +1,3 @@
-vehicle-slot-component-slot-name-keys = Ключи
-
 clowncar-thank-no-driver = Спасибо за поездку!
 clowncar-thank-driver = Спасибо вам, { $driver }. Вы отличный водитель!
 clowncar-quiet-in-the-back = Тихо там сзади!
