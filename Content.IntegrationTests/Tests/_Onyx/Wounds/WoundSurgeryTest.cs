@@ -36,9 +36,6 @@ public sealed class WoundSurgeryTest : GameTest
   - type: SurgeryClampBleedingEffect
     amount: 10
 - type: entity
-  id: WoundSurgeryTestReduce
-  components: [ { type: SurgeryReduceFractureEffect } ]
-- type: entity
   id: WoundSurgeryTestMend
   components: [ { type: SurgeryMendFractureEffect } ]
 - type: entity
@@ -106,7 +103,7 @@ public sealed class WoundSurgeryTest : GameTest
     }
 
     [Test]
-    public async Task FractureOrderAndStaleNoOpTest()
+    public async Task FractureMendAndStaleNoOpTest()
     {
         var server = Pair.Server;
         await server.WaitIdleAsync();
@@ -119,14 +116,9 @@ public sealed class WoundSurgeryTest : GameTest
             var arm = entities.System<SharedBodySystem>().GetBodyChildren(body)
                 .Single(part => part.Component.PartType == BodyPartType.Arm).Id;
             var fractures = entities.System<WoundFractureSystem>();
-            var reduce = entities.SpawnEntity("WoundSurgeryTestReduce", map.GridCoords);
             var mend = entities.SpawnEntity("WoundSurgeryTestMend", map.GridCoords);
 
             Assert.That(entities.System<WoundDamageRoutingSystem>().TryApplyPartDamage(body, arm, Blunt(75)));
-            var fracture = fractures.GetFracture(arm)!.Value;
-            RaiseStep(mend, arm, entities);
-            Assert.That(fracture.Comp2.Treatment, Is.EqualTo(FractureTreatment.None));
-            RaiseStep(reduce, arm, entities);
             RaiseStep(mend, arm, entities);
             Assert.That(fractures.GetFracture(arm), Is.Null);
             RaiseStep(mend, arm, entities);

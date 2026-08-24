@@ -125,6 +125,11 @@
             sprite: Mobs/Animals/scurret/displacement.rsi
             state: back
   - type: Hands
+    # <Onyx-FlexibleAnatomy>
+    startingHands:
+      hand_left:
+        location: Left
+    # </Onyx-FlexibleAnatomy>
     leftHandDisplacement:
       sizeMaps:
         32:

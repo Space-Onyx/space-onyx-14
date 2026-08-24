@@ -72,10 +72,11 @@
   - type: StaticPrice
     price: 30
   - type: Retractor
-    speed: 0.35
   - type: Hemostat
-    speed: 0.6
   - type: SurgeryTool
+    speedModifiers:
+      Retractor: 0.35
+      Hemostat: 0.6
     startSound:
       path: /Audio/Items/wirecutter.ogg
       params:
@@ -125,10 +126,11 @@
   - type: StaticPrice
     price: 30
   - type: Retractor
-    speed: 0.45
   - type: Tending
-    speed: 0.65
   - type: SurgeryTool
+    speedModifiers:
+      Retractor: 0.45
+      Tending: 0.65
     startSound:
       collection: Screwdriver
     endSound:

@@ -20,10 +20,10 @@
   name: Remove Larva Embryo
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
     steps:
       default:
         steps:
+        - SurgeryOpenRibcage
         - SurgeryStepClampBleeders
         - SurgeryStepRemoveLarvaEmbryo
   - type: SurgeryPartCondition
@@ -39,10 +39,10 @@
   name: Remove Larva
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
     steps:
       default:
         steps:
+        - SurgeryOpenRibcage
         - SurgeryStepClampBleeders
         - SurgeryStepRemoveLarva
   - type: SurgeryPartCondition

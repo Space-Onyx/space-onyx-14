@@ -1,6 +1,5 @@
 ent-BoneGel = костный гель
     .desc = Контейнер для костяного геля, нужно время от времени пополнять в специальной машине.
-ent-Bonesetter = установщик костей
     .desc = Используется для установки костей на место.
 
 ent-EnergyScalpel = энергетический скальпель
@@ -98,22 +97,29 @@ ent-SurgeryStepOpenAbdomen = Вскрыть живот
 ent-SurgeryStepHideItem = Спрятать предмет
 ent-SurgeryStepTakeItem = Извлечь предмет
 
-ent-SurgeryOpenIncision = Открыть доступ
-ent-SurgeryCloseIncision = Закрыть доступ
-ent-SurgeryCloseChestIncision = Закрыть доступ к груди
+ent-SurgeryOpenIncision = Открыть разрез
+ent-SurgeryCloseIncision = Закрыть разрез
+ent-SurgeryCloseChestIncision = Закрыть разрез на груди
+ent-SurgeryCloseHeadIncision = Закрыть разрез на голове
 ent-SurgeryOpenRibcage = Вскрытие грудной клетки
 ent-SurgeryCloseRibcage = Закрыть грудную клетку
+ent-SurgeryOpenSkull = Открыть череп
+ent-SurgeryCloseSkull = Закрыть череп
 
 ent-SurgeryStepOpenIncisionScalpel = Выполнить разрез
 ent-SurgeryStepCutCyberneticCasing = Распилить обшивку
 ent-SurgeryStepSpreadCyberneticCasing = Развести обшивку
-ent-SurgeryStepClampBleeders = Перевязать кровоточащие сосуды
+ent-SurgeryStepClampBleeders = Зажать кровоточащие сосуды
 ent-SurgeryStepRetractSkin = Развести края разреза
 ent-SurgeryStepSawBones = Распилить рёбра
 ent-SurgeryStepPriseOpenBones = Развести рёбра
 ent-SurgeryStepCloseBones = Свести рёбра
 ent-SurgeryStepMendRibcage = Восстановить рёбра костным гелем
-ent-SurgeryStepCloseIncision = Зашить разрез
+ent-SurgeryStepSawSkull = Распилить череп
+ent-SurgeryStepOpenSkull = Открыть череп
+ent-SurgeryStepCloseSkull = Закрыть череп
+ent-SurgeryStepMendSkull = Восстановить череп костным гелем
+ent-SurgeryStepCloseIncision = Прижечь разрез
 ent-SurgeryStepWeldCyberneticCasing = Заварить обшивку
 
 ent-SurgeryStepConnectHeadSpine = Соединить позвоночник и спинной мозг
@@ -183,12 +189,9 @@ ent-SurgeryStepHealStomach = Восстановить желудок
 ent-SurgeryStepHealKidneys = Восстановить почки
 ent-SurgeryStepHealAppendix = Восстановить аппендикс
 ent-SurgeryStopBleeding = Остановить кровотечение
-ent-SurgeryReduceFracture = Стабилизировать перелом
 ent-SurgeryHealAmputationConsequence = Вылечить последствия ампутации
 ent-SurgeryMendFracture = Срастить перелом
 ent-SurgeryStepClampWoundBleeding = Остановить кровотечение медицинскими швами
-ent-SurgeryStepReduceFracture = Стабилизировать перелом
-ent-SurgeryStepReduceFrameFracture = Выровнять повреждённые элементы каркаса
 ent-SurgeryStepHealAmputationConsequence = Обработать последствия ампутации
 ent-SurgeryStepMendFracture = Срастить перелом
 ent-SurgeryStepMendFrameFracture = Сварить повреждённые элементы каркаса

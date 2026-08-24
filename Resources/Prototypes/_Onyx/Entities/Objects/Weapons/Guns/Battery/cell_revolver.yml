@@ -117,8 +117,9 @@
   - type: CellRevolver
     cellSlot: gun_magazine
   - type: Cautery
-    speed: 0.9
   - type: SurgeryTool
+    speedModifiers:
+      Cautery: 0.9
     endSound:
       path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
   - type: AlwaysHot

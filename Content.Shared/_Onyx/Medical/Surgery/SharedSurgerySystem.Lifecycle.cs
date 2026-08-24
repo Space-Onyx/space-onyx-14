@@ -13,6 +13,7 @@ public abstract partial class SharedSurgerySystem
     {
         base.Initialize();
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestartCleanup);
+        SubscribeLocalEvent<EntityTerminatingEvent>(OnEntityTerminating);
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
         SubscribeLocalEvent<BodyPartComponent, ComponentStartup>(OnBodyPartStartup);
         SubscribeLocalEvent<BodyPartComponent, ComponentShutdown>(OnBodyPartShutdown);
@@ -98,10 +99,28 @@ public abstract partial class SharedSurgerySystem
         }
     }
 
+    private void OnEntityTerminating(ref EntityTerminatingEvent args)
+    {
+        foreach (var (site, active) in ActiveSurgerySites.ToArray())
+        {
+            if (site.Body == args.Entity.Owner || site.Part == args.Entity.Owner || active.User == args.Entity.Owner)
+                ActiveSurgerySites.Remove(site);
+        }
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+        if (_net.IsServer)
+            ProcessPendingSurgeryRepeats();
+    }
+
     private void OnRoundRestartCleanup(RoundRestartCleanupEvent ev)
     {
         _singletons.Clear();
         ActiveSurgerySites.Clear();
+        _pendingSurgeryRepeats.Clear();
+        _processingSurgeryRepeats.Clear();
     }
 
     protected virtual void OnPrototypesReloaded(PrototypesReloadedEventArgs args)

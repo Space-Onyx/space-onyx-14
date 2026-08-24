@@ -19,22 +19,6 @@
 
 - type: entity
   parent: BaseToolSurgery
-  id: Bonesetter
-  name: bone setter
-  description: Used for setting bones back into place.
-  components:
-  - type: Sprite
-    sprite: _Onyx/Objects/Specific/Medical/Surgery/bonesetter.rsi
-    state: bonesetter
-  - type: Item
-    sprite: _Onyx/Objects/Specific/Medical/Surgery/bonesetter.rsi
-  - type: BoneSetter
-  - type: SurgeryTool
-    startSound:
-      path: /Audio/_Onyx/Medical/Surgery/bone_setter.ogg
-
-- type: entity
-  parent: BaseToolSurgery
   id: MedicalStitches
   name: medical stitches
   description: A fine, curved needle with a length of absorbable polyglycolide suture thread.
@@ -149,19 +133,8 @@
   id: AdvancedBoneGel
   parent: BoneGel
   name: advanced bone gel applicator
-  description: A mechanized tool switchable between bone gel and bone setter modes.
+  description: A mechanized applicator for rapid bone repair.
   components:
-  - type: ItemSwitch
-    state: bonegel
-    states:
-      bonegel:
-        sprite: { sprite: _Onyx/Objects/Specific/Medical/Surgery/e-bone-gel.rsi, state: e-bone-gel }
-        components:
-        - type: BoneGel
-      bonesetter:
-        sprite: { sprite: _Onyx/Objects/Specific/Medical/Surgery/e-bone-gel.rsi, state: e-bone-gel-on }
-        components:
-        - type: BoneSetter
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/e-bone-gel.rsi
     state: e-bone-gel
@@ -171,7 +144,6 @@
   - type: SurgeryTool
     speedModifiers:
       BoneGel: 3
-      BoneSetter: 3
   - type: MeleeWeapon
     damage:
       types:
@@ -200,7 +172,6 @@
       Tweezers: 3
       Stitches: 3
       Drill: 3
-      BoneSetter: 3
       Tending: 3
   - type: Scalpel
   - type: Hemostat
@@ -211,5 +182,4 @@
   - type: Tweezers
   - type: Stitches
   - type: Drill
-  - type: BoneSetter
   - type: Tending

@@ -94,13 +94,7 @@ public sealed partial class DeclarativeBodySystem : EntitySystem
         }
 
         _body.ActivateDeclarativeGraph(root, entity);
-        var legCount = spawned.Values.Count(part => Comp<BodyPartComponent>(part).PartType == BodyPartType.Leg);
-        if (legCount > 0)
-            EnsureComp<InitiallyLeggedComponent>(entity).InitialLegCount = legCount;
-
-        var lungCount = graph.Slots.Values.Sum(slot => slot.Organs.Keys.Count(category => category.Id == "Lungs"));
-        if (lungCount > 0)
-            EnsureComp<InitiallyLungedComponent>(entity).InitialLungCount = lungCount;
+        _body.InitializeAnatomy(entity);
 
         RaiseLocalEvent(entity, new BodyGraphInitializedEvent());
     }

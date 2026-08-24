@@ -114,8 +114,6 @@ public sealed class WoundFractureTest : GameTest
             var fracture = fractures.GetFracture(leg).Value;
             Assert.That(fracture.Comp1.Severity, Is.EqualTo(FixedPoint2.New(75)));
             Assert.That(fracture.Comp2.Grade, Is.EqualTo(FractureGrade.Comminuted));
-            Assert.That(fractures.TryMend(fracture.Owner), Is.False);
-            Assert.That(fractures.TryReduce(fracture.Owner));
             Assert.That(fractures.TryMend(fracture.Owner));
             Assert.That(fractures.GetFracture(leg), Is.Null);
         });

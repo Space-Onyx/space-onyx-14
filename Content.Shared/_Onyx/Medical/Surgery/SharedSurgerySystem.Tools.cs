@@ -53,6 +53,9 @@ public abstract partial class SharedSurgerySystem
 
     private void OnPainInflicterStep(Entity<SurgeryStepPainInflicterComponent> ent, ref SurgeryStepEvent args)
     {
+        if (HasComp<MechanicalSurgeryStepComponent>(ent))
+            return;
+
         var amount = ent.Comp.Amount;
         if (HasComp<SleepingComponent>(args.Body))
             amount *= ent.Comp.SleepModifier;
@@ -108,8 +111,7 @@ public abstract partial class SharedSurgerySystem
             {
                 if (!AnyHaveComp(args.Tools, reg.Component, out var withComp))
                 {
-                    args.Invalid = StepInvalidReason.MissingTool;
-                    args.Popup = Loc.GetString("surgery-ui-reason-tool");
+                    SetMissingTool(ref args, "surgery-ui-reason-tool");
                     return;
                 }
 
@@ -121,8 +123,7 @@ public abstract partial class SharedSurgerySystem
         {
             if (!AnyHaveQuality(args.Tools, quality, out var tool))
             {
-                args.Invalid = StepInvalidReason.MissingTool;
-                args.Popup = Loc.GetString("surgery-ui-reason-tool");
+                SetMissingTool(ref args, "surgery-ui-reason-tool");
                 return;
             }
 
@@ -133,8 +134,7 @@ public abstract partial class SharedSurgerySystem
         {
             if (!AnyHaveStack(args.Tools, stackType, Math.Max(1, ent.Comp.ConsumedAmount), out var stack))
             {
-                args.Invalid = StepInvalidReason.MissingTool;
-                args.Popup = Loc.GetString("surgery-ui-reason-material");
+                SetMissingTool(ref args, "surgery-ui-reason-material");
                 return;
             }
 
@@ -145,13 +145,18 @@ public abstract partial class SharedSurgerySystem
         {
             if (!TryFindConsumables(args.Tools, prototype, Math.Max(1, ent.Comp.ConsumedAmount), out var consumables))
             {
-                args.Invalid = StepInvalidReason.MissingTool;
-                args.Popup = Loc.GetString("surgery-ui-reason-material");
+                SetMissingTool(ref args, "surgery-ui-reason-material");
                 return;
             }
 
             args.ValidTools.UnionWith(consumables);
         }
+    }
+
+    private void SetMissingTool(ref SurgeryCanPerformStepEvent args, string localizationKey)
+    {
+        args.Invalid = StepInvalidReason.MissingTool;
+        args.Popup = Loc.GetString(localizationKey);
     }
 
     protected List<EntityUid> GetActiveTool(EntityUid surgeon)

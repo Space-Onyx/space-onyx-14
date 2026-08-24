@@ -3,7 +3,6 @@ using Content.Shared.Body.Part;
 // <Onyx-SlimeSurgery>
 using Content.Shared._Onyx.Medical.Surgery;
 // </Onyx-SlimeSurgery>
-using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Damage.Components;
 using Content.Shared.Humanoid;
 // <Onyx-BodyConsequences>
@@ -20,7 +19,6 @@ public sealed partial class InitialBodySystem : EntitySystem
 {
     // <Onyx-Surgery>
     [Dependency] private SharedContainerSystem _container = default!;
-    [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private OrganRelationSystem _organRelation = default!;
     [Dependency] private SharedBodySystem _body = default!; // <Onyx-TransplantCompatibility>
 
@@ -100,28 +98,12 @@ public sealed partial class InitialBodySystem : EntitySystem
         Attach(external, external.GetValueOrDefault(BodyPartType.Leg)?.GetValueOrDefault(BodyPartSymmetry.Left), BodyPartType.Foot, BodyPartSymmetry.Left, "left_foot");
         Attach(external, external.GetValueOrDefault(BodyPartType.Leg)?.GetValueOrDefault(BodyPartSymmetry.Right), BodyPartType.Foot, BodyPartSymmetry.Right, "right_foot");
 
-        // <Onyx-BodyConsequences>
-        if (external.TryGetValue(BodyPartType.Leg, out var legs))
-            EnsureComp<InitiallyLeggedComponent>(ent).InitialLegCount = legs.Count;
-
-        var initialLungCount = 0;
-        foreach (var organ in internalOrgans)
-        {
-            if (organ.Category.Id == "Lungs")
-                initialLungCount++;
-        }
-        if (initialLungCount > 0)
-            EnsureComp<InitiallyLungedComponent>(ent).InitialLungCount = initialLungCount;
-        // </Onyx-BodyConsequences>
-
-        // Hand parts live in the surgical part graph, not BodyComponent's organ container.
-        // Register their inventory slots explicitly after both hands are attached.
         if (external.TryGetValue(BodyPartType.Hand, out var hands))
         {
             foreach (var hand in hands.Values)
             {
-                if (TryComp(hand, out HandOrganComponent? handOrgan) && handOrgan != null)
-                    _hands.AddHand(ent.Owner, handOrgan.HandID, handOrgan.Data);
+                var inserted = new OrganGotInsertedEvent(ent.Owner);
+                RaiseLocalEvent(hand, ref inserted);
             }
         }
 
@@ -145,6 +127,7 @@ public sealed partial class InitialBodySystem : EntitySystem
             if (parent == null || !InsertOrgan(ent.Owner, parent.Value, category.Id, spawn, organ))
                 Del(spawn);
         }
+        _body.InitializeAnatomy(ent);
         // </Onyx-ChestGroin-edited>
     }
 

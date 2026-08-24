@@ -122,7 +122,7 @@ guidebook-onyx-wound-treatment-chemistry =
 
 guidebook-onyx-wound-treatment-fractures =
     ## Fractures
-    A simple or worse fracture can be set in the field with a bone setter. This reduces functional penalties, but another strong hit can undo the reduction. Full mending uses bone gel through an open incision.
+    Fractures are mended with bone gel through an open incision.
 
 guidebook-onyx-wound-treatment-mechanical =
     ## IPCs and cybernetics
@@ -142,12 +142,12 @@ guidebook-onyx-surgery-procedure =
     5. Finish treatment, then close the incision separately.
 
 guidebook-onyx-surgery-tools =
-    A scalpel makes an incision. A hemostat clamps vessels. A retractor opens access. A cautery seals tissue. Bones require a bone setter and bone gel. A wrong tool can harm the patient.
+    A scalpel makes an incision. A hemostat clamps vessels. A retractor opens access. A cautery seals tissue. Bones require bone gel. A wrong tool can harm the patient.
 
 guidebook-onyx-surgery-access =
     ## Access depth
     External moderate wounds need no deep access. Severe and critical wounds require an open incision. The heart and lungs lie behind the ribcage; the liver, kidneys, and appendix lie behind the abdominal wall. Removing, inserting, and treating the same organ uses the same access depth.
-    Internal bleeding, organ treatment, wound treatment, fracture reduction, fracture mending, and incision closure are separate operations. Complete the needed results before closing the patient.
+    Internal bleeding, organ treatment, wound treatment, fracture mending, and incision closure are separate operations. Complete the needed results before closing the patient.
 
 guidebook-onyx-surgery-synthetics =
     ## IPCs

@@ -44,10 +44,10 @@
   components:
   - type: Surgery
     useTargetPartIcon: true
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepSlimeSeparatePart
   - type: SurgeryDetachablePartCondition
 
@@ -57,10 +57,10 @@
   name: Merge head
   components:
   - type: Surgery
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepSlimeAttachHead
   - type: SurgeryPartCondition
     part: Chest
@@ -73,10 +73,10 @@
   name: Merge left arm
   components:
   - type: Surgery
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepSlimeAttachLeftArm
   - type: SurgeryPartCondition
     part: Chest
@@ -90,10 +90,10 @@
   name: Merge right arm
   components:
   - type: Surgery
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepSlimeAttachRightArm
   - type: SurgeryPartCondition
     part: Chest
@@ -107,10 +107,10 @@
   name: Merge left leg
   components:
   - type: Surgery
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepSlimeAttachLeftLeg
   - type: SurgeryPartCondition
     part: Groin
@@ -124,10 +124,10 @@
   name: Merge right leg
   components:
   - type: Surgery
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepSlimeAttachRightLeg
   - type: SurgeryPartCondition
     part: Groin
@@ -141,10 +141,10 @@
   name: Merge left hand
   components:
   - type: Surgery
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepSlimeAttachLeftHand
   - type: SurgeryPartCondition
     part: Arm
@@ -159,10 +159,10 @@
   name: Merge right hand
   components:
   - type: Surgery
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepSlimeAttachRightHand
   - type: SurgeryPartCondition
     part: Arm
@@ -177,10 +177,10 @@
   name: Merge left foot
   components:
   - type: Surgery
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepSlimeAttachLeftFoot
   - type: SurgeryPartCondition
     part: Leg
@@ -195,10 +195,10 @@
   name: Merge right foot
   components:
   - type: Surgery
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepSlimeAttachRightFoot
   - type: SurgeryPartCondition
     part: Leg
@@ -214,10 +214,10 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Slime/organs.rsi, state: brain }
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepSlimeRemoveCore
   - type: SurgeryOrganCondition
     slot: Brain
@@ -230,10 +230,10 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Slime/organs.rsi, state: brain }
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepSlimeInsertCore
   - type: SurgeryOrganCondition
     slot: Brain
@@ -247,10 +247,10 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Slime/organs.rsi, state: brain }
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepHealBrain
   - type: SurgeryOrganCondition
     slot: Brain
@@ -264,10 +264,10 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Slime/organs.rsi, state: eyeball-l }
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepRemoveEyes
   - type: SurgeryOrganCondition
     slot: Eyes
@@ -280,10 +280,10 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Slime/organs.rsi, state: eyeball-l }
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepInsertEyes
   - type: SurgeryOrganCondition
     slot: Eyes
@@ -297,10 +297,10 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Slime/organs.rsi, state: eyeball-l }
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepHealEyes
   - type: SurgeryOrganCondition
     slot: Eyes
@@ -313,10 +313,10 @@
   name: Remove ears
   components:
   - type: Surgery
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepRemoveEars
   - type: SurgeryOrganCondition
     slot: Ears
@@ -328,10 +328,10 @@
   name: Insert ears
   components:
   - type: Surgery
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepInsertEars
   - type: SurgeryOrganCondition
     slot: Ears
@@ -344,10 +344,10 @@
   name: Remove tail
   components:
   - type: Surgery
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepRemoveTail
   - type: SurgeryOrganCondition
     slot: Tail
@@ -359,10 +359,10 @@
   name: Insert tail
   components:
   - type: Surgery
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepInsertTail
   - type: SurgeryOrganCondition
     slot: Tail
@@ -376,10 +376,10 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Slime/organs.rsi, state: lung-l }
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepRemoveLungs
   - type: SurgeryOrganCondition
     slot: Lungs
@@ -392,10 +392,10 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Slime/organs.rsi, state: lung-l }
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepInsertLungs
   - type: SurgeryOrganCondition
     slot: Lungs
@@ -409,10 +409,10 @@
   components:
   - type: Surgery
     icon: { sprite: Mobs/Species/Slime/organs.rsi, state: lung-l }
-    requirement: SurgerySlimeOpenIncision
     steps:
       default:
         steps:
+        - SurgerySlimeOpenIncision
         - SurgeryStepHealLungs
   - type: SurgeryOrganCondition
     slot: Lungs

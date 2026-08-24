@@ -215,7 +215,6 @@
   minimumHitDamage: 3
   accumulationMultiplier: 0.4
   reductionMinimumGrade: Simple
-  reductionRequiredToMend: true
   removeWoundWhenMended: true
   alert: BrokenBones
   alertMinimumGrade: Simple
@@ -256,7 +255,6 @@
   minimumHitDamage: 3
   accumulationMultiplier: 0.4
   reductionMinimumGrade: Simple
-  reductionRequiredToMend: true
   removeWoundWhenMended: true
   alert: BrokenBones
   alertMinimumGrade: Simple

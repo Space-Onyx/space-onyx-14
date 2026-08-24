@@ -32,8 +32,7 @@ public abstract partial class SharedSurgerySystem
     {
         if (FindHeldCavityItem(args.Tools) is not { } item)
         {
-            args.Invalid = StepInvalidReason.MissingTool;
-            args.Popup = Loc.GetString("surgery-ui-reason-cavity-item");
+            SetMissingTool(ref args, "surgery-ui-reason-cavity-item");
             return;
         }
 

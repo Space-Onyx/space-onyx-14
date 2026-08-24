@@ -250,9 +250,6 @@ public sealed partial class FractureProfilePrototype : IPrototype
     public FractureGrade ReductionMinimumGrade = FractureGrade.Displaced;
 
     [DataField]
-    public bool ReductionRequiredToMend = true;
-
-    [DataField]
     public bool RemoveWoundWhenMended = true;
 
     [DataField]

@@ -22,5 +22,4 @@ public sealed partial class SurgeryToolComponent : Component
 [RegisterComponent] public sealed partial class TweezersComponent : Component;
 [RegisterComponent] public sealed partial class DrillComponent : Component;
 [RegisterComponent] public sealed partial class StitchesComponent : Component;
-[RegisterComponent] public sealed partial class BoneSetterComponent : Component;
 [RegisterComponent] public sealed partial class TendingComponent : Component;

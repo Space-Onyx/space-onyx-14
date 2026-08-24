@@ -147,7 +147,6 @@ public sealed class HealthAnalyzerPartDamageTest : GameTest
                 Assert.That(analyzer.BuildWoundDiagnostics(plain), Is.Null);
             });
 
-            Assert.That(fractures.TryReduce(fracture.Owner));
             Assert.That(fractures.TryMend(fracture.Owner));
             Assert.That(fractures.GetFracture(arm), Is.Null);
             Assert.That(analyzer.BuildWoundDiagnostics(body)!.Parts.ContainsKey(TargetBodyPart.LeftArm), Is.False);

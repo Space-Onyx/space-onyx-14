@@ -19,7 +19,6 @@
     - item: Cautery
     - item: MedicalStitches
     - item: BoneGel
-    - item: Bonesetter
   - type: BorgModuleIcon
     icon: { sprite: _Onyx/Interface/Actions/actions_borg.rsi, state: surgery-module }
 

@@ -134,8 +134,7 @@ public abstract partial class SharedSurgerySystem
     {
         if (FindHeldPart(args.Tools, type, symmetry) is not { } part)
         {
-            args.Invalid = StepInvalidReason.MissingTool;
-            args.Popup = Loc.GetString("surgery-ui-reason-part");
+            SetMissingTool(ref args, "surgery-ui-reason-part");
             return;
         }
 

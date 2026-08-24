@@ -1,5 +1,8 @@
 using Robust.Shared.GameObjects;
 using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
+using Content.Shared.Body;
+using Content.Shared.Body.Part;
 
 namespace Content.Shared._Onyx.Body;
 
@@ -8,6 +11,19 @@ namespace Content.Shared._Onyx.Body;
 /// </summary>
 [ByRefEvent]
 public readonly record struct BodyOrgansChangedEvent(EntityUid Body);
+
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class BodyAnatomyComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public Dictionary<BodyPartType, int> RequiredParts = new();
+
+    [DataField, AutoNetworkedField]
+    public Dictionary<ProtoId<OrganCategoryPrototype>, int> RequiredOrgans = new();
+
+    [DataField, AutoNetworkedField]
+    public bool AnatomyInitialized;
+}
 
 [RegisterComponent, NetworkedComponent]
 public sealed partial class MissingEarsComponent : Component;
@@ -28,13 +44,4 @@ public sealed partial class MissingHeadComponent : Component
 }
 
 [RegisterComponent]
-public sealed partial class InitiallyLeggedComponent : Component
-{
-    public int InitialLegCount;
-}
-
-[RegisterComponent]
-public sealed partial class InitiallyLungedComponent : Component
-{
-    public int InitialLungCount;
-}
+public sealed partial class InitiallyLungedComponent : Component;

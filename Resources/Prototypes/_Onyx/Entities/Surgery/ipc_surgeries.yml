@@ -47,10 +47,10 @@
   components:
   - type: Surgery
     useTargetPartIcon: true
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcDetachPart
   - type: SurgeryDetachablePartCondition
 
@@ -60,10 +60,10 @@
   name: Install head
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcAttachHead
         - SurgeryStepIpcSecureHead
         - SurgeryStepIpcConnectHead
@@ -78,10 +78,10 @@
   name: Install left arm
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcAttachLeftArm
         - SurgeryStepIpcSecureLeftArm
         - SurgeryStepIpcConnectLeftArm
@@ -97,10 +97,10 @@
   name: Install right arm
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcAttachRightArm
         - SurgeryStepIpcSecureRightArm
         - SurgeryStepIpcConnectRightArm
@@ -116,10 +116,10 @@
   name: Install left leg
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcAttachLeftLeg
         - SurgeryStepIpcSecureLeftLeg
         - SurgeryStepIpcConnectLeftLeg
@@ -135,10 +135,10 @@
   name: Install right leg
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcAttachRightLeg
         - SurgeryStepIpcSecureRightLeg
         - SurgeryStepIpcConnectRightLeg
@@ -154,10 +154,10 @@
   name: Install left hand
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcAttachLeftHand
         - SurgeryStepIpcSecureLeftHand
         - SurgeryStepIpcConnectLeftHand
@@ -174,10 +174,10 @@
   name: Install right hand
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcAttachRightHand
         - SurgeryStepIpcSecureRightHand
         - SurgeryStepIpcConnectRightHand
@@ -194,10 +194,10 @@
   name: Install left foot
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcAttachLeftFoot
         - SurgeryStepIpcSecureLeftFoot
         - SurgeryStepIpcConnectLeftFoot
@@ -214,10 +214,10 @@
   name: Install right foot
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcAttachRightFoot
         - SurgeryStepIpcSecureRightFoot
         - SurgeryStepIpcConnectRightFoot
@@ -234,10 +234,10 @@
   name: Remove positronic brain
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcRemoveBrain
   - type: SurgeryOrganCondition
     slot: Brain
@@ -249,10 +249,10 @@
   name: Install positronic brain
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcInsertBrain
   - type: SurgeryOrganCondition
     slot: Brain
@@ -265,10 +265,10 @@
   name: Remove optical sensors
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcRemoveEyes
   - type: SurgeryOrganCondition
     slot: Eyes
@@ -280,10 +280,10 @@
   name: Install optical sensors
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcInsertEyes
   - type: SurgeryOrganCondition
     slot: Eyes
@@ -296,10 +296,10 @@
   name: Remove vocal modulator
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcRemoveTongue
   - type: SurgeryOrganCondition
     slot: Tongue
@@ -311,10 +311,10 @@
   name: Install vocal modulator
   components:
   - type: Surgery
-    requirement: SurgeryIpcOpenPanel
     steps:
       default:
         steps:
+        - SurgeryIpcOpenPanel
         - SurgeryStepIpcInsertTongue
   - type: SurgeryOrganCondition
     slot: Tongue

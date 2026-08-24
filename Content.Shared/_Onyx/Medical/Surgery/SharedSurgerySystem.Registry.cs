@@ -40,11 +40,14 @@ public abstract partial class SharedSurgerySystem
 
         foreach (var prototype in _prototypes.EnumeratePrototypes<EntityPrototype>())
         {
-            if (prototype.Abstract ||
-                !prototype.TryComp(out SurgeryComponent? surgery, _compFactory))
+            if (prototype.Abstract)
                 continue;
 
-            _surgeryPrototypes[new EntProtoId(prototype.ID)] = surgery;
+            var id = new EntProtoId(prototype.ID);
+            if (prototype.TryComp(out SurgeryComponent? surgery, _compFactory))
+                _surgeryPrototypes[id] = surgery;
+            if (prototype.HasComp<SurgeryStepComponent>(_compFactory))
+                _stepPrototypes.Add(id);
         }
 
         foreach (var (id, surgery) in _surgeryPrototypes.ToArray())
@@ -53,13 +56,9 @@ public abstract partial class SharedSurgerySystem
                 _surgeryPrototypes.Remove(id);
         }
 
-        RemoveSurgeriesWithInvalidRequirements();
-        RemoveRequirementCycles();
-        RemoveSurgeriesWithInvalidRequirements();
-
-        foreach (var surgery in _surgeryPrototypes.Values)
-            foreach (var sequence in surgery.Steps.Values)
-                _stepPrototypes.UnionWith(sequence.Steps);
+        RemoveSurgeriesWithInvalidReferences();
+        RemoveSurgeryCycles();
+        RemoveSurgeriesWithInvalidReferences();
     }
 
     private bool ValidateSurgeryPrototype(EntProtoId id, SurgeryComponent surgery)
@@ -84,31 +83,23 @@ public abstract partial class SharedSurgerySystem
 
         foreach (var stepId in surgery.Steps.Values.SelectMany(sequence => sequence.Steps))
         {
-            if (!_prototypes.TryIndex<EntityPrototype>(stepId, out var stepPrototype) ||
-                stepPrototype.Abstract ||
-                !stepPrototype.HasComp<SurgeryStepComponent>(_compFactory))
+            if (!_stepPrototypes.Contains(stepId) && !_surgeryPrototypes.ContainsKey(stepId))
             {
-                Log.Error($"Surgery prototype {id} references invalid step {stepId} and will be ignored.");
+                Log.Error($"Surgery prototype {id} references invalid step or surgery {stepId} and will be ignored.");
                 return false;
             }
-        }
-
-        if (surgery.Requirement is { } requirement && !_surgeryPrototypes.ContainsKey(requirement))
-        {
-            Log.Error($"Surgery prototype {id} references invalid requirement {requirement} and will be ignored.");
-            return false;
         }
 
         return true;
     }
 
-    private void RemoveSurgeriesWithInvalidRequirements()
+    private void RemoveSurgeriesWithInvalidReferences()
     {
         while (true)
         {
             var invalid = _surgeryPrototypes
-                .Where(entry => entry.Value.Requirement is { } requirement &&
-                    !_surgeryPrototypes.ContainsKey(requirement))
+                .Where(entry => entry.Value.Steps.Values.SelectMany(sequence => sequence.Steps)
+                    .Any(id => !_stepPrototypes.Contains(id) && !_surgeryPrototypes.ContainsKey(id)))
                 .Select(entry => entry.Key)
                 .ToArray();
 
@@ -117,32 +108,34 @@ public abstract partial class SharedSurgerySystem
 
             foreach (var surgery in invalid)
             {
-                Log.Error($"Surgery prototype {surgery} depends on an invalid requirement and will be ignored.");
+                Log.Error($"Surgery prototype {surgery} contains an invalid nested surgery and will be ignored.");
                 _surgeryPrototypes.Remove(surgery);
             }
         }
     }
 
-    private void RemoveRequirementCycles()
+    private void RemoveSurgeryCycles()
     {
         var visited = new HashSet<EntProtoId>();
         var visiting = new HashSet<EntProtoId>();
+        var stack = new List<EntProtoId>();
         var cyclic = new HashSet<EntProtoId>();
 
         foreach (var surgery in _surgeryPrototypes.Keys)
-            VisitRequirement(surgery, visited, visiting, cyclic);
+            VisitSurgery(surgery, visited, visiting, stack, cyclic);
 
         foreach (var surgery in cyclic)
         {
-            Log.Error($"Surgery prototype {surgery} has a requirement cycle and will be ignored.");
+            Log.Error($"Surgery prototype {surgery} has a nested surgery cycle and will be ignored.");
             _surgeryPrototypes.Remove(surgery);
         }
     }
 
-    private void VisitRequirement(
+    private void VisitSurgery(
         EntProtoId surgery,
         HashSet<EntProtoId> visited,
         HashSet<EntProtoId> visiting,
+        List<EntProtoId> stack,
         HashSet<EntProtoId> cyclic)
     {
         if (visited.Contains(surgery))
@@ -150,13 +143,17 @@ public abstract partial class SharedSurgerySystem
 
         if (!visiting.Add(surgery))
         {
-            cyclic.UnionWith(visiting);
+            cyclic.UnionWith(stack.SkipWhile(id => id != surgery));
             return;
         }
 
-        if (_surgeryPrototypes[surgery].Requirement is { } requirement)
-            VisitRequirement(requirement, visited, visiting, cyclic);
+        stack.Add(surgery);
+        foreach (var nested in _surgeryPrototypes[surgery].Steps.Values
+                     .SelectMany(sequence => sequence.Steps)
+                     .Where(_surgeryPrototypes.ContainsKey))
+            VisitSurgery(nested, visited, visiting, stack, cyclic);
 
+        stack.RemoveAt(stack.Count - 1);
         visiting.Remove(surgery);
         visited.Add(surgery);
     }

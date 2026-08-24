@@ -1,5 +1,6 @@
 - type: entity
   id: SurgeryStepBase
+  abstract: true
   categories: [ HideSpawnMenu ]
   components:
   - type: SurgeryStep
@@ -33,6 +34,7 @@
     tool: [ { type: BoneSaw } ]
     addMarkers: [ IncisionOpen ]
   - type: SurgeryTargetPartContext
+  - type: MechanicalSurgeryStep
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/circular-saw.rsi
     state: circular-saw
@@ -48,19 +50,20 @@
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/retractor.rsi
     state: retractor
+  - type: MechanicalSurgeryStep
 
 - type: entity
   parent: SurgeryStepBase
   id: SurgeryStepClampBleeders
-  name: Suture the bleeding vessels
+  name: Clamp the bleeding vessels
   components:
   - type: SurgeryStep
     tool:
-    - type: Stitches
+    - type: Hemostat
     addMarkers: [ BleedersClamped ]
   - type: Sprite
-    sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
-    state: stitches
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
+    state: hemostat
   - type: SurgeryClampBleedEffect
 
 - type: entity
@@ -107,6 +110,74 @@
     sprite: _Onyx/Objects/Specific/Medical/Surgery/retractor.rsi
     state: retractor
   - type: SurgeryOperatingTableCondition
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    sleepModifier: 0
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepSawSkull
+  name: Saw through skull
+  components:
+  - type: SurgeryStep
+    tool: [ { type: BoneSaw } ]
+    addMarkers: [ SkullSawed ]
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/circular-saw.rsi
+    state: circular-saw
+  - type: SurgeryStepEmoteEffect
+  - type: SurgeryOperatingTableCondition
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    sleepModifier: 0
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepOpenSkull
+  name: Open skull
+  components:
+  - type: SurgeryStep
+    tool: [ { type: Retractor } ]
+    addMarkers: [ SkullOpen ]
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/retractor.rsi
+    state: retractor
+  - type: SurgeryOperatingTableCondition
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    sleepModifier: 0
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepCloseSkull
+  name: Close skull
+  components:
+  - type: SurgeryStep
+    tool: [ { type: Retractor } ]
+    removeMarkers: [ SkullOpen ]
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/retractor.rsi
+    state: retractor
+  - type: SurgeryOperatingTableCondition
+  - type: SurgeryStepPainInflicter
+    amount: 12
+    sleepModifier: 0
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepMendSkull
+  name: Mend skull
+  components:
+  - type: SurgeryStep
+    tool: [ { type: BoneGel } ]
+    removeMarkers: [ SkullSawed ]
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/bone-gel.rsi
+    state: bone-gel
+  - type: SurgeryOperatingTableCondition
+  - type: SurgeryStepPainInflicter
+    amount: 12
+    sleepModifier: 0
 
 - type: entity
   parent: SurgeryStepBase
@@ -121,6 +192,9 @@
     sprite: _Onyx/Objects/Specific/Medical/Surgery/retractor.rsi
     state: retractor
   - type: SurgeryOperatingTableCondition
+  - type: SurgeryStepPainInflicter
+    amount: 12
+    sleepModifier: 0
 
 - type: entity
   parent: SurgeryStepBase
@@ -135,6 +209,9 @@
     sprite: _Onyx/Objects/Specific/Medical/Surgery/bone-gel.rsi
     state: bone-gel
   - type: SurgeryOperatingTableCondition
+  - type: SurgeryStepPainInflicter
+    amount: 12
+    sleepModifier: 0
 
 - type: entity
   parent: SurgeryStepBase
@@ -143,11 +220,11 @@
   components:
   - type: SurgeryStep
     tool:
-    - type: Stitches
+    - type: Cautery
     removeMarkers: [ SkinRetracted, BleedersClamped, IncisionOpen, AbdominalCavityOpen ]
   - type: Sprite
-    sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
-    state: stitches
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/cautery.rsi
+    state: cautery
   - type: SurgeryStepEmoteEffect
   - type: SurgeryCloseIncisionEffect
   - type: SurgeryStepPainInflicter
@@ -164,6 +241,7 @@
     toolQuality: Welding
     removeMarkers: [ SkinRetracted, BleedersClamped, IncisionOpen, AbdominalCavityOpen ]
   - type: SurgeryTargetPartContext
+  - type: MechanicalSurgeryStep
   - type: Sprite
     sprite: Objects/Tools/welder.rsi
     state: icon
@@ -180,6 +258,9 @@
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/scalpel.rsi
     state: scalpel
+  - type: SurgeryStepPainInflicter
+    amount: 21
+    sleepModifier: 0.34
 
 - type: entity
   parent: SurgeryStepBase
@@ -189,8 +270,11 @@
   - type: SurgeryStep
   - type: SurgeryInsertCavityItemEffect
   - type: Sprite
-    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
-    state: hemostat
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/manipulation.rsi
+    state: insertion
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    sleepModifier: 0
 
 - type: entity
   parent: SurgeryStepBase
@@ -202,8 +286,11 @@
     - type: Tweezers
   - type: SurgeryRemoveCavityItemEffect
   - type: Sprite
-    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
-    state: hemostat
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/manipulation.rsi
+    state: insertion
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    sleepModifier: 0
 
 - type: entity
   parent: SurgeryStepBase
@@ -227,16 +314,21 @@
 - type: entity
   parent: SurgeryStepBase
   id: SurgeryStepAttachPart
+  abstract: true
   name: Attach body part
   components:
   - type: SurgeryStep
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/cautery.rsi
     state: cautery
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    sleepModifier: 0.25
 
 - type: entity
   parent: SurgeryStepBase
   id: SurgeryStepMendAttachedPart
+  abstract: true
   name: Mend attached bones
   components:
   - type: SurgeryStep
@@ -245,10 +337,14 @@
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/bone-gel.rsi
     state: bone-gel
+  - type: SurgeryStepPainInflicter
+    amount: 12
+    sleepModifier: 0
 
 - type: entity
   parent: SurgeryStepBase
   id: SurgeryStepSutureAttachedPart
+  abstract: true
   name: Suture attached body part
   components:
   - type: SurgeryStep
@@ -257,6 +353,9 @@
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
     state: stitches
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    sleepModifier: 0.25
 
 - type: entity
   parent: SurgeryStepBase
@@ -267,8 +366,8 @@
     tool:
     - type: Tweezers
   - type: Sprite
-    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
-    state: hemostat
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/manipulation.rsi
+    state: insertion
   - type: SurgeryStepEmoteEffect
   - type: SurgeryStepPainInflicter
     amount: 90
@@ -281,8 +380,8 @@
   components:
   - type: SurgeryStep
   - type: Sprite
-    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
-    state: hemostat
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/manipulation.rsi
+    state: insertion
   - type: SurgeryStepPainInflicter
     amount: 90
     sleepModifier: 0
@@ -299,6 +398,9 @@
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
     state: stitches
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    sleepModifier: 0
 
 - type: entity
   parent: SurgeryStepAttachPart
@@ -743,14 +845,18 @@
 - type: entity
   parent: SurgeryStepBase
   id: SurgeryStepHealOrganBase
+  abstract: true
   components:
   - type: SurgeryStep
     duration: 2
-    tool: [ { type: Hemostat } ]
+    tool: [ { type: Tending } ]
   - type: RepeatSurgeryStep
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
     state: hemostat
+  - type: SurgeryStepPainInflicter
+    amount: 24
+    sleepModifier: 0
 
 - type: entity
   parent: SurgeryStepHealOrganBase
@@ -840,8 +946,8 @@
   - type: SurgeryStep
     tool: [ { type: Stitches } ]
   - type: Sprite
-    sprite: _Onyx/Objects/Specific/Medical/Surgery/stitches.rsi
-    state: stitches
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
+    state: hemostat
   - type: SurgeryHasWoundCondition
     state: Open
   - type: SurgeryClampBleedingEffect
@@ -869,7 +975,7 @@
   name: Repair mechanically damaged tissue
   components:
   - type: SurgeryStep
-    tool: [ { type: Tending } ]
+    tool: [ { type: Hemostat } ]
     duration: 2
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
@@ -904,29 +1010,6 @@
 
 - type: entity
   parent: SurgeryStepBase
-  id: SurgeryStepReduceFracture
-  name: Stabilize fracture
-  components:
-  - type: SurgeryStep
-    tool: [ { type: BoneSetter } ]
-  - type: SurgeryTargetPartContext
-  - type: SurgeryReduceFractureEffect
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepReduceFrameFracture
-  name: Align frame struts
-  components:
-  - type: SurgeryStep
-    toolQuality: Anchoring
-  - type: SurgeryTargetPartContext
-  - type: SurgeryReduceFractureEffect
-  - type: Sprite
-    sprite: Objects/Tools/wrench.rsi
-    state: icon
-
-- type: entity
-  parent: SurgeryStepBase
   id: SurgeryStepHealAmputationConsequence
   name: Repair amputation damage
   components:
@@ -948,6 +1031,9 @@
     tool: [ { type: BoneGel } ]
   - type: SurgeryTargetPartContext
   - type: SurgeryMendFractureEffect
+  - type: SurgeryStepPainInflicter
+    amount: 12
+    sleepModifier: 0
 
 - type: entity
   parent: SurgeryStepBase
@@ -958,6 +1044,7 @@
     toolQuality: Welding
   - type: SurgeryTargetPartContext
   - type: SurgeryMendFractureEffect
+  - type: MechanicalSurgeryStep
   - type: Sprite
     sprite: Objects/Tools/welder.rsi
     state: icon
@@ -979,6 +1066,9 @@
     sprite: _Onyx/Objects/Specific/Medical/Surgery/drill.rsi
     state: drill
   - type: SurgeryStepEmoteEffect
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    sleepModifier: 0
 
 - type: entity
   parent: SurgeryStepBase
@@ -1037,7 +1127,7 @@
   components:
   - type: SurgeryStep
     duration: 4
-    tool: [ { type: Tending } ]
+    tool: [ { type: Hemostat } ]
   - type: Sprite
     sprite: _Onyx/Objects/Specific/Medical/Surgery/hemostat.rsi
     state: hemostat

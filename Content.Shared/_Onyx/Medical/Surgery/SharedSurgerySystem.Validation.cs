@@ -21,6 +21,7 @@ public abstract partial class SharedSurgerySystem
             !TryComp(targetPart, out BodyPartComponent? partComp) || !IsPartOfTarget(body, targetPart) ||
             GetSurgeryEntity(surgery) is not { } surgeryEntId || !TryComp(surgeryEntId, out SurgeryComponent? surgeryComp) ||
             !GetSurgerySteps(body, targetPart, (surgeryEntId, surgeryComp), tools).Contains(stepId) ||
+            GetSurgeryEntity(stepId) != null ||
             GetSurgeryStepEntity(stepId) is not { } stepEnt)
             return false;
 
@@ -34,6 +35,20 @@ public abstract partial class SharedSurgerySystem
         part = (targetPart, partComp);
         step = stepEnt;
         return true;
+    }
+
+    private bool TryValidateSurgeryStep(EntityUid user, Entity<SurgeryTargetComponent> target, EntityUid targetPart,
+        EntProtoId surgeryId, EntProtoId stepId, List<EntityUid> tools, bool doPopup,
+        out Entity<BodyPartComponent> part, out EntityUid step, out HashSet<EntityUid>? validTools)
+    {
+        part = default;
+        step = default;
+        validTools = null;
+        return IsSurgeryValid(target, targetPart, surgeryId, stepId, tools, out var surgery, out part, out step) &&
+               PreviousStepsComplete(target, part, surgery, stepId, tools) &&
+               !IsStepComplete(target, part, stepId) &&
+               CanPerformStep(user, target, part, part.Comp.PartType, step, doPopup,
+                   out _, out _, out validTools);
     }
 
     private bool IsLyingDown(EntityUid entity)
@@ -60,54 +75,37 @@ public abstract partial class SharedSurgerySystem
             : _body.BodyHasChild(target, part);
     }
 
-    protected (Entity<SurgeryComponent> Surgery, int Step)? GetNextStep(EntityUid body, EntityUid part, Entity<SurgeryComponent?> surgery, List<EntityUid> requirements, List<EntityUid> tools)
+    protected int? GetNextStep(EntityUid body, EntityUid part, Entity<SurgeryComponent?> surgery, List<EntityUid> tools)
     {
         if (!Resolve(surgery, ref surgery.Comp))
             return null;
 
-        if (requirements.Contains(surgery))
-            throw new ArgumentException($"Surgery {surgery} has a requirement loop");
-
-        requirements.Add(surgery);
-        if (surgery.Comp.Requirement is { } requirementId && GetSurgeryEntity(requirementId) is { } requirement &&
-            TryComp(requirement, out SurgeryComponent? requirementComp) &&
-            !IsSurgeryComplete(body, part, (requirement, requirementComp), tools) &&
-            GetNextStep(body, part, (requirement, requirementComp), requirements, tools) is { } requiredNext)
-            return requiredNext;
-
         var steps = GetSurgerySteps(body, part, (surgery, surgery.Comp), tools);
         for (var i = 0; i < steps.Count; i++)
-            if (!IsStepComplete(body, part, steps[i]))
-                return ((surgery, surgery.Comp), i);
+            if (!IsSurgeryItemComplete(body, part, steps[i], tools))
+                return i;
 
         return null;
     }
 
     private bool PreviousStepsComplete(EntityUid body, EntityUid part, Entity<SurgeryComponent> surgery, EntProtoId step, List<EntityUid> tools)
     {
-        if (surgery.Comp.Requirement is { } requirement &&
-            (GetSurgeryEntity(requirement) is not { } requiredEnt ||
-             !TryComp(requiredEnt, out SurgeryComponent? requiredComp) ||
-             !IsSurgeryComplete(body, part, (requiredEnt, requiredComp), tools)))
-            return false;
-
         foreach (var surgeryStep in GetSurgerySteps(body, part, surgery, tools))
         {
             if (surgeryStep == step)
                 break;
-            if (!IsStepComplete(body, part, surgeryStep))
+            if (!IsSurgeryItemComplete(body, part, surgeryStep, tools))
                 return false;
         }
 
         return true;
     }
 
-    private bool IsSurgeryComplete(EntityUid body, EntityUid part, Entity<SurgeryComponent> surgery, List<EntityUid> tools)
-    {
-        return GetSurgerySteps(body, part, surgery, tools).All(step => IsStepComplete(body, part, step));
-    }
-
     protected IReadOnlyList<EntProtoId> GetSurgerySteps(EntityUid body, EntityUid part,
+        Entity<SurgeryComponent> surgery, List<EntityUid> tools)
+        => GetSurgerySequence(body, part, surgery, tools);
+
+    private IReadOnlyList<EntProtoId> GetSurgerySequence(EntityUid body, EntityUid part,
         Entity<SurgeryComponent> surgery, List<EntityUid> tools)
     {
         if (surgery.Comp.Steps.Count == 0)
@@ -138,6 +136,15 @@ public abstract partial class SharedSurgerySystem
             .ThenBy(entry => entry.Key, StringComparer.Ordinal)
             .Select(entry => (IReadOnlyList<EntProtoId>) entry.Value.Steps)
             .FirstOrDefault() ?? fallback;
+    }
+
+    protected bool IsSurgeryItemComplete(EntityUid body, EntityUid part, EntProtoId item, List<EntityUid> tools)
+    {
+        if (GetSurgeryEntity(item) is { } surgery && TryComp(surgery, out SurgeryComponent? surgeryComp))
+            return GetSurgerySteps(body, part, (surgery, surgeryComp), tools)
+                .All(child => IsSurgeryItemComplete(body, part, child, tools));
+
+        return IsStepComplete(body, part, item);
     }
 
     protected bool IsStepComplete(EntityUid body, EntityUid part, EntProtoId stepId)
@@ -178,7 +185,7 @@ public abstract partial class SharedSurgerySystem
                 popup = "Remove clothing covering the surgical site.";
                 validTools = null;
                 if (doPopup)
-                    _popup.PopupEntity(popup, user, PopupType.SmallCaution);
+                    _popup.PopupEntity(popup, user, user, PopupType.SmallCaution);
                 reason = StepInvalidReason.Clothing;
                 return false;
             }
@@ -196,14 +203,11 @@ public abstract partial class SharedSurgerySystem
         }
 
         if (doPopup && check.Popup != null)
-            _popup.PopupEntity(check.Popup, user, PopupType.SmallCaution);
+            _popup.PopupEntity(check.Popup, user, user, PopupType.SmallCaution);
 
         reason = check.Invalid;
         return false;
     }
-
-    private bool CanPerformStep(EntityUid user, EntityUid body, EntityUid targetPart, BodyPartType part, EntityUid step, bool doPopup)
-        => CanPerformStep(user, body, targetPart, part, step, doPopup, out _, out _, out _);
 
     protected virtual void RefreshUI(EntityUid body) { }
 }

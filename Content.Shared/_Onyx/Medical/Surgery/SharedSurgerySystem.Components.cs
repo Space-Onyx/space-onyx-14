@@ -1,4 +1,5 @@
 using System.Linq;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Onyx.Medical.Surgery;
 
@@ -17,8 +18,13 @@ public abstract partial class SharedSurgerySystem
     private void OnComponentEffectCheck(Entity<SurgeryComponentEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
     {
         var target = ent.Comp.Target == SurgeryEntityTarget.Body ? args.Body : args.Part;
-        if (ent.Comp.Add.Values.Any(component => !HasComp(target, component.Component.GetType())) ||
-            ent.Comp.Remove.Values.Any(component => HasComp(target, component.Component.GetType())))
+        if (!ComponentsMatch(target, ent.Comp.Add, ent.Comp.Remove))
             args.Cancelled = true;
+    }
+
+    private bool ComponentsMatch(EntityUid target, ComponentRegistry required, ComponentRegistry forbidden)
+    {
+        return required.Values.All(component => HasComp(target, component.Component.GetType())) &&
+               forbidden.Values.All(component => !HasComp(target, component.Component.GetType()));
     }
 }

@@ -13,7 +13,8 @@ namespace Content.Shared._Onyx.Medical.Surgery;
 [RegisterComponent]
 public sealed partial class SurgeryPartConditionComponent : Component
 {
-    [DataField(required: true)] public BodyPartType Part;
+    [DataField] public BodyPartType? Part;
+    [DataField] public HashSet<BodyPartType> Parts = new();
     [DataField] public BodyPartSymmetry? Symmetry;
     [DataField] public bool Inverse;
 }

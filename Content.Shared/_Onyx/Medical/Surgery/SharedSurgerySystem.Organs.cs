@@ -47,8 +47,7 @@ public abstract partial class SharedSurgerySystem
     {
         if (FindHeldOrgan(args.Tools, ent.Comp.Slot, ent.Comp.RequireMechanical, ent.Comp.Required) is not { } organ)
         {
-            args.Invalid = StepInvalidReason.MissingTool;
-            args.Popup = Loc.GetString("surgery-ui-reason-organ");
+            SetMissingTool(ref args, "surgery-ui-reason-organ");
             return;
         }
 

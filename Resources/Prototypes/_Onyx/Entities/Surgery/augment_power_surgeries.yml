@@ -4,15 +4,18 @@
   name: Implant augment power-cell slot
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
     steps:
       default:
         steps:
+        - SurgeryOpenRibcage
         - SurgeryStepInsertAugmentPowerCell
   - type: SurgeryOrganCondition
     slot: AugmentPowerCell
     inverse: true
     part: Chest
+  - type: SurgeryComponentCondition
+    target: Part
+    none: [ { type: Cybernetics } ]
 
 - type: entity
   parent: BaseSurgeryRemoveOrgan
@@ -20,10 +23,10 @@
   name: Remove augment power-cell slot
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
     steps:
       default:
         steps:
+        - SurgeryOpenRibcage
         - SurgeryStepRemoveAugmentPowerCell
   - type: SurgeryOrganCondition
     slot: AugmentPowerCell
@@ -35,15 +38,18 @@
   name: Implant augment recharger
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
     steps:
       default:
         steps:
+        - SurgeryOpenRibcage
         - SurgeryStepInsertAugmentCharger
   - type: SurgeryOrganCondition
     slot: AugmentCharger
     inverse: true
     part: Chest
+  - type: SurgeryComponentCondition
+    target: Part
+    none: [ { type: Cybernetics } ]
 
 - type: entity
   parent: BaseSurgeryRemoveOrgan
@@ -51,10 +57,10 @@
   name: Remove augment recharger
   components:
   - type: Surgery
-    requirement: SurgeryOpenRibcage
     steps:
       default:
         steps:
+        - SurgeryOpenRibcage
         - SurgeryStepRemoveAugmentCharger
   - type: SurgeryOrganCondition
     slot: AugmentCharger

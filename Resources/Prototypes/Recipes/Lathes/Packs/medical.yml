@@ -38,11 +38,10 @@
   - SawElectric
   # </Onyx-CircularSaw-edited>
   - Hemostat
-  # <Onyx-Surgery>
+  # <Onyx-Surgery-edited>
   - BoneGel
   - MedicalStitches
-  - Bonesetter
-  # </Onyx-Surgery>
+  # </Onyx-Surgery-edited>
 
 - type: latheRecipePack
   id: MedicalStatic

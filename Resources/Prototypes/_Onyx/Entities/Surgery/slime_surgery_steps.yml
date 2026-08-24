@@ -10,11 +10,18 @@
     sprite: _Onyx/Objects/Specific/Medical/Surgery/scalpel.rsi
     state: scalpel
   - type: SurgeryStepEmoteEffect
+  - type: SurgeryStepPainInflicter
+    amount: 50
+    sleepModifier: 0.14
 
 - type: entity
   parent: SurgeryStepBase
   id: SurgeryStepSlimeAttachPart
   name: Merge the body part
+  components:
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    sleepModifier: 0.25
 
 - type: entity
   parent: SurgeryStepSlimeAttachPart

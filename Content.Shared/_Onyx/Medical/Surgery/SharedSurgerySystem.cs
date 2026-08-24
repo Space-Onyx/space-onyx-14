@@ -49,6 +49,17 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
     private const string CavityContainer = "surgery_cavity";
     private static readonly EntProtoId SurgicallyMutedEffect = "StatusEffectSurgicallyMuted";
-    protected readonly Dictionary<(EntityUid Body, EntityUid Part), uint> ActiveSurgerySites = new();
+    protected readonly Dictionary<(EntityUid Body, EntityUid Part), ActiveSurgerySite> ActiveSurgerySites = new();
+    private List<PendingSurgeryRepeat> _pendingSurgeryRepeats = new();
+    private List<PendingSurgeryRepeat> _processingSurgeryRepeats = new();
     private uint _nextSurgeryToken;
+
+    protected readonly record struct ActiveSurgerySite(uint Token, EntityUid User);
+    private readonly record struct PendingSurgeryRepeat(
+        EntityUid Body,
+        EntityUid Part,
+        EntityUid User,
+        EntProtoId Surgery,
+        EntProtoId Step,
+        uint Token);
 }

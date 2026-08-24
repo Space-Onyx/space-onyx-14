@@ -3,6 +3,7 @@ using Content.Shared.CCVar;
 using Content.Shared.DoAfter;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Tools.Components;
+using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Onyx.Medical.Surgery;
@@ -23,7 +24,7 @@ public abstract partial class SharedSurgerySystem
         }
 
         var site = (Body: ent.Owner, Part: targetPart);
-        if (!ActiveSurgerySites.TryGetValue(site, out var token) || token != args.Token)
+        if (!ActiveSurgerySites.TryGetValue(site, out var active) || active.Token != args.Token)
             return;
 
         ActiveSurgerySites.Remove(site);
@@ -34,10 +35,8 @@ public abstract partial class SharedSurgerySystem
         }
 
         var tools = GetActiveTool(args.User);
-        if (!IsSurgeryValid(ent, targetPart, args.Surgery, args.Step, tools, out var surgery, out var part, out var step) ||
-            !PreviousStepsComplete(ent, part, surgery, args.Step, tools) ||
-            IsStepComplete(ent, part, args.Step) ||
-            !CanPerformStep(args.User, ent, part, part.Comp.PartType, step, false))
+        if (!TryValidateSurgeryStep(args.User, ent, targetPart, args.Surgery, args.Step, tools, false,
+                out var part, out var step, out _))
         {
             RefreshUI(ent);
             return;
@@ -49,9 +48,8 @@ public abstract partial class SharedSurgerySystem
             !IsStepComplete(ent, part, args.Step) &&
             CanPerformStep(args.User, ent, part, part.Comp.PartType, step, false, out _, out _, out var validTools))
         {
-            var nextToken = ReserveSurgerySite(site);
-            if (!StartSurgeryDoAfter(ent, part, args.Surgery, args.Step, args.User, step, nextToken, validTools))
-                RemoveSurgerySite(site, nextToken);
+            var nextToken = ReserveSurgerySite(site, args.User);
+            _pendingSurgeryRepeats.Add(new(ent, part, args.User, args.Surgery, args.Step, nextToken));
         }
         RefreshUI(ent);
     }
@@ -71,20 +69,9 @@ public abstract partial class SharedSurgerySystem
         if (ActiveSurgerySites.ContainsKey(site))
             return;
 
-        var token = ReserveSurgerySite(site);
-        if (!IsSurgeryValid(ent, targetPart, args.Surgery, args.Step, tools, out var surgery, out var part, out var step))
-        {
-            RemoveSurgerySite(site, token);
-            return;
-        }
-
-        if (!PreviousStepsComplete(ent, part, surgery, args.Step, tools) || IsStepComplete(ent, part, args.Step))
-        {
-            RemoveSurgerySite(site, token);
-            return;
-        }
-
-        if (!CanPerformStep(user, ent, part, part.Comp.PartType, step, true, out _, out _, out var validTools))
+        var token = ReserveSurgerySite(site, user);
+        if (!TryValidateSurgeryStep(user, ent, targetPart, args.Surgery, args.Step, tools, true,
+                out var part, out var step, out var validTools))
         {
             RemoveSurgerySite(site, token);
             return;
@@ -154,33 +141,62 @@ public abstract partial class SharedSurgerySystem
             Loc.TryGetString($"surgery-popup-step-{stepId}", out popup, ("user", userName), ("target", targetName), ("part", part));
 
         if (popup != null)
+        {
             _popup.PopupEntity(popup, user, user);
+            _popup.PopupEntity(popup, user, Filter.PvsExcept(user), true);
+        }
 
         return true;
     }
 
-    private uint ReserveSurgerySite((EntityUid Body, EntityUid Part) site)
+    private uint ReserveSurgerySite((EntityUid Body, EntityUid Part) site, EntityUid user)
     {
         var token = ++_nextSurgeryToken;
-        ActiveSurgerySites.Add(site, token);
+        ActiveSurgerySites.Add(site, new(token, user));
         return token;
     }
 
     private void RemoveSurgerySite((EntityUid Body, EntityUid Part) site, uint token)
     {
-        if (ActiveSurgerySites.TryGetValue(site, out var activeToken) && activeToken == token)
+        if (ActiveSurgerySites.TryGetValue(site, out var active) && active.Token == token)
             ActiveSurgerySites.Remove(site);
     }
 
     private void RemoveSurgerySite(EntityUid body, uint token)
     {
-        foreach (var (site, activeToken) in ActiveSurgerySites)
+        foreach (var (site, active) in ActiveSurgerySites)
         {
-            if (site.Body != body || activeToken != token)
+            if (site.Body != body || active.Token != token)
                 continue;
 
             ActiveSurgerySites.Remove(site);
             return;
         }
+    }
+
+    private void ProcessPendingSurgeryRepeats()
+    {
+        if (_pendingSurgeryRepeats.Count == 0)
+            return;
+
+        (_pendingSurgeryRepeats, _processingSurgeryRepeats) = (_processingSurgeryRepeats, _pendingSurgeryRepeats);
+        foreach (var pending in _processingSurgeryRepeats)
+        {
+            var site = (pending.Body, pending.Part);
+            if (!ActiveSurgerySites.TryGetValue(site, out var active) ||
+                active.Token != pending.Token ||
+                active.User != pending.User)
+                continue;
+
+            var tools = GetActiveTool(pending.User);
+            if (!TryComp(pending.Body, out SurgeryTargetComponent? targetComp) ||
+                !TryValidateSurgeryStep(pending.User, (pending.Body, targetComp), pending.Part, pending.Surgery,
+                    pending.Step, tools, false, out var part, out var step, out var validTools) ||
+                !StartSurgeryDoAfter((pending.Body, targetComp), part, pending.Surgery, pending.Step,
+                    pending.User, step, pending.Token, validTools))
+                RemoveSurgerySite(site, pending.Token);
+        }
+
+        _processingSurgeryRepeats.Clear();
     }
 }

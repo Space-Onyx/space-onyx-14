@@ -188,6 +188,30 @@ public sealed partial class SharedBodySystem : EntitySystem
         }
     }
 
+    public void InitializeAnatomy(EntityUid body)
+    {
+        var anatomy = EnsureComp<BodyAnatomyComponent>(body);
+        if (anatomy.AnatomyInitialized)
+            return;
+
+        foreach (var (partId, part) in GetBodyChildren(body))
+        {
+            anatomy.RequiredParts[part.PartType] = anatomy.RequiredParts.GetValueOrDefault(part.PartType) + 1;
+            if (TryComp(partId, out OrganComponent? organ) && organ.Category is { } category)
+                anatomy.RequiredOrgans[category] = anatomy.RequiredOrgans.GetValueOrDefault(category) + 1;
+        }
+
+        foreach (var (_, organ) in GetBodyOrgans(body))
+            if (organ.Category is { } category)
+                anatomy.RequiredOrgans[category] = anatomy.RequiredOrgans.GetValueOrDefault(category) + 1;
+
+        anatomy.AnatomyInitialized = true;
+        Dirty(body, anatomy);
+
+        if (anatomy.RequiredOrgans.ContainsKey(new ProtoId<OrganCategoryPrototype>("Lungs")))
+            EnsureComp<InitiallyLungedComponent>(body);
+    }
+
     public IEnumerable<(EntityUid Id, BodyPartComponent Component)> GetBodyChildrenOfType(EntityUid body, BodyPartType type)
     {
         foreach (var part in GetBodyChildren(body))

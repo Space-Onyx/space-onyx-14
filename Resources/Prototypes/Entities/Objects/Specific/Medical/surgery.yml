@@ -246,13 +246,7 @@
   - type: Tending
   # </Onyx-Surgery>
 
-  # - type: entity
-  #   name: bone setter
-  #   id: BoneSetter
-  #   parent: Retractor
-  #   description: A surgical tool used for setting bones.
-  #   components:
-# Saws
+# Saws # <Onyx-Surgery-edited>
 
 - type: entity
   name: metal saw

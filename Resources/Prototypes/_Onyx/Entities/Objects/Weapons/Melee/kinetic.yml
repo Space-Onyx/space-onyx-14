@@ -40,7 +40,9 @@
     qualities: [ Slicing ]
     useSound: { path: /Audio/Items/Culinary/chop.ogg }
   - type: Scalpel
-    speed: 0.3
+  - type: SurgeryTool
+    speedModifiers:
+      Scalpel: 0.3
 
 - type: entity
   parent: [ BaseItem, BaseSalvageContraband ]
@@ -84,4 +86,6 @@
     useSound:
       path: /Audio/Items/Culinary/chop.ogg
   - type: Scalpel
-    speed: 0.55
+  - type: SurgeryTool
+    speedModifiers:
+      Scalpel: 0.55

@@ -1,5 +1,6 @@
 using Content.Shared._Onyx.Medical.Surgery;
 using Content.Shared._Onyx.Wounds;
+using Content.Shared.Body;
 using Content.Shared.Body.Systems;
 using Content.Server.Chat.Systems;
 using Content.Shared.Interaction;
@@ -38,6 +39,7 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
         SubscribeLocalEvent<WoundComponent, WoundBleedingChangedEvent>(OnPatientStateChanged);
         SubscribeLocalEvent<WoundComponent, FractureGradeChangedEvent>(OnPatientStateChanged);
         SubscribeLocalEvent<WoundComponent, FractureTreatmentChangedEvent>(OnPatientStateChanged);
+        SubscribeLocalEvent<BodyComponent, BodyOrganSlotChangedEvent>(OnBodyOrganSlotChanged);
         Subs.BuiEvents<SurgeryTargetComponent>(SurgeryUIKey.Key, subs =>
         {
             subs.Event<BoundUIOpenedEvent>(OnUiOpened);

@@ -28,8 +28,6 @@ public sealed partial class WoundSurgerySystem : EntitySystem
         SubscribeLocalEvent<SurgeryClampBleedingEffectComponent, SurgeryStepEvent>(OnClampBleeding);
         SubscribeLocalEvent<SurgeryClampBleedingEffectComponent, SurgeryStepCompleteCheckEvent>(OnClampBleedingCheck);
         SubscribeLocalEvent<SurgeryFractureGradeConditionComponent, SurgeryValidEvent>(OnFractureGradeValid);
-        SubscribeLocalEvent<SurgeryReduceFractureEffectComponent, SurgeryStepEvent>(OnReduceFracture);
-        SubscribeLocalEvent<SurgeryReduceFractureEffectComponent, SurgeryStepCompleteCheckEvent>(OnReduceFractureCheck);
         SubscribeLocalEvent<SurgeryMendFractureEffectComponent, SurgeryStepEvent>(OnMendFracture);
         SubscribeLocalEvent<SurgeryMendFractureEffectComponent, SurgeryStepCompleteCheckEvent>(OnMendFractureCheck);
         SubscribeLocalEvent<SurgeryWoundedConditionComponent, SurgeryValidEvent>(OnWoundedValid);
@@ -63,18 +61,6 @@ public sealed partial class WoundSurgerySystem : EntitySystem
         if (_fractures.GetFracture(args.Part) is not { } fracture ||
             (ent.Comp.Grade is { } grade ? fracture.Comp2.Grade != grade : fracture.Comp2.Grade < ent.Comp.MinGrade) ||
             ent.Comp.Treatment is { } treatment && fracture.Comp2.Treatment != treatment)
-            args.Cancelled = true;
-    }
-
-    private void OnReduceFracture(Entity<SurgeryReduceFractureEffectComponent> ent, ref SurgeryStepEvent args)
-    {
-        if (_fractures.GetFracture(args.Part) is { } fracture)
-            _fractures.TryReduce(fracture.Owner);
-    }
-
-    private void OnReduceFractureCheck(Entity<SurgeryReduceFractureEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)
-    {
-        if (_fractures.GetFracture(args.Part) is not { Comp2.Treatment: FractureTreatment.Reduced or FractureTreatment.Mended })
             args.Cancelled = true;
     }
 

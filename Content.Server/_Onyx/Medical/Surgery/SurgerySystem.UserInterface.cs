@@ -1,7 +1,9 @@
 using System.Linq;
 using Content.Shared._Onyx.Medical.Surgery;
 using Content.Shared._Onyx.Wounds;
+using Content.Shared.Body;
 using Content.Shared.Body.Part;
+using Content.Shared.Body.Systems;
 using Content.Shared.CCVar;
 using Content.Shared.Humanoid;
 using Content.Shared.Interaction;
@@ -39,8 +41,18 @@ public sealed partial class SurgerySystem
     private void OnPatientStateChanged<T>(Entity<WoundComponent> wound, ref T args) where T : notnull
     {
         var target = CompOrNull<BodyPartComponent>(wound.Comp.HoldingPart)?.Body ?? wound.Comp.HoldingPart;
-        if (_ui.IsUiOpen(target, SurgeryUIKey.Key))
-            _pendingUiRefresh.Add(target);
+        QueueUiRefresh(target);
+    }
+
+    private void OnBodyOrganSlotChanged(Entity<BodyComponent> body, ref BodyOrganSlotChangedEvent args)
+    {
+        QueueUiRefresh(body.Owner);
+    }
+
+    private void QueueUiRefresh(EntityUid body)
+    {
+        if (_ui.IsUiOpen(body, SurgeryUIKey.Key))
+            _pendingUiRefresh.Add(body);
     }
 
     private void OnUiOpened(Entity<SurgeryTargetComponent> ent, ref BoundUIOpenedEvent args)
@@ -63,7 +75,7 @@ public sealed partial class SurgerySystem
         var steps = GetSurgerySteps(ent, part, (surgery, surgeryComp), tools).ToList();
         var completed = new List<bool>(steps.Count);
         foreach (var step in steps)
-            completed.Add(IsStepComplete(ent, part, step));
+            completed.Add(IsSurgeryItemComplete(ent, part, step, tools));
 
         if (!IsPartOfTarget(ent, part) || !IsReadyForSurgery(ent))
         {
@@ -72,8 +84,7 @@ public sealed partial class SurgerySystem
             return;
         }
 
-        var next = GetNextStep(ent, part, (surgery, surgeryComp), new List<EntityUid>(), tools);
-        var nextStep = next is { } value && value.Surgery.Owner == surgery ? value.Step : -1;
+        var nextStep = GetNextStep(ent, part, (surgery, surgeryComp), tools) ?? -1;
         if (completed.All(static step => step))
         {
             SendStepsState(ent, args, steps, completed, -1, false, null, StepInvalidReason.None,
@@ -82,8 +93,13 @@ public sealed partial class SurgerySystem
         }
 
         var valid = new SurgeryValidEvent(ent, part);
-        if (nextStep >= 0 && GetSurgeryStepEntity(steps[nextStep]) is { } selectedStep)
-            RaiseLocalEvent(selectedStep, ref valid);
+        if (nextStep >= 0)
+        {
+            if (GetSurgeryStepEntity(steps[nextStep]) is { } selectedStep)
+                RaiseLocalEvent(selectedStep, ref valid);
+            else if (GetSurgeryEntity(steps[nextStep]) is { } nestedSurgery)
+                RaiseLocalEvent(nestedSurgery, ref valid);
+        }
         RaiseLocalEvent(surgery, ref valid);
         if (valid.Cancelled)
         {
@@ -95,9 +111,14 @@ public sealed partial class SurgerySystem
         var available = false;
         string? popup = null;
         var reason = StepInvalidReason.None;
-        if (!ActiveSurgerySites.ContainsKey((ent.Owner, part)) &&
-            nextStep >= 0 && GetSurgeryStepEntity(steps[nextStep]) is { } stepEnt)
-            available = CanPerformStep(args.Actor, ent, part, partComp.PartType, stepEnt, false, out popup, out reason, out _);
+        if (!ActiveSurgerySites.ContainsKey((ent.Owner, part)) && nextStep >= 0)
+        {
+            if (GetSurgeryStepEntity(steps[nextStep]) is { } stepEnt)
+                available = CanPerformStep(args.Actor, ent, part, partComp.PartType, stepEnt, false,
+                    out popup, out reason, out _);
+            else
+                available = GetSurgeryEntity(steps[nextStep]) != null;
+        }
 
         SendStepsState(ent, args, steps, completed, nextStep, available, popup, reason, SurgerySelectionState.Active);
     }
@@ -130,7 +151,8 @@ public sealed partial class SurgerySystem
             {
                 var netPart = GetNetEntity(part.Id);
                 if (TryComp(surgeryEnt, out SurgeryComponent? surgeryComp) &&
-                    GetSurgerySteps(body, part.Id, (surgeryEnt, surgeryComp), []).All(step => IsStepComplete(body, part.Id, step)))
+                    GetSurgerySteps(body, part.Id, (surgeryEnt, surgeryComp), [])
+                        .All(step => IsSurgeryItemComplete(body, part.Id, step, [])))
                 {
                     if (!completed.TryGetValue(netPart, out var partCompleted))
                         completed[netPart] = partCompleted = new HashSet<EntProtoId>();

@@ -16,7 +16,6 @@ public sealed partial class SurgeryTargetComponent : Component;
 public sealed partial class SurgeryComponent : Component
 {
     [DataField, AutoNetworkedField] public int Priority;
-    [DataField, AutoNetworkedField] public EntProtoId? Requirement;
     [DataField, AutoNetworkedField] public SpriteSpecifier? Icon;
     [DataField, AutoNetworkedField] public bool UseTargetPartIcon;
     [DataField(required: true)] public Dictionary<string, SurgeryStepSequence> Steps = new();

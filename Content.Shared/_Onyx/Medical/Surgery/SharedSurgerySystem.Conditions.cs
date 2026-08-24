@@ -63,8 +63,7 @@ public abstract partial class SharedSurgerySystem
                 return;
         }
 
-        args.Invalid = StepInvalidReason.MissingTool;
-        args.Popup = Loc.GetString("surgery-ui-reason-organ");
+        SetMissingTool(ref args, "surgery-ui-reason-organ");
     }
 
     private void OnPartConditionValid(Entity<SurgeryPartConditionComponent> ent, ref SurgeryValidEvent args)
@@ -75,8 +74,8 @@ public abstract partial class SharedSurgerySystem
             return;
         }
 
-        var matches = part.PartType == ent.Comp.Part &&
-                      (ent.Comp.Symmetry is not { } symmetry || part.Symmetry == symmetry);
+        var matches = (ent.Comp.Part == part.PartType || ent.Comp.Parts.Contains(part.PartType)) &&
+                       (ent.Comp.Symmetry is not { } symmetry || part.Symmetry == symmetry);
         if (matches == ent.Comp.Inverse)
             args.Cancelled = true;
     }
@@ -101,8 +100,7 @@ public abstract partial class SharedSurgerySystem
             return;
 
         var target = ent.Comp.Target == SurgeryEntityTarget.Body ? args.Body : args.Part;
-        if (ent.Comp.All.Values.Any(component => !HasComp(target, component.Component.GetType())) ||
-            ent.Comp.None.Values.Any(component => HasComp(target, component.Component.GetType())))
+        if (!ComponentsMatch(target, ent.Comp.All, ent.Comp.None))
             args.Cancelled = true;
     }
 

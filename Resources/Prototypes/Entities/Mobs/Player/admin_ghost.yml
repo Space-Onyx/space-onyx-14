@@ -36,14 +36,7 @@
   - type: Ghost
     canInteract: true
   - type: GhostHearing
-  # <Onyx-DeclarativeBodyHands-edited>
-  - type: Hands
-    startingHands:
-      hand_right:
-        location: Right
-      hand_left:
-        location: Left
-  # </Onyx-DeclarativeBodyHands-edited>
+  - type: Hands # <Onyx-FlexibleAnatomy-edited>
   # <Onyx-AnimalBodyParts>
   - type: Body
   - type: DeclarativeBody

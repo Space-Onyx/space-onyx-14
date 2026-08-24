@@ -23,7 +23,7 @@ public sealed partial class BodyInventorySlotSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<BodyPartComponent, OrganGotInsertedEvent>(OnPartChanged);
         SubscribeLocalEvent<BodyPartComponent, OrganGotRemovedEvent>(OnPartChanged);
-        SubscribeLocalEvent<InitiallyLeggedComponent, StandUpAttemptEvent>(OnStandAttempt);
+        SubscribeLocalEvent<BodyAnatomyComponent, StandUpAttemptEvent>(OnStandAttempt);
     }
 
     private void OnPartChanged(Entity<BodyPartComponent> ent, ref OrganGotInsertedEvent args)
@@ -50,9 +50,9 @@ public sealed partial class BodyInventorySlotSystem : EntitySystem
             KnockDownIfMissingLeg(args.Target);
     }
 
-    private void OnStandAttempt(Entity<InitiallyLeggedComponent> ent, ref StandUpAttemptEvent args)
+    private void OnStandAttempt(Entity<BodyAnatomyComponent> ent, ref StandUpAttemptEvent args)
     {
-        if (_body.GetBodyChildrenOfType(ent, BodyPartType.Leg).Count() < ent.Comp.InitialLegCount)
+        if (MissingRequiredParts(ent, BodyPartType.Leg))
         {
             args.Cancelled = true;
             args.Autostand = false;
@@ -61,8 +61,13 @@ public sealed partial class BodyInventorySlotSystem : EntitySystem
 
     private void KnockDownIfMissingLeg(EntityUid body)
     {
-        if (TryComp(body, out InitiallyLeggedComponent? legged) &&
-            _body.GetBodyChildrenOfType(body, BodyPartType.Leg).Count() < legged.InitialLegCount)
+        if (TryComp(body, out BodyAnatomyComponent? anatomy) && MissingRequiredParts((body, anatomy), BodyPartType.Leg))
             _stun.TryKnockdown(body, null, autoStand: false, drop: false, force: true);
+    }
+
+    private bool MissingRequiredParts(Entity<BodyAnatomyComponent> body, BodyPartType type)
+    {
+        return body.Comp.RequiredParts.TryGetValue(type, out var required) &&
+               _body.GetBodyChildrenOfType(body, type).Count() < required;
     }
 }

@@ -51,10 +51,11 @@
     quickEquip: false
     slots: [back, suitStorage]
   - type: SurgeryTool
+    speedModifiers:
+      Cautery: 0.9
     endSound:
       path: /Audio/_Onyx/Weapons/Guns/Gunshots/laser_smg.ogg
   - type: Cautery
-    speed: 0.9
   - type: AlwaysHot
   - type: MeleeWeapon
     damage:
@@ -141,10 +142,11 @@
     walkModifier: 0.8
     sprintModifier: 0.8
   - type: SurgeryTool
+    speedModifiers:
+      Cautery: 0.9
     endSound:
       path: /Audio/_Onyx/Weapons/Guns/Gunshots/laser_lmg.ogg
   - type: Cautery
-    speed: 0.9
   - type: AlwaysHot
   - type: MeleeWeapon
     damage:
@@ -213,8 +215,9 @@
     delay: 1
   - type: Appearance
   - type: Cautery
-    speed: 0.9
   - type: SurgeryTool
+    speedModifiers:
+      Cautery: 0.9
     endSound:
       path: /Audio/_Onyx/Weapons/Guns/Gunshots/laser_lmg.ogg
   - type: Tag

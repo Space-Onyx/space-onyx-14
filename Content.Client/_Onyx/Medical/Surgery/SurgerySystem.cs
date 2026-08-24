@@ -22,6 +22,8 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
 
     public override void Update(float frameTime)
     {
+        base.Update(frameTime);
+
         if (OnRefresh == null)
             return;
 

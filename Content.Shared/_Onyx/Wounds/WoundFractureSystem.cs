@@ -183,10 +183,7 @@ public sealed partial class WoundFractureSystem : EntitySystem
     {
         FractureTreatment.Reduced => fracture.Grade >= profile.ReductionMinimumGrade &&
                                      fracture.Treatment == FractureTreatment.None,
-        FractureTreatment.Mended => fracture.Treatment != FractureTreatment.Mended &&
-                                    (!profile.ReductionRequiredToMend ||
-                                     fracture.Grade < profile.ReductionMinimumGrade ||
-                                     fracture.Treatment == FractureTreatment.Reduced),
+        FractureTreatment.Mended => fracture.Treatment != FractureTreatment.Mended,
         _ => false,
     };
 }
