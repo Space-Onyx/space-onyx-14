@@ -4,7 +4,7 @@ meta:
   engineVersion: 288.1.0
   forkId: ""
   forkVersion: ""
-  time: 08/22/2026 15:04:39
+  time: 08/24/2026 15:04:39
   entityCount: 17558
 maps:
 - 1
@@ -4294,6 +4294,7 @@ entities:
   - uid: 176
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -43.5,-17.5
   - uid: 177
@@ -4315,6 +4316,7 @@ entities:
   - uid: 15278
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 15267
       pos: -11.5,8.5
 - proto: AirlockExternalEngineeringLocked
@@ -4552,11 +4554,13 @@ entities:
   - uid: 15280
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 15267
       pos: -50.5,3.5
   - uid: 15281
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 15267
       pos: -50.5,2.5
 - proto: AirlockExternalGlassShuttleArrivals
@@ -4861,6 +4865,7 @@ entities:
   - uid: 241
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 18.5,35.5
 - proto: AirlockFreezerKitchenHydroLocked
@@ -5050,6 +5055,7 @@ entities:
   - uid: 15286
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 15267
       pos: -23.5,5.5
 - proto: AirlockHeadOfPersonnelGlassLocked
@@ -5764,11 +5770,13 @@ entities:
   - uid: 15288
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 15267
       pos: -12.5,5.5
   - uid: 15289
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 15267
       pos: -12.5,3.5
   - uid: 15290
@@ -5784,21 +5792,25 @@ entities:
   - uid: 15292
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 15267
       pos: 2.5,10.5
   - uid: 15293
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 15267
       pos: 2.5,12.5
   - uid: 15294
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 15267
       pos: -31.5,3.5
   - uid: 15295
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 15267
       pos: -31.5,2.5
 - proto: AirlockSecurityLocked
@@ -5838,6 +5850,7 @@ entities:
   - uid: 15299
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 15267
       pos: -2.5,-0.5
   - uid: 15300
@@ -5848,11 +5861,13 @@ entities:
   - uid: 15301
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 15267
       pos: -41.5,3.5
   - uid: 15302
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 15267
       pos: -41.5,2.5
 - proto: AirlockServiceGlassLocked
@@ -12487,31 +12502,37 @@ entities:
   - uid: 1072
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 21.5,-30.5
   - uid: 1073
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 21.5,-29.5
   - uid: 1074
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 21.5,-28.5
   - uid: 1075
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 2.5,-27.5
   - uid: 1076
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 2.5,-26.5
   - uid: 1077
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 2.5,-25.5
   - uid: 1078
@@ -12556,21 +12577,25 @@ entities:
   - uid: 1085
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 30.5,28.5
   - uid: 1086
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 30.5,24.5
   - uid: 1087
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -9.5,24.5
   - uid: 1088
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -9.5,22.5
 - proto: BlockGameArcade
@@ -93559,6 +93584,7 @@ entities:
   - uid: 11753
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -43.5,-17.5
 - proto: ShuttleGunPerforator
