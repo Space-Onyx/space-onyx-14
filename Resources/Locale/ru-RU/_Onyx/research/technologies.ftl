@@ -54,3 +54,4 @@ research-technology-anomaly-pinpointing = Пинпоинтеры аномали�
 research-technology-kenetic-mech = Кинетическое вооружение мехов
 research-technology-kenetic-shuttle = Кинетическое вооружение шаттлов
 research-technology-mech-lasers = Лазерное вооружение мехов
+research-technology-ore-bag-holding = Блюспейс-хранилище руды

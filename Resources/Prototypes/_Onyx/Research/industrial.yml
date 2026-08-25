@@ -134,7 +134,7 @@
     - AdvancedPowercells
     - IndustrialEngineering
 - id: OreBagOfHolding
-  name: Tech_23
+  name: research-technology-ore-bag-holding
   type: technology
   discipline: Industrial
   position: 1,0
