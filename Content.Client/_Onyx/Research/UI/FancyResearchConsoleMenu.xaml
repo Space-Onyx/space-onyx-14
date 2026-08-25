@@ -12,6 +12,7 @@
         <BoxContainer Orientation="Horizontal" HorizontalExpand="True" MinHeight="40" Margin="10 0 10 5">
             <RichTextLabel Name="ResearchAmountLabel" HorizontalExpand="True"/>
             <LineEdit Name="RecipeSearchLineEdit" PlaceHolder="{Loc 'research-console-recipe-search-placeholder'}" MinWidth="220" Margin="0 0 10 0"/>
+            <Button Name="NetworkLogButton" Text="{Loc 'research-console-network-log-button'}" MinHeight="35" Margin="0 0 10 0" StyleClasses="ButtonSquare"/>
             <Button Name="ServerButton" Text="{Loc 'research-console-menu-server-selection-button'}" MinHeight="35" StyleClasses="ButtonSquare"/>
         </BoxContainer>
         <BoxContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True">

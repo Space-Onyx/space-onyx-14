@@ -6,7 +6,7 @@ namespace Content.Server.Research.Systems;
 
 public sealed partial class ResearchStealerSystem : SharedResearchStealerSystem
 {
-    [Dependency] private SharedResearchSystem _research = default!;
+    [Dependency] private ResearchSystem _research = default!; // <Onyx-ResearchNetworks-edited>
     [Dependency] private IRobustRandom _random = default!;
 
     public override void Initialize()
@@ -34,7 +34,7 @@ public sealed partial class ResearchStealerSystem : SharedResearchStealerSystem
                 break;
 
             var toRemove = _random.Pick(database.UnlockedTechnologies);
-            if (_research.TryRemoveTechnology((target, database), toRemove))
+            if (_research.TryRemoveNetworkTechnology(target, toRemove)) // <Onyx-ResearchNetworks-edited>
                 ev.Techs.Add(toRemove);
         }
         RaiseLocalEvent(uid, ref ev);

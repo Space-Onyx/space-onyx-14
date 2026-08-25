@@ -1,0 +1,75 @@
+- type: parallax
+  id: Cyber
+  layers:
+    - texture:
+        !type:ImageParallaxTextureSource
+        path: "/Textures/_Onyx/Parallaxes/Cyber/digital1.png"
+      slowness: 0.4
+      scale: 2,2
+      scrolling: "0, -0.4"
+      shader: "unshaded"
+    - texture:
+        !type:ImageParallaxTextureSource
+        path: "/Textures/_Onyx/Parallaxes/Cyber/digital3.png"
+      slowness: 0.8
+      scale: 2,2
+      scrolling: "0, -1.2"
+      shader: "unshaded"
+  layersLQUseHQ: false
+
+- type: parallax
+  id: CyberRed
+  layers:
+    - texture:
+        !type:ImageParallaxTextureSource
+        path: "/Textures/_Onyx/Parallaxes/CyberRed/digital1.png"
+      slowness: 0.4
+      scale: 2,2
+      scrolling: "0, -0.4"
+      shader: "unshaded"
+    - texture:
+        !type:ImageParallaxTextureSource
+        path: "/Textures/_Onyx/Parallaxes/CyberRed/digital3.png"
+      slowness: 0.8
+      scale: 2,2
+      scrolling: "0, -1.2"
+      shader: "unshaded"
+  layersLQUseHQ: false
+
+- type: parallax
+  id: CyberRedTwo
+  layers:
+    - texture:
+        !type:ImageParallaxTextureSource
+        path: "/Textures/_Onyx/Parallaxes/CyberRedTwo/digital1.png"
+      slowness: 0.4
+      scale: 2,2
+      scrolling: "0, -0.4"
+      shader: "unshaded"
+    - texture:
+        !type:ImageParallaxTextureSource
+        path: "/Textures/_Onyx/Parallaxes/CyberRedTwo/digital3.png"
+      slowness: 0.8
+      scale: 2,2
+      scrolling: "0, -1.2"
+      shader: "unshaded"
+  layersLQUseHQ: false
+
+- type: parallax
+  id: CyberBlue
+  layers:
+    - texture:
+        !type:ImageParallaxTextureSource
+        path: "/Textures/_Onyx/Parallaxes/CyberBlue/digital1.png"
+      slowness: 0.4
+      scale: 2,2
+      scrolling: "0, -0.4"
+      shader: "unshaded"
+    - texture:
+        !type:ImageParallaxTextureSource
+        path: "/Textures/_Onyx/Parallaxes/CyberBlue/digital3.png"
+      slowness: 0.8
+      scale: 2,2
+      scrolling: "0, -1.2"
+      shader: "unshaded"
+  layersLQUseHQ: false

@@ -3,6 +3,7 @@ using System.Numerics;
 using Content.Client.Research;
 using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Controls;
+using Content.Shared._Onyx.Research;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.Research.Components;
@@ -39,6 +40,8 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
     private readonly List<(TechnologyPrototype Tech, ResearchAvailability Availability)> _matches = new();
     private readonly HashSet<string> _matchIds = new();
     private readonly ButtonGroup _disciplineGroup = new(isNoneSetAllowed: false);
+    private FancyResearchConsoleNetworkLogWindow? _networkLogWindow;
+    private List<ResearchNetworkLogEntry> _networkLogs = new();
 
     public Dictionary<string, ResearchAvailability> List { get; private set; } = new();
     public int Points { get; private set; }
@@ -62,6 +65,7 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
         _accessReader = _entity.System<AccessReaderSystem>();
 
         ServerButton.OnPressed += _ => OnServerButtonPressed?.Invoke();
+        NetworkLogButton.OnPressed += _ => OpenNetworkLog();
         RecenterButton.OnPressed += _ => Recenter();
         CloseInfoButton.OnPressed += _ => CloseInfo();
         DragContainer.OnKeyBindDown += OnDragKeyBindDown;
@@ -275,7 +279,7 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
             return;
         _currentMatch = (_currentMatch + 1) % _matches.Count;
         var match = _matches[_currentMatch];
-        var discipline = match.Tech.Discipline.ToString();
+        string discipline = match.Tech.Discipline;
         if (_selectedDiscipline != discipline)
         {
             _selectedDiscipline = discipline;
@@ -311,7 +315,7 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
             var recipe = _prototype.Index<LatheRecipePrototype>(id);
             if (recipe.Name is { } name && Loc.GetString(name).Contains(_searchText, StringComparison.OrdinalIgnoreCase))
                 return true;
-            if (recipe.Result is { } result && _prototype.Index(result).Name.Contains(_searchText, StringComparison.OrdinalIgnoreCase))
+            if (recipe.Result is { } result && Loc.GetString(_prototype.Index(result).Name).Contains(_searchText, StringComparison.OrdinalIgnoreCase))
                 return true;
         }
         return false;
@@ -321,6 +325,21 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
     {
         CurrentTech = tech.ID;
         ShowInfo(tech, availability);
+    }
+
+    public void UpdateNetworkLogs(List<ResearchNetworkLogEntry> logs)
+    {
+        _networkLogs = logs;
+        _networkLogWindow?.SetLogs(logs);
+    }
+
+    private void OpenNetworkLog()
+    {
+        _networkLogWindow?.Close();
+        _networkLogWindow = new FancyResearchConsoleNetworkLogWindow();
+        _networkLogWindow.OnClose += () => _networkLogWindow = null;
+        _networkLogWindow.SetLogs(_networkLogs);
+        _networkLogWindow.OpenCentered();
     }
 
     private bool HasAccess()
@@ -430,6 +449,7 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
         RecipeSearchLineEdit.OnTextChanged -= OnSearchChanged;
         RecipeSearchLineEdit.OnTextEntered -= OnSearchEntered;
         DragContainer.OnResized -= OnDragContainerResized;
+        _networkLogWindow?.Close();
         base.Close();
     }
 }

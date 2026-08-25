@@ -314,6 +314,7 @@
     - id: DoorRemoteResearch
     - id: HandTeleporter
     - id: ResearchComputerCircuitboard
+    - id: ResearchServerControlComputerCircuitboard # <Onyx-ResearchNetworks>
     - id: ComputerCargoRequestScienceFlatpack
     - id: RubberStampRd
     - id: AnomalyLocator

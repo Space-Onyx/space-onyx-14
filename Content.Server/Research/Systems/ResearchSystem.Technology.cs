@@ -1,4 +1,5 @@
 using Content.Shared.Database;
+using Content.Shared._Onyx.Research; // <Onyx-ResearchNetworks>
 using Content.Shared.Research.Components;
 using Content.Shared.Research.Prototypes;
 using JetBrains.Annotations;
@@ -17,10 +18,12 @@ public sealed partial class ResearchSystem
             return;
 
         primaryDb.MainDiscipline = otherDb.MainDiscipline;
-        primaryDb.CurrentTechnologyCards = otherDb.CurrentTechnologyCards;
-        primaryDb.SupportedDisciplines = otherDb.SupportedDisciplines;
-        primaryDb.UnlockedTechnologies = otherDb.UnlockedTechnologies;
-        primaryDb.UnlockedRecipes = otherDb.UnlockedRecipes;
+        // <Onyx-ResearchNetworks-edited>
+        primaryDb.CurrentTechnologyCards = new(otherDb.CurrentTechnologyCards);
+        primaryDb.SupportedDisciplines = new(otherDb.SupportedDisciplines);
+        primaryDb.UnlockedTechnologies = new(otherDb.UnlockedTechnologies);
+        primaryDb.UnlockedRecipes = new(otherDb.UnlockedRecipes);
+        // </Onyx-ResearchNetworks-edited>
 
         Dirty(primaryUid, primaryDb);
 
@@ -39,10 +42,13 @@ public sealed partial class ResearchSystem
         if (!Resolve(uid, ref databaseComponent, ref clientComponent, false))
             return;
 
-        if (!TryComp<TechnologyDatabaseComponent>(clientComponent.Server, out var serverDatabase))
+        // <Onyx-ResearchNetworks-edited>
+        if (!TryGetClientServer(uid, out var authority, out _, clientComponent) ||
+            !TryComp<TechnologyDatabaseComponent>(authority, out var serverDatabase))
             return;
 
-        Sync(uid, clientComponent.Server.Value, databaseComponent, serverDatabase);
+        Sync(uid, authority.Value, databaseComponent, serverDatabase);
+        // </Onyx-ResearchNetworks-edited>
     }
 
     /// <summary>
@@ -95,6 +101,12 @@ public sealed partial class ResearchSystem
 
         _adminLog.Add(LogType.Action, LogImpact.Medium,
             $"{ToPrettyString(user):player} unlocked {prototype.ID} (discipline: {prototype.Discipline}, tier: {prototype.Tier}) at {ToPrettyString(client)}, for server {ToPrettyString(serverEnt.Value)}.");
+        // <Onyx-ResearchNetworks>
+        LogNetworkEvent(serverEnt.Value, ResearchNetworkLogType.TechnologyUnlocked,
+            Loc.GetString("research-network-log-technology-unlocked",
+                ("technology", Loc.GetString(prototype.Name)),
+                ("user", GetResearchLogUserName(user))));
+        // </Onyx-ResearchNetworks>
         return true;
     }
 

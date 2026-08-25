@@ -9,6 +9,7 @@ using Content.Shared.Research.Systems;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 using Robust.Shared.Timing;
+using Robust.Shared.Random; // <Onyx-ResearchNetworks>
 
 namespace Content.Server.Research.Systems
 {
@@ -18,10 +19,12 @@ namespace Content.Server.Research.Systems
         [Dependency] private IAdminLogManager _adminLog = default!;
         [Dependency] private IGameTiming _timing = default!;
         [Dependency] private AccessReaderSystem _accessReader = default!;
+        [Dependency] private SharedIdCardSystem _idCard = default!; // <Onyx-ResearchNetworks>
         [Dependency] private EntityLookupSystem _lookup = default!;
         [Dependency] private UserInterfaceSystem _uiSystem = default!;
         [Dependency] private SharedPopupSystem _popup = default!;
         [Dependency] private RadioSystem _radio = default!;
+        [Dependency] private IRobustRandom _random = default!; // <Onyx-ResearchNetworks>
 
         public override void Initialize()
         {
@@ -65,7 +68,7 @@ namespace Content.Server.Research.Systems
         /// <returns></returns>
         public string[] GetServerNames(EntityUid client)
         {
-            return GetServers(client).Select(x => x.Comp.ServerName).ToArray();
+            return GetServers(client).OrderBy(x => x.Comp.Id).Select(x => x.Comp.ServerName).ToArray(); // <Onyx-ResearchNetworks-edited>
         }
 
         /// <summary>
@@ -74,7 +77,7 @@ namespace Content.Server.Research.Systems
         /// <returns></returns>
         public int[] GetServerIds(EntityUid client)
         {
-            return GetServers(client).Select(x => x.Comp.Id).ToArray();
+            return GetServers(client).OrderBy(x => x.Comp.Id).Select(x => x.Comp.Id).ToArray(); // <Onyx-ResearchNetworks-edited>
         }
 
         public HashSet<Entity<ResearchServerComponent>> GetServers(EntityUid client)
@@ -93,6 +96,11 @@ namespace Content.Server.Research.Systems
             var query = EntityQueryEnumerator<ResearchServerComponent>();
             while (query.MoveNext(out var uid, out var server))
             {
+                // <Onyx-ResearchNetworks>
+                if (!IsNetworkAuthority(uid, server))
+                    continue;
+                MoveNetworkClientsToAuthority(uid, server);
+                // </Onyx-ResearchNetworks>
                 if (server.NextUpdateTime > _timing.CurTime)
                     continue;
                 server.NextUpdateTime = _timing.CurTime + server.ResearchConsoleUpdateTime;

@@ -29,6 +29,11 @@ public sealed partial class ResearchSystem
         if (!TryGetServerById(uid, args.ServerId, out var serveruid, out var serverComponent))
             return;
 
+        // <Onyx-ResearchNetworks>
+        if (!TryGetNetworkAuthority(serveruid.Value, out var authority, out _, serverComponent) || authority != serveruid.Value)
+            return;
+        // </Onyx-ResearchNetworks>
+
         // Validate that we can access this server.
         if (!GetServers(uid).Contains((serveruid.Value, serverComponent)))
             return;
@@ -63,8 +68,11 @@ public sealed partial class ResearchSystem
 
     private void OnClientMapInit(EntityUid uid, ResearchClientComponent component, MapInitEvent args)
     {
-        if (GetServers(uid).FirstOrNull() is { } server)
+        // <Onyx-ResearchNetworks-edited>
+        var server = GetSelectableServers(uid).FirstOrDefault();
+        if (server.Owner != default)
             RegisterClient(uid, server, component, server);
+        // </Onyx-ResearchNetworks-edited>
     }
 
     private void OnClientShutdown(EntityUid uid, ResearchClientComponent component, ComponentShutdown args)
@@ -84,14 +92,27 @@ public sealed partial class ResearchSystem
             if (ent.Comp.Server is not null)
                 return;
 
-            if (GetServers(ent).FirstOrNull() is { } server)
+            // <Onyx-ResearchNetworks-edited>
+            var server = GetSelectableServers(ent).FirstOrDefault();
+            if (server.Owner != default)
                 RegisterClient(ent, server, ent, server);
+            // </Onyx-ResearchNetworks-edited>
         }
         else
         {
             UnregisterClient(ent, ent.Comp);
         }
     }
+
+    // <Onyx-ResearchNetworks>
+    private List<Entity<ResearchServerComponent>> GetSelectableServers(EntityUid client)
+    {
+        return GetServers(client)
+            .Where(server => TryGetNetworkAuthority(server, out var authority, out _, server.Comp) && authority == server.Owner)
+            .OrderBy(server => server.Comp.Id)
+            .ToList();
+    }
+    // </Onyx-ResearchNetworks>
 
     private void UpdateClientInterface(EntityUid uid, ResearchClientComponent? component = null)
     {
@@ -100,12 +121,34 @@ public sealed partial class ResearchSystem
 
         TryGetClientServer(uid, out _, out var serverComponent, component);
 
-        var names = GetServerNames(uid);
+        // <Onyx-ResearchNetworks-edited>
+        var servers = GetServers(uid).OrderBy(server => server.Comp.Id).ToArray();
+        var names = servers.Select(server => server.Comp.ServerName).ToArray();
+        var hashIds = servers.Select(server => server.Comp.HashId).ToArray();
+        var networkIds = servers.Select(server => server.Comp.NetworkId).ToArray();
+        var authorities = new bool[servers.Length];
+        var authorityIds = new int[servers.Length];
+        for (var i = 0; i < servers.Length; i++)
+        {
+            if (!TryGetNetworkAuthority(servers[i], out var authority, out var authorityComponent, servers[i].Comp))
+                continue;
+            authorities[i] = authority == servers[i].Owner;
+            authorityIds[i] = authorityComponent.Id;
+        }
+
+        var selectedServerId = component.Server is { } selected && TryComp<ResearchServerComponent>(selected, out var selectedComponent)
+            ? selectedComponent.Id
+            : -1;
         var state = new ResearchClientBoundInterfaceState(
             names.Length,
             names,
-            GetServerIds(uid),
-            serverComponent?.Id ?? -1);
+            servers.Select(server => server.Comp.Id).ToArray(),
+            hashIds,
+            networkIds,
+            authorities,
+            authorityIds,
+            selectedServerId);
+        // </Onyx-ResearchNetworks-edited>
 
         _uiSystem.SetUiState(uid, ResearchClientUiKey.Key, state);
     }
@@ -132,10 +175,13 @@ public sealed partial class ResearchSystem
         if (component.Server == null)
             return false;
 
-        if (!TryComp(component.Server, out serverComponent))
+        // <Onyx-ResearchNetworks-edited>
+        if (!TryComp<ResearchServerComponent>(component.Server, out var selectedComponent) ||
+            !TryGetNetworkAuthority(component.Server.Value, out var authority, out serverComponent, selectedComponent))
             return false;
 
-        server = component.Server;
+        server = authority;
+        // </Onyx-ResearchNetworks-edited>
         return true;
     }
 }

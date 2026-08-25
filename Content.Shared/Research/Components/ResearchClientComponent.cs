@@ -66,14 +66,34 @@ namespace Content.Shared.Research.Components
         public int ServerCount;
         public string[] ServerNames;
         public int[] ServerIds;
+        // <Onyx-ResearchNetworks>
+        public string[] ServerHashIds;
+        public string[] NetworkIds;
+        public bool[] ServerAuthorities;
+        public int[] AuthorityIds;
+        // </Onyx-ResearchNetworks>
         public int SelectedServerId;
 
-        public ResearchClientBoundInterfaceState(int serverCount, string[] serverNames, int[] serverIds, int selectedServerId = -1)
+        // <Onyx-ResearchNetworks-edited>
+        public ResearchClientBoundInterfaceState(
+            int serverCount,
+            string[] serverNames,
+            int[] serverIds,
+            string[] serverHashIds,
+            string[] networkIds,
+            bool[] serverAuthorities,
+            int[] authorityIds,
+            int selectedServerId = -1)
         {
             ServerCount = serverCount;
             ServerNames = serverNames;
             ServerIds = serverIds;
+            ServerHashIds = serverHashIds;
+            NetworkIds = networkIds;
+            ServerAuthorities = serverAuthorities;
+            AuthorityIds = authorityIds;
             SelectedServerId = selectedServerId;
         }
+        // </Onyx-ResearchNetworks-edited>
     }
 }

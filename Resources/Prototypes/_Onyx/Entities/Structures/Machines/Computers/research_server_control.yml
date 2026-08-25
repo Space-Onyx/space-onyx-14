@@ -1,0 +1,36 @@
+- type: entity
+  parent: BaseComputerAiAccess
+  id: ComputerResearchServerControl
+  name: R&D server control console
+  description: Monitors local R&D networks and controls their server generation.
+  components:
+  - type: Sprite
+    layers:
+    - map: [ computerLayerBody ]
+      state: computer
+    - map: [ computerLayerKeyboard ]
+      state: generic_keyboard
+    - map: [ computerLayerScreen ]
+      state: rdcomp
+    - map: [ computerLayerKeys ]
+      state: rd_key
+    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      state: generic_panel_open
+  - type: ResearchServerControlConsole
+  - type: ActivatableUI
+    key: enum.ResearchServerControlUiKey.Key
+  - type: ActivatableUIRequiresAccess
+  - type: UserInterface
+    interfaces:
+      enum.ResearchServerControlUiKey.Key:
+        type: ResearchServerControlBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: Computer
+    board: ResearchServerControlComputerCircuitboard
+  - type: AccessReader
+    access: [[ ResearchDirector ]]
+  - type: PointLight
+    radius: 1.5
+    energy: 4.0
+    color: "#b53ca1"

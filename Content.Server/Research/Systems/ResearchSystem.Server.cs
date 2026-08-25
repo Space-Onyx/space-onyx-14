@@ -1,16 +1,23 @@
 using System.Linq;
 using Content.Server.Power.EntitySystems;
+// <Onyx-ResearchNetworks>
+using Content.Shared._Onyx.Research;
+using Content.Shared.Examine;
+// </Onyx-ResearchNetworks>
 using Content.Shared.Research.Components;
 
 namespace Content.Server.Research.Systems;
 
 public sealed partial class ResearchSystem
 {
+    private const string ServerHashCharacters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // <Onyx-ResearchNetworks>
+
     private void InitializeServer()
     {
         SubscribeLocalEvent<ResearchServerComponent, ComponentStartup>(OnServerStartup);
         SubscribeLocalEvent<ResearchServerComponent, ComponentShutdown>(OnServerShutdown);
         SubscribeLocalEvent<ResearchServerComponent, TechnologyDatabaseModifiedEvent>(OnServerDatabaseModified);
+        SubscribeLocalEvent<ResearchServerComponent, ExaminedEvent>(OnServerExamined); // <Onyx-ResearchNetworks>
     }
 
     private void OnServerStartup(EntityUid uid, ResearchServerComponent component, ComponentStartup args)
@@ -18,23 +25,48 @@ public sealed partial class ResearchSystem
         var unusedId = EntityQuery<ResearchServerComponent>(true)
             .Max(s => s.Id) + 1;
         component.Id = unusedId;
+        AssignServerIdentity(component); // <Onyx-ResearchNetworks>
         Dirty(uid, component);
+        // <Onyx-ResearchNetworks>
+        InitializeNetworkMember(uid, component);
+        ReconcileNetwork(uid, component);
+        LogNetworkEvent(uid, ResearchNetworkLogType.ServerOnline,
+            Loc.GetString("research-network-log-server-online", ("server", component.ServerName), ("network", component.NetworkId)), component);
+        // </Onyx-ResearchNetworks>
     }
 
     private void OnServerShutdown(EntityUid uid, ResearchServerComponent component, ComponentShutdown args)
     {
+        // <Onyx-ResearchNetworks>
+        var survivors = GetNetworkServers(uid, component);
+        var replacement = survivors.FirstOrDefault();
+        if (replacement.Owner != default)
+        {
+            LogNetworkEvent(replacement, ResearchNetworkLogType.ServerOffline,
+                Loc.GetString("research-network-log-server-offline", ("server", component.ServerName), ("network", component.NetworkId)), replacement.Comp);
+        }
+        // </Onyx-ResearchNetworks>
         foreach (var client in new List<EntityUid>(component.Clients))
         {
             UnregisterClient(client, uid, serverComponent: component, dirtyServer: false);
+            // <Onyx-ResearchNetworks>
+            if (replacement.Owner != default)
+                RegisterClient(client, replacement, serverComponent: replacement.Comp);
+            // </Onyx-ResearchNetworks>
         }
     }
 
     private void OnServerDatabaseModified(EntityUid uid, ResearchServerComponent component, ref TechnologyDatabaseModifiedEvent args)
     {
-        foreach (var client in component.Clients)
+        // <Onyx-ResearchNetworks-edited>
+        if (!_synchronizingNetwork && TryGetNetworkAuthority(uid, out var authority, out var authorityComponent, component))
+            SynchronizeNetwork(authority, authorityComponent);
+
+        foreach (var client in GetNetworkClients(uid, component))
         {
             RaiseLocalEvent(client, ref args);
         }
+        // </Onyx-ResearchNetworks-edited>
     }
 
     private bool CanRun(EntityUid uid)
@@ -137,15 +169,25 @@ public sealed partial class ResearchSystem
         if (!Resolve(uid, ref component))
             return points;
 
-        if (!CanRun(uid))
+        if (!TryGetNetworkAuthority(uid, out var authority, out var authorityComponent, component) || authority != uid || !CanRun(uid)) // <Onyx-ResearchNetworks-edited>
             return points;
 
-        var ev = new ResearchServerGetPointsPerSecondEvent(uid, points);
-        RaiseLocalEvent(uid, ref ev); // <Onyx-RDServerPoints>
-        foreach (var client in component.Clients)
+        // <Onyx-ResearchNetworks-edited>
+        var sources = new HashSet<EntityUid>();
+        foreach (var member in GetNetworkServers(uid, authorityComponent))
         {
-            RaiseLocalEvent(client, ref ev);
+            if (!member.Comp.GenerationEnabled)
+                continue;
+
+            sources.Add(member.Owner);
+            foreach (var client in member.Comp.Clients)
+                sources.Add(client);
         }
+
+        var ev = new ResearchServerGetPointsPerSecondEvent(uid, points);
+        foreach (var source in sources)
+            RaiseLocalEvent(source, ref ev);
+        // </Onyx-ResearchNetworks-edited>
         return ev.Points;
     }
 
@@ -160,14 +202,77 @@ public sealed partial class ResearchSystem
         if (points == 0)
             return;
 
-        if (!Resolve(uid, ref component))
+        // <Onyx-ResearchNetworks-edited>
+        if (!Resolve(uid, ref component) ||
+            !TryGetNetworkAuthority(uid, out var authority, out var authorityComponent, component))
             return;
-        component.Points += points;
-        var ev = new ResearchServerPointsChangedEvent(uid, component.Points, points);
-        foreach (var client in component.Clients)
+        var previousPoints = authorityComponent.Points;
+        authorityComponent.Points = Math.Max(0, authorityComponent.Points + points);
+        var actualDelta = authorityComponent.Points - previousPoints;
+        var ev = new ResearchServerPointsChangedEvent(authority, authorityComponent.Points, actualDelta);
+        foreach (var client in GetNetworkClients(authority, authorityComponent))
         {
             RaiseLocalEvent(client, ref ev);
         }
-        Dirty(uid, component);
+        Dirty(authority, authorityComponent);
+        SynchronizeNetwork(authority, authorityComponent);
+        // </Onyx-ResearchNetworks-edited>
     }
+
+    // <Onyx-ResearchNetworks>
+    private void AssignServerIdentity(ResearchServerComponent component)
+    {
+        if (!string.IsNullOrEmpty(component.HashId))
+            return;
+
+        string hash;
+        do
+        {
+            var chars = new char[6];
+            for (var i = 0; i < chars.Length; i++)
+                chars[i] = ServerHashCharacters[_random.Next(ServerHashCharacters.Length)];
+            hash = new string(chars);
+        } while (EntityQuery<ResearchServerComponent>(true).Any(server => server.HashId == hash));
+
+        component.HashId = hash;
+        if (string.IsNullOrWhiteSpace(component.ServerName) || component.ServerName is "RDSERVER" or "RND-Server")
+            component.ServerName = $"RND-Server {hash}";
+    }
+    // </Onyx-ResearchNetworks>
+
+    // <Onyx-ResearchNetworks>
+    public string GetResearchLogUserName(EntityUid? user)
+    {
+        if (user is not { } uid ||
+            !_idCard.TryFindIdCard(uid, out var idCard) ||
+            string.IsNullOrWhiteSpace(idCard.Comp.FullName))
+            return Loc.GetString("research-network-log-user-unknown");
+
+        return string.IsNullOrWhiteSpace(idCard.Comp.LocalizedJobTitle)
+            ? idCard.Comp.FullName
+            : Loc.GetString("research-network-log-user-with-job",
+                ("name", idCard.Comp.FullName),
+                ("job", idCard.Comp.LocalizedJobTitle));
+    }
+
+    private void OnServerExamined(EntityUid uid, ResearchServerComponent component, ExaminedEvent args)
+    {
+        if (!args.IsInDetailsRange ||
+            !TryGetNetworkAuthority(uid, out var authority, out var authorityComponent, component))
+            return;
+
+        args.PushMarkup(Loc.GetString("research-server-network-examine",
+            ("name", component.ServerName),
+            ("hash", component.HashId),
+            ("network", component.NetworkId),
+            ("authority", authority == uid
+                ? Loc.GetString("research-server-network-examine-authority")
+                : Loc.GetString("research-server-network-examine-forwarded", ("hash", authorityComponent.HashId))),
+            ("generation", GetServerGeneration(uid, component)),
+            ("points", authorityComponent.Points),
+            ("state", Loc.GetString(component.GenerationEnabled
+                ? "research-server-control-state-enabled"
+                : "research-server-control-state-disabled"))));
+    }
+    // </Onyx-ResearchNetworks>
 }

@@ -21,8 +21,7 @@ namespace Content.Client.Research.UI
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
 
-            Servers.OnItemSelected += OnItemSelected;
-            Servers.OnItemDeselected += OnItemDeselected;
+            Servers.OnItemSelected += OnItemSelected; // <Onyx-ResearchNetworks-edited>
         }
 
         public void OnItemSelected(ItemList.ItemListSelectedEventArgs itemListSelectedEventArgs)
@@ -35,7 +34,16 @@ namespace Content.Client.Research.UI
             OnServerDeselected?.Invoke();
         }
 
-        public void Populate(int serverCount, string[] serverNames, int[] serverIds, int selectedServerId)
+        // <Onyx-ResearchNetworks-edited>
+        public void Populate(
+            int serverCount,
+            string[] serverNames,
+            int[] serverIds,
+            string[] serverHashIds,
+            string[] networkIds,
+            bool[] serverAuthorities,
+            int[] authorityIds,
+            int selectedServerId)
         {
             _serverCount = serverCount;
             _serverNames = serverNames;
@@ -44,13 +52,22 @@ namespace Content.Client.Research.UI
 
             // Disable so we can select the new selected server without triggering a new sync request.
             Servers.OnItemSelected -= OnItemSelected;
-            Servers.OnItemDeselected -= OnItemDeselected;
 
             Servers.Clear();
             for (var i = 0; i < _serverCount; i++)
             {
                 var id = _serverIds[i];
-                Servers.AddItem(Loc.GetString("research-client-server-selection-menu-server-entry-text", ("id", id), ("serverName", _serverNames[i])));
+                var text = serverAuthorities[i]
+                    ? Loc.GetString("research-client-server-selection-authority-entry",
+                        ("id", id),
+                        ("network", networkIds[i]),
+                        ("serverName", _serverNames[i]))
+                    : Loc.GetString("research-client-server-selection-follower-entry",
+                        ("id", id),
+                        ("network", networkIds[i]),
+                        ("authorityId", authorityIds[i]),
+                        ("serverName", _serverNames[i]));
+                Servers.AddItem(text, null, serverAuthorities[i]);
                 if (id == _selectedServerId)
                 {
                     Servers[i].Selected = true;
@@ -58,7 +75,7 @@ namespace Content.Client.Research.UI
             }
 
             Servers.OnItemSelected += OnItemSelected;
-            Servers.OnItemDeselected += OnItemDeselected;
         }
+        // </Onyx-ResearchNetworks-edited>
     }
 }

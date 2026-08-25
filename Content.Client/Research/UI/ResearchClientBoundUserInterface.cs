@@ -36,7 +36,16 @@ namespace Content.Client.Research.UI
         {
             base.UpdateState(state);
             if (state is not ResearchClientBoundInterfaceState rState) return;
-            _menu?.Populate(rState.ServerCount, rState.ServerNames, rState.ServerIds, rState.SelectedServerId);
+            // <Onyx-ResearchNetworks-edited>
+            _menu?.Populate(rState.ServerCount,
+                rState.ServerNames,
+                rState.ServerIds,
+                rState.ServerHashIds,
+                rState.NetworkIds,
+                rState.ServerAuthorities,
+                rState.AuthorityIds,
+                rState.SelectedServerId);
+            // </Onyx-ResearchNetworks-edited>
         }
     }
 }

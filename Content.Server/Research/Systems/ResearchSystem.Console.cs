@@ -29,6 +29,11 @@ public sealed partial class ResearchSystem
     {
         var act = args.Actor;
 
+        // <Onyx-ResearchNetworks>
+        if (!_uiSystem.IsUiOpen(uid, ResearchConsoleUiKey.Key, act))
+            return;
+        // </Onyx-ResearchNetworks>
+
         if (!this.IsPowered(uid, EntityManager))
             return;
 
@@ -75,7 +80,7 @@ public sealed partial class ResearchSystem
         if (TryGetClientServer(uid, out _, out var serverComponent, clientComponent))
         {
             var points = clientComponent.ConnectedToServer ? serverComponent.Points : 0;
-            state = new ResearchConsoleBoundInterfaceState(points);
+            state = new ResearchConsoleBoundInterfaceState(points, new(serverComponent.NetworkLogs)); // <Onyx-ResearchNetworks-edited>
         }
         else
         {

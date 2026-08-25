@@ -1,0 +1,11 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      Title="{Loc 'research-server-network-title'}"
+                      SetSize="430 190">
+    <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="8">
+        <Label Name="ServerLabel"/>
+        <Label Text="{Loc 'research-server-network-help'}" Modulate="#A8B4C4"/>
+        <LineEdit Name="NetworkIdInput" PlaceHolder="ResearchNet"/>
+        <Button Name="ApplyButton" Text="{Loc 'research-server-network-apply'}"/>
+    </BoxContainer>
+</controls:FancyWindow>

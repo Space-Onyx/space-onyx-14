@@ -1,3 +1,4 @@
+using Content.Shared._Onyx.Research; // <Onyx-ResearchNetworks>
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Research.Components
@@ -29,9 +30,14 @@ namespace Content.Shared.Research.Components
     public sealed class ResearchConsoleBoundInterfaceState : BoundUserInterfaceState
     {
         public int Points;
-        public ResearchConsoleBoundInterfaceState(int points)
+        public List<ResearchNetworkLogEntry> Logs; // <Onyx-ResearchNetworks>
+
+        // <Onyx-ResearchNetworks-edited>
+        public ResearchConsoleBoundInterfaceState(int points, List<ResearchNetworkLogEntry>? logs = null)
         {
             Points = points;
+            Logs = logs ?? new();
         }
+        // </Onyx-ResearchNetworks-edited>
     }
 }

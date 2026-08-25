@@ -66,7 +66,7 @@ public sealed class FancyResearchConsoleBoundUserInterface : BoundUserInterface
         var list = new Dictionary<string, ResearchAvailability>();
         foreach (var tech in IoCManager.Resolve<IPrototypeManager>().EnumeratePrototypes<TechnologyPrototype>())
         {
-            if (tech.Hidden || !SupportsDiscipline(database, tech.Discipline))
+            if (tech.EditorDeleted || tech.Hidden || !SupportsDiscipline(database, tech.Discipline))
                 continue;
 
             list[tech.ID] = IsUnlocked(database, tech.ID)
@@ -81,6 +81,7 @@ public sealed class FancyResearchConsoleBoundUserInterface : BoundUserInterface
         if (force || !_consoleMenu.List.OrderBy(x => x.Key).SequenceEqual(list.OrderBy(x => x.Key)))
             _consoleMenu.UpdatePanels(list);
         _consoleMenu.UpdateInformationPanel(state.Points);
+        _consoleMenu.UpdateNetworkLogs(state.Logs);
     }
 
     private static bool SupportsDiscipline(TechnologyDatabaseComponent database, string discipline)

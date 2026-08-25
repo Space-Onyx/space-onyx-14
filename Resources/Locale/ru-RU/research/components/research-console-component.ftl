@@ -1,6 +1,6 @@
 ## UI
 
-research-console-menu-title = Консоль НИО
+research-console-menu-title = Консоль РнД
 research-console-menu-research-points-text = Очки исследований: { $points }
 research-console-menu-main-discipline = Основная дисциплина: [color={ $color }]{ $name }[/color]
 research-console-menu-server-selection-button = Список серверов
