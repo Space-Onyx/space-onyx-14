@@ -6,7 +6,6 @@
     state: gygax
   discipline: Arsenal
   tier: 2
-  cost: 20000
   recipeUnlocks:
     - GygaxHarness
     - GygaxArmor
@@ -18,12 +17,17 @@
     - GygaxPeripheralsElectronics
     - GygaxTargetingElectronics
     - WeaponMechCombatUltraRifle
-  position: 2,4
+  position: 3,4
   technologyPrerequisites:
     - ThermalVisionTech
     - RipleyAPLU
     - WeaponLaserCellRevolverTech
     - DualWieldingTechnology
+  pointCosts:
+    - type: General
+      amount: 19000
+    - type: Experimental
+      amount: 1300
 - type: technology
   id: WeaponLaserCellRevolverTech
   name: research-technology-mag-fed-pistol
@@ -32,13 +36,18 @@
     state: icon
   discipline: Arsenal
   tier: 1
-  cost: 5000
   recipeUnlocks:
     - WeaponLaserCellRevolver
     - PowerCellIRRevolver
-  position: 3,2
+  position: 3,3
   technologyPrerequisites:
     - ConcentratedLaserWeaponry
+    - UraniumMunitions
+  pointCosts:
+    - type: General
+      amount: 5000
+    - type: General
+      amount: 400
 - type: technology
   id: ExplosiveMechAmmunition
   name: research-technology-explosive-mech-ammunition
@@ -50,7 +59,7 @@
   cost: 30000
   recipeUnlocks:
     - WeaponMechCombatMissileRack8
-  position: 1,5
+  position: 3,6
   technologyPrerequisites:
     - Gygax
 - type: technology
@@ -61,7 +70,6 @@
     state: durand
   discipline: Arsenal
   tier: 3
-  cost: 40000
   recipeUnlocks:
     - DurandHarness
     - DurandArmor
@@ -74,9 +82,14 @@
     - DurandTargetingElectronics
     - WeaponMechCombatShotgun
     - WeaponMechCombatShotgunIncendiary
-  position: 3,5
+  position: 4,6
   technologyPrerequisites:
     - Gygax
+  pointCosts:
+    - type: General
+      amount: 30000
+    - type: Experimental
+      amount: 1500
 - type: technology
   id: WeaponLaserCellSMGTech
   name: research-technology-mag-fed-smg
@@ -85,14 +98,18 @@
     state: icon
   discipline: Arsenal
   tier: 2
-  cost: 10000
   recipeUnlocks:
     - WeaponLaserCellSMG
     - PowerCellIRSMG
     - PowerCellIonSMG
-  position: 4,3
+  position: 5,4
   technologyPrerequisites:
     - WeaponLaserCellRevolverTech
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 600
 - type: technology
   id: WeaponLaserCellSniperTech
   name: research-technology-mag-fed-sniper
@@ -101,14 +118,18 @@
     state: icon
   discipline: Arsenal
   tier: 3
-  cost: 15000
   recipeUnlocks:
     - WeaponLaserCellSniper
     - PowerCellIRSniper
     - PowerCellIonSniper
-  position: 5,2
+  position: 6,3
   technologyPrerequisites:
     - EnergyBoltBasedWeaponry
+  pointCosts:
+    - type: General
+      amount: 15000
+    - type: Experimental
+      amount: 800
 - type: technology
   id: WeaponLaserCellLMGTech
   name: research-technology-mag-fed-lmg
@@ -117,13 +138,17 @@
     state: icon
   discipline: Arsenal
   tier: 3
-  cost: 15000
   recipeUnlocks:
     - ClothingBackpackLMGBattery
     - MilitaryPowerCellLMG
-  position: 6,3
+  position: 7,4
   technologyPrerequisites:
     - WeaponLaserCellSMGTech
+  pointCosts:
+    - type: General
+      amount: 15000
+    - type: Experimental
+      amount: 1000
 - type: technology
   id: BlueSpaceMunitions
   name: research-technology-bluespace-munitions
@@ -132,17 +157,20 @@
     state: bluespace_research
   discipline: Arsenal
   tier: 3
-  cost: 25000
   recipeUnlocks:
     - PowerCellBluespaceRevolver
     - PowerCellBluespaceSMG
     - PowerCellBluespaceSniper
     - MilitaryPowerCellBluespaceLMG
-  position: 6,2
+  position: 7,3
   technologyPrerequisites:
-    - WeaponLaserCellSniperTech
     - WeaponLaserCellLMGTech
-    - PortableMicrofusionWeaponry
+    - WeaponLaserCellSniperTech
+  pointCosts:
+    - type: General
+      amount: 20000
+    - type: Experimental
+      amount: 2000
 - type: technology
   id: IntegratedWeaponAugments
   name: research-technology-integrated-weapon-augments
@@ -151,16 +179,19 @@
     state: strength
   discipline: Arsenal
   tier: 2
-  cost: 10000
   recipeUnlocks:
     - AugmentStunnerPanelCasing
     - AugmentStunnerPanelElectronics
     - AugmentStunbatonPanelCasing
     - AugmentStunbatonPanelElectronics
-  position: 3,7
+  position: 5,2
   technologyPrerequisites:
-    - BasicAugmentation
-    - AdvancedRiotControl
+    - CombatAugmentation
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 300
 - type: technology
   id: IntegratedAdvancedWeaponAugments
   name: research-technology-integrated-advanced-weapon-augments
@@ -169,10 +200,61 @@
     state: icon
   discipline: Arsenal
   tier: 3
-  cost: 15000
   recipeUnlocks:
     - AugmentLaserPistolPanelCasing
     - AugmentLaserPistolPanelElectronics
-  position: 3,6
+  position: 4,2
   technologyPrerequisites:
     - IntegratedWeaponAugments
+    - PortableMicrofusionWeaponry
+  pointCosts:
+    - type: General
+      amount: 15000
+    - type: Experimental
+      amount: 400
+- id: KineticMech
+  name: research-technology-kenetic-mech
+  type: technology
+  cost: 10000
+  discipline: Arsenal
+  position: -1,2
+  recipeUnlocks:
+    - MechEquipmentKineticAccelerator
+  icon:
+    sprite: Objects/Specific/Mech/mecha_equipment.rsi
+    state: mecha_kineticgun
+  tier: 2
+  technologyPrerequisites:
+    - SalvageWeapons
+    - RipleyAPLU
+- id: ShuttleKinetic
+  name: research-technology-kenetic-shuttle
+  type: technology
+  cost: 10000
+  discipline: Arsenal
+  position: -1,3
+  recipeUnlocks: []
+  icon:
+    sprite: Objects/Weapons/Guns/Shuttles/kinetic.rsi
+    state: ptk-800
+  tier: 2
+  technologyPrerequisites:
+    - SalvageWeapons
+    - BasicShuttleArmament
+- id: MechLasers
+  name: research-technology-mech-lasers
+  type: technology
+  discipline: Arsenal
+  position: 4,5
+  recipeUnlocks:
+    - WeaponMechCombatImmolationGun
+  icon:
+    sprite: Objects/Specific/Mech/mecha_equipment.rsi
+    state: mecha_laser
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 500
+  technologyPrerequisites:
+    - Gygax

@@ -33,6 +33,15 @@ research-machine-destructive-method-advancedanalysis = Advanced analysis
 research-machine-destructive-method-unknown = Unknown method
 research-machine-destructive-method-reveal-technology = Reveal technology: {$technology}
 research-machine-destructive-result-revealed-tech = technology revealed: {$technology}
+research-machine-destructive-method-complete-reveal-requirement = Analyze to reveal: {$technology}
+research-machine-destructive-method-complete-research-requirement = Analyze to research: {$technology}
+research-machine-destructive-method-reveal-short = Reveal technology
+research-machine-destructive-method-research-short = Research prerequisite
+research-machine-destructive-requirement-details = {$type}
+    Technology: {$technology}
+    Progress: {$progress}/{$amount}. Remaining: {$remaining}.
+research-machine-destructive-result-requirement-completed = analysis requirement completed: {$technology}
+research-machine-destructive-result-requirement-progress = {$technology}: {$progress}/{$amount}, {$remaining} remaining
 research-machine-destructive-chat-result = Destructive analysis result: {$result}
 research-machine-destructive-result-generic = reward applied to the research network
 research-machine-destructive-result-points = points granted: {$points}

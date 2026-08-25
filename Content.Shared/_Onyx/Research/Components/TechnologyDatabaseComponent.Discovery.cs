@@ -11,4 +11,17 @@ public sealed partial class TechnologyDatabaseComponent
     /// </summary>
     [DataField, AutoNetworkedField]
     public List<ProtoId<TechnologyPrototype>> RevealedTechnologies = new();
+
+    /// <summary>
+    /// Completed reveal requirement indices, keyed by technology id.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public Dictionary<ProtoId<TechnologyPrototype>, Dictionary<int, int>> CompletedRevealRequirements = new();
+
+    /// <summary>
+    /// Completed research requirement indices, keyed by technology id.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public Dictionary<ProtoId<TechnologyPrototype>, Dictionary<int, int>> CompletedResearchRequirements = new();
+
 }

@@ -36,6 +36,23 @@ public sealed class DestructiveAnalyzerEjectMessage : BoundUserInterfaceMessage
 }
 
 [Serializable, NetSerializable]
+public sealed class DestructiveAnalyzerRequirementState
+{
+    public string Technology;
+    public bool Reveals;
+    public int Progress;
+    public int Amount;
+
+    public DestructiveAnalyzerRequirementState(string technology, bool reveals, int progress, int amount)
+    {
+        Technology = technology;
+        Reveals = reveals;
+        Progress = progress;
+        Amount = amount;
+    }
+}
+
+[Serializable, NetSerializable]
 public sealed class DestructiveAnalyzerBoundInterfaceState : BoundUserInterfaceState
 {
     public string? ConnectedServerName;
@@ -46,6 +63,7 @@ public sealed class DestructiveAnalyzerBoundInterfaceState : BoundUserInterfaceS
     public NetEntity? InsertedItemEntity;
     public string? SelectedMethod;
     public List<string> Methods;
+    public Dictionary<string, DestructiveAnalyzerRequirementState> Requirements;
 
     public DestructiveAnalyzerBoundInterfaceState(string? connectedServerName,
         List<ResearchPointAmount> pointBalances,
@@ -54,7 +72,8 @@ public sealed class DestructiveAnalyzerBoundInterfaceState : BoundUserInterfaceS
         string? insertedItem,
         NetEntity? insertedItemEntity,
         string? selectedMethod,
-        List<string> methods)
+        List<string> methods,
+        Dictionary<string, DestructiveAnalyzerRequirementState> requirements)
     {
         ConnectedServerName = connectedServerName;
         PointBalances = pointBalances;
@@ -64,5 +83,6 @@ public sealed class DestructiveAnalyzerBoundInterfaceState : BoundUserInterfaceS
         InsertedItemEntity = insertedItemEntity;
         SelectedMethod = selectedMethod;
         Methods = methods;
+        Requirements = requirements;
     }
 }

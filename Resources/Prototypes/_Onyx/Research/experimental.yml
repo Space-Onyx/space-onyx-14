@@ -117,7 +117,6 @@
     state: bluespace_crystal
   discipline: Experimental
   tier: 1
-  hidden: true
   recipeUnlocks:
     - MaterialBSCrystal
   position: 0,5
@@ -128,6 +127,8 @@
       amount: 7500
     - type: Experimental
       amount: 800
+  researchRequirements:
+    - anyOf: [MaterialBSCrystal]
 - type: technology
   id: XenobagHolding
   name: research-technology-xenobag-holding
@@ -266,8 +267,9 @@
   tier: 1
   technologyPrerequisites:
     - BasicXenoArcheology
-  requiredItemsToUnlock:
-    - ComplexXenoArtifactItem
+  revealRequirements:
+    - anyOf:
+        - ComplexXenoArtifactItem
 - id: AnomalyPinpointers
   name: research-technology-anomaly-pinpointing
   type: technology

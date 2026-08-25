@@ -212,11 +212,6 @@
   - type: PhysicalComposition
     materialComposition:
       RawUranium: 100
-  # <Onyx-DestructiveAnalyzer>
-  - type: ResearchAnalyzable
-    revealTechnologies:
-    - OptimizedMicrogalvanism
-  # </Onyx-DestructiveAnalyzer>
   - type: PointLight
     radius: 1.2
     energy: 0.8

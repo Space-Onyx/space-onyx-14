@@ -19,7 +19,8 @@ public sealed partial class DestructiveAnalyzerMenu : FancyWindow
     [Dependency] private IPrototypeManager _prototype = default!;
 
     private readonly ResearchSystem _research;
-    private readonly List<(RichTextLabel Label, Control Container)> _wrappingLabels = new();
+    private readonly List<(RichTextLabel Label, Control Container, float Inset)> _wrappingLabels = new();
+    private Dictionary<string, DestructiveAnalyzerRequirementState> _requirements = new();
 
     public event Action? OnServerButtonPressed;
     public event Action<string>? OnMethodSelected;
@@ -40,6 +41,7 @@ public sealed partial class DestructiveAnalyzerMenu : FancyWindow
             if (MethodOption.GetItemMetadata(args.Id) is not string id)
                 return;
 
+            UpdateRequirementDetails(id);
             OnMethodSelected?.Invoke(id);
         };
 
@@ -49,23 +51,24 @@ public sealed partial class DestructiveAnalyzerMenu : FancyWindow
         // share a horizontal row with fixed-width elements.
         RegisterWrap(BalanceLabel, ServerContainer);
         RegisterWrap(InsertedItemLabel, SampleContainer);
+        RegisterWrap(RequirementDetailsLabel, RequirementDetailsPanel, 18f);
         RegisterWrap(LastSubjectLabel, LogContainer);
         RegisterWrap(LastResultLabel, LogContainer);
     }
 
-    private void RegisterWrap(RichTextLabel label, Control container)
+    private void RegisterWrap(RichTextLabel label, Control container, float inset = 2f)
     {
         label.HorizontalExpand = true;
         label.HorizontalAlignment = HAlignment.Stretch;
-        _wrappingLabels.Add((label, container));
+        _wrappingLabels.Add((label, container, inset));
         container.OnResized += UpdateWrapping;
     }
 
     private void UpdateWrapping()
     {
-        foreach (var (label, container) in _wrappingLabels)
+        foreach (var (label, container, inset) in _wrappingLabels)
         {
-            var width = container.Size.X - 2f;
+            var width = container.Size.X - inset;
             if (width <= 8f)
                 continue;
 
@@ -76,20 +79,37 @@ public sealed partial class DestructiveAnalyzerMenu : FancyWindow
 
     private string LocalizeMethod(string methodId)
     {
-        const string revealPrefix = "reveal:";
-        if (methodId.StartsWith(revealPrefix, StringComparison.Ordinal))
-        {
-            var technologyId = methodId[revealPrefix.Length..];
-            var technologyName = _prototype.TryIndex<TechnologyPrototype>(technologyId, out var technology)
-                ? Loc.GetString(technology.Name)
-                : technologyId;
-            return Loc.GetString("research-machine-destructive-method-reveal-technology",
-                ("technology", technologyName));
-        }
+        if (_requirements.TryGetValue(methodId, out var requirement))
+            return Loc.GetString(requirement.Reveals
+                ? "research-machine-destructive-method-reveal-short"
+                : "research-machine-destructive-method-research-short");
 
         return Loc.TryGetString($"research-machine-destructive-method-{methodId.ToLowerInvariant()}", out var localized)
             ? localized
             : Loc.GetString("research-machine-destructive-method-unknown");
+    }
+
+    private void UpdateRequirementDetails(string? methodId)
+    {
+        if (methodId == null || !_requirements.TryGetValue(methodId, out var requirement))
+        {
+            RequirementDetailsPanel.Visible = false;
+            return;
+        }
+
+        var technologyName = _prototype.TryIndex<TechnologyPrototype>(requirement.Technology, out var technology)
+            ? Loc.GetString(technology.Name)
+            : requirement.Technology;
+        var progress = Math.Min(requirement.Progress, requirement.Amount);
+        SetPlainText(RequirementDetailsLabel, Loc.GetString("research-machine-destructive-requirement-details",
+            ("type", Loc.GetString(requirement.Reveals
+                ? "research-machine-destructive-method-reveal-short"
+                : "research-machine-destructive-method-research-short")),
+            ("technology", technologyName),
+            ("progress", progress),
+            ("amount", requirement.Amount),
+            ("remaining", Math.Max(0, requirement.Amount - progress))));
+        RequirementDetailsPanel.Visible = true;
     }
 
     private static void SetPlainText(RichTextLabel label, string text)
@@ -118,6 +138,7 @@ public sealed partial class DestructiveAnalyzerMenu : FancyWindow
         else
             InsertedItemSprite.SetEntity(null);
 
+        _requirements = state.Requirements;
         MethodOption.Clear();
         for (var i = 0; i < state.Methods.Count; i++)
         {
@@ -127,6 +148,7 @@ public sealed partial class DestructiveAnalyzerMenu : FancyWindow
             if (method == state.SelectedMethod)
                 MethodOption.SelectId(i);
         }
+        UpdateRequirementDetails(state.SelectedMethod);
         AnalyzeButton.Disabled = state.Methods.Count == 0;
 
         var subject = string.IsNullOrWhiteSpace(state.LastSubject)

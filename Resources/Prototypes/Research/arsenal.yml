@@ -9,8 +9,6 @@
   cost: 5000
   recipeUnlocks:
     - WeaponProtoKineticAccelerator
-    - ShuttleGunKineticCircuitboard
-    - MechEquipmentKineticAccelerator
     - WeaponProtoKineticShotgun
     - WeaponProtoKineticRepeater
     - WeaponProtoKineticPistol
@@ -24,7 +22,6 @@
     state: incendiarydisplay
   discipline: Arsenal
   tier: 1
-  cost: 10000
   recipeUnlocks:
     - BoxShotgunIncendiary
     - MagazineRifleIncendiary
@@ -37,9 +34,14 @@
     - MagazineBoxMagnumIncendiary
     - MagazineBoxLightRifleIncendiary
     - MagazineBoxRifleIncendiary
-  position: 1,3
+  position: 2,5
   technologyPrerequisites:
-    - SalvageWeapons
+    - UraniumMunitions
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 3000
 - type: technology
   id: WeaponizedLaserManipulation
   name: research-technology-weaponized-laser-manipulation
@@ -57,7 +59,7 @@
     - PowerCellIonRevolver
   position: 1,2
   technologyPrerequisites:
-    - DraconicMunitions
+    - SalvageWeapons
 - type: technology
   id: NonlethalAmmunition
   name: research-technology-nonlethal-ammunition
@@ -73,7 +75,7 @@
     - BoxBeanbag
     - WeaponDisabler
     - WeaponMechCombatDisabler
-  position: -1,3
+  position: 0,4
   technologyPrerequisites:
     - SalvageWeapons
 - type: technology
@@ -88,7 +90,7 @@
   recipeUnlocks:
     - ClothingMaskMuzzleSecure
     - ClothingMaskMuzzleShock
-  position: 0,4
+  position: 1,5
   technologyPrerequisites:
     - NonlethalAmmunition
 - type: technology
@@ -111,9 +113,9 @@
     - MagazineBoxLightRifleUranium
     - MagazineBoxRifleUranium
     - BoxShotgunUranium
-  position: 2,3
+  position: 1,3
   technologyPrerequisites:
-    - DraconicMunitions
+    - SalvageWeapons
 - type: technology
   id: AdvancedRiotControl
   name: research-technology-advanced-riot-control
@@ -129,7 +131,7 @@
     - HoloprojectorSecurity
     - WeaponDisablerSMG
     - Terminus
-  position: -1,7
+  position: 0,5
   technologyPrerequisites:
     - NonlethalAmmunition
 - type: technology
@@ -140,7 +142,6 @@
     state: payload-explosive-armed
   discipline: Arsenal
   tier: 1
-  cost: 10000
   recipeUnlocks:
     - SignallerAdvanced
     - SignalTrigger
@@ -151,9 +152,14 @@
     - ChemicalPayload
     - CableDetStack1
     - EmptyDetonator
-  position: 1,4
+  position: 2,4
   technologyPrerequisites:
-    - DraconicMunitions
+    - UraniumMunitions
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 400
 - type: technology
   id: SpecialMeans
   name: research-technology-special-means
@@ -165,8 +171,8 @@
   cost: 5000
   recipeUnlocks:
     - ClothingBackpackElectropack
-    - ModsuitPlatingSecurity # <Onyx-ModsuitPlating>
-  position: 0,5
+    - ModsuitPlatingSecurity
+  position: 1,6
   technologyPrerequisites:
     - RestraintTechnology
 - type: technology
@@ -210,7 +216,6 @@
     state: display
   discipline: Arsenal
   tier: 2
-  cost: 10000
   recipeUnlocks:
     - PKAUpgradeDamage
     - PKAUpgradeRange
@@ -221,6 +226,11 @@
   technologyPrerequisites:
     - SalvageWeapons
     - SalvageEquipment
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 300
 - type: technology
   id: BasicShuttleArmament
   name: research-technology-basic-shuttle-armament
@@ -229,7 +239,6 @@
     state: full
   discipline: Arsenal
   tier: 2
-  cost: 10500
   recipeUnlocks:
     - PowerCageRechargerCircuitboard
     - PowerCageSmall
@@ -240,9 +249,14 @@
     - ShuttleGunSvalinnMachineGunCircuitboard
     - ShuttleGunPerforatorCircuitboard
     - ShuttleGunFriendshipCircuitboard
-  position: -1,2
+  position: -2,4
   technologyPrerequisites:
     - Shuttlecraft
+  pointCosts:
+    - type: General
+      amount: 9000
+    - type: Experimental
+      amount: 500
 - type: technology
   id: DualWieldingTechnology
   name: research-technology-dual-wielding-technology
@@ -250,13 +264,19 @@
     sprite: Clothing/Back/Specific/harmpack.rsi
     state: icon
   discipline: Arsenal
-  tier: 2
-  cost: 10000
+  tier: 3
   recipeUnlocks:
     - ClothingBackpackHarmpack
   position: 2,6
   technologyPrerequisites:
     - SpecialMeans
+    - AdvancedToolsTechnology
+    - DualWieldingTechnology
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 300
 - type: technology
   id: PortableMicrofusionWeaponry
   name: research-technology-portable-microfusion-weaponry
@@ -265,14 +285,17 @@
     state: icon
   discipline: Arsenal
   tier: 3
-  cost: 15000
   recipeUnlocks:
     - WeaponAdvancedLaser
     - PortableRecharger
-    - WeaponMechCombatImmolationGun
-  position: 6,1
+  position: 3,1
   technologyPrerequisites:
     - WaveParticleHarnessing
+  pointCosts:
+    - type: General
+      amount: 15000
+    - type: Experimental
+      amount: 350
 - type: technology
   id: EnergyBoltBasedWeaponry
   name: research-technology-energy-bolt-weaponry
@@ -287,9 +310,14 @@
     - EnergyMagRifleIon
     - EnergyMagRifleDisabler
     - EnergyMagRifleLethal
-  position: 4,2
+  position: 5,3
   technologyPrerequisites:
     - WeaponLaserCellRevolverTech
+  pointCosts:
+    - type: General
+      amount: 7500
+    - type: Experimental
+      amount: 700
 - type: technology
   id: AdvancedShuttleWeapon
   name: research-technology-advanced-shuttle-weapon
@@ -303,6 +331,6 @@
     - GrenadeEMP
     - PowerCageHigh
     - ShuttleGunDusterCircuitboard
-  position: -1,1
+  position: -2,3
   technologyPrerequisites:
     - BasicShuttleArmament

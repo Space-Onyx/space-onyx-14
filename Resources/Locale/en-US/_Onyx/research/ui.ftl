@@ -10,3 +10,6 @@ research-point-type-experimental = Experimental
 research-console-point-cost-entry = {$type}: {$amount}
 research-console-menu-research-points-balances-text = Research: {$balances}
 research-console-point-entry-markup = [color={$color}]{$amount}[/color] {$type}
+research-console-research-requirements-text = Required analysis before research
+research-console-item-requirement-alternative = {$item} ({$progress}/{$amount}; option {$current}/{$total}, click for alternatives)
+research-console-item-requirement-progress = {$item} ({$progress}/{$amount})

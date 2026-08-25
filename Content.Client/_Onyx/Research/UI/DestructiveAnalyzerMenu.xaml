@@ -38,10 +38,16 @@
                         <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="6">
                             <Label Text="{Loc 'research-machine-common-method-title'}" Modulate="#C7D5E0"/>
                             <OptionButton Name="MethodOption" HorizontalExpand="True" MinHeight="32"/>
+                            <PanelContainer Name="RequirementDetailsPanel" HorizontalExpand="True" Visible="False">
+                                <PanelContainer.PanelOverride>
+                                    <gfx:StyleBoxFlat BackgroundColor="#16191F" BorderColor="#353B45" BorderThickness="1"/>
+                                </PanelContainer.PanelOverride>
+                                <RichTextLabel Name="RequirementDetailsLabel" Margin="8 6"/>
+                            </PanelContainer>
                             <Button Name="AnalyzeButton"
-                                    Text="{Loc 'research-machine-destructive-run'}"
-                                    HorizontalExpand="True"
-                                    MinHeight="36"/>
+                                     Text="{Loc 'research-machine-destructive-run'}"
+                                     HorizontalExpand="True"
+                                     MinHeight="36"/>
                             <Button Name="EjectButton"
                                     Text="{Loc 'research-machine-eject-button'}"
                                     HorizontalExpand="True"

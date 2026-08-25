@@ -10,3 +10,6 @@ research-point-type-experimental = Экспериментальные
 research-console-point-cost-entry = {$type}: {$amount}
 research-console-menu-research-points-balances-text = Исследования: {$balances}
 research-console-point-entry-markup = [color={$color}]{$amount}[/color] {$type}
+research-console-research-requirements-text = Для изучения требуется анализ
+research-console-item-requirement-alternative = {$item} ({$progress}/{$amount}; вариант {$current}/{$total}, нажмите для выбора)
+research-console-item-requirement-progress = {$item} ({$progress}/{$amount})

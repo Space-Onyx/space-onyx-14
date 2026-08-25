@@ -173,6 +173,10 @@ public sealed partial class ResearchSystem
         targetDatabase.SupportedDisciplines = new(sourceDatabase.SupportedDisciplines);
         targetDatabase.UnlockedTechnologies = new(sourceDatabase.UnlockedTechnologies);
         targetDatabase.RevealedTechnologies = new(sourceDatabase.RevealedTechnologies);
+        targetDatabase.CompletedRevealRequirements = sourceDatabase.CompletedRevealRequirements
+            .ToDictionary(pair => pair.Key, pair => new Dictionary<int, int>(pair.Value));
+        targetDatabase.CompletedResearchRequirements = sourceDatabase.CompletedResearchRequirements
+            .ToDictionary(pair => pair.Key, pair => new Dictionary<int, int>(pair.Value));
         targetDatabase.UnlockedRecipes = new(sourceDatabase.UnlockedRecipes);
         Dirty(target, targetDatabase);
     }
@@ -358,6 +362,8 @@ public sealed partial class ResearchSystem
         database.CurrentTechnologyCards.Clear();
         database.UnlockedTechnologies.Clear();
         database.RevealedTechnologies.Clear();
+        database.CompletedRevealRequirements.Clear();
+        database.CompletedResearchRequirements.Clear();
         database.UnlockedRecipes.Clear();
         UpdateTechnologyCards(server, database);
         Dirty(server, database);

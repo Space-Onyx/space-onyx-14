@@ -5,8 +5,24 @@ namespace Content.Shared.Research.Prototypes;
 public sealed partial class TechnologyPrototype
 {
     /// <summary>
-    /// Item prototypes that reveal this hidden technology when destructively analyzed.
+    /// Destructive-analysis requirements that reveal a hidden technology.
     /// </summary>
     [DataField]
-    public List<EntProtoId> RequiredItemsToUnlock = new();
+    public List<ResearchItemRequirement> RevealRequirements = new();
+
+    /// <summary>
+    /// Destructive-analysis requirements that allow a technology to be researched.
+    /// </summary>
+    [DataField]
+    public List<ResearchItemRequirement> ResearchRequirements = new();
+}
+
+[DataDefinition]
+public sealed partial class ResearchItemRequirement
+{
+    [DataField(required: true)]
+    public List<EntProtoId> AnyOf = new();
+
+    [DataField]
+    public int Amount = 1;
 }

@@ -52,3 +52,6 @@ research-technology-borg-salvage-equipment = Borg Salvage Equipment
 research-technology-expeditions = Expeditions
 research-technology-artifact-pinpointing = Artifact Pinpointers
 research-technology-anomaly-pinpointing = Anomaly Pinpointers
+research-technology-kenetic-mech = Kinetic Mech Weaponry
+research-technology-kenetic-shuttle = Kinetic Shuttle Weaponry
+research-technology-mech-lasers = Mech Laser Weaponry

@@ -27,6 +27,10 @@ namespace Content.Server.Research.Disk
                 return;
 
             _research.ModifyServerPoints(args.Target.Value, component.Points, server);
+            // <Onyx-ResearchPointTypes>
+            if (component.GrantExperimentalPoints)
+                _research.ModifyServerPoints(args.Target.Value, "Experimental", component.Points, server);
+            // </Onyx-ResearchPointTypes>
             _popupSystem.PopupEntity(Loc.GetString("research-disk-inserted", ("points", component.Points)), args.Target.Value, args.User);
             QueueDel(uid);
             args.Handled = true;

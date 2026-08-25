@@ -34,6 +34,15 @@ research-machine-destructive-method-advancedanalysis = Продвинутый а
 research-machine-destructive-method-unknown = Неизвестный метод
 research-machine-destructive-method-reveal-technology = Раскрыть технологию: {$technology}
 research-machine-destructive-result-revealed-tech = технология раскрыта: {$technology}
+research-machine-destructive-method-complete-reveal-requirement = Анализ для раскрытия: {$technology}
+research-machine-destructive-method-complete-research-requirement = Анализ для изучения: {$technology}
+research-machine-destructive-method-reveal-short = Раскрытие технологии
+research-machine-destructive-method-research-short = Допуск к изучению
+research-machine-destructive-requirement-details = {$type}
+    Технология: {$technology}
+    Прогресс: {$progress}/{$amount}. Осталось: {$remaining}.
+research-machine-destructive-result-requirement-completed = требование анализа выполнено: {$technology}
+research-machine-destructive-result-requirement-progress = {$technology}: {$progress}/{$amount}, осталось {$remaining}
 research-machine-destructive-chat-result = Результат деструктивного анализа: {$result}
 research-machine-destructive-result-generic = награда начислена на исследовательскую сеть
 research-machine-destructive-result-points = очки зачислены: {$points}

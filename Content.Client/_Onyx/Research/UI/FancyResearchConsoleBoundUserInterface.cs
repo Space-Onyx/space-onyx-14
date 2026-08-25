@@ -63,14 +63,15 @@ public sealed class FancyResearchConsoleBoundUserInterface : BoundUserInterface
             return;
 
         var research = EntMan.System<ResearchSystem>();
+        var prototypes = IoCManager.Resolve<IPrototypeManager>();
         var list = new Dictionary<string, ResearchAvailability>();
-        foreach (var tech in IoCManager.Resolve<IPrototypeManager>().EnumeratePrototypes<TechnologyPrototype>())
+        foreach (var tech in prototypes.EnumeratePrototypes<TechnologyPrototype>())
         {
             var unlocked = IsUnlocked(database, tech.ID);
 
             if (tech.EditorDeleted ||
                 !SupportsDiscipline(database, tech.Discipline) ||
-                (tech.Hidden && !unlocked && !IsRevealed(database, tech.ID)))
+                IsConcealedByHiddenTechnology(tech, database, prototypes))
                 continue;
 
             list[tech.ID] = unlocked
@@ -86,6 +87,38 @@ public sealed class FancyResearchConsoleBoundUserInterface : BoundUserInterface
             _consoleMenu.UpdatePanels(list);
         _consoleMenu.UpdateInformationPanel(state.Points, state.PointBalances);
         _consoleMenu.UpdateNetworkLogs(state.Logs);
+    }
+
+    private static bool IsConcealedByHiddenTechnology(
+        TechnologyPrototype technology,
+        TechnologyDatabaseComponent database,
+        IPrototypeManager prototypes)
+    {
+        return IsConcealedByHiddenTechnology(technology, database, prototypes, new());
+    }
+
+    private static bool IsConcealedByHiddenTechnology(
+        TechnologyPrototype technology,
+        TechnologyDatabaseComponent database,
+        IPrototypeManager prototypes,
+        HashSet<string> visited)
+    {
+        if (!visited.Add(technology.ID))
+            return false;
+
+        if (technology.Hidden &&
+            !IsUnlocked(database, technology.ID) &&
+            !IsRevealed(database, technology.ID))
+            return true;
+
+        foreach (var prerequisiteId in technology.TechnologyPrerequisites)
+        {
+            if (prototypes.TryIndex(prerequisiteId, out TechnologyPrototype? prerequisite) &&
+                IsConcealedByHiddenTechnology(prerequisite, database, prototypes, visited))
+                return true;
+        }
+
+        return false;
     }
 
     private static bool SupportsDiscipline(TechnologyDatabaseComponent database, string discipline)

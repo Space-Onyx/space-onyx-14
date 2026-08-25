@@ -15,5 +15,10 @@ namespace Content.Server.Research.Disk
         /// </remarks>
         [DataField("unlockAllTech")]
         public bool UnlockAllTech = false;
+
+        // <Onyx-ResearchPointTypes>
+        [DataField]
+        public bool GrantExperimentalPoints;
+        // </Onyx-ResearchPointTypes>
     }
 }

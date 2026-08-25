@@ -40,6 +40,7 @@
   components:
   - type: ResearchDisk
     unlockAllTech: true
+    grantExperimentalPoints: true # <Onyx-ResearchPointTypes>
 
 - type: entity
   parent: BaseItem

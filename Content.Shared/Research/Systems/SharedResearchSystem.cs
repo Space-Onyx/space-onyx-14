@@ -67,6 +67,14 @@ public abstract partial class SharedResearchSystem : EntitySystem
         // <Onyx-TechDiscovery-edited>
         if (tech.Hidden && !component.RevealedTechnologies.Contains(tech.ID))
             return false;
+
+        // <Onyx-ResearchItemRequirements>
+        if (tech.ResearchRequirements.Count > 0 &&
+            (!component.CompletedResearchRequirements.TryGetValue(tech.ID, out var completedRequirements) ||
+             tech.ResearchRequirements.Where((requirement, index) =>
+                 completedRequirements.GetValueOrDefault(index) < Math.Max(1, requirement.Amount)).Any()))
+            return false;
+        // </Onyx-ResearchItemRequirements>
         // </Onyx-TechDiscovery-edited>
 
         if (!component.SupportedDisciplines.Contains(tech.Discipline))

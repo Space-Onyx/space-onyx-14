@@ -1,3 +1,4 @@
+using System.Linq; // <Onyx-ResearchItemRequirements>
 using Content.Shared.Database;
 using Content.Shared._Onyx.Research; // <Onyx-ResearchNetworks>
 using Content.Shared.Research.Components;
@@ -23,6 +24,12 @@ public sealed partial class ResearchSystem
         primaryDb.SupportedDisciplines = new(otherDb.SupportedDisciplines);
         primaryDb.UnlockedTechnologies = new(otherDb.UnlockedTechnologies);
         primaryDb.RevealedTechnologies = new(otherDb.RevealedTechnologies); // <Onyx-TechDiscovery>
+        // <Onyx-ResearchItemRequirements>
+        primaryDb.CompletedRevealRequirements = otherDb.CompletedRevealRequirements
+            .ToDictionary(pair => pair.Key, pair => new Dictionary<int, int>(pair.Value));
+        primaryDb.CompletedResearchRequirements = otherDb.CompletedResearchRequirements
+            .ToDictionary(pair => pair.Key, pair => new Dictionary<int, int>(pair.Value));
+        // </Onyx-ResearchItemRequirements>
         primaryDb.UnlockedRecipes = new(otherDb.UnlockedRecipes);
         // </Onyx-ResearchNetworks-edited>
 
@@ -180,6 +187,8 @@ public sealed partial class ResearchSystem
         component.SupportedDisciplines = new List<ProtoId<TechDisciplinePrototype>>();
         component.UnlockedTechnologies = new List<ProtoId<TechnologyPrototype>>();
         component.RevealedTechnologies = new List<ProtoId<TechnologyPrototype>>(); // <Onyx-TechDiscovery>
+        component.CompletedRevealRequirements = new(); // <Onyx-ResearchItemRequirements>
+        component.CompletedResearchRequirements = new(); // <Onyx-ResearchItemRequirements>
         component.UnlockedRecipes = new List<ProtoId<LatheRecipePrototype>>();
         Dirty(uid, component);
     }

@@ -30,6 +30,7 @@ public sealed partial class DestructiveAnalyzerSystem : EntitySystem
     [Dependency] private AppearanceSystem _appearance = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private SharedStackSystem _stack = default!;
     [Dependency] private AudioSystem _audio = default!;
     [Dependency] private IPrototypeManager _prototype = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
@@ -200,6 +201,7 @@ public sealed partial class DestructiveAnalyzerSystem : EntitySystem
         }
 
         if (!TryGetRevealTechnologyFromMethod(selected, out _) &&
+            !TryGetItemRequirementFromMethod(selected, out _, out _, out _) &&
             !TryComp<ResearchAnalyzableComponent>(sample, out var analyzable))
         {
             Fail(ent, "research-machine-destructive-invalid-item");
@@ -231,7 +233,32 @@ public sealed partial class DestructiveAnalyzerSystem : EntitySystem
         }
 
         string rewardSummary;
-        if (TryGetRevealTechnologyFromMethod(method, out var revealTechnology))
+        if (TryGetItemRequirementFromMethod(method, out var requiredTechnology, out var requirement, out var reveals))
+        {
+            if (!_research.CompleteItemRequirement(
+                    server,
+                    requiredTechnology,
+                    requirement,
+                    reveals,
+                    out var revealed,
+                    out var progress,
+                    out var amount))
+            {
+                Fail(ent, "research-machine-destructive-invalid-item");
+                UpdateAppearance(ent, DestructiveAnalyzerVisualState.Idle);
+                return;
+            }
+
+            rewardSummary = revealed
+                ? Loc.GetString("research-machine-destructive-result-revealed-tech",
+                    ("technology", GetTechnologyName(requiredTechnology)))
+                : Loc.GetString("research-machine-destructive-result-requirement-progress",
+                    ("technology", GetTechnologyName(requiredTechnology)),
+                    ("progress", progress),
+                    ("amount", amount),
+                    ("remaining", amount - progress));
+        }
+        else if (TryGetRevealTechnologyFromMethod(method, out var revealTechnology))
         {
             if (!_research.RevealTechnology(server, revealTechnology))
             {
@@ -300,7 +327,19 @@ public sealed partial class DestructiveAnalyzerSystem : EntitySystem
 
         ent.Comp.LastItemAnalyzed = true;
         ent.Comp.LastResult = Loc.GetString("research-machine-destructive-last-result-success", ("result", rewardSummary));
-        Del(used);
+        if (TryGetItemRequirementFromMethod(method, out _, out _, out _) &&
+            TryComp<StackComponent>(used, out var remainingStack) &&
+            remainingStack.Count > 1)
+        {
+            _stack.SetCount((used, remainingStack), remainingStack.Count - 1);
+            var container = _container.EnsureContainer<Container>(ent, ent.Comp.ContainerId);
+            _container.Remove(used, container);
+            _transform.SetCoordinates(used, Transform(ent).Coordinates);
+        }
+        else
+        {
+            Del(used);
+        }
         ClearInsertedItem(ent);
         UpdateAppearance(ent, DestructiveAnalyzerVisualState.Idle);
         _audio.PlayPvs(ent.Comp.SuccessSound, ent, ent.Comp.AudioParams);
@@ -387,9 +426,47 @@ public sealed partial class DestructiveAnalyzerSystem : EntitySystem
         return !string.IsNullOrWhiteSpace(technologyId);
     }
 
-    private List<string> GetAvailableMethods(EntityUid sample, EntityUid server)
+    private static bool TryGetItemRequirementFromMethod(
+        string methodId,
+        [NotNullWhen(true)] out string? technologyId,
+        out int requirement,
+        out bool reveals)
+    {
+        const string revealPrefix = "requirement:reveal:";
+        const string researchPrefix = "requirement:research:";
+        technologyId = null;
+        requirement = -1;
+        reveals = methodId.StartsWith(revealPrefix, StringComparison.Ordinal);
+        var prefix = reveals ? revealPrefix : researchPrefix;
+        if (!methodId.StartsWith(prefix, StringComparison.Ordinal))
+            return false;
+
+        var separator = methodId.LastIndexOf(':');
+        if (separator <= prefix.Length ||
+            !int.TryParse(methodId[(separator + 1)..], out requirement))
+            return false;
+
+        technologyId = methodId[prefix.Length..separator];
+        return !string.IsNullOrWhiteSpace(technologyId);
+    }
+
+    private List<string> GetAvailableMethods(
+        EntityUid sample,
+        EntityUid server,
+        Dictionary<string, DestructiveAnalyzerRequirementState>? requirementStates = null)
     {
         var methods = new List<string>();
+        foreach (var match in _research.GetTechnologyRequirementsForItem(server, sample))
+        {
+            var id = $"requirement:{(match.Reveals ? "reveal" : "research")}:{match.Technology}:{match.Requirement}";
+            methods.Add(id);
+            requirementStates?[id] = new DestructiveAnalyzerRequirementState(
+                match.Technology,
+                match.Reveals,
+                match.Progress,
+                match.Amount);
+        }
+
         if (TryComp<ResearchAnalyzableComponent>(sample, out var analyzable))
         {
             methods.AddRange(analyzable.SupportedMethods.Count > 0
@@ -398,11 +475,16 @@ public sealed partial class DestructiveAnalyzerSystem : EntitySystem
 
             // Образцы без методов с очками (только раскрытие) получают reveal-методы.
             if (methods.Count == 0 && analyzable.RevealTechnologies.Count > 0)
-                methods.AddRange(analyzable.RevealTechnologies.Select(technology => $"reveal:{technology}"));
+            {
+                foreach (var technology in analyzable.RevealTechnologies)
+                {
+                    var id = $"reveal:{technology}";
+                    methods.Add(id);
+                    requirementStates?[id] = new DestructiveAnalyzerRequirementState(technology, true, 0, 1);
+                }
+            }
         }
 
-        methods.AddRange(_research.GetHiddenTechnologiesForRequiredItem(server, sample)
-            .Select(technology => $"reveal:{technology}"));
         return methods;
     }
 
@@ -451,6 +533,12 @@ public sealed partial class DestructiveAnalyzerSystem : EntitySystem
 
     private string LocalizeMethod(string methodId)
     {
+        if (TryGetItemRequirementFromMethod(methodId, out var requiredTechnology, out _, out var reveals))
+            return Loc.GetString(reveals
+                    ? "research-machine-destructive-method-complete-reveal-requirement"
+                    : "research-machine-destructive-method-complete-research-requirement",
+                ("technology", GetTechnologyName(requiredTechnology)));
+
         if (TryGetRevealTechnologyFromMethod(methodId, out var revealTechnology))
             return Loc.GetString("research-machine-destructive-method-reveal-technology",
                 ("technology", GetTechnologyName(revealTechnology)));
@@ -471,6 +559,7 @@ public sealed partial class DestructiveAnalyzerSystem : EntitySystem
         string? serverName = null;
         var pointBalances = new List<ResearchPointAmount>();
         var methods = new List<string>();
+        var requirementStates = new Dictionary<string, DestructiveAnalyzerRequirementState>();
         EntityUid? server = null;
 
         if (TryComp<ResearchClientComponent>(ent, out var client) &&
@@ -482,7 +571,7 @@ public sealed partial class DestructiveAnalyzerSystem : EntitySystem
 
         if (ent.Comp.InsertedItem is { } used && server != null)
         {
-            methods = GetAvailableMethods(used, server.Value);
+            methods = GetAvailableMethods(used, server.Value, requirementStates);
             if (ent.Comp.SelectedMethod == null || !methods.Contains(ent.Comp.SelectedMethod))
                 ent.Comp.SelectedMethod = methods.FirstOrDefault();
         }
@@ -495,7 +584,8 @@ public sealed partial class DestructiveAnalyzerSystem : EntitySystem
             ent.Comp.InsertedItem is { } item ? Name(item) : null,
             ent.Comp.InsertedItem is { } inserted ? GetNetEntity(inserted) : null,
             ent.Comp.SelectedMethod,
-            methods);
+            methods,
+            requirementStates);
 
         _ui.SetUiState(ent.Owner, DestructiveAnalyzerUiKey.Key, state);
     }

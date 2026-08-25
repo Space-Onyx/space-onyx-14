@@ -30,6 +30,11 @@
                     </ScrollContainer>
                 </PanelContainer>
             </BoxContainer>
+            <BoxContainer Name="ItemRequirementsContainer" Orientation="Vertical" Margin="5" Visible="False">
+                <Label Text="{Loc 'research-console-research-requirements-text'}" HorizontalAlignment="Center"/>
+                <customControls:HSeparator StyleClasses="LowDivider" Margin="0 0 0 10"/>
+                <BoxContainer Name="ItemRequirementsList" Orientation="Vertical"/>
+            </BoxContainer>
             <BoxContainer Orientation="Vertical" VerticalExpand="True" SizeFlagsStretchRatio="2" Margin="5">
                 <Label Text="{Loc 'research-console-unlocks-text'}" HorizontalAlignment="Center"/>
                 <customControls:HSeparator StyleClasses="LowDivider" Margin="0 0 0 10"/>

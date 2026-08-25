@@ -358,11 +358,16 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
         if (InfoContainer.Children.FirstOrDefault() is FancyTechnologyInfoPanel current && current.Prototype == tech)
         {
             current.UpdateAvailability(HasAccess(), availability);
+            if (_entity.TryGetComponent(Entity, out TechnologyDatabaseComponent? currentDatabase))
+                current.UpdateItemRequirements(currentDatabase, _sprite);
             return;
         }
 
         InfoContainer.RemoveAllChildren();
-        var panel = new FancyTechnologyInfoPanel(tech, HasAccess(), availability, _sprite);
+        if (!_entity.TryGetComponent(Entity, out TechnologyDatabaseComponent? database))
+            return;
+
+        var panel = new FancyTechnologyInfoPanel(tech, HasAccess(), availability, database, _sprite);
         panel.BuyAction += bought =>
         {
             if (HasAccess() && List.GetValueOrDefault(bought.ID) == ResearchAvailability.Available)

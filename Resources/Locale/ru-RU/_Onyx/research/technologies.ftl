@@ -51,3 +51,6 @@ research-technology-borg-salvage-equipment = Шахтёрское оборудо
 research-technology-expeditions = Экспедиции
 research-technology-artifact-pinpointing = Артефактные пинпоинтеры
 research-technology-anomaly-pinpointing = Пинпоинтеры аномалий
+research-technology-kenetic-mech = Кинетическое вооружение мехов
+research-technology-kenetic-shuttle = Кинетическое вооружение шаттлов
+research-technology-mech-lasers = Лазерное вооружение мехов

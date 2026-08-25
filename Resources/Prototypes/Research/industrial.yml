@@ -238,3 +238,5 @@
   technologyPrerequisites:
     - SMESAdvanced
   hidden: true
+  revealRequirements:
+    - anyOf: [UraniumOre, SheetUranium]
