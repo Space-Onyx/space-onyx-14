@@ -1,0 +1,54 @@
+- type: entity
+  parent: [ BaseMachinePowered, SmallConstructibleMachine ]
+  id: ResearchDestructiveAnalyzer
+  name: destructive analyzer
+  description: Deconstructs inserted samples using selectable analysis methods, feeding typed points into the R&D network.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Machines/destructive_analyzer.rsi
+    layers:
+    - state: icon
+      map: ["enum.DestructiveAnalyzerVisualLayers.Base"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false
+  - type: Appearance
+  - type: WiresPanel
+  - type: WiresVisuals
+  - type: GenericVisualizer
+    visuals:
+      enum.DestructiveAnalyzerVisuals.State:
+        enum.DestructiveAnalyzerVisualLayers.Base:
+          Idle: { state: icon }
+          Inserting: { state: inserting }
+          Loaded: { state: icon-inserted }
+          Deconstructing: { state: deconstructing }
+      enum.WiresVisuals.MaintenancePanelState:
+        enum.WiresVisualLayers.MaintenancePanel:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Physics
+    bodyType: Static
+  - type: Transform
+    anchored: true
+  - type: Speech
+  - type: ApcPowerReceiver
+    powerLoad: 2500
+  - type: Machine
+    board: ResearchDestructiveAnalyzerMachineCircuitboard
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
+      destructive-analyzer-container: !type:Container
+  - type: ResearchClient
+  - type: DestructiveAnalyzer
+  - type: ActivatableUI
+    key: enum.DestructiveAnalyzerUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: UserInterface
+    interfaces:
+      enum.DestructiveAnalyzerUiKey.Key:
+        type: DestructiveAnalyzerBoundUserInterface
+      enum.ResearchClientUiKey.Key:
+        type: ResearchClientBoundUserInterface

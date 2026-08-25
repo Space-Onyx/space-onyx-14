@@ -66,13 +66,17 @@ public sealed class FancyResearchConsoleBoundUserInterface : BoundUserInterface
         var list = new Dictionary<string, ResearchAvailability>();
         foreach (var tech in IoCManager.Resolve<IPrototypeManager>().EnumeratePrototypes<TechnologyPrototype>())
         {
-            if (tech.EditorDeleted || tech.Hidden || !SupportsDiscipline(database, tech.Discipline))
+            var unlocked = IsUnlocked(database, tech.ID);
+
+            if (tech.EditorDeleted ||
+                !SupportsDiscipline(database, tech.Discipline) ||
+                (tech.Hidden && !unlocked && !IsRevealed(database, tech.ID)))
                 continue;
 
-            list[tech.ID] = IsUnlocked(database, tech.ID)
+            list[tech.ID] = unlocked
                 ? ResearchAvailability.Researched
                 : research.IsTechnologyAvailable(database, tech)
-                    ? tech.Cost <= state.Points
+                    ? research.CanAffordTechnology(state.PointBalances, tech)
                         ? ResearchAvailability.Available
                         : ResearchAvailability.PrereqsMet
                     : ResearchAvailability.Unavailable;
@@ -80,7 +84,7 @@ public sealed class FancyResearchConsoleBoundUserInterface : BoundUserInterface
 
         if (force || !_consoleMenu.List.OrderBy(x => x.Key).SequenceEqual(list.OrderBy(x => x.Key)))
             _consoleMenu.UpdatePanels(list);
-        _consoleMenu.UpdateInformationPanel(state.Points);
+        _consoleMenu.UpdateInformationPanel(state.Points, state.PointBalances);
         _consoleMenu.UpdateNetworkLogs(state.Logs);
     }
 
@@ -100,6 +104,17 @@ public sealed class FancyResearchConsoleBoundUserInterface : BoundUserInterface
         foreach (var unlocked in database.UnlockedTechnologies)
         {
             if (unlocked == technology)
+                return true;
+        }
+
+        return false;
+    }
+
+    private static bool IsRevealed(TechnologyDatabaseComponent database, string technology)
+    {
+        foreach (var revealed in database.RevealedTechnologies)
+        {
+            if (revealed == technology)
                 return true;
         }
 

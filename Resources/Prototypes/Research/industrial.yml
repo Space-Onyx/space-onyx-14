@@ -14,7 +14,7 @@
     - ClothingMaskWeldingGas
     - ClothingShoesBootsJump
     - MechEquipmentDrill
-  position: 1,1
+  position: 0,2
   technologyPrerequisites:
     - SpaceScanning
 - type: technology
@@ -29,9 +29,8 @@
   recipeUnlocks:
     - RadarConsoleCircuitboard
     - HandHeldMassScanner
-  position: 1,2
-  technologyPrerequisites:
-    - PowerGeneration
+  position: 0,3
+  technologyPrerequisites: []
 - type: technology
   id: AdvancedPowercells
   name: research-technology-advanced-powercells
@@ -43,11 +42,9 @@
   cost: 7500
   recipeUnlocks:
     - PowerCellHigh
-    - TurboItemRechargerCircuitboard
-    - SMESAdvancedMachineCircuitboard
-  position: 4,1
+  position: 1,1
   technologyPrerequisites:
-    - AdvancedToolsTechnology
+    - PowerGeneration
 - type: technology
   id: MechanicalCompression
   name: research-technology-mechanical-compression
@@ -61,7 +58,7 @@
     - FlatpackerMachineCircuitboard
   position: 2,2
   technologyPrerequisites:
-    - SpaceScanning
+    - PowerGeneration
 - type: technology
   id: IndustrialEngineering
   name: research-technology-industrial-engineering
@@ -94,7 +91,7 @@
     - SolarControlComputerCircuitboard
     - SolarTrackerElectronics
     - EmitterCircuitboard
-  position: 1,3
+  position: 1,2
   technologyPrerequisites: []
 - type: technology
   id: AtmosphericTech
@@ -108,9 +105,8 @@
   recipeUnlocks:
     - ThermomachineFreezerMachineCircuitBoard
     - GasRecyclerMachineCircuitboard
-  position: 2,1
-  technologyPrerequisites:
-    - MechanicalCompression
+  position: 5,2
+  technologyPrerequisites: []
 - type: technology
   id: RipleyAPLU
   name: research-technology-ripley-aplu
@@ -129,10 +125,9 @@
     - RipleyCentralElectronics
     - RipleyPeripheralsElectronics
     - MechEquipmentGrabber
-  position: 1,0
+  position: 3,3
   technologyPrerequisites:
-    - SalvageEquipment
-    - BasicRobotics
+    - IndustrialEngineering
 - type: technology
   id: Shuttlecraft
   name: research-technology-shuttlecraft
@@ -149,7 +144,7 @@
     - GyroscopeMachineCircuitboard
     - MiniGravityGeneratorCircuitboard
     - MachineFTLDriveCircuitboard
-  position: 4,2
+  position: 4,3
   technologyPrerequisites:
     - IndustrialEngineering
 - type: technology
@@ -165,9 +160,10 @@
     - HellfireFreezerMachineCircuitBoard
     - PortableScrubberMachineCircuitBoard
     - HolofanProjector
-    - ModsuitPlatingAtmostech # <Onyx-ModsuitPlating>
-  position: 2,0
+    - ModsuitPlatingAtmostech
+  position: 4,2
   technologyPrerequisites:
+    - IndustrialEngineering
     - AtmosphericTech
 - type: technology
   id: AdvancedToolsTechnology
@@ -183,8 +179,6 @@
     - PowerDrill
     - JawsOfLife
     - BorgModuleAdvancedTool
-    - Fulton
-    - FultonBeacon
   position: 3,1
   technologyPrerequisites:
     - IndustrialEngineering
@@ -198,15 +192,13 @@
   tier: 2
   cost: 12500
   recipeUnlocks:
-    - OreBagOfHolding
     - MiningDrillDiamond
     - AdvancedMineralScannerEmpty
-    - BorgModuleAdvancedMining
-    - SalvageExpeditionsComputerCircuitboard
     - MechEquipmentDrillDiamond
   position: 0,1
   technologyPrerequisites:
     - SalvageEquipment
+  pointCosts: []
 - type: technology
   id: BluespaceStorage
   name: research-technology-bluespace-storage
@@ -215,7 +207,6 @@
     state: holding
   discipline: Industrial
   tier: 3
-  cost: 15000
   recipeUnlocks:
     - ClothingBackpackHolding
     - ClothingBackpackSatchelHolding
@@ -223,10 +214,14 @@
     - ClothingBackpackMessengerHolding
   position: 3,0
   technologyPrerequisites:
-    - OptimizedMicrogalvanism
-    - AdvancedToolsTechnology
     - BluespaceTheory
-    - AtmosphericTech
+    - AdvancedToolsTechnology
+    - OptimizedMicrogalvanism
+  pointCosts:
+    - type: General
+      amount: 12000
+    - type: Experimental
+      amount: 1500
 - type: technology
   id: OptimizedMicrogalvanism
   name: research-technology-optimized-microgalvanism
@@ -239,6 +234,7 @@
   recipeUnlocks:
     - PowerCellMicroreactor
     - PowerCellHyper
-  position: 4,0
+  position: 2,0
   technologyPrerequisites:
-    - AdvancedPowercells
+    - SMESAdvanced
+  hidden: true

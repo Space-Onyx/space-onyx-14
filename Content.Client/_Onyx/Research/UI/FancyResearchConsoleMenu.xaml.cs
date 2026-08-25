@@ -111,10 +111,13 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
             ClearItems();
     }
 
-    public void UpdateInformationPanel(int points)
+    public void UpdateInformationPanel(int points, IReadOnlyList<ResearchPointAmount>? balances = null)
     {
         Points = points;
-        ResearchAmountLabel.SetMessage(Loc.GetString("research-console-menu-research-points-text", ("points", points)));
+        ResearchAmountLabel.SetMessage(FormattedMessage.FromMarkupOrThrow(balances is { Count: > 0 }
+            ? Loc.GetString("research-console-menu-research-points-balances-text",
+                ("balances", ResearchPointUiHelpers.BuildBalanceMarkup(balances, _research, _prototype)))
+            : Loc.GetString("research-console-menu-research-points-text", ("points", points))));
         if (!_entity.TryGetComponent(Entity, out TechnologyDatabaseComponent? database))
             return;
 

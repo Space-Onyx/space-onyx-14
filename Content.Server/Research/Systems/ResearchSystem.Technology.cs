@@ -22,6 +22,7 @@ public sealed partial class ResearchSystem
         primaryDb.CurrentTechnologyCards = new(otherDb.CurrentTechnologyCards);
         primaryDb.SupportedDisciplines = new(otherDb.SupportedDisciplines);
         primaryDb.UnlockedTechnologies = new(otherDb.UnlockedTechnologies);
+        primaryDb.RevealedTechnologies = new(otherDb.RevealedTechnologies); // <Onyx-TechDiscovery>
         primaryDb.UnlockedRecipes = new(otherDb.UnlockedRecipes);
         // </Onyx-ResearchNetworks-edited>
 
@@ -83,7 +84,7 @@ public sealed partial class ResearchSystem
         if (!TryGetClientServer(client, out var serverEnt, out _, component))
             return false;
 
-        if (!CanServerUnlockTechnology(client, prototype, clientDatabase, component))
+        if (!CanServerUnlockTechnology(client, prototype, out var finalCosts, clientDatabase, component)) // <Onyx-ResearchPointTypes-edited>
             return false;
 
         AddTechnology(serverEnt.Value, prototype);
@@ -91,7 +92,7 @@ public sealed partial class ResearchSystem
         // Research disciplines no longer lock each other out.
         // TrySetMainDiscipline(prototype, serverEnt.Value);
         // </Onyx-FancyResearchUI-edited>
-        ModifyServerPoints(serverEnt.Value, -prototype.Cost);
+        TryConsumePoints(serverEnt.Value, finalCosts); // <Onyx-ResearchPointTypes-edited>
         UpdateTechnologyCards(serverEnt.Value);
         // <Onyx-FancyResearchUI>
         // AddTechnology raises its event before cards are regenerated; notify peer consoles of the final state.
@@ -164,20 +165,10 @@ public sealed partial class ResearchSystem
         TechnologyDatabaseComponent? database = null,
         ResearchClientComponent? client = null)
     {
-
-        if (!Resolve(uid, ref client, ref database, false))
-            return false;
-
-        if (!TryGetClientServer(uid, out _, out var serverComp, client))
-            return false;
-
-        if (!IsTechnologyAvailable(database, technology))
-            return false;
-
-        if (technology.Cost > serverComp.Points)
-            return false;
-
-        return true;
+        // <Onyx-ResearchPointTypes-edited>
+        // Typed point balances are authoritative; see the out-parameter overload.
+        return CanServerUnlockTechnology(uid, technology, out _, database, client);
+        // </Onyx-ResearchPointTypes-edited>
     }
 
     private void OnDatabaseRegistrationChanged(EntityUid uid, TechnologyDatabaseComponent component, ref ResearchRegistrationChangedEvent args)
@@ -188,6 +179,7 @@ public sealed partial class ResearchSystem
         component.CurrentTechnologyCards = new List<string>();
         component.SupportedDisciplines = new List<ProtoId<TechDisciplinePrototype>>();
         component.UnlockedTechnologies = new List<ProtoId<TechnologyPrototype>>();
+        component.RevealedTechnologies = new List<ProtoId<TechnologyPrototype>>(); // <Onyx-TechDiscovery>
         component.UnlockedRecipes = new List<ProtoId<LatheRecipePrototype>>();
         Dirty(uid, component);
     }

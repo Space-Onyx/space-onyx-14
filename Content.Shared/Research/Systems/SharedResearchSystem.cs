@@ -64,8 +64,10 @@ public abstract partial class SharedResearchSystem : EntitySystem
 
     public bool IsTechnologyAvailable(TechnologyDatabaseComponent component, TechnologyPrototype tech, Dictionary<string, int>? disciplineTiers = null)
     {
-        if (tech.Hidden)
+        // <Onyx-TechDiscovery-edited>
+        if (tech.Hidden && !component.RevealedTechnologies.Contains(tech.ID))
             return false;
+        // </Onyx-TechDiscovery-edited>
 
         if (!component.SupportedDisciplines.Contains(tech.Discipline))
             return false;
@@ -167,8 +169,10 @@ public abstract partial class SharedResearchSystem : EntitySystem
 
         if (includeCost)
         {
-            description.AddMarkupOrThrow(Loc.GetString("research-console-cost", ("amount", technology.Cost)));
+            // <Onyx-ResearchPointTypes-edited>
+            description.AddMarkupOrThrow(FormatTechnologyCosts(technology));
             description.PushNewline();
+            // </Onyx-ResearchPointTypes-edited>
         }
 
         if (includePrereqs && technology.TechnologyPrerequisites.Any())

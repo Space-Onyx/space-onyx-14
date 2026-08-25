@@ -55,7 +55,7 @@ public sealed partial class ResearchSystem
             var message = Loc.GetString(
                 "research-console-unlock-technology-radio-broadcast",
                 ("technology", Loc.GetString(technologyPrototype.Name)),
-                ("amount", technologyPrototype.Cost),
+                ("amount", FormatTechnologyCosts(technologyPrototype)), // <Onyx-ResearchPointTypes-edited>
                 ("approver", _identity.GetIdentityShortInfo(act, uid) ?? string.Empty)
             );
             _radio.SendRadioMessage(uid, message, component.AnnouncementChannel, uid, escapeMarkup: false);
@@ -80,7 +80,12 @@ public sealed partial class ResearchSystem
         if (TryGetClientServer(uid, out _, out var serverComponent, clientComponent))
         {
             var points = clientComponent.ConnectedToServer ? serverComponent.Points : 0;
-            state = new ResearchConsoleBoundInterfaceState(points, new(serverComponent.NetworkLogs)); // <Onyx-ResearchNetworks-edited>
+            // <Onyx-ResearchPointTypes-edited>
+            state = new ResearchConsoleBoundInterfaceState(
+                points,
+                new(serverComponent.NetworkLogs),
+                clientComponent.ConnectedToServer ? new(serverComponent.PointBalances) : new());
+            // </Onyx-ResearchPointTypes-edited>
         }
         else
         {

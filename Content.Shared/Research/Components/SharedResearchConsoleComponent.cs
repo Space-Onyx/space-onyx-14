@@ -31,13 +31,15 @@ namespace Content.Shared.Research.Components
     {
         public int Points;
         public List<ResearchNetworkLogEntry> Logs; // <Onyx-ResearchNetworks>
+        public List<ResearchPointAmount> PointBalances; // <Onyx-ResearchPointTypes>
 
-        // <Onyx-ResearchNetworks-edited>
-        public ResearchConsoleBoundInterfaceState(int points, List<ResearchNetworkLogEntry>? logs = null)
+        // <Onyx-ResearchPointTypes-edited>
+        public ResearchConsoleBoundInterfaceState(int points, List<ResearchNetworkLogEntry>? logs = null, List<ResearchPointAmount>? pointBalances = null)
         {
             Points = points;
             Logs = logs ?? new();
+            PointBalances = pointBalances ?? new();
         }
-        // </Onyx-ResearchNetworks-edited>
+        // </Onyx-ResearchPointTypes-edited>
     }
 }

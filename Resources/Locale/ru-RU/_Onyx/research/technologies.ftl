@@ -37,3 +37,17 @@ research-technology-suit-module-industrial = Промышленные модул
 research-technology-suit-module-advanced = Продвинутые модули скафандра
 research-technology-crystallizer = Кристаллизатор
 research-technology-accessibility = Технологии помощи экипажу
+research-technology-destructive-analysis = Деструктивный анализ
+
+research-technology-telecommunication = Телекоммуникации
+research-technology-advanced-telecommunication = Продвинутые телекоммуникации
+research-technology-medicalscanning = Медицинское сканирование
+research-technology-biomass = Переработка биомассы
+research-technology-medicalbiofabricator = Медицинский биофабрикатор
+research-technology-dna-hydroponics = ДНК-гидропоника
+research-technology-music = Музыкальная индустрия
+research-technology-advanced-smes = Продвинутые СМЭС
+research-technology-borg-salvage-equipment = Шахтёрское оборудование боргов
+research-technology-expeditions = Экспедиции
+research-technology-artifact-pinpointing = Артефактные пинпоинтеры
+research-technology-anomaly-pinpointing = Пинпоинтеры аномалий

@@ -1,0 +1,9 @@
+- type: researchPointType
+  id: General
+  name: research-point-type-general
+  color: "#BA87E8"
+
+- type: researchPointType
+  id: Experimental
+  name: research-point-type-experimental
+  color: "#51B4FF"

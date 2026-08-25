@@ -28,7 +28,7 @@
     - AnomalyLocatorWide
     - APECircuitboard
     - AnomalyVesselCircuitboard
-  position: -1,1
+  position: -1,2
   technologyPrerequisites:
     - BasicRobotics
 - type: technology
@@ -44,7 +44,7 @@
     - NodeScanner
     - AnalysisComputerCircuitboard
     - ArtifactAnalyzerMachineCircuitboard
-  position: 0,2
+  position: 1,2
   technologyPrerequisites:
     - BasicRobotics
 - type: technology
@@ -58,7 +58,7 @@
   cost: 5000
   recipeUnlocks:
     - TechDiskComputerCircuitboard
-  position: 0,-1
+  position: 0,0
   technologyPrerequisites:
     - BasicRobotics
 - type: technology
@@ -73,9 +73,9 @@
   recipeUnlocks:
     - ClothingShoesBootsMagSci
     - ClothingShoesBootsMoon
-  position: -2,-1
+  position: -1,1
   technologyPrerequisites:
-    - AlternativeResearch
+    - BasicAnomalousResearch
 - type: technology
   id: AnomalyCoreHarnessing
   name: research-technology-anomaly-harnessing
@@ -87,9 +87,9 @@
   cost: 10000
   recipeUnlocks:
     - WeaponGauntletGorilla
-  position: -1,2
+  position: -2,4
   technologyPrerequisites:
-    - BasicAnomalousResearch
+    - AdvancedAnomalyResearch
 - type: technology
   id: AbnormalArtifactManipulation
   name: research-technology-abnormal-artifact-manipulation
@@ -101,7 +101,7 @@
   cost: 5000
   recipeUnlocks:
     - ArtifactCrusherMachineCircuitboard
-  position: 0,3
+  position: 2,4
   technologyPrerequisites:
     - BasicXenoArcheology
 - type: technology
@@ -112,14 +112,19 @@
     state: base
   discipline: Experimental
   tier: 2
-  cost: 10000
   recipeUnlocks:
     - WeaponPistolCHIMP
     - AnomalySynchronizerCircuitboard
     - AnomalyVesselExperimentalCircuitboard
-  position: -2,2
+  position: -2,3
   technologyPrerequisites:
-    - AnomalyCoreHarnessing
+    - BasicAnomalousResearch
+  hidden: false
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 400
 - type: technology
   id: DeterrenceTechnologies
   name: research-technology-deterrence
@@ -132,10 +137,9 @@
   recipeUnlocks:
     - WeaponParticleDecelerator
     - HoloprojectorField
-  position: -2,3
+  position: 1,6
   technologyPrerequisites:
-    - AdvancedAnomalyResearch
-    - AbnormalArtifactManipulation
+    - BluespaceTheory
 - type: technology
   id: GravityManipulation
   name: research-technology-gravity-manipulation
@@ -148,10 +152,10 @@
   recipeUnlocks:
     - WeaponForceGun
     - WeaponTetherGun
-  position: -2,1
+  position: 0,4
   technologyPrerequisites:
-    - MagnetsTech
-    - AdvancedAnomalyResearch
+    - AnomalyCoreHarnessing
+    - AbnormalArtifactManipulation
 - type: technology
   id: QuantumLeaping
   name: research-technology-quantum-leaping
@@ -160,12 +164,16 @@
     state: icon
   discipline: Experimental
   tier: 3
-  cost: 10000
   recipeUnlocks:
     - DeviceQuantumSpinInverter
-  position: -5,4
+  position: 0,6
   technologyPrerequisites:
     - BluespaceTheory
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 1000
 - type: technology
   id: BluespaceTimeManipulation
   name: research-technology-bluespace-time-manipulation
@@ -177,9 +185,14 @@
   cost: 10000
   recipeUnlocks:
     - DeviceDesynchronizer
-  position: -5,3
+  position: 0,7
   technologyPrerequisites:
     - QuantumLeaping
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 1000
 - type: technology
   id: TeleSci
   name: research-technology-telesci
@@ -189,10 +202,15 @@
   discipline: Experimental
   tier: 3
   cost: 10000
-  position: -4,5
+  position: -1,6
   technologyPrerequisites:
     - BluespaceTheory
   recipeUnlocks:
     - StationTeleportersControlCircuitboard
     - StationTeleporterMachineCircuitboard
     - TeleporterChipBlank
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 900

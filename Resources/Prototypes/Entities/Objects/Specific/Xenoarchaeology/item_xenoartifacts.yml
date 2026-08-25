@@ -139,6 +139,21 @@
     price: 0
   - type: Stack
     stackType: ArtifactFragment
+  # <Onyx-DestructiveAnalyzer>
+  - type: ResearchAnalyzable
+    supportedMethods:
+    - Deconstruct
+    methodPointRewards:
+      Deconstruct:
+      - type: General
+        amount: 250
+      - type: Experimental
+        amount: 30
+    unlockTechnologies:
+    - ArtifactPinpointers
+    revealTechnologies:
+    - ArtifactPinpointers
+  # </Onyx-DestructiveAnalyzer>
   - type: GuideHelp
     guides:
     - Xenoarchaeology

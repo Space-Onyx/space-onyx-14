@@ -199,24 +199,10 @@ public sealed partial class ResearchSystem
     /// <param name="component"></param>
     public void ModifyServerPoints(EntityUid uid, int points, ResearchServerComponent? component = null)
     {
-        if (points == 0)
-            return;
-
-        // <Onyx-ResearchNetworks-edited>
-        if (!Resolve(uid, ref component) ||
-            !TryGetNetworkAuthority(uid, out var authority, out var authorityComponent, component))
-            return;
-        var previousPoints = authorityComponent.Points;
-        authorityComponent.Points = Math.Max(0, authorityComponent.Points + points);
-        var actualDelta = authorityComponent.Points - previousPoints;
-        var ev = new ResearchServerPointsChangedEvent(authority, authorityComponent.Points, actualDelta);
-        foreach (var client in GetNetworkClients(authority, authorityComponent))
-        {
-            RaiseLocalEvent(client, ref ev);
-        }
-        Dirty(authority, authorityComponent);
-        SynchronizeNetwork(authority, authorityComponent);
-        // </Onyx-ResearchNetworks-edited>
+        // <Onyx-ResearchPointTypes-edited>
+        // Typed balances are authoritative; the legacy Points field mirrors the General balance.
+        ModifyServerPoints(uid, ResearchPointAmount.General, points, component);
+        // </Onyx-ResearchPointTypes-edited>
     }
 
     // <Onyx-ResearchNetworks>

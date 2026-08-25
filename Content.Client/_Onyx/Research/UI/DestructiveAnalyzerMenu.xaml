@@ -1,0 +1,69 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls;assembly=Content.Client"
+                      Title="{Loc 'research-machine-destructive-window-title'}"
+                      SetSize="600 540"
+                      MinSize="520 440">
+    <ScrollContainer Margin="8" ReturnMeasure="True" VerticalExpand="True" HScrollEnabled="False">
+        <BoxContainer Name="RootContainer" Orientation="Vertical" SeparationOverride="8">
+
+            <PanelContainer HorizontalExpand="True">
+                <PanelContainer.PanelOverride>
+                    <gfx:StyleBoxFlat BackgroundColor="#20232A" BorderColor="#454B57" BorderThickness="1"/>
+                </PanelContainer.PanelOverride>
+                <BoxContainer Name="ServerContainer" Orientation="Vertical" Margin="10 8" SeparationOverride="4">
+                    <BoxContainer Orientation="Horizontal" SeparationOverride="8">
+                        <Label Name="ServerLabel" StyleClasses="LabelHeading" Modulate="#C7D5E0" HorizontalExpand="True" VerticalAlignment="Center"/>
+                        <Button Name="ServerButton" Text="{Loc 'research-machine-common-server-list'}" VerticalAlignment="Center"/>
+                    </BoxContainer>
+                    <PanelContainer StyleClasses="LowDivider"/>
+                    <RichTextLabel Name="BalanceLabel"/>
+                </BoxContainer>
+            </PanelContainer>
+
+            <PanelContainer HorizontalExpand="True">
+                <PanelContainer.PanelOverride>
+                    <gfx:StyleBoxFlat BackgroundColor="#1B1E24" BorderColor="#3F4651" BorderThickness="1"/>
+                </PanelContainer.PanelOverride>
+                <BoxContainer Name="SampleContainer" Orientation="Vertical" Margin="10 8" SeparationOverride="4">
+                    <Label Text="{Loc 'research-machine-common-sample-title'}" Modulate="#C7D5E0"/>
+                    <PanelContainer StyleClasses="LowDivider"/>
+                    <BoxContainer Orientation="Horizontal" SeparationOverride="12" Margin="0 4 0 0">
+                        <PanelContainer MinSize="112 112" VerticalAlignment="Top">
+                            <PanelContainer.PanelOverride>
+                                <gfx:StyleBoxFlat BackgroundColor="#16191F" BorderColor="#353B45" BorderThickness="1"/>
+                            </PanelContainer.PanelOverride>
+                            <SpriteView Name="InsertedItemSprite" SetSize="96 96" Scale="3 3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </PanelContainer>
+                        <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="6">
+                            <Label Text="{Loc 'research-machine-common-method-title'}" Modulate="#C7D5E0"/>
+                            <OptionButton Name="MethodOption" HorizontalExpand="True" MinHeight="32"/>
+                            <Button Name="AnalyzeButton"
+                                    Text="{Loc 'research-machine-destructive-run'}"
+                                    HorizontalExpand="True"
+                                    MinHeight="36"/>
+                            <Button Name="EjectButton"
+                                    Text="{Loc 'research-machine-eject-button'}"
+                                    HorizontalExpand="True"
+                                    MinHeight="36"/>
+                        </BoxContainer>
+                    </BoxContainer>
+                    <RichTextLabel Name="InsertedItemLabel" Margin="0 4 0 0"/>
+                </BoxContainer>
+            </PanelContainer>
+
+            <PanelContainer HorizontalExpand="True">
+                <PanelContainer.PanelOverride>
+                    <gfx:StyleBoxFlat BackgroundColor="#1B1E24" BorderColor="#3F4651" BorderThickness="1"/>
+                </PanelContainer.PanelOverride>
+                <BoxContainer Name="LogContainer" Orientation="Vertical" Margin="10 8" SeparationOverride="4">
+                    <Label Text="{Loc 'research-machine-common-last-operation-title'}" Modulate="#C7D5E0"/>
+                    <PanelContainer StyleClasses="LowDivider"/>
+                    <RichTextLabel Name="LastSubjectLabel" Margin="0 2 0 0"/>
+                    <RichTextLabel Name="LastResultLabel"/>
+                </BoxContainer>
+            </PanelContainer>
+
+        </BoxContainer>
+    </ScrollContainer>
+</controls:FancyWindow>

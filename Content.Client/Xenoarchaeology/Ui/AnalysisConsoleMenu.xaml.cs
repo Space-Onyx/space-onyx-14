@@ -4,6 +4,7 @@ using Content.Client.Resources;
 using Content.Client.UserInterface.Controls;
 using Content.Client.Xenoarchaeology.Artifact;
 using Content.Client.Xenoarchaeology.Equipment;
+using Content.Shared.CCVar;
 using Content.Shared.Xenoarchaeology.Artifact.Components;
 using Content.Shared.Xenoarchaeology.Equipment.Components;
 using Robust.Client.Audio;
@@ -13,6 +14,7 @@ using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Audio;
+using Robust.Shared.Configuration;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
@@ -26,6 +28,7 @@ public sealed partial class AnalysisConsoleMenu : FancyWindow
     [Dependency] private IEntityManager _ent = default!;
     [Dependency] private IResourceCache _resCache = default!;
     [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IConfigurationManager _config = default!;
 
     private readonly ArtifactAnalyzerSystem _artifactAnalyzer;
     private readonly XenoArtifactSystem _xenoArtifact;
@@ -93,6 +96,8 @@ public sealed partial class AnalysisConsoleMenu : FancyWindow
         NodeViewContainer.Visible = false;
 
         _extractionSum = 0;
+        var experimentalSum = 0; // <Onyx-ArtifactExperimental>
+        var experimentalReward = _config.GetCVar(CCVars.ArtifactNodeExperimentalReward); // <Onyx-ArtifactExperimental>
         var extractionMessage = new FormattedMessage();
 
         var nodes = _xenoArtifact.GetAllNodes(artifact.Value);
@@ -105,6 +110,8 @@ public sealed partial class AnalysisConsoleMenu : FancyWindow
                 continue;
 
             count++;
+            _extractionSum += pointValue; // <Onyx-ArtifactExperimental>
+            experimentalSum += experimentalReward; // <Onyx-ArtifactExperimental>
 
             var nodeId = _xenoArtifact.GetNodeId(node);
 
@@ -120,7 +127,11 @@ public sealed partial class AnalysisConsoleMenu : FancyWindow
 
         ExtractionResearchLabel.SetMessage(extractionMessage);
 
-        ExtractionSumLabel.SetMarkup(Loc.GetString("analysis-console-extract-sum", ("value", _extractionSum)));
+        // <Onyx-ArtifactExperimental>
+        var sumText = Loc.GetString("analysis-console-extract-sum", ("value", _extractionSum));
+        var experimentalText = Loc.GetString("analysis-console-extract-experimental", ("value", experimentalSum));
+        ExtractionSumLabel.SetMarkup($"{sumText}\n{experimentalText}");
+        // </Onyx-ArtifactExperimental>
 
         _audio.PlayGlobal(_owner.Comp.ScanFinishedSound, _owner, AudioParams.Default.WithVolume(1f));
         OnExtractButtonPressed?.Invoke();

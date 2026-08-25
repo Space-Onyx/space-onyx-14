@@ -9,10 +9,8 @@
   cost: 7500
   recipeUnlocks:
     - PinpointerOnyx
-    - PinpointerArtifact
-    - PinpointerAnomaly
     - PinpointerBorg
-  position: 1,-1
+  position: 1,0
   technologyPrerequisites:
     - AlternativeResearch
 - type: technology
@@ -51,7 +49,7 @@
   cost: 10000
   recipeUnlocks:
     - ClothingEyesNightVisionGoggles
-  position: -4,-2
+  position: -2,1
   technologyPrerequisites:
     - ModsuitsTech
 - type: technology
@@ -65,7 +63,7 @@
   cost: 10000
   recipeUnlocks:
     - ClothingEyesThermalVisionGoggles
-  position: -4,-1
+  position: -2,2
   technologyPrerequisites:
     - ModsuitsTech
 - type: technology
@@ -88,7 +86,12 @@
   position: -3,0
   technologyPrerequisites:
     - AdvancedRobotics
-    - MagnetsTech
+    - IndustrialEngineering
+  pointCosts:
+    - type: General
+      amount: 5000
+    - type: Experimental
+      amount: 500
 - type: technology
   id: Xenobiology
   name: research-technology-xenobiology
@@ -114,12 +117,17 @@
     state: bluespace_crystal
   discipline: Experimental
   tier: 1
-  cost: 7500
+  hidden: true
   recipeUnlocks:
     - MaterialBSCrystal
-  position: -4,4
+  position: 0,5
   technologyPrerequisites:
-    - DeterrenceTechnologies
+    - GravityManipulation
+  pointCosts:
+    - type: General
+      amount: 7500
+    - type: Experimental
+      amount: 800
 - type: technology
   id: XenobagHolding
   name: research-technology-xenobag-holding
@@ -131,10 +139,14 @@
   cost: 10000
   recipeUnlocks:
     - ClothingBeltChemBagXenobiologyHolding
-  position: 1,4
+  position: 2,1
   technologyPrerequisites:
     - Xenobiology
-    - BluespaceTheory
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 900
 - type: technology
   id: SuitModuleUtility
   name: research-technology-suit-module-utility
@@ -153,9 +165,14 @@
     - FlashlightSuitModule
     - HolsterSuitModule
     - PaperDispenserSuitModule
-  position: -4,0
+  position: -4,1
   technologyPrerequisites:
     - ModsuitsTech
+  pointCosts:
+    - type: General
+      amount: 7500
+    - type: Experimental
+      amount: 300
 - type: technology
   id: SuitModuleIndustrial
   name: research-technology-suit-module-industrial
@@ -179,10 +196,10 @@
     - QuickCarrySuitModule
     - GrabberSuitModule
     - MicrowaveBeamSuitModule
-  position: -3,1
+  position: -4,0
   technologyPrerequisites:
     - ModsuitsTech
-    - SalvageEquipment
+  pointCosts: []
 - type: technology
   id: SuitModuleAdvanced
   name: research-technology-suit-module-advanced
@@ -203,8 +220,70 @@
     - TeleporterSuitModule
     - BurgerDispenserSuitModule
     - ArmorBoosterSuitModule
-  position: -4,1
+  position: -3,1
   technologyPrerequisites:
+    - ModsuitsTech
     - SuitModuleUtility
-    - SuitModuleIndustrial
-    - BluespaceTheory
+  pointCosts:
+    - type: General
+      amount: 15000
+    - type: Experimental
+      amount: 1200
+- type: technology
+  id: DestructiveAnalysis
+  name: research-technology-destructive-analysis
+  icon:
+    sprite: _Onyx/Structures/Machines/destructive_analyzer.rsi
+    state: icon
+  discipline: Experimental
+  tier: 1
+  pointCosts:
+    - type: General
+      amount: 7500
+    - type: Experimental
+      amount: 500
+  recipeUnlocks:
+    - ResearchDestructiveAnalyzerMachineCircuitboard
+  position: 1,-1
+  technologyPrerequisites:
+    - AlternativeResearch
+- id: ArtifactPinpointers
+  name: research-technology-artifact-pinpointing
+  type: technology
+  discipline: Experimental
+  position: 1,3
+  recipeUnlocks:
+    - PinpointerArtifact
+  icon:
+    sprite: Objects/Specific/Xenoarchaeology/item_artifacts.rsi
+    state: ano06
+  hidden: true
+  pointCosts:
+    - type: General
+      amount: 2000
+    - type: Experimental
+      amount: 500
+  tier: 1
+  technologyPrerequisites:
+    - BasicXenoArcheology
+  requiredItemsToUnlock:
+    - ComplexXenoArtifactItem
+- id: AnomalyPinpointers
+  name: research-technology-anomaly-pinpointing
+  type: technology
+  discipline: Experimental
+  position: -1,3
+  recipeUnlocks:
+    - PinpointerAnomaly
+  icon:
+    sprite: Objects/Specific/Research/anomalylocatorwide.rsi
+    state: icon
+  hidden: true
+  pointCosts:
+    - type: General
+      amount: 2000
+    - type: Experimental
+      amount: 500
+  tier: 1
+  technologyPrerequisites:
+    - BasicAnomalousResearch

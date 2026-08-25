@@ -40,3 +40,5 @@ analysis-console-extract-none = [font="Monospace" size=11][color=orange] У ра
 analysis-console-extract-sum = [font="Monospace" size=11][color=orange]Всего изучено: { $value }[/color][/font]
 
 analyzer-artifact-extract-popup = Поверхность артефакта мерцает энергией!
+
+analysis-console-extract-experimental = Экспериментальные: {$value}

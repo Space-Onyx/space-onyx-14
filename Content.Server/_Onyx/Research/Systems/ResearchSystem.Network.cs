@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Content.Shared._Onyx.Research;
 using Content.Shared.Research.Components;
 using Content.Shared.Research.Prototypes;
@@ -148,6 +148,7 @@ public sealed partial class ResearchSystem
                     continue;
 
                 member.Comp.Points = authorityComponent.Points;
+                member.Comp.PointBalances = new(authorityComponent.PointBalances);
                 member.Comp.NextUpdateTime = authorityComponent.NextUpdateTime;
                 member.Comp.NetworkLogs = new(authorityComponent.NetworkLogs);
                 Dirty(member.Owner, member.Comp);
@@ -171,6 +172,7 @@ public sealed partial class ResearchSystem
         targetDatabase.CurrentTechnologyCards = new(sourceDatabase.CurrentTechnologyCards);
         targetDatabase.SupportedDisciplines = new(sourceDatabase.SupportedDisciplines);
         targetDatabase.UnlockedTechnologies = new(sourceDatabase.UnlockedTechnologies);
+        targetDatabase.RevealedTechnologies = new(sourceDatabase.RevealedTechnologies);
         targetDatabase.UnlockedRecipes = new(sourceDatabase.UnlockedRecipes);
         Dirty(target, targetDatabase);
     }
@@ -207,6 +209,7 @@ public sealed partial class ResearchSystem
         if (authority != server)
         {
             component.Points = authorityComponent.Points;
+            component.PointBalances = new(authorityComponent.PointBalances);
             component.NetworkLogs = new(authorityComponent.NetworkLogs);
             Dirty(server, component);
 
@@ -223,6 +226,7 @@ public sealed partial class ResearchSystem
             return;
 
         component.Points = source.Comp.Points;
+        component.PointBalances = new(source.Comp.PointBalances);
         component.NextUpdateTime = source.Comp.NextUpdateTime;
         component.NetworkLogs = new(source.Comp.NetworkLogs);
         Dirty(server, component);
@@ -342,6 +346,7 @@ public sealed partial class ResearchSystem
     private void ResetNetworkMember(EntityUid server, ResearchServerComponent component)
     {
         component.Points = 0;
+        component.PointBalances = new() { new(ResearchPointAmount.General, 0) };
         component.NetworkLogs.Clear();
         component.NextUpdateTime = _timing.CurTime + component.ResearchConsoleUpdateTime;
         Dirty(server, component);
@@ -352,6 +357,7 @@ public sealed partial class ResearchSystem
         database.MainDiscipline = null;
         database.CurrentTechnologyCards.Clear();
         database.UnlockedTechnologies.Clear();
+        database.RevealedTechnologies.Clear();
         database.UnlockedRecipes.Clear();
         UpdateTechnologyCards(server, database);
         Dirty(server, database);

@@ -33,6 +33,21 @@
     timeToDecay: 600
     startPrice: 10000
     endPrice: 200
+  # <Onyx-DestructiveAnalyzer>
+  - type: ResearchAnalyzable
+    supportedMethods:
+    - Deconstruct
+    methodPointRewards:
+      Deconstruct:
+      - type: General
+        amount: 900
+      - type: Experimental
+        amount: 500
+    unlockTechnologies:
+    - AnomalyPinpointers
+    revealTechnologies:
+    - AnomalyPinpointers
+  # </Onyx-DestructiveAnalyzer>
 
 - type: entity
   parent: BaseAnomalyCore

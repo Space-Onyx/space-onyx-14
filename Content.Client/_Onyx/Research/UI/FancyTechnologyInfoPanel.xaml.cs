@@ -50,7 +50,11 @@ public sealed partial class FancyTechnologyInfoPanel : Control
             _ => (Color?) null
         };
         TechnologyCostLabel.SetMessage(
-            FormattedMessage.FromMarkupOrThrow(Loc.GetString("research-console-cost", ("amount", Prototype.Cost))),
+            FormattedMessage.FromMarkupOrThrow(Loc.GetString("research-console-tech-cost-label",
+                ("amount", ResearchPointUiHelpers.BuildCostMarkup(
+                    Prototype,
+                    _entity.System<ResearchSystem>(),
+                    _prototype)))),
             defaultColor: color);
         ResearchButton.Disabled = !hasAccess || availability != ResearchAvailability.Available;
     }

@@ -10,7 +10,8 @@
   recipeUnlocks:
     - FillableMedipen
     - MachineMedipenRefillerCircuitboard
-  position: 1,2
+    - AdvancedJetInjector
+  position: 1,1
   technologyPrerequisites:
     - BiochemicalStasis
 - type: technology
@@ -21,14 +22,19 @@
     state: pod_0
   discipline: CivilianServices
   tier: 3
-  cost: 20000
   recipeUnlocks:
     - CloningConsoleComputerCircuitboard
     - CloningPodMachineCircuitboard
-    - MedicalScannerMachineCircuitboard
-  position: 3,1
+  position: 4,0
   technologyPrerequisites:
+    - MedicalScanning
     - BluespaceChemistry
+    - MedicalBioFabricator
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 1500
 - type: technology
   id: RescueTechnology
   name: research-technology-rescue
@@ -37,9 +43,13 @@
     state: scanner
   discipline: CivilianServices
   tier: 1
-  cost: 7500
   recipeUnlocks:
     - HandheldCrewMonitor
-  position: 3,3
+  position: 1,-1
   technologyPrerequisites:
     - BiochemicalStasis
+  pointCosts:
+    - type: General
+      amount: 8000
+    - type: Experimental
+      amount: 800

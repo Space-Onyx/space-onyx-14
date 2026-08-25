@@ -24,6 +24,9 @@
   - type: PhysicalComposition
     materialComposition:
       BSCrystal: 100
+  - type: ResearchAnalyzable
+    revealTechnologies:
+    - BluespaceTheory
   - type: RandomTeleportOnUse
     radius: 2, 5
   - type: Tag

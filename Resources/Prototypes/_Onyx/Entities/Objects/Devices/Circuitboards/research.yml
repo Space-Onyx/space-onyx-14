@@ -8,3 +8,17 @@
     state: cpu_science
   - type: ComputerBoard
     prototype: ComputerResearchServerControl
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: ResearchDestructiveAnalyzerMachineCircuitboard
+  name: destructive analyzer machine board
+  description: A machine printed circuit board for the destructive analyzer.
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: ResearchDestructiveAnalyzer
+    stackRequirements:
+      Manipulator: 1
+      Glass: 5

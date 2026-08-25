@@ -37,3 +37,18 @@ research-technology-suit-module-industrial = Industrial suit modules
 research-technology-suit-module-advanced = Advanced suit modules
 research-technology-crystallizer = Crystallizer
 research-technology-accessibility = Crew Assistance Technologies
+
+research-technology-destructive-analysis = Destructive Analysis
+research-technology-telecommunication = Telecommunications
+research-technology-advanced-telecommunication = Advanced Telecommunications
+research-technology-medicalscanning = Medical Scanning
+research-technology-biomass = Biomass Processing
+research-technology-medicalbiofabricator = Medical Biofabricator
+research-technology-dna-hydroponics = DNA Hydroponics
+research-technology-music = Music Industry
+
+research-technology-advanced-smes = Advanced SMES
+research-technology-borg-salvage-equipment = Borg Salvage Equipment
+research-technology-expeditions = Expeditions
+research-technology-artifact-pinpointing = Artifact Pinpointers
+research-technology-anomaly-pinpointing = Anomaly Pinpointers

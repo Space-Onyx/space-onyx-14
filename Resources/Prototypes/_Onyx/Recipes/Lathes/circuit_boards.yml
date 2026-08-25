@@ -143,6 +143,14 @@
   result: SecurityTechFabCircuitboard
 
 - type: latheRecipe
+  parent: [ BaseGoldCircuitboardRecipe, BaseResearchMachineRecipeCategory ]
+  icon:
+    sprite: _Onyx/Structures/Machines/destructive_analyzer.rsi
+    state: icon
+  id: ResearchDestructiveAnalyzerMachineCircuitboard
+  result: ResearchDestructiveAnalyzerMachineCircuitboard
+
+- type: latheRecipe
   parent: BaseGoldCircuitboardRecipe
   id: RadiationCollectorCircuitboard
   result: RadiationCollectorCircuitboard
