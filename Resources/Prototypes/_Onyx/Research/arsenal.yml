@@ -246,6 +246,7 @@
   type: technology
   discipline: Arsenal
   position: 4,5
+  tier: 3
   recipeUnlocks:
     - WeaponMechCombatImmolationGun
   icon:
