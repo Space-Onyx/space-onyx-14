@@ -15,6 +15,7 @@ public sealed partial class FancyResearchConsoleItem : LayoutContainer
     public readonly Vector2 TreePosition;
     public event Action<TechnologyPrototype, ResearchAvailability>? SelectAction;
     public readonly ResearchAvailability Availability;
+    public Texture? ResearchTexture => ResearchDisplay.Texture;
 
     private Color _color;
     private Color _hoveredColor;

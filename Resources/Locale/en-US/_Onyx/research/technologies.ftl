@@ -1,3 +1,5 @@
+research-discipline-biochemical = Biochemistry
+
 research-technology-advanced-robotics = Advanced robotics
 research-technology-modsuits = Modular Technologies
 research-technology-pinpointing = Pinpointing Technologies

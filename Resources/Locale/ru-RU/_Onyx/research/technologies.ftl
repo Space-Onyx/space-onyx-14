@@ -1,3 +1,5 @@
+research-discipline-biochemical = БиоХимия
+
 research-technology-advanced-robotics = Продвинутая робототехника
 research-technology-modsuits = Модульные технологии
 research-technology-pinpointing = Технологии точного обнаружения
