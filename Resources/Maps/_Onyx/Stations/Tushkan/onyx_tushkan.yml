@@ -41384,6 +41384,7 @@ entities:
   - uid: 5137
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -16.5,-19.5
     - type: DeviceNetwork
@@ -41408,6 +41409,7 @@ entities:
   - uid: 5140
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -7.5,-24.5
     - type: DeviceNetwork
@@ -41416,6 +41418,7 @@ entities:
   - uid: 5141
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -11.5,-29.5
     - type: DeviceNetwork
@@ -41424,6 +41427,7 @@ entities:
   - uid: 5142
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -10.5,-14.5
     - type: DeviceNetwork
@@ -41432,6 +41436,7 @@ entities:
   - uid: 5143
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -16.5,-24.5
     - type: DeviceNetwork
@@ -41440,6 +41445,7 @@ entities:
   - uid: 5144
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -7.5,-29.5
     - type: DeviceNetwork
@@ -41469,6 +41475,7 @@ entities:
   - uid: 5148
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -7.5,-33.5
     - type: DeviceNetwork
@@ -41477,6 +41484,7 @@ entities:
   - uid: 5149
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -24.5,21.5
     - type: DeviceNetwork
@@ -41485,6 +41493,7 @@ entities:
   - uid: 5150
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -7.5,38.5
     - type: DeviceNetwork
@@ -41502,6 +41511,7 @@ entities:
   - uid: 5152
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 8.5,33.5
     - type: DeviceNetwork
@@ -41534,6 +41544,7 @@ entities:
   - uid: 5156
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 8.5,38.5
     - type: DeviceNetwork
@@ -41574,6 +41585,7 @@ entities:
   - uid: 5161
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -1.5,19.5
     - type: DeviceNetwork
@@ -41582,6 +41594,7 @@ entities:
   - uid: 5162
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -7.5,32.5
   - uid: 5163
@@ -41611,6 +41624,7 @@ entities:
   - uid: 5166
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 2.5,22.5
     - type: DeviceNetwork
@@ -41653,6 +41667,7 @@ entities:
   - uid: 5171
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -10.5,24.5
     - type: DeviceNetwork
@@ -41762,6 +41777,7 @@ entities:
   - uid: 5184
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 33.5,15.5
     - type: DeviceNetwork
@@ -41770,6 +41786,7 @@ entities:
   - uid: 5185
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 33.5,13.5
     - type: DeviceNetwork
@@ -41786,6 +41803,7 @@ entities:
   - uid: 5187
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 33.5,20.5
     - type: DeviceNetwork
@@ -41794,6 +41812,7 @@ entities:
   - uid: 5188
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 24.5,24.5
     - type: DeviceNetwork
@@ -41803,6 +41822,7 @@ entities:
   - uid: 5189
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 24.5,23.5
     - type: DeviceNetwork
@@ -41812,6 +41832,7 @@ entities:
   - uid: 5190
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 26.5,27.5
     - type: DeviceNetwork
@@ -41829,6 +41850,7 @@ entities:
   - uid: 5192
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 26.5,34.5
     - type: DeviceNetwork
@@ -41845,6 +41867,7 @@ entities:
   - uid: 5194
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 30.5,36.5
     - type: DeviceNetwork
@@ -41861,6 +41884,7 @@ entities:
   - uid: 5196
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 2.5,19.5
     - type: DeviceNetwork
@@ -41869,6 +41893,7 @@ entities:
   - uid: 5197
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 8.5,19.5
     - type: DeviceNetwork
@@ -41877,6 +41902,7 @@ entities:
   - uid: 5198
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 11.5,19.5
     - type: DeviceNetwork
@@ -41903,6 +41929,7 @@ entities:
   - uid: 5201
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -7.5,11.5
     - type: DeviceNetwork
@@ -41911,6 +41938,7 @@ entities:
   - uid: 5202
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 8.5,11.5
     - type: DeviceNetwork
@@ -41919,6 +41947,7 @@ entities:
   - uid: 5203
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 8.5,15.5
     - type: DeviceNetwork
@@ -41927,6 +41956,7 @@ entities:
   - uid: 5204
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -7.5,-4.5
     - type: DeviceNetwork
@@ -41935,6 +41965,7 @@ entities:
   - uid: 5205
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -1.5,-3.5
     - type: DeviceNetwork
@@ -41943,6 +41974,7 @@ entities:
   - uid: 5206
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -7.5,-3.5
     - type: DeviceNetwork
@@ -41951,6 +41983,7 @@ entities:
   - uid: 5207
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -24.5,-5.5
     - type: DeviceNetwork
@@ -41959,6 +41992,7 @@ entities:
   - uid: 5208
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -27.5,0.5
     - type: DeviceNetwork
@@ -41991,6 +42025,7 @@ entities:
   - uid: 5212
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -4.5,0.5
     - type: DeviceNetwork
@@ -42016,6 +42051,7 @@ entities:
   - uid: 5215
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -20.5,4.5
     - type: DeviceNetwork
@@ -42024,6 +42060,7 @@ entities:
   - uid: 5216
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -20.5,9.5
     - type: DeviceNetwork
@@ -42032,6 +42069,7 @@ entities:
   - uid: 5217
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -20.5,12.5
     - type: DeviceNetwork
@@ -42040,6 +42078,7 @@ entities:
   - uid: 5218
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -16.5,12.5
     - type: DeviceNetwork
@@ -42056,6 +42095,7 @@ entities:
   - uid: 5220
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -11.5,-4.5
     - type: DeviceNetwork
@@ -42064,6 +42104,7 @@ entities:
   - uid: 5221
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -29.5,8.5
     - type: DeviceNetwork
@@ -42072,6 +42113,7 @@ entities:
   - uid: 5222
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -29.5,5.5
     - type: DeviceNetwork
@@ -42144,6 +42186,7 @@ entities:
   - uid: 5231
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -20.5,33.5
     - type: DeviceNetwork
@@ -42168,6 +42211,7 @@ entities:
   - uid: 5234
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 8.5,0.5
     - type: DeviceNetwork
@@ -42176,6 +42220,7 @@ entities:
   - uid: 5235
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 5.5,0.5
     - type: DeviceNetwork
@@ -42184,6 +42229,7 @@ entities:
   - uid: 5236
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 25.5,3.5
     - type: DeviceNetwork
@@ -42208,6 +42254,7 @@ entities:
   - uid: 5239
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 29.5,3.5
     - type: DeviceNetwork
@@ -42273,6 +42320,7 @@ entities:
   - uid: 5247
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 31.5,-22.5
     - type: DeviceNetwork
@@ -42289,6 +42337,7 @@ entities:
   - uid: 5249
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 7.5,-9.5
     - type: DeviceNetwork
@@ -42325,6 +42374,7 @@ entities:
   - uid: 5253
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 7.5,-7.5
     - type: DeviceNetwork
@@ -42334,6 +42384,7 @@ entities:
   - uid: 5254
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 7.5,-8.5
     - type: DeviceNetwork
@@ -42343,6 +42394,7 @@ entities:
   - uid: 5255
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -6.5,-9.5
     - type: DeviceNetwork
@@ -42352,6 +42404,7 @@ entities:
   - uid: 5256
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -6.5,-8.5
     - type: DeviceNetwork
@@ -42361,6 +42414,7 @@ entities:
   - uid: 5257
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -6.5,-7.5
     - type: DeviceNetwork
@@ -42419,6 +42473,7 @@ entities:
   - uid: 5264
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -24.5,23.5
     - type: DeviceNetwork
@@ -42427,6 +42482,7 @@ entities:
   - uid: 5265
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -24.5,22.5
     - type: DeviceNetwork
@@ -42435,6 +42491,7 @@ entities:
   - uid: 5266
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 11.5,-14.5
     - type: DeviceNetwork
@@ -42467,6 +42524,7 @@ entities:
   - uid: 5270
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 11.5,-19.5
     - type: DeviceNetwork
@@ -42475,6 +42533,7 @@ entities:
   - uid: 5271
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -2.5,-24.5
     - type: DeviceNetwork
@@ -42483,6 +42542,7 @@ entities:
   - uid: 5272
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -11.5,-24.5
     - type: DeviceNetwork
@@ -42491,6 +42551,7 @@ entities:
   - uid: 5273
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -7.5,-36.5
     - type: DeviceNetwork
@@ -42499,6 +42560,7 @@ entities:
   - uid: 5274
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -11.5,-35.5
     - type: DeviceNetwork
@@ -42507,6 +42569,7 @@ entities:
   - uid: 5275
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -24.5,27.5
     - type: DeviceNetwork
@@ -42523,6 +42586,7 @@ entities:
   - uid: 5277
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -28.5,-7.5
     - type: DeviceNetwork
@@ -42532,6 +42596,7 @@ entities:
   - uid: 5278
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -28.5,-8.5
     - type: DeviceNetwork
@@ -42541,6 +42606,7 @@ entities:
   - uid: 5279
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -28.5,-9.5
     - type: DeviceNetwork
@@ -42550,6 +42616,7 @@ entities:
   - uid: 5280
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -20.5,25.5
     - type: DeviceNetwork
@@ -42558,6 +42625,7 @@ entities:
   - uid: 5281
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -20.5,28.5
     - type: DeviceNetwork
@@ -42566,6 +42634,7 @@ entities:
   - uid: 5282
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -8.5,28.5
     - type: DeviceNetwork
@@ -42575,6 +42644,7 @@ entities:
   - uid: 5283
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -36.5,15.5
     - type: DeviceNetwork
@@ -42583,6 +42653,7 @@ entities:
   - uid: 5284
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -36.5,22.5
     - type: DeviceNetwork
@@ -42599,6 +42670,7 @@ entities:
   - uid: 5286
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -27.5,33.5
     - type: DeviceNetwork
@@ -42607,6 +42679,7 @@ entities:
   - uid: 5287
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -32.5,10.5
     - type: DeviceNetwork
@@ -42615,6 +42688,7 @@ entities:
   - uid: 5288
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -27.5,-12.5
     - type: DeviceNetwork
@@ -42623,6 +42697,7 @@ entities:
   - uid: 5289
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -27.5,-15.5
     - type: DeviceNetwork
@@ -42631,6 +42706,7 @@ entities:
   - uid: 5290
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -27.5,-18.5
     - type: DeviceNetwork
@@ -42639,6 +42715,7 @@ entities:
   - uid: 5291
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -23.5,-17.5
     - type: DeviceNetwork
@@ -42647,6 +42724,7 @@ entities:
   - uid: 5292
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -23.5,-13.5
     - type: DeviceNetwork
@@ -42663,6 +42741,7 @@ entities:
   - uid: 5294
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 9.5,29.5
     - type: DeviceNetwork
@@ -42672,6 +42751,7 @@ entities:
   - uid: 5295
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 9.5,28.5
     - type: DeviceNetwork
@@ -42681,6 +42761,7 @@ entities:
   - uid: 5296
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 9.5,27.5
     - type: DeviceNetwork
@@ -42690,6 +42771,7 @@ entities:
   - uid: 5297
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -8.5,27.5
     - type: DeviceNetwork
@@ -42699,6 +42781,7 @@ entities:
   - uid: 5298
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -8.5,29.5
     - type: DeviceNetwork
@@ -63453,6 +63536,7 @@ entities:
   - uid: 7646
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 33.5,8.5
 - proto: PlayerStationAi
@@ -85642,6 +85726,7 @@ entities:
   - uid: 11361
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 26.5,31.5
   - uid: 11362
@@ -85652,11 +85737,13 @@ entities:
   - uid: 11363
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: 3.5,-12.5
   - uid: 11364
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad
       parent: 2
       pos: -2.5,-12.5
 - proto: Wrench
