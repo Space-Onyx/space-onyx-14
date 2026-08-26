@@ -392,7 +392,7 @@
   - type: HTN
     constantlyReplan: false
     rootTask:
-      task: MouseCompound
+      task: PassiveVerminCompound # <Onyx-Rodentia-edited>
   - type: Physics
   - type: Fixtures
     fixtures:
@@ -460,12 +460,6 @@
     damage:
       types:
         Slash: 1 # <Onyx-Rodentia-edited>
-  # <Onyx-Rodentia>
-  - type: NPCRetaliation
-    attackMemoryLength: 5
-  - type: GroupRetaliation
-    range: 5
-  # </Onyx-Rodentia>
 
 - type: entity
   parent: BaseCockroach
@@ -662,7 +656,7 @@
   - type: CanEscapeInventory
   - type: NpcFactionMember
     factions:
-    - Mouse
+    - SimpleNeutral # <Onyx-Rodentia-edited>
   - type: TypingIndicator
     proto: moth
   - type: Destructible
@@ -3641,6 +3635,14 @@
   - type: MovementSpeedModifier
     baseWalkSpeed: 2
     baseSprintSpeed: 4
+  # <Onyx-Rodentia>
+  - type: NpcFactionMember
+    factions:
+    - PetsNT
+  - type: HTN
+    rootTask:
+      task: SimpleHostileCompound
+  # </Onyx-Rodentia>
 
 - type: entity
   name: calico cat

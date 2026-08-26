@@ -36,7 +36,19 @@
     - tasks:
         - !type:HTNCompoundTask
           task: IdleCompound
-          
+
+# <Onyx-Rodentia>
+- type: htnCompound
+  id: PassiveVerminCompound
+  branches:
+    - tasks:
+        - !type:HTNCompoundTask
+          task: FoodCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: IdleCompound
+# </Onyx-Rodentia>
+
 - type: htnCompound
   id: MoproachCompound
   branches:

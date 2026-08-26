@@ -549,11 +549,11 @@
     size: Tiny
   - type: NpcFactionMember
     factions:
-      - Mouse
+      - SimpleNeutral # <Onyx-Rodentia-edited>
   - type: HTN
     constantlyReplan: false
     rootTask:
-      task: MouseCompound
+      task: PassiveVerminCompound # <Onyx-Rodentia-edited>
   - type: Physics
   - type: Fixtures
     fixtures:
