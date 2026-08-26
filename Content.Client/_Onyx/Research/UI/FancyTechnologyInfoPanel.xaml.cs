@@ -22,6 +22,9 @@ public sealed partial class FancyTechnologyInfoPanel : Control
     public readonly TechnologyPrototype Prototype;
     public event Action<TechnologyPrototype>? BuyAction;
 
+    // Persisted alternative selections of item requirements, surviving UI refreshes.
+    private readonly Dictionary<int, int> _requirementSelections = new();
+
     public FancyTechnologyInfoPanel(
         TechnologyPrototype proto,
         bool hasAccess,
@@ -98,9 +101,12 @@ public sealed partial class FancyTechnologyInfoPanel : Control
         progress.TryGetValue(Prototype.ID, out var completed);
         for (var i = 0; i < Prototype.ResearchRequirements.Count; i++)
         {
+            var index = i;
             ItemRequirementsList.AddChild(new ResearchItemRequirementControl(
                 Prototype.ResearchRequirements[i],
-                completed?.GetValueOrDefault(i) ?? 0,
+                completed?.GetValueOrDefault(index) ?? 0,
+                _requirementSelections.GetValueOrDefault(index),
+                selected => _requirementSelections[index] = selected,
                 _prototype,
                 sprite));
         }

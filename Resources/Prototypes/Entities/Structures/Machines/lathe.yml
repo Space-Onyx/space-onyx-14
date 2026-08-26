@@ -327,13 +327,14 @@
   - type: Lathe
     idleState: fab-idle
     runningState: fab-active
+    # <Onyx-RoboticsDynamic-edited>
     staticPacks:
-    - RoboticsStatic
     - BorgModulesStatic
-    - BorgLimbsStatic
     - MechPartsStatic # <MechProduction>
+    # </Onyx-RoboticsDynamic-edited>
     dynamicPacks:
     - Robotics
+    - BorgLimbs # <Onyx-RoboticsDynamic>
     - BorgModules
     - MechParts
     - MechEquipment

@@ -64,12 +64,17 @@ public abstract partial class SharedResearchSystem
     /// </summary>
     public string FormatTechnologyCosts(TechnologyPrototype technology)
     {
-        var costs = GetTechnologyCosts(technology);
-        if (costs.Count == 1 && costs[0].Type == ResearchPointAmount.General)
-            return Loc.GetString("research-console-cost", ("amount", costs[0].Amount));
+        return FormatPointAmounts(GetTechnologyCosts(technology));
+    }
 
-        var entries = costs.Select(cost => Loc.GetString("research-console-point-cost-entry",
+    /// <summary>
+    /// Builds a player facing text of typed point amounts, e.g. "100 О.И, 50 Э.И".
+    /// </summary>
+    public string FormatPointAmounts(IReadOnlyList<ResearchPointAmount> amounts)
+    {
+        var entries = AggregatePoints(amounts).Select(cost => Loc.GetString("research-console-point-cost-entry",
             ("type", GetPointTypeName(cost.Type)),
+            ("abbreviation", GetPointTypeAbbreviation(cost.Type)),
             ("amount", cost.Amount)));
         return string.Join(", ", entries);
     }
@@ -78,6 +83,18 @@ public abstract partial class SharedResearchSystem
     {
         return ProtoMan.TryIndex<ResearchPointTypePrototype>(type, out var prototype)
             ? Loc.GetString(prototype.Name)
+            : type;
+    }
+
+    /// <summary>
+    /// Returns the short abbreviation of a point type, falling back to its full name.
+    /// </summary>
+    public string GetPointTypeAbbreviation(string type)
+    {
+        return ProtoMan.TryIndex<ResearchPointTypePrototype>(type, out var prototype)
+            ? prototype.Abbreviation is { } abbreviation
+                ? Loc.GetString(abbreviation)
+                : Loc.GetString(prototype.Name)
             : type;
     }
 }

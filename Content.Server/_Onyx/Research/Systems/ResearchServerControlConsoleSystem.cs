@@ -106,8 +106,8 @@ public sealed partial class ResearchServerControlConsoleSystem : EntitySystem
                 authorityComponent.Id,
                 authorityComponent.HashId,
                 server.Comp.GenerationEnabled,
-                _research.GetServerGeneration(server, server.Comp),
-                authorityComponent.Points));
+                _research.GetServerGenerationByType(server, server.Comp),
+                new(authorityComponent.PointBalances)));
 
             if (authority == server.Owner)
                 logs.AddRange(authorityComponent.NetworkLogs);

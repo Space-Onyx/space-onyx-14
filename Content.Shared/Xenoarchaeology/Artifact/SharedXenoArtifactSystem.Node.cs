@@ -6,6 +6,10 @@ using Content.Shared.Xenoarchaeology.Artifact.Prototypes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
+// <Onyx-ArtifactPointTypes>
+using Content.Shared._Onyx.Research;
+// </Onyx-ArtifactPointTypes>
+
 namespace Content.Shared.Xenoarchaeology.Artifact;
 
 public abstract partial class SharedXenoArtifactSystem
@@ -28,6 +32,7 @@ public abstract partial class SharedXenoArtifactSystem
         XenoArtifactNodeComponent nodeComponent = ent;
         nodeComponent.MaxDurability -= nodeComponent.MaxDurabilityCanDecreaseBy.Next(RobustRandom);
         SetNodeDurability((ent, ent), nodeComponent.MaxDurability);
+        SeedNodeTypedPointRewards(ent); // <Onyx-ArtifactPointTypes>
     }
 
     public void SetNodeUnlocked(Entity<XenoArtifactNodeComponent?> ent)
@@ -171,6 +176,38 @@ public abstract partial class SharedXenoArtifactSystem
         ent.Comp.ConsumedResearchValue = value;
         Dirty(ent);
     }
+
+    // <Onyx-ArtifactPointTypes>
+    /// <summary>
+    /// Gets the typed point rewards pending extraction on the node.
+    /// </summary>
+    public IReadOnlyList<ResearchPointAmount> GetNodeTypedPointRewards(Entity<XenoArtifactNodeComponent> ent)
+    {
+        return ent.Comp.TypedPointRewards;
+    }
+
+    /// <summary>
+    /// Seeds a typed point reward on the node.
+    /// </summary>
+    public void SeedNodeTypedPointReward(Entity<XenoArtifactNodeComponent> ent, ResearchPointAmount reward)
+    {
+        ent.Comp.TypedPointRewards.Add(reward);
+    }
+
+    /// <summary>
+    /// Takes all pending typed point rewards from the node, leaving it empty.
+    /// </summary>
+    public List<ResearchPointAmount> ClaimNodeTypedPointRewards(Entity<XenoArtifactNodeComponent> ent)
+    {
+        if (ent.Comp.TypedPointRewards.Count == 0)
+            return new();
+
+        var claimed = new List<ResearchPointAmount>(ent.Comp.TypedPointRewards);
+        ent.Comp.TypedPointRewards.Clear();
+        Dirty(ent);
+        return claimed;
+    }
+    // </Onyx-ArtifactPointTypes>
 
     /// <summary>
     /// Converts node entity uid to its display name (which is Identifier from <see cref="NameIdentifierComponent"/>.

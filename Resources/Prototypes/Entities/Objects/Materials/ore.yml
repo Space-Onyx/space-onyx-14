@@ -18,9 +18,9 @@
     methodPointRewards:
       Deconstruct:
       - type: General
-        amount: 50
+        amount: 15
       - type: Experimental
-        amount: 5
+        amount: 1
   # </Onyx-DestructiveAnalyzer>
   - type: Fixtures
     fixtures:

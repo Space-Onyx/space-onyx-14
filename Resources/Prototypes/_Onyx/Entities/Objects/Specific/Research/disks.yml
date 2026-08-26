@@ -1,0 +1,26 @@
+- type: entity
+  parent: ResearchDisk
+  id: ResearchDiskExperimental100
+  components:
+  - type: ResearchDisk
+    pointRewards:
+    - type: Experimental
+      amount: 100
+
+- type: entity
+  parent: ResearchDisk
+  id: ResearchDiskExperimental500
+  components:
+  - type: ResearchDisk
+    pointRewards:
+    - type: Experimental
+      amount: 500
+
+- type: entity
+  parent: ResearchDisk
+  id: ResearchDiskExperimental1000
+  components:
+  - type: ResearchDisk
+    pointRewards:
+    - type: Experimental
+      amount: 1000

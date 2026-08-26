@@ -7,9 +7,12 @@ research-console-recipe-search-placeholder = Поиск...
 research-console-tech-cost-label = Стоимость: {$amount}
 research-point-type-general = Общие
 research-point-type-experimental = Экспериментальные
-research-console-point-cost-entry = {$type}: {$amount}
+research-point-type-general-abbreviation = О.И
+research-point-type-experimental-abbreviation = Э.И
+research-console-point-cost-entry = {$amount} {$abbreviation}
 research-console-menu-research-points-balances-text = Исследования: {$balances}
 research-console-point-entry-markup = [color={$color}]{$amount}[/color] {$type}
+research-point-entry-markup = [color={$color}]{$amount}[/color] {$abbreviation}
 research-console-research-requirements-text = Для изучения требуется анализ
-research-console-item-requirement-alternative = {$item} ({$progress}/{$amount}; вариант {$current}/{$total}, нажмите для выбора)
+research-console-item-requirement-alternative = {$item} ({$progress}/{$amount}; Вариант {$current}/{$total})
 research-console-item-requirement-progress = {$item} ({$progress}/{$amount})

@@ -55,3 +55,5 @@ research-technology-kenetic-mech = Кинетическое вооружение
 research-technology-kenetic-shuttle = Кинетическое вооружение шаттлов
 research-technology-mech-lasers = Лазерное вооружение мехов
 research-technology-ore-bag-holding = Блюспейс-хранилище руды
+research-technology-autonomous-robotics = Автономная робототехника
+research-technology-organoid-robotics = Органоидная робототехника

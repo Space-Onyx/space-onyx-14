@@ -44,8 +44,8 @@ public sealed class ResearchServerControlEntry(
     int authorityId,
     string authorityHashId,
     bool generationEnabled,
-    int pointsPerSecond,
-    int networkPoints)
+    List<ResearchPointAmount> generation,
+    List<ResearchPointAmount> networkBalances)
 {
     public int Id = id;
     public string HashId = hashId;
@@ -56,6 +56,6 @@ public sealed class ResearchServerControlEntry(
     public int AuthorityId = authorityId;
     public string AuthorityHashId = authorityHashId;
     public bool GenerationEnabled = generationEnabled;
-    public int PointsPerSecond = pointsPerSecond;
-    public int NetworkPoints = networkPoints;
+    public List<ResearchPointAmount> Generation = generation;
+    public List<ResearchPointAmount> NetworkBalances = networkBalances;
 }

@@ -10,7 +10,11 @@ research-server-control-network = Сеть: { $network }
 research-server-control-server-name = [{ $id }] { $name }
 research-server-control-authority = Главный сервер сети
 research-server-control-forwarded = Перенаправляет операции на сервер [{ $authorityId }]
-research-server-control-telemetry = Питание: { $power } | Генерация: { $rate } очк./с | Баланс сети: { $points }
+research-server-control-telemetry = Питание: { $power }
+research-server-control-table-type = Тип очков
+research-server-control-table-generation = Генерация
+research-server-control-table-generation-value = { $value }/с
+research-server-control-table-balance = Баланс сети
 research-server-control-powered = включено
 research-server-control-unpowered = отсутствует
 research-server-control-state-enabled = включена
@@ -36,7 +40,7 @@ research-console-network-log-title = Журнал сети РнД
 
 research-server-network-examine = Сервер [bold]{ $name }[/bold]
     Сеть: [bold]{ $network }[/bold] | { $authority }
-    Генерация: [bold]{ $generation }[/bold] очк./с ([bold]{ $state }[/bold]) | Баланс сети: [bold]{ $points }[/bold]
+    Генерация: [bold]{ $generation }[/bold]/с ([bold]{ $state }[/bold]) | Баланс сети: [bold]{ $points }[/bold]
 research-server-network-examine-authority = главный сервер сети
 research-server-network-examine-forwarded = перенаправляет операции на сервер [{ $hash }]
 

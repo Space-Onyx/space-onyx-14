@@ -242,15 +242,32 @@ public sealed partial class ResearchSystem
 
     public int GetServerGeneration(EntityUid server, ResearchServerComponent? component = null)
     {
+        var points = 0;
+        foreach (var generation in GetServerGenerationByType(server, component))
+        {
+            points += generation.Amount;
+        }
+
+        return points;
+    }
+
+    /// <summary>
+    /// Gets the typed point generation of a single network member per second,
+    /// raised on the server itself and its own clients.
+    /// </summary>
+    public List<ResearchPointAmount> GetServerGenerationByType(EntityUid server, ResearchServerComponent? component = null)
+    {
         if (!Resolve(server, ref component, false) || !component.GenerationEnabled ||
             !TryGetNetworkAuthority(server, out var authority, out _, component))
-            return 0;
+        {
+            return new();
+        }
 
-        var ev = new ResearchServerGetPointsPerSecondEvent(authority, 0);
-        RaiseLocalEvent(server, ref ev);
+        var sources = new HashSet<EntityUid> { server };
         foreach (var client in component.Clients)
-            RaiseLocalEvent(client, ref ev);
-        return ev.Points;
+            sources.Add(client);
+
+        return RaiseSourcesGeneration(sources, authority);
     }
 
     public bool TryToggleServerGeneration(EntityUid server, EntityUid actor)

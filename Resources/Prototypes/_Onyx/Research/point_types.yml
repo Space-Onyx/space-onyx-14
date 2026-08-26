@@ -1,9 +1,11 @@
 - type: researchPointType
   id: General
   name: research-point-type-general
+  abbreviation: research-point-type-general-abbreviation
   color: "#BA87E8"
 
 - type: researchPointType
   id: Experimental
   name: research-point-type-experimental
+  abbreviation: research-point-type-experimental-abbreviation
   color: "#51B4FF"

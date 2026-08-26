@@ -40,9 +40,9 @@
     methodPointRewards:
       Deconstruct:
       - type: General
-        amount: 900
+        amount: 1000
       - type: Experimental
-        amount: 500
+        amount: 450
     unlockTechnologies:
     - AnomalyPinpointers
     revealTechnologies:

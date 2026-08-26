@@ -25,6 +25,18 @@ public static class ResearchPointUiHelpers
             research.GetPointTypeName(cost.Type))));
     }
 
+    /// <summary>
+    /// Builds compact colored markup of typed amounts using their abbreviations, e.g. "4000 О.И + 220 Э.И".
+    /// </summary>
+    public static string BuildAbbreviatedBalanceMarkup(IReadOnlyList<ResearchPointAmount> amounts, SharedResearchSystem research, IPrototypeManager prototypes)
+    {
+        return string.Join(" + ", SharedResearchSystem.AggregatePoints(amounts).Select(cost => Loc.GetString(
+            "research-point-entry-markup",
+            ("color", GetColor(cost.Type, prototypes).ToHex()),
+            ("amount", cost.Amount),
+            ("abbreviation", research.GetPointTypeAbbreviation(cost.Type)))));
+    }
+
     private static string BuildEntryMarkup(int amount, Color color, string name)
     {
         return Loc.GetString("research-console-point-entry-markup",

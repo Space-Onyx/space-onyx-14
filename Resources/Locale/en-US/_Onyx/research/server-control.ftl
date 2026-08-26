@@ -10,7 +10,11 @@ research-server-control-network = Network: { $network }
 research-server-control-server-name = [{ $id }] { $name }
 research-server-control-authority = Network authority
 research-server-control-forwarded = Forwards operations to server [{ $authorityId }]
-research-server-control-telemetry = Power: { $power } | Generation: { $rate } points/s | Network balance: { $points }
+research-server-control-telemetry = Power: { $power }
+research-server-control-table-type = Point type
+research-server-control-table-generation = Generation
+research-server-control-table-generation-value = { $value }/s
+research-server-control-table-balance = Network balance
 research-server-control-powered = online
 research-server-control-unpowered = offline
 research-server-control-state-enabled = enabled
@@ -36,7 +40,7 @@ research-console-network-log-title = R&D network log
 
 research-server-network-examine = Server [bold]{ $name }[/bold] | ID: [bold]{ $hash }[/bold]
     Network: [bold]{ $network }[/bold] | { $authority }
-    Generation: [bold]{ $generation }[/bold] points/s ([bold]{ $state }[/bold]) | Network balance: [bold]{ $points }[/bold]
+    Generation: [bold]{ $generation }[/bold]/s ([bold]{ $state }[/bold]) | Network balance: [bold]{ $points }[/bold]
 research-server-network-examine-authority = network authority
 research-server-network-examine-forwarded = forwards operations to server [{ $hash }]
 

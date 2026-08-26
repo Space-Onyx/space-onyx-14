@@ -115,7 +115,6 @@
     state: ripley
   discipline: Industrial
   tier: 1
-  cost: 7500
   recipeUnlocks:
     - RipleyHarness
     - RipleyLArm
@@ -128,6 +127,11 @@
   position: 3,3
   technologyPrerequisites:
     - IndustrialEngineering
+  pointCosts:
+    - type: General
+      amount: 7500
+    - type: Experimental
+      amount: 190
 - type: technology
   id: Shuttlecraft
   name: research-technology-shuttlecraft
@@ -136,7 +140,6 @@
     state: base
   discipline: Industrial
   tier: 2
-  cost: 10000
   recipeUnlocks:
     - ShuttleRemoteControlSystemCircuitboard
     - ShuttleConsoleCircuitboard
@@ -147,6 +150,11 @@
   position: 4,3
   technologyPrerequisites:
     - IndustrialEngineering
+  pointCosts:
+    - type: General
+      amount: 1000
+    - type: Experimental
+      amount: 160
 - type: technology
   id: AdvancedAtmospherics
   name: research-technology-advanced-atmospherics
@@ -190,7 +198,6 @@
     state: handdrill
   discipline: Industrial
   tier: 2
-  cost: 12500
   recipeUnlocks:
     - MiningDrillDiamond
     - AdvancedMineralScannerEmpty
@@ -198,7 +205,11 @@
   position: 0,1
   technologyPrerequisites:
     - SalvageEquipment
-  pointCosts: []
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 330
 - type: technology
   id: BluespaceStorage
   name: research-technology-bluespace-storage
@@ -219,9 +230,9 @@
     - OptimizedMicrogalvanism
   pointCosts:
     - type: General
-      amount: 12000
+      amount: 10000
     - type: Experimental
-      amount: 1500
+      amount: 1200
 - type: technology
   id: OptimizedMicrogalvanism
   name: research-technology-optimized-microgalvanism
@@ -230,13 +241,18 @@
     state: microreactor
   discipline: Industrial
   tier: 3
-  cost: 10000
   recipeUnlocks:
     - PowerCellMicroreactor
     - PowerCellHyper
   position: 2,0
   technologyPrerequisites:
     - SMESAdvanced
-  hidden: true
-  revealRequirements:
-    - anyOf: [UraniumOre, SheetUranium]
+  researchRequirements:
+    - anyOf:
+        - UraniumOre
+        - SheetUranium
+  pointCosts:
+    - type: General
+      amount: 9000
+    - type: Experimental
+      amount: 450

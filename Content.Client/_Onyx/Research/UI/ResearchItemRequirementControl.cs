@@ -16,11 +16,14 @@ public sealed class ResearchItemRequirementControl : BoxContainer
     private readonly Label _name;
     private readonly Button _button;
     private readonly int _progress;
+    private readonly Action<int>? _onSelectionChanged;
     private int _selected;
 
     public ResearchItemRequirementControl(
         ResearchItemRequirement requirement,
         int progress,
+        int initialSelected,
+        Action<int>? onSelectionChanged,
         IPrototypeManager prototypes,
         SpriteSystem sprites)
     {
@@ -28,9 +31,12 @@ public sealed class ResearchItemRequirementControl : BoxContainer
         _prototypes = prototypes;
         _sprites = sprites;
         _progress = progress;
+        _onSelectionChanged = onSelectionChanged;
         var completed = progress >= Math.Max(1, requirement.Amount);
         Orientation = LayoutOrientation.Horizontal;
         HorizontalExpand = true;
+
+        _selected = Math.Clamp(initialSelected, 0, requirement.AnyOf.Count - 1);
 
         AddChild(new PanelContainer
         {
@@ -69,6 +75,7 @@ public sealed class ResearchItemRequirementControl : BoxContainer
         _button.OnPressed += _ =>
         {
             _selected = (_selected + 1) % _requirement.AnyOf.Count;
+            _onSelectionChanged?.Invoke(_selected);
             UpdateItem();
         };
         UpdateItem();

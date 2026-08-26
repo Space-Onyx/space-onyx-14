@@ -82,6 +82,7 @@ public sealed partial class ResearchSystem
         if (!CanRun(uid))
             return;
         ModifyServerPoints(uid, GetPointsPerSecond(uid, component) * time, component);
+        ApplyTypedPointGeneration(uid, time, component); // <Onyx-ResearchPointTypes>
     }
 
     /// <summary>
@@ -254,8 +255,8 @@ public sealed partial class ResearchSystem
             ("authority", authority == uid
                 ? Loc.GetString("research-server-network-examine-authority")
                 : Loc.GetString("research-server-network-examine-forwarded", ("hash", authorityComponent.HashId))),
-            ("generation", GetServerGeneration(uid, component)),
-            ("points", authorityComponent.Points),
+            ("generation", FormatServerGeneration(uid, component)),
+            ("points", FormatNetworkBalance(authorityComponent)),
             ("state", Loc.GetString(component.GenerationEnabled
                 ? "research-server-control-state-enabled"
                 : "research-server-control-state-disabled"))));

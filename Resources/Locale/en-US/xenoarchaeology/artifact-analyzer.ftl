@@ -38,5 +38,3 @@ analysis-console-extract-none = [font="Monospace" size=11][color=orange] No unlo
 analysis-console-extract-sum = [font="Monospace" size=11][color=orange]Total Research: {$value}[/color][/font]
 
 analyzer-artifact-extract-popup = Energy shimmers on the artifact's surface!
-
-analysis-console-extract-experimental = Experimental: {$value}

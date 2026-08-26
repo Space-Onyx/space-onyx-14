@@ -22,6 +22,7 @@ public sealed partial class AnomalySystem
         SubscribeLocalEvent<AnomalyVesselComponent, InteractUsingEvent>(OnVesselInteractUsing);
         SubscribeLocalEvent<AnomalyVesselComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<AnomalyVesselComponent, ResearchServerGetPointsPerSecondEvent>(OnVesselGetPointsPerSecond);
+        InitializeAnomalyPointTypes(); // <Onyx-AnomalyPointTypes>
         SubscribeLocalEvent<AnomalyShutdownEvent>(OnVesselAnomalyShutdown);
     }
 
@@ -74,6 +75,12 @@ public sealed partial class AnomalySystem
     {
         if (!this.IsPowered(uid, EntityManager) || component.Anomaly is not {} anomaly)
             return;
+
+        // <Onyx-AnomalyPointTypes>
+        // Anomalies with typed rewards are credited through the by-type event instead.
+        if (HasAnomalyTypedRewards(anomaly))
+            return;
+        // </Onyx-AnomalyPointTypes>
 
         args.Points += (int) (GetAnomalyPointValue(anomaly) * component.PointMultiplier);
     }

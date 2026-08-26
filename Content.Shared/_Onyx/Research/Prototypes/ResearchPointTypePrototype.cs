@@ -19,6 +19,13 @@ public sealed partial class ResearchPointTypePrototype : IPrototype
     public LocId Name;
 
     /// <summary>
+    /// Short abbreviation of the point type, e.g. "О.И" for general research points.
+    /// Falls back to <see cref="Name"/> when unset.
+    /// </summary>
+    [DataField]
+    public LocId? Abbreviation;
+
+    /// <summary>
     /// Color used by interfaces displaying balances and costs.
     /// </summary>
     [DataField]

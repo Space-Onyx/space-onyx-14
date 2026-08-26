@@ -7,9 +7,12 @@ research-console-recipe-search-placeholder = Search technologies or recipes
 research-console-tech-cost-label = Cost: {$amount}
 research-point-type-general = General
 research-point-type-experimental = Experimental
-research-console-point-cost-entry = {$type}: {$amount}
+research-point-type-general-abbreviation = GR
+research-point-type-experimental-abbreviation = ER
+research-console-point-cost-entry = {$amount} {$abbreviation}
 research-console-menu-research-points-balances-text = Research: {$balances}
 research-console-point-entry-markup = [color={$color}]{$amount}[/color] {$type}
+research-point-entry-markup = [color={$color}]{$amount}[/color] {$abbreviation}
 research-console-research-requirements-text = Required analysis before research
-research-console-item-requirement-alternative = {$item} ({$progress}/{$amount}; option {$current}/{$total}, click for alternatives)
+research-console-item-requirement-alternative = {$item} ({$progress}/{$amount}; Option {$current}/{$total})
 research-console-item-requirement-progress = {$item} ({$progress}/{$amount})

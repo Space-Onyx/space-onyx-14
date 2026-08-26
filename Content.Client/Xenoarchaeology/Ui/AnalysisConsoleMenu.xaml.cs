@@ -116,6 +116,7 @@ public sealed partial class AnalysisConsoleMenu : FancyWindow
             var nodeId = _xenoArtifact.GetNodeId(node);
 
             var text = Loc.GetString("analysis-console-extract-value", ("id", nodeId), ("value", pointValue));
+            text += AppendNodeTypedRewards(node); // <Onyx-ArtifactPointTypes>
             extractionMessage.AddMarkupOrThrow(text);
             extractionMessage.PushNewline();
         }
@@ -132,6 +133,7 @@ public sealed partial class AnalysisConsoleMenu : FancyWindow
         var experimentalText = Loc.GetString("analysis-console-extract-experimental", ("value", experimentalSum));
         ExtractionSumLabel.SetMarkup($"{sumText}\n{experimentalText}");
         // </Onyx-ArtifactExperimental>
+        SetExtractionSumsLabel(); // <Onyx-ArtifactPointTypes>
 
         _audio.PlayGlobal(_owner.Comp.ScanFinishedSound, _owner, AudioParams.Default.WithVolume(1f));
         OnExtractButtonPressed?.Invoke();
@@ -241,4 +243,3 @@ public sealed partial class AnalysisConsoleMenu : FancyWindow
             ("class", Loc.GetString($"artifact-node-class-{Math.Min(6, predecessorNodes.Count + 1)}"))));
     }
 }
-

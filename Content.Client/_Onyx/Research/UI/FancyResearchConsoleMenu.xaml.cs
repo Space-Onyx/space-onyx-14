@@ -245,12 +245,25 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
         if (args.Delta.Y == 0)
             return;
 
+        // Do not zoom the tech tree while the cursor is over the opened info panel.
+        if (TechnologyInfoPanel.Visible && IsPointerOverPanel(args.GlobalPosition))
+            return;
+
         var zoom = Math.Clamp(_zoom + (args.Delta.Y > 0 ? 0.125f : -0.125f), 0.5f, 2f);
         if (MathHelper.CloseTo(zoom, _zoom))
             return;
         _zoom = zoom;
         RecenterItems();
         args.Handle();
+    }
+
+    private bool IsPointerOverPanel(Vector2 globalPosition)
+    {
+        var local = globalPosition - TechnologyInfoPanel.GlobalPosition;
+        return local.X >= 0 &&
+               local.Y >= 0 &&
+               local.X <= TechnologyInfoPanel.Width &&
+               local.Y <= TechnologyInfoPanel.Height;
     }
 
     private void OnDragKeyBindDown(GUIBoundKeyEventArgs args)

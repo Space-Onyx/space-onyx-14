@@ -32,7 +32,7 @@
     - type: General
       amount: 9000
     - type: General
-      amount: 500
+      amount: 300
 - type: technology
   id: Ripley2
   name: research-technology-ripley-mkii
@@ -75,20 +75,19 @@
   recipeUnlocks:
     - SalvageExpeditionsComputerCircuitboard
   icon:
-    sprite: Structures/Machines/gateway.rsi
-    state: frame
+    sprite: Objects/Misc/diskcases.rsi
+    state: icon_cargo
   pointCosts:
     - type: General
-      amount: 10000
+      amount: 7000
     - type: Experimental
-      amount: 500
+      amount: 400
   tier: 3
   technologyPrerequisites:
     - MassExcavation
 - id: BorgSalvageEquipment
   name: research-technology-borg-salvage-equipment
   type: technology
-  cost: 10000
   discipline: Industrial
   position: -1,0
   recipeUnlocks:
@@ -99,6 +98,11 @@
   tier: 2
   technologyPrerequisites:
     - SalvageEquipment
+  pointCosts:
+    - type: General
+      amount: 8000
+    - type: Experimental
+      amount: 210
 - id: Fulton
   name: research-technology-fulton
   type: technology
@@ -121,15 +125,16 @@
   position: 2,1
   recipeUnlocks:
     - TurboItemRechargerCircuitboard
+    - SMESAdvancedMachineCircuitboard
   tier: 2
   icon:
     sprite: Structures/Power/smes.rsi
     state: advancedsmes-static
   pointCosts:
     - type: General
-      amount: 10000
+      amount: 8500
     - type: Experimental
-      amount: 1100
+      amount: 500
   technologyPrerequisites:
     - AdvancedPowercells
     - IndustrialEngineering

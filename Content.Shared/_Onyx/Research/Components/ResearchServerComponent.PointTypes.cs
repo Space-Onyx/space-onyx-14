@@ -18,3 +18,11 @@ public sealed partial class ResearchServerComponent
 /// </summary>
 [ByRefEvent]
 public readonly record struct ResearchServerPointTypeChangedEvent(EntityUid Server, string Type, int Total, int Delta);
+
+/// <summary>
+/// Event raised every second to calculate typed point generation of a server.
+/// Sources either fill this event or the legacy integer one; the legacy total is
+/// credited as General points when no typed entries were contributed.
+/// </summary>
+[ByRefEvent]
+public record struct ResearchServerGetPointsPerSecondByTypeEvent(EntityUid Server, List<ResearchPointAmount> Points);
