@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rotate airlocks to match neighboring walls/airlocks - one map at a time."""
+"""Rotate door-like structures to match neighboring blockers on one map."""
 
 from __future__ import annotations
 
@@ -18,11 +18,11 @@ except ImportError:
     raise SystemExit("PyYAML required: python -m pip install pyyaml")
 
 CHUNK_SIZE = 16
-
-# Narrow wall detection - actual wall entity protos, not random Wall* trash
 WALL_PREFIXES = ("Wall", "WallReinforced", "WallSolid", "WallRock", "WallPlastitanium", "WallShuttle")
-# Airlock detection - strictly by proto name, map file has no Door component
-AIRLOCK_SUBSTR = "Airlock"
+TARGET_SUBSTRINGS = ("Airlock", "Shutter", "BlastDoor", "HighSec")
+TARGET_PREFIXES = ("Firelock", "PlasticFlapsAirtight")
+TARGET_IDS = ("WoodDoor", "PlasmaDoor", "GoldDoor", "SilverDoor", "PaperDoor", "WebDoor", "CardDoor", "SolidSecretDoor")
+NON_STRUCTURE_TARGETS = ("FirelockFrame", "FirelockElectronics", "FirelockEdge")
 
 
 class MapLoader(yaml.SafeLoader):
@@ -57,9 +57,7 @@ def orientation(rotation: float) -> str:
 
 
 def parse_chunks(root: dict) -> set[tuple[int, tuple[int, int]]]:
-    # Tilemap walls - mostly irrelevant for MAUS (walls are entities) but keep for completeness
     tile_names = root.get("tilemap", {})
-    # tilemap values like "WallSolid" etc - detect any wall tile
     wall_ids = {int(k) for k, v in tile_names.items() if isinstance(v, str) and v.startswith("Wall")}
     walls: set[tuple[int, tuple[int, int]]] = set()
     chunks_found: list[tuple[int | None, dict]] = []
@@ -93,7 +91,7 @@ def parse_chunks(root: dict) -> set[tuple[int, tuple[int, int]]]:
 
 
 def collect_entities(root: dict):
-    """Return list of (proto, owner_grid, floored_pos, rot, uid)."""
+    """Return entities with prototype, grid, tile position, rotation, and UID."""
     result = []
     parents: dict[int, int] = {}
     grids: set[int] = set(root.get("grids", []))
@@ -115,8 +113,6 @@ def collect_entities(root: dict):
             tr = next((c for c in ent.get("components", []) if c.get("type") == "Transform"), None)
             if tr and isinstance(tr.get("parent"), int):
                 parents[int(ent["uid"])] = int(tr["parent"])
-        if ent is not None:
-            tr = next((c for c in ent.get("components", []) if c.get("type") == "Transform"), None)
             if tr and "pos" in tr:
                 x, y = vec(tr["pos"])
                 result.append((ent, cur_proto, cur_owner, (math.floor(x), math.floor(y)), angle(tr.get("rot", 0)), int(ent["uid"])))
@@ -137,40 +133,23 @@ def collect_entities(root: dict):
     return resolved
 
 
-def is_airlock(proto: str) -> bool:
-    return AIRLOCK_SUBSTR in proto
-
-
-def is_wall(proto: str) -> bool:
-    return proto.startswith(WALL_PREFIXES)
-
-
 def is_blocker(proto: str) -> bool:
-    # Стена, окно, ставень, гермозатвор, бронедверь или иной шлюз — всё считается стеной для ориентации
     return (
         proto.startswith(WALL_PREFIXES)
         or "Window" in proto
         or "Windoor" in proto
-        or "Shutter" in proto
-        or "BlastDoor" in proto
-        or "HighSec" in proto
-        or AIRLOCK_SUBSTR in proto
+        or is_target(proto)
     )
 
 
 def is_target(proto: str) -> bool:
-    # Выравниваем шлюзы, ставни, гермозатворы и бронедвери
-    return AIRLOCK_SUBSTR in proto or "Shutter" in proto or "BlastDoor" in proto or "HighSec" in proto
+    return (
+        proto not in NON_STRUCTURE_TARGETS
+        and (proto in TARGET_IDS or any(part in proto for part in TARGET_SUBSTRINGS) or proto.startswith(TARGET_PREFIXES))
+    )
 
 
-def desired_orientation(pos: tuple[int, int], owner: int | None, blockers: set[tuple[int, tuple[int, int]]], current_rot: float) -> str | None:
-    """Exact user order:
-    1) left AND right -> horizontal
-    2) up AND down -> vertical
-    3) left OR right -> horizontal
-    4) up OR down -> vertical
-    else None (keep)
-    """
+def desired_orientation(pos: tuple[int, int], owner: int | None, blockers: set[tuple[int, tuple[int, int]]]) -> str | None:
     x, y = pos
     left = (owner, (x - 1, y)) in blockers
     right = (owner, (x + 1, y)) in blockers
@@ -189,10 +168,10 @@ def desired_orientation(pos: tuple[int, int], owner: int | None, blockers: set[t
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description="Rotate airlocks on ONE map by neighbor walls/airlocks. Writes file + .bak unless --dry-run.")
-    p.add_argument("map", type=Path, help="path to exactly one map yml")
-    p.add_argument("--dry-run", action="store_true", help="only report, do not write")
-    args = p.parse_args()
+    parser = argparse.ArgumentParser(description="Rotate door-like structures on one map by neighboring blockers. Writes file and .bak unless --dry-run.")
+    parser.add_argument("map", type=Path, help="path to one map YAML file")
+    parser.add_argument("--dry-run", action="store_true", help="report changes without writing")
+    args = parser.parse_args()
 
     path = args.map
     if not path.is_file():
@@ -202,19 +181,17 @@ def main() -> int:
         root = yaml.load(f, Loader=MapLoader)
 
     all_ents = collect_entities(root)
-    # blockers = стены/окна/ставни/гермозатворы/шлюзы — унифицированно по прототипам
     blockers: set[tuple[int, tuple[int, int]]] = set()
     for _, proto, owner, pos, _, _ in all_ents:
         if is_blocker(proto):
             blockers.add((owner, pos))
-    # also tilemap wall tiles
     blockers |= parse_chunks(root)
 
-    airlocks = [(ent, owner, pos, rot, uid, proto) for ent, proto, owner, pos, rot, uid in all_ents if is_target(proto)]
+    targets = [(owner, pos, rot, uid, proto) for _, proto, owner, pos, rot, uid in all_ents if is_target(proto)]
 
     replacements: dict[int, str] = {}
-    for _, owner, pos, rot, uid, proto in airlocks:
-        want = desired_orientation(pos, owner, blockers, rot)
+    for owner, pos, rot, uid, proto in targets:
+        want = desired_orientation(pos, owner, blockers)
         if want is None:
             continue
         cur = orientation(rot)
@@ -235,7 +212,6 @@ def main() -> int:
             if not m:
                 raise SystemExit(f"Could not locate entity block for uid {uid}")
             block = m.group(0)
-            # replace only inside Transform component
             def repl_transform(match):
                 header = match.group(1)
                 body = match.group(2)
@@ -248,7 +224,6 @@ def main() -> int:
             new_block, n = re.subn(r"(?ms)(^    - type: Transform\n)(.*?)(?=^    - type:|\Z)", repl_transform, block, count=1)
             if n == 0:
                 raise SystemExit(f"Transform not found for uid {uid}")
-            # sanity: no duplicate rot inside Transform
             if len(re.findall(r"(?m)^      rot:", new_block)) > 1:
                 raise SystemExit(f"Duplicate rot created for uid {uid}")
             text = text[: m.start()] + new_block + text[m.end() :]
