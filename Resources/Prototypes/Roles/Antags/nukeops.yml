@@ -143,7 +143,7 @@
   id: SyndicateOperativeGearFull
   parent: SyndicateOperativeGearFullNoUplink
   equipment:
-    pocket2: BaseUplinkRadio40TC
+    pocket2: BaseUplinkRadio225TC # <Onyx-UplinkGoob-edited>
 
 - type: chameleonOutfit
   id: NukeopsOutfit
@@ -163,6 +163,7 @@
     neck: SyndicateWhistle
     outerClothing: ClothingOuterHardsuitSyndieCommander
     ears: ClothingHeadsetAltSyndicateCommander # <Onyx-Loudspeaker>
+    pocket2: BaseUplinkRadio350TC # <Onyx-UplinkGoob>
   inhand:
   - NukeOpsDeclarationOfWar
 
@@ -185,6 +186,7 @@
     shoes: ClothingShoesBootsMagSyndie
     id: SyndiCorpsmanPDA
     belt: ClothingBeltMilitaryWebbingMedFilled
+    pocket2: BaseUplinkRadio225TCMedic # <Onyx-UplinkGoob>
   storage:
     back:
     - SyndiHypo
@@ -211,4 +213,4 @@
   id: SyndicateLoneOperativeGearFull
   parent: SyndicateOperativeGearFull
   equipment:
-    pocket2: BaseUplinkRadio60TC
+    pocket2: LoneOpsUplink350TC # <Onyx-UplinkGoob-edited>

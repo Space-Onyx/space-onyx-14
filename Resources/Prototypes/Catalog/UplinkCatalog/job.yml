@@ -7,9 +7,9 @@
   productEntity: GatfruitSeeds
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 3
+    Telecrystal: 30 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 6
+    Telecrystal: 30 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkJob
   conditions:
@@ -24,9 +24,9 @@
   productEntity: HolyHandGrenade
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 14
+    Telecrystal: 100 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 20
+    Telecrystal: 100 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkJob
   conditions:
@@ -41,9 +41,9 @@
   productEntity: RevolverCapGunFake
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 3
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkJob
   conditions:
@@ -59,9 +59,9 @@
   productEntity: ClusterBananaPeel
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 3
+    Telecrystal: 18 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 5
+    Telecrystal: 18 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkJob
   conditions:
@@ -77,9 +77,9 @@
   productEntity: BoxHoloclown
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 6
+    Telecrystal: 60 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 12
+    Telecrystal: 60 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkJob
   conditions:
@@ -93,10 +93,10 @@
   description: uplink-hot-potato-desc
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   productEntity: HotPotato
   cost:
-    Telecrystal: 4
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkJob
   conditions:
@@ -114,9 +114,9 @@
   productEntity: WeaponPistolCHIMPUpgradeKit
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkJob
   conditions:
@@ -131,7 +131,7 @@
   productEntity: WetFloorSignMineExplosive
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 16 # <Onyx-UplinkGoob-edited>
   cost:
     Telecrystal: 5 # was 4, with my buff made it 5 to be closer to minibomb -panzer
   categories:
@@ -152,10 +152,10 @@
   icon: { sprite:  Objects/Misc/monkeycube.rsi, state: box}
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 35 # <Onyx-UplinkGoob-edited>
   productEntity: SyndicateSpongeBox
   cost:
-    Telecrystal: 4
+    Telecrystal: 35 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkJob
   conditions:
@@ -174,9 +174,9 @@
   productEntity: CaneSheathFilled
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 40 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 3
+    Telecrystal: 40 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkJob
   conditions:
@@ -192,9 +192,9 @@
   productEntity: CombatBakeryKit
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkJob
   conditions:
@@ -211,9 +211,9 @@
   productEntity: ClothingBackpackDuffelAcolyteBundle
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 3
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkJob
   conditions:

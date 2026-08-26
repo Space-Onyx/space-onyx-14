@@ -45,3 +45,12 @@
 
 - type: Tag
   id: EnergySpeedloaderPulse
+
+- type: Tag
+  id: LoneOpsUplink
+
+- type: Tag
+  id: NukeOpsMedicUplink
+
+- type: Tag
+  id: NukeOpsCommanderUplink

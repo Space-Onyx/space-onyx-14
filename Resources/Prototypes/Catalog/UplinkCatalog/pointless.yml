@@ -6,7 +6,7 @@
   description: uplink-barber-scissors-desc
   productEntity: BarberScissors
   cost:
-    Telecrystal: 1
+    Telecrystal: 2 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkPointless
 
@@ -16,7 +16,7 @@
   description: uplink-snack-box-desc
   productEntity: HappyHonkNukieSnacks
   cost:
-    Telecrystal: 1
+    Telecrystal: 5 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkPointless
 
@@ -36,7 +36,7 @@
   description: uplink-revolver-cap-gun-desc
   productEntity: RevolverCapGun
   cost:
-    Telecrystal: 1
+    Telecrystal: 4 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkPointless
 
@@ -45,11 +45,10 @@
   name: uplink-syndicate-stamp-name
   description: uplink-syndicate-stamp-desc
   productEntity: RubberStampSyndicate
+  cost:
+    Telecrystal: 8 # <Onyx-UplinkGoob>
   categories:
   - UplinkPointless
-  conditions:
-  - !type:ListingLimitedStockCondition
-    stock: 1
 
 - type: listing
   id: UplinkCatEars
@@ -71,11 +70,10 @@
   name: uplink-outlaw-hat-name
   description: uplink-outlaw-hat-desc
   productEntity: ClothingHeadHatOutlawHat
+  cost:
+    Telecrystal: 2 # <Onyx-UplinkGoob>
   categories:
   - UplinkPointless
-  conditions:
-  - !type:ListingLimitedStockCondition
-    stock: 1
 
 - type: listing
   id: UplinkOutlawGlasses
@@ -83,7 +81,7 @@
   description: uplink-outlaw-glasses-desc
   productEntity: ClothingEyesGlassesOutlawGlasses
   cost:
-    Telecrystal: 1
+    Telecrystal: 2 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkPointless
 
@@ -93,7 +91,7 @@
   description: uplink-costume-pyjama-desc
   productEntity: ClothingBackpackDuffelSyndicatePyjamaBundle
   cost:
-    Telecrystal: 2
+    Telecrystal: 8 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkPointless
 
@@ -103,7 +101,7 @@
   description: uplink-costume-clown-desc
   productEntity: ClothingBackpackDuffelSyndicateCostumeClown
   cost:
-    Telecrystal: 2
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkPointless
 
@@ -113,7 +111,7 @@
   description: uplink-carp-suit-bundle-desc
   productEntity: ClothingBackpackDuffelSyndicateCarpSuit
   cost:
-    Telecrystal: 2
+    Telecrystal: 15 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkPointless
 
@@ -122,22 +120,20 @@
   name: uplink-operative-suit-name
   description: uplink-operative-suit-desc
   productEntity: ClothingUniformJumpsuitOperative
+  cost:
+    Telecrystal: 2 # <Onyx-UplinkGoob>
   categories:
   - UplinkPointless
-  conditions:
-  - !type:ListingLimitedStockCondition
-    stock: 1
 
 - type: listing
   id: UplinkOperativeSkirt
   name: uplink-operative-skirt-name
   description: uplink-operative-skirt-desc
   productEntity: ClothingUniformJumpskirtOperative
+  cost:
+    Telecrystal: 2 # <Onyx-UplinkGoob>
   categories:
   - UplinkPointless
-  conditions:
-  - !type:ListingLimitedStockCondition
-    stock: 1
 
 - type: listing
   id: UplinkBalloon
@@ -145,7 +141,7 @@
   description: uplink-balloon-desc
   productEntity: BalloonSyn
   cost:
-    Telecrystal: 20
+    Telecrystal: 100 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkPointless
   conditions:
@@ -159,22 +155,20 @@
   name: uplink-scarf-syndie-red-name
   description: uplink-scarf-syndie-red-desc
   productEntity: ClothingNeckScarfStripedSyndieRed
+  cost:
+    Telecrystal: 2 # <Onyx-UplinkGoob>
   categories:
   - UplinkPointless
-  conditions:
-  - !type:ListingLimitedStockCondition
-    stock: 1
 
 - type: listing
   id: UplinkScarfSyndieGreen
   name: uplink-scarf-syndie-green-name
   description: uplink-scarf-syndie-green-desc
   productEntity: ClothingNeckScarfStripedSyndieGreen
+  cost:
+    Telecrystal: 2 # <Onyx-UplinkGoob>
   categories:
     - UplinkPointless
-  conditions:
-  - !type:ListingLimitedStockCondition
-    stock: 1
 
 - type: listing
   id: UplinkSyndicateBusinessCard
@@ -194,7 +188,7 @@
   icon: { sprite: /Textures/Objects/Tools/Decoys/operative_decoy.rsi, state: folded }
   productEntity: ClothingBackpackDuffelSyndicateDecoyKitFilled
   cost:
-    Telecrystal: 1
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkPointless
 

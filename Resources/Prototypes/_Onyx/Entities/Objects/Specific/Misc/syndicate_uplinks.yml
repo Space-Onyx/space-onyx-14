@@ -1,0 +1,61 @@
+# Uplink radios with Goob-Station telecrystal balances
+- type: entity
+  parent: BaseUplinkRadio
+  id: BaseUplinkRadio200TC
+  suffix: 200 TC
+  components:
+  - type: Store
+    balance:
+      Telecrystal: 200
+
+- type: entity
+  parent: BaseUplinkRadio
+  id: BaseUplinkRadio225TC
+  suffix: 225 TC
+  components:
+  - type: Store
+    balance:
+      Telecrystal: 225
+  - type: Tag
+    tags:
+    - NukeOpsUplink
+
+- type: entity
+  parent: BaseUplinkRadio
+  id: BaseUplinkRadio225TCMedic
+  suffix: 225 TC, NukeOps medic
+  components:
+  - type: Store
+    balance:
+      Telecrystal: 225
+  - type: Tag
+    tags:
+    - NukeOpsUplink
+    - NukeOpsMedicUplink
+
+- type: entity
+  parent: BaseUplinkRadio
+  id: BaseUplinkRadio350TC
+  suffix: 350 TC, Commander
+  components:
+  - type: Store
+    balance:
+      Telecrystal: 350
+  - type: Tag
+    tags:
+    - NukeOpsUplink
+    - NukeOpsCommanderUplink
+
+- type: entity
+  parent: BaseUplinkRadio
+  id: LoneOpsUplink350TC
+  suffix: 350 TC, LoneOps
+  components:
+  - type: Store
+    balance:
+      Telecrystal: 350
+  - type: Tag
+    tags:
+    - NukeOpsUplink
+    - LoneOpsUplink
+    - NukeOpsCommanderUplink

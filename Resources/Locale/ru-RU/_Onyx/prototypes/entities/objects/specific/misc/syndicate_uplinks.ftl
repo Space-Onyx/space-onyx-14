@@ -1,0 +1,15 @@
+ent-BaseUplinkRadio200TC = { ent-BaseUplinkRadio }
+    .suffix = 200 ТК, Телекристалл
+    .desc = { ent-BaseUplinkRadio.desc }
+ent-BaseUplinkRadio225TC = { ent-BaseUplinkRadio }
+    .suffix = 225 ТК, ЯдерныйОперативник
+    .desc = { ent-BaseUplinkRadio.desc }
+ent-BaseUplinkRadio225TCMedic = { ent-BaseUplinkRadio }
+    .suffix = 225 ТК, МедикЯдерныхОперативников
+    .desc = { ent-BaseUplinkRadio.desc }
+ent-BaseUplinkRadio350TC = { ent-BaseUplinkRadio }
+    .suffix = 350 ТК, Командир
+    .desc = { ent-BaseUplinkRadio.desc }
+ent-LoneOpsUplink350TC = { ent-BaseUplinkRadio }
+    .suffix = 350 ТК, Одинокий оперативник
+    .desc = { ent-BaseUplinkRadio.desc }

@@ -63,7 +63,30 @@ public sealed partial class NukeopsRuleComponent : Component
     ///     This amount of TC will be given to each nukie
     /// </summary>
     [DataField]
-    public int WarTcAmountPerNukie = 40;
+    public int WarTcAmountPerNukie = 100; // <Onyx-UplinkGoob-edited>
+
+// <Onyx-UplinkGoob>
+    /// <summary>
+    /// The ratio of players per nuclear operative for war declaration scaling.
+    /// Example: A value of 10 means one operative per 10 players.
+    /// </summary>
+    [DataField]
+    public int WarNukiePlayerRatio = 12;
+
+    /// <summary>
+    /// Additional telecrystals granted per player on the server during war.
+    /// Total bonus is divided by number of operatives.
+    /// </summary>
+    [DataField]
+    public int WarTcPerPlayer = 10;
+
+    /// <summary>
+    /// Compensation telecrystals granted per missing nuclear operative.
+    /// Total bonus is divided by number of operatives.
+    /// </summary>
+    [DataField]
+    public int WarTcPerNukieMissing = 100;
+// </Onyx-UplinkGoob>
 
     /// <summary>
     ///     Delay between war declaration and nuke ops arrival on station map. Gives crew time to prepare

@@ -8,9 +8,9 @@
   productEntity: BoxHoloparasite
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 8
+    Telecrystal: 60 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 12
+    Telecrystal: 60 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkAllies
   conditions:
@@ -27,16 +27,17 @@
   icon: { sprite: Objects/Devices/communication.rsi, state: old-radio-urist }
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 7
+    Telecrystal: 70 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 11
+    Telecrystal: 70 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkAllies
   conditions:
     - !type:StoreWhitelistCondition
       blacklist:
         tags:
-          - NukeOpsUplink
+          - NukeOpsUplink # <Onyx-UplinkGoob>
+          - ContravendUplink
 
 - type: listing
   id: UplinkReinforcementRadioSyndicateNukeops # Version for Nukeops that spawns another nuclear operative without the uplink.
@@ -45,7 +46,7 @@
   productEntity: ReinforcementRadioSyndicateNukeops
   icon: { sprite: Objects/Devices/communication.rsi, state: old-radio-nukeop }
   cost:
-    Telecrystal: 30
+    Telecrystal: 125 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkAllies
   conditions:
@@ -61,7 +62,7 @@
   productEntity: ReinforcementRadioSyndicateCyborgAssault
   icon: { sprite: Objects/Devices/communication.rsi, state: old-radio-borg-assault }
   cost:
-    Telecrystal: 65
+    Telecrystal: 375 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkAllies
   conditions:
@@ -78,16 +79,17 @@
   icon: { sprite: Objects/Devices/communication.rsi, state: old-radio-ancestor }
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 4
+    Telecrystal: 30 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 6
+    Telecrystal: 30 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkAllies
   conditions:
     - !type:StoreWhitelistCondition
       blacklist:
         tags:
-          - NukeOpsUplink
+          - NukeOpsUplink # <Onyx-UplinkGoob>
+          - ContravendUplink
 
 - type: listing
   id: UplinkReinforcementRadioSyndicateAncestorNukeops # Version for Nukeops that spawns a syndicate monkey with the NukeOperative component.
@@ -97,9 +99,9 @@
   icon: { sprite: Objects/Devices/communication.rsi, state: old-radio-ancestor }
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 4
+    Telecrystal: 40 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 6
+    Telecrystal: 40 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkAllies
   conditions:
@@ -114,7 +116,7 @@
   description: uplink-carp-dehydrated-desc
   productEntity: DehydratedSpaceCarp
   cost:
-    Telecrystal: 1
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkAllies
   conditions:
@@ -131,11 +133,17 @@
   productEntity: ReinforcementRadioSyndicateSyndiCat
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 3
+    Telecrystal: 30 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 6
+    Telecrystal: 30 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkAllies
+  conditions: # <Onyx-UplinkGoob>
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - ContractorUplink
+      - ContravendUplink
 
 - type: listing
   id: UplinkSyndicatePersonalAI
@@ -144,9 +152,13 @@
   icon: { sprite: /Textures/Objects/Fun/pai.rsi, state: syndicate-icon-pai-off }
   productEntity: SyndicatePersonalAI
   cost:
-    Telecrystal: 1
+    Telecrystal: 5 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkAllies
   conditions:
-  - !type:ListingLimitedStockCondition
+  - !type:ListingLimitedStockCondition # <Onyx-UplinkGoob>
     stock: 1
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - ContravendUplink

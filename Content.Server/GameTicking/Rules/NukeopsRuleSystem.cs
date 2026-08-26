@@ -495,12 +495,28 @@ public sealed partial class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleCompon
             if (Transform(uid).MapID != Transform(outpost).MapID) // Will receive bonus TC only on their start outpost
                 continue;
 
-            _store.TryAddCurrency(new() { { TelecrystalCurrencyPrototype, nukieRule.Comp.WarTcAmountPerNukie } }, uid, component);
+            _store.TryAddCurrency(new() { { TelecrystalCurrencyPrototype, CalculateBonusTcPerNukie(nukieRule.Comp) } }, uid, component); // <Onyx-UplinkGoob-edited>
 
             var msg = Loc.GetString("store-currency-war-boost-given", ("target", uid));
             _popupSystem.PopupEntity(msg, uid);
         }
     }
+
+// <Onyx-UplinkGoob>
+    private int CalculateBonusTcPerNukie(NukeopsRuleComponent rule)
+    {
+        var nukiesCount = EntityQuery<NukeopsRoleComponent>().Count();
+        if (nukiesCount == 0)
+            return rule.WarTcAmountPerNukie;
+        var totalPlayersCount = _antag.GetTotalPlayerCount(_player.Sessions);
+        var playersCount = Math.Max(0, totalPlayersCount - nukiesCount);
+        var maxNukies = totalPlayersCount / rule.WarNukiePlayerRatio;
+        var nukiesMissing = Math.Max(0, maxNukies - nukiesCount);
+        var totalBonus = playersCount * rule.WarTcPerPlayer;
+        totalBonus += nukiesMissing * rule.WarTcPerNukieMissing;
+        return Math.Max(rule.WarTcAmountPerNukie, totalBonus / nukiesCount);
+    }
+// </Onyx-UplinkGoob>
 
     private void SetWinType(Entity<NukeopsRuleComponent> ent, WinType type, bool endRound = true)
     {

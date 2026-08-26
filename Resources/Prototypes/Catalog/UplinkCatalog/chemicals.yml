@@ -8,9 +8,9 @@
   productEntity: HypopenBox
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 4
+    Telecrystal: 30 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 6
+    Telecrystal: 30 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkChemicals
 
@@ -22,9 +22,9 @@
   productEntity: HypoDartBox
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 5 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 2
+    Telecrystal: 5 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkChemicals
 
@@ -36,9 +36,9 @@
   productEntity: ChemicalSynthesisKit
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 3
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkChemicals
 
@@ -69,9 +69,9 @@
   productEntity: ChemistryBottleNocturine
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 30 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 30 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkChemicals
 
@@ -82,9 +82,9 @@
   productEntity: MedkitCombatFilled
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 3
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkChemicals
 
@@ -95,9 +95,9 @@
   productEntity: CombatMedipen
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 12 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 3
+    Telecrystal: 12 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkChemicals
 
@@ -108,9 +108,9 @@
   productEntity: Stimpack
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 2
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkChemicals
 
@@ -121,9 +121,9 @@
   productEntity: StimkitFilled
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 3
+    Telecrystal: 40 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 5
+    Telecrystal: 40 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkChemicals
 
@@ -133,7 +133,7 @@
   description: uplink-cigarettes-desc
   productEntity: CigPackSyndicate
   cost:
-    Telecrystal: 1
+    Telecrystal: 5 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkChemicals
 
@@ -144,9 +144,9 @@
   productEntity: ClothingBackpackDuffelSyndicateMedicalBundleFilled
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 16
+    Telecrystal: 100 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 24
+    Telecrystal: 100 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkChemicals
   conditions:

@@ -74,6 +74,22 @@ public sealed partial class AntagSelectionSystem
         return session.Status is SessionStatus.Disconnected or SessionStatus.Zombie;
     }
 
+// <Onyx-UplinkGoob>
+    public int GetTotalPlayerCount(IList<ICommonSession> pool)
+    {
+        var count = 0;
+        foreach (var session in pool)
+        {
+            if (session.Status is SessionStatus.Disconnected or SessionStatus.Zombie)
+                continue;
+
+            count++;
+        }
+
+        return count;
+    }
+// </Onyx-UplinkGoob>
+
     /// <summary>
     /// Gets the total number of antags a game rule wishes to spawn.
     /// </summary>

@@ -1,0 +1,31 @@
+# Chemical listings ported from Goob-Station uplink
+
+- type: listing
+  id: UplinkSyringePistol
+  name: uplink-syringe-pistol-name
+  description: uplink-syringe-pistol-desc
+  productEntity: SyringePistol
+  cost:
+    Telecrystal: 15
+  categories:
+  - UplinkChemicals
+
+- type: listing
+  id: UplinkCombatMedkitPills
+  name: uplink-combat-medkit-pills-name
+  description: uplink-combat-medkit-pills-desc
+  productEntity: MedkitCombatBlueFilled
+  cost:
+    Telecrystal: 25
+  categories:
+  - UplinkChemicals
+
+- type: listing
+  id: UplinkCombatMedkitIPC
+  name: uplink-combat-medkit-ipc-name
+  description: uplink-combat-medkit-ipc-desc
+  productEntity: MedkitCombatPurpleFilled
+  cost:
+    Telecrystal: 10
+  categories:
+  - UplinkChemicals

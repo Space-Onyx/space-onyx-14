@@ -20,9 +20,9 @@
   productEntity: AccessBreaker
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDisruption
 
@@ -33,9 +33,9 @@
   productEntity: Emag
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 3
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 5
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDisruption
 
@@ -46,9 +46,9 @@
   productEntity: RadioJammer
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 3
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDisruption
 
@@ -59,9 +59,9 @@
   productEntity: BorgModuleSyndicateWeapon
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 3
+    Telecrystal: 25 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 5
+    Telecrystal: 25 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDisruption
 
@@ -72,16 +72,17 @@
   productEntity: ToolboxElectricalTurretFilled
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 30 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 30 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDisruption
   conditions:
   - !type:StoreWhitelistCondition
     blacklist:
       tags:
-      - NukeOpsUplink
+      - NukeOpsUplink # <Onyx-UplinkGoob>
+      - ContractorUplink
 
 - type: listing
   id: UplinkSyndicateMartyrModule
@@ -91,9 +92,9 @@
   icon: { sprite: /Textures/Objects/Specific/Robotics/borgmodule.rsi, state: syndicateborgbomb }
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkDisruption
 
@@ -103,7 +104,7 @@
   description: uplink-soap-desc
   productEntity: SoapSyndie
   cost:
-    Telecrystal: 1
+    Telecrystal: 5 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDisruption
 
@@ -114,7 +115,7 @@
   productEntity: SlipocalypseClusterSoap
   discountCategory: rareDiscounts
   cost:
-    Telecrystal: 1
+    Telecrystal: 6 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDisruption
 
@@ -125,9 +126,9 @@
   productEntity: ToolboxSyndicateFilled
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 2
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDisruption
 
@@ -138,9 +139,9 @@
   productEntity: SyndicateJawsOfLife
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 2
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDisruption
 
@@ -201,14 +202,16 @@
   description: uplink-surplus-bundle-desc
   productEntity: CrateSyndicateSurplusBundle
   cost:
-    Telecrystal: 20
+    Telecrystal: 100 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDisruption
   conditions:
   - !type:StoreWhitelistCondition
     blacklist:
       tags:
+      - ContractorUplink # <Onyx-UplinkGoob>
       - NukeOpsUplink
+      - ContravendUplink
   - !type:BuyerWhitelistCondition
     blacklist:
       components:
@@ -240,16 +243,16 @@
   productEntity: SingularityBeacon
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 4
+    Telecrystal: 60 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 12
+    Telecrystal: 60 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkDisruption
-  conditions:
+  conditions: # <Onyx-UplinkGoob>
   - !type:StoreWhitelistCondition
-    whitelist:
+    blacklist:
       tags:
-      - NukeOpsUplink
+      - ContractorUplink
   - !type:BuyerWhitelistCondition
     blacklist:
       components:
@@ -262,8 +265,8 @@
   productEntity: CameraBug
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 12 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 2
+    Telecrystal: 12 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDisruption

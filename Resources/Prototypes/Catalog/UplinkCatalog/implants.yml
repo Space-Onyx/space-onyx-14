@@ -8,9 +8,9 @@
   productEntity: StorageImplanter
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 4
+    Telecrystal: 40 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 8
+    Telecrystal: 40 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkImplants
   conditions:
@@ -27,9 +27,9 @@
   productEntity: FreedomImplanter
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 18 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 2
+    Telecrystal: 18 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkImplants
 
@@ -41,9 +41,9 @@
   productEntity: ScramImplanter
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 15 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 2 # it's a gamble that may kill you easily so 1 TC per use.
+    Telecrystal: 15 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkImplants
 
@@ -55,9 +55,9 @@
   productEntity: DnaScramblerImplanter
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 25 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 3
+    Telecrystal: 25 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkImplants
 
@@ -69,9 +69,9 @@
   productEntity: EmpImplanter
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 2
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkImplants
 
@@ -83,11 +83,16 @@
   productEntity: RadioImplanter
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 7 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 2
+    Telecrystal: 7 # <Onyx-UplinkGoob-edited>
   categories:
-  - UplinkImplants
+    - UplinkImplants
+  conditions: # <Onyx-UplinkGoob>
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - ContravendUplink
 
 - type: listing
   id: UplinkMicroBombImplanter
@@ -96,18 +101,14 @@
   icon: { sprite: /Textures/Actions/Implants/implants.rsi, state: explosive }
   productEntity: MicroBombImplanter
   cost:
-    Telecrystal: 2
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkImplants
-  conditions:
+  conditions: # <Onyx-UplinkGoob>
   - !type:StoreWhitelistCondition
-    whitelist:
-      tags:
-      - NukeOpsUplink
-  - !type:BuyerWhitelistCondition
     blacklist:
-      components:
-      - SurplusBundle
+      tags:
+      - ContractorUplink
 
 - type: listing
   id: UplinkMacroBombImplanter
@@ -116,18 +117,16 @@
   icon: { sprite: /Textures/Actions/Implants/implants.rsi, state: explosive }
   productEntity: MacroBombImplanter
   cost:
-    Telecrystal: 13
+    Telecrystal: 65 # <Onyx-UplinkGoob-edited>
+  restockTime: 1800 # <Onyx-UplinkGoob>
   categories:
     - UplinkImplants
-  conditions:
+  conditions: # <Onyx-UplinkGoob>
     - !type:StoreWhitelistCondition
-      whitelist:
-        tags:
-          - NukeOpsUplink
-    - !type:BuyerWhitelistCondition
       blacklist:
-        components:
-          - SurplusBundle
+        tags:
+          - ContractorUplink
+          - NukeOpsUplink
 
 - type: listing
   id: UplinkDeathAcidifierImplanter
@@ -136,14 +135,14 @@
   icon: { sprite: /Textures/Objects/Magic/magicactions.rsi, state: gib }
   productEntity: DeathAcidifierImplanter
   cost:
-    Telecrystal: 4
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkImplants
-  conditions:
+  conditions: # <Onyx-UplinkGoob>
     - !type:StoreWhitelistCondition
-      whitelist:
+      blacklist:
         tags:
-          - NukeOpsUplink
+          - ContractorUplink
 
 - type: listing
   id: UplinkUplinkImplanter # uplink uplink real
@@ -152,14 +151,15 @@
   icon: { sprite: /Textures/Objects/Devices/communication.rsi, state: old-radio }
   productEntity: UplinkImplanter
   cost:
-    Telecrystal: 1
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkImplants
   conditions:
     - !type:StoreWhitelistCondition
       blacklist:
         tags:
-          - NukeOpsUplink
+          - NukeOpsUplink # <Onyx-UplinkGoob>
+          - ContractorUplink
 
 - type: listing
   id: UplinkDeathRattle
@@ -167,7 +167,7 @@
   description: uplink-deathrattle-implant-desc
   productEntity: BoxDeathRattleImplants
   cost:
-    Telecrystal: 4
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkImplants
   conditions:
@@ -187,9 +187,9 @@
   icon: { sprite: Interface/Actions/actions_fakemindshield.rsi, state: icon-on }
   productEntity: FakeMindShieldImplanter
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 15 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 15 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkImplants
 

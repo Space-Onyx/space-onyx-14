@@ -17,9 +17,9 @@
   productEntity: AgentIDCard
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 15 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 3
+    Telecrystal: 15 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDeception
 
@@ -30,9 +30,9 @@
   productEntity: StealthBox
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 5
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDeception
 
@@ -43,9 +43,9 @@
   productEntity: ChameleonProjector
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 30 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 3
+    Telecrystal: 30 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDeception
 
@@ -54,14 +54,19 @@
   name: uplink-encryption-key-name
   description: uplink-encryption-key-desc
   icon: { sprite: /Textures/Objects/Devices/encryption_keys.rsi, state: synd_label }
-  productEntity: BoxEncryptionKeySyndie # Two for the price of one
+  productEntity: EncryptionKeySyndie # <Onyx-UplinkGoob-edited>
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 3 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 2
+    Telecrystal: 3 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDeception
+  conditions: # <Onyx-UplinkGoob>
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - ContravendUplink
 
 - type: listing
   id: UplinkBinaryTranslatorKey
@@ -80,7 +85,7 @@
   description: uplink-cyberpen-desc
   productEntity: CyberPen
   cost:
-    Telecrystal: 1
+    Telecrystal: 5 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDeception
 
@@ -90,7 +95,7 @@
   description: uplink-decoy-disk-desc
   productEntity: NukeDiskFake
   cost:
-    Telecrystal: 1
+    Telecrystal: 2 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDeception
 
@@ -101,11 +106,15 @@
   productEntity: BriefcaseSyndieLobbyingBundleFilled
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkDeception
+  conditions: # <Onyx-UplinkGoob>
+  - !type:BuyerSpeciesCondition
+    blacklist:
+    - Plasmaman
 
 # - type: listing
 #   id: UplinkGigacancerScanner
@@ -124,9 +133,9 @@
   productEntity: SyndicateBombFake
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDeception
   restockTime: 1800
@@ -170,7 +179,7 @@
   description: uplink-smuggler-satchel-desc
   productEntity: ClothingBackpackSatchelSmugglerUnanchored
   cost:
-    Telecrystal: 1
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkDeception
 

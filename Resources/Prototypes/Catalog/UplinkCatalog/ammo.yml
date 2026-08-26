@@ -5,7 +5,7 @@
   name: uplink-pistol-magazine-name
   description: uplink-pistol-magazine-desc
   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/Pistol/pistol_high_capacity_mag.rsi, state: base-icon }
-  productEntity: MagazinePistolHighCapacity
+  productEntity: MagazinePistol # <Onyx-UplinkGoob-edited>
   cost:
     Telecrystal: 1
   categories:
@@ -19,7 +19,7 @@
   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/Pistol/smg_mag.rsi, state: red-icon }
   productEntity: MagazinePistolSubMachineGun
   cost:
-    Telecrystal: 2
+    Telecrystal: 5 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkAmmo
 
@@ -42,7 +42,7 @@
   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/Shotgun/m12.rsi, state: slug }
   productEntity: MagazineShotgunSlug
   cost:
-    Telecrystal: 2
+    Telecrystal: 4 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkAmmo
 
@@ -54,7 +54,7 @@
   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/CaselessRifle/caseless_pistol_mag.rsi, state: red-icon }
   productEntity: MagazinePistolCaselessRifle
   cost:
-    Telecrystal: 1
+    Telecrystal: 3 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkAmmo
 
@@ -65,7 +65,7 @@
   description: uplink-mosin-ammo-desc
   productEntity: MagazineBoxLightRifle
   cost:
-    Telecrystal: 1
+    Telecrystal: 14 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkAmmo
 
@@ -74,7 +74,7 @@
   id: UplinkEstocAmmo
   name: uplink-estoc-ammo-name
   description: uplink-estoc-ammo-desc
-  productEntity: MagazineRifle
+  productEntity: MagazineLightRifle # <Onyx-UplinkGoob-edited>
   cost:
     Telecrystal: 2
   categories:
@@ -87,7 +87,7 @@
   description: uplink-sniper-ammo-desc
   productEntity: MagazineBoxAntiMateriel
   cost:
-    Telecrystal: 2
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkAmmo
 

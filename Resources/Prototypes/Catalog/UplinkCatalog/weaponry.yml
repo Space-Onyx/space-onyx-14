@@ -7,9 +7,9 @@
   productEntity: WeaponPistolViper
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 13 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 3
+    Telecrystal: 13 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkWeaponry
 
@@ -21,9 +21,9 @@
   productEntity: WeaponPistolCobra
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 17 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 17 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkWeaponry
 
@@ -34,7 +34,7 @@
   description: uplink-rifle-mosin-desc
   productEntity: WeaponSniperMosin
   cost:
-    Telecrystal: 1
+    Telecrystal: 4 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkWeaponry
 
@@ -45,10 +45,11 @@
   icon: { sprite: /Textures/Objects/Weapons/Melee/e_sword.rsi, state: icon }
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 4
+    Telecrystal: 37 # <Onyx-UplinkGoob-edited>
   productEntity: EnergySword
   cost:
-    Telecrystal: 8
+    Telecrystal: 37 # <Onyx-UplinkGoob-edited>
+  saleLimit: 2 # <Onyx-UplinkGoob>
   categories:
   - UplinkWeaponry
 
@@ -60,9 +61,9 @@
   productEntity: EnergyDaggerBox
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 2
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkWeaponry
 
@@ -90,9 +91,9 @@
   productEntity: ThrowingKnivesKit
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 3
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 6
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkWeaponry
 
@@ -103,9 +104,9 @@
   productEntity: ClothingHandsGlovesNorthStar
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 4
+    Telecrystal: 40 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 8
+    Telecrystal: 40 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkWeaponry
 
@@ -117,9 +118,9 @@
   productEntity: ClothingHandsKnuckleDustersSyndicate
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkWeaponry
 
@@ -131,16 +132,11 @@
   productEntity: EnergyShield
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 4
+    Telecrystal: 15 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 8
+    Telecrystal: 15 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkWeaponry
-  conditions:
-  - !type:StoreWhitelistCondition
-    whitelist:
-      tags:
-      - NukeOpsUplink
 
 - type: listing
   id: uplinkRiggedBoxingGloves
@@ -164,9 +160,9 @@
   productEntity: BriefcaseSyndieSniperBundleFilled
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 6
+    Telecrystal: 75 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 10
+    Telecrystal: 75 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkWeaponry
 
@@ -189,19 +185,20 @@
   name: uplink-c20r-name
   description: uplink-c20r-desc
   icon: { sprite: /Textures/Objects/Weapons/Guns/SMGs/c20r.rsi, state: icon }
-  productEntity: BriefcaseWeaponC20Filled
+  productEntity: WeaponSubMachineGunC20r # <Onyx-UplinkGoob-edited>
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 10
+    Telecrystal: 50 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 14
+    Telecrystal: 50 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkWeaponry
   conditions:
   - !type:StoreWhitelistCondition
     blacklist:
       tags:
-      - NukeOpsUplink
+      - NukeOpsUplink # <Onyx-UplinkGoob>
+      - ContractorUplink
 
 - type: listing
   id: UplinkC20RBundle
@@ -227,19 +224,20 @@
   name: uplink-bulldog-name
   description: uplink-bulldog-desc
   icon: { sprite: /Textures/Objects/Weapons/Guns/Shotguns/bulldog.rsi, state: icon }
-  productEntity: BriefcaseWeaponBulldogFilled
+  productEntity: WeaponShotgunBulldog # <Onyx-UplinkGoob-edited>
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 10
+    Telecrystal: 60 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 14
+    Telecrystal: 60 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkWeaponry
   conditions:
   - !type:StoreWhitelistCondition
     blacklist:
       tags:
-      - NukeOpsUplink
+      - NukeOpsUplink # <Onyx-UplinkGoob>
+      - ContractorUplink
 
 - type: listing
   id: UplinkBulldogBundle
@@ -303,16 +301,16 @@
   productEntity: ClothingBackpackDuffelSyndicateFilledGrenadeLauncher
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 20
+    Telecrystal: 150 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 25
+    Telecrystal: 150 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkWeaponry
-  conditions:
+  conditions: # <Onyx-UplinkGoob>
   - !type:StoreWhitelistCondition
-    whitelist:
+    blacklist:
       tags:
-      - NukeOpsUplink
+      - ContractorUplink
 
 - type: listing
   id: UplinkL6SawBundle

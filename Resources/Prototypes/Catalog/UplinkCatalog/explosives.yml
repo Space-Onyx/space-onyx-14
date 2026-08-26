@@ -7,15 +7,16 @@
   productEntity: ExGrenade
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 10 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkExplosives
-  conditions:
+  conditions: # <Onyx-UplinkGoob>
   - !type:StoreWhitelistCondition
-    whitelist:
+    blacklist:
       tags:
+      - ContractorUplink
       - NukeOpsUplink
 
 - type: listing
@@ -24,9 +25,14 @@
   description: uplink-smoke-grenade-desc
   productEntity: SmokeGrenade
   cost:
-    Telecrystal: 1
+    Telecrystal: 4 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkExplosives
+  conditions: # <Onyx-UplinkGoob>
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - NukeOpsUplink
 
 - type: listing
   id: UplinkSyndieMiniBomb
@@ -35,11 +41,17 @@
   productEntity: SyndieMiniBomb
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 3
+    Telecrystal: 24 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 6
+    Telecrystal: 24 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkExplosives
+  conditions: # <Onyx-UplinkGoob>
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - ContractorUplink
+      - NukeOpsUplink
 
 - type: listing
   id: UplinkGrenadePenguin
@@ -48,12 +60,16 @@
   productEntity: MobGrenadePenguin
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 3
+    Telecrystal: 18 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 18 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkExplosives
   conditions:
+  - !type:StoreWhitelistCondition # <Onyx-UplinkGoob>
+    blacklist:
+      tags:
+      - ContractorUplink
   - !type:BuyerWhitelistCondition
     blacklist:
       components:
@@ -66,11 +82,16 @@
   productEntity: C4
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 8 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 2
+    Telecrystal: 8 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkExplosives
+  conditions: # <Onyx-UplinkGoob>
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - NukeOpsUplink
 
 - type: listing
   id: UplinkGrenadierRig
@@ -97,11 +118,16 @@
   productEntity: ClothingBackpackDuffelSyndicateC4tBundle
   discountCategory: veryRareDiscounts
   discountDownTo:
-    Telecrystal: 8
+    Telecrystal: 52 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 12 #you're buying bulk so its a 25% discount, so no additional random discount over it
+    Telecrystal: 52 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkExplosives
+  conditions: # <Onyx-UplinkGoob>
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - NukeOpsUplink
 
 - type: listing
   id: UplinkEmpGrenade
@@ -110,11 +136,16 @@
   productEntity: EmpGrenade
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 1
+    Telecrystal: 4 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 2
+    Telecrystal: 4 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkExplosives
+  conditions: # <Onyx-UplinkGoob>
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - NukeOpsUplink
 
 - type: listing
   id: UplinkExplodingPen
@@ -124,9 +155,9 @@
   productEntity: PenExplodingBox
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 12 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 12 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkExplosives
 
@@ -136,7 +167,7 @@
   description: uplink-exploding-syndicate-bomb-desc
   productEntity: SyndicateBomb
   cost:
-    Telecrystal: 11
+    Telecrystal: 52 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkExplosives
   restockTime: 1800
@@ -144,6 +175,7 @@
   - !type:StoreWhitelistCondition
     blacklist:
       tags:
+      - ContractorUplink # <Onyx-UplinkGoob>
       - NukeOpsUplink
 
 - type: listing
@@ -152,7 +184,7 @@
   description: uplink-exploding-syndicate-bomb-desc
   productEntity: SyndicateBomb
   cost:
-    Telecrystal: 11
+    Telecrystal: 25 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkExplosives
   conditions:
@@ -168,11 +200,17 @@
   productEntity: GrenadeShrapnel
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 8 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 8 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkExplosives
+  conditions: # <Onyx-UplinkGoob>
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - ContractorUplink
+      - NukeOpsUplink
 
 - type: listing
   id: UplinkGrenadeIncendiary
@@ -181,11 +219,17 @@
   productEntity: GrenadeIncendiary
   discountCategory: rareDiscounts
   discountDownTo:
-    Telecrystal: 2
+    Telecrystal: 8 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 4
+    Telecrystal: 8 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkExplosives
+  conditions: # <Onyx-UplinkGoob>
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - ContractorUplink
+      - NukeOpsUplink
 
 - type: listing
   id: UplinkPowerSink
@@ -194,8 +238,17 @@
   productEntity: PowerSink
   discountCategory: usualDiscounts
   discountDownTo:
-    Telecrystal: 4
+    Telecrystal: 32 # <Onyx-UplinkGoob-edited>
   cost:
-    Telecrystal: 8
+    Telecrystal: 32 # <Onyx-UplinkGoob-edited>
   categories:
   - UplinkExplosives
+  conditions: # <Onyx-UplinkGoob>
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - ContractorUplink
+  - !type:BuyerWhitelistCondition
+    blacklist:
+      components:
+      - SurplusBundle
