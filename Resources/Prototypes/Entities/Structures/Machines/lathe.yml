@@ -329,8 +329,7 @@
     runningState: fab-active
     # <Onyx-RoboticsDynamic-edited>
     staticPacks:
-    - BorgModulesStatic
-    - MechPartsStatic # <MechProduction>
+    - MechPartsStatic
     # </Onyx-RoboticsDynamic-edited>
     dynamicPacks:
     - Robotics

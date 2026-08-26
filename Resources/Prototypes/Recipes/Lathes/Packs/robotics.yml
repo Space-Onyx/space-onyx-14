@@ -1,12 +1,5 @@
 ## Static
 
-- type: latheRecipePack
-  id: BorgModulesStatic
-  recipes:
-  - BorgModuleTool
-  - BorgModuleCable
-  - BorgModuleSurgery # <Onyx-BorgSurgery>
-
 ## Dynamic
 
 # <Onyx-RoboticsDynamic>
@@ -20,6 +13,9 @@
   - CyborgEndoskeleton
   - PositronicBrain
   - MMI
+  - BorgModuleTool
+  - BorgModuleCable
+  - BorgModuleSurgery # <Onyx-BorgSurgery>
 
 - type: latheRecipePack
   id: BorgLimbs
