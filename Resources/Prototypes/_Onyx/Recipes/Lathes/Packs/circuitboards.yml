@@ -34,3 +34,11 @@
   recipes:
   - SlimeGrinderMachineCircuitboard
   - XenobiologyBountyComputerCircuitboard
+
+- type: latheRecipePack
+  id: BitrunningBoards
+  recipes:
+  - QuantumConsoleCircuitboardRecipe
+  - QuantumServerMachineCircuitboardRecipe
+  - NetpodMachineCircuitboardRecipe
+  - ByteforgeMachineCircuitboardRecipe

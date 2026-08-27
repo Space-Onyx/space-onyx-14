@@ -2,8 +2,8 @@
   parent: DebugAPCRecharging
   id: OmniControlUnit
   name: omni-control unit
-  description: A compact all-in-one utility core that provides power and local gravity.
-  suffix: Power-Gravity
+  description: A compact utility core that provides power.
+  suffix: Power
   components:
   - type: Battery
   - type: BatterySelfRecharger
@@ -33,25 +33,3 @@
       shader: unshaded
       map: ["enum.ApcVisualLayers.Equipment"]
       visible: false
-    - sprite: Structures/Machines/gravity_generator.rsi
-      state: off
-      map: ["enum.GravityGeneratorVisualLayers.Base"]
-    - sprite: Structures/Machines/gravity_generator.rsi
-      state: off
-      map: ["enum.GravityGeneratorVisualLayers.Core"]
-  - type: GravityGenerator
-    spriteMap:
-      broken: broken
-      unpowered: off
-      off: off
-      on: on
-
-- type: entity
-  parent: OmniControlUnit
-  id: OmniControlUnitUnlocked
-  name: omni-control unit
-  description: A compact all-in-one utility core that provides power and local gravity.
-  suffix: Power-Gravity, Unlocked
-  components:
-  - type: AccessReader
-    access: [ ]

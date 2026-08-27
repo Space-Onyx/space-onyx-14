@@ -107,8 +107,10 @@ public sealed partial class QuantumConsoleSystem : EntitySystem
         if (server == null)
             return;
 
-        _server.TryColdBoot(server.Value, args.DomainId);
-        UpdateUi(ent);
+        if (_server.TryColdBoot(server.Value, args.DomainId))
+            RefreshServerConsoles(server.Value);
+        else
+            UpdateUi(ent);
     }
 
     private void OnRandomDomain(Entity<QuantumConsoleComponent> ent, ref QuantumConsoleRandomDomainMessage args)
@@ -121,8 +123,10 @@ public sealed partial class QuantumConsoleSystem : EntitySystem
         if (domain == null)
             return;
 
-        _server.TryColdBoot(server.Value, domain, true);
-        UpdateUi(ent);
+        if (_server.TryColdBoot(server.Value, domain, true))
+            RefreshServerConsoles(server.Value);
+        else
+            UpdateUi(ent);
     }
 
     private void OnStopDomain(Entity<QuantumConsoleComponent> ent, ref QuantumConsoleStopDomainMessage args)
@@ -132,7 +136,7 @@ public sealed partial class QuantumConsoleSystem : EntitySystem
             return;
 
         _server.StopDomain((serverUid.Value, serverComp));
-        UpdateUi(ent);
+        RefreshServerConsoles(serverUid.Value);
     }
 
     private void OnRefresh(Entity<QuantumConsoleComponent> ent, ref QuantumConsoleRefreshMessage args)
@@ -147,7 +151,7 @@ public sealed partial class QuantumConsoleSystem : EntitySystem
             return;
 
         _server.SetBroadcastState(serverUid.Value, args.Enabled);
-        UpdateUi(ent);
+        RefreshServerConsoles(serverUid.Value);
     }
 
     private void UpdateUi(Entity<QuantumConsoleComponent> ent)
@@ -207,7 +211,7 @@ public sealed partial class QuantumConsoleSystem : EntitySystem
             _occupantBuffer.Add(new BitrunningOccupantListing(name, noHit));
         }
 
-        var cooldownTotal = (float) server.Cooldown.TotalSeconds;
+        var cooldownTotal = Math.Max(0f, (float) (server.Cooldown.TotalSeconds * server.CooldownMultiplier));
         var cooldownRemaining = Math.Max(0f, (float) (server.CooldownEndTime - _timing.CurTime).TotalSeconds);
         var connectedPods = 0;
         var netpodQuery = EntityQueryEnumerator<NetpodComponent>();
@@ -223,7 +227,7 @@ public sealed partial class QuantumConsoleSystem : EntitySystem
             connected: true,
             server: GetNetEntity(serverUid.Value),
             currentDomain: server.CurrentDomain?.Id,
-            occupants: server.ActiveConnections.Count,
+            occupants: _occupantBuffer.Count,
             connectedPods: connectedPods,
             serverPoints: server.Points,
             scannerTier: server.ScannerTier,

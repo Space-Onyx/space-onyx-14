@@ -48,6 +48,10 @@ bitrunning-ui-label-state = State:
 bitrunning-ui-label-occupants = Occupants:
 bitrunning-ui-label-points = Points:
 bitrunning-ui-label-scanner = Scanner:
+bitrunning-ui-label-pods = Linked pods:
+bitrunning-ui-overview = Server overview
+bitrunning-ui-domain-catalog-hint = Select a difficulty to filter available virtual environments.
+bitrunning-ui-active-session = Active session
 
 bitrunning-ui-button-refresh = Refresh
 bitrunning-ui-button-random = Random Domain
@@ -69,6 +73,7 @@ bitrunning-ui-difficulty-hard = Hard
 bitrunning-ui-difficulty-extreme = Extreme
 
 bitrunning-ui-server-state = State: { $state }
+bitrunning-ui-cannot-deploy-no-server = No quantum server is linked.
 bitrunning-ui-cannot-deploy-server-busy = Server is not ready to deploy a domain.
 bitrunning-ui-cannot-deploy-not-enough-server-points = Not enough server points to deploy this domain.
 
@@ -81,6 +86,7 @@ bitrunning-ui-broadcast = Broadcast
 bitrunning-ui-broadcast-tooltip = Station viewers can watch your avatar broadcast.
 bitrunning-ui-server-points-badge = { $points } §
 bitrunning-ui-domain-reward = Server { $server } / NP { $np }
+bitrunning-ui-pods-inline = Pods: { $pods }
 bitrunning-ui-scanner-inline = Scanner: { $scanner }
 bitrunning-ui-difficulty-hard-skull = Hard ☠
 bitrunning-ui-difficulty-selected = ▾ { $name }

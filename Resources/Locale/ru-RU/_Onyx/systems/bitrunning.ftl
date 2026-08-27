@@ -17,6 +17,7 @@ bitrunning-training-instructions-none = Этот домен запущен бе�
 bitrunning-objective-completed = Цель выполнена.
 bitrunning-objective-completed-rewards = Цель выполнена. Начислены очки сервера: +{ $server }, битраннерские очки: +{ $np }.
 bitrunning-avatar-disconnect-blocked = Нейросвязь нестабильна после недавнего урона. Отключение будет доступно через { $seconds }с.
+bitrunning-avatar-disappears = { $avatar } мерцает, а затем растворяется в потоках красных данных.
 objective-issuer-bitrunning = Битраннинг
 bitrunning-domain-beach-bar-objective-title = Переполните аватар жидкостями
 bitrunning-domain-beach-bar-objective-description = Доведите сытость до предела { $target } раз.

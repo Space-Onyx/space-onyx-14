@@ -17,6 +17,7 @@ bitrunning-training-instructions-none = This domain is running without objective
 bitrunning-objective-completed = Objective completed.
 bitrunning-objective-completed-rewards = Objective completed. Server points: +{ $server }, NP: +{ $np }.
 bitrunning-avatar-disconnect-blocked = Neural link is unstable after recent damage. Disconnect available in { $seconds }s.
+bitrunning-avatar-disappears = { $avatar } flickers, then dissolves into streams of red data.
 objective-issuer-bitrunning = Bitrunning
 bitrunning-domain-beach-bar-objective-title = Overhydrate your avatar
 bitrunning-domain-beach-bar-objective-description = Reach overhydrated satiation { $target } times.

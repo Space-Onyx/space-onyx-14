@@ -101,6 +101,7 @@
     - PowerCells
     - Equipment
     - CargoBoards
+    - BitrunningBoards
     - SharedBoards
     - MechBoardsCargo
     - MechWeaponsSalvage
@@ -167,6 +168,7 @@
     - EngineeringBoards
     - SharedBoards
     - ScienceBoards
+    - BitrunningBoards
     - MechBoardsScience
     - AdvancedRoboticsBoards
     - ScienceBoardsXenobiology

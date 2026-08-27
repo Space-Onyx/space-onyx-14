@@ -498,7 +498,12 @@ public sealed partial class SurveillanceCameraMonitorSystem : EntitySystem
             return;
         }
 
-        var state = new SurveillanceCameraMonitorUiState(GetNetEntity(monitor.ActiveCamera), monitor.KnownSubnets.Keys.ToHashSet(), monitor.ActiveCameraAddress, monitor.ActiveSubnet, monitor.KnownCameras);
+        // <Onyx-BitrunningCameraRelay>
+        EntityUid? activeCamera = monitor.ActiveCamera is { } camera
+            ? _surveillanceCameras.ResolveBitrunningCameraTarget(camera)
+            : null;
+        // </Onyx-BitrunningCameraRelay>
+        var state = new SurveillanceCameraMonitorUiState(GetNetEntity(activeCamera), monitor.KnownSubnets.Keys.ToHashSet(), monitor.ActiveCameraAddress, monitor.ActiveSubnet, monitor.KnownCameras); // <Onyx-BitrunningCameraRelay-edited>
         _userInterface.SetUiState(uid, SurveillanceCameraMonitorUiKey.Key, state);
     }
 }

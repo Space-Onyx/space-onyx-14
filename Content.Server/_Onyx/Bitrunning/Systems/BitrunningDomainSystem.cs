@@ -38,7 +38,7 @@ public sealed partial class BitrunningDomainSystem : EntitySystem
 
     public IReadOnlyList<BitrunningVirtualDomainPrototype> GetAllDomains()
     {
-        return _allDomains.AsReadOnly();
+        return _allDomains;
     }
 
     public bool TryGetDomain(string id, [NotNullWhen(true)] out BitrunningVirtualDomainPrototype? domain)
@@ -84,6 +84,6 @@ public sealed partial class BitrunningDomainSystem : EntitySystem
 
     private static bool CanViewReward(BitrunningVirtualDomainPrototype domain, int scannerTier, int points)
     {
-        return scannerTier >= domain.RequiredScannerTier + 1 && points >= domain.RequiredPointsToRevealReward;
+        return scannerTier >= domain.RequiredScannerTier && points >= domain.RequiredPointsToRevealReward;
     }
 }

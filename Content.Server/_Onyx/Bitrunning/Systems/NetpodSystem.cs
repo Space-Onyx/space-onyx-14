@@ -1,6 +1,9 @@
 using Content.Server.Popups;
 using Content.Server._Onyx.Bitrunning.Components;
+using Content.Server.Atmos.EntitySystems;
+using Content.Server.Body.Systems;
 using Content.Server.Power.Components;
+using Content.Server.SurveillanceCamera;
 using Content.Shared._Onyx.Bitrunning;
 using Content.Shared._Onyx.Bitrunning.Components;
 using Content.Shared.Destructible;
@@ -33,6 +36,8 @@ public sealed partial class NetpodSystem : EntitySystem
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private AtmosphereSystem _atmosphere = default!;
+    [Dependency] private SurveillanceCameraSystem _surveillanceCamera = default!;
 
     private Dictionary<ProtoId<StartingGearPrototype>, string>? _startingGearToJobName;
 
@@ -55,6 +60,8 @@ public sealed partial class NetpodSystem : EntitySystem
         SubscribeLocalEvent<NetpodComponent, NetpodSelectLoadoutMessage>(OnSelectLoadout);
         SubscribeLocalEvent<NetpodComponent, NewLinkEvent>(OnNewLink);
         SubscribeLocalEvent<NetpodComponent, PortDisconnectedEvent>(OnPortDisconnected);
+        SubscribeLocalEvent<NetpodOccupantComponent, InhaleLocationEvent>(OnOccupantInhale);
+        SubscribeLocalEvent<NetpodOccupantComponent, ExhaleLocationEvent>(OnOccupantExhale);
     }
 
     public override void Update(float frameTime)
@@ -111,6 +118,7 @@ public sealed partial class NetpodSystem : EntitySystem
     private void OnMapInit(Entity<NetpodComponent> ent, ref MapInitEvent args)
     {
         RefreshLinkedServer(ent);
+        _surveillanceCamera.SetActive(ent.Owner, false);
     }
 
     private void OnDestroyed(Entity<NetpodComponent> ent, ref DestructionEventArgs args)
@@ -177,6 +185,7 @@ public sealed partial class NetpodSystem : EntitySystem
         }
 
         ent.Comp.Occupant = args.Entity;
+        EnsureComp<NetpodOccupantComponent>(args.Entity).Netpod = ent.Owner;
         Dirty(ent);
         SetVisualState(ent, NetpodVisualState.Closing);
         _audio.PlayPvs(ent.Comp.CloseSound, ent);
@@ -197,6 +206,7 @@ public sealed partial class NetpodSystem : EntitySystem
             return;
 
         ent.Comp.Occupant = null;
+        RemComp<NetpodOccupantComponent>(args.Entity);
         Dirty(ent);
         SetVisualState(ent, NetpodVisualState.Opening);
         _audio.PlayPvs(ent.Comp.OpenSound, ent);
@@ -352,6 +362,30 @@ public sealed partial class NetpodSystem : EntitySystem
         }
 
         _popup.PopupEntity(Loc.GetString("bitrunning-netpod-connect-failed"), ent, user);
+    }
+
+    private void OnOccupantInhale(Entity<NetpodOccupantComponent> ent, ref InhaleLocationEvent args)
+    {
+        if (Exists(ent.Comp.Netpod))
+            args.Gas = _atmosphere.GetContainingMixture(ent.Comp.Netpod, excite: true);
+    }
+
+    private void OnOccupantExhale(Entity<NetpodOccupantComponent> ent, ref ExhaleLocationEvent args)
+    {
+        if (Exists(ent.Comp.Netpod))
+            args.Gas = _atmosphere.GetContainingMixture(ent.Comp.Netpod, excite: true);
+    }
+
+    public void AutoConnectOccupiedPods(EntityUid serverUid)
+    {
+        var query = EntityQueryEnumerator<NetpodComponent>();
+        while (query.MoveNext(out var uid, out var pod))
+        {
+            if (pod.LinkedServer != serverUid || pod.Avatar != null || pod.Occupant is not { } occupant)
+                continue;
+
+            TryAutoConnect((uid, pod), occupant);
+        }
     }
 
     public void UpdateVisuals(Entity<NetpodComponent> ent)

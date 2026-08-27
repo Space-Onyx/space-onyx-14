@@ -48,6 +48,10 @@ bitrunning-ui-label-state = Состояние:
 bitrunning-ui-label-occupants = Участники:
 bitrunning-ui-label-points = Очки:
 bitrunning-ui-label-scanner = Сканер:
+bitrunning-ui-label-pods = Подключённые капсулы:
+bitrunning-ui-overview = Обзор сервера
+bitrunning-ui-domain-catalog-hint = Выберите сложность, чтобы отфильтровать доступные виртуальные среды.
+bitrunning-ui-active-session = Активная сессия
 
 bitrunning-ui-button-refresh = Обновить
 bitrunning-ui-button-random = Случайный домен
@@ -69,6 +73,7 @@ bitrunning-ui-difficulty-hard = Сложный
 bitrunning-ui-difficulty-extreme = Экстремальный
 
 bitrunning-ui-server-state = Состояние: { $state }
+bitrunning-ui-cannot-deploy-no-server = Квантовый сервер не подключён.
 bitrunning-ui-cannot-deploy-server-busy = Сервер сейчас не готов к запуску домена.
 bitrunning-ui-cannot-deploy-not-enough-server-points = Недостаточно очков сервера для запуска этого домена.
 
@@ -81,6 +86,7 @@ bitrunning-ui-broadcast = Вещание
 bitrunning-ui-broadcast-tooltip = Зрители смогут следить за трансляцией ваших аватаров на камерах развлечений.
 bitrunning-ui-server-points-badge = { $points } §
 bitrunning-ui-domain-reward = Сервер { $server } / СО { $np }
+bitrunning-ui-pods-inline = Капсулы: { $pods }
 bitrunning-ui-scanner-inline = Сканер: { $scanner }
 bitrunning-ui-difficulty-hard-skull = Сложный ☠
 bitrunning-ui-difficulty-selected = ▾ { $name }

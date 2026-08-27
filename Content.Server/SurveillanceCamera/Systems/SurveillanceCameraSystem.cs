@@ -303,7 +303,7 @@ public sealed partial class SurveillanceCameraSystem : SharedSurveillanceCameraS
             return;
         }
 
-        _viewSubscriberSystem.AddViewSubscriber(camera, actor.PlayerSession);
+        _viewSubscriberSystem.AddViewSubscriber(ResolveBitrunningCameraTarget(camera), actor.PlayerSession); // <Onyx-BitrunningCameraRelay-edited>
 
         component.ActivePvsViewers.Add(player);
 
@@ -365,7 +365,7 @@ public sealed partial class SurveillanceCameraSystem : SharedSurveillanceCameraS
             return;
 
         if (Resolve(player, ref actor))
-            _viewSubscriberSystem.RemoveViewSubscriber(camera, actor.PlayerSession);
+            _viewSubscriberSystem.RemoveViewSubscriber(ResolveBitrunningCameraTarget(camera), actor.PlayerSession); // <Onyx-BitrunningCameraRelay-edited>
 
         component.ActivePvsViewers.Remove(player);
 
