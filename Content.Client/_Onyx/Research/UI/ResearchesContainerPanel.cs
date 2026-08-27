@@ -9,6 +9,7 @@ namespace Content.Client._Onyx.Research.UI;
 
 public sealed partial class ResearchesContainerPanel : LayoutContainer
 {
+    private const float NodeSize = 80f;
     private const float LongConnectionDistance = 8f;
     private const float RoutePadding = 18f;
     private const float StubGridLength = 1.25f;
@@ -24,9 +25,14 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
     protected override void Draw(DrawingHandleScreen handle)
     {
         var items = Children.OfType<FancyResearchConsoleItem>().ToArray();
+        if (items.Length == 0)
+            return;
+
         var byId = items.ToDictionary(item => item.Prototype.ID);
-        var bounds = items.ToDictionary(item => item, GetBounds);
+        var bounds = items.ToDictionary(item => item, GetTreeBounds);
         var stubSlots = new Dictionary<string, int>();
+        var scale = items[0].PixelWidth / NodeSize;
+        var origin = items[0].PixelPosition - items[0].TreePosition * scale;
 
         foreach (var item in items)
         {
@@ -38,11 +44,12 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
                 var delta = item.Prototype.Position - prerequisite.Prototype.Position;
                 if (Math.Abs(delta.X) + Math.Abs(delta.Y) > LongConnectionDistance)
                 {
-                    DrawLongConnection(handle, prerequisite, item, bounds[prerequisite], bounds[item], bounds.Values, stubSlots);
+                    DrawLongConnection(handle, prerequisite, item, bounds[prerequisite], bounds[item], bounds.Values,
+                        stubSlots, origin, scale);
                     continue;
                 }
 
-                DrawRoute(handle, SelectRoute(bounds[prerequisite], bounds[item], bounds.Values));
+                DrawRoute(handle, TransformRoute(SelectRoute(bounds[prerequisite], bounds[item], bounds.Values), origin, scale));
             }
         }
     }
@@ -56,14 +63,16 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
         };
 
         var obstacleArray = obstacles.ToArray();
-        var minX = obstacleArray.Min(rect => rect.Left) - RoutePadding;
-        var maxX = obstacleArray.Max(rect => rect.Right) + RoutePadding;
-        var minY = obstacleArray.Min(rect => rect.Top) - RoutePadding;
-        var maxY = obstacleArray.Max(rect => rect.Bottom) + RoutePadding;
-        routes.Add(CreateHorizontalRoute(source, target, minX));
-        routes.Add(CreateHorizontalRoute(source, target, maxX));
-        routes.Add(CreateVerticalRoute(source, target, minY));
-        routes.Add(CreateVerticalRoute(source, target, maxY));
+        foreach (var obstacle in obstacleArray)
+        {
+            if (obstacle == source || obstacle == target)
+                continue;
+
+            routes.Add(CreateHorizontalRoute(source, target, obstacle.Left - RoutePadding));
+            routes.Add(CreateHorizontalRoute(source, target, obstacle.Right + RoutePadding));
+            routes.Add(CreateVerticalRoute(source, target, obstacle.Top - RoutePadding));
+            routes.Add(CreateVerticalRoute(source, target, obstacle.Bottom + RoutePadding));
+        }
 
         return routes
             .Where(route => !IntersectsObstacles(route, source, target, obstacleArray))
@@ -114,7 +123,7 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
 
     private static void DrawLongConnection(DrawingHandleScreen handle, FancyResearchConsoleItem sourceItem,
         FancyResearchConsoleItem targetItem, NodeRect source, NodeRect target, IEnumerable<NodeRect> obstacles,
-        Dictionary<string, int> stubSlots)
+        Dictionary<string, int> stubSlots, Vector2 origin, float viewScale)
     {
         var delta = targetItem.Prototype.Position - sourceItem.Prototype.Position;
         var horizontal = Math.Abs(delta.X) >= Math.Abs(delta.Y);
@@ -122,15 +131,14 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
         if (direction == 0)
             direction = 1;
 
-        var scale = Math.Max(source.Right - source.Left, source.Bottom - source.Top) / 80f;
         var preferred = (horizontal ? Vector2.UnitX : Vector2.UnitY) * direction;
-        var sourceStub = CreateFreeStub(sourceItem.Prototype.ID, source, target, preferred, scale, obstacles, stubSlots);
-        var targetStub = CreateFreeStub(targetItem.Prototype.ID, target, source, -preferred, scale, obstacles, stubSlots);
+        var sourceStub = CreateFreeStub(sourceItem.Prototype.ID, source, target, preferred, 1f, obstacles, stubSlots);
+        var targetStub = CreateFreeStub(targetItem.Prototype.ID, target, source, -preferred, 1f, obstacles, stubSlots);
 
-        DrawRoute(handle, sourceStub);
-        DrawRoute(handle, targetStub);
-        DrawPortalIcon(handle, sourceStub[^1], scale, targetItem.ResearchTexture);
-        DrawPortalIcon(handle, targetStub[^1], scale, sourceItem.ResearchTexture);
+        DrawRoute(handle, TransformRoute(sourceStub, origin, viewScale));
+        DrawRoute(handle, TransformRoute(targetStub, origin, viewScale));
+        DrawPortalIcon(handle, origin + sourceStub[^1] * viewScale, viewScale, targetItem.ResearchTexture);
+        DrawPortalIcon(handle, origin + targetStub[^1] * viewScale, viewScale, sourceItem.ResearchTexture);
     }
 
     private static IReadOnlyList<Vector2> CreateFreeStub(string id, NodeRect source, NodeRect target,
@@ -183,11 +191,14 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
                 bounds.Right - 3f * scale, bounds.Bottom - 3f * scale));
     }
 
-    private static NodeRect GetBounds(Control control)
+    private static NodeRect GetTreeBounds(FancyResearchConsoleItem item)
     {
-        return new NodeRect(control.PixelPosition.X, control.PixelPosition.Y,
-            control.PixelPosition.X + control.PixelWidth, control.PixelPosition.Y + control.PixelHeight);
+        return new NodeRect(item.TreePosition.X, item.TreePosition.Y,
+            item.TreePosition.X + NodeSize, item.TreePosition.Y + NodeSize);
     }
+
+    private static IReadOnlyList<Vector2> TransformRoute(IReadOnlyList<Vector2> route, Vector2 origin, float scale)
+        => route.Select(point => origin + point * scale).ToArray();
 
     private static void DrawRoute(DrawingHandleScreen handle, IReadOnlyList<Vector2> route)
     {

@@ -242,6 +242,9 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
         var zoom = Math.Clamp(_zoom + (args.Delta.Y > 0 ? 0.125f : -0.125f), 0.5f, 2f);
         if (MathHelper.CloseTo(zoom, _zoom))
             return;
+
+        var cursor = args.GlobalPosition - DragContainer.GlobalPosition;
+        _position = cursor - (cursor - _position) * zoom / _zoom;
         _zoom = zoom;
         RecenterItems();
         args.Handle();
