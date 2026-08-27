@@ -161,7 +161,6 @@
 - type: technology
   id: Bitrunning
   name: research-technology-bitrunning-name
-  description: research-technology-bitrunning-desc
   icon:
     sprite: _Onyx/Objects/Specific/Cargo/Bitrunning/encrypted_cache.rsi
     state: icon
@@ -169,11 +168,10 @@
   tier: 3
   cost: 7500
   recipeUnlocks:
-  - QuantumConsoleCircuitboardRecipe
-  - QuantumServerMachineCircuitboardRecipe
-  - NetpodMachineCircuitboardRecipe
-  - ByteforgeMachineCircuitboardRecipe
-  position: 4,6
+    - QuantumConsoleCircuitboardRecipe
+    - QuantumServerMachineCircuitboardRecipe
+    - NetpodMachineCircuitboardRecipe
+    - ByteforgeMachineCircuitboardRecipe
+  position: -1,2
   technologyPrerequisites:
   - MassExcavation
-  - BluespaceTheory
