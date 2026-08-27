@@ -160,7 +160,7 @@
 
 - type: technology
   id: Bitrunning
-  name: research-technology-bitrunning-name
+  name: research-technology-bitrunning
   icon:
     sprite: _Onyx/Objects/Specific/Cargo/Bitrunning/encrypted_cache.rsi
     state: icon
