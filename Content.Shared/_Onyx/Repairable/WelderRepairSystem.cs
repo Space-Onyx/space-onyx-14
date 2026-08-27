@@ -2,7 +2,6 @@ using System.Linq;
 using Content.Shared.Body.Systems;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
-using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
@@ -95,7 +94,7 @@ public sealed partial class WelderRepairSystem : EntitySystem
             return;
         }
 
-        var repair = BuildRepair(settings.Damage, mode);
+        var repair = mode.Damage;
         if (!HasRepairableDamage(part, repair))
         {
             _popup.PopupClient(Loc.GetString("targeting-selected-part-healthy"), body, args.User);
@@ -105,7 +104,7 @@ public sealed partial class WelderRepairSystem : EntitySystem
         if (args.User == body.Owner && !settings.AllowSelfRepair)
             return;
 
-        var delay = settings.Delay * Math.Max(0f, mode.DelayMultiplier);
+        var delay = (float) mode.DoAfterDelay;
         if (args.User == body.Owner)
             delay *= settings.SelfRepairPenalty;
 
@@ -127,7 +126,7 @@ public sealed partial class WelderRepairSystem : EntitySystem
             !IsCompatible(body, part, settings.Capabilities, mode))
             return;
 
-        var repair = BuildRepair(settings.Damage, mode);
+        var repair = mode.Damage;
         if (_damage.TryChangeDamage((part, damageable), repair, out var applied,
                 ignoreResistances: true, interruptsDoAfters: false, ignoreGlobalModifiers: true))
         {
@@ -146,16 +145,16 @@ public sealed partial class WelderRepairSystem : EntitySystem
     {
         if (TryComp(part, out RepairableBodyPartComponent? partRepair))
         {
-            settings = new(partRepair.Damage, partRepair.TreatmentCapabilities, partRepair.FuelCost,
-                partRepair.QualityNeeded, partRepair.DoAfterDelay, partRepair.SelfRepairPenalty,
+            settings = new(partRepair.TreatmentCapabilities, partRepair.FuelCost, partRepair.QualityNeeded,
+                partRepair.SelfRepairPenalty,
                 partRepair.AllowSelfRepair, partRepair.AutoDoAfter);
             return true;
         }
 
         if (TryComp(body, out RepairableComponent? bodyRepair))
         {
-            settings = new(bodyRepair.Damage, bodyRepair.TreatmentCapabilities, bodyRepair.FuelCost,
-                bodyRepair.QualityNeeded, bodyRepair.DoAfterDelay, bodyRepair.SelfRepairPenalty,
+            settings = new(bodyRepair.TreatmentCapabilities, bodyRepair.FuelCost, bodyRepair.QualityNeeded,
+                bodyRepair.SelfRepairPenalty,
                 bodyRepair.AllowSelfRepair, bodyRepair.AutoDoAfter);
             return true;
         }
@@ -173,18 +172,6 @@ public sealed partial class WelderRepairSystem : EntitySystem
                profile.TreatmentCapabilities.Overlaps(mode.TreatmentCapabilities);
     }
 
-    private DamageSpecifier BuildRepair(DamageSpecifier? damage, WelderRepairMode mode)
-    {
-        var repair = new DamageSpecifier();
-        if (damage == null || !_prototypes.TryIndex(mode.DamageGroup, out DamageGroupPrototype? group))
-            return repair;
-
-        foreach (var type in group.DamageTypes)
-            if (damage.DamageDict.TryGetValue(type, out var amount))
-                repair.DamageDict[type] = amount * Math.Max(0f, mode.RepairMultiplier);
-        return repair;
-    }
-
     private bool HasRepairableDamage(EntityUid part, DamageSpecifier repair)
     {
         if (_wounds.GetHealingPotential(part, repair) > 0)
@@ -198,11 +185,9 @@ public sealed partial class WelderRepairSystem : EntitySystem
     }
 
     private readonly record struct RepairSettings(
-        DamageSpecifier? Damage,
         HashSet<TreatmentCapability> Capabilities,
         float Fuel,
         ProtoId<Content.Shared.Tools.ToolQualityPrototype> Quality,
-        int Delay,
         float SelfRepairPenalty,
         bool AllowSelfRepair,
         bool AutoDoAfter);

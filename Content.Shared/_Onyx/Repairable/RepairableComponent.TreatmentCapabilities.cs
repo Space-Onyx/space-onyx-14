@@ -1,4 +1,3 @@
-using Content.Shared.Damage;
 using Content.Shared.Tools;
 using Content.Shared._Onyx.Wounds;
 using Robust.Shared.Prototypes;
@@ -15,16 +14,10 @@ public sealed partial class RepairableComponent
 public sealed partial class RepairableBodyPartComponent : Component
 {
     [DataField]
-    public DamageSpecifier? Damage;
-
-    [DataField]
     public float FuelCost = 5f;
 
     [DataField]
     public ProtoId<ToolQualityPrototype> QualityNeeded = "Welding";
-
-    [DataField]
-    public int DoAfterDelay = 1;
 
     [DataField]
     public bool AutoDoAfter = true;

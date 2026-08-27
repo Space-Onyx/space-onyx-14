@@ -4,6 +4,9 @@ namespace Content.Shared.CCVar;
 
 public sealed partial class CCVars
 {
+    public static readonly CVarDef<bool> WoundsBodyPartFunctionalityEnabled =
+        CVarDef.Create("wounds.body_part_functionality_enabled", false, CVar.SERVER | CVar.ARCHIVE);
+
     public static readonly CVarDef<bool> WoundsBleedingAutoStopEnabled =
         CVarDef.Create("wounds.bleeding_auto_stop_enabled", true, CVar.SERVER | CVar.ARCHIVE);
 

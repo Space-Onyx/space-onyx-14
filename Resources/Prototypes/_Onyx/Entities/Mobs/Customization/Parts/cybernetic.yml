@@ -14,15 +14,6 @@
   - type: Injurable
     damageContainer: SiliconIpc
   - type: RepairableBodyPart
-    damage:
-      types:
-        Blunt: -8
-        Slash: -6
-        Piercing: -5
-        Heat: -7
-        Cold: -6
-        Caustic: -4
-    doAfterDelay: 3
   - type: Sprite
     sprite: _Onyx/Cybernetics/bishop_main.rsi
   - type: VisualOrgan

@@ -1,6 +1,8 @@
 using Content.Shared.Body;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
+using Content.Shared.CCVar;
+using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 
 namespace Content.Shared._Onyx.Wounds;
@@ -10,9 +12,13 @@ public sealed partial class BodyPartFunctionalitySystem : EntitySystem
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private WoundSystem _wounds = default!;
     [Dependency] private INetManager _net = default!;
+    [Dependency] private IConfigurationManager _configuration = default!;
 
     public BodyPartFunctionalityState GetState(Entity<WoundableComponent?> part)
     {
+        if (!_configuration.GetCVar(CCVars.WoundsBodyPartFunctionalityEnabled))
+            return BodyPartFunctionalityState.Functional;
+
         if (!Resolve(part, ref part.Comp, false) ||
             !TryComp(part, out BodyPartComponent? bodyPart))
             return BodyPartFunctionalityState.Unavailable;

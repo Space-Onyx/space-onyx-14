@@ -1,4 +1,4 @@
-using Content.Shared.Damage.Prototypes;
+using Content.Shared.Damage;
 using Content.Shared._Onyx.Wounds;
 using Robust.Shared.GameStates;
 using Robust.Shared.Localization;
@@ -23,16 +23,13 @@ public sealed partial class WelderRepairMode
     public LocId Name;
 
     [DataField(required: true)]
-    public ProtoId<DamageGroupPrototype> DamageGroup;
+    public DamageSpecifier Damage = new();
+
+    [DataField]
+    public int DoAfterDelay = 1;
 
     [DataField]
     public HashSet<TreatmentCapability> TreatmentCapabilities = [TreatmentCapability.Mechanical];
-
-    [DataField]
-    public float RepairMultiplier = 1f;
-
-    [DataField]
-    public float DelayMultiplier = 1f;
 
     [DataField]
     public float FuelMultiplier = 1f;
