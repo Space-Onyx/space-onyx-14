@@ -43,7 +43,7 @@
   name: "bitrunning gear: complex"
   description: Use in hand to choose a one-time gear package.
   components:
-   - type: BitrunningAbilityDisk
+  - type: BitrunningAbilityDisk
     grantMode: Item
     options:
       bitrunning-disk-option-luxury-medipen: LuxuryMedipen
