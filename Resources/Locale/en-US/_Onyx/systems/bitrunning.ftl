@@ -23,3 +23,7 @@ bitrunning-domain-beach-bar-objective-title = Overhydrate your avatar
 bitrunning-domain-beach-bar-objective-description = Reach overhydrated satiation { $target } times.
 bitrunning-domain-breeze-bay-objective-title = Catch fish
 bitrunning-domain-breeze-bay-objective-description = Catch fish { $target } times.
+bitrunning-domain-cosmic-vestige-objective-title = Deliver cache
+bitrunning-domain-cosmic-vestige-objective-description = Deliver cache crates { $target } times.
+bitrunning-domain-grassland-hunt-objective-title = Hunt
+bitrunning-domain-grassland-hunt-objective-description = Eliminate { $target } domain threats.

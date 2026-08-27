@@ -121,7 +121,7 @@ public sealed partial class BitrunningObjectiveSystem : EntitySystem
         if (!HasComp<BitrunningObjectiveCargoComponent>(args.OtherEntity))
             return;
 
-        if (!TryComp<BitrunningObjectiveCargoComponent>(args.OtherEntity, out var cargo) || cargo.Server != serverUid)
+        if (!TryComp<BitrunningObjectiveCargoComponent>(args.OtherEntity, out var cargo) || cargo.Server != null && cargo.Server != serverUid)
             return;
 
         if (HasComp<BitrunningDeliveredObjectiveCargoComponent>(args.OtherEntity))

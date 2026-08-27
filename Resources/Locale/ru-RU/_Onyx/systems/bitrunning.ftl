@@ -23,3 +23,7 @@ bitrunning-domain-beach-bar-objective-title = Переполните авата�
 bitrunning-domain-beach-bar-objective-description = Доведите сытость до предела { $target } раз.
 bitrunning-domain-breeze-bay-objective-title = Поймайте рыбу
 bitrunning-domain-breeze-bay-objective-description = Поймайте рыбу { $target } раз.
+bitrunning-domain-cosmic-vestige-objective-title = Доставка кэша
+bitrunning-domain-cosmic-vestige-objective-description = Доставьте ящики кэша { $target } раз.
+bitrunning-domain-grassland-hunt-objective-title = Охота
+bitrunning-domain-grassland-hunt-objective-description = Устраните { $target } угроз домена.

@@ -1,0 +1,24 @@
+- type: entity
+  parent: MobReindeerBuck
+  id: MobReindeerBuckBitrunning
+  suffix: Bitrunning
+  components:
+  - type: BitrunningDomainEnemyObjective
+
+- type: entity
+  parent: MobReindeerDoe
+  id: MobReindeerDoeBitrunning
+  suffix: Bitrunning
+  components:
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.48
+        density: 200
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: BitrunningDomainEnemyObjective

@@ -64,6 +64,14 @@ public sealed partial class DevourSystem : EntitySystem
         args.Handled = true;
         var target = args.Target;
 
+        // <Onyx-Bitrunning>
+        if (MetaData(target).EntityPrototype?.ID == "WallBinaryIndestructible")
+        {
+            _popupSystem.PopupEntity(Loc.GetString("devour-action-popup-message-fail-target-not-valid"), ent.Owner, ent.Owner);
+            return;
+        }
+        // </Onyx-Bitrunning>
+
         // Structure and mob devours handled differently.
         if (TryComp(target, out MobStateComponent? targetState))
         {

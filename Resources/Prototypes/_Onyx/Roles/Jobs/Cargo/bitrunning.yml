@@ -29,5 +29,3 @@
   icon: JobIconBitrunAvatar
   supervisors: job-supervisors-qm
   canBeAntag: false
-  access:
-  - Bitrun

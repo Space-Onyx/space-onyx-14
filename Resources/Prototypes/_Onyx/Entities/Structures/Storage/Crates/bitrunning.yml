@@ -17,3 +17,4 @@
   name: cache crate
   components:
   - type: BitrunningDespawnOnOpen
+  - type: BitrunningObjectiveCargo

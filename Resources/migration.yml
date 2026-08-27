@@ -1257,3 +1257,8 @@ AirlockBlueshieldOfficerCommandLocked: AirlockCentralCommandLocked
 AirlockBlueshieldOfficerCommand: AirlockCentralCommand
 AirlockBlueshieldOfficerCommandGlassLocked: AirlockCentralCommandGlassLocked
 AirlockBlueshieldOfficerCommandGlass: AirlockCentralCommandGlass
+
+# 2026-08-28 Onyx
+ThrusterShuttleEvac: Thruster
+AirlockRoboticsLocked: AirlockScienceGlassLocked
+AirlockRobotics: AirlockScienceGlass

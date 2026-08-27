@@ -72,3 +72,12 @@
   id: CrusherUpgradeFrame
 - type: Tag
   id: EnergyMagAmmo
+
+- type: Tag
+  id: CartridgeRifle762
+
+- type: Tag
+  id: MagazineRifle762
+
+- type: Tag
+  id: MagazineRifle762Sniper

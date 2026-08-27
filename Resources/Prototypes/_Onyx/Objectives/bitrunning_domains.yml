@@ -40,3 +40,32 @@
   objectiveTarget: 5
   objectiveTitle: bitrunning-domain-breeze-bay-objective-title
   objectiveDescription: bitrunning-domain-breeze-bay-objective-description
+
+- type: bitrunningVirtualDomain
+  id: CosmicVestige
+  name: bitrunning-domain-cosmic-vestige-name
+  description: bitrunning-domain-cosmic-vestige-desc
+  difficulty: Peaceful
+  rewardLootDifficulty: Medium
+  serverRewardPoints: 0
+  cost: 20
+  bitrunningRewardPoints: 600 # Because cost overprice etc...
+  completionLoot:
+    SpaceCash500: 4
+  mapPath: /Maps/_Onyx/Bitrun/cosmic-vestige.yml
+  objectiveType: DeliveryCacheCrate
+  objectiveTitle: bitrunning-domain-cosmic-vestige-objective-title
+  objectiveDescription: bitrunning-domain-cosmic-vestige-objective-description
+
+- type: bitrunningVirtualDomain
+  id: GrasslandHunt
+  name: bitrunning-domain-grassland-hunt-name
+  description: bitrunning-domain-grassland-hunt-desc
+  difficulty: Peaceful
+  serverRewardPoints: 1
+  bitrunningRewardPoints: 45
+  mapPath: /Maps/_Onyx/Bitrun/grassland-hunt.yml
+  objectiveType: EliminateEnemies
+  objectiveTarget: 8
+  objectiveTitle: bitrunning-domain-grassland-hunt-objective-title
+  objectiveDescription: bitrunning-domain-grassland-hunt-objective-description

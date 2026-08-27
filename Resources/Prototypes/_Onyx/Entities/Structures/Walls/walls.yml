@@ -13,3 +13,5 @@
   - type: Icon
     sprite: _Onyx/Structures/Walls/binary.rsi
   - type: Destructible
+  - type: RustRequiresPathStage
+    pathStage: 11
