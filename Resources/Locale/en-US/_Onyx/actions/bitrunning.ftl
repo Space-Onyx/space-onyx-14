@@ -1,0 +1,12 @@
+ent-ActionBitrunningDisconnectAvatar = Disconnect avatar
+    .desc = Return to your body and end the current avatar session.
+ent-ActionBitrunningProgramBasicCheese = Summon cheese
+    .desc = Spawns cheese wheels in a 3x3 area around you.
+ent-ActionBitrunningProgramBasicLesserHeal = Lesser heal
+    .desc = Heals minor brute and burn damage.
+ent-ActionBitrunningProgramComplexLightning = Lightning bolt
+    .desc = Fire a lightning bolt at your target.
+ent-ActionBitrunningProgramEliteDragon = Dragon morph
+    .desc = Temporarily transforms you into a dragon avatar.
+ent-ActionBitrunningProgramEliteBear = Bear morph
+    .desc = Temporarily transforms you into a bear avatar.

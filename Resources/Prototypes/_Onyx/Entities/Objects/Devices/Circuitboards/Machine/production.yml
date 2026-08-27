@@ -25,3 +25,39 @@
       Steel: 5
       CableHV: 10
       Plasma: 5
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: QuantumServerMachineCircuitboard
+  name: quantum server machine board
+  description: A machine printed circuit board for a quantum server.
+  components:
+  - type: MachineBoard
+    prototype: QuantumServer
+    stackRequirements:
+      Steel: 5
+      Glass: 4
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: NetpodMachineCircuitboard
+  name: netpod machine board
+  description: A machine printed circuit board for a neural link netpod.
+  components:
+  - type: MachineBoard
+    prototype: Netpod
+    stackRequirements:
+      Steel: 3
+      Glass: 3
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: ByteforgeMachineCircuitboard
+  name: byteforge machine board
+  description: A machine printed circuit board for a byteforge.
+  components:
+  - type: MachineBoard
+    prototype: Byteforge
+    stackRequirements:
+      Steel: 4
+      Glass: 4

@@ -1,10 +1,9 @@
 - type: entity
-  id: SuitStorageBlueshield
   parent: SuitStorageBase
-  suffix: BSO Hardsuit
+  id: SuitStorageExplorerSuit
+  suffix: Explorer suit
   components:
-  - type: StorageFill
-    contents:
-    - id: OxygenTankFilled
-    - id: ClothingMaskBreath
-    - id: NitrogenTankFilled
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillShaftMinerExplorerSuit

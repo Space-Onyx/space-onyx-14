@@ -36,9 +36,11 @@ public sealed class VendingMachineInterfaceState : BoundUserInterfaceState
     public readonly string BalanceLabel;
     public readonly bool InfiniteStock;
     public readonly bool UsesIdCardMiningPoints;
+    public readonly bool UsesBitrunningPoints; // <Onyx-Bitrunning>
 
     public VendingMachineInterfaceState(List<VendingMachineInventoryEntry> inventory, double priceMultiplier, int credits,
-        bool showWithdraw, string balanceLabel, bool infiniteStock, bool usesIdCardMiningPoints = false)
+        bool showWithdraw, string balanceLabel, bool infiniteStock, bool usesIdCardMiningPoints = false,
+        bool usesBitrunningPoints = false) // <Onyx-Bitrunning-edited>
     {
         Inventory = inventory;
         PriceMultiplier = priceMultiplier;
@@ -47,6 +49,7 @@ public sealed class VendingMachineInterfaceState : BoundUserInterfaceState
         BalanceLabel = balanceLabel;
         InfiniteStock = infiniteStock;
         UsesIdCardMiningPoints = usesIdCardMiningPoints;
+        UsesBitrunningPoints = usesBitrunningPoints; // <Onyx-Bitrunning>
     }
 }
 

@@ -1,0 +1,12 @@
+ent-ActionBitrunningDisconnectAvatar = Отключиться от аватара
+    .desc = Вернуться в своё тело и завершить текущую сессию аватара.
+ent-ActionBitrunningProgramBasicCheese = Призвать сыр
+    .desc = Создаёт сырные круги в области 3x3 вокруг вас.
+ent-ActionBitrunningProgramBasicLesserHeal = Малое исцеление
+    .desc = Лечит небольшие ушибы и ожоги.
+ent-ActionBitrunningProgramComplexLightning = Удар молнии
+    .desc = Выпустить молнию в выбранную цель.
+ent-ActionBitrunningProgramEliteDragon = Облик дракона
+    .desc = Временно превращает вас в аватара-дракона.
+ent-ActionBitrunningProgramEliteBear = Облик медведя
+    .desc = Временно превращает вас в аватара-медведя.

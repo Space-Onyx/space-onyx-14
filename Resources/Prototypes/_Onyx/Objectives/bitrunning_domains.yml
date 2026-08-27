@@ -1,0 +1,42 @@
+- type: entity
+  parent: BaseCodeObjective
+  id: BitrunningDomainObjective
+  components:
+  - type: Objective
+    issuer: objective-issuer-bitrunning
+    difficulty: 0
+    icon:
+      sprite: _Onyx/Objects/Specific/Cargo/Bitrunning/encrypted_cache.rsi
+      state: icon
+  - type: BitrunningDomainObjective
+
+# --- --- ---
+#  PEACEFUL
+# --- --- ---
+
+- type: bitrunningVirtualDomain
+  id: BeachBar
+  name: bitrunning-domain-beach-bar-name
+  description: bitrunning-domain-beach-bar-desc
+  difficulty: Peaceful
+  serverRewardPoints: 1
+  bitrunningRewardPoints: 30
+  completionLoot:
+    BeachBall: 1
+  mapPath: /Maps/_Onyx/Bitrun/beach-bar.yml
+  objectiveType: OverhydrateStomach
+  objectiveTitle: bitrunning-domain-beach-bar-objective-title
+  objectiveDescription: bitrunning-domain-beach-bar-objective-description
+
+- type: bitrunningVirtualDomain
+  id: BreezeBay
+  name: bitrunning-domain-breeze-bay-name
+  description: bitrunning-domain-breeze-bay-desc
+  difficulty: Peaceful
+  serverRewardPoints: 1
+  bitrunningRewardPoints: 60
+  mapPath: /Maps/_Onyx/Bitrun/breeze-bay.yml
+  objectiveType: CatchFish
+  objectiveTarget: 5
+  objectiveTitle: bitrunning-domain-breeze-bay-objective-title
+  objectiveDescription: bitrunning-domain-breeze-bay-objective-description

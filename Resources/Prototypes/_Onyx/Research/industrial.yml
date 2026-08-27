@@ -157,3 +157,23 @@
   technologyPrerequisites:
     - MassExcavation
     - BluespaceTheory
+
+- type: technology
+  id: Bitrunning
+  name: research-technology-bitrunning-name
+  description: research-technology-bitrunning-desc
+  icon:
+    sprite: _Onyx/Objects/Specific/Cargo/Bitrunning/encrypted_cache.rsi
+    state: icon
+  discipline: Industrial
+  tier: 3
+  cost: 7500
+  recipeUnlocks:
+  - QuantumConsoleCircuitboardRecipe
+  - QuantumServerMachineCircuitboardRecipe
+  - NetpodMachineCircuitboardRecipe
+  - ByteforgeMachineCircuitboardRecipe
+  position: 4,6
+  technologyPrerequisites:
+  - MassExcavation
+  - BluespaceTheory

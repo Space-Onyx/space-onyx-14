@@ -61,3 +61,31 @@
   components:
   - type: PresetIdCard
     job: ShaftMiner
+
+- type: entity
+  parent: IDCardStandard
+  id: BitrunnerIDCard
+  name: bitrunner ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: _Onyx/Objects/Misc/id_cards.rsi
+      state: bitrunner
+  - type: PresetIdCard
+    job: Bitrunner
+
+- type: entity
+  parent: IDCardStandard
+  id: BitrunAvatarIDCard
+  categories: [ HideSpawnMenu ]
+  name: bitrunning avatar ID card
+  description: A virtual identification card generated for a bitrunning avatar.
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: _Onyx/Objects/Misc/id_cards.rsi
+      state: bitrun-avatar
+  - type: PresetIdCard
+    job: BitrunAvatar

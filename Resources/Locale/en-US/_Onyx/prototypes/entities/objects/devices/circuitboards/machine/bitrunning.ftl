@@ -1,0 +1,11 @@
+ent-QuantumServerMachineCircuitboard = quantum server machine board
+    .suffix = Machine board
+    .desc = A machine board for a quantum server.
+ent-NetpodMachineCircuitboard = netpod machine board
+    .suffix = Machine board
+    .desc = A machine board for a netpod.
+ent-ByteforgeMachineCircuitboard = byteforge machine board
+    .suffix = Machine board
+    .desc = A machine board for a byteforge.
+ent-QuantumConsoleCircuitboard = quantum console computer board
+    .desc = A computer board for a quantum domain control console.

@@ -20,6 +20,7 @@
   # <Onyx-SalvageMiningPoints>
   - type: MiningPoints
   # </Onyx-SalvageMiningPoints>
+  - type: BitrunningPoints # <Onyx-Bitrunning>
   # <Onyx-NanoChat-edited>
   - type: NanoChatCard
   # </Onyx-NanoChat-edited>

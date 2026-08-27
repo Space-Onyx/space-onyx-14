@@ -60,7 +60,7 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
 
     private void OnInteractUsing(EntityUid uid, VendingMachineComponent component, InteractUsingEvent args)
     {
-        if (args.Handled || IsSalvageMiningPointVendor(uid) || component.Broken || !_receiver.IsPowered(uid) || !TryComp<CurrencyComponent>(args.Used, out var currency) || !currency.Price.Keys.Contains(component.CurrencyType)) return;
+        if (args.Handled || IsSalvageMiningPointVendor(uid) || IsBitrunningPointsVendor(uid) || component.Broken || !_receiver.IsPowered(uid) || !TryComp<CurrencyComponent>(args.Used, out var currency) || !currency.Price.Keys.Contains(component.CurrencyType)) return; // <Onyx-BitrunningVendor>
         component.Credits += Comp<StackComponent>(args.Used).Count; Del(args.Used); UpdateVendingMachineInterfaceState(uid, component); Audio.PlayPvs(component.SoundInsertCurrency, uid); args.Handled = true;
     }
 
@@ -68,12 +68,15 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
 
     protected override void UpdateVendingMachineInterfaceState(EntityUid uid, VendingMachineComponent component)
     {
-        _userInterfaceSystem.SetUiState(uid, VendingMachineUiKey.Key, new VendingMachineInterfaceState(GetAllInventory(uid, component), IsSalvageMiningPointVendor(uid) ? 1 : component.PriceMultiplier * _cfg.GetCVar(CCVars.VendingPriceMultiplier), IsSalvageMiningPointVendor(uid) ? 0 : component.Credits, component.ShowWithdraw, component.BalanceLabel, component.InfiniteStock, IsSalvageMiningPointVendor(uid)));
+        var usesMiningPoints = IsSalvageMiningPointVendor(uid); // <Onyx-BitrunningVendor>
+        var usesBitrunningPoints = IsBitrunningPointsVendor(uid); // <Onyx-BitrunningVendor>
+        var usesIdCardPoints = usesMiningPoints || usesBitrunningPoints; // <Onyx-BitrunningVendor>
+        _userInterfaceSystem.SetUiState(uid, VendingMachineUiKey.Key, new VendingMachineInterfaceState(GetAllInventory(uid, component), usesIdCardPoints ? 1 : component.PriceMultiplier * _cfg.GetCVar(CCVars.VendingPriceMultiplier), usesIdCardPoints ? 0 : component.Credits, component.ShowWithdraw, component.BalanceLabel, component.InfiniteStock, usesIdCardPoints, usesBitrunningPoints)); // <Onyx-BitrunningVendor-edited>
     }
 
     protected override void OnWithdrawMessage(EntityUid uid, VendingMachineComponent component, VendingMachineWithdrawMessage args)
     {
-        if (IsSalvageMiningPointVendor(uid) || component.Credits <= 0) return;
+        if (IsSalvageMiningPointVendor(uid) || IsBitrunningPointsVendor(uid) || component.Credits <= 0) return; // <Onyx-BitrunningVendor>
         _stackSystem.SpawnAtPosition(component.Credits, component.CreditStackPrototype, Transform(uid).Coordinates); component.Credits = 0; Audio.PlayPvs(component.SoundWithdrawCurrency, uid); UpdateVendingMachineInterfaceState(uid, component);
     }
 
@@ -82,7 +85,7 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
         if (!IsAuthorized(uid, sender, component) || !TryComp<VendingMachineEjectComponent>(uid, out var eject) || eject.Ejecting || component.Broken || !_receiver.IsPowered(uid)) return;
         var entry = GetEntry(uid, itemId, type, component);
         if (entry == null || count != 1 || (!component.InfiniteStock && entry.Amount <= 0)) { Deny((uid, component), sender, eject); return; }
-        if (TryAuthorizedSalvageMiningPointVend(uid, sender, component, entry)) return;
+        if (TryAuthorizedSalvageMiningPointVend(uid, sender, component, entry) || TryAuthorizedBitrunningPointsVend(uid, sender, component, entry)) return; // <Onyx-BitrunningVendor>
         var price = (int) (entry.Price * count * component.PriceMultiplier * _cfg.GetCVar(CCVars.VendingPriceMultiplier));
         if (price > 0 && !component.AllForFree && !_tag.HasAnyTag(sender, IgnoreBalanceTag))
         {

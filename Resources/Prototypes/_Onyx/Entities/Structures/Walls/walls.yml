@@ -1,0 +1,15 @@
+﻿- type: entity
+  parent: BaseWall
+  id: WallBinaryIndestructible
+  name: tear in the fabric of reality
+  suffix: Indestructible
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/binary.rsi
+    noRot: true
+    layers:
+    - state: full
+      shader: unshaded
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/binary.rsi
+  - type: Destructible

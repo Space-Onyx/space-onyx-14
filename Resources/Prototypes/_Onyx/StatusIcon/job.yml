@@ -35,3 +35,19 @@
     sprite: /Textures/_Onyx/Interface/Misc/shaft_miner_job.rsi
     state: LavaShaftMiner
   jobName: job-name-shaftminer
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconBitrunner
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: CargoTechnician
+  jobName: job-name-bitrunner
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconBitrunAvatar
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: Passenger
+  jobName: job-name-bitrun-avatar

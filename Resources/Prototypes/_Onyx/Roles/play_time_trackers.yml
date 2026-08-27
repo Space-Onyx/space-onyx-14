@@ -21,3 +21,9 @@
 
 - type: playTimeTracker
   id: JobShaftMiner
+
+- type: playTimeTracker
+  id: JobBitrunner
+
+- type: playTimeTracker
+  id: JobBitrunAvatar

@@ -6,9 +6,13 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared.Actions;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Onyx.Fishing.Events;
 
 public sealed partial class ThrowFishingLureActionEvent : WorldTargetActionEvent;
 
 public sealed partial class PullFishingLureActionEvent : InstantActionEvent;
+
+[ByRefEvent]
+public readonly record struct FishCaughtEvent(EntProtoId FishId);

@@ -1,0 +1,36 @@
+- type: vendingMachineInventory
+  id: BitrunningVendorInventory
+  startingInventory:
+    FoodSnackBoritos: 1
+    DrinkSpaceMountainWindCan: 1
+    DrinkPwrGameCan: 1
+    MedkitBruteFilled: 1
+    MedkitBurnFilled: 1
+    BitrunningExtensionPlayerAppearanceDisk: 1
+    BitrunningGearSimpleDisk: 1
+    BitrunningGearComplexDisk: 1
+    BitrunningGearAdvancedDisk: 1
+    BitrunningProgramBasicDisk: 1
+    BitrunningProgramComplexDisk: 1
+    BitrunningProgramEliteDisk: 1
+    BitrunningGearPKAModsDisk: 1
+    BitrunningGearPremiumPKAModsDisk: 1
+    BitrunningGearCrusherModsDisk: 1
+    BitrunningGearPremiumCrusherModsDisk: 1
+  prices:
+    FoodSnackBoritos: 65
+    DrinkSpaceMountainWindCan: 65
+    DrinkPwrGameCan: 130
+    MedkitBruteFilled: 325
+    MedkitBurnFilled: 325
+    BitrunningExtensionPlayerAppearanceDisk: 100
+    BitrunningGearSimpleDisk: 487
+    BitrunningGearComplexDisk: 812
+    BitrunningGearAdvancedDisk: 1300
+    BitrunningProgramBasicDisk: 487
+    BitrunningProgramComplexDisk: 974
+    BitrunningProgramEliteDisk: 1625
+    BitrunningGearPKAModsDisk: 487
+    BitrunningGearPremiumPKAModsDisk: 1040
+    BitrunningGearCrusherModsDisk: 487
+    BitrunningGearPremiumCrusherModsDisk: 1040

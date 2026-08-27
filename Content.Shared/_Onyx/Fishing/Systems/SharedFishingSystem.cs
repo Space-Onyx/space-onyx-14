@@ -102,6 +102,8 @@ public abstract partial class SharedFishingSystem : EntitySystem
                     {
                         ThrowFishReward(activeSpotComp.Fish.Value, fishSpot, fisher);
                         _popup.PopupEntity(Loc.GetString("fishing-progress-success"), fisher, fisher);
+                        var fishCaughtEv = new FishCaughtEvent(activeSpotComp.Fish.Value);
+                        RaiseLocalEvent(fisher, ref fishCaughtEv);
                     }
 
                     StopFishing((fishRod, fishingRodComp), fisher);

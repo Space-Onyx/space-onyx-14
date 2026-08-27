@@ -1,0 +1,8 @@
+- type: entity
+  parent: CargoPDA
+  id: BitrunnerPDA
+  name: bitrunner PDA
+  description: A cargo PDA configured for bitrunning operations.
+  components:
+  - type: Pda
+    id: BitrunnerIDCard

@@ -3,6 +3,7 @@ using System.Linq;
 using Content.Shared.VendingMachines;
 using Content.Shared.VendingMachines.Components;
 using Content.Shared._Onyx.Salvage.MiningPoints;
+using Content.Shared._Onyx.Bitrunning.Components;
 using Content.Shared.Access.Systems;
 using Content.Client.Access;
 using Robust.Client.Player;
@@ -37,6 +38,7 @@ public partial class FancyVendingMachineMenu : FancyWindow
     private double _priceMultiplier = 1;
     private bool _infiniteStock;
     protected bool UsesIdCardMiningPoints;
+    protected bool UsesBitrunningPoints;
     private int _credits;
     private string _balanceLabel = string.Empty;
     private readonly SharedIdCardSystem _idCardSystem;
@@ -81,13 +83,15 @@ public partial class FancyVendingMachineMenu : FancyWindow
     /// and sets icons based on their prototypes
     /// </summary>
     public void Populate(EntityUid entityUid, List<VendingMachineInventoryEntry> inventory, double priceMultiplier, int credits,
-        bool showWithdraw, string balanceLabel, bool infiniteStock, bool usesIdCardMiningPoints = false)
+        bool showWithdraw, string balanceLabel, bool infiniteStock, bool usesIdCardMiningPoints = false,
+        bool usesBitrunningPoints = false)
     {
         _cachedItems.Clear();
         _infiniteStock = infiniteStock;
         UsesIdCardMiningPoints = usesIdCardMiningPoints;
+        UsesBitrunningPoints = usesBitrunningPoints;
         _balanceLabel = balanceLabel;
-        _credits = usesIdCardMiningPoints ? GetLocalMiningPoints() : credits;
+        _credits = usesIdCardMiningPoints ? GetLocalPoints() : credits;
         _priceMultiplier = _entityManager.GetComponentOrNull<VendingMachineComponent>(entityUid)?.AllForFree ?? true ? 0 : priceMultiplier;
 
         if (_entityManager.TryGetComponent<VendingMachineComponent>(entityUid, out var comp))
@@ -226,7 +230,7 @@ public partial class FancyVendingMachineMenu : FancyWindow
         if (!UsesIdCardMiningPoints)
             return;
 
-        var credits = GetLocalMiningPoints();
+        var credits = GetLocalPoints();
         if (credits == _credits)
             return;
 
@@ -235,16 +239,21 @@ public partial class FancyVendingMachineMenu : FancyWindow
         PopulateList();
     }
 
-    private int GetLocalMiningPoints()
+    private int GetLocalPoints()
     {
         if (_playerManager.LocalEntity is not { } player ||
-            !_idCardSystem.TryFindIdCard(player, out var card) ||
-            !_entityManager.TryGetComponent<MiningPointsComponent>(card, out var points))
+            !_idCardSystem.TryFindIdCard(player, out var card))
         {
             return 0;
         }
 
-        return points.Points;
+        if (UsesBitrunningPoints && _entityManager.TryGetComponent<BitrunningPointsComponent>(card, out var bitrunningPoints))
+            return (int) Math.Min(bitrunningPoints.Points, int.MaxValue);
+
+        if (!UsesBitrunningPoints && _entityManager.TryGetComponent<MiningPointsComponent>(card, out var miningPoints))
+            return miningPoints.Points;
+
+        return 0;
     }
 
     private record struct FancyVendingMachineData(string Name, VendingMachineInventoryEntry Entry);

@@ -157,3 +157,23 @@
   icon:
     sprite: Structures/Power/Generation/Singularity/collector.rsi
     state: ca_on
+
+- type: latheRecipe
+  parent: [ BaseGoldCircuitboardRecipe, BaseResearchComputerRecipeCategory ]
+  id: QuantumConsoleCircuitboardRecipe
+  result: QuantumConsoleCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseGoldCircuitboardRecipe, BaseResearchMachineRecipeCategory ]
+  id: QuantumServerMachineCircuitboardRecipe
+  result: QuantumServerMachineCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseGoldCircuitboardRecipe, BaseResearchMachineRecipeCategory ]
+  id: NetpodMachineCircuitboardRecipe
+  result: NetpodMachineCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseGoldCircuitboardRecipe, BaseResearchMachineRecipeCategory ]
+  id: ByteforgeMachineCircuitboardRecipe
+  result: ByteforgeMachineCircuitboard

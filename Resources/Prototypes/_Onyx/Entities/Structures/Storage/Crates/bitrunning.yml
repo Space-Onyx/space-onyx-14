@@ -1,0 +1,19 @@
+- type: entity
+  parent: [ CrateBaseSecure, CrateGenericSteel ]
+  id: CrateBitrunSecure
+  name: bitrunning crate
+  components:
+  - type: Icon
+    sprite: _Onyx/Structures/Storage/Crates/bitrun_secure.rsi
+  - type: Sprite
+    sprite: _Onyx/Structures/Storage/Crates/bitrun_secure.rsi
+  - type: AccessReader
+    access: [["Salvage"], ["Bitrun"]]
+
+- type: entity
+  parent: CrateBitrunSecure
+  id: CrateBitrunSecureReward
+  categories: [ HideSpawnMenu ]
+  name: cache crate
+  components:
+  - type: BitrunningDespawnOnOpen

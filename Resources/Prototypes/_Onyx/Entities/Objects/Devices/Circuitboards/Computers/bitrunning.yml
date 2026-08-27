@@ -1,0 +1,8 @@
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: QuantumConsoleCircuitboard
+  name: quantum console board
+  description: A computer printed circuit board for a quantum domain control console.
+  components:
+  - type: ComputerBoard
+    prototype: QuantumConsole

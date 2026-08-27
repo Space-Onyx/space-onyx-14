@@ -1,4 +1,4 @@
-using Content.Client._Onyx.VendingMachines.UI;
+using Content.Client._Onyx.VendingMachines.UI; // <Onyx-Bitrunning>
 using Content.Shared._Onyx.Materials;
 using Content.Shared.VendingMachines;
 using Content.Shared.VendingMachines.Components;
@@ -15,9 +15,11 @@ public sealed class VendingMachineBoundUserInterface(EntityUid owner, Enum uiKey
     {
         base.Open();
 
+        // <Onyx-Bitrunning>
         _menu = EntMan.HasComponent<SalvageMiningPointVendorComponent>(Owner)
             ? new SalvageVendingMachineMenu()
             : new FancyVendingMachineMenu();
+        // </Onyx-Bitrunning>
         _menu.Title = EntMan.GetComponent<MetaDataComponent>(Owner).EntityName;
         _menu.OnClose += Close;
         _menu.OnItemSelected += OnItemSelected;
@@ -42,9 +44,11 @@ public sealed class VendingMachineBoundUserInterface(EntityUid owner, Enum uiKey
         if (state is not VendingMachineInterfaceState vendingState)
             return;
 
+        // <Onyx-Bitrunning>
         _menu?.Populate(Owner, vendingState.Inventory, vendingState.PriceMultiplier, vendingState.Credits,
             vendingState.ShowWithdraw, vendingState.BalanceLabel, vendingState.InfiniteStock,
-            vendingState.UsesIdCardMiningPoints);
+            vendingState.UsesIdCardMiningPoints, vendingState.UsesBitrunningPoints);
+        // </Onyx-Bitrunning>
     }
 
     protected override void Dispose(bool disposing)

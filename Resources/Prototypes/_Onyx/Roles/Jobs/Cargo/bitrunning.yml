@@ -1,0 +1,33 @@
+- type: job
+  id: Bitrunner
+  name: job-name-bitrunner
+  description: job-description-bitrunner
+  playTimeTracker: JobBitrunner
+  startingGear: BitrunnerGear
+  icon: JobIconBitrunner
+  supervisors: job-supervisors-qm
+  access:
+  - Cargo
+  - Bitrun
+  - Maintenance
+  extendedAccess:
+  - Salvage
+
+- type: startingGear
+  parent: CargoTechGear
+  id: BitrunnerGear
+  equipment:
+    id: BitrunnerPDA
+
+- type: job
+  id: BitrunAvatar
+  name: job-name-bitrun-avatar
+  description: job-description-bitrun-avatar
+  playTimeTracker: JobBitrunAvatar
+  setPreference: false
+  startingGear: BitrunnerAvatarGear
+  icon: JobIconBitrunAvatar
+  supervisors: job-supervisors-qm
+  canBeAntag: false
+  access:
+  - Bitrun

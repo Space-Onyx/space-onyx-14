@@ -1,17 +1,22 @@
 - type: entity
-  parent: BaseAntagSpawner
-  id: SpawnPointGhostXenomorph
-  categories: [ HideSpawnMenu, Spawner ]
-  suffix: xenomorph larva
+  parent: BaseStructure
+  id: SpawnPointSkeletonBartender
+  name: skeleton bartender sleeper
+  suffix: Spawner, Ghost Role
+  categories: [ Spawner ]
   components:
+  - type: GhostRole
+    name: ghost-role-information-skeleton-bartender-name
+    description: ghost-role-information-skeleton-bartender-description
+    rules: ghost-role-information-nonantagonist-rules
+    raffle:
+      settings: default
+    mindRoles:
+    - MindRoleGhostRoleFreeAgent
+  - type: GhostRoleMobSpawner
+    prototype: MobSkeletonBartender
   - type: Sprite
     layers:
-    - state: green
-    - sprite: _Onyx/Mobs/Aliens/Xenomorphs/larva.rsi
-      state: xenomorph
-  - type: GhostRole
-    name: ghost-role-information-xenomorph-larva-name
-    description: ghost-role-information-xenomorph-larva-description
-    rules: ghost-role-information-rules-default-xeno
-    mindRoles:
-    - MindRoleGhostRoleTeamAntagonist
+    - sprite: _Onyx/Structures/cryostasis_sleeper.rsi
+      state: sleeper_1
+      map: [ "base" ]
