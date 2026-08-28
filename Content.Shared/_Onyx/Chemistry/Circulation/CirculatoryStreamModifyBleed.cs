@@ -2,6 +2,7 @@ using Content.Shared.Body.Systems;
 using Content.Shared.EntityEffects;
 using Content.Shared.FixedPoint;
 using Content.Shared._Onyx.Wounds;
+using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Onyx.Chemistry.Circulation;
@@ -12,11 +13,12 @@ public sealed partial class CirculatoryStreamModifyBleedSystem : EntityEffectSys
     [Dependency] private CirculatoryStreamSystem _circulation = default!;
     [Dependency] private WoundBleedingSystem _bleeding = default!;
     [Dependency] private WoundSystem _wounds = default!;
+    [Dependency] private INetManager _net = default!;
 
     protected override void Effect(Entity<WoundHostComponent> entity, ref EntityEffectEvent<CirculatoryStreamModifyBleed> args)
     {
         var amount = args.Effect.Amount * args.Scale;
-        if (amount == 0f)
+        if (!_net.IsServer || amount == 0f)
             return;
 
         if (amount > 0f)
@@ -73,21 +75,7 @@ public sealed partial class CirculatoryStreamModifyBleedSystem : EntityEffectSys
             if (reduction <= FixedPoint2.Zero)
                 continue;
 
-            if (!TryComp(wound.Owner, out WoundComponent? core) || !TryComp(wound.Owner, out WoundBleedingComponent? bleeding))
-                continue;
-
-            bleeding.BleedingSeverity = FixedPoint2.Max(FixedPoint2.Zero, bleeding.BleedingSeverity - reduction);
-            if (bleeding.BleedingSeverity == FixedPoint2.Zero)
-            {
-                RemComp<WoundBleedingComponent>(wound.Owner);
-                _bleeding.RefreshBody(entity.Owner, core.HoldingPart);
-            }
-            else
-            {
-                bleeding.Treatment = BleedingTreatment.None;
-                Dirty(wound.Owner, bleeding);
-                _bleeding.RefreshBody(entity.Owner, core.HoldingPart);
-            }
+            _bleeding.ReduceBleeding(wound.Owner, reduction);
 
             remaining -= FixedPoint2.Min(remaining, rate);
             if (remaining <= FixedPoint2.Zero)

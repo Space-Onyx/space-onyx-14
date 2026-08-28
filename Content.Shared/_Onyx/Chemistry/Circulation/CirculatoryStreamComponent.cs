@@ -4,7 +4,7 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Shared._Onyx.Chemistry.Circulation;
 
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState, AutoGenerateComponentPause]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(raiseAfterAutoHandleState: true), AutoGenerateComponentPause]
 public sealed partial class CirculatoryStreamComponent : Component
 {
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField, AutoPausedField]
@@ -15,4 +15,11 @@ public sealed partial class CirculatoryStreamComponent : Component
 
     [AutoNetworkedField]
     public HashSet<ProtoId<CirculatoryStreamPrototype>> InitializedStreams = new();
+
+    public bool AddedMetabolizer;
+
+    [AutoNetworkedField]
+    public int PreviousMaxReagentsProcessable;
+
+    public HashSet<ProtoId<CirculatoryStreamPrototype>> ConfiguredStreams = new();
 }

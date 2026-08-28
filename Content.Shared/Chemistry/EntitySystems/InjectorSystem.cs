@@ -404,8 +404,10 @@ public sealed partial class InjectorSystem : EntitySystem
     /// <param name="target">The entity targeted by the user.</param>
     /// <returns>True if the injection/drawing was successful, false if not.</returns>
     /// <exception cref="ArgumentOutOfRangeException">The injector has a different <see cref="InjectorBehavior"/>.</exception>
+    // <Onyx-CirculatoryStreams-edited>
     private bool TryUseInjector(Entity<InjectorComponent> injector, EntityUid user, EntityUid target,
-        EntityUid? requestedPart = null) // <Onyx-CirculatoryStreams-edited>
+        EntityUid? requestedPart = null)
+    // </Onyx-CirculatoryStreams-edited>
     {
         if (!ProtoMan.Resolve(injector.Comp.ActiveModeProtoId, out var activeMode))
             return false;
@@ -499,8 +501,10 @@ public sealed partial class InjectorSystem : EntitySystem
     /// <param name="targetSolution">The solution of the target.</param>
     /// <param name="asRefill">Whether or not the solution is refillable or injectable.</param>
     /// <returns>True if the injection was successful, false if not.</returns>
+    // <Onyx-CirculatoryStreams-edited>
     private bool TryInject(Entity<InjectorComponent> injector, EntityUid user, EntityUid target,
-        Entity<SolutionComponent> targetSolution, bool asRefill, EntityUid? requestedPart = null) // <Onyx-CirculatoryStreams-edited>
+        Entity<SolutionComponent> targetSolution, bool asRefill, EntityUid? requestedPart = null)
+    // </Onyx-CirculatoryStreams-edited>
     {
         if (!_solutionContainer.ResolveSolution(injector.Owner,
                 injector.Comp.SolutionName,
@@ -687,12 +691,14 @@ public sealed partial class InjectorSystem : EntitySystem
     /// <param name="target">The entity targeted by the user.</param>
     /// <param name="injectorSolution">The solution of the injector.</param>
     /// <param name="transferAmount">The amount of blood to draw.</param>
+    // <Onyx-CirculatoryStreams-edited>
     private void DrawFromBlood(Entity<InjectorComponent> injector,
         EntityUid user,
         EntityUid target,
         Entity<SolutionComponent> targetSolution,
         Entity<SolutionComponent> injectorSolution,
-        FixedPoint2 transferAmount) // <Onyx-CirculatoryStreams-edited>
+        FixedPoint2 transferAmount)
+    // </Onyx-CirculatoryStreams-edited>
     {
         var bloodTemp = _solutionContainer.SplitSolution(targetSolution, transferAmount); // <Onyx-CirculatoryStreams-edited>
         _solutionContainer.TryAddSolution(injectorSolution, bloodTemp); // <Onyx-CirculatoryStreams-edited>

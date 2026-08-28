@@ -5,6 +5,7 @@
   id: Cybernetic
   solutionName: cyberneticBloodstream
   metabolitesSolutionName: cyberneticMetabolites
+  temporarySolutionName: cyberneticBloodstreamTemporary
   metabolismStage: CyberneticBloodstream
   metabolitesStage: CyberneticMetabolites
   referenceSolution:

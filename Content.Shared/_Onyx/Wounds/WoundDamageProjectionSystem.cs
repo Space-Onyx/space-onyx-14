@@ -8,6 +8,7 @@ using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Humanoid;
 using Content.Shared.Rejuvenate;
+using Content.Shared._Onyx.Chemistry.Circulation;
 using Robust.Shared.Network;
 
 namespace Content.Shared._Onyx.Wounds;
@@ -18,6 +19,7 @@ public sealed partial class WoundDamageProjectionSystem : EntitySystem
     [Dependency] private DamageableSystem _damage = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private PainSystem _pain = default!;
+    [Dependency] private CirculatoryStreamSystem _circulation = default!;
 
     private readonly HashSet<EntityUid> _projecting = new();
 
@@ -32,6 +34,7 @@ public sealed partial class WoundDamageProjectionSystem : EntitySystem
     private void OnMapInit(Entity<WoundHostComponent> body, ref MapInitEvent args)
     {
         SetupBody(body);
+        _circulation.SynchronizeStreams(body);
     }
 
     private void OnRejuvenate(Entity<WoundHostComponent> body, ref RejuvenateEvent args)
