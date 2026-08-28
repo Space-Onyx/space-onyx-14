@@ -45,6 +45,12 @@ public sealed partial class BitrunningVirtualDomainPrototype : IPrototype
     public int LootRewardPoints { get; private set; } = 1;
 
     /// <summary>
+    /// Fastest expected completion time used as the S-grade threshold.
+    /// </summary>
+    [DataField]
+    public TimeSpan SGradeTime { get; private set; } = TimeSpan.FromMinutes(5);
+
+    /// <summary>
     /// Additional server points granted for successful completion of a randomized run.
     /// </summary>
     [DataField]

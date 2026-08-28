@@ -219,7 +219,7 @@ public sealed partial class ByteforgeSystem : EntitySystem
         }
 
         var completionTime = _timing.CurTime - server.DomainStartTime;
-        var grade = GradeCompletion(server, domain.Difficulty, domain.LootRewardPoints, completionTime);
+        var grade = GradeCompletion(domain.SGradeTime, completionTime);
         insertedAny |= TryInsertCertificate(cargoUid, coordinates, server, domain, completionTime, grade, rewardsMultiplier);
 
         if (domain.Difficulty >= BitrunningDifficulty.Medium &&
@@ -277,7 +277,7 @@ public sealed partial class ByteforgeSystem : EntitySystem
         _paper.SetContent((certificate, paper), Loc.GetString("bitrunning-completion-certificate-content",
             ("domain", Loc.GetString(domain.Name)),
             ("difficulty", Loc.GetString($"bitrunning-ui-difficulty-{domain.Difficulty.ToString().ToLowerInvariant()}")),
-            ("threats", server.ThreatsSpawned),
+            ("threats", server.ThreatsDestroyed),
             ("reward", domain.LootRewardPoints),
             ("multiplier", rewardsMultiplier.ToString("0.0")),
             ("time", completionTime.ToString(@"hh\:mm\:ss")),
@@ -289,31 +289,16 @@ public sealed partial class ByteforgeSystem : EntitySystem
         return TryInsertReward(cargoUid, certificate);
     }
 
-    private static BitrunningCompletionGrade GradeCompletion(
-        QuantumServerComponent server,
-        BitrunningDifficulty difficulty,
-        int rewardPoints,
-        TimeSpan completionTime)
+    private static BitrunningCompletionGrade GradeCompletion(TimeSpan sGradeTime, TimeSpan completionTime)
     {
-        var timeScore = completionTime.TotalMinutes switch
+        var timeRatio = completionTime.TotalSeconds / Math.Max(1d, sGradeTime.TotalSeconds);
+        return timeRatio switch
         {
-            <= 1 => 10,
-            <= 2 => 5,
-            <= 5 => 3,
-            <= 10 => 2,
-            _ => 1,
-        };
-
-        var score = server.ThreatsSpawned * 5 +
-                    rewardPoints +
-                    timeScore * ((int) difficulty + 1);
-        return score switch
-        {
-            <= 4 => BitrunningCompletionGrade.D,
-            <= 7 => BitrunningCompletionGrade.C,
-            <= 10 => BitrunningCompletionGrade.B,
-            <= 13 => BitrunningCompletionGrade.A,
-            _ => BitrunningCompletionGrade.S,
+            <= 1d => BitrunningCompletionGrade.S,
+            <= 1.25d => BitrunningCompletionGrade.A,
+            <= 1.5d => BitrunningCompletionGrade.B,
+            <= 2d => BitrunningCompletionGrade.C,
+            _ => BitrunningCompletionGrade.D,
         };
     }
 

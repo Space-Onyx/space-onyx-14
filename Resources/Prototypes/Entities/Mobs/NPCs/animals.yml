@@ -1807,7 +1807,7 @@
   - type: FactionException
   - type: NpcFactionMember
     factions:
-      - Passive
+      - SimpleNeutral # <Onyx-PrimateRetaliation-edited>
   - type: HTN
     rootTask:
       task: SimpleHostileCompound # <Onyx-PrimateRetaliation-edited>

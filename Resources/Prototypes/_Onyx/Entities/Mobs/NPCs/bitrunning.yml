@@ -6,6 +6,10 @@
   - type: GravityAffected
     weightless: false
   - type: BitrunningDomainEnemyObjective
+  - type: BitrunningFleeFromAvatars
+  - type: HTN
+    rootTask:
+      task: BitrunningFleeCompound
 
 - type: entity
   parent: MobCivilian
@@ -125,3 +129,7 @@
   - type: GravityAffected
     weightless: false
   - type: BitrunningDomainEnemyObjective
+  - type: BitrunningFleeFromAvatars
+  - type: HTN
+    rootTask:
+      task: BitrunningFleeCompound

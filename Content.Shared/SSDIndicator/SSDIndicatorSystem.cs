@@ -1,4 +1,5 @@
 using Content.Shared.CCVar;
+using Content.Shared.NPC; // <Onyx-NPCSSDSleep>
 using Content.Shared.StatusEffectNew;
 using Robust.Shared.Configuration;
 using Robust.Shared.Player;
@@ -85,7 +86,8 @@ public sealed partial class SSDIndicatorSystem : EntitySystem
             if (!ssd.IsSSD
                 || ssd.NextUpdate > curTime
                 || ssd.FallAsleepTime > curTime
-                || TerminatingOrDeleted(uid))
+                || TerminatingOrDeleted(uid)
+                || HasComp<ActiveNPCComponent>(uid)) // <Onyx-NPCSSDSleep-edited>
                 continue;
 
             _statusEffects.TryUpdateStatusEffectDuration(uid, StatusEffectSSDSleeping);

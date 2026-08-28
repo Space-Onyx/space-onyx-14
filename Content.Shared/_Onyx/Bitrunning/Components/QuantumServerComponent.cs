@@ -101,7 +101,7 @@ public sealed partial class QuantumServerComponent : Component
 
     public BitrunningObjectiveType ObjectiveType = BitrunningObjectiveType.None;
 
-    public int ThreatsSpawned;
+    public int ThreatsDestroyed;
 
     public bool AllowDiskModifications = true;
 

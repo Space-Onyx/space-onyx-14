@@ -111,3 +111,13 @@ public sealed partial class BitrunningDomainEnemyObjectiveComponent : Component
 /// </summary>
 [RegisterComponent]
 public sealed partial class BitrunningEnemyObjectiveCountedComponent : Component;
+
+/// <summary>
+/// Makes a bitrunning NPC flee from nearby connected avatars.
+/// </summary>
+[RegisterComponent]
+public sealed partial class BitrunningFleeFromAvatarsComponent : Component
+{
+    [DataField]
+    public float Range = 8f;
+}

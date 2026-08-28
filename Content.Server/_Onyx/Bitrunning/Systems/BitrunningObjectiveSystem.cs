@@ -186,10 +186,12 @@ public sealed partial class BitrunningObjectiveSystem : EntitySystem
         if (resolvedMapUid == null)
             ent.Comp.DomainMapUid = mapUid;
 
+        EnsureComp<BitrunningEnemyObjectiveCountedComponent>(ent);
+        server.ThreatsDestroyed += ent.Comp.Points;
+
         if (server.ObjectiveType != BitrunningObjectiveType.EliminateEnemies)
             return;
 
-        EnsureComp<BitrunningEnemyObjectiveCountedComponent>(ent);
         _server.AddObjectiveProgress(serverUid, ent.Comp.Points);
     }
 

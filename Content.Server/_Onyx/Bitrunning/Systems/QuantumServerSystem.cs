@@ -231,7 +231,7 @@ public sealed partial class QuantumServerSystem : EntitySystem
         server.ObjectiveCompleted = false;
         server.TechnologyDiskRewardSpawned = false;
         server.Points -= domain.Cost;
-        server.ThreatsSpawned = 0;
+        server.ThreatsDestroyed = 0;
         server.CooldownEndTime = TimeSpan.Zero;
         server.AllowDiskModifications = domain.AllowDiskModifications;
         server.AllowProfileLoad = domain.AllowProfileLoad;
@@ -461,7 +461,7 @@ public sealed partial class QuantumServerSystem : EntitySystem
         serverEnt.Comp.ObjectiveType = BitrunningObjectiveType.None;
         serverEnt.Comp.ObjectiveGoal = 0;
         serverEnt.Comp.NextSatiationProgressTime = TimeSpan.Zero;
-        serverEnt.Comp.ThreatsSpawned = 0;
+        serverEnt.Comp.ThreatsDestroyed = 0;
         serverEnt.Comp.DomainStartTime = TimeSpan.Zero;
         serverEnt.Comp.GrantedItemDisks.Clear();
         serverEnt.Comp.AllowProfileLoad = true;
@@ -972,7 +972,7 @@ public sealed partial class QuantumServerSystem : EntitySystem
         total += server.QualityBonus;
         total += Math.Max(0, server.ActiveConnections.Count - 1) * 0.5f;
         total += noHitCount * 0.4f;
-        total += server.ThreatsSpawned * 0.5f;
+        total += server.ThreatsDestroyed * 0.5f;
         return Math.Max(1f, total);
     }
 
@@ -983,7 +983,7 @@ public sealed partial class QuantumServerSystem : EntitySystem
             total += 0.2f;
 
         total += Math.Max(0, server.ActiveConnections.Count - 1) * 1.1f;
-        total += server.ThreatsSpawned * 2f;
+        total += server.ThreatsDestroyed * 2f;
         return Math.Max(0f, total);
     }
 
