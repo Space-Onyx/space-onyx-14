@@ -1800,13 +1800,17 @@
   - type: CanHostGuardian
   - type: NPCRetaliation
     attackMemoryLength: 10
+  # <Onyx-GroupRetaliation>
+  - type: GroupRetaliation
+    range: 8
+  # </Onyx-GroupRetaliation>
   - type: FactionException
   - type: NpcFactionMember
     factions:
       - Passive
   - type: HTN
     rootTask:
-      task: MonkeyCompound
+      task: SimpleHostileCompound # <Onyx-PrimateRetaliation-edited>
     blackboard:
       NavInteract: !type:Bool
         true
@@ -2287,6 +2291,12 @@
       behaviors:
       - !type:GibBehavior
         recursive: false
+  # <Onyx-GroupRetaliation>
+  - type: NPCRetaliation
+    attackMemoryLength: 5
+  - type: GroupRetaliation
+    range: 5
+  # </Onyx-GroupRetaliation>
 
 - type: entity
   abstract: true

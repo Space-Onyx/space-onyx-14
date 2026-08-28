@@ -28,10 +28,6 @@
 
 - type: npcFaction
   id: Mouse
-  hostile:
-  - PetsNT
-  - AllHostile
-  - Wizard
 
 - type: npcFaction
   id: Passive
