@@ -24,3 +24,15 @@
     pointRewards:
     - type: Experimental
       amount: 1000
+
+- type: entity
+  parent: TechnologyDiskExperimental
+  id: TechnologyDiskBitrunningReward
+
+- type: entity
+  parent: ResearchDiskExperimental500
+  id: ResearchDiskBitrunningExperimental500
+
+- type: entity
+  parent: ResearchDiskExperimental1000
+  id: ResearchDiskBitrunningExperimental1000

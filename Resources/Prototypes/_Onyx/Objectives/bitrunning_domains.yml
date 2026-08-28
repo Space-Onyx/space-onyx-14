@@ -21,6 +21,7 @@
   difficulty: Peaceful
   serverRewardPoints: 1
   bitrunningRewardPoints: 30
+  lootRewardPoints: 1
   completionLoot:
     BeachBall: 1
   mapPath: /Maps/_Onyx/Bitrun/beach-bar.yml
@@ -35,6 +36,7 @@
   difficulty: Peaceful
   serverRewardPoints: 1
   bitrunningRewardPoints: 60
+  lootRewardPoints: 3
   mapPath: /Maps/_Onyx/Bitrun/breeze-bay.yml
   objectiveType: CatchFish
   objectiveTarget: 5
@@ -46,10 +48,10 @@
   name: bitrunning-domain-cosmic-vestige-name
   description: bitrunning-domain-cosmic-vestige-desc
   difficulty: Peaceful
-  rewardLootDifficulty: Medium
   serverRewardPoints: 0
   cost: 20
   bitrunningRewardPoints: 600 # Because cost overprice etc...
+  lootRewardPoints: 6
   completionLoot:
     SpaceCash500: 4
   mapPath: /Maps/_Onyx/Bitrun/cosmic-vestige.yml
@@ -64,6 +66,7 @@
   difficulty: Peaceful
   serverRewardPoints: 1
   bitrunningRewardPoints: 45
+  lootRewardPoints: 1
   mapPath: /Maps/_Onyx/Bitrun/grassland-hunt.yml
   objectiveType: EliminateEnemies
   objectiveTarget: 8

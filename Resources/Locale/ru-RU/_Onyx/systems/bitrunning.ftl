@@ -27,3 +27,22 @@ bitrunning-domain-cosmic-vestige-objective-title = Доставка кэша
 bitrunning-domain-cosmic-vestige-objective-description = Доставьте ящики кэша { $target } раз.
 bitrunning-domain-grassland-hunt-objective-title = Охота
 bitrunning-domain-grassland-hunt-objective-description = Устраните { $target } угроз домена.
+bitrunning-completion-certificate-name = сертификат завершения домена
+bitrunning-completion-certificate-randomized = (случайное развёртывание)
+bitrunning-completion-certificate-content = ⠀
+    { "[color=#315b63][bold]СЕТЬ КВАНТОВОГО ИЗВЛЕЧЕНИЯ ДОМЕНОВ[/bold][/color]" }
+    { "⠀" }
+    { "[color=#284a52][head=2]СЕРТИФИКАТ ЗАВЕРШЕНИЯ ДОМЕНА[/head][/color]" }
+    { "[color=#6f8589]════════════════════════════════════[/color]" }
+    { "[bold]ЗАПИСЬ ОБ ИЗВЛЕЧЕНИИ[/bold]" }
+    { "[color=#53666a]Обозначение домена[/color]" }  { $domain } { $randomized }
+    { "[color=#53666a]Класс опасности[/color]" }  { $difficulty }
+    { "[color=#53666a]Время развёртывания[/color]" }  { $time }
+    { "[color=#8a999c]────────────────────────────────────[/color]" }
+    { "[bold]ОТЧЁТ О МАТЕРИАЛИЗАЦИИ[/bold]" }
+    { "[color=#53666a]Нейтрализовано угроз[/color]" }  { $threats }
+    { "[color=#53666a]Базовая ценность извлечения[/color]" }  { $reward }
+    { "[color=#53666a]Коэффициент материализации[/color]" }  { $multiplier }x
+    { "[color=#6f8589]════════════════════════════════════[/color]" }
+    { "[color=#284a52][head=2]ИТОГОВАЯ ОЦЕНКА  " }{ $grade }{ "[/head][/color]" }
+    { "[italic][color=#667477]Запись заверена станционной системой материализации.[/color][/italic]" }

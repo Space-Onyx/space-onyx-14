@@ -3,7 +3,6 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Generic;
 using Content.Shared._Onyx.Bitrunning.Prototypes;
-using Content.Shared.EntityTable;
 using Robust.Shared.Audio;
 
 namespace Content.Shared._Onyx.Bitrunning.Components;
@@ -39,10 +38,10 @@ public sealed partial class QuantumServerComponent : Component
     public EntProtoId AvatarPrototype = "MobHuman";
 
     /// <summary>
-    /// Crate that spawns in domain as reward when players reach goal.
+    /// Encrypted cache that spawns in the domain when players reach the goal.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public EntProtoId CompletionRewardCachePrototype = "CrateBitrunSecureReward";
+    public EntProtoId CompletionRewardCachePrototype = "BitrunningObjectiveCacheStructure";
 
     /// <summary>
     /// Crate that spawns in byteforge delivery.
@@ -61,21 +60,6 @@ public sealed partial class QuantumServerComponent : Component
 
     [DataField]
     public int BroadcastWirelessRange = UnboundedBroadcastRange;
-
-    [DataField]
-    public ProtoId<EntityTablePrototype> DeliveryPeacefulLootTable = "BitrunningDeliveryPeacefulLoot";
-
-    [DataField]
-    public ProtoId<EntityTablePrototype> DeliveryEasyLootTable = "BitrunningDeliveryEasyLoot";
-
-    [DataField]
-    public ProtoId<EntityTablePrototype> DeliveryMediumLootTable = "BitrunningDeliveryMediumLoot";
-
-    [DataField]
-    public ProtoId<EntityTablePrototype> DeliveryHardLootTable = "BitrunningDeliveryHardLoot";
-
-    [DataField]
-    public ProtoId<EntityTablePrototype> DeliveryExtremeLootTable = "BitrunningDeliveryExtremeLoot";
 
     [DataField]
     public TimeSpan ExitParalyzeTime = TimeSpan.FromSeconds(3.5);
@@ -126,6 +110,8 @@ public sealed partial class QuantumServerComponent : Component
     public bool WasRandomizedRun;
 
     public readonly HashSet<EntityUid> GrantedItemDisks = new();
+
+    public bool TechnologyDiskRewardSpawned;
 
     [DataField]
     public SoundSpecifier DomainStartSound = new SoundPathSpecifier("/Audio/Machines/terminal_insert_disc.ogg");

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared._Onyx.Effects;
 using Content.Shared._Onyx.Fishing.Events;
 using Content.Shared._Onyx.Bitrunning;
@@ -8,9 +7,6 @@ using Content.Shared.Mobs;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.Popups;
-using Content.Shared.Storage;
-using Content.Shared.Storage.Components;
-using Robust.Server.Containers;
 using Content.Shared.Nutrition.Prototypes;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
@@ -29,7 +25,6 @@ public sealed partial class BitrunningObjectiveSystem : EntitySystem
     [Dependency] private SatiationSystem _satiation = default!;
     [Dependency] private SparksSystem _sparks = default!;
     [Dependency] private IGameTiming _timing = default!;
-    [Dependency] private ContainerSystem _container = default!;
 
     public override void Initialize()
     {
@@ -39,7 +34,6 @@ public sealed partial class BitrunningObjectiveSystem : EntitySystem
         SubscribeLocalEvent<BitrunningDomainEnemyObjectiveComponent, ComponentStartup>(OnEnemyObjectiveStartup);
         SubscribeLocalEvent<BitrunningDomainEnemyObjectiveComponent, MobStateChangedEvent>(OnEnemyStateChanged);
         SubscribeLocalEvent<BitrunningDomainEnemyObjectiveComponent, EntityTerminatingEvent>(OnEnemyTerminating);
-        SubscribeLocalEvent<BitrunningDespawnOnOpenComponent, StorageAfterOpenEvent>(OnRewardCacheOpened);
         SubscribeLocalEvent<AvatarConnectionComponent, FishCaughtEvent>(OnFishCaught);
     }
 
@@ -135,7 +129,9 @@ public sealed partial class BitrunningObjectiveSystem : EntitySystem
             return;
         }
 
-        if (!_byteforge.TryDeliverObjectiveCargoToByteforge(serverUid, args.OtherEntity))
+        if (!_byteforge.TryDeliverObjectiveCargoToByteforge(serverUid,
+                args.OtherEntity,
+                _server.CalculateLootRewardMultiplier(server)))
             return;
 
         _sparks.DoSparks(Transform(ent).Coordinates);
@@ -209,28 +205,6 @@ public sealed partial class BitrunningObjectiveSystem : EntitySystem
             return;
 
         _server.AddObjectiveProgress(serverUid, 1);
-    }
-
-    private void OnRewardCacheOpened(Entity<BitrunningDespawnOnOpenComponent> ent, ref StorageAfterOpenEvent args)
-    {
-        var dropCoordinates = Transform(ent).Coordinates;
-        EjectEntitiesFromStorage(ent, dropCoordinates);
-        _sparks.DoSparks(dropCoordinates);
-        QueueDel(ent);
-    }
-
-    private void EjectEntitiesFromStorage(EntityUid cargoUid, EntityCoordinates dropCoordinates)
-    {
-        if (TryComp<StorageComponent>(cargoUid, out var storage))
-            _container.EmptyContainer(storage.Container, destination: dropCoordinates);
-
-        if (!TryComp<EntityStorageComponent>(cargoUid, out var entityStorage))
-            return;
-
-        foreach (var contained in entityStorage.Contents.ContainedEntities.ToList())
-        {
-            _container.Remove(contained, entityStorage.Contents, destination: dropCoordinates, reparent: true);
-        }
     }
 
     private bool TryResolveDomainMapUid(EntityUid primaryUid, EntityUid? fallbackUid, out EntityUid mapUid, out EntityCoordinates coordinates)

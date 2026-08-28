@@ -27,3 +27,23 @@ bitrunning-domain-cosmic-vestige-objective-title = Deliver cache
 bitrunning-domain-cosmic-vestige-objective-description = Deliver cache crates { $target } times.
 bitrunning-domain-grassland-hunt-objective-title = Hunt
 bitrunning-domain-grassland-hunt-objective-description = Eliminate { $target } domain threats.
+bitrunning-completion-certificate-name = certificate of domain completion
+bitrunning-completion-certificate-randomized = (randomized deployment)
+bitrunning-completion-certificate-content = ⠀
+    { "[color=#315b63][bold]QNT-DOMAIN RECOVERY NETWORK[/bold][/color]" }
+    { "⠀" }
+    { "[color=#284a52][head=2]DOMAIN COMPLETION CERTIFICATE[/head][/color]" }
+    { "[color=#6f8589]════════════════════════════════════[/color]" }
+    { "[bold]RECOVERY RECORD[/bold]" }
+    { "[color=#53666a]Domain designation[/color]" }  { $domain } { $randomized }
+    { "[color=#53666a]Hazard classification[/color]" }  { $difficulty }
+    { "[color=#53666a]Deployment duration[/color]" }  { $time }
+    { "[color=#8a999c]────────────────────────────────────[/color]" }
+    { "[bold]MATERIALIZATION REPORT[/bold]" }
+    { "[color=#53666a]Neutralized threats[/color]" }  { $threats }
+    { "[color=#53666a]Base recovery value[/color]" }  { $reward }
+    { "[color=#53666a]Materialization coefficient[/color]" }  { $multiplier }x
+    { "[color=#6f8589]════════════════════════════════════[/color]" }
+    { "⠀" }
+    { "[color=#284a52][head=2]FINAL RATING  " }{ $grade }{ "[/head][/color]" }
+    { "[italic][color=#667477]Record authenticated by the station materialization system.[/color][/italic]" }

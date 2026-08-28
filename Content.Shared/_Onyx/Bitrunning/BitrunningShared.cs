@@ -20,6 +20,15 @@ public enum BitrunningDifficulty : byte
     Extreme, // Visible only when server emagged!!!
 }
 
+public enum BitrunningCompletionGrade : byte
+{
+    D,
+    C,
+    B,
+    A,
+    S,
+}
+
 [NetSerializable, Serializable]
 public enum BitrunningObjectiveType : byte
 {

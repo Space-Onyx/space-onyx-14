@@ -1,20 +1,22 @@
-using System.Linq;
 using Content.Shared._Onyx.Effects;
 using Content.Server.Storage.EntitySystems;
+using Content.Shared.Stacks;
 using Content.Shared._Onyx.Bitrunning;
 using Content.Shared._Onyx.Bitrunning.Components;
+using Content.Shared._Onyx.Bitrunning.Prototypes;
 using Content.Shared.DeviceLinking;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Emag.Components;
 using Content.Shared.Emag.Systems;
-using Content.Shared.EntityTable;
 using Content.Shared.Power;
 using Content.Shared.Power.EntitySystems;
+using Content.Shared.Paper;
 using Content.Shared.Storage;
 using Content.Shared.Storage.Components;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 using Robust.Shared.Timing;
 namespace Content.Server._Onyx.Bitrunning.Systems;
 
@@ -25,9 +27,13 @@ public sealed partial class ByteforgeSystem : EntitySystem
     [Dependency] private SharedPowerReceiverSystem _power = default!;
     [Dependency] private StorageSystem _storage = default!;
     [Dependency] private EntityStorageSystem _entityStorage = default!;
-    [Dependency] private EntityTableSystem _entityTable = default!;
     [Dependency] private IPrototypeManager _prototype = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private MetaDataSystem _metaData = default!;
+    [Dependency] private PaperSystem _paper = default!;
     [Dependency] private SparksSystem _sparks = default!;
+    [Dependency] private SharedStackSystem _stack = default!;
 
     private const string ServerSourcePort = "BitrunningServerSource";
     private const string ByteforgeSinkPort = "BitrunningByteforgeSink";
@@ -102,7 +108,7 @@ public sealed partial class ByteforgeSystem : EntitySystem
         return TryComp<ByteforgeComponent>(byteforgeUid, out var byteforge) && byteforge.LinkedServer == serverUid;
     }
 
-    public bool TryDeliverObjectiveCargoToByteforge(EntityUid serverUid, EntityUid cargoUid)
+    public bool TryDeliverObjectiveCargoToByteforge(EntityUid serverUid, EntityUid cargoUid, float rewardsMultiplier)
     {
         if (!TryComp<QuantumServerComponent>(serverUid, out var server))
             return false;
@@ -126,7 +132,7 @@ public sealed partial class ByteforgeSystem : EntitySystem
         var rewardCargoUid = Spawn(server.RewardCachePrototype, byteforgeXform.Coordinates);
         _sparks.DoSparks(byteforgeXform.Coordinates);
 
-        if (!TryFillRewardCacheWithLoot(rewardCargoUid, server))
+        if (!TryFillRewardCache(rewardCargoUid, server, rewardsMultiplier))
         {
             Log.Warning($"Failed to fill delivered cargo reward crate for server {ToPrettyString(serverUid)}.");
             QueueDel(rewardCargoUid);
@@ -198,30 +204,11 @@ public sealed partial class ByteforgeSystem : EntitySystem
         }
     }
 
-    public bool TryFillRewardCacheWithLoot(EntityUid cargoUid, QuantumServerComponent server)
-    {
-        var tableId = GetDifficultyLootTable(server);
-        if (!_prototype.TryIndex(tableId, out var table))
-            return false;
-
-        var coordinates = Transform(cargoUid).Coordinates;
-        var insertedAny = false;
-        foreach (var prototypeId in _entityTable.GetSpawns(table))
-        {
-            insertedAny |= TryInsertReward(cargoUid, Spawn(prototypeId, coordinates));
-        }
-
-        return insertedAny;
-    }
-
-    public bool TryFillCompletionCache(EntityUid cargoUid, QuantumServerComponent server)
+    public bool TryFillRewardCache(EntityUid cargoUid, QuantumServerComponent server, float rewardsMultiplier)
     {
         if (server.CurrentDomain == null ||
-            !_domains.TryGetDomain(server.CurrentDomain.Value.Id, out var domain) ||
-            domain.CompletionLoot.Count == 0)
-        {
-            return TryFillRewardCacheWithLoot(cargoUid, server);
-        }
+            !_domains.TryGetDomain(server.CurrentDomain.Value.Id, out var domain))
+            return false;
 
         var coordinates = Transform(cargoUid).Coordinates;
         var insertedAny = false;
@@ -231,7 +218,118 @@ public sealed partial class ByteforgeSystem : EntitySystem
                 insertedAny |= TryInsertReward(cargoUid, Spawn(prototypeId, coordinates));
         }
 
+        var completionTime = _timing.CurTime - server.DomainStartTime;
+        var grade = GradeCompletion(server, domain.Difficulty, domain.LootRewardPoints, completionTime);
+        insertedAny |= TryInsertCertificate(cargoUid, coordinates, server, domain, completionTime, grade, rewardsMultiplier);
+
+        if (domain.Difficulty >= BitrunningDifficulty.Medium &&
+            grade is BitrunningCompletionGrade.A or BitrunningCompletionGrade.S &&
+            !server.TechnologyDiskRewardSpawned)
+        {
+            server.TechnologyDiskRewardSpawned = true;
+            insertedAny |= TryInsertReward(cargoUid, Spawn("TechnologyDiskBitrunningReward", coordinates));
+            insertedAny |= TryInsertReward(cargoUid,
+                Spawn(grade == BitrunningCompletionGrade.S
+                    ? "ResearchDiskBitrunningExperimental1000"
+                    : "ResearchDiskBitrunningExperimental500", coordinates));
+        }
+
+        insertedAny |= TryInsertOre(cargoUid, coordinates, "SteelOre1Unprocessed", domain.LootRewardPoints, rewardsMultiplier, 3f);
+        insertedAny |= TryInsertOre(cargoUid, coordinates, "SpaceQuartz1Unprocessed", domain.LootRewardPoints, rewardsMultiplier, 2f);
+
+        if (domain.LootRewardPoints > 1)
+        {
+            insertedAny |= TryInsertOre(cargoUid, coordinates, "SilverOre1Unprocessed", domain.LootRewardPoints, rewardsMultiplier, 0.7f);
+        }
+
+        if (domain.LootRewardPoints > 2)
+        {
+            insertedAny |= TryInsertOre(cargoUid, coordinates, "PlasmaOre1Unprocessed", domain.LootRewardPoints, rewardsMultiplier, 1f);
+            insertedAny |= TryInsertOre(cargoUid, coordinates, "GoldOre1Unprocessed", domain.LootRewardPoints, rewardsMultiplier, 0.6f);
+            insertedAny |= TryInsertOre(cargoUid, coordinates, "UraniumOre1Unprocessed", domain.LootRewardPoints, rewardsMultiplier, 0.4f);
+        }
+
+        if (domain.LootRewardPoints > 3)
+        {
+            insertedAny |= TryInsertOre(cargoUid, coordinates, "DiamondOre1Unprocessed", domain.LootRewardPoints, rewardsMultiplier, 0.3f);
+            insertedAny |= TryInsertOre(cargoUid, coordinates, "MaterialBSCrystal1Unprocessed", domain.LootRewardPoints, rewardsMultiplier, 0.2f);
+        }
+
         return insertedAny;
+    }
+
+    private bool TryInsertCertificate(
+        EntityUid cargoUid,
+        EntityCoordinates coordinates,
+        QuantumServerComponent server,
+        BitrunningVirtualDomainPrototype domain,
+        TimeSpan completionTime,
+        BitrunningCompletionGrade grade,
+        float rewardsMultiplier)
+    {
+        var certificate = Spawn("PaperBitrunningCompletionCertificate", coordinates);
+        if (!TryComp<PaperComponent>(certificate, out var paper))
+        {
+            QueueDel(certificate);
+            return false;
+        }
+
+        _paper.SetContent((certificate, paper), Loc.GetString("bitrunning-completion-certificate-content",
+            ("domain", Loc.GetString(domain.Name)),
+            ("difficulty", Loc.GetString($"bitrunning-ui-difficulty-{domain.Difficulty.ToString().ToLowerInvariant()}")),
+            ("threats", server.ThreatsSpawned),
+            ("reward", domain.LootRewardPoints),
+            ("multiplier", rewardsMultiplier.ToString("0.0")),
+            ("time", completionTime.ToString(@"hh\:mm\:ss")),
+            ("grade", grade.ToString()),
+            ("randomized", server.WasRandomizedRun
+                ? Loc.GetString("bitrunning-completion-certificate-randomized")
+                : string.Empty)));
+        _metaData.SetEntityName(certificate, Loc.GetString("bitrunning-completion-certificate-name"));
+        return TryInsertReward(cargoUid, certificate);
+    }
+
+    private static BitrunningCompletionGrade GradeCompletion(
+        QuantumServerComponent server,
+        BitrunningDifficulty difficulty,
+        int rewardPoints,
+        TimeSpan completionTime)
+    {
+        var timeScore = completionTime.TotalMinutes switch
+        {
+            <= 1 => 10,
+            <= 2 => 5,
+            <= 5 => 3,
+            <= 10 => 2,
+            _ => 1,
+        };
+
+        var score = server.ThreatsSpawned * 5 +
+                    rewardPoints +
+                    timeScore * ((int) difficulty + 1);
+        return score switch
+        {
+            <= 4 => BitrunningCompletionGrade.D,
+            <= 7 => BitrunningCompletionGrade.C,
+            <= 10 => BitrunningCompletionGrade.B,
+            <= 13 => BitrunningCompletionGrade.A,
+            _ => BitrunningCompletionGrade.S,
+        };
+    }
+
+    private bool TryInsertOre(
+        EntityUid cargoUid,
+        EntityCoordinates coordinates,
+        EntProtoId prototypeId,
+        int rewardPoints,
+        float rewardsMultiplier,
+        float oreMultiplier)
+    {
+        var loot = Spawn(prototypeId, coordinates);
+        var amount = Math.Max(1,
+            (int) MathF.Ceiling(_random.NextFloat(0.5f, 1.5f) * (rewardPoints + rewardsMultiplier) * oreMultiplier));
+        _stack.SetCount(loot, amount);
+        return TryInsertReward(cargoUid, loot);
     }
 
     private bool TryInsertReward(EntityUid cargoUid, EntityUid loot)
@@ -248,20 +346,4 @@ public sealed partial class ByteforgeSystem : EntitySystem
         return false;
     }
 
-    private ProtoId<EntityTablePrototype> GetDifficultyLootTable(QuantumServerComponent server)
-    {
-        if (server.CurrentDomain == null || !_domains.TryGetDomain(server.CurrentDomain.Value.Id, out var domain))
-            return server.DeliveryEasyLootTable;
-
-        var rewardDifficulty = domain.RewardLootDifficulty ?? domain.Difficulty;
-        return rewardDifficulty switch
-        {
-            BitrunningDifficulty.Peaceful => server.DeliveryPeacefulLootTable,
-            BitrunningDifficulty.Easy => server.DeliveryEasyLootTable,
-            BitrunningDifficulty.Medium => server.DeliveryMediumLootTable,
-            BitrunningDifficulty.Hard => server.DeliveryHardLootTable,
-            BitrunningDifficulty.Extreme => server.DeliveryExtremeLootTable,
-            _ => server.DeliveryEasyLootTable,
-        };
-    }
 }

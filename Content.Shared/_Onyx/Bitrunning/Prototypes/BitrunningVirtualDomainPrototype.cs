@@ -27,12 +27,6 @@ public sealed partial class BitrunningVirtualDomainPrototype : IPrototype
     public BitrunningDifficulty Difficulty { get; private set; } = BitrunningDifficulty.Easy;
 
     /// <summary>
-    /// Optional loot tier override used when selecting delivery reward loot tables.
-    /// </summary>
-    [DataField]
-    public BitrunningDifficulty? RewardLootDifficulty { get; private set; }
-
-    /// <summary>
     /// Server/domain reward for successful completion.
     /// </summary>
     [DataField]
@@ -43,6 +37,12 @@ public sealed partial class BitrunningVirtualDomainPrototype : IPrototype
     /// </summary>
     [DataField]
     public int BitrunningRewardPoints { get; private set; }
+
+    /// <summary>
+    /// TG reward points used to calculate ore amounts in the decrypted cache.
+    /// </summary>
+    [DataField]
+    public int LootRewardPoints { get; private set; } = 1;
 
     /// <summary>
     /// Additional server points granted for successful completion of a randomized run.
@@ -127,7 +127,7 @@ public sealed partial class BitrunningVirtualDomainPrototype : IPrototype
     public Dictionary<BitrunningObjectiveType, int> ObjectiveTargetByType { get; private set; } = [];
 
     /// <summary>
-    /// If true, objective completion spawns a reward cache crate in the domain.
+    /// If true, objective completion spawns an encrypted cache in the domain.
     /// </summary>
     [DataField]
     public bool SpawnRewardCacheOnObjectiveComplete { get; private set; } = true;

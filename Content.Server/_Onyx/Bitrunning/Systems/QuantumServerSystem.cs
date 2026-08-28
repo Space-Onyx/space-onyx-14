@@ -227,6 +227,7 @@ public sealed partial class QuantumServerSystem : EntitySystem
         server.ObjectiveType = objectiveType;
         server.ObjectiveGoal = ResolveObjectiveGoal((serverUid, server), domain, objectiveType);
         server.ObjectiveCompleted = false;
+        server.TechnologyDiskRewardSpawned = false;
         server.Points -= domain.Cost;
         server.ThreatsSpawned = 0;
         server.CooldownEndTime = TimeSpan.Zero;
@@ -454,6 +455,7 @@ public sealed partial class QuantumServerSystem : EntitySystem
         serverEnt.Comp.SpawnCoordinates = null;
         serverEnt.Comp.ObjectivePoints = 0;
         serverEnt.Comp.ObjectiveCompleted = false;
+        serverEnt.Comp.TechnologyDiskRewardSpawned = false;
         serverEnt.Comp.ObjectiveType = BitrunningObjectiveType.None;
         serverEnt.Comp.ObjectiveGoal = 0;
         serverEnt.Comp.NextSatiationProgressTime = TimeSpan.Zero;
@@ -815,7 +817,7 @@ public sealed partial class QuantumServerSystem : EntitySystem
             return;
 
         serverEnt.Comp.ObjectiveCompleted = true;
-        var rewardMultiplier = CalculateBaseRewardMultiplier(serverEnt.Comp);
+        var rewardMultiplier = CalculateRewardMultiplier(serverEnt.Comp);
 
         if (ShouldSpawnCompletionRewardCache(serverEnt.Comp) && serverEnt.Comp.ObjectiveType != BitrunningObjectiveType.DeliveryCacheCrate)
         {
@@ -955,7 +957,7 @@ public sealed partial class QuantumServerSystem : EntitySystem
         return server.ObjectiveType != BitrunningObjectiveType.None && server.ObjectiveGoal > 0;
     }
 
-    private float CalculateBaseRewardMultiplier(QuantumServerComponent server)
+    public float CalculateRewardMultiplier(QuantumServerComponent server)
     {
         var noHitCount = 0;
         foreach (var uid in server.ActiveConnections)
@@ -972,10 +974,20 @@ public sealed partial class QuantumServerSystem : EntitySystem
         return Math.Max(1f, total);
     }
 
+    public float CalculateLootRewardMultiplier(QuantumServerComponent server)
+    {
+        var total = 0.8f + server.QualityBonus;
+        if (server.WasRandomizedRun)
+            total += 0.2f;
+
+        total += Math.Max(0, server.ActiveConnections.Count - 1) * 1.1f;
+        total += server.ThreatsSpawned * 2f;
+        return Math.Max(0f, total);
+    }
+
     private void SpawnRewardCache(QuantumServerComponent server, EntityCoordinates coordinates)
     {
-        var cache = Spawn(server.CompletionRewardCachePrototype, coordinates);
-        _byteforge.TryFillCompletionCache(cache, server);
+        Spawn(server.CompletionRewardCachePrototype, coordinates);
         _sparks.DoSparks(coordinates);
     }
 

@@ -32,7 +32,8 @@
 
 - type: entity
   id: BitrunningObjectiveCacheStructure
-  name: cache crate
+  name: encrypted cache
+  description: A sealed virtual-domain cache that must be delivered to the transfer point.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite

@@ -14,7 +14,7 @@
   parent: CrateBitrunSecure
   id: CrateBitrunSecureReward
   categories: [ HideSpawnMenu ]
-  name: cache crate
+  name: decrypted cache
   components:
-  - type: BitrunningDespawnOnOpen
-  - type: BitrunningObjectiveCargo
+  - type: Lock
+    locked: false
