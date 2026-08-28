@@ -1,10 +1,4 @@
-﻿ent-CaseSecurityDragunov = security case with Dragunov
-    .desc = { ent-CaseSecurity.desc }
-    .suffix = Security, Filled
-ent-CaseSecurityMini = security mini case
-    .desc = Little red and black case with a sec logo, I wonder what's in there?
-    .suffix = Security, Empty
-ent-CrateWooden = wooden crate
+﻿ent-CrateWooden = wooden crate
     .desc = { ent-CrateBaseWeldable.desc }
 ent-ResearchDataDisk = research data disk
     .desc = Stores a fixed snapshot of researched technologies from a specific R&D server.

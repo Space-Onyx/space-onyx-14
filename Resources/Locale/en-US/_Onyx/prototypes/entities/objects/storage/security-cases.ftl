@@ -1,0 +1,45 @@
+ent-CaseSecurity = security case
+    .desc = Red and black case with a security logo. What could be inside?
+
+ent-CaseSecurityMini = security mini case
+    .desc = Small red and black case with a security logo. What could be inside?
+
+ent-CaseSecurityP90 = P90 security case
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityVector = Vector security case
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityAKM = AKM security case
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityM28 = M-28 security case
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityDragunov = Dragunov security case
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityMosins = Mosin security case
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityBR64 = BR-64 security case
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityRemington = Remington 700 security case
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityAntelope = Antelope security case
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityDoubleShotguns = double-barreled shotgun security case
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityLaserCellSMG = ER-5 security case
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityEnergyRifle = CR-2 security case
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityCellSniper = ES-7 security case
+    .desc = { ent-CaseSecurity.desc }
+
+ent-CaseSecurityMiniVP78 = VP-78 security mini case
+    .desc = { ent-CaseSecurityMini.desc }
+ent-CaseSecurityMiniDesertEagle = Desert Eagle security mini case
+    .desc = { ent-CaseSecurityMini.desc }
+ent-CaseSecurityMiniInspector = Inspector security mini case
+    .desc = { ent-CaseSecurityMini.desc }
+ent-CaseSecurityMiniDeckard = Deckard security mini case
+    .desc = { ent-CaseSecurityMini.desc }
+ent-CaseSecurityMiniCellRevolver = EG-1 security mini case
+    .desc = { ent-CaseSecurityMini.desc }
+ent-CaseSecurityMiniFlareGun = shell gun security mini case
+    .desc = { ent-CaseSecurityMini.desc }

@@ -1,0 +1,45 @@
+ent-CaseSecurity = оружейный кейс СБ
+    .desc = Красно-чёрный кейс с логотипом службы безопасности. Что же внутри?
+
+ent-CaseSecurityMini = малый оружейный кейс СБ
+    .desc = Маленький красно-чёрный кейс с логотипом службы безопасности. Что же внутри?
+
+ent-CaseSecurityP90 = оружейный кейс СБ с P90
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityVector = оружейный кейс СБ с «Вектором»
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityAKM = оружейный кейс СБ с АКМ
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityM28 = оружейный кейс СБ с M-28
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityDragunov = оружейный кейс СБ с винтовкой Драгунова
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityMosins = оружейный кейс СБ с винтовками Мосина
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityBR64 = оружейный кейс СБ с BR-64
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityRemington = оружейный кейс СБ с Remington 700
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityAntelope = оружейный кейс СБ с «Антилопой»
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityDoubleShotguns = оружейный кейс СБ с двуствольными ружьями
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityLaserCellSMG = оружейный кейс СБ с ER-5
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityEnergyRifle = оружейный кейс СБ с CR-2
+    .desc = { ent-CaseSecurity.desc }
+ent-CaseSecurityCellSniper = оружейный кейс СБ с ES-7
+    .desc = { ent-CaseSecurity.desc }
+
+ent-CaseSecurityMiniVP78 = малый оружейный кейс СБ с VP-78
+    .desc = { ent-CaseSecurityMini.desc }
+ent-CaseSecurityMiniDesertEagle = малый оружейный кейс СБ с Desert Eagle
+    .desc = { ent-CaseSecurityMini.desc }
+ent-CaseSecurityMiniInspector = малый оружейный кейс СБ с «Инспектором»
+    .desc = { ent-CaseSecurityMini.desc }
+ent-CaseSecurityMiniDeckard = малый оружейный кейс СБ с «Декардом»
+    .desc = { ent-CaseSecurityMini.desc }
+ent-CaseSecurityMiniCellRevolver = малый оружейный кейс СБ с EG-1
+    .desc = { ent-CaseSecurityMini.desc }
+ent-CaseSecurityMiniFlareGun = малый оружейный кейс СБ с сигнальными пистолетами
+    .desc = { ent-CaseSecurityMini.desc }

@@ -1,10 +1,4 @@
-﻿ent-CaseSecurityDragunov = охранный кейс с Драгунов
-    .desc = { ent-CaseSecurity.desc }
-    .suffix = СБ, Заполненный
-ent-CaseSecurityMini = охранный мини-кейс
-    .desc = Маленький красно-чёрный кейс с логотипом СБ, интересно что внутри?
-    .suffix = СБ, Пустой
-ent-CrateWooden = деревянный ящик
+﻿ent-CrateWooden = деревянный ящик
     .desc = { ent-CrateBaseWeldable.desc }
 ent-ResearchDataDisk = диск с данными исследований
     .desc = Хранит снимок изученных технологий с конкретного сервера РнД.
