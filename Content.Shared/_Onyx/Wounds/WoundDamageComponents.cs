@@ -4,6 +4,7 @@ using Content.Shared.Body.Part;
 using Content.Shared.FixedPoint;
 using Content.Shared.Humanoid;
 using Content.Shared._Onyx.Targeting;
+using Content.Shared._Onyx.Chemistry.Circulation;
 using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
@@ -14,6 +15,9 @@ namespace Content.Shared._Onyx.Wounds;
 [RegisterComponent, NetworkedComponent]
 public sealed partial class WoundHostComponent : Component
 {
+    [DataField]
+    public ProtoId<CirculatoryStreamPrototype> PrimaryCirculatoryStream = "Organic";
+
     [DataField]
     public Dictionary<BodyPartType, float> TargetWeights = new()
     {

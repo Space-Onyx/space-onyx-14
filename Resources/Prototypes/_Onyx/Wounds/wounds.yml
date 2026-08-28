@@ -147,10 +147,11 @@
 - type: bodyPartProfile
   id: CyberneticBodyPartProfile
   treatmentCapabilities: [Mechanical, Electrical]
+  circulatoryStream: Cybernetic
   canFeelPain: false
   passiveRecoveryMultiplier: 0
   bedRecoveryMultiplier: 0
-  bleedingMultiplier: 0
+  bleedingMultiplier: 1
   scarrable: false
   acceptedDamageTypes:
     - Blunt
@@ -711,6 +712,10 @@
       reopenMinimumDamage: 12
       severityMultiplier: 1
   maximumSeverity: 200
+  behaviors:
+  - !type:WoundBleedingBehavior
+    rate: 0.08
+    chance: 1
   stages:
     Minor:
       name: wound-stage-mechanical-minor

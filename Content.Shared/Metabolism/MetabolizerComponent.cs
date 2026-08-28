@@ -10,7 +10,7 @@ namespace Content.Shared.Metabolism;
 ///     Handles metabolizing various reagents with given effects.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-[AutoGenerateComponentState, AutoGenerateComponentPause, Access(typeof(MetabolizerSystem))]
+[AutoGenerateComponentState, AutoGenerateComponentPause, Access(typeof(MetabolizerSystem), typeof(_Onyx.Chemistry.Circulation.CirculatoryStreamSystem))] // <Onyx-CirculatoryStreams-edited>
 public sealed partial class MetabolizerComponent : Component
 {
     /// <summary>

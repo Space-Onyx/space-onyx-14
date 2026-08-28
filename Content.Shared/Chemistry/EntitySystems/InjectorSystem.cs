@@ -18,6 +18,11 @@ using Content.Shared.Standing;
 using Content.Shared.Timing;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Melee.Events;
+// <Onyx-CirculatoryStreams>
+using Content.Shared._Onyx.Chemistry.Circulation;
+using Content.Shared._Onyx.Targeting;
+using Content.Shared._Onyx.Wounds;
+// </Onyx-CirculatoryStreams>
 using JetBrains.Annotations;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
@@ -41,6 +46,10 @@ public sealed partial class InjectorSystem : EntitySystem
     [Dependency] private SharedSolutionContainerSystem _solutionContainer = default!;
     [Dependency] private StandingStateSystem _standingState = default!;
     [Dependency] private UseDelaySystem _useDelay = default!;
+    // <Onyx-CirculatoryStreams>
+    [Dependency] private CirculatoryStreamSystem _circulation = default!;
+    [Dependency] private TargetResolverSystem _targetResolver = default!;
+    // </Onyx-CirculatoryStreams>
 
     public override void Initialize()
     {
@@ -95,7 +104,8 @@ public sealed partial class InjectorSystem : EntitySystem
         if (args.Cancelled || args.Handled || args.Args.Target == null)
             return;
 
-        args.Handled |= TryUseInjector(injector, args.Args.User, args.Args.Target.Value);
+        var part = args.RequestedPart is { } netPart ? GetEntity(netPart) : (EntityUid?) null; // <Onyx-CirculatoryStreams>
+        args.Handled |= TryUseInjector(injector, args.Args.User, args.Args.Target.Value, part); // <Onyx-CirculatoryStreams-edited>
     }
 
     private void OnAttack(Entity<InjectorComponent> injector, ref MeleeHitEvent args)
@@ -197,7 +207,23 @@ public sealed partial class InjectorSystem : EntitySystem
             || !GetMobsDoAfterTime(injector, user, target, out var doAfterTime, out var amount)) // Get the DoAfter time.
             return false;
 
-        if (!_doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, doAfterTime, new InjectorDoAfterEvent(), injector.Owner, target: target, used: injector.Owner)
+        // <Onyx-CirculatoryStreams>
+        EntityUid? requestedPart = null;
+        if (HasComp<WoundHostComponent>(target) && TryComp(user, out TargetingComponent? targeting))
+        {
+            if (!_targetResolver.TryResolveExact(target, targeting.Target, out var resolvedPart))
+            {
+                _popup.PopupClient(Loc.GetString("targeting-selected-part-missing"), target, user);
+                return false;
+            }
+
+            requestedPart = resolvedPart;
+        }
+        // </Onyx-CirculatoryStreams>
+
+        if (!_doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, doAfterTime,
+                new InjectorDoAfterEvent(requestedPart is { } part ? GetNetEntity(part) : null), injector.Owner,
+                target: target, used: injector.Owner) // <Onyx-CirculatoryStreams-edited>
         {
             BreakOnMove = true,
             BreakOnWeightlessMove = false,
@@ -378,7 +404,8 @@ public sealed partial class InjectorSystem : EntitySystem
     /// <param name="target">The entity targeted by the user.</param>
     /// <returns>True if the injection/drawing was successful, false if not.</returns>
     /// <exception cref="ArgumentOutOfRangeException">The injector has a different <see cref="InjectorBehavior"/>.</exception>
-    private bool TryUseInjector(Entity<InjectorComponent> injector, EntityUid user, EntityUid target)
+    private bool TryUseInjector(Entity<InjectorComponent> injector, EntityUid user, EntityUid target,
+        EntityUid? requestedPart = null) // <Onyx-CirculatoryStreams-edited>
     {
         if (!ProtoMan.Resolve(injector.Comp.ActiveModeProtoId, out var activeMode))
             return false;
@@ -392,6 +419,14 @@ public sealed partial class InjectorSystem : EntitySystem
             // Handle injecting/drawing for solutions
             case InjectorBehavior.Inject:
             {
+                // <Onyx-CirculatoryStreams>
+                if (requestedPart is { } injectPart && HasComp<WoundHostComponent>(target))
+                {
+                    if (!_circulation.TryGetPartSolution(target, injectPart, out var streamSolution))
+                        return false;
+                    return TryInject(injector, user, target, streamSolution, false, injectPart);
+                }
+                // </Onyx-CirculatoryStreams>
                 if (isOpenOrIgnored && _solutionContainer.TryGetInjectableSolution(target, out var injectableSolution, out _))
                     return TryInject(injector, user, target, injectableSolution.Value, false);
 
@@ -401,6 +436,15 @@ public sealed partial class InjectorSystem : EntitySystem
             }
             case InjectorBehavior.Draw:
             {
+                // <Onyx-CirculatoryStreams>
+                if (requestedPart is { } drawPart && HasComp<WoundHostComponent>(target))
+                {
+                    if (!_circulation.TryGetPartSolution(target, drawPart, out var streamSolution) ||
+                        !TryComp(target, out BloodstreamComponent? streamComp))
+                        return false;
+                    return TryDraw(injector, user, (target, streamComp), streamSolution);
+                }
+                // </Onyx-CirculatoryStreams>
                 // Draw from a bloodstream if the target has that
                 if (TryComp<BloodstreamComponent>(target, out var stream) &&
                     _solutionContainer.ResolveSolution(target, stream.BloodSolutionName, ref stream.BloodSolution))
@@ -418,6 +462,14 @@ public sealed partial class InjectorSystem : EntitySystem
             }
             case InjectorBehavior.Dynamic:
             {
+                // <Onyx-CirculatoryStreams>
+                if (requestedPart is { } dynamicPart && HasComp<WoundHostComponent>(target))
+                {
+                    if (!_circulation.TryGetPartSolution(target, dynamicPart, out var streamSolution))
+                        return false;
+                    return TryInject(injector, user, target, streamSolution, false, dynamicPart);
+                }
+                // </Onyx-CirculatoryStreams>
                 // If it's a mob, inject. We're using injectableSolution so I don't have to code a sole method for injecting into bloodstreams.
                 if (HasComp<BloodstreamComponent>(target)
                     && _solutionContainer.TryGetInjectableSolution(target, out var injectableSolution, out _))
@@ -447,7 +499,8 @@ public sealed partial class InjectorSystem : EntitySystem
     /// <param name="targetSolution">The solution of the target.</param>
     /// <param name="asRefill">Whether or not the solution is refillable or injectable.</param>
     /// <returns>True if the injection was successful, false if not.</returns>
-    private bool TryInject(Entity<InjectorComponent> injector, EntityUid user, EntityUid target, Entity<SolutionComponent> targetSolution, bool asRefill)
+    private bool TryInject(Entity<InjectorComponent> injector, EntityUid user, EntityUid target,
+        Entity<SolutionComponent> targetSolution, bool asRefill, EntityUid? requestedPart = null) // <Onyx-CirculatoryStreams-edited>
     {
         if (!_solutionContainer.ResolveSolution(injector.Owner,
                 injector.Comp.SolutionName,
@@ -474,6 +527,19 @@ public sealed partial class InjectorSystem : EntitySystem
         }
 
         target = selfEv.TargetGettingInjected;
+
+        // <Onyx-CirculatoryStreams>
+        if (requestedPart is { } part)
+        {
+            if (!_circulation.TryGetPartSolution(target, part, out targetSolution))
+            {
+                if (!TryComp(user, out TargetingComponent? targeting) ||
+                    !_targetResolver.TryResolveExact(target, targeting.Target, out part) ||
+                    !_circulation.TryGetPartSolution(target, part, out targetSolution))
+                    return false;
+            }
+        }
+        // </Onyx-CirculatoryStreams>
 
         var ev = new TargetBeforeInjectEvent(user, injector, target);
         RaiseLocalEvent(target, ref ev);
@@ -575,6 +641,7 @@ public sealed partial class InjectorSystem : EntitySystem
 
         if (realTransferAmount <= 0)
         {
+            _solutionContainer.TryAddSolution(targetSolution, temporarilyRemovedSolution); // <Onyx-CirculatoryStreams>
             LocId msg = target.Owner == user ? "injector-component-target-is-empty-message-self" : "injector-component-target-is-empty-message";
             var targetIdentity = Identity.Entity(target, EntityManager);
             _popup.PopupEntity(Loc.GetString(msg, ("target", targetIdentity)), injector.Owner, user);
@@ -584,7 +651,9 @@ public sealed partial class InjectorSystem : EntitySystem
         // We have some snowflaked behavior for streams.
         if (target.Comp != null)
         {
-            DrawFromBlood(injector, user, (target.Owner, target.Comp), injector.Comp.Solution.Value, realTransferAmount);
+            DrawFromBlood(injector, user, target.Owner, targetSolution, injector.Comp.Solution.Value,
+                realTransferAmount); // <Onyx-CirculatoryStreams-edited>
+            _solutionContainer.TryAddSolution(targetSolution, temporarilyRemovedSolution); // <Onyx-CirculatoryStreams>
             return true;
         }
 
@@ -620,22 +689,20 @@ public sealed partial class InjectorSystem : EntitySystem
     /// <param name="transferAmount">The amount of blood to draw.</param>
     private void DrawFromBlood(Entity<InjectorComponent> injector,
         EntityUid user,
-        Entity<BloodstreamComponent> target,
+        EntityUid target,
+        Entity<SolutionComponent> targetSolution,
         Entity<SolutionComponent> injectorSolution,
-        FixedPoint2 transferAmount)
+        FixedPoint2 transferAmount) // <Onyx-CirculatoryStreams-edited>
     {
-        if (_solutionContainer.ResolveSolution(target.Owner, target.Comp.BloodSolutionName, ref target.Comp.BloodSolution))
-        {
-            var bloodTemp = _solutionContainer.SplitSolution(target.Comp.BloodSolution.Value, transferAmount);
-            _solutionContainer.TryAddSolution(injectorSolution, bloodTemp);
-        }
+        var bloodTemp = _solutionContainer.SplitSolution(targetSolution, transferAmount); // <Onyx-CirculatoryStreams-edited>
+        _solutionContainer.TryAddSolution(injectorSolution, bloodTemp); // <Onyx-CirculatoryStreams-edited>
 
-        LocId msg = target.Owner == user ? "injector-component-draw-success-message-self" : "injector-component-draw-success-message";
-        var targetIdentity = Identity.Entity(target, EntityManager);
+        LocId msg = target == user ? "injector-component-draw-success-message-self" : "injector-component-draw-success-message"; // <Onyx-CirculatoryStreams-edited>
+        var targetIdentity = Identity.Entity(target, EntityManager); // <Onyx-CirculatoryStreams-edited>
         var finalMessage = Loc.GetString(msg, ("amount", transferAmount), ("target", targetIdentity));
         _popup.PopupEntity(finalMessage, target, user);
 
-        AfterDraw(injector, user, target);
+        AfterDraw(injector, user, target); // <Onyx-CirculatoryStreams-edited>
     }
 
     /// <summary>

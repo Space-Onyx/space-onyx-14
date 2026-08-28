@@ -5,6 +5,7 @@ using Content.Shared.Body.Part;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
+using Content.Shared._Onyx.Chemistry.Circulation;
 
 namespace Content.Shared._Onyx.Wounds;
 
@@ -151,6 +152,9 @@ public sealed partial class BodyPartProfilePrototype : IPrototype
 
     [DataField]
     public HashSet<TreatmentCapability> TreatmentCapabilities = [TreatmentCapability.Biological];
+
+    [DataField]
+    public ProtoId<CirculatoryStreamPrototype> CirculatoryStream = "Organic";
 
     /// <summary>
     /// Bleeding multiplier applied to every bleeding wound on parts with this profile.

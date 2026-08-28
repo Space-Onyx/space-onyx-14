@@ -10,6 +10,7 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
+using Content.Shared._Onyx.Chemistry.Circulation;
 
 namespace Content.Shared._Onyx.Wounds;
 
@@ -20,6 +21,7 @@ public sealed partial class WoundBleedingSystem : EntitySystem
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private BloodstreamSystem _bloodstream = default!;
     [Dependency] private IConfigurationManager _configuration = default!;
+    [Dependency] private CirculatoryStreamSystem _circulation = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
@@ -266,22 +268,32 @@ public sealed partial class WoundBleedingSystem : EntitySystem
             return;
 
         var partRates = new Dictionary<EntityUid, float>();
+        var streamRates = new Dictionary<ProtoId<CirculatoryStreamPrototype>, float>();
         foreach (var wound in GetAttachedBleedingWounds(body))
-            partRates[wound.Comp1.HoldingPart] = partRates.GetValueOrDefault(wound.Comp1.HoldingPart) + wound.Comp2.CurrentRate;
+        {
+            var part = wound.Comp1.HoldingPart;
+            partRates[part] = partRates.GetValueOrDefault(part) + wound.Comp2.CurrentRate;
+            if (TryComp(part, out WoundableComponent? woundable))
+            {
+                var stream = _circulation.GetPartStream((part, woundable));
+                streamRates[stream] = streamRates.GetValueOrDefault(stream) + wound.Comp2.CurrentRate;
+            }
+        }
 
-        if (insertedPart is { } inserted && TryComp(inserted, out WoundableComponent? woundable) &&
+        if (insertedPart is { } inserted && TryComp(inserted, out WoundableComponent? insertedWoundable) &&
             !partRates.ContainsKey(inserted))
         {
             partRates[inserted] = 0f;
-            foreach (var wound in _wounds.GetWounds((inserted, woundable)))
+            foreach (var wound in _wounds.GetWounds((inserted, insertedWoundable)))
                 if (TryComp(wound, out WoundBleedingComponent? bleeding))
+                {
                     partRates[inserted] += bleeding.CurrentRate;
+                    var stream = _circulation.GetPartStream((inserted, insertedWoundable));
+                    streamRates[stream] = streamRates.GetValueOrDefault(stream) + bleeding.CurrentRate;
+                }
         }
 
-        var rate = 0f;
-        foreach (var partRate in partRates.Values)
-            rate += partRate;
-        _bloodstream.TryModifyWoundBleedProjection((body, bloodstream), rate - bloodstream.BleedAmount);
+        _circulation.SetBleedRates(body, streamRates);
         foreach (var (part, partRate) in partRates)
         {
             var partChanged = new PartBleedingChangedEvent(body, part, partRate);

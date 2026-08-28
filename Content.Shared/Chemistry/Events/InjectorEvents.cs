@@ -8,8 +8,18 @@ namespace Content.Shared.Chemistry.Events;
 /// <summary>
 /// Raised on the injector when the doafter has finished.
 /// </summary>
+// <Onyx-CirculatoryStreams-edited>
 [Serializable, NetSerializable]
-public sealed partial class InjectorDoAfterEvent : SimpleDoAfterEvent;
+public sealed partial class InjectorDoAfterEvent : SimpleDoAfterEvent
+{
+    public readonly NetEntity? RequestedPart;
+
+    public InjectorDoAfterEvent(NetEntity? requestedPart = null)
+    {
+        RequestedPart = requestedPart;
+    }
+}
+// </Onyx-CirculatoryStreams-edited>
 
 // <Onyx-CartridgeAutoinjector>
 /// <summary>

@@ -1,0 +1,23 @@
+- type: circulatoryStream
+  id: Organic
+
+- type: circulatoryStream
+  id: Cybernetic
+  solutionName: cyberneticBloodstream
+  metabolitesSolutionName: cyberneticMetabolites
+  metabolismStage: CyberneticBloodstream
+  metabolitesStage: CyberneticMetabolites
+  referenceSolution:
+    reagents:
+    - ReagentId: Oil
+      Quantity: 100
+  maxVolumeModifier: 2
+  metabolismTransferRate: 0.5
+
+- type: metabolismStage
+  id: CyberneticBloodstream
+  name: metabolism-stage-cybernetic-bloodstream
+
+- type: metabolismStage
+  id: CyberneticMetabolites
+  name: metabolism-stage-cybernetic-metabolites

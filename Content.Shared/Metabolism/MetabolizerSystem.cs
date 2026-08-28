@@ -143,7 +143,7 @@ public sealed partial class MetabolizerSystem : EntitySystem
         var list = solution.Contents.ToList();
 
         // Collecting blood reagent for filtering
-        var ev = new MetabolismExclusionEvent();
+        var ev = new MetabolismExclusionEvent(solutionData.SolutionName); // <Onyx-CirculatoryStreams-edited>
         RaiseLocalEvent(solutionOwner.Value, ref ev);
 
         // randomize the reagent list so we don't have any weird quirks

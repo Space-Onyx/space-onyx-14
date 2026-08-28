@@ -326,6 +326,9 @@ public sealed partial class BloodstreamSystem : EntitySystem
     [SubscribeLocalEvent]
     private void OnMetabolismExclusion(Entity<BloodstreamComponent> ent, ref MetabolismExclusionEvent args)
     {
+        if (args.SolutionName != null && args.SolutionName != ent.Comp.BloodSolutionName) // <Onyx-CirculatoryStreams>
+            return; // <Onyx-CirculatoryStreams>
+
         // Adding all blood reagents for filtering blood in metabolizer
         foreach (var (reagent, _) in ent.Comp.BloodReferenceSolution)
         {

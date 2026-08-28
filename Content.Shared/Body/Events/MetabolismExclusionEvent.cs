@@ -7,7 +7,7 @@ namespace Content.Shared.Body.Events;
 /// blood like reagents for metabolism to skip.
 /// </summary>
 [ByRefEvent]
-public readonly record struct MetabolismExclusionEvent()
+public readonly record struct MetabolismExclusionEvent(string? SolutionName = null) // <Onyx-CirculatoryStreams-edited>
 {
     public readonly List<ReagentId> Reagents = [];
 }
