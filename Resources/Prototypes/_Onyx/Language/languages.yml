@@ -23,16 +23,16 @@
     minSyllables: 1
     maxSyllables: 3
     replacement:
+    - ан
+    - ве
+    - ка
+    - лен
+    - мор
+    - ра
+    - си
     - та
-    - у
-    - се
     - ти
-    - ба
-    - сик
-    - кор
-    - вакс
-    - он
-    - икс
+    - ун
 
 - type: language
   id: Chittin
@@ -41,10 +41,14 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
-    - хит
-    - тик
+    - кх
     - клик
+    - кт
+    - рик
+    - так
+    - тик
     - трр
+    - чик
 
 - type: language
   id: RootSpeak
@@ -53,10 +57,14 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
-    - шор
-    - шелест
-    - кор
+    - бра
     - вет
+    - дру
+    - кор
+    - лис
+    - рощ
+    - шел
+    - шор
 
 - type: language
   id: Moffic
@@ -65,10 +73,14 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
-    - бзз
+    - бз
+    - ви
+    - зет
+    - люм
+    - мо
+    - фи
     - фф
-    - мыр
-    - зз
+    - жуж
 
 - type: language
   id: Draconic
@@ -77,10 +89,14 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
-    - сс
-    - ра
-    - хар
+    - ар
+    - дра
     - исс
+    - кха
+    - ра
+    - сар
+    - сс
+    - тир
 
 - type: language
   id: Bubblish
@@ -89,10 +105,14 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
+    - бло
     - буль
-    - блоп
-    - плоп
     - глю
+    - люп
+    - пли
+    - плоп
+    - уло
+    - шль
 
 - type: language
   id: Calcic
@@ -101,10 +121,14 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
-    - клик
-    - клак
-    - трек
     - каль
+    - клак
+    - клик
+    - ост
+    - скел
+    - трак
+    - трек
+    - фос
 
 - type: language
   id: NewKinPidgin
@@ -116,8 +140,12 @@
     replacement:
     - ки
     - кик
+    - кин
     - кра
+    - ни
     - рак
+    - рик
+    - тик
 
 - type: language
   id: Canilunzt
@@ -127,9 +155,13 @@
     !type:SyllableObfuscation
     replacement:
     - вур
-    - рра
+    - зен
     - кан
     - лун
+    - нах
+    - рра
+    - унц
+    - ца
 
 - type: language
   id: SiikMaas
@@ -138,9 +170,13 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
-    - сиик
+    - ии
+    - кир
+    - ма
     - маас
     - рр
+    - сиик
+    - та
     - таж
 
 - type: language
@@ -149,12 +185,9 @@
     fontId: Monospace
     boldFontId: MonospaceBold
   obfuscation:
-    !type:SyllableObfuscation
-    minSyllables: 2
-    maxSyllables: 6
-    replacement:
-    - "0"
-    - "1"
+    !type:CharacterObfuscation
+    vowels: "AEIOUY"
+    consonants: "BCDFGHJKLMNPQRSTVWXZ"
 
 - type: language
   id: Nekomimetic
@@ -163,10 +196,14 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
-    - ня
-    - мяу
-    - нэко
+    - ки
     - ми
+    - мя
+    - мяу
+    - нэ
+    - ня
+    - рин
+    - ши
 
 - type: language
   id: SolCommon
@@ -175,10 +212,14 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
+    - аэ
+    - вер
+    - лум
+    - мар
+    - нов
     - сол
     - тер
-    - мар
-    - нова
+    - ций
 
 - type: language
   id: Sign

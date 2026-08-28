@@ -297,7 +297,6 @@ public sealed partial class PaperLanguageSystem : EntitySystem
             content.Append(span.SourceText);
             AddSegment(segments, content.Length - span.SourceText.Length, span.SourceText.Length, span.Language);
         }
-
         if (content.Length > ent.Comp.ContentSize || !SegmentsCover(segments, content.Length))
         {
             SendView(ent, args.Actor, true);
@@ -431,11 +430,36 @@ public sealed partial class PaperLanguageSystem : EntitySystem
                 continue;
 
             editable.Append(span.ViewText);
-            rendered.Append($"[paperlang=\"{FormattedMessage.EscapeStringParameter(language.ID)}\"]");
-            rendered.Append(SanitizeLanguageTags(span.ViewText));
-            rendered.Append("[/paperlang]");
+            AppendRenderedSpan(rendered, span.ViewText, language.ID);
         }
         return (editable.ToString(), rendered.ToString());
+    }
+
+    private static void AppendRenderedSpan(StringBuilder output, string text, string language)
+    {
+        var start = 0;
+        for (var i = 0; i < text.Length; i++)
+        {
+            if (!PaperLanguageMarkup.TryGetTagLength(text, i, out var tagLength))
+                continue;
+
+            AppendLanguageText(output, text.AsSpan(start, i - start), language);
+            output.Append(text, i, tagLength);
+            i += tagLength - 1;
+            start = i + 1;
+        }
+
+        AppendLanguageText(output, text.AsSpan(start), language);
+    }
+
+    private static void AppendLanguageText(StringBuilder output, ReadOnlySpan<char> text, string language)
+    {
+        if (text.Length == 0)
+            return;
+
+        output.Append($"[paperlang=\"{FormattedMessage.EscapeStringParameter(language)}\"]");
+        output.Append(SanitizeLanguageTags(text.ToString()));
+        output.Append("[/paperlang]");
     }
 
     private List<PaperLanguageEditSpan> BuildEditSpans(
@@ -444,7 +468,9 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         EntityUid reader)
     {
         var spans = new List<PaperLanguageEditSpan>();
-        foreach (var segment in segments)
+        var viewSegments = PaperLanguageSegments.Clone(segments);
+        PaperLanguageSegments.MakeMarkupUniversal(content, viewSegments);
+        foreach (var segment in viewSegments)
         {
             var effectiveLanguage = segment.Language;
             if (!_prototypes.TryIndex(effectiveLanguage, out LanguagePrototype? language))
@@ -505,9 +531,7 @@ public sealed partial class PaperLanguageSystem : EntitySystem
                 continue;
             }
 
-            if (!inTag &&
-                (character == '[' && PaperLanguageMarkup.IsAllowedTag(value, i) ||
-                    PaperLanguageMarkup.TryGetSignatureTagLength(value, i, out _)))
+            if (!inTag && PaperLanguageMarkup.TryGetTagLength(value, i, out _))
             {
                 inTag = true;
                 tagEnd = character == '<' ? '>' : ']';

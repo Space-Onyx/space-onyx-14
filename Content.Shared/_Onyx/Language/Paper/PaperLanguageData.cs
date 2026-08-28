@@ -278,6 +278,49 @@ public static class PaperLanguageSegments
         }
     }
 
+    public static void MakeMarkupUniversal(string text, List<PaperLanguageSegment> segments)
+    {
+        for (var start = 0; start < text.Length; start++)
+        {
+            if (!PaperLanguageMarkup.TryGetTagLength(text, start, out var length))
+                continue;
+
+            SetLanguage(segments, start, length, "Universal");
+            start += length - 1;
+        }
+
+        Normalize(segments, text.Length);
+    }
+
+    private static void SetLanguage(
+        List<PaperLanguageSegment> segments,
+        int start,
+        int length,
+        ProtoId<LanguagePrototype> language)
+    {
+        var end = start + length;
+        var output = new List<PaperLanguageSegment>(segments.Count + 2);
+        foreach (var segment in segments)
+        {
+            var segmentEnd = segment.Start + segment.Length;
+            if (segmentEnd <= start || segment.Start >= end)
+            {
+                output.Add(new PaperLanguageSegment(segment.Start, segment.Length, segment.Language));
+                continue;
+            }
+
+            if (segment.Start < start)
+                output.Add(new PaperLanguageSegment(segment.Start, start - segment.Start, segment.Language));
+            output.Add(new PaperLanguageSegment(Math.Max(segment.Start, start),
+                Math.Min(segmentEnd, end) - Math.Max(segment.Start, start), language));
+            if (segmentEnd > end)
+                output.Add(new PaperLanguageSegment(end, segmentEnd - end, segment.Language));
+        }
+
+        segments.Clear();
+        segments.AddRange(output);
+    }
+
 }
 
 public static class PaperLanguageMarkup
@@ -313,6 +356,18 @@ public static class PaperLanguageMarkup
             !AllowedTags.Contains(name))
             return false;
 
+        return true;
+    }
+
+    public static bool TryGetTagLength(string text, int start, out int length)
+    {
+        length = 0;
+        if (TryGetSignatureTagLength(text, start, out length))
+            return true;
+        if (!IsAllowedTag(text, start))
+            return false;
+
+        length = text.IndexOf(']', start + 1) - start + 1;
         return true;
     }
 

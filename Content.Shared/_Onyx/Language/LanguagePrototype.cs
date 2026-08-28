@@ -87,7 +87,7 @@ public sealed partial class SyllableObfuscation : ReplacementObfuscation
 
     public override string Obfuscate(string message, int roundId)
     {
-        if (Replacement.Count == 0 || MaxSyllables < MinSyllables)
+        if (Replacement.Count == 0 || MinSyllables < 1 || MaxSyllables < MinSyllables)
             return "<?>";
 
         var output = new StringBuilder();
@@ -98,18 +98,27 @@ public sealed partial class SyllableObfuscation : ReplacementObfuscation
             if (word.Length == 0)
                 return;
 
-            var casePattern = new bool[word.Length];
-            for (var i = 0; i < word.Length; i++)
-                casePattern[i] = char.IsUpper(word[i]);
-
             var seed = StableHash(word) ^ roundId;
-            var count = MinSyllables + StableIndex(seed, MaxSyllables - MinSyllables + 1);
-
             var syllables = new StringBuilder();
+            var totalLength = 0;
+            foreach (var replacement in Replacement)
+                totalLength += replacement.Length;
+            var averageLength = Math.Max(1, totalLength / Replacement.Count);
+            var count = Math.Clamp((word.Length + averageLength / 2) / averageLength, MinSyllables, MaxSyllables);
+            var previous = -1;
             for (var i = 0; i < count; i++)
-                syllables.Append(Replacement[StableIndex(seed + i, Replacement.Count)]);
+            {
+                var index = StableIndex(unchecked(seed * 397 ^ i), Replacement.Count);
+                if (Replacement.Count > 1 && index == previous)
+                    index = (index + 1 + StableIndex(seed + i, Replacement.Count - 1)) % Replacement.Count;
+                syllables.Append(Replacement[index]);
+                previous = index;
+            }
 
-            var lastIdx = casePattern.Length - 1;
+            var allUpper = true;
+            for (var i = 0; i < word.Length; i++)
+                allUpper &= !char.IsLetter(word[i]) || char.IsUpper(word[i]);
+            var titleCase = char.IsUpper(word[0]);
             for (var i = 0; i < syllables.Length; i++)
             {
                 var ch = syllables[i];
@@ -118,8 +127,9 @@ public sealed partial class SyllableObfuscation : ReplacementObfuscation
                     output.Append(ch);
                     continue;
                 }
-                var caseIdx = Math.Min(i, lastIdx);
-                ch = casePattern[caseIdx] ? char.ToUpperInvariant(ch) : char.ToLowerInvariant(ch);
+                ch = allUpper || titleCase && i == 0
+                    ? char.ToUpperInvariant(ch)
+                    : char.ToLowerInvariant(ch);
                 output.Append(ch);
             }
 
@@ -152,5 +162,50 @@ public sealed partial class SyllableObfuscation : ReplacementObfuscation
         for (var i = 0; i < value.Length; i++)
             hash = unchecked(hash * 31 + char.ToLowerInvariant(value[i]));
         return hash;
+    }
+}
+
+[Virtual]
+public partial class CharacterObfuscation : ObfuscationMethod
+{
+    [DataField]
+    public string Vowels = "аеёиоуыэюя";
+
+    [DataField]
+    public string Consonants = "бвгджзйклмнпрстфхцчшщ";
+
+    public override string Obfuscate(string message, int roundId)
+    {
+        if (Vowels.Length == 0 || Consonants.Length == 0)
+            return "<?>";
+
+        var output = new StringBuilder(message.Length);
+        foreach (var character in message)
+        {
+            if (!char.IsLetter(character))
+            {
+                output.Append(character);
+                continue;
+            }
+
+            var alphabet = IsVowel(character) ? Vowels : Consonants;
+            var seed = unchecked(char.ToLowerInvariant(character) * 397 ^ roundId);
+            var index = (int) ((uint) (seed * 1103515245 + 12345) % alphabet.Length);
+            if (alphabet.Length > 1 && char.ToLowerInvariant(alphabet[index]) == char.ToLowerInvariant(character))
+                index = (index + 1) % alphabet.Length;
+            var replacement = alphabet[index];
+            output.Append(char.IsUpper(character)
+                ? char.ToUpperInvariant(replacement)
+                : char.ToLowerInvariant(replacement));
+        }
+
+        return output.ToString();
+    }
+
+    private static bool IsVowel(char character)
+    {
+        return char.ToLowerInvariant(character) is
+            'а' or 'е' or 'ё' or 'и' or 'о' or 'у' or 'ы' or 'э' or 'ю' or 'я' or
+            'a' or 'e' or 'i' or 'o' or 'u' or 'y';
     }
 }

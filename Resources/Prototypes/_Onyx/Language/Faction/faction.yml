@@ -5,10 +5,14 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
-    - шр
-    - кх
-    - рр
     - аа
+    - кх
+    - нгх
+    - рр
+    - тха
+    - улу
+    - шр
+    - ы
     minSyllables: 1
     maxSyllables: 3
 - type: language
@@ -18,22 +22,41 @@
     fontId: Monospace
     boldFontId: MonospaceBold
   obfuscation:
-    !type:ReplacementObfuscation
+    !type:SyllableObfuscation
     replacement:
-    - блип
-    - блоп
     - блаб
+    - блип
+    - блоб
+    - глоп
+    - плоп
+    - шлеп
+    minSyllables: 1
+    maxSyllables: 4
 - type: language
   id: Revolutionary
   obfuscation:
-    !type:ReplacementObfuscation
+    !type:SyllableObfuscation
     replacement:
-    - liberé
+    - бель
+    - де
+    - ле
+    - мер
+    - но
+    - ре
+    - са
+    - ви
+    minSyllables: 1
+    maxSyllables: 4
 - type: language
   id: Bingle
   obfuscation:
-    !type:ReplacementObfuscation
+    !type:SyllableObfuscation
     replacement:
-    - бингл
-    - бонгл
-    - дингл
+    - бин
+    - бон
+    - гл
+    - дин
+    - дон
+    - линг
+    minSyllables: 1
+    maxSyllables: 4

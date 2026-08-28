@@ -5,10 +5,14 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
-    - ла
+    - бар
     - ди
-    - фа
+    - кон
+    - ла
+    - мер
     - ри
+    - тал
+    - фа
     minSyllables: 1
     maxSyllables: 3
 - type: language
@@ -19,9 +23,13 @@
     !type:SyllableObfuscation
     replacement:
     - ба
-    - ха
-    - ра
+    - дак
+    - джо
     - ка
+    - ра
+    - тан
+    - ха
+    - ша
     minSyllables: 1
     maxSyllables: 3
 - type: language
@@ -31,10 +39,14 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
+    - аль
     - аф
-    - ха
-    - ра
+    - джан
     - за
+    - иш
+    - ра
+    - ха
+    - эль
     minSyllables: 1
     maxSyllables: 4
 - type: language
@@ -44,10 +56,14 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
-    - ба
     - брем
-    - деуф
+    - де
     - клом
+    - ней
+    - рик
+    - ста
+    - фау
+    - хен
     minSyllables: 1
     maxSyllables: 4
 - type: language
@@ -57,10 +73,14 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
-    - мра
-    - шр
     - ис
+    - ксар
+    - мра
+    - ор
     - са
+    - тх
+    - шр
+    - эй
     minSyllables: 1
     maxSyllables: 3
 - type: language
@@ -71,10 +91,14 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
+    - ан
     - ва
+    - дра
     - ли
     - ри
-    - ан
+    - сса
+    - тар
+    - эль
     minSyllables: 1
     maxSyllables: 3
 - type: language
@@ -82,21 +106,29 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
-    - mamma
-    - mia
-    - pasta
-    - pizza
+    - бел
+    - ди
+    - ла
+    - но
+    - ре
+    - ри
+    - та
+    - ццо
     minSyllables: 1
-    maxSyllables: 1
+    maxSyllables: 4
 - type: language
   id: YowKriol
   obfuscation:
     !type:SyllableObfuscation
     replacement:
-    - a
-    - kin
-    - mob
-    - wan
+    - ба
+    - дем
+    - ки
+    - кри
+    - моб
+    - на
+    - тин
+    - ван
     minSyllables: 1
     maxSyllables: 3
 - type: language
@@ -105,9 +137,13 @@
     !type:SyllableObfuscation
     replacement:
     - бах
+    - бруг
+    - гар
+    - гра
     - грр
+    - нак
+    - рук
     - уг
-    - бругх
     minSyllables: 1
     maxSyllables: 3
 - type: language
@@ -119,9 +155,13 @@
   obfuscation:
     !type:SyllableObfuscation
     replacement:
+    - ак
     - ка
-    - па
-    - та
     - ма
+    - не
+    - па
+    - ра
+    - та
+    - хи
     minSyllables: 2
     maxSyllables: 5

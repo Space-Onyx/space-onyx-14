@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Content.Shared._Onyx.Language;
 using Content.Shared._Onyx.Language.Paper;
 using NUnit.Framework;
 
@@ -187,5 +188,71 @@ public sealed class PaperLanguageEditReplayTest
     public void OnlyPaperMarkupIsProtectedFromObfuscation(string text, bool expected)
     {
         Assert.That(PaperLanguageMarkup.IsAllowedTag(text, 0), Is.EqualTo(expected));
+        Assert.That(PaperLanguageMarkup.TryGetTagLength(text, 0, out var length), Is.EqualTo(expected));
+        Assert.That(length, Is.EqualTo(expected ? text.Length : 0));
     }
+
+    [Test]
+    public void MarkupCrossingLanguagesBecomesOneUniversalSegment()
+    {
+        const string text = "[color=#ff0000]text[/color]";
+        var segments = new List<PaperLanguageSegment>
+        {
+            new(0, 8, "TauCetiBasic"),
+            new(8, 3, "SolCommon"),
+            new(11, text.Length - 11, "TauCetiBasic"),
+        };
+
+        PaperLanguageSegments.MakeMarkupUniversal(text, segments);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(segments[0].Start, Is.Zero);
+            Assert.That(segments[0].Length, Is.EqualTo("[color=#ff0000]".Length));
+            Assert.That(segments[0].Language.Id, Is.EqualTo("Universal"));
+            Assert.That(segments[^1].Length, Is.EqualTo("[/color]".Length));
+            Assert.That(segments[^1].Language.Id, Is.EqualTo("Universal"));
+        });
+    }
+
+    [Test]
+    public void SyllableObfuscationPreservesStructureAndCase()
+    {
+        var obfuscation = new SyllableObfuscation
+        {
+            Replacement = ["ka", "ri", "to"],
+            MinSyllables = 1,
+            MaxSyllables = 4,
+        };
+
+        var result = obfuscation.Obfuscate("HELLO, World 52!", 7);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Does.Match("^[A-Z]+, [A-Z][a-z]+ 52!$"));
+            Assert.That(result.Split(' ')[0].TrimEnd(',').Length, Is.InRange(4, 6));
+            Assert.That(result, Is.EqualTo(obfuscation.Obfuscate("HELLO, World 52!", 7)));
+        });
+    }
+
+    [Test]
+    public void CharacterObfuscationPreservesReadableStructure()
+    {
+        var type = typeof(ObfuscationMethod).Assembly.GetType("Content.Shared._Onyx.Language.CharacterObfuscation");
+        Assert.That(type, Is.Not.Null);
+        var obfuscation = (ObfuscationMethod) System.Activator.CreateInstance(type!)!;
+        type!.GetField("Vowels")!.SetValue(obfuscation, "aeiou");
+        type.GetField("Consonants")!.SetValue(obfuscation, "bcdfghklmnprst");
+
+        var result = obfuscation.Obfuscate("Hello, WORLD 42!", 7);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Does.Match("^[A-Z][a-z]{4}, [A-Z]{5} 52!$"));
+            Assert.That(result, Has.Length.EqualTo("Hello, WORLD 52!".Length));
+            Assert.That(result, Is.EqualTo(obfuscation.Obfuscate("Hello, WORLD 52!", 7)));
+            Assert.That(result, Is.Not.EqualTo("Hello, WORLD 52!"));
+        });
+    }
+
 }

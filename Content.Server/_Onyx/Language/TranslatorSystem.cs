@@ -147,7 +147,7 @@ public sealed partial class TranslatorSystem : EntitySystem
 
     private void OnPowerCellChanged(Entity<HandheldTranslatorComponent> ent, ref PowerCellChangedEvent args)
     {
-        SetTranslatorEnabled(ent, _powerCell.HasActivatableCharge(ent.Owner));
+        SetTranslatorEnabled(ent, ent.Comp.Enabled && _powerCell.HasActivatableCharge(ent.Owner));
     }
 
     private void OnItemToggled(Entity<HandheldTranslatorComponent> ent, ref ItemToggledEvent args)
