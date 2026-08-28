@@ -3,6 +3,8 @@
   id: MobReindeerBuckBitrunning
   suffix: Bitrunning
   components:
+  - type: GravityAffected
+    weightless: false
   - type: BitrunningDomainEnemyObjective
 
 - type: entity
@@ -21,4 +23,6 @@
         - MobMask
         layer:
         - MobLayer
+  - type: GravityAffected
+    weightless: false
   - type: BitrunningDomainEnemyObjective

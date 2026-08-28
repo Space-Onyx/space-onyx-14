@@ -13,3 +13,6 @@
   - type: Icon
     sprite: _Onyx/Structures/Walls/binary.rsi
   - type: Destructible
+  - type: Tag
+    tags:
+    - DevourImmune

@@ -7,9 +7,11 @@ using Content.Shared.Gibbing;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
+using Content.Shared.Tag;
 using Content.Shared.Whitelist;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Devour;
@@ -23,6 +25,9 @@ public sealed partial class DevourSystem : EntitySystem
     [Dependency] private SharedContainerSystem _containerSystem = default!;
     [Dependency] private SharedDoAfterSystem _doAfterSystem = default!;
     [Dependency] private SharedPopupSystem _popupSystem = default!;
+    [Dependency] private TagSystem _tag = default!;
+
+    private static readonly ProtoId<TagPrototype> DevourImmuneTag = "DevourImmune";
 
     public override void Initialize()
     {
@@ -65,7 +70,7 @@ public sealed partial class DevourSystem : EntitySystem
         var target = args.Target;
 
         // <Onyx-Bitrunning>
-        if (MetaData(target).EntityPrototype?.ID == "WallBinaryIndestructible")
+        if (_tag.HasTag(target, DevourImmuneTag))
         {
             _popupSystem.PopupEntity(Loc.GetString("devour-action-popup-message-fail-target-not-valid"), ent.Owner, ent.Owner);
             return;

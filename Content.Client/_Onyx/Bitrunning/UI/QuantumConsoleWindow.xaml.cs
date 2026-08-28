@@ -111,15 +111,17 @@ public sealed partial class QuantumConsoleWindow : FancyWindow
         if (state.State != BitrunningServerState.CoolingDown || state.CooldownTotalSeconds <= 0)
         {
             CooldownLabel.Text = Loc.GetString("bitrunning-ui-cooldown-ready");
+            CooldownLabel.FontColorOverride = Color.FromHex("#78B88A");
             CooldownBar.Value = 1f;
-            CooldownBar.ModulateSelfOverride = Color.FromHex("#3fa34d");
+            CooldownBar.ForegroundStyleBoxOverride = CreateProgressStyle("#4F8A60");
             return;
         }
 
         var progress = 1f - Math.Clamp(state.CooldownRemainingSeconds / state.CooldownTotalSeconds, 0f, 1f);
         CooldownLabel.Text = Loc.GetString("bitrunning-ui-cooldown-active");
+        CooldownLabel.FontColorOverride = Color.FromHex("#C29A5A");
         CooldownBar.Value = progress;
-        CooldownBar.ModulateSelfOverride = Color.FromHex("#d19b2a");
+        CooldownBar.ForegroundStyleBoxOverride = CreateProgressStyle("#A57436");
     }
 
     private void RebuildDomainList(QuantumConsoleBoundUiState state)
@@ -212,6 +214,7 @@ public sealed partial class QuantumConsoleWindow : FancyWindow
             HorizontalExpand = true,
             TextAlign = Label.AlignMode.Left,
             MinSize = new Vector2(0f, 30f),
+            StyleClasses = { "OpenBoth" },
         };
         domainButton.OnPressed += _ =>
         {
@@ -224,6 +227,7 @@ public sealed partial class QuantumConsoleWindow : FancyWindow
         var deployButton = new Button
         {
             MinSize = new Vector2(100f, 30f),
+            StyleClasses = { "OpenBoth" },
         };
         deployButton.OnPressed += _ => OnLoadDomain?.Invoke(domainId);
 
@@ -273,6 +277,8 @@ public sealed partial class QuantumConsoleWindow : FancyWindow
             : $"▸ {domain.Name}";
         var difficultyColor = GetDifficultyColor(domain.Difficulty);
         row.Holder.PanelOverride = CreateCardStyle("#20232A", difficultyColor.ToHex());
+        row.DomainButton.StyleBoxOverride = CreateCardStyle(difficultyColor.ToHex(), difficultyColor.ToHex());
+        row.DomainButton.ModulateSelfOverride = Color.White;
 
         row.DeployButton.Text = isCurrent && state.State == BitrunningServerState.Running
             ? Loc.GetString("bitrunning-ui-button-deployed")
@@ -414,17 +420,15 @@ public sealed partial class QuantumConsoleWindow : FancyWindow
         DifficultyHard.Text = Loc.GetString("bitrunning-ui-difficulty-hard-skull");
         DifficultyExtreme.Text = Loc.GetString("bitrunning-ui-difficulty-extreme");
 
-        ConfigureDifficultyButton(DifficultyPeaceful, BitrunningDifficulty.Peaceful, DifficultyColor.Peaceful);
-        ConfigureDifficultyButton(DifficultyEasy, BitrunningDifficulty.Easy, DifficultyColor.Easy);
-        ConfigureDifficultyButton(DifficultyMedium, BitrunningDifficulty.Medium, DifficultyColor.Medium);
-        ConfigureDifficultyButton(DifficultyHard, BitrunningDifficulty.Hard, DifficultyColor.Hard);
-        ConfigureDifficultyButton(DifficultyExtreme, BitrunningDifficulty.Extreme, DifficultyColor.Hard);
+        ConfigureDifficultyButton(DifficultyPeaceful, BitrunningDifficulty.Peaceful);
+        ConfigureDifficultyButton(DifficultyEasy, BitrunningDifficulty.Easy);
+        ConfigureDifficultyButton(DifficultyMedium, BitrunningDifficulty.Medium);
+        ConfigureDifficultyButton(DifficultyHard, BitrunningDifficulty.Hard);
+        ConfigureDifficultyButton(DifficultyExtreme, BitrunningDifficulty.Extreme);
     }
 
-    private void ConfigureDifficultyButton(Button button, BitrunningDifficulty difficulty, Color color)
+    private void ConfigureDifficultyButton(Button button, BitrunningDifficulty difficulty)
     {
-        button.ModulateSelfOverride = color;
-        button.StyleBoxOverride = CreateCardStyle("#202832", color.ToHex());
         button.OnPressed += _ =>
         {
             _selectedDifficulty = _selectedDifficulty == difficulty ? null : difficulty;
@@ -461,8 +465,9 @@ public sealed partial class QuantumConsoleWindow : FancyWindow
         button.Text = selected
             ? Loc.GetString("bitrunning-ui-difficulty-selected", ("name", baseText))
             : baseText;
-        button.StyleBoxOverride = CreateCardStyle(selected ? "#203A52" : "#202832",
-            selected ? "#79B5E8" : "#3F5264");
+        var difficultyColor = difficulty != null ? GetDifficultyColor(difficulty.Value) : DifficultyColor.Peaceful;
+        button.StyleBoxOverride = CreateCardStyle(difficultyColor.ToHex(), difficultyColor.ToHex());
+        button.ModulateSelfOverride = Color.White;
     }
 
     private void ApplyStaticStyling()
@@ -491,6 +496,14 @@ public sealed partial class QuantumConsoleWindow : FancyWindow
         };
     }
 
+    private static StyleBoxFlat CreateProgressStyle(string color)
+    {
+        return new StyleBoxFlat
+        {
+            BackgroundColor = Color.FromHex(color),
+        };
+    }
+
     private static Color GetDifficultyColor(BitrunningDifficulty difficulty)
     {
         return difficulty switch
@@ -505,10 +518,10 @@ public sealed partial class QuantumConsoleWindow : FancyWindow
 
     private static class DifficultyColor
     {
-        public static readonly Color Peaceful = Color.FromHex("#2ca85e");
-        public static readonly Color Easy = Color.FromHex("#d4b300");
-        public static readonly Color Medium = Color.FromHex("#d78500");
-        public static readonly Color Hard = Color.FromHex("#d12a2a");
+        public static readonly Color Peaceful = Color.FromHex("#468158");
+        public static readonly Color Easy = Color.FromHex("#8A7C3D");
+        public static readonly Color Medium = Color.FromHex("#925F38");
+        public static readonly Color Hard = Color.FromHex("#8C484C");
     }
 
     private sealed class DomainRowWidgets

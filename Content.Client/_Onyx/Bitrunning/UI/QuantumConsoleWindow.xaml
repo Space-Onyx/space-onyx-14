@@ -2,8 +2,8 @@
     xmlns="https://spacestation14.io"
     xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
     xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
-    MinSize="865 760"
-    SetSize="865 760"
+    MinSize="865 800"
+    SetSize="865 800"
     Title="{Loc 'bitrunning-ui-title'}">
     <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="7">
         <PanelContainer Name="MetaPanel">
@@ -45,8 +45,12 @@
                     </PanelContainer>
                 </BoxContainer>
                 <BoxContainer Orientation="Horizontal" SeparationOverride="8">
-                    <Label Name="CooldownLabel" MinWidth="150" Text="-" VerticalAlignment="Center"/>
-                    <ProgressBar Name="CooldownBar" HorizontalExpand="True" MinValue="0" MaxValue="1" Value="1" MinHeight="16"/>
+                    <Label Name="CooldownLabel" MinWidth="150" Text="-" VerticalAlignment="Center" StyleClasses="font-bold"/>
+                    <ProgressBar Name="CooldownBar" HorizontalExpand="True" MinValue="0" MaxValue="1" Value="1" SetHeight="20">
+                        <ProgressBar.BackgroundStyleBoxOverride>
+                            <gfx:StyleBoxFlat BackgroundColor="#12171C" BorderColor="#46525D" BorderThickness="1"/>
+                        </ProgressBar.BackgroundStyleBoxOverride>
+                    </ProgressBar>
                 </BoxContainer>
             </BoxContainer>
         </PanelContainer>
@@ -62,52 +66,49 @@
                         <Label Text="{Loc 'bitrunning-ui-domain-catalog-hint'}" StyleClasses="font-small" Modulate="#788694"/>
                     </BoxContainer>
                     <CheckBox Name="BroadcastToggle" Text="{Loc 'bitrunning-ui-broadcast'}" ToolTip="{Loc 'bitrunning-ui-broadcast-tooltip'}" VerticalAlignment="Center"/>
-                    <Button Name="RandomButton" Text="{Loc 'bitrunning-ui-button-random-short'}" MinWidth="110"/>
+                    <Button Name="RandomButton" Text="{Loc 'bitrunning-ui-button-random-short'}" MinWidth="110" StyleClasses="OpenBoth"/>
                 </BoxContainer>
                 <PanelContainer StyleClasses="LowDivider"/>
                 <BoxContainer Orientation="Horizontal" SeparationOverride="3">
-                    <Button Name="DifficultyPeaceful" HorizontalExpand="True"/>
-                    <Button Name="DifficultyEasy" HorizontalExpand="True"/>
-                    <Button Name="DifficultyMedium" HorizontalExpand="True"/>
-                    <Button Name="DifficultyHard" HorizontalExpand="True"/>
-                    <Button Name="DifficultyExtreme" HorizontalExpand="True"/>
+                    <Button Name="DifficultyPeaceful" HorizontalExpand="True" StyleClasses="OpenBoth"/>
+                    <Button Name="DifficultyEasy" HorizontalExpand="True" StyleClasses="OpenBoth"/>
+                    <Button Name="DifficultyMedium" HorizontalExpand="True" StyleClasses="OpenBoth"/>
+                    <Button Name="DifficultyHard" HorizontalExpand="True" StyleClasses="OpenBoth"/>
+                    <Button Name="DifficultyExtreme" HorizontalExpand="True" StyleClasses="OpenBoth"/>
                 </BoxContainer>
-                <ScrollContainer VerticalExpand="True" MinSize="0 280">
+                <ScrollContainer VerticalExpand="True" MinSize="0 260">
                     <BoxContainer Name="DomainList" Orientation="Vertical" SeparationOverride="5"/>
                 </ScrollContainer>
             </BoxContainer>
         </PanelContainer>
 
-        <BoxContainer Orientation="Horizontal" SeparationOverride="7" MinHeight="150">
-            <PanelContainer Name="ClientsPanel" HorizontalExpand="True">
-                <PanelContainer.PanelOverride>
-                    <gfx:StyleBoxFlat BackgroundColor="#1B1E24" BorderColor="#3F4651" BorderThickness="1"/>
-                </PanelContainer.PanelOverride>
-                <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="6">
-                    <BoxContainer Orientation="Horizontal" SeparationOverride="6">
-                        <Label Name="ClientsHeader" HorizontalExpand="True" Text="{Loc 'bitrunning-ui-clients-header'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0"/>
-                        <Button Name="RefreshButton" Text="{Loc 'bitrunning-ui-button-refresh'}" MinWidth="90"/>
-                    </BoxContainer>
-                    <PanelContainer StyleClasses="LowDivider"/>
-                    <ScrollContainer VerticalExpand="True">
-                        <BoxContainer Name="ClientList" Orientation="Vertical" SeparationOverride="4"/>
-                    </ScrollContainer>
-                </BoxContainer>
-            </PanelContainer>
+        <PanelContainer Name="ActiveDomainPanel" HorizontalExpand="True">
+            <PanelContainer.PanelOverride>
+                <gfx:StyleBoxFlat BackgroundColor="#20232A" BorderColor="#454B57" BorderThickness="1"/>
+            </PanelContainer.PanelOverride>
+            <BoxContainer Orientation="Horizontal" Margin="10 8" SeparationOverride="8">
+                <Label Text="{Loc 'bitrunning-ui-active-session'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" VerticalAlignment="Center"/>
+                <PanelContainer Name="ActiveDomainBadge" HorizontalExpand="True">
+                    <Label Name="CurrentDomainValue" Margin="8 6" HorizontalExpand="True" VerticalAlignment="Center" Text="-" ClipText="True"/>
+                </PanelContainer>
+                <Button Name="StopButton" Text="{Loc 'bitrunning-ui-button-stop'}" MinWidth="110" VerticalAlignment="Center" StyleClasses="OpenBoth"/>
+            </BoxContainer>
+        </PanelContainer>
 
-            <PanelContainer Name="ActiveDomainPanel" MinWidth="250">
-                <PanelContainer.PanelOverride>
-                    <gfx:StyleBoxFlat BackgroundColor="#20232A" BorderColor="#454B57" BorderThickness="1"/>
-                </PanelContainer.PanelOverride>
-                <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="6">
-                    <Label Text="{Loc 'bitrunning-ui-active-session'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0"/>
-                    <PanelContainer StyleClasses="LowDivider"/>
-                    <PanelContainer Name="ActiveDomainBadge" HorizontalExpand="True" VerticalExpand="True">
-                        <Label Name="CurrentDomainValue" Margin="8 6" HorizontalExpand="True" VerticalAlignment="Center" Text="-"/>
-                    </PanelContainer>
-                    <Button Name="StopButton" Text="{Loc 'bitrunning-ui-button-stop'}" HorizontalExpand="True"/>
+        <PanelContainer Name="ClientsPanel" HorizontalExpand="True" VerticalExpand="True" MinHeight="150">
+            <PanelContainer.PanelOverride>
+                <gfx:StyleBoxFlat BackgroundColor="#1B1E24" BorderColor="#3F4651" BorderThickness="1"/>
+            </PanelContainer.PanelOverride>
+            <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="6">
+                <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                    <Label Name="ClientsHeader" HorizontalExpand="True" Text="{Loc 'bitrunning-ui-clients-header'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0"/>
+                    <Button Name="RefreshButton" Text="{Loc 'bitrunning-ui-button-refresh'}" MinWidth="90" StyleClasses="OpenBoth"/>
                 </BoxContainer>
-            </PanelContainer>
-        </BoxContainer>
+                <PanelContainer StyleClasses="LowDivider"/>
+                <ScrollContainer VerticalExpand="True">
+                    <BoxContainer Name="ClientList" Orientation="Vertical" SeparationOverride="4"/>
+                </ScrollContainer>
+            </BoxContainer>
+        </PanelContainer>
     </BoxContainer>
 </controls:FancyWindow>
