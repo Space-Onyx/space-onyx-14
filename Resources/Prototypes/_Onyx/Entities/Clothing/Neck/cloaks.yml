@@ -19,3 +19,12 @@
   components:
   - type: Sprite
     sprite: _Onyx/Clothing/Neck/Neck/Cloaks/sanabi.rsi
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckCloakSyndicateOfficer
+  name: Syndicate officer cloak
+  description: Black cloak, stitched with gold cloth at the neck.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Cloaks/syndicate_officer.rsi

@@ -1,20 +1,60 @@
 - type: entity
-  parent: BaseItem
-  id: ToyBladeEldritch
-  name: toy blade
-  description: A plastic yellow crescent blade, decorated with an ornamental eye. You feel like you're being watched...
+  parent: ClothingMaskBase
+  id: FaceHuggerToys
+  name: xenomorph facehugger
+  description: A toy often used to play pranks on other crew members by putting it in their beds. It takes a bit to recharge after latching onto something.
+  suffix: Toys
   components:
   - type: Sprite
-    sprite: _Onyx/Heretic/Blades/eldrich_blade-toy.rsi
-    state: icon
+    noRot: true
+    sprite: _Onyx/Mobs/Aliens/Xenomorphs/facehugger.rsi
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: facehugger
+  - type: Clothing
+    sprite: _Onyx/Mobs/Aliens/Xenomorphs/facehugger.rsi
+    slots: [ mask ]
+  - type: IngestionBlocker
+  - type: Blindfold
+  - type: AddAccentClothing
+    accent: ReplacementAccent
+    replacement: mumble
+  - type: FaceHugger
+    blacklist:
+      components:
+      - Ghost
+    knockdownTime: 0
+    infectionPrototype: null
+    damageOnImpact:
+      types:
+        Blunt: 0
   - type: MeleeWeapon
-    attackRate: 1.5
-    wideAnimationRotation: -125
+    hidden: true
+    canHeavyAttack: false
+    angle: 0
     damage:
       types:
         Blunt: 0
-    soundHit:
-      path: /Audio/Weapons/bladeslice.ogg
-  - type: Item
-    size: Small
-    sprite: _Onyx/Heretic/Blades/eldrich_blade-toy-inhands.rsi
+  - type: Physics
+    bodyType: Dynamic
+  - type: CollisionWake
+    enabled: false
+  - type: Fixtures
+    fixtures:
+      slips:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        layer:
+        - SlipLayer
+        hard: false
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 10
+        mask:
+        - ItemMask
+  - type: Tag
+    tags:
+    - XenomorphItem

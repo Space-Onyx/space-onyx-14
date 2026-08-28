@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Numerics;
 using Content.Shared._Onyx.Effects;
 using Content.Shared._Onyx.Bitrunning;
@@ -214,6 +214,8 @@ public sealed partial class QuantumServerSystem : EntitySystem
         domainGravity.Enabled = true;
         domainGravity.Inherent = true;
         Dirty(domainGridUid, domainGravity);
+        var gravityEv = new GravityChangedEvent(domainGridUid, true);
+        RaiseLocalEvent(domainGridUid, ref gravityEv, true);
 
         var objectiveType = PickObjectiveType(domain);
 
@@ -1338,8 +1340,12 @@ public sealed partial class QuantumServerSystem : EntitySystem
         if (!_domains.TryGetDomain(domainId.Id, out var domain))
             return;
 
-        _metaData.SetEntityName(objectiveUid, Loc.GetString(domain.ObjectiveTitle, ("target", server.ObjectiveGoal)), metadata);
-        _metaData.SetEntityDescription(objectiveUid, Loc.GetString(domain.ObjectiveDescription, ("target", server.ObjectiveGoal)), metadata);
+        if (!domain.ObjectiveTitleByType.TryGetValue(server.ObjectiveType, out var title)
+            || !domain.ObjectiveDescriptionByType.TryGetValue(server.ObjectiveType, out var description))
+            return;
+
+        _metaData.SetEntityName(objectiveUid, Loc.GetString(title, ("target", server.ObjectiveGoal)), metadata);
+        _metaData.SetEntityDescription(objectiveUid, Loc.GetString(description, ("target", server.ObjectiveGoal)), metadata);
     }
 
     private void RemoveDomainObjective(AvatarConnectionComponent connection)
@@ -1471,17 +1477,12 @@ public sealed partial class QuantumServerSystem : EntitySystem
 
     private BitrunningObjectiveType PickObjectiveType(BitrunningVirtualDomainPrototype domain)
     {
-        if (domain.ObjectiveTypePool.Length == 0)
-            return domain.ObjectiveType;
-
         return _random.Pick(domain.ObjectiveTypePool);
     }
 
     private int ResolveObjectiveGoal(Entity<QuantumServerComponent> serverEnt, BitrunningVirtualDomainPrototype domain, BitrunningObjectiveType objectiveType)
     {
-        var explicitTarget = domain.ObjectiveTargetByType.TryGetValue(objectiveType, out var byTypeTarget)
-            ? Math.Max(byTypeTarget, 0)
-            : Math.Max(domain.ObjectiveTarget, 0);
+        var explicitTarget = Math.Max(domain.ObjectiveTargetByType[objectiveType], 0);
         if (explicitTarget > 0 || objectiveType != BitrunningObjectiveType.EliminateEnemies)
             return explicitTarget;
 

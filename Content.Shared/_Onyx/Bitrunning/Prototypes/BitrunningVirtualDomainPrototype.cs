@@ -96,34 +96,22 @@ public sealed partial class BitrunningVirtualDomainPrototype : IPrototype
     [DataField]
     public int RequiredPointsToRevealReward { get; private set; }
 
-    /// <summary>
-    /// Defines how the domain is completed.
-    /// </summary>
-    [DataField]
-    public BitrunningObjectiveType ObjectiveType { get; private set; } = BitrunningObjectiveType.None;
+    [DataField(required: true)]
+    public Dictionary<BitrunningObjectiveType, string> ObjectiveTitleByType { get; private set; } = [];
 
-    [DataField]
-    public string ObjectiveTitle { get; private set; } = "bitrunning-domain-objective-title";
-
-    [DataField]
-    public string ObjectiveDescription { get; private set; } = "bitrunning-domain-objective-description";
+    [DataField(required: true)]
+    public Dictionary<BitrunningObjectiveType, string> ObjectiveDescriptionByType { get; private set; } = [];
 
     /// <summary>
-    /// Optional objective pool. If set, one objective is selected randomly on run start.
+    /// One objective is selected randomly from this pool on run start.
     /// </summary>
-    [DataField]
+    [DataField(required: true)]
     public BitrunningObjectiveType[] ObjectiveTypePool { get; private set; } = [];
 
     /// <summary>
-    /// Objective progress needed to trigger reward flow.
+    /// Objective progress needed to trigger reward flow by objective type.
     /// </summary>
-    [DataField]
-    public int ObjectiveTarget { get; private set; } = 1;
-
-    /// <summary>
-    /// Optional objective-specific target overrides.
-    /// </summary>
-    [DataField]
+    [DataField(required: true)]
     public Dictionary<BitrunningObjectiveType, int> ObjectiveTargetByType { get; private set; } = [];
 
     /// <summary>

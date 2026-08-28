@@ -104,3 +104,22 @@
     jumpsuit: ClothingUniformJumpsuitShaftMiner
     neck: ClothingNeckScarfStripedBrown
     shoes: ClothingShoesBootsSalvage
+
+- type: startingGear
+  parent: BitrunnerAvatarGear
+  id: BitrunnerAvatarSecurityOfficerMODGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitSec
+    gloves: ClothingHandsGlovesFingerless
+    shoes: ClothingShoesBootsCombat
+    back: ClothingModsuitSecurityPowerCell
+
+- type: startingGear
+  parent: BitrunnerAvatarGear
+  id: BitrunnerAvatarXenonautenGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCamouflage
+    head: ClothingHeadHelmetXenonauten
+    outerClothing: ClothingOuterArmorXenonautenHeavy
+    gloves: ClothingHandsGlovesFingerless
+    shoes: ClothingShoesBootsCombat

@@ -33,3 +33,134 @@
   - type: ConditionalSpawner
     prototypes:
       - MobReindeerDoeBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobAssistantBatBitrunning
+  name: assistant bat spawner
+  suffix: Bitrunning
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+  - type: ConditionalSpawner
+    prototypes:
+    - MobAssistantBatBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobAssistantAxeBitrunning
+  name: assistant axe spawner
+  suffix: Bitrunning
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+  - type: ConditionalSpawner
+    prototypes:
+    - MobAssistantAxeBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobAssistantToolboxBitrunning
+  name: assistant toolbox spawner
+  suffix: Bitrunning
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+  - type: ConditionalSpawner
+    prototypes:
+    - MobAssistantToolboxBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobAssistantSpearBitrunning
+  name: assistant spear spawner
+  suffix: Bitrunning
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+  - type: ConditionalSpawner
+    prototypes:
+    - MobAssistantSpearBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobXenomorphLarvaBitrunning
+  name: xenomorph larva spawner
+  suffix: Bitrunning
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Onyx/Mobs/Aliens/Xenomorphs/larva.rsi
+      state: xenomorph
+  - type: ConditionalSpawner
+    prototypes:
+    - MobXenomorphLarvaBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobXenomorphDroneBitrunning
+  name: xenomorph drone spawner
+  suffix: Bitrunning
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Onyx/Mobs/Aliens/Xenomorphs/drone.rsi
+      state: xenomorph
+  - type: ConditionalSpawner
+    prototypes:
+    - MobXenomorphDroneBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobXenomorphHunterBitrunning
+  name: xenomorph hunter spawner
+  suffix: Bitrunning
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Onyx/Mobs/Aliens/Xenomorphs/hunter.rsi
+      state: xenomorph
+  - type: ConditionalSpawner
+    prototypes:
+    - MobXenomorphHunterBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobXenomorphSentinelBitrunning
+  name: xenomorph sentinel spawner
+  suffix: Bitrunning
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Onyx/Mobs/Aliens/Xenomorphs/sentinel.rsi
+      state: xenomorph
+  - type: ConditionalSpawner
+    prototypes:
+    - MobXenomorphSentinelBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobXenomorphQueenBitrunning
+  name: xenomorph queen spawner
+  suffix: Bitrunning
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: _Onyx/Mobs/Aliens/Xenomorphs/queen.rsi
+      state: xenomorph
+  - type: ConditionalSpawner
+    prototypes:
+    - MobXenomorphQueenBitrunning

@@ -1262,3 +1262,8 @@ AirlockBlueshieldOfficerCommandGlass: AirlockCentralCommandGlass
 ThrusterShuttleEvac: Thruster
 AirlockRoboticsLocked: AirlockScienceGlassLocked
 AirlockRobotics: AirlockScienceGlass
+DocumentPrinter: PrinterDoc
+HoloCigar: null
+AirlockCaptain: Airlock
+AirlockHeadOfPersonnel: Airlock
+AirlockHeadOfPersonnelGlass: AirlockGlass

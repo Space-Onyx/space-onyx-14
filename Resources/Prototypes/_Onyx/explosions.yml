@@ -1,0 +1,9 @@
+- type: explosion
+  id: Molotov
+  damagePerIntensity:
+    types:
+      Heat: 1
+  lightColor: Orange
+  texturePath: /Textures/Effects/fire.rsi
+  fireStates: 6
+  fireStacks: 5

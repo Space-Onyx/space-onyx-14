@@ -36,3 +36,15 @@
 - type: entity
   parent: ResearchDiskExperimental1000
   id: ResearchDiskBitrunningExperimental1000
+
+- type: entity
+  parent: BaseItem
+  id: ResearchDataDisk
+  name: research data disk
+  description: Stores a fixed snapshot of researched technologies from a specific R&D server.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Research/data_disk.rsi
+    state: icon
+  - type: Item
+    size: Small

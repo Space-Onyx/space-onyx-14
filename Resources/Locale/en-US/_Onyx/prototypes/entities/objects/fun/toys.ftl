@@ -1,2 +1,3 @@
-ent-ToyBladeEldritch = toy blade
-    .desc = A plastic yellow crescent blade, decorated with an ornamental eye. You feel like you're being watched...
+ent-FaceHuggerToys = xenomorph facehugger
+    .desc = A toy often used to prank other crew members by putting it in their beds. It takes a bit to recharge after latching onto something.
+    .suffix = Toys

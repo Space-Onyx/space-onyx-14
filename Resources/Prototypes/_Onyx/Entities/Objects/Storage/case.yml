@@ -1,0 +1,90 @@
+﻿# Ported from Orion - missing prototypes for map meta-central
+# Base cases
+- type: entity
+  parent: [ BaseStorageItem, ContentsExplosionResistanceBase ]
+  id: BaseCase
+  abstract: true
+  name: case
+  description: I wonder what's in it?
+  components:
+  - type: Item
+    size: Ginormous
+  - type: Storage
+    maxItemSize: Huge
+    grid:
+    - 0,0,5,4
+  - type: ExplosionResistance
+    damageCoefficient: 0.1
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 220
+      behaviors:
+      - !type:EmptyAllContainersBehaviour
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: BaseCase
+  id: BaseCaseMini
+  abstract: true
+  name: case
+  description: I wonder what's in it?
+  components:
+  - type: Item
+    size: Huge
+  - type: Storage
+    maxItemSize: Normal
+    grid:
+    - 0,0,3,2
+
+- type: entity
+  parent: [BaseCase, BaseMinorContraband]
+  id: CaseInteQ
+  name: brown case
+  suffix: InteQ, Empty
+  description: Brown briefcase with a gold logo, I wonder what's in there?
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Storage/inteq_case.rsi
+    state: icon
+
+- type: entity
+  parent: [BaseCase, BaseSecurityContraband]
+  id: CaseSecurity
+  name: security case
+  suffix: Security, Empty
+  description: Red and black case with a sec logo, I wonder what's in there?
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Storage/security_case.rsi
+    state: icon
+
+- type: entity
+  parent: [BaseCaseMini, BaseSecurityContraband]
+  id: CaseSecurityMini
+  name: security mini case
+  suffix: Security, Empty
+  description: Little red and black case with a sec logo, I wonder what's in there?
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Storage/security_case_mini.rsi
+    state: icon
+
+- type: entity
+  parent: [BaseCase, BaseSecurityContraband]
+  id: CaseBrigmedic
+  name: brigmedic case
+  suffix: Brigmedic, Empty
+  description: Red and white case with a blood-stained medical cross. Only for a real combat medic.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Storage/brigmedic_case.rsi
+    state: icon
+  - type: Storage
+    defaultStorageOrientation: Vertical
+    grid:
+    - 0,0,11,3

@@ -23,3 +23,16 @@
       reagents:
       - ReagentId: Oxycodone
         Quantity: 30
+
+- type: entity
+  id: ChemistryBottleIbuprofen
+  suffix: Ibuprofen
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    currentLabel: reagent-name-ibuprofen
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ibuprofen
+        Quantity: 30

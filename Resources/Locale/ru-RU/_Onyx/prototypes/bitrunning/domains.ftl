@@ -6,3 +6,7 @@ bitrunning-domain-cosmic-vestige-name = Космический реликт
 bitrunning-domain-cosmic-vestige-desc = Парящий в безмолвной пустоте космоса, Неоновый реликт — зловещий отголосок ретрофутуристической эпохи. Расслабьтесь и насладитесь видом.
 bitrunning-domain-grassland-hunt-name = Охота в травянистых равнинах
 bitrunning-domain-grassland-hunt-desc = Спокойная охота в дикой природе.
+bitrunning-domain-xenomorph-infestation-name = Нашествие ксеноморфов
+bitrunning-domain-xenomorph-infestation-desc = Сканеры корабля обнаружили формы жизни неизвестного происхождения. Попытки установить контакт провалились.
+bitrunning-domain-meta-central-name = Центр Меты
+bitrunning-domain-meta-central-desc = Время от времени работники требуют у НаноТрейзен права. Это невыгодно.

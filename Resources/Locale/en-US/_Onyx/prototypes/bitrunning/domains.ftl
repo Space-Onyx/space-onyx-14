@@ -6,3 +6,7 @@ bitrunning-domain-cosmic-vestige-name = Cosmic Vestige
 bitrunning-domain-cosmic-vestige-desc = Suspended in the silent void of space, the Neon Relic is a haunting echo of a retro-futuristic era. Hang out, enjoy the view.
 bitrunning-domain-grassland-hunt-name = Grasslands Hunt
 bitrunning-domain-grassland-hunt-desc = A peaceful hunt in the wilderness.
+bitrunning-domain-xenomorph-infestation-name = Xenomorph Infestation
+bitrunning-domain-xenomorph-infestation-desc = Our ship scanners have detected lifeforms of unknown origin. Friendly attempts to contact them have failed.
+bitrunning-domain-meta-central-name = Meta Central
+bitrunning-domain-meta-central-desc = Every so often, workers demand rights from Nanotrasen. This is unprofitable.

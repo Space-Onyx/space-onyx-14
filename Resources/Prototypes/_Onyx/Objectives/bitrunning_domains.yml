@@ -25,9 +25,14 @@
   completionLoot:
     BeachBall: 1
   mapPath: /Maps/_Onyx/Bitrun/beach-bar.yml
-  objectiveType: OverhydrateStomach
-  objectiveTitle: bitrunning-domain-beach-bar-objective-title
-  objectiveDescription: bitrunning-domain-beach-bar-objective-description
+  objectiveTypePool:
+  - OverhydrateStomach
+  objectiveTargetByType:
+    OverhydrateStomach: 1
+  objectiveTitleByType:
+    OverhydrateStomach: bitrunning-domain-beach-bar-objective-title
+  objectiveDescriptionByType:
+    OverhydrateStomach: bitrunning-domain-beach-bar-objective-description
 
 - type: bitrunningVirtualDomain
   id: BreezeBay
@@ -38,10 +43,14 @@
   bitrunningRewardPoints: 60
   lootRewardPoints: 3
   mapPath: /Maps/_Onyx/Bitrun/breeze-bay.yml
-  objectiveType: CatchFish
-  objectiveTarget: 5
-  objectiveTitle: bitrunning-domain-breeze-bay-objective-title
-  objectiveDescription: bitrunning-domain-breeze-bay-objective-description
+  objectiveTypePool:
+  - CatchFish
+  objectiveTargetByType:
+    CatchFish: 5
+  objectiveTitleByType:
+    CatchFish: bitrunning-domain-breeze-bay-objective-title
+  objectiveDescriptionByType:
+    CatchFish: bitrunning-domain-breeze-bay-objective-description
 
 - type: bitrunningVirtualDomain
   id: CosmicVestige
@@ -55,9 +64,14 @@
   completionLoot:
     SpaceCash500: 4
   mapPath: /Maps/_Onyx/Bitrun/cosmic-vestige.yml
-  objectiveType: DeliveryCacheCrate
-  objectiveTitle: bitrunning-domain-cosmic-vestige-objective-title
-  objectiveDescription: bitrunning-domain-cosmic-vestige-objective-description
+  objectiveTypePool:
+  - DeliveryCacheCrate
+  objectiveTargetByType:
+    DeliveryCacheCrate: 1
+  objectiveTitleByType:
+    DeliveryCacheCrate: bitrunning-domain-cosmic-vestige-objective-title
+  objectiveDescriptionByType:
+    DeliveryCacheCrate: bitrunning-domain-cosmic-vestige-objective-description
 
 - type: bitrunningVirtualDomain
   id: GrasslandHunt
@@ -68,7 +82,69 @@
   bitrunningRewardPoints: 45
   lootRewardPoints: 1
   mapPath: /Maps/_Onyx/Bitrun/grassland-hunt.yml
-  objectiveType: EliminateEnemies
-  objectiveTarget: 8
-  objectiveTitle: bitrunning-domain-grassland-hunt-objective-title
-  objectiveDescription: bitrunning-domain-grassland-hunt-objective-description
+  objectiveTypePool:
+  - EliminateEnemies
+  objectiveTargetByType:
+    EliminateEnemies: 8
+  objectiveTitleByType:
+    EliminateEnemies: bitrunning-domain-grassland-hunt-objective-title
+  objectiveDescriptionByType:
+    EliminateEnemies: bitrunning-domain-grassland-hunt-objective-description
+
+# --- --- ---
+#    EASY
+# --- --- ---
+
+- type: bitrunningVirtualDomain
+  id: XenomorphInfestation
+  name: bitrunning-domain-xenomorph-infestation-name
+  description: bitrunning-domain-xenomorph-infestation-desc
+  difficulty: Easy
+  cost: 1
+  serverRewardPoints: 3
+  bitrunningRewardPoints: 150
+  lootRewardPoints: 3
+  completionLoot:
+    PlushieRouny: 1
+  forcedLoadout: BitrunnerAvatarXenonautenGear
+  isModular: true
+  mapPath: /Maps/_Onyx/Bitrun/xenomorph-infestation.yml
+  objectiveTypePool:
+  - DeliveryCacheCrate
+  - EliminateEnemies
+  objectiveTargetByType:
+    DeliveryCacheCrate: 1
+    EliminateEnemies: 0
+  objectiveTitleByType:
+    DeliveryCacheCrate: bitrunning-domain-xenomorph-infestation-delivery-objective-title
+    EliminateEnemies: bitrunning-domain-xenomorph-infestation-eliminate-objective-title
+  objectiveDescriptionByType:
+    DeliveryCacheCrate: bitrunning-domain-xenomorph-infestation-delivery-objective-description
+    EliminateEnemies: bitrunning-domain-xenomorph-infestation-eliminate-objective-description
+
+- type: bitrunningVirtualDomain
+  id: MetaCentral
+  name: bitrunning-domain-meta-central-name
+  description: bitrunning-domain-meta-central-desc
+  difficulty: Easy
+  cost: 1
+  serverRewardPoints: 3
+  bitrunningRewardPoints: 150
+  lootRewardPoints: 3
+  forcedLoadout: BitrunnerAvatarSecurityOfficerMODGear
+  isModular: true
+  completionLoot:
+    ClothingNeckClownmedal: 1
+  mapPath: /Maps/_Onyx/Bitrun/meta-central.yml
+  objectiveTypePool:
+  - DeliveryCacheCrate
+  - EliminateEnemies
+  objectiveTargetByType:
+    DeliveryCacheCrate: 1
+    EliminateEnemies: 0
+  objectiveTitleByType:
+    DeliveryCacheCrate: bitrunning-domain-meta-central-delivery-objective-title
+    EliminateEnemies: bitrunning-domain-meta-central-eliminate-objective-title
+  objectiveDescriptionByType:
+    DeliveryCacheCrate: bitrunning-domain-meta-central-delivery-objective-description
+    EliminateEnemies: bitrunning-domain-meta-central-eliminate-objective-description

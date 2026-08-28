@@ -45,6 +45,12 @@
   - type: Tag
     tags:
     - DrinkBottle
+    # <Onyx-Molotov>
+    - MolotovConstruction
+  - type: Construction
+    graph: MolotovConstruction
+    node: start
+    # </Onyx-Molotov>
 
 - type: entity
   abstract: true
@@ -426,6 +432,14 @@
     localizedLabel: reagent-name-vodka
   - type: Sprite
     sprite: Objects/Consumable/Drinks/vodkabottle.rsi
+  - type: Tag # <Onyx-Molotov>
+    tags:
+    - DrinkBottle # <Onyx-BoozeDispenser>
+    - MolotovConstruction
+  - type: Construction # <Onyx-Molotov>
+    graph: MolotovConstruction
+    node: start
+    # </Onyx-Molotov>
 
 - type: entity
   parent: DrinkBottleVodka

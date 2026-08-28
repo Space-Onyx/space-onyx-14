@@ -28,3 +28,27 @@
     pulseTime: 2
   - type: IdentityBlocker
     coverage: EYES
+
+- type: entity
+  parent: [ClothingEyesBase, BaseSyndicateContraband]
+  id: ClothingEyesThermalVisionGogglesSyndie
+  name: thermal vision goggles
+  description: A high-tech pair of thermal goggles.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Eyes/Goggles/sthermals.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Eyes/Goggles/sthermals.rsi
+  - type: ThermalVision
+    flashDurationMultiplier: 2
+    isEquipment: true
+    toggleAction: ActionToggleThermalVision
+  - type: IdentityBlocker
+    coverage: EYES
+  - type: ChameleonClothing
+    slot: [eyes]
+    default: ClothingEyesThermalVisionGogglesSyndie
+  - type: UserInterface
+    interfaces:
+      enum.ChameleonUiKey.Key:
+        type: ChameleonBoundUserInterface
