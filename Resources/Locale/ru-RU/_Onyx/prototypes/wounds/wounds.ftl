@@ -2,6 +2,7 @@ wound-name-blunt = ушиб
 wound-name-bone-fracture = перелом
 wound-name-cybernetic-frame-fracture = перелом каркаса
 wound-name-slash = порез
+wound-name-systemic-bleeding = системное кровотечение
 wound-name-piercing = прокол
 wound-name-burn = ожог
 wound-name-surgical-incision = хирургический разрез

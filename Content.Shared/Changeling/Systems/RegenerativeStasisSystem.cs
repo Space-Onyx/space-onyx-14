@@ -9,6 +9,7 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
+using Content.Shared._Onyx.Wounds; // <Onyx-WoundTreatment>
 using Robust.Shared.Audio.Systems;
 
 namespace Content.Shared.Changeling.Systems;
@@ -22,6 +23,7 @@ public sealed partial class RegenerativeStasisSystem : EntitySystem
     [Dependency] private MobStateSystem _mobs = default!;
     [Dependency] private DamageableSystem _damage = default!;
     [Dependency] private BloodstreamSystem _bloodstream = default!;
+    [Dependency] private WoundBleedingSystem _woundBleeding = default!; // <Onyx-WoundTreatment>
     [Dependency] private SharedDeathgaspSystem _deathgasp = default!;
 
     [SubscribeLocalEvent]
@@ -120,7 +122,12 @@ public sealed partial class RegenerativeStasisSystem : EntitySystem
         if (TryComp<BloodstreamComponent>(target, out var bloodstream))
         {
             _bloodstream.TryRegulateBloodLevel((target, bloodstream), bloodstream.BloodReferenceSolution.MaxVolume);
-            _bloodstream.TryModifyBleedAmount((target, bloodstream), -bloodstream.BleedAmount);
+            // <Onyx-WoundTreatment-edited>
+            if (HasComp<WoundHostComponent>(target))
+                _woundBleeding.StopBodyBleeding(target);
+            else
+                _bloodstream.TryModifyBleedAmount((target, bloodstream), -bloodstream.BleedAmount);
+            // </Onyx-WoundTreatment-edited>
         }
 
         // Revive.

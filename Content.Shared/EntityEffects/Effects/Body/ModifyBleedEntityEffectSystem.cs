@@ -1,5 +1,6 @@
 ﻿using Content.Shared.Body.Components;
 using Content.Shared.Body.Systems;
+using Content.Shared._Onyx.Wounds; // <Onyx-WoundTreatment>
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared.EntityEffects.Effects.Body;
@@ -11,10 +12,17 @@ namespace Content.Shared.EntityEffects.Effects.Body;
 public sealed partial class ModifyBleedEntityEffectSystem : EntityEffectSystem<BloodstreamComponent, ModifyBleed>
 {
     [Dependency] private BloodstreamSystem _bloodstream = default!;
+    [Dependency] private WoundBleedingSystem _woundBleeding = default!; // <Onyx-WoundTreatment>
 
     protected override void Effect(Entity<BloodstreamComponent> entity, ref EntityEffectEvent<ModifyBleed> args)
     {
-        _bloodstream.TryModifyBleedAmount(entity.AsNullable(), args.Effect.Amount * args.Scale);
+        // <Onyx-WoundTreatment-edited>
+        var amount = args.Effect.Amount * args.Scale;
+        if (HasComp<WoundHostComponent>(entity))
+            _woundBleeding.ModifyBodyBleeding(entity, amount);
+        else
+            _bloodstream.TryModifyBleedAmount(entity.AsNullable(), amount);
+        // </Onyx-WoundTreatment-edited>
     }
 }
 

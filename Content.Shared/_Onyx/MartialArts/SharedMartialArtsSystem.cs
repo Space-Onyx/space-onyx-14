@@ -87,6 +87,7 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
     [Dependency] private BloodstreamSystem _bloodstream = default!;
     [Dependency] private SharedMeleeWeaponSystem _melee = default!;
     [Dependency] private WoundDamageRoutingSystem _woundDamage = default!;
+    [Dependency] private WoundBleedingSystem _woundBleeding = default!;
 
     private static readonly EntProtoId SlowdownEffect = "MartialArtsGenericSlowdownEffect";
     private static readonly ProtoId<DamageTypePrototype> BluntDamage = "Blunt";

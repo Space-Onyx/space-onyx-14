@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared._Onyx.Wounds;
 using Content.Shared.Body.Part;
 using Robust.Shared.Audio;
 
@@ -40,7 +41,10 @@ public abstract partial class SharedMartialArtsSystem
     private MoveResult PerformHellRipTearDown(MoveContext context)
     {
         StopPull(context.Target, context.Performer);
-        _bloodstream.TryModifyBleedAmount(context.Target, 5f);
+        if (HasComp<WoundHostComponent>(context.Target))
+            _woundBleeding.ModifyBodyBleeding(context.Target, 5f);
+        else
+            _bloodstream.TryModifyBleedAmount(context.Target, 5f);
         _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/Fluids/blood1.ogg"), context.Target);
         _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/demon_attack1.ogg"), context.Performer);
         return new();

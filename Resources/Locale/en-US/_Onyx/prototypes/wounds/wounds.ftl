@@ -2,6 +2,7 @@ wound-name-blunt = contusion
 wound-name-bone-fracture = fracture
 wound-name-cybernetic-frame-fracture = frame fracture
 wound-name-slash = laceration
+wound-name-systemic-bleeding = systemic bleeding
 wound-name-piercing = puncture
 wound-name-burn = burn
 wound-name-surgical-incision = operative incision

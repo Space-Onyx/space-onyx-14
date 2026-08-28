@@ -74,6 +74,8 @@ public sealed class WoundBleedingTest : GameTest
             Assert.That(wounds.CreateOrMergeWound(head, "SlashWound", 15), Is.Not.Null);
             Assert.That(wounds.CreateOrMergeWound(torso, "PiercingWound", 10), Is.Not.Null);
             Assert.That(bloodstream.BleedAmount, Is.EqualTo(3f).Within(0.001f));
+            Assert.That(entityManager.System<BloodstreamSystem>().TryModifyBleedAmount(body, 5f), Is.False);
+            Assert.That(bloodstream.BleedAmount, Is.EqualTo(3f).Within(0.001f));
 
             var headWound = wounds.GetWounds((head, entityManager.GetComponent<WoundableComponent>(head))).Single();
             Assert.That(bleeding.SetTreatment(headWound.Owner, BleedingTreatment.Bandaged));
@@ -90,9 +92,19 @@ public sealed class WoundBleedingTest : GameTest
             Assert.That(graph.TryAttachPart(torso, head));
             Assert.That(bloodstream.BleedAmount, Is.EqualTo(1.875f).Within(0.001f));
 
+            Assert.That(bleeding.ModifyBodyBleeding(body, -20f));
+            Assert.That(bleeding.GetPartRate(head), Is.Zero);
+            Assert.That(bleeding.GetPartRate(torso), Is.Zero);
+            Assert.That(bloodstream.BleedAmount, Is.Zero);
+
             entityManager.EventBus.RaiseLocalEvent(body, new RejuvenateEvent());
             Assert.That(bloodstream.BleedAmount, Is.Zero);
             Assert.That(wounds.GetWounds((head, entityManager.GetComponent<WoundableComponent>(head))), Is.Empty);
+            Assert.That(bleeding.ModifyBodyBleeding(body, 1f));
+            Assert.That(bloodstream.BleedAmount, Is.EqualTo(1f).Within(0.001f));
+            Assert.That(graph.GetBodyChildren(body).SelectMany(part =>
+                    wounds.GetWounds((part.Id, entityManager.GetComponent<WoundableComponent>(part.Id))))
+                .Single().Comp.Prototype, Is.EqualTo(new ProtoId<WoundPrototype>("SystemicBleedingWound")));
         });
     }
 

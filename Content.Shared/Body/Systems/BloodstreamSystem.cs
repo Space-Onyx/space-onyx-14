@@ -548,9 +548,23 @@ public sealed partial class BloodstreamSystem : EntitySystem
     /// <summary>
     /// Tries to make an entity bleed more or less.
     /// </summary>
+    // <Onyx-WoundSystem-edited>
     public bool TryModifyBleedAmount(Entity<BloodstreamComponent?> ent, float amount)
     {
+        return TryModifyBleedAmount(ent, amount, false);
+    }
+
+    internal bool TryModifyWoundBleedProjection(Entity<BloodstreamComponent?> ent, float amount)
+    {
+        return TryModifyBleedAmount(ent, amount, true);
+    }
+
+    private bool TryModifyBleedAmount(Entity<BloodstreamComponent?> ent, float amount, bool woundProjection)
+    {
         if (!Resolve(ent, ref ent.Comp, logMissing: false))
+            return false;
+
+        if (HasComp<WoundHostComponent>(ent) && !woundProjection)
             return false;
 
         ent.Comp.BleedAmount += amount;
@@ -568,6 +582,7 @@ public sealed partial class BloodstreamSystem : EntitySystem
 
         return true;
     }
+    // </Onyx-WoundSystem-edited>
 
     /// <summary>
     /// Spill all bloodstream solutions into a puddle.

@@ -22,6 +22,7 @@
     - AmputationConsequenceWound
     - InternalBleedingWound
     - MedicalScarWound
+    - SystemicBleedingWound
   organDamage:
     chances:
       Head: 0.05
@@ -73,6 +74,7 @@
     - SurgicalIncisionWound
     - DismembermentWound
     - AmputationConsequenceWound
+    - SystemicBleedingWound
   organDamage:
     chances:
       Head: 0.05
@@ -124,6 +126,7 @@
     - DismembermentWound
     - AmputationConsequenceWound
     - InternalBleedingWound
+    - SystemicBleedingWound
   organDamage:
     chances:
       Head: 0.05
@@ -188,6 +191,7 @@
     - AmputationConsequenceWound
     - InternalBleedingWound
     - MedicalScarWound
+    - SystemicBleedingWound
   organDamage:
     chances:
       Head: 0.05
@@ -472,6 +476,15 @@
       - !type:WoundBleedingBehavior
         rate: 0.3
         minimumSeverity: 9
+
+- type: wound
+  id: SystemicBleedingWound
+  name: wound-name-systemic-bleeding
+  damageTypes: {}
+  maximumSeverity: 200
+  behaviors:
+  - !type:WoundBleedingBehavior
+    rate: 1
 
 - type: wound
   id: PiercingWound

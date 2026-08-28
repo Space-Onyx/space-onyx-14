@@ -145,17 +145,7 @@ public sealed partial class WoundHealingSystem : EntitySystem
 
     private bool TreatBleeding(EntityUid part, float amount)
     {
-        Entity<WoundComponent, WoundBleedingComponent>? selected = null;
-        foreach (var wound in _wounds.GetWounds(part))
-        {
-            if (!TryComp(wound, out WoundBleedingComponent? bleeding) || bleeding.CurrentRate <= 0f ||
-                selected is { } current && current.Comp2.CurrentRate >= bleeding.CurrentRate)
-                continue;
-
-            selected = (wound, wound.Comp, bleeding);
-        }
-
-        return selected is { } target && _bleeding.ReduceBleeding(target.Owner, FixedPoint2.New(amount));
+        return _bleeding.ReducePartBleeding(part, FixedPoint2.New(amount));
     }
 
     public bool IsCompatiblePart(

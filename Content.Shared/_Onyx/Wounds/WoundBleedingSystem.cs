@@ -15,6 +15,8 @@ namespace Content.Shared._Onyx.Wounds;
 
 public sealed partial class WoundBleedingSystem : EntitySystem
 {
+    private static readonly ProtoId<WoundPrototype> SystemicBleedingWound = "SystemicBleedingWound";
+
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private BloodstreamSystem _bloodstream = default!;
     [Dependency] private IConfigurationManager _configuration = default!;
@@ -126,6 +128,102 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         return true;
     }
 
+    public bool ModifyBodyBleeding(EntityUid body, float amount)
+    {
+        if (!_net.IsServer || amount == 0f || !HasComp<WoundHostComponent>(body))
+            return false;
+
+        if (amount > 0f)
+        {
+            foreach (var wound in GetAttachedBleedingWounds(body))
+            {
+                if (wound.Comp1.Prototype != SystemicBleedingWound)
+                    continue;
+
+                return _wounds.CreateOrMergeWound(wound.Comp1.HoldingPart,
+                    SystemicBleedingWound,
+                    FixedPoint2.New(amount)) != null;
+            }
+
+            foreach (var (part, _) in _body.GetBodyChildren(body))
+            {
+                if (_wounds.CanBleed(part) && _wounds.CanCreateWound(part, SystemicBleedingWound))
+                {
+                    return _wounds.CreateOrMergeWound(part, SystemicBleedingWound, FixedPoint2.New(amount)) != null;
+                }
+            }
+
+            return false;
+        }
+
+        var wounds = GetAttachedBleedingWounds(body)
+            .Where(wound => wound.Comp2.CurrentRate > 0f)
+            .OrderByDescending(wound => wound.Comp2.CurrentRate)
+            .ToArray();
+        var remaining = FixedPoint2.New(-amount);
+        var modified = false;
+        foreach (var wound in wounds)
+        {
+            var rate = FixedPoint2.New(wound.Comp2.CurrentRate);
+            var reduction = remaining >= rate
+                ? wound.Comp2.BleedingSeverity
+                : wound.Comp2.BleedingSeverity * remaining /
+                  FixedPoint2.New(wound.Comp2.CurrentRate + wound.Comp2.NaturalClotting);
+            if (reduction <= FixedPoint2.Zero || !ReduceBleeding(wound.Owner, reduction))
+                continue;
+
+            modified = true;
+            remaining -= FixedPoint2.Min(remaining, rate);
+            if (remaining <= FixedPoint2.Zero)
+                break;
+        }
+
+        return modified;
+    }
+
+    public bool StopBodyBleeding(EntityUid body)
+    {
+        if (!_net.IsServer || !HasComp<WoundHostComponent>(body))
+            return false;
+
+        var modified = false;
+        foreach (var wound in GetAttachedBleedingWounds(body).ToArray())
+            modified |= ReduceBleeding(wound.Owner, wound.Comp2.BleedingSeverity);
+
+        return modified;
+    }
+
+    public bool ReducePartBleeding(Entity<WoundableComponent?> part, FixedPoint2 amount)
+    {
+        if (!_net.IsServer || amount <= FixedPoint2.Zero || !Resolve(part, ref part.Comp, false))
+            return false;
+
+        var wounds = _wounds.GetWounds(part)
+            .Select(wound => (Wound: wound, Bleeding: CompOrNull<WoundBleedingComponent>(wound)))
+            .Where(entry => entry.Bleeding is { CurrentRate: > 0f })
+            .OrderByDescending(entry => entry.Bleeding!.CurrentRate)
+            .ToArray();
+        var remaining = amount;
+        var modified = false;
+        foreach (var (wound, bleeding) in wounds)
+        {
+            var rate = FixedPoint2.New(bleeding!.CurrentRate);
+            var reduction = remaining >= rate
+                ? bleeding.BleedingSeverity
+                : bleeding.BleedingSeverity * remaining /
+                  FixedPoint2.New(bleeding.CurrentRate + bleeding.NaturalClotting);
+            if (reduction <= FixedPoint2.Zero || !ReduceBleeding(wound.Owner, reduction))
+                continue;
+
+            modified = true;
+            remaining -= FixedPoint2.Min(remaining, rate);
+            if (remaining <= FixedPoint2.Zero)
+                break;
+        }
+
+        return modified;
+    }
+
     public int TreatPart(Entity<WoundableComponent?> part, BleedingTreatment treatment,
         ProtoId<WoundPrototype>? prototype = null)
     {
@@ -174,15 +272,16 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         if (insertedPart is { } inserted && TryComp(inserted, out WoundableComponent? woundable) &&
             !partRates.ContainsKey(inserted))
         {
+            partRates[inserted] = 0f;
             foreach (var wound in _wounds.GetWounds((inserted, woundable)))
                 if (TryComp(wound, out WoundBleedingComponent? bleeding))
-                    partRates[inserted] = partRates.GetValueOrDefault(inserted) + bleeding.CurrentRate;
+                    partRates[inserted] += bleeding.CurrentRate;
         }
 
         var rate = 0f;
         foreach (var partRate in partRates.Values)
             rate += partRate;
-        _bloodstream.TryModifyBleedAmount((body, bloodstream), rate - bloodstream.BleedAmount);
+        _bloodstream.TryModifyWoundBleedProjection((body, bloodstream), rate - bloodstream.BleedAmount);
         foreach (var (part, partRate) in partRates)
         {
             var partChanged = new PartBleedingChangedEvent(body, part, partRate);
@@ -309,7 +408,7 @@ public sealed partial class WoundBleedingSystem : EntitySystem
     private void RefreshBodyForPart(EntityUid part)
     {
         if (TryGetBody(part, out var body))
-            RefreshBody(body);
+            RefreshBody(body, part);
     }
 
     private bool TryGetBody(EntityUid part, out EntityUid body)
