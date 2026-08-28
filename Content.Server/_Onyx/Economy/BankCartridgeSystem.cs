@@ -1,6 +1,7 @@
 using Content.Server.CartridgeLoader;
 using Content.Shared.CartridgeLoader;
 using Content.Shared._Onyx.Economy;
+using Content.Shared.Access.Components;
 using Content.Shared.PDA;
 using Content.Shared.Chat;
 using Robust.Shared.Utility;
@@ -61,12 +62,14 @@ public sealed partial class BankCartridgeSystem : EntitySystem
             component.AccountId = args.AccountId;
         }
 
-        if (!TryComp(GetEntity(args.LoaderUid), out PdaComponent? pda) || !pda.ContainedId.HasValue ||
-            HasComp<BankCardComponent>(pda.ContainedId.Value))
+        if (!TryComp(GetEntity(args.LoaderUid), out PdaComponent? pda) || !pda.ContainedId.HasValue)
             return;
 
-        var bankCard = AddComp<BankCardComponent>(pda.ContainedId.Value);
+        var bankCard = EnsureComp<BankCardComponent>(pda.ContainedId.Value);
         bankCard.AccountId = account.AccountId;
+        bankCard.Pin = account.AccountPin;
+        if (TryComp(pda.ContainedId.Value, out IdCardComponent? idCard) && idCard.JobPrototype != null)
+            bankCard.PayrollJob = idCard.JobPrototype;
     }
 
     private void OnTransfer(EntityUid uid, BankCartridgeComponent component, BankTransferMessage args)
@@ -121,7 +124,7 @@ public sealed partial class BankCartridgeSystem : EntitySystem
             Loc.GetString("bank-program-ui-transaction-transfer-sent",
                 ("account", toAccount.AccountId), ("name", toAccount.Name)),
             -args.Amount,
-            DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan)),
+            DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan),
             counterpartyAccount: toAccount.AccountId.ToString(),
             counterpartyName: toAccount.Name,
             comment: string.IsNullOrWhiteSpace(args.Comment) ? null : args.Comment
@@ -131,7 +134,7 @@ public sealed partial class BankCartridgeSystem : EntitySystem
             Loc.GetString("bank-program-ui-transaction-transfer-received",
                 ("account", fromAccount.AccountId), ("name", fromAccount.Name)),
             args.Amount,
-            DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan)),
+            DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan),
             counterpartyAccount: fromAccount.AccountId.ToString(),
             counterpartyName: fromAccount.Name,
             comment: string.IsNullOrWhiteSpace(args.Comment) ? null : args.Comment

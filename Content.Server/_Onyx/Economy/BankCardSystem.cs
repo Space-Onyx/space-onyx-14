@@ -9,7 +9,6 @@ using Content.Server.Cargo.Systems;
 using Content.Shared.CartridgeLoader;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking;
-using Content.Server.Roles.Jobs;
 using Content.Server.Station.Systems;
 using Content.Shared._Onyx.Economy;
 using Content.Shared.Access.Components;
@@ -17,9 +16,7 @@ using Content.Shared.Mind;
 using Content.Shared.GameTicking;
 using Content.Shared.Inventory;
 using Content.Shared.Mind.Components;
-using Content.Shared.Mobs.Systems;
 using Content.Shared.Roles;
-using Robust.Server.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
@@ -29,21 +26,17 @@ namespace Content.Server._Onyx.Economy;
 public sealed partial class BankCardSystem : EntitySystem
 {
     [Dependency] private IRobustRandom _random = default!;
-    [Dependency] private IPlayerManager _playerManager = default!;
     [Dependency] private IPrototypeManager _protoMan = default!;
     [Dependency] private IdCardSystem _idCardSystem = default!;
     [Dependency] private StationSystem _station = default!;
     [Dependency] private CargoSystem _cargo = default!;
     [Dependency] private ChatSystem _chatSystem = default!;
-    [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private InventorySystem _inventorySystem = default!;
     [Dependency] private BankCartridgeSystem _bankCartridge = default!;
     [Dependency] private GameTicker _gameTicker = default!;
     [Dependency] private CartridgeLoaderSystem _cartridgeLoader = default!;
     [Dependency] private IConfigurationManager _cfg = default!;
     [Dependency] private IGameTiming _timing = default!;
-    [Dependency] private JobSystem _job = default!;
-
     private int SalaryDelay => _cfg.GetCVar(CCVars.SalaryTime);
 
     private SalaryPrototype _salaries = default!;
@@ -89,11 +82,12 @@ public sealed partial class BankCardSystem : EntitySystem
 
         _salaryTimer += frameTime;
 
-        if (_salaryTimer <= SalaryDelay)
-            return;
-
-        _salaryTimer = 0f;
-        PaySalary();
+        var salaryDelay = Math.Max(1, SalaryDelay);
+        while (_salaryTimer >= salaryDelay)
+        {
+            _salaryTimer -= salaryDelay;
+            PaySalary();
+        }
     }
 
     private void PaySalary()
@@ -101,6 +95,7 @@ public sealed partial class BankCardSystem : EntitySystem
         if (!_cfg.GetCVar(CCVars.SalaryEnabled))
             return;
 
+        var paidAccounts = new HashSet<int>();
         var idCardQuery = EntityQueryEnumerator<IdCardComponent, BankCardComponent>();
         while (idCardQuery.MoveNext(out _, out _, out var bankCard))
         {
@@ -110,30 +105,27 @@ public sealed partial class BankCardSystem : EntitySystem
             if (!bankCard.IsPayrollEnabled)
                 continue;
 
-            if (account.Mind is not { Comp.UserId: not null, Comp.CurrentEntity: not null })
+            var salary = GetSalary(bankCard.PayrollJob);
+            if (salary == null || !paidAccounts.Add(account.AccountId))
                 continue;
 
-            if (!_playerManager.TryGetSessionById(account.Mind.Value.Comp.UserId!.Value, out _) ||
-                _mobState.IsDead(account.Mind.Value.Comp.CurrentEntity!.Value))
-                continue;
-
-            var salary = GetSalary(account.Mind.Value.Owner);
-            account.Balance += salary;
+            account.Balance += salary.Value;
             account.AddTransaction(new TransactionRecord(
                 TransactionRecord.TransactionType.Deposit,
                 Loc.GetString("bank-program-ui-salary-description"),
-                salary,
-                DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
+                salary.Value,
+                DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
             ));
         }
 
-        _chatSystem.DispatchGlobalAnnouncement(Loc.GetString("salary-pay-announcement"), Loc.GetString("salary-pay-sender"), colorOverride: Color.FromHex("#18abf5"));
+        foreach (var station in _station.GetStationsSet())
+            _chatSystem.DispatchStationAnnouncement(station, Loc.GetString("salary-pay-announcement"), Loc.GetString("salary-pay-sender"), colorOverride: Color.FromHex("#18abf5"));
     }
 
-    private int GetSalary(EntityUid? mind)
+    private int? GetSalary(ProtoId<JobPrototype>? job)
     {
-        if (!_job.MindTryGetJob(mind, out var job) || !_salaries.Salaries.TryGetValue(job.ID, out var salary))
-            return 0;
+        if (job == null || !_salaries.Salaries.TryGetValue(job.Value.Id, out var salary))
+            return null;
 
         return (int)(salary * _cfg.GetCVar(CCVars.SalaryMultiplier));
     }
@@ -177,11 +169,12 @@ public sealed partial class BankCardSystem : EntitySystem
 
             // Sync PIN
             bankCardComponent.Pin = bankAccount.AccountPin;
+            bankCardComponent.PayrollJob = ev.JobId;
 
             if (!TryComp(mind.Mind, out MindComponent? mindComponent))
                 return;
 
-            bankAccount.Balance = GetSalary(mind.Mind) + 100;
+            bankAccount.Balance = (GetSalary(bankCardComponent.PayrollJob) ?? 0) + 100;
             var netEntity = GetNetEntity(ev.Mob);
             var memory = EnsureComp<CharacterMemoryComponent>(ev.Mob);
             memory.AddMemory(new Memory("PIN", bankAccount.AccountPin.ToString(), netEntity));
@@ -297,7 +290,7 @@ public sealed partial class BankCardSystem : EntitySystem
             type,
             description,
             amount,
-            DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
+            DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
         ));
 
         return true;

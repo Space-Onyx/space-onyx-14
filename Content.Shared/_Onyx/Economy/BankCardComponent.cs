@@ -1,4 +1,6 @@
 using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
+using Content.Shared.Roles;
 
 namespace Content.Shared._Onyx.Economy;
 
@@ -16,6 +18,9 @@ public sealed partial class BankCardComponent : Component, IEftposPinProvider
 
     [DataField]
     public bool IsPayrollEnabled = true;
+
+    [DataField]
+    public ProtoId<JobPrototype>? PayrollJob;
 
     [DataField]
     public int? Pin;

@@ -2,61 +2,61 @@
   id: Salaries
   salaries:
     # Heads
-    BlueshieldOfficer: 730
-    Captain: 710
-    IAA: 540
-    ChiefEngineer: 600
-    ChiefMedicalOfficer: 600
-    HeadOfPersonnel: 610
-    HeadOfSecurity: 610
-    ResearchDirector: 600
-    QuarterMaster: 510
+    BlueshieldOfficer: 650
+    Captain: 550
+    IAA: 440
+    ChiefEngineer: 460
+    ChiefMedicalOfficer: 460
+    HeadOfPersonnel: 470
+    HeadOfSecurity: 470
+    ResearchDirector: 460
+    QuarterMaster: 400
     # Law
-    Lawyer: 150
+    Lawyer: 120
     # Cargo
-    CargoTechnician: 200
-    ShaftMiner: 310
-    SalvageSpecialist: 310
+    CargoTechnician: 100
+    ShaftMiner: 190
+    SalvageSpecialist: 220
     # Medical
-    SeniorPhysician: 315
-    Chemist: 250
-    Virologist: 250
-    Paramedic: 310
-    Surgeon: 300
-    MedicalDoctor: 230
-    MedicalIntern: 150
-    Psychologist: 140
+    SeniorPhysician: 320
+    Chemist: 190
+    Virologist: 200
+    Paramedic: 220
+    Surgeon: 240
+    MedicalDoctor: 150
+    MedicalIntern: 80
+    Psychologist: 130
     # Secure
-    SeniorOfficer: 315
-    Pilot: 280
-    Brigmedic: 310
-    Detective: 280
-    Warden: 400
-    SecurityOfficer: 200
-    SecurityCadet: 130
+    SeniorOfficer: 320
+    Pilot: 220
+    Brigmedic: 220
+    Detective: 210
+    Warden: 300
+    SecurityOfficer: 150
+    SecurityCadet: 80
     # Engi
-    SeniorEngineer: 315
-    AtmosphericTechnician: 310
-    StationEngineer: 240
-    TechnicalAssistant: 120
+    SeniorEngineer: 320
+    AtmosphericTechnician: 220
+    StationEngineer: 160
+    TechnicalAssistant: 80
     # RnD
-    SeniorResearcher: 295
-    Scientist: 210
-    Roboticist: 210
-    ResearchAssistant: 120
+    SeniorResearcher: 320
+    Scientist: 180
+    Roboticist: 190
+    ResearchAssistant: 80
     # Service
-    RadioHost: 160
-    Librarian: 130
-    Mime: 110
-    Musician: 110
-    Reporter: 120
-    Bartender: 180
-    Botanist: 200
-    Chaplain: 120
-    Chef: 190
-    Clown: 110
-    Janitor: 170
-    ServiceWorker: 120
-    Passenger: 85
+    RadioHost: 140
+    Librarian: 100
+    Mime: 80
+    Musician: 90
+    Reporter: 110
+    Bartender: 140
+    Botanist: 160
+    Chaplain: 100
+    Chef: 150
+    Clown: 75
+    Janitor: 120
+    ServiceWorker: 85
+    Passenger: 70
     # Other
     Visitor: 0

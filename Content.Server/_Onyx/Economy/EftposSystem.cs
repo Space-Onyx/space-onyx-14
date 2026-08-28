@@ -147,7 +147,7 @@ public sealed partial class EftposSystem : EntitySystem
                     Loc.GetString("bank-program-ui-transaction-purchase-sent",
                         ("account", component.BankAccountId.Value), ("name", receiverName)),
                     -component.Amount,
-                    DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
+                    DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
                 ));
             }
             if (_bankCardSystem.TryGetAccount(component.BankAccountId.Value, out var receiverAccount))
@@ -158,7 +158,7 @@ public sealed partial class EftposSystem : EntitySystem
                     Loc.GetString("bank-program-ui-transaction-purchase-received",
                         ("account", component.PendingPayerAccountId.Value), ("name", payerName)),
                     component.Amount,
-                    DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
+                    DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
                 ));
             }
         }

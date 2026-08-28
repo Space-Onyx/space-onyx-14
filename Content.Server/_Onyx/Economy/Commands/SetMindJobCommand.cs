@@ -1,8 +1,8 @@
 using System.Linq;
 using Content.Server.Administration;
-using Content.Server.Roles.Jobs;
+using Content.Server.Access.Systems;
+using Content.Shared._Onyx.Economy;
 using Content.Shared.Administration;
-using Content.Shared.Players;
 using Content.Shared.Roles;
 using Robust.Server.Player;
 using Robust.Shared.Console;
@@ -14,7 +14,7 @@ namespace Content.Server.Commands;
 internal sealed class SetMindJobCommand : IConsoleCommand
 {
     public string Command => "setmindjob";
-    public string Description => "Изменить должность MindRole игрока, используемую для начисления зарплаты";
+    public string Description => "Изменить должность на банковской карте игрока, используемую для начисления зарплаты";
     public string Help => "setmindjob <player> <job>";
 
     public void Execute(IConsoleShell shell, string argStr, string[] args)
@@ -26,10 +26,9 @@ internal sealed class SetMindJobCommand : IConsoleCommand
         }
 
         var players = IoCManager.Resolve<IPlayerManager>();
-        if (!players.TryGetPlayerDataByUsername(args[0], out var playerData) ||
-            playerData.ContentData()?.Mind is not { } mind)
+        if (!players.TryGetSessionByUsername(args[0], out var session) || session.AttachedEntity is not { } mob)
         {
-            shell.WriteError($"Не найдено сознание игрока {args[0]}.");
+            shell.WriteError($"Не найден персонаж игрока {args[0]}.");
             return;
         }
 
@@ -41,8 +40,15 @@ internal sealed class SetMindJobCommand : IConsoleCommand
         }
 
         var entityManager = IoCManager.Resolve<IEntityManager>();
-        var jobs = entityManager.System<JobSystem>();
-        jobs.MindAddJob(mind, args[1]);
+        var idCards = entityManager.System<IdCardSystem>();
+        if (!idCards.TryFindIdCard(mob, out var idCard) ||
+            !entityManager.TryGetComponent(idCard.Owner, out BankCardComponent? bankCard))
+        {
+            shell.WriteError($"У игрока {args[0]} не найдена банковская ID-карта.");
+            return;
+        }
+
+        bankCard.PayrollJob = args[1];
         shell.WriteLine($"Должность игрока {args[0]} изменена на {args[1]}.");
     }
 

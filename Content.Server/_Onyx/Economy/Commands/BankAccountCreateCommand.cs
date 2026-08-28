@@ -139,6 +139,8 @@ internal sealed class BankAccountCreateCommand : IConsoleCommand
         bankCard.AccountId = account.AccountId;
         bankCard.Pin = pin;
         bankCard.IsPayrollEnabled = salary;
+        if (idCardComp?.JobPrototype != null)
+            bankCard.PayrollJob = idCardComp.JobPrototype;
 
         if (entMan.TryGetComponent<MindContainerComponent>(mob, out var mind) && mind.Mind != null && entMan.TryGetComponent<Content.Shared.Mind.MindComponent>(mind.Mind.Value, out var mindComp))
         {

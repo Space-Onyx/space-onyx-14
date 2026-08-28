@@ -146,7 +146,7 @@ public sealed partial class ATMSystem : SharedATMSystem
                     TransactionRecord.TransactionType.Deposit,
                     Loc.GetString("bank-program-ui-transaction-deposit-atm"),
                     amount,
-                    DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
+                    DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
                 ));
             }
         }
@@ -232,7 +232,7 @@ public sealed partial class ATMSystem : SharedATMSystem
                 TransactionRecord.TransactionType.Withdraw,
                     Loc.GetString("bank-program-ui-transaction-withdraw-atm"),
                 -args.Amount,
-                    DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan))
+                    DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
             ));
         }
 

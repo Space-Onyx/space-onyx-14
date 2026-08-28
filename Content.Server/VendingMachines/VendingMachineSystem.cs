@@ -104,7 +104,7 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
                      TransactionRecord.TransactionType.Purchase,
                      Loc.GetString("bank-program-ui-transaction-vending-purchase", ("item", itemName)),
                     -price,
-                    DateTime.Now.Date.Add(_timing.CurTime.Subtract(_gameTicker.RoundStartTimeSpan)))); // <Onyx-VendingPurchaseHistory-edited>
+                    DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan))); // <Onyx-VendingPurchaseHistory-edited>
                 // </Onyx-VendingPurchaseHistory>
                 paid = true;
                 break;
