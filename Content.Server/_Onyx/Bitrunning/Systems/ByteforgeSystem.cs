@@ -219,7 +219,8 @@ public sealed partial class ByteforgeSystem : EntitySystem
         }
 
         var completionTime = _timing.CurTime - server.DomainStartTime;
-        var grade = GradeCompletion(domain.SGradeTime, completionTime);
+        var sGradeTime = domain.SGradeTimeByType[server.ObjectiveType];
+        var grade = GradeCompletion(sGradeTime, completionTime);
         insertedAny |= TryInsertCertificate(cargoUid, coordinates, server, domain, completionTime, grade, rewardsMultiplier);
 
         if (domain.Difficulty >= BitrunningDifficulty.Medium &&

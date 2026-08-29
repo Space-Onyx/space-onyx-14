@@ -22,7 +22,8 @@
   serverRewardPoints: 1
   bitrunningRewardPoints: 30
   lootRewardPoints: 1
-  sGradeTime: 120
+  sGradeTimeByType:
+    OverhydrateStomach: 180
   completionLoot:
     BeachBall: 1
   mapPath: /Maps/_Onyx/Bitrun/beach-bar.yml
@@ -43,7 +44,8 @@
   serverRewardPoints: 1
   bitrunningRewardPoints: 60
   lootRewardPoints: 3
-  sGradeTime: 360
+  sGradeTimeByType:
+    CatchFish: 420
   mapPath: /Maps/_Onyx/Bitrun/breeze-bay.yml
   objectiveTypePool:
   - CatchFish
@@ -63,7 +65,8 @@
   cost: 20
   bitrunningRewardPoints: 600 # Because cost overprice etc...
   lootRewardPoints: 6
-  sGradeTime: 240
+  sGradeTimeByType:
+    DeliveryCacheCrate: 30
   completionLoot:
     SpaceCash500: 4
   mapPath: /Maps/_Onyx/Bitrun/cosmic-vestige.yml
@@ -84,7 +87,8 @@
   serverRewardPoints: 1
   bitrunningRewardPoints: 45
   lootRewardPoints: 1
-  sGradeTime: 600
+  sGradeTimeByType:
+    EliminateEnemies: 480
   mapPath: /Maps/_Onyx/Bitrun/grassland-hunt.yml
   objectiveTypePool:
   - EliminateEnemies
@@ -108,7 +112,9 @@
   serverRewardPoints: 3
   bitrunningRewardPoints: 150
   lootRewardPoints: 3
-  sGradeTime: 480
+  sGradeTimeByType:
+    DeliveryCacheCrate: 300
+    EliminateEnemies: 720
   completionLoot:
     PlushieRouny: 1
   forcedLoadout: BitrunnerAvatarXenonautenGear
@@ -136,7 +142,9 @@
   serverRewardPoints: 3
   bitrunningRewardPoints: 150
   lootRewardPoints: 3
-  sGradeTime: 480
+  sGradeTimeByType:
+    DeliveryCacheCrate: 240
+    EliminateEnemies: 600
   forcedLoadout: BitrunnerAvatarSecurityOfficerMODGear
   isModular: true
   completionLoot:

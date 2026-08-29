@@ -819,7 +819,6 @@ public sealed partial class QuantumServerSystem : EntitySystem
             return;
 
         serverEnt.Comp.ObjectiveCompleted = true;
-        var rewardMultiplier = CalculateRewardMultiplier(serverEnt.Comp);
 
         if (ShouldSpawnCompletionRewardCache(serverEnt.Comp) && serverEnt.Comp.ObjectiveType != BitrunningObjectiveType.DeliveryCacheCrate)
         {
@@ -855,9 +854,8 @@ public sealed partial class QuantumServerSystem : EntitySystem
             randomBitrunningBonus = domain.RandomBitrunningBonusPoints;
         }
 
-        // Reward multipliers intentionally share the same base scaling rules.
-        var serverReward = Math.Max(0, (int) MathF.Round(baseServerReward * rewardMultiplier));
-        var bitrunningReward = Math.Max(0, (int) MathF.Round(baseBitrunningReward * rewardMultiplier));
+        var serverReward = Math.Max(0, baseServerReward);
+        var bitrunningReward = Math.Max(0, baseBitrunningReward);
 
         if (serverEnt.Comp.WasRandomizedRun)
         {
@@ -959,31 +957,12 @@ public sealed partial class QuantumServerSystem : EntitySystem
         return server.ObjectiveType != BitrunningObjectiveType.None && server.ObjectiveGoal > 0;
     }
 
-    public float CalculateRewardMultiplier(QuantumServerComponent server)
-    {
-        var noHitCount = 0;
-        foreach (var uid in server.ActiveConnections)
-        {
-            if (CompOrNull<AvatarConnectionComponent>(uid)?.NoHit == true)
-                noHitCount++;
-        }
-
-        var total = 1f;
-        total += server.QualityBonus;
-        total += Math.Max(0, server.ActiveConnections.Count - 1) * 0.5f;
-        total += noHitCount * 0.4f;
-        total += server.ThreatsDestroyed * 0.5f;
-        return Math.Max(1f, total);
-    }
-
     public float CalculateLootRewardMultiplier(QuantumServerComponent server)
     {
         var total = 0.8f + server.QualityBonus;
         if (server.WasRandomizedRun)
             total += 0.2f;
 
-        total += Math.Max(0, server.ActiveConnections.Count - 1) * 1.1f;
-        total += server.ThreatsDestroyed * 2f;
         return Math.Max(0f, total);
     }
 
