@@ -14,4 +14,7 @@
     icon:
       sprite: _Onyx/Structures/Machines/atm.rsi
       state: icon
+    screenState:
+      sprite: _Onyx/Objects/Devices/modular_pda.rsi
+      state: accounting
   - type: BankCartridge

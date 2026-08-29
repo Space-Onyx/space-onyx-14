@@ -1,9 +1,11 @@
 <ui1:BankUiFragment xmlns="https://spacestation14.io"
-                    xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
-                    xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
-                    xmlns:ui1="clr-namespace:Content.Client._Onyx.Economy.UI">
+                     xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                     xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+                     xmlns:ui1="clr-namespace:Content.Client._Onyx.Economy.UI"
+                     HorizontalExpand="True"
+                     VerticalExpand="True">
 
-    <ScrollContainer VerticalExpand="True" HScrollEnabled="False" HorizontalExpand="True" SetWidth="525" SetHeight="323">
+    <ScrollContainer VerticalExpand="True" HScrollEnabled="False" HorizontalExpand="True">
         <BoxContainer Orientation="Vertical" Margin="8" VerticalExpand="True" MinSize="315 150" HorizontalExpand="True" SeparationOverride="6">
             <controls:StripeBack MinSize="0 42">
                 <BoxContainer Orientation="Horizontal" Margin="10 6" HorizontalExpand="True">

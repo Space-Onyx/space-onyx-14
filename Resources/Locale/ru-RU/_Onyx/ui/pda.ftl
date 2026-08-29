@@ -1,0 +1,17 @@
+pda-modern-identity = ИДЕНТИФИКАЦИЯ
+pda-modern-station = СТАНЦИЯ
+pda-modern-shift = СМЕНА
+pda-modern-station-status = СТАТУС СТАНЦИИ
+pda-modern-program-cartridge = КАРТРИДЖ
+pda-modern-program-installed = УСТАНОВЛЕНО
+pda-modern-program-system = СИСТЕМНОЕ
+pda-modern-eject-pai = Извлечь пИИ
+pda-modern-power-off = Выключить
+pda-modern-theme-title = Тема интерфейса
+pda-modern-theme-description = Выберите пресет или настройте цвет акцента
+pda-modern-theme-reset = Сбросить тему
+pda-modern-theme-mint = Мятный терминал
+pda-modern-theme-amber = Янтарная консоль
+pda-modern-theme-ice = Ледяной дисплей
+pda-modern-theme-violet = Фиолетовый сигнал
+pda-modern-theme-red = Красная тревога

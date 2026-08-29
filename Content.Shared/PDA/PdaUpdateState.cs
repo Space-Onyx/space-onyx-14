@@ -16,6 +16,7 @@ namespace Content.Shared.PDA
         public bool HasUplink;
         public bool CanPlayMusic;
         public string? Address;
+        public Color ThemeAccent; // <Onyx-PdaTheme>
 
         public PdaUpdateState(
             List<NetEntity> programs,
@@ -38,6 +39,7 @@ namespace Content.Shared.PDA
             CanPlayMusic = canPlayMusic;
             StationName = stationName;
             Address = address;
+            ThemeAccent = Color.FromHex("#6B9A88"); // <Onyx-PdaTheme>
         }
     }
 

@@ -32,8 +32,31 @@ public sealed class PdaShowMusicMessage : BoundUserInterfaceMessage
     public PdaShowMusicMessage() { }
 }
 
+// <Onyx-PdaPower>
+[Serializable, NetSerializable]
+public sealed class PdaPowerOffMessage : BoundUserInterfaceMessage
+{
+    public PdaPowerOffMessage() { }
+}
+// </Onyx-PdaPower>
+
 [Serializable, NetSerializable]
 public sealed class PdaRequestUpdateInterfaceMessage : BoundUserInterfaceMessage
 {
     public PdaRequestUpdateInterfaceMessage() { }
 }
+
+// <Onyx-PdaTheme>
+[Serializable, NetSerializable]
+public sealed class PdaSetThemeMessage : BoundUserInterfaceMessage
+{
+    public Color Accent;
+
+    public PdaSetThemeMessage() { }
+
+    public PdaSetThemeMessage(Color accent)
+    {
+        Accent = accent;
+    }
+}
+// </Onyx-PdaTheme>

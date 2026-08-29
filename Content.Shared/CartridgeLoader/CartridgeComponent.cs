@@ -20,6 +20,11 @@ public sealed partial class CartridgeComponent : Component
     [DataField]
     public SpriteSpecifier? Icon;
 
+    // <Onyx-PdaScreenVisuals>
+    [DataField, AutoNetworkedField]
+    public SpriteSpecifier? ScreenState;
+    // </Onyx-PdaScreenVisuals>
+
     [DataField, AutoNetworkedField]
     public InstallationStatus InstallationStatus = InstallationStatus.Cartridge;
 }

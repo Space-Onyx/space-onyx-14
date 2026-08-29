@@ -57,9 +57,7 @@
   name: magistrate's PDA
   description: Corporation and profit are best friends.
   components:
-  - type: Sprite
-    sprite: Corvax/Objects/Devices/pda.rsi
-    state: pda-magistrate
+  # <Onyx-PdaScreenVisuals-edited>
   - type: Pda
     id: MagistrateIDCard
     penSlot:
@@ -67,6 +65,7 @@
       whitelist:
         tags:
         - Write
+  # </Onyx-PdaScreenVisuals-edited>
   - type: Appearance
     appearanceDataInit:
       enum.PdaVisuals.PdaType:

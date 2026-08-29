@@ -18,6 +18,11 @@
     icon:
       sprite: _DV/Misc/program_icons.rsi
       state: nanochat
+    # <Onyx-PdaScreenVisuals>
+    screenState:
+      sprite: _Onyx/Objects/Devices/modular_pda.rsi
+      state: comm_monitor
+    # </Onyx-PdaScreenVisuals>
   - type: ActiveRadio
     channels:
     - Common

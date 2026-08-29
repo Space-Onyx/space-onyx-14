@@ -1,0 +1,12 @@
+<pda:ModernPdaSettingsButton xmlns="https://spacestation14.io"
+                              xmlns:pda="clr-namespace:Content.Client._Onyx.PDA"
+                              HorizontalExpand="True" MinHeight="62">
+    <PanelContainer Name="Background" />
+    <BoxContainer Margin="12 8" HorizontalExpand="True">
+        <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalAlignment="Center">
+            <Label Name="OptionName" StyleClasses="LabelKeyText" />
+            <Label Name="OptionDescription" StyleClasses="font-small" FontColorOverride="#84918C" />
+        </BoxContainer>
+        <Label Text=">" VerticalAlignment="Center" FontColorOverride="#7CB29E" Margin="12 0 2 0" />
+    </BoxContainer>
+</pda:ModernPdaSettingsButton>

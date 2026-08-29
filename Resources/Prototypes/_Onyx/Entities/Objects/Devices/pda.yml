@@ -52,9 +52,6 @@
   - type: Icon
     sprite: _Onyx/Objects/Devices/pda.rsi
     state: pda-blueshield
-  - type: Sprite
-    sprite: _Onyx/Objects/Devices/pda.rsi
-    state: pda-blueshield
   - type: PdaBorderColor
     borderColor: "#3c94c5"
 
@@ -64,8 +61,6 @@
   name: miner PDA
   description: Smells like ash.
   components:
-  - type: Sprite
-    sprite: _Onyx/Objects/Devices/miner_pda.rsi
   - type: Pda
     id: MinerIDCard
   - type: Appearance

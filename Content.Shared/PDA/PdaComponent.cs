@@ -39,5 +39,10 @@ namespace Content.Shared.PDA
         [ViewVariables]
         public ProtoId<AlertLevelPrototype>? StationAlertLevel;
         [ViewVariables] public Color StationAlertColor = Color.White;
+
+        // <Onyx-PdaTheme>
+        [DataField]
+        public Color ThemeAccent = Color.FromHex("#6B9A88");
+        // </Onyx-PdaTheme>
     }
 }

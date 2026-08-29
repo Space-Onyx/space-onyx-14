@@ -1,0 +1,184 @@
+<pda:ModernPdaMenu xmlns="https://spacestation14.io"
+                   xmlns:pda="clr-namespace:Content.Client._Onyx.PDA"
+                   xmlns:vanilla="clr-namespace:Content.Client.PDA"
+                   xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                   xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+                   MinSize="610 720"
+                   SetSize="610 720">
+    <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
+        <PanelContainer Margin="1 1 3 0" MinHeight="42">
+            <PanelContainer.PanelOverride>
+                <gfx:StyleBoxFlat BackgroundColor="#1B2026" BorderColor="#3B4650" BorderThickness="0 0 0 1" />
+            </PanelContainer.PanelOverride>
+        <BoxContainer Name="NavigationBar" HorizontalExpand="True">
+            <vanilla:PdaNavigationButton Name="HomeButton" SetWidth="44" IsCurrent="True"
+                                         InactiveBgColor="#1B2026" ActiveBgColor="#293A35"
+                                         CurrentTabBorderThickness="0 0 0 2" />
+            <vanilla:PdaNavigationButton Name="ProgramListButton" Access="Public" SetWidth="108"
+                                         InactiveBgColor="#1B2026" ActiveBgColor="#293A35"
+                                         CurrentTabBorderThickness="0 0 0 2"
+                                         LabelText="{Loc 'comp-pda-io-program-list-button'}" />
+            <vanilla:PdaNavigationButton Name="SettingsButton" SetWidth="108"
+                                         InactiveBgColor="#1B2026" ActiveBgColor="#293A35"
+                                         CurrentTabBorderThickness="0 0 0 2"
+                                         LabelText="{Loc 'comp-pda-io-settings-button'}" />
+            <vanilla:PdaNavigationButton Name="ProgramTitle" Access="Public" HorizontalExpand="True"
+                                         InactiveBgColor="#1B2026" ActiveBgColor="#20262C"
+                                         CurrentTabBorderThickness="0 0 0 2" Visible="False" />
+            <Control Name="NavigationFill" HorizontalExpand="True" />
+            <vanilla:PdaNavigationButton Name="ProgramCloseButton" Access="Public" SetWidth="40"
+                                         InactiveBgColor="#1B2026" ActiveBgColor="#3D2428"
+                                         IconScale="0.5 0.5" Visible="False" IsActive="False" />
+            <vanilla:PdaNavigationButton Name="FlashLightToggleButton" Access="Public" ToggleMode="True"
+                                         InactiveBgColor="#1B2026" ActiveBgColor="#35463E"
+                                         InactiveFgColor="#66716D" ActiveFgColor="#F2EBAA" SetWidth="32"
+                                         ToolTip="{Loc 'comp-pda-ui-toggle-flashlight-button'}" />
+            <vanilla:PdaNavigationButton Name="EjectPenButton" Access="Public" SetWidth="32"
+                                         InactiveBgColor="#1B2026" ActiveBgColor="#20262C"
+                                         ToolTip="{Loc 'comp-pda-ui-eject-pen-button'}" />
+            <vanilla:PdaNavigationButton Name="EjectIdButton" Access="Public" SetWidth="32"
+                                         InactiveBgColor="#1B2026" ActiveBgColor="#20262C"
+                                         ToolTip="{Loc 'comp-pda-ui-eject-id-button'}" />
+            <vanilla:PdaNavigationButton Name="EjectPaiButton" Access="Public" SetWidth="32"
+                                         InactiveBgColor="#1B2026" ActiveBgColor="#20262C"
+                                         ToolTip="{Loc 'pda-modern-eject-pai'}" />
+            <vanilla:PdaNavigationButton Name="PowerOffButton" Access="Public" SetWidth="32"
+                                         InactiveBgColor="#1B2026" ActiveBgColor="#3D2428"
+                                         ActiveFgColor="#E48787" ToolTip="{Loc 'pda-modern-power-off'}" />
+        </BoxContainer>
+        </PanelContainer>
+
+        <BoxContainer Name="ViewContainer" Access="Public" Margin="8 6 8 4"
+                          HorizontalExpand="True" VerticalExpand="True">
+                <ScrollContainer HorizontalExpand="True" VerticalExpand="True" HScrollEnabled="False">
+                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="6">
+                        <BoxContainer Margin="2 0 2 2" HorizontalExpand="True">
+                            <Label Text="{Loc 'comp-pda-ui-menu-title'}" StyleClasses="LabelHeading"
+                                   FontColorOverride="#D7E5DF" />
+                        </BoxContainer>
+
+                        <PanelContainer Name="IdentityPanel" HorizontalExpand="True">
+                            <PanelContainer.PanelOverride>
+                                <gfx:StyleBoxFlat BackgroundColor="#1C2328" BorderColor="#405149" BorderThickness="1" />
+                            </PanelContainer.PanelOverride>
+                            <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="2">
+                                <Label Text="{Loc 'pda-modern-identity'}" StyleClasses="font-small" FontColorOverride="#6F9184" />
+                                <ContainerButton Name="PdaOwnerButton" HorizontalExpand="True">
+                                    <RichTextLabel Name="PdaOwnerLabel" Access="Public" Margin="6 3" />
+                                </ContainerButton>
+                                <ContainerButton Name="IdInfoButton" HorizontalExpand="True">
+                                    <RichTextLabel Name="IdInfoLabel" Access="Public" Margin="6 3" />
+                                </ContainerButton>
+                                <RichTextLabel Name="MiningPointsLabel" Access="Public" Visible="False" Margin="6 3" />
+                            </BoxContainer>
+                        </PanelContainer>
+
+                        <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="6">
+                            <PanelContainer Name="StationPanel" MinHeight="58" HorizontalExpand="True">
+                                <PanelContainer.PanelOverride>
+                                    <gfx:StyleBoxFlat BackgroundColor="#1A2026" BorderColor="#384550" BorderThickness="1" />
+                                </PanelContainer.PanelOverride>
+                                <ContainerButton Name="StationNameButton" HorizontalExpand="True" VerticalExpand="True">
+                                    <BoxContainer Orientation="Vertical" Margin="10 8">
+                                        <Label Text="{Loc 'pda-modern-station'}" StyleClasses="font-small" FontColorOverride="#718291" />
+                                        <RichTextLabel Name="StationNameLabel" Access="Public" VerticalExpand="True" />
+                                    </BoxContainer>
+                                </ContainerButton>
+                            </PanelContainer>
+                            <PanelContainer Name="TimePanel" MinHeight="58" HorizontalExpand="True">
+                                <PanelContainer.PanelOverride>
+                                    <gfx:StyleBoxFlat BackgroundColor="#1A2026" BorderColor="#384550" BorderThickness="1" />
+                                </PanelContainer.PanelOverride>
+                                <ContainerButton Name="StationTimeButton" HorizontalExpand="True" VerticalExpand="True">
+                                    <BoxContainer Orientation="Vertical" Margin="10 8">
+                                        <Label Text="{Loc 'pda-modern-shift'}" StyleClasses="font-small" FontColorOverride="#718291" />
+                                        <RichTextLabel Name="StationTimeLabel" Access="Public" VerticalExpand="True" />
+                                    </BoxContainer>
+                                </ContainerButton>
+                            </PanelContainer>
+                        </BoxContainer>
+
+                        <PanelContainer Name="AlertPanel" HorizontalExpand="True" VerticalExpand="True">
+                            <PanelContainer.PanelOverride>
+                                <gfx:StyleBoxFlat BackgroundColor="#1A2026" BorderColor="#384550" BorderThickness="1" />
+                            </PanelContainer.PanelOverride>
+                            <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="3">
+                                <Label Name="AlertHeaderLabel" Text="{Loc 'pda-modern-station-status'}" StyleClasses="font-small"
+                                       FontColorOverride="#84918C" />
+                                <ContainerButton Name="StationAlertLevelButton" HorizontalExpand="True">
+                                    <RichTextLabel Name="StationAlertLevelLabel" Access="Public" Margin="4 3" />
+                                </ContainerButton>
+                                <PanelContainer StyleClasses="LowDivider" />
+                                <ContainerButton Name="StationAlertLevelInstructionsButton" HorizontalExpand="True" VerticalExpand="True">
+                                    <RichTextLabel Name="StationAlertLevelInstructions" Access="Public" Margin="4 3" />
+                                </ContainerButton>
+                            </BoxContainer>
+                        </PanelContainer>
+                    </BoxContainer>
+                </ScrollContainer>
+
+                <ScrollContainer HorizontalExpand="True" VerticalExpand="True" HScrollEnabled="False">
+                    <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+                        <BoxContainer Margin="4 2 4 4">
+                            <Label Text="{Loc 'comp-pda-io-program-list-button'}" StyleClasses="LabelHeading"
+                                   FontColorOverride="#D7E5DF" HorizontalExpand="True" />
+                        </BoxContainer>
+                        <GridContainer Name="ProgramList" Columns="2" HorizontalExpand="True"
+                                       HSeparationOverride="6" VSeparationOverride="6" />
+                    </BoxContainer>
+                </ScrollContainer>
+
+                <ScrollContainer HorizontalExpand="True" VerticalExpand="True" HScrollEnabled="False">
+                    <BoxContainer Name="Settings" Orientation="Vertical" HorizontalExpand="True" SeparationOverride="6">
+                        <BoxContainer Margin="4 2 4 4">
+                            <Label Text="{Loc 'comp-pda-io-settings-button'}" StyleClasses="LabelHeading"
+                                   FontColorOverride="#D7E5DF" HorizontalExpand="True" />
+                        </BoxContainer>
+                        <pda:ModernPdaSettingsButton Name="AccessRingtoneButton" Access="Public"
+                                                     Text="{Loc 'comp-pda-ui-ringtone-button'}"
+                                                     Description="{Loc 'comp-pda-ui-ringtone-button-description'}" />
+                        <pda:ModernPdaSettingsButton Name="ActivateMusicButton" Access="Public" Visible="False"
+                                                     Text="{Loc 'pda-bound-user-interface-music-button'}"
+                                                     Description="{Loc 'pda-bound-user-interface-music-button-description'}" />
+                        <pda:ModernPdaSettingsButton Name="ShowUplinkButton" Access="Public" Visible="False"
+                                                     Text="{Loc 'pda-bound-user-interface-show-uplink-title'}"
+                                                     Description="{Loc 'pda-bound-user-interface-show-uplink-description'}" />
+                        <pda:ModernPdaSettingsButton Name="LockUplinkButton" Access="Public" Visible="False"
+                                                     Text="{Loc 'pda-bound-user-interface-lock-uplink-title'}"
+                                                     Description="{Loc 'pda-bound-user-interface-lock-uplink-description'}" />
+                        <PanelContainer Name="ThemePanel" Margin="0 4 0 0">
+                            <PanelContainer.PanelOverride>
+                                <gfx:StyleBoxFlat BackgroundColor="#1A2026" BorderColor="#384550" BorderThickness="1" />
+                            </PanelContainer.PanelOverride>
+                            <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="6">
+                                <BoxContainer Orientation="Horizontal">
+                                    <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+                                        <Label Text="{Loc 'pda-modern-theme-title'}" StyleClasses="LabelKeyText" />
+                                        <Label Text="{Loc 'pda-modern-theme-description'}" StyleClasses="font-small"
+                                               FontColorOverride="#84918C" />
+                                    </BoxContainer>
+                                    <PanelContainer Name="ThemeColorPreview" SetSize="34 34" VerticalAlignment="Center" />
+                                </BoxContainer>
+                                <OptionButton Name="ThemePreset" HorizontalExpand="True" />
+                                <ColorSelectorSliders Name="ThemePicker" IsAlphaVisible="False" HorizontalExpand="True" />
+                                <Button Name="ThemeResetButton" Text="{Loc 'pda-modern-theme-reset'}" HorizontalExpand="True" />
+                            </BoxContainer>
+                        </PanelContainer>
+                    </BoxContainer>
+                </ScrollContainer>
+
+                <BoxContainer Name="ProgramView" Access="Public" Orientation="Vertical"
+                              HorizontalExpand="True" VerticalExpand="True" />
+        </BoxContainer>
+
+        <BoxContainer Name="AddressPanel" HorizontalExpand="True" SetHeight="28" Margin="1 0 2 1">
+            <controls:StripeBack HasBottomEdge="False" HasMargins="False" HorizontalExpand="True">
+                <Label Text="{Loc 'comp-pda-ui-menu-title'}" VerticalAlignment="Center" Margin="6 0"
+                       StyleClasses="PdaContentFooterText" />
+                <Label Name="AddressLabel" Text="-" VerticalAlignment="Center" HorizontalAlignment="Right"
+                       Margin="6 0" StyleClasses="PdaContentFooterText" />
+            </controls:StripeBack>
+        </BoxContainer>
+
+    </BoxContainer>
+</pda:ModernPdaMenu>

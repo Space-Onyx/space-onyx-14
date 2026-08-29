@@ -23,6 +23,11 @@
     icon:
       sprite:  Objects/Misc/books.rsi
       state: book_icon
+    # <Onyx-PdaScreenVisuals>
+    screenState:
+      sprite: _Onyx/Objects/Devices/modular_pda.rsi
+      state: accounting
+    # </Onyx-PdaScreenVisuals>
   - type: NotekeeperCartridge
 
 - type: entity
@@ -38,6 +43,11 @@
     icon:
       sprite: Interface/Misc/program_icons.rsi
       state: nano_task
+    # <Onyx-PdaScreenVisuals>
+    screenState:
+      sprite: _Onyx/Objects/Devices/modular_pda.rsi
+      state: menu
+    # </Onyx-PdaScreenVisuals>
   - type: UIFragment
     ui: !type:NanoTaskUi
   - type: NanoTaskCartridge
@@ -57,6 +67,11 @@
     icon:
       sprite: Interface/Misc/program_icons.rsi
       state: news_read
+    # <Onyx-PdaScreenVisuals>
+    screenState:
+      sprite: _Onyx/Objects/Devices/modular_pda.rsi
+      state: comm_monitor
+    # </Onyx-PdaScreenVisuals>
   - type: NewsReaderCartridge
 
 - type: entity
@@ -74,6 +89,11 @@
       icon:
         sprite: Interface/Misc/program_icons.rsi
         state: crew_manifest
+      # <Onyx-PdaScreenVisuals>
+      screenState:
+        sprite: _Onyx/Objects/Devices/modular_pda.rsi
+        state: crew
+      # </Onyx-PdaScreenVisuals>
     - type: CrewManifestCartridge
 
 - type: entity
@@ -91,6 +111,11 @@
       icon:
         sprite: Structures/Machines/server.rsi
         state: server
+      # <Onyx-PdaScreenVisuals>
+      screenState:
+        sprite: _Onyx/Objects/Devices/modular_pda.rsi
+        state: signal
+      # </Onyx-PdaScreenVisuals>
     - type: NetProbeCartridge
 
 - type: entity
@@ -111,6 +136,11 @@
       icon:
         sprite: Structures/Doors/Airlocks/Standard/security-base.rsi
         state: closed
+      # <Onyx-PdaScreenVisuals>
+      screenState:
+        sprite: _Onyx/Objects/Devices/modular_pda.rsi
+        state: comm_logs
+      # </Onyx-PdaScreenVisuals>
     - type: LogProbeCartridge
     - type: GuideHelp
       guides:
@@ -134,6 +164,11 @@
     icon:
       sprite: Objects/Misc/books.rsi
       state: icon_magnifier
+    # <Onyx-PdaScreenVisuals>
+    screenState:
+      sprite: _Onyx/Objects/Devices/modular_pda.rsi
+      state: bounty
+    # </Onyx-PdaScreenVisuals>
   - type: WantedListCartridge
   - type: StealTarget
     stealGroup: WantedListCartridge
@@ -154,6 +189,11 @@
       icon:
         sprite: Objects/Specific/Medical/healthanalyzer.rsi
         state: icon
+      # <Onyx-PdaScreenVisuals>
+      screenState:
+        sprite: _Onyx/Objects/Devices/modular_pda.rsi
+        state: alert-red
+      # </Onyx-PdaScreenVisuals>
     - type: MedTekCartridge
 
 - type: entity

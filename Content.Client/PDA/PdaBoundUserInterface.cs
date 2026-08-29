@@ -39,18 +39,25 @@ namespace Content.Client.PDA
 
             _menu.EjectIdButton.OnPressed += _ =>
             {
-                SendPredictedMessage(new ItemSlotButtonPressedEvent(PdaComponent.PdaIdSlotId));
+                SendMessage(new ItemSlotButtonPressedEvent(PdaComponent.PdaIdSlotId)); // <Onyx-PdaSlotSound-edited>
             };
 
             _menu.EjectPenButton.OnPressed += _ =>
             {
-                SendPredictedMessage(new ItemSlotButtonPressedEvent(PdaComponent.PdaPenSlotId));
+                SendMessage(new ItemSlotButtonPressedEvent(PdaComponent.PdaPenSlotId)); // <Onyx-PdaSlotSound-edited>
             };
 
             _menu.EjectPaiButton.OnPressed += _ =>
             {
-                SendPredictedMessage(new ItemSlotButtonPressedEvent(PdaComponent.PdaPaiSlotId));
+                SendMessage(new ItemSlotButtonPressedEvent(PdaComponent.PdaPaiSlotId)); // <Onyx-PdaSlotSound-edited>
             };
+
+            // <Onyx-PdaPower>
+            _menu.PowerOffButton.OnPressed += _ =>
+            {
+                SendMessage(new PdaPowerOffMessage());
+            };
+            // </Onyx-PdaPower>
 
             _menu.ActivateMusicButton.OnPressed += _ =>
             {

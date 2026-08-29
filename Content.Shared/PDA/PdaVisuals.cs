@@ -6,6 +6,7 @@ namespace Content.Shared.PDA
     public enum PdaVisuals
     {
         IdCardInserted,
+        ScreenState, // <Onyx-PdaScreenVisuals>
         PdaType
     }
 

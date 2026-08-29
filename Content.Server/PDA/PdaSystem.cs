@@ -59,6 +59,8 @@ namespace Content.Server.PDA
             SubscribeLocalEvent<PdaComponent, PdaShowMusicMessage>(OnUiMessage);
             SubscribeLocalEvent<PdaComponent, PdaShowUplinkMessage>(OnUiMessage);
             SubscribeLocalEvent<PdaComponent, PdaLockUplinkMessage>(OnUiMessage);
+            SubscribeLocalEvent<PdaComponent, PdaPowerOffMessage>(OnUiMessage); // <Onyx-PdaPower>
+            SubscribeLocalEvent<PdaComponent, PdaSetThemeMessage>(OnUiMessage); // <Onyx-PdaTheme>
 
             SubscribeLocalEvent<PdaComponent, CartridgeLoaderNotificationSentEvent>(OnNotification);
 
@@ -191,6 +193,11 @@ namespace Content.Server.PDA
             if (!Resolve(uid, ref pda, false))
                 return;
 
+            // <Onyx-PdaScreenVisuals>
+            if (TryGetPdaScreen(uid, _ui.IsUiOpen(uid, PdaUiKey.Key), out var screen))
+                Appearance.SetData(uid, PdaVisuals.ScreenState, screen);
+            // </Onyx-PdaScreenVisuals>
+
             if (!_ui.HasUi(uid, PdaUiKey.Key))
                 return;
 
@@ -230,8 +237,28 @@ namespace Content.Server.PDA
                 hasInstrument,
                 address);
 
+            state.ThemeAccent = pda.ThemeAccent; // <Onyx-PdaTheme>
+
             _ui.SetUiState(uid, PdaUiKey.Key, state);
         }
+
+        // <Onyx-PdaTheme>
+        private void OnUiMessage(EntityUid uid, PdaComponent pda, PdaSetThemeMessage msg)
+        {
+            if (!PdaUiKey.Key.Equals(msg.UiKey))
+                return;
+
+            if (!float.IsFinite(msg.Accent.R) || !float.IsFinite(msg.Accent.G) || !float.IsFinite(msg.Accent.B))
+                return;
+
+            var accent = new Color(
+                Math.Clamp(msg.Accent.R, 0f, 1f),
+                Math.Clamp(msg.Accent.G, 0f, 1f),
+                Math.Clamp(msg.Accent.B, 0f, 1f));
+            pda.ThemeAccent = accent;
+            UpdatePdaUi(uid, pda);
+        }
+        // </Onyx-PdaTheme>
 
         private void OnPdaOpen(Entity<PdaComponent> ent, ref BoundUIOpenedEvent args)
         {
@@ -276,6 +303,22 @@ namespace Content.Server.PDA
             if (TryComp<InstrumentComponent>(uid, out var instrument))
                 _instrument.ToggleInstrumentUi(uid, msg.Actor, instrument);
         }
+
+        // <Onyx-PdaPower>
+        private void OnUiMessage(EntityUid uid, PdaComponent pda, PdaPowerOffMessage msg)
+        {
+            if (!PdaUiKey.Key.Equals(msg.UiKey))
+                return;
+
+            if (TryComp<CartridgeLoaderComponent>(uid, out var loader) && loader.ActiveProgram is { } activeProgram)
+                _cartridgeLoader.DeactivateProgram((uid, loader), activeProgram);
+
+            if (TryGetPdaScreen(uid, false, out var screen))
+                Appearance.SetData(uid, PdaVisuals.ScreenState, screen);
+
+            _ui.CloseUi(uid, PdaUiKey.Key, msg.Actor);
+        }
+        // </Onyx-PdaPower>
 
         private void OnUiMessage(EntityUid uid, PdaComponent pda, PdaShowUplinkMessage msg)
         {
