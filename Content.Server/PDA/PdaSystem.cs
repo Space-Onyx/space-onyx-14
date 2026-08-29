@@ -237,7 +237,7 @@ namespace Content.Server.PDA
                 hasInstrument,
                 address);
 
-            state.ThemeAccent = pda.ThemeAccent; // <Onyx-PdaTheme>
+            state.ThemeAccent = pda.ThemeOverride ?? pda.ThemeAccent; // <Onyx-PdaTheme>
 
             _ui.SetUiState(uid, PdaUiKey.Key, state);
         }
@@ -248,14 +248,21 @@ namespace Content.Server.PDA
             if (!PdaUiKey.Key.Equals(msg.UiKey))
                 return;
 
-            if (!float.IsFinite(msg.Accent.R) || !float.IsFinite(msg.Accent.G) || !float.IsFinite(msg.Accent.B))
+            if (msg.Accent is not { } requested)
+            {
+                pda.ThemeOverride = null;
+                UpdatePdaUi(uid, pda);
+                return;
+            }
+
+            if (!float.IsFinite(requested.R) || !float.IsFinite(requested.G) || !float.IsFinite(requested.B))
                 return;
 
             var accent = new Color(
-                Math.Clamp(msg.Accent.R, 0f, 1f),
-                Math.Clamp(msg.Accent.G, 0f, 1f),
-                Math.Clamp(msg.Accent.B, 0f, 1f));
-            pda.ThemeAccent = accent;
+                Math.Clamp(requested.R, 0f, 1f),
+                Math.Clamp(requested.G, 0f, 1f),
+                Math.Clamp(requested.B, 0f, 1f));
+            pda.ThemeOverride = accent;
             UpdatePdaUi(uid, pda);
         }
         // </Onyx-PdaTheme>

@@ -40,6 +40,7 @@
     sprite: Objects/Devices/pda.rsi
     state: pda
   - type: Pda
+    themeAccent: "#6B9A88" # <Onyx-PdaTheme>
     paiSlot:
       priority: -2
       whitelist:
@@ -179,6 +180,8 @@
   id: BaseSecurityPDA
   abstract: true
   components:
+  - type: Pda
+    themeAccent: "#B54B45" # <Onyx-PdaTheme>
   - type: EntityTableContainerFill
     containers:
       preinstalled-program-container: !type:AllSelector
@@ -198,6 +201,8 @@
   id: BaseMedicalPDA
   abstract: true
   components:
+  - type: Pda
+    themeAccent: "#4F9AB5" # <Onyx-PdaTheme>
   - type: EntityTableContainerFill
     containers:
       preinstalled-program-container: !type:AllSelector
@@ -231,6 +236,7 @@
   components:
   - type: Pda
     id: TechnicalAssistantIDCard
+    themeAccent: "#D0A93D" # <Onyx-PdaTheme>
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:
@@ -291,6 +297,7 @@
   components:
   - type: Pda
     id: ResearchAssistantIDCard
+    themeAccent: "#9B62C7" # <Onyx-PdaTheme>
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:
@@ -516,6 +523,7 @@
   components:
   - type: Pda
     id: QuartermasterIDCard
+    themeAccent: "#C58B52" # <Onyx-PdaTheme>
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:
@@ -548,6 +556,7 @@
   components:
   - type: Pda
     id: CargoIDCard
+    themeAccent: "#C58B52" # <Onyx-PdaTheme>
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:
@@ -566,6 +575,7 @@
   components:
   - type: Pda
     id: SalvageIDCard
+    themeAccent: "#C58B52" # <Onyx-PdaTheme>
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:
@@ -704,6 +714,7 @@
   components:
   - type: Pda
     id: CaptainIDCard
+    themeAccent: "#4E82B5" # <Onyx-PdaTheme>
     penSlot:
       startingItem: PenCap
       priority: -1
@@ -728,6 +739,7 @@
   components:
   - type: Pda
     id: HoPIDCard
+    themeAccent: "#4E82B5" # <Onyx-PdaTheme>
     penSlot:
       startingItem: PenHop
       priority: -1
@@ -753,6 +765,7 @@
   components:
   - type: Pda
     id: CEIDCard
+    themeAccent: "#D0A93D" # <Onyx-PdaTheme>
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:
@@ -772,6 +785,7 @@
   components:
   - type: Pda
     id: EngineeringIDCard
+    themeAccent: "#D0A93D" # <Onyx-PdaTheme>
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:
@@ -882,6 +896,7 @@
   components:
   - type: Pda
     id: RDIDCard
+    themeAccent: "#9B62C7" # <Onyx-PdaTheme>
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:
@@ -902,6 +917,7 @@
   components:
   - type: Pda
     id: ResearchIDCard
+    themeAccent: "#9B62C7" # <Onyx-PdaTheme>
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:
@@ -991,6 +1007,7 @@
   components:
   - type: Pda
     id: CentcomIDCard
+    themeAccent: "#1FCF6A" # <Onyx-PdaTheme>
     penSlot:
       startingItem: PenCentcom
       priority: -1
@@ -1111,6 +1128,7 @@
   components:
   - type: Pda
     id: AtmosIDCard
+    themeAccent: "#D0A93D" # <Onyx-PdaTheme>
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:
@@ -1537,6 +1555,7 @@
   components:
   - type: Pda
     id: SeniorEngineerIDCard
+    themeAccent: "#D0A93D" # <Onyx-PdaTheme>
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:
@@ -1556,6 +1575,7 @@
   components:
   - type: Pda
     id: SeniorResearcherIDCard
+    themeAccent: "#9B62C7" # <Onyx-PdaTheme>
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:
@@ -1615,6 +1635,7 @@
   components:
   - type: Pda
     id: SeniorCourierIDCard
+    themeAccent: "#C58B52" # <Onyx-PdaTheme>
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:

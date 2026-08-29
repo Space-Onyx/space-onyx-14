@@ -43,6 +43,9 @@ namespace Content.Shared.PDA
         // <Onyx-PdaTheme>
         [DataField]
         public Color ThemeAccent = Color.FromHex("#6B9A88");
+
+        [ViewVariables]
+        public Color? ThemeOverride;
         // </Onyx-PdaTheme>
     }
 }

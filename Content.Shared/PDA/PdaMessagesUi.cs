@@ -50,11 +50,11 @@ public sealed class PdaRequestUpdateInterfaceMessage : BoundUserInterfaceMessage
 [Serializable, NetSerializable]
 public sealed class PdaSetThemeMessage : BoundUserInterfaceMessage
 {
-    public Color Accent;
+    public Color? Accent;
 
     public PdaSetThemeMessage() { }
 
-    public PdaSetThemeMessage(Color accent)
+    public PdaSetThemeMessage(Color? accent)
     {
         Accent = accent;
     }

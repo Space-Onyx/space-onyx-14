@@ -41,17 +41,19 @@ public sealed partial class ModernPdaMenu : PdaWindow
 
     private static readonly (string LocKey, Color Color)[] ThemePresets =
     [
-        ("pda-modern-theme-mint", Color.FromHex("#6B9A88")),
-        ("pda-modern-theme-amber", Color.FromHex("#B58A52")),
-        ("pda-modern-theme-ice", Color.FromHex("#6C9DBA")),
-        ("pda-modern-theme-violet", Color.FromHex("#9879B5")),
-        ("pda-modern-theme-red", Color.FromHex("#B56C73")),
+        ("pda-modern-theme-civilian", Color.FromHex("#6B9A88")),
+        ("pda-modern-theme-engineering", Color.FromHex("#D0A93D")),
+        ("pda-modern-theme-medical", Color.FromHex("#4F9AB5")),
+        ("pda-modern-theme-science", Color.FromHex("#9B62C7")),
+        ("pda-modern-theme-security", Color.FromHex("#B54B45")),
+        ("pda-modern-theme-cargo", Color.FromHex("#C58B52")),
+        ("pda-modern-theme-command", Color.FromHex("#4E82B5")),
     ];
 
     public event Action<EntityUid>? OnProgramItemPressed;
     public event Action<EntityUid>? OnUninstallButtonPressed;
     public event Action<EntityUid>? OnInstallButtonPressed;
-    public event Action<Color>? OnThemeChanged; // <Onyx-PdaTheme>
+    public event Action<Color?>? OnThemeChanged; // <Onyx-PdaTheme>
 
     public ModernPdaMenu()
     {
@@ -102,7 +104,10 @@ public sealed partial class ModernPdaMenu : PdaWindow
             SetTheme(ThemePresets[args.Id].Color);
         };
         ThemePicker.OnColorChanged += accent => SetTheme(accent, true);
-        ThemeResetButton.OnPressed += _ => SetTheme(ThemePresets[0].Color);
+        ThemeResetButton.OnPressed += _ =>
+        {
+            OnThemeChanged?.Invoke(null);
+        };
 
         HideAllViews();
         ToHomeScreen();
