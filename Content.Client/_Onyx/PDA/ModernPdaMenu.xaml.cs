@@ -103,7 +103,7 @@ public sealed partial class ModernPdaMenu : PdaWindow
             ThemePreset.SelectId(args.Id);
             SetTheme(ThemePresets[args.Id].Color);
         };
-        ThemePicker.OnColorChanged += accent => SetTheme(accent, true);
+        ThemePicker.OnColorChanged += accent => SetTheme(accent, true, false);
         ThemeResetButton.OnPressed += _ =>
         {
             OnThemeChanged?.Invoke(null);
@@ -246,16 +246,18 @@ public sealed partial class ModernPdaMenu : PdaWindow
         ChangeView(view);
     }
 
-    private void SetTheme(Color accent, bool notify = true)
+    private void SetTheme(Color accent, bool notify = true, bool syncPicker = true)
     {
         if (_applyingTheme)
             return;
 
         _applyingTheme = true;
+        var changed = accent != _themeAccent;
         _themeAccent = accent;
         if (notify)
             OnThemeChanged?.Invoke(accent);
-        ThemePicker.Color = accent;
+        if (syncPicker && changed)
+            ThemePicker.Color = accent;
         ThemeColorPreview.PanelOverride = new StyleBoxFlat { BackgroundColor = accent };
 
         var border = Color.FromHex(accent.ToHex());
@@ -266,15 +268,18 @@ public sealed partial class ModernPdaMenu : PdaWindow
         ((StyleBoxFlat) ThemePanel.PanelOverride!).BorderColor = border;
         AlertHeaderLabel.FontColorOverride = accent;
 
-        HomeButton.ActiveBgColor = accent.ToHex();
-        ProgramListButton.ActiveBgColor = accent.ToHex();
-        SettingsButton.ActiveBgColor = accent.ToHex();
+        HomeButton.ActiveFgColor = accent.ToHex();
+        ProgramListButton.ActiveFgColor = accent.ToHex();
+        SettingsButton.ActiveFgColor = accent.ToHex();
         ProgramCloseButton.InactiveBgColor = accent.ToHex();
         ProgramCloseButton.InactiveFgColor = "#FFFFFF";
         RefreshNavigationButton(HomeButton);
         RefreshNavigationButton(ProgramListButton);
         RefreshNavigationButton(SettingsButton);
         RefreshNavigationButton(ProgramTitle);
+        HomeButton.IsActive = true;
+        ProgramListButton.IsActive = true;
+        SettingsButton.IsActive = true;
         RefreshNavigationButton(ProgramCloseButton);
         ProgramCloseButton.IsActive = false;
 

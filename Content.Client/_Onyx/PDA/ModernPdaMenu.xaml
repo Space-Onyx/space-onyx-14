@@ -12,14 +12,17 @@
             </PanelContainer.PanelOverride>
         <BoxContainer Name="NavigationBar" HorizontalExpand="True">
             <vanilla:PdaNavigationButton Name="HomeButton" SetWidth="44" IsCurrent="True"
-                                         InactiveBgColor="#1B2026" ActiveBgColor="#293A35"
+                                         InactiveBgColor="#1B2026" ActiveBgColor="#252C31"
+                                         InactiveFgColor="#84918C" ActiveFgColor="#FFFFFF"
                                          CurrentTabBorderThickness="0 0 0 2" />
             <vanilla:PdaNavigationButton Name="ProgramListButton" Access="Public" SetWidth="108"
-                                         InactiveBgColor="#1B2026" ActiveBgColor="#293A35"
+                                         InactiveBgColor="#1B2026" ActiveBgColor="#252C31"
+                                         InactiveFgColor="#84918C" ActiveFgColor="#FFFFFF"
                                          CurrentTabBorderThickness="0 0 0 2"
                                          LabelText="{Loc 'comp-pda-io-program-list-button'}" />
             <vanilla:PdaNavigationButton Name="SettingsButton" SetWidth="108"
-                                         InactiveBgColor="#1B2026" ActiveBgColor="#293A35"
+                                         InactiveBgColor="#1B2026" ActiveBgColor="#252C31"
+                                         InactiveFgColor="#84918C" ActiveFgColor="#FFFFFF"
                                          CurrentTabBorderThickness="0 0 0 2"
                                          LabelText="{Loc 'comp-pda-io-settings-button'}" />
             <vanilla:PdaNavigationButton Name="ProgramTitle" Access="Public" HorizontalExpand="True"
@@ -31,16 +34,19 @@
                                          IconScale="0.5 0.5" Visible="False" IsActive="False" />
             <vanilla:PdaNavigationButton Name="FlashLightToggleButton" Access="Public" ToggleMode="True"
                                          InactiveBgColor="#1B2026" ActiveBgColor="#35463E"
-                                         InactiveFgColor="#66716D" ActiveFgColor="#F2EBAA" SetWidth="32"
+                                         InactiveFgColor="#84918C" ActiveFgColor="#F2EBAA" SetWidth="32"
                                          ToolTip="{Loc 'comp-pda-ui-toggle-flashlight-button'}" />
             <vanilla:PdaNavigationButton Name="EjectPenButton" Access="Public" SetWidth="32"
                                          InactiveBgColor="#1B2026" ActiveBgColor="#20262C"
+                                         InactiveFgColor="#84918C" ActiveFgColor="#D7E5DF"
                                          ToolTip="{Loc 'comp-pda-ui-eject-pen-button'}" />
             <vanilla:PdaNavigationButton Name="EjectIdButton" Access="Public" SetWidth="32"
                                          InactiveBgColor="#1B2026" ActiveBgColor="#20262C"
+                                         InactiveFgColor="#84918C" ActiveFgColor="#D7E5DF"
                                          ToolTip="{Loc 'comp-pda-ui-eject-id-button'}" />
             <vanilla:PdaNavigationButton Name="EjectPaiButton" Access="Public" SetWidth="32"
                                          InactiveBgColor="#1B2026" ActiveBgColor="#20262C"
+                                         InactiveFgColor="#84918C" ActiveFgColor="#D7E5DF"
                                          ToolTip="{Loc 'pda-modern-eject-pai'}" />
             <vanilla:PdaNavigationButton Name="PowerOffButton" Access="Public" SetWidth="32"
                                          InactiveBgColor="#1B2026" ActiveBgColor="#3D2428"
