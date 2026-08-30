@@ -10,6 +10,8 @@ namespace Content.Client._CorvaxGoob.Photo.UI;
 
 public sealed partial class PhotoCameraBoundUserInterface : BoundUserInterface
 {
+    private const float ControlSoundTail = 0.2f; // <Onyx-PhotoCamera>
+
     private readonly EyeSystem _eyeSystem;
     private readonly PhotoSystem _photoSystem;
     private readonly TransformSystem _transform;
@@ -21,9 +23,10 @@ public sealed partial class PhotoCameraBoundUserInterface : BoundUserInterface
     private EntityUid? _cameraEntity;
     private Vector2 _zoomPos = Vector2.Zero;
     private float _zoomValue = 1f;
-    private float _controlVolume;
     private IAudioSource? _controlSound;
+    private float _controlSoundRemaining; // <Onyx-PhotoCamera>
     private bool _capturePending;
+    private bool _disposed; // <Onyx-PhotoCamera>
 
     public PhotoCameraBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
@@ -38,6 +41,7 @@ public sealed partial class PhotoCameraBoundUserInterface : BoundUserInterface
 
         _window = this.CreateWindow<PhotoCameraWindow>();
         _window.OnTakeImageAttempt += AttemptTakeImage;
+        _window.OnClose += Close; // <Onyx-PhotoCamera>
 
         if (!_cache.TryGetResource("/Audio/_CorvaxGoob/Effects/servo_effect.ogg", out AudioResource? resource))
             return;
@@ -48,8 +52,7 @@ public sealed partial class PhotoCameraBoundUserInterface : BoundUserInterface
 
         _controlSound.Global = true;
         _controlSound.Looping = true;
-        _controlSound.Volume = float.NegativeInfinity;
-        _controlSound.Restart();
+        _controlSound.Volume = 2f; // <Onyx-PhotoCamera-edited>
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)
@@ -60,7 +63,7 @@ public sealed partial class PhotoCameraBoundUserInterface : BoundUserInterface
         _cameraEntity = EntMan.GetEntity(cast.CameraEntity);
         if (EntMan.TryGetComponent<PhotoCameraComponent>(_cameraEntity, out var component))
         {
-            _photoSystem.OpenCameraUi(component, this);
+            _photoSystem.OpenCameraUi(_cameraEntity.Value, this); // <Onyx-PhotoCamera-edited>
             UpdateControl(component, 1);
         }
 
@@ -70,12 +73,22 @@ public sealed partial class PhotoCameraBoundUserInterface : BoundUserInterface
 
     protected override void Dispose(bool disposing)
     {
-        base.Dispose(disposing);
-
+        // <Onyx-PhotoCamera-edited>
+        _disposed = true;
         _photoSystem.CloseCameraUi(this);
         _cameraEntity = null;
         _controlSound?.Dispose();
-        _window?.OnDispose();
+        _controlSound = null;
+        if (_window != null)
+        {
+            _window.OnTakeImageAttempt -= AttemptTakeImage;
+            _window.OnClose -= Close;
+            _window.OnDispose();
+            _window = null;
+        }
+
+        base.Dispose(disposing);
+        // </Onyx-PhotoCamera-edited>
     }
 
     public void UpdateControl(PhotoCameraComponent component, float frameTime)
@@ -110,10 +123,18 @@ public sealed partial class PhotoCameraBoundUserInterface : BoundUserInterface
         if (_controlSound == null)
             return;
 
-        var targetVolume = delta != Vector3.Zero ? 2f : -20f;
-        _controlVolume = delta.Z != 0 ? 2f : _controlVolume;
-        _controlVolume = Math.Clamp(_controlVolume + (targetVolume - _controlVolume) * frameTime, -20f, 2f);
-        _controlSound.Volume = _controlVolume > -20f ? _controlVolume : float.NegativeInfinity;
+        // <Onyx-PhotoCamera-edited>
+        if (delta != Vector3.Zero)
+        {
+            _controlSoundRemaining = ControlSoundTail;
+            _controlSound.StartPlaying();
+        }
+        else if ((_controlSoundRemaining -= frameTime) <= 0f)
+        {
+            _controlSoundRemaining = 0f;
+            _controlSound.StopPlaying();
+        }
+        // </Onyx-PhotoCamera-edited>
     }
 
     private void AttemptTakeImage()
@@ -124,8 +145,11 @@ public sealed partial class PhotoCameraBoundUserInterface : BoundUserInterface
         _capturePending = true;
         _window.RenderImage(bytes =>
         {
+            // <Onyx-PhotoCamera-edited>
             _capturePending = false;
-            SendMessage(new PhotoCameraTakeImageMessage(bytes));
+            if (!_disposed && bytes != null)
+                SendMessage(new PhotoCameraTakeImageMessage(bytes));
+            // </Onyx-PhotoCamera-edited>
         });
     }
 }

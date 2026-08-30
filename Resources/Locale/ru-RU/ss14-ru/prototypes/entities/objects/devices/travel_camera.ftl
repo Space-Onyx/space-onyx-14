@@ -1,5 +1,7 @@
+# <Onyx-PhotoCamera-edited>
 ent-TravelCamera = фотоаппарат для путешествий
-    .desc = Одна картинка стоит тысячи слов. В комплекте сверхяркая вспышка и встроенная перезаряжаемая фотопленка.
+    .desc = Одна фотография стоит тысячи слов. Для печати используется бумага.
+# </Onyx-PhotoCamera-edited>
 ent-BasePhotograph = фотография
     .desc = { ent-BasePaper.desc }
 ent-PhotographBlack = { ent-BasePhotograph }

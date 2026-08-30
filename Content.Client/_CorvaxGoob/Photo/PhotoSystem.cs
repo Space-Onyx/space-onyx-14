@@ -5,20 +5,25 @@ namespace Content.Client._CorvaxGoob.Photo;
 
 public sealed partial class PhotoSystem : SharedPhotoSystem
 {
-    private readonly Dictionary<PhotoCameraBoundUserInterface, PhotoCameraComponent> _activeCameras = new();
+    // <Onyx-PhotoCamera-edited>
+    private readonly Dictionary<PhotoCameraBoundUserInterface, EntityUid> _activeCameras = new();
 
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
 
-        foreach (var (window, component) in _activeCameras)
-            window.UpdateControl(component, frameTime);
+        foreach (var (window, camera) in _activeCameras)
+        {
+            if (TryComp<PhotoCameraComponent>(camera, out var component))
+                window.UpdateControl(component, frameTime);
+        }
     }
 
-    public void OpenCameraUi(PhotoCameraComponent component, PhotoCameraBoundUserInterface window)
+    public void OpenCameraUi(EntityUid camera, PhotoCameraBoundUserInterface window)
     {
-        _activeCameras[window] = component;
+        _activeCameras[window] = camera;
     }
+    // </Onyx-PhotoCamera-edited>
 
     public void CloseCameraUi(PhotoCameraBoundUserInterface window)
     {

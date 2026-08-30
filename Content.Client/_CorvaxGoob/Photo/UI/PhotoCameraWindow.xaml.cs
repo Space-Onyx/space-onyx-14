@@ -74,14 +74,29 @@ public sealed partial class PhotoCameraWindow : FancyWindow
         PaperIndicator.TexturePath = $"/Textures/_CorvaxGoob/Interface/Misc/Photo/paper_{(hasPaper ? "on" : "off")}.png";
     }
 
-    public void RenderImage(Action<byte[]> callback)
+    public void RenderImage(Action<byte[]?> callback)
     {
         CameraView.Screenshot(image =>
         {
-            using var data = new MemoryStream();
-            image.SaveAsPng(data);
-            image.Dispose();
-            callback(data.ToArray());
+            // <Onyx-PhotoCamera-edited>
+            using (image)
+            {
+                byte[] data;
+                try
+                {
+                    using var stream = new MemoryStream();
+                    image.SaveAsPng(stream);
+                    data = stream.ToArray();
+                }
+                catch
+                {
+                    callback(null);
+                    return;
+                }
+
+                callback(data);
+            }
+            // </Onyx-PhotoCamera-edited>
         });
     }
 

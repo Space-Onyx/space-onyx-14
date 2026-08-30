@@ -43,6 +43,16 @@
   - type: Sprite
     sprite: _CorvaxGoob/Objects/Misc/camera.rsi
     state: card
+  # <Onyx-PhotoCamera>
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: paper-inhand-left
+        sprite: Objects/Misc/bureaucracy.rsi
+      right:
+      - state: paper-inhand-right
+        sprite: Objects/Misc/bureaucracy.rsi
+  # </Onyx-PhotoCamera>
   - type: ActivatableUI
     key: enum.PhotoCardUiKey.Key
     requiresComplex: false

@@ -2,30 +2,36 @@
   parent: BaseItem
   id: TravelCamera
   name: travel camera
-  description: A picture says more than a thousand words. Comes with an ultrabright flash and internal recharging photo roll.
+  description: A picture says more than a thousand words. Uses paper for printing.
   components:
-    # aptly named component for picture taking
-  - type: PictureTaker
-    photographs: !type:GroupSelector
-      children:
-      - !type:NestedSelector
-        tableId: TravelCameraPhotographs
+  # <Onyx-PhotoCamera-edited>
+  - type: Eye
+  - type: PhotoCamera
+  - type: ActivatableUI
+    key: enum.PhotoCameraUiKey.Key
+    inHandsOnly: true
+  - type: UserInterface
+    interfaces:
+      enum.PhotoCameraUiKey.Key:
+        type: PhotoCameraBoundUserInterface
+  - type: MaterialStorage
+    whitelist:
+      tags:
+      - Paper
+    blacklist:
+      tags:
+      - InfinityPaper
+    storage:
+      Paper: 400
   - type: Sprite
     sprite: Objects/Devices/travel_camera.rsi
     state: icon
-  - type: Flash
-    flashOnRangedInteract: true
-    sound: !type:SoundPathSpecifier
-      path: /Audio/Misc/camera_snap.ogg
   - type: MeleeWeapon # allows using the camera in melee
     damage:
       types:
         Blunt: 0
-  - type: LimitedCharges
-    maxCharges: 4
-  - type: AutoRecharge
-    rechargeDuration: 60
   - type: UseDelay
+  # </Onyx-PhotoCamera-edited>
   - type: StaticPrice
     price: 100
   - type: Clothing
@@ -39,6 +45,17 @@
   parent: BasePaper
   id: BasePhotograph
   name: photograph
+  components:
+  # <Onyx-PhotoCamera>
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: paper-inhand-left
+        sprite: Objects/Misc/bureaucracy.rsi
+      right:
+      - state: paper-inhand-right
+        sprite: Objects/Misc/bureaucracy.rsi
+  # </Onyx-PhotoCamera>
 
 - type: entity
   parent: BasePhotograph

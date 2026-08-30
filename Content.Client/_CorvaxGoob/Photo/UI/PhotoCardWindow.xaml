@@ -2,17 +2,13 @@
     xmlns:photo="clr-namespace:Content.Client._CorvaxGoob.Photo.UI"
     xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
     MouseFilter="Stop" Resizable="False">
-    <BoxContainer Orientation="Vertical">
-        <PanelContainer StyleClasses="AngleRect" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="6">
-            <TextureButton Name="CloseButton" StyleClasses="windowCloseButton"/>
-        </PanelContainer>
-        <PanelContainer Name="PaperBackground" StyleIdentifier="PaperDefaultBorder" VerticalExpand="True" HorizontalExpand="True">
-            <PanelContainer Margin="5 5">
-                <PanelContainer.PanelOverride>
-                    <gfx:StyleBoxFlat BackgroundColor="#090E25"/>
-                </PanelContainer.PanelOverride>
-            </PanelContainer>
-            <TextureRect Name="ImageDisplay" VerticalExpand="True" HorizontalExpand="True" SetSize="400 400" Margin="5 5" Stretch="Scale"/>
-        </PanelContainer>
-    </BoxContainer>
+    <!-- <Onyx-PhotoCamera-edited> -->
+    <PanelContainer>
+        <PanelContainer.PanelOverride>
+            <gfx:StyleBoxFlat BackgroundColor="#FFFFFF"/>
+        </PanelContainer.PanelOverride>
+        <TextureRect Name="ImageDisplay" VerticalExpand="True" HorizontalExpand="True" SetSize="400 400" Margin="7 27 7 7" Stretch="Scale"/>
+        <TextureButton Name="CloseButton" StyleClasses="windowCloseButton" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 3 3 0"/>
+    </PanelContainer>
+    <!-- </Onyx-PhotoCamera-edited> -->
 </photo:PhotoCardWindow>
