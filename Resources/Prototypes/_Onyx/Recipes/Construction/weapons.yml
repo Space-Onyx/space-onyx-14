@@ -1,6 +1,6 @@
 - type: construction
-  id: Molotov
+  id: UnlitMolotov
   graph: MolotovConstruction
-  targetNode: LitMolotov
+  targetNode: UnlitMolotov
   category: construction-category-weapons
   objectType: Item

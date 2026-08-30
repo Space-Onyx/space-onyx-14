@@ -20,10 +20,5 @@
         doAfter: 1
   - node: UnlitMolotov
     entity: UnlitMolotov
-    edges:
-    - to: LitMolotov
-      steps:
-      - tool: Ignition
-        doAfter: 0
   - node: LitMolotov
     entity: Molotov

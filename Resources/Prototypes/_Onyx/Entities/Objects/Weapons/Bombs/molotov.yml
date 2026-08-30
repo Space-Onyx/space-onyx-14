@@ -16,28 +16,43 @@
   - type: Construction
     graph: MolotovConstruction
     node: UnlitMolotov
+  - type: ChangeConstructionNodeOnIgnite
+    targetNode: LitMolotov
+  - type: Flammable
+    alwaysCombustible: true
+    damage:
+      types:
+        Heat: 1
+  - type: Appearance
+  - type: FireVisuals
+    sprite: Effects/fire.rsi
+    normalState: fire
   - type: Damageable
     damageContainer: Inorganic
+    damageModifierSet: FlimsyGlass
   - type: Explosive
     explosionType: Molotov
-    totalIntensity: 1
+    totalIntensity: 25
     intensitySlope: 5
-    maxIntensity: 1
+    maxIntensity: 3
     canCreateVacuum: false
   - type: Destructible
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 15
+        damage: 5
       behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: GlassBreak
       - !type:ExplodeBehavior
       - !type:SpawnEntitiesBehavior
         spawn:
           molotovfire:
             min: 1
             max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
 
 - type: entity
   parent: BaseItem
@@ -51,13 +66,21 @@
     - state: lit
   - type: TimerTrigger
     delay: 10
+    examinable: false
+  - type: TriggerOnSpawn
+  - type: TriggerOnLand
+    keyOut: impact
+  - type: TriggerOnCollide
+    keyOut: impact
+    fixtureID: fix1
+    maxTriggers: 1
   - type: Item
     sprite: _Onyx/Objects/Weapons/Bombs/Molotov.rsi
   - type: Explosive
     explosionType: Molotov
-    totalIntensity: 1
+    totalIntensity: 25
     intensitySlope: 5
-    maxIntensity: 1
+    maxIntensity: 3
     canCreateVacuum: false
   - type: PointLight
     enabled: true
@@ -65,10 +88,14 @@
     radius: 2.0
     energy: 1.0
   - type: ExplodeOnTrigger
+    keysIn:
+    - timer
+    - impact
   - type: Appearance
   - type: AnimationPlayer
   - type: Damageable
     damageContainer: Inorganic
+    damageModifierSet: FlimsyGlass
   - type: Flammable
     fireSpread: true
     alwaysCombustible: true
@@ -82,20 +109,19 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 15
+        damage: 5
       behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: GlassBreak
       - !type:ExplodeBehavior
       - !type:SpawnEntitiesBehavior
         spawn:
           molotovfire:
             min: 1
             max: 1
-  - type: DamageOnLand
-    damage:
-      types:
-        Blunt: 15
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
   - type: Construction
     graph: MolotovConstruction
     node: LitMolotov
