@@ -13,12 +13,7 @@
     edges:
     - to: hammer
       steps:
-      - material: Screw
-        amount: 1
-        doAfter: 2
-      - tool: Screwing
-        doAfter: 1
-      - material: Screw
+      - material: Steel
         amount: 1
         doAfter: 2
       - tool: Screwing
