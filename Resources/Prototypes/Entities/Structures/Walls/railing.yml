@@ -19,7 +19,7 @@
   - type: InteractionOutline
   - type: Repairable
   - type: Damageable
-    damageModifierSet: SteelMod
+    damageModifierSet: RodMetalMod
   - type: Destructible
     thresholds:
     - trigger:
