@@ -46,6 +46,7 @@ public sealed partial class BitrunningPointsSystem : EntitySystem
             ent.Comp.Points += amount;
 
         Dirty(ent);
+        RaiseLocalEvent(ent.Owner, new BitrunningPointsChangedEvent());
         return true;
     }
 
@@ -56,6 +57,7 @@ public sealed partial class BitrunningPointsSystem : EntitySystem
 
         ent.Comp.Points -= amount;
         Dirty(ent);
+        RaiseLocalEvent(ent.Owner, new BitrunningPointsChangedEvent());
         return true;
     }
 
@@ -64,3 +66,5 @@ public sealed partial class BitrunningPointsSystem : EntitySystem
         return amount >= 0 && TryFindIdCard(user) is { } card && RemovePoints(card, (uint) amount);
     }
 }
+
+public readonly record struct BitrunningPointsChangedEvent;

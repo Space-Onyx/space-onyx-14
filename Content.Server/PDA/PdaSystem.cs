@@ -9,6 +9,7 @@ using Content.Server.Station.Systems;
 using Content.Server.Store.Systems;
 using Content.Server.Traitor.Uplink;
 using Content.Shared.Access.Components;
+using Content.Shared._Onyx.Bitrunning.Components; // <Onyx-PdaPoints>
 using Content.Shared._Onyx.Salvage.MiningPoints; // <Onyx-MiningPointsPda>
 using Content.Shared.AlertLevel;
 using Content.Shared.CartridgeLoader;
@@ -193,12 +194,7 @@ namespace Content.Server.PDA
             if (!Resolve(uid, ref pda, false))
                 return;
 
-            // <Onyx-PdaScreenVisuals>
-            if (TryGetPdaScreen(uid, _ui.IsUiOpen(uid, PdaUiKey.Key), out var screen))
-                Appearance.SetData(uid, PdaVisuals.ScreenState, screen);
-            // </Onyx-PdaScreenVisuals>
-
-            if (!_ui.HasUi(uid, PdaUiKey.Key))
+            if (!_ui.HasUi(uid, PdaUiKey.Key)) // <Onyx-PdaScreenVisuals-edited>
                 return;
 
             var address = GetDeviceNetAddress(uid);
@@ -217,6 +213,7 @@ namespace Content.Server.PDA
             var programs = GetNetEntityList(_cartridgeLoader.GetAllPrograms(uid).ToList());
             var id = CompOrNull<IdCardComponent>(pda.ContainedId);
             var miningPoints = CompOrNull<MiningPointsComponent>(pda.ContainedId)?.Points ?? 0; // <Onyx-MiningPointsPda>
+            var bitrunningPoints = CompOrNull<BitrunningPointsComponent>(pda.ContainedId)?.Points ?? 0; // <Onyx-PdaPoints>
             var state = new PdaUpdateState(
                 programs,
                 GetNetEntity(loader.ActiveProgram),
@@ -230,7 +227,8 @@ namespace Content.Server.PDA
                     JobTitle = id?.LocalizedJobTitle,
                     StationAlertLevel = pda.StationAlertLevel,
                     StationAlertColor = pda.StationAlertColor,
-                    MiningPoints = miningPoints // <Onyx-MiningPointsPda>
+                    MiningPoints = miningPoints, // <Onyx-MiningPointsPda-edited>
+                    BitrunningPoints = bitrunningPoints // <Onyx-PdaPoints>
                 },
                 pda.StationName,
                 showUplink,
@@ -272,6 +270,10 @@ namespace Content.Server.PDA
             if (!PdaUiKey.Key.Equals(args.UiKey))
                 return;
 
+            // <Onyx-PdaScreenVisuals>
+            if (TryGetPdaScreen(ent.Owner, true, out var screen))
+                Appearance.SetData(ent.Owner, PdaVisuals.ScreenState, screen);
+            // </Onyx-PdaScreenVisuals>
             UpdatePdaUi(ent.Owner, ent.Comp);
         }
 

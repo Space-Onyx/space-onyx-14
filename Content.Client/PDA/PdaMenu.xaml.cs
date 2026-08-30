@@ -166,11 +166,27 @@ namespace Content.Client.PDA
                 IdInfoLabel.SetMarkup(Loc.GetString("comp-pda-ui-blank"));
             }
 
-            // <Onyx-MiningPointsPda>
-            MiningPointsLabel.Visible = state.PdaOwnerInfo.MiningPoints > 0;
-            MiningPointsLabel.SetMarkup(Loc.GetString("comp-pda-ui-mining-points",
-                ("points", state.PdaOwnerInfo.MiningPoints)));
-            // </Onyx-MiningPointsPda>
+            // <Onyx-PdaPoints-edited>
+            var hasMiningPoints = state.PdaOwnerInfo.MiningPoints > 0;
+            var hasBitrunningPoints = state.PdaOwnerInfo.BitrunningPoints > 0;
+            MiningPointsLabel.Visible = hasMiningPoints || hasBitrunningPoints;
+            if (hasMiningPoints && hasBitrunningPoints)
+            {
+                MiningPointsLabel.SetMarkup(Loc.GetString("comp-pda-ui-points",
+                    ("miningPoints", state.PdaOwnerInfo.MiningPoints),
+                    ("bitrunningPoints", state.PdaOwnerInfo.BitrunningPoints)));
+            }
+            else if (hasMiningPoints)
+            {
+                MiningPointsLabel.SetMarkup(Loc.GetString("comp-pda-ui-mining-points",
+                    ("points", state.PdaOwnerInfo.MiningPoints)));
+            }
+            else if (hasBitrunningPoints)
+            {
+                MiningPointsLabel.SetMarkup(Loc.GetString("comp-pda-ui-bitrunning-points",
+                    ("points", state.PdaOwnerInfo.BitrunningPoints)));
+            }
+            // </Onyx-PdaPoints-edited>
 
             _stationName = state.StationName ?? Loc.GetString("comp-pda-ui-unknown");
             StationNameLabel.SetMarkup(Loc.GetString("comp-pda-ui-station",

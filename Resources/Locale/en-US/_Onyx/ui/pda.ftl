@@ -1,4 +1,6 @@
 comp-pda-ui-mining-points = Mining points: { $points }
+comp-pda-ui-bitrunning-points = Bitrunning points: { $points }
+comp-pda-ui-points = Mining points: { $miningPoints } | Bitrunning points: { $bitrunningPoints }
 pda-modern-identity = IDENTITY
 pda-modern-station = STATION
 pda-modern-shift = SHIFT

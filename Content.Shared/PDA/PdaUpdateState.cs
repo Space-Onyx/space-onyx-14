@@ -52,5 +52,6 @@ namespace Content.Shared.PDA
         public string? StationAlertLevel;
         public Color StationAlertColor;
         public int MiningPoints; // <Onyx-MiningPointsPda>
+        public uint BitrunningPoints; // <Onyx-PdaPoints>
     }
 }
