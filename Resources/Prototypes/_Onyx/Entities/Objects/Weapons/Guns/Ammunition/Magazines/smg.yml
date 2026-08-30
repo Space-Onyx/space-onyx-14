@@ -1,0 +1,60 @@
+- type: entity
+  parent: BaseItem
+  id: MagazineSMGP90
+  name: SMG top mounted magazine (9mm auto)
+  components:
+  - type: Tag
+    tags:
+    - MagazineSMGP90
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    proto: CartridgePistol
+    whitelist:
+      tags:
+      - CartridgePistol
+    capacity: 50
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazines/Pistol/SMG_P90_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Appearance
+
+- type: entity
+  parent: BaseMagazinePistolSubMachineGun
+  id: MagazineSMGVector
+  name: Vector magazine (9mm auto)
+  components:
+  - type: Tag
+    tags:
+    - MagazineSMGVector
+  - type: BallisticAmmoProvider
+    proto: CartridgePistol
+    capacity: 20
+    whitelist:
+      tags:
+      - CartridgePistol
+    soundInsert:
+      path: /Audio/Weapons/Guns/MagIn/bullet_insert.ogg
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazines/Pistol/SMG_vector.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false

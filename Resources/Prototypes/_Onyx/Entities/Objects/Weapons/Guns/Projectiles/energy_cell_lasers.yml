@@ -52,6 +52,20 @@
     impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light_xray }
 
 - type: entity
+  id: SMGLaserPulse
+  parent: BasicHitscan
+  categories: [HideSpawnMenu]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types: { Heat: 19 }
+      armorPenetration: 1
+  - type: HitscanBasicVisuals
+    muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light_pulse }
+    travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light_pulse }
+    impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light_pulse }
+
+- type: entity
   id: SniperRedLaser
   parent: BasicHitscan
   categories: [HideSpawnMenu]

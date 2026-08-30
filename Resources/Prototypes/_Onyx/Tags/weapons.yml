@@ -81,3 +81,18 @@
 
 - type: Tag
   id: MagazineRifle762Sniper
+
+- type: Tag
+  id: MagazineSMGP90
+
+- type: Tag
+  id: MagazineSMGVector
+
+- type: Tag
+  id: MagazineHeavyRifle45
+
+- type: Tag
+  id: Cartridge308win
+
+- type: Tag
+  id: MagazinePistol20

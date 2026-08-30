@@ -95,6 +95,19 @@
     fireCost: 50
 
 - type: entity
+  id: PowerCellPulseSMG
+  parent: BaseMilitaryPowerCellSMG
+  name: pulse SMG power cell
+  description: A militarized power cell compatible with SMG scale lasers that fires pulse beams.
+  suffix: Full
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/energy_cell_pistol_bluespace.rsi
+  - type: BatteryAmmoProvider
+    proto: SMGLaserPulse
+    fireCost: 50
+
+- type: entity
   id: BaseMilitaryPowerCellSniper
   abstract: true
   parent: BaseMilitaryPowerCell

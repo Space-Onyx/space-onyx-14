@@ -1,0 +1,61 @@
+- type: entity
+  parent: [BaseMagazineRifle, BaseSecurityContraband]
+  id: MagazineRifle762
+  name: magazine (7.62mm rifle)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeRifle762
+    capacity: 30
+    whitelist:
+      tags:
+      - CartridgeRifle762
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazines/Rifle/762_mag.rsi
+    scale: 0.9, 0.9
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Tag
+    tags:
+    - MagazineRifle762
+    - MagazineRifle
+
+- type: entity
+  parent: [BaseItem, BaseSecurityContraband]
+  id: MagazineHeavyRifleBR64
+  name: magazine (.45 magnum)
+  components:
+  - type: Tag
+    tags:
+    - MagazineHeavyRifle45
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 18
+    proto: CartridgeMagnum
+    whitelist:
+      tags:
+      - CartridgeMagnum
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Item
+    size: Small
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazines/Rifle/big_mag.rsi
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazines/Rifle/big_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance

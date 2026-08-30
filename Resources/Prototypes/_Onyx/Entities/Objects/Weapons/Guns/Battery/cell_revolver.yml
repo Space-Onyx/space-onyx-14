@@ -128,6 +128,7 @@
       types:
         Blunt: 8
     angle: 0
+
     wideAnimationRotation: 90
     soundHit:
       collection: MetalThud
@@ -377,3 +378,42 @@
     muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light_xray }
     travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light_xray }
     impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light_xray }
+
+- type: entity
+  id: PowerCellOverchargedRevolver
+  parent: PowerCellIRRevolver
+  name: overclocked revolver power cell
+  description: A militarized power cell compatible with laser revolvers that has been overclocked.
+  suffix: Full
+  components:
+  - type: Sprite
+    layers:
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: overcharge
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: overcharge_charge
+      shader: unshaded
+  - type: BatteryAmmoProvider
+    proto: RevolverOverchargedLaser
+    fireCost: 125
+  - type: GenericVisualizer
+    visuals:
+      enum.BatteryVisuals.State:
+        enum.PowerCellVisualLayers.Unshaded:
+          Full: {visible: true, state: overcharge_charge}
+          Neither: {visible: true, state: overcharge_charge}
+          Empty: {visible: false}
+
+- type: entity
+  id: RevolverOverchargedLaser
+  parent: BasicHitscan
+  categories: [HideSpawnMenu]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types: { Heat: 18 }
+      armorPenetration: -0.2
+  - type: HitscanBasicVisuals
+    muzzleFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: muzzle_beam_light_overcharged }
+    travelFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: beam_light_overcharged }
+    impactFlash: { sprite: _Onyx/Objects/Weapons/Guns/Projectiles/small_laser.rsi, state: impact_beam_light_overcharged }

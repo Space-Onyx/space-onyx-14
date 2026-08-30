@@ -3,3 +3,7 @@ ent-WeaponLaserCellRevolver = EG-1 Taro
 ent-PowerCellIRRevolver = revolver power cell
     .desc = A militarized power cell compatible with laser revolvers.
     .suffix = Full
+
+ent-PowerCellOverchargedRevolver = overclocked revolver power cell
+    .desc = A militarized power cell compatible with laser revolvers that has been overclocked.
+    .suffix = Full

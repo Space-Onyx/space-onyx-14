@@ -1,0 +1,7 @@
+- type: soundCollection
+  id: AutoShotgunShot
+  files:
+  - /Audio/_Onyx/Weapons/Guns/Shotguns/v51_1.ogg
+  - /Audio/_Onyx/Weapons/Guns/Shotguns/v51_2.ogg
+  - /Audio/_Onyx/Weapons/Guns/Shotguns/v51_3.ogg
+  - /Audio/_Onyx/Weapons/Guns/Shotguns/v51_4.ogg

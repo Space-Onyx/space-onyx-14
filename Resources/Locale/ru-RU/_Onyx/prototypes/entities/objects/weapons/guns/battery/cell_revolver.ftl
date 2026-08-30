@@ -3,3 +3,7 @@ ent-WeaponLaserCellRevolver = EG-1 "Таро"
 ent-PowerCellIRRevolver = револьверная батарея
     .desc = Милитаризованная батарея совместимая с лазерными револьверами.
     .suffix = Полная
+
+ent-PowerCellOverchargedRevolver = перегруженная револьверная батарея
+    .desc = Милитаризованная батарея совместимая с перегруженными лазерными револьверами.
+    .suffix = Полная

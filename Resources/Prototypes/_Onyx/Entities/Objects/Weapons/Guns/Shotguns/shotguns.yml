@@ -47,3 +47,73 @@
   - type: Item
     sprite: _Onyx/Objects/Weapons/Guns/Lever/chester.rsi
     size: Large
+
+- type: entity
+  parent: [BaseItem, BaseGunWieldable, BaseSecurityContraband]
+  id: WeaponShotgunAntelope
+  name: Antelope
+  description: A mag-fed shotgun designed for neutralizing threats and keeping criminals at bay with overwhelming force. Feeds from 12 Gauge drum magazines.
+  suffix: DO NOT MAP
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Shotguns/antelope.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    size: Large
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Guns/Shotguns/antelope.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: AmmoCounter
+  - type: GunRequiresWield
+  - type: Gun
+    fireRate: 1.4
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      collection: AutoShotgunShot
+    soundEmpty:
+      path: /Audio/Weapons/Guns/Empty/empty.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        startingItem: MagazineShotgun
+        priority: 2
+        whitelist:
+          tags:
+          - MagazineShotgun
+        whitelistFailPopup: gun-magazine-whitelist-fail
+        insertSound: /Audio/Weapons/Guns/MagIn/smg_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/smg_magout.ogg
+      gun_chamber:
+        startingItem: ShellShotgun
+        priority: 1
+        whitelist:
+          tags:
+          - ShellShotgun
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: ChamberMagazineAmmoProvider
+  - type: RestrictGunshotsByUserTag
+    doesntContain:
+    - Oni
+    messages:
+    - oni-cannot-shoot-guns-1
+    - oni-cannot-shoot-guns-2
+    - oni-cannot-shoot-guns-3
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: StaticPrice
+    price: 500

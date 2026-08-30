@@ -69,3 +69,43 @@
     autoCycle: false
     soundRack:
       path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
+
+- type: entity
+  parent: [BaseWeaponSniper, BaseSecurityContraband]
+  id: WeaponSniperRemington700
+  name: Remington 700
+  description: A .308 Winchester hunting rifle, produced by third parties from Earth Armories replicas. Features a polymer frame.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Snipers/remington700/big.rsi
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Guns/Snipers/remington700/tiny.rsi
+  - type: Item
+    sprite: _Onyx/Objects/Weapons/Guns/Snipers/remington700/tiny.rsi
+  - type: Gun
+    fireRate: 1.1
+    soundGunshot:
+      path: /Audio/_Onyx/Weapons/Guns/Snipers/tl127.ogg
+    soundEmpty:
+      path: /Audio/_Onyx/Weapons/Guns/Snipers/sniper_empty.ogg
+  - type: BallisticAmmoProvider
+    autoCycle: false
+    capacity: 4
+    soundRack:
+      path: /Audio/_Onyx/Weapons/Guns/Snipers/tl-127_bolt.ogg
+    proto: Cartridge308win
+    whitelist:
+      tags:
+      - Cartridge308win
+  - type: Wieldable
+    unwieldOnUse: false
+  - type: UseDelay
+    delay: 0.7
+  - type: UseDelayOnShoot
+  - type: GunRequiresWield
+  - type: SpeedModifiedOnWield
+    sprintModifier: 0.9
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 6
+    pvsIncrease: 0.6
