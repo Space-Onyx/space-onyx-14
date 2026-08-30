@@ -25,6 +25,7 @@
     sprite: Objects/Fun/Balls/beach_ball.rsi
   - type: Anchorable
   - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
   - type: Destructible
     thresholds:

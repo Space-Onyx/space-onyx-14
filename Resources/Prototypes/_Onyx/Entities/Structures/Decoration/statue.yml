@@ -15,6 +15,7 @@
   - type: Anchorable
   - type: InteractionOutline
   - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
     damageModifierSet: Metallic
   - type: Destructible
