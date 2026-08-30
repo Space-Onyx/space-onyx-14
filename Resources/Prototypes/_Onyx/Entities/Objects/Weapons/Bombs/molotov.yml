@@ -28,8 +28,9 @@
     sprite: Effects/fire.rsi
     normalState: fire
   - type: Damageable
-    damageContainer: Inorganic
     damageModifierSet: FlimsyGlass
+  - type: Injurable
+    damageContainer: Inorganic
   - type: Explosive
     explosionType: Molotov
     totalIntensity: 25
@@ -94,8 +95,9 @@
   - type: Appearance
   - type: AnimationPlayer
   - type: Damageable
-    damageContainer: Inorganic
     damageModifierSet: FlimsyGlass
+  - type: Injurable
+    damageContainer: Inorganic
   - type: Flammable
     fireSpread: true
     alwaysCombustible: true
