@@ -36,6 +36,7 @@ public sealed partial class SurgeryToolExamineSystem : EntitySystem
             {
                 message.PushNewline();
                 var speed = ent.Comp.SpeedModifiers.GetValueOrDefault(task, 1f);
+                var success = Math.Clamp(ent.Comp.SuccessModifiers.GetValueOrDefault(task, 1f), 0f, 1f);
                 var color = speed switch
                 {
                     < 1f => "red",
@@ -43,7 +44,8 @@ public sealed partial class SurgeryToolExamineSystem : EntitySystem
                     _ => "white",
                 };
                 message.AddMarkupOrThrow(Loc.GetString("surgery-tool-examine-use",
-                    ("use", Loc.GetString(use)), ("multiplier", speed), ("color", color)));
+                    ("use", Loc.GetString(use)), ("multiplier", speed), ("color", color),
+                    ("success", MathF.Round(success * 100f))));
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Content.Client.DisplacementMap;
 using Content.Shared.Body;
+using Content.Shared.Body.Part; // <Onyx-OrganVisualLifecycle>
 using Content.Shared.CCVar;
 using Content.Shared.DisplacementMap;
 using Content.Shared.Humanoid.Markings;
@@ -20,6 +21,11 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
     [Dependency] private MarkingManager _marking = default!;
     [Dependency] private SpriteSystem _sprite = default!;
 
+    // <Onyx-OrganVisualLifecycle>
+    private readonly Dictionary<EntityUid, EntityUid> _visualTargets = new();
+    private readonly Dictionary<EntityUid, EntityUid> _markingTargets = new();
+    // </Onyx-OrganVisualLifecycle>
+
     public override void Initialize()
     {
         base.Initialize();
@@ -27,10 +33,16 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
         SubscribeLocalEvent<VisualOrganComponent, OrganGotInsertedEvent>(OnOrganGotInserted);
         SubscribeLocalEvent<VisualOrganComponent, OrganGotRemovedEvent>(OnOrganGotRemoved);
         SubscribeLocalEvent<VisualOrganComponent, AfterAutoHandleStateEvent>(OnOrganState);
+        SubscribeLocalEvent<VisualOrganComponent, ComponentShutdown>(OnVisualShutdown);
 
         SubscribeLocalEvent<VisualOrganMarkingsComponent, OrganGotInsertedEvent>(OnMarkingsGotInserted);
         SubscribeLocalEvent<VisualOrganMarkingsComponent, OrganGotRemovedEvent>(OnMarkingsGotRemoved);
         SubscribeLocalEvent<VisualOrganMarkingsComponent, AfterAutoHandleStateEvent>(OnMarkingsState);
+        SubscribeLocalEvent<VisualOrganMarkingsComponent, ComponentShutdown>(OnMarkingsShutdown);
+
+        // <Onyx-OrganVisualLifecycle>
+        SubscribeLocalEvent<OrganComponent, AfterAutoHandleStateEvent>(OnOrganRelationshipState);
+        // </Onyx-OrganVisualLifecycle>
 
         SubscribeLocalEvent<VisualOrganMarkingsComponent, BodyRelayedEvent<HumanoidLayerVisibilityChangedEvent>>(OnMarkingsChangedVisibility);
 
@@ -67,6 +79,7 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
         RemoveVisual(ent, GetDetachedPartRoot(ent.Owner));
         // </Onyx-DetachedPartVisuals-edited>
         ApplyVisual(ent, args.Target);
+        _visualTargets[ent.Owner] = args.Target;
     }
 
     private void OnOrganGotRemoved(Entity<VisualOrganComponent> ent, ref OrganGotRemovedEvent args)
@@ -78,18 +91,24 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
             ClearDetachedBodyPartVisuals(detachedRoot);
 
         ApplyVisual(ent, detachedRoot);
+        _visualTargets[ent.Owner] = detachedRoot;
         // </Onyx-DetachedPartVisuals-edited>
     }
 
     private void OnOrganState(Entity<VisualOrganComponent> ent, ref AfterAutoHandleStateEvent args)
     {
-        var target = GetVisualTarget(ent);
-        RemoveVisual(ent, target);
-        ApplyVisual(ent, target);
+        ReconcileVisual(ent, true);
     }
 
     private void ApplyVisual(Entity<VisualOrganComponent> ent, EntityUid target)
     {
+        // <Onyx-DetachedOrganVisuals-edited>
+        if (!ent.Comp.ShowOnDetached &&
+            TryComp<OrganComponent>(ent.Owner, out var organ) &&
+            organ.Body == null)
+            return;
+        // </Onyx-DetachedOrganVisuals-edited>
+
         var index = _sprite.LayerMapTryGet(target, ent.Comp.Layer, out var existing, false)
             ? existing
             : _sprite.LayerMapReserve(target, ent.Comp.Layer);
@@ -133,6 +152,7 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
         RemoveMarkings(ent, GetDetachedPartRoot(ent.Owner));
         // </Onyx-DetachedPartVisuals-edited>
         ApplyMarkings(ent, args.Target);
+        _markingTargets[ent.Owner] = args.Target;
     }
 
     private void OnMarkingsGotRemoved(Entity<VisualOrganMarkingsComponent> ent, ref OrganGotRemovedEvent args)
@@ -140,15 +160,63 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
         RemoveMarkings(ent, args.Target);
         // <Onyx-DetachedPartVisuals-edited>
         ApplyMarkings(ent, GetDetachedPartRoot(ent.Owner));
+        _markingTargets[ent.Owner] = GetDetachedPartRoot(ent.Owner);
         // </Onyx-DetachedPartVisuals-edited>
     }
 
     private void OnMarkingsState(Entity<VisualOrganMarkingsComponent> ent, ref AfterAutoHandleStateEvent args)
     {
-        var body = GetVisualTarget(ent);
-        RemoveMarkings(ent, body);
-        ApplyMarkings(ent, body);
+        ReconcileMarkings(ent, true);
     }
+
+    // <Onyx-OrganVisualLifecycle>
+    private void OnOrganRelationshipState(Entity<OrganComponent> ent, ref AfterAutoHandleStateEvent args) =>
+        ReconcileRelationshipVisuals(ent.Owner);
+
+    private void ReconcileRelationshipVisuals(EntityUid entity)
+    {
+        if (TryComp(entity, out VisualOrganComponent? visual))
+            ReconcileVisual((entity, visual), false);
+        if (TryComp(entity, out VisualOrganMarkingsComponent? markings))
+            ReconcileMarkings((entity, markings), false);
+    }
+
+    private void ReconcileVisual(Entity<VisualOrganComponent> ent, bool force)
+    {
+        var target = GetVisualTarget(ent.Owner);
+        if (_visualTargets.TryGetValue(ent.Owner, out var previous))
+        {
+            if (previous == target && !force)
+                return;
+            if (Exists(previous))
+                RemoveVisual(ent, previous);
+        }
+
+        ApplyVisual(ent, target);
+        _visualTargets[ent.Owner] = target;
+    }
+
+    private void ReconcileMarkings(Entity<VisualOrganMarkingsComponent> ent, bool force)
+    {
+        var target = GetVisualTarget(ent.Owner);
+        if (_markingTargets.TryGetValue(ent.Owner, out var previous))
+        {
+            if (previous == target && !force)
+                return;
+            if (Exists(previous))
+                RemoveMarkings(ent, previous);
+        }
+
+        ApplyMarkings(ent, target);
+        _markingTargets[ent.Owner] = target;
+    }
+
+    private void OnVisualShutdown(Entity<VisualOrganComponent> ent, ref ComponentShutdown args) =>
+        _visualTargets.Remove(ent.Owner);
+
+    private void OnMarkingsShutdown(Entity<VisualOrganMarkingsComponent> ent, ref ComponentShutdown args) =>
+        _markingTargets.Remove(ent.Owner);
+    // </Onyx-OrganVisualLifecycle>
 
     protected override void SetOrganColor(Entity<VisualOrganComponent> ent, Color color)
     {

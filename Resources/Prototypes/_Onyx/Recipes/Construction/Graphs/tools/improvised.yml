@@ -1,0 +1,182 @@
+- type: constructionGraph
+  id: ImprovisedScrewdriverGraph
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: tool
+      steps:
+      - material: Steel
+        amount: 3
+        doAfter: 10
+      - material: Cloth
+        amount: 1
+        doAfter: 5
+  - node: tool
+    entity: UnfinishedImprovisedScrewdriver
+
+- type: constructionGraph
+  id: ImprovisedWirecutterGraph
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: tool
+      steps:
+      - material: Steel
+        amount: 5
+        doAfter: 10
+      - material: Cloth
+        amount: 2
+        doAfter: 5
+  - node: tool
+    entity: UnfinishedImprovisedWirecutter
+
+- type: constructionGraph
+  id: ImprovisedWrenchGraph
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: tool
+      steps:
+      - material: Steel
+        amount: 3
+        doAfter: 10
+  - node: tool
+    entity: UnfinishedImprovisedWrench
+
+- type: constructionGraph
+  id: ImprovisedMultitoolGraph
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: tool
+      steps:
+      - material: Steel
+        amount: 6
+        doAfter: 10
+      - material: Plastic
+        amount: 2
+        doAfter: 10
+      - material: Glass
+        amount: 4
+        doAfter: 10
+      - tag: PowerCellSmall
+        name: construction-graph-tag-power-cell-small
+        icon:
+          sprite: Objects/Power/power_cells.rsi
+          state: small
+      - material: Cable
+        amount: 2
+        doAfter: 5
+  - node: tool
+    entity: UnfinishedImprovisedMultitool
+
+- type: constructionGraph
+  id: ScalpelShivSurgicalGraph
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: tool
+      steps:
+      - tag: GlassShard
+        name: construction-graph-tag-glass-shard
+        icon:
+          sprite: Objects/Materials/Shards/shard.rsi
+          state: shard1
+        doAfter: 1
+      - material: Cloth
+        amount: 1
+        doAfter: 1
+  - node: tool
+    entity: ScalpelShiv
+
+- type: constructionGraph
+  id: SawImprovSurgicalGraph
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: tool
+      steps:
+      - material: Steel
+        amount: 4
+        doAfter: 10
+      - material: Cloth
+        amount: 2
+        doAfter: 5
+      - tool: Welding
+        doAfter: 5
+  - node: tool
+    entity: SawImprov
+
+- type: constructionGraph
+  id: ItemLimbToolboxLeftArmGraph
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: item
+      steps:
+      - tag: Toolbox
+        name: ent-ToolboxMechanical
+        icon: { sprite: Objects/Tools/Toolboxes/toolbox_blue.rsi, state: icon }
+      - material: Cable
+        amount: 3
+        doAfter: 5
+  - node: item
+    entity: ItemLimbToolboxLeftArm
+
+- type: constructionGraph
+  id: ItemLimbToolboxRightArmGraph
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: item
+      steps:
+      - tag: Toolbox
+        name: ent-ToolboxMechanical
+        icon: { sprite: Objects/Tools/Toolboxes/toolbox_blue.rsi, state: icon }
+      - material: Cable
+        amount: 3
+        doAfter: 5
+  - node: item
+    entity: ItemLimbToolboxRightArm
+
+- type: constructionGraph
+  id: ItemLimbPlungerLeftHandGraph
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: item
+      steps:
+      - tag: Plunger
+        name: ent-Plunger
+        icon: { sprite: Objects/Specific/Janitorial/plunger.rsi, state: plunger }
+      - material: Cloth
+        amount: 2
+        doAfter: 3
+  - node: item
+    entity: ItemLimbPlungerLeftHand
+
+- type: constructionGraph
+  id: ItemLimbPlungerRightHandGraph
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: item
+      steps:
+      - tag: Plunger
+        name: ent-Plunger
+        icon: { sprite: Objects/Specific/Janitorial/plunger.rsi, state: plunger }
+      - material: Cloth
+        amount: 2
+        doAfter: 3
+  - node: item
+    entity: ItemLimbPlungerRightHand

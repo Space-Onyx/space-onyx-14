@@ -2,6 +2,8 @@ using System.Linq;
 using Content.Shared.Body;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
+using Content.Shared._Onyx.Body.Systems;
+using Content.Shared._Onyx.Body;
 using Content.Shared.Damage;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Network;
@@ -20,6 +22,7 @@ public sealed partial class OrganDamageSystem : EntitySystem
     [Dependency] private WoundSystem _wounds = default!;
     [Dependency] private WoundBleedingSystem _bleeding = default!;
     [Dependency] private AmputationSystem _amputation = default!;
+    [Dependency] private OrganHealthSystem _organHealth = default!;
 
     public override void Initialize()
     {
@@ -42,53 +45,51 @@ public sealed partial class OrganDamageSystem : EntitySystem
         if (chance <= 0f || !_random.Prob(Math.Clamp(chance, 0f, 1f)))
             return;
 
-        var organs = _body.GetPartOrgans(part).Where(organ => organ.Component.Health > FixedPoint2.Zero).ToList();
+        var organs = _body.GetPartOrgans(part)
+            .Where(organ => organ.Component.Health > FixedPoint2.Zero && HasComp<OrganDamageComponent>(organ.Id))
+            .ToList();
         if (organs.Count == 0)
             return;
 
         var affected = Math.Max(1, settings.MaxAffected);
         for (var i = 0; i < affected && organs.Count > 0; i++)
         {
-            var organ = PickOrgan(organs, settings);
+            var organ = PickOrgan(organs);
             organs.Remove(organ);
 
-            if (!_random.Prob(Math.Clamp(organ.Component.DamageChanceMultiplier, 0f, 1f)))
+            var policy = Comp<OrganDamageComponent>(organ.Id);
+            if (!_random.Prob(Math.Clamp(policy.HitChance, 0f, 1f)))
                 continue;
 
-            var applied = GetOrganDamage(args.Damage, settings, organ.Component);
+            var applied = GetOrganDamage(args.Damage, policy);
             if (applied <= FixedPoint2.Zero)
                 continue;
 
-            if (settings.MaxDamageFraction > 0f)
-                applied = FixedPoint2.Min(applied, organ.Component.MaxHealth * settings.MaxDamageFraction);
+            if (policy.MaxDamageFraction > 0f)
+                applied = FixedPoint2.Min(applied, organ.Component.MaxHealth * policy.MaxDamageFraction);
 
-            organ.Component.Health = FixedPoint2.Clamp(organ.Component.Health - applied, FixedPoint2.Zero, organ.Component.MaxHealth);
-            Dirty(organ.Id, organ.Component);
+            _organHealth.ChangeHealth((organ.Id, organ.Component), -applied);
         }
     }
 
     private static FixedPoint2 GetOrganDamage(
         DamageSpecifier damage,
-        OrganDamageSettings settings,
-        OrganComponent organ)
+        OrganDamageComponent policy)
     {
         var result = FixedPoint2.Zero;
         foreach (var (type, amount) in damage.DamageDict)
         {
-            var baseline = settings.DamageMultipliers.GetValueOrDefault(type, 0f);
-            var vulnerability = organ.DamageMultipliers.GetValueOrDefault(type, 1f);
-            result += amount * baseline * Math.Max(0f, vulnerability);
+            result += amount * Math.Max(0f, policy.DamageMultipliers.GetValueOrDefault(type));
         }
         return result;
     }
 
     private (EntityUid Id, OrganComponent Component) PickOrgan(
-        List<(EntityUid Id, OrganComponent Component)> organs,
-        OrganDamageSettings settings)
+        List<(EntityUid Id, OrganComponent Component)> organs)
     {
         var totalWeight = 0f;
         foreach (var organ in organs)
-            totalWeight += GetWeight(settings, organ.Component);
+            totalWeight += Math.Max(0f, Comp<OrganDamageComponent>(organ.Id).SelectionWeight);
 
         if (totalWeight <= 0f)
             return _random.Pick(organs);
@@ -96,18 +97,11 @@ public sealed partial class OrganDamageSystem : EntitySystem
         var roll = _random.NextFloat() * totalWeight;
         foreach (var organ in organs)
         {
-            roll -= GetWeight(settings, organ.Component);
+            roll -= Math.Max(0f, Comp<OrganDamageComponent>(organ.Id).SelectionWeight);
             if (roll <= 0f)
                 return organ;
         }
         return organs[organs.Count - 1];
     }
 
-    private static float GetWeight(OrganDamageSettings settings, OrganComponent organ)
-    {
-        var baseline = organ.Category is { } category && settings.Weights.TryGetValue(category, out var weight)
-            ? Math.Max(0f, weight)
-            : 1f;
-        return baseline * Math.Max(0f, organ.SelectionMultiplier);
-    }
 }

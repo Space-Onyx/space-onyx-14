@@ -1148,8 +1148,8 @@
   name: J.A.W.S. left arm
   description: A cybernetic arm capable of prying open powered doors.
   components:
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: Prying
       speedModifier: 1.5
       pryPowered: true
@@ -1164,8 +1164,8 @@
   name: J.A.W.S. right arm
   description: A cybernetic arm capable of prying open powered doors.
   components:
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: Prying
       speedModifier: 1.5
       pryPowered: true
@@ -1180,8 +1180,8 @@
   name: S.P.E.E.D. left leg
   description: A cybernetic leg that increases movement speed.
   components:
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: MovementSpeedModifier
       baseWalkSpeed: 3.125
       baseSprintSpeed: 5.175
@@ -1194,8 +1194,8 @@
   name: S.P.E.E.D. right leg
   description: A cybernetic leg that increases movement speed.
   components:
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: MovementSpeedModifier
       baseWalkSpeed: 3.125
       baseSprintSpeed: 5.175

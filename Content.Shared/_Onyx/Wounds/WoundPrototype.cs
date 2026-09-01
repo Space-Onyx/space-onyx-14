@@ -180,35 +180,19 @@ public sealed partial class BodyPartProfilePrototype : IPrototype
     [DataField]
     public float BedRecoveryMultiplier = 1f;
 
-    /// <summary>
-    /// Organ damage behavior for parts using this profile.
-    /// </summary>
     [DataField]
-    public OrganDamageSettings OrganDamage = new();
+    public OrganDamageRouting OrganDamage = new();
 }
 
 /// <summary>
-/// Configures how parts take organ damage. The per-part chance is rolled on damage;
-/// on success up to <see cref="MaxAffected"/> organs are damaged by the scaled hit.
+/// Configures whether damage to a part reaches its organs.
 /// </summary>
 [DataDefinition]
-public sealed partial class OrganDamageSettings
+public sealed partial class OrganDamageRouting
 {
     /// <summary>Chance an organ is damaged when a part of a given type takes damage.</summary>
     [DataField]
     public Dictionary<BodyPartType, float> Chances = new();
-
-    /// <summary>Selection weight per organ category; missing category defaults to 1.</summary>
-    [DataField]
-    public Dictionary<ProtoId<OrganCategoryPrototype>, float> Weights = new();
-
-    /// <summary>Organ damage dealt per unit of each damage type; missing type = no organ damage.</summary>
-    [DataField]
-    public Dictionary<ProtoId<DamageTypePrototype>, float> DamageMultipliers = new();
-
-    /// <summary>Organ damage cap per hit as a fraction of the organ's MaxHealth (0.3 = 30%). Non-positive = uncapped.</summary>
-    [DataField]
-    public float MaxDamageFraction;
 
     /// <summary>How many organs are damaged on a successful roll (>= 1).</summary>
     [DataField]

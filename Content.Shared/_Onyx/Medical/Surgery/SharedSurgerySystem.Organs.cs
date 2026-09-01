@@ -104,8 +104,7 @@ public abstract partial class SharedSurgerySystem
         if (!_net.IsServer || !TryFindOrgan(args.Part, ent.Comp.Slot, out var organ))
             return;
 
-        organ.Comp.Health = FixedPoint2.Min(organ.Comp.MaxHealth, organ.Comp.Health + ent.Comp.Amount);
-        Dirty(organ.Owner, organ.Comp);
+        _organHealth.ChangeHealth(organ, ent.Comp.Amount);
     }
 
     private void OnOrganHealCheck(Entity<SurgeryOrganHealEffectComponent> ent, ref SurgeryStepCompleteCheckEvent args)

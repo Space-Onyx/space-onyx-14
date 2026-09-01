@@ -1,4 +1,5 @@
 using Content.Shared._Onyx.Body;
+using Content.Shared._Onyx.Body.Systems;
 using Content.Shared._Onyx.Wounds;
 using Content.Shared.Body.Systems;
 using Content.Shared.DoAfter;
@@ -19,6 +20,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 
 namespace Content.Shared._Onyx.Medical.Surgery;
 
@@ -26,6 +28,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 {
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] private OrganHealthSystem _organHealth = default!;
     [Dependency] private IComponentFactory _compFactory = default!;
     [Dependency] private IConfigurationManager _configuration = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
@@ -37,6 +40,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private PainSystem _pain = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
+    [Dependency] private IRobustRandom _random = default!;
     [Dependency] private RotateToFaceSystem _rotateToFace = default!;
     [Dependency] private StandingStateSystem _standing = default!;
     [Dependency] private SharedStackSystem _stacks = default!;

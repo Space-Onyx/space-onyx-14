@@ -34,8 +34,8 @@
   - type: Sprite
     layers:
     - state: health
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: PassiveDamage
       allowedStates:
       - Alive
@@ -55,8 +55,8 @@
   - type: Sprite
     layers:
     - state: emp
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: Access
       enabled: true
       groups:
@@ -71,8 +71,8 @@
   - type: Sprite
     layers:
     - state: emp
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: Insulated
     - type: LightningArcShooter
       arcDepth: 1
@@ -89,8 +89,8 @@
   - type: Sprite
     layers:
     - state: species
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: Stealth
       enabledOnDeath: false
       maxVisibility: 1.2
@@ -105,8 +105,8 @@
   - type: Sprite
     layers:
     - state: species
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: RandomStatusActivation
       minActivationTime: 90
       maxActivationTime: 300
@@ -120,8 +120,8 @@
   - type: Sprite
     layers:
     - state: species
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: PermanentStatusEffects
       statusEffects:
       - StatusEffectPressureImmunity
@@ -134,8 +134,8 @@
   - type: Sprite
     layers:
     - state: mindshock
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: XenoArtifact
     - type: RandomStatusActivation
       statusEffects:
@@ -148,8 +148,8 @@
   - type: Sprite
     layers:
     - state: species
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: RandomStatusActivation
       statusEffects:
         ScrambleDnaEffect: ScrambleDnaEffect
@@ -161,8 +161,8 @@
   - type: Sprite
     layers:
     - state: vent
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: RandomStatusActivation
       statusEffects:
         ScrambleLocationEffect: ScrambleLocationEffect
@@ -174,8 +174,8 @@
   - type: Sprite
     layers:
     - state: spider
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: RandomStatusActivation
       minActivationTime: 120
       maxActivationTime: 360
@@ -189,8 +189,8 @@
   - type: Sprite
     layers:
     - state: slime
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: RandomStatusActivation
       minActivationTime: 120
       maxActivationTime: 360
@@ -204,8 +204,8 @@
   - type: Sprite
     layers:
     - state: emp
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: RandomStatusActivation
       statusEffects:
         SpawnEmp: SpawnEmp
@@ -217,8 +217,8 @@
   - type: Sprite
     layers:
     - state: emp
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: RandomStatusActivation
       statusEffects:
         SpawnGravityWell: SpawnGravityWell
@@ -230,8 +230,8 @@
   - type: Sprite
     layers:
     - state: emp
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: RandomStatusActivation
       statusEffects:
         SpawnFlash: SpawnFlash
@@ -243,8 +243,8 @@
   - type: Sprite
     layers:
     - state: emp
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: RandomStatusActivation
       statusEffects:
         SpawnSmoke: SpawnSmoke
@@ -256,8 +256,8 @@
   - type: Sprite
     layers:
     - state: viral
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: RandomStatusActivation
       statusEffects:
         ExpelGas: ExpelGas
@@ -269,8 +269,8 @@
   - type: Sprite
     layers:
     - state: viral
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: ProtectedFromStepTriggers
           
 - type: entity
@@ -280,8 +280,8 @@
   - type: Sprite
     layers:
     - state: viral
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: VentCrawler
       allowInventory: false
 
@@ -292,8 +292,8 @@
   - type: Sprite
     layers:
     - state: species
-  - type: Organ
-    onAdd:
+  - type: FunctionalOrgan
+    components:
     - type: Repairable
       fuelCost: 5
       doAfterDelay: 3

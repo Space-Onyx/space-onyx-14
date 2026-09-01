@@ -134,7 +134,7 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
             _audio.PlayPvs(uid.Comp.ScanningEndSound, uid);
 
         OpenUserInterface(args.User, uid);
-        BeginAnalyzingEntity(uid, args.Target.Value, args.User);
+        BeginAnalyzingEntity(uid, args.Target.Value); // <Onyx-BodyScanner-edited>
         args.Handled = true;
     }
 
@@ -178,7 +178,7 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
     /// </summary>
     /// <param name="healthAnalyzer">The health analyzer that should receive the updates</param>
     /// <param name="target">The entity to start analyzing</param>
-    private void BeginAnalyzingEntity(Entity<HealthAnalyzerComponent> healthAnalyzer, EntityUid target, EntityUid user)
+    public void BeginAnalyzingEntity(Entity<HealthAnalyzerComponent> healthAnalyzer, EntityUid target) // <Onyx-BodyScanner-edited>
     {
         //Link the health analyzer to the scanned entity
         healthAnalyzer.Comp.ScannedEntity = target;
@@ -192,7 +192,7 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
     /// </summary>
     /// <param name="healthAnalyzer">The health analyzer that's receiving the updates</param>
     /// <param name="target">The entity to analyze</param>
-    private void StopAnalyzingEntity(Entity<HealthAnalyzerComponent> healthAnalyzer, EntityUid target)
+    public void StopAnalyzingEntity(Entity<HealthAnalyzerComponent> healthAnalyzer, EntityUid target) // <Onyx-BodyScanner-edited>
     {
         //Unlink the analyzer
         healthAnalyzer.Comp.ScannedEntity = null;
@@ -201,6 +201,19 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
 
         UpdateScannedUser(healthAnalyzer, target, false);
     }
+
+    // <Onyx-BodyScanner>
+    public void ClearAnalyzedEntity(Entity<HealthAnalyzerComponent> healthAnalyzer)
+    {
+        healthAnalyzer.Comp.ScannedEntity = null;
+        healthAnalyzer.Comp.IsAnalyzerActive = false;
+        _toggle.TryDeactivate(healthAnalyzer.Owner);
+        _uiSystem.ServerSendUiMessage(
+            healthAnalyzer.Owner,
+            HealthAnalyzerUiKey.Key,
+            new HealthAnalyzerScannedUserMessage(new HealthAnalyzerUiState()));
+    }
+    // </Onyx-BodyScanner>
 
 
     /// <summary>

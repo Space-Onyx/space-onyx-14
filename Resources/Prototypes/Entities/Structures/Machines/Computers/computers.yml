@@ -747,6 +747,25 @@
   name: body scanner computer
   description: A body scanner.
   components:
+  # <Onyx-BodyScanner>
+  - type: ActivatableUI
+    key: enum.HealthAnalyzerUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.HealthAnalyzerUiKey.Key:
+        type: HealthAnalyzerBoundUserInterface
+  - type: ItemToggle
+    onUse: false
+    onActivate: false
+  - type: HealthAnalyzer
+    maxScanRange: null
+    silent: true
+  - type: BodyScanner
+  - type: DeviceLinkSource
+    range: 4
+    ports:
+    - BodyScannerSender
+  # </Onyx-BodyScanner>
   - type: Computer
     board: BodyScannerComputerCircuitboard
   - type: PointLight

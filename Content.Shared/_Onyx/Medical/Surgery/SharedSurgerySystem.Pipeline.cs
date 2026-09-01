@@ -5,6 +5,7 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Tools.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 
 namespace Content.Shared._Onyx.Medical.Surgery;
 
@@ -38,6 +39,15 @@ public abstract partial class SharedSurgerySystem
         if (!TryValidateSurgeryStep(args.User, ent, targetPart, args.Surgery, args.Step, tools, false,
                 out var part, out var step, out _))
         {
+            RefreshUI(ent);
+            return;
+        }
+
+        if (!_random.Prob(Math.Clamp(args.SuccessRate, 0f, 1f)))
+        {
+            var tool = tools.Count > 0 ? tools[0] : args.User;
+            _popup.PopupEntity(Loc.GetString("surgery-popup-tool-failure", ("tool", tool)),
+                args.User, args.User, Content.Shared.Popups.PopupType.SmallCaution);
             RefreshUI(ent);
             return;
         }
@@ -93,7 +103,8 @@ public abstract partial class SharedSurgerySystem
         EntProtoId surgery, EntProtoId stepId, EntityUid user, EntityUid step, uint token,
         HashSet<EntityUid>? validTools = null)
     {
-        var ev = new SurgeryDoAfterEvent(GetNetEntity(part), surgery, stepId, token);
+        var ev = new SurgeryDoAfterEvent(GetNetEntity(part), surgery, stepId, token,
+            GetSurgerySuccessRate(step, validTools));
         var duration = Comp<SurgeryStepComponent>(step).Duration;
         if (validTools != null && TryComp(step, out SurgeryStepComponent? surgeryStep) && surgeryStep.Tool != null)
         {

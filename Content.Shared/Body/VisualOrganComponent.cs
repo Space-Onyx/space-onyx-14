@@ -33,6 +33,14 @@ public sealed partial class VisualOrganComponent : Component
     public bool ColorFromProfile = true;
     // </Onyx-CyberneticVisuals>
 
+    // <Onyx-DetachedOrganVisuals>
+    /// <summary>
+    /// Whether the humanoid body layer should render on the detached organ entity.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public bool ShowOnDetached = true;
+    // </Onyx-DetachedOrganVisuals>
+
     /// <summary>
     /// When applying a profile, if the sex is present in this dictionary, overrides the state of the sprite data.
     /// Used for e.g. male vs female torsoes.

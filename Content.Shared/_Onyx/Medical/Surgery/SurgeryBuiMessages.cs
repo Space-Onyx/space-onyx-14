@@ -15,6 +15,16 @@ public enum SurgerySelectionState : byte
 }
 
 [Serializable, NetSerializable]
+public enum SurgeryItemKind : byte
+{
+    Step,
+    Surgery,
+}
+
+[Serializable, NetSerializable]
+public readonly record struct SurgeryUiItem(EntProtoId Id, SurgeryItemKind Kind, bool Completed);
+
+[Serializable, NetSerializable]
 public sealed class SurgeryBuiState(
     Dictionary<NetEntity, List<EntProtoId>> choices,
     Dictionary<NetEntity, HashSet<EntProtoId>> completed) : BoundUserInterfaceState
@@ -43,8 +53,7 @@ public sealed class SurgeryStepsStateRequest(NetEntity part, EntProtoId surgery,
 public sealed class SurgeryStepsStateResponse(
     NetEntity part,
     EntProtoId surgery,
-    List<EntProtoId> steps,
-    List<bool> completed,
+    List<SurgeryUiItem> items,
     int nextStep,
     bool available,
     string? popup,
@@ -54,8 +63,7 @@ public sealed class SurgeryStepsStateResponse(
 {
     public readonly NetEntity Part = part;
     public readonly EntProtoId Surgery = surgery;
-    public readonly List<EntProtoId> Steps = steps;
-    public readonly List<bool> Completed = completed;
+    public readonly List<SurgeryUiItem> Items = items;
     public readonly int NextStep = nextStep;
     public readonly bool Available = available;
     public readonly string? Popup = popup;

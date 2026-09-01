@@ -56,8 +56,7 @@ public sealed partial class InitialBodySystem : EntitySystem
             {
                 if (!external.TryGetValue(part.PartType, out var parts))
                     external[part.PartType] = parts = [];
-                parts[part.Symmetry] = spawn;
-                part.Body = ent;
+                parts[part.Symmetry] = spawn; // <Onyx-OrganLifecycle-edited>
                 // <Onyx-SurgeryPartDamage>
                 part.Species = CompOrNull<HumanoidProfileComponent>(ent)?.Species;
                 EnsureComp<DamageableComponent>(spawn);
@@ -66,12 +65,6 @@ public sealed partial class InitialBodySystem : EntitySystem
                 Dirty(spawn, injurable);
                 // </Onyx-SurgeryPartDamage>
                 Dirty(spawn, part);
-                // Visual body consumers still use Organ.Body for external organs.
-                if (TryComp(spawn, out OrganComponent? externalOrgan))
-                {
-                    externalOrgan.Body = ent;
-                    Dirty(spawn, externalOrgan);
-                }
                 continue;
             }
 
@@ -98,16 +91,7 @@ public sealed partial class InitialBodySystem : EntitySystem
         Attach(external, external.GetValueOrDefault(BodyPartType.Leg)?.GetValueOrDefault(BodyPartSymmetry.Left), BodyPartType.Foot, BodyPartSymmetry.Left, "left_foot");
         Attach(external, external.GetValueOrDefault(BodyPartType.Leg)?.GetValueOrDefault(BodyPartSymmetry.Right), BodyPartType.Foot, BodyPartSymmetry.Right, "right_foot");
 
-        if (external.TryGetValue(BodyPartType.Hand, out var hands))
-        {
-            foreach (var hand in hands.Values)
-            {
-                var inserted = new OrganGotInsertedEvent(ent.Owner);
-                RaiseLocalEvent(hand, ref inserted);
-            }
-        }
-
-        foreach (var (category, proto) in internalOrgans)
+        foreach (var (category, proto) in internalOrgans) // <Onyx-OrganLifecycle-edited>
         {
             var spawn = Spawn(proto, coords);
             if (!TryComp(spawn, out OrganComponent? organ))
@@ -115,7 +99,7 @@ public sealed partial class InitialBodySystem : EntitySystem
 
             // <Onyx-SlimeSurgery-edited>
             var parent = HasComp<SlimeCoreComponent>(spawn)
-                ? groin
+                ? chest // <Onyx-SlimeCoreChest-edited>
                 : HasComp<TorsoOrganComponent>(spawn)
                     ? chest
                 : category.Id is "Brain" or "Eyes" or "Tongue" or "Ears"
@@ -124,14 +108,14 @@ public sealed partial class InitialBodySystem : EntitySystem
                     ? groin
                     : chest;
             // </Onyx-SlimeSurgery-edited>
-            if (parent == null || !InsertOrgan(ent.Owner, parent.Value, category.Id, spawn, organ))
+            if (parent == null || !InsertOrgan(parent.Value, category.Id, spawn))
                 Del(spawn);
         }
         _body.InitializeAnatomy(ent);
         // </Onyx-ChestGroin-edited>
     }
 
-    private bool InsertOrgan(EntityUid body, EntityUid parent, string slot, EntityUid organ, OrganComponent component)
+    private bool InsertOrgan(EntityUid parent, string slot, EntityUid organ)
     {
         if (!_body.AreTransplantsCompatible(parent, organ)) // <Onyx-TransplantCompatibility>
             return false;

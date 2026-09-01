@@ -67,27 +67,35 @@ public sealed partial class SurgerySystem
             GetSurgeryEntity(args.Surgery) is not { } surgery ||
             !TryComp(surgery, out SurgeryComponent? surgeryComp))
         {
-            SendStepsState(ent, args, [], [], -1, false, null, StepInvalidReason.None, SurgerySelectionState.Invalid);
+            SendStepsState(ent, args, [], -1, false, null, StepInvalidReason.None, SurgerySelectionState.Invalid);
+            return;
+        }
+
+        if (!IsPartOfTarget(ent, part) || !IsReadyForSurgery(ent))
+        {
+            SendStepsState(ent, args, [], -1, false, null, StepInvalidReason.None,
+                SurgerySelectionState.Invalid);
             return;
         }
 
         var tools = GetActiveTool(args.Actor);
         var steps = GetSurgerySteps(ent, part, (surgery, surgeryComp), tools).ToList();
-        var completed = new List<bool>(steps.Count);
+        var items = new List<SurgeryUiItem>(steps.Count);
         foreach (var step in steps)
-            completed.Add(IsSurgeryItemComplete(ent, part, step, tools));
-
-        if (!IsPartOfTarget(ent, part) || !IsReadyForSurgery(ent))
         {
-            SendStepsState(ent, args, steps, completed, -1, false, null, StepInvalidReason.None,
-                SurgerySelectionState.Invalid);
-            return;
+            if (!TryGetSurgeryItemKind(step, out var kind))
+            {
+                SendStepsState(ent, args, [], -1, false, null, StepInvalidReason.None,
+                    SurgerySelectionState.Invalid);
+                return;
+            }
+            items.Add(new(step, kind, IsSurgeryItemComplete(ent, part, step, tools)));
         }
 
         var nextStep = GetNextStep(ent, part, (surgery, surgeryComp), tools) ?? -1;
-        if (completed.All(static step => step))
+        if (items.All(static item => item.Completed))
         {
-            SendStepsState(ent, args, steps, completed, -1, false, null, StepInvalidReason.None,
+            SendStepsState(ent, args, items, -1, false, null, StepInvalidReason.None,
                 SurgerySelectionState.Completed);
             return;
         }
@@ -103,7 +111,7 @@ public sealed partial class SurgerySystem
         RaiseLocalEvent(surgery, ref valid);
         if (valid.Cancelled)
         {
-            SendStepsState(ent, args, steps, completed, -1, false, null, StepInvalidReason.None,
+            SendStepsState(ent, args, items, -1, false, null, StepInvalidReason.None,
                 SurgerySelectionState.Invalid);
             return;
         }
@@ -111,7 +119,12 @@ public sealed partial class SurgerySystem
         var available = false;
         string? popup = null;
         var reason = StepInvalidReason.None;
-        if (!ActiveSurgerySites.ContainsKey((ent.Owner, part)) && nextStep >= 0)
+        if (ActiveSurgerySites.ContainsKey((ent.Owner, part)))
+        {
+            reason = StepInvalidReason.SurgerySiteBusy;
+            popup = Loc.GetString("surgery-ui-reason-site-busy");
+        }
+        else if (nextStep >= 0)
         {
             if (GetSurgeryStepEntity(steps[nextStep]) is { } stepEnt)
                 available = CanPerformStep(args.Actor, ent, part, partComp.PartType, stepEnt, false,
@@ -120,15 +133,15 @@ public sealed partial class SurgerySystem
                 available = GetSurgeryEntity(steps[nextStep]) != null;
         }
 
-        SendStepsState(ent, args, steps, completed, nextStep, available, popup, reason, SurgerySelectionState.Active);
+        SendStepsState(ent, args, items, nextStep, available, popup, reason, SurgerySelectionState.Active);
     }
 
     private void SendStepsState(Entity<SurgeryTargetComponent> ent, SurgeryStepsStateRequest args,
-        List<EntProtoId> steps, List<bool> completed, int nextStep, bool available, string? popup, StepInvalidReason reason,
+        List<SurgeryUiItem> items, int nextStep, bool available, string? popup, StepInvalidReason reason,
         SurgerySelectionState selectionState)
     {
         _ui.ServerSendUiMessage(ent.Owner, SurgeryUIKey.Key,
-            new SurgeryStepsStateResponse(args.Part, args.Surgery, steps, completed, nextStep, available, popup, reason,
+            new SurgeryStepsStateResponse(args.Part, args.Surgery, items, nextStep, available, popup, reason,
                 args.RequestId, selectionState), args.Actor);
     }
 

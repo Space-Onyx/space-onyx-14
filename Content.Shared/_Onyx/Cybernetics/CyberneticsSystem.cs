@@ -1,4 +1,5 @@
 using Content.Shared.Access.Components;
+using Content.Shared.Actions;
 using Content.Shared.Body;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
@@ -9,6 +10,8 @@ using Content.Shared.Emp;
 using Content.Shared.Flash.Components;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Overlays;
+using Content.Shared._Onyx.Overlays;
+using Content.Shared._Onyx.Shadowkin;
 using Content.Shared.Prying.Components;
 using Content.Shared.Contraband;
 using Robust.Shared.Network;
@@ -21,6 +24,7 @@ public sealed partial class CyberneticsSystem : EntitySystem
     private static readonly ProtoId<DamageTypePrototype> Shock = "Shock";
 
     [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private DamageableSystem _damage = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
@@ -42,6 +46,7 @@ public sealed partial class CyberneticsSystem : EntitySystem
 
     private void OnRemoved(Entity<CyberneticsComponent> ent, ref OrganGotRemovedEvent args)
     {
+        CaptureVisionState(ent, args.Target);
         RefreshBody(args.Target);
     }
 
@@ -56,10 +61,13 @@ public sealed partial class CyberneticsSystem : EntitySystem
 
         args.Affected = true;
         args.Disabled = true;
+        if (TryGetBody(ent, out var body))
+            CaptureVisionState(ent, body);
+
         ent.Comp.Disabled = true;
         Dirty(ent);
 
-        if (TryGetBody(ent, out var body))
+        if (TryGetBody(ent, out body))
             RefreshBody(body);
 
         if (_net.IsServer && HasComp<BodyPartComponent>(ent))
@@ -105,13 +113,15 @@ public sealed partial class CyberneticsSystem : EntitySystem
 
         var effects = CyberneticEffect.None;
         var speedLegs = 0;
+        var nightVisionEnabled = false;
+        var thermalVisionEnabled = false;
 
         foreach (var (partId, _) in _body.GetBodyChildren(body))
         {
-            AddEffects(partId, ref effects, ref speedLegs);
+            AddEffects(partId, ref effects, ref speedLegs, ref nightVisionEnabled, ref thermalVisionEnabled);
             foreach (var slot in Comp<BodyPartComponent>(partId).Organs)
                 if (_body.TryGetOrganInSlot(partId, slot, out var organ))
-                    AddEffects(organ, ref effects, ref speedLegs);
+                    AddEffects(organ, ref effects, ref speedLegs, ref nightVisionEnabled, ref thermalVisionEnabled);
         }
 
         var state = EnsureComp<CyberneticBodyEffectsComponent>(body);
@@ -148,6 +158,25 @@ public sealed partial class CyberneticsSystem : EntitySystem
         SetOwned<FlashImmunityComponent>(body,
             effects.HasFlag(CyberneticEffect.FlashProtection),
             ref state.OwnsFlashImmunity);
+        if (!effects.HasFlag(CyberneticEffect.NightVision) && state.OwnsNightVision)
+            TransferNightVisionOwnership(body, state);
+        SetOwned<NightVisionComponent>(body,
+            effects.HasFlag(CyberneticEffect.NightVision),
+            ref state.OwnsNightVision,
+            component =>
+            {
+                component.Enabled = nightVisionEnabled;
+                component.Action = "ActionToggleNightVision";
+            });
+        if (state.OwnsNightVision && TryComp(body, out NightVisionComponent? nightVision) && nightVision.ActionEntity == null)
+        {
+            _actions.AddAction(body, ref nightVision.ActionEntity, nightVision.Action);
+            Dirty(body, nightVision);
+        }
+        SetOwned<ThermalVisionComponent>(body,
+            effects.HasFlag(CyberneticEffect.ThermalVision),
+            ref state.OwnsThermalVision,
+            component => component.Enabled = thermalVisionEnabled);
         EntityManager.System<MovementSpeedModifierSystem>().RefreshMovementSpeedModifiers(body);
     }
 
@@ -163,14 +192,58 @@ public sealed partial class CyberneticsSystem : EntitySystem
         }
     }
 
-    private void AddEffects(EntityUid uid, ref CyberneticEffect effects, ref int speedLegs)
+    private void AddEffects(
+        EntityUid uid,
+        ref CyberneticEffect effects,
+        ref int speedLegs,
+        ref bool nightVisionEnabled,
+        ref bool thermalVisionEnabled)
     {
         if (!TryComp(uid, out CyberneticsComponent? cyber) || cyber.Disabled)
             return;
 
         effects |= cyber.Effects;
+        if (cyber.Effects.HasFlag(CyberneticEffect.NightVision))
+            nightVisionEnabled = cyber.NightVisionEnabled;
+        if (cyber.Effects.HasFlag(CyberneticEffect.ThermalVision))
+            thermalVisionEnabled = cyber.ThermalVisionEnabled;
         if (cyber.Effects.HasFlag(CyberneticEffect.Speed))
             speedLegs++;
+    }
+
+    private void CaptureVisionState(Entity<CyberneticsComponent> cybernetic, EntityUid body)
+    {
+        if (cybernetic.Comp.Effects.HasFlag(CyberneticEffect.NightVision) &&
+            TryComp(body, out NightVisionComponent? nightVision))
+            cybernetic.Comp.NightVisionEnabled = nightVision.Enabled;
+        if (cybernetic.Comp.Effects.HasFlag(CyberneticEffect.ThermalVision) &&
+            TryComp(body, out ThermalVisionComponent? thermalVision))
+            cybernetic.Comp.ThermalVisionEnabled = thermalVision.Enabled;
+        Dirty(cybernetic);
+    }
+
+    private void TransferNightVisionOwnership(EntityUid body, CyberneticBodyEffectsComponent state)
+    {
+        foreach (var (partId, part) in _body.GetBodyChildren(body))
+        {
+            if (TryTransferNightVision(partId, state))
+                return;
+            foreach (var slot in part.Organs)
+            {
+                if (_body.TryGetOrganInSlot(partId, slot, out var organ) && TryTransferNightVision(organ, state))
+                    return;
+            }
+        }
+    }
+
+    private bool TryTransferNightVision(EntityUid organ, CyberneticBodyEffectsComponent state)
+    {
+        if (!TryComp(organ, out ShadowkinEyesComponent? eyes))
+            return false;
+        eyes.GrantedNightVision = true;
+        state.OwnsNightVision = false;
+        Dirty(organ, eyes);
+        return true;
     }
 
     private void SetOwned<T>(EntityUid body, bool enabled, ref bool owned, Action<T>? configure = null)

@@ -43,6 +43,8 @@
   - SpeedLeftLeg
   - SpeedRightLeg
   - DiagnosticCyberneticEyes
+  - CyberEyeNightVision
+  - CyberEyeThermal
 
 - type: latheRecipePack
   id: MedicalCybernetics

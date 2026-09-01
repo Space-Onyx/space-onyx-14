@@ -161,7 +161,7 @@ public abstract partial class SharedSurgerySystem
     {
         if (!_interaction.InRangeUnobstructed(user, body, popup: doPopup))
         {
-            popup = "You are too far away from the patient.";
+            popup = Loc.GetString("surgery-ui-reason-out-of-range");
             reason = StepInvalidReason.OutOfRange;
             validTools = null;
             return false;
@@ -182,7 +182,7 @@ public abstract partial class SharedSurgerySystem
             var equipped = new InventorySystem.InventorySlotEnumerator(inventory, slot);
             if (equipped.NextItem(out _))
             {
-                popup = "Remove clothing covering the surgical site.";
+                popup = Loc.GetString("surgery-ui-reason-clothing");
                 validTools = null;
                 if (doPopup)
                     _popup.PopupEntity(popup, user, user, PopupType.SmallCaution);

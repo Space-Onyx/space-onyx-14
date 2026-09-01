@@ -52,6 +52,7 @@
   tier: 2
   recipeUnlocks:
     - ClothingEyesNightVisionGoggles
+    - CyberEyeNightVision
   position: -2,0
   technologyPrerequisites:
     - ModsuitsTech
@@ -70,9 +71,10 @@
   tier: 2
   recipeUnlocks:
     - ClothingEyesThermalVisionGoggles
+    - CyberEyeThermal
   position: -2,1
   technologyPrerequisites:
-    - ModsuitsTech
+    - NightVisionTech
   pointCosts:
     - type: General
       amount: 8000

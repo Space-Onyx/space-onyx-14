@@ -1,0 +1,205 @@
+- type: entity
+  id: ScrewdriverImprovised
+  parent: BaseItem
+  name: improvised screwdriver
+  description: A handful of metal with some cloth wrapped around it and sharpened at the tip. It works.
+  components:
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/screwdriver_drop.ogg
+  - type: Sprite
+    sprite: _Onyx/Objects/Tools/improvised_screwdriver.rsi
+    state: screwdriver
+  - type: Item
+    sprite: _Onyx/Objects/Tools/improvised_screwdriver.rsi
+    storedRotation: -90
+  - type: MeleeWeapon
+    wideAnimationRotation: -90
+    attackRate: 1
+    damage:
+      types:
+        Slash: 6
+    soundHit:
+      path: /Audio/Weapons/bladeslice.ogg
+  - type: Tool
+    qualities: [ Screwing ]
+    useSound:
+      collection: Screwdriver
+    speedModifier: 0.5
+  - type: Tag
+    tags: [ Screwdriver ]
+
+- type: entity
+  id: WirecutterImprovised
+  parent: BaseItem
+  name: improvised wirecutter
+  description: The metal is barely sharp enough to cut through thick wires.
+  components:
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/wirecutter_drop.ogg
+  - type: Sprite
+    sprite: _Onyx/Objects/Tools/improvised_wirecutters.rsi
+    state: cutters
+  - type: Item
+    sprite: _Onyx/Objects/Tools/improvised_wirecutters.rsi
+    storedRotation: -90
+  - type: MeleeWeapon
+    wideAnimationRotation: -90
+    attackRate: 2
+    damage:
+      types:
+        Slash: 2
+    soundHit:
+      path: /Audio/Items/wirecutter.ogg
+  - type: Tool
+    qualities: [ Cutting ]
+    useSound:
+      path: /Audio/Items/wirecutter.ogg
+    speedModifier: 0.5
+  - type: ToolTileCompatible
+  - type: BotanySampleTaker
+  - type: Tag
+    tags: [ Wirecutter ]
+
+- type: entity
+  id: WrenchImprovised
+  parent: BaseItem
+  name: improvised wrench
+  description: One size fits all. Almost.
+  components:
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/wrench_drop.ogg
+  - type: Sprite
+    sprite: _Onyx/Objects/Tools/improvised_wrench.rsi
+    state: icon
+  - type: Item
+    sprite: _Onyx/Objects/Tools/improvised_wrench.rsi
+    storedSprite:
+      sprite: _Onyx/Objects/Tools/improvised_wrench.rsi
+      state: storage
+  - type: MeleeWeapon
+    wideAnimationRotation: 135
+    attackRate: 1.5
+    damage:
+      types:
+        Blunt: 4.5
+    soundHit:
+      collection: MetalThud
+  - type: Tool
+    qualities: [ Anchoring ]
+    useSound:
+      path: /Audio/Items/ratchet.ogg
+    speedModifier: 0.5
+  - type: Tag
+    tags: [ Wrench ]
+
+- type: entity
+  id: MultitoolImprovised
+  parent: BaseItem
+  name: improvised multitool
+  description: A crude tool for working with electronics and signals.
+  components:
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/multitool_drop.ogg
+  - type: Sprite
+    sprite: _Onyx/Objects/Tools/improvised_multitool.rsi
+    layers:
+    - state: icon
+    - state: green-unlit
+      shader: unshaded
+  - type: Item
+    size: Small
+    sprite: _Onyx/Objects/Tools/improvised_multitool.rsi
+  - type: Clothing
+    sprite: _Onyx/Objects/Tools/improvised_multitool.rsi
+    quickEquip: false
+    slots: [ Belt ]
+  - type: Tool
+    qualities: [ Pulsing ]
+    speedModifier: 0.5
+  - type: NetworkConfigurator
+  - type: ActivatableUI
+    key: enum.NetworkConfiguratorUiKey.List
+    inHandsOnly: true
+  - type: UserInterface
+    interfaces:
+      enum.NetworkConfiguratorUiKey.List:
+        type: NetworkConfiguratorBoundUserInterface
+      enum.NetworkConfiguratorUiKey.Configure:
+        type: NetworkConfiguratorBoundUserInterface
+      enum.NetworkConfiguratorUiKey.Link:
+        type: NetworkConfiguratorBoundUserInterface
+  - type: Tag
+    tags: [ Multitool, DoorElectronicsConfigurator ]
+
+- type: entity
+  abstract: true
+  id: BaseUnfinishedImprovisedTool
+  parent: BaseItem
+  name: unfinished improvised tool
+  description: Needs welding to hold it together.
+  components:
+  - type: Item
+    size: Small
+  - type: Tag
+    tags: [ Metal ]
+
+- type: entity
+  id: UnfinishedImprovisedScrewdriver
+  parent: BaseUnfinishedImprovisedTool
+  name: screwdriver parts
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Tools/improvised_screwdriver.rsi
+    state: unfinished
+  - type: ToolRefinable
+    refineResult: [ { id: ScrewdriverImprovised } ]
+  - type: Construction
+    graph: ImprovisedScrewdriverGraph
+    node: tool
+
+- type: entity
+  id: UnfinishedImprovisedWirecutter
+  parent: BaseUnfinishedImprovisedTool
+  name: wirecutter parts
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Tools/improvised_wirecutters.rsi
+    state: unfinished
+  - type: ToolRefinable
+    refineResult: [ { id: WirecutterImprovised } ]
+  - type: Construction
+    graph: ImprovisedWirecutterGraph
+    node: tool
+
+- type: entity
+  id: UnfinishedImprovisedWrench
+  parent: BaseUnfinishedImprovisedTool
+  name: wrench parts
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Tools/improvised_wrench.rsi
+    state: unfinished
+  - type: ToolRefinable
+    refineResult: [ { id: WrenchImprovised } ]
+  - type: Construction
+    graph: ImprovisedWrenchGraph
+    node: tool
+
+- type: entity
+  id: UnfinishedImprovisedMultitool
+  parent: BaseUnfinishedImprovisedTool
+  name: multitool parts
+  description: Needs welding and patience to put it together.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Tools/improvised_multitool.rsi
+    state: unfinished
+  - type: ToolRefinable
+    refineResult: [ { id: MultitoolImprovised } ]
+  - type: Construction
+    graph: ImprovisedMultitoolGraph
+    node: tool

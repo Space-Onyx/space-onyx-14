@@ -32,25 +32,6 @@
       Hand: 0.01
       Leg: 0.02
       Foot: 0.01
-    weights:
-      Brain: 1.0
-      Eyes: 0.35
-      Ears: 0.25
-      Tongue: 0.2
-      Lungs: 1.2
-      Heart: 0.8
-      Liver: 1.0
-      Stomach: 0.7
-      Kidneys: 0.6
-      Appendix: 0.15
-    damageMultipliers:
-      Blunt: 0.1
-      Slash: 0.25
-      Piercing: 0.35
-      Heat: 0.15
-      Cold: 0.05
-      Shock: 0.25
-    maxDamageFraction: 0.3
     maxAffected: 2
 
 - type: bodyPartProfile
@@ -84,24 +65,6 @@
       Hand: 0.01
       Leg: 0.02
       Foot: 0.01
-    weights:
-      Brain: 1.0
-      Eyes: 0.35
-      Ears: 0.25
-      Tongue: 0.2
-      Lungs: 1.2
-      Heart: 0.8
-      Liver: 1.0
-      Stomach: 0.7
-      Kidneys: 0.6
-      Appendix: 0.15
-    damageMultipliers:
-      Blunt: 0.1
-      Slash: 0.25
-      Piercing: 0.35
-      Heat: 0.15
-      Cold: 0.05
-      Shock: 0.25
 
 - type: bodyPartProfile
   id: SlimeBodyPartProfile
@@ -132,17 +95,6 @@
       Head: 0.05
       Chest: 0.04
       Groin: 0.04
-    weights:
-      Brain: 1.0
-      Eyes: 0.35
-      Lungs: 1.2
-    damageMultipliers:
-      Blunt: 0.1
-      Slash: 0.25
-      Piercing: 0.35
-      Heat: 0.15
-      Cold: 0.05
-      Shock: 0.25
 
 - type: bodyPartProfile
   id: CyberneticBodyPartProfile
@@ -198,17 +150,6 @@
       Head: 0.05
       Chest: 0.04
       Groin: 0.04
-    weights:
-      Brain: 1.0
-      Eyes: 0.35
-      Lungs: 1.2
-    damageMultipliers:
-      Blunt: 0.1
-      Slash: 0.25
-      Piercing: 0.35
-      Heat: 0.15
-      Cold: 0.05
-      Shock: 0.25
 
 - type: fractureProfile
   id: OrganicFractureProfile

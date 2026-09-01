@@ -205,3 +205,15 @@
   parent: AdvancedCyberneticRecipeBase
   id: DiagnosticCyberneticEyes
   result: DiagnosticCyberneticEyes
+
+- type: latheRecipe
+  parent: AdvancedCyberneticRecipeBase
+  id: CyberEyeNightVision
+  result: CyberEyeNightVision
+  materials: { Steel: 1000, Glass: 1000, Plastic: 1000, Gold: 1000 }
+
+- type: latheRecipe
+  parent: AdvancedCyberneticRecipeBase
+  id: CyberEyeThermal
+  result: CyberEyeThermal
+  materials: { Steel: 1000, Glass: 1000, Plastic: 2000, Gold: 3000, Plasma: 3000 }

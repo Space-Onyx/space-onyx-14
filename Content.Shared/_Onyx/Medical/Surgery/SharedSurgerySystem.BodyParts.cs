@@ -28,15 +28,15 @@ public abstract partial class SharedSurgerySystem
 
     private void OnAttachPart(Entity<SurgeryAttachPartEffectComponent> ent, ref SurgeryStepEvent args)
     {
-        if (!_net.IsServer || FindHeldPart(args.Tools, ent.Comp.Part, ent.Comp.Symmetry) is not { } part)
+        if (!_net.IsServer || FindHeldPart(args.Tools, ent.Comp.Part, ent.Comp.Symmetry) is not { } candidate)
             return;
 
-        if (_body.TryAttachPart(args.Part, part))
+        if (_body.TryAttachPart(args.Part, candidate))
         {
-            RemComp<BodyPartMendedComponent>(part);
-            RemComp<BodyPartSuturedComponent>(part);
-            EnsureComp<BodyPartReattachedComponent>(part);
-            EnsurePartDamageable(part);
+            RemComp<BodyPartMendedComponent>(candidate);
+            RemComp<BodyPartSuturedComponent>(candidate);
+            EnsureComp<BodyPartReattachedComponent>(candidate);
+            EnsurePartDamageable(candidate);
             _inventory.RefreshBodySlots(args.Body);
         }
     }
@@ -138,7 +138,7 @@ public abstract partial class SharedSurgerySystem
             return;
         }
 
-        if (!_body.AreTransplantsCompatible(args.Part, part))
+        if (HasComp<BodyPartComponent>(part) && !_body.AreTransplantsCompatible(args.Part, part))
         {
             args.Invalid = StepInvalidReason.IncompatibleTransplant;
             args.Popup = Loc.GetString("surgery-ui-reason-incompatible-transplant");
@@ -161,9 +161,9 @@ public abstract partial class SharedSurgerySystem
         EntityUid? found = null;
         foreach (var item in held)
         {
-            if (!TryComp(item, out BodyPartComponent? part) || part.Body != null || part.PartType != type || part.Symmetry != symmetry)
+            if (!TryComp(item, out BodyPartComponent? part) || part.Body != null || part.Parent != null ||
+                part.PartType != type || part.Symmetry != symmetry)
                 continue;
-
             if (found != null)
                 return null;
             found = item;

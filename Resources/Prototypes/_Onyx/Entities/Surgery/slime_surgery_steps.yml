@@ -1,4 +1,14 @@
 - type: entity
+  parent: SurgeryStepClampBleeders
+  id: SurgeryStepCoagulateSlimeFlow
+  name: Coagulate slime flow
+
+- type: entity
+  parent: SurgeryStepRetractSkin
+  id: SurgeryStepRetractSlimeMembrane
+  name: Retract the membrane
+
+- type: entity
   parent: SurgeryStepBase
   id: SurgeryStepSlimeSeparatePart
   name: Separate the body part
@@ -106,3 +116,13 @@
   - type: SurgeryInsertOrganEffect
     slot: Brain
     required: [ { type: SlimeCore } ]
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepSlimeRemoveCirculator
+  components: [ { type: SurgeryRemoveOrganEffect, slot: Heart } ]
+
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepSlimeInsertCirculator
+  components: [ { type: SurgeryInsertOrganEffect, slot: Heart } ]

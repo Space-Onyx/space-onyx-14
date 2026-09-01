@@ -130,6 +130,8 @@
   - type: SurgeryTool
     speedModifiers:
       Scalpel: 0.75
+    successModifiers:
+      Scalpel: 0.75
   # </Onyx-SurgerySpeed>
   # <Onyx-Surgery-edited>
   - type: Sprite
@@ -296,6 +298,8 @@
   - type: SurgeryTool
     speedModifiers:
       BoneSaw: 0.5
+    successModifiers:
+      BoneSaw: 0.65
   # </Onyx-SurgeryTools>
 
 - type: entity

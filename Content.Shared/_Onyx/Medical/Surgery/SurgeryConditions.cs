@@ -8,7 +8,12 @@ using Robust.Shared.Prototypes;
 namespace Content.Shared._Onyx.Medical.Surgery;
 
 [RegisterComponent] public sealed partial class SurgeryOperatingTableConditionComponent : Component;
-[RegisterComponent] public sealed partial class OperatingTableComponent : Component;
+[RegisterComponent]
+public sealed partial class OperatingTableComponent : Component
+{
+    [ViewVariables]
+    public EntityUid? Scanner;
+}
 
 [RegisterComponent]
 public sealed partial class SurgeryPartConditionComponent : Component

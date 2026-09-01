@@ -8,6 +8,7 @@ namespace Content.Shared._Onyx.Medical.Surgery;
 public sealed partial class SurgeryToolComponent : Component
 {
     [DataField, AutoNetworkedField] public Dictionary<string, float> SpeedModifiers = new();
+    [DataField, AutoNetworkedField] public Dictionary<string, float> SuccessModifiers = new();
     [DataField, AutoNetworkedField] public List<LocId> CustomUses = new();
     [DataField, AutoNetworkedField] public SoundSpecifier? StartSound;
     [DataField, AutoNetworkedField] public SoundSpecifier? EndSound;

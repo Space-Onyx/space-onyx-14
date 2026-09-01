@@ -134,7 +134,7 @@ public abstract partial class SharedSurgerySystem
         {
             if (!AnyHaveStack(args.Tools, stackType, Math.Max(1, ent.Comp.ConsumedAmount), out var stack))
             {
-                SetMissingTool(ref args, "surgery-ui-reason-material");
+                SetMissingMaterial(ref args);
                 return;
             }
 
@@ -145,7 +145,7 @@ public abstract partial class SharedSurgerySystem
         {
             if (!TryFindConsumables(args.Tools, prototype, Math.Max(1, ent.Comp.ConsumedAmount), out var consumables))
             {
-                SetMissingTool(ref args, "surgery-ui-reason-material");
+                SetMissingMaterial(ref args);
                 return;
             }
 
@@ -157,6 +157,31 @@ public abstract partial class SharedSurgerySystem
     {
         args.Invalid = StepInvalidReason.MissingTool;
         args.Popup = Loc.GetString(localizationKey);
+    }
+
+    private void SetMissingMaterial(ref SurgeryCanPerformStepEvent args)
+    {
+        args.Invalid = StepInvalidReason.MissingMaterial;
+        args.Popup = Loc.GetString("surgery-ui-reason-material");
+    }
+
+    protected float GetSurgerySuccessRate(EntityUid step, IEnumerable<EntityUid>? validTools)
+    {
+        if (validTools == null || !TryComp(step, out SurgeryStepComponent? surgeryStep) || surgeryStep.Tool == null)
+            return 1f;
+
+        var successRate = 1f;
+        foreach (var requirement in surgeryStep.Tool.Values)
+        {
+            if (!AnyHaveComp(validTools, requirement.Component, out var tool) ||
+                !TryComp(tool, out SurgeryToolComponent? surgeryTool))
+                continue;
+
+            var task = _compFactory.GetComponentName(requirement.Component.GetType());
+            successRate = Math.Min(successRate, Math.Clamp(surgeryTool.SuccessModifiers.GetValueOrDefault(task, 1f), 0f, 1f));
+        }
+
+        return successRate;
     }
 
     protected List<EntityUid> GetActiveTool(EntityUid surgeon)

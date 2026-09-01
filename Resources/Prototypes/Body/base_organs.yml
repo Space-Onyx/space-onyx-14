@@ -106,6 +106,7 @@
     data:
       state: head
   - type: VisualOrganMarkings
+    showOnDetached: true # <Onyx-DetachedHeadMarkings>
     hideableLayers:
     - enum.HumanoidVisualLayers.Hair
     markingData:
@@ -456,15 +457,19 @@
   - type: GibbableOrgan
   - type: Organ
     category: Brain
-    # <Onyx-OrganDamage>
-    damageChanceMultiplier: 0.8
-    selectionMultiplier: 0.75
+  # <Onyx-OrganDamage>
+  - type: OrganDamage
+    hitChance: 0.8
+    selectionWeight: 0.75
     damageMultipliers:
-      Blunt: 1.15
-      Piercing: 1.2
-      Shock: 1.25
+      Blunt: 0.115
+      Slash: 0.25
+      Piercing: 0.42
+      Heat: 0.15
+      Cold: 0.05
+      Shock: 0.3125
     # Brain destruction is handled through mob state, not an internal bleeding wound.
-    # </Onyx-OrganDamage>
+  # </Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -508,15 +513,20 @@
   - type: GibbableOrgan
   - type: Organ
     category: Eyes
-    # <Onyx-OrganDamage>
-    damageChanceMultiplier: 0.7
-    selectionMultiplier: 0.65
+  # <Onyx-OrganDamage>
+  - type: OrganDamage
+    hitChance: 0.7
+    selectionWeight: 0.2275
     damageMultipliers:
-      Blunt: 1.15
-      Slash: 1.2
-      Piercing: 1.25
+      Blunt: 0.115
+      Slash: 0.3
+      Piercing: 0.4375
+      Heat: 0.15
+      Cold: 0.05
+      Shock: 0.25
     # Small paired organs do not create major internal bleeding on destruction.
-    # </Onyx-OrganDamage>
+  # </Onyx-OrganDamage>
+  - type: Eyes # <Onyx-StatefulOrgans>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -528,6 +538,7 @@
     - state: eyeball-r
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.Eyes
+    showOnDetached: false # <Onyx-DetachedEyeVisuals>
     data:
       sprite: Mobs/Customization/eyes.rsi
       state: eyes
@@ -547,8 +558,16 @@
   - type: GibbableOrgan
   - type: Organ
     category: Tongue
-    damageChanceMultiplier: 0.5 # <Onyx-OrganDamage>
-    selectionMultiplier: 0.4 # <Onyx-OrganDamage>
+  - type: OrganDamage # <Onyx-OrganDamage>
+    hitChance: 0.5
+    selectionWeight: 0.08
+    damageMultipliers: &organicOrganDamage
+      Blunt: 0.1
+      Slash: 0.25
+      Piercing: 0.35
+      Heat: 0.15
+      Cold: 0.05
+      Shock: 0.25
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -570,8 +589,10 @@
   - type: GibbableOrgan
   - type: Organ
     category: Appendix
-    damageChanceMultiplier: 0.35 # <Onyx-OrganDamage>
-    selectionMultiplier: 0.25 # <Onyx-OrganDamage>
+  - type: OrganDamage # <Onyx-OrganDamage>
+    hitChance: 0.35
+    selectionWeight: 0.0375
+    damageMultipliers: *organicOrganDamage
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -592,8 +613,10 @@
   - type: GibbableOrgan
   - type: Organ
     category: Ears
-    damageChanceMultiplier: 0.45 # <Onyx-OrganDamage>
-    selectionMultiplier: 0.35 # <Onyx-OrganDamage>
+  - type: OrganDamage # <Onyx-OrganDamage>
+    hitChance: 0.45
+    selectionWeight: 0.0875
+    damageMultipliers: *organicOrganDamage
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -619,15 +642,19 @@
   - type: GibbableOrgan
   - type: Organ
     category: Lungs
-    # <Onyx-OrganDamage>
-    damageChanceMultiplier: 1.1
-    selectionMultiplier: 1.15
-    damageMultipliers:
-      Piercing: 1.2
-      Heat: 1.1
     destructionWound: InternalBleedingWound
     destructionWoundSeverity: 35
-    # </Onyx-OrganDamage>
+  # <Onyx-OrganDamage>
+  - type: OrganDamage
+    selectionWeight: 1.38
+    damageMultipliers:
+      Blunt: 0.1
+      Slash: 0.25
+      Piercing: 0.42
+      Heat: 0.165
+      Cold: 0.05
+      Shock: 0.25
+  # </Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -668,15 +695,20 @@
   - type: GibbableOrgan
   - type: Organ
     category: Heart
-    # <Onyx-OrganDamage>
-    damageChanceMultiplier: 0.8
-    selectionMultiplier: 0.8
-    damageMultipliers:
-      Piercing: 1.3
-      Shock: 1.35
     destructionWound: InternalBleedingWound
     destructionWoundSeverity: 45
-    # </Onyx-OrganDamage>
+  # <Onyx-OrganDamage>
+  - type: OrganDamage
+    hitChance: 0.8
+    selectionWeight: 0.64
+    damageMultipliers:
+      Blunt: 0.1
+      Slash: 0.25
+      Piercing: 0.455
+      Heat: 0.15
+      Cold: 0.05
+      Shock: 0.3375
+  # </Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -700,16 +732,20 @@
   - type: GibbableOrgan
   - type: Organ
     category: Stomach
-    # <Onyx-OrganDamage>
-    damageChanceMultiplier: 0.85
-    selectionMultiplier: 0.8
-    damageMultipliers:
-      Slash: 1.1
-      Piercing: 1.15
-      Caustic: 1.2
     destructionWound: InternalBleedingWound
     destructionWoundSeverity: 25
-    # </Onyx-OrganDamage>
+  # <Onyx-OrganDamage>
+  - type: OrganDamage
+    hitChance: 0.85
+    selectionWeight: 0.56
+    damageMultipliers:
+      Blunt: 0.1
+      Slash: 0.275
+      Piercing: 0.4025
+      Heat: 0.15
+      Cold: 0.05
+      Shock: 0.25
+  # </Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -749,15 +785,19 @@
   - type: GibbableOrgan
   - type: Organ
     category: Liver
-    # <Onyx-OrganDamage>
-    damageChanceMultiplier: 1.1
-    selectionMultiplier: 1.1
-    damageMultipliers:
-      Slash: 1.2
-      Piercing: 1.25
     destructionWound: InternalBleedingWound
     destructionWoundSeverity: 40
-    # </Onyx-OrganDamage>
+  # <Onyx-OrganDamage>
+  - type: OrganDamage
+    selectionWeight: 1.1
+    damageMultipliers:
+      Blunt: 0.1
+      Slash: 0.3
+      Piercing: 0.4375
+      Heat: 0.15
+      Cold: 0.05
+      Shock: 0.25
+  # </Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:
@@ -783,15 +823,20 @@
   - type: GibbableOrgan
   - type: Organ
     category: Kidneys
-    # <Onyx-OrganDamage>
-    damageChanceMultiplier: 0.9
-    selectionMultiplier: 0.85
-    damageMultipliers:
-      Piercing: 1.15
-      Caustic: 1.2
     destructionWound: InternalBleedingWound
     destructionWoundSeverity: 30
-    # </Onyx-OrganDamage>
+  # <Onyx-OrganDamage>
+  - type: OrganDamage
+    hitChance: 0.9
+    selectionWeight: 0.51
+    damageMultipliers:
+      Blunt: 0.1
+      Slash: 0.25
+      Piercing: 0.4025
+      Heat: 0.15
+      Cold: 0.05
+      Shock: 0.25
+  # </Onyx-OrganDamage>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
     customUses:

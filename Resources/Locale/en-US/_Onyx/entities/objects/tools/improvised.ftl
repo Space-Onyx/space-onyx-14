@@ -1,0 +1,16 @@
+ent-ScrewdriverImprovised = improvised screwdriver
+    .desc = A handful of metal with some cloth wrapped around it and sharpened at the tip. It works.
+ent-WirecutterImprovised = improvised wirecutter
+    .desc = The metal is barely sharp enough to cut through thick wires.
+ent-WrenchImprovised = improvised wrench
+    .desc = One size fits all. Almost.
+ent-MultitoolImprovised = improvised multitool
+    .desc = A crude tool for working with electronics and signals.
+ent-BaseUnfinishedImprovisedTool = unfinished improvised tool
+    .desc = Needs welding to hold it together.
+ent-UnfinishedImprovisedScrewdriver = screwdriver parts
+ent-UnfinishedImprovisedWirecutter = wirecutter parts
+ent-UnfinishedImprovisedWrench = wrench parts
+ent-UnfinishedImprovisedMultitool = multitool parts
+    .desc = Needs welding and patience to put it together.
+construction-desc-improvised-tool-welding = Assemble crude tool parts. Weld them afterwards to finish the tool.

@@ -21,74 +21,79 @@ public sealed partial class SharedBodySystem : EntitySystem
         SubscribeLocalEvent<BodyPartComponent, EntRemovedFromContainerMessage>(OnPartRemoved);
     }
 
-    private void OnOrganInserted(Entity<BodyComponent> body, ref OrganInsertedIntoEvent args) => RefreshGraph(body);
+    private void OnOrganInserted(Entity<BodyComponent> body, ref OrganInsertedIntoEvent args)
+    {
+        if (TryComp(args.Organ, out BodyPartComponent? part))
+            SetSubtreeBody((args.Organ, part), body);
+    }
 
     private void OnOrganRemoved(Entity<BodyComponent> body, ref OrganRemovedFromEvent args)
     {
-        if (TryComp(args.Organ, out BodyPartComponent? part))
+        if (TryComp(args.Organ, out BodyPartComponent? removedPart))
         {
-            part.Body = null;
-            part.Parent = null;
-            Dirty(args.Organ, part);
+            removedPart.Parent = null;
+            Dirty(args.Organ, removedPart);
+            SetSubtreeBody((args.Organ, removedPart), null);
         }
-
-        RefreshGraph(body);
     }
 
     private void OnPartInserted(Entity<BodyPartComponent> parent, ref EntInsertedIntoContainerMessage args)
     {
-        if (parent.Comp.Body is not { } body)
-        {
-            return;
-        }
-
         if (TryComp(args.Entity, out BodyPartComponent? part))
-            UpdatePartTree((args.Entity, part), body, inserted: true);
+        {
+            part.Parent = parent;
+            Dirty(args.Entity, part);
+            SetSubtreeBody((args.Entity, part), parent.Comp.Body);
+        }
         else if (TryComp(args.Entity, out OrganComponent? organ))
-            UpdateOrgan(args.Entity, organ, body, inserted: true);
+            SetOrganBody((args.Entity, organ), parent.Comp.Body);
     }
 
     private void OnPartRemoved(Entity<BodyPartComponent> parent, ref EntRemovedFromContainerMessage args)
     {
-        if (parent.Comp.Body is not { } body)
-        {
-            return;
-        }
-
         if (TryComp(args.Entity, out BodyPartComponent? part))
-            UpdatePartTree((args.Entity, part), body, inserted: false);
+        {
+            part.Parent = null;
+            Dirty(args.Entity, part);
+            SetSubtreeBody((args.Entity, part), null);
+        }
         else if (TryComp(args.Entity, out OrganComponent? organ))
-            UpdateOrgan(args.Entity, organ, body, inserted: false);
+            SetOrganBody((args.Entity, organ), null);
     }
 
-    private void UpdatePartTree(Entity<BodyPartComponent> root, EntityUid body, bool inserted)
+    private void SetSubtreeBody(Entity<BodyPartComponent> root, EntityUid? body)
     {
-        if (!inserted)
-        {
-            root.Comp.Parent = null;
-            Dirty(root);
-        }
-
         foreach (var (partId, part) in GetBodyPartChildren(root))
         {
-            if (TryComp(partId, out OrganComponent? organ))
+            TryComp(partId, out OrganComponent? organ);
+            var oldBody = part.Body ?? organ?.Body;
+            var changed = false;
+            if (part.Body != body)
             {
-                organ.Body = inserted ? body : null;
+                part.Body = body;
+                Dirty(partId, part);
+                changed = true;
+            }
+
+            if (organ != null && organ.Body != body)
+            {
+                organ.Body = body;
                 Dirty(partId, organ);
+                changed = true;
             }
 
-            part.Body = inserted ? body : null;
-            Dirty(partId, part);
-
-            if (inserted)
+            if (changed)
             {
-                var added = new OrganGotInsertedEvent(body);
-                RaiseLocalEvent(partId, ref added);
-            }
-            else
-            {
-                var removed = new OrganGotRemovedEvent(body);
-                RaiseLocalEvent(partId, ref removed);
+                if (body is { } insertedBody)
+                {
+                    var added = new OrganGotInsertedEvent(insertedBody);
+                    RaiseLocalEvent(partId, ref added);
+                }
+                else if (oldBody is { } removedBody)
+                {
+                    var removed = new OrganGotRemovedEvent(removedBody);
+                    RaiseLocalEvent(partId, ref removed);
+                }
             }
 
             foreach (var slot in part.Organs)
@@ -99,68 +104,32 @@ public sealed partial class SharedBodySystem : EntitySystem
                 foreach (var organId in container.ContainedEntities)
                 {
                     if (TryComp(organId, out OrganComponent? childOrgan))
-                        UpdateOrgan(organId, childOrgan, body, inserted);
+                        SetOrganBody((organId, childOrgan), body);
                 }
             }
         }
     }
 
-    private void UpdateOrgan(EntityUid uid, OrganComponent organ, EntityUid body, bool inserted)
+    private void SetOrganBody(Entity<OrganComponent> organ, EntityUid? body)
     {
-        if (inserted)
+        if (organ.Comp.Body == body)
+            return;
+
+        var oldBody = organ.Comp.Body;
+        organ.Comp.Body = body;
+        Dirty(organ);
+        if (body is { } insertedBody)
         {
-            organ.Body = body;
-            Dirty(uid, organ);
-            var added = new OrganGotInsertedEvent(body);
-            RaiseLocalEvent(uid, ref added);
+            var added = new OrganGotInsertedEvent(insertedBody);
+            RaiseLocalEvent(organ, ref added);
         }
-        else
+        else if (oldBody is { } removedBody)
         {
-            organ.Body = null;
-            Dirty(uid, organ);
-            var removed = new OrganGotRemovedEvent(body);
-            RaiseLocalEvent(uid, ref removed);
+            var removed = new OrganGotRemovedEvent(removedBody);
+            RaiseLocalEvent(organ, ref removed);
         }
     }
 
-    private void RefreshGraph(EntityUid body)
-    {
-        var parts = GetBodyChildren(body).ToList();
-        foreach (var (id, part) in parts)
-        {
-            part.Body = body;
-            part.Parent ??= GetParent(parts, id, part);
-            Dirty(id, part);
-        }
-    }
-
-    private static EntityUid? GetParent(List<(EntityUid Id, BodyPartComponent Component)> parts, EntityUid id, BodyPartComponent part)
-    {
-        if (part.PartType is BodyPartType.Chest)
-            return null;
-
-        var parentType = part.PartType switch
-        {
-            BodyPartType.Hand => BodyPartType.Arm,
-            BodyPartType.Foot => BodyPartType.Leg,
-            BodyPartType.Leg => BodyPartType.Groin,
-            BodyPartType.Groin => BodyPartType.Chest,
-            _ => BodyPartType.Chest,
-        };
-
-        foreach (var (candidate, candidatePart) in parts)
-        {
-            if (candidate == id || candidatePart.PartType != parentType)
-                continue;
-
-            if (parentType is BodyPartType.Arm or BodyPartType.Leg && candidatePart.Symmetry != part.Symmetry)
-                continue;
-
-            return candidate;
-        }
-
-        return null;
-    }
     public IEnumerable<(EntityUid Id, BodyPartComponent Component)> GetBodyChildren(EntityUid body)
     {
         if (!TryComp(body, out BodyComponent? bodyComponent) || bodyComponent.RootContainer?.ContainedEntity is not { } root)
@@ -258,6 +227,8 @@ public sealed partial class SharedBodySystem : EntitySystem
         if (!TryGetParentBodyPart(part, out var parent, out var parentPart) || parent == null || parentPart == null)
             return false;
 
+        var body = Comp<BodyPartComponent>(part).Body;
+
         foreach (var slot in parentPart.Children.Keys.ToList())
         {
             if (!_containers.TryGetContainer(parent.Value, BodyPartComponent.PartSlotPrefix + slot, out var container) || container is not ContainerSlot { ContainedEntity: { } child } || child != part)
@@ -277,7 +248,8 @@ public sealed partial class SharedBodySystem : EntitySystem
 
     public bool TryAttachPart(EntityUid parentId, EntityUid partId)
     {
-        if (!TryComp(parentId, out BodyPartComponent? parent) || !TryComp(partId, out BodyPartComponent? part) || part.Body != null ||
+        if (!TryComp(parentId, out BodyPartComponent? parent) || !TryComp(partId, out BodyPartComponent? part) ||
+            !HasComp<OrganComponent>(partId) || part.Body != null ||
             !AreTransplantsCompatible(parentId, partId) || HasAmputationConsequence(parentId))
             return false;
 
@@ -411,6 +383,7 @@ public sealed partial class SharedBodySystem : EntitySystem
     {
         if (!TryComp(parentId, out BodyPartComponent? parent)
             || !TryComp(partId, out BodyPartComponent? part)
+            || !HasComp<OrganComponent>(partId)
             || part.Body != null
             || !AreTransplantsCompatible(parentId, partId)
             || HasAmputationConsequence(parentId)
@@ -444,35 +417,8 @@ public sealed partial class SharedBodySystem : EntitySystem
 
     public void ActivateDeclarativeGraph(EntityUid root, EntityUid body)
     {
-        var first = true;
-        foreach (var (partId, part) in GetBodyPartChildren(root))
-        {
-            part.Body = body;
-            if (TryComp(partId, out OrganComponent? organ))
-            {
-                organ.Body = body;
-                Dirty(partId, organ);
-            }
-            Dirty(partId, part);
-
-            foreach (var organSlot in part.Organs)
-            {
-                if (!_containers.TryGetContainer(partId, BodyPartComponent.OrganSlotPrefix + organSlot, out var container))
-                    continue;
-                foreach (var organId in container.ContainedEntities)
-                    if (TryComp(organId, out OrganComponent? childOrgan))
-                        UpdateOrgan(organId, childOrgan, body, inserted: true);
-            }
-
-            if (first)
-            {
-                first = false;
-                continue;
-            }
-
-            var inserted = new OrganGotInsertedEvent(body);
-            RaiseLocalEvent(partId, ref inserted);
-        }
+        if (TryComp(root, out BodyPartComponent? part))
+            SetSubtreeBody((root, part), body);
     }
 
     public IEnumerable<(EntityUid Id, OrganComponent Component)> GetPartOrgans(EntityUid part)

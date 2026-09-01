@@ -1,13 +1,9 @@
 using Content.Shared._Onyx.Medical.Surgery;
-using Robust.Client.Player;
-using Robust.Shared.Prototypes;
 
 namespace Content.Client._Onyx.Medical.Surgery;
 
 public sealed partial class SurgerySystem : SharedSurgerySystem
 {
-    [Dependency] private IPlayerManager _player = default!;
-
     public event Action? OnRefresh;
     private float _refreshAt;
 
@@ -35,13 +31,4 @@ public sealed partial class SurgerySystem : SharedSurgerySystem
         OnRefresh.Invoke();
     }
 
-    public IReadOnlyList<EntProtoId> GetPredictedSteps(EntityUid body, EntityUid part, EntProtoId surgery)
-    {
-        if (_player.LocalEntity is not { } user ||
-            GetSurgeryEntity(surgery) is not { } surgeryEntity ||
-            !TryComp(surgeryEntity, out SurgeryComponent? surgeryComponent))
-            return [];
-
-        return GetSurgerySteps(body, part, (surgeryEntity, surgeryComponent), GetActiveTool(user));
-    }
 }

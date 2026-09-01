@@ -83,6 +83,44 @@
       color: "#FF9900"
 
 - type: entity
+  parent: BasicCyberneticEyes
+  id: CyberEyeNightVision
+  name: night vision cybernetic eyes
+  description: Cybernetic eyes that provide night vision. EMP pulses temporarily disable them.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Cybernetics/VisionEyes/items.rsi
+    layers:
+    - state: eyes_night
+  - type: Cybernetics
+    effects: NightVision, FlashProtection
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Cybernetics/VisionEyes/body.rsi
+      state: eyes_night
+      color: "#04409c"
+      shader: unshaded
+
+- type: entity
+  parent: BasicCyberneticEyes
+  id: CyberEyeThermal
+  name: thermal vision cybernetic eyes
+  description: Cybernetic eyes that reveal living bodies through obstacles. EMP pulses temporarily disable them.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Cybernetics/VisionEyes/items.rsi
+    layers:
+    - state: eyes_thermal
+  - type: Cybernetics
+    effects: ThermalVision, FlashProtection
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Cybernetics/VisionEyes/body.rsi
+      state: eyes_thermal
+      color: "#04409c"
+      shader: unshaded
+
+- type: entity
   parent: [ OrganHumanHeart, OnyxCyberneticOrganBase ]
   id: BasicCyberneticHeart
   name: cybernetic heart

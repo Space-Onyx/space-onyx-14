@@ -1,0 +1,10 @@
+- type: sourcePort
+  id: BodyScannerSender
+  name: body-scanner-sender-port-name
+  description: body-scanner-sender-port-description
+  defaultLinks: [ BodyScannerReceiver ]
+
+- type: sinkPort
+  id: BodyScannerReceiver
+  name: body-scanner-receiver-port-name
+  description: body-scanner-receiver-port-description

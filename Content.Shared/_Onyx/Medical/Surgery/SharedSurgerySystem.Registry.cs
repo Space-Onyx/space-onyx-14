@@ -22,6 +22,24 @@ public abstract partial class SharedSurgerySystem
         return _stepPrototypes.Contains(step) ? GetOrSpawnPrototypeEntity(step) : null;
     }
 
+    protected bool TryGetSurgeryItemKind(EntProtoId item, out SurgeryItemKind kind)
+    {
+        if (_surgeryPrototypes.ContainsKey(item))
+        {
+            kind = SurgeryItemKind.Surgery;
+            return true;
+        }
+
+        if (_stepPrototypes.Contains(item))
+        {
+            kind = SurgeryItemKind.Step;
+            return true;
+        }
+
+        kind = default;
+        return false;
+    }
+
     private EntityUid GetOrSpawnPrototypeEntity(EntProtoId prototype)
     {
         if (!_singletons.TryGetValue(prototype, out var ent) || TerminatingOrDeleted(ent))
@@ -63,6 +81,12 @@ public abstract partial class SharedSurgerySystem
 
     private bool ValidateSurgeryPrototype(EntProtoId id, SurgeryComponent surgery)
     {
+        if (_stepPrototypes.Contains(id))
+        {
+            Log.Error($"Surgery item {id} cannot be both a surgery and a surgery step and will be ignored.");
+            return false;
+        }
+
         if (surgery.Steps.Count == 0)
         {
             Log.Error($"Surgery prototype {id} has no steps and will be ignored.");

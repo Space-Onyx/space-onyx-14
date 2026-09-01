@@ -18,7 +18,8 @@
       default:
         steps:
         - SurgeryStepOpenIncisionScalpel
-        - SurgeryStepRetractSkin
+        - SurgeryStepCoagulateSlimeFlow
+        - SurgeryStepRetractSlimeMembrane
   - type: SurgeryMarkerCondition
     missingAny: [ IncisionOpen, SkinRetracted ]
 
@@ -221,7 +222,7 @@
         - SurgeryStepSlimeRemoveCore
   - type: SurgeryOrganCondition
     slot: Brain
-    part: Groin
+    part: Chest
 
 - type: entity
   parent: SurgerySlimeBase
@@ -238,7 +239,7 @@
   - type: SurgeryOrganCondition
     slot: Brain
     inverse: true
-    part: Groin
+    part: Chest
 
 - type: entity
   parent: SurgerySlimeBase
@@ -255,7 +256,7 @@
   - type: SurgeryOrganCondition
     slot: Brain
     damaged: true
-    part: Groin
+    part: Chest
 
 - type: entity
   parent: SurgerySlimeBase
@@ -416,6 +417,56 @@
         - SurgeryStepHealLungs
   - type: SurgeryOrganCondition
     slot: Lungs
+    damaged: true
+    part: Chest
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeRemoveCirculator
+  name: Remove slime circulator
+  components:
+  - type: Surgery
+    icon: { sprite: _Onyx/Mobs/Species/Slime/circulator.rsi, state: heart-off }
+    steps:
+      default:
+        steps:
+        - SurgerySlimeOpenIncision
+        - SurgeryStepSlimeRemoveCirculator
+  - type: SurgeryOrganCondition
+    slot: Heart
+    part: Chest
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeInsertCirculator
+  name: Insert slime circulator
+  components:
+  - type: Surgery
+    icon: { sprite: _Onyx/Mobs/Species/Slime/circulator.rsi, state: heart-off }
+    steps:
+      default:
+        steps:
+        - SurgerySlimeOpenIncision
+        - SurgeryStepSlimeInsertCirculator
+  - type: SurgeryOrganCondition
+    slot: Heart
+    inverse: true
+    part: Chest
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeHealCirculator
+  name: Restore slime circulator
+  components:
+  - type: Surgery
+    icon: { sprite: _Onyx/Mobs/Species/Slime/circulator.rsi, state: heart-off }
+    steps:
+      default:
+        steps:
+        - SurgerySlimeOpenIncision
+        - SurgeryStepHealHeart
+  - type: SurgeryOrganCondition
+    slot: Heart
     damaged: true
     part: Chest
 

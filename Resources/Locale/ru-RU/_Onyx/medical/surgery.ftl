@@ -24,6 +24,7 @@ surgery-ui-reason-incompatible-transplant-type = Этот транспланта
 surgery-ui-reason-amputation-consequence = сначала обработайте последствия ампутации
 surgery-ui-reason-cavity-item = Возьмите в выбранную руку небольшой или маленький предмет.
 surgery-ui-reason-material = В выбранной руке недостаточно подходящего материала.
+surgery-ui-reason-site-busy = другой хирург уже работает с этой областью
 surgery-ui-reason-unavailable = этот этап пока недоступен
 surgery-verb-open = Начать оперировать
 surgery-popup-patient-must-lie = Сначала уложите пациента.
@@ -225,7 +226,14 @@ surgery-popup-step-SurgeryStepRemoveAugmentCharger = { $user } извлекае�
 surgery-tool-examine-verb-text = Хирургический инструмент
 surgery-tool-examine-verb-message = Изучить применение этого инструмента в операциях.
 surgery-tool-examine-uses = Этот инструмент можно использовать в операциях как:
-surgery-tool-examine-use = - [color=yellow]{ $use }[/color] с [color={ $color }]{ $multiplier }x[/color] скоростью
+surgery-tool-examine-use = - [color=yellow]{ $use }[/color] с [color={ $color }]{ $multiplier }x[/color] скоростью, успех { $success }%
+surgery-popup-tool-failure = {$tool} соскальзывает. Этот этап операции нужно повторить.
+surgery-popup-step-SurgeryStepCoagulateSlimeFlow = {$user} коагулирует поток слизи в {$part} у {$target}.
+surgery-popup-step-SurgeryStepRetractSlimeMembrane = {$user} отводит мембрану на {$part} у {$target}.
+body-scanner-sender-port-name = Сканер операционного стола
+body-scanner-sender-port-description = Связывает диагностическую консоль с операционным столом.
+body-scanner-receiver-port-name = Диагностическая консоль
+body-scanner-receiver-port-description = Передаёт данные пристёгнутого пациента связанной диагностической консоли.
 surgery-tool-examine-use-none = - [color=gray]Нет подходящих хирургических процедур.[/color]
 surgery-tool-use-scalpel = скальпель
 surgery-tool-use-hemostat = гемостат

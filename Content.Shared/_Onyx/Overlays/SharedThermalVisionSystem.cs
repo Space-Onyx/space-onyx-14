@@ -1,6 +1,7 @@
 using Content.Shared.Actions;
 using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
+using Content.Shared.Body;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
@@ -23,14 +24,21 @@ public sealed partial class SharedThermalVisionSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<ThermalVisionComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<ThermalVisionComponent, ComponentInit>(OnInit);
+        SubscribeLocalEvent<ThermalVisionComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<ThermalVisionComponent, GetItemActionsEvent>(OnGetItemActions);
         SubscribeLocalEvent<ThermalVisionComponent, ToggleThermalVisionEvent>(OnToggle);
     }
 
-    private void OnMapInit(Entity<ThermalVisionComponent> ent, ref MapInitEvent args)
+    private void OnInit(Entity<ThermalVisionComponent> ent, ref ComponentInit args)
     {
         _actions.AddAction(ent, ref ent.Comp.ToggleActionEntity, ent.Comp.ToggleAction);
+    }
+
+    private void OnShutdown(Entity<ThermalVisionComponent> ent, ref ComponentShutdown args)
+    {
+        _actions.RemoveAction(ent.Owner, ent.Comp.ToggleActionEntity);
+        RefreshWearer(ent);
     }
 
     private void OnGetItemActions(Entity<ThermalVisionComponent> ent, ref GetItemActionsEvent args)
@@ -85,7 +93,7 @@ public sealed partial class SharedThermalVisionSystem : EntitySystem
 
     private void RefreshWearer(Entity<ThermalVisionComponent> ent)
     {
-        var wearer = Transform(ent).ParentUid;
+        var wearer = HasComp<BodyComponent>(ent) ? ent.Owner : Transform(ent).ParentUid;
         var ev = new RefreshEquipmentHudEvent<ThermalVisionComponent>(~SlotFlags.POCKET);
         RaiseLocalEvent(wearer, ref ev);
     }

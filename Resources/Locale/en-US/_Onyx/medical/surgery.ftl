@@ -24,6 +24,7 @@ surgery-ui-reason-incompatible-transplant-type = This transplant is unsuitable f
 surgery-ui-reason-amputation-consequence = treat the amputation damage first
 surgery-ui-reason-cavity-item = Hold a Tiny or Small item in your active hand.
 surgery-ui-reason-material = Hold enough of the required material in your active hand.
+surgery-ui-reason-site-busy = another surgeon is already working on this site
 surgery-ui-reason-unavailable = this step is currently unavailable
 surgery-verb-open = Begin surgery
 surgery-popup-patient-must-lie = The patient must be lying down.
@@ -225,7 +226,14 @@ surgery-popup-step-SurgeryStepRemoveAugmentCharger = { $user } is removing a rec
 surgery-tool-examine-verb-text = Surgical tool
 surgery-tool-examine-verb-message = Examine this tool's uses in surgery.
 surgery-tool-examine-uses = This tool can be used in surgery for:
-surgery-tool-examine-use = - [color=yellow]{ $use }[/color] at [color={ $color }]{ $multiplier }x[/color] speed
+surgery-tool-examine-use = - [color=yellow]{ $use }[/color] at [color={ $color }]{ $multiplier }x[/color] speed, { $success }% success
+surgery-popup-tool-failure = The {$tool} slips. This surgical step must be repeated.
+surgery-popup-step-SurgeryStepCoagulateSlimeFlow = {$user} coagulates the slime flow in {$target}'s {$part}.
+surgery-popup-step-SurgeryStepRetractSlimeMembrane = {$user} retracts the membrane on {$target}'s {$part}.
+body-scanner-sender-port-name = Operating table scanner
+body-scanner-sender-port-description = Links this diagnostic console to an operating table.
+body-scanner-receiver-port-name = Diagnostic console
+body-scanner-receiver-port-description = Exposes the strapped patient to a linked diagnostic console.
 surgery-tool-examine-use-none = - [color=gray]No compatible surgical procedures.[/color]
 surgery-tool-use-scalpel = a scalpel
 surgery-tool-use-hemostat = a hemostat

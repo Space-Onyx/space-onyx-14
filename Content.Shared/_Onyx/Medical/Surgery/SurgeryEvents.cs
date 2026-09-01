@@ -12,13 +12,15 @@ public sealed partial class SurgeryDoAfterEvent : SimpleDoAfterEvent
     public readonly EntProtoId Surgery;
     public readonly EntProtoId Step;
     public readonly uint Token;
+    public readonly float SuccessRate;
 
-    public SurgeryDoAfterEvent(NetEntity part, EntProtoId surgery, EntProtoId step, uint token)
+    public SurgeryDoAfterEvent(NetEntity part, EntProtoId surgery, EntProtoId step, uint token, float successRate)
     {
         Part = part;
         Surgery = surgery;
         Step = step;
         Token = token;
+        SuccessRate = successRate;
     }
 }
 
@@ -29,6 +31,8 @@ public enum StepInvalidReason
     NeedsOperatingTable,
     Clothing,
     MissingTool,
+    MissingMaterial,
+    SurgerySiteBusy,
     IncompatibleTransplant,
     AmputationConsequence,
     IncompatibleTransplantType,

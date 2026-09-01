@@ -1,0 +1,8 @@
+- files:
+  - improvised_screwdriver.rsi/*
+  - improvised_wirecutters.rsi/*
+  - improvised_wrench.rsi/*
+  - improvised_multitool.rsi/*
+  license: CC-BY-SA-3.0
+  copyright: Made by Killer Tamashi (Discord), sourced from StarLight
+  source: https://github.com/ss14Starlight/space-station-14

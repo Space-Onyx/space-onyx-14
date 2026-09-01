@@ -2,6 +2,7 @@ using System.Linq;
 using Content.Shared.Body.Part;
 using Content.Shared.GameTicking;
 using Content.Shared.Standing;
+using Content.Shared.Interaction;
 using Content.Shared.UserInterface;
 using Robust.Shared.Prototypes;
 
@@ -65,6 +66,7 @@ public abstract partial class SharedSurgerySystem
         SubscribeLocalEvent<SurgeryRemoveCavityItemEffectComponent, SurgeryStepCompleteCheckEvent>(OnRemoveCavityItemCheck);
         SubscribeLocalEvent<SurgeryTargetPartContextComponent, SurgeryGetStepSequenceContextEvent>(OnTargetPartGetSequenceContext);
         SubscribeLocalEvent<SurgeryTargetComponent, StandAttemptEvent>(OnTargetStandAttempt);
+        SubscribeLocalEvent<SurgeryTargetComponent, AccessibleOverrideEvent>(OnTargetAccessible);
 
         LoadSurgeryPrototypes();
     }
@@ -97,6 +99,17 @@ public abstract partial class SharedSurgerySystem
             if (site.Body == entity || site.Part == entity)
                 ActiveSurgerySites.Remove(site);
         }
+    }
+
+    private void OnTargetAccessible(Entity<SurgeryTargetComponent> ent, ref AccessibleOverrideEvent args)
+    {
+        if (args.Handled || args.Accessible || args.Target != ent.Owner ||
+            !TryComp(ent, out BodyPartComponent? part) || part.Body is not { } body ||
+            !_interaction.CanAccess(args.User, body))
+            return;
+
+        args.Accessible = true;
+        args.Handled = true;
     }
 
     private void OnEntityTerminating(ref EntityTerminatingEvent args)

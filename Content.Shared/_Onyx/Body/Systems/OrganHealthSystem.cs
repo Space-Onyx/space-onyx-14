@@ -3,6 +3,7 @@ using Content.Shared.Body.Components;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
 using Content.Shared.FixedPoint;
+using Content.Shared._Onyx.Body;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared._Onyx.Wounds;
@@ -43,6 +44,23 @@ public sealed partial class OrganHealthSystem : EntitySystem
             DestroyOrgan((uid, organ));
         }
     }
+
+    public void SetHealth(Entity<OrganComponent> organ, FixedPoint2 health)
+    {
+        var wasFunctional = organ.Comp.Health > FixedPoint2.Zero;
+        organ.Comp.Health = FixedPoint2.Clamp(health, FixedPoint2.Zero, organ.Comp.MaxHealth);
+        Dirty(organ);
+
+        var functional = organ.Comp.Health > FixedPoint2.Zero;
+        if (wasFunctional == functional || organ.Comp.Body is not { } body)
+            return;
+
+        var changed = new OrganFunctionChangedEvent(body, functional);
+        RaiseLocalEvent(organ, ref changed);
+    }
+
+    public void ChangeHealth(Entity<OrganComponent> organ, FixedPoint2 amount) =>
+        SetHealth(organ, organ.Comp.Health + amount);
 
     private void DestroyOrgan(Entity<OrganComponent> organ)
     {

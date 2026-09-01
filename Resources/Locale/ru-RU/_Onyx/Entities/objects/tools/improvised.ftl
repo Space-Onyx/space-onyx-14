@@ -1,0 +1,16 @@
+ent-ScrewdriverImprovised = импровизированная отвёртка
+    .desc = Кусок металла с обмотанной тканью рукоятью и заострённым концом. Работает.
+ent-WirecutterImprovised = импровизированные кусачки
+    .desc = Металл едва достаточно острый, чтобы перекусывать толстые провода.
+ent-WrenchImprovised = импровизированный гаечный ключ
+    .desc = Один размер подходит ко всему. Почти.
+ent-MultitoolImprovised = импровизированный мультитул
+    .desc = Грубый инструмент для работы с электроникой и сигналами.
+ent-BaseUnfinishedImprovisedTool = детали импровизированного инструмента
+    .desc = Нужно сварить детали, чтобы они держались вместе.
+ent-UnfinishedImprovisedScrewdriver = детали отвёртки
+ent-UnfinishedImprovisedWirecutter = детали кусачек
+ent-UnfinishedImprovisedWrench = детали гаечного ключа
+ent-UnfinishedImprovisedMultitool = детали мультитула
+    .desc = Нужны сварка и терпение, чтобы собрать всё вместе.
+construction-desc-improvised-tool-welding = Соберите грубые детали инструмента, затем сварите их для завершения.

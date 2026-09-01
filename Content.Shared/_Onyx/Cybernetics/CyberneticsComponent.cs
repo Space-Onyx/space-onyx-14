@@ -1,4 +1,6 @@
 using Robust.Shared.GameStates;
+using Content.Shared.Overlays;
+using Content.Shared._Onyx.Overlays;
 
 namespace Content.Shared._Onyx.Cybernetics;
 
@@ -10,6 +12,12 @@ public sealed partial class CyberneticsComponent : Component
 
     [DataField]
     public CyberneticEffect Effects;
+
+    [DataField, AutoNetworkedField]
+    public bool NightVisionEnabled;
+
+    [DataField, AutoNetworkedField]
+    public bool ThermalVisionEnabled;
 }
 
 [Flags]
@@ -22,6 +30,8 @@ public enum CyberneticEffect : byte
     Prying = 1 << 3,
     Speed = 1 << 4,
     FlashProtection = 1 << 5,
+    NightVision = 1 << 6,
+    ThermalVision = 1 << 7,
 }
 
 [RegisterComponent]
@@ -37,5 +47,7 @@ public sealed partial class CyberneticBodyEffectsComponent : Component
     public bool OwnsContrabandDetails;
     public bool OwnsAccessReaderSettings;
     public bool OwnsFlashImmunity;
+    public bool OwnsNightVision;
+    public bool OwnsThermalVision;
     public int SpeedLegs;
 }

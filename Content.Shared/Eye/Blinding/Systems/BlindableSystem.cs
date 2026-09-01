@@ -89,6 +89,9 @@ public sealed partial class BlindableSystem : EntitySystem
         UpdateEyeDamage(blindable, true);
     }
 
+    public int GetEyeDamage(Entity<BlindableComponent?> blindable) =>
+        Resolve(blindable, ref blindable.Comp, false) ? blindable.Comp.EyeDamage : 0;
+
     private void UpdateEyeDamage(Entity<BlindableComponent?> blindable, bool isDamageChanged)
     {
         if (!Resolve(blindable, ref blindable.Comp, false))

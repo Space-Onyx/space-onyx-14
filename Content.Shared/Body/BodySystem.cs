@@ -1,4 +1,5 @@
 using Content.Shared.DragDrop;
+using Content.Shared.Body.Part; // <Onyx-OrganLifecycle>
 using JetBrains.Annotations;
 using Robust.Shared.Containers;
 
@@ -67,16 +68,19 @@ public sealed partial class BodySystem : EntitySystem
         var body = new OrganInsertedIntoEvent(args.Entity);
         RaiseLocalEvent(ent, ref body);
 
-        if (organ.Body != ent)
+        // <Onyx-OrganLifecycle-edited>
+        if (!HasComp<BodyPartComponent>(args.Entity) && organ.Body != ent)
         {
             organ.Body = ent;
             Dirty(args.Entity, organ);
         }
 
-        // <Onyx-BodyInventorySlots-edited>
-        var ev = new OrganGotInsertedEvent(ent);
-        RaiseLocalEvent(args.Entity, ref ev);
-        // </Onyx-BodyInventorySlots-edited>
+        if (!HasComp<BodyPartComponent>(args.Entity))
+        {
+            var ev = new OrganGotInsertedEvent(ent);
+            RaiseLocalEvent(args.Entity, ref ev);
+        }
+        // </Onyx-OrganLifecycle-edited>
     }
 
     private void OnBodyEntRemoved(Entity<BodyComponent> ent, ref EntRemovedFromContainerMessage args)
@@ -90,16 +94,19 @@ public sealed partial class BodySystem : EntitySystem
         var body = new OrganRemovedFromEvent(args.Entity);
         RaiseLocalEvent(ent, ref body);
 
-        if (organ.Body != null)
+        // <Onyx-OrganLifecycle-edited>
+        if (!HasComp<BodyPartComponent>(args.Entity) && organ.Body != null)
         {
             organ.Body = null;
             Dirty(args.Entity, organ);
         }
 
-        // <Onyx-BodyInventorySlots-edited>
-        var ev = new OrganGotRemovedEvent(ent);
-        RaiseLocalEvent(args.Entity, ref ev);
-        // </Onyx-BodyInventorySlots-edited>
+        if (!HasComp<BodyPartComponent>(args.Entity))
+        {
+            var ev = new OrganGotRemovedEvent(ent);
+            RaiseLocalEvent(args.Entity, ref ev);
+        }
+        // </Onyx-OrganLifecycle-edited>
     }
 
     private void OnCanDrag(Entity<BodyComponent> ent, ref CanDragEvent args)
