@@ -497,7 +497,8 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                     ignoreGlobalModifiers: true))
             {
                 _applied.Add(body);
-                var applied = new PartDamageAppliedEvent(body, target, appliedDamage, !_skipWoundHealing.Contains(body));
+                var applied = new PartDamageAppliedEvent(body, target, appliedDamage,
+                    !_skipWoundHealing.Contains(body), origin);
                 RaiseLocalEvent(target, ref applied);
                 return;
             }
@@ -646,7 +647,8 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                 ignoreGlobalModifiers: true))
             return false;
 
-        var applied = new PartDamageAppliedEvent(body, part, appliedDamage, !_skipWoundHealing.Contains(body));
+        var applied = new PartDamageAppliedEvent(body, part, appliedDamage,
+            !_skipWoundHealing.Contains(body), origin);
         RaiseLocalEvent(part, ref applied);
         return true;
     }

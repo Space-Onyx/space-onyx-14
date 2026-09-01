@@ -45,7 +45,8 @@ public readonly record struct PartDamageAppliedEvent(
     EntityUid Body,
     EntityUid Part,
     DamageSpecifier Damage,
-    bool HealWounds = true);
+    bool HealWounds = true,
+    EntityUid? Origin = null);
 
 /// <summary>
 /// Raised when damage is dealt to a part that is already at (or pushed past) its

@@ -5,8 +5,11 @@ using Content.Shared.Body.Components;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
 using Content.Shared.Bed.Sleep;
+using Content.Shared.Damage;
 using Content.Shared.FixedPoint;
+using Content.Shared.Popups;
 using Robust.Shared.Configuration;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
@@ -20,11 +23,13 @@ public sealed partial class WoundBleedingSystem : EntitySystem
 
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private BloodstreamSystem _bloodstream = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private IConfigurationManager _configuration = default!;
     [Dependency] private CirculatoryStreamSystem _circulation = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private WoundSystem _wounds = default!;
 
     public override void Initialize()
@@ -78,6 +83,28 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         foreach (var wound in GetAttachedBleedingWounds(body))
             RefreshWound((wound.Owner, wound.Comp2), false);
         RefreshBody(body);
+    }
+
+    internal void HandlePartDamageApplied(Entity<WoundableComponent> part, ref PartDamageAppliedEvent args)
+    {
+        if (!_net.IsServer || !TryComp(args.Body, out BloodstreamComponent? bloodstream) ||
+            !_prototypes.TryIndex(bloodstream.DamageBleedModifiers, out var modifiers))
+            return;
+
+        var reduction = -DamageSpecifier.ApplyModifierSet(
+                DamageSpecifier.GetPositive(args.Damage),
+                modifiers)
+            .GetTotal();
+        if (reduction <= FixedPoint2.Zero || GetPartRate(part.AsNullable()) <= 0f ||
+            !ReducePartBleeding(part.AsNullable(), reduction))
+            return;
+
+        if (-reduction.Float() <= bloodstream.BloodHealedSoundThreshold)
+        {
+            _popup.PopupEntity(Loc.GetString("bloodstream-component-wounds-cauterized"), args.Body, args.Body,
+                PopupType.Medium);
+            _audio.PlayPredicted(bloodstream.BloodHealedSound, args.Body, args.Origin);
+        }
     }
 
     public override void Update(float frameTime)

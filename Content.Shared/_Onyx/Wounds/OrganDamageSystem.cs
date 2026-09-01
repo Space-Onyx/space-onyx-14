@@ -18,6 +18,7 @@ public sealed partial class OrganDamageSystem : EntitySystem
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private WoundFractureSystem _fractures = default!;
     [Dependency] private WoundSystem _wounds = default!;
+    [Dependency] private WoundBleedingSystem _bleeding = default!;
     [Dependency] private AmputationSystem _amputation = default!;
 
     public override void Initialize()
@@ -30,6 +31,7 @@ public sealed partial class OrganDamageSystem : EntitySystem
         _wounds.HandlePartDamageApplied(part, ref args);
         _fractures.HandlePartDamageApplied(part, ref args);
         _amputation.HandlePartDamageApplied(part, ref args);
+        _bleeding.HandlePartDamageApplied(part, ref args);
 
         if (!_net.IsServer || !TryComp(part, out BodyPartComponent? bodyPart) || bodyPart.Body == null ||
             !_prototypes.TryIndex(part.Comp.Profile, out var profile))
