@@ -70,8 +70,10 @@
     fireRate: 0.8 # Onyx: Goob tuning.
     selectedMode: SemiAuto
     angleDecay: 45
-    minAngle: 44
-    maxAngle: 45
+    # <Onyx-PKASpread-edited>
+    minAngle: 1
+    maxAngle: 5
+    # </Onyx-PKASpread-edited>
     availableModes:
     - SemiAuto
     soundGunshot:
