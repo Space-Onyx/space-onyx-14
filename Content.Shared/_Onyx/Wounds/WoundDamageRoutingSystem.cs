@@ -340,8 +340,8 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
 
         var symmetry = hand.Value.Location switch
         {
-            HandLocation.Left => BodyPartSymmetry.Left,
-            HandLocation.Right => BodyPartSymmetry.Right,
+            HandLocation.Left or HandLocation.FunctionalLeft => BodyPartSymmetry.Left,
+            HandLocation.Right or HandLocation.FunctionalRight => BodyPartSymmetry.Right,
             _ => BodyPartSymmetry.None,
         };
         if (symmetry == BodyPartSymmetry.None)

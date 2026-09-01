@@ -233,5 +233,10 @@ public enum HandLocation : byte
 {
     Right,
     Middle,
-    Left
+    Left, // <Onyx-FunctionalHands-edited>
+    // <Onyx-FunctionalHands>
+    Functional,
+    FunctionalRight,
+    FunctionalLeft,
+    // </Onyx-FunctionalHands>
 }

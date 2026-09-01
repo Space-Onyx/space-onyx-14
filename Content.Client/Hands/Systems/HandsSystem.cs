@@ -316,7 +316,16 @@ namespace Content.Client.Hands.Systems
                 return;
             }
 
-            var ev = new GetInhandVisualsEvent(ent, hand.Value.Location);
+            // <Onyx-FunctionalHands-edited>
+            var visualLocation = hand.Value.Location switch
+            {
+                HandLocation.FunctionalLeft => HandLocation.Left,
+                HandLocation.FunctionalRight => HandLocation.Right,
+                HandLocation.Functional => HandLocation.Middle,
+                _ => hand.Value.Location,
+            };
+            var ev = new GetInhandVisualsEvent(ent, visualLocation);
+            // </Onyx-FunctionalHands-edited>
             RaiseLocalEvent(held, ev);
 
             if (ev.Layers.Count == 0)
@@ -352,8 +361,8 @@ namespace Content.Client.Hands.Systems
                 // Add displacement maps
                 var displacement = hand.Value.Location switch
                 {
-                    HandLocation.Left => handComp.LeftHandDisplacement,
-                    HandLocation.Right => handComp.RightHandDisplacement,
+                    HandLocation.Left or HandLocation.FunctionalLeft => handComp.LeftHandDisplacement, // <Onyx-FunctionalHands-edited>
+                    HandLocation.Right or HandLocation.FunctionalRight => handComp.RightHandDisplacement, // <Onyx-FunctionalHands-edited>
                     _ => handComp.HandDisplacement
                 };
 

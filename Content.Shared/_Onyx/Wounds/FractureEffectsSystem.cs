@@ -143,8 +143,8 @@ public sealed partial class FractureEffectSystem : EntitySystem
 
         symmetry = hand.Value.Location switch
         {
-            HandLocation.Left => BodyPartSymmetry.Left,
-            HandLocation.Right => BodyPartSymmetry.Right,
+            HandLocation.Left or HandLocation.FunctionalLeft => BodyPartSymmetry.Left,
+            HandLocation.Right or HandLocation.FunctionalRight => BodyPartSymmetry.Right,
             _ => BodyPartSymmetry.None,
         };
         return symmetry != BodyPartSymmetry.None;

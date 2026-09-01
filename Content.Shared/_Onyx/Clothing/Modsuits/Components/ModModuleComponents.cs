@@ -283,7 +283,7 @@ public sealed partial class ModIntegratedItem
     public EntProtoId Item;
 
     [DataField]
-    public Hand Hand = new();
+    public Hand Hand = new(HandLocation.Functional);
 }
 
 public enum ModEffectTarget : byte

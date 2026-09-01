@@ -22,6 +22,11 @@ public sealed class HandButton : SlotControl
             HandLocation.Left => "Slots/hand_l",
             HandLocation.Middle => "Slots/hand_m",
             HandLocation.Right => "Slots/hand_r",
+            // <Onyx-FunctionalHands>
+            HandLocation.Functional => "Slots/hand_m",
+            HandLocation.FunctionalLeft => "Slots/hand_l",
+            HandLocation.FunctionalRight => "Slots/hand_r",
+            // </Onyx-FunctionalHands>
             _ => ButtonTexturePath
         };
     }

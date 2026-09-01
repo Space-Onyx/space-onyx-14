@@ -115,6 +115,7 @@ public sealed partial class HandsUIController : UIController, IOnStateEntered<Ga
     {
         HandsGui?.Visible = false;
         HandsGui?.HandContainer.ClearButtons();
+        HandsGui?.FunctionalHandContainer.ClearButtons(); // <Onyx-FunctionalHands>
         _playerHandsComponent = null;
     }
 
@@ -167,18 +168,18 @@ public sealed partial class HandsUIController : UIController, IOnStateEntered<Ga
 
     private void HandBlocked(string handName)
     {
-        if (HandsGui?.HandContainer.TryGetButton(handName, out var hand) != true)
+        if (GetHand(handName) is not { } hand) // <Onyx-FunctionalHands-edited>
             return;
 
-        hand!.Blocked = true;
+        hand.Blocked = true; // <Onyx-FunctionalHands-edited>
     }
 
     private void HandUnblocked(string handName)
     {
-        if (HandsGui?.HandContainer.TryGetButton(handName, out var hand) != true)
+        if (GetHand(handName) is not { } hand) // <Onyx-FunctionalHands-edited>
             return;
 
-        hand!.Blocked = false;
+        hand.Blocked = false; // <Onyx-FunctionalHands-edited>
     }
 
     private void OnItemAdded(string name, EntityUid entity)
@@ -243,41 +244,52 @@ public sealed partial class HandsUIController : UIController, IOnStateEntered<Ga
             return;
         }
 
-        if (HandsGui?.HandContainer.TryGetButton(handName, out var handControl) != true || handControl == _activeHand)
+        if (GetHand(handName) is not { } handControl || handControl == _activeHand) // <Onyx-FunctionalHands-edited>
             return;
 
         if (_activeHand != null)
             _activeHand.Highlight = false;
 
-        handControl!.Highlight = true;
+        handControl.Highlight = true; // <Onyx-FunctionalHands-edited>
         _activeHand = handControl;
 
         if (_playerHandsComponent != null &&
             _player.LocalSession?.AttachedEntity is { } playerEntity &&
-            _handsSystem.TryGetHand((playerEntity, _playerHandsComponent), handName, out var hand))
+            _handsSystem.TryGetHand((playerEntity, _playerHandsComponent), handName, out var hand) && // <Onyx-FunctionalHands-edited>
+            HandsGui is { } handsGui) // <Onyx-FunctionalHands>
         {
             var heldEnt = _handsSystem.GetHeldItem((playerEntity, _playerHandsComponent), handName);
 
             var foldedLocation = hand.Value.Location;
+            // <Onyx-FunctionalHands>
+            if (foldedLocation is HandLocation.Functional or HandLocation.FunctionalLeft or HandLocation.FunctionalRight)
+            {
+                handsGui.SetHighlightHand(null); // <Onyx-FunctionalHands-edited>
+                return;
+            }
+            // </Onyx-FunctionalHands>
             if (foldedLocation == HandLocation.Left)
             {
                 _statusHandLeft = handControl;
-                HandsGui.UpdatePanelEntityLeft(heldEnt, hand.Value);
+                handsGui.UpdatePanelEntityLeft(heldEnt, hand.Value); // <Onyx-FunctionalHands-edited>
             }
             else
             {
                 // Middle or right
                 _statusHandRight = handControl;
-                HandsGui.UpdatePanelEntityRight(heldEnt, hand.Value);
+                handsGui.UpdatePanelEntityRight(heldEnt, hand.Value); // <Onyx-FunctionalHands-edited>
             }
 
-            HandsGui.SetHighlightHand(foldedLocation);
+            handsGui.SetHighlightHand(foldedLocation); // <Onyx-FunctionalHands-edited>
         }
     }
 
     private HandButton? GetHand(string handName)
     {
-        return HandsGui?.HandContainer.GetButton(handName);
+        // <Onyx-FunctionalHands-edited>
+        return HandsGui?.HandContainer.GetButton(handName)
+            ?? HandsGui?.FunctionalHandContainer.GetButton(handName);
+        // </Onyx-FunctionalHands-edited>
     }
 
     private HandButton AddHand(string handName, Hand hand)
@@ -286,7 +298,12 @@ public sealed partial class HandsUIController : UIController, IOnStateEntered<Ga
         button.StoragePressed += StorageActivate;
         button.Pressed += HandPressed;
 
-        HandsGui?.HandContainer.TryAddButton(button);
+        // <Onyx-FunctionalHands-edited>
+        if (hand.Location is HandLocation.Functional or HandLocation.FunctionalLeft or HandLocation.FunctionalRight)
+            HandsGui?.FunctionalHandContainer.TryAddButton(button);
+        else
+            HandsGui?.HandContainer.TryAddButton(button);
+        // </Onyx-FunctionalHands-edited>
 
         if (hand.EmptyRepresentative is { } representative)
         {
@@ -297,10 +314,12 @@ public sealed partial class HandsUIController : UIController, IOnStateEntered<Ga
         // If we don't have a status for this hand type yet, set it.
         // This means we have status filled by default in most scenarios,
         // otherwise the user'd need to switch hands to "activate" the hands the first time.
+        // <Onyx-FunctionalHands-edited>
         if (hand.Location == HandLocation.Left)
             _statusHandLeft ??= button;
-        else
+        else if (hand.Location is HandLocation.Middle or HandLocation.Right)
             _statusHandRight ??= button;
+        // </Onyx-FunctionalHands-edited>
 
         UpdateVisibleStatusPanels();
 
@@ -318,8 +337,11 @@ public sealed partial class HandsUIController : UIController, IOnStateEntered<Ga
 
     private void RemoveHand(string handName)
     {
-        if (HandsGui?.HandContainer.TryRemoveButton(handName, out var handButton) != true)
+        // <Onyx-FunctionalHands-edited>
+        if (HandsGui?.HandContainer.TryRemoveButton(handName, out var handButton) != true &&
+            HandsGui?.FunctionalHandContainer.TryRemoveButton(handName, out handButton) != true)
             return;
+        // </Onyx-FunctionalHands-edited>
 
         if (_statusHandLeft == handButton)
             _statusHandLeft = null;
@@ -378,6 +400,19 @@ public sealed partial class HandsUIController : UIController, IOnStateEntered<Ga
             hand.CooldownDisplay.Visible = true;
             hand.CooldownDisplay.FromTime(delay.StartTime, delay.EndTime);
         }
+        // <Onyx-FunctionalHands>
+        foreach (var hand in handsGui.FunctionalHandContainer.GetButtons())
+        {
+            if (!_entities.TryGetComponent(hand.Entity, out UseDelayComponent? useDelay))
+            {
+                hand.CooldownDisplay.Visible = false;
+                continue;
+            }
+            var delay = _useDelay.GetLastEndingDelay((hand.Entity.Value, useDelay));
+            hand.CooldownDisplay.Visible = true;
+            hand.CooldownDisplay.FromTime(delay.StartTime, delay.EndTime);
+        }
+        // </Onyx-FunctionalHands>
     }
 
     private void UpdateHandStatus(HandButton hand, EntityUid? entity, Hand? handData)

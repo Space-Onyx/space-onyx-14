@@ -89,19 +89,11 @@ public sealed partial class AugmentItemPanelSystem : EntitySystem
     {
         if (!TryComp(body, out HandsComponent? hands) || !EnsureStoredItem(ent) || ent.Comp.SpawnedItem is not { } item)
             return;
-        var hand = GetHand(ent.Owner, hands);
-        if (hand == null)
-        {
-            _popup.PopupEntity(Loc.GetString("augment-item-panel-no-hand"), body, body, PopupType.SmallCaution);
-            return;
-        }
-        if (_hands.GetHeldItem(body, hand) != null)
-        {
-            _popup.PopupEntity(Loc.GetString("augment-item-panel-hand-full"), body, body, PopupType.SmallCaution);
-            return;
-        }
+        var hand = GetHandId(ent.Owner);
+        _hands.AddHand((body, hands), hand, GetHandLocation(ent.Owner), emptyRepresentative: ent.Comp.ItemPrototype);
         if (!_hands.TryForcePickup((body, hands), item, hand, checkActionBlocker: false))
         {
+            _hands.RemoveHand((body, hands), hand);
             _popup.PopupEntity(Loc.GetString("augment-item-panel-cannot-equip"), body, body, PopupType.SmallCaution);
             return;
         }
@@ -120,6 +112,8 @@ public sealed partial class AugmentItemPanelSystem : EntitySystem
     {
         if (ent.Comp.SpawnedItem is not { } item)
         {
+            if (TryComp(body, out HandsComponent? missingItemHands))
+                _hands.RemoveHand((body, missingItemHands), GetHandId(ent.Owner));
             ent.Comp.IsEquipped = false;
             Dirty(ent);
             return;
@@ -128,6 +122,8 @@ public sealed partial class AugmentItemPanelSystem : EntitySystem
         var storage = EnsureContainer(ent);
         if (!TerminatingOrDeleted(item) && !_containers.Insert(item, storage))
             return;
+        if (TryComp(body, out HandsComponent? hands))
+            _hands.RemoveHand((body, hands), GetHandId(ent.Owner));
         if (ent.Comp.RetractSound != null)
             _audio.PlayPvs(ent.Comp.RetractSound, body);
         ent.Comp.IsEquipped = false;
@@ -138,21 +134,19 @@ public sealed partial class AugmentItemPanelSystem : EntitySystem
             _popup.PopupEntity(Loc.GetString("augment-item-panel-retracted", ("item", item)), body, body);
     }
 
-    private string? GetHand(EntityUid augment, HandsComponent hands)
+    private HandLocation GetHandLocation(EntityUid augment)
     {
         if (!TryComp(Transform(augment).ParentUid, out BodyPartComponent? part))
-            return null;
-        var location = part.Symmetry switch
+            return HandLocation.Functional;
+        return part.Symmetry switch
         {
-            BodyPartSymmetry.Left => HandLocation.Left,
-            BodyPartSymmetry.Right => HandLocation.Right,
-            _ => HandLocation.Middle,
+            BodyPartSymmetry.Left => HandLocation.FunctionalLeft,
+            BodyPartSymmetry.Right => HandLocation.FunctionalRight,
+            _ => HandLocation.Functional,
         };
-        foreach (var (id, hand) in hands.Hands)
-            if (hand.Location == location)
-                return id;
-        return null;
     }
+
+    private static string GetHandId(EntityUid augment) => $"augment-item-panel-{augment.Id}";
 
     private ContainerSlot EnsureContainer(Entity<AugmentItemPanelComponent> ent) =>
         _containers.EnsureContainer<ContainerSlot>(ent.Owner, ent.Comp.StorageContainerId);
