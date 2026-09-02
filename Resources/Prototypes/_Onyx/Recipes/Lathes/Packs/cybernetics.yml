@@ -36,6 +36,7 @@
   - NeuroInterfaceChipBasic
   - NeuroInterfaceChipAdvanced
   - NeuroInterfaceCacheStandard
+  - NeuroInterfaceRouter
   - NeuroInterfaceEmpShield
   - AugmentBioReactor
 
@@ -54,6 +55,8 @@
   - NeuroInterfaceChipHighDensity
   - NeuroInterfaceCacheExpanded
   - NeuroInterfaceEmpShieldHardened
+  - NeuroInterfaceRouterAdvanced
+  - NeuroInterfaceRouterHighCapacity
   - AugmentRTG
 
 - type: latheRecipePack

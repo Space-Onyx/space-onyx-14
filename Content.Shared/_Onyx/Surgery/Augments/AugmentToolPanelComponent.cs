@@ -27,3 +27,9 @@ public sealed class AugmentToolPanelSwitchMessage(NetEntity? tool) : BoundUserIn
 {
     public NetEntity? DesiredTool = tool;
 }
+
+[Serializable, NetSerializable]
+public sealed class AugmentToolPanelBuiState(List<NetEntity> tools) : BoundUserInterfaceState
+{
+    public List<NetEntity> Tools = tools;
+}

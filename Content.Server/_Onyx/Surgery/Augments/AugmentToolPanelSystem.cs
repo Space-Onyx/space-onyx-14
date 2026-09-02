@@ -6,6 +6,7 @@ using Content.Shared.Item.ItemToggle;
 using Content.Shared.Popups;
 using Content.Shared.Storage.EntitySystems;
 using Content.Shared._Onyx.Surgery.Augments;
+using Robust.Server.GameObjects;
 
 namespace Content.Server._Onyx.Surgery.Augments;
 
@@ -16,11 +17,13 @@ public sealed partial class AugmentToolPanelSystem : EntitySystem
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedStorageSystem _storage = default!;
     [Dependency] private ItemToggleSystem _toggle = default!;
+    [Dependency] private UserInterfaceSystem _ui = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<AugmentToolPanelComponent, AugmentLostPowerEvent>(OnLostPower);
+        SubscribeLocalEvent<AugmentToolPanelComponent, BoundUIOpenedEvent>(OnUiOpened);
         Subs.BuiEvents<AugmentToolPanelComponent>(AugmentToolPanelUiKey.Key,
             subs => subs.Event<AugmentToolPanelSwitchMessage>(OnSwitchTool));
     }
@@ -28,13 +31,30 @@ public sealed partial class AugmentToolPanelSystem : EntitySystem
     private void OnLostPower(Entity<AugmentToolPanelComponent> ent, ref AugmentLostPowerEvent args) =>
         SwitchTool(ent, null, args.Body, false);
 
+    private void OnUiOpened(Entity<AugmentToolPanelComponent> ent, ref BoundUIOpenedEvent args)
+    {
+        if (_augment.GetBody(ent.Owner) != args.Actor ||
+            !TryComp(ent, out Content.Shared.Storage.StorageComponent? storage))
+        {
+            _ui.CloseUi(ent.Owner, AugmentToolPanelUiKey.Key, args.Actor);
+            return;
+        }
+
+        _ui.SetUiState(ent.Owner, AugmentToolPanelUiKey.Key,
+            new AugmentToolPanelBuiState(storage.StoredItems.Keys.Select(tool => GetNetEntity(tool)).ToList()));
+    }
+
     private void OnSwitchTool(Entity<AugmentToolPanelComponent> ent, ref AugmentToolPanelSwitchMessage args)
     {
-        if (_augment.GetBody(ent.Owner) is not { } body || !_augment.CanUse(ent.Owner, body))
+        if (_augment.GetBody(ent.Owner) is not { } body || body != args.Actor || !_augment.CanUse(ent.Owner, body))
+            return;
+        var desired = GetEntity(args.DesiredTool);
+        if (desired is { } tool &&
+            (!TryComp(ent, out Content.Shared.Storage.StorageComponent? storage) || !storage.StoredItems.ContainsKey(tool)))
             return;
         if (ent.Comp.RequiresPower && !_augment.TryUseCharge(body, ent.Comp.SwitchCharge, body))
             return;
-        SwitchTool(ent, GetEntity(args.DesiredTool), body, true);
+        SwitchTool(ent, desired, body, true);
     }
 
     private void SwitchTool(Entity<AugmentToolPanelComponent> augment, EntityUid? desired, EntityUid body, bool popup)

@@ -484,3 +484,125 @@
   - type: SurgeryHasWoundCondition
     state: Open
     bleeding: true
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeNeuroInterfaceBase
+  abstract: true
+  components:
+  - type: Surgery
+    icon: { sprite: _Onyx/Objects/Augments/power.rsi, state: apc }
+  - type: SurgeryOrganCondition
+    slot: NeuroInterface
+    part: Head
+
+- type: entity
+  parent: SurgerySlimeNeuroInterfaceBase
+  id: SurgerySlimeInsertNeuroInterface
+  name: Implant neuro-interface
+  components:
+  - type: Surgery
+    steps: { default: { steps: [ SurgerySlimeOpenIncision, SurgeryStepInsertNeuroInterface ] } }
+  - type: SurgeryOrganCondition
+    inverse: true
+  - type: SurgeryComponentCondition
+    target: Part
+    none: [ { type: Cybernetics } ]
+
+- type: entity
+  parent: SurgerySlimeNeuroInterfaceBase
+  id: SurgerySlimeRemoveNeuroInterface
+  name: Remove neuro-interface
+  components:
+  - type: Surgery
+    steps: { default: { steps: [ SurgerySlimeOpenIncision, SurgeryStepRemoveNeuroInterface ] } }
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeAugmentPowerCellBase
+  abstract: true
+  components:
+  - type: SurgeryOrganCondition
+    slot: AugmentPowerCell
+    part: Chest
+
+- type: entity
+  parent: SurgerySlimeAugmentPowerCellBase
+  id: SurgerySlimeInsertAugmentPowerCell
+  name: Implant augment power-cell slot
+  components:
+  - type: Surgery
+    steps: { default: { steps: [ SurgerySlimeOpenIncision, SurgeryStepInsertAugmentPowerCell ] } }
+  - type: SurgeryOrganCondition
+    inverse: true
+  - type: SurgeryComponentCondition
+    target: Part
+    none: [ { type: Cybernetics } ]
+
+- type: entity
+  parent: SurgerySlimeAugmentPowerCellBase
+  id: SurgerySlimeRemoveAugmentPowerCell
+  name: Remove augment power-cell slot
+  components:
+  - type: Surgery
+    steps: { default: { steps: [ SurgerySlimeOpenIncision, SurgeryStepRemoveAugmentPowerCell ] } }
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeAugmentChargerBase
+  abstract: true
+  components:
+  - type: SurgeryOrganCondition
+    slot: AugmentCharger
+    part: Chest
+
+- type: entity
+  parent: SurgerySlimeAugmentChargerBase
+  id: SurgerySlimeInsertAugmentCharger
+  name: Implant augment recharger
+  components:
+  - type: Surgery
+    steps: { default: { steps: [ SurgerySlimeOpenIncision, SurgeryStepInsertAugmentCharger ] } }
+  - type: SurgeryOrganCondition
+    inverse: true
+  - type: SurgeryComponentCondition
+    target: Part
+    none: [ { type: Cybernetics } ]
+
+- type: entity
+  parent: SurgerySlimeAugmentChargerBase
+  id: SurgerySlimeRemoveAugmentCharger
+  name: Remove augment recharger
+  components:
+  - type: Surgery
+    steps: { default: { steps: [ SurgerySlimeOpenIncision, SurgeryStepRemoveAugmentCharger ] } }
+
+- type: entity
+  parent: SurgerySlimeBase
+  id: SurgerySlimeArmAugmentBase
+  abstract: true
+  components:
+  - type: SurgeryOrganCondition
+    slot: AugmentArm
+    part: Arm
+
+- type: entity
+  parent: SurgerySlimeArmAugmentBase
+  id: SurgerySlimeInsertArmAugment
+  name: Implant arm augment
+  components:
+  - type: Surgery
+    steps: { default: { steps: [ SurgerySlimeOpenIncision, SurgeryStepInsertArmAugment ] } }
+  - type: SurgeryOrganCondition
+    inverse: true
+  - type: SurgeryComponentCondition
+    target: Part
+    none: [ { type: Cybernetics } ]
+
+- type: entity
+  parent: SurgerySlimeArmAugmentBase
+  id: SurgerySlimeRemoveArmAugment
+  name: Remove arm augment
+  components:
+  - type: Surgery
+    steps: { default: { steps: [ SurgerySlimeOpenIncision, SurgeryStepRemoveArmAugment ] } }

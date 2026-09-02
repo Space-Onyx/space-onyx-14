@@ -32,6 +32,10 @@
         name: neuro-interface-ui-cache
         whitelist:
           components: [ NeuroInterfaceCache ]
+      router:
+        name: neuro-interface-ui-router
+        whitelist:
+          components: [ NeuroInterfaceRouter ]
       module1:
         name: neuro-interface-ui-expansion-module
         whitelist:
@@ -44,6 +48,7 @@
     containers:
       chip: !type:ContainerSlot {}
       cache: !type:ContainerSlot {}
+      router: !type:ContainerSlot {}
       module1: !type:ContainerSlot {}
       module2: !type:ContainerSlot {}
   - type: UserInterface
@@ -63,8 +68,8 @@
   description: A medical neural bus made by NanoTrasen competitor Interdyne Pharmaceuticals, optimized for coordinating multiple diagnostic and life-support augments.
   components:
   - type: NeuroInterface
-    baseBandwidth: 12
-    baseChannels: 4
+    baseBandwidth: 6
+    baseChannels: 3
 
 - type: entity
   parent: NeuroInterface
@@ -73,8 +78,8 @@
   description: A restricted reinforced neural bus issued to NanoTrasen security and response forces for high-load combat augments.
   components:
   - type: NeuroInterface
-    baseBandwidth: 20
-    baseChannels: 3
+    baseBandwidth: 12
+    baseChannels: 2
 
 - type: entity
   abstract: true
@@ -146,6 +151,36 @@
     state: door_electronics
   - type: NeuroInterfaceCache
     channels: 4
+
+- type: entity
+  parent: BaseNeuroInterfacePart
+  id: NeuroInterfaceRouter
+  name: NanoTrasen NAR-2
+  description: A neural allocation router that maintains a strict service order for two augmentations.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: power_mod
+  - type: NeuroInterfaceRouter
+    capacity: 2
+
+- type: entity
+  parent: NeuroInterfaceRouter
+  id: NeuroInterfaceRouterAdvanced
+  name: NanoTrasen NAR-4
+  description: An advanced neural allocation router that maintains a strict service order for four augmentations.
+  components:
+  - type: NeuroInterfaceRouter
+    capacity: 4
+
+- type: entity
+  parent: NeuroInterfaceRouter
+  id: NeuroInterfaceRouterHighCapacity
+  name: NanoTrasen NAR-8
+  description: A high-capacity neural allocation router that maintains a strict service order for eight augmentations.
+  components:
+  - type: NeuroInterfaceRouter
+    capacity: 8
 
 - type: entity
   parent: BaseNeuroInterfacePart

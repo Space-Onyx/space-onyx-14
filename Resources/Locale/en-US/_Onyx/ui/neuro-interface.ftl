@@ -1,5 +1,6 @@
 neuro-interface-ui-chip = Processing chip
 neuro-interface-ui-cache = Neuromorphic cache
+neuro-interface-ui-router = Neural router
 neuro-interface-ui-expansion-module = Expansion module
 neuro-interface-ui-status-online = Stable link
 neuro-interface-ui-status-throttled = Reduced output
@@ -19,19 +20,17 @@ neuro-interface-demand-value = { $value } units
 neuro-interface-channels-value = channels: { $current } / { $max }
 neuro-interface-overload-label = Over capacity
 neuro-interface-overload-value = { $value } units
+neuro-interface-channel-overload-value = excess channels: { $value }
 neuro-interface-slot-chip = Neurochip: { $name }
 neuro-interface-slot-cache = Neuromorphic cache: { $name }
+neuro-interface-slot-router = Neural router: { $name }
 neuro-interface-slot-empty = not installed
 neuro-interface-mode-heading = Overload response
 neuro-interface-mode-throttle = Safe throttling
 neuro-interface-mode-overclock = Forced operation
 neuro-interface-mode-hint = Safe mode reduces output on lower-priority links. Forced operation preserves output at the cost of neural and interface damage.
+neuro-interface-overclock-damage-value = Forced-mode forecast: { $value } damage/s to interface and brain
 neuro-interface-module-telemetry = load { $demand } u · power { $power } W · output { $efficiency }%
-neuro-interface-priority-down = -
-neuro-interface-priority-down-tooltip = Lower priority. This augmentation disconnects sooner when channels are scarce.
-neuro-interface-priority-value = { $value }
-neuro-interface-priority-up = +
-neuro-interface-priority-up-tooltip = Raise priority. This augmentation keeps its channel ahead of lower-priority devices.
 
 neuro-interface-nav-overview = Network overview
 neuro-interface-nav-hardware = Hardware
@@ -60,18 +59,24 @@ neuro-interface-region-rightfoot = Right foot
 neuro-interface-region-other = Other nodes
 neuro-interface-region-all = All regions
 neuro-interface-region-header = { $region } · { $count }
+neuro-interface-routing-header = Managed queue · { $count }
 neuro-interface-search = Search augmentation...
 neuro-interface-augment-count = Found: { $count }
 neuro-interface-augments-empty = No matching augmentations found.
 neuro-interface-button-enable = Enable
 neuro-interface-button-disable = Disable
-neuro-interface-entry-brief = load { $load } u · output { $efficiency }%
+neuro-interface-entry-brief = load { $load } u · output { $efficiency }% · { $behavior }
+neuro-interface-behavior-scalable = smoothly reduced output
+neuro-interface-behavior-binary = full link required
+neuro-interface-behavior-scalable-short = scalable link
+neuro-interface-behavior-binary-short = full link
 neuro-interface-entry-tooltip = { $name }
     Status: { $status }
     Neural load: { $demand } u
     Power: { $power } W
     Output: { $efficiency }%
-    Priority: { $priority }
+    Routing: { $routing }
+    Behavior: { $behavior }
 
 neuro-interface-examine-base-bandwidth = Native bus capacity: [color=lightblue]{ $bandwidth } units[/color].
 neuro-interface-examine-total-bandwidth = Installed components provide [color=cyan]{ $bandwidth } units[/color] total.
@@ -79,6 +84,11 @@ neuro-interface-examine-channels = Simultaneous channels available: [color=cyan]
 neuro-interface-examine-expansion-modules = Expansion modules occupied: [color=lightblue]{ $count }[/color].
 neuro-interface-examine-chip = Provides [color=cyan]{ $bandwidth } units[/color] of neural capacity and [color=cyan]{ $channels }[/color] channels.
 neuro-interface-examine-cache = Stores [color=cyan]{ $channels }[/color] additional active augmentation contexts.
+neuro-interface-examine-router = Maintains a strict queue of [color=cyan]{ $capacity }[/color] augmentations.
+neuro-interface-chip-effect = Contribution: +{ $bandwidth } capacity, +{ $channels } channels
+neuro-interface-cache-effect = Contribution: +{ $channels } channels
+neuro-interface-router-effect = Managed queue: { $current } / { $capacity }
+neuro-interface-router-effect-missing = No routing installed: all links use the automatic pool
 neuro-interface-power-heading = Augmentation power network
 neuro-interface-power-balance = +{ $generation } / −{ $consumption } W
 neuro-interface-power-sources-empty = No active charging sources detected.
@@ -98,8 +108,20 @@ neuro-interface-tooltip-overload = Load above the safe limit. Safe mode restrict
 neuro-interface-tooltip-power-network = The shared augmentation power network. Plus is current generation and minus is consumption. Sources and batteries are listed below.
 neuro-interface-tooltip-chip = The main processing component. It increases both the neural limit and the number of augmentations supported at once.
 neuro-interface-tooltip-cache = Stores ready control states and adds simultaneous channels without increasing the neural limit.
+neuro-interface-tooltip-router = Controls allocation order for capacity and channels. Manual priorities are unavailable without a router.
+neuro-interface-routing-position = managed queue position { $position }
+neuro-interface-routing-auto = automatic allocation
+neuro-interface-routing-position-short = No. { $position }
+neuro-interface-routing-auto-short = AUTO
+neuro-interface-routing-add = Queue
+neuro-interface-routing-remove = Auto
+neuro-interface-routing-up-tooltip = Move this augmentation up in the managed queue.
+neuro-interface-routing-down-tooltip = Move this augmentation down in the managed queue.
+neuro-interface-routing-toggle-tooltip = Pin this augmentation to the queue or return it to automatic allocation.
+neuro-interface-routing-router-required = A neural router with free queue capacity is required.
+neuro-interface-tooltip-routing = Pinned augmentations receive resources first in strict order. The automatic pool is serviced afterward.
+neuro-interface-tooltip-overclock-damage = Damage per second separately applied to the neuro-interface and brain at current load in forced mode.
 neuro-interface-tooltip-region-filter = Shows only augmentations installed in the selected body region.
 neuro-interface-tooltip-augment-count = Number of augmentations matching the current search and filter.
 neuro-interface-tooltip-battery-values = Current charge, capacity, percentage and energy flow. Positive flow charges the battery; negative flow drains it.
 neuro-interface-tooltip-entry-brief = Load is the signal complexity of this augmentation. Output shows how fully it is currently operating.
-neuro-interface-tooltip-priority = When channels are scarce, augmentations with a larger number keep their connection ahead of lower-priority devices.

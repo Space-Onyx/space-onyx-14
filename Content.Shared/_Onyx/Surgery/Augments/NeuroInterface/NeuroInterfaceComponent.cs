@@ -7,9 +7,10 @@ public sealed partial class NeuroInterfaceComponent : Component
 {
     public const string ChipSlotId = "chip";
     public const string CacheSlotId = "cache";
+    public const string RouterSlotId = "router";
 
     [DataField, AutoNetworkedField]
-    public float BaseBandwidth = 10f;
+    public float BaseBandwidth = 8f;
 
     [DataField, AutoNetworkedField]
     public int BaseChannels = 2;
@@ -38,6 +39,13 @@ public sealed partial class NeuroInterfaceCacheComponent : Component
 {
     [DataField]
     public int Channels;
+}
+
+[RegisterComponent, NetworkedComponent]
+public sealed partial class NeuroInterfaceRouterComponent : Component
+{
+    [DataField]
+    public int Capacity = 2;
 }
 
 [RegisterComponent, NetworkedComponent]
@@ -70,7 +78,10 @@ public sealed partial class NeuroBandwidthRuntimeComponent : Component
     public bool ManuallyEnabled = true;
 
     [AutoNetworkedField]
-    public int Priority;
+    public bool Routed;
+
+    [AutoNetworkedField]
+    public int RoutingOrder;
 
     [AutoNetworkedField]
     public float Efficiency = 1f;

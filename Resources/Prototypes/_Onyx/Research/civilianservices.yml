@@ -278,6 +278,47 @@
   technologyPrerequisites: [ BasicAugmentation ]
 
 - type: technology
+  id: NeuroInterfaceRouting
+  name: research-technology-neuro-interface-routing
+  icon: { sprite: Objects/Misc/module.rsi, state: power_mod }
+  discipline: CivilianServices
+  tier: 2
+  cost: 5000
+  recipeUnlocks: [ NeuroInterfaceRouter ]
+  position: 4,9
+  technologyPrerequisites: [ BasicAugmentation ]
+
+- type: technology
+  id: AdvancedNeuroInterfaceRouting
+  name: research-technology-advanced-neuro-interface-routing
+  icon: { sprite: Objects/Misc/module.rsi, state: power_mod }
+  discipline: CivilianServices
+  tier: 3
+  pointCosts:
+    - type: General
+      amount: 8000
+    - type: Experimental
+      amount: 250
+  recipeUnlocks: [ NeuroInterfaceRouterAdvanced ]
+  position: 5,9
+  technologyPrerequisites: [ NeuroInterfaceRouting ]
+
+- type: technology
+  id: HighCapacityNeuroInterfaceRouting
+  name: research-technology-high-capacity-neuro-interface-routing
+  icon: { sprite: Objects/Misc/module.rsi, state: power_mod }
+  discipline: CivilianServices
+  tier: 3
+  pointCosts:
+    - type: General
+      amount: 12000
+    - type: Experimental
+      amount: 500
+  recipeUnlocks: [ NeuroInterfaceRouterHighCapacity ]
+  position: 6,9
+  technologyPrerequisites: [ AdvancedNeuroInterfaceRouting ]
+
+- type: technology
   id: AdvancedNeuroInterfaceEmpProtection
   name: research-technology-advanced-neuro-interface-emp-protection
   icon: { sprite: _Onyx/Objects/Augments/power.rsi, state: apc }

@@ -36,7 +36,7 @@ public sealed partial class NeuroInterfaceSystem : EntitySystem
         {
             subs.Event<NeuroInterfaceSetModeMessage>(OnSetMode);
             subs.Event<NeuroInterfaceSetEnabledMessage>(OnSetEnabled);
-            subs.Event<NeuroInterfaceSetPriorityMessage>(OnSetPriority);
+            subs.Event<NeuroInterfaceSetRoutingMessage>(OnSetRouting);
         });
     }
 
@@ -63,7 +63,7 @@ public sealed partial class NeuroInterfaceSystem : EntitySystem
             var forcedLoad = Math.Min(demand, capacity * 1.5f);
             var loadRatio = forcedLoad / capacity;
             var channelRatio = channelCapacity > 0 ? Math.Min(channels / (float) channelCapacity, 1.5f) : 1.5f;
-            var damage = Math.Clamp((Math.Max(loadRatio, channelRatio) - 1f) * 0.5f, 0.05f, 0.25f);
+            var damage = CalculateOverclockDamage(loadRatio, channelRatio);
             _organHealth.ChangeHealth((uid, organ), -FixedPoint2.New(damage));
             if (FindBrain(body) is { } brain && TryComp(brain, out OrganComponent? brainOrgan))
                 _organHealth.ChangeHealth((brain, brainOrgan), -FixedPoint2.New(damage));
@@ -95,18 +95,15 @@ public sealed partial class NeuroInterfaceSystem : EntitySystem
         if (!ValidateOwner(ent, args.Actor, out var body))
             return;
         var augment = GetEntity(args.Augment);
-        var priority = CompOrNull<NeuroBandwidthRuntimeComponent>(augment)?.Priority ?? 0;
-        _neuro.SetConsumer(body, augment, args.Enabled, priority);
+        _neuro.SetConsumer(body, augment, args.Enabled);
         UpdateUi(ent, body);
     }
 
-    private void OnSetPriority(Entity<NeuroInterfaceComponent> ent, ref NeuroInterfaceSetPriorityMessage args)
+    private void OnSetRouting(Entity<NeuroInterfaceComponent> ent, ref NeuroInterfaceSetRoutingMessage args)
     {
         if (!ValidateOwner(ent, args.Actor, out var body))
             return;
-        var augment = GetEntity(args.Augment);
-        var enabled = CompOrNull<NeuroBandwidthRuntimeComponent>(augment)?.ManuallyEnabled ?? true;
-        _neuro.SetConsumer(body, augment, enabled, args.Priority);
+        _neuro.SetRouting(body, GetEntity(args.Augment), args.Action);
         UpdateUi(ent, body);
     }
 
@@ -124,29 +121,47 @@ public sealed partial class NeuroInterfaceSystem : EntitySystem
         var totalDemand = 0f;
         var enabledChannels = 0;
         var empDisabled = HasComp<EmpDisabledComponent>(ent);
+        var routerCapacity = _neuro.GetRouterCapacity(ent);
+        var routedCount = 0;
         foreach (var uid in _neuro.GetConsumers(body))
         {
             if (!TryComp(uid, out NeuroBandwidthConsumerComponent? consumer) ||
                 !TryComp(uid, out NeuroBandwidthRuntimeComponent? runtime))
                 continue;
-                if (runtime.ManuallyEnabled)
-                {
-                    totalDemand += Math.Max(0f, consumer.Demand);
-                    enabledChannels++;
-                }
-                var status = empDisabled ? NeuroConsumerStatus.Offline
-                    : !runtime.ManuallyEnabled ? NeuroConsumerStatus.Disabled
-                    : runtime.Efficiency <= 0f ? NeuroConsumerStatus.Offline
-                    : runtime.Efficiency >= 1f ? NeuroConsumerStatus.Full
-                    : NeuroConsumerStatus.Throttled;
-                consumers.Add(new NeuroInterfaceEntryData(GetNetEntity(uid), Name(uid), consumer.Demand,
-                    CompOrNull<AugmentPowerDrawComponent>(uid)?.Draw ?? 0f,
-                    runtime.ManuallyEnabled, runtime.Priority, runtime.Efficiency,
-                    empDisabled ? "neuro-interface-ui-status-emp" : GetStatusKey(status), GetRegion(uid)));
+            if (runtime.ManuallyEnabled)
+            {
+                totalDemand += Math.Max(0f, consumer.Demand);
+                enabledChannels++;
+            }
+            var routed = runtime.Routed && runtime.RoutingOrder < routerCapacity;
+            if (routed)
+                routedCount++;
+            var status = empDisabled ? NeuroConsumerStatus.Offline
+                : !runtime.ManuallyEnabled ? NeuroConsumerStatus.Disabled
+                : runtime.Efficiency <= 0f ? NeuroConsumerStatus.Offline
+                : runtime.Efficiency >= 1f ? NeuroConsumerStatus.Full
+                : NeuroConsumerStatus.Throttled;
+            consumers.Add(new NeuroInterfaceEntryData(GetNetEntity(uid), Name(uid), consumer.Demand,
+                CompOrNull<AugmentPowerDrawComponent>(uid)?.Draw ?? 0f,
+                runtime.ManuallyEnabled, routed, runtime.RoutingOrder, runtime.Efficiency,
+                empDisabled ? "neuro-interface-ui-status-emp" : GetStatusKey(status), consumer.Scalable, GetRegion(uid)));
         }
-        consumers.Sort((left, right) => right.Priority.CompareTo(left.Priority));
+        consumers.Sort((left, right) =>
+        {
+            var routed = right.Routed.CompareTo(left.Routed);
+            return routed != 0 ? routed : left.RoutingOrder.CompareTo(right.RoutingOrder);
+        });
         var capacity = _neuro.GetCapacity(ent, ent.Comp);
         var channelCapacity = _neuro.GetChannelCapacity(ent, ent.Comp);
+        var loadRatio = capacity > 0f ? Math.Min(totalDemand, capacity * 1.5f) / capacity : 1.5f;
+        var channelRatio = channelCapacity > 0 ? Math.Min(enabledChannels / (float) channelCapacity, 1.5f) : 1.5f;
+        var overclockDamage = totalDemand > capacity || enabledChannels > channelCapacity
+            ? CalculateOverclockDamage(loadRatio, channelRatio)
+            : 0f;
+        var chip = _slots.GetItemOrNull(ent.Owner, NeuroInterfaceComponent.ChipSlotId);
+        var chipComponent = chip is { } chipUid ? CompOrNull<NeuroInterfaceChipComponent>(chipUid) : null;
+        var cache = _slots.GetItemOrNull(ent.Owner, NeuroInterfaceComponent.CacheSlotId);
+        var cacheComponent = cache is { } cacheUid ? CompOrNull<NeuroInterfaceCacheComponent>(cacheUid) : null;
         var batteries = new List<NeuroInterfaceBatteryData>();
         var netPower = 0f;
         foreach (var battery in _augment.GetBatteries(body))
@@ -175,10 +190,18 @@ public sealed partial class NeuroInterfaceSystem : EntitySystem
             capacity,
             totalDemand,
             Math.Max(0f, totalDemand - capacity),
+            Math.Max(0, enabledChannels - channelCapacity),
             enabledChannels,
             channelCapacity,
             GetSlotName(ent, NeuroInterfaceComponent.ChipSlotId),
             GetSlotName(ent, NeuroInterfaceComponent.CacheSlotId),
+            GetSlotName(ent, NeuroInterfaceComponent.RouterSlotId),
+            chipComponent?.Bandwidth ?? 0f,
+            chipComponent?.Channels ?? 0,
+            cacheComponent?.Channels ?? 0,
+            routerCapacity,
+            Math.Min(routedCount, routerCapacity),
+            overclockDamage,
             _neuro.GetModules(ent).Select(module => Name(module)).ToList(),
             batteries,
             sources,
@@ -242,4 +265,7 @@ public sealed partial class NeuroInterfaceSystem : EntitySystem
         NeuroConsumerStatus.Throttled => "neuro-interface-ui-status-throttled",
         _ => "neuro-interface-ui-status-online",
     };
+
+    private static float CalculateOverclockDamage(float loadRatio, float channelRatio) =>
+        Math.Clamp((Math.Max(loadRatio, channelRatio) - 1f) * 0.5f, 0.05f, 0.25f);
 }

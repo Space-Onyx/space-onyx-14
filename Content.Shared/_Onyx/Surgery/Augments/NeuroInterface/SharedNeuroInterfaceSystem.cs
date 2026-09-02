@@ -31,6 +31,7 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
         SubscribeLocalEvent<NeuroInterfaceComponent, ExaminedEvent>(OnInterfaceExamined);
         SubscribeLocalEvent<NeuroInterfaceChipComponent, ExaminedEvent>(OnChipExamined);
         SubscribeLocalEvent<NeuroInterfaceCacheComponent, ExaminedEvent>(OnCacheExamined);
+        SubscribeLocalEvent<NeuroInterfaceRouterComponent, ExaminedEvent>(OnRouterExamined);
         SubscribeLocalEvent<NeuroInterfaceModuleComponent, ExaminedEvent>(OnModuleExamined);
         SubscribeLocalEvent<NeuroBandwidthConsumerComponent, ExaminedEvent>(OnConsumerExamined);
     }
@@ -63,6 +64,15 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
             channels += Math.Max(0, cacheComponent.Channels);
 
         return channels;
+    }
+
+    public int GetRouterCapacity(EntityUid neuroInterface)
+    {
+        if (_slots.GetItemOrNull(neuroInterface, NeuroInterfaceComponent.RouterSlotId) is not { } router ||
+            !TryComp(router, out NeuroInterfaceRouterComponent? component))
+            return 0;
+
+        return Math.Max(1, component.Capacity);
     }
 
     public bool TryGetInterface(EntityUid body, out Entity<NeuroInterfaceComponent> neuroInterface)
@@ -151,6 +161,8 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
 
         var capacity = GetCapacity(neuroInterface, neuroInterface.Comp);
         var channels = GetChannelCapacity(neuroInterface, neuroInterface.Comp);
+        var routerCapacity = GetRouterCapacity(neuroInterface);
+        NormalizeRouting(consumers, routerCapacity);
         var availableChannels = neuroInterface.Comp.Mode == NeuroInterfaceMode.Overclock
             ? (int) MathF.Ceiling(channels * 1.5f)
             : channels;
@@ -161,7 +173,9 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
             : capacity * (neuroInterface.Comp.Mode == NeuroInterfaceMode.Overclock ? 1.5f : 1f);
 
         var channel = 0;
-        foreach (var entry in consumers.OrderByDescending(entry => entry.Runtime.Priority))
+        foreach (var entry in consumers
+                     .OrderBy(entry => !entry.Runtime.Routed)
+                     .ThenBy(entry => entry.Runtime.RoutingOrder))
         {
             var demand = Math.Max(0f, entry.Consumer.Demand);
             var available = demand <= 0f ? 1f : Math.Clamp(budget / demand, 0f, 1f);
@@ -180,7 +194,7 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
         }
     }
 
-    public void SetConsumer(EntityUid body, EntityUid augment, bool enabled, int priority)
+    public void SetConsumer(EntityUid body, EntityUid augment, bool enabled)
     {
         if (_net.IsClient)
             return;
@@ -190,8 +204,52 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
 
         var runtime = EnsureComp<NeuroBandwidthRuntimeComponent>(augment);
         runtime.ManuallyEnabled = enabled;
-        runtime.Priority = Math.Clamp(priority, -100, 100);
         Dirty(augment, runtime);
+        Refresh(body);
+    }
+
+    public void SetRouting(EntityUid body, EntityUid augment, NeuroRoutingAction action)
+    {
+        if (_net.IsClient || !Enum.IsDefined(action) || !TryGetInterface(body, out var neuroInterface))
+            return;
+
+        var capacity = GetRouterCapacity(neuroInterface);
+        if (capacity <= 0 || !GetConsumers(body).Contains(augment))
+            return;
+
+        var routed = GetConsumers(body)
+            .Where(uid => TryComp(uid, out NeuroBandwidthRuntimeComponent? runtime) && runtime.Routed)
+            .OrderBy(uid => Comp<NeuroBandwidthRuntimeComponent>(uid).RoutingOrder)
+            .ToList();
+        NormalizeRouting(routed);
+
+        var runtime = EnsureComp<NeuroBandwidthRuntimeComponent>(augment);
+        var index = routed.IndexOf(augment);
+        switch (action)
+        {
+            case NeuroRoutingAction.Add when index < 0 && routed.Count < capacity:
+                runtime.Routed = true;
+                runtime.RoutingOrder = routed.Count;
+                Dirty(augment, runtime);
+                routed.Add(augment);
+                break;
+            case NeuroRoutingAction.Remove when index >= 0:
+                runtime.Routed = false;
+                runtime.RoutingOrder = 0;
+                Dirty(augment, runtime);
+                routed.RemoveAt(index);
+                break;
+            case NeuroRoutingAction.MoveUp when index > 0:
+                (routed[index - 1], routed[index]) = (routed[index], routed[index - 1]);
+                break;
+            case NeuroRoutingAction.MoveDown when index >= 0 && index < routed.Count - 1:
+                (routed[index + 1], routed[index]) = (routed[index], routed[index + 1]);
+                break;
+            default:
+                return;
+        }
+
+        NormalizeRouting(routed);
         Refresh(body);
     }
 
@@ -274,6 +332,13 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
                 ("channels", ent.Comp.Channels)));
     }
 
+    private void OnRouterExamined(Entity<NeuroInterfaceRouterComponent> ent, ref ExaminedEvent args)
+    {
+        if (args.IsInDetailsRange)
+            args.PushMarkup(Loc.GetString("neuro-interface-examine-router",
+                ("capacity", Math.Max(1, ent.Comp.Capacity))));
+    }
+
     private void OnModuleExamined(Entity<NeuroInterfaceModuleComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
@@ -313,6 +378,39 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
         {
             if (TryComp(uid, out NeuroBandwidthRuntimeComponent? runtime))
                 SetEfficiency(uid, runtime, runtime.ManuallyEnabled ? efficiency : 0f);
+        }
+    }
+
+    private void NormalizeRouting(List<EntityUid> routed)
+    {
+        for (var i = 0; i < routed.Count; i++)
+        {
+            var runtime = Comp<NeuroBandwidthRuntimeComponent>(routed[i]);
+            if (runtime.RoutingOrder == i)
+                continue;
+            runtime.RoutingOrder = i;
+            Dirty(routed[i], runtime);
+        }
+    }
+
+    private void NormalizeRouting(
+        List<(EntityUid Uid, NeuroBandwidthConsumerComponent Consumer, NeuroBandwidthRuntimeComponent Runtime)> consumers,
+        int capacity)
+    {
+        var routed = consumers
+            .Where(entry => entry.Runtime.Routed)
+            .OrderBy(entry => entry.Runtime.RoutingOrder)
+            .ToList();
+        for (var i = 0; i < routed.Count; i++)
+        {
+            var entry = routed[i];
+            var enabled = i < capacity;
+            if (entry.Runtime.Routed == enabled && (!enabled || entry.Runtime.RoutingOrder == i))
+                continue;
+
+            entry.Runtime.Routed = enabled;
+            entry.Runtime.RoutingOrder = enabled ? i : 0;
+            Dirty(entry.Uid, entry.Runtime);
         }
     }
 }

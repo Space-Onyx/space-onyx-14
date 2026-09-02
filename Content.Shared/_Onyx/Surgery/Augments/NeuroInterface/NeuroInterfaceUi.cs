@@ -55,10 +55,19 @@ public sealed class NeuroInterfaceSetEnabledMessage(NetEntity augment, bool enab
 }
 
 [Serializable, NetSerializable]
-public sealed class NeuroInterfaceSetPriorityMessage(NetEntity augment, int priority) : BoundUserInterfaceMessage
+public enum NeuroRoutingAction : byte
+{
+    Add,
+    Remove,
+    MoveUp,
+    MoveDown,
+}
+
+[Serializable, NetSerializable]
+public sealed class NeuroInterfaceSetRoutingMessage(NetEntity augment, NeuroRoutingAction action) : BoundUserInterfaceMessage
 {
     public NetEntity Augment = augment;
-    public int Priority = priority;
+    public NeuroRoutingAction Action = action;
 }
 
 [Serializable, NetSerializable]
@@ -67,10 +76,18 @@ public sealed class NeuroInterfaceBuiState(
     float bandwidth,
     float demand,
     float overload,
+    int channelOverload,
     int channels,
     int channelCapacity,
     string? chipName,
     string? cacheName,
+    string? routerName,
+    float chipBandwidth,
+    int chipChannels,
+    int cacheChannels,
+    int routerCapacity,
+    int routedCount,
+    float overclockDamage,
     List<string> modules,
     List<NeuroInterfaceBatteryData> batteries,
     List<string> powerSources,
@@ -82,10 +99,18 @@ public sealed class NeuroInterfaceBuiState(
     public float Bandwidth = bandwidth;
     public float Demand = demand;
     public float Overload = overload;
+    public int ChannelOverload = channelOverload;
     public int Channels = channels;
     public int ChannelCapacity = channelCapacity;
     public string? ChipName = chipName;
     public string? CacheName = cacheName;
+    public string? RouterName = routerName;
+    public float ChipBandwidth = chipBandwidth;
+    public int ChipChannels = chipChannels;
+    public int CacheChannels = cacheChannels;
+    public int RouterCapacity = routerCapacity;
+    public int RoutedCount = routedCount;
+    public float OverclockDamage = overclockDamage;
     public List<string> Modules = modules;
     public List<NeuroInterfaceBatteryData> Batteries = batteries;
     public List<string> PowerSources = powerSources;
@@ -110,9 +135,11 @@ public sealed class NeuroInterfaceEntryData(
     float demand,
     float power,
     bool enabled,
-    int priority,
+    bool routed,
+    int routingOrder,
     float efficiency,
     string status,
+    bool scalable,
     NeuroInterfaceBodyRegion region)
 {
     public NetEntity Entity = entity;
@@ -120,8 +147,10 @@ public sealed class NeuroInterfaceEntryData(
     public float Demand = demand;
     public float Power = power;
     public bool Enabled = enabled;
-    public int Priority = priority;
+    public bool Routed = routed;
+    public int RoutingOrder = routingOrder;
     public float Efficiency = efficiency;
     public string Status = status;
+    public bool Scalable = scalable;
     public NeuroInterfaceBodyRegion Region = region;
 }

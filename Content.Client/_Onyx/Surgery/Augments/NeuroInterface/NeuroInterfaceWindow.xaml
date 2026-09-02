@@ -6,11 +6,15 @@
     <PanelContainer Name="MainFrame" Margin="5" HorizontalExpand="True" VerticalExpand="True">
         <BoxContainer Orientation="Horizontal" Margin="8" SeparationOverride="8">
             <PanelContainer Name="TabRail" MinWidth="58" MaxWidth="58" VerticalExpand="True">
-                <BoxContainer Orientation="Vertical" Margin="5" SeparationOverride="5">
-                    <Button Name="OverviewTab" Text="NET" ToolTip="{Loc 'neuro-interface-nav-overview'}" MinSize="46 46"/>
-                    <Button Name="HardwareTab" Text="HW" ToolTip="{Loc 'neuro-interface-nav-hardware'}" MinSize="46 46"/>
-                    <Button Name="AugmentsTab" Text="AUG" ToolTip="{Loc 'neuro-interface-nav-augments'}" MinSize="46 46"/>
+                <BoxContainer Orientation="Vertical" Margin="5" SeparationOverride="4">
+                    <Label Text="N.I." Align="Center" StyleClasses="font-small" FontColorOverride="#9fb0c4" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-heading'}"/>
+                    <PanelContainer StyleClasses="LowDivider"/>
+                    <Button Name="OverviewTab" Text="01&#10;NET" ToolTip="{Loc 'neuro-interface-nav-overview'}" MinSize="46 54"/>
+                    <Button Name="HardwareTab" Text="02&#10;HW" ToolTip="{Loc 'neuro-interface-nav-hardware'}" MinSize="46 54"/>
+                    <Button Name="AugmentsTab" Text="03&#10;AUG" ToolTip="{Loc 'neuro-interface-nav-augments'}" MinSize="46 54"/>
                     <Control VerticalExpand="True"/>
+                    <PanelContainer StyleClasses="LowDivider"/>
+                    <Label Text="LINK" Align="Center" StyleClasses="font-small" FontColorOverride="#687483" MouseFilter="Stop"/>
                 </BoxContainer>
             </PanelContainer>
 
@@ -44,6 +48,7 @@
                                 <BoxContainer Orientation="Vertical" Margin="9 6">
                                     <Label Text="{Loc 'neuro-interface-overload-label'}" StyleClasses="font-small" FontColorOverride="#9fb0c4"/>
                                     <Label Name="OverloadLabel" StyleClasses="LabelHeading"/>
+                                    <Label Name="ChannelOverloadLabel" StyleClasses="font-small" FontColorOverride="#9fb0c4"/>
                                 </BoxContainer>
                             </PanelContainer>
                         </BoxContainer>
@@ -52,6 +57,7 @@
                                 <Label Text="{Loc 'neuro-interface-mode-heading'}" FontColorOverride="#c6d4e5"/>
                                 <BoxContainer Name="ModeButtons" Orientation="Horizontal" SeparationOverride="6" HorizontalExpand="True"/>
                                 <RichTextLabel Name="ModeHint" HorizontalExpand="True" MaxHeight="56"/>
+                                <Label Name="OverclockDamageLabel" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-tooltip-overclock-damage'}"/>
                             </BoxContainer>
                         </PanelContainer>
                         <PanelContainer Name="PowerPanel" VerticalExpand="True" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-tooltip-power-network'}">
@@ -72,7 +78,11 @@
                             <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="5">
                                 <Label Text="{Loc 'neuro-interface-components-heading'}" FontColorOverride="#c6d4e5"/>
                                 <Label Name="ChipLabel" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-tooltip-chip'}"/>
+                                <Label Name="ChipEffectLabel" StyleClasses="font-small" FontColorOverride="#9fb0c4"/>
                                 <Label Name="CacheLabel" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-tooltip-cache'}"/>
+                                <Label Name="CacheEffectLabel" StyleClasses="font-small" FontColorOverride="#9fb0c4"/>
+                                <Label Name="RouterLabel" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-tooltip-router'}"/>
+                                <Label Name="RouterEffectLabel" StyleClasses="font-small" FontColorOverride="#9fb0c4"/>
                             </BoxContainer>
                         </PanelContainer>
                         <PanelContainer Name="ExtensionsPanel" VerticalExpand="True">

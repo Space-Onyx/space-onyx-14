@@ -36,6 +36,24 @@
 
 - type: latheRecipe
   parent: BaseAugmentRecipe
+  id: NeuroInterfaceRouter
+  result: NeuroInterfaceRouter
+  materials: { Glass: 300, Plastic: 250, Gold: 200 }
+
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: NeuroInterfaceRouterAdvanced
+  result: NeuroInterfaceRouterAdvanced
+  materials: { Glass: 450, Plastic: 300, Gold: 350, Silver: 200 }
+
+- type: latheRecipe
+  parent: BaseAugmentRecipe
+  id: NeuroInterfaceRouterHighCapacity
+  result: NeuroInterfaceRouterHighCapacity
+  materials: { Glass: 600, Plastic: 400, Gold: 500, Silver: 350 }
+
+- type: latheRecipe
+  parent: BaseAugmentRecipe
   id: NeuroInterfaceEmpShield
   result: NeuroInterfaceEmpShield
   materials: { Steel: 250, Glass: 200, Gold: 150 }
