@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.Power;
 using Content.Shared.Power.Components;
@@ -22,13 +23,13 @@ public sealed partial class AugmentSystem
         if (GetBody(ent.Owner) is not { } body)
             return;
         RefreshPower(body);
-        RelayPower(body, !args.Ejected && HasPower(body));
+        RelayPower(body, HasPower(body));
     }
 
     private void OnCellEmpty(Entity<AugmentPowerCellSlotComponent> ent, ref PowerCellSlotEmptyEvent args)
     {
         if (GetBody(ent.Owner) is { } body)
-            RelayPower(body, false);
+            RelayPower(body, HasPower(body));
     }
 
     private void OnStationRecharge(Entity<AugmentPowerCellSlotComponent> ent, ref RefreshChargeRateEvent args)
@@ -46,14 +47,15 @@ public sealed partial class AugmentSystem
 
     private void RefreshBattery(EntityUid body)
     {
-        if (GetPowerSlot(body) is { Valid: true } slot && _powerCell.TryGetBatteryFromSlot(slot, out var battery))
-            _battery.RefreshChargeRate(battery.Value.AsNullable());
+        foreach (var slot in GetPowerSlots(body))
+        {
+            if (_powerCell.TryGetBatteryFromSlot(slot, out var battery))
+                _battery.RefreshChargeRate(battery.Value.AsNullable());
+        }
     }
 
     public void RefreshPower(EntityUid body)
     {
-        if (GetPowerSlot(body) is not { Valid: true } slot || !TryComp(slot, out PowerCellDrawComponent? draw))
-            return;
         var total = 0f;
         if (TryComp(body, out InstalledAugmentsComponent? installed))
         {
@@ -61,14 +63,23 @@ public sealed partial class AugmentSystem
             {
                 if (TryComp(augment, out AugmentPowerDrawComponent? power) &&
                     (!HasComp<ItemToggleComponent>(augment) || _toggle.IsActivated(augment)) && IsEnabled(augment))
-                    total += power.Draw;
+                    total += power.Draw * GetEfficiency(body, augment);
             }
         }
-        draw.DrawRate = total;
-        Dirty(slot, draw);
-        _powerCell.SetDrawEnabled((slot, draw), IsEnabled(slot));
-        if (_powerCell.TryGetBatteryFromSlot(slot, out var battery))
-            _battery.RefreshChargeRate(battery.Value.AsNullable());
+        var poweredSlots = GetPowerSlots(body)
+            .Where(slot => _powerCell.TryGetBatteryFromSlot(slot, out _))
+            .ToList();
+        var drawPerSlot = poweredSlots.Count > 0 ? total / poweredSlots.Count : 0f;
+        foreach (var slot in GetPowerSlots(body))
+        {
+            if (!TryComp(slot, out PowerCellDrawComponent? draw))
+                continue;
+            draw.DrawRate = drawPerSlot;
+            Dirty(slot, draw);
+            _powerCell.SetDrawEnabled((slot, draw), IsEnabled(slot));
+            if (_powerCell.TryGetBatteryFromSlot(slot, out var battery))
+                _battery.RefreshChargeRate(battery.Value.AsNullable());
+        }
     }
 
     private void RelayPower(EntityUid body, bool powered)

@@ -222,6 +222,8 @@ surgery-popup-step-SurgeryStepInsertAugmentPowerCell = { $user } is inserting a 
 surgery-popup-step-SurgeryStepRemoveAugmentPowerCell = { $user } is removing a power cell from { $target }'s { $part }.
 surgery-popup-step-SurgeryStepInsertAugmentCharger = { $user } is inserting a recharger into { $target }'s { $part }.
 surgery-popup-step-SurgeryStepRemoveAugmentCharger = { $user } is removing a recharger from { $target }'s { $part }.
+surgery-popup-step-SurgeryStepInsertNeuroInterface = { $user } seats the neuro-interface at the base of { $target }'s neck and connects its cortical electrodes.
+surgery-popup-step-SurgeryStepRemoveNeuroInterface = { $user } disconnects the cortical electrodes and removes the neuro-interface from the base of { $target }'s neck.
 
 surgery-tool-examine-verb-text = Surgical tool
 surgery-tool-examine-verb-message = Examine this tool's uses in surgery.

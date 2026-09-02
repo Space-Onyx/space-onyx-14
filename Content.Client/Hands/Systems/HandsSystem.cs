@@ -227,7 +227,7 @@ namespace Content.Client.Hands.Systems
             if (!hands.Hands.ContainsKey(args.Container.ID))
                 return;
 
-            UpdateHandVisuals(uid, args.Entity, args.Container.ID);
+            RebuildHandVisuals((uid, hands)); // <Onyx-FunctionalHands-edited>
             _stripSys.UpdateUi(uid);
 
             if (uid != _playerManager.LocalEntity)
@@ -246,7 +246,7 @@ namespace Content.Client.Hands.Systems
             if (!hands.Hands.ContainsKey(args.Container.ID))
                 return;
 
-            UpdateHandVisuals(uid, args.Entity, args.Container.ID);
+            RebuildHandVisuals((uid, hands)); // <Onyx-FunctionalHands-edited>
             _stripSys.UpdateUi(uid);
 
             if (uid != _playerManager.LocalEntity)
@@ -263,19 +263,39 @@ namespace Content.Client.Hands.Systems
         /// </summary>
         private void UpdateAllHandVisuals(Entity<HandsComponent?> ent)
         {
-            foreach (var handId in EnumerateHands(ent))
+            RebuildHandVisuals(ent); // <Onyx-FunctionalHands-edited>
+        }
+
+        // <Onyx-FunctionalHands>
+        private void RebuildHandVisuals(Entity<HandsComponent?> ent)
+        {
+            if (!Resolve(ent, ref ent.Comp, false) || !TryComp(ent.Owner, out SpriteComponent? sprite))
+                return;
+
+            foreach (var layers in ent.Comp.RevealedLayers.Values)
+            {
+                foreach (var key in layers)
+                    _sprite.RemoveLayer((ent.Owner, sprite), key, false); // <Onyx-FunctionalHands-edited>
+                layers.Clear();
+            }
+
+            foreach (var handId in ent.Comp.SortedHands.OrderBy(handId => IsFunctional(ent.Comp.Hands[handId].Location) ? 0 : 1))
             {
                 if (!TryGetHeldItem(ent, handId, out var held))
                     continue;
 
-                UpdateHandVisuals(ent, held.Value, handId);
+                UpdateHandVisuals((ent.Owner, ent.Comp, sprite), held.Value, handId, false);
             }
         }
+
+        private static bool IsFunctional(HandLocation location) =>
+            location is HandLocation.Functional or HandLocation.FunctionalLeft or HandLocation.FunctionalRight;
+        // </Onyx-FunctionalHands>
 
         /// <summary>
         ///     Update the players sprite with new in-hand visuals.
         /// </summary>
-        private void UpdateHandVisuals(Entity<HandsComponent?, SpriteComponent?> ent, EntityUid held, string handId)
+        private void UpdateHandVisuals(Entity<HandsComponent?, SpriteComponent?> ent, EntityUid held, string handId, bool notifyPlayer = true) // <Onyx-FunctionalHands-edited>
         {
             if (!Resolve(ent, ref ent.Comp1, ref ent.Comp2, false))
                 return;
@@ -286,7 +306,7 @@ namespace Content.Client.Hands.Systems
                 return;
 
             // visual update might involve changes to the entity's effective sprite -> need to update hands GUI.
-            if (ent == _playerManager.LocalEntity)
+            if (notifyPlayer && ent == _playerManager.LocalEntity) // <Onyx-FunctionalHands-edited>
                 OnPlayerItemAdded?.Invoke(handId, held);
 
             if (!handComp.ShowInHands)
@@ -337,17 +357,26 @@ namespace Content.Client.Hands.Systems
             // add the new layers
             foreach (var (key, layerData) in ev.Layers)
             {
-                if (!revealedLayers.Add(key))
+                // <Onyx-FunctionalHands-edited>
+                var functional = IsFunctional(hand.Value.Location);
+                var layerKey = functional
+                    ? $"{key}-functional-{handId}"
+                    : key;
+                var appliedLayerData = functional
+                    ? CloneFunctionalLayerData(layerData, handId)
+                    : layerData;
+                // </Onyx-FunctionalHands-edited>
+                if (!revealedLayers.Add(layerKey)) // <Onyx-FunctionalHands-edited>
                 {
-                    Log.Warning($"Duplicate key for in-hand visuals: {key}. Are multiple components attempting to modify the same layer? Entity: {ToPrettyString(held)}");
+                    Log.Warning($"Duplicate key for in-hand visuals: {layerKey}. Are multiple components attempting to modify the same layer? Entity: {ToPrettyString(held)}"); // <Onyx-FunctionalHands-edited>
                     continue;
                 }
 
-                var index = _sprite.LayerMapReserve((ent, sprite), key);
+                var index = _sprite.LayerMapReserve((ent, sprite), layerKey); // <Onyx-FunctionalHands-edited>
 
                 // In case no RSI is given, use the item's base RSI as a default. This cuts down on a lot of unnecessary yaml entries.
-                if (layerData.RsiPath == null
-                    && layerData.TexturePath == null
+                if (appliedLayerData.RsiPath == null // <Onyx-FunctionalHands-edited>
+                    && appliedLayerData.TexturePath == null // <Onyx-FunctionalHands-edited>
                     && sprite[index].Rsi == null)
                 {
                     if (TryComp<ItemComponent>(held, out var itemComponent) && itemComponent.RsiPath != null)
@@ -356,7 +385,7 @@ namespace Content.Client.Hands.Systems
                         _sprite.LayerSetRsi((ent, sprite), index, clothingSprite.BaseRSI);
                 }
 
-                _sprite.LayerSetData((ent, sprite), index, layerData);
+                _sprite.LayerSetData((ent, sprite), index, appliedLayerData); // <Onyx-FunctionalHands-edited>
 
                 // Add displacement maps
                 var displacement = hand.Value.Location switch
@@ -366,19 +395,50 @@ namespace Content.Client.Hands.Systems
                     _ => handComp.HandDisplacement
                 };
 
-                if (displacement is not null && _displacement.TryAddDisplacement(displacement, (ent, sprite), index, key, out var displacementKey))
+                if (displacement is not null && _displacement.TryAddDisplacement(displacement, (ent, sprite), index, layerKey, out var displacementKey)) // <Onyx-FunctionalHands-edited>
                     revealedLayers.Add(displacementKey);
             }
 
             RaiseLocalEvent(held, new HeldVisualsUpdatedEvent(ent, revealedLayers), true);
         }
 
+        // <Onyx-FunctionalHands>
+        private static PrototypeLayerData CloneFunctionalLayerData(PrototypeLayerData data, string handId)
+        {
+            var suffix = $"-functional-{handId}";
+            return new PrototypeLayerData
+            {
+                Shader = data.Shader,
+                TexturePath = data.TexturePath,
+                RsiPath = data.RsiPath,
+                State = data.State,
+                Scale = data.Scale,
+                Rotation = data.Rotation,
+                Offset = data.Offset,
+                Visible = data.Visible,
+                Color = data.Color,
+                MapKeys = data.MapKeys?.Select(key => key + suffix).ToHashSet(),
+                RenderingStrategy = data.RenderingStrategy,
+                CopyToShaderParameters = data.CopyToShaderParameters == null
+                    ? null
+                    : new PrototypeCopyToShaderParameters
+                    {
+                        LayerKey = data.CopyToShaderParameters.LayerKey + suffix,
+                        ParameterTexture = data.CopyToShaderParameters.ParameterTexture,
+                        ParameterUV = data.CopyToShaderParameters.ParameterUV,
+                    },
+                Cycle = data.Cycle,
+                Loop = data.Loop,
+            };
+        }
+        // </Onyx-FunctionalHands>
+
         private void OnVisualsChanged(EntityUid uid, HandsComponent component, VisualsChangedEvent args)
         {
             // update hands visuals if this item is in a hand (rather then inventory or other container).
             if (!component.Hands.ContainsKey(args.ContainerId))
                 return;
-            UpdateHandVisuals((uid, component), GetEntity(args.Item), args.ContainerId);
+            RebuildHandVisuals((uid, component)); // <Onyx-FunctionalHands-edited>
         }
         #endregion
 

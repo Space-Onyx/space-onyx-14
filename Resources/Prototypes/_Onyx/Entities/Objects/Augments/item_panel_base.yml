@@ -31,5 +31,9 @@
     activated: false
     onUse: false
     onActivate: false
+  - type: AugmentPowerDraw
+    draw: 5
   - type: AugmentAction
     action: ActionAugmentToggleItemPanel
+  - type: NeuroBandwidthConsumer
+    demand: 3

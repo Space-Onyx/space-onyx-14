@@ -222,6 +222,8 @@ surgery-popup-step-SurgeryStepInsertAugmentPowerCell = { $user } вставля�
 surgery-popup-step-SurgeryStepRemoveAugmentPowerCell = { $user } извлекает батарею из { $part } у { $target }.
 surgery-popup-step-SurgeryStepInsertAugmentCharger = { $user } вставляет зарядник в { $part } у { $target }.
 surgery-popup-step-SurgeryStepRemoveAugmentCharger = { $user } извлекает зарядник из { $part } у { $target }.
+surgery-popup-step-SurgeryStepInsertNeuroInterface = { $user } закрепляет нейроинтерфейс у основания шеи { $target } и подключает кортикальные электроды.
+surgery-popup-step-SurgeryStepRemoveNeuroInterface = { $user } отсоединяет кортикальные электроды и извлекает нейроинтерфейс из основания шеи { $target }.
 
 surgery-tool-examine-verb-text = Хирургический инструмент
 surgery-tool-examine-verb-message = Изучить применение этого инструмента в операциях.

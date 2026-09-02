@@ -6,3 +6,6 @@
 
 - type: organCategory
   id: AugmentArm
+
+- type: organCategory
+  id: NeuroInterface

@@ -39,6 +39,8 @@
   - type: Organ
     category: AugmentPowerCell
   - type: AugmentPowerCellSlot
+  - type: AugmentBatteryBank
+    slots: [ cell_slot ]
   - type: Construction
     graph: AugmentPowerCellSlot
     node: augment

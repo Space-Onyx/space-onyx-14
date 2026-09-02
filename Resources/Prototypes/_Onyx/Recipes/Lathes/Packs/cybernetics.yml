@@ -32,6 +32,12 @@
   - BasicCyberneticHeart
   - BasicCyberneticLungs
   - BasicCyberneticLiver
+  - NeuroInterface
+  - NeuroInterfaceChipBasic
+  - NeuroInterfaceChipAdvanced
+  - NeuroInterfaceCacheStandard
+  - NeuroInterfaceEmpShield
+  - AugmentBioReactor
 
 - type: latheRecipePack
   id: AdvancedCybernetics
@@ -45,6 +51,10 @@
   - DiagnosticCyberneticEyes
   - CyberEyeNightVision
   - CyberEyeThermal
+  - NeuroInterfaceChipHighDensity
+  - NeuroInterfaceCacheExpanded
+  - NeuroInterfaceEmpShieldHardened
+  - AugmentRTG
 
 - type: latheRecipePack
   id: MedicalCybernetics

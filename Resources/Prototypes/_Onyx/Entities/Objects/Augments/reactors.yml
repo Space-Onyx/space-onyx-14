@@ -1,0 +1,23 @@
+- type: entity
+  parent: BaseAugmentRecharger
+  id: AugmentBioReactor
+  name: bio-reactor augment
+  description: A metabolic generator that converts the host's nutrition into electrical energy.
+  components:
+  - type: Sprite
+    state: apc
+  - type: AugmentReactor
+    generation: 8
+    hungerCostPerJoule: 0.08
+
+- type: entity
+  parent: BaseAugmentRecharger
+  id: AugmentRTG
+  name: RTG augment
+  description: A shielded radioisotope generator that steadily powers internal augmentations without metabolic cost.
+  components:
+  - type: Sprite
+    state: station
+  - type: AugmentReactor
+    generation: 15
+    hungerCostPerJoule: 0

@@ -13,7 +13,7 @@ public sealed partial class AugmentSystem
         foreach (var augment in ResolveAugments(installed))
         {
             if (TryComp(augment, out AugmentStrengthComponent? strength) && _toggle.IsActivated(augment) && IsEnabled(augment))
-                args.Damage *= strength.Modifier;
+                args.Damage *= 1f + (strength.Modifier - 1f) * GetEfficiency(args.User, augment);
         }
     }
 }

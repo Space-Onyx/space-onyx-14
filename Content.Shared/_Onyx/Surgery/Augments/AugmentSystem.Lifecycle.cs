@@ -1,6 +1,7 @@
 using Content.Shared.Body;
 using Content.Shared.Emp;
 using Content.Shared.Interaction;
+using Content.Shared._Onyx.Surgery.Augments.NeuroInterface;
 
 namespace Content.Shared._Onyx.Surgery.Augments;
 
@@ -13,6 +14,7 @@ public sealed partial class AugmentSystem
         SubscribeLocalEvent<InstalledAugmentsComponent, AccessibleOverrideEvent>(OnAccessible);
         SubscribeLocalEvent<AugmentComponent, EmpPulseEvent>(OnEmp);
         SubscribeLocalEvent<AugmentComponent, EmpDisabledRemovedEvent>(OnEmpRemoved);
+        SubscribeLocalEvent<AugmentComponent, NeuroBandwidthEfficiencyChangedEvent>(OnNeuroEfficiencyChanged);
     }
 
     private void OnInserted(Entity<AugmentComponent> ent, ref OrganGotInsertedEvent args)
@@ -22,6 +24,7 @@ public sealed partial class AugmentSystem
         Dirty(args.Target, installed);
         GrantAction(ent.Owner, args.Target);
         RefreshPower(args.Target);
+        _neuroInterface.Refresh(args.Target);
     }
 
     private void OnRemoved(Entity<AugmentComponent> ent, ref OrganGotRemovedEvent args)
@@ -37,6 +40,7 @@ public sealed partial class AugmentSystem
         RevokeAction(ent.Owner, args.Target);
         Disable(ent.Owner);
         RefreshPower(args.Target);
+        _neuroInterface.Refresh(args.Target);
     }
 
     private void OnAccessible(Entity<InstalledAugmentsComponent> ent, ref AccessibleOverrideEvent args)
@@ -53,12 +57,26 @@ public sealed partial class AugmentSystem
         args.Disabled = true;
         Disable(ent.Owner);
         if (GetBody(ent.Owner) is { } body)
+        {
             RefreshPower(body);
+            _neuroInterface.Refresh(body);
+        }
     }
 
     private void OnEmpRemoved(Entity<AugmentComponent> ent, ref EmpDisabledRemovedEvent args)
     {
         if (GetBody(ent.Owner) is { } body)
+        {
+            RefreshPower(body);
+            _neuroInterface.Refresh(body);
+        }
+    }
+
+    private void OnNeuroEfficiencyChanged(Entity<AugmentComponent> ent, ref NeuroBandwidthEfficiencyChangedEvent args)
+    {
+        if (args.Efficiency <= 0f)
+            Disable(ent);
+        if (GetBody(ent) is { } body)
             RefreshPower(body);
     }
 }

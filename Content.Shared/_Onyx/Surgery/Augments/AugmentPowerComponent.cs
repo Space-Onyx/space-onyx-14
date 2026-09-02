@@ -1,4 +1,5 @@
 using Robust.Shared.GameStates;
+using Content.Shared.Nutrition.Prototypes;
 
 namespace Content.Shared._Onyx.Surgery.Augments;
 
@@ -13,10 +14,36 @@ public sealed partial class AugmentPowerDrawComponent : Component
 public sealed partial class AugmentPowerCellSlotComponent : Component;
 
 [RegisterComponent, NetworkedComponent]
+public sealed partial class AugmentBatteryBankComponent : Component
+{
+    [DataField(required: true)]
+    public List<string> Slots = new();
+}
+
+[RegisterComponent, NetworkedComponent]
 public sealed partial class AugmentApcRechargerComponent : Component;
 
 [RegisterComponent, NetworkedComponent]
 public sealed partial class AugmentStationRechargerComponent : Component;
+
+[RegisterComponent, NetworkedComponent]
+public sealed partial class AugmentPowerSourceComponent : Component;
+
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class AugmentReactorComponent : Component
+{
+    [DataField]
+    public float Generation;
+
+    [DataField]
+    public float HungerCostPerJoule;
+
+    [DataField]
+    public SatiationValue MinimumHunger = "Starving";
+
+    [AutoNetworkedField]
+    public float CurrentGeneration;
+}
 
 /// <summary>
 /// Links an augment-owned entity to the augment power network that supplies it.

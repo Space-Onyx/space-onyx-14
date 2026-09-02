@@ -1,5 +1,11 @@
 ent-BaseAugmentItemPanel = item-panel augment
-    .desc = An arm implant containing a retractable item.
+    .desc = An arm implant containing a retractable item. Deploying and sustaining the item draws power from the internal augmentation network.
+ent-ActionAugmentToggleItemPanel = toggle integrated item
+    .desc = Deploy or retract the item built into your arm.
+ent-ActionAugmentToggleItemPanelLeft = toggle left integrated item
+    .desc = Deploy or retract the item built into your left arm.
+ent-ActionAugmentToggleItemPanelRight = toggle right integrated item
+    .desc = Deploy or retract the item built into your right arm.
 ent-AugmentManitBladePanel = mantis blade panel augment
     .desc = An arm implant containing a mantis blade.
 ent-MantisBlade = mantis blade

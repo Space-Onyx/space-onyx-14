@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Shared.Actions;
 using Content.Shared.Body;
 using Content.Shared.Body.Part;
@@ -9,6 +10,7 @@ using Content.Shared.Item;
 using Content.Shared.Item.ItemToggle;
 using Content.Shared.Popups;
 using Content.Shared._Onyx.Surgery.Augments;
+using Content.Shared._Onyx.Surgery.Augments.NeuroInterface;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
@@ -35,6 +37,7 @@ public sealed partial class AugmentItemPanelSystem : EntitySystem
         SubscribeLocalEvent<AugmentItemPanelComponent, AugmentItemPanelActionEvent>(OnToggle);
         SubscribeLocalEvent<AugmentItemPanelComponent, AugmentLostPowerEvent>(OnLostPower);
         SubscribeLocalEvent<AugmentItemPanelComponent, EmpPulseEvent>(OnEmp);
+        SubscribeLocalEvent<AugmentItemPanelComponent, NeuroBandwidthEfficiencyChangedEvent>(OnNeuroEfficiencyChanged);
     }
 
     private void OnInit(Entity<AugmentItemPanelComponent> ent, ref ComponentInit args) => EnsureStoredItem(ent);
@@ -69,7 +72,7 @@ public sealed partial class AugmentItemPanelSystem : EntitySystem
         var cost = ent.Comp.IsEquipped ? ent.Comp.RetractPowerCost : ent.Comp.ExtendPowerCost;
         if (ent.Comp.RequiresPower && cost > 0f)
         {
-            if (_augment.GetPowerSlot(args.Performer) == null)
+            if (!_augment.GetPowerSlots(args.Performer).Any())
             {
                 _popup.PopupEntity(Loc.GetString("augments-no-power-cell-slot"), args.Performer, args.Performer,
                     PopupType.MediumCaution);
@@ -144,6 +147,12 @@ public sealed partial class AugmentItemPanelSystem : EntitySystem
             BodyPartSymmetry.Right => HandLocation.FunctionalRight,
             _ => HandLocation.Functional,
         };
+    }
+
+    private void OnNeuroEfficiencyChanged(Entity<AugmentItemPanelComponent> ent, ref NeuroBandwidthEfficiencyChangedEvent args)
+    {
+        if (args.Efficiency <= 0f && ent.Comp.IsEquipped && _augment.GetBody(ent.Owner) is { } body)
+            Retract(ent, body, false);
     }
 
     private static string GetHandId(EntityUid augment) => $"augment-item-panel-{augment.Id}";

@@ -10,6 +10,7 @@ using Content.Shared._Onyx.Speech;
 using Content.Shared.FixedPoint;
 using Content.Shared._Onyx.Medical.Surgery;
 using Content.Shared._Onyx.Surgery.Organs;
+using Content.Shared._Onyx.Surgery.Augments.NeuroInterface;
 using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Eye.Blinding;
 using Content.Shared.StatusEffectNew;
@@ -54,6 +55,7 @@ public sealed partial class OrganEffectSystem : EntitySystem
         SubscribeLocalEvent<OrganComponent, OrganGotRemovedEvent>(OnOrganRemoved);
         SubscribeLocalEvent<OrganComponent, OrganGotInsertedEvent>(OnOrganInserted);
         SubscribeLocalEvent<OrganComponent, OrganFunctionChangedEvent>(OnOrganFunctionChanged);
+        SubscribeLocalEvent<OrganComponent, NeuroBandwidthEfficiencyChangedEvent>(OnNeuroEfficiencyChanged);
         SubscribeLocalEvent<BodyComponent, EyeDamageChangedEvent>(OnEyeDamageChanged);
         SubscribeLocalEvent<MissingEyesComponent, CanSeeAttemptEvent>(OnCanSee);
     }
@@ -116,6 +118,12 @@ public sealed partial class OrganEffectSystem : EntitySystem
     private void OnOrganFunctionChanged(Entity<OrganComponent> ent, ref OrganFunctionChangedEvent args) =>
         _pendingBodies.Add(args.Body);
 
+    private void OnNeuroEfficiencyChanged(Entity<OrganComponent> ent, ref NeuroBandwidthEfficiencyChangedEvent args)
+    {
+        if (ent.Comp.Body is { } body)
+            _pendingBodies.Add(body);
+    }
+
     private void RaiseBodyOrgansChanged(EntityUid body)
     {
         var ev = new BodyOrgansChangedEvent(body);
@@ -155,6 +163,8 @@ public sealed partial class OrganEffectSystem : EntitySystem
             if (organ.Category is { } category)
                 organCounts[category] = organCounts.GetValueOrDefault(category) + 1;
             if (!TryComp(organId, out FunctionalOrganComponent? functional))
+                continue;
+            if (TryComp(organId, out NeuroBandwidthRuntimeComponent? runtime) && runtime.Efficiency <= 0f)
                 continue;
 
             foreach (var (name, entry) in functional.Components)

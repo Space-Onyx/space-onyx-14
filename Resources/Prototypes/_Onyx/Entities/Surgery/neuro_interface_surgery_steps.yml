@@ -1,0 +1,15 @@
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertNeuroInterface
+  name: Connect neuro-interface
+  components:
+  - type: SurgeryInsertOrganEffect
+    slot: NeuroInterface
+    requireMechanical: true
+    required: [ { type: NeuroInterface } ]
+
+- type: entity
+  parent: SurgeryStepRemoveOrgan
+  id: SurgeryStepRemoveNeuroInterface
+  name: Disconnect neuro-interface
+  components: [ { type: SurgeryRemoveOrganEffect, slot: NeuroInterface } ]

@@ -8,6 +8,7 @@
     state: cell
   - type: Organ
     category: AugmentCharger
+  - type: AugmentPowerSource
 
 - type: entity
   parent: BaseItem

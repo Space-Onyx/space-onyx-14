@@ -13,6 +13,7 @@ using Content.Shared.Overlays;
 using Content.Shared._Onyx.Overlays;
 using Content.Shared._Onyx.Shadowkin;
 using Content.Shared._Onyx.Wounds;
+using Content.Shared._Onyx.Surgery.Augments.NeuroInterface;
 using Content.Shared.Prying.Components;
 using Content.Shared.Contraband;
 using Robust.Shared.Network;
@@ -40,6 +41,7 @@ public sealed partial class CyberneticsSystem : EntitySystem
         SubscribeLocalEvent<CyberneticsComponent, EmpPulseEvent>(OnEmpPulse);
         SubscribeLocalEvent<CyberneticsComponent, EmpDisabledRemovedEvent>(OnEmpRemoved);
         SubscribeLocalEvent<BodyComponent, EmpPulseEvent>(OnBodyEmpPulse);
+        SubscribeLocalEvent<CyberneticsComponent, NeuroBandwidthEfficiencyChangedEvent>(OnNeuroEfficiencyChanged);
         SubscribeLocalEvent<CyberneticBodyEffectsComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshSpeed);
     }
 
@@ -102,24 +104,37 @@ public sealed partial class CyberneticsSystem : EntitySystem
 
     private void OnBodyEmpPulse(Entity<BodyComponent> ent, ref EmpPulseEvent args)
     {
-        var protection = new CyberneticsEmpProtectionEvent();
-        RaiseLocalEvent(ent, ref protection);
-        if (protection.Cancelled || protection.StrengthMultiplier <= 0f || protection.DurationMultiplier <= 0f)
-            return;
-
-        var energyConsumption = args.EnergyConsumption * protection.StrengthMultiplier;
-        var duration = args.Duration * protection.DurationMultiplier;
         foreach (var (part, _) in _body.GetBodyChildren(ent))
         {
             if (HasComp<CyberneticsComponent>(part))
-                _emp.TryEmpEffects(part, energyConsumption, duration, args.User);
+                TryRelayEmp(ent, part, args);
         }
 
         foreach (var (organ, _) in _body.GetBodyOrgans(ent))
         {
             if (HasComp<CyberneticsComponent>(organ))
-                _emp.TryEmpEffects(organ, energyConsumption, duration, args.User);
+                TryRelayEmp(ent, organ, args);
         }
+    }
+
+    private void OnNeuroEfficiencyChanged(Entity<CyberneticsComponent> ent, ref NeuroBandwidthEfficiencyChangedEvent args)
+    {
+        if (TryGetBody(ent, out var body))
+            RefreshBody(body);
+    }
+
+    private void TryRelayEmp(EntityUid body, EntityUid cybernetic, EmpPulseEvent args)
+    {
+        var protection = new CyberneticsEmpProtectionEvent(cybernetic);
+        RaiseLocalEvent(body, ref protection);
+        if (protection.Cancelled || protection.StrengthMultiplier <= 0f || protection.DurationMultiplier <= 0f)
+            return;
+
+        _emp.TryEmpEffects(
+            cybernetic,
+            args.EnergyConsumption * protection.StrengthMultiplier,
+            args.Duration * protection.DurationMultiplier,
+            args.User);
     }
 
     private bool TryGetBody(EntityUid uid, out EntityUid body)
@@ -233,7 +248,8 @@ public sealed partial class CyberneticsSystem : EntitySystem
         ref bool nightVisionEnabled,
         ref bool thermalVisionEnabled)
     {
-        if (!TryComp(uid, out CyberneticsComponent? cyber) || cyber.Disabled)
+        if (!TryComp(uid, out CyberneticsComponent? cyber) || cyber.Disabled ||
+            TryComp(uid, out NeuroBandwidthRuntimeComponent? runtime) && runtime.Efficiency <= 0f)
             return;
 
         effects |= cyber.Effects;
@@ -318,6 +334,7 @@ public sealed partial class CyberneticsSystem : EntitySystem
 /// </summary>
 [ByRefEvent]
 public record struct CyberneticsEmpProtectionEvent(
+    EntityUid Cybernetic,
     bool Cancelled = false,
     float StrengthMultiplier = 1f,
     float DurationMultiplier = 1f);

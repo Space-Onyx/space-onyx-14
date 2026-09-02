@@ -1,0 +1,100 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      Title="{Loc 'neuro-interface-title'}"
+                      MinSize="760 500"
+                      SetSize="900 620">
+    <PanelContainer Name="MainFrame" Margin="5" HorizontalExpand="True" VerticalExpand="True">
+        <BoxContainer Orientation="Horizontal" Margin="8" SeparationOverride="8">
+            <PanelContainer Name="TabRail" MinWidth="58" MaxWidth="58" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="5" SeparationOverride="5">
+                    <Button Name="OverviewTab" Text="NET" ToolTip="{Loc 'neuro-interface-nav-overview'}" MinSize="46 46"/>
+                    <Button Name="HardwareTab" Text="HW" ToolTip="{Loc 'neuro-interface-nav-hardware'}" MinSize="46 46"/>
+                    <Button Name="AugmentsTab" Text="AUG" ToolTip="{Loc 'neuro-interface-nav-augments'}" MinSize="46 46"/>
+                    <Control VerticalExpand="True"/>
+                </BoxContainer>
+            </PanelContainer>
+
+            <PanelContainer Name="ContentPanel" HorizontalExpand="True" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="8">
+                    <BoxContainer Orientation="Horizontal">
+                        <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+                            <Label Name="ScreenTitle" StyleClasses="LabelHeading" FontColorOverride="#c6d4e5"/>
+                            <Label Name="ScreenSubtitle" StyleClasses="font-small" FontColorOverride="#7f8b99"/>
+                        </BoxContainer>
+                        <Label Name="ModeLabel" VerticalAlignment="Center" FontColorOverride="#9fb0c4" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-tooltip-current-mode'}"/>
+                    </BoxContainer>
+                    <PanelContainer Name="Divider" SetHeight="2"/>
+
+                    <BoxContainer Name="OverviewScreen" Orientation="Vertical" SeparationOverride="8" VerticalExpand="True">
+                        <BoxContainer Orientation="Horizontal" SeparationOverride="8">
+                            <PanelContainer Name="BandwidthPanel" HorizontalExpand="True" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-tooltip-neuro-limit'}">
+                                <BoxContainer Orientation="Vertical" Margin="9 6">
+                                    <Label Text="{Loc 'neuro-interface-bandwidth-label'}" StyleClasses="font-small" FontColorOverride="#9fb0c4"/>
+                                    <Label Name="BandwidthLabel" StyleClasses="LabelHeading"/>
+                                </BoxContainer>
+                            </PanelContainer>
+                            <PanelContainer Name="DemandPanel" HorizontalExpand="True" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-tooltip-neuro-load'}">
+                                <BoxContainer Orientation="Vertical" Margin="9 6">
+                                    <Label Text="{Loc 'neuro-interface-demand-label'}" StyleClasses="font-small" FontColorOverride="#9fb0c4"/>
+                                    <Label Name="DemandLabel" StyleClasses="LabelHeading"/>
+                                    <Label Name="ChannelsLabel" StyleClasses="font-small" FontColorOverride="#9fb0c4"/>
+                                </BoxContainer>
+                            </PanelContainer>
+                            <PanelContainer Name="OverloadPanel" HorizontalExpand="True" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-tooltip-overload'}">
+                                <BoxContainer Orientation="Vertical" Margin="9 6">
+                                    <Label Text="{Loc 'neuro-interface-overload-label'}" StyleClasses="font-small" FontColorOverride="#9fb0c4"/>
+                                    <Label Name="OverloadLabel" StyleClasses="LabelHeading"/>
+                                </BoxContainer>
+                            </PanelContainer>
+                        </BoxContainer>
+                        <PanelContainer Name="ModePanel">
+                            <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="6">
+                                <Label Text="{Loc 'neuro-interface-mode-heading'}" FontColorOverride="#c6d4e5"/>
+                                <BoxContainer Name="ModeButtons" Orientation="Horizontal" SeparationOverride="6" HorizontalExpand="True"/>
+                                <RichTextLabel Name="ModeHint" HorizontalExpand="True" MaxHeight="56"/>
+                            </BoxContainer>
+                        </PanelContainer>
+                        <PanelContainer Name="PowerPanel" VerticalExpand="True" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-tooltip-power-network'}">
+                            <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="5">
+                                <BoxContainer Orientation="Horizontal">
+                                    <Label Text="{Loc 'neuro-interface-power-heading'}" FontColorOverride="#9fb0c4" HorizontalExpand="True"/>
+                                    <Label Name="PowerBalanceLabel" FontColorOverride="#9fb0c4"/>
+                                </BoxContainer>
+                                <PanelContainer StyleClasses="LowDivider"/>
+                                <BoxContainer Name="PowerSourceList" Orientation="Vertical" SeparationOverride="2"/>
+                                <BoxContainer Name="BatteryList" Orientation="Vertical" SeparationOverride="3"/>
+                            </BoxContainer>
+                        </PanelContainer>
+                    </BoxContainer>
+
+                    <BoxContainer Name="HardwareScreen" Orientation="Vertical" SeparationOverride="8" VerticalExpand="True" Visible="False">
+                        <PanelContainer Name="ComponentsPanel">
+                            <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="5">
+                                <Label Text="{Loc 'neuro-interface-components-heading'}" FontColorOverride="#c6d4e5"/>
+                                <Label Name="ChipLabel" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-tooltip-chip'}"/>
+                                <Label Name="CacheLabel" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-tooltip-cache'}"/>
+                            </BoxContainer>
+                        </PanelContainer>
+                        <PanelContainer Name="ExtensionsPanel" VerticalExpand="True">
+                            <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="5">
+                                <Label Text="{Loc 'neuro-interface-extensions-heading'}" FontColorOverride="#c6d4e5"/>
+                                <BoxContainer Name="ExtensionList" Orientation="Vertical" SeparationOverride="4"/>
+                            </BoxContainer>
+                        </PanelContainer>
+                    </BoxContainer>
+
+                    <BoxContainer Name="AugmentsScreen" Orientation="Vertical" SeparationOverride="7" VerticalExpand="True" Visible="False">
+                        <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                            <LineEdit Name="SearchBar" PlaceHolder="{Loc 'neuro-interface-search'}" HorizontalExpand="True"/>
+                            <OptionButton Name="RegionFilter" MinWidth="170" ToolTip="{Loc 'neuro-interface-tooltip-region-filter'}"/>
+                            <Label Name="AugmentCount" VerticalAlignment="Center" StyleClasses="font-small" FontColorOverride="#7f8b99" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-tooltip-augment-count'}"/>
+                        </BoxContainer>
+                        <ScrollContainer HScrollEnabled="False" VerticalExpand="True" ReserveScrollbarSpace="True">
+                            <BoxContainer Name="EntryList" Orientation="Vertical" SeparationOverride="4" HorizontalExpand="True"/>
+                        </ScrollContainer>
+                    </BoxContainer>
+                </BoxContainer>
+            </PanelContainer>
+        </BoxContainer>
+    </PanelContainer>
+</controls:FancyWindow>

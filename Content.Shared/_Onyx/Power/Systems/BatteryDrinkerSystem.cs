@@ -146,11 +146,24 @@ public sealed partial class BatteryDrinkerSystem : EntitySystem
 
     private bool SearchForBattery(EntityUid ent, [NotNullWhen(true)] out EntityUid? battery)
     {
-        if (_augments.GetPowerSlot(ent) is { Valid: true } augmentPowerSlot &&
-            TryGetCellSlot(augmentPowerSlot, out var augmentSlot))
+        var hasAugmentSlot = false;
+        foreach (var augmentPowerSlot in _augments.GetPowerSlots(ent))
         {
-            battery = augmentSlot.Item;
-            return augmentSlot.HasItem && HasComp<BatteryComponent>(augmentSlot.Item);
+            hasAugmentSlot = true;
+            if (!TryGetCellSlot(augmentPowerSlot, out var augmentSlot))
+                continue;
+
+            if (augmentSlot.HasItem && HasComp<BatteryComponent>(augmentSlot.Item))
+            {
+                battery = augmentSlot.Item;
+                return true;
+            }
+        }
+
+        if (hasAugmentSlot)
+        {
+            battery = null;
+            return false;
         }
 
         if (TryGetCellSlot(ent, out var slot))

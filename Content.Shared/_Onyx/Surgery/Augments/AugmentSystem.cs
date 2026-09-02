@@ -3,9 +3,12 @@ using Content.Shared.Actions;
 using Content.Shared.Body;
 using Content.Shared.Item.ItemToggle;
 using Content.Shared.Power.EntitySystems;
+using Content.Shared.Power.Components;
 using Content.Shared.PowerCell;
+using Content.Shared.Containers.ItemSlots;
 using Content.Shared.UserInterface;
 using Content.Shared._Onyx.Cybernetics;
+using Content.Shared._Onyx.Surgery.Augments.NeuroInterface;
 
 namespace Content.Shared._Onyx.Surgery.Augments;
 
@@ -14,9 +17,11 @@ public sealed partial class AugmentSystem : EntitySystem
     [Dependency] private ActionContainerSystem _actionContainer = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedBatterySystem _battery = default!;
+    [Dependency] private ItemSlotsSystem _itemSlots = default!;
     [Dependency] private ItemToggleSystem _toggle = default!;
     [Dependency] private PowerCellSystem _powerCell = default!;
     [Dependency] private SharedUserInterfaceSystem _ui = default!;
+    [Dependency] private SharedNeuroInterfaceSystem _neuroInterface = default!;
 
     public override void Initialize()
     {
@@ -44,15 +49,34 @@ public sealed partial class AugmentSystem : EntitySystem
         return TryComp(body, out InstalledAugmentsComponent? installed) && ResolveAugments(installed).Any(HasComp<T>);
     }
 
-    public EntityUid? GetPowerSlot(EntityUid body)
+    public IEnumerable<EntityUid> GetPowerSlots(EntityUid body)
     {
-        return TryComp(body, out InstalledAugmentsComponent? installed)
-            ? ResolveAugments(installed).FirstOrDefault(HasComp<AugmentPowerCellSlotComponent>)
-            : null;
+        if (!TryComp(body, out InstalledAugmentsComponent? installed))
+            yield break;
+        foreach (var augment in ResolveAugments(installed))
+        {
+            if (HasComp<AugmentPowerCellSlotComponent>(augment))
+                yield return augment;
+        }
     }
 
-    public bool TryUseCharge(EntityUid body, float charge, EntityUid? user = null) =>
-        GetPowerSlot(body) is { Valid: true } slot && _powerCell.TryUseCharge(slot, charge, user);
+    public bool TryUseCharge(EntityUid body, float charge, EntityUid? user = null)
+    {
+        if (charge <= 0f || !HasPower(body, charge))
+            return charge <= 0f;
+
+        foreach (var battery in GetBatteries(body))
+        {
+            var available = _battery.GetCharge(battery.AsNullable());
+            var used = Math.Min(charge, available);
+            if (used > 0f)
+                _battery.UseCharge(battery.AsNullable(), used);
+            charge -= used;
+            if (charge <= 0f)
+                return true;
+        }
+        return false;
+    }
 
     /// <summary>
     /// Draws energy for an augment-owned consumer. Consumers only need an
@@ -74,12 +98,46 @@ public sealed partial class AugmentSystem : EntitySystem
         Dirty(receiver, component);
     }
 
-    public bool HasPower(EntityUid body) =>
-        GetPowerSlot(body) is { Valid: true } slot && _powerCell.HasCharge(slot, 0.01f);
+    public bool HasPower(EntityUid body, float charge = 0.01f)
+    {
+        var available = 0f;
+        foreach (var battery in GetBatteries(body))
+            available += _battery.GetCharge(battery.AsNullable());
+        return available >= charge;
+    }
+
+    public bool TryGetBattery(EntityUid slot, out Entity<BatteryComponent> battery)
+    {
+        battery = default;
+        if (!_powerCell.TryGetBatteryFromSlot(slot, out var found))
+            return false;
+        battery = found.Value;
+        return true;
+    }
+
+    public IEnumerable<Entity<BatteryComponent>> GetBatteries(EntityUid body)
+    {
+        if (!TryComp(body, out InstalledAugmentsComponent? installed))
+            yield break;
+
+        foreach (var augment in ResolveAugments(installed))
+        {
+            if (!TryComp(augment, out AugmentBatteryBankComponent? bank))
+                continue;
+            foreach (var slot in bank.Slots)
+            {
+                if (_itemSlots.GetItemOrNull(augment, slot) is { } item && TryComp(item, out BatteryComponent? battery))
+                    yield return (item, battery);
+            }
+        }
+    }
 
     public bool CanUse(EntityUid augment, EntityUid user) =>
-        GetBody(augment) == user && IsEnabled(augment) &&
+        GetBody(augment) == user && IsEnabled(augment) && _neuroInterface.GetEfficiency(user, augment) > 0f &&
         (!HasComp<AugmentPowerDrawComponent>(augment) || HasPower(user));
+
+    public float GetEfficiency(EntityUid body, EntityUid augment) =>
+        _neuroInterface.GetEfficiency(body, augment);
 
     private bool IsEnabled(EntityUid augment) =>
         !TryComp(augment, out CyberneticsComponent? cyber) || !cyber.Disabled;

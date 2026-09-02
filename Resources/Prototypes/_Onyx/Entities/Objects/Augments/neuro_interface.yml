@@ -1,0 +1,174 @@
+- type: entity
+  parent: BaseAugmentAction
+  id: ActionOpenNeuroInterface
+  name: open neural panel
+  description: Project the neuro-interface control panel into your field of vision.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Augments/power.rsi
+    layers:
+    - state: apc
+      map: [ "enum.ActionVisuals.Icon" ]
+
+- type: entity
+  parent: BaseAugment
+  id: NeuroInterface
+  name: NanoTrasen Neuro
+  description: A compact neural bus implanted at the base of the neck. Its service lead can terminate beneath either ear.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Augments/power.rsi
+    state: apc
+  - type: Organ
+    category: NeuroInterface
+  - type: NeuroInterface
+  - type: ItemSlots
+    slots:
+      chip:
+        name: neuro-interface-ui-chip
+        whitelist:
+          components: [ NeuroInterfaceChip ]
+      cache:
+        name: neuro-interface-ui-cache
+        whitelist:
+          components: [ NeuroInterfaceCache ]
+      module1:
+        name: neuro-interface-ui-expansion-module
+        whitelist:
+          components: [ NeuroInterfaceModule ]
+      module2:
+        name: neuro-interface-ui-expansion-module
+        whitelist:
+          components: [ NeuroInterfaceModule ]
+  - type: ContainerContainer
+    containers:
+      chip: !type:ContainerSlot {}
+      cache: !type:ContainerSlot {}
+      module1: !type:ContainerSlot {}
+      module2: !type:ContainerSlot {}
+  - type: UserInterface
+    interfaces:
+      enum.NeuroInterfaceUiKey.Key:
+        type: NeuroInterfaceBoundUserInterface
+        interactionRange: 0
+  - type: AugmentActivatableUI
+    key: enum.NeuroInterfaceUiKey.Key
+  - type: AugmentAction
+    action: ActionOpenNeuroInterface
+
+- type: entity
+  parent: NeuroInterface
+  id: NeuroInterfaceInterdyneFault
+  name: Interdyne Fault
+  description: A medical neural bus made by NanoTrasen competitor Interdyne Pharmaceuticals, optimized for coordinating multiple diagnostic and life-support augments.
+  components:
+  - type: NeuroInterface
+    baseBandwidth: 12
+    baseChannels: 4
+
+- type: entity
+  parent: NeuroInterface
+  id: NeuroInterfaceNanoTrasenEnforcer
+  name: NanoTrasen Enforcer
+  description: A restricted reinforced neural bus issued to NanoTrasen security and response forces for high-load combat augments.
+  components:
+  - type: NeuroInterface
+    baseBandwidth: 20
+    baseChannels: 3
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: BaseNeuroInterfacePart
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Augments/power.rsi
+
+- type: entity
+  parent: BaseNeuroInterfacePart
+  id: NeuroInterfaceChipBasic
+  name: NanoTrasen NMC-1
+  description: The entry model of NanoTrasen's neuromorphic controller line, intended for standard augmentation suites.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: cpu_super
+  - type: NeuroInterfaceChip
+    bandwidth: 20
+    channels: 4
+
+- type: entity
+  parent: BaseNeuroInterfacePart
+  id: NeuroInterfaceChipAdvanced
+  name: NanoTrasen NMC-2
+  description: A higher-density neuromorphic controller for complex civilian and industrial augmentation suites.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: cpu_super
+  - type: NeuroInterfaceChip
+    bandwidth: 30
+    channels: 6
+
+- type: entity
+  parent: BaseNeuroInterfacePart
+  id: NeuroInterfaceChipHighDensity
+  name: NanoTrasen NMC-3
+  description: A restricted high-density neuromorphic controller built around a synthetic neural lattice.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: cpu_super
+  - type: NeuroInterfaceChip
+    bandwidth: 40
+    channels: 9
+
+- type: entity
+  parent: BaseNeuroInterfacePart
+  id: NeuroInterfaceCacheStandard
+  name: NanoTrasen NCM-2
+  description: A neural context-memory unit that keeps two additional augmentation control states ready for immediate use.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: door_electronics
+  - type: NeuroInterfaceCache
+    channels: 2
+
+- type: entity
+  parent: BaseNeuroInterfacePart
+  id: NeuroInterfaceCacheExpanded
+  name: NanoTrasen NCM-4
+  description: An expanded neural context-memory unit that keeps four additional augmentation control states ready for immediate use.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: door_electronics
+  - type: NeuroInterfaceCache
+    channels: 4
+
+- type: entity
+  parent: BaseNeuroInterfacePart
+  id: NeuroInterfaceEmpShield
+  name: ferrite EMP filter
+  description: A layered ferrite filter that dampens electromagnetic interference before it reaches the neural bus.
+  components:
+  - type: Sprite
+    state: apc
+  - type: NeuroInterfaceEmpProtection
+    strengthMultiplier: 0.75
+    durationMultiplier: 0.75
+  - type: NeuroInterfaceModule
+
+- type: entity
+  parent: BaseNeuroInterfacePart
+  id: NeuroInterfaceEmpShieldHardened
+  name: isolated EMP filter
+  description: A hardened optical isolator wrapped in a dense Faraday mesh. It strongly suppresses interference reaching the neural bus.
+  components:
+  - type: Sprite
+    state: apc
+  - type: NeuroInterfaceEmpProtection
+    strengthMultiplier: 0.5
+    durationMultiplier: 0.5
+  - type: NeuroInterfaceModule
