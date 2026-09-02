@@ -49,12 +49,14 @@ public sealed partial class AugmentToolPanelSystem : EntitySystem
         if (_augment.GetBody(ent.Owner) is not { } body || body != args.Actor || !_augment.CanUse(ent.Owner, body))
             return;
         var desired = GetEntity(args.DesiredTool);
-        if (desired is { } tool &&
-            (!TryComp(ent, out Content.Shared.Storage.StorageComponent? storage) || !storage.StoredItems.ContainsKey(tool)))
+        if (!TryComp(ent, out Content.Shared.Storage.StorageComponent? storage) ||
+            desired is { } tool && !storage.StoredItems.ContainsKey(tool))
             return;
         if (ent.Comp.RequiresPower && !_augment.TryUseCharge(body, ent.Comp.SwitchCharge, body))
             return;
         SwitchTool(ent, desired, body, true);
+        _ui.SetUiState(ent.Owner, AugmentToolPanelUiKey.Key,
+            new AugmentToolPanelBuiState(storage.StoredItems.Keys.Select(tool => GetNetEntity(tool)).ToList()));
     }
 
     private void SwitchTool(Entity<AugmentToolPanelComponent> augment, EntityUid? desired, EntityUid body, bool popup)
