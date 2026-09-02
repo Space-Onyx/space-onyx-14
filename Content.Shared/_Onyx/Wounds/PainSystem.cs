@@ -113,17 +113,17 @@ public sealed partial class PainSystem : EntitySystem
         while (suppressionQuery.MoveNext(out var suppressionUid, out var suppressionPain))
             DecayPainSuppression((suppressionUid, suppressionPain), elapsed);
 
+        var bodyQuery = EntityQueryEnumerator<PainComponent, MobStateComponent, PainShockTargetComponent>();
+        while (bodyQuery.MoveNext(out var bodyUid, out var bodyPain, out var mobState, out var shockTarget))
+        {
+            UpdatePainShock((bodyUid, bodyPain), mobState, shockTarget);
+        }
+
         var recoveryQuery = EntityQueryEnumerator<PainComponent>();
         while (recoveryQuery.MoveNext(out var partUid, out var partPain))
         {
             if (TryComp(partUid, out BodyPartComponent? part))
                 RecoverPain((partUid, partPain), elapsed, part);
-        }
-
-        var bodyQuery = EntityQueryEnumerator<PainComponent, MobStateComponent, PainShockTargetComponent>();
-        while (bodyQuery.MoveNext(out var bodyUid, out var bodyPain, out var mobState, out var shockTarget))
-        {
-            UpdatePainShock((bodyUid, bodyPain), mobState, shockTarget);
         }
     }
 
@@ -163,6 +163,10 @@ public sealed partial class PainSystem : EntitySystem
 
         var changed = new PainChangedEvent(entity, old, value);
         RaiseLocalEvent(entity, ref changed);
+
+        if (TryComp(entity, out MobStateComponent? mobState) &&
+            TryComp(entity, out PainShockTargetComponent? shockTarget))
+            UpdatePainShock((entity.Owner, entity.Comp), mobState, shockTarget);
 
         if (TryComp(entity, out BodyPartComponent? part) && part.Body is { } body &&
             TryComp(body, out PainComponent? bodyPain))
