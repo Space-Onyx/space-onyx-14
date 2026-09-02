@@ -77,6 +77,10 @@
     energy: 10
     color: "#1e070e"
     castShadows: false
+  # <Onyx-Modsuit>
+  - type: Tag
+    tags: [ ForceableFollow, GravityCore ]
+  # </Onyx-Modsuit>
 
 - type: entity
   parent: BaseAnomalyCore
@@ -143,6 +147,10 @@
     energy: 3.5
     color: "#00ccff"
     castShadows: false
+  # <Onyx-Modsuit>
+  - type: Tag
+    tags: [ ForceableFollow, BluespaceCore ]
+  # </Onyx-Modsuit>
 
 - type: entity
   parent: BaseAnomalyCore

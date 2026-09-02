@@ -45,6 +45,8 @@
           type: ChameleonBoundUserInterface
         enum.ToggleClothingUiKey.Key:
           type: ToggleableClothingBoundUserInterface
+        enum.ModSuitUiKey.Key:
+          type: ModSuitBoundUserInterface
     - type: ExplosionResistance
       damageCoefficient: 0.1
  

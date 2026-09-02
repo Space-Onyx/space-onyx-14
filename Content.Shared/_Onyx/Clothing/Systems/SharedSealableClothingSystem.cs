@@ -15,6 +15,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared._Onyx.Clothing.Components;
+using Content.Shared._Onyx.Clothing.Modsuits.Components;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Actions;
 using Content.Shared.Clothing;
@@ -497,7 +498,12 @@ public abstract partial class SharedSealableClothingSystem : EntitySystem
             if (sealableComponent.IsSealed != comp.IsCurrentlySealed)
                 continue;
 
-            var doAfterArgs = new DoAfterArgs(EntityManager, uid, sealableComponent.SealingTime,
+            var duration = sealableComponent.SealingTime;
+            if (TryComp<ModModuleSpringlockControllerComponent>(control, out var springlockController) &&
+                TryComp<ModModuleSpringlockComponent>(springlockController.Module, out var springlock) && springlock.SealSpeedMultiplier > 0)
+                duration /= springlock.SealSpeedMultiplier;
+
+            var doAfterArgs = new DoAfterArgs(EntityManager, uid, duration,
                 new SealClothingDoAfterEvent(), uid, target: processingPart, used: uid)
             {
                 NeedHand = false,

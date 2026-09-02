@@ -78,8 +78,7 @@ public sealed partial class ModModuleActionSystem : EntitySystem
 
     private void OnTeleport(Entity<ModModuleTeleporterComponent> module, ref ModModuleTeleportEvent args)
     {
-        if (args.Handled || module.Comp.Radius < 0 || !TryGetActive(module.Owner, args.Performer, out var controller, out var framework) ||
-            !TryConsume(framework, controller, args.Action, args.Performer))
+        if (args.Handled || module.Comp.Radius < 0 || !TryGetActive(module.Owner, args.Performer, out var controller, out var framework))
             return;
         var targets = new HashSet<Entity<MobStateComponent>>();
         _lookup.GetEntitiesInRange(Transform(args.Performer).Coordinates, module.Comp.Radius, targets, LookupFlags.Uncontained);
@@ -91,6 +90,8 @@ public sealed partial class ModModuleActionSystem : EntitySystem
             args.Handled = true;
             return;
         }
+        if (!TryConsume(framework, controller, args.Action, args.Performer))
+            return;
         _transform.SwapPositions(args.Performer, _random.Pick(targets).Owner);
         args.Handled = true;
     }

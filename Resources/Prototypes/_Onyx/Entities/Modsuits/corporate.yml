@@ -407,7 +407,7 @@
     - type: StorageFill
       contents:
           - id: OxygenTankFilled
-          - id: ClothingModsuitCorporate
+          - id: ClothingModsuitTrainer
           - id: ClothingMaskBreath
 
 - type: entity

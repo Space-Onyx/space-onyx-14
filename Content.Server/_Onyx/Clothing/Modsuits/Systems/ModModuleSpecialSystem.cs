@@ -25,7 +25,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._Onyx.Clothing.Modsuits.Systems;
 
-public sealed partial class ModModulePirateSystem : EntitySystem
+public sealed partial class ModModuleSpecialSystem : EntitySystem
 {
     [Dependency] private DamageableSystem _damage = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
@@ -46,6 +46,7 @@ public sealed partial class ModModulePirateSystem : EntitySystem
         SubscribeLocalEvent<ModModuleSpringlockComponent, ModModuleInstalledEvent>(OnSpringlockInstalled);
         SubscribeLocalEvent<ModModuleSpringlockComponent, ModModuleUninstalledEvent>(OnSpringlockUninstalled);
         SubscribeLocalEvent<ModModuleSpringlockComponent, ModModuleActivatedEvent>(OnSpringlockActivated);
+        SubscribeLocalEvent<ModModuleSpringlockControllerComponent, ClothingGotEquippedEvent>(OnSpringlockEquipped);
         SubscribeLocalEvent<ModModuleSpringlockControllerComponent, BeingUnequippedAttemptEvent>(OnSpringlockUnequip);
         SubscribeLocalEvent<ModModuleSpringlockControllerComponent, ClothingGotUnequippedEvent>(OnSpringlockUnequipped);
         SubscribeLocalEvent<ModModuleSpringlockEffectComponent, ReactionEntityEvent>(OnSpringlockReaction);
@@ -91,6 +92,9 @@ public sealed partial class ModModulePirateSystem : EntitySystem
 
     private void OnSpringlockActivated(Entity<ModModuleSpringlockComponent> module, ref ModModuleActivatedEvent args) =>
         AddSpringlockEffect(module.Owner, args.Wearer);
+
+    private void OnSpringlockEquipped(Entity<ModModuleSpringlockControllerComponent> controller, ref ClothingGotEquippedEvent args) =>
+        AddSpringlockEffect(controller.Comp.Module, args.Wearer);
 
     private void OnSpringlockUnequip(Entity<ModModuleSpringlockControllerComponent> controller, ref BeingUnequippedAttemptEvent args)
     {

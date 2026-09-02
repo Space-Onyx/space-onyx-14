@@ -66,6 +66,8 @@ public sealed partial class ModModuleSystem : EntitySystem
         SubscribeLocalEvent<ModModuleComponent, EntGotRemovedFromContainerMessage>(OnModuleRemoved);
         SubscribeLocalEvent<ModModuleComponent, ComponentShutdown>(OnModuleShutdown);
         SubscribeLocalEvent<ModModuleComponent, ModModuleActionEvent>(OnModuleAction);
+        SubscribeLocalEvent<ModModuleContainerRequirementComponent, EntInsertedIntoContainerMessage>(OnRequirementChanged);
+        SubscribeLocalEvent<ModModuleContainerRequirementComponent, EntRemovedFromContainerMessage>(OnRequirementChanged);
     }
 
     private void OnContainerInit(Entity<ModModuleContainerComponent> ent, ref ComponentInit args)
@@ -438,6 +440,13 @@ public sealed partial class ModModuleSystem : EntitySystem
         Entity<ModModuleContainerComponent> controller,
         EntityUid wearer)
     {
+        if (TryComp<ModModuleContainerRequirementComponent>(module, out var requirement) &&
+            (!_containers.TryGetContainer(module, requirement.ContainerId, out var required) || required.Count == 0))
+        {
+            Deactivate(module, controller, wearer);
+            return;
+        }
+
         if (module.Comp.Active)
             Deactivate(module, controller, wearer);
         var applied = new List<(EntityUid Target, ComponentRegistry Registry)>();
@@ -482,6 +491,19 @@ public sealed partial class ModModuleSystem : EntitySystem
         Dirty(module);
         var ev = new ModModuleActivatedEvent(controller, wearer);
         RaiseLocalEvent(module, ref ev);
+    }
+
+    private void OnRequirementChanged(Entity<ModModuleContainerRequirementComponent> module, ref EntInsertedIntoContainerMessage args) =>
+        RefreshRequiredModule(module);
+
+    private void OnRequirementChanged(Entity<ModModuleContainerRequirementComponent> module, ref EntRemovedFromContainerMessage args) =>
+        RefreshRequiredModule(module);
+
+    private void RefreshRequiredModule(Entity<ModModuleContainerRequirementComponent> module)
+    {
+        if (TryComp<ModModuleComponent>(module, out var framework) && framework.InstalledController is { } controller &&
+            TryComp<ModModuleContainerComponent>(controller, out var container))
+            Refresh((controller, container));
     }
 
     private void Deactivate(Entity<ModModuleComponent> module,

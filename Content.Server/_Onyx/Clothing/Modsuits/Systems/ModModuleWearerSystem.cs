@@ -1,4 +1,5 @@
 using Content.Shared._Onyx.Clothing.Modsuits.Components;
+using Content.Shared._Onyx.Wounds;
 using Content.Shared.Armor;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
@@ -36,6 +37,8 @@ public sealed partial class ModModuleWearerSystem : EntitySystem
         SubscribeLocalEvent<ModModuleArmorBoosterEffectComponent, InventoryRelayedEvent<CoefficientQueryEvent>>(OnCoefficients,
             after: [typeof(SharedArmorSystem)]);
         SubscribeLocalEvent<ModModuleArmorBoosterEffectComponent, InventoryRelayedEvent<DamageModifyEvent>>(OnDamage,
+            after: [typeof(SharedArmorSystem)]);
+        SubscribeLocalEvent<ModModuleArmorBoosterEffectComponent, InventoryRelayedEvent<PartDamageModifyEvent>>(OnPartDamage,
             after: [typeof(SharedArmorSystem)]);
         SubscribeLocalEvent<ModModuleArmorBoosterComponent, ModModuleActivatedEvent>(OnArmorActivated);
         SubscribeLocalEvent<ModModuleArmorBoosterComponent, ModModuleDeactivatedEvent>(OnArmorDeactivated);
@@ -117,16 +120,15 @@ public sealed partial class ModModuleWearerSystem : EntitySystem
 
     private void OnArmorActivated(Entity<ModModuleArmorBoosterComponent> module, ref ModModuleActivatedEvent args)
     {
-        var effect = EnsureComp<ModModuleArmorBoosterEffectComponent>(FindTorso(args.Controller));
+        var effect = EnsureComp<ModModuleArmorBoosterEffectComponent>(args.Controller);
         effect.Module = module.Owner;
         effect.Modifiers = module.Comp.Modifiers;
     }
 
     private void OnArmorDeactivated(Entity<ModModuleArmorBoosterComponent> module, ref ModModuleDeactivatedEvent args)
     {
-        var torso = FindTorso(args.Controller);
-        if (TryComp<ModModuleArmorBoosterEffectComponent>(torso, out var effect) && effect.Module == module.Owner)
-            RemComp<ModModuleArmorBoosterEffectComponent>(torso);
+        if (TryComp<ModModuleArmorBoosterEffectComponent>(args.Controller, out var effect) && effect.Module == module.Owner)
+            RemComp<ModModuleArmorBoosterEffectComponent>(args.Controller);
     }
 
     private void OnCoefficients(Entity<ModModuleArmorBoosterEffectComponent> ent, ref InventoryRelayedEvent<CoefficientQueryEvent> args)
@@ -135,7 +137,23 @@ public sealed partial class ModModuleWearerSystem : EntitySystem
             args.Args.DamageModifiers.Coefficients[type] = args.Args.DamageModifiers.Coefficients.GetValueOrDefault(type, 1f) * value;
     }
 
-    private void OnDamage(Entity<ModModuleArmorBoosterEffectComponent> ent, ref InventoryRelayedEvent<DamageModifyEvent> args) =>
+    private void OnDamage(Entity<ModModuleArmorBoosterEffectComponent> ent, ref InventoryRelayedEvent<DamageModifyEvent> args)
+    {
+        if (!TryComp<WoundHostComponent>(args.Owner, out var host))
+        {
+            args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, ent.Comp.Modifiers);
+            return;
+        }
+
+        var systemic = new DamageSpecifier(args.Args.Damage);
+        foreach (var type in host.LocalizedDamageTypes)
+            systemic.DamageDict.Remove(type);
+        var reduced = DamageSpecifier.ApplyModifierSet(systemic, ent.Comp.Modifiers);
+        foreach (var (type, value) in reduced.DamageDict)
+            args.Args.Damage.DamageDict[type] = value;
+    }
+
+    private void OnPartDamage(Entity<ModModuleArmorBoosterEffectComponent> ent, ref InventoryRelayedEvent<PartDamageModifyEvent> args) =>
         args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, ent.Comp.Modifiers);
 
     private EntityUid FindHelmet(EntityUid controller) => FindPart(controller, "head");

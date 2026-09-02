@@ -42,3 +42,9 @@
 
 - type: Tag
   id: ModsuitShell
+
+- type: Tag
+  id: GravityCore
+
+- type: Tag
+  id: BluespaceCore

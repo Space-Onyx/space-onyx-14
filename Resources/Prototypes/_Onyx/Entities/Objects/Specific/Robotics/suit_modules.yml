@@ -291,6 +291,8 @@
     effects:
       Helmet:
       - type: EyeProtection
+      Wearer:
+      - type: MesonVision
 
 - type: entity
   parent: BaseSuitModule
@@ -334,8 +336,19 @@
     id: anti-gravity
     drawRate: 0.45
   - type: ModModuleAntiGravity
+  - type: ModModuleContainerRequirement
+    containerId: module_core
   - type: RadiationBlockingContainer
     resistance: 5
+  - type: ContainerContainer
+    containers:
+      module_core: !type:ContainerSlot {}
+  - type: ItemSlots
+    slots:
+      module_core:
+        name: module-core-slot-name-default
+        whitelist:
+          tags: [ GravityCore ]
 
 - type: entity
   parent: BaseSuitModule
@@ -352,6 +365,17 @@
       useCost: 25
   - type: ModModuleTeleporter
     radius: 5
+  - type: ModModuleContainerRequirement
+    containerId: module_core
+  - type: ContainerContainer
+    containers:
+      module_core: !type:ContainerSlot {}
+  - type: ItemSlots
+    slots:
+      module_core:
+        name: module-core-slot-name-default
+        whitelist:
+          tags: [ BluespaceCore ]
 
 - type: entity
   parent: BaseSuitModule

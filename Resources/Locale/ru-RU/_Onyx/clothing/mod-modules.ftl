@@ -24,6 +24,7 @@ mod-module-remove-finish = Модуль извлечён.
 mod-module-teleporter-no-target = Нет цели для телепортации.
 mod-module-holster-invalid = Предмет нельзя поместить в кобуру.
 mod-module-grabber-eject = Выгрузить захваченное
+module-core-slot-name-default = Ядро аномалии
 mod-ui-menu-title = Панель контроллера
 mod-ui-remove-battery = Извлечь батарею
 mod-ui-modules-label = Модули:

@@ -13,6 +13,10 @@ using Content.Shared.Popups;
 using Content.Shared.PowerCell;
 using Content.Shared.Temperature.Components;
 using Content.Shared.Verbs;
+using Content.Shared.Weapons.Ranged.Components;
+using Content.Shared.Weapons.Ranged.Systems;
+using Content.Shared.Wieldable;
+using Content.Shared.Wieldable.Components;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
@@ -31,7 +35,9 @@ public sealed partial class ModModuleToolSystem : EntitySystem
     [Dependency] private ItemSlotsSystem _slots = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private PowerCellSystem _power = default!;
+    [Dependency] private SharedGunSystem _gun = default!;
     [Dependency] private TemperatureSystem _temperature = default!;
+    [Dependency] private SharedWieldableSystem _wieldable = default!;
 
     public override void Initialize()
     {
@@ -54,12 +60,22 @@ public sealed partial class ModModuleToolSystem : EntitySystem
             return;
         if (slot.Item is { } stored)
         {
-            if (!_hands.TryPickupAnyHand(args.Performer, stored, checkActionBlocker: false)) return;
+            var activeHand = _hands.GetActiveHand(args.Performer);
+            if (activeHand == null || !_hands.CanPickupToHand(args.Performer, stored, activeHand, checkActionBlocker: false) ||
+                !TryUseActionCharge(framework, controller, args.Action.Owner, args.Performer) ||
+                !_hands.TryPickup(args.Performer, stored, activeHand, checkActionBlocker: false))
+                return;
+            if (TryComp<WieldableComponent>(stored, out var wieldable))
+                _wieldable.TryWield((stored, wieldable), args.Performer);
+            if (TryComp<ChamberMagazineAmmoProviderComponent>(stored, out var chamber) && chamber.BoltClosed == false)
+                _gun.SetBoltClosed(stored, chamber, true, args.Performer);
         }
         else
         {
             var held = _hands.GetActiveItem(args.Performer);
-            if (held == null || !_slots.TryInsert(module, slot, held.Value, args.Performer))
+            if (held == null || !_slots.CanInsert(module, slot, held.Value, args.Performer) ||
+                !TryUseActionCharge(framework, controller, args.Action.Owner, args.Performer) ||
+                !_slots.TryInsert(module, slot, held.Value, args.Performer))
             {
                 _popup.PopupEntity(Loc.GetString("mod-module-holster-invalid"), args.Performer, args.Performer);
                 return;
@@ -83,6 +99,7 @@ public sealed partial class ModModuleToolSystem : EntitySystem
         {
             BreakOnMove = true,
             BreakOnDamage = true,
+            MovementThreshold = 0.01f,
         });
     }
 
@@ -104,7 +121,7 @@ public sealed partial class ModModuleToolSystem : EntitySystem
         args.Verbs.Add(new AlternativeVerb
         {
             Text = Loc.GetString("mod-module-grabber-eject"),
-            Act = () => Eject(container, Transform(user).Coordinates),
+            Act = () => TryEject(tool, container, user),
         });
     }
 
@@ -118,6 +135,7 @@ public sealed partial class ModModuleToolSystem : EntitySystem
         {
             BreakOnMove = true,
             BreakOnDamage = true,
+            MovementThreshold = 0.01f,
         });
     }
 
@@ -176,6 +194,22 @@ public sealed partial class ModModuleToolSystem : EntitySystem
     private bool CanGrab(EntityUid target) => !HasComp<MobStateComponent>(target) && !Transform(target).Anchored &&
         (!TryComp<PhysicsComponent>(target, out var physics) || physics.BodyType != BodyType.Static);
     private bool CanHeat(EntityUid target) => !HasComp<MobStateComponent>(target) && HasComp<TemperatureComponent>(target);
+
+    private void TryEject(Entity<ModModuleGrabberToolComponent> tool, BaseContainer container, EntityUid user)
+    {
+        if (!TryLink(tool.Owner, user, ref tool.Comp.Module, out var controller, out _) ||
+            !_power.TryUseCharge(controller, tool.Comp.UseCost, user))
+            return;
+        Eject(container, Transform(user).Coordinates);
+    }
+
+    private bool TryUseActionCharge(ModModuleComponent module, EntityUid controller, EntityUid action, EntityUid user)
+    {
+        foreach (var definition in module.Actions)
+            if (module.ActionEntities.TryGetValue(definition.Action, out var actionUid) && actionUid == action)
+                return definition.UseCost <= 0 || _power.TryUseCharge(controller, definition.UseCost, user, predicted: true);
+        return false;
+    }
 
     private void Eject(BaseContainer container, EntityCoordinates destination)
     {

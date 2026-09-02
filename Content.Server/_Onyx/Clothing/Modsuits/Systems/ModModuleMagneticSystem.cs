@@ -60,6 +60,8 @@ public sealed partial class ModModuleMagneticSystem : EntitySystem
 
     private void OnWeightless(Entity<ModModuleMagneticEffectComponent> ent, ref IsWeightlessEvent args)
     {
+        if (!_gravity.EntityOnGravitySupportingGridOrMap(ent.Owner))
+            return;
         args.IsWeightless = false;
         args.Handled = true;
     }

@@ -160,6 +160,13 @@ public sealed partial class ModModuleGeigerComponent : Component;
 public sealed partial class ModModuleAntiGravityComponent : Component;
 
 [RegisterComponent]
+public sealed partial class ModModuleContainerRequirementComponent : Component
+{
+    [DataField(required: true)]
+    public string ContainerId = string.Empty;
+}
+
+[RegisterComponent]
 public sealed partial class ModModuleApparatusComponent : Component;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
@@ -182,6 +189,7 @@ public sealed partial class ModModuleArmorBoosterComponent : Component
 [RegisterComponent]
 public sealed partial class ModModuleSpringlockComponent : Component
 {
+    [DataField] public float SealSpeedMultiplier = 3f;
     [DataField] public ReactionMethod LockMethod = ReactionMethod.Touch;
     [DataField] public string TargetReagent = "Water";
     [DataField] public TimeSpan TriggerDelay = TimeSpan.FromSeconds(5);
@@ -196,9 +204,10 @@ public sealed partial class ModModuleSpringlockComponent : Component
     [DataField] public SoundSpecifier Music = new SoundPathSpecifier("/Audio/_Onyx/Ambience/toreadormarch.ogg");
 }
 
-[RegisterComponent]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class ModModuleSpringlockControllerComponent : Component
 {
+    [AutoNetworkedField]
     public EntityUid Module;
 }
 

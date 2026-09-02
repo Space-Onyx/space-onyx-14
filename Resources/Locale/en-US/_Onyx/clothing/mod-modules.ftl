@@ -24,6 +24,7 @@ mod-module-remove-finish = Module removed.
 mod-module-teleporter-no-target = No teleport target nearby.
 mod-module-holster-invalid = Cannot holster this item.
 mod-module-grabber-eject = Eject grabbed items
+module-core-slot-name-default = Anomaly core
 mod-ui-menu-title = Module Panel
 mod-ui-remove-battery = Remove battery
 mod-ui-modules-label = Modules:
