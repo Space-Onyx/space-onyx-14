@@ -2,6 +2,7 @@ using Content.Shared.Body;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
 using Content.Shared.CCVar;
+using Content.Shared._Onyx.Cybernetics;
 using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 
@@ -16,6 +17,9 @@ public sealed partial class BodyPartFunctionalitySystem : EntitySystem
 
     public BodyPartFunctionalityState GetState(Entity<WoundableComponent?> part)
     {
+        if (TryComp(part, out CyberneticsComponent? cybernetics) && cybernetics.Disabled)
+            return BodyPartFunctionalityState.Disabled;
+
         if (!_configuration.GetCVar(CCVars.WoundsBodyPartFunctionalityEnabled))
             return BodyPartFunctionalityState.Functional;
 

@@ -12,6 +12,7 @@ using Content.Shared.Movement.Systems;
 using Content.Shared.Overlays;
 using Content.Shared._Onyx.Overlays;
 using Content.Shared._Onyx.Shadowkin;
+using Content.Shared._Onyx.Wounds;
 using Content.Shared.Prying.Components;
 using Content.Shared.Contraband;
 using Robust.Shared.Network;
@@ -26,8 +27,10 @@ public sealed partial class CyberneticsSystem : EntitySystem
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private DamageableSystem _damage = default!;
+    [Dependency] private SharedEmpSystem _emp = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
+    [Dependency] private BodyPartFunctionalitySystem _functionality = default!;
 
     public override void Initialize()
     {
@@ -36,6 +39,7 @@ public sealed partial class CyberneticsSystem : EntitySystem
         SubscribeLocalEvent<CyberneticsComponent, OrganGotRemovedEvent>(OnRemoved);
         SubscribeLocalEvent<CyberneticsComponent, EmpPulseEvent>(OnEmpPulse);
         SubscribeLocalEvent<CyberneticsComponent, EmpDisabledRemovedEvent>(OnEmpRemoved);
+        SubscribeLocalEvent<BodyComponent, EmpPulseEvent>(OnBodyEmpPulse);
         SubscribeLocalEvent<CyberneticBodyEffectsComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshSpeed);
     }
 
@@ -68,7 +72,11 @@ public sealed partial class CyberneticsSystem : EntitySystem
         Dirty(ent);
 
         if (TryGetBody(ent, out body))
+        {
             RefreshBody(body);
+            if (_net.IsServer && HasComp<BodyPartComponent>(ent))
+                _functionality.RefreshPart(body, ent);
+        }
 
         if (_net.IsServer && HasComp<BodyPartComponent>(ent))
         {
@@ -85,7 +93,33 @@ public sealed partial class CyberneticsSystem : EntitySystem
         ent.Comp.Disabled = false;
         Dirty(ent);
         if (TryGetBody(ent, out var body))
+        {
             RefreshBody(body);
+            if (_net.IsServer && HasComp<BodyPartComponent>(ent))
+                _functionality.RefreshPart(body, ent);
+        }
+    }
+
+    private void OnBodyEmpPulse(Entity<BodyComponent> ent, ref EmpPulseEvent args)
+    {
+        var protection = new CyberneticsEmpProtectionEvent();
+        RaiseLocalEvent(ent, ref protection);
+        if (protection.Cancelled || protection.StrengthMultiplier <= 0f || protection.DurationMultiplier <= 0f)
+            return;
+
+        var energyConsumption = args.EnergyConsumption * protection.StrengthMultiplier;
+        var duration = args.Duration * protection.DurationMultiplier;
+        foreach (var (part, _) in _body.GetBodyChildren(ent))
+        {
+            if (HasComp<CyberneticsComponent>(part))
+                _emp.TryEmpEffects(part, energyConsumption, duration, args.User);
+        }
+
+        foreach (var (organ, _) in _body.GetBodyOrgans(ent))
+        {
+            if (HasComp<CyberneticsComponent>(organ))
+                _emp.TryEmpEffects(organ, energyConsumption, duration, args.User);
+        }
     }
 
     private bool TryGetBody(EntityUid uid, out EntityUid body)
@@ -277,3 +311,13 @@ public sealed partial class CyberneticsSystem : EntitySystem
         }
     }
 }
+
+/// <summary>
+/// Raised on a body before an EMP is relayed to its installed cybernetics.
+/// Protection can cancel the relay or reduce its strength and disable duration.
+/// </summary>
+[ByRefEvent]
+public record struct CyberneticsEmpProtectionEvent(
+    bool Cancelled = false,
+    float StrengthMultiplier = 1f,
+    float DurationMultiplier = 1f);
