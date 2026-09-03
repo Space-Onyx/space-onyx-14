@@ -1,5 +1,6 @@
 using System.Linq;
 using Content.Shared.Body;
+using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Emp;
@@ -15,6 +16,7 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
 {
     [Dependency] private ItemSlotsSystem _slots = default!;
     [Dependency] private INetManager _net = default!;
+    [Dependency] private AugmentModuleSystem _modules = default!;
 
     public override void Initialize()
     {
@@ -23,16 +25,17 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
         SubscribeLocalEvent<NeuroInterfaceComponent, OrganGotRemovedEvent>(OnInterfaceRemoved);
         SubscribeLocalEvent<NeuroBandwidthConsumerComponent, OrganGotInsertedEvent>(OnConsumerInserted);
         SubscribeLocalEvent<NeuroBandwidthConsumerComponent, OrganGotRemovedEvent>(OnConsumerRemoved);
-        SubscribeLocalEvent<NeuroInterfaceComponent, EntInsertedIntoContainerMessage>(OnModuleInserted);
-        SubscribeLocalEvent<NeuroInterfaceComponent, EntRemovedFromContainerMessage>(OnModuleRemoved);
-        SubscribeLocalEvent<NeuroInterfaceComponent, EmpPulseEvent>(OnEmp);
-        SubscribeLocalEvent<NeuroInterfaceComponent, EmpDisabledRemovedEvent>(OnEmpRemoved);
-        SubscribeLocalEvent<InstalledAugmentsComponent, CyberneticsEmpProtectionEvent>(OnEmpProtection);
+        SubscribeLocalEvent<NeuroBandwidthConsumerComponent, EmpPulseEvent>(OnConsumerEmp, after: [typeof(CyberneticsSystem)]);
+        SubscribeLocalEvent<NeuroBandwidthConsumerComponent, EmpDisabledRemovedEvent>(OnConsumerEmpRemoved, after: [typeof(CyberneticsSystem)]);
+        SubscribeLocalEvent<NeuroInterfaceComponent, AugmentModulesChangedEvent>(OnModulesChanged);
+        SubscribeLocalEvent<NeuroInterfaceComponent, EntInsertedIntoContainerMessage>(OnHardwareInserted);
+        SubscribeLocalEvent<NeuroInterfaceComponent, EntRemovedFromContainerMessage>(OnHardwareRemoved);
+        SubscribeLocalEvent<NeuroInterfaceComponent, EmpPulseEvent>(OnEmp, after: [typeof(CyberneticsSystem)]);
+        SubscribeLocalEvent<NeuroInterfaceComponent, EmpDisabledRemovedEvent>(OnEmpRemoved, after: [typeof(CyberneticsSystem)]);
         SubscribeLocalEvent<NeuroInterfaceComponent, ExaminedEvent>(OnInterfaceExamined);
         SubscribeLocalEvent<NeuroInterfaceChipComponent, ExaminedEvent>(OnChipExamined);
         SubscribeLocalEvent<NeuroInterfaceCacheComponent, ExaminedEvent>(OnCacheExamined);
         SubscribeLocalEvent<NeuroInterfaceRouterComponent, ExaminedEvent>(OnRouterExamined);
-        SubscribeLocalEvent<NeuroInterfaceModuleComponent, ExaminedEvent>(OnModuleExamined);
         SubscribeLocalEvent<NeuroBandwidthConsumerComponent, ExaminedEvent>(OnConsumerExamined);
     }
 
@@ -46,16 +49,16 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
 
     public float GetCapacity(EntityUid neuroInterface, NeuroInterfaceComponent component)
     {
-        var capacity = Math.Max(0f, component.BaseBandwidth);
+        var capacity = SanitizeNonNegative(component.BaseBandwidth);
         if (_slots.GetItemOrNull(neuroInterface, NeuroInterfaceComponent.ChipSlotId) is { } chip &&
             TryComp(chip, out NeuroInterfaceChipComponent? chipComponent))
-            capacity += Math.Max(0f, chipComponent.Bandwidth);
+            capacity += SanitizeNonNegative(chipComponent.Bandwidth);
         return capacity;
     }
 
     public int GetChannelCapacity(EntityUid neuroInterface, NeuroInterfaceComponent component)
     {
-        var channels = Math.Max(1, component.BaseChannels);
+        var channels = Math.Max(0, component.BaseChannels);
         if (_slots.GetItemOrNull(neuroInterface, NeuroInterfaceComponent.ChipSlotId) is { } chip &&
             TryComp(chip, out NeuroInterfaceChipComponent? chipComponent))
             channels += Math.Max(0, chipComponent.Channels);
@@ -69,10 +72,10 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
     public int GetRouterCapacity(EntityUid neuroInterface)
     {
         if (_slots.GetItemOrNull(neuroInterface, NeuroInterfaceComponent.RouterSlotId) is not { } router ||
-            !TryComp(router, out NeuroInterfaceRouterComponent? component))
+            !TryComp(router, out NeuroInterfaceRouterComponent? routerComponent))
             return 0;
 
-        return Math.Max(1, component.Capacity);
+        return Math.Max(0, routerComponent.Capacity);
     }
 
     public bool TryGetInterface(EntityUid body, out Entity<NeuroInterfaceComponent> neuroInterface)
@@ -95,14 +98,7 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
 
     public IEnumerable<EntityUid> GetModules(EntityUid neuroInterface)
     {
-        if (!TryComp(neuroInterface, out ItemSlotsComponent? slots))
-            yield break;
-
-        foreach (var slot in slots.Slots.Values)
-        {
-            if (slot.Item is { } item && HasComp<NeuroInterfaceModuleComponent>(item))
-                yield return item;
-        }
+        return _modules.GetModules(neuroInterface);
     }
 
     public IEnumerable<EntityUid> GetConsumers(EntityUid body)
@@ -130,6 +126,10 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
                 yield return organ;
         }
     }
+
+    public bool IsConsumerOperational(EntityUid consumer) =>
+        !HasComp<EmpDisabledComponent>(consumer) &&
+        (!TryComp(consumer, out CyberneticsComponent? cybernetics) || !cybernetics.Disabled);
 
     public void Refresh(EntityUid body)
     {
@@ -163,24 +163,22 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
         var channels = GetChannelCapacity(neuroInterface, neuroInterface.Comp);
         var routerCapacity = GetRouterCapacity(neuroInterface);
         NormalizeRouting(consumers, routerCapacity);
-        var availableChannels = neuroInterface.Comp.Mode == NeuroInterfaceMode.Overclock
-            ? (int) MathF.Ceiling(channels * 1.5f)
-            : channels;
-        var enabledDemand = consumers.Where(entry => entry.Runtime.ManuallyEnabled)
-            .Sum(entry => Math.Max(0f, entry.Consumer.Demand));
-        var budget = neuroInterface.Comp.Mode == NeuroInterfaceMode.Overclock && enabledDemand <= capacity * 1.5f
-            ? enabledDemand
-            : capacity * (neuroInterface.Comp.Mode == NeuroInterfaceMode.Overclock ? 1.5f : 1f);
+        var multiplier = GetCapacityMultiplier(neuroInterface.Comp);
+        var availableChannels = (int) MathF.Ceiling(channels * multiplier);
+        var enabledDemand = consumers.Where(entry => entry.Runtime.ManuallyEnabled && IsConsumerOperational(entry.Uid))
+            .Sum(entry => GetDemand(entry.Consumer));
+        var budget = Math.Min(enabledDemand, capacity * multiplier);
 
         var channel = 0;
         foreach (var entry in consumers
                      .OrderBy(entry => !entry.Runtime.Routed)
                      .ThenBy(entry => entry.Runtime.RoutingOrder))
         {
-            var demand = Math.Max(0f, entry.Consumer.Demand);
+            var demand = GetDemand(entry.Consumer);
             var available = demand <= 0f ? 1f : Math.Clamp(budget / demand, 0f, 1f);
-            var hasChannel = entry.Runtime.ManuallyEnabled && channel < availableChannels;
-            if (entry.Runtime.ManuallyEnabled)
+            var operational = IsConsumerOperational(entry.Uid);
+            var hasChannel = entry.Runtime.ManuallyEnabled && operational && channel < availableChannels;
+            if (entry.Runtime.ManuallyEnabled && operational)
                 channel++;
             var efficiency = !hasChannel
                 ? 0f
@@ -259,6 +257,13 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
             SetEfficiency(entry.Uid, entry.Runtime, entry.Runtime.ManuallyEnabled ? efficiency : 0f);
     }
 
+    public float GetCapacityMultiplier(NeuroInterfaceComponent component) =>
+        component.Mode == NeuroInterfaceMode.Overclock && float.IsFinite(component.OverclockMultiplier)
+            ? Math.Max(1f, component.OverclockMultiplier)
+            : 1f;
+
+    public float GetDemand(NeuroBandwidthConsumerComponent component) => SanitizeNonNegative(component.Demand);
+
     private void SetEfficiency(EntityUid uid, NeuroBandwidthRuntimeComponent runtime, float efficiency)
     {
         if (MathHelper.CloseTo(runtime.Efficiency, efficiency))
@@ -273,8 +278,20 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
     private void OnInterfaceRemoved(Entity<NeuroInterfaceComponent> ent, ref OrganGotRemovedEvent args) => Refresh(args.Target);
     private void OnConsumerInserted(Entity<NeuroBandwidthConsumerComponent> ent, ref OrganGotInsertedEvent args) => Refresh(args.Target);
     private void OnConsumerRemoved(Entity<NeuroBandwidthConsumerComponent> ent, ref OrganGotRemovedEvent args) => Refresh(args.Target);
-    private void OnModuleInserted(Entity<NeuroInterfaceComponent> ent, ref EntInsertedIntoContainerMessage args) => RefreshInterface(ent);
-    private void OnModuleRemoved(Entity<NeuroInterfaceComponent> ent, ref EntRemovedFromContainerMessage args) => RefreshInterface(ent);
+    private void OnConsumerEmp(Entity<NeuroBandwidthConsumerComponent> ent, ref EmpPulseEvent args) => RefreshConsumerBody(ent);
+    private void OnConsumerEmpRemoved(Entity<NeuroBandwidthConsumerComponent> ent, ref EmpDisabledRemovedEvent args) => RefreshConsumerBody(ent);
+    private void OnModulesChanged(Entity<NeuroInterfaceComponent> ent, ref AugmentModulesChangedEvent args) => RefreshInterface(ent);
+    private void OnHardwareInserted(Entity<NeuroInterfaceComponent> ent, ref EntInsertedIntoContainerMessage args)
+    {
+        if (!HasComp<AugmentModuleComponent>(args.Entity))
+            RefreshInterface(ent);
+    }
+
+    private void OnHardwareRemoved(Entity<NeuroInterfaceComponent> ent, ref EntRemovedFromContainerMessage args)
+    {
+        if (!HasComp<AugmentModuleComponent>(args.Entity))
+            RefreshInterface(ent);
+    }
 
     private void OnEmp(Entity<NeuroInterfaceComponent> ent, ref EmpPulseEvent args)
     {
@@ -284,21 +301,6 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
     }
 
     private void OnEmpRemoved(Entity<NeuroInterfaceComponent> ent, ref EmpDisabledRemovedEvent args) => RefreshInterface(ent);
-
-    private void OnEmpProtection(Entity<InstalledAugmentsComponent> body, ref CyberneticsEmpProtectionEvent args)
-    {
-        if (!TryGetInterface(body, out var neuroInterface) || args.Cybernetic != neuroInterface.Owner)
-            return;
-
-        foreach (var module in GetModules(neuroInterface))
-        {
-            if (!TryComp(module, out NeuroInterfaceEmpProtectionComponent? protection))
-                continue;
-
-            args.StrengthMultiplier *= Math.Max(0f, protection.StrengthMultiplier);
-            args.DurationMultiplier *= Math.Max(0f, protection.DurationMultiplier);
-        }
-    }
 
     private void OnInterfaceExamined(Entity<NeuroInterfaceComponent> ent, ref ExaminedEvent args)
     {
@@ -336,21 +338,7 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
     {
         if (args.IsInDetailsRange)
             args.PushMarkup(Loc.GetString("neuro-interface-examine-router",
-                ("capacity", Math.Max(1, ent.Comp.Capacity))));
-    }
-
-    private void OnModuleExamined(Entity<NeuroInterfaceModuleComponent> ent, ref ExaminedEvent args)
-    {
-        if (!args.IsInDetailsRange)
-            return;
-
-        args.PushMarkup(Loc.GetString("neuro-interface-examine-module"));
-        if (TryComp(ent, out NeuroInterfaceEmpProtectionComponent? protection))
-        {
-            args.PushMarkup(Loc.GetString("neuro-interface-examine-emp-protection",
-                ("strength", MathF.Round((1f - protection.StrengthMultiplier) * 100f)),
-                ("duration", MathF.Round((1f - protection.DurationMultiplier) * 100f))));
-        }
+                ("capacity", Math.Max(0, ent.Comp.Capacity))));
     }
 
     private void OnConsumerExamined(Entity<NeuroBandwidthConsumerComponent> ent, ref ExaminedEvent args)
@@ -380,6 +368,16 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
                 SetEfficiency(uid, runtime, runtime.ManuallyEnabled ? efficiency : 0f);
         }
     }
+
+    private void RefreshConsumerBody(EntityUid consumer)
+    {
+        if (CompOrNull<OrganComponent>(consumer)?.Body is { } organBody)
+            Refresh(organBody);
+        else if (CompOrNull<BodyPartComponent>(consumer)?.Body is { } partBody)
+            Refresh(partBody);
+    }
+
+    private static float SanitizeNonNegative(float value) => float.IsFinite(value) ? Math.Max(0f, value) : 0f;
 
     private void NormalizeRouting(List<EntityUid> routed)
     {

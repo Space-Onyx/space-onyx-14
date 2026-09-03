@@ -22,6 +22,7 @@ public enum NeuroConsumerStatus : byte
     Offline,
     Full,
     Throttled,
+    Emp,
 }
 
 [Serializable, NetSerializable]
@@ -87,7 +88,6 @@ public sealed class NeuroInterfaceBuiState(
     int cacheChannels,
     int routerCapacity,
     int routedCount,
-    float overclockDamage,
     List<string> modules,
     List<NeuroInterfaceBatteryData> batteries,
     List<string> powerSources,
@@ -110,7 +110,6 @@ public sealed class NeuroInterfaceBuiState(
     public int CacheChannels = cacheChannels;
     public int RouterCapacity = routerCapacity;
     public int RoutedCount = routedCount;
-    public float OverclockDamage = overclockDamage;
     public List<string> Modules = modules;
     public List<NeuroInterfaceBatteryData> Batteries = batteries;
     public List<string> PowerSources = powerSources;
@@ -132,25 +131,62 @@ public sealed class NeuroInterfaceBatteryData(string name, float charge, float c
 public sealed class NeuroInterfaceEntryData(
     NetEntity entity,
     string name,
+    string description,
     float demand,
     float power,
     bool enabled,
     bool routed,
     int routingOrder,
     float efficiency,
-    string status,
+    NeuroConsumerStatus status,
     bool scalable,
-    NeuroInterfaceBodyRegion region)
+    NeuroInterfaceBodyRegion region,
+    bool showTelemetry,
+    bool canToggle,
+    bool canRoute,
+    List<NeuroInterfaceTooltipSectionData> tooltipSections)
 {
     public NetEntity Entity = entity;
     public string Name = name;
+    public string Description = description;
     public float Demand = demand;
     public float Power = power;
     public bool Enabled = enabled;
     public bool Routed = routed;
     public int RoutingOrder = routingOrder;
     public float Efficiency = efficiency;
-    public string Status = status;
+    public NeuroConsumerStatus Status = status;
     public bool Scalable = scalable;
     public NeuroInterfaceBodyRegion Region = region;
+    public bool ShowTelemetry = showTelemetry;
+    public bool CanToggle = canToggle;
+    public bool CanRoute = canRoute;
+    public List<NeuroInterfaceTooltipSectionData> TooltipSections = tooltipSections;
+}
+
+[Serializable, NetSerializable]
+public sealed class NeuroInterfaceTooltipSectionData(string id, string title, List<string> lines)
+{
+    public string Id = id;
+    public string Title = title;
+    public List<string> Lines = lines;
+}
+
+public sealed class CollectNeuroInterfaceTooltipEvent : EntityEventArgs
+{
+    public readonly List<NeuroInterfaceTooltipSectionData> Sections = new();
+
+    public void AddSection(string id, string title, params string[] lines)
+    {
+        foreach (var section in Sections)
+        {
+            if (section.Id != id)
+                continue;
+
+            section.Lines.AddRange(lines);
+            return;
+        }
+
+        Sections.Add(new NeuroInterfaceTooltipSectionData(id, title, new List<string>(lines)));
+    }
 }

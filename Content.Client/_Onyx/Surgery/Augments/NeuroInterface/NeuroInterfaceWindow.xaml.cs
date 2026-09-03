@@ -7,6 +7,7 @@ using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
+using Robust.Shared.Utility;
 
 namespace Content.Client._Onyx.Surgery.Augments.NeuroInterface;
 
@@ -16,7 +17,11 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
     private static readonly Color Cyan = Color.FromHex("#9fb0c4");
     private static readonly Color Teal = Color.FromHex("#4f6074");
     private static readonly Color Active = Color.FromHex("#c6d4e5");
-    private static readonly Color Muted = Color.FromHex("#687483");
+    private static readonly Color Inactive = Color.FromHex("#8998aa");
+    private static readonly Color Warning = Color.FromHex("#e5b567");
+    private static readonly Color Positive = Color.FromHex("#8fc9a3");
+    private static readonly Color Negative = Color.FromHex("#df8b8b");
+    private const float TooltipTextMaxWidth = 380f;
 
     public event Action<NeuroInterfaceMode>? OnModeChanged;
     public event Action<NetEntity, bool>? OnEnabledChanged;
@@ -26,14 +31,12 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
     private readonly ButtonGroup _modeGroup = new(isNoneSetAllowed: false);
     private readonly ButtonGroup _tabGroup = new(isNoneSetAllowed: false);
     private NeuroInterfaceBuiState? _state;
-    private Page _page;
     private NeuroInterfaceBodyRegion? _region;
 
     private enum Page : byte
     {
         Overview,
         Hardware,
-        Augments,
     }
 
     public NeuroInterfaceWindow()
@@ -43,11 +46,11 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
 
         ConfigureTab(OverviewTab, Page.Overview);
         ConfigureTab(HardwareTab, Page.Hardware);
-        ConfigureTab(AugmentsTab, Page.Augments);
 
         foreach (var mode in Enum.GetValues<NeuroInterfaceMode>())
         {
             var button = CreateButton(Loc.GetString($"neuro-interface-mode-{mode.ToString().ToLowerInvariant()}"), 180);
+            button.ToolTip = Loc.GetString($"neuro-interface-mode-{mode.ToString().ToLowerInvariant()}-tooltip");
             button.Group = _modeGroup;
             button.HorizontalExpand = true;
             button.OnPressed += _ => OnModeChanged?.Invoke(mode);
@@ -67,9 +70,9 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
         };
         SearchBar.OnTextChanged += _ => RebuildAugments();
 
-        ModeHint.SetMessage(Loc.GetString("neuro-interface-mode-hint"));
         OverviewTab.Pressed = true;
         ShowPage(Page.Overview);
+        StyleTabs();
     }
 
     public void UpdateState(NeuroInterfaceBuiState state)
@@ -80,25 +83,32 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
         _state = state;
         ModeLabel.Text = Loc.GetString("neuro-interface-mode-short",
             ("mode", Loc.GetString($"neuro-interface-mode-{state.Mode.ToString().ToLowerInvariant()}")));
-        BandwidthLabel.Text = Loc.GetString("neuro-interface-bandwidth-value", ("value", state.Bandwidth));
-        DemandLabel.Text = Loc.GetString("neuro-interface-demand-value", ("value", state.Demand));
+        DemandLabel.Text = Loc.GetString("neuro-interface-demand-value",
+            ("current", state.Demand), ("max", state.Bandwidth));
         ChannelsLabel.Text = Loc.GetString("neuro-interface-channels-value",
             ("current", state.Channels), ("max", state.ChannelCapacity));
         OverloadLabel.Text = Loc.GetString("neuro-interface-overload-value", ("value", state.Overload));
         ChannelOverloadLabel.Text = Loc.GetString("neuro-interface-channel-overload-value",
             ("value", state.ChannelOverload));
-        OverclockDamageLabel.Text = Loc.GetString("neuro-interface-overclock-damage-value",
-            ("value", MathF.Round(state.OverclockDamage, 2)));
+        var overloaded = state.Overload > 0 || state.ChannelOverload > 0;
+        OverloadPanel.PanelOverride = PanelStyle(overloaded ? "#39271d" : "#1d2631", overloaded ? Warning : Teal);
+        OverloadLabel.FontColorOverride = overloaded ? Warning : Active;
+        ChannelOverloadLabel.FontColorOverride = overloaded ? Warning : Cyan;
         PowerBalanceLabel.Text = Loc.GetString("neuro-interface-power-balance",
             ("generation", MathF.Round(state.PowerGeneration, 1)),
             ("consumption", MathF.Round(state.PowerConsumption, 1)));
+        PowerBalanceLabel.FontColorOverride = state.PowerGeneration < state.PowerConsumption ? Warning : Cyan;
         PowerSourceList.Children.Clear();
         if (state.PowerSources.Count == 0)
             PowerSourceList.AddChild(MutedLabel("neuro-interface-power-sources-empty"));
         else
         {
             foreach (var source in state.PowerSources)
-                PowerSourceList.AddChild(new Label { Text = Loc.GetString("neuro-interface-power-source-entry", ("source", source)) });
+                PowerSourceList.AddChild(new Label
+                {
+                    Text = Loc.GetString("neuro-interface-power-source-entry", ("source", source)),
+                    ClipText = true,
+                });
         }
         BatteryList.Children.Clear();
         if (state.Batteries.Count == 0)
@@ -129,6 +139,7 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
                         ("rate", MathF.Round(battery.ChargeRate, 1))),
                     StyleClasses = { "font-small" },
                     FontColorOverride = Cyan,
+                    ClipText = true,
                     MouseFilter = MouseFilterMode.Stop,
                     ToolTip = Loc.GetString("neuro-interface-tooltip-battery-values"),
                 });
@@ -153,7 +164,11 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
         else
         {
             foreach (var module in state.Modules)
-                ExtensionList.AddChild(new Label { Text = Loc.GetString("neuro-interface-extension-entry", ("name", module)) });
+                ExtensionList.AddChild(new Label
+                {
+                    Text = Loc.GetString("neuro-interface-extension-entry", ("name", module)),
+                    ClipText = true,
+                });
         }
 
         if (_modeButtons.TryGetValue(state.Mode, out var selected))
@@ -178,23 +193,19 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
 
     private void ShowPage(Page page)
     {
-        _page = page;
         OverviewScreen.Visible = page == Page.Overview;
         HardwareScreen.Visible = page == Page.Hardware;
-        AugmentsScreen.Visible = page == Page.Augments;
         ScreenTitle.Text = Loc.GetString(page switch
         {
             Page.Overview => "neuro-interface-nav-overview",
-            Page.Hardware => "neuro-interface-nav-hardware",
-            _ => "neuro-interface-nav-augments",
+            _ => "neuro-interface-nav-hardware",
         });
         ScreenSubtitle.Text = Loc.GetString(page switch
         {
             Page.Overview => "neuro-interface-overview-subtitle",
-            Page.Hardware => "neuro-interface-hardware-subtitle",
-            _ => "neuro-interface-augments-subtitle",
+            _ => "neuro-interface-hardware-subtitle",
         });
-        if (page == Page.Augments)
+        if (page == Page.Overview)
             RebuildAugments();
     }
 
@@ -212,18 +223,13 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
         var count = filtered.Count;
         AugmentCount.Text = Loc.GetString("neuro-interface-augment-count", ("count", count));
 
-        var routed = filtered.Where(entry => entry.Routed).OrderBy(entry => entry.RoutingOrder).ToList();
-        if (routed.Count > 0)
-        {
-            EntryList.AddChild(CreateHeader("neuro-interface-routing-header", routed.Count));
-            foreach (var entry in routed)
-                EntryList.AddChild(CreateEntry(entry));
-        }
-
-        foreach (var group in filtered.Where(entry => !entry.Routed).GroupBy(entry => entry.Region).OrderBy(group => group.Key))
+        foreach (var group in filtered.GroupBy(entry => entry.Region).OrderBy(group => group.Key))
         {
             EntryList.AddChild(CreateGroupHeader(group.Key, group.Count()));
-            foreach (var entry in group)
+            foreach (var entry in group
+                         .OrderByDescending(entry => entry.Routed)
+                         .ThenBy(entry => entry.Routed ? entry.RoutingOrder : int.MaxValue)
+                         .ThenBy(entry => entry.Name, StringComparer.OrdinalIgnoreCase))
                 EntryList.AddChild(CreateEntry(entry));
         }
 
@@ -237,8 +243,6 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
             ("region", Loc.GetString(GetRegionKey(region))), ("count", count));
         return CreateHeader(text);
     }
-
-    private Control CreateHeader(string key, int count) => CreateHeader(Loc.GetString(key, ("count", count)));
 
     private Control CreateHeader(string text)
     {
@@ -256,119 +260,185 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
     {
         var routerCapacity = _state?.RouterCapacity ?? 0;
         var routedCount = _state?.RoutedCount ?? 0;
+        var statusColor = GetStatusColor(entry.Status);
         var panel = new PanelContainer
         {
-            PanelOverride = PanelStyle(entry.Enabled ? "#082024" : "#071416", entry.Enabled ? Teal : Muted),
+            PanelOverride = PanelStyle(entry.Enabled ? "#18333a" : "#222c38", statusColor),
         };
-        var row = new BoxContainer
+        var card = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            SeparationOverride = 6,
+            Margin = new Thickness(9, 7),
+        };
+        var header = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
-            SeparationOverride = 6,
-            Margin = new Thickness(7, 5),
+            SeparationOverride = 8,
         };
         var status = new Label
         {
-            Text = Loc.GetString(entry.Status),
-            MinWidth = 132,
+            Text = Loc.GetString(GetStatusKey(entry.Status)),
+            MinWidth = 145,
             VerticalAlignment = VAlignment.Center,
-            FontColorOverride = entry.Efficiency > 0f ? Cyan : Muted,
+            Align = Label.AlignMode.Center,
+            FontColorOverride = statusColor,
             MouseFilter = MouseFilterMode.Stop,
         };
-        status.ToolTip = Loc.GetString("neuro-interface-entry-tooltip",
-            ("name", entry.Name),
-            ("status", Loc.GetString(entry.Status)),
-            ("demand", entry.Demand),
-            ("power", entry.Power),
-            ("efficiency", MathF.Round(entry.Efficiency * 100f)),
-            ("routing", Loc.GetString(entry.Routed
-                ? "neuro-interface-routing-position"
-                : "neuro-interface-routing-auto", ("position", entry.RoutingOrder + 1))),
-            ("behavior", Loc.GetString(entry.Scalable
-                ? "neuro-interface-behavior-scalable"
-                : "neuro-interface-behavior-binary")));
-
-        var identity = new BoxContainer
-        {
-            Orientation = BoxContainer.LayoutOrientation.Vertical,
-            HorizontalExpand = true,
-        };
-        identity.AddChild(new Label
+        var name = new Label
         {
             Text = entry.Name,
-            ClipText = true,
-            FontColorOverride = entry.Enabled ? Active : Muted,
-        });
-        identity.AddChild(new Label
-        {
-            Text = Loc.GetString("neuro-interface-entry-brief",
-                ("load", entry.Demand),
-                ("efficiency", MathF.Round(entry.Efficiency * 100f)),
-                ("behavior", Loc.GetString(entry.Scalable
-                    ? "neuro-interface-behavior-scalable-short"
-                    : "neuro-interface-behavior-binary-short"))),
-            StyleClasses = { "font-small" },
-            FontColorOverride = entry.Efficiency > 0f ? Cyan : Muted,
-            MouseFilter = MouseFilterMode.Stop,
-            ToolTip = Loc.GetString("neuro-interface-tooltip-entry-brief"),
-        });
-
-        var routing = new Label
-        {
-            Text = Loc.GetString(entry.Routed
-                ? "neuro-interface-routing-position-short"
-                : "neuro-interface-routing-auto-short", ("position", entry.RoutingOrder + 1)),
-            MinWidth = 42,
-            Align = Label.AlignMode.Center,
+            MinWidth = 160,
+            HorizontalExpand = true,
             VerticalAlignment = VAlignment.Center,
-            MouseFilter = MouseFilterMode.Stop,
-            ToolTip = Loc.GetString("neuro-interface-tooltip-routing"),
+            ClipText = true,
+            FontColorOverride = entry.Enabled ? Active : Inactive,
         };
-        var up = CreateButton("^", 30);
-        up.ToolTip = Loc.GetString("neuro-interface-routing-up-tooltip");
-        up.OnPressed += _ => OnRoutingChanged?.Invoke(entry.Entity, NeuroRoutingAction.MoveUp);
-        up.Disabled = !entry.Routed || entry.RoutingOrder == 0;
-        var down = CreateButton("v", 30);
-        down.ToolTip = Loc.GetString("neuro-interface-routing-down-tooltip");
-        down.OnPressed += _ => OnRoutingChanged?.Invoke(entry.Entity, NeuroRoutingAction.MoveDown);
-        down.Disabled = !entry.Routed || entry.RoutingOrder >= routedCount - 1;
-        var route = CreateButton(Loc.GetString(entry.Routed
-            ? "neuro-interface-routing-remove"
-            : "neuro-interface-routing-add"), 92);
-        route.ToolTip = Loc.GetString(routerCapacity > 0
-            ? "neuro-interface-routing-toggle-tooltip"
-            : "neuro-interface-routing-router-required");
-        route.Disabled = !entry.Routed && (routerCapacity <= 0 || routedCount >= routerCapacity);
-        route.OnPressed += _ => OnRoutingChanged?.Invoke(entry.Entity,
-            entry.Routed ? NeuroRoutingAction.Remove : NeuroRoutingAction.Add);
-        var toggle = CreateButton(Loc.GetString(entry.Enabled
-            ? "neuro-interface-button-disable"
-            : "neuro-interface-button-enable"), 92);
-        StyleButton(toggle, entry.Enabled);
-        toggle.OnPressed += _ => OnEnabledChanged?.Invoke(entry.Entity, !entry.Enabled);
+        var info = CreateButton("?", 30);
+        info.SetWidth = 30;
+        info.SetHeight = 30;
+        info.TooltipSupplier = _ => BuildAugmentTooltip(entry, statusColor);
 
-        row.AddChild(identity);
-        row.AddChild(status);
-        row.AddChild(routing);
-        row.AddChild(up);
-        row.AddChild(down);
-        row.AddChild(route);
-        row.AddChild(toggle);
-        panel.AddChild(row);
+        BoxContainer? controls = null;
+        if (entry.CanRoute)
+        {
+            controls = new BoxContainer
+            {
+                Orientation = BoxContainer.LayoutOrientation.Horizontal,
+                SeparationOverride = 5,
+            };
+            var routing = new Label
+            {
+                Text = Loc.GetString(entry.Routed
+                    ? "neuro-interface-routing-position"
+                    : "neuro-interface-routing-auto", ("position", entry.RoutingOrder + 1)),
+                HorizontalExpand = true,
+                VerticalAlignment = VAlignment.Center,
+                MouseFilter = MouseFilterMode.Stop,
+                ToolTip = Loc.GetString("neuro-interface-tooltip-routing"),
+            };
+            var up = CreateButton("^", 30);
+            up.ToolTip = Loc.GetString("neuro-interface-routing-up-tooltip");
+            up.OnPressed += _ => OnRoutingChanged?.Invoke(entry.Entity, NeuroRoutingAction.MoveUp);
+            up.Disabled = !entry.Routed || entry.RoutingOrder == 0;
+            var down = CreateButton("v", 30);
+            down.ToolTip = Loc.GetString("neuro-interface-routing-down-tooltip");
+            down.OnPressed += _ => OnRoutingChanged?.Invoke(entry.Entity, NeuroRoutingAction.MoveDown);
+            down.Disabled = !entry.Routed || entry.RoutingOrder >= routedCount - 1;
+            var route = CreateButton(Loc.GetString(entry.Routed
+                ? "neuro-interface-routing-remove"
+                : "neuro-interface-routing-add"), 92);
+            route.ToolTip = Loc.GetString(routerCapacity <= 0
+                ? "neuro-interface-routing-router-required"
+                : !entry.Routed && routedCount >= routerCapacity
+                    ? "neuro-interface-routing-queue-full"
+                    : "neuro-interface-routing-toggle-tooltip");
+            route.Disabled = !entry.Routed && (routerCapacity <= 0 || routedCount >= routerCapacity);
+            route.OnPressed += _ => OnRoutingChanged?.Invoke(entry.Entity,
+                entry.Routed ? NeuroRoutingAction.Remove : NeuroRoutingAction.Add);
+            StyleButton(up, false, up.Disabled);
+            StyleButton(down, false, down.Disabled);
+            StyleButton(route, false, route.Disabled);
+            controls.AddChild(routing);
+            controls.AddChild(up);
+            controls.AddChild(down);
+            controls.AddChild(route);
+        }
+        Button? toggle = null;
+        if (entry.CanToggle)
+        {
+            toggle = CreateButton(Loc.GetString(entry.Enabled
+                ? "neuro-interface-button-disable"
+                : "neuro-interface-button-enable"), 92);
+            StyleButton(toggle, entry.Enabled);
+            toggle.OnPressed += _ => OnEnabledChanged?.Invoke(entry.Entity, !entry.Enabled);
+        }
+        header.AddChild(info);
+        header.AddChild(name);
+        header.AddChild(status);
+        if (toggle != null)
+            header.AddChild(toggle);
+        card.AddChild(header);
+        if (controls != null)
+            card.AddChild(controls);
+        panel.AddChild(card);
         return panel;
+    }
+
+    private Control BuildAugmentTooltip(NeuroInterfaceEntryData entry, Color statusColor)
+    {
+        var content = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            SeparationOverride = 5,
+            Margin = new Thickness(10, 8),
+        };
+        if (!string.IsNullOrWhiteSpace(entry.Description))
+            AddTooltipText(content, entry.Description, Color.White);
+
+        if (entry.ShowTelemetry)
+        {
+            AddTooltipSection(content, Loc.GetString("neuro-interface-tooltip-section-resources"),
+            [
+                Loc.GetString("neuro-interface-tooltip-resource-load", ("value", entry.Demand)),
+                Loc.GetString("neuro-interface-tooltip-resource-power", ("value", entry.Power)),
+                Loc.GetString("neuro-interface-tooltip-resource-output", ("value", MathF.Round(entry.Efficiency * 100f))),
+            ]);
+            AddTooltipSection(content, Loc.GetString("neuro-interface-tooltip-section-behavior"),
+            [
+                Loc.GetString(entry.Scalable
+                    ? "neuro-interface-behavior-scalable"
+                    : "neuro-interface-behavior-binary"),
+            ]);
+        }
+        foreach (var section in entry.TooltipSections)
+            AddTooltipSection(content, section.Title, section.Lines);
+
+        var panel = new PanelContainer
+        {
+            PanelOverride = PanelStyle("#1b2530", statusColor, 2),
+        };
+        panel.AddChild(content);
+        return panel;
+    }
+
+    private static void AddTooltipSection(BoxContainer content, string title, IReadOnlyList<string> lines)
+    {
+        if (lines.Count == 0)
+            return;
+
+        AddTooltipText(content, title, Cyan, new Thickness(0, 4, 0, 0));
+        foreach (var line in lines)
+            AddTooltipText(content, line, Color.White, new Thickness(8, 0, 0, 0));
+    }
+
+    private static void AddTooltipText(BoxContainer content, string text, Color color, Thickness? margin = null)
+    {
+        var label = new RichTextLabel
+        {
+            MaxWidth = TooltipTextMaxWidth,
+            HorizontalExpand = true,
+            Margin = margin ?? new Thickness(0),
+        };
+        label.SetMessage(FormattedMessage.FromUnformatted(text), defaultColor: color);
+        content.AddChild(label);
     }
 
     private void ApplyPanels()
     {
         MainFrame.PanelOverride = PanelStyle("#12171e", Teal, 2);
-        TabRail.PanelOverride = PanelStyle("#0d1117", Teal);
+        TabRail.PanelOverride = PanelStyle("#151d27", Teal);
         ContentPanel.PanelOverride = PanelStyle("#171d25", Teal);
         Divider.PanelOverride = PanelStyle("#4f6074", Teal);
-        BandwidthPanel.PanelOverride = PanelStyle("#1d2631", Teal);
         DemandPanel.PanelOverride = PanelStyle("#1d2631", Teal);
         OverloadPanel.PanelOverride = PanelStyle("#1d2631", Teal);
         ModePanel.PanelOverride = PanelStyle("#161e28", Teal);
         PowerPanel.PanelOverride = PanelStyle("#161e28", Teal);
+        AugmentsPanel.PanelOverride = PanelStyle("#121a23", Teal);
         ComponentsPanel.PanelOverride = PanelStyle("#1d2631", Teal);
+        ChipPanel.PanelOverride = PanelStyle("#222d39", Teal);
+        CachePanel.PanelOverride = PanelStyle("#222d39", Teal);
+        RouterPanel.PanelOverride = PanelStyle("#222d39", Teal);
         ExtensionsPanel.PanelOverride = PanelStyle("#161e28", Teal);
     }
 
@@ -376,22 +446,21 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
     {
         StyleTab(OverviewTab, OverviewTab.Pressed);
         StyleTab(HardwareTab, HardwareTab.Pressed);
-        StyleTab(AugmentsTab, AugmentsTab.Pressed);
     }
 
     private static void StyleTab(Button button, bool selected)
     {
         button.StyleBoxOverride = new StyleBoxFlat
         {
-            BackgroundColor = Color.FromHex(selected ? "#17333d" : "#151c25"),
-            BorderColor = selected ? Color.FromHex("#62c7d5") : Teal,
-            BorderThickness = new Thickness(1),
-            ContentMarginLeftOverride = 5,
-            ContentMarginRightOverride = 5,
-            ContentMarginTopOverride = 4,
-            ContentMarginBottomOverride = 4,
+            BackgroundColor = Color.FromHex(selected ? "#426b57" : "#536b83"),
+            BorderColor = selected ? Color.FromHex("#9ed0ae") : Color.FromHex("#91a8bf"),
+            BorderThickness = new Thickness(selected ? 2 : 1),
+            ContentMarginLeftOverride = 8,
+            ContentMarginRightOverride = 8,
+            ContentMarginTopOverride = 6,
+            ContentMarginBottomOverride = 6,
         };
-        button.Label.FontColorOverride = selected ? Color.FromHex("#d8fbff") : Cyan;
+        button.Label.FontColorOverride = selected ? Color.FromHex("#e5fcff") : Color.FromHex("#dce8f5");
         button.Label.Align = Label.AlignMode.Center;
     }
 
@@ -407,25 +476,25 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
         return button;
     }
 
-    private static void StyleButton(Button button, bool selected)
+    private static void StyleButton(Button button, bool selected, bool disabled = false)
     {
         button.StyleBoxOverride = new StyleBoxFlat
         {
-            BackgroundColor = Color.FromHex(selected ? "#465d76" : "#354455"),
-            BorderColor = selected ? Active : Color.FromHex("#71839a"),
+            BackgroundColor = Color.FromHex(disabled ? "#344352" : selected ? "#4f775f" : "#647b94"),
+            BorderColor = disabled ? Color.FromHex("#647486") : selected ? Color.FromHex("#a7d7b5") : Color.FromHex("#a8bbce"),
             BorderThickness = new Thickness(selected ? 2 : 1),
             ContentMarginLeftOverride = 6,
             ContentMarginRightOverride = 6,
             ContentMarginTopOverride = 4,
             ContentMarginBottomOverride = 4,
         };
-        button.Label.FontColorOverride = selected ? Active : Color.FromHex("#d0dae6");
+        button.Label.FontColorOverride = disabled ? Inactive : Color.FromHex("#f4f8fc");
     }
 
     private static Label MutedLabel(string key) => new()
     {
         Text = Loc.GetString(key),
-        FontColorOverride = Muted,
+        FontColorOverride = Inactive,
         HorizontalAlignment = HAlignment.Center,
         Margin = new Thickness(0, 12),
     };
@@ -435,6 +504,24 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
 
     private static string GetRegionKey(NeuroInterfaceBodyRegion region) =>
         $"neuro-interface-region-{region.ToString().ToLowerInvariant()}";
+
+    private static string GetStatusKey(NeuroConsumerStatus status) => status switch
+    {
+        NeuroConsumerStatus.Disabled => "neuro-interface-ui-status-disabled",
+        NeuroConsumerStatus.Offline => "neuro-interface-ui-status-offline",
+        NeuroConsumerStatus.Full => "neuro-interface-ui-status-online",
+        NeuroConsumerStatus.Throttled => "neuro-interface-ui-status-throttled",
+        NeuroConsumerStatus.Emp => "neuro-interface-ui-status-emp",
+        _ => "neuro-interface-ui-status-offline",
+    };
+
+    private static Color GetStatusColor(NeuroConsumerStatus status) => status switch
+    {
+        NeuroConsumerStatus.Full => Positive,
+        NeuroConsumerStatus.Throttled => Warning,
+        NeuroConsumerStatus.Offline or NeuroConsumerStatus.Emp => Negative,
+        _ => Inactive,
+    };
 
     private static bool EntriesEqual(List<NeuroInterfaceEntryData> left, List<NeuroInterfaceEntryData> right)
     {
@@ -446,11 +533,31 @@ public sealed partial class NeuroInterfaceWindow : FancyWindow
         {
             if (!rightByEntity.TryGetValue(a.Entity, out var b) ||
                 a.Name != b.Name || a.Demand != b.Demand || a.Power != b.Power ||
+                a.Description != b.Description ||
                 a.Enabled != b.Enabled || a.Routed != b.Routed || a.RoutingOrder != b.RoutingOrder ||
                 a.Efficiency != b.Efficiency ||
-                a.Status != b.Status || a.Scalable != b.Scalable || a.Region != b.Region)
+                a.Status != b.Status || a.Scalable != b.Scalable || a.Region != b.Region ||
+                a.ShowTelemetry != b.ShowTelemetry || a.CanToggle != b.CanToggle || a.CanRoute != b.CanRoute ||
+                !TooltipSectionsEqual(a.TooltipSections, b.TooltipSections))
                 return false;
         }
+        return true;
+    }
+
+    private static bool TooltipSectionsEqual(
+        List<NeuroInterfaceTooltipSectionData> left,
+        List<NeuroInterfaceTooltipSectionData> right)
+    {
+        if (left.Count != right.Count)
+            return false;
+
+        for (var i = 0; i < left.Count; i++)
+        {
+            if (left[i].Id != right[i].Id || left[i].Title != right[i].Title ||
+                !left[i].Lines.SequenceEqual(right[i].Lines))
+                return false;
+        }
+
         return true;
     }
 

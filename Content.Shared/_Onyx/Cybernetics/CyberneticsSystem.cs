@@ -38,6 +38,7 @@ public sealed partial class CyberneticsSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<CyberneticsComponent, OrganGotInsertedEvent>(OnInserted);
         SubscribeLocalEvent<CyberneticsComponent, OrganGotRemovedEvent>(OnRemoved);
+        SubscribeLocalEvent<CyberneticsComponent, EmpAttemptEvent>(OnEmpAttempt);
         SubscribeLocalEvent<CyberneticsComponent, EmpPulseEvent>(OnEmpPulse);
         SubscribeLocalEvent<CyberneticsComponent, EmpDisabledRemovedEvent>(OnEmpRemoved);
         SubscribeLocalEvent<BodyComponent, EmpPulseEvent>(OnBodyEmpPulse);
@@ -54,6 +55,12 @@ public sealed partial class CyberneticsSystem : EntitySystem
     {
         CaptureVisionState(ent, args.Target);
         RefreshBody(args.Target);
+    }
+
+    private void OnEmpAttempt(Entity<CyberneticsComponent> ent, ref EmpAttemptEvent args)
+    {
+        if (TryGetBody(ent, out _))
+            args.Cancelled = true;
     }
 
     private void OnEmpPulse(Entity<CyberneticsComponent> ent, ref EmpPulseEvent args)
@@ -130,7 +137,7 @@ public sealed partial class CyberneticsSystem : EntitySystem
         if (protection.Cancelled || protection.StrengthMultiplier <= 0f || protection.DurationMultiplier <= 0f)
             return;
 
-        _emp.TryEmpEffects(
+        _emp.DoEmpEffects(
             cybernetic,
             args.EnergyConsumption * protection.StrengthMultiplier,
             args.Duration * protection.DurationMultiplier,

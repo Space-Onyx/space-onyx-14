@@ -8,6 +8,8 @@
     state: cell
   - type: Organ
     category: AugmentCharger
+  - type: SurgeryTool
+    customUses: [ surgery-tool-use-implant-augment-charger ]
   - type: AugmentPowerSource
 
 - type: entity

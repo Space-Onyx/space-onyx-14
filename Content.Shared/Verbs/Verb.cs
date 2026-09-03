@@ -12,7 +12,7 @@ namespace Content.Shared.Verbs
     ///     context-menu.
     /// </summary>
     [Serializable, NetSerializable, Virtual]
-    public class Verb : IComparable
+    public partial class Verb : IComparable // <Onyx-NestedVerbCategories-edited>
     {
         public static string DefaultTextStyleClass = "Verb";
 
@@ -182,6 +182,12 @@ namespace Content.Shared.Verbs
             {
                 return string.Compare(Category?.Text, otherVerb.Category?.Text, StringComparison.CurrentCulture);
             }
+
+            // <Onyx-NestedVerbCategories>
+            var subCategoryComparison = CompareSubCategories(otherVerb);
+            if (subCategoryComparison != 0)
+                return subCategoryComparison;
+            // </Onyx-NestedVerbCategories>
 
             // Then try use alphabetical verb text.
             if (Text != otherVerb.Text)

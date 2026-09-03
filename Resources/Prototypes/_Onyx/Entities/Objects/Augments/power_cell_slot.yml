@@ -38,6 +38,8 @@
     state: cell
   - type: Organ
     category: AugmentPowerCell
+  - type: SurgeryTool
+    customUses: [ surgery-tool-use-implant-augment-power-cell ]
   - type: AugmentPowerCellSlot
   - type: AugmentBatteryBank
     slots: [ cell_slot ]

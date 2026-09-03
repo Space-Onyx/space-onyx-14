@@ -134,6 +134,11 @@ namespace Content.Client.Verbs.UI
         /// </summary>
         private void FillVerbPopup(ContextMenuPopup popup)
         {
+            // <Onyx-NestedVerbCategories>
+            if (TryFillNestedVerbPopup(popup))
+                return;
+            // </Onyx-NestedVerbCategories>
+
             HashSet<string> listedCategories = new();
             var extras = new ValueList<string>(ExtraCategories.Count);
 
@@ -248,12 +253,15 @@ namespace Content.Client.Verbs.UI
                 if (verbElement.SubMenu == null || verbElement.SubMenu.ChildCount == 0)
                     return;
 
+                // <Onyx-NestedVerbCategories-edited>
                 if (verbElement.SubMenu.MenuBody.ChildCount != 1
-                    || verbElement.SubMenu.MenuBody.Children.First() is not VerbMenuElement verbMenuElement)
+                    || verbElement.SubMenu.MenuBody.Children.First() is not VerbMenuElement verbMenuElement
+                    || verbMenuElement.Verb == null)
                 {
                     _context.OpenSubMenu(verbElement);
                     return;
                 }
+                // </Onyx-NestedVerbCategories-edited>
 
                 verb = verbMenuElement.Verb;
 

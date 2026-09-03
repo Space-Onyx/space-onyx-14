@@ -18,11 +18,23 @@ public sealed partial class NeuroInterfaceComponent : Component
     [DataField, AutoNetworkedField]
     public NeuroInterfaceMode Mode;
 
-    public TimeSpan NextDamage;
-}
+    [DataField]
+    public float OverclockMultiplier = 1.5f;
 
-[RegisterComponent, NetworkedComponent]
-public sealed partial class NeuroInterfaceModuleComponent : Component;
+    [DataField]
+    public TimeSpan UpdateInterval = TimeSpan.FromSeconds(1);
+
+    [DataField]
+    public float OverclockDamageCoefficient = 0.5f;
+
+    [DataField]
+    public float MinimumOverclockDamage = 0.05f;
+
+    [DataField]
+    public float MaximumOverclockDamage = 0.25f;
+
+    public TimeSpan NextUpdate;
+}
 
 [RegisterComponent, NetworkedComponent]
 public sealed partial class NeuroInterfaceChipComponent : Component
@@ -46,16 +58,6 @@ public sealed partial class NeuroInterfaceRouterComponent : Component
 {
     [DataField]
     public int Capacity = 2;
-}
-
-[RegisterComponent, NetworkedComponent]
-public sealed partial class NeuroInterfaceEmpProtectionComponent : Component
-{
-    [DataField]
-    public float StrengthMultiplier = 1f;
-
-    [DataField]
-    public float DurationMultiplier = 1f;
 }
 
 [RegisterComponent, NetworkedComponent]

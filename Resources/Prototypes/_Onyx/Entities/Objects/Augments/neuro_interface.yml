@@ -21,7 +21,16 @@
     state: apc
   - type: Organ
     category: NeuroInterface
+  - type: SurgeryTool
+    customUses: [ surgery-tool-use-implant-neuro-interface ]
   - type: NeuroInterface
+    baseBandwidth: 8
+    baseChannels: 2
+    overclockMultiplier: 1.5
+    updateInterval: 1
+    overclockDamageCoefficient: 0.5
+    minimumOverclockDamage: 0.05
+    maximumOverclockDamage: 0.25
   - type: ItemSlots
     slots:
       chip:
@@ -36,21 +45,11 @@
         name: neuro-interface-ui-router
         whitelist:
           components: [ NeuroInterfaceRouter ]
-      module1:
-        name: neuro-interface-ui-expansion-module
-        whitelist:
-          components: [ NeuroInterfaceModule ]
-      module2:
-        name: neuro-interface-ui-expansion-module
-        whitelist:
-          components: [ NeuroInterfaceModule ]
   - type: ContainerContainer
     containers:
       chip: !type:ContainerSlot {}
       cache: !type:ContainerSlot {}
       router: !type:ContainerSlot {}
-      module1: !type:ContainerSlot {}
-      module2: !type:ContainerSlot {}
   - type: UserInterface
     interfaces:
       enum.NeuroInterfaceUiKey.Key:
@@ -186,24 +185,24 @@
   parent: BaseNeuroInterfacePart
   id: NeuroInterfaceEmpShield
   name: ferrite EMP filter
-  description: A layered ferrite filter that dampens electromagnetic interference before it reaches the neural bus.
+  description: A layered ferrite filter that dampens electromagnetic interference before it reaches installed augment hardware.
   components:
   - type: Sprite
     state: apc
-  - type: NeuroInterfaceEmpProtection
+  - type: AugmentModuleEmpProtection
     strengthMultiplier: 0.75
     durationMultiplier: 0.75
-  - type: NeuroInterfaceModule
+  - type: AugmentModule
 
 - type: entity
   parent: BaseNeuroInterfacePart
   id: NeuroInterfaceEmpShieldHardened
   name: isolated EMP filter
-  description: A hardened optical isolator wrapped in a dense Faraday mesh. It strongly suppresses interference reaching the neural bus.
+  description: A hardened optical isolator wrapped in a dense Faraday mesh. It strongly suppresses interference reaching installed augment hardware.
   components:
   - type: Sprite
     state: apc
-  - type: NeuroInterfaceEmpProtection
+  - type: AugmentModuleEmpProtection
     strengthMultiplier: 0.5
     durationMultiplier: 0.5
-  - type: NeuroInterfaceModule
+  - type: AugmentModule

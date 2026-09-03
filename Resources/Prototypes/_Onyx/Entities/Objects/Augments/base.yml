@@ -4,6 +4,20 @@
   id: BaseAugment
   components:
   - type: Augment
+  - type: AugmentModuleHost
+    slots:
+      augment-module-1:
+        name: augment-module-slot-name
+        swap: false
+        ejectOnBreak: true
+        whitelist:
+          components: [ AugmentModule ]
+      augment-module-2:
+        name: augment-module-slot-name
+        swap: false
+        ejectOnBreak: true
+        whitelist:
+          components: [ AugmentModule ]
   - type: Organ
   - type: MechanicalOrgan
   - type: Cybernetics

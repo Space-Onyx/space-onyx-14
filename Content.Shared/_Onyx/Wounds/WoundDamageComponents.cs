@@ -86,6 +86,7 @@ public sealed partial class WoundHostComponent : Component
     [DataField]
     public Dictionary<BodyPartType, float> PartEffectScales = new()
     {
+        [BodyPartType.Leg] = 0.5f,
         [BodyPartType.Foot] = 0.5f,
         [BodyPartType.Hand] = 0.75f,
     };

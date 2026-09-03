@@ -6,6 +6,7 @@ using Content.Shared.Item.ItemToggle;
 using Content.Shared.Popups;
 using Content.Shared.Storage.EntitySystems;
 using Content.Shared._Onyx.Surgery.Augments;
+using Content.Shared._Onyx.Surgery.Augments.NeuroInterface;
 using Robust.Server.GameObjects;
 
 namespace Content.Server._Onyx.Surgery.Augments;
@@ -24,6 +25,7 @@ public sealed partial class AugmentToolPanelSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<AugmentToolPanelComponent, AugmentLostPowerEvent>(OnLostPower);
         SubscribeLocalEvent<AugmentToolPanelComponent, BoundUIOpenedEvent>(OnUiOpened);
+        SubscribeLocalEvent<AugmentToolPanelComponent, CollectNeuroInterfaceTooltipEvent>(OnCollectTooltip);
         Subs.BuiEvents<AugmentToolPanelComponent>(AugmentToolPanelUiKey.Key,
             subs => subs.Event<AugmentToolPanelSwitchMessage>(OnSwitchTool));
     }
@@ -42,6 +44,25 @@ public sealed partial class AugmentToolPanelSystem : EntitySystem
 
         _ui.SetUiState(ent.Owner, AugmentToolPanelUiKey.Key,
             new AugmentToolPanelBuiState(storage.StoredItems.Keys.Select(tool => GetNetEntity(tool)).ToList()));
+    }
+
+    private void OnCollectTooltip(Entity<AugmentToolPanelComponent> ent, ref CollectNeuroInterfaceTooltipEvent args)
+    {
+        args.AddSection(
+            "tool-panel",
+            Loc.GetString("neuro-interface-tooltip-section-tool-panel"),
+            Loc.GetString(ent.Comp.RequiresPower
+                ? "neuro-interface-tooltip-tool-panel-power"
+                : "neuro-interface-tooltip-tool-panel-no-power",
+                ("value", ent.Comp.SwitchCharge)));
+
+        if (TryComp(ent, out Content.Shared.Storage.StorageComponent? storage) && storage.StoredItems.Count > 0)
+        {
+            args.AddSection(
+                "tool-panel-contents",
+                Loc.GetString("neuro-interface-tooltip-section-tool-panel-contents"),
+                storage.StoredItems.Keys.Select(tool => Name(tool)).Order().ToArray());
+        }
     }
 
     private void OnSwitchTool(Entity<AugmentToolPanelComponent> ent, ref AugmentToolPanelSwitchMessage args)

@@ -13,6 +13,7 @@ using Content.Shared._Onyx.Surgery.Augments;
 using Content.Shared._Onyx.Surgery.Augments.NeuroInterface;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Server._Onyx.Surgery.Augments;
@@ -27,6 +28,7 @@ public sealed partial class AugmentItemPanelSystem : EntitySystem
     [Dependency] private SharedItemSystem _item = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private ItemToggleSystem _toggle = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
 
     public override void Initialize()
     {
@@ -38,6 +40,7 @@ public sealed partial class AugmentItemPanelSystem : EntitySystem
         SubscribeLocalEvent<AugmentItemPanelComponent, AugmentLostPowerEvent>(OnLostPower);
         SubscribeLocalEvent<AugmentItemPanelComponent, EmpPulseEvent>(OnEmp);
         SubscribeLocalEvent<AugmentItemPanelComponent, NeuroBandwidthEfficiencyChangedEvent>(OnNeuroEfficiencyChanged);
+        SubscribeLocalEvent<AugmentItemPanelComponent, CollectNeuroInterfaceTooltipEvent>(OnCollectTooltip);
     }
 
     private void OnInit(Entity<AugmentItemPanelComponent> ent, ref ComponentInit args) => EnsureStoredItem(ent);
@@ -153,6 +156,19 @@ public sealed partial class AugmentItemPanelSystem : EntitySystem
     {
         if (args.Efficiency <= 0f && ent.Comp.IsEquipped && _augment.GetBody(ent.Owner) is { } body)
             Retract(ent, body, false);
+    }
+
+    private void OnCollectTooltip(Entity<AugmentItemPanelComponent> ent, ref CollectNeuroInterfaceTooltipEvent args)
+    {
+        args.AddSection(
+            "integrated-item",
+            Loc.GetString("neuro-interface-tooltip-section-integrated-item"),
+            _prototypes.Index(ent.Comp.ItemPrototype).Name,
+            Loc.GetString(ent.Comp.RequiresPower
+                ? "neuro-interface-tooltip-item-power-cost"
+                : "neuro-interface-tooltip-item-no-power",
+                ("extend", ent.Comp.ExtendPowerCost),
+                ("retract", ent.Comp.RetractPowerCost)));
     }
 
     private static string GetHandId(EntityUid augment) => $"augment-item-panel-{augment.Id}";

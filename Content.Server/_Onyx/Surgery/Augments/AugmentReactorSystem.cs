@@ -5,6 +5,7 @@ using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared._Onyx.Cybernetics;
 using Content.Shared._Onyx.Surgery.Augments;
+using Content.Shared._Onyx.Surgery.Augments.NeuroInterface;
 
 namespace Content.Server._Onyx.Surgery.Augments;
 
@@ -17,6 +18,27 @@ public sealed partial class AugmentReactorSystem : EntitySystem
     [Dependency] private SatiationSystem _satiation = default!;
 
     private float _accumulator;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        SubscribeLocalEvent<AugmentReactorComponent, CollectNeuroInterfaceTooltipEvent>(OnCollectTooltip);
+    }
+
+    private void OnCollectTooltip(Entity<AugmentReactorComponent> ent, ref CollectNeuroInterfaceTooltipEvent args)
+    {
+        args.AddSection(
+            "generation",
+            Loc.GetString("neuro-interface-tooltip-section-generation"),
+            Loc.GetString("neuro-interface-tooltip-reactor-generation", ("value", ent.Comp.Generation)));
+        if (ent.Comp.HungerCostPerJoule > 0f)
+        {
+            args.AddSection(
+                "generation",
+                Loc.GetString("neuro-interface-tooltip-section-generation"),
+                Loc.GetString("neuro-interface-tooltip-reactor-hunger", ("value", ent.Comp.HungerCostPerJoule)));
+        }
+    }
 
     public override void Update(float frameTime)
     {
