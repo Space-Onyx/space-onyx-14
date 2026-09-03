@@ -1,0 +1,31 @@
+- type: construction
+  id: ScrewdriverImprovised
+  graph: ImprovisedScrewdriverGraph
+  startNode: start
+  targetNode: tool
+  category: construction-category-tools
+  objectType: Item
+
+- type: construction
+  id: WirecutterImprovised
+  graph: ImprovisedWirecutterGraph
+  startNode: start
+  targetNode: tool
+  category: construction-category-tools
+  objectType: Item
+
+- type: construction
+  id: WrenchImprovised
+  graph: ImprovisedWrenchGraph
+  startNode: start
+  targetNode: tool
+  category: construction-category-tools
+  objectType: Item
+
+- type: construction
+  id: MultitoolImprovised
+  graph: ImprovisedMultitoolGraph
+  startNode: start
+  targetNode: tool
+  category: construction-category-tools
+  objectType: Item
