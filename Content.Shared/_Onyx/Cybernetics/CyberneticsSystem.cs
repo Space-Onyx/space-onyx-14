@@ -18,6 +18,7 @@ using Content.Shared.Prying.Components;
 using Content.Shared.Contraband;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 
 namespace Content.Shared._Onyx.Cybernetics;
 
@@ -32,6 +33,7 @@ public sealed partial class CyberneticsSystem : EntitySystem
     [Dependency] private INetManager _net = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private BodyPartFunctionalitySystem _functionality = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -266,6 +268,30 @@ public sealed partial class CyberneticsSystem : EntitySystem
             thermalVisionEnabled = cyber.ThermalVisionEnabled;
         if (cyber.Effects.HasFlag(CyberneticEffect.Speed))
             speedLegs++;
+    }
+
+    /// <summary>
+    /// Temporarily disables cybernetics without applying EMP energy or damage.
+    /// </summary>
+    public bool TryDisable(Entity<CyberneticsComponent?> ent, TimeSpan duration)
+    {
+        if (!Resolve(ent, ref ent.Comp, false) || duration <= TimeSpan.Zero)
+            return false;
+
+        ent.Comp.Disabled = true;
+        Dirty(ent);
+        var disabled = EnsureComp<EmpDisabledComponent>(ent);
+        var disabledUntil = _timing.CurTime + duration;
+        if (disabled.DisabledUntil < disabledUntil)
+            disabled.DisabledUntil = disabledUntil;
+        Dirty(ent.Owner, disabled);
+        if (TryGetBody(ent, out var body))
+        {
+            RefreshBody(body);
+            if (_net.IsServer && HasComp<BodyPartComponent>(ent))
+                _functionality.RefreshPart(body, ent);
+        }
+        return true;
     }
 
     private void CaptureVisionState(Entity<CyberneticsComponent> cybernetic, EntityUid body)

@@ -47,6 +47,15 @@ public sealed partial class ItemSlotsComponent : Component
     /// </remarks>
     [DataField]
     public bool AllowSmartEquip;
+
+    // <Onyx-AugmentSlotVerbs>
+    /// <summary>
+    /// Whether standard insert and eject verbs are generated for these slots.
+    /// Direct interaction and system APIs remain available.
+    /// </summary>
+    [DataField]
+    public bool ShowVerbs = true;
+    // </Onyx-AugmentSlotVerbs>
 }
 
 /// <summary>
@@ -56,10 +65,11 @@ public sealed partial class ItemSlotsComponent : Component
 /// This can't be auto-generated due to the complexity of <paramref name="Slots"/>.
 /// </remarks>
 [Serializable, NetSerializable]
-public sealed class ItemSlotsComponentState(Dictionary<string, ItemSlot> slots, bool allowSmartEquip) : ComponentState
+public sealed class ItemSlotsComponentState(Dictionary<string, ItemSlot> slots, bool allowSmartEquip, bool showVerbs) : ComponentState // <Onyx-AugmentSlotVerbs-edited>
 {
     public readonly Dictionary<string, ItemSlot> Slots = slots;
     public readonly bool AllowSmartEquip = allowSmartEquip;
+    public readonly bool ShowVerbs = showVerbs; // <Onyx-AugmentSlotVerbs>
 }
 
 /// <summary>
@@ -126,6 +136,15 @@ public sealed partial class ItemSlot
     /// </remarks>
     [DataField]
     public bool DisableEject;
+
+    // <Onyx-AugmentSlotVerbs>
+    /// <summary>
+    /// Whether the generic item-slot system exposes this slot through verbs.
+    /// Feature systems may provide their own verbs while leaving slot APIs enabled.
+    /// </summary>
+    [DataField]
+    public bool ShowVerbs = true;
+    // </Onyx-AugmentSlotVerbs>
 
     /// <summary>
     /// Whether the item slots system will attempt to insert item from the user's hands into this slot when interacted with.

@@ -22,7 +22,30 @@ public sealed partial class AugmentModuleHostComponent : Component
     /// </summary>
     [DataField]
     public Dictionary<string, ItemSlot> Slots = new();
+
+    /// <summary>
+    /// Whether the owner may install and remove modules through nested verbs.
+    /// </summary>
+    [DataField]
+    public bool ManageThroughVerbs = true;
+
 }
+
+/// <summary>
+/// Requires opening a service cover before this host exposes its slot verbs.
+/// </summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class AugmentModuleServicePanelComponent : Component
+{
+    [AutoNetworkedField]
+    public bool Open;
+}
+
+/// <summary>
+/// Makes an installed module and its nested access sources available to its body's access checks.
+/// </summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class AugmentModuleAccessProviderComponent : Component;
 
 [RegisterComponent, NetworkedComponent]
 public sealed partial class AugmentModuleEmpProtectionComponent : Component
@@ -42,3 +65,6 @@ public sealed partial class AugmentModuleEmpProtectionComponent : Component
 
 [ByRefEvent]
 public readonly record struct AugmentModulesChangedEvent;
+
+[ByRefEvent]
+public readonly record struct AugmentModuleDetachedEvent(EntityUid Host);

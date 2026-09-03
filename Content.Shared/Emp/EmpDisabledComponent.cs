@@ -9,7 +9,7 @@ namespace Content.Shared.Emp;
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState, AutoGenerateComponentPause]
-[Access(typeof(SharedEmpSystem))]
+[Access(typeof(SharedEmpSystem), typeof(_Onyx.Cybernetics.CyberneticsSystem))] // <Onyx-CyberdeckScripts-edited>
 public sealed partial class EmpDisabledComponent : Component
 {
     /// <summary>

@@ -209,11 +209,12 @@ public sealed partial class ItemSlotsSystem : EntitySystem
         }
 
         ent.Comp.AllowSmartEquip = state.AllowSmartEquip;
+        ent.Comp.ShowVerbs = state.ShowVerbs; // <Onyx-AugmentSlotVerbs>
     }
 
     [SubscribeLocalEvent]
     private void GetItemSlotsState(Entity<ItemSlotsComponent> ent, ref ComponentGetState args)
     {
-        args.State = new ItemSlotsComponentState(ent.Comp.Slots, ent.Comp.AllowSmartEquip);
+        args.State = new ItemSlotsComponentState(ent.Comp.Slots, ent.Comp.AllowSmartEquip, ent.Comp.ShowVerbs); // <Onyx-AugmentSlotVerbs-edited>
     }
 }

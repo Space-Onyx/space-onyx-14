@@ -8,7 +8,7 @@ public sealed partial class ItemSlotsSystem
     [SubscribeLocalEvent]
     private void AddAlternativeVerbs(Entity<ItemSlotsComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
-        if (args.Hands == null || !args.CanAccess || !args.CanInteract)
+        if (!ent.Comp.ShowVerbs || args.Hands == null || !args.CanAccess || !args.CanInteract) // <Onyx-AugmentSlotVerbs-edited>
             return;
 
         var user = args.User;
@@ -18,7 +18,7 @@ public sealed partial class ItemSlotsSystem
             var canInsertAny = false;
             foreach (var slot in ent.Comp.Slots.Values)
             {
-                if (slot.InsertOnInteract || !CanInsert(ent, slot, usingEntity, user))
+                if (!slot.ShowVerbs || slot.InsertOnInteract || !CanInsert(ent, slot, usingEntity, user)) // <Onyx-AugmentSlotVerbs-edited>
                     continue;
 
                 var verbSubject = slot.Name != string.Empty
@@ -60,7 +60,7 @@ public sealed partial class ItemSlotsSystem
 
         foreach (var slot in ent.Comp.Slots.Values)
         {
-            if (slot.EjectOnInteract || slot.DisableEject)
+            if (!slot.ShowVerbs || slot.EjectOnInteract || slot.DisableEject) // <Onyx-AugmentSlotVerbs-edited>
                 continue;
 
             if (!CanEject(ent, slot, user))
@@ -97,13 +97,13 @@ public sealed partial class ItemSlotsSystem
     [SubscribeLocalEvent]
     private void AddInteractionVerbs(Entity<ItemSlotsComponent> ent, ref GetVerbsEvent<InteractionVerb> args)
     {
-        if (args.Hands == null || !args.CanAccess || !args.CanInteract)
+        if (!ent.Comp.ShowVerbs || args.Hands == null || !args.CanAccess || !args.CanInteract) // <Onyx-AugmentSlotVerbs-edited>
             return;
 
         var user = args.User;
         foreach (var slot in ent.Comp.Slots.Values)
         {
-            if (!slot.EjectOnInteract || !CanEject(ent, slot, user))
+            if (!slot.ShowVerbs || !slot.EjectOnInteract || !CanEject(ent, slot, user)) // <Onyx-AugmentSlotVerbs-edited>
                 continue;
 
             if (!_actionBlockerSystem.CanPickup(user, slot.Item!.Value))
@@ -134,7 +134,7 @@ public sealed partial class ItemSlotsSystem
         var usingEntity = args.Using.Value;
         foreach (var slot in ent.Comp.Slots.Values)
         {
-            if (!slot.InsertOnInteract || !CanInsert(ent, slot, usingEntity, user))
+            if (!slot.ShowVerbs || !slot.InsertOnInteract || !CanInsert(ent, slot, usingEntity, user)) // <Onyx-AugmentSlotVerbs-edited>
                 continue;
 
             var verbSubject = slot.Name != string.Empty

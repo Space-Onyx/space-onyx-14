@@ -1,0 +1,300 @@
+- type: entity
+  parent: BaseAction
+  id: ActionOpenCyberDeck
+  name: open cyberdeck
+  description: Project the cyberdeck interface into your field of vision.
+  components:
+  - type: InstantAction
+    event: !type:CyberDeckOpenActionEvent
+
+- type: entity
+  parent: BaseItem
+  id: AugmentModuleCyberDeck
+  name: NanoTrasen Pulsar
+  description: A neuro-interface cyberdeck providing holographic PDA functions, an access-card reader, a cartridge bay, and program slots.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: generic
+  - type: Icon
+    sprite: Objects/Misc/module.rsi
+    state: generic
+  - type: Appearance
+  - type: Item
+    size: Tiny
+  - type: CyberDeck
+    openAction: ActionOpenCyberDeck
+  - type: AugmentModule
+    hostWhitelist:
+      components: [ NeuroInterface ]
+  - type: AugmentModuleAccessProvider
+  - type: AugmentModuleSlots
+    slots:
+    - id: cyberdeck-ram
+      name: augment-module-slot-cyberdeck-ram
+      whitelist:
+        components: [ CyberDeckRamModule ]
+    - id: cyberdeck-program-1
+      name: augment-module-slot-cyberdeck-program-one
+      whitelist:
+        components: [ CyberDeckScript ]
+    - id: cyberdeck-program-2
+      name: augment-module-slot-cyberdeck-program-two
+      whitelist:
+        components: [ CyberDeckScript ]
+    - id: cyberdeck-program-3
+      name: augment-module-slot-cyberdeck-program-three
+      whitelist:
+        components: [ CyberDeckScript ]
+  - type: NeuroBandwidthConsumer
+    demand: 6
+  - type: Pda
+    idSlot:
+      name: access-id-card-component-default
+      showVerbs: false
+      insertOnInteract: false
+      ejectSound: /Audio/Machines/id_swipe.ogg
+      insertSound: /Audio/Machines/id_insert.ogg
+      whitelist:
+        components: [ IdCard ]
+    penSlot:
+      disableEject: true
+      whitelist:
+        components: [ SlotBlock ]
+    paiSlot:
+      disableEject: true
+      whitelist:
+        components: [ SlotBlock ]
+  - type: CartridgeLoader
+    uiKey: enum.PdaUiKey.Key
+    cartridgeSlot:
+      priority: -1
+      name: device-pda-slot-component-slot-name-cartridge
+      showVerbs: false
+      insertOnInteract: false
+      ejectSound: /Audio/Machines/id_swipe.ogg
+      insertSound: /Audio/Machines/id_insert.ogg
+      whitelist:
+        components: [ Cartridge ]
+  - type: ItemSlots
+    showVerbs: false
+  - type: ContainerContainer
+    containers:
+      PDA-id: !type:ContainerSlot {}
+      PDA-pen: !type:ContainerSlot {}
+      PDA-pai: !type:ContainerSlot {}
+      Cartridge-Slot: !type:ContainerSlot {}
+      preinstalled-program-container: !type:Container
+      removable-program-container: !type:Container
+  - type: EntityTableContainerFill
+    containers:
+      preinstalled-program-container: !type:AllSelector
+        children:
+        - id: CrewManifestCartridge
+        - id: NotekeeperCartridge
+        - id: NanoTaskCartridge
+        - id: NewsReaderCartridge
+        - id: WalletCartridge
+        - id: NanoChatCartridge
+  - type: UserInterface
+    interfaces:
+      enum.PdaUiKey.Key:
+        type: ModernPdaBoundUserInterface
+      enum.StoreUiKey.Key:
+        type: StoreBoundUserInterface
+      enum.RingerUiKey.Key:
+        type: RingerBoundUserInterface
+      enum.HealthAnalyzerUiKey.Key:
+        type: HealthAnalyzerBoundUserInterface
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: PDA
+    prefix: device-address-prefix-console
+    savableAddress: false
+  - type: WirelessNetworkConnection
+    range: 500
+  - type: Ringer
+  - type: RingerUplink
+  - type: RemoteStore
+  - type: Tag
+    tags:
+    - AugmentModuleCyberDeck
+
+- type: entity
+  parent: AugmentModuleCyberDeck
+  id: AugmentModuleCyberDeckInterdyne
+  name: Interdyne Fallen
+
+- type: entity
+  parent: BaseItem
+  id: AugmentModuleCyberDeckRam
+  name: cyberdeck RAM module
+  description: A compact memory expansion that increases cyberdeck capacity by four units.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: harddisk_micro
+  - type: Item
+    size: Tiny
+  - type: AugmentModule
+    hostWhitelist:
+      components: [ CyberDeck ]
+  - type: CyberDeckRamModule
+    ramIncrease: 4
+  - type: Tag
+    tags: [ AugmentModuleCyberDeckRam ]
+
+- type: entity
+  abstract: true
+  parent: BaseAction
+  id: BaseCyberDeckScriptAction
+  components:
+  - type: InstantAction
+    event: !type:CyberDeckScriptActionEvent
+
+- type: entity
+  parent: BaseCyberDeckScriptAction
+  id: ActionCyberDeckScriptCameraControl
+  name: camera control
+  description: Access the station surveillance network.
+
+- type: entity
+  parent: BaseCyberDeckScriptAction
+  id: ActionCyberDeckScriptImplantFailure
+  name: implant failure
+  description: Disrupt visible implants around you, excluding cybernetic optics.
+
+- type: entity
+  abstract: true
+  parent: BaseAction
+  id: BaseCyberDeckTargetScriptAction
+  components:
+  - type: TargetAction
+    checkCanAccess: false
+    deselectOnMiss: true
+    interactOnMiss: false
+    targetingIndicator: true
+  - type: EntityTargetAction
+  - type: WorldTargetAction
+    event: !type:CyberDeckScriptTargetActionEvent
+
+- type: entity
+  parent: BaseCyberDeckTargetScriptAction
+  id: ActionCyberDeckScriptRemoteDeactivation
+  name: remote deactivation
+  description: Toggle an airlock or disable a surveillance camera at range.
+  components:
+  - type: TargetAction
+    range: 10
+
+- type: entity
+  parent: BaseCyberDeckTargetScriptAction
+  id: ActionCyberDeckScriptOpticsOverload
+  name: optics overload
+  description: Temporarily disable cybernetic optics on a selected target.
+  components:
+  - type: TargetAction
+    range: 7
+
+- type: entity
+  parent: BaseCyberDeckTargetScriptAction
+  id: ActionCyberDeckScriptMotorImpairment
+  name: motor impairment
+  description: Temporarily disable cybernetic legs on a selected target.
+  components:
+  - type: TargetAction
+    range: 7
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: BaseCyberDeckScript
+  components:
+  - type: Item
+    size: Tiny
+  - type: AugmentModule
+    hostWhitelist:
+      components: [ CyberDeck ]
+  - type: Tag
+    tags: [ AugmentModuleCyberDeckProgram ]
+
+- type: entity
+  parent: BaseCyberDeckScript
+  id: AugmentModuleCyberDeckScriptCameraControl
+  name: camera control script
+  description: A cyberdeck script providing station surveillance access. Costs 4 RAM.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: net_wired
+  - type: CyberDeckScript
+    action: ActionCyberDeckScriptCameraControl
+    ramCost: 4
+  - type: CyberDeckScriptActivatableUI
+    key: enum.SurveillanceCameraMonitorUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.SurveillanceCameraMonitorUiKey.Key:
+        type: SurveillanceCameraMonitorBoundUserInterface
+  - type: DeviceNetwork
+    deviceNetId: Wired
+    receiveFrequencyId: SurveillanceCamera
+    transmitFrequencyId: SurveillanceCamera
+  - type: WiredNetworkConnection
+  - type: SurveillanceCameraMonitor
+
+- type: entity
+  parent: BaseCyberDeckScript
+  id: AugmentModuleCyberDeckScriptImplantFailure
+  name: implant failure script
+  description: A cyberdeck script disrupting visible implants for 5 to 6 seconds, excluding optics. Costs 12 RAM.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: harddisk
+  - type: CyberDeckScript
+    action: ActionCyberDeckScriptImplantFailure
+    ramCost: 12
+  - type: CyberDeckScriptImplantFailure
+
+- type: entity
+  parent: BaseCyberDeckScript
+  id: AugmentModuleCyberDeckScriptRemoteDeactivation
+  name: remote deactivation script
+  description: A cyberdeck script toggling airlocks and disabling cameras for 6 to 8 seconds. Costs 2 RAM.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: power_mod
+  - type: CyberDeckScript
+    action: ActionCyberDeckScriptRemoteDeactivation
+    ramCost: 2
+  - type: CyberDeckScriptRemoteDeactivation
+
+- type: entity
+  parent: BaseCyberDeckScript
+  id: AugmentModuleCyberDeckScriptOpticsOverload
+  name: optics overload script
+  description: A cyberdeck script disabling cybernetic optics for 5 to 6 seconds. Costs 6 RAM.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: cpu_security
+  - type: CyberDeckScript
+    action: ActionCyberDeckScriptOpticsOverload
+    ramCost: 6
+  - type: CyberDeckScriptOpticsOverload
+
+- type: entity
+  parent: BaseCyberDeckScript
+  id: AugmentModuleCyberDeckScriptMotorImpairment
+  name: motor impairment script
+  description: A cyberdeck script disabling cybernetic legs for 4 to 5 seconds. Costs 7 RAM.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: cpu_syndicate
+  - type: CyberDeckScript
+    action: ActionCyberDeckScriptMotorImpairment
+    ramCost: 7
+  - type: CyberDeckScriptMotorImpairment

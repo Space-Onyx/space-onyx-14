@@ -125,6 +125,15 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
             if (HasComp<NeuroBandwidthConsumerComponent>(organ) && consumers.Add(organ))
                 yield return organ;
         }
+
+        if (TryGetInterface(body, out var neuroInterface))
+        {
+            foreach (var module in _modules.GetModules(neuroInterface))
+            {
+                if (HasComp<NeuroBandwidthConsumerComponent>(module) && consumers.Add(module))
+                    yield return module;
+            }
+        }
     }
 
     public bool IsConsumerOperational(EntityUid consumer) =>
@@ -375,6 +384,8 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
             Refresh(organBody);
         else if (CompOrNull<BodyPartComponent>(consumer)?.Body is { } partBody)
             Refresh(partBody);
+        else if (_modules.GetInstalledBody(consumer) is { } moduleBody)
+            Refresh(moduleBody);
     }
 
     private static float SanitizeNonNegative(float value) => float.IsFinite(value) ? Math.Max(0f, value) : 0f;

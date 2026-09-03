@@ -278,6 +278,19 @@
   technologyPrerequisites: [ BasicAugmentation ]
 
 - type: technology
+  id: CyberDeckSystems
+  name: research-technology-cyberdeck-systems
+  icon: { sprite: Objects/Misc/module.rsi, state: net_wired }
+  discipline: CivilianServices
+  tier: 2
+  cost: 7000
+  recipeUnlocks:
+  - AugmentModuleCyberDeck
+  - AugmentModuleCyberDeckRam
+  position: 4,2
+  technologyPrerequisites: [ BasicAugmentation ]
+
+- type: technology
   id: NeuroInterfaceRouting
   name: research-technology-neuro-interface-routing
   icon: { sprite: Objects/Misc/module.rsi, state: power_mod }
