@@ -1,0 +1,12 @@
+hud-chatbox-emote-visibility-tooltip = Visibility
+hud-chatbox-emote-visibility-general = Emote visibility
+hud-chatbox-emote-visibility-range = Distance
+hud-chatbox-emote-visibility-range-radius = Visible within radius
+hud-chatbox-emote-visibility-range-surrounding = Visible to everyone nearby
+hud-chatbox-emote-visibility-radius-value = Radius: { $radius } tiles
+hud-chatbox-emote-visibility-perspective = Format
+hud-chatbox-emote-visibility-perspective-first-person = From character's perspective
+hud-chatbox-emote-visibility-perspective-third-person = Third-person description
+hud-chatbox-emote-visibility-observers = Observers
+hud-chatbox-emote-visibility-show-to-ghosts = Visible to ghosts
+chat-manager-entity-me-third-person-wrap-message = [italic]{ $message }[/italic]

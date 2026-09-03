@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Content.Shared.ActionBlocker;
 using Content.Shared._Onyx.Language; // <Onyx-OSayLanguage>
+using Content.Shared._Onyx.Chat; // <Onyx-EmoteVisibility>
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.Popups;
 using Content.Shared.Radio;
@@ -328,7 +329,8 @@ public abstract partial class SharedChatSystem : EntitySystem
         bool hideLog = false,
         bool checkEmote = true,
         bool ignoreActionBlocker = false,
-        NetUserId? author = null
+        NetUserId? author = null, // <Onyx-EmoteVisibility-edited>
+        EmoteVisibilityOptions? emoteVisibility = null // <Onyx-EmoteVisibility>
         )
     { }
 
@@ -356,7 +358,8 @@ public abstract partial class SharedChatSystem : EntitySystem
         string? nameOverride = null,
         bool checkRadioPrefix = true,
         bool ignoreActionBlocker = false,
-        ProtoId<LanguagePrototype>? languageOverride = null) // <Onyx-OSayLanguage>
+        ProtoId<LanguagePrototype>? languageOverride = null, // <Onyx-OSayLanguage> <Onyx-EmoteVisibility-edited>
+        EmoteVisibilityOptions? emoteVisibility = null) // <Onyx-OSayLanguage> <Onyx-EmoteVisibility>
     { }
 
     /// <summary>
@@ -382,7 +385,8 @@ public abstract partial class SharedChatSystem : EntitySystem
         string? nameOverride = null,
         bool checkRadioPrefix = true,
         bool ignoreActionBlocker = false,
-        ProtoId<LanguagePrototype>? languageOverride = null // <Onyx-OSayLanguage>
+        ProtoId<LanguagePrototype>? languageOverride = null, // <Onyx-OSayLanguage> <Onyx-EmoteVisibility-edited>
+        EmoteVisibilityOptions? emoteVisibility = null // <Onyx-EmoteVisibility>
         )
     { }
 

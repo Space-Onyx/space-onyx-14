@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Text;
 using Content.Shared.Chat;
+using Content.Shared._Onyx.Chat; // <Onyx-EmoteVisibility>
 using Content.Shared.Ghost.Components;
 using Content.Shared.Players;
 using Content.Shared.Speech.Prototypes;
@@ -64,10 +65,27 @@ public sealed partial class ChatSystem
     /// <summary>
     ///     Sends a chat message to the given players in range of the source entity.
     /// </summary>
-    private void SendInVoiceRange(ChatChannel channel, string message, string wrappedMessage, EntityUid source, ChatTransmitRange range, NetUserId? author = null, bool requiresHearing = true, bool requiresVisibility = false) // <Onyx-OrganHearing-edited> <Onyx-HearingVisibility-edited>
+    private void SendInVoiceRange(ChatChannel channel, string message, string wrappedMessage, EntityUid source, ChatTransmitRange range, NetUserId? author = null, bool requiresHearing = true, bool requiresVisibility = false, EmoteVisibilityOptions? emoteVisibility = null) // <Onyx-OrganHearing-edited> <Onyx-HearingVisibility-edited> <Onyx-EmoteVisibility-edited>
     {
-        foreach (var (session, data) in GetRecipients(source, VoiceRange))
+        // <Onyx-EmoteVisibility>
+        var recipientRange = emoteVisibility is { Range: EmoteVisibilityRange.Radius } rangeOptions
+            ? MathF.BitIncrement(rangeOptions.Radius)
+            : VoiceRange;
+        var pvsRecipients = emoteVisibility is { Range: EmoteVisibilityRange.Radius }
+            ? Filter.Pvs(source, 1f, EntityManager, _playerManager).Recipients
+            : null;
+        // </Onyx-EmoteVisibility>
+
+        foreach (var (session, data) in GetRecipients(source, recipientRange)) // <Onyx-EmoteVisibility-edited>
         {
+            // <Onyx-EmoteVisibility>
+            if (emoteVisibility is { } visibility && session.AttachedEntity is { } recipient &&
+                !_tag.HasTag(recipient, EmoteVisibilityBypassTag) &&
+                (visibility.Range == EmoteVisibilityRange.Radius &&
+                    (data.Range < 0f || data.Range > visibility.Radius || pvsRecipients?.Contains(session) != true) ||
+                 !visibility.ShowToGhosts && _tag.HasTag(recipient, EmoteVisibilityGhostTag)))
+                continue;
+            // </Onyx-EmoteVisibility>
             // <Onyx-OrganHearing>
             // <Onyx-HearingVisibility>
             if (session.AttachedEntity is { } listener &&

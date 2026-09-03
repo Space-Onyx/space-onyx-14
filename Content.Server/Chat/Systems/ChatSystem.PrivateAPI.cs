@@ -340,7 +340,8 @@ public sealed partial class ChatSystem
         bool hideLog = false,
         bool checkEmote = true,
         bool ignoreActionBlocker = false,
-        NetUserId? author = null
+        NetUserId? author = null, // <Onyx-EmoteVisibility-edited>
+        Content.Shared._Onyx.Chat.EmoteVisibilityOptions? emoteVisibility = null // <Onyx-EmoteVisibility>
         )
     {
         if (!_actionBlocker.CanEmote(source) && !ignoreActionBlocker)
@@ -351,7 +352,13 @@ public sealed partial class ChatSystem
         string name = FormattedMessage.EscapeText(nameOverride ?? Name(ent));
 
         // Emotes use Identity.Name, since it doesn't actually involve your voice at all.
-        var wrappedMessage = Loc.GetString("chat-manager-entity-me-wrap-message",
+        // <Onyx-EmoteVisibility>
+        var visibility = emoteVisibility ?? Content.Shared._Onyx.Chat.EmoteVisibilityOptions.Default;
+        var wrapId = visibility.Perspective == Content.Shared._Onyx.Chat.EmotePerspective.ThirdPerson
+            ? "chat-manager-entity-me-third-person-wrap-message"
+            : "chat-manager-entity-me-wrap-message";
+        // </Onyx-EmoteVisibility>
+        var wrappedMessage = Loc.GetString(wrapId, // <Onyx-EmoteVisibility-edited>
             ("entityName", name),
             ("entity", ent),
             ("message", FormattedMessage.RemoveMarkupOrThrow(action)));
@@ -360,7 +367,7 @@ public sealed partial class ChatSystem
             !TryEmoteChatInput(source, action))
             return;
 
-        SendInVoiceRange(ChatChannel.Emotes, action, wrappedMessage, source, range, author, requiresHearing: false, requiresVisibility: true); // <Onyx-OrganHearing-edited> <Onyx-HearingVisibility-edited>
+        SendInVoiceRange(ChatChannel.Emotes, action, wrappedMessage, source, range, author, requiresHearing: false, requiresVisibility: true, emoteVisibility: visibility); // <Onyx-OrganHearing-edited> <Onyx-HearingVisibility-edited> <Onyx-EmoteVisibility-edited>
         if (!hideLog)
             if (name != Name(source))
                 _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Emote from {source} as {name}: {action}");

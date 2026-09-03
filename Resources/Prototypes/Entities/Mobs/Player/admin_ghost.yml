@@ -16,6 +16,7 @@
     visibilityMask: 31 # <Onyx-CosmicCult>
   - type: Tag
     tags:
+    - EmoteVisibilityBypass # <Onyx-EmoteVisibility>
     - InstantDoAfters
     - CanPilot
     - BypassInteractionRangeChecks

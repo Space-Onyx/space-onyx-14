@@ -25,6 +25,7 @@ using Content.Shared.Input;
 using Content.Shared.Radio;
 using ClientCollectiveMindSystem = Content.Client._Onyx.Chat.CollectiveMindSystem; // <Onyx-CollectiveMind>
 using Content.Shared._Onyx.CollectiveMind; // <Onyx-CollectiveMind>
+using Content.Client._Onyx.Chat; // <Onyx-EmoteVisibility>
 using Content.Shared.Roles.RoleCodeword;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
@@ -724,6 +725,10 @@ public sealed partial class ChatUIController : UIController
     public void UpdateSelectedChannel(ChatBox box)
     {
         var (prefixChannel, _, radioChannel, collectiveMind) = SplitInputContents(box.ChatInput.Input.Text.ToLower()); // <Onyx-CollectiveMind-edited>
+        // <Onyx-EmoteVisibility>
+        box.ChatInput.UpdateEmoteVisibility(prefixChannel == ChatSelectChannel.Emotes ||
+            prefixChannel == ChatSelectChannel.None && box.SelectedChannel == ChatSelectChannel.Emotes);
+        // </Onyx-EmoteVisibility>
 
         if (prefixChannel == ChatSelectChannel.None)
             box.ChatInput.ChannelSelector.UpdateChannelSelectButton(box.SelectedChannel, null);
@@ -813,7 +818,12 @@ public sealed partial class ChatUIController : UIController
         if (prefixChannel == ChatSelectChannel.None && channel == ChatSelectChannel.CollectiveMind) // <Onyx-CollectiveMind-edited>
             text = $"+ {text}"; // <Onyx-CollectiveMind>
 
-        _manager.SendMessage(text, prefixChannel == 0 ? channel : prefixChannel);
+        // <Onyx-EmoteVisibility-edited>
+        if (channel == ChatSelectChannel.Emotes)
+            _ent.System<EmoteVisibilitySystem>().SendEmote(text, box.ChatInput.EmoteVisibilityButton.Popup.Options);
+        else
+            _manager.SendMessage(text, prefixChannel == 0 ? channel : prefixChannel);
+        // </Onyx-EmoteVisibility-edited>
     }
 
     private void OnDamageForceSay(DamageForceSayEvent ev, EntitySessionEventArgs _)

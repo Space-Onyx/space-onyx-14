@@ -3,6 +3,7 @@ using Content.Shared.Chat.Prototypes;
 using Content.Shared.Speech;
 using Robust.Shared.Audio;
 using Robust.Shared.Random;
+using Content.Shared._Onyx.Chat; // <Onyx-EmoteVisibility>
 
 namespace Content.Shared.Chat;
 
@@ -54,13 +55,14 @@ public abstract partial class SharedChatSystem
         bool hideLog = false,
         string? nameOverride = null,
         bool ignoreActionBlocker = false,
-        bool forceEmote = false
+        bool forceEmote = false, // <Onyx-EmoteVisibility-edited>
+        EmoteVisibilityOptions? emoteVisibility = null // <Onyx-EmoteVisibility>
     )
     {
         if (!ProtoMan.Resolve<EmotePrototype>(emoteId, out var proto))
             return false;
 
-        return TryEmoteWithChat(source, proto, range, hideLog: hideLog, nameOverride, ignoreActionBlocker: ignoreActionBlocker, forceEmote: forceEmote);
+        return TryEmoteWithChat(source, proto, range, hideLog: hideLog, nameOverride, ignoreActionBlocker: ignoreActionBlocker, forceEmote: forceEmote, emoteVisibility: emoteVisibility); // <Onyx-EmoteVisibility-edited>
     }
 
     /// <summary>
@@ -84,7 +86,8 @@ public abstract partial class SharedChatSystem
         bool hideLog = false,
         string? nameOverride = null,
         bool ignoreActionBlocker = false,
-        bool forceEmote = false
+        bool forceEmote = false, // <Onyx-EmoteVisibility-edited>
+        EmoteVisibilityOptions? emoteVisibility = null // <Onyx-EmoteVisibility>
     )
     {
         if (!forceEmote && !AllowedToUseEmote(source, emote))
@@ -97,7 +100,7 @@ public abstract partial class SharedChatSystem
         {
             // not all emotes are loc'd, but for the ones that are we pass in entity
             var action = Loc.GetString(_random.Pick(emote.ChatMessages), ("entity", source));
-            SendEntityEmote(source, action, range, nameOverride, hideLog: hideLog, checkEmote: false, ignoreActionBlocker: ignoreActionBlocker);
+            SendEntityEmote(source, action, range, nameOverride, hideLog: hideLog, checkEmote: false, ignoreActionBlocker: ignoreActionBlocker, emoteVisibility: emoteVisibility); // <Onyx-EmoteVisibility-edited>
         }
 
         return didEmote;

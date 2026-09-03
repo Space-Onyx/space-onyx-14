@@ -16,6 +16,7 @@ using Content.Shared.Ghost;
 using Content.Shared.Ghost.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared._Onyx.Loudspeaker.Events; // <Onyx-Loudspeaker>
+using Content.Shared._Onyx.Chat; // <Onyx-EmoteVisibility>
 using Content.Server._Onyx.Chat; // <Onyx-CollectiveMind>
 using Content.Shared.Players.RateLimiting;
 using Content.Shared.Speech.EntitySystems;
@@ -168,9 +169,10 @@ public sealed partial class ChatSystem : SharedChatSystem
         string? nameOverride = null,
         bool checkRadioPrefix = true,
         bool ignoreActionBlocker = false,
-        Robust.Shared.Prototypes.ProtoId<Content.Shared._Onyx.Language.LanguagePrototype>? languageOverride = null) // <Onyx-OSayLanguage>
+        Robust.Shared.Prototypes.ProtoId<Content.Shared._Onyx.Language.LanguagePrototype>? languageOverride = null, // <Onyx-OSayLanguage> <Onyx-EmoteVisibility-edited>
+        EmoteVisibilityOptions? emoteVisibility = null) // <Onyx-OSayLanguage> <Onyx-EmoteVisibility>
     {
-        TrySendInGameICMessage(source, message, desiredType, hideChat ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal, hideLog, shell, player, nameOverride, checkRadioPrefix, ignoreActionBlocker, languageOverride); // <Onyx-OSayLanguage-edited>
+        TrySendInGameICMessage(source, message, desiredType, hideChat ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal, hideLog, shell, player, nameOverride, checkRadioPrefix, ignoreActionBlocker, languageOverride, emoteVisibility); // <Onyx-OSayLanguage-edited> <Onyx-EmoteVisibility-edited>
     }
 
     /// <inheritdoc />
@@ -185,7 +187,8 @@ public sealed partial class ChatSystem : SharedChatSystem
         string? nameOverride = null,
         bool checkRadioPrefix = true,
         bool ignoreActionBlocker = false,
-        Robust.Shared.Prototypes.ProtoId<Content.Shared._Onyx.Language.LanguagePrototype>? languageOverride = null // <Onyx-OSayLanguage>
+        Robust.Shared.Prototypes.ProtoId<Content.Shared._Onyx.Language.LanguagePrototype>? languageOverride = null, // <Onyx-OSayLanguage> <Onyx-EmoteVisibility-edited>
+        EmoteVisibilityOptions? emoteVisibility = null // <Onyx-EmoteVisibility>
         )
     {
         if (HasComp<GhostComponent>(source))
@@ -250,7 +253,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         // Was there an emote in the message? If so, send it.
         if (player != null && emoteStr != message && emoteStr != null)
         {
-            SendEntityEmote(source, emoteStr, range, nameOverride, ignoreActionBlocker);
+            SendEntityEmote(source, emoteStr, range, nameOverride, ignoreActionBlocker, emoteVisibility: emoteVisibility); // <Onyx-EmoteVisibility-edited>
         }
 
         // This can happen if the entire string is sanitized out.
@@ -294,7 +297,7 @@ public sealed partial class ChatSystem : SharedChatSystem
                 SendEntityWhisper(source, message, range, null, nameOverride, hideLog, ignoreActionBlocker, languageOverride); // <Onyx-OSayLanguage-edited>
                 break;
             case InGameICChatType.Emote:
-                SendEntityEmote(source, message, range, nameOverride, hideLog: hideLog, ignoreActionBlocker: ignoreActionBlocker);
+                SendEntityEmote(source, message, range, nameOverride, hideLog: hideLog, ignoreActionBlocker: ignoreActionBlocker, emoteVisibility: emoteVisibility); // <Onyx-EmoteVisibility-edited>
                 break;
         }
     }

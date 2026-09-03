@@ -5,7 +5,7 @@ using Robust.Client.UserInterface.Controls;
 namespace Content.Client.UserInterface.Systems.Chat.Controls;
 
 [Virtual]
-public class ChatInputBox : PanelContainer
+public partial class ChatInputBox : PanelContainer // <Onyx-EmoteVisibility-edited>
 {
     public const string StyleClassChatPanel = "ChatPanel";
     public const string StyleClassChatLineEdit = "ChatLineEdit";
@@ -42,6 +42,7 @@ public class ChatInputBox : PanelContainer
             StyleClasses = { StyleClassChatLineEdit }
         };
         Container.AddChild(Input);
+        InitializeEmoteVisibility(); // <Onyx-EmoteVisibility>
         FilterButton = new ChannelFilterButton
         {
             Name = "FilterButton",

@@ -128,6 +128,7 @@
   - type: Spectral
   - type: Tag
     tags:
+    - EmoteVisibilityGhost # <Onyx-EmoteVisibility>
     - AllowGhostShownByEvent
     - AllowPortalTraversal
     - PreventPortalCollision
