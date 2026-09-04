@@ -48,6 +48,111 @@
     # TODO: this should pull the target closer or sumth, but I need to code that action first
     !type:NoOpAction
 
+# <Onyx-InteractionVerbs>
+- type: Interaction
+  id: Kiss
+  parent: [BaseGlobal, BaseHands]
+  priority: 2
+  delay: 0.5
+  range: {max: 1}
+  effectSuccess:
+    popup: Obvious
+    sound: {path: /Audio/Effects/rustle2.ogg}
+  hideByRequirement: true
+  requirement:
+    !type:MobStateRequirement
+    inverted: true
+  action:
+    !type:NoOpAction
+
+- type: Interaction
+  id: StrongHug
+  parent: [BaseGlobal, BaseHands]
+  priority: 2
+  delay: 1.2
+  cooldown: 2
+  range: {max: 1}
+  effectSuccess:
+    popup: Obvious
+    sound: {path: /Audio/Effects/rustle4.ogg}
+  hideByRequirement: true
+  requirement:
+    !type:MobStateRequirement
+    inverted: true
+  action:
+    !type:NoOpAction
+
+- type: Interaction
+  id: Slap
+  parent: [BaseGlobal, BaseHands]
+  priority: 1
+  cooldown: 2
+  range: {max: 1}
+  effectSuccess:
+    popup: Dangerous
+    sound: {path: /Audio/Effects/Footsteps/meatslap.ogg}
+  hideByRequirement: true
+  requirement:
+    !type:MobStateRequirement
+    inverted: true
+  action:
+    !type:ComplexAction
+    actions:
+    - !type:ModifyHealthAction
+      damage:
+        types: {Blunt: 1}
+    - !type:JitterAction
+      time: 0.3
+
+- type: Interaction
+  id: Pet
+  parent: [BaseGlobal, BaseHands]
+  priority: 2
+  delay: 0.5
+  range: {max: 1}
+  effectSuccess:
+    popup: Obvious
+    sound: {path: /Audio/Effects/rustle1.ogg}
+  hideByRequirement: true
+  requirement:
+    !type:MobStateRequirement
+    inverted: true
+  action:
+    !type:NoOpAction
+
+- type: Interaction
+  id: Handshake
+  parent: [BaseGlobal, BaseHands]
+  priority: 1
+  delay: 0.5
+  range: {max: 1}
+  effectSuccess:
+    popup: Obvious
+    sound: {path: /Audio/Effects/rustle3.ogg}
+  hideByRequirement: true
+  requirement:
+    !type:MobStateRequirement
+    inverted: true
+  action:
+    !type:NoOpAction
+
+- type: Interaction
+  id: HighFive
+  parent: [BaseGlobal, BaseHands]
+  priority: 1
+  cooldown: 1
+  range: {max: 1}
+  effectSuccess:
+    popup: Obvious
+    sound: {path: /Audio/Effects/Emotes/clap-single.ogg}
+  hideByRequirement: true
+  requirement:
+    !type:MobStateRequirement
+    inverted: true
+  action:
+    !type:NoOpAction
+# </Onyx-InteractionVerbs>
+
 # Knocking on the target - doors, etc.
 - type: Interaction
   id: KnockOn
