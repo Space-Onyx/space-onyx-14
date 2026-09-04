@@ -13,7 +13,7 @@
 - type: loadout
   id: DetectiveTie
   equipment:
-    neck: ClothingNeckTieDet
+    tie: ClothingNeckTieDet # <Onyx-InventorySubslots-edited>
 
 # Jumpsuit
 - type: loadout

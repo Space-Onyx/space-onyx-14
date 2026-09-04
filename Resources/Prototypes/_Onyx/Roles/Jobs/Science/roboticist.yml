@@ -28,7 +28,7 @@
     head: ClothingHeadBandSkull
     eyes: ClothingEyesGlassesCheapSunglasses
     mask: ClothingMaskGas
-    neck: ClothingNeckTieSci
+    tie: ClothingNeckTieSci
     outerClothing: ClothingOuterCoatRobo
     gloves: ClothingHandsGlovesRobohands
     ears: ClothingHeadsetRobotics

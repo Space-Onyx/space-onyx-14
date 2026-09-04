@@ -130,6 +130,7 @@ namespace Content.Client.Inventory
             if (_strippingMenu != null)
                 _strippingMenu.OnDirty -= UpdateMenu;
 
+            ResetSubSlots(); // <Onyx-InventorySubslots>
             EntMan.DeleteEntity(_virtualHiddenEntity);
             base.Dispose(disposing);
         }
@@ -145,13 +146,14 @@ namespace Content.Client.Inventory
             if (_strippingMenu == null)
                 return;
 
+            ResetSubSlots(); // <Onyx-InventorySubslots>
             _strippingMenu.ClearButtons();
             _handCount = 0;
             _inventoryDimensions = Vector2i.Zero;
 
             if (EntMan.TryGetComponent<InventoryComponent>(Owner, out var inv))
             {
-                foreach (var slot in inv.Slots)
+                foreach (var slot in OrderSlotsParentFirst(inv.Slots)) // <Onyx-InventorySubslots-edited>
                 {
                     AddInventoryButton(Owner, slot.Name, inv);
                 }
@@ -303,6 +305,9 @@ namespace Content.Client.Inventory
 
             var button = new SlotButton(new SlotData(slotDef, container));
             button.Pressed += SlotPressed;
+
+            if (TryAddSubSlotButton(slotDef, button, entity)) // <Onyx-InventorySubslots>
+                return;
 
             _strippingMenu!.InventoryContainer.AddChild(button);
 

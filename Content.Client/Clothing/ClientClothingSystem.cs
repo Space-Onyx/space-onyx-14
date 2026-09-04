@@ -103,17 +103,19 @@ public sealed partial class ClientClothingSystem : ClothingSystem
         if (!InventoryQuery.TryComp(args.Equipee, out var inventory))
             return;
 
+        var visualSlot = GetVisualSlot(args.Equipee, args.Slot, inventory); // <Onyx-InventorySubslots>
+
         List<PrototypeLayerData>? layers = null;
 
         // first attempt to get species specific data.
         if (inventory.SpeciesId != null)
-            ent.Comp.ClothingVisuals.TryGetValue($"{args.Slot}-{inventory.SpeciesId}", out layers);
+            ent.Comp.ClothingVisuals.TryGetValue($"{visualSlot}-{inventory.SpeciesId}", out layers); // <Onyx-InventorySubslots-edited>
 
         // if that returned nothing, attempt to find generic data
-        if (layers == null && !ent.Comp.ClothingVisuals.TryGetValue(args.Slot, out layers))
+        if (layers == null && !ent.Comp.ClothingVisuals.TryGetValue(visualSlot, out layers)) // <Onyx-InventorySubslots-edited>
         {
             // No generic data either. Attempt to generate defaults from the item's RSI & item-prefixes
-            if (!TryGetDefaultVisuals(ent, args.Slot, inventory.SpeciesId, out layers))
+            if (!TryGetDefaultVisuals(ent, visualSlot, inventory.SpeciesId, out layers)) // <Onyx-InventorySubslots-edited>
                 return;
         }
 
@@ -161,6 +163,7 @@ public sealed partial class ClientClothingSystem : ClothingSystem
             _sprite.RemoveLayer(entity.AsNullable(), layer);
         }
         revealedLayers.Clear();
+        RefreshSubSlotVisuals(entity, args.Slot); // <Onyx-InventorySubslots>
     }
     #endregion Entity Handlers
 
@@ -293,6 +296,8 @@ public sealed partial class ClientClothingSystem : ClothingSystem
         if (!_inventorySystem.TryGetSlot(equipee, slot, out var slotDef, inventory))
             return;
 
+        var visualSlot = GetVisualSlot(slot, slotDef); // <Onyx-InventorySubslots>
+
         // Remove old layers. We could also just set them to invisible, but as items may add arbitrary layers, this
         // may eventually bloat the player with lots of invisible layers.
         if (inventorySlots.VisualLayerKeys.TryGetValue(slot, out var revealedLayers))
@@ -326,10 +331,10 @@ public sealed partial class ClientClothingSystem : ClothingSystem
 
         // temporary, until layer draw depths get added. Basically: a layer with the key "slot" is being used as a
         // bookmark to determine where in the list of layers we should insert the clothing layers.
-        var slotLayerExists = _sprite.LayerMapTryGet((equipee, sprite), slot, out var index, false);
+        var slotLayerExists = _sprite.LayerMapTryGet((equipee, sprite), visualSlot, out var index, false); // <Onyx-InventorySubslots-edited>
 
         // Select displacement maps
-        var displacementData = inventory.Displacements.GetValueOrDefault(slot); //Default unsexed map
+        var displacementData = inventory.Displacements.GetValueOrDefault(visualSlot); // <Onyx-InventorySubslots-edited> Default unsexed map
 
         var equipeeSex = CompOrNull<HumanoidProfileComponent>(equipee)?.Sex;
         if (equipeeSex != null)
@@ -338,11 +343,11 @@ public sealed partial class ClientClothingSystem : ClothingSystem
             {
                 case Sex.Male:
                     if (inventory.MaleDisplacements.Count > 0)
-                        displacementData = inventory.MaleDisplacements.GetValueOrDefault(slot);
+                        displacementData = inventory.MaleDisplacements.GetValueOrDefault(visualSlot); // <Onyx-InventorySubslots-edited>
                     break;
                 case Sex.Female:
                     if (inventory.FemaleDisplacements.Count > 0)
-                        displacementData = inventory.FemaleDisplacements.GetValueOrDefault(slot);
+                        displacementData = inventory.FemaleDisplacements.GetValueOrDefault(visualSlot); // <Onyx-InventorySubslots-edited>
                     break;
             }
         }
@@ -401,6 +406,7 @@ public sealed partial class ClientClothingSystem : ClothingSystem
         }
 
         RaiseLocalEvent(equipment, new EquipmentVisualsUpdatedEvent(equipee, slot, revealedLayers), true);
+        RefreshSubSlotVisuals(equipee, slot, inventory, sprite, inventorySlots); // <Onyx-InventorySubslots>
     }
     #endregion Internal
 }

@@ -8,3 +8,4 @@
       sprite: Corvax/Clothing/Neck/Ties/disco.rsi
     - type: Clothing
       sprite: Corvax/Clothing/Neck/Ties/disco.rsi
+      slots: TIE # <Onyx-InventorySubslots>

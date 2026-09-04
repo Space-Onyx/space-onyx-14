@@ -10,7 +10,7 @@ using Robust.Shared.Utility;
 
 namespace Content.Client.UserInterface.Controls
 {
-    public abstract class SlotControl : Control, IEntityControl
+    public abstract partial class SlotControl : Control, IEntityControl // <Onyx-InventorySubslots-edited>
     {
         public static int DefaultButtonSize = 64;
 

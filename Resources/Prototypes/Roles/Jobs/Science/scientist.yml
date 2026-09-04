@@ -29,6 +29,6 @@
     head: ClothingHeadBandSkull
     eyes: ClothingEyesGlassesCheapSunglasses
     mask: ClothingMaskGas
-    neck: ClothingNeckTieSci
+    tie: ClothingNeckTieSci # <Onyx-InventorySubslots-edited>
     outerClothing: ClothingOuterCoatRnd
     gloves: ClothingHandsGlovesLatex

@@ -143,6 +143,9 @@ public sealed partial class InventoryUIController : UIController, IOnStateEntere
             if (!data.ShowInWindow || !_slotGroups.TryGetValue(data.SlotGroup, out var container))
                 continue;
 
+            if (TryUpdateSubSlot(data, container)) // <Onyx-InventorySubslots>
+                continue;
+
             if (!container.TryGetButton(data.SlotName, out var button))
             {
                 button = CreateSlotButton(data);
@@ -157,7 +160,7 @@ public sealed partial class InventoryUIController : UIController, IOnStateEntere
         if (_inventoryHotbar == null)
             return;
 
-        var clothing = clientInv.SlotData.Where(p => !p.Value.HasSlotGroup).ToList();
+        var clothing = clientInv.SlotData.Where(p => !p.Value.HasSlotGroup && IsTopLevelSlot(p.Value)).ToList(); // <Onyx-InventorySubslots-edited>
 
         if (_inventoryButton != null)
             _inventoryButton.Visible = clothing.Count != 0;
@@ -207,9 +210,12 @@ public sealed partial class InventoryUIController : UIController, IOnStateEntere
             return;
         }
 
-        foreach (var (_, data) in clientInv.SlotData)
+        foreach (var data in OrderSlotsParentFirst(clientInv.SlotData.Values)) // <Onyx-InventorySubslots-edited>
         {
             if (!data.ShowInWindow)
+                continue;
+
+            if (TryUpdateStrippingSubSlot(data)) // <Onyx-InventorySubslots>
                 continue;
 
             if (!_strippingWindow!.InventoryButtons.TryGetButton(data.SlotName, out var button))
@@ -375,13 +381,20 @@ public sealed partial class InventoryUIController : UIController, IOnStateEntere
         if (!_slotGroups.TryGetValue(data.SlotGroup, out var slotGroup))
             return;
 
+        if (TryAddSubSlot(data, slotGroup)) // <Onyx-InventorySubslots>
+            return;
+
         var button = CreateSlotButton(data);
         slotGroup.TryAddButton(button);
+
     }
 
     private void RemoveSlot(SlotData data)
     {
         if (!_slotGroups.TryGetValue(data.SlotGroup, out var slotGroup))
+            return;
+
+        if (TryRemoveSubSlot(data, slotGroup)) // <Onyx-InventorySubslots>
             return;
 
         slotGroup.TryRemoveButton(data.SlotName, out _);
@@ -397,7 +410,7 @@ public sealed partial class InventoryUIController : UIController, IOnStateEntere
         UnloadSlots();
         _playerUid = clientUid;
         _playerInventory = clientInv;
-        foreach (var slotData in clientInv.SlotData.Values)
+        foreach (var slotData in OrderSlotsParentFirst(clientInv.SlotData.Values)) // <Onyx-InventorySubslots-edited>
         {
             AddSlot(slotData);
 
@@ -410,6 +423,7 @@ public sealed partial class InventoryUIController : UIController, IOnStateEntere
 
     private void UnloadSlots()
     {
+        CloseAllSubSlots(); // <Onyx-InventorySubslots>
         if (_inventoryButton != null)
             _inventoryButton.Visible = false;
 
@@ -427,13 +441,13 @@ public sealed partial class InventoryUIController : UIController, IOnStateEntere
     {
         var (entity, group, name, showStorage) = update;
 
-        if (_strippingWindow?.InventoryButtons.GetButton(update.Name) is { } inventoryButton)
+        if (GetStrippingButton(update.Name) is { } inventoryButton) // <Onyx-InventorySubslots-edited>
         {
             inventoryButton.SetEntity(entity);
             inventoryButton.StorageButton.Visible = showStorage;
         }
-
-        if (_slotGroups.GetValueOrDefault(group)?.GetButton(name) is not { } button)
+        if (_slotGroups.GetValueOrDefault(group) is not { } slotGroup ||
+            GetButtonWithSubSlots(slotGroup, name) is not { } button) // <Onyx-InventorySubslots-edited>
             return;
 
         if (_entities.TryGetComponent(entity, out VirtualItemComponent? virtb))

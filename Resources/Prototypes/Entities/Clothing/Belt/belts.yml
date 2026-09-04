@@ -120,6 +120,8 @@
     sprite: Clothing/Belt/holster.rsi
   - type: Clothing
     sprite: Clothing/Belt/holster.rsi
+    slots: SHOULDERS # <Onyx-InventorySubslots>
+    equippedState: equipped-BELT # <Onyx-InventorySubslots>
   - type: Storage
     grid:
     - 0,0,3,1
@@ -138,6 +140,8 @@
     sprite: Clothing/Belt/syndieholster.rsi
   - type: Clothing
     sprite: Clothing/Belt/syndieholster.rsi
+    slots: SHOULDERS # <Onyx-InventorySubslots>
+    equippedState: equipped-BELT # <Onyx-InventorySubslots>
   - type: Storage
     maxItemSize: Huge
     grid:

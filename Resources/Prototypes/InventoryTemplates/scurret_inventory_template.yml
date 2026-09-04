@@ -32,6 +32,25 @@
     uiWindowPos: 1,1
     strippingWindowPos: 0,1
     displayName: Neck
+  # <Onyx-InventorySubslots>
+  - name: tie
+    slotTexture: neck
+    fullTextureName: template_small
+    slotFlags: TIE
+    subSlotOf: neck
+    visualPriority: 10
+    uiWindowPos: 1,1
+    strippingWindowPos: 0,1
+    displayName: Tie
+  - name: shoulders
+    slotTexture: neck
+    fullTextureName: template_small
+    slotFlags: SHOULDERS
+    subSlotOf: neck
+    uiWindowPos: 1,1
+    strippingWindowPos: 0,1
+    displayName: Shoulders
+  # </Onyx-InventorySubslots>
   - name: jumpsuit
     slotTexture: uniform
     slotFlags: INNERCLOTHING

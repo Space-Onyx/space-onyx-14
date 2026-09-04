@@ -73,6 +73,25 @@
       uiWindowPos: 0,2
       strippingWindowPos: 0,1
       displayName: Neck
+    # <Onyx-InventorySubslots>
+    - name: tie
+      slotTexture: neck
+      fullTextureName: template_small
+      slotFlags: TIE
+      subSlotOf: neck
+      visualPriority: 10
+      uiWindowPos: 0,2
+      strippingWindowPos: 0,1
+      displayName: Tie
+    - name: shoulders
+      slotTexture: neck
+      fullTextureName: template_small
+      slotFlags: SHOULDERS
+      subSlotOf: neck
+      uiWindowPos: 0,2
+      strippingWindowPos: 0,1
+      displayName: Shoulders
+    # </Onyx-InventorySubslots>
     - name: mask
       slotTexture: mask
       slotFlags: MASK

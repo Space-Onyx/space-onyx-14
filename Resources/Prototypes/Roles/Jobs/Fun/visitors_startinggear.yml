@@ -291,9 +291,9 @@
     jumpsuit: ClothingUniformJumpsuitDetective
     shoes: ClothingShoesBootsCombatFilled
     head: ClothingHeadHatFedoraBrown
-    neck: ClothingNeckTieDet
+    tie: ClothingNeckTieDet # <Onyx-InventorySubslots-edited>
     id: VisitorPDA
-    belt: ClothingBeltHolsterFilled
+    shoulders: ClothingBeltHolsterFilled # <Onyx-InventorySubslots-edited>
     back: ClothingBackpackSecurity
     ears: ClothingHeadsetSecurity
     eyes: ClothingEyesGlassesSecurity
@@ -309,9 +309,9 @@
     jumpsuit: ClothingUniformJumpsuitDetectiveGrey
     shoes: ClothingShoesBootsCombatFilled
     head: ClothingHeadHatFedoraGrey
-    neck: ClothingNeckTieDet
+    tie: ClothingNeckTieDet # <Onyx-InventorySubslots-edited>
     id: VisitorPDA
-    belt: ClothingBeltHolsterFilled
+    shoulders: ClothingBeltHolsterFilled # <Onyx-InventorySubslots-edited>
     back: ClothingBackpackSatchelSecurity
     ears: ClothingHeadsetSecurity
     eyes: ClothingEyesGlassesSecurity
@@ -706,7 +706,7 @@
     jumpsuit: ClothingUniformJumpsuitPsychologist
     shoes: ClothingShoesLeather
     head: ClothingHeadHatMagician
-    neck: ClothingNeckTieRed
+    tie: ClothingNeckTieRed # <Onyx-InventorySubslots-edited>
     id: VisitorPDA
     belt: ClothingBeltMedicalFilled
     back: ClothingBackpackSatchelLeather
@@ -884,7 +884,7 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitCasualPurple
     shoes: ClothingShoesColorBlack
-    neck: ClothingNeckTieSci
+    tie: ClothingNeckTieSci # <Onyx-InventorySubslots-edited>
     id: VisitorPDA
     belt: ClothingBeltMedicalFilled
     back: ClothingBackpackSatchelScience
@@ -913,7 +913,7 @@
     jumpsuit: ClothingUniformJumpsuitScientist
     shoes: ClothingShoesBootsWinterSci
     head: ClothingHeadHatPurplesoft
-    neck: ClothingNeckTieSci
+    tie: ClothingNeckTieSci # <Onyx-InventorySubslots-edited>
     id: VisitorPDA
     belt: ClothingBeltMedicalFilled
     back: ClothingBackpackSatchelScience
@@ -945,7 +945,7 @@
     jumpsuit: ClothingUniformJumpsuitBartenderPurple
     shoes: ClothingShoesColorBlack
     head: ClothingHeadHatBowlerHat
-    neck: ClothingNeckTieSci
+    tie: ClothingNeckTieSci # <Onyx-InventorySubslots-edited>
     id: VisitorPDA
     back: ClothingBackpackSatchel
     ears: ClothingHeadsetService

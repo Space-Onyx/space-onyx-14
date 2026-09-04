@@ -30,5 +30,5 @@
     eyes: ClothingEyesGlassesCheapSunglasses
     mask: ClothingMaskBreath
     outerClothing: ClothingOuterCoatTrench
-    neck: ClothingNeckTieRed
+    tie: ClothingNeckTieRed # <Onyx-InventorySubslots-edited>
     gloves: ClothingHandsGlovesFingerless

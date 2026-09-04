@@ -2,7 +2,7 @@
 
 namespace Content.Client.UserInterface.Controls
 {
-    public sealed class SlotButton : SlotControl
+    public sealed partial class SlotButton : SlotControl // <Onyx-InventorySubslots-edited>
     {
         public SlotButton() { }
 
@@ -14,6 +14,8 @@ namespace Content.Client.UserInterface.Controls
             Highlight = slotData.Highlighted;
             StorageTexturePath = "Slots/back";
             SlotName = slotData.SlotName;
+
+            InitializeSubSlots(); // <Onyx-InventorySubslots>
         }
     }
 }

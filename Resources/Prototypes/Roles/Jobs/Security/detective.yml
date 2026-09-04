@@ -31,7 +31,7 @@
     eyes: ClothingEyesGlassesSecurity
     id: DetectivePDA
     ears: ClothingHeadsetSecurity
-    belt: ClothingBeltHolsterFilled
+    shoulders: ClothingBeltHolsterFilled # <Onyx-InventorySubslots-edited>
   storage:
     back:
     - Flash
@@ -45,5 +45,5 @@
   equipment:
     head: ClothingHeadHatFedoraBrown
     mask: ClothingMaskGasSecurity
-    neck: ClothingNeckTieDet
+    tie: ClothingNeckTieDet # <Onyx-InventorySubslots-edited>
     gloves: ClothingHandsGlovesForensic

@@ -20,7 +20,7 @@
     shoes: ClothingShoesBootsLaceup
     id: TramDriverPDA
     ears: ClothingHeadsetService
-    neck: ClothingNeckTieSerious
+    tie: ClothingNeckTieSerious # <Onyx-InventorySubslots-edited>
 
 - type: chameleonOutfit
   id: TramDriverChameleonOutfit
@@ -30,6 +30,6 @@
     eyes: ClothingEyesGlasses
     mask: ClothingMaskBreath
     outerClothing: ClothingOuterSuitTramDriver
-    neck: ClothingNeckTieSerious
+    tie: ClothingNeckTieSerious # <Onyx-InventorySubslots-edited>
     belt: ClothingBeltUtility
     gloves: ClothingHandsGlovesColorWhite

@@ -28,6 +28,6 @@
     head: ClothingHeadHatBeretRND
     eyes: ClothingEyesGlassesCheapSunglasses
     mask: ClothingMaskGas
-    neck: ClothingNeckTieSci
+    tie: ClothingNeckTieSci # <Onyx-InventorySubslots-edited>
     outerClothing: ClothingOuterCoatLabSeniorResearcher
     gloves: ClothingHandsGlovesLatex

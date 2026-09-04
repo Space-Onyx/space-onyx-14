@@ -5,6 +5,10 @@
   name: tie
   description: A neosilk clip-on tie.
   components:
+  # <Onyx-InventorySubslots>
+  - type: Clothing
+    slots: TIE
+  # </Onyx-InventorySubslots>
   - type: Tag
     tags:
     - ClothMade

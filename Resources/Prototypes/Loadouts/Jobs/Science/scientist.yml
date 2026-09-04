@@ -36,7 +36,7 @@
 - type: loadout
   id: ScientistTie
   equipment:
-    neck: ClothingNeckTieSci
+    tie: ClothingNeckTieSci # <Onyx-InventorySubslots-edited>
 
 # Jumpsuit
 - type: loadout
