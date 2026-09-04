@@ -1,0 +1,12 @@
+# Content taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: Tag
+  id: Tear1
+
+- type: Tag
+  id: Tear2
+
+- type: Tag
+  id: Tear3
+
+- type: Tag
+  id: VampireBloodSource

@@ -1,0 +1,13 @@
+// This file contains code derived from Wega (https://github.com/wega-team/ss14-wega).
+// Licensed under the GNU General Public License v3.0.
+using Content.Shared.FixedPoint;
+
+namespace Content.Shared.Genetics;
+
+[RegisterComponent]
+public sealed partial class RegenerationGenComponent : Component
+{
+    public FixedPoint2 RegenerationModifier = -0.5;
+
+    public float NextTimeTick;
+}

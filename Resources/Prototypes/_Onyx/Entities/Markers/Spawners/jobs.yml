@@ -1,0 +1,12 @@
+# Content taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: entity
+  id: SpawnPointGeneticist
+  parent: SpawnPointJobBase
+  name: geneticist
+  components:
+  - type: SpawnPoint
+    job_id: Geneticist
+  - type: Sprite
+    layers:
+    - state: green
+    - state: geneticist

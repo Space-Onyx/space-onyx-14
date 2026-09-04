@@ -1,0 +1,15 @@
+// This file contains code derived from Wega (https://github.com/wega-team/ss14-wega).
+// Licensed under the GNU General Public License v3.0.
+using Robust.Shared.GameStates;
+
+namespace Content.Shared.Genetics;
+
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class DnaClientComponent : Component
+{
+    [DataField, ViewVariables, AutoNetworkedField]
+    public bool ConnectedToServer = false;
+
+    [DataField, ViewVariables, AutoNetworkedField]
+    public EntityUid? Server;
+}

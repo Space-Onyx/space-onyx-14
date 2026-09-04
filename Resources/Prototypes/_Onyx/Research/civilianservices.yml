@@ -559,3 +559,20 @@
     state: icon
   technologyPrerequisites:
     - AdvancedEntertainment
+
+# Content below taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: technology
+  id: GeneticsModification
+  name: research-technology-genetics-modification
+  icon:
+    sprite: Structures/Machines/scanner.rsi
+    state: open
+  discipline: CivilianServices
+  tier: 2
+  cost: 10000
+  position: 2,1
+  technologyPrerequisites:
+  - BiochemicalStasis
+  recipeUnlocks:
+  - DnaModifierComputerCircuitboard
+  - BorgModuleDNA

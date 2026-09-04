@@ -7,3 +7,14 @@
   cost: 3000
   category: cargoproduct-category-name-science
   group: market
+
+# Content below taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: cargoProduct
+  id: CrateBoxDnaFiskCargo
+  icon:
+    sprite: Objects/Misc/module.rsi
+    state: datadisk_label
+  product: CrateBoxDnaFisk
+  cost: 400
+  category: cargoproduct-category-name-science
+  group: market

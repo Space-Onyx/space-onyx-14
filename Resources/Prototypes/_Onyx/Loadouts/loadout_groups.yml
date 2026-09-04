@@ -221,3 +221,26 @@
   minLimit: 0
   maxLimit: 1
   loadouts: [OnyxUnderwearSocksCaptain, OnyxUnderwearSocksKneeCaptain, OnyxUnderwearSocksThighCaptain, OnyxUnderwearSocksNormal, OnyxUnderwearSocksHigh, OnyxUnderwearSocksShort, OnyxUnderwearSocksThigh, OnyxUnderwearStockings, OnyxUnderwearSocksComfyBlue, OnyxUnderwearSocksComfyGrey, OnyxUnderwearSocksComfyRed, OnyxUnderwearSocksComfyViolet, OnyxUnderwearSocksBee, OnyxUnderwearSocksBeeThigh, OnyxUnderwearSocksCoder, OnyxUnderwearStockingsLace, OnyxUnderwearStockingsBlack, OnyxUnderwearStockingsComfyBlue, OnyxUnderwearStockingsComfyGrey, OnyxUnderwearStockingsComfyRed, OnyxUnderwearStockingsComfyViolet, OnyxUnderwearSocksAzure, OnyxUnderwearSocksKneeAzure, OnyxUnderwearSocksThighAzure, OnyxUnderwearSocksBlack, OnyxUnderwearSocksKneeBlack, OnyxUnderwearSocksThighBlack, OnyxUnderwearSocksCyan, OnyxUnderwearSocksKneeCyan, OnyxUnderwearSocksThighCyan, OnyxUnderwearSocksFurr, OnyxUnderwearSocksKneeFurr, OnyxUnderwearSocksThighFurr, OnyxUnderwearSocksGreen, OnyxUnderwearSocksKneeGreen, OnyxUnderwearSocksThighGreen, OnyxUnderwearSocksHomelander, OnyxUnderwearSocksKneeHomelander, OnyxUnderwearSocksThighHomelander, OnyxUnderwearSocksHotpink, OnyxUnderwearSocksKneeHotpink, OnyxUnderwearSocksThighHotpink, OnyxUnderwearSocksOrange, OnyxUnderwearSocksKneeOrange, OnyxUnderwearSocksThighOrange, OnyxUnderwearSocksPink, OnyxUnderwearSocksKneePink, OnyxUnderwearSocksThighCreepy, OnyxUnderwearSocksKneeFishnet, OnyxUnderwearSocksFullFishnet, OnyxUnderwearSocksKneeThin, OnyxUnderwearSocksThighThin, OnyxUnderwearSocksThighBlue, OnyxUnderwearSocksThighFishnet, OnyxUnderwearSocksThighGrey, OnyxUnderwearSocksThighPantyhose, OnyxUnderwearSocksThighPurple, OnyxUnderwearSocksThighRed, OnyxUnderwearSocksYellow, OnyxUnderwearSocksKneeYellow, OnyxUnderwearSocksThighYellow]
+
+# Content below taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: loadoutGroup
+  id: GeneticsJumpsuit
+  name: loadout-group-genetics-jumpsuit
+  loadouts:
+  - GeneticsJumpsuit
+  - GeneticsJumpskirt
+
+- type: loadoutGroup
+  id: GeneticsBackpack
+  name: loadout-group-genetics-backpack
+  loadouts:
+  - GeneticsBackpack
+  - GeneticsSatchel
+  - GeneticsDuffel
+
+- type: loadoutGroup
+  id: GeneticsOuterClothing
+  name: loadout-group-genetics-outerclothing
+  loadouts:
+  - GeneticsOuterClothingLab
+  - GeneticsOuterClothingWinter

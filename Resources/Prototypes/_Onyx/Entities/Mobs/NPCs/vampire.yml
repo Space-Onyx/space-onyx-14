@@ -1,0 +1,102 @@
+# Content taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: entity
+  parent: MobBat
+  id: MobBats
+  name: bats
+  description: A pack of bats controlled by vampire will.
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - sprite: _Onyx/Mobs/Animals/bats.rsi
+      state: bats
+      map: [enum.DamageStateVisualLayers.Base]
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: bats
+      Dead:
+        Base: bats_dead
+  - type: ActionGrant
+    actions: [ActionVampireResonantShriek]
+  - type: LeechMeleeWeapon
+    healGroups:
+      groups:
+        Brute: -1
+        Burn: -1
+        Airloss: -1
+        Toxin: -1
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/Effects/bite.ogg
+    angle: 0
+    animation: WeaponArcBite
+    damage:
+      types:
+        Piercing: 13
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      80: Dead
+  - type: HTN
+    rootTask:
+      task: SimpleHostileCompound
+  - type: NpcFactionMember
+    factions: [Vampire]
+  - type: NoSlip
+
+- type: entity
+  parent:
+  - BaseSimpleMob
+  - MobCombat
+  - MobBloodstream
+  - MobFlammable
+  - BaseMobAnimal
+  id: MobHellHound
+  name: hound
+  description: A terrifying hound summoned by vampire will.
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - sprite: _Onyx/Mobs/Animals/hellhound.rsi
+      state: hellhound
+      map: [enum.DamageStateVisualLayers.Base]
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: hellhound
+      Dead:
+        Base: hellhound_dead
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 4.5
+    baseSprintSpeed: 4.5
+  - type: ActionGrant
+    actions: [ActionVampireLungeFinale]
+  - type: LeechMeleeWeapon
+    healGroups:
+      groups:
+        Brute: -1
+        Burn: -1
+        Airloss: -1
+        Toxin: -1
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/Effects/bite.ogg
+    angle: 0
+    animation: WeaponArcBite
+    damage:
+      types:
+        Piercing: 15
+        Structural: 80
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      140: Dead
+  - type: HTN
+    rootTask:
+      task: SimpleHostileCompound
+  - type: NpcFactionMember
+    factions: [Vampire]
+  - type: NoSlip
+  - type: Climbing

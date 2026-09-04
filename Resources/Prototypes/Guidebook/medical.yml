@@ -18,7 +18,7 @@
 - type: guideEntry
   id: Genetic
   name: guide-entry-genetic
-  text: "/ServerInfo/_Wega/Guidebook/Medical/Genetic.xml"
+  text: "/ServerInfo/_Onyx/Guidebook/Medical/Genetic.xml" # <Onyx-WegaAssets-edited>
 
 - type: guideEntry
   id: MedicalDoctor

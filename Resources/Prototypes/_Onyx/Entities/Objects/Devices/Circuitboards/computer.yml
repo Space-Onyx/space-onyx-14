@@ -1,0 +1,9 @@
+# Content taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: DnaModifierComputerCircuitboard
+  name: DNA-modifier computer board
+  description: A computer printed circuit board for a DNA-modifier console.
+  components:
+  - type: ComputerBoard
+    prototype: DnaModifierConsole

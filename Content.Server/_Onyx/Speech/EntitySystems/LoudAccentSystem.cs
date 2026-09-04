@@ -1,0 +1,39 @@
+// This file contains code derived from Wega (https://github.com/wega-team/ss14-wega).
+// Licensed under the GNU General Public License v3.0.
+using Content.Server.Speech.Components;
+using Content.Shared.Speech;
+using Robust.Shared.Random;
+
+namespace Content.Server.Speech.EntitySystems
+{
+    public sealed partial class LoudAccentSystem : EntitySystem
+    {
+        [Dependency] private IRobustRandom _random = default!;
+
+        public override void Initialize()
+        {
+            SubscribeLocalEvent<LoudAccentComponent, AccentGetEvent>(OnAccent);
+        }
+
+        private static readonly IReadOnlyList<string> Exclamations = new List<string>
+        {
+            "!!!", "!!", "!?", "?!"
+        }.AsReadOnly();
+
+        public string Accentuate(string message)
+        {
+            var loudMessage = message.ToUpperInvariant();
+            if (_random.Prob(0.8f))
+            {
+                loudMessage += _random.Pick(Exclamations);
+            }
+
+            return loudMessage;
+        }
+
+        private void OnAccent(EntityUid uid, LoudAccentComponent component, AccentGetEvent args)
+        {
+            args.Message = Accentuate(args.Message);
+        }
+    }
+}

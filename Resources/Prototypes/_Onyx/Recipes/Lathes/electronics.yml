@@ -1,0 +1,8 @@
+# Content taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: latheRecipe
+  id: DnaModifierComputerCircuitboard
+  result: DnaModifierComputerCircuitboard
+  completetime: 4
+  materials:
+    Steel: 100
+    Glass: 900

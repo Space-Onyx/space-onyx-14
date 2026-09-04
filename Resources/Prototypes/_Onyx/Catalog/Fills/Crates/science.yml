@@ -8,3 +8,14 @@
     contents:
     - id: ModsuitCoreStandard
       amount: 3
+
+# Content below taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: entity
+  id: CrateBoxDnaFisk
+  parent: CrateScience
+  name: crate with box dna disks
+  description: Contains a box of DNA disks.
+  components:
+  - type: StorageFill
+    contents:
+    - id: BoxDnaFisk

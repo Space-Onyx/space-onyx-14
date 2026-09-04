@@ -1,0 +1,20 @@
+# Content taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: entity
+  parent: BaseItem
+  id: WeaponNullRod
+  name: null rod
+  description: An obsidian rod that strikes paranormal creatures.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Melee/nullrod.rsi
+    state: icon
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Melee/nullrod.rsi
+    slots: [belt]
+  - type: Item
+    size: Normal
+  - type: NullRod
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 15

@@ -1,4 +1,0 @@
-- type: entity
-  parent: StatusEffectSlowdown
-  id: VampireSlowdownStatusEffect
-  name: vampire slowdown

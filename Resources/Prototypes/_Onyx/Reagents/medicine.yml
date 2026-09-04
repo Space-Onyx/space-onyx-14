@@ -1,0 +1,17 @@
+# Content taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: reagent
+  id: Mutadon
+  name: reagent-name-mutadon
+  group: Medicine
+  desc: reagent-desc-mutadon
+  physicalDesc: reagent-physical-desc-opaque
+  flavor: medicine
+  color: "#64a0aa"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:ChemCureDnaDisease
+      - !type:HealthChange
+        damage:
+          types:
+            Cellular: 0.5

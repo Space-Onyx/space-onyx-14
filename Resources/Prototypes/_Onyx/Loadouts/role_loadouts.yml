@@ -1,0 +1,13 @@
+# Content taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: roleLoadout
+  id: JobGeneticist
+  groups:
+  - GeneticsJumpsuit
+  - GeneticsBackpack
+  - GeneticsOuterClothing
+  - MedicalShoes
+  - Glasses
+  - AssistiveItems
+  - SurvivalMedical
+  - Trinkets
+  - GroupSpeciesBreathToolMedical

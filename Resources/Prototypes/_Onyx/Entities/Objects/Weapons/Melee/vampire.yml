@@ -1,0 +1,37 @@
+# Content taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: entity
+  parent: BaseItem
+  id: WeaponVampireClaws
+  name: vampire claws
+  description: Seething streams of fresh blood formed sharp claws.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Melee/vampireclaws.rsi
+    state: icon
+  - type: MultiHandedItem
+  - type: Unremoveable
+    deleteOnDrop: true
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: DamageOnHit
+    damage:
+      types:
+        Blunt: 1
+  - type: VampireClaws
+    damage:
+      types:
+        Heat: -1
+        Blunt: -2
+        Slash: -2
+        Piercing: -2
+  - type: MeleeWeapon
+    autoAttack: true
+    attackRate: 2.5
+    wideAnimationRotation: 180
+    damage:
+      types:
+        Slash: 15
+    animation: WeaponArcClaw
+  - type: BonusMeleeDamage
+    heavyDamageMultiplier: 1.5

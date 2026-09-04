@@ -1,0 +1,5 @@
+# Content taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: guideEntry
+  id: Vampires
+  name: guide-entry-vampires
+  text: /ServerInfo/_Onyx/Guidebook/Antagonist/Vampires.xml

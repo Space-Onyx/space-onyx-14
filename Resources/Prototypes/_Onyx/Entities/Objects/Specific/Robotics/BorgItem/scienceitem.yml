@@ -1,0 +1,20 @@
+# Content taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: entity
+  parent: BaseItem
+  id: BorgGeneratorCleanSe
+  name: injector clean ce generator
+  description: Tastes like cardboard.
+  components:
+  - type: UseDelay
+    delay: 60
+  - type: Sprite
+    sprite: Objects/Specific/Medical/healthanalyzer.rsi
+    state: analyzer
+  - type: Item
+    size: Tiny
+  - type: SpawnItemsOnUse
+    uses: 100000
+    items:
+    - id: DnaInjectorCleanSe
+    sound:
+      path: /Audio/Machines/phasein.ogg

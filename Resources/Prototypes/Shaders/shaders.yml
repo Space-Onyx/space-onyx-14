@@ -143,14 +143,14 @@
 - type: shader
   id: Dizzy
   kind: source
-  path: "/Textures/_Wega/Shaders/dizzy.swsl"
+  path: "/Textures/_Onyx/Shaders/dizzy.swsl" # <Onyx-WegaAssets-edited>
 
 - type: shader
   id: Colourblindness
   kind: source
-  path: "/Textures/_Wega/Shaders/colourblindness.swsl"
+  path: "/Textures/_Onyx/Shaders/colourblindness.swsl" # <Onyx-WegaAssets-edited>
 
 - type: shader
   id: NaturalNightVision
   kind: source
-  path: "/Textures/_Wega/Shaders/nightvision.swsl"
+  path: "/Textures/_Onyx/Shaders/nightvision.swsl" # <Onyx-WegaAssets-edited>

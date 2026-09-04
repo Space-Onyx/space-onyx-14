@@ -247,7 +247,7 @@ public sealed partial class AdminVerbSystem
         {
             Text = vampireName,
             Category = VerbCategory.Antag,
-            Icon = new SpriteSpecifier.Rsi(new("/Textures/_Wega/Interface/Actions/actions_vampire.rsi"), "bite"),
+            Icon = new SpriteSpecifier.Rsi(new("/Textures/_Onyx/Interface/Actions/actions_vampire.rsi"), "bite"),
             Act = () => _antag.ForceMakeAntag<VampireRuleComponent>(targetPlayer, DefaultVampireRule),
             Impact = LogImpact.High,
             Message = string.Join(": ", vampireName, Loc.GetString("admin-verb-make-vampire")),

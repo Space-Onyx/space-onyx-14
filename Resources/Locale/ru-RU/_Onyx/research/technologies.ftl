@@ -71,3 +71,7 @@ research-technology-ore-bag-holding = Блюспейс-хранилище руд
 research-technology-autonomous-robotics = Автономная робототехника
 research-technology-organoid-robotics = Органоидная робототехника
 research-technology-bitrunning = Битраннинг
+
+
+# Content below taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+research-technology-genetics-modification = Модификация ДНК

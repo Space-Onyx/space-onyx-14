@@ -1,9 +1,0 @@
-- type: cargoProduct
-  id: CrateBoxDnaFiskCargo
-  icon:
-    sprite: Objects/Misc/module.rsi
-    state: datadisk_label
-  product: CrateBoxDnaFisk
-  cost: 400
-  category: cargoproduct-category-name-science
-  group: market

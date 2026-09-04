@@ -1,0 +1,34 @@
+// This file contains code derived from Wega (https://github.com/wega-team/ss14-wega).
+// Licensed under the GNU General Public License v3.0.
+using Content.Shared.Actions;
+using Robust.Shared.Serialization;
+
+namespace Content.Shared.Genetics;
+
+public sealed partial class MindCommunicationActionEvent : InstantActionEvent
+{
+}
+
+[Serializable, NetSerializable]
+public sealed partial class MindCommunicationMenuOpenedEvent : EntityEventArgs
+{
+    public NetEntity Uid { get; }
+
+    public MindCommunicationMenuOpenedEvent(NetEntity uid)
+    {
+        Uid = uid;
+    }
+}
+
+[Serializable, NetSerializable]
+public sealed partial class MindCommunicationTargetSelectedEvent : EntityEventArgs
+{
+    public NetEntity Sender { get; }
+    public NetEntity Target { get; }
+
+    public MindCommunicationTargetSelectedEvent(NetEntity sender, NetEntity target)
+    {
+        Sender = sender;
+        Target = target;
+    }
+}

@@ -1,9 +1,0 @@
-- type: entity
-  id: CrateBoxDnaFisk
-  parent: CrateScience
-  name: crate with box dna disks
-  description: Contains a box of DNA disks.
-  components:
-  - type: StorageFill
-    contents:
-    - id: BoxDnaFisk
