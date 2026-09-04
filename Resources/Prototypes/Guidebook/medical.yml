@@ -7,12 +7,18 @@
   - Chemist
   - Cloning
   - Cryogenics
+  - Genetic # <Onyx-WegaGenetics>
   # <Onyx-WoundGuidebook>
   - BodyPartDamage
   - Wounds
   - WoundTreatment
   - Surgery
   # </Onyx-WoundGuidebook>
+
+- type: guideEntry
+  id: Genetic
+  name: guide-entry-genetic
+  text: "/ServerInfo/_Wega/Guidebook/Medical/Genetic.xml"
 
 - type: guideEntry
   id: MedicalDoctor

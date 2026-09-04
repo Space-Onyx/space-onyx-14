@@ -1,0 +1,15 @@
+- type: technology
+  id: GeneticsModification
+  name: research-technology-genetics-modification
+  icon:
+    sprite: Structures/Machines/scanner.rsi
+    state: open
+  discipline: CivilianServices
+  tier: 2
+  cost: 10000
+  position: 2,1
+  technologyPrerequisites:
+  - BiochemicalStasis
+  recipeUnlocks:
+  - DnaModifierComputerCircuitboard
+  - BorgModuleDNA

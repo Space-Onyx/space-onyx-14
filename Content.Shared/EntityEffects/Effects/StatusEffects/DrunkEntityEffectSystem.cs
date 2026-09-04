@@ -1,4 +1,5 @@
 ﻿using Content.Shared.Drunk;
+using Content.Shared.Genetics;
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared.EntityEffects.Effects.StatusEffects;
@@ -15,6 +16,9 @@ public sealed partial class DrunkEntityEffectSystem : EntityEffectSystem<MetaDat
     protected override void Effect(Entity<MetaDataComponent> entity, ref EntityEffectEvent<Drunk> args)
     {
         var boozePower = args.Effect.BoozePower * args.Scale;
+
+        if (HasComp<SoberGenComponent>(entity))
+            boozePower *= 0.5f;
 
         _drunk.TryApplyDrunkenness(entity, boozePower);
     }

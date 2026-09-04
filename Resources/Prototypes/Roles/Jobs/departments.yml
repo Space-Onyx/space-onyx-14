@@ -103,6 +103,7 @@
   - Chemist
   - ChiefMedicalOfficer
   - MedicalDoctor
+  - Geneticist # <Onyx-WegaGenetics>
   # <Onyx-Surgeon>
   - Surgeon
   # </Onyx-Surgeon>
@@ -139,6 +140,7 @@
   - ResearchDirector
   - SeniorResearcher # Corvax-MentorRoles
   - Scientist
+  - Geneticist # <Onyx-WegaGenetics>
   - ResearchAssistant
   - Roboticist # <Onyx-Roboticist-edited>
 

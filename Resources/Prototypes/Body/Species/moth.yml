@@ -151,6 +151,9 @@
   id: MobMoth
   name: Urist McFluff
   components:
+  - type: DnaModifier # <Onyx-WegaGenetics>
+    upper: MobMoth
+    lowest: MobMothroach
   - type: Damageable
     damageModifierSet: Moth
   - type: ZombieAccentOverride

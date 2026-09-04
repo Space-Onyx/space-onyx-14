@@ -5,6 +5,8 @@
   id: MobArcan
   name: Urisst' Mzhand Arcan
   components:
+  - type: DnaModifier
+    upper: MobArcan
   - type: Damageable
     damageModifierSet: Demon
   - type: Speech

@@ -97,4 +97,13 @@ public partial class InventorySystem
         // We finally try to equip the item, otherwise we delete it.
         return TryEquip(uid, item, slot, silent, force) || DeleteItem();
     }
+
+    public void CloneInventory(Entity<InventoryComponent> ent, InventoryComponent target)
+    {
+        ent.Comp.SpeciesId = target.SpeciesId;
+        ent.Comp.Displacements = new(target.Displacements);
+        ent.Comp.FemaleDisplacements = new(target.FemaleDisplacements);
+        ent.Comp.MaleDisplacements = new(target.MaleDisplacements);
+        Dirty(ent);
+    }
 }

@@ -150,6 +150,8 @@
   - BaseSpeciesMobOrganic
   id: MobTajaran
   components:
+  - type: DnaModifier # <Onyx-WegaGenetics>
+    upper: MobTajaran
   - type: Satiation
     satiations:
       Hunger:

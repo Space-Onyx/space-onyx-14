@@ -75,6 +75,9 @@
   id: MobDiona
   name: Urist McPlants
   components:
+  - type: DnaModifier # <Onyx-WegaGenetics>
+    upper: MobDiona
+    lowest: MobDionaNymph
   - type: Respirator
     damage:
       types:

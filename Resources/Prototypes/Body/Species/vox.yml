@@ -167,6 +167,8 @@
   id: MobVox
   name: Urist McVox
   components:
+  - type: DnaModifier # <Onyx-WegaGenetics>
+    upper: MobVox
   - type: Damageable
     damageModifierSet: Vox
   - type: Speech

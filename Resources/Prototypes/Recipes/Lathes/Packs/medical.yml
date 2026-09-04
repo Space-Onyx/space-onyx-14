@@ -116,6 +116,7 @@
   - StasisBedMachineCircuitboard
   - CryoPodMachineCircuitboard
   - BiomassReclaimerMachineCircuitboard
+  - DnaModifierComputerCircuitboard # <Onyx-WegaGenetics>
   # <Onyx-Cybernetics>
   - MedicalBiofabMachineBoard
   # </Onyx-Cybernetics>

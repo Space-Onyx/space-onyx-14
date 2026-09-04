@@ -5,6 +5,9 @@
   id: MobFelinid
   name: Urist McFelinid
   components:
+  - type: DnaModifier
+    upper: MobFelinid
+    lowest: MobCat
   - type: Damageable
     damageModifierSet: Felinid
   - type: MeleeWeapon

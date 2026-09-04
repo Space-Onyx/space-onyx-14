@@ -41,7 +41,7 @@
             Chemist: [ 2, 2 ]
             Virologist: [ 3, 3 ]
             Surgeon: [ 1, 1 ]
-            #Geneticist: [ 2, 2 ]
+            Geneticist: [ 2, 2 ]
             # science
             ResearchDirector: [ 1, 1 ]
             Scientist: [ 4, 6 ]

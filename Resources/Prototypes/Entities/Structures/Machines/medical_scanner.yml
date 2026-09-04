@@ -48,8 +48,17 @@
   - type: ContainerContainer
     containers:
       scanner-bodyContainer: !type:ContainerSlot
+      beakerSlot: !type:ContainerSlot # <Onyx-WegaGenetics>
       machine_board: !type:Container
       machine_parts: !type:Container
+  # <Onyx-WegaGenetics>
+  - type: ItemSlots
+    slots:
+      beakerSlot:
+        whitelist:
+          components:
+          - FitsInDispenser
+  # </Onyx-WegaGenetics>
   - type: Damageable
     damageModifierSet: GlassMod
   - type: Destructible

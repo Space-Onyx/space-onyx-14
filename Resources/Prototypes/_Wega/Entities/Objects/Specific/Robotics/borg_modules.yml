@@ -1,0 +1,36 @@
+- type: entity
+  id: BorgModuleDNA
+  parent: [ BaseBorgModuleScience, BaseProviderBorgModule ]
+  name: DNA cyborg module
+  description: Pee wee has never been so much fun!
+  components:
+  - type: Sprite
+    sprite: _Wega/Objects/Specific/Robotics/borgmodule.rsi
+    layers:
+    - state: science
+    - state: icon-dna
+  - type: ItemBorgModule
+    hands:
+    - hand:
+        emptyRepresentative: DnaModifierInjector
+        emptyLabel: borg-slot-dnainjector-empty
+        whitelist:
+          components:
+          - DnaModifierInjector
+          - DnaModifierDisk
+    - item: BoxDnaFisk
+    - item: Pen
+    - hand:
+        emptyLabel: borg-slot-documents-empty
+        emptyRepresentative: Paper
+        whitelist:
+          tags:
+          - Book
+          - Dice
+          - Document
+          - Figurine
+          - TabletopBoard
+          - Write
+    - item: BorgGeneratorCleanSe
+  - type: BorgModuleIcon
+    icon: { sprite: _Wega/Objects/Specific/Robotics/borgmodule.rsi, state: genetic-module }

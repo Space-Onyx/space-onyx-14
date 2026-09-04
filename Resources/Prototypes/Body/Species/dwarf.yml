@@ -49,6 +49,9 @@
   id: MobDwarf
   name: Urist McHands the Dwarf
   components:
+  - type: DnaModifier # <Onyx-WegaGenetics>
+    upper: MobDwarf
+    lowest: MobMonkeyDwarf
   # <Onyx-Languages>
   - type: LanguageKnowledge
     speaks: [TauCetiBasic, SolCommon]

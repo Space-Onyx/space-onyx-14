@@ -299,6 +299,13 @@
         damage:
           types:
             Radiation: 3
+      # <Onyx-WegaGenetics>
+      - !type:ChemMutateDna
+        conditions:
+        - !type:ReagentCondition
+          reagent: UnstableMutagen
+          min: 50
+      # </Onyx-WegaGenetics>
 
 - type: reagent
   id: HeartbreakerToxin

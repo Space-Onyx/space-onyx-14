@@ -1,4 +1,5 @@
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization; // <Onyx-WegaGenetics>
 using Robust.Shared.Utility;
 
 namespace Content.Shared.Humanoid.Markings
@@ -13,6 +14,9 @@ namespace Content.Shared.Humanoid.Markings
 
         [DataField("bodyPart", required: true)]
         public HumanoidVisualLayers BodyPart { get; private set; } = default!;
+
+        [DataField]
+        public MarkingTypes MarkingType { get; private set; } = MarkingTypes.Base;
 
         [DataField]
         public List<ProtoId<MarkingsGroupPrototype>>? GroupWhitelist;
@@ -66,5 +70,12 @@ namespace Content.Shared.Humanoid.Markings
         /// </remarks>
         [DataField]
         public float RandomWeight = 1f;
+    }
+
+    [Serializable, NetSerializable]
+    public enum MarkingTypes : byte
+    {
+        Base,
+        NonGenetics
     }
 }

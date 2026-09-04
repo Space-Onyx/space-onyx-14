@@ -1,0 +1,12 @@
+- type: roleLoadout
+  id: JobGeneticist
+  groups:
+  - GeneticsJumpsuit
+  - GeneticsBackpack
+  - GeneticsOuterClothing
+  - MedicalShoes
+  - Glasses
+  - AssistiveItems
+  - SurvivalMedical
+  - Trinkets
+  - GroupSpeciesBreathToolMedical

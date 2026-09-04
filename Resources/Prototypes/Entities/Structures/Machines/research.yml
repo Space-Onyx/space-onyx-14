@@ -23,6 +23,7 @@
     color: "#b211b2"
   - type: LitOnPowered
   - type: ResearchServer
+  - type: DnaServer # <Onyx-WegaGenetics>
   # <Onyx-RDServerPoints>
   - type: ResearchPointSource
     pointspersecond: 15

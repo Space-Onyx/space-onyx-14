@@ -5,6 +5,8 @@
   id: MobShadowkin
   name: Urist McShadow
   components:
+  - type: DnaModifier
+    upper: MobShadowkin
   - type: LanguageKnowledge
     speaks: [ TauCetiBasic, Marish ]
     understands: [ TauCetiBasic, Marish ]

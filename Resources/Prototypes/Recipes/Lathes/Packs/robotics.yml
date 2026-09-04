@@ -41,6 +41,7 @@
   - BorgModuleAdvancedTopical
   - BorgModuleAdvancedMining
   - BorgModuleAdvancedSurgery # <Onyx-BorgSurgery>
+  - BorgModuleDNA # <Onyx-WegaGenetics>
 # </Onyx-RoboticsDynamic-edited>
 
 - type: latheRecipePack

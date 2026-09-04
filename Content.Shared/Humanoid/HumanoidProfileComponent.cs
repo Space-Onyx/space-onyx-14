@@ -1,5 +1,6 @@
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.Corvax.TTS;
+using Content.Shared.Genetics.Systems; // <Onyx-WegaGenetics>
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
 using Content.Shared.Speech.Components;
@@ -13,7 +14,7 @@ namespace Content.Shared.Humanoid;
 /// Dictates what species and age this character "looks like"
 /// </summary>
 [NetworkedComponent, RegisterComponent, AutoGenerateComponentState(true)]
-[Access(typeof(HumanoidProfileSystem))]
+[Access(typeof(HumanoidProfileSystem), typeof(SharedDnaModifierSystem), typeof(GeneticsSmallHeightSystem))] // <Onyx-WegaGenetics-edited>
 public sealed partial class HumanoidProfileComponent : Component
 {
     [DataField, AutoNetworkedField]

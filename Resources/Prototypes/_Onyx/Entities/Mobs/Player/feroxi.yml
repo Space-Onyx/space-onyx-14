@@ -3,6 +3,8 @@
   id: MobFeroxi
   name: Urist McFin
   components:
+  - type: DnaModifier
+    upper: MobFeroxi
   - type: Satiation
     satiations:
       Thirst:

@@ -105,6 +105,9 @@
   id: MobHuman
   name: Urist McHands
   components:
+  - type: DnaModifier # <Onyx-WegaGenetics>
+    upper: MobHuman
+    lowest: MobMonkey
   # <Onyx-Languages>
   - type: LanguageKnowledge
     speaks: [TauCetiBasic, SolCommon]

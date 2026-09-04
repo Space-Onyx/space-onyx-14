@@ -1,0 +1,12 @@
+- type: entity
+  id: MobMonkeyDwarf
+  parent: MobMonkey
+  suffix: AI, Dwarf
+  components:
+  - type: Sprite
+    noRot: true
+    drawdepth: Mobs
+    scale: 1, 0.8
+  - type: DnaModifier
+    upper: MobDwarf
+    lowest: MobMonkeyDwarf

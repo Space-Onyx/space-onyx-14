@@ -1,0 +1,88 @@
+- type: entity
+  id: ActionGenCloakOfDarkness
+  parent: BaseAction
+  name: cloak of darkness
+  description: "You are a shadow."
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    useDelay: 15
+  - type: Sprite
+    sprite: Clothing/Neck/Cloaks/void.rsi
+    layers:
+    - state: icon
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:CloakOfDarknessActionEvent
+
+- type: entity
+  id: ActionGenPolymorphism
+  parent: BaseAction
+  name: polymorphism
+  description: "Take on someone else's form."
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    itemIconStyle: BigAction
+    useDelay: 300
+  - type: Sprite
+    sprite: Clothing/Neck/Cloaks/void.rsi
+    layers:
+    - state: icon
+      map: ["enum.ActionVisuals.Icon"]
+  - type: TargetAction
+  - type: EntityTargetAction
+    event: !type:PolymorphismActionEvent
+
+- type: entity
+  id: ActionMindCommunicationGen
+  parent: BaseAction
+  name: mind communication
+  description: "Contact someone through their mind."
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    useDelay: 30
+  - type: Sprite
+    sprite: Clothing/Neck/Cloaks/void.rsi
+    layers:
+    - state: icon
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:MindCommunicationActionEvent
+
+- type: entity
+  id: ActionHulkTransformation
+  parent: BaseAction
+  name: transformation
+  description: "SMASH!"
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+  - type: Sprite
+    sprite: _Wega/Interface/Actions/actions_hulk.rsi
+    layers:
+    - state: transformarion
+      map: ["enum.ActionVisuals.Icon"]
+  - type: InstantAction
+    event: !type:HulkTransformationActionEvent
+
+- type: entity
+  id: ActionHulkCharge
+  parent: BaseAction
+  name: charge
+  description: "GO AHEAD!"
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    itemIconStyle: BigAction
+    useDelay: 45
+  - type: Sprite
+    sprite: _Wega/Interface/Actions/actions_hulk.rsi
+    layers:
+    - state: charge
+      map: ["enum.ActionVisuals.Icon"]
+  - type: TargetAction
+    range: 16
+  - type: EntityTargetAction
+    event: !type:HulkChargeActionEvent

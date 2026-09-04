@@ -1,0 +1,26 @@
+- type: entity
+  parent: Pill
+  id: PillMutadon
+  name: mutadon pill
+  suffix: Mutadon 10u
+  components:
+  - type: Label
+    localizedLabel: pill-label-mutadon-10u
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Mutadon
+        Quantity: 10
+
+- type: entity
+  name: pill canister
+  parent: PillCanister
+  id: PillCanisterMutadon
+  suffix: Mutadon 10u, 5
+  components:
+  - type: Label
+    localizedLabel: pill-label-mutadon-10u
+  - type: StorageFill
+    contents:
+    - id: PillMutadon
+      amount: 5

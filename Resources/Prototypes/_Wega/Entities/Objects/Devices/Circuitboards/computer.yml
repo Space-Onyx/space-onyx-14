@@ -1,0 +1,8 @@
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: DnaModifierComputerCircuitboard
+  name: DNA-modifier computer board
+  description: A computer printed circuit board for a DNA-modifier console.
+  components:
+  - type: ComputerBoard
+    prototype: DnaModifierConsole

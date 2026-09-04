@@ -533,6 +533,9 @@
   id: MobMothroach
   description: This is the adorable by-product of multiple attempts at genetically mixing mothpeople with cockroaches.
   components:
+  - type: DnaModifier # <Onyx-WegaGenetics>
+    upper: MobMoth
+    lowest: MobMothroach
   - type: GhostRole
     makeSentient: true
     allowSpeech: true
@@ -1841,6 +1844,9 @@
   parent: MobBaseAncestor
   description: New church of neo-darwinists actually believe that EVERY animal evolved from a monkey. Tastes like pork, and killing them is both fun and relaxing.
   components:
+  - type: DnaModifier # <Onyx-WegaGenetics>
+    upper: MobHuman
+    lowest: MobMonkey
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
     speaks:
@@ -1883,6 +1889,7 @@
   description: New church of neo-darwinists actually believe that EVERY animal evolved from a monkey. Tastes like pork, and killing them is both fun and relaxing.
   suffix: syndicate base
   components:
+  - type: DnaModifier # <Onyx-WegaGenetics>
   # <Onyx-PrimateAnatomy>
   - type: DeclarativeBody
     prototype: MonkeyBody
@@ -1947,6 +1954,9 @@
   description: Cousins to the sentient race of lizard people, kobolds blend in with their natural habitat and are as nasty as monkeys; ready to pull out your hair and stab you to death.
   abstract: true
   components:
+  - type: DnaModifier # <Onyx-WegaGenetics>
+    upper: MobReptilian
+    lowest: MobKobold
   - type: NameIdentifier
     group: Kobold
   # <Onyx-CreatureLanguages>
@@ -2610,6 +2620,7 @@
   abstract: true
   description: Infiltrates your domain, spies on you, and somehow still a cool pet.
   components:
+  - type: DnaModifier # <Onyx-WegaGenetics>
   - type: MovementSpeedModifier
     baseWalkSpeed : 2.5
     baseSprintSpeed : 6
@@ -3031,6 +3042,9 @@
   id: MobGiantSpider
   description: Widely recognized to be the literal worst thing in existence.
   components:
+  - type: DnaModifier # <Onyx-WegaGenetics>
+    upper: MobArachnid
+    lowest: MobGiantSpider
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -3572,6 +3586,9 @@
   id: MobCat
   description: Feline pet, very funny.
   components:
+  - type: DnaModifier # <Onyx-WegaGenetics>
+    upper: MobFelinid
+    lowest: MobCat
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
     speaks:
@@ -4206,6 +4223,9 @@
   id: MobDionaNymph
   description: It's like a cat, only.... branch-ier.
   components:
+  - type: DnaModifier # <Onyx-WegaGenetics>
+    upper: MobDiona
+    lowest: MobDionaNymph
   - type: Sprite
     drawdepth: Mobs
     layers:
