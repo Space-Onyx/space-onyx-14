@@ -120,6 +120,39 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         }
     }
 
+    public bool TryApplyOriginDamage(
+        EntityUid body,
+        DamageSpecifier damage,
+        EntityUid? origin,
+        out DamageSpecifier damageDealt,
+        bool ignoreResistances = false,
+        bool interruptsDoAfters = true)
+    {
+        damageDealt = new DamageSpecifier();
+        if (!TryComp(body, out WoundHostComponent? host) || !_net.IsServer || _routing.Contains(body))
+            return false;
+
+        var before = _damage.GetAllDamage(body).Clone();
+        if (!RouteThroughBodyModifiers((body, host), damage, origin, ignoreResistances, interruptsDoAfters))
+            return false;
+
+        var after = _damage.GetAllDamage(body);
+        foreach (var (type, newAmount) in after.DamageDict)
+        {
+            var delta = newAmount - before.DamageDict.GetValueOrDefault(type);
+            if (delta != FixedPoint2.Zero)
+                damageDealt.DamageDict[type] = delta;
+        }
+
+        foreach (var (type, oldAmount) in before.DamageDict)
+        {
+            if (!after.DamageDict.ContainsKey(type) && oldAmount != FixedPoint2.Zero)
+                damageDealt.DamageDict[type] = FixedPoint2.Zero - oldAmount;
+        }
+
+        return !damageDealt.Empty;
+    }
+
     public bool TryApplyPartDamage(
         EntityUid body,
         EntityUid part,
@@ -138,10 +171,11 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         DamageDistribution mode,
         EntityUid? origin = null,
         bool ignoreResistances = false,
-        bool interruptsDoAfters = true)
+        bool interruptsDoAfters = true,
+        float variation = 0f)
     {
         if (!TryComp(body, out WoundHostComponent? host) || !_net.IsServer || _routing.Contains(body) ||
-            mode is not DamageDistribution.SplitEvenly and not DamageDistribution.SplitByPartWeight)
+            mode is not DamageDistribution.SplitEvenly and not DamageDistribution.SplitByPartWeight and not DamageDistribution.SplitWithVariation)
             return false;
 
         var systemic = new DamageSpecifier();
@@ -164,10 +198,12 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         for (var i = 0; i < parts.Count; i++)
         {
             var weight = 1f;
-            if (mode == DamageDistribution.SplitByPartWeight && TryComp(parts[i], out BodyPartComponent? part))
+            if (mode != DamageDistribution.SplitEvenly && TryComp(parts[i], out BodyPartComponent? part))
                 weight = host.TargetWeights.GetValueOrDefault(part.PartType, 1f);
             if (!float.IsFinite(weight) || weight <= 0f)
                 weight = 1f;
+            if (mode == DamageDistribution.SplitWithVariation && variation > 0f)
+                weight *= _random.NextFloat() * variation + 1f;
             weights[i] = weight;
             totalWeight += weight;
         }
@@ -330,7 +366,47 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         return candidates[^1].Part;
     }
 
-    private bool TryGetActiveHandPart(EntityUid body, out EntityUid handPart)
+    public bool TryApplyPartDamage(
+        EntityUid body,
+        EntityUid part,
+        DamageSpecifier damage,
+        EntityUid? origin,
+        out DamageSpecifier damageDealt,
+        bool ignoreResistances = false,
+        bool healWounds = true)
+    {
+        damageDealt = new DamageSpecifier();
+        if (!TryComp(body, out WoundHostComponent? host) || !_net.IsServer || _routing.Contains(body) ||
+            !IsAttachedWoundablePart(body, part))
+            return false;
+
+        var before = _damage.GetAllDamage(body).Clone();
+        _requestedParts[body] = part;
+        try
+        {
+            if (!healWounds)
+                _skipWoundHealing.Add(body);
+            if (!RouteThroughBodyModifiers((body, host), damage, origin, ignoreResistances))
+                return false;
+        }
+        finally
+        {
+            _skipWoundHealing.Remove(body);
+            _requestedParts.Remove(body);
+        }
+
+        var after = _damage.GetAllDamage(body);
+        foreach (var (type, newAmount) in after.DamageDict)
+        {
+            var delta = newAmount - before.DamageDict.GetValueOrDefault(type);
+            if (delta != FixedPoint2.Zero)
+                damageDealt.DamageDict[type] = delta;
+        }
+
+        return !damageDealt.Empty;
+    }
+
+    public bool TryGetActiveHandPart(EntityUid body, out EntityUid handPart)
     {
         handPart = EntityUid.Invalid;
         if (!TryComp(body, out HandsComponent? hands) ||

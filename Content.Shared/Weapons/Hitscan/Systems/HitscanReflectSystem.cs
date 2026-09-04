@@ -3,13 +3,15 @@ using Content.Shared.Weapons.Hitscan.Events;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Reflect;
 using Robust.Shared.Random;
+// <Onyx-Targeting>
 using Content.Shared._Onyx.Targeting;
+// </Onyx-Targeting>
 
 namespace Content.Shared.Weapons.Hitscan.Systems;
 
 public sealed partial class HitscanReflectSystem : EntitySystem
 {
-    [Dependency] private TargetingSnapshotSystem _targetingSnapshots = default!;
+    [Dependency] private TargetingSnapshotSystem _targetingSnapshots = default!; // <Onyx-Targeting>
 
     public override void Initialize()
     {
@@ -47,8 +49,7 @@ public sealed partial class HitscanReflectSystem : EntitySystem
             Gun = data.Gun,
             Shooter = data.HitEntity.Value,
         };
-        // Onyx-Targeting: reflected hitscan inherits the reflector's current intent.
-        _targetingSnapshots.Refresh(hitscan, data.HitEntity.Value);
+        _targetingSnapshots.Refresh(hitscan, data.HitEntity.Value); // <Onyx-Targeting>
 
         RaiseLocalEvent(hitscan, ref hitFiredEvent);
     }

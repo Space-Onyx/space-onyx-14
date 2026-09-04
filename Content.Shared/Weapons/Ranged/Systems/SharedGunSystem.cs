@@ -23,7 +23,7 @@ using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Whitelist;
-using Content.Shared._Onyx.Targeting;
+using Content.Shared._Onyx.Targeting; // <Onyx-Targeting>
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
@@ -67,7 +67,7 @@ public abstract partial class SharedGunSystem : EntitySystem
     [Dependency] protected SharedTransformSystem TransformSystem = default!;
     [Dependency] protected TagSystem TagSystem = default!;
     [Dependency] protected ThrowingSystem ThrowingSystem = default!;
-    [Dependency] private TargetingSnapshotSystem _targetingSnapshots = default!;
+    [Dependency] private TargetingSnapshotSystem _targetingSnapshots = default!; // <Onyx-Targeting>
 
     /// <summary>
     /// Default projectile speed
@@ -471,8 +471,7 @@ public abstract partial class SharedGunSystem : EntitySystem
         if (shooter != null)
             Projectiles.SetShooter(uid, projectile, shooter.Value);
 
-        // Onyx-Targeting: retain intent for the projectile's full flight.
-        _targetingSnapshots.Capture(uid, shooter);
+        _targetingSnapshots.Capture(uid, shooter); // <Onyx-Targeting>
 
         TransformSystem.SetWorldRotation(uid, direction.ToWorldAngle() + projectile.Angle);
 

@@ -17,7 +17,7 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using Robust.Shared.Random;
-using Content.Shared._Onyx.Targeting;
+using Content.Shared._Onyx.Targeting; // <Onyx-Targeting>
 
 namespace Content.Server.Weapons.Ranged.Systems;
 
@@ -25,7 +25,7 @@ public sealed partial class GunSystem : SharedGunSystem
 {
     [Dependency] private PricingSystem _pricing = default!;
     [Dependency] private SharedMapSystem _map = default!;
-    [Dependency] private TargetingSnapshotSystem _targetingSnapshots = default!;
+    [Dependency] private TargetingSnapshotSystem _targetingSnapshots = default!; // <Onyx-Targeting>
 
     private const float DamagePitchVariation = 0.05f;
 
@@ -140,8 +140,7 @@ public sealed partial class GunSystem : SharedGunSystem
                     if (ent == null)
                         break;
 
-                    // Onyx-Targeting: hitscan intent is fixed before synchronous raycast processing.
-                    _targetingSnapshots.Capture(ent.Value, user);
+                    _targetingSnapshots.Capture(ent.Value, user); // <Onyx-Targeting>
                     var hitscanEv = new HitscanTraceEvent
                     {
                         FromCoordinates = fromCoordinates,

@@ -47,6 +47,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using ItemToggleMeleeWeaponComponent = Content.Shared.Item.ItemToggle.Components.ItemToggleMeleeWeaponComponent;
+using Content.Shared._Onyx.Wounds; // <Onyx-Targeting>
 
 namespace Content.Shared.Weapons.Melee;
 
@@ -74,6 +75,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
     [Dependency] private SharedStaminaSystem _stamina = default!;
     [Dependency] private DamageExamineSystem _damageExamine = default!;
     [Dependency] private SharedEntityEffectsSystem _effects = default!;
+    [Dependency] private WoundDamageRoutingSystem _woundRouting = default!; // <Onyx-Targeting>
 
     [Dependency] private EntityQuery<DamageableComponent> _damageQuery = default!;
 
@@ -598,11 +600,21 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         RaiseLocalEvent(target.Value, ref targetModifiers); // <Onyx-MartialArts>
         var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, hitEvent.ModifiersList);
 
-        var damageChanged = Damageable.TryChangeDamage(target.Value,
-            modifiedDamage,
-            out var damageResult,
-            origin: user,
-            ignoreResistances: resistanceBypass);
+        // <Onyx-Targeting>
+        // Wound hosts resolve the attacker's aimed part inside routing;
+        // the wrapper preserves the applied damage for stamina, logs and visuals.
+        bool damageChanged;
+        DamageSpecifier damageResult;
+        if (HasComp<WoundHostComponent>(target.Value) &&
+            _woundRouting.TryApplyOriginDamage(target.Value, modifiedDamage, user, out damageResult, resistanceBypass))
+            damageChanged = !damageResult.Empty;
+        else
+            damageChanged = Damageable.TryChangeDamage(target.Value,
+                modifiedDamage,
+                out damageResult,
+                origin: user,
+                ignoreResistances: resistanceBypass);
+        // </Onyx-Targeting>
 
         // <Onyx-MartialArts>
         RaiseLocalEvent(user,
@@ -780,7 +792,13 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             // </Onyx-MartialArts>
             var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, modifiers); // <Onyx-MartialArts-edited>
 
-            var damageResult = Damageable.ChangeDamage(entity, modifiedDamage, origin: user, ignoreResistances: resistanceBypass);
+            // <Onyx-Targeting>
+            // Same wound-aware path as light attacks; keeps heavy-swing damage reporting intact.
+            DamageSpecifier damageResult;
+            if (!(HasComp<WoundHostComponent>(entity) &&
+                _woundRouting.TryApplyOriginDamage(entity, modifiedDamage, user, out damageResult, resistanceBypass)))
+                damageResult = Damageable.ChangeDamage(entity, modifiedDamage, origin: user, ignoreResistances: resistanceBypass);
+            // </Onyx-Targeting>
 
             // <Onyx-GoobShove>
             RaiseLocalEvent(user,

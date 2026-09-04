@@ -15,19 +15,17 @@ using Robust.Shared.Timing;
 using System.Numerics;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-// Onyx-Wounds-edited-start
+// <Onyx-Wounds>
 using Content.Shared._Onyx.Targeting;
 using Content.Shared._Onyx.Wounds;
-// Onyx-Wounds-edited-end
+// </Onyx-Wounds>
 using TimedDespawnComponent = Robust.Shared.Spawners.TimedDespawnComponent;
 
 namespace Content.Server.Explosion.EntitySystems;
 
 public sealed partial class ExplosionSystem
 {
-    // Onyx-Wounds-edited-start
-    [Dependency] private WoundDamageRoutingSystem _woundDamageRouting = default!;
-    // Onyx-Wounds-edited-end
+    [Dependency] private WoundDamageRoutingSystem _woundDamageRouting = default!; // <Onyx-Wounds>
 
     /// <summary>
     ///     Used to limit explosion processing time. See <see cref="MaxProcessingTime"/>.
@@ -460,16 +458,19 @@ public sealed partial class ExplosionSystem
                     continue;
 
                 // TODO EXPLOSIONS turn explosions into entities, and pass the the entity in as the damage origin.
-                // Onyx-Wounds-edited-start
+                // <Onyx-Wounds-edited>
+                // Wound hosts split explosion damage across parts with limb variation,
+                // so blasts can focus a part hard enough to sever it instead of spreading evenly.
                 if (HasComp<WoundHostComponent>(entity))
                 {
                     if (!_woundDamageRouting.TryApplyDistributedDamage(entity, damage, TargetBodyPart.All,
-                            DamageDistribution.SplitByPartWeight, ignoreResistances: true, interruptsDoAfters: false))
+                            DamageDistribution.SplitWithVariation, ignoreResistances: true, interruptsDoAfters: false,
+                            variation: LimbDamageVariation))
                         _damageableSystem.ChangeDamage((entity, damageable), damage);
                 }
                 else
                     _damageableSystem.ChangeDamage((entity, damageable), damage);
-                // Onyx-Wounds-edited-end
+                // </Onyx-Wounds-edited>
 
                 if (_actorQuery.HasComp(entity))
                 {

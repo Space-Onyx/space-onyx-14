@@ -13,6 +13,7 @@ using Content.Shared.Random;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Effects;
 using Content.Shared.Stunnable;
+using Content.Shared._Onyx.Wounds; // <Onyx-Targeting>
 
 namespace Content.Shared.Damage.Systems;
 
@@ -27,6 +28,7 @@ public sealed partial class DamageOnInteractSystem : EntitySystem
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private IGameTiming _gameTiming = default!;
     [Dependency] private SharedStunSystem _stun = default!;
+    [Dependency] private WoundDamageRoutingSystem _woundRouting = default!; // <Onyx-Targeting>
 
     public override void Initialize()
     {
@@ -75,7 +77,15 @@ public sealed partial class DamageOnInteractSystem : EntitySystem
             }
         }
 
-        totalDamage = _damageableSystem.ChangeDamage(args.User, totalDamage, origin: args.Target);
+        // <Onyx-Targeting>
+        // Sharp objects injure the interacting hand, not a random part.
+        if (HasComp<WoundHostComponent>(args.User) &&
+            _woundRouting.TryGetActiveHandPart(args.User, out var handPart) &&
+            _woundRouting.TryApplyPartDamage(args.User, handPart, totalDamage, args.Target, out var partDealt))
+            totalDamage = partDealt;
+        else
+            totalDamage = _damageableSystem.ChangeDamage(args.User, totalDamage, origin: args.Target);
+        // </Onyx-Targeting>
 
         if (totalDamage.AnyPositive())
         {

@@ -18,4 +18,7 @@ public sealed partial class CCVars
 
     public static readonly CVarDef<float> WoundsBleedingAutoStopMaxSeconds =
         CVarDef.Create("wounds.bleeding_auto_stop_max_seconds", 120f, CVar.SERVER | CVar.ARCHIVE);
+
+    public static readonly CVarDef<float> ExplosionLimbDamageVariation =
+        CVarDef.Create("explosion.damage_variation", 2f, CVar.SERVERONLY);
 }

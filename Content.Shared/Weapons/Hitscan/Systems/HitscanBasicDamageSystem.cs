@@ -2,15 +2,17 @@ using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Hitscan.Events;
+// <Onyx-Targeting>
 using Content.Shared._Onyx.Targeting;
 using Content.Shared._Onyx.Wounds;
+// </Onyx-Targeting>
 
 namespace Content.Shared.Weapons.Hitscan.Systems;
 
 public sealed partial class HitscanBasicDamageSystem : EntitySystem
 {
     [Dependency] private DamageableSystem _damage = default!;
-    [Dependency] private WoundDamageRoutingSystem _woundRouting = default!;
+    [Dependency] private WoundDamageRoutingSystem _woundRouting = default!; // <Onyx-Targeting>
 
     public override void Initialize()
     {
@@ -26,7 +28,8 @@ public sealed partial class HitscanBasicDamageSystem : EntitySystem
 
         var dmg = ent.Comp.Damage * _damage.UniversalHitscanDamageModifier;
 
-        // Onyx-Targeting: Shooter is the damage origin; snapshot supplies the fixed anatomical intent.
+        // <Onyx-Targeting>
+        // Shooter is the damage origin; snapshot supplies the fixed anatomical intent.
         bool damaged;
         DamageSpecifier damageDealt;
         if (TryComp(ent, out TargetingSnapshotComponent? snapshot) &&
@@ -45,6 +48,7 @@ public sealed partial class HitscanBasicDamageSystem : EntitySystem
                 out damageDealt,
                 origin: args.Data.Shooter);
         }
+        // </Onyx-Targeting>
         if (!damaged)
             return;
 

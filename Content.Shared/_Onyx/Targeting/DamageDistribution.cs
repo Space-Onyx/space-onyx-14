@@ -7,4 +7,5 @@ public enum DamageDistribution : byte
 {
     SplitEvenly,
     SplitByPartWeight,
+    SplitWithVariation,
 }

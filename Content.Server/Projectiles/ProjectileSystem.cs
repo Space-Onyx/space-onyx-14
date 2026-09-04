@@ -9,8 +9,10 @@ using Content.Shared.Damage.Systems;
 using Content.Shared.Database;
 using Content.Shared.FixedPoint;
 using Content.Shared.Projectiles;
+// <Onyx-Targeting>
 using Content.Shared._Onyx.Wounds;
 using Content.Shared._Onyx.Targeting;
+// </Onyx-Targeting>
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Player;
 
@@ -24,7 +26,7 @@ public sealed partial class ProjectileSystem : SharedProjectileSystem
     [Dependency] private DestructibleSystem _destructibleSystem = default!;
     [Dependency] private GunSystem _guns = default!;
     [Dependency] private SharedCameraRecoilSystem _sharedCameraRecoil = default!;
-    [Dependency] private WoundDamageRoutingSystem _woundRouting = default!;
+    [Dependency] private WoundDamageRoutingSystem _woundRouting = default!; // <Onyx-Targeting>
 
     public override void Initialize()
     {
@@ -62,7 +64,8 @@ public sealed partial class ProjectileSystem : SharedProjectileSystem
             damageRequired = FixedPoint2.Max(damageRequired, FixedPoint2.Zero);
         }
 
-        // Onyx-Targeting: read intent from the carrier while preserving shooter attribution.
+        // <Onyx-Targeting>
+        // Read intent from the carrier while preserving shooter attribution.
         bool damaged;
         DamageSpecifier damage;
         if (HasComp<TargetingSnapshotComponent>(uid) && HasComp<WoundHostComponent>(target))
@@ -82,6 +85,7 @@ public sealed partial class ProjectileSystem : SharedProjectileSystem
                 component.IgnoreResistances,
                 origin: component.Shooter);
         }
+        // </Onyx-Targeting>
         if (damaged && Exists(component.Shooter))
         {
             if (!Deleted(target))
