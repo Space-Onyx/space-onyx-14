@@ -33,6 +33,16 @@
   id: AllowSuitStorageClothing
   components:
   - type: AllowSuitStorage
+  # <Onyx-ClothingRadios>
+  - type: ItemSlots
+    slots:
+      radio:
+        insertSound: null
+        ejectSound: null
+        whitelist:
+          tags:
+          - Radio
+  # </Onyx-ClothingRadios>
 
 - type: entity
   abstract: true
@@ -42,6 +52,16 @@
     whitelist:
       components:
       - GasTank
+  # <Onyx-ClothingRadios>
+  - type: ItemSlots
+    slots:
+      radio:
+        insertSound: null
+        ejectSound: null
+        whitelist:
+          tags:
+          - Radio
+  # </Onyx-ClothingRadios>
 
 # for clothing that has a single item slot to insert and alt click out.
 # inheritors add a whitelisted slot named item

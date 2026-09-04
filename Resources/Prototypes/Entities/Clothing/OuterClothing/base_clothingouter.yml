@@ -12,6 +12,15 @@
     - outerClothing
   - type: Sprite
     state: icon
+  # <Onyx-ClothingMedals>
+  - type: MedalHolder
+    slot:
+      insertSound: null
+      ejectSound: null
+      whitelist:
+        tags:
+        - Medal
+  # </Onyx-ClothingMedals>
 
 - type: entity
   abstract: true
