@@ -49,6 +49,8 @@ public partial class ChatBox : UIWidget
         // <Onyx-ChatCoalescing>
         InitializeOnyxChatCoalescing();
         // </Onyx-ChatCoalescing>
+        InitializeOnyxChatSearch(); // <Onyx-ChatSearch>
+        InitializeOnyxEmotePanel(); // <Onyx-EmotePanel>
     }
 
     private void OnTextEntered(LineEditEventArgs args)
@@ -63,6 +65,9 @@ public partial class ChatBox : UIWidget
         {
             return;
         }
+
+        if (!MatchesOnyxSearch(msg)) // <Onyx-ChatSearch>
+            return;
 
         if (msg is { Read: false, AudioPath: { } })
             _entManager.System<AudioSystem>().PlayGlobal(msg.AudioPath, Filter.Local(), false, AudioParams.Default.AddVolume(msg.AudioVolume));
@@ -227,5 +232,6 @@ public partial class ChatBox : UIWidget
         // <Onyx-ChatCoalescing>
         ShutdownOnyxChatCoalescing();
         // </Onyx-ChatCoalescing>
+        ShutdownOnyxChatSearch(); // <Onyx-ChatSearch>
     }
 }

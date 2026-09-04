@@ -14,3 +14,7 @@ chat-emote-name-jump = Прыжок
 chat-emote-msg-jump = прыгает.
 chat-emote-name-flex = Напрячь мышцы
 chat-emote-msg-flex = напрягает мышцы.
+chat-emote-name-mars = Марс
+chat-emote-msg-mars = марсит.
+chat-emote-name-wurble = Вурбл
+chat-emote-msg-wurble = вурблит.

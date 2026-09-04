@@ -1,0 +1,893 @@
+- type: customEmoteSound
+  id: MaleScreams
+  name: MaleScreams
+  sound:
+    collection: MaleScreams
+
+- type: customEmoteSound
+  id: MaleLaugh
+  name: MaleLaugh
+  sound:
+    collection: MaleLaugh
+
+- type: customEmoteSound
+  id: MaleSneezes
+  name: MaleSneezes
+  sound:
+    collection: MaleSneezes
+
+- type: customEmoteSound
+  id: MaleCoughs
+  name: MaleCoughs
+  sound:
+    collection: MaleCoughs
+
+- type: customEmoteSound
+  id: CatHisses
+  name: CatHisses
+  sound:
+    collection: CatHisses
+
+- type: customEmoteSound
+  id: CatMeows
+  name: CatMeows
+  sound:
+    collection: CatMeows
+
+- type: customEmoteSound
+  id: bear
+  name: bear
+  sound:
+    path: /Audio/Animals/bear.ogg
+
+- type: customEmoteSound
+  id: purr
+  name: purr
+  sound:
+    path: /Audio/Corvax/Effects/Tajaran/purr.ogg
+
+- type: customEmoteSound
+  id: MonkeyScreeches
+  name: MonkeyScreeches
+  sound:
+    collection: MonkeyScreeches
+
+- type: customEmoteSound
+  id: RobotBeeps
+  name: RobotBeeps
+  sound:
+    collection: RobotBeeps
+
+- type: customEmoteSound
+  id: MaleYawn
+  name: MaleYawn
+  sound:
+    collection: MaleYawn
+
+- type: customEmoteSound
+  id: Snores
+  name: Snores
+  sound:
+    collection: Snores
+
+- type: customEmoteSound
+  id: BikeHorn
+  name: BikeHorn
+  sound:
+    collection: BikeHorn
+
+- type: customEmoteSound
+  id: MaleSigh
+  name: MaleSigh
+  sound:
+    collection: MaleSigh
+
+- type: customEmoteSound
+  id: MaleCry
+  name: MaleCry
+  sound:
+    collection: MaleCry
+
+- type: customEmoteSound
+  id: Whistles
+  name: Whistles
+  sound:
+    collection: Whistles
+
+- type: customEmoteSound
+  id: Weh
+  name: Weh
+  sound:
+    collection: Weh
+
+- type: customEmoteSound
+  id: Hew
+  name: Hew
+  sound:
+    collection: Hew
+
+- type: customEmoteSound
+  id: MaleGasp
+  name: MaleGasp
+  sound:
+    collection: MaleGasp
+
+- type: customEmoteSound
+  id: MaleDeathGasp
+  name: MaleDeathGasp
+  sound:
+    collection: MaleDeathGasp
+
+- type: customEmoteSound
+  id: gulp
+  name: gulp
+  sound:
+    path: /Audio/_Onyx/Voice/Human/gulp.ogg
+
+- type: customEmoteSound
+  id: FemaleScreams
+  name: FemaleScreams
+  sound:
+    collection: FemaleScreams
+
+- type: customEmoteSound
+  id: FemaleLaugh
+  name: FemaleLaugh
+  sound:
+    collection: FemaleLaugh
+
+- type: customEmoteSound
+  id: FemaleSneezes
+  name: FemaleSneezes
+  sound:
+    collection: FemaleSneezes
+
+- type: customEmoteSound
+  id: FemaleCoughs
+  name: FemaleCoughs
+  sound:
+    collection: FemaleCoughs
+
+- type: customEmoteSound
+  id: FemaleYawn
+  name: FemaleYawn
+  sound:
+    collection: FemaleYawn
+
+- type: customEmoteSound
+  id: CluwneHorn
+  name: CluwneHorn
+  sound:
+    collection: CluwneHorn
+
+- type: customEmoteSound
+  id: FemaleSigh
+  name: FemaleSigh
+  sound:
+    collection: FemaleSigh
+
+- type: customEmoteSound
+  id: FemaleCry
+  name: FemaleCry
+  sound:
+    collection: FemaleCry
+
+- type: customEmoteSound
+  id: FemaleGasp
+  name: FemaleGasp
+  sound:
+    collection: FemaleGasp
+
+- type: customEmoteSound
+  id: FemaleDeathGasp
+  name: FemaleDeathGasp
+  sound:
+    collection: FemaleDeathGasp
+
+- type: customEmoteSound
+  id: reptilian_scream
+  name: reptilian_scream
+  sound:
+    path: /Audio/Voice/Reptilian/reptilian_scream.ogg
+
+- type: customEmoteSound
+  id: lizard_happy
+  name: lizard_happy
+  sound:
+    path: /Audio/Animals/lizard_happy.ogg
+
+- type: customEmoteSound
+  id: DeathGasp
+  name: DeathGasp
+  sound:
+    collection: DeathGasp
+
+- type: customEmoteSound
+  id: ReptilianYips
+  name: ReptilianYips
+  sound:
+    collection: ReptilianYips
+
+- type: customEmoteSound
+  id: ReptilianHisses
+  name: ReptilianHisses
+  sound:
+    collection: ReptilianHisses
+
+- type: customEmoteSound
+  id: gulpexotic
+  name: gulpexotic
+  sound:
+    path: /Audio/_Onyx/Voice/gulpexotic.ogg
+
+- type: customEmoteSound
+  id: Squishes
+  name: Squishes
+  sound:
+    collection: Squishes
+
+- type: customEmoteSound
+  id: SlimeBubbles
+  name: SlimeBubbles
+  sound:
+    collection: SlimeBubbles
+
+- type: customEmoteSound
+  id: SlimePops
+  name: SlimePops
+  sound:
+    collection: SlimePops
+
+- type: customEmoteSound
+  id: SlimeMaleScreams
+  name: SlimeMaleScreams
+  sound:
+    collection: SlimeMaleScreams
+
+- type: customEmoteSound
+  id: SlimeMaleLaughs
+  name: SlimeMaleLaughs
+  sound:
+    collection: SlimeMaleLaughs
+
+- type: customEmoteSound
+  id: SlimeFemaleScreams
+  name: SlimeFemaleScreams
+  sound:
+    collection: SlimeFemaleScreams
+
+- type: customEmoteSound
+  id: SlimeFemaleLaughs
+  name: SlimeFemaleLaughs
+  sound:
+    collection: SlimeFemaleLaughs
+
+- type: customEmoteSound
+  id: VoxScreams
+  name: VoxScreams
+  sound:
+    collection: VoxScreams
+
+- type: customEmoteSound
+  id: vox_laugh
+  name: vox_laugh
+  sound:
+    path: /Audio/Voice/Vox/vox_laugh.ogg
+
+- type: customEmoteSound
+  id: vox_sneeze
+  name: vox_sneeze
+  sound:
+    path: /Audio/Voice/Vox/vox_sneeze.ogg
+
+- type: customEmoteSound
+  id: VoxCoughs
+  name: VoxCoughs
+  sound:
+    collection: VoxCoughs
+
+- type: customEmoteSound
+  id: vox_sigh
+  name: vox_sigh
+  sound:
+    path: /Audio/Voice/Vox/vox_sigh.ogg
+
+- type: customEmoteSound
+  id: vox_click
+  name: vox_click
+  sound:
+    path: /Audio/Voice/Vox/vox_click.ogg
+
+- type: customEmoteSound
+  id: VoxChitters
+  name: VoxChitters
+  sound:
+    collection: VoxChitters
+
+- type: customEmoteSound
+  id: vox_cry
+  name: vox_cry
+  sound:
+    path: /Audio/Voice/Vox/vox_cry.ogg
+
+- type: customEmoteSound
+  id: vox_gasp
+  name: vox_gasp
+  sound:
+    path: /Audio/Effects/Gasp/vox_gasp.ogg
+
+- type: customEmoteSound
+  id: vox_DeathGasp
+  name: vox_DeathGasp
+  sound:
+    path: /Audio/Effects/Gasp/vox_DeathGasp.ogg
+
+- type: customEmoteSound
+  id: vox_yawn
+  name: vox_yawn
+  sound:
+    path: /Audio/_Onyx/Voice/Vox/vox_yawn.ogg
+
+- type: customEmoteSound
+  id: vox_snore
+  name: vox_snore
+  sound:
+    path: /Audio/_Onyx/Voice/Vox/vox_snore.ogg
+
+- type: customEmoteSound
+  id: VoxHisses
+  name: VoxHisses
+  sound:
+    collection: VoxHisses
+
+- type: customEmoteSound
+  id: diona_scream
+  name: diona_scream
+  sound:
+    path: /Audio/Voice/Diona/diona_scream.ogg
+
+- type: customEmoteSound
+  id: DionaLaugh
+  name: DionaLaugh
+  sound:
+    collection: DionaLaugh
+
+- type: customEmoteSound
+  id: DionaSneeze
+  name: DionaSneeze
+  sound:
+    collection: DionaSneeze
+
+- type: customEmoteSound
+  id: nymph_chirp
+  name: nymph_chirp
+  sound:
+    path: /Audio/Animals/nymph_chirp.ogg
+
+- type: customEmoteSound
+  id: DionaCry
+  name: DionaCry
+  sound:
+    collection: DionaCry
+
+- type: customEmoteSound
+  id: DionaWhistles
+  name: DionaWhistles
+  sound:
+    collection: DionaWhistles
+
+- type: customEmoteSound
+  id: DionaCoughs
+  name: DionaCoughs
+  sound:
+    collection: DionaCoughs
+
+- type: customEmoteSound
+  id: DionaYawns
+  name: DionaYawns
+  sound:
+    collection: DionaYawns
+
+- type: customEmoteSound
+  id: DionaSighs
+  name: DionaSighs
+  sound:
+    collection: DionaSighs
+
+- type: customEmoteSound
+  id: arachnid_scream
+  name: arachnid_scream
+  sound:
+    path: /Audio/Voice/Arachnid/arachnid_scream.ogg
+
+- type: customEmoteSound
+  id: arachnid_laugh
+  name: arachnid_laugh
+  sound:
+    path: /Audio/Voice/Arachnid/arachnid_laugh.ogg
+
+- type: customEmoteSound
+  id: arachnid_chitter
+  name: arachnid_chitter
+  sound:
+    path: /Audio/Voice/Arachnid/arachnid_chitter.ogg
+
+- type: customEmoteSound
+  id: arachnid_click
+  name: arachnid_click
+  sound:
+    path: /Audio/Voice/Arachnid/arachnid_click.ogg
+
+- type: customEmoteSound
+  id: moth_scream
+  name: moth_scream
+  sound:
+    path: /Audio/Voice/Moth/moth_scream.ogg
+
+- type: customEmoteSound
+  id: moth_laugh
+  name: moth_laugh
+  sound:
+    path: /Audio/Voice/Moth/moth_laugh.ogg
+
+- type: customEmoteSound
+  id: moth_chitter
+  name: moth_chitter
+  sound:
+    path: /Audio/Voice/Moth/moth_chitter.ogg
+
+- type: customEmoteSound
+  id: moth_squeak
+  name: moth_squeak
+  sound:
+    path: /Audio/Voice/Moth/moth_squeak.ogg
+
+- type: customEmoteSound
+  id: MothDeathGasp
+  name: MothDeathGasp
+  sound:
+    collection: MothDeathGasp
+
+- type: customEmoteSound
+  id: SiliconScreams
+  name: SiliconScreams
+  sound:
+    collection: SiliconScreams
+
+- type: customEmoteSound
+  id: twobeep
+  name: twobeep
+  sound:
+    path: /Audio/Machines/twobeep.ogg
+
+- type: customEmoteSound
+  id: chime
+  name: chime
+  sound:
+    path: /Audio/Machines/chime.ogg
+
+- type: customEmoteSound
+  id: buzzsigh
+  name: buzzsigh
+  sound:
+    path: /Audio/Machines/buzz-sigh.ogg
+
+- type: customEmoteSound
+  id: buzztwo
+  name: buzztwo
+  sound:
+    path: /Audio/Machines/buzz-two.ogg
+
+- type: customEmoteSound
+  id: ping
+  name: ping
+  sound:
+    path: /Audio/Effects/Cargo/ping.ogg
+
+- type: customEmoteSound
+  id: syndieborg_laugh
+  name: syndieborg_laugh
+  sound:
+    path: /Audio/Voice/Silicon/syndieborg_laugh.ogg
+
+- type: customEmoteSound
+  id: XenoborgScream
+  name: XenoborgScream
+  sound:
+    collection: XenoborgScream
+
+- type: customEmoteSound
+  id: XenoborgLaugh
+  name: XenoborgLaugh
+  sound:
+    collection: XenoborgLaugh
+
+- type: customEmoteSound
+  id: XenoborgBeep
+  name: XenoborgBeep
+  sound:
+    collection: XenoborgBeep
+
+- type: customEmoteSound
+  id: XenoborgChime
+  name: XenoborgChime
+  sound:
+    collection: XenoborgChime
+
+- type: customEmoteSound
+  id: XenoborgBuzz
+  name: XenoborgBuzz
+  sound:
+    collection: XenoborgBuzz
+
+- type: customEmoteSound
+  id: XenoborgBuzzTwo
+  name: XenoborgBuzzTwo
+  sound:
+    collection: XenoborgBuzzTwo
+
+- type: customEmoteSound
+  id: XenoborgBikeHorn
+  name: XenoborgBikeHorn
+  sound:
+    collection: XenoborgBikeHorn
+
+- type: customEmoteSound
+  id: XenoborgPing
+  name: XenoborgPing
+  sound:
+    collection: XenoborgPing
+
+- type: customEmoteSound
+  id: VulpkaninSneeze
+  name: VulpkaninSneeze
+  sound:
+    collection: VulpkaninSneeze
+
+- type: customEmoteSound
+  id: VulpkaninYawns
+  name: VulpkaninYawns
+  sound:
+    collection: VulpkaninYawns
+
+- type: customEmoteSound
+  id: VulpkaninScreams
+  name: VulpkaninScreams
+  sound:
+    collection: VulpkaninScreams
+
+- type: customEmoteSound
+  id: VulpkaninGrowls
+  name: VulpkaninGrowls
+  sound:
+    collection: VulpkaninGrowls
+
+- type: customEmoteSound
+  id: VulpkaninSnarls
+  name: VulpkaninSnarls
+  sound:
+    collection: VulpkaninSnarls
+
+- type: customEmoteSound
+  id: VulpkaninBarks
+  name: VulpkaninBarks
+  sound:
+    collection: VulpkaninBarks
+
+- type: customEmoteSound
+  id: VulpkaninWhines
+  name: VulpkaninWhines
+  sound:
+    collection: VulpkaninWhines
+
+- type: customEmoteSound
+  id: VulpkaninHowls
+  name: VulpkaninHowls
+  sound:
+    collection: VulpkaninHowls
+
+- type: customEmoteSound
+  id: Claps
+  name: Claps
+  sound:
+    collection: Claps
+
+- type: customEmoteSound
+  id: ClapSingle
+  name: ClapSingle
+  sound:
+    collection: ClapSingle
+
+- type: customEmoteSound
+  id: Snaps
+  name: Snaps
+  sound:
+    collection: Snaps
+
+- type: customEmoteSound
+  id: Salutes
+  name: Salutes
+  sound:
+    collection: Salutes
+
+- type: customEmoteSound
+  id: diona_clap
+  name: diona_clap
+  sound:
+    path: /Audio/Voice/Diona/diona_clap.ogg
+
+- type: customEmoteSound
+  id: diona_snap
+  name: diona_snap
+  sound:
+    path: /Audio/Voice/Diona/diona_snap.ogg
+
+- type: customEmoteSound
+  id: diona_salute
+  name: diona_salute
+  sound:
+    path: /Audio/Voice/Diona/diona_salute.ogg
+
+- type: customEmoteSound
+  id: reptilian_tailthump
+  name: reptilian_tailthump
+  sound:
+    path: /Audio/Voice/Reptilian/reptilian_tailthump.ogg
+
+- type: customEmoteSound
+  id: moth_flap
+  name: moth_flap
+  sound:
+    path: /Audio/Voice/Moth/moth_flap.ogg
+
+- type: customEmoteSound
+  id: ZombieScreams
+  name: ZombieScreams
+  sound:
+    collection: ZombieScreams
+
+- type: customEmoteSound
+  id: skeleton_scream
+  name: skeleton_scream
+  sound:
+    path: /Audio/Voice/Skeleton/skeleton_scream.ogg
+
+- type: customEmoteSound
+  id: mouse_squeak
+  name: mouse_squeak
+  sound:
+    path: /Audio/Animals/mouse_squeak.ogg
+
+- type: customEmoteSound
+  id: CluwneScreams
+  name: CluwneScreams
+  sound:
+    collection: CluwneScreams
+
+- type: customEmoteSound
+  id: cerberus
+  name: cerberus
+  sound:
+    path: /Audio/Animals/cerberus.ogg
+
+- type: customEmoteSound
+  id: kangaroo_grunt
+  name: kangaroo_grunt
+  sound:
+    path: /Audio/Animals/kangaroo_grunt.ogg
+
+- type: customEmoteSound
+  id: parrot_raught
+  name: parrot_raught
+  sound:
+    path: /Audio/Animals/parrot_raught.ogg
+
+- type: customEmoteSound
+  id: goat_bah
+  name: goat_bah
+  sound:
+    path: /Audio/Animals/goat_bah.ogg
+
+- type: customEmoteSound
+  id: Sheep
+  name: Sheep
+  sound:
+    collection: Sheep
+
+- type: customEmoteSound
+  id: SheepSpace
+  name: SheepSpace
+  sound:
+    collection: SheepSpace
+
+- type: customEmoteSound
+  id: soft_thump
+  name: soft_thump
+  sound:
+    path: /Audio/Effects/soft_thump.ogg
+
+- type: customEmoteSound
+  id: WawaLaugh
+  name: WawaLaugh
+  sound:
+    collection: WawaLaugh
+
+- type: customEmoteSound
+  id: WawaSneeze
+  name: WawaSneeze
+  sound:
+    collection: WawaSneeze
+
+- type: customEmoteSound
+  id: WawaSigh
+  name: WawaSigh
+  sound:
+    collection: WawaSigh
+
+- type: customEmoteSound
+  id: WawaScream
+  name: WawaScream
+  sound:
+    collection: WawaScream
+
+- type: customEmoteSound
+  id: WawaYawn
+  name: WawaYawn
+  sound:
+    collection: WawaYawn
+
+- type: customEmoteSound
+  id: WawaCry
+  name: WawaCry
+  sound:
+    collection: WawaCry
+
+- type: customEmoteSound
+  id: WawaDeath
+  name: WawaDeath
+  sound:
+    collection: WawaDeath
+
+- type: customEmoteSound
+  id: scream
+  name: scream
+  sound:
+    path: /Audio/Corvax/Effects/Tajaran/scream.ogg
+
+- type: customEmoteSound
+  id: laugh
+  name: laugh
+  sound:
+    path: /Audio/Corvax/Effects/Tajaran/laugh.ogg
+
+- type: customEmoteSound
+  id: sneeze
+  name: sneeze
+  sound:
+    path: /Audio/Corvax/Effects/Tajaran/sneeze.ogg
+
+- type: customEmoteSound
+  id: sigh
+  name: sigh
+  sound:
+    path: /Audio/Corvax/Effects/Tajaran/sigh.ogg
+
+- type: customEmoteSound
+  id: cry
+  name: cry
+  sound:
+    path: /Audio/Corvax/Effects/Tajaran/cry.ogg
+
+- type: customEmoteSound
+  id: gasp
+  name: gasp
+  sound:
+    path: /Audio/Corvax/Effects/Tajaran/gasp.ogg
+
+- type: customEmoteSound
+  id: FelinidHisses
+  name: FelinidHisses
+  sound:
+    collection: FelinidHisses
+
+- type: customEmoteSound
+  id: FelinidMeows
+  name: FelinidMeows
+  sound:
+    collection: FelinidMeows
+
+- type: customEmoteSound
+  id: FelinidMews
+  name: FelinidMews
+  sound:
+    collection: FelinidMews
+
+- type: customEmoteSound
+  id: FelinidGrowls
+  name: FelinidGrowls
+  sound:
+    collection: FelinidGrowls
+
+- type: customEmoteSound
+  id: robotscream
+  name: robotscream
+  sound:
+    path: /Audio/_Onyx/Voice/IPC/robot-scream.ogg
+
+- type: customEmoteSound
+  id: robotlaugh_3
+  name: robotlaugh_3
+  sound:
+    path: /Audio/_Onyx/Voice/IPC/robot-laugh_3.ogg
+
+- type: customEmoteSound
+  id: cry_robot_1
+  name: cry_robot_1
+  sound:
+    path: /Audio/_Onyx/Voice/IPC/cry_robot_1.ogg
+
+- type: customEmoteSound
+  id: pai
+  name: pai
+  sound:
+    path: /Audio/Voice/Talk/pai.ogg,
+
+- type: customEmoteSound
+  id: pai_whistle
+  name: pai_whistle
+  sound:
+    path: /Audio/_Onyx/Voice/IPC/pai_whistle.ogg,
+
+- type: customEmoteSound
+  id: beep_2000
+  name: beep_2000
+  sound:
+    path: /Audio/_Onyx/Voice/IPC/beep_2000.ogg
+
+- type: customEmoteSound
+  id: beep_500
+  name: beep_500
+  sound:
+    path: /Audio/_Onyx/Voice/IPC/beep_500.ogg
+
+- type: customEmoteSound
+  id: beep1
+  name: beep1
+  sound:
+    path: /Audio/Effects/beep1.ogg,
+
+- type: customEmoteSound
+  id: IPCWhirrs
+  name: IPCWhirrs
+  sound:
+    collection: IPCWhirrs
+
+- type: customEmoteSound
+  id: XenomorphScreams
+  name: XenomorphScreams
+  sound:
+    collection: XenomorphScreams
+
+- type: customEmoteSound
+  id: XenomorphLaugh
+  name: XenomorphLaugh
+  sound:
+    collection: XenomorphLaugh
+
+- type: customEmoteSound
+  id: XenomorphCoughs
+  name: XenomorphCoughs
+  sound:
+    collection: XenomorphCoughs
+
+- type: customEmoteSound
+  id: XenomorphHiss
+  name: XenomorphHiss
+  sound:
+    collection: XenomorphHiss
+
+- type: customEmoteSound
+  id: XenomorphSnores
+  name: XenomorphSnores
+  sound:
+    collection: XenomorphSnores
