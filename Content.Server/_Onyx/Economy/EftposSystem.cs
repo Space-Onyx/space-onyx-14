@@ -1,5 +1,6 @@
 using Content.Server.Hands.Systems;
 using Content.Shared._Onyx.Economy;
+using Content.Shared._Onyx.Time;
 using Content.Shared.Access.Components;
 using Content.Shared.Hands.Components;
 using Content.Shared.Interaction;
@@ -9,6 +10,7 @@ using Robust.Shared.Audio.Systems;
 using Content.Server.GameTicking;
 using Robust.Shared.Timing;
 using Content.Shared.Inventory;
+using Robust.Shared.Configuration;
 
 namespace Content.Server._Onyx.Economy;
 
@@ -21,6 +23,7 @@ public sealed partial class EftposSystem : EntitySystem
     [Dependency] private HandsSystem _sharedHandsSystem = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private GameTicker _gameTicker = default!;
+    [Dependency] private IConfigurationManager _configuration = default!;
     private readonly HashSet<EntityUid> _pendingTimeouts = new();
     private readonly List<EntityUid> _pendingTimeoutBuffer = new();
 
@@ -147,7 +150,7 @@ public sealed partial class EftposSystem : EntitySystem
                     Loc.GetString("bank-program-ui-transaction-purchase-sent",
                         ("account", component.BankAccountId.Value), ("name", receiverName)),
                     -component.Amount,
-                    DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
+                    InGameDate.Today(_configuration).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
                 ));
             }
             if (_bankCardSystem.TryGetAccount(component.BankAccountId.Value, out var receiverAccount))
@@ -158,7 +161,7 @@ public sealed partial class EftposSystem : EntitySystem
                     Loc.GetString("bank-program-ui-transaction-purchase-received",
                         ("account", component.PendingPayerAccountId.Value), ("name", payerName)),
                     component.Amount,
-                    DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
+                    InGameDate.Today(_configuration).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
                 ));
             }
         }

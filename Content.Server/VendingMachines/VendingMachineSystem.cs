@@ -7,6 +7,7 @@ using Content.Server.Stack;
 using Content.Server.VendingMachines.Components;
 using Content.Server.Vocalization.Systems;
 using Content.Shared._Onyx.Economy;
+using Content.Shared._Onyx.Time; // <Onyx-InGameDate>
 using Content.Shared.Access.Systems;
 using Content.Shared.Cargo;
 using Content.Shared.CCVar;
@@ -104,7 +105,7 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
                      TransactionRecord.TransactionType.Purchase,
                      Loc.GetString("bank-program-ui-transaction-vending-purchase", ("item", itemName)),
                     -price,
-                    DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan))); // <Onyx-VendingPurchaseHistory-edited>
+                    InGameDate.Today(_cfg).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan))); // <Onyx-VendingPurchaseHistory-edited> <Onyx-InGameDate-edited>
                 // </Onyx-VendingPurchaseHistory>
                 paid = true;
                 break;

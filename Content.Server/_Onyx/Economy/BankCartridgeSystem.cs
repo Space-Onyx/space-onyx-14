@@ -1,6 +1,7 @@
 using Content.Server.CartridgeLoader;
 using Content.Shared.CartridgeLoader;
 using Content.Shared._Onyx.Economy;
+using Content.Shared._Onyx.Time;
 using Content.Shared.Access.Components;
 using Content.Shared.PDA;
 using Content.Shared.Chat;
@@ -8,6 +9,7 @@ using Robust.Shared.Utility;
 using Robust.Shared.Maths;
 using Content.Server.GameTicking;
 using Robust.Shared.Timing;
+using Robust.Shared.Configuration;
 
 namespace Content.Server._Onyx.Economy;
 
@@ -17,6 +19,7 @@ public sealed partial class BankCartridgeSystem : EntitySystem
     [Dependency] private BankCardSystem _bankCardSystem = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private GameTicker _gameTicker = default!;
+    [Dependency] private IConfigurationManager _configuration = default!;
 
     public override void Initialize()
     {
@@ -124,7 +127,7 @@ public sealed partial class BankCartridgeSystem : EntitySystem
             Loc.GetString("bank-program-ui-transaction-transfer-sent",
                 ("account", toAccount.AccountId), ("name", toAccount.Name)),
             -args.Amount,
-            DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan),
+            InGameDate.Today(_configuration).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan),
             counterpartyAccount: toAccount.AccountId.ToString(),
             counterpartyName: toAccount.Name,
             comment: string.IsNullOrWhiteSpace(args.Comment) ? null : args.Comment
@@ -134,7 +137,7 @@ public sealed partial class BankCartridgeSystem : EntitySystem
             Loc.GetString("bank-program-ui-transaction-transfer-received",
                 ("account", fromAccount.AccountId), ("name", fromAccount.Name)),
             args.Amount,
-            DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan),
+            InGameDate.Today(_configuration).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan),
             counterpartyAccount: fromAccount.AccountId.ToString(),
             counterpartyName: fromAccount.Name,
             comment: string.IsNullOrWhiteSpace(args.Comment) ? null : args.Comment

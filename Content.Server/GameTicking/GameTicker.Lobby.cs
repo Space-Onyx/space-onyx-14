@@ -38,6 +38,7 @@ namespace Content.Server.GameTicking
         public void UpdateInfoText()
         {
             RaiseNetworkEvent(GetInfoMsg(), Filter.Empty().AddPlayers(_playerManager.NetworkedSessions));
+            SendUserActionsInfo(); // <Onyx-SeparatedHud>
         }
 
         private string GetInfoText()

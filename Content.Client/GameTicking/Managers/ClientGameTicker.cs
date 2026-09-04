@@ -12,6 +12,7 @@ using Robust.Client.UserInterface;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Audio;
 using Content.Shared.GameTicking.Prototypes;
+using Content.Shared._Onyx.UserActions; // <Onyx-SeparatedHud>
 
 namespace Content.Client.GameTicking.Managers
 {
@@ -56,6 +57,7 @@ namespace Content.Client.GameTicking.Managers
             SubscribeNetworkEvent<TickerConnectionStatusEvent>(ConnectionStatus);
             SubscribeNetworkEvent<TickerLobbyStatusEvent>(LobbyStatus);
             SubscribeNetworkEvent<TickerLobbyInfoEvent>(LobbyInfo);
+            SubscribeNetworkEvent<TickerInGameInfoEvent>(OnUserActionsInfo); // <Onyx-SeparatedHud>
             SubscribeNetworkEvent<TickerLobbyCountdownEvent>(LobbyCountdown);
             SubscribeNetworkEvent<RoundEndMessageEvent>(RoundEnd);
             SubscribeNetworkEvent<RequestWindowAttentionEvent>(OnAttentionRequest);

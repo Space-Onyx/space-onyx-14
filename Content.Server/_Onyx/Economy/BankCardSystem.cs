@@ -11,6 +11,7 @@ using Content.Server.Chat.Systems;
 using Content.Server.GameTicking;
 using Content.Server.Station.Systems;
 using Content.Shared._Onyx.Economy;
+using Content.Shared._Onyx.Time;
 using Content.Shared.Access.Components;
 using Content.Shared.Mind;
 using Content.Shared.GameTicking;
@@ -114,7 +115,7 @@ public sealed partial class BankCardSystem : EntitySystem
                 TransactionRecord.TransactionType.Deposit,
                 Loc.GetString("bank-program-ui-salary-description"),
                 salary.Value,
-                DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
+                InGameDate.Today(_cfg).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
             ));
         }
 
@@ -290,7 +291,7 @@ public sealed partial class BankCardSystem : EntitySystem
             type,
             description,
             amount,
-            DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
+            InGameDate.Today(_cfg).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
         ));
 
         return true;

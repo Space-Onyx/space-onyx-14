@@ -9,6 +9,7 @@ using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
 using Content.Shared._Onyx.Economy;
+using Content.Shared._Onyx.Time;
 using Robust.Server.Containers;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
@@ -16,6 +17,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Content.Server.GameTicking;
 using Robust.Shared.Timing;
+using Robust.Shared.Configuration;
 
 namespace Content.Server._Onyx.Economy;
 
@@ -30,6 +32,7 @@ public sealed partial class ATMSystem : SharedATMSystem
     [Dependency] private ContainerSystem _container = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private GameTicker _gameTicker = default!;
+    [Dependency] private IConfigurationManager _configuration = default!;
     private Dictionary<EntityUid, EntityUid> _authenticatedCard = new();
     private readonly HashSet<EntityUid> _emaggedAtms = new();
     private readonly List<EntityUid> _emaggedAtmBuffer = new();
@@ -146,7 +149,7 @@ public sealed partial class ATMSystem : SharedATMSystem
                     TransactionRecord.TransactionType.Deposit,
                     Loc.GetString("bank-program-ui-transaction-deposit-atm"),
                     amount,
-                    DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
+                    InGameDate.Today(_configuration).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
                 ));
             }
         }
@@ -232,7 +235,7 @@ public sealed partial class ATMSystem : SharedATMSystem
                 TransactionRecord.TransactionType.Withdraw,
                     Loc.GetString("bank-program-ui-transaction-withdraw-atm"),
                 -args.Amount,
-                    DateTime.Now.Date.AddYears(1000).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
+                    InGameDate.Today(_configuration).Add(_timing.CurTime - _gameTicker.RoundStartTimeSpan)
             ));
         }
 

@@ -1,0 +1,10 @@
+user-action-control-tab-status = Information
+user-action-control-tab-emote = Emotes
+user-action-control-round = Round
+user-action-control-map = Map
+user-action-control-round-id = Round number
+user-action-control-game-mode = Game mode
+user-action-control-player-count = Connected players
+user-action-control-time = Time
+user-action-control-round-time = Round time
+user-action-control-date = Date

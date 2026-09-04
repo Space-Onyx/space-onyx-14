@@ -1,0 +1,11 @@
+<controls:UserActionsPanel
+    xmlns="https://spacestation14.io"
+    xmlns:controls="clr-namespace:Content.Client._Onyx.UserActions"
+    xmlns:tabs="clr-namespace:Content.Client._Onyx.UserActions.Tabs">
+    <PanelContainer StyleClasses="BackgroundDark" MinWidth="300" MinHeight="228" VerticalExpand="True" HorizontalExpand="True">
+        <TabContainer Name="TabContainer" Margin="2" HorizontalExpand="True" VerticalExpand="True">
+            <tabs:StatusTabControl Name="StatusTabControl" />
+            <tabs:EmotesTabControl Name="EmotesTabControl" />
+        </TabContainer>
+    </PanelContainer>
+</controls:UserActionsPanel>

@@ -1,0 +1,10 @@
+user-action-control-tab-status = Информация
+user-action-control-tab-emote = Эмоции
+user-action-control-round = Раунд
+user-action-control-map = Карта
+user-action-control-round-id = Номер раунда
+user-action-control-game-mode = Игровой режим
+user-action-control-player-count = Подключено игроков
+user-action-control-time = Время
+user-action-control-round-time = Время раунда
+user-action-control-date = Дата
