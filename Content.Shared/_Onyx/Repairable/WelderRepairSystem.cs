@@ -11,7 +11,6 @@ using Content.Shared.Repairable;
 using Content.Shared.Tools.Components;
 using Content.Shared.Tools.Systems;
 using Content.Shared.Verbs;
-using Content.Shared._Onyx.Targeting;
 using Content.Shared._Onyx.Wounds;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -23,9 +22,9 @@ public sealed partial class WelderRepairSystem : EntitySystem
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedToolSystem _tools = default!;
-    [Dependency] private TargetResolverSystem _targets = default!;
     [Dependency] private DamageableSystem _damage = default!;
     [Dependency] private WoundDamageProjectionSystem _projection = default!;
+    [Dependency] private WoundHealingSystem _healing = default!;
     [Dependency] private WoundSystem _wounds = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
 
@@ -80,22 +79,13 @@ public sealed partial class WelderRepairSystem : EntitySystem
             return;
 
         args.Handled = true;
-        if (!modes.RepairModes.TryGetValue(modes.RepairMode, out var mode) ||
-            !TryComp(args.User, out TargetingComponent? targeting) ||
-            !_targets.TryResolveExact(body, targeting.Target, out var part))
-        {
-            _popup.PopupClient(Loc.GetString("targeting-selected-part-missing"), body, args.User);
+        if (!modes.RepairModes.TryGetValue(modes.RepairMode, out var mode))
             return;
-        }
 
-        if (!TryGetSettings(body, part, out var settings) || !IsCompatible(body, part, settings.Capabilities, mode))
-        {
-            _popup.PopupClient(Loc.GetString("targeting-selected-part-incompatible"), body, args.User);
-            return;
-        }
-
-        var repair = mode.Damage;
-        if (!HasRepairableDamage(part, repair))
+        var part = _healing.ResolveHealingPart(body, null, mode.Damage, null, mode.TreatmentCapabilities,
+            null, 0f, healWounds: true);
+        if (part is not { } repairPart || !TryGetSettings(body, repairPart, out var settings) ||
+            !IsCompatible(body, repairPart, settings.Capabilities, mode))
         {
             _popup.PopupClient(Loc.GetString("targeting-selected-part-healthy"), body, args.User);
             return;
@@ -109,7 +99,7 @@ public sealed partial class WelderRepairSystem : EntitySystem
             delay *= settings.SelfRepairPenalty;
 
         _tools.UseTool(args.Used, args.User, body, delay, settings.Quality,
-            new WelderRepairDoAfterEvent(GetNetEntity(part), modes.RepairMode),
+            new WelderRepairDoAfterEvent(GetNetEntity(repairPart), modes.RepairMode),
             settings.Fuel * Math.Max(0f, mode.FuelMultiplier));
     }
 

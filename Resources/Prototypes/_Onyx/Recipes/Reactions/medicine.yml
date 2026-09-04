@@ -168,55 +168,6 @@
   products:
     Oxandrolone: 4
 
-- type: reaction
-  id: Ferrogel
-  reactants:
-    Iron:
-      amount: 1
-    Silicon:
-      amount: 1
-    Oil:
-      amount: 2
-  products:
-    Ferrogel: 3
-
-- type: reaction
-  id: Contusine
-  reactants:
-    Kelotane:
-      amount: 1
-    Phenol:
-      amount: 1
-    Oxygen:
-      amount: 1
-  products:
-    Contusine: 2
-
-- type: reaction
-  id: Lacerine
-  reactants:
-    Kelotane:
-      amount: 1
-    Nitrogen:
-      amount: 1
-    Water:
-      amount: 1
-  products:
-    Lacerine: 2
-
-- type: reaction
-  id: Puncturine
-  reactants:
-    Kelotane:
-      amount: 1
-    Silicon:
-      amount: 1
-    SulfuricAcid:
-      amount: 1
-  products:
-    Puncturine: 2
-
-
 # Content below taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
 - type: reaction
   id: Spaceacillin

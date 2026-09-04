@@ -13,7 +13,3 @@
 - type: metabolizerType
   id: FeroxiDehydrated
   name: metabolizer-type-feroxi-dehydrated
-
-- type: metabolizerType
-  id: Cybernetic
-  name: metabolizer-type-cybernetic

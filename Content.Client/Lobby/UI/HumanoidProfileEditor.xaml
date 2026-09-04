@@ -224,7 +224,7 @@
                     <humanoid:MarkingPicker Name="Markings" HorizontalExpand="True" VerticalExpand="True" />
                 </BoxContainer>
                 <!-- <Onyx-CyberneticsPersonalization> -->
-                <BoxContainer Orientation="Vertical" Margin="10">
+                <BoxContainer Name="CyberneticsTab" Orientation="Vertical" Margin="10">
                     <onyxCybernetics:CyberneticsPicker Name="CyberneticsPicker" VerticalExpand="True" />
                 </BoxContainer>
                 <!-- </Onyx-CyberneticsPersonalization> -->

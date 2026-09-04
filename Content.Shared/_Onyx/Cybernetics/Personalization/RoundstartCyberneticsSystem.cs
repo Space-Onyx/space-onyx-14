@@ -2,8 +2,10 @@ using System.Linq;
 using Content.Shared._Onyx.Body;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
+using Content.Shared.CCVar;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
+using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Onyx.Cybernetics.Personalization;
@@ -11,10 +13,14 @@ namespace Content.Shared._Onyx.Cybernetics.Personalization;
 public sealed partial class RoundstartCyberneticsSystem : EntitySystem
 {
     [Dependency] private SharedBodySystem _body = default!;
+    [Dependency] private IConfigurationManager _configuration = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
 
     public bool TryApply(EntityUid body, HumanoidCharacterProfile profile)
     {
+        if (!_configuration.GetCVar(CCVars.RoundstartCyberneticsEnabled))
+            return true;
+
         if (!_prototypes.TryIndex(profile.Species, out SpeciesPrototype? species))
             return false;
 

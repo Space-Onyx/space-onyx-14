@@ -99,11 +99,10 @@
 - type: bodyPartProfile
   id: CyberneticBodyPartProfile
   treatmentCapabilities: [Mechanical, Electrical]
-  circulatoryStream: Cybernetic
   canFeelPain: false
   passiveRecoveryMultiplier: 0
   bedRecoveryMultiplier: 0
-  bleedingMultiplier: 1
+  bleedingMultiplier: 0.5
   scarrable: false
   acceptedDamageTypes:
     - Blunt
