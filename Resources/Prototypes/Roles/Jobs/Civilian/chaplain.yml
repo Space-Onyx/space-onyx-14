@@ -23,6 +23,7 @@
   storage:
     back:
     - RubberStampChaplain
+    - WeaponNullRod # <Wega-Vampire>
 
 - type: chameleonOutfit
   id: ChaplainChameleonOutfit

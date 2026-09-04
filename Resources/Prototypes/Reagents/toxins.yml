@@ -495,7 +495,7 @@
       - !type:PopupMessage
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Animal, Vox, Arachnid, XenobioSlime ] # <Onyx-XenobiologyMetabolism-edited>
+          type: [ Animal, Vox, Arachnid, XenobioSlime, Vampire ] # <Wega-Vampire-edited>
           inverted: true
         type: Local
         visualType: MediumCaution
@@ -505,12 +505,12 @@
         probability: 0.1
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Animal, Vox, Plant, Arachnid, XenobioSlime ] # <Onyx-XenobiologyMetabolism-edited>
+          type: [ Animal, Vox, Plant, Arachnid, XenobioSlime, Vampire ] # <Wega-Vampire-edited>
           inverted: true
       - !type:HealthChange
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Animal, Vox, Plant, Arachnid, XenobioSlime ] # <Onyx-XenobiologyMetabolism-edited>
+          type: [ Animal, Vox, Plant, Arachnid, XenobioSlime, Vampire ] # <Wega-Vampire-edited>
           inverted: true
         damage:
           types:
@@ -525,7 +525,7 @@
       - !type:AdjustReagent
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Animal, Arachnid ]
+          type: [ Animal, Arachnid, Vampire ] # <Wega-Vampire-edited>
         reagent: Protein
         amount: 0.5
       - !type:AdjustReagent

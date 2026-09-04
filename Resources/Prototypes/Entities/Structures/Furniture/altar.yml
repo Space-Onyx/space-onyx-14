@@ -8,6 +8,7 @@
   - type: Anchorable
   - type: Transform
   - type: Prayable
+  - type: HolyPoint # <Wega-Vampire>
   - type: Destructible
     thresholds:
     - trigger: !type:DamageTrigger

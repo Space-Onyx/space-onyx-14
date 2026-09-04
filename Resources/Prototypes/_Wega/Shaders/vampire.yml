@@ -1,0 +1,4 @@
+- type: shader
+  id: NullDamage
+  kind: source
+  path: /Textures/_Wega/Shaders/nulldamage.swsl

@@ -96,6 +96,7 @@
     - Pacified
     - Flashed
     - Adrenaline
+    - Hallucinations # <Wega-Vampire>
   - type: Identity
   - type: IdExaminable
   - type: Internals
@@ -219,6 +220,9 @@
   id: BaseSpeciesMobOrganic
   save: false
   components:
+  - type: Tag # <Wega-Vampire>
+    tags:
+    - VampireBloodSource
   - type: Satiation
     satiations:
       Hunger:

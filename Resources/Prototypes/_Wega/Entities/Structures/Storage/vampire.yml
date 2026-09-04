@@ -1,0 +1,36 @@
+- type: entity
+  parent: CrateCoffin
+  id: CrateCoffinVampire
+  name: vampire coffin
+  description: A protective coffin for vampire anabiosis.
+  suffix: Vampire
+  components:
+  - type: VampireCoffin
+  - type: Lock
+    showExamine: false
+    showLockVerbs: false
+    unlockOnClick: false
+    useAccess: false
+  - type: DamageInContainer
+    damage:
+      types:
+        Asphyxiation: -8
+        Cellular: -2
+        Bloodloss: -2
+    damageGroups:
+      groups:
+        Brute: -4
+        Burn: -4
+        Toxin: -4
+    allowedStates: [Alive, Critical]
+    slotId: entity_storage
+    whitelist:
+      components: [Vampire]
+  - type: PointLight
+    radius: 3.5
+    energy: 5
+    color: "#880000"
+  - type: TimedDespawn
+    lifetime: 30
+  - type: SpawnOnDespawn
+    prototype: Ash

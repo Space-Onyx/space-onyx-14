@@ -1,0 +1,78 @@
+# Base
+- type: entity
+  parent: BaseMob
+  id: BaseEntityHallucination
+  name: "???"
+  description: "???"
+  suffix: DO NOT MAP
+  abstract: true
+  components:
+  #- type: Hallucination
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 15
+        mask:
+          - MobMask
+        layer:
+          - None
+  - type: TimedDespawn
+    lifetime: 30.0
+
+- type: entity
+  parent: BaseEntityHallucination
+  id: HallucinationMobBearSpace
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: Mobs/Animals/bear.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: bear
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: glow
+      shader: unshaded
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 4
+    baseSprintSpeed: 4
+  - type: HTN
+    rootTask:
+      task: SimpleHostileCompound
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+  - type: CombatMode
+  - type: MeleeWeapon
+    soundHit:
+        path: /Audio/_Wega/Effects/null.ogg
+    angle: 0
+    animation: WeaponArcClaw
+    damage:
+      types:
+        Blunt: 0
+  - type: TimedDespawn
+    lifetime: 30.0
+
+- type: entity
+  parent: BaseEntityHallucination
+  id: HallucinationMobCorgi
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: Mobs/Pets/corgi.rsi
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: corgi
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 4
+    baseSprintSpeed: 4
+  - type: HTN
+    rootTask:
+      task: IdleCompound
+  - type: TimedDespawn
+    lifetime: 30.0

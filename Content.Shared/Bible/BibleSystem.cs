@@ -9,6 +9,7 @@ using Content.Shared.Interaction;
 using Content.Shared.Inventory;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
+using Content.Shared.NullRod.Components; // <Wega-Vampire>
 using Content.Shared.Popups;
 using Content.Shared.Random.Helpers;
 using Content.Shared.Timing;
@@ -106,6 +107,20 @@ public sealed partial class BibleSystem : EntitySystem
 
         if (TryDoCosmicCultSmite(ent, args.User, args.Target.Value, useDelay)) // <Onyx-CosmicCult>
             return;
+
+        // <Wega-Vampire>
+        if (HasComp<UnholyComponent>(args.Target))
+        {
+            _damageable.TryChangeDamage(args.Target.Value, ent.Comp.DamageUnholy, true, origin: ent);
+            var unholyOthersMessage = Loc.GetString(ent.Comp.DamageUnholyOthersText,
+                ("user", userEnt), ("target", targetEnt), ("bible", ent));
+            _popup.PopupEntity(unholyOthersMessage, args.User, Filter.PvsExcept(args.User), true, PopupType.MediumCaution);
+            var unholySelfMessage = Loc.GetString(ent.Comp.DamageUnholySelfText, ("target", targetEnt), ("bible", ent));
+            _popup.PopupEntity(unholySelfMessage, args.User, args.User, PopupType.LargeCaution);
+            _delay.TryResetDelay((ent, useDelay));
+            return;
+        }
+        // </Wega-Vampire>
 
         // This only has a chance to fail if the target is not wearing anything on their head and is not a familiar.
         if (!_inventory.TryGetSlotEntity(args.Target.Value, "head", out _) && !HasComp<FamiliarComponent>(args.Target.Value))

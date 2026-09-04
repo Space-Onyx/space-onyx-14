@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Taken from https://github.com/ss220-space/Paradise",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "blood_bolt",
+            "delays": [ [ 0.1, 0.1, 0.1, 0.1 ] ]
+        },
+        {
+            "name": "magmabolt",
+            "delays": [ [ 0.1, 0.1 ] ]
+        },
+        {
+            "name": "lavastaff",
+            "delays": [ [ 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 ] ]
+        },
+        {
+            "name": "skull"
+        },
+        {
+            "name": "icebeam"
+        },
+        {
+            "name": "iceorb"
+        },
+        {
+            "name": "snowball"
+        }
+    ]
+}

@@ -1210,6 +1210,9 @@
           min: 10
       - !type:HealthChange
         conditions:
+        - !type:MetabolizerTypeCondition # <Wega-Vampire>
+          type: [Vampire]
+          inverted: true
         damage:
           types:
             Blunt: -0.2
@@ -1230,6 +1233,17 @@
         damage:
           types:
             Holy: 0.5
+    # <Wega-Vampire>
+    Unholy:
+      methods: [Touch]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 5
+      - !type:Emote
+        emote: Scream
+    # </Wega-Vampire>
   plantMetabolism:
   - !type:PlantAdjustWater
     amount: 1

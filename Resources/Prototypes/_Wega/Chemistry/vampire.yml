@@ -1,0 +1,6 @@
+- type: metabolizerType
+  id: Vampire
+  name: metabolizer-type-vampire
+
+- type: reactiveGroup
+  id: Unholy

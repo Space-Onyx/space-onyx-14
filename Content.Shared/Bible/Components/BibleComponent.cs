@@ -63,6 +63,14 @@ public sealed partial class BibleComponent : Component
     [DataField(required: true)]
     public DamageSpecifier DamageOnUntrainedUse = default!;
 
+    // <Wega-Vampire>
+    [DataField(required: true)]
+    public DamageSpecifier DamageOnUnholyUse = default!;
+
+    [DataField(required: true)]
+    public DamageSpecifier DamageUnholy = default!;
+    // </Wega-Vampire>
+
     /// <summary>
     /// Chance theBbible will fail to heal someone with no helmet.
     /// </summary>
@@ -110,6 +118,14 @@ public sealed partial class BibleComponent : Component
     /// </summary>
     [DataField]
     public string HealSuccessNoneSelfText = "bible-heal-success-none-self";
+
+    // <Wega-Vampire>
+    [DataField]
+    public string DamageUnholyOthersText = "bible-damage-unholy-others";
+
+    [DataField]
+    public string DamageUnholySelfText = "bible-damage-unholy-self";
+    // </Wega-Vampire>
 
     /// <summary>
     /// A short light effect to display when successfully healing someone.

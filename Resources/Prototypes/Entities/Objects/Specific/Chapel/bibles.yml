@@ -24,6 +24,14 @@
     damageOnUntrainedUse: ## What a non-chaplain takes when attempting to heal someone
       types:
         Heat: 10
+    # <Wega-Vampire>
+    damageOnUnholyUse:
+      types:
+        Heat: 30
+    damageUnholy:
+      types:
+        Heat: 20
+    # </Wega-Vampire>
   - type: MeleeWeapon
     soundHit:
       collection: Punch
@@ -80,6 +88,14 @@
     damageOnUntrainedUse:
       types:
         Caustic: 50
+    # <Wega-Vampire>
+    damageOnUnholyUse:
+      types:
+        Caustic: 50
+    damageUnholy:
+      types:
+        Caustic: 20
+    # </Wega-Vampire>
     failChance: 0
     healFailOthersText: necro-heal-fail-others
     healFailSelfText: necro-heal-fail-self

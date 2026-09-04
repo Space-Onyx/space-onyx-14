@@ -1,0 +1,17 @@
+- type: entity
+  id: DiseaseVampireGraveFever
+  parent: DiseaseBase
+  name: grave fever
+  description: A severe supernatural fever caused by a vampire trophy.
+  components:
+  - type: Disease
+    diseaseType: OwnCells
+    infectionRate: 0.004
+    immunityGainRate: 0.2
+    canGainImmunity: true
+    genotype: 142857
+    effects:
+      DiseaseBehaviorPoison: 1
+      DiseaseBehaviorVomit: 0.7
+      DiseaseBehaviorFeelUnwell: 1
+      DiseaseBehaviorHeadache: 0.8
