@@ -128,13 +128,29 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         bool ignoreResistances = false,
         bool interruptsDoAfters = true)
     {
+        return TryRouteOriginDamage(body,
+                   damage,
+                   origin,
+                   out damageDealt,
+                   ignoreResistances,
+                   interruptsDoAfters) &&
+               !damageDealt.Empty;
+    }
+
+    public bool TryRouteOriginDamage(
+        EntityUid body,
+        DamageSpecifier damage,
+        EntityUid? origin,
+        out DamageSpecifier damageDealt,
+        bool ignoreResistances = false,
+        bool interruptsDoAfters = true)
+    {
         damageDealt = new DamageSpecifier();
         if (!TryComp(body, out WoundHostComponent? host) || !_net.IsServer || _routing.Contains(body))
             return false;
 
         var before = _damage.GetAllDamage(body).Clone();
-        if (!RouteThroughBodyModifiers((body, host), damage, origin, ignoreResistances, interruptsDoAfters))
-            return false;
+        RouteThroughBodyModifiers((body, host), damage, origin, ignoreResistances, interruptsDoAfters);
 
         var after = _damage.GetAllDamage(body);
         foreach (var (type, newAmount) in after.DamageDict)
@@ -150,7 +166,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                 damageDealt.DamageDict[type] = FixedPoint2.Zero - oldAmount;
         }
 
-        return !damageDealt.Empty;
+        return true;
     }
 
     public bool TryApplyPartDamage(
@@ -249,7 +265,14 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         out DamageSpecifier damageDealt,
         bool ignoreResistances = false)
     {
-        return TryApplyTargetedDamage(body, damage, requested, shooter, out damageDealt, ignoreResistances, shooter);
+        return TryRouteTargetedDamage(body,
+                   damage,
+                   requested,
+                   shooter,
+                   out damageDealt,
+                   ignoreResistances,
+                   shooter) &&
+               !damageDealt.Empty;
     }
 
     public bool TryApplyCarrierDamage(
@@ -260,9 +283,26 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         out DamageSpecifier damageDealt,
         bool ignoreResistances = false)
     {
+        return TryRouteCarrierDamage(body,
+                   carrier,
+                   damage,
+                   origin,
+                   out damageDealt,
+                   ignoreResistances) &&
+               !damageDealt.Empty;
+    }
+
+    public bool TryRouteCarrierDamage(
+        EntityUid body,
+        EntityUid carrier,
+        DamageSpecifier damage,
+        EntityUid? origin,
+        out DamageSpecifier damageDealt,
+        bool ignoreResistances = false)
+    {
         damageDealt = new DamageSpecifier();
         return TryComp(carrier, out TargetingSnapshotComponent? snapshot) &&
-               TryApplyTargetedDamage(body,
+               TryRouteTargetedDamage(body,
                    damage,
                    snapshot.RequestedTarget,
                    snapshot.Shooter,
@@ -271,7 +311,24 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                    origin);
     }
 
-    private bool TryApplyTargetedDamage(
+    public bool TryRouteTargetedDamage(
+        EntityUid body,
+        DamageSpecifier damage,
+        TargetBodyPart requested,
+        EntityUid? shooter,
+        out DamageSpecifier damageDealt,
+        bool ignoreResistances = false)
+    {
+        return TryRouteTargetedDamage(body,
+            damage,
+            requested,
+            shooter,
+            out damageDealt,
+            ignoreResistances,
+            shooter);
+    }
+
+    private bool TryRouteTargetedDamage(
         EntityUid body,
         DamageSpecifier damage,
         TargetBodyPart requested,
@@ -293,8 +350,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         _requestedParts[body] = part;
         try
         {
-            if (!RouteThroughBodyModifiers((body, host), damage, origin, ignoreResistances))
-                return false;
+            RouteThroughBodyModifiers((body, host), damage, origin, ignoreResistances);
 
             var after = _damage.GetPositiveDamage((part, partDamageable));
             foreach (var (type, oldAmount) in before.DamageDict)
@@ -375,6 +431,25 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         bool ignoreResistances = false,
         bool healWounds = true)
     {
+        return TryRoutePartDamage(body,
+                   part,
+                   damage,
+                   origin,
+                   out damageDealt,
+                   ignoreResistances,
+                   healWounds) &&
+               !damageDealt.Empty;
+    }
+
+    public bool TryRoutePartDamage(
+        EntityUid body,
+        EntityUid part,
+        DamageSpecifier damage,
+        EntityUid? origin,
+        out DamageSpecifier damageDealt,
+        bool ignoreResistances = false,
+        bool healWounds = true)
+    {
         damageDealt = new DamageSpecifier();
         if (!TryComp(body, out WoundHostComponent? host) || !_net.IsServer || _routing.Contains(body) ||
             !IsAttachedWoundablePart(body, part))
@@ -386,8 +461,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         {
             if (!healWounds)
                 _skipWoundHealing.Add(body);
-            if (!RouteThroughBodyModifiers((body, host), damage, origin, ignoreResistances))
-                return false;
+            RouteThroughBodyModifiers((body, host), damage, origin, ignoreResistances);
         }
         finally
         {
@@ -403,7 +477,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                 damageDealt.DamageDict[type] = delta;
         }
 
-        return !damageDealt.Empty;
+        return true;
     }
 
     public bool TryGetActiveHandPart(EntityUid body, out EntityUid handPart)
@@ -691,6 +765,31 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
             if (!change.Empty)
                 applied |= ApplyPartChange(body, part, change, origin, interruptsDoAfters);
         return applied;
+    }
+
+    public bool TryRouteDistributedDamage(
+        EntityUid body,
+        DamageSpecifier damage,
+        TargetBodyPart mask,
+        DamageDistribution mode,
+        EntityUid? origin = null,
+        bool ignoreResistances = false,
+        bool interruptsDoAfters = true,
+        float variation = 0f)
+    {
+        if (!TryComp<WoundHostComponent>(body, out _) || !_net.IsServer || _routing.Contains(body) ||
+            mode is not DamageDistribution.SplitEvenly and not DamageDistribution.SplitByPartWeight and not DamageDistribution.SplitWithVariation)
+            return false;
+
+        TryApplyDistributedDamage(body,
+            damage,
+            mask,
+            mode,
+            origin,
+            ignoreResistances,
+            interruptsDoAfters,
+            variation);
+        return true;
     }
 
     private bool CanTreatPart(EntityUid body, EntityUid part)

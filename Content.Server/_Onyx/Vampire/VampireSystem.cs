@@ -50,7 +50,6 @@ using Content.Shared.Shaders;
 using Content.Shared.SSDIndicator;
 using Content.Shared.Stunnable;
 using Content.Shared.Tag;
-using Content.Shared._Onyx.Targeting;
 using Content.Shared._Onyx.Medical.Surgery;
 using Content.Shared.Temperature.Components;
 using Content.Shared.Throwing;
@@ -96,7 +95,6 @@ public sealed partial class VampireSystem : SharedVampireSystem
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private StomachSystem _stomach = default!;
     [Dependency] private TagSystem _tag = default!;
-    [Dependency] private TargetResolverSystem _targetResolver = default!;
     [Dependency] private TileSystem _tile = default!;
     [Dependency] private TurfSystem _turf = default!;
     [Dependency] private VampireRuleSystem _vampireRule = default!;
@@ -511,10 +509,6 @@ public sealed partial class VampireSystem : SharedVampireSystem
 
     private bool HasDrinkableBlood(EntityUid vampire, EntityUid target)
     {
-        if (_targetResolver.TryResolve(target, vampire, out var part)
-            && HasComp<MechanicalOrganComponent>(part))
-            return false;
-
         if (!TryComp<BloodstreamComponent>(target, out var bloodstream) || bloodstream.BloodSolution == null)
             return false;
 

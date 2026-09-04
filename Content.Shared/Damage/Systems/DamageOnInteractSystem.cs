@@ -81,7 +81,7 @@ public sealed partial class DamageOnInteractSystem : EntitySystem
         // Sharp objects injure the interacting hand, not a random part.
         if (HasComp<WoundHostComponent>(args.User) &&
             _woundRouting.TryGetActiveHandPart(args.User, out var handPart) &&
-            _woundRouting.TryApplyPartDamage(args.User, handPart, totalDamage, args.Target, out var partDealt))
+            _woundRouting.TryRoutePartDamage(args.User, handPart, totalDamage, args.Target, out var partDealt))
             totalDamage = partDealt;
         else
             totalDamage = _damageableSystem.ChangeDamage(args.User, totalDamage, origin: args.Target);

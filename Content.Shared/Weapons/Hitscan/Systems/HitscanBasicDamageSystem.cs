@@ -32,14 +32,19 @@ public sealed partial class HitscanBasicDamageSystem : EntitySystem
         // Shooter is the damage origin; snapshot supplies the fixed anatomical intent.
         bool damaged;
         DamageSpecifier damageDealt;
-        if (TryComp(ent, out TargetingSnapshotComponent? snapshot) &&
-            HasComp<WoundHostComponent>(args.Data.HitEntity.Value))
+        if (TryComp(ent, out TargetingSnapshotComponent? snapshot))
         {
-            damaged = _woundRouting.TryApplyTargetedDamage(args.Data.HitEntity.Value,
+            var routed = _woundRouting.TryRouteTargetedDamage(args.Data.HitEntity.Value,
                 dmg,
                 snapshot.RequestedTarget,
                 snapshot.Shooter,
                 out damageDealt);
+            damaged = routed && !damageDealt.Empty;
+            if (!routed)
+                damaged = _damage.TryChangeDamage(args.Data.HitEntity.Value,
+                    dmg,
+                    out damageDealt,
+                    origin: args.Data.Shooter);
         }
         else
         {

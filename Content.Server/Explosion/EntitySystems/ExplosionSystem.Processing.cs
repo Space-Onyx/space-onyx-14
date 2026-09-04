@@ -461,15 +461,12 @@ public sealed partial class ExplosionSystem
                 // <Onyx-Wounds-edited>
                 // Wound hosts split explosion damage across parts with limb variation,
                 // so blasts can focus a part hard enough to sever it instead of spreading evenly.
-                if (HasComp<WoundHostComponent>(entity))
+                if (!_woundDamageRouting.TryRouteDistributedDamage(entity, damage, TargetBodyPart.All,
+                        DamageDistribution.SplitWithVariation, ignoreResistances: true, interruptsDoAfters: false,
+                        variation: LimbDamageVariation))
                 {
-                    if (!_woundDamageRouting.TryApplyDistributedDamage(entity, damage, TargetBodyPart.All,
-                            DamageDistribution.SplitWithVariation, ignoreResistances: true, interruptsDoAfters: false,
-                            variation: LimbDamageVariation))
-                        _damageableSystem.ChangeDamage((entity, damageable), damage);
-                }
-                else
                     _damageableSystem.ChangeDamage((entity, damageable), damage);
+                }
                 // </Onyx-Wounds-edited>
 
                 if (_actorQuery.HasComp(entity))

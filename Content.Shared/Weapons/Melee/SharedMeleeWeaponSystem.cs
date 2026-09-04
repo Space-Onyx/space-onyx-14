@@ -605,8 +605,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         // the wrapper preserves the applied damage for stamina, logs and visuals.
         bool damageChanged;
         DamageSpecifier damageResult;
-        if (HasComp<WoundHostComponent>(target.Value) &&
-            _woundRouting.TryApplyOriginDamage(target.Value, modifiedDamage, user, out damageResult, resistanceBypass))
+        if (_woundRouting.TryRouteOriginDamage(target.Value, modifiedDamage, user, out damageResult, resistanceBypass))
             damageChanged = !damageResult.Empty;
         else
             damageChanged = Damageable.TryChangeDamage(target.Value,
@@ -795,8 +794,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             // <Onyx-Targeting>
             // Same wound-aware path as light attacks; keeps heavy-swing damage reporting intact.
             DamageSpecifier damageResult;
-            if (!(HasComp<WoundHostComponent>(entity) &&
-                _woundRouting.TryApplyOriginDamage(entity, modifiedDamage, user, out damageResult, resistanceBypass)))
+            if (!_woundRouting.TryRouteOriginDamage(entity, modifiedDamage, user, out damageResult, resistanceBypass))
                 damageResult = Damageable.ChangeDamage(entity, modifiedDamage, origin: user, ignoreResistances: resistanceBypass);
             // </Onyx-Targeting>
 

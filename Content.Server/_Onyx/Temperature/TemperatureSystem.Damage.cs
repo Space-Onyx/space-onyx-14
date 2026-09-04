@@ -16,8 +16,7 @@ public sealed partial class TemperatureSystem
 
     private partial bool TryApplyLocalizedTemperatureDamage(Entity<TemperatureDamageComponent> entity, DamageSpecifier damage)
     {
-        return HasComp<WoundHostComponent>(entity)
-            && _woundDamageRouting.TryApplyDistributedDamage(entity, damage, TargetBodyPart.All,
-                DamageDistribution.SplitByPartWeight, ignoreResistances: true, interruptsDoAfters: false);
+        return _woundDamageRouting.TryRouteDistributedDamage(entity, damage, TargetBodyPart.All,
+            DamageDistribution.SplitByPartWeight, ignoreResistances: true, interruptsDoAfters: false);
     }
 }

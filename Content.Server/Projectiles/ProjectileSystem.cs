@@ -68,14 +68,21 @@ public sealed partial class ProjectileSystem : SharedProjectileSystem
         // Read intent from the carrier while preserving shooter attribution.
         bool damaged;
         DamageSpecifier damage;
-        if (HasComp<TargetingSnapshotComponent>(uid) && HasComp<WoundHostComponent>(target))
+        if (HasComp<TargetingSnapshotComponent>(uid))
         {
-            damaged = _woundRouting.TryApplyCarrierDamage(target,
+            var routed = _woundRouting.TryRouteCarrierDamage(target,
                 uid,
                 ev.Damage,
                 component.Shooter,
                 out damage,
                 component.IgnoreResistances);
+            damaged = routed && !damage.Empty;
+            if (!routed)
+                damaged = _damageableSystem.TryChangeDamage((target, damageableComponent),
+                    ev.Damage,
+                    out damage,
+                    component.IgnoreResistances,
+                    origin: component.Shooter);
         }
         else
         {

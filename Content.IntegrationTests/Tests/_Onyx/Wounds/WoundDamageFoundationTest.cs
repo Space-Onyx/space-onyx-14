@@ -464,6 +464,8 @@ public sealed class WoundDamageFoundationTest : GameTest
             var wounds = entityManager.System<WoundSystem>();
 
             Assert.That(routing.TryApplyPartDamage(body, head, Spec("Slash", 10)), Is.False);
+            Assert.That(routing.TryRoutePartDamage(body, head, Spec("Slash", 10), null, out var dealt), Is.True);
+            Assert.That(dealt.Empty, Is.True);
             Assert.That(damage.GetAllDamage(head).Empty, Is.True);
             Assert.That(wounds.CreateOrMergeWound(head, "SlashWound", 10), Is.Null);
             var incision = wounds.CreateOrMergeWound(head, "SurgicalIncisionWound", 10);
