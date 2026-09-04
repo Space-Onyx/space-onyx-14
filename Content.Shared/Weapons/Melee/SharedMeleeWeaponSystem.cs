@@ -940,7 +940,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
 
         if (user == target) // <Onyx-MartialArts-edited>
         {
-            RaiseOnyxSelfDisarmCombo(user, meleeUid);
+            RaiseSelfDisarmCombo(user, meleeUid);
             return false;
         } // </Onyx-MartialArts-edited>
 

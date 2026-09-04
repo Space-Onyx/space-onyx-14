@@ -23,7 +23,7 @@ public sealed partial class EmoteOnDamageSystem : EntitySystem
 
     private void OnDamage(EntityUid uid, EmoteOnDamageComponent emoteOnDamage, DamageChangedEvent args)
     {
-        OnyxHandleDamageEmote(uid, emoteOnDamage, args); // <Onyx-PainSounds>
+        HandlePainDamageEmote(uid, emoteOnDamage, args); // <Onyx-PainSounds>
 
         if (!args.DamageIncreased)
             return;

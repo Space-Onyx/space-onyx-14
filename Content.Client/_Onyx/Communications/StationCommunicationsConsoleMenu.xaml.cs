@@ -13,20 +13,20 @@ using Robust.Shared.Utility;
 namespace Content.Client._Onyx.Communications;
 
 [GenerateTypedNameReferences]
-public sealed partial class OnyxCommunicationsConsoleMenu : FancyWindow
+public sealed partial class StationCommunicationsConsoleMenu : FancyWindow
 {
     [Dependency] private IGameTiming _timing = default!;
     private readonly BoxContainer[] _screens;
     private readonly ButtonGroup _alertLevelGroup = new();
     private readonly Popup _alertLevelsPopup;
     private readonly BoxContainer _alertLevels = new() { Orientation = BoxContainer.LayoutOrientation.Vertical };
-    private Entity<OnyxCommunicationsConsoleComponent>? _console;
+    private Entity<StationCommunicationsConsoleComponent>? _console;
     private string _line1 = string.Empty;
     private string _line2 = string.Empty;
 
     public event Action<BoundUserInterfaceMessage>? OnMessage;
 
-    public OnyxCommunicationsConsoleMenu()
+    public StationCommunicationsConsoleMenu()
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
@@ -62,7 +62,7 @@ public sealed partial class OnyxCommunicationsConsoleMenu : FancyWindow
             EmergencyStatus.Text = Loc.GetString("comms-console-menu-shuttle-not-coming");
     }
 
-    public void Update(Entity<OnyxCommunicationsConsoleComponent> console)
+    public void Update(Entity<StationCommunicationsConsoleComponent> console)
     {
         _console = console;
         AnnouncementTab.Visible = console.Comp.CanAnnounce;

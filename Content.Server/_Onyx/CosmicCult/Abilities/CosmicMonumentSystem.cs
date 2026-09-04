@@ -73,7 +73,6 @@ public sealed partial class CosmicMonumentSystem : EntitySystem
             return;
 
         //The action to move the monument will instead now have a cooldown, to prevent security camping.
-        //_actions.RemoveAction(uid.Comp.CosmicMonumentMoveActionEntity);
 
         //delete all old monument colliders for 100% safety
         var colliderQuery = EntityQueryEnumerator<MonumentCollisionComponent>();

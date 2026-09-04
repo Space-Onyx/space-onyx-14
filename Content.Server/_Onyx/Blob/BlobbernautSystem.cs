@@ -35,8 +35,7 @@ public sealed partial class BlobbernautSystem : SharedBlobbernautSystem
     [Dependency] private EmpSystem _empSystem = default!;
     [Dependency] private MobStateSystem _mobStateSystem = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
-    [Dependency] private TransformSystem _transform = default!;
-    //private EntityQuery<MapGridComponent> _mapGridQuery;
+    [Dependency]     private TransformSystem _transform = default!;
     private EntityQuery<BlobTileComponent> _tileQuery;
     private EntityQuery<BlobCoreComponent> _coreQuery;
 
@@ -45,7 +44,6 @@ public sealed partial class BlobbernautSystem : SharedBlobbernautSystem
         base.Initialize();
         SubscribeLocalEvent<BlobbernautComponent, MeleeHitEvent>(OnMeleeHit);
 
-        //_mapGridQuery = GetEntityQuery<MapGridComponent>();
         _tileQuery = GetEntityQuery<BlobTileComponent>();
         _coreQuery = GetEntityQuery<BlobCoreComponent>();
     }

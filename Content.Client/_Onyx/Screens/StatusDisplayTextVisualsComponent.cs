@@ -6,14 +6,14 @@ using Robust.Client.Graphics;
 namespace Content.Client._Onyx.Screens;
 
 [RegisterComponent]
-[Access(typeof(OnyxTextVisualsSystem), typeof(OnyxTextRenderingOverlay))]
-public sealed partial class OnyxTextVisualsComponent : Component
+[Access(typeof(StatusDisplayTextVisualsSystem), typeof(StatusDisplayTextRenderingOverlay))]
+public sealed partial class StatusDisplayTextVisualsComponent : Component
 {
     [DataField(required: true)]
-    public List<OnyxTextVisualsRow> Rows = new()
+    public List<StatusDisplayTextVisualsRow> Rows = new()
     {
-        new() { Layer = OnyxTextScreenVisualLayers.Line1, Offset = new Vector2(1f / 32f, 5f / 32f) },
-        new() { Layer = OnyxTextScreenVisualLayers.Line2, Offset = new Vector2(1f / 32f, 0f) },
+        new() { Layer = StatusDisplayVisualLayers.Line1, Offset = new Vector2(1f / 32f, 5f / 32f) },
+        new() { Layer = StatusDisplayVisualLayers.Line2, Offset = new Vector2(1f / 32f, 0f) },
     };
 
     [DataField]
@@ -29,7 +29,7 @@ public sealed partial class OnyxTextVisualsComponent : Component
 }
 
 [DataDefinition]
-public sealed partial class OnyxTextVisualsRow
+public sealed partial class StatusDisplayTextVisualsRow
 {
     public IRenderTexture? Texture;
 
@@ -40,7 +40,7 @@ public sealed partial class OnyxTextVisualsRow
     public Vector2 Offset;
 
     [DataField(required: true)]
-    public Enum Layer = OnyxTextScreenVisualLayers.Line1;
+    public Enum Layer = StatusDisplayVisualLayers.Line1;
 
     public bool Marquee;
 }

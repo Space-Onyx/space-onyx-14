@@ -69,8 +69,8 @@
       enum.SolarControlConsoleUiKey.Key:
         type: SolarControlConsoleBoundUserInterface
       # <Onyx-CommunicationsConsole-edited>
-      enum.OnyxCommunicationsConsoleUi.Key:
-        type: OnyxCommunicationsConsoleBoundUserInterface
+      enum.StationCommunicationsConsoleUi.Key:
+        type: StationCommunicationsConsoleBoundUserInterface
       # </Onyx-CommunicationsConsole-edited>
       enum.RadarConsoleUiKey.Key:
         type: RadarConsoleBoundUserInterface
@@ -85,7 +85,7 @@
     uis:
       enum.SolarControlConsoleUiKey.Key:
         toggleAction: ActionAGhostShowSolar
-      enum.OnyxCommunicationsConsoleUi.Key: # <Onyx-CommunicationsConsole-edited>
+      enum.StationCommunicationsConsoleUi.Key: # <Onyx-CommunicationsConsole-edited>
         toggleAction: ActionAGhostShowCommunications
       enum.RadarConsoleUiKey.Key:
         toggleAction: ActionAGhostShowRadar
@@ -97,7 +97,7 @@
         toggleAction: ActionAGhostShowStationRecords
   - type: SolarControlConsole # look ma i AM the computer!
   # <Onyx-CommunicationsConsole-edited>
-  - type: OnyxCommunicationsConsole
+  - type: StationCommunicationsConsole
     announcementTitle: comms-console-announcement-title-centcom
     announcementColor: "#1d8bad"
     announcementInterval: 10
@@ -185,7 +185,7 @@
     layers:
     - state: comms_console
   - type: InstantAction
-    event: !type:ToggleIntrinsicUIEvent { key: enum.OnyxCommunicationsConsoleUi.Key } # <Onyx-CommunicationsConsole-edited>
+    event: !type:ToggleIntrinsicUIEvent { key: enum.StationCommunicationsConsoleUi.Key } # <Onyx-CommunicationsConsole-edited>
 
 - type: entity
   parent: BaseAGhostAction

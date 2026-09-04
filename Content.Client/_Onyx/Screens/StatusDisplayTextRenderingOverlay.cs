@@ -8,24 +8,24 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._Onyx.Screens;
 
-public sealed partial class OnyxTextRenderingOverlay : Overlay
+public sealed partial class StatusDisplayTextRenderingOverlay : Overlay
 {
     private const float FontScale = 1f;
 
     [Dependency] private IClyde _clyde = default!;
     [Dependency] private IGameTiming _timing = default!;
     private SpriteSystem _sprite;
-    private Queue<(Entity<OnyxTextVisualsComponent> Entity, Font Font, CancellationToken Cancellation)> _queue = new();
+    private Queue<(Entity<StatusDisplayTextVisualsComponent> Entity, Font Font, CancellationToken Cancellation)> _queue = new();
 
     public override OverlaySpace Space => OverlaySpace.ScreenSpaceBelowWorld;
-    public OnyxTextRenderingOverlay(SpriteSystem sprite)
+    public StatusDisplayTextRenderingOverlay(SpriteSystem sprite)
     {
         IoCManager.InjectDependencies(this);
         _sprite = sprite;
         ZIndex = -100;
     }
 
-    public CancellationTokenSource QueueRender(Entity<OnyxTextVisualsComponent> ent, Font font)
+    public CancellationTokenSource QueueRender(Entity<StatusDisplayTextVisualsComponent> ent, Font font)
     {
         var source = new CancellationTokenSource();
         _queue.Enqueue((ent, font, source.Token));
@@ -61,7 +61,7 @@ public sealed partial class OnyxTextRenderingOverlay : Overlay
                     row.Texture?.Dispose();
                     row.Texture = _clyde.CreateRenderTarget(size,
                         new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8),
-                        name: $"onyx-text-visuals-{queued.Entity.Owner.Id}");
+                        name: $"station-text-visuals-{queued.Entity.Owner.Id}");
                 }
 
                 _sprite.LayerSetTexture(queued.Entity.Owner, row.Layer, row.Texture.Texture);

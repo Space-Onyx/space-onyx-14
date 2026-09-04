@@ -8,7 +8,7 @@ namespace Content.Shared.Inventory;
 
 public partial class InventorySystem
 {
-    [Dependency] private SharedBodySystem _onyxBody = default!;
+    [Dependency] private SharedBodySystem _body = default!;
 
     public void RefreshBodySlots(EntityUid ent)
     {
@@ -29,15 +29,15 @@ public partial class InventorySystem
         }
 
         var available = SlotFlags.All;
-        if (!_onyxBody.BodyHasPartType(ent, BodyPartType.Head))
+        if (!_body.BodyHasPartType(ent, BodyPartType.Head))
             available &= ~(SlotFlags.HEAD | SlotFlags.EYES | SlotFlags.EARS | SlotFlags.MASK);
-        if (!_onyxBody.BodyHasPartType(ent, BodyPartType.Hand))
+        if (!_body.BodyHasPartType(ent, BodyPartType.Hand))
             available &= ~SlotFlags.GLOVES;
-        if (!_onyxBody.BodyHasPartType(ent, BodyPartType.Foot))
+        if (!_body.BodyHasPartType(ent, BodyPartType.Foot))
             available &= ~SlotFlags.FEET;
-        if (!_onyxBody.BodyHasPartType(ent, BodyPartType.Leg))
+        if (!_body.BodyHasPartType(ent, BodyPartType.Leg))
             available &= ~(SlotFlags.LEGS | SlotFlags.SOCKS);
-        if (!_onyxBody.BodyHasPartType(ent, BodyPartType.Groin))
+        if (!_body.BodyHasPartType(ent, BodyPartType.Groin))
             available &= ~SlotFlags.UNDERWEARB;
 
         var slots = template.Slots.Where(slot => (slot.SlotFlags & ~available) == 0).ToArray();

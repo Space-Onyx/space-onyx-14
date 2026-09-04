@@ -9,7 +9,7 @@ namespace Content.Server.Medical.BiomassReclaimer;
 
 public sealed partial class BiomassReclaimerSystem
 {
-    private void InitializeOnyxBiomassReclaimer()
+    private void InitializeAnimalReclaimer()
     {
         SubscribeLocalEvent<BiomassReclaimerComponent, DragDropTargetEvent>(OnDragDropTarget);
     }

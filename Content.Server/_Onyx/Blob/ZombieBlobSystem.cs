@@ -139,9 +139,6 @@ public sealed partial class ZombieBlobSystem : SharedZombieBlobSystem
         _faction.AddFaction(uid, BlobFaction);
         component.OldFactions = oldFactions;
 
-        // var accent = EnsureComp<ReplacementAccentComponent>(uid); // Languages - No need for accents.
-        // accent.Accent = "genericAggressive";
-
         _tagSystem.AddTag(uid, BlobMobTag);
 
         EnsureComp<PressureImmunityStatusEffectComponent>(uid);

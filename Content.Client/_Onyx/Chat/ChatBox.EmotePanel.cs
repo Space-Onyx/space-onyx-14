@@ -5,12 +5,12 @@ namespace Content.Client.UserInterface.Systems.Chat.Widgets;
 
 public partial class ChatBox
 {
-    private static readonly Color OnyxEmotePanelActiveModulate = new(1.35f, 1.35f, 1.35f);
+    private static readonly Color EmotePanelActiveModulate = new(1.35f, 1.35f, 1.35f);
 
-    private EmotePanelSection? _onyxEmoteSection;
-    private EmotePanelButton? _onyxEmoteButton;
+    private EmotePanelSection? _emoteSection;
+    private EmotePanelButton? _emoteButton;
 
-    private void InitializeOnyxEmotePanel()
+    private void InitializeEmotePanel()
     {
         if (Contents.Parent is not BoxContainer messagesBox)
             return;
@@ -28,31 +28,31 @@ public partial class ChatBox
         if (searchBar == null)
             return;
 
-        _onyxEmoteButton = new EmotePanelButton
+        _emoteButton = new EmotePanelButton
         {
             Name = "EmotePanelButton",
             StyleClasses = { ChatInputBox.StyleClassChatFilterOptionButton },
         };
-        _onyxEmoteButton.OnToggled += OnOnyxEmotePanelToggled;
-        searchBar.AddChild(_onyxEmoteButton);
+        _emoteButton.OnToggled += OnEmotePanelToggled;
+        searchBar.AddChild(_emoteButton);
 
-        _onyxEmoteSection = new EmotePanelSection
+        _emoteSection = new EmotePanelSection
         {
             Name = "EmotePanel",
             HorizontalExpand = true,
             Visible = false,
         };
-        messagesBox.AddChild(_onyxEmoteSection);
-        _onyxEmoteSection.SetPositionInParent(1);
+        messagesBox.AddChild(_emoteSection);
+        _emoteSection.SetPositionInParent(1);
     }
 
-    private void OnOnyxEmotePanelToggled(BaseButton.ButtonToggledEventArgs args)
+    private void OnEmotePanelToggled(BaseButton.ButtonToggledEventArgs args)
     {
-        if (_onyxEmoteSection == null || _onyxEmoteButton == null)
+        if (_emoteSection == null || _emoteButton == null)
             return;
 
-        _onyxEmoteSection.EnsureInitialized();
-        _onyxEmoteSection.Visible = args.Pressed;
-        _onyxEmoteButton.ModulateSelfOverride = args.Pressed ? OnyxEmotePanelActiveModulate : null;
+        _emoteSection.EnsureInitialized();
+        _emoteSection.Visible = args.Pressed;
+        _emoteButton.ModulateSelfOverride = args.Pressed ? EmotePanelActiveModulate : null;
     }
 }

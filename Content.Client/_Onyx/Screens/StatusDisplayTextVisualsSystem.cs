@@ -5,23 +5,23 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._Onyx.Screens;
 
-public sealed partial class OnyxTextVisualsSystem : EntitySystem
+public sealed partial class StatusDisplayTextVisualsSystem : EntitySystem
 {
     [Dependency] private IOverlayManager _overlay = default!;
     [Dependency] private IResourceCache _resource = default!;
     [Dependency] private SpriteSystem _sprite = default!;
 
-    private OnyxTextRenderingOverlay _textRendering = default!;
+    private StatusDisplayTextRenderingOverlay _textRendering = default!;
     private Font _font = default!;
 
     public override void Initialize()
     {
-        _textRendering = new OnyxTextRenderingOverlay(_sprite);
+        _textRendering = new StatusDisplayTextRenderingOverlay(_sprite);
         _overlay.AddOverlay(_textRendering);
         _font = new VectorFont(_resource.GetResource<FontResource>("/Fonts/_Onyx/Tiny5-Regular.ttf"), 6);
 
-        SubscribeLocalEvent<OnyxTextVisualsComponent, ComponentInit>(OnComponentInit);
-        SubscribeLocalEvent<OnyxTextVisualsComponent, ComponentShutdown>(OnComponentShutdown);
+        SubscribeLocalEvent<StatusDisplayTextVisualsComponent, ComponentInit>(OnComponentInit);
+        SubscribeLocalEvent<StatusDisplayTextVisualsComponent, ComponentShutdown>(OnComponentShutdown);
     }
 
     public override void Shutdown()
@@ -29,12 +29,12 @@ public sealed partial class OnyxTextVisualsSystem : EntitySystem
         _overlay.RemoveOverlay(_textRendering);
     }
 
-    private void OnComponentInit(Entity<OnyxTextVisualsComponent> ent, ref ComponentInit args)
+    private void OnComponentInit(Entity<StatusDisplayTextVisualsComponent> ent, ref ComponentInit args)
     {
         ent.Comp.Token = _textRendering.QueueRender(ent, _font);
     }
 
-    private void OnComponentShutdown(Entity<OnyxTextVisualsComponent> ent, ref ComponentShutdown args)
+    private void OnComponentShutdown(Entity<StatusDisplayTextVisualsComponent> ent, ref ComponentShutdown args)
     {
         foreach (var row in ent.Comp.Rows)
             row.Texture?.Dispose();
@@ -42,7 +42,7 @@ public sealed partial class OnyxTextVisualsSystem : EntitySystem
         ent.Comp.Token?.Cancel();
     }
 
-    public void SetText(Entity<OnyxTextVisualsComponent?> ent, bool force, params string[] rows)
+    public void SetText(Entity<StatusDisplayTextVisualsComponent?> ent, bool force, params string[] rows)
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
@@ -65,14 +65,14 @@ public sealed partial class OnyxTextVisualsSystem : EntitySystem
         ent.Comp.Token = _textRendering.QueueRender((ent, ent.Comp), _font);
     }
 
-    public void SetText(Entity<OnyxTextVisualsComponent?> ent, params string[] rows)
+    public void SetText(Entity<StatusDisplayTextVisualsComponent?> ent, params string[] rows)
     {
         SetText(ent, false, rows);
     }
 
     public override void FrameUpdate(float frameTime)
     {
-        var query = EntityQueryEnumerator<OnyxTextVisualsComponent>();
+        var query = EntityQueryEnumerator<StatusDisplayTextVisualsComponent>();
         while (query.MoveNext(out var uid, out var visuals))
         {
             if (!visuals.Rows.Exists(row => row.Marquee))

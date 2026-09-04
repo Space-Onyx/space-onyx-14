@@ -795,7 +795,7 @@
   - type: AccessReader
     access: [[ "Command" ]]
   # <Onyx-CommunicationsConsole-edited>
-  - type: OnyxCommunicationsConsole
+  - type: StationCommunicationsConsole
     announcementTitle: comms-console-announcement-title-station
   # </Onyx-CommunicationsConsole-edited>
   - type: DeviceNetwork
@@ -803,12 +803,12 @@
     transmitFrequencyId: ShuttleTimer
     receiveFrequencyId: ShuttleTimer # <Onyx-CommunicationsConsole>
   - type: ActivatableUI
-    key: enum.OnyxCommunicationsConsoleUi.Key # <Onyx-CommunicationsConsole-edited>
+    key: enum.StationCommunicationsConsoleUi.Key # <Onyx-CommunicationsConsole-edited>
   - type: UserInterface
     interfaces:
       # <Onyx-CommunicationsConsole-edited>
-      enum.OnyxCommunicationsConsoleUi.Key:
-        type: OnyxCommunicationsConsoleBoundUserInterface
+      enum.StationCommunicationsConsoleUi.Key:
+        type: StationCommunicationsConsoleBoundUserInterface
       # </Onyx-CommunicationsConsole-edited>
       enum.WiresUiKey.Key:
         type: WiresBoundUserInterface
@@ -840,7 +840,7 @@
   - type: AccessReader
     access: [[ "NuclearOperative" ]]
   # <Onyx-CommunicationsConsole-edited>
-  - type: OnyxCommunicationsConsole
+  - type: StationCommunicationsConsole
     announcementTitle: comms-console-announcement-title-nukie
     announcementColor: "#ff0000"
     announcementSound: /Audio/Announcements/war.ogg
@@ -878,7 +878,7 @@
   - type: AccessReader
     access: [[ "Wizard" ]]
   # <Onyx-CommunicationsConsole-edited>
-  - type: OnyxCommunicationsConsole
+  - type: StationCommunicationsConsole
     announcementTitle: comms-console-announcement-title-wizard
     announcementColor: "#ff00ff"
     announcementSound: /Audio/Announcements/war.ogg
@@ -916,7 +916,7 @@
   - type: AccessReader
     access: [[ "CentralCommand" ]]
   # <Onyx-CommunicationsConsole-edited>
-  - type: OnyxCommunicationsConsole
+  - type: StationCommunicationsConsole
     announcementTitle: comms-console-announcement-title-centcom
     announcementColor: "#1d8bad"
     globalAnnouncements: true

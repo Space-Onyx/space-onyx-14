@@ -157,13 +157,6 @@ public sealed partial class CosmicCultComponent : Component
     [DataField, AutoNetworkedField]
     public float FlickerRange = 5f;
 
-    //Goobstation
-    /// <summary>
-    /// The maximum amount of Entropy the user can have at once.
-    /// </summary>
-    //[DataField, AutoNetworkedField]
-    //public int MonumentHealRange = 15; Erm...
-
     /// <summary>
     /// Wether or not this cultist has been empowered by a Malign Rift.
     /// </summary>

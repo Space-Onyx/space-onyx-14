@@ -7,7 +7,7 @@ namespace Content.Client._Onyx.Screens;
 public sealed partial class StatusDisplaySystem : EntitySystem
 {
     [Dependency] private IGameTiming _timing = default!;
-    [Dependency] private OnyxTextVisualsSystem _textVisuals = default!;
+    [Dependency] private StatusDisplayTextVisualsSystem _textVisuals = default!;
     [Dependency] private ClientGameTicker _ticker = default!;
 
     public override void Initialize()
@@ -32,7 +32,7 @@ public sealed partial class StatusDisplaySystem : EntitySystem
 
     private void UpdateText(Entity<StatusDisplayComponent> ent)
     {
-        var visuals = EnsureComp<OnyxTextVisualsComponent>(ent);
+        var visuals = EnsureComp<StatusDisplayTextVisualsComponent>(ent);
 
         if (ent.Comp.Content == StatusDisplayContent.AlertLevel)
         {

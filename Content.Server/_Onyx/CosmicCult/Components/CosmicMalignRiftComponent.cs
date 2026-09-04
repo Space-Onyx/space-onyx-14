@@ -18,9 +18,6 @@ public sealed partial class CosmicMalignRiftComponent : Component
     [DataField]
     public SoundSpecifier PurgeSound = new SoundPathSpecifier("/Audio/_Onyx/CosmicCult/cleanse_deconversion.ogg");
 
-    // [DataField]
-    // public EntProtoId GrailID = "NullRodGrail"; // Not implemented at this time
-
     [DataField]
     public TimeSpan BibleTime = TimeSpan.FromSeconds(35);
 

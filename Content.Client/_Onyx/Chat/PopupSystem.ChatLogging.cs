@@ -12,7 +12,7 @@ namespace Content.Client.Popups;
 
 public sealed partial class PopupSystem
 {
-    private static readonly Dictionary<PopupType, int> OnyxPopupFontSizes = new()
+    private static readonly Dictionary<PopupType, int> PopupFontSizes = new()
     {
         { PopupType.Medium, 12 },
         { PopupType.MediumCaution, 12 },
@@ -20,31 +20,31 @@ public sealed partial class PopupSystem
         { PopupType.LargeCaution, 15 },
     };
 
-    private bool _onyxLogActionsInChat;
+    private bool _logActionsInChat;
 
-    private void InitializeOnyxChatLogging()
+    private void InitializeChatLogging()
     {
         _configManager.OnValueChanged(CCVars.ChatLogActions, OnChatLoggingChanged, true);
     }
 
-    private void ShutdownOnyxChatLogging()
+    private void ShutdownChatLogging()
     {
         _configManager.UnsubValueChanged(CCVars.ChatLogActions, OnChatLoggingChanged);
     }
 
     private void OnChatLoggingChanged(bool enabled)
     {
-        _onyxLogActionsInChat = enabled;
+        _logActionsInChat = enabled;
     }
 
     private void LogPopupInChat(string message, PopupType type, EntityCoordinates coordinates)
     {
-        if (!_onyxLogActionsInChat ||
+        if (!_logActionsInChat ||
             _playerManager.LocalEntity is not { } player ||
             !_examine.InRangeUnOccluded(player, coordinates, 10))
             return;
 
-        var size = OnyxPopupFontSizes.GetValueOrDefault(type, 10);
+        var size = PopupFontSizes.GetValueOrDefault(type, 10);
         var color = type is PopupType.SmallCaution or PopupType.MediumCaution or PopupType.LargeCaution
             ? "#C62828"
             : "#AEABC4";

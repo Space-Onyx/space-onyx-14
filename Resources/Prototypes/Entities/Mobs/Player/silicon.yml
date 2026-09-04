@@ -54,8 +54,8 @@
       enum.SiliconLawsUiKey.Key:
         type: SiliconLawBoundUserInterface
       # <Onyx-CommunicationsConsole-edited>
-      enum.OnyxCommunicationsConsoleUi.Key:
-        type: OnyxCommunicationsConsoleBoundUserInterface
+      enum.StationCommunicationsConsoleUi.Key:
+        type: StationCommunicationsConsoleBoundUserInterface
       # </Onyx-CommunicationsConsole-edited>
       # <Onyx-AiRemoteBrain>
       enum.RemoteDeviceUiKey.Key:
@@ -70,7 +70,7 @@
         toggleAction: ActionAGhostShowCrewMonitoring
       enum.GeneralStationRecordConsoleKey.Key:
         toggleAction: ActionAGhostShowStationRecords
-      enum.OnyxCommunicationsConsoleUi.Key: # <Onyx-CommunicationsConsole-edited>
+      enum.StationCommunicationsConsoleUi.Key: # <Onyx-CommunicationsConsole-edited>
         toggleAction: ActionAGhostShowCommunications
   - type: CrewMonitoringConsole
   - type: GeneralStationRecordConsole
@@ -81,7 +81,7 @@
   - type: RadarConsole
     followEntity: false
   # <Onyx-CommunicationsConsole-edited>
-  - type: OnyxCommunicationsConsole
+  - type: StationCommunicationsConsole
     canCallShuttles: false
     announcementTitle: comms-console-announcement-title-station-ai
     announcementColor: "#5ed7aa"

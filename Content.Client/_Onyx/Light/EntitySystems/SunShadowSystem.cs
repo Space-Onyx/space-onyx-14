@@ -17,7 +17,7 @@ public sealed partial class SunShadowSystem
         return time <= 0f ? 0f : duration - time;
     }
 
-    private static void ApplyOnyxSettings(
+    private static void ApplyCycleSettings(
         SunShadowCycleComponent cycle,
         ref Vector2 direction,
         ref float alpha)

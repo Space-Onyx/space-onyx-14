@@ -47,10 +47,10 @@ public partial class ChatBox : UIWidget
         _controller.HighlightsUpdated += OnHighlightsUpdated;
         _controller.RegisterChat(this);
         // <Onyx-ChatCoalescing>
-        InitializeOnyxChatCoalescing();
+        InitializeChatCoalescing();
         // </Onyx-ChatCoalescing>
-        InitializeOnyxChatSearch(); // <Onyx-ChatSearch>
-        InitializeOnyxEmotePanel(); // <Onyx-EmotePanel>
+        InitializeChatSearch(); // <Onyx-ChatSearch>
+        InitializeEmotePanel(); // <Onyx-EmotePanel>
     }
 
     private void OnTextEntered(LineEditEventArgs args)
@@ -66,7 +66,7 @@ public partial class ChatBox : UIWidget
             return;
         }
 
-        if (!MatchesOnyxSearch(msg)) // <Onyx-ChatSearch>
+        if (!MatchesSearch(msg)) // <Onyx-ChatSearch>
             return;
 
         if (msg is { Read: false, AudioPath: { } })
@@ -96,7 +96,7 @@ public partial class ChatBox : UIWidget
     {
         Contents.Clear();
         // <Onyx-ChatCoalescing>
-        ResetOnyxChatCoalescing();
+        ResetChatCoalescing();
         // </Onyx-ChatCoalescing>
 
         foreach (var message in _controller.History)
@@ -109,7 +109,7 @@ public partial class ChatBox : UIWidget
     {
         Contents.Clear();
         // <Onyx-ChatCoalescing>
-        ResetOnyxChatCoalescing();
+        ResetChatCoalescing();
         // </Onyx-ChatCoalescing>
 
         foreach (var message in _controller.History)
@@ -230,8 +230,8 @@ public partial class ChatBox : UIWidget
         ChatInput.Input.OnTextChanged -= OnTextChanged;
         ChatInput.ChannelSelector.OnChannelSelect -= OnChannelSelect;
         // <Onyx-ChatCoalescing>
-        ShutdownOnyxChatCoalescing();
+        ShutdownChatCoalescing();
         // </Onyx-ChatCoalescing>
-        ShutdownOnyxChatSearch(); // <Onyx-ChatSearch>
+        ShutdownChatSearch(); // <Onyx-ChatSearch>
     }
 }

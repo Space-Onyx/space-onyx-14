@@ -8,7 +8,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared._Onyx.Communications;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
-public sealed partial class OnyxCommunicationsConsoleComponent : Component
+public sealed partial class StationCommunicationsConsoleComponent : Component
 {
     [DataField]
     public LocId AnnouncementTitle = "comms-console-announcement-title-station";
@@ -108,15 +108,15 @@ public sealed class CommunicationsConsoleScreenConfigurationMessage(StatusDispla
 }
 
 [Serializable, NetSerializable]
-public enum OnyxCommunicationsConsoleUi : byte
+public enum StationCommunicationsConsoleUi : byte
 {
     Key,
 }
 
 public static class ScreenPackets
 {
-    public const string Content = "onyx-screen-content";
-    public const string Grid = "onyx-screen-grid";
-    public const string ShowBorders = "onyx-screen-borders";
-    public const string Text = "onyx-screen-text";
+    public const string Content = "station-screen-content";
+    public const string Grid = "station-screen-grid";
+    public const string ShowBorders = "station-screen-borders";
+    public const string Text = "station-screen-text";
 }

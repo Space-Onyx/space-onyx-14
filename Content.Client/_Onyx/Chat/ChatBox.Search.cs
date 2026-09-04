@@ -7,19 +7,19 @@ namespace Content.Client.UserInterface.Systems.Chat.Widgets;
 
 public partial class ChatBox
 {
-    private string? _onyxSearchText;
-    private ChatSearchButton? _onyxSearchButton;
+    private string? _searchText;
+    private ChatSearchButton? _searchButton;
 
-    private void InitializeOnyxChatSearch()
+    private void InitializeChatSearch()
     {
-        _onyxSearchButton = new ChatSearchButton
+        _searchButton = new ChatSearchButton
         {
             Name = "SearchButton",
             StyleClasses = { ChatInputBox.StyleClassChatFilterOptionButton },
             HorizontalAlignment = HAlignment.Right,
         };
-        _onyxSearchButton.Popup.OnSearchChanged += OnOnyxSearchChanged;
-        _onyxSearchButton.OnToggled += OnOnyxSearchToggled;
+        _searchButton.Popup.OnSearchChanged += OnSearchChanged;
+        _searchButton.OnToggled += OnSearchToggled;
 
         var searchBar = new BoxContainer
         {
@@ -31,7 +31,7 @@ public partial class ChatBox
             Children =
             {
                 new Control { HorizontalExpand = true },
-                _onyxSearchButton,
+                _searchButton,
             },
         };
 
@@ -42,35 +42,35 @@ public partial class ChatBox
         searchBar.SetPositionInParent(0);
     }
 
-    private void ShutdownOnyxChatSearch()
+    private void ShutdownChatSearch()
     {
-        if (_onyxSearchButton == null)
+        if (_searchButton == null)
             return;
 
-        _onyxSearchButton.Popup.OnSearchChanged -= OnOnyxSearchChanged;
-        _onyxSearchButton.OnToggled -= OnOnyxSearchToggled;
-        _onyxSearchButton.Popup.Close();
-        _onyxSearchButton = null;
+        _searchButton.Popup.OnSearchChanged -= OnSearchChanged;
+        _searchButton.OnToggled -= OnSearchToggled;
+        _searchButton.Popup.Close();
+        _searchButton = null;
     }
 
-    private void OnOnyxSearchChanged(string text)
+    private void OnSearchChanged(string text)
     {
-        _onyxSearchText = string.IsNullOrWhiteSpace(text) ? null : text.Trim();
+        _searchText = string.IsNullOrWhiteSpace(text) ? null : text.Trim();
         Repopulate();
     }
 
-    private void OnOnyxSearchToggled(BaseButton.ButtonToggledEventArgs args)
+    private void OnSearchToggled(BaseButton.ButtonToggledEventArgs args)
     {
         if (args.Pressed)
-            _onyxSearchButton?.Popup.FocusSearch();
+            _searchButton?.Popup.FocusSearch();
     }
 
-    private bool MatchesOnyxSearch(ChatMessage msg)
+    private bool MatchesSearch(ChatMessage msg)
     {
-        if (string.IsNullOrEmpty(_onyxSearchText))
+        if (string.IsNullOrEmpty(_searchText))
             return true;
 
-        return msg.Message.Contains(_onyxSearchText, StringComparison.OrdinalIgnoreCase)
-            || msg.WrappedMessage.Contains(_onyxSearchText, StringComparison.OrdinalIgnoreCase);
+        return msg.Message.Contains(_searchText, StringComparison.OrdinalIgnoreCase)
+            || msg.WrappedMessage.Contains(_searchText, StringComparison.OrdinalIgnoreCase);
     }
 }

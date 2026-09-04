@@ -57,7 +57,7 @@ public sealed partial class PopupSystem : SharedPopupSystem
             _transform,
             this));
         // <Onyx-PopupChatLogging>
-        InitializeOnyxChatLogging();
+        InitializeChatLogging();
         // </Onyx-PopupChatLogging>
     }
 
@@ -67,7 +67,7 @@ public sealed partial class PopupSystem : SharedPopupSystem
 
         _overlay.RemoveOverlay<PopupOverlay>();
         // <Onyx-PopupChatLogging>
-        ShutdownOnyxChatLogging();
+        ShutdownChatLogging();
         // </Onyx-PopupChatLogging>
     }
 

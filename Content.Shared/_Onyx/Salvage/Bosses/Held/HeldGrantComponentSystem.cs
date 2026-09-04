@@ -47,9 +47,6 @@ public sealed partial class HeldGrantComponentSystem : EntitySystem
 
     private void OnCompUnequip(Entity<HeldGrantComponentComponent> ent, ref GotUnequippedHandEvent args)
     {
-        // Goobstation
-        //if (!component.IsActive) return;
-
         foreach (var (name, data) in ent.Comp.Components)
         {
             // Goobstation

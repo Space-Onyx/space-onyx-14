@@ -18,15 +18,11 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Onyx.Blob.Components;
 
-//[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [RegisterComponent, NetworkedComponent]
 public sealed partial class BlobSpeakComponent : Component
 {
     [DataField]
     public ProtoId<LanguagePrototype> Language = "Blob";
-
-    //[DataField, AutoNetworkedField]
-    //public ProtoId<RadioChannelPrototype> Channel = "Hivemind";
 
     /// <summary>
     /// Hide entity name

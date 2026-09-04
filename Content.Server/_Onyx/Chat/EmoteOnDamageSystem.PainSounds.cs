@@ -16,7 +16,7 @@ public sealed partial class EmoteOnDamageSystem
     [Dependency] private StatusEffectsSystem _statusEffects = default!;
     [Dependency] private DamageableSystem _damageable = default!;
 
-    private void OnyxHandleDamageEmote(EntityUid uid, EmoteOnDamageComponent component, DamageChangedEvent args)
+    private void HandlePainDamageEmote(EntityUid uid, EmoteOnDamageComponent component, DamageChangedEvent args)
     {
         var totalDamage = _damageable.GetTotalDamage(uid).Float();
         var totalDelta = totalDamage - component.LastTotalDamage;

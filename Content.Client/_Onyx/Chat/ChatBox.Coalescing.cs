@@ -7,49 +7,49 @@ namespace Content.Client.UserInterface.Systems.Chat.Widgets;
 
 public partial class ChatBox
 {
-    private IConfigurationManager _onyxConfig = default!;
-    private bool _onyxCoalesceMessages;
-    private (string Message, Color Color)? _onyxLastLine;
-    private int _onyxRepeatCount;
+    private IConfigurationManager _coalesceConfig = default!;
+    private bool _coalesceMessages;
+    private (string Message, Color Color)? _lastCoalescedLine;
+    private int _coalescedRepeatCount;
 
-    private void InitializeOnyxChatCoalescing()
+    private void InitializeChatCoalescing()
     {
-        _onyxConfig = IoCManager.Resolve<IConfigurationManager>();
-        _onyxCoalesceMessages = _onyxConfig.GetCVar(CCVars.ChatCoalesceIdenticalMessages);
-        _onyxConfig.OnValueChanged(CCVars.ChatCoalesceIdenticalMessages, OnCoalescingChanged);
+        _coalesceConfig = IoCManager.Resolve<IConfigurationManager>();
+        _coalesceMessages = _coalesceConfig.GetCVar(CCVars.ChatCoalesceIdenticalMessages);
+        _coalesceConfig.OnValueChanged(CCVars.ChatCoalesceIdenticalMessages, OnCoalescingChanged);
     }
 
-    private void ShutdownOnyxChatCoalescing()
+    private void ShutdownChatCoalescing()
     {
-        _onyxConfig.UnsubValueChanged(CCVars.ChatCoalesceIdenticalMessages, OnCoalescingChanged);
+        _coalesceConfig.UnsubValueChanged(CCVars.ChatCoalesceIdenticalMessages, OnCoalescingChanged);
     }
 
     private void OnCoalescingChanged(bool enabled)
     {
-        _onyxCoalesceMessages = enabled;
+        _coalesceMessages = enabled;
         Repopulate();
     }
 
     private bool TryAddCoalescedMessage(ChatMessage message, Color color)
     {
         var line = (message.WrappedMessage, color);
-        if (_onyxCoalesceMessages && message.CanCoalesce && _onyxLastLine == line && Contents.EntryCount > 0)
+        if (_coalesceMessages && message.CanCoalesce && _lastCoalescedLine == line && Contents.EntryCount > 0)
         {
-            _onyxRepeatCount++;
-            AddLine(message.WrappedMessage, color, _onyxRepeatCount + 1);
+            _coalescedRepeatCount++;
+            AddLine(message.WrappedMessage, color, _coalescedRepeatCount + 1);
             Contents.RemoveEntry(^2);
             return true;
         }
 
-        _onyxLastLine = line;
-        _onyxRepeatCount = 0;
+        _lastCoalescedLine = line;
+        _coalescedRepeatCount = 0;
         return false;
     }
 
-    private void ResetOnyxChatCoalescing()
+    private void ResetChatCoalescing()
     {
-        _onyxLastLine = null;
-        _onyxRepeatCount = 0;
+        _lastCoalescedLine = null;
+        _coalescedRepeatCount = 0;
     }
 
     private void AddLine(string message, Color color, int repeatCount)

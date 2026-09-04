@@ -252,9 +252,6 @@ public sealed partial class CosmicCultRuleSystem : GameRuleSystem<CosmicCultRule
             component.Tier2DelayTimer = null;
 
             //do spooky effects
-            var sender = Loc.GetString("cosmiccult-announcement-sender");
-            var mapData = _map.GetMap(_transform.GetMapId(component.MonumentInGame.Owner.ToCoordinates()));
-            //_chatSystem.DispatchStationAnnouncement(component.MonumentInGame, Loc.GetString("cosmiccult-announce-tier2-progress"), sender, false, null, Color.FromHex("#4cabb3"));
             _chatSystem.DispatchStationAnnouncement(component.MonumentInGame,
                 Loc.GetString("cosmiccult-announce-tier2-warning"),
                 null,

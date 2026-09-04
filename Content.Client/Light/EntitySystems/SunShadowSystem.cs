@@ -62,7 +62,7 @@ public sealed partial class SunShadowSystem : SharedSunShadowSystem
                 .TotalSeconds % cycle.Duration.TotalSeconds);
             // <Onyx-Planetar>
             var (direction, alpha) = GetShadow((uid, cycle), GetCycleTime(cycle, time, durationSeconds));
-            ApplyOnyxSettings(cycle, ref direction, ref alpha);
+            ApplyCycleSettings(cycle, ref direction, ref alpha);
             // </Onyx-Planetar>
             shadow.Direction = direction;
             shadow.Alpha = alpha;

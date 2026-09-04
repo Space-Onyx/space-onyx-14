@@ -43,9 +43,9 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
 
     public override void Initialize()
     {
-        SubscribeLocalEvent<OnyxCommunicationsConsoleComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<OnyxCommunicationsConsoleComponent, DeviceNetworkPacketEvent>(OnPacketReceive);
-        Subs.BuiEvents<OnyxCommunicationsConsoleComponent>(OnyxCommunicationsConsoleUi.Key, subs =>
+        SubscribeLocalEvent<StationCommunicationsConsoleComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<StationCommunicationsConsoleComponent, DeviceNetworkPacketEvent>(OnPacketReceive);
+        Subs.BuiEvents<StationCommunicationsConsoleComponent>(StationCommunicationsConsoleUi.Key, subs =>
         {
             subs.Event<BoundUIOpenedEvent>(OnUiOpened);
             subs.Event<CommunicationsConsoleAnnouncementMessage>(OnAnnouncement);
@@ -58,7 +58,7 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
         SubscribeLocalEvent<RoundEndSystemChangedEvent>(OnRoundEndChanged);
     }
 
-    private void OnMapInit(Entity<OnyxCommunicationsConsoleComponent> ent, ref MapInitEvent args)
+    private void OnMapInit(Entity<StationCommunicationsConsoleComponent> ent, ref MapInitEvent args)
     {
         ent.Comp.CanAnnounceAt = _timing.CurTime + ent.Comp.InitialAnnouncementDelay;
         ent.Comp.ShuttlesCallable = CanCallOrRecall();
@@ -68,7 +68,7 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
         Dirty(ent);
     }
 
-    private void OnPacketReceive(Entity<OnyxCommunicationsConsoleComponent> ent, ref DeviceNetworkPacketEvent args)
+    private void OnPacketReceive(Entity<StationCommunicationsConsoleComponent> ent, ref DeviceNetworkPacketEvent args)
     {
         if (args.Data.TryGetValue(ScreenPackets.Grid, out EntityUid? grid) && Transform(ent).GridUid != grid)
             return;
@@ -94,7 +94,7 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
             Dirty(ent);
     }
 
-    private void OnAnnouncement(Entity<OnyxCommunicationsConsoleComponent> ent, ref CommunicationsConsoleAnnouncementMessage args)
+    private void OnAnnouncement(Entity<StationCommunicationsConsoleComponent> ent, ref CommunicationsConsoleAnnouncementMessage args)
     {
         if (args.Actor is not { Valid: true } actor || !ent.Comp.CanAnnounce || _timing.CurTime < ent.Comp.CanAnnounceAt)
             return;
@@ -122,7 +122,7 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
         Dirty(ent);
     }
 
-    private void OnAlertLevel(Entity<OnyxCommunicationsConsoleComponent> ent, ref CommunicationsConsoleAlertLevelMessage args)
+    private void OnAlertLevel(Entity<StationCommunicationsConsoleComponent> ent, ref CommunicationsConsoleAlertLevelMessage args)
     {
         if (args.Actor is not { Valid: true } actor || !ent.Comp.CanAlertLevel || RefreshStationState(ent) is not { } station)
             return;
@@ -139,7 +139,7 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
         _alertLevel.SetLevel(station, new ProtoId<AlertLevelPrototype>(args.AlertLevel));
     }
 
-    private void OnEvacuationShuttle(Entity<OnyxCommunicationsConsoleComponent> ent, ref CommunicationsConsoleEvacuationShuttleMessage args)
+    private void OnEvacuationShuttle(Entity<StationCommunicationsConsoleComponent> ent, ref CommunicationsConsoleEvacuationShuttleMessage args)
     {
         if (args.Actor is not { Valid: true } actor || !ent.Comp.CanCallShuttles || !CanCallOrRecall())
             return;
@@ -169,7 +169,7 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
         _adminLog.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(actor):player} called shuttle using {ToPrettyString(ent):console}");
     }
 
-    private void OnScreenConfiguration(Entity<OnyxCommunicationsConsoleComponent> ent, ref CommunicationsConsoleScreenConfigurationMessage args)
+    private void OnScreenConfiguration(Entity<StationCommunicationsConsoleComponent> ent, ref CommunicationsConsoleScreenConfigurationMessage args)
     {
         if (args.Actor is not { Valid: true } actor || !ent.Comp.CanConfigureScreens)
             return;
@@ -198,12 +198,12 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
         });
     }
 
-    private void OnUiOpened(Entity<OnyxCommunicationsConsoleComponent> ent, ref BoundUIOpenedEvent args)
+    private void OnUiOpened(Entity<StationCommunicationsConsoleComponent> ent, ref BoundUIOpenedEvent args)
     {
         RefreshStationState(ent);
     }
 
-    private EntityUid? RefreshStationState(Entity<OnyxCommunicationsConsoleComponent> ent)
+    private EntityUid? RefreshStationState(Entity<StationCommunicationsConsoleComponent> ent)
     {
         ent.Comp.AlertLevels.Clear();
         if (_station.GetOwningStation(ent) is not { } station || !TryComp<AlertLevelComponent>(station, out var alert))
@@ -228,7 +228,7 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
 
     private void OnAlertLevelChanged(ref AlertLevelChangedEvent args)
     {
-        var query = EntityQueryEnumerator<OnyxCommunicationsConsoleComponent>();
+        var query = EntityQueryEnumerator<StationCommunicationsConsoleComponent>();
         while (query.MoveNext(out var uid, out var console))
         {
             if (_station.GetOwningStation(uid) != args.Station)
@@ -243,7 +243,7 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
 
     private void OnAlertLevelDelayFinished(ref AlertLevelDelayFinishedEvent args)
     {
-        var query = EntityQueryEnumerator<OnyxCommunicationsConsoleComponent>();
+        var query = EntityQueryEnumerator<StationCommunicationsConsoleComponent>();
         while (query.MoveNext(out var uid, out var console))
         {
             if (_station.GetOwningStation(uid) is not { } station || !TryComp<AlertLevelComponent>(station, out var alert))
@@ -256,7 +256,7 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
 
     private void OnRoundEndChanged(RoundEndSystemChangedEvent args)
     {
-        var query = EntityQueryEnumerator<OnyxCommunicationsConsoleComponent>();
+        var query = EntityQueryEnumerator<StationCommunicationsConsoleComponent>();
         while (query.MoveNext(out var uid, out var console))
         {
             console.ExpectedEvacuationArrival = _roundEnd.ExpectedCountdownEnd;
@@ -266,7 +266,7 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
         }
     }
 
-    private bool HasAccess(Entity<OnyxCommunicationsConsoleComponent> console, EntityUid actor)
+    private bool HasAccess(Entity<StationCommunicationsConsoleComponent> console, EntityUid actor)
     {
         return !TryComp<AccessReaderComponent>(console, out var reader) || _access.IsAllowed(actor, console, reader);
     }

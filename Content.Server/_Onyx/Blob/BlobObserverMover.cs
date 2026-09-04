@@ -24,7 +24,6 @@ public sealed class BlobObserverMover : Job<object>
     {
         _observerSystem = observerSystem;
         _transform = transform;
-        //_blocker = blockerSystem;
         _entityManager = entityManager;
     }
 
@@ -32,7 +31,6 @@ public sealed class BlobObserverMover : Job<object>
     {
         _observerSystem = observerSystem;
         _transform = transform;
-        //_blocker = blockerSystem;
         _entityManager = entityManager;
     }
     public EntityCoordinates NewPosition;
@@ -40,7 +38,6 @@ public sealed class BlobObserverMover : Job<object>
 
     private BlobObserverSystem _observerSystem;
     private SharedTransformSystem _transform;
-    //private ActionBlockerSystem _blocker;
     private EntityManager _entityManager;
 
 
@@ -75,9 +72,6 @@ public sealed class BlobObserverMover : Job<object>
 
             if (nearestDistance > 3f)
             {
-                /*Observer.Comp.CanMove = false;
-                _blocker.UpdateCanMove(Observer);*/
-
                 var nearestEntityPos = _transform.GetMapCoordinates(nearestEntityUid.Value);
 
                 var direction = (nearestEntityPos.Position - newPos.Position);
@@ -86,12 +80,6 @@ public sealed class BlobObserverMover : Job<object>
                 _transform.SetMapCoordinates(Observer, newPosition);
                 return default;
             }
-
-            /*if (!Observer.Comp.CanMove)
-            {
-                Observer.Comp.CanMove = true;
-                _blocker.UpdateCanMove(Observer);
-            }*/
 
             return default;
         }

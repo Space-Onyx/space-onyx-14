@@ -38,13 +38,6 @@ public abstract partial class SharedBlobMobSystem : EntitySystem
         SubscribeNetworkEvent<BlobMobGetPulseEvent>(OnPulse);
         _tileQuery = GetEntityQuery<BlobTileComponent>();
         _mobQuery = GetEntityQuery<BlobMobComponent>();
-
-        // SubscribeLocalEvent<BlobSpeakComponent, GetDefaultRadioChannelEvent>(OnGetDefaultRadioChannel);
-    }
-
-    private void OnGetDefaultRadioChannel(Entity<BlobSpeakComponent> ent, ref GetDefaultRadioChannelEvent args)
-    {
-        //args.Channel = ent.Comp.Channel;
     }
 
     private static readonly EntProtoId HealEffect = "EffectHealPlusTripleYellow";

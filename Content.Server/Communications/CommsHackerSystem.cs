@@ -33,7 +33,7 @@ public sealed partial class CommsHackerSystem : SharedCommsHackerSystem
     /// </summary>
     private void OnBeforeInteractHand(EntityUid uid, CommsHackerComponent comp, BeforeInteractHandEvent args)
     {
-        if (args.Handled || (!HasComp<CommunicationsConsoleComponent>(args.Target) && !HasComp<OnyxCommunicationsConsoleComponent>(args.Target))) // <Onyx-NinjaCommsHack-edited>
+        if (args.Handled || (!HasComp<CommunicationsConsoleComponent>(args.Target) && !HasComp<StationCommunicationsConsoleComponent>(args.Target))) // <Onyx-NinjaCommsHack-edited>
             return;
 
         // TODO: generic check event

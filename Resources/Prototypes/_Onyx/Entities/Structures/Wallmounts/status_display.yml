@@ -7,13 +7,13 @@
   - type: Rotatable
   - type: WallMount
     directionalVisibility: false
-  - type: OnyxTextVisuals
+  - type: StatusDisplayTextVisuals
     rows:
     - text: ""
-      layer: enum.OnyxTextScreenVisualLayers.Line1
+      layer: enum.StatusDisplayVisualLayers.Line1
       offset: 0.03125,0.15625
     - text: ""
-      layer: enum.OnyxTextScreenVisualLayers.Line2
+      layer: enum.StatusDisplayVisualLayers.Line2
       offset: 0.03125,-0.0625
   - type: Sprite
     drawdepth: WallMountedItems
@@ -25,11 +25,11 @@
       state: mask
     - shader: StencilMask
       state: mask
-    - map: ["enum.OnyxTextScreenVisualLayers.Line1"]
+    - map: ["enum.StatusDisplayVisualLayers.Line1"]
       shader: StencilDraw
       color: "#22ccff"
       visible: false
-    - map: ["enum.OnyxTextScreenVisualLayers.Line2"]
+    - map: ["enum.StatusDisplayVisualLayers.Line2"]
       shader: StencilDraw
       color: "#22ccff"
       visible: false
@@ -72,12 +72,12 @@
           octarine: { state: status_display_octarine }
           zeta: { state: status_display_zeta }
       enum.StatusDisplayVisuals.Content:
-        enum.OnyxTextScreenVisualLayers.Line1:
+        enum.StatusDisplayVisualLayers.Line1:
           Text: { visible: true }
           CurrentTime: { visible: true }
           EstimatedTimeOfArrival: { visible: true }
           AlertLevel: { visible: false }
-        enum.OnyxTextScreenVisualLayers.Line2:
+        enum.StatusDisplayVisualLayers.Line2:
           Text: { visible: true }
           CurrentTime: { visible: true }
           EstimatedTimeOfArrival: { visible: true }

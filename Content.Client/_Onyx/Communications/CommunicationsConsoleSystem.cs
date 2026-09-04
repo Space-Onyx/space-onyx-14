@@ -9,12 +9,12 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
 
     public override void Initialize()
     {
-        SubscribeLocalEvent<OnyxCommunicationsConsoleComponent, AfterAutoHandleStateEvent>(OnState);
+        SubscribeLocalEvent<StationCommunicationsConsoleComponent, AfterAutoHandleStateEvent>(OnState);
     }
 
-    private void OnState(Entity<OnyxCommunicationsConsoleComponent> ent, ref AfterAutoHandleStateEvent args)
+    private void OnState(Entity<StationCommunicationsConsoleComponent> ent, ref AfterAutoHandleStateEvent args)
     {
-        if (_ui.TryGetOpenUi<OnyxCommunicationsConsoleBoundUserInterface>(ent.Owner, OnyxCommunicationsConsoleUi.Key, out var bui))
+        if (_ui.TryGetOpenUi<StationCommunicationsConsoleBoundUserInterface>(ent.Owner, StationCommunicationsConsoleUi.Key, out var bui))
             bui.Update(ent);
     }
 }

@@ -29,7 +29,6 @@ public sealed partial class BlobMobSystem : SharedBlobMobSystem
 {
     [Dependency] private LanguageSystem _language = default!;
     [Dependency] private DamageableSystem _damageableSystem = default!;
-    [Dependency] private INetManager _netMan = default!;
 
     public override void Initialize()
     {
@@ -42,25 +41,7 @@ public sealed partial class BlobMobSystem : SharedBlobMobSystem
         SubscribeLocalEvent<BlobSpeakComponent, ComponentShutdown>(OnSpokeRemove);
         SubscribeLocalEvent<BlobSpeakComponent, TransformSpeakerNameEvent>(OnSpokeName);
         SubscribeLocalEvent<BlobSpeakComponent, SpeakAttemptEvent>(OnSpokeCan, after: new []{ typeof(SpeechSystem) });
-        // SubscribeLocalEvent<BlobSpeakComponent, EntitySpokeEvent>(OnSpoke, before: new []{ typeof(RadioSystem), typeof(HeadsetSystem) });
-        // SubscribeLocalEvent<BlobSpeakComponent, RadioReceiveEvent>(OnIntrinsicReceive);
-        // SubscribeLocalEvent<SmokeOnTriggerComponent, TriggerEvent>(HandleSmokeTrigger);
     }
-
-    // private void OnIntrinsicReceive(Entity<BlobSpeakComponent> ent, ref RadioReceiveEvent args)
-    // {
-    //     if (TryComp(ent, out ActorComponent? actor) && args.Channel.ID == ent.Comp.Channel)
-    //     {
-    //         _netMan.ServerSendMessage(args.ChatMsg, actor.PlayerSession.Channel);
-    //     }
-    // }
-
-    // private void OnSpoke(Entity<BlobSpeakComponent> ent, ref EntitySpokeEvent args)
-    // {
-    //     if (args.Channel == null)
-    //         return;
-    //     _radioSystem.SendRadioMessage(ent, args.Message, ent.Comp.Channel, ent, language: args.Language);
-    // }
 
     private void OnLanguageApply(Entity<BlobSpeakComponent> ent, ref CollectLanguageKnowledgeEvent args)
     {
@@ -98,8 +79,6 @@ public sealed partial class BlobMobSystem : SharedBlobMobSystem
             return;
 
         _language.UpdateLanguages(ent.Owner);
-        // var radio = EnsureComp<ActiveRadioComponent>(ent);
-        // radio.Channels.Remove(ent.Comp.Channel);
     }
 
     private void OnSpokeAdd(Entity<BlobSpeakComponent> ent, ref ComponentStartup args)
@@ -110,9 +89,6 @@ public sealed partial class BlobMobSystem : SharedBlobMobSystem
         var component = EnsureComp<LanguageSpeakerComponent>(ent);
         component.CurrentLanguage = ent.Comp.Language;
         _language.UpdateLanguages(ent.Owner);
-
-        // var radio = EnsureComp<ActiveRadioComponent>(ent);
-        // radio.Channels.Add(ent.Comp.Channel);
     }
 
     private void OnPulsed(EntityUid uid, BlobMobComponent component, BlobMobGetPulseEvent args) =>
