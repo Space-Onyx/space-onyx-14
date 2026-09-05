@@ -32,6 +32,12 @@
     parts:
     - LeftHand
     - RightHand
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.975
+        Slash: 0.975
+        Piercing: 0.975
 
 
 - type: entity
@@ -146,6 +152,12 @@
     fiberMaterial: fibers-modular
     fiberColor: fibers-black
   - type: FingerprintMask
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.88
+        Slash: 0.88
+        Piercing: 0.88
   - type: SealableClothing
     sealUpPopup: sealable-clothing-seal-up-gauntlets
     sealDownPopup: sealable-clothing-seal-down-gauntlets
@@ -196,9 +208,9 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
+        Blunt: 0.95
+        Slash: 0.95
+        Piercing: 0.91
 
 - type: entity
   parent: ClothingHandModsuitBase
@@ -241,10 +253,9 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
-        Shock: 0.75
+        Blunt: 0.88
+        Slash: 0.84
+        Piercing: 0.84
 
 - type: entity
   parent: ClothingHandModsuitBase
@@ -289,10 +300,9 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
-        Shock: 0.5
+        Blunt: 0.975
+        Slash: 0.975
+        Piercing: 0.975
 
 - type: entity
   parent: ClothingHandModsuitBase
@@ -337,11 +347,9 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
-        Heat: 0.9
-        Shock: 0.75
+        Blunt: 0.975
+        Slash: 0.975
+        Piercing: 0.975
 
 - type: entity
   parent: ClothingHandModsuitBase
@@ -384,10 +392,9 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.95
+        Blunt: 0.88
         Slash: 0.95
-        Piercing: 0.95
-        Shock: 0.75
+        Piercing: 0.975
 
 - type: entity
   parent: ClothingHandModsuitBase
@@ -439,5 +446,4 @@
       coefficients:
         Blunt: 0.95
         Slash: 0.95
-        Piercing: 0.95
-        Shock: 0.75
+        Piercing: 0.88
