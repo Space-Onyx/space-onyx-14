@@ -6,6 +6,7 @@
 
 using Content.Shared.CCVar;
 using Content.Shared.Examine;
+using Content.Shared.Mobs.Components;
 using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
@@ -34,7 +35,7 @@ public abstract partial class SharedActiveActionSystem : EntitySystem
 
     private void OnPlayerAttached(PlayerAttachedEvent args)
     {
-        if (_net.IsServer)
+        if (_net.IsServer && HasComp<MobStateComponent>(args.Entity))
             EnsureComp<ActiveActionComponent>(args.Entity);
     }
 
@@ -56,7 +57,7 @@ public abstract partial class SharedActiveActionSystem : EntitySystem
 
     public bool TrySetActiveAction(Entity<ActiveActionComponent?> ent, string text)
     {
-        if (!CanSetActiveAction(text))
+        if (!HasComp<MobStateComponent>(ent) || !CanSetActiveAction(text))
             return false;
 
         var component = EnsureComp<ActiveActionComponent>(ent);
