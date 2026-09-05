@@ -918,14 +918,14 @@ WallCult: WallBrick
 WallClown: WallGold
 WallClock: WallBrass
 WallPlastic: WallSolid
-ClockworkGrille: Grille
-ClockworkGrilleBroken: GrilleBroken
-ClockworkGrilleDiagonal: GrilleDiagonal
-ClockworkWindow: Window
-ClockworkWindowDiagonal: WindowDiagonal
-WindowClockworkDirectional: WindowDirectional
-WindoorClockwork: Windoor
-WindoorAssemblyClockwork: WindoorAssembly
+# ClockworkGrille: Grille
+# ClockworkGrilleBroken: GrilleBroken
+# ClockworkGrilleDiagonal: GrilleDiagonal
+# ClockworkWindow: Window
+# ClockworkWindowDiagonal: WindowDiagonal
+# WindowClockworkDirectional: WindowDirectional
+# WindoorClockwork: Windoor
+# WindoorAssemblyClockwork: WindoorAssembly
 PinionAirlock: Airlock
 PinionAirlockGlass: AirlockGlass
 PinionAirlockAssembly: AirlockAssembly
@@ -1155,7 +1155,7 @@ WallSpawnAsteroidBananiumCrab: null
 FloorTileItemDirty: null
 PinionAirlockAssemblyGlass: AirlockAssemblyGlass
 AnomalyRockBananium: AnomalyRockCoal
-ClockworkGirder: Girder
+# ClockworkGirder: Girder
 BaseAsteroidRock: AsteroidRock
 ButtonFrameExit: ButtonFrameWhite
 

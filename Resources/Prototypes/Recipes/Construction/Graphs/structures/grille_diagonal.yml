@@ -14,6 +14,18 @@
               amount: 2
               doAfter: 1
 
+        # <Onyx-ClockworkStructures>
+        - to: clockworkGrilleDiagonal
+          completed:
+            - !type:AdminLog
+              message: "Construction"
+              impact: High
+          steps:
+            - material: MetalRod
+              amount: 2
+              doAfter: 1
+        # </Onyx-ClockworkStructures>
+
     - node: grilleDiagonal
       entity: GrilleDiagonal
       edges:
@@ -28,3 +40,20 @@
           steps:
             - tool: Cutting
               doAfter: 0.25
+
+    # <Onyx-ClockworkStructures>
+    - node: clockworkGrilleDiagonal
+      entity: ClockworkGrilleDiagonal
+      edges:
+        - to: start
+          completed:
+            - !type:AdminLog
+              message: "A grille was cut"
+            - !type:SpawnPrototype
+              prototype: PartRodMetal1
+              amount: 2
+            - !type:DeleteEntity
+          steps:
+            - tool: Cutting
+              doAfter: 0.25
+    # </Onyx-ClockworkStructures>

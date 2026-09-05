@@ -40,6 +40,14 @@
               amount: 1
               doAfter: 3
 
+        # <Onyx-ClockworkStructures>
+        - to: windowClockworkDirectional
+          steps:
+            - material: ClockworkGlass
+              amount: 1
+              doAfter: 3
+        # </Onyx-ClockworkStructures>
+
     - node: windowDirectional
       entity: WindowDirectional
       edges:
@@ -92,6 +100,27 @@
               doAfter: 2
             - tool: Anchoring
               doAfter: 3
+
+    # <Onyx-ClockworkStructures>
+    - node: windowClockworkDirectional
+      entity: WindowClockworkDirectional
+      edges:
+        - to: start
+          completed:
+            - !type:GivePrototype
+              prototype: SheetClockworkGlass1
+              amount: 1
+            - !type:DeleteEntity {}
+          steps:
+            - tool: Screwing
+              doAfter: 2
+            - tool: Prying
+              doAfter: 3
+            - tool: Screwing
+              doAfter: 2
+            - tool: Anchoring
+              doAfter: 3
+    # </Onyx-ClockworkStructures>
 
     - node: plasmaReinforcedWindowDirectional
       entity: PlasmaReinforcedWindowDirectional

@@ -1,0 +1,12 @@
+- type: construction
+  parent: BaseStructureFullTile
+  id: PinionAirlock
+  name: construction-recipe-pinion-airlock
+  graph: PinionAirlock
+  targetNode: airlock
+
+- type: construction
+  parent: PinionAirlock
+  id: PinionAirlockGlass
+  name: construction-recipe-pinion-airlock-glass
+  targetNode: glassAirlock

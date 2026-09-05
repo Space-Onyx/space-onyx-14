@@ -145,9 +145,9 @@
   name: brass wall
   components:
   - type: Sprite
-    sprite: Structures/Walls/brass.rsi
+    sprite: _Onyx/Structures/Walls/clock.rsi # <Onyx-ClockworkWalls-edited>
   - type: Icon
-    sprite: Structures/Walls/brass.rsi
+    sprite: _Onyx/Structures/Walls/clock.rsi # <Onyx-ClockworkWalls-edited>
   - type: Construction
     graph: Girder
     node: brassWall
@@ -166,7 +166,7 @@
         node: girder
   - type: IconSmooth
     key: walls
-    base: brass
+    base: clock # <Onyx-ClockworkWalls-edited>
   # <Onyx-CosmicCult>
   - type: CosmicCorruptible
     convertTo: WallCosmicCult

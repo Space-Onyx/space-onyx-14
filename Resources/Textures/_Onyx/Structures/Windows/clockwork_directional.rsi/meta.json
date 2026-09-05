@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/blob/21b42d49ecf2b87f665b5f122368f6a247676721/icons/obj/smooth_structures/structure_variations.dmi",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "clock_window"
+    }
+  ]
+}

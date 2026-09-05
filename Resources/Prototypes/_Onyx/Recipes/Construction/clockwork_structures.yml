@@ -1,0 +1,31 @@
+- type: construction
+  parent: Grille
+  id: ClockGrille
+  graph: ClockGrille
+  targetNode: clockGrille
+
+- type: construction
+  parent: GrilleDiagonal
+  id: ClockworkGrilleDiagonal
+  targetNode: clockworkGrilleDiagonal
+
+- type: construction
+  parent: BaseWindow
+  id: ClockworkWindow
+  targetNode: clockworkWindow
+
+- type: construction
+  parent: BaseWindowDiagonal
+  id: ClockworkWindowDiagonal
+  name: construction-recipe-clockwork-window-diagonal
+  targetNode: clockworkWindowDiagonal
+
+- type: construction
+  parent: WindowDirectional
+  id: WindowClockworkDirectional
+  targetNode: windowClockworkDirectional
+
+- type: construction
+  parent: Windoor
+  id: ClockworkWindoor
+  targetNode: windoorClockwork
