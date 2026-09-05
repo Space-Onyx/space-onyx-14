@@ -350,6 +350,10 @@
     lowPressureMultiplier: 1000
   - type: ExplosionResistance
     damageCoefficient: 0.7
+  # <Onyx-StaminaArmor>
+  - type: StaminaResistance
+    damageCoefficient: 0.6
+  # </Onyx-StaminaArmor>
   - type: Armor
     modifiers:
       coefficients:
@@ -390,7 +394,7 @@
     damageCoefficient: 0.2
   # <Onyx-StaminaArmor>
   - type: StaminaResistance
-    damageCoefficient: 0.85
+    damageCoefficient: 0.6
   # </Onyx-StaminaArmor>
   - type: Armor
     modifiers:
@@ -475,7 +479,7 @@
     damageCoefficient: 0.1
   # <Onyx-StaminaArmor>
   - type: StaminaResistance
-    damageCoefficient: 0.8
+    damageCoefficient: 0.6
   # </Onyx-StaminaArmor>
   - type: ClothingSpeedModifier
     walkModifier: 0.75
@@ -515,7 +519,7 @@
     damageCoefficient: 0.5
   # <Onyx-StaminaArmor>
   - type: StaminaResistance
-    damageCoefficient: 0.7
+    damageCoefficient: 0.6
   # </Onyx-StaminaArmor>
   - type: Armor
     modifiers:
