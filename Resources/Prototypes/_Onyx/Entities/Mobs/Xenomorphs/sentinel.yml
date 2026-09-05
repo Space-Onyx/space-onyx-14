@@ -6,10 +6,11 @@
   abstract: true
   components:
   - type: Sprite
-    sprite: _Onyx/Mobs/Aliens/Xenomorphs/sentinel.rsi
+    sprite: _Onyx/Mobs/Xenos/RMC/spitter.rsi
     layers:
     - map: ["enum.DamageStateVisualLayers.Base"]
-      state: xenomorph
+      state: running
+      offset: 0, 0.3
     - map: [ "pocket1" ]
     - map: [ "pocket2" ]
     - map: ["enum.HumanoidVisualLayers.Handcuffs"]
@@ -17,6 +18,14 @@
       sprite: _Onyx/Objects/Misc/handcuffs.rsi
       state: body-overlay-xenomorph
       visible: false
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: running
+      Critical:
+        Base: crit
+      Dead:
+        Base: dead
   - type: Xenomorph
     caste: Sentinel
   - type: PlasmaVessel

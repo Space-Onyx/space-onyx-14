@@ -6,13 +6,21 @@
   abstract: true
   components:
   - type: Sprite
-    sprite: _Onyx/Mobs/Aliens/Xenomorphs/praetorian.rsi
+    sprite: _Onyx/Mobs/Xenos/RMC/praetorian.rsi
     layers:
     - map: ["enum.DamageStateVisualLayers.Base"]
-      state: xenomorph
-      offset: 0, 0.6
+      state: running
+      offset: 0, 0.4
     - map: [ "pocket1" ]
     - map: [ "pocket2" ]
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: running
+      Critical:
+        Base: crit
+      Dead:
+        Base: dead
   - type: Xenomorph
     caste: Praetorian
   - type: PlasmaVessel
