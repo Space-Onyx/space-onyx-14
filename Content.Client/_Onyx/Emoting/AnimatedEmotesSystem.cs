@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Numerics;
 using Content.Client.DamageState;
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.Emoting;
@@ -24,7 +23,6 @@ public sealed partial class AnimatedEmotesSystem : SharedAnimatedEmotesSystem
         SubscribeLocalEvent<AnimatedEmotesComponent, ComponentHandleState>(OnState);
         SubscribeLocalEvent<AnimatedEmotesComponent, AnimationFlipEmoteEvent>(OnFlip);
         SubscribeLocalEvent<AnimatedEmotesComponent, AnimationSpinEmoteEvent>(OnSpin);
-        SubscribeLocalEvent<AnimatedEmotesComponent, AnimationJumpEmoteEvent>(OnJump);
         SubscribeLocalEvent<AnimatedEmotesComponent, AnimationTweakEmoteEvent>(OnTweak);
         SubscribeLocalEvent<AnimatedEmotesComponent, AnimationFlexEmoteEvent>(OnFlex);
     }
@@ -42,13 +40,6 @@ public sealed partial class AnimatedEmotesSystem : SharedAnimatedEmotesSystem
             Length = TimeSpan.FromMilliseconds(600),
             AnimationTracks = { Property<TransformComponent>(nameof(TransformComponent.LocalRotation), AnimationInterpolationMode.Linear, new(Angle.Zero, 0), new(Angle.FromDegrees(90), .075f), new(Angle.FromDegrees(180), .075f), new(Angle.FromDegrees(270), .075f), new(Angle.Zero, .075f), new(Angle.FromDegrees(90), .075f), new(Angle.FromDegrees(180), .075f), new(Angle.FromDegrees(270), .075f), new(Angle.Zero, .075f)) }
         }, "emoteAnimSpin");
-
-    private void OnJump(Entity<AnimatedEmotesComponent> ent, ref AnimationJumpEmoteEvent args) =>
-        Play(ent, new Robust.Client.Animations.Animation
-        {
-            Length = TimeSpan.FromMilliseconds(250),
-            AnimationTracks = { Property<SpriteComponent>(nameof(SpriteComponent.Offset), AnimationInterpolationMode.Cubic, new(Vector2.Zero, 0), new(new Vector2(0, .35f), .125f), new(Vector2.Zero, .125f)) }
-        }, "emoteAnimKeyId");
 
     private void OnTweak(Entity<AnimatedEmotesComponent> ent, ref AnimationTweakEmoteEvent _)
     {

@@ -61,6 +61,7 @@ namespace Content.Client.Input
             // <Onyx-Sprinting>
             human.AddFunction(ContentKeyFunctions.Sprint);
             // </Onyx-Sprinting>
+            human.AddFunction(ContentKeyFunctions.Jump); // <Onyx-Jump>
             human.AddFunction(ContentKeyFunctions.ToggleKnockdown);
             human.AddFunction(ContentKeyFunctions.SwapHands);
             human.AddFunction(ContentKeyFunctions.SwapHandsReverse);

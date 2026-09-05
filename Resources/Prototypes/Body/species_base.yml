@@ -102,6 +102,7 @@
   - type: Internals
   - type: FloatingVisuals
   - type: Climbing
+  - type: Jump # <Onyx-Jump>
   - type: Cuffable
   - type: Ensnareable
     sprite: Objects/Misc/ensnare.rsi

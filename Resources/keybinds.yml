@@ -43,7 +43,7 @@ binds:
   key: S
 - function: Walk
   type: State
-  key: Shift
+  key: Control # <Onyx-Jump-edited>
 # Shuttle
 - function: ShuttleStrafeUp
   type: State
@@ -184,8 +184,13 @@ binds:
 # <Onyx-Sprinting>
 - function: Sprint
   type: State
-  key: Space
+  key: Shift
 # </Onyx-Sprinting>
+# <Onyx-Jump>
+- function: Jump
+  type: State
+  key: Space
+# </Onyx-Jump>
 # <Onyx-GoobGrab>
 - function: ResistGrab
   type: State

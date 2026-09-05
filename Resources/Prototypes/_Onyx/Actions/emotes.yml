@@ -18,16 +18,6 @@
   event: !type:AnimationSpinEmoteEvent
 
 - type: emote
-  id: Jump
-  name: chat-emote-name-jump
-  icon: _Onyx/Interface/Emotes/jump.png
-  chatMessages: ["chat-emote-msg-jump"]
-  chatTriggers: [jump, jumps]
-  targetEvents:
-  - !type:PlayAnimationTargetEvent
-    animationID: EmoteJump
-
-- type: emote
   id: Flex
   name: chat-emote-name-flex
   icon: Interface/Emotes/clap.png

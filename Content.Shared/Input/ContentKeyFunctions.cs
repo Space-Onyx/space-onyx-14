@@ -148,6 +148,7 @@ namespace Content.Shared.Input
         // <Onyx-Sprinting>
         public static readonly BoundKeyFunction Sprint = "Sprint";
         // </Onyx-Sprinting>
+        public static readonly BoundKeyFunction Jump = "Jump"; // <Onyx-Jump>
         public static readonly BoundKeyFunction MappingUnselect = "MappingUnselect";
         public static readonly BoundKeyFunction SaveMap = "SaveMap";
         public static readonly BoundKeyFunction MappingEnablePick = "MappingEnablePick";

@@ -171,6 +171,7 @@ namespace Content.Client.Options.UI.Tabs
             // <Onyx-Sprinting>
             AddButton(ContentKeyFunctions.Sprint);
             // </Onyx-Sprinting>
+            AddButton(ContentKeyFunctions.Jump); // <Onyx-Jump>
             AddCheckBox("ui-options-hotkey-toggle-walk", _cfg.GetCVar(CCVars.ToggleWalk), HandleToggleWalk);
             InitToggleWalk();
             AddButton(ContentKeyFunctions.ToggleKnockdown);
