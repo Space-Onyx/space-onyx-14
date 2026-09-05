@@ -19,22 +19,22 @@
                             <BoxContainer Orientation="Horizontal" SeparationOverride="4" Margin="7 1 2 1" HorizontalExpand="True">
                                 <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
                                     <Label Text="{Loc 'user-action-control-map'}" StyleClasses="LabelWeak" ClipText="True" HorizontalExpand="True" />
-                                    <Label Name="MapName" StyleClasses="LabelKeyText" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="MapName" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
                                 <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
                                     <Label Text="{Loc 'user-action-control-round-id'}" StyleClasses="LabelWeak" ClipText="True" HorizontalExpand="True" />
-                                    <Label Name="RoundId" StyleClasses="LabelKeyText" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="RoundId" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
                                 <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
                                     <Label Text="{Loc 'user-action-control-game-mode'}" StyleClasses="LabelWeak" ClipText="True" HorizontalExpand="True" />
-                                    <Label Name="GameMode" StyleClasses="LabelKeyText" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="GameMode" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
                             </BoxContainer>
                             <PanelContainer StyleClasses="LowDivider" HorizontalExpand="True" />
                             <BoxContainer Orientation="Horizontal" SeparationOverride="4" Margin="7 1 2 1" HorizontalExpand="True">
                                 <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
                                     <Label Text="{Loc 'user-action-control-player-count'}" StyleClasses="LabelWeak" ClipText="True" HorizontalExpand="True" />
-                                    <Label Name="PlayerCount" StyleClasses="LabelKeyText" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="PlayerCount" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
                                 <Control HorizontalExpand="True" SizeFlagsStretchRatio="1" />
                                 <Control HorizontalExpand="True" SizeFlagsStretchRatio="1" />
@@ -56,11 +56,11 @@
                             <BoxContainer Orientation="Horizontal" SeparationOverride="4" HorizontalExpand="True">
                                 <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
                                     <Label Text="{Loc 'user-action-control-round-time'}" StyleClasses="LabelWeak" ClipText="True" HorizontalExpand="True" />
-                                    <Label Name="RoundTime" StyleClasses="LabelKeyText" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="RoundTime" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
                                 <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
                                     <Label Text="{Loc 'user-action-control-date'}" StyleClasses="LabelWeak" ClipText="True" HorizontalExpand="True" />
-                                    <Label Name="CurrentDate" StyleClasses="LabelKeyText" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="CurrentDate" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
                                 <Control HorizontalExpand="True" SizeFlagsStretchRatio="1" />
                             </BoxContainer>
