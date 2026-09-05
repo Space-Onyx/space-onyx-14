@@ -5,6 +5,7 @@
 // See LICENSES for the full license text.
 
 using System.Numerics;
+using Content.Client._Onyx.AnimationData;
 using Content.Shared._Onyx.Movement;
 using Robust.Client.Graphics;
 using Robust.Shared.Enums;
@@ -16,6 +17,7 @@ public sealed partial class JumpSystem : SharedJumpSystem
 {
     [Dependency] private IOverlayManager _overlays = default!;
     [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private PrototypedAnimationPlayerSystem _animation = default!;
 
     private JumpShadowOverlay? _overlay;
 
@@ -31,6 +33,9 @@ public sealed partial class JumpSystem : SharedJumpSystem
         _overlays.RemoveOverlay<JumpShadowOverlay>();
         base.Shutdown();
     }
+
+    protected override void OnJumpStarted(Entity<JumpComponent> ent) =>
+        _animation.PlayAnimation(ent, "EmoteJump");
 }
 
 public sealed class JumpShadowOverlay(IEntityManager entities, IGameTiming timing) : Overlay

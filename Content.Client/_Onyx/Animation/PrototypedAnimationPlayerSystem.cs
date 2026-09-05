@@ -26,13 +26,19 @@ public sealed partial class PrototypedAnimationPlayerSystem : EntitySystem
 
     private void OnPlay(PlayAnimationMessage ev)
     {
-        if (_prototypes.TryIndex<AnimationPrototype>(ev.AnimationID, out var proto))
-            Play(GetEntity(ev.AnimatedEntity), proto);
+        PlayAnimation(GetEntity(ev.AnimatedEntity), ev.AnimationID);
+    }
+
+    public void PlayAnimation(EntityUid entity, string animationId)
+    {
+        if (_prototypes.TryIndex<AnimationPrototype>(animationId, out var proto))
+            Play(entity, proto);
     }
 
     private void Play(EntityUid entity, AnimationPrototype proto)
     {
-        if (!entity.Valid || _animations.HasRunningAnimation(entity, Key)) return;
+        var key = proto.ID == "EmoteJump" ? $"{Key}-jump" : Key;
+        if (!entity.Valid || _animations.HasRunningAnimation(entity, key)) return;
         var animation = new Robust.Client.Animations.Animation { Length = TimeSpan.FromSeconds(proto.Length) };
         foreach (var data in proto.Tracks)
         {
@@ -62,6 +68,6 @@ public sealed partial class PrototypedAnimationPlayerSystem : EntitySystem
                 animation.AnimationTracks.Add(track);
             }
         }
-        _animations.Play(entity, animation, Key);
+        _animations.Play(entity, animation, key);
     }
 }

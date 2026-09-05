@@ -11,7 +11,7 @@ using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Standing;
 using Content.Shared.Stunnable;
-using Content.Shared.Throwing;
+using Robust.Shared.Player;
 using Robust.Shared.Random;
 
 namespace Content.Server._Onyx.Movement;
@@ -25,17 +25,11 @@ public sealed partial class JumpSystem : SharedJumpSystem
     [Dependency] private SharedStunSystem _stun = default!;
     [Dependency] private IRobustRandom _random = default!;
 
-    public override void Initialize()
-    {
-        base.Initialize();
-        SubscribeLocalEvent<JumpComponent, ThrownEvent>(OnJumped);
-    }
-
-    private void OnJumped(Entity<JumpComponent> ent, ref ThrownEvent args)
-    {
-        if (args.User == ent.Owner)
-            _animation.PlayAnimation(ent, "EmoteJump");
-    }
+    protected override void OnJumpStarted(Entity<JumpComponent> ent) =>
+        _animation.PlayAnimation(
+            ent,
+            "EmoteJump",
+            Filter.Pvs(ent).RemoveWhereAttachedEntity(attached => attached == ent.Owner));
 
     protected override void OnJumpLanded(Entity<JumpComponent> ent)
     {

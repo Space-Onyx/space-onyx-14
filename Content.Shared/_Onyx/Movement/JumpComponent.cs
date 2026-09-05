@@ -4,6 +4,7 @@
 // This file is licensed under AGPL-3.0-or-later.
 // See LICENSES for the full license text.
 
+using System.Numerics;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
@@ -28,7 +29,13 @@ public sealed partial class JumpComponent : Component
     public TimeSpan Cooldown = TimeSpan.FromSeconds(0.75);
 
     [DataField]
-    public float StaminaCost = 40f;
+    public TimeSpan Windup = TimeSpan.FromSeconds(0.3);
+
+    [DataField]
+    public float StaminaCost = 30f;
+
+    [DataField]
+    public float MinimumStamina = 5f;
 
     [DataField]
     public float WeightlessStaminaCostMultiplier = 0.4f;
@@ -44,4 +51,19 @@ public sealed partial class JumpComponent : Component
 
     [AutoNetworkedField, AutoPausedField]
     public TimeSpan JumpEnds;
+
+    [AutoNetworkedField]
+    public bool PendingJump;
+
+    [AutoNetworkedField, AutoPausedField]
+    public TimeSpan LaunchTime;
+
+    [AutoNetworkedField]
+    public Vector2 JumpDirection;
+
+    [AutoNetworkedField]
+    public float PendingDistance;
+
+    [AutoNetworkedField]
+    public bool PendingTableJump;
 }
