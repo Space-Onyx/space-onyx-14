@@ -220,9 +220,15 @@
   id: BaseSpeciesMobOrganic
   save: false
   components:
-  - type: Tag # <Wega-Vampire>
+  # <Onyx-VampireBloodSource-edited>
+  - type: Tag
     tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
     - VampireBloodSource
+  # </Onyx-VampireBloodSource-edited>
   - type: Satiation
     satiations:
       Hunger:
