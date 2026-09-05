@@ -2,11 +2,12 @@ using System.Linq;
 using Content.Shared.Body;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
+using Content.Shared.Buckle.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Forensics;
 using Content.Shared.Inventory;
-using Content.Shared.Item.ItemToggle.Components;
+using Content.Shared.Verbs;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 
@@ -24,9 +25,10 @@ public sealed partial class AutosurgeonSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<AutosurgeonComponent, ItemToggleActivateAttemptEvent>(OnActivate);
         SubscribeLocalEvent<AutosurgeonComponent, AutosurgeonDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<AutosurgeonComponent, DoAfterAttemptEvent<AutosurgeonDoAfterEvent>>(OnDoAfterAttempt);
         SubscribeLocalEvent<AutosurgeonComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<AutosurgeonComponent, GetVerbsEvent<AlternativeVerb>>(OnGetAlternativeVerbs);
     }
 
     private void OnExamined(Entity<AutosurgeonComponent> ent, ref ExaminedEvent args)
@@ -36,24 +38,55 @@ public sealed partial class AutosurgeonSystem : EntitySystem
             : "autosurgeon-examine-ready"));
     }
 
-    private void OnActivate(Entity<AutosurgeonComponent> ent, ref ItemToggleActivateAttemptEvent args)
+    private void OnGetAlternativeVerbs(Entity<AutosurgeonComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
-        args.Cancelled = true;
-        if (ent.Comp.Used || args.User is not { } user)
+        if (!args.CanAccess || !args.CanInteract)
             return;
 
+        var user = args.User;
+        args.Verbs.Add(new AlternativeVerb
+        {
+            Text = Loc.GetString("autosurgeon-verb-activate"),
+            Disabled = ent.Comp.Used || ent.Comp.InUse ||
+                !TryComp(ent, out StrapComponent? strap) || strap.BuckledEntities.Count != 1,
+            Act = () => TryStartOperation(ent, user),
+            Priority = 1,
+        });
+    }
+
+    private bool TryStartOperation(Entity<AutosurgeonComponent> ent, EntityUid user)
+    {
+        if (ent.Comp.Used || ent.Comp.InUse ||
+            !TryComp(ent, out StrapComponent? strap) || strap.BuckledEntities.Count != 1)
+            return false;
+
+        var patient = strap.BuckledEntities.First();
+
         var doAfter = new DoAfterArgs(EntityManager, user, ent.Comp.Duration,
-            new AutosurgeonDoAfterEvent(), ent, user, ent)
+            new AutosurgeonDoAfterEvent(), ent, patient, ent)
         {
             NeedHand = true,
             BreakOnMove = true,
             MovementThreshold = 0.5f,
+            AttemptFrequency = AttemptFrequency.EveryTick,
         };
 
-        if (!_doAfter.TryStartDoAfter(doAfter) || _net.IsClient)
-            return;
+        if (_net.IsClient || !_doAfter.TryStartDoAfter(doAfter))
+            return false;
 
+        ent.Comp.InUse = true;
+        Dirty(ent);
         ent.Comp.ActiveSound = _audio.PlayPvs(ent.Comp.Sound, ent)?.Entity;
+        return true;
+    }
+
+    private void OnDoAfterAttempt(Entity<AutosurgeonComponent> ent,
+        ref DoAfterAttemptEvent<AutosurgeonDoAfterEvent> args)
+    {
+        if (ent.Comp.Used || args.DoAfter.Args.Target is not { } patient ||
+            !TryComp(ent, out StrapComponent? strap) || strap.BuckledEntities.Count != 1 ||
+            strap.BuckledEntities.First() != patient)
+            args.Cancel();
     }
 
     private void OnDoAfter(Entity<AutosurgeonComponent> ent, ref AutosurgeonDoAfterEvent args)
@@ -61,10 +94,32 @@ public sealed partial class AutosurgeonSystem : EntitySystem
         _audio.Stop(ent.Comp.ActiveSound);
         ent.Comp.ActiveSound = null;
 
-        if (_net.IsClient || args.Cancelled || ent.Comp.Used || args.Target is not { } body)
+        if (_net.IsClient)
             return;
 
+        ent.Comp.InUse = false;
+        Dirty(ent);
+        if (args.Cancelled || ent.Comp.Used || args.Target is not { } body ||
+            !TryComp(ent, out StrapComponent? strap) || strap.BuckledEntities.Count != 1 ||
+            strap.BuckledEntities.First() != body)
+            return;
+
+        ent.Comp.Used = true;
+        Dirty(ent);
+
         var replacement = Spawn(ent.Comp.Replacement, Transform(body).Coordinates);
+        if (ent.Comp.ChildReplacement is { } childPrototype)
+        {
+            var child = Spawn(childPrototype, Transform(body).Coordinates);
+            if (!_body.TryAttachPart(replacement, child))
+            {
+                Del(child);
+                Del(replacement);
+                ent.Comp.Used = false;
+                Dirty(ent);
+                return;
+            }
+        }
         var success = ent.Comp.TargetOrgan is { } organSlot
             ? ReplaceOrgan(body, replacement, organSlot, ent.Comp.TargetPart, ent.Comp.TargetSymmetry)
             : ReplacePart(body, replacement, ent.Comp.TargetPart, ent.Comp.TargetSymmetry);
@@ -72,12 +127,12 @@ public sealed partial class AutosurgeonSystem : EntitySystem
         if (!success)
         {
             Del(replacement);
+            ent.Comp.Used = false;
+            Dirty(ent);
             return;
         }
 
         _inventory.RefreshBodySlots(body);
-        ent.Comp.Used = true;
-        Dirty(ent);
     }
 
     private bool ReplacePart(EntityUid body, EntityUid replacement, BodyPartType type, BodyPartSymmetry symmetry)

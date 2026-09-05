@@ -7,6 +7,7 @@ using Content.Shared.Power.Components;
 using Content.Shared.PowerCell;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.UserInterface;
+using Content.Shared.Weapons.Melee.Events;
 using Content.Shared._Onyx.Cybernetics;
 using Content.Shared._Onyx.Surgery.Augments.NeuroInterface;
 
@@ -30,6 +31,21 @@ public sealed partial class AugmentSystem : EntitySystem
         InitializeActions();
         InitializePower();
         InitializeStrength();
+        SubscribeLocalEvent<MantisBladeComponent, GetMeleeAttackRateEvent>(OnMantisBladeAttackRate);
+    }
+
+    private void OnMantisBladeAttackRate(Entity<MantisBladeComponent> ent, ref GetMeleeAttackRateEvent args)
+    {
+        if (!TryComp(ent, out AugmentPowerReceiverComponent? receiver) || receiver.Provider is not { } provider ||
+            GetBody(provider) is not { } body || body != args.User ||
+            !TryComp(body, out InstalledAugmentsComponent? installed))
+            return;
+
+        var deployedBlades = ResolveAugments(installed).Count(augment =>
+            TryComp(augment, out AugmentItemPanelComponent? panel) && panel.IsEquipped &&
+            panel.SpawnedItem is { } item && HasComp<MantisBladeComponent>(item));
+        if (deployedBlades >= 2)
+            args.Multipliers *= 1.5f;
     }
 
     public EntityUid? GetBody(EntityUid augment) => CompOrNull<OrganComponent>(augment)?.Body;

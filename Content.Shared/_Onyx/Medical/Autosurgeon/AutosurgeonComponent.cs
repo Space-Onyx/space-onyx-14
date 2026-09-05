@@ -19,6 +19,9 @@ public sealed partial class AutosurgeonComponent : Component
     [DataField(required: true)]
     public EntProtoId Replacement;
 
+    [DataField]
+    public EntProtoId? ChildReplacement;
+
     /// <summary>
     /// Organ slot to replace. Null means Replacement is a body part.
     /// </summary>
@@ -30,6 +33,9 @@ public sealed partial class AutosurgeonComponent : Component
 
     [DataField, AutoNetworkedField]
     public bool Used;
+
+    [AutoNetworkedField]
+    public bool InUse;
 
     [DataField]
     public SoundSpecifier Sound = new SoundPathSpecifier("/Audio/_Onyx/Machines/autosurgeon.ogg");

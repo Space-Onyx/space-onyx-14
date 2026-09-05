@@ -37,3 +37,18 @@
     action: ActionAugmentToggleItemPanel
   - type: NeuroBandwidthConsumer
     demand: 3
+
+- type: entity
+  abstract: true
+  parent: BaseArmAugment
+  id: BaseAugmentItemPanelUnpowered
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Augments/arm.rsi
+    state: base
+  - type: ItemToggle
+    activated: false
+    onUse: false
+    onActivate: false
+  - type: AugmentAction
+    action: ActionAugmentToggleItemPanel

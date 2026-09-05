@@ -54,4 +54,7 @@ public sealed partial class AugmentItemPanelComponent : Component
     public string? ExtendHeldPrefixAfter;
 }
 
+[RegisterComponent]
+public sealed partial class MantisBladeComponent : Component;
+
 public sealed partial class AugmentItemPanelActionEvent : InstantActionEvent;

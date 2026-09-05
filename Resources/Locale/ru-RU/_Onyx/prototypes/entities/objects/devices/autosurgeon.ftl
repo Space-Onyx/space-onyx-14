@@ -1,5 +1,6 @@
 ent-OnyxAutosurgeonBase = авто-операция
     .desc = Одноразовый аппарат для проведения заданной кибернетической операции.
+autosurgeon-verb-activate = Включить
 ent-OnyxAutosurgeonSpeedLeftLeg = авто-операция (левая нога S.P.E.E.D.)
     .desc = Заменяет левую ногу кибернетической ногой S.P.E.E.D.
 ent-OnyxAutosurgeonSpeedRightLeg = авто-операция (правая нога S.P.E.E.D.)
@@ -8,3 +9,7 @@ ent-OnyxAutosurgeonJawsLeftArm = авто-операция (левая рука 
     .desc = Заменяет левую руку кибернетической рукой J.A.W.S.
 ent-OnyxAutosurgeonJawsRightArm = авто-операция (правая рука J.A.W.S.)
     .desc = Заменяет правую руку кибернетической рукой J.A.W.S.
+ent-AutosurgeonMantisBladeRight = авто-операция Синдиката (правый клинок богомола)
+    .desc = Устанавливает имплант клинка богомола в правую руку.
+ent-AutosurgeonMantisBladeLeft = авто-операция Синдиката (левый клинок богомола)
+    .desc = Устанавливает имплант клинка богомола в левую руку.

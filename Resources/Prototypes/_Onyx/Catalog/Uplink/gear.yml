@@ -76,6 +76,38 @@
   - UplinkDisruption
 
 - type: listing
+  id: UplinkAutosurgeonMantisBladeRight
+  name: uplink-autosurgeon-mantis-blade-right-name
+  description: uplink-autosurgeon-mantis-blade-desc
+  icon: { sprite: _Onyx/Objects/Weapons/Melee/mantis_blade.rsi, state: icon }
+  productEntity: AutosurgeonMantisBladeRight
+  cost:
+    Telecrystal: 45
+  categories:
+  - UplinkImplants
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - ContractorUplink
+
+- type: listing
+  id: UplinkAutosurgeonMantisBladeLeft
+  name: uplink-autosurgeon-mantis-blade-left-name
+  description: uplink-autosurgeon-mantis-blade-desc
+  icon: { sprite: _Onyx/Objects/Weapons/Melee/mantis_blade.rsi, state: icon }
+  productEntity: AutosurgeonMantisBladeLeft
+  cost:
+    Telecrystal: 45
+  categories:
+  - UplinkImplants
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - ContractorUplink
+
+- type: listing
   id: UplinkRemoteSignallerAdvanced
   name: uplink-signaller-name
   description: uplink-signaller-desc

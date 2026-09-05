@@ -24,11 +24,17 @@
     heldPrefix: popout
   - type: Tool
     qualities: [ Slicing ]
+  - type: Prying
+    speedModifier: 1.5
+    pryPowered: true
+  - type: UseDelay
+    delay: 1
+  - type: MantisBlade
   - type: Tag
     tags: [ MantisBlade ]
 
 - type: entity
-  parent: BaseAugmentItemPanel
+  parent: BaseAugmentItemPanelUnpowered
   id: AugmentManitBladePanel
   name: mantis blade panel augment
   description: An arm implant containing a mantis blade.
@@ -37,8 +43,7 @@
     state: engineering
   - type: AugmentItemPanel
     itemPrototype: MantisBlade
-    extendPowerCost: 3.5
-    retractPowerCost: 3
+    requiresPower: false
     icon: { sprite: _Onyx/Objects/Weapons/Melee/mantis_blade.rsi, state: icon }
     extendSound: { path: /Audio/_Onyx/Weapons/MantisBlades/mantis_extend.ogg }
     retractSound: { collection: MantisBladeRetract }

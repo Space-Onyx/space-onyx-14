@@ -1,5 +1,6 @@
 ent-OnyxAutosurgeonBase = auto-operation
     .desc = A single-use machine that performs a preset cybernetic operation.
+autosurgeon-verb-activate = Activate
 ent-OnyxAutosurgeonSpeedLeftLeg = auto-operation (left S.P.E.E.D. leg)
     .desc = Replaces the left leg with a S.P.E.E.D. cybernetic leg.
 ent-OnyxAutosurgeonSpeedRightLeg = auto-operation (right S.P.E.E.D. leg)
@@ -8,3 +9,7 @@ ent-OnyxAutosurgeonJawsLeftArm = auto-operation (left J.A.W.S. arm)
     .desc = Replaces the left arm with a J.A.W.S. cybernetic arm.
 ent-OnyxAutosurgeonJawsRightArm = auto-operation (right J.A.W.S. arm)
     .desc = Replaces the right arm with a J.A.W.S. cybernetic arm.
+ent-AutosurgeonMantisBladeRight = syndicate auto-operation (right mantis blade)
+    .desc = Installs a mantis blade implant into the right arm.
+ent-AutosurgeonMantisBladeLeft = syndicate auto-operation (left mantis blade)
+    .desc = Installs a mantis blade implant into the left arm.

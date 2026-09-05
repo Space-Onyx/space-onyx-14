@@ -13,6 +13,7 @@
     size: Huge
   - type: ItemToggle
     onUse: false
+    onActivate: false
   - type: DoAfter
   - type: Physics
     bodyType: Dynamic
@@ -44,6 +45,7 @@
     targetPart: Leg
     targetSymmetry: Left
     replacement: SpeedLeftLeg
+    childReplacement: LeftFootCybernetic
 
 - type: entity
   parent: OnyxAutosurgeonBase
@@ -54,6 +56,7 @@
     targetPart: Leg
     targetSymmetry: Right
     replacement: SpeedRightLeg
+    childReplacement: RightFootCybernetic
 
 - type: entity
   parent: OnyxAutosurgeonBase
@@ -64,6 +67,7 @@
     targetPart: Arm
     targetSymmetry: Left
     replacement: JawsOfLifeLeftArm
+    childReplacement: LeftHandCybernetic
 
 - type: entity
   parent: OnyxAutosurgeonBase
@@ -74,3 +78,30 @@
     targetPart: Arm
     targetSymmetry: Right
     replacement: JawsOfLifeRightArm
+    childReplacement: RightHandCybernetic
+
+- type: entity
+  parent: [ OnyxAutosurgeonBase, BaseSyndicateContraband ]
+  id: AutosurgeonMantisBladeRight
+  name: syndicate auto-operation (right mantis blade)
+  components:
+  - type: Sprite
+    state: icon-syndie
+  - type: Autosurgeon
+    targetPart: Arm
+    targetSymmetry: Right
+    targetOrgan: AugmentArm
+    replacement: AugmentManitBladePanel
+
+- type: entity
+  parent: [ OnyxAutosurgeonBase, BaseSyndicateContraband ]
+  id: AutosurgeonMantisBladeLeft
+  name: syndicate auto-operation (left mantis blade)
+  components:
+  - type: Sprite
+    state: icon-syndie
+  - type: Autosurgeon
+    targetPart: Arm
+    targetSymmetry: Left
+    targetOrgan: AugmentArm
+    replacement: AugmentManitBladePanel

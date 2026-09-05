@@ -41,6 +41,9 @@ public sealed partial class SharedNeuroInterfaceSystem : EntitySystem
 
     public float GetEfficiency(EntityUid body, EntityUid augment)
     {
+        if (!HasComp<NeuroBandwidthConsumerComponent>(augment))
+            return 1f;
+
         if (!TryGetInterface(body, out _))
             return 0f;
 

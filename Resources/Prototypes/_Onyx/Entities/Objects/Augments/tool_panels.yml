@@ -45,8 +45,6 @@
     onActivate: false
   - type: AugmentPowerDraw
     draw: 6
-  - type: NeuroBandwidthConsumer
-    demand: 2
   - type: AugmentToolPanel
   - type: UserInterface
     interfaces:
