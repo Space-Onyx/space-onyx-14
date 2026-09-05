@@ -20,15 +20,16 @@
     anchored: true
   - type: Clickable
   - type: InteractionOutline
+  # <Onyx-WallmountSpriteOffsets-edited>
   - type: Sprite
     drawdepth: WallMountedItems
-    offset: 0, 1
     layers:
     - map: ["enum.PoweredLightLayers.Base"]
       state: base
     - map: ["enum.PoweredLightLayers.Glow"]
       state: glow
       shader: unshaded
+  # </Onyx-WallmountSpriteOffsets-edited>
   - type: PointLight
     color: "#FFE4CE" # 5000K color temp
     energy: 0.8
@@ -108,10 +109,11 @@
   suffix: Empty
   description: "A light fixture. Draws power and produces light when equipped with a light tube."
   components:
+  # <Onyx-WallmountSpriteOffsets-edited>
   - type: Sprite
     sprite: Structures/Wallmounts/Lighting/light-tube.rsi
-    offset: 0, 1
     state: empty
+  # </Onyx-WallmountSpriteOffsets-edited>
   - type: PointLight
     enabled: false
   - type: PoweredLight
@@ -440,9 +442,9 @@
   - type: EmergencyLight
   - type: RotatingLight
     speed: 40
+  # <Onyx-WallmountSpriteOffsets-edited>
   - type: Sprite
     sprite: Structures/Wallmounts/Lighting/emergency-light.rsi
-    offset: 0, 1
     layers:
     - state: base
       map: [ "enum.EmergencyLightVisualLayers.Base" ]
@@ -454,6 +456,7 @@
       color: "#7CFC00"
       shader: "unshaded"
       visible: false
+  # </Onyx-WallmountSpriteOffsets-edited>
   - type: Appearance
   - type: Construction
     graph: LightFixture

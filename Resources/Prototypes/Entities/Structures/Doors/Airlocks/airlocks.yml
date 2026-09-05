@@ -10,22 +10,22 @@
       map: ["enum.DoorVisualLayers.Base"]
     - state: closed_unlit
       shader: unshaded
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-freezer.rsi
+      sprite: Structures/Doors/Airlocks/Standard/service-freezer.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseUnlit"]
       visible: true
     - state: welded
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-freezer.rsi
+      sprite: Structures/Doors/Airlocks/Standard/service-freezer.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.WeldableLayers.BaseWelded"]
     - state: bolted_unlit
       shader: unshaded
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-freezer.rsi
+      sprite: Structures/Doors/Airlocks/Standard/service-freezer.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseBolted"]
     - state: emergency_unlit
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-freezer.rsi
+      sprite: Structures/Doors/Airlocks/Standard/service-freezer.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
       shader: unshaded
     - state: panel_open
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-freezer.rsi
+      sprite: Structures/Doors/Airlocks/Standard/service-freezer.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
     - state: electrified_ai
       sprite: Interface/Misc/ai_hud.rsi
@@ -38,7 +38,7 @@
       visible: false
       map: ["enum.ElectrifiedLayers.Sparks"]
     - state: sparks
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      sprite: Structures/Doors/Airlocks/Standard/service-freezer.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseEmagging"]
       shader: unshaded
       visible: false
@@ -209,22 +209,22 @@
       map: ["enum.DoorVisualLayers.Base"]
     - state: closed_unlit
       shader: unshaded
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo-xenoborg.rsi
+      sprite: Structures/Doors/Airlocks/Standard/exo-xenoborg.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseUnlit"]
       visible: true
     - state: welded
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
+      sprite: Structures/Doors/Airlocks/Standard/exo-xenoborg.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.WeldableLayers.BaseWelded"]
     - state: bolted_unlit
       shader: unshaded
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo-xenoborg.rsi
+      sprite: Structures/Doors/Airlocks/Standard/exo-xenoborg.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseBolted"]
     - state: emergency_unlit
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo-xenoborg.rsi
+      sprite: Structures/Doors/Airlocks/Standard/exo-xenoborg.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
       shader: unshaded
     - state: panel_open
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      sprite: Structures/Doors/Airlocks/Standard/exo-xenoborg.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
     - state: electrified_ai
       sprite: Interface/Misc/ai_hud.rsi
@@ -237,7 +237,7 @@
       visible: false
       map: ["enum.ElectrifiedLayers.Sparks"]
     - state: sparks
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      sprite: Structures/Doors/Airlocks/Standard/exo-xenoborg.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseEmagging"]
       shader: unshaded
       visible: false
@@ -425,22 +425,22 @@
       map: ["enum.DoorVisualLayers.Base"]
     - state: closed_unlit
       shader: unshaded
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
+      sprite: Structures/Doors/Airlocks/Standard/exo-base.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseUnlit"]
       visible: true
     - state: welded
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
+      sprite: Structures/Doors/Airlocks/Standard/exo-base.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.WeldableLayers.BaseWelded"]
     - state: bolted_unlit
       shader: unshaded
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
+      sprite: Structures/Doors/Airlocks/Standard/exo-base.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseBolted"]
     - state: emergency_unlit
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
+      sprite: Structures/Doors/Airlocks/Standard/exo-base.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
       shader: unshaded
     - state: panel_open
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      sprite: Structures/Doors/Airlocks/Standard/exo-base.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
     - state: electrified_ai
       sprite: Interface/Misc/ai_hud.rsi
@@ -453,7 +453,7 @@
       visible: false
       map: ["enum.ElectrifiedLayers.Sparks"]
     - state: sparks
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      sprite: Structures/Doors/Airlocks/Standard/exo-base.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseEmagging"]
       shader: unshaded
       visible: false
@@ -473,22 +473,22 @@
       map: ["enum.DoorVisualLayers.Base"]
     - state: closed_unlit
       shader: unshaded
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
+      sprite: Structures/Doors/Airlocks/Glass/exo-base.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseUnlit"]
       visible: true
     - state: welded
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
+      sprite: Structures/Doors/Airlocks/Glass/exo-base.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.WeldableLayers.BaseWelded"]
     - state: bolted_unlit
       shader: unshaded
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
+      sprite: Structures/Doors/Airlocks/Glass/exo-base.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseBolted"]
     - state: emergency_unlit
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
+      sprite: Structures/Doors/Airlocks/Glass/exo-base.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
       shader: unshaded
     - state: panel_open
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      sprite: Structures/Doors/Airlocks/Glass/exo-base.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
     - state: electrified_ai
       sprite: Interface/Misc/ai_hud.rsi
@@ -501,7 +501,7 @@
       visible: false
       map: ["enum.ElectrifiedLayers.Sparks"]
     - state: sparks
-      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      sprite: Structures/Doors/Airlocks/Glass/exo-base.rsi # <Onyx-AirlockResprite-edited>
       map: ["enum.DoorVisualLayers.BaseEmagging"]
       shader: unshaded
       visible: false

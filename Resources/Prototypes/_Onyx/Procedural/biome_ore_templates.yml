@@ -10,3 +10,63 @@
   minGroupSize: 1
   maxGroupSize: 2
   radius: 3
+
+- type: biomeMarkerLayer
+  id: OreBSCrystalLavaland
+  parent: OreBSCrystal
+  entityMask:
+    LavalandBasaltRock: LavalandBasaltRockBSCrystal
+
+- type: biomeMarkerLayer
+  id: OreIronLavaland
+  parent: OreIron
+  entityMask:
+    LavalandBasaltRock: LavalandBasaltRockTin
+
+- type: biomeMarkerLayer
+  id: OreCoalLavaland
+  parent: OreCoal
+  entityMask:
+    LavalandBasaltRock: LavalandBasaltRockCoal
+
+- type: biomeMarkerLayer
+  id: OreQuartzLavaland
+  parent: OreQuartz
+  entityMask:
+    LavalandBasaltRock: LavalandBasaltRockQuartz
+
+- type: biomeMarkerLayer
+  id: OreGoldLavaland
+  parent: OreGold
+  entityMask:
+    LavalandBasaltRock: LavalandBasaltRockGold
+
+- type: biomeMarkerLayer
+  id: OreSilverLavaland
+  parent: OreSilver
+  entityMask:
+    LavalandBasaltRock: LavalandBasaltRockSilver
+
+- type: biomeMarkerLayer
+  id: OrePlasmaLavaland
+  parent: OrePlasma
+  entityMask:
+    LavalandBasaltRock: LavalandBasaltRockPlasma
+
+- type: biomeMarkerLayer
+  id: OreUraniumLavaland
+  parent: OreUranium
+  entityMask:
+    LavalandBasaltRock: LavalandBasaltRockUranium
+
+- type: biomeMarkerLayer
+  id: OreArtifactFragmentLavaland
+  parent: OreArtifactFragment
+  entityMask:
+    LavalandBasaltRock: LavalandBasaltRockArtifactFragment
+
+- type: biomeMarkerLayer
+  id: OreDiamondLavaland
+  parent: OreDiamond
+  entityMask:
+    LavalandBasaltRock: LavalandBasaltRockDiamond

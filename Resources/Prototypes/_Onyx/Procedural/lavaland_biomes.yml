@@ -156,7 +156,7 @@
       cellularDistanceFunction: Euclidean
       cellularReturnType: Distance2
     entities:
-    - AsteroidRock
+    - LavalandBasaltRock
   - !type:BiomeDummyLayer
     id: Loot
   # Fill basalt
@@ -334,7 +334,7 @@
       cellularDistanceFunction: Euclidean
       cellularReturnType: Distance2
     entities:
-    - AsteroidRock
+    - LavalandBasaltRock
   # Fill basalt & ash grass
   - !type:BiomeTileLayer
     threshold: -1.0
@@ -441,7 +441,7 @@
       frequency: 0.1
       gain: 0.5
     entities:
-    - AsteroidRock
+    - LavalandBasaltRock
   - !type:BiomeDummyLayer
     id: Loot
   # Fill basalt
@@ -545,7 +545,7 @@
       cellularDistanceFunction: Euclidean
       cellularReturnType: Distance2
     entities:
-    - AsteroidRock
+    - LavalandBasaltRock
   - !type:BiomeDummyLayer
     id: Loot
   # Fill basalt
@@ -693,7 +693,7 @@
       cellularDistanceFunction: Euclidean
       cellularReturnType: Distance2
     entities:
-    - AsteroidRock
+    - LavalandBasaltRock
   # Fill basalt & ash grass
   - !type:BiomeTileLayer
     threshold: -1.0

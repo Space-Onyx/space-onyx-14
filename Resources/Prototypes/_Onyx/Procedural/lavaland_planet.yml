@@ -15,16 +15,16 @@
   markers:
   - RandomTendrilLavaland
   - RandomMobLavaland
-  - OreIron
-  - OreCoal
-  - OreQuartz
-  - OreGold
-  - OreSilver
-  - OrePlasma
-  - OreUranium
-  - OreArtifactFragment
-  - OreDiamond
-  - OreBSCrystal
+  - OreIronLavaland
+  - OreCoalLavaland
+  - OreQuartzLavaland
+  - OreGoldLavaland
+  - OreSilverLavaland
+  - OrePlasmaLavaland
+  - OreUraniumLavaland
+  - OreArtifactFragmentLavaland
+  - OreDiamondLavaland
+  - OreBSCrystalLavaland
   addComponents:
   - type: WeatherScheduler
     stages:

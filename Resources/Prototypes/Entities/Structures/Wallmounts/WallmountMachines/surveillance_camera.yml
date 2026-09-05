@@ -57,13 +57,14 @@
   - type: Wires
     alwaysRandomize: true
     layoutId: SurveillanceCamera
+  # <Onyx-WallmountSpriteOffsets-edited>
   - type: Sprite
     drawdepth: WallMountedItems
     sprite: Structures/Wallmounts/camera.rsi
-    offset: 0, -0.5
     layers:
       - map: [ "enum.SurveillanceCameraVisualsKey.Layer" ]
         state: camera
+  # </Onyx-WallmountSpriteOffsets-edited>
   - type: Appearance
   - type: SurveillanceCameraVisuals
     sprites:

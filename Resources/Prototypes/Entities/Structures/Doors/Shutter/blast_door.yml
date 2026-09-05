@@ -181,7 +181,7 @@
   description: Don't lose a head!
   components:
   - type: Sprite
-    sprite: Structures/Doors/Airlocks/Standard/airlock-blastdoor.rsi
+    sprite: Structures/Doors/Airlocks/Standard/exo-xenoborg-blastdoor.rsi # <Onyx-OldDoorSprites-edited>
     layers:
     - state: closed
       map: ["enum.DoorVisualLayers.Base"]

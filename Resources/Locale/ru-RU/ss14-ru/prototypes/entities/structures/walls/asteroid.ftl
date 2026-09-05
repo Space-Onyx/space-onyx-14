@@ -78,7 +78,9 @@ ent-IronRockGold = { ent-IronRock }
     .suffix = Золото
 ent-IronRockPlasma = { ent-IronRock }
     .desc = { ent-IronRock.desc }
-    .suffix = Кварц
+    # <Onyx-OldRockLocalization-edited>
+    .suffix = Плазма
+    # </Onyx-OldRockLocalization-edited>
 ent-IronRockQuartz = { ent-IronRock }
     .desc = { ent-IronRock.desc }
     .suffix = Кварц
