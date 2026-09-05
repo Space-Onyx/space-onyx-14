@@ -32,6 +32,10 @@
   - type: Tag
     tags:
     - WhitelistChameleon
+  # <Onyx-StaminaArmor>
+  - type: StaminaResistance
+    damageCoefficient: 0.85
+  # </Onyx-StaminaArmor>
 
 #Alternate / slim basic armor vest, allowed for security and bartenders
 - type: entity
@@ -115,6 +119,10 @@
         Heat: 0.5
         Caustic: 0.9
   - type: GroupExamine
+  # <Onyx-StaminaArmor>
+  - type: StaminaResistance
+    damageCoefficient: 0.8
+  # </Onyx-StaminaArmor>
 
 - type: entity
   parent: [ClothingOuterArmorBaseCarapace, BaseCommandContraband]
@@ -161,6 +169,10 @@
         Heat: 0.9
   - type: StaticPrice
     price: 1500
+  # <Onyx-StaminaArmor>
+  - type: StaminaResistance
+    damageCoefficient: 0.75
+  # </Onyx-StaminaArmor>
 
 #Elite web vest
 - type: entity
@@ -186,6 +198,10 @@
     reduction: 0.85
   - type: StaticPrice
     price: 2500
+  # <Onyx-StaminaArmor>
+  - type: StaminaResistance
+    damageCoefficient: 0.75
+  # </Onyx-StaminaArmor>
 
 #Mercenary web vest
 - type: entity
@@ -302,6 +318,10 @@
         Caustic: 0.9
   - type: ExplosionResistance
     damageCoefficient: 0.9
+  # <Onyx-StaminaArmor>
+  - type: StaminaResistance
+    damageCoefficient: 0.7
+  # </Onyx-StaminaArmor>
   - type: GroupExamine
 
 - type: entity
@@ -322,6 +342,10 @@
         Piercing: 0.5
         Heat: 0.5
   - type: GroupExamine
+  # <Onyx-StaminaArmor>
+  - type: StaminaResistance
+    damageCoefficient: 0.75
+  # </Onyx-StaminaArmor>
 
 - type: entity
   parent: [ClothingOuterBaseLarge, AllowSuitStorageClothing]
@@ -345,6 +369,10 @@
   - type: GroupExamine
   - type: ProtectedFromStepTriggers
     slots: WITHOUT_POCKET
+  # <Onyx-StaminaArmor>
+  - type: StaminaResistance
+    damageCoefficient: 0.6
+  # </Onyx-StaminaArmor>
 
 - type: entity
   parent: ClothingOuterArmorHeavy
@@ -417,6 +445,10 @@
   - type: GroupExamine
   - type: ProtectedFromStepTriggers
     slots: WITHOUT_POCKET
+  # <Onyx-StaminaArmor>
+  - type: StaminaResistance
+    damageCoefficient: 0.75
+  # </Onyx-StaminaArmor>
 
 - type: entity
   parent: [ ClothingOuterBaseLarge, BaseMajorContraband, AllowSuitStorageClothing ]
@@ -446,6 +478,10 @@
     node: armor
   - type: ProtectedFromStepTriggers
     slots: WITHOUT_POCKET
+  # <Onyx-StaminaArmor>
+  - type: StaminaResistance
+    damageCoefficient: 0.8
+  # </Onyx-StaminaArmor>
 
 - type: entity
   parent: [ ClothingOuterBaseLarge, BaseMajorContraband, AllowSuitStorageClothing ]
@@ -467,6 +503,10 @@
   - type: GroupExamine
   - type: ProtectedFromStepTriggers
     slots: WITHOUT_POCKET
+  # <Onyx-StaminaArmor>
+  - type: StaminaResistance
+    damageCoefficient: 0.75
+  # </Onyx-StaminaArmor>
 
 - type: entity
   parent: ClothingOuterArmorBase

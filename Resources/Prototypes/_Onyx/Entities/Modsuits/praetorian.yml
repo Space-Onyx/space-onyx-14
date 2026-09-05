@@ -178,6 +178,8 @@
     knockdownTimeDelta: -2
   - type: ExplosionResistance
     damageCoefficient: 0.45
+  - type: StaminaResistance
+    damageCoefficient: 0.6
   - type: ComponentToggler
     components:
     - type: PressureProtection

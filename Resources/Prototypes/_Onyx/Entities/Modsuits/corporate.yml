@@ -201,7 +201,7 @@
         outerClothing-vox:
         - state: equipped-OUTERCLOTHING-sealed-vox
     - type: StaminaResistance
-      damageCoefficient: 0 # 100%
+      damageCoefficient: 0.25
     - type: ExplosionResistance
       damageCoefficient: 0.2
     - type: FireProtection

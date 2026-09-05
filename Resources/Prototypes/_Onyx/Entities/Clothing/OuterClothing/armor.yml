@@ -52,6 +52,8 @@
         Heat: 0.3
   - type: ExplosionResistance
     damageCoefficient: 0.6
+  - type: StaminaResistance
+    damageCoefficient: 0.6
   - type: Item
     size: Huge
   - type: ClothingSpeedModifier
