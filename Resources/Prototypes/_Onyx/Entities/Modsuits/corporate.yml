@@ -39,7 +39,7 @@
       grid:
         - 0,0,7,6
     - type: ExplosionResistance
-      damageCoefficient: 0.1
+      damageCoefficient: 0.4
     - type: SealableClothingVisuals
       spriteLayer: sealed
       clothingVisuals:
@@ -87,22 +87,22 @@
     - type: Sprite
       sprite: _Onyx/Clothing/OuterClothing/Modsuits/corporate.rsi
     - type: Armor
-      traumaDeductions: # prevents traumas at all (kinda)
-        Dismemberment: 1
-        OrganDamage: 1
-        BoneDamage: 1
-        VeinsDamage: 1
-        NerveDamage: 1
+      traumaDeductions:
+        Dismemberment: 0.4
+        OrganDamage: 0.4
+        BoneDamage: 0.4
+        VeinsDamage: 0
+        NerveDamage: 0
       modifiers:
         coefficients:
-          Blunt: 0.1 # Best armor in the game - Yeah no shit.
-          Slash: 0.1
-          Piercing: 0.1
-          Heat: 0.1
-          Cold: 0.1
-          Cellular: 0.1
-          Radiation: 0
-          Caustic: 0.1
+          Blunt: 0.4
+          Slash: 0.4
+          Piercing: 0.35
+          Heat: 0.4
+          Cold: 0.4
+          Cellular: 0.5
+          Radiation: 0.2
+          Caustic: 0.4
     - type: ThermalVision
       isEquipment: true
       color: "#bf8133"
@@ -177,22 +177,22 @@
       walkModifier: 1
       sprintModifier: 1
     - type: Armor
-      traumaDeductions: # prevents traumas at all (kinda)
-        Dismemberment: 1
-        OrganDamage: 1
-        BoneDamage: 1
-        VeinsDamage: 1
-        NerveDamage: 1
+      traumaDeductions:
+        Dismemberment: 0.4
+        OrganDamage: 0.4
+        BoneDamage: 0.4
+        VeinsDamage: 0
+        NerveDamage: 0
       modifiers:
         coefficients:
-          Blunt: 0.1 # Best armor in the game - Yeah no shit.
-          Slash: 0.1
-          Piercing: 0.1
-          Heat: 0.1
-          Cold: 0.1
-          Cellular: 0.1
-          Radiation: 0
-          Caustic: 0.1
+          Blunt: 0.4
+          Slash: 0.4
+          Piercing: 0.35
+          Heat: 0.4
+          Cold: 0.4
+          Cellular: 0.5
+          Radiation: 0.2
+          Caustic: 0.4
     - type: SealableClothingVisuals
       spriteLayer: sealed
       clothingVisuals:
@@ -201,11 +201,11 @@
         outerClothing-vox:
         - state: equipped-OUTERCLOTHING-sealed-vox
     - type: StaminaResistance
-      damageCoefficient: 0.25
+      damageCoefficient: 0.5
     - type: ExplosionResistance
-      damageCoefficient: 0.2
+      damageCoefficient: 0.4
     - type: FireProtection
-      reduction: 1
+      reduction: 0.8
     - type: ClothingGrantComponent
       component:
       - type: SupermatterImmune
@@ -259,12 +259,12 @@
       components:
       - type: NoSlip
     - type: ModifyStandingUpTime
-      multiplier: .25
+      multiplier: .5
     - type: Magboots
       enabledPrefix: null
     - type: ClothingSpeedModifier
-      walkModifier: 1.1
-      sprintModifier: 1.1
+      walkModifier: 1
+      sprintModifier: 1
 
 - type: entity
   id: SuitStorageCorporate
@@ -282,21 +282,22 @@
   parent: ClothingModsuitCorporate
   suffix: Filled
   components:
-    - type: ContainerFill
+    - type: EntityTableContainerFill
       containers:
-        storagebase:
-          - BoxSurvivalSlotsEngineering
-          - HandheldFaxOfficial # NTRs fax is huge, do you expect me to use some POOR person fax?
-          - BoxFolderCentComClipboard # Solely for holding and looking menacing.
-          - DeterrentCaseFilled
-          - ClothingMaskGasCentcom
-          - WeaponDisablerAdvanced
-          - CentralCommandBusinessCard
-          - JawsOfLife
-          - PowerDrill
-          - WelderExperimental
-          - Multitool
-          - MedkitCombatFilled
+        storagebase: !type:AllSelector
+          children:
+          - id: BoxSurvivalSlotsEngineering
+          - id: HandheldFaxOfficial # NTRs fax is huge, do you expect me to use some POOR person fax?
+          - id: BoxFolderCentComClipboard # Solely for holding and looking menacing.
+          - id: DeterrentCaseFilled
+          - id: ClothingMaskGasCentcom
+          - id: WeaponDisabler
+          - id: CentralCommandBusinessCard
+          - id: JawsOfLife
+          - id: PowerDrill
+          - id: WelderExperimental
+          - id: Multitool
+          - id: MedkitCombatFilled
           
 #NCT
 - type: entity
