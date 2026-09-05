@@ -6,6 +6,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
+using Content.Client.Stylesheets;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Timing;
@@ -15,11 +16,11 @@ namespace Content.Client.UserInterface.Controls;
 
 public sealed partial class SlotButton
 {
-    private const int SubSlotButtonSize = 52;
     private const int SubSlotIndicatorSize = 12;
     private const int SubSlotSeparation = 2;
 
     private SubSlotPopup? _subSlots;
+    private Label? _subSlotIndicator;
     private readonly Dictionary<string, SlotButton> _subSlotButtons = new();
 
     private void InitializeSubSlots()
@@ -41,9 +42,30 @@ public sealed partial class SlotButton
             return false;
 
         EnsureSubSlotPopup();
-        button.SetButtonSize(SubSlotButtonSize);
+        EnsureSubSlotIndicator();
+        _subSlotIndicator!.Text = $"+{_subSlotButtons.Count}";
+        button.SetButtonSize(DefaultButtonSize);
         _subSlots!.AddButton(button);
         return true;
+    }
+
+    private void EnsureSubSlotIndicator()
+    {
+        if (_subSlotIndicator != null)
+            return;
+
+        _subSlotIndicator = new Label
+        {
+            HorizontalAlignment = HAlignment.Left,
+            VerticalAlignment = VAlignment.Top,
+            MinSize = new Vector2(SubSlotIndicatorSize),
+            Margin = new Thickness(6, 2, 0, 0),
+            MouseFilter = MouseFilterMode.Ignore,
+            Align = Label.AlignMode.Center,
+            FontColorOverride = Color.Gray,
+        };
+        _subSlotIndicator.AddStyleClass(StyleClass.FontSmall);
+        AddChild(_subSlotIndicator);
     }
 
     private void OpenSubSlots()
@@ -82,9 +104,11 @@ public sealed partial class SlotButton
 
     private sealed class SubSlotPopup : Popup
     {
+        private readonly HashSet<Control> _visibleWindows = new();
+
         public Vector2 PopupSize => new(
-            _buttons.ChildCount * SubSlotButtonSize + Math.Max(0, _buttons.ChildCount - 1) * SubSlotSeparation,
-            SubSlotButtonSize);
+            _buttons.ChildCount * DefaultButtonSize + Math.Max(0, _buttons.ChildCount - 1) * SubSlotSeparation,
+            DefaultButtonSize);
 
         private readonly BoxContainer _buttons = new()
         {
@@ -102,7 +126,36 @@ public sealed partial class SlotButton
             _buttons.AddChild(button);
         }
 
+        public override void Open(UIBox2? box = null, Vector2? altPos = null, Vector2? altPosUp = null)
+        {
+            _visibleWindows.Clear();
+            foreach (var window in UserInterfaceManager.WindowRoot.Children)
+            {
+                if (window.Visible)
+                    _visibleWindows.Add(window);
+            }
+
+            base.Open(box, altPos, altPosUp);
+        }
+
         public event Action? PointerExited;
+
+        protected override void FrameUpdate(FrameEventArgs args)
+        {
+            base.FrameUpdate(args);
+
+            if (!Visible)
+                return;
+
+            foreach (var window in UserInterfaceManager.WindowRoot.Children)
+            {
+                if (window.Visible && !_visibleWindows.Contains(window))
+                {
+                    Close();
+                    return;
+                }
+            }
+        }
 
         protected override void MouseExited()
         {
@@ -130,7 +183,11 @@ public sealed partial class SlotButton
         if (_subSlotButtons.Count == 0)
         {
             _subSlots?.Close();
+            _subSlotIndicator?.Orphan();
+            _subSlotIndicator = null;
         }
+        else
+            _subSlotIndicator!.Text = $"+{_subSlotButtons.Count}";
         return true;
     }
 }
