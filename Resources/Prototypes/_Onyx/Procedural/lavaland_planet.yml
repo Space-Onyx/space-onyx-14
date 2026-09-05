@@ -31,10 +31,12 @@
     - duration: { min: 600, max: 900 }
     - weather: WeatherAshfallLight
       duration: { min: 90, max: 120 }
+      announcement: lavaland-weather-storm-approaching
     - weather: WeatherAshfall
       duration: { min: 90, max: 120 }
     - weather: WeatherAshfallLight
       duration: { min: 30, max: 30 }
+      announcement: lavaland-weather-storm-ending
   - type: LightCycle
     duration: 1200
     minLightLevel: 0.4

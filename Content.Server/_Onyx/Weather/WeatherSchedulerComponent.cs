@@ -1,4 +1,5 @@
 using Robust.Shared.Prototypes;
+using Robust.Shared.Localization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Server._Onyx.Weather;
@@ -20,6 +21,8 @@ public sealed partial class WeatherSchedulerComponent : Component
     public TimeSpan NextTransition;
 
     public bool SchedulerActive;
+
+    public string AnnouncementSender = string.Empty;
 }
 
 [DataDefinition]
@@ -33,6 +36,9 @@ public sealed partial class WeatherSchedulerStage
 
     [DataField(required: true)]
     public WeatherSchedulerDuration Duration = new();
+
+    [DataField]
+    public LocId? Announcement;
 }
 
 [DataDefinition]

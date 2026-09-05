@@ -1,7 +1,9 @@
+using Content.Server.Chat.Systems;
 using Content.Shared.Maps;
 using Content.Shared.Prototypes;
 using Content.Shared.Weather;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
@@ -15,6 +17,21 @@ public sealed partial class WeatherSchedulerSystem : EntitySystem
     [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private SharedWeatherSystem _weather = default!;
+    [Dependency] private ChatSystem _chat = default!;
+
+    private static readonly string[] WeatherStationCallsigns =
+    [
+        "lavaland-weather-station-callsign-whiskey",
+        "lavaland-weather-station-callsign-bravo",
+        "lavaland-weather-station-callsign-charlie",
+        "lavaland-weather-station-callsign-foxtrot",
+        "lavaland-weather-station-callsign-kilo",
+        "lavaland-weather-station-callsign-lima",
+        "lavaland-weather-station-callsign-mike",
+        "lavaland-weather-station-callsign-oscar",
+        "lavaland-weather-station-callsign-tango",
+        "lavaland-weather-station-callsign-yankee",
+    ];
 
     public override void Initialize()
     {
@@ -47,6 +64,10 @@ public sealed partial class WeatherSchedulerSystem : EntitySystem
 
         ent.Comp.CurrentStage = 0;
         ent.Comp.SchedulerActive = true;
+        ent.Comp.AnnouncementSender = Loc.GetString(
+            "lavaland-weather-station-sender",
+            ("callsign", Loc.GetString(_random.Pick(WeatherStationCallsigns))),
+            ("number", _random.Next(1, 1000).ToString("D3")));
         ApplyStage(ent, ent.Comp);
     }
 
@@ -109,6 +130,16 @@ public sealed partial class WeatherSchedulerSystem : EntitySystem
         var duration = _random.NextFloat(stage.Duration.Min, stage.Duration.Max);
 
         _weather.TrySetWeather(Transform(mapUid).MapID, stage.Weather, out _);
+        if (stage.Announcement is { } announcement)
+        {
+            _chat.DispatchFilteredAnnouncement(
+                Filter.BroadcastMap(Transform(mapUid).MapID),
+                Loc.GetString(announcement),
+                mapUid,
+                scheduler.AnnouncementSender,
+                colorOverride: Color.FromHex("#f72f2f"));
+        }
+
         scheduler.NextTransition = _timing.CurTime + TimeSpan.FromSeconds(duration);
         Dirty(mapUid, scheduler);
     }
