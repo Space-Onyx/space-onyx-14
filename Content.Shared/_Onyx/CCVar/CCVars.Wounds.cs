@@ -21,4 +21,7 @@ public sealed partial class CCVars
 
     public static readonly CVarDef<float> ExplosionLimbDamageVariation =
         CVarDef.Create("explosion.damage_variation", 2f, CVar.SERVERONLY);
+
+    public static readonly CVarDef<float> ExplosionWoundMultiplier =
+        CVarDef.Create("explosion.wounding_multiplier", 4f, CVar.SERVERONLY);
 }

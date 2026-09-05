@@ -46,14 +46,22 @@ public readonly record struct PartDamageAppliedEvent(
     EntityUid Part,
     DamageSpecifier Damage,
     bool HealWounds = true,
-    EntityUid? Origin = null);
+    EntityUid? Origin = null,
+    bool IsExplosion = false,
+    bool ExplosionAmputationCandidate = false,
+    float WoundSeverityMultiplier = 1f);
 
 /// <summary>
 /// Raised when damage is dealt to a part that is already at (or pushed past) its
 /// integrity cap. Carries the excess damage that was not applied to the part.
 /// </summary>
 [ByRefEvent]
-public readonly record struct PartDamageOverflowedEvent(EntityUid Body, EntityUid Part, DamageSpecifier Damage);
+public readonly record struct PartDamageOverflowedEvent(
+    EntityUid Body,
+    EntityUid Part,
+    DamageSpecifier Damage,
+    bool IsExplosion = false,
+    bool ExplosionAmputationCandidate = false);
 
 [ByRefEvent]
 public readonly record struct FractureGradeChangedEvent(

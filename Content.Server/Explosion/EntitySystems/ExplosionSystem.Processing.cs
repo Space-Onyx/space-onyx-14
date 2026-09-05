@@ -463,7 +463,8 @@ public sealed partial class ExplosionSystem
                 // so blasts can focus a part hard enough to sever it instead of spreading evenly.
                 if (!_woundDamageRouting.TryRouteDistributedDamage(entity, damage, TargetBodyPart.All,
                         DamageDistribution.SplitWithVariation, ignoreResistances: true, interruptsDoAfters: false,
-                        variation: LimbDamageVariation))
+                        variation: LimbDamageVariation, isExplosion: true,
+                        woundSeverityMultiplier: WoundMultiplier))
                 {
                     _damageableSystem.ChangeDamage((entity, damageable), damage);
                 }

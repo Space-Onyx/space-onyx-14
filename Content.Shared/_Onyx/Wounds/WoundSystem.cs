@@ -76,7 +76,11 @@ public sealed partial class WoundSystem : EntitySystem
                 if (settings.SeverityMultiplier <= 0f)
                     continue;
 
-                var severity = amount * settings.SeverityMultiplier;
+                var explosionMultiplier = args.IsExplosion &&
+                    (type == "Blunt" || type == "Slash" || type == "Piercing" || type == "Heat" || type == "Cold")
+                    ? args.WoundSeverityMultiplier
+                    : 1f;
+                var severity = amount * settings.SeverityMultiplier * explosionMultiplier;
 
                 if (amount > FixedPoint2.Zero)
                 {

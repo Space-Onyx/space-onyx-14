@@ -36,6 +36,9 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
     private readonly Dictionary<EntityUid, EntityUid> _requestedParts = new();
     private readonly HashSet<EntityUid> _applied = new();
     private readonly HashSet<EntityUid> _skipWoundHealing = new();
+    private readonly HashSet<EntityUid> _explosionDamage = new();
+    private readonly Dictionary<EntityUid, EntityUid> _explosionAmputationCandidates = new();
+    private readonly Dictionary<EntityUid, float> _woundSeverityMultipliers = new();
     private readonly Dictionary<EntityUid, IReadOnlySet<TreatmentCapability>> _treatmentCapabilities = new();
 
     public override void Initialize()
@@ -188,7 +191,9 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         EntityUid? origin = null,
         bool ignoreResistances = false,
         bool interruptsDoAfters = true,
-        float variation = 0f)
+        float variation = 0f,
+        bool isExplosion = false,
+        float woundSeverityMultiplier = 1f)
     {
         if (!TryComp(body, out WoundHostComponent? host) || !_net.IsServer || _routing.Contains(body) ||
             mode is not DamageDistribution.SplitEvenly and not DamageDistribution.SplitByPartWeight and not DamageDistribution.SplitWithVariation)
@@ -241,20 +246,37 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
             }
         }
 
-        for (var i = 0; i < parts.Count; i++)
+        if (isExplosion)
         {
-            _requestedParts[body] = parts[i];
-            try
-            {
-                applied |= RouteThroughBodyModifiers((body, host), shares[i], origin, ignoreResistances, interruptsDoAfters);
-            }
-            finally
-            {
-                _requestedParts.Remove(body);
-            }
+            _explosionDamage.Add(body);
+            if (PickExplosionAmputationCandidate(parts, shares) is { } candidate)
+                _explosionAmputationCandidates[body] = candidate;
         }
+        if (woundSeverityMultiplier != 1f)
+            _woundSeverityMultipliers[body] = Math.Max(0f, woundSeverityMultiplier);
+        try
+        {
+            for (var i = 0; i < parts.Count; i++)
+            {
+                _requestedParts[body] = parts[i];
+                try
+                {
+                    applied |= RouteThroughBodyModifiers((body, host), shares[i], origin, ignoreResistances, interruptsDoAfters);
+                }
+                finally
+                {
+                    _requestedParts.Remove(body);
+                }
+            }
 
-        return applied;
+            return applied;
+        }
+        finally
+        {
+            _explosionDamage.Remove(body);
+            _explosionAmputationCandidates.Remove(body);
+            _woundSeverityMultipliers.Remove(body);
+        }
     }
 
     public bool TryApplyTargetedDamage(
@@ -628,7 +650,8 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
             var overflow = AccumulateAmputationOverflow(target, ref localized);
             if (!overflow.Empty)
             {
-                var overflowed = new PartDamageOverflowedEvent(body, target, overflow);
+                var overflowed = new PartDamageOverflowedEvent(body, target, overflow,
+                    _explosionDamage.Contains(body), _explosionAmputationCandidates.GetValueOrDefault(body) == target);
                 RaiseLocalEvent(target, ref overflowed);
             }
 
@@ -648,7 +671,9 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
             {
                 _applied.Add(body);
                 var applied = new PartDamageAppliedEvent(body, target, appliedDamage,
-                    !_skipWoundHealing.Contains(body), origin);
+                    !_skipWoundHealing.Contains(body), origin, _explosionDamage.Contains(body),
+                    overflow.Empty && _explosionAmputationCandidates.GetValueOrDefault(body) == target,
+                    _woundSeverityMultipliers.GetValueOrDefault(body, 1f));
                 RaiseLocalEvent(target, ref applied);
                 return;
             }
@@ -775,7 +800,9 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         EntityUid? origin = null,
         bool ignoreResistances = false,
         bool interruptsDoAfters = true,
-        float variation = 0f)
+        float variation = 0f,
+        bool isExplosion = false,
+        float woundSeverityMultiplier = 1f)
     {
         if (!TryComp<WoundHostComponent>(body, out _) || !_net.IsServer || _routing.Contains(body) ||
             mode is not DamageDistribution.SplitEvenly and not DamageDistribution.SplitByPartWeight and not DamageDistribution.SplitWithVariation)
@@ -788,7 +815,9 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
             origin,
             ignoreResistances,
             interruptsDoAfters,
-            variation);
+            variation,
+            isExplosion,
+            woundSeverityMultiplier);
         return true;
     }
 
@@ -800,6 +829,42 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         return TryComp(part, out WoundableComponent? woundable) &&
                _prototypes.TryIndex(woundable.Profile, out var profile) &&
                profile.TreatmentCapabilities.Overlaps(capabilities);
+    }
+
+    private EntityUid? PickExplosionAmputationCandidate(
+        IReadOnlyList<EntityUid> parts,
+        IReadOnlyList<DamageSpecifier> shares)
+    {
+        var candidates = new List<(EntityUid Part, float Weight)>();
+        var totalWeight = 0f;
+        for (var i = 0; i < parts.Count; i++)
+        {
+            if (!TryComp(parts[i], out BodyPartComponent? part) ||
+                part.PartType == BodyPartType.Chest ||
+                part.Parent == null ||
+                part.AmputationThresholds.Count == 0)
+                continue;
+
+            var weight = Math.Max(0f, shares[i].GetTotal().Float());
+            if (weight <= 0f)
+                continue;
+
+            candidates.Add((parts[i], weight));
+            totalWeight += weight;
+        }
+
+        if (candidates.Count == 0)
+            return null;
+
+        var roll = _random.NextFloat() * totalWeight;
+        foreach (var candidate in candidates)
+        {
+            roll -= candidate.Weight;
+            if (roll <= 0f)
+                return candidate.Part;
+        }
+
+        return candidates[^1].Part;
     }
 
     private bool ApplyPartChange(

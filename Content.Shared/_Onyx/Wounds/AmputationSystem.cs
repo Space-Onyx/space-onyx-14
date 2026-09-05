@@ -8,6 +8,7 @@ using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 using Content.Shared.Throwing;
 
 namespace Content.Shared._Onyx.Wounds;
@@ -17,6 +18,7 @@ public sealed partial class AmputationSystem : EntitySystem
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private INetManager _net = default!;
+    [Dependency] private IRobustRandom _random = default!;
     [Dependency] private WoundSystem _wounds = default!;
     [Dependency] private ThrowingSystem _throwing = default!;
 
@@ -34,10 +36,15 @@ public sealed partial class AmputationSystem : EntitySystem
             bodyPart.MaxDamage <= FixedPoint2.Zero)
             return;
 
+        if (args.ExplosionAmputationCandidate && TryExplosionAmputate(args.Body, part, bodyPart, args.Damage))
+            return;
+
         if (!part.Comp.Severable)
         {
             if (part.Comp.AmputationOverflow >= bodyPart.MaxDamage)
+            {
                 SetSeverable(part, true);
+            }
             return;
         }
 
@@ -69,10 +76,15 @@ public sealed partial class AmputationSystem : EntitySystem
             return;
 
         var damage = _damageable.GetAllDamage((part.Owner, damageable));
+        if (args.ExplosionAmputationCandidate && TryExplosionAmputate(args.Body, part, bodyPart, args.Damage, damage))
+            return;
+
         if (!part.Comp.Severable)
         {
             if (ReachedThreshold(damage, bodyPart.AmputationThresholds))
+            {
                 SetSeverable(part, true);
+            }
             return;
         }
 
@@ -153,6 +165,28 @@ public sealed partial class AmputationSystem : EntitySystem
         }
 
         return false;
+    }
+
+    private bool TryExplosionAmputate(
+        EntityUid body,
+        Entity<WoundableComponent> part,
+        BodyPartComponent bodyPart,
+        DamageSpecifier hit,
+        DamageSpecifier? totalDamage = null)
+    {
+        if (!IsFinishingHit(body, bodyPart, hit))
+            return false;
+
+        if (totalDamage == null)
+        {
+            totalDamage = _damageable.GetAllDamage(part.Owner).Clone();
+            foreach (var (type, amount) in hit.DamageDict)
+                if (amount > FixedPoint2.Zero)
+                    totalDamage.DamageDict[type] = totalDamage.DamageDict.GetValueOrDefault(type) + amount;
+        }
+
+        var chance = Math.Clamp(GetThresholdProgress(totalDamage, bodyPart.AmputationThresholds) * 0.5f, 0f, 1f);
+        return chance > 0f && _random.Prob(chance) && TryAmputate(body, part.Owner);
     }
 
     private float GetResetRatio(EntityUid body)
