@@ -184,6 +184,20 @@
         Heat: 0.90
         Radiation: 0.25
   - type: GroupExamine
+  # <Onyx-ClothingAccessories>
+  - type: ClothingAccessoryHolder
+    slots:
+      hat:
+        requiredSlots: HEAD
+        equippedState: equipped-HELMET
+        ejectOnUnequip: true
+        slot:
+          insertSound: null
+          ejectSound: null
+          whitelist:
+            components:
+            - Clothing
+  # </Onyx-ClothingAccessories>
   - type: IngestionBlocker
   - type: Tag
     tags:

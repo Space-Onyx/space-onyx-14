@@ -1,5 +1,5 @@
 - type: entity
-  parent: ClothingUniformBase
+  parent: [ ClothingUniformBase, BaseClothingUniformRadio ]
   id: ClothingUniformJumpskirtSalvageSpecialist
   name: salvage specialist's jumpskirt
   description: It's a snappy jumpskirt with a sturdy set of overalls. It's very dirty.
@@ -10,7 +10,7 @@
     sprite: _Onyx/Clothing/Uniforms/Jumpskirt/Cargo/salvage.rsi
 
 - type: entity
-  parent: [ ClothingUniformBase, ClothingUniformFoldableBase ]
+  parent: [ ClothingUniformBase, ClothingUniformFoldableBase, BaseClothingUniformRadio ]
   id: ClothingUniformJumpskirtShaftMiner
   name: shaft miner's jumpskirt
   description: It's a snappy jumpskirt with a sturdy set of overalls. It looks burnt.

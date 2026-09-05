@@ -9,15 +9,18 @@
     slots: [innerclothing]
     equipSound:
       path: /Audio/Items/jumpsuit_equip.ogg
-  # <Onyx-ClothingMedals>
-  - type: MedalHolder
-    slot:
-      insertSound: null
-      ejectSound: null
-      whitelist:
-        tags:
-        - Medal
-  # </Onyx-ClothingMedals>
+  # <Onyx-ClothingMedals-edited>
+  - type: ClothingAccessoryHolder
+    slots:
+      medal:
+        equippedState: equipped-NECK
+        slot:
+          insertSound: null
+          ejectSound: null
+          whitelist:
+            tags:
+            - Medal
+  # </Onyx-ClothingMedals-edited>
   - type: ToolRefinable
     refineResult:
     - id: MaterialCloth1

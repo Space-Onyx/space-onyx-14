@@ -71,6 +71,18 @@
     enabled: false
     lightMask: ConeSingle
     autoRot: true
+  - type: ClothingAccessoryHolder
+    slots:
+      hat:
+        requiredSlots: HEAD
+        equippedState: equipped-HELMET
+        ejectOnUnequip: true
+        slot:
+          insertSound: null
+          ejectSound: null
+          whitelist:
+            components:
+            - Clothing
 
 - type: entity
   abstract: true

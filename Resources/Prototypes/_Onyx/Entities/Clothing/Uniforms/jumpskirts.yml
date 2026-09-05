@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ ClothingUniformBase, ClothingUniformFoldableBase ]
+  parent: [ ClothingUniformBase, ClothingUniformFoldableBase, BaseClothingUniformRadio ]
   id: ClothingUniformJumpskirtBlueshieldOfficer
   name: blueshield officer jumpskirt
   description: A sturdy grey and blue Blueshield uniform.
@@ -8,3 +8,7 @@
     sprite: _Onyx/Clothing/Uniforms/Jumpskirt/blueshield_officer.rsi
   - type: Clothing
     sprite: _Onyx/Clothing/Uniforms/Jumpskirt/blueshield_officer.rsi
+
+- type: entity
+  parent: [ ClothingUniformJumpskirtColorRed, BaseClothingUniformRadio ]
+  id: ClothingUniformJumpskirtSecurityCadet

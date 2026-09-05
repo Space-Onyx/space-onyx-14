@@ -2,9 +2,9 @@
 - type: loadout
   id: RedJumpsuit
   equipment:
-    jumpsuit: ClothingUniformJumpsuitColorRed
+    jumpsuit: ClothingUniformJumpsuitSecurityCadet # <Onyx-UniformRadios-edited>
 
 - type: loadout
   id: RedJumpskirt
   equipment:
-    jumpsuit: ClothingUniformJumpskirtColorRed
+    jumpsuit: ClothingUniformJumpskirtSecurityCadet # <Onyx-UniformRadios-edited>

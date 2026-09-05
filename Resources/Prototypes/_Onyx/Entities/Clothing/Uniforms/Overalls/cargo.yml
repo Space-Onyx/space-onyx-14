@@ -1,5 +1,5 @@
 - type: entity
-  parent: ClothingUniformBase
+  parent: [ ClothingUniformBase, BaseClothingUniformRadio ]
   id: ClothingUniformOverallsSalvageSpecialist
   name: salvage specialist's overalls
   description: It's a sturdy set of overalls. It's very dirty.
@@ -10,7 +10,7 @@
     sprite: _Onyx/Clothing/Uniforms/Other/Overalls/Cargo/salvage.rsi
 
 - type: entity
-  parent: ClothingUniformBase
+  parent: [ ClothingUniformBase, BaseClothingUniformRadio ]
   id: ClothingUniformOverallsShaftMiner
   name: shaft miner's overalls
   description: It's a sturdy set of overalls, looks a bit burnt.

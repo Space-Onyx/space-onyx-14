@@ -1,5 +1,19 @@
 - type: entity
-  parent: [ ClothingUniformBase, ClothingUniformFoldableBase ]
+  abstract: true
+  id: BaseClothingUniformRadio
+  components:
+  - type: ClothingAccessoryHolder
+    slots:
+      radio:
+        slot:
+          insertSound: null
+          ejectSound: null
+          whitelist:
+            tags:
+            - Radio
+
+- type: entity
+  parent: [ ClothingUniformBase, ClothingUniformFoldableBase, BaseClothingUniformRadio ]
   id: ClothingUniformJumpsuitBlueshieldOfficer
   name: blueshield officer jumpsuit
   description: A sturdy grey and blue Blueshield uniform.
@@ -10,7 +24,7 @@
     sprite: _Onyx/Clothing/Uniforms/Jumpsuit/blueshield_officer.rsi
 
 - type: entity
-  parent: ClothingUniformBase
+  parent: [ ClothingUniformBase, BaseClothingUniformRadio ]
   id: ClothingUniformJumpsuitBlueshieldShirt
   name: blueshield officer blue shirt
   description: An official security uniform.
@@ -19,3 +33,7 @@
     sprite: _Onyx/Clothing/Uniforms/Jumpsuit/blueshield_shirt.rsi
   - type: Clothing
     sprite: _Onyx/Clothing/Uniforms/Jumpsuit/blueshield_shirt.rsi
+
+- type: entity
+  parent: [ ClothingUniformJumpsuitColorRed, BaseClothingUniformRadio ]
+  id: ClothingUniformJumpsuitSecurityCadet

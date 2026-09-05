@@ -12,15 +12,18 @@
     - outerClothing
   - type: Sprite
     state: icon
-  # <Onyx-ClothingMedals>
-  - type: MedalHolder
-    slot:
-      insertSound: null
-      ejectSound: null
-      whitelist:
-        tags:
-        - Medal
-  # </Onyx-ClothingMedals>
+  # <Onyx-ClothingMedals-edited>
+  - type: ClothingAccessoryHolder
+    slots:
+      medal:
+        equippedState: equipped-NECK
+        slot:
+          insertSound: null
+          ejectSound: null
+          whitelist:
+            tags:
+            - Medal
+  # </Onyx-ClothingMedals-edited>
 
 - type: entity
   abstract: true
