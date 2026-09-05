@@ -116,6 +116,13 @@
     sprite: _Onyx/Clothing/Head/Voidsuits/security.rsi
   - type: Clothing
     sprite: _Onyx/Clothing/Head/Voidsuits/security.rsi
+    clothingVisuals:
+      head:
+      - state: off-equipped-HELMET
+  - type: ToggleableVisuals
+    clothingVisuals:
+      head:
+      - state: on-equipped-HELMET
   - type: PointLight
     color: "#a4fef4"
     rotation: 30
