@@ -4,3 +4,6 @@ ent-AirlockRobotics = { ent-AirlockGlass }
 ent-AirlockRoboticsLocked = { ent-AirlockRobotics }
     .suffix = Робототехник, Закрыт
     .desc = { ent-AirlockRobotics.desc }
+ent-AirlockMaintRoboticsLocked = { ent-AirlockRoboticsLocked }
+    .suffix = Робототехник, Закрыт
+    .desc = { ent-AirlockRoboticsLocked.desc }

@@ -1254,8 +1254,6 @@ ArrivalsShuttleTimer: StatusDisplayShuttle
 
 # 2026-08-28 Onyx
 ThrusterShuttleEvac: Thruster
-AirlockRoboticsLocked: AirlockScienceGlassLocked
-AirlockRobotics: AirlockScienceGlass
 DocumentPrinter: PrinterDoc
 HoloCigar: null
 AirlockCaptain: Airlock

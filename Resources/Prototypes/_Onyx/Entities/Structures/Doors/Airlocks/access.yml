@@ -56,3 +56,21 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsRobotics ]
+
+- type: entity
+  parent: AirlockMaintRnDLocked
+  id: AirlockMaintRoboticsLocked
+  suffix: Robotics, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsRobotics ]
+
+- type: entity
+  parent: WindoorScienceLocked
+  id: WindoorRoboticsLocked
+  suffix: Robotics, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsRobotics ]
