@@ -101,7 +101,10 @@
     sprintModifier: 0.8
   # <Onyx-StaminaArmor>
   - type: StaminaResistance
-    damageCoefficient: 1
+    damageCoefficient: 0.7
+  - type: ModifyDelayedKnockdown
+    delayDelta: 2
+    knockdownTimeDelta: -2
   # </Onyx-StaminaArmor>
   - type: HeldSpeedModifier
   - type: ToggleableClothing

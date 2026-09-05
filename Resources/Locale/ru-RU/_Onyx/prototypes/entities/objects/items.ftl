@@ -1,9 +1,12 @@
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0.
 id-card-access-level-bso = Офицер «Синий Щит»
 
 ent-BlueshieldPDA = КПК офицера «Синий Щит»
     .desc = На лицевой стороне выгравирован серебряный щит.
 ent-BlueshieldIDCard = ID-карта офицера «Синий Щит»
+    .desc = { ent-IDCardStandard.desc }
 ent-ClothingHeadsetAltBlueshield = полноразмерная гарнитура офицера «Синий Щит»
+    .desc = { ent-ClothingHeadsetAlt.desc }
 ent-ClothingEyesGlassesBSO = очки офицера «Синий Щит»
     .desc = Солнцезащитные очки с медицинским, должностным и диагностическим интерфейсом.
 ent-ClothingBeltAssault = штурмовой пояс
@@ -19,6 +22,7 @@ ent-FlippoLighterBlueshield = синяя зажигалка
 ent-CigPackBlueshield = пачка сигарет Синего Щита
     .desc = Высококачественные лечебные сигареты для телохранителя высшего класса.
 ent-LockerBlueshieldOfficer = шкаф офицера Синего Щита
+    .desc = { ent-LockerBaseSecure.desc }
 ent-LockerBlueshieldOfficerFilled = { ent-LockerBlueshieldOfficer }
     .desc = Защищённый шкаф для снаряжения офицера Синего Щита.
     .suffix = Заполненный

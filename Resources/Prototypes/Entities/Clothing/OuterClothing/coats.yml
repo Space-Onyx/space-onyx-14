@@ -73,6 +73,13 @@
         Piercing: 0.6
         Heat: 0.7
         Caustic: 0.75 # not the full 90% from ss13 because of the head
+  # <Onyx-StaminaArmor>
+  - type: ModifyDelayedKnockdown
+    delayDelta: 2
+    knockdownTimeDelta: -2
+  - type: StaminaResistance
+    damageCoefficient: 0.7
+  # </Onyx-StaminaArmor>
 
 - type: entity
   abstract: true

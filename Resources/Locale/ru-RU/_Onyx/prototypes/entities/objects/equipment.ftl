@@ -1,10 +1,15 @@
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0.
 ent-BlueShieldShield = большой щит Синего Щита
+    .desc = Легендарный щит, давший имя бойцам Синий Щит. Известен тем, что принимает удары, предназначенные для высокопоставленных лиц.
 ent-BlueShieldShieldFilled = { ent-BlueShieldShield }
     .desc = Энергетический щит со встроенной булавой.
     .suffix = Заполненный, НЕ МАППИТЬ
 ent-BlueshieldMace = DT-3 «Зверство»
+    .desc = Раздави всех, кто противится твоим лидерам. В активированном состоянии работает как электродубинка.
 ent-ClothingOuterHardsuitBlueshieldLight = лёгкий скафандр «Преторианец»
+    .desc = Пустотный костюм, предназначенный для элитного телохранителя. Этот костюм изготовлен из более лёгкого металла, обеспечивая большую манёвренность.
 ent-ClothingHeadHelmetHardsuitBlueshield = шлем скафандра Синего Щита
+    .desc = Шлем телохранителя капитана в боевом костюме.
 
 ent-WeaponEnergyRevolver = энергетический револьвер EG-4 «Уравнитель»
 ent-ClothingBeltHolsterFilledBlueshield = наплечная кобура
