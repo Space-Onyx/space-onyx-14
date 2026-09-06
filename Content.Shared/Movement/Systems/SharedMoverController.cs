@@ -8,6 +8,7 @@ using Content.Shared.Inventory;
 using Content.Shared.Maps;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Components;
+using Content.Shared._Onyx.Movement; // <Onyx-Jump>
 using Content.Shared.Movement.Events;
 // <Onyx-TileMovement>
 using Content.Shared._Onyx.TileMovement;
@@ -558,6 +559,11 @@ public abstract partial class SharedMoverController : VirtualController
         ContentTileDefinition? tileDef = null)
     {
         sound = null;
+
+        // <Onyx-Jump>
+        if (TryComp(uid, out JumpComponent? jump) && jump.IsJumping)
+            return false;
+        // </Onyx-Jump>
 
         if (!CanSound() || !_tags.HasTag(uid, FootstepSoundTag))
             return false;

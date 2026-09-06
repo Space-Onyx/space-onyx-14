@@ -14,11 +14,16 @@ using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Gravity;
 using Content.Shared.Input;
+using Content.Shared.Item;
+using Content.Shared.LandMines;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Systems;
+using Content.Shared.Mousetrap;
 using Content.Shared.Physics;
 using Content.Shared.Popups;
+using Content.Shared.Chasm;
+using Content.Shared.StepTrigger.Systems;
 using Content.Shared.Standing;
 using Content.Shared.Throwing;
 using Robust.Shared.GameObjects;
@@ -26,6 +31,7 @@ using Robust.Shared.Input;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
@@ -35,10 +41,12 @@ public abstract partial class SharedJumpSystem : EntitySystem
 {
     [Dependency] private ActionBlockerSystem _actionBlocker = default!;
     [Dependency] private ClimbSystem _climb = default!;
+    [Dependency] private EntityLookupSystem _entityLookup = default!;
     [Dependency] private SharedGravitySystem _gravity = default!;
-    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private SharedItemSystem _item = default!;
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private SharedMoverController _mover = default!;
+    [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedStaminaSystem _stamina = default!;
     [Dependency] private StandingStateSystem _standing = default!;
@@ -49,6 +57,9 @@ public abstract partial class SharedJumpSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
+        SubscribeLocalEvent<JumpComponent, BeforeThrowEvent>(OnBeforeThrow);
+        SubscribeLocalEvent<JumpComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<JumpComponent, StepTriggerAttemptEvent>(OnStepTriggerAttempt);
         SubscribeLocalEvent<JumpComponent, StopThrowEvent>(OnStopThrow);
         CommandBinds.Builder
             .Bind(ContentKeyFunctions.Jump, new JumpInputCmdHandler(this))
@@ -68,13 +79,8 @@ public abstract partial class SharedJumpSystem : EntitySystem
         var query = EntityQueryEnumerator<JumpComponent>();
         while (query.MoveNext(out var uid, out var jump))
         {
-            if (jump.PendingJump && jump.LaunchTime <= _timing.CurTime)
-            {
-                if (jump.PendingDistance == 0f)
-                    FinishStationaryJump((uid, jump));
-                else
-                    LaunchJump((uid, jump));
-            }
+            if (jump.IsJumping && jump.JumpEnds <= _timing.CurTime)
+                FinishJump((uid, jump));
         }
     }
 
@@ -88,18 +94,39 @@ public abstract partial class SharedJumpSystem : EntitySystem
             TryJump((uid, jump));
     }
 
+    private void OnBeforeThrow(Entity<JumpComponent> ent, ref BeforeThrowEvent args)
+    {
+        if (!ent.Comp.IsJumping ||
+            !TryComp(args.ItemUid, out ItemComponent? item) ||
+            _item.GetSizePrototype(item.Size) > _item.GetSizePrototype("Normal"))
+            return;
+
+        args.ThrowSpeed = MathF.Max(0.1f, args.ThrowSpeed - 1f);
+        args.Direction = args.Direction.Normalized() * (args.Direction.Length() + 4f);
+    }
+
+    private void OnShutdown(Entity<JumpComponent> ent, ref ComponentShutdown args)
+    {
+        if (ent.Comp.IsJumping && TryComp(ent, out ClimbingComponent? climbing))
+            _climb.FinishJumpClimb((ent, climbing));
+    }
+
     private void OnStopThrow(Entity<JumpComponent> ent, ref StopThrowEvent args)
     {
         if (args.User != ent.Owner)
             return;
 
-        ent.Comp.IsJumping = false;
-        Dirty(ent);
+        FinishJump(ent);
+    }
 
-        if (TryComp(ent, out ClimbingComponent? climbing))
-            _climb.FinishJumpClimb((ent, climbing));
-
-        OnJumpLanded(ent);
+    private void OnStepTriggerAttempt(Entity<JumpComponent> ent, ref StepTriggerAttemptEvent args)
+    {
+        if (ent.Comp.IsJumping &&
+            args.Tripper == ent.Owner &&
+            (HasComp<LandMineComponent>(args.Source) ||
+             HasComp<MousetrapComponent>(args.Source) ||
+             HasComp<ChasmComponent>(args.Source)))
+            args.Cancelled = true;
     }
 
     protected virtual void OnJumpLanded(Entity<JumpComponent> ent)
@@ -116,31 +143,35 @@ public abstract partial class SharedJumpSystem : EntitySystem
             return false;
 
         var (walking, sprinting) = _mover.GetVelocityInput(mover);
-        var direction = mover.HasDirectionalMovement ? walking + sprinting : Vector2.Zero;
-        if (mover.HasDirectionalMovement)
-        {
-            direction = direction == Vector2.Zero
-                ? Transform(ent).LocalRotation.ToWorldVec()
-                : mover.TargetRelativeRotation.RotateVec(direction).Normalized();
-        }
+        var direction = walking + sprinting;
+        if (direction == Vector2.Zero)
+            direction = Transform(ent).LocalRotation.ToWorldVec();
+        else
+            direction = mover.TargetRelativeRotation.RotateVec(direction).Normalized();
 
         var xform = Transform(ent);
-        var table = direction == Vector2.Zero
-            ? null
-            : FindTableAhead(xform.Coordinates, direction, ent.Comp.TableDistance);
-        var jumpDistance = direction == Vector2.Zero
-            ? 0f
-            : table != null
-            ? ent.Comp.TableDistance
-            : TryComp(ent, out SprinterComponent? sprinter) && sprinter.IsSprinting
+        var table = FindTableAhead(xform.Coordinates, direction, ent.Comp.TableDistance);
+
+        float jumpDistance;
+        var mount = false;
+        if (table == null)
+        {
+            jumpDistance = TryComp(ent, out SprinterComponent? sprinter) && sprinter.IsSprinting
                 ? ent.Comp.SprintDistance
                 : ent.Comp.Distance;
+        }
+        else
+        {
+            jumpDistance = table.Value.Forward;
+            mount = true;
+        }
+
+        var target = xform.Coordinates.Offset(direction * jumpDistance);
         var staminaCost = _gravity.IsWeightless((ent.Owner, null))
             ? ent.Comp.StaminaCost * ent.Comp.WeightlessStaminaCostMultiplier
             : ent.Comp.StaminaCost;
-        var stamina = Comp<StaminaComponent>(ent);
-        var remainingStamina = stamina.CritThreshold - _stamina.GetStaminaDamage(ent, stamina);
-        if (remainingStamina < ent.Comp.MinimumStamina)
+        if (!TryComp(ent, out StaminaComponent? stamina) ||
+            stamina.CritThreshold - _stamina.GetStaminaDamage(ent, stamina) < ent.Comp.MinimumStamina)
         {
             _popup.PopupEntity(Loc.GetString("jump-cannot-catch-breath"), ent, ent);
             return false;
@@ -148,15 +179,25 @@ public abstract partial class SharedJumpSystem : EntitySystem
 
         _stamina.TakeStaminaDamage(ent, staminaCost, stamina, source: ent, visual: false);
 
+        if (TryComp(ent, out PhysicsComponent? throwPhysics))
+            _physics.SetLinearVelocity(ent, Vector2.Zero, body: throwPhysics);
+
+        if (!_throwing.TryThrow(ent, target, ent.Comp.Speed, ent, recoil: false, animated: false, playSound: false, doSpin: false))
+            return false;
+
+        if (table != null &&
+            TryComp(ent, out ClimbingComponent? climbing) &&
+            TryComp(table.Value.Uid, out ClimbableComponent? climbable) &&
+            !climbing.IsClimbing)
+        {
+            _climb.StartJumpClimb((ent, climbing), (table.Value.Uid, climbable));
+        }
+
         ent.Comp.NextJump = _timing.CurTime + ent.Comp.Cooldown;
-        ent.Comp.PendingJump = true;
-        ent.Comp.LaunchTime = _timing.CurTime + ent.Comp.Windup;
-        ent.Comp.JumpDirection = direction;
-        ent.Comp.PendingDistance = jumpDistance;
-        ent.Comp.PendingTableJump = table != null;
-        ent.Comp.IsJumping = jumpDistance == 0f;
+        ent.Comp.IsJumping = true;
+        ent.Comp.MountTable = mount;
         ent.Comp.JumpStarted = _timing.CurTime;
-        ent.Comp.JumpEnds = ent.Comp.LaunchTime;
+        ent.Comp.JumpEnds = _timing.CurTime + TimeSpan.FromSeconds(jumpDistance / ent.Comp.Speed);
         Dirty(ent);
         OnJumpStarted(ent);
         return true;
@@ -164,7 +205,7 @@ public abstract partial class SharedJumpSystem : EntitySystem
 
     public bool CanJump(Entity<JumpComponent> ent)
     {
-        return !ent.Comp.PendingJump &&
+        return !ent.Comp.IsJumping &&
                ent.Comp.NextJump <= _timing.CurTime &&
                _actionBlocker.CanMove(ent) &&
                _mobState.IsAlive(ent) &&
@@ -175,45 +216,13 @@ public abstract partial class SharedJumpSystem : EntitySystem
                !HasComp<ThrownItemComponent>(ent);
     }
 
-    private void LaunchJump(Entity<JumpComponent> ent)
-    {
-        ent.Comp.PendingJump = false;
-        var target = Transform(ent).Coordinates.Offset(ent.Comp.JumpDirection * ent.Comp.PendingDistance);
-        if (!_throwing.TryThrow(ent, target, ent.Comp.Speed, ent, recoil: false, animated: false, playSound: false, doSpin: false))
-        {
-            Dirty(ent);
-            return;
-        }
-
-        if (ent.Comp.PendingTableJump &&
-            TryComp(ent, out ClimbingComponent? climbing) &&
-            !climbing.IsClimbing)
-        {
-            _climb.StartJumpClimb((ent, climbing));
-        }
-
-        ent.Comp.IsJumping = true;
-        ent.Comp.JumpStarted = _timing.CurTime;
-        ent.Comp.JumpEnds = _timing.CurTime + TimeSpan.FromSeconds(ent.Comp.PendingDistance / ent.Comp.Speed);
-        Dirty(ent);
-    }
-
-    private void FinishStationaryJump(Entity<JumpComponent> ent)
-    {
-        ent.Comp.PendingJump = false;
-        ent.Comp.IsJumping = false;
-        Dirty(ent);
-        OnJumpLanded(ent);
-    }
-
-    private EntityUid? FindTableAhead(EntityCoordinates coordinates, Vector2 direction, float distance)
+    private (EntityUid Uid, float Forward)? FindTableAhead(EntityCoordinates coordinates, Vector2 direction, float distance)
     {
         var origin = _transform.ToMapCoordinates(coordinates);
-        var probe = coordinates.Offset(direction * distance / 2f);
         EntityUid? closest = null;
-        var closestDistance = float.MaxValue;
+        var closestForward = float.MaxValue;
 
-        foreach (var table in _lookup.GetEntitiesInRange<ClimbableComponent>(probe, distance / 2f + 0.5f))
+        foreach (var table in _entityLookup.GetEntitiesInRange<ClimbableComponent>(coordinates, distance + 0.5f))
         {
             if (!TryComp(table, out PhysicsComponent? physics) ||
                 (physics.CollisionLayer & (int) CollisionGroup.TableLayer) == 0)
@@ -225,15 +234,56 @@ public abstract partial class SharedJumpSystem : EntitySystem
             if (forwardDistance < 0.25f || forwardDistance > distance + 0.5f || lateralDistance > 0.6f)
                 continue;
 
-            var distanceSquared = offset.LengthSquared();
-            if (distanceSquared >= closestDistance)
+            if (forwardDistance >= closestForward)
                 continue;
 
             closest = table;
-            closestDistance = distanceSquared;
+            closestForward = forwardDistance;
         }
 
-        return closest;
+        if (closest == null)
+            return null;
+
+        return (closest.Value, closestForward);
+    }
+
+    private bool IsOverlappingTable(EntityUid uid)
+    {
+        var bodyBox = _physics.GetWorldAABB(uid);
+        foreach (var candidate in _entityLookup.GetEntitiesInRange<ClimbableComponent>(Transform(uid).Coordinates, 1.2f))
+        {
+            if (candidate.Owner == uid)
+                continue;
+            if (_physics.GetWorldAABB(candidate).Intersects(bodyBox))
+                return true;
+        }
+
+        return false;
+    }
+
+    private void FinishJump(Entity<JumpComponent> ent)
+    {
+        if (!ent.Comp.IsJumping)
+            return;
+
+        ent.Comp.IsJumping = false;
+        if (ent.Comp.MountTable && TryComp(ent, out PhysicsComponent? physics))
+            _physics.SetLinearVelocity(ent, Vector2.Zero, wakeBody: false, body: physics);
+        Dirty(ent);
+
+        if (IsOverlappingTable(ent.Owner))
+        {
+            if (TryComp(ent, out ClimbingComponent? mountClimbing))
+                _climb.EnsureMountedState((ent.Owner, mountClimbing));
+
+            OnJumpLanded(ent);
+            return;
+        }
+
+        if (TryComp(ent, out ClimbingComponent? climbing))
+            _climb.FinishJumpClimb((ent, climbing));
+
+        OnJumpLanded(ent);
     }
 
     private sealed class JumpInputCmdHandler(SharedJumpSystem system) : InputCmdHandler

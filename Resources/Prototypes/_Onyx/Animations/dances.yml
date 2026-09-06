@@ -13,7 +13,7 @@
 
 - type: animation
   id: EmoteJump
-  length: 0.25
+  length: 0.5
   tracks:
   - !type:AnimationTrackComponentPropertyData
     componentType: Sprite
@@ -21,8 +21,8 @@
     interpolationMode: Cubic
     keyFrames:
     - !type:KeyFrameComponentPropertyData { value: "0, 0", type: vector2, keyframe: 0 }
-    - !type:KeyFrameComponentPropertyData { value: "0, 0.35", type: vector2, keyframe: 0.125 }
-    - !type:KeyFrameComponentPropertyData { value: "0, 0", type: vector2, keyframe: 0.125 }
+    - !type:KeyFrameComponentPropertyData { value: "0, 0.5", type: vector2, keyframe: 0.25 }
+    - !type:KeyFrameComponentPropertyData { value: "0, 0", type: vector2, keyframe: 0.25 }
 
 - type: animation
   id: EmoteDanceFromTheFloor
