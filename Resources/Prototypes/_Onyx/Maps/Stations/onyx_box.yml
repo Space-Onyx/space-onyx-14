@@ -64,7 +64,7 @@
             Librarian: [ 1, 1 ]
             Musician: [ 1, 1 ]
             ServiceWorker: [ 3, 4 ]
-            Boxer: [ 1, 1 ]
+            # Boxer: [ 1, 1 ]
             Reporter: [ 1, 2 ]
             Passenger: [ -1, -1 ]
             RadioHost: [ 1, 1 ]
