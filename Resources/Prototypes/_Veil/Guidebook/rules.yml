@@ -1,0 +1,85 @@
+
+- type: guideEntry
+  id: VeilRules
+  name: guide-entry-rules-core
+  ruleEntry: true
+  priority: 10
+  text: "/ServerInfo/_Veil/ServerRules/VeilRules/DefaultRules.xml"
+  children:
+  - VeilRules0
+  - VeilRules1
+  - VeilRules2
+  - VeilRules3
+  - VeilRules4
+  - VeilRules5
+  - VeilRules6
+  - VeilRules7
+  - VeilRules8
+  - VeilRules9
+  - VeilRules10
+
+- type: guideEntry
+  id: VeilRules0
+  name: Не будь мудаком.
+  ruleEntry: true
+  text: "/ServerInfo/_Veil/ServerRules/VeilRules/VeilRule0.xml"
+
+- type: guideEntry
+  id: VeilRules1
+  name: Гриферство
+  ruleEntry: true
+  text: "/ServerInfo/_Veil/ServerRules/VeilRules/VeilRule1.xml"
+
+- type: guideEntry
+  id: VeilRules2
+  name: Убийство
+  ruleEntry: true
+  text: "/ServerInfo/_Veil/ServerRules/VeilRules/VeilRule2.xml"
+  
+- type: guideEntry
+  id: VeilRules3
+  name: Нарушение игровой атмосферы.
+  ruleEntry: true
+  text: "/ServerInfo/_Veil/ServerRules/VeilRules/VeilRule3.xml"
+  
+- type: guideEntry
+  id: VeilRules4
+  name: Логика персонажей
+  ruleEntry: true
+  text: "/ServerInfo/_Veil/ServerRules/VeilRules/VeilRule4.xml"
+ 
+- type: guideEntry
+  id: VeilRules5
+  name: Ответственная игра за антагониста
+  ruleEntry: true
+  text: "/ServerInfo/_Veil/ServerRules/VeilRules/VeilRule5.xml"
+
+- type: guideEntry
+  id: VeilRules6
+  name: Самоантагонизм
+  ruleEntry: true
+  text: "/ServerInfo/_Veil/ServerRules/VeilRules/VeilRule6.xml"
+
+- type: guideEntry
+  id: VeilRules7
+  name: Валидхант
+  ruleEntry: true
+  text: "/ServerInfo/_Veil/ServerRules/VeilRules/VeilRule7.xml"
+
+- type: guideEntry
+  id: VeilRules8
+  name: ERP
+  ruleEntry: true
+  text: "/ServerInfo/_Veil/ServerRules/VeilRules/VeilRule8.xml"
+
+- type: guideEntry
+  id: VeilRules9
+  name: Нечестная игра
+  ruleEntry: true
+  text: "/ServerInfo/_Veil/ServerRules/VeilRules/VeilRule9.xml"
+
+- type: guideEntry
+  id: VeilRules10
+  name: Обман администрации
+  ruleEntry: true
+  text: "/ServerInfo/_Veil/ServerRules/VeilRules/VeilRule10.xml"
