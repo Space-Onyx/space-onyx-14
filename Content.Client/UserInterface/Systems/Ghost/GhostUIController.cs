@@ -159,7 +159,6 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
         Gui.TargetWindow.OnGhostnadoClicked += OnGhostnadoClicked;
         Gui.TargetWindow.OnWarpToRandomFollowedClicked += OnWarpToRandomFollowedClicked;
         Gui.TargetWindow.OnWarpToRandomClicked += OnWarpToRandomClicked;
-
         UpdateGui();
     }
 
@@ -172,6 +171,7 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
         Gui.ReturnToBodyPressed -= ReturnToBody;
         Gui.GhostRolesPressed -= GhostRolesPressed;
         Gui.ReturnToLobbyPressed -= ReturnToLobbyPressed; // <Onyx-Ghost>
+        Gui.TargetWindow.WarpClicked -= OnWarpClicked;
 
         Gui.Hide();
     }

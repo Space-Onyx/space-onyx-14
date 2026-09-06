@@ -272,10 +272,16 @@ public abstract partial class SharedGrapplingGunSystem : VirtualController
                 var targetDirection = (bodyAWorldPos - bodyBWorldPos).Normalized();
 
                 var grapplerUidA = _container.TryGetOuterContainer(physicalHook, Transform(physicalHook), out var containerA) ? containerA.Owner : physicalHook;
-                var grapplerBodyA = Comp<PhysicsComponent>(grapplerUidA);
 
                 var grapplerUidB = _container.TryGetOuterContainer(physicalGrapple, Transform(physicalGrapple), out var containerB) ? containerB.Owner : physicalGrapple;
-                var grapplerBodyB = Comp<PhysicsComponent>(grapplerUidB);
+
+                // Either end may lack physics in which case there's nothing to apply an impulse to.
+                if (!TryComp<PhysicsComponent>(grapplerUidA, out var grapplerBodyA) ||
+                    !TryComp<PhysicsComponent>(grapplerUidB, out var grapplerBodyB))
+                {
+                    Dirty(uid, jointComp);
+                    continue;
+                }
 
                 var massFactorA = MathF.Min(grapplerBodyA.InvMass * grappling.ReelMassCoefficient, 1f);
                 _physics.ApplyLinearImpulse(grapplerUidA, -targetDirection * grappling.ReelForce * massFactorA * frameTime, body: grapplerBodyA);
