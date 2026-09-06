@@ -3,7 +3,7 @@
   id: Ipc
   limits:
     enum.HumanoidVisualLayers.Hair:
-      limit: 0
+      limit: 1 # <Onyx-IPCCustomization-edited>
       required: false
     enum.HumanoidVisualLayers.FacialHair:
       limit: 0
@@ -311,6 +311,10 @@
   - type: MechanicalOrgan
   - type: TransplantCompatibility # <Onyx-TransplantCompatibility>
     profile: Mechanical # <Onyx-TransplantCompatibility>
+  # <Onyx-IPCBodySprites>
+  - type: Sprite
+    sprite: _Onyx/Body/Species/IPC/organs.rsi
+  # </Onyx-IPCBodySprites>
   # </Onyx-IpcSurgery>
 
 - type: entity
@@ -324,11 +328,13 @@
   - type: BodyPart
     fractureProfile: null
   # </Onyx-IPCDismemberment>
+  # <Onyx-IPCBodySprites-edited>
   - type: Sprite
-    sprite: Corvax/Mobs/Species/Ipc/parts.rsi
+    sprite: _Onyx/Body/Species/IPC/parts.rsi
   - type: VisualOrgan
     data:
-      sprite: Corvax/Mobs/Species/Ipc/parts.rsi
+      sprite: _Onyx/Body/Species/IPC/parts.rsi
+  # </Onyx-IPCBodySprites-edited>
   - type: VisualOrganMarkings
     markingData:
       group: Ipc
@@ -338,7 +344,7 @@
   id: OrganIpcTorso
 
 - type: entity
-  parent: [ OrganBaseHead, OrganIpcExternal ]
+  parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganIpcExternal ] # <Onyx-IPCBodySprites-edited>
   id: OrganIpcHead
   components:
   - type: BodyPart
@@ -453,7 +459,7 @@
   # <Onyx-IPCEyes-edited>
   - type: MechanicalOrgan
   - type: Sprite
-    sprite: _Onyx/Mobs/Species/IPCOrgans.rsi
+    sprite: _Onyx/Body/Species/IPC/organs.rsi # <Onyx-IPCBodySprites-edited>
     layers:
     - state: eyeball-l
     - state: eyeball-r
@@ -473,8 +479,10 @@
   name: vocal modulator
   description: A vocal modulator used to produce speech.
   components:
+  # <Onyx-IPCBodySprites-edited>
   - type: Sprite
-    sprite: Objects/Misc/proximity_sensor.rsi
+    sprite: _Onyx/Body/Species/IPC/organs.rsi
     layers:
-    - state: icon
+    - state: tongue
+  # </Onyx-IPCBodySprites-edited>
 # </Onyx-IpcVoiceModulator>

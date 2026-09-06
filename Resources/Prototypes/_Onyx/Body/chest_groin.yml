@@ -344,7 +344,7 @@
       Female: groin_f
 
 - type: entity
-  parent: [ OrganBaseChest, OrganIpcExternal ]
+  parent: [ OrganBaseChestSexed, OrganBaseChest, OrganIpcExternal ]
   id: OrganIpcChest
   components:
   - type: BodyPart
