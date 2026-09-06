@@ -37,7 +37,6 @@ public sealed partial class HumanoidProfileEditor
     private bool _showSelectedJobs; // <Onyx-RolesPersonalization>
 
     private readonly Dictionary<string, BoxContainer> _jobCategories;
-    private readonly Dictionary<string, JobGridContainer> _jobGrids = new(); // <Onyx-RolesPersonalization>
     // </Onyx-RolesPersonalization-edited>
 
     /// <summary>
@@ -95,8 +94,6 @@ public sealed partial class HumanoidProfileEditor
         foreach (var (department, category) in _jobCategories)
             category.Visible = _jobCards.Any(entry => entry.Department == department && entry.Card.Visible);
 
-        foreach (var grid in _jobGrids.Values)
-            grid.Rebuild();
     }
     // </Onyx-RolesPersonalization>
 
@@ -176,7 +173,6 @@ public sealed partial class HumanoidProfileEditor
     {
         JobList.RemoveAllChildren();
         _jobCategories.Clear();
-        _jobGrids.Clear(); // <Onyx-RolesPersonalization>
         _jobPriorities.Clear();
         _jobCards.Clear(); // <Onyx-RolesPersonalization>
 
@@ -213,6 +209,7 @@ public sealed partial class HumanoidProfileEditor
                     Orientation = LayoutOrientation.Vertical,
                     Name = department.ID,
                     HorizontalExpand = true,
+                    SeparationOverride = 5,
                     Margin = new Thickness(0, 0, 0, 12),
                     ToolTip = Loc.GetString("humanoid-profile-editor-jobs-amount-in-department-tooltip",
                         ("departmentName", departmentName))
@@ -240,16 +237,7 @@ public sealed partial class HumanoidProfileEditor
                             }
                         }
                 });
-                var grid = new JobGridContainer
-                {
-                    Name = $"{department.ID}Grid",
-                    Margin = new Thickness(0, 7, 0, 0),
-                    HorizontalExpand = true,
-                };
-                category.AddChild(grid);
-
                 _jobCategories[department.ID] = category;
-                _jobGrids[department.ID] = grid; // <Onyx-RolesPersonalization>
                 JobList.AddChild(category);
             }
 
@@ -308,7 +296,7 @@ public sealed partial class HumanoidProfileEditor
                 };
                 _jobPriorities.Add((job.ID, card)); // <Onyx-RolesPersonalization-edited>
                 _jobCards.Add((department.ID, card)); // <Onyx-RolesPersonalization>
-                _jobGrids[department.ID].AddCard(card); // <Onyx-RolesPersonalization>
+                category.AddChild(card); // <Onyx-RolesPersonalization>
             }
         }
 

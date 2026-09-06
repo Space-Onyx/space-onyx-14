@@ -2,6 +2,7 @@ using System.Numerics;
 using System.Linq;
 using Content.Client._Onyx.AlternativeJobs;
 using Content.Client.Players.PlayTimeTracking;
+using Content.Client.Stylesheets;
 using Content.Shared._Onyx.AlternativeJobs;
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
@@ -21,7 +22,7 @@ public sealed class JobPreferenceCard : PanelContainer
     private readonly AlternativeJobSelector _jobSelector;
     private readonly TextureRect _icon;
     private readonly Label _roleName;
-    private readonly JobCardOptionButton _priority = new();
+    private readonly RadioOptions<JobPriority> _priority = new(RadioOptionsLayout.Horizontal);
     private readonly string[] _searchNames;
     private readonly StyleBoxFlat _availableStyle = Style("#1B1E24", "#3F4651");
     private readonly StyleBoxFlat _selectedStyle = Style("#182535", "#4C7DA8");
@@ -29,7 +30,7 @@ public sealed class JobPreferenceCard : PanelContainer
     private readonly bool _locked;
 
     public string JobId { get; }
-    public JobPriority Priority => (JobPriority) _priority.SelectedId;
+    public JobPriority Priority => _priority.SelectedValue;
     public bool IsAvailable => !_locked;
 
     public event Action<JobPriority>? OnPrioritySelected;
@@ -46,7 +47,7 @@ public sealed class JobPreferenceCard : PanelContainer
         JobId = job.ID;
         _locked = lockedReason != null;
         MinWidth = 0;
-        MinHeight = 176;
+        MinHeight = 35;
         HorizontalExpand = true;
         RectClipContent = true;
         PanelOverride = lockedReason == null ? _availableStyle : _lockedStyle;
@@ -61,10 +62,10 @@ public sealed class JobPreferenceCard : PanelContainer
         _icon = new TextureRect
         {
             Texture = sprites.Frame0(prototypes.Index<JobIconPrototype>(job.Icon).Icon),
-            SetSize = new Vector2(48),
-            MinSize = new Vector2(48),
+            SetSize = new Vector2(27),
+            MinSize = new Vector2(27),
             Stretch = TextureRect.StretchMode.KeepAspectCentered,
-            VerticalAlignment = VAlignment.Top,
+            VerticalAlignment = VAlignment.Center,
             MouseFilter = MouseFilterMode.Ignore,
             Modulate = lockedReason == null ? Color.White : Color.FromHex("#8B8275"),
         };
@@ -72,18 +73,19 @@ public sealed class JobPreferenceCard : PanelContainer
         _jobSelector = new AlternativeJobSelector(job.ID, sprites, requirements, profile, true)
         {
             HorizontalExpand = true,
-            MinHeight = 34,
+            MinHeight = 25,
+            MaxHeight = 25,
         };
         _jobSelector.SetSelectedIconVisible(false);
         _jobSelector.SetJobCardStyle(_locked);
         _roleName = new Label
         {
             Text = job.LocalizedName,
-            StyleClasses = { "font-large", "font-bold" },
+            StyleClasses = { "font-bold" },
             FontColorOverride = Color.FromHex(_locked ? "#C7BBA7" : "#C7D5E0"),
-            ClipText = true,
-            HorizontalExpand = true,
             VerticalAlignment = VAlignment.Center,
+            MouseFilter = MouseFilterMode.Stop,
+            TooltipSupplier = _ => CreateDescriptionTooltip(job),
         };
         _jobSelector.OnAlternativeSelected += alternative =>
         {
@@ -92,71 +94,53 @@ public sealed class JobPreferenceCard : PanelContainer
             OnAlternativeSelected?.Invoke(alternative);
         };
 
+        _priority.FirstButtonStyle = StyleClass.ButtonOpenRight;
+        _priority.ButtonStyle = StyleClass.ButtonOpenBoth;
+        _priority.LastButtonStyle = StyleClass.ButtonOpenLeft;
+        _priority.GenerateItem = (text, _) => new Button
+        {
+            Text = text,
+            MinHeight = 25,
+            HorizontalExpand = true,
+        };
         AddPriorityItems();
         _priority.HorizontalExpand = true;
-        _priority.MinHeight = 32;
-        _priority.SetLocked(_locked);
         _priority.OnItemSelected += args =>
         {
-            _priority.SelectId(args.Id);
-            OnPrioritySelected?.Invoke((JobPriority) args.Id);
+            _priority.Select(args.Id);
+            OnPrioritySelected?.Invoke(_priority.SelectedValue);
         };
 
         var roleNameRow = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
             SeparationOverride = 6,
-            HorizontalExpand = true,
+            MinWidth = 300,
             Children = { _roleName },
         };
 
         if (_jobSelector.HasAlternatives)
         {
             _jobSelector.ToolTip = Loc.GetString("job-personalization-role-name-hint");
-            _jobSelector.MinWidth = 40;
-            _jobSelector.MaxWidth = 40;
+            _jobSelector.MinWidth = 25;
+            _jobSelector.MaxWidth = 25;
             _jobSelector.HorizontalExpand = false;
             _jobSelector.SetCompactDisplay(_locked);
+            roleNameRow.AddChild(new Control { HorizontalExpand = true });
             roleNameRow.AddChild(_jobSelector);
         }
         else
             _jobSelector.Visible = false;
 
-        var controls = new BoxContainer
-        {
-            Orientation = BoxContainer.LayoutOrientation.Vertical,
-            SeparationOverride = 6,
-            HorizontalExpand = true,
-            Children =
-            {
-                roleNameRow,
-                new PanelContainer { StyleClasses = { "LowDivider" } },
-                _priority,
-            },
-        };
-
-        var description = new RichTextLabel
-        {
-            HorizontalExpand = true,
-        };
-        description.SetMessage(FormattedMessage.FromUnformatted(
-            job.LocalizedDescription ?? Loc.GetString("job-personalization-no-description")));
-
-        var descriptionContent = new BoxContainer
-        {
-            Orientation = BoxContainer.LayoutOrientation.Vertical,
-            Margin = new Thickness(7, 5),
-            SeparationOverride = 5,
-            HorizontalExpand = true,
-            Children = { description },
-        };
-
+        Control priorityControl = _priority;
         if (lockedReason != null)
         {
-            descriptionContent.AddChild(new PanelContainer
+            priorityControl = new PanelContainer
             {
                 PanelOverride = Style("#2A2118", "#8A6434"),
                 HorizontalExpand = true,
+                MinHeight = 25,
+                TooltipSupplier = _ => CreateTooltip(job, lockedReason),
                 Children =
                 {
                     new BoxContainer
@@ -175,7 +159,7 @@ public sealed class JobPreferenceCard : PanelContainer
                             },
                             new Label
                             {
-                                Text = Loc.GetString("job-personalization-locked-hint"),
+                                Text = Loc.GetString("role-timer-locked"),
                                 StyleClasses = { "font-small", "font-bold" },
                                 FontColorOverride = Color.FromHex("#F6BE68"),
                                 ClipText = true,
@@ -184,21 +168,25 @@ public sealed class JobPreferenceCard : PanelContainer
                         },
                     },
                 },
-            });
+            };
         }
 
-        var descriptionPanel = new PanelContainer
+        var controls = new BoxContainer
         {
-            PanelOverride = Style(lockedReason == null ? "#16191F" : "#1F1B17",
-                lockedReason == null ? "#353B45" : "#624D35"),
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            SeparationOverride = 8,
             HorizontalExpand = true,
-            Children = { descriptionContent },
+            Children =
+            {
+                roleNameRow,
+                priorityControl,
+            },
         };
 
         var top = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
-            SeparationOverride = 8,
+            SeparationOverride = 7,
             HorizontalExpand = true,
             Children =
             {
@@ -210,22 +198,17 @@ public sealed class JobPreferenceCard : PanelContainer
         AddChild(new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
-            Margin = new Thickness(9, 8),
-            SeparationOverride = 7,
+            Margin = new Thickness(7, 1),
             HorizontalExpand = true,
-            VerticalExpand = true,
             Children =
             {
                 top,
-                new PanelContainer { StyleClasses = { "LowDivider" } },
-                descriptionPanel,
             },
         });
 
         if (lockedReason != null)
         {
             _jobSelector.Disabled = true;
-            _priority.Disabled = true;
             AddChild(new Control
             {
                 HorizontalExpand = true,
@@ -244,10 +227,9 @@ public sealed class JobPreferenceCard : PanelContainer
 
     public void SelectPriority(JobPriority priority)
     {
-        _priority.SelectId((int) priority);
+        _priority.SelectByValue(priority);
         if (!_locked)
             PanelOverride = priority == JobPriority.Never ? _availableStyle : _selectedStyle;
-        _priority.SetAccent(priority != JobPriority.Never);
     }
 
     public void SelectAlternative(ProtoId<AlternativeJobPrototype>? alternative)
@@ -259,10 +241,10 @@ public sealed class JobPreferenceCard : PanelContainer
 
     private void AddPriorityItems()
     {
-        _priority.AddItem(Loc.GetString("humanoid-profile-editor-job-priority-never-button"), (int) JobPriority.Never);
-        _priority.AddItem(Loc.GetString("humanoid-profile-editor-job-priority-low-button"), (int) JobPriority.Low);
-        _priority.AddItem(Loc.GetString("humanoid-profile-editor-job-priority-medium-button"), (int) JobPriority.Medium);
-        _priority.AddItem(Loc.GetString("humanoid-profile-editor-job-priority-high-button"), (int) JobPriority.High);
+        _priority.AddItem(Loc.GetString("humanoid-profile-editor-job-priority-never-button"), JobPriority.Never);
+        _priority.AddItem(Loc.GetString("humanoid-profile-editor-job-priority-low-button"), JobPriority.Low);
+        _priority.AddItem(Loc.GetString("humanoid-profile-editor-job-priority-medium-button"), JobPriority.Medium);
+        _priority.AddItem(Loc.GetString("humanoid-profile-editor-job-priority-high-button"), JobPriority.High);
     }
 
     private static Tooltip CreateTooltip(JobPrototype job, FormattedMessage? lockedReason)
@@ -304,6 +286,14 @@ public sealed class JobPreferenceCard : PanelContainer
         return tooltip;
     }
 
+    private static Tooltip CreateDescriptionTooltip(JobPrototype job)
+    {
+        var tooltip = new Tooltip();
+        tooltip.SetMessage(FormattedMessage.FromUnformatted(
+            job.LocalizedDescription ?? Loc.GetString("job-personalization-no-description")));
+        return tooltip;
+    }
+
     private static StyleBoxFlat Style(string background, string border) => new()
     {
         BackgroundColor = Color.FromHex(background),
@@ -314,43 +304,6 @@ public sealed class JobPreferenceCard : PanelContainer
         ContentMarginRightOverride = 2,
         ContentMarginBottomOverride = 2,
     };
-}
-
-public sealed class JobCardOptionButton : OptionButton
-{
-    private bool _locked;
-    private bool _accent;
-
-    public void SetLocked(bool locked)
-    {
-        _locked = locked;
-        UpdateStyle();
-    }
-
-    public void SetAccent(bool accent)
-    {
-        _accent = accent;
-        UpdateStyle();
-    }
-
-    protected override void DrawModeChanged()
-    {
-        base.DrawModeChanged();
-        UpdateStyle();
-    }
-
-    protected override Vector2 MeasureOverride(Vector2 availableSize)
-    {
-        var measured = base.MeasureOverride(availableSize);
-        return float.IsPositiveInfinity(availableSize.X)
-            ? measured
-            : new Vector2(Math.Min(measured.X, availableSize.X), measured.Y);
-    }
-
-    private void UpdateStyle()
-    {
-        StyleBoxOverride = JobCardStyles.Button(DrawMode, _locked, _accent);
-    }
 }
 
 public static class JobCardStyles

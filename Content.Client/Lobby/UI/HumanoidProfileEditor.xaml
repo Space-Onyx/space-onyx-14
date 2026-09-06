@@ -165,8 +165,6 @@
                         <BoxContainer Orientation="Vertical" Margin="8" VerticalExpand="True">
                             <ui:HighlightedContainer>
                                 <BoxContainer Orientation="Vertical">
-                                    <Label Text="{Loc 'humanoid-profile-editor-jobs-tab'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" />
-                                    <PanelContainer StyleClasses="LowDivider" Margin="0 4" />
                                     <OptionButton Name="PreferenceUnavailableButton" HorizontalExpand="True" />
                                     <BoxContainer Orientation="Horizontal" SeparationOverride="6" Margin="0 6 0 0">
                                         <LineEdit Name="JobSearchBar" HorizontalExpand="True" PlaceHolder="{Loc 'job-personalization-search-placeholder'}" />
@@ -182,13 +180,7 @@
                             </ScrollContainer>
                         </BoxContainer>
                         <BoxContainer Orientation="Vertical" Margin="8" VerticalExpand="True">
-                            <ui:HighlightedContainer>
-                                <BoxContainer Orientation="Vertical">
-                                    <Label Text="{Loc 'humanoid-profile-editor-antags-tab'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" />
-                                    <PanelContainer StyleClasses="LowDivider" Margin="0 4" />
-                                </BoxContainer>
-                            </ui:HighlightedContainer>
-                            <ScrollContainer Margin="0 8 0 0" VerticalExpand="True">
+                            <ScrollContainer VerticalExpand="True">
                                 <BoxContainer Name="AntagList" Orientation="Vertical" />
                             </ScrollContainer>
                         </BoxContainer>
