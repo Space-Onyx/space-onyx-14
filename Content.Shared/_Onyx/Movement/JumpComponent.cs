@@ -25,6 +25,9 @@ public sealed partial class JumpComponent : Component
     public float Speed = 8f;
 
     [DataField]
+    public TimeSpan StationaryDuration = TimeSpan.FromSeconds(0.5);
+
+    [DataField]
     public TimeSpan Cooldown = TimeSpan.FromSeconds(1);
 
     [DataField]

@@ -7,6 +7,7 @@
 using System.Numerics;
 using Content.Client._Onyx.AnimationData;
 using Content.Shared._Onyx.Movement;
+using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Shared.Enums;
 using Robust.Shared.Timing;
@@ -42,25 +43,35 @@ public sealed class JumpShadowOverlay(IEntityManager entities, IGameTiming timin
 {
     public override OverlaySpace Space => OverlaySpace.WorldSpaceBelowEntities;
 
+    private const float HopDuration = 0.5f;
+
     private readonly SharedTransformSystem _transform = entities.System<SharedTransformSystem>();
+    private readonly SpriteSystem _sprite = entities.System<SpriteSystem>();
 
     protected override void Draw(in OverlayDrawArgs args)
     {
-        var query = entities.EntityQueryEnumerator<JumpComponent, TransformComponent>();
-        while (query.MoveNext(out _, out var jump, out var xform))
+        var eyeRot = args.Viewport.Eye?.Rotation ?? Angle.Zero;
+        var screenDown = (-eyeRot).RotateVec(new Vector2(0f, -1f));
+        var screenTilt = Matrix3Helpers.CreateRotation(-eyeRot);
+        var now = timing.CurTime;
+
+        var query = entities.EntityQueryEnumerator<JumpComponent, SpriteComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var jump, out var sprite, out var xform))
         {
-            if (!jump.IsJumping)
+            var elapsed = (now - jump.JumpStarted).TotalSeconds;
+            if (elapsed < 0 || elapsed > HopDuration)
                 continue;
 
-            var duration = Math.Max((jump.JumpEnds - jump.JumpStarted).TotalSeconds, 0.001);
-            var progress = Math.Clamp((timing.CurTime - jump.JumpStarted).TotalSeconds / duration, 0, 1);
+            var progress = elapsed / HopDuration;
             var height = MathF.Sin((float) progress * MathF.PI);
-            var position = _transform.GetWorldPosition(xform);
-            if (!args.WorldAABB.Contains(position))
+            var feet = _transform.GetWorldPosition(xform) +
+                screenDown * (_sprite.GetLocalBounds((uid, sprite)).Height / 2f);
+            if (!args.WorldAABB.Contains(feet))
                 continue;
 
             args.WorldHandle.SetTransform(Matrix3x2.CreateScale(1f + height * 1.5f, 0.45f + height * 0.3f) *
-                                          Matrix3Helpers.CreateTranslation(position));
+                                          screenTilt *
+                                          Matrix3Helpers.CreateTranslation(feet));
             args.WorldHandle.DrawCircle(Vector2.Zero, 0.22f, Color.Black.WithAlpha(0.35f - height * 0.15f));
         }
 

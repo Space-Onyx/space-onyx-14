@@ -143,12 +143,33 @@ public abstract partial class SharedJumpSystem : EntitySystem
             return false;
 
         var (walking, sprinting) = _mover.GetVelocityInput(mover);
-        var direction = walking + sprinting;
-        if (direction == Vector2.Zero)
-            direction = Transform(ent).LocalRotation.ToWorldVec();
-        else
-            direction = mover.TargetRelativeRotation.RotateVec(direction).Normalized();
+        var input = walking + sprinting;
 
+        var staminaCost = _gravity.IsWeightless((ent.Owner, null))
+            ? ent.Comp.StaminaCost * ent.Comp.WeightlessStaminaCostMultiplier
+            : ent.Comp.StaminaCost;
+        if (!TryComp(ent, out StaminaComponent? stamina) ||
+            stamina.CritThreshold - _stamina.GetStaminaDamage(ent, stamina) < ent.Comp.MinimumStamina)
+        {
+            _popup.PopupEntity(Loc.GetString("jump-cannot-catch-breath"), ent, ent);
+            return false;
+        }
+
+        _stamina.TakeStaminaDamage(ent, staminaCost, stamina, source: ent, visual: false);
+
+        if (input == Vector2.Zero)
+        {
+            ent.Comp.NextJump = _timing.CurTime + ent.Comp.Cooldown;
+            ent.Comp.IsJumping = true;
+            ent.Comp.MountTable = false;
+            ent.Comp.JumpStarted = _timing.CurTime;
+            ent.Comp.JumpEnds = _timing.CurTime + ent.Comp.StationaryDuration;
+            Dirty(ent);
+            OnJumpStarted(ent);
+            return true;
+        }
+
+        var direction = mover.TargetRelativeRotation.RotateVec(input).Normalized();
         var xform = Transform(ent);
         var table = FindTableAhead(xform.Coordinates, direction, ent.Comp.TableDistance);
 
@@ -167,17 +188,6 @@ public abstract partial class SharedJumpSystem : EntitySystem
         }
 
         var target = xform.Coordinates.Offset(direction * jumpDistance);
-        var staminaCost = _gravity.IsWeightless((ent.Owner, null))
-            ? ent.Comp.StaminaCost * ent.Comp.WeightlessStaminaCostMultiplier
-            : ent.Comp.StaminaCost;
-        if (!TryComp(ent, out StaminaComponent? stamina) ||
-            stamina.CritThreshold - _stamina.GetStaminaDamage(ent, stamina) < ent.Comp.MinimumStamina)
-        {
-            _popup.PopupEntity(Loc.GetString("jump-cannot-catch-breath"), ent, ent);
-            return false;
-        }
-
-        _stamina.TakeStaminaDamage(ent, staminaCost, stamina, source: ent, visual: false);
 
         if (TryComp(ent, out PhysicsComponent? throwPhysics))
             _physics.SetLinearVelocity(ent, Vector2.Zero, body: throwPhysics);
