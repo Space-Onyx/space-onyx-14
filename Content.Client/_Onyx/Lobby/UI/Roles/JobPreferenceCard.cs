@@ -331,9 +331,9 @@ public static class JobCardStyles
         BackgroundColor = Color.FromHex(background),
         BorderColor = Color.FromHex(border),
         BorderThickness = new Thickness(1),
-        ContentMarginLeftOverride = 8,
-        ContentMarginTopOverride = 5,
-        ContentMarginRightOverride = 8,
-        ContentMarginBottomOverride = 5,
+        ContentMarginLeftOverride = 0,
+        ContentMarginTopOverride = 0,
+        ContentMarginRightOverride = 0,
+        ContentMarginBottomOverride = 0,
     };
 }

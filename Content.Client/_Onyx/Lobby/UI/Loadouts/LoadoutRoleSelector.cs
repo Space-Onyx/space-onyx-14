@@ -62,13 +62,15 @@ public class LoadoutRoleSelector : OptionButton
             },
             Children =
             {
-                new Label
+                new TextureRect
                 {
-                    Text = "▼",
-                    Align = Label.AlignMode.Center,
+                    StyleClasses = { OptionButton.StyleClassOptionTriangle },
+                    SetSize = new Vector2(12, 7),
+                    HorizontalAlignment = HAlignment.Center,
                     VerticalAlignment = VAlignment.Center,
+                    Stretch = TextureRect.StretchMode.KeepAspectCentered,
                     MouseFilter = MouseFilterMode.Ignore,
-                    FontColorOverride = Color.FromHex(locked ? "#B6A992" : "#A9D4FF"),
+                    Modulate = Color.FromHex(locked ? "#B6A992" : "#A9D4FF"),
                 },
             },
         };
