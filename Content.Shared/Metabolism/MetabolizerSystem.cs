@@ -15,6 +15,7 @@ using Content.Shared.EntityEffects.Effects.Solution;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Random.Helpers;
+using Content.Shared.Vampire.Components; // <Onyx-VampireMetabolism>
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
@@ -288,9 +289,13 @@ public sealed partial class MetabolizerSystem : EntitySystem
             {
                 // Need specific handling of specific conditions since Metabolism is funny like that.
                 // TODO: MetabolizerTypes should be handled well before this stage by metabolism itself.
-                case MetabolizerTypeCondition:
-                    if (_entityConditions.TryCondition(organ, condition))
+                // <Onyx-VampireMetabolism-edited>
+                case MetabolizerTypeCondition metabolizer:
+                    if (metabolizer.Type.Contains(VampireComponent.MetabolizerVampire) && HasComp<VampireComponent>(body)
+                        ? !metabolizer.Inverted
+                        : _entityConditions.TryCondition(organ, condition))
                         continue;
+                // </Onyx-VampireMetabolism-edited>
                     break;
                 case ReagentCondition:
                     if (_entityConditions.TryCondition(solution, condition))
