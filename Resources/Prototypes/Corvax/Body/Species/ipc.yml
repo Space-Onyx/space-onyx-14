@@ -342,6 +342,14 @@
 - type: entity
   parent: [ OrganBaseTorso, OrganIpcExternal ]
   id: OrganIpcTorso
+  # <Onyx-IPCBodySprites>
+  components:
+  - type: Sprite
+    state: chest_m
+  - type: VisualOrgan
+    data:
+      state: chest_m
+  # </Onyx-IPCBodySprites>
 
 - type: entity
   parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganIpcExternal ] # <Onyx-IPCBodySprites-edited>
