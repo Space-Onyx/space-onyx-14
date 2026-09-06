@@ -22,8 +22,6 @@ public sealed partial class HumanoidProfileEditor
     private List<EmoteSoundsPrototype> _voices = new();
     private static readonly ProtoId<GuideEntryPrototype> DefaultSpeciesGuidebook = "Species";
     // <Onyx-HeightWidth>
-    private const float WidthWeightExponent = 1.35f;
-    private const float HeightWeightExponent = 0.65f;
     private bool _updatingDimensionControls;
     // </Onyx-HeightWidth>
 
@@ -152,11 +150,7 @@ public sealed partial class HumanoidProfileEditor
         if (Profile == null)
             return;
 
-        var heightRatio = species.HeightScaleToCm(Profile.Height) / Math.Max(species.DefaultHeightCm, 1);
-        var widthRatio = species.WidthScaleToKg(Profile.Width) / Math.Max(species.DefaultWeightKg, 1);
-        var weight = species.DefaultWeightKg
-            * MathF.Pow(Math.Max(widthRatio, 0.01f), WidthWeightExponent)
-            * MathF.Pow(Math.Max(heightRatio, 0.01f), HeightWeightExponent);
+        var weight = species.WidthScaleToKg(Profile.Width);
         CalculatedWeightLabel.Text = Loc.GetString("humanoid-profile-editor-calculated-weight-label", ("weight", MathF.Round(weight * 2f) / 2f));
     }
     // </Onyx-HeightWidth>
@@ -413,7 +407,7 @@ public sealed partial class HumanoidProfileEditor
 
     private void OnSkinColorOnValueChanged()
     {
-        if (Profile is null) return;
+        if (Profile is null || _settingProfile) return; // <Onyx-CharacterPersonalizationFix-edited>
 
         var skin = _prototypeManager.Index<SpeciesPrototype>(Profile.Species).SkinColoration;
         var strategy = _prototypeManager.Index(skin).Strategy;

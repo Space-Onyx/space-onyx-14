@@ -61,6 +61,7 @@ namespace Content.Client.Lobby.UI
         private Direction _previewRotation = Direction.North;
 
         private bool _isDirty;
+        private bool _settingProfile; // <Onyx-CharacterPersonalizationFix>
 
         public bool IsDirty
         {
@@ -271,7 +272,7 @@ namespace Content.Client.Lobby.UI
 
             EyeColorPicker.OnEyeColorPicked += newColor =>
             {
-                if (Profile is null)
+                if (Profile is null || _settingProfile) // <Onyx-CharacterPersonalizationFix-edited>
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithEyeColor(newColor));
@@ -407,6 +408,7 @@ namespace Content.Client.Lobby.UI
         /// </summary>
         public void SetProfile(HumanoidCharacterProfile? profile, int? slot)
         {
+            _settingProfile = true; // <Onyx-CharacterPersonalizationFix>
             Profile = profile?.Clone();
             CharacterSlot = slot;
             IsDirty = false;
@@ -442,6 +444,7 @@ namespace Content.Client.Lobby.UI
             {
                 PreferenceUnavailableButton.SelectId((int)Profile.PreferenceUnavailable);
             }
+            _settingProfile = false; // <Onyx-CharacterPersonalizationFix>
         }
 
         /// <summary>

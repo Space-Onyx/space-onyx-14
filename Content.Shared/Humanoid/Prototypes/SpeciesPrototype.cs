@@ -155,7 +155,7 @@ public sealed partial class SpeciesPrototype : IPrototype
     public int MinWeightKg = 50;
 
     [DataField]
-    public int MaxWeightKg = 75;
+    public int MaxWeightKg = 90;
 
     [DataField]
     public bool ScaleWidth = true;
@@ -182,7 +182,11 @@ public sealed partial class SpeciesPrototype : IPrototype
 
     public Vector2 GetVisualScale(float height, float width)
     {
-        return BaseScale * new Vector2(ScaleWidth ? ClampWidth(width) : 1f, ScaleHeight ? ClampHeight(height) : 1f);
+        var heightRatio = HeightScaleToCm(ClampHeight(height)) / Math.Max(DefaultHeightCm, 1);
+        var weightRatio = WidthScaleToKg(ClampWidth(width)) / Math.Max(DefaultWeightKg, 1);
+        var visualHeight = ScaleHeight ? MathF.Sqrt(Math.Max(heightRatio, 0.01f)) : 1f;
+        var visualWidth = ScaleWidth ? MathF.Sqrt(Math.Max(weightRatio / heightRatio, 0.01f)) : 1f;
+        return BaseScale * new Vector2(visualWidth, visualHeight);
     }
 
     private static float SafeScale(float value) => float.IsFinite(value) && value > 0f ? value : 1f;

@@ -26,5 +26,5 @@
   minHeightCm: 140
   maxHeightCm: 205
   minWeightKg: 50
-  maxWeightKg: 75
+  maxWeightKg: 90 # <Onyx-SpeciesDimensions-edited>
   # </Onyx-SpeciesDimensions>

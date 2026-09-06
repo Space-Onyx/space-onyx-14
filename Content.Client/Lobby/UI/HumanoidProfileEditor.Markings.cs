@@ -18,7 +18,7 @@ public sealed partial class HumanoidProfileEditor
 
     private void OnMarkingChange()
     {
-        if (Profile is null)
+        if (Profile is null || _settingProfile) // <Onyx-CharacterPersonalizationFix-edited>
             return;
 
         Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithMarkings(_markingsModel.Markings));

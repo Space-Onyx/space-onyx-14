@@ -15,7 +15,7 @@ public sealed partial class HumanoidProfileEditor
 
         CyberneticsPicker.SelectionChanged += selected =>
         {
-            if (Profile == null)
+            if (Profile == null || _settingProfile)
                 return;
 
             Profile = Profile.WithCybernetics(selected);

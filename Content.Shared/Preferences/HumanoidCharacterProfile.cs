@@ -445,10 +445,18 @@ namespace Content.Shared.Preferences
             if ((randomizeCfg & RandomizeCfg.Species) != 0 || (randomizeCfg & RandomizeCfg.Sex) != 0)
             {
                 var random = IoCManager.Resolve<IRobustRandom>();
-                var heightRange = speciesProto.HeightRange;
-                var widthRange = speciesProto.WidthRange;
-                profile.Height = heightRange.Min == heightRange.Max ? heightRange.Min : random.NextFloat(heightRange.Min, heightRange.Max);
-                profile.Width = widthRange.Min == widthRange.Max ? widthRange.Min : random.NextFloat(widthRange.Min, widthRange.Max);
+                var heightCm = RandomDimension(random,
+                    speciesProto.MinHeightCm,
+                    speciesProto.MaxHeightCm,
+                    speciesProto.DefaultHeightCm - 5,
+                    speciesProto.DefaultHeightCm + 10);
+                var weightKg = RandomDimension(random,
+                    speciesProto.MinWeightKg,
+                    speciesProto.MaxWeightKg,
+                    speciesProto.DefaultWeightKg - 5,
+                    speciesProto.DefaultWeightKg + 5);
+                profile.Height = speciesProto.ClampHeight(speciesProto.HeightCmToScale(heightCm));
+                profile.Width = speciesProto.ClampWidth(speciesProto.WeightKgToScale(weightKg));
             }
             else
             {
@@ -466,6 +474,18 @@ namespace Content.Shared.Preferences
 
             return profile;
         }
+
+        // <Onyx-HeightWidth>
+        private static float RandomDimension(IRobustRandom random, float min, float max, float preferredMin, float preferredMax)
+        {
+            (min, max) = (Math.Min(min, max), Math.Max(min, max));
+            preferredMin = Math.Clamp(preferredMin, min, max);
+            preferredMax = Math.Clamp(preferredMax, preferredMin, max);
+            return random.Prob(0.8f) && preferredMin < preferredMax
+                ? random.NextFloat(preferredMin, preferredMax)
+                : min < max ? random.NextFloat(min, max) : min;
+        }
+        // </Onyx-HeightWidth>
 
         /// <summary>
         /// Generates a randomized character profile.
