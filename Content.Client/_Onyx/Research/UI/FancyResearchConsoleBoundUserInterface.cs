@@ -1,5 +1,6 @@
 using System.Linq;
 using Content.Client.Research;
+using Content.Shared._Onyx.Research.Prototypes;
 using Content.Shared.Lathe;
 using Content.Shared.Research.Components;
 using Content.Shared.Research.Prototypes;
@@ -44,6 +45,7 @@ public sealed class FancyResearchConsoleBoundUserInterface : BoundUserInterface
     {
         base.OnProtoReload(args);
         if ((args.WasModified<TechnologyPrototype>() ||
+             args.WasModified<ResearchExperimentPrototype>() ||
              args.WasModified<TechDisciplinePrototype>() ||
              args.WasModified<LatheRecipePrototype>()) &&
             State is ResearchConsoleBoundInterfaceState state)
@@ -77,7 +79,7 @@ public sealed class FancyResearchConsoleBoundUserInterface : BoundUserInterface
             list[tech.ID] = unlocked
                 ? ResearchAvailability.Researched
                 : research.IsTechnologyAvailable(database, tech)
-                    ? research.CanAffordTechnology(state.PointBalances, tech)
+                    ? research.CanAffordTechnology(state.PointBalances, tech, database)
                         ? ResearchAvailability.Available
                         : ResearchAvailability.PrereqsMet
                     : ResearchAvailability.Unavailable;

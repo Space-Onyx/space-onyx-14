@@ -1,0 +1,39 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: entity
+  parent: BaseItem
+  id: ResearchExperimentScanner
+  name: experiment scanner
+  description: A handheld scanner for recording R&D experiment samples.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Research/experiment_scanner.rsi
+    state: icon
+  - type: Item
+    size: Small
+    storedRotation: -90
+  - type: Clothing
+    sprite: _Onyx/Objects/Specific/Research/experiment_scanner.rsi
+    quickEquip: false
+    slots: [Belt]
+  - type: ResearchClient
+  - type: ResearchExperimentScanner
+  - type: ActivatableUI
+    key: enum.ResearchExperimentScannerUiKey.Key
+    inHandsOnly: true
+    requireActiveHand: false
+  - type: UserInterface
+    interfaces:
+      enum.ResearchExperimentScannerUiKey.Key:
+        type: ResearchExperimentScannerBoundUserInterface
+      enum.ResearchClientUiKey.Key:
+        type: ResearchClientBoundUserInterface
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 100
+      Glass: 50
+      Plastic: 25

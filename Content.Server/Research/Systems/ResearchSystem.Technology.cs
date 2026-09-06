@@ -29,6 +29,19 @@ public sealed partial class ResearchSystem
             .ToDictionary(pair => pair.Key, pair => new Dictionary<int, int>(pair.Value));
         primaryDb.CompletedResearchRequirements = otherDb.CompletedResearchRequirements
             .ToDictionary(pair => pair.Key, pair => new Dictionary<int, int>(pair.Value));
+        // <Onyx-ResearchExperiments>
+        primaryDb.UnlockedExperiments = new(otherDb.UnlockedExperiments);
+        primaryDb.ActiveExperiments = new(otherDb.ActiveExperiments);
+        primaryDb.CompletedExperiments = new(otherDb.CompletedExperiments);
+        primaryDb.ExperimentProgress = otherDb.ExperimentProgress.Select(progress => progress with
+        {
+            Tasks = progress.Tasks.Select(task => task with
+            {
+                ScannedPrototypes = new(task.ScannedPrototypes),
+                ScannedEntities = new(task.ScannedEntities),
+            }).ToList(),
+        }).ToList();
+        // </Onyx-ResearchExperiments>
         // </Onyx-ResearchItemRequirements>
         primaryDb.UnlockedRecipes = new(otherDb.UnlockedRecipes);
         // </Onyx-ResearchNetworks-edited>
@@ -148,6 +161,7 @@ public sealed partial class ResearchSystem
         }
 
         component.UnlockedTechnologies.Add(technology.ID);
+        RefreshExperiments(component); // <Onyx-ResearchExperiments>
         var addedRecipes = new List<string>();
         foreach (var unlock in technology.RecipeUnlocks)
         {
@@ -189,6 +203,12 @@ public sealed partial class ResearchSystem
         component.RevealedTechnologies = new List<ProtoId<TechnologyPrototype>>(); // <Onyx-TechDiscovery>
         component.CompletedRevealRequirements = new(); // <Onyx-ResearchItemRequirements>
         component.CompletedResearchRequirements = new(); // <Onyx-ResearchItemRequirements>
+        // <Onyx-ResearchExperiments>
+        component.UnlockedExperiments = new();
+        component.ActiveExperiments = new();
+        component.CompletedExperiments = new();
+        component.ExperimentProgress = new();
+        // </Onyx-ResearchExperiments>
         component.UnlockedRecipes = new List<ProtoId<LatheRecipePrototype>>();
         Dirty(uid, component);
     }

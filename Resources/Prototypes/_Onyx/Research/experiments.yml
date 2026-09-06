@@ -1,0 +1,135 @@
+- type: researchExperiment
+  id: UraniumAnalysis
+  name: research-experiment-uranium-name
+  description: research-experiment-uranium-description
+  startingExperiment: true
+  tasks:
+  - goal: research-experiment-uranium-goal
+    anyOf:
+    - prototypes:
+      - UraniumOre
+      - UraniumOre1
+      - UraniumOreUnprocessed
+      - UraniumOre1Unprocessed
+      - SheetUranium
+      - SheetUranium1
+    - reagent: Uranium
+  reward:
+    points:
+    - type: General
+      amount: 500
+    - type: Experimental
+      amount: 150
+
+- type: researchExperiment
+  id: OreClassification
+  name: research-experiment-ore-classification-name
+  description: research-experiment-ore-classification-description
+  requiredTechnologies:
+  - SalvageEquipment
+  tasks:
+  - goal: research-experiment-ore-classification-goal
+    target: 3
+    requireDifferentPrototypes: true
+    anyOf:
+    - tags:
+      - Ore
+  reward:
+    points:
+    - type: General
+      amount: 500
+    - type: Experimental
+      amount: 150
+
+- type: researchExperiment
+  id: ExplosiveYieldAnalysis
+  name: research-experiment-explosive-yield-name
+  description: research-experiment-explosive-yield-description
+  requiredTechnologies:
+  - UraniumMunitions
+  tasks:
+  - goal: research-experiment-explosive-yield-goal
+    anyOf:
+    - components:
+      - Explosive
+      minimumExplosiveIntensity: 20
+  reward:
+    points:
+    - type: General
+      amount: 500
+    - type: Experimental
+      amount: 150
+
+- type: researchExperiment
+  id: AnomalyCoreAnalysis
+  name: research-experiment-anomaly-core-name
+  description: research-experiment-anomaly-core-description
+  requiredTechnologies:
+  - BasicAnomalousResearch
+  tasks:
+  - goal: research-experiment-anomaly-core-goal
+    anyOf:
+    - components:
+      - AnomalyCore
+  reward:
+    points:
+    - type: General
+      amount: 500
+    - type: Experimental
+      amount: 150
+
+- type: researchExperiment
+  id: CyborgArchitectureAnalysis
+  name: research-experiment-cyborg-architecture-name
+  description: research-experiment-cyborg-architecture-description
+  requiredTechnologies:
+  - BasicRobotics
+  tasks:
+  - goal: research-experiment-cyborg-architecture-goal
+    anyOf:
+    - conditions:
+      - Cyborg
+  reward:
+    points:
+    - type: General
+      amount: 500
+    - type: Experimental
+      amount: 150
+
+- type: researchExperiment
+  id: CryoxadonePurityAnalysis
+  name: research-experiment-cryoxadone-purity-name
+  description: research-experiment-cryoxadone-purity-description
+  requiredTechnologies:
+  - BiochemicalStasis
+  tasks:
+  - goal: research-experiment-cryoxadone-purity-goal
+    anyOf:
+    - reagent: Cryoxadone
+      minimumReagentPurity: 0.9
+  reward:
+    points:
+    - type: General
+      amount: 500
+    - type: Experimental
+      amount: 150
+
+- type: researchExperiment
+  id: SeedDiversityAnalysis
+  name: research-experiment-seed-diversity-name
+  description: research-experiment-seed-diversity-description
+  requiredTechnologies:
+  - Hydroponics
+  tasks:
+  - goal: research-experiment-seed-diversity-goal
+    target: 3
+    requireDifferentPrototypes: true
+    anyOf:
+    - components:
+      - Seed
+  reward:
+    points:
+    - type: General
+      amount: 500
+    - type: Experimental
+      amount: 150

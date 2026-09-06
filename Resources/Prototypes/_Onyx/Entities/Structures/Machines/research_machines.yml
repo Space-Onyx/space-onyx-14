@@ -52,3 +52,51 @@
         type: DestructiveAnalyzerBoundUserInterface
       enum.ResearchClientUiKey.Key:
         type: ResearchClientBoundUserInterface
+
+- type: entity
+  parent: [ BaseMachinePowered, SmallConstructibleMachine ]
+  id: ResearchExperimentMachine
+  name: experimental scanner
+  description: Scans samples for active R&D experiments without destroying them.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Machines/research_experiment_scanner.rsi
+    drawdepth: LargeObjects
+    offset: 0,0.5
+    layers:
+    - state: icon
+      map: ["enum.ResearchExperimentMachineLayers.Base"]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ResearchExperimentMachineVisuals.State:
+        enum.ResearchExperimentMachineLayers.Base:
+          Idle: { state: icon }
+          Closing: { state: down }
+          Scanning: { state: scanning }
+          Opening: { state: up }
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: Transform
+    anchored: true
+  - type: ApcPowerReceiver
+    powerLoad: 3000
+  - type: Machine
+    board: ResearchExperimentMachineCircuitboard
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
+      research-experiment-scanner: !type:Container
+  - type: ResearchClient
+  - type: ResearchExperimentMachine
+  - type: ActivatableUI
+    key: enum.ResearchExperimentMachineUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: UserInterface
+    interfaces:
+      enum.ResearchExperimentMachineUiKey.Key:
+        type: ResearchExperimentMachineBoundUserInterface
+      enum.ResearchClientUiKey.Key:
+        type: ResearchClientBoundUserInterface

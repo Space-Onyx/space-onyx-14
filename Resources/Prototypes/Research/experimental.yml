@@ -138,6 +138,7 @@
   position: -2,3
   technologyPrerequisites:
     - BasicAnomalousResearch
+  requiredExperiments: [ AnomalyCoreAnalysis ] # <Onyx-ResearchExperiments>
   hidden: false
   pointCosts:
     - type: General

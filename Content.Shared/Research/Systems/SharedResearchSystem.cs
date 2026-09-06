@@ -75,6 +75,8 @@ public abstract partial class SharedResearchSystem : EntitySystem
                  completedRequirements.GetValueOrDefault(index) < Math.Max(1, requirement.Amount)).Any()))
             return false;
         // </Onyx-ResearchItemRequirements>
+        if (tech.RequiredExperiments.Any(experiment => !component.CompletedExperiments.Contains(experiment)))
+            return false; // <Onyx-ResearchExperiments>
         // </Onyx-TechDiscovery-edited>
 
         if (!component.SupportedDisciplines.Contains(tech.Discipline))

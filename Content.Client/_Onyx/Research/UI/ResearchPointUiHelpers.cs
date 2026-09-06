@@ -1,6 +1,7 @@
 using System.Linq;
 using Content.Shared._Onyx.Research;
 using Content.Shared._Onyx.Research.Prototypes;
+using Content.Shared.Research.Components;
 using Content.Shared.Research.Prototypes;
 using Content.Shared.Research.Systems;
 using Robust.Shared.Prototypes;
@@ -17,9 +18,9 @@ public static class ResearchPointUiHelpers
             research.GetPointTypeName(balance.Type))));
     }
 
-    public static string BuildCostMarkup(TechnologyPrototype technology, SharedResearchSystem research, IPrototypeManager prototypes)
+    public static string BuildCostMarkup(TechnologyPrototype technology, SharedResearchSystem research, IPrototypeManager prototypes, TechnologyDatabaseComponent? database = null)
     {
-        return string.Join(", ", research.GetTechnologyCosts(technology).Select(cost => BuildEntryMarkup(
+        return string.Join(", ", research.GetTechnologyCosts(technology, database).Select(cost => BuildEntryMarkup(
             cost.Amount,
             GetColor(cost.Type, prototypes),
             research.GetPointTypeName(cost.Type))));

@@ -105,10 +105,11 @@ public sealed partial class ResearchSystem
         TechnologyDatabaseComponent? database = null,
         ResearchClientComponent? client = null)
     {
-        finalCosts = GetTechnologyCosts(technology);
-
+        finalCosts = [];
         if (!Resolve(uid, ref client, ref database, false))
             return false;
+
+        finalCosts = GetTechnologyCosts(technology, database);
 
         if (!TryGetClientServer(uid, out var server, out var serverComp, client))
             return false;

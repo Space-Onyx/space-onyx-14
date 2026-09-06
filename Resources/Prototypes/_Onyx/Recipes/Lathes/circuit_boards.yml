@@ -151,6 +151,24 @@
   result: ResearchDestructiveAnalyzerMachineCircuitboard
 
 - type: latheRecipe
+  parent: [ BaseGoldCircuitboardRecipe, BaseResearchMachineRecipeCategory ]
+  icon:
+    sprite: _Onyx/Structures/Machines/research_experiment_scanner.rsi
+    state: icon
+  id: ResearchExperimentMachineCircuitboard
+  result: ResearchExperimentMachineCircuitboard
+
+- type: latheRecipe
+  id: ResearchExperimentScanner
+  result: ResearchExperimentScanner
+  categories: [Tools]
+  completetime: 3
+  materials:
+    Steel: 200
+    Glass: 100
+    Plastic: 100
+
+- type: latheRecipe
   parent: BaseGoldCircuitboardRecipe
   id: RadiationCollectorCircuitboard
   result: RadiationCollectorCircuitboard

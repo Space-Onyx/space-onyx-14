@@ -157,6 +157,7 @@
     - PowerCellsStatic
     - ElectronicsStatic
     - ScienceBoardsStatic
+    - ScienceExperimentStatic
     - ScienceExplosives
     dynamicPacks:
     - AdvancedTools

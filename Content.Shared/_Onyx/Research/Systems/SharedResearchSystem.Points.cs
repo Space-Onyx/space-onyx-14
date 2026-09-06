@@ -12,12 +12,27 @@ public abstract partial class SharedResearchSystem
     /// Returns the effective typed costs of a technology, aggregating entries of the same type.
     /// Falls back to the legacy <see cref="TechnologyPrototype.Cost"/> paid in General points.
     /// </summary>
-    public List<ResearchPointAmount> GetTechnologyCosts(TechnologyPrototype technology)
+    public List<ResearchPointAmount> GetTechnologyCosts(TechnologyPrototype technology, TechnologyDatabaseComponent? database = null)
     {
         IReadOnlyList<ResearchPointAmount> costs = technology.PointCosts.Count > 0
             ? technology.PointCosts
             : new[] { new ResearchPointAmount(ResearchPointAmount.General, technology.Cost) };
-        return AggregatePoints(costs);
+        var result = AggregatePoints(costs);
+        if (database == null)
+            return result;
+
+        var discount = technology.ExperimentDiscounts
+            .Where(pair => database.CompletedExperiments.Contains(pair.Key))
+            .Sum(pair => pair.Value);
+        for (var i = 0; i < result.Count; i++)
+        {
+            if (result[i].Type != ResearchPointAmount.General)
+                continue;
+            var cost = result[i];
+            cost.Amount = Math.Max(0, cost.Amount - discount);
+            result[i] = cost;
+        }
+        return result;
     }
 
     public static List<ResearchPointAmount> AggregatePoints(IEnumerable<ResearchPointAmount> amounts)
@@ -37,9 +52,9 @@ public abstract partial class SharedResearchSystem
     /// <summary>
     /// Checks whether the given balances cover the costs of a technology.
     /// </summary>
-    public bool CanAffordTechnology(IReadOnlyList<ResearchPointAmount> balances, TechnologyPrototype technology)
+    public bool CanAffordTechnology(IReadOnlyList<ResearchPointAmount> balances, TechnologyPrototype technology, TechnologyDatabaseComponent? database = null)
     {
-        foreach (var cost in GetTechnologyCosts(technology))
+        foreach (var cost in GetTechnologyCosts(technology, database))
         {
             if (GetPointAmount(balances, cost.Type) < cost.Amount)
                 return false;

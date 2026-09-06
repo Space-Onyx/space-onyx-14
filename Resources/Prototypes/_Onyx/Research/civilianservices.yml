@@ -17,6 +17,8 @@
   position: 2,2
   technologyPrerequisites:
     - BiochemicalStasis
+  requiredExperiments:
+    - CryoxadonePurityAnalysis
   pointCosts:
     - type: General
       amount: 10000
@@ -543,6 +545,8 @@
     state: datadisk_hydro
   technologyPrerequisites:
     - Hydroponics
+  requiredExperiments:
+    - SeedDiversityAnalysis
 - type: technology
   id: Music
   name: research-technology-music

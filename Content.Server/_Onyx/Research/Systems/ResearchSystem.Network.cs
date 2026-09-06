@@ -47,6 +47,8 @@ public sealed partial class ResearchSystem
             }
         }
 
+        RefreshExperiments(database);
+
         Dirty(uid, database);
         UpdateTechnologyCards(uid, database);
     }
@@ -177,6 +179,17 @@ public sealed partial class ResearchSystem
             .ToDictionary(pair => pair.Key, pair => new Dictionary<int, int>(pair.Value));
         targetDatabase.CompletedResearchRequirements = sourceDatabase.CompletedResearchRequirements
             .ToDictionary(pair => pair.Key, pair => new Dictionary<int, int>(pair.Value));
+        targetDatabase.UnlockedExperiments = new(sourceDatabase.UnlockedExperiments);
+        targetDatabase.ActiveExperiments = new(sourceDatabase.ActiveExperiments);
+        targetDatabase.CompletedExperiments = new(sourceDatabase.CompletedExperiments);
+        targetDatabase.ExperimentProgress = sourceDatabase.ExperimentProgress.Select(progress => progress with
+        {
+            Tasks = progress.Tasks.Select(task => task with
+            {
+                ScannedPrototypes = new(task.ScannedPrototypes),
+                ScannedEntities = new(task.ScannedEntities),
+            }).ToList(),
+        }).ToList();
         targetDatabase.UnlockedRecipes = new(sourceDatabase.UnlockedRecipes);
         Dirty(target, targetDatabase);
     }

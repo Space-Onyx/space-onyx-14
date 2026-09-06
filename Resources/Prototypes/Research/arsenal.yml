@@ -155,6 +155,7 @@
   position: 2,4
   technologyPrerequisites:
     - UraniumMunitions
+  requiredExperiments: [ ExplosiveYieldAnalysis ] # <Onyx-ResearchExperiments>
   pointCosts:
     - type: General
       amount: 10000
@@ -271,7 +272,6 @@
   technologyPrerequisites:
     - SpecialMeans
     - AdvancedToolsTechnology
-    - DualWieldingTechnology
   pointCosts:
     - type: General
       amount: 10000

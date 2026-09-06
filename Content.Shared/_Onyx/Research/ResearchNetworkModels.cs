@@ -34,6 +34,7 @@ public enum ResearchNetworkLogType : byte
     TechnologyUnlocked,
     TechnologyRevealed,
     NetworkChanged,
+    ExperimentCompleted,
 }
 
 [DataDefinition, Serializable, NetSerializable]

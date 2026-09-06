@@ -37,6 +37,8 @@
   position: -1,-1
   technologyPrerequisites:
     - BasicRobotics
+  requiredExperiments:
+    - CyborgArchitectureAnalysis
   pointCosts:
     - type: General
       amount: 6000
@@ -141,8 +143,6 @@
       amount: 8000
     - type: Experimental
       amount: 800
-  researchRequirements:
-    - anyOf: [MaterialBSCrystal]
 - type: technology
   id: XenobagHolding
   name: research-technology-xenobag-holding

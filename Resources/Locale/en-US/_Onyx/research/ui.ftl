@@ -16,3 +16,6 @@ research-point-entry-markup = [color={$color}]{$amount}[/color] {$abbreviation}
 research-console-research-requirements-text = Required analysis before research
 research-console-item-requirement-alternative = {$item} ({$progress}/{$amount}; Option {$current}/{$total})
 research-console-item-requirement-progress = {$item} ({$progress}/{$amount})
+research-console-required-experiments-text = Required experiments
+research-console-required-experiment-completed = Completed
+research-console-required-experiment-incomplete = Not completed

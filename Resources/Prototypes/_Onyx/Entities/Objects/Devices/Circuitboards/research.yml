@@ -22,3 +22,18 @@
     stackRequirements:
       Manipulator: 1
       Glass: 5
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: ResearchExperimentMachineCircuitboard
+  name: experimental scanner machine board
+  description: A machine printed circuit board for an experimental scanner.
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: ResearchExperimentMachine
+    stackRequirements:
+      Glass: 5
+      Cable: 5
+      Manipulator: 2
