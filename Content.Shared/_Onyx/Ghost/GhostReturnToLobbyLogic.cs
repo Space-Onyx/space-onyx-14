@@ -15,19 +15,6 @@ public static class GhostReturnToLobbyLogic
         return currentTime >= availableAt;
     }
 
-    public static bool IsPopulationAllowed(int onlinePlayers, int maxPlayers)
-    {
-        if (maxPlayers < 0)
-            maxPlayers = 0;
-
-        return onlinePlayers <= maxPlayers;
-    }
-
-    public static bool CanReturn(TimeSpan currentTime, TimeSpan availableAt, int onlinePlayers, int maxPlayers)
-    {
-        return CanReturn(currentTime, availableAt) && IsPopulationAllowed(onlinePlayers, maxPlayers);
-    }
-
     public static TimeSpan GetRemaining(TimeSpan currentTime, TimeSpan availableAt)
     {
         var remaining = availableAt - currentTime;

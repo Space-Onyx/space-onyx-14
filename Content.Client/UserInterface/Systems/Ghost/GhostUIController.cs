@@ -210,22 +210,15 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
         var remaining = GhostReturnToLobbyLogic.GetRemaining(_timing.CurTime, player.ReturnToLobbyAvailableAt);
 
         var text = Loc.GetString("ghost-return-to-lobby-button-ready");
-        if (!canReturn)
+        if (!canReturn && remaining > TimeSpan.Zero)
         {
-            if (remaining > TimeSpan.Zero)
-            {
-                var totalSeconds = (int) System.Math.Ceiling(remaining.TotalSeconds);
-                if (totalSeconds < 0)
-                    totalSeconds = 0;
+            var totalSeconds = (int) System.Math.Ceiling(remaining.TotalSeconds);
+            if (totalSeconds < 0)
+                totalSeconds = 0;
 
-                var minutes = (totalSeconds / 60).ToString("00");
-                var seconds = (totalSeconds % 60).ToString("00");
-                text = Loc.GetString("ghost-return-to-lobby-button-timer", ("minutes", minutes), ("seconds", seconds));
-            }
-            else
-            {
-                text = Loc.GetString("ghost-return-to-lobby-button-player-limit");
-            }
+            var minutes = (totalSeconds / 60).ToString("00");
+            var seconds = (totalSeconds % 60).ToString("00");
+            text = Loc.GetString("ghost-return-to-lobby-button-timer", ("minutes", minutes), ("seconds", seconds));
         }
 
         Gui.UpdateReturnToLobbyButton(true, canReturn, text);

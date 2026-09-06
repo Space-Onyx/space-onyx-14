@@ -1,0 +1,17 @@
+<!-- Space Onyx -->
+<!-- Copyright (C) 2026 Space Onyx contributors -->
+<!-- This file is licensed under AGPL-3.0-or-later. -->
+<!-- See LICENSES for the full license text. -->
+
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="{Loc 'ghost-return-to-lobby-window-title'}"
+               MinSize="480 225"
+               MaxSize="480 225">
+    <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="10">
+        <RichTextLabel Text="{Loc 'ghost-return-to-lobby-warning'}" HorizontalExpand="True" MaxWidth="460" />
+        <Button Name="ConfirmButton"
+                Text="{Loc 'ghost-return-to-lobby-confirm'}"
+                Disabled="True"
+                HorizontalExpand="True" />
+    </BoxContainer>
+</DefaultWindow>

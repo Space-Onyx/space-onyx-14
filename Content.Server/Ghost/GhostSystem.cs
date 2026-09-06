@@ -4,7 +4,10 @@ using Content.Server.Administration.Logs;
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
 using Content.Server.Mind;
+using Content.Server.Players.PlayTimeTracking;
 using Content.Server.Roles.Jobs;
+using Content.Server.EUI; // <Onyx-Ghost>
+using Content.Server._Onyx.Ghost; // <Onyx-Ghost>
 using Content.Shared.Actions;
 using Content.Shared.CCVar;
 using Content.Shared.Damage;
@@ -73,6 +76,8 @@ namespace Content.Server.Ghost
         [Dependency] private TagSystem _tag = default!;
         [Dependency] private NameModifierSystem _nameMod = default!;
         [Dependency] private GhostSpriteStateSystem _ghostState = default!;
+        [Dependency] private EuiManager _eui = default!; // <Onyx-Ghost>
+        [Dependency] private PlayTimeTrackingManager _playTime = default!; // <Onyx-Ghost>
 
         [Dependency] private EntityQuery<GhostComponent> _ghostQuery = default!;
         [Dependency] private EntityQuery<FollowerComponent> _followerQuery = default!;
@@ -118,12 +123,10 @@ namespace Content.Server.Ghost
             base.Update(frameTime);
 
             var now = _gameTiming.CurTime;
-            var maxPlayers = _configurationManager.GetCVar(CCVars.GhostReturnToLobbyMaxPlayers);
-            var onlinePlayers = _player.PlayerCount;
             var query = EntityQueryEnumerator<GhostComponent>();
             while (query.MoveNext(out var uid, out var ghost))
             {
-                var canReturn = GhostReturnToLobbyLogic.CanReturn(now, ghost.ReturnToLobbyAvailableAt, onlinePlayers, maxPlayers);
+                var canReturn = GhostReturnToLobbyLogic.CanReturn(now, ghost.ReturnToLobbyAvailableAt);
 
                 if (ghost.CanReturnToLobby == canReturn)
                     continue;
@@ -207,12 +210,7 @@ namespace Content.Server.Ghost
             // <Onyx-Ghost>
             var delaySeconds = _configurationManager.GetCVar(CCVars.GhostReturnToLobbyDelay);
             component.ReturnToLobbyAvailableAt = GhostReturnToLobbyLogic.ComputeAvailableAt(time, delaySeconds);
-            var maxPlayers = _configurationManager.GetCVar(CCVars.GhostReturnToLobbyMaxPlayers);
-            component.CanReturnToLobby = GhostReturnToLobbyLogic.CanReturn(
-                time,
-                component.ReturnToLobbyAvailableAt,
-                _player.PlayerCount,
-                maxPlayers);
+            component.CanReturnToLobby = GhostReturnToLobbyLogic.CanReturn(time, component.ReturnToLobbyAvailableAt);
             Dirty(uid, component);
             // </Onyx-Ghost>
         }
@@ -300,12 +298,7 @@ namespace Content.Server.Ghost
             if (!_configurationManager.GetCVar(CCVars.GhostReturnToLobbyEnabled))
                 return;
 
-            var maxPlayers = _configurationManager.GetCVar(CCVars.GhostReturnToLobbyMaxPlayers);
-            var canReturn = GhostReturnToLobbyLogic.CanReturn(
-                _gameTiming.CurTime,
-                ghost.ReturnToLobbyAvailableAt,
-                _player.PlayerCount,
-                maxPlayers);
+            var canReturn = GhostReturnToLobbyLogic.CanReturn(_gameTiming.CurTime, ghost.ReturnToLobbyAvailableAt);
 
             if (!canReturn)
             {
@@ -323,9 +316,37 @@ namespace Content.Server.Ghost
                 Dirty(attached, ghost);
             }
 
-            _chatManager.DispatchServerMessage(actor.PlayerSession, Loc.GetString("ghost-return-to-lobby-warning"), true);
-            _gameTicker.Respawn(actor.PlayerSession);
-            _chatManager.DispatchServerMessage(actor.PlayerSession, Loc.GetString("game-ticker-player-join-game-message"));
+            _eui.OpenEui(new GhostReturnToLobbyEui(this, HasRequiredPlaytime(actor.PlayerSession)), actor.PlayerSession);
+        }
+
+        public bool TryReturnToLobby(ICommonSession session)
+        {
+            if (!_configurationManager.GetCVar(CCVars.GhostReturnToLobbyEnabled)
+                || session.AttachedEntity is not { Valid: true } attached
+                || !_ghostQuery.TryComp(attached, out var ghost)
+                || !GhostReturnToLobbyLogic.CanReturn(_gameTiming.CurTime, ghost.ReturnToLobbyAvailableAt)
+                || !HasRequiredPlaytime(session))
+            {
+                return false;
+            }
+
+            _gameTicker.Respawn(session);
+            _chatManager.DispatchServerMessage(session, Loc.GetString("game-ticker-player-join-game-message"));
+            return true;
+        }
+
+        private bool HasRequiredPlaytime(ICommonSession session)
+        {
+            try
+            {
+                _playTime.FlushTracker(session);
+                var requiredHours = Math.Max(0, _configurationManager.GetCVar(CCVars.GhostReturnToLobbyMinOverallHours));
+                return _playTime.GetOverallPlaytime(session) >= TimeSpan.FromHours(requiredHours);
+            }
+            catch
+            {
+                return false;
+            }
         }
         // </Onyx-Ghost>
 

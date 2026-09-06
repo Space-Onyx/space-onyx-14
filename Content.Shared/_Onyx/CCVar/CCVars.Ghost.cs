@@ -17,8 +17,8 @@ public sealed partial class CCVars
         CVarDef.Create("ghost.return_to_lobby_delay", 300, CVar.SERVER | CVar.REPLICATED);
 
     /// <summary>
-    /// Максимальное количество игроков онлайн, при котором всё ещё разрешён возврат госта в лобби.
+    /// Минимальное общее наигранное время для возврата госта в лобби (в часах).
     /// </summary>
-    public static readonly CVarDef<int> GhostReturnToLobbyMaxPlayers =
-        CVarDef.Create("ghost.return_to_lobby_max_players", 30, CVar.SERVER | CVar.REPLICATED | CVar.ARCHIVE);
+    public static readonly CVarDef<int> GhostReturnToLobbyMinOverallHours =
+        CVarDef.Create("ghost.return_to_lobby_min_overall_hours", 5, CVar.SERVER | CVar.ARCHIVE);
 }
