@@ -120,13 +120,19 @@ public sealed partial class LavalandSystem : EntitySystem
                     if (planet.AddComponents != null)
                         EntityManager.AddComponents(uid, planet.AddComponents);
 
-                    _map.InitializeMap(Transform(uid).MapID, unpause: false);
+                    _map.InitializeMap(Transform(uid).MapID, unpause: true);
                     lavaland.GenerationStage = LavalandGenerationStage.RestoringTerrain;
                 }
 
                 if (lavaland.GenerationStage == LavalandGenerationStage.RestoringTerrain)
                 {
                     if ((_stagedTerrain.Count > 0 || _stagedTerrainAllocated.Count > 0) && !RestoreStagedTerrain())
+                        continue;
+
+                    if (_biome.HasLavalandMarkerGenerationFailed(uid))
+                        throw new InvalidOperationException("Failed to warm Lavaland marker generation.");
+
+                    if (!TryComp<LavalandBiomeWarmupComponent>(uid, out var warmup) || !warmup.Complete)
                         continue;
 
                     if (!TerminatingOrDeleted(lavaland.Preloader))

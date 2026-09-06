@@ -258,8 +258,21 @@ public abstract partial class SharedBiomeSystem : EntitySystem
                 return false;
             }
 
+            // <Onyx-LavalandWeightedEntities-edited>
             var noiseValue = noiseCopy.GetNoise(indices.X, indices.Y, i);
-            entity = Pick(biomeLayer.Entities, (noiseValue + 1f) / 2f);
+            var selectionValue = (noiseValue + 1f) / 2f;
+            if (biomeLayer.EntityWeights.Count > 0)
+            {
+                if (!TryPickWeightedEntity(biomeLayer.EntityWeights, selectionValue, out var weightedEntity))
+                    continue;
+
+                entity = weightedEntity;
+            }
+            else
+            {
+                entity = Pick(biomeLayer.Entities, selectionValue);
+            }
+            // </Onyx-LavalandWeightedEntities-edited>
             return true;
         }
 

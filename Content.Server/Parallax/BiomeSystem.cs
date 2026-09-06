@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Threading.Tasks;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Decals;
 using Content.Server.Ghost.Roles.Components;
@@ -7,9 +8,9 @@ using Content.Server.Shuttles.Systems;
 using Content.Shared.Atmos;
 using Content.Shared.Ghost.Components;
 using Content.Shared.Decals;
+using Content.Shared.GameTicking;
 using Content.Shared.Gravity;
 using Content.Shared.Light.Components;
-using Content.Shared.GameTicking;
 using Content.Shared.Parallax.Biomes;
 using Content.Shared.Parallax.Biomes.Layers;
 using Content.Shared.Parallax.Biomes.Markers;
@@ -27,6 +28,7 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
+using Robust.Shared.Threading;
 using Robust.Shared.Utility;
 using ChunkIndicesEnumerator = Robust.Shared.Map.Enumerators.ChunkIndicesEnumerator;
 
@@ -36,6 +38,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 {
     [Dependency] private IConfigurationManager _configManager = default!;
     [Dependency] private IConsoleHost _console = default!;
+    [Dependency] private IParallelManager _parallel = default!;
     [Dependency] private IPlayerManager _playerManager = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private AtmosphereSystem _atmos = default!;
@@ -72,7 +75,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     private readonly Dictionary<BiomeComponent, HashSet<Vector2i>> _activeChunks = new();
 
     private readonly Dictionary<BiomeComponent,
-        Dictionary<ProtoId<BiomeMarkerLayerPrototype>, HashSet<Vector2i>>> _markerChunks = new();
+        Dictionary<string, HashSet<Vector2i>>> _markerChunks = new();
 
     public override void Initialize()
     {
@@ -84,7 +87,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         Subs.CVar(_configManager, CVars.NetMaxUpdateRange, SetLoadRange, true);
         InitializeCommands();
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(ProtoReload);
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnMarkerGenerationCleanup);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnLavalandMarkerGenerationCleanup); // <Onyx-LavalandMarkerWarmup>
     }
 
     private void ProtoReload(PrototypesReloadedEventArgs obj)
@@ -320,10 +323,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
-        ProcessMarkerGeneration(); // <Onyx-BiomeMarkerGeneration>
-        // <Onyx-LavalandBiomeCleanup-edited>
-        try
-        {
+        ProcessLavalandMarkerGeneration(); // <Onyx-LavalandMarkerWarmup>
         var biomes = AllEntityQuery<BiomeComponent>();
 
         while (biomes.MoveNext(out var biome))
@@ -332,7 +332,6 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                 continue;
 
             _activeChunks.Add(biome, _tilePool.Get());
-            InitializeRuntimeOptimization(biome); // <Onyx-LavalandBiomeRuntimeOptimization>
             _markerChunks.GetOrNew(biome);
         }
 
@@ -388,35 +387,27 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             if (!biome.Enabled)
                 continue;
 
-            AddPinnedChunks(gridUid, biome); // <Onyx-LavalandBiomeWarmup>
+            AddLavalandWarmupChunks(gridUid, biome); // <Onyx-LavalandMarkerWarmup>
 
             // Load new chunks
             LoadChunks(biome, gridUid, grid, biome.Seed);
             // Unload old chunks
-            if (!TryUnloadRuntimeOptimizedChunks(biome, gridUid, grid, biome.Seed, frameTime)) // <Onyx-LavalandBiomeRuntimeOptimization-edited>
-                UnloadChunks(biome, gridUid, grid, biome.Seed); // <Onyx-LavalandBiomeRuntimeOptimization-edited>
+            UnloadChunks(biome, gridUid, grid, biome.Seed);
         }
 
-        }
-        finally
+        _handledEntities.Clear();
+
+        foreach (var tiles in _activeChunks.Values)
         {
-            _handledEntities.Clear();
-
-            foreach (var tiles in _activeChunks.Values)
-            {
-                _tilePool.Return(tiles);
-            }
-
-            _activeChunks.Clear();
-            ClearRuntimeOptimization(); // <Onyx-LavalandBiomeRuntimeOptimization>
-            _markerChunks.Clear();
+            _tilePool.Return(tiles);
         }
-        // </Onyx-LavalandBiomeCleanup-edited>
+
+        _activeChunks.Clear();
+        _markerChunks.Clear();
     }
 
     private void AddChunksInRange(BiomeComponent biome, Vector2 worldPos)
     {
-        TrackViewerChunk(biome, worldPos); // <Onyx-LavalandBiomeRuntimeOptimization>
         var enumerator = new ChunkIndicesEnumerator(_loadArea.Translated(worldPos), ChunkSize);
 
         while (enumerator.MoveNext(out var chunkOrigin))
@@ -454,8 +445,6 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         BuildMarkerChunks(component, gridUid, grid, seed);
 
         var active = _activeChunks[component];
-        if (TryLoadRuntimeOptimizedChunks(component, gridUid, grid, seed, active)) // <Onyx-LavalandBiomeRuntimeOptimization>
-            return; // <Onyx-LavalandBiomeRuntimeOptimization>
 
         foreach (var chunk in active)
         {
@@ -475,11 +464,9 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     /// </summary>
     private void BuildMarkerChunks(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, int seed)
     {
-        var chunkBudget = GetMarkerChunkBudget(gridUid); // <Onyx-LavalandBiomeRuntimeOptimization>
         var markers = _markerChunks[component];
         var loadedMarkers = component.LoadedMarkers;
         var idx = 0;
-        var remainingBudget = chunkBudget ?? int.MaxValue; // <Onyx-LavalandBiomeRuntimeOptimization>
 
         foreach (var (layer, chunks) in markers)
         {
@@ -487,14 +474,90 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             idx++;
             var localIdx = idx;
 
-            var forcedLayer = component.ForcedMarkerLayers.Contains(layer);
-            var chunksToBuild = GetMarkerChunksToBuild(component, chunks, loadedMarkers, layer, forcedLayer, chunkBudget, ref remainingBudget); // <Onyx-LavalandBiomeRuntimeOptimization-edited>
+            if (TryQueueLavalandMarkerChunks(component, gridUid, grid, layer, chunks, seed, localIdx)) // <Onyx-LavalandMarkerWarmup>
+                continue; // <Onyx-LavalandMarkerWarmup>
 
-            foreach (var chunk in chunksToBuild)
+            Parallel.ForEach(chunks, new ParallelOptions() { MaxDegreeOfParallelism = _parallel.ParallelProcessCount }, chunk =>
             {
-                QueueMarkerChunkGeneration(component, gridUid, grid, layer, chunk, seed, localIdx,
-                    forcedLayer); // <Onyx-BiomeMarkerGeneration-edited>
-            }
+                if (loadedMarkers.TryGetValue(layer, out var mobChunks) && mobChunks.Contains(chunk))
+                    return;
+
+                var forced = component.ForcedMarkerLayers.Contains(layer);
+
+                // Make a temporary version and copy back in later.
+                var pending = new Dictionary<Vector2i, Dictionary<string, List<Vector2i>>>();
+
+                // Essentially get the seed + work out a buffer to adjacent chunks so we don't
+                // inadvertantly spawn too many near the edges.
+                var layerProto = ProtoMan.Index<BiomeMarkerLayerPrototype>(layer);
+                var markerSeed = seed + chunk.X * ChunkSize + chunk.Y + localIdx;
+                var rand = new RobustRandom();
+                rand.SetSeed(markerSeed);
+                var buffer = (int)(layerProto.Radius / 2f);
+                var bounds = new Box2i(chunk + buffer, chunk + layerProto.Size - buffer);
+                var count = (int)(bounds.Area / (layerProto.Radius * layerProto.Radius));
+                count = Math.Min(count, layerProto.MaxCount);
+
+                GetMarkerNodes(gridUid, component, grid, layerProto, forced, bounds, count, rand,
+                    out var spawnSet, out var existing);
+
+                // Forcing markers to spawn so delete any that were found to be in the way.
+                if (forced && existing.Count > 0)
+                {
+                    // Lock something so we can delete these safely.
+                    lock (component.PendingMarkers)
+                    {
+                        foreach (var ent in existing)
+                        {
+                            Del(ent);
+                        }
+                    }
+                }
+
+                foreach (var node in spawnSet.Keys)
+                {
+                    var chunkOrigin = SharedMapSystem.GetChunkIndices(node, ChunkSize) * ChunkSize;
+
+                    if (!pending.TryGetValue(chunkOrigin, out var pendingMarkers))
+                    {
+                        pendingMarkers = new Dictionary<string, List<Vector2i>>();
+                        pending[chunkOrigin] = pendingMarkers;
+                    }
+
+                    if (!pendingMarkers.TryGetValue(layer, out var layerMarkers))
+                    {
+                        layerMarkers = new List<Vector2i>();
+                        pendingMarkers[layer] = layerMarkers;
+                    }
+
+                    layerMarkers.Add(node);
+                }
+
+                lock (loadedMarkers)
+                {
+                    if (!loadedMarkers.TryGetValue(layer, out var lockMobChunks))
+                    {
+                        lockMobChunks = new HashSet<Vector2i>();
+                        loadedMarkers[layer] = lockMobChunks;
+                    }
+
+                    lockMobChunks.Add(chunk);
+
+                    foreach (var (chunkOrigin, layers) in pending)
+                    {
+                        if (!component.PendingMarkers.TryGetValue(chunkOrigin, out var lockMarkers))
+                        {
+                            lockMarkers = new Dictionary<string, List<Vector2i>>();
+                            component.PendingMarkers[chunkOrigin] = lockMarkers;
+                        }
+
+                        foreach (var (lockLayer, nodes) in layers)
+                        {
+                            lockMarkers[lockLayer] = nodes;
+                        }
+                    }
+                }
+            });
         }
 
         component.ForcedMarkerLayers.Clear();
@@ -826,7 +889,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         var active = _activeChunks[component];
         List<(Vector2i, Tile)>? tiles = null;
 
-        foreach (var chunk in new List<Vector2i>(component.LoadedChunks)) // <Onyx-BiomeRuntimeOptimization-edited>
+        foreach (var chunk in new List<Vector2i>(component.LoadedChunks)) // <Onyx-BiomeUnloadSafety-edited>
         {
             if (active.Contains(chunk) || !component.LoadedChunks.Remove(chunk))
                 continue;
@@ -974,8 +1037,6 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 
         EnsureComp<SunShadowComponent>(mapUid);
         EnsureComp<SunShadowCycleComponent>(mapUid);
-        EnsurePlanetParallax(mapUid); // <Onyx-PlanetBedrockParallax>
-
         var moles = new float[Atmospherics.AdjustedNumberOfGases];
         moles[(int)Gas.Oxygen] = 21.824779f;
         moles[(int)Gas.Nitrogen] = 82.10312f;

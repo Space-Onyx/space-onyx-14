@@ -56,8 +56,10 @@
       maxAmount: 2
   # </Onyx-WatcherTrophies>
   - type: MovementSpeedModifier
-    baseWalkSpeed: 5
-    baseSprintSpeed: 7
+    # <Onyx-WatcherSpeed-edited>
+    baseWalkSpeed: 3.735
+    baseSprintSpeed: 3.735
+    # </Onyx-WatcherSpeed-edited>
   - type: BatteryAmmoProvider
     proto: WatcherBolt
     fireCost: 50

@@ -5,6 +5,7 @@ using Content.Shared._Onyx.Salvage.Procedural.Prototypes;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Gravity;
 using Content.Shared.Parallax.Biomes;
+using Content.Shared.Parallax;
 using Content.Shared.Salvage;
 using Content.Shared.Shuttles.Components;
 using Robust.Shared.Map;
@@ -38,10 +39,8 @@ public sealed partial class LavalandSystem
             state.Prototype = mapPrototype;
 
             SetupPlanet(mapUid, planet, state.Seed);
-            // ponytail: Warm the fixed arrival area; expand this if the Lavaland outpost moves away from the origin.
-            EnsureComp<LavalandBiomeWarmupComponent>(mapUid).WarmupArea = new Box2(-64, -64, 64, 64);
-            _map.SetPaused(mapId, true);
             LoadLayout((mapUid, state), mapId, layout);
+            EnsureComp<LavalandBiomeWarmupComponent>(mapUid).Area = GetLayoutWarmupArea((mapUid, state));
             PrepareRuins(ruins, (mapUid, state), preloader);
 
             foreach (var grid in _map.GetAllGrids(mapId))
@@ -66,6 +65,10 @@ public sealed partial class LavalandSystem
             _biome.AddMarkerLayer(mapUid, biome, marker);
         Dirty(mapUid, biome);
 
+        var parallax = EnsureComp<ParallaxComponent>(mapUid);
+        parallax.Parallax = "bedrock";
+        Dirty(mapUid, parallax);
+
         var gravity = EnsureComp<GravityComponent>(mapUid);
         gravity.Enabled = true;
         Dirty(mapUid, gravity);
@@ -88,5 +91,14 @@ public sealed partial class LavalandSystem
             _metadata.SetEntityName(loaded.Value.Owner, Loc.GetString(entry.Name));
             lavaland.Comp.LayoutGrids.Add(loaded.Value.Owner);
         }
+    }
+
+    private Box2 GetLayoutWarmupArea(Entity<LavalandPlanetComponent> lavaland)
+    {
+        Box2? bounds = null;
+        foreach (var grid in GetLayoutBounds(lavaland))
+            bounds = bounds?.Union(grid) ?? grid;
+
+        return (bounds ?? Box2.CentredAroundZero(Vector2.One)).Enlarged(32f);
     }
 }

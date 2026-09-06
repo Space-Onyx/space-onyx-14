@@ -18,6 +18,7 @@ public sealed partial class RestrictedRangeSystem : SharedRestrictedRangeSystem
     {
         base.Initialize();
         SubscribeLocalEvent<RestrictedRangeComponent, MapInitEvent>(OnRestrictedMapInit);
+        InitializeAbsoluteBoundary(); // <Onyx-RestrictedRangeBoundary>
     }
 
     private void OnRestrictedMapInit(EntityUid uid, RestrictedRangeComponent component, MapInitEvent args)

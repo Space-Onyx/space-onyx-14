@@ -8,7 +8,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape: !type:PhysShapeAabb { bounds: "-0.5,-0.5,0.5,0.5" }
+        shape: !type:PhysShapeCircle { radius: 0.5 }
         density: 300
         mask: [ MobMask ]
         layer: [ MobLayer ]
@@ -33,7 +33,6 @@
     baseSprintSpeed: 3
   - type: MobThresholds
     thresholds: { 0: Alive, 1000: Dead }
-  - type: TileMovement
   - type: BossMusic
     soundId: Miniboss
   - type: Aggressive
@@ -72,7 +71,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape: !type:PhysShapeAabb { bounds: "-0.35,-0.6,0.35,0.6" }
+        shape: !type:PhysShapeCircle { radius: 0.5 }
         density: 50
         mask: [ MobMask ]
         layer: [ MobLayer ]

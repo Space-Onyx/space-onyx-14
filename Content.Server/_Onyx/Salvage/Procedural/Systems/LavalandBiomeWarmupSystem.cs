@@ -1,7 +1,12 @@
+// Space Onyx
+// Copyright (C) 2026 Space Onyx contributors
+//
+// This file is licensed under AGPL-3.0-or-later.
+// See LICENSES for the full license text.
+
 using Content.Server._Onyx.Salvage.Procedural.Components;
 using Content.Server.Parallax;
 using Content.Shared.Parallax.Biomes;
-using Content.Shared.Parallax.Biomes.Markers;
 using Robust.Shared.Map.Enumerators;
 using Robust.Shared.Prototypes;
 
@@ -11,6 +16,8 @@ public sealed partial class LavalandBiomeWarmupSystem : EntitySystem
 {
     [Dependency] private BiomeSystem _biome = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
+
+    private const int BiomeChunkSize = 8;
 
     public override void Initialize()
     {
@@ -24,43 +31,41 @@ public sealed partial class LavalandBiomeWarmupSystem : EntitySystem
         if (!TryComp<BiomeComponent>(ent, out var biome))
             return;
 
-        _biome.PinTerrainArea(ent, ent.Comp.WarmupArea);
+        var terrainChunks = new ChunkIndicesEnumerator(ent.Comp.Area, BiomeChunkSize);
+        while (terrainChunks.MoveNext(out var terrainChunk))
+            ent.Comp.TerrainChunks.Enqueue(terrainChunk.Value * BiomeChunkSize);
 
-        var chunks = new List<(ProtoId<BiomeMarkerLayerPrototype> Layer, Vector2i Chunk, float Distance)>();
         foreach (var layer in biome.MarkerLayers)
         {
             var prototype = _prototypes.Index(layer);
-            var enumerator = new ChunkIndicesEnumerator(ent.Comp.WarmupArea, prototype.Size);
-            while (enumerator.MoveNext(out var chunk))
-            {
-                var origin = (chunk * prototype.Size).Value;
-                var nearestX = Math.Max(0, Math.Max(origin.X, -origin.X - prototype.Size));
-                var nearestY = Math.Max(0, Math.Max(origin.Y, -origin.Y - prototype.Size));
-                chunks.Add((layer, origin, nearestX * nearestX + nearestY * nearestY));
-            }
+            var chunks = new ChunkIndicesEnumerator(ent.Comp.Area, prototype.Size);
+            while (chunks.MoveNext(out var chunk))
+                ent.Comp.MarkerChunks.Enqueue((layer, (chunk * prototype.Size).Value));
         }
-
-        chunks.Sort((a, b) => a.Distance.CompareTo(b.Distance));
-        foreach (var chunk in chunks)
-            ent.Comp.WarmupQueue.Enqueue((chunk.Layer, chunk.Chunk));
     }
 
     public override void Update(float frameTime)
     {
-        var query = AllEntityQuery<LavalandBiomeWarmupComponent, BiomeComponent>();
-        while (query.MoveNext(out var uid, out var optimization, out var biome))
+        var query = EntityQueryEnumerator<LavalandBiomeWarmupComponent, BiomeComponent>();
+        while (query.MoveNext(out var uid, out var warmup, out var biome))
         {
-            while (optimization.WarmupQueue.TryPeek(out var entry))
-            {
-                if (_biome.IsMarkerChunkLoaded(biome, entry.Layer, entry.Chunk))
-                {
-                    optimization.WarmupQueue.Dequeue();
-                    continue;
-                }
+            if (warmup.Complete)
+                continue;
 
-                _biome.PreloadMarkerChunk(uid, biome, entry.Layer, entry.Chunk);
-                break;
-            }
+            if (warmup.TerrainChunks.TryDequeue(out var terrainChunk))
+                warmup.PinnedTerrainChunks.Add(terrainChunk);
+
+            while (warmup.MarkerChunks.TryPeek(out var entry) &&
+                   _biome.IsLavalandMarkerChunkComplete(uid, biome, entry.Layer, entry.Chunk))
+                warmup.MarkerChunks.Dequeue();
+
+            if (warmup.MarkerChunks.TryPeek(out var next))
+                _biome.PreloadLavalandMarkerChunk(biome, next.Layer, next.Chunk);
+
+            if (warmup.TerrainChunks.Count == 0 &&
+                warmup.MarkerChunks.Count == 0 &&
+                BiomeSystem.AreLavalandTerrainChunksLoaded(biome, warmup.PinnedTerrainChunks))
+                warmup.Complete = true;
         }
     }
 }

@@ -3,18 +3,23 @@
   table: !type:GroupSelector
     children:
     - id: MobLegion
-    - !type:GroupSelector
-      children:
-      - id: MobLavalandGoliath
-        weight: 99
-      - id: MobLavalandGoliathAncient
-        weight: 1
-    - id: MobCarpLavaland
-    - !type:GroupSelector
-      children:
-      - id: MobWatcherLavaland
-      - id: MobWatcherMagmawing
-      - id: MobWatcherIcewing
+      weight: 25
+    - id: MobLavalandGoliath
+      weight: 30
+    - id: MobLavalandGoliathAncient
+      weight: 6
+    - id: MobWatcherLavaland
+      weight: 25
+    - id: MobWatcherMagmawing
+      weight: 6
+    - id: MobWatcherIcewing
+      weight: 2
+    - id: LavalandBossColossus
+      weight: 0.2
+    - id: LavalandBossBubblegum
+      weight: 0.1
+    - id: LavalandBossAshDrake
+      weight: 0.2
 
 - type: entity
   name: lavaland mob spawner
@@ -59,20 +64,9 @@
   id: LavalandTendrils
   table: !type:GroupSelector
     children:
-    - !type:GroupSelector
-      weight: 50
-      children:
-      - id: LavalandTendrilLavaWatcher
-      - id: LavalandTendrilGoliath
-    - !type:GroupSelector
-      weight: 20
-      children:
-      - id: LavalandTendrilSpaceCarp
-    - !type:GroupSelector
-      weight: 30
-      children:
-      - id: LavalandTendrilIcewingWatcher
-      - id: LavalandTendrilMagmawingWatcher
+    - id: LavalandTendrilGoliath
+    - id: LavalandTendrilLegion
+    - id: LavalandTendrilLavaWatcher
 
 - type: entity
   name: tendril spawner

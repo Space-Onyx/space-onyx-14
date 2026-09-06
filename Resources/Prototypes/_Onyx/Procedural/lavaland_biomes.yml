@@ -141,6 +141,19 @@
     - FloorBasaltLavaland
     entities:
     - FloorLavaEntity
+  - !type:BiomeEntityLayer
+    threshold: 0.82
+    noise: &lavalandChasmNoise
+      seed: 1000
+      frequency: 0.025
+      fractalType: FBm
+      octaves: 5
+      lacunarity: 2
+      gain: 0.4
+    allowedTiles:
+    - FloorBasaltLavaland
+    entities: &lavalandChasmEntity
+    - FloorChasmEntity
   # Rock formations
   - !type:BiomeEntityLayer
     allowedTiles:
@@ -155,7 +168,19 @@
       octaves: 5
       cellularDistanceFunction: Euclidean
       cellularReturnType: Distance2
-    entities:
+    entityWeights: &lavalandRockWeights
+      LavalandBasaltRock: 0.824
+      LavalandBasaltRockTin: 0.06
+      LavalandBasaltRockCoal: 0.03
+      LavalandBasaltRockQuartz: 0.03
+      LavalandBasaltRockPlasma: 0.015
+      LavalandBasaltRockSilver: 0.015
+      LavalandBasaltRockGold: 0.01
+      LavalandBasaltRockUranium: 0.007
+      LavalandBasaltRockArtifactFragment: 0.004
+      LavalandBasaltRockDiamond: 0.003
+      LavalandBasaltRockBSCrystal: 0.002
+    entities: &lavalandRockFallback
     - LavalandBasaltRock
   - !type:BiomeDummyLayer
     id: Loot
@@ -317,6 +342,13 @@
     - FloorPlanetAsh
     entities:
     - FloraAshtree
+  - !type:BiomeEntityLayer
+    threshold: 0.82
+    noise: *lavalandChasmNoise
+    allowedTiles:
+    - FloorPlanetAsh
+    - FloorBasaltLavaland
+    entities: *lavalandChasmEntity
   - !type:BiomeDummyLayer
     id: Loot
   # Rock formations
@@ -333,8 +365,8 @@
       octaves: 5
       cellularDistanceFunction: Euclidean
       cellularReturnType: Distance2
-    entities:
-    - LavalandBasaltRock
+    entityWeights: *lavalandRockWeights
+    entities: *lavalandRockFallback
   # Fill basalt & ash grass
   - !type:BiomeTileLayer
     threshold: -1.0
@@ -415,14 +447,8 @@
     - CrystalCyan
   # Be careful here!
   - !type:BiomeEntityLayer
-    threshold: 0.7
-    noise:
-      seed: 1000
-      frequency: 0.025
-      fractalType: FBm
-      octaves: 5
-      lacunarity: 2
-      gain: 0.4
+    threshold: 0.55
+    noise: *lavalandChasmNoise
     allowedTiles:
     - FloorBasaltLavaland
     entities:
@@ -440,8 +466,8 @@
       octaves: 1
       frequency: 0.1
       gain: 0.5
-    entities:
-    - LavalandBasaltRock
+    entityWeights: *lavalandRockWeights
+    entities: *lavalandRockFallback
   - !type:BiomeDummyLayer
     id: Loot
   # Fill basalt
@@ -530,6 +556,12 @@
     - FloorBasaltLavaland
     entities:
     - FloorLavaEntity
+  - !type:BiomeEntityLayer
+    threshold: 0.75
+    noise: *lavalandChasmNoise
+    allowedTiles:
+    - FloorBasaltLavaland
+    entities: *lavalandChasmEntity
   # Rock formations
   - !type:BiomeEntityLayer
     allowedTiles:
@@ -544,8 +576,8 @@
       octaves: 5
       cellularDistanceFunction: Euclidean
       cellularReturnType: Distance2
-    entities:
-    - LavalandBasaltRock
+    entityWeights: *lavalandRockWeights
+    entities: *lavalandRockFallback
   - !type:BiomeDummyLayer
     id: Loot
   # Fill basalt
@@ -676,6 +708,13 @@
     - FloorPlanetGrassLight
     entities:
     - FloraAshtreePale
+  - !type:BiomeEntityLayer
+    threshold: 0.82
+    noise: *lavalandChasmNoise
+    allowedTiles:
+    - FloorPlanetGrassLight
+    - FloorBasaltLavaland
+    entities: *lavalandChasmEntity
   - !type:BiomeDummyLayer
     id: Loot
   # Rock formations
@@ -692,8 +731,8 @@
       octaves: 5
       cellularDistanceFunction: Euclidean
       cellularReturnType: Distance2
-    entities:
-    - LavalandBasaltRock
+    entityWeights: *lavalandRockWeights
+    entities: *lavalandRockFallback
   # Fill basalt & ash grass
   - !type:BiomeTileLayer
     threshold: -1.0
