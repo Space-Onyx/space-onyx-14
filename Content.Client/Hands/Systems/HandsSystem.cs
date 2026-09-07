@@ -284,7 +284,7 @@ namespace Content.Client.Hands.Systems
                 if (!TryGetHeldItem(ent, handId, out var held))
                     continue;
 
-                UpdateHandVisuals((ent.Owner, ent.Comp, sprite), held.Value, handId, false);
+                UpdateHandVisuals((ent.Owner, ent.Comp, sprite), held.Value, handId, ent == _playerManager.LocalEntity); // <Onyx-FunctionalHands-edited>
             }
         }
 

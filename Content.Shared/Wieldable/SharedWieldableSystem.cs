@@ -1,3 +1,4 @@
+using System.Linq; // <Onyx-FunctionalHands>
 using Content.Shared.Examine;
 using Content.Shared.Hands;
 using Content.Shared.Hands.Components;
@@ -111,8 +112,13 @@ public abstract partial class SharedWieldableSystem : EntitySystem
 
     private void OnDeselectWieldable(EntityUid uid, WieldableComponent component, HandDeselectedEvent args)
     {
-        if (_hands.GetHandCount(args.User) > 2)
+        // <Onyx-FunctionalHands-edited>
+        if (TryComp(args.User, out HandsComponent? hands) &&
+            hands.Hands.Values.Count(hand => hand.Location is not HandLocation.Functional
+                and not HandLocation.FunctionalLeft
+                and not HandLocation.FunctionalRight) > 2)
             return;
+        // </Onyx-FunctionalHands-edited>
 
         TryUnwield((uid, component), args.User);
     }
