@@ -6,6 +6,7 @@
 
 using Content.Shared.Research.Prototypes;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.FixedPoint;
 using Content.Shared.Tag;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -95,6 +96,9 @@ public sealed partial class ResearchExperimentRequirement
 
     [DataField]
     public float? MinimumReagentPurity;
+
+    [DataField]
+    public FixedPoint2 MinimumReagentQuantity;
 
     [DataField]
     public string? Gas;

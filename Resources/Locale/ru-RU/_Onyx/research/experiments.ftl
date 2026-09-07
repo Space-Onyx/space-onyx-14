@@ -32,7 +32,7 @@ research-experiment-cyborg-architecture-description = Просканируйте
 research-experiment-cyborg-architecture-goal = Зарегистрировать корпус киборга
 
 research-experiment-cryoxadone-purity-name = Анализ чистоты криоксадона
-research-experiment-cryoxadone-purity-description = Просканируйте образец, содержащий не менее 90% криоксадона.
+research-experiment-cryoxadone-purity-description = Просканируйте образец, содержащий не менее 60 единиц криоксадона чистотой не менее 90%.
 research-experiment-cryoxadone-purity-goal = Зарегистрировать образец криоксадона высокой чистоты
 
 research-experiment-seed-diversity-name = Анализ разнообразия семян

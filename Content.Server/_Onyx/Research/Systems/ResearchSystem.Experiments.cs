@@ -12,7 +12,6 @@ using Content.Shared._Onyx.Research.Prototypes;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.Piping.Unary.Components;
-using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
@@ -298,8 +297,6 @@ public sealed partial class ResearchSystem
     {
         if (requirement.Reagent == null)
             return true;
-        if (!TryComp<SolutionManagerComponent>(subject, out _))
-            return false;
 
         var required = FixedPoint2.Zero;
         var total = FixedPoint2.Zero;
@@ -313,7 +310,7 @@ public sealed partial class ResearchSystem
             }
         }
 
-        return required > FixedPoint2.Zero &&
+        return required > FixedPoint2.Zero && required >= requirement.MinimumReagentQuantity &&
                (requirement.MinimumReagentPurity == null || total > FixedPoint2.Zero && (float) (required / total) >= requirement.MinimumReagentPurity);
     }
 

@@ -32,7 +32,7 @@ research-experiment-cyborg-architecture-description = Scan a functioning cyborg 
 research-experiment-cyborg-architecture-goal = Record a cyborg chassis
 
 research-experiment-cryoxadone-purity-name = Cryoxadone purity analysis
-research-experiment-cryoxadone-purity-description = Scan a sample containing at least 90% cryoxadone.
+research-experiment-cryoxadone-purity-description = Scan a sample containing at least 60 units of cryoxadone at 90% purity or higher.
 research-experiment-cryoxadone-purity-goal = Record a high-purity cryoxadone sample
 
 research-experiment-seed-diversity-name = Seed diversity analysis

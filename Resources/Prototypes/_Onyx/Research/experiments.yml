@@ -106,6 +106,7 @@
   - goal: research-experiment-cryoxadone-purity-goal
     anyOf:
     - reagent: Cryoxadone
+      minimumReagentQuantity: 60
       minimumReagentPurity: 0.9
   reward:
     points:
