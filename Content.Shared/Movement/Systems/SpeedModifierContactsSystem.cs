@@ -6,6 +6,7 @@ using Content.Shared.Whitelist;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
+using Content.Shared._Onyx.Movement; // <Onyx-Jump>
 
 namespace Content.Shared.Movement.Systems;
 
@@ -86,6 +87,7 @@ public sealed partial class SpeedModifierContactsSystem : EntitySystem
 
         // Cache the result of the airborne check, as it's expensive and independent of contacting entities, hence need only be done once.
         var isAirborne = physicsComponent.BodyStatus == BodyStatus.InAir || _gravity.IsWeightless(uid);
+        var isJumping = TryComp<JumpComponent>(uid, out var jump) && jump.IsJumping; // <Onyx-Jump>
 
         bool remove = true;
         var entries = 0;
@@ -102,7 +104,7 @@ public sealed partial class SpeedModifierContactsSystem : EntitySystem
                     continue;
 
                 // Entities that are airborne should not be affected by contact slowdowns that are specified to not affect airborne entities.
-                if (isAirborne && !slowContactsComponent.AffectAirborne)
+                if ((isAirborne || isJumping) && !slowContactsComponent.AffectAirborne) // <Onyx-Jump-edited>
                     continue;
 
                 walkSpeed += slowContactsComponent.WalkSpeedModifier;
@@ -111,7 +113,7 @@ public sealed partial class SpeedModifierContactsSystem : EntitySystem
             }
 
             // SpeedModifierContactsComponent takes priority over SlowedOverSlipperyComponent, effectively overriding the slippery slow.
-            if (HasComp<SlipperyComponent>(ent) && speedModified == false)
+            if (HasComp<SlipperyComponent>(ent) && speedModified == false && !isJumping) // <Onyx-Jump-edited>
             {
                 var evSlippery = new GetSlowedOverSlipperyModifierEvent();
                 RaiseLocalEvent(uid, ref evSlippery);

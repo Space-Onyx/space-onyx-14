@@ -5,7 +5,6 @@
 // See LICENSES for the full license text.
 
 using Robust.Shared.GameStates;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Shared._Onyx.Movement;
 
@@ -13,10 +12,10 @@ namespace Content.Shared._Onyx.Movement;
 public sealed partial class JumpComponent : Component
 {
     [DataField]
-    public float Distance = 0.5f;
+    public float Distance = 0.7f;
 
     [DataField]
-    public float SprintDistance = 0.9f;
+    public float SprintDistance = 1.1f;
 
     [DataField]
     public float TableDistance = 1.0f;

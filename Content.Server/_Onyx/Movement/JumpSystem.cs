@@ -5,6 +5,7 @@
 // See LICENSES for the full license text.
 
 using Content.Server._Onyx.AnimationData;
+using Content.Server.Tiles;
 using Content.Shared._Onyx.Movement;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Mobs.Systems;
@@ -30,6 +31,11 @@ public sealed partial class JumpSystem : SharedJumpSystem
             ent,
             "EmoteJump",
             Filter.Pvs(ent).RemoveWhereAttachedEntity(attached => attached == ent.Owner));
+
+    protected override bool IsStepTriggerBlocked(EntityUid source)
+    {
+        return HasComp<TileEntityEffectComponent>(source);
+    }
 
     protected override void OnJumpLanded(Entity<JumpComponent> ent)
     {

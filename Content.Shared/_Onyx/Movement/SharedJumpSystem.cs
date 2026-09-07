@@ -23,6 +23,7 @@ using Content.Shared.Mousetrap;
 using Content.Shared.Physics;
 using Content.Shared.Popups;
 using Content.Shared.Chasm;
+using Content.Shared.Slippery;
 using Content.Shared.StepTrigger.Systems;
 using Content.Shared.Standing;
 using Content.Shared.Throwing;
@@ -113,7 +114,7 @@ public abstract partial class SharedJumpSystem : EntitySystem
 
     private void OnStopThrow(Entity<JumpComponent> ent, ref StopThrowEvent args)
     {
-        if (args.User != ent.Owner)
+        if (args.User != ent.Owner || ent.Comp.JumpEnds > _timing.CurTime)
             return;
 
         FinishJump(ent);
@@ -125,8 +126,15 @@ public abstract partial class SharedJumpSystem : EntitySystem
             args.Tripper == ent.Owner &&
             (HasComp<LandMineComponent>(args.Source) ||
              HasComp<MousetrapComponent>(args.Source) ||
-             HasComp<ChasmComponent>(args.Source)))
+             HasComp<SlipperyComponent>(args.Source) ||
+             HasComp<ChasmComponent>(args.Source) ||
+             IsStepTriggerBlocked(args.Source)))
             args.Cancelled = true;
+    }
+
+    protected virtual bool IsStepTriggerBlocked(EntityUid source)
+    {
+        return false;
     }
 
     protected virtual void OnJumpLanded(Entity<JumpComponent> ent)
@@ -207,7 +215,8 @@ public abstract partial class SharedJumpSystem : EntitySystem
         ent.Comp.IsJumping = true;
         ent.Comp.MountTable = mount;
         ent.Comp.JumpStarted = _timing.CurTime;
-        ent.Comp.JumpEnds = _timing.CurTime + TimeSpan.FromSeconds(jumpDistance / ent.Comp.Speed);
+        var airTime = MathF.Max(jumpDistance / ent.Comp.Speed, (float) ent.Comp.StationaryDuration.TotalSeconds);
+        ent.Comp.JumpEnds = _timing.CurTime + TimeSpan.FromSeconds(airTime);
         Dirty(ent);
         OnJumpStarted(ent);
         return true;
