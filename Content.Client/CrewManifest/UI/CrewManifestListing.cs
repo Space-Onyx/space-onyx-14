@@ -19,12 +19,20 @@ public sealed partial class CrewManifestListing : BoxContainer
         _spriteSystem = _entitySystem.GetEntitySystem<SpriteSystem>();
     }
 
-    public void AddCrewManifestEntries(CrewManifestEntries entries)
+    public void AddCrewManifestEntries(CrewManifestEntries entries, string filter = "", bool stripedRows = false) // <Onyx-CrewManifest-edited>
     {
         var entryDict = new Dictionary<DepartmentPrototype, List<CrewManifestEntry>>();
+        filter = filter.Trim(); // <Onyx-CrewManifest>
 
         foreach (var entry in entries.Entries)
         {
+            // <Onyx-CrewManifest>
+            if (!string.IsNullOrEmpty(filter)
+                && !entry.Name.Contains(filter, StringComparison.CurrentCultureIgnoreCase)
+                && !entry.JobTitle.Contains(filter, StringComparison.CurrentCultureIgnoreCase))
+                continue;
+            // </Onyx-CrewManifest>
+
             foreach (var department in _prototypeManager.EnumeratePrototypes<DepartmentPrototype>())
             {
                 // this is a little expensive, and could be better
@@ -46,7 +54,7 @@ public sealed partial class CrewManifestListing : BoxContainer
 
         foreach (var item in entryList)
         {
-            AddChild(new CrewManifestSection(_prototypeManager, _spriteSystem, item.section, item.entries));
+            AddChild(new CrewManifestSection(_prototypeManager, _spriteSystem, item.section, item.entries, stripedRows)); // <Onyx-CrewManifest-edited>
         }
     }
 }

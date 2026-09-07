@@ -9,6 +9,8 @@ namespace Content.Client.CartridgeLoader.Cartridges;
 [GenerateTypedNameReferences]
 public sealed partial class CrewManifestUiFragment : BoxContainer
 {
+    private CrewManifestEntries? _entries; // <Onyx-CrewManifest>
+
     public CrewManifestUiFragment()
     {
         RobustXamlLoader.Load(this);
@@ -17,18 +19,26 @@ public sealed partial class CrewManifestUiFragment : BoxContainer
         Orientation = LayoutOrientation.Vertical;
         HorizontalExpand = true;
         VerticalExpand = true;
+        SearchLineEdit.OnTextChanged += _ => RefreshListing(); // <Onyx-CrewManifest>
     }
 
     public void UpdateState(string stationName, CrewManifestEntries? entries)
     {
-        CrewManifestListing.RemoveAllChildren();
+        _entries = entries; // <Onyx-CrewManifest>
 
         StationNameContainer.Visible = entries != null;
         StationName.Text = stationName;
 
-        if (entries == null)
-            return;
-
-        CrewManifestListing.AddCrewManifestEntries(entries);
+        RefreshListing(); // <Onyx-CrewManifest-edited>
     }
+
+    // <Onyx-CrewManifest>
+    private void RefreshListing()
+    {
+        CrewManifestListing.RemoveAllChildren();
+
+        if (_entries != null)
+            CrewManifestListing.AddCrewManifestEntries(_entries, SearchLineEdit.Text, true); // <Onyx-CrewManifest-edited>
+    }
+    // </Onyx-CrewManifest>
 }

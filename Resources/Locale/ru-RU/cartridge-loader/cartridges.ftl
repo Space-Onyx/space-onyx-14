@@ -8,6 +8,9 @@ news-read-program-name = Новости станции
 crew-manifest-program-name = Манифест экипажа
 crew-manifest-cartridge-loading = Загрузка...
 crew-manifest-cartridge-loading-failed = Ошибка загрузки манифеста экипажа!
+# <Onyx-CrewManifest>
+crew-manifest-cartridge-search-placeholder = Поиск по имени или должности
+# </Onyx-CrewManifest>
 
 net-probe-program-name = Зонд сетей
 net-probe-scan = Просканирован { $device }!

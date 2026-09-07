@@ -1,6 +1,7 @@
 ﻿using Content.Shared.CrewManifest;
 using Content.Shared.StatusIcon;
 using Robust.Client.GameObjects;
+using Robust.Client.Graphics; // <Onyx-CrewManifest>
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Prototypes;
 using System.Numerics;
@@ -14,7 +15,10 @@ public sealed class CrewManifestSection : BoxContainer
         IPrototypeManager prototypeManager,
         SpriteSystem spriteSystem,
         DepartmentPrototype section,
-        List<CrewManifestEntry> entries)
+        // <Onyx-CrewManifest-edited>
+        List<CrewManifestEntry> entries,
+        bool stripedRows = false)
+        // </Onyx-CrewManifest-edited>
     {
         Orientation = LayoutOrientation.Vertical;
         HorizontalExpand = true;
@@ -31,8 +35,10 @@ public sealed class CrewManifestSection : BoxContainer
             Columns = 2
         };
 
-        AddChild(gridContainer);
+        if (!stripedRows)
+            AddChild(gridContainer); // <Onyx-CrewManifest-edited>
 
+        var rowIndex = 0; // <Onyx-CrewManifest>
         foreach (var entry in entries)
         {
             var name = new RichTextLabel()
@@ -69,8 +75,42 @@ public sealed class CrewManifestSection : BoxContainer
                 titleContainer.AddChild(title);
             }
 
-            gridContainer.AddChild(name);
-            gridContainer.AddChild(titleContainer);
+            // <Onyx-CrewManifest-edited>
+            if (stripedRows)
+            {
+                var rowBackground = new StyleBoxFlat
+                {
+                    BackgroundColor = rowIndex++ % 2 == 0
+                        ? Color.FromHex("#1B222B")
+                        : Color.FromHex("#2B3542"),
+                    ContentMarginLeftOverride = 8,
+                    ContentMarginTopOverride = 5,
+                    ContentMarginRightOverride = 8,
+                    ContentMarginBottomOverride = 5,
+                };
+
+                var row = new GridContainer
+                {
+                    Columns = 2,
+                    HorizontalExpand = true,
+                };
+                row.AddChild(name);
+                row.AddChild(titleContainer);
+
+                var rowPanel = new PanelContainer
+                {
+                    PanelOverride = rowBackground,
+                    HorizontalExpand = true,
+                    Children = { row },
+                };
+                AddChild(rowPanel);
+            }
+            else
+            {
+                gridContainer.AddChild(name);
+                gridContainer.AddChild(titleContainer);
+            }
+            // </Onyx-CrewManifest-edited>
         }
     }
 }

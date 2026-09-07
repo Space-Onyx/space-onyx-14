@@ -68,7 +68,7 @@
                                 <gfx:StyleBoxFlat BackgroundColor="#1C2328" BorderColor="#405149" BorderThickness="1" />
                             </PanelContainer.PanelOverride>
                             <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="2">
-                                <Label Text="{Loc 'pda-modern-identity'}" StyleClasses="font-small" FontColorOverride="#6F9184" />
+                                <Label Name="IdentityHeaderLabel" Text="{Loc 'pda-modern-identity'}" StyleClasses="font-small" />
                                 <ContainerButton Name="PdaOwnerButton" HorizontalExpand="True">
                                     <RichTextLabel Name="PdaOwnerLabel" Access="Public" Margin="6 3" />
                                 </ContainerButton>

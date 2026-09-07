@@ -8,6 +8,9 @@ news-read-program-name = Station news
 crew-manifest-program-name = Crew manifest
 crew-manifest-cartridge-loading = Loading ...
 crew-manifest-cartridge-loading-failed = Failed to load crew manifest!
+# <Onyx-CrewManifest>
+crew-manifest-cartridge-search-placeholder = Search by name or job
+# </Onyx-CrewManifest>
 
 net-probe-program-name = NetProbe
 net-probe-scan = Scanned {$device}!

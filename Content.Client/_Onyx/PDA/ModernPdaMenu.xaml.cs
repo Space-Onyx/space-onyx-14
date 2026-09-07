@@ -279,6 +279,7 @@ public sealed partial class ModernPdaMenu : PdaWindow
 
         var border = Color.FromHex(accent.ToHex());
         ((StyleBoxFlat) IdentityPanel.PanelOverride!).BorderColor = border;
+        IdentityHeaderLabel.FontColorOverride = accent;
         ((StyleBoxFlat) StationPanel.PanelOverride!).BorderColor = border;
         ((StyleBoxFlat) TimePanel.PanelOverride!).BorderColor = border;
         ((StyleBoxFlat) AlertPanel.PanelOverride!).BorderColor = border;

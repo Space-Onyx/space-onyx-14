@@ -9,12 +9,17 @@
                 <Label Name="StationName" Align="Center" Text="{Loc 'crew-manifest-cartridge-loading'}"/>
             </PanelContainer>
         </controls:StripeBack>
+        <!-- <Onyx-CrewManifest> -->
+        <LineEdit Name="SearchLineEdit"
+                  HorizontalExpand="True"
+                  Margin="4 2"
+                  PlaceHolder="{Loc 'crew-manifest-cartridge-search-placeholder'}" />
+        <!-- </Onyx-CrewManifest> -->
         <ScrollContainer HorizontalExpand="True" VerticalExpand="True">
             <ui:CrewManifestListing
                 Name="CrewManifestListing"
                 Orientation="Vertical"
-                HorizontalExpand="True"
-                Margin="8,0,0,0"/>
+                HorizontalExpand="True"/> <!-- <Onyx-CrewManifest-edited> -->
         </ScrollContainer>
     </BoxContainer>
 </cartridges:CrewManifestUiFragment>
