@@ -1,0 +1,37 @@
+// Space Onyx
+// Copyright (C) 2026 Space Onyx contributors
+// This file is licensed under AGPL-3.0-or-later.
+
+uniform highp float coverage;
+uniform highp vec3 dirt_color;
+
+highp float dirtHash(highp vec2 position)
+{
+    highp vec3 value = fract(vec3(position.xyx) * 0.1031);
+    value += dot(value, value.yzx + 33.33);
+    return fract((value.x + value.y) * value.z);
+}
+
+void fragment()
+{
+    highp vec4 source = zTexture(UV);
+
+    if (source.a < 0.5 || coverage <= 0.0)
+        discard;
+
+    highp vec2 pixel = floor(UV / TEXTURE_PIXEL_SIZE);
+    highp vec2 cell = floor(pixel * 0.5);
+    highp vec2 withinCell = mod(pixel, 2.0);
+    highp float patch = dirtHash(cell);
+    highp float edge = dirtHash(cell + withinCell * vec2(19.0, 37.0) + vec2(11.0, 23.0));
+    highp float threshold = fract(patch + (edge - 0.5) * 0.34);
+
+    if (threshold > coverage)
+        discard;
+
+    highp float gray = zGrayscale(source.rgb);
+    highp float detail = clamp(0.2 + 1.95 * gray - 0.7 * gray * gray, 0.0, 1.45);
+    highp vec3 dirtLinear = zFromSrgb(vec4(dirt_color, 1.0)).rgb;
+
+    COLOR = vec4(dirtLinear * detail, source.a);
+}

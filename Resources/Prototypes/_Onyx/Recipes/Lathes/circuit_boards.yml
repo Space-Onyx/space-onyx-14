@@ -83,6 +83,11 @@
   result: ElectricRangeMachineCircuitboard
 
 - type: latheRecipe
+  parent: [ BaseCircuitboardRecipe, BaseServiceMachineRecipeCategory ]
+  id: WashingMachineCircuitboard
+  result: WashingMachineCircuitboard
+
+- type: latheRecipe
   parent: [BaseGoldCircuitboardRecipe, BaseSupplyComputerRecipeCategory]
   id: ShuttleRemoteControlSystemCircuitboard
   result: ShuttleRemoteControlSystemCircuitboard

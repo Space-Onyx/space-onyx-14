@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Content.Shared._Onyx.Clothing; // <Onyx-ClothingDirt>
 using Content.Client.DisplacementMap;
 using Content.Shared.Body;
 using Content.Shared.Body.Part; // <Onyx-OrganVisualLifecycle>
@@ -98,6 +99,7 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
     private void OnOrganState(Entity<VisualOrganComponent> ent, ref AfterAutoHandleStateEvent args)
     {
         ReconcileVisual(ent, true);
+        RaiseLocalEvent(ent, new BodyPartVisualChangedEvent()); // <Onyx-ClothingDirt>
     }
 
     private void ApplyVisual(Entity<VisualOrganComponent> ent, EntityUid target)

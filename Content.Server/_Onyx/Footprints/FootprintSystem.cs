@@ -32,7 +32,6 @@ public sealed partial class FootprintSystem : EntitySystem
     [Dependency] private InventorySystem _inventory = default!;
 
     private const string FootprintSolution = "print";
-    private const string PuddleSolution = "puddle";
     private static readonly EntProtoId FootprintPrototype = "Footprint";
     private static readonly FixedPoint2 MaxTileVolume = 50;
     private static readonly FixedPoint2 WornResidual = FixedPoint2.New(0.1f);
@@ -102,14 +101,14 @@ public sealed partial class FootprintSystem : EntitySystem
     private bool TryPuddleInteraction(Entity<FootprintOwnerComponent> ent, Entity<MapGridComponent> grid,
         Vector2i tile, bool standing)
     {
-        if (!TryGetAnchoredEntity<PuddleComponent>(grid, tile, out var puddle) ||
-            !_solution.TryGetSolution(puddle.Value.Owner, PuddleSolution, out var puddleEnt, out var puddleSolution))
+        if (!TryGetAnchoredEntity<SurfaceDirtSourceComponent>(grid, tile, out var source) ||
+            !_solution.TryGetSolution(source.Value.Owner, source.Value.Comp.Solution, out var puddleEnt, out var puddleSolution))
             return false;
 
         if (puddleSolution.Volume < FixedPoint2.New(_minimumPuddleSize))
             return false;
 
-        var amount = FixedPoint2.Min(puddleSolution.Volume, FixedPoint2.New(1));
+        var amount = FixedPoint2.Min(puddleSolution.Volume, source.Value.Comp.TransferAmount);
         if (standing)
         {
             _clothingDirt.TryDirtyWornPuddleStep(ent, puddleSolution, amount);
@@ -193,6 +192,7 @@ public sealed partial class FootprintSystem : EntitySystem
         var tile = _map.CoordinatesToTile(gridUid, grid, xform.Coordinates);
         if (TryGetAnchoredEntity<FootprintComponent>((gridUid, grid), tile, out var footprint))
             ToPuddle(footprint.Value.Owner, xform.Coordinates);
+
     }
 
     private void ToPuddle(EntityUid uid, EntityCoordinates? coordinates = null)

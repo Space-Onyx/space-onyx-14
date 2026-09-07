@@ -445,7 +445,12 @@
   flavor: water
   color: "#75b1f0"
   # <Onyx-ClothingDirt>
-  clothingDirtCleanMultiplier: 1
+  reactiveEffects:
+    Extinguish:
+      methods: [ Touch ]
+      effects:
+      - !type:Extinguish
+      - !type:CleanDirt
   # </Onyx-ClothingDirt>
   recognizable: true
   boilingPoint: 100.0

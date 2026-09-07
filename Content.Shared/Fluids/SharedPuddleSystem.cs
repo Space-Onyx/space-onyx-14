@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared._Onyx.Clothing; // <Onyx-ClothingDirt>
 using Content.Shared.Administration.Logs;
 using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.Components;
@@ -135,6 +136,7 @@ public abstract partial class SharedPuddleSystem : EntitySystem
         UpdateSlow(entity, args.Solution.Comp.Solution);
         UpdateEvaporation(entity, args.Solution.Comp.Solution);
         UpdateAppearance((entity, entity.Comp));
+        RaiseLocalEvent(entity, new PuddleDirtChangedEvent()); // <Onyx-ClothingDirt>
     }
 
     private void OnGetFootstepSound(Entity<PuddleComponent> entity, ref GetFootstepSoundEvent args)

@@ -136,14 +136,6 @@ namespace Content.Shared.Chemistry.Reagent
         [DataField]
         public FixedPoint2 EvaporationSpeed = FixedPoint2.Zero;
 
-        // <Onyx-ClothingDirt>
-        /// <summary>
-        /// How much clothing dirt one unit of this reagent removes.
-        /// </summary>
-        [DataField]
-        public FixedPoint2 ClothingDirtCleanMultiplier = FixedPoint2.Zero;
-        // </Onyx-ClothingDirt>
-
         /// <summary>
         /// If this reagent can be used to mop up other reagents.
         /// </summary>
@@ -255,6 +247,8 @@ namespace Content.Shared.Chemistry.Reagent
 
         public List<string>? PlantMetabolisms = null;
 
+        public List<string>? ContactEffects = null; // <Onyx-ClothingDirt>
+
         public ReagentGuideEntry(ReagentPrototype proto, IPrototypeManager prototype, IEntitySystemManager entSys)
         {
             ReagentPrototype = proto.ID;
@@ -266,6 +260,16 @@ namespace Content.Shared.Chemistry.Reagent
                 PlantMetabolisms =
                     new List<string>(proto.GuidebookReagentEffectsDescription(prototype, entSys, proto.PlantMetabolisms, FixedPoint2.New(1f)));
             }
+            // <Onyx-ClothingDirt>
+            if (proto.ReactiveEffects != null)
+            {
+                var effects = proto.ReactiveEffects.Values
+                    .Where(entry => entry.Methods.Contains(ReactionMethod.Touch))
+                    .SelectMany(entry => entry.Effects);
+                ContactEffects = new List<string>(proto.GuidebookReagentEffectsDescription(
+                    prototype, entSys, effects, FixedPoint2.New(1f)));
+            }
+            // </Onyx-ClothingDirt>
         }
     }
 

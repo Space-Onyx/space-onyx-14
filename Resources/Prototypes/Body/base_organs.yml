@@ -50,6 +50,8 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Torso
+    dirtExposures: [Splash, Crawl, FullBody] # <Onyx-ClothingDirt>
+    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING, NECK] # <Onyx-ClothingDirt>
     vital: true
     category: Torso
   # </Onyx-Surgery>
@@ -86,6 +88,8 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Head
+    dirtExposures: [Splash, Crawl, Face, FullBody] # <Onyx-ClothingDirt>
+    dirtCoverageLayers: [HEAD, MASK] # <Onyx-ClothingDirt>
     vital: true
     category: Head
     fractureProfile: OrganicFractureProfile
@@ -134,6 +138,8 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Arm
+    dirtExposures: [Splash, Crawl, FullBody] # <Onyx-ClothingDirt>
+    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING] # <Onyx-ClothingDirt>
     symmetry: Left
     category: ArmLeft
     fractureProfile: OrganicFractureProfile
@@ -175,6 +181,8 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Arm
+    dirtExposures: [Splash, Crawl, FullBody] # <Onyx-ClothingDirt>
+    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING] # <Onyx-ClothingDirt>
     symmetry: Right
     category: ArmRight
     fractureProfile: OrganicFractureProfile
@@ -215,6 +223,8 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Hand
+    dirtExposures: [Splash, Crawl, Hands, FullBody] # <Onyx-ClothingDirt>
+    dirtCoverageLayers: [GLOVES] # <Onyx-ClothingDirt>
     symmetry: Left
     category: HandLeft
     fractureProfile: OrganicFractureProfile
@@ -257,6 +267,8 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Hand
+    dirtExposures: [Splash, Crawl, Hands, FullBody] # <Onyx-ClothingDirt>
+    dirtCoverageLayers: [GLOVES] # <Onyx-ClothingDirt>
     symmetry: Right
     category: HandRight
     fractureProfile: OrganicFractureProfile
@@ -300,6 +312,8 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Leg
+    dirtExposures: [Splash, Crawl, FullBody] # <Onyx-ClothingDirt>
+    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING] # <Onyx-ClothingDirt>
     symmetry: Left
     category: LegLeft
     fractureProfile: OrganicFractureProfile
@@ -341,6 +355,8 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Leg
+    dirtExposures: [Splash, Crawl, FullBody] # <Onyx-ClothingDirt>
+    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING] # <Onyx-ClothingDirt>
     symmetry: Right
     category: LegRight
     fractureProfile: OrganicFractureProfile
@@ -381,6 +397,8 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Foot
+    dirtExposures: [Splash, Ground, Crawl, FullBody] # <Onyx-ClothingDirt>
+    dirtCoverageLayers: [FEET, SOCKS] # <Onyx-ClothingDirt>
     symmetry: Left
     category: FootLeft
     fractureProfile: OrganicFractureProfile
@@ -419,6 +437,8 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Foot
+    dirtExposures: [Splash, Ground, Crawl, FullBody] # <Onyx-ClothingDirt>
+    dirtCoverageLayers: [FEET, SOCKS] # <Onyx-ClothingDirt>
     symmetry: Right
     category: FootRight
     fractureProfile: OrganicFractureProfile

@@ -1,5 +1,6 @@
 using Content.Shared.DoAfter;
 using Content.Shared.FixedPoint;
+using Content.Shared.Body.Part;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._Onyx.Clothing;
@@ -19,3 +20,22 @@ public sealed partial class ClothingDirtWasherComponent : Component
 
 [Serializable, NetSerializable]
 public sealed partial class WashClothingDoAfterEvent : SimpleDoAfterEvent;
+
+[Serializable, NetSerializable]
+public sealed partial class WashBodyDoAfterEvent : SimpleDoAfterEvent
+{
+    [DataField]
+    public BodyWashTarget WashTarget;
+
+    public WashBodyDoAfterEvent(BodyWashTarget target)
+    {
+        WashTarget = target;
+    }
+}
+
+[Serializable, NetSerializable]
+public enum BodyWashTarget : byte
+{
+    Hands,
+    Face,
+}

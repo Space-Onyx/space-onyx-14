@@ -1,0 +1,11 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+# This file is licensed under AGPL-3.0-or-later.
+
+- type: shader
+  id: OnyxDirtCoverage
+  kind: source
+  path: "/Textures/_Onyx/Shaders/dirt_coverage.swsl"
+  params:
+    coverage: 0.0
+    dirt_color: 1.0, 1.0, 1.0

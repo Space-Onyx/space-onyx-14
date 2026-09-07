@@ -132,11 +132,11 @@ public sealed partial class GuideReagentEmbed : BoxContainer, IDocumentTag, ISea
 
         #region Effects
         if (_chemistryGuideData.ReagentGuideRegistry.TryGetValue(reagent.ID, out var guideEntryRegistry) &&
-            guideEntryRegistry.GuideEntries != null &&
-            guideEntryRegistry.GuideEntries.Values.Any(pair => pair.EffectDescriptions.Any() || pair.Metabolites?.Any() == true))
+            (guideEntryRegistry.GuideEntries?.Values.Any(pair => pair.EffectDescriptions.Any() || pair.Metabolites?.Any() == true) == true ||
+             guideEntryRegistry.ContactEffects?.Count > 0)) // <Onyx-ClothingDirt-edited>
         {
             EffectsDescriptionContainer.Children.Clear();
-            foreach (var (stage, effect) in guideEntryRegistry.GuideEntries)
+            foreach (var (stage, effect) in guideEntryRegistry.GuideEntries ?? []) // <Onyx-ClothingDirt-edited>
             {
                 var hasMetabolites = effect.Metabolites?.Any() == true;
                 if (!effect.EffectDescriptions.Any() && !hasMetabolites)
@@ -176,6 +176,24 @@ public sealed partial class GuideReagentEmbed : BoxContainer, IDocumentTag, ISea
                 EffectsDescriptionContainer.AddChild(groupLabel);
                 EffectsDescriptionContainer.AddChild(descriptionLabel);
             }
+            // <Onyx-ClothingDirt>
+            if (guideEntryRegistry.ContactEffects is { Count: > 0 } contactEffects)
+            {
+                var groupLabel = new RichTextLabel();
+                groupLabel.SetMarkup(Loc.GetString("guidebook-reagent-effects-contact"));
+                var descriptionLabel = new RichTextLabel { Margin = new Thickness(25, 0, 10, 0) };
+                var message = new FormattedMessage();
+                for (var i = 0; i < contactEffects.Count; i++)
+                {
+                    message.AddMarkupOrThrow(contactEffects[i]);
+                    if (i + 1 < contactEffects.Count)
+                        message.PushNewline();
+                }
+                descriptionLabel.SetMessage(message);
+                EffectsDescriptionContainer.AddChild(groupLabel);
+                EffectsDescriptionContainer.AddChild(descriptionLabel);
+            }
+            // </Onyx-ClothingDirt>
         }
         else
         {

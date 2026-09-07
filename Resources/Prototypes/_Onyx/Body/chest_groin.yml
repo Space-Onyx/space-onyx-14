@@ -12,6 +12,8 @@
   components:
   - type: BodyPart
     partType: Chest
+    dirtExposures: [Splash, Crawl, FullBody]
+    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING, UNDERWEART, NECK]
     category: Chest
     fractureProfile: OrganicFractureProfile
     maxDamage: 250
@@ -37,6 +39,8 @@
   components:
   - type: BodyPart
     partType: Groin
+    dirtExposures: [Splash, Crawl, FullBody]
+    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING, UNDERWEARB]
     category: Groin
     fractureProfile: OrganicFractureProfile
     amputationThresholds:

@@ -17,6 +17,9 @@ public sealed partial class ShowerComponent : Component
     public FixedPoint2 WashAmount = FixedPoint2.New(1);
 
     [DataField]
+    public FixedPoint2 PuddleAmount = FixedPoint2.New(10);
+
+    [DataField]
     public float WashInterval = 1f;
 
     [DataField]

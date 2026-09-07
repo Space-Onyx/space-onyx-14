@@ -16,28 +16,13 @@ public sealed partial class ClothingDirtableComponent : Component
     public FixedPoint2 MaxReagentAmount = FixedPoint2.New(10);
 
     [DataField]
-    public FixedPoint2 DryMinimum = FixedPoint2.New(0.5f);
-
-    [DataField]
-    public FixedPoint2 DryAmount = FixedPoint2.New(0.5f);
-
-    [DataField]
-    public float MinVisualAlpha = 0.25f;
-
-    [DataField]
-    public float MaxVisualAlpha = 0.7f;
-
-    [DataField]
-    public float DeepDirtThreshold = 0.75f;
-
-    [DataField]
-    public FixedPoint2 DeepDirtTransferFraction = FixedPoint2.New(0.35f);
+    public float MinVisualCoverage = 0.08f;
 
     [AutoNetworkedField]
     public Color? DirtColor;
 
     [DataField]
-    public float DryInterval = 5f;
+    public float DryInterval = 30f;
 
     public float DryAccumulator;
 }

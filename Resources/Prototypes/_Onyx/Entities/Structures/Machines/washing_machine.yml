@@ -1,0 +1,71 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: entity
+  id: WashingMachine
+  parent: [ BaseMachinePowered, BaseConstructibleMachineDestructible ]
+  name: washing machine
+  description: An automatic machine for washing dirty clothes.
+  components:
+  - type: Transform
+    noRot: true
+  - type: Sprite
+    noRot: true
+    sprite: _Onyx/Structures/Machines/washingmachine.rsi
+    layers:
+    - state: base
+      map: [ "enum.StorageVisualLayers.Base" ]
+    - state: door_closed
+      map: [ "enum.StorageVisualLayers.Door" ]
+    - state: washing
+      map: [ "enum.WashingMachineVisualLayers.Washing" ]
+      visible: false
+  - type: Icon
+    sprite: _Onyx/Structures/Machines/washingmachine.rsi
+    state: icon
+  - type: AmbientSound
+    enabled: false
+    volume: -5
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/crushing.ogg
+  - type: WashingMachine
+  - type: ApcPowerReceiver
+    powerLoad: 500
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.WashingMachineVisuals.Washing:
+        enum.WashingMachineVisualLayers.Washing:
+          True: { visible: true }
+          False: { visible: false }
+  - type: WiresPanel
+  - type: Machine
+    board: WashingMachineCircuitboard
+  - type: Lock
+    locked: false
+  - type: AccessReader
+    access: [ [ "Empty" ] ]
+  - type: EntityStorage
+    whitelist:
+      components:
+      - Clothing
+  - type: ContainerContainer
+    containers:
+      entity_storage: !type:Container
+      machine_parts: !type:Container
+      machine_board: !type:Container
+  - type: EntityStorageVisuals
+    stateBaseClosed: base
+    stateDoorOpen: door_open
+    stateDoorClosed: door_closed
+  - type: Construction
+    graph: Machine
+    node: machine
+    containers:
+    - machine_parts
+    - machine_board
+    - entity_storage

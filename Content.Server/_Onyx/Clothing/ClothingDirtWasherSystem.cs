@@ -1,5 +1,7 @@
 using Content.Server.Popups;
 using Content.Shared._Onyx.Clothing;
+using Content.Shared.Body.Part;
+using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.DoAfter;
@@ -7,6 +9,7 @@ using Content.Shared.FixedPoint;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
+using Content.Shared.Verbs;
 using Robust.Shared.Player;
 
 namespace Content.Server._Onyx.Clothing;
@@ -23,6 +26,43 @@ public sealed partial class ClothingDirtWasherSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<ClothingDirtWasherComponent, AfterInteractUsingEvent>(OnUsing);
         SubscribeLocalEvent<ClothingDirtWasherComponent, WashClothingDoAfterEvent>(OnWash);
+        SubscribeLocalEvent<ClothingDirtWasherComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
+        SubscribeLocalEvent<ClothingDirtWasherComponent, WashBodyDoAfterEvent>(OnWashBody);
+    }
+
+    private void OnGetVerbs(Entity<ClothingDirtWasherComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    {
+        if (!args.CanAccess || !args.CanInteract ||
+            !_solutions.TryGetDrainableSolution(ent.Owner, out _, out var solution) || solution.Volume <= 0)
+            return;
+
+        var user = args.User;
+        args.Verbs.Add(new AlternativeVerb
+        {
+            Act = () => TryStartBodyWash(ent, user, BodyWashTarget.Hands),
+            Text = Loc.GetString("body-dirt-wash-hands-verb"),
+            Priority = 2,
+        });
+        args.Verbs.Add(new AlternativeVerb
+        {
+            Act = () => TryStartBodyWash(ent, user, BodyWashTarget.Face),
+            Text = Loc.GetString("body-dirt-wash-face-verb"),
+            Priority = 2,
+        });
+    }
+
+    public bool TryStartBodyWash(Entity<ClothingDirtWasherComponent> ent, EntityUid user, BodyWashTarget target)
+    {
+        if (!_solutions.TryGetDrainableSolution(ent.Owner, out _, out var solution) || solution.Volume <= 0)
+            return false;
+
+        return _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, ent.Comp.WashTime,
+            new WashBodyDoAfterEvent(target), ent.Owner, target: ent.Owner)
+        {
+            BreakOnMove = true,
+            BreakOnDamage = true,
+            NeedHand = true,
+        });
     }
 
     private void OnUsing(Entity<ClothingDirtWasherComponent> ent, ref AfterInteractUsingEvent args)
@@ -54,6 +94,23 @@ public sealed partial class ClothingDirtWasherSystem : EntitySystem
         if (!_dirt.TryWashClothing(clothing, new ReagentId(ent.Comp.CleanerReagent, null), amount))
             return;
         washer.RemoveReagent(ent.Comp.CleanerReagent, amount, ignoreReagentData: true);
+        _solutions.UpdateChemicals(washerEnt.Value);
+        args.Handled = true;
+    }
+
+    private void OnWashBody(Entity<ClothingDirtWasherComponent> ent, ref WashBodyDoAfterEvent args)
+    {
+        if (args.Handled || args.Cancelled ||
+            !_solutions.TryGetDrainableSolution(ent.Owner, out var washerEnt, out var washer))
+            return;
+
+        var amount = FixedPoint2.Min(ent.Comp.Amount, washer.Volume);
+        if (amount <= 0)
+            return;
+
+        var applied = washer.SplitSolution(amount);
+        var exposure = args.WashTarget == BodyWashTarget.Hands ? DirtExposure.Hands : DirtExposure.Face;
+        _dirt.TryDirtyBody(args.Args.User, applied, amount, exposure);
         _solutions.UpdateChemicals(washerEnt.Value);
         args.Handled = true;
     }

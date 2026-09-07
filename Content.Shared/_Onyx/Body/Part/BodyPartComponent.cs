@@ -7,6 +7,7 @@ using Content.Shared._Onyx.Wounds;
 using Robust.Shared.Prototypes;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
+using Content.Shared.Inventory;
 
 namespace Content.Shared.Body.Part;
 
@@ -28,6 +29,17 @@ public enum BodyPartType : ushort
 [Serializable, NetSerializable]
 public enum BodyPartSymmetry { None, Left, Right }
 
+[Serializable, NetSerializable]
+public enum DirtExposure : byte
+{
+    Splash,
+    Ground,
+    Crawl,
+    Hands,
+    Face,
+    FullBody,
+}
+
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(raiseAfterAutoHandleState: true)]
 public sealed partial class BodyPartComponent : Component
 {
@@ -47,6 +59,12 @@ public sealed partial class BodyPartComponent : Component
     [DataField, AutoNetworkedField] public ProtoId<SpeciesPrototype>? Species;
 
     [DataField, AutoNetworkedField] public ProtoId<OrganCategoryPrototype>? Category;
+
+    [DataField]
+    public HashSet<DirtExposure> DirtExposures = [DirtExposure.Splash, DirtExposure.Crawl, DirtExposure.FullBody];
+
+    [DataField]
+    public List<SlotFlags> DirtCoverageLayers = [];
 
     /// <summary>Fracture profile for this part. Null = no fractures.</summary>
     [DataField]
