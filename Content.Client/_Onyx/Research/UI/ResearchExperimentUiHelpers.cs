@@ -8,6 +8,7 @@ using Content.Shared._Onyx.Research.Components;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
+using Robust.Shared.Maths;
 using Robust.Shared.Utility;
 
 namespace Content.Client._Onyx.Research.UI;
@@ -16,7 +17,9 @@ public static class ResearchExperimentUiHelpers
 {
     public static Control BuildEntry(ResearchExperimentUiEntry experiment)
     {
-        var title = new RichTextLabel();
+        var wrappingLabels = new List<RichTextLabel>();
+        var title = new RichTextLabel { HorizontalExpand = true };
+        wrappingLabels.Add(title);
         var (color, status) = experiment.Status switch
         {
             ResearchExperimentUiStatus.Active => ("lightblue", "research-experiment-ui-status-active"),
@@ -26,6 +29,7 @@ public static class ResearchExperimentUiHelpers
         title.SetMessage(FormattedMessage.FromMarkupOrThrow(
             $"[color={color}]{FormattedMessage.EscapeText(experiment.Name)}[/color]  [color={color}]{FormattedMessage.EscapeText(Loc.GetString(status))}[/color]"));
         var description = new RichTextLabel { HorizontalExpand = true };
+        wrappingLabels.Add(description);
         description.SetMessage(FormattedMessage.FromUnformatted(experiment.Description));
         var tasks = new BoxContainer
         {
@@ -34,13 +38,33 @@ public static class ResearchExperimentUiHelpers
         };
         foreach (var task in experiment.Tasks)
         {
-            tasks.AddChild(new Label
-            {
-                Text = Loc.GetString("research-experiment-ui-task",
-                    ("goal", task.Goal), ("progress", task.Progress), ("target", task.Target)),
-            });
+            var taskLabel = new RichTextLabel { HorizontalExpand = true };
+            taskLabel.SetMessage(FormattedMessage.FromUnformatted(Loc.GetString("research-experiment-ui-task",
+                ("goal", task.Goal), ("progress", task.Progress), ("target", task.Target))));
+            tasks.AddChild(taskLabel);
+            wrappingLabels.Add(taskLabel);
         }
         tasks.Visible = experiment.Status != ResearchExperimentUiStatus.Locked;
+
+        var content = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            SeparationOverride = 3,
+            Margin = new Thickness(8),
+            Children = { title, description, tasks },
+        };
+        content.OnResized += () =>
+        {
+            var width = content.Size.X;
+            if (width <= 8f)
+                return;
+
+            foreach (var label in wrappingLabels)
+            {
+                if (!MathHelper.CloseTo(label.SetWidth, width))
+                    label.SetWidth = width;
+            }
+        };
 
         return new PanelContainer
         {
@@ -53,13 +77,7 @@ public static class ResearchExperimentUiHelpers
             },
             Children =
             {
-                new BoxContainer
-                {
-                    Orientation = BoxContainer.LayoutOrientation.Vertical,
-                    SeparationOverride = 3,
-                    Margin = new Thickness(8),
-                    Children = { title, description, tasks },
-                },
+                content,
             },
         };
     }
