@@ -165,7 +165,7 @@ namespace Content.Client.Examine
         public override void SendExamineTooltip(EntityUid player, EntityUid target, FormattedMessage message, bool getVerbs, bool centerAtCursor)
         {
             OpenTooltip(player, target, centerAtCursor);
-            UpdateTooltipInfo(player, target, message, getVerbs: getVerbs);
+            UpdateTooltipInfo(player, target, message, getVerbs: getVerbs, includeClientExclusiveVerbs: getVerbs); // <Onyx-ActiveActionExamine-edited>
         }
 
         /// <summary>
@@ -260,7 +260,7 @@ namespace Content.Client.Examine
         /// <summary>
         ///     Fills the examine tooltip with a message and buttons if applicable.
         /// </summary>
-        public void UpdateTooltipInfo(EntityUid player, EntityUid target, FormattedMessage message, List<Verb>? verbs=null, bool getVerbs = true)
+        public void UpdateTooltipInfo(EntityUid player, EntityUid target, FormattedMessage message, List<Verb>? verbs=null, bool getVerbs = true, bool includeClientExclusiveVerbs = true) // <Onyx-ActiveActionExamine-edited>
         {
             var vBox = _examineTooltipOpen?.GetChild(0).GetChild(0);
             if (vBox == null)
@@ -299,7 +299,7 @@ namespace Content.Client.Examine
 
                 foreach (var verb in _verbList)
                 {
-                    if (!verb.ClientExclusive)
+                    if (!includeClientExclusiveVerbs || !verb.ClientExclusive) // <Onyx-ActiveActionExamine-edited>
                     {
                         totalVerbs.Remove(verb);
                     }
