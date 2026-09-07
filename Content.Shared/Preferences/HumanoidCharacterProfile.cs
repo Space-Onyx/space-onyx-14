@@ -251,6 +251,7 @@ namespace Content.Shared.Preferences
                 )
         {
             _cybernetics = new List<EntProtoId>(other.Cybernetics); // <Onyx-CyberneticsPersonalization>
+            CopyDescriptionFields(other); // <Onyx-CharacterDescriptions>
         }
 
         /// <summary>
@@ -813,6 +814,7 @@ namespace Content.Shared.Preferences
             if (!_cybernetics.SequenceEqual(other._cybernetics)) return false; // <Onyx-CyberneticsPersonalization>
             if (!Loadouts.SequenceEqual(other.Loadouts)) return false;
             if (FlavorText != other.FlavorText) return false;
+            if (!DescriptionFieldsEqual(other)) return false; // <Onyx-CharacterDescriptions>
             // <Onyx-Barks>
             if (!Bark.MemberwiseEquals(other.Bark)) return false;
             // </Onyx-Barks>
@@ -971,6 +973,7 @@ namespace Content.Shared.Preferences
 
             Name = name;
             FlavorText = flavortext;
+            EnsureDescriptionFieldsValid(configManager); // <Onyx-CharacterDescriptions>
             Age = age;
             // <Onyx-HeightWidth>
             Height = height;
@@ -1126,6 +1129,7 @@ namespace Content.Shared.Preferences
             hashCode.Add(_loadouts);
             hashCode.Add(Name);
             hashCode.Add(FlavorText);
+            AddDescriptionFieldsHash(ref hashCode); // <Onyx-CharacterDescriptions>
             hashCode.Add(Species);
             hashCode.Add(Age);
             // <Onyx-HeightWidth>

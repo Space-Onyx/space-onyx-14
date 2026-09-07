@@ -222,7 +222,14 @@ namespace Content.Server.Preferences.Managers
                 loadouts,
                 new BarkData()
             );
-            return result.WithCybernetics(profile.CyberneticIds.Select(id => new EntProtoId(id))); // <Onyx-CyberneticsPersonalization>
+            // <Onyx-CharacterDescriptions-edited>
+            return result
+                .WithCybernetics(profile.CyberneticIds.Select(id => new EntProtoId(id)))
+                .WithOOCFlavorText(profile.OOCFlavorText)
+                .WithCharacterFlavorText(profile.CharacterFlavorText)
+                .WithTagsFlavorText(profile.TagsFlavorText)
+                .WithLinksFlavorText(profile.LinksFlavorText);
+            // </Onyx-CharacterDescriptions-edited>
         }
 
         private async void HandleSelectCharacterMessage(MsgSelectCharacter message)

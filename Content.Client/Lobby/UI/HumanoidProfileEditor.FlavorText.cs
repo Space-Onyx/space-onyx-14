@@ -1,5 +1,4 @@
-using Robust.Client.UserInterface.Controls;
-using Robust.Shared.Utility;
+using Content.Client._Onyx.Lobby.UI; // <Onyx-CharacterDescriptions>
 
 namespace Content.Client.Lobby.UI;
 
@@ -7,8 +6,7 @@ public sealed partial class HumanoidProfileEditor
 {
     private bool _allowFlavorText;
 
-    private FlavorText.FlavorText? _flavorText;
-    private TextEdit? _flavorTextEdit;
+    private CharacterDescriptionEditor? _descriptionEditor; // <Onyx-CharacterDescriptions-edited>
 
     /// <summary>
     /// Refreshes the flavor text editor status.
@@ -17,44 +15,33 @@ public sealed partial class HumanoidProfileEditor
     {
         if (_allowFlavorText)
         {
-            if (_flavorText != null)
+            if (_descriptionEditor != null) // <Onyx-CharacterDescriptions-edited>
                 return;
 
-            _flavorText = new FlavorText.FlavorText();
-            TabContainer.AddChild(_flavorText);
+            // <Onyx-CharacterDescriptions-edited>
+            _descriptionEditor = new CharacterDescriptionEditor();
+            TabContainer.AddChild(_descriptionEditor);
             TabContainer.SetTabTitle(TabContainer.ChildCount - 1, Loc.GetString("humanoid-profile-editor-flavortext-tab"));
-            _flavorTextEdit = _flavorText.CFlavorTextInput;
-
-            _flavorText.OnFlavorTextChanged += OnFlavorTextChange;
+            _descriptionEditor.DescriptionChanged += OnDescriptionChanged;
+            _descriptionEditor.SetProfile(Profile);
+            // </Onyx-CharacterDescriptions-edited>
         }
         else
         {
-            if (_flavorText == null)
+            if (_descriptionEditor == null) // <Onyx-CharacterDescriptions-edited>
                 return;
 
-            TabContainer.RemoveChild(_flavorText);
-            _flavorText.OnFlavorTextChanged -= OnFlavorTextChange;
-            _flavorText.Dispose();
-            _flavorTextEdit?.Dispose();
-            _flavorTextEdit = null;
-            _flavorText = null;
+            // <Onyx-CharacterDescriptions-edited>
+            TabContainer.RemoveChild(_descriptionEditor);
+            _descriptionEditor.DescriptionChanged -= OnDescriptionChanged;
+            _descriptionEditor.Dispose();
+            _descriptionEditor = null;
+            // </Onyx-CharacterDescriptions-edited>
         }
-    }
-
-    private void OnFlavorTextChange(string content)
-    {
-        if (Profile is null)
-            return;
-
-        Profile = Profile.WithFlavorText(content);
-        SetDirty();
     }
 
     private void UpdateFlavorTextEdit()
     {
-        if (_flavorTextEdit != null)
-        {
-            _flavorTextEdit.TextRope = new Rope.Leaf(Profile?.FlavorText ?? "");
-        }
+        _descriptionEditor?.SetProfile(Profile); // <Onyx-CharacterDescriptions-edited>
     }
 }

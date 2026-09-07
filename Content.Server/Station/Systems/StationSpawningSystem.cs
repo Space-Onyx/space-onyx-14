@@ -142,9 +142,13 @@ public sealed partial class StationSpawningSystem : SharedStationSpawningSystem
             _humanoidProfile.ApplyProfileTo(entity.Value, profile);
             _metaSystem.SetEntityName(entity.Value, profile.Name);
 
-            if (profile.FlavorText != "" && _configurationManager.GetCVar(CCVars.FlavorText))
+            if (_configurationManager.GetCVar(CCVars.FlavorText)) // <Onyx-CharacterDescriptions-edited>
             {
-                AddComp<DetailExaminableComponent>(entity.Value).Content = profile.FlavorText;
+                // <Onyx-CharacterDescriptions-edited>
+                var detail = AddComp<DetailExaminableComponent>(entity.Value);
+                detail.SetProfile(profile);
+                Dirty(entity.Value, detail);
+                // </Onyx-CharacterDescriptions-edited>
             }
         }
 

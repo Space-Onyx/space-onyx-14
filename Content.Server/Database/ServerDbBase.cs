@@ -216,6 +216,12 @@ namespace Content.Server.Database
 
             profile.CharacterName = humanoid.Name;
             profile.FlavorText = humanoid.FlavorText;
+            // <Onyx-CharacterDescriptions>
+            profile.OOCFlavorText = humanoid.OOCFlavorText;
+            profile.CharacterFlavorText = humanoid.CharacterFlavorText;
+            profile.TagsFlavorText = humanoid.TagsFlavorText;
+            profile.LinksFlavorText = humanoid.LinksFlavorText;
+            // </Onyx-CharacterDescriptions>
             profile.Species = humanoid.Species;
             profile.TTSVoice = humanoid.TTSVoice; // Corvax-TTS
             profile.Age = humanoid.Age;

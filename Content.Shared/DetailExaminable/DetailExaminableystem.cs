@@ -27,12 +27,7 @@ public sealed partial class DetailExaminableSystem : EntitySystem
 
         var verb = new ExamineVerb
         {
-            Act = () =>
-            {
-                var markup = new FormattedMessage();
-                markup.AddMarkupPermissive(ent.Comp.Content);
-                _examine.SendExamineTooltip(user, ent, markup, false, false);
-            },
+            Act = () => RaiseLocalEvent(ent.Owner, new OpenDetailedDescriptionEvent()), // <Onyx-CharacterDescriptions-edited>
             Text = Loc.GetString("detail-examinable-verb-text"),
             Category = VerbCategory.Examine,
             Disabled = !detailsRange,

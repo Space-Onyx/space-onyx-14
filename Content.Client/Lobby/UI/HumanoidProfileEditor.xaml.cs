@@ -388,6 +388,7 @@ namespace Content.Client.Lobby.UI
                 return;
 
             SpriteView.LoadPreview(Profile, JobOverride, ShowClothes.Pressed);
+            _descriptionEditor?.UpdatePreview(Profile, true); // <Onyx-CharacterDescriptions>
             ApplyHiddenLoadoutPreviews(); // <Onyx-LoadoutPreviewVisibility>
 
             // Check and set the dirty flag to enable the save/reset buttons as appropriate.
@@ -458,6 +459,7 @@ namespace Content.Client.Lobby.UI
                 return;
 
             SpriteView.ReloadProfilePreview(Profile);
+            _descriptionEditor?.UpdatePreview(Profile, true); // <Onyx-CharacterDescriptions>
 
             // Check and set the dirty flag to enable the save/reset buttons as appropriate.
             SetDirty();

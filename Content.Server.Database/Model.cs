@@ -339,6 +339,12 @@ namespace Content.Server.Database
         public int Slot { get; set; }
         [Column("char_name")] public string CharacterName { get; set; } = null!;
         public string FlavorText { get; set; } = null!;
+        // <Onyx-CharacterDescriptions>
+        public string OOCFlavorText { get; set; } = null!;
+        public string CharacterFlavorText { get; set; } = null!;
+        public string TagsFlavorText { get; set; } = null!;
+        public string LinksFlavorText { get; set; } = null!;
+        // </Onyx-CharacterDescriptions>
         public int Age { get; set; }
         // <Onyx-HeightWidth>
         public float Height { get; set; } = 1f;
