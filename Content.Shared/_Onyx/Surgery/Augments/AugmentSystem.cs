@@ -149,11 +149,8 @@ public sealed partial class AugmentSystem : EntitySystem
     }
 
     public bool CanUse(EntityUid augment, EntityUid user) =>
-        GetBody(augment) == user && IsEnabled(augment) && _neuroInterface.GetEfficiency(user, augment) > 0f &&
+        GetBody(augment) == user && IsEnabled(augment) && _neuroInterface.IsEnabled(user, augment) &&
         (!HasComp<AugmentPowerDrawComponent>(augment) || HasPower(user));
-
-    public float GetEfficiency(EntityUid body, EntityUid augment) =>
-        _neuroInterface.GetEfficiency(body, augment);
 
     private bool IsEnabled(EntityUid augment) =>
         !TryComp(augment, out CyberneticsComponent? cyber) || !cyber.Disabled;

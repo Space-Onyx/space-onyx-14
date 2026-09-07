@@ -24,32 +24,7 @@
   - type: SurgeryTool
     customUses: [ surgery-tool-use-implant-neuro-interface ]
   - type: NeuroInterface
-    baseBandwidth: 8
-    baseChannels: 2
-    overclockMultiplier: 1.5
     updateInterval: 1
-    overclockDamageCoefficient: 0.5
-    minimumOverclockDamage: 0.05
-    maximumOverclockDamage: 0.25
-  - type: ItemSlots
-    slots:
-      chip:
-        name: neuro-interface-ui-chip
-        whitelist:
-          components: [ NeuroInterfaceChip ]
-      cache:
-        name: neuro-interface-ui-cache
-        whitelist:
-          components: [ NeuroInterfaceCache ]
-      router:
-        name: neuro-interface-ui-router
-        whitelist:
-          components: [ NeuroInterfaceRouter ]
-  - type: ContainerContainer
-    containers:
-      chip: !type:ContainerSlot {}
-      cache: !type:ContainerSlot {}
-      router: !type:ContainerSlot {}
   - type: UserInterface
     interfaces:
       enum.NeuroInterfaceUiKey.Key:
@@ -64,21 +39,13 @@
   parent: NeuroInterface
   id: NeuroInterfaceInterdyneFault
   name: Interdyne Fault
-  description: A medical neural bus made by NanoTrasen competitor Interdyne Pharmaceuticals, optimized for coordinating multiple diagnostic and life-support augments.
-  components:
-  - type: NeuroInterface
-    baseBandwidth: 6
-    baseChannels: 3
+  description: A medical neural bus made by NanoTrasen competitor Interdyne Pharmaceuticals.
 
 - type: entity
   parent: NeuroInterface
   id: NeuroInterfaceNanoTrasenEnforcer
   name: NanoTrasen Enforcer
-  description: A restricted reinforced neural bus issued to NanoTrasen security and response forces for high-load combat augments.
-  components:
-  - type: NeuroInterface
-    baseBandwidth: 12
-    baseChannels: 2
+  description: A restricted reinforced neural bus issued to NanoTrasen security and response forces.
 
 - type: entity
   abstract: true
@@ -87,99 +54,6 @@
   components:
   - type: Sprite
     sprite: _Onyx/Objects/Augments/power.rsi
-
-- type: entity
-  parent: BaseNeuroInterfacePart
-  id: NeuroInterfaceChipBasic
-  name: NanoTrasen NMC-1
-  description: The entry model of NanoTrasen's neuromorphic controller line, intended for standard augmentation suites.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: cpu_super
-  - type: NeuroInterfaceChip
-    bandwidth: 20
-    channels: 4
-
-- type: entity
-  parent: BaseNeuroInterfacePart
-  id: NeuroInterfaceChipAdvanced
-  name: NanoTrasen NMC-2
-  description: A higher-density neuromorphic controller for complex civilian and industrial augmentation suites.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: cpu_super
-  - type: NeuroInterfaceChip
-    bandwidth: 30
-    channels: 6
-
-- type: entity
-  parent: BaseNeuroInterfacePart
-  id: NeuroInterfaceChipHighDensity
-  name: NanoTrasen NMC-3
-  description: A restricted high-density neuromorphic controller built around a synthetic neural lattice.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: cpu_super
-  - type: NeuroInterfaceChip
-    bandwidth: 40
-    channels: 9
-
-- type: entity
-  parent: BaseNeuroInterfacePart
-  id: NeuroInterfaceCacheStandard
-  name: NanoTrasen NCM-2
-  description: A neural context-memory unit that keeps two additional augmentation control states ready for immediate use.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: door_electronics
-  - type: NeuroInterfaceCache
-    channels: 2
-
-- type: entity
-  parent: BaseNeuroInterfacePart
-  id: NeuroInterfaceCacheExpanded
-  name: NanoTrasen NCM-4
-  description: An expanded neural context-memory unit that keeps four additional augmentation control states ready for immediate use.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: door_electronics
-  - type: NeuroInterfaceCache
-    channels: 4
-
-- type: entity
-  parent: BaseNeuroInterfacePart
-  id: NeuroInterfaceRouter
-  name: NanoTrasen NAR-2
-  description: A neural allocation router that maintains a strict service order for two augmentations.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: power_mod
-  - type: NeuroInterfaceRouter
-    capacity: 2
-
-- type: entity
-  parent: NeuroInterfaceRouter
-  id: NeuroInterfaceRouterAdvanced
-  name: NanoTrasen NAR-4
-  description: An advanced neural allocation router that maintains a strict service order for four augmentations.
-  components:
-  - type: NeuroInterfaceRouter
-    capacity: 4
-
-- type: entity
-  parent: NeuroInterfaceRouter
-  id: NeuroInterfaceRouterHighCapacity
-  name: NanoTrasen NAR-8
-  description: A high-capacity neural allocation router that maintains a strict service order for eight augmentations.
-  components:
-  - type: NeuroInterfaceRouter
-    capacity: 8
 
 - type: entity
   parent: BaseNeuroInterfacePart

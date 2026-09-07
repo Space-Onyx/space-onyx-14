@@ -49,3 +49,4 @@
     retractSound: { collection: MantisBladeRetract }
     extendHeldPrefix: popout
     extendHeldPrefixDuration: 0.3
+  - type: NeuroInterfaceConsumer

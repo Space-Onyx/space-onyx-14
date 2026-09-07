@@ -46,8 +46,7 @@
       name: augment-module-slot-cyberdeck-program-three
       whitelist:
         components: [ CyberDeckScript ]
-  - type: NeuroBandwidthConsumer
-    demand: 6
+  - type: NeuroInterfaceConsumer
   - type: Pda
     idSlot:
       name: access-id-card-component-default

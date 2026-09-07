@@ -18,11 +18,8 @@ public sealed class NeuroInterfaceBoundUserInterface : BoundUserInterface
         base.Open();
 
         _window = this.CreateWindow<NeuroInterfaceWindow>();
-        _window.OnModeChanged += mode => SendMessage(new NeuroInterfaceSetModeMessage(mode));
         _window.OnEnabledChanged += (entity, enabled) =>
             SendMessage(new NeuroInterfaceSetEnabledMessage(entity, enabled));
-        _window.OnRoutingChanged += (entity, action) =>
-            SendMessage(new NeuroInterfaceSetRoutingMessage(entity, action));
 
         if (State is NeuroInterfaceBuiState state)
             _window.UpdateState(state);

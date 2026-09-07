@@ -203,66 +203,9 @@
     - AugmentPowerCellSlotCasing
     - AugmentRechargerCasing
     - NeuroInterface
-    - NeuroInterfaceChipBasic
   position: 3,4
   technologyPrerequisites:
     - BasicCybernaticsUpgrade
-
-- type: technology
-  id: NeuroInterfaceProcessors
-  name: research-technology-neuro-interface-processors
-  icon: { sprite: Objects/Misc/module.rsi, state: cpu_super }
-  discipline: CivilianServices
-  tier: 2
-  cost: 6000
-  recipeUnlocks: [ NeuroInterfaceChipAdvanced ]
-  position: 4,5
-  technologyPrerequisites: [ BasicAugmentation ]
-
-- type: technology
-  id: AdvancedNeuroInterfaceProcessors
-  name: research-technology-advanced-neuro-interface-processors
-  icon: { sprite: Objects/Misc/module.rsi, state: cpu_super }
-  discipline: CivilianServices
-  tier: 3
-  pointCosts:
-    - type: General
-      amount: 10000
-    - type: Experimental
-      amount: 350
-  recipeUnlocks: [ NeuroInterfaceChipHighDensity ]
-  position: 5,5
-  technologyPrerequisites: [ NeuroInterfaceProcessors ]
-
-- type: technology
-  id: NeuroInterfaceContextCache
-  name: research-technology-neuro-interface-context-cache
-  icon: { sprite: Objects/Misc/module.rsi, state: door_electronics }
-  discipline: CivilianServices
-  tier: 2
-  pointCosts:
-    - type: General
-      amount: 5000
-    - type: Experimental
-      amount: 150
-  recipeUnlocks: [ NeuroInterfaceCacheStandard ]
-  position: 4,6
-  technologyPrerequisites: [ BasicAugmentation ]
-
-- type: technology
-  id: AdvancedNeuroInterfaceContextCache
-  name: research-technology-advanced-neuro-interface-context-cache
-  icon: { sprite: Objects/Misc/module.rsi, state: door_electronics }
-  discipline: CivilianServices
-  tier: 3
-  pointCosts:
-    - type: General
-      amount: 9000
-    - type: Experimental
-      amount: 200
-  recipeUnlocks: [ NeuroInterfaceCacheExpanded ]
-  position: 5,6
-  technologyPrerequisites: [ NeuroInterfaceContextCache ]
 
 - type: technology
   id: NeuroInterfaceEmpProtection
@@ -276,7 +219,7 @@
     - type: Experimental
       amount: 200
   recipeUnlocks: [ NeuroInterfaceEmpShield ]
-  position: 4,7
+  position: 4,5
   technologyPrerequisites: [ BasicAugmentation ]
 
 - type: technology
@@ -293,47 +236,6 @@
   technologyPrerequisites: [ BasicAugmentation ]
 
 - type: technology
-  id: NeuroInterfaceRouting
-  name: research-technology-neuro-interface-routing
-  icon: { sprite: Objects/Misc/module.rsi, state: power_mod }
-  discipline: CivilianServices
-  tier: 2
-  cost: 5000
-  recipeUnlocks: [ NeuroInterfaceRouter ]
-  position: 4,9
-  technologyPrerequisites: [ BasicAugmentation ]
-
-- type: technology
-  id: AdvancedNeuroInterfaceRouting
-  name: research-technology-advanced-neuro-interface-routing
-  icon: { sprite: Objects/Misc/module.rsi, state: power_mod }
-  discipline: CivilianServices
-  tier: 3
-  pointCosts:
-    - type: General
-      amount: 8000
-    - type: Experimental
-      amount: 250
-  recipeUnlocks: [ NeuroInterfaceRouterAdvanced ]
-  position: 5,9
-  technologyPrerequisites: [ NeuroInterfaceRouting ]
-
-- type: technology
-  id: HighCapacityNeuroInterfaceRouting
-  name: research-technology-high-capacity-neuro-interface-routing
-  icon: { sprite: Objects/Misc/module.rsi, state: power_mod }
-  discipline: CivilianServices
-  tier: 3
-  pointCosts:
-    - type: General
-      amount: 12000
-    - type: Experimental
-      amount: 500
-  recipeUnlocks: [ NeuroInterfaceRouterHighCapacity ]
-  position: 6,9
-  technologyPrerequisites: [ AdvancedNeuroInterfaceRouting ]
-
-- type: technology
   id: AdvancedNeuroInterfaceEmpProtection
   name: research-technology-advanced-neuro-interface-emp-protection
   icon: { sprite: _Onyx/Objects/Augments/power.rsi, state: apc }
@@ -345,7 +247,7 @@
     - type: Experimental
       amount: 350
   recipeUnlocks: [ NeuroInterfaceEmpShieldHardened ]
-  position: 5,7
+  position: 5,5
   technologyPrerequisites: [ NeuroInterfaceEmpProtection ]
 
 - type: technology
@@ -360,7 +262,7 @@
     - type: Experimental
       amount: 300
   recipeUnlocks: [ AugmentBioReactor ]
-  position: 4,8
+  position: 4,6
   technologyPrerequisites: [ BasicAugmentation ]
 
 - type: technology
@@ -375,7 +277,7 @@
     - type: Experimental
       amount: 500
   recipeUnlocks: [ AugmentRTG ]
-  position: 5,8
+  position: 5,6
   technologyPrerequisites: [ MetabolicAugmentPower ]
 - type: technology
   id: ImplantedTools

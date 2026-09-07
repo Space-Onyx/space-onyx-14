@@ -35,8 +35,7 @@
     draw: 5
   - type: AugmentAction
     action: ActionAugmentToggleItemPanel
-  - type: NeuroBandwidthConsumer
-    demand: 3
+  - type: NeuroInterfaceConsumer
 
 - type: entity
   abstract: true

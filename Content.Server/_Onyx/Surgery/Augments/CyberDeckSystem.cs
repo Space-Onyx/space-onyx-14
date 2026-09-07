@@ -249,7 +249,7 @@ public sealed partial class CyberDeckSystem : EntitySystem
 
     private bool CanUse(EntityUid deck, EntityUid performer) =>
         _modules.GetInstalledBody(deck) == performer &&
-        (!TryComp(deck, out NeuroBandwidthRuntimeComponent? runtime) || runtime.Efficiency > 0f) &&
+        (!TryComp(deck, out NeuroInterfaceRuntimeComponent? runtime) || runtime.ManuallyEnabled) &&
         !HasComp<Content.Shared.Emp.EmpDisabledComponent>(deck);
 
     private bool HasRam(Entity<CyberDeckComponent?> ent, float amount) =>

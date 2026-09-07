@@ -44,7 +44,7 @@ public sealed partial class CyberneticsSystem : EntitySystem
         SubscribeLocalEvent<CyberneticsComponent, EmpPulseEvent>(OnEmpPulse);
         SubscribeLocalEvent<CyberneticsComponent, EmpDisabledRemovedEvent>(OnEmpRemoved);
         SubscribeLocalEvent<BodyComponent, EmpPulseEvent>(OnBodyEmpPulse);
-        SubscribeLocalEvent<CyberneticsComponent, NeuroBandwidthEfficiencyChangedEvent>(OnNeuroEfficiencyChanged);
+        SubscribeLocalEvent<CyberneticsComponent, NeuroInterfaceEnabledChangedEvent>(OnNeuroEnabledChanged);
         SubscribeLocalEvent<CyberneticBodyEffectsComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshSpeed);
     }
 
@@ -126,7 +126,7 @@ public sealed partial class CyberneticsSystem : EntitySystem
         }
     }
 
-    private void OnNeuroEfficiencyChanged(Entity<CyberneticsComponent> ent, ref NeuroBandwidthEfficiencyChangedEvent args)
+    private void OnNeuroEnabledChanged(Entity<CyberneticsComponent> ent, ref NeuroInterfaceEnabledChangedEvent args)
     {
         if (TryGetBody(ent, out var body))
             RefreshBody(body);
@@ -258,7 +258,7 @@ public sealed partial class CyberneticsSystem : EntitySystem
         ref bool thermalVisionEnabled)
     {
         if (!TryComp(uid, out CyberneticsComponent? cyber) || cyber.Disabled ||
-            TryComp(uid, out NeuroBandwidthRuntimeComponent? runtime) && runtime.Efficiency <= 0f)
+            TryComp(uid, out NeuroInterfaceRuntimeComponent? runtime) && !runtime.ManuallyEnabled)
             return;
 
         effects |= cyber.Effects;

@@ -39,7 +39,7 @@ public sealed partial class AugmentItemPanelSystem : EntitySystem
         SubscribeLocalEvent<AugmentItemPanelComponent, AugmentItemPanelActionEvent>(OnToggle);
         SubscribeLocalEvent<AugmentItemPanelComponent, AugmentLostPowerEvent>(OnLostPower);
         SubscribeLocalEvent<AugmentItemPanelComponent, EmpPulseEvent>(OnEmp);
-        SubscribeLocalEvent<AugmentItemPanelComponent, NeuroBandwidthEfficiencyChangedEvent>(OnNeuroEfficiencyChanged);
+        SubscribeLocalEvent<AugmentItemPanelComponent, NeuroInterfaceEnabledChangedEvent>(OnNeuroEnabledChanged);
         SubscribeLocalEvent<AugmentItemPanelComponent, CollectNeuroInterfaceTooltipEvent>(OnCollectTooltip);
     }
 
@@ -152,9 +152,9 @@ public sealed partial class AugmentItemPanelSystem : EntitySystem
         };
     }
 
-    private void OnNeuroEfficiencyChanged(Entity<AugmentItemPanelComponent> ent, ref NeuroBandwidthEfficiencyChangedEvent args)
+    private void OnNeuroEnabledChanged(Entity<AugmentItemPanelComponent> ent, ref NeuroInterfaceEnabledChangedEvent args)
     {
-        if (args.Efficiency <= 0f && ent.Comp.IsEquipped && _augment.GetBody(ent.Owner) is { } body)
+        if (!args.Enabled && ent.Comp.IsEquipped && _augment.GetBody(ent.Owner) is { } body)
             Retract(ent, body, false);
     }
 

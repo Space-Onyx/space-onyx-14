@@ -57,9 +57,7 @@
   - type: AugmentStrength
   - type: AugmentPowerDraw
     draw: 30
-  - type: NeuroBandwidthConsumer
-    demand: 4
-    scalable: true
+  - type: NeuroInterfaceConsumer
   - type: AugmentAction
     action: ActionAugmentToggleStrength
   - type: Construction

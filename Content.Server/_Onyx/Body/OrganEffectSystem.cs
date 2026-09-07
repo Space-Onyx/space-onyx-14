@@ -55,7 +55,7 @@ public sealed partial class OrganEffectSystem : EntitySystem
         SubscribeLocalEvent<OrganComponent, OrganGotRemovedEvent>(OnOrganRemoved);
         SubscribeLocalEvent<OrganComponent, OrganGotInsertedEvent>(OnOrganInserted);
         SubscribeLocalEvent<OrganComponent, OrganFunctionChangedEvent>(OnOrganFunctionChanged);
-        SubscribeLocalEvent<OrganComponent, NeuroBandwidthEfficiencyChangedEvent>(OnNeuroEfficiencyChanged);
+        SubscribeLocalEvent<OrganComponent, NeuroInterfaceEnabledChangedEvent>(OnNeuroEnabledChanged);
         SubscribeLocalEvent<BodyComponent, EyeDamageChangedEvent>(OnEyeDamageChanged);
         SubscribeLocalEvent<MissingEyesComponent, CanSeeAttemptEvent>(OnCanSee);
     }
@@ -118,7 +118,7 @@ public sealed partial class OrganEffectSystem : EntitySystem
     private void OnOrganFunctionChanged(Entity<OrganComponent> ent, ref OrganFunctionChangedEvent args) =>
         _pendingBodies.Add(args.Body);
 
-    private void OnNeuroEfficiencyChanged(Entity<OrganComponent> ent, ref NeuroBandwidthEfficiencyChangedEvent args)
+    private void OnNeuroEnabledChanged(Entity<OrganComponent> ent, ref NeuroInterfaceEnabledChangedEvent args)
     {
         if (ent.Comp.Body is { } body)
             _pendingBodies.Add(body);
@@ -164,7 +164,7 @@ public sealed partial class OrganEffectSystem : EntitySystem
                 organCounts[category] = organCounts.GetValueOrDefault(category) + 1;
             if (!TryComp(organId, out FunctionalOrganComponent? functional))
                 continue;
-            if (TryComp(organId, out NeuroBandwidthRuntimeComponent? runtime) && runtime.Efficiency <= 0f)
+            if (TryComp(organId, out NeuroInterfaceRuntimeComponent? runtime) && !runtime.ManuallyEnabled)
                 continue;
 
             foreach (var (name, entry) in functional.Components)

@@ -62,8 +62,9 @@ public sealed partial class AugmentSystem
             foreach (var augment in ResolveAugments(installed))
             {
                 if (TryComp(augment, out AugmentPowerDrawComponent? power) &&
-                    (!HasComp<ItemToggleComponent>(augment) || _toggle.IsActivated(augment)) && IsEnabled(augment))
-                    total += power.Draw * GetEfficiency(body, augment);
+                    (!HasComp<ItemToggleComponent>(augment) || _toggle.IsActivated(augment)) && IsEnabled(augment) &&
+                    _neuroInterface.IsEnabled(body, augment))
+                    total += power.Draw;
             }
         }
         var poweredSlots = GetPowerSlots(body)

@@ -6,54 +6,6 @@
 
 - type: latheRecipe
   parent: BaseAugmentRecipe
-  id: NeuroInterfaceChipBasic
-  result: NeuroInterfaceChipBasic
-  materials: { Glass: 300, Plastic: 200, Gold: 150 }
-
-- type: latheRecipe
-  parent: BaseAugmentRecipe
-  id: NeuroInterfaceChipAdvanced
-  result: NeuroInterfaceChipAdvanced
-  materials: { Glass: 400, Plastic: 250, Gold: 250 }
-
-- type: latheRecipe
-  parent: BaseAugmentRecipe
-  id: NeuroInterfaceChipHighDensity
-  result: NeuroInterfaceChipHighDensity
-  materials: { Glass: 500, Plastic: 300, Gold: 400, Silver: 200 }
-
-- type: latheRecipe
-  parent: BaseAugmentRecipe
-  id: NeuroInterfaceCacheStandard
-  result: NeuroInterfaceCacheStandard
-  materials: { Glass: 200, Plastic: 200, Gold: 100 }
-
-- type: latheRecipe
-  parent: BaseAugmentRecipe
-  id: NeuroInterfaceCacheExpanded
-  result: NeuroInterfaceCacheExpanded
-  materials: { Glass: 350, Plastic: 250, Gold: 200, Silver: 100 }
-
-- type: latheRecipe
-  parent: BaseAugmentRecipe
-  id: NeuroInterfaceRouter
-  result: NeuroInterfaceRouter
-  materials: { Glass: 300, Plastic: 250, Gold: 200 }
-
-- type: latheRecipe
-  parent: BaseAugmentRecipe
-  id: NeuroInterfaceRouterAdvanced
-  result: NeuroInterfaceRouterAdvanced
-  materials: { Glass: 450, Plastic: 300, Gold: 350, Silver: 200 }
-
-- type: latheRecipe
-  parent: BaseAugmentRecipe
-  id: NeuroInterfaceRouterHighCapacity
-  result: NeuroInterfaceRouterHighCapacity
-  materials: { Glass: 600, Plastic: 400, Gold: 500, Silver: 350 }
-
-- type: latheRecipe
-  parent: BaseAugmentRecipe
   id: NeuroInterfaceEmpShield
   result: NeuroInterfaceEmpShield
   materials: { Steel: 250, Glass: 200, Gold: 150 }

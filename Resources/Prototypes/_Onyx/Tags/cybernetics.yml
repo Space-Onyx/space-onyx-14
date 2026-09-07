@@ -50,18 +50,6 @@
   id: AugmentRTGCasing
 
 - type: Tag
-  id: AugmentNeuroInterfaceCasing
-
-- type: Tag
-  id: AugmentNeuroInterfaceChip
-
-- type: Tag
-  id: AugmentModuleNeuroCapacity
-
-- type: Tag
-  id: AugmentModuleNeuroInterface
-
-- type: Tag
   id: AugmentCombat
 
 - type: Tag

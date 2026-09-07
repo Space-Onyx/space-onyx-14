@@ -23,6 +23,8 @@ public sealed partial class AugmentModuleSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<AugmentModuleHostComponent, ComponentInit>(OnHostInit);
         SubscribeLocalEvent<AugmentModuleHostComponent, ComponentRemove>(OnHostRemove);
+        SubscribeLocalEvent<AugmentModuleHostComponent, OrganGotInsertedEvent>(OnHostInserted);
+        SubscribeLocalEvent<AugmentModuleHostComponent, OrganGotRemovedEvent>(OnHostRemoved);
         SubscribeLocalEvent<AugmentModuleHostComponent, EntInsertedIntoContainerMessage>(OnModuleInserted);
         SubscribeLocalEvent<AugmentModuleHostComponent, EntRemovedFromContainerMessage>(OnModuleRemoved);
         SubscribeLocalEvent<InstalledAugmentsComponent, CyberneticsEmpProtectionEvent>(OnEmpProtection);
@@ -51,6 +53,10 @@ public sealed partial class AugmentModuleSystem : EntitySystem
         foreach (var slot in ent.Comp.Slots.Values)
             _itemSlots.RemoveItemSlot((ent.Owner, null), slot);
     }
+
+    private void OnHostInserted(Entity<AugmentModuleHostComponent> ent, ref OrganGotInsertedEvent args) => RaiseChanged(ent);
+
+    private void OnHostRemoved(Entity<AugmentModuleHostComponent> ent, ref OrganGotRemovedEvent args) => RaiseChanged(ent);
 
     private void OnInsertAttempt(Entity<AugmentModuleComponent> ent, ref ItemSlotInsertAttemptEvent args)
     {

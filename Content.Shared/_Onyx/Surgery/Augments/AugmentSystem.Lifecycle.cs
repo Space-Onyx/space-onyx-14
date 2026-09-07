@@ -14,7 +14,7 @@ public sealed partial class AugmentSystem
         SubscribeLocalEvent<InstalledAugmentsComponent, AccessibleOverrideEvent>(OnAccessible);
         SubscribeLocalEvent<AugmentComponent, EmpPulseEvent>(OnEmp);
         SubscribeLocalEvent<AugmentComponent, EmpDisabledRemovedEvent>(OnEmpRemoved);
-        SubscribeLocalEvent<AugmentComponent, NeuroBandwidthEfficiencyChangedEvent>(OnNeuroEfficiencyChanged);
+        SubscribeLocalEvent<AugmentComponent, NeuroInterfaceEnabledChangedEvent>(OnNeuroEnabledChanged);
     }
 
     private void OnInserted(Entity<AugmentComponent> ent, ref OrganGotInsertedEvent args)
@@ -72,9 +72,9 @@ public sealed partial class AugmentSystem
         }
     }
 
-    private void OnNeuroEfficiencyChanged(Entity<AugmentComponent> ent, ref NeuroBandwidthEfficiencyChangedEvent args)
+    private void OnNeuroEnabledChanged(Entity<AugmentComponent> ent, ref NeuroInterfaceEnabledChangedEvent args)
     {
-        if (args.Efficiency <= 0f)
+        if (!args.Enabled)
             Disable(ent);
         if (GetBody(ent) is { } body)
             RefreshPower(body);

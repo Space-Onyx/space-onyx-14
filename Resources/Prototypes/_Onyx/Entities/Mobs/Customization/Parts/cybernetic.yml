@@ -1157,8 +1157,7 @@
       delay: 1
   - type: RoundstartCybernetics
     selectable: false
-  - type: NeuroBandwidthConsumer
-    demand: 2
+  - type: NeuroInterfaceConsumer
 
 - type: entity
   parent: RightArmCybernetic
@@ -1175,8 +1174,7 @@
       delay: 1
   - type: RoundstartCybernetics
     selectable: false
-  - type: NeuroBandwidthConsumer
-    demand: 2
+  - type: NeuroInterfaceConsumer
 
 - type: entity
   parent: LeftLegCybernetic
@@ -1191,8 +1189,7 @@
       baseSprintSpeed: 5.175
   - type: RoundstartCybernetics
     selectable: false
-  - type: NeuroBandwidthConsumer
-    demand: 3
+  - type: NeuroInterfaceConsumer
 
 - type: entity
   parent: RightLegCybernetic
@@ -1207,5 +1204,4 @@
       baseSprintSpeed: 5.175
   - type: RoundstartCybernetics
     selectable: false
-  - type: NeuroBandwidthConsumer
-    demand: 3
+  - type: NeuroInterfaceConsumer
