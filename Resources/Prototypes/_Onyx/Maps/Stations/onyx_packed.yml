@@ -1,6 +1,6 @@
 - type: gameMap
   id: OnyxPacked
-  mapName: 'ИСН Пакет JU'
+  mapName: 'Пакет'
   mapPath: /Maps/_Onyx/Stations/Packed/onyx_packed.yml
   maxRandomOffset: 0
   randomRotation: false

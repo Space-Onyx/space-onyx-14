@@ -1,6 +1,6 @@
 - type: gameMap
   id: OnyxOmega
-  mapName: 'ИСН Омега RK'
+  mapName: 'Омега'
   mapPath: /Maps/_Onyx/Stations/Omega/onyx_omega.yml
   maxRandomOffset: 0
   randomRotation: false

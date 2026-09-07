@@ -1,6 +1,6 @@
 - type: gameMap
   id: OnyxMaus
-  mapName: 'ИСН Маус MG'
+  mapName: 'Маус'
   mapPath: /Maps/_Onyx/Stations/Maus/onyx_maus.yml
   maxRandomOffset: 0
   randomRotation: false

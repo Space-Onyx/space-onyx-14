@@ -1,6 +1,6 @@
 - type: gameMap
   id: OnyxBeta
-  mapName: 'ИСН Бета S14'
+  mapName: 'Бета'
   mapPath: /Maps/_Onyx/Stations/Beta/onyx_beta.yml
   minPlayers: 0
   maxPlayers: 50

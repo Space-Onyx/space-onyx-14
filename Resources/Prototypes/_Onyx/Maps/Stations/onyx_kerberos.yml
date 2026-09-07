@@ -1,6 +1,6 @@
 - type: gameMap
   id: OnyxKerberos
-  mapName: 'ИСН Керберос TG'
+  mapName: 'Керберос'
   mapPath: /Maps/_Onyx/Stations/Kerberos/onyx_kerberos.yml
   maxRandomOffset: 0
   randomRotation: false

@@ -1,6 +1,6 @@
 - type: gameMap
   id: OnyxBox
-  mapName: 'ИСН Бокс TG'
+  mapName: 'Бокс'
   mapPath: /Maps/_Onyx/Stations/Box/onyx_box.yml
   maxRandomOffset: 0
   randomRotation: false

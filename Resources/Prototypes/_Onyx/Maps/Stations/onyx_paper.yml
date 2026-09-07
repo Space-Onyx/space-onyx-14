@@ -1,6 +1,6 @@
 - type: gameMap
   id: OnyxPaper
-  mapName: 'ИСН Пейпер TG'
+  mapName: 'Пейпер'
   mapPath: /Maps/_Onyx/Stations/Paper/onyx_paper.yml
   maxRandomOffset: 0
   randomRotation: false

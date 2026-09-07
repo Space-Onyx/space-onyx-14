@@ -1,6 +1,6 @@
 - type: gameMap
   id: OnyxOrigin
-  mapName: 'ИСН Исток S14'
+  mapName: 'Исток'
   mapPath: /Maps/_Onyx/Stations/Origin/onyx_origin.yml
   minPlayers: 50
   maxPlayers: 85

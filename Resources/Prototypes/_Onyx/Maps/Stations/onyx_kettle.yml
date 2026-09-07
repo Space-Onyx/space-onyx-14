@@ -1,6 +1,6 @@
 - type: gameMap
   id: OnyxKettle
-  mapName: 'ИСН Кеттл S14'
+  mapName: 'Кеттл'
   mapPath: /Maps/_Onyx/Stations/Kettle/onyx_kettle.yml
   minPlayers: 35
   stations:

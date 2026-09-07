@@ -1,6 +1,6 @@
 - type: gameMap
   id: OnyxSilly
-  mapName: 'ИСН Силли ABK'
+  mapName: 'Силли'
   mapPath: /Maps/_Onyx/Stations/Silly/onyx_silly.yml
   maxRandomOffset: 0
   randomRotation: false

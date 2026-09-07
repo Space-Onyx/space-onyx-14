@@ -1,6 +1,6 @@
 - type: gameMap
   id: OnyxTushkan
-  mapName: 'ИСН Тушканчик TA'
+  mapName: 'Тушканчик'
   mapPath: /Maps/_Onyx/Stations/Tushkan/onyx_tushkan.yml
   maxRandomOffset: 0
   randomRotation: false

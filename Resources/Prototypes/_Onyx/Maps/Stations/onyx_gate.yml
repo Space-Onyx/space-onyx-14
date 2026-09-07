@@ -1,6 +1,6 @@
 - type: gameMap
   id: OnyxGate
-  mapName: 'ИСН Врата ED'
+  mapName: 'Врата'
   mapPath: /Maps/_Onyx/Stations/Gate/onyx_gate.yml
   minPlayers: 55
   stations:
