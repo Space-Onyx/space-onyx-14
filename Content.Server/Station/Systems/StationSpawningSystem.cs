@@ -120,6 +120,7 @@ public sealed partial class StationSpawningSystem : SharedStationSpawningSystem
             if (loadout != null)
             {
                 EquipRoleName(jobEntity, loadout, roleProto!);
+                ApplySyntheticLawPreset(jobEntity, loadout); // <Onyx-SyntheticLawPresets>
             }
 
             DoJobSpecials(job, jobEntity);

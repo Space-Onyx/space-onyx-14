@@ -1,18 +1,22 @@
 using System.Linq;
 using Content.Client._Onyx.Lobby.UI.Loadouts;
 using Content.Client._Onyx.Loadouts;
+using Content.Client.Message;
 using Content.Corvax.Interfaces.Shared;
 using Content.Shared.CCVar;
+using Content.Shared._Onyx.Silicons.Laws;
 using Content.Shared.Clothing;
 using Content.Shared.Inventory;
 using Content.Shared.GameTicking;
 using Content.Shared.Preferences;
 using Content.Shared.Preferences.Loadouts;
 using Content.Shared.Roles;
+using Content.Shared.Silicons.Laws;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.Graphics;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
 
 namespace Content.Client.Lobby.UI;
 
@@ -21,6 +25,8 @@ public sealed partial class HumanoidProfileEditor
     private string _loadoutSearch = string.Empty;
     private ProtoId<RoleLoadoutPrototype>? _selectedLoadoutRole;
     private bool _showSelectedLoadouts;
+    private bool _selectLawPresetTab;
+    private int _lawPresetTabIndex;
 
     private void InitializeLoadoutPersonalization()
     {
@@ -86,7 +92,7 @@ public sealed partial class HumanoidProfileEditor
     private void RefreshLoadoutPersonalization(bool preserveCurrentTab = false)
     {
         var currentTab = preserveCurrentTab ? LoadoutSlotTabs.CurrentTab : 0;
-        if (!preserveCurrentTab && LoadoutSlotTabs.ChildCount > 0 && LoadoutSlotTabs.CurrentTab != 0)
+        if (LoadoutSlotTabs.ChildCount > 0 && LoadoutSlotTabs.CurrentTab != 0)
             LoadoutSlotTabs.CurrentTab = 0;
         LoadoutSlotTabs.DisposeAllChildren();
 
@@ -120,6 +126,7 @@ public sealed partial class HumanoidProfileEditor
         if (_showSelectedLoadouts)
         {
             AddSelectedLoadoutsView(roleId.Value, groups, loadout, collection, loadoutSystem);
+            RestoreLoadoutTab(preserveCurrentTab, currentTab);
             return;
         }
 
@@ -158,41 +165,169 @@ public sealed partial class HumanoidProfileEditor
             LoadoutSlotTabs.SetTabTitle(LoadoutSlotTabs.ChildCount - 1, Loc.GetString(group.Name));
         }
 
-        if (preserveCurrentTab && LoadoutSlotTabs.ChildCount > 0)
-            LoadoutSlotTabs.CurrentTab = Math.Min(currentTab, LoadoutSlotTabs.ChildCount - 1);
+        RestoreLoadoutTab(preserveCurrentTab, currentTab);
 
+    }
+
+    private void RestoreLoadoutTab(bool preserveCurrentTab, int currentTab)
+    {
+        if (!preserveCurrentTab || LoadoutSlotTabs.ChildCount == 0)
+            return;
+
+        LoadoutSlotTabs.CurrentTab = _selectLawPresetTab
+            ? _lawPresetTabIndex
+            : Math.Min(currentTab, LoadoutSlotTabs.ChildCount - 1);
+        _selectLawPresetTab = false;
     }
 
     private void AddRoleCustomization(ProtoId<RoleLoadoutPrototype> role, RoleLoadoutPrototype roleProto, RoleLoadout loadout)
     {
-        if (!roleProto.CanCustomizeName)
+        var lawPresets = role.Id is "JobBorg" or "JobStationAi"
+            ? _prototypeManager.EnumeratePrototypes<SyntheticLawPresetPrototype>()
+                .Where(preset => preset.Roles.Contains(role))
+                .OrderBy(preset => Loc.GetString(preset.Name))
+                .ToList()
+            : new List<SyntheticLawPresetPrototype>();
+
+        if (roleProto.CanCustomizeName)
+        {
+            var body = new BoxContainer
+            {
+                Orientation = BoxContainer.LayoutOrientation.Vertical,
+                Margin = new Thickness(10),
+            };
+            var name = new LineEdit
+            {
+                Text = loadout.EntityName ?? string.Empty,
+                HorizontalExpand = true,
+                ToolTip = Loc.GetString("loadout-name-edit-tooltip", ("max", _cfgManager.GetCVar(CCVars.MaxLoadoutNameLength))),
+            };
+            name.IsValid = text => text.Length <= _cfgManager.GetCVar(CCVars.MaxLoadoutNameLength);
+            name.OnTextChanged += args => SetRoleLoadoutName(role, args.Text);
+            body.AddChild(new Label
+            {
+                Text = Loc.GetString(roleProto.NameDataset == null ? "loadout-name-edit-label" : "loadout-name-edit-label-dataset"),
+                HorizontalExpand = true,
+            });
+            body.AddChild(name);
+            LoadoutSlotTabs.AddChild(body);
+            LoadoutSlotTabs.SetTabTitle(LoadoutSlotTabs.ChildCount - 1, Loc.GetString("loadout-customization-tab"));
+        }
+
+        if (lawPresets.Count == 0)
             return;
 
-        var name = new LineEdit
-        {
-            Text = loadout.EntityName ?? string.Empty,
-            HorizontalExpand = true,
-            ToolTip = Loc.GetString("loadout-name-edit-tooltip", ("max", _cfgManager.GetCVar(CCVars.MaxLoadoutNameLength))),
-        };
-        name.IsValid = text => text.Length <= _cfgManager.GetCVar(CCVars.MaxLoadoutNameLength);
-        name.OnTextChanged += args => SetRoleLoadoutName(role, args.Text);
-
-        var body = new BoxContainer
+        var presets = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
-            Margin = new Thickness(10),
-            Children =
-            {
-                new Label
-                {
-                    Text = Loc.GetString(roleProto.NameDataset == null ? "loadout-name-edit-label" : "loadout-name-edit-label-dataset"),
-                    HorizontalExpand = true,
-                },
-                name,
-            },
+            Margin = new Thickness(5),
+            SeparationOverride = 5,
         };
-        LoadoutSlotTabs.AddChild(body);
-        LoadoutSlotTabs.SetTabTitle(LoadoutSlotTabs.ChildCount - 1, Loc.GetString("loadout-customization-tab"));
+        var selectedPreset = loadout.SyntheticLawPreset?.Id ?? "NTDefault";
+        foreach (var preset in lawPresets)
+        {
+            var isSelected = preset.ID == selectedPreset;
+            var laws = _prototypeManager.Index<SiliconLawsetPrototype>(preset.Lawset);
+            var details = new CollapsibleBody
+            {
+                HorizontalExpand = true,
+                Margin = new Thickness(8, 4, 8, 8),
+            };
+            var detailsContent = new BoxContainer
+            {
+                Orientation = BoxContainer.LayoutOrientation.Vertical,
+                HorizontalExpand = true,
+            };
+            details.AddChild(detailsContent);
+            var select = new Button
+            {
+                Text = Loc.GetString(preset.ID == selectedPreset
+                    ? "loadout-synthetic-law-preset-selected"
+                    : "loadout-synthetic-law-preset-select"),
+                Disabled = isSelected,
+                HorizontalExpand = true,
+                Margin = new Thickness(0, 0, 0, 4),
+                StyleBoxOverride = new StyleBoxFlat
+                {
+                    BackgroundColor = Color.FromHex(isSelected ? "#2a3a4a" : "#2a2a35"),
+                    BorderColor = Color.FromHex(isSelected ? "#60a5fa" : "#32323e"),
+                    BorderThickness = new Thickness(1),
+                    ContentMarginTopOverride = 5,
+                    ContentMarginBottomOverride = 5,
+                },
+            };
+            select.OnPressed += _ =>
+            {
+                SetSyntheticLawPreset(role, preset);
+                _selectLawPresetTab = true;
+                RefreshLoadoutPersonalization(true);
+            };
+            detailsContent.AddChild(select);
+
+            foreach (var lawId in laws.Laws)
+            {
+                var law = _prototypeManager.Index<SiliconLawPrototype>(lawId);
+                var position = law.LawIdentifierOverride ?? law.Order.ToString();
+                var text = new RichTextLabel { Margin = new Thickness(0, 4, 0, 1) };
+                text.SetMarkup(Loc.GetString(
+                    "laws-number-wrapper",
+                    ("lawnumber", position),
+                    ("lawstring", Loc.GetString(law.LawString))));
+                detailsContent.AddChild(text);
+            }
+
+            var heading = new CollapsibleHeading(Loc.GetString(preset.Name))
+            {
+                HorizontalExpand = true,
+                MinHeight = 36,
+            };
+            heading.Label.HorizontalExpand = true;
+            heading.Label.FontColorOverride = isSelected ? Color.FromHex("#8bc5ff") : null;
+            heading.Label.StyleClasses.Add("font-bold");
+
+            var collapsible = new Collapsible(heading, details)
+            {
+                BodyVisible = isSelected,
+                HorizontalExpand = true,
+                Orientation = BoxContainer.LayoutOrientation.Vertical,
+            };
+            presets.AddChild(new PanelContainer
+            {
+                HorizontalExpand = true,
+                PanelOverride = new StyleBoxFlat
+                {
+                    BackgroundColor = Color.FromHex(isSelected ? "#2a3a4a" : "#2a2a35"),
+                    BorderColor = Color.FromHex(isSelected ? "#60a5fa" : "#32323e"),
+                    BorderThickness = new Thickness(1),
+                    ContentMarginLeftOverride = 4,
+                    ContentMarginRightOverride = 4,
+                    ContentMarginTopOverride = 4,
+                    ContentMarginBottomOverride = 4,
+                },
+                Children = { collapsible },
+            });
+        }
+
+        LoadoutSlotTabs.AddChild(new ScrollContainer
+        {
+            HorizontalExpand = true,
+            VerticalExpand = true,
+            HScrollEnabled = false,
+            Children = { presets },
+        });
+        _lawPresetTabIndex = LoadoutSlotTabs.ChildCount - 1;
+        LoadoutSlotTabs.SetTabTitle(LoadoutSlotTabs.ChildCount - 1, Loc.GetString("loadout-synthetic-law-preset-tab"));
+    }
+
+    private void SetSyntheticLawPreset(ProtoId<RoleLoadoutPrototype> role, SyntheticLawPresetPrototype preset)
+    {
+        if (Profile == null)
+            return;
+
+        var loadout = Profile.Loadouts.TryGetValue(role, out var existing) ? existing.Clone() : new RoleLoadout(role);
+        loadout.SyntheticLawPreset = preset.ID;
+        Profile = Profile.WithLoadout(loadout);
+        SetDirty();
     }
 
     private void SetRoleLoadoutName(ProtoId<RoleLoadoutPrototype> role, string name)

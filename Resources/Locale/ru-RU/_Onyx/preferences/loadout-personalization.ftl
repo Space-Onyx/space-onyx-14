@@ -15,3 +15,7 @@ loadout-custom-apply = Применить
 loadout-group-limit = Выбрано: {$selected}/{$max}
 loadout-tooltip-available = ДОСТУПНО
 loadout-tooltip-locked = НЕДОСТУПНО
+loadout-synthetic-law-preset-tab = Набор законов
+loadout-synthetic-law-preset-select = Выбрать
+loadout-synthetic-law-preset-selected = Выбрано
+synthetic-law-preset-helpimov = Хелпимов

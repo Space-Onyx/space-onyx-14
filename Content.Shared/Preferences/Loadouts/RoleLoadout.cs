@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Shared.CCVar;
+using Content.Shared._Onyx.Silicons.Laws; // <Onyx-SyntheticLawPresets>
 using Content.Shared.Humanoid.Prototypes;
 using Content.Corvax.Interfaces.Shared;
 using Content.Shared.Random;
@@ -32,6 +33,11 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
     [DataField]
     public string? EntityName;
 
+    // <Onyx-SyntheticLawPresets>
+    [DataField]
+    public ProtoId<SyntheticLawPresetPrototype>? SyntheticLawPreset;
+    // </Onyx-SyntheticLawPresets>
+
     /*
      * Loadout-specific data used for validation.
      */
@@ -53,6 +59,7 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
         }
 
         weh.EntityName = EntityName;
+        weh.SyntheticLawPreset = SyntheticLawPreset; // <Onyx-SyntheticLawPresets>
 
         return weh;
     }
@@ -79,6 +86,14 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
         {
             EntityName = null;
         }
+
+        // <Onyx-SyntheticLawPresets>
+        if (SyntheticLawPreset is { } preset &&
+            (!protoManager.TryIndex(preset, out SyntheticLawPresetPrototype? lawPreset) || !lawPreset.Roles.Contains(Role)))
+        {
+            SyntheticLawPreset = null;
+        }
+        // </Onyx-SyntheticLawPresets>
 
         // Validate name length
         // TODO: Probably allow regex to be supplied?
@@ -396,13 +411,16 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
 
+        // <Onyx-SyntheticLawPresets-edited>
         if (!Role.Equals(other.Role) ||
             SelectedLoadouts.Count != other.SelectedLoadouts.Count ||
             Points != other.Points ||
-            EntityName != other.EntityName)
+            EntityName != other.EntityName ||
+            SyntheticLawPreset != other.SyntheticLawPreset)
         {
             return false;
         }
+        // </Onyx-SyntheticLawPresets-edited>
 
         // Tried using SequenceEqual but it stinky so.
         foreach (var (key, value) in SelectedLoadouts)
@@ -424,6 +442,6 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Role, SelectedLoadouts, Points);
+        return HashCode.Combine(Role, SelectedLoadouts, Points, SyntheticLawPreset); // <Onyx-SyntheticLawPresets-edited>
     }
 }

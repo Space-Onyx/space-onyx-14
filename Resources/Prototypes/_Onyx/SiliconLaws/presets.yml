@@ -1,0 +1,77 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: syntheticLawPreset
+  id: Crewsimov
+  name: law-crewsimov-name
+  lawset: Crewsimov
+  roles: [JobBorg, JobStationAi]
+
+- type: syntheticLawPreset
+  id: Corporate
+  name: law-corporate-name
+  lawset: Corporate
+  roles: [JobBorg, JobStationAi]
+
+- type: syntheticLawPreset
+  id: NTDefault
+  name: law-ntdefault-name
+  lawset: NTDefault
+  roles: [JobBorg, JobStationAi]
+
+- type: syntheticLawPreset
+  id: Drone
+  name: law-drone-name
+  lawset: Drone
+  roles: [JobStationAi]
+
+- type: syntheticLawPreset
+  id: Commandments
+  name: law-commandments-name
+  lawset: CommandmentsLawset
+  roles: [JobBorg, JobStationAi]
+
+- type: syntheticLawPreset
+  id: Paladin
+  name: law-paladin-name
+  lawset: PaladinLawset
+  roles: [JobBorg, JobStationAi]
+
+- type: syntheticLawPreset
+  id: LiveLetLive
+  name: law-lall-name
+  lawset: LiveLetLiveLaws
+  roles: [JobStationAi]
+
+- type: syntheticLawPreset
+  id: Efficiency
+  name: law-efficiency-name
+  lawset: EfficiencyLawset
+  roles: [JobBorg, JobStationAi]
+
+- type: syntheticLawPreset
+  id: Robocop
+  name: law-robocop-name
+  lawset: RobocopLawset
+  roles: [JobBorg, JobStationAi]
+
+- type: syntheticLawPreset
+  id: Overlord
+  name: law-overlord-name
+  lawset: OverlordLawset
+  roles: [JobStationAi]
+
+- type: syntheticLawPreset
+  id: GameMaster
+  name: law-game-name
+  lawset: GameMasterLawset
+  roles: [JobStationAi]
+
+- type: syntheticLawPreset
+  id: Nutimov
+  name: law-nutimov-name
+  lawset: NutimovLawset
+  roles: [JobStationAi]

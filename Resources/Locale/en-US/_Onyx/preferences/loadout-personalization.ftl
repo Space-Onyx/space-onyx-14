@@ -15,3 +15,7 @@ loadout-custom-apply = Apply
 loadout-group-limit = Selected: {$selected}/{$max}
 loadout-tooltip-available = AVAILABLE
 loadout-tooltip-locked = LOCKED
+loadout-synthetic-law-preset-tab = Law set
+loadout-synthetic-law-preset-select = Select
+loadout-synthetic-law-preset-selected = Selected
+synthetic-law-preset-helpimov = Helpimov
