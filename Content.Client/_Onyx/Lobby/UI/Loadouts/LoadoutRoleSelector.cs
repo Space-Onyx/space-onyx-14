@@ -105,6 +105,16 @@ public class LoadoutRoleSelector : OptionButton
     {
         base.ButtonOverride(button);
         button.AddStyleClass(StyleClass.ButtonSquare);
+        button.StyleBoxOverride = new StyleBoxFlat
+        {
+            BackgroundColor = Color.FromHex("#536b83"),
+            BorderColor = Color.FromHex("#91a8bf"),
+            BorderThickness = new Thickness(1),
+            ContentMarginLeftOverride = 7,
+            ContentMarginRightOverride = 7,
+            ContentMarginTopOverride = 5,
+            ContentMarginBottomOverride = 5,
+        };
         button.Text = IconPadding + button.Text;
         button.AddChild(new TextureRect
         {

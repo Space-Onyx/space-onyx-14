@@ -25,6 +25,7 @@ public sealed partial class HumanoidProfileEditor
     private string _loadoutSearch = string.Empty;
     private ProtoId<RoleLoadoutPrototype>? _selectedLoadoutRole;
     private bool _showSelectedLoadouts;
+    private readonly HashSet<ProtoId<LoadoutPrototype>> _hiddenPreviewLoadouts = new();
     private bool _selectLawPresetTab;
     private int _lawPresetTabIndex;
 
@@ -55,14 +56,15 @@ public sealed partial class HumanoidProfileEditor
         RolesTabContainer.OnTabChanged += _ => UpdateLoadoutPreview();
         LoadoutRoleSelector.StyleBoxOverride = new StyleBoxFlat
         {
-            BackgroundColor = Color.FromHex("#182535"),
-            BorderColor = Color.FromHex("#4c7da8"),
+            BackgroundColor = Color.FromHex("#536b83"),
+            BorderColor = Color.FromHex("#91a8bf"),
             BorderThickness = new Thickness(1),
             ContentMarginLeftOverride = 12,
             ContentMarginRightOverride = 10,
             ContentMarginTopOverride = 7,
             ContentMarginBottomOverride = 7,
         };
+        LoadoutSearchClear.StyleBoxOverride = LoadoutButtonStyle(false);
         UpdateSelectedLoadoutsToggle(0);
     }
 
@@ -477,13 +479,21 @@ public sealed partial class HumanoidProfileEditor
     {
         var selected = loadout.SelectedLoadouts.GetValueOrDefault(group.ID)?.FirstOrDefault(item => item.Prototype == prototype.ID);
         var enabled = loadout.IsValid(Profile!, _playerManager.LocalSession, prototype.ID, collection, out var reason);
-        var icon = new LoadoutIconButton(prototype, selected?.CustomName ?? system.GetName(prototype), selected?.CustomColorTint, enabled ? null : reason)
+        var previewVisible = !_hiddenPreviewLoadouts.Contains(prototype.ID);
+        var icon = new LoadoutIconButton(
+            prototype,
+            selected?.CustomName ?? system.GetName(prototype),
+            selected?.CustomColorTint,
+            enabled ? null : reason,
+            previewVisible,
+            selected != null && HasPreviewEquipment(prototype))
         {
             Pressed = selected != null,
             Disabled = !enabled,
         };
         icon.OnPressed += args => SetPersonalizedLoadout(role, group.ID, prototype, args.Button.Pressed);
         icon.OnCustomizePressed += (_, _) => OpenLoadoutCustomization(role, group.ID, prototype, selected, system.GetName(prototype));
+        icon.OnPreviewVisibilityChanged += visible => SetLoadoutPreviewVisible(prototype, visible);
         return icon;
     }
 
@@ -504,6 +514,7 @@ public sealed partial class HumanoidProfileEditor
         else
         {
             loadout.RemoveLoadout(group, prototype.ID, _prototypeManager);
+            _hiddenPreviewLoadouts.Remove(prototype.ID);
         }
 
         Profile = Profile.WithLoadout(loadout);
@@ -598,6 +609,72 @@ public sealed partial class HumanoidProfileEditor
         }
     }
 
+    private bool HasPreviewEquipment(LoadoutPrototype prototype)
+    {
+        if (prototype.Equipment.Count > 0)
+            return true;
+
+        return _prototypeManager.Resolve(prototype.StartingGear, out var gear) && gear.Equipment.Count > 0;
+    }
+
+    private void SetLoadoutPreviewVisible(LoadoutPrototype prototype, bool visible)
+    {
+        if (visible)
+            _hiddenPreviewLoadouts.Remove(prototype.ID);
+        else
+            _hiddenPreviewLoadouts.Add(prototype.ID);
+
+        ReloadPreview();
+    }
+
+    private void ApplyHiddenLoadoutPreviews()
+    {
+        if (Profile == null || !_entManager.EntityExists(SpriteView.PreviewDummy) || _hiddenPreviewLoadouts.Count == 0)
+            return;
+
+        var role = JobOverride != null
+            ? (ProtoId<RoleLoadoutPrototype>) LoadoutSystem.GetJobPrototype(JobOverride.ID)
+            : GetActiveLoadoutRole();
+        if (role == null)
+            return;
+
+        var currentLoadout = Profile.GetLoadoutOrDefault(
+            role.Value.Id,
+            _playerManager.LocalSession,
+            Profile.Species,
+            _entManager,
+            _prototypeManager);
+        var selected = currentLoadout.SelectedLoadouts.Values
+            .SelectMany(group => group)
+            .Select(loadout => loadout.Prototype)
+            .ToHashSet();
+        var inventory = _entManager.System<InventorySystem>();
+        foreach (var loadoutId in _hiddenPreviewLoadouts)
+        {
+            if (!selected.Contains(loadoutId) ||
+                !_prototypeManager.TryIndex(loadoutId, out LoadoutPrototype? prototype))
+                continue;
+
+            HidePreviewEquipment(prototype, inventory);
+            if (_prototypeManager.Resolve(prototype.StartingGear, out var gear))
+                HidePreviewEquipment(gear, inventory);
+        }
+    }
+
+    private void HidePreviewEquipment(IEquipmentLoadout loadout, InventorySystem inventory)
+    {
+        foreach (var (slot, prototype) in loadout.Equipment)
+        {
+            if (!inventory.TryGetSlotEntity(SpriteView.PreviewDummy, slot, out var equipped) ||
+                !_entManager.TryGetComponent(equipped.Value, out MetaDataComponent? metadata) ||
+                metadata.EntityPrototype?.ID != prototype.Id ||
+                !inventory.TryUnequip(SpriteView.PreviewDummy, slot, out var item, silent: true, force: true, reparent: false))
+                continue;
+
+            _entManager.DeleteEntity(item.Value);
+        }
+    }
+
     private void RemoveConflictingLoadouts(RoleLoadout loadout, ProtoId<LoadoutGroupPrototype> group, LoadoutPrototype selected)
     {
         if (selected.Equipment.Count == 0)
@@ -616,11 +693,22 @@ public sealed partial class HumanoidProfileEditor
         SelectedLoadoutsToggle.Pressed = _showSelectedLoadouts;
         SelectedLoadoutsToggle.StyleBoxOverride = new StyleBoxFlat
         {
-            BackgroundColor = _showSelectedLoadouts ? Color.FromHex("#26445e") : Color.FromHex("#1c2b3a"),
-            BorderColor = Color.FromHex("#4c7da8"),
-            BorderThickness = new Thickness(1),
+            BackgroundColor = Color.FromHex(_showSelectedLoadouts ? "#426b57" : "#536b83"),
+            BorderColor = Color.FromHex(_showSelectedLoadouts ? "#9ed0ae" : "#91a8bf"),
+            BorderThickness = new Thickness(_showSelectedLoadouts ? 2 : 1),
             ContentMarginLeftOverride = 8,
             ContentMarginRightOverride = 8,
         };
     }
+
+    private static StyleBoxFlat LoadoutButtonStyle(bool selected) => new()
+    {
+        BackgroundColor = Color.FromHex(selected ? "#426b57" : "#536b83"),
+        BorderColor = Color.FromHex(selected ? "#9ed0ae" : "#91a8bf"),
+        BorderThickness = new Thickness(selected ? 2 : 1),
+        ContentMarginLeftOverride = 8,
+        ContentMarginRightOverride = 8,
+        ContentMarginTopOverride = 4,
+        ContentMarginBottomOverride = 4,
+    };
 }

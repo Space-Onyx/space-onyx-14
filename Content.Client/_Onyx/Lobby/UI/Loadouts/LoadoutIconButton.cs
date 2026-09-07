@@ -20,15 +20,23 @@ public sealed partial class LoadoutIconButton : Button
     [Dependency] private IEntityManager _entManager = default!;
     private readonly EntityUid? _entity;
     private readonly TextureRect? _lockIcon;
+    private readonly TextureRect _visibilityIcon;
 
     public event Action<string, string>? OnCustomizePressed;
+    public event Action<bool>? OnPreviewVisibilityChanged;
 
-    public LoadoutIconButton(LoadoutPrototype loadout, string name, string? tint, FormattedMessage? reason)
+    public LoadoutIconButton(
+        LoadoutPrototype loadout,
+        string name,
+        string? tint,
+        FormattedMessage? reason,
+        bool previewVisible,
+        bool canTogglePreview)
     {
         IoCManager.InjectDependencies(this);
         ToggleMode = true;
         MinSize = SetSize = new Vector2(108, 132);
-        StyleBoxOverride = Style("#2a2a35", "#32323e");
+        StyleBoxOverride = Style("#536b83", "#91a8bf");
 
         var displayName = name;
         var description = string.Empty;
@@ -74,6 +82,35 @@ public sealed partial class LoadoutIconButton : Button
         customize.AddChild(new TextureRect { TexturePath = "/Textures/Interface/Nano/gear.svg.192dpi.png", SetSize = new Vector2(16), HorizontalAlignment = HAlignment.Center, VerticalAlignment = VAlignment.Center, Stretch = TextureRect.StretchMode.KeepAspectCentered });
         customize.OnPressed += _ => OnCustomizePressed?.Invoke(displayName, description);
         AddChild(customize);
+
+        var visibility = new ContainerButton
+        {
+            StyleBoxOverride = new StyleBoxEmpty(),
+            MinSize = SetSize = new Vector2(24),
+            HorizontalAlignment = HAlignment.Right,
+            VerticalAlignment = VAlignment.Top,
+            HorizontalExpand = false,
+            VerticalExpand = false,
+            ToggleMode = true,
+            Pressed = previewVisible,
+            Visible = canTogglePreview,
+        };
+        _visibilityIcon = new TextureRect
+        {
+            SetSize = new Vector2(18),
+            HorizontalAlignment = HAlignment.Center,
+            VerticalAlignment = VAlignment.Center,
+            Stretch = TextureRect.StretchMode.KeepAspectCentered,
+            MouseFilter = MouseFilterMode.Ignore,
+        };
+        visibility.AddChild(_visibilityIcon);
+        UpdateVisibilityButton(visibility);
+        visibility.OnPressed += args =>
+        {
+            UpdateVisibilityButton(args.Button);
+            OnPreviewVisibilityChanged?.Invoke(args.Button.Pressed);
+        };
+        AddChild(visibility);
     }
 
     public void SetCustomColor(string? tint)
@@ -158,18 +195,29 @@ public sealed partial class LoadoutIconButton : Button
         base.DrawModeChanged();
         StyleBoxOverride = DrawMode switch
         {
-            DrawModeEnum.Disabled => Style("#1a1a22", "#2a2a2a"),
-            DrawModeEnum.Pressed => Style("#2a3a4a", "#60a5fa"),
-            DrawModeEnum.Hover => Style("#2a3a4a", "#32323e"),
-            _ => Style("#2a2a35", "#32323e"),
+            DrawModeEnum.Disabled => Style("#344352", "#647486"),
+            DrawModeEnum.Pressed => Style("#426b57", "#9ed0ae", 2),
+            DrawModeEnum.Hover => Style("#647b94", "#a8bbce"),
+            _ => Style("#536b83", "#91a8bf"),
         };
         if (_lockIcon != null)
             _lockIcon.Visible = DrawMode == DrawModeEnum.Disabled;
     }
 
-    private static StyleBoxFlat Style(string background, string border) => new()
+    private void UpdateVisibilityButton(BaseButton button)
     {
-        BackgroundColor = Color.FromHex(background), BorderColor = Color.FromHex(border), BorderThickness = new Thickness(1), ContentMarginLeftOverride = 4, ContentMarginRightOverride = 4, ContentMarginTopOverride = 4, ContentMarginBottomOverride = 4,
+        _visibilityIcon.TexturePath = button.Pressed
+            ? "/Textures/Interface/Actions/eyeopen.png"
+            : "/Textures/Interface/Actions/eyeclose.png";
+        _visibilityIcon.Modulate = button.Pressed ? Color.FromHex("#f4f8fc") : Color.FromHex("#c4cfdb");
+        button.ToolTip = Loc.GetString(button.Pressed
+            ? "loadout-preview-hide"
+            : "loadout-preview-show");
+    }
+
+    private static StyleBoxFlat Style(string background, string border, int thickness = 1) => new()
+    {
+        BackgroundColor = Color.FromHex(background), BorderColor = Color.FromHex(border), BorderThickness = new Thickness(thickness), ContentMarginLeftOverride = 4, ContentMarginRightOverride = 4, ContentMarginTopOverride = 4, ContentMarginBottomOverride = 4,
     };
 
     [Obsolete]
