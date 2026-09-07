@@ -1,4 +1,3 @@
-using System.Text;
 using Content.Server.Station.Components;
 using Content.Shared._Onyx.UserActions;
 using Robust.Shared.Player;
@@ -12,9 +11,6 @@ public sealed partial class GameTicker
         var preset = CurrentPreset ?? Preset;
         if (preset == null)
             return;
-
-        if (stationNames.Length == 0)
-            stationNames.Append(_gameMapManager.GetSelectedMap()?.MapName ?? Loc.GetString("game-ticker-no-map-selected"));
 
         RaiseNetworkEvent(new TickerInGameInfoEvent(
                 _gameMapManager.GetSelectedMap()?.MapName ?? Loc.GetString("game-ticker-no-map-selected"),
