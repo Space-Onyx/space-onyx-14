@@ -91,7 +91,7 @@ public sealed partial class ClothingDirtWasherSystem : EntitySystem
             !_solutions.TryGetDrainableSolution(ent.Owner, out var washerEnt, out var washer))
             return;
         var amount = FixedPoint2.Min(ent.Comp.Amount, washer.GetTotalPrototypeQuantity(ent.Comp.CleanerReagent));
-        if (!_dirt.TryWashClothing(clothing, new ReagentId(ent.Comp.CleanerReagent, null), amount))
+        if (!_dirt.TryAddCleanerToClothing(clothing, new ReagentId(ent.Comp.CleanerReagent, null), amount))
             return;
         washer.RemoveReagent(ent.Comp.CleanerReagent, amount, ignoreReagentData: true);
         _solutions.UpdateChemicals(washerEnt.Value);

@@ -46,6 +46,9 @@ public sealed class ClothingDirtTest : GameTest
             Assert.That(entityManager.GetComponent<ClothingDirtableComponent>(clothing).DirtColor, Is.Null);
             Assert.That(dirt.TryWashClothing(clothing, new ReagentId("Water", null), FixedPoint2.New(1)), Is.True);
 
+            Assert.That(dirt.TryAddCleanerToClothing(clothing, new ReagentId("Water", null), FixedPoint2.New(1)), Is.True);
+            Assert.That(stored.GetTotalPrototypeQuantity("Water"), Is.EqualTo(FixedPoint2.New(1)));
+
             var wearer = entityManager.SpawnEntity("MobHuman", map.GridCoords);
             var shoes = entityManager.SpawnEntity("ClothingShoesColorBlack", map.GridCoords);
             var puddle = entityManager.SpawnEntity("Puddle", map.GridCoords);

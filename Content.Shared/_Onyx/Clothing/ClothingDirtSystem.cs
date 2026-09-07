@@ -384,12 +384,6 @@ public sealed partial class ClothingDirtSystem : EntitySystem
             changed = true;
         }
 
-        foreach (var cleaner in dirt.Contents.Where(x => IsCleaner(x.Reagent)).ToArray())
-        {
-            dirt.RemoveReagent(cleaner.Reagent, cleaner.Quantity);
-            changed = true;
-        }
-
         return changed;
     }
 
