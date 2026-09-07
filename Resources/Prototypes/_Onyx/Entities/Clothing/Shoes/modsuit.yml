@@ -154,18 +154,6 @@
     modifier: 0.5
   - type: ModifyStandingUpTime
     multiplier: 0.5
-  - type: Armor
-    traumaDeductions:
-      Dismemberment: 0.1
-      OrganDamage: 0.1
-      BoneDamage: 0.1
-      VeinsDamage: 0
-      NerveDamage: 0
-    modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
 
 - type: entity
   parent: ClothingShoesBase
@@ -202,18 +190,6 @@
     modifier: 0.5
   - type: ModifyStandingUpTime
     multiplier: 0.5
-  - type: Armor
-    traumaDeductions:
-      Dismemberment: 0.1
-      OrganDamage: 0.1
-      BoneDamage: 0.1
-      VeinsDamage: 0
-      NerveDamage: 0
-    modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
 
 - type: entity
   parent: ClothingShoesBase
@@ -320,8 +296,6 @@
       - state: equipped-FEET-sealed
       shoes-vox:
       - state: equipped-FEET-sealed-vox
-  - type: FireProtection # lmao
-    reduction: 0.25
 
 - type: entity
   parent: ClothingShoesBase

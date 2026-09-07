@@ -51,6 +51,7 @@
     delay: 0.5
   - type: ExplosionResistance
     damageCoefficient: 0.9
+    worn: false
   - type: ToggleableClothing
     requiredSlot: back
     action: ActionToggleSuitPiece
@@ -131,6 +132,7 @@
     delay: 0.5
   - type: ExplosionResistance
     damageCoefficient: 0.9
+    worn: false
   - type: ToggleableClothing
     requiredSlot: back
     action: ActionToggleSuitPiece
