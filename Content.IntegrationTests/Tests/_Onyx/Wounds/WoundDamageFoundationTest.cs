@@ -16,6 +16,7 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Inventory;
 using Content.Shared.EntityEffects;
 using Content.Shared.Rejuvenate;
+using Content.Shared.Stunnable;
 using Content.Shared.Throwing;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Prototypes;
@@ -43,6 +44,8 @@ public sealed class WoundDamageFoundationTest : GameTest
   - type: Body
   - type: Sprite
   - type: Damageable
+  - type: MobState
+  - type: PainShockTarget
   - type: Injurable
     damageContainer: Biological
   - type: WoundHost
@@ -683,6 +686,20 @@ public sealed class WoundDamageFoundationTest : GameTest
             Assert.That(pain.GetPain(head), Is.EqualTo(FixedPoint2.New(2)));
             Assert.That(pain.ChangePain(head, FixedPoint2.New(-3)), Is.True);
             Assert.That(pain.GetPain(head), Is.EqualTo(FixedPoint2.Zero));
+
+            Assert.That(pain.SetPain(body, FixedPoint2.New(200)), Is.True);
+            Assert.That(pain.GetRawPain(body), Is.EqualTo(FixedPoint2.New(135)));
+            Assert.That(entityManager.HasComponent<StunnedComponent>(body), Is.True);
+            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(94.5)));
+            Assert.That(entityManager.GetComponent<PainShockTargetComponent>(body).Armed, Is.False);
+
+            Assert.That(pain.SuppressPain(body, "PainShockTest", 30, TimeSpan.FromSeconds(10)));
+            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(73.5)));
+            Assert.That(entityManager.GetComponent<PainShockTargetComponent>(body).Armed, Is.True);
+            Assert.That(pain.ClearPainSuppression(body));
+            Assert.That(entityManager.HasComponent<StunnedComponent>(body), Is.True);
+            Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.New(94.5)));
+            Assert.That(entityManager.GetComponent<PainShockTargetComponent>(body).Armed, Is.True);
 
             entityManager.EventBus.RaiseLocalEvent(body, new RejuvenateEvent());
             Assert.That(pain.GetPain(body), Is.EqualTo(FixedPoint2.Zero));

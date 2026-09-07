@@ -134,7 +134,7 @@ public sealed partial class PainComponent : Component
     public FixedPoint2 RecoveryPerSecond = FixedPoint2.New(1f / 9f);
 
     [DataField]
-    public FixedPoint2 SoftPainCap = 130;
+    public FixedPoint2 SoftPainCap = 135;
 
     [ViewVariables]
     public Dictionary<string, PainSuppressionModifier> SuppressionModifiers = new();
@@ -147,6 +147,9 @@ public sealed partial class PainShockTargetComponent : Component
 {
     [DataField, AutoNetworkedField]
     public bool Armed = true;
+
+    [AutoNetworkedField]
+    public TimeSpan? AdrenalineEnds;
 }
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]

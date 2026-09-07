@@ -1,36 +1,53 @@
 using System.Linq;
 using Content.Shared.Body.Part;
+using Content.Shared.Chat;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.FixedPoint;
+using Content.Shared.Jittering;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Rejuvenate;
 using Content.Shared.StatusEffectNew;
+using Content.Shared.Stunnable;
 using Content.Shared.Traits.Assorted;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 
 namespace Content.Shared._Onyx.Wounds;
 
 public sealed partial class PainSystem : EntitySystem
 {
+    [Dependency] private SharedChatSystem _chat = default!;
+    [Dependency] private SharedJitteringSystem _jitter = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private StatusEffectsSystem _statusEffects = default!;
+    [Dependency] private SharedStunSystem _stun = default!;
+    [Dependency] private IGameTiming _timing = default!;
     [Dependency] private WoundSystem _wounds = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
 
-    private static readonly EntProtoId PainShockEffect = "StatusEffectPainShock";
+    private const float PainShockAdrenalineMultiplier = 0.7f;
     private static readonly FixedPoint2 PainShockThreshold = 130;
     private static readonly FixedPoint2 PainShockRearmThreshold = 110;
     private static readonly TimeSpan PainShockStunTime = TimeSpan.FromSeconds(2f);
+    private static readonly TimeSpan PainShockAdrenalineTime = TimeSpan.FromSeconds(30f);
     private float _recoveryAccumulator;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<PainComponent, ComponentShutdown>(OnPainShutdown);
+        SubscribeLocalEvent<PainShockTargetComponent, ComponentStartup>(OnPainShockTargetStartup);
         SubscribeLocalEvent<PainComponent, RejuvenateEvent>(OnRejuvenate);
+    }
+
+    private void OnPainShockTargetStartup(Entity<PainShockTargetComponent> entity, ref ComponentStartup args)
+    {
+        if (_net.IsServer &&
+            TryComp(entity, out PainComponent? pain) &&
+            TryComp(entity, out MobStateComponent? mobState))
+            UpdatePainShock((entity.Owner, pain), mobState, entity.Comp);
     }
 
     public void ApplyOneTimePain(EntityUid part, EntityUid woundUid, FixedPoint2? delta = null)
@@ -116,6 +133,14 @@ public sealed partial class PainSystem : EntitySystem
         var bodyQuery = EntityQueryEnumerator<PainComponent, MobStateComponent, PainShockTargetComponent>();
         while (bodyQuery.MoveNext(out var bodyUid, out var bodyPain, out var mobState, out var shockTarget))
         {
+            if (shockTarget.AdrenalineEnds is { } adrenalineEnds && _timing.CurTime >= adrenalineEnds)
+            {
+                var oldPain = GetPainBeforeAdrenaline((bodyUid, bodyPain)) * PainShockAdrenalineMultiplier;
+                shockTarget.AdrenalineEnds = null;
+                Dirty(bodyUid, shockTarget);
+                RaisePainChanged(bodyUid, bodyPain, oldPain);
+            }
+
             UpdatePainShock((bodyUid, bodyPain), mobState, shockTarget);
         }
 
@@ -129,7 +154,24 @@ public sealed partial class PainSystem : EntitySystem
 
     public FixedPoint2 GetPain(Entity<PainComponent?> entity)
     {
-        if (!Resolve(entity, ref entity.Comp, false) || IsPainNumb(entity.Owner))
+        if (!Resolve(entity, ref entity.Comp, false))
+            return FixedPoint2.Zero;
+
+        var pain = GetPainBeforeAdrenaline((entity.Owner, entity.Comp));
+        var adrenalineTarget = entity.Owner;
+        if (TryComp(entity, out BodyPartComponent? part) && part.Body is { } body)
+            adrenalineTarget = body;
+
+        if (TryComp(adrenalineTarget, out PainShockTargetComponent? shockTarget) &&
+            shockTarget.AdrenalineEnds > _timing.CurTime)
+            pain *= PainShockAdrenalineMultiplier;
+
+        return pain;
+    }
+
+    private FixedPoint2 GetPainBeforeAdrenaline(Entity<PainComponent> entity)
+    {
+        if (IsPainNumb(entity.Owner))
             return FixedPoint2.Zero;
 
         var suppression = entity.Comp.Suppression;
@@ -158,19 +200,15 @@ public sealed partial class PainSystem : EntitySystem
         if (old == value)
             return false;
 
+        var oldPain = GetPain(entity);
         entity.Comp.Value = value;
         Dirty(entity);
-
-        var changed = new PainChangedEvent(entity, old, value);
-        RaiseLocalEvent(entity, ref changed);
-
-        if (TryComp(entity, out MobStateComponent? mobState) &&
-            TryComp(entity, out PainShockTargetComponent? shockTarget))
-            UpdatePainShock((entity.Owner, entity.Comp), mobState, shockTarget);
 
         if (TryComp(entity, out BodyPartComponent? part) && part.Body is { } body &&
             TryComp(body, out PainComponent? bodyPain))
             SetPain((body, bodyPain), bodyPain.Value + value - old);
+
+        RaisePainChanged(entity.Owner, entity.Comp, oldPain);
         return true;
     }
 
@@ -208,8 +246,6 @@ public sealed partial class PainSystem : EntitySystem
     {
         if (mobState.CurrentState == MobState.Dead)
         {
-            if (_statusEffects.HasStatusEffect(entity, PainShockEffect))
-                _statusEffects.TryRemoveStatusEffect(entity, PainShockEffect);
             if (shockTarget.Armed)
             {
                 shockTarget.Armed = false;
@@ -218,13 +254,12 @@ public sealed partial class PainSystem : EntitySystem
             return;
         }
 
-        if (mobState.CurrentState != MobState.Alive)
-            return;
-
         var pain = GetPain((entity.Owner, entity.Comp));
-        if (!shockTarget.Armed)
+        var rearmPain = GetPainBeforeAdrenaline(entity);
+
+        if (rearmPain < PainShockRearmThreshold)
         {
-            if (pain < PainShockRearmThreshold)
+            if (!shockTarget.Armed)
             {
                 shockTarget.Armed = true;
                 Dirty(entity.Owner, shockTarget);
@@ -232,36 +267,34 @@ public sealed partial class PainSystem : EntitySystem
             return;
         }
 
-        if (pain < PainShockThreshold)
+        if (!shockTarget.Armed || pain < PainShockThreshold)
+            return;
+
+        if (!_stun.TryUpdateParalyzeDuration(entity, PainShockStunTime))
             return;
 
         shockTarget.Armed = false;
         Dirty(entity.Owner, shockTarget);
-        _statusEffects.TrySetStatusEffectDuration(entity, PainShockEffect, PainShockStunTime);
+
+        _chat.TryEmoteWithChat(entity, "Scream", ChatTransmitRange.HideChat,
+            ignoreActionBlocker: true, forceEmote: true);
+        _jitter.DoJitter(entity, PainShockStunTime, true, 20f, 7f);
+        ApplyPainShockAdrenaline(entity);
     }
 
     private void OnRejuvenate(Entity<PainComponent> entity, ref RejuvenateEvent args)
     {
         if (_net.IsServer)
         {
-            ClearPainShock(entity);
+            SetPain(entity.AsNullable(), FixedPoint2.Zero);
+            ClearPainSuppression(entity.AsNullable());
             if (TryComp(entity, out PainShockTargetComponent? shockTarget))
             {
                 shockTarget.Armed = true;
+                shockTarget.AdrenalineEnds = null;
                 Dirty(entity.Owner, shockTarget);
             }
         }
-    }
-
-    private void OnPainShutdown(Entity<PainComponent> entity, ref ComponentShutdown args)
-    {
-        if (_net.IsServer)
-            ClearPainShock(entity);
-    }
-
-    private void ClearPainShock(EntityUid entity)
-    {
-        _statusEffects.TryRemoveStatusEffect(entity, PainShockEffect);
     }
 
     private bool IsPainNumb(EntityUid entity)
@@ -380,6 +413,21 @@ public sealed partial class PainSystem : EntitySystem
 
         var changed = new PainChangedEvent(uid, oldPain, pain);
         RaiseLocalEvent(uid, ref changed);
+
+        if (TryComp(uid, out MobStateComponent? mobState) &&
+            TryComp(uid, out PainShockTargetComponent? shockTarget))
+            UpdatePainShock((uid, component), mobState, shockTarget);
+    }
+
+    private void ApplyPainShockAdrenaline(Entity<PainComponent> entity)
+    {
+        if (!TryComp(entity, out PainShockTargetComponent? shockTarget))
+            return;
+
+        var oldPain = GetPain(entity.AsNullable());
+        shockTarget.AdrenalineEnds = _timing.CurTime + PainShockAdrenalineTime;
+        Dirty(entity.Owner, shockTarget);
+        RaisePainChanged(entity.Owner, entity.Comp, oldPain);
     }
 
     private static float GetRecoveryMultiplier(PainComponent pain)
