@@ -330,6 +330,7 @@ namespace Content.Server.Ghost
                 return false;
             }
 
+            EntityManager.System<GhostReturnToLobbySlotSystem>().MarkReturnToLobby(session); // <Onyx-Ghost>
             _gameTicker.Respawn(session);
             _chatManager.DispatchServerMessage(session, Loc.GetString("game-ticker-player-join-game-message"));
             return true;

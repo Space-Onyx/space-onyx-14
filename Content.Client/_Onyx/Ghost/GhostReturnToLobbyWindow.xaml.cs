@@ -41,15 +41,23 @@ public sealed partial class GhostReturnToLobbyWindow : DefaultWindow
     public void SetCanConfirm(bool canConfirm)
     {
         _canConfirm = canConfirm;
-        ConfirmButton.Text = Loc.GetString(canConfirm
-            ? "ghost-return-to-lobby-confirm"
-            : "ghost-return-to-lobby-insufficient-playtime");
         UpdateConfirmButton();
     }
 
     private void UpdateConfirmButton()
     {
-        var delayElapsed = _timing.RealTime - _openedAt >= ConfirmDelay;
-        ConfirmButton.Disabled = !(_canConfirm && delayElapsed);
+        var remaining = ConfirmDelay - (_timing.RealTime - _openedAt);
+        if (remaining > TimeSpan.Zero)
+        {
+            var seconds = (int) Math.Ceiling(remaining.TotalSeconds);
+            ConfirmButton.Text = $"{Loc.GetString("ghost-return-to-lobby-confirm")} ({seconds})";
+            ConfirmButton.Disabled = true;
+            return;
+        }
+
+        ConfirmButton.Text = Loc.GetString(_canConfirm
+            ? "ghost-return-to-lobby-confirm"
+            : "ghost-return-to-lobby-insufficient-playtime");
+        ConfirmButton.Disabled = !_canConfirm;
     }
 }

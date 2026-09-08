@@ -165,6 +165,11 @@ namespace Content.Server.GameTicking
             if (DummyTicker)
                 return;
 
+            // <Onyx-Ghost>
+            if (!EntityManager.System<Content.Server._Onyx.Ghost.GhostReturnToLobbySlotSystem>().TryRecordSpawn(player))
+                return;
+            // </Onyx-Ghost>
+
             if (station == EntityUid.Invalid)
             {
                 var stations = GetSpawnableStations();
