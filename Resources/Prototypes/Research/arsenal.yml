@@ -152,6 +152,7 @@
     - ChemicalPayload
     - CableDetStack1
     - EmptyDetonator
+    - VoiceSignaller
   position: 2,4
   technologyPrerequisites:
     - UraniumMunitions

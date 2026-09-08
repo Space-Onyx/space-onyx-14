@@ -106,3 +106,19 @@
     accentVColor: "#447987"
   - type: Icon
     state: pda-genetics
+
+- type: entity
+  parent: SyndiPDA
+  id: HighCommandPDA
+  name: high commander PDA
+  description: A Syndicate PDA adorned with gilded symbols.
+  components:
+  - type: PdaBorderColor
+    borderColor: "#891417"
+  - type: Pda
+    id: HighCommandIDCard
+    penSlot:
+      startingItem: CyberPen
+      whitelist:
+        tags:
+        - Write

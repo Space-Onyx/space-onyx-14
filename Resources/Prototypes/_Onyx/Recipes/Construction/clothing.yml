@@ -4,3 +4,11 @@
   targetNode: glassesDiag
   category: construction-category-clothing
   objectType: Item
+
+- type: construction
+  id: GogglesMedChem
+  graph: GogglesMedChemHUD
+  startNode: start
+  targetNode: gogglesMedChem
+  category: construction-category-clothing
+  objectType: Item

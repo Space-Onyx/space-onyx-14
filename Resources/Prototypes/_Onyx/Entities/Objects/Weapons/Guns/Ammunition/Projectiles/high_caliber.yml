@@ -1,0 +1,38 @@
+- type: entity
+  parent: BaseBullet
+  id: BulletHighCaliber
+  name: bullet (.50 anti-materiel)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 45
+        Structural: 40
+      armorPenetration: 0.5
+    penetrationThreshold: 50
+
+- type: entity
+  parent: BaseBullet
+  id: BulletHighCaliberAP
+  name: bullet (.50 armor-piercing)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 40
+        Structural: 120
+      armorPenetration: 0.8
+    penetrationThreshold: 50
+
+- type: entity
+  parent: BaseBullet
+  id: BulletLowCaliber
+  name: bullet (5x23mm)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 11

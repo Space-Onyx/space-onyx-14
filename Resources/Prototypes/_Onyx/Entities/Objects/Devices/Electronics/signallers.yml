@@ -1,0 +1,39 @@
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: MiscSignallerBase
+  name: miscellaneous signaller base
+  components:
+  - type: MiscSignaller
+  - type: StaticPrice
+    price: 40
+  - type: DeviceLinkSource
+    ports: [ Triggered ]
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: BasicDevice
+  - type: WirelessNetworkConnection
+    range: 40
+
+- type: entity
+  parent: MiscSignallerBase
+  id: VoiceSignaller
+  name: voice signaller
+  description: A device that transmits a signal when its activation phrase is spoken.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Devices/miscsignallers.rsi
+    state: voicesignaller
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: voicesignaller_inhand_left
+      right:
+      - state: voicesignaller_inhand_right
+  - type: TriggerOnVoice
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 25
+      Plastic: 50
+      Glass: 25
+      Silver: 25

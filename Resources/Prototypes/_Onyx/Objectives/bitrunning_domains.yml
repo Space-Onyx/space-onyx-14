@@ -242,3 +242,48 @@
   objectiveDescriptionByType:
     DeliveryCacheCrate: bitrunning-domain-corsair-cove-delivery-objective-description
     EliminateEnemies: bitrunning-domain-corsair-cove-eliminate-objective-description
+
+# --- --- ---
+#    HARD
+# --- --- ---
+
+- type: bitrunningVirtualDomain
+  id: ZealotArena
+  name: bitrunning-domain-zealot-arena-name
+  description: bitrunning-domain-zealot-arena-desc
+  difficulty: Hard
+  cost: 3
+  serverRewardPoints: 6
+  bitrunningRewardPoints: 600
+  sGradeTimeByType:
+    EliminateEnemies: 300
+  mapPath: /Maps/_Onyx/Bitrun/zealot-arena.yml
+  objectiveTypePool:
+  - EliminateEnemies
+  objectiveTargetByType:
+    EliminateEnemies: 0
+  objectiveTitleByType:
+    EliminateEnemies: bitrunning-domain-zealot-arena-objective-title
+  objectiveDescriptionByType:
+    EliminateEnemies: bitrunning-domain-zealot-arena-objective-description
+
+- type: bitrunningVirtualDomain
+  id: ExperimentalSoldier
+  name: bitrunning-domain-experimental-soldier-name
+  description: bitrunning-domain-experimental-soldier-desc
+  difficulty: Hard
+  cost: 3
+  serverRewardPoints: 6
+  bitrunningRewardPoints: 600
+  sGradeTimeByType:
+    CollectEncryptedCaches: 300
+  forcedLoadout: BitrunnerAvatarERTSecurityGear
+  mapPath: /Maps/_Onyx/Bitrun/Experimental-Soldier.yml
+  objectiveTypePool:
+  - CollectEncryptedCaches
+  objectiveTargetByType:
+    CollectEncryptedCaches: 1
+  objectiveTitleByType:
+    CollectEncryptedCaches: bitrunning-domain-experimental-soldier-objective-title
+  objectiveDescriptionByType:
+    CollectEncryptedCaches: bitrunning-domain-experimental-soldier-objective-description

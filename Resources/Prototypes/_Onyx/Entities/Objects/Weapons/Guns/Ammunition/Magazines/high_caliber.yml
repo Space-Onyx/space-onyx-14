@@ -1,0 +1,133 @@
+- type: entity
+  abstract: true
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: BaseMagazineHighCaliber
+  name: magazine (.50 caliber)
+  components:
+  - type: Tag
+    tags:
+    - MagazineHighCaliber
+  - type: Item
+    size: Small
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - CartridgeHighCaliber
+    proto: CartridgeHighCaliber
+    capacity: 15
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/heavy_rifle_mags.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+
+- type: entity
+  parent: BaseMagazineHighCaliber
+  id: MagazineHighCaliber
+  name: magazine (.50 anti-materiel)
+
+- type: entity
+  parent: BaseMagazineHighCaliber
+  id: MagazineRifleSR50
+  name: rifle magazine (.50 BMG)
+  description: Standard EarthGov type of heavy magazines.
+  components:
+  - type: Tag
+    tags:
+    - MagazineAntiMaterielRifle
+  - type: BallisticAmmoProvider
+    capacity: 10
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazines/Snipers/sr127_mag.rsi
+
+- type: entity
+  parent: MagazineRifleSR50
+  id: MagazineRifleSR50AP
+  name: rifle magazine (.50 BMG AP)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeHighCaliberAP
+
+- type: entity
+  abstract: true
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: BaseMagazineAntiMateriel
+  name: magazine (.60 caliber)
+  components:
+  - type: Tag
+    tags:
+    - MagazineAntiMateriel
+  - type: Item
+    size: Small
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - CartridgeAntiMateriel
+    proto: CartridgeAntiMateriel
+    capacity: 5
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/sniper_rifle_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+
+- type: entity
+  parent: BaseMagazineAntiMateriel
+  id: MagazineAntiMateriel
+  name: magazine (.60 anti-materiel)
+
+- type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: MagazineLowCaliberM7S
+  name: M7S magazine (5x23mm)
+  components:
+  - type: Tag
+    tags:
+    - MagazineLowCaliberM7S
+  - type: Item
+    size: Small
+    storedRotation: -90
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+      - CartridgeLowCaliber
+    proto: CartridgeLowCaliber
+    capacity: 48
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Magazine/M7S_magazine.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance

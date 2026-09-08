@@ -171,3 +171,17 @@
     contents:
     - id: PillMutadon
       amount: 5
+
+- type: entity
+  parent: PrefilledSyringe
+  id: SyringeMicroplastics
+  suffix: Microplastics
+  description: A syringe of microplastics, medicinal only to Vox.
+  components:
+  - type: Label
+    currentLabel: reagent-name-microplastics
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Microplastics
+        Quantity: 15

@@ -1233,11 +1233,7 @@ JanitorServiceLight: null
 # 2026-08-01 Onyx
 AirlockCentralCommandCommandLocked: AirlockMaintLocked
 RandomVendingSnacksMidpop: RandomVendingSnacks
-SlotMachine: null
-AugmentBotanyPanelElectronics: null
-ClawMachine: null
 XenoCompatibilityImplanter: null
-SyringeHeroin: null
 
 # 2026-08-02 Onyx
 GatewayLavaland: null
@@ -1262,3 +1258,9 @@ AirlockHeadOfPersonnelGlass: AirlockGlass
 
 # 2026-09-07 Onyx
 PosterLegitGoobNTRAdvert: null
+
+# 2026-09-08 Onyx
+AutodocSyndie: null
+RightHandHuman: OrganHumanHandRight
+LeftHandHuman: OrganHumanHandLeft
+OperatingTableFilled: OperatingTable

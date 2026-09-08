@@ -1,0 +1,38 @@
+- type: reagent
+  id: Carpolin
+  name: reagent-name-carpolin
+  group: Toxins
+  desc: reagent-desc-carpolin
+  physicalDesc: reagent-physical-desc-exotic-smelling
+  flavor: bitter
+  color: "#bb26f9"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.05
+      effects:
+      - !type:Polymorph
+        prototype: ForcedCarpSentient
+        conditions:
+        - !type:ReagentCondition
+          reagent: Carpolin
+          min: 9
+      - !type:AdjustReagent
+        reagent: Carpolin
+        amount: -10
+        conditions:
+        - !type:ReagentCondition
+          reagent: Carpolin
+          min: 9
+      - !type:PopupMessage
+        type: Local
+        messages: [ reagent-popup-carpolin ]
+        probability: 0.3
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Carpolin
+          min: 1
+        - !type:MetabolizerTypeCondition
+          type: [ Animal ]
+        damage:
+          types: { Poison: 0.06 }

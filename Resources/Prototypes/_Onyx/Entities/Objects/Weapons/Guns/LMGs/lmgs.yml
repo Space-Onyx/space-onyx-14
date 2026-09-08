@@ -15,7 +15,7 @@
   - type: Clothing
     sprite: _Onyx/Objects/Weapons/Guns/LMGs/t42/tiny.rsi
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/LMGs/t42/tiny.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/LMGs/t42/big.rsi
   - type: GunWieldBonus
     minAngle: -30
     maxAngle: -50
@@ -52,3 +52,14 @@
   - type: GunRequiresWield
   - type: HeldSpeedModifier
     sprintModifier: 0.9
+
+- type: entity
+  parent: WeaponLightMachineGunL6C
+  id: WeaponLightMachineGunL6CInfinite
+  suffix: Infinite
+  description: The L6 SAW with an integrated self-charging ammunition system.
+  components:
+  - type: Gun
+    minAngle: 12
+    maxAngle: 20
+    fireRate: 3.5

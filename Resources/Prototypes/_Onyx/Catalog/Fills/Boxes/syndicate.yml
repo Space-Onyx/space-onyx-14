@@ -1,0 +1,13 @@
+- type: entity
+  parent: [ BoxCardboard, BaseSyndicateContraband ]
+  id: SyndicateLollypopBundle
+  name: box of lollypops
+  description: A box full of Donk Co. candy.
+  components:
+  - type: StorageFill
+    contents:
+    - id: FoodSnackLollypopWrappedMysteryEvil
+      amount: 9
+  - type: Sprite
+    layers:
+    - state: box_of_doom

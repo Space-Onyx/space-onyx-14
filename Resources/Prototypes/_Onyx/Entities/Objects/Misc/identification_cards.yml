@@ -109,3 +109,11 @@
       state: Geneticist
   - type: PresetIdCard
     job: Geneticist
+- type: entity
+  parent: SyndicateIDCard
+  id: HighCommandIDCard
+  name: high command ID card
+  description: A gilded Syndicate identification card with an integrated access breaker.
+  components:
+  - type: Emag
+    emagType: Access

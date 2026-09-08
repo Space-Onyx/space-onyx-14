@@ -7,3 +7,24 @@
     sprite: _Onyx/Structures/Storage/Crates/wood.rsi
   - type: Sprite
     sprite: _Onyx/Structures/Storage/Crates/wood.rsi
+- type: entity
+  parent: [ CrateBaseSecure, CrateGenericSteel ]
+  id: CrateInterdyneSecure
+  name: Interdyne crate
+  description: A secure crate belonging to Interdyne Pharmaceutics.
+  components:
+  - type: Icon
+    sprite: _Onyx/Structures/Storage/Crates/interdyne_secure.rsi
+  - type: Sprite
+    sprite: _Onyx/Structures/Storage/Crates/interdyne_secure.rsi
+
+- type: entity
+  parent: [ CrateBaseSecure, CrateFreezer ]
+  id: CrateFreezerInterdyneSecure
+  name: Interdyne freezer
+  description: An Interdyne Pharmaceuticals branded secure freezer.
+  components:
+  - type: Icon
+    sprite: _Onyx/Structures/Storage/Crates/interdyne-freezer_secure.rsi
+  - type: Sprite
+    sprite: _Onyx/Structures/Storage/Crates/interdyne-freezer_secure.rsi

@@ -14,7 +14,7 @@
   - type: Clothing
     sprite: _Onyx/Objects/Weapons/Guns/SMG/vector/tiny.rsi
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/SMG/vector/tiny.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/SMG/vector/big.rsi
   - type: GunWieldBonus
     minAngle: -20
     maxAngle: -20
@@ -48,6 +48,66 @@
     steps: 1
     zeroVisible: true
   - type: Appearance
+
+- type: entity
+  parent: [ BaseWeaponSubMachineGun, BaseGunWieldable, BaseSyndicateContraband ]
+  id: WeaponSubMachineGunM7S
+  name: M7S Ventilator
+  description: A high-rate submachine gun fed from side-loading 5x23mm magazines.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/SMGs/M7S.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Guns/SMGs/M7S.rsi
+  - type: Item
+    shape:
+    - 0,0,2,1
+  - type: Gun
+    fireRate: 13.5
+    projectileSpeed: 30
+    minAngle: 15
+    maxAngle: 55
+    angleDecay: -8
+    angleIncrease: -1.65
+    availableModes: [ FullAuto ]
+    soundGunshot:
+      path: /Audio/_Onyx/Weapons/Guns/Gunshots/bwuh.ogg
+      params:
+        volume: -10
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        startingItem: MagazineLowCaliberM7S
+        insertSound: /Audio/Weapons/Guns/MagIn/smg_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/smg_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - MagazineLowCaliberM7S
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        startingItem: CartridgeLowCaliber
+        priority: 1
+        whitelist:
+          tags:
+          - CartridgeLowCaliber
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: RestrictGunshotsByUserTag
+    doesntContain:
+    - Oni
+    messages:
+    - oni-cannot-shoot-guns-1
+    - oni-cannot-shoot-guns-2
+    - oni-cannot-shoot-guns-3
 
 - type: entity
   parent: [BaseWeaponSubMachineGun, BaseGunWieldable, BaseSecurityContraband]

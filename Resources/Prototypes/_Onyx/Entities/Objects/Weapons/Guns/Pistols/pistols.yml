@@ -8,7 +8,7 @@
     sprite: _Onyx/Objects/Weapons/Guns/Pistols/glock22/big.rsi
     scale: 0.9, 0.9
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/Pistols/glock22/tiny.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Pistols/glock22/big.rsi
   - type: Gun
     angleDecay: 7
     angleIncrease: 2
@@ -38,6 +38,57 @@
     zeroVisible: true
 
 - type: entity
+  parent: [ BaseItem, BaseSyndicateContraband ]
+  id: WeaponPistolAnaconda
+  name: Anaconda
+  description: A bulky hand cannon with a built-in fabricator in its grip. It slowly prints ammunition for itself.
+  components:
+  - type: Item
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+  - type: Tag
+    tags:
+    - Sidearm
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Pistols/anaconda.rsi
+    layers:
+    - state: icon
+      map: ["enum.GunVisualLayers.Base"]
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Guns/Pistols/anaconda.rsi
+    quickEquip: false
+    slots:
+    - suitStorage
+    - Belt
+  - type: Gun
+    fireRate: 3
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/hpistol.ogg
+  - type: BasicEntityAmmoProvider
+    proto: BulletCaselessRifle
+    capacity: 7
+    count: 7
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 4
+    rechargeSound:
+      path: /Audio/Weapons/Guns/Cock/shotgun_close.ogg
+  - type: RestrictGunshotsByUserTag
+    doesntContain:
+    - Oni
+    messages:
+    - oni-cannot-shoot-guns-1
+    - oni-cannot-shoot-guns-2
+    - oni-cannot-shoot-guns-3
+  - type: AmmoCounter
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+
+- type: entity
   parent: [BaseWeaponPistol, BaseSecurityContraband]
   id: WeaponPistolVP78
   name: combat pistol VP-78
@@ -46,7 +97,7 @@
   - type: Sprite
     sprite: _Onyx/Objects/Weapons/Guns/Pistols/vp78/big.rsi
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/Pistols/vp78/tiny.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Pistols/vp78/big.rsi
   - type: Gun
     angleIncrease: 2
     angleDecay: 10
@@ -89,7 +140,7 @@
   - type: Sprite
     sprite: _Onyx/Objects/Weapons/Guns/Pistols/deagle/big.rsi
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/Pistols/deagle/tiny.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Pistols/deagle/big.rsi
   - type: Gun
     angleDecay: 35
     angleIncrease: 12

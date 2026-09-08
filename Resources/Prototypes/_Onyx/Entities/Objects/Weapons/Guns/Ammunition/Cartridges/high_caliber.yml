@@ -1,0 +1,53 @@
+- type: entity
+  parent: [ BaseCartridge, BaseMajorContraband ]
+  id: CartridgeHighCaliber
+  name: cartridge (.50 anti-materiel)
+  components:
+  - type: Tag
+    tags:
+    - Cartridge
+    - CartridgeHighCaliber
+  - type: CartridgeAmmo
+    proto: BulletHighCaliber
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Ammunition/Casings/50BMG_casing.rsi
+    layers:
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+    state: base
+  - type: StaticPrice
+    price: 20
+
+- type: entity
+  parent: CartridgeHighCaliber
+  id: CartridgeHighCaliberAP
+  name: cartridge (.50 armor-piercing)
+  components:
+  - type: CartridgeAmmo
+    proto: BulletHighCaliberAP
+  - type: Sprite
+    layers:
+    - state: fast
+      map: ["enum.AmmoVisualLayers.Base"]
+  - type: SpentAmmoVisuals
+    state: fast
+
+- type: entity
+  parent: BaseCartridge
+  id: CartridgeLowCaliber
+  name: cartridge (5x23mm)
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers:
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+  - type: CartridgeAmmo
+    proto: BulletLowCaliber
+    deleteOnSpawn: true
+  - type: Tag
+    tags:
+    - Cartridge
+    - CartridgeLowCaliber

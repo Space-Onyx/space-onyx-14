@@ -55,3 +55,4 @@ tiles-plating-wedge-e = восточный клин покрытия
 tiles-plating-wedge-n = северный клин покрытия
 tiles-plating-wedge-s = южный клин покрытия
 tiles-plating-wedge-w = западный клин покрытия
+tiles-white-floor-herringbone-alt = белые стальные плиты ёлочкой (Альтернативное)

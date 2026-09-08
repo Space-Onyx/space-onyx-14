@@ -52,3 +52,22 @@
     interfaces:
       enum.ChameleonUiKey.Key:
         type: ChameleonBoundUserInterface
+
+- type: entity
+  parent: [ClothingEyesBase, ShowMedicalIcons]
+  id: ClothingEyesGlassesMedChem
+  name: medichem goggles
+  description: Goggles that can scan the chemical composition of a solution, with an integrated medical hud.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Eyes/Glasses/medichem.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Eyes/Glasses/medichem.rsi
+  - type: SolutionScanner
+  - type: Construction
+    graph: GogglesMedChemHUD
+    node: gogglesMedChem
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+    - HudMedichem

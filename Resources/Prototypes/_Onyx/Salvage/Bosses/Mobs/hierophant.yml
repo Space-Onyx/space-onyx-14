@@ -128,3 +128,10 @@
   - type: MegafaunaBlinkInactive
   - type: MegafaunaGodmode
   - type: MegafaunaRejuvenate
+
+- type: entity
+  parent: MobHierophant
+  id: MobHierophantBitrunning
+  suffix: Bitrunning
+  components:
+  - type: BitrunningDomainEnemyObjective

@@ -96,3 +96,21 @@
 
 - type: Tag
   id: MagazinePistol20
+
+- type: Tag
+  id: MagazineHighCaliber
+
+- type: Tag
+  id: CartridgeHighCaliber
+
+- type: Tag
+  id: MagazineAntiMaterielRifle
+
+- type: Tag
+  id: MagazineAntiMateriel
+
+- type: Tag
+  id: MagazineLowCaliberM7S
+
+- type: Tag
+  id: CartridgeLowCaliber

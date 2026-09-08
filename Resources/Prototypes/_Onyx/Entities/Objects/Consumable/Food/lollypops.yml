@@ -447,6 +447,164 @@
       Paper: 25
 
 - type: entity
+  abstract: true
+  parent: FoodSnackLollypopBase
+  id: FoodSnackLollypopBaseCentcomm
+  name: centcomm lollypop
+  description: An extremely expensive lollypop able to hold a large volume of chemicals.
+  components:
+  - type: FlavorProfile
+    flavors: [ electrons ]
+  - type: Sprite
+    layers:
+    - state: lollypop
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: lollypop-centcomm
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+  - type: Solution
+    solution:
+      maxVol: 100
+      reagents:
+      - ReagentId: Sugar
+        Quantity: 5
+
+- type: entity
+  parent: FoodSnackLollypopBaseCentcomm
+  id: FoodSnackLollypopCentcomm
+  name: centcomm lollypop
+  description: A green lollypop containing an extravagant amount of gold leaf.
+
+- type: entity
+  abstract: true
+  parent: [ FoodSnackLollypopWrappedBase, BaseSyndicateContraband ]
+  id: FoodSnackLollypopWrappedBaseSyndicate
+  name: wrapped Syndicate lollypop
+  description: A likely dangerous chemical-filled lollypop in a wrapper.
+  components:
+  - type: Sprite
+    state: lollypop-wrapped-syndicate
+  - type: SpawnItemsOnUse
+    items:
+    - id: FoodSnackLollypopTrashSyndicate
+    - id: FoodSnackLollypopBaseSyndicate
+    sound:
+      path: /Audio/Effects/unwrap.ogg
+
+- type: entity
+  abstract: true
+  parent: FoodSnackLollypopBase
+  id: FoodSnackLollypopBaseSyndicate
+  name: lollypop
+  description: A plain lollypop that gives you a bad feeling.
+  components:
+  - type: FlavorProfile
+    flavors: [ coffee ]
+  - type: Solution
+    solution:
+      maxVol: 30
+      reagents:
+      - ReagentId: Sugar
+        Quantity: 5
+
+- type: entity
+  parent: FoodSnackLollypopWrappedBaseSyndicate
+  id: FoodSnackLollypopWrappedSyndicate
+  name: wrapped Syndicate lollypop
+  description: Donk Co. candy made for discreet chemical storage.
+  components:
+  - type: SpawnItemsOnUse
+    items:
+    - id: FoodSnackLollypopTrashSyndicate
+    - id: FoodSnackLollypopSyndicate
+    sound:
+      path: /Audio/Effects/unwrap.ogg
+
+- type: entity
+  parent: FoodSnackLollypopBaseSyndicate
+  id: FoodSnackLollypopSyndicate
+  name: lollypop
+  description: A plain lollypop that gives you a bad feeling.
+
+- type: entity
+  categories: [ HideSpawnMenu ]
+  parent: [ FoodPacketTrash, BaseSyndicateContraband ]
+  id: FoodSnackLollypopTrashSyndicate
+  name: Syndicate lollypop wrapper
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Consumable/Food/lollypop.rsi
+    state: lollypop-wrapper-syndicate
+  - type: Item
+    sprite: _Onyx/Objects/Consumable/Food/lollypop.rsi
+  - type: Tag
+    tags: [ Trash ]
+
+- type: entity
+  parent: FoodSnackLollypopBase
+  id: FoodSnackLollypopMindbreakerToxin
+  name: mindbreaker lollypop
+  components:
+  - type: Solution
+    solution:
+      maxVol: 20
+      reagents: [{ ReagentId: Sugar, Quantity: 5 }, { ReagentId: MindbreakerToxin, Quantity: 10 }]
+
+- type: entity
+  parent: FoodSnackLollypopBaseSyndicate
+  id: FoodSnackLollypopLexorin
+  name: lollypop
+  suffix: Lexorin
+  components:
+  - type: Solution
+    solution:
+      maxVol: 20
+      reagents: [{ ReagentId: Sugar, Quantity: 5 }, { ReagentId: Lexorin, Quantity: 10 }]
+
+- type: entity
+  parent: FoodSnackLollypopBaseSyndicate
+  id: FoodSnackLollypopRomerol
+  name: lollypop
+  suffix: Romerol
+  components:
+  - type: Solution
+    solution:
+      maxVol: 20
+      reagents: [{ ReagentId: Sugar, Quantity: 5 }, { ReagentId: Romerol, Quantity: 10 }]
+
+- type: entity
+  parent: FoodSnackLollypopBaseSyndicate
+  id: FoodSnackLollypopNocturine
+  name: lollypop
+  suffix: Nocturine
+  components:
+  - type: Solution
+    solution:
+      maxVol: 20
+      reagents: [{ ReagentId: Sugar, Quantity: 5 }, { ReagentId: Nocturine, Quantity: 10 }]
+
+- type: entity
+  parent: FoodSnackLollypopBaseSyndicate
+  id: FoodSnackLollypopHyperzine
+  name: lollypop
+  suffix: Hyperzine
+  components:
+  - type: Solution
+    solution:
+      maxVol: 20
+      reagents: [{ ReagentId: Sugar, Quantity: 5 }, { ReagentId: Stimulants, Quantity: 10 }]
+
+- type: entity
+  parent: FoodSnackLollypopBaseSyndicate
+  id: FoodSnackLollypopCarpoToxin
+  name: lollypop
+  suffix: CarpoToxin
+  components:
+  - type: Solution
+    solution:
+      maxVol: 20
+      reagents: [{ ReagentId: Sugar, Quantity: 5 }, { ReagentId: CarpoToxin, Quantity: 15 }]
+
+- type: entity
   categories: [ HideSpawnMenu ]
   parent: FoodPacketTrash
   id: FoodSnackLollypopTrash
@@ -460,3 +618,155 @@
   - type: Tag
     tags:
     - Trash
+
+- type: entity
+  parent: FoodSnackLollypopBaseSyndicate
+  id: FoodSnackLollypopFentanyl
+  name: lollypop
+  suffix: Fentanyl
+  components:
+  - type: Solution
+    solution:
+      maxVol: 20
+      reagents: [{ ReagentId: Sugar, Quantity: 5 }, { ReagentId: Fentanyl, Quantity: 10 }]
+
+- type: entity
+  parent: FoodSnackLollypopBaseSyndicate
+  id: FoodSnackLollypopPhlogiston
+  name: lollypop
+  suffix: Phlogiston
+  components:
+  - type: Solution
+    solution:
+      maxVol: 20
+      reagents: [{ ReagentId: Sugar, Quantity: 5 }, { ReagentId: Phlogiston, Quantity: 10 }]
+
+- type: entity
+  parent: FoodSnackLollypopBaseSyndicate
+  id: FoodSnackLollypopCyanide
+  name: lollypop
+  suffix: Cyanide
+  components:
+  - type: Solution
+    solution:
+      maxVol: 20
+      reagents: [{ ReagentId: Sugar, Quantity: 5 }, { ReagentId: Cyanide, Quantity: 10 }]
+
+- type: entity
+  parent: FoodSnackLollypopBaseSyndicate
+  id: FoodSnackLollypopTirizene
+  name: lollypop
+  suffix: Tirizene
+  components:
+  - type: Solution
+    solution:
+      maxVol: 20
+      reagents: [{ ReagentId: Sugar, Quantity: 5 }, { ReagentId: Tirizene, Quantity: 10 }]
+
+- type: entity
+  parent: FoodSnackLollypopBaseSyndicate
+  id: FoodSnackLollypopAnacea
+  name: lollypop
+  suffix: Anacea
+  components:
+  - type: Solution
+    solution:
+      maxVol: 20
+      reagents: [{ ReagentId: Sugar, Quantity: 5 }, { ReagentId: Anacea, Quantity: 10 }]
+
+- type: entity
+  parent: FoodSnackLollypopBaseSyndicate
+  id: FoodSnackLollypopPotassiumBomb
+  name: lollypop
+  suffix: Potassium bomb
+  components:
+  - type: Solution
+    solution:
+      maxVol: 20
+      canReact: false
+      reagents: [{ ReagentId: Sugar, Quantity: 5 }, { ReagentId: Water, Quantity: 5 }, { ReagentId: Potassium, Quantity: 5 }]
+
+- type: entity
+  parent: FoodSnackLollypopBase
+  id: FoodSnackLollypopCarpEvil
+  name: carp lollypop
+  suffix: Evil
+  components:
+  - type: Sprite
+    layers:
+    - state: lollypop-trash
+    - state: lollypop-carp
+  - type: Solution
+    solution:
+      maxVol: 20
+      reagents: [{ ReagentId: Sugar, Quantity: 5 }, { ReagentId: Carpolin, Quantity: 10 }]
+
+- type: entity
+  parent: [ FoodSnackLollypopWrappedBase, BaseSyndicateContraband ]
+  id: FoodSnackLollypopWrappedMysteryEvil
+  name: wrapped mystery lollypop
+  suffix: Evil
+  description: A mysterious lollypop that gives you a bad feeling.
+  components:
+  - type: Sprite
+    state: lollypop-wrapped-syndicate
+  - type: SpawnItemsOnUse
+    items:
+    - id: FoodSnackLollypopTrashSyndicate
+    - id: FoodSnackLollypop
+      orGroup: LollypopMystery
+      prob: 0.20
+    - id: FoodSnackLollypopDermaline
+      orGroup: LollypopMystery
+    - id: FoodSnackLollypopProbital
+      orGroup: LollypopMystery
+    - id: FoodSnackLollypopMitotrophin
+      orGroup: LollypopMystery
+      prob: 0.30
+    - id: FoodSnackLollypopTricordrazine
+      orGroup: LollypopMystery
+    - id: FoodSnackLollypopDexalinPlus
+      orGroup: LollypopMystery
+    - id: FoodSnackLollypopMindbreakerToxin
+      orGroup: LollypopMystery
+    - id: FoodSnackLollypopOmnizine
+      orGroup: LollypopMystery
+      prob: 0.35
+    - id: FoodSnackLollypopLexorin
+      orGroup: LollypopMystery
+      prob: 0.35
+    - id: FoodSnackLollypopCyanide
+      orGroup: LollypopMystery
+      prob: 0.35
+    - id: FoodSnackLollypopTirizene
+      orGroup: LollypopMystery
+      prob: 0.35
+    - id: FoodSnackLollypopCarpoToxin
+      orGroup: LollypopMystery
+      prob: 0.35
+    - id: FoodSnackLollypopNocturine
+      orGroup: LollypopMystery
+      prob: 0.35
+    - id: FoodSnackLollypopAnacea
+      orGroup: LollypopMystery
+      prob: 0.25
+    - id: FoodSnackLollypopHyperzine
+      orGroup: LollypopMystery
+      prob: 0.35
+    - id: FoodSnackLollypopPhlogiston
+      orGroup: LollypopMystery
+      prob: 0.20
+    - id: FoodSnackLollypopFentanyl
+      orGroup: LollypopMystery
+      prob: 0.20
+    - id: FoodSnackLollypopPotassiumBomb
+      orGroup: LollypopMystery
+      prob: 0.35
+    - id: FoodSnackLollypopCarpEvil
+      orGroup: LollypopMystery
+      prob: 0.20
+    - id: FoodSnackLollypopRomerol
+      orGroup: LollypopMystery
+      prob: 0.05
+    sound:
+      path: /Audio/Effects/unwrap.ogg

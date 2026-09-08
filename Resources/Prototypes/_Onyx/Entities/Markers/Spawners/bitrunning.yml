@@ -275,3 +275,67 @@
   - type: ConditionalSpawner
     prototypes:
     - MobBearGoon
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobSyndicateSoldierBitrunning
+  suffix: AI, Bitrunning
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+  - type: ConditionalSpawner
+    prototypes:
+    - MobSyndicateSoldierBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobNukeopsSoldierBitrunning
+  suffix: AI, Bitrunning
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+  - type: ConditionalSpawner
+    prototypes:
+    - MobNukeopsSoldierBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobExperimentalSoldierBitrunning
+  suffix: AI, Bitrunning
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+  - type: ConditionalSpawner
+    prototypes:
+    - MobExperimentalSoldierBitrunning
+
+- type: entity
+  parent: SpawnMobHierophant
+  id: SpawnMobHierophantBitrunning
+  suffix: AI, Bitrunning
+  categories: [ Spawner ]
+  components:
+  - type: ConditionalSpawner
+    prototypes:
+    - MobHierophantBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobWhiteWolf
+  name: White Wolf Spawner
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - state: whitewolf
+      sprite: _Onyx/Mobs/Animals/wolf.rsi
+  - type: ConditionalSpawner
+    prototypes:
+    - MobWhiteWolf

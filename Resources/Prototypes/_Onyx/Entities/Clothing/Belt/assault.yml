@@ -67,3 +67,38 @@
     containers:
       storagebase: !type:NestedSelector
         tableId: BeltAssaultBSOEntityTable
+- type: entity
+  parent: [ ClothingBeltStorageBase, ContentsExplosionResistanceBase, BaseSyndicateContraband ]
+  id: ClothingBeltMilitaryRigGrenadier
+  name: grenadier belt
+  description: A specialized belt rig for grenades, sidearms, and magazines.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Belt/grenaderig.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Belt/grenaderig.rsi
+  - type: ExplosionResistance
+    damageCoefficient: 0.01
+  - type: Storage
+    grid:
+    - 0,0,7,3
+    whitelist:
+      components:
+      - TimerTrigger
+      tags:
+      - Grenade
+      - MagazinePistol
+      - MagazinePistolHighCapacity
+      - MagazineMagnum
+      - SpeedLoaderMagnum
+      - MagazinePistolCaselessRifle
+  - type: ContainerContainer
+    containers:
+      item: !type:ContainerSlot
+      storagebase: !type:Container
+  - type: ItemSlots
+    slots:
+      item:
+        whitelist:
+          tags:
+          - Sidearm

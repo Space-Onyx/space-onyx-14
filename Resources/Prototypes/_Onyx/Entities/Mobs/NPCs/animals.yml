@@ -11,3 +11,63 @@
   - type: DnaModifier
     upper: MobDwarf
     lowest: MobMonkeyDwarf
+
+- type: entity
+  parent: [ SimpleMobBase, MobCombat ]
+  id: MobWhiteWolf
+  name: white wolf
+  description: Do not try to pet this one.
+  components:
+  - type: HTN
+    rootTask:
+      task: SimpleHostileCompound
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _Onyx/Mobs/Animals/wolf.rsi
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: whitewolf
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: whitewolf
+      Dead:
+        Base: wolfdead
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 3
+    baseSprintSpeed: 5
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      50: Dead
+  - type: MeleeWeapon
+    altDisarm: false
+    angle: 0
+    animation: WeaponArcBite
+    soundHit:
+      path: /Audio/Effects/bite.ogg
+    damage:
+      types:
+        Slash: 10
+  - type: Butcherable
+    spawned:
+    - id: FoodMeat
+      amount: 1
+  - type: LanguageKnowledge
+    speaks:
+    - Dog
+    understands:
+    - Dog
+    - TauCetiBasic
+
+- type: entity
+  parent: MobCarp
+  id: MobCarpSentient
+  name: space carp
+  description: A space carp that used to be a person.
+  components:
+  - type: InputMover
+  - type: MobMover

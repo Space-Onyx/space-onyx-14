@@ -123,3 +123,42 @@
     outerClothing: ClothingOuterArmorXenonautenHeavy
     gloves: ClothingHandsGlovesFingerless
     shoes: ClothingShoesBootsCombat
+
+- type: startingGear
+  id: ExperimentalSoldierGear
+  equipment:
+    mask: ClothingMaskGasSyndicate
+    eyes: ClothingEyesHudSyndicate
+    jumpsuit: ClothingUniformJumpsuitOperative
+    shoes: ClothingShoesBootsMagSyndie
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitCybersunDreadnoughtexperimental
+    head: ClothingHeadHelmetHardsuitDreadnought
+    id: HighCommandPDA
+
+- type: startingGear
+  id: NukeopsSoldierGear
+  equipment:
+    mask: ClothingMaskGasSyndicate
+    eyes: ClothingEyesHudSyndicate
+    jumpsuit: ClothingUniformJumpsuitOperative
+    shoes: ClothingShoesBootsMagSyndie
+    gloves: ClothingHandsGlovesCombat
+    back: ClothingBackpackDuffelSyndicate
+    belt: ClothingBeltMilitaryRigGrenadier
+    outerClothing: ClothingOuterHardsuitSyndie
+    head: ClothingHeadHelmetHardsuitSyndie
+    id: SyndiPDA
+
+- type: startingGear
+  parent: BitrunnerAvatarGear
+  id: BitrunnerAvatarERTSecurityGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTSecurity
+    back: ClothingBackpackERTSecurity
+    shoes: ClothingShoesBootsMagERT
+    eyes: ClothingEyesGlassesSecurity
+    mask: ClothingMaskGasERT
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTSecurity
+    belt: FlashlightSeclite

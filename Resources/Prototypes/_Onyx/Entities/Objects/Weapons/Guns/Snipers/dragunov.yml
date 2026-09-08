@@ -14,7 +14,7 @@
   - type: Clothing
     sprite: _Onyx/Objects/Weapons/Guns/Snipers/dragunov/tiny.rsi
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/Snipers/dragunov/tiny.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Snipers/dragunov/big.rsi
   - type: GunWieldBonus
     minAngle: -23
     maxAngle: -44
