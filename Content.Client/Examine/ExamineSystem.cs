@@ -159,7 +159,7 @@ namespace Content.Client.Examine
             var entity = GetEntity(ev.EntityUid);
 
             OpenTooltip(player.Value, entity, ev.CenterAtCursor, ev.OpenAtOldTooltip, ev.KnowTarget);
-            UpdateTooltipInfo(player.Value, entity, ev.Message, ev.Verbs, getVerbs: false);
+            UpdateTooltipInfo(player.Value, entity, ev.Message, ev.Verbs, getVerbs: false, includeClientExclusiveVerbs: ev.Id != 0); // <Onyx-ActiveActionExamine-edited>
         }
 
         public override void SendExamineTooltip(EntityUid player, EntityUid target, FormattedMessage message, bool getVerbs, bool centerAtCursor)
