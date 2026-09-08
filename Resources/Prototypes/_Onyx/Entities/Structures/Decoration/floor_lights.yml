@@ -7,7 +7,11 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction
+    graph: LightFixture
+    node: floorMountedLight
   - type: Sprite
+    drawdepth: FloorObjects
     sprite: _Onyx/Structures/Decoration/floorlight.rsi
     layers:
     - map: ["enum.PoweredLightLayers.Base"]
@@ -33,7 +37,11 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction
+    graph: LightFixture
+    node: floorMountedLight
   - type: Sprite
+    drawdepth: FloorObjects
     sprite: _Onyx/Structures/Decoration/floorlight.rsi
     layers:
     - map: ["enum.PoweredLightLayers.Base"]

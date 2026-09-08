@@ -1,4 +1,10 @@
 - type: construction
+  parent: BaseStructureFullTile
+  id: FloorLightFixture
+  graph: LightFixture
+  targetNode: floorMountedLight
+
+- type: construction
   id: TileFloorLight
   graph: LightFixture
   startNode: start

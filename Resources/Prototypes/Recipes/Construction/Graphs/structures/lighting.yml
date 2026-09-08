@@ -14,6 +14,13 @@
             - material: Steel
               amount: 2
               doAfter: 2.0
+        # <Onyx-FloorLightConstruction>
+        - to: floorMountedLight
+          steps:
+            - material: Steel
+              amount: 2
+              doAfter: 2.0
+        # </Onyx-FloorLightConstruction>
         - to: groundLight
           steps:
             - material: Steel
@@ -92,6 +99,23 @@
               prototype: SheetSteel1
               amount: 1
             - !type:DeleteEntity {}
+    # <Onyx-FloorLightConstruction>
+    - node: floorMountedLight
+      entity: PoweredFloorLightEmpty
+      edges:
+        - to: start
+          conditions:
+            - !type:ContainerEmpty
+              container: "light_bulb"
+          steps:
+            - tool: Screwing
+              doAfter: 2.0
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetSteel1
+              amount: 2
+            - !type:DeleteEntity {}
+    # </Onyx-FloorLightConstruction>
     # <Onyx-FloorTileLight>
     - node: floorLight
       entity: EmptyPoweredFloorTileLight
