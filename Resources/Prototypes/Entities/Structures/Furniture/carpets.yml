@@ -44,6 +44,10 @@
     sprite: Structures/Furniture/Carpets/red_carpet.rsi
   - type: Icon
     sprite: Structures/Furniture/Carpets/red_carpet.rsi
+  # <Onyx-CarpetColorSmoothing>
+  - type: IconSmooth
+    key: carpet-red
+  # </Onyx-CarpetColorSmoothing>
   - type: Destructible
     thresholds:
     - trigger: &DamageFurnitureWeak
@@ -70,6 +74,10 @@
     sprite: Structures/Furniture/Carpets/black_carpet.rsi
   - type: Icon
     sprite: Structures/Furniture/Carpets/black_carpet.rsi
+  # <Onyx-CarpetColorSmoothing>
+  - type: IconSmooth
+    key: carpet-black
+  # </Onyx-CarpetColorSmoothing>
   - type: Destructible
     thresholds:
     - trigger: *DamageFurnitureWeak
@@ -92,6 +100,10 @@
     sprite: Structures/Furniture/Carpets/pink_carpet.rsi
   - type: Icon
     sprite: Structures/Furniture/Carpets/pink_carpet.rsi
+  # <Onyx-CarpetColorSmoothing>
+  - type: IconSmooth
+    key: carpet-pink
+  # </Onyx-CarpetColorSmoothing>
   - type: Destructible
     thresholds:
     - trigger: *DamageFurnitureWeak
@@ -114,6 +126,10 @@
     sprite: Structures/Furniture/Carpets/blue_carpet.rsi
   - type: Icon
     sprite: Structures/Furniture/Carpets/blue_carpet.rsi
+  # <Onyx-CarpetColorSmoothing>
+  - type: IconSmooth
+    key: carpet-blue
+  # </Onyx-CarpetColorSmoothing>
   - type: Destructible
     thresholds:
     - trigger: *DamageFurnitureWeak
@@ -136,6 +152,10 @@
     sprite: Structures/Furniture/Carpets/green_carpet.rsi
   - type: Icon
     sprite: Structures/Furniture/Carpets/green_carpet.rsi
+  # <Onyx-CarpetColorSmoothing>
+  - type: IconSmooth
+    key: carpet-green
+  # </Onyx-CarpetColorSmoothing>
   - type: Destructible
     thresholds:
     - trigger: *DamageFurnitureWeak
@@ -158,6 +178,10 @@
     sprite: Structures/Furniture/Carpets/orange_carpet.rsi
   - type: Icon
     sprite: Structures/Furniture/Carpets/orange_carpet.rsi
+  # <Onyx-CarpetColorSmoothing>
+  - type: IconSmooth
+    key: carpet-orange
+  # </Onyx-CarpetColorSmoothing>
   - type: Destructible
     thresholds:
     - trigger: *DamageFurnitureWeak
@@ -180,6 +204,10 @@
     sprite: Structures/Furniture/Carpets/skyblue_carpet.rsi
   - type: Icon
     sprite: Structures/Furniture/Carpets/skyblue_carpet.rsi
+  # <Onyx-CarpetColorSmoothing>
+  - type: IconSmooth
+    key: carpet-sky-blue
+  # </Onyx-CarpetColorSmoothing>
   - type: Destructible
     thresholds:
     - trigger: *DamageFurnitureWeak
@@ -202,6 +230,10 @@
     sprite: Structures/Furniture/Carpets/purple_carpet.rsi
   - type: Icon
     sprite: Structures/Furniture/Carpets/purple_carpet.rsi
+  # <Onyx-CarpetColorSmoothing>
+  - type: IconSmooth
+    key: carpet-purple
+  # </Onyx-CarpetColorSmoothing>
   - type: Destructible
     thresholds:
     - trigger: *DamageFurnitureWeak
@@ -224,6 +256,10 @@
     sprite: Structures/Furniture/Carpets/cyan_carpet.rsi
   - type: Icon
     sprite: Structures/Furniture/Carpets/cyan_carpet.rsi
+  # <Onyx-CarpetColorSmoothing>
+  - type: IconSmooth
+    key: carpet-cyan
+  # </Onyx-CarpetColorSmoothing>
   - type: Destructible
     thresholds:
     - trigger: *DamageFurnitureWeak
@@ -246,6 +282,10 @@
     sprite: Structures/Furniture/Carpets/white_carpet.rsi
   - type: Icon
     sprite: Structures/Furniture/Carpets/white_carpet.rsi
+  # <Onyx-CarpetColorSmoothing>
+  - type: IconSmooth
+    key: carpet-white
+  # </Onyx-CarpetColorSmoothing>
   - type: Destructible
     thresholds:
     - trigger: *DamageFurnitureWeak
