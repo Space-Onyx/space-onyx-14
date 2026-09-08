@@ -11,7 +11,6 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Configuration;
-using Robust.Shared.Timing;
 
 namespace Content.Client.Lobby.UI
 {
@@ -21,8 +20,6 @@ namespace Content.Client.Lobby.UI
         [Dependency] private IClientConsoleHost _consoleHost = default!;
         [Dependency] private DiscordIdManager _discordIdManager = default!;
         [Dependency] private IConfigurationManager _cfg = default!;
-        private float _discordUpdateTimer;
-
         public LobbyGui()
         {
             RobustXamlLoader.Load(this);
@@ -57,20 +54,8 @@ namespace Content.Client.Lobby.UI
             DiscordLinkButton.Visible = enabled;
             if (enabled)
                 _discordIdManager.RequestDiscordInfo();
-        }
-
-        protected override void FrameUpdate(FrameEventArgs args)
-        {
-            base.FrameUpdate(args);
-            if (!DiscordLinkButton.Visible)
-                return;
-
-            _discordUpdateTimer += args.DeltaSeconds;
-            if (_discordUpdateTimer < 5f)
-                return;
-
-            _discordUpdateTimer = 0f;
-            _discordIdManager.RequestDiscordInfo();
+            else
+                _discordIdManager.Clear();
         }
 
         private void UpdateDiscordButtonState()

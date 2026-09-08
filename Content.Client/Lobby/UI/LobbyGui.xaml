@@ -73,8 +73,7 @@
                                         <cc:UICommandButton Command="observe" Name="ObserveButton" Access="Public" Text="{Loc 'ui-lobby-observe-button'}" WindowType="{x:Type lobbyUi:ObserveWarningWindow}" HorizontalExpand="True" StyleClasses="OpenBoth" />
                                         <cc:UICommandButton Name="DiscordLinkButton"
                                                             Access="Public"
-                                                            Command="ui-lobby-discord-linc"
-                                                            Text="{Loc 'ui-lobby-discord-linc-button-main'}"
+                                                            Text="{Loc 'ui-lobby-discord-link-button-main'}"
                                                             WindowType="{x:Type lobbyUi:DiscordLinkWindow}"
                                                             StyleClasses="Caution OpenBoth"
                                                             HorizontalExpand="True" />

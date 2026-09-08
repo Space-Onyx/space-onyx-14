@@ -427,7 +427,7 @@ namespace Content.Server.Database
                 }
                 catch (DbException)
                 {
-                    // Extremely unlikely collision of 9-hex code. Retry with another code.
+                    // Extremely unlikely collision of 12-hex code. Retry with another code.
                 }
             }
 

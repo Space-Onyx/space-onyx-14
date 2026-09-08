@@ -12,6 +12,7 @@ public sealed partial class DiscordIdManager
     private string? _discordId;
     private string? _discordUsername;
     private string? _linkCode;
+    public DiscordLinkResult Result { get; private set; }
 
     public event Action? DiscordInfoUpdated;
 
@@ -26,6 +27,7 @@ public sealed partial class DiscordIdManager
         _discordId = msg.DiscordId;
         _discordUsername = msg.DiscordUsername;
         _linkCode = msg.LinkCode;
+        Result = msg.Result;
         DiscordInfoUpdated?.Invoke();
     }
 
@@ -53,6 +55,15 @@ public sealed partial class DiscordIdManager
             return;
 
         _netMgr.ClientSendMessage(new MsgDiscordUnlinkRequest());
+    }
+
+    public void Clear()
+    {
+        _discordId = null;
+        _discordUsername = null;
+        _linkCode = null;
+        Result = DiscordLinkResult.None;
+        DiscordInfoUpdated?.Invoke();
     }
 
     public void RequestDiscordInfo()

@@ -1,9 +1,13 @@
+using Content.Server.Database;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Content.Server.Database.Migrations.Sqlite
 {
+    [DbContext(typeof(SqliteServerDbContext))]
+    [Migration("20260711120000_DiscordAuthUniqueLinks")]
     public partial class DiscordAuthUniqueLinks : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

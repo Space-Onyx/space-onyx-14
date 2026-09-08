@@ -244,16 +244,10 @@ namespace Content.Server.Connection
                 return (ConnectionDenyReason.Ban, message, bans);
             }
 
-            if (HasTemporaryBypass(userId))
-            {
-                _sawmill.Verbose("User {UserId} has temporary bypass, skipping further connection checks", userId);
-                return null;
-            }
-
             var adminData = await _db.GetAdminDataForAsync(e.UserId);
 
             // ADT-Tweak-Start: Check Auth for Discord ID
-            if (_cfg.GetCVar(CCVars.DiscordAuthEnable) && _cfg.GetCVar(CCVars.DiscordAuthLinkRequired) && adminData == null)
+            if (_cfg.GetCVar(CCVars.DiscordAuthEnable) && _cfg.GetCVar(CCVars.DiscordAuthLinkRequired))
             {
                 var discordId = await _db.GetDiscordIdAsync(userId);
                 if (discordId != null)
@@ -265,21 +259,26 @@ namespace Content.Server.Connection
                     var linkCode = await _db.GetOrCreateDiscordLinkCodeAsync(userId, e.UserName, TimeSpan.FromMinutes(5));
                     var linkChannel = _cfg.GetCVar(CCVars.DiscordLinkChannel);
                     var channelInstruction = string.IsNullOrWhiteSpace(linkChannel)
-                        ? "Откройте настроенный канал авторизации Discord."
-                        : $"Откройте канал авторизации: {linkChannel}";
+                        ? Loc.GetString("discord-auth-required-channel-missing")
+                        : Loc.GetString("discord-auth-required-channel", ("channel", linkChannel));
 
                     return (
                         ConnectionDenyReason.DiscordAuth,
-                        "Для входа требуется привязка Discord.\n\n"
-                        + $"Код: {linkCode}\n"
-                        + $"CKey: {e.UserName}\n\n"
-                        + $"{channelInstruction}\n"
-                        + "Введите в боте оба значения. Код действует 5 минут.",
+                        Loc.GetString("discord-auth-required",
+                            ("code", linkCode),
+                            ("username", e.UserName),
+                            ("channelInstruction", channelInstruction)),
                         null
                     );
                 }
             }
             // ADT-Tweak-End
+
+            if (HasTemporaryBypass(userId))
+            {
+                _sawmill.Verbose("User {UserId} has temporary bypass, skipping further connection checks", userId);
+                return null;
+            }
             // Corvax-Start: Allow privileged players bypass bunker
             var isPrivileged = await HavePrivilegedJoin(e.UserId);
             if (_cfg.GetCVar(CCVars.PanicBunkerEnabled) && adminData == null && !isPrivileged)

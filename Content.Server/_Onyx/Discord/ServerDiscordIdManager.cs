@@ -37,7 +37,7 @@ public sealed partial class ServerDiscordIdManager : EntitySystem
         await SendDiscordInfo(msg.MsgChannel);
     }
 
-    private async Task SendDiscordInfo(INetChannel channel)
+    private async Task SendDiscordInfo(INetChannel channel, DiscordLinkResult result = DiscordLinkResult.None)
     {
         var userId = channel.UserId;
         var discordId = _cfg.GetCVar(CCVars.DiscordAuthEnable)
@@ -75,7 +75,8 @@ public sealed partial class ServerDiscordIdManager : EntitySystem
             UserId = userId,
             DiscordId = discordId,
             DiscordUsername = discordUsername,
-            LinkCode = linkCode
+            LinkCode = linkCode,
+            Result = result
         }, channel);
     }
 
@@ -156,14 +157,16 @@ public sealed partial class ServerDiscordIdManager : EntitySystem
         if (!success)
         {
             Log.Error($"Failed to globally unlink Discord for {userId}: {message}");
-            await SendDiscordInfo(msg.MsgChannel);
+            await SendDiscordInfo(msg.MsgChannel, DiscordLinkResult.UnlinkFailed);
             return;
         }
 
-        await SendDiscordInfo(msg.MsgChannel);
+        await _db.UnlinkDiscordIdAsync(userId.UserId);
+        await _db.RemoveDiscordLinkCodeAsync(userId.UserId);
+        await SendDiscordInfo(msg.MsgChannel, DiscordLinkResult.UnlinkSucceeded);
 
         if (_cfg.GetCVar(CCVars.DiscordAuthLinkRequired))
-            _net.DisconnectChannel(msg.MsgChannel, "Отвязка дискорд аккаунта.");
+            _net.DisconnectChannel(msg.MsgChannel, Loc.GetString("discord-auth-unlink-disconnect"));
 
         Log.Info($"Discord account globally unlinked for {userId}. {message}");
     }

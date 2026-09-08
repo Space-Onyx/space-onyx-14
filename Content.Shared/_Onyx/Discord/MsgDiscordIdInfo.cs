@@ -4,6 +4,13 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._Onyx.Discord;
 
+public enum DiscordLinkResult : byte
+{
+    None,
+    UnlinkSucceeded,
+    UnlinkFailed
+}
+
 public sealed class MsgDiscordIdInfo : NetMessage
 {
     public override MsgGroups MsgGroup => MsgGroups.EntityEvent;
@@ -12,6 +19,7 @@ public sealed class MsgDiscordIdInfo : NetMessage
     public string? DiscordId;
     public string? DiscordUsername;
     public string? LinkCode;
+    public DiscordLinkResult Result;
 
     public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
     {
@@ -19,6 +27,7 @@ public sealed class MsgDiscordIdInfo : NetMessage
         DiscordId = buffer.ReadBoolean() ? buffer.ReadString() : null;
         DiscordUsername = buffer.ReadBoolean() ? buffer.ReadString() : null;
         LinkCode = buffer.ReadBoolean() ? buffer.ReadString() : null;
+        Result = (DiscordLinkResult) buffer.ReadByte();
     }
 
     public override void WriteToBuffer(NetOutgoingMessage buffer, IRobustSerializer serializer)
@@ -33,5 +42,6 @@ public sealed class MsgDiscordIdInfo : NetMessage
         buffer.Write(LinkCode != null);
         if (LinkCode != null)
             buffer.Write(LinkCode);
+        buffer.Write((byte) Result);
     }
 }
