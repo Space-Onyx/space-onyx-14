@@ -25,6 +25,7 @@
   - Wizard
   - Xenoborg
   - Blob # <Onyx-Blob>
+  - PirateFaction # <Onyx-PirateFaction>
 
 - type: npcFaction
   id: Mouse
@@ -59,6 +60,7 @@
   - AllHostile
   - Wizard
   - Xenoborg
+  - PirateFaction # <Onyx-PirateFaction>
 
 - type: npcFaction
   id: SimpleNeutral
@@ -76,6 +78,7 @@
   - Wizard
   - Xenoborg
   - Blob # <Onyx-Blob>
+  - PirateFaction # <Onyx-PirateFaction>
 
 - type: npcFaction
   id: Xeno
@@ -91,6 +94,7 @@
   - Dragon
   - Xenoborg
   - Blob # <Onyx-Blob>
+  - PirateFaction # <Onyx-PirateFaction>
 
 - type: npcFaction
   id: Zombie
@@ -107,6 +111,7 @@
   - Dragon
   - Xenoborg
   - Blob # <Onyx-Blob>
+  - PirateFaction # <Onyx-PirateFaction>
 
 - type: npcFaction
   id: Revolutionary
@@ -118,6 +123,7 @@
   - AllHostile
   - Wizard
   - Xenoborg
+  - PirateFaction # <Onyx-PirateFaction>
   - Blob # <Onyx-Blob>
 
 - type: npcFaction
@@ -136,6 +142,7 @@
   - Revolutionary
   - Wizard
   - Xenoborg
+  - PirateFaction # <Onyx-PirateFaction>
 
 - type: npcFaction
   id: Wizard
@@ -170,3 +177,4 @@
   # cause they are hostile to them
   - SimpleHostile
   - AllHostile
+  - PirateFaction # <Onyx-PirateFaction>

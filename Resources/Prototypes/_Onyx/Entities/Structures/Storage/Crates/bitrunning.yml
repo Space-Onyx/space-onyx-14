@@ -18,3 +18,13 @@
   components:
   - type: Lock
     locked: false
+
+- type: entity
+  parent: CrateGenericSteel
+  id: CrateGolden
+  name: golden crate
+  components:
+  - type: Icon
+    sprite: _Onyx/Structures/Storage/Crates/gold.rsi
+  - type: Sprite
+    sprite: _Onyx/Structures/Storage/Crates/gold.rsi

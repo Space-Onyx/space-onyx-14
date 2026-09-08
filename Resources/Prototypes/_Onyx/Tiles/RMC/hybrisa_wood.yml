@@ -27,3 +27,18 @@
   id: RMCFloorHybrisaWoodBlack
   sprite: /Textures/_Onyx/RMC/Tiles/hybrisa/blackwood.png
   variants: 1
+
+- type: tile
+  id: RMCFloorHybrisaBeige
+  name: tiles-rmc-beige-metal-tile
+  sprite: /Textures/_Onyx/RMC/Tiles/hybrisa/tilebeige.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepFloor
+
+- type: tile
+  parent: RMCFloorHybrisaBeige
+  id: RMCFloorHybrisaBeigeCheck
+  sprite: /Textures/_Onyx/RMC/Tiles/hybrisa/tilebeigecheck.png

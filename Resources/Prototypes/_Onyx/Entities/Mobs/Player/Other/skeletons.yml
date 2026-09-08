@@ -1,0 +1,10 @@
+- type: entity
+  parent: MobSkeletonPerson
+  id: MobSkeletonPirateBitrun
+  name: skeleton pirate
+  components:
+  - type: Loadout
+    prototypes: [ PirateCaptainLaserCarbineGear ]
+  - type: RandomHumanoidAppearance
+  - type: NpcFactionMember
+    factions: [ PirateFaction ]

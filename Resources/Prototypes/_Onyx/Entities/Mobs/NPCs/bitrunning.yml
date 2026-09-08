@@ -12,6 +12,196 @@
       task: BitrunningFleeCompound
 
 - type: entity
+  parent: MobAbductor
+  id: MobSimpleAbductorAgentPistol
+  name: abductor agent
+  suffix: AI, Alien Pistol
+  components:
+  - type: NpcFactionMember
+    factions: [ AllHostile ]
+  - type: RandomMetadata
+    nameSegments: [ AbductorAgentPrefix, AbductorNames ]
+    nameFormat: name-format-standard
+  - type: HTN
+    rootTask:
+      task: SimpleRangedHostileCompound
+  - type: InnateTool
+    tools:
+    - id: WeaponAlien
+  - type: Loadout
+    prototypes: [ AbductorAgentNpcGear ]
+  - type: Perishable
+    molsPerSecondPerUnitMass: 0
+
+- type: entity
+  parent: MobAbductor
+  id: MobSimpleAbductorAgentWonderprod
+  name: abductor agent
+  suffix: AI, Wonderprod
+  components:
+  - type: NpcFactionMember
+    factions: [ AllHostile ]
+  - type: RandomMetadata
+    nameSegments: [ AbductorAgentPrefix, AbductorNames ]
+    nameFormat: name-format-standard
+  - type: HTN
+    rootTask:
+      task: SimpleHumanoidHostileCompound
+  - type: InnateTool
+    tools:
+    - id: WonderprodBitrunning
+  - type: Loadout
+    prototypes: [ AbductorAgentNpcGear ]
+  - type: Perishable
+    molsPerSecondPerUnitMass: 0
+
+- type: entity
+  parent: MobHuman
+  id: MobPirateEvaCutlass
+  name: pirate
+  suffix: AI, EVA, Energy Cutlass
+  components:
+  - type: NpcFactionMember
+    factions: [ PirateFaction ]
+  - type: Loadout
+    prototypes: [ PirateEvaCutlassGear ]
+  - type: HTN
+    rootTask:
+      task: SimpleHumanoidHostileCompound
+  - type: Perishable
+    molsPerSecondPerUnitMass: 0
+
+- type: entity
+  parent: MobHuman
+  id: MobPirateEvaLaserCarbine
+  name: pirate
+  suffix: AI, EVA, Laser Carbine
+  components:
+  - type: NpcFactionMember
+    factions: [ PirateFaction ]
+  - type: Loadout
+    prototypes: [ PirateEvaLaserCarbineGear ]
+  - type: HTN
+    rootTask:
+      task: SimpleRangedHostileCompound
+  - type: Perishable
+    molsPerSecondPerUnitMass: 0
+
+- type: entity
+  parent: MobHuman
+  id: MobPirateCutlass
+  name: pirate
+  suffix: AI, Energy Cutlass
+  components:
+  - type: NpcFactionMember
+    factions: [ PirateFaction ]
+  - type: Loadout
+    prototypes: [ PirateCutlassGear ]
+  - type: HTN
+    rootTask:
+      task: SimpleHumanoidHostileCompound
+  - type: Perishable
+    molsPerSecondPerUnitMass: 0
+
+- type: entity
+  parent: MobHuman
+  id: MobPirateFlintlock
+  name: pirate
+  suffix: AI, Weapon Pistol Flintlock
+  components:
+  - type: NpcFactionMember
+    factions: [ PirateFaction ]
+  - type: Loadout
+    prototypes: [ PirateFlintlockGear ]
+  - type: BasicEntityAmmoProvider
+    proto: CartridgeMagnum
+    capacity: 30
+    count: 30
+  - type: Gun
+    fireRate: 0.30
+    useKey: false
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot: /Audio/Weapons/Guns/Gunshots/sniper.ogg
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 0.30
+    rechargeSound:
+      path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
+      params:
+        volume: -100
+  - type: HTN
+    rootTask:
+      task: SimpleRangedHostileCompound
+  - type: Perishable
+    molsPerSecondPerUnitMass: 0
+
+- type: entity
+  parent: MobPirateEvaCutlass
+  id: MobPirateEvaCutlassBitrunning
+  suffix: Bitrunning
+  components:
+  - type: BitrunningDomainEnemyObjective
+
+- type: entity
+  parent: MobPirateEvaLaserCarbine
+  id: MobPirateEvaLaserCarbineBitrunning
+  suffix: Bitrunning
+  components:
+  - type: BitrunningDomainEnemyObjective
+
+- type: entity
+  parent: MobPirateCutlass
+  id: MobPirateCutlassBitrunning
+  suffix: Bitrunning
+  components:
+  - type: BitrunningDomainEnemyObjective
+
+- type: entity
+  parent: MobPirateFlintlock
+  id: MobPirateFlintlockBitrunning
+  suffix: Bitrunning
+  components:
+  - type: BitrunningDomainEnemyObjective
+
+- type: entity
+  parent: [ SimpleSpaceMobBase, MobCombat ]
+  id: MobBearGoon
+  name: bear
+  description: Why are you staring? Never seen a bear before?
+  components:
+  - type: HTN
+    rootTask:
+      task: SimpleHostileCompound
+  - type: NpcFactionMember
+    factions: [ SimpleHostile ]
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _Onyx/Mobs/Animals/brullbar.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: bear
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: bear
+      Dead:
+        Base: beardead
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 4
+    baseSprintSpeed: 4
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      100: Dead
+  - type: Butcherable
+    spawned:
+    - id: FoodMeatBear
+      amount: 1
+  - type: ReplacementAccent
+    accent: genericAggressive
+  - type: Fauna
+
+- type: entity
   parent: MobCivilian
   id: MobAssistantBat
   name: aggressive assistant

@@ -45,7 +45,7 @@
   bitrunningRewardPoints: 60
   lootRewardPoints: 3
   sGradeTimeByType:
-    CatchFish: 250
+    CatchFish: 300
   mapPath: /Maps/_Onyx/Bitrun/breeze-bay.yml
   objectiveTypePool:
   - CatchFish
@@ -88,7 +88,7 @@
   bitrunningRewardPoints: 45
   lootRewardPoints: 1
   sGradeTimeByType:
-    EliminateEnemies: 250
+    EliminateEnemies: 220
   mapPath: /Maps/_Onyx/Bitrun/grassland-hunt.yml
   objectiveTypePool:
   - EliminateEnemies
@@ -162,3 +162,83 @@
   objectiveDescriptionByType:
     DeliveryCacheCrate: bitrunning-domain-meta-central-delivery-objective-description
     EliminateEnemies: bitrunning-domain-meta-central-eliminate-objective-description
+
+# --- --- ---
+#   MEDIUM
+# --- --- ---
+
+- type: bitrunningVirtualDomain
+  id: AbductorShip
+  name: bitrunning-domain-abductor-ship-name
+  description: bitrunning-domain-abductor-ship-desc
+  difficulty: Medium
+  cost: 2
+  serverRewardPoints: 4
+  bitrunningRewardPoints: 250
+  lootRewardPoints: 6
+  sGradeTimeByType:
+    DeliveryCacheCrate: 300
+  completionLoot:
+    PlushieAbductor: 1
+  isModular: true
+  mapPath: /Maps/_Onyx/Bitrun/abductor-ship.yml
+  objectiveTypePool:
+  - DeliveryCacheCrate
+  objectiveTargetByType:
+    DeliveryCacheCrate: 1
+  objectiveTitleByType:
+    DeliveryCacheCrate: bitrunning-domain-abductor-ship-objective-title
+  objectiveDescriptionByType:
+    DeliveryCacheCrate: bitrunning-domain-abductor-ship-objective-description
+
+- type: bitrunningVirtualDomain
+  id: PizzaParty
+  name: bitrunning-domain-pizza-party-name
+  description: bitrunning-domain-pizza-party-desc
+  difficulty: Medium
+  cost: 2
+  serverRewardPoints: 4
+  bitrunningRewardPoints: 180
+  lootRewardPoints: 6
+  sGradeTimeByType:
+    DeliveryCacheCrate: 120
+  completionLoot:
+    FoodPizzaMeatSlice: 1
+  isModular: true
+  mapPath: /Maps/_Onyx/Bitrun/pizza-party.yml
+  objectiveTypePool:
+  - DeliveryCacheCrate
+  objectiveTargetByType:
+    DeliveryCacheCrate: 1
+  objectiveTitleByType:
+    DeliveryCacheCrate: bitrunning-domain-pizza-party-objective-title
+  objectiveDescriptionByType:
+    DeliveryCacheCrate: bitrunning-domain-pizza-party-objective-description
+
+- type: bitrunningVirtualDomain
+  id: CorsairCove
+  name: bitrunning-domain-corsair-cove-name
+  description: bitrunning-domain-corsair-cove-desc
+  difficulty: Medium
+  cost: 2
+  serverRewardPoints: 4
+  bitrunningRewardPoints: 220
+  lootRewardPoints: 6
+  sGradeTimeByType:
+    DeliveryCacheCrate: 300
+    EliminateEnemies: 450
+  completionLoot:
+    IngotGold1: 1
+  mapPath: /Maps/_Onyx/Bitrun/corsair-cove.yml
+  objectiveTypePool:
+  - DeliveryCacheCrate
+  - EliminateEnemies
+  objectiveTargetByType:
+    DeliveryCacheCrate: 1
+    EliminateEnemies: 0
+  objectiveTitleByType:
+    DeliveryCacheCrate: bitrunning-domain-corsair-cove-delivery-objective-title
+    EliminateEnemies: bitrunning-domain-corsair-cove-eliminate-objective-title
+  objectiveDescriptionByType:
+    DeliveryCacheCrate: bitrunning-domain-corsair-cove-delivery-objective-description
+    EliminateEnemies: bitrunning-domain-corsair-cove-eliminate-objective-description

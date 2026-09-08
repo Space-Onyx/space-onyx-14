@@ -92,3 +92,31 @@
   - type: SpeedModifiedOnWield
     sprintModifier: 0.7
   - type: HeldSpeedModifier
+
+- type: entity
+  parent: [ BaseWeaponBatterySmall, BaseSecurityContraband ]
+  id: WeaponEarthGovLaserPistol
+  name: EarthGov laser pistol
+  description: An Earth Government standard issue laser pistol, used by army and police.
+  components:
+  - type: Gun
+    soundGunshot:
+      path: /Audio/_Onyx/Weapons/Guns/EG-P/shot.ogg
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Guns/Battery/EG-P.rsi
+    layers:
+    - state: base
+      map: [ "enum.GunVisualLayers.Base" ]
+    - state: mag-unshaded-2
+      map: [ "enum.GunVisualLayers.MagUnshaded" ]
+      shader: unshaded
+  - type: BatteryAmmoProvider
+    proto: RedLaser
+    fireCost: 62.5
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: true
+  - type: Appearance
+  - type: StaticPrice
+    price: 250

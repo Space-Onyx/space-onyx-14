@@ -164,3 +164,114 @@
   - type: ConditionalSpawner
     prototypes:
     - MobXenomorphQueenBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobAbductorAgentPistol
+  name: abductor agent spawner
+  suffix: AI, Alien Pistol
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _Onyx/Mobs/Species/Abductor/parts.rsi
+      state: full
+  - type: ConditionalSpawner
+    prototypes:
+    - MobSimpleAbductorAgentPistol
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobAbductorAgentWonderprod
+  name: abductor agent spawner
+  suffix: AI, Wonderprod
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: _Onyx/Mobs/Species/Abductor/parts.rsi
+      state: full
+  - type: ConditionalSpawner
+    prototypes:
+    - MobSimpleAbductorAgentWonderprod
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobPirateEvaCutlassBitrunning
+  name: pirate spawner
+  suffix: AI, EVA, Energy Cutlass, Bitrunning
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Mobs/Species/Skeleton/parts.rsi
+      state: full
+  - type: ConditionalSpawner
+    prototypes:
+    - MobPirateEvaCutlassBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobPirateEvaLaserCarbineBitrunning
+  name: pirate spawner
+  suffix: AI, EVA, Laser Carbine, Bitrunning
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Mobs/Species/Skeleton/parts.rsi
+      state: full
+  - type: ConditionalSpawner
+    prototypes:
+    - MobPirateEvaLaserCarbineBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobPirateCutlassBitrunning
+  name: pirate spawner
+  suffix: AI, Energy Cutlass, Bitrunning
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Mobs/Species/Skeleton/parts.rsi
+      state: full
+  - type: ConditionalSpawner
+    prototypes:
+    - MobPirateCutlassBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobPirateFlintlockBitrunning
+  name: pirate spawner
+  suffix: AI, Pistol Flintlock, Bitrunning
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Mobs/Species/Skeleton/parts.rsi
+      state: full
+  - type: ConditionalSpawner
+    prototypes:
+    - MobPirateFlintlockBitrunning
+
+- type: entity
+  parent: MarkerBase
+  id: SpawnMobBearGoon
+  name: bear spawner
+  categories: [ Spawner ]
+  components:
+  - type: Sprite
+    layers:
+    - state: green
+    - state: bear
+      sprite: _Onyx/Mobs/Animals/brullbar.rsi
+  - type: ConditionalSpawner
+    prototypes:
+    - MobBearGoon

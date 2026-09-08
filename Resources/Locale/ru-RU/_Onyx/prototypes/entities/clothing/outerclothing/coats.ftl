@@ -5,3 +5,5 @@ ent-ClothingOuterCoatRDPurple = экспериментальный лабора�
     .desc = Соткан из экспериментальных тканей... но не выглядит более защищённым, чем обычный халат. Зато красивый.
 ent-ClothingOuterCoatRDPurpleOpened = экспериментальный лабораторный халат
     .desc = { ent-ClothingOuterStorageFoldableBaseOpened.desc }
+ent-ClothingOuterCoatCaptainWhite = белый китель капитана
+    .desc = Белый парадный китель капитана, инкрустированный золотом.
