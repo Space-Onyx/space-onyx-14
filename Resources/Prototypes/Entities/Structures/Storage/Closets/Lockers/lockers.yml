@@ -1,6 +1,6 @@
 - type: entity
   id: LockerBooze
-  parent: LockerBase
+  parent: LockerCabinet # <Onyx-LockerCabinet-edited>
   name: booze storage
   description: This is where the bartender keeps the booze.
   components:
@@ -523,7 +523,7 @@
 # Detective
 - type: entity
   id: LockerDetective
-  parent: LockerBooze
+  parent: LockerCabinet # <Onyx-LockerCabinet-edited>
   name: detective's cabinet
   description: Usually cold and empty... like your heart.
   components:

@@ -1,0 +1,18 @@
+- type: entity
+  parent: LockerBase
+  id: LockerCabinet
+  name: cabinet
+  description: A plain wooden cabinet.
+  components:
+  - type: Appearance
+  - type: EntityStorageVisuals
+    stateBaseClosed: cabinet
+    stateDoorOpen: cabinet_open
+    stateDoorClosed: cabinet_door
+  - type: EntityStorage
+    closeSound:
+      path: /Audio/Effects/woodenclosetclose.ogg
+    openSound:
+      path: /Audio/Effects/woodenclosetopen.ogg
+  - type: Paintable
+    group: null # not shaped like other lockers
