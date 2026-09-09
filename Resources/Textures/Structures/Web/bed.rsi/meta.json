@@ -5,10 +5,11 @@
     "y": 32
   },
   "license": "CC-BY-SA-3.0",
-  "copyright": "Made by PixelTheKermit (github) for SS14",
+  "copyright": "Made by PixelTheKermit (github) for SS14. Directions by neyran.official(discord)",
   "states": [
     {
-      "name": "icon"
+      "name": "icon",
+      "directions": 4
     }
   ]
 }

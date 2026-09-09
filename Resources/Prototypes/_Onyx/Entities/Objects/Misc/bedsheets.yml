@@ -11,7 +11,7 @@
   components:
   - type: Sprite
     sprite: _Onyx/Objects/Misc/bedsheets_double.rsi
-    noRot: true
+    noRot: false
   - type: Item
     size: Small
   - type: StaticPrice

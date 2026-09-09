@@ -11,7 +11,7 @@
   components:
   - type: Sprite
     sprite: Objects/Misc/bedsheets.rsi
-    noRot: true
+    noRot: false # <Onyx-RotatableBeds-edited>
   - type: Item
     size: Small
   - type: Clothing

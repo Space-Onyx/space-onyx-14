@@ -22,10 +22,15 @@
   - type: Sprite
     sprite: Structures/Furniture/furniture.rsi
     state: bed
-    noRot: true
+    noRot: false # <Onyx-RotatableBeds-edited>
   - type: Strap
     position: Down
     rotation: -90
+    modifyBuckleDrawDepth: false # <Onyx-RotatableBeds>
+  # <Onyx-RotatableBeds>
+  - type: Rotatable
+    rotateWhileAnchored: true
+  # </Onyx-RotatableBeds>
   # Construction has to be before PlaceableSurface or you'll place things onto the entity instead of deconstructing it.
   - type: Construction
     graph: bed
@@ -36,7 +41,7 @@
     placeCentered: true
   - type: Transform
     anchored: true
-    noRot: true
+    noRot: false # <Onyx-RotatableBeds-edited>
   - type: Anchorable
   - type: Pullable
 

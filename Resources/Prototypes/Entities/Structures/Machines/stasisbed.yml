@@ -13,12 +13,19 @@
         Blunt: -0.001
   - type: Sprite
     sprite: Structures/Machines/stasis_bed.rsi
-    noRot: true
+    noRot: false # <Onyx-RotatableBeds-edited>
     layers:
     - state: icon
     - state: unlit
       shader: unshaded
       map: ["unlit"]
+  # <Onyx-RotatableBeds>
+  - type: Transform
+    anchored: true
+    noRot: false
+  - type: Rotatable
+    rotateWhileAnchored: true
+  # </Onyx-RotatableBeds>
   - type: GenericVisualizer
     visuals:
       enum.PowerDeviceVisuals.Powered:
@@ -40,6 +47,7 @@
   - type: Strap
     position: Down
     rotation: -90
+    modifyBuckleDrawDepth: false # <Onyx-RotatableBeds>
   - type: Machine
     board: StasisBedMachineCircuitboard
   - type: Physics

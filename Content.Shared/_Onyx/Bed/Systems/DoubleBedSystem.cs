@@ -115,10 +115,11 @@ public sealed partial class DoubleBedSystem : EntitySystem
         if (isDoubleBedsheet || HasChildDoubleBedsheet(ent))
             return;
 
-        var offset = bedsheetCount == 0
+        var baseOffset = bedsheetCount == 0
             ? ent.Comp.RightBedsheetOffset
             : ent.Comp.LeftBedsheetOffset;
-        _placeableSurface.SetPositionOffset(ent, offset, surface);
+        var rotatedOffset = Transform(ent.Owner).LocalRotation.RotateVec(baseOffset);
+        _placeableSurface.SetPositionOffset(ent, rotatedOffset, surface);
     }
 
     private bool HasChildDoubleBedsheet(EntityUid uid)
