@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/1516a728931b4985c1e86f0c5995a5aa1554a1ad and modified by Swept",
+  "copyright": "Taken from SPLURT-Station at https://github.com/SPLURT-Station/S.P.L.U.R.T-Station-13/commit/d2422de379bf7139808b33b39e1eabeba78a27ee",
   "size": {
     "x": 32,
     "y": 32
@@ -20,7 +20,6 @@
           0.2,
           0.2,
           0.2,
-          0.2,
           0.2
         ]
       ]
@@ -29,7 +28,6 @@
       "name": "normal-unshaded",
       "delays": [
         [
-          0.2,
           0.2,
           0.2,
           0.2,
