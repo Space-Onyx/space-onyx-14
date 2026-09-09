@@ -18,6 +18,15 @@ public sealed class SharedOceanSwimmingSystem : EntitySystem
         return HasComp<GhostComponent>(uid) || HasComp<CanMoveInAirComponent>(uid);
     }
 
+    public bool IsSwimming(EntityUid uid)
+    {
+        var xform = Transform(uid);
+        return xform.MapUid is { } mapUid &&
+               HasComp<OceanMapComponent>(mapUid) &&
+               xform.GridUid == null &&
+               !ShouldIgnoreOceanSwimming(uid);
+    }
+
     private void OnCanWeightlessMove(Entity<OceanSwimmingComponent> ent, ref CanWeightlessMoveEvent args)
     {
         args.CanMove = true;

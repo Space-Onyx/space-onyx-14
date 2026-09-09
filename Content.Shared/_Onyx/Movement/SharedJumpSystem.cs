@@ -6,6 +6,7 @@
 
 using System.Numerics;
 using Content.Shared._Onyx.Sprinting;
+using Content.Shared._Onyx.Swimming.Systems;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Climbing.Components;
@@ -51,6 +52,7 @@ public abstract partial class SharedJumpSystem : EntitySystem
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedStaminaSystem _stamina = default!;
     [Dependency] private StandingStateSystem _standing = default!;
+    [Dependency] private SharedOceanSwimmingSystem _swimming = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private ThrowingSystem _throwing = default!;
     [Dependency] private IGameTiming _timing = default!;
@@ -232,7 +234,8 @@ public abstract partial class SharedJumpSystem : EntitySystem
                (!TryComp(ent, out BuckleComponent? buckle) || !buckle.Buckled) &&
                TryComp<StaminaComponent>(ent, out _) &&
                HasComp<PhysicsComponent>(ent) &&
-               !HasComp<ThrownItemComponent>(ent);
+               !HasComp<ThrownItemComponent>(ent) &&
+               !_swimming.IsSwimming(ent);
     }
 
     private (EntityUid Uid, float Forward)? FindTableAhead(EntityCoordinates coordinates, Vector2 direction, float distance)
