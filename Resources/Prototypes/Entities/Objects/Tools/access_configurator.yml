@@ -48,6 +48,8 @@
       - Paramedic
       - Robotics
       - Journalism
+      - HotelManager
+      - HotelStaff
       # </Onyx-AccessConfiguratorLevels>
       - Quartermaster
       - Research
@@ -124,6 +126,8 @@
     # <Onyx-AccessConfiguratorUniversalLevels>
     - Ipc
     - Journalism
+    - HotelManager
+    - HotelStaff
     # </Onyx-AccessConfiguratorUniversalLevels>
     - Janitor
     - Kitchen
