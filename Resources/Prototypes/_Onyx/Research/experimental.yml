@@ -135,6 +135,7 @@
   tier: 1
   recipeUnlocks:
     - MaterialBSCrystal
+    - BluespaceMiningMachineCircuitboard
   position: 1,4
   technologyPrerequisites:
     - DeterrenceTechnologies

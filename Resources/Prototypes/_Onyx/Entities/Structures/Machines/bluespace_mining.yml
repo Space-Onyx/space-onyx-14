@@ -1,0 +1,58 @@
+- type: entity
+  id: BluespaceMiningMachine
+  parent: [ BaseMachinePowered, ConstructibleMachine, StructureHealthMachineStrong ]
+  name: bluespace mining machine
+  description: Uses bluespace to extract resources from other worlds into a linked material silo.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Machines/bluespace_mining.rsi
+    layers:
+    - state: bsminer-unpowered
+      map: [ "bluespaceMiningMachine" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.BluespaceMiningMachineVisuals.State:
+        bluespaceMiningMachine:
+          Working: { state: bsminer }
+          Unpowered: { state: bsminer-unpowered }
+          Maintenance: { state: bsminer-maintenance }
+          UnpoweredMaintenance: { state: bsminer-unpowered-maintenance }
+  - type: BluespaceMiningMachine
+    production:
+      Steel: 0.05
+      Glass: 0.05
+      Silver: 0.025
+      Plasteel: 0.025
+      Uranium: 0.025
+      Plastic: 0.025
+      Gold: 0.01
+      Diamond: 0.01
+      Plasma: 0.01
+    lowInstabilitySpawns:
+      PlushieCarp: 5
+      FoodCakePlainSlice: 10
+      RandomFoodSingle: 10
+      RandomDrinkGlass: 10
+      SyringeEphedrine: 10
+      BoozeDispenser: 5
+      MobSloth: 10
+  - type: ItemSlots
+    slots:
+      bluespace-core:
+        whitelist:
+          tags: [ BluespaceCore ]
+  - type: ItemSlotsRequirePanel
+    slots:
+      bluespace-core: true
+  - type: WiresPanel
+  - type: OreSiloClient
+  - type: MaterialSiloLink
+  - type: DeviceLinkSink
+    ports:
+    - MaterialSiloUtilizer
+  - type: ApcPowerReceiver
+    powerLoad: 5000
+  - type: ExtensionCableReceiver
+  - type: Machine
+    board: BluespaceMiningMachineCircuitboard

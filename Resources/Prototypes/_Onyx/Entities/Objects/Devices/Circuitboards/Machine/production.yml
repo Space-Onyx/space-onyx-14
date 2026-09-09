@@ -76,3 +76,19 @@
       Manipulator: 1
       Glass: 2
       Cable: 2
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: BluespaceMiningMachineCircuitboard
+  name: bluespace mining machine board
+  description: A machine printed circuit board for a bluespace mining machine.
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: BluespaceMiningMachine
+    stackRequirements:
+      Steel: 10
+      Glass: 10
+      Manipulator: 10
+      BSCrystal: 5
