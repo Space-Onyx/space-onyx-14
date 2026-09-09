@@ -41,6 +41,9 @@ public readonly record struct PartBleedingChangedEvent(EntityUid Body, EntityUid
 public readonly record struct PainChangedEvent(EntityUid Entity, FixedPoint2 OldPain, FixedPoint2 Pain);
 
 [ByRefEvent]
+public record struct ModifyPainGainEvent(float Multiplier = 1f);
+
+[ByRefEvent]
 public readonly record struct PartDamageAppliedEvent(
     EntityUid Body,
     EntityUid Part,

@@ -5,6 +5,7 @@
   name: trait-pacifist-name
   description: trait-pacifist-desc
   category: Quirks
+  cost: -2 # <Onyx-TraitEconomy>
   components:
   - type: Pacified
 
@@ -13,6 +14,8 @@
   name: trait-lightweight-name
   description: trait-lightweight-desc
   category: Quirks
+  cost: -1 # <Onyx-TraitEconomy>
+  conflicts: [AlcoholTolerance, AlcoholIntolerance] # <Onyx-TraitConflicts-edited>
   components:
   - type: LightweightDrunk
     boozeStrengthMultiplier: 2

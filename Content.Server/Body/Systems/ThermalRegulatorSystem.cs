@@ -52,7 +52,11 @@ public sealed partial class ThermalRegulatorSystem : EntitySystem
             return;
 
         // TODO: Why do we have two datafields for this if they are only ever used once here?
-        var totalMetabolismTempChange = ent.Comp1.MetabolismHeat - ent.Comp1.RadiatedHeat;
+        // <Onyx-ColdBlooded>
+        var regulation = new Content.Shared._Onyx.Traits.ModifyThermalRegulationEvent();
+        RaiseLocalEvent(ent.Owner, ref regulation);
+        var totalMetabolismTempChange = ent.Comp1.MetabolismHeat * regulation.MetabolismHeatMultiplier - ent.Comp1.RadiatedHeat;
+        // </Onyx-ColdBlooded>
 
         // implicit heat regulation
         var tempDiff = Math.Abs(ent.Comp2.Temperature - ent.Comp1.NormalBodyTemperature);
@@ -64,7 +68,7 @@ public sealed partial class ThermalRegulatorSystem : EntitySystem
         }
         else
         {
-            totalMetabolismTempChange += Math.Min(targetHeat, ent.Comp1.ImplicitHeatRegulation);
+            totalMetabolismTempChange += Math.Min(targetHeat, ent.Comp1.ImplicitHeatRegulation) * regulation.ImplicitHeatingMultiplier; // <Onyx-ColdBlooded-edited>
         }
 
         _tempSys.ChangeHeat((ent, ent.Comp2), totalMetabolismTempChange, ignoreHeatResistance: true);
@@ -90,7 +94,7 @@ public sealed partial class ThermalRegulatorSystem : EntitySystem
             if (!_actionBlockerSys.CanShiver(ent))
                 return;
 
-            _tempSys.ChangeHeat((ent, ent.Comp2), Math.Min(targetHeat, ent.Comp1.ShiveringHeatRegulation), ignoreHeatResistance: true);
+            _tempSys.ChangeHeat((ent, ent.Comp2), Math.Min(targetHeat, ent.Comp1.ShiveringHeatRegulation) * regulation.ShiveringMultiplier, ignoreHeatResistance: true); // <Onyx-ColdBlooded-edited>
         }
     }
 }

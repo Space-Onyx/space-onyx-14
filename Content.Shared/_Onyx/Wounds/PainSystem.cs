@@ -106,6 +106,13 @@ public sealed partial class PainSystem : EntitySystem
             floor += wound.Comp.Severity * behavior.PainPerSeverity;
         }
 
+        if (TryComp(part.Owner, out BodyPartComponent? bodyPart) && bodyPart.Body is { } body)
+        {
+            var ev = new ModifyPainGainEvent();
+            RaiseLocalEvent(body, ref ev);
+            floor *= ev.Multiplier;
+        }
+
         if (pain.WoundPain == floor)
             return;
 
@@ -216,6 +223,17 @@ public sealed partial class PainSystem : EntitySystem
     {
         if (!Resolve(entity, ref entity.Comp, false) || delta == FixedPoint2.Zero)
             return false;
+
+        if (delta > FixedPoint2.Zero)
+        {
+            var target = entity.Owner;
+            if (TryComp(entity, out BodyPartComponent? part) && part.Body is { } body)
+                target = body;
+
+            var ev = new ModifyPainGainEvent();
+            RaiseLocalEvent(target, ref ev);
+            delta *= ev.Multiplier;
+        }
 
         return SetPain(entity, entity.Comp.Value + delta);
     }

@@ -70,7 +70,9 @@ humanoid-profile-editor-markings-tab = Markings
 humanoid-profile-editor-flavortext-tab = Description
 
 # Traits
-humanoid-profile-editor-traits-tab = Traits
+# <Onyx-TraitsPersonalization-edited>
+humanoid-profile-editor-traits-tab = Features
+# </Onyx-TraitsPersonalization-edited>
 humanoid-profile-editor-no-traits = No traits available
 
 humanoid-profile-editor-trait-count-hint = Points available: [{$current}/{$max}]

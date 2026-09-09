@@ -399,9 +399,13 @@ public abstract partial class SharedMoverController : VirtualController
             {
                 var soundModifier = mover.Sprinting ? InputMoverComponent.SprintingSoundModifier : InputMoverComponent.WalkingSoundModifier;
 
+                // <Onyx-LightStep>
+                var footstepVolume = new Content.Shared._Onyx.Traits.ModifyFootstepVolumeEvent();
+                RaiseLocalEvent(uid, ref footstepVolume);
                 var audioParams = sound.Params
-                    .AddVolume(sound.Params.Volume + soundModifier)
+                    .AddVolume(sound.Params.Volume + soundModifier + footstepVolume.Modifier)
                     .WithVariation(sound.Params.Variation ?? mobMover.FootstepVariation);
+                // </Onyx-LightStep>
 
                 // If we're a relay target then predict the sound for all relays.
                 if (relaySource != null)

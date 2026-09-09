@@ -89,11 +89,7 @@
   molarHeatCapacity: 20
   heatCapacityRatio: 1.4
   molarMass: 44
-  # <Onyx-GoobGasSprites-edited>
-  gasOverlaySprite:
-    sprite: /Textures/_Onyx/Effects/atmospherics.rsi
-    state: miasma
-  # </Onyx-GoobGasSprites-edited>
+  # Ammonia has no visible overlay: smell is the primary warning. <Onyx-AmmoniaInvisible-edited>
   gasMolesVisible: 2
   gasVisibilityFactor: 3.5
   color: '#56941E'

@@ -7,7 +7,7 @@
   name: trait-accentless-name
   description: trait-accentless-desc
   category: SpeechTraits
-  cost: 2
+  cost: 2 # <Onyx-TraitEconomy-edited>
   components:
   - type: Accentless
     removes:
@@ -20,14 +20,14 @@
     - type: CheeseAccent
     # </Onyx-Rodentia>
 
-# 1 Cost
+# 0 Cost (free)
 
 - type: trait
   id: SouthernAccent
   name: trait-southern-name
   description: trait-southern-desc
   category: SpeechTraits
-  cost: 1
+  cost: 0 # <Onyx-TraitEconomy-edited>
   components:
   - type: SouthernAccent
 
@@ -36,7 +36,7 @@
   name: trait-german-name
   description: trait-german-desc
   category: SpeechTraits
-  cost: 1
+  cost: 0 # <Onyx-TraitEconomy-edited>
   components:
   - type: GermanAccent
 
@@ -45,7 +45,7 @@
   name: trait-french-name
   description: trait-french-desc
   category: SpeechTraits
-  cost: 1
+  cost: 0 # <Onyx-TraitEconomy-edited>
   components:
   - type: FrenchAccent
 
@@ -54,7 +54,7 @@
   name: trait-spanish-name
   description: trait-spanish-desc
   category: SpeechTraits
-  cost: 1
+  cost: 0 # <Onyx-TraitEconomy-edited>
   components:
   - type: SpanishAccent
 
@@ -63,7 +63,7 @@
   name: trait-liar-name
   description: trait-liar-desc
   category: SpeechTraits
-  cost: 1
+  cost: 0 # <Onyx-TraitEconomy-edited>
   components:
   - type: ReplacementAccent
     accent: liar
@@ -73,19 +73,19 @@
   name: trait-scottish-name
   description: trait-scottish-desc
   category: SpeechTraits
-  cost: 1
+  cost: 0 # <Onyx-TraitEconomy-edited>
   components:
   - type: ReplacementAccent
     accent: scottish
 
-# 2 Cost
+# -1 Cost (grant points)
 
 - type: trait
   id: SocialAnxiety
   name: trait-socialanxiety-name
   description: trait-socialanxiety-desc
   category: SpeechTraits
-  cost: 2
+  cost: -1 # <Onyx-TraitEconomy-edited>
   components:
   - type: StutteringAccent
     matchRandomProb: 0.1
@@ -98,6 +98,6 @@
   name: trait-frontal-lisp-name
   description: trait-frontal-lisp-desc
   category: SpeechTraits
-  cost: 2
+  cost: -1 # <Onyx-TraitEconomy-edited>
   components:
   - type: FrontalLisp

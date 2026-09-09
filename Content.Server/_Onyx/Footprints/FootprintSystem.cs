@@ -54,6 +54,9 @@ public sealed partial class FootprintSystem : EntitySystem
 
     private void OnMove(Entity<FootprintOwnerComponent> ent, ref MoveEvent args)
     {
+        if (HasComp<Content.Shared._Onyx.Traits.LightStepComponent>(ent))
+            return;
+
         if (args.ParentChanged)
         {
             ent.Comp.Distance = 0;

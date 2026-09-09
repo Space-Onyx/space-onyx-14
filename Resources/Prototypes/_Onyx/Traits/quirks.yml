@@ -1,0 +1,98 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: trait
+  id: AlcoholTolerance
+  name: trait-alcohol-tolerance-name
+  description: trait-alcohol-tolerance-desc
+  category: Quirks
+  cost: 1
+  conflicts:
+  - LightweightDrunk
+  - AlcoholIntolerance
+  components:
+  - type: AlcoholTolerance
+
+- type: trait
+  id: Parkour
+  name: trait-parkour-name
+  description: trait-parkour-desc
+  category: Quirks
+  cost: 2
+  components:
+  - type: Parkour
+
+- type: trait
+  id: HighPainThreshold
+  name: trait-high-pain-threshold-name
+  description: trait-high-pain-threshold-desc
+  category: Quirks
+  cost: 3
+  conflicts:
+  - PainNumbness
+  components:
+  - type: HighPainThreshold
+
+- type: trait
+  id: Voracious
+  name: trait-voracious-name
+  description: trait-voracious-desc
+  category: Quirks
+  cost: 2
+  components:
+  - type: Voracious
+
+- type: trait
+  id: ColdBlooded
+  name: trait-cold-blooded-name
+  description: trait-cold-blooded-desc
+  category: Disabilities
+  cost: -2
+  components:
+  - type: ColdBlooded
+
+- type: trait
+  id: AlcoholIntolerance
+  name: trait-alcohol-intolerance-name
+  description: trait-alcohol-intolerance-desc
+  category: Disabilities
+  cost: -1
+  conflicts:
+  - AlcoholTolerance
+  - LightweightDrunk
+  components:
+  - type: AlcoholIntolerance
+
+- type: trait
+  id: OneLife
+  name: trait-one-life-name
+  description: trait-one-life-desc
+  category: Disabilities
+  cost: -6
+  conflicts:
+  - Unrevivable
+  components:
+  - type: OneLife
+  - type: Unrevivable
+    cloneable: false
+
+- type: trait
+  id: LightStep
+  name: trait-light-step-name
+  description: trait-light-step-desc
+  category: Quirks
+  cost: 3
+  components:
+  - type: LightStep
+
+- type: trait
+  id: Anosmia
+  name: trait-anosmia-name
+  description: trait-anosmia-desc
+  category: Disabilities
+  cost: -1
+  components:
+  - type: Anosmia

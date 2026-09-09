@@ -4,6 +4,7 @@
   name: trait-deafness-name
   description: trait-deafness-desc
   category: Disabilities
+  cost: -2
   components:
   - type: Deafness
 
@@ -12,6 +13,7 @@
   name: trait-dna-deviation-name
   description: trait-dna-deviation-desc
   category: Disabilities
+  cost: -2
   components:
   - type: DnaModifierDeviation
 
@@ -20,6 +22,7 @@
   name: trait-wheelchair-bound-name
   description: trait-wheelchair-bound-desc
   category: Disabilities
+  cost: -4
   blacklist:
     components:
       - BorgChassis

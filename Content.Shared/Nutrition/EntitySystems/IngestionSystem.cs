@@ -274,7 +274,17 @@ public sealed partial class IngestionSystem : EntitySystem
         if (!CanConsume(args.User, entity, args.Ingested, out var solution, out var time))
             return;
 
-        if (!_doAfter.TryStartDoAfter(GetEdibleDoAfterArgs(args.User, entity, food, time ?? TimeSpan.Zero)))
+        // <Onyx-Voracious>
+        var delay = time ?? TimeSpan.Zero;
+        if (!forceFed)
+        {
+            var delayEvent = new Content.Shared._Onyx.Traits.GetEatingDelayEvent(delay);
+            RaiseLocalEvent(entity, ref delayEvent);
+            delay = delayEvent.Delay;
+        }
+        // </Onyx-Voracious>
+
+        if (!_doAfter.TryStartDoAfter(GetEdibleDoAfterArgs(args.User, entity, food, delay))) // <Onyx-Voracious-edited>
             return;
 
         args.Handled = true;

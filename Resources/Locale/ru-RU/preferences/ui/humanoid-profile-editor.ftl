@@ -70,7 +70,9 @@ humanoid-profile-editor-markings-tab = Черты внешности
 humanoid-profile-editor-flavortext-tab = Описание
 
 # Traits
-humanoid-profile-editor-traits-tab = Черты персонажа
+# <Onyx-TraitsPersonalization-edited>
+humanoid-profile-editor-traits-tab = Особенности
+# </Onyx-TraitsPersonalization-edited>
 humanoid-profile-editor-no-traits = Нет доступных черт
 
 humanoid-profile-editor-trait-count-hint = Доступно очков: [{ $current }/{ $max }]

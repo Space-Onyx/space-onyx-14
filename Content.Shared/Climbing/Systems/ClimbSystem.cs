@@ -222,7 +222,11 @@ public sealed partial class ClimbSystem : VirtualController
         if (ev.Cancelled)
             return false;
 
-        var args = new DoAfterArgs(EntityManager, user, comp.ClimbDelay, new ClimbDoAfterEvent(),
+        // <Onyx-Parkour>
+        var delayEvent = new Content.Shared._Onyx.Traits.GetClimbDelayEvent(comp.ClimbDelay);
+        RaiseLocalEvent(entityToMove, ref delayEvent);
+        // </Onyx-Parkour>
+        var args = new DoAfterArgs(EntityManager, user, delayEvent.Delay, new ClimbDoAfterEvent(), // <Onyx-Parkour-edited>
             entityToMove,
             target: climbable,
             used: entityToMove)

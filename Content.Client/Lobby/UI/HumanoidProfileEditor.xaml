@@ -205,11 +205,9 @@
                     </TabContainer>
                 </BoxContainer>
                 <!-- </Onyx-RolesPersonalization-edited> -->
-                <BoxContainer Orientation="Vertical" Margin="10">
+                <BoxContainer Orientation="Vertical" Margin="10" VerticalExpand="True"> <!-- <Onyx-TraitsPersonalization-edited> -->
                     <!-- Traits -->
-                    <ScrollContainer VerticalExpand="True">
-                        <BoxContainer Name="TraitsList" Orientation="Vertical" />
-                    </ScrollContainer>
+                    <BoxContainer Name="TraitsList" Orientation="Vertical" VerticalExpand="True" /> <!-- <Onyx-TraitsPersonalization-edited> -->
                 </BoxContainer>
                 <BoxContainer Name="MarkingsTab" Orientation="Vertical" Margin="10">
                     <!-- Markings -->

@@ -12,6 +12,15 @@
   - Paracusia
   - LightweightDrunk
   - LanguageTrait # <Onyx-LanguageTraits>
+  - AlcoholTolerance # <Onyx-Traits>
+  - Parkour # <Onyx-Traits>
+  # <Onyx-Traits>
+  - HighPainThreshold
+  - Voracious
+  - AlcoholIntolerance
+  - LightStep
+  - Anosmia
+  # </Onyx-Traits>
 
 # Traits that root in physical things in your body.
 - type: cloningSettings
@@ -24,6 +33,8 @@
   - PermanentBlindness
   - Snoring
   - Unrevivable
+  - ColdBlooded # <Onyx-Traits>
+  - OneLife # <Onyx-Traits>
 
 - type: cloningSettings
   parent: [TraitsMental, TraitsPhysical]
