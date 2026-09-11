@@ -4,6 +4,7 @@
 // This file is licensed under AGPL-3.0-or-later.
 // See LICENSES for the full license text.
 
+using Content.Shared._Onyx.Movement;
 using Content.Shared.Climbing.Components;
 using Content.Shared.Climbing.Events;
 using Content.Shared.Physics;
@@ -76,5 +77,10 @@ public sealed partial class ClimbSystem
             return;
 
         StopClimb(ent, ent.Comp, fixtures);
+    }
+
+    private bool IsJumpClimbing(EntityUid uid)
+    {
+        return TryComp<JumpComponent>(uid, out var jump) && jump.IsJumping && jump.MountTable;
     }
 }

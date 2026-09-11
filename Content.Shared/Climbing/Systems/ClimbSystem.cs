@@ -384,6 +384,13 @@ public sealed partial class ClimbSystem : VirtualController
 
     private void OnClimbEndCollide(EntityUid uid, ClimbingComponent component, ref EndCollideEvent args)
     {
+        // <Onyx-Jump>
+        // Keep table collision disabled for the whole jump: losing contact with one
+        // table tile must not stop a mid-air climb and slam the player into the next.
+        if (IsJumpClimbing(uid))
+            return;
+        // </Onyx-Jump>
+
         if (args.OurFixtureId != ClimbingFixtureName
             || !component.IsClimbing
             || component.NextTransition != null)

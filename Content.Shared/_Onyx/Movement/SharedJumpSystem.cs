@@ -82,7 +82,11 @@ public abstract partial class SharedJumpSystem : EntitySystem
         var query = EntityQueryEnumerator<JumpComponent>();
         while (query.MoveNext(out var uid, out var jump))
         {
-            if (jump.IsJumping && jump.JumpEnds <= _timing.CurTime)
+            if (!jump.IsJumping)
+                continue;
+
+            if (jump.JumpEnds <= _timing.CurTime ||
+                jump.MountTable && !HasComp<ThrownItemComponent>(uid) && IsOverlappingTable(uid))
                 FinishJump((uid, jump));
         }
     }
