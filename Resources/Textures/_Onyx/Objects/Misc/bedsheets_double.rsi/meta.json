@@ -133,7 +133,6 @@
     },
     {
       "name": "double_sheetcosmos",
-      "directions": 4,
       "delays": [
         [
           0.2,
