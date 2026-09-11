@@ -8,100 +8,132 @@
   },
   "states": [
     {
-      "name": "double_sheetwhite"
+      "name": "double_sheetwhite",
+      "directions": 4
     },
     {
-      "name": "double_sheetgrey"
+      "name": "double_sheetgrey",
+      "directions": 4
     },
     {
-      "name": "double_sheetred"
+      "name": "double_sheetred",
+      "directions": 4
     },
     {
-      "name": "double_sheetorange"
+      "name": "double_sheetorange",
+      "directions": 4
     },
     {
-      "name": "double_sheetyellow"
+      "name": "double_sheetyellow",
+      "directions": 4
     },
     {
-      "name": "double_sheetgreen"
+      "name": "double_sheetgreen",
+      "directions": 4
     },
     {
-      "name": "double_sheetblue"
+      "name": "double_sheetblue",
+      "directions": 4
     },
     {
-      "name": "double_sheetpurple"
+      "name": "double_sheetpurple",
+      "directions": 4
     },
     {
-      "name": "double_sheetbrown"
+      "name": "double_sheetbrown",
+      "directions": 4
     },
     {
-      "name": "double_sheetblack"
+      "name": "double_sheetblack",
+      "directions": 4
     },
     {
-      "name": "double_sheetrainbow"
+      "name": "double_sheetrainbow",
+      "directions": 4
     },
     {
-      "name": "double_sheetclown"
+      "name": "double_sheetclown",
+      "directions": 4
     },
     {
-      "name": "double_sheetmime"
+      "name": "double_sheetmime",
+      "directions": 4
     },
     {
-      "name": "double_sheetchap"
+      "name": "double_sheetchap",
+      "directions": 4
     },
     {
-      "name": "double_sheetmedical"
+      "name": "double_sheetmedical",
+      "directions": 4
     },
     {
-      "name": "double_sheetrd"
+      "name": "double_sheetrd",
+      "directions": 4
     },
     {
-      "name": "double_sheetcmo"
+      "name": "double_sheetcmo",
+      "directions": 4
     },
     {
-      "name": "double_sheethos"
+      "name": "double_sheethos",
+      "directions": 4
     },
     {
-      "name": "double_sheetce"
+      "name": "double_sheetce",
+      "directions": 4
     },
     {
-      "name": "double_sheethop"
+      "name": "double_sheethop",
+      "directions": 4
     },
     {
-      "name": "double_sheetcaptain"
+      "name": "double_sheetcaptain",
+      "directions": 4
     },
     {
-      "name": "double_sheetian"
+      "name": "double_sheetian",
+      "directions": 4
     },
     {
-      "name": "double_sheetruntime"
+      "name": "double_sheetruntime",
+      "directions": 4
     },
     {
-      "name": "double_sheetnt"
+      "name": "double_sheetnt",
+      "directions": 4
     },
     {
-      "name": "double_sheetcentcom"
+      "name": "double_sheetcentcom",
+      "directions": 4
     },
     {
-      "name": "double_sheetrev"
+      "name": "double_sheetrev",
+      "directions": 4
     },
     {
-      "name": "double_sheetsyndie"
+      "name": "double_sheetsyndie",
+      "directions": 4
     },
     {
-      "name": "double_sheetcult"
+      "name": "double_sheetcult",
+      "directions": 4
     },
     {
-      "name": "double_sheetwiz"
+      "name": "double_sheetwiz",
+      "directions": 4
     },
     {
-      "name": "double_sheetqm"
+      "name": "double_sheetqm",
+      "directions": 4
     },
     {
-      "name": "double_sheetusa"
+      "name": "double_sheetusa",
+      "directions": 4
     },
     {
       "name": "double_sheetcosmos",
+      "directions": 4,
       "delays": [
         [
           0.2,
