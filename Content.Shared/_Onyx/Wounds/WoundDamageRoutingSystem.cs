@@ -12,6 +12,8 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Inventory;
 using Content.Shared.Light.Components;
 using Content.Shared.Medical;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems;
 using Content.Shared._Onyx.Targeting;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
@@ -30,6 +32,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private TargetResolverSystem _targetResolver = default!;
     [Dependency] private PainSystem _pain = default!;
+    [Dependency] private MobThresholdSystem _mobThreshold = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
 
     private readonly HashSet<EntityUid> _routing = new();
@@ -442,6 +445,43 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         }
 
         return candidates[^1].Part;
+    }
+
+    /// <summary>
+    /// Applies a lethal amount of damage to the victim's torso, so that
+    /// <see cref="MobThresholdSystem.CheckVitalDamage"/> reaches the death threshold and the victim actually dies.
+    /// </summary>
+    public bool TryApplyLethalDamage(
+        EntityUid body,
+        DamageSpecifier damage,
+        EntityUid? origin = null,
+        bool ignoreResistances = true)
+    {
+        if (!_net.IsServer || !HasComp<WoundHostComponent>(body) ||
+            !TryComp(body, out DamageableComponent? damageable) ||
+            !TryComp(body, out MobThresholdsComponent? thresholds) ||
+            thresholds.Thresholds.Count == 0)
+            return false;
+
+        var lethalAmount = thresholds.Thresholds.Keys.Last() - _mobThreshold.CheckVitalDamage(body, damageable);
+        if (lethalAmount <= FixedPoint2.Zero)
+            return false;
+
+        var scaled = new DamageSpecifier(damage);
+        scaled.DamageDict.Remove("Structural");
+        var total = scaled.GetTotal();
+        if (total <= FixedPoint2.Zero)
+            return false;
+
+        foreach (var (type, value) in scaled.DamageDict)
+            scaled.DamageDict[type] = Math.Ceiling((double) (value * lethalAmount / total));
+
+        return TryApplyDistributedDamage(body,
+            scaled,
+            TargetBodyPart.Chest,
+            DamageDistribution.SplitByPartWeight,
+            origin,
+            ignoreResistances);
     }
 
     public bool TryApplyPartDamage(

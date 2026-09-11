@@ -17,19 +17,20 @@ using Content.Shared.CombatMode;
 using Content.Shared.CombatMode.Pacification;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
+using Content.Shared.Damage.Prototypes;
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
 using Content.Shared.Execution;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Popups;
 using Content.Shared.Projectiles;
-using Content.Shared.Suicide;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
+using Content.Shared._Onyx.Wounds;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Network;
@@ -46,7 +47,6 @@ public sealed partial class SharedGunExecutionSystem : EntitySystem
 {
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private SharedSuicideSystem _suicide = default!;
     [Dependency] private SharedCombatModeSystem _combat = default!;
     [Dependency] private SharedExecutionSystem _execution = default!;
     [Dependency] private SharedGunSystem _gunSystem = default!;
@@ -57,6 +57,7 @@ public sealed partial class SharedGunExecutionSystem : EntitySystem
     [Dependency] private SharedCameraRecoilSystem _recoil = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private WoundDamageRoutingSystem _woundRouting = default!;
 
     public override void Initialize()
     {
@@ -169,7 +170,7 @@ public sealed partial class SharedGunExecutionSystem : EntitySystem
             direction = -diff.Normalized(); // recoil opposite of shot
 
         if (!CanExecuteWithGun(weapon, victim, attacker)
-            || !TryComp<DamageableComponent>(victim, out var damageableComponent))
+            || !HasComp<DamageableComponent>(victim))
             return;
 
         // Take some ammunition for the shot (one bullet)
@@ -246,11 +247,15 @@ public sealed partial class SharedGunExecutionSystem : EntitySystem
         var prev = _combat.IsInCombatMode(attacker);
         _combat.SetInCombatMode(attacker, true);
 
+        var lethalDamage = damage;
+        if (lethalDamage.Empty && mainDamageType is { } damageTypeId)
+            lethalDamage = new DamageSpecifier(_prototypeManager.Index<DamageTypePrototype>(damageTypeId), 1);
+
         if (attacker == victim)
         {
             ShowExecutionPopup("suicide-popup-gun-complete-internal", "suicide-popup-gun-complete-external", attacker, victim, weapon);
             _audio.PlayPredicted(component.SoundGunshot, uid, attacker);
-            _suicide.ApplyLethalDamage((victim, damageableComponent), mainDamageType);
+            _woundRouting.TryApplyLethalDamage(victim, lethalDamage, attacker);
         }
         else
         {
@@ -258,7 +263,7 @@ public sealed partial class SharedGunExecutionSystem : EntitySystem
                 _recoil.KickCamera(attacker, direction);
             ShowExecutionPopup("execution-popup-gun-complete-internal", "execution-popup-gun-complete-external", attacker, victim, weapon);
             _audio.PlayPredicted(component.SoundGunshot, uid, attacker);
-            _suicide.ApplyLethalDamage((victim, damageableComponent), mainDamageType);
+            _woundRouting.TryApplyLethalDamage(victim, lethalDamage, attacker);
         }
 
         _combat.SetInCombatMode(attacker, prev);

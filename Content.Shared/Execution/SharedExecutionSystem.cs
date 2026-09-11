@@ -12,6 +12,7 @@ using Content.Shared.Suicide;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Weapons.Melee.Events;
+using Content.Shared._Onyx.Wounds; // <Onyx-ExecutionLethal>
 using Robust.Shared.Audio.Systems;
 
 namespace Content.Shared.Execution;
@@ -30,6 +31,7 @@ public sealed partial class SharedExecutionSystem : EntitySystem
     [Dependency] private SharedCombatModeSystem _combat = default!;
     [Dependency] private SharedExecutionSystem _execution = default!;
     [Dependency] private SharedMeleeWeaponSystem _melee = default!;
+    [Dependency] private WoundDamageRoutingSystem _woundRouting = default!; // <Onyx-ExecutionLethal>
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -193,6 +195,7 @@ public sealed partial class SharedExecutionSystem : EntitySystem
         else
         {
             _melee.AttemptLightAttack(attacker, weapon, meleeWeaponComp, victim);
+            _woundRouting.TryApplyLethalDamage(victim, meleeWeaponComp.Damage, attacker); // <Onyx-ExecutionLethal>
         }
 
         _combat.SetInCombatMode(attacker, prev);
