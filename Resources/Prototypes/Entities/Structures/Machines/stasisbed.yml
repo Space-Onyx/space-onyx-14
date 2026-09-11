@@ -23,8 +23,6 @@
   - type: Transform
     anchored: true
     noRot: false
-  - type: Rotatable
-    rotateWhileAnchored: true
   # </Onyx-RotatableBeds>
   - type: GenericVisualizer
     visuals:
