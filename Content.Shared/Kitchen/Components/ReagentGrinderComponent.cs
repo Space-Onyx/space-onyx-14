@@ -13,7 +13,7 @@ namespace Content.Shared.Kitchen.Components;
 /// it contained, juice an apple and get "apple juice".
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(raiseAfterAutoHandleState: true), AutoGenerateComponentPause]
-[Access(typeof(SharedReagentGrinderSystem))]
+[Access(typeof(SharedReagentGrinderSystem), typeof(Content.Shared._Onyx.Construction.MachinePartEffectsSystem))] // <Onyx-TieredMachineParts-edited>
 public sealed partial class ReagentGrinderComponent : Component
 {
     /// <summary>

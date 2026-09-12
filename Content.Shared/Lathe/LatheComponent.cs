@@ -108,12 +108,15 @@ namespace Content.Shared.Lathe
         public ProtoId<LatheRecipePrototype> Recipe;
         public int ItemsPrinted;
         public int ItemsRequested;
+        public Dictionary<ProtoId<Content.Shared.Materials.MaterialPrototype>, int> MaterialCost = new(); // <Onyx-TieredMachineParts>
 
-        public LatheRecipeBatch(ProtoId<LatheRecipePrototype> recipe, int itemsPrinted, int itemsRequested)
+        public LatheRecipeBatch(ProtoId<LatheRecipePrototype> recipe, int itemsPrinted, int itemsRequested,
+            Dictionary<ProtoId<Content.Shared.Materials.MaterialPrototype>, int>? materialCost = null) // <Onyx-TieredMachineParts-edited>
         {
             Recipe = recipe;
             ItemsPrinted = itemsPrinted;
             ItemsRequested = itemsRequested;
+            MaterialCost = materialCost ?? new(); // <Onyx-TieredMachineParts>
         }
     }
 

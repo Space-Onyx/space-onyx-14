@@ -216,6 +216,7 @@
     - Janitor
     - Instruments
     - Equipment
+    - TieredMachineParts # <Onyx-TieredMachineParts>
     - FauxTiles
     - SeedDnaDisks # <Onyx-SeedDnaResearch>
     # <Onyx-VisionGogglesAndPinpointers>

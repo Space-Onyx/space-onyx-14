@@ -39,6 +39,14 @@ research-experiment-seed-diversity-name = Анализ разнообразия 
 research-experiment-seed-diversity-description = Просканируйте три разных вида пакетиков семян.
 research-experiment-seed-diversity-goal = Зарегистрировать разные пакетики семян
 
+research-experiment-tiered-parts-tier2-name = Бенчмарк калиброванных деталей
+research-experiment-tiered-parts-tier2-description = Наши новые компоненты оборудования нуждаются в практических испытаниях. Просканируйте любые машины с калиброванными деталями и доложите о результатах.
+research-experiment-tiered-parts-tier2-goal = Зарегистрировать детали 2 уровня
+
+research-experiment-tiered-parts-tier3-name = Бенчмарк прецизионных деталей
+research-experiment-tiered-parts-tier3-description = Наши новые компоненты оборудования нуждаются в практических испытаниях. Просканируйте любые машины с прецизионными деталями и доложите о результатах.
+research-experiment-tiered-parts-tier3-goal = Зарегистрировать детали 3 уровня
+
 research-experiment-scanner-window-title = Сканер экспериментов
 research-experiment-scanner-no-server = Нет подключения к серверу РнД.
 research-experiment-scanner-no-compatible = Нет активных экспериментов для этого сканера.

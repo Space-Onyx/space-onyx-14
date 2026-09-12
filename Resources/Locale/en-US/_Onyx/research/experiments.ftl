@@ -39,6 +39,14 @@ research-experiment-seed-diversity-name = Seed diversity analysis
 research-experiment-seed-diversity-description = Scan three different types of seed packets.
 research-experiment-seed-diversity-goal = Record different seed packets
 
+research-experiment-tiered-parts-tier2-name = Calibrated Stock Parts Benchmark
+research-experiment-tiered-parts-tier2-description = Our newly-designed machinery components require practical application tests for hints at possible further advancements. Scan any machinery with calibrated parts and report the results.
+research-experiment-tiered-parts-tier2-goal = Record tier 2 machine parts
+
+research-experiment-tiered-parts-tier3-name = Precision Stock Parts Benchmark
+research-experiment-tiered-parts-tier3-description = Our newly-designed machinery components require practical application tests for hints at possible further advancements. Scan any machinery with precision parts and report the results.
+research-experiment-tiered-parts-tier3-goal = Record tier 3 machine parts
+
 research-experiment-scanner-window-title = Experiment Scanner
 research-experiment-scanner-no-server = No R&D server connected.
 research-experiment-scanner-no-compatible = No active experiments support this scanner.

@@ -1,3 +1,5 @@
+using Content.Server._Onyx.Construction; // <Onyx-TieredMachineParts>
+using Content.Shared._Onyx.Construction; // <Onyx-TieredMachineParts>
 using Content.Server.Construction.Components;
 using Content.Shared.Construction.Components;
 using Robust.Shared.Containers;
@@ -6,6 +8,8 @@ namespace Content.Server.Construction;
 
 public sealed partial class ConstructionSystem
 {
+    [Dependency] private Content.Server._Onyx.Construction.TieredMachinePartSystem _tieredParts = default!; // <Onyx-TieredMachineParts>
+
     private void InitializeMachines()
     {
         SubscribeLocalEvent<MachineComponent, ComponentInit>(OnMachineInit);
@@ -21,6 +25,7 @@ public sealed partial class ConstructionSystem
     private void OnMachineMapInit(EntityUid uid, MachineComponent component, MapInitEvent args)
     {
         CreateBoardAndStockParts(uid, component);
+        _tieredParts.EnsureBoardPartsAndRefresh((uid, component)); // <Onyx-TieredMachineParts>
     }
 
     private void CreateBoardAndStockParts(EntityUid uid, MachineComponent component)
@@ -49,6 +54,10 @@ public sealed partial class ConstructionSystem
 
         foreach (var (stackType, amount) in machineBoard.StackRequirements)
         {
+            if (stackType == TieredMachinePartRequirements.LegacyManipulator
+                && TieredMachinePartRequirements.ReplacesManipulators(machineBoard)) // <Onyx-TieredMachineParts>
+                continue;
+
             var stack = _stackSystem.SpawnAtPosition(amount, stackType, xform.Coordinates);
             if (!_container.Insert(stack, partContainer))
                 throw new Exception($"Couldn't insert machine material of type {stackType} to machine with prototype {Prototype(uid)?.ID ?? "N/A"}");

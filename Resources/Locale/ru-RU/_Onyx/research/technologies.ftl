@@ -43,6 +43,10 @@ research-technology-suit-module-industrial = Промышленные модул
 research-technology-suit-module-advanced = Продвинутые модули скафандра
 research-technology-crystallizer = Кристаллизатор
 research-technology-accessibility = Технологии помощи экипажу
+research-technology-basic-machine-parts = Базовые детали машин
+research-technology-calibrated-machine-parts = Калиброванные детали машин
+research-technology-precision-machine-parts = Прецизионные детали машин
+research-technology-quantum-machine-parts = Квантовые детали машин
 research-technology-destructive-analysis = Деструктивный анализ
 
 research-technology-telecommunication = Телекоммуникации

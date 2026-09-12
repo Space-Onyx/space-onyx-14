@@ -9,7 +9,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.SmartFridge;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
-[Access(typeof(SharedSmartFridgeSystem))]
+[Access(typeof(SharedSmartFridgeSystem), typeof(Content.Shared._Onyx.Construction.MachinePartEffectsSystem))] // <Onyx-TieredMachineParts-edited>
 public sealed partial class SmartFridgeComponent : Component
 {
     /// <summary>

@@ -314,13 +314,21 @@ namespace Content.Server.Construction
 
                     // Material steps, which use stacks, are handled specially. Instead of inserting the whole item,
                     // we split the stack in two and insert the split stack.
-                    if (insertStep is MaterialConstructionGraphStep materialInsertStep)
+                    // <Onyx-TieredMachineParts-edited>
+                    var insertAmount = insertStep switch
                     {
-                        if (_stackSystem.Split(insert, materialInsertStep.Amount, Transform(interactUsing.User).Coordinates) is not {} stack)
+                        MaterialConstructionGraphStep materialInsertStep => materialInsertStep.Amount,
+                        Content.Shared._Onyx.Construction.TieredMachinePartConstructionGraphStep machinePartStep => machinePartStep.Amount,
+                        _ => 0,
+                    };
+                    if (insertAmount > 0)
+                    {
+                        if (_stackSystem.Split(insert, insertAmount, Transform(interactUsing.User).Coordinates) is not {} stack)
                             return HandleResult.False;
 
                         insert = stack;
                     }
+                    // </Onyx-TieredMachineParts-edited>
 
                     // Container-storage handling.
                     if (!string.IsNullOrEmpty(insertStep.Store))

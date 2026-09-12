@@ -5,6 +5,7 @@ using Content.Server.Flash;
 using Content.Server.Materials;
 using Content.Server.Power.EntitySystems;
 using Content.Shared._Onyx.BluespaceMining;
+using Content.Shared._Onyx.Construction;
 using Content.Shared.Atmos;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Examine;
@@ -47,6 +48,8 @@ public sealed partial class BluespaceMiningMachineSystem : EntitySystem
         SubscribeLocalEvent<BluespaceMiningMachineComponent, ComponentStartup>(OnStartup);
         SubscribeLocalEvent<BluespaceMiningMachineComponent, PowerChangedEvent>(OnPowerChanged);
         SubscribeLocalEvent<BluespaceMiningMachineComponent, PanelChangedEvent>(OnPanelChanged);
+        SubscribeLocalEvent<BluespaceMiningMachineComponent, MachinePartsChangedEvent>(OnPartsChanged);
+        SubscribeLocalEvent<BluespaceMiningMachineComponent, MachineUpgradeExamineEvent>(OnUpgradeExamine);
     }
 
     public override void Update(float frameTime)
@@ -57,9 +60,9 @@ public sealed partial class BluespaceMiningMachineSystem : EntitySystem
         while (query.MoveNext(out var uid, out var machine))
         {
             machine.ProductionAccumulator += frameTime;
-            while (machine.ProductionAccumulator >= 1f)
+            while (machine.ProductionAccumulator >= machine.ProductionSpeedMultiplier)
             {
-                machine.ProductionAccumulator -= 1f;
+                machine.ProductionAccumulator -= machine.ProductionSpeedMultiplier;
                 UpdateAppearance((uid, machine));
                 ProcessSecond((uid, machine));
             }
@@ -103,7 +106,8 @@ public sealed partial class BluespaceMiningMachineSystem : EntitySystem
         if (!args.IsInDetailsRange)
             return;
 
-        args.PushMarkup(Loc.GetString("bluespace-mining-machine-examine-efficiency"));
+        args.PushMarkup(Loc.GetString("bluespace-mining-machine-examine-efficiency",
+            ("efficiency", MathF.Round(100f / Math.Max(ent.Comp.ProductionSpeedMultiplier, 0.001f) * ent.Comp.ProductionAmountMultiplier, 1))));
         var coreUid = _itemSlots.GetItemOrNull(ent.Owner, BluespaceMiningMachineComponent.CoreSlotId);
         if (coreUid is null || !TryComp(coreUid, out BluespaceMiningCoreComponent? core))
         {
@@ -152,7 +156,8 @@ public sealed partial class BluespaceMiningMachineSystem : EntitySystem
             if (selectedIndex-- != 0)
                 continue;
 
-            _materialStorage.TryChangeMaterialAmount(silo, material, (int) MathF.Round(rate * 1000f));
+            _materialStorage.TryChangeMaterialAmount(silo, material,
+                (int) MathF.Round(rate * 1000f * ent.Comp.ProductionAmountMultiplier));
             break;
         }
     }
@@ -168,7 +173,7 @@ public sealed partial class BluespaceMiningMachineSystem : EntitySystem
         }
 
         ent.Comp.InstabilityAccumulator += 1f;
-        if (ent.Comp.InstabilityAccumulator < ent.Comp.InstabilityCooldown)
+        if (ent.Comp.InstabilityAccumulator < ent.Comp.InstabilityCooldown * ent.Comp.InstabilityMultiplier)
             return;
         ent.Comp.InstabilityAccumulator = 0f;
 
@@ -296,7 +301,7 @@ public sealed partial class BluespaceMiningMachineSystem : EntitySystem
 
     private void AffectAmbientTemperature(Entity<BluespaceMiningMachineComponent> ent)
     {
-        if (!_random.Prob(ent.Comp.AmbientTemperatureEffectChance * 100f))
+        if (!_random.Prob(ent.Comp.AmbientTemperatureEffectChance * ent.Comp.TemperatureEffectMultiplier * 100f))
             return;
 
         var xform = Transform(ent);
@@ -338,11 +343,30 @@ public sealed partial class BluespaceMiningMachineSystem : EntitySystem
                 multiplier *= 2f;
         }
 
-        core.Comp.Integrity = MathF.Max(0f, core.Comp.Integrity - multiplier / machine.Comp.CoreLifetime);
+        core.Comp.Integrity = MathF.Max(0f,
+            core.Comp.Integrity - multiplier * machine.Comp.CoreDamageMultiplier / machine.Comp.CoreLifetime);
         Dirty(core);
         WarnCoreIntegrity(machine, core.Comp.Integrity);
         if (core.Comp.Integrity <= 0f)
             QueueDel(core);
+    }
+
+    private static void OnPartsChanged(Entity<BluespaceMiningMachineComponent> ent, ref MachinePartsChangedEvent args)
+    {
+        ent.Comp.ProductionSpeedMultiplier = 1f / Math.Max(1f, args.GetRating(MachinePartKind.Servo));
+        ent.Comp.ProductionAmountMultiplier = Math.Max(1f, args.GetRating(MachinePartKind.MatterBin));
+        ent.Comp.CoreDamageMultiplier = 1f / Math.Max(1f, args.GetRating(MachinePartKind.Capacitor));
+        ent.Comp.InstabilityMultiplier = Math.Max(1f, args.GetRating(MachinePartKind.Scanner));
+        ent.Comp.TemperatureEffectMultiplier = 1f / Math.Max(1f, args.GetRating(MachinePartKind.Laser));
+    }
+
+    private static void OnUpgradeExamine(Entity<BluespaceMiningMachineComponent> ent, ref MachineUpgradeExamineEvent args)
+    {
+        args.Add("machine-upgrade-bluespace-mining-speed", 1f / ent.Comp.ProductionSpeedMultiplier);
+        args.Add("machine-upgrade-bluespace-mining-output", ent.Comp.ProductionAmountMultiplier);
+        args.Add("machine-upgrade-bluespace-mining-core-life", 1f / ent.Comp.CoreDamageMultiplier);
+        args.Add("machine-upgrade-bluespace-mining-stability", ent.Comp.InstabilityMultiplier);
+        args.Add("machine-upgrade-bluespace-mining-temperature", 1f / ent.Comp.TemperatureEffectMultiplier);
     }
 
     private void WarnCoreIntegrity(Entity<BluespaceMiningMachineComponent> machine, float integrity)

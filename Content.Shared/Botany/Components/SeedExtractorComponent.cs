@@ -9,7 +9,7 @@ namespace Content.Shared.Botany.Components;
 /// Component for a machine for extracting seeds from plant produce.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true)]
-[Access(typeof(SeedExtractorSystem))]
+[Access(typeof(SeedExtractorSystem), typeof(Content.Shared._Onyx.Construction.MachinePartEffectsSystem))] // <Onyx-TieredMachineParts-edited>
 public sealed partial class SeedExtractorComponent : Component
 {
     /// <summary>

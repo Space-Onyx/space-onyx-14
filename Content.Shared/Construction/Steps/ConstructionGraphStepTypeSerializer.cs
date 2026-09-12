@@ -1,4 +1,5 @@
-﻿using Robust.Shared.Serialization;
+﻿using Content.Shared._Onyx.Construction; // <Onyx-TieredMachineParts>
+using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Serialization.Markdown.Mapping;
 using Robust.Shared.Serialization.Markdown.Validation;
@@ -46,6 +47,9 @@ namespace Content.Shared.Construction.Steps
                 return typeof(PartAssemblyConstructionGraphStep);
             }
 
+            if (node.Has("machinePart")) // <Onyx-TieredMachineParts>
+                return typeof(TieredMachinePartConstructionGraphStep);
+
             // See Read below if you are adding new types
             return null;
         }
@@ -81,6 +85,9 @@ namespace Content.Shared.Construction.Steps
 
             if (type == typeof(PartAssemblyConstructionGraphStep))
                 return serializationManager.Read<PartAssemblyConstructionGraphStep>(node, hookCtx, context, notNullableOverride: true);
+
+            if (type == typeof(TieredMachinePartConstructionGraphStep)) // <Onyx-TieredMachineParts>
+                return serializationManager.Read<TieredMachinePartConstructionGraphStep>(node, hookCtx, context, notNullableOverride: true);
 
             // See GetType above if you are adding new types
             throw new NotImplementedException();

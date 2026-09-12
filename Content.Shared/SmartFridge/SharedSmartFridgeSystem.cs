@@ -56,6 +56,12 @@ public abstract partial class SharedSmartFridgeSystem : EntitySystem
         bool anyInserted = false;
         foreach (var used in usedItems)
         {
+            var containedCount = 0; // <Onyx-TieredMachineParts>
+            foreach (var entries in ent.Comp.ContainedEntries.Values) // <Onyx-TieredMachineParts>
+                containedCount += entries.Count; // <Onyx-TieredMachineParts>
+            if (containedCount >= ent.Comp.Capacity) // <Onyx-TieredMachineParts>
+                continue;
+
             if (!_whitelist.CheckBoth(used, ent.Comp.Blacklist, ent.Comp.Whitelist))
                 continue;
             anyInserted = true;

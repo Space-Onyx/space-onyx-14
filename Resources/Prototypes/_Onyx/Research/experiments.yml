@@ -134,3 +134,41 @@
       amount: 500
     - type: Experimental
       amount: 150
+
+- type: researchExperiment
+  id: TieredPartsAnalysisTier2
+  name: research-experiment-tiered-parts-tier2-name
+  description: research-experiment-tiered-parts-tier2-description
+  requiredTechnologies:
+  - CalibratedMachineParts
+  tasks:
+  - goal: research-experiment-tiered-parts-tier2-goal
+    target: 3
+    requireDifferentPrototypes: true
+    anyOf:
+    - minimumTieredMachinePartTier: 2
+  reward:
+    points:
+    - type: General
+      amount: 500
+    - type: Experimental
+      amount: 150
+
+- type: researchExperiment
+  id: TieredPartsAnalysisTier3
+  name: research-experiment-tiered-parts-tier3-name
+  description: research-experiment-tiered-parts-tier3-description
+  requiredTechnologies:
+  - PrecisionMachineParts
+  tasks:
+  - goal: research-experiment-tiered-parts-tier3-goal
+    target: 6
+    requireDifferentPrototypes: true
+    anyOf:
+    - minimumTieredMachinePartTier: 3
+  reward:
+    points:
+    - type: General
+      amount: 500
+    - type: Experimental
+      amount: 150

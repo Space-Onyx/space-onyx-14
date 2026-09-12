@@ -1,0 +1,323 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: entity
+  abstract: true
+  parent: BaseStockPart
+  id: BaseTieredMachinePart
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: BaseTieredMachinePart
+  id: StandardServoDrive
+  name: micro-manipulator
+  suffix: Tier 1
+  description: A tiny little manipulator used in the construction of certain devices.
+  components:
+  - type: Sprite
+    state: micro_mani
+  - type: Stack
+    stackType: ServoDriveT1
+  - type: TieredMachinePart
+    kind: Servo
+
+- type: entity
+  parent: StandardServoDrive
+  id: CalibratedServoDrive
+  name: nano-manipulator
+  suffix: Tier 2
+  description: A tiny little manipulator used in the construction of certain devices.
+  components:
+  - type: Sprite
+    state: nano_mani
+  - type: Stack
+    stackType: ServoDriveT2
+  - type: TieredMachinePart
+    kind: Servo
+    tier: 2
+
+- type: entity
+  parent: StandardServoDrive
+  id: PrecisionServoDrive
+  name: pico-manipulator
+  suffix: Tier 3
+  description: A tiny little manipulator used in the construction of certain devices.
+  components:
+  - type: Sprite
+    state: pico_mani
+  - type: Stack
+    stackType: ServoDriveT3
+  - type: TieredMachinePart
+    kind: Servo
+    tier: 3
+
+- type: entity
+  parent: StandardServoDrive
+  id: QuantumServoDrive
+  name: femto-manipulator
+  suffix: Tier 4
+  description: A tiny little manipulator used in the construction of certain devices.
+  components:
+  - type: Sprite
+    state: femto_mani
+  - type: Stack
+    stackType: ServoDriveT4
+  - type: TieredMachinePart
+    kind: Servo
+    tier: 4
+
+- type: entity
+  parent: BaseTieredMachinePart
+  id: StandardMatterRecycler
+  name: matter bin
+  suffix: Tier 1
+  description: A container designed to hold compressed matter awaiting reconstruction.
+  components:
+  - type: Sprite
+    state: matter_bin
+  - type: Stack
+    stackType: MatterRecyclerT1
+  - type: TieredMachinePart
+    kind: MatterBin
+
+- type: entity
+  parent: StandardMatterRecycler
+  id: CalibratedMatterRecycler
+  name: advanced matter bin
+  suffix: Tier 2
+  description: A container designed to hold compressed matter awaiting reconstruction.
+  components:
+  - type: Sprite
+    state: advanced_matter_bin
+  - type: Stack
+    stackType: MatterRecyclerT2
+  - type: TieredMachinePart
+    kind: MatterBin
+    tier: 2
+
+- type: entity
+  parent: StandardMatterRecycler
+  id: PrecisionMatterRecycler
+  name: super matter bin
+  suffix: Tier 3
+  description: A container designed to hold compressed matter awaiting reconstruction.
+  components:
+  - type: Sprite
+    state: super_matter_bin
+  - type: Stack
+    stackType: MatterRecyclerT3
+  - type: TieredMachinePart
+    kind: MatterBin
+    tier: 3
+
+- type: entity
+  parent: StandardMatterRecycler
+  id: BluespaceMatterRecycler
+  name: bluespace matter bin
+  suffix: Tier 4
+  description: A container designed to hold compressed matter awaiting reconstruction.
+  components:
+  - type: Sprite
+    state: bluespace_matter_bin
+  - type: Stack
+    stackType: MatterRecyclerT4
+  - type: TieredMachinePart
+    kind: MatterBin
+    tier: 4
+
+- type: entity
+  parent: BaseTieredMachinePart
+  id: StandardCapacitorModule
+  name: capacitor
+  suffix: Tier 1
+  description: A basic capacitor used in the construction of a variety of devices.
+  components:
+  - type: Sprite
+    state: capacitor
+  - type: Stack
+    stackType: CapacitorModuleT1
+  - type: TieredMachinePart
+    kind: Capacitor
+
+- type: entity
+  parent: StandardCapacitorModule
+  id: CalibratedCapacitorModule
+  name: advanced capacitor
+  suffix: Tier 2
+  description: An advanced capacitor used in the construction of a variety of devices.
+  components:
+  - type: Sprite
+    state: adv_capacitor
+  - type: Stack
+    stackType: CapacitorModuleT2
+  - type: TieredMachinePart
+    kind: Capacitor
+    tier: 2
+
+- type: entity
+  parent: StandardCapacitorModule
+  id: PrecisionCapacitorModule
+  name: super capacitor
+  suffix: Tier 3
+  description: A super-high capacity capacitor used in the construction of a variety of devices.
+  components:
+  - type: Sprite
+    state: super_capacitor
+  - type: Stack
+    stackType: CapacitorModuleT3
+  - type: TieredMachinePart
+    kind: Capacitor
+    tier: 3
+
+- type: entity
+  parent: StandardCapacitorModule
+  id: QuadraticCapacitorModule
+  name: quadratic capacitor
+  suffix: Tier 4
+  description: A quadratic capacitor used in the construction of a variety of devices.
+  components:
+  - type: Sprite
+    state: quadratic_capacitor
+  - type: Stack
+    stackType: CapacitorModuleT4
+  - type: TieredMachinePart
+    kind: Capacitor
+    tier: 4
+
+- type: entity
+  parent: BaseTieredMachinePart
+  id: StandardScannerModule
+  name: scanning module
+  suffix: Tier 1
+  description: A compact, high resolution scanning module used in the construction of certain devices.
+  components:
+  - type: Sprite
+    state: scan_module
+  - type: Stack
+    stackType: ScannerModuleT1
+  - type: TieredMachinePart
+    kind: Scanner
+
+- type: entity
+  parent: StandardScannerModule
+  id: CalibratedScannerModule
+  name: advanced scanning module
+  suffix: Tier 2
+  description: A compact, high resolution scanning module used in the construction of certain devices.
+  components:
+  - type: Sprite
+    state: adv_scan_module
+  - type: Stack
+    stackType: ScannerModuleT2
+  - type: TieredMachinePart
+    kind: Scanner
+    tier: 2
+
+- type: entity
+  parent: StandardScannerModule
+  id: PhasicScannerModule
+  name: phasic scanning module
+  suffix: Tier 3
+  description: A compact, high resolution phasic scanning module used in the construction of certain devices.
+  components:
+  - type: Sprite
+    state: super_scan_module
+  - type: Stack
+    stackType: ScannerModuleT3
+  - type: TieredMachinePart
+    kind: Scanner
+    tier: 3
+
+- type: entity
+  parent: StandardScannerModule
+  id: TriphasicScannerModule
+  name: triphasic scanning module
+  suffix: Tier 4
+  description: A compact, ultra resolution triphasic scanning module used in the construction of certain devices.
+  components:
+  - type: Sprite
+    state: triphasic_scan_module
+  - type: Stack
+    stackType: ScannerModuleT4
+  - type: TieredMachinePart
+    kind: Scanner
+    tier: 4
+
+- type: entity
+  parent: BaseTieredMachinePart
+  id: StandardLaserModule
+  name: micro-laser
+  suffix: Tier 1
+  description: A tiny laser used in certain devices.
+  components:
+  - type: Sprite
+    state: micro_laser
+  - type: Stack
+    stackType: LaserModuleT1
+  - type: TieredMachinePart
+    kind: Laser
+
+- type: entity
+  parent: StandardLaserModule
+  id: FocusedLaserModule
+  name: high-power micro-laser
+  suffix: Tier 2
+  description: A tiny laser used in certain devices.
+  components:
+  - type: Sprite
+    state: high_micro_laser
+  - type: Stack
+    stackType: LaserModuleT2
+  - type: TieredMachinePart
+    kind: Laser
+    tier: 2
+
+- type: entity
+  parent: StandardLaserModule
+  id: UltrafineLaserModule
+  name: ultra-high-power micro-laser
+  suffix: Tier 3
+  description: A tiny laser used in certain devices.
+  components:
+  - type: Sprite
+    state: ultra_high_micro_laser
+  - type: Stack
+    stackType: LaserModuleT3
+  - type: TieredMachinePart
+    kind: Laser
+    tier: 3
+
+- type: entity
+  parent: StandardLaserModule
+  id: QuadphaseLaserModule
+  name: quad-ultra micro-laser
+  suffix: Tier 4
+  description: A tiny laser used in certain devices.
+  components:
+  - type: Sprite
+    state: quadultra_micro_laser
+  - type: Stack
+    stackType: LaserModuleT4
+  - type: TieredMachinePart
+    kind: Laser
+    tier: 4
+
+- type: entity
+  parent: BaseStockPart
+  id: MicroManipulatorStockPart
+  name: micro-manipulator
+  suffix: Tier 1
+  description: A tiny little manipulator used in the construction of certain devices.
+  components:
+  - type: Sprite
+    state: micro_mani
+  - type: Stack
+    stackType: Manipulator
+  - type: TieredMachinePart
+    kind: Servo
+    tier: 1

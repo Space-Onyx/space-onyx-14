@@ -14,6 +14,7 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Inventory;
 using Content.Shared.Storage;
+using Content.Shared.Stacks;
 using Content.Shared.Whitelist;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
@@ -175,6 +176,34 @@ namespace Content.Server.Construction
 
                 switch (step)
                 {
+                    // <Onyx-TieredMachineParts>
+                    case Content.Shared._Onyx.Construction.TieredMachinePartConstructionGraphStep machinePartStep:
+                        foreach (var entity in EnumerateNearby(user))
+                        {
+                            if (!machinePartStep.EntityValid(entity, EntityManager, Factory)
+                                || used.Contains(entity)
+                                || !TryComp(entity, out StackComponent? stack))
+                                continue;
+
+                            var splitStack = _stackSystem.Split((entity, stack), machinePartStep.Amount, user.ToCoordinates(0, 0));
+                            if (splitStack == null)
+                                continue;
+
+                            if (string.IsNullOrEmpty(machinePartStep.Store))
+                            {
+                                if (!_container.Insert(splitStack.Value, container))
+                                    continue;
+                            }
+                            else if (!_container.Insert(splitStack.Value, GetContainer(machinePartStep.Store)))
+                            {
+                                continue;
+                            }
+
+                            handled = true;
+                            break;
+                        }
+                        break;
+                    // </Onyx-TieredMachineParts>
                     case MaterialConstructionGraphStep materialStep:
                         foreach (var entity in EnumerateNearby(user))
                         {

@@ -4,7 +4,7 @@ ent-BluespaceMiningMachine = блюспейс-майнер
 ent-BluespaceMiningMachineCircuitboard = плата блюспейс-майнера
     .desc = Машинная печатная плата для блюспейс-майнера.
 
-bluespace-mining-machine-examine-efficiency = Дисплей показывает эффективность [bold]100%[/bold].
+bluespace-mining-machine-examine-efficiency = Дисплей показывает эффективность [bold]{$efficiency}%[/bold].
 bluespace-mining-machine-examine-no-core = [color=red]Блюспейс-ядро не установлено.[/color]
 bluespace-mining-machine-examine-core = Целостность блюспейс-ядра: [bold]{$integrity}%[/bold].
 bluespace-mining-machine-examine-instability-0 = Случайные блюспейс-эффекты маловероятны.

@@ -1,0 +1,146 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: latheRecipe
+  parent: BaseStockPartRecipe
+  id: StandardServoDrive
+  result: StandardServoDrive
+
+- type: latheRecipe
+  parent: BaseStockPartRecipe
+  id: StandardMatterRecycler
+  result: StandardMatterRecycler
+
+- type: latheRecipe
+  parent: BaseStockPartRecipe
+  id: CalibratedServoDrive
+  result: CalibratedServoDrive
+  materials:
+    Steel: 100
+    Plastic: 100
+    Glass: 50
+
+- type: latheRecipe
+  parent: CalibratedServoDrive
+  id: CalibratedMatterRecycler
+  result: CalibratedMatterRecycler
+
+- type: latheRecipe
+  parent: CalibratedServoDrive
+  id: CalibratedCapacitorModule
+  result: CalibratedCapacitorModule
+
+- type: latheRecipe
+  parent: CalibratedServoDrive
+  id: CalibratedScannerModule
+  result: CalibratedScannerModule
+
+- type: latheRecipe
+  parent: CalibratedServoDrive
+  id: FocusedLaserModule
+  result: FocusedLaserModule
+
+- type: latheRecipe
+  parent: BaseStockPartRecipe
+  id: PrecisionServoDrive
+  result: PrecisionServoDrive
+  materials:
+    Steel: 150
+    Plastic: 150
+    Silver: 50
+
+- type: latheRecipe
+  parent: PrecisionServoDrive
+  id: PrecisionMatterRecycler
+  result: PrecisionMatterRecycler
+
+- type: latheRecipe
+  parent: PrecisionServoDrive
+  id: PrecisionCapacitorModule
+  result: PrecisionCapacitorModule
+
+- type: latheRecipe
+  parent: PrecisionServoDrive
+  id: PhasicScannerModule
+  result: PhasicScannerModule
+
+- type: latheRecipe
+  parent: PrecisionServoDrive
+  id: UltrafineLaserModule
+  result: UltrafineLaserModule
+
+- type: latheRecipe
+  parent: BaseStockPartRecipe
+  id: QuantumServoDrive
+  result: QuantumServoDrive
+  materials:
+    Steel: 200
+    Plastic: 200
+    Gold: 100
+    BSCrystal: 50
+
+- type: latheRecipe
+  parent: QuantumServoDrive
+  id: BluespaceMatterRecycler
+  result: BluespaceMatterRecycler
+
+- type: latheRecipe
+  parent: QuantumServoDrive
+  id: QuadraticCapacitorModule
+  result: QuadraticCapacitorModule
+
+- type: latheRecipe
+  parent: QuantumServoDrive
+  id: TriphasicScannerModule
+  result: TriphasicScannerModule
+
+- type: latheRecipe
+  parent: QuantumServoDrive
+  id: QuadphaseLaserModule
+  result: QuadphaseLaserModule
+
+- type: latheRecipe
+  parent: BaseStockPartRecipe
+  id: StandardCapacitorModule
+  result: StandardCapacitorModule
+
+- type: latheRecipe
+  parent: BaseStockPartRecipe
+  id: StandardScannerModule
+  result: StandardScannerModule
+
+- type: latheRecipe
+  parent: BaseStockPartRecipe
+  id: StandardLaserModule
+  result: StandardLaserModule
+
+- type: latheRecipe
+  parent: BasePartRecipe
+  id: MachinePartExchanger
+  result: MachinePartExchanger
+  materials:
+    Steel: 500
+    Glass: 250
+    Plastic: 250
+
+- type: latheRecipe
+  parent: BasePartRecipe
+  id: BluespaceMachinePartExchanger
+  result: BluespaceMachinePartExchanger
+  materials:
+    Steel: 750
+    Glass: 500
+    Gold: 250
+    BSCrystal: 150
+
+- type: latheRecipe
+  parent: BasePartRecipe
+  id: BorgModuleMachineParts
+  result: BorgModuleMachineParts
+  materials:
+    Steel: 500
+    Glass: 250
+    Plastic: 250

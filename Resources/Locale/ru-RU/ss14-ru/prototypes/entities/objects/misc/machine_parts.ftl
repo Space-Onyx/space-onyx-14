@@ -1,5 +1,5 @@
 ent-BaseStockPart = stock part
     .desc = What?
-ent-MicroManipulatorStockPart = модульная машинная часть
-    .desc = Базовая машинная часть, используемая при строительстве разнообразных устройств.
+ent-MicroManipulatorStockPart = микроманипулятор
+    .desc = Крошечный манипулятор, используемый при сборке различных устройств.
     .suffix = Уровень 1

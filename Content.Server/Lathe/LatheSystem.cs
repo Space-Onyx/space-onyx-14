@@ -178,13 +178,17 @@ namespace Content.Server.Lathe
             if (!CanProduce(uid, recipe, quantity, component))
                 return false;
 
-            foreach (var (mat, amount) in GetAdjustedAmount(component, recipe))
+            var materialCost = GetAdjustedAmount(component, recipe).ToDictionary(entry => entry.mat, entry => entry.amount); // <Onyx-TieredMachineParts>
+            foreach (var (mat, amount) in materialCost)
                 _materialStorage.TryChangeMaterialAmount(uid, mat, -amount * quantity);
 
-            if (component.Queue.Last is { } node && node.ValueRef.Recipe == recipe.ID)
+            if (component.Queue.Last is { } node
+                && node.ValueRef.Recipe == recipe.ID
+                && node.ValueRef.MaterialCost.Count == materialCost.Count
+                && node.ValueRef.MaterialCost.All(entry => materialCost.GetValueOrDefault(entry.Key) == entry.Value)) // <Onyx-TieredMachineParts-edited>
                 node.ValueRef.ItemsRequested += quantity;
             else
-                component.Queue.AddLast(new LatheRecipeBatch(recipe.ID, 0, quantity));
+                component.Queue.AddLast(new LatheRecipeBatch(recipe.ID, 0, quantity, materialCost)); // <Onyx-TieredMachineParts-edited>
 
             return true;
         }
@@ -197,6 +201,7 @@ namespace Content.Server.Lathe
                 return false;
 
             var batch = component.Queue.First();
+            component.ActiveMaterialCost = new Dictionary<ProtoId<MaterialPrototype>, int>(batch.MaterialCost); // <Onyx-TieredMachineParts>
             batch.ItemsPrinted++;
             if (batch.ItemsPrinted >= batch.ItemsRequested || batch.ItemsPrinted < 0) // Rollover sanity check
                 component.Queue.RemoveFirst();
@@ -266,6 +271,7 @@ namespace Content.Server.Lathe
             }
 
             comp.CurrentRecipe = null;
+            comp.ActiveMaterialCost = null; // <Onyx-TieredMachineParts>
             prodComp.StartTime = _timing.CurTime;
 
             if (!TryStartProducing(uid, comp))
@@ -434,7 +440,7 @@ namespace Content.Server.Lathe
             foreach (var (mat, amount) in recipe.Materials)
             {
                 var adjustedAmount = recipe.ApplyMaterialDiscount
-                    ? (int)(amount * lathe.MaterialUseMultiplier)
+                    ? Math.Max(1, (int) Math.Ceiling(amount * lathe.MaterialUseMultiplier)) // <Onyx-TieredMachineParts-edited>
                     : amount;
 
                 yield return (mat, adjustedAmount);
@@ -449,7 +455,7 @@ namespace Content.Server.Lathe
         {
             ProtoMan.Resolve(lathe.CurrentRecipe, out var recipe);
 
-            foreach (var (mat, amount) in GetAdjustedAmount(lathe, recipe!))
+            foreach (var (mat, amount) in lathe.ActiveMaterialCost ?? GetAdjustedAmount(lathe, recipe!).ToDictionary(entry => entry.mat, entry => entry.amount)) // <Onyx-TieredMachineParts-edited>
                 _materialStorage.TryChangeMaterialAmount(uid, mat, amount);
         }
 
@@ -461,9 +467,7 @@ namespace Content.Server.Lathe
         {
             var delta = batch.ItemsRequested - batch.ItemsPrinted;
 
-            ProtoMan.Resolve(batch.Recipe, out var recipe);
-
-            foreach (var (mat, amount) in GetAdjustedAmount(lathe, recipe!))
+            foreach (var (mat, amount) in batch.MaterialCost) // <Onyx-TieredMachineParts-edited>
                 _materialStorage.TryChangeMaterialAmount(uid, mat, amount * delta);
         }
 
@@ -474,22 +478,27 @@ namespace Content.Server.Lathe
 
             if (component.CurrentRecipe != null)
             {
+                var requeued = false; // <Onyx-TieredMachineParts>
                 if (component.Queue.Count > 0)
                 {
                     // Batch abandoned while printing last item, need to create a one-item batch
                     var batch = component.Queue.First();
                     if (batch.Recipe != component.CurrentRecipe)
                     {
-                        var newBatch = new LatheRecipeBatch(component.CurrentRecipe.Value, 0, 1);
+                        var newBatch = new LatheRecipeBatch(component.CurrentRecipe.Value, 0, 1, component.ActiveMaterialCost); // <Onyx-TieredMachineParts-edited>
                         component.Queue.AddFirst(newBatch);
+                        requeued = true; // <Onyx-TieredMachineParts>
                     }
                     else if (batch.ItemsPrinted > 0)
                     {
                         batch.ItemsPrinted--;
+                        requeued = true; // <Onyx-TieredMachineParts>
                     }
                 }
 
-                RefundCurrentRecipe(uid, component);
+                if (!requeued) // <Onyx-TieredMachineParts-edited>
+                    RefundCurrentRecipe(uid, component);
+                component.ActiveMaterialCost = null; // <Onyx-TieredMachineParts>
                 component.CurrentRecipe = null;
             }
             RemCompDeferred<LatheProducingComponent>(uid);
@@ -603,6 +612,7 @@ namespace Content.Server.Lathe
                 $"{ToPrettyString(args.Actor):player} aborted printing {GetRecipeName(component.CurrentRecipe.Value)} at {ToPrettyString(uid):lathe}");
 
             RefundCurrentRecipe(uid, component);
+            component.ActiveMaterialCost = null; // <Onyx-TieredMachineParts>
             component.CurrentRecipe = null;
             FinishProducing(uid, component);
         }

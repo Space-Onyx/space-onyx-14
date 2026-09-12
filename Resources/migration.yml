@@ -1264,3 +1264,6 @@ AutodocSyndie: null
 RightHandHuman: OrganHumanHandRight
 LeftHandHuman: OrganHumanHandLeft
 OperatingTableFilled: OperatingTable
+
+# 2026-09-12 Onyx
+MicroManipulatorStockPart: StandardServoDrive

@@ -51,7 +51,7 @@ public sealed partial class SeedExtractorSystem : EntitySystem
 
 
         var random = SharedRandomExtensions.PredictedRandom(_timing, GetNetEntity(ent));
-        var amount = random.NextFloat(ent.Comp.BaseSeeds.Min, ent.Comp.BaseSeeds.Max + 1);
+        var amount = Math.Max(1, (int) MathF.Round(random.NextFloat(ent.Comp.BaseSeeds.Min, ent.Comp.BaseSeeds.Max + 1) * ent.Comp.SeedMultiplier)); // <Onyx-TieredMachineParts-edited>
         var coords = Transform(ent).Coordinates;
 
         for (var i = 0; i < amount; i++)

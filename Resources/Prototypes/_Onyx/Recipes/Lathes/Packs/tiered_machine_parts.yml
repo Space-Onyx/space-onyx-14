@@ -1,0 +1,32 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: latheRecipePack
+  id: TieredMachineParts
+  recipes:
+  - StandardServoDrive
+  - StandardMatterRecycler
+  - StandardCapacitorModule
+  - StandardScannerModule
+  - StandardLaserModule
+  - CalibratedServoDrive
+  - CalibratedMatterRecycler
+  - CalibratedCapacitorModule
+  - CalibratedScannerModule
+  - FocusedLaserModule
+  - PrecisionServoDrive
+  - PrecisionMatterRecycler
+  - PrecisionCapacitorModule
+  - PhasicScannerModule
+  - UltrafineLaserModule
+  - QuantumServoDrive
+  - BluespaceMatterRecycler
+  - QuadraticCapacitorModule
+  - TriphasicScannerModule
+  - QuadphaseLaserModule
+  - MachinePartExchanger
+  - BluespaceMachinePartExchanger
+  - BorgModuleMachineParts

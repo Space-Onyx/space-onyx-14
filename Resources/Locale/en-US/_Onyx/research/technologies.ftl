@@ -43,6 +43,10 @@ research-technology-suit-module-industrial = Industrial suit modules
 research-technology-suit-module-advanced = Advanced suit modules
 research-technology-crystallizer = Crystallizer
 research-technology-accessibility = Crew Assistance Technologies
+research-technology-basic-machine-parts = Basic Machine Parts
+research-technology-calibrated-machine-parts = Calibrated Machine Parts
+research-technology-precision-machine-parts = Precision Machine Parts
+research-technology-quantum-machine-parts = Quantum Machine Parts
 
 research-technology-destructive-analysis = Destructive Analysis
 research-technology-telecommunication = Telecommunications

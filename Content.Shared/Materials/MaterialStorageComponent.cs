@@ -7,7 +7,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Materials;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-[Access(typeof(SharedMaterialStorageSystem))]
+[Access(typeof(SharedMaterialStorageSystem), typeof(Content.Shared._Onyx.Lathe.TieredLathePartSystem))] // <Onyx-TieredMachineParts-edited>
 public sealed partial class MaterialStorageComponent : Component
 {
     [DataField, AutoNetworkedField]

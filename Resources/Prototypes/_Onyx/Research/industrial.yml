@@ -175,3 +175,86 @@
   position: -1,2
   technologyPrerequisites:
   - MassExcavation
+
+- type: technology
+  id: BasicMachineParts
+  name: research-technology-basic-machine-parts
+  icon:
+    sprite: Objects/Misc/stock_parts.rsi
+    state: micro_mani
+  discipline: Industrial
+  tier: 1
+  cost: 3000
+  recipeUnlocks:
+  - MachinePartExchanger
+  - BorgModuleMachineParts
+  position: 4,-1
+  technologyPrerequisites:
+  - IndustrialEngineering
+
+- type: technology
+  id: CalibratedMachineParts
+  name: research-technology-calibrated-machine-parts
+  icon:
+    sprite: Objects/Misc/stock_parts.rsi
+    state: nano_mani
+  discipline: Industrial
+  tier: 1
+  cost: 6000
+  recipeUnlocks:
+  - CalibratedServoDrive
+  - CalibratedMatterRecycler
+  - CalibratedCapacitorModule
+  - CalibratedScannerModule
+  - FocusedLaserModule
+  position: 4,0
+  technologyPrerequisites:
+  - BasicMachineParts
+
+- type: technology
+  id: PrecisionMachineParts
+  name: research-technology-precision-machine-parts
+  icon:
+    sprite: Objects/Misc/stock_parts.rsi
+    state: pico_mani
+  discipline: Industrial
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+  - PrecisionServoDrive
+  - PrecisionMatterRecycler
+  - PrecisionCapacitorModule
+  - PhasicScannerModule
+  - UltrafineLaserModule
+  position: 5,0
+  technologyPrerequisites:
+  - CalibratedMachineParts
+  experimentDiscounts:
+    TieredPartsAnalysisTier2: 5000
+
+- type: technology
+  id: QuantumMachineParts
+  name: research-technology-quantum-machine-parts
+  icon:
+    sprite: Objects/Misc/stock_parts.rsi
+    state: femto_mani
+  discipline: Industrial
+  tier: 3
+  recipeUnlocks:
+  - QuantumServoDrive
+  - BluespaceMatterRecycler
+  - QuadraticCapacitorModule
+  - TriphasicScannerModule
+  - QuadphaseLaserModule
+  - BluespaceMachinePartExchanger
+  position: 6,0
+  technologyPrerequisites:
+  - PrecisionMachineParts
+  - BluespaceTheory
+  experimentDiscounts:
+    TieredPartsAnalysisTier3: 7500
+  pointCosts:
+  - type: General
+    amount: 15000
+  - type: Experimental
+    amount: 500

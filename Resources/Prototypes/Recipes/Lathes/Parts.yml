@@ -19,7 +19,10 @@
     Steel: 50
     Plastic: 50
 
-- type: latheRecipe
-  parent: BaseStockPartRecipe
-  id: MicroManipulatorStockPart
-  result: MicroManipulatorStockPart
+# <Onyx-TieredMachineParts-edited>
+# Vanilla manipulator recipe superseded by _Onyx tiered StandardServoDrive.
+# - type: latheRecipe
+#   parent: BaseStockPartRecipe
+#   id: MicroManipulatorStockPart
+#   result: MicroManipulatorStockPart
+# </Onyx-TieredMachineParts-edited>

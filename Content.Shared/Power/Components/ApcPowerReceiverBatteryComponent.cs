@@ -9,7 +9,7 @@ namespace Content.Shared.Power.Components;
 /// Requires <see cref="Content.Server.Power.Components.ApcPowerReceiverComponent"/> and <see cref="BatteryComponent"/> to function.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-[Access(typeof(SharedPowerNetSystem), typeof(SharedPowerReceiverSystem))]
+[Access(typeof(SharedPowerNetSystem), typeof(SharedPowerReceiverSystem), typeof(Content.Shared._Onyx.Construction.MachinePartEffectsSystem))] // <Onyx-TieredMachineParts-edited>
 public sealed partial class ApcPowerReceiverBatteryComponent : Component
 {
     /// <summary>

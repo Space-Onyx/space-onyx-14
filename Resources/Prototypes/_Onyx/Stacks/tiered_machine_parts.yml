@@ -1,0 +1,130 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: stack
+  parent: BaseSmallStack
+  id: ServoDriveT1
+  name: stack-servo-drive
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: micro_mani }
+  spawn: StandardServoDrive
+
+- type: stack
+  parent: ServoDriveT1
+  id: ServoDriveT2
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: nano_mani }
+  spawn: CalibratedServoDrive
+
+- type: stack
+  parent: ServoDriveT1
+  id: ServoDriveT3
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: pico_mani }
+  spawn: PrecisionServoDrive
+
+- type: stack
+  parent: ServoDriveT1
+  id: ServoDriveT4
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: femto_mani }
+  spawn: QuantumServoDrive
+
+- type: stack
+  parent: BaseSmallStack
+  id: MatterRecyclerT1
+  name: stack-matter-recycler
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: matter_bin }
+  spawn: StandardMatterRecycler
+
+- type: stack
+  parent: MatterRecyclerT1
+  id: MatterRecyclerT2
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: advanced_matter_bin }
+  spawn: CalibratedMatterRecycler
+
+- type: stack
+  parent: MatterRecyclerT1
+  id: MatterRecyclerT3
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: super_matter_bin }
+  spawn: PrecisionMatterRecycler
+
+- type: stack
+  parent: MatterRecyclerT1
+  id: MatterRecyclerT4
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: bluespace_matter_bin }
+  spawn: BluespaceMatterRecycler
+
+- type: stack
+  parent: BaseSmallStack
+  id: CapacitorModuleT1
+  name: stack-capacitor-module
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: capacitor }
+  spawn: StandardCapacitorModule
+
+- type: stack
+  parent: CapacitorModuleT1
+  id: CapacitorModuleT2
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: adv_capacitor }
+  spawn: CalibratedCapacitorModule
+
+- type: stack
+  parent: CapacitorModuleT1
+  id: CapacitorModuleT3
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: super_capacitor }
+  spawn: PrecisionCapacitorModule
+
+- type: stack
+  parent: CapacitorModuleT1
+  id: CapacitorModuleT4
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: quadratic_capacitor }
+  spawn: QuadraticCapacitorModule
+
+- type: stack
+  parent: BaseSmallStack
+  id: ScannerModuleT1
+  name: stack-scanner-module
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: scan_module }
+  spawn: StandardScannerModule
+
+- type: stack
+  parent: ScannerModuleT1
+  id: ScannerModuleT2
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: adv_scan_module }
+  spawn: CalibratedScannerModule
+
+- type: stack
+  parent: ScannerModuleT1
+  id: ScannerModuleT3
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: super_scan_module }
+  spawn: PhasicScannerModule
+
+- type: stack
+  parent: ScannerModuleT1
+  id: ScannerModuleT4
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: triphasic_scan_module }
+  spawn: TriphasicScannerModule
+
+- type: stack
+  parent: BaseSmallStack
+  id: LaserModuleT1
+  name: stack-laser-module
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: micro_laser }
+  spawn: StandardLaserModule
+
+- type: stack
+  parent: LaserModuleT1
+  id: LaserModuleT2
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: high_micro_laser }
+  spawn: FocusedLaserModule
+
+- type: stack
+  parent: LaserModuleT1
+  id: LaserModuleT3
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: ultra_high_micro_laser }
+  spawn: UltrafineLaserModule
+
+- type: stack
+  parent: LaserModuleT1
+  id: LaserModuleT4
+  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: quadultra_micro_laser }
+  spawn: QuadphaseLaserModule

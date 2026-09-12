@@ -9,6 +9,11 @@
       stackRequirements:
         Manipulator: 4
         Glass: 1
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        MatterBin: 3
+        Servo: 1
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -21,6 +26,11 @@
     stackRequirements:
       Manipulator: 4
       Glass: 1
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      MatterBin: 2
+      Servo: 2
+    # </Onyx-TieredMachineParts>
     tagRequirements:
       Igniter:
         amount: 1
@@ -38,6 +48,11 @@
     prototype: Protolathe
     stackRequirements:
       Manipulator: 4
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      MatterBin: 2
+      Servo: 2
+    # </Onyx-TieredMachineParts>
     tagRequirements:
       GlassBeaker:
         amount: 2
@@ -55,6 +70,11 @@
     prototype: ProtolatheHyperConvection
     stackRequirements:
       Manipulator: 4
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      MatterBin: 2
+      Servo: 2
+    # </Onyx-TieredMachineParts>
     tagRequirements:
       GlassBeaker:
         amount: 2
@@ -76,6 +96,10 @@
     stackRequirements:
       Manipulator: 4
       Glass: 1
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 4
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: SecurityTechFabCircuitboard
@@ -89,6 +113,11 @@
       prototype: SecurityTechFab
       stackRequirements:
         Manipulator: 4
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        MatterBin: 2
+        Servo: 2
+      # </Onyx-TieredMachineParts>
       tagRequirements:
         GlassBeaker:
           amount: 2
@@ -106,6 +135,11 @@
       prototype: AmmoTechFab
       stackRequirements:
         Manipulator: 2
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        MatterBin: 1
+        Servo: 1
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   id: MedicalTechFabCircuitboard
@@ -119,6 +153,11 @@
       prototype: MedicalTechFab
       stackRequirements:
         Manipulator: 4
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        MatterBin: 2
+        Servo: 2
+      # </Onyx-TieredMachineParts>
       tagRequirements:
         GlassBeaker:
           amount: 2
@@ -137,6 +176,11 @@
     prototype: CircuitImprinter
     stackRequirements:
       Manipulator: 2
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      MatterBin: 1
+      Servo: 1
+    # </Onyx-TieredMachineParts>
     tagRequirements:
       GlassBeaker:
         amount: 2
@@ -154,6 +198,11 @@
     prototype: CircuitImprinterHyperConvection
     stackRequirements:
       Manipulator: 2
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      MatterBin: 1
+      Servo: 1
+    # </Onyx-TieredMachineParts>
     tagRequirements:
       GlassBeaker:
         amount: 2
@@ -174,6 +223,12 @@
     stackRequirements:
       Manipulator: 4
       Glass: 5
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      MatterBin: 2
+      Servo: 1
+      Laser: 1
+    # </Onyx-TieredMachineParts>
   - type: GuideHelp
     guides:
     - Robotics
@@ -204,6 +259,11 @@
     prototype: Biogenerator
     stackRequirements:
       Manipulator: 2
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      MatterBin: 1
+      Servo: 1
+    # </Onyx-TieredMachineParts>
     tagRequirements:
       GlassBeaker:
         amount: 1
@@ -218,6 +278,10 @@
     prototype: UniformPrinter
     stackRequirements:
       Manipulator: 3
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 3
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: VaccinatorMachineCircuitboard
@@ -231,6 +295,10 @@
     stackRequirements:
       Manipulator: 2
       Cable: 5
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 2
+    # </Onyx-TieredMachineParts>
     tagRequirements:
         GlassBeaker:
           amount: 1
@@ -269,6 +337,10 @@
       stackRequirements:
         Manipulator: 1
         Glass: 5
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Capacitor: 1
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   id: ArtifactCrusherMachineCircuitboard
@@ -284,6 +356,10 @@
       Manipulator: 2
       Glass: 1
       Steel: 5
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 2
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: StationTeleporterMachineCircuitboard
@@ -300,6 +376,10 @@
       Cable: 5
       PlasmaGlass: 10
       BSCrystal: 10 # <Onyx-BluespaceCrafting>
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 3
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -315,6 +395,10 @@
         Manipulator: 3
         Cable: 1
         PlasmaGlass: 10
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Servo: 3
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -331,6 +415,10 @@
       Cable: 5
       PlasmaGlass: 15
       MetalRod: 4
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 3
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -346,6 +434,10 @@
         Manipulator: 7
         PlasmaGlass: 5
         Cable: 5
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Servo: 7
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -361,6 +453,10 @@
         Manipulator: 2
         Cable: 1
         Glass: 1
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Servo: 2
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   id: ThermomachineFreezerMachineCircuitBoard
@@ -375,6 +471,11 @@
     stackRequirements:
       Manipulator: 4
       Cable: 5
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      MatterBin: 2
+      Laser: 2
+    # </Onyx-TieredMachineParts>
   - type: Construction
     deconstructionTarget: null
     graph: ThermomachineBoard
@@ -393,6 +494,11 @@
     stackRequirements:
       Manipulator: 4
       Cable: 5
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      MatterBin: 2
+      Laser: 2
+    # </Onyx-TieredMachineParts>
   - type: Construction
     graph: ThermomachineBoard
     deconstructionTarget: null
@@ -411,6 +517,10 @@
     stackRequirements:
       Manipulator: 4
       Plasma: 1
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 4
+    # </Onyx-TieredMachineParts>
   - type: Construction
     deconstructionTarget: null
     graph: ThermomachineBoard
@@ -429,6 +539,10 @@
     stackRequirements:
       Manipulator: 4
       Plasma: 1
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 4
+    # </Onyx-TieredMachineParts>
   - type: Construction
     graph: ThermomachineBoard
     deconstructionTarget: null
@@ -447,6 +561,10 @@
     stackRequirements:
       Manipulator: 1
       Glass: 1
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 1
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: PortableScrubberMachineCircuitBoard
@@ -462,6 +580,11 @@
       Manipulator: 3
       Cable: 5
       Glass: 2
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Laser: 2
+      Capacitor: 2
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: SpaceHeaterMachineCircuitBoard
@@ -476,6 +599,11 @@
     stackRequirements:
       Manipulator: 3
       Cable: 5
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Capacitor: 2
+      Laser: 2
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: CloningPodMachineCircuitboard
@@ -491,6 +619,10 @@
         Manipulator: 4
         Glass: 1
         Cable: 1
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Capacitor: 1
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   id: MedicalScannerMachineCircuitboard
@@ -506,6 +638,10 @@
         Manipulator: 1
         Glass: 5
         Cable: 1
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Servo: 1
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   id: CrewMonitoringServerMachineCircuitboard
@@ -532,6 +668,11 @@
       stackRequirements:
         Glass: 5
         Cable: 1
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        MatterBin: 2
+        Laser: 2
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   id: ChemMasterMachineCircuitboard
@@ -547,6 +688,10 @@
         Manipulator: 1
         Glass: 1
         Cable: 1
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Servo: 1
+      # </Onyx-TieredMachineParts>
       tagRequirements:
         GlassBeaker:
           amount: 2
@@ -570,6 +715,11 @@
         GlassBeaker:
           amount: 2
           defaultPrototype: Beaker
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Capacitor: 2
+        MatterBin: 2
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   id: BiomassReclaimerMachineCircuitboard
@@ -584,6 +734,10 @@
     stackRequirements:
       Manipulator: 3
       Steel: 5
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 3
+    # </Onyx-TieredMachineParts>
     tagRequirements:
       Knife:
         amount: 2
@@ -608,6 +762,11 @@
         GlassBeaker:
           amount: 2
           defaultPrototype: Beaker
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        MatterBin: 2
+        Servo: 1
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   id: SeedExtractorMachineCircuitboard
@@ -624,6 +783,10 @@
         # replacing the console screen
         Glass: 1
         Cable: 2
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Servo: 3
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   id: SMESMachineCircuitboard
@@ -643,6 +806,10 @@
         PowerCell:
           amount: 4
           defaultPrototype: PowerCellSmall
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Capacitor: 4
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   id: SMESAdvancedMachineCircuitboard
@@ -662,6 +829,10 @@
       PowerCell:
         amount: 4
         defaultPrototype: PowerCellMedium
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Capacitor: 4
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: CellRechargerCircuitboard
@@ -677,6 +848,10 @@
       stackRequirements:
         Manipulator: 2
         Cable: 5
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Capacitor: 1
+      # </Onyx-TieredMachineParts>
     - type: PhysicalComposition
       materialComposition:
         Steel: 25
@@ -701,6 +876,10 @@
         Manipulator: 4
         Plasteel: 5
         Cable: 10
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Capacitor: 1
+      # </Onyx-TieredMachineParts>
     - type: PhysicalComposition
       materialComposition:
         Steel: 30
@@ -722,6 +901,11 @@
       stackRequirements:
         Manipulator: 2
         Cable: 5
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Capacitor: 2
+        Servo: 1
+      # </Onyx-TieredMachineParts>
     - type: PhysicalComposition
       materialComposition:
         Steel: 25
@@ -745,6 +929,10 @@
       stackRequirements:
         Manipulator: 2
         CableMV: 5
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Capacitor: 1
+      # </Onyx-TieredMachineParts>
     - type: PhysicalComposition
       materialComposition:
         Steel: 25
@@ -766,6 +954,10 @@
     stackRequirements:
       Manipulator: 2
       CableMV: 5
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Capacitor: 1
+    # </Onyx-TieredMachineParts>
   - type: PhysicalComposition
     materialComposition:
       Steel: 30
@@ -783,6 +975,10 @@
         Manipulator: 1
         CableMV: 5
         CableHV: 5
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Servo: 1
+      # </Onyx-TieredMachineParts>
       componentRequirements:
         PowerCell:
           amount: 1
@@ -842,6 +1038,10 @@
       stackRequirements:
         Manipulator: 1
         CableHV: 5
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Servo: 1
+      # </Onyx-TieredMachineParts>
     - type: PhysicalComposition
       materialComposition:
         Glass: 200
@@ -862,6 +1062,10 @@
     stackRequirements:
       Manipulator: 4
       Plasteel: 5
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 4
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: GyroscopeMachineCircuitboard
@@ -875,6 +1079,10 @@
     stackRequirements:
       Manipulator: 3
       Glass: 2
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 3
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: PortableGeneratorSuperPacmanMachineCircuitboard
@@ -888,6 +1096,10 @@
       stackRequirements:
         Manipulator: 2
         CableHV: 10
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Servo: 2
+      # </Onyx-TieredMachineParts>
     - type: PhysicalComposition
       materialComposition:
         Glass: 200
@@ -908,6 +1120,10 @@
       stackRequirements:
         Manipulator: 1
         Cable: 10
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Servo: 1
+      # </Onyx-TieredMachineParts>
     - type: PhysicalComposition
       materialComposition:
         Glass: 200
@@ -926,6 +1142,11 @@
       prototype: KitchenReagentGrinder
       stackRequirements:
         Manipulator: 4
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Servo: 1
+        MatterBin: 1
+      # </Onyx-TieredMachineParts>
       tagRequirements:
         GlassBeaker:
           amount: 1
@@ -944,6 +1165,10 @@
     stackRequirements:
       Manipulator: 2
       Glass: 1
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Laser: 1
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -959,6 +1184,10 @@
       Manipulator: 4
       Glass: 2
       Cable: 5
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 4
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: StasisBedMachineCircuitboard
@@ -973,6 +1202,10 @@
         Manipulator: 2
         Cable: 3
         Steel: 2
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Capacitor: 2
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   id: ElectrolysisUnitMachineCircuitboard
@@ -987,6 +1220,11 @@
     stackRequirements:
       Manipulator: 2
       Cable: 1
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 2
+      Capacitor: 2
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: CentrifugeMachineCircuitboard
@@ -1001,6 +1239,10 @@
     stackRequirements:
       Manipulator: 1
       Steel: 1
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 1
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: MaterialSiloMachineCircuitboard
@@ -1014,6 +1256,10 @@
     stackRequirements:
       Manipulator: 4
       Cable: 1
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 4
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: OreProcessorMachineCircuitboard
@@ -1027,6 +1273,12 @@
       stackRequirements:
         Manipulator: 4
         Glass: 1
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        MatterBin: 1
+        Laser: 1
+        Servo: 1
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -1040,6 +1292,12 @@
     stackRequirements:
       Manipulator: 4
       Glass: 1
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      MatterBin: 1
+      Laser: 1
+      Servo: 1
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: SheetifierMachineCircuitboard
@@ -1050,6 +1308,11 @@
     prototype: Sheetifier
     stackRequirements:
       Manipulator: 2
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 2
+      MatterBin: 2
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: MicrowaveMachineCircuitboard
@@ -1064,6 +1327,11 @@
         Manipulator: 1
         Glass: 2
         Cable: 2
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Laser: 1
+        MatterBin: 1
+      # </Onyx-TieredMachineParts>
     - type: Tag
       tags:
       - MicrowaveMachineBoard
@@ -1081,6 +1349,11 @@
         Manipulator: 1
         Glass: 2
         Cable: 2
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Laser: 1
+        MatterBin: 1
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   id: FatExtractorMachineCircuitboard
@@ -1093,6 +1366,10 @@
       prototype: FatExtractor
       stackRequirements:
         Manipulator: 1
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Laser: 1
+      # </Onyx-TieredMachineParts>
       componentRequirements:
         Utensil:
           amount: 1
@@ -1109,6 +1386,12 @@
     stackRequirements:
       Manipulator: 3
       Steel: 1
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      MatterBin: 2
+      Laser: 2
+      Servo: 1
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: EmitterCircuitboard
@@ -1124,6 +1407,11 @@
         CableHV: 5
         Glass: 2
         Plasteel: 2
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Laser: 1
+        Servo: 1
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   id: SurveillanceCameraRouterCircuitboard
@@ -1208,6 +1496,10 @@
       Manipulator: 2
       Steel: 10
       Plasma: 5
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 2
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: BoozeDispenserMachineCircuitboard
@@ -1242,6 +1534,10 @@
         Steel: 5
         BSCrystal: 10
         # </Onyx-BluespaceCrafting-edited>
+      # <Onyx-TieredMachineParts>
+      partRequirements:
+        Servo: 1
+      # </Onyx-TieredMachineParts>
 
 - type: entity
   id: MailTeleporterMachineCircuitboard
@@ -1256,6 +1552,11 @@
     stackRequirements:
       Manipulator: 2
       Plasteel: 5
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      MatterBin: 2
+      Scanner: 1
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   id: SodaDispenserMachineCircuitboard
@@ -1303,6 +1604,11 @@
       Steel: 5
       CableHV: 5
       Cable: 2
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 1
+      MatterBin: 1
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -1319,6 +1625,10 @@
       Steel: 5
       CableHV: 5
       Uranium: 2
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 7
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -1334,6 +1644,10 @@
       Glass: 5
       CableHV: 8
       Uranium: 2
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 7
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -1345,6 +1659,11 @@
     stackRequirements:
       Manipulator: 4
       Glass: 1
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      MatterBin: 2
+      Servo: 2
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -1373,6 +1692,10 @@
       Steel: 2
       Manipulator: 2
       Cable: 1
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 2
+    # </Onyx-TieredMachineParts>
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -1391,3 +1714,7 @@
         GlassBeaker:
           amount: 2
           defaultPrototype: Beaker
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      MatterBin: 2
+    # </Onyx-TieredMachineParts>

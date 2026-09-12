@@ -60,7 +60,7 @@
             - material: Cable
               amount: 2
               doAfter: 1
-            - material: Manipulator
+            - machinePart: Servo # <Onyx-TieredMachineParts-edited>
               amount: 2
     - node: potatoaichip
       entity: PotatoAIChip

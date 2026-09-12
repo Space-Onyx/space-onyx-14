@@ -46,7 +46,7 @@
         doAfter: 1
     - to: memory_cell
       steps:
-      - material: Manipulator
+      - machinePart: Servo # <Onyx-TieredMachineParts-edited>
         amount: 2
       - material: Cable
         amount: 2

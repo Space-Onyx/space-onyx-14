@@ -4,7 +4,7 @@ ent-BluespaceMiningMachine = bluespace mining machine
 ent-BluespaceMiningMachineCircuitboard = bluespace mining machine board
     .desc = A machine printed circuit board for a bluespace mining machine.
 
-bluespace-mining-machine-examine-efficiency = Its display reports an efficiency of [bold]100%[/bold].
+bluespace-mining-machine-examine-efficiency = Its display reports an efficiency of [bold]{$efficiency}%[/bold].
 bluespace-mining-machine-examine-no-core = [color=red]No bluespace core is installed.[/color]
 bluespace-mining-machine-examine-core = Bluespace core integrity: [bold]{$integrity}%[/bold].
 bluespace-mining-machine-examine-instability-0 = Random bluespace effects are unlikely.

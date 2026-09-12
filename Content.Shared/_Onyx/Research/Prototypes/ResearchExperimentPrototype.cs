@@ -108,6 +108,14 @@ public sealed partial class ResearchExperimentRequirement
 
     [DataField]
     public float? MinimumExplosiveIntensity;
+
+    /// <summary>
+    /// Minimum <see cref="Content.Shared._Onyx.Construction.TieredMachinePartComponent.Tier"/>
+    /// accepted by this requirement. Matches a loose tiered part or a machine
+    /// containing such a part, closing the parts progression loop.
+    /// </summary>
+    [DataField]
+    public int? MinimumTieredMachinePartTier;
 }
 
 [Serializable, NetSerializable]

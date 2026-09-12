@@ -5,7 +5,7 @@ using Robust.Shared.Audio;
 
 namespace Content.Server._Onyx.Chemistry.Components;
 
-[RegisterComponent, Access(typeof(EnergyReagentDispenserSystem))]
+[RegisterComponent, Access(typeof(EnergyReagentDispenserSystem), typeof(Content.Server._Onyx.Construction.MachinePartEffectsSystem))]
 public sealed partial class EnergyReagentDispenserComponent : Component
 {
     [DataField] public ItemSlot BeakerSlot = new();
@@ -13,4 +13,5 @@ public sealed partial class EnergyReagentDispenserComponent : Component
     [DataField] public SoundSpecifier PowerSound = new SoundPathSpecifier("/Audio/Machines/buzz-sigh.ogg");
     [DataField] public Dictionary<string, float> Reagents = new();
     public EnergyReagentDispenserDispenseAmount Amount = EnergyReagentDispenserDispenseAmount.U10;
+    [ViewVariables] public float EnergyCostMultiplier = 1f;
 }

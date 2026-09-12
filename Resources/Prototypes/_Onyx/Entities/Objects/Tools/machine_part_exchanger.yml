@@ -1,0 +1,79 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: entity
+  parent: BaseStorageItem
+  id: MachinePartExchanger
+  name: machine part exchanger
+  description: A portable tool that stores machine modules and installs better ones through an open maintenance panel.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Research/rped.rsi
+    state: icon
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Research/rped.rsi
+    size: Normal
+  - type: MachinePartExchanger
+  - type: Storage
+    grid:
+    - 0,0,7,4
+    quickInsert: true
+    whitelist:
+      components:
+      - TieredMachinePart
+
+- type: entity
+  parent: MachinePartExchanger
+  id: BluespaceMachinePartExchanger
+  name: bluespace machine part exchanger
+  description: An advanced machine module exchanger capable of remote installation through closed panels.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Research/bluespace_rped.rsi
+    state: icon
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Research/bluespace_rped.rsi
+    size: Normal
+  - type: MachinePartExchanger
+    remote: true
+    exchangeTime: 1.5
+    sound:
+      path: /Audio/Effects/teleport_arrival.ogg
+    beamPrototype: AnomalyTechBeam
+  - type: Storage
+    grid:
+    - 0,0,11,7
+
+- type: entity
+  parent: MachinePartExchanger
+  id: BorgMachinePartExchanger
+  name: integrated machine part exchanger
+  description: A machine module exchanger designed for cyborg use.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Research/borg_rped.rsi
+    state: icon
+  - type: Item
+    sprite: _Onyx/Objects/Specific/Research/borg_rped.rsi
+  - type: MachinePartExchanger
+
+- type: entity
+  parent: BluespaceMachinePartExchanger
+  id: BluespaceMachinePartExchangerFilled
+  suffix: Tier 4
+  components:
+  - type: StorageFill
+    contents:
+      - id: QuadraticCapacitorModule
+        amount: 20
+      - id: TriphasicScannerModule
+        amount: 20
+      - id: QuantumServoDrive
+        amount: 20
+      - id: QuadphaseLaserModule
+        amount: 20
+      - id: BluespaceMatterRecycler
+        amount: 20

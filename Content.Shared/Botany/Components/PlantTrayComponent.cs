@@ -10,7 +10,7 @@ namespace Content.Shared.Botany.Components;
 /// Component for hydroponics trays plots that hold resources and link to a plant entity.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true, raiseAfterAutoHandleState: true), AutoGenerateComponentPause]
-[Access(typeof(PlantTraySystem))]
+[Access(typeof(PlantTraySystem), typeof(Content.Shared._Onyx.Construction.MachinePartEffectsSystem))] // <Onyx-TieredMachineParts-edited>
 public sealed partial class PlantTrayComponent : Component
 {
     /// <summary>

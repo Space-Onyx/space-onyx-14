@@ -1,3 +1,4 @@
+using Content.Server._Onyx.Construction; // <Onyx-TieredMachineParts>
 using Content.Server.Construction.Components;
 using Content.Server.Stack;
 using Content.Shared.Construction.Components;
@@ -18,6 +19,7 @@ public sealed partial class MachineFrameSystem : EntitySystem
     [Dependency] private StackSystem _stack = default!;
     [Dependency] private ConstructionSystem _construction = default!;
     [Dependency] private SharedPopupSystem _popupSystem = default!;
+    [Dependency] private TieredMachineFrameSystem _tieredMachineFrame = default!; // <Onyx-TieredMachineParts>
 
     public override void Initialize()
     {
@@ -50,6 +52,14 @@ public sealed partial class MachineFrameSystem : EntitySystem
     {
         if (args.Handled)
             return;
+
+        // <Onyx-TieredMachineParts>
+        if (_tieredMachineFrame.TryInsertFromHand((uid, component), args.Used, args.User))
+        {
+            args.Handled = true;
+            return;
+        }
+        // </Onyx-TieredMachineParts>
 
         if (!component.HasBoard)
         {
@@ -146,6 +156,7 @@ public sealed partial class MachineFrameSystem : EntitySystem
             return true;
 
         ResetProgressAndRequirements(component, machineBoard);
+        _tieredMachineFrame.Regenerate(component); // <Onyx-TieredMachineParts>
 
         // Reset edge so that prying the components off works correctly.
         if (TryComp(uid, out ConstructionComponent? construction))
@@ -200,6 +211,9 @@ public sealed partial class MachineFrameSystem : EntitySystem
     public bool IsComplete(MachineFrameComponent component)
     {
         if (!component.HasBoard)
+            return false;
+
+        if (!_tieredMachineFrame.AreComplete(component)) // <Onyx-TieredMachineParts>
             return false;
 
         foreach (var (type, amount) in component.MaterialRequirements)
@@ -270,6 +284,7 @@ public sealed partial class MachineFrameSystem : EntitySystem
             return;
 
         ResetProgressAndRequirements(component, machineBoard);
+        _tieredMachineFrame.Regenerate(component); // <Onyx-TieredMachineParts>
 
         // If the following code is updated, you need to make sure that it matches the logic in OnInteractUsing()
 
@@ -323,5 +338,8 @@ public sealed partial class MachineFrameSystem : EntitySystem
 
         var board = component.BoardContainer.ContainedEntities[0];
         args.PushMarkup(Loc.GetString("machine-frame-component-on-examine-label", ("board", Name(board))));
+        // <Onyx-TieredMachineParts>
+        _tieredMachineFrame.AppendExamine((uid, component), args);
+        // </Onyx-TieredMachineParts>
     }
 }

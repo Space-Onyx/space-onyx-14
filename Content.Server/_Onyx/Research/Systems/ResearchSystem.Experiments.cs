@@ -5,10 +5,13 @@
 // See LICENSES for the full license text.
 
 using System.Linq;
+using Content.Server.Construction.Components;
 using Content.Server.Research.Components;
 using Content.Shared._Onyx.Fishing.Components;
+using Content.Shared._Onyx.Construction;
 using Content.Shared._Onyx.Research;
 using Content.Shared._Onyx.Research.Prototypes;
+using Content.Shared.Construction.Components;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.Piping.Unary.Components;
@@ -263,9 +266,32 @@ public sealed partial class ResearchSystem
         return MatchesConditions(subject, requirement) &&
                MatchesReagent(subject, requirement) &&
                MatchesGas(subject, requirement) &&
+               MatchesTieredMachinePart(subject, requirement) &&
                (requirement.MinimumExplosiveIntensity == null ||
                 TryComp<ExplosiveComponent>(subject, out var explosive) &&
                 explosive.TotalIntensity >= requirement.MinimumExplosiveIntensity);
+    }
+
+    private bool MatchesTieredMachinePart(EntityUid subject, ResearchExperimentRequirement requirement)
+    {
+        if (requirement.MinimumTieredMachinePartTier == null)
+            return true;
+
+        if (TryComp<TieredMachinePartComponent>(subject, out var part) &&
+            part.Tier >= requirement.MinimumTieredMachinePartTier)
+            return true;
+
+        if (!TryComp<MachineComponent>(subject, out var machine))
+            return false;
+
+        foreach (var partEntity in machine.PartContainer.ContainedEntities)
+        {
+            if (TryComp<TieredMachinePartComponent>(partEntity, out var contained) &&
+                contained.Tier >= requirement.MinimumTieredMachinePartTier)
+                return true;
+        }
+
+        return false;
     }
 
     private bool IsNewPrototype(EntityUid subject, ResearchExperimentTaskProgress progress)

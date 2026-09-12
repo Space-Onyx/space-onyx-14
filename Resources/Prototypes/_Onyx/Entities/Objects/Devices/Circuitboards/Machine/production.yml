@@ -10,6 +10,8 @@
       Steel: 8
       Glass: 4
       Manipulator: 3
+    partRequirements:
+      Servo: 3
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -25,6 +27,8 @@
       Steel: 5
       CableHV: 10
       Plasma: 5
+    partRequirements:
+      Servo: 5
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -37,6 +41,10 @@
     stackRequirements:
       Steel: 5
       Glass: 4
+    partRequirements:
+      Servo: 2
+      Capacitor: 2
+      Scanner: 1
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -49,6 +57,8 @@
     stackRequirements:
       Steel: 3
       Glass: 3
+    partRequirements:
+      Servo: 1
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -61,6 +71,8 @@
     stackRequirements:
       Steel: 4
       Glass: 4
+    partRequirements:
+      Servo: 2
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -76,6 +88,8 @@
       Manipulator: 1
       Glass: 2
       Cable: 2
+    partRequirements:
+      Servo: 1
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -92,3 +106,9 @@
       Glass: 10
       Manipulator: 10
       BSCrystal: 5
+    partRequirements:
+      Servo: 2
+      Capacitor: 2
+      MatterBin: 2
+      Scanner: 2
+      Laser: 2

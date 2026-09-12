@@ -65,7 +65,7 @@ public sealed partial class EnergyReagentDispenserSystem : EntitySystem
         var item = _slots.GetItemOrNull(ent.Owner, SharedEnergyReagentDispenser.OutputSlotName);
         if (item is not { Valid: true } || !_solutions.TryGetFitsInDispenser(item.Value, out var solution, out _)
             || !TryComp(ent, out BatteryComponent? battery) || !ent.Comp.Reagents.TryGetValue(msg.ReagentId, out var cost)) return;
-        var power = cost * (int) ent.Comp.Amount;
+        var power = cost * (int) ent.Comp.Amount * ent.Comp.EnergyCostMultiplier; // <Onyx-TieredMachineParts-edited>
         var charge = _battery.GetCharge((ent.Owner, battery));
         if (charge < power) { _audio.PlayPvs(ent.Comp.PowerSound, ent, AudioParams.Default.WithVolume(-2f)); return; }
         if (!_solutions.TryAddSolution(solution.Value, new Solution(msg.ReagentId, (int) ent.Comp.Amount))) return;
@@ -77,7 +77,7 @@ public sealed partial class EnergyReagentDispenserSystem : EntitySystem
         var item = _slots.GetItemOrNull(ent.Owner, SharedEnergyReagentDispenser.OutputSlotName);
         if (item is not { Valid: true } || !_solutions.TryGetFitsInDispenser(item.Value, out var solution, out var contents)) return;
         var refund = contents.Sum(reagent => ent.Comp.Reagents.TryGetValue(reagent.Reagent.Prototype, out var cost)
-            ? cost * (int) reagent.Quantity
+            ? cost * (int) reagent.Quantity * ent.Comp.EnergyCostMultiplier // <Onyx-TieredMachineParts-edited>
             : 0);
         if (refund > 0 && TryComp(ent, out BatteryComponent? battery))
             _battery.ChangeCharge((ent.Owner, battery), refund);

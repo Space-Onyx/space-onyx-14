@@ -11,7 +11,14 @@
   recipes:
   - Igniter
   - ModularReceiver
-  - MicroManipulatorStockPart
+  # - MicroManipulatorStockPart # <Onyx-TieredMachineParts-edited>
+  # <Onyx-TieredMachineParts>
+  - StandardServoDrive
+  - StandardCapacitorModule
+  - StandardMatterRecycler
+  - StandardScannerModule
+  - StandardLaserModule
+  # </Onyx-TieredMachineParts>
   - ConveyorBeltAssembly
 
 - type: latheRecipePack
