@@ -74,3 +74,134 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsRobotics ]
+
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsHotelManager
+  suffix: Hotel Manager, Locked
+  components:
+  - type: AccessReader
+    access: [[ "HotelManager" ]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsHotelStaff
+  suffix: Hotel Staff, Locked
+  components:
+  - type: AccessReader
+    access: [[ "HotelStaff" ]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsHotelSecure
+  suffix: Hotel Secure, Locked
+  components:
+  - type: AccessReader
+    access: [[ "HotelSecure" ]]
+
+- type: entity
+  parent: AirlockCommandLocked
+  id: AirlockHotelManagerLocked
+  suffix: Hotel Manager, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsHotelManager ]
+
+- type: entity
+  parent: AirlockCommandGlassLocked
+  id: AirlockHotelManagerGlassLocked
+  suffix: Hotel Manager, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsHotelManager ]
+
+- type: entity
+  parent: AirlockHotelManagerLocked
+  id: AirlockMaintHotelManagerLocked
+  suffix: Hotel Manager, Locked
+  components:
+  - type: Sprite
+    sprite: Structures/Doors/Airlocks/Standard/airlock-maints.rsi
+
+- type: entity
+  parent: AirlockHotelManagerGlassLocked
+  id: AirlockMaintHotelManagerGlassLocked
+  suffix: Hotel Manager, Locked
+  components:
+  - type: Sprite
+    sprite: Structures/Doors/Airlocks/Glass/airlock-maints.rsi
+
+- type: entity
+  parent: AirlockServiceLocked
+  id: AirlockHotelStaffLocked
+  suffix: Hotel Staff, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsHotelStaff ]
+
+- type: entity
+  parent: AirlockServiceGlassLocked
+  id: AirlockHotelStaffGlassLocked
+  suffix: Hotel Staff, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsHotelStaff ]
+
+- type: entity
+  parent: AirlockHotelStaffLocked
+  id: AirlockMaintHotelStaffLocked
+  suffix: Hotel Staff, Locked
+  components:
+  - type: Sprite
+    sprite: Structures/Doors/Airlocks/Standard/airlock-maints.rsi
+
+- type: entity
+  parent: AirlockHotelStaffGlassLocked
+  id: AirlockMaintHotelStaffGlassLocked
+  suffix: Hotel Staff, Locked
+  components:
+  - type: Sprite
+    sprite: Structures/Doors/Airlocks/Glass/airlock-maints.rsi
+
+- type: entity
+  parent: AirlockSecurityLocked
+  id: AirlockHotelSecureLocked
+  suffix: Hotel Secure, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsHotelSecure ]
+
+- type: entity
+  parent: AirlockSecurityGlassLocked
+  id: AirlockHotelSecureGlassLocked
+  suffix: Hotel Secure, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsHotelSecure ]
+
+- type: entity
+  parent: AirlockHotelSecureLocked
+  id: AirlockMaintHotelSecureLocked
+  suffix: Hotel Secure, Locked
+  components:
+  - type: Sprite
+    sprite: Structures/Doors/Airlocks/Standard/airlock-maints.rsi
+
+- type: entity
+  parent: AirlockHotelSecureGlassLocked
+  id: AirlockMaintHotelSecureGlassLocked
+  suffix: Hotel Secure, Locked
+  components:
+  - type: Sprite
+    sprite: Structures/Doors/Airlocks/Glass/airlock-maints.rsi

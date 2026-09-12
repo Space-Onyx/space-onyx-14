@@ -7,9 +7,11 @@
 - type: accessLevel
   id: HotelManager
   name: id-card-access-level-hotel-manager
-  canAddToIdCard: false
 
 - type: accessLevel
   id: HotelStaff
   name: id-card-access-level-hotel-staff
-  canAddToIdCard: false
+
+- type: accessLevel
+  id: HotelSecure
+  name: id-card-access-level-hotel-secure

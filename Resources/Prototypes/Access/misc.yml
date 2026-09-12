@@ -38,6 +38,11 @@
   # <Onyx-RadioHost-edited>
   - Journalism
   # </Onyx-RadioHost-edited>
+  # <Onyx-Hotel-edited>
+  - HotelManager
+  - HotelSecure
+  - HotelStaff
+  # </Onyx-Hotel-edited>
 
 - type: accessGroup
   id: General

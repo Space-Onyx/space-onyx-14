@@ -51,3 +51,32 @@
     sprite: /Textures/Interface/Misc/job_icons.rsi
     state: Passenger
   jobName: job-name-bitrun-avatar
+
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconHotelManager
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: HeadOfPersonnel
+  jobName: job-name-hotel-manager
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconHotelStaff
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: ServiceWorker
+  jobName: job-name-hotel-staff
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconHotelSecure
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: SecurityOfficer
+  jobName: job-name-hotel-secure

@@ -117,3 +117,92 @@
   components:
   - type: Emag
     emagType: Access
+
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+- type: entity
+  parent: IDCardStandard
+  id: HotelManagerIDCard
+  name: hotel manager ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#d4af37"
+    - state: stripe_bottom
+      color: "#8a6f1f"
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: HeadOfPersonnel
+  - type: IdCard
+    jobTitle: job-name-hotel-manager
+    jobIcon: JobIconHotelManager
+  - type: Access
+    tags:
+    - HotelManager
+    - HotelSecure
+    - HotelStaff
+    - Bar
+    - Kitchen
+    - Maintenance
+    - External
+    - Hydroponics
+
+- type: entity
+  parent: IDCardStandard
+  id: HotelStaffIDCard
+  name: hotel staff ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#639137"
+    - state: stripe_bottom
+      color: "#446326"
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: ServiceWorker
+  - type: IdCard
+    jobTitle: job-name-hotel-staff
+    jobIcon: JobIconHotelStaff
+  - type: Access
+    tags:
+    - HotelStaff
+    - Bar
+    - Kitchen
+    - Maintenance
+    - External
+    - Hydroponics
+
+- type: entity
+  parent: IDCardStandard
+  id: HotelSecureIDCard
+  name: hotel security ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#cb0000"
+    - state: stripe_bottom
+      color: "#830000"
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: SecurityOfficer
+  - type: IdCard
+    jobTitle: job-name-hotel-secure
+    jobIcon: JobIconHotelSecure
+  - type: Access
+    tags:
+    - HotelSecure
+    - HotelStaff
+    - Bar
+    - Kitchen
+    - Maintenance
+    - External
+    - Hydroponics

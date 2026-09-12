@@ -118,3 +118,21 @@
   - type: Tag
     tags:
     - ContractorUplink
+
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+- type: entity
+  parent: ComputerStationTeleportersControl
+  id: ComputerHotelTeleportersControl
+  name: hotel teleporters control console
+  description: Used to monitor hotel teleport network operations.
+  suffix: Autofilled, Hotel Network
+  components:
+  - type: StationTeleporterConsole
+    autoLinkKey: Hotel
+    portalColor: "#d4af37"
+  - type: AccessReader
+    access: [["HotelManager"], ["HotelStaff"]]

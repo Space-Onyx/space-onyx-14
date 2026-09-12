@@ -39,3 +39,12 @@ job-title-colonel = Colonel
 job-title-major_general = Major General
 job-title-lieutenant_general = Lieutenant General
 job-title-colonel_general = Colonel General
+
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+job-name-hotel-manager = Hotel Manager
+job-name-hotel-staff = Hotel Staff
+job-name-hotel-secure = Hotel Security

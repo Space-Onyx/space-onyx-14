@@ -49,6 +49,7 @@
       - Robotics
       - Journalism
       - HotelManager
+      - HotelSecure
       - HotelStaff
       # </Onyx-AccessConfiguratorLevels>
       - Quartermaster
@@ -127,6 +128,7 @@
     - Ipc
     - Journalism
     - HotelManager
+    - HotelSecure
     - HotelStaff
     # </Onyx-AccessConfiguratorUniversalLevels>
     - Janitor

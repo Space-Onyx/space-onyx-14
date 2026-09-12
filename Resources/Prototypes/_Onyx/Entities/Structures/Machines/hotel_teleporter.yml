@@ -1,0 +1,65 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: entity
+  parent: StationTeleporter
+  id: StationTeleporterHotelEntrance
+  name: hotel teleporter entrance
+  description: A teleporter receiver tuned to the hotel network. It is pre-linked to its hotel exit.
+  suffix: Hotel Entrance, Station Side
+  components:
+  - type: StationTeleporter
+    autoLinkKey: Hotel
+    autoLinkPair: 1
+    autoLinkRole: Entrance
+    portalColor: "#d4af37"
+  - type: Label
+    localizedLabel: teleporter-name-hotel-entrance
+
+- type: entity
+  parent: StationTeleporter
+  id: StationTeleporterHotelExit
+  name: hotel teleporter exit
+  description: A teleporter receiver tuned to the hotel network. It is pre-linked to its station entrance.
+  suffix: Hotel Exit, Hotel Side
+  components:
+  - type: StationTeleporter
+    autoLinkKey: Hotel
+    autoLinkPair: 1
+    autoLinkRole: Exit
+    portalColor: "#d4af37"
+  - type: Label
+    localizedLabel: teleporter-name-hotel-exit
+
+- type: entity
+  parent: StationTeleporter
+  id: StationTeleporterHotelEntranceSecond
+  name: hotel teleporter entrance
+  description: A teleporter receiver tuned to the hotel network. It is pre-linked to its hotel exit.
+  suffix: Hotel Entrance 2, Station Side
+  components:
+  - type: StationTeleporter
+    autoLinkKey: Hotel
+    autoLinkPair: 2
+    autoLinkRole: Entrance
+    portalColor: "#d4af37"
+  - type: Label
+    localizedLabel: teleporter-name-hotel-entrance-second
+
+- type: entity
+  parent: StationTeleporter
+  id: StationTeleporterHotelExitSecond
+  name: hotel teleporter exit
+  description: A teleporter receiver tuned to the hotel network. It is pre-linked to its station entrance.
+  suffix: Hotel Exit 2, Hotel Side
+  components:
+  - type: StationTeleporter
+    autoLinkKey: Hotel
+    autoLinkPair: 2
+    autoLinkRole: Exit
+    portalColor: "#d4af37"
+  - type: Label
+    localizedLabel: teleporter-name-hotel-exit-second

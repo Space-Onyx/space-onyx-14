@@ -122,3 +122,35 @@
       whitelist:
         tags:
         - Write
+
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+- type: entity
+  parent: HoPPDA
+  id: HotelManagerPDA
+  name: hotel manager PDA
+  description: A command PDA used to run the hotel.
+  components:
+  - type: Pda
+    id: HotelManagerIDCard
+
+- type: entity
+  parent: ServiceWorkerPDA
+  id: HotelStaffPDA
+  name: hotel staff PDA
+  description: A service PDA used by the hotel staff.
+  components:
+  - type: Pda
+    id: HotelStaffIDCard
+
+- type: entity
+  parent: SecurityPDA
+  id: HotelSecurePDA
+  name: hotel security PDA
+  description: A security PDA used to keep the hotel safe.
+  components:
+  - type: Pda
+    id: HotelSecureIDCard
