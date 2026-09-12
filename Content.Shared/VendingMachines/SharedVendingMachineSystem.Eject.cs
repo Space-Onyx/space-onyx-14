@@ -208,7 +208,6 @@ public abstract partial class SharedVendingMachineSystem
         // <Onyx-VendingPaymentSound-edited>
         if (_net.IsClient && GetEntry(uid, itemId, type, component) is { } entry && GetPrice(entry, component, 1) > 0 && !component.AllForFree)
         {
-            Audio.PlayPredicted(ejectComponent.SoundVend, uid, sender);
             return;
         }
         // </Onyx-VendingPaymentSound-edited>
