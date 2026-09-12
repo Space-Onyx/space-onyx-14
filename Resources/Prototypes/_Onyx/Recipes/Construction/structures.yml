@@ -57,3 +57,17 @@
   conditions:
   - !type:TileNotBlocked
     failIfSpace: false
+
+- type: construction
+  id: SaunaOven
+  name: construction-name-sauna-oven
+  description: construction-desc-sauna-oven
+  graph: SaunaOven
+  startNode: start
+  targetNode: oven
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked

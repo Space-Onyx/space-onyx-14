@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from BlueMoon at https://github.com/BlueMoon-Labs/MOLOT-BlueMoon-Station",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "sauna_oven"
+    },
+    {
+      "name": "sauna_oven_on_overlay",
+      "delays": [
+        [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+      ]
+    },
+    {
+      "name": "sauna_oven_on",
+      "delays": [
+        [0.3, 0.3, 0.6, 0.3, 0.3]
+      ]
+    }
+  ]
+}

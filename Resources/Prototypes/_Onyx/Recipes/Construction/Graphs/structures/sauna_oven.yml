@@ -1,0 +1,25 @@
+- type: constructionGraph
+  id: SaunaOven
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: oven
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: WoodPlank
+        amount: 30
+        doAfter: 6
+  - node: oven
+    entity: SaunaOven
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialWoodPlank
+        amount: 30
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Anchoring
+        doAfter: 6
