@@ -8,3 +8,49 @@
     sprite: _Onyx/Clothing/Neck/Misc/NT_red.rsi
   - type: StealTarget
     stealGroup: HeadCloak
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckFellForItAward
+  name: nanotrasen gullibility award
+  description: An award given out by nanotrasen to mark extreme cases of gullibility
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Misc/fellforitaward.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Neck/Misc/fellforitaward.rsi
+
+- type: entity
+  parent: [ClothingNeckPonchoBlack, BaseSecurityContraband]
+  id: ClothingNeckCWPSec
+  name: senior officer's poncho
+  description: A cold weather poncho, advertised as a masterpiece of environmental protection. Results may vary. It has built-in camera.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/cwpsec.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Neck/cwpsec.rsi
+  - type: DeviceNetwork
+    deviceNetId: Wired
+    receiveFrequencyId: SurveillanceCameraSecurity
+    transmitFrequencyId: SurveillanceCamera
+  - type: SurveillanceCamera
+    networkSet: true
+    nameSet: True
+    mobile: True
+    id: Bodycam
+  - type: Eye
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: SurveillanceCameraMicrophone
+    blacklist:
+      components:
+        - SurveillanceCamera
+        - SurveillanceCameraMonitor
+        - RadioSpeaker
+  - type: ActiveListener
+    range: 10
+  - type: ClothingGrantComponent
+    component:
+      - type: StationAiVision
+        range: 4

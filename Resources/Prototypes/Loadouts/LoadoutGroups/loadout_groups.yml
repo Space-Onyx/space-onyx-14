@@ -273,6 +273,7 @@
   loadouts:
   - CommonBackpack
   - CommonSatchel
+  - CommonMessenger # <Onyx-Messenger>
   - CommonDuffel
 
 - type: loadoutGroup
@@ -877,6 +878,12 @@
   loadouts:
   - ChiefEngineerCloak
   - ChiefEngineerMantle
+  - ClothingNeckCloakWhiteCe # <Onyx-NeckLoadouts>
+  - ClothingNeckCloakGreenCe # <Onyx-NeckLoadouts>
+  - ClothingNeckMantleWhiteCE # <Onyx-NeckLoadouts>
+  - ClothingNeckMantleOrangeCE # <Onyx-NeckLoadouts>
+  - ClothingNeckEnsembleChiefEngineerWhite # <Onyx-NeckLoadouts>
+  - ClothingNeckEnsembleChiefEngineerGreen # <Onyx-NeckLoadouts>
 
 - type: loadoutGroup
   id: ChiefEngineerOuterClothing
@@ -1032,6 +1039,7 @@
   loadouts:
   - ResearchDirectorMantle
   - ResearchDirectorCloak
+  - ResearchDirectorEnsemble # <Onyx-NeckLoadouts>
 
 - type: loadoutGroup
   id: ResearchDirectorJumpsuit
@@ -1044,6 +1052,8 @@
   - ResearchDirectorJumpskirtClassical
   # Corvax-Loadouts-End
   - ResearchDirectorMJ # <Onyx-GoobClothing>
+  - ResearchDirectorJumpsuitAlt # <Onyx-GoobClothing>
+  - ResearchDirectorJumpskirtAlt # <Onyx-GoobClothing>
 
 - type: loadoutGroup
   id: ResearchDirectorOuterClothing
@@ -1256,6 +1266,17 @@
   - SeniorOfficerJumpsuit
   - SeniorOfficerJumpskirt
   - TrooperUniform
+  - VeteranOfficerBlackJumpsuit # <Onyx-NeckLoadouts>
+
+# <Onyx-NeckLoadouts>
+- type: loadoutGroup
+  id: SecurityNeck
+  name: loadout-group-security-neck
+  minLimit: 0
+  loadouts:
+  - ClothingNeckCWPSec
+  - ClothingNeckMantleVeteranSecurity
+# </Onyx-NeckLoadouts>
 
 - type: loadoutGroup
   id: SecurityBackpack
@@ -1375,6 +1396,7 @@
   name: loadout-group-reporter-jumpsuit
   loadouts:
   - ReporterJumpsuit
+  - ReporterDress # <Onyx-GoobClothing>
   - JournalistJumpsuit
 
 - type: loadoutGroup

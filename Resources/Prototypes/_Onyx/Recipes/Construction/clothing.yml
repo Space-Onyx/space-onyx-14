@@ -12,3 +12,65 @@
   targetNode: gogglesMedChem
   category: construction-category-clothing
   objectType: Item
+
+- type: construction
+  id: GlassesMedChem
+  graph: GlassesMedChemHUD
+  startNode: start
+  targetNode: glassesMedChem
+  category: construction-category-clothing
+  objectType: Item
+
+- type: construction
+  id: MedicalGlasses
+  graph: GlassesMedHUD
+  targetNode: glassesMed
+  category: construction-category-clothing
+  objectType: Item
+
+- type: construction
+  id: GlassesMedDiag
+  graph: GlassesMedDiagHUD
+  targetNode: glassesMedDiag
+  category: construction-category-clothing
+  objectType: Item
+
+- type: construction
+  id: HudMedDiagHUD
+  graph: HudMedDiag
+  targetNode: meddiagHud
+  category: construction-category-clothing
+  objectType: Item
+
+- type: construction
+  id: ClothingNeckClassicPonchoWeb
+  graph: ClothingNeckClassicPonchoWeb
+  startNode: start
+  targetNode: end
+  category: construction-category-clothing
+  entityWhitelist:
+    tags:
+    - SpiderCraft
+  objectType: Item
+
+- type: construction
+  id: ClothingNeckPonchoWeb
+  graph: ClothingNeckPonchoWeb
+  startNode: start
+  targetNode: end
+  category: construction-category-clothing
+  entityWhitelist:
+    tags:
+    - SpiderCraft
+  objectType: Item
+
+- type: construction
+  id: ClothingNeckCloakWeb
+  graph: ClothingNeckCloakWeb
+  startNode: start
+  targetNode: end
+  category: construction-category-clothing
+  entityWhitelist:
+    tags:
+    - SpiderCraft
+  objectType: Item

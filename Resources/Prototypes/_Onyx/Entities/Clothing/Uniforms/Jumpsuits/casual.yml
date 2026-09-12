@@ -1,0 +1,120 @@
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitCasualSyndicate
+  name: casual syndicate jumpsuit
+  description: Short sleeves, short temper.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualsyndicate.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualsyndicate.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitCasualCommand
+  name: casual command jumpsuit
+  description: Wait, where's my PDA?.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualcommand.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualcommand.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitCasualEngineer
+  name: casual engineering jumpsuit
+  description: Sparks? Fiberglass? What about 'em?
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualengineer.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualengineer.rsi
+
+- type: entity
+  parent: [ClothingUniformBase, BaseCommandContraband]
+  id: ClothingUniformJumpsuitHoSSummer
+  name: head of security's summer shirt
+  description: The head of security's custom-commissioned summer outfit, for when chasing tiders gets hot.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualshirt_hos.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualshirt_hos.rsi
+
+- type: entity
+  parent: [ClothingUniformBase, BaseCommandContraband]
+  id: ClothingUniformJumpsuitRDSummer
+  name: research director's summer shirt
+  description: The research director's custom-commissioned summer outfit, for when those fire anomalies are making you sweat.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualshirt_rd.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualshirt_rd.rsi
+
+- type: entity
+  parent: [ClothingUniformBase, BaseCommandContraband]
+  id: ClothingUniformJumpsuitQMSummer
+  name: quartermaster's summer shirt
+  description: The quartermaster's custom-commissioned summer outfit, for when you want to show off your cash to the other departments.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualshirt_qm.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualshirt_qm.rsi
+
+- type: entity
+  parent: [ClothingUniformBase, BaseCommandContraband]
+  id: ClothingUniformJumpsuitCaptainSummer
+  name: captain's summer shirt
+  description: The captain's custom-commissioned summer outfit, for when you've been in the green for a while.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualshirt_captain.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualshirt_captain.rsi
+
+- type: entity
+  parent: [ClothingUniformBase, BaseCommandContraband]
+  id: ClothingUniformJumpsuitHoPSummer
+  name: head of personnel's summer shirt
+  description: The head of personnel's custom-commissioned summer outfit, for when you want to comfortably do paperwork.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualshirt_hop.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualshirt_hop.rsi
+
+- type: entity
+  parent: [ClothingUniformBase, BaseCommandContraband]
+  id: ClothingUniformJumpsuitCESummer
+  name: chief engineer's summer shirt
+  description: The chief engineer's custom-commissioned summer outfit, for when you just want to lay down and look at the tesla.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualshirt_ce.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualshirt_ce.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitPassengerQuarterzip
+  name: grey quarterzip
+  description: A quarterzip for the sophisticated assistant.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Civilian/passenger_quarterzip.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Civilian/passenger_quarterzip.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitMercer
+  name: manhattan streetwear
+  description: Only someone who would try to run away with Earth's deadliest bioweapon would want to wear this.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Civilian/mercer.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Civilian/mercer.rsi

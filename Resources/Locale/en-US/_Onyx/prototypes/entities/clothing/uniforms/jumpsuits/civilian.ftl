@@ -1,0 +1,11 @@
+ent-ClothingUniformJumpsuitDurathread = durathread jumpsuit
+    .desc = A loose worn durathread shirt with a grey pants, its resilient fibres provide some protection to the wearer.
+ent-ClothingUniformJumpsuitResonant = resonant jumpsuit
+    .desc = Lets not play too rough. Neither you nor I can reach it just yet…
+ent-ClothingUniformJumpsuitWestern = authentic cowboy's jumpsuit
+    .desc = Let's show the head of security how we used to do things out west.
+ent-ClothingUniformJumpsuitDevil = devilish suit
+    .desc = A stylish black suit made of materials not from this dimension. Warm to the touch.
+ent-ClothingUniformJumpsuitAncientUnremoveable = { ent-ClothingUniformJumpsuitAncient }
+    .suffix = Unremoveable
+    .desc = { ent-ClothingUniformJumpsuitAncient.desc }

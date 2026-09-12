@@ -19,3 +19,14 @@
     sprite: _Onyx/Clothing/Uniforms/Other/Overalls/Cargo/shaft_miner.rsi
   - type: Clothing
     sprite: _Onyx/Clothing/Uniforms/Other/Overalls/Cargo/shaft_miner.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformOverallsCargo
+  name: cargo tech's overalls
+  description: It's a sturdy set of overalls. It's a bit dusty.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Other/Overalls/Cargo/cargotech.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Other/Overalls/Cargo/cargotech.rsi

@@ -75,3 +75,178 @@
       Steel: 125
   - type: StaticPrice
     price: 38
+
+- type: entity
+  parent: [ClothingEyesHudOmni, BaseCentcommContraband]
+  id: ClothingEyesGlassesCentComm
+  suffix: DO NOT MAP
+  name: central command shades
+  description: A pair of shades designed for central command personnel. It's nothing personal.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Eyes/Glasses/centcommglasses.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Eyes/Glasses/centcommglasses.rsi
+  - type: FlashImmunity
+  - type: EyeProtection
+    protectionTime: 5
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: IdentityBlocker
+    coverage: EYES
+  - type: ThermalVision
+    isEquipment: true
+    toggleAction: ActionToggleThermalVision
+    color: "#2ebf40"
+    lightRadius: 15
+
+- type: entity
+  parent: [ClothingEyesHudOmni, BaseCentcommContraband]
+  id: ClothingEyesGlassesDeathsquad
+  suffix: DO NOT MAP
+  name: central commander shades
+  description: Pride. Hubris. Wrath. It's not a sin if you're right.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Eyes/Glasses/deathsquad.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Eyes/Glasses/deathsquad.rsi
+  - type: FlashImmunity
+  - type: EyeProtection
+    protectionTime: 5
+  - type: IdentityBlocker
+    coverage: EYES
+  - type: ThermalVision
+    isEquipment: true
+    toggleAction: ActionToggleThermalVision
+    color: "#98EEFB"
+    lightRadius: 15
+  - type: UserInterface
+    interfaces:
+      enum.ChameleonUiKey.Key:
+        type: ChameleonBoundUserInterface
+  - type: ClothingGrantComponent
+    component:
+    - type: KravMaga
+  - type: Tag
+    tags: []
+  - type: NightVision
+    relayOverlay: true
+    action: ActionToggleNightVision
+  - type: ShowHealthBars
+    damageContainers:
+    - Inorganic
+    - Silicon
+    - SiliconRadiation
+    - Biological
+
+- type: entity
+  parent: [ClothingEyesBase, ShowSecurityIcons, BaseSecurityCommandContraband]
+  id: ClothingEyesGlassesSecurityAdvanced
+  name: advanced security goggles
+  description: A set of goggles that provide flash protection, a security HUD, and basic thermal vision.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Eyes/Glasses/hos-expi.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Eyes/Glasses/hos-expi.rsi
+  - type: FlashImmunity
+  - type: EyeProtection
+    protectionTime: 5
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: GuideHelp
+    guides:
+    - Security
+    - Antagonists
+  - type: ThermalVision
+    flashDurationMultiplier: 2
+    pulseTime: 2
+    isEquipment: true
+    toggleAction: ActionToggleThermalVision
+  - type: IdentityBlocker
+    coverage: EYES
+
+- type: entity
+  parent: ClothingEyesBase
+  id: ClothingEyesPrescriptionGlasses
+  name: prescription glasses
+  description: Your insurance doesn't cover these. Don't lose them.
+  components:
+  - type: Sprite
+    sprite: Clothing/Eyes/Glasses/glasses.rsi
+  - type: Clothing
+    sprite: Clothing/Eyes/Glasses/glasses.rsi
+  - type: VisionCorrection
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: PhysicalComposition
+    materialComposition:
+      Glass: 125
+      Steel: 125
+  - type: StaticPrice
+    price: 38
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 10
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: GlassBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          ClothingEyesGlassesBroken:
+            min: 1
+            max: 1
+
+- type: entity
+  parent: [ClothingEyesBase, ShowSecurityIcons, ShowMedicalIcons, BaseSecurityContraband, ClothingEyesGlassesSunglasses]
+  id: ClothingEyesGlassesMedSec
+  name: medical security glasses
+  description: Sunglasses with a medical and security hud
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Eyes/Glasses/medsecglasses.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Eyes/Glasses/medsecglasses.rsi
+  - type: Construction
+    graph: GlassesMedSecHUD
+    node: glassesMedSec
+
+- type: entity
+  parent: [ClothingEyesBase, ShowMedicalIcons, ClothingEyesGlassesSunglasses]
+  id: ClothingEyesGlassesMed
+  name: medical glasses
+  description: Sunglasses with a medical hud.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Eyes/Glasses/medglasses.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Eyes/Glasses/medglasses.rsi
+  - type: Construction
+    graph: GlassesMedHUD
+    node: glassesMed
+
+- type: entity
+  parent: [ClothingEyesBase, ClothingEyesGlassesSunglasses, ShowHealthRelatedIcons]
+  id: ClothingEyesGlassesMedDiag
+  name: meddiag glasses
+  description: Sunglasses with a medical and diagnostic hud.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Eyes/Glasses/meddiagglasses.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Eyes/Glasses/meddiagglasses.rsi
+  - type: Construction
+    graph: GlassesMedDiagHUD
+    node: glassesMedDiag

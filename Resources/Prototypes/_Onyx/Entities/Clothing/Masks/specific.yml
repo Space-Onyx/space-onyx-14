@@ -106,3 +106,220 @@
   - type: IdentityBlocker
   - type: AddAccentClothing
     accent: FrogAccent
+
+- type: entity
+  parent: ClothingMaskGasERT
+  id: ClothingMaskGasChrono
+  name: futuristic gasmask
+  description: A futuristic gas mask of unknown design with an unimaginable number of filtration systems
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Mask/chronolegioneer.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Mask/chronolegioneer.rsi
+  - type: VoiceMask
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+    - HidesHair
+    - HidesNose
+
+- type: entity
+  parent: ClothingMaskGasChrono
+  id: ClothingMaskGasChronoUnremoveable
+  suffix: Unremoveable
+  components:
+  - type: Unremoveable
+
+- type: entity
+  parent: ClothingMaskClown
+  id: ClothingMaskClownUnremoveable
+  name: unremoveable banana clown wig and mask
+  components:
+  - type: Unremoveable
+  - type: FlashImmunity
+  - type: EyeProtection
+
+- type: entity
+  parent: [ClothingMaskBase, BaseMinorContraband]
+  id: ClothingMaskGasVoiceCraftable
+  suffix: Voice Mask
+  name: Voice Modulator Mask
+  description: A poorly constructed voice modulator made of a gasmask and voice trigger.
+  components:
+  - type: Sprite
+    sprite: Clothing/Mask/gas.rsi
+  - type: Clothing
+    sprite: Clothing/Mask/gas.rsi
+  - type: BreathMask
+  - type: IdentityBlocker
+  - type: VoiceMask
+    voiceMaskSpeechVerb: VoiceModulator
+    enableAction: false
+  - type: HideLayerClothing
+    slots:
+    - Snout
+  - type: UserInterface
+    interfaces:
+      enum.VoiceMaskUIKey.Key:
+        type: VoiceModulatorBoundUserInterface
+  - type: Tag
+    tags:
+    - IPCMaskWearable
+
+- type: entity
+  parent: ClothingMaskGas
+  id: ClothingMaskGasHalf
+  name: half gas mask
+  description: A gas mask... only the half of it.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Mask/gashalf.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Mask/gashalf.rsi
+  - type: IdentityBlocker
+    coverage: MOUTH
+  - type: Tag
+    tags:
+    - HamsterWearable
+    - WhitelistChameleon
+    - GasMask
+    - Mask
+  - type: HideLayerClothing
+    slots:
+    - Snout
+    hideOnToggle: true
+  - type: Construction
+    graph: GasMaskHalf
+    node: end
+    deconstructionTarget: null
+
+- type: entity
+  parent: ClothingMaskGas
+  id: ClothingMaskGasUnremoveable
+  suffix: Unremoveable
+  components:
+  - type: Unremoveable
+
+- type: entity
+  parent: ClothingMaskBase
+  id: ClothingMaskCow
+  name: cow mask
+  description: A mask made of soft vinyl and latex, representing the head of a cow.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Wizard/Clothing/Mask/cow.rsi
+  - type: Clothing
+    sprite: _Onyx/Wizard/Clothing/Mask/cow.rsi
+  - type: Tag
+    tags:
+    - CursedAnimalMask
+    - WhitelistChameleon
+    - IPCMaskWearable
+  - type: HideLayerClothing
+    slots:
+    - Snout
+  - type: IdentityBlocker
+  - type: AddAccentClothing
+    accent: CowAccent
+
+- type: entity
+  parent: ClothingMaskBase
+  id: ClothingMaskHorse
+  name: horse mask
+  description: A mask made of soft vinyl and latex, representing the head of a horse.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Wizard/Clothing/Mask/horse.rsi
+  - type: Clothing
+    sprite: _Onyx/Wizard/Clothing/Mask/horse.rsi
+  - type: Tag
+    tags:
+    - CursedAnimalMask
+    - WhitelistChameleon
+    - IPCMaskWearable
+  - type: HideLayerClothing
+    slots:
+    - Snout
+  - type: IdentityBlocker
+  - type: AddAccentClothing
+    accent: HorseAccent
+
+- type: entity
+  parent: [ClothingMaskGas, BaseMagicalContraband]
+  id: ClothingMaskGasOblivionEnforcer
+  suffix: Voice Mask, Wizard Clothes
+  name: oblivion enforcer's mask
+  description: The mask of an Oblivion Enforcer. Don't forget to turn it on before giving your one-liners!
+  components:
+  - type: Sprite
+    sprite: _Onyx/Wizard/Clothing/Mask/oblivionenforcer.rsi
+  - type: Clothing
+    sprite: _Onyx/Wizard/Clothing/Mask/oblivionenforcer.rsi
+  - type: VoiceMask
+  - type: HideLayerClothing
+    slots:
+    - Snout
+  - type: UserInterface
+    interfaces:
+      enum.VoiceMaskUIKey.Key:
+        type: VoiceMaskBoundUserInterface
+  - type: Tag
+    tags:
+    - IPCMaskWearable
+  - type: SupermatterImmune
+
+- type: entity
+  parent: ClothingMaskClownBase
+  id: ClothingMaskSexyClown
+  name: sexy clown mask
+  description: Some naughty clowns think this is what the Honkmother looks like.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Mask/sexyclown.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Mask/sexyclown.rsi
+
+- type: entity
+  parent: ClothingMaskMime
+  id: ClothingMaskSexyMime
+  name: sexy mime mask
+  description: Those ruddy cheeks just want to be rubbed.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Mask/sexymime.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Mask/sexymime.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: ClothingMaskSlasher
+  categories: [ HideSpawnMenu ]
+  name: slasher mask
+  description: A face-covering mask. You can't smell the fear through it, but you can cause it.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Slasher/mask.rsi
+  - type: Clothing
+    sprite: _Onyx/Objects/Specific/Slasher/mask.rsi
+    clothingVisuals:
+      mask:
+      - state: equipped-MASK
+  - type: SelfUnremovableClothing
+  - type: SelfEquipOnly
+    unequipRequireConscious: false
+
+- type: entity
+  name: pig mask
+  parent: ClothingMaskSlasher
+  id: ClothingMaskSlasherCannibal
+  categories: [ HideSpawnMenu ]
+  description: A squealing pig mask. Fitting for someone with a unique appetite.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Wizard/Clothing/Mask/pig.rsi
+  - type: Clothing
+    sprite: _Onyx/Wizard/Clothing/Mask/pig.rsi
+    clothingVisuals:
+      head:
+      - state: equipped-MASK

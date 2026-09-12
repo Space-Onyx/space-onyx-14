@@ -1,2 +1,1 @@
-loadout-group-salvage-specialist-jumpsuit = Комбинезон утилизатора
-loadout-group-shaft-miner-jumpsuit = Комбинезон шахтёра
+loadout-group-security-neck = СБ, шея

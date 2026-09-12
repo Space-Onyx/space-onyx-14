@@ -1,0 +1,34 @@
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitVeteranSecurity
+  name: Airy Security Jumpsuit
+  description: An airy version of the standard security jumpsuit, normally given on shifts with a lacking atmos department
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Security/security_black.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Security/security_black.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitDSS
+  name: DSB tactical jumpsuit
+  description: Stylish and extremely comfortable tactical jumpsuit, made in the colors of the Department of Security.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/dss.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/dss.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitTurtleneckTactick
+  name: tactical turtleneck
+  description: Tactical jumpsuit for real CQB lovers.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/turtleneck_tactick.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/turtleneck_tactick.rsi
+  - type: StaticPrice
+    price: 15

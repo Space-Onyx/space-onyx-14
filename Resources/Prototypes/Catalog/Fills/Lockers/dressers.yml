@@ -29,6 +29,7 @@
         - id: ClothingHeadHatBeretEngineering
         - id: ClothingOuterWinterCE
         - id: ClothingNeckCloakCe
+        - id: ClothingNeckCloakWhiteCe # <Onyx-GoobClothing>
 
 - type: entity
   id: DresserChiefMedicalOfficerFilled

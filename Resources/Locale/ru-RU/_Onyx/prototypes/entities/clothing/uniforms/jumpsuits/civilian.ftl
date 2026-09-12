@@ -1,0 +1,11 @@
+ent-ClothingUniformJumpsuitDurathread = комбинезон из дюратнки
+    .desc = Свободная изношенная дюратнковая рубашка с серыми штанами, прочные волокна обеспечивают защиту носителю.
+ent-ClothingUniformJumpsuitResonant = резонантный комбинезон
+    .desc = Давай играть не так жестко. Ни ты, ни я пока не можем этого достигнуть...
+ent-ClothingUniformJumpsuitWestern = истинный ковбойский комбинезон
+    .desc = Давайте покажем ГСБ, как это происходило на Диком Западе.
+ent-ClothingUniformJumpsuitDevil = дьявольский костюм
+    .desc = Стильный чёрный костюм из материалов, не принадлежащих этому измерению. Тёплый на ощупь.
+ent-ClothingUniformJumpsuitAncientUnremoveable = { ent-ClothingUniformJumpsuitAncient }
+    .suffix = Неснимаемый
+    .desc = { ent-ClothingUniformJumpsuitAncient.desc }

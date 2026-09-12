@@ -1,0 +1,162 @@
+- type: entity
+  parent: [ClothingUniformBase, BaseCentcommContraband]
+  id: ClothingUniformJumpsuitNavyGold
+  name: navy officer's jumpsuit
+  description: A suit worn by high-ranking Central Command members. The rest is classified.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/navy_gold.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/navy_gold.rsi
+  - type: Armor
+    coverage:
+    - Chest
+    - Groin
+    - Arm
+    - Hand
+    - Leg
+    - Foot
+    modifiers:
+      coefficients:
+        Blunt: 0.65
+        Slash: 0.65
+        Piercing: 0.60
+        Heat: 0.65
+
+- type: entity
+  parent: ClothingUniformJumpsuitNavyGold
+  id: ClothingUniformJumpsuitSpecOps
+  name: special operations officer's jumpsuit
+  description: A suit worn by high-ranking spec ops officers. The rest is classified.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/specialoperations.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/specialoperations.rsi
+  - type: Armor
+    coverage:
+    - Chest
+    - Groin
+    - Arm
+    - Hand
+    - Leg
+    - Foot
+    modifiers:
+      coefficients:
+        Blunt: 0.60
+        Slash: 0.60
+        Piercing: 0.55
+        Heat: 0.60
+
+- type: entity
+  parent: ClothingUniformJumpsuitNavyGold
+  id: ClothingUniformJumpsuitDiplomat
+  name: diplomat's jumpsuit
+  description: A suit worn by diplomacy focused Central Command workers.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/diplomat.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/diplomat.rsi
+  - type: Armor
+    coverage:
+    - Chest
+    - Groin
+    - Arm
+    - Hand
+    - Leg
+    - Foot
+    modifiers:
+      coefficients:
+        Blunt: 0.65
+        Slash: 0.65
+        Piercing: 0.60
+        Heat: 0.65
+
+- type: entity
+  parent: [ ClothingUniformJumpsuitNavyGold, BaseCentcommContraband ]
+  id: ClothingUniformJumpsuitCentralCommandLiaison
+  name: CentComm Liaison Jumpsuit
+  description: Rumor has it, the CCO that first saw the Outer Command uniform was so jealous that they stained it green with their envy.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/centcomsuit_liaison.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/centcomsuit_liaison.rsi
+
+- type: entity
+  parent: ClothingUniformJumpsuitNavyGold
+  id: ClothingUniformJumpsuitTrainer
+  name: NCT Jumpsuit
+  description: A jumpsuit issued to Nanotrasen Career Trainers. Fills you with a feeling of pride.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/trainer.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/trainer.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitNanotrasenRepresentative
+  name: nanotrasen representative suit
+  description: A black suit worn by officials.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/nanotrasen_representative.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/nanotrasen_representative.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitNanotrasenRepresentativeFancy
+  name: fancy nanotrasen representative suit
+  description: A fancy black suit worn by officials, embellished with more golden threads than Normal.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/fancy_nanotrasen_representative.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/fancy_nanotrasen_representative.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformHecu
+  name: HECU uniform
+  description: Hunt down the Freeman.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/hecu.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/hecu.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitCasualCentcom
+  name: casual centcom jumpsuit
+  description: Paperwork's tough.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualcentcom.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Casual/casualcentcom.rsi
+
+- type: entity
+  parent: [ ClothingUniformJumpsuitNavyGold, BaseCentcommContraband ]
+  id: ClothingUniformJumpsuitOuterCommand
+  name: outer command jumpsuit
+  description: A fancy purple suit with a Terra-Gov insignia.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/outcommsuit.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/outcommsuit.rsi
+
+- type: entity
+  parent: [ ClothingUniformBase, BaseCentcommContraband ]
+  id: ClothingUniformJumpsuitGoldenLiaison
+  name: Golden Liaison CentCom Jumpsuit
+  description: A finely-tailored white-and-gold uniform worn by senior officials of Central Command.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/golden_liaison.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Centcom/golden_liaison.rsi

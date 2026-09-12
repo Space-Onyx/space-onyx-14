@@ -349,6 +349,7 @@
   cost: 4500
   recipeUnlocks:
     - VehicleHoverchairSci
+    - PrescriptionGlasses
   position: -2,-1
   technologyPrerequisites:
     - BasicRobotics

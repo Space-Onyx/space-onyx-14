@@ -1,0 +1,20 @@
+- type: entity
+  parent: [ClothingUniformBase, ClothingUniformFoldableBase, BaseCommandContraband]
+  id: ClothingUniformJumpsuitResearchDirectorAlt
+  name: research director's turtleneck
+  description: It's a turtleneck worn by those with the know-how to achieve the position of Research Director. Its fabric provides minor protection from biological contaminants.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/RND/rndturtle.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/RND/rndturtle.rsi
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: inhand-left
+        color: "#620b73"
+        sprite: _Onyx/Clothing/Uniforms/Jumpsuit/color/color.rsi
+      right:
+      - state: inhand-right
+        color: "#620b73"
+        sprite: _Onyx/Clothing/Uniforms/Jumpsuit/color/color.rsi

@@ -43,6 +43,7 @@
     ClothingHandsGlovesCombat: 1
     OreBagOfHolding: 1
     ClothingNeckCloakHelldiver: 1
+    ClothingNeckEnsembleSalvager: 1
     ClothingShoesBootsMoon: 1
     ClothingShoesBootsJump: 1
     ClothingOuterHardsuitSalvage: 1
@@ -95,6 +96,7 @@
     ClothingHandsGlovesCombat: 2000
     OreBagOfHolding: 2000
     ClothingNeckCloakHelldiver: 2000
+    ClothingNeckEnsembleSalvager: 10000
     ClothingShoesBootsMoon: 2000
     ClothingShoesBootsJump: 2000
     ClothingOuterHardsuitSalvage: 2000
@@ -147,6 +149,7 @@
     ClothingHandsGlovesCombat: vending-ui-category-armor
     OreBagOfHolding: vending-ui-category-equipment
     ClothingNeckCloakHelldiver: vending-ui-category-armor
+    ClothingNeckEnsembleSalvager: vending-ui-category-armor
     ClothingShoesBootsMoon: vending-ui-category-equipment
     ClothingShoesBootsJump: vending-ui-category-equipment
     ClothingOuterHardsuitSalvage: vending-ui-category-armor

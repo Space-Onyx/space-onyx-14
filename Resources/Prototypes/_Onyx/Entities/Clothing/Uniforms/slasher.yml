@@ -1,0 +1,104 @@
+- type: entity
+  parent: ClothingUniformJumpsuitColorGrey
+  id: ClothingUniformSlasher
+  name: grey jumpsuit
+  description: A grey jumpsuit that smells faintly of blood.
+  components:
+  - type: SelfUnremovableClothing
+  - type: SelfEquipOnly
+    unequipRequireConscious: false
+
+- type: entity
+  name: black jumpsuit
+  parent: ClothingUniformSlasher
+  id: ClothingUniformSlasherBilly
+  categories: [ HideSpawnMenu ]
+  description: A pitch-black jumpsuit. Stylish, in a murderous way.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/color/color.rsi
+    layers:
+    - state: icon
+      color: "#1a1a1a"
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: inhand-left
+        color: "#1a1a1a"
+      right:
+      - state: inhand-right
+        color: "#1a1a1a"
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/color/black.rsi
+
+- type: entity
+  name: monastic robe
+  parent: ClothingUniformSlasher
+  id: ClothingUniformSlasherMaintenance
+  categories: [ HideSpawnMenu ]
+  description: A light robe worn by a wandering something.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/monastic_robe_light.rsi
+    layers:
+    - state: icon
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/monastic_robe_light.rsi
+
+- type: entity
+  name: chef's uniform
+  parent: ClothingUniformSlasher
+  id: ClothingUniformSlasherCannibal
+  categories: [ HideSpawnMenu ]
+  description: A chef's uniform. Still warm from the last shift.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/chef.rsi
+    layers:
+    - state: icon
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/chef.rsi
+
+- type: entity
+  name: clown suit
+  parent: ClothingUniformSlasher
+  id: ClothingUniformSlasherClown
+  categories: [ HideSpawnMenu ]
+  description: HONK!
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/clown.rsi
+    layers:
+    - state: icon
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/clown.rsi
+
+- type: entity
+  name: banana clown suit
+  parent: ClothingUniformSlasherClown
+  id: ClothingUniformSlasherClownAscended
+  categories: [ HideSpawnMenu ]
+  description: A banana-yellow clown suit, radiating with honk energy.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/clown_banana.rsi
+    layers:
+    - state: icon
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/clown_banana.rsi
+
+- type: entity
+  parent: ClothingUniformSlasher
+  id: ClothingUniformSlasherHockey
+  name: worn jumpsuit
+  description: A tattered, muddied jumpsuit. Smells like a forest after rain. And blood.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Slasher/hockymask/hocky_outfit.rsi
+    layers:
+    - state: icon
+  - type: Clothing
+    sprite: _Onyx/Objects/Specific/Slasher/hockymask/hocky_outfit.rsi
+    clothingVisuals:
+      innerClothing:
+      - state: equipped-INNERCLOTHING

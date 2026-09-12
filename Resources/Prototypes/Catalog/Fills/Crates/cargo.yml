@@ -169,6 +169,7 @@
     - id: ClothingHeadHatCardborg
     - id: ClothingUnderSocksCoder
     - id: ClothingUniformJumpskirtOfLife
+    - id: ClothingNeckCloakWeb # <Onyx-GoobClothing>
 
 - type: entityTable
   id: LotterySwagEntityTable

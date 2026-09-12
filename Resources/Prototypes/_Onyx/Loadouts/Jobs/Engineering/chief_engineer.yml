@@ -1,0 +1,56 @@
+- type: loadoutEffectGroup
+  id: GrandMasterCE
+  effects:
+  - !type:JobRequirementLoadoutEffect
+    requirement:
+      !type:RoleTimeRequirement
+      role: JobChiefEngineer
+      time: 100h
+
+- type: loadout
+  id: ClothingNeckCloakWhiteCe
+  equipment:
+    neck: ClothingNeckCloakWhiteCe
+  groupBy: "cecloak"
+
+- type: loadout
+  id: ClothingNeckCloakGreenCe
+  equipment:
+    neck: ClothingNeckCloakGreenCe
+  groupBy: "cecloak"
+
+- type: loadout
+  id: ClothingNeckMantleWhiteCE
+  equipment:
+    neck: ClothingNeckMantleWhiteCE
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MasterCE
+  groupBy: "cemantle"
+
+- type: loadout
+  id: ClothingNeckMantleOrangeCE
+  equipment:
+    neck: ClothingNeckMantleOrangeCE
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MasterCE
+  groupBy: "cemantle"
+
+- type: loadout
+  id: ClothingNeckEnsembleChiefEngineerWhite
+  equipment:
+    neck: ClothingNeckEnsembleChiefEngineerWhite
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: GrandMasterCE
+  groupBy: "ce_ensemble"
+
+- type: loadout
+  id: ClothingNeckEnsembleChiefEngineerGreen
+  equipment:
+    neck: ClothingNeckEnsembleChiefEngineerGreen
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: GrandMasterCE
+  groupBy: "ce_ensemble"

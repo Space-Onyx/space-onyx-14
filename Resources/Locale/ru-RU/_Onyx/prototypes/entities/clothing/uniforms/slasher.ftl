@@ -1,0 +1,14 @@
+ent-ClothingUniformSlasher = серый комбинезон
+    .desc = Серый комбинезон со слабым запахом крови.
+ent-ClothingUniformSlasherBilly = чёрный комбинезон
+    .desc = Чернильно-чёрный комбинезон. Стильный, в убийственном смысле.
+ent-ClothingUniformSlasherMaintenance = монашеская ряса
+    .desc = Лёгкая ряса, которую носит странствующий некто.
+ent-ClothingUniformSlasherCannibal = форма повара
+    .desc = Форма повара. Ещё тёплая после прошлой смены.
+ent-ClothingUniformSlasherClown = костюм клоуна
+    .desc = ХОНК!
+ent-ClothingUniformSlasherClownAscended = банановый костюм клоуна
+    .desc = Бананово-жёлтый костюм клоуна, излучающий хонк-энергию.
+ent-ClothingUniformSlasherHockey = поношенный комбинезон
+    .desc = Рваный, грязный комбинезон. Пахнет лесом после дождя. И кровью.

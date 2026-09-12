@@ -109,6 +109,7 @@
     OnyxClothingUnderwearBottomPantiesWhite: 5
     OnyxClothingUnderwearBottomPantiesComfyWhite: 3
     OnyxClothingUnderwearTopBraComfyWhite: 3
+    OnyxClothingUnderwearTopBraWhite: 5
     OnyxClothingUniformSwimBlack: 3
     OnyxClothingUniformSwimBlue: 3
     OnyxClothingUniformSwimDarkGreen: 3
@@ -116,6 +117,15 @@
     OnyxClothingUniformSwimPurple: 3
     OnyxClothingUniformSwimRed: 3
     OnyxClothingUniformSwimsuitWinth: 3
+    ClothingShoesSandals: 1
+    ClothingNeckPonchoBlack: 3
+    ClothingNeckPonchoArctic: 3
+    ClothingNeckPonchoSyndicate: 3
+    ClothingNeckPonchoSmallPink: 3
+    ClothingNeckPonchoSmallRed: 3
+    ClothingNeckPonchoSmallPurple: 3
+    ClothingNeckPonchoSmallBlack: 3
+    ClothingNeckPonchoSmallWhite: 3
     # </Onyx-VendingInventories>
     # DO NOT ADD MORE, USE UNIFORM DYING
   contrabandInventory:

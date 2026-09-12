@@ -1,2 +1,10 @@
 ent-ClothingNeckOldClothWrap = old cloth wrap
     .desc = A tattered fabric wrap, faded over the years. Smells faintly of cigars.
+ent-ClothingNeckMantleVeteranSecurity = veteran security's mantle
+    .desc = Personally awarded by HOS for repealing a Syndicate attack, looking at it seems to boost your morale by a bit
+ent-ClothingNeckMantleEpaulettes = golden epaulettes
+    .desc = Exquisitely-crafted gold epaulettes symbolizing admiralty within Central Command.
+ent-ClothingNeckMantleWhiteCE = chief engineer's white mantle
+    .desc = High visibility, check. RIG system, check. High capacity cell, check. Everything a chief engineer could need in a stylish mantle.
+ent-ClothingNeckMantleOrangeCE = chief engineer's orange mantle
+    .desc = High visibility, check. RIG system, check. High capacity cell, check. Everything a chief engineer could need in a stylish mantle.

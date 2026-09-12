@@ -21,9 +21,9 @@
     jumpsuit: ClothingUniformJumpsuitDeathSquad
     back: ClothingBackpackDeathSquad
     mask: ClothingMaskGasDeathSquad
-    eyes: ClothingEyesHudSecurity
+    eyes: ClothingEyesGlassesDeathsquad # <Onyx-CentCommGlasses-edited>
     ears: ClothingHeadsetAltCentCom
-    gloves: ClothingHandsGlovesCombat
+    gloves: ClothingHandsGlovesDeathsquadUnremovable # <Onyx-CentCommGloves-edited>
     outerClothing: ClothingOuterHardsuitDeathsquad
     shoes: ClothingShoesBootsMagAdv
     id: DeathsquadPDA

@@ -1,0 +1,78 @@
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitDurathread
+  name: durathread jumpsuit
+  description: A loose worn durathread shirt with a grey pants, its resilient fibres provide some protection to the wearer.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Civilian/durathread_jumpsuit.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Civilian/durathread_jumpsuit.rsi
+  - type: Armor
+    coverage:
+    - Chest
+    - Groin
+    - Arm
+    - Hand
+    - Leg
+    - Foot
+    modifiers:
+      coefficients:
+        Blunt: 0.85
+        Heat: 0.85
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitResonant
+  name: resonant jumpsuit
+  description: Lets not play too rough. Neither you nor I can reach it just yet…
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Syndicate/breverb.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/Syndicate/breverb.rsi
+
+- type: entity
+  parent: [ClothingUniformJumpsuitResonant, BaseMajorContraband]
+  id: ClothingUniformJumpsuitWestern
+  name: authentic cowboy's jumpsuit
+  description: Let's show the head of security how we used to do things out west.
+  components:
+  - type: Armor
+    coverage:
+    - Chest
+    - Groin
+    - Arm
+    - Hand
+    - Leg
+    - Foot
+    modifiers:
+      coefficients:
+        Blunt: 0.90
+        Heat: 0.90
+
+- type: entity
+  parent: ClothingUniformJumpsuitLawyerBlack
+  id: ClothingUniformJumpsuitDevil
+  name: devilish suit
+  description: A stylish black suit made of materials not from this dimension. Warm to the touch.
+  components:
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuits/Service/lawyerblack.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuits/Service/lawyerblack.rsi
+  - type: CrematoriumImmune
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.75
+        Slash: 0.75
+        Piercing: 0.70
+        Heat: 0.75
+
+- type: entity
+  parent: ClothingUniformJumpsuitAncient
+  id: ClothingUniformJumpsuitAncientUnremoveable
+  suffix: Unremoveable
+  components:
+  - type: Unremoveable

@@ -7,3 +7,36 @@
   id: HeadofSecurityVestWeb
   equipment:
     outerClothing: ClothingOuterArmorHoSVestWeb
+
+- type: loadoutEffectGroup
+  id: VeteranOfficer
+  effects:
+  - !type:JobRequirementLoadoutEffect
+    requirement:
+      !type:DepartmentTimeRequirement
+      department: Security
+      time: 100h
+
+- type: loadout
+  id: ClothingNeckCWPSec
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: SeniorOfficer
+  equipment:
+    neck: ClothingNeckCWPSec
+
+- type: loadout
+  id: ClothingNeckMantleVeteranSecurity
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: VeteranOfficer
+  equipment:
+    neck: ClothingNeckMantleVeteranSecurity
+
+- type: loadout
+  id: VeteranOfficerBlackJumpsuit
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: VeteranOfficer
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitVeteranSecurity

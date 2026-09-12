@@ -28,3 +28,186 @@
   components:
   - type: Sprite
     sprite: _Onyx/Clothing/Neck/Cloaks/syndicate_officer.rsi
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckCloakResonant
+  name: resonant cape
+  description: The stage calls for us. We should gladly play along.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Cloaks/breverb.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Neck/Cloaks/breverb.rsi
+
+- type: entity
+  parent: [ ClothingNeckBase, BaseMagicalContraband ]
+  id: ClothingNeckCloakCarp
+  name: carp cloak
+  description: Getting up to some fishy business are we?
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Cloaks/carpcloak.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Neck/Cloaks/carpcloak.rsi
+
+- type: entity
+  parent: [ ClothingNeckBase, BaseMagicalContraband ]
+  id: ClothingNeckCloakCarpAlt
+  name: carp cloak
+  description: Restricted to extraterrestrial entities. That means NOT you.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Cloaks/carpcloakalt.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Neck/Cloaks/carpcloakalt.rsi
+
+- type: entity
+  parent: [ClothingNeckBase, BaseCommandContraband]
+  id: ClothingNeckCloakVetCap
+  name: Veteran Captain's cloak
+  description: Captains Aura Cloak
+  components:
+  - type: Item
+    size: Small
+    heldPrefix: auraless
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Cloaks/Veterancap.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Neck/Cloaks/Veterancap.rsi
+    quickEquip: false
+    equippedPrefix: auraless
+    slots:
+    - Neck
+  - type: ItemSwitch
+    state: auraless
+    showLabel: true
+    states:
+      auraless: !type:ItemSwitchState
+        verb: auraless
+        sprite:
+          sprite: _Onyx/Clothing/Neck/Cloaks/Veterancap.rsi
+          state: icon
+      aura: !type:ItemSwitchState
+        verb: aura
+        sprite:
+          sprite: _Onyx/Clothing/Neck/Cloaks/Veterancap.rsi
+          state: icon
+
+- type: entity
+  parent: [ClothingNeckBase, BaseCommandContraband]
+  id: ClothingNeckCloakOuterCommand
+  name: outer command cloak
+  description: A stylish purple cloak with Terra-Gov insignia.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Cloaks/outcommcloak.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Neck/Cloaks/outcommcloak.rsi
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckCloakInquisitor
+  name: inquisitor cloak
+  description: A bulky cloak decorated with sacred writings and the symbol of the Inquisition.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Misc/inquisitor.rsi
+
+- type: entity
+  parent: [ClothingNeckBase, BaseCentcommContraband]
+  id: ClothingNeckCloakHighCommand
+  name: high central command cloak
+  description: A magnificent green cloak featuring luxurious gold-lined edges.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Cloaks/cchighcommand.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Neck/Cloaks/cchighcommand.rsi
+
+- type: entity
+  parent: [ClothingNeckBase, BaseCentcommContraband]
+  id: ClothingNeckCloakHighCommandCape
+  name: high central command cape
+  description: A lavish green-and-red cape decorated with gold trim and ornate epaulettes.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Cloaks/highcmdcape.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Neck/Cloaks/highcmdcape.rsi
+
+- type: entity
+  parent: [ClothingNeckBase, BaseCentcommContraband]
+  id: ClothingNeckCloakGoldenCentComm
+  name: gilded central command cloak
+  description: A luxurious gold-gilded cloak worn by the highest-ranking officials.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Cloaks/goldcentcom.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Neck/Cloaks/goldcentcom.rsi
+
+- type: entity
+  parent: [ClothingNeckBase, BaseCentcommContraband]
+  id: ClothingNeckCloakCentComPoncho
+  name: central command poncho
+  description: A regal green-and-black poncho embellished with rich golden accents.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Cloaks/centcom_poncho.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Neck/Cloaks/centcom_poncho.rsi
+
+- type: entity
+  parent: [ClothingNeckBase, BaseCommandContraband]
+  id: ClothingNeckCloakWhiteCe
+  name: chief engineer's white cloak
+  description: A white cloak with orange adornments, given to those who proved themselves to master the precise art of engineering.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Cloaks/ChiefEngineer/whitece.rsi
+  - type: StealTarget
+    stealGroup: HeadCloak
+
+- type: entity
+  parent: [ClothingNeckBase, BaseCommandContraband]
+  id: ClothingNeckCloakGreenCe
+  name: chief engineer's green cloak
+  description: A green cloak with yellow and blue adornments, given to those who proved themselves to master the precise art of engineering.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Cloaks/ChiefEngineer/greence.rsi
+  - type: StealTarget
+    stealGroup: HeadCloak
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckCloakCrimson
+  name: Crimson Cape
+  description: A black cape with a high collar and gold trim. Billows dramatically even when there's no wind.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Wizard/Clothing/Neck/crimsonwizard.rsi
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckCloakHosExperimental
+  name: experimental HOS cloak
+  description: An experimental HOS cloak that provides style and an impressive appearance to its wearer.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Cloaks/hos_experimental_cloak.rsi
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckCloakWeb
+  name: web cloak
+  description: This dapper cloak surely identifies you as a friend of spider kind. Surely.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Neck/Cloaks/cloak_web.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Neck/Cloaks/cloak_web.rsi
+  - type: Construction
+    graph: ClothingNeckCloakWeb
+    node: end

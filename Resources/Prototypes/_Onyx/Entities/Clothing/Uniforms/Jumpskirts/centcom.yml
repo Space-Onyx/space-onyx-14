@@ -1,0 +1,32 @@
+- type: entity
+  parent: ClothingUniformSkirtBase
+  id: ClothingUniformJumpskirtNanotrasenRepresentative
+  name: nanotrasen representative skirt
+  description: A black skirt worn by officials.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/Centcom/nanotrasen_representative.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/Centcom/nanotrasen_representative.rsi
+
+- type: entity
+  parent: [ ClothingUniformSkirtBase, BaseCentcommContraband ]
+  id: ClothingUniformJumpskirtCentcomPencilSkirt
+  name: centcom pencil skirt
+  description: An elegant green formal blouse paired with a sleek black pencil skirt, decorated with exquisite golden detailing.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/Centcom/centcomm_pencilskirt.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/Centcom/centcomm_pencilskirt.rsi
+
+- type: entity
+  parent: ClothingUniformJumpsuitNavyGold
+  id: ClothingUniformJumpskirtTrainer
+  name: NCT Jumpskirt
+  description: A jumpskirt issued to Nanotrasen Career Trainers. Fills you with a feeling of pride.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/Centcom/trainer.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpskirt/Centcom/trainer.rsi

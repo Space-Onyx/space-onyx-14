@@ -1,0 +1,30 @@
+- type: entity
+  parent: ClothingUniformJumpsuitAtmos
+  id: ClothingUniformJumpsuitAtmosSyndie
+  suffix: Contortionistic
+  components:
+  - type: ClothingGrantComponent
+    component:
+    - type: VentCrawler
+      allowInventory: false
+
+- type: entity
+  parent: ClothingUniformJumpsuitAtmosSyndie
+  id: ClothingUniformJumpsuitAtmosSyndieAdvanced
+  suffix: Contortionistic, Inventory
+  components:
+  - type: ClothingGrantComponent
+    component:
+    - type: VentCrawler
+      allowInventory: true
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitChiefEngineerNT
+  name: chief engineer jumpsuit
+  description: It is often joked that the role of the combat-sector Chief Engineer is where the actual, logistically-minded engineers are promoted to. Good luck.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/ce_nt.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Uniforms/Jumpsuit/ce_nt.rsi

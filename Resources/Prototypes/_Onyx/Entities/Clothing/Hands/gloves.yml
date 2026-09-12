@@ -49,3 +49,334 @@
         Blunt: 8
     bluntStaminaDamageFactor: 0.0
     mustBeEquippedToUse: true
+
+- type: entity
+  parent: ClothingHandsBase
+  id: ClothingHandsGlovesChronoLegioneer
+  name: futuristic gloves
+  description: Futuristic gloves made of an unknown material that doesn't leave any trace
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Hands/Gloves/chronolegioneer.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Hands/Gloves/chronolegioneer.rsi
+  - type: Insulated
+  - type: FingerprintMask
+
+- type: entity
+  parent: ClothingHandsGlovesChronoLegioneer
+  id: ClothingHandsGlovesChronoLegioneerUnremoveable
+  suffix: Unremoveable
+  components:
+  - type: Unremoveable
+
+- type: entity
+  parent: [ClothingHandsGlovesCombat, BaseCentcommContraband]
+  id: ClothingHandsGlovesDeathsquad
+  suffix: DO NOT MAP
+  name: mk-3 "redactor" power gloves
+  description: A pair of highly-advanced gauntlets capable of ripping open doors. Its retractable claws are laced with a potent neurotoxin.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Hands/Gloves/deathsquad.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Hands/Gloves/deathsquad.rsi
+    equippedPrefix: gauntlet
+  - type: Fiber
+    fiberMaterial: fibers-classified
+    fiberColor: fibers-pitch-black
+  - type: Item
+    sprite: _Onyx/Clothing/Hands/Gloves/deathsquad.rsi
+    heldPrefix: gauntlet
+  - type: ClothingGrantComponent
+    component:
+    - type: Prying
+      pryPowered: true
+      force: true
+      speedModifier: 4.5
+  - type: MeleeWeapon
+    attackRate: 1.2
+    damage:
+      types:
+        Blunt: 32
+        Structural: 80
+    mustBeEquippedToUse: true
+    soundHit:
+      path: /Audio/_Onyx/Weapons/Effects/metalcrush.ogg
+    canWideSwing: false
+  - type: StaminaDamageOnHit
+    damage: 45
+    overtime: 80
+  - type: Tag
+    tags: []
+  - type: ItemSwitch
+    showLabel: true
+    state: gauntlet
+    states:
+      gauntlet: !type:ItemSwitchState
+        verb: gauntlet
+        sprite:
+          sprite: _Onyx/Clothing/Hands/Gloves/deathsquad.rsi
+          state: icon
+        components:
+          - type: MeleeWeapon
+            attackRate: 1.2
+            damage:
+              types:
+                Blunt: 32
+                Structural: 80
+            mustBeEquippedToUse: true
+            soundHit:
+              path: /Audio/_Onyx/Weapons/Effects/metalcrush.ogg
+            canWideSwing: false
+          - type: StaminaDamageOnHit
+            damage: 45
+            overtime: 80
+        soundStateActivate:
+          collection: sparks
+          params:
+            variation: 0.125
+            volume: -5
+
+      claws: !type:ItemSwitchState
+        verb: claws
+        sprite:
+          sprite: _Onyx/Clothing/Hands/Gloves/deathsquad.rsi
+          state: icon-on
+        components:
+          - type: MeleeWeapon
+            attackRate: 2
+            autoAttack: true
+            damage:
+              types:
+                Slash: 25
+                Structural: 50
+                Cellular: 15
+            mustBeEquippedToUse: true
+            soundHit:
+              path: /Audio/Weapons/bladeslice.ogg
+            canWideSwing: false
+        soundStateActivate:
+          collection: sparks
+          params:
+            variation: 0.125
+
+- type: entity
+  parent: ClothingHandsGlovesDeathsquad
+  id: ClothingHandsGlovesDeathsquadUnremovable
+  suffix: Unremovable
+  components:
+  - type: Unremoveable
+
+- type: entity
+  parent: ClothingHandsBase
+  id: ClothingHandsGlovesHeavyGoldenTrim
+  name: heavy gold-trimmed gloves
+  description: A pair of gold-trimmed gloves made for Central Command staff. These ones are insulated.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Hands/Gloves/goldtrim.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Hands/Gloves/goldtrim.rsi
+  - type: Insulated
+  - type: Fiber
+    fiberMaterial: fibers-classified
+    fiberColor: fibers-white
+
+- type: entity
+  parent: ClothingHandsBase
+  id: ClothingHandsGlovesGoldenTrim
+  name: gold-trimmed gloves
+  description: A pair of gold-trimmed gloves made for Central Command staff. Not insulated.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Hands/Gloves/goldtrim.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Hands/Gloves/goldtrim.rsi
+  - type: Fiber
+    fiberMaterial: fibers-classified
+    fiberColor: fibers-white
+
+- type: entity
+  parent: ClothingHandsBase
+  id: ClothingHandsGlovesConquest
+  name: viltrumite prosthetic
+  description: Stand ready for my arrival, worm.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Hands/Gloves/conquest.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Hands/Gloves/conquest.rsi
+  - type: Insulated
+  - type: MeleeWeapon
+    attackRate: 0.8
+    damage:
+      types:
+        Blunt: 80
+        Structural: 120
+    mustBeEquippedToUse: true
+  - type: StaminaDamageOnHit
+    damage: 45
+    overtime: 80
+  - type: Prying
+    pryPowered: true
+    force: true
+    speedModifier: 8
+
+- type: entity
+  parent: ClothingHandsGlovesConquest
+  id: ClothingHandsGlovesConquestUnremovable
+  suffix: Unremovable
+  name: viltrumite prosthetic
+  description: Stand ready for my arrival, worm.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Hands/Gloves/conquest.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Hands/Gloves/conquest.rsi
+  - type: Insulated
+  - type: Unremoveable
+
+- type: entity
+  parent: ClothingHandsGlovesColorYellow
+  id: ClothingHandsGlovesColorYellowUnremovable
+  suffix: Unremovable
+  components:
+  - type: Unremoveable
+
+- type: entity
+  parent: [BaseSyndicateContraband, ClothingHandsGlovesCombat]
+  id: ClothingHandsGlovesGuerrilla
+  name: guerrilla gloves
+  description: Top of the line quality syndicate combative gloves, good for grabs as well as absorbing electrical shocks. Seems to be powered by telecrystals.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Hands/Gloves/guerrilla.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Hands/Gloves/guerrilla.rsi
+    equipDelay: 2
+    unequipDelay: 2
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: inhand-left
+        color: "#940000"
+      right:
+      - state: inhand-right
+        color: "#940000"
+  - type: GrabModifier
+    startingGrabStage: Hard
+    grabEscapeModifier: -0.1
+    grabEscapeMultiplier: 0.8
+    grabMoveSpeedMultiplier: 2
+
+- type: entity
+  parent: ClothingHandsBase
+  id: ClothingHandsGlovesWizard
+  name: wizard gloves
+  description: A magnificent pair of blue gem-lined gloves that seem to be insulated.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Wizard/Clothing/Hands/wizgloves.rsi
+  - type: Clothing
+    sprite: _Onyx/Wizard/Clothing/Hands/wizgloves.rsi
+  - type: Insulated
+  - type: FingerprintMask
+  - type: StaticPrice
+    price: 1000
+
+- type: entity
+  parent: ClothingHandsGlovesColorBlack
+  id: ClothingHandsSlasherGloves
+  name: slasher gloves
+  description: Heavy black gloves, stained by time.
+  components:
+  - type: Armor
+    coverage:
+    - Hand
+    modifiers:
+      coefficients:
+        Blunt: 0.90
+        Slash: 0.90
+        Piercing: 0.90
+        Heat: 0.90
+        Caustic: 0.90
+  - type: SelfUnremovableClothing
+  - type: SelfEquipOnly
+    unequipRequireConscious: false
+
+- type: entity
+  name: combat gloves
+  parent: ClothingHandsSlasherGloves
+  id: ClothingHandsSlasherBilly
+  categories: [ HideSpawnMenu ]
+  description: Tactical gloves, permanently stained.
+  components:
+  - type: Sprite
+    sprite: Clothing/Hands/Gloves/combat.rsi
+  - type: Clothing
+    sprite: Clothing/Hands/Gloves/combat.rsi
+
+- type: entity
+  parent: [ClothingHandsGlovesSyntheticBase]
+  id: ClothingHandsCatPawsBase
+  abstract: true
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: _Onyx/Clothing/Hands/Gloves/paws.rsi
+  - type: Clothing
+    sprite: _Onyx/Clothing/Hands/Gloves/paws.rsi
+  - type: MeleeWeapon
+    soundHit:
+      collection: ToySqueak
+    damage:
+      types:
+        Blunt: 0
+    hidden: true
+    mustBeEquippedToUse: true
+
+- type: entity
+  parent: ClothingHandsCatPawsBase
+  id: ClothingHandsCatPawsBrown
+  name: brown cat paws
+  description: Super-soft brown cat paws, made specially for the most brutal agents.
+  components:
+  - type: Sprite
+    state: brown-icon
+  - type: Clothing
+    clothingVisuals:
+      gloves:
+      - state: brown-equipped-HAND
+  - type: Fiber
+    fiberColor: fibers-brown
+
+- type: entity
+  parent: ClothingHandsCatPawsBase
+  id: ClothingHandsCatPawsBlack
+  name: black cat paws
+  description: Super-soft black paws, made specially for the most brutal agents.
+  components:
+  - type: Sprite
+    state: black-icon
+  - type: Clothing
+    clothingVisuals:
+      gloves:
+      - state: black-equipped-HAND
+  - type: Fiber
+    fiberColor: fibers-black
+
+- type: entity
+  parent: ClothingHandsCatPawsBase
+  id: ClothingHandsCatPawsBlackWhite
+  name: black and white cat paws
+  description: Super-soft black and white cat paws, made specially for the most brutal agents.
+  components:
+  - type: Sprite
+    state: blackwhite-icon
+  - type: Clothing
+    clothingVisuals:
+      gloves:
+      - state: blackwhite-equipped-HAND
+  - type: Fiber
+    fiberColor: fibers-grey

@@ -21,3 +21,21 @@
 
 - type: Tag
   id: HudMedichem
+
+- type: Tag
+  id: HudMedicalSecurity # Construction material for medical security glasses.
+
+- type: Tag
+  id: HudMedicalDiagnostic # Construction material for the meddiag HUD.
+
+- type: Tag
+  id: GasMask # Generic gas mask tag.
+
+- type: Tag
+  id: GasMaskFullDefault # Full gas mask, used for cutting into a half mask.
+
+- type: Tag
+  id: Mask # Generic mask tag.
+
+- type: Tag
+  id: HidesNose # Whether clothing hides the nose layer.

@@ -21,8 +21,8 @@
     jumpsuit: ClothingUniformJumpsuitCentcomOfficial
     shoes: ClothingShoesBootsCombatFilled
     head: ClothingHeadHatCentcom
-    eyes: ClothingEyesGlassesCommand
-    gloves: ClothingHandsGlovesColorBlack
+    eyes: ClothingEyesGlassesCentComm # <Onyx-CentCommGlasses-edited>
+    gloves: ClothingHandsGlovesHeavyGoldenTrim # <Onyx-CentCommGloves-edited>
     outerClothing: ClothingOuterArmorCentcommCarapace
     id: CentcomPDA
     ears: ClothingHeadsetAltCentCom

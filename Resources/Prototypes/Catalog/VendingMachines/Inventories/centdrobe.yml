@@ -7,9 +7,11 @@
     ClothingEyesGlassesSunglasses: 3
     ClothingUniformJumpsuitCentcomOfficer: 3
     ClothingUniformJumpsuitCentcomOfficial: 3
+    ClothingUniformJumpskirtCentcomPencilSkirt: 3 # <Onyx-CentDrobe>
     ClothingUniformJumpsuitCentcomAgent: 3
     ClothingUniformJumpsuitCentcomFormal: 3
     ClothingUniformJumpskirtCentcomFormalDress: 3
+    ClothingUniformJumpsuitCasualCentcom: 3 # <Onyx-CentDrobe>
     ClothingHeadHatCentcom: 3
     ClothingHeadHatCentcomcap: 3
     ClothingMaskGasCentcom: 3
@@ -18,6 +20,12 @@
     ClothingOuterCoatExpensive: 1
     ClothingNeckScarfStripedCentcom: 3
     ClothingNeckCloakCentcom: 3
+    ClothingNeckCloakHighCommand: 3 # <Onyx-CentDrobe>
+    ClothingNeckCloakHighCommandCape: 2 # <Onyx-CentDrobe>
+    ClothingNeckCloakCentComPoncho: 3 # <Onyx-CentDrobe>
+    ClothingNeckMantleEpaulettes: 1 # <Onyx-CentDrobe>
   contrabandInventory:
+    ClothingUniformJumpsuitGoldenLiaison: 2 # <Onyx-CentDrobe>
+    ClothingNeckCloakGoldenCentComm: 2 # <Onyx-CentDrobe>
     ToyFigurineCaptain: 1
     ToyFigurineHeadOfPersonnel: 1

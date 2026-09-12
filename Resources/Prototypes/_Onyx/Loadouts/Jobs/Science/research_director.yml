@@ -1,0 +1,26 @@
+- type: loadoutEffectGroup
+  id: GrandMasterRD
+  effects:
+  - !type:JobRequirementLoadoutEffect
+    requirement:
+      !type:RoleTimeRequirement
+      role: JobResearchDirector
+      time: 100h
+
+- type: loadout
+  id: ResearchDirectorEnsemble
+  equipment:
+    neck: ClothingNeckEnsembleResearchDirector
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: GrandMasterRD
+
+- type: loadout
+  id: ResearchDirectorJumpsuitAlt
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitResearchDirectorAlt
+
+- type: loadout
+  id: ResearchDirectorJumpskirtAlt
+  equipment:
+    jumpsuit: ClothingUniformJumpskirtResearchDirectorAlt

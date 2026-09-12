@@ -1,0 +1,14 @@
+ent-ClothingUniformSlasher = grey jumpsuit
+    .desc = A grey jumpsuit that smells faintly of blood.
+ent-ClothingUniformSlasherBilly = black jumpsuit
+    .desc = A pitch-black jumpsuit. Stylish, in a murderous way.
+ent-ClothingUniformSlasherMaintenance = monastic robe
+    .desc = A light robe worn by a wandering something.
+ent-ClothingUniformSlasherCannibal = chef's uniform
+    .desc = A chef's uniform. Still warm from the last shift.
+ent-ClothingUniformSlasherClown = clown suit
+    .desc = HONK!
+ent-ClothingUniformSlasherClownAscended = banana clown suit
+    .desc = A banana-yellow clown suit, radiating with honk energy.
+ent-ClothingUniformSlasherHockey = worn jumpsuit
+    .desc = A tattered, muddied jumpsuit. Smells like a forest after rain. And blood.
