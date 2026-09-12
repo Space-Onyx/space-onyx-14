@@ -15,6 +15,16 @@ namespace Content.Client.UserInterface.Controls
             StorageTexturePath = "Slots/back";
             SlotName = slotData.SlotName;
 
+            // <Onyx-InventorySubslots>
+            if (slotData.SubSlotOf != null)
+            {
+                var toolTip = Loc.GetString($"inventory-subslot-{slotData.SlotName}");
+                ButtonRect.ToolTip = toolTip;
+                StorageButton.ToolTip = toolTip;
+                BlockedRect.ToolTip = toolTip;
+            }
+            // </Onyx-InventorySubslots>
+
             InitializeSubSlots(); // <Onyx-InventorySubslots>
         }
     }

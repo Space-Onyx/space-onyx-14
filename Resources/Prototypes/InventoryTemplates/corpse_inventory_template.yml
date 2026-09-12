@@ -28,6 +28,16 @@
       uiWindowPos: 2,1
       strippingWindowPos: 2,2
       displayName: Gloves
+    # <Onyx-InventorySubslots>
+    - name: ring
+      slotTexture: gloves
+      fullTextureName: template_small
+      slotFlags: RING
+      subSlotOf: gloves
+      uiWindowPos: 2,1
+      strippingWindowPos: 2,2
+      displayName: Ring
+    # </Onyx-InventorySubslots>
     - name: neck
       slotTexture: neck
       slotFlags: NECK
