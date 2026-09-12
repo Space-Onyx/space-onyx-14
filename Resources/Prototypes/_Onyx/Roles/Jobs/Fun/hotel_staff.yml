@@ -81,7 +81,7 @@
     jumpsuit: ClothingUniformJumpsuitColorBlack
     outerClothing: ClothingOuterHoodieBlack
     head: ClothingHeadHatBeretFrench
-    eyes: ClothingEyesGlassesCommand
+    eyes: ClothingEyesGlasses
     shoes: ClothingShoesBootsLaceup
     pocket1: DoorRemoteHotel
   storage:
