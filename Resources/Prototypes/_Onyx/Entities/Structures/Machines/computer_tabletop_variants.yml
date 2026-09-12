@@ -26,6 +26,10 @@
   parent: [BaseStructureComputerTabletop, ComputerShuttleRemoteControlSystem]
   suffix: Tabletop
   components:
+  - type: Tag
+    tags:
+      - Structure
+      - DroneShuttleLinkable
   - type: Sprite
     drawdepth: SmallObjects
     sprite: _Onyx/Structures/Machines/computer_tabletop.rsi
