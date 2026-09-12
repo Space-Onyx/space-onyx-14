@@ -43,6 +43,7 @@ public sealed partial class ShuttleConsoleSystem
     private void OnDronePilotConsoleOpen(EntityUid uid, DroneConsoleComponent component, AfterActivatableUIOpenEvent args)
     {
         component.Entity = GetShuttleConsole(uid);
+        RefreshShuttleConsoles(); // <Onyx-ShuttleRemoteControlPersistence>
     }
 
     private void OnDronePilotConsoleClose(EntityUid uid, DroneConsoleComponent component, BoundUIClosedEvent args)
