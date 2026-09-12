@@ -1,4 +1,10 @@
 ent-ClothingHeadsetLawyer = lawyer headset
     .desc = Thanks to this device, your lawyer will hear your screams from the interrogation room.
+ent-ClothingHeadsetHotelManager = hotel manager headset
+    .desc = A headset used by the hotel manager to coordinate staff and contact station services.
+ent-ClothingHeadsetHotelSecure = hotel security headset
+    .desc = A headset used by hotel security to watch over guests.
+ent-ClothingHeadsetHotelStaff = hotel staff headset
+    .desc = A headset used by hotel staff to serve guests.
 ent-ClothingHeadsetAltWarden = warden's over-ear headset
     .desc = An updated, modular intercom, allowing for rapid communication with command personnel.

@@ -1,4 +1,5 @@
 chat-radio-radioshow = Радиовещание
+chat-radio-hotel = Отель
 
 signal-port-name-vinyl-player = Проигрыватель
 signal-port-description-vinyl-player = Выход винилового проигрывателя, соединяемый с радиоустановкой.

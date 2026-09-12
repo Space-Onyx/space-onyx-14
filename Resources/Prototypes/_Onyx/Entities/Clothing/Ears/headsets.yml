@@ -16,3 +16,59 @@
     sprite: Clothing/Ears/Headsets/security.rsi
   - type: Clothing
     sprite: Clothing/Ears/Headsets/security.rsi
+
+- type: entity
+  parent: [ClothingHeadset, BaseCommandContraband]
+  id: ClothingHeadsetHotelManager
+  name: hotel manager headset
+  description: A headset used by the hotel manager to coordinate staff and contact station services.
+  components:
+  - type: Headset
+    color: "#cfa14f"
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyCommand
+      - EncryptionKeyService
+      - EncryptionKeySecurity
+      - EncryptionKeyHotel
+  - type: Sprite
+    sprite: Clothing/Ears/Headsets/command.rsi
+  - type: Clothing
+    sprite: Clothing/Ears/Headsets/command.rsi
+
+- type: entity
+  parent: [ClothingHeadset, BaseSecurityLawyerContraband]
+  id: ClothingHeadsetHotelSecure
+  name: hotel security headset
+  description: A headset used by hotel security to watch over guests.
+  components:
+  - type: Headset
+    color: "#cfa14f"
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeySecurity
+      - EncryptionKeyHotel
+  - type: Sprite
+    sprite: Clothing/Ears/Headsets/security.rsi
+  - type: Clothing
+    sprite: Clothing/Ears/Headsets/security.rsi
+
+- type: entity
+  parent: ClothingHeadset
+  id: ClothingHeadsetHotelStaff
+  name: hotel staff headset
+  description: A headset used by hotel staff to serve guests.
+  components:
+  - type: Headset
+    color: "#cfa14f"
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyService
+      - EncryptionKeyHotel
+  - type: Sprite
+    sprite: Clothing/Ears/Headsets/service.rsi
+  - type: Clothing
+    sprite: Clothing/Ears/Headsets/service.rsi

@@ -9,6 +9,7 @@ telecom-server-label-security = Security server
 telecom-server-label-service = Service server
 telecom-server-label-command = Command server
 telecom-server-label-legal = Legal server
+telecom-server-label-hotel = Hotel server
 
 telecom-signal-log-count = The server log contains {$count} of {$capacity} signal records.
 telecom-signal-log-last = Last signal: [{$time}] [{$channel}] {$message}

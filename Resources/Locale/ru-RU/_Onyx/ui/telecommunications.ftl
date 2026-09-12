@@ -9,6 +9,7 @@ telecom-server-label-security = Сервер службы безопасност
 telecom-server-label-service = Сервисный сервер
 telecom-server-label-command = Командный сервер
 telecom-server-label-legal = Юридический сервер
+telecom-server-label-hotel = Сервер отеля
 
 telecom-signal-log-count = Журнал сервера содержит {$count} из {$capacity} записей сигналов.
 telecom-signal-log-last = Последний сигнал: [{$time}] [{$channel}] {$message}

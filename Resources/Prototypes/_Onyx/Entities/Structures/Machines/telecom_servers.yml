@@ -181,3 +181,31 @@
   parent: [TelecomServerFilledLegal, AutonomousTelecomServer]
   id: AutonomousTelecomServerFilledLegal
   suffix: Legal, Autonomous, Signal Chain
+
+- type: entity
+  parent: TelecomServer
+  id: TelecomServerFilledHotel
+  suffix: Hotel
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyHotel
+  - type: Label
+    localizedLabel: telecom-server-label-hotel
+
+- type: entity
+  parent: TelecomServerFilledHotel
+  id: OnyxTelecomServerFilledHotel
+  suffix: Hotel, Signal Chain
+  components:
+  - type: TelecomRouter
+    maxBuses: 1
+    standalone: false
+  - type: Machine
+    board: OnyxTelecomServerCircuitboard
+
+- type: entity
+  parent: [TelecomServerFilledHotel, AutonomousTelecomServer]
+  id: AutonomousTelecomServerFilledHotel
+  suffix: Hotel, Autonomous, Signal Chain

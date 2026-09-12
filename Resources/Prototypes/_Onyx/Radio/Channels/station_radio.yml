@@ -16,3 +16,10 @@
   frequency: 145
   color: "#bc1ac4"
   longRange: true
+
+- type: radioChannel
+  id: Hotel
+  name: chat-radio-hotel
+  keycode: 'х'
+  frequency: 134.5
+  color: "#cfa14f"
