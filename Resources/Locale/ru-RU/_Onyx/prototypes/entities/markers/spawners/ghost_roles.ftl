@@ -4,3 +4,16 @@ ent-SpawnPointGhostXenomorph = { ent-BaseAntagSpawner }
 ent-SpawnPointSkeletonPirate = спальная капсула скелета-пирата
     .suffix = Спавнер, гостевая роль
     .desc = { ent-MarkerBase.desc }
+
+ent-BaseSpawnPointHotelGuestRole = точка появления работника отеля
+    .suffix = Спавнер, гостевая роль
+    .desc = { ent-MarkerBase.desc }
+ent-SpawnPointHotelStaff = точка появления персонала отеля
+    .suffix = Спавнер, гостевая роль
+    .desc = { ent-MarkerBase.desc }
+ent-SpawnPointHotelSecurity = точка появления охраны отеля
+    .suffix = Спавнер, гостевая роль
+    .desc = { ent-MarkerBase.desc }
+ent-SpawnPointHotelManager = точка появления менеджера отеля
+    .suffix = Спавнер, гостевая роль
+    .desc = { ent-MarkerBase.desc }

@@ -49,3 +49,10 @@ ghost-role-information-skeleton-bartender-name = Скелет-бармен
 ghost-role-information-skeleton-bartender-description = Поддерживайте работу пляжного бара, подавайте напитки и следите, чтобы гостям было весело.
 ghost-role-information-skeleton-pirate-bitrunning-name = Скелет пират
 ghost-role-information-skeleton-pirate-bitrunning-description = Вы пират, враждебный к битраннерам. Грабьте их и не давайте им спокойно завершить рейд.
+
+ghost-role-information-hotel-staff-name = Персонал отеля
+ghost-role-information-hotel-staff-description = Обслуживайте гостей отеля, поддерживайте порядок в номерах и выполняйте распоряжения менеджера.
+ghost-role-information-hotel-security-name = Охрана отеля
+ghost-role-information-hotel-security-description = Защищайте гостей и персонал отеля, поддерживайте порядок и выполняйте распоряжения менеджера.
+ghost-role-information-hotel-manager-name = Менеджер отеля
+ghost-role-information-hotel-manager-description = Управляйте работой отеля, координируйте персонал и охрану, обеспечивайте достойное обслуживание гостей.

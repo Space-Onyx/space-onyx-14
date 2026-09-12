@@ -12,3 +12,6 @@ job-description-bitrun-avatar = Проецируемое тело операто
 job-name-hotel-manager = менеджер отеля
 job-name-hotel-staff = персонал отеля
 job-name-hotel-secure = охрана отеля
+job-description-hotel-staff = Обслуживайте гостей отеля и поддерживайте порядок в номерах.
+job-description-hotel-secure = Защищайте гостей и персонал отеля.
+job-description-hotel-manager = Управляйте работой отеля и его персоналом.

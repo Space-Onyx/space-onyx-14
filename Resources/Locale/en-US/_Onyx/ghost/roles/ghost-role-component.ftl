@@ -49,3 +49,10 @@ ghost-role-information-skeleton-bartender-name = Skeleton Bartender
 ghost-role-information-skeleton-bartender-description = Keep the beach bar running, serve drinks, and make sure guests have a good time.
 ghost-role-information-skeleton-pirate-bitrunning-name = Skeleton Pirate
 ghost-role-information-skeleton-pirate-bitrunning-description = You are a pirate hostile to bitrunners. Raid them and prevent them from safely finishing their run.
+
+ghost-role-information-hotel-staff-name = Hotel Staff
+ghost-role-information-hotel-staff-description = Serve hotel guests, maintain rooms, and follow the hotel manager's instructions.
+ghost-role-information-hotel-security-name = Hotel Security
+ghost-role-information-hotel-security-description = Protect hotel guests and staff, maintain order, and follow the hotel manager's instructions.
+ghost-role-information-hotel-manager-name = Hotel Manager
+ghost-role-information-hotel-manager-description = Manage hotel operations, coordinate staff and security, and ensure guests receive proper service.

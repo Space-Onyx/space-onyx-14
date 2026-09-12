@@ -32,3 +32,17 @@
 # Content below taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
 - type: playTimeTracker
   id: JobGeneticist
+
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+- type: playTimeTracker
+  id: JobHotelStaff
+
+- type: playTimeTracker
+  id: JobHotelSecurity
+
+- type: playTimeTracker
+  id: JobHotelManager

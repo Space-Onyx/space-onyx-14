@@ -48,3 +48,6 @@ job-title-colonel_general = Colonel General
 job-name-hotel-manager = Hotel Manager
 job-name-hotel-staff = Hotel Staff
 job-name-hotel-secure = Hotel Security
+job-description-hotel-staff = Serve hotel guests and maintain its rooms.
+job-description-hotel-secure = Protect hotel guests and staff.
+job-description-hotel-manager = Manage hotel operations and personnel.

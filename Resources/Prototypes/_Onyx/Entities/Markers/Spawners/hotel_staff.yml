@@ -1,0 +1,75 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: entity
+  abstract: true
+  parent: MarkerBase
+  id: BaseSpawnPointHotelGuestRole
+  suffix: Spawner, Ghost Role
+  categories: [ Spawner ]
+  components:
+  - type: GhostRole
+    rules: ghost-role-information-nonantagonist-rules
+    reregister: false
+    raffle:
+      settings: hotel
+    mindRoles:
+    - MindRoleGhostRoleNeutral
+  - type: CharacterProfileGhostRoleSpawner
+
+- type: entity
+  parent: BaseSpawnPointHotelGuestRole
+  id: SpawnPointHotelStaff
+  name: hotel staff ghost role
+  components:
+  - type: GhostRole
+    name: ghost-role-information-hotel-staff-name
+    description: ghost-role-information-hotel-staff-description
+    job: HotelStaff
+  - type: CharacterProfileGhostRoleSpawner
+    startingGear: HotelStaffGear
+  - type: Sprite
+    layers:
+    - sprite: Markers/jobs.rsi
+      state: green
+    - sprite: Markers/jobs.rsi
+      state: serviceworker
+
+- type: entity
+  parent: BaseSpawnPointHotelGuestRole
+  id: SpawnPointHotelSecurity
+  name: hotel security ghost role
+  components:
+  - type: GhostRole
+    name: ghost-role-information-hotel-security-name
+    description: ghost-role-information-hotel-security-description
+    job: HotelSecurity
+  - type: CharacterProfileGhostRoleSpawner
+    startingGear: HotelSecurityGear
+  - type: Sprite
+    layers:
+    - sprite: Markers/jobs.rsi
+      state: green
+    - sprite: Markers/jobs.rsi
+      state: security_officer
+
+- type: entity
+  parent: BaseSpawnPointHotelGuestRole
+  id: SpawnPointHotelManager
+  name: hotel manager ghost role
+  components:
+  - type: GhostRole
+    name: ghost-role-information-hotel-manager-name
+    description: ghost-role-information-hotel-manager-description
+    job: HotelManager
+  - type: CharacterProfileGhostRoleSpawner
+    startingGear: HotelManagerGear
+  - type: Sprite
+    layers:
+    - sprite: Markers/jobs.rsi
+      state: green
+    - sprite: Markers/jobs.rsi
+      state: hop

@@ -1,0 +1,24 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: entity
+  parent: [ DoorRemoteDefault, BaseCommandContraband ]
+  id: DoorRemoteHotel
+  name: hotel door remote
+  description: A remote control for hotel airlocks.
+  components:
+  - type: Sprite
+    layers:
+    - state: door_remotebase
+    - state: door_remotelightscolour
+      color: "#cfa14f"
+    - state: door_remotescreencolour
+      color: "#8f6f36"
+  - type: Access
+    tags:
+    - HotelManager
+    - HotelStaff
+    - HotelSecure

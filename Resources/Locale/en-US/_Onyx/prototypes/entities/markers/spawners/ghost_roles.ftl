@@ -4,3 +4,16 @@ ent-SpawnPointGhostXenomorph = { ent-BaseAntagSpawner }
 ent-SpawnPointSkeletonPirate = skeleton pirate sleeper
     .suffix = Spawner, Ghost Role
     .desc = { ent-MarkerBase.desc }
+
+ent-BaseSpawnPointHotelGuestRole = hotel guest role spawn point
+    .suffix = Spawner, Ghost Role
+    .desc = { ent-MarkerBase.desc }
+ent-SpawnPointHotelStaff = hotel staff spawn point
+    .suffix = Spawner, Ghost Role
+    .desc = { ent-MarkerBase.desc }
+ent-SpawnPointHotelSecurity = hotel security spawn point
+    .suffix = Spawner, Ghost Role
+    .desc = { ent-MarkerBase.desc }
+ent-SpawnPointHotelManager = hotel manager spawn point
+    .suffix = Spawner, Ghost Role
+    .desc = { ent-MarkerBase.desc }

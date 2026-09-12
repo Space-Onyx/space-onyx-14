@@ -1,0 +1,90 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: job
+  id: HotelStaff
+  name: job-name-hotel-staff
+  description: job-description-hotel-staff
+  playTimeTracker: JobHotelStaff
+  setPreference: false
+  icon: JobIconHotelStaff
+  canBeAntag: false
+
+- type: job
+  id: HotelSecurity
+  name: job-name-hotel-secure
+  description: job-description-hotel-secure
+  playTimeTracker: JobHotelSecurity
+  setPreference: false
+  icon: JobIconHotelSecure
+  canBeAntag: false
+  requirements:
+  - !type:RoleTimeRequirement
+    role: JobHotelStaff
+    time: 2h
+
+- type: job
+  id: HotelManager
+  name: job-name-hotel-manager
+  description: job-description-hotel-manager
+  playTimeTracker: JobHotelManager
+  setPreference: false
+  icon: JobIconHotelManager
+  canBeAntag: false
+  requirements:
+  - !type:RoleTimeRequirement
+    role: JobHotelStaff
+    time: 7h
+
+- type: startingGear
+  id: HotelStaffGear
+  equipment:
+    id: HotelStaffPDA
+    ears: ClothingHeadsetHotelManager
+    back: ClothingBackpackSatchel
+    jumpsuit: ClothingUniformJumpsuitCasualRed
+    eyes: ClothingEyesGlasses
+    shoes: ClothingShoesBootsLaceup
+  storage:
+    back:
+    - BoxSurvivalSlotsEngineering
+    - MedkitFilled
+
+- type: startingGear
+  id: HotelSecurityGear
+  equipment:
+    id: HotelSecurePDA
+    ears: ClothingHeadsetHotelSecure
+    back: ClothingBackpackSecurity
+    head: ClothingHeadHelmetBasic
+    jumpsuit: ClothingUniformJumpsuitSec
+    mask: ClothingMaskGasSecurity
+    eyes: ClothingEyesGlassesSecurity
+    outerClothing: ClothingOuterArmorBasicSlim
+    gloves: ClothingHandsGlovesColorBlack
+    shoes: ClothingShoesBootsJackFilled
+    pocket1: CrowbarRed
+  storage:
+    back:
+    - BoxSurvivalSlotsEngineering
+    - MedkitAdvancedFilled
+
+- type: startingGear
+  id: HotelManagerGear
+  equipment:
+    id: HotelManagerPDA
+    ears: ClothingHeadsetHotelManager
+    back: ClothingBackpackSatchel
+    jumpsuit: ClothingUniformJumpsuitColorBlack
+    outerClothing: ClothingOuterHoodieBlack
+    head: ClothingHeadHatBeretFrench
+    eyes: ClothingEyesGlassesCommand
+    shoes: ClothingShoesBootsLaceup
+    pocket1: DoorRemoteHotel
+  storage:
+    back:
+    - BoxSurvivalSlotsEngineering
+    - MedkitFilled
