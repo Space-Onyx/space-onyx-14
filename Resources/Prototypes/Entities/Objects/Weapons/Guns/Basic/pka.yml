@@ -1,8 +1,8 @@
 - type: entity
   name: proto-kinetic accelerator
   id: WeaponProtoKineticAccelerator
-  parent: [WeaponProtoKineticAcceleratorBase, BaseCargoContraband]
-  description: Fires high-damage kinetic bolts at a short range. # Onyx: Goob description.
+  parent: [BaseCorvaxContraband432DepartmentsCargo, WeaponProtoKineticAcceleratorBase, BaseCargoContraband] # Corvax-Contraband
+  description: Fires high-damage kinetic bolts at a short range. # <Onyx-PKAAttachments-edited>
   components:
   - type: Sprite
     sprite: _Onyx/Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi # <Onyx-PKAAttachments-edited>

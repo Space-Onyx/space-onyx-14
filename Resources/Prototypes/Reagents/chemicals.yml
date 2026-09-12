@@ -55,6 +55,7 @@
 
 - type: reagent
   id: Lye
+  contrabandSeverity: Corvax442 # Corvax-Contraband
   name: reagent-name-lye
   desc: reagent-desc-lye
   flavor: alkaline
@@ -77,6 +78,7 @@
 
 - type: reagent
   id: Artifexium
+  contrabandSeverity: Corvax442 # Corvax-Contraband
   name: reagent-name-artifexium
   desc: reagent-desc-artifexium
   flavor: metallic
@@ -101,6 +103,7 @@
 - type: reagent
   parent: Artifexium
   id: ArtifactGlue
+  contrabandSeverity: Corvax442 # Corvax-Contraband
   name: reagent-name-artifact-glue
   desc: reagent-desc-artifact-glue
   flavor: artifactglue

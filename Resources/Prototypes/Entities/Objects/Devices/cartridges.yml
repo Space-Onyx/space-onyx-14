@@ -119,7 +119,7 @@
     - type: NetProbeCartridge
 
 - type: entity
-  parent: BasePDACartridge
+  parent: [BaseCorvaxContraband433DepartmentsCommandSecurity, BasePDACartridge] # Corvax-Contraband
   id: LogProbeCartridge
   name: LogProbe cartridge
   description: A program for getting access logs from devices.
@@ -147,7 +147,7 @@
       - Forensics
 
 - type: entity
-  parent: BasePDACartridge
+  parent: [BaseCorvaxContraband433DepartmentsCommandSecurity, BasePDACartridge] # Corvax-Contraband
   id: WantedListCartridge
   name: Wanted list cartridge
   description: A program to get a list of wanted persons.
@@ -174,7 +174,7 @@
     stealGroup: WantedListCartridge
 
 - type: entity
-  parent: BasePDACartridge
+  parent: [BaseCorvaxContraband431DepartmentsMedical, BasePDACartridge] # Corvax-Contraband
   id: MedTekCartridge
   name: MedTek cartridge
   description: A program that provides medical diagnostic tools.

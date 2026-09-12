@@ -183,6 +183,7 @@
 
 - type: reagent
   id: CapsaicinOil
+  contrabandSeverity: Corvax442 # Corvax-Contraband
   name: reagent-name-capsaicin-oil
   group: Foods
   desc: reagent-desc-capsaicin-oil
