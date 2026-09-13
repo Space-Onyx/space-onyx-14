@@ -17,6 +17,9 @@
   access:
   - HotelStaff
   - External
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
 
 - type: job
   id: HotelSecurity
@@ -36,6 +39,9 @@
   - !type:RoleTimeRequirement
     role: JobHotelStaff
     time: 2h
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
 
 - type: job
   id: HotelManager
@@ -56,3 +62,6 @@
   - !type:RoleTimeRequirement
     role: JobHotelStaff
     time: 7h
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
