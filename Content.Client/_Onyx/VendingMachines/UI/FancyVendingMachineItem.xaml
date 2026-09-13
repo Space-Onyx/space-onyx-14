@@ -25,11 +25,4 @@
                     HorizontalAlignment="Right"/>
         </BoxContainer>
     </Button>
-    <RichTextLabel Name="NameLabel"
-            Margin="4 4"
-            SetWidth="140"
-            MinHeight="48"
-            LineHeightScale="0.95"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"/>
 </BoxContainer>

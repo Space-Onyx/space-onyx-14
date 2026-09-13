@@ -20,7 +20,7 @@ public sealed partial class FancyVendingMachineItem : BoxContainer
 
         ItemPrototype.SetEntity(entity);
 
-        NameLabel.Text = text;
+        BuyButton.ToolTip = text;
         CountLabel.Visible = !infiniteStock;
         CountLabel.SetMarkup(Loc.GetString("vending-machine-ui-count", ("count", count), ("color", count > 0 ? "[color=white]" : "[color=red]")));
 
