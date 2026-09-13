@@ -56,7 +56,7 @@ public sealed partial class MachinePartEffectsSystem : EntitySystem
             * LinearDecrease(args.GetRating(MachinePartKind.Laser), 0.1f);
         ent.Comp.Capacity = (int) MathF.Round(GetBaseline(baseline, "microwave-capacity", ent.Comp.Capacity) * Positive(args.GetRating(MachinePartKind.MatterBin)));
         ent.Comp.ExplosionChance = Math.Max(0f, GetBaseline(baseline, "microwave-explosion", ent.Comp.ExplosionChance)
-            - args.GetRating(MachinePartKind.Laser) * 0.05f);
+            - (args.GetRating(MachinePartKind.Laser) - 1f) * 0.05f);
     }
 
     private void OnStasisPartsChanged(Entity<StasisBedComponent> ent, ref MachinePartsChangedEvent args)
@@ -75,7 +75,7 @@ public sealed partial class MachinePartEffectsSystem : EntitySystem
             return;
 
         var baseline = EnsureComp<MachinePartBaselineComponent>(ent);
-        var capacitor = Math.Max(1f, args.GetRatingSum(MachinePartKind.Capacitor));
+        var capacitor = 1f + args.GetTierBonusSum(MachinePartKind.Capacitor);
         battery.MaxChargeRate = GetBaseline(baseline, "smes-input", battery.MaxChargeRate) * capacitor;
         battery.MaxSupply = GetBaseline(baseline, "smes-output", battery.MaxSupply) * capacitor;
     }
@@ -85,7 +85,7 @@ public sealed partial class MachinePartEffectsSystem : EntitySystem
         var previousScannerTier = ent.Comp.ScannerTier;
         ent.Comp.CooldownMultiplier = Math.Clamp(1.15f - args.GetRating(MachinePartKind.Capacitor) * 0.15f, 0.1f, 1f);
         ent.Comp.ScannerTier = Math.Max(1, (int) MathF.Round(args.GetRating(MachinePartKind.Scanner)));
-        var servoBonus = args.GetRatingSum(MachinePartKind.Servo) * 0.1f;
+        var servoBonus = args.GetTierBonusSum(MachinePartKind.Servo) * 0.1f;
         ent.Comp.QualityBonus = servoBonus;
         ent.Comp.FinalExitDamageMultiplier = Math.Clamp(1f - servoBonus, 0.2f, 1f);
         Dirty(ent);
@@ -152,7 +152,7 @@ public sealed partial class MachinePartEffectsSystem : EntitySystem
 
     private static float LinearDecrease(float tier, float step)
     {
-        return Math.Clamp(1.2f - tier * step, 0.5f, 1.2f);
+        return Math.Clamp(1f - (tier - 1f) * step, 0.5f, 1f);
     }
 
     private static float GetBaseline(MachinePartBaselineComponent component, string key, float value)

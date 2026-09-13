@@ -31,7 +31,7 @@ public sealed partial class TieredLathePartSystem : EntitySystem
             baseline.BaseMaterialUseMultiplier = ent.Comp.MaterialUseMultiplier;
         }
 
-        var efficiency = Math.Clamp(1.2f - args.GetRatingSum(MachinePartKind.Servo) * 0.1f, 0.1f, 1.2f);
+        var efficiency = Math.Clamp(1f - args.GetTierBonusSum(MachinePartKind.Servo) * 0.1f, 0.1f, 1f);
         ent.Comp.TimeMultiplier = baseline.BaseTimeMultiplier * MathF.Pow(efficiency, 0.8f);
         ent.Comp.MaterialUseMultiplier = baseline.BaseMaterialUseMultiplier * efficiency;
         if (TryComp<MaterialStorageComponent>(ent, out var storage))
@@ -40,7 +40,7 @@ public sealed partial class TieredLathePartSystem : EntitySystem
             if (baseline.BaseStorageLimit is { } baseLimit)
             {
                 storage.StorageLimit = Math.Max(baseLimit,
-                    baseLimit + (int) MathF.Round(args.GetRatingSum(MachinePartKind.MatterBin) * 3750f));
+                    baseLimit + (int) MathF.Round(args.GetTierBonusSum(MachinePartKind.MatterBin) * 3750f));
                 Dirty(ent, storage);
             }
         }

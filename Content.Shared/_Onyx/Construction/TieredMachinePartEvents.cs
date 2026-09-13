@@ -29,6 +29,13 @@ public sealed class MachinePartsChangedEvent : EntityEventArgs
     {
         return RatingSums.GetValueOrDefault(kind);
     }
+
+    public float GetTierBonusSum(MachinePartKind kind)
+    {
+        var rating = GetRating(kind);
+        var sum = GetRatingSum(kind);
+        return rating > 0f ? sum * (rating - 1f) / rating : 0f;
+    }
 }
 
 public sealed class MachineUpgradeExamineEvent : EntityEventArgs

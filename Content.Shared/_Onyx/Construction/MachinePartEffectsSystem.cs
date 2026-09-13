@@ -156,7 +156,7 @@ public sealed partial class MachinePartEffectsSystem : EntitySystem
 
     private static float LinearDecrease(float tier, float step)
     {
-        return Math.Clamp(1.2f - tier * step, 0.5f, 1.2f);
+        return Math.Clamp(1f - (tier - 1f) * step, 0.5f, 1f);
     }
 
     private static float GetBaseline(MachinePartBaselineComponent component, string key, float value)
