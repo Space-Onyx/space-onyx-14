@@ -25,6 +25,10 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
     protected override void OnEjectStateChanged(Entity<VendingMachineComponent?> entity, VendingMachineEjectComponent? ejectComponent = null)
     {
         TryUpdateVisualState(entity, ejectComponent);
+        // <Onyx-VendingEjectLock>
+        if (ejectComponent != null && TryGetOpenUi(entity.Owner, out var bui))
+            bui.SetEjecting(ejectComponent.Ejecting);
+        // </Onyx-VendingEjectLock>
     }
 
     [SubscribeLocalEvent]
@@ -50,6 +54,10 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
     private void OnEjectHandleState(Entity<VendingMachineEjectComponent> entity, ref AfterAutoHandleStateEvent args)
     {
         TryUpdateVisualState(entity.Owner);
+        // <Onyx-VendingEjectLock>
+        if (TryGetOpenUi(entity.Owner, out var bui))
+            bui.SetEjecting(entity.Comp.Ejecting);
+        // </Onyx-VendingEjectLock>
     }
 
     [SubscribeLocalEvent]

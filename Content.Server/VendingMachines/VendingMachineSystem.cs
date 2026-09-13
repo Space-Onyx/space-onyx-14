@@ -112,7 +112,7 @@ public sealed partial class VendingMachineSystem : SharedVendingMachineSystem
             }
             if (!paid) { Popup.PopupEntity(Loc.GetString("vending-machine-component-no-balance"), uid, sender); Deny((uid, component), ejectComponent: eject); return; } // <Onyx-VendingPaymentSound-edited>
         }
-        TryEjectVendorItem(uid, type, itemId, ShouldThrowVendItem((uid, eject)), sender, component, eject);
+        TryEjectVendorItem(uid, type, itemId, ShouldThrowVendItem((uid, eject)), price > 0 && !component.AllForFree ? null : sender, component, eject); // <Onyx-VendingVendSound-edited>
         UpdateVendingMachineInterfaceState(uid, component);
     }
 

@@ -44,7 +44,8 @@ public sealed partial class VendingMachineSystem
             return true;
         }
 
-        TryEjectVendorItem(uid, entry.Type, entry.ID, ShouldThrowVendItem((uid, eject)), sender, component, eject);
+        TryEjectVendorItem(uid, entry.Type, entry.ID, ShouldThrowVendItem((uid, eject)),
+            price > 0 && !component.AllForFree ? null : sender, component, eject);
         UpdateVendingMachineInterfaceState(uid, component);
         return true;
     }

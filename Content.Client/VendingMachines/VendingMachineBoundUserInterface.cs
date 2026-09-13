@@ -24,6 +24,10 @@ public sealed class VendingMachineBoundUserInterface(EntityUid owner, Enum uiKey
         _menu.OnClose += Close;
         _menu.OnItemSelected += OnItemSelected;
         _menu.OnWithdraw += OnWithdraw;
+        // <Onyx-VendingEjectLock>
+        if (EntMan.TryGetComponent<VendingMachineEjectComponent>(Owner, out var eject))
+            _menu.SetEjecting(eject.Ejecting);
+        // </Onyx-VendingEjectLock>
         _menu.OpenCentered();
     }
 
@@ -36,6 +40,8 @@ public sealed class VendingMachineBoundUserInterface(EntityUid owner, Enum uiKey
     {
         SendMessage(new VendingMachineWithdrawMessage());
     }
+
+    public void SetEjecting(bool ejecting) => _menu?.SetEjecting(ejecting); // <Onyx-VendingEjectLock>
 
     protected override void UpdateState(BoundUserInterfaceState state)
     {
