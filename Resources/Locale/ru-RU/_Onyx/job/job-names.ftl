@@ -10,7 +10,7 @@ job-description-bitrun-avatar = Проецируемое тело операто
 # This file is licensed under AGPL-3.0-or-later.
 # See LICENSES for the full license text.
 job-name-hotel-manager = менеджер отеля
-job-name-hotel-staff = персонал отеля
+job-name-hotel-staff = работник отеля
 job-name-hotel-secure = охрана отеля
 job-description-hotel-staff = Обслуживайте гостей отеля и поддерживайте порядок в номерах.
 job-description-hotel-secure = Защищайте гостей и персонал отеля.

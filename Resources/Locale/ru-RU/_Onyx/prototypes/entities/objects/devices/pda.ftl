@@ -14,7 +14,7 @@ ent-MinerPDA = КПК шахтёра
 # See LICENSES for the full license text.
 ent-HotelManagerPDA = КПК менеджера отеля
     .desc = КПК командования для управления отелем.
-ent-HotelStaffPDA = КПК персонала отеля
-    .desc = Сервисный КПК персонала отеля.
+ent-HotelStaffPDA = КПК работника отеля
+    .desc = Сервисный КПК работника отеля.
 ent-HotelSecurePDA = КПК охраны отеля
     .desc = КПК охраны для поддержания порядка в отеле.

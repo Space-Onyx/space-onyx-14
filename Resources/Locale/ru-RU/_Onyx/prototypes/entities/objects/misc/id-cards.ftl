@@ -14,7 +14,7 @@ ent-MinerIDCard = ID-карта шахтёра
 # See LICENSES for the full license text.
 ent-HotelManagerIDCard = ID-карта менеджера отеля
     .desc = { ent-IDCardStandard.desc }
-ent-HotelStaffIDCard = ID-карта персонала отеля
+ent-HotelStaffIDCard = ID-карта работника отеля
     .desc = { ent-IDCardStandard.desc }
 ent-HotelSecureIDCard = ID-карта охраны отеля
     .desc = { ent-IDCardStandard.desc }
