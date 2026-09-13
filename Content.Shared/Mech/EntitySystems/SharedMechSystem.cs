@@ -225,6 +225,7 @@ public abstract partial class SharedMechSystem : EntitySystem
             return;
 
         equipmentComponent.EquipmentOwner = uid;
+        Dirty(toInsert, equipmentComponent); // <Onyx-MechGuns>
         _container.Insert(toInsert, component.EquipmentContainer);
         var ev = new MechEquipmentInsertedEvent(uid);
         RaiseLocalEvent(toInsert, ref ev);
