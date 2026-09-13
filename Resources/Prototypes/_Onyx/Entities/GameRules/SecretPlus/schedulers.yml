@@ -6,7 +6,7 @@
   - type: SecretPlus
     minStartingChaos: 8
     maxStartingChaos: 16
-    livingChaosChange: -0.018
+    livingChaosChange: -0.030
     deadChaosChange: 0.020
     chaosChangeVariationMin: 0.65
     chaosChangeVariationMax: 1.2
@@ -16,6 +16,22 @@
       tableId: SecretPlusTable
 
 - type: entity
+  id: SecretPlusHigh
+  parent: SecretPlusMid
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SecretPlus
+    minStartingChaos: 16
+    maxStartingChaos: 24
+    livingChaosChange: -0.040
+    deadChaosChange: 0.025
+    chaosChangeVariationMin: 0.8
+    chaosChangeVariationMax: 1.2
+    chaosExponent: 1.05
+    eventIntervalMin: 75
+    eventIntervalMax: 300
+
+- type: entity
   id: SecretPlusAdmeme
   parent: SecretPlusMid
   categories: [ HideSpawnMenu ]
@@ -23,7 +39,7 @@
   - type: SecretPlus
     minStartingChaos: 40
     maxStartingChaos: 40
-    livingChaosChange: -0.03
+    livingChaosChange: -0.05
     deadChaosChange: 0.03
     chaosExponent: 1
     eventIntervalMin: 60
@@ -41,7 +57,7 @@
     minStartingChaos: 3
     maxStartingChaos: 6
     noRoundstartAntags: true
-    livingChaosChange: -0.008
+    livingChaosChange: -0.016
     deadChaosChange: 0.014
     chaosExponent: 1.2
     eventIntervalMin: 150

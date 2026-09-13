@@ -26,8 +26,17 @@
   - SecretPlusMid
 
 - type: gamePreset
+  id: SecretPlusHigh
+  alias: [secretplushigh, secretplushard]
+  name: secretplus-high-title
+  description: secretplus-high-description
+  showInVote: true
+  rules:
+  - SecretPlusHigh
+
+- type: gamePreset
   id: SecretPlusAdmeme
-  alias: [secretplusadmeme, secretplusevil, secretplushigh, chaos]
+  alias: [secretplusadmeme, secretplusevil, chaos]
   name: secretplus-admeme-title
   description: secretplus-admeme-description
   showInVote: false
