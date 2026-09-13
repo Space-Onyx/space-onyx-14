@@ -16,6 +16,7 @@
   canBeAntag: false
   access:
   - HotelStaff
+  - External
 
 - type: job
   id: HotelSecurity
@@ -30,6 +31,7 @@
   access:
   - HotelSecure
   - HotelStaff
+  - External
   requirements:
   - !type:RoleTimeRequirement
     role: JobHotelStaff
@@ -49,6 +51,7 @@
   - HotelManager
   - HotelSecure
   - HotelStaff
+  - External
   requirements:
   - !type:RoleTimeRequirement
     role: JobHotelStaff

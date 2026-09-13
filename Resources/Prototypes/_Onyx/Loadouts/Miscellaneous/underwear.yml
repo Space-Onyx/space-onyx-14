@@ -14,7 +14,7 @@
   id: OnyxUnderwearSocksSpeciesRestrictions
   effects:
   - !type:SpeciesLoadoutEffect
-    species: [Human, SlimePerson, Dwarf]
+    species: [Human, SlimePerson, Dwarf, Demon, Felinid, Feroxi]
 
 - type: loadout
   id: OnyxUnderwearBoxersWhite
