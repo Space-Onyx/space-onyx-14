@@ -13,8 +13,6 @@
   components:
   - type: StationTeleporter
     autoLinkKey: Hotel
-    autoLinkPair: 1
-    autoLinkRole: Entrance
     portalColor: "#d4af37"
   - type: Label
     localizedLabel: teleporter-name-hotel-entrance
@@ -28,8 +26,6 @@
   components:
   - type: StationTeleporter
     autoLinkKey: Hotel
-    autoLinkPair: 1
-    autoLinkRole: Exit
     portalColor: "#d4af37"
   - type: Label
     localizedLabel: teleporter-name-hotel-exit
@@ -43,8 +39,6 @@
   components:
   - type: StationTeleporter
     autoLinkKey: Hotel
-    autoLinkPair: 2
-    autoLinkRole: Entrance
     portalColor: "#d4af37"
   - type: Label
     localizedLabel: teleporter-name-hotel-entrance-second
@@ -58,8 +52,6 @@
   components:
   - type: StationTeleporter
     autoLinkKey: Hotel
-    autoLinkPair: 2
-    autoLinkRole: Exit
     portalColor: "#d4af37"
   - type: Label
     localizedLabel: teleporter-name-hotel-exit-second
