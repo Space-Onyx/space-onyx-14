@@ -1,0 +1,294 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: loadout
+  id: HotelLoadoutBackpack
+  equipment:
+    back: ClothingBackpack
+
+- type: loadout
+  id: HotelLoadoutSatchel
+  equipment:
+    back: ClothingBackpackSatchel
+
+- type: loadout
+  id: HotelLoadoutDuffel
+  equipment:
+    back: ClothingBackpackDuffel
+
+- type: loadout
+  id: HotelLoadoutMessenger
+  equipment:
+    back: ClothingBackpackMessenger
+
+- type: loadout
+  id: HotelLoadoutSecurityBackpack
+  equipment:
+    back: ClothingBackpackSecurity
+
+- type: loadout
+  id: HotelLoadoutSecuritySatchel
+  equipment:
+    back: ClothingBackpackSatchelSecurity
+
+- type: loadout
+  id: HotelLoadoutSecurityDuffel
+  equipment:
+    back: ClothingBackpackDuffelSecurity
+
+- type: loadout
+  id: HotelLoadoutSecurityMessenger
+  equipment:
+    back: ClothingBackpackMessengerSecurity
+
+- type: loadout
+  id: HotelLoadoutStaffJumpsuit
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCasualRed
+
+- type: loadout
+  id: HotelLoadoutStaffJumpskirt
+  equipment:
+    jumpsuit: ClothingUniformJumpskirtCasualRed
+
+- type: loadout
+  id: HotelLoadoutSecurityJumpsuit
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitSec
+
+- type: loadout
+  id: HotelLoadoutSecurityJumpskirt
+  equipment:
+    jumpsuit: ClothingUniformJumpskirtSec
+
+- type: loadout
+  id: HotelLoadoutManagerJumpsuit
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorBlack
+
+- type: loadout
+  id: HotelLoadoutManagerJumpskirt
+  equipment:
+    jumpsuit: ClothingUniformJumpskirtColorBlack
+
+- type: loadout
+  id: HotelLoadoutGlasses
+  equipment:
+    eyes: ClothingEyesGlasses
+
+- type: loadout
+  id: HotelLoadoutGlassesJamjar
+  equipment:
+    eyes: ClothingEyesGlassesJamjar
+
+- type: loadout
+  id: HotelLoadoutGlassesJensen
+  equipment:
+    eyes: ClothingEyesGlassesJensen
+
+- type: loadout
+  id: HotelLoadoutSecurityGlasses
+  equipment:
+    eyes: ClothingEyesGlassesSecurity
+
+- type: loadout
+  id: HotelLoadoutGlovesPurple
+  equipment:
+    gloves: ClothingHandsGlovesColorPurple
+
+- type: loadout
+  id: HotelLoadoutGlovesRed
+  equipment:
+    gloves: ClothingHandsGlovesColorRed
+
+- type: loadout
+  id: HotelLoadoutGlovesBlue
+  equipment:
+    gloves: ClothingHandsGlovesColorBlue
+
+- type: loadout
+  id: HotelLoadoutGlovesTeal
+  equipment:
+    gloves: ClothingHandsGlovesColorTeal
+
+- type: loadout
+  id: HotelLoadoutGlovesBrown
+  equipment:
+    gloves: ClothingHandsGlovesColorBrown
+
+- type: loadout
+  id: HotelLoadoutGlovesGray
+  equipment:
+    gloves: ClothingHandsGlovesColorGray
+
+- type: loadout
+  id: HotelLoadoutGlovesGreen
+  equipment:
+    gloves: ClothingHandsGlovesColorGreen
+
+- type: loadout
+  id: HotelLoadoutGlovesLightBrown
+  equipment:
+    gloves: ClothingHandsGlovesColorLightBrown
+
+- type: loadout
+  id: HotelLoadoutGlovesOrange
+  equipment:
+    gloves: ClothingHandsGlovesColorOrange
+
+- type: loadout
+  id: HotelLoadoutGlovesWhite
+  equipment:
+    gloves: ClothingHandsGlovesColorWhite
+
+- type: loadout
+  id: HotelLoadoutGlovesBlack
+  equipment:
+    gloves: ClothingHandsGlovesColorBlack
+
+- type: loadout
+  id: HotelLoadoutStaffEssentials
+  equipment:
+    id: HotelStaffPDA
+    ears: ClothingHeadsetHotelStaff
+    shoes: ClothingShoesBootsLaceup
+  storage:
+    back:
+    - BoxSurvivalSlotsEngineering
+    - MedkitFilled
+
+- type: loadout
+  id: HotelLoadoutSecurityEssentials
+  equipment:
+    id: HotelSecurePDA
+    ears: ClothingHeadsetHotelSecure
+    head: ClothingHeadHelmetBasic
+    mask: ClothingMaskGasSecurity
+    outerClothing: ClothingOuterArmorBasicSlim
+    shoes: ClothingShoesBootsJackFilled
+    pocket1: CrowbarRed
+  storage:
+    back:
+    - BoxSurvivalSlotsEngineering
+    - MedkitAdvancedFilled
+
+- type: loadout
+  id: HotelLoadoutManagerEssentials
+  equipment:
+    id: HotelManagerPDA
+    ears: ClothingHeadsetHotelManager
+    outerClothing: ClothingOuterHoodieBlack
+    head: ClothingHeadHatBeretFrench
+    shoes: ClothingShoesBootsLaceup
+    pocket1: DoorRemoteHotel
+  storage:
+    back:
+    - BoxSurvivalSlotsEngineering
+    - MedkitFilled
+
+- type: loadoutGroup
+  id: HotelLoadoutGroupStaffBackpack
+  name: loadout-group-hotel-staff-backpack
+  loadouts:
+  - HotelLoadoutBackpack
+  - HotelLoadoutSatchel
+  - HotelLoadoutDuffel
+  - HotelLoadoutMessenger
+
+- type: loadoutGroup
+  id: HotelLoadoutGroupSecurityBackpack
+  name: loadout-group-hotel-security-backpack
+  loadouts:
+  - HotelLoadoutSecurityBackpack
+  - HotelLoadoutSecuritySatchel
+  - HotelLoadoutSecurityDuffel
+  - HotelLoadoutSecurityMessenger
+
+- type: loadoutGroup
+  id: HotelLoadoutGroupManagerBackpack
+  name: loadout-group-hotel-manager-backpack
+  loadouts:
+  - HotelLoadoutBackpack
+  - HotelLoadoutSatchel
+  - HotelLoadoutDuffel
+  - HotelLoadoutMessenger
+
+- type: loadoutGroup
+  id: HotelLoadoutGroupStaffUniform
+  name: loadout-group-hotel-staff-uniform
+  loadouts:
+  - HotelLoadoutStaffJumpsuit
+  - HotelLoadoutStaffJumpskirt
+
+- type: loadoutGroup
+  id: HotelLoadoutGroupSecurityUniform
+  name: loadout-group-hotel-security-uniform
+  loadouts:
+  - HotelLoadoutSecurityJumpsuit
+  - HotelLoadoutSecurityJumpskirt
+
+- type: loadoutGroup
+  id: HotelLoadoutGroupManagerUniform
+  name: loadout-group-hotel-manager-uniform
+  loadouts:
+  - HotelLoadoutManagerJumpsuit
+  - HotelLoadoutManagerJumpskirt
+
+- type: loadoutGroup
+  id: HotelLoadoutGroupGlasses
+  name: loadout-group-hotel-glasses
+  minLimit: 0
+  loadouts:
+  - HotelLoadoutGlasses
+  - HotelLoadoutGlassesJamjar
+  - HotelLoadoutGlassesJensen
+
+- type: loadoutGroup
+  id: HotelLoadoutGroupSecurityGlasses
+  name: loadout-group-hotel-security-glasses
+  loadouts:
+  - HotelLoadoutSecurityGlasses
+  - HotelLoadoutGlasses
+  - HotelLoadoutGlassesJamjar
+  - HotelLoadoutGlassesJensen
+
+- type: loadoutGroup
+  id: HotelLoadoutGroupColoredGloves
+  name: loadout-group-hotel-colored-gloves
+  minLimit: 0
+  loadouts:
+  - HotelLoadoutGlovesPurple
+  - HotelLoadoutGlovesRed
+  - HotelLoadoutGlovesBlue
+  - HotelLoadoutGlovesTeal
+  - HotelLoadoutGlovesBrown
+  - HotelLoadoutGlovesGray
+  - HotelLoadoutGlovesGreen
+  - HotelLoadoutGlovesLightBrown
+  - HotelLoadoutGlovesOrange
+  - HotelLoadoutGlovesWhite
+  - HotelLoadoutGlovesBlack
+
+- type: loadoutGroup
+  id: HotelLoadoutGroupStaffEssentials
+  name: loadout-group-backpack
+  hidden: true
+  loadouts:
+  - HotelLoadoutStaffEssentials
+
+- type: loadoutGroup
+  id: HotelLoadoutGroupSecurityEssentials
+  name: loadout-group-security-backpack
+  hidden: true
+  loadouts:
+  - HotelLoadoutSecurityEssentials
+
+- type: loadoutGroup
+  id: HotelLoadoutGroupManagerEssentials
+  name: loadout-group-backpack
+  hidden: true
+  loadouts:
+  - HotelLoadoutManagerEssentials

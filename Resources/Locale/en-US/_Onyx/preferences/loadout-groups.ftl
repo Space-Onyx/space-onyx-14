@@ -1,1 +1,10 @@
 loadout-group-security-neck = Security neck
+loadout-group-hotel-staff-backpack = Hotel staff backpack
+loadout-group-hotel-security-backpack = Hotel security backpack
+loadout-group-hotel-manager-backpack = Hotel manager backpack
+loadout-group-hotel-staff-uniform = Hotel staff uniform
+loadout-group-hotel-security-uniform = Hotel security uniform
+loadout-group-hotel-manager-uniform = Hotel manager uniform
+loadout-group-hotel-glasses = Hotel glasses
+loadout-group-hotel-security-glasses = Hotel security glasses
+loadout-group-hotel-colored-gloves = Colored gloves

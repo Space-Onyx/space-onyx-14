@@ -406,7 +406,7 @@ public sealed partial class HumanoidProfileEditor
         LoadoutRoleSelector.Clear();
 
         foreach (var job in _prototypeManager.EnumeratePrototypes<JobPrototype>()
-                     .Where(job => job.SetPreference)
+                     .Where(job => job.SetPreference || job.ShowInLoadout)
                      .OrderBy(job => job.LocalizedName))
         {
             var role = LoadoutSystem.GetJobPrototype(job.ID);

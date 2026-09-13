@@ -1,0 +1,44 @@
+# Space Onyx
+# Copyright (C) 2026 Space Onyx contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: roleLoadout
+  id: JobHotelStaff
+  groups:
+  - HotelLoadoutGroupStaffBackpack
+  - HotelLoadoutGroupStaffUniform
+  - HotelLoadoutGroupGlasses
+  - HotelLoadoutGroupColoredGloves
+  - HotelLoadoutGroupStaffEssentials
+  - Trinkets
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+
+- type: roleLoadout
+  id: JobHotelSecurity
+  groups:
+  - HotelLoadoutGroupSecurityBackpack
+  - HotelLoadoutGroupSecurityUniform
+  - HotelLoadoutGroupSecurityGlasses
+  - HotelLoadoutGroupColoredGloves
+  - HotelLoadoutGroupSecurityEssentials
+  - Trinkets
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks
+
+- type: roleLoadout
+  id: JobHotelManager
+  groups:
+  - HotelLoadoutGroupManagerBackpack
+  - HotelLoadoutGroupManagerUniform
+  - HotelLoadoutGroupGlasses
+  - HotelLoadoutGroupColoredGloves
+  - HotelLoadoutGroupManagerEssentials
+  - Trinkets
+  - OnyxTop
+  - OnyxBottom
+  - OnyxSocks

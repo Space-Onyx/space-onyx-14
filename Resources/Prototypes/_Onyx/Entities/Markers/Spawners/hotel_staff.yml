@@ -30,7 +30,6 @@
     description: ghost-role-information-hotel-staff-description
     job: HotelStaff
   - type: CharacterProfileGhostRoleSpawner
-    startingGear: HotelStaffGear
   - type: Sprite
     layers:
     - sprite: Markers/jobs.rsi
@@ -48,7 +47,6 @@
     description: ghost-role-information-hotel-security-description
     job: HotelSecurity
   - type: CharacterProfileGhostRoleSpawner
-    startingGear: HotelSecurityGear
   - type: Sprite
     layers:
     - sprite: Markers/jobs.rsi
@@ -66,7 +64,6 @@
     description: ghost-role-information-hotel-manager-description
     job: HotelManager
   - type: CharacterProfileGhostRoleSpawner
-    startingGear: HotelManagerGear
   - type: Sprite
     layers:
     - sprite: Markers/jobs.rsi

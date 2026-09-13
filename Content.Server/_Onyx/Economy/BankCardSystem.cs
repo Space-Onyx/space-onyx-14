@@ -160,40 +160,50 @@ public sealed partial class BankCardSystem : EntitySystem
 
     private void OnPlayerSpawned(PlayerSpawnCompleteEvent ev)
     {
-        if (_idCardSystem.TryFindIdCard(ev.Mob, out var id) && TryComp<MindContainerComponent>(ev.Mob, out var mind))
+        SetupPlayerAccount(ev.Mob, ev.JobId);
+    }
+
+    public void SetupPlayerAccount(EntityUid mob, string? jobId)
+    {
+        if (!_idCardSystem.TryFindIdCard(mob, out var id) || !TryComp<MindContainerComponent>(mob, out var mind))
+            return;
+
+        var bankCardComponent = EnsureComp<BankCardComponent>(id.Owner);
+        BankAccount bankAccount;
+        if (bankCardComponent.AccountId is { } accountId && TryGetAccount(accountId, out var existingAccount))
         {
-            var cardEntity = id.Owner;
-            var bankCardComponent = EnsureComp<BankCardComponent>(cardEntity);
-
-            if (!bankCardComponent.AccountId.HasValue || !TryGetAccount(bankCardComponent.AccountId.Value, out var bankAccount))
-                return;
-
-            // Sync PIN
-            bankCardComponent.Pin = bankAccount.AccountPin;
-            bankCardComponent.PayrollJob = ev.JobId;
-
-            if (!TryComp(mind.Mind, out MindComponent? mindComponent))
-                return;
-
-            bankAccount.Balance = (GetSalary(bankCardComponent.PayrollJob) ?? 0) + 100;
-            var netEntity = GetNetEntity(ev.Mob);
-            var memory = EnsureComp<CharacterMemoryComponent>(ev.Mob);
-            memory.AddMemory(new Memory("PIN", bankAccount.AccountPin.ToString(), netEntity));
-            memory.AddMemory(new Memory(Loc.GetString("character-info-memories-account-number"),
-                bankAccount.AccountId.ToString(), netEntity));
-            bankAccount.Mind = (mind.Mind.Value, mindComponent);
-            bankAccount.Name = Name(ev.Mob);
-
-            if (!_inventorySystem.TryGetSlotEntity(ev.Mob, "id", out var pdaUid))
-                return;
-
-            var bankProgram = _cartridgeLoader.TryGetProgram<BankCartridgeComponent>(pdaUid.Value);
-            if (bankProgram is not { } program)
-                return;
-
-            bankAccount.CartridgeUid = program.Owner;
-            program.Comp.AccountId = bankAccount.AccountId;
+            bankAccount = existingAccount;
         }
+        else
+        {
+            bankAccount = CreateAccount(startingBalance: bankCardComponent.StartingBalance);
+            bankCardComponent.AccountId = bankAccount.AccountId;
+        }
+
+        bankCardComponent.Pin = bankAccount.AccountPin;
+        bankCardComponent.PayrollJob = jobId;
+
+        if (!TryComp(mind.Mind, out MindComponent? mindComponent))
+            return;
+
+        bankAccount.Balance = (GetSalary(bankCardComponent.PayrollJob) ?? 0) + 100;
+        var netEntity = GetNetEntity(mob);
+        var memory = EnsureComp<CharacterMemoryComponent>(mob);
+        memory.AddMemory(new Memory("PIN", bankAccount.AccountPin.ToString(), netEntity));
+        memory.AddMemory(new Memory(Loc.GetString("character-info-memories-account-number"),
+            bankAccount.AccountId.ToString(), netEntity));
+        bankAccount.Mind = (mind.Mind.Value, mindComponent);
+        bankAccount.Name = Name(mob);
+
+        if (!_inventorySystem.TryGetSlotEntity(mob, "id", out var pdaUid))
+            return;
+
+        var bankProgram = _cartridgeLoader.TryGetProgram<BankCartridgeComponent>(pdaUid.Value);
+        if (bankProgram is not { } program)
+            return;
+
+        bankAccount.CartridgeUid = program.Owner;
+        program.Comp.AccountId = bankAccount.AccountId;
     }
 
     public BankAccount CreateAccount(int accountId = default, int startingBalance = 0)

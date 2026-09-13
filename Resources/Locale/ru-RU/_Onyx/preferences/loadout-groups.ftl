@@ -1,1 +1,10 @@
 loadout-group-security-neck = СБ, шея
+loadout-group-hotel-staff-backpack = Персонал отеля, рюкзак
+loadout-group-hotel-security-backpack = Охрана отеля, рюкзак
+loadout-group-hotel-manager-backpack = Менеджер отеля, рюкзак
+loadout-group-hotel-staff-uniform = Персонал отеля, униформа
+loadout-group-hotel-security-uniform = Охрана отеля, униформа
+loadout-group-hotel-manager-uniform = Менеджер отеля, униформа
+loadout-group-hotel-glasses = Отель, очки
+loadout-group-hotel-security-glasses = Охрана отеля, очки
+loadout-group-hotel-colored-gloves = Цветные перчатки

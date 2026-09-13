@@ -9,18 +9,27 @@
   name: job-name-hotel-staff
   description: job-description-hotel-staff
   playTimeTracker: JobHotelStaff
+  supervisors: job-supervisors-hotel-manager
   setPreference: false
+  showInLoadout: true
   icon: JobIconHotelStaff
   canBeAntag: false
+  access:
+  - HotelStaff
 
 - type: job
   id: HotelSecurity
   name: job-name-hotel-secure
   description: job-description-hotel-secure
   playTimeTracker: JobHotelSecurity
+  supervisors: job-supervisors-hotel-manager
   setPreference: false
+  showInLoadout: true
   icon: JobIconHotelSecure
   canBeAntag: false
+  access:
+  - HotelSecure
+  - HotelStaff
   requirements:
   - !type:RoleTimeRequirement
     role: JobHotelStaff
@@ -31,60 +40,16 @@
   name: job-name-hotel-manager
   description: job-description-hotel-manager
   playTimeTracker: JobHotelManager
+  supervisors: job-supervisors-centcom
   setPreference: false
+  showInLoadout: true
   icon: JobIconHotelManager
   canBeAntag: false
+  access:
+  - HotelManager
+  - HotelSecure
+  - HotelStaff
   requirements:
   - !type:RoleTimeRequirement
     role: JobHotelStaff
     time: 7h
-
-- type: startingGear
-  id: HotelStaffGear
-  equipment:
-    id: HotelStaffPDA
-    ears: ClothingHeadsetHotelManager
-    back: ClothingBackpackSatchel
-    jumpsuit: ClothingUniformJumpsuitCasualRed
-    eyes: ClothingEyesGlasses
-    shoes: ClothingShoesBootsLaceup
-  storage:
-    back:
-    - BoxSurvivalSlotsEngineering
-    - MedkitFilled
-
-- type: startingGear
-  id: HotelSecurityGear
-  equipment:
-    id: HotelSecurePDA
-    ears: ClothingHeadsetHotelSecure
-    back: ClothingBackpackSecurity
-    head: ClothingHeadHelmetBasic
-    jumpsuit: ClothingUniformJumpsuitSec
-    mask: ClothingMaskGasSecurity
-    eyes: ClothingEyesGlassesSecurity
-    outerClothing: ClothingOuterArmorBasicSlim
-    gloves: ClothingHandsGlovesColorBlack
-    shoes: ClothingShoesBootsJackFilled
-    pocket1: CrowbarRed
-  storage:
-    back:
-    - BoxSurvivalSlotsEngineering
-    - MedkitAdvancedFilled
-
-- type: startingGear
-  id: HotelManagerGear
-  equipment:
-    id: HotelManagerPDA
-    ears: ClothingHeadsetHotelManager
-    back: ClothingBackpackSatchel
-    jumpsuit: ClothingUniformJumpsuitColorBlack
-    outerClothing: ClothingOuterHoodieBlack
-    head: ClothingHeadHatBeretFrench
-    eyes: ClothingEyesGlasses
-    shoes: ClothingShoesBootsLaceup
-    pocket1: DoorRemoteHotel
-  storage:
-    back:
-    - BoxSurvivalSlotsEngineering
-    - MedkitFilled
