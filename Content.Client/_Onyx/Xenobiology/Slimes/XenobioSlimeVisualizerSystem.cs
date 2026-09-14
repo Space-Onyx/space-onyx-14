@@ -19,9 +19,8 @@ public sealed partial class XenobioSlimeVisualizerSystem : VisualizerSystem<Xeno
 
     public override void Shutdown()
     {
-        foreach (var shader in _shaders.Values)
-            shader.Dispose();
-        _shaders.Clear();
+        foreach (var uid in new List<EntityUid>(_shaders.Keys))
+            ClearShader(uid);
         base.Shutdown();
     }
 
@@ -73,14 +72,20 @@ public sealed partial class XenobioSlimeVisualizerSystem : VisualizerSystem<Xeno
 
     private void OnShutdown(Entity<XenobioSlimeComponent> ent, ref ComponentShutdown args)
     {
-        if (_shaders.Remove(ent.Owner, out var shader))
-            shader.Dispose();
+        ClearShader(ent);
     }
 
-    private void ClearShader(EntityUid uid, SpriteComponent sprite, int layer)
+    private void ClearShader(EntityUid uid, SpriteComponent? sprite = null, int? layer = null)
     {
-        sprite.LayerSetShader(layer, null, null);
-        if (_shaders.Remove(uid, out var shader))
+        var hasShader = _shaders.Remove(uid, out var shader);
+        var layerIndex = layer ?? -1;
+        if (Resolve(uid, ref sprite, false) &&
+            (layer != null || SpriteSystem.LayerMapTryGet((uid, sprite), DamageStateVisualLayers.Base, out layerIndex, false)) &&
+            sprite[layerIndex] is SpriteComponent.Layer spriteLayer &&
+            (!hasShader || spriteLayer.Shader == shader))
+            sprite.LayerSetShader(layerIndex, null, null);
+
+        if (shader != null)
             shader.Dispose();
     }
 }

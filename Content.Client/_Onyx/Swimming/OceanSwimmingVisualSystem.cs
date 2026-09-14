@@ -34,16 +34,14 @@ public sealed partial class OceanSwimmingVisualSystem : EntitySystem
 
     public override void Shutdown()
     {
-        foreach (var shader in _shaders.Values)
-            shader.Dispose();
-        _shaders.Clear();
+        foreach (var uid in new List<EntityUid>(_shaders.Keys))
+            RemoveShader(uid);
         base.Shutdown();
     }
 
     private void OnSpriteShutdown(Entity<SpriteComponent> ent, ref ComponentShutdown args)
     {
-        if (_shaders.Remove(ent.Owner, out var shader))
-            shader.Dispose();
+        RemoveShader(ent, ent.Comp);
     }
 
     private void OnSpriteInit(Entity<SpriteComponent> ent, ref MapInitEvent args)
@@ -72,7 +70,7 @@ public sealed partial class OceanSwimmingVisualSystem : EntitySystem
         {
             if (TryComp(uid, out TransformComponent? xform) && xform.MapUid == ent.Owner &&
                 TryComp<SpriteComponent>(uid, out var sprite))
-                RemoveShader((uid, sprite));
+                RemoveShader(uid, sprite);
         }
     }
 
@@ -128,7 +126,7 @@ public sealed partial class OceanSwimmingVisualSystem : EntitySystem
             }
         }
         else
-            RemoveShader(ent);
+            RemoveShader(ent, ent.Comp);
     }
 
     private bool TryApplyShader(EntityUid uid, SpriteComponent sprite, out ShaderInstance shader)
@@ -145,12 +143,13 @@ public sealed partial class OceanSwimmingVisualSystem : EntitySystem
         return true;
     }
 
-    private void RemoveShader(Entity<SpriteComponent> ent)
+    private void RemoveShader(EntityUid uid, SpriteComponent? sprite = null)
     {
-        if (!_shaders.Remove(ent.Owner, out var shader))
+        if (!_shaders.Remove(uid, out var shader))
             return;
 
-        _sprite.RemovePostShader(ent.AsNullable(), OceanSubmersionPostShaderId);
+        if (Resolve(uid, ref sprite, false))
+            _sprite.RemovePostShader((uid, sprite), OceanSubmersionPostShaderId);
         shader.Dispose();
     }
 }

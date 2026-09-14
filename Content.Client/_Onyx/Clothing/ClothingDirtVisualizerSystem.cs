@@ -57,9 +57,8 @@ public sealed partial class ClothingDirtVisualizerSystem : EntitySystem
 
     public override void Shutdown()
     {
-        foreach (var shader in _shaders.Values)
-            shader.Dispose();
-        _shaders.Clear();
+        foreach (var (target, key) in new List<(EntityUid Entity, string Layer)>(_shaders.Keys))
+            RemoveShader(target, key);
         _itemShaders.Clear();
         base.Shutdown();
     }
@@ -289,8 +288,16 @@ public sealed partial class ClothingDirtVisualizerSystem : EntitySystem
 
     private void RemoveShader(EntityUid target, string key)
     {
-        if (_shaders.Remove((target, key), out var shader))
-            shader.Dispose();
+        if (!_shaders.Remove((target, key), out var shader))
+            return;
+
+        if (TryComp(target, out SpriteComponent? sprite) &&
+            _sprite.LayerMapTryGet((target, sprite), key, out var index, false) &&
+            sprite[index] is SpriteComponent.Layer layer &&
+            layer.Shader == shader)
+            sprite.LayerSetShader(index, null, null);
+
+        shader.Dispose();
     }
 
     private void ClearItemShaders(EntityUid item)

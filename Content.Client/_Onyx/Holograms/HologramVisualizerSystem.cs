@@ -8,8 +8,10 @@ namespace Content.Client._Onyx.Holograms;
 public sealed partial class HologramVisualizerSystem : EntitySystem
 {
     [Dependency] private IPrototypeManager _prototypes = default!;
+    [Dependency] private SpriteSystem _sprite = default!;
 
     private readonly ProtoId<ShaderPrototype> _shaderId = "Holographic";
+    private const string HologramPostShaderId = "hologram";
     private ShaderPrototype? _shader;
     private readonly Dictionary<EntityUid, ShaderInstance> _shaders = new();
 
@@ -22,9 +24,8 @@ public sealed partial class HologramVisualizerSystem : EntitySystem
 
     public override void Shutdown()
     {
-        foreach (var shader in _shaders.Values)
-            shader.Dispose();
-        _shaders.Clear();
+        foreach (var uid in new List<EntityUid>(_shaders.Keys))
+            RemoveShader(uid);
         base.Shutdown();
     }
 
@@ -34,17 +35,22 @@ public sealed partial class HologramVisualizerSystem : EntitySystem
         {
             var shader = (_shader ??= _prototypes.Index(_shaderId)).InstanceUnique();
             _shaders[ent.Owner] = shader;
-            sprite.PostShader = shader;
+            _sprite.SetPostShader((ent.Owner, sprite), new SpriteComponent.PostShaderArgs(HologramPostShaderId, shader));
         }
     }
 
     private void OnShutdown(Entity<HologramVisualsComponent> ent, ref ComponentShutdown args)
     {
-        if (!_shaders.Remove(ent.Owner, out var shader))
+        RemoveShader(ent);
+    }
+
+    private void RemoveShader(EntityUid uid, SpriteComponent? sprite = null)
+    {
+        if (!_shaders.Remove(uid, out var shader))
             return;
 
-        if (TryComp(ent, out SpriteComponent? sprite) && sprite.PostShader == shader)
-            sprite.PostShader = null;
+        if (Resolve(uid, ref sprite, false))
+            _sprite.RemovePostShader((uid, sprite), HologramPostShaderId);
         shader.Dispose();
     }
 }
