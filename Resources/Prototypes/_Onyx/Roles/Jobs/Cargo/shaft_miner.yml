@@ -13,6 +13,8 @@
   - Salvage
   - Cargo
   supervisors: job-supervisors-qm
+  contracts:
+  - DocumentContractEmploymentCargo
   access:
   - Cargo
   - Salvage

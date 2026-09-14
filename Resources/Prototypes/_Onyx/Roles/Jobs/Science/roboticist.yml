@@ -11,6 +11,8 @@
   icon: JobIconRoboticist
   supervisors: job-supervisors-rd
   guides: [ Robotics ]
+  contracts:
+  - DocumentContractEmploymentRnd
   access:
   - Research
   - Maintenance

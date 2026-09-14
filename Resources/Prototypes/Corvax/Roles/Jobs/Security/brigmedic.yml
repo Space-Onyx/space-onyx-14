@@ -17,6 +17,10 @@
   startingGear: BrigmedicGear
   icon: "JobIconBrigmedic"
   supervisors: job-supervisors-cmo
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentSecurity
+  # </Onyx-Contracts>
   access:
   - Security
   - Brig

@@ -12,6 +12,8 @@
   startingGear: RadioHostGear
   icon: JobIconRadioHost
   supervisors: job-supervisors-hop
+  contracts:
+  - DocumentContractEmploymentService
   access:
   - Maintenance
   - Journalism

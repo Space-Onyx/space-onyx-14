@@ -11,6 +11,8 @@
   icon: JobIconVirologist
   supervisors: job-supervisors-cmo
   guides: [ MedicalDoctor, Medical, Medicine, Virology ]
+  contracts:
+  - DocumentContractEmploymentMedical
   access:
   - Medical
   - Maintenance

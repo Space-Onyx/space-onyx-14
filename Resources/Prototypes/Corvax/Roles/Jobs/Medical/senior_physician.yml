@@ -16,6 +16,10 @@
   startingGear: SeniorPhysicianGear
   icon: "JobIconSeniorPhysician"
   supervisors: job-supervisors-cmo
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentMedical
+  # </Onyx-Contracts>
   access:
   - Medical
   - Maintenance

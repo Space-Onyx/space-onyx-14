@@ -10,6 +10,8 @@
   startingGear: SurgeonGear
   icon: JobIconSurgeon
   supervisors: job-supervisors-cmo
+  contracts:
+  - DocumentContractEmploymentMedical
   access:
   - Medical
   - Maintenance

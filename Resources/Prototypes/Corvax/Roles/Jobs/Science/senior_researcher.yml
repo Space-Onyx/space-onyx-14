@@ -10,6 +10,10 @@
   startingGear: SeniorResearcherGear
   icon: "JobIconSeniorResearcher"
   supervisors: job-supervisors-rd
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentRnd
+  # </Onyx-Contracts>
   access:
   - Research
   - Maintenance

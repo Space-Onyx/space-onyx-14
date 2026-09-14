@@ -6,6 +6,8 @@
   startingGear: BitrunnerGear
   icon: JobIconBitrunner
   supervisors: job-supervisors-qm
+  contracts:
+  - DocumentContractEmploymentCargo
   access:
   - Cargo
   - Bitrun

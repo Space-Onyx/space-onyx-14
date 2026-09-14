@@ -6,6 +6,10 @@
   icon: JobIconVisitor
   setPreference: false
   overrideConsoleVisibility: true
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentService
+  # </Onyx-Contracts>
   # Corvax-MRP-Start
   # access:
   # - Maintenance

@@ -16,6 +16,10 @@
   startingGear: SeniorEngineerGear
   icon: "JobIconSeniorEngineer"
   supervisors: job-supervisors-ce
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentEngineering
+  # </Onyx-Contracts>
   access:
   - Maintenance
   - Engineering
