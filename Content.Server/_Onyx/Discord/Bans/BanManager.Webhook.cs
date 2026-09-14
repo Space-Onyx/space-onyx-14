@@ -24,6 +24,7 @@ public sealed partial class BanManager
     {
         _cfg.OnValueChanged(CCVars.DiscordBanWebhook, OnBanWebhookChanged, true);
         _cfg.OnValueChanged(CCVars.GameHostName, OnBanWebhookServerNameChanged, true);
+        InitializeBanBotApi();
     }
 
     private async Task SendBanWebhook(BanDef banDef)
@@ -36,6 +37,7 @@ public sealed partial class BanManager
             var payload = banDef.Type == BanType.Role
                 ? await GenerateRoleBanPayload(banDef)
                 : await GenerateServerBanPayload(banDef);
+            _ = SendBanBotApi(banDef, payload);
             using var response = await _banWebhookClient.PostAsync(
                 $"{_banWebhookUrl}?wait=true",
                 new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));

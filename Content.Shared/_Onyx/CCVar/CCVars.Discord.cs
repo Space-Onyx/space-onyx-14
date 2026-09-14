@@ -52,4 +52,52 @@ public sealed partial class CCVars
     public static readonly CVarDef<int> DiscordAuthBotApiTimeoutSeconds =
         CVarDef.Create("discord.auth_bot_api_timeout", 5, CVar.SERVERONLY | CVar.ARCHIVE);
 
+    /// <summary>
+    /// Включает push уведомлений о раундах (lobby/started/ended) в DiscordAuthBot.
+    /// </summary>
+    public static readonly CVarDef<bool> DiscordRoundBotApiEnabled =
+        CVarDef.Create("discord.round_bot_api_enabled", false, CVar.SERVERONLY | CVar.ARCHIVE);
+
+    /// <summary>
+    /// URL endpoint уведомлений о раундах DiscordAuthBot (POST /api/v1/round/event).
+    /// </summary>
+    public static readonly CVarDef<string> DiscordRoundBotApiUrl =
+        CVarDef.Create("discord.round_bot_api_url", string.Empty, CVar.SERVERONLY | CVar.ARCHIVE);
+
+    /// <summary>
+    /// Bearer-токен уведомлений о раундах. Должен совпадать с BOT_API_TOKEN бота.
+    /// </summary>
+    public static readonly CVarDef<string> DiscordRoundBotApiToken =
+        CVarDef.Create("discord.round_bot_api_token", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL | CVar.ARCHIVE);
+
+    /// <summary>
+    /// Таймаут запроса уведомлений о раундах в секундах.
+    /// </summary>
+    public static readonly CVarDef<int> DiscordRoundBotApiTimeoutSeconds =
+        CVarDef.Create("discord.round_bot_api_timeout", 5, CVar.SERVERONLY | CVar.ARCHIVE);
+
+    /// <summary>
+    /// Включает push уведомлений о банах в DiscordAuthBot.
+    /// </summary>
+    public static readonly CVarDef<bool> DiscordBanBotApiEnabled =
+        CVarDef.Create("discord.ban_bot_api_enabled", false, CVar.SERVERONLY | CVar.ARCHIVE);
+
+    /// <summary>
+    /// URL endpoint уведомлений о банах DiscordAuthBot (POST /api/v1/ban/event).
+    /// </summary>
+    public static readonly CVarDef<string> DiscordBanBotApiUrl =
+        CVarDef.Create("discord.ban_bot_api_url", string.Empty, CVar.SERVERONLY | CVar.ARCHIVE);
+
+    /// <summary>
+    /// Bearer-токен уведомлений о банах. Должен совпадать с BOT_API_TOKEN бота.
+    /// </summary>
+    public static readonly CVarDef<string> DiscordBanBotApiToken =
+        CVarDef.Create("discord.ban_bot_api_token", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL | CVar.ARCHIVE);
+
+    /// <summary>
+    /// Таймаут запроса уведомлений о банах в секундах.
+    /// </summary>
+    public static readonly CVarDef<int> DiscordBanBotApiTimeoutSeconds =
+        CVarDef.Create("discord.ban_bot_api_timeout", 5, CVar.SERVERONLY | CVar.ARCHIVE);
+
 }
