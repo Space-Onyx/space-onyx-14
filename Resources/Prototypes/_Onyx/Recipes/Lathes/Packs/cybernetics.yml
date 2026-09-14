@@ -35,6 +35,8 @@
   - NeuroInterface
   - NeuroInterfaceEmpShield
   - AugmentBioReactor
+  - AugmentModuleCyberDeck
+  - AugmentModuleCyberDeckRam
 
 - type: latheRecipePack
   id: AdvancedCybernetics

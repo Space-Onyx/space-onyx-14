@@ -162,7 +162,7 @@
   - PrecisionMachineParts
   tasks:
   - goal: research-experiment-tiered-parts-tier3-goal
-    target: 6
+    target: 5
     requireDifferentPrototypes: true
     anyOf:
     - minimumTieredMachinePartTier: 3
