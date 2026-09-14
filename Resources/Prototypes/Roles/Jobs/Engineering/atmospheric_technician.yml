@@ -10,6 +10,10 @@
   startingGear: AtmosphericTechnicianGear
   icon: "JobIconAtmosphericTechnician"
   supervisors: job-supervisors-ce
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentEngineering
+  # </Onyx-Contracts>
   access:
   - Maintenance
   - Engineering

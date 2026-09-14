@@ -28,6 +28,10 @@
   startingGear: HoPGear
   icon: "JobIconHeadOfPersonnel"
   supervisors: job-supervisors-captain
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentCommand
+  # </Onyx-Contracts>
   access:
   - Command
   - HeadOfPersonnel

@@ -11,6 +11,10 @@
   startingGear: MedicalInternGear
   icon: "JobIconMedicalIntern"
   supervisors: job-supervisors-medicine
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentMedical
+  # </Onyx-Contracts>
   access:
   - Medical
   - Maintenance

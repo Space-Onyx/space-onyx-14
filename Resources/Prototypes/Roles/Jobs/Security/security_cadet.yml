@@ -17,6 +17,10 @@
   startingGear: SecurityCadetGear
   icon: "JobIconSecurityCadet"
   supervisors: job-supervisors-security
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentSecurity
+  # </Onyx-Contracts>
   access:
   - Security
   - Brig

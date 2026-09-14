@@ -23,6 +23,10 @@
   startingGear: HoSGear
   icon: "JobIconHeadOfSecurity"
   supervisors: job-supervisors-captain
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentCommand
+  # </Onyx-Contracts>
   access:
   - HeadOfSecurity
   - Command

@@ -6,6 +6,10 @@
   startingGear: TramDriverGear
   icon: "JobIconTramDriver"
   supervisors: job-supervisors-hop
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentService
+  # </Onyx-Contracts>
   requirements:
     - !type:OverallPlaytimeRequirement # someone that's not doing this job will just be a pain for the station
       time: 10h

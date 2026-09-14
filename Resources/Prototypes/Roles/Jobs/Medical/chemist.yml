@@ -10,6 +10,10 @@
   startingGear: ChemistGear
   icon: "JobIconChemist"
   supervisors: job-supervisors-cmo
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentMedical
+  # </Onyx-Contracts>
   access:
   - Medical
   - Chemistry

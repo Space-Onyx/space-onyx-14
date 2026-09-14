@@ -10,6 +10,10 @@
   startingGear: StationEngineerGear
   icon: "JobIconStationEngineer"
   supervisors: job-supervisors-ce
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentEngineering
+  # </Onyx-Contracts>
   access:
   - Maintenance
   - Engineering

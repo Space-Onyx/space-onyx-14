@@ -9,6 +9,10 @@
   startingGear: LawyerGear
   icon: "JobIconLawyer"
   supervisors: job-supervisors-iaa # <Onyx-Lawyer-edited>
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentService
+  # </Onyx-Contracts>
   access:
   - Service
   - Lawyer

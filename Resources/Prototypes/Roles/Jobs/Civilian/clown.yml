@@ -9,6 +9,10 @@
   startingGear: ClownGear
   icon: "JobIconClown"
   supervisors: job-supervisors-hop
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentService
+  # </Onyx-Contracts>
   access:
   - Theatre
   - Maintenance

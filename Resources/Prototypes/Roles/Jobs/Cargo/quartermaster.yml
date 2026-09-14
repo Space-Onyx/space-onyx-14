@@ -22,6 +22,10 @@
   startingGear: QuartermasterGear
   icon: "JobIconQuarterMaster"
   supervisors: job-supervisors-captain
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentCommand
+  # </Onyx-Contracts>
   access:
   - Cargo
   - Salvage

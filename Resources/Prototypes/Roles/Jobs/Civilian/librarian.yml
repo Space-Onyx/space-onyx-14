@@ -6,6 +6,10 @@
   startingGear: LibrarianGear
   icon: "JobIconLibrarian"
   supervisors: job-supervisors-hop
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentService
+  # </Onyx-Contracts>
   # <Onyx-LibrarianTranslator>
   special:
   - !type:AddImplantSpecial

@@ -6,6 +6,10 @@
   startingGear: CargoTechGear
   icon: "JobIconCargoTechnician"
   supervisors: job-supervisors-qm
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentCargo
+  # </Onyx-Contracts>
   access:
   - Cargo
   - Maintenance

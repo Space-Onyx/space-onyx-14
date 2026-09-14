@@ -22,6 +22,10 @@
   startingGear: ChiefEngineerGear
   icon: "JobIconChiefEngineer"
   supervisors: job-supervisors-captain
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentCommand
+  # </Onyx-Contracts>
   access:
   - Maintenance
   - Engineering

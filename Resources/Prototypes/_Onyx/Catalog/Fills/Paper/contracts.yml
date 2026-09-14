@@ -1,0 +1,99 @@
+- type: entity
+  parent: PrintedDocument
+  id: DocumentContractEmploymentSecurity
+  name: security employment contract
+  description: Standard employment contract. Most people only read the signature at the end.
+  components:
+  - type: Paper
+    content: doc-text-employment-contract-security
+    editingDisabled: true
+
+- type: entity
+  parent: PrintedDocument
+  id: DocumentContractEmploymentCargo
+  name: supply employment contract
+  description: Standard employment contract. Most people only read the signature at the end.
+  components:
+  - type: Paper
+    content: doc-text-employment-contract-cargo
+    editingDisabled: true
+
+- type: entity
+  parent: PrintedDocument
+  id: DocumentContractEmploymentEngineering
+  name: engineering employment contract
+  description: Standard employment contract. Most people only read the signature at the end.
+  components:
+  - type: Paper
+    content: doc-text-employment-contract-engineering
+    editingDisabled: true
+
+- type: entity
+  parent: PrintedDocument
+  id: DocumentContractEmploymentMedical
+  name: medical employment contract
+  description: Standard employment contract. Most people only read the signature at the end.
+  components:
+  - type: Paper
+    content: doc-text-employment-contract-medical
+    editingDisabled: true
+
+- type: entity
+  parent: PrintedDocument
+  id: DocumentContractEmploymentRnd
+  name: research employment contract
+  description: Standard employment contract. Most people only read the signature at the end.
+  components:
+  - type: Paper
+    content: doc-text-employment-contract-rnd
+    editingDisabled: true
+
+- type: entity
+  parent: PrintedDocument
+  id: DocumentContractEmploymentService
+  name: service employment contract
+  description: Standard employment contract. Most people only read the signature at the end.
+  components:
+  - type: Paper
+    content: doc-text-employment-contract-service
+    editingDisabled: true
+
+- type: entity
+  parent: PrintedDocument
+  id: DocumentContractEmploymentCommand
+  name: command employment contract
+  description: Standard employment contract. Most people only read the signature at the end.
+  components:
+  - type: Paper
+    content: doc-text-employment-contract-command
+    editingDisabled: true
+
+- type: entity
+  parent: PrintedDocument
+  id: DocumentContractEmploymentDSO
+  name: special operations employment contract
+  description: Standard employment contract. Most people only read the signature at the end.
+  components:
+  - type: Paper
+    content: doc-text-employment-contract-dso
+    editingDisabled: true
+
+- type: entity
+  parent: PrintedDocument
+  id: DocumentContractEmploymentCentCom
+  name: central command employment contract
+  description: Standard employment contract. Most people only read the signature at the end.
+  components:
+  - type: Paper
+    content: doc-text-employment-contract-centcom
+    editingDisabled: true
+
+- type: entity
+  parent: PrintedDocument
+  id: DocumentContractEmploymentJusticeDepartment
+  name: legal department employment contract
+  description: Standard employment contract. Most people only read the signature at the end.
+  components:
+  - type: Paper
+    content: doc-text-employment-contract-justice-department
+    editingDisabled: true

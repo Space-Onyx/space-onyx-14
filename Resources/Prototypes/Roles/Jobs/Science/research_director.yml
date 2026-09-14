@@ -17,6 +17,10 @@
   startingGear: ResearchDirectorGear
   icon: "JobIconResearchDirector"
   supervisors: job-supervisors-captain
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentCommand
+  # </Onyx-Contracts>
   access:
   - Research
   - Command

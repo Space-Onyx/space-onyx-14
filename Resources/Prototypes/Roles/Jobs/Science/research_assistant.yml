@@ -11,6 +11,10 @@
   startingGear: ResearchAssistantGear
   icon: "JobIconResearchAssistant"
   supervisors: job-supervisors-science
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentRnd
+  # </Onyx-Contracts>
   access:
   - Research
   - Maintenance

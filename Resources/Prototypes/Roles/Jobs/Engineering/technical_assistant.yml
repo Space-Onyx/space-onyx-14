@@ -13,6 +13,10 @@
   startingGear: TechnicalAssistantGear
   icon: "JobIconTechnicalAssistant"
   supervisors: job-supervisors-engineering
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentEngineering
+  # </Onyx-Contracts>
   access:
   - Maintenance
   - Engineering

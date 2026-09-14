@@ -10,6 +10,10 @@
   icon: "JobIconShaftMiner"
   startingGear: SalvageSpecialistGear
   supervisors: job-supervisors-qm
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentCargo
+  # </Onyx-Contracts>
   access:
   - Cargo
   - Salvage

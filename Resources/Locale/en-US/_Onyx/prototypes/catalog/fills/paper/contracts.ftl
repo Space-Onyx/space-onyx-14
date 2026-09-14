@@ -1,0 +1,23 @@
+contract-paper-description = Standard employee contract. Most people only read the signature at the end.
+contract-paper-name = contract #{ $number }
+
+ent-DocumentContractEmploymentSecurity = security employment contract
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentCargo = supply employment contract
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentEngineering = engineering employment contract
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentMedical = medical employment contract
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentRnd = research employment contract
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentService = service employment contract
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentCommand = command employment contract
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentDSO = special operations employment contract
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentCentCom = central command employment contract
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentJusticeDepartment = legal department employment contract
+    .desc = { contract-paper-description }

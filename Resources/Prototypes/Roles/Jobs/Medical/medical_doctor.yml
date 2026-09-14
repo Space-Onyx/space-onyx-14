@@ -10,6 +10,10 @@
   startingGear: DoctorGear
   icon: "JobIconMedicalDoctor"
   supervisors: job-supervisors-cmo
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentMedical
+  # </Onyx-Contracts>
   access:
   - Medical
   - Maintenance

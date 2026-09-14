@@ -10,6 +10,10 @@
   startingGear: ParamedicGear
   icon: "JobIconParamedic"
   supervisors: job-supervisors-cmo
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentMedical
+  # </Onyx-Contracts>
   access:
   - Medical
   - Maintenance

@@ -6,6 +6,10 @@
   startingGear: ReporterGear
   icon: "JobIconReporter"
   supervisors: job-supervisors-hop
+  # <Onyx-Contracts>
+  contracts:
+  - DocumentContractEmploymentService
+  # </Onyx-Contracts>
   access:
   - Service
   - Maintenance

@@ -1,0 +1,23 @@
+contract-paper-description = Типовой контракт сотрудника. Большинство читают только подпись в конце.
+contract-paper-name = контракт №{ $number }
+
+ent-DocumentContractEmploymentSecurity = контракт службы безопасности
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentCargo = контракт отдела снабжения
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentEngineering = контракт инженерного отдела
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentMedical = контракт медицинского отдела
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentRnd = контракт научного отдела
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentService = контракт сервисного отдела
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentCommand = контракт командования
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentDSO = контракт департамента специальных операций
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentCentCom = контракт центрального командования
+    .desc = { contract-paper-description }
+ent-DocumentContractEmploymentJusticeDepartment = контракт юридического департамента
+    .desc = { contract-paper-description }
