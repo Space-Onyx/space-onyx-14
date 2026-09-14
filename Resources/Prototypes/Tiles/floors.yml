@@ -39,6 +39,7 @@
   parent: BaseStationTile
   name: tiles-steel-floor-checker-light
   sprite: /Textures/Tiles/Checker/checker-light.png
+  variants: 4 # <Onyx-TileResprite-edited>
   itemDrop: FloorTileItemSteelCheckerLight
 
 - type: tile
@@ -54,6 +55,7 @@
   parent: BaseStationTile
   name: tiles-wood
   sprite: /Textures/Tiles/Wood/wood.png
+  variants: 4 # <Onyx-TileResprite-edited>
   footstepSounds:
     collection: FootstepWood
   barestepSounds:
@@ -293,6 +295,7 @@
   parent: BaseStationTile
   name: tiles-wood2
   sprite: /Textures/Tiles/Wood/wood-tile.png
+  variants: 4 # <Onyx-TileResprite-edited>
   footstepSounds:
     collection: FootstepWood
   barestepSounds:
@@ -316,6 +319,7 @@
   parent: BaseStationTile
   name: tiles-wood-large
   sprite: /Textures/Tiles/Wood/wood-large.png
+  variants: 4 # <Onyx-TileResprite-edited>
   footstepSounds:
     collection: FootstepWood
   barestepSounds:
@@ -338,6 +342,7 @@
   id: FloorChromite
   name: tiles-chromite
   sprite: /Textures/Tiles/Chromite/chromite.png
+  variants: 7 # <Onyx-TileResprite-edited>
   edgeSpritePriority: 5
   edgeSprites:
     SouthEast: /Textures/Tiles/Chromite/single_edge_SE.png

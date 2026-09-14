@@ -11,6 +11,7 @@
     noRot: true
   - type: Sprite
     noRot: true
+    offset: "0.0,0.25" # <Onyx-StorageResprite-edited>
     sprite: Structures/Storage/closet.rsi
     layers:
     - state: generic

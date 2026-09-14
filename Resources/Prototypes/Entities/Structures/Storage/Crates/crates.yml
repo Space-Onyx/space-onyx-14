@@ -25,6 +25,7 @@
   - type: Icon
     sprite: Structures/Storage/Crates/plastic.rsi
   - type: Sprite
+    offset: "0.0,0.0" # <Onyx-StorageResprite-edited>
     sprite: Structures/Storage/Crates/plastic.rsi
   - type: Construction
     graph: CratePlastic
@@ -346,6 +347,7 @@
   - type: EntityStorage
     airtight: false
   - type: Sprite
+    offset: "0.0,0.0" # <Onyx-StorageResprite-edited>
     sprite: Structures/Storage/Crates/livestock.rsi
     layers:
     - state: base
@@ -401,6 +403,7 @@
   name: hamster cage
   components:
   - type: Sprite
+    offset: "0.0,0.0" # <Onyx-StorageResprite-edited>
     sprite: Structures/Storage/Crates/cage.rsi
     drawdepth: LargeObjects
     snapCardinals: true
@@ -647,6 +650,7 @@
   description: A space pirate chest, not for station lubbers.
   components:
   - type: Sprite
+    offset: "0.0,0.0" # <Onyx-StorageResprite-edited>
     sprite: Structures/Storage/Crates/piratechest.rsi
     layers:
     - state: crate
@@ -676,6 +680,7 @@
   description: A box overflowing with fun.
   components:
   - type: Sprite
+    offset: "0.0,0.0" # <Onyx-StorageResprite-edited>
     sprite: Structures/Storage/Crates/toybox.rsi
     layers:
     - state: crate
@@ -698,6 +703,7 @@
   description: A comfy coffin, excellent place for the vampires and corpses.
   components:
   - type: Sprite
+    offset: "0.0,0.0" # <Onyx-StorageResprite-edited>
     sprite: Structures/Storage/Crates/coffin.rsi
     layers:
     - state: base
@@ -738,6 +744,7 @@
   description: Someone died here...
   components:
   - type: Sprite
+    offset: "0.0,0.0" # <Onyx-StorageResprite-edited>
     sprite: Structures/Storage/Crates/wooden_grave.rsi
     layers:
     - state: base

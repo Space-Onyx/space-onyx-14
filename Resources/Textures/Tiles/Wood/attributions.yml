@@ -7,12 +7,12 @@
 - files:
   - wood.png
   license: "CC-BY-SA-3.0"
-  copyright: "tgstation commit 8abb19545828230d92ba18827feeb42a67a55d49, cropped_parallax modified from parallax, [reinforced, snow] modified by Ko4erga (discord), wood resprited by Meowstushka and modified by Ko4erga (discord)"
+  copyright: "tgstation commit 8abb19545828230d92ba18827feeb42a67a55d49, wood.png Sprited by ghost for TG13." # <Onyx-ArcaneWoodResprite-edited>
   source: "https://github.com/tgstation/tgstation/"
 
 - files: ["wood-large.png"]
   license: "CC0-1.0"
-  copyright: "Created by ps3moira (github) for space-station-14; resprited by Meowstushka and modified by Ko4erga (discord)"
+  copyright: "Created by ps3moira (github) for space-station-14." # <Onyx-ArcaneWoodResprite-edited>
   source: "https://github.com/space-wizards/space-station-14/"
 
 - files: ["wood-broken.png"]
