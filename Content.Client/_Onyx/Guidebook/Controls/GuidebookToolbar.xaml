@@ -1,0 +1,24 @@
+<!--
+Space Onyx
+Copyright (C) 2026 Space Onyx contributors
+
+This file is licensed under AGPL-3.0-or-later.
+See LICENSES for the full license text.
+-->
+
+<BoxContainer xmlns="https://spacestation14.io" Orientation="Vertical">
+    <BoxContainer Orientation="Horizontal" Margin="0 8 0 4" SeparationOverride="2">
+        <Button Name="ToggleSidebar" Access="Public" ToggleMode="True" Text="{Loc 'onyx-guidebook-sidebar'}" />
+        <LineEdit Name="Search" Access="Public" HorizontalExpand="True" MinWidth="160" Margin="4 0 4 0" PlaceHolder="{Loc 'onyx-guidebook-search'}" />
+        <Button Name="Favorites" Access="Public" ToggleMode="True" Text="{Loc 'onyx-guidebook-favorites'}" />
+        <Button Name="Favorite" Access="Public" ToggleMode="True" Disabled="True" Text="{Loc 'onyx-guidebook-favorite'}" ToolTip="{Loc 'onyx-guidebook-favorite-hint'}" />
+        <Button Name="NewWindow" Access="Public" Text="{Loc 'onyx-guidebook-new-window'}" ToolTip="{Loc 'onyx-guidebook-new-window-hint'}" />
+        <Button Name="PopOut" Access="Public" ToolTip="{Loc 'onyx-guidebook-pop-out-hint'}">
+            <TextureRect TexturePath="/Textures/Interface/VerbIcons/dot.svg.192dpi.png" SetSize="20 20" Stretch="KeepAspectCentered" />
+        </Button>
+    </BoxContainer>
+    <ScrollContainer Name="ResultsScroll" Access="Public" HScrollEnabled="False" Visible="False" MinHeight="140" MaxHeight="140">
+        <BoxContainer Name="Results" Access="Public" Orientation="Vertical" HorizontalExpand="True" />
+    </ScrollContainer>
+    <Label Name="Status" Access="Public" Visible="False" />
+</BoxContainer>

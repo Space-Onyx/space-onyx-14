@@ -1,18 +1,25 @@
+<!-- <Onyx-GuidebookWorkspace-edited> -->
 <controls:FancyWindow xmlns="https://spacestation14.io"
-                xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
-                xmlns:fancyTree="clr-namespace:Content.Client.UserInterface.Controls.FancyTree"
-                xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
-                SetSize="900 700"
-                MinSize="100 200"
-                Resizable="True"
-                Title="{Loc 'guidebook-window-title'}">
-    <SplitContainer Orientation="Horizontal" HorizontalExpand="True" Name="Split">
+                 xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
+                 xmlns:fancyTree="clr-namespace:Content.Client.UserInterface.Controls.FancyTree"
+                 xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                 xmlns:onyx="clr-namespace:Content.Client._Onyx.Guidebook.Controls"
+                 SetSize="1000 700"
+                 MinSize="640 400"
+                 Resizable="True"
+                 Title="{Loc 'guidebook-window-title'}">
+    <BoxContainer Orientation="Vertical">
+    <onyx:GuidebookToolbar Name="WorkspaceToolbar" />
+    <BoxContainer Name="ContentHost" VerticalExpand="True">
+    <SplitContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True" Name="Split">
         <!-- Guide select -->
-        <BoxContainer Orientation="Horizontal" Name="TreeBox">
-            <fancyTree:FancyTree Name="Tree" VerticalExpand="True" HorizontalExpand="True" Access="Public"/>
+        <BoxContainer Orientation="Horizontal" Name="TreeBox" MinWidth="140">
+            <ScrollContainer HScrollEnabled="True" HorizontalExpand="True" VerticalExpand="True">
+                <fancyTree:FancyTree Name="Tree" VerticalExpand="True" HorizontalExpand="True" Access="Public"/>
+            </ScrollContainer>
             <cc:VSeparator StyleClasses="LowDivider" Margin="0 -2"/>
         </BoxContainer>
-        <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
+        <BoxContainer Name="ArticleBox" Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
             <fancyTree:FancyTree Name="TableOfContents" HorizontalExpand="True"/>
             <BoxContainer Name="SearchContainer" Visible="False" HorizontalExpand="True">
                 <LineEdit
@@ -37,4 +44,7 @@
             </ScrollContainer>
         </BoxContainer>
     </SplitContainer>
+    </BoxContainer>
+    </BoxContainer>
 </controls:FancyWindow>
+<!-- </Onyx-GuidebookWorkspace-edited> -->

@@ -47,6 +47,7 @@ public sealed partial class GuidebookUIController : UIController, IOnStateEntere
 
         // setup window
         _guideWindow = UIManager.CreateWindow<GuidebookWindow>();
+        ConfigureWorkspaceWindow(_guideWindow, true); // <Onyx-GuidebookWorkspace>
         _guideWindow.OnClose += OnWindowClosed;
         _guideWindow.OnOpen += OnWindowOpen;
 
@@ -77,6 +78,7 @@ public sealed partial class GuidebookUIController : UIController, IOnStateEntere
 
     private void HandleStateExited()
     {
+        CloseWorkspaceWindows(); // <Onyx-GuidebookWorkspace>
         if (_guideWindow == null)
             return;
 
@@ -199,19 +201,18 @@ public sealed partial class GuidebookUIController : UIController, IOnStateEntere
             {
                 selected = lastEntry;
             }
+            // <Onyx-GuidebookWorkspace>
+            else if (_guidebookPreferences?.Window.Entry is { } savedEntry && guides.ContainsKey(savedEntry))
+            {
+                selected = savedEntry;
+            }
+            // </Onyx-GuidebookWorkspace>
             else
             {
                 selected = _configuration.GetCVar(CCVars.DefaultGuide);
             }
         }
-        var changed = _guideWindow.UpdateGuides(guides, rootEntries, forceRoot, selected);
-
-        // Expand up to depth-2.
-        if (changed)
-        {
-            _guideWindow.Tree.SetAllExpanded(false);
-            _guideWindow.Tree.SetAllExpanded(true, 1);
-        }
+        _guideWindow.UpdateGuides(guides, rootEntries, forceRoot, selected); // <Onyx-GuidebookWorkspace-edited>
 
         _guideWindow.OpenCenteredRight();
     }

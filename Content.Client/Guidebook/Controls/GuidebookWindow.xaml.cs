@@ -32,6 +32,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
         _sawmill = Logger.GetSawmill("guidebook");
+        InitializeWorkspace(); // <Onyx-GuidebookWorkspace>
 
         Tree.OnSelectedItemChanged += OnSelectionChanged;
         TableOfContents.OnSelectedItemChanged += OnTableOfContentsSelectionChanged;
@@ -44,6 +45,12 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
 
     public void HandleClick(string link)
     {
+        HandleWorkspaceLink(link); // <Onyx-GuidebookWorkspace-edited>
+    }
+
+    // <Onyx-GuidebookWorkspace>
+    private void SelectGuide(string link)
+    {
         if (!_entries.TryGetValue(link, out var entry))
             return;
 
@@ -55,6 +62,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         else
             ShowGuide(entry);
     }
+    // </Onyx-GuidebookWorkspace>
 
     public void HandleAnchor(IPrototypeLinkControl prototypeLinkControl)
     {
@@ -100,7 +108,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
 
             var isRulesEntry = entry.RuleEntry;
             ReturnContainer.Visible = isRulesEntry;
-            HomeButton.OnPressed += _ => ShowGuide(entry);
+            _ruleHomeEntry = isRulesEntry ? entry.Id : null; // <Onyx-GuidebookWorkspace-edited>
         }
         else
             ClearSelectedGuide();
@@ -123,6 +131,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
 
     public void ClearSelectedGuide()
     {
+        ClearWorkspaceArticle(); // <Onyx-GuidebookWorkspace>
         Placeholder.Visible = true;
         EntryContainer.Visible = false;
         SearchContainer.Visible = false;
@@ -133,6 +142,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
 
     private void ShowGuide(GuideEntry entry)
     {
+        RememberArticleScroll(); // <Onyx-GuidebookWorkspace>
         Scroll.SetScrollValue(default);
         Placeholder.Visible = false;
         EntryContainer.Visible = true;
@@ -150,6 +160,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         }
 
         Selected = entry.Id;
+        RefreshWorkspaceArticle(entry); // <Onyx-GuidebookWorkspace>
 
         var (linkableControls, linkControls) = GetLinkableControlsAndLinks(EntryContainer);
 
@@ -227,35 +238,14 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         ProtoId<GuideEntryPrototype>? forceRoot = null,
         ProtoId<GuideEntryPrototype>? selected = null)
     {
+        // <Onyx-GuidebookWorkspace-edited>
         // check if old and new entries are equal
         var sameAsLastUpdate = entries.Count != _entries.Count || !entries.All(_entries.Contains);
-        if (sameAsLastUpdate)
-        {
-            _entries = entries;
-            RepopulateTree(rootEntries, forceRoot);
-            Split.State = SplitContainer.SplitState.Auto;
-            if (entries.Count == 1)
-            {
-                TreeBox.Visible = false;
-                Split.ResizeMode = SplitContainer.SplitResizeMode.NotResizable;
-                selected = entries.Keys.First();
-            }
-            else
-            {
-                TreeBox.Visible = true;
-                Split.ResizeMode = SplitContainer.SplitResizeMode.RespectChildrenMinSize;
-            }
-        }
-
-        if (selected == null)
-            ClearSelectedGuide();
-        else
-        {
-            var item = Tree.Items.FirstOrDefault(x => x.Metadata is GuideEntry entry && entry.Id == selected);
-            Tree.SetSelectedIndex(item?.Index);
-        }
+        _entries = entries;
+        UpdateWorkspaceGuides(rootEntries, forceRoot, selected);
 
         return sameAsLastUpdate;
+        // </Onyx-GuidebookWorkspace-edited>
     }
 
     private IEnumerable<GuideEntry> GetSortedEntries(List<ProtoId<GuideEntryPrototype>>? rootEntries)
@@ -275,6 +265,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         // As defined in the SS14 Dev Wiki, children are already sorted based on their child field order within their parent's prototype definition.
         // Roots are sorted by priority. If there is no defined priority for a root then it is by definition sorted undefined.
         return rootEntries
+            .Where(_entries.ContainsKey) // <Onyx-GuidebookWorkspace>
             .Select(rootEntryId => _entries[rootEntryId])
             .OrderBy(rootEntry => rootEntry.Priority)
             .ThenBy(rootEntry => Loc.GetString(rootEntry.Name));
