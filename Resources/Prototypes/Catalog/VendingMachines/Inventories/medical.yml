@@ -53,6 +53,11 @@
     CartridgeDermaline: 4
     CartridgeAtropine: 4
     CigPackMedical: 2 # <Onyx-Vending-MedicalCigs>
+    # <Onyx-MedicalPatches>
+    MedicalPatchPrefilledBicaridine: 3
+    MedicalPatchPrefilledDermaline: 3
+    MedicalPatchBasic: 5
+    # </Onyx-MedicalPatches>
   contrabandInventory:
     PillCanisterRandom: 3
     PillSpaceDrugs: 3

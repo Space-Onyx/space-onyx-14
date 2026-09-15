@@ -7,20 +7,23 @@
     size: Tiny
   - type: Sprite
     sprite: _Onyx/Objects/Medical/medical_patch.rsi
-    state: MakeshiftPatch
+    state: GenericPatch
   - type: SolutionContainerManager
     solutions:
       drink:
-        maxVol: 20
+        maxVol: 40
   - type: ExaminableSolution
     solution: drink
   - type: Sticky
-    stickDelay: 3
-    unstickDelay: 2
+    stickDelay: 2
+    unstickDelay: 1.5
     stickPopupStart: medical-patch-stick-start
     stickPopupSuccess: medical-patch-stick-success
     unstickPopupStart: medical-patch-remove-start
     unstickPopupSuccess: medical-patch-remove-success
+    selfStickBreakOnMove: false
+    selfUnstickBreakOnMove: false
+    selfStickTimeMultiplier: 0.5
     whitelist:
       components:
       - Bloodstream
@@ -32,6 +35,151 @@
   - type: Tag
     tags:
     - MedicalPatch
+
+- type: entity
+  parent: BaseMedicalPatch
+  id: MedicalPatchBasic
+  name: patch
+  description: A basic patch for applying medicine over time to patients.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Medical/medical_patch.rsi
+    scale: 0.9, 0.9
+    layers:
+    - state: GenericPatch
+    - state: GenericPatch-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+  - type: SolutionContainerVisuals
+    maxFillLevels: 9
+    fillBaseName: GenericPatch-
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 40
+  - type: Spillable
+    solution: drink
+  - type: RefillableSolution
+    solution: drink
+
+- type: entity
+  parent: MedicalPatchBasic
+  id: MedicalPatchRapid
+  name: rapid patch
+  description: A patch used for more rapid application of medicine. It has race cars drawn on it.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Medical/medical_patch.rsi
+    layers:
+    - state: GenericPatch
+    - state: GenericPatchBorder
+      color: Red
+    - state: GenericPatch-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+  - type: MedicalPatch
+    transferAmount: 2
+
+- type: entity
+  parent: MedicalPatchBasic
+  id: MedicalPatchTherapeutic
+  name: therapeutic patch
+  description: A patch that applies a dose over a longer period of time than other patches.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Medical/medical_patch.rsi
+    layers:
+    - state: GenericPatch
+    - state: GenericPatchBorder
+      color: LightBlue
+    - state: GenericPatch-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+  - type: MedicalPatch
+    transferAmount: 0.5
+
+- type: entity
+  parent: MedicalPatchBasic
+  id: MedicalPatchLarge
+  name: large patch
+  description: A larger, higher-capacity patch, used for the really big boo-boos. Not recommended with easily-overdosed chemicals.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Medical/medical_patch.rsi
+    scale: 1, 1
+    layers:
+    - state: GenericPatch
+    - state: GenericPatchBorder
+      color: Violet
+    - state: GenericPatch-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 80
+  - type: MedicalPatch
+    injectPercentageOnAttatch: 10
+  - type: Item
+    shape:
+    - 0,0,0,1
+
+- type: entity
+  parent: BaseMedicalPatch
+  id: MedicalPatchPrefilledBase
+  name: prefilled medical patch
+  description: A medical patch filled with chemicals.
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Medical/medical_patch.rsi
+    layers:
+    - state: GenericPatchSmall
+    - state: GenericPatchSmall-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+  - type: SolutionContainerVisuals
+    maxFillLevels: 5
+    fillBaseName: GenericPatchSmall-
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+  - type: MedicalPatch
+    singleUse: true
+    transferAmount: 0.25
+
+- type: entity
+  parent: MedicalPatchPrefilledBase
+  id: MedicalPatchPrefilledBicaridine
+  name: brute patch
+  suffix: Bicaridine
+  components:
+  - type: Label
+    currentLabel: Bicaridine 30u
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: Bicaridine
+          Quantity: 30
+
+- type: entity
+  parent: MedicalPatchPrefilledBase
+  id: MedicalPatchPrefilledDermaline
+  name: burn patch
+  suffix: Dermaline
+  components:
+  - type: Label
+    currentLabel: Dermaline 30u
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: Dermaline
+          Quantity: 30
 
 - type: entity
   parent: BaseHealingItem
@@ -48,6 +196,7 @@
   - type: PhysicalComposition
     materialComposition:
       Cloth: 100
+      Plastic: 100
 
 - type: entity
   parent: UsedMedicalPatch
@@ -63,10 +212,16 @@
   name: makeshift patch
   description: This doesn't look hygienic. Hopefully it does the job.
   components:
+  - type: Sprite
+    state: MakeshiftPatch
   - type: MedicalPatch
     updateTime: 2
     singleUse: true
     trashObject: UsedMedicalPatchMakeshift
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
   - type: Construction
     graph: MedicalPatchMakeshift
     node: medicalPatchMakeshift

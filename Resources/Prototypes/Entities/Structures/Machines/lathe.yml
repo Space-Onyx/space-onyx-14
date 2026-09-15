@@ -540,6 +540,7 @@
     - TopicalsStatic
     - ChemistryStatic
     - MedicalStatic
+    - MedicalPatchesStatic # <Onyx-MedicalPatches>
     - RollerBedsStatic
     - MedicalClothingStatic
     - EmptyMedkitsStatic

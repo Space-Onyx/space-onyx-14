@@ -85,6 +85,7 @@
           tags:
           - Bottle
           - PillCanister
+          - MedicalPatch # <Onyx-MedicalPatches>
   - type: Solution # Chemmaster is special in how it interacts with reagents. For now.
     id: buffer
   - type: DumpableSolution
