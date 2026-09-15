@@ -26,3 +26,7 @@ ent-ActionTransferPlasma = Передать плазму (50)
     .desc = Передаёт плазму вашему союзнику.
 ent-ActionXenomorphPromotion = Повысить до Преторианца (500)
     .desc = Повышает выбранного ксеноморфа до Преторианца.
+ent-ActionAncientXenoDash = Рывок
+    .desc = Рывок вперёд.
+ent-ActionRogueTailDash = Рывок разбойничьим хвостом
+    .desc = Телепортирует в видимую точку, пока держите хвост разбойного короля.

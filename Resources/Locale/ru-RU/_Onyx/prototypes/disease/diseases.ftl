@@ -18,6 +18,12 @@ ent-MobMousePandemic = { ent-MobMouse }
 
 ent-DiseaseBehaviorVomit = рвота
     .desc = Периодически вызывает рвоту.
+ent-DiseaseTurboCancer = турбо-рак
+    .desc = Наносит огромный генетический урон заражённому. Лучше готовьте похороны.
+ent-DiseaseTheRot = гниль
+    .desc = Если вы это читаете, вы навлекли на себя гнев богов.
+ent-DiseaseSurgicalSiteInfection = инфекция хирургической раны
+    .desc = Бактериальная инфекция, занесённая в открытую хирургическую рану.
 ent-DiseaseBehaviorFeelUnwell = недомогание
     .desc = Вызывает общее недомогание.
 ent-DiseaseBehaviorHeadache = головная боль

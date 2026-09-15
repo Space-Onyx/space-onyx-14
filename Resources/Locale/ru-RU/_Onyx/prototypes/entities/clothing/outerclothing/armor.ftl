@@ -5,3 +5,7 @@ ent-ClothingOuterArmorAbductor = жилет агента-абдуктора
     .desc = { ent-ClothingOuterBase.desc }
 ent-ClothingOuterCoatAbductor = инопланетный лабораторный халат
     .desc = Халат инопланетного происхождения, защищающий от различных травм и разливов химических веществ.
+ent-ClothingOuterArmorXenonautenHeavy = тяжёлая панцирная броня
+    .desc = Жилет XN-H, также известный как «Ксенонавт» — модульный комплект для работы в разных условиях. Похоже, это тяжёлый вариант.
+ent-ClothingOuterArmorScaf = костюм SCAF
+    .desc = Зелёно-коричневый тактический костюм для боевых условий.

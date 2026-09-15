@@ -9,3 +9,5 @@ ent-MindRoleAbductorScientist = Роль абдуктора-учёного
     .desc = { ent-BaseMindRoleAntag.desc }
 ent-MindRoleAbductorVictim = Роль похищенного
     .desc = { ent-BaseMindRoleAntag.desc }
+ent-MindRoleVampire = роль вампира
+    .desc = { ent-BaseMindRoleAntag.desc }

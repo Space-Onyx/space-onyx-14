@@ -56,3 +56,6 @@ tiles-plating-wedge-n = северный клин покрытия
 tiles-plating-wedge-s = южный клин покрытия
 tiles-plating-wedge-w = западный клин покрытия
 tiles-white-floor-herringbone-alt = белые стальные плиты ёлочкой (Альтернативное)
+tiles-flockzone-floor-light = светлый пол стаи
+ent-FloorFlockZone2 = { tiles-flockzone-floor-light }
+    .desc = Гудит от энергии.

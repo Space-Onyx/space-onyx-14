@@ -56,3 +56,4 @@ tiles-plating-wedge-n = north wedge plating
 tiles-plating-wedge-s = south wedge plating
 tiles-plating-wedge-w = west wedge plating
 tiles-white-floor-herringbone-alt = white steel herringbone (Alternative)
+tiles-flockzone-floor-light = light flock floor

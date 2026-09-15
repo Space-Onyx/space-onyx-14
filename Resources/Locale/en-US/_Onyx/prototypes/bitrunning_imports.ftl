@@ -29,6 +29,7 @@ ent-MobExperimentalSoldierBitrunning = experimental Syndicate soldier
     .desc = { ent-MobSyndicateSoldierBitrunning.desc }
     .suffix = Bitrunning
 ent-MobHierophantBitrunning = hierophant
+    .desc = { ent-MobHierophant.desc }
     .suffix = Bitrunning
 ent-ClothingBeltMilitaryRigGrenadier = grenadier belt
     .desc = A specialized belt rig for grenades, sidearms, and magazines.

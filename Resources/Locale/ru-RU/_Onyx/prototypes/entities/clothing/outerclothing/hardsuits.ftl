@@ -8,3 +8,5 @@ ent-ClothingOuterHardsuitSecPilot = костюм пилота службы бе�
 ent-ClothingOuterHardsuitSecPilotFilled = { ent-ClothingOuterHardsuitSecPilot }
     .suffix = Полный
     .desc = { ent-ClothingOuterHardsuitSecPilot.desc }
+ent-ClothingOuterSuitHEV = костюм H.E.V
+    .desc = Герметичный костюм для работы с опасными материалами. Защищает от радиации, энергетических разрядов и тупых травм.

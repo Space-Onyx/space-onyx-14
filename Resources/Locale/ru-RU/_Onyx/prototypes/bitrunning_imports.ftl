@@ -29,6 +29,7 @@ ent-MobExperimentalSoldierBitrunning = экспериментальный сол
     .desc = { ent-MobSyndicateSoldierBitrunning.desc }
     .suffix = Битраннинг
 ent-MobHierophantBitrunning = иерофант
+    .desc = { ent-MobHierophant.desc }
     .suffix = Битраннинг
 ent-ClothingBeltMilitaryRigGrenadier = пояс гренадёра
     .desc = Специальный пояс для гранат, пистолета и магазинов.

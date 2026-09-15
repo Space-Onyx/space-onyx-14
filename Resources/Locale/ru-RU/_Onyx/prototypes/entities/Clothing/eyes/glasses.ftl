@@ -21,3 +21,5 @@ ent-ClothingEyesGlassesMedDiag = меддиагностические очки
     .desc = Солнцезащитные очки с медицинским и диагностическим ИЛС.
 ent-ClothingEyesGlassesMedChemFlash = мед-химические очки
     .desc = Солнцезащитные очки с медицинским визором и анализатором растворов.
+ent-ClothingEyesGlassesGarMeson = гар-мезоны
+    .desc = Соверши невозможное, увидь невидимое!
