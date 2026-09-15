@@ -70,6 +70,8 @@
         - !type:ReagentCondition
           reagent: Desoxyephedrine
           min: 5
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: StrongStimulant
 
 - type: reagent
   id: Ephedrine
@@ -128,6 +130,8 @@
         - !type:ReagentCondition
           reagent: Ephedrine
           min: 15
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: StrongStimulant
 
 - type: reagent
   id: Pax
@@ -153,6 +157,8 @@
         strengthModifier: -0.0088888888888
         statusLifetime: 1.5
       # </Onyx-VirologyReagents>
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: PaxEffect
 
 - type: reagent
   id: Stimulants
@@ -276,6 +282,11 @@
   plantMetabolism:
   - !type:PlantAdjustHealth
     amount: -5
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: NicotineBenefit
 
 # TODO: Replace these nonstandardized effects with generic brain damage
 - type: reagent
@@ -322,6 +333,8 @@
         effectProto: StatusEffectSeeingRainbow
         type: Add
         time: 5
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: SpaceDrugsBenefit
 
 - type: reagent
   id: Bananadine
@@ -398,9 +411,11 @@
     Bloodstream:
       effects:
       - !type:ModifyStatusEffect
-        effectProto: StatusEffectChangelingMuted
+        effectProto: StatusEffectSeeingRainbow
         type: Add
         time: 5
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: PsicodineEffect
 
 - type: reagent
   id: NorepinephricAcid
@@ -509,6 +524,8 @@
         - !type:ReagentCondition
           reagent: TearGas
           min: 4
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: TearGasEffect
 
 - type: reagent
   id: StrawberryIce

@@ -236,6 +236,7 @@
         prototype: NormalSatiationHunger
       Thirst:
         prototype: NormalSatiationThirst
+  - type: Mood # <Onyx-Mood>
   - type: Barotrauma
     damage:
       types:

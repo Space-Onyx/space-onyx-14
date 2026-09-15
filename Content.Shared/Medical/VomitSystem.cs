@@ -8,6 +8,7 @@ using Content.Shared.Fluids;
 using Content.Shared.Forensics.Systems;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Mobs.Systems;
+using Content.Shared._Onyx.Mood;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
@@ -84,6 +85,9 @@ public sealed partial class VomitSystem : EntitySystem
 
         if (!ev.Handled)
             return;
+
+        var moodEvent = new MoodVomitEvent(); // <Onyx-Mood>
+        RaiseLocalEvent(uid, ref moodEvent); // <Onyx-Mood>
 
         // Vomiting makes you hungrier and thirstier
         if (TryComp<SatiationComponent>(uid, out var satiation))

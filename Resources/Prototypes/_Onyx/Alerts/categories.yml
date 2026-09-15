@@ -6,3 +6,6 @@
 
 - type: alertCategory
   id: Ninjutsu
+
+- type: alertCategory
+  id: Mood

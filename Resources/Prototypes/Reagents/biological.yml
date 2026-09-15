@@ -33,6 +33,20 @@
         damage:
           Brute: -3
           Burn: -1.25
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: DrankBloodVampiric
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [ Bloodsucker, Vampire ]
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: DrankBlood
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [ Bloodsucker, Vampire ]
+          inverted: true
+        - !type:ReagentCondition
+          reagent: Blood
+          min: 0.1
     Bloodstream: # Don't inject someone else's blood into yourself! Your own blood won't actually metabolise.
       effects:
       - !type:HealthChange
@@ -63,6 +77,20 @@
   color: "#808A51"
   recognizable: true
   physicalDesc: reagent-physical-desc-slimy
+  metabolisms:
+    Digestion:
+      metabolites:
+        UncookedAnimalProteins: 0.2
+      effects:
+      - !type:Satiate
+        satiationType: Thirst
+        factor: 1.0
+        conditions:
+          - !type:MetabolizerTypeCondition
+            type: [ Human ]
+            inverted: true
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: DrankInsectBlood
 
 - type: reagent
   id: Slime
@@ -173,6 +201,8 @@
       - !type:Satiate
         satiationType: Thirst
         factor: -0.5
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: DrankZombieBlood
     Bloodstream:
       effects:
       - !type:HealthChange
@@ -278,6 +308,8 @@
       - !type:Satiate
         satiationType: Thirst
         factor: 0.5
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: DrankVomit
   footstepSound:
     collection: FootstepBlood
     params:

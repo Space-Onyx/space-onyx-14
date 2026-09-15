@@ -137,6 +137,8 @@
         - !type:TagCondition
           inverted: true
           tag: Bee
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: BuzzochloricBeesEffect
 
 - type: reagent
   id: GroundBee

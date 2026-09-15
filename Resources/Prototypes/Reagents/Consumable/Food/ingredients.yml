@@ -101,6 +101,8 @@
         emote: Cough
         showInGuidebook: true
         probability: 0.05
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: PepperEffect
   reactiveEffects:
     Acidic:
       methods: [ Touch ]
@@ -164,6 +166,9 @@
     Digestion:
       metabolites:
         Nutriment: 1.5
+      effects:
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: OilyEffect
 
 - type: reagent
   id: Oil
@@ -178,6 +183,11 @@
   boilingPoint: 300.0
   meltingPoint: -16.0
   flammability: 2 # <Onyx-BurningPuddles>
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: DeepFriedEffect
   tileReactions:
   - !type:FlammableTileReaction {}
 
@@ -213,6 +223,8 @@
         type: Local
         messages: [ "capsaicin-effect-light-burn" ]
         probability: 0.2
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: SpicyEffect
 
 - type: reagent
   id: CocoaPowder #Candy and chocolate
@@ -233,6 +245,8 @@
           reagent: Nutriment
           min: 0.1
         factor: 1
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: ChocolateEffect
   plantMetabolism:
   - !type:PlantAdjustNutrition
     amount: 0.1
@@ -256,6 +270,9 @@
     Digestion:
       metabolites:
         Nutriment: 1.5
+      effects:
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: ButterEffect
 
 - type: reagent
   id: TeaPowder
@@ -301,3 +318,5 @@
         type: Local
         messages: [ "frost-oil-effect-light-cold" ]
         probability: 0.2
+      - !type:ChemAddMoodlet # <Onyx-Mood>
+        moodPrototype: MintyEffect

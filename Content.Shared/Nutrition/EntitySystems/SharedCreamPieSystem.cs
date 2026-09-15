@@ -3,6 +3,7 @@ using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Fluids;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Nutrition.Components;
+using Content.Shared._Onyx.Mood;
 using Content.Shared.Popups;
 using Content.Shared.Rejuvenate;
 using Content.Shared.Stunnable;
@@ -102,6 +103,9 @@ public abstract partial class SharedCreamPieSystem : EntitySystem
 
         ent.Comp.CreamPied = value;
         Dirty(ent);
+
+        var moodEvent = new MoodCreamPiedEvent(value); // <Onyx-Mood>
+        RaiseLocalEvent(ent.Owner, ref moodEvent); // <Onyx-Mood>
 
         _appearance.SetData(ent.Owner, CreamPiedVisuals.Creamed, value);
     }
