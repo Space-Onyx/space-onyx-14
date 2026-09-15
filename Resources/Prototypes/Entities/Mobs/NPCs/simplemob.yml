@@ -29,6 +29,11 @@
     - DoorBumpOpener
     - StunImmune
   - type: Blindable
+  # <Onyx-Languages>
+  - type: LanguageKnowledge
+    speaks: []
+    understands: [TauCetiBasic]
+  # </Onyx-Languages>
 
 - type: entity
   abstract: true

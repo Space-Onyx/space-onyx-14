@@ -1,7 +1,20 @@
 language-menu-window-title = Language Menu
-language-menu-current-language = Current language: { $language }
+language-menu-known-languages = Known languages
+language-menu-help = Select a spoken language and review your speaking and comprehension abilities.
+language-menu-current-heading = Current spoken language
+language-menu-no-spoken-language = No spoken language available
+language-menu-no-languages = You do not know any languages.
 language-menu-select = Select
+language-menu-selected = Selected
 language-menu-description-header = Description
+language-menu-speaking = Speaking: { $available ->
+    [true] available
+   *[false] unavailable
+}
+language-menu-understanding = Understanding: { $available ->
+    [true] available
+   *[false] unavailable
+}
 
 language-Universal-name = Universal
 language-Universal-description = What are you?

@@ -18,7 +18,10 @@ public sealed partial class LanguageSystem : EntitySystem
     {
         SubscribeLocalEvent<LanguageSpeakerComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<LanguageSpeakerComponent, ComponentGetState>(OnGetState);
+        SubscribeLocalEvent<LanguageSpeakerComponent, LanguageKnowledgeChangedEvent>(OnKnowledgeChanged);
         SubscribeLocalEvent<LanguageKnowledgeComponent, CollectLanguageKnowledgeEvent>(OnCollectKnowledge);
+        SubscribeLocalEvent<LanguageKnowledgeComponent, ComponentStartup>(OnKnowledgeStartup);
+        SubscribeLocalEvent<LanguageKnowledgeComponent, ComponentRemove>(OnKnowledgeRemoved);
         SubscribeLocalEvent<UniversalLanguageSpeakerComponent, CollectLanguageKnowledgeEvent>(OnCollectUniversalKnowledge);
         SubscribeLocalEvent<UniversalLanguageSpeakerComponent, ComponentStartup>(OnUniversalStartup);
         SubscribeLocalEvent<UniversalLanguageSpeakerComponent, ComponentRemove>(OnUniversalRemoved);
@@ -69,6 +72,25 @@ public sealed partial class LanguageSystem : EntitySystem
     {
         args.SpokenLanguages.UnionWith(ent.Comp.SpokenLanguages);
         args.UnderstoodLanguages.UnionWith(ent.Comp.UnderstoodLanguages);
+    }
+
+    private void OnKnowledgeChanged(Entity<LanguageSpeakerComponent> ent, ref LanguageKnowledgeChangedEvent args)
+    {
+        UpdateLanguages(ent.Owner);
+    }
+
+    private void OnKnowledgeStartup(Entity<LanguageKnowledgeComponent> ent, ref ComponentStartup args)
+    {
+        UpdateLanguages(ent.Owner);
+    }
+
+    private void OnKnowledgeRemoved(Entity<LanguageKnowledgeComponent> ent, ref ComponentRemove args)
+    {
+        Timer.Spawn(0, () =>
+        {
+            if (Exists(ent.Owner))
+                UpdateLanguages(ent.Owner);
+        });
     }
 
     private void OnCollectUniversalKnowledge(

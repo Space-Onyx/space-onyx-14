@@ -15,3 +15,5 @@ public sealed class CollectLanguageKnowledgeEvent : EntityEventArgs
     public readonly HashSet<ProtoId<LanguagePrototype>> UnderstoodLanguages = new();
     public bool UnderstandsAllLanguages;
 }
+
+public sealed class LanguageKnowledgeChangedEvent : EntityEventArgs;

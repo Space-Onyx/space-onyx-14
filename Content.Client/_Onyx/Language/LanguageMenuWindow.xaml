@@ -1,14 +1,23 @@
 <DefaultWindow xmlns="https://spacestation14.io"
                xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
                Title="{Loc language-menu-window-title}"
-               SetSize="300 300">
-    <BoxContainer Orientation="Vertical" SeparationOverride="4" MinWidth="150">
+               SetSize="440 480" MinSize="340 300">
+    <BoxContainer Orientation="Vertical" SeparationOverride="6" MinWidth="250">
+        <Label Text="{Loc language-menu-known-languages}" StyleClasses="LabelHeading" />
+        <Label Text="{Loc language-menu-help}" StyleClasses="LabelSubText" />
         <PanelContainer StyleClasses="PdaBorderRect">
-            <Label Name="CurrentLanguageLabel" Access="Public" HorizontalExpand="True" />
+            <BoxContainer Orientation="Vertical" Margin="6">
+                <Label Text="{Loc language-menu-current-heading}" StyleClasses="LabelSubText" />
+                <Label Name="CurrentLanguageLabel" HorizontalExpand="True" StyleClasses="LabelHeading" />
+            </BoxContainer>
         </PanelContainer>
         <ui:HLine />
         <ScrollContainer HorizontalExpand="True" VerticalExpand="True" HScrollEnabled="False" VScrollEnabled="True" MinHeight="50">
-            <BoxContainer Name="OptionsList" Access="Public" HorizontalExpand="True" SeparationOverride="2" Orientation="Vertical" />
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+                <Label Name="NoLanguagesLabel" Text="{Loc language-menu-no-languages}" StyleClasses="LabelSubText"
+                       HorizontalAlignment="Center" Margin="8" Visible="False" />
+                <BoxContainer Name="OptionsList" HorizontalExpand="True" SeparationOverride="4" Orientation="Vertical" />
+            </BoxContainer>
         </ScrollContainer>
     </BoxContainer>
 </DefaultWindow>

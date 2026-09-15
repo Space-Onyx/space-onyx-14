@@ -9,9 +9,9 @@
   description: trait-language-signlanguage-desc
   category: LanguageTraits
   cost: 1
-  components:
-  - type: LanguageTrait
-    language: Sign
+  specials:
+  - !type:LanguageSpecial
+    languages: [Sign]
 
 - type: trait
   id: SolCommon
@@ -19,9 +19,9 @@
   description: trait-language-solcommon-desc
   category: LanguageTraits
   cost: 1
-  components:
-  - type: LanguageTrait
-    language: SolCommon
+  specials:
+  - !type:LanguageSpecial
+    languages: [SolCommon]
 
 - type: trait
   id: Tradeband
@@ -29,9 +29,9 @@
   description: trait-language-tradeband-desc
   category: LanguageTraits
   cost: 1
-  components:
-  - type: LanguageTrait
-    language: Tradeband
+  specials:
+  - !type:LanguageSpecial
+    languages: [Tradeband]
 
 - type: trait
   id: Freespeak
@@ -39,9 +39,9 @@
   description: trait-language-freespeak-desc
   category: LanguageTraits
   cost: 1
-  components:
-  - type: LanguageTrait
-    language: Freespeak
+  specials:
+  - !type:LanguageSpecial
+    languages: [Freespeak]
 
 - type: trait
   id: Elyran
@@ -49,9 +49,9 @@
   description: trait-language-elyran-desc
   category: LanguageTraits
   cost: 1
-  components:
-  - type: LanguageTrait
-    language: Elyran
+  specials:
+  - !type:LanguageSpecial
+    languages: [Elyran]
 
 - type: trait
   id: NovuNederic
@@ -59,6 +59,6 @@
   description: trait-language-novunederic-desc
   category: LanguageTraits
   cost: 1
-  components:
-  - type: LanguageTrait
-    language: NovuNederic
+  specials:
+  - !type:LanguageSpecial
+    languages: [NovuNederic]

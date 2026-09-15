@@ -7,5 +7,5 @@ namespace Content.Shared._Onyx.Traits;
 public sealed partial class LanguageTraitComponent : Component
 {
     [DataField(required: true)]
-    public ProtoId<LanguagePrototype> Language;
+    public HashSet<ProtoId<LanguagePrototype>> Languages = new();
 }

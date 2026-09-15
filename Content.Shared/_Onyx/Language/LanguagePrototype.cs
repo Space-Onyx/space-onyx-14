@@ -13,6 +13,9 @@ public sealed partial class LanguagePrototype : IPrototype
     public bool IsVisibleLanguage;
 
     [DataField]
+    public bool ShowInLanguageMenu = true;
+
+    [DataField]
     public bool AlwaysUnderstood;
 
     [DataField]

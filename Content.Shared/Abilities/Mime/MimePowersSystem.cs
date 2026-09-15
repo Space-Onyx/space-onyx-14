@@ -70,21 +70,15 @@ public sealed partial class MimePowersSystem : EntitySystem
         if (!ent.Comp.VowBroken)
             _statusEffects.TrySetStatusEffectDuration(ent, MutedEffect);
 
-        // <Onyx-SignLanguage>
+        // <Onyx-SignLanguage-edited>
         if (TryComp<LanguageKnowledgeComponent>(ent, out var knowledge))
         {
             knowledge.SpokenLanguages.Add(SignLanguage);
             knowledge.UnderstoodLanguages.Add(SignLanguage);
             Dirty(ent, knowledge);
+            RaiseLocalEvent(ent, new LanguageKnowledgeChangedEvent());
         }
-
-        if (TryComp<LanguageSpeakerComponent>(ent, out var speaker))
-        {
-            speaker.SpokenLanguages.Add(SignLanguage);
-            speaker.UnderstoodLanguages.Add(SignLanguage);
-            Dirty(ent, speaker);
-        }
-        // </Onyx-SignLanguage>
+        // </Onyx-SignLanguage-edited>
 
         if (ent.Comp.PreventWriting)
         {
@@ -100,21 +94,15 @@ public sealed partial class MimePowersSystem : EntitySystem
     {
         _statusEffects.TryRemoveStatusEffect(ent, MutedEffect);
 
-        // <Onyx-SignLanguage>
+        // <Onyx-SignLanguage-edited>
         if (TryComp<LanguageKnowledgeComponent>(ent, out var knowledge))
         {
             knowledge.SpokenLanguages.Remove(SignLanguage);
             knowledge.UnderstoodLanguages.Remove(SignLanguage);
             Dirty(ent, knowledge);
+            RaiseLocalEvent(ent, new LanguageKnowledgeChangedEvent());
         }
-
-        if (TryComp<LanguageSpeakerComponent>(ent, out var speaker))
-        {
-            speaker.SpokenLanguages.Remove(SignLanguage);
-            speaker.UnderstoodLanguages.Remove(SignLanguage);
-            Dirty(ent, speaker);
-        }
-        // </Onyx-SignLanguage>
+        // </Onyx-SignLanguage-edited>
         _actionsSystem.RemoveAction(ent.Owner, ent.Comp.InvisibleWallActionEntity);
     }
 

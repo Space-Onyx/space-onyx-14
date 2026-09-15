@@ -87,6 +87,7 @@
       - Carptongue
       understands:
       - Carptongue
+      - TauCetiBasic
     # </Onyx-Animals-edited>
     - type: InteractionPopup
       interactSuccessString: petting-success-carp

@@ -1,7 +1,20 @@
 language-menu-window-title = Меню языка
-language-menu-current-language = Текущий язык: { $language }
+language-menu-known-languages = Известные языки
+language-menu-help = Выберите язык речи и проверьте доступность речи и понимания.
+language-menu-current-heading = Текущий язык речи
+language-menu-no-spoken-language = Нет доступного языка речи
+language-menu-no-languages = Вы не знаете ни одного языка.
 language-menu-select = Выбрать
+language-menu-selected = Выбран
 language-menu-description-header = Описание
+language-menu-speaking = Речь: { $available ->
+    [true] доступна
+   *[false] недоступна
+}
+language-menu-understanding = Понимание: { $available ->
+    [true] доступно
+   *[false] недоступно
+}
 
 language-Universal-name = Межгалактический
 language-Universal-description = Кто ты?

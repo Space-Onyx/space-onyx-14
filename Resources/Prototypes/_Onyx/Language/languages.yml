@@ -1,6 +1,7 @@
 - type: language
   id: Universal
   alwaysUnderstood: true
+  showInLanguageMenu: false
   obfuscation:
     !type:ReplacementObfuscation
     replacement:
@@ -9,6 +10,7 @@
 - type: language
   id: Psychomantic
   alwaysUnderstood: true
+  showInLanguageMenu: false
   speech:
     color: "#C29EFF"
   obfuscation:
