@@ -16,11 +16,11 @@
   # <Onyx-SpeciesDimensions>
   baseScale: "1.16, 1.16"
   defaultHeightCm: 185
-  defaultWeightKg: 73
+  defaultWidthCm: 45
   minHeightCm: 140
   maxHeightCm: 220
-  minWeightKg: 50
-  maxWeightKg: 95 # <Onyx-SpeciesDimensions-edited>
+  minWidthCm: 34
+  maxWidthCm: 51 # <Onyx-SpeciesDimensions-edited>
   # </Onyx-SpeciesDimensions>
   defaultSoundsBySex:
   - UnisexArachnid

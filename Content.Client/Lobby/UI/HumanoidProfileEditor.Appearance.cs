@@ -72,11 +72,11 @@ public sealed partial class HumanoidProfileEditor
 
         _updatingDimensionControls = true;
         HeightSlider.Value = ToSlider(species.HeightScaleToCm(height), species.MinHeightCm, species.MaxHeightCm);
-        WidthSlider.Value = ToSlider(species.WidthScaleToKg(width), species.MinWeightKg, species.MaxWeightKg);
+        WidthSlider.Value = ToSlider(species.WidthScaleToCm(width), species.MinWidthCm, species.MaxWidthCm);
         if (updateText)
         {
             HeightEdit.Text = MathF.Round(species.HeightScaleToCm(height)).ToString("0");
-            WidthEdit.Text = MathF.Round(species.WidthScaleToKg(width)).ToString("0");
+            WidthEdit.Text = MathF.Round(species.WidthScaleToCm(width)).ToString("0");
         }
         UpdateCalculatedWeightLabel(species);
         _updatingDimensionControls = false;
@@ -100,7 +100,7 @@ public sealed partial class HumanoidProfileEditor
         if (_updatingDimensionControls || Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
             return;
 
-        SetWidthKg((int)MathF.Round(MathHelper.Lerp(species.MinWeightKg, species.MaxWeightKg, WidthSlider.Value)));
+        SetWidthCm((int)MathF.Round(MathHelper.Lerp(species.MinWidthCm, species.MaxWidthCm, WidthSlider.Value)));
     }
 
     private void SetHeightCm(int value, bool updateText = true)
@@ -114,13 +114,13 @@ public sealed partial class HumanoidProfileEditor
         ReloadProfilePreview();
     }
 
-    private void SetWidthKg(int value, bool updateText = true)
+    private void SetWidthCm(int value, bool updateText = true)
     {
         if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
             return;
 
-        value = Math.Clamp(value, Math.Min(species.MinWeightKg, species.MaxWeightKg), Math.Max(species.MinWeightKg, species.MaxWeightKg));
-        Profile = Profile.WithWidth(species.ClampWidth(species.WeightKgToScale(value)));
+        value = Math.Clamp(value, Math.Min(species.MinWidthCm, species.MaxWidthCm), Math.Max(species.MinWidthCm, species.MaxWidthCm));
+        Profile = Profile.WithWidth(species.ClampWidth(species.WidthCmToScale(value)));
         UpdateDimensionControls(updateText);
         ReloadProfilePreview();
     }
@@ -150,7 +150,7 @@ public sealed partial class HumanoidProfileEditor
         if (Profile == null)
             return;
 
-        var weight = species.WidthScaleToKg(Profile.Width);
+        var weight = species.GetEstimatedWeightKg(Profile.Height, Profile.Width);
         CalculatedWeightLabel.Text = Loc.GetString("humanoid-profile-editor-calculated-weight-label", ("weight", MathF.Round(weight * 2f) / 2f));
     }
     // </Onyx-HeightWidth>

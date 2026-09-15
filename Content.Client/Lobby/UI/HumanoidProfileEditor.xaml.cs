@@ -199,7 +199,7 @@ namespace Content.Client.Lobby.UI
             WidthEdit.OnTextChanged += args =>
             {
                 if (!_updatingDimensionControls && int.TryParse(args.Text, out var value))
-                    SetWidthKg(value, updateText: false);
+                    SetWidthCm(value, updateText: false);
             };
             HeightSlider.OnValueChanged += _ => SetHeightSlider();
             WidthSlider.OnValueChanged += _ => SetWidthSlider();

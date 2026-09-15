@@ -21,9 +21,9 @@
   # <Onyx-SpeciesDimensions-edited>
   baseScale: "1, 0.81"
   defaultHeightCm: 150
-  defaultWeightKg: 60
+  defaultWidthCm: 40
   minHeightCm: 130
   maxHeightCm: 170
-  minWeightKg: 50
-  maxWeightKg: 90 # <Onyx-SpeciesDimensions-edited>
+  minWidthCm: 31
+  maxWidthCm: 49 # <Onyx-SpeciesDimensions-edited>
   # </Onyx-SpeciesDimensions-edited>

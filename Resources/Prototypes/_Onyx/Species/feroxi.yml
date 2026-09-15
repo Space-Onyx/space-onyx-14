@@ -7,11 +7,11 @@
   dollPrototype: AppearanceFeroxi
   skinColoration: Hues
   defaultHeightCm: 175
-  defaultWeightKg: 60
+  defaultWidthCm: 40
   minHeightCm: 140
   maxHeightCm: 200
-  minWeightKg: 40
-  maxWeightKg: 90
+  minWidthCm: 33
+  maxWidthCm: 49
   maleFirstNames: NamesFeroxiFirstMale
   femaleFirstNames: NamesFeroxiFirstFemale
   lastNames: NamesFeroxiLast

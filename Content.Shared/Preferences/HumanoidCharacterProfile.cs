@@ -451,13 +451,13 @@ namespace Content.Shared.Preferences
                     speciesProto.MaxHeightCm,
                     speciesProto.DefaultHeightCm - 5,
                     speciesProto.DefaultHeightCm + 10);
-                var weightKg = RandomDimension(random,
-                    speciesProto.MinWeightKg,
-                    speciesProto.MaxWeightKg,
-                    speciesProto.DefaultWeightKg - 5,
-                    speciesProto.DefaultWeightKg + 5);
+                var widthCm = RandomDimension(random,
+                    speciesProto.MinWidthCm,
+                    speciesProto.MaxWidthCm,
+                    speciesProto.DefaultWidthCm - 4,
+                    speciesProto.DefaultWidthCm + 4);
                 profile.Height = speciesProto.ClampHeight(speciesProto.HeightCmToScale(heightCm));
-                profile.Width = speciesProto.ClampWidth(speciesProto.WeightKgToScale(weightKg));
+                profile.Width = speciesProto.ClampWidth(speciesProto.WidthCmToScale(widthCm));
             }
             else
             {

@@ -21,7 +21,9 @@
   # CorvaxGoob-Species-End
   # <Onyx>
   defaultHeightCm: 175
-  defaultWeightKg: 65
+  defaultWidthCm: 42
   minHeightCm: 140
   maxHeightCm: 200
+  minWidthCm: 32
+  maxWidthCm: 49
   # </Onyx>

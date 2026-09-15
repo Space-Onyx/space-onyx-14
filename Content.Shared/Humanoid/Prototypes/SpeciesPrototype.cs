@@ -134,6 +134,7 @@ public sealed partial class SpeciesPrototype : IPrototype
 
     // <Onyx-HeightWidth>
     public const float ReferenceHeightCm = 175f;
+    public const float ReferenceWidthCm = 42f;
     public const float ReferenceWeightKg = 65f;
 
     [DataField]
@@ -143,7 +144,7 @@ public sealed partial class SpeciesPrototype : IPrototype
     public int DefaultHeightCm = 175;
 
     [DataField]
-    public int DefaultWeightKg = 65;
+    public int DefaultWidthCm = 42;
 
     [DataField]
     public int MinHeightCm = 140;
@@ -152,10 +153,10 @@ public sealed partial class SpeciesPrototype : IPrototype
     public int MaxHeightCm = 195;
 
     [DataField]
-    public int MinWeightKg = 50;
+    public int MinWidthCm = 32;
 
     [DataField]
-    public int MaxWeightKg = 90;
+    public int MaxWidthCm = 56;
 
     [DataField]
     public bool ScaleWidth = true;
@@ -164,28 +165,50 @@ public sealed partial class SpeciesPrototype : IPrototype
     public bool ScaleHeight = true;
 
     public float DefaultHeight => ClampHeight(HeightCmToScale(DefaultHeightCm));
-    public float DefaultWidth => ClampWidth(WeightKgToScale(DefaultWeightKg));
+    public float DefaultWidth => ClampWidth(WidthCmToScale(DefaultWidthCm));
 
     public (float Min, float Max) HeightRange => NormalizeRange(
         HeightCmToScale(MinHeightCm), HeightCmToScale(MaxHeightCm));
 
     public (float Min, float Max) WidthRange => NormalizeRange(
-        WeightKgToScale(MinWeightKg), WeightKgToScale(MaxWeightKg));
+        WidthCmToScale(MinWidthCm), WidthCmToScale(MaxWidthCm));
 
     public float HeightCmToScale(float value) => value / (ReferenceHeightCm * SafeScale(BaseScale.Y));
     public float HeightScaleToCm(float value) => value * ReferenceHeightCm * SafeScale(BaseScale.Y);
-    public float WeightKgToScale(float value) => value / (ReferenceWeightKg * SafeScale(BaseScale.X));
-    public float WidthScaleToKg(float value) => value * ReferenceWeightKg * SafeScale(BaseScale.X);
+    public float WidthCmToScale(float value) => value / (ReferenceWidthCm * SafeScale(BaseScale.X));
+    public float WidthScaleToCm(float value) => value * ReferenceWidthCm * SafeScale(BaseScale.X);
 
     public float ClampHeight(float value) => Clamp(value, HeightRange, 1f);
     public float ClampWidth(float value) => Clamp(value, WidthRange, 1f);
 
+    /// <summary>
+    ///     Expected body width in cm for a given height. Taller characters are
+    ///     proportionally wider, so the same width in cm means stockier on a short character.
+    /// </summary>
+    public float ExpectedWidthCm(float heightCm) => ReferenceWidthCm * heightCm / Math.Max(ReferenceHeightCm, 1f);
+
+    /// <summary>
+    ///     Estimated body weight in kg from height and width scales.
+    ///     Keeps BMI constant when width grows proportionally with height,
+    ///     extra width raises weight quadratically (body cross-section area).
+    /// </summary>
+    public float GetEstimatedWeightKg(float height, float width)
+    {
+        var heightCm = HeightScaleToCm(ClampHeight(height));
+        var widthCm = WidthScaleToCm(ClampWidth(width));
+        var fullness = widthCm / Math.Max(ExpectedWidthCm(heightCm), 1f);
+        var referenceBmi = ReferenceWeightKg / MathF.Pow(ReferenceHeightCm / 100f, 2f);
+        return referenceBmi * fullness * fullness * MathF.Pow(heightCm / 100f, 2f);
+    }
+
     public Vector2 GetVisualScale(float height, float width)
     {
-        var heightRatio = HeightScaleToCm(ClampHeight(height)) / Math.Max(DefaultHeightCm, 1);
-        var weightRatio = WidthScaleToKg(ClampWidth(width)) / Math.Max(DefaultWeightKg, 1);
+        var heightCm = HeightScaleToCm(ClampHeight(height));
+        var widthCm = WidthScaleToCm(ClampWidth(width));
+        var heightRatio = heightCm / Math.Max(DefaultHeightCm, 1);
+        var fullness = widthCm / Math.Max(ExpectedWidthCm(heightCm), 1f);
         var visualHeight = ScaleHeight ? MathF.Sqrt(Math.Max(heightRatio, 0.01f)) : 1f;
-        var visualWidth = ScaleWidth ? MathF.Sqrt(Math.Max(weightRatio / heightRatio, 0.01f)) : 1f;
+        var visualWidth = ScaleWidth ? MathF.Sqrt(Math.Max(fullness, 0.01f)) : 1f;
         return BaseScale * new Vector2(visualWidth, visualHeight);
     }
 

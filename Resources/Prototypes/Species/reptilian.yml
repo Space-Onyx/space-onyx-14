@@ -13,11 +13,11 @@
   # <Onyx-SpeciesDimensions>
   baseScale: "1.1, 1.1"
   defaultHeightCm: 183
-  defaultWeightKg: 70
+  defaultWidthCm: 44
   minHeightCm: 140
   maxHeightCm: 210
-  minWeightKg: 50
-  maxWeightKg: 95 # <Onyx-SpeciesDimensions-edited>
+  minWidthCm: 34
+  maxWidthCm: 51 # <Onyx-SpeciesDimensions-edited>
   # </Onyx-SpeciesDimensions>
   defaultSoundsBySex:
   - MaleReptilian
