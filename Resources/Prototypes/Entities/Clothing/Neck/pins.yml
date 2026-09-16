@@ -11,10 +11,16 @@
     sprite: Clothing/Neck/Misc/pins.rsi
   - type: Clothing
     sprite: Clothing/Neck/Misc/pins.rsi
+    slots: NONE # <Onyx-Pins>
     tags:
     - ClothMade #idk man its on the parent
     - MonkeyWearable
     - WhitelistChameleon
+  # <Onyx-Pins>
+  - type: Tag
+    tags:
+    - Medal
+  # </Onyx-Pins>
 
 - type: entity
   parent: ClothingNeckPinBase
@@ -36,6 +42,7 @@
     - MonkeyWearable
     - WhitelistChameleon
     - GenderPin
+    - Medal # <Onyx-Pins>
 
 - type: entity
   parent: ClothingGenderPinBase
@@ -284,6 +291,11 @@
     quickEquip: true
     slots:
     - neck
+  # <Onyx-Pins>
+  - type: Tag
+    tags:
+    - Medal
+  # </Onyx-Pins>
   - type: EquipSpray
     verbLocId: equip-spray-verb-press
   - type: Solution

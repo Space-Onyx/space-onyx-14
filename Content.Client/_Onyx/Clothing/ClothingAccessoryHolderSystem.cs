@@ -7,6 +7,7 @@
 using Content.Client.Items.Systems;
 using Content.Shared._Onyx.Clothing.Components;
 using Content.Shared.Clothing;
+using Content.Shared.Clothing.Components;
 using Content.Shared.Clothing.EntitySystems;
 using Content.Shared.Containers.ItemSlots;
 using Robust.Client.GameObjects;
@@ -51,6 +52,12 @@ public sealed partial class ClothingAccessoryHolderSystem : EntitySystem
                 sprite.BaseRSI is not { } rsi)
             {
                 continue;
+            }
+
+            if (TryComp(accessory, out ClothingComponent? accessoryClothing) &&
+                !string.IsNullOrEmpty(accessoryClothing.EquippedPrefix))
+            {
+                state = $"{accessoryClothing.EquippedPrefix}-{state}";
             }
 
             args.Layers.Add(($"{id}-{accessory}", new PrototypeLayerData
