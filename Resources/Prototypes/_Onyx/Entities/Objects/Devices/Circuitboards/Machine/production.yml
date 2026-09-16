@@ -9,7 +9,6 @@
     stackRequirements:
       Steel: 8
       Glass: 4
-      Manipulator: 3
     partRequirements:
       Servo: 3
 
@@ -23,7 +22,6 @@
   - type: MachineBoard
     prototype: RadiationCollector
     stackRequirements:
-      Manipulator: 5
       Steel: 5
       CableHV: 10
       Plasma: 5
@@ -85,7 +83,6 @@
   - type: MachineBoard
     prototype: WashingMachine
     stackRequirements:
-      Manipulator: 1
       Glass: 2
       Cable: 2
     partRequirements:
@@ -104,7 +101,7 @@
     stackRequirements:
       Steel: 10
       Glass: 10
-      Manipulator: 10
+
       BSCrystal: 5
     partRequirements:
       Servo: 2

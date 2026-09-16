@@ -20,8 +20,9 @@
   - type: MachineBoard
     prototype: ResearchDestructiveAnalyzer
     stackRequirements:
-      Manipulator: 1
       Glass: 5
+    partRequirements:
+      Servo: 1
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -36,4 +37,5 @@
     stackRequirements:
       Glass: 5
       Cable: 5
-      Manipulator: 2
+    partRequirements:
+      Servo: 2

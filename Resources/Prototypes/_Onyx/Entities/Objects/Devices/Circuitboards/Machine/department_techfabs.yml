@@ -8,8 +8,8 @@
     state: engineering
   - type: MachineBoard
     prototype: EngineeringTechFab
-    stackRequirements: &DepartmentTechFabStackRequirements
-      Manipulator: 4
+    partRequirements: &DepartmentTechFabPartRequirements
+      Servo: 4
     tagRequirements: &DepartmentTechFabTagRequirements
       GlassBeaker:
         amount: 2
@@ -25,7 +25,7 @@
     state: engineering
   - type: MachineBoard
     prototype: CargoTechFab
-    stackRequirements: *DepartmentTechFabStackRequirements
+    partRequirements: *DepartmentTechFabPartRequirements
     tagRequirements: *DepartmentTechFabTagRequirements
 
 - type: entity
@@ -38,7 +38,7 @@
     state: science
   - type: MachineBoard
     prototype: ScienceTechFab
-    stackRequirements: *DepartmentTechFabStackRequirements
+    partRequirements: *DepartmentTechFabPartRequirements
     tagRequirements: *DepartmentTechFabTagRequirements
 
 - type: entity
@@ -51,5 +51,5 @@
     state: service
   - type: MachineBoard
     prototype: ServiceTechFab
-    stackRequirements: *DepartmentTechFabStackRequirements
+    partRequirements: *DepartmentTechFabPartRequirements
     tagRequirements: *DepartmentTechFabTagRequirements

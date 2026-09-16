@@ -8,5 +8,5 @@
     state: medical
   - type: MachineBoard
     prototype: MedicalBiofabricator
-    stackRequirements:
-      Manipulator: 4
+    partRequirements:
+      Servo: 4

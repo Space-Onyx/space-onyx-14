@@ -18,9 +18,10 @@
   - type: MachineBoard
     prototype: VinylPlayer
     stackRequirements:
-      Manipulator: 1
       Steel: 1
       WoodPlank: 3
+    partRequirements:
+      Servo: 1
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -33,11 +34,12 @@
   - type: MachineBoard
     prototype: StationRadioServer
     stackRequirements:
-      Manipulator: 1
       Steel: 10
       Plastic: 10
       Plasma: 5
       CableHV: 4
+    partRequirements:
+      Servo: 1
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -50,10 +52,11 @@
   - type: MachineBoard
     prototype: StationRadioRig
     stackRequirements:
-      Manipulator: 3
       Steel: 5
       Glass: 5
       Cable: 2
+    partRequirements:
+      Servo: 3
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -66,5 +69,6 @@
   - type: MachineBoard
     prototype: StationRadioReceiver
     stackRequirements:
-      Manipulator: 1
       Cable: 2
+    partRequirements:
+      Servo: 1

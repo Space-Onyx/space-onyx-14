@@ -7,7 +7,7 @@
     - type: MachineBoard
       prototype: Autolathe
       stackRequirements:
-        Manipulator: 4
+        # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
         Glass: 1
       # <Onyx-TieredMachineParts>
       partRequirements:
@@ -24,7 +24,7 @@
   - type: MachineBoard
     prototype: AutolatheHyperConvection
     stackRequirements:
-      Manipulator: 4
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       Glass: 1
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -46,8 +46,8 @@
     state: science
   - type: MachineBoard
     prototype: Protolathe
-    stackRequirements:
-      Manipulator: 4
+    # stackRequirements: # <Onyx-TieredMachineParts-edited>
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
     # <Onyx-TieredMachineParts>
     partRequirements:
       MatterBin: 2
@@ -68,8 +68,8 @@
     state: science
   - type: MachineBoard
     prototype: ProtolatheHyperConvection
-    stackRequirements:
-      Manipulator: 4
+    # stackRequirements: # <Onyx-TieredMachineParts-edited>
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
     # <Onyx-TieredMachineParts>
     partRequirements:
       MatterBin: 2
@@ -94,7 +94,7 @@
   - type: MachineBoard
     prototype: Biofabricator
     stackRequirements:
-      Manipulator: 4
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       Glass: 1
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -111,8 +111,8 @@
       state: security
     - type: MachineBoard
       prototype: SecurityTechFab
-      stackRequirements:
-        Manipulator: 4
+      # stackRequirements: # <Onyx-TieredMachineParts-edited>
+        # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       # <Onyx-TieredMachineParts>
       partRequirements:
         MatterBin: 2
@@ -133,8 +133,8 @@
       state: security
     - type: MachineBoard
       prototype: AmmoTechFab
-      stackRequirements:
-        Manipulator: 2
+      # stackRequirements: # <Onyx-TieredMachineParts-edited>
+        # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
       # <Onyx-TieredMachineParts>
       partRequirements:
         MatterBin: 1
@@ -151,8 +151,8 @@
       state: medical
     - type: MachineBoard
       prototype: MedicalTechFab
-      stackRequirements:
-        Manipulator: 4
+      # stackRequirements: # <Onyx-TieredMachineParts-edited>
+        # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       # <Onyx-TieredMachineParts>
       partRequirements:
         MatterBin: 2
@@ -174,8 +174,8 @@
     state: science
   - type: MachineBoard
     prototype: CircuitImprinter
-    stackRequirements:
-      Manipulator: 2
+    # stackRequirements: # <Onyx-TieredMachineParts-edited>
+      # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
     # <Onyx-TieredMachineParts>
     partRequirements:
       MatterBin: 1
@@ -196,8 +196,8 @@
     state: science
   - type: MachineBoard
     prototype: CircuitImprinterHyperConvection
-    stackRequirements:
-      Manipulator: 2
+    # stackRequirements: # <Onyx-TieredMachineParts-edited>
+      # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
     # <Onyx-TieredMachineParts>
     partRequirements:
       MatterBin: 1
@@ -221,7 +221,7 @@
   - type: MachineBoard
     prototype: ExosuitFabricator
     stackRequirements:
-      Manipulator: 4
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       Glass: 5
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -257,8 +257,8 @@
     state: service
   - type: MachineBoard
     prototype: Biogenerator
-    stackRequirements:
-      Manipulator: 2
+    # stackRequirements: # <Onyx-TieredMachineParts-edited>
+      # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
     # <Onyx-TieredMachineParts>
     partRequirements:
       MatterBin: 1
@@ -276,8 +276,8 @@
   components:
   - type: MachineBoard
     prototype: UniformPrinter
-    stackRequirements:
-      Manipulator: 3
+    # stackRequirements: # <Onyx-TieredMachineParts-edited>
+      # Manipulator: 3 # <Onyx-TieredMachineParts-edited>
     # <Onyx-TieredMachineParts>
     partRequirements:
       Servo: 3
@@ -293,7 +293,7 @@
   - type: MachineBoard
     prototype: Vaccinator
     stackRequirements:
-      Manipulator: 2
+      # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
       Cable: 5
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -335,7 +335,7 @@
     - type: MachineBoard
       prototype: MachineArtifactAnalyzer
       stackRequirements:
-        Manipulator: 1
+        # Manipulator: 1 # <Onyx-TieredMachineParts-edited>
         Glass: 5
       # <Onyx-TieredMachineParts>
       partRequirements:
@@ -353,7 +353,7 @@
   - type: MachineBoard
     prototype: MachineArtifactCrusher
     stackRequirements:
-      Manipulator: 2
+      # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
       Glass: 1
       Steel: 5
     # <Onyx-TieredMachineParts>
@@ -372,7 +372,7 @@
   - type: MachineBoard
     prototype: StationTeleporter
     stackRequirements:
-      Manipulator: 3
+      # Manipulator: 3 # <Onyx-TieredMachineParts-edited>
       Cable: 5
       PlasmaGlass: 10
       BSCrystal: 10 # <Onyx-BluespaceCrafting>
@@ -392,7 +392,7 @@
     - type: MachineBoard
       prototype: MachineAnomalyVessel
       stackRequirements:
-        Manipulator: 3
+        # Manipulator: 3 # <Onyx-TieredMachineParts-edited>
         Cable: 1
         PlasmaGlass: 10
       # <Onyx-TieredMachineParts>
@@ -411,7 +411,7 @@
   - type: MachineBoard
     prototype: MachineAnomalyVesselExperimental
     stackRequirements:
-      Manipulator: 3
+      # Manipulator: 3 # <Onyx-TieredMachineParts-edited>
       Cable: 5
       PlasmaGlass: 15
       MetalRod: 4
@@ -431,7 +431,7 @@
     - type: MachineBoard
       prototype: MachineAnomalySynchronizer
       stackRequirements:
-        Manipulator: 7
+        # Manipulator: 7 # <Onyx-TieredMachineParts-edited>
         PlasmaGlass: 5
         Cable: 5
       # <Onyx-TieredMachineParts>
@@ -450,7 +450,7 @@
     - type: MachineBoard
       prototype: MachineAPE
       stackRequirements:
-        Manipulator: 2
+        # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
         Cable: 1
         Glass: 1
       # <Onyx-TieredMachineParts>
@@ -469,7 +469,7 @@
   - type: MachineBoard
     prototype: GasThermoMachineFreezer
     stackRequirements:
-      Manipulator: 4
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       Cable: 5
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -492,7 +492,7 @@
   - type: MachineBoard
     prototype: GasThermoMachineHeater
     stackRequirements:
-      Manipulator: 4
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       Cable: 5
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -515,7 +515,7 @@
   - type: MachineBoard
     prototype: GasThermoMachineHellfireFreezer
     stackRequirements:
-      Manipulator: 4
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       Plasma: 1
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -537,7 +537,7 @@
   - type: MachineBoard
     prototype: GasThermoMachineHellfireHeater
     stackRequirements:
-      Manipulator: 4
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       Plasma: 1
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -559,7 +559,7 @@
   - type: MachineBoard
     prototype: BaseGasCondenser
     stackRequirements:
-      Manipulator: 1
+      # Manipulator: 1 # <Onyx-TieredMachineParts-edited>
       Glass: 1
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -577,7 +577,7 @@
   - type: MachineBoard
     prototype: PortableScrubber
     stackRequirements:
-      Manipulator: 3
+      # Manipulator: 3 # <Onyx-TieredMachineParts-edited>
       Cable: 5
       Glass: 2
     # <Onyx-TieredMachineParts>
@@ -597,7 +597,7 @@
   - type: MachineBoard
     prototype: SpaceHeater
     stackRequirements:
-      Manipulator: 3
+      # Manipulator: 3 # <Onyx-TieredMachineParts-edited>
       Cable: 5
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -616,7 +616,7 @@
     - type: MachineBoard
       prototype: CloningPod
       stackRequirements:
-        Manipulator: 4
+        # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
         Glass: 1
         Cable: 1
       # <Onyx-TieredMachineParts>
@@ -635,7 +635,7 @@
     - type: MachineBoard
       prototype: MedicalScanner
       stackRequirements:
-        Manipulator: 1
+        # Manipulator: 1 # <Onyx-TieredMachineParts-edited>
         Glass: 5
         Cable: 1
       # <Onyx-TieredMachineParts>
@@ -685,7 +685,7 @@
     - type: MachineBoard
       prototype: ChemMaster
       stackRequirements:
-        Manipulator: 1
+        # Manipulator: 1 # <Onyx-TieredMachineParts-edited>
         Glass: 1
         Cable: 1
       # <Onyx-TieredMachineParts>
@@ -708,7 +708,7 @@
     - type: MachineBoard
       prototype: ChemDispenserEmpty
       stackRequirements:
-        Manipulator: 1
+        # Manipulator: 1 # <Onyx-TieredMachineParts-edited>
         Glass: 1
         Plastic: 3
       tagRequirements:
@@ -732,7 +732,7 @@
   - type: MachineBoard
     prototype: BiomassReclaimer
     stackRequirements:
-      Manipulator: 3
+      # Manipulator: 3 # <Onyx-TieredMachineParts-edited>
       Steel: 5
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -779,7 +779,7 @@
     - type: MachineBoard
       prototype: SeedExtractor
       stackRequirements:
-        Manipulator: 3
+        # Manipulator: 3 # <Onyx-TieredMachineParts-edited>
         # replacing the console screen
         Glass: 1
         Cable: 2
@@ -800,7 +800,7 @@
     - type: MachineBoard
       prototype: SMESBasicEmpty
       stackRequirements:
-        Manipulator: 1
+        # Manipulator: 1 # <Onyx-TieredMachineParts-edited>
         CableHV: 10
       componentRequirements:
         PowerCell:
@@ -823,7 +823,7 @@
   - type: MachineBoard
     prototype: SMESAdvancedEmpty
     stackRequirements:
-      Manipulator: 2
+      # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
       CableHV: 20
     componentRequirements:
       PowerCell:
@@ -846,7 +846,7 @@
     - type: MachineBoard
       prototype: PowerCellRecharger
       stackRequirements:
-        Manipulator: 2
+        # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
         Cable: 5
       # <Onyx-TieredMachineParts>
       partRequirements:
@@ -873,7 +873,7 @@
     - type: MachineBoard
       prototype: PowerCageRecharger
       stackRequirements:
-        Manipulator: 4
+        # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
         Plasteel: 5
         Cable: 10
       # <Onyx-TieredMachineParts>
@@ -899,7 +899,7 @@
     - type: MachineBoard
       prototype: BorgCharger
       stackRequirements:
-        Manipulator: 2
+        # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
         Cable: 5
       # <Onyx-TieredMachineParts>
       partRequirements:
@@ -927,7 +927,7 @@
     - type: MachineBoard
       prototype: WeaponCapacitorRecharger
       stackRequirements:
-        Manipulator: 2
+        # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
         CableMV: 5
       # <Onyx-TieredMachineParts>
       partRequirements:
@@ -952,7 +952,7 @@
   - type: MachineBoard
     prototype: TurboItemRecharger
     stackRequirements:
-      Manipulator: 2
+      # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
       CableMV: 5
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -972,7 +972,7 @@
     - type: MachineBoard
       prototype: SubstationBasicEmpty
       stackRequirements:
-        Manipulator: 1
+        # Manipulator: 1 # <Onyx-TieredMachineParts-edited>
         CableMV: 5
         CableHV: 5
       # <Onyx-TieredMachineParts>
@@ -1036,7 +1036,7 @@
     - type: MachineBoard
       prototype: PortableGeneratorPacman
       stackRequirements:
-        Manipulator: 1
+        # Manipulator: 1 # <Onyx-TieredMachineParts-edited>
         CableHV: 5
       # <Onyx-TieredMachineParts>
       partRequirements:
@@ -1060,7 +1060,7 @@
   - type: MachineBoard
     prototype: Thruster
     stackRequirements:
-      Manipulator: 4
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       Plasteel: 5
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -1077,7 +1077,7 @@
   - type: MachineBoard
     prototype: Gyroscope
     stackRequirements:
-      Manipulator: 3
+      # Manipulator: 3 # <Onyx-TieredMachineParts-edited>
       Glass: 2
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -1094,7 +1094,7 @@
     - type: MachineBoard
       prototype: PortableGeneratorSuperPacman
       stackRequirements:
-        Manipulator: 2
+        # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
         CableHV: 10
       # <Onyx-TieredMachineParts>
       partRequirements:
@@ -1118,7 +1118,7 @@
     - type: MachineBoard
       prototype: PortableGeneratorJrPacman
       stackRequirements:
-        Manipulator: 1
+        # Manipulator: 1 # <Onyx-TieredMachineParts-edited>
         Cable: 10
       # <Onyx-TieredMachineParts>
       partRequirements:
@@ -1140,8 +1140,8 @@
   components:
     - type: MachineBoard
       prototype: KitchenReagentGrinder
-      stackRequirements:
-        Manipulator: 4
+    # stackRequirements: # <Onyx-TieredMachineParts-edited>
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       # <Onyx-TieredMachineParts>
       partRequirements:
         Servo: 1
@@ -1163,7 +1163,7 @@
   - type: MachineBoard
     prototype: ChemistryHotplate
     stackRequirements:
-      Manipulator: 2
+      # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
       Glass: 1
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -1181,7 +1181,7 @@
   - type: MachineBoard
     prototype: KitchenElectricGrill
     stackRequirements:
-      Manipulator: 4
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       Glass: 2
       Cable: 5
     # <Onyx-TieredMachineParts>
@@ -1199,7 +1199,7 @@
     - type: MachineBoard
       prototype: StasisBed
       stackRequirements:
-        Manipulator: 2
+        # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
         Cable: 3
         Steel: 2
       # <Onyx-TieredMachineParts>
@@ -1218,7 +1218,7 @@
   - type: MachineBoard
     prototype: MachineElectrolysisUnit
     stackRequirements:
-      Manipulator: 2
+      # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
       Cable: 1
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -1237,7 +1237,7 @@
   - type: MachineBoard
     prototype: MachineCentrifuge
     stackRequirements:
-      Manipulator: 1
+      # Manipulator: 1 # <Onyx-TieredMachineParts-edited>
       Steel: 1
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -1254,7 +1254,7 @@
   - type: MachineBoard
     prototype: MachineMaterialSilo
     stackRequirements:
-      Manipulator: 4
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       Cable: 1
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -1271,7 +1271,7 @@
     - type: MachineBoard
       prototype: OreProcessor
       stackRequirements:
-        Manipulator: 4
+        # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
         Glass: 1
       # <Onyx-TieredMachineParts>
       partRequirements:
@@ -1290,7 +1290,7 @@
   - type: MachineBoard
     prototype: OreProcessorIndustrial
     stackRequirements:
-      Manipulator: 4
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       Glass: 1
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -1306,8 +1306,8 @@
   components:
   - type: MachineBoard
     prototype: Sheetifier
-    stackRequirements:
-      Manipulator: 2
+    # stackRequirements: # <Onyx-TieredMachineParts-edited>
+      # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
     # <Onyx-TieredMachineParts>
     partRequirements:
       Servo: 2
@@ -1324,7 +1324,7 @@
     - type: MachineBoard
       prototype: KitchenMicrowave
       stackRequirements:
-        Manipulator: 1
+        # Manipulator: 1 # <Onyx-TieredMachineParts-edited>
         Glass: 2
         Cable: 2
       # <Onyx-TieredMachineParts>
@@ -1346,7 +1346,7 @@
     - type: MachineBoard
       prototype: SyndicateMicrowave
       stackRequirements:
-        Manipulator: 1
+        # Manipulator: 1 # <Onyx-TieredMachineParts-edited>
         Glass: 2
         Cable: 2
       # <Onyx-TieredMachineParts>
@@ -1364,8 +1364,8 @@
       state: service
     - type: MachineBoard
       prototype: FatExtractor
-      stackRequirements:
-        Manipulator: 1
+      # stackRequirements: # <Onyx-TieredMachineParts-edited>
+        # Manipulator: 1 # <Onyx-TieredMachineParts-edited>
       # <Onyx-TieredMachineParts>
       partRequirements:
         Laser: 1
@@ -1384,7 +1384,7 @@
   - type: MachineBoard
     prototype: MachineFlatpacker
     stackRequirements:
-      Manipulator: 3
+      # Manipulator: 3 # <Onyx-TieredMachineParts-edited>
       Steel: 1
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -1403,7 +1403,7 @@
     - type: MachineBoard
       prototype: Emitter
       stackRequirements:
-        Manipulator: 2
+        # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
         CableHV: 5
         Glass: 2
         Plasteel: 2
@@ -1493,7 +1493,7 @@
   - type: MachineBoard
     prototype: GasRecycler
     stackRequirements:
-      Manipulator: 2
+      # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
       Steel: 10
       Plasma: 5
     # <Onyx-TieredMachineParts>
@@ -1530,7 +1530,7 @@
       prototype: CargoTelepad
       stackRequirements:
         # <Onyx-BluespaceCrafting-edited>
-        Manipulator: 2
+        # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
         Steel: 5
         BSCrystal: 10
         # </Onyx-BluespaceCrafting-edited>
@@ -1550,7 +1550,7 @@
   - type: MachineBoard
     prototype: CargoMailTeleporter
     stackRequirements:
-      Manipulator: 2
+      # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
       Plasteel: 5
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -1600,7 +1600,7 @@
   - type: MachineBoard
     prototype: SalvageMagnet
     stackRequirements:
-      Manipulator: 4
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       Steel: 5
       CableHV: 5
       Cable: 2
@@ -1621,7 +1621,7 @@
   - type: MachineBoard
     prototype: GravityGeneratorMiniUncharged
     stackRequirements:
-      Manipulator: 7
+      # Manipulator: 7 # <Onyx-TieredMachineParts-edited>
       Steel: 5
       CableHV: 5
       Uranium: 2
@@ -1639,7 +1639,7 @@
   - type: MachineBoard
     prototype: StationAnchor
     stackRequirements:
-      Manipulator: 7
+      # Manipulator: 7 # <Onyx-TieredMachineParts-edited>
       Plasteel: 10
       Glass: 5
       CableHV: 8
@@ -1657,7 +1657,7 @@
   - type: MachineBoard
     prototype: ReagentGrinderIndustrial
     stackRequirements:
-      Manipulator: 4
+      # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
       Glass: 1
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -1690,7 +1690,7 @@
     prototype: CutterMachine
     stackRequirements:
       Steel: 2
-      Manipulator: 2
+      # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
       Cable: 1
     # <Onyx-TieredMachineParts>
     partRequirements:
@@ -1709,7 +1709,7 @@
     prototype: SmartFridge
     stackRequirements:
       Glass: 5
-      Manipulator: 2
+      # Manipulator: 2 # <Onyx-TieredMachineParts-edited>
     tagRequirements:
         GlassBeaker:
           amount: 2

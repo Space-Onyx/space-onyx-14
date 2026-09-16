@@ -18,6 +18,7 @@
   - type: MachineBoard
     prototype: TapeDeck
     stackRequirements:
-      Manipulator: 2
       Plastic: 3
       WoodPlank: 5
+    partRequirements:
+      Servo: 2

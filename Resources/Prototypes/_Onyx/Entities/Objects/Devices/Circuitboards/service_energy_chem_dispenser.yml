@@ -8,8 +8,8 @@
     state: service
   - type: MachineBoard
     prototype: ServiceEnergyChemDispenser
-    stackRequirements:
-      Manipulator: 3
+    partRequirements:
+      Servo: 3
     tagRequirements:
       GlassBeaker:
         amount: 2

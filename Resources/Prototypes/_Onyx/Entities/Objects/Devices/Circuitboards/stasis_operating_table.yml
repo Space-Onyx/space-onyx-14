@@ -12,4 +12,5 @@
       Cable: 6
       Silver: 2
       Steel: 6
-      Manipulator: 1
+    partRequirements:
+      Servo: 1

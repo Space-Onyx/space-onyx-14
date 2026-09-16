@@ -5,9 +5,12 @@
   icon: { sprite: /Textures/Objects/Specific/Xenoarchaeology/artifact_fragments.rsi, state: martianball1 }
   spawn: ArtifactFragment1
 
-- type: stack
-  parent: BaseSmallStack
-  id: Manipulator
-  name: stack-micro-manipulator
-  icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: micro_mani }
-  spawn: MicroManipulatorStockPart
+# <Onyx-TieredMachineParts-edited>
+# Legacy Manipulator stack migrated to ServoDriveT1; entity migrated to StandardServoDrive.
+# - type: stack
+#   parent: BaseSmallStack
+#   id: Manipulator
+#   name: stack-micro-manipulator
+#   icon: { sprite: /Textures/Objects/Misc/stock_parts.rsi, state: micro_mani }
+#   spawn: MicroManipulatorStockPart
+# </Onyx-TieredMachineParts-edited>

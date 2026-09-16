@@ -197,7 +197,7 @@
     thrusterType: Angular
     requireSpace: false
     thrust: 3200000
-    machinePartThrust: Manipulator
+    machinePartThrust: ServoDriveT1 # <Onyx-TieredMachineParts-edited>
   - type: Sprite
     # Listen I'm not the biggest fan of the sprite but it was the most appropriate thing I could find.
     sprite: Structures/Shuttles/gyroscope.rsi

@@ -306,18 +306,3 @@
   - type: TieredMachinePart
     kind: Laser
     tier: 4
-
-- type: entity
-  parent: BaseStockPart
-  id: MicroManipulatorStockPart
-  name: micro-manipulator
-  suffix: Tier 1
-  description: A tiny little manipulator used in the construction of certain devices.
-  components:
-  - type: Sprite
-    state: micro_mani
-  - type: Stack
-    stackType: Manipulator
-  - type: TieredMachinePart
-    kind: Servo
-    tier: 1

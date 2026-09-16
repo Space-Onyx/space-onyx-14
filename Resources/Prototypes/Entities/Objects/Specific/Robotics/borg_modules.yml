@@ -739,7 +739,7 @@
           components:
           - SiliconLawProvider
     - hand:
-        emptyRepresentative: MicroManipulatorStockPart
+        emptyRepresentative: StandardServoDrive # <Onyx-TieredMachineParts-edited>
         emptyLabel: borg-slot-construction-empty
         whitelist:
           tags:
@@ -1582,7 +1582,7 @@
           components:
           - FloorTile
     - hand:
-        emptyRepresentative: MicroManipulatorStockPart
+        emptyRepresentative: StandardServoDrive # <Onyx-TieredMachineParts-edited>
         emptyLabel: borg-slot-construction-empty
         whitelist:
           tags:

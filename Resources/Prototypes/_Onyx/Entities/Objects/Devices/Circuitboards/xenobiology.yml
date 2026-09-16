@@ -9,8 +9,9 @@
   - type: MachineBoard
     prototype: SlimeGrinder
     stackRequirements:
-      Manipulator: 5
       Steel: 5
+    partRequirements:
+      Servo: 5
     tagRequirements:
       Knife:
         amount: 2

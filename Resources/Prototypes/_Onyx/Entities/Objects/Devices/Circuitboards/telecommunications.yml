@@ -65,8 +65,8 @@
     state: engineering
   - type: MachineBoard
     prototype: TelecomProcessor
-    requirements:
-      Manipulator: 1
+    partRequirements:
+      Servo: 1
     stackRequirements:
       Steel: 1
       Cable: 2
@@ -81,7 +81,7 @@
     state: engineering
   - type: MachineBoard
     prototype: TelecomBroadcaster
-    requirements:
+    partRequirements:
       Capacitor: 1
     stackRequirements:
       Steel: 1

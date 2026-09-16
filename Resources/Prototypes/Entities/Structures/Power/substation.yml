@@ -228,7 +228,7 @@
   - type: ContainerFill
     containers:
       board: [ WallmountSubstationElectronics ]
-      manipulator: [ MicroManipulatorStockPart ]
+      manipulator: [ StandardServoDrive ] # <Onyx-TieredMachineParts-edited>
       powercell: [ PowerCellSmall ]
   - type: ContainerContainer
     containers:

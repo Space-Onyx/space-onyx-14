@@ -8,8 +8,12 @@
     state: medical
   - type: MachineBoard
     prototype: MedipenRefiller
-    stackRequirements:
-      Manipulator: 5
+    # stackRequirements: # <Onyx-TieredMachineParts-edited>
+      # Manipulator: 5 # <Onyx-TieredMachineParts-edited>
+    # <Onyx-TieredMachineParts>
+    partRequirements:
+      Servo: 5
+    # </Onyx-TieredMachineParts>
     tagRequirements:
       GlassBeaker:
         amount: 3

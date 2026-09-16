@@ -26,7 +26,7 @@
     - PowerCellSmall
     - PowerCellMedium
     - FlashlightLantern
-    - MicroManipulatorStockPart
+    - StandardServoDrive # <Onyx-TieredMachineParts-edited>
     - Beaker
     chance: 0.8
     offset: 0.2
@@ -61,7 +61,7 @@
       - id: SheetGlass10
       - id: ToolboxElectricalFilled
       - id: ToolboxMechanicalFilled
-      - id: MicroManipulatorStockPart
+      - id: StandardServoDrive # <Onyx-TieredMachineParts-edited>
     # Rare Group
     - !type:GroupSelector
       weight: 10

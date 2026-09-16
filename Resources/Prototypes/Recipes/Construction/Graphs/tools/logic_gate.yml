@@ -106,7 +106,7 @@
         doAfter: 2
       completed:
       - !type:SpawnPrototype
-        prototype: MicroManipulatorStockPart
+        prototype: StandardServoDrive # <Onyx-TieredMachineParts-edited>
       - !type:SpawnPrototype
         prototype: CableApcStack1
         amount: 2

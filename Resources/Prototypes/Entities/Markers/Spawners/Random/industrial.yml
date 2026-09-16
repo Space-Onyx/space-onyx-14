@@ -85,7 +85,7 @@
       - !type:GroupSelector
         weight: 2
         children:
-        - id: MicroManipulatorStockPart
+        - id: StandardServoDrive # <Onyx-TieredMachineParts-edited>
         - id: CableHVStack10
         - id: WelderIndustrial
         - id: PowerCellHigh

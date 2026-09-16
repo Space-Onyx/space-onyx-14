@@ -48,7 +48,7 @@
         doAfter: 1
         completed:
         - !type:VisualizerDataInt { key: "enum.MechAssemblyVisuals.State", data: 9 }
-      - material: Manipulator
+      - material: ServoDriveT1
         amount: 1
         completed:
         - !type:VisualizerDataInt { key: "enum.MechAssemblyVisuals.State", data: 10 }

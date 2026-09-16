@@ -7,7 +7,7 @@
     - type: MachineBoard
       prototype: Holopad
       stackRequirements:
-        Manipulator: 4
+        # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
         Cable: 4
         Glass: 2
       # <Onyx-TieredMachineParts>

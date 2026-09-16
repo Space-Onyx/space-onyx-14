@@ -24,7 +24,7 @@ machine-upgrade-bluespace-mining-core-life = core lifetime
 machine-upgrade-bluespace-mining-stability = instability suppression
 machine-upgrade-bluespace-mining-temperature = thermal disturbance suppression
 
-stack-servo-drive = micro-manipulators
+stack-servo-drive = manipulators
 stack-matter-recycler = matter bins
 stack-capacitor-module = capacitors
 stack-scanner-module = scanning modules
