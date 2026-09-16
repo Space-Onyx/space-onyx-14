@@ -121,7 +121,7 @@ public sealed partial class TemperatureSystem
             if (!TryApplyLocalizedTemperatureDamage(entity, damage)) // <Onyx-LocalizedTemperatureDamage>
                 _damageable.TryChangeDamage(entity.Owner, damage, ignoreResistances: true, interruptsDoAfters: false);
         }
-        else if (temperature.Temperature <= coldDamageThreshold)
+        else if (coldDamageThreshold > 0 && temperature.Temperature <= coldDamageThreshold) // <Onyx-TemperatureGuard-edited>
         {
             if (!entity.Comp.TakingDamage)
             {
