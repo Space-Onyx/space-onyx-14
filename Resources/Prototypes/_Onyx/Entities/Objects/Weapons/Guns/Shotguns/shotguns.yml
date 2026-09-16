@@ -45,7 +45,7 @@
     zeroVisible: true
   - type: Appearance
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/Lever/chester_icon_48x.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Lever/chester.rsi
     size: Large
 
 - type: entity

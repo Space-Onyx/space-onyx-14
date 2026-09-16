@@ -81,7 +81,7 @@
   - type: Clothing
     sprite: _Onyx/Objects/Weapons/Guns/Snipers/remington700/tiny.rsi
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/Snipers/remington700/big.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Snipers/remington700/tiny.rsi
   - type: Gun
     fireRate: 1.1
     soundGunshot:
@@ -126,7 +126,7 @@
   - type: Clothing
     sprite: _Onyx/Objects/Weapons/Guns/Snipers/snl177/tiny.rsi
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/Snipers/snl177/big.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Snipers/snl177/tiny.rsi
   - type: GunWieldBonus
     minAngle: -23
     maxAngle: -43

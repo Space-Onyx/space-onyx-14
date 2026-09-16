@@ -14,7 +14,7 @@
   - type: Clothing
     sprite: _Onyx/Objects/Weapons/Guns/SMG/vector/tiny.rsi
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/SMG/vector/big.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/SMG/vector/tiny.rsi
   - type: GunWieldBonus
     minAngle: -20
     maxAngle: -20

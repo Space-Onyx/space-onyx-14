@@ -15,7 +15,7 @@
   - type: Clothing
     sprite: _Onyx/Objects/Weapons/Guns/Rifles/m16/tiny.rsi
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/Rifles/m16/big.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Rifles/m16/tiny.rsi
   - type: Gun
     angleDecay: 20
     minAngle: 24
@@ -112,7 +112,7 @@
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/Rifles/annie/big.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Rifles/annie/tiny.rsi
   - type: Clothing
     sprite: _Onyx/Objects/Weapons/Guns/Rifles/annie/tiny.rsi
   - type: Gun
@@ -177,7 +177,7 @@
   - type: Clothing
     sprite: _Onyx/Objects/Weapons/Guns/Rifles/m28/tiny.rsi
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/Rifles/m28/big.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Rifles/m28/tiny.rsi
   - type: GunWieldBonus
     minAngle: -27
     maxAngle: -30
@@ -276,7 +276,7 @@
   - type: Clothing
     sprite: _Onyx/Objects/Weapons/Guns/Rifles/br-64/tiny.rsi
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/Rifles/br-64/big.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Rifles/br-64/tiny.rsi
   - type: GunWieldBonus
     minAngle: -23
     maxAngle: -43

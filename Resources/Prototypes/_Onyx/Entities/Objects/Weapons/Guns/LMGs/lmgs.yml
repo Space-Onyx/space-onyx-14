@@ -15,7 +15,7 @@
   - type: Clothing
     sprite: _Onyx/Objects/Weapons/Guns/LMGs/t42/tiny.rsi
   - type: Item
-    sprite: _Onyx/Objects/Weapons/Guns/LMGs/t42/big.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/LMGs/t42/tiny.rsi
   - type: GunWieldBonus
     minAngle: -30
     maxAngle: -50
