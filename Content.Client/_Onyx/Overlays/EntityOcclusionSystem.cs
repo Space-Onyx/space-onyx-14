@@ -80,7 +80,8 @@ public sealed partial class EntityOcclusionOverlay : Overlay
     private readonly HashSet<EntityUid> _seen = [];
     private readonly List<EntityUid> _toRemove = [];
 
-    private const float TargetInset = 0.01f;
+    private const float TargetInset = 0.05f;
+    private const float TargetInsetSquared = TargetInset * TargetInset;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpaceBelowEntities;
 
@@ -123,8 +124,15 @@ public sealed partial class EntityOcclusionOverlay : Overlay
         _seen.Clear();
         _occluders.Clear();
         _spriteTrees.Clear();
-        _occluder.QueryAabb(_occluders, args.MapId, args.WorldBounds, false);
-        foreach (var (uid, tree) in _spriteTree.GetIntersectingTrees(args.MapId, args.WorldBounds))
+        var mapId = args.MapId;
+        _occluder.QueryAabb(_occluders, mapId, args.WorldBounds, false);
+        if (_occluders.Count == 0)
+        {
+            RestoreAll();
+            return;
+        }
+
+        foreach (var (uid, tree) in _spriteTree.GetIntersectingTrees(mapId, args.WorldBounds))
         {
             _spriteTrees.Add(uid, (tree, _transform.GetInvWorldMatrix(uid)));
         }
@@ -153,11 +161,13 @@ public sealed partial class EntityOcclusionOverlay : Overlay
         }
 
         var eyePosition = eye.Position;
+        var localEntity = _player.LocalEntity;
+        var wallTopsDepth = (int) ContentDrawDepth.WallTops;
 
         foreach (var entity in _sprites)
         {
-            if (entity.Owner == _player.LocalEntity ||
-                entity.Comp1.DrawDepth <= (int) ContentDrawDepth.WallTops ||
+            if (entity.Owner == localEntity ||
+                entity.Comp1.DrawDepth <= wallTopsDepth ||
                 _wallMountQuery.HasComp(entity.Owner))
             {
                 Restore(entity.Owner);
@@ -195,10 +205,12 @@ public sealed partial class EntityOcclusionOverlay : Overlay
 
     private bool IsVisible(MapCoordinates eyePosition, EntityUid target, TransformComponent xform)
     {
+        var anchor = _transform.GetMapCoordinates(xform).Position;
         if (!_fixturesQuery.TryComp(target, out var fixtures) || fixtures.Fixtures.Count == 0)
-            return HasLineOfSight(eyePosition, _transform.GetMapCoordinates(xform).Position, target);
+            return HasLineOfSight(eyePosition, anchor, target, anchor);
 
-        var physicsTransform = _physics.GetPhysicsTransform(target, xform);
+        var physicsTransform = default(PhysicsTransform);
+        var physicsReady = false;
         var hasHardFixture = false;
         foreach (var fixture in fixtures.Fixtures.Values)
         {
@@ -206,26 +218,33 @@ public sealed partial class EntityOcclusionOverlay : Overlay
                 continue;
 
             hasHardFixture = true;
-            if (IsFixtureVisible(eyePosition, fixture.Shape, physicsTransform, target))
+            if (!physicsReady)
+            {
+                physicsTransform = _physics.GetPhysicsTransform(target, xform);
+                physicsReady = true;
+            }
+
+            if (IsFixtureVisible(eyePosition, fixture.Shape, physicsTransform, target, anchor))
                 return true;
         }
 
         return !hasHardFixture &&
-               HasLineOfSight(eyePosition, _transform.GetMapCoordinates(xform).Position, target);
+               HasLineOfSight(eyePosition, anchor, target, anchor);
     }
 
     private bool IsFixtureVisible(
         MapCoordinates eyePosition,
         IPhysShape shape,
         PhysicsTransform transform,
-        EntityUid target)
+        EntityUid target,
+        Vector2 anchor)
     {
         return shape switch
         {
-            PhysShapeCircle circle => IsCircleVisible(eyePosition, circle, transform, target),
-            PolygonShape polygon => IsPolygonVisible(eyePosition, polygon, transform, target),
-            PhysShapeAabb aabb => IsAabbVisible(eyePosition, aabb, transform, target),
-            _ => IsShapeBoundsVisible(eyePosition, shape, transform, target),
+            PhysShapeCircle circle => IsCircleVisible(eyePosition, circle, transform, target, anchor),
+            PolygonShape polygon => IsPolygonVisible(eyePosition, polygon, transform, target, anchor),
+            PhysShapeAabb aabb => IsAabbVisible(eyePosition, aabb, transform, target, anchor),
+            _ => IsShapeBoundsVisible(eyePosition, shape, transform, target, anchor),
         };
     }
 
@@ -233,11 +252,12 @@ public sealed partial class EntityOcclusionOverlay : Overlay
         MapCoordinates eyePosition,
         IPhysShape shape,
         PhysicsTransform transform,
-        EntityUid target)
+        EntityUid target,
+        Vector2 anchor)
     {
         for (var child = 0; child < shape.ChildCount; child++)
         {
-            if (IsBoundsVisible(eyePosition, shape.ComputeAABB(transform, child), target))
+            if (IsBoundsVisible(eyePosition, shape.ComputeAABB(transform, child), target, anchor))
                 return true;
         }
 
@@ -248,10 +268,11 @@ public sealed partial class EntityOcclusionOverlay : Overlay
         MapCoordinates eyePosition,
         PhysShapeCircle circle,
         PhysicsTransform transform,
-        EntityUid target)
+        EntityUid target,
+        Vector2 anchor)
     {
         var center = transform.Position + PhysicsTransform.Mul(transform.Quaternion2D, circle.Position);
-        if (HasLineOfSight(eyePosition, center, target))
+        if (HasLineOfSight(eyePosition, center, target, anchor))
             return true;
 
         var eyeToCenter = center - eyePosition.Position;
@@ -266,25 +287,26 @@ public sealed partial class EntityOcclusionOverlay : Overlay
         var perpendicular = circle.Radius * MathF.Sqrt(distanceSquared - radiusSquared) / distance;
         var tangentBase = center - direction * along;
         var side = new Vector2(-direction.Y, direction.X) * perpendicular;
-        return HasLineOfSight(eyePosition, tangentBase + side, target) ||
-               HasLineOfSight(eyePosition, tangentBase - side, target);
+        return HasLineOfSight(eyePosition, tangentBase + side, target, anchor) ||
+               HasLineOfSight(eyePosition, tangentBase - side, target, anchor);
     }
 
     private bool IsPolygonVisible(
         MapCoordinates eyePosition,
         PolygonShape polygon,
         PhysicsTransform transform,
-        EntityUid target)
+        EntityUid target,
+        Vector2 anchor)
     {
-        if (HasLineOfSight(eyePosition, PhysicsTransform.Mul(transform, polygon.Centroid), target))
+        if (HasLineOfSight(eyePosition, PhysicsTransform.Mul(transform, polygon.Centroid), target, anchor))
             return true;
 
         for (var i = 0; i < polygon.Vertices.Length; i++)
         {
             var vertex = polygon.Vertices[i];
             var next = polygon.Vertices[(i + 1) % polygon.Vertices.Length];
-            if (HasLineOfSight(eyePosition, PhysicsTransform.Mul(transform, vertex), target) ||
-                HasLineOfSight(eyePosition, PhysicsTransform.Mul(transform, (vertex + next) / 2f), target))
+            if (HasLineOfSight(eyePosition, PhysicsTransform.Mul(transform, vertex), target, anchor) ||
+                HasLineOfSight(eyePosition, PhysicsTransform.Mul(transform, (vertex + next) / 2f), target, anchor))
                 return true;
         }
 
@@ -295,49 +317,55 @@ public sealed partial class EntityOcclusionOverlay : Overlay
         MapCoordinates eyePosition,
         PhysShapeAabb aabb,
         PhysicsTransform transform,
-        EntityUid target)
+        EntityUid target,
+        Vector2 anchor)
     {
         var bounds = new Box2Rotated(
             aabb.LocalBounds.Translated(transform.Position),
             transform.Quaternion2D.Angle,
             transform.Position);
         bounds.GetCorners(out var bottomLeft, out var bottomRight, out var topRight, out var topLeft);
-        return HasLineOfSight(eyePosition, bounds.Center, target) ||
-               HasLineOfSight(eyePosition, bottomLeft, target) ||
-               HasLineOfSight(eyePosition, (bottomLeft + bottomRight) / 2f, target) ||
-               HasLineOfSight(eyePosition, bottomRight, target) ||
-               HasLineOfSight(eyePosition, (bottomRight + topRight) / 2f, target) ||
-               HasLineOfSight(eyePosition, topRight, target) ||
-               HasLineOfSight(eyePosition, (topRight + topLeft) / 2f, target) ||
-               HasLineOfSight(eyePosition, topLeft, target) ||
-               HasLineOfSight(eyePosition, (topLeft + bottomLeft) / 2f, target);
+        return HasLineOfSight(eyePosition, bounds.Center, target, anchor) ||
+               HasLineOfSight(eyePosition, bottomLeft, target, anchor) ||
+               HasLineOfSight(eyePosition, (bottomLeft + bottomRight) / 2f, target, anchor) ||
+               HasLineOfSight(eyePosition, bottomRight, target, anchor) ||
+               HasLineOfSight(eyePosition, (bottomRight + topRight) / 2f, target, anchor) ||
+               HasLineOfSight(eyePosition, topRight, target, anchor) ||
+               HasLineOfSight(eyePosition, (topRight + topLeft) / 2f, target, anchor) ||
+               HasLineOfSight(eyePosition, topLeft, target, anchor) ||
+               HasLineOfSight(eyePosition, (topLeft + bottomLeft) / 2f, target, anchor);
     }
 
-    private bool IsBoundsVisible(MapCoordinates eyePosition, Box2 bounds, EntityUid target)
+    private bool IsBoundsVisible(MapCoordinates eyePosition, Box2 bounds, EntityUid target, Vector2 anchor)
     {
-        return HasLineOfSight(eyePosition, bounds.Center, target) ||
-               HasLineOfSight(eyePosition, bounds.BottomLeft, target) ||
-               HasLineOfSight(eyePosition, (bounds.BottomLeft + bounds.BottomRight) / 2f, target) ||
-               HasLineOfSight(eyePosition, bounds.BottomRight, target) ||
-               HasLineOfSight(eyePosition, (bounds.BottomRight + bounds.TopRight) / 2f, target) ||
-               HasLineOfSight(eyePosition, bounds.TopRight, target) ||
-               HasLineOfSight(eyePosition, (bounds.TopRight + bounds.TopLeft) / 2f, target) ||
-               HasLineOfSight(eyePosition, bounds.TopLeft, target) ||
-               HasLineOfSight(eyePosition, (bounds.TopLeft + bounds.BottomLeft) / 2f, target);
+        return HasLineOfSight(eyePosition, bounds.Center, target, anchor) ||
+               HasLineOfSight(eyePosition, bounds.BottomLeft, target, anchor) ||
+               HasLineOfSight(eyePosition, (bounds.BottomLeft + bounds.BottomRight) / 2f, target, anchor) ||
+               HasLineOfSight(eyePosition, bounds.BottomRight, target, anchor) ||
+               HasLineOfSight(eyePosition, (bounds.BottomRight + bounds.TopRight) / 2f, target, anchor) ||
+               HasLineOfSight(eyePosition, bounds.TopRight, target, anchor) ||
+               HasLineOfSight(eyePosition, (bounds.TopRight + bounds.TopLeft) / 2f, target, anchor) ||
+               HasLineOfSight(eyePosition, bounds.TopLeft, target, anchor) ||
+               HasLineOfSight(eyePosition, (bounds.TopLeft + bounds.BottomLeft) / 2f, target, anchor);
     }
 
-    private bool HasLineOfSight(MapCoordinates eyePosition, Vector2 targetPosition, EntityUid target)
+    private bool HasLineOfSight(MapCoordinates eyePosition, Vector2 targetPosition, EntityUid target, Vector2 anchor)
     {
         var toEye = eyePosition.Position - targetPosition;
-        if (toEye.LengthSquared() > TargetInset * TargetInset)
+        if (toEye.LengthSquared() > TargetInsetSquared)
             targetPosition += toEye.Normalized() * TargetInset;
 
+        var eyePos = eyePosition.Position;
+        var occluderSys = _occluder;
         return _occluder.InRangeUnoccluded(
             eyePosition,
             new MapCoordinates(targetPosition, eyePosition.MapId),
             0f,
-            target,
-            static (occluder, targetEntity) => occluder.Owner == targetEntity);
+            (occluderSys, target, anchor, eyePos),
+            static (occluder, state) =>
+                occluder.Owner == state.target ||
+                state.occluderSys.ContainsPoint(occluder.Comp1, occluder.Comp2, state.anchor) ||
+                state.occluderSys.ContainsPoint(occluder.Comp1, occluder.Comp2, state.eyePos));
     }
 
     private void Restore(EntityUid uid)
