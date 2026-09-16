@@ -338,8 +338,5 @@ public sealed partial class MachineFrameSystem : EntitySystem
 
         var board = component.BoardContainer.ContainedEntities[0];
         args.PushMarkup(Loc.GetString("machine-frame-component-on-examine-label", ("board", Name(board))));
-        // <Onyx-TieredMachineParts>
-        _tieredMachineFrame.AppendExamine((uid, component), args);
-        // </Onyx-TieredMachineParts>
     }
 }

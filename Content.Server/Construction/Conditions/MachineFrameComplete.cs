@@ -1,3 +1,4 @@
+using Content.Server._Onyx.Construction; // <Onyx-TieredMachineParts>
 using Content.Server.Construction.Components;
 using Content.Shared.Construction;
 using Content.Shared.Examine;
@@ -65,6 +66,10 @@ namespace Content.Server.Construction.Conditions
                                            ("elementName", stackEnt.Name)));
             }
 
+            // <Onyx-TieredMachineParts>
+            entityManager.EntitySysManager.GetEntitySystem<TieredMachineFrameSystem>().AppendExamine((entity, machineFrame), args);
+            // </Onyx-TieredMachineParts>
+
             foreach (var (compName, info) in machineFrame.ComponentRequirements)
             {
                 var amount = info.Amount - machineFrame.ComponentProgress[compName];
@@ -74,7 +79,7 @@ namespace Content.Server.Construction.Conditions
 
                 var examineName = constructionSys.GetExamineName(info);
                 args.PushMarkup(Loc.GetString("construction-condition-machine-frame-required-element-entry",
-                                                ("amount", info.Amount),
+                                                ("amount", amount), // <Onyx-TieredMachineParts-edited>
                                                 ("elementName", examineName)));
             }
 
@@ -87,7 +92,7 @@ namespace Content.Server.Construction.Conditions
 
                 var examineName = constructionSys.GetExamineName(info);
                 args.PushMarkup(Loc.GetString("construction-condition-machine-frame-required-element-entry",
-                                    ("amount", info.Amount),
+                                    ("amount", amount), // <Onyx-TieredMachineParts-edited>
                                     ("elementName", examineName)));
             }
 
