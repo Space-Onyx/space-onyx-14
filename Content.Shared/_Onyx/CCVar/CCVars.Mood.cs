@@ -38,5 +38,5 @@ public sealed partial class CCVars
     ///     Client-side saturation visuals following mood.
     /// </summary>
     public static readonly CVarDef<bool> MoodVisualEffects =
-        CVarDef.Create("mood.visual_effects", true, CVar.CLIENTONLY | CVar.ARCHIVE);
+        CVarDef.Create("mood.visual_effects", false, CVar.CLIENTONLY | CVar.ARCHIVE);
 }
