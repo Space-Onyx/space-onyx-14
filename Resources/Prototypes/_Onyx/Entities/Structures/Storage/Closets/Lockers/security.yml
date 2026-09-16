@@ -6,7 +6,6 @@
   - type: Appearance
   - type: Sprite
     sprite: _Onyx/Structures/Storage/closet.rsi
-    offset: "0.0,0.0"
     noRot: true
     layers:
     - state: pilot

@@ -229,7 +229,6 @@
   - type: Appearance
   - type: Sprite
     sprite: _Onyx/Structures/Storage/closet.rsi
-    offset: "0.0,0.0"
   - type: AccessReader
     access: [[ "BlueshieldOfficer" ]]
   - type: EntityStorageVisuals
