@@ -60,6 +60,7 @@ public sealed partial class AHelpBotApiSystem : EntitySystem
         _sawmill = _logManager.GetSawmill("ahelp.api");
         _cfg.OnValueChanged(CCCVars.AHelpApiTimeout, OnApiTimeoutChanged, true);
         _cfg.OnValueChanged(CCCVars.AHelpApiEnabled, OnEnabledChanged, true);
+        _cfg.OnValueChanged(CCCVars.AHelpApiEnabled, OnAHelpApiEnabledChanged, true);
         _cfg.OnValueChanged(CCCVars.AHelpApiUrl, OnApiUrlChanged, true);
         _cfg.OnValueChanged(CCCVars.AHelpApiToken, OnApiTokenChanged, true);
 
@@ -69,6 +70,7 @@ public sealed partial class AHelpBotApiSystem : EntitySystem
     public override void Shutdown()
     {
         _cfg.UnsubValueChanged(CCCVars.AHelpApiEnabled, OnEnabledChanged);
+        _cfg.UnsubValueChanged(CCCVars.AHelpApiEnabled, OnAHelpApiEnabledChanged);
         _cfg.UnsubValueChanged(CCCVars.AHelpApiUrl, OnApiUrlChanged);
         _cfg.UnsubValueChanged(CCCVars.AHelpApiToken, OnApiTokenChanged);
         _cfg.UnsubValueChanged(CCCVars.AHelpApiTimeout, OnApiTimeoutChanged);
@@ -188,6 +190,11 @@ public sealed partial class AHelpBotApiSystem : EntitySystem
     {
         _enabled = value;
         PushCurrentState();
+    }
+
+    private void OnAHelpApiEnabledChanged(bool value)
+    {
+        _bwoinkSystem.CorvaxAHelpApiEnabled = value;
     }
 
     private void OnApiUrlChanged(string value)

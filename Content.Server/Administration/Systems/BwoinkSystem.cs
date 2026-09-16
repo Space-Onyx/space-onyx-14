@@ -265,7 +265,7 @@ namespace Content.Server.Administration.Systems
             }
 
             // Enqueue the message for Discord relay
-            if (_webhookUrl != string.Empty)
+            if (_webhookUrl != string.Empty || CorvaxAHelpApiEnabled) // <Onyx-AHelpBotApi-edited>
             {
                 // if (!_messageQueues.ContainsKey(session.UserId))
                 //     _messageQueues[session.UserId] = new Queue<string>();
@@ -488,7 +488,7 @@ namespace Content.Server.Administration.Systems
 
             // If there is no existing embed, create a new one
             // Otherwise patch (edit) it
-            if (existingEmbed.Id == null)
+            if (existingEmbed.Id == null && _webhookUrl != string.Empty) // <Onyx-AHelpBotApi-edited>
             {
                 var request = await _httpClient.PostAsync($"{_webhookUrl}?wait=true",
                     new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));
@@ -513,7 +513,7 @@ namespace Content.Server.Administration.Systems
 
                 existingEmbed.Id = id.ToString();
             }
-            else
+            else if (_webhookUrl != string.Empty) // <Onyx-AHelpBotApi-edited>
             {
                 var request = await _httpClient.PatchAsync($"{_webhookUrl}/messages/{existingEmbed.Id}",
                     new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));
@@ -750,7 +750,7 @@ namespace Content.Server.Administration.Systems
                 }
             }
 
-            var sendsWebhook = _webhookUrl != string.Empty;
+            var sendsWebhook = _webhookUrl != string.Empty || CorvaxAHelpApiEnabled; // <Onyx-AHelpBotApi-edited>
             if (sendsWebhook)
             {
                 if (!_messageQueues.ContainsKey(message.UserId))

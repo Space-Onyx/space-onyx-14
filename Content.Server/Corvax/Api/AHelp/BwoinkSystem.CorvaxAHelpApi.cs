@@ -11,6 +11,8 @@ public sealed partial class BwoinkSystem
         return _relayMessages.ContainsKey(userId);
     }
 
+    internal bool CorvaxAHelpApiEnabled { get; set; }
+
     internal IReadOnlyList<CorvaxAHelpRelaySnapshot> CorvaxGetAHelpRelaySnapshots()
     {
         return _relayMessages
@@ -46,7 +48,7 @@ public sealed partial class BwoinkSystem
 
     internal bool CorvaxQueueAHelpWebhookMessage(NetUserId userId, AHelpMessageParams parameters)
     {
-        if (string.IsNullOrWhiteSpace(_webhookUrl))
+        if (string.IsNullOrWhiteSpace(_webhookUrl) && !CorvaxAHelpApiEnabled)
             return false;
 
         if (!_messageQueues.TryGetValue(userId, out var queue))
