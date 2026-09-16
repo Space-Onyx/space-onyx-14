@@ -6,6 +6,7 @@ bitrunning-netpod-connected = Нейросессия установлена.
 bitrunning-netpod-disconnected = Сессия аватара завершена.
 bitrunning-netpod-connect-failed = Не удалось установить связь с аватаром.
 bitrunning-netpod-no-power = Нейрокапсула обесточена.
+bitrunning-netpod-link-limit = К этому квантовому серверу уже подключено нейрокапсул: {$limit}.
 bitrunning-delivery-byteforge-required = Невозможно доставить кэш! Подключите материализатор данных к квантовому серверу.
 bitrunning-training-instructions-collect = Соберите { $target } узлов зашифрованного кэша.
 bitrunning-training-instructions-delivery = Доставьте ящики кэша { $target } раз.

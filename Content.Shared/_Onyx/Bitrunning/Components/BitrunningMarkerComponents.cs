@@ -42,6 +42,13 @@ public sealed partial class BitrunningObjectiveCacheCrateSpawnMarkerComponent : 
 public sealed partial class BitrunningRewardCacheSpawnMarkerComponent : Component;
 
 /// <summary>
+/// Marks a decrypted reward cache that vanishes with sparks right after being opened.
+/// Contents are ejected by EntityStorage itself before the open event fires.
+/// </summary>
+[RegisterComponent]
+public sealed partial class BitrunningRewardCacheComponent : Component;
+
+/// <summary>
 /// Marker that defines player/avatar spawn positions if no dedicated objective marker is available.
 /// </summary>
 [RegisterComponent]

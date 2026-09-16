@@ -1,0 +1,1 @@
+ent-SpawnEffectSparks = { ent-AdminInstantEffectBase }

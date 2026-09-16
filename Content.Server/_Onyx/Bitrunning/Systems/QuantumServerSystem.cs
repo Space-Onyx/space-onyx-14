@@ -56,6 +56,7 @@ using Content.Shared.Popups;
 using Content.Shared.Power;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.StatusEffectNew;
+using Content.Shared.Storage;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
@@ -535,7 +536,7 @@ public sealed partial class QuantumServerSystem : EntitySystem
             Dirty(podUid, pod);
         }
 
-        var avatar = SpawnAvatarForRunner(server, user, server.SpawnCoordinates ?? server.ExitCoordinates.Value);
+        var avatar = SpawnAvatarForRunner(server, podUid, user, server.SpawnCoordinates ?? server.ExitCoordinates.Value);
 
         var connection = EnsureComp<AvatarConnectionComponent>(avatar);
         connection.OriginalBody = user;
@@ -1244,10 +1245,10 @@ public sealed partial class QuantumServerSystem : EntitySystem
             args.Channel = null;
     }
 
-    private EntityUid SpawnAvatarForRunner(QuantumServerComponent server, EntityUid user, EntityCoordinates coordinates)
+    private EntityUid SpawnAvatarForRunner(QuantumServerComponent server, EntityUid podUid, EntityUid user, EntityCoordinates coordinates)
     {
-        var avatar = ShouldLoadProfileAvatar(server, user) && HasComp<HumanoidProfileComponent>(user)
-            ? SpawnProfileAvatar(coordinates, user)
+        var avatar = ShouldLoadProfileAvatar(server, podUid) && HasComp<HumanoidProfileComponent>(user)
+            ? SpawnProfileAvatar(coordinates, user, server.AvatarPrototype)
             : Spawn(server.AvatarPrototype, coordinates);
 
         EnsureComp<AntagImmuneComponent>(avatar);
@@ -1255,9 +1256,15 @@ public sealed partial class QuantumServerSystem : EntitySystem
         return avatar;
     }
 
-    private EntityUid SpawnProfileAvatar(EntityCoordinates coordinates, EntityUid originalBody)
+    private EntityUid SpawnProfileAvatar(EntityCoordinates coordinates, EntityUid originalBody, EntProtoId fallbackPrototype)
     {
-        var avatar = Spawn("MobHuman", coordinates);
+        var avatarProto = fallbackPrototype;
+        if (TryComp<HumanoidProfileComponent>(originalBody, out var originalProfile)
+            && ProtoMan.TryIndex<SpeciesPrototype>(originalProfile.Species, out var originalSpecies)
+            && ProtoMan.HasIndex<EntityPrototype>(originalSpecies.Prototype))
+            avatarProto = originalSpecies.Prototype;
+
+        var avatar = Spawn(avatarProto, coordinates);
 
         if (_visualBody.TryGatherMarkingsData(originalBody, null, out var sourceProfiles, out _, out var appliedMarkings)
             && _visualBody.TryGatherMarkingsData(avatar, null, out var targetProfiles, out _, out _))
@@ -1265,16 +1272,10 @@ public sealed partial class QuantumServerSystem : EntitySystem
             _visualBody.ApplyProfiles(avatar, targetProfiles.ToDictionary(
                 pair => pair.Key,
                 pair => sourceProfiles.TryGetValue(pair.Key, out var source)
-                    ? pair.Value with { EyeColor = source.EyeColor }
+                    ? pair.Value with { EyeColor = source.EyeColor, SkinColor = source.SkinColor, Sex = source.Sex }
                     : pair.Value));
 
-            var selectedMarkings = appliedMarkings
-                .Select(pair => (pair.Key, Markings: pair.Value
-                    .Where(marking => marking.Key is HumanoidVisualLayers.Hair or HumanoidVisualLayers.FacialHair)
-                    .ToDictionary()))
-                .Where(pair => pair.Markings.Count > 0)
-                .ToDictionary(pair => pair.Key, pair => pair.Markings);
-            _visualBody.ApplyMarkings(avatar, selectedMarkings);
+            _visualBody.ApplyMarkings(avatar, appliedMarkings);
         }
 
         if (TryComp<HumanoidProfileComponent>(avatar, out var humanoid)
@@ -1340,35 +1341,18 @@ public sealed partial class QuantumServerSystem : EntitySystem
         }
     }
 
-    private bool ShouldLoadProfileAvatar(QuantumServerComponent server, EntityUid user)
+    private bool ShouldLoadProfileAvatar(QuantumServerComponent server, EntityUid podUid)
     {
-        return server.AllowProfileLoad && HasCompInContainerTree<BitrunningProfileDiskComponent>(user);
-    }
+        if (!server.AllowProfileLoad)
+            return false;
 
-    private bool HasCompInContainerTree<T>(EntityUid root) where T : Component
-    {
-        var queue = new Queue<EntityUid>();
-        var visited = new HashSet<EntityUid>();
-        queue.Enqueue(root);
+        if (!TryComp<StorageComponent>(podUid, out var storage) || storage.Container == null)
+            return false;
 
-        while (queue.TryDequeue(out var current))
+        foreach (var contained in storage.Container.ContainedEntities)
         {
-            if (!visited.Add(current))
-                continue;
-
-            if (HasComp<T>(current))
+            if (HasComp<BitrunningProfileDiskComponent>(contained))
                 return true;
-
-            if (!TryComp<ContainerManagerComponent>(current, out var manager))
-                continue;
-
-            foreach (var container in manager.Containers.Values)
-            {
-                foreach (var contained in container.ContainedEntities)
-                {
-                    queue.Enqueue(contained);
-                }
-            }
         }
 
         return false;

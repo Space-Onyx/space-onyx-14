@@ -225,8 +225,8 @@
   bitrunningRewardPoints: 220
   lootRewardPoints: 6
   sGradeTimeByType:
-    DeliveryCacheCrate: 300
-    EliminateEnemies: 450
+    DeliveryCacheCrate: 120
+    EliminateEnemies: 120
   completionLoot:
     IngotGold1: 1
   mapPath: /Maps/_Onyx/Bitrun/corsair-cove.yml
@@ -256,7 +256,7 @@
   serverRewardPoints: 6
   bitrunningRewardPoints: 600
   sGradeTimeByType:
-    EliminateEnemies: 300
+    EliminateEnemies: 360
   mapPath: /Maps/_Onyx/Bitrun/zealot-arena.yml
   objectiveTypePool:
   - EliminateEnemies
@@ -276,7 +276,7 @@
   serverRewardPoints: 6
   bitrunningRewardPoints: 600
   sGradeTimeByType:
-    CollectEncryptedCaches: 300
+    CollectEncryptedCaches: 700
   forcedLoadout: BitrunnerAvatarERTSecurityGear
   mapPath: /Maps/_Onyx/Bitrun/Experimental-Soldier.yml
   objectiveTypePool:

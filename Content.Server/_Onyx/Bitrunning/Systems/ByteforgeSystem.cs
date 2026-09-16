@@ -42,6 +42,7 @@ public sealed partial class ByteforgeSystem : EntitySystem
     {
         SubscribeLocalEvent<ByteforgeComponent, MapInitEvent>(OnByteforgeMapInit);
         SubscribeLocalEvent<ByteforgeComponent, PowerChangedEvent>(OnByteforgePowerChanged);
+        SubscribeLocalEvent<BitrunningRewardCacheComponent, StorageAfterOpenEvent>(OnRewardCacheOpen);
         SubscribeLocalEvent<QuantumServerComponent, NewLinkEvent>(OnServerNewLink);
         SubscribeLocalEvent<QuantumServerComponent, PortDisconnectedEvent>(OnServerPortDisconnected);
         SubscribeLocalEvent<QuantumServerComponent, GotEmaggedEvent>(OnServerEmagged);
@@ -83,6 +84,17 @@ public sealed partial class ByteforgeSystem : EntitySystem
         byteforge.LinkedServer = ent.Owner;
         UpdateByteforgeEmagVisual(ent.Comp);
         Dirty(ent);
+
+        // Exclusivity: one byteforge serves one server. If the byteforge pointed
+        // at another server, drop that server's forward pointer so delivery checks
+        // stay truthful on both sides.
+        // Note: LinkedByteforge is server-side runtime state, not networked.
+        var servers = EntityQueryEnumerator<QuantumServerComponent>();
+        while (servers.MoveNext(out var otherUid, out var otherServer))
+        {
+            if (otherUid != ent.Owner && otherServer.LinkedByteforge == args.Sink)
+                otherServer.LinkedByteforge = null;
+        }
     }
 
     private void OnServerPortDisconnected(Entity<QuantumServerComponent> ent, ref PortDisconnectedEvent args)
@@ -90,14 +102,27 @@ public sealed partial class ByteforgeSystem : EntitySystem
         if (args.Port != ServerSourcePort)
             return;
 
-        if (ent.Comp.LinkedByteforge is { } linked && TryComp<ByteforgeComponent>(linked, out var byteforge))
-            byteforge.LinkedServer = null;
+        // The server source port fans out to pods, consoles and the byteforge,
+        // so this event is not necessarily about the byteforge. Resync from the
+        // actual device links instead of blindly dropping the cached pointer,
+        // otherwise any pod unlink would silently break cache delivery while the
+        // device link UI still shows the byteforge as connected.
+        var oldLinked = ent.Comp.LinkedByteforge;
+        RefreshLinkedByteforge(ent);
 
-        if (ent.Comp.LinkedByteforge is { } oldLinked && Exists(oldLinked))
-            _appearance.SetData(oldLinked, ByteforgeVisuals.ByteforgeAngry, false);
+        if (oldLinked is { } oldUid && oldUid != ent.Comp.LinkedByteforge && Exists(oldUid))
+            _appearance.SetData(oldUid, ByteforgeVisuals.ByteforgeAngry, false);
 
-        ent.Comp.LinkedByteforge = null;
         Dirty(ent);
+    }
+
+    private void OnRewardCacheOpen(Entity<BitrunningRewardCacheComponent> ent, ref StorageAfterOpenEvent args)
+    {
+        if (TerminatingOrDeleted(ent.Owner))
+            return;
+
+        _sparks.DoSparks(Transform(ent.Owner).Coordinates);
+        QueueDel(ent.Owner);
     }
 
     public bool HasLinkedByteforge(EntityUid serverUid, QuantumServerComponent server)

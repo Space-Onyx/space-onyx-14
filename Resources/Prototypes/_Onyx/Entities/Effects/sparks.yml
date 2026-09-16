@@ -1,3 +1,4 @@
+# Content below taken from Goob-Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
 - type: entity
   id: EffectSpark
   name: sparks
@@ -36,3 +37,13 @@
   - type: Tag
     tags:
     - HideContextMenu
+
+- type: entity
+  parent: AdminInstantEffectBase
+  id: SpawnEffectSparks
+  suffix: Sparks
+  components:
+  - type: ExecuteTargetEventsOnTrigger
+    events:
+    - !type:DoSparksTargetEvent
+      playSound: false

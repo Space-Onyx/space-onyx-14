@@ -15,9 +15,17 @@ public sealed partial class HumanoidProfileSystem
         targetProfile.Height = sourceProfile.Height;
         targetProfile.Width = sourceProfile.Width;
         targetProfile.Gender = sourceProfile.Gender;
+        targetProfile.Sex = sourceProfile.Sex;
         targetProfile.Age = sourceProfile.Age;
+        targetProfile.Species = sourceProfile.Species;
         targetProfile.TTSVoice = sourceProfile.TTSVoice;
+
+        var oldVoice = targetProfile.Voice;
+        targetProfile.Voice = sourceProfile.Voice;
         Dirty(target, targetProfile);
+
+        var voiceChanged = new VoiceChangedEvent(oldVoice, sourceProfile.Voice);
+        RaiseLocalEvent(target, ref voiceChanged);
 
         if (TryComp<GrammarComponent>(target, out var grammar))
             _grammar.SetGender((target, grammar), sourceProfile.Gender);

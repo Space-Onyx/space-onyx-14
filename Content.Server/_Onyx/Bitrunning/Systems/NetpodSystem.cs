@@ -11,6 +11,7 @@ using Content.Shared.DeviceLinking;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Popups;
 using Content.Shared.Power;
 using Content.Shared.Roles;
 using Robust.Server.GameObjects;
@@ -45,6 +46,7 @@ public sealed partial class NetpodSystem : EntitySystem
     private static readonly TimeSpan StateValidationInterval = TimeSpan.FromSeconds(5);
     private TimeSpan _nextValidationTime;
     private const string ServerSinkPort = "BitrunningNetpodSink";
+    private const int MaxPodsPerServer = 8;
 
     public override void Initialize()
     {
@@ -59,6 +61,7 @@ public sealed partial class NetpodSystem : EntitySystem
         SubscribeLocalEvent<NetpodComponent, BoundUIOpenedEvent>(OnUiOpened);
         SubscribeLocalEvent<NetpodComponent, NetpodSelectLoadoutMessage>(OnSelectLoadout);
         SubscribeLocalEvent<NetpodComponent, NewLinkEvent>(OnNewLink);
+        SubscribeLocalEvent<NetpodComponent, LinkAttemptEvent>(OnLinkAttempt);
         SubscribeLocalEvent<NetpodComponent, PortDisconnectedEvent>(OnPortDisconnected);
         SubscribeLocalEvent<NetpodOccupantComponent, InhaleLocationEvent>(OnOccupantInhale);
         SubscribeLocalEvent<NetpodOccupantComponent, ExhaleLocationEvent>(OnOccupantExhale);
@@ -316,6 +319,37 @@ public sealed partial class NetpodSystem : EntitySystem
 
         ent.Comp.LinkedServer = args.Source;
         Dirty(ent);
+    }
+
+    private void OnLinkAttempt(Entity<NetpodComponent> ent, ref LinkAttemptEvent args)
+    {
+        if (args.Sink != ent.Owner || args.SinkPort != ServerSinkPort)
+            return;
+
+        if (!HasComp<QuantumServerComponent>(args.Source))
+            return;
+
+        if (CountLinkedPods(args.Source, ent.Owner) >= MaxPodsPerServer)
+        {
+            args.Cancel();
+            Log.Warning("Refused netpod {Pod} link to server {Server}: pod limit ({Limit}) reached.",
+                ToPrettyString(ent.Owner), ToPrettyString(args.Source), MaxPodsPerServer);
+            if (args.User is { } user)
+                _popup.PopupEntity(Loc.GetString("bitrunning-netpod-link-limit", ("limit", MaxPodsPerServer)), ent, user, PopupType.MediumCaution);
+        }
+    }
+
+    private int CountLinkedPods(EntityUid serverUid, EntityUid exclude)
+    {
+        var count = 0;
+        var query = EntityQueryEnumerator<NetpodComponent>();
+        while (query.MoveNext(out var uid, out var pod))
+        {
+            if (uid != exclude && pod.LinkedServer == serverUid)
+                count++;
+        }
+
+        return count;
     }
 
     private void OnPortDisconnected(Entity<NetpodComponent> ent, ref PortDisconnectedEvent args)

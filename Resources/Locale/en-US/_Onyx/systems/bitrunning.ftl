@@ -6,6 +6,7 @@ bitrunning-netpod-connected = Neural session established.
 bitrunning-netpod-disconnected = Avatar session disconnected.
 bitrunning-netpod-connect-failed = Unable to establish avatar connection.
 bitrunning-netpod-no-power = The netpod has no power.
+bitrunning-netpod-link-limit = This quantum server already links {$limit} netpods.
 bitrunning-delivery-byteforge-required = Cache delivery failed: connect a byteforge to the bitrunning server.
 bitrunning-training-instructions-collect = Collect { $target } encrypted cache nodes.
 bitrunning-training-instructions-delivery = Deliver cache crates { $target } times.

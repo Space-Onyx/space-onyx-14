@@ -18,6 +18,18 @@
   components:
   - type: Lock
     locked: false
+  - type: Construction
+    deconstructionTarget: null
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 60
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: BitrunningRewardCache
 
 - type: entity
   parent: CrateGenericSteel

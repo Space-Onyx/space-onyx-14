@@ -97,12 +97,24 @@ public sealed partial class BitrunningDiskSystem : EntitySystem
     private void OnDiskInsertedIntoContainer(Entity<BitrunningAbilityDiskComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
         if (TryFindAvatarOwner(ent.Owner, out var avatarUid, out var avatarComp))
+        {
+            UpdateAvatarEffects((avatarUid, avatarComp));
+            return;
+        }
+
+        if (TryFindPodAvatar(args.Container.Owner, out avatarUid, out avatarComp))
             UpdateAvatarEffects((avatarUid, avatarComp));
     }
 
     private void OnDiskRemovedFromContainer(Entity<BitrunningAbilityDiskComponent> ent, ref EntRemovedFromContainerMessage args)
     {
         if (TryFindAvatarOwner(args.Container.Owner, out var avatarUid, out var avatarComp))
+        {
+            UpdateAvatarEffects((avatarUid, avatarComp));
+            return;
+        }
+
+        if (TryFindPodAvatar(args.Container.Owner, out avatarUid, out avatarComp))
             UpdateAvatarEffects((avatarUid, avatarComp));
     }
 
@@ -138,7 +150,8 @@ public sealed partial class BitrunningDiskSystem : EntitySystem
         if (ent.Comp.SelectedOption != null || !ent.Comp.Options.ContainsKey(args.Option))
             return;
 
-        var foundAvatar = TryFindAvatarOwner(ent.Owner, out var avatarUid, out var avatarComp);
+        var foundAvatar = TryFindAvatarOwner(ent.Owner, out var avatarUid, out var avatarComp)
+            || TryFindPodAvatar(ent.Owner, out avatarUid, out avatarComp);
         if (foundAvatar && !IsDiskModificationAllowed(avatarComp))
         {
             _popup.PopupEntity(Loc.GetString("bitrunning-disk-popup-modifications-blocked"), ent, user, PopupType.SmallCaution);
@@ -173,13 +186,13 @@ public sealed partial class BitrunningDiskSystem : EntitySystem
     {
         var holder = EnsureComp<BitrunningAvatarAbilityHolderComponent>(avatar);
 
-        if (!IsDiskModificationAllowed(avatar.Comp) || avatar.Comp.OriginalBody is not { } bitrunnerUid)
+        if (!IsDiskModificationAllowed(avatar.Comp) || avatar.Comp.OriginalBody is not { })
         {
             RemoveAllGrantedActions(holder);
             return;
         }
 
-        FindSelectedDisks(bitrunnerUid, out var selectedActionDisks, out var selectedItemDisks);
+        FindSelectedDisks(avatar, out var selectedActionDisks, out var selectedItemDisks);
 
         foreach (var (diskUid, actionUid) in holder.ActionsByDisk.ToArray())
         {
@@ -213,10 +226,26 @@ public sealed partial class BitrunningDiskSystem : EntitySystem
         holder.ActionsByDisk.Clear();
     }
 
-    private void FindSelectedDisks(EntityUid bitrunnerUid, out Dictionary<EntityUid, EntProtoId> actionDisks, out Dictionary<EntityUid, EntProtoId> itemDisks)
+    private void FindSelectedDisks(Entity<AvatarConnectionComponent> avatar, out Dictionary<EntityUid, EntProtoId> actionDisks, out Dictionary<EntityUid, EntProtoId> itemDisks)
     {
         actionDisks = new Dictionary<EntityUid, EntProtoId>();
         itemDisks = new Dictionary<EntityUid, EntProtoId>();
+
+        if (avatar.Comp.Netpod is { } podUid
+            && TryComp<StorageComponent>(podUid, out var storage)
+            && storage.Container is { } podStorage)
+        {
+            foreach (var contained in podStorage.ContainedEntities)
+            {
+                CheckDisk(contained, actionDisks, itemDisks);
+            }
+
+            return;
+        }
+
+        if (avatar.Comp.OriginalBody is not { } bitrunnerUid)
+            return;
+
         var visited = new HashSet<EntityUid>();
         var queue = new Queue<EntityUid>();
         queue.Enqueue(bitrunnerUid);
@@ -226,18 +255,7 @@ public sealed partial class BitrunningDiskSystem : EntitySystem
             if (!visited.Add(current))
                 continue;
 
-            if (TryComp<BitrunningAbilityDiskComponent>(current, out var disk) && disk.SelectedOption is { } selected && disk.Options.TryGetValue(selected, out var prototype))
-            {
-                switch (disk.GrantMode)
-                {
-                    case BitrunningDiskGrantMode.Action:
-                        actionDisks[current] = prototype;
-                        break;
-                    case BitrunningDiskGrantMode.Item:
-                        itemDisks[current] = prototype;
-                        break;
-                }
-            }
+            CheckDisk(current, actionDisks, itemDisks);
 
             if (!TryComp<ContainerManagerComponent>(current, out var manager))
                 continue;
@@ -248,6 +266,22 @@ public sealed partial class BitrunningDiskSystem : EntitySystem
                 {
                     queue.Enqueue(contained);
                 }
+            }
+        }
+    }
+
+    private void CheckDisk(EntityUid uid, Dictionary<EntityUid, EntProtoId> actionDisks, Dictionary<EntityUid, EntProtoId> itemDisks)
+    {
+        if (TryComp<BitrunningAbilityDiskComponent>(uid, out var disk) && disk.SelectedOption is { } selected && disk.Options.TryGetValue(selected, out var prototype))
+        {
+            switch (disk.GrantMode)
+            {
+                case BitrunningDiskGrantMode.Action:
+                    actionDisks[uid] = prototype;
+                    break;
+                case BitrunningDiskGrantMode.Item:
+                    itemDisks[uid] = prototype;
+                    break;
             }
         }
     }
@@ -306,6 +340,35 @@ public sealed partial class BitrunningDiskSystem : EntitySystem
             return true;
 
         return server.AllowDiskModifications;
+    }
+
+    private bool TryFindPodAvatar(EntityUid entity, out EntityUid avatarUid, out AvatarConnectionComponent avatarComp)
+    {
+        avatarUid = default;
+        avatarComp = default!;
+
+        var current = entity;
+        while (TryComp(current, out TransformComponent? xform))
+        {
+            if (TryComp<NetpodComponent>(current, out var pod) && pod.Avatar.HasValue)
+            {
+                var avatar = pod.Avatar.Value;
+                if (TryComp(avatar, out AvatarConnectionComponent? found) && found != null)
+                {
+                    avatarUid = avatar;
+                    avatarComp = found;
+                    return true;
+                }
+            }
+
+            var parent = xform.ParentUid;
+            if (parent == EntityUid.Invalid || parent == current)
+                break;
+
+            current = parent;
+        }
+
+        return false;
     }
 
     private bool TryFindAvatarOwner(EntityUid entity, out EntityUid avatarUid, out AvatarConnectionComponent avatarComp)

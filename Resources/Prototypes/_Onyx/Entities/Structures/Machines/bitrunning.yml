@@ -113,9 +113,19 @@
         !type:ContainerSlot
       machine_board: !type:Container
       machine_parts: !type:Container
+      storagebase: !type:Container
   - type: EmptyOnMachineDeconstruct
     containers:
       - netpod-body
+      - storagebase
+  - type: Storage
+    maxItemSize: Tiny
+    grid:
+    - 0,0,3,1
+    whitelist:
+      components:
+      - BitrunningAbilityDisk
+      - BitrunningProfileDisk
   - type: DragInsertContainer
     containerId: netpod-body
     entryDelay: 1
@@ -128,6 +138,8 @@
     interfaces:
       enum.NetpodUiKey.Key:
         type: NetpodBoundUserInterface
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
   - type: Machine
     board: NetpodMachineCircuitboard
   - type: DeviceLinkSink
@@ -143,7 +155,6 @@
   - type: SurveillanceCamera
     networkSet: true
     nameSet: true
-    mobile: true
   - type: Netpod
     allowedLoadout:
     - BitrunnerAvatarPassengerGear
