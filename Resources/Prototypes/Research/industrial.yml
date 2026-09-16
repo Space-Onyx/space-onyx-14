@@ -205,7 +205,8 @@
   position: 0,1
   technologyPrerequisites:
     - SalvageEquipment
-  requiredExperiments: [ OreClassification ] # <Onyx-ResearchExperiments>
+  requiredExperiments:
+    - OreClassification
   pointCosts:
     - type: General
       amount: 10000
@@ -224,11 +225,10 @@
     - ClothingBackpackSatchelHolding
     - ClothingBackpackDuffelHolding
     - ClothingBackpackMessengerHolding
-  position: 3,0
+  position: 4,0
   technologyPrerequisites:
     - BluespaceTheory
     - AdvancedToolsTechnology
-    - OptimizedMicrogalvanism
   pointCosts:
     - type: General
       amount: 10000
