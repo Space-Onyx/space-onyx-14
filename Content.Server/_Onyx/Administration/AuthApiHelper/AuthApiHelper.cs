@@ -78,13 +78,7 @@ public sealed partial class AuthApiHelper
 
         var json = await response.Content.ReadAsStringAsync();
         using var document = JsonDocument.Parse(json);
-        var root = document.RootElement;
-        var username = root.GetProperty("username").GetString();
-        var discriminator = root.TryGetProperty("discriminator", out var property)
-            ? property.GetString()
-            : null;
-
-        return discriminator is not null ? $"{username}#{discriminator}" : username;
+        return document.RootElement.GetProperty("username").GetString();
     }
 
 }

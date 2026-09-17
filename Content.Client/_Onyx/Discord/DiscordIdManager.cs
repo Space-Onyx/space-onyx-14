@@ -20,6 +20,12 @@ public sealed partial class DiscordIdManager
     {
         _netMgr.RegisterNetMessage<MsgDiscordIdInfo>(OnDiscordIdInfo);
         _netMgr.RegisterNetMessage<MsgDiscordUnlinkRequest>();
+        _netMgr.Connected += OnConnected;
+    }
+
+    private void OnConnected(object? sender, NetChannelArgs args)
+    {
+        RequestDiscordInfo();
     }
 
     private void OnDiscordIdInfo(MsgDiscordIdInfo msg)

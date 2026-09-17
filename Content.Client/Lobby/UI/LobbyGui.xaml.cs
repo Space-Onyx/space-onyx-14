@@ -47,6 +47,7 @@ namespace Content.Client.Lobby.UI
             // </Onyx-Lobby>
             _discordIdManager.DiscordInfoUpdated += UpdateDiscordButtonState;
             _cfg.OnValueChanged(CCVars.DiscordAuthEnable, OnDiscordAuthEnableChanged, true);
+            UpdateDiscordButtonState(); // <Onyx-Lobby>
         }
 
         private void OnDiscordAuthEnableChanged(bool enabled)
