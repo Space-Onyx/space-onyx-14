@@ -20,6 +20,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsLawyer ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Standard/lawyer.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockServiceLocked
@@ -56,6 +58,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsJanitor ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Standard/janitor.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockServiceLocked
@@ -331,6 +335,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsCaptain ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Standard/captain.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockCommand
@@ -340,6 +346,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsChiefMedicalOfficer ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Standard/cmo.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockCommand
@@ -349,6 +357,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsChiefEngineer ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Standard/ce.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockCommand
@@ -358,6 +368,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsHeadOfSecurity ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Standard/hos.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockCommand
@@ -367,6 +379,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsResearchDirector ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Standard/rd.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockCommand
@@ -376,6 +390,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsHeadOfPersonnel ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Standard/hop.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockCommand
@@ -385,6 +401,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsQuartermaster ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Standard/qm.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockSecurity
@@ -471,6 +489,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsLawyer ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Glass/lawyer.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockServiceGlassLocked
@@ -590,6 +610,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsJanitor ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Glass/janitor.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockHydroponicsGlass
@@ -745,6 +767,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsCaptain ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Glass/captain.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockCommandGlass
@@ -754,6 +778,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsChiefMedicalOfficer ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Glass/cmo.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockCommandGlass
@@ -763,6 +789,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsChiefEngineer ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Glass/ce.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockCommandGlass
@@ -772,6 +800,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsHeadOfSecurity ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Glass/hos.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockCommandGlass
@@ -781,6 +811,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsResearchDirector ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Glass/rd.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockCommandGlass
@@ -790,6 +822,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsHeadOfPersonnel ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Glass/hop.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockCommandGlass
@@ -799,6 +833,8 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsQuartermaster ]
+  - type: Sprite
+    sprite: _Onyx/Structures/Doors/Airlocks/Glass/qm.rsi # <Onyx-Airlocks>
 
 - type: entity
   parent: AirlockSecurityGlass
