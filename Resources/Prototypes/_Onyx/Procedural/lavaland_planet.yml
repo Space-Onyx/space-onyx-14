@@ -15,6 +15,7 @@
   markers:
   - RandomTendrilLavaland
   - RandomMobLavaland
+  - RandomLightMobLavaland
   addComponents:
   - type: WeatherScheduler
     stages:

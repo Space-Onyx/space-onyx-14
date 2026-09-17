@@ -45,7 +45,7 @@
       lacunarity: 2
   - !type:BiomeMetaLayer
     template: LavaCaves
-    threshold: -0.2
+    threshold: -0.3
     noise:
       seed: 10
       frequency: 0.02
@@ -54,7 +54,7 @@
       fractalType: FBm
   - !type:BiomeMetaLayer
     template: LavaWastelands
-    threshold: 0.33
+    threshold: 0.45
     noise:
       seed: 10
       frequency: 0.02
@@ -63,7 +63,7 @@
       fractalType: FBm
   - !type:BiomeMetaLayer
     template: LavaLakes
-    threshold: 0.66
+    threshold: 0.72
     noise:
       seed: 10
       frequency: 0.02
@@ -169,17 +169,17 @@
       cellularDistanceFunction: Euclidean
       cellularReturnType: Distance2
     entityWeights: &lavalandRockWeights
-      LavalandBasaltRock: 0.824
-      LavalandBasaltRockTin: 0.06
-      LavalandBasaltRockCoal: 0.03
-      LavalandBasaltRockQuartz: 0.03
-      LavalandBasaltRockPlasma: 0.015
-      LavalandBasaltRockSilver: 0.015
-      LavalandBasaltRockGold: 0.01
-      LavalandBasaltRockUranium: 0.007
-      LavalandBasaltRockArtifactFragment: 0.004
-      LavalandBasaltRockDiamond: 0.003
-      LavalandBasaltRockBSCrystal: 0.002
+      LavalandBasaltRock: 0.94
+      LavalandBasaltRockTin: 0.02
+      LavalandBasaltRockCoal: 0.01
+      LavalandBasaltRockQuartz: 0.01
+      LavalandBasaltRockPlasma: 0.005
+      LavalandBasaltRockSilver: 0.005
+      LavalandBasaltRockGold: 0.004
+      LavalandBasaltRockUranium: 0.002
+      LavalandBasaltRockArtifactFragment: 0.0015
+      LavalandBasaltRockDiamond: 0.0015
+      LavalandBasaltRockBSCrystal: 0.001
     entities: &lavalandRockFallback
     - LavalandBasaltRock
   - !type:BiomeDummyLayer
