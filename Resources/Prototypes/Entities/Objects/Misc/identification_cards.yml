@@ -6,11 +6,11 @@
   abstract: true
   components:
   - type: Sprite
-    sprite: Objects/Misc/id_cards.rsi
+    sprite: _Onyx/Objects/Misc/id_cards.rsi # <Onyx-IdCards-edited>
   - type: Clothing
     slots:
     - idcard
-    sprite: Objects/Misc/id_cards.rsi
+    sprite: _Onyx/Objects/Misc/id_cards.rsi # <Onyx-IdCards-edited>
   - type: Item
     size: Small
     heldPrefix: default
@@ -42,10 +42,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - sprite: &icon-rsi Interface/Misc/job_icons.rsi
-      offset: &icon-offset -0.09375, 0.0625 #3 pixels left, 2 pixels up
-      state: Passenger
+    - state: idpassenger
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Passenger
 
@@ -58,14 +58,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: gold
-    - state: stripe_top
-      color: "#1b67a5"
-    - state: stripe_bottom
-      color: "#0e4069"
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Captain
+    - state: idcaptain
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: gold
   - type: PresetIdCard
@@ -86,14 +82,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: silver
-    - state: stripe_top
-      color: &color-service-top "#639137"
-    - state: stripe_bottom
-      color: &color-service-bottom "#446326"
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: HeadOfPersonnel
+    - state: idheadofpersonnel
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: silver
   - type: PresetIdCard
@@ -106,14 +98,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: silver
-    - state: stripe_top
-      color: &color-engineering-top "#ffa62b"
-    - state: stripe_bottom
-      color: &color-engineering-bottom "#bc5b00"
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: ChiefEngineer
+    - state: idchiefengineer
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: silver
   - type: PresetIdCard
@@ -126,14 +114,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: silver
-    - state: stripe_top
-      color: &color-medical-top "#68aed6"
-    - state: stripe_bottom
-      color: &color-medical-bottom "#325f7a"
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: ChiefMedicalOfficer
+    - state: idchiefmedicalofficer
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: silver
   - type: PresetIdCard
@@ -146,14 +130,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: silver
-    - state: stripe_top
-      color: &color-science-top "#a53aaa"
-    - state: stripe_bottom
-      color: &color-science-bottom "#652368"
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: ResearchDirector
+    - state: idresearchdirector
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: silver
   - type: PresetIdCard
@@ -166,14 +146,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: silver
-    - state: stripe_top
-      color: &color-security-top "#cb0000"
-    - state: stripe_bottom
-      color: &color-security-bottom "#830000"
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: HeadOfSecurity
+    - state: idheadofsecurity
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: silver
   - type: PresetIdCard
@@ -186,14 +162,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: silver
-    - state: stripe_top
-      color: &color-supply-top "#b18644"
-    - state: stripe_bottom
-      color: &color-supply-bottom "#5b4523"
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: QuarterMaster
+    - state: idquartermaster
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: silver
   - type: PresetIdCard
@@ -208,14 +180,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-engineering-top
-    - state: stripe_bottom
-      color: *color-engineering-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: TechnicalAssistant
+    - state: idintern-tech
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: TechnicalAssistant
 
@@ -226,14 +194,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-engineering-top
-    - state: stripe_bottom
-      color: *color-engineering-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: StationEngineer
+    - state: idstationengineer
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: StationEngineer
 
@@ -244,14 +208,10 @@
   components:
   - type: Sprite
     layers:
-    - state: default
-    - state: stripe_top
-      color: *color-engineering-top
-    - state: stripe_bottom
-      color: *color-engineering-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: AtmosphericTechnician
+    # <Onyx-IdCards-edited>
+    - state: orange
+    - state: idatmospherictechnician
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: AtmosphericTechnician
 
@@ -262,14 +222,12 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-engineering-top
-    - state: stripe_bottom
-      color: *color-engineering-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.171875, 0.015625
       state: SeniorEngineer
+    # </Onyx-IdCards-edited>
 
 #Medical
 
@@ -280,14 +238,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-medical-top
-    - state: stripe_bottom
-      color: *color-medical-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: MedicalIntern
+    - state: idintern-med
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: MedicalIntern
 
@@ -298,14 +252,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-medical-top
-    - state: stripe_bottom
-      color: *color-medical-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: MedicalDoctor
+    - state: idmedicaldoctor
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: MedicalDoctor
 
@@ -316,14 +266,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-medical-top
-    - state: stripe_bottom
-      color: *color-medical-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Paramedic
+    - state: idparamedic
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Paramedic
 
@@ -334,14 +280,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-medical-top
-    - state: stripe_bottom
-      color: *color-medical-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Chemist
+    - state: idchemist
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Chemist
 
@@ -352,14 +294,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-medical-top
-    - state: stripe_bottom
-      color: *color-medical-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Psychologist
+    - state: idpsychologist
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Psychologist
 
@@ -370,14 +308,12 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-medical-top
-    - state: stripe_bottom
-      color: *color-medical-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.171875, 0.015625
       state: SeniorPhysician
+    # </Onyx-IdCards-edited>
 
 #Science
 
@@ -388,14 +324,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-science-top
-    - state: stripe_bottom
-      color: *color-science-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: ResearchAssistant
+    - state: idintern-sci
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: ResearchAssistant
 
@@ -406,14 +338,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-science-top
-    - state: stripe_bottom
-      color: *color-science-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Scientist
+    - state: idscientist
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Scientist
 
@@ -424,14 +352,12 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-science-top
-    - state: stripe_bottom
-      color: *color-science-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.171875, 0.015625
       state: SeniorResearcher
+    # </Onyx-IdCards-edited>
 
 #Security
 
@@ -442,14 +368,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-security-top
-    - state: stripe_bottom
-      color: *color-security-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: SecurityCadet
+    - state: idintern-cadet
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: SecurityCadet
 
@@ -460,14 +382,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-security-top
-    - state: stripe_bottom
-      color: *color-security-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: SecurityOfficer
+    - state: idsecurityofficer
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: SecurityOfficer
 
@@ -478,14 +396,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-security-top
-    - state: stripe_bottom
-      color: *color-security-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Warden
+    - state: idwarden
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Warden
 
@@ -496,14 +410,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-security-top
-    - state: stripe_bottom
-      color: *color-security-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Detective
+    - state: iddetective
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Detective
 
@@ -514,14 +424,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-security-top
-    - state: stripe_bottom
-      color: *color-security-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Brigmedic
+    - state: idbrigmedic
+    # </Onyx-IdCards-edited>
 
 - type: entity
   parent: SecurityIDCard
@@ -530,14 +436,12 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-security-top
-    - state: stripe_bottom
-      color: *color-security-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.171875, 0.015625
       state: SeniorOfficer
+    # </Onyx-IdCards-edited>
 
 #Service
 
@@ -548,14 +452,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-service-top
-    - state: stripe_bottom
-      color: *color-service-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: ServiceWorker
+    - state: idintern-service
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: ServiceWorker
 
@@ -566,11 +466,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_clown
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Clown
+    - state: idclown
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Clown
 
@@ -581,14 +480,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: "#2d2d2d"
-    - state: stripe_bottom
-      color: "#1d1d1d"
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Mime
+    - state: idmime
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Mime
 
@@ -599,14 +494,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: "#6f56b8"
-    - state: stripe_bottom
-      color: "#524089"
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Musician
+    - state: idmusician
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Musician
 
@@ -617,14 +508,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-service-top
-    - state: stripe_bottom
-      color: *color-service-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Chaplain
+    - state: idchaplain
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Chaplain
 
@@ -635,14 +522,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-service-top
-    - state: stripe_bottom
-      color: *color-service-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Janitor
+    - state: idjanitor
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Janitor
 
@@ -653,14 +536,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-service-top
-    - state: stripe_bottom
-      color: *color-service-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Bartender
+    - state: idbartender
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Bartender
 
@@ -671,14 +550,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-service-top
-    - state: stripe_bottom
-      color: *color-service-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Bartender
+    - state: idbartender
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Bartender
     name: Pun Pun
@@ -693,14 +568,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-service-top
-    - state: stripe_bottom
-      color: *color-service-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Chef
+    - state: idcook
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Chef
 
@@ -711,14 +582,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-service-top
-    - state: stripe_bottom
-      color: *color-service-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Botanist
+    - state: idbotanist
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Botanist
 
@@ -729,14 +596,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-service-top
-    - state: stripe_bottom
-      color: *color-service-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Librarian
+    - state: idcurator
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Librarian
 
@@ -747,14 +610,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-service-top
-    - state: stripe_bottom
-      color: *color-service-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Lawyer
+    - state: idlawyer
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Lawyer
 
@@ -765,14 +624,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-service-top
-    - state: stripe_bottom
-      color: *color-service-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Reporter
+    - state: idreporter
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Reporter
 
@@ -783,14 +638,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-service-top
-    - state: stripe_bottom
-      color: *color-service-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Boxer
+    - state: idboxer
+    # </Onyx-IdCards-edited>
 
 - type: entity
   parent: IDCardStandard
@@ -799,14 +650,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-service-top
-    - state: stripe_bottom
-      color: *color-service-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Zookeeper
+    - state: idzookeeper
+    # </Onyx-IdCards-edited>
 
 - type: entity
   parent: IDCardStandard
@@ -815,14 +662,12 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: "#ffc500"
-    - state: stripe_bottom
-      color: "#454a50"
-    - sprite: *icon-rsi
-      offset: *icon-offset
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.171875, 0.015625
       state: TramDriver
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: TramDriver
 
@@ -835,14 +680,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-supply-top
-    - state: stripe_bottom
-      color: *color-supply-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: CargoTechnician
+    - state: idcargotechnician
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: CargoTechnician
 
@@ -853,14 +694,12 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-supply-top
-    - state: stripe_bottom
-      color: *color-supply-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.171875, 0.015625
       state: SeniorCourier
+    # </Onyx-IdCards-edited>
 
 - type: entity
   parent: IDCardStandard
@@ -869,14 +708,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: *color-supply-top
-    - state: stripe_bottom
-      color: *color-supply-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: ShaftMiner
+    - state: idshaftminer
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: SalvageSpecialist
 
@@ -890,10 +725,9 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: orange
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Prisoner
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: orange
   - type: Access
@@ -927,14 +761,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - state: stripe_top
-      color: "#5dc574"
-    - state: stripe_bottom
-      color: "#3f9b53"
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Cluwne
+    - state: idcluwne
+    # </Onyx-IdCards-edited>
   - type: IdCard
     jobTitle: job-title-cluwne
     jobIcon: JobIconCluwne
@@ -947,10 +777,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Visitor
+    - state: idvisitor
+    # </Onyx-IdCards-edited>
   - type: IdCard
     jobTitle: job-title-visitor
     jobIcon: JobIconVisitor
@@ -967,10 +797,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Passenger
+    - state: idpassenger
+    # </Onyx-IdCards-edited>
   - type: Access
     tags:
     - Maintenance
@@ -1026,14 +856,9 @@
   components:
   - type: Sprite
     layers:
-    - state: black
-    - state: stripe_top
-      color: &color-syndicate-top "#e80c0c"
-    - state: stripe_bottom
-      color: &color-syndicate-bottom "#960606"
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Syndicate
+    # <Onyx-IdCards-edited>
+    - state: syndie
+    # </Onyx-IdCards-edited>
   - type: IdCard
     jobIcon: JobIconSyndicate
   - type: Item
@@ -1051,14 +876,9 @@
   components:
   - type: Sprite
     layers:
-    - state: black
-    - state: stripe_top
-      color: *color-syndicate-top
-    - state: stripe_bottom
-      color: *color-syndicate-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: SyndicateOperative
+    # <Onyx-IdCards-edited>
+    - state: syndie
+    # </Onyx-IdCards-edited>
   - type: AgentIDCard
   - type: IdCard
     jobIcon: JobIconSyndicateOperative
@@ -1070,14 +890,9 @@
   components:
   - type: Sprite
     layers:
-    - state: black
-    - state: stripe_top
-      color: *color-syndicate-top
-    - state: stripe_bottom
-      color: *color-syndicate-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: SyndicateCorpsman
+    # <Onyx-IdCards-edited>
+    - state: syndie
+    # </Onyx-IdCards-edited>
   - type: IdCard
     jobIcon: JobIconSyndicateCorpsman
 
@@ -1088,14 +903,9 @@
   components:
   - type: Sprite
     layers:
-    - state: black
-    - state: stripe_top
-      color: *color-syndicate-top
-    - state: stripe_bottom
-      color: *color-syndicate-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: SyndicateCommander
+    # <Onyx-IdCards-edited>
+    - state: syndie
+    # </Onyx-IdCards-edited>
   - type: IdCard
     jobIcon: JobIconSyndicateCommander
 
@@ -1107,14 +917,12 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: ninja
-    - state: stripe_top
-      color: "#38D848"
-    - state: stripe_bottom
-      color: "#309000"
-    - sprite: *icon-rsi
-      offset: *icon-offset
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
       state: Ninja
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: green
   - type: AgentIDCard
@@ -1131,10 +939,9 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: pirate
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Pirate
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: orange #this is close enough to the weird puce color pirate IDs have going on
   - type: IdCard
@@ -1147,7 +954,9 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: default
+    # </Onyx-IdCards-edited>
   - type: Access
     tags:
     - Xenoborg
@@ -1159,10 +968,12 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: wizard
-    - sprite: *icon-rsi
-      offset: *icon-offset
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
       state: Wizard
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: green
   - type: Access
@@ -1182,14 +993,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: centcom
-    - state: stripe_top
-      color: &color-centcomm-top "#134975"
-    - state: stripe_bottom
-      color: &color-centcomm-bottom "#0d304d"
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Nanotrasen
+    - state: idcentcom
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: blue
   - type: PresetIdCard
@@ -1202,14 +1009,10 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: gold
-    - state: stripe_top
-      color: *color-centcomm-top
-    - state: stripe_bottom
-      color: *color-centcomm-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: ERTLeader
+    - state: ert_commander
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: gold
   - type: PresetIdCard
@@ -1222,14 +1025,10 @@
   components:
   - type: Sprite
     layers:
-    - state: centcom
-    - state: stripe_top
-      color: *color-service-top
-    - state: stripe_bottom
-      color: *color-service-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: ERTChaplain
+    # <Onyx-IdCards-edited>
+    - state: gold
+    - state: ert_chaplain
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: blue
   - type: PresetIdCard
@@ -1242,14 +1041,10 @@
   components:
   - type: Sprite
     layers:
-    - state: centcom
-    - state: stripe_top
-      color: *color-engineering-top
-    - state: stripe_bottom
-      color: *color-engineering-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: ERTEngineer
+    # <Onyx-IdCards-edited>
+    - state: gold
+    - state: ert_engineer
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: blue
   - type: PresetIdCard
@@ -1262,14 +1057,10 @@
   components:
   - type: Sprite
     layers:
-    - state: centcom
-    - state: stripe_top
-      color: *color-service-top
-    - state: stripe_bottom
-      color: *color-service-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: ERTJanitor
+    # <Onyx-IdCards-edited>
+    - state: gold
+    - state: ert_janitor
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: blue
   - type: PresetIdCard
@@ -1282,14 +1073,10 @@
   components:
   - type: Sprite
     layers:
-    - state: centcom
-    - state: stripe_top
-      color: *color-medical-top
-    - state: stripe_bottom
-      color: *color-medical-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: ERTMedical
+    # <Onyx-IdCards-edited>
+    - state: gold
+    - state: ert_medic
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: blue
   - type: PresetIdCard
@@ -1302,14 +1089,10 @@
   components:
   - type: Sprite
     layers:
-    - state: centcom
-    - state: stripe_top
-      color: *color-security-top
-    - state: stripe_bottom
-      color: *color-security-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: ERTSecurity
+    # <Onyx-IdCards-edited>
+    - state: gold
+    - state: ert_security
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: blue
   - type: PresetIdCard
@@ -1322,14 +1105,9 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: centcom
-    - state: stripe_top
-      color: *color-centcomm-top
-    - state: stripe_bottom
-      color: *color-centcomm-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: DeathSquad
+    # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: DeathSquad
 
@@ -1341,14 +1119,9 @@
   components:
   - type: Sprite
     layers:
+    # <Onyx-IdCards-edited>
     - state: centcom
-    - state: stripe_top
-      color: *color-centcomm-top
-    - state: stripe_bottom
-      color: *color-centcomm-bottom
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: CBURN
+    # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: blue
   - type: PresetIdCard
@@ -1362,14 +1135,14 @@
   description: An ID card that gives you access beyond your wildest dreams.
   components:
   - type: Sprite
-    sprite: Objects/Misc/id_cards.rsi
+    sprite: _Onyx/Objects/Misc/id_cards.rsi # <Onyx-IdCards-edited>
     layers:
+    # <Onyx-IdCards-edited>
     - state: admin
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Admin
+    - state: idadmin
+    # </Onyx-IdCards-edited>
   - type: Clothing
-    sprite: Objects/Misc/id_cards.rsi
+    sprite: _Onyx/Objects/Misc/id_cards.rsi # <Onyx-IdCards-edited>
   - type: Item
     heldPrefix: green
   - type: IdCard
