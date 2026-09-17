@@ -83,12 +83,15 @@ public sealed partial class RoundBotApiSystem : EntitySystem
 
     private RoundBotApiEventRequest BuildEventRequest(string type, TimeSpan? duration)
     {
+        var preset = _gameTicker.CurrentPreset;
+        var shown = _gameTicker.Decoy ?? preset;
         return new RoundBotApiEventRequest(
             type,
             _cfg.GetCVar(CVars.GameHostName),
             _gameTicker.RoundId,
             _gameMapManager.GetSelectedMap()?.MapName,
-            _gameTicker.CurrentPreset?.ID,
+            shown == null ? preset?.ID : Loc.GetString(shown.ModeTitle),
+            preset?.ID,
             _playerManager.PlayerCount,
             duration == null ? null : (long) duration.Value.TotalSeconds);
     }
@@ -193,6 +196,8 @@ public sealed partial class RoundBotApiSystem : EntitySystem
         string? MapName,
         [property: JsonPropertyName("preset")]
         string? Preset,
+        [property: JsonPropertyName("presetId")]
+        string? PresetId,
         [property: JsonPropertyName("playerCount")]
         int PlayerCount,
         [property: JsonPropertyName("durationSeconds")]
