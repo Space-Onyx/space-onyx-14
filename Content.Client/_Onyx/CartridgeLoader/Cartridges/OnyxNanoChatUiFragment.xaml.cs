@@ -59,9 +59,9 @@ public sealed partial class OnyxNanoChatUiFragment : BoxContainer
             OnMessageSent?.Invoke(NanoChatUiMessageType.NewChat, number, name, job);
         };
 
-        _createGroupPopup.OnGroupCreated += name =>
+        _createGroupPopup.OnGroupCreated += (name, desiredId) =>
         {
-            OnMessageSent?.Invoke(NanoChatUiMessageType.CreateGroup, null, name, null);
+            OnMessageSent?.Invoke(NanoChatUiMessageType.CreateGroup, desiredId, name, null);
         };
 
         _joinGroupPopup.OnGroupJoined += id =>
@@ -284,7 +284,7 @@ public sealed partial class OnyxNanoChatUiFragment : BoxContainer
 
         if (isGroup && _groups.TryGetValue(activeChat.Value, out var group))
         {
-            CurrentChatName.Text = group.Name;
+            CurrentChatName.Text = $"{group.Name} #{group.Id}";
             GroupMembersLabel.Text = Loc.GetString("nano-chat-group-members", ("count", group.MemberCount));
             return;
         }

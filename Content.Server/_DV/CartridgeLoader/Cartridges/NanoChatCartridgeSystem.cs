@@ -368,6 +368,8 @@ public sealed partial class NanoChatCartridgeSystem : EntitySystem
     // <Onyx-NanoChatGroups>
     /// <summary>
     ///     Handles creating a new group chat. The creator is added automatically.
+    ///     An optional custom number can be requested via the message recipient field;
+    ///     when omitted, an identifier is generated sequentially.
     /// </summary>
     private void HandleCreateGroup(Entity<NanoChatCardComponent> card, NanoChatUiMessageEvent msg)
     {
@@ -380,7 +382,18 @@ public sealed partial class NanoChatCartridgeSystem : EntitySystem
         if (string.IsNullOrWhiteSpace(name))
             return;
 
-        var id = GenerateGroupId();
+        uint id;
+        if (msg.RecipientNumber is { } desiredId)
+        {
+            if (desiredId < NanoChatGroup.FirstGroupId || GroupExists(desiredId))
+                return;
+
+            id = desiredId;
+        }
+        else
+        {
+            id = GenerateGroupId();
+        }
         _nanoChat.SetGroup((card, card.Comp), new NanoChatGroup(id, name, 1));
         _nanoChat.SetCurrentChat((card, card.Comp), id);
         AddGroupSystemMessage(id, Loc.GetString("nano-chat-group-created", ("name", GetCardName(card.Owner))));

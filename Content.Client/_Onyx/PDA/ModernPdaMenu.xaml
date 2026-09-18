@@ -6,7 +6,7 @@
                    MinSize="610 720"
                    SetSize="610 720">
     <BoxContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True">
-        <PanelContainer Margin="1 1 0 1" MinSize="56 0">
+        <PanelContainer Margin="1 1 0 1" MinSize="44 0">
             <PanelContainer.PanelOverride>
                 <gfx:StyleBoxFlat BackgroundColor="#1B2026" BorderColor="#3B4650" BorderThickness="0 0 1 0" />
             </PanelContainer.PanelOverride>

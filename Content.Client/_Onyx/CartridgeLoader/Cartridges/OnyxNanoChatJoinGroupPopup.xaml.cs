@@ -15,7 +15,7 @@ namespace Content.Client._Onyx.CartridgeLoader.Cartridges;
 [GenerateTypedNameReferences]
 public sealed partial class OnyxNanoChatJoinGroupPopup : DefaultWindow
 {
-    private const int MaxIdLength = 8;
+    private const int MaxIdLength = 10;
 
     public event Action<uint>? OnGroupJoined;
 
