@@ -30,6 +30,9 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
+// <Onyx-AutomaticVotesDelay>
+using Timer = Robust.Shared.Timing.Timer;
+// </Onyx-AutomaticVotesDelay>
 
 namespace Content.Server.GameTicking
 {
@@ -685,10 +688,20 @@ namespace Content.Server.GameTicking
             {
                 // <Onyx-AutomaticVotes>
                 if (_cfg.GetCVar(CCVars.VoteMapAutoAfterRestart))
-                    _voteManager.CreateStandardVote(null, StandardVoteType.Map);
+                {
+                    // <Onyx-AutomaticVotesDelay>
+                    var mapDelay = TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteMapAutoDelay));
+                    Timer.Spawn(mapDelay, () => _voteManager.CreateStandardVote(null, StandardVoteType.Map));
+                    // </Onyx-AutomaticVotesDelay>
+                }
 
                 if (_cfg.GetCVar(CCVars.VotePresetAutoAfterRestart))
-                    _voteManager.CreateStandardVote(null, StandardVoteType.Preset);
+                {
+                    // <Onyx-AutomaticVotesDelay>
+                    var presetDelay = TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VotePresetAutoDelay));
+                    Timer.Spawn(presetDelay, () => _voteManager.CreateStandardVote(null, StandardVoteType.Preset));
+                    // </Onyx-AutomaticVotesDelay>
+                }
                 // </Onyx-AutomaticVotes>
 
                 if (_playerManager.PlayerCount == 0)

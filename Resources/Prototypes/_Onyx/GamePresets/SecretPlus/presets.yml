@@ -4,6 +4,7 @@
   name: secretplus-low-title
   description: secretplus-low-description
   showInVote: true
+  minPlayers: 0
   rules:
   - SecretPlusLow
 
@@ -12,7 +13,7 @@
   alias: [secretpluscalm]
   name: secretplus-calm-title
   description: secretplus-calm-description
-  showInVote: true
+  showInVote: false
   rules:
   - SecretPlusLow
 
@@ -22,6 +23,7 @@
   name: secretplus-mid-title
   description: secretplus-mid-description
   showInVote: true
+  minPlayers: 15
   rules:
   - SecretPlusMid
 
@@ -31,6 +33,7 @@
   name: secretplus-high-title
   description: secretplus-high-description
   showInVote: true
+  minPlayers: 30
   rules:
   - SecretPlusHigh
 
@@ -48,7 +51,7 @@
   alias: [survivalplus, newsurvival, survivalnew]
   name: survivalplus-title
   description: survivalplus-description
-  showInVote: true
+  showInVote: false
   rules:
   - SecretPlusRampingMid
 
@@ -57,7 +60,7 @@
   alias: [secretpluslowpop, lowpopulation, bare]
   name: secretplus-lowpop-title
   description: secretplus-lowpop-description
-  showInVote: true
+  showInVote: false
   maxPlayers: 40
   rules:
   - SecretPlusLowpop

@@ -1,6 +1,6 @@
-vote-smes-debug-title = Дебаг СМЭСов
+vote-smes-debug-title = Включить бесконечную энергию?
 vote-smes-debug-initiator = Сервер
 vote-smes-debug-yes = Да
 vote-smes-debug-no = Нет
-vote-smes-debug-success = СМЭСы всех станций дебагнуты.
-vote-smes-debug-failed = Голосование за дебаг СМЭСов провалилось.
+vote-smes-debug-success = Бесконечная энергия включена.
+vote-smes-debug-failed = Энергию нужно настраивать вручную.

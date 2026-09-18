@@ -17,6 +17,18 @@ public sealed partial class CCVars
         CVarDef.Create("vote.preset_auto_after_restart", false, CVar.SERVERONLY);
 
     /// <summary>
+    ///     Задержка перед автоматическим стартом голосования за карту после рестарта, в секундах.
+    /// </summary>
+    public static readonly CVarDef<int> VoteMapAutoDelay =
+        CVarDef.Create("vote.map_auto_delay", 4, CVar.SERVERONLY);
+
+    /// <summary>
+    ///     Задержка перед автоматическим стартом голосования за режим после рестарта, в секундах.
+    /// </summary>
+    public static readonly CVarDef<int> VotePresetAutoDelay =
+        CVarDef.Create("vote.preset_auto_delay", 4, CVar.SERVERONLY);
+
+    /// <summary>
     ///     Включено ли автоматическое голосование за дебаг СМЭСов.
     /// </summary>
     public static readonly CVarDef<bool> VoteSmesDebugEnabled =
@@ -33,4 +45,10 @@ public sealed partial class CCVars
     /// </summary>
     public static readonly CVarDef<int> VoteSmesDebugTimer =
         CVarDef.Create("vote.smes_debug_timer", 60, CVar.SERVERONLY);
+
+    /// <summary>
+    ///     Задержка перед автоматическим стартом голосования за дебаг СМЭСов, в секундах.
+    /// </summary>
+    public static readonly CVarDef<int> VoteSmesDebugDelay =
+        CVarDef.Create("vote.smes_debug_delay", 2, CVar.SERVERONLY);
 }

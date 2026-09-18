@@ -78,7 +78,8 @@
   - extended
   - shittersafari
   name: extended-title
-  showInVote: false #2boring2vote
+  showInVote: true # <Onyx-AutomaticVotes-edited>
+  minPlayers: 0 # <Onyx-AutomaticVotes>
   description: extended-description
   rules:
   - BasicStationEventScheduler
@@ -120,7 +121,7 @@
     - secret
     - sekrit
   name: secret-title
-  showInVote: true
+  showInVote: false # <Onyx-AutomaticVotes-edited>
   description: secret-description
   rules:
     - Secret
@@ -161,7 +162,7 @@
   name: death-match-title
   description: death-match-description
   maxPlayers: 15
-  showInVote: true
+  showInVote: false # <Onyx-AutomaticVotes-edited>
   supportedMaps: DeathMatchMapPool
   rules:
     - DeathMatch31

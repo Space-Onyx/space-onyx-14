@@ -11,6 +11,8 @@ using Content.Shared.Database;
 using Content.Shared.Power;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
+using Robust.Shared.Map;
+using Robust.Shared.Timing;
 using Content.Server.Voting;
 
 namespace Content.Server._Onyx.Voting;
@@ -36,7 +38,8 @@ public sealed partial class SmesDebugVoteSystem : EntitySystem
         if (playerCount > maxPlayers)
             return;
 
-        CreateSmesDebugVote();
+        var delay = TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteSmesDebugDelay));
+        Timer.Spawn(delay, () => CreateSmesDebugVote());
     }
 
     private void CreateSmesDebugVote()
@@ -73,34 +76,26 @@ public sealed partial class SmesDebugVoteSystem : EntitySystem
     }
     private void ApplyInfiniteBattery()
     {
-        var stationQuery = EntityQueryEnumerator<StationDataComponent>();
-        while (stationQuery.MoveNext(out var stationUid, out var stationData))
+        var query = EntityQueryEnumerator<PowerMonitoringDeviceComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var powerMonitoring, out var xform))
         {
-            foreach (var grid in stationData.Grids)
-            {
-                ApplyInfiniteBatteryToGrid(grid);
-            }
-        }
-    }
-
-    private void ApplyInfiniteBatteryToGrid(EntityUid grid)
-    {
-        var xform = Transform(grid);
-        var enumerator = xform.ChildEnumerator;
-        while (enumerator.MoveNext(out var child))
-        {
-            if (!TryComp<PowerMonitoringDeviceComponent>(child, out var powerMonitoring))
-                continue;
-
             if (powerMonitoring.Group != PowerMonitoringConsoleGroup.SMES)
                 continue;
 
-            var recharger = EnsureComp<BatterySelfRechargerComponent>(child);
-            var battery = EnsureComp<BatteryComponent>(child);
-            recharger.AutoRechargeRate = battery.MaxCharge;
-            recharger.AutoRechargePauseTime = TimeSpan.Zero;
-            Dirty(child, recharger);
-            Dirty(child, battery);
+            if (xform.GridUid is not { } gridUid || !HasComp<StationMemberComponent>(gridUid))
+                continue;
+
+            ApplyInfiniteBatteryToSmes(uid);
         }
+    }
+
+    private void ApplyInfiniteBatteryToSmes(EntityUid uid)
+    {
+        var recharger = EnsureComp<BatterySelfRechargerComponent>(uid);
+        var battery = EnsureComp<BatteryComponent>(uid);
+        recharger.AutoRechargeRate = battery.MaxCharge;
+        recharger.AutoRechargePauseTime = TimeSpan.Zero;
+        Dirty(uid, recharger);
+        Dirty(uid, battery);
     }
 }
