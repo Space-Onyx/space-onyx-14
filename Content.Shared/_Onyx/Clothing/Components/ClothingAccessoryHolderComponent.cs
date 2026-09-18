@@ -8,21 +8,23 @@ using Content.Shared._Onyx.Clothing.Systems;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.DoAfter;
 using Content.Shared.Inventory;
+using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._Onyx.Clothing.Components;
 
-[RegisterComponent]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(ClothingAccessoryHolderSystem))]
 public sealed partial class ClothingAccessoryHolderComponent : Component
 {
-    [DataField(required: true)]
+    [DataField(required: true), AutoNetworkedField]
     [AlwaysPushInheritance]
     [Access(typeof(ClothingAccessoryHolderSystem), Other = AccessPermissions.ReadExecute)]
     public Dictionary<string, ClothingAccessorySlot> Slots = new();
 }
 
 [DataDefinition]
+[Serializable, NetSerializable]
 public sealed partial class ClothingAccessorySlot
 {
     [DataField(required: true)]
