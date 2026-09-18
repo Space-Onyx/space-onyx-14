@@ -9,6 +9,7 @@
     xmlns:lobbyUi="clr-namespace:Content.Client.Lobby.UI"
     xmlns:corvaxLobby="clr-namespace:Content.Client.Corvax.Lobby.UI"
     xmlns:info="clr-namespace:Content.Client.Info"
+    xmlns:skins="clr-namespace:Content.Client._Onyx.Ghost.Skins.UI"
     xmlns:widgets="clr-namespace:Content.Client.UserInterface.Systems.Chat.Widgets">
     <!-- Onyx-Lobby -->
     <TextureRect Access="Public" VerticalExpand="True" HorizontalExpand="True" Name="Background" Stretch="KeepAspectCovered" />
@@ -71,6 +72,7 @@
                                         </PanelContainer>
                                         <Button Name="ReadyButton" Access="Public" ToggleMode="True" Text="{Loc 'ui-lobby-ready-up-button'}" StyleClasses="ButtonBig OpenLeft" HorizontalExpand="True" /> <!-- <Onyx-LobbyButtons-edited> -->
                                         <cc:UICommandButton Command="observe" Name="ObserveButton" Access="Public" Text="{Loc 'ui-lobby-observe-button'}" WindowType="{x:Type lobbyUi:ObserveWarningWindow}" HorizontalExpand="True" StyleClasses="OpenBoth" />
+                                        <cc:UICommandButton Name="GhostSkinsButton" Access="Public" Text="{Loc 'ui-lobby-ghost-skins-button'}" WindowType="{x:Type skins:GhostSkinsWindow}" HorizontalExpand="True" StyleClasses="OpenBoth" /> <!-- <Onyx-GhostSkins> -->
                                         <cc:UICommandButton Name="DiscordLinkButton"
                                                             Access="Public"
                                                             Text="{Loc 'ui-lobby-discord-link-button-main'}"

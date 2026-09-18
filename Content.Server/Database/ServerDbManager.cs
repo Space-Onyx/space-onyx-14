@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.Administration.Logs;
 using Content.Shared.Administration.Logs;
+using Content.Shared._Onyx.Ghost.Skins; // <Onyx-GhostSkins>
 using Content.Shared.CCVar;
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.Database;
@@ -49,6 +50,8 @@ namespace Content.Server.Database
         Task SaveAdminOOCColorAsync(NetUserId userId, Color color);
 
         Task SaveConstructionFavoritesAsync(NetUserId userId, List<ProtoId<ConstructionPrototype>> constructionFavorites);
+
+        Task SaveGhostSkinAsync(NetUserId userId, ProtoId<GhostSkinPrototype> skin); // <Onyx-GhostSkins>
 
         // Single method for two operations for transaction.
         Task DeleteSlotAndSetSelectedIndex(NetUserId userId, int deleteSlot, int newSlot);
@@ -520,6 +523,14 @@ namespace Content.Server.Database
             DbWriteOpsMetric.Inc();
             return RunDbCommand(() => _db.SaveConstructionFavoritesAsync(userId, constructionFavorites));
         }
+
+        // <Onyx-GhostSkins>
+        public Task SaveGhostSkinAsync(NetUserId userId, ProtoId<GhostSkinPrototype> skin)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.SaveGhostSkinAsync(userId, skin));
+        }
+        // </Onyx-GhostSkins>
 
         public Task<Preference?> GetPlayerPreferencesAsync(NetUserId userId, CancellationToken cancel)
         {

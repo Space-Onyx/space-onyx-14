@@ -1,3 +1,4 @@
+using Content.Shared._Onyx.Ghost.Skins; // <Onyx-GhostSkins>
 using Content.Shared.Construction.Prototypes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -15,13 +16,17 @@ namespace Content.Shared.Preferences
     {
         private Dictionary<int, HumanoidCharacterProfile> _characters;
 
-        public PlayerPreferences(IEnumerable<KeyValuePair<int, HumanoidCharacterProfile>> characters, int selectedCharacterIndex, Color adminOOCColor, List<ProtoId<ConstructionPrototype>> constructionFavorites)
+        public PlayerPreferences(IEnumerable<KeyValuePair<int, HumanoidCharacterProfile>> characters, int selectedCharacterIndex, Color adminOOCColor, ProtoId<GhostSkinPrototype> ghostSkin, List<ProtoId<ConstructionPrototype>> constructionFavorites) // <Onyx-GhostSkins>
         {
             _characters = new Dictionary<int, HumanoidCharacterProfile>(characters);
             SelectedCharacterIndex = selectedCharacterIndex;
             AdminOOCColor = adminOOCColor;
+            GhostSkin = ghostSkin; // <Onyx-GhostSkins>
             ConstructionFavorites = constructionFavorites;
         }
+
+        public PlayerPreferences WithGhostSkin(ProtoId<GhostSkinPrototype> ghostSkin) => // <Onyx-GhostSkins>
+            new(_characters, SelectedCharacterIndex, AdminOOCColor, ghostSkin, ConstructionFavorites); // <Onyx-GhostSkins>
 
         /// <summary>
         ///     All player characters.
@@ -44,6 +49,8 @@ namespace Content.Shared.Preferences
         public HumanoidCharacterProfile SelectedCharacter => Characters[SelectedCharacterIndex];
 
         public Color AdminOOCColor { get; set; }
+
+        public ProtoId<GhostSkinPrototype> GhostSkin { get; set; } // <Onyx-GhostSkins>
 
         /// <summary>
         ///    List of favorite items in the construction menu.

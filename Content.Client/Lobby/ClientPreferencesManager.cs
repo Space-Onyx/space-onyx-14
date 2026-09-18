@@ -1,5 +1,6 @@
 using System.Linq;
 using Content.Corvax.Interfaces.Shared;
+using Content.Shared._Onyx.Ghost.Skins; // <Onyx-GhostSkins>
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.Preferences;
 using Robust.Client;
@@ -54,7 +55,7 @@ namespace Content.Client.Lobby
 
         public void SelectCharacter(int slot)
         {
-            Preferences = new PlayerPreferences(Preferences.Characters, slot, Preferences.AdminOOCColor, Preferences.ConstructionFavorites);
+            Preferences = new PlayerPreferences(Preferences.Characters, slot, Preferences.AdminOOCColor, Preferences.GhostSkin, Preferences.ConstructionFavorites); // <Onyx-GhostSkins>
             var msg = new MsgSelectCharacter
             {
                 SelectedCharacterIndex = slot
@@ -70,7 +71,7 @@ namespace Content.Client.Lobby
             profile.EnsureValid(_playerManager.LocalSession!, collection, sponsorPrototypes);
             // Corvax-Sponsors-End
             var characters = new Dictionary<int, HumanoidCharacterProfile>(Preferences.Characters) {[slot] = profile};
-            Preferences = new PlayerPreferences(characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor, Preferences.ConstructionFavorites);
+            Preferences = new PlayerPreferences(characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor, Preferences.GhostSkin, Preferences.ConstructionFavorites); // <Onyx-GhostSkins>
             var msg = new MsgUpdateCharacter
             {
                 Profile = profile,
@@ -93,7 +94,7 @@ namespace Content.Client.Lobby
 
             var l = lowest.Value;
             characters.Add(l, profile);
-            Preferences = new PlayerPreferences(characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor, Preferences.ConstructionFavorites);
+            Preferences = new PlayerPreferences(characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor, Preferences.GhostSkin, Preferences.ConstructionFavorites); // <Onyx-GhostSkins>
 
             UpdateCharacter(profile, l);
         }
@@ -106,7 +107,7 @@ namespace Content.Client.Lobby
         public void DeleteCharacter(int slot)
         {
             var characters = Preferences.Characters.Where(p => p.Key != slot);
-            Preferences = new PlayerPreferences(characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor, Preferences.ConstructionFavorites);
+            Preferences = new PlayerPreferences(characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor, Preferences.GhostSkin, Preferences.ConstructionFavorites); // <Onyx-GhostSkins>
             var msg = new MsgDeleteCharacter
             {
                 Slot = slot
@@ -116,13 +117,25 @@ namespace Content.Client.Lobby
 
         public void UpdateConstructionFavorites(List<ProtoId<ConstructionPrototype>> favorites)
         {
-            Preferences = new PlayerPreferences(Preferences.Characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor, favorites);
+            Preferences = new PlayerPreferences(Preferences.Characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor, Preferences.GhostSkin, favorites); // <Onyx-GhostSkins>
             var msg = new MsgUpdateConstructionFavorites
             {
                 Favorites = favorites
             };
             _netManager.ClientSendMessage(msg);
         }
+
+        // <Onyx-GhostSkins>
+        public void SetGhostSkin(ProtoId<GhostSkinPrototype> skin)
+        {
+            Preferences = Preferences.WithGhostSkin(skin);
+            var msg = new MsgSelectGhostSkin
+            {
+                Skin = skin
+            };
+            _netManager.ClientSendMessage(msg);
+        }
+        // </Onyx-GhostSkins>
 
         private void HandlePreferencesAndSettings(MsgPreferencesAndSettings message)
         {

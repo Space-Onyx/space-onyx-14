@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.Administration.Logs;
 using Content.Shared.Administration.Logs;
+using Content.Shared._Onyx.Ghost.Skins; // <Onyx-GhostSkins>
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.Database;
 using Content.Shared.Humanoid;
@@ -154,6 +155,7 @@ namespace Content.Server.Database
                 UserId = userId.UserId,
                 SelectedCharacterSlot = 0,
                 AdminOOCColor = Color.Red.ToHex(),
+                GhostSkinId = "Default", // <Onyx-GhostSkins>
                 ConstructionFavorites = [],
             };
 
@@ -201,6 +203,17 @@ namespace Content.Server.Database
 
             await db.DbContext.SaveChangesAsync();
         }
+
+        // <Onyx-GhostSkins>
+        public async Task SaveGhostSkinAsync(NetUserId userId, ProtoId<GhostSkinPrototype> skin)
+        {
+            await using var db = await GetDb();
+            var prefs = await db.DbContext.Preference.SingleAsync(p => p.UserId == userId.UserId);
+            prefs.GhostSkinId = skin.Id;
+
+            await db.DbContext.SaveChangesAsync();
+        }
+        // </Onyx-GhostSkins>
 
         private static async Task SetSelectedCharacterSlotAsync(NetUserId userId, int newSlot, ServerDbContext db)
         {

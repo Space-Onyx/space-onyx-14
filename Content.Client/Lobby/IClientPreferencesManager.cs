@@ -1,3 +1,4 @@
+using Content.Shared._Onyx.Ghost.Skins; // <Onyx-GhostSkins>
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.Preferences;
 using Robust.Shared.Prototypes;
@@ -20,5 +21,6 @@ namespace Content.Client.Lobby
         void DeleteCharacter(HumanoidCharacterProfile profile);
         void DeleteCharacter(int slot);
         void UpdateConstructionFavorites(List<ProtoId<ConstructionPrototype>> favorites);
+        void SetGhostSkin(ProtoId<GhostSkinPrototype> skin); // <Onyx-GhostSkins>
     }
 }

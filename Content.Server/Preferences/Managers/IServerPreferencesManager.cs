@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Content.Shared._Onyx.Ghost.Skins; // <Onyx-GhostSkins>
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.Preferences;
 using Robust.Shared.Network;
@@ -25,5 +26,6 @@ namespace Content.Server.Preferences.Managers
 
         Task SetProfile(NetUserId userId, int slot, HumanoidCharacterProfile profile);
         Task SetConstructionFavorites(NetUserId userId, List<ProtoId<ConstructionPrototype>> favorites);
+        Task SetGhostSkinAsync(NetUserId userId, ProtoId<GhostSkinPrototype> skin); // <Onyx-GhostSkins>
     }
 }

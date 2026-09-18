@@ -6,6 +6,7 @@ using System.Text.Json;
 using Content.Server.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using NpgsqlTypes;
@@ -15,9 +16,11 @@ using NpgsqlTypes;
 namespace Content.Server.Database.Migrations.Postgres
 {
     [DbContext(typeof(PostgresServerDbContext))]
-    partial class PostgresServerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260918000000_OnyxGhostSkins")]
+    partial class OnyxGhostSkins
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -982,10 +985,6 @@ namespace Content.Server.Database.Migrations.Postgres
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ActiveAlternativeJobId")
-                        .HasColumnType("text")
-                        .HasColumnName("active_alternative_job_id");
-
                     b.Property<string>("JobName")
                         .IsRequired()
                         .HasColumnType("text")
@@ -1151,59 +1150,10 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("integer")
                         .HasColumnName("age");
 
-                    // <Onyx-ProfilePersistence>
-                    b.Property<float>("BarkMaxVar")
-                        .HasColumnType("real")
-                        .HasColumnName("bark_max_var");
-
-                    b.Property<float>("BarkMinVar")
-                        .HasColumnType("real")
-                        .HasColumnName("bark_min_var");
-
-                    b.Property<float>("BarkPitch")
-                        .HasColumnType("real")
-                        .HasColumnName("bark_pitch");
-
-                    b.Property<string>("BarkProto")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("bark_proto");
-                    // </Onyx-ProfilePersistence>
-
                     b.Property<string>("CharacterName")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("char_name");
-
-                    // <Onyx-CharacterDescriptions>
-                    b.Property<string>("CharacterFlavorText")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("character_flavor_text");
-
-                    b.Property<string>("LinksFlavorText")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("links_flavor_text");
-
-                    b.Property<string>("OOCFlavorText")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("oocflavor_text");
-
-                    b.Property<string>("TagsFlavorText")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("tags_flavor_text");
-
-                    // </Onyx-CharacterDescriptions>
-
-                    // <Onyx-CyberneticsPersonalization>
-                    b.PrimitiveCollection<List<string>>("CyberneticIds")
-                        .IsRequired()
-                        .HasColumnType("text[]")
-                        .HasColumnName("cybernetic_ids");
-                    // </Onyx-CyberneticsPersonalization>
 
                     b.Property<string>("EyeColor")
                         .IsRequired()
@@ -1317,19 +1267,6 @@ namespace Content.Server.Database.Migrations.Postgres
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CustomColorTint")
-                        .HasMaxLength(16)
-                        .HasColumnType("character varying(16)")
-                        .HasColumnName("custom_color_tint");
-
-                    b.Property<string>("CustomDescription")
-                        .HasColumnType("text")
-                        .HasColumnName("custom_description");
-
-                    b.Property<string>("CustomName")
-                        .HasColumnType("text")
-                        .HasColumnName("custom_name");
-
                     b.Property<string>("LoadoutName")
                         .IsRequired()
                         .HasColumnType("text")
@@ -1395,12 +1332,6 @@ namespace Content.Server.Database.Migrations.Postgres
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("role_name");
-
-                    // <Onyx-ProfilePersistence>
-                    b.Property<string>("SyntheticLawPreset")
-                        .HasColumnType("text")
-                        .HasColumnName("synthetic_law_preset");
-                    // </Onyx-ProfilePersistence>
 
                     b.HasKey("Id")
                         .HasName("PK_profile_role_loadout");

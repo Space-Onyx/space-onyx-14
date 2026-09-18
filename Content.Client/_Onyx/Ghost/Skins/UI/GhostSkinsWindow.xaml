@@ -1,0 +1,26 @@
+<!-- Space Onyx -->
+<!-- Copyright (C) 2026 Space Onyx contributors -->
+<!-- This file is licensed under AGPL-3.0-or-later. -->
+<!-- See LICENSES for the full license text. -->
+
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="{Loc 'ghost-skins-window-title'}"
+               MinSize="660 540"
+               SetSize="680 580">
+    <BoxContainer Orientation="Horizontal" SeparationOverride="8" Margin="8 8 8 8">
+        <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="6">
+            <LineEdit Name="SearchBox" PlaceHolder="{Loc 'ghost-skins-window-search'}" HorizontalExpand="True" />
+            <CheckBox Name="ShowAllCheckBox" Text="{Loc 'ghost-skins-window-show-all'}" ToolTip="{Loc 'ghost-skins-window-show-all-tooltip'}" />
+            <ScrollContainer VerticalExpand="True" HorizontalExpand="True" HScrollEnabled="False">
+                <BoxContainer Name="SkinsContainer" Orientation="Vertical" HorizontalExpand="True" SeparationOverride="2" />
+            </ScrollContainer>
+            <Label Name="EmptyLabel" Text="{Loc 'ghost-skins-window-empty'}" HorizontalAlignment="Center" Visible="False" />
+        </BoxContainer>
+        <BoxContainer Orientation="Vertical" MinWidth="250" VerticalExpand="True" SeparationOverride="6">
+            <ScrollContainer VerticalExpand="True" HorizontalExpand="True" HScrollEnabled="False">
+                <BoxContainer Name="DetailsContainer" Orientation="Vertical" HorizontalExpand="True" SeparationOverride="6" />
+            </ScrollContainer>
+            <Label Name="FooterLabel" Text="{Loc 'ghost-skins-window-applies-next-ghost'}" HorizontalAlignment="Center" />
+        </BoxContainer>
+    </BoxContainer>
+</DefaultWindow>

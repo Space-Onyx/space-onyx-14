@@ -1,0 +1,213 @@
+- type: ghostSkin
+  id: Default
+  category: Color
+
+- type: ghostSkin
+  id: Red
+  category: Color
+  sprite: Mobs/Ghosts/ghost_human.rsi
+  state: animated
+  color: "#f228"
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 1h
+
+- type: ghostSkin
+  id: Green
+  category: Color
+  sprite: Mobs/Ghosts/ghost_human.rsi
+  state: animated
+  color: "#2f28"
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 1h
+
+- type: ghostSkin
+  id: Blue
+  category: Color
+  sprite: Mobs/Ghosts/ghost_human.rsi
+  state: animated
+  color: "#22f8"
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 1h
+
+- type: ghostSkin
+  id: Violet
+  category: Color
+  sprite: Mobs/Ghosts/ghost_human.rsi
+  state: animated
+  color: "#f4f8"
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 1h
+
+- type: ghostSkin
+  id: Pink
+  category: Color
+  sprite: Mobs/Ghosts/ghost_human.rsi
+  state: animated
+  color: "#f8f8"
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 1h
+
+- type: ghostSkin
+  id: Yellow
+  category: Color
+  sprite: Mobs/Ghosts/ghost_human.rsi
+  state: animated
+  color: "#ff48"
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 1h
+
+- type: ghostSkin
+  id: Heart
+  category: Misc
+  sprite: _Onyx/Ghosts/simple.rsi
+  state: heart
+  color: "#ffffffcc"
+  requirements:
+  - !type:DepartmentTimeRequirement
+    department: Civilian
+    time: 4h
+
+- type: ghostSkin
+  id: DiscoCat
+  category: Misc
+  sprite: _Onyx/Ghosts/simple.rsi
+  state: discocat
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 6h
+
+- type: ghostSkin
+  id: Disappointment
+  category: Misc
+  sprite: _Onyx/Ghosts/simple.rsi
+  state: disappointment
+  requirements:
+  - !type:RoleTimeRequirement
+    role: JobClown
+    time: 32h
+
+- type: ghostSkin
+  id: King
+  category: Misc
+  sprite: _Onyx/Ghosts/simple.rsi
+  state: king
+  requirements:
+  - !type:DepartmentTimeRequirement
+    department: Science
+    time: 8h
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 8h
+  - !type:DepartmentTimeRequirement
+    department: Medical
+    time: 8h
+  - !type:DepartmentTimeRequirement
+    department: Command
+    time: 8h
+  - !type:DepartmentTimeRequirement
+    department: Cargo
+    time: 8h
+
+- type: ghostSkin
+  id: BlazeIt
+  category: Color
+  sprite: _Onyx/Ghosts/simple.rsi
+  state: blazeit
+  requirements:
+  - !type:RoleTimeRequirement
+    role: JobBotanist
+    time: 4h
+
+- type: ghostSkin
+  id: Rainbow
+  category: Color
+  sprite: _Onyx/Ghosts/simple.rsi
+  state: rainbow
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 4h
+
+- type: ghostSkin
+  id: Kitty
+  category: Misc
+  sprite: _Onyx/Ghosts/simple.rsi
+  state: kitty
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 4h
+
+- type: ghostSkin
+  id: Ian
+  category: Misc
+  sprite: _Onyx/Ghosts/simple.rsi
+  state: ian
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 4h
+
+- type: ghostSkin
+  id: Fire
+  category: Color
+  sprite: _Onyx/Ghosts/simple.rsi
+  state: fire
+  requirements:
+  - !type:RoleTimeRequirement
+    role: JobAtmosphericTechnician
+    time: 4h
+
+- type: ghostSkin
+  id: Skeleton
+  category: Misc
+  sprite: _Onyx/Ghosts/simple.rsi
+  state: skeleton
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 4h
+
+- type: ghostSkin
+  id: Frog
+  category: Misc
+  sprite: _Onyx/Ghosts/simple.rsi
+  state: frog
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 4h
+
+- type: ghostSkin
+  id: Rooster
+  category: Misc
+  sprite: _Onyx/Ghosts/simple.rsi
+  state: rooster
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 4h
+
+- type: ghostSkin
+  id: Mouse
+  category: Misc
+  sprite: _Onyx/Ghosts/simple.rsi
+  state: mouse
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 4h
+
+- type: ghostSkin
+  id: Parrot
+  category: Misc
+  sprite: _Onyx/Ghosts/simple.rsi
+  state: parrot
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 6h
+
+# Base template for ckey-locked personal skins. Concrete personal skins can extend it.
+- type: ghostSkin
+  id: CkeyPersonal
+  abstract: true
+  category: Personal

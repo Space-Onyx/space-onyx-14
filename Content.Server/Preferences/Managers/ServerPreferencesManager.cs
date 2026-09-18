@@ -9,6 +9,7 @@ using Content.Server.Database;
 using Content.Shared.Body;
 using Content.Shared.CCVar;
 using Content.Shared._Onyx.AlternativeJobs;
+using Content.Shared._Onyx.Ghost.Skins; // <Onyx-GhostSkins>
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Markings;
@@ -64,6 +65,7 @@ namespace Content.Server.Preferences.Managers
             _netManager.RegisterNetMessage<MsgUpdateCharacter>(HandleUpdateCharacterMessage);
             _netManager.RegisterNetMessage<MsgDeleteCharacter>(HandleDeleteCharacterMessage);
             _netManager.RegisterNetMessage<MsgUpdateConstructionFavorites>(HandleUpdateConstructionFavoritesMessage);
+            _netManager.RegisterNetMessage<MsgSelectGhostSkin>(HandleSelectGhostSkinMessage); // <Onyx-GhostSkins>
             _sawmill = _log.GetSawmill("prefs");
         }
 
@@ -92,7 +94,7 @@ namespace Content.Server.Preferences.Managers
             foreach (var favorite in prefs.ConstructionFavorites)
                 constructionFavorites.Add(new ProtoId<ConstructionPrototype>(favorite));
 
-            return new PlayerPreferences(profiles, prefs.SelectedCharacterSlot, Color.FromHex(prefs.AdminOOCColor), constructionFavorites);
+            return new PlayerPreferences(profiles, prefs.SelectedCharacterSlot, Color.FromHex(prefs.AdminOOCColor), ResolveGhostSkin(prefs.GhostSkinId), constructionFavorites); // <Onyx-GhostSkins>
         }
 
         internal HumanoidCharacterProfile ConvertProfiles(Profile profile)
@@ -265,7 +267,7 @@ namespace Content.Server.Preferences.Managers
                 return;
             }
 
-            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, index, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites);
+            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, index, curPrefs.AdminOOCColor, curPrefs.GhostSkin, curPrefs.ConstructionFavorites); // <Onyx-GhostSkins>
             _afkManager.PlayerDidAction(message.MsgChannel);
 
             if (ShouldStorePrefs(message.MsgChannel.AuthType))
@@ -314,7 +316,7 @@ namespace Content.Server.Preferences.Managers
                 [slot] = profile
             };
 
-            prefsData.Prefs = new PlayerPreferences(profiles, slot, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites);
+            prefsData.Prefs = new PlayerPreferences(profiles, slot, curPrefs.AdminOOCColor, curPrefs.GhostSkin, curPrefs.ConstructionFavorites); // <Onyx-GhostSkins>
 
             if (ShouldStorePrefs(session.Channel.AuthType))
                 await _db.SaveCharacterSlotAsync(userId, profile, slot);
@@ -329,12 +331,50 @@ namespace Content.Server.Preferences.Managers
             }
 
             var curPrefs = prefsData.Prefs!;
-            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, favorites);
+            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, curPrefs.GhostSkin, favorites); // <Onyx-GhostSkins>
 
             var session = _playerManager.GetSessionById(userId);
             if (ShouldStorePrefs(session.Channel.AuthType))
                 await _db.SaveConstructionFavoritesAsync(userId, favorites);
         }
+
+        // <Onyx-GhostSkins>
+        public async Task SetGhostSkinAsync(NetUserId userId, ProtoId<GhostSkinPrototype> skin)
+        {
+            if (!_cachedPlayerPrefs.TryGetValue(userId, out var prefsData) || !prefsData.PrefsLoaded)
+            {
+                _sawmill.Error($"Tried to modify user {userId} preferences before they loaded.");
+                return;
+            }
+
+            var session = _playerManager.GetSessionById(userId);
+            if (!_prototypeManager.TryIndex(skin, out var skinProto) || !skinProto.CanUse(session, out _, out _))
+            {
+                _sawmill.Warning($"User {userId} tried to select unavailable ghost skin {skin}.");
+                return;
+            }
+
+            var curPrefs = prefsData.Prefs!;
+            prefsData.Prefs = curPrefs.WithGhostSkin(skin);
+            _afkManager.PlayerDidAction(session.Channel);
+
+            if (ShouldStorePrefs(session.Channel.AuthType))
+                await _db.SaveGhostSkinAsync(userId, skin);
+        }
+
+        private async void HandleSelectGhostSkinMessage(MsgSelectGhostSkin message)
+        {
+            await SetGhostSkinAsync(message.MsgChannel.UserId, message.Skin);
+        }
+
+        private ProtoId<GhostSkinPrototype> ResolveGhostSkin(string? skinId)
+        {
+            if (!string.IsNullOrWhiteSpace(skinId) && _prototypeManager.HasIndex<GhostSkinPrototype>(skinId))
+                return new ProtoId<GhostSkinPrototype>(skinId);
+
+            return new ProtoId<GhostSkinPrototype>(GhostSkinPrototype.DefaultSkinId);
+        }
+        // </Onyx-GhostSkins>
 
         private async void HandleDeleteCharacterMessage(MsgDeleteCharacter message)
         {
@@ -379,7 +419,7 @@ namespace Content.Server.Preferences.Managers
             var arr = new Dictionary<int, HumanoidCharacterProfile>(curPrefs.Characters);
             arr.Remove(slot);
 
-            prefsData.Prefs = new PlayerPreferences(arr, nextSlot ?? curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites);
+            prefsData.Prefs = new PlayerPreferences(arr, nextSlot ?? curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, curPrefs.GhostSkin, curPrefs.ConstructionFavorites); // <Onyx-GhostSkins>
             _afkManager.PlayerDidAction(message.MsgChannel);
 
             if (ShouldStorePrefs(message.MsgChannel.AuthType))
@@ -421,7 +461,7 @@ namespace Content.Server.Preferences.Managers
             }
 
             var curPrefs = prefsData.Prefs!;
-            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, validatedList);
+            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, curPrefs.GhostSkin, validatedList); // <Onyx-GhostSkins>
             _afkManager.PlayerDidAction(message.MsgChannel);
 
             if (ShouldStorePrefs(message.MsgChannel.AuthType))
@@ -441,7 +481,7 @@ namespace Content.Server.Preferences.Managers
                     PrefsLoaded = true,
                     Prefs = new PlayerPreferences(
                         new[] { new KeyValuePair<int, HumanoidCharacterProfile>(0, HumanoidCharacterProfile.Random()) },
-                        0, Color.Transparent, [])
+                        0, Color.Transparent, GhostSkinPrototype.DefaultSkinId, []) // <Onyx-GhostSkins>
                 };
 
                 _cachedPlayerPrefs[session.UserId] = prefsData;
@@ -584,10 +624,15 @@ namespace Content.Server.Preferences.Managers
             // such as removed jobs still being selected.
 
             var sponsorPrototypes = _sponsors != null && _sponsors.TryGetServerPrototypes(session.UserId, out var prototypes) ? prototypes.ToArray() : []; // Corvax-Sponsors
+            // <Onyx-GhostSkins>
+            var ghostSkin = _prototypeManager.TryIndex(prefs.GhostSkin, out var skinProto) && skinProto.CanUse(session, out _, out _)
+                ? prefs.GhostSkin
+                : new ProtoId<GhostSkinPrototype>(GhostSkinPrototype.DefaultSkinId);
+            // </Onyx-GhostSkins>
             return new PlayerPreferences(prefs.Characters.Select(p =>
             {
                 return new KeyValuePair<int, HumanoidCharacterProfile>(p.Key, p.Value.Validated(session, collection, sponsorPrototypes));// Corvax-Sponsors
-            }), prefs.SelectedCharacterIndex, prefs.AdminOOCColor, prefs.ConstructionFavorites);
+            }), prefs.SelectedCharacterIndex, prefs.AdminOOCColor, ghostSkin, prefs.ConstructionFavorites); // <Onyx-GhostSkins-edited>
         }
 
         public IEnumerable<KeyValuePair<NetUserId, HumanoidCharacterProfile>> GetSelectedProfilesForPlayers(

@@ -35,6 +35,7 @@ using Content.Shared.Storage.Components;
 using Content.Shared.Tag;
 using Content.Shared.Warps;
 using Content.Shared._Onyx.Ghost;
+using Content.Shared._Onyx.Ghost.Skins; // <Onyx-GhostSkins>
 using Robust.Server.GameObjects;
 using Robust.Shared.Configuration;
 using Robust.Shared.Map;
@@ -610,9 +611,14 @@ namespace Content.Server.Ghost
             }
 
             var ghost = SpawnAtPosition(GameTicker.ObserverPrototypeName, spawnPosition.Value);
+            // <Onyx-GhostSkins>
+            TryApplyGhostSkin(ghost, mind.Comp.UserId);
+            // </Onyx-GhostSkins>
             var ghostComponent = Comp<GhostComponent>(ghost);
 
-            if (TryComp<GhostSpriteStateComponent>(ghost, out var state))  // If more TryComps are added this should be turned into an event
+            // Death-cause visuals apply to the vanilla look only, never to selected skins.
+            if (!HasComp<GhostSkinComponent>(ghost) // <Onyx-GhostSkins>
+                && TryComp<GhostSpriteStateComponent>(ghost, out var state))  // If more TryComps are added this should be turned into an event
             {
                 _ghostState.SetGhostSprite((ghost, state), mind);
             }

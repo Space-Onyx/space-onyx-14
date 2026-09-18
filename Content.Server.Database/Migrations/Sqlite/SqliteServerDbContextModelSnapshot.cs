@@ -1051,6 +1051,11 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("construction_favorites");
 
+                    b.Property<string>("GhostSkinId")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("ghost_skin_id");
+
                     b.Property<int>("SelectedCharacterSlot")
                         .HasColumnType("INTEGER")
                         .HasColumnName("selected_character_slot");

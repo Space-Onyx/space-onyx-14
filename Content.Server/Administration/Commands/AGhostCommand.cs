@@ -103,6 +103,7 @@ public sealed partial class AGhostCommand : LocalizedCommands
         }
 
         var ghost = _entities.SpawnEntity(GameTicker.AdminObserverPrototypeName, coordinates.Value);
+        _entities.System<GhostSystem>().TryApplyGhostSkin(ghost, player.UserId); // <Onyx-GhostSkins>
 
         if (canReturn)
         {
