@@ -24,6 +24,7 @@ using Content.Shared.CartridgeLoader;
 using Content.Shared.Database;
 using Content.Shared._DV.CartridgeLoader.Cartridges;
 using Content.Shared._DV.NanoChat;
+using Content.Shared._Onyx.NanoChat; // <Onyx-NanoChatGroups>
 using Content.Shared.PDA;
 using Content.Shared.Radio.Components;
 using Robust.Shared.Prototypes;
@@ -51,6 +52,10 @@ public sealed partial class NanoChatCartridgeSystem : EntitySystem
 
     private int _maxNameLength;
     private int _maxIdJobLength;
+
+    // <Onyx-NanoChatGroups>
+    private uint _nextGroupId = NanoChatGroup.FirstGroupId;
+    // </Onyx-NanoChatGroups>
 
     public override void Initialize()
     {
@@ -141,6 +146,17 @@ public sealed partial class NanoChatCartridgeSystem : EntitySystem
             case NanoChatUiMessageType.ToggleListNumber:
                 HandleToggleListNumber(card);
                 break;
+            // <Onyx-NanoChatGroups>
+            case NanoChatUiMessageType.CreateGroup:
+                HandleCreateGroup(card, msg);
+                break;
+            case NanoChatUiMessageType.JoinGroup:
+                HandleJoinGroup(card, msg);
+                break;
+            case NanoChatUiMessageType.LeaveGroup:
+                HandleLeaveGroup(card, msg);
+                break;
+            // </Onyx-NanoChatGroups>
         }
 
         UpdateUI(ent, GetEntity(args.LoaderUid));
@@ -224,6 +240,13 @@ public sealed partial class NanoChatCartridgeSystem : EntitySystem
                 msg.RecipientNumber.Value,
                 recipient with { HasUnread = false });
         }
+
+        // <Onyx-NanoChatGroups>
+        if (_nanoChat.GetGroup((card, card.Comp), msg.RecipientNumber.Value) is { } group)
+        {
+            _nanoChat.SetGroup((card, card.Comp), group with { HasUnread = false });
+        }
+        // </Onyx-NanoChatGroups>
     }
 
     /// <summary>
@@ -241,6 +264,14 @@ public sealed partial class NanoChatCartridgeSystem : EntitySystem
     {
         if (msg.RecipientNumber == null || card.Comp.Number == null)
             return;
+
+        // <Onyx-NanoChatGroups>
+        if (_nanoChat.GetGroup((card, card.Comp), msg.RecipientNumber.Value) != null)
+        {
+            HandleLeaveGroup(card, msg);
+            return;
+        }
+        // </Onyx-NanoChatGroups>
 
         // Delete chat but keep the messages
         var deleted = _nanoChat.TryDeleteChat((card, card.Comp), msg.RecipientNumber.Value, true);
@@ -279,6 +310,14 @@ public sealed partial class NanoChatCartridgeSystem : EntitySystem
     {
         if (msg.RecipientNumber == null || msg.Content == null || card.Comp.Number == null)
             return;
+
+        // <Onyx-NanoChatGroups>
+        if (_nanoChat.GetGroup((card, card.Comp), msg.RecipientNumber.Value) != null)
+        {
+            HandleSendGroupMessage(cartridge, card, msg);
+            return;
+        }
+        // </Onyx-NanoChatGroups>
 
         if (!EnsureRecipientExists(card, msg.RecipientNumber.Value))
             return;
@@ -325,6 +364,278 @@ public sealed partial class NanoChatCartridgeSystem : EntitySystem
             DeliverMessageToRecipient(card, recipient, message);
         }
     }
+
+    // <Onyx-NanoChatGroups>
+    /// <summary>
+    ///     Handles creating a new group chat. The creator is added automatically.
+    /// </summary>
+    private void HandleCreateGroup(Entity<NanoChatCardComponent> card, NanoChatUiMessageEvent msg)
+    {
+        if (card.Comp.Number == null || string.IsNullOrWhiteSpace(msg.Content))
+            return;
+
+        var name = msg.Content.Trim();
+        if (name.Length > _maxNameLength)
+            name = name[.._maxNameLength];
+        if (string.IsNullOrWhiteSpace(name))
+            return;
+
+        var id = GenerateGroupId();
+        _nanoChat.SetGroup((card, card.Comp), new NanoChatGroup(id, name, 1));
+        _nanoChat.SetCurrentChat((card, card.Comp), id);
+        AddGroupSystemMessage(id, Loc.GetString("nano-chat-group-created", ("name", GetCardName(card.Owner))));
+
+        _adminLogger.Add(LogType.Action,
+            LogImpact.Low,
+            $"{ToPrettyString(msg.Actor):user} created NanoChat group {name} (#{id})");
+    }
+
+    /// <summary>
+    ///     Handles joining an existing group by its identifier.
+    /// </summary>
+    private void HandleJoinGroup(Entity<NanoChatCardComponent> card, NanoChatUiMessageEvent msg)
+    {
+        if (card.Comp.Number == null || msg.RecipientNumber == null)
+            return;
+
+        var id = msg.RecipientNumber.Value;
+
+        if (_nanoChat.GetGroup((card, card.Comp), id) != null)
+            return;
+
+        if (FindGroupName(id) is not { } name)
+            return;
+
+        _nanoChat.SetGroup((card, card.Comp), new NanoChatGroup(id, name, GetGroupMemberCount(id) + 1));
+        _nanoChat.SetCurrentChat((card, card.Comp), id);
+        AddGroupSystemMessage(id, Loc.GetString("nano-chat-group-joined", ("name", GetCardName(card.Owner))));
+
+        _adminLogger.Add(LogType.Action,
+            LogImpact.Low,
+            $"{ToPrettyString(msg.Actor):user} joined NanoChat group {name} (#{id})");
+    }
+
+    /// <summary>
+    ///     Handles leaving a group the card is a member of.
+    /// </summary>
+    private void HandleLeaveGroup(Entity<NanoChatCardComponent> card, NanoChatUiMessageEvent msg)
+    {
+        if (msg.RecipientNumber == null)
+            return;
+
+        var id = msg.RecipientNumber.Value;
+        if (!_nanoChat.RemoveGroup((card, card.Comp), id))
+            return;
+
+        AddGroupSystemMessage(id, Loc.GetString("nano-chat-group-left", ("name", GetCardName(card.Owner))));
+
+        _adminLogger.Add(LogType.Action,
+            LogImpact.Low,
+            $"{ToPrettyString(msg.Actor):user} left NanoChat group #{id}");
+    }
+
+    /// <summary>
+    ///     Handles sending a message to every reachable member of a group.
+    /// </summary>
+    private void HandleSendGroupMessage(Entity<NanoChatCartridgeComponent> cartridge,
+        Entity<NanoChatCardComponent> card,
+        NanoChatUiMessageEvent msg)
+    {
+        if (msg.RecipientNumber == null || msg.Content == null || card.Comp.Number == null)
+            return;
+
+        var groupId = msg.RecipientNumber.Value;
+        if (_nanoChat.GetGroup((card, card.Comp), groupId) is not { } group)
+            return;
+
+        var content = msg.Content;
+        if (!string.IsNullOrWhiteSpace(content))
+        {
+            content = FormattedMessage.EscapeText(content.Trim());
+            if (content.Length > NanoChatMessage.MaxContentLength)
+                content = content[..NanoChatMessage.MaxContentLength];
+        }
+
+        var senderNumber = (uint) card.Comp.Number;
+        var senderName = GetCardName(card.Owner);
+        var timestamp = _timing.CurTime;
+        var memberCount = GetGroupMemberCount(groupId);
+
+        var reached = 0;
+
+        var channel = _prototype.Index(cartridge.Comp.RadioChannel);
+        var sendAttemptEvent = new RadioSendAttemptEvent(channel, cartridge);
+        RaiseLocalEvent(ref sendAttemptEvent);
+
+        var canTransmit = !sendAttemptEvent.Cancelled &&
+                          _station.GetOwningStation(cartridge.Owner) is { } senderStation &&
+                          HasActiveServer(senderStation);
+
+        if (canTransmit)
+        {
+            var query = EntityQueryEnumerator<NanoChatCardComponent>();
+            while (query.MoveNext(out var memberUid, out var memberCard))
+            {
+                if (memberUid == card.Owner ||
+                    _nanoChat.GetGroup((memberUid, memberCard), groupId) == null)
+                    continue;
+
+                if (FindReceivingLoader(memberUid, channel, cartridge.Owner) == null)
+                    continue;
+
+                var memberMessage = new NanoChatMessage(timestamp, content, senderNumber, false, senderName);
+                _nanoChat.AddMessage((memberUid, memberCard), groupId, memberMessage);
+                reached++;
+
+                if (memberCard.CurrentChat != groupId || memberCard.IsClosed)
+                    _nanoChat.SetGroup((memberUid, memberCard), group with { HasUnread = true, MemberCount = memberCount });
+
+                HandleGroupNotification(memberCard, group, senderName, content);
+                UpdateUIForCard(memberUid);
+            }
+        }
+
+        // A lone group member is not a delivery failure, only unreached members are.
+        var hasOtherMembers = memberCount > 1;
+        var deliveryFailed = hasOtherMembers && reached == 0;
+
+        var ownMessage = new NanoChatMessage(timestamp, content, senderNumber, deliveryFailed, senderName);
+        _nanoChat.AddMessage((card, card.Comp), groupId, ownMessage);
+        _nanoChat.SetGroup((card, card.Comp), group with { MemberCount = memberCount });
+
+        _adminLogger.Add(LogType.Chat,
+            LogImpact.Low,
+            $"{ToPrettyString(msg.Actor):user} sent NanoChat group message to {group.Name} (#{groupId}): {content}{(deliveryFailed ? " [NO RECIPIENTS]" : "")}");
+    }
+
+    /// <summary>
+    ///     Sends a group message notification to a member unless they are actively viewing the group.
+    /// </summary>
+    private void HandleGroupNotification(NanoChatCardComponent memberCard,
+        NanoChatGroup group,
+        string senderName,
+        string content)
+    {
+        if (memberCard.NotificationsMuted || memberCard.PdaUid is not { } pdaUid ||
+            !TryComp<CartridgeLoaderComponent>(pdaUid, out var loader))
+            return;
+
+        if (memberCard.CurrentChat == group.Id && !memberCard.IsClosed &&
+            _ui.IsUiOpen(pdaUid, PdaUiKey.Key) &&
+            HasComp<NanoChatCartridgeComponent>(loader.ActiveProgram))
+            return;
+
+        _cartridge.SendNotification(pdaUid,
+            Loc.GetString("nano-chat-group-new-message-title", ("group", group.Name), ("sender", senderName)),
+            Loc.GetString("nano-chat-new-message-body", ("message", TruncateMessage(content))),
+            loader);
+    }
+
+    /// <summary>
+    ///     Adds a server generated system message to every member of a group and refreshes member counts.
+    /// </summary>
+    private void AddGroupSystemMessage(uint groupId, string text)
+    {
+        var memberCount = GetGroupMemberCount(groupId);
+        var timestamp = _timing.CurTime;
+
+        var query = EntityQueryEnumerator<NanoChatCardComponent>();
+        while (query.MoveNext(out var memberUid, out var memberCard))
+        {
+            if (_nanoChat.GetGroup((memberUid, memberCard), groupId) is not { } group)
+                continue;
+
+            _nanoChat.SetGroup((memberUid, memberCard), group with { MemberCount = memberCount });
+            _nanoChat.AddMessage((memberUid, memberCard), groupId,
+                new NanoChatMessage(timestamp, text, NanoChatMessage.SystemSenderId));
+            UpdateUIForCard(memberUid);
+        }
+    }
+
+    /// <summary>
+    ///     Generates an unused group identifier in the reserved group range.
+    /// </summary>
+    private uint GenerateGroupId()
+    {
+        while (GroupExists(_nextGroupId))
+            _nextGroupId++;
+
+        return _nextGroupId++;
+    }
+
+    private bool GroupExists(uint groupId)
+    {
+        var query = EntityQueryEnumerator<NanoChatCardComponent>();
+        while (query.MoveNext(out var cardUid, out var card))
+        {
+            if (_nanoChat.GetGroup((cardUid, card), groupId) != null)
+                return true;
+        }
+
+        return false;
+    }
+
+    private int GetGroupMemberCount(uint groupId)
+    {
+        var count = 0;
+        var query = EntityQueryEnumerator<NanoChatCardComponent>();
+        while (query.MoveNext(out var cardUid, out var card))
+        {
+            if (_nanoChat.GetGroup((cardUid, card), groupId) != null)
+                count++;
+        }
+
+        return count;
+    }
+
+    private string? FindGroupName(uint groupId)
+    {
+        var query = EntityQueryEnumerator<NanoChatCardComponent>();
+        while (query.MoveNext(out var cardUid, out var card))
+        {
+            if (_nanoChat.GetGroup((cardUid, card), groupId) is { } group)
+                return group.Name;
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    ///     Finds a receiving NanoChat loader owned by the given card, respecting radio and telecomms.
+    /// </summary>
+    private EntityUid? FindReceivingLoader(EntityUid cardUid, RadioChannelPrototype channel, EntityUid sender)
+    {
+        var query = EntityQueryEnumerator<NanoChatCartridgeComponent, ActiveRadioComponent, CartridgeComponent>();
+        while (query.MoveNext(out var receiverUid, out var receiverCart, out _, out var cartridge))
+        {
+            if (receiverCart.Card != cardUid || cartridge.LoaderUid is not { } loader)
+                continue;
+
+            if (_station.GetOwningStation(receiverUid) is not { } station || !HasActiveServer(station))
+                continue;
+
+            var receiveAttemptEvent = new RadioReceiveAttemptEvent(channel, sender, receiverUid);
+            RaiseLocalEvent(ref receiveAttemptEvent);
+            if (receiveAttemptEvent.Cancelled)
+                continue;
+
+            return loader;
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    ///     Gets a display name for a card from its ID card, falling back to the localised unknown name.
+    /// </summary>
+    private string GetCardName(EntityUid cardUid)
+    {
+        if (TryComp<IdCardComponent>(cardUid, out var idCard) && idCard.FullName is { } fullName)
+            return fullName;
+
+        return Loc.GetString("nano-chat-unknown-name");
+    }
+    // </Onyx-NanoChatGroups>
 
     /// <summary>
     ///     Ensures a recipient exists in the sender's contacts.
@@ -593,6 +904,7 @@ public sealed partial class NanoChatCartridgeSystem : EntitySystem
         var maxRecipients = 50;
         var notificationsMuted = false;
         var listNumber = false;
+        var groups = new Dictionary<uint, NanoChatGroup>(); // <Onyx-NanoChatGroups>
 
         if (ent.Comp.Card != null && TryComp<NanoChatCardComponent>(ent.Comp.Card, out var card))
         {
@@ -603,6 +915,7 @@ public sealed partial class NanoChatCartridgeSystem : EntitySystem
             maxRecipients = card.MaxRecipients;
             notificationsMuted = card.NotificationsMuted;
             listNumber = card.ListNumber;
+            groups = card.Groups; // <Onyx-NanoChatGroups>
         }
 
         var state = new NanoChatUiState(recipients,
@@ -612,7 +925,8 @@ public sealed partial class NanoChatCartridgeSystem : EntitySystem
             ownNumber,
             maxRecipients,
             notificationsMuted,
-            listNumber);
+            listNumber,
+            groups); // <Onyx-NanoChatGroups>
         _cartridge.UpdateCartridgeUiState(loader, state);
     }
 }

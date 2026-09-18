@@ -11,6 +11,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared._DV.CartridgeLoader.Cartridges;
+using Content.Shared._Onyx.NanoChat; // <Onyx-NanoChatGroups>
 using Content.Shared.Examine;
 using Robust.Shared.Timing;
 
@@ -314,6 +315,63 @@ public abstract partial class SharedNanoChatSystem : EntitySystem
         Dirty(card);
         return true;
     }
+
+    // <Onyx-NanoChatGroups>
+    /// <summary>
+    ///     Gets all group chats joined by a card.
+    /// </summary>
+    public IReadOnlyDictionary<uint, NanoChatGroup> GetGroups(Entity<NanoChatCardComponent?> card)
+    {
+        if (!Resolve(card, ref card.Comp))
+            return new Dictionary<uint, NanoChatGroup>();
+
+        return card.Comp.Groups;
+    }
+
+    /// <summary>
+    ///     Gets a specific group chat from a card.
+    /// </summary>
+    public NanoChatGroup? GetGroup(Entity<NanoChatCardComponent?> card, uint groupId)
+    {
+        if (!Resolve(card, ref card.Comp) || !card.Comp.Groups.TryGetValue(groupId, out var group))
+            return null;
+
+        return group;
+    }
+
+    /// <summary>
+    ///     Adds or replaces a group chat on a card.
+    /// </summary>
+    public void SetGroup(Entity<NanoChatCardComponent?> card, NanoChatGroup group)
+    {
+        if (!Resolve(card, ref card.Comp))
+            return;
+
+        card.Comp.Groups[group.Id] = group;
+        Dirty(card);
+    }
+
+    /// <summary>
+    ///     Removes a group chat from a card. Messages are kept so the history
+    ///     survives rejoining the group later.
+    /// </summary>
+    /// <returns>True if the group was present on the card</returns>
+    public bool RemoveGroup(Entity<NanoChatCardComponent?> card, uint groupId)
+    {
+        if (!Resolve(card, ref card.Comp))
+            return false;
+
+        var removed = card.Comp.Groups.Remove(groupId);
+
+        if (card.Comp.CurrentChat == groupId)
+            card.Comp.CurrentChat = null;
+
+        if (removed)
+            Dirty(card);
+
+        return removed;
+    }
+    // </Onyx-NanoChatGroups>
 
     #endregion
 }

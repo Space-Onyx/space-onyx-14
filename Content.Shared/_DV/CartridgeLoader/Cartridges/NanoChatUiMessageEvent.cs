@@ -67,6 +67,11 @@ public enum NanoChatUiMessageType : byte
     DeleteChat,
     ToggleMute,
     ToggleListNumber,
+    // <Onyx-NanoChatGroups>
+    CreateGroup,
+    JoinGroup,
+    LeaveGroup,
+    // </Onyx-NanoChatGroups>
 }
 
 // putting this here because i can
@@ -135,6 +140,18 @@ public partial struct NanoChatMessage
     /// </summary>
     public bool DeliveryFailed;
 
+    // <Onyx-NanoChatGroups>
+    /// <summary>
+    ///     Identifier used by server generated system messages inside group chats.
+    /// </summary>
+    public const uint SystemSenderId = 0;
+
+    /// <summary>
+    ///     Display name of the sender, if known. Used to attribute messages in group chats.
+    /// </summary>
+    public string? SenderName;
+    // </Onyx-NanoChatGroups>
+
     /// <summary>
     ///     Creates a new NanoChat message.
     /// </summary>
@@ -142,11 +159,13 @@ public partial struct NanoChatMessage
     /// <param name="content">The content of the message</param>
     /// <param name="senderId">The sender's NanoChat number</param>
     /// <param name="deliveryFailed">Whether delivery to the recipient failed</param>
-    public NanoChatMessage(TimeSpan timestamp, string content, uint senderId, bool deliveryFailed = false)
+    /// <param name="senderName">Display name of the sender, if known</param>
+    public NanoChatMessage(TimeSpan timestamp, string content, uint senderId, bool deliveryFailed = false, string? senderName = null)
     {
         Timestamp = timestamp;
         Content = content;
         SenderId = senderId;
         DeliveryFailed = deliveryFailed;
+        SenderName = senderName;
     }
 }

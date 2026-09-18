@@ -11,6 +11,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared._DV.CartridgeLoader.Cartridges;
+using Content.Shared._Onyx.NanoChat; // <Onyx-NanoChatGroups>
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
@@ -43,6 +44,15 @@ public sealed partial class NanoChatCardComponent : Component
     /// </summary>
     [DataField]
     public uint? CurrentChat;
+
+    // <Onyx-NanoChatGroups>
+    /// <summary>
+    ///     All group chats this card has joined, keyed by group id.
+    ///     Group messages are stored in <see cref="Messages" /> under the same key.
+    /// </summary>
+    [DataField]
+    public Dictionary<uint, NanoChatGroup> Groups = new();
+    // </Onyx-NanoChatGroups>
 
     /// <summary>
     ///     The maximum amount of recipients this card supports.

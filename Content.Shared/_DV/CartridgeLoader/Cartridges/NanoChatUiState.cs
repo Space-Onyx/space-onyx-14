@@ -10,6 +10,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Shared._Onyx.NanoChat; // <Onyx-NanoChatGroups>
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._DV.CartridgeLoader.Cartridges;
@@ -26,6 +27,10 @@ public sealed class NanoChatUiState : BoundUserInterfaceState
     public readonly bool NotificationsMuted;
     public readonly bool ListNumber;
 
+    // <Onyx-NanoChatGroups>
+    public readonly Dictionary<uint, NanoChatGroup> Groups = new();
+    // </Onyx-NanoChatGroups>
+
     public NanoChatUiState(
         Dictionary<uint, NanoChatRecipient> recipients,
         Dictionary<uint, List<NanoChatMessage>> messages,
@@ -34,7 +39,8 @@ public sealed class NanoChatUiState : BoundUserInterfaceState
         uint ownNumber,
         int maxRecipients,
         bool notificationsMuted,
-        bool listNumber)
+        bool listNumber,
+        Dictionary<uint, NanoChatGroup>? groups = null) // <Onyx-NanoChatGroups>
     {
         Recipients = recipients;
         Messages = messages;
@@ -44,5 +50,6 @@ public sealed class NanoChatUiState : BoundUserInterfaceState
         MaxRecipients = maxRecipients;
         NotificationsMuted = notificationsMuted;
         ListNumber = listNumber;
+        Groups = groups ?? new Dictionary<uint, NanoChatGroup>(); // <Onyx-NanoChatGroups>
     }
 }

@@ -1,0 +1,36 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="{Loc nano-chat-join-group-title}"
+               MinSize="320 150">
+    <PanelContainer StyleClasses="AngleRect">
+        <BoxContainer Orientation="Vertical" Margin="4">
+            <BoxContainer Orientation="Vertical" Margin="0 4">
+                <Label Text="{Loc nano-chat-group-id-label}"
+                       StyleClasses="LabelHeading" />
+                <PanelContainer StyleClasses="ButtonSquare">
+                    <LineEdit Name="IdInput"
+                              PlaceHolder="{Loc nano-chat-group-id-placeholder}" />
+                </PanelContainer>
+            </BoxContainer>
+
+            <Label Name="HintLabel"
+                   Text="{Loc nano-chat-join-group-hint}"
+                   StyleClasses="LabelSubText"
+                   HorizontalAlignment="Center"
+                   Margin="0 4" />
+
+            <BoxContainer Orientation="Horizontal"
+                          HorizontalAlignment="Right"
+                          Margin="0 8 0 0">
+                <Button Name="CancelButton"
+                        Text="{Loc nano-chat-cancel}"
+                        StyleClasses="OpenRight"
+                        MinSize="80 0" />
+                <Button Name="JoinButton"
+                        Text="{Loc nano-chat-join}"
+                        StyleClasses="OpenLeft"
+                        MinSize="80 0"
+                        Disabled="True" />
+            </BoxContainer>
+        </BoxContainer>
+    </PanelContainer>
+</DefaultWindow>

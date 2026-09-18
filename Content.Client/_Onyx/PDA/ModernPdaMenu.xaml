@@ -207,7 +207,8 @@
                     </ScrollContainer>
 
                     <BoxContainer Name="ProgramView" Access="Public" Orientation="Vertical"
-                                  HorizontalExpand="True" VerticalExpand="True" />
+                                   HorizontalExpand="True" VerticalExpand="True"
+                                   Margin="-8 -6 -8 -4" />
             </BoxContainer>
 
             <PanelContainer Margin="8 0 8 2" MinHeight="46">

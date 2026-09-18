@@ -31,10 +31,15 @@ public sealed partial class NanoChatMessageBubble : BoxContainer
         RobustXamlLoader.Load(this);
     }
 
-    public void SetMessage(NanoChatMessage message, bool isOwnMessage)
+    public void SetMessage(NanoChatMessage message, bool isOwnMessage, bool showSender = false)
     {
         if (MessagePanel.PanelOverride is not StyleBoxFlat)
             return;
+
+        // <Onyx-NanoChatGroups>
+        SenderNameLabel.Visible = showSender && !string.IsNullOrEmpty(message.SenderName);
+        SenderNameLabel.Text = message.SenderName ?? string.Empty;
+        // </Onyx-NanoChatGroups>
 
         // Configure message appearance
         var style = (StyleBoxFlat)MessagePanel.PanelOverride;

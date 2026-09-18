@@ -21,5 +21,5 @@ agent-id-ui-footer-flavor-left = Просто обычная ID карта, ту
 agent-id-ui-footer-flavor-right = v2.0
 
 # <Onyx-AgentIDNanoChat>
-agent-id-ui-input-nanochat-number = Номер NanoChat:
+agent-id-ui-input-nanochat-number = Номер НаноЧата:
 # </Onyx-AgentIDNanoChat>

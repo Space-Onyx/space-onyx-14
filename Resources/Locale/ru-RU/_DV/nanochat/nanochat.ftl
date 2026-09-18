@@ -2,8 +2,10 @@
 # SPDX-FileCopyrightText: 2024 Skubman <ba.fallaria@gmail.com>
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-nano-chat-program-name = NanoChat
-nano-chat-title = NanoChat
+# <Onyx-NanoChatName-edited>
+nano-chat-program-name = НаноЧат
+nano-chat-title = НаноЧат
+# </Onyx-NanoChatName-edited>
 nano-chat-new-chat = Новый чат
 nano-chat-contacts = КОНТАКТЫ
 nano-chat-no-chats = Нет активных чатов
@@ -31,5 +33,7 @@ nano-chat-job-placeholder = Введите должность (опционал�
 nano-chat-cancel = Отмена
 nano-chat-create = Создать
 
-nanochat-card-examine-no-number = На карте NanoChat ещё нет назначенного номера.
-nanochat-card-examine-number = На карте NanoChat отображается #{ $number }.
+# <Onyx-NanoChatName-edited>
+nanochat-card-examine-no-number = На карте НаноЧат ещё нет назначенного номера.
+nanochat-card-examine-number = На карте НаноЧат отображается #{ $number }.
+# </Onyx-NanoChatName-edited>

@@ -22,13 +22,24 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                  MinSize="12 0" />
 
         <!-- Message panel -->
+        <!-- <Onyx-NanoChatGroups> -->
         <BoxContainer Name="MessageBox"
                       Orientation="Vertical"
-                      MaxWidth="320"
+                      MaxWidth="260"
                       HorizontalExpand="True">
+        <!-- </Onyx-NanoChatGroups> -->
+            <!-- <Onyx-NanoChatGroups> -->
+            <Label Name="SenderNameLabel"
+                   StyleClasses="LabelSmall"
+                   HorizontalAlignment="Left"
+                   Margin="10 0 10 2"
+                   Visible="False" />
+            <!-- </Onyx-NanoChatGroups> -->
+            <!-- <Onyx-NanoChatGroups> -->
             <PanelContainer Name="MessagePanel"
-                            MaxWidth="320"
+                            MaxWidth="260"
                             HorizontalExpand="True">
+            <!-- </Onyx-NanoChatGroups> -->
                 <PanelContainer.PanelOverride>
                     <graphics:StyleBoxFlat
                         ContentMarginLeftOverride="10"
