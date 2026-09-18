@@ -17,6 +17,11 @@ namespace Content.Shared.PDA
         public bool CanPlayMusic;
         public string? Address;
         public Color ThemeAccent; // <Onyx-PdaTheme>
+        public float BatteryCharge; // <Onyx-PdaBattery>
+        public float BatteryMax; // <Onyx-PdaBattery>
+        public float BatteryLowThreshold; // <Onyx-PdaBattery>
+        public int DiskUsed; // <Onyx-PdaDisk>
+        public int DiskMax; // <Onyx-PdaDisk>
 
         public PdaUpdateState(
             List<NetEntity> programs,
@@ -28,7 +33,12 @@ namespace Content.Shared.PDA
             string? stationName,
             bool hasUplink = false,
             bool canPlayMusic = false,
-            string? address = null)
+            string? address = null,
+            float batteryCharge = 0f, // <Onyx-PdaBattery>
+            float batteryMax = 0f, // <Onyx-PdaBattery>
+            float batteryLowThreshold = 0.25f, // <Onyx-PdaBattery>
+            int diskUsed = 0, // <Onyx-PdaDisk>
+            int diskMax = 0) // <Onyx-PdaDisk>
             : base(programs, activeUI)
         {
             FlashlightEnabled = flashlightEnabled;
@@ -40,6 +50,11 @@ namespace Content.Shared.PDA
             StationName = stationName;
             Address = address;
             ThemeAccent = Color.FromHex("#6B9A88"); // <Onyx-PdaTheme>
+            BatteryCharge = batteryCharge; // <Onyx-PdaBattery>
+            BatteryMax = batteryMax; // <Onyx-PdaBattery>
+            BatteryLowThreshold = batteryLowThreshold; // <Onyx-PdaBattery>
+            DiskUsed = diskUsed; // <Onyx-PdaDisk>
+            DiskMax = diskMax; // <Onyx-PdaDisk>
         }
     }
 

@@ -3,6 +3,7 @@ notekeeper-ui-back-tooltip = Вернуться к списку заметок
 notekeeper-ui-notes-list-title = Мои заметки
 notekeeper-ui-edit-note-title = Редактирование заметки
 notekeeper-ui-new-note = Новая заметка
+notekeeper-ui-new-note-tooltip = Создать новую заметку
 notekeeper-ui-untitled-note = Без названия
 notekeeper-ui-empty-note = Пустая заметка
 notekeeper-ui-note-title-label = Название:

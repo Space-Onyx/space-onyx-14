@@ -15,6 +15,9 @@ public sealed partial class ModernPdaProgramItem : ContainerButton
     private readonly StyleBoxFlat _actionBackground = ActionStyle("#20362D", "#56826E");
     private Color _themeAccent = Color.FromHex("#6B9A88");
     private Entity<CartridgeComponent> _cartridge;
+    private string _baseStatus = string.Empty;
+    private bool _active;
+    private bool _hovered;
 
     public event Action<EntityUid>? OnProgramItemPressed;
     public event Action<EntityUid>? OnUninstallButtonPressed;
@@ -33,13 +36,15 @@ public sealed partial class ModernPdaProgramItem : ContainerButton
         InstallButton.OnMouseExited += _ => ApplyActionStyle(false);
         OnMouseEntered += _ =>
         {
+            _hovered = true;
             _background.BackgroundColor = Color.FromHex("#20262C");
-            _accentBar.BackgroundColor = _themeAccent;
+            RefreshAccentBar();
         };
         OnMouseExited += _ =>
         {
+            _hovered = false;
             _background.BackgroundColor = Color.FromHex("#1A2026");
-            _accentBar.BackgroundColor = ThemeBarColor(_themeAccent);
+            RefreshAccentBar();
         };
     }
 
@@ -51,7 +56,21 @@ public sealed partial class ModernPdaProgramItem : ContainerButton
     public void SetTheme(Color accent)
     {
         _themeAccent = accent;
-        _accentBar.BackgroundColor = ThemeBarColor(accent);
+        RefreshAccentBar();
+    }
+
+    public EntityUid ProgramUid => _cartridge.Owner;
+
+    public void SetActive(bool active)
+    {
+        _active = active;
+        RefreshAccentBar();
+        ProgramStatus.Text = active ? $"● {_baseStatus}" : _baseStatus;
+    }
+
+    private void RefreshAccentBar()
+    {
+        _accentBar.BackgroundColor = _active || _hovered ? _themeAccent : ThemeBarColor(_themeAccent);
     }
 
     public void SetCartridge(Entity<CartridgeComponent> program)
@@ -64,25 +83,29 @@ public sealed partial class ModernPdaProgramItem : ContainerButton
         if (program.Comp.Icon is { } icon)
             Icon.SetFromSpriteSpecifier(icon);
 
+        _baseStatus = string.Empty;
+
         switch (program.Comp.InstallationStatus)
         {
             case InstallationStatus.Cartridge:
-                ProgramStatus.Text = Loc.GetString("pda-modern-program-cartridge");
+                _baseStatus = Loc.GetString("pda-modern-program-cartridge");
                 InstallButton.Visible = true;
                 InstallButton.Text = Loc.GetString("cartridge-bound-user-interface-install-button");
                 ApplyActionStyle(false);
                 break;
             case InstallationStatus.Installed:
-                ProgramStatus.Text = Loc.GetString("pda-modern-program-installed");
+                _baseStatus = Loc.GetString("pda-modern-program-installed");
                 InstallButton.Visible = true;
                 InstallButton.Text = Loc.GetString("cartridge-bound-user-interface-uninstall-button");
                 ApplyActionStyle(false);
                 break;
             case InstallationStatus.Readonly:
-                ProgramStatus.Text = Loc.GetString("pda-modern-program-system");
+                _baseStatus = Loc.GetString("pda-modern-program-system");
                 InstallButton.Visible = false;
                 break;
         }
+
+        ProgramStatus.Text = _active ? $"● {_baseStatus}" : _baseStatus;
     }
 
     private void ToggleInstallation()

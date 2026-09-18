@@ -1,8 +1,10 @@
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Paper;
+using Content.Shared.PowerCell; // <Onyx-NanoTaskPrintCharge>
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Audio;
+using Robust.Shared.Network; // <Onyx-NanoTaskPrintCharge>
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
@@ -15,6 +17,12 @@ public sealed partial class NanoTaskCartridgeSystem : EntitySystem
     [Dependency] private PaperSystem _paper = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
+    // <Onyx-NanoTaskPrintCharge>
+    [Dependency] private PowerCellSystem _powerCell = default!;
+    [Dependency] private INetManager _net = default!;
+
+    private const float PrintChargeFraction = 0.05f;
+    // </Onyx-NanoTaskPrintCharge>
 
     public override void Initialize()
     {
@@ -119,6 +127,11 @@ public sealed partial class NanoTaskCartridgeSystem : EntitySystem
                 if (_timing.CurTime < ent.Comp.NextPrintAllowedAfter)
                     return;
 
+                // <Onyx-NanoTaskPrintCharge>
+                if (_net.IsServer && !TryDrainPrintCharge(GetEntity(args.LoaderUid), message.Actor))
+                    return;
+                // </Onyx-NanoTaskPrintCharge>
+
                 ent.Comp.NextPrintAllowedAfter = _timing.CurTime + ent.Comp.PrintDelay;
                 var printed = PredictedSpawnAtPosition("PaperNanoTaskItem", Transform(message.Actor).Coordinates);
                 _hands.PickupOrDrop(message.Actor, printed);
@@ -137,4 +150,14 @@ public sealed partial class NanoTaskCartridgeSystem : EntitySystem
         var state = new NanoTaskUiState(ent.Comp.Tasks);
         _cartridgeLoader.UpdateCartridgeUiState(loaderUid, state);
     }
+
+    // <Onyx-NanoTaskPrintCharge>
+    private bool TryDrainPrintCharge(EntityUid loader, EntityUid? user)
+    {
+        if (!_powerCell.TryGetBatteryFromSlot(loader, out var battery))
+            return true;
+
+        return _powerCell.TryUseCharge(loader, battery.Value.Comp.MaxCharge * PrintChargeFraction, user, true);
+    }
+    // </Onyx-NanoTaskPrintCharge>
 }

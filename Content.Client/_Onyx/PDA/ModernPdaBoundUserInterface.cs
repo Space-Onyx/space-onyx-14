@@ -1,11 +1,13 @@
 using Content.Client.CartridgeLoader;
 using Content.Client.PDA;
 using Content.Client.UserInterface.Fragments;
+using Content.Shared._Onyx.PDA;
 using Content.Shared.CartridgeLoader;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.PDA;
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
+using Robust.Shared.Prototypes;
 
 namespace Content.Client._Onyx.PDA;
 
@@ -16,6 +18,10 @@ public sealed class ModernPdaBoundUserInterface : CartridgeLoaderBoundUserInterf
 
     [ViewVariables]
     private ModernPdaMenu? _menu;
+
+    private EntityUid? _attachedProgram;
+    private UIFragment? _attachedUi;
+    private Control? _attachedFragment;
 
     public ModernPdaBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
@@ -33,6 +39,9 @@ public sealed class ModernPdaBoundUserInterface : CartridgeLoaderBoundUserInterf
     private void CreateMenu()
     {
         _menu = this.CreateWindowCenteredLeft<ModernPdaMenu>();
+        var modern = EntMan.GetComponentOrNull<PdaModernComponent>(Owner);
+        _menu.SetSidebarBrand(modern?.SidebarBrand ?? "NT");
+        _menu.SetupThemes(GetPdaThemes(modern));
 
         _menu.FlashLightToggleButton.OnToggled += _ => SendMessage(new PdaToggleFlashlightMessage());
         _menu.EjectIdButton.OnPressed += _ =>
@@ -54,7 +63,11 @@ public sealed class ModernPdaBoundUserInterface : CartridgeLoaderBoundUserInterf
         };
         _menu.OnInstallButtonPressed += InstallCartridge;
         _menu.OnUninstallButtonPressed += UninstallCartridge;
-        _menu.ProgramCloseButton.OnPressed += _ => DeactivateActiveCartridge();
+        _menu.ProgramCloseButton.OnPressed += _ =>
+        {
+            if (_attachedProgram is { } program)
+                SendMessage(new CartridgeLoaderUiMessage(EntMan.GetNetEntity(program), CartridgeUiMessageAction.Deactivate));
+        };
         _menu.OnThemeChanged += accent => SendMessage(new PdaSetThemeMessage(accent)); // <Onyx-PdaTheme>
 
         var borderColor = EntMan.GetComponentOrNull<PdaBorderColorComponent>(Owner);
@@ -66,9 +79,24 @@ public sealed class ModernPdaBoundUserInterface : CartridgeLoaderBoundUserInterf
         _menu.AccentVColor = borderColor.AccentVColor;
     }
 
+    protected override void ReceiveMessage(BoundUserInterfaceMessage message)
+    {
+        base.ReceiveMessage(message);
+
+        if (message is PdaBatteryUpdateMessage battery)
+            _menu?.UpdateBatteryLevel(battery.Charge, battery.Max);
+    }
+
     protected override void UpdateState(BoundUserInterfaceState state)
     {
-        base.UpdateState(state);
+        if (state is not CartridgeLoaderUiState loaderState)
+        {
+            _attachedUi?.UpdateState(state);
+            return;
+        }
+
+        UpdateLoaderState(loaderState);
+        _menu?.SetActiveProgram(_attachedProgram);
 
         if (state is not PdaUpdateState updateState)
             return;
@@ -80,6 +108,71 @@ public sealed class ModernPdaBoundUserInterface : CartridgeLoaderBoundUserInterf
         }
 
         _menu.UpdateState(updateState);
+    }
+
+    private void UpdateLoaderState(CartridgeLoaderUiState loaderState)
+    {
+        var programs = new List<(EntityUid, CartridgeComponent)>();
+        foreach (var programNet in loaderState.Programs)
+        {
+            if (!EntMan.TryGetEntity(programNet, out var programUid))
+                continue;
+
+            if (EntMan.GetComponentOrNull<CartridgeComponent>(programUid) is { } cartridge)
+                programs.Add((programUid.Value, cartridge));
+        }
+        UpdateAvailablePrograms(programs);
+
+        EntityUid? active = null;
+        if (loaderState.ActiveUI is { } activeNet && EntMan.TryGetEntity(activeNet, out var activeUid))
+            active = activeUid;
+
+        if (active == _attachedProgram && _attachedFragment is { Disposed: false })
+            return;
+
+        DetachAttachedProgram();
+
+        if (active is not { } program)
+            return;
+
+        if (EntMan.GetComponentOrNull<UIFragmentComponent>(program)?.Ui is not { } ui)
+            return;
+
+        ui.Setup(this, program);
+        var control = ui.GetUIFragmentRoot();
+        _attachedUi = ui;
+        _attachedFragment = control;
+        _attachedProgram = program;
+
+        var activeCartridge = EntMan.GetComponentOrNull<CartridgeComponent>(program);
+        AttachCartridgeUI(control, Loc.GetString(activeCartridge?.ProgramName ?? "default-program-name"));
+        SendMessage(new CartridgeLoaderUiMessage(EntMan.GetNetEntity(program), CartridgeUiMessageAction.UIReady));
+    }
+
+    private void DetachAttachedProgram()
+    {
+        if (_attachedFragment is not null)
+        {
+            DetachCartridgeUI(_attachedFragment);
+            _attachedFragment.Dispose();
+        }
+
+        _attachedFragment = null;
+        _attachedUi = null;
+        _attachedProgram = null;
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _attachedFragment?.Dispose();
+            _attachedFragment = null;
+            _attachedUi = null;
+            _attachedProgram = null;
+        }
+
+        base.Dispose(disposing);
     }
 
     protected override void AttachCartridgeUI(Control cartridgeUIFragment, string? title)
@@ -101,5 +194,21 @@ public sealed class ModernPdaBoundUserInterface : CartridgeLoaderBoundUserInterf
     protected override void UpdateAvailablePrograms(List<(EntityUid, CartridgeComponent)> programs)
     {
         _menu?.UpdateAvailablePrograms(programs);
+    }
+
+    private List<(LocId LocKey, Color Color)> GetPdaThemes(PdaModernComponent? modern)
+    {
+        var themes = new List<(LocId, Color)>();
+        if (modern == null)
+            return themes;
+
+        var protoMan = IoCManager.Resolve<IPrototypeManager>();
+        foreach (var id in modern.ThemePresets)
+        {
+            if (protoMan.TryIndex(id, out PdaThemePrototype? theme))
+                themes.Add((theme.Name, theme.Color));
+        }
+
+        return themes;
     }
 }

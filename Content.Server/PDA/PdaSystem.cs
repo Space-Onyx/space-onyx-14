@@ -72,6 +72,7 @@ namespace Content.Server.PDA
             SubscribeLocalEvent<PdaComponent, InventoryRelayedEvent<ChameleonControllerOutfitSelectedEvent>>(OnRelayedEventToIdCard);
             SubscribeLocalEvent<PdaComponent, InventoryRelayedEvent<VoiceMaskNameUpdatedEvent>>(OnRelayedEventToIdCard);
             InitializeMiningPoints(); // <Onyx-MiningPointsPda>
+            InitializePdaBattery(); // <Onyx-PdaBattery>
         }
 
         private void OnRelayedEventToIdCard<T>(Entity<PdaComponent> ent, ref InventoryRelayedEvent<T> args)
@@ -212,6 +213,8 @@ namespace Content.Server.PDA
                 return;
 
             var programs = GetNetEntityList(_cartridgeLoader.GetAllPrograms(uid).ToList());
+            var (batteryCharge, batteryMax) = GetPdaBattery(uid); // <Onyx-PdaBattery>
+            var batteryLowThreshold = GetPdaLowThreshold(uid); // <Onyx-PdaBattery>
             var id = CompOrNull<IdCardComponent>(pda.ContainedId);
             var miningPoints = CompOrNull<MiningPointsComponent>(pda.ContainedId)?.Points ?? 0; // <Onyx-MiningPointsPda>
             var bitrunningPoints = CompOrNull<BitrunningPointsComponent>(pda.ContainedId)?.Points ?? 0; // <Onyx-PdaPoints>
@@ -234,7 +237,12 @@ namespace Content.Server.PDA
                 pda.StationName,
                 showUplink,
                 hasInstrument,
-                address);
+                address,
+                batteryCharge, // <Onyx-PdaBattery>
+                batteryMax, // <Onyx-PdaBattery>
+                batteryLowThreshold, // <Onyx-PdaBattery>
+                _cartridgeLoader.UsedDiskSpace(uid), // <Onyx-PdaDisk>
+                loader.DiskSpace); // <Onyx-PdaDisk>
 
             state.ThemeAccent = pda.ThemeOverride ?? pda.ThemeAccent; // <Onyx-PdaTheme>
 
@@ -286,16 +294,6 @@ namespace Content.Server.PDA
             UpdatePdaUi(uid, pda);
         }
 
-        private void OnUiMessage(EntityUid uid, PdaComponent pda, PdaToggleFlashlightMessage msg)
-        {
-            if (!PdaUiKey.Key.Equals(msg.UiKey))
-                return;
-
-            // TODO PREDICTION
-            // When moving this to shared, fill in the user field
-            _unpoweredFlashlight.TryToggleLight(uid, user: null);
-        }
-
         private void OnUiMessage(EntityUid uid, PdaComponent pda, PdaShowRingtoneMessage msg)
         {
             if (!PdaUiKey.Key.Equals(msg.UiKey))
@@ -313,22 +311,6 @@ namespace Content.Server.PDA
             if (TryComp<InstrumentComponent>(uid, out var instrument))
                 _instrument.ToggleInstrumentUi(uid, msg.Actor, instrument);
         }
-
-        // <Onyx-PdaPower>
-        private void OnUiMessage(EntityUid uid, PdaComponent pda, PdaPowerOffMessage msg)
-        {
-            if (!PdaUiKey.Key.Equals(msg.UiKey))
-                return;
-
-            if (TryComp<CartridgeLoaderComponent>(uid, out var loader) && loader.ActiveProgram is { } activeProgram)
-                _cartridgeLoader.DeactivateProgram((uid, loader), activeProgram);
-
-            if (TryGetPdaScreen(uid, false, out var screen))
-                Appearance.SetData(uid, PdaVisuals.ScreenState, screen);
-
-            _ui.CloseUi(uid, PdaUiKey.Key, msg.Actor);
-        }
-        // </Onyx-PdaPower>
 
         private void OnUiMessage(EntityUid uid, PdaComponent pda, PdaShowUplinkMessage msg)
         {

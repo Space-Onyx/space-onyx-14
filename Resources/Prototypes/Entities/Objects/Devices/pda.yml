@@ -69,6 +69,7 @@
       sprite: _Onyx/Objects/Devices/modular_pda.rsi
       state: menu
   # </Onyx-PdaScreenVisuals>
+  - type: PdaModern # <Onyx-PdaModern>
   - type: Item
     size: Small
   - type: ContainerContainer
@@ -77,9 +78,19 @@
       PDA-pen: !type:ContainerSlot {}
       PDA-pai: !type:ContainerSlot {}
       Cartridge-Slot: !type:ContainerSlot {}
+      cell_slot: !type:ContainerSlot {} # <Onyx-PdaBattery>
       preinstalled-program-container: !type:Container
       removable-program-container: !type:Container
+  # <Onyx-PdaBattery>
   - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellSmall
+  - type: PowerCellSlot
+    cellSlotId: cell_slot
+  - type: PdaBattery
+  # </Onyx-PdaBattery>
   - type: Clothing
     quickEquip: false
     slots:
@@ -92,6 +103,7 @@
     falloff: 3
     softness: 5
     autoRot: true
+    lightMask: ConeSingle # <Onyx-PdaLight>
   - type: Ringer
   - type: RingerUplink
   - type: DeviceNetwork
@@ -1083,6 +1095,10 @@
     borderColor: "#00842e"
   - type: Icon
     state: pda-centcom
+  # <Onyx-CentcomPdaDisk>
+  - type: CartridgeLoader
+    diskSpace: 10
+  # </Onyx-CentcomPdaDisk>
   - type: EntityTableContainerFill
     containers:
       preinstalled-program-container: !type:AllSelector
@@ -1248,6 +1264,12 @@
   components:
   - type: Pda
     id: SyndicateIDCard
+    themeAccent: "#891417" # <Onyx-PdaTheme>
+  # <Onyx-PdaModern>
+  - type: PdaModern
+    sidebarBrand: ""
+    themePresets: [ PdaThemeSyndicate ]
+  # </Onyx-PdaModern>
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:
@@ -1263,10 +1285,6 @@
         children:
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
-        # <Onyx-NanoChat-edited>
-        - id: WalletCartridge
-        - id: NanoChatCartridge
-        # </Onyx-NanoChat-edited>
 
 - type: entity
   parent: [ SyndiPDA, BaseSyndicateContraband ]
@@ -1306,10 +1324,6 @@
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
         - id: MedTekCartridge
-        # <Onyx-NanoChat-edited>
-        - id: WalletCartridge
-        - id: NanoChatCartridge
-        # </Onyx-NanoChat-edited>
 
 - type: entity
   parent: [ SyndiOperativePDA, BaseSyndicateContraband ]

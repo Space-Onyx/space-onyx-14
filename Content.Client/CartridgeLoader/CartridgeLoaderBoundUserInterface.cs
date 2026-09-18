@@ -66,9 +66,6 @@ public abstract class CartridgeLoaderBoundUserInterface : BoundUserInterface
     protected void ActivateCartridge(EntityUid cartridgeUid)
     {
         var message = new CartridgeLoaderUiMessage(_entManager.GetNetEntity(cartridgeUid), CartridgeUiMessageAction.Activate);
-        // <Onyx-CartridgeState-edited>
-        SendMessage(message);
-        // </Onyx-CartridgeState-edited>
         SendPredictedMessage(message);
     }
 
@@ -78,27 +75,18 @@ public abstract class CartridgeLoaderBoundUserInterface : BoundUserInterface
             return;
 
         var message = new CartridgeLoaderUiMessage(_entManager.GetNetEntity(_activeProgram.Value), CartridgeUiMessageAction.Deactivate);
-        // <Onyx-CartridgeState-edited>
-        SendMessage(message);
-        // </Onyx-CartridgeState-edited>
         SendPredictedMessage(message);
     }
 
     protected void InstallCartridge(EntityUid cartridgeUid)
     {
         var message = new CartridgeLoaderUiMessage(_entManager.GetNetEntity(cartridgeUid), CartridgeUiMessageAction.Install);
-        // <Onyx-CartridgeState-edited>
-        SendMessage(message);
-        // </Onyx-CartridgeState-edited>
         SendPredictedMessage(message);
     }
 
     protected void UninstallCartridge(EntityUid cartridgeUid)
     {
         var message = new CartridgeLoaderUiMessage(_entManager.GetNetEntity(cartridgeUid), CartridgeUiMessageAction.Uninstall);
-        // <Onyx-CartridgeState-edited>
-        SendMessage(message);
-        // </Onyx-CartridgeState-edited>
         SendPredictedMessage(message);
     }
 

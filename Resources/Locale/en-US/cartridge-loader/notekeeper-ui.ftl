@@ -3,6 +3,7 @@ notekeeper-ui-back-tooltip = Return to notes list
 notekeeper-ui-notes-list-title = My Notes
 notekeeper-ui-edit-note-title = Edit Note
 notekeeper-ui-new-note = New Note
+notekeeper-ui-new-note-tooltip = Create a new note
 notekeeper-ui-untitled-note = Untitled
 notekeeper-ui-empty-note = Empty note
 notekeeper-ui-note-title-label = Title:

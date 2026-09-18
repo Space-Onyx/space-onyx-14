@@ -1,0 +1,39 @@
+- type: pdaTheme
+  id: PdaThemeCivilian
+  name: pda-modern-theme-civilian
+  color: "#6B9A88"
+
+- type: pdaTheme
+  id: PdaThemeEngineering
+  name: pda-modern-theme-engineering
+  color: "#D0A93D"
+
+- type: pdaTheme
+  id: PdaThemeMedical
+  name: pda-modern-theme-medical
+  color: "#4F9AB5"
+
+- type: pdaTheme
+  id: PdaThemeScience
+  name: pda-modern-theme-science
+  color: "#9B62C7"
+
+- type: pdaTheme
+  id: PdaThemeSecurity
+  name: pda-modern-theme-security
+  color: "#B54B45"
+
+- type: pdaTheme
+  id: PdaThemeCargo
+  name: pda-modern-theme-cargo
+  color: "#C58B52"
+
+- type: pdaTheme
+  id: PdaThemeCommand
+  name: pda-modern-theme-command
+  color: "#4E82B5"
+
+- type: pdaTheme
+  id: PdaThemeSyndicate
+  name: pda-modern-theme-syndicate
+  color: "#891417"
