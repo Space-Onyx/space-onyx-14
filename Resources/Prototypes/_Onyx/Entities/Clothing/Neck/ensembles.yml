@@ -179,17 +179,17 @@
           sprite: _Onyx/Clothing/Neck/Ensembles/cmo.rsi
           state: wings-icon
       cloakmantle: !type:ItemSwitchState
-        verb: cloak&mantle
+        verb: cloak-mantle
         sprite:
           sprite: _Onyx/Clothing/Neck/Ensembles/cmo.rsi
           state: cloakmantle-icon
       cloakwings: !type:ItemSwitchState
-        verb: cloak&wings
+        verb: cloak-wings
         sprite:
           sprite: _Onyx/Clothing/Neck/Ensembles/cmo.rsi
           state: cloakwings-icon
       mantlewings: !type:ItemSwitchState
-        verb: mantle&wings
+        verb: mantle-wings
         sprite:
           sprite: _Onyx/Clothing/Neck/Ensembles/cmo.rsi
           state: mantlewings-icon
@@ -282,7 +282,7 @@
           sprite: _Onyx/Clothing/Neck/Ensembles/rd.rsi
           state: wings-icon
       mantlewings: !type:ItemSwitchState
-        verb: mantle&wings
+        verb: mantle-wings
         sprite:
           sprite: _Onyx/Clothing/Neck/Ensembles/rd.rsi
           state: mantlewings-icon
@@ -292,12 +292,12 @@
           sprite: _Onyx/Clothing/Neck/Ensembles/rd.rsi
           state: cloak-icon
       cloakmantle: !type:ItemSwitchState
-        verb: cloak&mantle
+        verb: cloak-mantle
         sprite:
           sprite: _Onyx/Clothing/Neck/Ensembles/rd.rsi
           state: cloakmantle-icon
       cloakwings: !type:ItemSwitchState
-        verb: cloak&wings
+        verb: cloak-wings
         sprite:
           sprite: _Onyx/Clothing/Neck/Ensembles/rd.rsi
           state: cloakwings-icon
@@ -417,12 +417,12 @@
     showLabel: true
     states:
       cloakblackmantle: !type:ItemSwitchState
-        verb: cloakblack&mantle
+        verb: cloakblack-mantle
         sprite:
           sprite: _Onyx/Clothing/Neck/Ensembles/bso.rsi
           state: icon
       cloakwhitemantle: !type:ItemSwitchState
-        verb: cloakwhite&mantle
+        verb: cloakwhite-mantle
         sprite:
           sprite: _Onyx/Clothing/Neck/Ensembles/bso.rsi
           state: cloakwhitemantle-icon
@@ -520,17 +520,17 @@
           sprite: _Onyx/Clothing/Neck/Ensembles/trans.rsi
           state: cloak-icon
       cloakJewelry: !type:ItemSwitchState
-        verb: cloak&jewelry
+        verb: cloak-jewelry
         sprite:
           sprite: _Onyx/Clothing/Neck/Ensembles/trans.rsi
           state: cloak-icon
       cloakSash: !type:ItemSwitchState
-        verb: cloak&sash
+        verb: cloak-sash
         sprite:
           sprite: _Onyx/Clothing/Neck/Ensembles/trans.rsi
           state: cloakSash-icon
       cloakSashL: !type:ItemSwitchState
-        verb: altcloak&mantle
+        verb: altcloak-mantle
         sprite:
           sprite: _Onyx/Clothing/Neck/Ensembles/trans.rsi
           state: cloakSashL-icon
@@ -582,7 +582,7 @@
           sprite: _Onyx/Clothing/Neck/Ensembles/salvager.rsi
           state: altcloak-icon
       altcloakmantle: !type:ItemSwitchState
-        verb: altcloak&mantle
+        verb: altcloak-mantle
         sprite:
           sprite: _Onyx/Clothing/Neck/Ensembles/salvager.rsi
           state: altcloakmantle-icon

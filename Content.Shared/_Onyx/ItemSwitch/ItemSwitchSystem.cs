@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared.Clothing.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Item;
@@ -15,6 +16,7 @@ public sealed partial class ItemSwitchSystem : EntitySystem
     [Dependency] private INetManager _net = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedItemSystem _item = default!;
+    [Dependency] private ClothingSystem _clothing = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
 
     public override void Initialize()
@@ -114,6 +116,7 @@ public sealed partial class ItemSwitchSystem : EntitySystem
 
         ent.Comp.State = key;
         _item.SetHeldPrefix(ent, key);
+        _clothing.SetEquippedPrefix(ent, key);
         Dirty(ent);
 
         predicted &= ent.Comp.Predictable;
