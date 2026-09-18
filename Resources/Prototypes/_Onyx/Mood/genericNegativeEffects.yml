@@ -68,7 +68,8 @@
   moodChange: -8
   timeout: 600
 
-# Dirty worn clothing
+# Dirty worn clothing and body. Body dirt is a single moodlet on purpose:
+# any dirty part sets it once, so dirty hands + dirty head don't stack.
 - type: moodEffect
   id: DirtySocks
   moodChange: -3
@@ -79,4 +80,8 @@
 
 - type: moodEffect
   id: DirtyUniform
+  moodChange: -3
+
+- type: moodEffect
+  id: DirtyBody
   moodChange: -3

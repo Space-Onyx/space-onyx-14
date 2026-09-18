@@ -5,6 +5,7 @@
 // See LICENSES for the full license text.
 
 using Content.Shared._Onyx.Clothing;
+using Content.Shared.Body.Systems;
 using Content.Shared.Inventory;
 
 namespace Content.Server._Onyx.Mood;
@@ -13,6 +14,7 @@ public sealed partial class DirtyClothingMoodSystem : EntitySystem
 {
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private MoodSystem _mood = default!;
+    [Dependency] private SharedBodySystem _body = default!;
 
     private const float CheckInterval = 2f;
     private const string SocksSlot = "socks";
@@ -46,6 +48,7 @@ public sealed partial class DirtyClothingMoodSystem : EntitySystem
             Sync(uid, "DirtySocks", IsSlotDirty(uid, SocksSlot));
             Sync(uid, "DirtyUnderwear", IsSlotDirty(uid, UnderwearBottomSlot) || IsSlotDirty(uid, UnderwearTopSlot));
             Sync(uid, "DirtyUniform", IsSlotDirty(uid, UniformSlot));
+            Sync(uid, "DirtyBody", HasDirtyBodyPart(uid));
         }
     }
 
@@ -63,5 +66,16 @@ public sealed partial class DirtyClothingMoodSystem : EntitySystem
             && item.HasValue
             && _dirtableQuery.TryComp(item.Value, out var dirtable)
             && dirtable.DirtColor != null;
+    }
+
+    private bool HasDirtyBodyPart(EntityUid body)
+    {
+        foreach (var (part, _) in _body.GetBodyChildren(body))
+        {
+            if (_dirtableQuery.TryComp(part, out var dirtable) && dirtable.DirtColor != null)
+                return true;
+        }
+
+        return false;
     }
 }
