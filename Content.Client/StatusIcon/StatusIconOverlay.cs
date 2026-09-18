@@ -89,7 +89,7 @@ public sealed partial class StatusIconOverlay : Overlay
                 if (proto.LocationPreference == StatusIconLocationPreference.Left ||
                     proto.LocationPreference == StatusIconLocationPreference.None && countL <= countR)
                 {
-                    if (accOffsetL + texture.Height > MarkingBoundsHelper.GetLocalBoundsWithoutMarkings((uid, sprite), _sprite, _entity).Height * EyeManager.PixelsPerMeter) // <Onyx-MarkingBounds-edited>
+                    if (accOffsetL + texture.Height > bounds.Height * EyeManager.PixelsPerMeter) // <Onyx-MarkingBounds-edited>
                         break;
                     if (proto.Layer == StatusIconLayer.Base)
                     {
@@ -102,7 +102,7 @@ public sealed partial class StatusIconOverlay : Overlay
                 }
                 else
                 {
-                    if (accOffsetR + texture.Height > MarkingBoundsHelper.GetLocalBoundsWithoutMarkings((uid, sprite), _sprite, _entity).Height * EyeManager.PixelsPerMeter) // <Onyx-MarkingBounds-edited>
+                    if (accOffsetR + texture.Height > bounds.Height * EyeManager.PixelsPerMeter) // <Onyx-MarkingBounds-edited>
                         break;
                     if (proto.Layer == StatusIconLayer.Base)
                     {

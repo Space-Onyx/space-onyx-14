@@ -4,7 +4,6 @@
 // This file is licensed under AGPL-3.0-or-later.
 // See LICENSES for the full license text.
 
-using Robust.Shared.GameObjects;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._Onyx.Humanoid;

@@ -8,8 +8,6 @@ using System.Linq;
 using System.Numerics;
 using Content.Shared._Onyx.Humanoid;
 using Robust.Client.GameObjects;
-using Robust.Shared.GameObjects;
-using Robust.Shared.Maths;
 
 namespace Content.Client._Onyx.Humanoid;
 
@@ -32,14 +30,14 @@ public static class MarkingBoundsHelper
         if (comp == null)
             return new Box2();
 
+        if (!entMan.TryGetComponent<MarkingLayersComponent>(sprite.Owner, out var markings) || markings.LayerIds.Count == 0)
+            return spriteSystem.GetLocalBounds(new Entity<SpriteComponent>(sprite.Owner, comp));
+
         var excluded = new HashSet<int>();
-        if (entMan.TryGetComponent<MarkingLayersComponent>(sprite.Owner, out var markings))
+        foreach (var layerId in markings.LayerIds)
         {
-            foreach (var layerId in markings.LayerIds)
-            {
-                if (spriteSystem.LayerMapTryGet(sprite, layerId, out var markingIndex, false))
-                    excluded.Add(markingIndex);
-            }
+            if (spriteSystem.LayerMapTryGet(sprite, layerId, out var markingIndex, false))
+                excluded.Add(markingIndex);
         }
 
         var bounds = new Box2();

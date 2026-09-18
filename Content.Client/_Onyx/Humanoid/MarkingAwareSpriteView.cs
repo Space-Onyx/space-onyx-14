@@ -9,9 +9,6 @@ using System.Numerics;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface.Controls;
-using Robust.Shared.Analyzers;
-using Robust.Shared.GameObjects;
-using Robust.Shared.Maths;
 
 namespace Content.Client._Onyx.Humanoid;
 
