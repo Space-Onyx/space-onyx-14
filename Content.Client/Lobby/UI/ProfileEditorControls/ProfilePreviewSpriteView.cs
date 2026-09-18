@@ -1,6 +1,7 @@
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
 using Content.Client._Onyx.Body; // <Onyx-DirectionalLimbLayers>
+using Content.Client._Onyx.Humanoid; // <Onyx-MarkingBounds>
 using Robust.Client.GameObjects; // <Onyx-DirectionalLimbLayers>
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Player;
@@ -9,7 +10,7 @@ using Robust.Shared.Maths; // <Onyx-DirectionalLimbLayers>
 
 namespace Content.Client.Lobby.UI.ProfileEditorControls;
 
-public sealed partial class ProfilePreviewSpriteView : SpriteView
+public sealed partial class ProfilePreviewSpriteView : MarkingAwareSpriteView // <Onyx-MarkingBounds-edited>
 {
     [Dependency] private IPrototypeManager _prototypeManager = default!;
     [Dependency] private ISharedPlayerManager _playerManager = default!;

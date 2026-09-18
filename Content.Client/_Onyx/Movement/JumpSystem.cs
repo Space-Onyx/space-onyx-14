@@ -6,6 +6,7 @@
 
 using System.Numerics;
 using Content.Client._Onyx.AnimationData;
+using Content.Client._Onyx.Humanoid;
 using Content.Shared._Onyx.Movement;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
@@ -65,7 +66,7 @@ public sealed class JumpShadowOverlay(IEntityManager entities, IGameTiming timin
             var progress = elapsed / HopDuration;
             var height = MathF.Sin((float) progress * MathF.PI);
             var feet = _transform.GetWorldPosition(xform) +
-                screenDown * (_sprite.GetLocalBounds((uid, sprite)).Height / 2f);
+                screenDown * (MarkingBoundsHelper.GetLocalBoundsWithoutMarkings((uid, sprite), _sprite, entities).Height / 2f);
             if (!args.WorldAABB.Contains(feet))
                 continue;
 

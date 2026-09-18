@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Client.Sprite;
+using Content.Client._Onyx.Humanoid; // <Onyx-MarkingBounds>
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.Utility;
@@ -69,7 +70,7 @@ public sealed partial class ClickableSystem : EntitySystem
         drawDepth = sprite.DrawDepth;
         renderOrder = sprite.RenderOrder;
         var (spritePos, spriteRot) = _transforms.GetWorldPositionRotation(transform);
-        var spriteBB = _sprites.CalculateBounds((entity.Owner, sprite), spritePos, spriteRot, eye.Rotation);
+        var spriteBB = MarkingBoundsHelper.CalculateBoundsWithoutMarkings((entity.Owner, sprite), _sprites, EntityManager, spritePos, spriteRot, eye.Rotation); // <Onyx-MarkingBounds-edited>
         bottom = Matrix3Helpers.CreateRotation(eye.Rotation).TransformBox(spriteBB).Bottom;
 
         Matrix3x2.Invert(sprite.LocalMatrix, out var invSpriteMatrix);

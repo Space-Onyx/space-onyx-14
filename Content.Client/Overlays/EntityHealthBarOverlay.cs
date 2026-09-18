@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Client.StatusIcon;
+using Content.Client._Onyx.Humanoid; // <Onyx-MarkingBounds>
 using Content.Client.UserInterface.Systems;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
@@ -85,8 +86,8 @@ public sealed class EntityHealthBarOverlay : Overlay
                 continue;
 
             // we use the status icon component bounds if specified otherwise use sprite
-            var bounds = _entManager.GetComponentOrNull<StatusIconComponent>(uid)?.Bounds ?? _spriteSystem.GetLocalBounds(
-                (uid, sprite));
+            var bounds = _entManager.GetComponentOrNull<StatusIconComponent>(uid)?.Bounds ?? MarkingBoundsHelper.GetLocalBoundsWithoutMarkings(
+                (uid, sprite), _spriteSystem, _entManager); // <Onyx-MarkingBounds-edited>
             var worldPos = _transform.GetWorldPosition(xform, xformQuery);
 
             if (!bounds.Translated(worldPos).Intersects(args.WorldAABB))

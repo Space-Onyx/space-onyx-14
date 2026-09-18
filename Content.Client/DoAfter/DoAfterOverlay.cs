@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Shared.DoAfter;
 using Content.Client.UserInterface.Systems;
+using Content.Client._Onyx.Humanoid; // <Onyx-MarkingBounds>
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Shared.Enums;
@@ -138,7 +139,7 @@ public sealed class DoAfterOverlay : Overlay
 
                 // Use the sprite itself if we know its bounds. This means short or tall sprites don't get overlapped
                 // by the bar.
-                var spriteBounds = _sprite.GetLocalBounds((uid, sprite));
+                var spriteBounds = MarkingBoundsHelper.GetLocalBoundsWithoutMarkings((uid, sprite), _sprite, _entManager); // <Onyx-MarkingBounds-edited>
                 var yFinished = spriteBounds.Height / 2f + 0.05f;
                 var yStart = yFinished / 6f;
                 var yOffset = MathHelper.Lerp(yStart, yFinished, Easings.OutSine((float)Math.Clamp(elapsed / MaxYPosTime, 0.0, 1.0)));

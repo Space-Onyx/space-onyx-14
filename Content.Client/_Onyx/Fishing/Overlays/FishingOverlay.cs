@@ -7,6 +7,7 @@
 
 using System.Numerics;
 using Content.Client.UserInterface.Systems;
+using Content.Client._Onyx.Humanoid;
 using Content.Shared._Onyx.Fishing.Components;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
@@ -63,7 +64,7 @@ public sealed class FishingOverlay : Overlay
         var barWidth = textureSize.X * BarWidthFraction;
         var rotationMatrix = Matrix3Helpers.CreateRotation(-rotation);
         handle.SetTransform(Matrix3x2.Multiply(rotationMatrix, Matrix3Helpers.CreateTranslation(worldPosition)));
-        var position = new Vector2(_sprite.GetLocalBounds((localEntity.Value, sprite)).Width / 2f, -textureSize.Y / 2f);
+        var position = new Vector2(MarkingBoundsHelper.GetLocalBoundsWithoutMarkings((localEntity.Value, sprite), _sprite, _entityManager).Width / 2f, -textureSize.Y / 2f);
         handle.DrawTextureRect(_barTexture, new Box2(position, position + textureSize));
 
         var progress = Math.Clamp(comp.TotalProgress.Value, 0f, 1f);

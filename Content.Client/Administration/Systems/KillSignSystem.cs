@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using Content.Client._Onyx.Humanoid; // <Onyx-MarkingBounds>
 using Content.Shared.Administration.Components;
 using Robust.Client.GameObjects;
 using Robust.Client.Player;
@@ -52,7 +53,7 @@ public sealed partial class KillSignSystem : EntitySystem
         if (ent.Comp.Sprite == null)
             return;
 
-        var adj = _sprite.GetLocalBounds((ent, sprite)).Height / 2 + ((1.0f / 32) * 6.0f);
+        var adj = MarkingBoundsHelper.GetLocalBoundsWithoutMarkings((ent, sprite), _sprite, EntityManager).Height / 2 + ((1.0f / 32) * 6.0f); // <Onyx-MarkingBounds-edited>
 
         var layer = _sprite.AddLayer((ent, sprite), ent.Comp.Sprite);
         _sprite.LayerMapSet((ent, sprite), KillSignKey.Key, layer);

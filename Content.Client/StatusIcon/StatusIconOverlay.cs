@@ -1,3 +1,4 @@
+using Content.Client._Onyx.Humanoid; // <Onyx-MarkingBounds>
 using Content.Shared.StatusIcon;
 using Content.Shared.StatusIcon.Components;
 using Robust.Client.GameObjects;
@@ -50,7 +51,7 @@ public sealed partial class StatusIconOverlay : Overlay
             if (xform.MapID != args.MapId || !sprite.Visible)
                 continue;
 
-            var bounds = comp.Bounds ?? _sprite.GetLocalBounds((uid, sprite));
+            var bounds = comp.Bounds ?? MarkingBoundsHelper.GetLocalBoundsWithoutMarkings((uid, sprite), _sprite, _entity); // <Onyx-MarkingBounds-edited>
 
             var worldPos = _transform.GetWorldPosition(xform, xformQuery);
 
@@ -88,7 +89,7 @@ public sealed partial class StatusIconOverlay : Overlay
                 if (proto.LocationPreference == StatusIconLocationPreference.Left ||
                     proto.LocationPreference == StatusIconLocationPreference.None && countL <= countR)
                 {
-                    if (accOffsetL + texture.Height > _sprite.GetLocalBounds((uid, sprite)).Height * EyeManager.PixelsPerMeter)
+                    if (accOffsetL + texture.Height > MarkingBoundsHelper.GetLocalBoundsWithoutMarkings((uid, sprite), _sprite, _entity).Height * EyeManager.PixelsPerMeter) // <Onyx-MarkingBounds-edited>
                         break;
                     if (proto.Layer == StatusIconLayer.Base)
                     {
@@ -101,7 +102,7 @@ public sealed partial class StatusIconOverlay : Overlay
                 }
                 else
                 {
-                    if (accOffsetR + texture.Height > _sprite.GetLocalBounds((uid, sprite)).Height * EyeManager.PixelsPerMeter)
+                    if (accOffsetR + texture.Height > MarkingBoundsHelper.GetLocalBoundsWithoutMarkings((uid, sprite), _sprite, _entity).Height * EyeManager.PixelsPerMeter) // <Onyx-MarkingBounds-edited>
                         break;
                     if (proto.Layer == StatusIconLayer.Base)
                     {

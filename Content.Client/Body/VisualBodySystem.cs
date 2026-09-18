@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Content.Shared._Onyx.Clothing; // <Onyx-ClothingDirt>
+using Content.Shared._Onyx.Humanoid; // <Onyx-MarkingBounds>
 using Content.Client.DisplacementMap;
 using Content.Shared.Body;
 using Content.Shared.Body.Part; // <Onyx-OrganVisualLifecycle>
@@ -350,6 +351,7 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
                     // - The +1 ensures that markings render on top of the base organ
                     spriteLayer = _sprite.AddLayer(target, sprite, index + i + numDisplacements + 1);
                     _sprite.LayerMapSet(target, layerId, spriteLayer);
+                    EnsureComp<MarkingLayersComponent>(target.Owner).LayerIds.Add(layerId); // <Onyx-MarkingBounds>
                     _sprite.LayerSetSprite(target, spriteLayer, rsi);
                     _sprite.LayerSetVisible(target, spriteLayer, bodypartLayer.Visible);
                 }
@@ -416,6 +418,14 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
 
                 _sprite.LayerMapRemove(target, layerId);
                 _sprite.RemoveLayer(target, index);
+                // <Onyx-MarkingBounds>
+                if (TryComp<MarkingLayersComponent>(target.Owner, out var markingLayers))
+                {
+                    markingLayers.LayerIds.Remove(layerId);
+                    if (markingLayers.LayerIds.Count == 0)
+                        RemComp<MarkingLayersComponent>(target.Owner);
+                }
+                // </Onyx-MarkingBounds>
             }
         }
     }
