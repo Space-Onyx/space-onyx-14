@@ -67,3 +67,16 @@
   id: LostMoneyCrab17
   moodChange: -8
   timeout: 600
+
+# Dirty worn clothing
+- type: moodEffect
+  id: DirtySocks
+  moodChange: -3
+
+- type: moodEffect
+  id: DirtyUnderwear
+  moodChange: -3
+
+- type: moodEffect
+  id: DirtyUniform
+  moodChange: -3
