@@ -1,0 +1,9 @@
+handheld-radio-menu-title = Портативная рация
+handheld-radio-menu-frequency-label = Частота
+handheld-radio-menu-audio-label = Аудио
+handheld-radio-menu-mic = Микр.
+handheld-radio-menu-speaker = Дин.
+handheld-radio-menu-no-signal = Нет сигнала на этой частоте.
+handheld-radio-menu-footer-text = Коротковолновый приёмопередатчик
+handheld-radio-component-no-signal = Нет сигнала на частоте {$frequency}.
+handheld-radio-component-tuner-examine = Частота: { $channel } ({ $frequency }).

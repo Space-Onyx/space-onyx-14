@@ -1,27 +1,27 @@
 - type: radioChannel
   id: HandheldPreset2
   name: chat-radio-handheld-preset-2
-  frequency: 1331
+  frequency: 133.2
   color: "#967101"
   longRange: true
 
 - type: radioChannel
   id: HandheldPreset3
   name: chat-radio-handheld-preset-3
-  frequency: 1332
+  frequency: 133.4
   color: "#967101"
   longRange: true
 
 - type: radioChannel
   id: HandheldPreset4
   name: chat-radio-handheld-preset-4
-  frequency: 1333
+  frequency: 133.6
   color: "#967101"
   longRange: true
 
 - type: radioChannel
   id: HandheldPreset5
   name: chat-radio-handheld-preset-5
-  frequency: 1334
+  frequency: 133.8
   color: "#967101"
   longRange: true

@@ -8,9 +8,12 @@
   - type: TelecomExempt
   - type: RadioMicrophone
     broadcastChannel: Handheld
+    toggleOnInteract: false # <Onyx-Radio>
   - type: RadioSpeaker
     channels:
     - Handheld
+    toggleOnInteract: false # <Onyx-Radio>
+    enabled: true # <Onyx-Radio>
   - type: Speech
     speechVerb: Robotic
   - type: Sprite
@@ -25,20 +28,34 @@
   - type: Tag
     tags:
     - Radio
+  # <Onyx-Radio>
+  - type: HandheldRadioTuner
+    frequency: 133.0
+  - type: ActivatableUI
+    key: enum.HandheldRadioUiKey.Key
+    inHandsOnly: true
+    singleUser: true
+  - type: UserInterface
+    interfaces:
+      enum.HandheldRadioUiKey.Key:
+        type: HandheldRadioBoundUserInterface
+  # </Onyx-Radio>
 
 - type: entity
   name: handheld radio
   description: A handy handheld radio.
   parent: BaseRadioHandheld
-  id: RadioHandheld
+  id: RadioHandheld # <Onyx-Radio-edited>
   components:
-  - type: HandheldRadioPreset
-    channels:
+  # <Onyx-Radio>
+  - type: HandheldRadioTuner
+    supportedChannels:
     - Handheld
     - HandheldPreset2
     - HandheldPreset3
     - HandheldPreset4
     - HandheldPreset5
+  # </Onyx-Radio>
 
 - type: entity
   name: security radio
@@ -52,6 +69,15 @@
   - type: RadioSpeaker
     channels:
     - Security
+  # <Onyx-Radio>
+  - type: HandheldRadioTuner
+    frequency: 135.9
+    frequencyLocked: true
+    minFrequency: 135.9
+    maxFrequency: 135.9
+    supportedChannels:
+    - Security
+  # </Onyx-Radio>
   - type: Sprite
     sprite: Objects/Devices/securityhandy.rsi
   - type: Item

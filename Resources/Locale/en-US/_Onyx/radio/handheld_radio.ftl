@@ -1,0 +1,9 @@
+handheld-radio-menu-title = Handheld radio
+handheld-radio-menu-frequency-label = Frequency
+handheld-radio-menu-audio-label = Audio
+handheld-radio-menu-mic = Mic.
+handheld-radio-menu-speaker = Spkr.
+handheld-radio-menu-no-signal = No signal on this frequency.
+handheld-radio-menu-footer-text = Short-range radio transceiver
+handheld-radio-component-no-signal = No signal on {$frequency} frequency.
+handheld-radio-component-tuner-examine = Frequency: {$channel} ({$frequency}).
