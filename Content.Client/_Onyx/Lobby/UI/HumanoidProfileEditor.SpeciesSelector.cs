@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client._Onyx.Lobby.UI;
 using Content.Client.Guidebook;
 using Content.Shared.Humanoid.Prototypes;
@@ -45,14 +44,12 @@ public sealed partial class HumanoidProfileEditor
 
     private void RefreshSpeciesSelector()
     {
-        var species = _prototypeManager.EnumeratePrototypes<SpeciesPrototype>()
-            .Where(proto => proto.RoundStart)
-            .ToList();
-
         if (Profile == null)
             return;
 
-        if (species.All(proto => proto.ID != Profile.Species))
+        // Only reset when the prototype is gone entirely. Non-RoundStart species
+        // are left untouched here; EnsureValid normalizes them on save.
+        if (!_prototypeManager.HasIndex<SpeciesPrototype>(Profile.Species))
             SetSpecies(HumanoidCharacterProfile.DefaultSpecies);
 
         if (_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var currentSpecies))

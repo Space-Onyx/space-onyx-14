@@ -1146,6 +1146,25 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("integer")
                         .HasColumnName("age");
 
+                    // <Onyx-ProfilePersistence>
+                    b.Property<float>("BarkMaxVar")
+                        .HasColumnType("real")
+                        .HasColumnName("bark_max_var");
+
+                    b.Property<float>("BarkMinVar")
+                        .HasColumnType("real")
+                        .HasColumnName("bark_min_var");
+
+                    b.Property<float>("BarkPitch")
+                        .HasColumnType("real")
+                        .HasColumnName("bark_pitch");
+
+                    b.Property<string>("BarkProto")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("bark_proto");
+                    // </Onyx-ProfilePersistence>
+
                     b.Property<string>("CharacterName")
                         .IsRequired()
                         .HasColumnType("text")
@@ -1371,6 +1390,12 @@ namespace Content.Server.Database.Migrations.Postgres
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("role_name");
+
+                    // <Onyx-ProfilePersistence>
+                    b.Property<string>("SyntheticLawPreset")
+                        .HasColumnType("text")
+                        .HasColumnName("synthetic_law_preset");
+                    // </Onyx-ProfilePersistence>
 
                     b.HasKey("Id")
                         .HasName("PK_profile_role_loadout");

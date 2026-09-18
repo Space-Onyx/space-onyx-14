@@ -230,6 +230,12 @@ namespace Content.Server.Database
             profile.Width = humanoid.Width;
             // </Onyx-HeightWidth>
             profile.CyberneticIds = humanoid.Cybernetics.Select(id => id.Id).ToList(); // <Onyx-CyberneticsPersonalization>
+            // <Onyx-ProfilePersistence>
+            profile.BarkProto = humanoid.Bark.Proto;
+            profile.BarkPitch = humanoid.Bark.Pitch;
+            profile.BarkMinVar = humanoid.Bark.MinVar;
+            profile.BarkMaxVar = humanoid.Bark.MaxVar;
+            // </Onyx-ProfilePersistence>
             profile.Sex = humanoid.Sex.ToString();
             profile.Voice = humanoid.Voice.ToString();
             profile.Gender = humanoid.Gender.ToString();
@@ -290,6 +296,9 @@ namespace Content.Server.Database
                 {
                     RoleName = role,
                     EntityName = loadouts.EntityName ?? string.Empty,
+                    // <Onyx-ProfilePersistence>
+                    SyntheticLawPreset = loadouts.SyntheticLawPreset?.Id,
+                    // </Onyx-ProfilePersistence>
                 };
 
                 foreach (var (group, groupLoadouts) in loadouts.SelectedLoadouts)

@@ -351,6 +351,12 @@ namespace Content.Server.Database
         public float Width { get; set; } = 1f;
         // </Onyx-HeightWidth>
         public List<string> CyberneticIds { get; set; } = []; // <Onyx-CyberneticsPersonalization>
+        // <Onyx-ProfilePersistence>
+        public string BarkProto { get; set; } = "Human1";
+        public float BarkPitch { get; set; } = 1f;
+        public float BarkMinVar { get; set; } = 0.1f;
+        public float BarkMaxVar { get; set; } = 0.5f;
+        // </Onyx-ProfilePersistence>
         public string Sex { get; set; } = null!;
         public string? Voice { get; set; } = null!; // If null, the voice gets defaulted to the sex associated value
         public string Gender { get; set; } = null!;
@@ -438,6 +444,10 @@ namespace Content.Server.Database
         /// </summary>
         [MaxLength(256)]
         public string? EntityName { get; set; }
+
+        // <Onyx-ProfilePersistence>
+        public string? SyntheticLawPreset { get; set; }
+        // </Onyx-ProfilePersistence>
 
         /// <summary>
         /// Store the saved loadout groups. These may get validated and removed when loaded at runtime.

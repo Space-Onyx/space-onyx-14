@@ -172,6 +172,9 @@ namespace Content.Server.Preferences.Managers
                 var loadout = new RoleLoadout(role.RoleName)
                 {
                     EntityName = role.EntityName,
+                    // <Onyx-ProfilePersistence>
+                    SyntheticLawPreset = role.SyntheticLawPreset,
+                    // </Onyx-ProfilePersistence>
                 };
 
                 foreach (var group in role.Groups)
@@ -220,7 +223,13 @@ namespace Content.Server.Preferences.Managers
                 antags.ToHashSet(),
                 traits.ToHashSet(),
                 loadouts,
-                new BarkData()
+                // <Onyx-ProfilePersistence>
+                new BarkData(
+                    string.IsNullOrWhiteSpace(profile.BarkProto) ? "Human1" : profile.BarkProto,
+                    profile.BarkPitch,
+                    profile.BarkMinVar,
+                    profile.BarkMaxVar)
+                // </Onyx-ProfilePersistence>
             );
             // <Onyx-CharacterDescriptions-edited>
             return result

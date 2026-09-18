@@ -31,6 +31,11 @@ public sealed partial class HumanoidProfileEditor
             return;
 
         var normalized = CyberneticsPicker.SetData(Profile.Cybernetics, species.RoundstartCyberwareCapacity);
+        // Don't rewrite the profile while it is being loaded into the editor;
+        // normalization happens in EnsureValid on save.
+        if (_settingProfile)
+            return;
+
         if (!normalized.SequenceEqual(Profile.Cybernetics))
             Profile = Profile.WithCybernetics(normalized);
     }

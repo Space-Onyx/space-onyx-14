@@ -342,8 +342,13 @@ public sealed partial class HumanoidProfileEditor
                     out var reason))
             {
                 selector.LockRequirements(reason);
-                Profile = Profile?.WithAntagPreference(antag.ID, false);
-                SetDirty();
+                // <Onyx-ProfilePersistence-edited>
+                if (!_settingProfile)
+                {
+                    Profile = Profile?.WithAntagPreference(antag.ID, false);
+                    SetDirty();
+                }
+                // </Onyx-ProfilePersistence-edited>
             }
             else
             {
