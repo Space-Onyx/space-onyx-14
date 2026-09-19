@@ -16,7 +16,6 @@ ent-OrganRodentiaLegLeft = левая нога родентии
 ent-OrganRodentiaLegRight = правая нога родентии
 ent-OrganRodentiaFootLeft = левая стопа родентии
 ent-OrganRodentiaFootRight = правая стопа родентии
-ent-OrganRodentiaTail = хвост родентии
 ent-OrganRodentiaBrain = мозг родентии
 ent-OrganRodentiaEyes = глаза родентии
 ent-OrganRodentiaTongue = язык родентии

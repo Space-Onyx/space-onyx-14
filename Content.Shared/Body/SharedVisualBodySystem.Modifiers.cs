@@ -153,12 +153,11 @@ public abstract partial class SharedVisualBodySystem
 
     private void OnSetModifiers(Entity<VisualBodyComponent> ent, ref HumanoidMarkingModifierMarkingSetMessage args)
     {
-        ReconcileProfileOrgans(ent.Owner, args.Markings, replace: true); // <Onyx-ProfileOrgans>
         var markingsEvt = new ApplyOrganMarkingsEvent(args.Markings);
         RaiseLocalEvent(ent, ref markingsEvt);
-        // <Onyx-VisualOrganActivity>
+        // <Onyx-MarkingActivity>
         RaiseLocalEvent(ent.Owner, new VisualBodyMarkingsChangedEvent());
-        // </Onyx-VisualOrganActivity>
+        // </Onyx-MarkingActivity>
     }
 
     /// <summary>
@@ -169,12 +168,11 @@ public abstract partial class SharedVisualBodySystem
     [PublicAPI]
     public void ApplyMarkings(EntityUid ent, Dictionary<ProtoId<OrganCategoryPrototype>, Dictionary<HumanoidVisualLayers, List<Marking>>> markings)
     {
-        ReconcileProfileOrgans(ent, markings, replace: false); // <Onyx-ProfileOrgans>
         var markingsEvt = new ApplyOrganMarkingsEvent(markings);
         RaiseLocalEvent(ent, ref markingsEvt);
-        // <Onyx-VisualOrganActivity>
+        // <Onyx-MarkingActivity>
         RaiseLocalEvent(ent, new VisualBodyMarkingsChangedEvent());
-        // </Onyx-VisualOrganActivity>
+        // </Onyx-MarkingActivity>
     }
 
     private void ApplyAppearanceTo(Entity<VisualBodyComponent?> ent, HumanoidCharacterAppearance appearance, Sex sex)
@@ -182,7 +180,6 @@ public abstract partial class SharedVisualBodySystem
         if (!Resolve(ent, ref ent.Comp))
             return;
 
-        ReconcileProfileOrgans(ent.Owner, appearance.Markings, replace: true); // <Onyx-ProfileOrgans>
         ApplyProfile(ent,
             new()
         {
@@ -193,9 +190,9 @@ public abstract partial class SharedVisualBodySystem
 
         var markingsEvt = new ApplyOrganMarkingsEvent(appearance.Markings);
         RaiseLocalEvent(ent, ref markingsEvt);
-        // <Onyx-VisualOrganActivity>
+        // <Onyx-MarkingActivity>
         RaiseLocalEvent(ent.Owner, new VisualBodyMarkingsChangedEvent());
-        // </Onyx-VisualOrganActivity>
+        // </Onyx-MarkingActivity>
     }
 
     /// <summary>

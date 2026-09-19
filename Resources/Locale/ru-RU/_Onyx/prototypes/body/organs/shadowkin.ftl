@@ -8,7 +8,6 @@ ent-OrganShadowkinHeart = сердце тенекина
 ent-OrganShadowkinStomach = желудок тенекина
 ent-OrganShadowkinLiver = печень тенекина
 ent-OrganShadowkinKidneys = почки тенекина
-ent-OrganShadowkinTail = хвост тенекина
 ent-OrganShadowkinChest = грудь тенекина
 ent-OrganShadowkinGroin = таз тенекина
 ent-OrganShadowkinHead = голова тенекина

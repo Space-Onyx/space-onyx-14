@@ -13,7 +13,7 @@
       limit: 3
       required: false
     enum.HumanoidVisualLayers.HeadTop:
-      limit: 1
+      limit: 1 # <Onyx-MarkingCategories-edited>
       required: true
       default: [ TajaranOutears ]
     enum.HumanoidVisualLayers.Snout:

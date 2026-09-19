@@ -4,7 +4,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Shared._Onyx.Body;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class VisualOrganActivityComponent : Component
+public sealed partial class MarkingActivityComponent : Component
 {
     [DataField(required: true), AutoNetworkedField]
     public EntProtoId Action;

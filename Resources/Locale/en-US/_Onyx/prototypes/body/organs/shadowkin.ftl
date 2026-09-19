@@ -8,7 +8,6 @@ ent-OrganShadowkinHeart = shadowkin heart
 ent-OrganShadowkinStomach = shadowkin stomach
 ent-OrganShadowkinLiver = shadowkin liver
 ent-OrganShadowkinKidneys = shadowkin kidneys
-ent-OrganShadowkinTail = shadowkin tail
 ent-OrganShadowkinChest = shadowkin chest
 ent-OrganShadowkinGroin = shadowkin pelvis
 ent-OrganShadowkinHead = shadowkin head

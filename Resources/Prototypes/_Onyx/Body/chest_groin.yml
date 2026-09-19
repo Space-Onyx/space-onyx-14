@@ -238,6 +238,9 @@
     markingData:
       layers: [ Chest, Tail, Overlay, TailOverlay, Special ]
       group: Moth
+  - type: OrganAction
+    action: ActionWingDash
+    markingLayers: [ Tail, TailOverlay ]
 
 - type: entity
   parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganMothExternal ]

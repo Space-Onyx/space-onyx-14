@@ -49,7 +49,7 @@
       required: false
     # <Onyx-GoobMarkings>
     enum.HumanoidVisualLayers.HeadTop:
-      limit: 1
+      limit: 3 # <Onyx-MarkingCategories-edited>
       required: true
       default: [ FoxEar ] # Corvax-Vulp_Port VulpEar
     # </Onyx-GoobMarkings>
@@ -63,6 +63,8 @@
   categories: [ HideSpawnMenu ]
   name: vulpkanin appearance
   components:
+  - type: MarkingActivity # <Onyx-MarkingActivity>
+    action: ActionToggleWaggingVulpkanin # <Onyx-MarkingActivity>
   - type: InitialBody
     organs:
       # <Onyx-ChestGroin-edited>

@@ -21,7 +21,7 @@
       required: true
       default: [ LizardSnoutRound ]
     enum.HumanoidVisualLayers.HeadTop:
-      limit: 2
+      limit: 3 # <Onyx-MarkingCategories-edited>
       required: false
     enum.HumanoidVisualLayers.HeadSide:
       limit: 1

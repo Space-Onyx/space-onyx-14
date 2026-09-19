@@ -38,7 +38,7 @@
       required: false
     # Corvax-Sponsors-start
     enum.HumanoidVisualLayers.HeadTop:
-      limit: 1
+      limit: 1 # <Onyx-MarkingCategories-edited>
       required: false
     enum.HumanoidVisualLayers.Tail:
       limit: 1

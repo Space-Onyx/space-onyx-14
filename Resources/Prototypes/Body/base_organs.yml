@@ -122,8 +122,6 @@
       - SnoutCover
       - HeadSide
       - HeadTop
-      - Ears # <Onyx-MarkingCategories>
-      - EarsOverlay # <Onyx-MarkingCategories>
   - type: Tag
     tags:
     - Head
@@ -647,11 +645,6 @@
   - type: Sprite
     layers:
     - state: ears
-  # <Onyx-VisualEars>
-  - type: VisualOrgan
-    layer: enum.HumanoidVisualLayers.Ears
-    data: {}
-  # </Onyx-VisualEars>
 
 - type: entity
   parent:

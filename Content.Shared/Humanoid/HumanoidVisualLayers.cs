@@ -36,10 +36,10 @@ namespace Content.Shared.Humanoid
         StencilMask,
         Ensnare,
         Fire,
-        // <Onyx-VisualEars>
+        // <Onyx-MarkingCategories-edited> Legacy serialization values for persisted profiles. New markings use HeadTop.
         Ears,
         EarsOverlay,
-        // </Onyx-VisualEars>
+        // </Onyx-MarkingCategories-edited>
 
     }
 }

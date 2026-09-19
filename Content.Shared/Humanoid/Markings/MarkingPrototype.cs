@@ -52,10 +52,10 @@ namespace Content.Shared.Humanoid.Markings
         [DataField]
         public Dictionary<string, string>? Shaders { get; private set; }
 
-        // <Onyx-VisualOrganActivity>
+        // <Onyx-MarkingActivity>
         [DataField]
         public ProtoId<MarkingPrototype>? ActiveVariant { get; private set; }
-        // </Onyx-VisualOrganActivity>
+        // </Onyx-MarkingActivity>
 
         public Marking AsMarking()
         {

@@ -341,37 +341,6 @@
 
 - type: entity
   parent: SurgerySlimeBase
-  id: SurgerySlimeRemoveTail
-  name: Remove tail
-  components:
-  - type: Surgery
-    steps:
-      default:
-        steps:
-        - SurgerySlimeOpenIncision
-        - SurgeryStepRemoveTail
-  - type: SurgeryOrganCondition
-    slot: Tail
-    part: Groin
-
-- type: entity
-  parent: SurgerySlimeBase
-  id: SurgerySlimeInsertTail
-  name: Insert tail
-  components:
-  - type: Surgery
-    steps:
-      default:
-        steps:
-        - SurgerySlimeOpenIncision
-        - SurgeryStepInsertTail
-  - type: SurgeryOrganCondition
-    slot: Tail
-    inverse: true
-    part: Groin
-
-- type: entity
-  parent: SurgerySlimeBase
   id: SurgerySlimeRemoveLungs
   name: Remove gas sacs
   components:

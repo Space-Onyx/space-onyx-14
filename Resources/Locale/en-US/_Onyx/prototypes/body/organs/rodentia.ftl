@@ -16,7 +16,6 @@ ent-OrganRodentiaLegLeft = left rodentian leg
 ent-OrganRodentiaLegRight = right rodentian leg
 ent-OrganRodentiaFootLeft = left rodentian foot
 ent-OrganRodentiaFootRight = right rodentian foot
-ent-OrganRodentiaTail = rodentian tail
 ent-OrganRodentiaBrain = rodentian brain
 ent-OrganRodentiaEyes = rodentian eyes
 ent-OrganRodentiaTongue = rodentian tongue

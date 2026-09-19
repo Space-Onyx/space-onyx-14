@@ -181,6 +181,13 @@
   - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
     state: bushfluff_wag
 - type: marking
+  id: VulpTailCoyoteWag
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: coyote_wag
+- type: marking
   id: VulpTailHuskyAlt
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]

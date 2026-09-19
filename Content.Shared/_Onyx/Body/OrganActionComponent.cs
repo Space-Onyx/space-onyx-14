@@ -1,3 +1,4 @@
+using Content.Shared.Humanoid;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
@@ -8,6 +9,9 @@ public sealed partial class OrganActionComponent : Component
 {
     [DataField(required: true), AutoNetworkedField]
     public EntProtoId Action;
+
+    [DataField]
+    public HashSet<HumanoidVisualLayers> MarkingLayers = [];
 
     [DataField, AutoNetworkedField]
     public EntityUid? ActionEntity;

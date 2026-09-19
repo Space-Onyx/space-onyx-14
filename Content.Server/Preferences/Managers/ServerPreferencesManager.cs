@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.Afk;
+using Content.Server._Onyx.Preferences; // <Onyx-MarkingCategories>
 using Content.Corvax.Interfaces.Shared;
 using Content.Server.Database;
 using Content.Shared.Body;
@@ -144,6 +145,7 @@ namespace Content.Server.Preferences.Managers
                     .Read<Dictionary<ProtoId<OrganCategoryPrototype>, Dictionary<HumanoidVisualLayers, List<Marking>>>>(
                         data,
                         notNullableOverride: true);
+                ProfileMarkingMigration.Migrate(markings, species, _marking); // <Onyx-MarkingCategories>
             }
             else if (profile.Markings is { } profileMarkings && TryDeserialize<List<string>>(profileMarkings) is { } markingsRaw)
             {

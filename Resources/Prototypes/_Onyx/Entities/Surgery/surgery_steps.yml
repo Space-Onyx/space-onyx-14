@@ -764,26 +764,6 @@
 
 - type: entity
   parent: SurgeryStepRemoveOrgan
-  id: SurgeryStepRemoveTail
-  components: [ { type: SurgeryRemoveOrganEffect, slot: Tail } ]
-
-- type: entity
-  parent: SurgeryStepInsertOrgan
-  id: SurgeryStepInsertTail
-  components: [ { type: SurgeryInsertOrganEffect, slot: Tail } ]
-
-- type: entity
-  parent: SurgeryStepRemoveOrgan
-  id: SurgeryStepRemoveWings
-  components: [ { type: SurgeryRemoveOrganEffect, slot: Wings } ]
-
-- type: entity
-  parent: SurgeryStepInsertOrgan
-  id: SurgeryStepInsertWings
-  components: [ { type: SurgeryInsertOrganEffect, slot: Wings } ]
-
-- type: entity
-  parent: SurgeryStepRemoveOrgan
   id: SurgeryStepRemoveHeart
   components: [ { type: SurgeryRemoveOrganEffect, slot: Heart } ]
 
