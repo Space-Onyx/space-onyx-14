@@ -1,6 +1,6 @@
 - type: marking
   id: CatEars
-  bodyPart: Ears # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop # <Onyx-VisualEars-edited>
   groupWhitelist: [Human]
   sponsorOnly: false # <Onyx-SponsorDisable>
   coloring:

@@ -154,9 +154,6 @@
       Stomach: OrganVoxStomach
       Liver: OrganVoxLiver
       Kidneys: OrganVoxKidneys
-  - type: ProfileOrgans # <Onyx-ProfileOrgans>
-    organs:
-      Tail: { prototype: OrganVoxTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Vox
 

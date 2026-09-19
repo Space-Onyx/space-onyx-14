@@ -15,7 +15,7 @@
 - type: marking
   id: TattooTribal1
   bodyPart: Chest
-  groupWhitelist: [ Human, Slime, Reptilian, Felinid, Rodentia, Tajaran, Shadowkin ]
+  groupWhitelist: [ Human, Slime, Reptilian, Felinid, Rodentia, Tajaran, Shadowkin, Demon ]
   coloring:
     default:
       type:
@@ -27,7 +27,7 @@
 - type: marking
   id: TattooLoops
   bodyPart: Chest
-  groupWhitelist: [ Human, Slime, Reptilian, Felinid, Rodentia, Tajaran, Shadowkin ]
+  groupWhitelist: [ Human, Slime, Reptilian, Felinid, Rodentia, Tajaran, Shadowkin, Demon ]
   coloring:
     default:
       type:
@@ -39,14 +39,14 @@
 - type: marking
   id: BuffChest
   bodyPart: Chest
-  groupWhitelist: [ Human ]
+  groupWhitelist: [ Human, Demon ]
   sprites:
   - sprite: _Onyx/Mobs/Customization/Goob/base_scars.rsi
     state: buff
 - type: marking
   id: TattooEyeRightGlowy
   bodyPart: Eyes
-  groupWhitelist: [ Human, Slime, Reptilian, Felinid, Rodentia, Tajaran, Shadowkin ]
+  groupWhitelist: [ Human, Slime, Reptilian, Felinid, Rodentia, Tajaran, Shadowkin, Demon ]
   coloring:
     default:
       type:
@@ -58,7 +58,7 @@
 - type: marking
   id: TattooEyeLeftGlowy
   bodyPart: Eyes
-  groupWhitelist: [ Human, Slime, Reptilian, Felinid, Rodentia, Tajaran, Shadowkin ]
+  groupWhitelist: [ Human, Slime, Reptilian, Felinid, Rodentia, Tajaran, Shadowkin, Demon ]
   coloring:
     default:
       type:

@@ -1,7 +1,7 @@
 # Default
 - type: marking
   id: FeroxiEars
-  bodyPart: Ears
+  bodyPart: HeadTop
   groupWhitelist: [ Feroxi ]
   sprites:
   - sprite: _Onyx/Species/Feroxi/ear_markings.rsi #RedTerror Goob Resprite
@@ -30,7 +30,7 @@
 # Ears Markings
 - type: marking
   id: FeroxiEarsTips
-  bodyPart: Ears
+  bodyPart: HeadTop
   groupWhitelist: [ Feroxi ]
   sprites:
   - sprite: _Onyx/Species/Feroxi/ear_markings.rsi #RedTerror Goob Resprite
@@ -393,7 +393,7 @@
 # Goob Ears Markings
 - type: marking
   id: FeroxiEarsTiger
-  bodyPart: Ears
+  bodyPart: HeadTop
   groupWhitelist: [ Feroxi ]
   sprites:
   - sprite: _Onyx/Species/Feroxi/ear_markings.rsi
@@ -405,7 +405,7 @@
 
 - type: marking
   id: FeroxiEarsPierced
-  bodyPart: Ears
+  bodyPart: HeadTop
   groupWhitelist: [ Feroxi ]
   sprites:
   - sprite: _Onyx/Species/Feroxi/ear_markings.rsi
@@ -413,7 +413,7 @@
 
 - type: marking
   id: FeroxiEarsPiercedTiger
-  bodyPart: Ears
+  bodyPart: HeadTop
   groupWhitelist: [ Feroxi ]
   sprites:
   - sprite: _Onyx/Species/Feroxi/ear_markings.rsi
@@ -423,7 +423,7 @@
 
 - type: marking
   id: FeroxiEarsAlt
-  bodyPart: Ears
+  bodyPart: HeadTop
   groupWhitelist: [ Feroxi ]
   sprites:
   - sprite: _Onyx/Species/Feroxi/ear_markings.rsi
@@ -433,7 +433,7 @@
 
 - type: marking
   id: FeroxiEarsAltTips
-  bodyPart: Ears
+  bodyPart: HeadTop
   groupWhitelist: [ Feroxi ]
   sprites:
   - sprite: _Onyx/Species/Feroxi/ear_markings.rsi
@@ -445,7 +445,7 @@
 
 - type: marking
   id: FeroxiEarsAltTiger
-  bodyPart: Ears
+  bodyPart: HeadTop
   groupWhitelist: [ Feroxi ]
   sprites:
   - sprite: _Onyx/Species/Feroxi/ear_markings.rsi

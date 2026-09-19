@@ -5,11 +5,6 @@
     enum.HumanoidVisualLayers.HeadTop:
       limit: 1
       required: false
-    # <Onyx-VisualEars>
-    enum.HumanoidVisualLayers.Ears:
-      limit: 1
-      required: false
-    # </Onyx-VisualEars>
     enum.HumanoidVisualLayers.Hair:
       limit: 1
       required: false
@@ -100,9 +95,6 @@
       Stomach: OrganHumanStomach
       Liver: OrganHumanLiver
       Kidneys: OrganHumanKidneys
-  - type: ProfileOrgans # <Onyx-ProfileOrgans>
-    organs:
-      Tail: { prototype: OrganHumanTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Human
 
@@ -230,11 +222,6 @@
 - type: entity
   parent: [ OrganBaseEars, OrganHumanInternal ]
   id: OrganHumanEars
-  # <Onyx-VisualEars>
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Ears, EarsOverlay ], group: Human }
-  # </Onyx-VisualEars>
 
 - type: entity
   parent: [ OrganBaseLungs, OrganHumanInternal, OrganHumanMetabolizer ]

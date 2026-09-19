@@ -30,6 +30,12 @@
 - type: entity
   parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganFeroxiExternal ]
   id: OrganFeroxiGroin
+  components:
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Tail, TailOverlay ]
+      group: Feroxi
+  
 
 - type: entity
   parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganFeroxiExternal ]
@@ -75,9 +81,6 @@
 - type: entity
   parent: [ OrganBaseEars, OrganFeroxiInternal ]
   id: OrganFeroxiEars
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Ears, EarsOverlay ], group: Feroxi }
 
 - type: entity
   parent: [ OrganBaseLungs, OrganFeroxiInternal ]
@@ -119,9 +122,3 @@
       maxVol: 5
       reagents: [ { ReagentId: UncookedAnimalProteins, Quantity: 5 } ]
 
-- type: entity
-  parent: OrganBaseVisualTail
-  id: OrganFeroxiTail
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Tail, TailOverlay ], group: Feroxi }

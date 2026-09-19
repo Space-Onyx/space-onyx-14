@@ -39,6 +39,7 @@
   components:
   - type: VisualOrganMarkings
     markingData:
+      layers: [ Tail, TailOverlay ]
       group: Shadowkin
 
 - type: entity
@@ -115,9 +116,6 @@
 - type: entity
   parent: [ OrganBaseEars, OrganShadowkinInternal ]
   id: OrganShadowkinEars
-  components:
-  - type: VisualOrganMarkings
-    markingData: { group: Shadowkin, layers: [ Ears, EarsOverlay ] }
 
 - type: entity
   parent: [ OrganHumanLungs, OrganShadowkinInternal ]
@@ -202,9 +200,3 @@
     metabolizerTypes: [ Shadowkin ]
     removeEmpty: true
 
-- type: entity
-  parent: OrganBaseVisualTail
-  id: OrganShadowkinTail
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Tail, TailOverlay ], group: Shadowkin }

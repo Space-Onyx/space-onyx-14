@@ -21,7 +21,7 @@
 
 - type: marking
   id: FoxEar
-  bodyPart: Ears # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop # <Onyx-VisualEars-edited>
   groupWhitelist: [Vulpkanin, Human] # <Onyx-HumanFoxFeatures>
   sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:

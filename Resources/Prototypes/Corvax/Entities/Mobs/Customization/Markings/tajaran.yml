@@ -342,7 +342,7 @@
 
 - type: marking
   id: TajaranOutears
-  bodyPart: Ears # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop # <Onyx-VisualEars-edited>
   groupWhitelist: [Tajaran]
   sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
@@ -387,7 +387,7 @@
 
 - type: marking
   id: TajaranInears
-  bodyPart: EarsOverlay # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop # <Onyx-VisualEars-edited>
   groupWhitelist: [Tajaran]
   sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
@@ -396,7 +396,7 @@
 
 - type: marking
   id: TajaranNose
-  bodyPart: EarsOverlay # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop # <Onyx-VisualEars-edited>
   groupWhitelist: [Tajaran]
   sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:

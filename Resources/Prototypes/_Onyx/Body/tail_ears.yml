@@ -6,32 +6,6 @@
 
 - type: entity
   parent: OrganBaseOrganic
-  id: OrganMothWings
-  name: moth wings
-  components:
-  - type: GibbableOrgan
-  - type: Organ
-    category: Wings
-  - type: SurgeryTool
-    customUses:
-    - surgery-tool-use-implant-wings
-  - type: Sprite
-    noRot: true
-    enableOverrideDir: true
-    overrideDir: North
-  - type: VisualOrgan
-    layer: enum.HumanoidVisualLayers.Tail
-    data: {}
-  - type: VisualOrganMarkings
-    showOnDetached: true
-    markingData:
-      layers: [ Tail, TailOverlay ]
-      group: Moth
-  - type: OrganAction
-    action: ActionWingDash
-
-- type: entity
-  parent: OrganBaseOrganic
   id: OrganBaseVisualTail
   name: tail
   abstract: true
@@ -57,78 +31,12 @@
     action: ActionToggleWagging
 
 - type: entity
-  parent: OrganBaseVisualTail
-  id: OrganHumanTail
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Tail, TailOverlay ], group: Human }
-
-- type: entity
-  parent: OrganBaseVisualTail
-  id: OrganFelinidTail
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Tail, TailOverlay ], group: Felinid }
-
-- type: entity
-  parent: OrganBaseVisualTail
-  id: OrganVulpkaninTail
-  components:
-  - type: VisualOrganActivity
-    action: ActionToggleWaggingVulpkanin
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Tail, TailOverlay ], group: Vulpkanin }
-
-- type: entity
-  parent: OrganBaseVisualTail
-  id: OrganReptilianTail
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Tail, TailOverlay ], group: Reptilian }
-
-- type: entity
-  parent: OrganBaseVisualTail
-  id: OrganVoxTail
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Tail, TailOverlay ], group: Vox }
-
-- type: entity
-  parent: OrganBaseVisualTail
-  id: OrganSlimePersonTail
-  components:
-  - type: TransplantCompatibility
-    profile: Slime
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Tail, TailOverlay ], group: Slime }
-
-- type: entity
-  parent: OrganBaseVisualTail
-  id: OrganTajaranTail
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Tail, TailOverlay ], group: Tajaran }
-
-- type: entity
-  parent: OrganBaseVisualTail
-  id: OrganArcanTail
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Tail, TailOverlay ], group: Demon }
-
-- type: entity
   parent: OrganHumanEars
   id: OrganFelinidEars
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Ears, EarsOverlay ], group: Felinid }
 
 - type: entity
   parent: OrganHumanEars
   id: OrganArcanEars
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Ears, EarsOverlay ], group: Demon }
 
 - type: entity
   parent: [ OrganBaseEars, OrganSlimePersonInternal ]
@@ -138,5 +46,3 @@
     profile: Slime
   - type: Sprite
     sprite: Mobs/Species/Human/organs.rsi
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Ears, EarsOverlay ], group: Slime }

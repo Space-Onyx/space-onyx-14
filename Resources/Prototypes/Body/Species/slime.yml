@@ -40,11 +40,6 @@
     enum.HumanoidVisualLayers.HeadTop:
       limit: 1
       required: false
-    # <Onyx-VisualEars>
-    enum.HumanoidVisualLayers.Ears:
-      limit: 1
-      required: false
-    # </Onyx-VisualEars>
     enum.HumanoidVisualLayers.Tail:
       limit: 1
       required: false
@@ -97,9 +92,6 @@
       Eyes: OrganSlimePersonEyes
       Lungs: OrganSlimePersonLungs
       Heart: OrganSlimePersonCirculator # <Onyx-SlimeCirculator>
-  - type: ProfileOrgans # <Onyx-ProfileOrgans>
-    organs:
-      Tail: { prototype: OrganSlimePersonTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: SlimePerson
 

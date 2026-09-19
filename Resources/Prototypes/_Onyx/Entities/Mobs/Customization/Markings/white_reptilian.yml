@@ -36,6 +36,7 @@
     state: eastern_dragon_usiki
 - type: marking
   id: SnakeLargeTail
+  activeVariant: SnakeLargeTailAnimated
   bodyPart: Tail
   groupWhitelist: [ Reptilian ]
   sprites:
@@ -46,7 +47,7 @@
 - type: marking
   id: SnakeLargeTailAnimated
   bodyPart: Tail
-  groupWhitelist: [ Reptilian ]
+  groupWhitelist: []
   sprites:
   - sprite: _Onyx/Mobs/Customization/White/reptilian_64x32.rsi
     state: snake_large_wagging

@@ -1,6 +1,6 @@
 - type: marking
   id: SlimeCatEars # Literally, why not?
-  bodyPart: Ears # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop # <Onyx-VisualEars-edited>
   groupWhitelist: [Slime]
   sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
@@ -20,7 +20,7 @@
 
 - type: marking
   id: SlimeCatEarsStubby
-  bodyPart: Ears # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop # <Onyx-VisualEars-edited>
   groupWhitelist: [Slime]
   sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
@@ -31,7 +31,7 @@
 
 - type: marking
   id: SlimeCatEarsCurled
-  bodyPart: Ears # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop # <Onyx-VisualEars-edited>
   groupWhitelist: [Slime]
   sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:
@@ -42,7 +42,7 @@
 
 - type: marking
   id: SlimeCatEarsTorn
-  bodyPart: Ears # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop # <Onyx-VisualEars-edited>
   groupWhitelist: [Slime]
   sponsorOnly: false # <Onyx-SponsorDisable>
   sprites:

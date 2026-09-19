@@ -17,13 +17,6 @@
   - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/ear_markings.rsi
     state: msai-inner
 - type: marking
-  id: VulpEarDalmatian
-  bodyPart: HeadTop
-  groupWhitelist: [ Vulpkanin ]
-  sprites:
-  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/ear_markings.rsi
-    state: dalmatian
-- type: marking
   id: VulpSnoutAlt
   bodyPart: Snout
   groupWhitelist: [ Vulpkanin ]
@@ -80,6 +73,7 @@
     state: slash
 - type: marking
   id: VulpTail
+  activeVariant: VulpTailWag
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin, Human ]
   sprites:
@@ -89,6 +83,7 @@
     state: vulp-fade
 - type: marking
   id: VulpTailTip
+  activeVariant: VulpTailWagTip
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
@@ -99,7 +94,7 @@
 - type: marking
   id: VulpTailWag
   bodyPart: Tail
-  groupWhitelist: [ Vulpkanin ]
+  groupWhitelist: []
   sprites:
   - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
     state: vulp_wag
@@ -108,7 +103,7 @@
 - type: marking
   id: VulpTailWagTip
   bodyPart: Tail
-  groupWhitelist: [ Vulpkanin ]
+  groupWhitelist: []
   sprites:
   - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
     state: vulp_wag
@@ -134,6 +129,7 @@
     state: vulp_alt-tip
 - type: marking
   id: VulpTailFox
+  activeVariant: VulpTailFoxWag
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
@@ -143,6 +139,7 @@
     state: fox-fade
 - type: marking
   id: VulpTailFoxTip
+  activeVariant: VulpTailFoxWagTip
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
@@ -153,7 +150,7 @@
 - type: marking
   id: VulpTailFoxWag
   bodyPart: Tail
-  groupWhitelist: [ Vulpkanin ]
+  groupWhitelist: []
   sprites:
   - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
     state: fox_wag
@@ -162,7 +159,7 @@
 - type: marking
   id: VulpTailFoxWagTip
   bodyPart: Tail
-  groupWhitelist: [ Vulpkanin ]
+  groupWhitelist: []
   sprites:
   - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
     state: fox_wag
@@ -170,6 +167,7 @@
     state: fox_wag-tip
 - type: marking
   id: VulpTailBushy
+  activeVariant: VulpTailBushyWag
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
@@ -178,24 +176,10 @@
 - type: marking
   id: VulpTailBushyWag
   bodyPart: Tail
-  groupWhitelist: [ Vulpkanin ]
+  groupWhitelist: []
   sprites:
   - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
     state: bushfluff_wag
-- type: marking
-  id: VulpTailCoyoteWag
-  bodyPart: Tail
-  groupWhitelist: [ Vulpkanin ]
-  sprites:
-  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
-    state: coyote_wag
-- type: marking
-  id: VulpTailCorgiWag
-  bodyPart: Tail
-  groupWhitelist: [ Vulpkanin ]
-  sprites:
-  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
-    state: corgi_wag
 - type: marking
   id: VulpTailHuskyAlt
   bodyPart: Tail
@@ -226,13 +210,6 @@
   sprites:
   - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
     state: otie
-- type: marking
-  id: VulpTailDalmatianWag
-  bodyPart: Tail
-  groupWhitelist: [ Vulpkanin ]
-  sprites:
-  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
-    state: dalmatian_wag
 - type: marking
   id: VulpPointsFeet
   bodyPart: RFoot
@@ -289,3 +266,27 @@
   sprites:
   - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/body_markings.rsi
     state: points_sharp-arms
+
+- type: marking
+  id: VulpTailCorgiWag
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: corgi_wag
+
+- type: marking
+  id: VulpTailDalmatianWag
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: dalmatian_wag
+
+- type: marking
+  id: VulpEarDalmatian
+  bodyPart: HeadTop
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/ear_markings.rsi
+    state: dalmatian

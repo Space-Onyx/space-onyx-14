@@ -26,14 +26,6 @@
     enum.HumanoidVisualLayers.HeadSide:
       limit: 1
       required: false
-    # <Onyx-VisualEars>
-    enum.HumanoidVisualLayers.Ears:
-      limit: 1
-      required: false
-    enum.HumanoidVisualLayers.EarsOverlay:
-      limit: 1
-      required: false
-    # </Onyx-VisualEars>
     # <Onyx-GoobMarkings>
     enum.HumanoidVisualLayers.Head:
       limit: 4
@@ -146,9 +138,6 @@
       Stomach: OrganReptilianStomach
       Liver: OrganReptilianLiver
       Kidneys: OrganReptilianKidneys
-  - type: ProfileOrgans # <Onyx-ProfileOrgans>
-    organs:
-      Tail: { prototype: OrganReptilianTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Reptilian
 
@@ -345,11 +334,6 @@
 - type: entity
   parent: [ OrganBaseEars, OrganSpriteHumanInternal, OrganReptilianInternal ]
   id: OrganReptilianEars
-  # <Onyx-VisualEars>
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Ears, EarsOverlay ], group: Reptilian }
-  # </Onyx-VisualEars>
 
 - type: entity
   parent: [ OrganBaseLungs, OrganReptilianInternal, OrganReptilianMetabolizer ]

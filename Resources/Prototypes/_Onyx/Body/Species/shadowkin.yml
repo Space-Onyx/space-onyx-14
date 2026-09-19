@@ -2,7 +2,7 @@
   parent: Human
   id: Shadowkin
   limits:
-    enum.HumanoidVisualLayers.Ears:
+    enum.HumanoidVisualLayers.HeadTop:
       limit: 1
       required: true
       default: [ EarsShadowkin ]
@@ -50,8 +50,5 @@
       Stomach: OrganShadowkinStomach
       Liver: OrganShadowkinLiver
       Kidneys: OrganShadowkinKidneys
-  - type: ProfileOrgans
-    organs:
-      Tail: { prototype: OrganShadowkinTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Shadowkin

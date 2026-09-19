@@ -106,6 +106,10 @@
     layer: enum.HumanoidVisualLayers.Groin
     data: { sprite: _Onyx/Body/Species/Human/parts.rsi, state: groin_m }
     sexStateOverrides: { Male: groin_m, Female: groin_f }
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Tail, TailOverlay ]
+      group: Human
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganHumanExternal ]
@@ -132,6 +136,7 @@
     sexStateOverrides: { Male: groin_m, Female: groin_f }
   - type: VisualOrganMarkings
     markingData:
+      layers: [ Tail, TailOverlay ]
       group: Felinid
 
 - type: entity
@@ -153,6 +158,10 @@
     layer: enum.HumanoidVisualLayers.Groin
     data: { sprite: _Onyx/Body/Species/Reptilian/parts.rsi, state: groin_m }
     sexStateOverrides: { Male: groin_m, Female: groin_f }
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Tail, TailOverlay ]
+      group: Reptilian
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganSlimePersonExternal ]
@@ -183,6 +192,10 @@
     layer: enum.HumanoidVisualLayers.Groin
     data: { sprite: _Onyx/Body/Species/Slime/parts.rsi, state: groin_m }
     sexStateOverrides: { Male: groin_m, Female: groin_f }
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Tail, TailOverlay ]
+      group: Slime
 
 - type: entity
   parent: [ OrganBaseChest, OrganDionaExternal ]
@@ -223,7 +236,7 @@
     data: { sprite: _Onyx/Body/Species/Moth/parts.rsi }
   - type: VisualOrganMarkings
     markingData:
-      layers: [ Chest, Overlay, Special ]
+      layers: [ Chest, Tail, Overlay, TailOverlay, Special ]
       group: Moth
 
 - type: entity
@@ -276,6 +289,10 @@
       Male: groin_m
       Female: groin_f
   # </Onyx-CorvaxVulpkaninGroin-edited>
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Tail, TailOverlay ]
+      group: Vulpkanin
 
 - type: entity
   parent: [ OrganBaseChest, OrganVoxExternal ]
@@ -295,6 +312,10 @@
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.Groin
     data: { sprite: _Onyx/Body/Species/Vox/parts.rsi, state: groin_m }
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Tail, TailOverlay ]
+      group: Vox
 
 - type: entity
   parent: [ OrganBaseChest, OrganArachnidExternal ]
@@ -306,7 +327,7 @@
     data: { sprite: _Onyx/Body/Species/Arachnid/parts.rsi }
   - type: VisualOrganMarkings
     markingData:
-      layers: [ Chest, Tail, Overlay, TailOverlay, Special ]
+      layers: [ Chest, Overlay, Special ]
       group: Arachnid
 
 - type: entity
@@ -320,7 +341,7 @@
     data: { sprite: _Onyx/Body/Species/Arachnid/parts.rsi, state: groin_m }
   - type: VisualOrganMarkings
     markingData:
-      layers: []
+      layers: [ Tail, TailOverlay ]
       group: Arachnid
 
 - type: entity
@@ -346,6 +367,10 @@
     sexStateOverrides:
       Male: groin_m
       Female: groin_f
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Tail, TailOverlay ]
+      group: Tajaran
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganIpcExternal ]
@@ -406,6 +431,10 @@
     layer: enum.HumanoidVisualLayers.Groin
     data: { sprite: _Onyx/Body/Species/Arcan/parts.rsi, state: groin_m }
     sexStateOverrides: { Male: groin_m, Female: groin_f }
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Tail, TailOverlay ]
+      group: Demon
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganSkeletonPersonExternal ]

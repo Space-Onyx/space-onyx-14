@@ -5,7 +5,7 @@
 - type: marking
   groupWhitelist: [ Rodentia ]
   id: RodentiaHeadTopEarDefault
-  bodyPart: Ears
+  bodyPart: HeadTop
   sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: mouse }, { sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: mouse_overlay }]
 - type: marking
   groupWhitelist: [ Rodentia ]
@@ -16,52 +16,52 @@
 - type: marking
   groupWhitelist: [ Rodentia ]
   id: RodentiaHeadTopEarBat
-  bodyPart: Ears
+  bodyPart: HeadTop
   sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: bat }]
 - type: marking
   groupWhitelist: [ Rodentia ]
   id: RodentiaHeadTopEarBatLarge
-  bodyPart: Ears
+  bodyPart: HeadTop
   sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: bat_large }]
 - type: marking
   groupWhitelist: [ Rodentia ]
   id: RodentiaHeadTopEarHamster
-  bodyPart: Ears
+  bodyPart: HeadTop
   sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: hamster }, { sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: hamster_overlay }]
 - type: marking
   groupWhitelist: [ Rodentia ]
   id: RodentiaHeadTopEarLong
-  bodyPart: Ears
+  bodyPart: HeadTop
   sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: long }, { sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: long_overlay }]
 - type: marking
   groupWhitelist: [ Rodentia ]
   id: RodentiaHeadTopEarMouse
-  bodyPart: Ears
+  bodyPart: HeadTop
   sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: mouse }, { sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: mouse_overlay }]
 - type: marking
   groupWhitelist: [ Rodentia ]
   id: RodentiaHeadTopEarMouseLarge
-  bodyPart: Ears
+  bodyPart: HeadTop
   sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: mouse_large }, { sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: mouse_large_overlay }]
 - type: marking
   groupWhitelist: [ Rodentia ]
   id: RodentiaHeadTopEarNone
-  bodyPart: Ears
+  bodyPart: HeadTop
   sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: none }]
 - type: marking
   groupWhitelist: [ Rodentia ]
   id: RodentiaHeadTopEarPointy
-  bodyPart: Ears
+  bodyPart: HeadTop
   sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: pointy }]
 - type: marking
   groupWhitelist: [ Rodentia ]
   id: RodentiaHeadTopEarRabbit
-  bodyPart: Ears
+  bodyPart: HeadTop
   sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: rabbit }, { sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: rabbit_overlay }]
 - type: marking
   groupWhitelist: [ Rodentia ]
   id: RodentiaHeadTopEarSmall
-  bodyPart: Ears
+  bodyPart: HeadTop
   sprites: [{ sprite: _Onyx/Mobs/Customization/Rodentia/ear_markings.rsi, state: small }]
 
 - type: marking

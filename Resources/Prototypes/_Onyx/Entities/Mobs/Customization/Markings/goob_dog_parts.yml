@@ -2,6 +2,7 @@
 
 - type: marking
   id: dogEars
+  activeVariant: dogEarsWag
   bodyPart: HeadTop
   groupWhitelist: [ Human ]
   sprites:
@@ -10,12 +11,13 @@
 - type: marking
   id: dogEarsWag
   bodyPart: HeadTop
-  groupWhitelist: [ Human ]
+  groupWhitelist: []
   sprites:
   - sprite: _Onyx/Mobs/Customization/Goob/dog_markings.rsi
     state: dog_ears_animated
 - type: marking
   id: dogTail
+  activeVariant: dogTailWag
   bodyPart: Tail
   groupWhitelist: [ Human ]
   sprites:
@@ -24,7 +26,7 @@
 - type: marking
   id: dogTailWag
   bodyPart: Tail
-  groupWhitelist: [ Human ]
+  groupWhitelist: []
   sprites:
   - sprite: _Onyx/Mobs/Customization/Goob/dog_markings.rsi
     state: dog_tail_animated

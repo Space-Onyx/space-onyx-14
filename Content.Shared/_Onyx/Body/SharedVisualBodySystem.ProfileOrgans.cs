@@ -25,15 +25,20 @@ public abstract partial class SharedVisualBodySystem
 
         foreach (var (category, data) in profileOrgans.Organs)
         {
-            if (!markings.TryGetValue(category, out var organMarkings))
+            var hasOwn = markings.TryGetValue(category, out var ownMarkings);
+            var hasParent = markings.TryGetValue(data.Parent, out var parentMarkings);
+
+            if (!hasOwn && !hasParent)
             {
                 if (!replace)
                     continue;
-                organMarkings = [];
+                ownMarkings = [];
             }
 
             var shouldExist = data.PresenceLayers.Any(layer =>
-                organMarkings.TryGetValue(layer, out var selected) && selected.Count > 0);
+                    hasOwn && ownMarkings!.TryGetValue(layer, out var ownSelected) && ownSelected.Count > 0)
+                || data.PresenceLayers.Any(layer =>
+                    hasParent && parentMarkings!.TryGetValue(layer, out var parentSelected) && parentSelected.Count > 0);
             var parents = _bodySystem.GetBodyChildren(body)
                 .Where(part => part.Component.Category == data.Parent)
                 .Select(part => part.Id)

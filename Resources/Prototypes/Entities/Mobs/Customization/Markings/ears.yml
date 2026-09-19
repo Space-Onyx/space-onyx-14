@@ -1,53 +1,53 @@
 - type: marking
   id: HumanLongEars
-  bodyPart: Ears # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop
   forcedColoring: true
-  groupWhitelist: [Human]
+  groupWhitelist: [Human, Demon] # <Onyx-Markining-Edited>
   sprites:
   - sprite: Mobs/Customization/ears.rsi
     state: long_ears_standard
 
 - type: marking
   id: LongEarsWide
-  bodyPart: Ears # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop
   forcedColoring: true
-  groupWhitelist: [Human]
+  groupWhitelist: [Human, Demon] # <Onyx-Markining-Edited>
   sprites:
   - sprite: Mobs/Customization/ears.rsi
     state: long_ears_wide
 
 - type: marking
   id: LongEarsSmall
-  bodyPart: Ears # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop
   forcedColoring: true
-  groupWhitelist: [Human]
+  groupWhitelist: [Human, Demon] # <Onyx-Markining-Edited>
   sprites:
   - sprite: Mobs/Customization/ears.rsi
     state: long_ears_small
 
 - type: marking
   id: LongEarsUpwards
-  bodyPart: Ears # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop
   forcedColoring: true
-  groupWhitelist: [Human]
+  groupWhitelist: [Human, Demon] # <Onyx-Markining-Edited>
   sprites:
   - sprite: Mobs/Customization/ears.rsi
     state: long_ears_upwards
 
 - type: marking
   id: LongEarsTall
-  bodyPart: Ears # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop
   forcedColoring: true
-  groupWhitelist: [Human]
+  groupWhitelist: [Human, Demon] # <Onyx-Markining-Edited>
   sprites:
   - sprite: Mobs/Customization/ears.rsi
     state: long_ears_tall
 
 - type: marking
   id: LongEarsThin
-  bodyPart: Ears # <Onyx-VisualEars-edited>
+  bodyPart: HeadTop
   forcedColoring: true
-  groupWhitelist: [Human]
+  groupWhitelist: [Human, Demon] # <Onyx-Markining-Edited>
   sprites:
   - sprite: Mobs/Customization/ears.rsi
     state: long_ears_thin

@@ -122,6 +122,8 @@
       - SnoutCover
       - HeadSide
       - HeadTop
+      - Ears # <Onyx-MarkingCategories>
+      - EarsOverlay # <Onyx-MarkingCategories>
   - type: Tag
     tags:
     - Head

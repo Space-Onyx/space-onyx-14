@@ -12,15 +12,10 @@
     enum.HumanoidVisualLayers.Head:
       limit: 3
       required: false
-    enum.HumanoidVisualLayers.Ears: # <Onyx-VisualEars-edited>
+    enum.HumanoidVisualLayers.HeadTop:
       limit: 1
       required: true
       default: [ TajaranOutears ]
-    # <Onyx-VisualEars>
-    enum.HumanoidVisualLayers.EarsOverlay:
-      limit: 1
-      required: false
-    # </Onyx-VisualEars>
     enum.HumanoidVisualLayers.Snout:
       limit: 1
       required: true
@@ -99,9 +94,6 @@
       Stomach: OrganTajaranStomach
       Liver: OrganTajaranLiver
       Kidneys: OrganTajaranKidneys
-  - type: ProfileOrgans # <Onyx-ProfileOrgans>
-    organs:
-      Tail: { prototype: OrganTajaranTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Tajaran
   - type: Inventory
@@ -306,11 +298,6 @@
 - type: entity
   parent: [ OrganBaseEars, OrganSpriteHumanInternal, OrganTajaranInternal ]
   id: OrganTajaranEars
-  # <Onyx-VisualEars>
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Ears, EarsOverlay ], group: Tajaran }
-  # </Onyx-VisualEars>
 
 - type: entity
   parent: [ OrganBaseLungs, OrganTajaranInternal, OrganTajaranMetabolizer ]

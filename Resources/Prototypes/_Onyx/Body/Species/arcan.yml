@@ -17,9 +17,6 @@
     enum.HumanoidVisualLayers.HeadSide:
       limit: 1
       required: false
-    enum.HumanoidVisualLayers.Ears:
-      limit: 1
-      required: false
     enum.HumanoidVisualLayers.Chest:
       limit: 4
       required: false
@@ -66,8 +63,5 @@
       Stomach: OrganDemonStomach
       Liver: OrganHumanLiver
       Kidneys: OrganHumanKidneys
-  - type: ProfileOrgans
-    organs:
-      Tail: { prototype: OrganArcanTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Demon

@@ -5,7 +5,7 @@
     enum.HumanoidVisualLayers.Hair: { limit: 1, required: false }
     enum.HumanoidVisualLayers.FacialHair: { limit: 1, required: false, onlyGroupWhitelisted: true }
     enum.HumanoidVisualLayers.Head: { limit: 3, required: false }
-    enum.HumanoidVisualLayers.Ears: { limit: 1, required: true, default: [ FeroxiEars ] }
+    enum.HumanoidVisualLayers.HeadTop: { limit: 1, required: true, default: [ FeroxiEars ] }
     enum.HumanoidVisualLayers.Snout: { limit: 1, required: true, default: [ FeroxiSnout ] }
     enum.HumanoidVisualLayers.SnoutCover: { limit: 3, required: false }
     enum.HumanoidVisualLayers.Tail: { limit: 1, required: true, default: [ FeroxiTailAndDorsal ] }
@@ -48,9 +48,6 @@
       Stomach: OrganFeroxiStomach
       Liver: OrganAnimalLiver
       Kidneys: OrganHumanKidneys
-  - type: ProfileOrgans
-    organs:
-      Tail: { prototype: OrganFeroxiTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Feroxi
   - type: Inventory

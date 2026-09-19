@@ -10,9 +10,8 @@
     enum.HumanoidVisualLayers.FacialHair: { limit: 1, required: false }
     enum.HumanoidVisualLayers.Head: { limit: 3, required: false }
     enum.HumanoidVisualLayers.Snout: { limit: 1, required: false }
-    enum.HumanoidVisualLayers.HeadTop: { limit: 8, required: false }
+    enum.HumanoidVisualLayers.HeadTop: { limit: 8, required: true, default: [ RodentiaHeadTopEarDefault ] }
     enum.HumanoidVisualLayers.HeadSide: { limit: 8, required: false }
-    enum.HumanoidVisualLayers.Ears: { limit: 1, required: true, default: [ RodentiaHeadTopEarDefault ] }
     enum.HumanoidVisualLayers.Tail: { limit: 2, required: true, default: [ RodentiaTailDefault ] }
     enum.HumanoidVisualLayers.Chest: { limit: 10, required: false }
     enum.HumanoidVisualLayers.LArm: { limit: 2, required: false }
@@ -53,9 +52,6 @@
       Stomach: OrganRodentiaStomach
       Liver: OrganRodentiaLiver
       Kidneys: OrganRodentiaKidneys
-  - type: ProfileOrgans
-    organs:
-      Tail: { prototype: OrganRodentiaTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Rodentia
   - type: Inventory
@@ -172,6 +168,10 @@
     layer: enum.HumanoidVisualLayers.Groin
     data: { sprite: _Onyx/Mobs/Species/Rodentia/parts.rsi, state: groin_m }
     sexStateOverrides: { Male: groin_m, Female: groin_f }
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Tail, TailOverlay ]
+      group: Rodentia
 
 - type: entity
   parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganRodentiaExternal ]
@@ -205,12 +205,6 @@
   parent: [ OrganRodentiaExternal, OrganBaseFootRight ]
   id: OrganRodentiaFootRight
 
-- type: entity
-  parent: OrganBaseVisualTail
-  id: OrganRodentiaTail
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Tail, TailOverlay ], group: Rodentia }
 
 - type: entity
   parent: [ OrganBaseBrain, OrganSpriteHumanInternal, OrganRodentiaInternal ]
@@ -233,9 +227,6 @@
 - type: entity
   parent: [ OrganBaseEars, OrganSpriteHumanInternal, OrganRodentiaInternal ]
   id: OrganRodentiaEars
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Ears, EarsOverlay ], group: Rodentia }
 - type: entity
   parent: [ OrganBaseLungs, OrganRodentiaInternal, OrganRodentiaMetabolizer ]
   id: OrganRodentiaLungs
