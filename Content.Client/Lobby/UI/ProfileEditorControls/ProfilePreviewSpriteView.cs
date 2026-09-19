@@ -50,6 +50,7 @@ public sealed partial class ProfilePreviewSpriteView : MarkingAwareSpriteView //
             return;
 
         EntMan.System<DirectionalLimbLayerSystem>().Update((PreviewDummy, sprite), direction);
+        InvalidateMeasure(); // <Onyx-MarkingBounds>
     }
     // </Onyx-DirectionalLimbLayers>
 

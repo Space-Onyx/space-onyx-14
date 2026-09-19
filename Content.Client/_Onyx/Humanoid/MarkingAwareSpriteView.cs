@@ -9,6 +9,7 @@ using System.Numerics;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface.Controls;
+using Robust.Shared.ContentPack;
 
 namespace Content.Client._Onyx.Humanoid;
 
@@ -21,55 +22,82 @@ namespace Content.Client._Onyx.Humanoid;
 [Virtual]
 public class MarkingAwareSpriteView : SpriteView
 {
+    private readonly IResourceManager _resources;
     private SpriteSystem? _sprites;
     private SharedTransformSystem? _transform;
     private Vector2 _fittedSize;
+    private Box2 _measuredBox;
+
+    public MarkingAwareSpriteView()
+    {
+        _resources = IoCManager.Resolve<IResourceManager>();
+    }
 
     protected override Vector2 MeasureOverride(Vector2 availableSize)
     {
-        UpdateFittedSize();
-        return _fittedSize;
+        UpdateSizes();
+        return _measuredBox.Size;
     }
 
-    private void UpdateFittedSize()
+    private void UpdateSizes()
     {
         if (!ResolveTarget(out var uid, out var sprite, out _))
             return;
 
         _sprites ??= EntMan.System<SpriteSystem>();
 
-        var spriteBox = MarkingBoundsHelper.CalculateBoundsWithoutMarkings(
+        var worldRotation = WorldRotation ?? Angle.Zero;
+        var fittedBox = MarkingBoundsHelper.CalculateBoundsWithoutMarkings(
                 (uid, sprite),
                 _sprites,
                 EntMan,
                 Vector2.Zero,
-                WorldRotation ?? Angle.Zero,
+                worldRotation,
                 EyeRotation)
+            .CalcBoundingBox();
+        var measuredBox = MarkingBoundsHelper.CalculateDirectionalBounds(
+                (uid, sprite),
+                _resources,
+                Vector2.Zero,
+                worldRotation,
+                EyeRotation,
+                OverrideDirection)
             .CalcBoundingBox();
 
         if (!SpriteOffset)
-            spriteBox = spriteBox.Translated(-spriteBox.Center);
+        {
+            fittedBox = fittedBox.Translated(-fittedBox.Center);
+        }
 
-        var scale = Scale * EyeManager.PixelsPerMeter;
-        var bl = spriteBox.BottomLeft * scale;
-        var tr = spriteBox.TopRight * scale;
+        _fittedSize = GetScaledSize(fittedBox);
+        _measuredBox = GetScaledBox(measuredBox);
+    }
+
+    private Vector2 GetScaledSize(Box2 spriteBox)
+    {
+        var box = GetScaledBox(spriteBox);
+        var bl = box.BottomLeft;
+        var tr = box.TopRight;
 
         tr = Vector2.Max(tr, Vector2.Zero);
         bl = Vector2.Min(bl, Vector2.Zero);
         tr = Vector2.Max(tr, -bl);
         bl = Vector2.Min(bl, -tr);
-        var box = new Box2(bl, tr);
+        box = new Box2(bl, tr);
 
         if (WorldRotation != null && EyeRotation == Angle.Zero)
-        {
-            _fittedSize = box.Size;
-            return;
-        }
+            return box.Size;
 
         var size = box.Size;
         var longestSide = MathF.Max(size.X, size.Y);
         var longestRotatedSide = Math.Max(longestSide, (size.X + size.Y) / MathF.Sqrt(2));
-        _fittedSize = new Vector2(longestRotatedSide, longestRotatedSide);
+        return new Vector2(longestRotatedSide, longestRotatedSide);
+    }
+
+    private Box2 GetScaledBox(Box2 spriteBox)
+    {
+        var scale = Scale * EyeManager.PixelsPerMeter;
+        return new Box2(spriteBox.BottomLeft * scale, spriteBox.TopRight * scale);
     }
 
     protected override void Draw(IRenderHandle renderHandle)
@@ -94,7 +122,8 @@ public class MarkingAwareSpriteView : SpriteView
             ? Vector2.Zero
             : -(-EyeRotation).RotateVec(sprite.Offset * Scale) * new Vector2(1, -1) * EyeManager.PixelsPerMeter;
 
-        var position = PixelSize / 2 + offset * stretch * UIScale;
+        var boundsOffset = new Vector2(-_measuredBox.Center.X, _measuredBox.Center.Y);
+        var position = PixelSize / 2 + (boundsOffset + offset) * stretch * UIScale;
         var scale = Scale * UIScale * stretch;
 
         var world = renderHandle.DrawingHandleWorld;
