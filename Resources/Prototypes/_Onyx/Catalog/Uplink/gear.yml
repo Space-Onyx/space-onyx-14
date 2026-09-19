@@ -137,3 +137,40 @@
     blacklist:
       components:
       - SurplusBundle
+
+# Content below taken from Goob-Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+- type: listing
+  id: UplinkContractorBaton
+  name: uplink-contractor-baton-name
+  description: uplink-contractor-baton-desc
+  icon: { sprite: /Textures/_Onyx/Objects/Weapons/Melee/contractor_baton.rsi, state: uplink }
+  productEntity: ContractorBaton
+  cost:
+    Telecrystal: 35
+  categories:
+  - UplinkWeaponry
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - ContractorUplink #cheaper for contractors
+      - NukeOpsUplink
+  - !type:ListingLimitedStockCondition
+    stock: 1
+
+- type: listing
+  id: UplinkReverseBearTrap
+  name: uplink-reverse-bear-trap-name
+  description: uplink-reverse-bear-trap-desc
+  icon: { sprite: /Textures/_Onyx/Clothing/Head/Helmets/reverse_bear_trap.rsi, state: icon }
+  productEntity: BoxReverseBearTrap
+  cost:
+    Telecrystal: 23 # novelty item for rp
+  categories:
+  - UplinkWearables
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - ContractorUplink
+

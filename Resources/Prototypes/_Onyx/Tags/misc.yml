@@ -54,3 +54,9 @@
 
 - type: Tag
   id: NukeOpsCommanderUplink
+
+- type: Tag
+  id: Keyring
+
+- type: Tag
+  id: ReverseBearTrapKey

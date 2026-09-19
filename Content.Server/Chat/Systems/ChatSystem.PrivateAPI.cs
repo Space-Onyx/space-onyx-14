@@ -1,5 +1,6 @@
 using System.Linq;
 using Content.Server._Onyx.Chat;
+using Content.Shared._Onyx.Chat; // <Onyx-SpeakFontOverride>
 // <Onyx-Languages>
 using Content.Shared._Onyx.Language;
 // </Onyx-Languages>
@@ -72,6 +73,11 @@ public sealed partial class ChatSystem
                 speech = proto;
         }
 
+        // <Onyx-SpeakFontOverride>
+        var fontEv = new TransformSpeakerFontEvent(source);
+        RaiseLocalEvent(source, fontEv);
+        // </Onyx-SpeakFontOverride>
+
         name = FormattedMessage.EscapeText(name);
 
         var content = FormattedMessage.EscapeText(restoredMessage);
@@ -93,7 +99,10 @@ public sealed partial class ChatSystem
             inlineFormattedMessage,
             speech,
             language,
-            loudspeakerFontSize);
+            loudspeakerFontSize,
+            fontEv.FontId, // <Onyx-SpeakFontOverride-edited>
+            fontEv.FontSize, // <Onyx-SpeakFontOverride-edited>
+            fontEv.Color); // <Onyx-SpeakFontOverride-edited>
         // <Onyx-SignLanguage-edited>
         var isSignLanguage = language.RequiresSight;
         // </Onyx-SignLanguage-edited>
@@ -126,7 +135,10 @@ public sealed partial class ChatSystem
                 perceivedContent,
                 speech,
                 language,
-                loudspeakerFontSize);
+                loudspeakerFontSize,
+                fontEv.FontId, // <Onyx-SpeakFontOverride-edited>
+                fontEv.FontSize, // <Onyx-SpeakFontOverride-edited>
+                fontEv.Color); // <Onyx-SpeakFontOverride-edited>
             _chatManager.ChatMessageToOne(ChatChannel.Local, perceived, perceivedWrap, source,
                 entRange == MessageRangeCheckResult.HideChat, session.Channel);
         }
@@ -297,19 +309,23 @@ public sealed partial class ChatSystem
         string message,
         SpeechVerbPrototype speech,
         LanguagePrototype language,
-        int? fontSize = null)
+        int? fontSize = null,
+        string? fontIdOverride = null, // <Onyx-SpeakFontOverride>
+        int? fontSizeOverride = null, // <Onyx-SpeakFontOverride>
+        Color? colorOverride = null) // <Onyx-SpeakFontOverride>
     {
-        var color = language.Speech.Color is { } overrideColor
+        var color = language.Speech.Color is { } overrideColor // <Onyx-SpeakFontOverride-edited>
             ? Color.InterpolateBetween(Color.White, overrideColor, overrideColor.A)
             : Color.White;
+        color = colorOverride ?? color; // <Onyx-SpeakFontOverride>
 
         return Loc.GetString(wrapId,
             ("entityName", name),
             ("verb", verb),
             ("color", color),
-            ("fontType", language.Speech.FontId ?? speech.FontId),
+            ("fontType", fontIdOverride ?? language.Speech.FontId ?? speech.FontId), // <Onyx-SpeakFontOverride-edited>
             ("boldFontType", language.Speech.BoldFontId ?? language.Speech.FontId ?? speech.FontId),
-            ("fontSize", fontSize ?? language.Speech.FontSize ?? speech.FontSize),
+            ("fontSize", fontSizeOverride ?? fontSize ?? language.Speech.FontSize ?? speech.FontSize), // <Onyx-SpeakFontOverride-edited>
             ("message", message));
     }
 

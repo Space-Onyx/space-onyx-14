@@ -46,6 +46,7 @@
     - WhitelistChameleon
     - SecurityBreathMask
   # </Onyx-SlottedSurvivalBoxes>
+  - type: Hailer # <Onyx-Hailer>
 
 - type: entity
   parent: [BaseCorvaxContraband432DepartmentsSecurity, ClothingMaskGas, BaseSyndicateContraband] # Corvax-Contraband

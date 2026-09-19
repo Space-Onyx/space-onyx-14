@@ -1,0 +1,60 @@
+// Content taken from Goob-Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+
+using Content.Shared._Onyx.Chat;
+using Content.Shared.Chat;
+using Content.Shared.Database;
+using Content.Shared.Inventory;
+using Content.Shared.Popups;
+using Content.Shared.Verbs;
+using Robust.Shared.Player;
+using Robust.Shared.Utility;
+
+namespace Content.Shared._Onyx.SpeakFontOverride;
+
+public sealed partial class SpeakFontOverrideSystem : EntitySystem
+{
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private ISharedPlayerManager _player = default!;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        SubscribeLocalEvent<SpeakFontOverrideComponent, InventoryRelayedEvent<TransformSpeakerFontEvent>>(OnFontEvent);
+        SubscribeLocalEvent<SpeakFontOverrideComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
+    }
+
+    private void OnFontEvent(Entity<SpeakFontOverrideComponent> entity, ref InventoryRelayedEvent<TransformSpeakerFontEvent> args)
+    {
+        if (entity.Comp.Enabled)
+        {
+            args.Args.FontId = entity.Comp.FontId;
+            args.Args.FontSize = entity.Comp.FontSize;
+            args.Args.Color = entity.Comp.Color;
+        }
+    }
+
+    private void OnGetVerbs(EntityUid entity, SpeakFontOverrideComponent comp, GetVerbsEvent<AlternativeVerb> args)
+    {
+        if (!args.CanAccess || !args.CanInteract || !args.Using.HasValue || !HasComp<SpeakFontOverrideComponent>(args.Target))
+            return;
+        AlternativeVerb verb = new()
+        {
+            Text = Loc.GetString("speakfontoverride-toggle"),
+            Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/settings.svg.192dpi.png")),
+            Act = () => SwitchMode(entity, comp),
+            Impact = LogImpact.Low
+        };
+        args.Verbs.Add(verb);
+    }
+
+    private void SwitchMode(EntityUid ent, SpeakFontOverrideComponent comp)
+    {
+        comp.Enabled = !comp.Enabled;
+        Dirty(ent, comp);
+        if (_player.LocalSession?.AttachedEntity == null)
+            return;
+
+        var player = _player.LocalSession.AttachedEntity;
+        _popup.PopupClient(comp.Enabled ? Loc.GetString("speakfontoverride-enabled") : Loc.GetString("speakfontoverride-disabled"), ent, player.Value);
+    }
+}

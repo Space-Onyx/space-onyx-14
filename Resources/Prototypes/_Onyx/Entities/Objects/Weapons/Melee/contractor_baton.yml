@@ -1,0 +1,41 @@
+# Content below taken from Goob-Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+
+- type: entity
+  id: ContractorBaton
+  parent: [BaseSyndicateContraband, Stunbaton]
+  name: contractor baton
+  description: A compact, specialised baton assigned to Syndicate contractors. Applies light electrical shocks to targets.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Weapons/Melee/contractor_baton.rsi
+    layers:
+    - state: icon-off
+      map: [ "enum.ToggleableVisuals.Layer" ]
+  - type: Item
+    sprite: _Onyx/Objects/Weapons/Melee/contractor_baton.rsi
+  - type: Clothing
+    sprite: _Onyx/Objects/Weapons/Melee/contractor_baton.rsi
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ToggleableVisuals.Enabled:
+        enum.ToggleableVisuals.Layer:
+          True: {state: icon}
+          False: {state: icon-off}
+  - type: UseDelay
+    delays:
+      default:
+        length: 1
+      telebaton:
+        length: 1
+  - type: ItemToggleMeleeWeapon
+    activatedDamage:
+      types:
+        Shock: 5
+        Ion: 35
+  - type: MeleeWeapon
+    bluntStaminaDamageFactor: 0
+  - type: StaminaDamageOnHit
+    damage: 85
+  - type: StunBorgsOnHit
+  - type: TogglePreventStaminaDamage
