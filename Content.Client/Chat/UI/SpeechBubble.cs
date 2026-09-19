@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Client.Chat.Managers;
 using Content.Client._Onyx.Humanoid; // <Onyx-MarkingBounds>
+using Content.Client._Onyx.SpeechBarks; // <Onyx-SpeechBubbleBarks>
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Speech;
@@ -101,9 +102,11 @@ namespace Content.Client.Chat.UI
             IoCManager.InjectDependencies(this);
             _senderEntity = senderEntity;
             // <Onyx-SpeechBubbleBarks-edited>
+            var speechBarks = _entityManager.System<SpeechBarksSystem>();
             RevealWithBarks = revealWithBarks &&
                 ConfigManager.GetCVar(CCVars.SpeechBubbleRevealEnabled) &&
-                ConfigManager.GetCVar(CCVars.ReplaceTTSWithBarks);
+                ConfigManager.GetCVar(CCVars.ReplaceTTSWithBarks) &&
+                speechBarks.CanRevealSpeechBubble(senderEntity);
             // </Onyx-SpeechBubbleBarks-edited>
             _transformSystem = _entityManager.System<SharedTransformSystem>();
             _spriteSystem = _entityManager.System<SpriteSystem>(); // <Onyx-MarkingBounds>

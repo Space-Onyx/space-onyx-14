@@ -427,6 +427,13 @@ public sealed partial class SpeechBarksSystem : EntitySystem
         return Math.Max(delay, minimumPause);
     }
 
+    public bool CanRevealSpeechBubble(EntityUid speaker)
+    {
+        return _cfg.GetCVar(CCVars.BarksEnabled) &&
+            TryComp<SpeechBarksComponent>(speaker, out var barks) &&
+            _proto.HasIndex<BarkPrototype>(barks.Data.Proto);
+    }
+
     public uint TrackSpeechBubble(EntityUid speaker, string message, Action<float> reveal)
     {
         if (_speechBubbleReveals.TryGetValue(speaker, out var previous))
