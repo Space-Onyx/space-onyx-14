@@ -1,0 +1,74 @@
+# Content taken from Goob-Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+
+- type: marking
+  id: MakeupLips
+  bodyPart: Head
+  groupWhitelist: [ Human, Slime, Felinid ]
+  coloring:
+    default:
+      type:
+        !type:SimpleColoring
+          color: "#7e2727"
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/makeup.rsi
+    state: lips
+- type: marking
+  id: MakeupBlush
+  bodyPart: Head
+  groupWhitelist: [ Human, Reptilian, Slime, Felinid, Vulpkanin ]
+  coloring:
+    default:
+      type:
+        !type:SimpleColoring
+          color: "#d39394"
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/makeup.rsi
+    state: blush
+- type: marking
+  id: MakeupNailPolishRight
+  bodyPart: RHand
+  groupWhitelist: [ Human, Reptilian, Arachnid, Slime, Felinid, Vulpkanin ]
+  coloring:
+    default:
+      type:
+        !type:SimpleColoring
+          color: "#702020"
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/makeup.rsi
+    state: nail_polish_r
+- type: marking
+  id: MakeupNailPolishLeft
+  bodyPart: LHand
+  groupWhitelist: [ Human, Reptilian, Arachnid, Slime, Felinid, Vulpkanin ]
+  coloring:
+    default:
+      type:
+        !type:SimpleColoring
+          color: "#702020"
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/makeup.rsi
+    state: nail_polish_l
+- type: marking
+  id: MakeupMothLips
+  bodyPart: Head
+  groupWhitelist: [ Moth ]
+  coloring:
+    default:
+      type:
+        !type:SimpleColoring
+          color: "#7e2727"
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/makeup.rsi
+    state: moth_lips
+- type: marking
+  id: MakeupMothBlush
+  bodyPart: Head
+  groupWhitelist: [ Moth ]
+  coloring:
+    default:
+      type:
+        !type:SimpleColoring
+          color: "#d39394"
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/makeup.rsi
+    state: moth_blush

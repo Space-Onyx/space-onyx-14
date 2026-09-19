@@ -1,0 +1,9 @@
+# Content taken from Goob-Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+
+- type: marking
+  id: BodyScarr
+  bodyPart: Chest
+  groupWhitelist: [ Human ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/scars.rsi
+    state: bodyscar_r

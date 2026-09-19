@@ -1,0 +1,12 @@
+- type: marking
+  id: FaceNoseclip
+  bodyPart: Head
+  groupWhitelist: [ Human, Slime, Felinid ]
+  coloring:
+    default:
+      type:
+        !type:SimpleColoring
+          color: "#ffffff"
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/CorvaxGoob/human_face.rsi
+    state: noseclip

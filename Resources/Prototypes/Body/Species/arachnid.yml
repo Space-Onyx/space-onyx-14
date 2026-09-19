@@ -32,6 +32,17 @@
     enum.HumanoidVisualLayers.RLeg:
       limit: 1
       required: false
+    # <Onyx-GoobMarkings>
+    enum.HumanoidVisualLayers.Head:
+      limit: 2
+      required: false
+    enum.HumanoidVisualLayers.LHand:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.RHand:
+      limit: 1
+      required: false
+    # </Onyx-GoobMarkings>
 
 - type: entity
   parent: BaseSpeciesAppearance

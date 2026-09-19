@@ -1,0 +1,69 @@
+# Content taken from Goob-Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+
+- type: marking
+  id: TattooNanotrasenChest
+  bodyPart: Chest
+  groupWhitelist: [ Human, Slime ]
+  coloring:
+    default:
+      type:
+        !type:TattooColoring
+      fallbackColor: "#666666"
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/base_tattoos.rsi
+    state: tattoo_nanotrasen_chest
+- type: marking
+  id: TattooTribal1
+  bodyPart: Chest
+  groupWhitelist: [ Human, Slime, Reptilian, Felinid, Rodentia, Tajaran, Shadowkin ]
+  coloring:
+    default:
+      type:
+        !type:TattooColoring
+      fallbackColor: "#666666"
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/tattoos.rsi
+    state: tribal1
+- type: marking
+  id: TattooLoops
+  bodyPart: Chest
+  groupWhitelist: [ Human, Slime, Reptilian, Felinid, Rodentia, Tajaran, Shadowkin ]
+  coloring:
+    default:
+      type:
+        !type:TattooColoring
+      fallbackColor: "#666666"
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/tattoos.rsi
+    state: loops
+- type: marking
+  id: BuffChest
+  bodyPart: Chest
+  groupWhitelist: [ Human ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/base_scars.rsi
+    state: buff
+- type: marking
+  id: TattooEyeRightGlowy
+  bodyPart: Eyes
+  groupWhitelist: [ Human, Slime, Reptilian, Felinid, Rodentia, Tajaran, Shadowkin ]
+  coloring:
+    default:
+      type:
+        !type:EyeColoring
+          negative: true
+  sprites:
+  - sprite: Mobs/Customization/tattoos.rsi
+    state: tattoo_eye_r
+- type: marking
+  id: TattooEyeLeftGlowy
+  bodyPart: Eyes
+  groupWhitelist: [ Human, Slime, Reptilian, Felinid, Rodentia, Tajaran, Shadowkin ]
+  coloring:
+    default:
+      type:
+        !type:EyeColoring
+          negative: true
+  sprites:
+  - sprite: Mobs/Customization/tattoos.rsi
+    state: tattoo_eye_l

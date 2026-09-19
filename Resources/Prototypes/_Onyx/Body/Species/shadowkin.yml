@@ -17,6 +17,9 @@
     enum.HumanoidVisualLayers.Overlay:
       limit: 18
       required: false
+    enum.HumanoidVisualLayers.Chest:
+      limit: 2
+      required: false
 
 - type: entity
   parent: BaseSpeciesAppearance

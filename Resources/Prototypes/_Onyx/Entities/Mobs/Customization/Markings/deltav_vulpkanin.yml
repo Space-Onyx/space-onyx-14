@@ -1,0 +1,291 @@
+- type: marking
+  id: VulpEarWolf
+  bodyPart: HeadTop
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/ear_markings.rsi
+    state: wolf
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/ear_markings.rsi
+    state: wolf-inner
+- type: marking
+  id: VulpEarTajaran
+  bodyPart: HeadTop
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/ear_markings.rsi
+    state: msai
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/ear_markings.rsi
+    state: msai-inner
+- type: marking
+  id: VulpEarDalmatian
+  bodyPart: HeadTop
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/ear_markings.rsi
+    state: dalmatian
+- type: marking
+  id: VulpSnoutAlt
+  bodyPart: Snout
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/head_markings.rsi
+    state: muzzle_alt
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/head_markings.rsi
+    state: nose
+- type: marking
+  id: VulpSnoutSharp
+  bodyPart: Snout
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/head_markings.rsi
+    state: muzzle_sharp
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/head_markings.rsi
+    state: nose
+- type: marking
+  id: VulpSnoutFade
+  bodyPart: Snout
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/head_markings.rsi
+    state: muzzle_fade
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/head_markings.rsi
+    state: nose
+- type: marking
+  id: VulpSnoutSwift
+  bodyPart: Snout
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/head_markings.rsi
+    state: vulpine-lines
+- type: marking
+  id: VulpHeadTiger
+  bodyPart: Head
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/head_markings.rsi
+    state: tiger_head
+- type: marking
+  id: VulpHeadTigerFace
+  bodyPart: Head
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/head_markings.rsi
+    state: tiger_face
+- type: marking
+  id: VulpHeadSlash
+  bodyPart: Head
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/head_markings.rsi
+    state: slash
+- type: marking
+  id: VulpTail
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin, Human ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: vulp
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: vulp-fade
+- type: marking
+  id: VulpTailTip
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: vulp
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: vulp-tip
+- type: marking
+  id: VulpTailWag
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: vulp_wag
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: vulp_wag-tip
+- type: marking
+  id: VulpTailWagTip
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: vulp_wag
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: vulp_wag-tip
+- type: marking
+  id: VulpTailAlt
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: vulp_alt
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: vulp_alt-fade
+- type: marking
+  id: VulpTailAltTip
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: vulp_alt
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: vulp_alt-tip
+- type: marking
+  id: VulpTailFox
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: fox
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: fox-fade
+- type: marking
+  id: VulpTailFoxTip
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: fox
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: fox-tip
+- type: marking
+  id: VulpTailFoxWag
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: fox_wag
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: fox_wag-fade
+- type: marking
+  id: VulpTailFoxWagTip
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: fox_wag
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: fox_wag-tip
+- type: marking
+  id: VulpTailBushy
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: bushfluff
+- type: marking
+  id: VulpTailBushyWag
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: bushfluff_wag
+- type: marking
+  id: VulpTailCoyoteWag
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: coyote_wag
+- type: marking
+  id: VulpTailCorgiWag
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: corgi_wag
+- type: marking
+  id: VulpTailHuskyAlt
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: husky
+- type: marking
+  id: VulpTailFox2
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: fox2
+- type: marking
+  id: VulpTailFox3
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: fox3
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: fox3-tip
+- type: marking
+  id: VulpTailOtie
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: otie
+- type: marking
+  id: VulpTailDalmatianWag
+  bodyPart: Tail
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/tail_markings.rsi
+    state: dalmatian_wag
+- type: marking
+  id: VulpPointsFeet
+  bodyPart: RFoot
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/body_markings.rsi
+    state: points_feet
+- type: marking
+  id: VulpPointsCrestLegs
+  bodyPart: LLeg
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/body_markings.rsi
+    state: points_crest-legs
+- type: marking
+  id: VulpPointsFadeLegs
+  bodyPart: LLeg
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/body_markings.rsi
+    state: points_fade-legs
+- type: marking
+  id: VulpPointsSharpLegs
+  bodyPart: LLeg
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/body_markings.rsi
+    state: points_sharp-legs
+- type: marking
+  id: VulpPointsHands
+  bodyPart: RHand
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/body_markings.rsi
+    state: points_hands
+- type: marking
+  id: VulpPointsCrestArms
+  bodyPart: LArm
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/body_markings.rsi
+    state: points_crest-arms
+- type: marking
+  id: VulpPointsFadeArms
+  bodyPart: LArm
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/body_markings.rsi
+    state: points_fade-arms
+- type: marking
+  id: VulpPointsSharpArms
+  bodyPart: LArm
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/DeltaV/Vulpkanin/body_markings.rsi
+    state: points_sharp-arms

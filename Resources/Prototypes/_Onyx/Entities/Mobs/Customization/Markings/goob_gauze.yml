@@ -1,0 +1,12 @@
+- type: marking
+  id: GauzeBandagedHead
+  bodyPart: Head
+  groupWhitelist: [ Human, Arachnid, Felinid, Vulpkanin, Rodentia, Tajaran, Feroxi ]
+  coloring:
+    default:
+      type:
+        !type:SimpleColoring
+          color: "#FFFFFF"
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/CorvaxGoob/gauze.rsi
+    state: bandagedhead

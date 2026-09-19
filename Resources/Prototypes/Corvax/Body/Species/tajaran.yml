@@ -60,6 +60,11 @@
     enum.HumanoidVisualLayers.RFoot:
       limit: 2
       required: false
+    # <Onyx-GoobMarkings>
+    enum.HumanoidVisualLayers.Chest:
+      limit: 2
+      required: false
+    # </Onyx-GoobMarkings>
     # <Onyx-Underwear-edited>
     # Undergarment marking defaults removed in favor of wearable underwear items.
     # </Onyx-Underwear-edited>

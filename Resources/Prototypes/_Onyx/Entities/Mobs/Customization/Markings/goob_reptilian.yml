@@ -1,0 +1,11 @@
+# Content taken from Goob-Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+
+- type: marking
+  id: LizardHornsEasternDragon
+  bodyPart: HeadTop
+  groupWhitelist: [ Reptilian ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/reptilian.rsi
+    state: dragon-antlers-left
+  - sprite: _Onyx/Mobs/Customization/Goob/reptilian.rsi
+    state: dragon-antlers-right

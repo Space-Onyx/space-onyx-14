@@ -34,6 +34,11 @@
       limit: 1
       required: false
     # </Onyx-VisualEars>
+    # <Onyx-GoobMarkings>
+    enum.HumanoidVisualLayers.Head:
+      limit: 4
+      required: false
+    # </Onyx-GoobMarkings>
     enum.HumanoidVisualLayers.LArm:
       limit: 1
       required: false

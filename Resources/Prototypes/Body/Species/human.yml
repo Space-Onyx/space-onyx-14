@@ -53,6 +53,14 @@
     enum.HumanoidVisualLayers.Special:
       limit: 0
       required: false
+    # <Onyx-GoobMarkings>
+    enum.HumanoidVisualLayers.Head:
+      limit: 4
+      required: false
+    enum.HumanoidVisualLayers.HeadSide:
+      limit: 2
+      required: false
+    # </Onyx-GoobMarkings>
 
 - type: entity
   parent: BaseSpeciesAppearance

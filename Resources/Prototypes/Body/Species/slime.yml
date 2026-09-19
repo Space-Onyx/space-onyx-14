@@ -49,6 +49,14 @@
       limit: 1
       required: false
     # Corvax-Sponsors-end
+    # <Onyx-GoobMarkings>
+    enum.HumanoidVisualLayers.Head:
+      limit: 4
+      required: false
+    enum.HumanoidVisualLayers.HeadSide:
+      limit: 2
+      required: false
+    # </Onyx-GoobMarkings>
   appearances:
     enum.HumanoidVisualLayers.Hair:
       layerAlpha: 0.72
