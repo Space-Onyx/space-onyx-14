@@ -3,7 +3,7 @@ using Robust.Shared.Prototypes;
 using Content.Shared._Onyx.SpeechBarks;
 using Content.Server.Chat.Systems;
 using Robust.Shared.Configuration;
-using Content.Shared._Onyx.CCVar;
+using Content.Shared.CCVar;
 using Content.Server.Mind;
 using Content.Server.Radio;
 using Content.Shared.Radio;
@@ -28,7 +28,7 @@ public sealed partial class SpeechBarksSystem : EntitySystem
     {
         base.Initialize();
 
-        _cfg.OnValueChanged(ADTCCVars.BarksEnabled, v => _isEnabled = v, true);
+        _cfg.OnValueChanged(CCVars.BarksEnabled, v => _isEnabled = v, true);
 
         SubscribeLocalEvent<SpeechBarksComponent, EntitySpokeEvent>(OnEntitySpoke);
         SubscribeLocalEvent<WearingHeadsetComponent, HeadsetRadioReceiveRelayEvent>(OnHeadsetRadioReceive);
@@ -117,9 +117,9 @@ public sealed partial class SpeechBarksSystem : EntitySystem
     private bool TryGetBarkData(BarkData data, out SoundSpecifier sound, out float pitch, out float minVar, out float maxVar)
     {
         sound = default!;
-        pitch = Math.Clamp(data.Pitch, _cfg.GetCVar(ADTCCVars.BarksMinPitch), _cfg.GetCVar(ADTCCVars.BarksMaxPitch));
-        minVar = Math.Clamp(data.MinVar, _cfg.GetCVar(ADTCCVars.BarksMinDelay), _cfg.GetCVar(ADTCCVars.BarksMaxDelay));
-        maxVar = Math.Clamp(data.MaxVar, _cfg.GetCVar(ADTCCVars.BarksMinDelay), _cfg.GetCVar(ADTCCVars.BarksMaxDelay));
+        pitch = Math.Clamp(data.Pitch, _cfg.GetCVar(CCVars.BarksMinPitch), _cfg.GetCVar(CCVars.BarksMaxPitch));
+        minVar = Math.Clamp(data.MinVar, _cfg.GetCVar(CCVars.BarksMinDelay), _cfg.GetCVar(CCVars.BarksMaxDelay));
+        maxVar = Math.Clamp(data.MaxVar, _cfg.GetCVar(CCVars.BarksMinDelay), _cfg.GetCVar(CCVars.BarksMaxDelay));
         if (minVar > maxVar)
             (minVar, maxVar) = (maxVar, minVar);
 

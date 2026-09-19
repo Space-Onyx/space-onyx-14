@@ -1,4 +1,4 @@
-using Content.Shared._Onyx.CCVar;
+using Content.Shared.CCVar;
 using Content.Shared.VoiceMask;
 using Content.Shared._Onyx.SpeechBarks;
 using Robust.Shared.Configuration;
@@ -38,9 +38,9 @@ public partial class VoiceMaskSystem
         if (!ProtoMan.HasIndex<BarkPrototype>(component.BarkId))
             return;
 
-        args.Data.Pitch = Math.Clamp(component.BarkPitch, _cfgManager.GetCVar(ADTCCVars.BarksMinPitch), _cfgManager.GetCVar(ADTCCVars.BarksMaxPitch));
-        args.Data.MinVar = Math.Clamp(component.MinVar, _cfgManager.GetCVar(ADTCCVars.BarksMinDelay), _cfgManager.GetCVar(ADTCCVars.BarksMaxDelay));
-        args.Data.MaxVar = Math.Clamp(component.MaxVar, _cfgManager.GetCVar(ADTCCVars.BarksMinDelay), _cfgManager.GetCVar(ADTCCVars.BarksMaxDelay));
+        args.Data.Pitch = Math.Clamp(component.BarkPitch, _cfgManager.GetCVar(CCVars.BarksMinPitch), _cfgManager.GetCVar(CCVars.BarksMaxPitch));
+        args.Data.MinVar = Math.Clamp(component.MinVar, _cfgManager.GetCVar(CCVars.BarksMinDelay), _cfgManager.GetCVar(CCVars.BarksMaxDelay));
+        args.Data.MaxVar = Math.Clamp(component.MaxVar, _cfgManager.GetCVar(CCVars.BarksMinDelay), _cfgManager.GetCVar(CCVars.BarksMaxDelay));
         args.Data.Proto = component.BarkId;
     }
 

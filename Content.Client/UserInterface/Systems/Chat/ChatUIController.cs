@@ -952,7 +952,7 @@ public sealed partial class ChatUIController : UIController
                     break;
 
                 if (_ghost.GhostVisibility)
-                    AddSpeechBubble(msg, SpeechBubble.SpeechType.Say);
+                    AddSpeechBubble(msg, SpeechBubble.SpeechType.Ghost); // <Onyx-SpeechBubbleBarks-edited>
                 break;
 
             case ChatChannel.Emotes:

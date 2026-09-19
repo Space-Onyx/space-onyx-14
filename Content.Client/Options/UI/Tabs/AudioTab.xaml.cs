@@ -7,7 +7,6 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared;
 using Robust.Shared.Configuration;
-using Content.Shared._Onyx.CCVar;
 
 namespace Content.Client.Options.UI.Tabs;
 
@@ -33,17 +32,17 @@ public sealed partial class AudioTab : Control
 
         // Onyx Barks start
         Control.AddOptionPercentSlider(
-            ADTCCVars.BarksVolume,
+            CCVars.BarksVolume,
             SliderVolumeBarks,
             scale: ContentAudioSystem.BarksMultiplier);
 
         Control.AddOptionPercentSlider(
-            ADTCCVars.BarksRadioVolume,
+            CCVars.BarksRadioVolume,
             SliderVolumeRadioBarks,
             scale: ContentAudioSystem.BarksMultiplier);
 
         Control.AddOptionDropDown<bool>(
-            ADTCCVars.ReplaceTTSWithBarks,
+            CCVars.ReplaceTTSWithBarks,
             DropDownBarksOrTTS,
             [
                 new OptionDropDownCVar<bool>.ValueOption(true, Loc.GetString("ui-options-barks-speech")),

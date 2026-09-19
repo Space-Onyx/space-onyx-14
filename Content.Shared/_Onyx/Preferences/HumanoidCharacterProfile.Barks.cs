@@ -4,7 +4,7 @@
 // This file is licensed under AGPL-3.0-or-later.
 // See LICENSES for the full license text.
 
-using Content.Shared._Onyx.CCVar;
+using Content.Shared.CCVar;
 using Content.Shared._Onyx.SpeechBarks;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
@@ -21,10 +21,10 @@ public sealed partial class HumanoidCharacterProfile
             return;
         }
 
-        var minPitch = configManager.GetCVar(ADTCCVars.BarksMinPitch);
-        var maxPitch = configManager.GetCVar(ADTCCVars.BarksMaxPitch);
-        var minDelay = configManager.GetCVar(ADTCCVars.BarksMinDelay);
-        var maxDelay = configManager.GetCVar(ADTCCVars.BarksMaxDelay);
+        var minPitch = configManager.GetCVar(CCVars.BarksMinPitch);
+        var maxPitch = configManager.GetCVar(CCVars.BarksMaxPitch);
+        var minDelay = configManager.GetCVar(CCVars.BarksMinDelay);
+        var maxDelay = configManager.GetCVar(CCVars.BarksMaxDelay);
 
         var minVar = Math.Clamp(Bark.MinVar, minDelay, Bark.MaxVar);
         var maxVar = Math.Clamp(Bark.MaxVar, minVar, maxDelay);

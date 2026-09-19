@@ -5,7 +5,7 @@ using Content.Shared.Guidebook;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
-using Content.Shared._Onyx.CCVar;
+using Content.Shared.CCVar;
 using Content.Shared.Speech.Components;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Enums;
@@ -385,21 +385,21 @@ public sealed partial class HumanoidProfileEditor
 
     private void SetBarkPitch(float pitch)
     {
-        Profile = Profile?.WithBarkPitch(Math.Clamp(pitch, _cfgManager.GetCVar(ADTCCVars.BarksMinPitch), _cfgManager.GetCVar(ADTCCVars.BarksMaxPitch)));
+        Profile = Profile?.WithBarkPitch(Math.Clamp(pitch, _cfgManager.GetCVar(CCVars.BarksMinPitch), _cfgManager.GetCVar(CCVars.BarksMaxPitch)));
         ReloadPreview();
         SetDirty();
     }
 
     private void SetBarkMinVariation(float variation)
     {
-        Profile = Profile?.WithBarkMinVariation(Math.Clamp(variation, _cfgManager.GetCVar(ADTCCVars.BarksMinDelay), Profile.Bark.MaxVar));
+        Profile = Profile?.WithBarkMinVariation(Math.Clamp(variation, _cfgManager.GetCVar(CCVars.BarksMinDelay), Profile.Bark.MaxVar));
         ReloadPreview();
         SetDirty();
     }
 
     private void SetBarkMaxVariation(float variation)
     {
-        Profile = Profile?.WithBarkMaxVariation(Math.Clamp(variation, Profile.Bark.MinVar, _cfgManager.GetCVar(ADTCCVars.BarksMaxDelay)));
+        Profile = Profile?.WithBarkMaxVariation(Math.Clamp(variation, Profile.Bark.MinVar, _cfgManager.GetCVar(CCVars.BarksMaxDelay)));
         ReloadPreview();
         SetDirty();
     }

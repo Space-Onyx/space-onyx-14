@@ -1,4 +1,5 @@
 using Content.Shared.Chat;
+using Content.Shared.CCVar;
 using Content.Shared.Corvax.CCCVars;
 using Content.Shared.Corvax.TTS;
 using Content.Shared.GameTicking;
@@ -12,7 +13,6 @@ using Robust.Shared.ContentPack;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Content.Shared._Onyx.CCVar;
 
 namespace Content.Client.Corvax.TTS;
 
@@ -125,7 +125,7 @@ public sealed partial class TTSSystem : EntitySystem
 
     private void OnPlayTTS(PlayTTSEvent ev)
     {
-        if (_cfg.GetCVar(ADTCCVars.ReplaceTTSWithBarks) == true) // <Onyx-Bark>
+        if (_cfg.GetCVar(CCVars.ReplaceTTSWithBarks) == true) // <Onyx-Bark>
             return;
         _sawmill.Verbose($"Play TTS audio {ev.Data.Length} bytes from {ev.SourceUid} entity");
         // It will stop clogging up your memory if you turn off one of the sliders to 0

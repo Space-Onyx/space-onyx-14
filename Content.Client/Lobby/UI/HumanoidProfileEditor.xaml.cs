@@ -19,7 +19,6 @@ using Robust.Shared.ContentPack;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 using Direction = Robust.Shared.Maths.Direction;
-using Content.Shared._Onyx.CCVar;
 using Content.Shared._Onyx.SpeechBarks;
 
 namespace Content.Client.Lobby.UI
@@ -225,7 +224,7 @@ namespace Content.Client.Lobby.UI
             // <Onyx-Barks>
             #region Voice
 
-            if (configurationManager.GetCVar(ADTCCVars.BarksEnabled))
+            if (configurationManager.GetCVar(CCVars.BarksEnabled))
             {
                 BarksContainer.Visible = true;
                 InitializeBarks();
