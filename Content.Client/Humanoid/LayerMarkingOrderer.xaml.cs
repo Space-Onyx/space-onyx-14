@@ -22,6 +22,7 @@ public sealed partial class LayerMarkingOrderer : BoxContainer
     private readonly MarkingsViewModel _markingsModel;
     private readonly DragDropHelper<LayerMarkingDragged> _dragDropHelper;
     private readonly List<LayerDragDropBeacon> _beacons = new();
+    private readonly List<ProtoId<MarkingPrototype>> _markingIds = new(); // <Onyx-MarkingsPersonalization>
     private LayerDragDropBeacon? _dragTarget;
 
     [Dependency] private IPrototypeManager _prototype = default!;
@@ -60,6 +61,13 @@ public sealed partial class LayerMarkingOrderer : BoxContainer
         if (_organ != organ ||  _layer != layer)
             return;
 
+        // <Onyx-MarkingsPersonalization>
+        var markingIds = _markingsModel.SelectedMarkings(_organ, _layer)?
+            .Select(marking => marking.MarkingId);
+        if (markingIds != null && _markingIds.SequenceEqual(markingIds))
+            return;
+        // </Onyx-MarkingsPersonalization>
+
         UpdateItems();
     }
 
@@ -67,9 +75,12 @@ public sealed partial class LayerMarkingOrderer : BoxContainer
     {
         Items.RemoveAllChildren();
         _beacons.Clear();
+        _markingIds.Clear(); // <Onyx-MarkingsPersonalization>
 
         if (_markingsModel.SelectedMarkings(_organ, _layer) is not { } markings)
             return;
+
+        _markingIds.AddRange(markings.Select(marking => marking.MarkingId)); // <Onyx-MarkingsPersonalization>
 
         for (var idx = 0; idx < markings.Count; idx++)
         {
@@ -78,7 +89,7 @@ public sealed partial class LayerMarkingOrderer : BoxContainer
             var container = new LayerMarkingItemContainer();
             container.Margin = new(4);
 
-            var item = new LayerMarkingItem(_markingsModel, _organ, _layer, _prototype.Index<MarkingPrototype>(marking.MarkingId), false);
+            var item = new LayerMarkingItem(_markingsModel, _organ, _layer, _prototype.Index<MarkingPrototype>(marking.MarkingId), true); // <Onyx-MarkingsPersonalization-edited>
             item.DefaultCursorShape = CursorShape.Hand;
             item.Pressed += (args, control) => OnItemPressed(args, control, container);
             item.Unpressed += OnItemUnpressed;
@@ -167,7 +178,7 @@ internal sealed class LayerMarkingItemContainer : PanelContainer
 {
     public LayerMarkingItemContainer()
     {
-        SetHeight = 64;
+        MinHeight = 82; // <Onyx-MarkingsPersonalization-edited>
         HorizontalExpand = true;
     }
 }
@@ -179,7 +190,7 @@ internal sealed class LayerDragDropBeacon(CandidatePosition position, int index)
 
     public void BecomeTarget()
     {
-        SetHeight = 64;
+        SetHeight = 82; // <Onyx-MarkingsPersonalization-edited>
         HorizontalExpand = true;
         SetOnlyStyleClass(StyleClass.PanelDropTarget);
     }

@@ -116,7 +116,7 @@ public sealed partial class LayerMarkingItem : BoxContainer, ISearchableControl
         if (!selected || !_interactive)
         {
             ColorsButton.Pressed = false;
-            ColorsContainer.Visible = false;
+            ColorsPanel.Visible = false; // <Onyx-MarkingsPersonalization-edited>
         }
 
         if (_markingsModel.GetMarking(_organ, _layer, _markingPrototype.ID) is { } marking &&
@@ -155,7 +155,7 @@ public sealed partial class LayerMarkingItem : BoxContainer, ISearchableControl
 
     private void ColorsButtonPressed(BaseButton.ButtonEventArgs args)
     {
-        ColorsContainer.Visible = ColorsButton.Pressed;
+        ColorsPanel.Visible = ColorsButton.Pressed; // <Onyx-MarkingsPersonalization-edited>
 
         if (_colorSliders is not null)
             return;

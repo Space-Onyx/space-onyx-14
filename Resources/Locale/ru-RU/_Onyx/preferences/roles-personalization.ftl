@@ -6,3 +6,6 @@ job-personalization-no-description = Описание должности отс�
 job-personalization-locked-hint = Должность недоступна - наведите, чтобы узнать требования
 job-personalization-locked-title = Должность недоступна
 job-personalization-role-name-hint = Выберите предпочитаемое название должности
+
+antag-personalization-title = Предпочтения антагонистов
+antag-personalization-description = Выберите роли антагонистов, за которые вы готовы играть.

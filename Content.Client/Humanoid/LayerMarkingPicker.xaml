@@ -1,12 +1,18 @@
 <BoxContainer xmlns="https://spacestation14.io" Orientation="Vertical">
-    <LineEdit Name="SearchBar" PlaceHolder="{Loc 'markings-search'}" HorizontalExpand="True" />
+    <!-- <Onyx-MarkingsPersonalization-edited> -->
+    <PanelContainer StyleClasses="PersonalizationTools" Margin="0 0 0 8">
+        <LineEdit Name="SearchBar" PlaceHolder="{Loc 'markings-search'}" HorizontalExpand="True" Margin="8 6" />
+    </PanelContainer>
     <ScrollContainer Name="SelectionItems" HorizontalExpand="True" VerticalExpand="True">
-        <GridContainer Name="Items" Columns="2" Margin="4" />
+        <GridContainer Name="Items" Columns="2" />
     </ScrollContainer>
     <ScrollContainer Name="OrderingItems" HorizontalExpand="True" VerticalExpand="True" Visible="False">
     </ScrollContainer>
-    <BoxContainer HorizontalExpand="True" Margin="4">
-        <Label Name="MarkingsStatus" HorizontalExpand="True" />
-        <Button Name="ReorderButton" ToggleMode="True" Text="{Loc 'markings-reorder'}" />
-    </BoxContainer>
+    <PanelContainer StyleClasses="PersonalizationTools" Margin="0 8 0 0">
+        <BoxContainer HorizontalExpand="True" Margin="8 6" SeparationOverride="8">
+            <Label Name="MarkingsStatus" HorizontalExpand="True" VerticalAlignment="Center" StyleClasses="LabelWeak" />
+            <Button Name="ReorderButton" ToggleMode="True" Text="{Loc 'markings-reorder'}" MinWidth="150" />
+        </BoxContainer>
+    </PanelContainer>
+    <!-- </Onyx-MarkingsPersonalization-edited> -->
 </BoxContainer>

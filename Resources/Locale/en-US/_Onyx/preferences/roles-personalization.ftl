@@ -6,3 +6,6 @@ job-personalization-no-description = No job description available.
 job-personalization-locked-hint = Job unavailable - hover for requirements
 job-personalization-locked-title = Job unavailable
 job-personalization-role-name-hint = Select preferred job title
+
+antag-personalization-title = Antagonist preferences
+antag-personalization-description = Choose which antagonist roles you are willing to play.

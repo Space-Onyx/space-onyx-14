@@ -22,8 +22,10 @@ public sealed partial class OrganMarkingPicker : Control
     private readonly HashSet<HumanoidVisualLayers> _layers;
     private readonly ProtoId<MarkingsGroupPrototype> _group;
     private readonly ProtoId<OrganCategoryPrototype> _organ;
+    private readonly List<HumanoidVisualLayers> _displayedLayers = new(); // <Onyx-MarkingsPersonalization>
+    private HumanoidVisualLayers? _selectedLayer; // <Onyx-MarkingsPersonalization>
 
-    public OrganMarkingPicker(MarkingsViewModel markingsModel, ProtoId<OrganCategoryPrototype> organ, HashSet<HumanoidVisualLayers> layers, ProtoId<MarkingsGroupPrototype> group)
+    public OrganMarkingPicker(MarkingsViewModel markingsModel, ProtoId<OrganCategoryPrototype> organ, HashSet<HumanoidVisualLayers> layers, ProtoId<MarkingsGroupPrototype> group, HumanoidVisualLayers? selectedLayer = null) // <Onyx-MarkingsPersonalization-edited>
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
@@ -32,6 +34,7 @@ public sealed partial class OrganMarkingPicker : Control
         _layers = layers;
         _group = group;
         _organ = organ;
+        _selectedLayer = selectedLayer; // <Onyx-MarkingsPersonalization>
 
         _sprite = _entity.System<SpriteSystem>();
 
@@ -55,6 +58,12 @@ public sealed partial class OrganMarkingPicker : Control
     }
 
     public bool Empty => LayerTabs.ChildCount == 0;
+    public ProtoId<OrganCategoryPrototype> Organ => _organ; // <Onyx-MarkingsPersonalization>
+    // <Onyx-MarkingsPersonalization>
+    public HumanoidVisualLayers? SelectedLayer => LayerTabs.ChildCount > 0 && LayerTabs.CurrentTab < _displayedLayers.Count
+        ? _displayedLayers[LayerTabs.CurrentTab]
+        : null;
+    // </Onyx-MarkingsPersonalization>
 
     private void OnOrganProfileDataChanged(bool refresh)
     {
@@ -67,8 +76,11 @@ public sealed partial class OrganMarkingPicker : Control
         if (!_markingsModel.OrganProfileData.TryGetValue(_organ, out var organProfileData))
             return;
 
+        _selectedLayer = SelectedLayer ?? _selectedLayer; // <Onyx-MarkingsPersonalization>
         LayerTabs.RemoveAllChildren();
+        _displayedLayers.Clear(); // <Onyx-MarkingsPersonalization>
         var i = 0;
+        var selectedTab = 0; // <Onyx-MarkingsPersonalization>
         foreach (var layer in _layers)
         {
             var allMarkings =
@@ -79,13 +91,18 @@ public sealed partial class OrganMarkingPicker : Control
 
             var control = new LayerMarkingPicker(_markingsModel, _organ, layer, allMarkings);
             LayerTabs.AddChild(control);
+            _displayedLayers.Add(layer); // <Onyx-MarkingsPersonalization>
             if (Loc.TryGetString($"markings-layer-{layer}-{_group.Id}", out var layerTitle))
                 LayerTabs.SetTabTitle(i, layerTitle);
             else
                 LayerTabs.SetTabTitle(i, Loc.GetString($"markings-layer-{layer}"));
+            if (layer == _selectedLayer)
+                selectedTab = i; // <Onyx-MarkingsPersonalization>
             i++;
         }
 
+        if (i > 0)
+            LayerTabs.CurrentTab = selectedTab; // <Onyx-MarkingsPersonalization-edited>
         LayerTabs.TabsVisible = i > 1;
     }
 }

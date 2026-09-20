@@ -323,6 +323,7 @@ public sealed partial class HumanoidProfileEditor
             var antagContainer = new BoxContainer()
             {
                 Orientation = LayoutOrientation.Horizontal,
+                HorizontalExpand = true, // <Onyx-AntagPersonalization>
             };
 
             var selector = new RequirementsSelector()
@@ -361,9 +362,24 @@ public sealed partial class HumanoidProfileEditor
                 SetDirty();
             };
 
+            selector.HorizontalExpand = true; // <Onyx-AntagPersonalization>
             antagContainer.AddChild(selector); // <Onyx-RolesPersonalization-edited>
 
-            AntagList.AddChild(antagContainer);
+            // <Onyx-AntagPersonalization>
+            AntagList.AddChild(new PanelContainer
+            {
+                StyleClasses = { "PersonalizationCard" },
+                Margin = new Thickness(0, 0, 0, 6),
+                HorizontalExpand = true,
+                Children = { new BoxContainer
+                {
+                    Orientation = LayoutOrientation.Vertical,
+                    Margin = new Thickness(8, 6),
+                    HorizontalExpand = true,
+                    Children = { antagContainer },
+                } },
+            });
+            // </Onyx-AntagPersonalization>
         }
     }
 }

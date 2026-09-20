@@ -66,113 +66,138 @@
             <Control MinHeight="10" />
             <!-- tabContainer -->
             <TabContainer Name="TabContainer" VerticalExpand="True">
-                <BoxContainer Orientation="Vertical">
-                    <ScrollContainer VerticalExpand="True">
-                        <!-- appearanceList -->
-                        <BoxContainer Orientation="Vertical">
-                            <BoxContainer Margin="10" Orientation="Vertical" HorizontalExpand="True">
-                                <!-- Species -->
-                                <BoxContainer HorizontalExpand="True">
-                                    <Label Text="{Loc 'humanoid-profile-editor-species-label'}" />
-                                    <Control HorizontalExpand="True"/>
-                                    <TextureButton Name="SpeciesInfoButton" Scale="0.3 0.3"
-                                                   VerticalAlignment="Center"
-                                                   ToolTip="{Loc 'humanoid-profile-editor-guidebook-button-tooltip'}"/>
-                                    <Button Name="SpeciesButton" HorizontalAlignment="Right" ToggleMode="True" /> <!-- <Onyx-SpeciesSelector-edited> -->
+                <!-- <Onyx-AppearancePersonalization-edited> -->
+                <BoxContainer Orientation="Vertical" Margin="10" VerticalExpand="True">
+                    <PanelContainer StyleClasses="AppearancePersonalizationHeader" Margin="0 0 0 8">
+                        <BoxContainer Orientation="Vertical" Margin="10 8">
+                            <Label Text="{Loc 'appearance-personalization-title'}" StyleClasses="AppearancePersonalizationTitle" />
+                            <Label Text="{Loc 'appearance-personalization-description'}" StyleClasses="LabelWeak" Margin="0 3 0 0" />
+                        </BoxContainer>
+                    </PanelContainer>
+                    <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
+                        <BoxContainer Orientation="Vertical" HorizontalExpand="True" Margin="0 0 4 0">
+                            <PanelContainer StyleClasses="AppearancePersonalizationSection" Margin="0 0 0 8">
+                                <BoxContainer Orientation="Vertical">
+                                    <PanelContainer StyleClasses="AppearancePersonalizationSectionHeader">
+                                        <Label Text="{Loc 'appearance-personalization-identity'}" StyleClasses="LabelHeading" Margin="8 6" />
+                                    </PanelContainer>
+                                    <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="6">
+                                        <BoxContainer HorizontalExpand="True">
+                                            <Label Text="{Loc 'humanoid-profile-editor-species-label'}" VerticalAlignment="Center" />
+                                            <Control HorizontalExpand="True" />
+                                            <TextureButton Name="SpeciesInfoButton" Scale="0.3 0.3" VerticalAlignment="Center" ToolTip="{Loc 'humanoid-profile-editor-guidebook-button-tooltip'}" />
+                                            <Button Name="SpeciesButton" HorizontalAlignment="Right" ToggleMode="True" MinWidth="170" />
+                                        </BoxContainer>
+                                        <BoxContainer HorizontalExpand="True">
+                                            <Label Text="{Loc 'humanoid-profile-editor-age-label'}" VerticalAlignment="Center" />
+                                            <Control HorizontalExpand="True" />
+                                            <LineEdit Name="AgeEdit" MinWidth="170" HorizontalAlignment="Right" />
+                                        </BoxContainer>
+                                        <BoxContainer HorizontalExpand="True">
+                                            <Label Text="{Loc 'humanoid-profile-editor-sex-label'}" VerticalAlignment="Center" />
+                                            <Control HorizontalExpand="True" />
+                                            <OptionButton Name="SexButton" MinWidth="170" HorizontalAlignment="Right" />
+                                        </BoxContainer>
+                                        <BoxContainer HorizontalExpand="True">
+                                            <Label Text="{Loc 'humanoid-profile-editor-pronouns-label'}" VerticalAlignment="Center" />
+                                            <Control HorizontalExpand="True" />
+                                            <OptionButton Name="PronounsButton" MinWidth="170" HorizontalAlignment="Right" />
+                                        </BoxContainer>
+                                    </BoxContainer>
                                 </BoxContainer>
-                                <!-- Age -->
-                                <BoxContainer HorizontalExpand="True">
-                                    <Label Text="{Loc 'humanoid-profile-editor-age-label'}" />
-                                    <Control HorizontalExpand="True"/>
-                                    <LineEdit Name="AgeEdit" MinSize="60 0" HorizontalAlignment="Right" /> <!-- Corvax-SpeciesAgeLore -->
+                            </PanelContainer>
+
+                            <PanelContainer StyleClasses="AppearancePersonalizationSection" Margin="0 0 0 8">
+                                <BoxContainer Orientation="Vertical">
+                                    <PanelContainer StyleClasses="AppearancePersonalizationSectionHeader">
+                                        <Label Text="{Loc 'appearance-personalization-body'}" StyleClasses="LabelHeading" Margin="8 6" />
+                                    </PanelContainer>
+                                    <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="6">
+                                        <BoxContainer HorizontalExpand="True">
+                                            <Label Text="{Loc 'humanoid-profile-editor-height-label'}" VerticalAlignment="Center" />
+                                            <Control HorizontalExpand="True" />
+                                            <Slider Name="HeightSlider" SetWidth="180" MinValue="0" MaxValue="1" />
+                                            <LineEdit Name="HeightEdit" MinWidth="55" />
+                                            <Button Name="HeightReset" Text="{Loc 'humanoid-profile-editor-dimension-reset'}" MinWidth="70" />
+                                        </BoxContainer>
+                                        <BoxContainer HorizontalExpand="True">
+                                            <Label Text="{Loc 'humanoid-profile-editor-width-label'}" VerticalAlignment="Center" />
+                                            <Control HorizontalExpand="True" />
+                                            <Slider Name="WidthSlider" SetWidth="180" MinValue="0" MaxValue="1" />
+                                            <LineEdit Name="WidthEdit" MinWidth="55" />
+                                            <Button Name="WidthReset" Text="{Loc 'humanoid-profile-editor-dimension-reset'}" MinWidth="70" />
+                                        </BoxContainer>
+                                        <Label Name="CalculatedWeightLabel" HorizontalAlignment="Right" StyleClasses="LabelWeak" />
+                                    </BoxContainer>
                                 </BoxContainer>
-                                <!-- <Onyx-HeightWidth> -->
-                                <BoxContainer HorizontalExpand="True">
-                                    <Label Text="{Loc 'humanoid-profile-editor-height-label'}" />
-                                    <Control HorizontalExpand="True" />
-                                    <Slider Name="HeightSlider" HorizontalAlignment="Right" SetWidth="180" MinValue="0" MaxValue="1" />
-                                    <LineEdit Name="HeightEdit" HorizontalAlignment="Right" MinSize="50 0" />
-                                    <Button Name="HeightReset" Text="{Loc 'humanoid-profile-editor-dimension-reset'}" />
+                            </PanelContainer>
+
+                            <PanelContainer StyleClasses="AppearancePersonalizationSection" Margin="0 0 0 8">
+                                <BoxContainer Orientation="Vertical">
+                                    <PanelContainer StyleClasses="AppearancePersonalizationSectionHeader">
+                                        <Label Text="{Loc 'appearance-personalization-voice-and-spawn'}" StyleClasses="LabelHeading" Margin="8 6" />
+                                    </PanelContainer>
+                                    <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="6">
+                                        <BoxContainer HorizontalExpand="True">
+                                            <Label Text="{Loc 'humanoid-profile-editor-voice-label'}" VerticalAlignment="Center" />
+                                            <Control HorizontalExpand="True" />
+                                            <OptionButton Name="VoiceButton" MinWidth="170" HorizontalAlignment="Right" />
+                                        </BoxContainer>
+                                        <BoxContainer HorizontalExpand="True">
+                                            <Label Text="{Loc 'humanoid-profile-editor-clothing'}" VerticalAlignment="Center" />
+                                            <Control HorizontalExpand="True" />
+                                            <Button Name="ShowClothes" Pressed="True" ToggleMode="True" Text="{Loc 'humanoid-profile-editor-clothing-show'}" MinWidth="170" HorizontalAlignment="Right" />
+                                        </BoxContainer>
+                                        <BoxContainer HorizontalExpand="True">
+                                            <Label Text="{Loc 'humanoid-profile-editor-spawn-priority-label'}" VerticalAlignment="Center" />
+                                            <Control HorizontalExpand="True" />
+                                            <OptionButton Name="SpawnPriorityButton" MinWidth="170" HorizontalAlignment="Right" />
+                                        </BoxContainer>
+                                        <BoxContainer HorizontalExpand="True" Visible="False" Name="BarksContainer">
+                                            <Label Text="{Loc 'humanoid-profile-editor-bark-label'}" VerticalAlignment="Center" />
+                                            <Control HorizontalExpand="True" />
+                                            <Button Name="BarkProtoButton" HorizontalAlignment="Right" MinWidth="150" />
+                                            <Button Name="BarkPlayButton" Text="{Loc 'humanoid-profile-editor-voice-play'}" MaxWidth="80" />
+                                        </BoxContainer>
+                                        <BoxContainer HorizontalExpand="True" Visible="False" Name="SpeechRevealSpeedContainer" SeparationOverride="6">
+                                            <Label Text="{Loc 'humanoid-profile-editor-speech-reveal-speed-label'}" VerticalAlignment="Center" />
+                                            <Control HorizontalExpand="True" />
+                                            <Slider Name="SpeechRevealSpeedSlider" HorizontalAlignment="Right" SetWidth="180" />
+                                            <Label Name="SpeechRevealSpeedValue" MinWidth="30" HorizontalAlignment="Right" />
+                                        </BoxContainer>
+                                    </BoxContainer>
                                 </BoxContainer>
-                                <BoxContainer HorizontalExpand="True">
-                                    <Label Text="{Loc 'humanoid-profile-editor-width-label'}" />
-                                    <Control HorizontalExpand="True" />
-                                    <Slider Name="WidthSlider" HorizontalAlignment="Right" SetWidth="180" MinValue="0" MaxValue="1" />
-                                    <LineEdit Name="WidthEdit" HorizontalAlignment="Right" MinSize="50 0" />
-                                    <Button Name="WidthReset" Text="{Loc 'humanoid-profile-editor-dimension-reset'}" />
+                            </PanelContainer>
+
+                            <PanelContainer StyleClasses="AppearancePersonalizationSection">
+                                <BoxContainer Orientation="Vertical">
+                                    <PanelContainer StyleClasses="AppearancePersonalizationSectionHeader">
+                                        <Label Text="{Loc 'appearance-personalization-colors'}" StyleClasses="LabelHeading" Margin="8 6" />
+                                    </PanelContainer>
+                                    <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="8">
+                                        <BoxContainer HorizontalExpand="True" Orientation="Vertical">
+                                            <Label Text="{Loc 'humanoid-profile-editor-skin-color-label'}" StyleClasses="LabelWeak" />
+                                            <Slider HorizontalExpand="True" Name="Skin" MinValue="0" MaxValue="100" Value="20" />
+                                            <BoxContainer Name="RgbSkinColorContainer" Visible="False" Orientation="Vertical" HorizontalExpand="True" />
+                                        </BoxContainer>
+                                        <PanelContainer StyleClasses="LowDivider" />
+                                        <BoxContainer Orientation="Vertical">
+                                            <Label Text="{Loc 'humanoid-profile-editor-eyes-label'}" StyleClasses="LabelWeak" />
+                                            <humanoid:EyeColorPicker Name="EyeColorPicker" />
+                                        </BoxContainer>
+                                    </BoxContainer>
                                 </BoxContainer>
-                                <BoxContainer HorizontalExpand="True">
-                                    <Control HorizontalExpand="True" />
-                                    <Label Name="CalculatedWeightLabel" HorizontalAlignment="Right" />
-                                </BoxContainer>
-                                <!-- </Onyx-HeightWidth> -->
-                                <!-- Sex -->
-                                <BoxContainer HorizontalExpand="True">
-                                    <Label Text="{Loc 'humanoid-profile-editor-sex-label'}" />
-                                    <Control HorizontalExpand="True"/>
-                                    <OptionButton Name="SexButton" HorizontalAlignment="Right" />
-                                </BoxContainer>
-                                <!-- Voice -->
-                                <BoxContainer HorizontalExpand="True">
-                                    <Label Text="{Loc 'humanoid-profile-editor-voice-label'}" />
-                                    <Control HorizontalExpand="True" />
-                                    <OptionButton Name="VoiceButton" HorizontalAlignment="Right" />
-                                </BoxContainer>
-                                <!-- Pronouns -->
-                                <BoxContainer HorizontalExpand="True">
-                                    <Label Text="{Loc 'humanoid-profile-editor-pronouns-label'}" />
-                                    <Control HorizontalExpand="True"/>
-                                    <OptionButton Name="PronounsButton" HorizontalAlignment="Right" />
-                                </BoxContainer>
-                                <!-- Show clothing -->
-                                <BoxContainer HorizontalExpand="True">
-                                    <Label Text="{Loc 'humanoid-profile-editor-clothing'}" />
-                                    <Control HorizontalExpand="True"/>
-                                    <Button Name="ShowClothes" Pressed="True" ToggleMode="True" Text="{Loc 'humanoid-profile-editor-clothing-show'}" HorizontalAlignment="Right" />
-                                </BoxContainer>
-                                <!-- Spawn Priority -->
-                                <BoxContainer HorizontalExpand="True">
-                                    <Label Text="{Loc 'humanoid-profile-editor-spawn-priority-label'}" />
-                                    <Control HorizontalExpand="True"/>
-                                    <OptionButton Name="SpawnPriorityButton" HorizontalAlignment="Right" />
-                                </BoxContainer>
-                                <!-- ADT-Barks-Start -->
-                                <BoxContainer HorizontalExpand="True" Visible="False" Name="BarksContainer">
-                                    <Label Text="{Loc 'humanoid-profile-editor-bark-label'}" />
-                                    <Control HorizontalExpand="True"/>
-                                    <Button Name="BarkProtoButton" HorizontalAlignment="Right" MinWidth="150" />
-									<Button Name="BarkPlayButton" Text="{Loc 'humanoid-profile-editor-voice-play'}" MaxWidth="80" />
-                                </BoxContainer>
-                                <!-- <Onyx-SpeechBubbleReveal> -->
-                                <BoxContainer HorizontalExpand="True" Visible="False" Name="SpeechRevealSpeedContainer">
-                                    <Label Text="{Loc 'humanoid-profile-editor-speech-reveal-speed-label'}" />
-                                    <Control HorizontalExpand="True"/>
-                                    <Slider Name="SpeechRevealSpeedSlider" HorizontalAlignment="Right" SetWidth="180" />
-                                    <Label Name="SpeechRevealSpeedValue" MinWidth="30" HorizontalAlignment="Right" />
-                                </BoxContainer>
-                                <!-- </Onyx-SpeechBubbleReveal> -->
-                                <!-- ADT Barks End -->
-                            </BoxContainer>
-                            <!-- Skin -->
-                            <BoxContainer Margin="10" HorizontalExpand="True" Orientation="Vertical">
-                                <Label Text="{Loc 'humanoid-profile-editor-skin-color-label'}" />
-                                <Slider HorizontalExpand="True" Name="Skin" MinValue="0" MaxValue="100" Value="20" />
-                                <BoxContainer Name="RgbSkinColorContainer" Visible="False" Orientation="Vertical" HorizontalExpand="True"></BoxContainer>
-                            </BoxContainer>
-                            <!-- Eyes -->
-                            <BoxContainer Margin="10" Orientation="Vertical">
-                                <Label Text="{Loc 'humanoid-profile-editor-eyes-label'}" />
-                                <humanoid:EyeColorPicker Name="EyeColorPicker" />
-                            </BoxContainer>
+                            </PanelContainer>
                         </BoxContainer>
                     </ScrollContainer>
                 </BoxContainer>
+                <!-- </Onyx-AppearancePersonalization-edited> -->
                 <!-- <Onyx-RolesPersonalization-edited> -->
                 <BoxContainer Name="RolesTab" Orientation="Vertical" Margin="10" VerticalExpand="True">
                     <TabContainer Name="RolesTabContainer" HorizontalExpand="True" VerticalExpand="True">
                         <BoxContainer Orientation="Vertical" Margin="8" VerticalExpand="True">
-                            <ui:HighlightedContainer>
-                                <BoxContainer Orientation="Vertical">
+                            <PanelContainer StyleClasses="PersonalizationTools" Margin="0 0 0 8">
+                                <BoxContainer Orientation="Vertical" Margin="8 6">
                                     <OptionButton Name="PreferenceUnavailableButton" HorizontalExpand="True" />
                                     <BoxContainer Orientation="Horizontal" SeparationOverride="6" Margin="0 6 0 0">
                                         <LineEdit Name="JobSearchBar" HorizontalExpand="True" PlaceHolder="{Loc 'job-personalization-search-placeholder'}" />
@@ -181,32 +206,33 @@
                                         <Button Name="SelectedJobsToggle" Text="{Loc 'job-personalization-show-selected'}" MinWidth="150" ToggleMode="True" />
                                     </BoxContainer>
                                 </BoxContainer>
-                            </ui:HighlightedContainer>
-                            <cc:HSeparator StyleClasses="HighDivider" Margin="0 6 0 2" /> <!-- <Onyx-RolesPersonalization> -->
-                            <ScrollContainer Margin="0 6 0 0" VerticalExpand="True" HScrollEnabled="False">
+                            </PanelContainer>
+                            <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
                                 <BoxContainer Name="JobList" Orientation="Vertical" HorizontalExpand="True" /> <!-- <Onyx-RolesPersonalization-edited> -->
                             </ScrollContainer>
                         </BoxContainer>
                         <BoxContainer Orientation="Vertical" Margin="8" VerticalExpand="True">
-                            <ScrollContainer VerticalExpand="True">
-                                <BoxContainer Name="AntagList" Orientation="Vertical" />
+                            <PanelContainer StyleClasses="PersonalizationHeader" Margin="0 0 0 8">
+                                <BoxContainer Orientation="Vertical" Margin="10 8">
+                                    <Label Text="{Loc 'antag-personalization-title'}" StyleClasses="PersonalizationTitle" />
+                                    <Label Text="{Loc 'antag-personalization-description'}" StyleClasses="LabelWeak" Margin="0 3 0 0" />
+                                </BoxContainer>
+                            </PanelContainer>
+                            <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
+                                <BoxContainer Name="AntagList" Orientation="Vertical" HorizontalExpand="True" />
                             </ScrollContainer>
                         </BoxContainer>
                         <!-- <Onyx-LoadoutPersonalization> -->
                         <BoxContainer Name="LoadoutsTab" Orientation="Vertical" Margin="10">
-                            <BoxContainer Orientation="Horizontal" Margin="0 0 0 6">
-                                <BoxContainer Orientation="Vertical" VerticalAlignment="Center">
-                                    <Label Text="{Loc 'loadout-role-selector'}" StyleClasses="font-small" />
-                                    <Label Text="{Loc 'loadout-role-selector-hint'}" StyleClasses="font-small" Modulate="#A6B3CC" /> <!-- <Onyx-LoadoutPersonalization> -->
+                            <PanelContainer StyleClasses="PersonalizationTools" Margin="0 0 0 8">
+                                <BoxContainer Orientation="Horizontal" Margin="8 6" SeparationOverride="6">
+                                    <Label Text="{Loc 'loadout-role-selector'}" StyleClasses="LabelHeading" VerticalAlignment="Center" />
+                                    <onyxLoadouts:LoadoutRoleSelector Name="LoadoutRoleSelector" MinWidth="240" MinHeight="34" Filterable="True" />
+                                    <LineEdit Name="LoadoutSearchBar" HorizontalExpand="True" />
+                                    <Button Name="LoadoutSearchClear" Text="×" MinWidth="34" />
+                                    <Button Name="SelectedLoadoutsToggle" MinWidth="150" ToggleMode="True" />
                                 </BoxContainer>
-                                <Control HorizontalExpand="True" />
-                                <onyxLoadouts:LoadoutRoleSelector Name="LoadoutRoleSelector" MinWidth="280" MinHeight="38" Filterable="True" /> <!-- <Onyx-LoadoutPersonalization> -->
-                            </BoxContainer>
-                            <BoxContainer Orientation="Horizontal" Margin="0 0 0 6">
-                                <LineEdit Name="LoadoutSearchBar" HorizontalExpand="True" />
-                                <Button Name="LoadoutSearchClear" Text="X" />
-                                <Button Name="SelectedLoadoutsToggle" MinWidth="132" ToggleMode="True" /> <!-- <Onyx-LoadoutPersonalization> -->
-                            </BoxContainer>
+                            </PanelContainer>
                             <TabContainer Name="LoadoutSlotTabs" HorizontalExpand="True" VerticalExpand="True" />
                         </BoxContainer>
                         <!-- </Onyx-LoadoutPersonalization> -->
