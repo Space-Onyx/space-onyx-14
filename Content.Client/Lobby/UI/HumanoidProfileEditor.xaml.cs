@@ -227,6 +227,7 @@ namespace Content.Client.Lobby.UI
             if (configurationManager.GetCVar(CCVars.BarksEnabled))
             {
                 BarksContainer.Visible = true;
+                SpeechRevealSpeedContainer.Visible = configurationManager.GetCVar(CCVars.SpeechBubbleRevealEnabled); // <Onyx-SpeechBubbleReveal>
                 InitializeBarks();
             }
 

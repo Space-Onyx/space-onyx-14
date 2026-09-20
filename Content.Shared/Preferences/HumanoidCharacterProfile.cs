@@ -132,6 +132,9 @@ namespace Content.Shared.Preferences
         // <Onyx-Barks>
         [DataField]
         public BarkData Bark = new();
+
+        [DataField]
+        public float SpeechBubbleRevealSpeed { get; private set; } = 20f;
         // </Onyx-Barks>
 
         /// <summary>
@@ -180,7 +183,8 @@ namespace Content.Shared.Preferences
             HashSet<ProtoId<TraitPrototype>> traitPreferences,
             Dictionary<string, RoleLoadout> loadouts,
             // <Onyx-Barks>
-            BarkData bark
+            BarkData bark,
+            float speechBubbleRevealSpeed
             // </Onyx-Barks>
             )
         {
@@ -206,6 +210,7 @@ namespace Content.Shared.Preferences
             _loadouts = loadouts;
             // <Onyx-Barks>
             Bark = bark;
+            SpeechBubbleRevealSpeed = speechBubbleRevealSpeed;
             // </Onyx-Barks>
 
             var hasHighPrority = false;
@@ -246,7 +251,8 @@ namespace Content.Shared.Preferences
                 new HashSet<ProtoId<TraitPrototype>>(other.TraitPreferences),
                 other.Loadouts.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Clone()), // <Onyx-ProfilePersistence-edited>
                 // <Onyx-ProfilePersistence>
-                other.Bark.Copy()
+                other.Bark.Copy(),
+                other.SpeechBubbleRevealSpeed
                 // </Onyx-ProfilePersistence>
                 )
         {
@@ -598,6 +604,11 @@ namespace Content.Shared.Preferences
                 Bark = Bark.WithMaxVar(variation),
             };
         }
+
+        public HumanoidCharacterProfile WithSpeechBubbleRevealSpeed(float speed)
+        {
+            return new(this) { SpeechBubbleRevealSpeed = speed };
+        }
         // </Onyx-Barks>
 
         public HumanoidCharacterProfile WithCharacterAppearance(HumanoidCharacterAppearance appearance)
@@ -821,6 +832,7 @@ namespace Content.Shared.Preferences
             if (!DescriptionFieldsEqual(other)) return false; // <Onyx-CharacterDescriptions>
             // <Onyx-Barks>
             if (!Bark.MemberwiseEquals(other.Bark)) return false;
+            if (SpeechBubbleRevealSpeed != other.SpeechBubbleRevealSpeed) return false;
             // </Onyx-Barks>
             if (TTSVoice != other.TTSVoice) return false; // Corvax-TTS
             return Appearance.Equals(other.Appearance);
@@ -1141,6 +1153,7 @@ namespace Content.Shared.Preferences
             hashCode.Add(Bark.Pitch);
             hashCode.Add(Bark.MinVar);
             hashCode.Add(Bark.MaxVar);
+            hashCode.Add(SpeechBubbleRevealSpeed);
             // </Onyx-ProfilePersistence>
             hashCode.Add(Species);
             hashCode.Add(Age);

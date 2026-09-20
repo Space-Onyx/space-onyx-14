@@ -8,4 +8,7 @@ public sealed partial class SpeechBarksComponent : Component
 {
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public BarkData Data = new();
+
+    [DataField, ViewVariables(VVAccess.ReadWrite)]
+    public float SpeechBubbleRevealSpeed = 20f;
 }

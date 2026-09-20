@@ -232,7 +232,8 @@ namespace Content.Server.Preferences.Managers
                     string.IsNullOrWhiteSpace(profile.BarkProto) ? "Human1" : profile.BarkProto,
                     profile.BarkPitch,
                     profile.BarkMinVar,
-                    profile.BarkMaxVar)
+                    profile.BarkMaxVar),
+                profile.SpeechBubbleRevealSpeed
                 // </Onyx-ProfilePersistence>
             );
             // <Onyx-CharacterDescriptions-edited>

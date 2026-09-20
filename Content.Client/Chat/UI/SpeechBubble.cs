@@ -105,7 +105,6 @@ namespace Content.Client.Chat.UI
             var speechBarks = _entityManager.System<SpeechBarksSystem>();
             RevealWithBarks = revealWithBarks &&
                 ConfigManager.GetCVar(CCVars.SpeechBubbleRevealEnabled) &&
-                ConfigManager.GetCVar(CCVars.ReplaceTTSWithBarks) &&
                 speechBarks.CanRevealSpeechBubble(senderEntity);
             // </Onyx-SpeechBubbleBarks-edited>
             _transformSystem = _entityManager.System<SharedTransformSystem>();

@@ -16,6 +16,8 @@ public sealed class PlaySpeechBarksEvent : EntityEventArgs
     public bool IsWhisper;
     public bool IsRadio;
     public float VolumeScale;
+    public float RevealSpeed;
+    public bool PlayAudio;
 
     public PlaySpeechBarksEvent(
         NetEntity source,
@@ -27,7 +29,9 @@ public sealed class PlaySpeechBarksEvent : EntityEventArgs
         bool isWhisper,
         bool isRadio = false,
         NetEntity? emitter = null,
-        float volumeScale = 1f)
+        float volumeScale = 1f,
+        float revealSpeed = 20f,
+        bool playAudio = true)
     {
         Source = source;
         Emitter = emitter;
@@ -39,5 +43,7 @@ public sealed class PlaySpeechBarksEvent : EntityEventArgs
         IsWhisper = isWhisper;
         IsRadio = isRadio;
         VolumeScale = volumeScale;
+        RevealSpeed = revealSpeed;
+        PlayAudio = playAudio;
     }
 }

@@ -357,6 +357,7 @@ namespace Content.Server.Database
         public float BarkPitch { get; set; } = 1f;
         public float BarkMinVar { get; set; } = 0.1f;
         public float BarkMaxVar { get; set; } = 0.5f;
+        public float SpeechBubbleRevealSpeed { get; set; } = 20f;
         // </Onyx-ProfilePersistence>
         public string Sex { get; set; } = null!;
         public string? Voice { get; set; } = null!; // If null, the voice gets defaulted to the sex associated value

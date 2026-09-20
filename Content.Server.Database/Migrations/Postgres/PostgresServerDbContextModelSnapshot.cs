@@ -1168,6 +1168,10 @@ namespace Content.Server.Database.Migrations.Postgres
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("bark_proto");
+
+                    b.Property<float>("SpeechBubbleRevealSpeed")
+                        .HasColumnType("real")
+                        .HasColumnName("speech_bubble_reveal_speed");
                     // </Onyx-ProfilePersistence>
 
                     b.Property<string>("CharacterName")

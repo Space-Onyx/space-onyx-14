@@ -1101,6 +1101,10 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("bark_proto");
+
+                    b.Property<float>("SpeechBubbleRevealSpeed")
+                        .HasColumnType("REAL")
+                        .HasColumnName("speech_bubble_reveal_speed");
                     // </Onyx-ProfilePersistence>
 
                     b.Property<string>("CharacterName")

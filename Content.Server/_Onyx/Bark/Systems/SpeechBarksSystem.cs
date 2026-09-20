@@ -23,12 +23,14 @@ public sealed partial class SpeechBarksSystem : EntitySystem
     [Dependency] private MindSystem _mind = default!;
     [Dependency] private ISharedPlayerManager _player = default!;
     private bool _isEnabled = false;
+    private bool _isRevealEnabled;
 
     public override void Initialize()
     {
         base.Initialize();
 
         _cfg.OnValueChanged(CCVars.BarksEnabled, v => _isEnabled = v, true);
+        _cfg.OnValueChanged(CCVars.SpeechBubbleRevealEnabled, v => _isRevealEnabled = v, true);
 
         SubscribeLocalEvent<SpeechBarksComponent, EntitySpokeEvent>(OnEntitySpoke);
         SubscribeLocalEvent<WearingHeadsetComponent, HeadsetRadioReceiveRelayEvent>(OnHeadsetRadioReceive);
@@ -37,7 +39,7 @@ public sealed partial class SpeechBarksSystem : EntitySystem
 
     private void OnEntitySpoke(EntityUid uid, SpeechBarksComponent component, EntitySpokeEvent args)
     {
-        if (!_isEnabled)
+        if (!_isEnabled && !_isRevealEnabled)
             return;
 
         var ev = new TransformSpeakerBarkEvent(uid, component.Data.Copy());
@@ -60,7 +62,9 @@ public sealed partial class SpeechBarksSystem : EntitySystem
                         pitch,
                         minVar,
                         maxVar,
-                        args.ObfuscatedMessage != null), session);
+                        args.ObfuscatedMessage != null,
+                        revealSpeed: component.SpeechBubbleRevealSpeed,
+                        playAudio: _isEnabled), session);
         }
     }
 
@@ -111,7 +115,8 @@ public sealed partial class SpeechBarksSystem : EntitySystem
             maxVar,
             false,
             true,
-            GetNetEntity(emitter)), session);
+            GetNetEntity(emitter),
+            revealSpeed: component.SpeechBubbleRevealSpeed), session);
     }
 
     private bool TryGetBarkData(BarkData data, out SoundSpecifier sound, out float pitch, out float minVar, out float maxVar)

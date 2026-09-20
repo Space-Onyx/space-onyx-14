@@ -4,6 +4,7 @@ using Content.Client._Onyx.Bark;
 using Content.Client._Onyx.SpeechBarks;
 using Content.Client.UserInterface.Controls;
 using Content.Shared._Onyx.SpeechBarks;
+using Content.Shared.CCVar;
 using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client.Lobby.UI;
@@ -23,6 +24,9 @@ public sealed partial class HumanoidProfileEditor
 
         BarkProtoButton.OnPressed += _ => OpenBarkWindow();
         BarkPlayButton.OnPressed += _ => PlayPreviewBark();
+        SpeechRevealSpeedSlider.MinValue = _cfgManager.GetCVar(CCVars.SpeechBubbleRevealMinSpeed);
+        SpeechRevealSpeedSlider.MaxValue = _cfgManager.GetCVar(CCVars.SpeechBubbleRevealMaxSpeed);
+        SpeechRevealSpeedSlider.OnValueChanged += _ => SetSpeechBubbleRevealSpeed(SpeechRevealSpeedSlider.Value);
     }
 
     private void OpenBarkWindow()
@@ -92,6 +96,8 @@ public sealed partial class HumanoidProfileEditor
             return;
 
         UpdateBarkButtonText();
+        SpeechRevealSpeedSlider.Value = Profile.SpeechBubbleRevealSpeed;
+        SpeechRevealSpeedValue.Text = MathF.Round(Profile.SpeechBubbleRevealSpeed).ToString();
         // Обновляем окно барков если оно открыто
         if (_barkWindow != null && _barkWindow.ContentsContainer.ChildCount > 0)
         {
@@ -134,5 +140,22 @@ public sealed partial class HumanoidProfileEditor
             Profile.Bark.MinVar,
             Profile.Bark.MaxVar
         );
+    }
+
+    private void SetSpeechBubbleRevealSpeed(float speed)
+    {
+        if (Profile is null)
+            return;
+
+        speed = MathF.Round(Math.Clamp(
+            speed,
+            _cfgManager.GetCVar(CCVars.SpeechBubbleRevealMinSpeed),
+            _cfgManager.GetCVar(CCVars.SpeechBubbleRevealMaxSpeed)));
+        if (Profile.SpeechBubbleRevealSpeed == speed)
+            return;
+
+        Profile = Profile.WithSpeechBubbleRevealSpeed(speed);
+        SpeechRevealSpeedValue.Text = speed.ToString();
+        SetDirty();
     }
 }

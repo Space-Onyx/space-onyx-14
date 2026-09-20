@@ -15,6 +15,11 @@ public sealed partial class HumanoidCharacterProfile
 {
     private void EnsureBarkValid(IPrototypeManager prototypeManager, IConfigurationManager configManager)
     {
+        SpeechBubbleRevealSpeed = Math.Clamp(
+            SpeechBubbleRevealSpeed,
+            configManager.GetCVar(CCVars.SpeechBubbleRevealMinSpeed),
+            configManager.GetCVar(CCVars.SpeechBubbleRevealMaxSpeed));
+
         if (!prototypeManager.TryIndex(Bark.Proto, out BarkPrototype? barkProto) || !barkProto.RoundStart)
         {
             Bark = new BarkData();

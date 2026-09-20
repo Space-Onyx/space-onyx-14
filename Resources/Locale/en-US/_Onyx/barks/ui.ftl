@@ -1,5 +1,6 @@
 ui-options-barks-or-tts = Voice type
 ui-options-barks-speech = Barks
+ui-options-tts-speech = TTS
 ui-options-barks-volume = Bark volume:
 ui-options-barks-radio-volume = Headset bark volume:
 
@@ -13,6 +14,7 @@ humanoid-profile-editor-bark-settings = Bark settings
 
 humanoid-profile-editor-bark-pitch-label = Pitch (Bark):
 humanoid-profile-editor-bark-delay-label = Min and max delay (Bark):
+humanoid-profile-editor-speech-reveal-speed-label = Speech speed (characters/s):
 
 bark-category-standard = Standard
 bark-category-undertale = Undertale

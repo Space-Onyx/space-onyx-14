@@ -51,8 +51,13 @@ public sealed partial class HumanoidProfileSystem : EntitySystem
             _TTSComponent.VoicePrototypeId = profile.TTSVoice;
         }
         // Corvax-TTS-end
+        // <Onyx-SpeechBubbleReveal-edited>
         if (TryComp<SpeechBarksComponent>(ent, out var barks))
+        {
             barks.Data = profile.Bark.Copy();
+            barks.SpeechBubbleRevealSpeed = profile.SpeechBubbleRevealSpeed;
+        }
+        // </Onyx-SpeechBubbleReveal-edited>
 
         Dirty(ent);
 

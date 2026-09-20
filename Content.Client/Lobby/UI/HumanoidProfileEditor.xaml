@@ -143,6 +143,14 @@
                                     <Button Name="BarkProtoButton" HorizontalAlignment="Right" MinWidth="150" />
 									<Button Name="BarkPlayButton" Text="{Loc 'humanoid-profile-editor-voice-play'}" MaxWidth="80" />
                                 </BoxContainer>
+                                <!-- <Onyx-SpeechBubbleReveal> -->
+                                <BoxContainer HorizontalExpand="True" Visible="False" Name="SpeechRevealSpeedContainer">
+                                    <Label Text="{Loc 'humanoid-profile-editor-speech-reveal-speed-label'}" />
+                                    <Control HorizontalExpand="True"/>
+                                    <Slider Name="SpeechRevealSpeedSlider" HorizontalAlignment="Right" SetWidth="180" />
+                                    <Label Name="SpeechRevealSpeedValue" MinWidth="30" HorizontalAlignment="Right" />
+                                </BoxContainer>
+                                <!-- </Onyx-SpeechBubbleReveal> -->
                                 <!-- ADT Barks End -->
                             </BoxContainer>
                             <!-- Skin -->

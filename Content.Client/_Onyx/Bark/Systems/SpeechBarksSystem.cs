@@ -86,9 +86,6 @@ public sealed partial class SpeechBarksSystem : EntitySystem
 
     private void OnEntitySpoke(PlaySpeechBarksEvent ev)
     {
-        if (!_cfg.GetCVar(CCVars.ReplaceTTSWithBarks))
-            return;
-
         if (ev.Message == null)
             return;
 
@@ -134,7 +131,13 @@ public sealed partial class SpeechBarksSystem : EntitySystem
                                   speechSteps,
                                   ev.IsRadio,
                                   ev.Message,
-                                  isShouting);
+                                  isShouting,
+                                  GetRuneCount(barkMessage),
+                                  Math.Clamp(
+                                      ev.RevealSpeed,
+                                      _cfg.GetCVar(CCVars.SpeechBubbleRevealMinSpeed),
+                                      _cfg.GetCVar(CCVars.SpeechBubbleRevealMaxSpeed)),
+                                  ev.PlayAudio && _cfg.GetCVar(CCVars.ReplaceTTSWithBarks));
         _activeBarks.Add(bark);
 
         if (source != null &&
@@ -242,6 +245,15 @@ public sealed partial class SpeechBarksSystem : EntitySystem
         return letters >= 4 && upper >= letters * 2 / 3;
     }
 
+    private static int GetRuneCount(string message)
+    {
+        var count = 0;
+        foreach (var _ in message.EnumerateRunes())
+            count++;
+
+        return count;
+    }
+
     private static List<SpeechStep> BuildSpeechSteps(string message)
     {
         var runes = new List<Rune>();
@@ -341,7 +353,9 @@ public sealed partial class SpeechBarksSystem : EntitySystem
                                    (minDelay, maxDelay),
                                   speechSteps,
                                   false,
-                                  isShouting: false);
+                                  isShouting: false,
+                                  revealRuneCount: GetRuneCount(PreviewMessage),
+                                  revealRunesPerSecond: 20f);
         _activeBarks.Add(bark);
     }
 
@@ -356,20 +370,29 @@ public sealed partial class SpeechBarksSystem : EntitySystem
         {
             var item = _activeBarks[i];
 
+            UpdateReveal(item);
+
             if (item.NextSound > _timing.CurTime)
                 continue;
 
-            if (item.StepIndex >= item.Steps.Count)
+            if (item.StepIndex >= item.Steps.Count &&
+                item.RevealStepIndex >= item.Steps.Count &&
+                item.RevealProgress >= 1f)
             {
                 _activeBarks.Remove(item);
                 continue;
             }
 
+            if (item.StepIndex >= item.Steps.Count)
+                continue;
+
             var step = item.Steps[item.StepIndex++];
-            item.Reveal?.Invoke(step.RevealProgress);
             item.NextSound = _timing.CurTime + TimeSpan.FromSeconds(GetNextDelay(item, step));
 
             if (!step.PlaySound)
+                continue;
+
+            if (!item.PlayAudio)
                 continue;
 
             var pitch = item.IsShouting ? item.Pitch * 1.05f : item.Pitch;
@@ -406,6 +429,77 @@ public sealed partial class SpeechBarksSystem : EntitySystem
         }
     }
 
+    private void UpdateReveal(ActiveBark bark)
+    {
+        var now = _timing.CurTime;
+        if (!bark.RevealStarted)
+        {
+            bark.RevealStarted = true;
+            bark.RevealCursor = now;
+        }
+
+        if (bark.RevealEnd > bark.RevealStart)
+        {
+            if (now < bark.RevealEnd)
+            {
+                var duration = (bark.RevealEnd - bark.RevealStart).TotalSeconds;
+                var elapsed = (now - bark.RevealStart).TotalSeconds;
+                var amount = (float) Math.Clamp(elapsed / duration, 0d, 1d);
+                bark.RevealProgress = float.Lerp(bark.RevealStartProgress, bark.RevealTargetProgress, amount);
+                bark.Reveal?.Invoke(bark.RevealProgress);
+                return;
+            }
+
+            bark.RevealProgress = bark.RevealTargetProgress;
+            bark.Reveal?.Invoke(bark.RevealProgress);
+            bark.RevealCursor = bark.RevealEnd;
+            bark.RevealStart = bark.RevealEnd;
+        }
+
+        if (now < bark.RevealPauseEnd)
+            return;
+
+        if (bark.RevealPauseEnd > bark.RevealCursor)
+            bark.RevealCursor = bark.RevealPauseEnd;
+
+        while (bark.RevealStepIndex < bark.Steps.Count)
+        {
+            var step = bark.Steps[bark.RevealStepIndex++];
+            if (!step.PlaySound)
+            {
+                bark.RevealProgress = step.RevealProgress;
+                bark.Reveal?.Invoke(bark.RevealProgress);
+                bark.RevealPauseEnd = bark.RevealCursor + TimeSpan.FromSeconds(GetPauseDuration(step.Pause));
+                if (now < bark.RevealPauseEnd)
+                    return;
+
+                bark.RevealCursor = bark.RevealPauseEnd;
+                continue;
+            }
+
+            bark.RevealStartProgress = bark.RevealProgress;
+            bark.RevealTargetProgress = step.RevealProgress;
+            bark.RevealStart = bark.RevealCursor;
+            var runes = (step.RevealProgress - bark.RevealProgress) * bark.RevealRuneCount;
+            bark.RevealEnd = bark.RevealStart + TimeSpan.FromSeconds(runes / bark.RevealRunesPerSecond);
+
+            if (now < bark.RevealEnd)
+            {
+                var duration = (bark.RevealEnd - bark.RevealStart).TotalSeconds;
+                var elapsed = (now - bark.RevealStart).TotalSeconds;
+                var amount = (float) Math.Clamp(elapsed / duration, 0d, 1d);
+                bark.RevealProgress = float.Lerp(bark.RevealStartProgress, bark.RevealTargetProgress, amount);
+                bark.Reveal?.Invoke(bark.RevealProgress);
+                return;
+            }
+
+            bark.RevealProgress = bark.RevealTargetProgress;
+            bark.Reveal?.Invoke(bark.RevealProgress);
+            bark.RevealCursor = bark.RevealEnd;
+            bark.RevealStart = bark.RevealEnd;
+        }
+    }
+
     private float GetNextDelay(ActiveBark bark, SpeechStep step)
     {
         var delay = _random.NextFloat(bark.DelayVariation.Item1, bark.DelayVariation.Item2);
@@ -415,22 +509,23 @@ public sealed partial class SpeechBarksSystem : EntitySystem
         if (bark.IsShouting && step.PlaySound)
             delay *= Math.Clamp(_cfg.GetCVar(CCVars.BarksShoutSpeedMultiplier), 0.1f, 1f);
 
-        delay *= step.DelayWeight;
-        var minimumPause = step.Pause switch
+        return delay * step.DelayWeight;
+    }
+
+    private float GetPauseDuration(SpeechPause pause)
+    {
+        return pause switch
         {
-            SpeechPause.Comma => _cfg.GetCVar(CCVars.BarksCommaPause),
-            SpeechPause.Sentence => _cfg.GetCVar(CCVars.BarksSentencePause),
-            SpeechPause.Ellipsis => _cfg.GetCVar(CCVars.BarksEllipsisPause),
+            SpeechPause.Comma => _cfg.GetCVar(CCVars.SpeechBubbleCommaPause),
+            SpeechPause.Sentence => _cfg.GetCVar(CCVars.SpeechBubbleSentencePause),
+            SpeechPause.Ellipsis => _cfg.GetCVar(CCVars.SpeechBubbleEllipsisPause),
             _ => 0f,
         };
-
-        return Math.Max(delay, minimumPause);
     }
 
     public bool CanRevealSpeechBubble(EntityUid speaker)
     {
-        return _cfg.GetCVar(CCVars.BarksEnabled) &&
-            TryComp<SpeechBarksComponent>(speaker, out var barks) &&
+        return TryComp<SpeechBarksComponent>(speaker, out var barks) &&
             _proto.HasIndex<BarkPrototype>(barks.Data.Proto);
     }
 
@@ -453,7 +548,7 @@ public sealed partial class SpeechBarksSystem : EntitySystem
                 continue;
 
             bark.Reveal = reveal;
-            reveal(bark.StepIndex == 0 ? 0f : bark.Steps[bark.StepIndex - 1].RevealProgress);
+            reveal(bark.RevealProgress);
             break;
         }
 
@@ -484,15 +579,27 @@ public sealed partial class SpeechBarksSystem : EntitySystem
         public readonly (float, float) DelayVariation = default!;
         public readonly List<SpeechStep> Steps;
         public readonly float TotalDelayWeight;
+        public readonly int RevealRuneCount;
+        public readonly float RevealRunesPerSecond;
         public readonly bool HasSource;
         public readonly bool IsRadio;
         public readonly bool IsShouting;
+        public readonly bool PlayAudio;
 
         public TimeSpan NextSound = TimeSpan.Zero;
+        public TimeSpan RevealCursor;
+        public TimeSpan RevealStart;
+        public TimeSpan RevealEnd;
+        public TimeSpan RevealPauseEnd;
         public int StepIndex;
+        public int RevealStepIndex;
+        public float RevealProgress;
+        public float RevealStartProgress;
+        public float RevealTargetProgress;
+        public bool RevealStarted;
         public Action<float>? Reveal;
 
-        public ActiveBark(EntityUid? source, NetEntity? speaker, SoundSpecifier sound, float volume, float pitch, float distance, (float, float) delay, List<SpeechStep> steps, bool isRadio, string message = "", bool isShouting = false)
+        public ActiveBark(EntityUid? source, NetEntity? speaker, SoundSpecifier sound, float volume, float pitch, float distance, (float, float) delay, List<SpeechStep> steps, bool isRadio, string message = "", bool isShouting = false, int revealRuneCount = 0, float revealRunesPerSecond = 20f, bool playAudio = true)
         {
             Source = source;
             Speaker = speaker;
@@ -500,12 +607,15 @@ public sealed partial class SpeechBarksSystem : EntitySystem
             HasSource = source.HasValue;
             IsRadio = isRadio;
             IsShouting = isShouting;
+            PlayAudio = playAudio;
             Sound = sound;
             Volume = volume;
             Pitch = pitch;
             Distance = distance;
             DelayVariation = delay;
             Steps = steps;
+            RevealRuneCount = revealRuneCount;
+            RevealRunesPerSecond = revealRunesPerSecond;
 
             foreach (var step in steps)
                 TotalDelayWeight += step.DelayWeight;

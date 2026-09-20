@@ -1,5 +1,6 @@
 ui-options-barks-or-tts = Вид озвучки
 ui-options-barks-speech = Барки
+ui-options-tts-speech = TTS
 ui-options-barks-volume = Громкость барков:
 ui-options-barks-radio-volume = Громкость барков в гарнитуре:
 
@@ -13,6 +14,7 @@ humanoid-profile-editor-bark-settings = Настройки барка
 
 humanoid-profile-editor-bark-pitch-label = Высота (Барк):
 humanoid-profile-editor-bark-delay-label = Минимальная и максимальная задержка (Барк):
+humanoid-profile-editor-speech-reveal-speed-label = Скорость речи (символов/с):
 
 bark-category-standard = Стандартные
 bark-category-undertale = Undertale

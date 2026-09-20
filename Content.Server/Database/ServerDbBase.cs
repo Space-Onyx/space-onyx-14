@@ -248,6 +248,7 @@ namespace Content.Server.Database
             profile.BarkPitch = humanoid.Bark.Pitch;
             profile.BarkMinVar = humanoid.Bark.MinVar;
             profile.BarkMaxVar = humanoid.Bark.MaxVar;
+            profile.SpeechBubbleRevealSpeed = humanoid.SpeechBubbleRevealSpeed;
             // </Onyx-ProfilePersistence>
             profile.Sex = humanoid.Sex.ToString();
             profile.Voice = humanoid.Voice.ToString();
