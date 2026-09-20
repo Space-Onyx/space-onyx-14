@@ -50,6 +50,7 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
         system.PlayerAttached += OnPlayerAttached;
         system.PlayerDetached += OnPlayerDetached;
         system.GhostWarpsResponse += OnWarpsResponse;
+        InitializeGhostWarpMenu(system); // <Onyx-GhostWarpMenu>
         system.GhostRoleCountUpdated += OnRoleCountUpdated;
     }
 
@@ -60,6 +61,7 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
         system.PlayerAttached -= OnPlayerAttached;
         system.PlayerDetached -= OnPlayerDetached;
         system.GhostWarpsResponse -= OnWarpsResponse;
+        ShutdownGhostWarpMenu(system); // <Onyx-GhostWarpMenu>
         system.GhostRoleCountUpdated -= OnRoleCountUpdated;
     }
 
@@ -183,7 +185,7 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
 
     private void RequestWarps()
     {
-        _system?.RequestWarps();
+        RequestGhostWarpMenu(); // <Onyx-GhostWarpMenu-edited>
         Gui?.TargetWindow.Populate();
         Gui?.TargetWindow.OpenCentered();
     }

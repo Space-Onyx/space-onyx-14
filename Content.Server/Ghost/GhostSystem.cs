@@ -108,6 +108,7 @@ namespace Content.Server.Ghost
             SubscribeNetworkEvent<GhostnadoRequestEvent>(OnGhostnadoRequest);
             SubscribeNetworkEvent<WarpToRandomFollowedRequestEvent>(OnWarpToRandomFollowedRequest);
             SubscribeNetworkEvent<WarpToRandomRequestEvent>(OnWarpToRandomRequest);
+            InitializeGhostWarpMenu(); // <Onyx-GhostWarpMenu>
 
             SubscribeLocalEvent<GhostComponent, ToggleGhostHearingActionEvent>(OnGhostHearingAction);
             SubscribeLocalEvent<GhostComponent, InsertIntoEntityStorageAttemptEvent>(OnEntityStorageInsertAttempt);

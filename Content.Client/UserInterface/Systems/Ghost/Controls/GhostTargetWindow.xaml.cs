@@ -22,6 +22,7 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls
         public GhostTargetWindow()
         {
             RobustXamlLoader.Load(this);
+            IoCManager.InjectDependencies(this); // <Onyx-GhostWarpMenu>
             SearchBar.OnTextChanged += OnSearchTextChanged;
 
             GhostnadoButton.OnPressed += _ => OnGhostnadoClicked?.Invoke();
@@ -49,6 +50,14 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls
 
         public void Populate()
         {
+            // <Onyx-GhostWarpMenu>
+            if (_useGhostWarpMenu)
+            {
+                PopulateGhostWarpMenu();
+                return;
+            }
+            // </Onyx-GhostWarpMenu>
+
             ButtonContainer.RemoveAllChildren();
             AddButtons();
         }
@@ -92,6 +101,15 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls
         private void OnSearchTextChanged(LineEdit.LineEditEventArgs args)
         {
             _searchText = args.Text;
+
+            // <Onyx-GhostWarpMenu>
+            if (_useGhostWarpMenu)
+            {
+                PopulateGhostWarpMenu();
+                GhostScroll.SetScrollValue(Vector2.Zero);
+                return;
+            }
+            // </Onyx-GhostWarpMenu>
 
             UpdateVisibleButtons();
             // Reset scroll bar so they can see the relevant results.
