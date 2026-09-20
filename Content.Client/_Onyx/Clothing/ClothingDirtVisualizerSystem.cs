@@ -74,6 +74,7 @@ public sealed partial class ClothingDirtVisualizerSystem : EntitySystem
                 UpdateBodyPart((uid, dirtable), part, visual);
             else if (TryComp(uid, out SpriteComponent? sprite))
                 UpdateWorldSprite((uid, dirtable), sprite);
+            _item.VisualsChanged(uid);
         }
         _pending.Clear();
     }
@@ -94,7 +95,6 @@ public sealed partial class ClothingDirtVisualizerSystem : EntitySystem
     {
         ClearItemShaders(ent);
         _pending.Add(ent);
-        _item.VisualsChanged(ent);
     }
 
     private void OnPartRelationshipChanged(Entity<ClothingDirtableComponent> ent, ref OrganGotInsertedEvent args)
