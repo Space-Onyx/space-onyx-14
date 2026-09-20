@@ -87,6 +87,7 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
         {
             CurrentTech = null;
             InfoContainer.RemoveAllChildren();
+            TechnologyInfoPanel.Visible = false;
         }
 
         _technologiesByDiscipline.Clear();
@@ -130,7 +131,6 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
             return;
 
         DisciplineTabsContainer.RemoveAllChildren();
-        DisciplineProgressContainer.RemoveAllChildren();
         _disciplineGroup = new ButtonGroup(isNoneSetAllowed: false);
         _disciplineTabs.Clear();
         _disciplineProgress.Clear();
@@ -146,21 +146,24 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
             var discipline = _prototype.Index<TechDisciplinePrototype>(id);
             var tab = new Button
             {
-                Text = Loc.GetString(discipline.Name),
                 ToggleMode = true,
                 Group = _disciplineGroup,
                 HorizontalExpand = true,
-                MinHeight = 46,
-                Margin = new Thickness(2),
+                MinHeight = 42,
                 StyleClasses = { StyleClass.ButtonSquare }
             };
-            var stripe = new StripeBack { HorizontalExpand = true, HasTopEdge = true, HasBottomEdge = true, HasMargins = true };
-            stripe.AddChild(tab);
-            DisciplineTabsContainer.AddChild(stripe);
-            var progress = new Label { Text = $"{GetCompletion(database, id):0}%", StyleClasses = { "LabelBigBold" } };
-            DisciplineProgressContainer.AddChild(new BoxContainer
+            var progress = new Label
             {
-                Margin = new Thickness(3, 5, 9, 5),
+                Text = $"{GetCompletion(database, id):0}%",
+                HorizontalAlignment = HAlignment.Right,
+                VerticalAlignment = VAlignment.Center,
+                StyleClasses = { StyleClass.LabelSubText }
+            };
+            tab.AddChild(new BoxContainer
+            {
+                Orientation = BoxContainer.LayoutOrientation.Horizontal,
+                HorizontalExpand = true,
+                Margin = new Thickness(6, 2),
                 Children =
                 {
                     new TextureRect
@@ -168,11 +171,19 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
                         Texture = _sprite.Frame0(discipline.Icon),
                         TextureScale = new Vector2(2),
                         VerticalAlignment = VAlignment.Center,
-                        Margin = new Thickness(0, 0, 4, 0)
+                        Margin = new Thickness(0, 0, 6, 0)
+                    },
+                    new Label
+                    {
+                        Text = Loc.GetString(discipline.Name),
+                        HorizontalExpand = true,
+                        VerticalAlignment = VAlignment.Center,
+                        StyleClasses = { StyleClass.LabelKeyText }
                     },
                     progress
                 }
             });
+            DisciplineTabsContainer.AddChild(tab);
             _disciplineTabs[id] = tab;
             _disciplineProgress[id] = progress;
             tab.OnToggled += args =>

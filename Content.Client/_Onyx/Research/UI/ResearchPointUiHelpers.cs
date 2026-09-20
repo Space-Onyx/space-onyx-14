@@ -26,6 +26,14 @@ public static class ResearchPointUiHelpers
             research.GetPointTypeName(cost.Type))));
     }
 
+    public static string BuildCostListMarkup(TechnologyPrototype technology, SharedResearchSystem research, IPrototypeManager prototypes, TechnologyDatabaseComponent? database = null)
+    {
+        return "\n" + string.Join(".\n", research.GetTechnologyCosts(technology, database).Select(cost => BuildEntryMarkup(
+            cost.Amount,
+            GetColor(cost.Type, prototypes),
+            research.GetPointTypeName(cost.Type)))) + ".";
+    }
+
     /// <summary>
     /// Builds compact colored markup of typed amounts using their abbreviations, e.g. "4000 О.И + 220 Э.И".
     /// </summary>

@@ -28,6 +28,7 @@ public sealed partial class FancyResearchConsoleItem : LayoutContainer
         TreePosition = position;
         Availability = availability;
         ResearchDisplay.Texture = sprite.Frame0(proto.Icon);
+        ToolTip = Loc.GetString(proto.Name);
         Button.OnDrawModeChanged += UpdateColor;
         Button.OnPressed += Selected;
 

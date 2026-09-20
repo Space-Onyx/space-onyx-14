@@ -1,57 +1,61 @@
 <Control xmlns="https://spacestation14.io"
-         xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
-         xmlns:customControls="clr-namespace:Content.Client.Administration.UI.CustomControls"
-         Margin="5" MinWidth="450" HorizontalExpand="True" VerticalExpand="True">
-    <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
-        <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" Margin="5" SizeFlagsStretchRatio="3">
-            <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
-                <BoxContainer Orientation="Horizontal" HorizontalExpand="True" SizeFlagsStretchRatio="1">
-                    <TextureRect Name="DisciplineTexture" TextureScale="7 7" Stretch="KeepAspectCentered" VerticalAlignment="Center" Margin="4"/>
-                    <TextureRect Name="TechnologyTexture" TextureScale="2 2" Stretch="KeepAspectCentered" VerticalAlignment="Center" Margin="4"/>
+          xmlns:customControls="clr-namespace:Content.Client.Administration.UI.CustomControls"
+          xmlns:health="clr-namespace:Content.Client._Onyx.Medical.HealthAnalyzer"
+          SetWidth="410" HorizontalExpand="True" VerticalExpand="True">
+    <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" Margin="10" SeparationOverride="8">
+        <BoxContainer Orientation="Horizontal" HorizontalExpand="True" MinHeight="64" Margin="0 0 36 0">
+            <TextureRect Name="TechnologyTexture" MinSize="64 64" TextureScale="2 2" Stretch="KeepAspectCentered" Margin="4 0"/>
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalAlignment="Center" Margin="8 0 0 0" SeparationOverride="2">
+                <health:EllipsisLabel Name="TechnologyNameLabel"
+                                      HorizontalExpand="True"/>
+                <RichTextLabel Name="TechnologyCostLabel" HorizontalExpand="True"/>
+                <Button Name="ResearchButton"
+                        Text="{Loc 'research-console-menu-server-research-button'}"
+                        HorizontalExpand="True"
+                        MinHeight="34"
+                        Margin="0 2 0 0"
+                        StyleClasses="ButtonSquare"/>
+            </BoxContainer>
+        </BoxContainer>
+
+        <customControls:HSeparator StyleClasses="LowDivider"/>
+
+        <ScrollContainer HScrollEnabled="False" HorizontalExpand="True" VerticalExpand="True">
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="10">
+                <RichTextLabel Name="NoPrereqLabel"
+                               HorizontalAlignment="Center"
+                               Margin="6"
+                               StyleClasses="LabelSubText"
+                               Text="{Loc 'research-console-no-tech-requirements'}"/>
+
+                <BoxContainer Name="PrereqsContainer" Orientation="Vertical" HorizontalExpand="True" Visible="False" SeparationOverride="6">
+                    <Label Text="{Loc 'research-console-required-text'}" StyleClasses="LabelKeyText"/>
+                    <customControls:HSeparator StyleClasses="LowDivider"/>
+                    <PanelContainer StyleClasses="PanelDeep" HorizontalExpand="True">
+                        <BoxContainer Name="RequiredTechContainer" Orientation="Vertical" HorizontalExpand="True" Margin="4"/>
+                    </PanelContainer>
                 </BoxContainer>
-                <Control HorizontalExpand="True" SizeFlagsStretchRatio="2"/>
+
+                <BoxContainer Name="ExperimentRequirementsContainer" Orientation="Vertical" HorizontalExpand="True" Visible="False" SeparationOverride="6">
+                    <Label Text="{Loc 'research-console-required-experiments-text'}" StyleClasses="LabelKeyText"/>
+                    <customControls:HSeparator StyleClasses="LowDivider"/>
+                    <BoxContainer Name="ExperimentRequirementsList" Orientation="Vertical" HorizontalExpand="True" SeparationOverride="4"/>
+                </BoxContainer>
+
+                <BoxContainer Name="ItemRequirementsContainer" Orientation="Vertical" HorizontalExpand="True" Visible="False" SeparationOverride="6">
+                    <Label Text="{Loc 'research-console-research-requirements-text'}" StyleClasses="LabelKeyText"/>
+                    <customControls:HSeparator StyleClasses="LowDivider"/>
+                    <BoxContainer Name="ItemRequirementsList" Orientation="Vertical" HorizontalExpand="True" SeparationOverride="4"/>
+                </BoxContainer>
+
+                <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="6">
+                    <Label Text="{Loc 'research-console-unlocks-text'}" StyleClasses="LabelKeyText"/>
+                    <customControls:HSeparator StyleClasses="LowDivider"/>
+                    <PanelContainer StyleClasses="PanelDeep" HorizontalExpand="True">
+                        <BoxContainer Name="UnlocksContainer" Orientation="Vertical" HorizontalExpand="True" Margin="4"/>
+                    </PanelContainer>
+                </BoxContainer>
             </BoxContainer>
-            <Label Name="TechnologyNameLabel" StyleClasses="LabelKeyText" HorizontalExpand="True"/>
-            <RichTextLabel Name="TechnologyCostLabel" HorizontalExpand="True"/>
-            <Button Name="ResearchButton" Text="{Loc 'research-console-menu-server-research-button'}" HorizontalAlignment="Left" Margin="0 4" StyleClasses="ButtonSquare"/>
-        </BoxContainer>
-        <Control SizeFlagsStretchRatio="1" HorizontalExpand="True"/>
-        <BoxContainer Orientation="Vertical" VerticalExpand="True" Margin="5" SizeFlagsStretchRatio="5">
-            <RichTextLabel Name="NoPrereqLabel" HorizontalAlignment="Center" Text="{Loc 'research-console-no-tech-requirements'}"/>
-            <BoxContainer Name="PrereqsContainer" Orientation="Vertical" VerticalExpand="True" Margin="5" SizeFlagsStretchRatio="1" Visible="False">
-                <Label Text="{Loc 'research-console-required-text'}" HorizontalAlignment="Center"/>
-                <customControls:HSeparator StyleClasses="LowDivider" Margin="0 0 0 10"/>
-                <PanelContainer VerticalExpand="True">
-                    <PanelContainer.PanelOverride>
-                        <gfx:StyleBoxFlat BackgroundColor="#1B1B1E"/>
-                    </PanelContainer.PanelOverride>
-                    <ScrollContainer HScrollEnabled="False" HorizontalExpand="True" VerticalExpand="True">
-                        <BoxContainer Name="RequiredTechContainer" Orientation="Vertical" VerticalExpand="True"/>
-                    </ScrollContainer>
-                </PanelContainer>
-            </BoxContainer>
-            <BoxContainer Name="ExperimentRequirementsContainer" Orientation="Vertical" Margin="5" Visible="False">
-                <Label Text="{Loc 'research-console-required-experiments-text'}" HorizontalAlignment="Center"/>
-                <customControls:HSeparator StyleClasses="LowDivider" Margin="0 0 0 10"/>
-                <BoxContainer Name="ExperimentRequirementsList" Orientation="Vertical" SeparationOverride="2"/>
-            </BoxContainer>
-            <BoxContainer Name="ItemRequirementsContainer" Orientation="Vertical" Margin="5" Visible="False">
-                <Label Text="{Loc 'research-console-research-requirements-text'}" HorizontalAlignment="Center"/>
-                <customControls:HSeparator StyleClasses="LowDivider" Margin="0 0 0 10"/>
-                <BoxContainer Name="ItemRequirementsList" Orientation="Vertical"/>
-            </BoxContainer>
-            <BoxContainer Orientation="Vertical" VerticalExpand="True" SizeFlagsStretchRatio="2" Margin="5">
-                <Label Text="{Loc 'research-console-unlocks-text'}" HorizontalAlignment="Center"/>
-                <customControls:HSeparator StyleClasses="LowDivider" Margin="0 0 0 10"/>
-                <PanelContainer VerticalExpand="True">
-                    <PanelContainer.PanelOverride>
-                        <gfx:StyleBoxFlat BackgroundColor="#1B1B1E"/>
-                    </PanelContainer.PanelOverride>
-                    <ScrollContainer HScrollEnabled="False" HorizontalExpand="True" VerticalExpand="True">
-                        <BoxContainer Name="UnlocksContainer" Orientation="Vertical" VerticalExpand="True"/>
-                    </ScrollContainer>
-                </PanelContainer>
-            </BoxContainer>
-        </BoxContainer>
+        </ScrollContainer>
     </BoxContainer>
 </Control>

@@ -1,17 +1,23 @@
 <LayoutContainer xmlns="https://spacestation14.io"
-                 xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
-                 xmlns:onyx="clr-namespace:Content.Client._Onyx.Research.UI"
-                 Margin="5" HorizontalExpand="False">
+                  xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+                  xmlns:onyx="clr-namespace:Content.Client._Onyx.Research.UI"
+                  Margin="5" HorizontalExpand="False">
     <BoxContainer Orientation="Vertical" SetSize="80 80">
         <PanelContainer Name="Panel" HorizontalExpand="True" VerticalExpand="True">
             <PanelContainer.PanelOverride>
-                <gfx:StyleBoxFlat BackgroundColor="#162031" BorderColor="#4972A1" BorderThickness="2"/>
+                <gfx:StyleBoxFlat BackgroundColor="#18212A"
+                                  BorderColor="#53677A"
+                                  BorderThickness="2"
+                                  ContentMarginLeftOverride="6"
+                                  ContentMarginTopOverride="6"
+                                  ContentMarginRightOverride="6"
+                                  ContentMarginBottomOverride="6"/>
             </PanelContainer.PanelOverride>
             <onyx:DrawButton Name="Button" Access="Public" ModulateSelfOverride="#00000000" HorizontalExpand="True" MouseFilter="Pass"/>
-            <TextureRect Name="ResearchDisplay" TextureScale="2 2" Stretch="KeepAspectCentered"/>
+            <TextureRect Name="ResearchDisplay" TextureScale="2 2" Stretch="KeepAspectCentered" Margin="5"/>
             <PanelContainer Name="FilterOverlay" HorizontalExpand="True" VerticalExpand="True" Visible="False" MouseFilter="Ignore">
                 <PanelContainer.PanelOverride>
-                    <gfx:StyleBoxFlat BackgroundColor="#000000BF"/>
+                    <gfx:StyleBoxFlat BackgroundColor="#080B0FCC"/>
                 </PanelContainer.PanelOverride>
             </PanelContainer>
         </PanelContainer>

@@ -18,6 +18,7 @@ public sealed class EllipsisLabel : Control
 
     private string _text = "";
     private Color? _fontColorOverride;
+    private Font? _fontOverride;
     private string _drawn = "";
     private int _drawnCacheWidth = -1;
 
@@ -41,6 +42,17 @@ public sealed class EllipsisLabel : Control
     {
         get => _fontColorOverride;
         set => _fontColorOverride = value;
+    }
+
+    public Font? FontOverride
+    {
+        get => _fontOverride;
+        set
+        {
+            _fontOverride = value;
+            _drawnCacheWidth = -1;
+            InvalidateMeasure();
+        }
     }
 
     public EllipsisLabel()
@@ -109,6 +121,9 @@ public sealed class EllipsisLabel : Control
 
     private Font GetFont()
     {
+        if (_fontOverride != null)
+            return _fontOverride;
+
         if (TryGetStyleProperty<Font>("font", out var font))
             return font;
 
