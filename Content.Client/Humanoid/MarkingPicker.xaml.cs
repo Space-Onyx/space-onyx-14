@@ -58,6 +58,10 @@ public sealed partial class MarkingPicker : Control
             selectedLayer = selected.SelectedLayer;
         }
         // </Onyx-MarkingsPersonalization>
+        // <Onyx-MarkingsPersonalizationReset>
+        if (OrganTabs.ChildCount > 0)
+            OrganTabs.CurrentTab = 0;
+        // </Onyx-MarkingsPersonalizationReset>
         OrganTabs.RemoveAllChildren();
 
         var i = 0;
