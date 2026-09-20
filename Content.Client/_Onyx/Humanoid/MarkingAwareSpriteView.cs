@@ -36,7 +36,7 @@ public class MarkingAwareSpriteView : SpriteView
     protected override Vector2 MeasureOverride(Vector2 availableSize)
     {
         UpdateSizes();
-        return _measuredBox.Size;
+        return Vector2.Max(_fittedSize, _measuredBox.Size);
     }
 
     private void UpdateSizes()
