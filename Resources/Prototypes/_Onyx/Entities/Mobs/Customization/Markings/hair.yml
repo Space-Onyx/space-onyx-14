@@ -2,5 +2,5 @@
   id: HumanHairCharlotte
   bodyPart: Hair
   sprites:
-  - sprite: _Onyx/Mobs/Customization/Hairs/hair.rsi
+  - sprite: _Onyx/Mobs/Customization/Hairs/hairs.rsi
     state: charlotte
