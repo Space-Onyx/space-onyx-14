@@ -53,7 +53,7 @@ public sealed partial class ThermalRegulatorSystem : EntitySystem
 
         // TODO: Why do we have two datafields for this if they are only ever used once here?
         // <Onyx-ColdBlooded>
-        var regulation = new Content.Shared._Onyx.Traits.ModifyThermalRegulationEvent();
+        var regulation = new Content.Shared._Onyx.Traits.ModifyThermalRegulationEvent(1f, 1f, 1f);
         RaiseLocalEvent(ent.Owner, ref regulation);
         var totalMetabolismTempChange = ent.Comp1.MetabolismHeat * regulation.MetabolismHeatMultiplier - ent.Comp1.RadiatedHeat;
         // </Onyx-ColdBlooded>
