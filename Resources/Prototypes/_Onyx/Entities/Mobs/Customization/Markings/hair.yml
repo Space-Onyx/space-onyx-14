@@ -1,0 +1,6 @@
+- type: marking
+  id: HumanHairCharlotte
+  bodyPart: Hair
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Hairs/hair.rsi
+    state: charlotte
