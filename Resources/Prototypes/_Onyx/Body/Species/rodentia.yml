@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 - type: markingsGroup
-  parent: Undergarments
+  parent: Human
   id: Rodentia
   limits:
     enum.HumanoidVisualLayers.Hair: { limit: 1, required: false }

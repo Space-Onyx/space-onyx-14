@@ -3,7 +3,7 @@
 - type: marking
   id: BodyScarr
   bodyPart: Chest
-  groupWhitelist: [ Human, Demon ]
+  groupWhitelist: [ Human, Felinid, Rodentia, Demon ]
   sprites:
   - sprite: _Onyx/Mobs/Customization/Goob/scars.rsi
     state: bodyscar_r

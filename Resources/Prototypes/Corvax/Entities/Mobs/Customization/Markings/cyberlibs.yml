@@ -114,7 +114,7 @@
 - type: marking
   id: CyberlimbTorsoBishop
   bodyPart: Chest
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [ Human, Arachnid, Felinid, Rodentia, Demon ] # <Onyx-HumanoidMarkings-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -241,7 +241,7 @@
 - type: marking
   id: CyberlimbTorsoHephaestus
   bodyPart: Chest
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [ Human, Arachnid, Felinid, Rodentia, Demon ] # <Onyx-HumanoidMarkings-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -368,7 +368,7 @@
 - type: marking
   id: CyberlimbTorsoHephaestusTitan
   bodyPart: Chest
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [ Human, Arachnid, Felinid, Rodentia, Demon ] # <Onyx-HumanoidMarkings-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -495,7 +495,7 @@
 - type: marking
   id: CyberlimbTorsoMorpheus
   bodyPart: Chest
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [ Human, Arachnid, Felinid, Rodentia, Demon ] # <Onyx-HumanoidMarkings-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -623,7 +623,7 @@
 - type: marking
   id: CyberlimbTorsoWardtakahashiMale
   bodyPart: Chest
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [ Human, Arachnid, Felinid, Rodentia, Demon ] # <Onyx-HumanoidMarkings-edited>
   sexRestriction: Male
   sponsorOnly: true
   coloring:
@@ -638,7 +638,7 @@
 - type: marking
   id: CyberlimbTorsoWardtakahashiFemale
   bodyPart: Chest
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [ Human, Arachnid, Felinid, Rodentia, Demon ] # <Onyx-HumanoidMarkings-edited>
   sexRestriction: Female
   sponsorOnly: true
   coloring:
@@ -766,7 +766,7 @@
 - type: marking
   id: CyberlimbTorsoZenghu
   bodyPart: Chest
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [ Human, Arachnid, Felinid, Rodentia, Demon ] # <Onyx-HumanoidMarkings-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -893,7 +893,7 @@
 - type: marking
   id: CyberlimbTorsoNanotrasen
   bodyPart: Chest
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [ Human, Arachnid, Felinid, Rodentia, Demon ] # <Onyx-HumanoidMarkings-edited>
   sponsorOnly: true
   coloring:
     default:
@@ -1020,7 +1020,7 @@
 - type: marking
   id: CyberlimbTorsoXion
   bodyPart: Chest
-  groupWhitelist: [ Human, Arachnid ]
+  groupWhitelist: [ Human, Arachnid, Felinid, Rodentia, Demon ] # <Onyx-HumanoidMarkings-edited>
   sponsorOnly: true
   coloring:
     default:

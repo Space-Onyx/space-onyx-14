@@ -83,10 +83,24 @@
 - type: entity
   parent: [ OrganArcanExternal, OrganBaseLegLeft ]
   id: OrganArcanLegLeft
+  components:
+  - type: Sprite
+    state: r_leg
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Species/Arcan/parts.rsi
+      state: r_leg
 
 - type: entity
   parent: [ OrganArcanExternal, OrganBaseLegRight ]
   id: OrganArcanLegRight
+  components:
+  - type: Sprite
+    state: l_leg
+  - type: VisualOrgan
+    data:
+      sprite: _Onyx/Species/Arcan/parts.rsi
+      state: l_leg
 
 - type: entity
   parent: [ OrganArcanExternal, OrganBaseFootLeft ]

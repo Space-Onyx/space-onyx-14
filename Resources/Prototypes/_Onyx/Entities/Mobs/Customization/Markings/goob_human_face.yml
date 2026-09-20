@@ -1,7 +1,7 @@
 - type: marking
   id: FaceNoseclip
   bodyPart: Head
-  groupWhitelist: [ Human, Slime, Felinid, Demon ]
+  groupWhitelist: [ Human, Slime, Felinid, Rodentia, Demon ]
   coloring:
     default:
       type:

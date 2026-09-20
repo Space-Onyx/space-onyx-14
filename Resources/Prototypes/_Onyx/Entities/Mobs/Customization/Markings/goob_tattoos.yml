@@ -3,7 +3,7 @@
 - type: marking
   id: TattooNanotrasenChest
   bodyPart: Chest
-  groupWhitelist: [ Human, Slime ]
+  groupWhitelist: [ Human, Slime, Felinid, Rodentia, Demon ]
   coloring:
     default:
       type:
@@ -39,7 +39,7 @@
 - type: marking
   id: BuffChest
   bodyPart: Chest
-  groupWhitelist: [ Human, Demon ]
+  groupWhitelist: [ Human, Felinid, Rodentia, Demon ]
   sprites:
   - sprite: _Onyx/Mobs/Customization/Goob/base_scars.rsi
     state: buff

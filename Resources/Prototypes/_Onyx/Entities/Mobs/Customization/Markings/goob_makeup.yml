@@ -3,7 +3,7 @@
 - type: marking
   id: MakeupLips
   bodyPart: Head
-  groupWhitelist: [ Human, Slime, Felinid ]
+  groupWhitelist: [ Human, Slime, Felinid, Rodentia, Demon ]
   coloring:
     default:
       type:
@@ -15,7 +15,7 @@
 - type: marking
   id: MakeupBlush
   bodyPart: Head
-  groupWhitelist: [ Human, Reptilian, Slime, Felinid, Vulpkanin ]
+  groupWhitelist: [ Human, Reptilian, Slime, Felinid, Vulpkanin, Rodentia, Demon ]
   coloring:
     default:
       type:
@@ -27,7 +27,7 @@
 - type: marking
   id: MakeupNailPolishRight
   bodyPart: RHand
-  groupWhitelist: [ Human, Reptilian, Arachnid, Slime, Felinid, Vulpkanin ]
+  groupWhitelist: [ Human, Reptilian, Arachnid, Slime, Felinid, Vulpkanin, Rodentia, Demon ]
   coloring:
     default:
       type:
@@ -39,7 +39,7 @@
 - type: marking
   id: MakeupNailPolishLeft
   bodyPart: LHand
-  groupWhitelist: [ Human, Reptilian, Arachnid, Slime, Felinid, Vulpkanin ]
+  groupWhitelist: [ Human, Reptilian, Arachnid, Slime, Felinid, Vulpkanin, Rodentia, Demon ]
   coloring:
     default:
       type:
