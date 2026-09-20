@@ -26,6 +26,8 @@ public sealed partial class TieredMachinePartSystem : EntitySystem
     [Dependency] private Content.Server.Stack.StackSystem _stack = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
 
+    private const float TierBonusScale = 2f / 3f;
+
     private static readonly Dictionary<MachinePartKind, EntProtoId> TierOneParts = new()
     {
         [MachinePartKind.Servo] = "StandardServoDrive",
@@ -130,23 +132,24 @@ public sealed partial class TieredMachinePartSystem : EntitySystem
 
     public void RefreshMachine(Entity<MachineComponent> ent)
     {
-        var totals = new Dictionary<MachinePartKind, (int Tiers, int Count)>();
+        var totals = new Dictionary<MachinePartKind, (float Ratings, int Count)>();
         foreach (var uid in ent.Comp.PartContainer.ContainedEntities)
         {
             if (!TryComp<TieredMachinePartComponent>(uid, out var part))
                 continue;
 
             var count = TryComp<StackComponent>(uid, out var stack) ? stack.Count : 1;
+            var rating = 1f + (part.Tier - 1) * TierBonusScale;
             var total = totals.GetValueOrDefault(part.Kind);
-            totals[part.Kind] = (total.Tiers + part.Tier * count, total.Count + count);
+            totals[part.Kind] = (total.Ratings + rating * count, total.Count + count);
         }
 
         var ratings = new Dictionary<MachinePartKind, float>();
         var sums = new Dictionary<MachinePartKind, float>();
         foreach (var (kind, total) in totals)
         {
-            ratings[kind] = (float) total.Tiers / total.Count;
-            sums[kind] = total.Tiers;
+            ratings[kind] = total.Ratings / total.Count;
+            sums[kind] = total.Ratings;
         }
 
         RaiseLocalEvent(ent, new MachinePartsChangedEvent(ratings, sums), broadcast: true);
