@@ -98,7 +98,7 @@ public sealed partial class GhostTargetWindow
             };
 
             foreach (var entry in groupEntries)
-                grid.AddChild(CreateGhostWarpButton(entry, groupColor));
+                grid.AddChild(CreateGhostWarpButton(entry, GetGhostWarpButtonColor(entry.Category, groupColor)));
 
             section.AddChild(grid);
         }
@@ -185,5 +185,16 @@ public sealed partial class GhostTargetWindow
             return department.Color;
 
         return Color.FromHex("#666a73");
+    }
+
+    private static Color GetGhostWarpButtonColor(GhostWarpMenuCategory category, Color groupColor)
+    {
+        if (category == GhostWarpMenuCategory.Location)
+            return groupColor;
+
+        if (category is GhostWarpMenuCategory.Dead or GhostWarpMenuCategory.Disconnected)
+            return Color.FromHex("#454851");
+
+        return Color.InterpolateBetween(Color.Black, groupColor, 0.97f);
     }
 }

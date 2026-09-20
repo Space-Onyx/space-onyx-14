@@ -47,6 +47,9 @@ public sealed partial class GhostSystem
             if (entity == except)
                 continue;
 
+            if (TryComp<GhostComponent>(entity, out var ghost) && ghost.CanGhostInteract)
+                continue;
+
             var mindId = mindContainer.Mind ?? mindContainer.LastMind;
             if (mindId == null || !TryComp<MindComponent>(mindId, out var mind) || mind.UserId == null)
                 continue;

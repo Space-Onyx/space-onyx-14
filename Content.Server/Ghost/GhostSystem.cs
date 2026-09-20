@@ -396,6 +396,11 @@ namespace Content.Server.Ghost
                 return;
             }
 
+            // <Onyx-GhostWarpMenu>
+            if (TryComp<GhostComponent>(realTarget, out var targetGhost) && targetGhost.CanGhostInteract)
+                return;
+            // </Onyx-GhostWarpMenu>
+
             WarpTo(attached, realTarget);
         }
 

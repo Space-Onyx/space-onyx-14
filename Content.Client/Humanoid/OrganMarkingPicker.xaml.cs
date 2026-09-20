@@ -77,6 +77,10 @@ public sealed partial class OrganMarkingPicker : Control
             return;
 
         _selectedLayer = SelectedLayer ?? _selectedLayer; // <Onyx-MarkingsPersonalization>
+        // <Onyx-MarkingsPersonalizationReset>
+        if (LayerTabs.ChildCount > 0)
+            LayerTabs.CurrentTab = 0;
+        // </Onyx-MarkingsPersonalizationReset>
         LayerTabs.RemoveAllChildren();
         _displayedLayers.Clear(); // <Onyx-MarkingsPersonalization>
         var i = 0;
