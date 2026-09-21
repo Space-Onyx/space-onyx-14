@@ -33,8 +33,7 @@ public sealed partial class ProfilePreviewSpriteView : MarkingAwareSpriteView //
     /// </remarks>
     public void LoadPreview(HumanoidCharacterProfile profile, JobPrototype? jobOverride = null, bool showClothes = true)
     {
-        EntMan.DeleteEntity(PreviewDummy);
-        PreviewDummy = EntityUid.Invalid;
+        ClearPreview(); // <Onyx-CharacterPreviewReset-edited>
 
         LoadHumanoidEntity(profile, jobOverride, showClothes);
         UpdateDirectionalLimbLayers(OverrideDirection ?? Direction.South); // <Onyx-DirectionalLimbLayers>
@@ -72,6 +71,7 @@ public sealed partial class ProfilePreviewSpriteView : MarkingAwareSpriteView //
 
     public void ClearPreview()
     {
+        SetEntity(null); // <Onyx-CharacterPreviewReset>
         EntMan.DeleteEntity(PreviewDummy);
         PreviewDummy = EntityUid.Invalid;
     }

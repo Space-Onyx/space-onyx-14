@@ -1,3 +1,4 @@
+using System.Linq; // <Onyx-CharacterProfileReset>
 using System.Numerics;
 using Content.Shared.Body;
 using Content.Shared.Humanoid.Markings;
@@ -34,7 +35,11 @@ public sealed partial class HumanoidCharacterAppearance : IEquatable<HumanoidCha
     }
 
     public HumanoidCharacterAppearance(HumanoidCharacterAppearance other) :
-        this(other.EyeColor, other.SkinColor, new(other.Markings))
+        this(other.EyeColor, other.SkinColor, other.Markings.ToDictionary(
+            organ => organ.Key,
+            organ => organ.Value.ToDictionary(
+                layer => layer.Key,
+                layer => layer.Value.ToList()))) // <Onyx-CharacterProfileReset-edited>
     {
 
     }
