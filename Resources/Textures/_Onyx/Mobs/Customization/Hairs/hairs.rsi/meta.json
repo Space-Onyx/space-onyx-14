@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "sprite by romemeli (discord)",
+    "copyright": "sprited by romemeli (discord)",
     "size": {
       "x": 32,
       "y": 32
@@ -9,6 +9,10 @@
   "states": [
     {
       "name": "charlotte",
+      "directions": 4
+    },
+    {
+      "name": "rings",
       "directions": 4
     }
   ]

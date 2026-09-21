@@ -4,3 +4,10 @@
   sprites:
   - sprite: _Onyx/Mobs/Customization/Hairs/hairs.rsi
     state: charlotte
+
+- type: marking
+  id: HumanHairRings
+  bodyPart: Hair
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Hairs/hairs.rsi
+    state: rings
