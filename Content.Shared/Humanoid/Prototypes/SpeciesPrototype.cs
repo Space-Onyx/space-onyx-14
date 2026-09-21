@@ -189,16 +189,15 @@ public sealed partial class SpeciesPrototype : IPrototype
 
     /// <summary>
     ///     Estimated body weight in kg from height and width scales.
-    ///     Keeps BMI constant when width grows proportionally with height,
-    ///     extra width raises weight quadratically (body cross-section area).
+    ///     Height changes body volume linearly, width changes cross-section quadratically.
     /// </summary>
     public float GetEstimatedWeightKg(float height, float width)
     {
         var heightCm = HeightScaleToCm(ClampHeight(height));
         var widthCm = WidthScaleToCm(ClampWidth(width));
-        var fullness = widthCm / Math.Max(ExpectedWidthCm(heightCm), 1f);
-        var referenceBmi = ReferenceWeightKg / MathF.Pow(ReferenceHeightCm / 100f, 2f);
-        return referenceBmi * fullness * fullness * MathF.Pow(heightCm / 100f, 2f);
+        var heightRatio = heightCm / ReferenceHeightCm;
+        var widthRatio = widthCm / ReferenceWidthCm;
+        return ReferenceWeightKg * heightRatio * widthRatio * widthRatio;
     }
 
     public Vector2 GetVisualScale(float height, float width)
