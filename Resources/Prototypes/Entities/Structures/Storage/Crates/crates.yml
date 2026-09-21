@@ -45,6 +45,7 @@
   - type: Icon
     sprite: Structures/Storage/Crates/freezer.rsi
   - type: Sprite
+    offset: "0.0,0.25" # <Onyx-StorageResprite>
     sprite: Structures/Storage/Crates/freezer.rsi
   - type: AntiRottingContainer
   - type: ExplosionResistance
