@@ -12,7 +12,15 @@
       "directions": 4
     },
     {
+      "name": "charlotte_secondary",
+      "directions": 4
+    },
+    {
       "name": "rings",
+      "directions": 4
+    },
+    {
+      "name": "rings_secondary",
       "directions": 4
     }
   ]

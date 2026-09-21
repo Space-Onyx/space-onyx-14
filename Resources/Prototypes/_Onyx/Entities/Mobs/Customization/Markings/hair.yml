@@ -4,6 +4,8 @@
   sprites:
   - sprite: _Onyx/Mobs/Customization/Hairs/hairs.rsi
     state: charlotte
+  - sprite: _Onyx/Mobs/Customization/Hairs/hairs.rsi
+    state: charlotte_secondary
 
 - type: marking
   id: HumanHairRings
@@ -11,3 +13,5 @@
   sprites:
   - sprite: _Onyx/Mobs/Customization/Hairs/hairs.rsi
     state: rings
+  - sprite: _Onyx/Mobs/Customization/Hairs/hairs.rsi
+    state: rings_secondary
