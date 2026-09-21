@@ -1,0 +1,28 @@
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+- type: reaction
+  id: Triclor
+  impact: Medium
+  reactants:
+    Amatoxin: { amount: 1 }
+    Ipecac: { amount: 1 }
+    Aluite: { amount: 3 }
+  products: { Triclor: 5 }
+
+- type: reaction
+  id: Pendetide
+  impact: Medium
+  reactants:
+    PotassiumIodide: { amount: 1 }
+    Impedrezene: { amount: 1 }
+    Aluminium: { amount: 1 }
+  products: { Pendetide: 3 }
+
+- type: reaction
+  id: Aluite
+  impact: Low
+  maxTemp: 200
+  reactants:
+    Phenol: { amount: 1 }
+    SodiumPolyacrylate: { amount: 1 }
+    Aluminium: { amount: 3 }
+  products: { Aluite: 3 }

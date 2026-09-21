@@ -1,0 +1,45 @@
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+reagent-name-tirimol = tirimol
+reagent-desc-tirimol = Strong depressant used to heal asphyxiation damage. It greatly decreases oxygen consumption at the cost of weakened muscles.
+reagent-name-syriniver = syriniver
+reagent-desc-syriniver = Experimental antipoison that repairs toxin-based cell failure. It has a very low overdose threshold and causes internal bleeding.
+reagent-name-musiver = musiver
+reagent-desc-musiver = Fast-acting antitoxin deposited by syriniver. It heals toxin damage while purging foreign reagents from the bloodstream.
+reagent-name-ebifin = ebifin
+reagent-desc-ebifin = Extremely strong burn medicine with a cripplingly low overdose threshold.
+reagent-name-tehifin = tehifin
+reagent-desc-tehifin = Low-potency burn medicine of questionable safety.
+reagent-name-procenyl-lazide-sludge = procenyl lazide sludge
+reagent-desc-procenyl-lazide-sludge = Precursor solution that must be heated, cooled, and separated to produce procenyl lazide.
+reagent-name-procenyl-lazide = procenyl lazide
+reagent-desc-procenyl-lazide = Strong brute medicine with a low overdose threshold.
+reagent-name-bozaide = bozaide
+reagent-desc-bozaide = Slow-acting brute medicine that supports natural tissue regeneration.
+reagent-name-multiver = multiver
+reagent-desc-multiver = Drug designed to cleanse dangerous chemical mixtures from the bloodstream.
+reagent-name-monover = monover
+reagent-desc-monover = Simple antipoison that works best in a clean bloodstream.
+reagent-name-calomel = calomel
+reagent-desc-calomel = Rapidly purges chemicals but is harmful to patients outside critical condition.
+reagent-name-ammoniated-mercury = ammoniated mercury
+reagent-desc-ammoniated-mercury = Difficult but powerful antitoxin that purges the bloodstream.
+reagent-name-antihol = antihol
+reagent-desc-antihol = Quickly neutralizes ethanol while treating severe poisoning.
+reagent-name-styptic-crystal-catalyst = styptic crystal catalyst
+reagent-desc-styptic-crystal-catalyst = Catalyst used with blood and sodium to create healing crystals.
+reagent-name-synthcells = synthcells
+reagent-desc-synthcells = Artificial cells that replace damaged tissue. They work internally, externally, and on the dead.
+reagent-name-pentenic-acid = pentenic acid
+reagent-desc-pentenic-acid = Multipurpose antitoxin that also protects against radiation damage.
+reagent-name-genecide = genecide
+reagent-desc-genecide = Explosively repairs genetic damage. Patients require close monitoring.
+reagent-name-hercuri = hercuri
+reagent-desc-hercuri = Powerful coolant suitable for internal and external use.
+reagent-name-herignis = herignis
+reagent-desc-herignis = Powerful heating medicine that can dangerously overheat its metabolizer.
+reagent-name-formaldehyde = formaldehyde
+reagent-desc-formaldehyde = Preservative that slows decomposition of dead tissue.
+
+# Content below taken from Einstein Engines via Goob Station, licensed under AGPL-3.0-or-later.
+reagent-name-artiplates = artiplates
+reagent-desc-artiplates = Advanced artificial blood that rapidly expands in the bloodstream and causes hemorrhaging in large doses.

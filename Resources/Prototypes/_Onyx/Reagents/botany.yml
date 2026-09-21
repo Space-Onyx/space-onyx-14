@@ -1,0 +1,25 @@
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+- type: reagent
+  id: Potash
+  name: reagent-name-potash
+  group: Botanical
+  desc: reagent-desc-potash
+  flavor: bitter
+  physicalDesc: reagent-physical-desc-chalky
+  color: "#c9c3c3"
+  plantMetabolism:
+  - !type:PlantAdjustNutrition { amount: 4 }
+
+- type: reagent
+  id: Saltpeter
+  name: reagent-name-saltpeter
+  group: Botanical
+  desc: reagent-desc-saltpeter
+  flavor: salty
+  physicalDesc: reagent-physical-desc-grainy
+  color: white
+  plantMetabolism:
+  - !type:PlantAdjustNutrition { amount: 8 }
+  - !type:PlantAdjustToxins { amount: -5 }
+  - !type:PlantAdjustHealth { amount: 0.8 }
+  - !type:PlantAffectGrowth { probability: 0.3, amount: 1 }

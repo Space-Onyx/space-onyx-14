@@ -1,0 +1,109 @@
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+- type: reagent
+  id: Triclor
+  name: reagent-name-triclor
+  group: Toxins
+  desc: reagent-desc-triclor
+  physicalDesc: reagent-physical-desc-pungent
+  flavor: terrible
+  color: "#174f17"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types: { Blunt: 4, Poison: 4 }
+      - !type:AdjustReagent
+        reagent: Triclor
+        amount: 0.5
+        conditions:
+        - !type:ReagentCondition { reagent: Triclor, max: 15 }
+      - !type:Vomit
+      - !type:ModifyBloodLevel { amount: -5 }
+      - !type:ModifyBleed { amount: 0.5 }
+      - !type:MovementSpeedModifier
+        walkSpeedModifier: 0.8
+        sprintSpeedModifier: 0.8
+        time: 6
+      - !type:ModifyStatusEffect { effectProto: StatusEffectStutter, time: 2 }
+      - !type:Jitter
+
+- type: reagent
+  id: Pendetide
+  name: reagent-name-pendetide
+  group: Toxins
+  desc: reagent-desc-pendetide
+  physicalDesc: reagent-physical-desc-viscous
+  flavor: bitter
+  color: "#22ff1a"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:CleanBloodstream { cleanseRate: 5, excluded: Pendetide }
+      - !type:HealthChange
+        damage:
+          types: { Radiation: 2 }
+      - !type:ModifyStatusEffect { effectProto: StatusEffectStutter, time: 2 }
+      - !type:Jitter
+
+- type: reagent
+  id: Aluite
+  name: reagent-name-aluite
+  group: Toxins
+  desc: reagent-desc-aluite
+  physicalDesc: reagent-physical-desc-bubbly
+  flavor: bitter
+  color: "#8e8e8e"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 3
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition { reagent: Aluite, min: 6 }
+        damage:
+          types: { Blunt: 10 }
+      - !type:AdjustReagent { reagent: Syriniver, amount: -25 }
+      - !type:AdjustReagent { reagent: Ebifin, amount: -50 }
+      - !type:AdjustReagent { reagent: ProcenylLazide, amount: -25 }
+      - !type:AdjustReagent { reagent: Aluite, amount: -25 }
+
+- type: reagent
+  id: Sarin
+  name: reagent-name-sarin
+  group: Toxins
+  desc: reagent-desc-sarin
+  physicalDesc: reagent-physical-desc-powdery
+  flavor: salty
+  color: "#ff8239"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.25
+      effects:
+      - !type:HealthChange
+        damage:
+          types: { Poison: 2 }
+      - !type:MovementSpeedModifier
+        walkSpeedModifier: 0.7
+        sprintSpeedModifier: 0.7
+      - !type:ModifyStatusEffect { effectProto: StatusEffectStutter, time: 2 }
+      - !type:Jitter
+      - !type:ModifyStatusEffect
+        conditions:
+        - !type:ReagentCondition { reagent: Sarin, min: 5 }
+        effectProto: StatusEffectStunned
+        time: 4
+        probability: 0.5
+      - !type:ModifyStatusEffect
+        conditions:
+        - !type:ReagentCondition { reagent: Sarin, min: 2.5 }
+        effectProto: StatusEffectBlindness
+        time: 2
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch ]
+      effects:
+      - !type:HealthChange
+        scaleByQuantity: true
+        damage:
+          types: { Caustic: 3 }

@@ -1,0 +1,183 @@
+# Content below taken from Trauma Station via Goob Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+- type: reagent
+  id: PotassiumSulfate
+  name: reagent-name-potassium-sulfate
+  group: Botanical
+  desc: reagent-desc-potassium-sulfate
+  flavor: bitter
+  physicalDesc: reagent-physical-desc-chalky
+  color: "#c9c3c3"
+  plantMetabolism:
+  - !type:PlantAdjustNutrition { amount: 6 }
+
+- type: reagent
+  id: AmmoniumNitrate
+  name: reagent-name-ammonium-nitrate
+  group: Botanical
+  desc: reagent-desc-ammonium-nitrate
+  physicalDesc: reagent-physical-desc-odorless
+  flavor: bitter
+  color: white
+  meltingPoint: 442.8
+  boilingPoint: 483
+  plantMetabolism:
+  - !type:PlantAdjustNutrition { amount: 1 }
+  - !type:PlantAdjustHealth { amount: 0.5 }
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types: { Caustic: 1 }
+
+- type: reagent
+  id: SodiumBicarbonate
+  name: reagent-name-sodium-bicarbonate
+  desc: reagent-desc-sodium-bicarbonate
+  physicalDesc: reagent-physical-desc-powdery
+  color: white
+
+- type: reagent
+  id: SodiumAcetate
+  name: reagent-name-sodium-acetate
+  desc: reagent-desc-sodium-acetate
+  physicalDesc: reagent-physical-desc-powdery
+  color: white
+  flavor: salty
+  boilingPoint: 1154.4
+  meltingPoint: 597
+
+- type: reagent
+  id: Methane
+  name: reagent-name-methane
+  desc: reagent-desc-methane
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#c4f5ff"
+  boilingPoint: 111.5
+  meltingPoint: 90.5
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.5
+      effects:
+      - !type:HealthChange
+        damage:
+          types: { Asphyxiation: 1.5 }
+
+- type: reagent
+  id: Ethenone
+  name: reagent-name-ethenone
+  desc: reagent-desc-ethenone
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#c4f5ff"
+  boilingPoint: 223.9
+  meltingPoint: 199.5
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.5
+      effects:
+      - !type:HealthChange
+        damage:
+          types: { Caustic: 1 }
+
+- type: reagent
+  id: AceticAnhydride
+  name: reagent-name-acetic-anhydride
+  desc: reagent-desc-acetic-anhydride
+  physicalDesc: reagent-physical-desc-sour
+  flavor: sour
+  color: tan
+  boilingPoint: 412.8
+  meltingPoint: 199.9
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.5
+      effects:
+      - !type:HealthChange
+        damage:
+          types: { Caustic: 1 }
+
+- type: reagent
+  id: Methanol
+  name: reagent-name-methanol
+  group: Pyrotechnic
+  desc: reagent-desc-methanol
+  physicalDesc: reagent-physical-desc-pungent
+  color: "#c4f5ff"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.5
+      effects:
+      - !type:HealthChange
+        damage:
+          types: { Poison: 3 }
+
+- type: reagent
+  id: Hexamine
+  name: reagent-name-hexamine
+  group: Pyrotechnic
+  desc: reagent-desc-hexamine
+  flavor: sweet
+  physicalDesc: reagent-physical-desc-crystalline
+  color: white
+
+- type: reagent
+  id: Cyclonite
+  name: reagent-name-cyclonite
+  group: Pyrotechnic
+  desc: reagent-desc-cyclonite
+  flavor: nothing
+  physicalDesc: reagent-physical-desc-crystalline
+  color: "#e0c009"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types: { Poison: 3 }
+
+- type: reagent
+  id: AmmoniumNitrateFuelOil
+  name: reagent-name-ammonium-nitrate-fuel-oil
+  group: Pyrotechnic
+  desc: reagent-desc-ammonium-nitrate-fuel-oil
+  flavor: nothing
+  physicalDesc: reagent-physical-desc-odorless
+  color: white
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types: { Poison: 1 }
+
+- type: reagent
+  id: Octogen
+  name: reagent-name-octogen
+  group: Pyrotechnic
+  desc: reagent-desc-octogen
+  flavor: nothing
+  physicalDesc: reagent-physical-desc-crystalline
+  color: white
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types: { Poison: 2 }
+
+- type: reagent
+  id: NitricAcid
+  name: reagent-name-nitric-acid
+  group: Toxins
+  desc: reagent-desc-nitric-acid
+  physicalDesc: reagent-physical-desc-acidic
+  flavor: acidic
+  color: "#c9e9e9"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types: { Caustic: 3 }

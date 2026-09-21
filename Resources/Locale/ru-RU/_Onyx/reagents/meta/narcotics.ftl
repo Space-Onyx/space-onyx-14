@@ -38,3 +38,9 @@ amnestizine-effect-listen = Вы... должны слушать своих на�
 
 reagent-name-nocturine-wonderprod = инопланетный седатив
 reagent-desc-nocturine-wonderprod = Внеземное седативное средство, используемое исключительно похитителями. Восстановиться после него проще, чем от его древнего предшественника.
+reagent-name-blind-toxin = токсин слепоты
+reagent-desc-blind-toxin = Густое химическое вещество, лишающее пациента зрения.
+reagent-name-aranesp = аранепс
+reagent-desc-aranesp = Сложный в производстве стимулятор с мощным восстановлением энергии.
+reagent-name-mousebites = мышиные укусы
+reagent-desc-mousebites = Вы пробовали лечебный препарат?

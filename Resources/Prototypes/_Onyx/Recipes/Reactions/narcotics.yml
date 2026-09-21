@@ -72,3 +72,11 @@
       catalyst: true
   products:
     Heroin: 1
+
+- type: reaction
+  id: Aranesp
+  reactants:
+    Epinephrine: { amount: 1 }
+    Atropine: { amount: 1 }
+    Desoxyephedrine: { amount: 1 }
+  products: { Aranesp: 1 }

@@ -167,3 +167,176 @@
       amount: 1
   products:
     Oxandrolone: 4
+
+- type: reaction
+  id: Tirimol
+  reactants:
+    Acetone: { amount: 2 }
+    SodiumPolyacrylate: { amount: 1 }
+    SulfuricAcid: { amount: 1 }
+  products: { Tirimol: 4 }
+
+- type: reaction
+  id: Syriniver
+  maxTemp: 200
+  reactants:
+    Silver: { amount: 2 }
+    Diphenhydramine: { amount: 2 }
+    Calomel: { amount: 1 }
+    Aluite: { amount: 5 }
+  products: { Syriniver: 5 }
+
+- type: reaction
+  id: Ebifin
+  impact: Medium
+  minTemp: 500
+  reactants:
+    Gold: { amount: 2 }
+    Sigynate: { amount: 2 }
+    Silicon: { amount: 1 }
+    Aluite: { amount: 5 }
+  products: { Ebifin: 5 }
+
+- type: reaction
+  id: ProcenylLazideSludge
+  minTemp: 400
+  reactants:
+    Uranium: { amount: 2 }
+    Phenol: { amount: 1 }
+    SodiumCarbonate: { amount: 2 }
+    Aluite: { amount: 5 }
+  products: { ProcenylLazideSludge: 10 }
+
+- type: reaction
+  id: ProcenylLazide
+  maxTemp: 200
+  requiredMixerCategories: [ Centrifuge ]
+  reactants:
+    ProcenylLazideSludge: { amount: 10 }
+  products:
+    ProcenylLazide: 5
+    Aluite: 2
+    Uranium: 1
+    SodiumCarbonate: 1
+    Aluminium: 1
+
+- type: reaction
+  id: Multiver
+  maxTemp: 320
+  reactants:
+    Charcoal: { amount: 1 }
+    TableSalt: { amount: 1 }
+  products: { Multiver: 2 }
+
+- type: reaction
+  id: Monover
+  minTemp: 330
+  reactants:
+    Charcoal: { amount: 2 }
+    Chlorine: { amount: 1 }
+    Sodium: { amount: 1 }
+  products: { Monover: 4 }
+
+- type: reaction
+  id: Calomel
+  minTemp: 370
+  reactants:
+    Mercury: { amount: 1 }
+    Lithium: { amount: 1 }
+  products: { Calomel: 2 }
+
+- type: reaction
+  id: AmmoniatedMercury
+  reactants:
+    Calomel: { amount: 1 }
+    Ammonia: { amount: 1 }
+  products: { AmmoniatedMercury: 2 }
+
+- type: reaction
+  id: Antihol
+  reactants:
+    Charcoal: { amount: 2 }
+    Ethanol: { amount: 1 }
+  products: { Antihol: 3 }
+
+- type: reaction
+  id: StypticCrystalCatalyst
+  reactants:
+    Aluminium: { amount: 1 }
+    Hydroxide: { amount: 1 }
+    SulfuricAcid: { amount: 1 }
+    Silicon: { amount: 1 }
+  products: { StypticCrystalCatalyst: 2 }
+
+- type: reaction
+  id: Synthcells
+  requiredMixerCategories: [ Centrifuge ]
+  reactants:
+    Synthflesh: { amount: 6 }
+  products:
+    Synthcells: 4
+    Sodium: 1
+    Carbon: 1
+
+- type: reaction
+  id: PentenicAcid
+  reactants:
+    PolytrinicAcid: { amount: 1 }
+    PotassiumIodide: { amount: 1 }
+    Haloperidol: { amount: 1 }
+    Cyanide: { amount: 1 }
+  products: { PentenicAcid: 4 }
+
+- type: reaction
+  id: Genecide
+  impact: Medium
+  reactants:
+    Phalanximine: { amount: 1 }
+    ChlorineTrifluoride: { amount: 1 }
+    Benzene: { amount: 1 }
+  products: { Genecide: 3 }
+
+- type: reaction
+  id: Hercuri
+  maxTemp: 100
+  reactants:
+    Cryostylane: { amount: 3 }
+    SodiumHydroxide: { amount: 1 }
+    PotassiumIodide: { amount: 1 }
+  products: { Hercuri: 5 }
+
+- type: reaction
+  id: Herignis
+  impact: Medium
+  minTemp: 600
+  reactants:
+    Hercuri: { amount: 3 }
+    Phlogiston: { amount: 2 }
+  products: { Herignis: 5 }
+
+# Content below taken from Einstein Engines via Goob Station, licensed under AGPL-3.0-or-later.
+- type: reaction
+  id: Artiplates
+  minTemp: 310
+  reactants:
+    Iron: { amount: 1 }
+    Copper: { amount: 1 }
+    TranexamicAcid: { amount: 2 }
+    Saline: { amount: 3 }
+  products: { Artiplates: 12 }
+
+- type: reaction
+  id: AshArtiplates
+  minTemp: 520
+  reactants:
+    Artiplates: { amount: 1 }
+  products: { Ash: 1 }
+
+- type: reaction
+  id: Formaldehyde
+  minTemp: 357
+  reactants:
+    Methanol: { amount: 1 }
+    Oxygen: { amount: 1 }
+    Silver: { amount: 1, catalyst: true }
+  products: { Formaldehyde: 1, Water: 1 }

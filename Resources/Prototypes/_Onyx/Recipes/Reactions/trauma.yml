@@ -1,0 +1,157 @@
+# Content below taken from Trauma Station via Goob Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+- type: reaction
+  id: SodiumBicarbonate
+  reactants:
+    SodiumCarbonate: { amount: 1 }
+    Water: { amount: 1 }
+    Carbon: { amount: 1 }
+    Oxygen: { amount: 2 }
+  products: { SodiumBicarbonate: 5 }
+
+- type: reaction
+  id: SodiumAcetate
+  reactants:
+    SodiumBicarbonate: { amount: 1 }
+    Vinegar: { amount: 1 }
+  products: { SodiumAcetate: 1, CarbonDioxide: 1, Water: 1 }
+
+- type: reaction
+  id: Methane
+  reactants:
+    CarbonDioxide: { amount: 1 }
+    Hydrogen: { amount: 4 }
+    Aluminium: { amount: 1, catalyst: true }
+  products: { Methane: 3, Water: 2 }
+
+- type: reaction
+  id: AceticAnhydride
+  minTemp: 323
+  reactants:
+    Vinegar: { amount: 1 }
+    Ethenone: { amount: 1 }
+  products: { AceticAnhydride: 1, Water: 1 }
+
+- type: reaction
+  id: NitricAcid
+  impact: Medium
+  minTemp: 357
+  reactants:
+    Saltpeter: { amount: 2 }
+    SulfuricAcid: { amount: 1 }
+  products: { NitricAcid: 2, PotassiumSulfate: 1 }
+
+- type: reaction
+  id: AmmoniumNitrate
+  reactants:
+    Ammonia: { amount: 1 }
+    NitricAcid: { amount: 1 }
+  products: { AmmoniumNitrate: 2 }
+
+- type: reaction
+  id: Methanol
+  reactants:
+    Methane: { amount: 1 }
+    Water: { amount: 1 }
+    Oxygen: { amount: 1 }
+  products: { Methanol: 3 }
+
+- type: reaction
+  id: Hexamine
+  reactants:
+    Formaldehyde: { amount: 3 }
+    Ammonia: { amount: 2 }
+  products: { Hexamine: 5 }
+
+- type: reaction
+  id: Cyclonite
+  reactants:
+    Hexamine: { amount: 1 }
+    NitricAcid: { amount: 1 }
+  products: { Cyclonite: 2 }
+
+- type: reaction
+  id: AmmoniumNitrateFuelOil
+  reactants:
+    AmmoniumNitrate: { amount: 2 }
+    WeldingFuel: { amount: 1 }
+  products: { AmmoniumNitrateFuelOil: 2 }
+
+- type: reaction
+  id: Octogen
+  priority: 5
+  reactants:
+    NitricAcid: { amount: 1 }
+    Vinegar: { amount: 1 }
+    AceticAnhydride: { amount: 1 }
+    Hexamine: { amount: 1 }
+    Vestine: { amount: 1 }
+  products: { Octogen: 4 }
+
+- type: reaction
+  id: CycloniteExplosion
+  minTemp: 576
+  impact: High
+  priority: 20
+  reactants:
+    Cyclonite: { amount: 1 }
+  products: { Ash: 0.1 }
+  effects:
+  - !type:Explosion
+    explosionType: DemolitionCharge
+    maxIntensity: 50
+    intensityPerUnit: 7
+    intensitySlope: 20
+    maxTotalIntensity: 700
+
+- type: reaction
+  id: ANFOExplosion
+  minTemp: 576
+  impact: High
+  priority: 20
+  reactants:
+    AmmoniumNitrateFuelOil: { amount: 1 }
+  products: { Ash: 0.1 }
+  effects:
+  - !type:Explosion
+    explosionType: DemolitionCharge
+    maxIntensity: 12
+    intensityPerUnit: 3
+    intensitySlope: 1
+    maxTotalIntensity: 3000
+
+- type: reaction
+  id: OctogenExplosion
+  minTemp: 553
+  impact: High
+  priority: 20
+  reactants:
+    Octogen: { amount: 1 }
+  products: { Ash: 0.1 }
+  effects:
+  - !type:Explosion
+    explosionType: HardBomb
+    maxIntensity: 20
+    intensityPerUnit: 3
+    intensitySlope: 2
+    maxTotalIntensity: 3000
+
+- type: reaction
+  id: AmmoniumNitrateDecomposition
+  minTemp: 484
+  reactants:
+    AmmoniumNitrate: { amount: 2 }
+  products: { Nitrogen: 2, Oxygen: 1, Water: 4 }
+
+- type: reaction
+  id: SodiumBicarbonateDecomposition
+  minTemp: 324
+  reactants:
+    SodiumBicarbonate: { amount: 2 }
+  products: { SodiumCarbonate: 2, CarbonDioxide: 1, Water: 1 }
+
+- type: reaction
+  id: VinegarDecomposition
+  minTemp: 504
+  reactants:
+    Vinegar: { amount: 1 }
+  products: { Ethenone: 1, Water: 1 }

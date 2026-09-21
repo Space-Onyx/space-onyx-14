@@ -1,0 +1,24 @@
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+- type: reaction
+  id: BlackPowder
+  reactants:
+    Charcoal: { amount: 1 }
+    Saltpeter: { amount: 1 }
+    Sulfur: { amount: 1 }
+  products: { BlackPowder: 3 }
+
+- type: reaction
+  id: BlackPowderExplosion
+  minTemp: 474
+  impact: High
+  priority: 20
+  reactants:
+    BlackPowder: { amount: 1 }
+  products: { Ash: 0.1 }
+  effects:
+  - !type:Explosion
+    explosionType: Default
+    maxIntensity: 10
+    intensityPerUnit: 2
+    intensitySlope: 1
+    maxTotalIntensity: 100
