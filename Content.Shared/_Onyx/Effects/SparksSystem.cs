@@ -23,7 +23,7 @@ public sealed partial class SparksSystem : EntitySystem
         int minSparks = 1,
         int maxSparks = 3,
         float minVelocity = 1f,
-        float maxVelocity = 4f,
+        float maxVelocity = 2f,
         bool playSound = true)
     {
         if (_net.IsClient)

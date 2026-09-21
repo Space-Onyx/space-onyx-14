@@ -16,7 +16,7 @@ public sealed partial class DoSparksTargetEvent : BaseTargetEvent
     public int MinVelocity = 1;
 
     [DataField, AlwaysPushInheritance]
-    public int MaxVelocity = 4;
+    public int MaxVelocity = 2;
 
     [DataField, AlwaysPushInheritance]
     public bool PlaySound = true;

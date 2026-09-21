@@ -11,7 +11,7 @@
     noRot: true
     layers:
     - shader: unshaded
-      sprite: Effects/sparks.rsi
+      sprite: _Onyx/Effects/sparks.rsi
       state: sparks
   - type: AnimationPlayer
   - type: PointLight
