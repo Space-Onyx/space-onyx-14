@@ -2,11 +2,11 @@
                   xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
                   xmlns:onyx="clr-namespace:Content.Client._Onyx.Research.UI"
                   Margin="5" HorizontalExpand="False">
-    <BoxContainer Orientation="Vertical" SetSize="80 80">
+    <BoxContainer Name="NodeContainer" Orientation="Vertical" SetSize="80 80">
         <PanelContainer Name="Panel" HorizontalExpand="True" VerticalExpand="True">
             <PanelContainer.PanelOverride>
-                <gfx:StyleBoxFlat BackgroundColor="#18212A"
-                                  BorderColor="#53677A"
+                <gfx:StyleBoxFlat BackgroundColor="#111820"
+                                  BorderColor="#344454"
                                   BorderThickness="2"
                                   ContentMarginLeftOverride="6"
                                   ContentMarginTopOverride="6"
@@ -14,7 +14,29 @@
                                   ContentMarginBottomOverride="6"/>
             </PanelContainer.PanelOverride>
             <onyx:DrawButton Name="Button" Access="Public" ModulateSelfOverride="#00000000" HorizontalExpand="True" MouseFilter="Pass"/>
-            <TextureRect Name="ResearchDisplay" TextureScale="2 2" Stretch="KeepAspectCentered" Margin="5"/>
+            <TextureRect Name="ResearchDisplay" TextureScale="2 2" Stretch="KeepAspectCentered" Margin="9"/>
+            <PanelContainer Name="DisciplineBadge"
+                            SetSize="24 24"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Margin="3"
+                            MouseFilter="Ignore">
+                <PanelContainer.PanelOverride>
+                    <gfx:StyleBoxFlat BackgroundColor="#0B1017E8"
+                                      BorderColor="#526678"
+                                      BorderThickness="1"
+                                      ContentMarginLeftOverride="3"
+                                      ContentMarginTopOverride="3"
+                                      ContentMarginRightOverride="3"
+                                      ContentMarginBottomOverride="3"/>
+                </PanelContainer.PanelOverride>
+                <TextureRect Name="DisciplineDisplay" TextureScale="2 2" Stretch="KeepAspectCentered" MouseFilter="Ignore"/>
+            </PanelContainer>
+            <PanelContainer Name="StatusAccent"
+                            SetHeight="4"
+                            HorizontalExpand="True"
+                            VerticalAlignment="Bottom"
+                            MouseFilter="Ignore"/>
             <PanelContainer Name="FilterOverlay" HorizontalExpand="True" VerticalExpand="True" Visible="False" MouseFilter="Ignore">
                 <PanelContainer.PanelOverride>
                     <gfx:StyleBoxFlat BackgroundColor="#080B0FCC"/>

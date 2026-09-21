@@ -132,7 +132,10 @@ public partial class ChatBox : UIWidget
     {
         var formatted = new FormattedMessage(3);
         formatted.PushColor(color);
-        formatted.AddMarkupOrThrow(message);
+        // <Onyx-ChatMarkupFallback-edited>
+        if (!formatted.TryAddMarkup(message, out _))
+            formatted.AddText(message);
+        // </Onyx-ChatMarkupFallback-edited>
         formatted.Pop();
         Contents.AddMessage(formatted, tagsAllowed: null);
     }

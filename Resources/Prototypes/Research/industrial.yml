@@ -1,36 +1,21 @@
 - type: technology
-  id: SalvageEquipment
-  name: research-technology-salvage-equipment
+  id: AdvancedAtmospherics
+  name: research-technology-advanced-atmospherics
   icon:
-    sprite: Objects/Tools/handdrill.rsi
-    state: handdrill
-  discipline: Industrial
-  tier: 1
-  cost: 10000
-  recipeUnlocks:
-    - MiningDrill
-    - MineralScannerEmpty
-    - OreProcessorIndustrialMachineCircuitboard
-    - ClothingMaskWeldingGas
-    - ClothingShoesBootsJump
-    - MechEquipmentDrill
-  position: 0,2
-  technologyPrerequisites:
-    - SpaceScanning
-- type: technology
-  id: SpaceScanning
-  name: research-technology-space-scanning
-  icon:
-    sprite: Objects/Tools/handheld_mass_scanner.rsi
+    sprite: Objects/Devices/Holoprojectors/atmos.rsi
     state: icon
   discipline: Industrial
-  tier: 1
-  cost: 5000
+  tier: 2
+  cost: 7500
   recipeUnlocks:
-    - RadarConsoleCircuitboard
-    - HandHeldMassScanner
-  position: 0,3
-  technologyPrerequisites: []
+    - HellfireFreezerMachineCircuitBoard
+    - PortableScrubberMachineCircuitBoard
+    - HolofanProjector
+    - ModsuitPlatingAtmostech
+  position: 8,2
+  technologyPrerequisites:
+    - IndustrialEngineering
+    - AtmosphericTech
 - type: technology
   id: AdvancedPowercells
   name: research-technology-advanced-powercells
@@ -42,23 +27,62 @@
   cost: 7500
   recipeUnlocks:
     - PowerCellHigh
-  position: 1,1
+  position: 7,3
   technologyPrerequisites:
     - PowerGeneration
 - type: technology
-  id: MechanicalCompression
-  name: research-technology-mechanical-compression
+  id: AdvancedToolsTechnology
+  name: research-technology-advanced-tools
   icon:
-    sprite: Structures/Machines/flatpacker.rsi
-    state: base
+    sprite: Objects/Tools/welder_experimental.rsi
+    state: icon
   discipline: Industrial
-  tier: 1
+  tier: 2
   cost: 10000
   recipeUnlocks:
-    - FlatpackerMachineCircuitboard
-  position: 2,2
+    - WelderExperimental
+    - PowerDrill
+    - JawsOfLife
+    - BorgModuleAdvancedTool
+  position: 9,3
   technologyPrerequisites:
-    - PowerGeneration
+    - IndustrialEngineering
+- type: technology
+  id: AtmosphericTech
+  name: research-technology-atmospheric-tech
+  icon:
+    sprite: Structures/Piping/Atmospherics/thermomachine.rsi
+    state: freezerOff
+  discipline: Industrial
+  tier: 1
+  cost: 7500
+  recipeUnlocks:
+    - ThermomachineFreezerMachineCircuitBoard
+    - GasRecyclerMachineCircuitboard
+  position: 7,2
+  technologyPrerequisites: []
+- type: technology
+  id: BluespaceStorage
+  name: research-technology-bluespace-storage
+  icon:
+    sprite: Clothing/Back/Backpacks/holding.rsi
+    state: holding
+  discipline: Industrial
+  tier: 3
+  recipeUnlocks:
+    - ClothingBackpackHolding
+    - ClothingBackpackSatchelHolding
+    - ClothingBackpackDuffelHolding
+    - ClothingBackpackMessengerHolding
+  position: -2,6
+  technologyPrerequisites:
+    - BluespaceTheory
+    - AdvancedToolsTechnology
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 1200
 - type: technology
   id: IndustrialEngineering
   name: research-technology-industrial-engineering
@@ -72,9 +96,66 @@
     - LatheUpgradeKitHyper
     - LatheUpgradeKitCryo
     - SheetifierMachineCircuitboard
-  position: 3,2
+  position: 8,4
   technologyPrerequisites:
     - MechanicalCompression
+- type: technology
+  id: MassExcavation
+  name: research-technology-excavation
+  icon:
+    sprite: Objects/Tools/handdrilldiamond.rsi
+    state: handdrill
+  discipline: Industrial
+  tier: 2
+  recipeUnlocks:
+    - MiningDrillDiamond
+    - AdvancedMineralScannerEmpty
+    - MechEquipmentDrillDiamond
+  position: 6,6
+  technologyPrerequisites:
+    - SalvageEquipment
+  requiredExperiments:
+    - OreClassification
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 330
+- type: technology
+  id: MechanicalCompression
+  name: research-technology-mechanical-compression
+  icon:
+    sprite: Structures/Machines/flatpacker.rsi
+    state: base
+  discipline: Industrial
+  tier: 1
+  cost: 10000
+  recipeUnlocks:
+    - FlatpackerMachineCircuitboard
+  position: 7,4
+  technologyPrerequisites:
+    - PowerGeneration
+- type: technology
+  id: OptimizedMicrogalvanism
+  name: research-technology-optimized-microgalvanism
+  icon:
+    sprite: Objects/Power/power_cells.rsi
+    state: microreactor
+  discipline: Industrial
+  tier: 3
+  recipeUnlocks:
+    - PowerCellMicroreactor
+    - PowerCellHyper
+  position: 9,2
+  technologyPrerequisites:
+    - SMESAdvanced
+  requiredExperiments:
+    - UraniumAnalysis
+  pointCosts:
+    - type: General
+      amount: 9000
+    - type: Experimental
+      amount: 450
 - type: technology
   id: PowerGeneration
   name: research-technology-power-generation
@@ -91,21 +172,7 @@
     - SolarControlComputerCircuitboard
     - SolarTrackerElectronics
     - EmitterCircuitboard
-  position: 1,2
-  technologyPrerequisites: []
-- type: technology
-  id: AtmosphericTech
-  name: research-technology-atmospheric-tech
-  icon:
-    sprite: Structures/Piping/Atmospherics/thermomachine.rsi
-    state: freezerOff
-  discipline: Industrial
-  tier: 1
-  cost: 7500
-  recipeUnlocks:
-    - ThermomachineFreezerMachineCircuitBoard
-    - GasRecyclerMachineCircuitboard
-  position: 5,2
+  position: 6,3
   technologyPrerequisites: []
 - type: technology
   id: RipleyAPLU
@@ -124,7 +191,7 @@
     - RipleyCentralElectronics
     - RipleyPeripheralsElectronics
     - MechEquipmentGrabber
-  position: 3,3
+  position: 8,5
   technologyPrerequisites:
     - IndustrialEngineering
   pointCosts:
@@ -132,6 +199,25 @@
       amount: 7500
     - type: Experimental
       amount: 190
+- type: technology
+  id: SalvageEquipment
+  name: research-technology-salvage-equipment
+  icon:
+    sprite: Objects/Tools/handdrill.rsi
+    state: handdrill
+  discipline: Industrial
+  tier: 1
+  cost: 10000
+  recipeUnlocks:
+    - MiningDrill
+    - MineralScannerEmpty
+    - OreProcessorIndustrialMachineCircuitboard
+    - ClothingMaskWeldingGas
+    - ClothingShoesBootsJump
+    - MechEquipmentDrill
+  position: 6,5
+  technologyPrerequisites:
+    - SpaceScanning
 - type: technology
   id: Shuttlecraft
   name: research-technology-shuttlecraft
@@ -147,7 +233,7 @@
     - GyroscopeMachineCircuitboard
     - MiniGravityGeneratorCircuitboard
     - MachineFTLDriveCircuitboard
-  position: 4,3
+  position: 9,5
   technologyPrerequisites:
     - IndustrialEngineering
   pointCosts:
@@ -156,102 +242,17 @@
     - type: Experimental
       amount: 160
 - type: technology
-  id: AdvancedAtmospherics
-  name: research-technology-advanced-atmospherics
+  id: SpaceScanning
+  name: research-technology-space-scanning
   icon:
-    sprite: Objects/Devices/Holoprojectors/atmos.rsi
+    sprite: Objects/Tools/handheld_mass_scanner.rsi
     state: icon
   discipline: Industrial
-  tier: 2
-  cost: 7500
+  tier: 1
+  cost: 5000
   recipeUnlocks:
-    - HellfireFreezerMachineCircuitBoard
-    - PortableScrubberMachineCircuitBoard
-    - HolofanProjector
-    - ModsuitPlatingAtmostech
-  position: 4,2
+    - RadarConsoleCircuitboard
+    - HandHeldMassScanner
+  position: 6,4
   technologyPrerequisites:
-    - IndustrialEngineering
-    - AtmosphericTech
-- type: technology
-  id: AdvancedToolsTechnology
-  name: research-technology-advanced-tools
-  icon:
-    sprite: Objects/Tools/welder_experimental.rsi
-    state: icon
-  discipline: Industrial
-  tier: 2
-  cost: 10000
-  recipeUnlocks:
-    - WelderExperimental
-    - PowerDrill
-    - JawsOfLife
-    - BorgModuleAdvancedTool
-  position: 3,1
-  technologyPrerequisites:
-    - IndustrialEngineering
-- type: technology
-  id: MassExcavation
-  name: research-technology-excavation
-  icon:
-    sprite: Objects/Tools/handdrilldiamond.rsi
-    state: handdrill
-  discipline: Industrial
-  tier: 2
-  recipeUnlocks:
-    - MiningDrillDiamond
-    - AdvancedMineralScannerEmpty
-    - MechEquipmentDrillDiamond
-  position: 0,1
-  technologyPrerequisites:
-    - SalvageEquipment
-  requiredExperiments:
-    - OreClassification
-  pointCosts:
-    - type: General
-      amount: 10000
-    - type: Experimental
-      amount: 330
-- type: technology
-  id: BluespaceStorage
-  name: research-technology-bluespace-storage
-  icon:
-    sprite: Clothing/Back/Backpacks/holding.rsi
-    state: holding
-  discipline: Industrial
-  tier: 3
-  recipeUnlocks:
-    - ClothingBackpackHolding
-    - ClothingBackpackSatchelHolding
-    - ClothingBackpackDuffelHolding
-    - ClothingBackpackMessengerHolding
-  position: 4,0
-  technologyPrerequisites:
-    - BluespaceTheory
-    - AdvancedToolsTechnology
-  pointCosts:
-    - type: General
-      amount: 10000
-    - type: Experimental
-      amount: 1200
-- type: technology
-  id: OptimizedMicrogalvanism
-  name: research-technology-optimized-microgalvanism
-  icon:
-    sprite: Objects/Power/power_cells.rsi
-    state: microreactor
-  discipline: Industrial
-  tier: 3
-  recipeUnlocks:
-    - PowerCellMicroreactor
-    - PowerCellHyper
-  position: 2,0
-  technologyPrerequisites:
-    - SMESAdvanced
-  requiredExperiments:
-    - UraniumAnalysis
-  pointCosts:
-    - type: General
-      amount: 9000
-    - type: Experimental
-      amount: 450
+    - PowerGeneration

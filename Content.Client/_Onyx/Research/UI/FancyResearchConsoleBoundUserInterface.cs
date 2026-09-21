@@ -86,7 +86,7 @@ public sealed class FancyResearchConsoleBoundUserInterface : BoundUserInterface
         }
 
         if (force || !_consoleMenu.List.OrderBy(x => x.Key).SequenceEqual(list.OrderBy(x => x.Key)))
-            _consoleMenu.UpdatePanels(list);
+            _consoleMenu.UpdatePanels(list, force);
         _consoleMenu.UpdateInformationPanel(state.Points, state.PointBalances);
         _consoleMenu.UpdateNetworkLogs(state.Logs);
     }

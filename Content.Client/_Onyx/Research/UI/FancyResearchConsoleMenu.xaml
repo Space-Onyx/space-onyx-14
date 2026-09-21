@@ -27,12 +27,6 @@
             </BoxContainer>
         </PanelContainer>
 
-        <BoxContainer Name="DisciplineTabsContainer"
-                      Orientation="Horizontal"
-                      HorizontalExpand="True"
-                      MinHeight="42"
-                      SeparationOverride="4"/>
-
         <BoxContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="8">
             <PanelContainer Name="ResearchesContainer"
                             StyleClasses="PanelDeep"

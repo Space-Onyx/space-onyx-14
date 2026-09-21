@@ -1,4 +1,96 @@
 - type: technology
+  id: AbnormalArtifactManipulation
+  name: research-technology-abnormal-artifact-manipulation
+  icon:
+    sprite: Structures/Machines/artifact_crusher.rsi
+    state: icon
+  discipline: Experimental
+  tier: 2
+  cost: 5000
+  recipeUnlocks:
+    - ArtifactCrusherMachineCircuitboard
+  position: -4,6
+  technologyPrerequisites:
+    - BasicXenoArcheology
+  pointCosts:
+    - type: General
+      amount: 5000
+    - type: Experimental
+      amount: 250
+- type: technology
+  id: AdvancedAnomalyResearch
+  name: research-technology-advanced-anomaly-research
+  icon:
+    sprite: Structures/Machines/anomaly_sync.rsi
+    state: base
+  discipline: Experimental
+  tier: 2
+  recipeUnlocks:
+    - WeaponPistolCHIMP
+    - AnomalySynchronizerCircuitboard
+    - AnomalyVesselExperimentalCircuitboard
+  position: 0,6
+  technologyPrerequisites:
+    - BasicAnomalousResearch
+  requiredExperiments:
+    - AnomalyCoreAnalysis
+  hidden: false
+  pointCosts:
+    - type: General
+      amount: 8000
+    - type: Experimental
+      amount: 400
+- type: technology
+  id: AlternativeResearch
+  name: research-technology-alternative-research
+  icon:
+    sprite: Structures/Machines/tech_disk_printer.rsi
+    state: display
+  discipline: Experimental
+  tier: 1
+  cost: 5000
+  recipeUnlocks:
+    - TechDiskComputerCircuitboard
+  position: -3,3
+  technologyPrerequisites:
+    - BasicRobotics
+- type: technology
+  id: AnomalyCoreHarnessing
+  name: research-technology-anomaly-harnessing
+  icon:
+    sprite: Objects/Weapons/Melee/gorilla.rsi
+    state: icon
+  discipline: Experimental
+  tier: 1
+  recipeUnlocks:
+    - WeaponGauntletGorilla
+  position: 0,7
+  technologyPrerequisites:
+    - AdvancedAnomalyResearch
+  pointCosts:
+    - type: General
+      amount: 9000
+    - type: Experimental
+      amount: 500
+- type: technology
+  id: BasicAnomalousResearch
+  name: research-technology-basic-anomalous-research
+  icon:
+    sprite: Objects/Specific/Research/anomalyscanner.rsi
+    state: icon
+  discipline: Experimental
+  tier: 1
+  cost: 5000
+  recipeUnlocks:
+    - AnomalyScanner
+    - AnomalyLocator
+    - AnomalyLocatorWide
+    - APECircuitboard
+    - AnomalyVesselCircuitboard
+  position: -1,5
+  technologyPrerequisites:
+    - BasicRobotics
+- type: technology
   id: BasicRobotics
   name: research-technology-basic-robotics
   icon:
@@ -21,26 +113,8 @@
     - BorgModuleArtistry
     - BorgModuleInflatable
     - BorgModuleFireExtinguisher
-  position: 0,1
+  position: -2,4
   technologyPrerequisites: []
-- type: technology
-  id: BasicAnomalousResearch
-  name: research-technology-basic-anomalous-research
-  icon:
-    sprite: Objects/Specific/Research/anomalyscanner.rsi
-    state: icon
-  discipline: Experimental
-  tier: 1
-  cost: 5000
-  recipeUnlocks:
-    - AnomalyScanner
-    - AnomalyLocator
-    - AnomalyLocatorWide
-    - APECircuitboard
-    - AnomalyVesselCircuitboard
-  position: -1,2
-  technologyPrerequisites:
-    - BasicRobotics
 - type: technology
   id: BasicXenoArcheology
   name: research-technology-basic-xenoarcheology
@@ -54,97 +128,28 @@
     - NodeScanner
     - AnalysisComputerCircuitboard
     - ArtifactAnalyzerMachineCircuitboard
-  position: 1,2
+  position: -3,5
   technologyPrerequisites:
     - BasicRobotics
 - type: technology
-  id: AlternativeResearch
-  name: research-technology-alternative-research
+  id: BluespaceTimeManipulation
+  name: research-technology-bluespace-time-manipulation
   icon:
-    sprite: Structures/Machines/tech_disk_printer.rsi
-    state: display
-  discipline: Experimental
-  tier: 1
-  cost: 5000
-  recipeUnlocks:
-    - TechDiskComputerCircuitboard
-  position: 0,-1
-  technologyPrerequisites:
-    - BasicRobotics
-- type: technology
-  id: MagnetsTech
-  name: research-technology-magnets-tech
-  icon:
-    sprite: Clothing/Shoes/Boots/magboots-science.rsi
+    sprite: Objects/Devices/desynchronizer.rsi
     state: icon
   discipline: Experimental
-  tier: 1
-  cost: 7500
+  tier: 3
+  cost: 10000
   recipeUnlocks:
-    - ClothingShoesBootsMagSci
-    - ClothingShoesBootsMoon
-  position: 0,2
+    - DeviceDesynchronizer
+  position: -3,9
   technologyPrerequisites:
-    - BasicAnomalousResearch
-- type: technology
-  id: AnomalyCoreHarnessing
-  name: research-technology-anomaly-harnessing
-  icon:
-    sprite: Objects/Weapons/Melee/gorilla.rsi
-    state: icon
-  discipline: Experimental
-  tier: 1
-  recipeUnlocks:
-    - WeaponGauntletGorilla
-  position: -1,3
-  technologyPrerequisites:
-    - AdvancedAnomalyResearch
+    - QuantumLeaping
   pointCosts:
     - type: General
-      amount: 9000
+      amount: 13000
     - type: Experimental
-      amount: 500
-- type: technology
-  id: AbnormalArtifactManipulation
-  name: research-technology-abnormal-artifact-manipulation
-  icon:
-    sprite: Structures/Machines/artifact_crusher.rsi
-    state: icon
-  discipline: Experimental
-  tier: 2
-  cost: 5000
-  recipeUnlocks:
-    - ArtifactCrusherMachineCircuitboard
-  position: 2,3
-  technologyPrerequisites:
-    - BasicXenoArcheology
-  pointCosts:
-    - type: General
-      amount: 5000
-    - type: Experimental
-      amount: 250
-- type: technology
-  id: AdvancedAnomalyResearch
-  name: research-technology-advanced-anomaly-research
-  icon:
-    sprite: Structures/Machines/anomaly_sync.rsi
-    state: base
-  discipline: Experimental
-  tier: 2
-  recipeUnlocks:
-    - WeaponPistolCHIMP
-    - AnomalySynchronizerCircuitboard
-    - AnomalyVesselExperimentalCircuitboard
-  position: -2,3
-  technologyPrerequisites:
-    - BasicAnomalousResearch
-  requiredExperiments: [ AnomalyCoreAnalysis ] # <Onyx-ResearchExperiments>
-  hidden: false
-  pointCosts:
-    - type: General
-      amount: 8000
-    - type: Experimental
-      amount: 400
+      amount: 1500
 - type: technology
   id: DeterrenceTechnologies
   name: research-technology-deterrence
@@ -156,7 +161,7 @@
   recipeUnlocks:
     - WeaponParticleDecelerator
     - HoloprojectorField
-  position: 1,3
+  position: 0,9
   technologyPrerequisites:
     - GravityManipulation
   pointCosts:
@@ -176,10 +181,25 @@
   recipeUnlocks:
     - WeaponForceGun
     - WeaponTetherGun
-  position: 0,3
+  position: 0,8
   technologyPrerequisites:
     - MagnetsTech
     - AnomalyCoreHarnessing
+- type: technology
+  id: MagnetsTech
+  name: research-technology-magnets-tech
+  icon:
+    sprite: Clothing/Shoes/Boots/magboots-science.rsi
+    state: icon
+  discipline: Experimental
+  tier: 1
+  cost: 7500
+  recipeUnlocks:
+    - ClothingShoesBootsMagSci
+    - ClothingShoesBootsMoon
+  position: -1,6
+  technologyPrerequisites:
+    - BasicAnomalousResearch
 - type: technology
   id: QuantumLeaping
   name: research-technology-quantum-leaping
@@ -190,31 +210,12 @@
   tier: 3
   recipeUnlocks:
     - DeviceQuantumSpinInverter
-  position: 2,5
+  position: -3,8
   technologyPrerequisites:
     - BluespaceTheory
   pointCosts:
     - type: General
       amount: 10000
-    - type: Experimental
-      amount: 1500
-- type: technology
-  id: BluespaceTimeManipulation
-  name: research-technology-bluespace-time-manipulation
-  icon:
-    sprite: Objects/Devices/desynchronizer.rsi
-    state: icon
-  discipline: Experimental
-  tier: 3
-  cost: 10000
-  recipeUnlocks:
-    - DeviceDesynchronizer
-  position: 1,6
-  technologyPrerequisites:
-    - QuantumLeaping
-  pointCosts:
-    - type: General
-      amount: 13000
     - type: Experimental
       amount: 1500
 - type: technology
@@ -226,7 +227,7 @@
   discipline: Experimental
   tier: 3
   cost: 10000
-  position: 0,5
+  position: -2,8
   technologyPrerequisites:
     - BluespaceTheory
   recipeUnlocks:

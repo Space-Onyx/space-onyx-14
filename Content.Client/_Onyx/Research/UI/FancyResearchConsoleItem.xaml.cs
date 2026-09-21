@@ -5,6 +5,7 @@ using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
+using Robust.Shared.Prototypes;
 
 namespace Content.Client._Onyx.Research.UI;
 
@@ -14,46 +15,78 @@ public sealed partial class FancyResearchConsoleItem : LayoutContainer
     public readonly TechnologyPrototype Prototype;
     public readonly Vector2 TreePosition;
     public event Action<TechnologyPrototype, ResearchAvailability>? SelectAction;
-    public readonly ResearchAvailability Availability;
+    public ResearchAvailability Availability { get; private set; }
     public Texture? ResearchTexture => ResearchDisplay.Texture;
+    public bool IsHovered => Button.IsHovered;
 
-    private Color _color;
-    private Color _hoveredColor;
+    private readonly Color _disciplineColor;
+    private Color _statusColor;
     private Color _borderColor;
+    private bool _selected;
 
-    public FancyResearchConsoleItem(TechnologyPrototype proto, Vector2 position, SpriteSystem sprite, ResearchAvailability availability)
+    private static readonly Color BaseColor = Color.FromHex("#111820");
+    private static readonly Color HoverColor = Color.FromHex("#1C2934");
+
+    public FancyResearchConsoleItem(TechnologyPrototype proto, Vector2 position, SpriteSystem sprite,
+        IPrototypeManager prototypes, ResearchAvailability availability)
     {
         RobustXamlLoader.Load(this);
         Prototype = proto;
         TreePosition = position;
         Availability = availability;
         ResearchDisplay.Texture = sprite.Frame0(proto.Icon);
+        var discipline = prototypes.Index<TechDisciplinePrototype>(proto.Discipline);
+        _disciplineColor = discipline.Color;
+        DisciplineDisplay.Texture = sprite.Frame0(discipline.Icon);
+        ((StyleBoxFlat) DisciplineBadge.PanelOverride!).BorderColor = discipline.Color.WithAlpha(0.8f);
         ToolTip = Loc.GetString(proto.Name);
         Button.OnDrawModeChanged += UpdateColor;
         Button.OnPressed += Selected;
 
-        (_color, _hoveredColor, _borderColor) = availability switch
-        {
-            ResearchAvailability.Researched => (Color.DarkOliveGreen, Color.PaleGreen, Color.LimeGreen),
-            ResearchAvailability.Available => (Color.FromHex("#7c7d2a"), Color.FromHex("#ecfa52"), Color.FromHex("#e8fa25")),
-            ResearchAvailability.PrereqsMet => (Color.FromHex("#6b572f"), Color.FromHex("#fad398"), Color.FromHex("#cca031")),
-            _ => (Color.DarkRed, Color.PaleVioletRed, Color.Crimson)
-        };
+        SetAvailability(availability);
         UpdateColor();
     }
 
     private void UpdateColor()
     {
         var panel = (StyleBoxFlat) Panel.PanelOverride!;
-        panel.BackgroundColor = Button.IsHovered ? _hoveredColor : _color;
-        panel.BorderColor = _borderColor;
+        panel.BackgroundColor = Button.IsHovered || _selected ? HoverColor : BaseColor;
+        panel.BorderColor = Button.IsHovered || _selected ? _disciplineColor : _borderColor;
+        ResearchDisplay.ModulateSelfOverride = Availability == ResearchAvailability.Unavailable && !Button.IsHovered
+            ? Color.White.WithAlpha(0.58f)
+            : Color.White;
     }
 
     private void Selected(BaseButton.ButtonEventArgs args) => SelectAction?.Invoke(Prototype, Availability);
 
-    public void SetScale(float scale) => ((BoxContainer) GetChild(0)).SetSize = new Vector2(80 * scale);
+    public void SetScale(float scale)
+    {
+        NodeContainer.SetSize = new Vector2(80 * scale);
+        DisciplineBadge.SetSize = new Vector2(24 * scale);
+        StatusAccent.SetHeight = 4 * scale;
+    }
 
     public void SetFiltered(bool filtered) => FilterOverlay.Visible = filtered;
+
+    public void SetSelected(bool selected)
+    {
+        _selected = selected;
+        UpdateColor();
+    }
+
+    public void SetAvailability(ResearchAvailability availability)
+    {
+        Availability = availability;
+        (_statusColor, _borderColor) = availability switch
+        {
+            ResearchAvailability.Researched => (Color.FromHex("#70C987"), Color.FromHex("#4D735B")),
+            ResearchAvailability.Available => (Color.FromHex("#D7C75D"), Color.FromHex("#847B43")),
+            ResearchAvailability.PrereqsMet => (Color.FromHex("#C99A61"), Color.FromHex("#765D42")),
+            _ => (Color.FromHex("#A96068"), Color.FromHex("#614249"))
+        };
+        StatusAccent.PanelOverride = new StyleBoxFlat { BackgroundColor = _statusColor };
+        UpdateColor();
+    }
 
     protected override void ExitedTree()
     {

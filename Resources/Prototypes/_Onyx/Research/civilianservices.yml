@@ -1,78 +1,62 @@
 - type: technology
-  id: AdvancedTreatment
-  name: research-technology-onyx-advanced-treatment
+  id: AccessibilityTech
+  name: research-technology-accessibility
   icon:
-    sprite: _Onyx/Objects/Specific/Medical/Surgery/e-scalpel.rsi
-    state: e-scalpel-on
+    sprite: _Onyx/Objects/Vehicles/hoverchair.rsi
+    state: vehicle
   discipline: CivilianServices
-  tier: 2
-  cost: 10000
+  tier: 1
+  cost: 4500
   recipeUnlocks:
-    - EnergyScalpel
-    - AdvancedRetractor
-    - EnergyCautery
-    - AdvancedBoneGel
-    - BorgModuleAdvancedSurgery
-    - DefibrillatorCompact
-  position: 2,2
+    - VehicleHoverchairSci
+    - PrescriptionGlasses
+  position: 0,-6
   technologyPrerequisites:
-    - BiochemicalStasis
-  requiredExperiments:
-    - CryoxadonePurityAnalysis
-  pointCosts:
-    - type: General
-      amount: 10000
-    - type: Experimental
-      amount: 1000
+    - AdvancedEntertainment
 - type: technology
-  id: HighEndSurgery
-  name: research-technology-onyx-high-end-surgery
+  id: AdvancedCybernaticsUpgrade
+  name: research-technology-advanced-cybernatics-upgrade
   icon:
-    sprite: _Onyx/Objects/Specific/Medical/Surgery/omnimed.rsi
-    state: omnimed
+    sprite: _Onyx/Cybernetics/organs.rsi
+    state: heart-u-on
   discipline: CivilianServices
   tier: 3
-  cost: 15000
   recipeUnlocks:
-    - OmnimedTool
-  position: 2,4
+    - UpgradedCyberneticHeart
+    - UpgradedCyberneticLungs
+    - JawsOfLifeLeftArm
+    - JawsOfLifeRightArm
+    - SpeedLeftLeg
+    - SpeedRightLeg
+    - MedicalCyberneticEyes
+    - SecurityCyberneticEyes
+    - DiagnosticCyberneticEyes
+  position: 9,-9
   technologyPrerequisites:
     - BasicCybernaticsUpgrade
   pointCosts:
     - type: General
       amount: 15000
     - type: Experimental
-      amount: 1500
+      amount: 1000
 - type: technology
-  id: BasicTranslation
-  name: research-technology-basic-translation
+  id: AdvancedNeuroInterfaceEmpProtection
+  name: research-technology-advanced-neuro-interface-emp-protection
   icon:
-    sprite: _Onyx/Objects/Devices/translator.rsi
-    state: icon
+    sprite: _Onyx/Objects/Augments/power.rsi
+    state: apc
   discipline: CivilianServices
-  tier: 2
-  cost: 7500
+  tier: 3
+  pointCosts:
+    - type: General
+      amount: 9000
+    - type: Experimental
+      amount: 350
   recipeUnlocks:
-    - BasicGalaticCommonTranslatorImplanterRecipe
-    - CanilunztTranslatorRecipe
-    - BubblishTranslatorRecipe
-    - NekomimeticTranslatorRecipe
-    - DraconicTranslatorRecipe
-    - SolCommonTranslatorRecipe
-    - RootSpeakTranslatorRecipe
-    - MofficTranslatorRecipe
-    - ValyrianStandardTranslatorRecipe
-    - ChittinTranslatorRecipe
-    - SiikMaasTranslatorRecipe
-    - MarishTranslatorRecipe
-    - ChevalTranslatorImplanterRecipe
-    - NewKinPidginTranslatorRecipe
-    - SchechiTranslatorRecipe
-    - GruntishTranslatorRecipe
-    - YowKriolTranslatorRecipe
-  position: 0,0
+    - NeuroInterfaceEmpShieldHardened
+  position: 10,-8
   technologyPrerequisites:
-    - AdvancedEntertainment
+    - NeuroInterfaceEmpProtection
 - type: technology
   id: AdvancedTranslation
   name: research-technology-advanced-translation
@@ -103,41 +87,51 @@
     - XeeplianTranslatorRecipe
     - YowKriolTranslatorImplanterRecipe
     - SignTranslatorImplanterRecipe
-  position: 1,0
+  position: 2,-8
   technologyPrerequisites:
     - BasicTranslation
 - type: technology
-  id: RadioMusicCommunications
-  name: research-technology-radio-music-communication
+  id: AdvancedTreatment
+  name: research-technology-onyx-advanced-treatment
   icon:
-    sprite: _Onyx/StationRadio/Machines/vinylplayer.rsi
-    state: icon
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/e-scalpel.rsi
+    state: e-scalpel-on
+  discipline: CivilianServices
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+    - EnergyScalpel
+    - AdvancedRetractor
+    - EnergyCautery
+    - AdvancedBoneGel
+    - BorgModuleAdvancedSurgery
+    - DefibrillatorCompact
+  position: 7,-8
+  technologyPrerequisites:
+    - BiochemicalStasis
+  requiredExperiments:
+    - CryoxadonePurityAnalysis
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 1000
+- type: technology
+  id: BasicAugmentation
+  name: research-technology-basic-augmentation
+  icon:
+    sprite: _Onyx/Objects/Augments/power.rsi
+    state: cell
   discipline: CivilianServices
   tier: 2
   cost: 5000
   recipeUnlocks:
-    - VinylPlayerCircuitboard
-    - TapeDeckCircuitboard
-    - StationRadioServerCircuitboard
-    - StationRadioRigCircuitboard
-  position: 0,2
+    - AugmentPowerCellSlotCasing
+    - AugmentRechargerCasing
+    - NeuroInterface
+  position: 8,-8
   technologyPrerequisites:
-    - AudioVisualCommunication
-- type: technology
-  id: HONKWeapons
-  name: research-technology-honk-weapons
-  icon:
-    sprite: Objects/Specific/Mech/mecha_equipment.rsi
-    state: mecha_bananamrtr
-  discipline: CivilianServices
-  tier: 2
-  cost: 6000
-  recipeUnlocks:
-    - MechEquipmentHonkerBananaMortar
-    - MechEquipmentHonkerMousetrapMortar
-  position: -3,2
-  technologyPrerequisites:
-    - HONKMech
+    - BasicCybernaticsUpgrade
 - type: technology
   id: BasicCybernaticsUpgrade
   name: research-technology-basic-cybernatics-upgrade
@@ -161,124 +155,153 @@
     - BasicCyberneticHeart
     - BasicCyberneticLungs
     - BasicCyberneticLiver
-  position: 2,3
+  position: 8,-9
   technologyPrerequisites:
     - AdvancedTreatment
 - type: technology
-  id: AdvancedCybernaticsUpgrade
-  name: research-technology-advanced-cybernatics-upgrade
+  id: BasicTranslation
+  name: research-technology-basic-translation
   icon:
-    sprite: _Onyx/Cybernetics/organs.rsi
-    state: heart-u-on
-  discipline: CivilianServices
-  tier: 3
-  recipeUnlocks:
-    - UpgradedCyberneticHeart
-    - UpgradedCyberneticLungs
-    - JawsOfLifeLeftArm
-    - JawsOfLifeRightArm
-    - SpeedLeftLeg
-    - SpeedRightLeg
-    - MedicalCyberneticEyes
-    - SecurityCyberneticEyes
-    - DiagnosticCyberneticEyes
-  position: 3,3
-  technologyPrerequisites:
-    - BasicCybernaticsUpgrade
-  pointCosts:
-    - type: General
-      amount: 15000
-    - type: Experimental
-      amount: 1000
-- type: technology
-  id: BasicAugmentation
-  name: research-technology-basic-augmentation
-  icon:
-    sprite: _Onyx/Objects/Augments/power.rsi
-    state: cell
+    sprite: _Onyx/Objects/Devices/translator.rsi
+    state: icon
   discipline: CivilianServices
   tier: 2
+  cost: 7500
+  recipeUnlocks:
+    - BasicGalaticCommonTranslatorImplanterRecipe
+    - CanilunztTranslatorRecipe
+    - BubblishTranslatorRecipe
+    - NekomimeticTranslatorRecipe
+    - DraconicTranslatorRecipe
+    - SolCommonTranslatorRecipe
+    - RootSpeakTranslatorRecipe
+    - MofficTranslatorRecipe
+    - ValyrianStandardTranslatorRecipe
+    - ChittinTranslatorRecipe
+    - SiikMaasTranslatorRecipe
+    - MarishTranslatorRecipe
+    - ChevalTranslatorImplanterRecipe
+    - NewKinPidginTranslatorRecipe
+    - SchechiTranslatorRecipe
+    - GruntishTranslatorRecipe
+    - YowKriolTranslatorRecipe
+  position: 1,-8
+  technologyPrerequisites:
+    - AdvancedEntertainment
+- type: technology
+  id: BioMass
+  name: research-technology-biomass
   cost: 5000
+  discipline: CivilianServices
+  tier: 2
+  position: 4,-9
   recipeUnlocks:
-    - AugmentPowerCellSlotCasing
-    - AugmentRechargerCasing
-    - NeuroInterface
-  position: 3,4
+    - BiomassReclaimerMachineCircuitboard
+  icon:
+    sprite: Structures/Machines/Medical/biomass_reclaimer.rsi
+    state: icon
   technologyPrerequisites:
-    - BasicCybernaticsUpgrade
-
+    - MeatManipulation
 - type: technology
-  id: NeuroInterfaceEmpProtection
-  name: research-technology-neuro-interface-emp-protection
-  icon: { sprite: _Onyx/Objects/Augments/power.rsi, state: apc }
+  id: CombatAugmentation
+  name: research-technology-combat-augmentation
+  icon:
+    sprite: _Onyx/Objects/Augments/arm.rsi
+    state: strength
   discipline: CivilianServices
   tier: 2
-  pointCosts:
-    - type: General
-      amount: 6000
-    - type: Experimental
-      amount: 200
-  recipeUnlocks: [ NeuroInterfaceEmpShield ]
-  position: 4,5
-  technologyPrerequisites: [ BasicAugmentation ]
-
-- type: technology
-  id: CyberDeckSystems
-  name: research-technology-cyberdeck-systems
-  icon: { sprite: Objects/Misc/module.rsi, state: net_wired }
-  discipline: CivilianServices
-  tier: 2
-  cost: 7000
   recipeUnlocks:
-  - AugmentModuleCyberDeck
-  - AugmentModuleCyberDeckRam
-  position: 4,2
-  technologyPrerequisites: [ BasicAugmentation ]
-
-- type: technology
-  id: AdvancedNeuroInterfaceEmpProtection
-  name: research-technology-advanced-neuro-interface-emp-protection
-  icon: { sprite: _Onyx/Objects/Augments/power.rsi, state: apc }
-  discipline: CivilianServices
-  tier: 3
-  pointCosts:
-    - type: General
-      amount: 9000
-    - type: Experimental
-      amount: 350
-  recipeUnlocks: [ NeuroInterfaceEmpShieldHardened ]
-  position: 5,5
-  technologyPrerequisites: [ NeuroInterfaceEmpProtection ]
-
-- type: technology
-  id: MetabolicAugmentPower
-  name: research-technology-metabolic-augment-power
-  icon: { sprite: _Onyx/Objects/Augments/power.rsi, state: apc }
-  discipline: CivilianServices
-  tier: 3
+    - AugmentStrengthCasing
+    - AugmentStrengthElectronics
+  position: 8,-6
+  technologyPrerequisites:
+    - BasicAugmentation
   pointCosts:
     - type: General
       amount: 10000
     - type: Experimental
-      amount: 300
-  recipeUnlocks: [ AugmentBioReactor ]
-  position: 4,6
-  technologyPrerequisites: [ BasicAugmentation ]
-
+      amount: 2000
 - type: technology
-  id: RadioisotopeAugmentPower
-  name: research-technology-radioisotope-augment-power
-  icon: { sprite: _Onyx/Objects/Augments/power.rsi, state: station }
+  id: CyberDeckSystems
+  name: research-technology-cyberdeck-systems
+  icon:
+    sprite: Objects/Misc/module.rsi
+    state: net_wired
+  discipline: CivilianServices
+  tier: 2
+  cost: 7000
+  recipeUnlocks:
+    - AugmentModuleCyberDeck
+    - AugmentModuleCyberDeckRam
+  position: 9,-7
+  technologyPrerequisites:
+    - BasicAugmentation
+- type: technology
+  id: GeneticsModification
+  name: research-technology-genetics-modification
+  icon:
+    sprite: Structures/Machines/scanner.rsi
+    state: open
+  discipline: CivilianServices
+  tier: 2
+  cost: 10000
+  position: 7,-9
+  technologyPrerequisites:
+    - BiochemicalStasis
+  recipeUnlocks:
+    - DnaModifierComputerCircuitboard
+    - BorgModuleDNA
+- type: technology
+  id: HighEndSurgery
+  name: research-technology-onyx-high-end-surgery
+  icon:
+    sprite: _Onyx/Objects/Specific/Medical/Surgery/omnimed.rsi
+    state: omnimed
   discipline: CivilianServices
   tier: 3
+  cost: 15000
+  recipeUnlocks:
+    - OmnimedTool
+  position: 10,-9
+  technologyPrerequisites:
+    - AdvancedCybernaticsUpgrade
   pointCosts:
     - type: General
-      amount: 14000
+      amount: 15000
     - type: Experimental
-      amount: 500
-  recipeUnlocks: [ AugmentRTG ]
-  position: 5,6
-  technologyPrerequisites: [ MetabolicAugmentPower ]
+      amount: 1500
+- type: technology
+  id: HONKWeapons
+  name: research-technology-honk-weapons
+  icon:
+    sprite: Objects/Specific/Mech/mecha_equipment.rsi
+    state: mecha_bananamrtr
+  discipline: CivilianServices
+  tier: 2
+  cost: 6000
+  recipeUnlocks:
+    - MechEquipmentHonkerBananaMortar
+    - MechEquipmentHonkerMousetrapMortar
+  position: 3,-6
+  technologyPrerequisites:
+    - HONKMech
+- type: technology
+  id: HydroponicsDNA
+  name: research-technology-dna-hydroponics
+  cost: 7500
+  discipline: CivilianServices
+  tier: 2
+  position: 3,-8
+  recipeUnlocks:
+    - ADTBotanicalSeedDNAManipulatorCircuitboard
+    - ADTBotanicalSeedDNADisk
+  icon:
+    sprite: _Onyx/Objects/Misc/module.rsi
+    state: datadisk_hydro
+  technologyPrerequisites:
+    - Hydroponics
+  requiredExperiments:
+    - SeedDiversityAnalysis
 - type: technology
   id: ImplantedTools
   name: research-technology-implanted-tools
@@ -294,28 +317,124 @@
     - AugmentBotanyPanelElectronics
     - AugmentSurgeryPanelElectronics
     - AugmentPaperworkPanelElectronics
-  position: 4,4
+  position: 8,-7
   technologyPrerequisites:
     - BasicAugmentation
 - type: technology
-  id: CombatAugmentation
-  name: research-technology-combat-augmentation
-  icon:
-    sprite: _Onyx/Objects/Augments/arm.rsi
-    state: strength
+  id: MedicalBioFabricator
+  name: research-technology-medicalbiofabricator
+  cost: 7500
   discipline: CivilianServices
   tier: 2
+  position: 5,-10
   recipeUnlocks:
-    - AugmentStrengthCasing
-    - AugmentStrengthElectronics
-  position: 4,3
+    - MedicalBiofabMachineBoard
+  icon:
+    sprite: _Onyx/Structures/Machines/medical_biofabricator.rsi
+    state: icon
   technologyPrerequisites:
-    - BasicAugmentation
+    - BioMass
+- type: technology
+  id: MedicalScanning
+  name: research-technology-medicalscanning
+  cost: 3000
+  discipline: CivilianServices
+  tier: 2
+  position: 6,-9
+  recipeUnlocks:
+    - MedicalScannerMachineCircuitboard
+  icon:
+    sprite: Structures/Machines/scanner.rsi
+    state: occupied
+  technologyPrerequisites:
+    - BiochemicalStasis
+- type: technology
+  id: MetabolicAugmentPower
+  name: research-technology-metabolic-augment-power
+  icon:
+    sprite: _Onyx/Objects/Augments/power.rsi
+    state: apc
+  discipline: CivilianServices
+  tier: 3
   pointCosts:
     - type: General
       amount: 10000
     - type: Experimental
-      amount: 2000
+      amount: 300
+  recipeUnlocks:
+    - AugmentBioReactor
+  position: 9,-6
+  technologyPrerequisites:
+    - BasicAugmentation
+- type: technology
+  id: Music
+  name: research-technology-music
+  cost: 3000
+  discipline: CivilianServices
+  tier: 1
+  position: 0,-8
+  recipeUnlocks:
+    - JukeboxCircuitBoard
+    - SynthesizerInstrument
+    - DawInstrumentMachineCircuitboard
+  icon:
+    sprite: Objects/Fun/Instruments/h_synthesizer.rsi
+    state: icon
+  technologyPrerequisites:
+    - AdvancedEntertainment
+- type: technology
+  id: NeuroInterfaceEmpProtection
+  name: research-technology-neuro-interface-emp-protection
+  icon:
+    sprite: _Onyx/Objects/Augments/power.rsi
+    state: apc
+  discipline: CivilianServices
+  tier: 2
+  pointCosts:
+    - type: General
+      amount: 6000
+    - type: Experimental
+      amount: 200
+  recipeUnlocks:
+    - NeuroInterfaceEmpShield
+  position: 9,-8
+  technologyPrerequisites:
+    - BasicAugmentation
+- type: technology
+  id: RadioisotopeAugmentPower
+  name: research-technology-radioisotope-augment-power
+  icon:
+    sprite: _Onyx/Objects/Augments/power.rsi
+    state: station
+  discipline: CivilianServices
+  tier: 3
+  pointCosts:
+    - type: General
+      amount: 14000
+    - type: Experimental
+      amount: 500
+  recipeUnlocks:
+    - AugmentRTG
+  position: 10,-6
+  technologyPrerequisites:
+    - MetabolicAugmentPower
+- type: technology
+  id: RadioMusicCommunications
+  name: research-technology-radio-music-communication
+  icon:
+    sprite: _Onyx/StationRadio/Machines/vinylplayer.rsi
+    state: icon
+  discipline: CivilianServices
+  tier: 2
+  cost: 5000
+  recipeUnlocks:
+    - VinylPlayerCircuitboard
+    - TapeDeckCircuitboard
+    - StationRadioServerCircuitboard
+    - StationRadioRigCircuitboard
+  position: -2,-9
+  technologyPrerequisites:
+    - AudioVisualCommunication
 - type: technology
   id: SuitModuleMedical
   name: research-technology-suit-module-medical
@@ -334,33 +453,17 @@
     - InjectorSuitModule
     - SolutionScannerSuitModule
     - ApparatusSuitModule
-  position: 1,3
+  position: 1,1
   technologyPrerequisites:
     - ModsuitsTech
     - MechanizedTreatment
-- type: technology
-  id: AccessibilityTech
-  name: research-technology-accessibility
-  icon:
-    sprite: _Onyx/Objects/Vehicles/hoverchair.rsi
-    state: vehicle
-  discipline: CivilianServices
-  tier: 1
-  cost: 4500
-  recipeUnlocks:
-    - VehicleHoverchairSci
-    - PrescriptionGlasses
-  position: -2,-1
-  technologyPrerequisites:
-    - BasicRobotics
-    - AdvancedEntertainment
 - type: technology
   id: TeleCommunication
   name: research-technology-telecommunication
   cost: 7500
   discipline: CivilianServices
   tier: 2
-  position: -1,2
+  position: -1,-9
   recipeUnlocks:
     - OnyxTelecomServerCircuitboard
     - TelecomBusCircuitboard
@@ -378,7 +481,7 @@
   name: research-technology-advanced-telecommunication
   discipline: CivilianServices
   tier: 3
-  position: -2,2
+  position: -1,-10
   recipeUnlocks:
     - TelecomTransmitterCircuitboard
   icon:
@@ -391,95 +494,3 @@
       amount: 1500
   technologyPrerequisites:
     - TeleCommunication
-- type: technology
-  id: MedicalScanning
-  name: research-technology-medicalscanning
-  cost: 3000
-  discipline: CivilianServices
-  tier: 2
-  position: 3,0
-  recipeUnlocks:
-    - MedicalScannerMachineCircuitboard
-  icon:
-    sprite: Structures/Machines/scanner.rsi
-    state: occupied
-  technologyPrerequisites:
-    - BiochemicalStasis
-- type: technology
-  id: BioMass
-  name: research-technology-biomass
-  cost: 5000
-  discipline: CivilianServices
-  tier: 2
-  position: 3,-1
-  recipeUnlocks:
-    - BiomassReclaimerMachineCircuitboard
-  icon:
-    sprite: Structures/Machines/Medical/biomass_reclaimer.rsi
-    state: "icon"
-  technologyPrerequisites:
-    - MeatManipulation
-- type: technology
-  id: MedicalBioFabricator
-  name: research-technology-medicalbiofabricator
-  cost: 7500
-  discipline: CivilianServices
-  tier: 2
-  position: 4,-1
-  recipeUnlocks:
-    - MedicalBiofabMachineBoard
-  icon:
-    sprite: _Onyx/Structures/Machines/medical_biofabricator.rsi
-    state: icon
-  technologyPrerequisites:
-    - BioMass
-- type: technology
-  id: HydroponicsDNA
-  name: research-technology-dna-hydroponics
-  cost: 7500
-  discipline: CivilianServices
-  tier: 2
-  position: 4,-2
-  recipeUnlocks:
-    - ADTBotanicalSeedDNAManipulatorCircuitboard
-    - ADTBotanicalSeedDNADisk
-  icon:
-    sprite: _Onyx/Objects/Misc/module.rsi
-    state: datadisk_hydro
-  technologyPrerequisites:
-    - Hydroponics
-  requiredExperiments:
-    - SeedDiversityAnalysis
-- type: technology
-  id: Music
-  name: research-technology-music
-  cost: 3000
-  discipline: CivilianServices
-  tier: 1
-  position: -1,-1
-  recipeUnlocks:
-    - JukeboxCircuitBoard
-    - SynthesizerInstrument
-    - DawInstrumentMachineCircuitboard
-  icon:
-    sprite: Objects/Fun/Instruments/h_synthesizer.rsi
-    state: icon
-  technologyPrerequisites:
-    - AdvancedEntertainment
-
-# Content below taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
-- type: technology
-  id: GeneticsModification
-  name: research-technology-genetics-modification
-  icon:
-    sprite: Structures/Machines/scanner.rsi
-    state: open
-  discipline: CivilianServices
-  tier: 2
-  cost: 10000
-  position: 2,1
-  technologyPrerequisites:
-  - BiochemicalStasis
-  recipeUnlocks:
-  - DnaModifierComputerCircuitboard
-  - BorgModuleDNA

@@ -56,7 +56,8 @@ public partial class ChatBox
     {
         var formatted = new FormattedMessage(4);
         formatted.PushColor(color);
-        formatted.AddMarkupOrThrow(message);
+        if (!formatted.TryAddMarkup(message, out _))
+            formatted.AddText(message);
         formatted.Pop();
         formatted.AddMarkupOrThrow(Loc.GetString("chat-system-repeated-message-counter",
             ("count", repeatCount),

@@ -1,19 +1,4 @@
 - type: technology
-  id: Pinpointers
-  name: research-technology-pinpointing
-  icon:
-    sprite: Objects/Devices/pinpointer.rsi
-    state: pinpointer
-  discipline: Experimental
-  tier: 2
-  cost: 7500
-  recipeUnlocks:
-    - PinpointerOnyx
-    - PinpointerBorg
-  position: 0,-2
-  technologyPrerequisites:
-    - AlternativeResearch
-- type: technology
   id: AdvancedRobotics
   name: research-technology-advanced-robotics
   icon:
@@ -34,7 +19,7 @@
     - GameMasterCircuitBoard
     - ArtistCircuitBoard
     - NutimovCircuitBoard
-  position: -1,-1
+  position: -1,3
   technologyPrerequisites:
     - BasicRobotics
   requiredExperiments:
@@ -44,44 +29,96 @@
       amount: 6000
     - type: Experimental
       amount: 200
-- type: technology
-  id: NightVisionTech
-  name: research-technology-night-vision
-  icon:
-    sprite: _Onyx/Clothing/Eyes/Goggles/nightvision.rsi
-    state: icon
+- id: AnomalyPinpointers
+  name: research-technology-anomaly-pinpointing
+  type: technology
   discipline: Experimental
-  tier: 2
+  position: 0,5
   recipeUnlocks:
-    - ClothingEyesNightVisionGoggles
-    - CyberEyeNightVision
-  position: -2,0
-  technologyPrerequisites:
-    - ModsuitsTech
+    - PinpointerAnomaly
+  icon:
+    sprite: Objects/Specific/Research/anomalylocatorwide.rsi
+    state: icon
+  hidden: true
   pointCosts:
     - type: General
-      amount: 7500
+      amount: 1
     - type: Experimental
-      amount: 130
-- type: technology
-  id: ThermalVisionTech
-  name: research-technology-thermal-vision
-  icon:
-    sprite: _Onyx/Clothing/Eyes/Goggles/thermal.rsi
-    state: icon
+      amount: 1
+  tier: 1
+  technologyPrerequisites: []
+  cost: 1
+- id: ArtifactPinpointers
+  name: research-technology-artifact-pinpointing
+  type: technology
   discipline: Experimental
-  tier: 2
+  position: -4,5
   recipeUnlocks:
-    - ClothingEyesThermalVisionGoggles
-    - CyberEyeThermal
-  position: -2,1
+    - PinpointerArtifact
+  icon:
+    sprite: Objects/Specific/Xenoarchaeology/item_artifacts.rsi
+    state: ano06
+  hidden: true
+  pointCosts:
+    - type: General
+      amount: 1
+    - type: Experimental
+      amount: 1
+  tier: 1
+  technologyPrerequisites: []
+- id: AutonomousRobotics
+  name: research-technology-autonomous-robotics
+  type: technology
+  cost: 10000
+  discipline: Experimental
+  position: -2,3
+  recipeUnlocks:
+    - Drone
+    - AiRemoteBrain
+  icon:
+    sprite: _Onyx/Mobs/Silicon/drone.rsi
+    state: shell
+  tier: 1
   technologyPrerequisites:
-    - NightVisionTech
+    - BasicRobotics
+- type: technology
+  id: BluespaceTheory
+  name: research-technology-bluespace-theory
+  icon:
+    sprite: _Onyx/Objects/Materials/materials.rsi
+    state: bluespace_crystal
+  discipline: Experimental
+  tier: 1
+  recipeUnlocks:
+    - MaterialBSCrystal
+    - BluespaceMiningMachineCircuitboard
+  position: -2,7
+  technologyPrerequisites:
+    - AdvancedAnomalyResearch
+    - AbnormalArtifactManipulation
   pointCosts:
     - type: General
       amount: 8000
     - type: Experimental
-      amount: 200
+      amount: 800
+- type: technology
+  id: DestructiveAnalysis
+  name: research-technology-destructive-analysis
+  icon:
+    sprite: _Onyx/Structures/Machines/destructive_analyzer.rsi
+    state: icon
+  discipline: Experimental
+  tier: 1
+  pointCosts:
+    - type: General
+      amount: 7500
+    - type: Experimental
+      amount: 300
+  recipeUnlocks:
+    - ResearchDestructiveAnalyzerMachineCircuitboard
+  position: -3,2
+  technologyPrerequisites:
+    - AlternativeResearch
 - type: technology
   id: ModsuitsTech
   name: research-technology-modsuits
@@ -99,96 +136,95 @@
     - ModsuitShell
     - ModsuitPlatingExternal
     - ModsuitPlatingCivilian
-  position: -3,-1
+  position: 0,4
   technologyPrerequisites:
-    - AdvancedRobotics
-    - IndustrialEngineering
+    - BasicRobotics
   pointCosts:
     - type: General
       amount: 5000
     - type: Experimental
       amount: 500
 - type: technology
-  id: Xenobiology
-  name: research-technology-xenobiology
+  id: NightVisionTech
+  name: research-technology-night-vision
   icon:
-    sprite: _Onyx/Xenobiology/Specific/Xenobiology/slime_nozzle.rsi
-    state: icon
-  discipline: Experimental
-  tier: 1
-  cost: 5000
-  recipeUnlocks:
-    - SlimeScannerXenobio
-    - XenobiologyBountyComputerCircuitboard
-    - SlimeGrinderMachineCircuitboard
-    - ClothingBackpackXenoBioTank
-  position: 1,1
-  technologyPrerequisites:
-    - BasicRobotics
-- type: technology
-  id: BluespaceTheory
-  name: research-technology-bluespace-theory
-  icon:
-    sprite: _Onyx/Objects/Materials/materials.rsi
-    state: bluespace_crystal
-  discipline: Experimental
-  tier: 1
-  recipeUnlocks:
-    - MaterialBSCrystal
-    - BluespaceMiningMachineCircuitboard
-  position: 1,4
-  technologyPrerequisites:
-    - DeterrenceTechnologies
-  pointCosts:
-    - type: General
-      amount: 8000
-    - type: Experimental
-      amount: 800
-- type: technology
-  id: XenobagHolding
-  name: research-technology-xenobag-holding
-  icon:
-    sprite: _Onyx/Clothing/Belt/xenobag_holding.rsi
+    sprite: _Onyx/Clothing/Eyes/Goggles/nightvision.rsi
     state: icon
   discipline: Experimental
   tier: 2
-  cost: 10000
   recipeUnlocks:
-    - ClothingBeltChemBagXenobiologyHolding
-  position: 2,1
-  technologyPrerequisites:
-    - Xenobiology
-  pointCosts:
-    - type: General
-      amount: 10000
-    - type: Experimental
-      amount: 500
-- type: technology
-  id: SuitModuleUtility
-  name: research-technology-suit-module-utility
-  icon:
-    sprite: _Onyx/Objects/Specific/Robotics/modules.rsi
-    state: storage
-  discipline: Experimental
-  tier: 1
-  cost: 7500
-  recipeUnlocks:
-    - TRaySuitModule
-    - TetherSuitModule
-    - GPSSuitModule
-    - BikeHornSuitModule
-    - StorageSuitModule
-    - FlashlightSuitModule
-    - HolsterSuitModule
-    - PaperDispenserSuitModule
-  position: -4,1
+    - ClothingEyesNightVisionGoggles
+    - CyberEyeNightVision
+  position: 0,3
   technologyPrerequisites:
     - ModsuitsTech
   pointCosts:
     - type: General
       amount: 7500
     - type: Experimental
-      amount: 300
+      amount: 130
+- id: OrganoidRobotics
+  name: research-technology-organoid-robotics
+  type: technology
+  discipline: Experimental
+  position: -2,5
+  recipeUnlocks:
+    - MMI
+  icon:
+    sprite: Objects/Specific/Robotics/mmi.rsi
+    state: mmi_icon
+  tier: 1
+  pointCosts:
+    - type: General
+      amount: 3000
+    - type: Experimental
+      amount: 100
+  technologyPrerequisites:
+    - BasicRobotics
+- type: technology
+  id: Pinpointers
+  name: research-technology-pinpointing
+  icon:
+    sprite: Objects/Devices/pinpointer.rsi
+    state: pinpointer
+  discipline: Experimental
+  tier: 2
+  cost: 7500
+  recipeUnlocks:
+    - PinpointerOnyx
+    - PinpointerBorg
+  position: -4,2
+  technologyPrerequisites:
+    - AlternativeResearch
+- type: technology
+  id: SuitModuleAdvanced
+  name: research-technology-suit-module-advanced
+  icon:
+    sprite: _Onyx/Objects/Specific/Robotics/modules.rsi
+    state: teleporter
+  discipline: Experimental
+  tier: 2
+  cost: 15000
+  recipeUnlocks:
+    - VisorSecuritySuitModule
+    - JetpackSuitModule
+    - EMPShieldSuitModule
+    - KinesisSuitModule
+    - StorageHoldingSuitModule
+    - AdvancedFlashlightSuitModule
+    - AntiGravitySuitModule
+    - TeleporterSuitModule
+    - BurgerDispenserSuitModule
+    - ArmorBoosterSuitModule
+  position: 1,2
+  technologyPrerequisites:
+    - ModsuitsTech
+    - SuitModuleUtility
+  pointCosts:
+    - type: General
+      amount: 8000
+    - type: Experimental
+      amount: 900
 - type: technology
   id: SuitModuleIndustrial
   name: research-technology-suit-module-industrial
@@ -212,129 +248,88 @@
     - QuickCarrySuitModule
     - GrabberSuitModule
     - MicrowaveBeamSuitModule
-  position: -4,-1
+  position: 1,4
   technologyPrerequisites:
     - ModsuitsTech
   pointCosts: []
 - type: technology
-  id: SuitModuleAdvanced
-  name: research-technology-suit-module-advanced
+  id: SuitModuleUtility
+  name: research-technology-suit-module-utility
   icon:
     sprite: _Onyx/Objects/Specific/Robotics/modules.rsi
-    state: teleporter
-  discipline: Experimental
-  tier: 2
-  cost: 15000
-  recipeUnlocks:
-    - VisorSecuritySuitModule
-    - JetpackSuitModule
-    - EMPShieldSuitModule
-    - KinesisSuitModule
-    - StorageHoldingSuitModule
-    - AdvancedFlashlightSuitModule
-    - AntiGravitySuitModule
-    - TeleporterSuitModule
-    - BurgerDispenserSuitModule
-    - ArmorBoosterSuitModule
-  position: -3,1
-  technologyPrerequisites:
-    - ModsuitsTech
-    - SuitModuleUtility
-  pointCosts:
-    - type: General
-      amount: 8000
-    - type: Experimental
-      amount: 900
-- type: technology
-  id: DestructiveAnalysis
-  name: research-technology-destructive-analysis
-  icon:
-    sprite: _Onyx/Structures/Machines/destructive_analyzer.rsi
-    state: icon
+    state: storage
   discipline: Experimental
   tier: 1
+  cost: 7500
+  recipeUnlocks:
+    - TRaySuitModule
+    - TetherSuitModule
+    - GPSSuitModule
+    - BikeHornSuitModule
+    - StorageSuitModule
+    - FlashlightSuitModule
+    - HolsterSuitModule
+    - PaperDispenserSuitModule
+  position: 1,3
+  technologyPrerequisites:
+    - ModsuitsTech
   pointCosts:
     - type: General
       amount: 7500
     - type: Experimental
       amount: 300
-  recipeUnlocks:
-    - ResearchDestructiveAnalyzerMachineCircuitboard
-  position: 1,-2
-  technologyPrerequisites:
-    - AlternativeResearch
-- id: ArtifactPinpointers
-  name: research-technology-artifact-pinpointing
-  type: technology
-  discipline: Experimental
-  position: 2,2
-  recipeUnlocks:
-    - PinpointerArtifact
+- type: technology
+  id: ThermalVisionTech
+  name: research-technology-thermal-vision
   icon:
-    sprite: Objects/Specific/Xenoarchaeology/item_artifacts.rsi
-    state: ano06
-  hidden: true
-  pointCosts:
-    - type: General
-      amount: 1
-    - type: Experimental
-      amount: 1
-  tier: 1
-  technologyPrerequisites:
-    - BasicXenoArcheology
-  revealRequirements:
-    - anyOf:
-        - ComplexXenoArtifactItem
-- id: AnomalyPinpointers
-  name: research-technology-anomaly-pinpointing
-  type: technology
-  discipline: Experimental
-  position: -1,1
-  recipeUnlocks:
-    - PinpointerAnomaly
-  icon:
-    sprite: Objects/Specific/Research/anomalylocatorwide.rsi
+    sprite: _Onyx/Clothing/Eyes/Goggles/thermal.rsi
     state: icon
-  hidden: true
+  discipline: Experimental
+  tier: 2
+  recipeUnlocks:
+    - ClothingEyesThermalVisionGoggles
+    - CyberEyeThermal
+  position: 0,2
+  technologyPrerequisites:
+    - NightVisionTech
   pointCosts:
     - type: General
-      amount: 1
+      amount: 8000
     - type: Experimental
-      amount: 1
-  tier: 1
-  technologyPrerequisites:
-    - BasicAnomalousResearch
-  cost: 1
-- id: AutonomousRobotics
-  name: research-technology-autonomous-robotics
-  type: technology
+      amount: 200
+- type: technology
+  id: XenobagHolding
+  name: research-technology-xenobag-holding
+  icon:
+    sprite: _Onyx/Clothing/Belt/xenobag_holding.rsi
+    state: icon
+  discipline: Experimental
+  tier: 2
   cost: 10000
-  discipline: Experimental
-  position: 1,0
   recipeUnlocks:
-    - Drone
-    - AiRemoteBrain
-  icon:
-    sprite: _Onyx/Mobs/Silicon/drone.rsi
-    state: shell
-  tier: 1
+    - ClothingBeltChemBagXenobiologyHolding
+  position: -4,4
   technologyPrerequisites:
-    - BasicRobotics
-- id: OrganoidRobotics
-  name: research-technology-organoid-robotics
-  type: technology
-  discipline: Experimental
-  position: -1,0
-  recipeUnlocks:
-    - MMI
-  icon:
-    sprite: Objects/Specific/Robotics/mmi.rsi
-    state: mmi_icon
-  tier: 1
+    - Xenobiology
   pointCosts:
     - type: General
-      amount: 3000
+      amount: 10000
     - type: Experimental
-      amount: 100
+      amount: 500
+- type: technology
+  id: Xenobiology
+  name: research-technology-xenobiology
+  icon:
+    sprite: _Onyx/Xenobiology/Specific/Xenobiology/slime_nozzle.rsi
+    state: icon
+  discipline: Experimental
+  tier: 1
+  cost: 5000
+  recipeUnlocks:
+    - SlimeScannerXenobio
+    - XenobiologyBountyComputerCircuitboard
+    - SlimeGrinderMachineCircuitboard
+    - ClothingBackpackXenoBioTank
+  position: -3,4
   technologyPrerequisites:
     - BasicRobotics

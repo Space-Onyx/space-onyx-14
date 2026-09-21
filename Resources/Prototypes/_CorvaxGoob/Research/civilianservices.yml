@@ -1,4 +1,25 @@
 - type: technology
+  id: Cloning
+  name: research-technology-cloning
+  icon:
+    sprite: Structures/Machines/cloning.rsi
+    state: pod_0
+  discipline: CivilianServices
+  tier: 3
+  recipeUnlocks:
+    - CloningConsoleComputerCircuitboard
+    - CloningPodMachineCircuitboard
+  position: 6,-10
+  technologyPrerequisites:
+    - MedicalScanning
+    - BluespaceChemistry
+    - MedicalBioFabricator
+  pointCosts:
+    - type: General
+      amount: 10000
+    - type: Experimental
+      amount: 1500
+- type: technology
   id: MedipenFilling
   name: research-technology-injectors-filling
   icon:
@@ -11,30 +32,9 @@
     - FillableMedipen
     - MachineMedipenRefillerCircuitboard
     - AdvancedJetInjector
-  position: 1,1
+  position: 7,-7
   technologyPrerequisites:
     - BiochemicalStasis
-- type: technology
-  id: Cloning
-  name: research-technology-cloning
-  icon:
-    sprite: Structures/Machines/cloning.rsi
-    state: pod_0
-  discipline: CivilianServices
-  tier: 3
-  recipeUnlocks:
-    - CloningConsoleComputerCircuitboard
-    - CloningPodMachineCircuitboard
-  position: 4,0
-  technologyPrerequisites:
-    - MedicalScanning
-    - BluespaceChemistry
-    - MedicalBioFabricator
-  pointCosts:
-    - type: General
-      amount: 10000
-    - type: Experimental
-      amount: 1500
 - type: technology
   id: RescueTechnology
   name: research-technology-rescue
@@ -45,7 +45,7 @@
   tier: 1
   recipeUnlocks:
     - HandheldCrewMonitor
-  position: 1,-1
+  position: 5,-7
   technologyPrerequisites:
     - BiochemicalStasis
   pointCosts:
