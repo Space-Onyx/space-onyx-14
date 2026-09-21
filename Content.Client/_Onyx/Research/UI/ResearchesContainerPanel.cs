@@ -233,6 +233,12 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
             {
                 var first = _connections[firstIndex];
                 var second = _connections[secondIndex];
+                if (first.Source.Prototype.ID == second.Source.Prototype.ID ||
+                    first.Source.Prototype.ID == second.Target.Prototype.ID ||
+                    first.Target.Prototype.ID == second.Source.Prototype.ID ||
+                    first.Target.Prototype.ID == second.Target.Prototype.ID)
+                    continue;
+
                 var firstIsJumper = first.Priority < second.Priority ||
                                     first.Priority == second.Priority &&
                                     string.CompareOrdinal(first.Target.Prototype.ID, second.Target.Prototype.ID) > 0;
