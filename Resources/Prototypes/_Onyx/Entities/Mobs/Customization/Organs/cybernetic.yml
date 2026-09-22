@@ -16,7 +16,7 @@
   parent: [ OrganHumanEyes, OnyxCyberneticOrganBase ]
   id: BasicCyberneticEyes
   name: cybernetic eyes
-  description: Durable synthetic eyes with integrated flash protection.
+  description: Durable synthetic eyes.
   components:
   - type: Sprite
     sprite: _Onyx/Cybernetics/organs.rsi
@@ -29,7 +29,6 @@
       state: eyes
       color: "#00FF00"
   - type: Cybernetics
-    effects: FlashProtection
 
 - type: entity
   parent: BasicCyberneticEyes
@@ -42,7 +41,10 @@
     layers:
     - state: eyes-medhud
   - type: Cybernetics
-    effects: MedicalHud, FlashProtection
+  - type: FunctionalOrgan
+    components:
+    - type: ShowHealthBars
+    - type: ShowHealthIcons
   - type: VisualOrgan
     data:
       state: eyes
@@ -52,14 +54,21 @@
   parent: BasicCyberneticEyes
   id: SecurityCyberneticEyes
   name: cybernetic security HUD eyes
-  description: Cybernetic eyes with an integrated security HUD.
+  description: Cybernetic eyes with an integrated security HUD and flash protection.
   components:
   - type: Sprite
     sprite: _Onyx/Cybernetics/organs.rsi
     layers:
     - state: eyes-sechud
   - type: Cybernetics
-    effects: SecurityHud, FlashProtection
+  - type: FunctionalOrgan
+    components:
+    - type: ShowJobIcons
+    - type: ShowMindShieldIcons
+    - type: ShowCriminalRecordIcons
+    - type: ShowSquadIcons
+    - type: ShowContrabandDetails
+    - type: FlashImmunity
   - type: VisualOrgan
     data:
       state: eyes
@@ -76,7 +85,13 @@
     layers:
     - state: eyes-diagnostic
   - type: Cybernetics
-    effects: DiagnosticHud, FlashProtection
+  - type: FunctionalOrgan
+    components:
+    - type: ShowHealthBars
+      damageContainers:
+      - Inorganic
+      - Silicon
+    - type: ShowAccessReaderSettings
   - type: VisualOrgan
     data:
       state: eyes
@@ -86,14 +101,19 @@
   parent: BasicCyberneticEyes
   id: CyberEyeNightVision
   name: night vision cybernetic eyes
-  description: Cybernetic eyes that provide night vision. EMP pulses temporarily disable them.
+  description: Cybernetic eyes that provide night vision and flash protection. EMP pulses temporarily disable them.
   components:
   - type: Sprite
     sprite: _Onyx/Cybernetics/VisionEyes/items.rsi
     layers:
     - state: eyes_night
   - type: Cybernetics
-    effects: NightVision, FlashProtection
+  - type: FunctionalOrgan
+    components:
+    - type: NightVision
+      enabled: false
+      action: ActionToggleNightVision
+    - type: FlashImmunity
   - type: VisualOrgan
     data:
       sprite: _Onyx/Cybernetics/VisionEyes/body.rsi
@@ -105,56 +125,83 @@
   parent: BasicCyberneticEyes
   id: CyberEyeThermal
   name: thermal vision cybernetic eyes
-  description: Cybernetic eyes that reveal living bodies through obstacles. EMP pulses temporarily disable them.
+  description: Cybernetic eyes that reveal living bodies through obstacles and protect from flashes. EMP pulses temporarily disable them.
   components:
   - type: Sprite
     sprite: _Onyx/Cybernetics/VisionEyes/items.rsi
     layers:
     - state: eyes_thermal
   - type: Cybernetics
-    effects: ThermalVision, FlashProtection
+  - type: FunctionalOrgan
+    components:
+    - type: ThermalVision
+      enabled: false
+    - type: FlashImmunity
   - type: VisualOrgan
     data:
       sprite: _Onyx/Cybernetics/VisionEyes/body.rsi
       state: eyes_thermal
-      color: "#04409c"
+      color: "#FF0000"
       shader: unshaded
 
 - type: entity
   parent: [ OrganHumanHeart, OnyxCyberneticOrganBase ]
   id: BasicCyberneticHeart
   name: cybernetic heart
+  description: A cybernetic heart on par with an organic one.
   components:
   - type: Sprite
     sprite: _Onyx/Cybernetics/organs.rsi
     state: heart-on
   - type: Metabolizer
-    metabolizerTypes: [ Cybernetic ]
+    metabolizerTypes: [ Human, Cybernetic ]
 
 - type: entity
   parent: BasicCyberneticHeart
   id: UpgradedCyberneticHeart
   name: upgraded cybernetic heart
+  description: An upgraded cybernetic heart that pumps blood more efficiently.
   components:
   - type: Sprite
     sprite: _Onyx/Cybernetics/organs.rsi
     state: heart-u-on
+  - type: FunctionalOrgan
+    components:
+    - type: PassiveDamage
+      allowedStates:
+      - Alive
+      - Critical
+      damage:
+        groups:
+          Airloss: -0.15
+          Brute: -0.05
 
 - type: entity
   parent: [ OrganHumanLiver, OnyxCyberneticOrganBase ]
   id: BasicCyberneticLiver
   name: cybernetic liver
+  description: A cybernetic liver that filters toxins without poisoning.
   components:
   - type: Sprite
     sprite: _Onyx/Cybernetics/organs.rsi
     state: liver
   - type: Metabolizer
-    metabolizerTypes: [ Cybernetic ]
+    metabolizerTypes: [ Human, Cybernetic ]
+  - type: FunctionalOrgan
+    components:
+    - type: PassiveDamage
+      allowedStates:
+      - Alive
+      - Critical
+      damage:
+        groups:
+          Toxin: -0.2
 
 - type: entity
   parent: [ OrganHumanLungs, OnyxCyberneticOrganBase ]
   id: BasicCyberneticLungs
   name: cybernetic lungs
+  description: Cybernetic lungs that allow breathing in vacuum and ignore pressure.
   components:
   - type: Sprite
     sprite: _Onyx/Cybernetics/organs.rsi
@@ -162,15 +209,36 @@
     - state: lung-l
     - state: lung-r
   - type: Metabolizer
-    metabolizerTypes: [ Cybernetic ]
+    metabolizerTypes: [ Human, Cybernetic ]
+  - type: FunctionalOrgan
+    components:
+    - type: PermanentStatusEffects
+      statusEffects:
+      - StatusEffectPressureImmunity
+    - type: BreathingImmunity
 
 - type: entity
   parent: BasicCyberneticLungs
   id: UpgradedCyberneticLungs
   name: upgraded cybernetic lungs
+  description: Upgraded cybernetic lungs with improved filtration and pressure adaptation.
   components:
   - type: Sprite
     sprite: _Onyx/Cybernetics/organs.rsi
     layers:
     - state: lung-u-l
     - state: lung-u-r
+  - type: FunctionalOrgan
+    components:
+    - type: PermanentStatusEffects
+      statusEffects:
+      - StatusEffectPressureImmunity
+    - type: BreathingImmunity
+    - type: PassiveDamage
+      allowedStates:
+      - Alive
+      - Critical
+      damage:
+        groups:
+          Airloss: -0.1
+          Toxin: -0.05

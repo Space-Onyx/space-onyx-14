@@ -28,9 +28,9 @@
   - type: BodyPart
     fractureProfile: CyberneticFractureProfile
     amputationThresholds:
-      Slash: 270
-      Piercing: 400
-      Blunt: 600
+      Slash: 130
+      Piercing: 250
+      Blunt: 250
   - type: TransplantCompatibility
     profile: Cybernetic
   - type: Sprite
@@ -51,9 +51,9 @@
   - type: BodyPart
     fractureProfile: CyberneticFractureProfile
     amputationThresholds:
-      Slash: 270
-      Piercing: 400
-      Blunt: 600
+      Slash: 130
+      Piercing: 250
+      Blunt: 250
   - type: TransplantCompatibility
     profile: Cybernetic
   - type: Sprite
@@ -74,9 +74,9 @@
   - type: BodyPart
     fractureProfile: CyberneticFractureProfile
     amputationThresholds:
-      Slash: 150
-      Piercing: 270
-      Blunt: 360
+      Slash: 70
+      Piercing: 200
+      Blunt: 150
   - type: TransplantCompatibility
     profile: Cybernetic
   - type: Sprite
@@ -96,9 +96,9 @@
   - type: BodyPart
     fractureProfile: CyberneticFractureProfile
     amputationThresholds:
-      Slash: 150
-      Piercing: 270
-      Blunt: 360
+      Slash: 70
+      Piercing: 200
+      Blunt: 150
   - type: TransplantCompatibility
     profile: Cybernetic
   - type: Sprite
@@ -118,9 +118,9 @@
   - type: BodyPart
     fractureProfile: CyberneticFractureProfile
     amputationThresholds:
-      Slash: 330
-      Piercing: 470
-      Blunt: 520
+      Slash: 150
+      Piercing: 250
+      Blunt: 300
   - type: TransplantCompatibility
     profile: Cybernetic
   - type: Sprite
@@ -143,9 +143,9 @@
   - type: BodyPart
     fractureProfile: CyberneticFractureProfile
     amputationThresholds:
-      Slash: 330
-      Piercing: 470
-      Blunt: 520
+      Slash: 150
+      Piercing: 250
+      Blunt: 300
   - type: TransplantCompatibility
     profile: Cybernetic
   - type: Sprite
@@ -168,9 +168,9 @@
   - type: BodyPart
     fractureProfile: CyberneticFractureProfile
     amputationThresholds:
-      Slash: 180
-      Piercing: 300
-      Blunt: 220
+      Slash: 80
+      Piercing: 220
+      Blunt: 170
   - type: TransplantCompatibility
     profile: Cybernetic
   - type: Sprite
@@ -191,9 +191,9 @@
   - type: BodyPart
     fractureProfile: CyberneticFractureProfile
     amputationThresholds:
-      Slash: 180
-      Piercing: 300
-      Blunt: 220
+      Slash: 80
+      Piercing: 220
+      Blunt: 170
   - type: TransplantCompatibility
     profile: Cybernetic
   - type: Sprite

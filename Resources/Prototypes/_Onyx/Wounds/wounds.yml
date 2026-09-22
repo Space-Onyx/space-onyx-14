@@ -119,6 +119,16 @@
     - SurgicalIncisionWound
     - DismembermentWound
     - AmputationConsequenceWound
+  organDamage:
+    chances:
+      Head: 0.05
+      Chest: 0.04
+      Groin: 0.04
+      Arm: 0.02
+      Hand: 0.01
+      Leg: 0.02
+      Foot: 0.01
+    maxAffected: 2
 
 - type: bodyPartProfile
   id: PlantBodyPartProfile

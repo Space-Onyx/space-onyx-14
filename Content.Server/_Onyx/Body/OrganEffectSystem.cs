@@ -1,9 +1,12 @@
 using System.Linq;
 using Content.Shared._Onyx.Body;
+using Content.Shared._Onyx.Cybernetics;
 using Content.Shared.Body;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
+using Content.Shared.Damage.Prototypes;
 using Content.Shared.Eye.Blinding.Systems;
+using Content.Shared.Overlays;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared._Onyx.Speech;
@@ -156,6 +159,7 @@ public sealed partial class OrganEffectSystem : EntitySystem
 
         var organCounts = new Dictionary<ProtoId<OrganCategoryPrototype>, int>();
         var desired = new Dictionary<string, (EntityUid Source, EntityPrototype.ComponentRegistryEntry Entry)>();
+        var merged = new HashSet<string>();
         foreach (var (organId, organ) in organs)
         {
             if (organ.Health <= FixedPoint2.Zero)
@@ -164,11 +168,19 @@ public sealed partial class OrganEffectSystem : EntitySystem
                 organCounts[category] = organCounts.GetValueOrDefault(category) + 1;
             if (!TryComp(organId, out FunctionalOrganComponent? functional))
                 continue;
+            if (TryComp(organId, out CyberneticsComponent? cybernetics) && cybernetics.Disabled)
+                continue;
             if (TryComp(organId, out NeuroInterfaceRuntimeComponent? runtime) && !runtime.ManuallyEnabled)
                 continue;
 
             foreach (var (name, entry) in functional.Components)
-                desired.TryAdd(name, (organId, entry));
+            {
+                if (desired.TryAdd(name, (organId, entry)))
+                    continue;
+
+                if (TryMergeHudContainers(desired, name, entry))
+                    merged.Add(name);
+            }
         }
 
         SetMissing<MissingHeadComponent>(body, MissingPart(anatomy, partCounts, BodyPartType.Head));
@@ -183,7 +195,7 @@ public sealed partial class OrganEffectSystem : EntitySystem
             _statusEffects.TryRemoveStatusEffect(body, SurgicallyMutedEffect);
         SetMissingHeart(body, MissingOrgan(anatomy, organCounts, "Heart"));
         var ownership = EnsureComp<OrganEffectOwnershipComponent>(body);
-        ReconcileOnAdd(body, desired, ownership);
+        ReconcileOnAdd(body, desired, merged, ownership);
         _blindable.UpdateIsBlind(body);
         RaiseBodyOrgansChanged(body);
     }
@@ -243,6 +255,7 @@ public sealed partial class OrganEffectSystem : EntitySystem
 
     private void ReconcileOnAdd(EntityUid body,
         Dictionary<string, (EntityUid Source, EntityPrototype.ComponentRegistryEntry Entry)> desired,
+        HashSet<string> merged,
         OrganEffectOwnershipComponent ownership)
     {
         foreach (var name in new List<string>(ownership.Sources.Keys))
@@ -257,6 +270,12 @@ public sealed partial class OrganEffectSystem : EntitySystem
 
         foreach (var (name, provided) in desired)
         {
+            if (merged.Contains(name))
+            {
+                ApplyMergedHud(body, name, provided, ownership);
+                continue;
+            }
+
             var type = provided.Entry.Component.GetType();
             if (ownership.Sources.TryGetValue(name, out var source))
             {
@@ -278,6 +297,87 @@ public sealed partial class OrganEffectSystem : EntitySystem
                 removeExisting: false);
             ownership.Sources[name] = provided.Source;
         }
+    }
+
+    private static bool TryMergeHudContainers(
+        Dictionary<string, (EntityUid Source, EntityPrototype.ComponentRegistryEntry Entry)> desired,
+        string name,
+        EntityPrototype.ComponentRegistryEntry added)
+    {
+        if (!desired.TryGetValue(name, out var existing))
+            return false;
+
+        if (existing.Entry.Component is ShowHealthBarsComponent existingBars &&
+            added.Component is ShowHealthBarsComponent addedBars)
+        {
+            var containers = new List<ProtoId<DamageContainerPrototype>>(existingBars.DamageContainers);
+            foreach (var container in addedBars.DamageContainers)
+            {
+                if (!containers.Contains(container))
+                    containers.Add(container);
+            }
+            desired[name] = (existing.Source, new EntityPrototype.ComponentRegistryEntry(new ShowHealthBarsComponent
+            {
+                DamageContainers = containers,
+                HealthStatusIcon = existingBars.HealthStatusIcon,
+            }));
+            return true;
+        }
+
+        if (existing.Entry.Component is ShowHealthIconsComponent existingIcons &&
+            added.Component is ShowHealthIconsComponent addedIcons)
+        {
+            var containers = new List<ProtoId<DamageContainerPrototype>>(existingIcons.DamageContainers);
+            foreach (var container in addedIcons.DamageContainers)
+            {
+                if (!containers.Contains(container))
+                    containers.Add(container);
+            }
+            desired[name] = (existing.Source, new EntityPrototype.ComponentRegistryEntry(new ShowHealthIconsComponent
+            {
+                DamageContainers = containers,
+            }));
+            return true;
+        }
+
+        return false;
+    }
+
+    private void ApplyMergedHud(
+        EntityUid body,
+        string name,
+        (EntityUid Source, EntityPrototype.ComponentRegistryEntry Entry) provided,
+        OrganEffectOwnershipComponent ownership)
+    {
+        var type = provided.Entry.Component.GetType();
+        if (HasComp(body, type))
+        {
+            if (!ownership.Sources.ContainsKey(name) || HudContainersEqual(body, provided.Entry))
+                return;
+
+            EntityManager.AddComponents(body,
+                new ComponentRegistry { [name] = provided.Entry },
+                removeExisting: true);
+            ownership.Sources[name] = EntityUid.Invalid;
+            return;
+        }
+
+        EntityManager.AddComponents(body,
+            new ComponentRegistry { [name] = provided.Entry },
+            removeExisting: false);
+        ownership.Sources[name] = EntityUid.Invalid;
+    }
+
+    private bool HudContainersEqual(EntityUid body, EntityPrototype.ComponentRegistryEntry entry)
+    {
+        return entry.Component switch
+        {
+            ShowHealthBarsComponent bars when TryComp(body, out ShowHealthBarsComponent? current) =>
+                current.DamageContainers.SequenceEqual(bars.DamageContainers),
+            ShowHealthIconsComponent icons when TryComp(body, out ShowHealthIconsComponent? current) =>
+                current.DamageContainers.SequenceEqual(icons.DamageContainers),
+            _ => true,
+        };
     }
 
     public override void Update(float frameTime)
