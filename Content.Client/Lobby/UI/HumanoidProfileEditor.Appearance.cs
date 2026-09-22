@@ -19,28 +19,8 @@ public sealed partial class HumanoidProfileEditor
 
     private ColorSelectorSliders _rgbSkinColorSelector;
     private List<EmoteSoundsPrototype> _voices = new();
-    private static readonly ProtoId<GuideEntryPrototype> DefaultSpeciesGuidebook = "Species";
 
-    public void UpdateSpeciesGuidebookIcon()
-    {
-        SpeciesInfoButton.StyleClasses.Clear();
-
-        var species = Profile?.Species;
-        if (species is null)
-            return;
-
-        if (!_prototypeManager.Resolve<SpeciesPrototype>(species, out var speciesProto))
-            return;
-
-        // Don't display the info button if no guide entry is found
-        if (!_prototypeManager.HasIndex<GuideEntryPrototype>(species))
-            return;
-
-        const string style = "SpeciesInfoDefault";
-        SpeciesInfoButton.StyleIdentifier = style;
-    }
-
-    private void UpdateGenderControls()
+    private void UpdateGenderControls() // <Onyx-SpeciesSelector-edited>
     {
         if (Profile == null)
         {
@@ -194,8 +174,7 @@ public sealed partial class HumanoidProfileEditor
         UpdateSexControls(); // update sex for new species
         UpdateVoiceControls();
         UpdateTTSVoicesControls(); // Corvax-TTS
-        UpdateSpeciesGuidebookIcon();
-        UpdateDimensionControls(); // <Onyx-HeightWidth>
+        UpdateDimensionControls(); // <Onyx-HeightWidth> // <Onyx-SpeciesSelector-edited>
         ReloadPreview();
     }
 
@@ -252,28 +231,7 @@ public sealed partial class HumanoidProfileEditor
         SetDirty();
     }
 
-    private void OnSpeciesInfoButtonPressed(BaseButton.ButtonEventArgs args)
-    {
-        // TODO GUIDEBOOK
-        // make the species guide book a field on the species prototype.
-        // I.e., do what jobs/antags do.
-
-        var guidebookController = UserInterfaceManager.GetUIController<GuidebookUIController>();
-        var species = Profile?.Species ?? HumanoidCharacterProfile.DefaultSpecies;
-        var page = DefaultSpeciesGuidebook;
-        if (_prototypeManager.HasIndex<GuideEntryPrototype>(species))
-            page = new ProtoId<GuideEntryPrototype>(species.Id); // Gross. See above todo comment.
-
-        if (_prototypeManager.Resolve(DefaultSpeciesGuidebook, out var guideRoot))
-        {
-            var dict = new Dictionary<ProtoId<GuideEntryPrototype>, GuideEntry>();
-            dict.Add(DefaultSpeciesGuidebook, guideRoot);
-            //TODO: Don't close the guidebook if its already open, just go to the correct page
-            guidebookController.OpenGuidebook(dict, includeChildren: true, selected: page);
-        }
-    }
-
-    private void OnSkinColorOnValueChanged()
+    private void OnSkinColorOnValueChanged() // <Onyx-SpeciesSelector-edited>
     {
         if (Profile is null || _settingProfile) return; // <Onyx-CharacterPersonalizationFix-edited>
 

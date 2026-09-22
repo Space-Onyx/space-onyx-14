@@ -329,10 +329,7 @@ namespace Content.Client.Lobby.UI
                 ReloadPreview();
             };
 
-            SpeciesInfoButton.OnPressed += OnSpeciesInfoButtonPressed;
-
-            UpdateSpeciesGuidebookIcon();
-            IsDirty = false;
+            IsDirty = false; // <Onyx-SpeciesSelector-edited>
         }
 
         private void SetDirty()

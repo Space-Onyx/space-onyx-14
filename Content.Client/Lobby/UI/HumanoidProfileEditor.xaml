@@ -85,8 +85,7 @@
                                         <BoxContainer HorizontalExpand="True">
                                             <Label Text="{Loc 'humanoid-profile-editor-species-label'}" VerticalAlignment="Center" />
                                             <Control HorizontalExpand="True" />
-                                            <TextureButton Name="SpeciesInfoButton" Scale="0.3 0.3" VerticalAlignment="Center" ToolTip="{Loc 'humanoid-profile-editor-guidebook-button-tooltip'}" />
-                                            <Button Name="SpeciesButton" HorizontalAlignment="Right" ToggleMode="True" MinWidth="170" />
+                                            <Button Name="SpeciesButton" HorizontalAlignment="Right" ToggleMode="True" MinWidth="170" /> <!-- <Onyx-SpeciesSelector-edited> -->
                                         </BoxContainer>
                                         <BoxContainer HorizontalExpand="True">
                                             <Label Text="{Loc 'humanoid-profile-editor-age-label'}" VerticalAlignment="Center" />
@@ -143,16 +142,6 @@
                                             <Control HorizontalExpand="True" />
                                             <OptionButton Name="VoiceButton" MinWidth="170" HorizontalAlignment="Right" />
                                         </BoxContainer>
-                                        <BoxContainer HorizontalExpand="True">
-                                            <Label Text="{Loc 'humanoid-profile-editor-clothing'}" VerticalAlignment="Center" />
-                                            <Control HorizontalExpand="True" />
-                                            <Button Name="ShowClothes" Pressed="True" ToggleMode="True" Text="{Loc 'humanoid-profile-editor-clothing-show'}" MinWidth="170" HorizontalAlignment="Right" />
-                                        </BoxContainer>
-                                        <BoxContainer HorizontalExpand="True">
-                                            <Label Text="{Loc 'humanoid-profile-editor-spawn-priority-label'}" VerticalAlignment="Center" />
-                                            <Control HorizontalExpand="True" />
-                                            <OptionButton Name="SpawnPriorityButton" MinWidth="170" HorizontalAlignment="Right" />
-                                        </BoxContainer>
                                         <BoxContainer HorizontalExpand="True" Visible="False" Name="BarksContainer">
                                             <Label Text="{Loc 'humanoid-profile-editor-bark-label'}" VerticalAlignment="Center" />
                                             <Control HorizontalExpand="True" />
@@ -163,7 +152,17 @@
                                             <Label Text="{Loc 'humanoid-profile-editor-speech-reveal-speed-label'}" VerticalAlignment="Center" />
                                             <Control HorizontalExpand="True" />
                                             <Slider Name="SpeechRevealSpeedSlider" HorizontalAlignment="Right" SetWidth="180" />
-                                            <Label Name="SpeechRevealSpeedValue" MinWidth="30" HorizontalAlignment="Right" />
+                                            <LineEdit Name="SpeechRevealSpeedEdit" MinWidth="55" HorizontalAlignment="Right" />
+                                        </BoxContainer>
+                                        <BoxContainer HorizontalExpand="True">
+                                            <Label Text="{Loc 'humanoid-profile-editor-clothing'}" VerticalAlignment="Center" />
+                                            <Control HorizontalExpand="True" />
+                                            <Button Name="ShowClothes" Pressed="True" ToggleMode="True" Text="{Loc 'humanoid-profile-editor-clothing-show'}" MinWidth="170" HorizontalAlignment="Right" />
+                                        </BoxContainer>
+                                        <BoxContainer HorizontalExpand="True">
+                                            <Label Text="{Loc 'humanoid-profile-editor-spawn-priority-label'}" VerticalAlignment="Center" />
+                                            <Control HorizontalExpand="True" />
+                                            <OptionButton Name="SpawnPriorityButton" MinWidth="170" HorizontalAlignment="Right" />
                                         </BoxContainer>
                                     </BoxContainer>
                                 </BoxContainer>
