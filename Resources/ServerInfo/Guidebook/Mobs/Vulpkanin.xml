@@ -1,16 +1,26 @@
 <Document>
-  # Vulpkanin
+  # Вульпканины
 
   <Box>
     <GuideEntityEmbed Entity="MobVulpkanin" Caption=""/>
   </Box>
 
-  Vulpkanin, due to their dense fur, [color=#1e90ff]prefer colder temperatures[/color] and [color=#ffa500]heat up faster.[/color]
-  Their agile (but clumsy) legs allow them to leap short distances, be careful not to bump into anything!
+  Вульпканины — лисоподобные гуманоиды с густым мехом. Мех отлично греет в холоде, но на жаре в нём быстро становится дурно: вульпканины предпочитают прохладу и тяжело переносят перегрев.
 
-  Their diet allows them to safely eat raw meat but they get poisoned by theobromine.
+  Шустрые, но неуклюжие ноги позволяют прыгать на короткие дистанции — смотрите не врежьтесь в переборку.
 
-  Their weirdly shaped muzzle leads to difficulties drinking, making them sometimes spill small amounts of whatever they drank onto the ground.
+  ## Особенности
 
-  They take [color=#1e90ff]15% less Cold damage[/color] but [color=#ffa500]15% more Heat damage.[/color].
+  - Едят сырое мясо без вреда, но шоколад для них ядовит.
+  - Из-за необычной морды пьют неаккуратно и часто расплёскивают содержимое стаканов.
+  - Кровь — серная. Говорят на канилунцте, тявкают и воют.
+
+  ## Игровые данные
+
+  - Безоружная атака (когти) — 2 колющего и 3 режущего урона.
+  - Получаемый урон: жара +30%, холод −35%.
+  - Пороги температуры: жара от ~47°C, холод от ~−43°C.
+  - Прыжок — на 3 клетки, с разгона можно врезаться.
+  - При питье примерно каждая третья порция частично оказывается на полу.
+
 </Document>
