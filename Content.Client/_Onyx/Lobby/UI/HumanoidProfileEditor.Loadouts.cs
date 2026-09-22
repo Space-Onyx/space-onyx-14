@@ -28,6 +28,8 @@ public sealed partial class HumanoidProfileEditor
     private readonly HashSet<ProtoId<LoadoutPrototype>> _hiddenPreviewLoadouts = new();
     private bool _selectLawPresetTab;
     private int _lawPresetTabIndex;
+    private bool _loadoutPersonalizationDirty;
+    private bool _refreshingLoadouts;
 
     private void InitializeLoadoutPersonalization()
     {
@@ -79,15 +81,31 @@ public sealed partial class HumanoidProfileEditor
             ? _loadoutRoleJobs.ElementAtOrDefault(_loadoutRoles.IndexOf(_selectedLoadoutRole.Value))
             : null;
 
-        if (JobOverride == job)
+        var changed = JobOverride != job;
+        JobOverride = job;
+
+        if (_settingProfile || _refreshingLoadouts)
             return;
 
-        JobOverride = job;
-        ReloadPreview();
+        if (_loadoutPersonalizationDirty && IsLoadoutsTabVisible())
+        {
+            RefreshLoadoutPersonalization();
+            if (changed || JobOverride != job)
+                ReloadPreview();
+        }
+        else if (changed)
+            ReloadPreview();
+    }
+
+    private bool IsLoadoutsTabVisible()
+    {
+        return TabContainer.CurrentTab == RolesTab.GetPositionInParent() &&
+               RolesTabContainer.CurrentTab == LoadoutsTab.GetPositionInParent();
     }
 
     private void DisposeLoadoutPersonalization()
     {
+        _loadoutPersonalizationDirty = false;
         LoadoutSlotTabs.DisposeAllChildren();
     }
 
@@ -101,7 +119,23 @@ public sealed partial class HumanoidProfileEditor
         if (Profile == null || _playerManager.LocalSession == null)
             return;
 
-        RefreshLoadoutRoleSelector();
+        _refreshingLoadouts = true;
+        try
+        {
+            RefreshLoadoutRoleSelector();
+        }
+        finally
+        {
+            _refreshingLoadouts = false;
+        }
+
+        if (!preserveCurrentTab && !IsLoadoutsTabVisible())
+        {
+            _loadoutPersonalizationDirty = true;
+            return;
+        }
+
+        _loadoutPersonalizationDirty = false;
         var roleId = _selectedLoadoutRole ?? GetActiveLoadoutRole();
         if (roleId == null || !_prototypeManager.TryIndex<RoleLoadoutPrototype>(roleId, out var roleProto))
             return;
@@ -168,7 +202,6 @@ public sealed partial class HumanoidProfileEditor
         }
 
         RestoreLoadoutTab(preserveCurrentTab, currentTab);
-
     }
 
     private void RestoreLoadoutTab(bool preserveCurrentTab, int currentTab)

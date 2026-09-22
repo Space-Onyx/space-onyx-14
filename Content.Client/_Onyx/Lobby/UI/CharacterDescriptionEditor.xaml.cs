@@ -33,7 +33,7 @@ public sealed partial class CharacterDescriptionEditor : Control
         Bind(LinksInput, CharacterDescriptionField.Links, "links-flavor-text-placeholder");
     }
 
-    public void SetProfile(HumanoidCharacterProfile? profile)
+    public void SetProfile(HumanoidCharacterProfile? profile, bool reloadCharacter = true)
     {
         _updatingProfile = true;
         AppearanceInput.TextRope = new Rope.Leaf(profile?.FlavorText ?? string.Empty);
@@ -42,7 +42,7 @@ public sealed partial class CharacterDescriptionEditor : Control
         TagsInput.TextRope = new Rope.Leaf(profile?.TagsFlavorText ?? string.Empty);
         LinksInput.TextRope = new Rope.Leaf(profile?.LinksFlavorText ?? string.Empty);
         _updatingProfile = false;
-        UpdatePreview(profile, true);
+        UpdatePreview(profile, reloadCharacter);
     }
 
     public void UpdatePreview(HumanoidCharacterProfile? profile, bool reloadCharacter = false)

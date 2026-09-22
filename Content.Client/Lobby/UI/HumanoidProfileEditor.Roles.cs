@@ -2,9 +2,7 @@ using System.Linq;
 using System.Numerics;
 using Content.Client.Lobby.UI.Loadouts;
 using Content.Client.Lobby.UI.Roles;
-using Content.Client._Onyx.AlternativeJobs;
-using Content.Client._Onyx.Lobby.UI.Roles;
-using Content.Shared._Onyx.AlternativeJobs;
+using Content.Client._Onyx.Lobby.UI.Roles; // <Onyx-RolesPersonalization>
 using Content.Shared.Clothing;
 using Content.Shared.Preferences;
 using Content.Shared.Preferences.Loadouts;
@@ -28,16 +26,9 @@ public sealed partial class HumanoidProfileEditor
     // One at a time.
     private LoadoutWindow? _loadoutWindow;
 
-    // <Onyx-RolesPersonalization-edited>
-    private readonly List<(string, JobPreferenceCard)> _jobPriorities = new();
-    private readonly List<(string Department, JobPreferenceCard Card)> _jobCards = new(); // <Onyx-RolesPersonalization>
-    private readonly List<DepartmentPrototype> _jobFilterDepartments = new(); // <Onyx-RolesPersonalization>
-    private string _jobSearch = string.Empty; // <Onyx-RolesPersonalization>
-    private string? _jobDepartmentFilter; // <Onyx-RolesPersonalization>
-    private bool _showSelectedJobs; // <Onyx-RolesPersonalization>
+    private readonly List<(string, JobPreferenceCard)> _jobPriorities = new(); // <Onyx-RolesPersonalization-edited>
 
     private readonly Dictionary<string, BoxContainer> _jobCategories;
-    // </Onyx-RolesPersonalization-edited>
 
     /// <summary>
     /// Updates selected job priorities to the profile's.
@@ -50,52 +41,6 @@ public sealed partial class HumanoidProfileEditor
             prioritySelector.SelectPriority(priority); // <Onyx-RolesPersonalization-edited>
         }
     }
-
-    private void UpdateAlternativeJobs() // <Onyx-RolesPersonalization-edited>
-    {
-        if (Profile is null)
-            return;
-
-        foreach (var (jobId, card) in _jobPriorities)
-            card.SelectAlternative(Profile.JobAlternatives.GetValueOrDefault(jobId));
-    }
-
-    // <Onyx-RolesPersonalization>
-    private void InitializeJobFilters()
-    {
-        JobSearchBar.OnTextChanged += args =>
-        {
-            _jobSearch = args.Text.Trim();
-            ApplyJobFilters();
-        };
-        JobSearchClear.OnPressed += _ => JobSearchBar.Text = string.Empty;
-        JobDepartmentFilter.OnItemSelected += args =>
-        {
-            JobDepartmentFilter.SelectId(args.Id);
-            _jobDepartmentFilter = args.Id == 0 ? null : _jobFilterDepartments[args.Id - 1].ID;
-            ApplyJobFilters();
-        };
-        SelectedJobsToggle.OnPressed += _ =>
-        {
-            _showSelectedJobs = SelectedJobsToggle.Pressed;
-            ApplyJobFilters();
-        };
-    }
-
-    private void ApplyJobFilters()
-    {
-        foreach (var (department, card) in _jobCards)
-        {
-            card.Visible = (_jobDepartmentFilter == null || department == _jobDepartmentFilter) &&
-                           (!_showSelectedJobs || card.IsAvailable && card.Priority != JobPriority.Never) &&
-                           card.Matches(_jobSearch);
-        }
-
-        foreach (var (department, category) in _jobCategories)
-            category.Visible = _jobCards.Any(entry => entry.Department == department && entry.Card.Visible);
-
-    }
-    // </Onyx-RolesPersonalization>
 
     /// <summary>
     /// Refresh all loadouts.
@@ -171,6 +116,10 @@ public sealed partial class HumanoidProfileEditor
     // <Onyx-RolesPersonalization-edited>
     public void RefreshJobs()
     {
+        // <Onyx-CharacterPersonalizationFix>
+        if (Profile == null)
+            return;
+        // </Onyx-CharacterPersonalizationFix>
         JobList.RemoveAllChildren();
         _jobCategories.Clear();
         _jobPriorities.Clear();
@@ -187,16 +136,8 @@ public sealed partial class HumanoidProfileEditor
         }
 
         departments.Sort(DepartmentUIComparer.Instance);
-        _jobFilterDepartments.Clear(); // <Onyx-RolesPersonalization>
-        _jobFilterDepartments.AddRange(departments); // <Onyx-RolesPersonalization>
-        var selectedDepartment = _jobDepartmentFilter; // <Onyx-RolesPersonalization>
-        JobDepartmentFilter.Clear(); // <Onyx-RolesPersonalization>
-        JobDepartmentFilter.AddItem(Loc.GetString("job-personalization-all-departments"), 0); // <Onyx-RolesPersonalization>
-        for (var i = 0; i < departments.Count; i++) // <Onyx-RolesPersonalization>
-            JobDepartmentFilter.AddItem(Loc.GetString(departments[i].Name), i + 1); // <Onyx-RolesPersonalization>
-        var selectedDepartmentIndex = departments.FindIndex(department => department.ID == selectedDepartment) + 1; // <Onyx-RolesPersonalization>
-        JobDepartmentFilter.SelectId(selectedDepartmentIndex); // <Onyx-RolesPersonalization>
-        _jobDepartmentFilter = selectedDepartmentIndex == 0 ? null : selectedDepartment; // <Onyx-RolesPersonalization>
+        var alternativesByJob = GroupAlternativesByJob(); // <Onyx-RolesPersonalization>
+        RefreshJobDepartmentFilter(departments); // <Onyx-RolesPersonalization>
 
         foreach (var department in departments)
         {
@@ -251,49 +192,13 @@ public sealed partial class HumanoidProfileEditor
             foreach (var job in jobs)
             {
                 FormattedMessage? lockedReason = null; // <Onyx-RolesPersonalization>
-                if (!_requirements.IsAllowed(job, (HumanoidCharacterProfile?) _preferencesManager.Preferences?.SelectedCharacter, out var reason)) // <Onyx-RolesPersonalization-edited>
+                if (!_requirements.IsAllowed(job, (HumanoidCharacterProfile?)_preferencesManager.Preferences?.SelectedCharacter, out var reason))
                     lockedReason = reason; // <Onyx-RolesPersonalization>
 
-                var card = new JobPreferenceCard(job, _sprite, _prototypeManager, _requirements, Profile, lockedReason); // <Onyx-RolesPersonalization>
-                card.OnPrioritySelected += selectedJobPrio => // <Onyx-RolesPersonalization-edited>
-                {
-                    Profile = Profile?.WithJobPriority(job.ID, selectedJobPrio);
-
-                    foreach (var (jobId, other) in _jobPriorities)
-                    {
-                        // Sync other selectors with the same job in case of multiple department jobs
-                        if (jobId == job.ID)
-                        {
-                            other.SelectPriority(selectedJobPrio);
-                            continue;
-                        }
-
-                        if (selectedJobPrio != JobPriority.High || other.Priority != JobPriority.High)
-                            continue;
-
-                        // Lower any other high priorities to medium.
-                        other.SelectPriority(JobPriority.Medium);
-                        Profile = Profile?.WithJobPriority(jobId, JobPriority.Medium);
-                    }
-
-                    // TODO: Only reload on high change (either to or from).
-                    ReloadPreview();
-                    RefreshLoadoutPersonalization(); // <Onyx-LoadoutPersonalization>
-
-                    UpdateJobPriorities();
-                    ApplyJobFilters(); // <Onyx-RolesPersonalization>
-                    SetDirty();
-                };
-                card.OnAlternativeSelected += alternativeId => // <Onyx-RolesPersonalization-edited>
-                {
-                    Profile = Profile?.WithJobAlternative(job.ID, alternativeId);
-                    foreach (var (jobId, other) in _jobPriorities)
-                    {
-                        if (jobId == job.ID && other != card)
-                            other.SelectAlternative(alternativeId);
-                    }
-                    SetDirty();
-                };
+                alternativesByJob.TryGetValue(job.ID, out var jobAlternatives); // <Onyx-RolesPersonalization>
+                var card = new JobPreferenceCard(job, _sprite, _prototypeManager, _requirements, Profile, lockedReason, jobAlternatives); // <Onyx-RolesPersonalization-edited>
+                card.OnPrioritySelected += selectedJobPrio => OnJobPrioritySelected(job, selectedJobPrio); // <Onyx-RolesPersonalization-edited>
+                card.OnAlternativeSelected += alternativeId => OnJobAlternativeSelected(job, card, alternativeId); // <Onyx-RolesPersonalization-edited>
                 _jobPriorities.Add((job.ID, card)); // <Onyx-RolesPersonalization-edited>
                 _jobCards.Add((department.ID, card)); // <Onyx-RolesPersonalization>
                 category.AddChild(card); // <Onyx-RolesPersonalization>
@@ -308,6 +213,10 @@ public sealed partial class HumanoidProfileEditor
 
     public void RefreshAntags()
     {
+        // <Onyx-CharacterPersonalizationFix>
+        if (Profile == null)
+            return;
+        // </Onyx-CharacterPersonalizationFix>
         AntagList.RemoveAllChildren();
         var items = new[]
         {
@@ -363,23 +272,9 @@ public sealed partial class HumanoidProfileEditor
             };
 
             selector.HorizontalExpand = true; // <Onyx-AntagPersonalization>
-            antagContainer.AddChild(selector); // <Onyx-RolesPersonalization-edited>
+            antagContainer.AddChild(selector);
 
-            // <Onyx-AntagPersonalization>
-            AntagList.AddChild(new PanelContainer
-            {
-                StyleClasses = { "PersonalizationCard" },
-                Margin = new Thickness(0, 0, 0, 6),
-                HorizontalExpand = true,
-                Children = { new BoxContainer
-                {
-                    Orientation = LayoutOrientation.Vertical,
-                    Margin = new Thickness(8, 6),
-                    HorizontalExpand = true,
-                    Children = { antagContainer },
-                } },
-            });
-            // </Onyx-AntagPersonalization>
+            AddAntagCard(antagContainer); // <Onyx-AntagPersonalization>
         }
     }
 }

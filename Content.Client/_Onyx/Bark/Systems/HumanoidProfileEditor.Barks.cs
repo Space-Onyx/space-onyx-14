@@ -16,6 +16,11 @@ public sealed partial class HumanoidProfileEditor
 
     private void InitializeBarks()
     {
+        if (!_cfgManager.GetCVar(CCVars.BarksEnabled))
+            return;
+
+        BarksContainer.Visible = true;
+        SpeechRevealSpeedContainer.Visible = _cfgManager.GetCVar(CCVars.SpeechBubbleRevealEnabled);
         _barkList = _prototypeManager
             .EnumeratePrototypes<BarkPrototype>()
             .Where(o => o.RoundStart)
@@ -156,6 +161,34 @@ public sealed partial class HumanoidProfileEditor
 
         Profile = Profile.WithSpeechBubbleRevealSpeed(speed);
         SpeechRevealSpeedValue.Text = speed.ToString();
+        SetDirty();
+    }
+
+    private void SetBarkProto(string prototype)
+    {
+        Profile = Profile?.WithBarkProto(prototype);
+        ReloadPreview();
+        SetDirty();
+    }
+
+    private void SetBarkPitch(float pitch)
+    {
+        Profile = Profile?.WithBarkPitch(Math.Clamp(pitch, _cfgManager.GetCVar(CCVars.BarksMinPitch), _cfgManager.GetCVar(CCVars.BarksMaxPitch)));
+        ReloadPreview();
+        SetDirty();
+    }
+
+    private void SetBarkMinVariation(float variation)
+    {
+        Profile = Profile?.WithBarkMinVariation(Math.Clamp(variation, _cfgManager.GetCVar(CCVars.BarksMinDelay), Profile.Bark.MaxVar));
+        ReloadPreview();
+        SetDirty();
+    }
+
+    private void SetBarkMaxVariation(float variation)
+    {
+        Profile = Profile?.WithBarkMaxVariation(Math.Clamp(variation, Profile.Bark.MinVar, _cfgManager.GetCVar(CCVars.BarksMaxDelay)));
+        ReloadPreview();
         SetDirty();
     }
 }

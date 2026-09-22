@@ -19,7 +19,6 @@ using Robust.Shared.ContentPack;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 using Direction = Robust.Shared.Maths.Direction;
-using Content.Shared._Onyx.SpeechBarks;
 
 namespace Content.Client.Lobby.UI
 {
@@ -189,22 +188,7 @@ namespace Content.Client.Lobby.UI
 
             #endregion Age
 
-            // <Onyx-HeightWidth>
-            HeightEdit.OnTextChanged += args =>
-            {
-                if (!_updatingDimensionControls && int.TryParse(args.Text, out var value))
-                    SetHeightCm(value, updateText: false);
-            };
-            WidthEdit.OnTextChanged += args =>
-            {
-                if (!_updatingDimensionControls && int.TryParse(args.Text, out var value))
-                    SetWidthCm(value, updateText: false);
-            };
-            HeightSlider.OnValueChanged += _ => SetHeightSlider();
-            WidthSlider.OnValueChanged += _ => SetWidthSlider();
-            HeightReset.OnPressed += _ => ResetHeight();
-            WidthReset.OnPressed += _ => ResetWidth();
-            // </Onyx-HeightWidth>
+            InitializeDimensions(); // <Onyx-HeightWidth>
 
             #region Gender
 
@@ -221,21 +205,9 @@ namespace Content.Client.Lobby.UI
 
             #endregion Gender
 
-            // <Onyx-Barks>
-            #region Voice
-
-            if (configurationManager.GetCVar(CCVars.BarksEnabled))
-            {
-                BarksContainer.Visible = true;
-                SpeechRevealSpeedContainer.Visible = configurationManager.GetCVar(CCVars.SpeechBubbleRevealEnabled); // <Onyx-SpeechBubbleReveal>
-                InitializeBarks();
-            }
-
-            #endregion
-            // </Onyx-Barks>
+            InitializeBarks(); // <Onyx-Barks>
 
             InitializeSpeciesSelector(); // <Onyx-SpeciesSelector-edited>
-
 
             #region Skin
 
@@ -388,7 +360,7 @@ namespace Content.Client.Lobby.UI
                 return;
 
             SpriteView.LoadPreview(Profile, JobOverride, ShowClothes.Pressed);
-            _descriptionEditor?.UpdatePreview(Profile, true); // <Onyx-CharacterDescriptions>
+            _descriptionEditor?.UpdatePreview(Profile, !_settingProfile); // <Onyx-CharacterDescriptions>
             ApplyHiddenLoadoutPreviews(); // <Onyx-LoadoutPreviewVisibility>
 
             // Check and set the dirty flag to enable the save/reset buttons as appropriate.
@@ -425,9 +397,7 @@ namespace Content.Client.Lobby.UI
             UpdateSkinColor();
             UpdateSpawnPriorityControls();
             UpdateAgeEdit();
-            // <Onyx-HeightWidth>
-            UpdateDimensionControls();
-            // </Onyx-HeightWidth>
+            UpdateDimensionControls(); // <Onyx-HeightWidth>
             UpdateEyePickers();
             UpdateSaveButton();
             UpdateMarkings();
@@ -448,6 +418,7 @@ namespace Content.Client.Lobby.UI
                 PreferenceUnavailableButton.SelectId((int)Profile.PreferenceUnavailable);
             }
             _settingProfile = false; // <Onyx-CharacterPersonalizationFix>
+            _descriptionEditor?.UpdatePreview(Profile, true); // <Onyx-CharacterDescriptions>
         }
 
         /// <summary>
@@ -459,7 +430,7 @@ namespace Content.Client.Lobby.UI
                 return;
 
             SpriteView.ReloadProfilePreview(Profile);
-            _descriptionEditor?.UpdatePreview(Profile, true); // <Onyx-CharacterDescriptions>
+            _descriptionEditor?.UpdatePreview(Profile); // <Onyx-CharacterDescriptions>
 
             // Check and set the dirty flag to enable the save/reset buttons as appropriate.
             SetDirty();

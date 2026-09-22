@@ -11,14 +11,17 @@ public sealed partial class HumanoidProfileEditor
     public void RefreshTraits()
     {
         // <Onyx-TraitsPersonalization-edited>
+        if (Profile == null)
+            return;
+
         TraitsList.RemoveAllChildren();
-        var traits = new TraitsPersonalizationControl();
-        traits.Populate(Profile, profile =>
+        _traitsControl ??= new TraitsPersonalizationControl();
+        _traitsControl.Populate(Profile, profile =>
         {
             Profile = profile;
             SetDirty();
         });
-        TraitsList.AddChild(traits);
+        TraitsList.AddChild(_traitsControl);
         // </Onyx-TraitsPersonalization-edited>
     }
 }

@@ -42,6 +42,6 @@ public sealed partial class HumanoidProfileEditor
 
     private void UpdateFlavorTextEdit()
     {
-        _descriptionEditor?.SetProfile(Profile); // <Onyx-CharacterDescriptions-edited>
+        _descriptionEditor?.SetProfile(Profile, false); // <Onyx-CharacterDescriptions>
     }
 }

@@ -5,7 +5,6 @@ using Content.Shared.Guidebook;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
-using Content.Shared.CCVar;
 using Content.Shared.Speech.Components;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Enums;
@@ -21,9 +20,6 @@ public sealed partial class HumanoidProfileEditor
     private ColorSelectorSliders _rgbSkinColorSelector;
     private List<EmoteSoundsPrototype> _voices = new();
     private static readonly ProtoId<GuideEntryPrototype> DefaultSpeciesGuidebook = "Species";
-    // <Onyx-HeightWidth>
-    private bool _updatingDimensionControls;
-    // </Onyx-HeightWidth>
 
     public void UpdateSpeciesGuidebookIcon()
     {
@@ -58,102 +54,6 @@ public sealed partial class HumanoidProfileEditor
     {
         AgeEdit.Text = Profile?.Age.ToString() ?? "";
     }
-
-    // <Onyx-HeightWidth>
-    private void UpdateDimensionControls(bool updateText = true)
-    {
-        if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
-            return;
-
-        var height = species.ClampHeight(Profile.Height);
-        var width = species.ClampWidth(Profile.Width);
-        if (height != Profile.Height || width != Profile.Width)
-            Profile = Profile.WithDimensions(height, width);
-
-        _updatingDimensionControls = true;
-        HeightSlider.Value = ToSlider(species.HeightScaleToCm(height), species.MinHeightCm, species.MaxHeightCm);
-        WidthSlider.Value = ToSlider(species.WidthScaleToCm(width), species.MinWidthCm, species.MaxWidthCm);
-        if (updateText)
-        {
-            HeightEdit.Text = MathF.Round(species.HeightScaleToCm(height)).ToString("0");
-            WidthEdit.Text = MathF.Round(species.WidthScaleToCm(width)).ToString("0");
-        }
-        UpdateCalculatedWeightLabel(species);
-        _updatingDimensionControls = false;
-    }
-
-    private static float ToSlider(float value, int min, int max)
-    {
-        return min == max ? 0f : Math.Clamp((value - min) / (max - min), 0f, 1f);
-    }
-
-    private void SetHeightSlider()
-    {
-        if (_updatingDimensionControls || Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
-            return;
-
-        SetHeightCm((int)MathF.Round(MathHelper.Lerp(species.MinHeightCm, species.MaxHeightCm, HeightSlider.Value)));
-    }
-
-    private void SetWidthSlider()
-    {
-        if (_updatingDimensionControls || Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
-            return;
-
-        SetWidthCm((int)MathF.Round(MathHelper.Lerp(species.MinWidthCm, species.MaxWidthCm, WidthSlider.Value)));
-    }
-
-    private void SetHeightCm(int value, bool updateText = true)
-    {
-        if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
-            return;
-
-        value = Math.Clamp(value, Math.Min(species.MinHeightCm, species.MaxHeightCm), Math.Max(species.MinHeightCm, species.MaxHeightCm));
-        Profile = Profile.WithHeight(species.ClampHeight(species.HeightCmToScale(value)));
-        UpdateDimensionControls(updateText);
-        ReloadProfilePreview();
-    }
-
-    private void SetWidthCm(int value, bool updateText = true)
-    {
-        if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
-            return;
-
-        value = Math.Clamp(value, Math.Min(species.MinWidthCm, species.MaxWidthCm), Math.Max(species.MinWidthCm, species.MaxWidthCm));
-        Profile = Profile.WithWidth(species.ClampWidth(species.WidthCmToScale(value)));
-        UpdateDimensionControls(updateText);
-        ReloadProfilePreview();
-    }
-
-    private void ResetHeight()
-    {
-        if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
-            return;
-
-        Profile = Profile.WithHeight(species.DefaultHeight);
-        UpdateDimensionControls();
-        ReloadProfilePreview();
-    }
-
-    private void ResetWidth()
-    {
-        if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))
-            return;
-
-        Profile = Profile.WithWidth(species.DefaultWidth);
-        UpdateDimensionControls();
-        ReloadProfilePreview();
-    }
-
-    private void UpdateCalculatedWeightLabel(SpeciesPrototype species)
-    {
-        if (Profile == null)
-            return;
-
-        var weight = species.GetEstimatedWeightKg(Profile.Height, Profile.Width);
-        CalculatedWeightLabel.Text = Loc.GetString("humanoid-profile-editor-calculated-weight-label", ("weight", MathF.Round(weight * 2f) / 2f));
-    }
-    // </Onyx-HeightWidth>
 
     private void UpdateSexControls()
     {
@@ -295,9 +195,7 @@ public sealed partial class HumanoidProfileEditor
         UpdateVoiceControls();
         UpdateTTSVoicesControls(); // Corvax-TTS
         UpdateSpeciesGuidebookIcon();
-        // <Onyx-HeightWidth>
-        UpdateDimensionControls();
-        // </Onyx-HeightWidth>
+        UpdateDimensionControls(); // <Onyx-HeightWidth>
         ReloadPreview();
     }
 
@@ -374,36 +272,6 @@ public sealed partial class HumanoidProfileEditor
             guidebookController.OpenGuidebook(dict, includeChildren: true, selected: page);
         }
     }
-
-    // <Onyx-Barks>
-    private void SetBarkProto(string prototype)
-    {
-        Profile = Profile?.WithBarkProto(prototype);
-        ReloadPreview();
-        SetDirty();
-    }
-
-    private void SetBarkPitch(float pitch)
-    {
-        Profile = Profile?.WithBarkPitch(Math.Clamp(pitch, _cfgManager.GetCVar(CCVars.BarksMinPitch), _cfgManager.GetCVar(CCVars.BarksMaxPitch)));
-        ReloadPreview();
-        SetDirty();
-    }
-
-    private void SetBarkMinVariation(float variation)
-    {
-        Profile = Profile?.WithBarkMinVariation(Math.Clamp(variation, _cfgManager.GetCVar(CCVars.BarksMinDelay), Profile.Bark.MaxVar));
-        ReloadPreview();
-        SetDirty();
-    }
-
-    private void SetBarkMaxVariation(float variation)
-    {
-        Profile = Profile?.WithBarkMaxVariation(Math.Clamp(variation, Profile.Bark.MinVar, _cfgManager.GetCVar(CCVars.BarksMaxDelay)));
-        ReloadPreview();
-        SetDirty();
-    }
-    // </Onyx-Barks>
 
     private void OnSkinColorOnValueChanged()
     {

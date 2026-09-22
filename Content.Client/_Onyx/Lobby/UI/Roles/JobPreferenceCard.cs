@@ -1,5 +1,6 @@
 using System.Numerics;
 using System.Linq;
+using System.Collections.Generic;
 using Content.Client._Onyx.AlternativeJobs;
 using Content.Client.Players.PlayTimeTracking;
 using Content.Client.Stylesheets;
@@ -42,7 +43,8 @@ public sealed class JobPreferenceCard : PanelContainer
         IPrototypeManager prototypes,
         JobRequirementsManager requirements,
         HumanoidCharacterProfile? profile,
-        FormattedMessage? lockedReason)
+        FormattedMessage? lockedReason,
+        IReadOnlyList<AlternativeJobPrototype>? alternatives = null)
     {
         JobId = job.ID;
         _locked = lockedReason != null;
@@ -52,10 +54,11 @@ public sealed class JobPreferenceCard : PanelContainer
         RectClipContent = true;
         PanelOverride = lockedReason == null ? _availableStyle : _lockedStyle;
 
-        var alternatives = prototypes.EnumeratePrototypes<AlternativeJobPrototype>()
-            .Where(alternative => alternative.ParentJobId == job.ID)
-            .ToArray();
-        _searchNames = alternatives.Select(alternative => alternative.LocalizedJobName)
+        IReadOnlyList<AlternativeJobPrototype> alternativeList = alternatives
+            ?? prototypes.EnumeratePrototypes<AlternativeJobPrototype>()
+                .Where(alternative => alternative.ParentJobId == job.ID)
+                .ToArray();
+        _searchNames = alternativeList.Select(alternative => alternative.LocalizedJobName)
             .Prepend(job.LocalizedName)
             .ToArray();
 
@@ -70,7 +73,7 @@ public sealed class JobPreferenceCard : PanelContainer
             Modulate = lockedReason == null ? Color.White : Color.FromHex("#8B8275"),
         };
 
-        _jobSelector = new AlternativeJobSelector(job.ID, sprites, requirements, profile, true)
+        _jobSelector = new AlternativeJobSelector(job.ID, sprites, requirements, profile, true, alternativeList)
         {
             HorizontalExpand = true,
             MinHeight = 25,

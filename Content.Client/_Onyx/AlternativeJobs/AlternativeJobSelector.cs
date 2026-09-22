@@ -47,7 +47,8 @@ public sealed partial class AlternativeJobSelector : LoadoutRoleSelector
         SpriteSystem spriteSystem,
         JobRequirementsManager requirements,
         HumanoidCharacterProfile? profile,
-        bool alwaysVisible = false)
+        bool alwaysVisible = false,
+        IReadOnlyList<AlternativeJobPrototype>? alternatives = null)
     {
         IoCManager.InjectDependencies(this);
         _spriteSystem = spriteSystem;
@@ -65,9 +66,10 @@ public sealed partial class AlternativeJobSelector : LoadoutRoleSelector
             AddItem(parentJobId, 0);
         }
 
-        _alternatives.AddRange(_prototypeManager.EnumeratePrototypes<AlternativeJobPrototype>()
-            .Where(alternative => alternative.ParentJobId == parentJobId)
-            .OrderBy(alternative => alternative.LocalizedJobName));
+        _alternatives.AddRange(alternatives?.OrderBy(alternative => alternative.LocalizedJobName)
+            ?? _prototypeManager.EnumeratePrototypes<AlternativeJobPrototype>()
+                .Where(alternative => alternative.ParentJobId == parentJobId)
+                .OrderBy(alternative => alternative.LocalizedJobName));
 
         for (var i = 0; i < _alternatives.Count; i++)
         {
