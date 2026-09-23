@@ -4,5 +4,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 ui-options-log-in-chat = Логировать действия в чат
+ui-options-coalesce-identical-messages = Объединять одинаковые сообщения
 ui-options-hud-theme-xenomorph = Ксеноморф
 ui-options-function-auto-get-up = Автоматически вставать после падения

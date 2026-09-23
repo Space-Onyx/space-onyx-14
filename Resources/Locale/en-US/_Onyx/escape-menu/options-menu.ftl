@@ -4,5 +4,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 ui-options-log-in-chat = Log actions in the chat
+ui-options-coalesce-identical-messages = Coalesce identical messages
 
 ui-options-hud-theme-xenomorph = Xenomorph
