@@ -51,8 +51,6 @@ public sealed partial class RoundBotApiSystem : EntitySystem
         _cfg.OnValueChanged(CCVars.DiscordRoundBotApiToken, OnApiTokenChanged, true);
 
         SubscribeLocalEvent<GameRunLevelChangedEvent>(OnRunLevelChanged);
-        SubscribeLocalEvent<RoundStartedEvent>(OnRoundStarted);
-        SubscribeLocalEvent<RoundEndedEvent>(OnRoundEnded);
     }
 
     public override void Shutdown()
@@ -67,18 +65,18 @@ public sealed partial class RoundBotApiSystem : EntitySystem
 
     private void OnRunLevelChanged(GameRunLevelChangedEvent ev)
     {
-        if (ev.New == GameRunLevel.PreRoundLobby)
-            PushEvent(BuildEventRequest(LobbyEvent, null));
-    }
-
-    private void OnRoundStarted(RoundStartedEvent ev)
-    {
-        PushEvent(BuildEventRequest(StartedEvent, null));
-    }
-
-    private void OnRoundEnded(RoundEndedEvent ev)
-    {
-        PushEvent(BuildEventRequest(EndedEvent, ev.RoundDuration));
+        switch (ev.New)
+        {
+            case GameRunLevel.PreRoundLobby:
+                PushEvent(BuildEventRequest(LobbyEvent, null));
+                break;
+            case GameRunLevel.InRound:
+                PushEvent(BuildEventRequest(StartedEvent, null));
+                break;
+            case GameRunLevel.PostRound:
+                PushEvent(BuildEventRequest(EndedEvent, _gameTicker.RoundDuration()));
+                break;
+        }
     }
 
     private RoundBotApiEventRequest BuildEventRequest(string type, TimeSpan? duration)
