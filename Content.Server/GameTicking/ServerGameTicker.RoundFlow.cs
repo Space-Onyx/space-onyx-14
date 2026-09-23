@@ -406,11 +406,13 @@ public sealed partial class ServerGameTicker
         RunLevel = GameRunLevel.InRound;
 
         RoundStartTimeSpan = Timing.CurTime;
-        // <Onyx-StationTime>
-        StationStartDateTime = DateTime.Today.Add(Cfg.GetCVar(CCVars.RandomizeStationTime)
-            ? TimeSpan.FromSeconds(Random.Next(0, 24 * 60 * 60))
-            : TimeSpan.FromHours(12));
-        // </Onyx-StationTime>
+        // <Onyx-StationTime-edited>
+        StationStartDateTime = Cfg.GetCVar(CCVars.UseRealStationTime)
+            ? DateTime.Now
+            : DateTime.Today.Add(Cfg.GetCVar(CCVars.RandomizeStationTime)
+                ? TimeSpan.FromSeconds(Random.Next(0, 24 * 60 * 60))
+                : TimeSpan.FromHours(12));
+        // </Onyx-StationTime-edited>
         SendStatusToAll();
         ReqWindowAttentionAll();
         UpdateLateJoinStatus();

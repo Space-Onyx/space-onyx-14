@@ -9,4 +9,7 @@ public sealed partial class CCVars
 
     public static readonly CVarDef<bool> RandomizeStationTime =
         CVarDef.Create("game.randomize_station_time", false, CVar.SERVER | CVar.ARCHIVE);
+
+    public static readonly CVarDef<bool> UseRealStationTime =
+        CVarDef.Create("game.use_real_station_time", true, CVar.SERVER | CVar.ARCHIVE);
 }
