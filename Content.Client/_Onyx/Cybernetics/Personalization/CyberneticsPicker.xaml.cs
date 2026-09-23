@@ -207,8 +207,8 @@ public sealed partial class CyberneticsPicker : BoxContainer
                 : Color.FromHex("#62A7D8"),
         };
         PointsLabel.Modulate = used >= _capacity && _capacity > 0
-            ? Color.FromHex("#F0A0A0")
-            : Color.FromHex("#8BC5FF");
+            ? Color.FromHex("#FFB3B3")
+            : Color.White;
         AvailableCountLabel.Text = Loc.GetString("cybernetics-personalization-count", ("count", availableCount));
         InstalledCountLabel.Text = Loc.GetString("cybernetics-personalization-count", ("count", installedCount));
     }

@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared.Body.Part;
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Onyx.Cybernetics.Personalization;
@@ -49,6 +50,7 @@ public static class RoundstartCyberneticsResolver
         var totalCost = 0;
         var visiting = new HashSet<EntProtoId>();
         var visited = new HashSet<EntProtoId>();
+        var occupiedSlots = new HashSet<(BodyPartType, BodyPartSymmetry)>();
 
         foreach (var selection in selections)
         {
@@ -77,6 +79,10 @@ public static class RoundstartCyberneticsResolver
                 if (!Resolve(dependency, false))
                     return false;
             }
+
+            if (!proto.TryGetComponent(out BodyPartComponent? part, factory) ||
+                !occupiedSlots.Add((part.PartType, part.Symmetry)))
+                return false;
 
             visiting.Remove(id);
             visited.Add(id);
