@@ -14,7 +14,7 @@
                                             Visible="False">
         <Button Name="ExpandButton" Text="›" MinSize="32 32"
                 ToolTip="{Loc 'corvax-lobby-server-hub-expand'}"
-                HorizontalAlignment="Center" VerticalAlignment="Center" />
+                HorizontalAlignment="Center" VerticalAlignment="Center" StyleClasses="OpenBoth" />
     </corvaxLobby:TranslucentPanelContainer>
     <!-- </Onyx-LobbyAppearance-edited> -->
     <!-- <Onyx-LobbyAppearance-edited> -->
@@ -54,7 +54,7 @@
         </BoxContainer>
         <Button Name="CollapseButton" Text="‹" MinSize="32 32"
                 ToolTip="{Loc 'corvax-lobby-server-hub-collapse'}"
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 4 4 0" />
+                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 4 4 0" StyleClasses="OpenBoth" />
     </corvaxLobby:TranslucentPanelContainer>
     <!-- </Onyx-LobbyAppearance-edited> -->
 </corvaxLobby:LobbyServerHub>

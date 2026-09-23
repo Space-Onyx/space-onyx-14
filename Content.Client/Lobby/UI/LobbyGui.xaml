@@ -36,12 +36,12 @@
                                 </BoxContainer>
                             </BoxContainer>
                             <Button Name="TopCollapseButton" Text="‹" MinSize="32 32"
-                                    HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 4 4 0" />
+                                    HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 4 4 0" StyleClasses="OpenBoth" />
                         </PanelContainer>
 
                         <PanelContainer Name="TopExpandPanel" StyleClasses="LobbyHeader" HorizontalAlignment="Left" VerticalAlignment="Top" Visible="False">
                             <Button Name="TopExpandButton" Text="›" MinSize="32 32"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    HorizontalAlignment="Center" VerticalAlignment="Center" StyleClasses="OpenBoth" />
                         </PanelContainer>
 
                         <!-- Corvax lobby server hub. Kept on the wide left side so names and online fit. -->
@@ -80,34 +80,36 @@
                                     </BoxContainer>
                                 </BoxContainer>
                                 <Button Name="LeftCollapseButton" Text="‹" MinSize="32 32"
-                                        HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 4 4 0" />
+                                        HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 4 4 0" StyleClasses="OpenBoth" />
                             </PanelContainer>
 
                             <PanelContainer Name="LeftExpandPanel" StyleClasses="LobbyHeader" HorizontalAlignment="Left" VerticalAlignment="Top" Visible="False">
                                 <Button Name="LeftExpandButton" Text="›" MinSize="32 32"
-                                        HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        HorizontalAlignment="Center" VerticalAlignment="Center" StyleClasses="OpenBoth" />
                             </PanelContainer>
 
-                            <BoxContainer Orientation="Vertical" VerticalAlignment="Bottom" VerticalExpand="False" SeparationOverride="2">
-                                <PanelContainer Name="AttributionExpandPanel" StyleClasses="LobbyHeader" HorizontalAlignment="Left" VerticalAlignment="Bottom" VerticalExpand="False" Visible="False">
-                                    <Button Name="AttributionExpandButton" Text="›" MinSize="32 32"
-                                            HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </PanelContainer>
+                            <Control HorizontalExpand="False" VerticalExpand="True">
+                                <BoxContainer Orientation="Vertical" VerticalAlignment="Top" SeparationOverride="2">
+                                    <BoxContainer Name="VoteContainer" Access="Public" Orientation="Vertical" HorizontalAlignment="Left" SeparationOverride="2" />
+                                </BoxContainer>
 
-                                <PanelContainer Name="AttributionPanel" StyleClasses="LobbyPanel" VerticalExpand="False">
-                                    <BoxContainer Orientation="Vertical" SeparationOverride="6" Margin="8 8 40 8">
-                                        <RichTextLabel Name="LobbyBackground" Access="Public" HorizontalAlignment="Left" HorizontalExpand="True" />
-                                        <controls:Separator ColorOverride="{x:Static style:StyleNano.NanoGold}" Thickness="1" />
-                                        <RichTextLabel Name="LobbySong" Access="Public" HorizontalAlignment="Left" HorizontalExpand="True" />
-                                    </BoxContainer>
-                                    <Button Name="AttributionCollapseButton" Text="‹" MinSize="32 32"
-                                            HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 4 4 0" />
-                                </PanelContainer>
-                            </BoxContainer>
+                                <BoxContainer Orientation="Vertical" VerticalAlignment="Bottom" VerticalExpand="False" SeparationOverride="2">
+                                    <PanelContainer Name="AttributionExpandPanel" StyleClasses="LobbyHeader" HorizontalAlignment="Left" VerticalAlignment="Bottom" VerticalExpand="False" Visible="False">
+                                        <Button Name="AttributionExpandButton" Text="›" MinSize="32 32"
+                                                HorizontalAlignment="Center" VerticalAlignment="Center" StyleClasses="OpenBoth" />
+                                    </PanelContainer>
 
-                            <BoxContainer Orientation="Vertical" VerticalAlignment="Top" SeparationOverride="2">
-                                <BoxContainer Name="VoteContainer" Access="Public" Orientation="Vertical" HorizontalAlignment="Left" SeparationOverride="2" />
-                            </BoxContainer>
+                                    <PanelContainer Name="AttributionPanel" StyleClasses="LobbyPanel" VerticalExpand="False">
+                                        <BoxContainer Orientation="Vertical" SeparationOverride="6" Margin="8 8 40 8">
+                                            <RichTextLabel Name="LobbyBackground" Access="Public" HorizontalAlignment="Left" HorizontalExpand="True" />
+                                            <controls:Separator ColorOverride="{x:Static style:StyleNano.NanoGold}" Thickness="1" />
+                                            <RichTextLabel Name="LobbySong" Access="Public" HorizontalAlignment="Left" HorizontalExpand="True" />
+                                        </BoxContainer>
+                                        <Button Name="AttributionCollapseButton" Text="‹" MinSize="32 32"
+                                                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 4 4 0" StyleClasses="OpenBoth" />
+                                    </PanelContainer>
+                                </BoxContainer>
+                            </Control>
                         </BoxContainer>
                     </BoxContainer>
                 </Control>
@@ -123,13 +125,13 @@
                     <widgets:ChatBox Name="Chat" Access="Public" VerticalExpand="True" Margin="3 3 3 3" MinHeight="35" />
                 </BoxContainer>
                 <Button Name="CollapseButton" Text="›" MinSize="32 32"
-                        HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 4 4 0" />
+                        HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 4 4 0" StyleClasses="OpenBoth" />
             </PanelContainer>
         </BoxContainer>
 
         <PanelContainer Name="ExpandPanel" StyleClasses="LobbyHeader" HorizontalAlignment="Right" VerticalAlignment="Top" Visible="False">
             <Button Name="ExpandButton" Text="‹" MinSize="32 32"
-                    HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    HorizontalAlignment="Center" VerticalAlignment="Center" StyleClasses="OpenBoth" />
         </PanelContainer>
     </BoxContainer>
     <!-- /Onyx-Lobby -->
