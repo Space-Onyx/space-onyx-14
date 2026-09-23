@@ -18,15 +18,13 @@ using Content.Shared.Projectiles;
 using Content.Shared.Rejuvenate;
 using Content.Shared.Temperature;
 using Content.Shared.Throwing;
-using Content.Shared.Timing;
 using Content.Shared.Toggleable;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.FixedPoint;
 using Content.Shared.Temperature.Components;
-// <Onyx-XenobiologyImmunities>
-using Content.Shared._Onyx.StatusEffects.Immunities;
-using Content.Shared.StatusEffectNew;
-// </Onyx-XenobiologyImmunities>
+using Content.Shared._Onyx.StatusEffects.Immunities; // <Onyx-XenobiologyImmunities>
+using Content.Shared.StatusEffectNew; // <Onyx-XenobiologyImmunities>
+using Content.Shared.Timing.Systems;
 using JetBrains.Annotations;
 using Robust.Server.Audio;
 using Robust.Shared.Physics.Components;
@@ -184,7 +182,7 @@ namespace Content.Server.Atmos.EntitySystems
 
             args.Handled = true;
 
-            if (!TryComp(uid, out UseDelayComponent? useDelay) || !_useDelay.TryResetDelay((uid, useDelay), true))
+            if (!_useDelay.TryResetDelay(uid, true))
                 return;
 
             _audio.PlayPvs(component.ExtinguishAttemptSound, uid);

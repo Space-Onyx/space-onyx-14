@@ -1,9 +1,9 @@
 using Content.Server.Chat.Systems;
-using Content.Server.GameTicking;
 using Content.Server.Ninja.Systems;
 using Content.Shared._Onyx.Communications; // <Onyx-NinjaCommsHack>
 using Content.Shared.Communications;
 using Content.Shared.DoAfter;
+using Content.Shared.GameTicking;
 using Content.Shared.Interaction;
 using Content.Shared.Random;
 using Content.Shared.Random.Helpers;

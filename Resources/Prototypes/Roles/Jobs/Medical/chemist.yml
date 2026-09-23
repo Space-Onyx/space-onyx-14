@@ -14,6 +14,7 @@
   contracts:
   - DocumentContractEmploymentMedical
   # </Onyx-Contracts>
+  guides: [ Chemist ]
   access:
   - Medical
   - Chemistry

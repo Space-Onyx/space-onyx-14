@@ -4,7 +4,7 @@ using Robust.Shared.Player;
 
 namespace Content.Server.GameTicking;
 
-public sealed partial class GameTicker
+public sealed partial class ServerGameTicker
 {
     private void SendUserActionsInfo()
     {

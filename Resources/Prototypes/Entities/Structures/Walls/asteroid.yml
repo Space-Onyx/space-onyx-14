@@ -592,7 +592,7 @@
     layers: [ { state: ironrock }, { state: ironrock_south, map: [ "enum.EdgeLayer.South" ] }, { state: ironrock_east, map: [ "enum.EdgeLayer.East" ] }, { state: ironrock_north, map: [ "enum.EdgeLayer.North" ] }, { state: ironrock_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_artifact_fragment, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
 
 - type: entity
-  parent: [ BaseRockGibtonite, BaseIronRockVisuals, IronRock ]
+  parent: [ BaseRockGibtonite, BaseIronRockVisuals, BaseAsteroidRock ]
   id: IronRockGibtonite
   components:
   - type: Sprite

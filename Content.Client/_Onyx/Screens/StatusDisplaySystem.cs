@@ -1,5 +1,5 @@
 using Content.Shared._Onyx.Screens;
-using Content.Client.GameTicking.Managers;
+using Content.Client.GameTicking;
 using Robust.Shared.Timing;
 
 namespace Content.Client._Onyx.Screens;

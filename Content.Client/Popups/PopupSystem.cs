@@ -88,7 +88,7 @@ public sealed partial class PopupSystem : SharedPopupSystem
     /// </summary>
     private void PopupInternal(string? message, PopupType type, EntityCoordinates coordinates, EntityUid? entity, bool recordReplay)
     {
-        if (message == null)
+        if (string.IsNullOrWhiteSpace(message))
             return;
 
         if (recordReplay && _replayRecording.IsRecording)
@@ -123,7 +123,7 @@ public sealed partial class PopupSystem : SharedPopupSystem
     /// </summary>
     private void PopupCursorInternal(string? message, PopupType type, bool recordReplay)
     {
-        if (message == null)
+        if (string.IsNullOrWhiteSpace(message))
             return;
 
         if (recordReplay && _replayRecording.IsRecording)
@@ -158,7 +158,7 @@ public sealed partial class PopupSystem : SharedPopupSystem
     /// <param name="type">Used to customize how this popup should appear visually.</param>
     public void PopupCursor(string? message, PopupType type = PopupType.Small)
     {
-        if (!Timing.IsFirstTimePredicted || message is null)
+        if (!Timing.IsFirstTimePredicted || string.IsNullOrWhiteSpace(message))
             return;
 
         _predictionInstances.Add(new PopupCursorEvent.PredictionInstance(message, type, Timing.CurTick));
@@ -185,7 +185,7 @@ public sealed partial class PopupSystem : SharedPopupSystem
 
     public override void PopupCoordinates(string? message, EntityCoordinates coordinates, PopupType type = PopupType.Small, int predictionKey = 0)
     {
-        if (!Timing.IsFirstTimePredicted || message is null)
+        if (!Timing.IsFirstTimePredicted || string.IsNullOrWhiteSpace(message))
             return;
 
         _predictionInstances.Add(new PopupCoordinatesEvent.PredictionInstance(message, type, Timing.CurTick, predictionKey));
@@ -212,7 +212,7 @@ public sealed partial class PopupSystem : SharedPopupSystem
 
     public override void PopupEntity(string? message, EntityUid uid, PopupType type = PopupType.Small)
     {
-        if (!Timing.IsFirstTimePredicted || message is null)
+        if (!Timing.IsFirstTimePredicted || string.IsNullOrWhiteSpace(message))
             return;
 
         if (!TryComp(uid, out TransformComponent? transform))

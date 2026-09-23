@@ -4,9 +4,7 @@ using Content.Shared.Corvax.Documents;
 using Content.Shared.GameTicking;
 using Content.Shared.Lathe;
 using Content.Shared.Paper;
-using Content.Shared.Station;
-using Content.Shared._Onyx.Time; // <Onyx-InGameDate>
-using Robust.Shared.Configuration; // <Onyx-InGameDate>
+using Content.Shared.Station.Systems;
 
 namespace Content.Server.Corvax.Documents;
 
@@ -14,9 +12,8 @@ public sealed partial class DocumentPrinterSystem : EntitySystem
 {
     [Dependency] private ItemSlotsSystem _itemSlots = default!;
     [Dependency] private PaperSystem _paper = default!;
-    [Dependency] private SharedStationSystem _station = default!;
-    [Dependency] private SharedGameTicker _gameTicker = default!;
-    [Dependency] private IConfigurationManager _configuration = default!; // <Onyx-InGameDate>
+    [Dependency] private StationSystem _station = default!;
+    [Dependency] private GameTicker _gameTicker = default!;
 
     public override void Initialize()
     {
@@ -60,7 +57,7 @@ public sealed partial class DocumentPrinterSystem : EntitySystem
     private string GetTimeStation()
     {
         var time = _gameTicker.RoundDuration().ToString("hh\\:mm\\:ss");
-        return time + " " + InGameDate.Now(_configuration).ToShortDateString(); // <Onyx-InGameDate-edited>
+        return time + " " + DateTime.Now.AddYears(1000).ToShortDateString();
     }
 
 }

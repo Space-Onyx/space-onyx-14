@@ -71,7 +71,7 @@ namespace Content.Server.Connection
         private ISharedSponsorsManager? _sponsorsMgr; // Corvax-Sponsors
         private IServerVPNGuardManager? _vpnGuardMgr; // Corvax-VPNGuard
 
-        private GameTicker? _ticker;
+        private ServerGameTicker? _ticker;
 
         private ISawmill _sawmill = default!;
         private readonly Dictionary<NetUserId, TimeSpan> _temporaryBypasses = [];
@@ -346,7 +346,7 @@ namespace Content.Server.Connection
                 }
             }
 
-            _ticker ??= _entityManager.SystemOrNull<GameTicker>();
+            _ticker ??= _entityManager.SystemOrNull<ServerGameTicker>();
             var wasInGame = _ticker != null &&
                             _ticker.PlayerGameStatuses.TryGetValue(userId, out var status) &&
                             status == PlayerGameStatus.JoinedGame;
@@ -435,12 +435,15 @@ namespace Content.Server.Connection
         public async Task<bool> HavePrivilegedJoin(NetUserId userId)
         {
             var adminBypass = _cfg.GetCVar(CCVars.AdminBypassMaxPlayers) && await _db.GetAdminDataForAsync(userId) != null;
-            var havePriorityJoin = _sponsorsMgr != null && _sponsorsMgr.HaveServerPriorityJoin(userId); // Corvax-Sponsors
-            var wasInGame = EntitySystem.TryGet<GameTicker>(out var ticker) &&
-                            ticker.PlayerGameStatuses.TryGetValue(userId, out var status) &&
+            var havePriorityJoin = _sponsorsMgr != null && _sponsorsMgr.HaveServerPriorityJoin(userId); // Corvax-Sponsors  
+
+            _ticker ??= _entityManager.SystemOrNull<ServerGameTicker>();
+            var wasInGame = _ticker != null &&
+                            _ticker.PlayerGameStatuses.TryGetValue(userId, out var status) &&
                             status == PlayerGameStatus.JoinedGame;
+
             return adminBypass ||
-                   havePriorityJoin || // Corvax-Sponsors
+                   havePriorityJoin || // Corvax-Sponsors  
                    wasInGame;
         }
         // Corvax-Queue-End

@@ -1,5 +1,5 @@
 using System.Linq;
-using Content.Client.GameTicking.Managers;
+using Content.Client.GameTicking;
 using Content.Client.Message;
 using Content.Client.PDA;
 using Content.Shared.AlertLevel;

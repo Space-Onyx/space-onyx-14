@@ -1,4 +1,4 @@
-﻿using Content.Shared.Body.Components;
+using Content.Shared.Body.Components;
 using Content.Shared.Body.Systems;
 using Content.Shared._Onyx.Wounds; // <Onyx-WoundTreatment>
 using Robust.Shared.Prototypes;

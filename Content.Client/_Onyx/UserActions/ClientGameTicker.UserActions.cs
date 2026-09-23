@@ -1,6 +1,6 @@
 using Content.Shared._Onyx.UserActions;
 
-namespace Content.Client.GameTicking.Managers;
+namespace Content.Client.GameTicking;
 
 public sealed partial class ClientGameTicker
 {

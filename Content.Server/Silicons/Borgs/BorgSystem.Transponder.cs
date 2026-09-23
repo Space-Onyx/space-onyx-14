@@ -1,5 +1,3 @@
-using Content.Shared.DeviceNetwork;
-using Content.Shared._Onyx.Drone; // <Onyx-Drone>
 using Content.Shared.Damage.Components;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs;
@@ -11,18 +9,12 @@ using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.Emag.Systems;
 using Robust.Shared.Utility;
-using Robust.Shared.Player; // <Onyx-Drone>
 
 namespace Content.Server.Silicons.Borgs;
 
 /// <inheritdoc/>
 public sealed partial class BorgSystem
 {
-    private void InitializeTransponder()
-    {
-        SubscribeLocalEvent<BorgTransponderComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
-    }
-
     public void UpdateTransponder(float frameTime)
     {
         var now = _timing.CurTime;
@@ -54,60 +46,15 @@ public sealed partial class BorgSystem
                 hasBrain,
                 canDisable);
 
-            var payload = new NetworkPayload()
+            var payload = new RoboticsCyborgDataPayload
             {
-                [DeviceNetworkConstants.Command] = DeviceNetworkConstants.CmdUpdatedState,
-                [RoboticsConsoleConstants.NET_CYBORG_DATA] = data
+                Data = data,
             };
-            _deviceNetwork.QueuePacket(uid, null, payload, device: device);
+            _deviceNetwork.SendPacket((uid, device), null, ref payload);
 
             comp.NextBroadcast = now + comp.BroadcastDelay;
         }
-
-        // <Onyx-Drone>
-        var droneQuery = EntityQueryEnumerator<BorgTransponderComponent, DroneComponent, DeviceNetworkComponent, MetaDataComponent>();
-        while (droneQuery.MoveNext(out var uid, out var transponder, out _, out var device, out var meta))
-        {
-            if (now < transponder.NextBroadcast)
-                continue;
-
-            var chargeFraction = 0f;
-            if (_powerCell.TryGetBatteryFromSlot(uid, out var battery))
-                chargeFraction = _battery.GetChargeLevel(battery.Value.AsNullable());
-
-            var data = new CyborgControlData(
-                transponder.Sprite,
-                transponder.Name,
-                meta.EntityName,
-                chargeFraction,
-                CalcDroneHP(uid),
-                0,
-                HasComp<ActorComponent>(uid),
-                false);
-            var payload = new NetworkPayload
-            {
-                [DeviceNetworkConstants.Command] = DeviceNetworkConstants.CmdUpdatedState,
-                [RoboticsConsoleConstants.NET_CYBORG_DATA] = data
-            };
-            _deviceNetwork.QueuePacket(uid, null, payload, device: device);
-            transponder.NextBroadcast = now + transponder.BroadcastDelay;
-        }
-        // </Onyx-Drone>
     }
-
-    // <Onyx-Drone>
-    private float CalcDroneHP(EntityUid uid)
-    {
-        if (!TryComp<DamageableComponent>(uid, out var damageable))
-            return 1f;
-        if (!_mobState.IsAlive(uid))
-            return 0f;
-        if (!_mobThresholdSystem.TryGetThresholdForState(uid, MobState.Dead, out var threshold))
-            return 1f;
-
-        return Math.Clamp(1f - ((FixedPoint2) (_damageable.GetTotalDamage((uid, damageable)) / threshold)).Float(), 0f, 1f);
-    }
-    // </Onyx-Drone>
 
     private void DoDisable(Entity<BorgTransponderComponent, BorgChassisComponent, MetaDataComponent> ent)
     {
@@ -127,16 +74,16 @@ public sealed partial class BorgSystem
         _container.Remove(brain, ent.Comp2.BrainContainer);
     }
 
-    private void OnPacketReceived(Entity<BorgTransponderComponent> ent, ref DeviceNetworkPacketEvent args)
+    [SubscribeLocalEvent]
+    private void OnDisable(Entity<BorgTransponderComponent> ent, ref DeviceNetworkPacketEvent<RoboticsCyborgDisablePayload> args)
     {
-        var payload = args.Data;
-        if (!payload.TryGetValue(DeviceNetworkConstants.Command, out string? command))
-            return;
+        Disable(ent);
+    }
 
-        if (command == RoboticsConsoleConstants.NET_DISABLE_COMMAND)
-            Disable(ent);
-        else if (command == RoboticsConsoleConstants.NET_DESTROY_COMMAND)
-            Destroy(ent.Owner);
+    [SubscribeLocalEvent]
+    private void OnDestroy(Entity<BorgTransponderComponent> ent, ref DeviceNetworkPacketEvent<RoboticsCyborgDestroyPayload> args)
+    {
+        Destroy(ent.AsNullable());
     }
 
     private void Disable(Entity<BorgTransponderComponent, BorgChassisComponent?> ent)
