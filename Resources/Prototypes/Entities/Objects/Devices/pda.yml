@@ -1095,6 +1095,17 @@
     borderColor: "#00842e"
   - type: Icon
     state: pda-centcom
+  # <Onyx-CentcomPdaPower>
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellHyper
+  - type: PdaBattery
+    idleDraw: 0.005
+    poweredDraw: 0.05
+    lightDraw: 0.2
+  # </Onyx-CentcomPdaPower>
   # <Onyx-CentcomPdaDisk>
   - type: CartridgeLoader
     diskSpace: 10
@@ -1131,6 +1142,13 @@
     silent: true
   - type: CartridgeLoader
     notificationsEnabled: false
+  # <Onyx-AdminPdaPower>
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellMicroreactor
+  # </Onyx-AdminPdaPower>
   - type: EntityTableContainerFill
     containers:
       preinstalled-program-container: !type:AllSelector
@@ -1376,6 +1394,17 @@
     accentVColor: "#447987"
   - type: Icon
     state: pda-ert
+  # <Onyx-ErtPdaPower>
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellHyper
+  - type: PdaBattery
+    idleDraw: 0.005
+    poweredDraw: 0.05
+    lightDraw: 0.2
+  # </Onyx-ErtPdaPower>
   - type: EntityTableContainerFill
     containers:
       preinstalled-program-container: !type:AllSelector
