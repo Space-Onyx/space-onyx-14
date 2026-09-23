@@ -11,6 +11,9 @@ public static class InGameDate
     public static DateTime Now(IConfigurationManager configuration)
         => AddOffset(DateTime.Now, configuration);
 
+    public static DateTime At(DateTime date, IConfigurationManager configuration)
+        => AddOffset(date, configuration);
+
     private static DateTime AddOffset(DateTime date, IConfigurationManager configuration)
         => date.AddYears(Math.Clamp(configuration.GetCVar(CCVars.InGameYearOffset), 1 - date.Year, 9999 - date.Year));
 }

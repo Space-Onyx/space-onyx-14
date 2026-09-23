@@ -1,6 +1,7 @@
 comp-pda-ui-mining-points = Mining points: { $points }
 comp-pda-ui-bitrunning-points = Bitrunning points: { $points }
 comp-pda-ui-points = Mining points: { $miningPoints } | Bitrunning points: { $bitrunningPoints }
+comp-pda-ui-station-clock = Station time: [color=white]{ $time }[/color]
 pda-modern-profile = PROFILE
 pda-modern-home = Home
 pda-modern-station = STATION

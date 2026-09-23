@@ -8,3 +8,4 @@ user-action-control-player-count = Players
 user-action-control-time = Time
 user-action-control-round-time = Round time
 user-action-control-date = Date
+user-action-control-station-time = Station time

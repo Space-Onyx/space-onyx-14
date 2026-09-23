@@ -8,3 +8,4 @@ user-action-control-player-count = Игроков
 user-action-control-time = Время
 user-action-control-round-time = Время раунда
 user-action-control-date = Дата
+user-action-control-station-time = Время станции

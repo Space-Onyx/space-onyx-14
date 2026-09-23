@@ -47,6 +47,9 @@
             <ContainerButton Name="StationTimeButton">
                 <RichTextLabel Name="StationTimeLabel" Access="Public"/>
             </ContainerButton>
+            <!-- <Onyx-StationTime> -->
+            <RichTextLabel Name="ShiftDurationLabel" Access="Public"/>
+            <!-- </Onyx-StationTime> -->
             <ContainerButton Name="StationAlertLevelInstructionsButton">
                 <RichTextLabel Name="StationAlertLevelInstructions" Access="Public"/>
             </ContainerButton>

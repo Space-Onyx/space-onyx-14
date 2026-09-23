@@ -16,7 +16,8 @@ public sealed partial class ServerGameTicker
                 _gameMapManager.GetSelectedMap()?.MapName ?? Loc.GetString("game-ticker-no-map-selected"),
                 RoundId,
                 Decoy == null ? Loc.GetString(preset.ModeTitle) : Loc.GetString(Decoy.ModeTitle),
-                _playerManager.PlayerCount),
+                _playerManager.PlayerCount,
+                StationStartDateTime),
             Filter.Empty().AddPlayers(_playerManager.NetworkedSessions));
     }
 }

@@ -10,6 +10,7 @@ public sealed partial class ClientGameTicker
     private void OnUserActionsInfo(TickerInGameInfoEvent message)
     {
         UserActionsInfo = message;
+        StationStartDateTime = message.StationStartDateTime;
         UserActionsInfoUpdated?.Invoke();
     }
 }

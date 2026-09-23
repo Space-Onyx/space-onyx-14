@@ -99,6 +99,8 @@
                                                            HorizontalExpand="True" />
                                         </ContainerButton>
                                         <controls:Separator StyleClasses="LowDivider" />
+                                        <RichTextLabel Name="ShiftDurationLabel" Margin="10 8" HorizontalExpand="True" />
+                                        <controls:Separator StyleClasses="LowDivider" />
                                         <ContainerButton Name="StationAlertLevelButton" HorizontalExpand="True"
                                                          ToolTip="{Loc 'pda-modern-copy-hint'}">
                                             <RichTextLabel Name="StationAlertLevelLabel" Access="Public" Margin="10 8"

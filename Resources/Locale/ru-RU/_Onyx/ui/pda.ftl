@@ -1,3 +1,4 @@
+comp-pda-ui-station-clock = Время станции: [color=white]{ $time }[/color]
 pda-modern-profile = ПРОФИЛЬ
 pda-modern-home = Главная
 pda-modern-station = СТАНЦИЯ

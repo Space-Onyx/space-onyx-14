@@ -63,7 +63,10 @@
                                     <Label Text="{Loc 'user-action-control-date'}" StyleClasses="LabelWeak StatusTabFont" ClipText="True" HorizontalExpand="True" />
                                     <Label Name="CurrentDate" StyleClasses="LabelKeyText StatusTabFont" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
-                                <Control HorizontalExpand="True" SizeFlagsStretchRatio="1" />
+                                <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
+                                    <Label Text="{Loc 'user-action-control-station-time'}" StyleClasses="LabelWeak StatusTabFont" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="StationTime" StyleClasses="LabelKeyText StatusTabFont" ClipText="True" HorizontalExpand="True" />
+                                </BoxContainer>
                             </BoxContainer>
                         </BoxContainer>
                     </CollapsibleBody>

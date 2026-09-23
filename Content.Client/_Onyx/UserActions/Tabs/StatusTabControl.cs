@@ -61,7 +61,8 @@ public sealed partial class StatusTabControl : BaseTabControl
         RoundTime.Text = roundTime > TimeSpan.Zero
             ? $"{(int) roundTime.TotalHours:00}:{roundTime.Minutes:00}:{roundTime.Seconds:00}"
             : "00:00:00";
-        CurrentDate.Text = InGameDate.Now(_configuration).ToString("dd.MM.yyyy");
+        StationTime.Text = _gameTicker.StationDateTime.ToString("HH:mm:ss");
+        CurrentDate.Text = InGameDate.At(_gameTicker.StationDateTime, _configuration).ToString("dd.MM.yyyy");
 
     }
 

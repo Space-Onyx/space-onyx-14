@@ -440,14 +440,20 @@ public sealed partial class ModernPdaMenu : PdaWindow
 
     private string GetStationTime()
     {
-        var time = _gameTiming.CurTime.Subtract(_gameTicker.RoundStartTimeSpan).ToString("hh\\:mm\\:ss");
-        var date = InGameDate.Now(_config).ToString("dd.MM.yyyy");
-        return $"{time} | {date}";
+        var time = _gameTicker.StationDateTime;
+        var date = InGameDate.At(time, _config).ToString("dd.MM.yyyy");
+        return $"{time:HH:mm:ss} | {date}";
     }
 
     private void UpdateStationTime()
     {
         StatusTimeLabel.Text = GetStationTime();
+        var duration = _gameTicker.RoundDuration();
+        if (duration < TimeSpan.Zero)
+            duration = TimeSpan.Zero;
+
+        ShiftDurationLabel.SetMarkup(Loc.GetString("comp-pda-ui-station-time",
+            ("time", $"{(int) duration.TotalHours:00}:{duration.Minutes:00}:{duration.Seconds:00}")));
     }
 
     protected override void Draw(DrawingHandleScreen handle)
