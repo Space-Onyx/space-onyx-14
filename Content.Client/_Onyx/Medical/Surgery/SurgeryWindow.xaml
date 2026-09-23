@@ -1,6 +1,7 @@
 <controls:SurgeryWindow
     xmlns="https://spacestation14.io"
     xmlns:controls="clr-namespace:Content.Client._Onyx.Medical.Surgery"
+    xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
     xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
     Title="{Loc 'surgery-ui-title'}"
     SetSize="960 570"
@@ -25,7 +26,7 @@
                 </BoxContainer>
             </BoxContainer>
 
-            <PanelContainer StyleClasses="LowDivider" SetHeight="1" />
+            <ui:Separator StyleClasses="LowDivider" Thickness="1" />
 
             <BoxContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="10">
                 <PanelContainer SetWidth="255" VerticalExpand="True">
@@ -64,7 +65,7 @@
                     <BoxContainer Orientation="Vertical" Margin="12" SeparationOverride="8">
                         <Label Name="SectionTitle" Access="Public" Text="{Loc 'surgery-ui-section-parts'}"
                                StyleClasses="LabelHeading" FontColorOverride="#E2ECEA" />
-                        <PanelContainer StyleClasses="LowDivider" SetHeight="1" />
+                        <ui:Separator StyleClasses="LowDivider" Thickness="1" />
                         <ScrollContainer VScrollEnabled="True" HScrollEnabled="False"
                                          ReserveScrollbarSpace="True" HorizontalExpand="True" VerticalExpand="True">
                             <BoxContainer Name="Parts" Access="Public" Orientation="Vertical"

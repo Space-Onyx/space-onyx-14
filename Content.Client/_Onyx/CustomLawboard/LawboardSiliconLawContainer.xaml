@@ -8,6 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <BoxContainer
     xmlns="https://spacestation14.io"
+    xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
     HorizontalExpand="True"
     Orientation="Vertical">
     <RichTextLabel StyleClasses="LabelKeyText" Name="LawNumberLabel" />
@@ -20,5 +21,5 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <Control HorizontalExpand="True" />
         <Button Name="Delete" Text="{Loc silicon-law-ui-delete}" ModulateSelfOverride="Firebrick" />
     </BoxContainer>
-    <PanelContainer StyleClasses="HighDivider" Margin="0,1,0,2" />
+    <ui:Separator StyleClasses="HighDivider" Margin="0,1,0,2" />
 </BoxContainer>

@@ -1,4 +1,5 @@
 using Content.Server.Antag;
+using Content.Shared.Antag;
 using Content.Server.GameTicking.Rules;
 using Content.Server.StationEvents.Components;
 using Content.Server.StationEvents.Events;
@@ -21,7 +22,7 @@ public sealed partial class VentSpawnRuleSystem : StationEventSystem<VentSpawnRu
 
     private void OnSelectLocation(Entity<VentSpawnRuleComponent> ent, ref AntagSelectLocationEvent args)
     {
-        if (!TryGetRandomStation(out var station))
+        if (!Station.TryGetRandomStation(out var station))
         {
             ForceEndSelf(ent, Comp<GameRuleComponent>(args.GameRule));
             return;
@@ -30,7 +31,7 @@ public sealed partial class VentSpawnRuleSystem : StationEventSystem<VentSpawnRu
         var locations = EntityQueryEnumerator<VentCritterSpawnLocationComponent, TransformComponent>();
         while (locations.MoveNext(out _, out _, out var transform))
         {
-            if (transform.Anchored && CompOrNull<StationMemberComponent>(transform.GridUid)?.Station == station)
+            if (transform.Anchored && CompOrNull<StationMemberComponent>(transform.GridUid)?.Station == station.Value.Owner)
                 args.Coordinates.Add(_transform.GetMapCoordinates(transform));
         }
 

@@ -17,7 +17,7 @@ public sealed partial class RandomMultipleSpawnRule : StationEventSystem<RandomM
         var amount = _random.Next(component.MinAmount, component.MaxAmount + 1);
         for (var i = 0; i < amount; i++)
         {
-            if (!TryFindRandomTile(out _, out _, out _, out var coordinates))
+            if (!Station.TryFindRandomTile(out _, out _, out _, out var coordinates))
                 continue;
 
             Sawmill.Info($"Spawning {component.Prototype} at {coordinates}");

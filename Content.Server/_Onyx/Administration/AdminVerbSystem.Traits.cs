@@ -9,7 +9,6 @@ namespace Content.Server.Administration.Systems;
 public sealed partial class AdminVerbSystem
 {
     [Dependency] private SharedHandsSystem _traitHands = default!;
-    [Dependency] private EntityWhitelistSystem _traitWhitelist = default!;
 
     private void ApplyProfileTraits(EntityUid mob, HumanoidCharacterProfile profile)
     {
@@ -21,8 +20,8 @@ public sealed partial class AdminVerbSystem
                 continue;
             }
 
-            if (_traitWhitelist.IsWhitelistFail(trait.Whitelist, mob) ||
-                _traitWhitelist.IsWhitelistPass(trait.Blacklist, mob))
+            if (_whitelistSystem.IsWhitelistFail(trait.Whitelist, mob) ||
+                _whitelistSystem.IsWhitelistPass(trait.Blacklist, mob))
                 continue;
 
             if (trait.Components.Count > 0)

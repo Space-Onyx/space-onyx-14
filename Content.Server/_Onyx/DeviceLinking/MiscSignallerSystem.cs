@@ -19,7 +19,7 @@ public sealed partial class MiscSignallerSystem : EntitySystem
 
     private void OnInit(Entity<MiscSignallerComponent> ent, ref ComponentInit args)
     {
-        _link.EnsureSourcePorts(ent, ent.Comp.Port.Id);
+        _link.EnsureSourcePorts(ent.Owner, ent.Comp.Port.Id);
     }
 
     private void OnTrigger(Entity<MiscSignallerComponent> ent, ref TriggerEvent args)
@@ -31,7 +31,7 @@ public sealed partial class MiscSignallerSystem : EntitySystem
         if (ent.Comp.NextActivation > _timing.CurTime)
             return;
 
-        _link.InvokePort(ent, ent.Comp.Port.Id);
+        _link.InvokePort(ent.Owner, ent.Comp.Port.Id);
         ent.Comp.NextActivation = _timing.CurTime + ent.Comp.ActivationInterval;
     }
 }

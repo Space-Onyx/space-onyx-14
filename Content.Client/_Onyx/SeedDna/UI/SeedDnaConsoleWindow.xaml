@@ -28,7 +28,7 @@
             </BoxContainer>
         </GridContainer>
 
-        <controls:HLine Color="{x:Static style:StyleNano.NanoGold}" Thickness="2" Margin="0 5 0 5" />
+        <controls:Separator ColorOverride="{x:Static style:StyleNano.NanoGold}" Thickness="2" Margin="0 5 0 5" />
 
         <ScrollContainer VerticalExpand="True" HorizontalExpand="True">
             <!--
@@ -51,7 +51,7 @@
             </GridContainer>
         </ScrollContainer>
 
-        <controls:HLine Color="{x:Static style:StyleNano.NanoGold}" Thickness="2" Margin="0 5 0 5" />
+        <controls:Separator ColorOverride="{x:Static style:StyleNano.NanoGold}" Thickness="2" Margin="0 5 0 5" />
 
         <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right" SeparationOverride="5">
             <Button Name="ExtractAllButton" Text="{Loc 'seed-dna-window-extract-all'}" Disabled="True" />

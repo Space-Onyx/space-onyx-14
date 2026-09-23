@@ -18,7 +18,7 @@
                 </PanelContainer.PanelOverride>
                 <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="4">
                     <Label Text="{Loc 'comms-console-menu-station-title'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" />
-                    <PanelContainer StyleClasses="LowDivider" />
+                    <controls:Separator StyleClasses="LowDivider" />
                     <Button Name="AnnouncementTab" Text="{Loc 'comms-console-menu-tab.Announcement'}" HorizontalExpand="True" StyleClasses="OpenLeft" />
                     <Button Name="ScreenTab" Text="{Loc 'comms-console-menu-tab.Screen'}" HorizontalExpand="True" StyleClasses="OpenBoth" />
                     <Button Name="AlertLevelTab" Text="{Loc 'comms-console-menu-tab.AlertLevel'}" HorizontalExpand="True" StyleClasses="OpenRight" />
@@ -30,7 +30,7 @@
                 </PanelContainer.PanelOverride>
                 <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="4">
                     <Label Text="{Loc 'comms-console-menu-transit-title'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" />
-                    <PanelContainer StyleClasses="LowDivider" />
+                    <controls:Separator StyleClasses="LowDivider" />
                     <Button Name="ShuttlesTab" Text="{Loc 'comms-console-menu-tab.Shuttles'}" HorizontalExpand="True" />
                 </BoxContainer>
             </PanelContainer>
@@ -43,7 +43,7 @@
                 </PanelContainer.PanelOverride>
                 <BoxContainer Margin="10 8" HorizontalExpand="True" VerticalExpand="True" Orientation="Vertical" SeparationOverride="6">
                     <Label Text="{Loc 'comms-console-menu-announcement-text'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" />
-                    <PanelContainer StyleClasses="LowDivider" />
+                    <controls:Separator StyleClasses="LowDivider" />
                     <TextEdit Name="AnnounceInput" VerticalExpand="True" HorizontalExpand="True" MinHeight="140" />
                 </BoxContainer>
             </PanelContainer>
@@ -57,7 +57,7 @@
                 </PanelContainer.PanelOverride>
                 <BoxContainer SeparationOverride="6" Margin="10 8" HorizontalExpand="True" Orientation="Vertical">
                     <Label Text="{Loc 'comms-console-menu-screen-configuration'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" />
-                    <PanelContainer StyleClasses="LowDivider" />
+                    <controls:Separator StyleClasses="LowDivider" />
                     <BoxContainer SeparationOverride="8">
                         <Label Text="{Loc 'comms-console-menu-screen-contents'}" HorizontalExpand="True" VerticalAlignment="Center" />
                         <OptionButton Name="ScreenContentsButton" MinWidth="180" />
@@ -74,7 +74,7 @@
                 </PanelContainer.PanelOverride>
                 <BoxContainer Margin="10 8" Orientation="Vertical" SeparationOverride="6" VerticalExpand="True">
                     <Label Text="{Loc 'comms-console-menu-screen-text'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" />
-                    <PanelContainer StyleClasses="LowDivider" />
+                    <controls:Separator StyleClasses="LowDivider" />
                     <GridContainer Columns="2" HorizontalExpand="True" HSeparationOverride="8" VSeparationOverride="6">
                         <Label Text="{Loc 'comms-console-menu-line-1'}" VerticalAlignment="Center" />
                         <LineEdit Name="ScreenLine1" HorizontalExpand="True" StyleClasses="comms-console-display" />
@@ -94,7 +94,7 @@
                 </PanelContainer.PanelOverride>
                 <BoxContainer Margin="10 8" HorizontalExpand="True" Orientation="Vertical" SeparationOverride="6">
                     <Label Text="{Loc 'comms-console-menu-emergency-shuttle'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" />
-                    <PanelContainer StyleClasses="LowDivider" />
+                    <controls:Separator StyleClasses="LowDivider" />
                     <PanelContainer Margin="0 2 0 4">
                         <PanelContainer.PanelOverride>
                             <gfx:StyleBoxFlat BackgroundColor="#16191F" BorderColor="#353B45" BorderThickness="1" ContentMarginLeftOverride="8" ContentMarginTopOverride="6" ContentMarginRightOverride="8" ContentMarginBottomOverride="6" />
@@ -113,7 +113,7 @@
                 </PanelContainer.PanelOverride>
                 <BoxContainer Margin="10 8" HorizontalExpand="True" Orientation="Vertical" SeparationOverride="6">
                     <Label Text="{Loc 'comms-console-menu-alert-level'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0" />
-                    <PanelContainer StyleClasses="LowDivider" />
+                    <controls:Separator StyleClasses="LowDivider" />
                     <PanelContainer Margin="0 2 0 4">
                         <PanelContainer.PanelOverride>
                             <gfx:StyleBoxFlat BackgroundColor="#16191F" BorderColor="#353B45" BorderThickness="1" ContentMarginLeftOverride="8" ContentMarginTopOverride="6" ContentMarginRightOverride="8" ContentMarginBottomOverride="6" />

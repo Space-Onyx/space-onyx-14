@@ -49,6 +49,9 @@ using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
 using Content.Shared.Database;
 using Content.Shared.GameTicking.Components;
+using Content.Shared.Antag;
+using Content.Shared.GameTicking;
+using Content.Shared.GameTicking.Rules;
 using Content.Shared.Humanoid;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Mind.Components;
@@ -59,6 +62,8 @@ using Content.Shared.Movement.Systems;
 using Content.Shared.Parallax;
 using Content.Shared.Popups;
 using Content.Shared.Roles;
+using Content.Shared.RoundEnd;
+using Content.Shared.Station.Systems;
 using Content.Shared.Roles.Components;
 using Content.Shared.Gibbing;
 using Content.Shared.Stunnable;
@@ -262,7 +267,7 @@ public sealed partial class CosmicCultRuleSystem : GameRuleSystem<CosmicCultRule
 
             for (var i = 0; i < component.TotalCrew / 4; i++) // spawn # malign rifts equal to 25% of the playercount
             {
-                if (!TryFindRandomTile(out var _, out var _, out var _, out var coords))
+                if (!_station.TryFindRandomTile(out _, out _, out _, out var coords))
                     continue;
 
                 Spawn("CosmicMalignRift", coords);
@@ -372,7 +377,7 @@ public sealed partial class CosmicCultRuleSystem : GameRuleSystem<CosmicCultRule
     {
         var query = QueryActiveRules();
 
-        while (query.MoveNext(out var ruleUid, out _, out var cultRule, out _))
+        while (query.MoveNext(out var ruleUid, out var cultRule, out _, out _))
         {
             SetWinType((ruleUid, cultRule), WinType.CultComplete); //here's no coming back from this. Cult wins this round
             _roundEnd.EndRound(); //Woo game over yeaaaah
@@ -413,7 +418,7 @@ public sealed partial class CosmicCultRuleSystem : GameRuleSystem<CosmicCultRule
 
         var query = QueryActiveRules();
 
-        while (query.MoveNext(out var uid, out _, out var cultRule, out _))
+        while (query.MoveNext(out var uid, out var cultRule, out _, out _))
             ConfirmWinState((uid, cultRule)); //If so, let's consult our Winconditions and set an appropriate WinType.
     }
 
@@ -443,7 +448,7 @@ public sealed partial class CosmicCultRuleSystem : GameRuleSystem<CosmicCultRule
 
         var query = QueryActiveRules();
 
-        while (query.MoveNext(out var ruleUid, out _, out var ruleComp, out _))
+        while (query.MoveNext(out var ruleUid, out var ruleComp, out _, out _))
             ConfirmWinState((ruleUid, ruleComp));
     }
 
@@ -504,11 +509,11 @@ public sealed partial class CosmicCultRuleSystem : GameRuleSystem<CosmicCultRule
             SetWinType(ent, WinType.CrewMajor); // There's still cultists registered, but if we got here, that means they're all dead
     }
 
-    protected override void AppendRoundEndText(EntityUid uid,
-        CosmicCultRuleComponent component,
-        GameRuleComponent gameRule,
+    protected override void AppendRoundEndText(
+        Entity<CosmicCultRuleComponent> rule,
         ref RoundEndTextAppendEvent args)
     {
+        var component = rule.Comp;
         var ftlKey = component.WinType.ToString().ToLower();
         var winType = Loc.GetString($"cosmiccult-roundend-{ftlKey}");
         var summaryText = Loc.GetString($"cosmiccult-summary-{ftlKey}");

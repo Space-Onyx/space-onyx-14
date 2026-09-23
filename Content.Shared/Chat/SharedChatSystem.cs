@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Content.Shared.ActionBlocker;
 using Content.Shared._Onyx.Language; // <Onyx-OSayLanguage>
 using Content.Shared._Onyx.Chat; // <Onyx-EmoteVisibility>
+using Content.Shared.CCVar;
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.Popups;
 using Content.Shared.Radio;
@@ -11,6 +12,7 @@ using Content.Shared.Speech;
 using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
@@ -43,16 +45,19 @@ public abstract partial class SharedChatSystem : EntitySystem
         = new SoundPathSpecifier("/Audio/Announcements/announce.ogg");
 
     public static readonly ProtoId<RadioChannelPrototype> CommonChannel = "Common";
+    public bool ChatNameLinks { get; private set; }
 
     public static readonly string DefaultChannelPrefix = $"{RadioChannelPrefix}{DefaultChannelKey}";
     public static readonly ProtoId<SpeechVerbPrototype> DefaultSpeechVerb = "Default";
 
     [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] protected IConfigurationManager Config = default!;
     [Dependency] private EntityWhitelistSystem _whitelist = default!;
     [Dependency] private ActionBlockerSystem _actionBlocker = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private INetManager _net = default!;
+    [Dependency] private ISharedPlayerManager _player = default!;
 
     /// <summary>
     /// Cache of the keycodes for faster lookup.
@@ -66,8 +71,23 @@ public abstract partial class SharedChatSystem : EntitySystem
         DebugTools.Assert(ProtoMan.HasIndex(CommonChannel));
 
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypeReload);
+        SubscribeAllEvent<ChatLinkClickedRequestEvent>(OnChatMessageLinkClicked);
         CacheRadios();
         CacheEmotes();
+        Subs.CVar(Config, CCVars.ChatNameLinks, value => ChatNameLinks = value, true);
+    }
+
+    private void OnChatMessageLinkClicked(ChatLinkClickedRequestEvent msg, EntitySessionEventArgs args)
+    {
+        if (!ChatNameLinks ||
+            GetEntity(msg.Target) is not { Valid: true } target ||
+            !Exists(target) ||
+            args.SenderSession.AttachedEntity is not { Valid: true } entity)
+        {
+            return;
+        }
+
+        ClickMessageSender(target, entity);
     }
 
     protected virtual void OnPrototypeReload(PrototypesReloadedEventArgs obj)
@@ -319,6 +339,38 @@ public abstract partial class SharedChatSystem : EntitySystem
             return "";
         tagStart += tag.Length + 2;
         return rawmsg.Substring(tagStart, tagEnd - tagStart);
+    }
+
+    /// <inheritdoc cref="CanClickMessageSender(EntityUid,EntityUid?)"/>
+    public bool CanClickMessageSender(NetEntity target, EntityUid? entity = null)
+    {
+        return CanClickMessageSender(GetEntity(target), entity);
+    }
+
+    public bool CanClickMessageSender(EntityUid target, EntityUid? entity = null)
+    {
+        entity ??= _player.LocalEntity;
+        if (entity == null || !CanClick(target, entity.Value))
+            return false;
+
+        var ev = new ClickEntityLinkEvent(target, true);
+        RaiseLocalEvent(entity.Value, ref ev);
+        return ev.Handled;
+    }
+
+    private bool CanClick(EntityUid target, EntityUid entity)
+    {
+        return ChatNameLinks && entity != target;
+    }
+
+    public void ClickMessageSender(EntityUid target, EntityUid? entity = null)
+    {
+        entity ??= _player.LocalEntity;
+        if (entity == null || !CanClick(target, entity.Value))
+            return;
+
+        var ev = new ClickEntityLinkEvent(target, false);
+        RaiseLocalEvent(entity.Value, ref ev);
     }
 
     protected virtual void SendEntityEmote(

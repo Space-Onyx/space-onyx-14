@@ -6,9 +6,13 @@ using Content.Server.Antag;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Roles;
 using Content.Shared.FixedPoint;
+using Content.Shared.Antag;
+using Content.Shared.GameTicking;
+using Content.Shared.GameTicking.Rules;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Mind;
+using Content.Shared.Roles;
 using Content.Shared.Vampire;
 using Content.Shared.Vampire.Components;
 
@@ -51,11 +55,11 @@ namespace Content.Server.GameTicking.Rules
             return briefing;
         }
 
-        protected override void AppendRoundEndText(EntityUid uid,
-            VampireRuleComponent component,
-            GameRuleComponent gameRule,
+        protected override void AppendRoundEndText(
+            Entity<VampireRuleComponent> rule,
             ref RoundEndTextAppendEvent args)
         {
+            var component = rule.Comp;
             if (component.VampiresInfo.Count == 0)
                 return;
 

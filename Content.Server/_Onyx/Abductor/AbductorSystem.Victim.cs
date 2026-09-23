@@ -6,6 +6,7 @@
 
 using Content.Server.Administration.Logs;
 using Content.Server.Antag;
+using Content.Shared.Antag;
 using Content.Server.Mind;
 using Content.Server.Roles;
 using Content.Shared._Onyx.Abductor;

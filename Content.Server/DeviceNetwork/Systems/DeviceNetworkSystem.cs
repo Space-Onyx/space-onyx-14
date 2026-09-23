@@ -68,7 +68,8 @@ public sealed partial class DeviceNetworkSystem : SharedDeviceNetworkSystem
             if (Deleted(list))
                 return;
 
-            _configurator.OnDeviceShutdown(list, ent);
+            if (TryComp<NetworkConfiguratorComponent>(list, out var configurator)) // <Onyx-NetworkCleanup-edited>
+                _configurator.OnDeviceShutdown((list, configurator), ent); // <Onyx-NetworkCleanup-edited>
         }
 
         if (TryGetNetwork(component.DeviceNetId, out var network))

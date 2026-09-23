@@ -11,14 +11,19 @@ using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
 using Content.Shared._Onyx.Xenomorphs;
+using Content.Shared.Antag;
 using Content.Shared._Onyx.Xenomorphs.Caste;
 using Content.Shared._Onyx.Xenomorphs.Xenomorph;
 using Content.Shared.GameTicking.Components;
+using Content.Shared.GameTicking;
+using Content.Shared.GameTicking.Rules;
 using Content.Shared.Humanoid;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Nuke;
+using Content.Shared.RoundEnd;
 using Content.Shared.Station.Components;
+using Content.Shared.Station.Systems;
 using Robust.Server.Audio;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
@@ -70,7 +75,7 @@ public sealed partial class XenomorphsRuleSystem : GameRuleSystem<XenomorphsRule
     private void OnXenomorphInit(EntityUid uid, XenomorphComponent component, ComponentInit args)
     {
         var query = QueryActiveRules();
-        while (query.MoveNext(out _, out var xenomorphsRule, out _))
+        while (query.MoveNext(out _, out var xenomorphsRule, out _, out _))
         {
             if (!xenomorphsRule.Xenomorphs.Contains(uid))
                 xenomorphsRule.Xenomorphs.Add(uid);
@@ -86,7 +91,7 @@ public sealed partial class XenomorphsRuleSystem : GameRuleSystem<XenomorphsRule
             return;
 
         var query = QueryActiveRules();
-        while (query.MoveNext(out _, out var xenomorphsRule, out _))
+        while (query.MoveNext(out _, out var xenomorphsRule, out _, out _))
         {
             if (!xenomorphsRule.Xenomorphs.Contains(uid))
                 continue;
@@ -112,7 +117,7 @@ public sealed partial class XenomorphsRuleSystem : GameRuleSystem<XenomorphsRule
         AfterXenomorphEvolutionEvent args)
     {
         var query = QueryActiveRules();
-        while (query.MoveNext(out _, out var xenomorphsRule, out _))
+        while (query.MoveNext(out _, out var xenomorphsRule, out _, out _))
         {
             if (xenomorphsRule.Xenomorphs.Remove(uid))
                 xenomorphsRule.Xenomorphs.Add(args.EvolvedInto);
@@ -126,7 +131,7 @@ public sealed partial class XenomorphsRuleSystem : GameRuleSystem<XenomorphsRule
 
         var endRound = false;
         var query = QueryActiveRules();
-        while (query.MoveNext(out var uid, out _, out var xenomorphs, out _))
+        while (query.MoveNext(out var uid, out var xenomorphs, out _, out _))
         {
             xenomorphs.WinType = WinType.CrewMinor;
             xenomorphs.WinConditions.Add(WinCondition.NukeExplodedOnStation);
@@ -144,7 +149,7 @@ public sealed partial class XenomorphsRuleSystem : GameRuleSystem<XenomorphsRule
             return;
 
         var query = QueryActiveRules();
-        while (query.MoveNext(out var uid, out _, out var xenomorphs, out _))
+        while (query.MoveNext(out var uid, out var xenomorphs, out _, out _))
         {
             OnRoundEnd(xenomorphs);
             ForceEndSelf(uid);
@@ -184,11 +189,10 @@ public sealed partial class XenomorphsRuleSystem : GameRuleSystem<XenomorphsRule
     }
 
     protected override void AppendRoundEndText(
-        EntityUid uid,
-        XenomorphsRuleComponent component,
-        GameRuleComponent gameRule,
+        Entity<XenomorphsRuleComponent> rule,
         ref RoundEndTextAppendEvent args)
     {
+        var component = rule.Comp;
         args.AddLine(Loc.GetString($"xenomorphs-{component.WinType.ToString().ToLowerInvariant()}"));
 
         foreach (var condition in component.WinConditions)
@@ -354,7 +358,7 @@ public sealed partial class XenomorphsRuleSystem : GameRuleSystem<XenomorphsRule
         var stationGrids = new HashSet<EntityUid>();
         foreach (var station in _station.GetStations())
         {
-            if (HasComp<StationDataComponent>(station) && _station.GetLargestGrid(station) is { } grid)
+            if (HasComp<StationDataComponent>(station) && _station.GetLargestGrid(station.AsNullable()) is { } grid)
                 stationGrids.Add(grid);
         }
 

@@ -8,6 +8,7 @@
 using Content.Server._Onyx.Interaction.Components;
 using Content.Server.Popups;
 using Content.Server.Station.Systems;
+using Content.Shared.Station.Systems;
 using Content.Shared._Onyx.Interaction.Events;
 
 namespace Content.Server._Onyx.Interaction.Systems;

@@ -15,6 +15,9 @@ using Content.Shared._Onyx.Blob;
 using Content.Server._Onyx.Blob.Components;
 using Content.Shared._Onyx.Blob.Components;
 using Content.Shared.AlertLevel;
+using Content.Shared.Antag;
+using Content.Shared.GameTicking;
+using Content.Shared.GameTicking.Rules;
 using Content.Server.Antag;
 using Content.Server.Chat.Managers;
 using Content.Server.Chat.Systems;
@@ -29,6 +32,8 @@ using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Objectives.Components;
+using Content.Shared.Station.Components;
+using Content.Shared.Station.Systems;
 using Robust.Server.Player;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
@@ -63,7 +68,7 @@ public sealed partial class BlobRuleSystem : GameRuleSystem<BlobRuleComponent>
             if(uid == entityUid)
                 continue;
 
-            GameTicker.EndGameRule(uid, gameRule);
+            GameTicker.EndGameRule((uid, gameRule));
             Log.Warning("blob is active!!! remove!");
             break;
         }
@@ -228,11 +233,10 @@ public sealed partial class BlobRuleSystem : GameRuleSystem<BlobRuleComponent>
     }
 
     protected override void AppendRoundEndText(
-        EntityUid uid,
-        BlobRuleComponent blob,
-        GameRuleComponent gameRule,
+        Entity<BlobRuleComponent> rule,
         ref RoundEndTextAppendEvent ev)
     {
+        var blob = rule.Comp;
         if (blob.Blobs.Count < 1)
             return;
 

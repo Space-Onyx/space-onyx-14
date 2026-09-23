@@ -2,6 +2,7 @@ using Content.IntegrationTests.Fixtures;
 using Content.IntegrationTests.Fixtures.Attributes;
 using Content.Shared._Onyx.Xenobiology.Equipment.Components;
 using Content.Shared.Timing;
+using Content.Shared.Timing.Components;
 using Robust.Shared.Map;
 
 namespace Content.IntegrationTests.Tests._Onyx.Xenobiology;

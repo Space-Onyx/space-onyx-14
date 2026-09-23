@@ -16,7 +16,7 @@
             <Control MinWidth="5"/>
             <Button Name="EjectBatteryButton" Text="{Loc 'mod-ui-remove-battery'}" StyleClasses="OpenLeft"/>
         </BoxContainer>
-        <customControls:HSeparator Margin="0 0 0 5"/>
+        <controls:Separator StyleClasses="LowDivider" Margin="0 0 0 5"/>
         <Label Text="{Loc 'mod-ui-modules-label'}" Margin="0 0 0 3"/>
         <PanelContainer VerticalExpand="True">
             <PanelContainer.PanelOverride>

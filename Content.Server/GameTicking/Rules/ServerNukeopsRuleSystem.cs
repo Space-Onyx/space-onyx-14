@@ -12,6 +12,7 @@ using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
 using Content.Server.Store.Systems;
 using Content.Shared.Access.Systems;
+using Content.Shared.Antag; // <Onyx-UplinkGoob>
 using Content.Shared.GameTicking;
 using Content.Shared.GameTicking.Rules;
 using Content.Shared.GameTicking.Rules.Components;
@@ -58,6 +59,7 @@ public sealed partial class ServerNukeopsRuleSystem : NukeopsRuleSystem
     [Dependency] private StationRecordsSystem _records = default!;
     [Dependency] private StoreSystem _store = default!;
     [Dependency] private TagSystem _tag = default!;
+    [Dependency] private AntagSelectionSystem _antag = default!; // <Onyx-UplinkGoob>
 
     private static readonly ProtoId<CurrencyPrototype> TelecrystalCurrencyPrototype = "Telecrystal";
     private static readonly ProtoId<TagPrototype> NukeOpsUplinkTagPrototype = "NukeOpsUplink";
@@ -461,7 +463,7 @@ public sealed partial class ServerNukeopsRuleSystem : NukeopsRuleSystem
         var nukiesCount = EntityQuery<NukeopsRoleComponent>().Count();
         if (nukiesCount == 0)
             return rule.WarTcAmountPerNukie;
-        var totalPlayersCount = _antag.GetTotalPlayerCount(_player.Sessions);
+        var totalPlayersCount = _antag.GetTotalPlayerCount(_player.Sessions.ToList());
         var playersCount = Math.Max(0, totalPlayersCount - nukiesCount);
         var maxNukies = totalPlayersCount / rule.WarNukiePlayerRatio;
         var nukiesMissing = Math.Max(0, maxNukies - nukiesCount);

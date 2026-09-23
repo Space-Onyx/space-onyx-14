@@ -8,11 +8,11 @@
             <PanelContainer Name="TabRail" MinWidth="58" MaxWidth="58" VerticalExpand="True">
                 <BoxContainer Orientation="Vertical" Margin="5" SeparationOverride="4">
                     <Label Text="N.I." Align="Center" StyleClasses="font-small" FontColorOverride="#9fb0c4" MouseFilter="Stop" ToolTip="{Loc 'neuro-interface-heading'}"/>
-                    <PanelContainer StyleClasses="LowDivider"/>
+                    <controls:Separator StyleClasses="LowDivider"/>
                     <Button Name="OverviewTab" Text="01&#10;NET" ToolTip="{Loc 'neuro-interface-nav-overview'}" MinSize="46 54"/>
                     <Button Name="HardwareTab" Text="02&#10;HW" ToolTip="{Loc 'neuro-interface-nav-hardware'}" MinSize="46 54"/>
                     <Control VerticalExpand="True"/>
-                    <PanelContainer StyleClasses="LowDivider"/>
+                    <controls:Separator StyleClasses="LowDivider"/>
                     <Label Text="LINK" Align="Center" StyleClasses="font-small" FontColorOverride="#687483" MouseFilter="Stop"/>
                 </BoxContainer>
             </PanelContainer>
@@ -34,7 +34,7 @@
                                     <Label Text="{Loc 'neuro-interface-power-heading'}" FontColorOverride="#b8c6d8" HorizontalExpand="True"/>
                                     <Label Name="PowerBalanceLabel" FontColorOverride="#b8c6d8"/>
                                 </BoxContainer>
-                                <PanelContainer StyleClasses="LowDivider"/>
+                                <controls:Separator StyleClasses="LowDivider"/>
                                 <ScrollContainer HScrollEnabled="False" VerticalExpand="True">
                                     <BoxContainer Orientation="Vertical" SeparationOverride="3" HorizontalExpand="True">
                                         <BoxContainer Name="PowerSourceList" Orientation="Vertical" SeparationOverride="2"/>

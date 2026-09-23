@@ -1,3 +1,4 @@
+using Content.Shared._Onyx.Drone; // <Onyx-Drone>
 using Content.Shared.Damage.Components;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs;
@@ -9,6 +10,7 @@ using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.Emag.Systems;
 using Robust.Shared.Utility;
+using Robust.Shared.Player; // <Onyx-Drone>
 
 namespace Content.Server.Silicons.Borgs;
 
@@ -54,7 +56,49 @@ public sealed partial class BorgSystem
 
             comp.NextBroadcast = now + comp.BroadcastDelay;
         }
+
+        // <Onyx-Drone>
+        var droneQuery = EntityQueryEnumerator<BorgTransponderComponent, DroneComponent, DeviceNetworkComponent, MetaDataComponent>();
+        while (droneQuery.MoveNext(out var uid, out var transponder, out _, out var device, out var meta))
+        {
+            if (now < transponder.NextBroadcast)
+                continue;
+
+            var chargeFraction = 0f;
+            if (_powerCell.TryGetBatteryFromSlot(uid, out var battery))
+                chargeFraction = _battery.GetChargeLevel(battery.Value.AsNullable());
+
+            var payload = new RoboticsCyborgDataPayload
+            {
+                Data = new CyborgControlData(
+                    transponder.Sprite,
+                    transponder.Name,
+                    meta.EntityName,
+                    chargeFraction,
+                    CalcDroneHP(uid),
+                    0,
+                    HasComp<ActorComponent>(uid),
+                    false),
+            };
+            _deviceNetwork.SendPacket((uid, device), null, ref payload);
+            transponder.NextBroadcast = now + transponder.BroadcastDelay;
+        }
+        // </Onyx-Drone>
     }
+
+    // <Onyx-Drone>
+    private float CalcDroneHP(EntityUid uid)
+    {
+        if (!TryComp<DamageableComponent>(uid, out var damageable))
+            return 1f;
+        if (!_mobState.IsAlive(uid))
+            return 0f;
+        if (!_mobThresholdSystem.TryGetThresholdForState(uid, MobState.Dead, out var threshold))
+            return 1f;
+
+        return Math.Clamp(1f - ((FixedPoint2) (_damageable.GetTotalDamage((uid, damageable)) / threshold)).Float(), 0f, 1f);
+    }
+    // </Onyx-Drone>
 
     private void DoDisable(Entity<BorgTransponderComponent, BorgChassisComponent, MetaDataComponent> ent)
     {

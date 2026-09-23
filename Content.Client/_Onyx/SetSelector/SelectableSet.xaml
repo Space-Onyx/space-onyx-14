@@ -15,7 +15,7 @@
                         Access="Public"
                         HorizontalAlignment="Right" />
             </GridContainer>
-            <controls:HLine Color="#404040" Thickness="1" Margin="0 5" />
+            <controls:Separator ColorOverride="#404040" Thickness="1" Margin="0 5" />
             <GridContainer Margin="0 5" Columns="2">
                 <TextureRect Name="Icon"
                              Margin="10"

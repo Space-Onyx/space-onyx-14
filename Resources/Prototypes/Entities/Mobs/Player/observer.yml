@@ -47,7 +47,6 @@
       map: [ "ghostVariant" ]
       shader: unshaded
   - type: Appearance
-  - type: TypingIndicator # <Onyx-GhostTypingIndicator>
   - type: GenericVisualizer
     visuals:
       enum.GhostVisuals.Damage:

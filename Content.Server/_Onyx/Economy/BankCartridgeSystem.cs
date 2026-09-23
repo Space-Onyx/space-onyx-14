@@ -8,6 +8,7 @@ using Content.Shared.Chat;
 using Robust.Shared.Utility;
 using Robust.Shared.Maths;
 using Content.Server.GameTicking;
+using Content.Shared.GameTicking;
 using Robust.Shared.Timing;
 using Robust.Shared.Configuration;
 

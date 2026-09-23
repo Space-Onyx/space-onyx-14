@@ -9,6 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <controls:AbductorConsoleWindow
     xmlns="https://spacestation14.io"
     xmlns:controls="clr-namespace:Content.Client._Onyx.Abductor"
+    xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
     xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
     xmlns:graphics="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
     MinSize="400 400">
@@ -18,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <Button Name="ExperimentTabButton" Access="Public" Text="{Loc 'abductors-ui-experiment'}" HorizontalExpand="True" StyleClasses="OpenBoth" />
             <Button Name="ArmorControlTabButton" Access="Public" Text="{Loc 'abductors-ui-armor-control'}" HorizontalExpand="True" StyleClasses="OpenBoth" />
         </BoxContainer>
-        <cc:HSeparator/>
+        <ui:Separator StyleClasses="LowDivider"/>
         <ScrollContainer VScrollEnabled="True" HorizontalExpand="True" VerticalExpand="True">
             <BoxContainer Name="TeleportTab" Access="Public" Orientation="Vertical" Visible="False">
                 <RichTextLabel Name="PadLabel" Access="Public"/>

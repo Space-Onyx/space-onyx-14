@@ -4,6 +4,7 @@ using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
+using Content.Shared.Station.Systems;
 using Content.Shared._Onyx.Shuttles;
 using Content.Shared._Onyx.Shuttles.Components;
 using Content.Shared._Onyx.Shuttles.Systems;

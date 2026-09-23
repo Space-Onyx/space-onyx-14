@@ -1,5 +1,6 @@
 using System.Linq;
 using Content.Server.GameTicking;
+using Content.Shared.GameTicking;
 using Content.Shared._Onyx.Language;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;

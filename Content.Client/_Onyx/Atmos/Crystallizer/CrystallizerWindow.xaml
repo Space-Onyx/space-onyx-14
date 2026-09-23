@@ -14,7 +14,7 @@
                 </PanelContainer.PanelOverride>
                 <BoxContainer Name="Controls" Margin="10 8" Orientation="Vertical">
                     <Label Name="ControlsHeaderLabel" Modulate="#C7D5E0"/>
-                    <PanelContainer StyleClasses="LowDivider"/>
+                    <controls:Separator StyleClasses="LowDivider"/>
                     <BoxContainer Name="PowerControlContainer" Margin="0 2" Orientation="Horizontal">
                         <Label Name="PowerLabel" VerticalAlignment="Center"/>
                         <Control HorizontalExpand="True" />
@@ -38,7 +38,7 @@
                     </PanelContainer.PanelOverride>
                     <BoxContainer Margin="10 8" HorizontalExpand="True" Orientation="Vertical">
                         <Label Name="ProgressAndRequirementsHeaderLabel" Modulate="#C7D5E0"/>
-                        <PanelContainer StyleClasses="LowDivider"/>
+                        <controls:Separator StyleClasses="LowDivider"/>
                         <BoxContainer Name="ProgressAndRequirements" Margin="0 3" Orientation="Vertical">
                             <BoxContainer Name="ProgressContainer" Margin="0 2" Orientation="Horizontal">
                                 <Label Name="ProgressLabel" MinSize="115 0" VerticalAlignment="Center"/>
@@ -88,7 +88,7 @@
                     </PanelContainer.PanelOverride>
                     <BoxContainer Margin="10 8" HorizontalExpand="True" Orientation="Vertical">
                         <Label Name="RecipeDetailsHeaderLabel" Modulate="#C7D5E0" />
-                        <PanelContainer StyleClasses="LowDivider"/>
+                        <controls:Separator StyleClasses="LowDivider"/>
                         <PanelContainer Name="RecipePanel" MinSize="322 180" Margin="0 3 0 0" >
                             <PanelContainer.PanelOverride>
                                 <gfx:StyleBoxFlat BackgroundColor="#16191F" BorderColor="#353B45" BorderThickness="1" />

@@ -2,6 +2,7 @@ using Content.Client.Lathe;
 using Content.Client.Research;
 using Content.Client.Research.UI;
 using Content.Client.Stylesheets;
+using Content.Client.Stylesheets.Fonts;
 using Content.Shared._Onyx.Research.Prototypes;
 using Content.Shared.Research.Components;
 using Content.Shared.Research.Prototypes;
@@ -44,7 +45,7 @@ public sealed partial class FancyTechnologyInfoPanel : Control
         _database = database;
 
         TechnologyNameLabel.Text = Loc.GetString(proto.Name);
-        TechnologyNameLabel.FontOverride = _resources.NotoStack(variation: "Bold", size: 14);
+        TechnologyNameLabel.FontOverride = new NotoFontFamilyStack(_resources).GetFont(14, FontKind.Bold);
         TechnologyNameLabel.FontColorOverride = Color.FromHex("#A88B5E");
         TechnologyNameLabel.ToolTip = TechnologyNameLabel.Text;
         TechnologyNameLabel.TooltipDelay = 0.2f;

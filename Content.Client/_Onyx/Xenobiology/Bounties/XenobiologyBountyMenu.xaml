@@ -19,7 +19,7 @@
       </TabContainer>
     </PanelContainer>
     <BoxContainer Orientation="Vertical">
-      <PanelContainer StyleClasses="LowDivider" />
+      <controls:Separator StyleClasses="LowDivider" />
       <BoxContainer Orientation="Horizontal" Margin="10 2 5 0" VerticalAlignment="Bottom">
         <Label Text="{Loc 'xenobiology-console-flavor-left'}" StyleClasses="WindowFooterText" />
         <Label Text="{Loc 'xenobiology-console-flavor-right'}" StyleClasses="WindowFooterText"

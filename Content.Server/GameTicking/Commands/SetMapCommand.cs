@@ -32,7 +32,7 @@ namespace Content.Server.GameTicking.Commands
 
             var name = args[0];
 
-            var ticker = _entityManager.EntitySysManager.GetEntitySystem<GameTicker>();
+            var ticker = _entityManager.EntitySysManager.GetEntitySystem<ServerGameTicker>();
             if (ticker.CanUpdateMap())
             {
                 // deny effect of forcemap if it was used before

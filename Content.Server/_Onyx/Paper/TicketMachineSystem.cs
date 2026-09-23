@@ -5,6 +5,8 @@ using Content.Shared.Interaction;
 using Content.Shared.Paper;
 using Content.Shared.Popups;
 using Content.Shared.Timing;
+using Content.Shared.Timing.Components;
+using Content.Shared.Timing.Systems;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 

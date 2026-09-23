@@ -1,6 +1,7 @@
 <BoxContainer xmlns="https://spacestation14.io"
-              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+               xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
               Orientation="Vertical"
               HorizontalExpand="True"
               VerticalExpand="True"
@@ -22,7 +23,7 @@
                     <Label Name="PointsLabel" Align="Center" StyleClasses="font-bold" Modulate="#8BC5FF" />
                 </PanelContainer>
             </BoxContainer>
-            <PanelContainer StyleClasses="LowDivider" />
+            <ui:Separator StyleClasses="LowDivider" />
             <ProgressBar Name="CapacityBar" HorizontalExpand="True" MinValue="0" MaxValue="1" SetHeight="12">
                 <ProgressBar.ForegroundStyleBoxOverride>
                     <gfx:StyleBoxFlat BackgroundColor="#62A7D8" />
@@ -47,7 +48,7 @@
                     <Control HorizontalExpand="True" />
                     <Label Name="AvailableCountLabel" StyleClasses="font-small" Modulate="#8F9BAA" />
                 </BoxContainer>
-                <PanelContainer StyleClasses="LowDivider" />
+                <ui:Separator StyleClasses="LowDivider" />
                 <ItemList Name="AvailableList" VerticalExpand="True" ItemSeparation="2" />
                 <Button Name="InstallButton" Text="{Loc 'cybernetics-personalization-install'}" Disabled="True" HorizontalExpand="True" MinHeight="34" />
             </BoxContainer>
@@ -63,7 +64,7 @@
                     <Control HorizontalExpand="True" />
                     <Label Name="InstalledCountLabel" StyleClasses="font-small" Modulate="#8F9BAA" />
                 </BoxContainer>
-                <PanelContainer StyleClasses="LowDivider" />
+                <ui:Separator StyleClasses="LowDivider" />
                 <ItemList Name="InstalledList" VerticalExpand="True" ItemSeparation="2" />
                 <Button Name="RemoveButton" Text="{Loc 'cybernetics-personalization-remove'}" Disabled="True" HorizontalExpand="True" MinHeight="34" />
             </BoxContainer>

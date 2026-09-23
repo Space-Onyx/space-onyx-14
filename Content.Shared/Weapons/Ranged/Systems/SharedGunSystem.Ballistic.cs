@@ -417,8 +417,15 @@ public abstract partial class SharedGunSystem
         if (!refiller.AutoRefill || IsFull(entity))
             return;
 
-        if (refiller.PowerConsumption > 0 && _battery.GetCharge(entity).Charge < refiller.PowerConsumption)
-            return;
+        // <Onyx-BallisticSelfRefillerPower-edited>
+        if (refiller.PowerConsumption > 0)
+        {
+            var getCharge = new GetChargeEvent();
+            RaiseLocalEvent(entity.Owner, ref getCharge);
+            if (getCharge.CurrentCharge < refiller.PowerConsumption)
+                return;
+        }
+        // </Onyx-BallisticSelfRefillerPower-edited>
 
         if (refiller.AmmoProto is not { } refillerAmmoProto)
         {
@@ -453,8 +460,13 @@ public abstract partial class SharedGunSystem
 
         Audio.PlayPredicted(entity.Comp2.RechargeSound, entity, entity);
 
+        // <Onyx-BallisticSelfRefillerPower-edited>
         if (refiller.PowerConsumption > 0)
-            TakeCharge(entity, refiller.PowerConsumption);
+        {
+            var changeCharge = new ChangeChargeEvent(-refiller.PowerConsumption);
+            RaiseLocalEvent(entity.Owner, ref changeCharge);
+        }
+        // </Onyx-BallisticSelfRefillerPower-edited>
     }
 }
 

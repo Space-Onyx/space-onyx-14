@@ -2,6 +2,7 @@ using Content.Server._Onyx.Salvage.DeathRattle;
 using Content.Server.Shuttles.Events;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
+using Content.Shared.Station.Systems;
 using Content.Shared._Onyx.Shuttles.Components;
 using Content.Shared._Onyx.Shuttles.Systems;
 using Content.Shared.Shuttles.Components;

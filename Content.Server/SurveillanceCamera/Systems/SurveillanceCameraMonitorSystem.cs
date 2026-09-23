@@ -465,8 +465,13 @@ public sealed partial class SurveillanceCameraMonitorSystem : EntitySystem
             return;
         }
 
+        // <Onyx-BitrunningCameraRelay>
+        EntityUid? activeCamera = monitor.ActiveCamera is { } camera
+            ? _surveillanceCameras.ResolveBitrunningCameraTarget(camera)
+            : null;
+        // </Onyx-BitrunningCameraRelay>
         var state = new SurveillanceCameraMonitorUiState(
-            GetNetEntity(monitor.ActiveCamera),
+            GetNetEntity(activeCamera), // <Onyx-BitrunningCameraRelay-edited>
             monitor.KnownSubnets.Keys.ToHashSet(),
             monitor.ActiveCameraAddress,
             monitor.ActiveSubnet,

@@ -15,6 +15,7 @@ using Content.Shared.Station.Systems;
 using Robust.Server;
 using Robust.Server.GameStates;
 using Robust.Shared.Console;
+using Robust.Shared.Configuration; // <Onyx-AutomaticVotes>
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Utility;
@@ -30,6 +31,7 @@ namespace Content.Server.GameTicking
         [Dependency] private IBaseServer _baseServer = default!;
         [Dependency] private IChatManager _chatManager = default!;
         [Dependency] private IConsoleHost _consoleHost = default!;
+        [Dependency] private IConfigurationManager _cfg = default!; // <Onyx-AutomaticVotes>
         [Dependency] private IGameMapManager _gameMapManager = default!;
         [Dependency] private ILogManager _logManager = default!;
 #if EXCEPTION_TOLERANCE
@@ -39,9 +41,7 @@ namespace Content.Server.GameTicking
         [Dependency] private IServerDbManager _db = default!;
         [Dependency] private ChatSystem _chatSystem = default!;
         [Dependency] private GhostSystem _ghost = default!;
-        [Dependency] private SharedMindSystem _mind = default!;
         [Dependency] private MapLoaderSystem _loader = default!;
-        [Dependency] private GhostGoLobbySystem _ghostGoLobby = default!; // Corvax-GoLobby
         [Dependency] private PlayTimeTrackingSystem _playTimeTrackings = default!;
         [Dependency] private PvsOverrideSystem _pvsOverride = default!;
         [Dependency] private ServerDbEntryManager _dbEntryManager = default!;

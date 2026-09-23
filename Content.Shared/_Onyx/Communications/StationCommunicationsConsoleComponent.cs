@@ -1,5 +1,6 @@
 using Content.Shared.AlertLevel;
 using Content.Shared._Onyx.Screens;
+using Content.Shared.DeviceNetwork;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
@@ -113,10 +114,20 @@ public enum StationCommunicationsConsoleUi : byte
     Key,
 }
 
-public static class ScreenPackets
+public partial record struct StatusDisplayConfigurationPayload : INetworkPayload
 {
-    public const string Content = "station-screen-content";
-    public const string Grid = "station-screen-grid";
-    public const string ShowBorders = "station-screen-borders";
-    public const string Text = "station-screen-text";
+    [DataField]
+    public StatusDisplayContent Content;
+
+    [DataField]
+    public EntityUid Grid;
+
+    [DataField]
+    public bool ShowBorders;
+
+    [DataField]
+    public string Line1 = string.Empty;
+
+    [DataField]
+    public string Line2 = string.Empty;
 }

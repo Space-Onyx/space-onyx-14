@@ -44,7 +44,7 @@ public sealed partial class BlobSpawnRule : StationEventSystem<BlobSpawnRuleComp
     {
         base.Started(uid, component, gameRule, args);
 
-        if (!TryGetRandomStation(out var station))
+        if (!Station.TryGetRandomStation(out var station))
         {
             return;
         }
@@ -56,7 +56,7 @@ public sealed partial class BlobSpawnRule : StationEventSystem<BlobSpawnRuleComp
             if (!HasComp<BecomesStationComponent>(transform.GridUid))
                 continue;
 
-            if (CompOrNull<StationMemberComponent>(transform.GridUid)?.Station == station)
+            if (CompOrNull<StationMemberComponent>(transform.GridUid)?.Station == station.Value.Owner)
             {
                 validLocations.Add(transform.Coordinates);
             }

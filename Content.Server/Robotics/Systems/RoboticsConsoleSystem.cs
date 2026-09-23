@@ -31,12 +31,14 @@ public sealed partial class RoboticsConsoleSystem : SharedRoboticsConsoleSystem
     public override void Initialize()
     {
         base.Initialize();
+        InitializeLawUpload(); // <Onyx-RoboticsLawUpload>
 
         Subs.BuiEvents<RoboticsConsoleComponent>(RoboticsConsoleUiKey.Key, subs =>
         {
             subs.Event<BoundUIOpenedEvent>(OnOpened);
             subs.Event<RoboticsConsoleDisableMessage>(OnDisable);
             subs.Event<RoboticsConsoleDestroyMessage>(OnDestroy);
+            subs.Event<RoboticsConsoleChangeLawsMessage>(OnChangeLaws); // <Onyx-RoboticsLawUpload>
             // TODO: camera stuff
         });
     }
@@ -61,6 +63,7 @@ public sealed partial class RoboticsConsoleSystem : SharedRoboticsConsoleSystem
             foreach (var address in _removing)
             {
                 comp.Cyborgs.Remove(address);
+                comp.LawUploadTargets.Remove(address); // <Onyx-RoboticsLawUpload>
             }
 
             if (_removing.Count > 0)
@@ -72,6 +75,10 @@ public sealed partial class RoboticsConsoleSystem : SharedRoboticsConsoleSystem
     private void OnPacketReceived(Entity<RoboticsConsoleComponent> ent, ref DeviceNetworkPacketEvent<RoboticsCyborgDataPayload> args)
     {
         var data = args.Data.Data;
+        // <Onyx-RoboticsLawUpload>
+        if (!TrackLawUploadTarget(ent, args))
+            return;
+        // </Onyx-RoboticsLawUpload>
         data.Timeout = _timing.CurTime + ent.Comp.Timeout;
         ent.Comp.Cyborgs[args.SenderAddress] = data;
 
@@ -128,7 +135,13 @@ public sealed partial class RoboticsConsoleSystem : SharedRoboticsConsoleSystem
 
     private void UpdateUserInterface(Entity<RoboticsConsoleComponent> ent)
     {
-        var state = new RoboticsConsoleState(ent.Comp.Cyborgs, ent.Comp.AllowBorgControl);
+        // <Onyx-RoboticsLawUpload-edited>
+        var state = new RoboticsConsoleState(
+            ent.Comp.Cyborgs,
+            ent.Comp.AllowBorgControl,
+            ent.Comp.AllowLawUpload,
+            HasLawboard(ent));
+        // </Onyx-RoboticsLawUpload-edited>
         _ui.SetUiState(ent.Owner, RoboticsConsoleUiKey.Key, state);
     }
 }

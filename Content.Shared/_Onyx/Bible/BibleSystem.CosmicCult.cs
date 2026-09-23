@@ -8,7 +8,7 @@ using Content.Shared.Damage;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Popups;
 using Content.Shared.Stunnable;
-using Content.Shared.Timing;
+using Content.Shared.Timing.Components;
 
 namespace Content.Shared.Bible;
 

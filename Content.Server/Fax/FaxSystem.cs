@@ -23,6 +23,8 @@ using Content.Shared.Paper;
 using Content.Shared.Power;
 using Content.Shared.Tools;
 using Content.Shared.UserInterface;
+using Content.Shared._Onyx.Language.Paper; // <Onyx-PaperLanguages>
+using Content.Shared._Onyx.Paper; // <Onyx-PaperSignatures>
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
@@ -31,6 +33,11 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.Fax;
+
+// <Onyx-FaxAlert>
+[ByRefEvent]
+public record struct FaxReceivedEvent(string? FromAddress);
+// </Onyx-FaxAlert>
 
 public sealed partial class FaxSystem : EntitySystem
 {
@@ -50,6 +57,7 @@ public sealed partial class FaxSystem : EntitySystem
     [Dependency] private MetaDataSystem _metaData = default!;
     [Dependency] private FaxecuteSystem _faxecute = default!;
     [Dependency] private EmagSystem _emag = default!;
+    [Dependency] private Content.Server._Onyx.Language.Paper.PaperLanguageSystem _paperLanguages = default!; // <Onyx-PaperLanguages>
 
     private static readonly ProtoId<ToolQualityPrototype> ScrewingQuality = "Screwing";
 
@@ -447,7 +455,9 @@ public sealed partial class FaxSystem : EntitySystem
                                        metadata.EntityPrototype?.ID ?? component.PrintPaperId,
                                        paper.StampState,
                                        paper.StampedBy,
-                                       paper.EditingDisabled);
+                                       paper.EditingDisabled,
+                                       languageSegments: _paperLanguages.CopySegments(sendEntity.Value),
+                                       signedBy: new List<SignatureDisplayInfo>(paper.SignedBy)); // <Onyx-PaperSignatures-edited>
 
         component.PrintingQueue.Enqueue(printout);
         component.SendTimeoutRemaining += component.SendTimeout;
@@ -497,6 +507,8 @@ public sealed partial class FaxSystem : EntitySystem
 
         TryComp<LabelComponent>(sendEntity, out var labelComponent);
 
+        var languageSegments = _paperLanguages.CopySegments(sendEntity.Value); // <Onyx-PaperLanguages>
+
         var payload = new FaxPrintPayload
         {
             Data = new FaxPrintout(
@@ -506,7 +518,10 @@ public sealed partial class FaxSystem : EntitySystem
                     metadata.EntityPrototype.ID,
                     paper.StampState,
                     paper.StampedBy,
-                    paper.EditingDisabled),
+                    paper.EditingDisabled,
+                    senderFaxName: component.FaxName ?? Loc.GetString("fax-machine-popup-source-unknown"),
+                    languageSegments: languageSegments,
+                    signedBy: new List<SignatureDisplayInfo>(paper.SignedBy)), // <Onyx-PaperSignatures-edited>
         };
 
         _deviceNetworkSystem.SendPacket(uid, component.DestinationFaxAddress, ref payload);
@@ -543,6 +558,11 @@ public sealed partial class FaxSystem : EntitySystem
             NotifyAdmins(faxName);
 
         component.PrintingQueue.Enqueue(printout);
+
+        // <Onyx-FaxAlert>
+        var faxReceivedEvent = new FaxReceivedEvent(fromAddress);
+        RaiseLocalEvent(uid, ref faxReceivedEvent);
+        // </Onyx-FaxAlert>
     }
 
     private void SpawnPaperFromQueue(EntityUid uid, FaxMachineComponent? component = null)
@@ -557,7 +577,7 @@ public sealed partial class FaxSystem : EntitySystem
 
         if (TryComp<PaperComponent>(printed, out var paper))
         {
-            _paperSystem.SetContent((printed, paper), printout.Content);
+            _paperLanguages.SetContent((printed, paper), printout.Content, printout.LanguageSegments); // <Onyx-PaperLanguages-edited>
 
             // Apply stamps
             if (printout.StampState != null)
@@ -568,7 +588,9 @@ public sealed partial class FaxSystem : EntitySystem
                 }
             }
 
+            paper.SignedBy = new List<SignatureDisplayInfo>(printout.SignedBy); // <Onyx-PaperSignatures>
             paper.EditingDisabled = printout.Locked;
+            Dirty(printed, paper); // <Onyx-PaperLanguages>
         }
 
         _metaData.SetEntityName(printed, printout.Name);

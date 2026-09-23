@@ -17,7 +17,7 @@
                         <Label Name="ConnectedValue" Margin="8 2" Text="-"/>
                     </PanelContainer>
                 </BoxContainer>
-                <PanelContainer StyleClasses="LowDivider"/>
+                <controls:Separator StyleClasses="LowDivider"/>
                 <BoxContainer Orientation="Horizontal" SeparationOverride="6">
                     <PanelContainer Name="PointsBadge" HorizontalExpand="True">
                         <BoxContainer Orientation="Vertical" Margin="8 5">
@@ -68,7 +68,7 @@
                     <CheckBox Name="BroadcastToggle" Text="{Loc 'bitrunning-ui-broadcast'}" ToolTip="{Loc 'bitrunning-ui-broadcast-tooltip'}" VerticalAlignment="Center"/>
                     <Button Name="RandomButton" Text="{Loc 'bitrunning-ui-button-random-short'}" MinWidth="110" StyleClasses="OpenBoth"/>
                 </BoxContainer>
-                <PanelContainer StyleClasses="LowDivider"/>
+                <controls:Separator StyleClasses="LowDivider"/>
                 <BoxContainer Orientation="Horizontal" SeparationOverride="3">
                     <Button Name="DifficultyPeaceful" HorizontalExpand="True" StyleClasses="OpenBoth"/>
                     <Button Name="DifficultyEasy" HorizontalExpand="True" StyleClasses="OpenBoth"/>
@@ -104,7 +104,7 @@
                     <Label Name="ClientsHeader" HorizontalExpand="True" Text="{Loc 'bitrunning-ui-clients-header'}" StyleClasses="LabelKeyText" Modulate="#C7D5E0"/>
                     <Button Name="RefreshButton" Text="{Loc 'bitrunning-ui-button-refresh'}" MinWidth="90" StyleClasses="OpenBoth"/>
                 </BoxContainer>
-                <PanelContainer StyleClasses="LowDivider"/>
+                <controls:Separator StyleClasses="LowDivider"/>
                 <ScrollContainer VerticalExpand="True">
                     <BoxContainer Name="ClientList" Orientation="Vertical" SeparationOverride="4"/>
                 </ScrollContainer>

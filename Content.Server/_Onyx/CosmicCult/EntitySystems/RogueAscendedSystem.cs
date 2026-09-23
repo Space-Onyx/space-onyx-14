@@ -8,6 +8,7 @@ using Content.Server._Onyx.CosmicCult.Abilities;
 using Content.Server._Onyx.CosmicCult.Components;
 using Content.Server.Actions;
 using Content.Server.Antag;
+using Content.Shared.Antag;
 using Content.Server.Light.EntitySystems;
 using Content.Server.Popups;
 using Content.Shared._Onyx.CosmicCult;

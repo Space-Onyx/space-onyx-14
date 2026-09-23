@@ -19,7 +19,7 @@
                 <!-- First section (Entropy) -->
                 <BoxContainer Name="EntropyArea" HorizontalExpand="True" MinHeight="100" Orientation="Vertical" Margin="0 0 0 0">
                     <Label HorizontalAlignment="Center" Text="{Loc 'monument-interface-entropy-title'}" />
-                    <PanelContainer HorizontalExpand="True" StyleClasses="LowDivider" Margin="0 0 0 10" />
+                    <controls:Separator HorizontalExpand="True" StyleClasses="LowDivider" Margin="0 0 0 10" />
                     <TextureRect Name="MonumentIcon"
                                  TexturePath="/Textures/_Onyx/CosmicCult/Interface/mote_3.png"
                                  Stretch="KeepAspectCentered"
@@ -47,7 +47,7 @@
                 <!-- Second section (Glyphs) -->
                 <BoxContainer Name="GlyphArea" HorizontalExpand="True" MinHeight="75" Orientation="Vertical" Margin="0 20 0 0">
                     <Label HorizontalAlignment="Center" Text="{Loc 'monument-interface-glyphs-title'}" />
-                    <PanelContainer StyleClasses="LowDivider" />
+                    <controls:Separator StyleClasses="LowDivider" />
                     <!-- Filled out programatically -->
                     <GridContainer HorizontalAlignment="Center" Name="GlyphContainer" Columns="3" Margin="0 5" />
                     <Button Name="SelectGlyphButton" Text="{Loc 'monument-interface-glyphs-button-scribe'}" SetHeight="50" Margin="0 10 0 0" StyleClasses="ButtonColorPurpleAndCool" />
@@ -58,7 +58,7 @@
             <BoxContainer VerticalExpand="True" HorizontalExpand="True" Orientation="Vertical">
                 <BoxContainer VerticalExpand="True" HorizontalExpand="True" MinHeight="450" Orientation="Vertical" Margin="0 0 0 0">
                     <Label HorizontalAlignment="Center" Text="{Loc 'monument-interface-influences-title'}" />
-                    <PanelContainer StyleClasses="LowDivider" Margin="0 0 0 0" />
+                    <controls:Separator StyleClasses="LowDivider" Margin="0 0 0 0" />
                     <!-- Influences -->
                     <PanelContainer VerticalExpand="True" HorizontalExpand="True" Margin="0">
                         <PanelContainer.PanelOverride>

@@ -16,7 +16,7 @@
                         <Label Name="ServerLabel" StyleClasses="LabelHeading" Modulate="#C7D5E0" HorizontalExpand="True" VerticalAlignment="Center"/>
                         <Button Name="ServerButton" Text="{Loc 'research-machine-common-server-list'}" VerticalAlignment="Center"/>
                     </BoxContainer>
-                    <PanelContainer StyleClasses="LowDivider"/>
+                    <controls:Separator StyleClasses="LowDivider"/>
                     <RichTextLabel Name="BalanceLabel"/>
                 </BoxContainer>
             </PanelContainer>
@@ -27,7 +27,7 @@
                 </PanelContainer.PanelOverride>
                 <BoxContainer Name="SampleContainer" Orientation="Vertical" Margin="10 8" SeparationOverride="4">
                     <Label Text="{Loc 'research-machine-common-sample-title'}" Modulate="#C7D5E0"/>
-                    <PanelContainer StyleClasses="LowDivider"/>
+                    <controls:Separator StyleClasses="LowDivider"/>
                     <BoxContainer Orientation="Horizontal" SeparationOverride="12" Margin="0 4 0 0">
                         <PanelContainer MinSize="112 112" VerticalAlignment="Top">
                             <PanelContainer.PanelOverride>
@@ -64,7 +64,7 @@
                 </PanelContainer.PanelOverride>
                 <BoxContainer Name="LogContainer" Orientation="Vertical" Margin="10 8" SeparationOverride="4">
                     <Label Text="{Loc 'research-machine-common-last-operation-title'}" Modulate="#C7D5E0"/>
-                    <PanelContainer StyleClasses="LowDivider"/>
+                    <controls:Separator StyleClasses="LowDivider"/>
                     <RichTextLabel Name="LastSubjectLabel" Margin="0 2 0 0"/>
                     <RichTextLabel Name="LastResultLabel"/>
                 </BoxContainer>

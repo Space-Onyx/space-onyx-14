@@ -425,7 +425,7 @@ public sealed partial class HumanoidProfileEditor
             return null;
 
         var job = Profile.JobPriorities.FirstOrDefault(priority => priority.Value == JobPriority.High).Key;
-        var jobId = job.Id ?? SharedGameTicker.FallbackOverflowJob;
+        var jobId = job.Id ?? GameTicker.FallbackOverflowJob;
         var role = LoadoutSystem.GetJobPrototype(jobId);
         return _prototypeManager.HasIndex<RoleLoadoutPrototype>(role) ? role : null;
     }

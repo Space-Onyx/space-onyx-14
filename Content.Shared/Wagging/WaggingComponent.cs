@@ -9,8 +9,7 @@ namespace Content.Shared.Wagging;
 /// An emoting wag for markings.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true)]
-[Access(typeof(WaggingSystem))]
-public sealed partial class WaggingComponent : Component
+public sealed partial class WaggingComponent : Component // <Onyx-MarkingActivity-edited>
 {
     /// <summary>
     /// The prototype id of the wagging action.

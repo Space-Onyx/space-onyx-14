@@ -39,7 +39,7 @@
                     </PanelContainer.PanelOverride>
                     <BoxContainer Orientation="Vertical" Margin="10 8" HorizontalExpand="True" SeparationOverride="3">
                         <Label Name="LinkedAccountNameLabel" StyleClasses="LabelHeading" HorizontalAlignment="Center" />
-                        <PanelContainer StyleClasses="LowDivider" Margin="0 2" />
+                        <controls:Separator StyleClasses="LowDivider" Margin="0 2" />
                         <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label Name="BalanceLabelText" Text="{Loc 'bank-program-ui-balance-label'}" Margin="0 0 4 0" />
                             <Label Name="LinkedAccountBalanceLabel" FontColorOverride="#75D68A" StyleClasses="LabelHeading" />

@@ -31,8 +31,6 @@ public sealed partial class RadioSystem : SharedRadioSystem
     [Dependency] private IAdminLogManager _adminLogger = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private ChatSystem _chat = default!;
-    [Dependency] private IChatManager _chatManager = default!;
-    [Dependency] private GhostSystem _ghost = default!;
     [Dependency] private TelecommunicationsChainSystem _telecommunications = default!;
     [Dependency] private Content.Server._Onyx.Language.LanguageSystem _languages = default!; // <Onyx-LanguageAppearance>
 
@@ -64,22 +62,7 @@ public sealed partial class RadioSystem : SharedRadioSystem
         if (!TryComp(uid, out ActorComponent? actor))
             return;
 
-        var msg = args.ChatMsg;
-        if (_ghost.CanGhostWarp(actor.PlayerSession, out _))
-        {
-            msg = new MsgChatMessage
-            {
-                Message = new ChatMessage(args.ChatMsg.Message)
-                {
-                    WrappedMessage = _chatManager.PrependFollowButtonIfAppropriate(
-                        args.ChatMsg.Message.WrappedMessage,
-                        args.MessageSource,
-                        actor.PlayerSession.Channel),
-                },
-            };
-        }
-
-        _netMan.ServerSendMessage(msg, actor.PlayerSession.Channel);
+        _netMan.ServerSendMessage(args.ChatMsg, actor.PlayerSession.Channel);
     }
 
     /// <inheritdoc/>

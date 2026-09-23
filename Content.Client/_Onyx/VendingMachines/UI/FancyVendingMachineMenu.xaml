@@ -17,7 +17,7 @@
                 HorizontalAlignment="Right"/>
             <LineEdit Name="SearchBar" PlaceHolder="{Loc 'vending-machine-component-search-filter'}" HorizontalExpand="True" Margin ="4 4"/>
         </BoxContainer>
-        <cc:HSeparator Margin="8 8 8 0" />
+        <controls:Separator StyleClasses="LowDivider" Margin="8 8 8 0" />
 
         <ScrollContainer VerticalExpand="True" Margin="4" HScrollEnabled="False">
                 <BoxContainer Name="VendingContents" Orientation="Vertical" HorizontalExpand="True" Margin="4"/>
@@ -25,7 +25,7 @@
 
          <!-- Footer -->
         <BoxContainer Orientation="Vertical">
-            <PanelContainer StyleClasses="LowDivider" />
+            <controls:Separator StyleClasses="LowDivider" />
             <BoxContainer Orientation="Horizontal" Margin="10 2 5 0" VerticalAlignment="Bottom">
                 <Label Name="FooterLeft" Access="Public" Text="{Loc 'vending-machine-flavor-left'}" StyleClasses="WindowFooterText" />
                 <Label Name="FooterRight" Access="Public" Text="{Loc 'vending-machine-flavor-right-new'}" StyleClasses="WindowFooterText"

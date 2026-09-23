@@ -6,6 +6,7 @@ using Content.Shared._CorvaxGoob.CCCVars;
 using Content.Shared._CorvaxGoob.Photo;
 using Content.Shared.Materials;
 using Content.Shared.Timing;
+using Content.Shared.Timing.Systems;
 using Content.Shared.UserInterface;
 using Robust.Server.Audio;
 using Robust.Server.GameObjects;

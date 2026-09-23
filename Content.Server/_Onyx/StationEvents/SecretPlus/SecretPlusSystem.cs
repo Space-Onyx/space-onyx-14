@@ -2,7 +2,6 @@ using System.Linq;
 using Content.Server.Administration.Logs;
 using Content.Server.Antag;
 using Content.Server.Antag.Components;
-using Content.Server.Antag.Selectors;
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Rules;
@@ -10,10 +9,14 @@ using Content.Server.RoundEnd;
 using Content.Server.StationEvents;
 using Content.Server.StationEvents.Components;
 using Content.Shared._Onyx.StationEvents;
+using Content.Shared.Antag;
+using Content.Shared.Antag.Components;
+using Content.Shared.Antag.Selectors;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
 using Content.Shared.EntityTable;
 using Content.Shared.GameTicking.Components;
+using Content.Shared.GameTicking.Rules;
 using Content.Shared.Ghost.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Random;
@@ -203,7 +206,7 @@ public sealed partial class SecretPlusSystem : GameRuleSystem<SecretPlusComponen
             return false;
 
         if (stationEvent.MaxOccurrences is { } max
-            && GameTicker.AllPreviousGameRules.Count(entry => entry.Item2 == proto.ID) >= max)
+            && GameTicker.GetOccurrences(proto) >= max)
             return false;
 
         if (players < stationEvent.MinimumPlayers)
@@ -213,7 +216,7 @@ public sealed partial class SecretPlusSystem : GameRuleSystem<SecretPlusComponen
         if (roundTime != TimeSpan.Zero && roundTime.TotalMinutes < stationEvent.EarliestStart / _eventSpeedup)
             return false;
 
-        var lastRun = _event.TimeSinceLastEvent(proto);
+        var lastRun = GameTicker.GetLastRuleTime(proto.ID);
         if (lastRun != TimeSpan.Zero
             && roundTime.TotalMinutes < stationEvent.ReoccurrenceDelay * recurrenceMultiplier / _eventSpeedup + lastRun.TotalMinutes)
             return false;
@@ -303,8 +306,12 @@ public sealed partial class SecretPlusSystem : GameRuleSystem<SecretPlusComponen
 
     private void StartRule(Entity<SecretPlusComponent> scheduler, string rule, bool start = true, int? players = null)
     {
-        var ruleUid = GameTicker.AddGameRule(rule);
-        var chaos = GetChaosScore(ruleUid, players);
+        var ruleEntity = GameTicker.AddGameRule(rule);
+        if (ruleEntity == null)
+            return;
+
+        var ruleUid = ruleEntity.Value;
+        var chaos = GetChaosScore(ruleUid.AsNullable(), players);
         if (chaos == null)
         {
             Log.Error($"Tried running rule {rule}, but chaos score was null");
@@ -338,7 +345,7 @@ public sealed partial class SecretPlusSystem : GameRuleSystem<SecretPlusComponen
         }
 
         if (start)
-            GameTicker.StartGameRule(ruleUid);
+            GameTicker.StartGameRule(ruleUid.AsNullable());
     }
 
     public float? GetChaosScore(Entity<GameRuleComponent?> rule, int? players = null)
@@ -685,7 +692,7 @@ public sealed partial class SecretPlusSystem : GameRuleSystem<SecretPlusComponen
     public IEnumerable<string> GetStatus()
     {
         var query = QueryActiveRules();
-        while (query.MoveNext(out var uid, out _, out var scheduler, out _))
+        while (query.MoveNext(out var uid, out var scheduler, out _, out _))
         {
             var count = CountActivePlayers(scheduler);
             var ramp = GetRamping((uid, scheduler));

@@ -103,9 +103,6 @@
     guides:
     - Security
     - Antagonists
-  - type: Tag
-    tags:
-    - Stunbaton
   - type: PreventForcedThrow
 
 - type: entity

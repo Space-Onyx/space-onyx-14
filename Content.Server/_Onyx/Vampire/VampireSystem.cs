@@ -3,6 +3,7 @@
 using System.Linq;
 using Content.Server.Administration.Logs;
 using Content.Server.Antag;
+using Content.Shared.Antag;
 using Content.Server.Atmos.Components;
 using Content.Server.Atmos.Rotting;
 using Content.Server.Body.Systems;

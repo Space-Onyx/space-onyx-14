@@ -74,7 +74,7 @@ public sealed partial class PlantAnalyzerSystem : AbstractAnalyzerSystem<PlantAn
                     plant.Lifespan,
                     holder.Dead,
                     !HasComp<PlantTraitUnviableComponent>(target),
-                    holder.MutationLevel > 0f,
+                    holder.MutationLevels.Values.Any(mutation => mutation > 0f),
                     HasComp<PlantTraitKudzuComponent>(target));
                 tolerancesData = new PlantAnalyzerTolerancesData(growth?.NutrientConsumption ?? 0f,
                     growth?.WaterConsumption ?? 0f,

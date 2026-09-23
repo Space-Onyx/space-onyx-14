@@ -9,6 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <controls:AbductorCameraConsoleWindow
     xmlns="https://spacestation14.io"
     xmlns:controls="clr-namespace:Content.Client._Onyx.Abductor"
+    xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
     xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
     MinSize="400 400">
     <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
@@ -18,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <Button Name="BeaconsButton" Access="Public" Text="{Loc 'abductors-ui-beacons'}"
                     HorizontalExpand="True" StyleClasses="OpenBoth" />
         </BoxContainer>
-        <cc:HSeparator/>
+        <ui:Separator StyleClasses="LowDivider"/>
         <ScrollContainer VScrollEnabled="True" HorizontalExpand="True" VerticalExpand="True">
             <BoxContainer Name="Stations" Access="Public" Orientation="Vertical" Visible="False" />
             <BoxContainer Name="Beacons" Access="Public" Orientation="Vertical" Visible="False" />

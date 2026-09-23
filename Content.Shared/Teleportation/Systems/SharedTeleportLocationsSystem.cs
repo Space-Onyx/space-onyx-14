@@ -1,7 +1,7 @@
 ﻿using Content.Shared._Onyx.Teleportation; // <Onyx-Blob>
 using Content.Shared.Maths;
 using Content.Shared.Teleportation.Components;
-using Content.Shared.Timing;
+using Content.Shared.Timing.Systems;
 using Content.Shared.UserInterface;
 using Content.Shared.Warps;
 using Robust.Shared.Map;

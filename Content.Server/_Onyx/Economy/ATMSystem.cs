@@ -16,6 +16,7 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Content.Server.GameTicking;
+using Content.Shared.GameTicking;
 using Robust.Shared.Timing;
 using Robust.Shared.Configuration;
 

@@ -16,6 +16,7 @@ using Content.Shared.Roles.Components;
 using Content.Server._Onyx.CosmicCult.Components; // <Onyx-CosmicCult>
 using Content.Shared._Onyx.Blob; // <Onyx-Blob>
 using Content.Server.GameTicking.Rules; // <Wega-Vampire>
+using Content.Server.GameTicking.Rules.Components; // <Wega-Vampire>
 
 namespace Content.Server.Administration.Systems;
 

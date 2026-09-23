@@ -5,7 +5,6 @@ using Content.Server.DeviceNetwork.Systems;
 using Content.Server.Popups;
 using Content.Server.RoundEnd;
 using Content.Server.Shuttles.Systems;
-using Content.Server.Station.Systems;
 using Content.Shared._Onyx.Communications;
 using Content.Shared._Onyx.Screens;
 using Content.Shared.Access.Components;
@@ -19,6 +18,7 @@ using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.DeviceNetwork.Systems;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Popups;
+using Content.Shared.Station.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
@@ -44,7 +44,7 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
     public override void Initialize()
     {
         SubscribeLocalEvent<StationCommunicationsConsoleComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<StationCommunicationsConsoleComponent, DeviceNetworkPacketEvent>(OnPacketReceive);
+        SubscribeLocalEvent<StationCommunicationsConsoleComponent, DeviceNetworkPacketEvent<StatusDisplayConfigurationPayload>>(OnPacketReceive);
         Subs.BuiEvents<StationCommunicationsConsoleComponent>(StationCommunicationsConsoleUi.Key, subs =>
         {
             subs.Event<BoundUIOpenedEvent>(OnUiOpened);
@@ -68,30 +68,16 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
         Dirty(ent);
     }
 
-    private void OnPacketReceive(Entity<StationCommunicationsConsoleComponent> ent, ref DeviceNetworkPacketEvent args)
+    private void OnPacketReceive(Entity<StationCommunicationsConsoleComponent> ent, ref DeviceNetworkPacketEvent<StatusDisplayConfigurationPayload> args)
     {
-        if (args.Data.TryGetValue(ScreenPackets.Grid, out EntityUid? grid) && Transform(ent).GridUid != grid)
+        if (Transform(ent).GridUid != args.Data.Grid)
             return;
 
-        var changed = false;
-        if (args.Data.TryGetValue(ScreenPackets.Text, out (string, string)? text))
-        {
-            ent.Comp.LastConfiguredLine1 = text.Value.Item1;
-            ent.Comp.LastConfiguredLine2 = text.Value.Item2;
-            changed = true;
-        }
-        if (args.Data.TryGetValue(ScreenPackets.ShowBorders, out bool? borders))
-        {
-            ent.Comp.LastConfiguredShowBorders = borders.Value;
-            changed = true;
-        }
-        if (args.Data.TryGetValue(ScreenPackets.Content, out StatusDisplayContent? content))
-        {
-            ent.Comp.LastConfiguredContent = content.Value;
-            changed = true;
-        }
-        if (changed)
-            Dirty(ent);
+        ent.Comp.LastConfiguredLine1 = args.Data.Line1;
+        ent.Comp.LastConfiguredLine2 = args.Data.Line2;
+        ent.Comp.LastConfiguredShowBorders = args.Data.ShowBorders;
+        ent.Comp.LastConfiguredContent = args.Data.Content;
+        Dirty(ent);
     }
 
     private void OnAnnouncement(Entity<StationCommunicationsConsoleComponent> ent, ref CommunicationsConsoleAnnouncementMessage args)
@@ -189,13 +175,15 @@ public sealed partial class CommunicationsConsoleSystem : EntitySystem
         if (grid is null)
             return;
 
-        _deviceNetwork.QueuePacket(ent, null, new NetworkPayload
+        var payload = new StatusDisplayConfigurationPayload
         {
-            [ScreenPackets.Content] = args.Content,
-            [ScreenPackets.Grid] = grid.Value,
-            [ScreenPackets.ShowBorders] = args.ShowBorder,
-            [ScreenPackets.Text] = (args.Line1, args.Line2),
-        });
+            Content = args.Content,
+            Grid = grid.Value,
+            ShowBorders = args.ShowBorder,
+            Line1 = args.Line1,
+            Line2 = args.Line2,
+        };
+        _deviceNetwork.SendPacket(ent.Owner, null, ref payload);
     }
 
     private void OnUiOpened(Entity<StationCommunicationsConsoleComponent> ent, ref BoundUIOpenedEvent args)

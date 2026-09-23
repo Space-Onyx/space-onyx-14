@@ -410,7 +410,7 @@ public sealed partial class HandsUIController : UIController, IOnStateEntered<Ga
                 hand.CooldownDisplay.Visible = false;
                 continue;
             }
-            var delay = _useDelay.GetLastEndingDelay((hand.Entity.Value, useDelay));
+            _useDelay.GetLastActiveDelay((hand.Entity.Value, useDelay), out var delay);
             hand.CooldownDisplay.Visible = true;
             hand.CooldownDisplay.FromTime(delay.StartTime, delay.EndTime);
         }

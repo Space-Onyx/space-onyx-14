@@ -82,9 +82,9 @@ public sealed partial class MarkingActivitySystem : EntitySystem
 
     private bool HasVariant(Entity<MarkingActivityComponent> ent)
     {
-        foreach (var organ in _body.GetBodyOrgans(ent.Owner))
+        foreach (var entity in GetMarkingEntities(ent.Owner))
         {
-            if (TryComp(organ.Id, out VisualOrganMarkingsComponent? visual) &&
+            if (TryComp(entity, out VisualOrganMarkingsComponent? visual) &&
                 visual.Markings.Values.SelectMany(markings => markings)
                     .Any(marking => TryGetVariant(marking.MarkingId, true, out _) || TryGetVariant(marking.MarkingId, false, out _)))
                 return true;
@@ -99,9 +99,9 @@ public sealed partial class MarkingActivitySystem : EntitySystem
             return false;
 
         var changed = false;
-        foreach (var organ in _body.GetBodyOrgans(ent.Owner))
+        foreach (var entity in GetMarkingEntities(ent.Owner))
         {
-            if (!TryComp(organ.Id, out VisualOrganMarkingsComponent? visual))
+            if (!TryComp(entity, out VisualOrganMarkingsComponent? visual))
                 continue;
 
             var organChanged = false;
@@ -122,7 +122,7 @@ public sealed partial class MarkingActivitySystem : EntitySystem
             if (!organChanged)
                 continue;
 
-            _visualBody.ApplyOrganMarkings(organ.Id, markings);
+            _visualBody.ApplyOrganMarkings(entity, markings);
             changed = true;
         }
 
@@ -136,9 +136,9 @@ public sealed partial class MarkingActivitySystem : EntitySystem
 
     private bool HasCurrentActiveVariant(EntityUid body)
     {
-        foreach (var organ in _body.GetBodyOrgans(body))
+        foreach (var entity in GetMarkingEntities(body))
         {
-            if (TryComp(organ.Id, out VisualOrganMarkingsComponent? visual) &&
+            if (TryComp(entity, out VisualOrganMarkingsComponent? visual) &&
                 visual.Markings.Values.SelectMany(markings => markings)
                     .Any(marking => TryGetVariant(marking.MarkingId, false, out _)))
                 return true;
@@ -177,6 +177,15 @@ public sealed partial class MarkingActivitySystem : EntitySystem
         ProtoMan.TryIndex(target, out var targetPrototype) &&
         source.BodyPart == targetPrototype.BodyPart &&
         source.Sprites.Count == targetPrototype.Sprites.Count;
+
+    private IEnumerable<EntityUid> GetMarkingEntities(EntityUid body)
+    {
+        foreach (var part in _body.GetBodyChildren(body))
+            yield return part.Id;
+
+        foreach (var organ in _body.GetBodyOrgans(body))
+            yield return organ.Id;
+    }
 
     private void RemoveAction(Entity<MarkingActivityComponent> ent)
     {

@@ -7,6 +7,7 @@ using Content.Server.Pinpointer;
 using Content.Server.Radio.EntitySystems;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Timing;
+using Content.Shared.Timing.Systems;
 using Robust.Shared.Utility;
 
 namespace Content.Server._Onyx.Security;

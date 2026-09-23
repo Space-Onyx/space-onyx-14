@@ -8,6 +8,7 @@
 
 using Content.Server._Onyx.Spawn.Components;
 using Content.Server.Station.Systems;
+using Content.Shared.Station.Systems;
 
 namespace Content.Server._Onyx.Spawn.Systems;
 

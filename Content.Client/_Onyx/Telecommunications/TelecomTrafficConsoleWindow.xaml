@@ -2,6 +2,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
                xmlns:telecom="clr-namespace:Content.Client._Onyx.Telecommunications"
+               xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
                MinSize="1100 900"
                Title="{Loc 'telecom-traffic-console-title'}">
     <PanelContainer Margin="4">
@@ -14,11 +15,7 @@
                    StyleClasses="ConsoleHeading"
                    HorizontalAlignment="Center"/>
 
-            <PanelContainer StyleClasses="LowDivider" SetHeight="2">
-                <PanelContainer.PanelOverride>
-                    <gfx:StyleBoxFlat BackgroundColor="#56c987"/>
-                </PanelContainer.PanelOverride>
-            </PanelContainer>
+            <ui:Separator StyleClasses="LowDivider" Thickness="2" ColorOverride="#56c987" />
 
             <BoxContainer Orientation="Horizontal"
                           SeparationOverride="8"
@@ -33,11 +30,7 @@
                         <Label Name="ServerCountLabel"
                                StyleClasses="ConsoleSubHeading"
                                HorizontalAlignment="Center"/>
-                        <PanelContainer StyleClasses="LowDivider" SetHeight="1">
-                            <PanelContainer.PanelOverride>
-                                <gfx:StyleBoxFlat BackgroundColor="#56c987"/>
-                            </PanelContainer.PanelOverride>
-                        </PanelContainer>
+                        <ui:Separator StyleClasses="LowDivider" Thickness="1" ColorOverride="#56c987" />
                         <ItemList Name="ServerList" VerticalExpand="True"/>
                         <Label Text="{Loc 'telecom-traffic-console-server-hint'}"
                                StyleClasses="ConsoleText"
@@ -148,11 +141,7 @@
                                         Pressed="True"/>
                             </BoxContainer>
 
-                            <PanelContainer StyleClasses="LowDivider" SetHeight="1">
-                                <PanelContainer.PanelOverride>
-                                    <gfx:StyleBoxFlat BackgroundColor="#56c987"/>
-                                </PanelContainer.PanelOverride>
-                            </PanelContainer>
+                            <ui:Separator StyleClasses="LowDivider" Thickness="1" ColorOverride="#56c987" />
 
                             <ScrollContainer Name="LogScroll"
                                              HorizontalExpand="True"

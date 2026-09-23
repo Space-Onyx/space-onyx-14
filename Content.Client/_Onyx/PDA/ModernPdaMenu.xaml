@@ -98,13 +98,13 @@
                                             <RichTextLabel Name="StationNameLabel" Access="Public" Margin="10 8"
                                                            HorizontalExpand="True" />
                                         </ContainerButton>
-                                        <PanelContainer StyleClasses="LowDivider" />
+                                        <controls:Separator StyleClasses="LowDivider" />
                                         <ContainerButton Name="StationAlertLevelButton" HorizontalExpand="True"
                                                          ToolTip="{Loc 'pda-modern-copy-hint'}">
                                             <RichTextLabel Name="StationAlertLevelLabel" Access="Public" Margin="10 8"
                                                            HorizontalExpand="True" />
                                         </ContainerButton>
-                                        <PanelContainer StyleClasses="LowDivider" />
+                                        <controls:Separator StyleClasses="LowDivider" />
                                         <ContainerButton Name="StationAlertLevelInstructionsButton" HorizontalExpand="True"
                                                          ToolTip="{Loc 'pda-modern-copy-hint'}">
                                             <RichTextLabel Name="StationAlertLevelInstructions" Access="Public" Margin="10 8"
@@ -129,7 +129,7 @@
                                                    FontColorOverride="#84918C" HorizontalExpand="True"
                                                    HorizontalAlignment="Right" />
                                         </BoxContainer>
-                                        <PanelContainer StyleClasses="LowDivider" />
+                                        <controls:Separator StyleClasses="LowDivider" />
                                         <BoxContainer Orientation="Horizontal" Margin="10 8" SeparationOverride="8">
                                             <Label Text="{Loc 'pda-modern-row-pai'}" StyleClasses="font-small"
                                                    FontColorOverride="#718291" MinWidth="110" />

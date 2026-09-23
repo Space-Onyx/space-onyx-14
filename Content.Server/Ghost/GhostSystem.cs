@@ -3,6 +3,7 @@ using System.Numerics;
 using Content.Server.Administration.Logs;
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
+using Content.Shared.GameTicking;
 using Content.Server.Mind;
 using Content.Server.Players.PlayTimeTracking;
 using Content.Server.Roles.Jobs;
@@ -70,7 +71,7 @@ namespace Content.Server.Ghost
         [Dependency] private IConfigurationManager _configurationManager = default!;
         [Dependency] private IChatManager _chatManager = default!;
         [Dependency] private SharedMindSystem _mind = default!;
-        [Dependency] private GameTicker _gameTicker = default!;
+        [Dependency] private ServerGameTicker _gameTicker = default!;
         [Dependency] private DamageableSystem _damageable = default!;
         [Dependency] private SharedPopupSystem _popup = default!;
         [Dependency] private IRobustRandom _random = default!;
@@ -113,7 +114,7 @@ namespace Content.Server.Ghost
             SubscribeLocalEvent<GhostComponent, ToggleGhostHearingActionEvent>(OnGhostHearingAction);
             SubscribeLocalEvent<GhostComponent, InsertIntoEntityStorageAttemptEvent>(OnEntityStorageInsertAttempt);
 
-            SubscribeLocalEvent<RoundEndTextAppendEvent>(_ => MakeVisible(true));
+            SubscribeLocalEvent<RoundEndTextAppendEvent>((ref RoundEndTextAppendEvent _) => MakeVisible(true));
             SubscribeLocalEvent<ToggleGhostVisibilityToAllEvent>(OnToggleGhostVisibilityToAll);
 
             SubscribeLocalEvent<GhostComponent, GetVisMaskEvent>(OnGhostVis);
@@ -124,7 +125,7 @@ namespace Content.Server.Ghost
         {
             base.Update(frameTime);
 
-            var now = _gameTiming.CurTime;
+            var now = _timing.CurTime;
             var query = EntityQueryEnumerator<GhostComponent>();
             while (query.MoveNext(out var uid, out var ghost))
             {
@@ -206,7 +207,7 @@ namespace Content.Server.Ghost
             }
 
             _eye.RefreshVisibilityMask(uid);
-            var time = _gameTiming.CurTime; // <Onyx-GhostTimer-edited>
+            var time = _timing.CurTime; // <Onyx-GhostTimer-edited>
             component.TimeOfDeath = time;
 
             // <Onyx-Ghost>
@@ -300,7 +301,7 @@ namespace Content.Server.Ghost
             if (!_configurationManager.GetCVar(CCVars.GhostReturnToLobbyEnabled))
                 return;
 
-            var canReturn = GhostReturnToLobbyLogic.CanReturn(_gameTiming.CurTime, ghost.ReturnToLobbyAvailableAt);
+            var canReturn = GhostReturnToLobbyLogic.CanReturn(_timing.CurTime, ghost.ReturnToLobbyAvailableAt);
 
             if (!canReturn)
             {
@@ -326,7 +327,7 @@ namespace Content.Server.Ghost
             if (!_configurationManager.GetCVar(CCVars.GhostReturnToLobbyEnabled)
                 || session.AttachedEntity is not { Valid: true } attached
                 || !_ghostQuery.TryComp(attached, out var ghost)
-                || !GhostReturnToLobbyLogic.CanReturn(_gameTiming.CurTime, ghost.ReturnToLobbyAvailableAt)
+                || !GhostReturnToLobbyLogic.CanReturn(_timing.CurTime, ghost.ReturnToLobbyAvailableAt)
                 || !HasRequiredPlaytime(session))
             {
                 return false;
@@ -616,7 +617,7 @@ namespace Content.Server.Ghost
                 return null;
             }
 
-            var ghost = SpawnAtPosition(GameTicker.ObserverPrototypeName, spawnPosition.Value);
+            var ghost = SpawnAtPosition(ServerGameTicker.ObserverPrototypeName, spawnPosition.Value);
             // <Onyx-GhostSkins>
             TryApplyGhostSkin(ghost, mind.Comp.UserId);
             // </Onyx-GhostSkins>

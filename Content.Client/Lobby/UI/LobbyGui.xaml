@@ -25,7 +25,7 @@
                                     <Label Name="ServerName" Access="Public" StyleClasses="LabelHeadingBigger" VAlign="Center" HorizontalAlignment="Left" />
                                     <Control HorizontalExpand="True" />
                                 </BoxContainer>
-                                <controls:HLine Color="{x:Static style:StyleNano.NanoGold}" Thickness="2" />
+                                <controls:Separator ColorOverride="{x:Static style:StyleNano.NanoGold}" Thickness="2" />
                                 <BoxContainer Orientation="Horizontal" HorizontalExpand="True" MinSize="0 40" SeparationOverride="6">
                                     <info:LinkBanner Name="LinkBanner" VerticalExpand="False" HorizontalAlignment="Left" Margin="0 0 8 0" />
                                     <Control HorizontalExpand="True" />
@@ -60,13 +60,13 @@
                             <PanelContainer Name="LeftInfoPanel" StyleClasses="AngleRect" MinWidth="180" HorizontalExpand="False" VerticalExpand="True" ModulateSelfOverride="#333333d9">
                                 <BoxContainer Orientation="Vertical" HorizontalExpand="False" VerticalExpand="True" MaxWidth="390">
                                     <RichTextLabel Text="{Loc 'ui-lobby-server-info-block'}" StyleClasses="LabelHeadingBigger" HorizontalAlignment="Center" />
-                                    <controls:HLine Color="{x:Static style:StyleNano.NanoGold}" Thickness="2" />
+                                    <controls:Separator ColorOverride="{x:Static style:StyleNano.NanoGold}" Thickness="2" />
                                     <info:ServerInfo Name="ServerInfo" Access="Public" MinSize="0 30" MaxWidth="390" VerticalExpand="False" Margin="3 3 3 3" HorizontalAlignment="Left" />
                                     <Label Name="StationTime" Access="Public" FontColorOverride="{x:Static maths:Color.LightGray}" Margin="3 3 3 3" HorizontalAlignment="Left" />
-                                    <controls:HLine Color="{x:Static style:StyleNano.NanoGold}" Thickness="2" />
+                                    <controls:Separator ColorOverride="{x:Static style:StyleNano.NanoGold}" Thickness="2" />
                                     <BoxContainer Orientation="Vertical" HorizontalAlignment="Center" SeparationOverride="6" MinWidth="280">
                                         <lobbyUi:LobbyCharacterPreviewPanel Name="CharacterPreview" Access="Public" HorizontalAlignment="Center" />
-                                        <controls:HLine Color="{x:Static style:StyleNano.NanoGold}" Thickness="2" />
+                                        <controls:Separator ColorOverride="{x:Static style:StyleNano.NanoGold}" Thickness="2" />
                                         <PanelContainer Name="StartTimeContainer" Access="Public" StyleClasses="AngleRect" ModulateSelfOverride="#333333CC" HorizontalExpand="True" MinHeight="32" MaxHeight="32">
                                             <Label Name="StartTime" Access="Public" Align="Center" HorizontalAlignment="Center" HorizontalExpand="True" VerticalAlignment="Center" />
                                         </PanelContainer>

@@ -32,7 +32,7 @@ public sealed partial class ContrabandDetectorSystem : SharedContrabandDetectorS
                        (FindContraband(args.OtherEntity).Count > 0 ^ _random.Prob(detector.Comp.FalseDetectingChance));
 
         _audio.PlayPvs(detected ? detector.Comp.Detect : detector.Comp.NoDetect, detector);
-        _deviceLink.SendSignal(detector, "SignalContrabandDetected", detected);
+        _deviceLink.SendSignal((detector.Owner, null), "SignalContrabandDetected", detected);
         detector.Comp.State = detected ? ContrabandDetectorState.Alarm : ContrabandDetectorState.Scan;
         detector.Comp.LastScanTime = _timing.CurTime;
         UpdateVisuals(detector);

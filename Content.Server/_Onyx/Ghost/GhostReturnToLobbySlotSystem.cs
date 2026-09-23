@@ -6,6 +6,7 @@
 
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
+using Content.Shared.GameTicking;
 using Content.Server.Preferences.Managers;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
@@ -53,7 +54,7 @@ public sealed partial class GhostReturnToLobbySlotSystem : EntitySystem
 
     public void MarkReturnToLobby(ICommonSession player)
     {
-        if (!EntityManager.System<GameTicker>().LobbyEnabled)
+        if (!EntityManager.System<ServerGameTicker>().LobbyEnabled)
             return;
 
         try

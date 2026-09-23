@@ -3,6 +3,7 @@ using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared._Onyx.Cybernetics.Personalization; // <Onyx-CyberneticsPersonalization>
 using Content.Shared._Onyx.Loadouts; // <Onyx-LoadoutPersonalization>
+using Content.Shared._Onyx.Silicons.Laws; // <Onyx-SyntheticLawPresets>
 using Content.Shared.Body;
 using Content.Shared.CCVar;
 using Content.Shared.Clothing;
@@ -373,7 +374,10 @@ public sealed partial class StationSpawningSystem : EntitySystem
             if (loadout != null)
             {
                 EquipRoleName(jobEntity, loadout, roleProto!);
-                ApplySyntheticLawPreset(jobEntity, loadout); // <Onyx-SyntheticLawPresets>
+                // <Onyx-SyntheticLawPresets>
+                var lawPresetEvent = new ApplySyntheticLawPresetEvent(loadout);
+                RaiseLocalEvent(jobEntity, ref lawPresetEvent);
+                // </Onyx-SyntheticLawPresets>
             }
 
             DoJobSpecials(job, jobEntity);

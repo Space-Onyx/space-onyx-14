@@ -3,6 +3,7 @@ using System.Numerics;
 using Content.Server.Cargo.Systems;
 using Content.Server._Onyx.Economy;
 using Content.Server.GameTicking;
+using Content.Shared.GameTicking;
 using Content.Server.Stack;
 using Content.Server.VendingMachines.Components;
 using Content.Server.Vocalization.Systems;

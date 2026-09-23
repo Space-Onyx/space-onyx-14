@@ -1,5 +1,6 @@
 using Content.Server.Silicons.Laws;
 using Content.Server.Station.Systems;
+using Content.Shared.Station.Systems;
 using Content.Shared.Access.Systems;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Database;
@@ -39,7 +40,7 @@ public sealed partial class RoboticsConsoleSystem
         UpdateUserInterface(ent);
     }
 
-    private bool TrackLawUploadTarget(Entity<RoboticsConsoleComponent> console, DeviceNetworkPacketEvent args)
+    private bool TrackLawUploadTarget(Entity<RoboticsConsoleComponent> console, DeviceNetworkPacketEvent<RoboticsCyborgDataPayload> args)
     {
         if (!console.Comp.AllowLawUpload)
             return true;

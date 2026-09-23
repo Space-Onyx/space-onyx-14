@@ -35,7 +35,7 @@ public sealed partial class TriggerSystem : EntitySystem
             foreach (var spawn in spawns)
             {
                 if (ent.Comp.Predicted)
-                    EntityManager.PredictedSpawn(spawn, coordinates);
+                    PredictedSpawn(spawn, coordinates);
                 else if (_net.IsServer)
                     Spawn(spawn, coordinates);
             }

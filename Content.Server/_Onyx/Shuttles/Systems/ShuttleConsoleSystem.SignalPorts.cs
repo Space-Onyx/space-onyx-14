@@ -8,7 +8,7 @@ public sealed partial class ShuttleConsoleSystem
 {
     private void OnConsoleStartup(Entity<ShuttleConsoleComponent> console, ref ComponentStartup args)
     {
-        _deviceLink.EnsureSourcePorts(console, console.Comp.SourcePorts.ToArray());
+        _deviceLink.EnsureSourcePorts(console.Owner, console.Comp.SourcePorts.ToArray());
     }
 
     private void OnShuttlePortButtonPressed(
@@ -19,6 +19,6 @@ public sealed partial class ShuttleConsoleSystem
         if (!console.Comp.SourcePorts.Any(port => port.Id == sourcePort))
             return;
 
-        _deviceLink.SendSignal(console, sourcePort, true);
+        _deviceLink.SendSignal(console.Owner, sourcePort, true);
     }
 }

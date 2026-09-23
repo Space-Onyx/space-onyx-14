@@ -30,7 +30,7 @@ See LICENSES for the full license text. -->
                 </PanelContainer.PanelOverride>
                 <BoxContainer Name="LogContainer" Orientation="Vertical" Margin="10 8" SeparationOverride="4">
                     <Label Text="{Loc 'research-machine-common-last-operation-title'}" Modulate="#C7D5E0"/>
-                    <PanelContainer StyleClasses="LowDivider"/>
+                    <controls:Separator StyleClasses="LowDivider"/>
                     <RichTextLabel Name="LastResult" Margin="0 2 0 0"/>
                 </BoxContainer>
             </PanelContainer>
@@ -44,7 +44,7 @@ See LICENSES for the full license text. -->
             </PanelContainer.PanelOverride>
             <BoxContainer Name="ExperimentsContainer" Orientation="Vertical" Margin="10 8" SeparationOverride="4">
                 <Label Text="{Loc 'research-experiment-machine-experiments-title'}" Modulate="#C7D5E0"/>
-                <PanelContainer StyleClasses="LowDivider"/>
+                <controls:Separator StyleClasses="LowDivider"/>
                 <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
                     <BoxContainer Name="Experiments" Orientation="Vertical" SeparationOverride="6"/>
                 </ScrollContainer>

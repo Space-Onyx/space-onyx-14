@@ -8,6 +8,7 @@ using Content.Server.Actions;
 using Content.Server.DoAfter;
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
+using Content.Shared.Station.Systems;
 using Content.Shared._Onyx.Abductor;
 using Content.Shared.Eye;
 using Content.Shared.Movement.Components;
@@ -62,7 +63,7 @@ public sealed partial class AbductorSystem : SharedAbductorSystem
             EntityUid? beacon = null;
             foreach (var station in _stationSystem.GetStations())
             {
-                if (_stationSystem.GetLargestGrid(station) is not { } grid
+                if (_stationSystem.GetLargestGrid(station.AsNullable()) is not { } grid
                     || !TryComp<NavMapComponent>(grid, out var navMap)
                     || !navMap.Beacons.ContainsKey(args.Beacon.NetEnt)
                     || !TryGetEntity(args.Beacon.NetEnt, out beacon))
@@ -168,7 +169,7 @@ public sealed partial class AbductorSystem : SharedAbductorSystem
 
         foreach (var station in stations)
         {
-            if (_stationSystem.GetLargestGrid(station) is not { } grid
+            if (_stationSystem.GetLargestGrid(station.AsNullable()) is not { } grid
                 || !TryComp(station, out MetaDataComponent? stationMetaData))
                 return;
 
@@ -177,10 +178,10 @@ public sealed partial class AbductorSystem : SharedAbductorSystem
             if (!_entityManager.TryGetComponent<NavMapComponent>(grid, out var navMap))
                 return;
 
-            result.Add(station.Id, new AbductorStationBeacons
+            result.Add(station.Owner.Id, new AbductorStationBeacons
             {
                 Name = stationMetaData.EntityName,
-                StationId = station.Id,
+                StationId = station.Owner.Id,
                 Beacons = [.. navMap.Beacons.Values],
             });
         }

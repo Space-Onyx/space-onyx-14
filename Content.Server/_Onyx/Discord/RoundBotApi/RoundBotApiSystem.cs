@@ -20,7 +20,7 @@ public sealed partial class RoundBotApiSystem : EntitySystem
     [Dependency] private IConfigurationManager _cfg = default!;
     [Dependency] private ILogManager _logManager = default!;
     [Dependency] private ITaskManager _taskManager = default!;
-    [Dependency] private GameTicker _gameTicker = default!;
+    [Dependency] private ServerGameTicker _gameTicker = default!;
     [Dependency] private IGameMapManager _gameMapManager = default!;
     [Dependency] private IPlayerManager _playerManager = default!;
 

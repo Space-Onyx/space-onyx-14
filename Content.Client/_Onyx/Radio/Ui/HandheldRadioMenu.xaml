@@ -27,7 +27,7 @@
                 <Label Name="ChannelLabel" HorizontalAlignment="Center"/>
             </BoxContainer>
         </PanelContainer>
-        <PanelContainer StyleClasses="LowDivider"/>
+        <controls:Separator StyleClasses="LowDivider"/>
         <Label Text="{Loc 'handheld-radio-menu-audio-label'}" StyleClasses="LabelSubText"/>
         <BoxContainer Orientation="Horizontal" HorizontalExpand="True" SeparationOverride="6">
             <Button Name="MicButton"
@@ -39,7 +39,7 @@
                     Text="{Loc 'handheld-radio-menu-speaker'}"
                     HorizontalExpand="True"/>
         </BoxContainer>
-        <PanelContainer StyleClasses="LowDivider"/>
+        <controls:Separator StyleClasses="LowDivider"/>
         <BoxContainer Orientation="Horizontal" VerticalAlignment="Bottom">
             <Label Text="{Loc 'handheld-radio-menu-footer-text'}"
                    StyleClasses="WindowFooterText"

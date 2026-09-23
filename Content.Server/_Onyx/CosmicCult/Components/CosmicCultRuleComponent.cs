@@ -1,4 +1,5 @@
 using Content.Server.RoundEnd;
+using Content.Shared.RoundEnd;
 using Content.Shared._Onyx.CosmicCult.Components;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
