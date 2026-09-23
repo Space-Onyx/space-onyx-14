@@ -10,7 +10,8 @@ namespace Content.Server.Medical.Components;
 /// Requires <c>ItemToggleComponent</c>.
 /// </remarks>
 [RegisterComponent, AutoGenerateComponentPause]
-[Access(typeof(HealthAnalyzerSystem), typeof(CryoPodSystem), typeof(_Onyx.Medical.Surgery.BodyScannerSystem))] // <Onyx-BodyScanner-edited>
+[Access(typeof(HealthAnalyzerSystem), typeof(CryoPodSystem), typeof(_Onyx.Medical.Surgery.BodyScannerSystem), // <Onyx-BodyScanner-edited>
+    typeof(Content.Server.CartridgeLoader.Cartridges.MedTekCartridgeSystem))] // <Onyx-MedTekScanCharge>
 public sealed partial class HealthAnalyzerComponent : Component
 {
     /// <summary>
@@ -37,6 +38,9 @@ public sealed partial class HealthAnalyzerComponent : Component
     /// </summary>
     [DataField]
     public TimeSpan ScanDelay = TimeSpan.FromSeconds(0.8);
+
+    [DataField]
+    public float ScanCharge; // <Onyx-MedTekScanCharge>
 
     /// <summary>
     /// Which entity has been scanned, for continuous updates

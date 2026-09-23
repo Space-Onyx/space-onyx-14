@@ -21,7 +21,7 @@ public sealed partial class NanoTaskCartridgeSystem : EntitySystem
     [Dependency] private PowerCellSystem _powerCell = default!;
     [Dependency] private INetManager _net = default!;
 
-    private const float PrintChargeFraction = 0.05f;
+    private const float PrintCharge = 18f;
     // </Onyx-NanoTaskPrintCharge>
 
     public override void Initialize()
@@ -154,10 +154,10 @@ public sealed partial class NanoTaskCartridgeSystem : EntitySystem
     // <Onyx-NanoTaskPrintCharge>
     private bool TryDrainPrintCharge(EntityUid loader, EntityUid? user)
     {
-        if (!_powerCell.TryGetBatteryFromSlot(loader, out var battery))
+        if (!_powerCell.TryGetBatteryFromSlot(loader, out _))
             return true;
 
-        return _powerCell.TryUseCharge(loader, battery.Value.Comp.MaxCharge * PrintChargeFraction, user, true);
+        return _powerCell.TryUseCharge(loader, PrintCharge, user, true);
     }
     // </Onyx-NanoTaskPrintCharge>
 }

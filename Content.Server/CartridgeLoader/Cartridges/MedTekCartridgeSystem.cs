@@ -7,6 +7,8 @@ public sealed partial class MedTekCartridgeSystem : EntitySystem
 {
     [Dependency] private CartridgeLoaderSystem _cartridgeLoaderSystem = default!;
 
+    private const float ScanCharge = 7.2f; // <Onyx-MedTekScanCharge>
+
     public override void Initialize()
     {
         base.Initialize();
@@ -17,7 +19,7 @@ public sealed partial class MedTekCartridgeSystem : EntitySystem
 
     private void OnCartridgeAdded(Entity<MedTekCartridgeComponent> ent, ref CartridgeAddedEvent args)
     {
-        EnsureComp<HealthAnalyzerComponent>(args.Loader);
+        EnsureComp<HealthAnalyzerComponent>(args.Loader).ScanCharge = ScanCharge; // <Onyx-MedTekScanCharge-edited>
     }
 
     private void OnCartridgeRemoved(Entity<MedTekCartridgeComponent> ent, ref CartridgeRemovedEvent args)

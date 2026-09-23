@@ -107,8 +107,14 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
     /// </summary>
     private void OnAfterInteract(Entity<HealthAnalyzerComponent> uid, ref AfterInteractEvent args)
     {
-        if (args.Target == null || !args.CanReach || !HasComp<MobStateComponent>(args.Target) || !_cell.HasDrawCharge(uid.Owner, user: args.User))
+        // <Onyx-MedTekScanCharge-edited>
+        if (args.Target == null ||
+            !args.CanReach ||
+            !HasComp<MobStateComponent>(args.Target) ||
+            !_cell.HasDrawCharge(uid.Owner, user: args.User) ||
+            uid.Comp.ScanCharge > 0f && !_cell.HasCharge(uid.Owner, uid.Comp.ScanCharge, args.User))
             return;
+        // </Onyx-MedTekScanCharge-edited>
 
         _audio.PlayPvs(uid.Comp.ScanningBeginSound, uid);
 
@@ -127,8 +133,14 @@ public sealed partial class HealthAnalyzerSystem : EntitySystem
 
     private void OnDoAfter(Entity<HealthAnalyzerComponent> uid, ref HealthAnalyzerDoAfterEvent args)
     {
-        if (args.Handled || args.Cancelled || args.Target == null || !_cell.HasDrawCharge(uid.Owner, user: args.User))
+        // <Onyx-MedTekScanCharge-edited>
+        if (args.Handled ||
+            args.Cancelled ||
+            args.Target == null ||
+            !_cell.HasDrawCharge(uid.Owner, user: args.User) ||
+            uid.Comp.ScanCharge > 0f && !_cell.TryUseCharge(uid.Owner, uid.Comp.ScanCharge, args.User))
             return;
+        // </Onyx-MedTekScanCharge-edited>
 
         if (!uid.Comp.Silent)
             _audio.PlayPvs(uid.Comp.ScanningEndSound, uid);
