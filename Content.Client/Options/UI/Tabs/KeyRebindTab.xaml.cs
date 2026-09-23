@@ -170,6 +170,10 @@ namespace Content.Client.Options.UI.Tabs
             AddButton(EngineKeyFunctions.Walk);
             // <Onyx-Sprinting>
             AddButton(ContentKeyFunctions.Sprint);
+            AddCheckBox("ui-options-hotkey-toggle-sprint", _cfg.GetCVar(CCVars.ToggleSprint), HandleToggleSprint);
+            AddCheckBox("ui-options-hotkey-sprint-until-stop", _cfg.GetCVar(CCVars.SprintUntilStop), HandleSprintUntilStop);
+            InitToggleSprint();
+            UpdateSprintBindings();
             // </Onyx-Sprinting>
             AddButton(ContentKeyFunctions.Jump); // <Onyx-Jump>
             AddCheckBox("ui-options-hotkey-toggle-walk", _cfg.GetCVar(CCVars.ToggleWalk), HandleToggleWalk);

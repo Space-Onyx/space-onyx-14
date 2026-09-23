@@ -9,6 +9,7 @@ namespace Content.Shared._Onyx.Sprinting;
 public sealed partial class SprinterComponent : Component
 {
     [AutoNetworkedField] public bool IsSprinting;
+    [AutoNetworkedField] public bool SprintUntilStop;
     [DataField, AutoNetworkedField] public bool CanSprint = true;
     [DataField, AutoNetworkedField] public float StaminaDrainRate = 9f;
     [DataField, AutoNetworkedField] public float StaminaRegenMultiplier = 0.75f;
@@ -24,9 +25,10 @@ public sealed partial class SprinterComponent : Component
 }
 
 [Serializable, NetSerializable]
-public sealed class SprintToggleEvent(bool isSprinting) : EntityEventArgs
+public sealed class SprintToggleEvent(bool isSprinting, bool untilStop = false) : EntityEventArgs
 {
     public bool IsSprinting = isSprinting;
+    public bool UntilStop = untilStop;
 }
 
 [Serializable, NetSerializable]

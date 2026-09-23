@@ -43,7 +43,7 @@ binds:
   key: S
 - function: Walk
   type: State
-  key: Control # <Onyx-Jump-edited>
+  key: Shift
 # Shuttle
 - function: ShuttleStrafeUp
   type: State
@@ -181,11 +181,11 @@ binds:
 - function: Drop
   type: State
   key: Q
-# <Onyx-Sprinting>
+# <Onyx-Sprinting-edited>
 - function: Sprint
   type: State
-  key: Shift
-# </Onyx-Sprinting>
+  key: R
+# </Onyx-Sprinting-edited>
 # <Onyx-Jump>
 - function: Jump
   type: State
@@ -318,13 +318,17 @@ binds:
   type: State
   key: MouseMiddle
   canFocus: true
+# <Onyx-Sprinting-edited>
 - function: RotateObjectClockwise
   type: State
   key: R
+  mod1: Shift
 - function: RotateObjectCounterclockwise
   type: State
   key: R
   mod1: Shift
+  mod2: Control
+# </Onyx-Sprinting-edited>
 - function: FlipObject
   type: State
   key: F

@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Shared.Bed.Sleep;
 using Content.Shared.Buckle.Components;
+using Content.Shared.CCVar;
 using Content.Shared.Cuffs.Components;
 using Content.Shared.CombatMode;
 using Content.Shared.Damage.Components;
@@ -10,11 +11,13 @@ using Content.Shared.Gravity;
 using Content.Shared.Input;
 using Content.Shared.Mobs;
 using Content.Shared.Movement.Components;
+using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Standing;
 using Content.Shared.Stunnable;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Configuration;
 using Robust.Shared.Input;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Network;
@@ -34,12 +37,14 @@ public abstract partial class SharedSprintingSystem : EntitySystem
     [Dependency] private SharedMoverController _mover = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private INetManager _net = default!;
+    [Dependency] private INetConfigurationManager _configuration = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<SprinterComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshSpeed);
         SubscribeLocalEvent<SprinterComponent, SprintToggleEvent>(OnSprintToggle);
+        SubscribeLocalEvent<SprinterComponent, MoveInputEvent>(OnMoveInput);
         SubscribeLocalEvent<SprinterComponent, MobStateChangedEvent>(OnMobStateChanged);
         SubscribeLocalEvent<SprinterComponent, SleepStateChangedEvent>(OnSleep);
         SubscribeLocalEvent<SprinterComponent, BeforeStaminaDamageEvent>(OnBeforeStaminaDamage);
@@ -90,10 +95,13 @@ public abstract partial class SharedSprintingSystem : EntitySystem
             return;
 
         var uid = _mover.GetEffectiveMover(user);
-        if (
-            !TryComp(uid, out SprinterComponent? sprinter) ||
+        if (!TryComp(uid, out SprinterComponent? sprinter) ||
             !TryComp(uid, out InputMoverComponent? mover) ||
             !sprinter.IsSprinting && _mover.GetVelocityInput(mover).Sprinting == Vector2.Zero)
+            return;
+
+        var untilStop = _configuration.GetClientCVar(session.Channel, CCVars.SprintUntilStop);
+        if (untilStop && (message.State != BoundKeyState.Down || !mover.HasDirectionalMovement))
             return;
 
         if (message.State == BoundKeyState.Down && (!sprinter.CanSprint || !HasComp<StaminaComponent>(uid)))
@@ -102,13 +110,19 @@ public abstract partial class SharedSprintingSystem : EntitySystem
             return;
         }
 
-        RaiseLocalEvent(uid, new SprintToggleEvent(message.State == BoundKeyState.Down));
+        RaiseLocalEvent(uid, new SprintToggleEvent(message.State == BoundKeyState.Down, untilStop));
     }
 
     private void OnSprintToggle(Entity<SprinterComponent> ent, ref SprintToggleEvent args) =>
-        ToggleSprint(ent, ent.Comp, args.IsSprinting);
+        ToggleSprint(ent, ent.Comp, args.IsSprinting, args.UntilStop);
 
-    public void ToggleSprint(EntityUid uid, SprinterComponent component, bool enabled)
+    private void OnMoveInput(Entity<SprinterComponent> ent, ref MoveInputEvent args)
+    {
+        if (ent.Comp.IsSprinting && ent.Comp.SprintUntilStop && !args.HasDirectionalMovement)
+            ToggleSprint(ent, ent.Comp, false);
+    }
+
+    public void ToggleSprint(EntityUid uid, SprinterComponent component, bool enabled, bool untilStop = false)
     {
         if (enabled == component.IsSprinting ||
             enabled && (!component.CanSprint ||
@@ -118,6 +132,7 @@ public abstract partial class SharedSprintingSystem : EntitySystem
             return;
 
         component.IsSprinting = enabled;
+        component.SprintUntilStop = enabled && untilStop;
         component.LastSprint = _timing.CurTime;
         if (enabled)
         {
