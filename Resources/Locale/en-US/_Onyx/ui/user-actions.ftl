@@ -9,3 +9,6 @@ user-action-control-time = Time
 user-action-control-round-time = Round time
 user-action-control-date = Date
 user-action-control-station-time = Station time
+user-action-control-ping = Ping
+user-action-control-ping-value = { $ping } ms
+user-action-control-not-available = N/A

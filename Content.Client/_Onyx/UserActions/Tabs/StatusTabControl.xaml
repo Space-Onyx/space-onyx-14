@@ -9,8 +9,8 @@
                     <PanelContainer StyleClasses="WindowHeadingBackgroundLight">
                         <ContainerButton Name="RoundToggle" ToggleMode="True" MinHeight="17" HorizontalExpand="True">
                             <BoxContainer Orientation="Horizontal" SeparationOverride="4" Margin="7 0 0 0" HorizontalExpand="True">
-                                <Label Name="RoundChevron" Text="▼" StyleClasses="StatusTabFont" />
-                                <Label Text="{Loc 'user-action-control-round'}" StyleClasses="StatusTabFont" HorizontalExpand="True" ClipText="True" />
+                                <Label Name="RoundChevron" Text="▼" StyleClasses="StatusTabHeader" />
+                                <Label Text="{Loc 'user-action-control-round'}" StyleClasses="StatusTabHeader" HorizontalExpand="True" ClipText="True" />
                             </BoxContainer>
                         </ContainerButton>
                     </PanelContainer>
@@ -19,25 +19,28 @@
                         <BoxContainer Orientation="Vertical" SeparationOverride="0" HorizontalExpand="True">
                             <BoxContainer Orientation="Horizontal" SeparationOverride="4" Margin="7 1 2 1" HorizontalExpand="True">
                                 <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
-                                    <Label Text="{Loc 'user-action-control-map'}" StyleClasses="LabelWeak StatusTabFont" ClipText="True" HorizontalExpand="True" />
-                                    <Label Name="MapName" StyleClasses="LabelKeyText StatusTabFont" ClipText="True" HorizontalExpand="True" />
+                                    <Label Text="{Loc 'user-action-control-map'}" StyleClasses="LabelWeak StatusTabMetricLabel" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="MapName" StyleClasses="LabelKeyText StatusTabMetricValue" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
                                 <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
-                                    <Label Text="{Loc 'user-action-control-round-id'}" StyleClasses="LabelWeak StatusTabFont" ClipText="True" HorizontalExpand="True" />
-                                    <Label Name="RoundId" StyleClasses="LabelKeyText StatusTabFont" ClipText="True" HorizontalExpand="True" />
+                                    <Label Text="{Loc 'user-action-control-round-id'}" StyleClasses="LabelWeak StatusTabMetricLabel" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="RoundId" StyleClasses="LabelKeyText StatusTabMetricValue" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
                                 <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
-                                    <Label Text="{Loc 'user-action-control-game-mode'}" StyleClasses="LabelWeak StatusTabFont" ClipText="True" HorizontalExpand="True" />
-                                    <Label Name="GameMode" StyleClasses="LabelKeyText StatusTabFont" ClipText="True" HorizontalExpand="True" />
+                                    <Label Text="{Loc 'user-action-control-game-mode'}" StyleClasses="LabelWeak StatusTabMetricLabel" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="GameMode" StyleClasses="LabelKeyText StatusTabMetricValue" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
                             </BoxContainer>
                             <ui:Separator StyleClasses="LowDivider" HorizontalExpand="True" />
                             <BoxContainer Orientation="Horizontal" SeparationOverride="4" Margin="7 1 2 1" HorizontalExpand="True">
                                 <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
-                                    <Label Text="{Loc 'user-action-control-player-count'}" StyleClasses="LabelWeak StatusTabFont" ClipText="True" HorizontalExpand="True" />
-                                    <Label Name="PlayerCount" StyleClasses="LabelKeyText StatusTabFont" ClipText="True" HorizontalExpand="True" />
+                                    <Label Text="{Loc 'user-action-control-player-count'}" StyleClasses="LabelWeak StatusTabMetricLabel" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="PlayerCount" StyleClasses="LabelKeyText StatusTabMetricValue" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
-                                <Control HorizontalExpand="True" SizeFlagsStretchRatio="1" />
+                                <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
+                                    <Label Text="{Loc 'user-action-control-ping'}" StyleClasses="LabelWeak StatusTabMetricLabel" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="PingValue" StyleClasses="StatusTabMetricValue" ClipText="True" HorizontalExpand="True" />
+                                </BoxContainer>
                                 <Control HorizontalExpand="True" SizeFlagsStretchRatio="1" />
                             </BoxContainer>
                         </BoxContainer>
@@ -46,8 +49,8 @@
                     <PanelContainer StyleClasses="WindowHeadingBackgroundLight">
                         <ContainerButton Name="TimeToggle" ToggleMode="True" MinHeight="17" HorizontalExpand="True">
                             <BoxContainer Orientation="Horizontal" SeparationOverride="4" Margin="7 0 0 0" HorizontalExpand="True">
-                                <Label Name="TimeChevron" Text="▼" StyleClasses="StatusTabFont" />
-                                <Label Text="{Loc 'user-action-control-time'}" StyleClasses="StatusTabFont" HorizontalExpand="True" ClipText="True" />
+                                <Label Name="TimeChevron" Text="▼" StyleClasses="StatusTabHeader" />
+                                <Label Text="{Loc 'user-action-control-time'}" StyleClasses="StatusTabHeader" HorizontalExpand="True" ClipText="True" />
                             </BoxContainer>
                         </ContainerButton>
                     </PanelContainer>
@@ -56,16 +59,16 @@
                         <BoxContainer Orientation="Vertical" SeparationOverride="0" Margin="7 1 2 1" HorizontalExpand="True">
                             <BoxContainer Orientation="Horizontal" SeparationOverride="4" HorizontalExpand="True">
                                 <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
-                                    <Label Text="{Loc 'user-action-control-round-time'}" StyleClasses="LabelWeak StatusTabFont" ClipText="True" HorizontalExpand="True" />
-                                    <Label Name="RoundTime" StyleClasses="LabelKeyText StatusTabFont" ClipText="True" HorizontalExpand="True" />
+                                    <Label Text="{Loc 'user-action-control-round-time'}" StyleClasses="LabelWeak StatusTabMetricLabel" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="RoundTime" StyleClasses="LabelKeyText StatusTabMetricValue" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
                                 <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
-                                    <Label Text="{Loc 'user-action-control-date'}" StyleClasses="LabelWeak StatusTabFont" ClipText="True" HorizontalExpand="True" />
-                                    <Label Name="CurrentDate" StyleClasses="LabelKeyText StatusTabFont" ClipText="True" HorizontalExpand="True" />
+                                    <Label Text="{Loc 'user-action-control-date'}" StyleClasses="LabelWeak StatusTabMetricLabel" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="CurrentDate" StyleClasses="LabelKeyText StatusTabMetricValue" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
                                 <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
-                                    <Label Text="{Loc 'user-action-control-station-time'}" StyleClasses="LabelWeak StatusTabFont" ClipText="True" HorizontalExpand="True" />
-                                    <Label Name="StationTime" StyleClasses="LabelKeyText StatusTabFont" ClipText="True" HorizontalExpand="True" />
+                                    <Label Text="{Loc 'user-action-control-station-time'}" StyleClasses="LabelWeak StatusTabMetricLabel" ClipText="True" HorizontalExpand="True" />
+                                    <Label Name="StationTime" StyleClasses="LabelKeyText StatusTabMetricValue" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
                             </BoxContainer>
                         </BoxContainer>
