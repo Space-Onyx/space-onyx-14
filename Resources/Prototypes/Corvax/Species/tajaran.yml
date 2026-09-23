@@ -12,6 +12,7 @@
   maleLastNames: NamesTajaranLast # Corvax-LastnameGender
   femaleLastNames: NamesTajaranLast # Corvax-LastnameGender
   category: Unusual # <Onyx-SpeciesSelector>
+  description: "/ServerInfo/_Onyx/Guidebook/Mobs/Tajaran.xml" # <Onyx-TajaranGuide>
   defaultSoundsBySex:
   - MaleTajaran
   - FemaleTajaran

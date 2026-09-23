@@ -28,6 +28,8 @@
   </Box>
   <Box>
   <GuideEntityEmbed Entity="AppearanceArcan" Caption="Аркана"/>
+  <GuideEntityEmbed Entity="AppearanceIpc" Caption="КПБ"/>
+  <GuideEntityEmbed Entity="AppearanceTajaran" Caption="Таяран"/>
   </Box>
   # </Onyx-SpeciesGuide>
 

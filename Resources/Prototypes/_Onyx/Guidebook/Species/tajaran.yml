@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: guideEntry
+  id: Tajaran
+  name: species-name-tajaran
+  text: /ServerInfo/_Onyx/Guidebook/Mobs/Tajaran.xml
