@@ -412,6 +412,7 @@ public sealed partial class ServerGameTicker
         AnnounceRound();
         UpdateInfoText();
         SendRoundStartedDiscordMessage();
+        RaiseLocalEvent(new RoundStartedEvent(RoundId)); // Corvax-StationGoal
 
 #if EXCEPTION_TOLERANCE
             }
