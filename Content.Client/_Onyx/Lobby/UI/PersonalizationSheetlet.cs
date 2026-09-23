@@ -29,6 +29,21 @@ public sealed class PersonalizationSheetlet : Sheetlet<PalettedStylesheet>
             BorderColor = sheet.HighlightPalette.Element,
             BorderThickness = new Thickness(3, 0, 0, 0),
         };
+        var lobbyPanel = new StyleBoxFlat(sheet.SecondaryPalette.BackgroundDark.WithAlpha(0.9f))
+        {
+            BorderColor = sheet.SecondaryPalette.Element,
+            BorderThickness = new Thickness(1),
+        };
+        var lobbyHeader = new StyleBoxFlat(sheet.SecondaryPalette.BackgroundLight.WithAlpha(0.94f))
+        {
+            BorderColor = sheet.SecondaryPalette.Element,
+            BorderThickness = new Thickness(1),
+        };
+        var lobbyInset = new StyleBoxFlat(sheet.SecondaryPalette.BackgroundDark.WithAlpha(0.96f))
+        {
+            BorderColor = sheet.SecondaryPalette.Element,
+            BorderThickness = new Thickness(1),
+        };
 
         return
         [
@@ -40,6 +55,9 @@ public sealed class PersonalizationSheetlet : Sheetlet<PalettedStylesheet>
             E<PanelContainer>().Class("PersonalizationTools").Panel(section),
             E<PanelContainer>().Class("PersonalizationCard").Panel(section),
             E<Label>().Class("PersonalizationTitle").Font(sheet.BaseFont.GetFont(12)),
+            E<PanelContainer>().Class("LobbyPanel").Panel(lobbyPanel),
+            E<PanelContainer>().Class("LobbyHeader").Panel(lobbyHeader),
+            E<PanelContainer>().Class("LobbyInset").Panel(lobbyInset),
         ];
     }
 }

@@ -6,22 +6,21 @@
     Margin="0 8 0 16"
     SeparationOverride="4"
     Visible="False">
+    <!-- <Onyx-LobbyAppearance-edited> -->
     <corvaxLobby:TranslucentPanelContainer Name="CollapsedPanel"
-                                            StyleClasses="BackgroundPanel"
-                                            BackgroundOpacity="0.85"
+                                            StyleClasses="LobbyPanel"
+                                            BackgroundOpacity="1"
                                             HorizontalAlignment="Left"
                                             Visible="False">
-        <TextureButton Name="ExpandButton"
-                       TexturePath="filled_right_arrow.svg.192dpi"
-                       ToolTip="{Loc 'corvax-lobby-server-hub-expand'}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       ModulateSelfOverride="#DEDEDE"
-                       Scale="0.5 0.5" />
+        <Button Name="ExpandButton" Text="›" MinSize="32 32"
+                ToolTip="{Loc 'corvax-lobby-server-hub-expand'}"
+                HorizontalAlignment="Center" VerticalAlignment="Center" />
     </corvaxLobby:TranslucentPanelContainer>
+    <!-- </Onyx-LobbyAppearance-edited> -->
+    <!-- <Onyx-LobbyAppearance-edited> -->
     <corvaxLobby:TranslucentPanelContainer Name="ExpandedPanel"
-                                            StyleClasses="BackgroundPanel"
-                                            BackgroundOpacity="0.85">
+                                             StyleClasses="LobbyPanel"
+                                             BackgroundOpacity="1">
         <BoxContainer Orientation="Vertical" Margin="3 3 3 6" SeparationOverride="5" HorizontalExpand="True">
             <!-- The lobby arrow is overlaid by the panel, so only reserve its visible height. -->
             <Control MinHeight="8" />
@@ -53,13 +52,9 @@
                                HorizontalExpand="True" />
             </ScrollContainer>
         </BoxContainer>
-        <TextureButton Name="CollapseButton"
-                       TexturePath="filled_left_arrow.svg.192dpi"
-                       ToolTip="{Loc 'corvax-lobby-server-hub-collapse'}"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Top"
-                       Margin="0 2 2 0"
-                       ModulateSelfOverride="#DEDEDE"
-                       Scale="0.5 0.5" />
+        <Button Name="CollapseButton" Text="‹" MinSize="32 32"
+                ToolTip="{Loc 'corvax-lobby-server-hub-collapse'}"
+                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 4 4 0" />
     </corvaxLobby:TranslucentPanelContainer>
+    <!-- </Onyx-LobbyAppearance-edited> -->
 </corvaxLobby:LobbyServerHub>

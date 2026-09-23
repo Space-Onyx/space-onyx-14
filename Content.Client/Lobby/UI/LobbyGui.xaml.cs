@@ -86,8 +86,8 @@ namespace Content.Client.Lobby.UI
                     TopExpandPanel.Visible = false;
                     LeftInfoPanel.Visible = true;
                     LeftExpandPanel.Visible = false;
-                    AttributionPanel.Visible = false;
-                    AttributionExpandPanel.Visible = true;
+                    AttributionPanel.Visible = true;
+                    AttributionExpandPanel.Visible = false;
                     // </Onyx-Lobby>
                     break;
                 case LobbyGuiState.CharacterSetup:
