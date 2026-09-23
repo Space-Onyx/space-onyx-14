@@ -2304,6 +2304,7 @@
   # <Onyx-GroupRetaliation>
   - type: NPCRetaliation
     attackMemoryLength: 5
+  - type: FactionException
   - type: GroupRetaliation
     range: 5
   # </Onyx-GroupRetaliation>

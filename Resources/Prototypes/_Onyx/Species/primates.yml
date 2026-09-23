@@ -7,6 +7,21 @@
   skinColoration: Hues
   defaultSkinTone: "#ffffff"
 
+- type: markingsGroup
+  id: Monkey
+  onlyGroupWhitelisted: true
+  limits:
+    enum.HumanoidVisualLayers.Tail:
+      limit: 1
+      required: true
+      default: [ MonkeyTailDefault ]
+
+- type: marking
+  id: MonkeyTailDefault
+  groupWhitelist: [ Monkey ]
+  bodyPart: Tail
+  sprites: [{ sprite: _Onyx/Mobs/Monkey.rsi, state: tail }]
+
 - type: species
   id: Kobold
   name: species-name-kobold
@@ -15,3 +30,18 @@
   dollPrototype: MobKobold
   skinColoration: Hues
   defaultSkinTone: "#9a7c5a"
+
+- type: markingsGroup
+  id: Kobold
+  onlyGroupWhitelisted: true
+  limits:
+    enum.HumanoidVisualLayers.Tail:
+      limit: 1
+      required: true
+      default: [ KoboldTailDefault ]
+
+- type: marking
+  id: KoboldTailDefault
+  groupWhitelist: [ Kobold ]
+  bodyPart: Tail
+  sprites: [{ sprite: _Onyx/Mobs/Kobold.rsi, state: tail }]

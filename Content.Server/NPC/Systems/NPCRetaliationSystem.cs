@@ -1,4 +1,6 @@
 using Content.Server.NPC.Components;
+using Content.Server._Onyx.NPC; // <Onyx-NPCRetaliation>
+using Content.Shared._Onyx.Wounds; // <Onyx-NPCRetaliation>
 using Content.Shared.CombatMode;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
@@ -21,13 +23,14 @@ public sealed partial class NPCRetaliationSystem : EntitySystem
     /// <inheritdoc />
     public override void Initialize()
     {
-        SubscribeLocalEvent<NPCRetaliationComponent, DamageChangedEvent>(OnDamageChanged);
+        SubscribeLocalEvent<NPCRetaliationComponent, DamageDealtEvent>(OnDamageDealt, before: [typeof(WoundDamageRoutingSystem)]); // <Onyx-NPCRetaliation-edited>
         SubscribeLocalEvent<NPCRetaliationComponent, DisarmedEvent>(OnDisarmed);
     }
 
-    private void OnDamageChanged(Entity<NPCRetaliationComponent> ent, ref DamageChangedEvent args)
+    // <Onyx-NPCRetaliation-edited>
+    private void OnDamageDealt(Entity<NPCRetaliationComponent> ent, ref DamageDealtEvent args)
     {
-        if (!args.DamageIncreased)
+        if (args.Damage.GetTotal() <= 0)
             return;
 
         if (args.Origin is not {} origin)
@@ -35,13 +38,14 @@ public sealed partial class NPCRetaliationSystem : EntitySystem
 
         TryRetaliate(ent, origin);
     }
+    // </Onyx-NPCRetaliation-edited>
 
     private void OnDisarmed(Entity<NPCRetaliationComponent> ent, ref DisarmedEvent args)
     {
         TryRetaliate(ent, args.Source);
     }
 
-    public bool TryRetaliate(Entity<NPCRetaliationComponent> ent, EntityUid target)
+    public bool TryRetaliate(Entity<NPCRetaliationComponent> ent, EntityUid target, bool secondary = false) // <Onyx-NPCRetaliation-edited>
     {
         // don't retaliate against inanimate objects.
         if (!HasComp<MobStateComponent>(target))
@@ -54,6 +58,8 @@ public sealed partial class NPCRetaliationSystem : EntitySystem
         _npcFaction.AggroEntity(ent.Owner, target);
         if (ent.Comp.AttackMemoryLength is {} memoryLength)
             ent.Comp.AttackMemories[target] = _timing.CurTime + memoryLength;
+
+        RaiseLocalEvent(ent, new NPCRetaliatedEvent(ent, target, secondary)); // <Onyx-NPCRetaliation>
 
         return true;
     }

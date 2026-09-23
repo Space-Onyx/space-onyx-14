@@ -24,7 +24,7 @@
   components:
   - type: VisualOrganMarkings
     markingData:
-      group: None
+      group: Monkey
 
 - type: entity
   abstract: true
@@ -46,6 +46,11 @@
 - type: entity
   parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganMonkeyExternal ]
   id: GroinMonkey
+  components:
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Tail ]
+      group: Monkey
 - type: entity
   parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganMonkeyExternal ]
   id: HeadMonkey
@@ -86,7 +91,7 @@
       sprite: _Onyx/Mobs/Kobold.rsi
   - type: VisualOrganMarkings
     markingData:
-      group: None
+      group: Kobold
 
 - type: entity
   parent: [ OrganBaseChestSexed, OrganBaseChest, OrganKoboldExternal ]
@@ -94,6 +99,11 @@
 - type: entity
   parent: [ OrganBaseGroinSexed, OrganBaseGroin, OrganKoboldExternal ]
   id: GroinKobold
+  components:
+  - type: VisualOrganMarkings
+    markingData:
+      layers: [ Tail ]
+      group: Kobold
 - type: entity
   parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganKoboldExternal ]
   id: HeadKobold
