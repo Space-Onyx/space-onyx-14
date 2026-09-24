@@ -25,7 +25,7 @@
       map: ["enum.PaperLabelVisuals.Layer"]
   - type: EntityStorageVisuals
     stateBaseClosed: pilot
-    stateDoorOpen: pilot_open
+    stateDoorOpen: generic_open
     stateDoorClosed: pilot_door
   - type: AccessReader
     access: [["Security"]]
