@@ -1,0 +1,30 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Taken from https://github.com/ss220-space/Paradise",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "pulse"
+        },
+        {
+            "name": "midas_touch"
+        },
+        {
+            "name": "inhand-left",
+            "delays": [ [ 0.1, 0.1, 0.1 ], [ 0.1, 0.1, 0.1 ], [ 0.1, 0.1, 0.1 ], [ 0.1, 0.1, 0.1 ] ],
+            "directions": 4
+        },
+        {
+            "name": "inhand-right",
+            "delays": [ [ 0.1, 0.1, 0.1 ], [ 0.1, 0.1, 0.1 ], [ 0.1, 0.1, 0.1 ], [ 0.1, 0.1, 0.1 ] ],
+            "directions": 4
+        }
+    ]
+}

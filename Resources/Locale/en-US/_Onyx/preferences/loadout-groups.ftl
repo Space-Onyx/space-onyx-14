@@ -8,3 +8,6 @@ loadout-group-hotel-manager-uniform = Hotel manager uniform
 loadout-group-hotel-glasses = Hotel glasses
 loadout-group-hotel-security-glasses = Hotel security glasses
 loadout-group-hotel-colored-gloves = Colored gloves
+loadout-group-medical-gloves = Medical gloves
+loadout-group-salvage-specialist-jumpsuit = Salvage specialist jumpsuit
+loadout-group-shaft-miner-jumpsuit = Shaft miner jumpsuit

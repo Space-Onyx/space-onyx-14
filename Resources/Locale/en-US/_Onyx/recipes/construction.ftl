@@ -1,3 +1,13 @@
 construction-name-double-bed = double bed
 construction-desc-double-bed = A large bed for two people.
 construction-graph-tag-glass-bottle = glass bottle
+construction-graph-tag-light-tube-crystal-red = red crystal light tube
+construction-graph-tag-light-tube-crystal-green = green crystal light tube
+construction-graph-tag-light-tube-crystal-blue = blue crystal light tube
+construction-graph-tag-medichem-hud = medichem HUD
+construction-graph-tag-diagnostic-hud = diagnostic HUD
+construction-graph-tag-chem-hud = chemical analysis HUD
+construction-graph-tag-medsec-hud = medical-security HUD
+construction-graph-tag-meddiag-hud = medical-diagnostic HUD
+construction-graph-tag-casing = casing
+construction-graph-tag-electronics = electronics

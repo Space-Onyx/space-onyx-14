@@ -33,7 +33,11 @@ public sealed partial class ChatSystem
         ProtoId<LanguagePrototype>? languageOverride = null // <Onyx-OSayLanguage>
         )
     {
-        if (!_actionBlocker.CanSpeak(source) && !ignoreActionBlocker)
+        var language = languageOverride is { } languageId && ProtoMan.TryIndex(languageId, out LanguagePrototype? overrideLanguage)
+            ? overrideLanguage
+            : _language.GetCurrentLanguage(source); // <Onyx-LanguageSpeechOverride>
+
+        if (language.Speech.RequireSpeech && !_actionBlocker.CanSpeak(source) && !ignoreActionBlocker) // <Onyx-LanguageSpeechOverride-edited>
             return;
 
         // <Onyx-RaspyAccent>
@@ -83,15 +87,12 @@ public sealed partial class ChatSystem
         var content = FormattedMessage.EscapeText(restoredMessage);
         var inlineFormattedMessage = InlineActionFormatter.Format(content); // <Onyx-InlineActions>
         // <Onyx-Languages>
-        var speechVerb = Loc.GetString(_random.Pick(speech.SpeechVerbStrings));
+        var speechVerb = Loc.GetString(_random.Pick(language.Speech.SpeechVerbOverrides ?? speech.SpeechVerbStrings)); // <Onyx-LanguageSpeechOverride-edited>
         // </Onyx-Languages>
         // <Onyx-Loudspeaker>
         var loudspeakerFontSize = GetLoudspeakerFontSize(source, false);
         // </Onyx-Loudspeaker>
         // <Onyx-Languages-edited>
-        var language = languageOverride is { } languageId && ProtoMan.TryIndex(languageId, out LanguagePrototype? overrideLanguage)
-            ? overrideLanguage
-            : _language.GetCurrentLanguage(source); // <Onyx-OSayLanguage-edited>
         var wrappedMessage = WrapLanguageMessage(
             speech.Bold ? "chat-manager-entity-say-language-bold-wrap-message" : "chat-manager-entity-say-language-wrap-message",
             name,
@@ -182,7 +183,11 @@ public sealed partial class ChatSystem
         ProtoId<LanguagePrototype>? languageOverride = null // <Onyx-OSayLanguage>
         )
     {
-        if (!_actionBlocker.CanSpeak(source) && !ignoreActionBlocker)
+        var language = languageOverride is { } languageId && ProtoMan.TryIndex(languageId, out LanguagePrototype? overrideLanguage)
+            ? overrideLanguage
+            : _language.GetCurrentLanguage(source); // <Onyx-LanguageSpeechOverride>
+
+        if (language.Speech.RequireSpeech && !_actionBlocker.CanSpeak(source) && !ignoreActionBlocker) // <Onyx-LanguageSpeechOverride-edited>
             return;
 
         var message = TransformSpeech(source, FormattedMessage.RemoveMarkupOrThrow(originalMessage));
@@ -196,9 +201,6 @@ public sealed partial class ChatSystem
         // </Onyx-InlineActions>
 
         // <Onyx-Languages-edited>
-        var language = languageOverride is { } languageId && ProtoMan.TryIndex(languageId, out LanguagePrototype? overrideLanguage)
-            ? overrideLanguage
-            : _language.GetCurrentLanguage(source); // <Onyx-OSayLanguage-edited>
         // <Onyx-SignLanguage-edited>
         var isSignLanguage = language.RequiresSight;
         // </Onyx-SignLanguage-edited>

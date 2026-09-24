@@ -5,9 +5,6 @@
   startNode: start
   targetNode: chairWoodFancyBlack
   category: construction-category-furniture
-  icon:
-    sprite: _Onyx/Structures/Furniture/fancy_wood_chairs.rsi
-    state: wooden_fancy-black
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: false
@@ -21,9 +18,6 @@
   startNode: start
   targetNode: chairWoodFancyBlue
   category: construction-category-furniture
-  icon:
-    sprite: _Onyx/Structures/Furniture/fancy_wood_chairs.rsi
-    state: wooden_fancy-blue
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: false
@@ -37,9 +31,6 @@
   startNode: start
   targetNode: chairWoodFancyCyan
   category: construction-category-furniture
-  icon:
-    sprite: _Onyx/Structures/Furniture/fancy_wood_chairs.rsi
-    state: wooden_fancy-cyan
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: false
@@ -53,9 +44,6 @@
   startNode: start
   targetNode: chairWoodFancyGreen
   category: construction-category-furniture
-  icon:
-    sprite: _Onyx/Structures/Furniture/fancy_wood_chairs.rsi
-    state: wooden_fancy-green
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: false
@@ -69,9 +57,6 @@
   startNode: start
   targetNode: chairWoodFancyOrange
   category: construction-category-furniture
-  icon:
-    sprite: _Onyx/Structures/Furniture/fancy_wood_chairs.rsi
-    state: wooden_fancy-orange
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: false
@@ -85,9 +70,6 @@
   startNode: start
   targetNode: chairWoodFancyPink
   category: construction-category-furniture
-  icon:
-    sprite: _Onyx/Structures/Furniture/fancy_wood_chairs.rsi
-    state: wooden_fancy-pink
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: false
@@ -101,9 +83,6 @@
   startNode: start
   targetNode: chairWoodFancyPurple
   category: construction-category-furniture
-  icon:
-    sprite: _Onyx/Structures/Furniture/fancy_wood_chairs.rsi
-    state: wooden_fancy-purple
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: false
@@ -117,9 +96,6 @@
   startNode: start
   targetNode: chairWoodFancyRed
   category: construction-category-furniture
-  icon:
-    sprite: _Onyx/Structures/Furniture/fancy_wood_chairs.rsi
-    state: wooden_fancy-red
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: false
@@ -133,9 +109,6 @@
   startNode: start
   targetNode: chairWoodFancyWhite
   category: construction-category-furniture
-  icon:
-    sprite: _Onyx/Structures/Furniture/fancy_wood_chairs.rsi
-    state: wooden_fancy-white
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: false

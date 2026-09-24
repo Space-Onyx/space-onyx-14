@@ -14,7 +14,8 @@
   maxWidthCm: 49
   maleFirstNames: NamesFeroxiFirstMale
   femaleFirstNames: NamesFeroxiFirstFemale
-  lastNames: NamesFeroxiLast
+  maleLastNames: NamesFeroxiLast
+  femaleLastNames: NamesFeroxiLast
   defaultSoundsBySex: [ MaleFeroxi, FemaleFeroxi, MaleFeroxi ]
   voices: [ MaleFeroxi, FemaleFeroxi ]
   description: /ServerInfo/_Onyx/Guidebook/Mobs/Feroxi.xml

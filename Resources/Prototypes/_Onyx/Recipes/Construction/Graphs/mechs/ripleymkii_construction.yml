@@ -65,7 +65,7 @@
         - !type:VisualizerDataInt { key: "enum.MechAssemblyVisuals.State", data: 17 }
       - tag: MechAirTank
         name: construction-graph-tag-exosuit-air-tank
-        icon: { sprite: Objects/Specific/Mech/mecha_equipment.rsi, state: mecha_air_tank }
+        icon: { sprite: _Onyx/Objects/Specific/Mech/construction_parts.rsi, state: mecha_air_tank }
       - tool: Anchoring
         doAfter: 1
       - material: Plasteel

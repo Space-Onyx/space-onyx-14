@@ -131,6 +131,9 @@ public abstract partial class AntagSelectionSystem
         if (!Jobs.MindTryGetJob(mind, out var job))
             return true;
 
+        if (!job.CanBeAntag) // <Onyx-JobAntagEligibility>
+            return false;
+
         // "Sorry buddy, but you can't be a traitor and the head of security" - Urist 1984
         // This checks nullability for our mind for free as well!
         if (def.JobBlacklist?.Contains(job) ?? false)

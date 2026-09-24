@@ -1,0 +1,76 @@
+# Content adapted from Corvax Goob-Station (https://github.com/space-syndicate/Goob-Station), licensed under AGPL-3.0-or-later.
+
+- type: entity
+  id: TirimolChemistryVial
+  parent: ChemistryEmptyVial
+  suffix: tirimol
+  components:
+  - type: Label
+    localizedLabel: reagent-name-tirimol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Tirimol
+        Quantity: 30
+  - type: Tag
+    tags: [ CentrifugeCompatible ]
+
+- type: entity
+  id: OmnizineChemistryVial
+  parent: ChemistryEmptyVial
+  suffix: omnizine
+  components:
+  - type: Label
+    localizedLabel: reagent-name-omnizine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Omnizine
+        Quantity: 30
+  - type: Tag
+    tags: [ CentrifugeCompatible ]
+
+- type: entity
+  id: SyriniverChemistryVial
+  parent: ChemistryEmptyVial
+  suffix: syriniver
+  components:
+  - type: Label
+    localizedLabel: reagent-name-syriniver
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Syriniver
+        Quantity: 30
+  - type: Tag
+    tags: [ CentrifugeCompatible ]
+
+- type: entity
+  id: ProcenylLazideChemistryVial
+  parent: ChemistryEmptyVial
+  suffix: procenyl lazide
+  components:
+  - type: Label
+    localizedLabel: reagent-name-procenyl-lazide
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: ProcenylLazide
+        Quantity: 30
+  - type: Tag
+    tags: [ CentrifugeCompatible ]
+
+- type: entity
+  id: EbifinlLazideChemistryVial
+  parent: ChemistryEmptyVial
+  suffix: ebifin
+  components:
+  - type: Label
+    localizedLabel: reagent-name-ebifin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ebifin
+        Quantity: 30
+  - type: Tag
+    tags: [ CentrifugeCompatible ]

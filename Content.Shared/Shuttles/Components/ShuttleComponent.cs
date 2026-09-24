@@ -14,8 +14,7 @@ public sealed partial class ShuttleComponent : Component
     /// <summary>
     /// Thrust gets multiplied by this value if it's for braking.
     /// </summary>
-    [DataField]
-    public const float BrakeCoefficient = 1.5f;
+    public const float BrakeCoefficient = 1.5f; // <Onyx-ShuttleConstants-edited>
 
     /// <summary>
     /// Maximum velocity.
@@ -23,8 +22,7 @@ public sealed partial class ShuttleComponent : Component
     [DataField]
     public float BaseMaxLinearVelocity = 60f;
 
-    [DataField]
-    public const float MaxAngularVelocity = 4f;
+    public const float MaxAngularVelocity = 4f; // <Onyx-ShuttleConstants-edited>
 
     /// <summary>
     /// The cached thrust available for each cardinal direction

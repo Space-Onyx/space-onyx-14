@@ -26,7 +26,6 @@
     - Felinid
   guides:
   - Command
-  weight: 20
   startingGear: BlueshieldOfficerGear
   icon: JobIconBlueshield
   joinNotifyCrew: true

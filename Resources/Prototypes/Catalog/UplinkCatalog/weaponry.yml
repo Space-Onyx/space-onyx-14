@@ -49,7 +49,6 @@
   productEntity: EnergySword
   cost:
     Telecrystal: 37 # <Onyx-UplinkGoob-edited>
-  saleLimit: 2 # <Onyx-UplinkGoob>
   categories:
   - UplinkWeaponry
 

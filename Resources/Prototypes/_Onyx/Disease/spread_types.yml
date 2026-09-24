@@ -1,8 +1,6 @@
 - type: diseaseSpread
   id: Aerial
-  name: Aerial
   blockedByInternals: true
 
 - type: diseaseSpread
   id: Blood
-  name: Blood

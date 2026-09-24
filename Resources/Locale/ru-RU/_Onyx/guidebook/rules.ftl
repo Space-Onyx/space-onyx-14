@@ -1,0 +1,11 @@
+guide-entry-onyx-rule-0 = Не будь мудаком
+guide-entry-onyx-rule-1 = Гриферство
+guide-entry-onyx-rule-2 = Убийство
+guide-entry-onyx-rule-3 = Нарушение игровой атмосферы
+guide-entry-onyx-rule-4 = Логика персонажей
+guide-entry-onyx-rule-5 = Ответственная игра за антагониста
+guide-entry-onyx-rule-6 = Самоантагонизм
+guide-entry-onyx-rule-7 = Валидхант
+guide-entry-onyx-rule-8 = ERP
+guide-entry-onyx-rule-9 = Нечестная игра
+guide-entry-onyx-rule-10 = Обман администрации

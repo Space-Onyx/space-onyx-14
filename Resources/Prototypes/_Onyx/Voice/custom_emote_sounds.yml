@@ -830,13 +830,13 @@
   id: pai
   name: pai
   sound:
-    path: /Audio/Voice/Talk/pai.ogg,
+    path: /Audio/Voice/Talk/pai.ogg
 
 - type: customEmoteSound
   id: pai_whistle
   name: pai_whistle
   sound:
-    path: /Audio/_Onyx/Voice/IPC/pai_whistle.ogg,
+    path: /Audio/_Onyx/Voice/IPC/pai_whistle.ogg
 
 - type: customEmoteSound
   id: beep_2000
@@ -854,7 +854,7 @@
   id: beep1
   name: beep1
   sound:
-    path: /Audio/Effects/beep1.ogg,
+    path: /Audio/Effects/beep1.ogg
 
 - type: customEmoteSound
   id: IPCWhirrs

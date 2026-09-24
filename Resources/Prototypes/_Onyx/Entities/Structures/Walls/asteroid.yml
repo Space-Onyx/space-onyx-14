@@ -329,6 +329,26 @@
       visible: false
 
 - type: entity
+  id: LavalandBasaltRockSalt
+  parent: [ BaseVeinSalt, LavalandBasaltRock ]
+  components:
+  - type: Sprite
+    sprite: Structures/Walls/rock.rsi
+    layers:
+    - state: rock_wall
+    - map: [ "enum.EdgeLayer.South" ]
+      state: rock_wall_south
+    - map: [ "enum.EdgeLayer.East" ]
+      state: rock_wall_east
+    - map: [ "enum.EdgeLayer.North" ]
+      state: rock_wall_north
+    - map: [ "enum.EdgeLayer.West" ]
+      state: rock_wall_west
+    - state: rock_salt
+      map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+      visible: false
+
+- type: entity
   id: LavalandBasaltRockArtifactFragment
   parent: [ BaseVeinArtifactFragment, LavalandBasaltRock ]
   components:

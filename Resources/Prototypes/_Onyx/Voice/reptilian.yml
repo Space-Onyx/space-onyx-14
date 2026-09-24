@@ -11,7 +11,7 @@
   name: chat-emote-name-yip
   category: Vocal
   available: false
-  icon: { sprite: Mobs/Animals/kobold.rsi, state: full }
+  icon: { sprite: _Onyx/Mobs/Animals/kobold_icon.rsi, state: full }
   whitelist:
     components: [ Vocal ]
   blacklist:

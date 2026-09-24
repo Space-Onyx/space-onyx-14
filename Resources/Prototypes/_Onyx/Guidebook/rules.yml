@@ -20,66 +20,66 @@
 
 - type: guideEntry
   id: OnyxRules0
-  name: Не будь мудаком.
+  name: guide-entry-onyx-rule-0
   ruleEntry: true
   text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule0.xml"
 
 - type: guideEntry
   id: OnyxRules1
-  name: Гриферство
+  name: guide-entry-onyx-rule-1
   ruleEntry: true
   text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule1.xml"
 
 - type: guideEntry
   id: OnyxRules2
-  name: Убийство
+  name: guide-entry-onyx-rule-2
   ruleEntry: true
   text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule2.xml"
   
 - type: guideEntry
   id: OnyxRules3
-  name: Нарушение игровой атмосферы.
+  name: guide-entry-onyx-rule-3
   ruleEntry: true
   text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule3.xml"
   
 - type: guideEntry
   id: OnyxRules4
-  name: Логика персонажей
+  name: guide-entry-onyx-rule-4
   ruleEntry: true
   text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule4.xml"
  
 - type: guideEntry
   id: OnyxRules5
-  name: Ответственная игра за антагониста
+  name: guide-entry-onyx-rule-5
   ruleEntry: true
   text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule5.xml"
 
 - type: guideEntry
   id: OnyxRules6
-  name: Самоантагонизм
+  name: guide-entry-onyx-rule-6
   ruleEntry: true
   text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule6.xml"
 
 - type: guideEntry
   id: OnyxRules7
-  name: Валидхант
+  name: guide-entry-onyx-rule-7
   ruleEntry: true
   text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule7.xml"
 
 - type: guideEntry
   id: OnyxRules8
-  name: ERP
+  name: guide-entry-onyx-rule-8
   ruleEntry: true
   text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule8.xml"
 
 - type: guideEntry
   id: OnyxRules9
-  name: Нечестная игра
+  name: guide-entry-onyx-rule-9
   ruleEntry: true
   text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule9.xml"
 
 - type: guideEntry
   id: OnyxRules10
-  name: Обман администрации
+  name: guide-entry-onyx-rule-10
   ruleEntry: true
   text: "/ServerInfo/_Onyx/ServerRules/OnyxRules/OnyxRule10.xml"

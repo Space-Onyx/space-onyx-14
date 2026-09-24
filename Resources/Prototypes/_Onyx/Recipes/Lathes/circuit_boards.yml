@@ -1,7 +1,7 @@
 - type: latheRecipe
   parent: BaseCircuitboardRecipe
   id: AsimovCircuitBoard
-  result: AsimovCircuitBoard
+  result: CrewsimovCircuitBoard
 
 - type: latheRecipe
   parent: BaseCircuitboardRecipe

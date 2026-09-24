@@ -23,7 +23,7 @@ namespace Content.Shared.Damage
         /// <summary>
         ///     Main DamageSpecifier dictionary. Most DamageSpecifier functions exist to somehow modifying this.
         /// </summary>
-        [IncludeDataField(customTypeSerializer: typeof(DamageSpecifierDictionarySerializer))] // <Onyx-DamageGroups-edited>
+        [IncludeDataField(customTypeSerializer: typeof(DamageSpecifierDictionarySerializer), readOnly: true)] // <Onyx-DamageGroups-edited>
         public Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2> DamageDict { get; set; } = new();
 
         /// <summary>
@@ -132,6 +132,8 @@ namespace Content.Shared.Damage
             var penetration = float.IsFinite(damageSpec.ArmorPenetration)
                 ? Math.Clamp(damageSpec.ArmorPenetration, 0f, 1f)
                 : 0f;
+            if ((modifierSet.IgnoreArmorPierceFlags & (int) PartialArmorPierceFlags.Positive) != 0) // <Onyx-ArmorPenetration>
+                penetration = 0f; // <Onyx-ArmorPenetration>
             DamageSpecifier newDamage = new(damageSpec); // <Onyx-ArmorPenetration-edited>
             newDamage.DamageDict.Clear(); // <Onyx-ArmorPenetration>
             newDamage.DamageDict.EnsureCapacity(damageSpec.DamageDict.Count);

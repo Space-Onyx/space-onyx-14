@@ -143,8 +143,8 @@ SalvagePartsT2Spawner: SalvageLootSpawner
 #SuperCapacitorStockPart: CapacitorStockPart
 #QuadraticCapacitorStockPart: CapacitorStockPart
 #NanoManipulatorStockPart: MicroManipulatorStockPart
-PicoManipulatorStockPart: MicroManipulatorStockPart
-FemtoManipulatorStockPart: MicroManipulatorStockPart
+PicoManipulatorStockPart: StandardServoDrive # <Onyx-TieredMachineParts-edited>
+FemtoManipulatorStockPart: StandardServoDrive # <Onyx-TieredMachineParts-edited>
 #AdvancedMatterBinStockPart: MatterBinStockPart
 #SuperMatterBinStockPart: MatterBinStockPart
 #BluespaceMatterBinStockPart: MatterBinStockPart
@@ -660,8 +660,8 @@ SuitStorageBasic: SuitStorageEVA
 ClothingNeckCloakMiner: null
 
 # 2025-05-22
-MatterBinStockPart: MicroManipulatorStockPart
-CapacitorStockPart: MicroManipulatorStockPart
+MatterBinStockPart: StandardServoDrive # <Onyx-TieredMachineParts-edited>
+CapacitorStockPart: StandardServoDrive # <Onyx-TieredMachineParts-edited>
 
 # 2025-05-26 Turrets
 WeaponEnergyTurretStation: WeaponEnergyTurretSecurity
@@ -881,7 +881,7 @@ CrateVendingMachineRestockCondimentStationFilled: VendingMachineRestockCondiment
 CrateVendingMachineRestockDinnerwareFilled: VendingMachineRestockDinnerware
 CrateVendingMachineRestockGamesFilled: VendingMachineRestockGames
 CrateVendingMachineRestockPTechFilled: VendingMachineRestockPTech
-CrateVendingMachineRestockSalvageEquipmentFilled: VendingMachineRestockSalvageEquipment
+CrateVendingMachineRestockSalvageEquipmentFilled: null # <Onyx-SalvageVendorRestock-edited>
 CrateVendingMachineRestockVendomatFilled: VendingMachineRestockVendomat
 CrateVendingMachineRestockTankDispenserFilled: VendingMachineRestockTankDispenser
 # The crates below contained _two_ of the restock items, so these are technically not direct migrations. But eh.

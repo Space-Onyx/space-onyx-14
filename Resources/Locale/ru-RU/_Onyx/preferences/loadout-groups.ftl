@@ -8,3 +8,6 @@ loadout-group-hotel-manager-uniform = Менеджер отеля, унифор�
 loadout-group-hotel-glasses = Отель, очки
 loadout-group-hotel-security-glasses = Охрана отеля, очки
 loadout-group-hotel-colored-gloves = Цветные перчатки
+loadout-group-medical-gloves = Медицинский отдел, перчатки
+loadout-group-salvage-specialist-jumpsuit = Комбинезон утилизатора
+loadout-group-shaft-miner-jumpsuit = Комбинезон шахтёра

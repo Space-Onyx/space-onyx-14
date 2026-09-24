@@ -1,3 +1,13 @@
 construction-name-double-bed = двойная кровать
 construction-desc-double-bed = Большая кровать для двух человек.
 construction-graph-tag-glass-bottle = стеклянная бутылка
+construction-graph-tag-light-tube-crystal-red = красная кристальная лампа-трубка
+construction-graph-tag-light-tube-crystal-green = зелёная кристальная лампа-трубка
+construction-graph-tag-light-tube-crystal-blue = синяя кристальная лампа-трубка
+construction-graph-tag-medichem-hud = медико-химический визор
+construction-graph-tag-diagnostic-hud = диагностический визор
+construction-graph-tag-chem-hud = визор химического анализа
+construction-graph-tag-medsec-hud = медико-охранный визор
+construction-graph-tag-meddiag-hud = медико-диагностический визор
+construction-graph-tag-casing = корпус
+construction-graph-tag-electronics = электроника

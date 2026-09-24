@@ -1,0 +1,11 @@
+guide-entry-onyx-rule-0 = Do not be a jerk
+guide-entry-onyx-rule-1 = Griefing
+guide-entry-onyx-rule-2 = Murder
+guide-entry-onyx-rule-3 = Breaking game atmosphere
+guide-entry-onyx-rule-4 = Character logic
+guide-entry-onyx-rule-5 = Responsible antagonist play
+guide-entry-onyx-rule-6 = Self-antagonism
+guide-entry-onyx-rule-7 = Validhunting
+guide-entry-onyx-rule-8 = ERP
+guide-entry-onyx-rule-9 = Unfair play
+guide-entry-onyx-rule-10 = Deceiving administration

@@ -2,3 +2,13 @@
   license: "CC-BY-SA-3.0"
   copyright: "Ported from Goob-Station commit 32af02859d1; original sound from OneShot"
   source: "https://github.com/Goob-Station/Goob-Station"
+
+- files: ["noise-bark.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Original sound from https://zvukipro.com/situacii/387-zvuki-belogo-shuma.html"
+  source: "https://zvukipro.com/situacii/387-zvuki-belogo-shuma.html"
+
+- files: ["bark-bark.ogg", "bark-meow.ogg", "undertale-stats.ogg", "undertale-default.ogg", "oneshot-text.ogg", "undertale-flowey-angry.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Files recovered from Corvax Goob-Station history. Original attribution was absent from the source commit."
+  source: "https://github.com/space-syndicate/Goob-Station/commit/32af02859d1"

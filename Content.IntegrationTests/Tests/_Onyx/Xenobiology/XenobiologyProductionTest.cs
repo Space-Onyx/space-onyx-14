@@ -13,7 +13,6 @@ public sealed class XenobiologyProductionTest : GameTest
 {
     private static readonly ProtoId<TechnologyPrototype> XenobiologyTechnology = "Xenobiology";
     private static readonly ProtoId<TechnologyPrototype> XenobagHoldingTechnology = "XenobagHolding";
-    private static readonly ProtoId<TechnologyPrototype> XenoCompatibilityTechnology = "XenoCompatibility";
     private static readonly ProtoId<LatheRecipePackPrototype> XenobioPack = "XenobioPack";
     private static readonly ProtoId<LatheRecipePackPrototype> ScienceBoardsXenobiologyPack = "ScienceBoardsXenobiology";
     private static readonly ProtoId<LatheRecipePackPrototype> XenobagHoldingPack = "XenobagHoldingPack";
@@ -93,7 +92,6 @@ public sealed class XenobiologyProductionTest : GameTest
             Assert.That(holding.Cost, Is.EqualTo(10000));
             Assert.That(holding.TechnologyPrerequisites.Select(id => id.Id), Is.EquivalentTo(["Xenobiology"]));
             Assert.That(holding.RecipeUnlocks.Select(id => id.Id), Is.EquivalentTo(["ClothingBeltChemBagXenobiologyHolding"]));
-            Assert.That(SProtoMan.HasIndex(XenoCompatibilityTechnology), Is.False);
         });
 
         foreach (var (recipeId, result) in Recipes)

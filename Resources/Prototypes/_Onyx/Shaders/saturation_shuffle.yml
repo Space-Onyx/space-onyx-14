@@ -1,0 +1,9 @@
+# Content adapted from Delta-V (https://github.com/DeltaV-Station/Delta-v), licensed under AGPL-3.0-or-later.
+
+- type: shader
+  id: SaturationShuffle
+  kind: source
+  path: "/Textures/_Onyx/Shaders/saturation_shuffle.swsl"
+  params:
+    tileSize: 32, 32
+    hsv: 1.0, 1.0, 1.0

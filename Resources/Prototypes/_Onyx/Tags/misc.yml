@@ -104,6 +104,12 @@
   id: Organ
 
 - type: Tag
+  id: Stomach
+
+- type: Tag
+  id: Liver
+
+- type: Tag
   id: LoneRunRule
 
 - type: Tag

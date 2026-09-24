@@ -18,7 +18,7 @@ namespace Content.IntegrationTests.Tests._Onyx.Xenobiology;
 public sealed class XenobiologySupplyTest : GameTest
 {
     private static readonly EntProtoId SlimeCubePrototype = "SlimeCube";
-    private static readonly EntProtoId RemovedGreySlimeCrate = "CrateNPCGreySlime";
+    private const string RemovedGreySlimeCrate = "CrateNPCGreySlime";
     private static readonly ProtoId<ListingPrototype> UplinkBoxXenobioListing = "UplinkBoxXenobio";
 
     private static readonly Dictionary<string, string> CargoIcons = new()

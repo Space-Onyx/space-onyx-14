@@ -1,0 +1,82 @@
+# Content adapted from Corvax Goob-Station (https://github.com/space-syndicate/Goob-Station), licensed under AGPL-3.0-or-later.
+
+- type: entity
+  parent: BasePlant
+  id: CucumberPlants
+  categories: [ HideSpawnMenu ]
+  name: cucumber
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Hydroponics/cucumber.rsi
+  - type: PlantData
+    name: seeds-cucumber-name
+    packetPrototype: CucumberSeeds
+    productPrototypes: [ FoodCucumber ]
+  - type: Plant
+    lifespan: 25
+    maturation: 8
+    production: 5
+    yield: 2
+    potency: 10
+    growthStages: 6
+  - type: PlantGrowth
+    waterConsumption: 0.5
+    nutrientConsumption: 0.4
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 7
+        potencyDivisor: 14
+      Vitamin:
+        min: 1
+        max: 3
+        potencyDivisor: 33
+      Water:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+
+- type: entity
+  parent: SeedBase
+  id: CucumberSeeds
+  name: packet of cucumber seeds
+  components:
+  - type: Seed
+    plantId: CucumberPlants
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Hydroponics/cucumber.rsi
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodCucumber
+  name: cucumber
+  description: A crisp green cucumber.
+  components:
+  - type: FlavorProfile
+    flavors:
+    - water
+  - type: Solution
+    solution:
+      maxVol: 14
+      reagents:
+      - ReagentId: Nutriment
+        Quantity: 7
+      - ReagentId: Vitamin
+        Quantity: 3
+      - ReagentId: Water
+        Quantity: 4
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Hydroponics/cucumber.rsi
+    state: produce
+  - type: Produce
+    plantId: CucumberPlants
+  - type: Tag
+    tags:
+    - Fruit
+    - Vegetable
+  - type: MeleeWeapon
+    wideAnimationRotation: -135
+    damage:
+      types:
+        Blunt: 1

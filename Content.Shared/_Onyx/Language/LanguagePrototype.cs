@@ -35,6 +35,12 @@ public sealed partial class LanguagePrototype : IPrototype
 public sealed partial class LanguageSpeechOverride
 {
     [DataField]
+    public bool RequireSpeech = true;
+
+    [DataField]
+    public List<string>? SpeechVerbOverrides;
+
+    [DataField]
     public Color? Color;
 
     [DataField]

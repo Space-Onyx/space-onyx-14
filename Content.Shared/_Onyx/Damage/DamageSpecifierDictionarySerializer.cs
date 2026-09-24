@@ -23,6 +23,7 @@ public sealed class DamageSpecifierDictionarySerializer :
         ISerializationContext? context = null)
     {
         var values = new Dictionary<ValidationNode, ValidationNode>();
+        var prototypes = dependencies.Resolve<IPrototypeManager>();
         if (node.TryGet<MappingDataNode>("types", out var types))
             values.Add(new ValidatedValueNode(new ValueDataNode("types")),
                 serializationManager.ValidateNode<Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2>>(types, context));
@@ -30,6 +31,15 @@ public sealed class DamageSpecifierDictionarySerializer :
         if (node.TryGet<MappingDataNode>("groups", out var groups))
             values.Add(new ValidatedValueNode(new ValueDataNode("groups")),
                 serializationManager.ValidateNode<Dictionary<ProtoId<DamageGroupPrototype>, FixedPoint2>>(groups, context));
+
+        foreach (var (key, value) in node.Children)
+        {
+            if (!prototypes.HasIndex<DamageTypePrototype>(key))
+                continue;
+
+            values.Add(new ValidatedValueNode(new ValueDataNode(key)),
+                serializationManager.ValidateNode<FixedPoint2>(value, context));
+        }
 
         return new ValidatedMappingNode(values);
     }
@@ -42,16 +52,25 @@ public sealed class DamageSpecifierDictionarySerializer :
         ISerializationManager.InstantiationDelegate<Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2>>? instanceProvider = null)
     {
         var damage = instanceProvider?.Invoke() ?? new();
+        var prototypes = dependencies.Resolve<IPrototypeManager>();
         if (node.TryGet<MappingDataNode>("types", out var types))
         {
             serializationManager.Read<Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2>>(
                 types, hookCtx, context, instanceProvider: () => damage, notNullableOverride: true);
         }
 
+        foreach (var (key, value) in node.Children)
+        {
+            ProtoId<DamageTypePrototype> damageType = key;
+            if (!prototypes.HasIndex(damageType))
+                continue;
+
+            damage[damageType] = serializationManager.Read<FixedPoint2>(value, hookCtx, context);
+        }
+
         if (!node.TryGet<MappingDataNode>("groups", out var groups))
             return damage;
 
-        var prototypes = dependencies.Resolve<IPrototypeManager>();
         var groupDamage = serializationManager.Read<Dictionary<ProtoId<DamageGroupPrototype>, FixedPoint2>>(
             groups, hookCtx, context, notNullableOverride: true);
         foreach (var (groupId, amount) in groupDamage)

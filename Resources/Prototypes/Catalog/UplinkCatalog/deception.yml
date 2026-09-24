@@ -111,10 +111,6 @@
     Telecrystal: 20 # <Onyx-UplinkGoob-edited>
   categories:
     - UplinkDeception
-  conditions: # <Onyx-UplinkGoob>
-  - !type:BuyerSpeciesCondition
-    blacklist:
-    - Plasmaman
 
 # - type: listing
 #   id: UplinkGigacancerScanner
