@@ -141,6 +141,5 @@ public sealed partial class WeatherSchedulerSystem : EntitySystem
         }
 
         scheduler.NextTransition = _timing.CurTime + TimeSpan.FromSeconds(duration);
-        Dirty(mapUid, scheduler);
     }
 }

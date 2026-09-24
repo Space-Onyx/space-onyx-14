@@ -53,7 +53,6 @@ public sealed partial class TicketMachineSystem : EntitySystem
         _audio.PlayPvs(new SoundPathSpecifier("/Audio/Machines/short_print_and_rip.ogg"), ent);
 
         ent.Comp.Queue++;
-        Dirty(ent);
         _hands.TryPickupAnyHand(args.User, ticket);
         _useDelay.TryResetDelay((ent, useDelay));
     }

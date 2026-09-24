@@ -29,7 +29,6 @@ public sealed partial class FeroxiDehydrateSystem : EntitySystem
             return;
 
         ent.Comp.Dehydrated = dehydrated;
-        Dirty(ent);
 
         var metabolizerType = dehydrated ? ent.Comp.DehydratedMetabolizer : ent.Comp.HydratedMetabolizer;
         foreach (var (organ, _) in _body.GetBodyOrgans(ent.Owner))

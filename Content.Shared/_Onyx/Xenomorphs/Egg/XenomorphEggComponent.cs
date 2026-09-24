@@ -14,7 +14,7 @@ public sealed partial class XenomorphEggComponent : Component
     public float BurstRange = 1f;
 
     [DataField]
-    public SoundSpecifier? CleaningSound = new SoundPathSpecifier("/Audio/Animals/Blob/blobattack.ogg");
+    public SoundSpecifier? CleaningSound = new SoundPathSpecifier("/Audio/_Onyx/Blob/blobattack.ogg");
 
     [DataField]
     public TimeSpan CheckInRangeDelay = TimeSpan.FromSeconds(1);

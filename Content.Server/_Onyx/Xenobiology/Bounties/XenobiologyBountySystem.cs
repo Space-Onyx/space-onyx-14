@@ -270,7 +270,6 @@ public sealed partial class XenobiologyBountySystem : EntitySystem
         if (_timing.CurTime < console.Comp.NextDenySoundTime)
             return;
         console.Comp.NextDenySoundTime = _timing.CurTime + console.Comp.DenySoundDelay;
-        Dirty(console);
         _audio.PlayPvs(console.Comp.DenySound, console);
     }
 

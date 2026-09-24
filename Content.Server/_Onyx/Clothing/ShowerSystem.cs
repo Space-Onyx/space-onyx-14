@@ -68,7 +68,6 @@ public sealed partial class ShowerSystem : EntitySystem
 
         ent.Comp.Enabled = !ent.Comp.Enabled;
         ent.Comp.WashAccumulator = 0;
-        Dirty(ent);
         _appearance.SetData(ent, ShowerVisuals.Enabled, ent.Comp.Enabled);
         _popup.PopupEntity(Loc.GetString(ent.Comp.Enabled ? "shower-component-switched-on" : "shower-component-switched-off"),
             ent, user, PopupType.Small);

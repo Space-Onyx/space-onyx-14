@@ -20,7 +20,6 @@ public sealed partial class SiliconLawSystem
         target.Comp.Lawset = copy;
         RankLaws(copy.Laws);
         NotifyLawsChanged(target, source.Comp.LawUploadSound);
-        Dirty(target);
         return copy;
     }
 }

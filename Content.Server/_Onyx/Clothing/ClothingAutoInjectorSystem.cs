@@ -75,7 +75,6 @@ public sealed partial class ClothingAutoInjectorSystem : EntitySystem
         if (!_solutions.TryAddSolution(injectable.Value, solution))
             return false;
         clothing.Comp.NextAutoInjectTime = _timing.CurTime + clothing.Comp.AutoInjectInterval;
-        Dirty(clothing);
         return true;
     }
 

@@ -36,7 +36,6 @@ public sealed partial class ExecutionChairSystem : EntitySystem
             args.Port == ent.Comp.OnPort ? true :
             args.Port == ent.Comp.OffPort ? false : ent.Comp.Enabled;
         ent.Comp.Enabled = enabled;
-        Dirty(ent);
         _popup.PopupEntity(Loc.GetString(enabled ? "execution-chair-turn-on" : "execution-chair-turn-off"), ent);
     }
 

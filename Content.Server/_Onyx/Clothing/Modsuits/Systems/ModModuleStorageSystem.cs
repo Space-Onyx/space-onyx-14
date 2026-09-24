@@ -36,7 +36,6 @@ public sealed partial class ModModuleStorageSystem : EntitySystem
         module.Comp.OriginalGrid = new(controller.Grid);
         controller.Grid = new(source.Grid);
         _storage.RefreshStorageGrid((args.Controller, controller));
-        Dirty(module);
     }
 
     private void OnUninstalled(Entity<ModModuleStorageComponent> module, ref ModModuleUninstalledEvent args)
@@ -61,6 +60,5 @@ public sealed partial class ModModuleStorageSystem : EntitySystem
 
         module.Comp.OriginalGrid = null;
         module.Comp.ControllerHadStorage = false;
-        Dirty(module);
     }
 }
