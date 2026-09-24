@@ -51,9 +51,6 @@
     },
     {
       "name": "pilot_door"
-    },
-    {
-      "name": "pilot_open"
     }
   ]
 }
