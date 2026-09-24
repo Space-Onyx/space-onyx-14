@@ -37,10 +37,7 @@
                                     <Label Text="{Loc 'user-action-control-player-count'}" StyleClasses="LabelWeak StatusTabMetricLabel" ClipText="True" HorizontalExpand="True" />
                                     <Label Name="PlayerCount" StyleClasses="LabelKeyText StatusTabMetricValue" ClipText="True" HorizontalExpand="True" />
                                 </BoxContainer>
-                                <BoxContainer Orientation="Vertical" SeparationOverride="-2" HorizontalExpand="True" SizeFlagsStretchRatio="1">
-                                    <Label Text="{Loc 'user-action-control-ping'}" StyleClasses="LabelWeak StatusTabMetricLabel" ClipText="True" HorizontalExpand="True" />
-                                    <Label Name="PingValue" StyleClasses="StatusTabMetricValue" ClipText="True" HorizontalExpand="True" />
-                                </BoxContainer>
+                                <Control HorizontalExpand="True" SizeFlagsStretchRatio="1" />
                                 <Control HorizontalExpand="True" SizeFlagsStretchRatio="1" />
                             </BoxContainer>
                         </BoxContainer>
