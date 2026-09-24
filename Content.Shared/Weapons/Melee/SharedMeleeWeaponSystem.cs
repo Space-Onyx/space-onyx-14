@@ -243,7 +243,8 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             return;
 
         if (!TryGetWeapon(user, out var weaponUid, out var weapon) ||
-            weaponUid != GetEntity(msg.Weapon))
+            weaponUid != GetEntity(msg.Weapon) ||
+            !weapon.CanWideSwing) // <Onyx-MeleeWideSwing-edited>
         {
             return;
         }
@@ -450,6 +451,10 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
                     return false;
                 break;
             default:
+                // <Onyx-MeleeHeavyAttack>
+                if (!weapon.CanHeavyAttack)
+                    return false;
+                // </Onyx-MeleeHeavyAttack>
                 if (!Blocker.CanAttack(user, weapon: (weaponUid, weapon)))
                     return false;
                 break;

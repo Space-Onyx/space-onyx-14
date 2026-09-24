@@ -26,6 +26,6 @@
   - Doll/rightleg.png
   - Doll/torso_hover.png
   - Doll/torso.png
-  license: AGPL-3.0-or-later
-  copyright: gluesniffler <159397573+gluesniffler@users.noreply.github.com>
+  license: Custom
+  copyright: gluesniffler <159397573+gluesniffler@users.noreply.github.com>, licensed under AGPL-3.0-or-later
   source: https://github.com/Goob-Station/Goob-Station/commit/0824244689aa13a10b23dc9826efb970e99234fc

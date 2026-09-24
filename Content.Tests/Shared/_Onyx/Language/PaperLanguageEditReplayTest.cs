@@ -244,7 +244,7 @@ public sealed class PaperLanguageEditReplayTest
         type!.GetField("Vowels")!.SetValue(obfuscation, "aeiou");
         type.GetField("Consonants")!.SetValue(obfuscation, "bcdfghklmnprst");
 
-        var result = obfuscation.Obfuscate("Hello, WORLD 42!", 7);
+        var result = obfuscation.Obfuscate("Hello, WORLD 52!", 7);
 
         Assert.Multiple(() =>
         {

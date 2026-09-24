@@ -23,7 +23,6 @@
     animation: WeaponArcClaw
     range: 1.1
     mustBeEquippedToUse: true
-    heavyStaminaCost: 4
   - type: PressureDamageChange
     lowerBound: 0
     appliedModifier: 1.25

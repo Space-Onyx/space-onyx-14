@@ -31,6 +31,14 @@ public sealed partial class MaterialStorageComponent : Component
     [DataField]
     public EntityWhitelist? Whitelist;
 
+    // <Onyx-MaterialStorageBlacklist>
+    /// <summary>
+    /// Items rejected even when they pass <see cref="Whitelist"/>.
+    /// </summary>
+    [DataField]
+    public EntityWhitelist? Blacklist;
+    // </Onyx-MaterialStorageBlacklist>
+
     /// <summary>
     /// Whether or not to drop contained materials when deconstructed.
     /// </summary>

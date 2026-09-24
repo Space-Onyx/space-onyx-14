@@ -37,6 +37,11 @@ public sealed partial class StackComponent : Component
     [DataField]
     public bool Unlimited;
 
+    // <Onyx-LingeringStacks>
+    [DataField]
+    public bool Lingering;
+    // </Onyx-LingeringStacks>
+
     /// <summary>
     /// When throwing this item, do we want to only throw one part of the stack or the whole stack at once?
     /// </summary>
@@ -105,12 +110,14 @@ public sealed class StackComponentState : ComponentState
     public int Count { get; }
     public int? MaxCountOverride { get; }
     public bool Unlimited { get; }
+    public bool Lingering { get; } // <Onyx-LingeringStacks>
 
-    public StackComponentState(int count, int? maxCountOverride, bool unlimited)
+    public StackComponentState(int count, int? maxCountOverride, bool unlimited, bool lingering) // <Onyx-LingeringStacks-edited>
     {
         Count = count;
         MaxCountOverride = maxCountOverride;
         Unlimited = unlimited;
+        Lingering = lingering; // <Onyx-LingeringStacks>
     }
 }
 

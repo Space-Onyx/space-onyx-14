@@ -6,11 +6,12 @@
   components:
   - type: VendingMachine
     pack: BitrunningVendorInventory
-    offState: off
-    normalState: normal-unshaded
     balanceLabel: vending-ui-bitrunning-points-amount
     infiniteStock: true
     showWithdraw: false
+  - type: VendingMachineVisuals
+    offState: off
+    normalState: normal-unshaded
   - type: Sprite
     sprite: _Onyx/Structures/Machines/VendingMachines/bitrun.rsi
     noRot: true

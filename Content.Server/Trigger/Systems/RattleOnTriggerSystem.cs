@@ -12,6 +12,7 @@ public sealed partial class RattleOnTriggerSystem : EntitySystem
 {
     [Dependency] private RadioSystem _radio = default!;
     [Dependency] private NavMapSystem _navMap = default!;
+    [Dependency] private SharedTransformSystem _transform = default!; // <Onyx-DeathRattleCoordinates>
 
     public override void Initialize()
     {
@@ -39,7 +40,9 @@ public sealed partial class RattleOnTriggerSystem : EntitySystem
             return;
 
         // Gets the location of the user
-        var posText = FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString(target.Value));
+        var posText = ent.Comp.ReportCoordinates
+            ? _transform.GetWorldPosition(target.Value).ToString("0.0")
+            : FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString(target.Value)); // <Onyx-DeathRattleCoordinates-edited>
 
         var message = Loc.GetString(messageId, ("user", target.Value), ("position", posText));
         // Sends a message to the radio channel specified by the implant

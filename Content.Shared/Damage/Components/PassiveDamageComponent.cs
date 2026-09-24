@@ -23,6 +23,11 @@ public sealed partial class PassiveDamageComponent : Component
     [DataField, AutoNetworkedField]
     public DamageSpecifier Damage = new();
 
+    // <Onyx-PassiveDamageCap>
+    [DataField, AutoNetworkedField]
+    public FixedPoint2 DamageCap;
+    // </Onyx-PassiveDamageCap>
+
     /// <summary>
     /// Delay between damage events in seconds
     /// </summary>

@@ -32,3 +32,8 @@
   id: alienblood
   flavorType: Base
   description: flavor-base-alienblood
+
+- type: flavor
+  id: unicorntears
+  flavorType: Complex
+  description: flavor-complex-unicorntears

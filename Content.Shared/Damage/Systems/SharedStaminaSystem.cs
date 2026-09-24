@@ -215,6 +215,14 @@ public abstract partial class SharedStaminaSystem : EntitySystem
             return;
 
         var damage = component.Damage;
+        // <Onyx-StaminaOvertime>
+        var overtime = component.Overtime;
+        if (args.Direction == null)
+        {
+            damage *= component.LightAttackDamageMultiplier;
+            overtime *= component.LightAttackOvertimeDamageMultiplier;
+        }
+        // </Onyx-StaminaOvertime>
 
         damage *= hitEvent.Multiplier;
 
@@ -223,6 +231,10 @@ public abstract partial class SharedStaminaSystem : EntitySystem
         foreach (var (ent, comp) in toHit)
         {
             TakeStaminaDamage(ent, damage / toHit.Count, comp, source: args.User, with: args.Weapon, sound: component.Sound);
+            // <Onyx-StaminaOvertime>
+            if (overtime != 0f)
+                ApplyStaminaOvertime(ent, overtime / toHit.Count);
+            // </Onyx-StaminaOvertime>
         }
     }
 

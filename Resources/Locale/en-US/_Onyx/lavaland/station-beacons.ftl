@@ -1,4 +1,5 @@
 station-beacon-ruin-lavaland = Lavaland
+station-beacon-ruin-abductor = Abductor Signal
 station-beacon-ruin-arrivals = Arrivals Shuttle Signal
 station-beacon-ruin-beach-biodome = Beach Biodome
 station-beacon-ruin-golem-shuttle = Freelancer Signal

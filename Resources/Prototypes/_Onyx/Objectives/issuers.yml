@@ -1,3 +1,19 @@
 - type: objectiveIssuer
   id: objective-issuer-bitrunning
   name: objective-issuer-bitrunning
+
+- type: objectiveIssuer
+  id: objective-issuer-cosmiccult
+  name: objective-issuer-cosmiccult
+
+- type: objectiveIssuer
+  id: rogue-ascended-objective-issuer
+  name: rogue-ascended-objective-issuer
+
+- type: objectiveIssuer
+  id: objective-issuer-blob
+  name: objective-issuer-blob
+
+- type: objectiveIssuer
+  id: objective-issuer-xenomorph-hive
+  name: objective-issuer-xenomorph-hive

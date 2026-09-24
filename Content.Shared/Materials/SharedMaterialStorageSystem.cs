@@ -341,7 +341,8 @@ public abstract partial class SharedMaterialStorageSystem : EntitySystem
         if (!Resolve(toInsert, ref material, ref composition, false))
             return false;
 
-        if (_whitelistSystem.IsWhitelistFail(storage.Whitelist, toInsert))
+        if (_whitelistSystem.IsWhitelistPass(storage.Blacklist, toInsert)
+            || _whitelistSystem.IsWhitelistFail(storage.Whitelist, toInsert)) // <Onyx-MaterialStorageBlacklist-edited>
             return false;
 
         if (HasComp<UnremoveableComponent>(toInsert))

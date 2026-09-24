@@ -9,7 +9,7 @@
     - sprite: _Onyx/Objects/Specific/Hydroponics/nevcotta.rsi
       state: icon
   - type: Produce
-    seedId: towercap
+    plantId: towercap
   - type: Log
     spawnedPrototype: NevcottaBark
     spawnCount: 2

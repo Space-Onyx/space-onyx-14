@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Shared.Damage;
+using Content.Shared.Damage.Components; // <Onyx-ProjectileTargetThrow>
 using Content.Shared.DoAfter;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
@@ -37,6 +38,7 @@ public abstract partial class SharedProjectileSystem : EntitySystem
 
         SubscribeLocalEvent<ProjectileComponent, PreventCollideEvent>(PreventCollision);
         SubscribeLocalEvent<EmbeddableProjectileComponent, ProjectileHitEvent>(OnEmbedProjectileHit);
+        SubscribeLocalEvent<EmbeddableProjectileComponent, PreventCollideEvent>(OnEmbeddablePreventCollision); // <Onyx-ProjectileTargetThrow>
         SubscribeLocalEvent<EmbeddableProjectileComponent, ThrowDoHitEvent>(OnEmbedThrowDoHit);
         SubscribeLocalEvent<EmbeddableProjectileComponent, ActivateInWorldEvent>(OnEmbedActivate);
         SubscribeLocalEvent<EmbeddableProjectileComponent, RemoveEmbeddedProjectileEvent>(OnEmbedRemove);
@@ -224,12 +226,23 @@ public abstract partial class SharedProjectileSystem : EntitySystem
 
     private void PreventCollision(EntityUid uid, ProjectileComponent component, ref PreventCollideEvent args)
     {
+        if (TryComp<RequireProjectileTargetComponent>(args.OtherEntity, out var requireTarget) && requireTarget.IgnoreThrow && requireTarget.Active) // <Onyx-ProjectileTargetThrow>
+            return;
+
         if (_timing.CurTime < component.WhenToStopIgnoringShooter
             && (args.OtherEntity == component.Shooter || args.OtherEntity == component.Weapon))
         {
             args.Cancelled = true;
         }
     }
+
+    // <Onyx-ProjectileTargetThrow>
+    private void OnEmbeddablePreventCollision(Entity<EmbeddableProjectileComponent> ent, ref PreventCollideEvent args)
+    {
+        if (TryComp<RequireProjectileTargetComponent>(args.OtherEntity, out var requireTarget) && requireTarget.IgnoreThrow && requireTarget.Active)
+            args.Cancelled = true;
+    }
+    // </Onyx-ProjectileTargetThrow>
 
     public void SetShooter(EntityUid id, ProjectileComponent component, EntityUid shooterId)
     {

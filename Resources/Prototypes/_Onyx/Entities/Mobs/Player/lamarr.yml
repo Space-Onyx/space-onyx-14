@@ -43,15 +43,15 @@
         Base: facehugger_dead
   - type: MeleeWeapon
     hidden: true
-    canHeavyAttack: false
     angle: 0
     damage:
       types:
         Blunt: 0
   - type: Temperature
+    temperature: 310.15
+  - type: TemperatureDamage
     heatDamageThreshold: 360
     coldDamageThreshold: -150
-    temperature: 310.15
   - type: Butcherable
     spawned:
     - id: FoodMeatXeno
@@ -60,7 +60,6 @@
     knockdownTime: 0
     blacklist:
       components:
-      - Silicon
       - Ghost
     damageOnImpact:
       types:
@@ -131,7 +130,7 @@
   id: LamarrStealObjective
   components:
   - type: NotJobRequirement
-    job: ResearchDirector
+    jobs: [ ResearchDirector ]
   - type: StealCondition
     stealGroup: AnimalLamarr
   - type: Objective

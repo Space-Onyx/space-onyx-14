@@ -37,9 +37,7 @@
       methods: [ Touch ]
       effects:
       - !type:HealthChange
-        scaleByQuantity: true
         ignoreResistances: false
-        ignoreBlockers: false
         damage:
           types:
             Blunt: -0.5

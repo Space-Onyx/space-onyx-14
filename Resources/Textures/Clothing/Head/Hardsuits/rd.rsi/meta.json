@@ -51,6 +51,14 @@
         {
             "name": "equipped-head-light-vulpkanin",
             "directions": 4
+        },
+        {
+            "name": "off-equipped-HELMET-feroxi",
+            "directions": 4
+        },
+        {
+            "name": "on-equipped-HELMET-feroxi",
+            "directions": 4
         }
     ]
 }

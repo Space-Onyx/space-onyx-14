@@ -4,9 +4,6 @@
   components:
   - type: VendingMachine
     pack: CiviMedVendInventory
-    offState: off
-    brokenState: broken
-    normalState: normal-unshaded
   - type: DatasetVocalizer
     dataset: NanoMedAds
   - type: SpeakOnUIClosed

@@ -11,13 +11,10 @@
         prototype: FeroxiThirst
   - type: Speech
     speechSounds: Tenor
-    speechVerb: Feroxi
+    speechVerb: LargeMob
     allowedEmotes: [ Gnash, Thump, Hiss ]
   - type: Vocal
-    sounds:
-      Male: MaleFeroxi
-      Female: FemaleFeroxi
-      Unsexed: MaleFeroxi
+    emoteSounds: MaleFeroxi
   - type: MeleeWeapon
     hidden: true
     soundHit: { path: /Audio/Effects/bite.ogg }

@@ -72,8 +72,10 @@
   - type: Stamina
     baseCritThreshold: 200
   - type: Bloodstream
-    bloodReagent: FluorosulfuricAcid
-    bloodMaxVolume: 650
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: FluorosulfuricAcid
+        Quantity: 650
   - type: MeleeWeapon
     altDisarm: false
     angle: 0
@@ -81,8 +83,10 @@
      collection: AlienClaw
     animation: WeaponArcBite
     damage:
-      groups:
-        Brute: 5
+      types:
+        Blunt: 1.68
+        Slash: 1.66
+        Piercing: 1.66
   - type: DamageStateVisuals
     states:
       Alive:
@@ -93,7 +97,6 @@
         Base: dead
   - type: Puller
   - type: Butcherable
-    butcheringType: Knife
     spawned:
     - id: FoodMeatXeno
       amount: 5
@@ -117,23 +120,24 @@
   - type: ThermalVision
     lightRadius: 15
     color: "#808080"
-    activateSound: null
-    deactivateSound: null
   - type: PassiveDamage #passive Healing
     allowedStates:
     - Alive
     damage:
-      groups:
-        Brute: -0.5
-        Burn: -0.5
+      types:
+        Blunt: -0.17
+        Slash: -0.165
+        Piercing: -0.165
+        Heat: -0.125
+        Shock: -0.125
+        Cold: -0.125
+        Caustic: -0.125
   - type: StaticPrice
     price: 3000
   - type: Insulated # Goobstation
     coefficient: 0.5
   - type: NightVision # Goobstation - Nigthvision
-    color: "#d14343"
-    activateSound: null
-    deactivateSound: null
+    overlayColor: "#d14343"
   - type: TileMovement
   - type: VentCrawler
   - type: LanguageKnowledge # Einstein Engines - Language
@@ -426,7 +430,7 @@
   - type: Devourer
     foodPreferenceWhitelist:
       components:
-      - HumanoidAppearance
+      - HumanoidProfile
     stomachStorageWhitelist:
       components:
       - MobState
@@ -436,8 +440,6 @@
       components:
       - MobState
       - Door
-      tags:
-      - Wall
 
 - type: entity
   name: ancient rogue king

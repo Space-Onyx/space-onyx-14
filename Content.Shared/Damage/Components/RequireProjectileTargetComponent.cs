@@ -12,4 +12,9 @@ public sealed partial class RequireProjectileTargetComponent : Component
 {
     [DataField, AutoNetworkedField]
     public bool Active = true;
+
+    // <Onyx-ProjectileTargetThrow>
+    [DataField, AutoNetworkedField]
+    public bool IgnoreThrow;
+    // </Onyx-ProjectileTargetThrow>
 }

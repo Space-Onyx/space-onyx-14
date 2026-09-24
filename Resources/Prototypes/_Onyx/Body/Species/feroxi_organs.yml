@@ -88,9 +88,6 @@
   components:
   - type: Metabolizer
     metabolizerTypes: [ Feroxi ]
-    groups:
-    - id: Gas
-      rateModifier: 100
 
 - type: entity
   parent: [ OrganBaseStomach, OrganFeroxiInternal ]

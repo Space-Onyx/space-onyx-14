@@ -60,3 +60,51 @@
 
 - type: Tag
   id: ReverseBearTrapKey
+
+- type: Tag
+  id: Crate
+
+- type: Tag
+  id: PlantSampleTaker
+
+- type: Tag
+  id: CantInteract
+
+- type: Tag
+  id: Debug
+
+- type: Tag
+  id: PlasmamanSafe
+
+- type: Tag
+  id: Envirohelm
+
+- type: Tag
+  id: Tesla
+
+- type: Tag
+  id: ShowWires
+
+- type: Tag
+  id: ForkliftKeys
+
+- type: Tag
+  id: HoverbikeKeys
+
+- type: Tag
+  id: SecwayKeys
+
+- type: Tag
+  id: SyndicateSegwayKeys
+
+- type: Tag
+  id: GasTank
+
+- type: Tag
+  id: Organ
+
+- type: Tag
+  id: LoneRunRule
+
+- type: Tag
+  id: PreventLabel

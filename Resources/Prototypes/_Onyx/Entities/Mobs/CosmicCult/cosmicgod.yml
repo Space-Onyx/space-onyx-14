@@ -90,7 +90,7 @@
   - type: CanMoveInAir
   - type: WarpPoint
     follow: true
-    location: The Unknown
+    location: warp-point-cosmic-unknown
   - type: CosmicGod
   - type: CosmicCultExamine
     cultistText: cosmic-examine-text-god

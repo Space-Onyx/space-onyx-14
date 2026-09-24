@@ -23,6 +23,13 @@ public sealed partial class ModifyStatusEffectEntityEffectSystem : EntityEffectS
                 _status.TryUpdateStatusEffectDuration(entity, args.Effect.EffectProto, time, delay);
                 break;
             case StatusEffectMetabolismType.Add:
+                // <Onyx-StatusRefresh>
+                if (args.Effect.Refresh)
+                {
+                    _status.TryUpdateStatusEffectDuration(entity, args.Effect.EffectProto, time, delay);
+                    break;
+                }
+                // </Onyx-StatusRefresh>
                 if (time != null)
                     _status.TryAddStatusEffectDuration(entity, args.Effect.EffectProto, time.Value, delay);
                 else

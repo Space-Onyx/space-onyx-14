@@ -322,6 +322,10 @@ public sealed partial class ItemToggleSystem : EntitySystem
     [SubscribeLocalEvent]
     private void TurnOffOnUnwielded(Entity<ItemToggleComponent> ent, ref ItemUnwieldedEvent args)
     {
+        // <Onyx-WieldToggle>
+        if (!ent.Comp.WieldToggle)
+            return;
+        // </Onyx-WieldToggle>
         TryDeactivate((ent, ent.Comp), args.User);
     }
 
@@ -331,6 +335,10 @@ public sealed partial class ItemToggleSystem : EntitySystem
     [SubscribeLocalEvent]
     private void TurnOnOnWielded(Entity<ItemToggleComponent> ent, ref ItemWieldedEvent args)
     {
+        // <Onyx-WieldToggle>
+        if (!ent.Comp.WieldToggle)
+            return;
+        // </Onyx-WieldToggle>
         TryActivate((ent, ent.Comp), args.User);
     }
 

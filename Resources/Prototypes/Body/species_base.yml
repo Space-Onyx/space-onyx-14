@@ -123,7 +123,7 @@
   - type: SleepEmitSound
   # <Onyx-PainSounds>
   - type: EmoteOnDamage
-    emotes:
+    emotesThreshold: # <Onyx-PainSounds-edited>
       50: ["Scream"]
       80: ["Scream", "Crying"]
     emoteChance: 0.6

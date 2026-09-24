@@ -56,7 +56,7 @@ public sealed partial class PassiveDamageSystem : EntitySystem
             // Damage them
             foreach (var allowedState in comp.AllowedStates)
             {
-                if(allowedState == mobState.CurrentState)
+                if(allowedState == mobState.CurrentState && (comp.DamageCap == 0 || _damageable.GetTotalDamage((uid, damage)) > comp.DamageCap)) // <Onyx-PassiveDamageCap-edited>
                     _damageable.ChangeDamage((uid, damage), comp.Damage, true, false, origin: uid); // <Onyx-PassiveRecovery-edited>
             }
         }

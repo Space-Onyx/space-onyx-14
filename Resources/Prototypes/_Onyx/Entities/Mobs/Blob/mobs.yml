@@ -33,8 +33,9 @@
           - ReagentId: TearGas
             Quantity: 3
     - type: Damageable
-      damageContainer: Blob
       damageModifierSet: BlobMob
+    - type: Injurable
+      damageContainer: Blob
     - type: Clothing
       quickEquip: false
       sprite: _Onyx/Blob/Mobs/blob_mobs.rsi
@@ -139,8 +140,9 @@
   components:
     - type: ZombieImmune
     - type: Damageable
-      damageContainer: Blob
       damageModifierSet: BlobBlobbernaut
+    - type: Injurable
+      damageContainer: Blob
     - type: Tag
       tags:
         - Blobbernaut
@@ -233,15 +235,15 @@
           state: nautdamage
           shader: unshaded
     - type: NightVision
-      color: "#808080"
-      activateSound: null
-      deactivateSound: null
+      overlayColor: "#808080"
     - type: GuideHelp
       guides:
       - Blob
     - type: Bloodstream
-      bloodMaxVolume: 300
-      bloodReagent: Blood
+      bloodReferenceSolution:
+        reagents:
+        - ReagentId: Blood
+          Quantity: 300
       bleedReductionAmount: 5
 
 # Observer

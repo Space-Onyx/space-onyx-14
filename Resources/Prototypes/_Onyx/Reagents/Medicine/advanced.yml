@@ -326,7 +326,6 @@
       methods: [ Touch ]
       effects:
       - !type:HealthChange
-        scaleByQuantity: true
         damage:
           types: { Blunt: 0.25, Poison: -2, Radiation: -1 }
   metabolisms:
@@ -396,7 +395,6 @@
       methods: [ Touch ]
       effects:
       - !type:HealthChange
-        scaleByQuantity: true
         damage:
           types: { Cold: 0.05 }
       - !type:AdjustTemperature { amount: -10000 }
@@ -421,7 +419,6 @@
       methods: [ Touch ]
       effects:
       - !type:HealthChange
-        scaleByQuantity: true
         damage:
           types: { Heat: 0.05 }
       - !type:AdjustTemperature { amount: 10000 }

@@ -20,8 +20,8 @@
       - SecBeltEquip
       - HandheldCrewMonitor
       - Sidearm
-      components:
       - Stunbaton
+      components:
       - FlashOnTrigger
       - SmokeOnTrigger
       - Flash
@@ -36,7 +36,7 @@
           - FlashOnTrigger
       stunbaton:
         whitelist:
-          components:
+          tags:
           - Stunbaton
       tear_gas_grenade:
         whitelist:

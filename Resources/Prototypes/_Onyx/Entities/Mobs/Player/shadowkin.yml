@@ -36,8 +36,7 @@
     allowedStates: [ Alive ]
     damageCap: 20
     damage:
-      types: { Heat: -0.07 }
-      groups: { Brute: -0.07 }
+      types: { Heat: -0.07, Blunt: -0.024, Slash: -0.023, Piercing: -0.023 }
   - type: ThermalRegulator
     metabolismHeat: 800
     radiatedHeat: 100
@@ -53,7 +52,10 @@
   - type: Barotrauma
     damage: { types: { Blunt: 0.35 } }
   - type: Bloodstream
-    bloodReagent: BlackBlood
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: BlackBlood
+        Quantity: 600
   - type: TemperatureDamage
     heatDamageThreshold: 330
     coldDamageThreshold: 195
@@ -77,10 +79,7 @@
   - type: Speech
     allowedEmotes: [ Mars, Wurble, Hiss, Meow, Mew, Growl, Purr ]
   - type: Vocal
-    sounds:
-      Male: MaleShadowkin
-      Female: FemaleShadowkin
-      Unsexed: MaleShadowkin
+    emoteSounds: MaleHuman
   - type: CollectiveMind
     defaultChannel: Empathy
     channels: [ Empathy ]

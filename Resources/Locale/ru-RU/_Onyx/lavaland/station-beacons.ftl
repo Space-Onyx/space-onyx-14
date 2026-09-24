@@ -1,4 +1,5 @@
 station-beacon-ruin-lavaland = Лаваленд
+station-beacon-ruin-abductor = Сигнал абдукторов
 station-beacon-ruin-arrivals = Сигнал шаттла эвакуации
 station-beacon-ruin-beach-biodome = Пляжный биодом
 station-beacon-ruin-golem-shuttle = Сигнал фрилансеров

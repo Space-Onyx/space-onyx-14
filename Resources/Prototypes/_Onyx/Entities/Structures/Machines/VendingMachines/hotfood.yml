@@ -16,6 +16,7 @@
     - state: heater
   - type: VendingMachine
     pack: HotfoodInventory
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded

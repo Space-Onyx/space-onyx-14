@@ -12,10 +12,7 @@
   - type: Speech
     speechSounds: Lizard
   - type: Vocal
-    sounds:
-      Male: MaleHuman
-      Female: FemaleHuman
-      Unsexed: FemaleHuman
+    emoteSounds: MaleHuman
   - type: MeleeWeapon
     soundHit:
       path: /Audio/Weapons/pierce.ogg

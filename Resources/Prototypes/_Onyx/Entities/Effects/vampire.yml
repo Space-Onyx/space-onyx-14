@@ -16,9 +16,6 @@
   - type: SlowdownOnContact
     multiplier: 0
     duration: 8
-    blacklist:
-      components:
-      - Vampire
   - type: Fixtures
     fixtures:
       fix:

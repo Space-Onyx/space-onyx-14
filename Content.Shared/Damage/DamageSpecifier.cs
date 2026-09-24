@@ -23,7 +23,7 @@ namespace Content.Shared.Damage
         /// <summary>
         ///     Main DamageSpecifier dictionary. Most DamageSpecifier functions exist to somehow modifying this.
         /// </summary>
-        [DataField("types")]
+        [IncludeDataField(customTypeSerializer: typeof(DamageSpecifierDictionarySerializer))] // <Onyx-DamageGroups-edited>
         public Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2> DamageDict { get; set; } = new();
 
         /// <summary>

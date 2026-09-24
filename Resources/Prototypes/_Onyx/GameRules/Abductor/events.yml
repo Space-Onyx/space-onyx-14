@@ -27,12 +27,6 @@
     maxOccurrences: 1 # CorvaxGoob Changes: abductors spawn balance
     minimumPlayers: 25 # CorvaxGoob Changes: 10 > 25
     duration: null # Goobstation - chud
-    chaos:
-      Hostile: 75
-      Medical: 75
-    eventType: HostilesSpawn
-  - type: GameRule
-    chaosScore: 100
   - type: RuleGrids
   - type: LoadMapRule
     mapPath: /Maps/_Onyx/Shuttles/ShuttleEvent/abductor_shuttle.yml
@@ -78,12 +72,6 @@
     maxOccurrences: 1 # CorvaxGoob Changes: abductors spawn balance
     minimumPlayers: 35 # CorvaxGoob Changes: 20 > 35
     duration: null # Goobstation - chud
-    chaos:
-      Hostile: 150
-      Medical: 150
-    eventType: HostilesSpawn
-  - type: GameRule
-    chaosScore: 150
   - type: RuleGrids
   - type: LoadMapRule
     mapPath: /Maps/_Onyx/Shuttles/ShuttleEvent/duo_abductor_shuttle.yml

@@ -41,7 +41,7 @@
         name: Food
         whitelist:
           components:
-          - Food
+          - Edible
         insertOnInteract: true
         priority: 1
       cash_slot:
@@ -59,7 +59,7 @@
       icon-food:
         whitelist:
           components:
-          - Food
+          - Edible
       icon-cash:
         whitelist:
           components:

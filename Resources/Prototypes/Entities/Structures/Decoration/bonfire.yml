@@ -43,7 +43,7 @@
           collection: WoodDestroy
   # <Onyx-BonFire>
   - type: Bonfire
-    HeatPerSecond: 1000
+    heatPerSecond: 1000 # <Onyx-BonFire-edited>
   - type: ItemPlacer
     maxEntities: 4
     whitelist:

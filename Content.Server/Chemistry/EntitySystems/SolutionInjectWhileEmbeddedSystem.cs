@@ -37,10 +37,17 @@ public sealed partial class SolutionInjectWhileEmbeddedSystem : EntitySystem
             injectComponent.NextUpdate += injectComponent.UpdateInterval;
 
             if(projectileComponent.EmbeddedIntoUid == null)
+            {
+                injectComponent.Injections = 0; // <Onyx-EmbeddedInjectionLimit>
+                continue;
+            }
+
+            if (injectComponent.MaxInjections is { } maxInjections && injectComponent.Injections >= maxInjections) // <Onyx-EmbeddedInjectionLimit>
                 continue;
 
             var ev = new InjectOverTimeEvent(projectileComponent.EmbeddedIntoUid.Value);
             RaiseLocalEvent(uid, ref ev);
+            injectComponent.Injections++; // <Onyx-EmbeddedInjectionLimit>
 
         }
     }

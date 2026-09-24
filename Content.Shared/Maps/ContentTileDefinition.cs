@@ -1,3 +1,4 @@
+using System.Numerics; // <Onyx-ShapedTiles>
 using Content.Shared.Atmos;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Shuttles.Systems;
@@ -49,6 +50,22 @@ public sealed partial class ContentTileDefinition : IPrototype, IInheritingProto
 
     [DataField]
     public HashSet<ProtoId<ToolQualityPrototype>> DeconstructTools = new();
+
+    // <Onyx-TileDeconstruction>
+    /// <summary>
+    /// Multiplier applied to the tool deconstruction do-after for this tile.
+    /// </summary>
+    [DataField]
+    public float DeconstructTimeMultiplier = 1f;
+    // </Onyx-TileDeconstruction>
+
+    // <Onyx-ShapedTiles>
+    /// <summary>
+    /// Optional polygon vertices for non-rectangular tiles, in tile-local coordinates.
+    /// </summary>
+    [DataField]
+    public Vector2[]? Vertices;
+    // </Onyx-ShapedTiles>
 
     /// <summary>
     /// Effective mass of this tile for grid impacts.

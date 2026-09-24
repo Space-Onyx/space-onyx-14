@@ -16,7 +16,6 @@
     sprite: _Onyx/Objects/Weapons/Melee/hammer.rsi
     state: icon
   - type: MeleeWeapon
-    animationRotation: -90
     wideAnimationRotation: -135
     attackRate: 1
     damage:

@@ -32,7 +32,7 @@
   - type: TimedDespawn
     lifetime: 0.3
   - type: GatheringProjectile
-    enabled: false
+    amount: 0
 
 - type: entity
   id: BulletMechTaser

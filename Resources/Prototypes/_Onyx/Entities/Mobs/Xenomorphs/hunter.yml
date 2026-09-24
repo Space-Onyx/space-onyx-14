@@ -51,8 +51,6 @@
   - type: StealthOnWalk
     plasmaCost: 2.5
   - type: Stealth
-    revealOnAttack: false
-    revealOnDamage: false
     enabledOnDeath: false # Removing Stealth on death, so you can do surgery
     enabled: false
     lastVisibility: 0.2

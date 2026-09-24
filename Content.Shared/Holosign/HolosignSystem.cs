@@ -10,6 +10,7 @@ public sealed partial class HolosignSystem : EntitySystem
 {
     [Dependency] private INetManager _net = default!;
     [Dependency] private PowerCellSystem _powerCell = default!;
+    [Dependency] private SharedTransformSystem _transform = default!; // <Onyx-HoloprojectorAnchoring>
 
     [SubscribeLocalEvent]
     private void OnExamine(Entity<HolosignProjectorComponent> ent, ref ExaminedEvent args)
@@ -41,8 +42,14 @@ public sealed partial class HolosignSystem : EntitySystem
             return;
 
         // overlapping of the same holo on one tile remains allowed to allow holofan refreshes
+        // <Onyx-HoloprojectorAnchoring-edited>
         if (ent.Comp.PredictedSpawn || _net.IsServer)
-            PredictedSpawnAtPosition(ent.Comp.SignProto, args.ClickLocation);
+        {
+            var sign = PredictedSpawnAtPosition(ent.Comp.SignProto, args.ClickLocation);
+            if (ent.Comp.AnchorOnSpawn)
+                _transform.AnchorEntity(sign);
+        }
+        // </Onyx-HoloprojectorAnchoring-edited>
 
         args.Handled = true;
     }

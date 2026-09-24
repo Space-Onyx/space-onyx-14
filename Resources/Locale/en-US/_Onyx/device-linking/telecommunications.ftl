@@ -18,3 +18,7 @@ signal-port-name-telecom-server-monitor-output = Traffic monitor
 signal-port-description-telecom-server-monitor-output = Connects the server to a telecommunication traffic console.
 signal-port-name-telecom-console-input = Server monitor input
 signal-port-description-telecom-console-input = Accepts telecommunication servers whose traffic should be monitored.
+
+signal-port-name-triggered-signaller = Triggered
+signal-port-description-triggered-signaller = Emitted when signaller activates.
+omni-control-unit-window-title = Omni-control unit

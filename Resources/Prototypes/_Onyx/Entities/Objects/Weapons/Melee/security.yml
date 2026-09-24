@@ -14,7 +14,6 @@
     slots:
     - belt
   - type: MeleeWeapon
-    animationRotation: -180
     wideAnimationRotation: -135
     damage:
       types:
@@ -51,7 +50,6 @@
     shape:
     - 0,0,1,2
   - type: MeleeWeapon
-    canWideSwing: false
     attackRate: 0.8
     damage:
       types:
@@ -114,7 +112,6 @@
     angle: 225
   - type: ItemToggle
     onActivate: false
-    wieldToggle: false
     soundActivate:
       path: /Audio/Weapons/telescopicon.ogg
     soundDeactivate:
@@ -143,9 +140,7 @@
       types:
         Piercing: 6
   - type: MeleeWeapon
-    canWideSwing: false
     range: 2.2
-    animationRotation: -135
     attackRate: 0.8
     damage:
       types:

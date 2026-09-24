@@ -85,7 +85,6 @@
     radius: 1.5
   - type: PoweredLight
     hasLampOnSpawn: LedLightTube
-    changeLightRadius: false
     bulb: Tube
     ejectBulbDelay: 5
     unarmedHitShock: 0

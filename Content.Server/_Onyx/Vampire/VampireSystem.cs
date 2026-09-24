@@ -113,7 +113,7 @@ public sealed partial class VampireSystem : SharedVampireSystem
     /// </summary>
     private static readonly ProtoId<ContentTileDefinition>[] FloorProto = new ProtoId<ContentTileDefinition>[]
     {
-        "Space", "Lattice", "TrainLattice", "FloorGlass", "FloorRGlass"
+        "Space", "Lattice", "FloorGlass", "FloorRGlass"
     };
 
     /// <summary>

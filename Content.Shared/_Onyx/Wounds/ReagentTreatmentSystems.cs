@@ -14,7 +14,7 @@ public sealed partial class HealthChangeEntityEffectSystem
     private void ApplyTreatment(Entity<DamageableComponent> entity, EntityEffectEvent<HealthChange> args)
     {
         var change = new DamageSpecifier(args.Effect.Damage) * args.Scale;
-        ApplyScoped(entity, change.DamageDict.Values.Any(amount => amount < 0),
+        ApplyScoped(entity, args.Effect.UseTargeting && change.DamageDict.Values.Any(amount => amount < 0),
             args.Effect.TreatmentCapabilities,
             () => _damageable.TryChangeDamage(entity.AsNullable(), change, args.Effect.IgnoreResistances,
                 interruptsDoAfters: false));

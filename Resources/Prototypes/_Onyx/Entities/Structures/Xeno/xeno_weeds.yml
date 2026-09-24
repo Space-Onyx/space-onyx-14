@@ -106,8 +106,10 @@
         acts: [ "Destruction" ]
   - type: Damageable
     damage:
-      groups:
-        Brute: 6
+      types:
+        Blunt: 6
+        Slash: 6
+        Piercing: 6
 
 - type: entity
   id: XenoWeedsWall

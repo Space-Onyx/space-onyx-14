@@ -1,0 +1,14 @@
+# Content adapted from Goob Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+
+- type: entity
+  name: advanced disabler
+  parent: [ WeaponDisablerPractice, BaseCentcommContraband ]
+  id: WeaponDisablerAdvanced
+  description: A self-defense weapon for corporate execs with money to burn. Slim, sturdy, and self-recharging for your convenience.
+  components:
+  - type: BatteryAmmoProvider
+    proto: BulletDisabler
+    fireCost: 50
+  - type: PacifismAllowedGun
+  - type: BatterySelfRecharger
+    autoRechargeRate: 40

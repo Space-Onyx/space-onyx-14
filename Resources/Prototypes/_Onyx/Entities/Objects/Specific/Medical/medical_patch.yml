@@ -20,9 +20,6 @@
     stickPopupSuccess: medical-patch-stick-success
     unstickPopupStart: medical-patch-remove-start
     unstickPopupSuccess: medical-patch-remove-success
-    selfStickBreakOnMove: false
-    selfUnstickBreakOnMove: false
-    selfStickTimeMultiplier: 0.5
     whitelist:
       components:
       - Bloodstream

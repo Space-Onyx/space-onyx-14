@@ -4,7 +4,6 @@
   suffix: Bitrunning
   components:
   - type: GravityAffected
-    weightless: false
   - type: BitrunningDomainEnemyObjective
   - type: BitrunningFleeFromAvatars
   - type: HTN
@@ -350,7 +349,6 @@
         layer:
         - MobLayer
   - type: GravityAffected
-    weightless: false
   - type: BitrunningDomainEnemyObjective
   - type: BitrunningFleeFromAvatars
   - type: HTN

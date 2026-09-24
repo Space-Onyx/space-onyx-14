@@ -297,7 +297,13 @@
   - type: ItemSlots
     slots:
       key_slot:
-        <<: *hoverbikeKeySlot
+        name: vehicle-slot-component-slot-name-keys
+        whitelist:
+          tags: [HoverbikeKeys]
+        insertSound:
+          path: /Audio/Effects/Vehicle/vehiclestartup.ogg
+          params:
+            volume: -5
         startingItem: VehicleKeyHoverbikeNF
       bag: *hoverbikeBagSlot
 
@@ -342,7 +348,13 @@
   - type: ItemSlots
     slots:
       key_slot:
-        <<: *hoverbikeKeySlot
+        name: vehicle-slot-component-slot-name-keys
+        whitelist:
+          tags: [HoverbikeKeys]
+        insertSound:
+          path: /Audio/Effects/Vehicle/vehiclestartup.ogg
+          params:
+            volume: -5
         startingItem: VehicleKeyHoverbikeNF
       mailgun: *hoverbikeGunSlot
 
@@ -367,12 +379,12 @@
       nfsdbaton: &hoverbikeBatonSlot
         name: stun baton
         whitelist:
-          components: [Stunbaton]
+          tags: [Stunbaton]
   - type: ItemMapper
     mapLayers:
       nfsdbaton:
         whitelist:
-          components: [Stunbaton]
+          tags: [Stunbaton]
     sprite: _Onyx/Objects/Vehicles/hoverbike.rsi
   - type: ContainerContainer
     containers:
@@ -397,7 +409,13 @@
   - type: ItemSlots
     slots:
       key_slot:
-        <<: *hoverbikeKeySlot
+        name: vehicle-slot-component-slot-name-keys
+        whitelist:
+          tags: [HoverbikeKeys]
+        insertSound:
+          path: /Audio/Effects/Vehicle/vehiclestartup.ogg
+          params:
+            volume: -5
         startingItem: VehicleKeyHoverbikeNF
       nfsdbaton: *hoverbikeBatonSlot
 
@@ -439,7 +457,13 @@
   - type: ItemSlots
     slots:
       key_slot:
-        <<: *hoverbikeKeySlot
+        name: vehicle-slot-component-slot-name-keys
+        whitelist:
+          tags: [HoverbikeKeys]
+        insertSound:
+          path: /Audio/Effects/Vehicle/vehiclestartup.ogg
+          params:
+            volume: -5
         startingItem: VehicleKeyHoverbikeNF
       piratemusket: *hoverbikeGunSlot
 
@@ -486,7 +510,13 @@
   - type: ItemSlots
     slots:
       key_slot:
-        <<: *hoverbikeKeySlot
+        name: vehicle-slot-component-slot-name-keys
+        whitelist:
+          tags: [HoverbikeKeys]
+        insertSound:
+          path: /Audio/Effects/Vehicle/vehiclestartup.ogg
+          params:
+            volume: -5
         startingItem: VehicleKeyHoverbikeNF
       syndicategun: *hoverbikeGunSlot
 

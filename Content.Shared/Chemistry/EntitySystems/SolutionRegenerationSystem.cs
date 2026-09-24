@@ -30,8 +30,8 @@ public sealed partial class SolutionRegenerationSystem : EntitySystem
         base.Update(frameTime);
 
         // TODO: SolutionRegenerationComponent on Solution Entities!
-        var query = EntityQueryEnumerator<SolutionRegenerationComponent, SolutionComponent>();
-        while (query.MoveNext(out var uid, out var regen, out var solution))
+        var query = EntityQueryEnumerator<SolutionRegenerationComponent>(); // <Onyx-NamedSolutionRegeneration-edited>
+        while (query.MoveNext(out var uid, out var regen)) // <Onyx-NamedSolutionRegeneration-edited>
         {
             if (_timing.CurTime < regen.NextRegenTime)
                 continue;
@@ -40,7 +40,17 @@ public sealed partial class SolutionRegenerationSystem : EntitySystem
             regen.NextRegenTime += regen.Duration;
             // Needs to be networked and dirtied so that the client can reroll it during prediction
             Dirty(uid, regen);
-            var amount = FixedPoint2.Min(solution.Solution.AvailableVolume, regen.Generated.Volume);
+            // <Onyx-NamedSolutionRegeneration>
+            Entity<SolutionComponent>? solution = null;
+            if (regen.SolutionName is { } solutionName)
+                _solutionContainer.TryGetSolution(uid, solutionName, out solution);
+            else if (TryComp<SolutionComponent>(uid, out var solutionComponent))
+                solution = (uid, solutionComponent);
+
+            if (solution is not { } targetSolution)
+                continue;
+            // </Onyx-NamedSolutionRegeneration>
+            var amount = FixedPoint2.Min(targetSolution.Comp.Solution.AvailableVolume, regen.Generated.Volume); // <Onyx-NamedSolutionRegeneration-edited>
             if (amount <= FixedPoint2.Zero)
                 continue;
 
@@ -49,7 +59,7 @@ public sealed partial class SolutionRegenerationSystem : EntitySystem
                 ? regen.Generated
                 : regen.Generated.Clone().SplitSolution(amount);
 
-            _solutionContainer.TryAddSolution((uid, solution), generated);
+            _solutionContainer.TryAddSolution(targetSolution, generated); // <Onyx-NamedSolutionRegeneration-edited>
         }
     }
 }

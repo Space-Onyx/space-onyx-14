@@ -6,10 +6,11 @@
   components:
   - type: VendingMachine
     pack: MailDrobeInventory
+    priceMultiplier: 1
+  - type: VendingMachineVisuals
     offState: off
     brokenState: broken
     normalState: normal-unshaded
-    priceMultiplier: 1
   - type: DatasetVocalizer
     dataset: MailDrobeAds
   - type: Sprite

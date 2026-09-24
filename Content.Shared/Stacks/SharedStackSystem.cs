@@ -116,7 +116,7 @@ public abstract partial class SharedStackSystem : EntitySystem
     [SubscribeLocalEvent]
     private void OnStackGetState(Entity<StackComponent> ent, ref ComponentGetState args)
     {
-        args.State = new StackComponentState(ent.Comp.Count, ent.Comp.MaxCountOverride, ent.Comp.Unlimited);
+        args.State = new StackComponentState(ent.Comp.Count, ent.Comp.MaxCountOverride, ent.Comp.Unlimited, ent.Comp.Lingering); // <Onyx-LingeringStacks-edited>
     }
 
     [SubscribeLocalEvent]
@@ -127,6 +127,7 @@ public abstract partial class SharedStackSystem : EntitySystem
 
         ent.Comp.MaxCountOverride = cast.MaxCountOverride;
         ent.Comp.Unlimited = cast.Unlimited;
+        ent.Comp.Lingering = cast.Lingering; // <Onyx-LingeringStacks>
         // This will change the count and call events.
         SetCount(ent.AsNullable(), cast.Count);
     }

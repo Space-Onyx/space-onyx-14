@@ -38,3 +38,4 @@ syringe-label-heroin = героин
 ent-SyringePax = { ent-PrefilledSyringe }
     .suffix = Пакс
     .desc = { ent-PrefilledSyringe.desc }
+pill-label-mutadon-10u = мутадон 10 ед.

@@ -11,24 +11,25 @@
   components:
   - type: Xenomorph
     weedHeal: # Goobstation - nerfed healing
-      groups:
-        Burn: -3
-        Toxin: -5
-        Airloss: -10
-        Brute: -4
+      types:
+        Heat: -0.75
+        Shock: -0.75
+        Cold: -0.75
+        Caustic: -0.75
+        Poison: -2.5
+        Radiation: -2.5
+        Asphyxiation: -5
+        Bloodloss: -5
+        Blunt: -1.34
+        Slash: -1.33
+        Piercing: -1.33
   - type: FaceHuggerImmune
   - type: Access
     enabled: true
     groups: [XenomorphAccess]
   - type: Pinpointer
-    whitelist:
-      components:
-      - XenomorphQueen
-    alert: QueenFinder
+    component: XenomorphQueen
     isActive: true
-    canToggle: false
-    canEmag: false
-    canExamine: false
   - type: ThermalVision
     toggleAction: ToggleThermalVisionXenomorph
     color: white
@@ -86,8 +87,10 @@
         layer:
         - MobLayer
   - type: Bloodstream
-    bloodReagent: FluorosulfuricAcid
-    bloodMaxVolume: 250
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: FluorosulfuricAcid
+        Quantity: 250
     bloodlossDamage:
       types:
         Bloodloss: 0.05
@@ -102,8 +105,10 @@
       collection: AlienClaw
     animation: WeaponArcBite
     damage:
-      groups:
-        Brute: 25
+      types:
+        Blunt: 8.34
+        Slash: 8.33
+        Piercing: 8.33
   - type: TypingIndicator
     proto: alien
   - type: AtmosExposed
@@ -130,10 +135,7 @@
     speechSounds: Xenomorph
     speechVerb: SmallMob
   - type: Vocal
-    sounds:
-      Male: Xenomorph
-      Female: Xenomorph
-      Unsexed: Xenomorph
+    emoteSounds: Xenomorph
   - type: LanguageKnowledge
     speaks:
     - Xeno

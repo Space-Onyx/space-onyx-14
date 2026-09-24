@@ -10,6 +10,12 @@ public sealed partial class HealthChange
 {
     [DataField]
     public HashSet<TreatmentCapability> TreatmentCapabilities = [TreatmentCapability.Biological];
+
+    /// <summary>
+    /// Whether the change is routed through body targeting. If false, it applies directly to the whole entity.
+    /// </summary>
+    [DataField]
+    public bool UseTargeting = true;
 }
 
 public sealed partial class EvenHealthChange

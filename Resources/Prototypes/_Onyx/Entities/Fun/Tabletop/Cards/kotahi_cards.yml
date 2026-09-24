@@ -178,7 +178,7 @@
   id: CardBlueSc0Kotahi
   components:
   - type: Card
-    name: card-blue-sc-0-kotahi
+    name: ent-CardBlueSc0Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Blue_0_kotahi
@@ -189,7 +189,7 @@
   id: CardBlueSc1Kotahi
   components:
   - type: Card
-    name: card-blue-sc-1-kotahi
+    name: ent-CardBlueSc1Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Blue_1_kotahi
@@ -200,7 +200,7 @@
   id: CardBlueSc2Kotahi
   components:
   - type: Card
-    name: card-blue-sc-2-kotahi
+    name: ent-CardBlueSc2Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Blue_2_kotahi
@@ -211,7 +211,7 @@
   id: CardBlueSc3Kotahi
   components:
   - type: Card
-    name: card-blue-sc-3-kotahi
+    name: ent-CardBlueSc3Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Blue_3_kotahi
@@ -222,7 +222,7 @@
   id: CardBlueSc4Kotahi
   components:
   - type: Card
-    name: card-blue-sc-4-kotahi
+    name: ent-CardBlueSc4Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Blue_4_kotahi
@@ -233,7 +233,7 @@
   id: CardBlueSc5Kotahi
   components:
   - type: Card
-    name: card-blue-sc-5-kotahi
+    name: ent-CardBlueSc5Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Blue_5_kotahi
@@ -244,7 +244,7 @@
   id: CardBlueSc6Kotahi
   components:
   - type: Card
-    name: card-blue-sc-6-kotahi
+    name: ent-CardBlueSc6Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Blue_6_kotahi
@@ -255,7 +255,7 @@
   id: CardBlueSc7Kotahi
   components:
   - type: Card
-    name: card-blue-sc-7-kotahi
+    name: ent-CardBlueSc7Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Blue_7_kotahi
@@ -266,7 +266,7 @@
   id: CardBlueSc8Kotahi
   components:
   - type: Card
-    name: card-blue-sc-8-kotahi
+    name: ent-CardBlueSc8Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Blue_8_kotahi
@@ -277,7 +277,7 @@
   id: CardBlueSc9Kotahi
   components:
   - type: Card
-    name: card-blue-sc-9-kotahi
+    name: ent-CardBlueSc9Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Blue_9_kotahi
@@ -288,7 +288,7 @@
   id: CardBlueScDraw2Kotahi
   components:
   - type: Card
-    name: card-blue-sc-draw2-kotahi
+    name: ent-CardBlueScDraw2Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Blue_draw_2_kotahi
@@ -299,7 +299,7 @@
   id: CardBlueScReverseKotahi
   components:
   - type: Card
-    name: card-blue-sc-reverse-kotahi
+    name: ent-CardBlueScReverseKotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Blue_reverse_kotahi
@@ -310,7 +310,7 @@
   id: CardBlueScSkipKotahi
   components:
   - type: Card
-    name: card-blue-sc-skip-kotahi
+    name: ent-CardBlueScSkipKotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Blue_skip_kotahi
@@ -322,7 +322,7 @@
   id: CardGreenSc0Kotahi
   components:
   - type: Card
-    name: card-green-sc-0-kotahi
+    name: ent-CardGreenSc0Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Green_0_kotahi
@@ -333,7 +333,7 @@
   id: CardGreenSc1Kotahi
   components:
   - type: Card
-    name: card-green-sc-1-kotahi
+    name: ent-CardGreenSc1Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Green_1_kotahi
@@ -344,7 +344,7 @@
   id: CardGreenSc2Kotahi
   components:
   - type: Card
-    name: card-green-sc-2-kotahi
+    name: ent-CardGreenSc2Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Green_2_kotahi
@@ -355,7 +355,7 @@
   id: CardGreenSc3Kotahi
   components:
   - type: Card
-    name: card-green-sc-3-kotahi
+    name: ent-CardGreenSc3Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Green_3_kotahi
@@ -366,7 +366,7 @@
   id: CardGreenSc4Kotahi
   components:
   - type: Card
-    name: card-green-sc-4-kotahi
+    name: ent-CardGreenSc4Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Green_4_kotahi
@@ -377,7 +377,7 @@
   id: CardGreenSc5Kotahi
   components:
   - type: Card
-    name: card-green-sc-5-kotahi
+    name: ent-CardGreenSc5Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Green_5_kotahi
@@ -388,7 +388,7 @@
   id: CardGreenSc6Kotahi
   components:
   - type: Card
-    name: card-green-sc-6-kotahi
+    name: ent-CardGreenSc6Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Green_6_kotahi
@@ -399,7 +399,7 @@
   id: CardGreenSc7Kotahi
   components:
   - type: Card
-    name: card-green-sc-7-kotahi
+    name: ent-CardGreenSc7Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Green_7_kotahi
@@ -410,7 +410,7 @@
   id: CardGreenSc8Kotahi
   components:
   - type: Card
-    name: card-green-sc-8-kotahi
+    name: ent-CardGreenSc8Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Green_8_kotahi
@@ -421,7 +421,7 @@
   id: CardGreenSc9Kotahi
   components:
   - type: Card
-    name: card-green-sc-9-kotahi
+    name: ent-CardGreenSc9Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Green_9_kotahi
@@ -432,7 +432,7 @@
   id: CardGreenScDraw2Kotahi
   components:
   - type: Card
-    name: card-green-sc-draw2-kotahi
+    name: ent-CardGreenScDraw2Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Green_draw_2_kotahi
@@ -443,7 +443,7 @@
   id: CardGreenScReverseKotahi
   components:
   - type: Card
-    name: card-green-sc-reverse-kotahi
+    name: ent-CardGreenScReverseKotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Green_reverse_kotahi
@@ -454,7 +454,7 @@
   id: CardGreenScSkipKotahi
   components:
   - type: Card
-    name: card-green-sc-skip-kotahi
+    name: ent-CardGreenScSkipKotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Green_skip_kotahi
@@ -466,7 +466,7 @@
   id: CardRedSc0Kotahi
   components:
   - type: Card
-    name: card-red-sc-0-kotahi
+    name: ent-CardRedSc0Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Red_0_kotahi
@@ -477,7 +477,7 @@
   id: CardRedSc1Kotahi
   components:
   - type: Card
-    name: card-red-sc-1-kotahi
+    name: ent-CardRedSc1Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Red_1_kotahi
@@ -488,7 +488,7 @@
   id: CardRedSc2Kotahi
   components:
   - type: Card
-    name: card-red-sc-2-kotahi
+    name: ent-CardRedSc2Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Red_2_kotahi
@@ -499,7 +499,7 @@
   id: CardRedSc3Kotahi
   components:
   - type: Card
-    name: card-red-sc-3-kotahi
+    name: ent-CardRedSc3Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Red_3_kotahi
@@ -510,7 +510,7 @@
   id: CardRedSc4Kotahi
   components:
   - type: Card
-    name: card-red-sc-4-kotahi
+    name: ent-CardRedSc4Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Red_4_kotahi
@@ -521,7 +521,7 @@
   id: CardRedSc5Kotahi
   components:
   - type: Card
-    name: card-red-sc-5-kotahi
+    name: ent-CardRedSc5Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Red_5_kotahi
@@ -532,7 +532,7 @@
   id: CardRedSc6Kotahi
   components:
   - type: Card
-    name: card-red-sc-6-kotahi
+    name: ent-CardRedSc6Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Red_6_kotahi
@@ -543,7 +543,7 @@
   id: CardRedSc7Kotahi
   components:
   - type: Card
-    name: card-red-sc-7-kotahi
+    name: ent-CardRedSc7Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Red_7_kotahi
@@ -554,7 +554,7 @@
   id: CardRedSc8Kotahi
   components:
   - type: Card
-    name: card-red-sc-8-kotahi
+    name: ent-CardRedSc8Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Red_8_kotahi
@@ -565,7 +565,7 @@
   id: CardRedSc9Kotahi
   components:
   - type: Card
-    name: card-red-sc-9-kotahi
+    name: ent-CardRedSc9Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Red_9_kotahi
@@ -576,7 +576,7 @@
   id: CardRedScDraw2Kotahi
   components:
   - type: Card
-    name: card-red-sc-draw2-kotahi
+    name: ent-CardRedScDraw2Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Red_draw_2_kotahi
@@ -587,7 +587,7 @@
   id: CardRedScReverseKotahi
   components:
   - type: Card
-    name: card-red-sc-reverse-kotahi
+    name: ent-CardRedScReverseKotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Red_reverse_kotahi
@@ -598,7 +598,7 @@
   id: CardRedScSkipKotahi
   components:
   - type: Card
-    name: card-red-sc-skip-kotahi
+    name: ent-CardRedScSkipKotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Red_skip_kotahi
@@ -610,7 +610,7 @@
   id: CardYellowSc0Kotahi
   components:
   - type: Card
-    name: card-yellow-sc-0-kotahi
+    name: ent-CardYellowSc0Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Yellow_0_kotahi
@@ -621,7 +621,7 @@
   id: CardYellowSc1Kotahi
   components:
   - type: Card
-    name: card-yellow-sc-1-kotahi
+    name: ent-CardYellowSc1Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Yellow_1_kotahi
@@ -632,7 +632,7 @@
   id: CardYellowSc2Kotahi
   components:
   - type: Card
-    name: card-yellow-sc-2-kotahi
+    name: ent-CardYellowSc2Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Yellow_2_kotahi
@@ -643,7 +643,7 @@
   id: CardYellowSc3Kotahi
   components:
   - type: Card
-    name: card-yellow-sc-3-kotahi
+    name: ent-CardYellowSc3Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Yellow_3_kotahi
@@ -654,7 +654,7 @@
   id: CardYellowSc4Kotahi
   components:
   - type: Card
-    name: card-yellow-sc-4-kotahi
+    name: ent-CardYellowSc4Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Yellow_4_kotahi
@@ -665,7 +665,7 @@
   id: CardYellowSc5Kotahi
   components:
   - type: Card
-    name: card-yellow-sc-5-kotahi
+    name: ent-CardYellowSc5Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Yellow_5_kotahi
@@ -676,7 +676,7 @@
   id: CardYellowSc6Kotahi
   components:
   - type: Card
-    name: card-yellow-sc-6-kotahi
+    name: ent-CardYellowSc6Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Yellow_6_kotahi
@@ -687,7 +687,7 @@
   id: CardYellowSc7Kotahi
   components:
   - type: Card
-    name: card-yellow-sc-7-kotahi
+    name: ent-CardYellowSc7Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Yellow_7_kotahi
@@ -698,7 +698,7 @@
   id: CardYellowSc8Kotahi
   components:
   - type: Card
-    name: card-yellow-sc-8-kotahi
+    name: ent-CardYellowSc8Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Yellow_8_kotahi
@@ -709,7 +709,7 @@
   id: CardYellowSc9Kotahi
   components:
   - type: Card
-    name: card-yellow-sc-9-kotahi
+    name: ent-CardYellowSc9Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Yellow_9_kotahi
@@ -720,7 +720,7 @@
   id: CardYellowScDraw2Kotahi
   components:
   - type: Card
-    name: card-yellow-sc-draw2-kotahi
+    name: ent-CardYellowScDraw2Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Yellow_draw_2_kotahi
@@ -731,7 +731,7 @@
   id: CardYellowScReverseKotahi
   components:
   - type: Card
-    name: card-yellow-sc-reverse-kotahi
+    name: ent-CardYellowScReverseKotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Yellow_reverse_kotahi
@@ -742,7 +742,7 @@
   id: CardYellowScSkipKotahi
   components:
   - type: Card
-    name: card-yellow-sc-skip-kotahi
+    name: ent-CardYellowScSkipKotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Yellow_skip_kotahi
@@ -754,7 +754,7 @@
   id: CardBlackScDraw4Kotahi
   components:
   - type: Card
-    name: card-black-sc-draw4-kotahi
+    name: ent-CardBlackScDraw4Kotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Draw_4_kotahi
@@ -765,7 +765,7 @@
   id: CardBlackScWildcardKotahi
   components:
   - type: Card
-    name: card-black-sc-wildcard-kotahi
+    name: ent-CardBlackScWildcardKotahi
   - type: Sprite
     sprite: _Onyx/Objects/Misc/cards.rsi
     state: sc_Wildcard_kotahi

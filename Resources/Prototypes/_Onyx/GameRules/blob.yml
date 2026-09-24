@@ -4,8 +4,6 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: BlobRule
-  - type: GameRule
-    chaosScore: 1000
 
 - type: entity
   id: BlobGameMode
@@ -15,7 +13,6 @@
   - type: BlobRule
   - type: GameRule
     minPlayers: 20
-    chaosScore: 1000
   - type: AntagSelection
     selectionTime: PrePlayerSpawn
     antags:
@@ -33,13 +30,6 @@
     earliestStart: 50
     minimumPlayers: 20
     maxOccurrences: 2
-    chaos:
-      Hostile: 200
-      Death: 300
-      Medical: 200
-    eventType: HostilesSpawn
-  - type: GameRule
-    chaosScore: 1000
   - type: BlobSpawnRule
     carrierBlobProtos:
     - SpawnPointGhostBlobRat
@@ -57,13 +47,6 @@
     minimumPlayers: 50
     duration: null
     maxOccurrences: 1
-    chaos:
-      Hostile: 400
-      Medical: 400
-      Death: 400
-    eventType: HostilesSpawn
-  - type: GameRule
-    chaosScore: 1100
   - type: BlobSpawnRule
     carrierBlobProtos:
     - SpawnPointGhostBlobRat

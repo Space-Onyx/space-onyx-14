@@ -21,7 +21,7 @@
     weightless: true
   - type: WarpPoint
     follow: true
-    location: space leviathan
+    location: warp-point-space-leviathan
   - type: HTN
     rootTask:
       task: DragonCarpCompound

@@ -1,4 +1,6 @@
 ent-MonumentCosmicCultBase = Монумент
+warp-point-cosmic-monument = Монумент
+warp-point-cosmic-unknown = Неизвестное
     .desc = Великая плита, видимая лишь тем, кто знает правду. Сложена из тысячи частиц ничего, его поверхность отражает беззвёздную пустоту...
 ent-MonumentCosmicCultSpawnIn = Монумент
     .suffix = Спавн, НЕ МАППИТЬ

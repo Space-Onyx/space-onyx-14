@@ -179,6 +179,7 @@ public abstract partial class SharedBuckleSystem
             buckle.BuckledTo != uid &&
             args.User != uid &&
             StrapHasSpace(uid, buckle, component) &&
+            component.AddBuckleverb && // <Onyx-VehicleStrap-edited>
             _interaction.InRangeUnobstructed(args.User, args.Target, range: buckle.Range))
         {
             InteractionVerb verb = new()
@@ -194,6 +195,7 @@ public abstract partial class SharedBuckleSystem
         if (args.Using is { Valid: true } @using &&
             TryComp<BuckleComponent>(@using, out var usingBuckle) &&
             StrapHasSpace(uid, usingBuckle, component) &&
+            component.AddBuckleverb && // <Onyx-VehicleStrap-edited>
             _interaction.InRangeUnobstructed(@using, args.Target, range: usingBuckle.Range))
         {
             // Check that the entity is unobstructed from the target (ignoring the user).

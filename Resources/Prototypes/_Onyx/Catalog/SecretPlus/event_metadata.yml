@@ -250,3 +250,15 @@
   rule: UnknownShuttleAlienTourist
   eventType: FriendlySpawn
   chaosScore: -80
+
+- type: secretPlusRule
+  id: LoneAbductorSpawn
+  rule: LoneAbductorSpawn
+  eventType: HostilesSpawn
+  chaosScore: 100
+
+- type: secretPlusRule
+  id: DuoAbductorSpawn
+  rule: DuoAbductorSpawn
+  eventType: HostilesSpawn
+  chaosScore: 150

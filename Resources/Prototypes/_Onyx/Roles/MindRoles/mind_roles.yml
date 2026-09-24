@@ -8,3 +8,4 @@
     antagPrototype: Xenomorph
     roleType: TeamAntagonist
     exclusiveAntag: true
+  - type: XenomorphRole

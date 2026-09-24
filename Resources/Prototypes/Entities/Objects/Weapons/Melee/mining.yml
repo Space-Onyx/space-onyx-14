@@ -136,22 +136,16 @@
         name: crusher-upgrade-slot-main
         swap: false
         priority: 3
-        insertDelay: 3
-        ejectDelay: 1.8
         whitelist: { tags: [ CrusherUpgradeMain ] }
       upgrade_slot_blade:
         name: crusher-upgrade-slot-blade
         swap: false
         priority: 2
-        insertDelay: 2.4
-        ejectDelay: 1.2
         whitelist: { tags: [ CrusherUpgradeBlade ] }
       upgrade_slot_handle:
         name: crusher-upgrade-slot-handle
         swap: false
         priority: 1
-        insertDelay: 2.4
-        ejectDelay: 1.2
         whitelist: { tags: [ CrusherUpgradeHandle ] }
   - type: ItemMapper
     mapLayers:

@@ -35,7 +35,6 @@
   - type: VirologyMachine
     analysisDuration: 5
     swabSlot:
-      occludesLight: true
       insertSound: !type:SoundPathSpecifier
         path: /Audio/Weapons/Guns/MagIn/revolver_magin.ogg
       ejectSound: !type:SoundPathSpecifier

@@ -246,16 +246,33 @@ public abstract partial class SharedGunSystem
             if (ent.Comp.Entities.Count > 0)
             {
                 var existingEnt = ent.Comp.Entities[^1];
-                ent.Comp.Entities.RemoveAt(ent.Comp.Entities.Count - 1);
-                DirtyField(ent.AsNullable(), nameof(BallisticAmmoProviderComponent.Entities));
-                Containers.Remove(existingEnt, ent.Comp.Container);
-                ammoEntity = existingEnt;
+                // <Onyx-BallisticAutoCycle>
+                if (!ent.Comp.AutoCycle)
+                {
+                    ammoEntity = existingEnt;
+                }
+                else
+                {
+                    ent.Comp.Entities.RemoveAt(ent.Comp.Entities.Count - 1);
+                    DirtyField(ent.AsNullable(), nameof(BallisticAmmoProviderComponent.Entities));
+                    Containers.Remove(existingEnt, ent.Comp.Container);
+                    ammoEntity = existingEnt;
+                }
+                // </Onyx-BallisticAutoCycle>
             }
             else if (ent.Comp.UnspawnedCount > 0)
             {
                 ent.Comp.UnspawnedCount--;
                 DirtyField(ent.AsNullable(), nameof(BallisticAmmoProviderComponent.UnspawnedCount));
                 ammoEntity = Spawn(ent.Comp.Proto, args.Coordinates);
+                // <Onyx-BallisticAutoCycle>
+                if (!ent.Comp.AutoCycle && ammoEntity is { } spentEnt)
+                {
+                    ent.Comp.Entities.Add(spentEnt);
+                    Containers.Insert(spentEnt, ent.Comp.Container);
+                    DirtyField(ent.AsNullable(), nameof(BallisticAmmoProviderComponent.Entities));
+                }
+                // </Onyx-BallisticAutoCycle>
             }
 
             if (ammoEntity is not { } ammoEnt)

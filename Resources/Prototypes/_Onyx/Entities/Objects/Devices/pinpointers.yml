@@ -16,8 +16,6 @@
   - type: Icon
     sprite: _Onyx/Objects/Devices/pinpointer.rsi
     state: pinpointer-science
-  - type: Item
-    sprite: _Onyx/Objects/Devices/pinpointer.rsi
   - type: Pinpointer
     component: Anomaly
     targetName: anomaly
@@ -40,8 +38,6 @@
   - type: Icon
     sprite: _Onyx/Objects/Devices/pinpointer.rsi
     state: pinpointer-science
-  - type: Item
-    sprite: _Onyx/Objects/Devices/pinpointer.rsi
   - type: Pinpointer
     component: Artifact
     targetName: artifact
@@ -64,8 +60,6 @@
   - type: Icon
     sprite: _Onyx/Objects/Devices/pinpointer.rsi
     state: pinpointer-way
-  - type: Item
-    sprite: _Onyx/Objects/Devices/pinpointer.rsi
   - type: Pinpointer
     component: BorgChassis
     targetName: cyborg
@@ -88,8 +82,6 @@
   - type: Icon
     sprite: _Onyx/Objects/Devices/pinpointer.rsi
     state: pinpointer-crewprox
-  - type: Item
-    sprite: _Onyx/Objects/Devices/pinpointer.rsi
   - type: Pinpointer
     component: BecomesStation
     targetName: station

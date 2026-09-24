@@ -22,10 +22,7 @@
     speechSounds: Alto
     allowedEmotes: [Hiss, Meow, Mew, Growl, Purr]
   - type: Vocal
-    sounds:
-      Male: MaleFelinid
-      Female: FemaleFelinid
-      Unsexed: MaleFelinid
+    emoteSounds: MaleFelinid
   - type: LanguageKnowledge
     speaks: [TauCetiBasic, Nekomimetic]
     understands: [TauCetiBasic, Nekomimetic]

@@ -20,5 +20,13 @@ public sealed partial class SolutionInjectWhileEmbeddedComponent : BaseSolutionI
         ///</summary>
         [DataField]
         public TimeSpan UpdateInterval = TimeSpan.FromSeconds(3);
+
+        // <Onyx-EmbeddedInjectionLimit>
+        [DataField]
+        public int? MaxInjections;
+
+        [ViewVariables]
+        public int Injections;
+        // </Onyx-EmbeddedInjectionLimit>
 }
 

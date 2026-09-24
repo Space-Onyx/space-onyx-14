@@ -1,4 +1,6 @@
 ent-MonumentCosmicCultBase = The Monument
+warp-point-cosmic-monument = The Monument
+warp-point-cosmic-unknown = The Unknown
     .desc = A great slab of unknowledge, only visible to those aware of it. Built of a thousand little nothings, its surface reflects a starless emptiness...
 ent-MonumentCosmicCultSpawnIn = The Monument
     .suffix = Spawn, DO NOT MAP

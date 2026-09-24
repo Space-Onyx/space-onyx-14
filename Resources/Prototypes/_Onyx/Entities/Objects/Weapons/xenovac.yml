@@ -13,7 +13,7 @@
   - type: Xenovac
     whitelist:
       tags: [ XenoSlime ]
-      components: [ Skinnable ]
+      components: [ Butcherable ]
   - type: UseDelay
     delays:
       release: { length: 3 }

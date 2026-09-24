@@ -32,11 +32,15 @@
     - TauCetiBasic # Can understand, but cannot speak it.
     - Xeeplian
   - type: Bloodstream
-    bloodReagent: AlienBlood
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: AlienBlood
+        Quantity: 600
   - type: Temperature
-    heatDamageThreshold: 320
-    currentTemperature: 310.15
     specificHeat: 46
+    temperature: 310.15
+  - type: TemperatureDamage
+    heatDamageThreshold: 320
     heatDamage:
       types:
         Heat: 2
@@ -80,7 +84,10 @@
 #        Brute: -0.14
   - type: SurgeryTarget
   - type: Bloodstream
-    bloodReagent: AlienBlood
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: AlienBlood
+        Quantity: 600
 
   - type: Flammable
     damage:

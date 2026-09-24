@@ -104,6 +104,5 @@
       methods: [ Touch ]
       effects:
       - !type:HealthChange
-        scaleByQuantity: true
         damage:
           types: { Caustic: 3 }

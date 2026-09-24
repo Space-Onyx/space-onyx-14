@@ -54,6 +54,10 @@ public sealed partial class GunSystem
             }
 
             var step = ContentHelpers.RoundToLevels((int)current, (int)capacity, ent.Comp.MagSteps);
+            // <Onyx-MagazineZeroNoAmmo>
+            if (ent.Comp.ZeroNoAmmo && step == 0 && (int) current > 0)
+                step = Math.Min(1, ent.Comp.MagSteps - 1);
+            // </Onyx-MagazineZeroNoAmmo>
 
             if (step == 0 && !ent.Comp.ZeroVisible)
             {

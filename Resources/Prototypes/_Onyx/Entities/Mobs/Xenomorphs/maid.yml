@@ -39,8 +39,10 @@
       190: 0.6
   - type: MeleeWeapon
     damage:
-      groups:
-        Brute: 10
+      types:
+        Blunt: 3.34
+        Slash: 3.33
+        Piercing: 3.33
   - type: Pacified
   - type: GhostRole
     allowMovement: true

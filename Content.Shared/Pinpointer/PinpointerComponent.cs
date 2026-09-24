@@ -51,7 +51,7 @@ public sealed partial class PinpointerComponent : Component
     [ViewVariables]
     public EntityUid? Target = null;
 
-    [ViewVariables, AutoNetworkedField]
+    [DataField, ViewVariables, AutoNetworkedField] // <Onyx-XenoQueenFinder-edited>
     public bool IsActive = false;
 
     [ViewVariables, AutoNetworkedField]

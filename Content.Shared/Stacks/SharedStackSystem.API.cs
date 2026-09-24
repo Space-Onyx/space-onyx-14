@@ -264,7 +264,7 @@ public abstract partial class SharedStackSystem
         RaiseLocalEvent(ent.Owner, new StackCountChangedEvent(old, ent.Comp.Count));
 
         // Queue delete stack if count reaches zero.
-        if (ent.Comp.Count <= 0)
+        if (ent.Comp.Count <= 0 && !ent.Comp.Lingering) // <Onyx-LingeringStacks-edited>
             PredictedQueueDel(ent.Owner);
     }
 

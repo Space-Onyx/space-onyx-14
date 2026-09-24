@@ -17,6 +17,11 @@ public sealed partial class SolutionRegenerationComponent : Component
     [DataField(required: true)]
     public Solution Generated = default!;
 
+    // <Onyx-NamedSolutionRegeneration>
+    [DataField("solution")]
+    public string? SolutionName;
+    // </Onyx-NamedSolutionRegeneration>
+
     /// <summary>
     /// How long it takes to regenerate once.
     /// </summary>

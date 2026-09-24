@@ -28,4 +28,9 @@ public sealed partial class HolosignProjectorComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public bool PredictedSpawn;
+
+    // <Onyx-HoloprojectorAnchoring>
+    [DataField, AutoNetworkedField]
+    public bool AnchorOnSpawn = true;
+    // </Onyx-HoloprojectorAnchoring>
 }

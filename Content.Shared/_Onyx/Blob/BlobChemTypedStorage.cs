@@ -16,7 +16,8 @@ using Robust.Shared.Serialization;
 namespace Content.Shared._Onyx.Blob;
 
 #region BlobChemTypedStorage
-public abstract class BlobChemTypedStorage<T> : IEnumerable where T : notnull
+[DataDefinition, Serializable, NetSerializable]
+public abstract partial class BlobChemTypedStorage<T> : IEnumerable where T : notnull
 {
     public abstract T BlazingOil { get; set; }
     public abstract T ReactiveSpines { get; set; }

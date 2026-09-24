@@ -1,0 +1,47 @@
+<!-- Content adapted from Goob Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later. -->
+
+<Document>
+  # Абдукторы
+
+  <Box>
+    <GuideEntityEmbed Entity="MobLoneAbductor"/>
+    <GuideEntityEmbed Entity="MobAbductorAgent"/>
+    <GuideEntityEmbed Entity="MobAbductorScientist"/>
+  </Box>
+  Абдукторы - инопланетное общество, занимающееся каталогизацией и экспериментами на персонале сектора. Они [color=red]не настроены на убийства[/color], а заинтересованы в завершении своих экспериментов.
+
+  Абдукторы не обладают способностью говорить и общаются посредством телепатии.
+
+  ## Абдукторы
+  Существуют три типа абдукторов: одиночные абдукторы, учёные и агенты.
+  - [color=#a4885c]Одиночные абдукторы[/color] действуют поодиночке и не имеют поддержки.
+  - [color=#a4885c]Учёные[/color] поддерживают агентов, активируя броню и проводя эксперименты над экипажем.
+  - [color=#a4885c]Агенты[/color] занимаются похищением экипажа для учёных.
+  - Любой абдуктор может взять на себя роль другого в случае его гибели.
+
+  ## Похищение
+  <Box>
+    <GuideEntityEmbed Entity="Wonderprod"/>
+    <GuideEntityEmbed Entity="WeaponAlien"/>
+    <GuideEntityEmbed Entity="AbductorGizmo"/>
+  </Box>
+
+  С помощью консоли наблюдения найдите изолированную жертву и телепортируйтесь к ней. Wonderprod оглушает, связывает или усыпляет цель. Гизмо имплантирует трекер и возвращает абдукторов на корабль.
+
+  ## Эксперименты
+  <Box>
+    <GuideEntityEmbed Entity="AbductorConsole"/>
+    <GuideEntityEmbed Entity="AbductorExperimentator"/>
+  </Box>
+
+  После привязки трекера к консоли телепортируйте жертву на корабль. Пристегните её к хирургическому столу, замените сердце на железу, затем поместите жертву в экспериментатор для подтверждения результата и возврата.
+
+  ## Инструменты
+  <Box>
+    <GuideEntityEmbed Entity="Silencer"/>
+    <GuideEntityEmbed Entity="EnergyScalpelAbductor"/>
+    <GuideEntityEmbed Entity="CrowbarAbductor"/>
+  </Box>
+
+  Инструменты абдукторов работают быстрее обычных хирургических и инженерных инструментов. Глушитель не позволяет поражённому экипажу говорить.
+</Document>

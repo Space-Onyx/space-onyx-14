@@ -16,3 +16,10 @@
   toolName: tool-quality-hammering-tool-name
   spawn: MeleeHammer
   icon: { sprite: _Onyx/Objects/Weapons/Melee/hammer.rsi, state: icon }
+
+- type: tool
+  id: Axing
+  name: tool-quality-axing-name
+  toolName: tool-quality-axing-tool-name
+  spawn: FireAxe
+  icon: { sprite: Objects/Weapons/Melee/fireaxe.rsi, state: icon }

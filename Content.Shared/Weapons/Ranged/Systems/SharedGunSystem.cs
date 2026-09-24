@@ -165,7 +165,11 @@ public abstract partial class SharedGunSystem : EntitySystem
             return;
 
         gun.Comp.ShootCoordinates = GetCoordinates(msg.Coordinates);
-        gun.Comp.Target = GetEntity(msg.Target);
+        // <Onyx-LockOnBurst-edited>
+        var burstTarget = GetEntity(msg.Target);
+        if (gun.Comp.Target == null || !gun.Comp.BurstActivated || !gun.Comp.LockOnTargetBurst)
+            gun.Comp.Target = burstTarget;
+        // </Onyx-LockOnBurst-edited>
         AttemptShoot(ResolveMechShooter(user.Value), gun); // <MechGuns-edited>
         if (msg.Continuous)
             gun.Comp.ShotCounter = 0;
@@ -233,7 +237,10 @@ public abstract partial class SharedGunSystem : EntitySystem
 
         ent.Comp.ShotCounter = 0;
         ent.Comp.ShootCoordinates = null;
-        ent.Comp.Target = null;
+        // <Onyx-LockOnBurst-edited>
+        if (!ent.Comp.LockOnTargetBurst || !ent.Comp.BurstActivated)
+            ent.Comp.Target = null;
+        // </Onyx-LockOnBurst-edited>
         DirtyField(ent.AsNullable(), nameof(GunComponent.ShotCounter));
     }
 

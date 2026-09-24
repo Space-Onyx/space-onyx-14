@@ -16,7 +16,6 @@
     damageMultiplier: 1
   - type: Projectile
     ignoreResistances: true
-    ignoreTargeted: true
     damage:
       types:
         Blunt: 5

@@ -172,8 +172,8 @@
           - DisposableBattery
       welder:
         whitelist:
-          tags:
-          - WeldingTool
+          components:
+          - Welder
       cable:
         whitelist:
           tags:
@@ -683,8 +683,8 @@
       welder:
         ejectOnInteract: false
         whitelist:
-          tags:
-          - WeldingTool
+          components:
+          - Welder
       cable:
         ejectOnInteract: false
         whitelist:

@@ -9,3 +9,7 @@ ghost-teleport-menu-left-label = Disconnected
 ghost-teleport-menu-locations-label = Locations and objects
 ghost-teleport-menu-count-label = Count
 ghost-teleport-menu-group-count = {$group}: {$count}
+
+warp-point-supermatter = supermatter
+warp-point-space-leviathan = space leviathan
+warp-point-blob-core = blob core

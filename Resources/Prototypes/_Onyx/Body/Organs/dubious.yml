@@ -41,12 +41,19 @@
       - Alive
       - Critical
       damage:
-        groups:
-          Brute: -0.14
-          Burn: -0.14
-          Airloss: -0.14
-          Toxin: -0.14
-          Genetic: -0.14
+        types:
+          Blunt: -0.14
+          Slash: -0.14
+          Piercing: -0.14
+          Heat: -0.14
+          Shock: -0.14
+          Cold: -0.14
+          Caustic: -0.14
+          Asphyxiation: -0.14
+          Bloodloss: -0.14
+          Poison: -0.14
+          Radiation: -0.14
+          Cellular: -0.14
 
 - type: entity
   id: OrganDubiousAA

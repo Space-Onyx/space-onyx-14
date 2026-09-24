@@ -34,7 +34,7 @@
           - Write
     - item: BorgGeneratorCleanSe
   - type: BorgModuleIcon
-    icon: { sprite: _Onyx/Objects/Specific/Robotics/borgmodule.rsi, state: genetic-module }
+    icon: { sprite: _Onyx/Objects/Specific/Robotics/borgmodule.rsi, state: icon-dna }
 
 # Space Onyx
 # Copyright (C) 2026 Space Onyx contributors

@@ -15,9 +15,7 @@
     maxCharge: 1000
     startingCharge: 1000
   - type: BatterySelfRecharger
-    autoRecharge: true
     autoRechargeRate: 50
-    autoRechargePause: true
     autoRechargePauseTime: 40
   - type: DisarmMalus
   - type: Tag
@@ -98,7 +96,6 @@
           animation: WeaponArcThrust
         - type: StaminaDamageOnHit
           damage: 20
-          overtime: 15
         soundStateActivate:
           collection: sparks
           params:
@@ -164,7 +161,6 @@
           repeatable: true
         - type: ExplodeOnMeleeHit
         - type: MeleeWeapon
-          canWideSwing: false
           attackRate: 0.5
           animation: WeaponArcThrust
           damage:

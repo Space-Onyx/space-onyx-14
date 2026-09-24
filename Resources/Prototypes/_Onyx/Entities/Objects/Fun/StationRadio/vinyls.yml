@@ -153,9 +153,6 @@
     state: banana-vinyl-disk
   - type: Slippery
   - type: StepTrigger
-    triggerGroups:
-      types:
-      - SlipEntity
   - type: CollisionWake
     enabled: false
   - type: Physics

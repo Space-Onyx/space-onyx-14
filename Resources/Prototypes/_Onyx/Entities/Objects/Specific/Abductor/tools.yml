@@ -186,7 +186,6 @@
     radius: 1.5
     color: lightblue
   - type: SolutionRegeneration
-    solution: Welder
     generated:
       reagents:
       - ReagentId: WeldingFuel
@@ -252,7 +251,6 @@
     qualities:
       - Pulsing
   - type: NetworkConfigurator
-    showLabel: false
   - type: LimitedCharges
   - type: AutoRecharge
     rechargeDuration: 20
@@ -269,7 +267,6 @@
             qualities:
               - Pulsing
           - type: NetworkConfigurator
-            showLabel: false
         soundStateActivate:
           collection: sparks
           params:
@@ -284,9 +281,6 @@
         components:
         - type: Emag
           emagType: Access
-          validTargets:
-            components:
-            - Airlock
         soundStateActivate:
           collection: sparks
           params:

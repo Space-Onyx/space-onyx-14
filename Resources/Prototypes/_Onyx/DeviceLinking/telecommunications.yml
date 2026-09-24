@@ -52,3 +52,8 @@
   id: TelecomConsoleInput
   name: signal-port-name-telecom-console-input
   description: signal-port-description-telecom-console-input
+
+- type: sourcePort
+  id: Triggered
+  name: signal-port-name-triggered-signaller
+  description: signal-port-description-triggered-signaller

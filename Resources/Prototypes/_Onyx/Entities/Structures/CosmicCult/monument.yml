@@ -110,7 +110,7 @@
     guides:
     - CosmicCult
   - type: WarpPoint
-    location: The Monument
+    location: warp-point-cosmic-monument
   - type: CosmicCultExamine
     cultistText: cosmic-examine-text-forthecult
   - type: CosmicCorrupting

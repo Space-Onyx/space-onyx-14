@@ -129,9 +129,6 @@
     state: liver
   - type: Metabolizer
     metabolizerTypes: [Xenomorph]
-    groups:
-    - id: Poison
-      rateModifier: 1
 
 - type: entity
   parent: BaseXenomorphOrgan

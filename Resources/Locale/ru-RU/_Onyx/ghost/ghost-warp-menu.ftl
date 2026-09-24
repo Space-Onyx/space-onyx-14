@@ -9,3 +9,7 @@ ghost-teleport-menu-left-label = Вышедшие из тела
 ghost-teleport-menu-locations-label = Локации и объекты
 ghost-teleport-menu-count-label = Количество
 ghost-teleport-menu-group-count = {$group}: {$count}
+
+warp-point-supermatter = суперматерия
+warp-point-space-leviathan = космический левиафан
+warp-point-blob-core = ядро блоба

@@ -1,0 +1,6 @@
+# Content adapted from Goob Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+
+- type: guideEntry
+  id: Abductors
+  name: guide-entry-abductors
+  text: "/ServerInfo/_Onyx/Guidebook/Antagonist/Abductors.xml"

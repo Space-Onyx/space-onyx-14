@@ -69,6 +69,10 @@
         {
             "name": "equipped-head-vulpkanin",
             "directions": 4
+        },
+        {
+            "name": "equipped-HELMET-feroxi",
+            "directions": 4
         }
     ]
 }

@@ -80,6 +80,12 @@ public abstract partial class SharedBuckleSystem
 
         if (!CanUnbuckle(ent!, args.Puller, false))
             args.Cancel();
+        // <Onyx-VehicleStrap>
+        if (args.Puller != ent.Owner
+            && TryComp<StrapComponent>(ent.Comp.BuckledTo, out var strap)
+            && !strap.AllowOthersToUnbuckle)
+            args.Cancel();
+        // </Onyx-VehicleStrap>
     }
 
     private void OnPullStarted(Entity<BuckleComponent> ent, ref PullStartedMessage args)
@@ -188,6 +194,13 @@ public abstract partial class SharedBuckleSystem
         // If we're relaying then don't cancel.
         if (HasComp<RelayInputMoverComponent>(uid))
             return;
+
+        // <Onyx-VehicleStrap>
+        if (component.Buckled
+            && TryComp<StrapComponent>(component.BuckledTo, out var strap)
+            && !strap.BlockMovement)
+            return;
+        // </Onyx-VehicleStrap>
 
         if (component.Buckled)
             args.Cancel();

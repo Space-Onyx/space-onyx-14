@@ -42,8 +42,10 @@
   - type: XenomorphQueen
   - type: TailLash
     tailDamage:
-      groups:
-        Brute: 5
+      types:
+        Blunt: 1.68
+        Slash: 1.66
+        Piercing: 1.66
     inject:
       ChloralHydrate: 10 # Goobstation - new chemical
   #- type: ActionGrant # Goobstation - moved to organs
@@ -82,8 +84,10 @@
     baseSprintSpeed: 2.5
   - type: MeleeWeapon
     damage:
-      groups:
-        Brute: 50
+      types:
+        Blunt: 16.68
+        Slash: 16.66
+        Piercing: 16.66
   - type: Deathgasp
     prototype: XenomorphQueenDeathgasp
   - type: Speech

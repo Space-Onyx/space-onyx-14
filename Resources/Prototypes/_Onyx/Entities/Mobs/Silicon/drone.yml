@@ -19,8 +19,10 @@
   - type: Injurable
     damageContainer: Inorganic
   - type: Bloodstream
-    bloodReagent: Oil
-    bloodMaxVolume: 50
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: Oil
+        Quantity: 50
     bloodlossDamage:
       types:
         Bloodloss: 1
@@ -79,7 +81,7 @@
     whitelist:
       tags: [DroneUsable, Trash, Crayon]
     blacklist:
-      tags: [Syringe, HighRiskItem, Sidearm, Taser, Flash]
+      tags: [Syringe, HighRiskItem, Sidearm, Taser]
       components: [Handcuff, Gun, EnergySword]
   - type: ContainerContainer
     containers:
@@ -161,8 +163,9 @@
       30: 0.7
       50: 0.5
   - type: Temperature
-    heatDamageThreshold: 5000
     temperature: 310.15
+  - type: TemperatureDamage
+    heatDamageThreshold: 5000
     heatDamage:
       types:
         Heat: 1
