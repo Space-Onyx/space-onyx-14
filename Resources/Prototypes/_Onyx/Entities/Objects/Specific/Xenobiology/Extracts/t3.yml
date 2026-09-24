@@ -241,6 +241,7 @@
           range: 5
           effects:
           - !type:PlantAdjustMutationLevel
+            mutationTable: RandomPlantMutations
     - reagents: [ Plasma ]
       methods: [ Touch, Injection ]
       effects:

@@ -19,7 +19,6 @@
         Piercing: 0.9
         Heat: 0.9
   - type: IngestionBlocker
-    blockSmokeIngestion: true
 
 - type: entity
   parent: ClothingMaskBase
@@ -155,7 +154,6 @@
   - type: IdentityBlocker
   - type: VoiceMask
     voiceMaskSpeechVerb: VoiceModulator
-    enableAction: false
   - type: HideLayerClothing
     slots:
     - Snout

@@ -2,3 +2,7 @@
 
 fibers-modular = modular
 fibers-kinetic = kinetic
+fibers-pink = pink
+fibers-maroon = maroon
+fibers-classified = classified
+fibers-pitch-black = pitch-black

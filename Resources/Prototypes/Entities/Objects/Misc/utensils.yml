@@ -142,10 +142,10 @@
         restitution: 0.3
         friction: 0.2
   - type: Tool
+    speedModifier: 0.15 # <Onyx-SharpKnives-edited>
+    qualities: [ Slicing ] # <Onyx-SharpKnives-edited>
   - type: Sharp # <Onyx-SharpKnives>
-    speedModifier: 0.15
-    qualities:
-    - Slicing
+    butcherDelayModifier: 0.15 # <Onyx-SharpKnives-edited>
 
 - type: entity
   parent: UtensilBase

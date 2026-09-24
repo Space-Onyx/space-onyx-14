@@ -32,7 +32,7 @@
       behaviors:
       - !type:DoActsBehavior { acts: [Destruction] }
       - !type:PlaySoundBehavior
-        sound: { collection: blood }
+        sound: { path: /Audio/_Onyx/Blob/blobattack.ogg }
     - trigger: !type:DamageTypeTrigger { damageType: Heat, damage: 45 }
       behaviors:
       - !type:SpawnEntitiesBehavior

@@ -40,8 +40,6 @@
   - type: Clothing
     sprite: _Onyx/Clothing/Eyes/Goggles/sthermals.rsi
   - type: ThermalVision
-    flashDurationMultiplier: 2
-    isEquipment: true
     toggleAction: ActionToggleThermalVision
   - type: IdentityBlocker
     coverage: EYES

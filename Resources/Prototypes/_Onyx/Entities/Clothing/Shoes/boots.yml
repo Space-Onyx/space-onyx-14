@@ -97,7 +97,7 @@
   - type: ModifyStandingUpTime
     multiplier: 0.5
   - type: GasTank
-    outputPressure: 42.6
+    releasePressure: 42.6
     air:
       volume: 0.75
       temperature: 293.15
@@ -135,7 +135,7 @@
     footstepSoundCollection:
       collection: FootstepBoots
   - type: GasTank
-    outputPressure: 42.6
+    releasePressure: 42.6
     air:
       volume: 2
       temperature: 293.15

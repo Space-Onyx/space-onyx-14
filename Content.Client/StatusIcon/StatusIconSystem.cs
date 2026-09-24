@@ -1,6 +1,7 @@
 using Content.Shared.CCVar;
 using Content.Shared.Ghost.Components;
 using Content.Shared.StatusIcon;
+using Content.Shared._Onyx.Xenomorphs.StatusIcon; // <Onyx-XenomorphInfectionIcons>
 using Content.Shared.StatusIcon.Components;
 using Content.Shared.Stealth.Components;
 using Content.Shared.Whitelist;
@@ -74,7 +75,7 @@ public sealed partial class StatusIconSystem : SharedStatusIconSystem
         var viewer = _playerManager.LocalSession?.AttachedEntity;
 
         // Always show our icons to our entity
-        if (viewer == ent.Owner)
+        if (viewer == ent.Owner && data is not InfectionIconPrototype { VisibleToOwner: false }) // <Onyx-XenomorphInfectionIcons-edited>
             return true;
 
         if (data.VisibleToGhosts && HasComp<GhostComponent>(viewer))

@@ -96,7 +96,6 @@
   - type: IdentityBlocker
     coverage: EYES
   - type: ThermalVision
-    isEquipment: true
     toggleAction: ActionToggleThermalVision
     color: "#2ebf40"
     lightRadius: 15
@@ -118,7 +117,6 @@
   - type: IdentityBlocker
     coverage: EYES
   - type: ThermalVision
-    isEquipment: true
     toggleAction: ActionToggleThermalVision
     color: "#98EEFB"
     lightRadius: 15
@@ -162,9 +160,7 @@
     - Security
     - Antagonists
   - type: ThermalVision
-    flashDurationMultiplier: 2
     pulseTime: 2
-    isEquipment: true
     toggleAction: ActionToggleThermalVision
   - type: IdentityBlocker
     coverage: EYES

@@ -37,7 +37,6 @@
   - type: SurveillanceCamera
     networkSet: true
     nameSet: True
-    mobile: True
     id: Bodycam
   - type: Eye
   - type: WirelessNetworkConnection

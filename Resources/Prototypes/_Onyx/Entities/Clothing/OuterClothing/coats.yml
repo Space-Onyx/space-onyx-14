@@ -99,12 +99,6 @@
       outerClothing-vox:
       - state: valid-equipped-OUTERCLOTHING-vox
   - type: Armor
-    traumaDeductions:
-      Dismemberment: 0.2
-      OrganDamage: 0.2
-      BoneDamage: 0.2
-      VeinsDamage: 0
-      NerveDamage: 0
     coverage:
     - Chest
     - Groin

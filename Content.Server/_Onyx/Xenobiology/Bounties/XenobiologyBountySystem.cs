@@ -62,7 +62,6 @@ public sealed partial class XenobiologyBountySystem : EntitySystem
             database.Bounties.Clear();
             FillDatabase((station, database));
             database.NextRefreshTime = _timing.CurTime + database.RefreshDelay;
-            Dirty(station, database);
             UpdateStationConsoles(station, database);
         }
     }
@@ -71,7 +70,6 @@ public sealed partial class XenobiologyBountySystem : EntitySystem
     {
         FillDatabase(station);
         station.Comp.NextRefreshTime = _timing.CurTime + station.Comp.RefreshDelay;
-        Dirty(station);
     }
 
     private void OnConsoleOpened(Entity<XenobiologyBountyConsoleComponent> console, ref BoundUIOpenedEvent args)
@@ -114,7 +112,6 @@ public sealed partial class XenobiologyBountySystem : EntitySystem
         }
 
         _research.ModifyServerPoints(researchServer.Value, prototype.PointsAwarded, researchComponent);
-        Dirty(station, database);
         _audio.PlayPvs(console.Comp.FulfillSound, console);
         UpdateStationConsoles(station, database);
     }
@@ -134,7 +131,6 @@ public sealed partial class XenobiologyBountySystem : EntitySystem
 
         database.NextSkipTime = _timing.CurTime + database.SkipDelay;
         FillDatabase((station, database));
-        Dirty(station, database);
         UpdateStationConsoles(station, database);
     }
 

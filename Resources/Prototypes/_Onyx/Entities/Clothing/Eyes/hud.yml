@@ -28,7 +28,6 @@
   description: The guild's professional head-up display, designed for better detection of humanoids and their subsequent capture.
   components:
   - type: ThermalVision
-    isEquipment: true
     toggleAction: ActionToggleThermalVision
     color: "#05570a"
     lightRadius: 15

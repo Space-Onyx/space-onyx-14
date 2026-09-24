@@ -161,7 +161,8 @@
     damage:
       types:
         Blunt: 20
-    blacklist:
+  - type: WhitelistTriggerCondition
+    userBlacklist:
       components:
       - Vampire
   - type: StunOnContact

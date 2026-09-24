@@ -61,6 +61,10 @@
   description: Audibly hail nearby crew, useful for giving quick orders.
   components:
   - type: Action
-    icon: { sprite: Clothing/Mask/gassecurity.rsi, state: icon }
+  - type: Sprite
+    sprite: Clothing/Mask/gassecurity.rsi
+    layers:
+    - state: icon
+      map: [ "enum.ActionVisuals.Icon" ]
   - type: InstantAction
     event: !type:HailerActionEvent

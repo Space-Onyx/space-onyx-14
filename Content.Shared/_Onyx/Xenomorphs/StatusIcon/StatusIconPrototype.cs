@@ -7,6 +7,9 @@ namespace Content.Shared._Onyx.Xenomorphs.StatusIcon;
 [Prototype]
 public sealed partial class InfectionIconPrototype : StatusIconPrototype, IInheritingPrototype
 {
+    [DataField]
+    public bool VisibleToOwner = true;
+
     /// <inheritdoc />
     [ParentDataField(typeof(AbstractPrototypeIdArraySerializer<InfectionIconPrototype>))]
     public string[]? Parents { get; private set; }

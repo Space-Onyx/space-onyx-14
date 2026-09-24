@@ -42,6 +42,8 @@ reagent-name-herignis = херигнис
 reagent-desc-herignis = Мощное согревающее средство, способное опасно перегреть пациента.
 reagent-name-formaldehyde = формальдегид
 reagent-desc-formaldehyde = Консервант, замедляющий разложение мёртвых тканей.
+reagent-name-mutadon = мутадон
+reagent-desc-mutadon = Экспериментальное лекарство, обращающее генетические мутации.
 
 # Content below taken from Einstein Engines via Goob Station, licensed under AGPL-3.0-or-later.
 reagent-name-artiplates = артиплейтс

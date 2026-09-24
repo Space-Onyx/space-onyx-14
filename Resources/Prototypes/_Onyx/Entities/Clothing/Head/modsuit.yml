@@ -147,7 +147,6 @@
       coefficient: 0.01
     - type: IdentityBlocker
     - type: IngestionBlocker
-      blockSmokeIngestion: True
     - type: HideLayerClothing
       slots:
       - Snout
@@ -218,7 +217,6 @@
     - type: BreathMask
     - type: IdentityBlocker
     - type: IngestionBlocker
-      blockSmokeIngestion: true
 
 - type: entity
   parent: ClothingModsuitHelmetStandard
@@ -278,7 +276,6 @@
       coefficient: 0.1
     - type: IdentityBlocker
     - type: IngestionBlocker
-      blockSmokeIngestion: true
 
 - type: entity
   parent: ClothingModsuitHelmetStandard
@@ -338,7 +335,6 @@
       coefficient: 0.1
     - type: IdentityBlocker
     - type: IngestionBlocker
-      blockSmokeIngestion: true
 
 - type: entity
   parent: BaseClothingModsuitHelmet

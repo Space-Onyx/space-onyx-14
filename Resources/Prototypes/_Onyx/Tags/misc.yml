@@ -114,3 +114,7 @@
 
 - type: Tag
   id: PreventLabel
+
+# Content below taken from Corvax Goob Station (https://github.com/Corvax-Frontier/Goob-Station), licensed under AGPL-3.0-or-later.
+- type: Tag
+  id: InfinityPaper

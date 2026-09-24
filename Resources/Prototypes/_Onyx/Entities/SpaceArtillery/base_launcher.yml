@@ -13,6 +13,7 @@
     damageContainer: StructuralInorganic
   - type: Damageable
     damageModifierSet: StructuralMetallic
+  - type: Destructible
     thresholds:
     - trigger:
         !type:DamageTrigger

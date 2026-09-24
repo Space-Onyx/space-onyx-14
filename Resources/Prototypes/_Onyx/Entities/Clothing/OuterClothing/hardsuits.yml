@@ -54,7 +54,7 @@
   - type: Jetpack
     moleUsage: 0.0085
   - type: GasTank
-    outputPressure: 42.6
+    releasePressure: 42.6
     air:
       volume: 2
   - type: ToggleableClothing
@@ -67,7 +67,7 @@
   suffix: Full
   components:
   - type: GasTank
-    outputPressure: 42.6
+    releasePressure: 42.6
     air:
       volume: 2
       temperature: 293.15
@@ -156,12 +156,6 @@
   - type: ExplosionResistance
     damageCoefficient: 0.65
   - type: Armor
-    traumaDeductions:
-      Dismemberment: 0.3
-      OrganDamage: 0.3
-      BoneDamage: 0.3
-      VeinsDamage: 0
-      NerveDamage: 0
     modifiers:
       coefficients:
         Blunt: 0.7
@@ -203,12 +197,6 @@
   - type: FireProtection
     reduction: 0.9
   - type: Armor
-    traumaDeductions:
-      Dismemberment: 0.9
-      OrganDamage: 0.9
-      BoneDamage: 0.9
-      VeinsDamage: 0.9
-      NerveDamage: 0.9
     modifiers:
       coefficients:
         Blunt: 0.2

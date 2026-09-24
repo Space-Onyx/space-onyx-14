@@ -173,7 +173,7 @@
   group: Toxins
   desc: reagent-desc-nitric-acid
   physicalDesc: reagent-physical-desc-acidic
-  flavor: acidic
+  flavor: acid
   color: "#c9e9e9"
   metabolisms:
     Bloodstream:

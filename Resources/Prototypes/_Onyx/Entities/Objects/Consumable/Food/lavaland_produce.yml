@@ -59,7 +59,7 @@
       types:
         Blunt: 10
   - type: Produce
-    plantId: towercap
+    plantId: TowercapPlants
   - type: Log
     spawnedPrototype: MaterialAshwoodPlank1
     spawnCount: 1

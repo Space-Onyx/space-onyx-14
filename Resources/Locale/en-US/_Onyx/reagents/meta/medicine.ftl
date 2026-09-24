@@ -39,6 +39,8 @@ reagent-name-herignis = herignis
 reagent-desc-herignis = Powerful heating medicine that can dangerously overheat its metabolizer.
 reagent-name-formaldehyde = formaldehyde
 reagent-desc-formaldehyde = Preservative that slows decomposition of dead tissue.
+reagent-name-mutadon = mutadon
+reagent-desc-mutadon = An experimental medicine that reverses genetic mutations.
 
 # Content below taken from Einstein Engines via Goob Station, licensed under AGPL-3.0-or-later.
 reagent-name-artiplates = artiplates

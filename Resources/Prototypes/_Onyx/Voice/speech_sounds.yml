@@ -6,3 +6,14 @@
     path: /Audio/_Onyx/Voice/Talk/xenomorph_ask.ogg
   exclaimSound:
     path: /Audio/_Onyx/Voice/Talk/xenomorph_exclaim.ogg
+
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+- type: speechVerb
+  id: VoiceModulator
+  name: chat-speech-verb-VoiceModulator-name
+  speechVerbStrings:
+  - chat-speech-verb-VoiceModulator-1
+  - chat-speech-verb-VoiceModulator-2
+  - chat-speech-verb-VoiceModulator-3
+  - chat-speech-verb-VoiceModulator-4
+  - chat-speech-verb-VoiceModulator-5
