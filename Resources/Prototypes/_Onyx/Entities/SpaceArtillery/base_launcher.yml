@@ -27,14 +27,20 @@
       behaviors:
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
-        mask:
-        - MachineMask
-        layer:
-        - MachineLayer
   - type: Transform
     anchored: true
   - type: Physics
     bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 60
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
   - type: Clickable
   - type: InteractionOutline
   - type: Rotatable

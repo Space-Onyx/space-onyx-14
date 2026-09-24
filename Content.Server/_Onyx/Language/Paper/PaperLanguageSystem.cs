@@ -323,7 +323,6 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         else
             _preserveSegments[ent.Owner] = preserve - 1;
 
-        Dirty(ent.Owner, data);
         foreach (var actor in _ui.GetActors(ent.Owner, PaperUiKey.Key).ToList())
             SendView(ent, actor);
     }
@@ -374,7 +373,6 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         {
             data.Segments = PaperLanguageSegments.ForText(ent.Comp.Content, Universal);
             data.Revision++;
-            Dirty(ent.Owner, data);
             foreach (var key in _sentViews.Keys.Where(key => key.Paper == ent.Owner).ToList())
                 _sentViews.Remove(key);
         }
