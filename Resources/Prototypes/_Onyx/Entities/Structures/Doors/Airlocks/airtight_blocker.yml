@@ -1,0 +1,11 @@
+- type: entity
+  id: AirtightBlocker
+  name: airtight blocker
+  save: false
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Airtight
+    noAirWhenFullyAirBlocked: false
+    fixVacuum: false
+  - type: Transform
+    anchored: true
