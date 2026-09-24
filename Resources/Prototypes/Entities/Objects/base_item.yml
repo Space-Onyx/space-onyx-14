@@ -5,7 +5,6 @@
   components:
   - type: Item
   - type: EdibleMatter # <Onyx-WegaGenetics>
-    size: Small
   - type: Animateable
   - type: Clickable
   - type: InteractionOutline
