@@ -93,7 +93,7 @@
   parent:
   - AppearanceIpc
   - BaseSpeciesMob
-  - MobBloodstream # <Onyx-IPCWounds>
+  - MobOilstream # <Onyx-SyntheticBlood-edited>
   id: MobIpc
   name: Urist McHands
   components:

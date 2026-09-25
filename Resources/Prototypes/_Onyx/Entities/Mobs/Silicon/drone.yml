@@ -1,8 +1,28 @@
 - type: entity
   save: false
   abstract: true
+  id: MobOilstream
+  components:
+  - type: SolutionManager
+  - type: InjectableSolution
+    solution: bloodstream
+  - type: Bloodstream
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: Oil
+        Quantity: 600
+    bloodlossDamage:
+      types:
+        Bloodloss: 0.5
+    bloodlossHealDamage:
+      types:
+        Bloodloss: -1
+
+- type: entity
+  save: false
+  abstract: true
   id: PlayerSiliconBase
-  parent: MobBloodstream
+  parent: MobOilstream
   components:
   - type: Reactive
     groups:
