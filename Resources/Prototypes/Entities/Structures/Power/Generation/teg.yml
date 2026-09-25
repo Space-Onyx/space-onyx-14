@@ -62,8 +62,8 @@
     # It fires processing on behalf of its connected circulators.
     - type: AtmosDevice
     - type: TegGenerator
-      thermalEfficiency: 0.1
-      powerFactor: 2
+      thermalEfficiency: 0.65 # <Onyx-GoobTegBalance-edited>
+      powerFactor: 1 # <Onyx-GoobTegBalance-edited>
 
     - type: DeviceNetwork
       deviceNetId: AtmosDevices

@@ -2,7 +2,7 @@
   id: Oxygen
   name: gas-oxygen
   abbreviation: gas-oxygen-abbreviation
-  molarHeatCapacity: 29
+  molarHeatCapacity: 20 # <Onyx-GoobGasBalance-edited>
   heatCapacityRatio: 1.4
   molarMass: 32
   color: '#2887E8'
@@ -14,7 +14,7 @@
   id: Nitrogen
   name: gas-nitrogen
   abbreviation: gas-nitrogen-abbreviation
-  molarHeatCapacity: 29
+  molarHeatCapacity: 30 # <Onyx-GoobGasBalance-edited>
   heatCapacityRatio: 1.4
   molarMass: 28
   color: '#DA1010'
@@ -25,7 +25,7 @@
   id: CarbonDioxide
   name: gas-carbon-dioxide
   abbreviation: gas-carbon-dioxide-abbreviation
-  molarHeatCapacity: 37
+  molarHeatCapacity: 30 # <Onyx-GoobGasBalance-edited>
   heatCapacityRatio: 1.3
   molarMass: 44
   color: '#4e4e4e'
@@ -55,7 +55,7 @@
   abbreviation: gas-tritium-abbreviation
   molarHeatCapacity: 10
   heatCapacityRatio: 1.3
-  molarMass: 3
+  molarMass: 6 # <Onyx-GoobGasBalance-edited>
   # <Onyx-GoobGasSprites-edited>
   gasOverlaySprite:
     sprite: /Textures/_Onyx/Effects/atmospherics.rsi
@@ -94,7 +94,7 @@
   gasVisibilityFactor: 3.5
   color: '#56941E'
   reagent: Ammonia
-  pricePerMole: 0.15
+  pricePerMole: 1 # <Onyx-GoobGasBalance-edited>
 
 - type: gas
   id: NitrousOxide
@@ -122,4 +122,4 @@
   gasMolesVisible: 0.6
   color: '#3a758c'
   reagent: Frezon
-  pricePerMole: 1
+  pricePerMole: 3 # <Onyx-GoobGasBalance-edited>
