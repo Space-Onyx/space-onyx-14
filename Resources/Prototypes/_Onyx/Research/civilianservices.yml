@@ -293,7 +293,8 @@
     - DnaModifierComputerCircuitboard
     - BorgModuleDNA
   connectionRoutes:
-    BiochemicalStasis: []
+    BiochemicalStasis:
+      - 52,-72
   connectionVisuals:
     BiochemicalStasis:
       thumbnail: Auto

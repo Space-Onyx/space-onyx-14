@@ -19,6 +19,8 @@
       amount: 10000
     - type: Experimental
       amount: 1500
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: MedipenFilling
   name: research-technology-injectors-filling
@@ -35,6 +37,15 @@
   position: 7,-7
   technologyPrerequisites:
     - BiochemicalStasis
+  connectionRoutes:
+    BiochemicalStasis:
+      - 52,-56
+  connectionVisuals:
+    BiochemicalStasis:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 40,18.75
+      targetPort: "-40,0"
 - type: technology
   id: RescueTechnology
   name: research-technology-rescue
@@ -53,3 +64,5 @@
       amount: 8000
     - type: Experimental
       amount: 800
+  connectionRoutes: {}
+  connectionVisuals: {}
