@@ -41,6 +41,7 @@ public sealed partial class ResearchSystem
                 ScannedEntities = new(task.ScannedEntities),
             }).ToList(),
         }).ToList();
+        primaryDb.DestructiveAnalysisCounts = new(otherDb.DestructiveAnalysisCounts); // <Onyx-DestructiveAnalysisLimits>
         // </Onyx-ResearchExperiments>
         // </Onyx-ResearchItemRequirements>
         primaryDb.UnlockedRecipes = new(otherDb.UnlockedRecipes);
@@ -208,6 +209,7 @@ public sealed partial class ResearchSystem
         component.ActiveExperiments = new();
         component.CompletedExperiments = new();
         component.ExperimentProgress = new();
+        component.DestructiveAnalysisCounts = new(); // <Onyx-DestructiveAnalysisLimits>
         // </Onyx-ResearchExperiments>
         component.UnlockedRecipes = new List<ProtoId<LatheRecipePrototype>>();
         Dirty(uid, component);

@@ -7,8 +7,22 @@
 research-experiment-ui-task = { $goal }: { $progress }/{ $target }
 research-experiment-ui-empty = No compatible experiments.
 research-experiment-ui-status-active = Active
+research-experiment-ui-status-other-scanner = Use another scanner
 research-experiment-ui-status-locked = Locked
 research-experiment-ui-status-completed = Completed
+research-experiment-ui-details = Scanner: { $source }
+    Unlock technology: { $technologies }
+    Reward: { $reward }
+research-experiment-ui-source-any = handheld or stationary analyzer
+research-experiment-ui-source-handheld = handheld scanner only
+research-experiment-ui-source-machine = stationary analyzer only
+research-experiment-ui-source-console = research console
+research-experiment-ui-technology-none = available from shift start
+research-experiment-ui-reward-none = no research points
+research-experiment-ui-reward-entry = { $amount } { $type }
+research-experiment-ui-source-label = Analyzer
+research-experiment-ui-technology-label = Unlock
+research-experiment-ui-reward-label = Reward
 research-experiment-network-completed = { $user } completed experiment "{ $experiment }".
 
 research-experiment-uranium-name = Uranium analysis
@@ -46,6 +60,18 @@ research-experiment-tiered-parts-tier2-goal = Record tier 2 machine parts
 research-experiment-tiered-parts-tier3-name = Precision Stock Parts Benchmark
 research-experiment-tiered-parts-tier3-description = Our newly-designed machinery components require practical application tests for hints at possible further advancements. Scan any machinery with precision parts and report the results.
 research-experiment-tiered-parts-tier3-goal = Record tier 3 machine parts
+
+research-experiment-rare-fish-name = Rare fish survey
+research-experiment-rare-fish-description = Record two distinct rare fish species in their habitat.
+research-experiment-rare-fish-goal = Record different rare fish
+
+research-experiment-tritium-synthesis-name = Tritium synthesis analysis
+research-experiment-tritium-synthesis-description = Analyze a tank or canister containing at least 50 moles of tritium at 90% purity or higher.
+research-experiment-tritium-synthesis-goal = Record a synthesized tritium batch
+
+research-experiment-bluespace-crystal-name = Bluespace crystal spectrometry
+research-experiment-bluespace-crystal-description = Analyze a synthesized bluespace crystal to validate stable field containment before developing bluespace storage.
+research-experiment-bluespace-crystal-goal = Record a synthesized bluespace crystal
 
 research-experiment-scanner-window-title = Experiment Scanner
 research-experiment-scanner-no-server = No R&D server connected.

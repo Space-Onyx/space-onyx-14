@@ -99,6 +99,10 @@
   technologyPrerequisites:
     - BluespaceTheory
     - AdvancedToolsTechnology
+  # <Onyx-ResearchExperiments>
+  requiredExperiments:
+    - BluespaceCrystalSpectrometry
+  # </Onyx-ResearchExperiments>
   pointCosts:
     - type: General
       amount: 10000

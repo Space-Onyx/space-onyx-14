@@ -6,6 +6,7 @@
 
 using System.Linq;
 using Content.Server.Research.Systems;
+using Content.Shared._Onyx.Research;
 using Content.Shared._Onyx.Research.Components;
 using Content.Shared._Onyx.Research.Prototypes;
 using Content.Shared.Interaction;
@@ -110,7 +111,7 @@ public sealed partial class ResearchExperimentScannerSystem : EntitySystem
             completed.Add(id);
 
         foreach (var experiment in _prototype.EnumeratePrototypes<ResearchExperimentPrototype>()
-                     .Where(experiment => !experiment.Hidden && (experiment.SupportedSources & source) != 0)
+                     .Where(experiment => !experiment.Hidden)
                      .OrderBy(experiment => completed.Contains(experiment.ID))
                      .ThenByDescending(experiment => active.Contains(experiment.ID))
                      .ThenBy(experiment => Loc.GetString(experiment.Name)))
@@ -139,13 +140,56 @@ public sealed partial class ResearchExperimentScannerSystem : EntitySystem
             entries.Add(new ResearchExperimentUiEntry(
                 Loc.GetString(experiment.Name),
                 Loc.GetString(experiment.Description),
+                GetSourceDescription(experiment.SupportedSources),
+                GetTechnologyDescription(experiment.RequiredTechnologies),
+                GetRewardDescription(experiment.Reward.Points),
                 tasks,
                 completed.Contains(experiment.ID)
                     ? ResearchExperimentUiStatus.Completed
                     : active.Contains(experiment.ID)
-                        ? ResearchExperimentUiStatus.Active
+                        ? (experiment.SupportedSources & source) != 0
+                            ? ResearchExperimentUiStatus.Active
+                            : ResearchExperimentUiStatus.UnsupportedSource
                         : ResearchExperimentUiStatus.Locked));
         }
         return entries;
+    }
+
+    private string GetSourceDescription(ExperimentSource sources)
+    {
+        if (sources == ExperimentSource.AnyScanner)
+            return Loc.GetString("research-experiment-ui-source-any");
+        if (sources == ExperimentSource.HandheldScanner)
+            return Loc.GetString("research-experiment-ui-source-handheld");
+        if (sources == ExperimentSource.MachineScanner)
+            return Loc.GetString("research-experiment-ui-source-machine");
+
+        var names = new List<string>();
+        if ((sources & ExperimentSource.HandheldScanner) != 0)
+            names.Add(Loc.GetString("research-experiment-ui-source-handheld"));
+        if ((sources & ExperimentSource.MachineScanner) != 0)
+            names.Add(Loc.GetString("research-experiment-ui-source-machine"));
+        if ((sources & ExperimentSource.ResearchConsole) != 0)
+            names.Add(Loc.GetString("research-experiment-ui-source-console"));
+        return string.Join(", ", names);
+    }
+
+    private string GetTechnologyDescription(List<ProtoId<Content.Shared.Research.Prototypes.TechnologyPrototype>> technologies)
+    {
+        if (technologies.Count == 0)
+            return Loc.GetString("research-experiment-ui-technology-none");
+
+        return string.Join(", ", technologies.Select(id =>
+            _prototype.TryIndex(id, out var technology) ? Loc.GetString(technology.Name) : id.ToString()));
+    }
+
+    private string GetRewardDescription(List<ResearchPointAmount> rewards)
+    {
+        if (rewards.Count == 0)
+            return Loc.GetString("research-experiment-ui-reward-none");
+
+        return string.Join(", ", rewards.Select(reward => Loc.GetString("research-experiment-ui-reward-entry",
+            ("amount", reward.Amount),
+            ("type", _research.GetPointTypeName(reward.Type)))));
     }
 }

@@ -7,8 +7,22 @@
 research-experiment-ui-task = { $goal }: { $progress }/{ $target }
 research-experiment-ui-empty = Нет совместимых экспериментов.
 research-experiment-ui-status-active = Активен
+research-experiment-ui-status-other-scanner = Нужен другой сканер
 research-experiment-ui-status-locked = Заблокирован
 research-experiment-ui-status-completed = Завершён
+research-experiment-ui-details = Анализатор: { $source }
+    Технология разблокировки: { $technologies }
+    Награда: { $reward }
+research-experiment-ui-source-any = ручной или стационарный анализатор
+research-experiment-ui-source-handheld = только ручной сканер
+research-experiment-ui-source-machine = только стационарный анализатор
+research-experiment-ui-source-console = исследовательская консоль
+research-experiment-ui-technology-none = доступен с начала смены
+research-experiment-ui-reward-none = без исследовательских очков
+research-experiment-ui-reward-entry = { $amount } { $type }
+research-experiment-ui-source-label = Анализатор
+research-experiment-ui-technology-label = Разблокировка
+research-experiment-ui-reward-label = Награда
 research-experiment-network-completed = { $user } завершил эксперимент «{ $experiment }».
 
 research-experiment-uranium-name = Анализ урана
@@ -46,6 +60,18 @@ research-experiment-tiered-parts-tier2-goal = Зарегистрировать �
 research-experiment-tiered-parts-tier3-name = Бенчмарк прецизионных деталей
 research-experiment-tiered-parts-tier3-description = Наши новые компоненты оборудования нуждаются в практических испытаниях. Просканируйте любые машины с прецизионными деталями и доложите о результатах.
 research-experiment-tiered-parts-tier3-goal = Зарегистрировать детали 3 уровня
+
+research-experiment-rare-fish-name = Учёт редких рыб
+research-experiment-rare-fish-description = Зарегистрируйте два разных редких вида рыб в их среде обитания.
+research-experiment-rare-fish-goal = Зарегистрировать разных редких рыб
+
+research-experiment-tritium-synthesis-name = Анализ синтеза трития
+research-experiment-tritium-synthesis-description = Проанализируйте баллон или канистру, содержащую не менее 50 молей трития чистотой не менее 90%.
+research-experiment-tritium-synthesis-goal = Зарегистрировать синтезированную партию трития
+
+research-experiment-bluespace-crystal-name = Спектрометрия блюспейс-кристалла
+research-experiment-bluespace-crystal-description = Проанализируйте синтезированный блюспейс-кристалл, чтобы подтвердить стабильность удерживающего поля перед разработкой блюспейс-хранилищ.
+research-experiment-bluespace-crystal-goal = Зарегистрировать синтезированный блюспейс-кристалл
 
 research-experiment-scanner-window-title = Сканер экспериментов
 research-experiment-scanner-no-server = Нет подключения к серверу РнД.

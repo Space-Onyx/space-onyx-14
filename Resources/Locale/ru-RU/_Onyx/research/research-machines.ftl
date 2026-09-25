@@ -24,6 +24,7 @@ research-machine-destructive-no-item = Образец не вставлен.
 research-machine-destructive-already-analyzed = Загруженный образец уже проанализирован.
 research-machine-destructive-unsupported-method = Выбран неподдерживаемый метод анализа.
 research-machine-destructive-invalid-item = Предмет не подходит для деструктивного анализа.
+research-machine-destructive-analysis-limit-reached = Все возможные данные об этом типе образца уже получены.
 research-machine-destructive-living-subject-blocked = Живые существа не могут быть подвергнуты деструктивному анализу.
 research-machine-destructive-busy = Анализатор уже обрабатывает образец.
 research-machine-destructive-processing = Анализатор начал обработку образца.

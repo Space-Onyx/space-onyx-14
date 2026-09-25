@@ -9,7 +9,6 @@ using Content.Server.Research.Systems;
 using Content.Shared._Onyx.Research;
 using Content.Shared._Onyx.Research.Components;
 using Content.Shared._Onyx.Research.Prototypes;
-using Content.Shared.Item;
 using Content.Shared.Research.Components;
 using Content.Shared.SubFloor;
 using Robust.Server.Audio;
@@ -58,7 +57,8 @@ public sealed partial class ResearchExperimentMachineSystem : EntitySystem
 
     private void OnRun(Entity<ResearchExperimentMachineComponent> ent, ref RunResearchExperimentMessage args)
     {
-        if (ent.Comp.Processing || !_research.TryGetClientServer(ent, out var server, out _))
+        if (ent.Comp.Processing || !_research.TryGetClientServer(ent, out var server, out _) ||
+            !TryComp<TechnologyDatabaseComponent>(server.Value, out var database))
         {
             Fail(ent, ent.Comp.Processing ? "research-experiment-machine-busy" : "research-experiment-scanner-no-server");
             return;
@@ -74,9 +74,10 @@ public sealed partial class ResearchExperimentMachineSystem : EntitySystem
 
         var storage = _container.EnsureContainer<Container>(ent, ent.Comp.ContainerId);
         var samples = _lookup.GetLocalEntitiesIntersecting(tile, 0f)
-            .Where(uid => uid != ent.Owner && HasComp<ItemComponent>(uid) &&
-                          !HasComp<ResearchClientComponent>(uid) && !_container.TryGetContainingContainer(uid, out _) &&
-                          !Transform(uid).Anchored && !IsUnderCover(uid))
+            .Where(uid => uid != ent.Owner &&
+                           !HasComp<ResearchClientComponent>(uid) && !_container.TryGetContainingContainer(uid, out _) &&
+                           !Transform(uid).Anchored && !IsUnderCover(uid) &&
+                           _research.CanProgressExperimentSubject(database, uid, ExperimentSource.MachineScanner))
             .Distinct()
             .Where(uid => _container.Insert(uid, storage))
             .ToList();

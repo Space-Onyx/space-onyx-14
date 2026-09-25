@@ -23,6 +23,9 @@ public sealed partial class TechnologyDatabaseComponent
 
     [DataField, AutoNetworkedField]
     public List<ResearchExperimentProgress> ExperimentProgress = [];
+
+    [DataField, AutoNetworkedField]
+    public Dictionary<string, int> DestructiveAnalysisCounts = [];
 }
 
 [DataDefinition, Serializable, NetSerializable]

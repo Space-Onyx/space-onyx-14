@@ -212,6 +212,53 @@ public sealed partial class ResearchSystem
         return true;
     }
 
+    public bool CanProgressExperimentSubject(
+        TechnologyDatabaseComponent database,
+        EntityUid subject,
+        ExperimentSource source)
+    {
+        foreach (var experimentId in database.ActiveExperiments)
+        {
+            if (!ProtoMan.TryIndex(experimentId, out var experiment) ||
+                (experiment.SupportedSources & source) == 0)
+                continue;
+
+            foreach (var task in experiment.Tasks)
+            {
+                if (task.AnyOf.Any(requirement => MatchesExperiment(subject, requirement)))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool TryReserveDestructiveAnalysis(
+        EntityUid serverUid,
+        string itemType,
+        int requestedUnits,
+        int limit,
+        out int acceptedUnits)
+    {
+        acceptedUnits = requestedUnits;
+        if (limit < 0)
+            return true;
+
+        if (!TryGetNetworkAuthority(serverUid, out var authority, out var server) ||
+            !TryComp<TechnologyDatabaseComponent>(authority, out var database))
+            return false;
+
+        var analyzed = database.DestructiveAnalysisCounts.GetValueOrDefault(itemType);
+        acceptedUnits = Math.Min(requestedUnits, Math.Max(0, limit - analyzed));
+        if (acceptedUnits == 0)
+            return false;
+
+        database.DestructiveAnalysisCounts[itemType] = analyzed + acceptedUnits;
+        Dirty(authority, database);
+        SynchronizeNetwork(authority, server);
+        return true;
+    }
+
     private void CompleteExperiment(
         EntityUid authority,
         ResearchServerComponent server,
@@ -354,7 +401,7 @@ public sealed partial class ResearchSystem
             return false;
 
         var required = mixture.GetMoles(gas);
-        return required > 0f &&
+        return required > 0f && required >= requirement.MinimumGasMoles &&
                (requirement.MinimumGasPurity == null || required / mixture.TotalMoles >= requirement.MinimumGasPurity);
     }
 }

@@ -232,6 +232,7 @@ public sealed partial class DestructiveAnalyzerSystem : EntitySystem
             return;
         }
 
+        var consumedUnits = 1;
         string rewardSummary;
         if (TryGetItemRequirementFromMethod(method, out var requiredTechnology, out var requirement, out var reveals))
         {
@@ -287,9 +288,21 @@ public sealed partial class DestructiveAnalyzerSystem : EntitySystem
                 return;
             }
 
-            var stackMultiplier = 1;
-            if (TryComp<StackComponent>(used, out var stack))
-                stackMultiplier = stack.Count;
+            var stack = CompOrNull<StackComponent>(used);
+            var availableUnits = stack?.Count ?? 1;
+            var analysisKey = MetaData(used).EntityPrototype?.ID ?? Name(used);
+            if (!_research.TryReserveDestructiveAnalysis(
+                    server,
+                    analysisKey,
+                    availableUnits,
+                    analyzable.AnalysisLimit,
+                    out var stackMultiplier))
+            {
+                Fail(ent, "research-machine-destructive-analysis-limit-reached");
+                UpdateAppearance(ent, DestructiveAnalyzerVisualState.Loaded);
+                return;
+            }
+            consumedUnits = stackMultiplier;
 
             foreach (var reward in SharedResearchSystem.AggregatePoints(rewards))
             {
@@ -327,11 +340,10 @@ public sealed partial class DestructiveAnalyzerSystem : EntitySystem
 
         ent.Comp.LastItemAnalyzed = true;
         ent.Comp.LastResult = Loc.GetString("research-machine-destructive-last-result-success", ("result", rewardSummary));
-        if (TryGetItemRequirementFromMethod(method, out _, out _, out _) &&
-            TryComp<StackComponent>(used, out var remainingStack) &&
-            remainingStack.Count > 1)
+        if (TryComp<StackComponent>(used, out var remainingStack) &&
+            remainingStack.Count > consumedUnits)
         {
-            _stack.SetCount((used, remainingStack), remainingStack.Count - 1);
+            _stack.SetCount((used, remainingStack), remainingStack.Count - consumedUnits);
             var container = _container.EnsureContainer<Container>(ent, ent.Comp.ContainerId);
             _container.Remove(used, container);
             _transform.SetCoordinates(used, Transform(ent).Coordinates);

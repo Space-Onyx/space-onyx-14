@@ -3,6 +3,7 @@
   name: research-experiment-uranium-name
   description: research-experiment-uranium-description
   startingExperiment: true
+  supportedSources: HandheldScanner
   tasks:
   - goal: research-experiment-uranium-goal
     anyOf:
@@ -17,9 +18,9 @@
   reward:
     points:
     - type: General
-      amount: 500
+      amount: 300
     - type: Experimental
-      amount: 150
+      amount: 100
 
 - type: researchExperiment
   id: OreClassification
@@ -27,6 +28,7 @@
   description: research-experiment-ore-classification-description
   requiredTechnologies:
   - SalvageEquipment
+  supportedSources: HandheldScanner
   tasks:
   - goal: research-experiment-ore-classification-goal
     target: 3
@@ -37,9 +39,9 @@
   reward:
     points:
     - type: General
-      amount: 500
+      amount: 450
     - type: Experimental
-      amount: 150
+      amount: 125
 
 - type: researchExperiment
   id: ExplosiveYieldAnalysis
@@ -47,6 +49,7 @@
   description: research-experiment-explosive-yield-description
   requiredTechnologies:
   - UraniumMunitions
+  supportedSources: MachineScanner
   tasks:
   - goal: research-experiment-explosive-yield-goal
     anyOf:
@@ -56,9 +59,9 @@
   reward:
     points:
     - type: General
-      amount: 500
+      amount: 700
     - type: Experimental
-      amount: 150
+      amount: 200
 
 - type: researchExperiment
   id: AnomalyCoreAnalysis
@@ -66,6 +69,7 @@
   description: research-experiment-anomaly-core-description
   requiredTechnologies:
   - BasicAnomalousResearch
+  supportedSources: HandheldScanner
   tasks:
   - goal: research-experiment-anomaly-core-goal
     anyOf:
@@ -74,9 +78,9 @@
   reward:
     points:
     - type: General
-      amount: 500
+      amount: 800
     - type: Experimental
-      amount: 150
+      amount: 250
 
 - type: researchExperiment
   id: CyborgArchitectureAnalysis
@@ -84,6 +88,7 @@
   description: research-experiment-cyborg-architecture-description
   requiredTechnologies:
   - BasicRobotics
+  supportedSources: AnyScanner
   tasks:
   - goal: research-experiment-cyborg-architecture-goal
     anyOf:
@@ -92,9 +97,9 @@
   reward:
     points:
     - type: General
-      amount: 500
+      amount: 600
     - type: Experimental
-      amount: 150
+      amount: 175
 
 - type: researchExperiment
   id: CryoxadonePurityAnalysis
@@ -102,6 +107,7 @@
   description: research-experiment-cryoxadone-purity-description
   requiredTechnologies:
   - BiochemicalStasis
+  supportedSources: MachineScanner
   tasks:
   - goal: research-experiment-cryoxadone-purity-goal
     anyOf:
@@ -111,9 +117,9 @@
   reward:
     points:
     - type: General
-      amount: 500
+      amount: 750
     - type: Experimental
-      amount: 150
+      amount: 225
 
 - type: researchExperiment
   id: SeedDiversityAnalysis
@@ -121,6 +127,7 @@
   description: research-experiment-seed-diversity-description
   requiredTechnologies:
   - Hydroponics
+  supportedSources: HandheldScanner
   tasks:
   - goal: research-experiment-seed-diversity-goal
     target: 3
@@ -131,9 +138,9 @@
   reward:
     points:
     - type: General
-      amount: 500
+      amount: 400
     - type: Experimental
-      amount: 150
+      amount: 100
 
 - type: researchExperiment
   id: TieredPartsAnalysisTier2
@@ -141,6 +148,7 @@
   description: research-experiment-tiered-parts-tier2-description
   requiredTechnologies:
   - CalibratedMachineParts
+  supportedSources: MachineScanner
   tasks:
   - goal: research-experiment-tiered-parts-tier2-goal
     target: 3
@@ -150,7 +158,7 @@
   reward:
     points:
     - type: General
-      amount: 500
+      amount: 600
     - type: Experimental
       amount: 150
 
@@ -160,6 +168,7 @@
   description: research-experiment-tiered-parts-tier3-description
   requiredTechnologies:
   - PrecisionMachineParts
+  supportedSources: MachineScanner
   tasks:
   - goal: research-experiment-tiered-parts-tier3-goal
     target: 5
@@ -169,6 +178,66 @@
   reward:
     points:
     - type: General
+      amount: 1000
+    - type: Experimental
+      amount: 300
+
+- type: researchExperiment
+  id: RareFishSurvey
+  name: research-experiment-rare-fish-name
+  description: research-experiment-rare-fish-description
+  requiredTechnologies:
+  - Hydroponics
+  supportedSources: HandheldScanner
+  tasks:
+  - goal: research-experiment-rare-fish-goal
+    target: 2
+    requireDifferentPrototypes: true
+    anyOf:
+    - conditions:
+      - RareFish
+  reward:
+    points:
+    - type: General
       amount: 500
     - type: Experimental
-      amount: 150
+      amount: 125
+
+- type: researchExperiment
+  id: TritiumSynthesisAnalysis
+  name: research-experiment-tritium-synthesis-name
+  description: research-experiment-tritium-synthesis-description
+  requiredTechnologies:
+  - AdvancedAtmospherics
+  supportedSources: MachineScanner
+  tasks:
+  - goal: research-experiment-tritium-synthesis-goal
+    anyOf:
+    - gas: Tritium
+      minimumGasMoles: 50
+      minimumGasPurity: 0.9
+  reward:
+    points:
+    - type: General
+      amount: 900
+    - type: Experimental
+      amount: 250
+
+- type: researchExperiment
+  id: BluespaceCrystalSpectrometry
+  name: research-experiment-bluespace-crystal-name
+  description: research-experiment-bluespace-crystal-description
+  requiredTechnologies:
+  - BluespaceTheory
+  supportedSources: MachineScanner
+  tasks:
+  - goal: research-experiment-bluespace-crystal-goal
+    anyOf:
+    - prototypes:
+      - MaterialBSCrystal1
+  reward:
+    points:
+    - type: General
+      amount: 400
+    - type: Experimental
+      amount: 125

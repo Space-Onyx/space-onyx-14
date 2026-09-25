@@ -30,11 +30,17 @@ public sealed class RunResearchExperimentMessage : BoundUserInterfaceMessage;
 public sealed class ResearchExperimentUiEntry(
     string name,
     string description,
+    string source,
+    string requiredTechnologies,
+    string reward,
     List<ResearchExperimentTaskUiEntry> tasks,
     ResearchExperimentUiStatus status)
 {
     public string Name = name;
     public string Description = description;
+    public string Source = source;
+    public string RequiredTechnologies = requiredTechnologies;
+    public string Reward = reward;
     public List<ResearchExperimentTaskUiEntry> Tasks = tasks;
     public ResearchExperimentUiStatus Status = status;
 }
@@ -43,6 +49,7 @@ public sealed class ResearchExperimentUiEntry(
 public enum ResearchExperimentUiStatus : byte
 {
     Active,
+    UnsupportedSource,
     Locked,
     Completed,
 }

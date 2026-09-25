@@ -23,6 +23,7 @@ research-machine-destructive-no-item = No sample inserted.
 research-machine-destructive-already-analyzed = The loaded sample is already analyzed.
 research-machine-destructive-unsupported-method = Unsupported analysis method selected.
 research-machine-destructive-invalid-item = The item cannot be destructively analyzed.
+research-machine-destructive-analysis-limit-reached = All available data for this sample type has already been collected.
 research-machine-destructive-living-subject-blocked = Living subjects cannot be destructively analyzed.
 research-machine-destructive-busy = The analyzer is already processing a sample.
 research-machine-destructive-processing = The analyzer started processing the sample.

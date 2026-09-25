@@ -54,7 +54,7 @@ public enum ExperimentSource : byte
     ResearchConsole = 1 << 0,
     MachineScanner = 1 << 1,
     HandheldScanner = 1 << 2,
-    AnyScanner = ResearchConsole | MachineScanner | HandheldScanner,
+    AnyScanner = MachineScanner | HandheldScanner,
 }
 
 [DataDefinition]
@@ -105,6 +105,9 @@ public sealed partial class ResearchExperimentRequirement
 
     [DataField]
     public float? MinimumGasPurity;
+
+    [DataField]
+    public float MinimumGasMoles;
 
     [DataField]
     public float? MinimumExplosiveIntensity;

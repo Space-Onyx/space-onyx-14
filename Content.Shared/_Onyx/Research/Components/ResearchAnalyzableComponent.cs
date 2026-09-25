@@ -12,6 +12,13 @@ namespace Content.Shared._Onyx.Research.Components;
 public sealed partial class ResearchAnalyzableComponent : Component
 {
     /// <summary>
+    /// Maximum number of units of this item type that one research network can analyze.
+    /// A negative value disables the limit.
+    /// </summary>
+    [DataField]
+    public int AnalysisLimit = -1;
+
+    /// <summary>
     /// Points awarded per analysis method. Method ids are free-form and localized
     /// via the research-machine-destructive-method-{id} locale keys.
     /// </summary>

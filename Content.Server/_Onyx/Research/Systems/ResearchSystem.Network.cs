@@ -190,6 +190,7 @@ public sealed partial class ResearchSystem
                 ScannedEntities = new(task.ScannedEntities),
             }).ToList(),
         }).ToList();
+        targetDatabase.DestructiveAnalysisCounts = new(sourceDatabase.DestructiveAnalysisCounts);
         targetDatabase.UnlockedRecipes = new(sourceDatabase.UnlockedRecipes);
         Dirty(target, targetDatabase);
     }
@@ -394,6 +395,11 @@ public sealed partial class ResearchSystem
         database.RevealedTechnologies.Clear();
         database.CompletedRevealRequirements.Clear();
         database.CompletedResearchRequirements.Clear();
+        database.UnlockedExperiments.Clear();
+        database.ActiveExperiments.Clear();
+        database.CompletedExperiments.Clear();
+        database.ExperimentProgress.Clear();
+        database.DestructiveAnalysisCounts.Clear();
         database.UnlockedRecipes.Clear();
         UpdateTechnologyCards(server, database);
         Dirty(server, database);
