@@ -1,0 +1,6 @@
+- type: construction
+  parent: BaseStructureFullTile
+  id: DoubleGlassAirlockAssembly
+  name: construction-recipe-double-glass-airlock
+  graph: DoubleAirlock
+  targetNode: assembly

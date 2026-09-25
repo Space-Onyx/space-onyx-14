@@ -107,7 +107,6 @@
   id: DoubleGlassAirlockAssembly
   name: double glass airlock assembly
   description: It opens, it closes, and maybe crushes you, but it's bigger than normal door.
-  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _Onyx/Structures/Doors/Airlocks/Double/double_glass_airlock.rsi
