@@ -11,7 +11,7 @@
             <Button Name="OrgansButton" Text="{Loc health-analyzer-window-organs-tab}" MinWidth="130" MinHeight="30" HorizontalExpand="True" StyleClasses="OpenBoth" /> <!-- <Onyx-HealthAnalyzerChemicals-edited> -->
             <Button Name="ChemicalsButton" Text="{Loc health-analyzer-window-chemicals-tab}" MinWidth="130" MinHeight="30" HorizontalExpand="True" StyleClasses="OpenLeft" /> <!-- <Onyx-HealthAnalyzerChemicals> -->
         </BoxContainer>
-        <PanelContainer StyleClasses="LowDivider" />
+        <controls:Separator StyleClasses="LowDivider" />
         <ScrollContainer Margin="5 5 5 5" ReturnMeasure="True" VerticalExpand="True">
 
         <ui:HealthAnalyzerControl

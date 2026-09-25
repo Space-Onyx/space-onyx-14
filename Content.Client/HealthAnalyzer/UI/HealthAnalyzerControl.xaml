@@ -28,7 +28,7 @@
             </BoxContainer>
             <Label Margin="0 0 5 0" HorizontalExpand="True" HorizontalAlignment="Right" VerticalExpand="True" VerticalAlignment="Top" Name="ScanModeLabel" Text="{Loc 'health-analyzer-window-entity-unknown-text'}" />
         </BoxContainer>
-        <PanelContainer StyleClasses="LowDivider" />
+        <controls:Separator StyleClasses="LowDivider" />
         <GridContainer Margin="0 5 0 0" Columns="2">
             <Label Text="{Loc 'health-analyzer-window-entity-status-text'}" />
             <Label Name="StatusLabel" />
@@ -38,7 +38,7 @@
             <Label Name="BloodLabel" />
         </GridContainer>
     </BoxContainer>
-    <PanelContainer Margin="0 5" StyleClasses="LowDivider" />
+    <controls:Separator Margin="0 5" StyleClasses="LowDivider" />
     <BoxContainer Name="BodyTab" Orientation="Vertical" HorizontalExpand="True">
     <!-- </Onyx-HealthAnalyzer-WoundPanel> -->
     <GridContainer Margin="0 5 0 0" Columns="2">
@@ -50,9 +50,9 @@
         <!-- </Onyx-VitalDamage> -->
     </GridContainer>
     <!-- <Onyx-DamageDivider> -->
-    <PanelContainer Margin="0 5 0 0" StyleClasses="LowDivider" />
+    <controls:Separator Margin="0 5 0 0" StyleClasses="LowDivider" />
     <!-- </Onyx-DamageDivider> -->
-    <PanelContainer Name="AlertsDivider" Visible="False" StyleClasses="LowDivider" />
+    <controls:Separator Name="AlertsDivider" Visible="False" StyleClasses="LowDivider" />
 
     <BoxContainer Name="AlertsContainer" Visible="False" Margin="0 5" Orientation="Vertical" HorizontalAlignment="Center">
 
@@ -61,7 +61,7 @@
     <BoxContainer Name="GroupsContainer" Margin="0 5 0 5" Orientation="Vertical">
     </BoxContainer>
     <!-- <Onyx-DiseaseHealthAnalyzer> -->
-    <PanelContainer Name="DiseasesDivider" Visible="False" StyleClasses="LowDivider" />
+    <controls:Separator Name="DiseasesDivider" Visible="False" StyleClasses="LowDivider" />
     <BoxContainer Name="DiseasesContainer" Visible="False" Margin="0 5" Orientation="Vertical" />
     <!-- </Onyx-DiseaseHealthAnalyzer> -->
     </BoxContainer>
@@ -80,7 +80,7 @@
     <controls:Separator StyleClasses="LowDivider" VerticalExpand="True" Orientation="Vertical" MinHeight="5" />
     <BoxContainer Name="WoundDiagnosticColumn" Margin="5 0 0 0" Orientation="Vertical" MinWidth="430" HorizontalExpand="True">
         <Label Text="{Loc health-analyzer-wound-diagnostics-title}" StyleClasses="LabelHeading" />
-        <PanelContainer Margin="0 5 0 5" StyleClasses="LowDivider" />
+        <controls:Separator Margin="0 5 0 5" StyleClasses="LowDivider" />
         <RichTextLabel Name="WoundDiagnosticStateLabel" HorizontalAlignment="Left" HorizontalExpand="True" MaxWidth="430" />
         <BoxContainer Name="WoundFindingsContainer" Orientation="Vertical" HorizontalAlignment="Left" HorizontalExpand="True" />
     </BoxContainer>
