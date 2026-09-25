@@ -1,22 +1,18 @@
-<!-- <Onyx-HealthAnalyzer-WoundPanel-edited> -->
+<!-- <Onyx-HealthAnalyzer-Interface-edited> -->
 <controls:FancyWindow
     xmlns="https://spacestation14.io"
     xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
     xmlns:ui="clr-namespace:Content.Client.HealthAnalyzer.UI"
-    MaxHeight="650"
-    MinSize="790 600">
-    <BoxContainer Orientation="Vertical" VerticalExpand="True">
-        <BoxContainer Orientation="Horizontal" Margin="8 10 8 5">
-            <Button Name="BodyButton" Text="{Loc health-analyzer-window-body-tab}" MinWidth="130" MinHeight="30" HorizontalExpand="True" StyleClasses="OpenRight" />
-            <Button Name="OrgansButton" Text="{Loc health-analyzer-window-organs-tab}" MinWidth="130" MinHeight="30" HorizontalExpand="True" StyleClasses="OpenBoth" /> <!-- <Onyx-HealthAnalyzerChemicals-edited> -->
-            <Button Name="ChemicalsButton" Text="{Loc health-analyzer-window-chemicals-tab}" MinWidth="130" MinHeight="30" HorizontalExpand="True" StyleClasses="OpenLeft" /> <!-- <Onyx-HealthAnalyzerChemicals> -->
+    HeaderClass="BackgroundDark"
+    MinSize="790 560"
+    SetSize="860 620">
+    <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="6" HorizontalExpand="True" VerticalExpand="True">
+        <BoxContainer Orientation="Horizontal">
+            <Button Name="BodyButton" Text="{Loc health-analyzer-window-body-tab}" MinWidth="120" MinHeight="32" HorizontalExpand="True" ToggleMode="True" Pressed="True" StyleClasses="OpenRight" />
+            <Button Name="OrgansButton" Text="{Loc health-analyzer-window-organs-tab}" MinWidth="120" MinHeight="32" HorizontalExpand="True" ToggleMode="True" StyleClasses="OpenBoth" />
+            <Button Name="ChemicalsButton" Text="{Loc health-analyzer-window-chemicals-tab}" MinWidth="120" MinHeight="32" HorizontalExpand="True" ToggleMode="True" StyleClasses="OpenLeft" />
         </BoxContainer>
-        <controls:Separator StyleClasses="LowDivider" />
-        <ScrollContainer Margin="5 5 5 5" ReturnMeasure="True" VerticalExpand="True">
-
-        <ui:HealthAnalyzerControl
-            Name="HealthAnalyzer"/>
-        </ScrollContainer>
+        <ui:HealthAnalyzerControl Name="HealthAnalyzer" HorizontalExpand="True" VerticalExpand="True" />
     </BoxContainer>
 </controls:FancyWindow>
-<!-- </Onyx-HealthAnalyzer-WoundPanel-edited> -->
+<!-- </Onyx-HealthAnalyzer-Interface-edited> -->

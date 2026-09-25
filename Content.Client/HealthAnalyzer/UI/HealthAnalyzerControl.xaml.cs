@@ -76,7 +76,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         if (target == null
             || !_entityManager.HasComponent<DamageableComponent>(target))
         {
-            NoPatientDataText.Visible = true;
+            NoPatientDataPanel.Visible = true; // <Onyx-HealthAnalyzer-Interface-edited>
             // <Onyx-HealthAnalyzer-StatusDoll-edited>
             PatientDataContainer.Visible = false;
             DiagnosticColumns.Visible = false;
@@ -92,7 +92,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
             return;
         }
 
-        NoPatientDataText.Visible = false;
+        NoPatientDataPanel.Visible = false; // <Onyx-HealthAnalyzer-Interface-edited>
         // <Onyx-HealthAnalyzer-StatusDoll-edited>
         PatientDataContainer.Visible = true;
         DiagnosticColumns.Visible = true;
