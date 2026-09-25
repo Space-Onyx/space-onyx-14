@@ -35,7 +35,7 @@ public sealed class TransplantCompatibilityPrototypeTest : GameTest
     public void EveryConcreteBodyPartAndOrganHasCompatibilityProfile()
     {
         var missing = _prototypes.EnumeratePrototypes<EntityPrototype>()
-            .Where(proto => !proto.Abstract &&
+            .Where(proto => !proto.Abstract && !Pair.IsTestPrototype(proto) &&
                 (proto.HasComp<BodyPartComponent>(_componentFactory) || proto.HasComp<DetachableOrganComponent>(_componentFactory)) &&
                 !proto.HasComp<TransplantCompatibilityComponent>(_componentFactory))
             .Select(proto => proto.ID)

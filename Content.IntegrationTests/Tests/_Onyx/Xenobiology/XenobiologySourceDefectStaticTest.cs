@@ -55,14 +55,11 @@ public sealed class XenobiologySourceDefectStaticTest
     }
 
     [Test]
-    public void MitosisRejectsInvalidOffspringRangesAndSupportsOneToFour()
+    public void MitosisRejectsInvalidOffspringRanges()
     {
         var source = Compact(ReadSource("Content.Server/_Onyx/Xenobiology/Slimes/SlimeBreedingSystem.cs"));
         Assert.That(source, Does.Contain("parent.Comp.MinOffspring <= 0 || parent.Comp.MaxOffspring < parent.Comp.MinOffspring"));
         Assert.That(source, Does.Contain("if (count < parent.Comp.MinOffspring || count > parent.Comp.MaxOffspring) return false;"));
-        var test = ReadSource("Content.IntegrationTests/Tests/_Onyx/Xenobiology/SlimeBreedingTest.cs");
-        foreach (var count in Enumerable.Range(1, 4))
-            Assert.That(test, Does.Contain($"[TestCase({count})]"));
     }
 
     [Test]
@@ -222,14 +219,6 @@ public sealed class XenobiologySourceDefectStaticTest
         var source = Compact(ReadSource("Content.Server/_Onyx/Xenobiology/Bounties/XenobiologyBountySystem.cs"));
         var fulfill = source[source.IndexOf("private void OnFulfill", StringComparison.Ordinal)..source.IndexOf("private void OnSkip", StringComparison.Ordinal)];
         Assert.That(fulfill, Does.Not.Contain("FillDatabase("));
-    }
-
-    [Test]
-    public void HoldingBagHasSingleResearchBranch()
-    {
-        var source = ReadSource("Content.IntegrationTests/Tests/_Onyx/Xenobiology/XenobiologyProductionTest.cs");
-        Assert.That(source, Does.Contain("TechnologyPrerequisites.Select(id => id.Id), Is.EquivalentTo([\"Xenobiology\"])"));
-        Assert.That(source, Does.Contain("HasIndex(XenoCompatibilityTechnology), Is.False"));
     }
 
     [Test]

@@ -5,7 +5,6 @@ using Content.Shared._Onyx.Xenobiology.Slimes;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reaction;
 using Content.Shared.EntityEffects;
-using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 
 namespace Content.IntegrationTests.Tests._Onyx.Xenobiology;
@@ -42,7 +41,7 @@ public sealed class SlimeExtractTest : GameTest
     [RunOnSide(Side.Server)]
     public void ExtractIsAtomicOneShotAndModifySlimeClampsGenetics()
     {
-        var uid = SEntMan.SpawnEntity(null, MapCoordinates.Nullspace);
+        var uid = SSpawn(null);
         var extract = SEntMan.AddComponent<SlimeExtractComponent>(uid);
         var slime = SEntMan.AddComponent<XenobioSlimeComponent>(uid);
         SEntMan.AddComponent<ReactiveComponent>(uid);

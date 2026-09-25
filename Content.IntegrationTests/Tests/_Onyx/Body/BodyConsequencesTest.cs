@@ -19,15 +19,23 @@ public sealed class BodyConsequencesTest : GameTest
         await server.WaitIdleAsync();
         var entityManager = server.ResolveDependency<IEntityManager>();
         var map = await Pair.CreateTestMap();
+        var body = EntityUid.Invalid;
 
         await server.WaitAssertion(() =>
         {
-            var body = entityManager.SpawnEntity("MobHuman", map.GridCoords);
+            body = entityManager.SpawnEntity("MobHuman", map.GridCoords);
             var graph = entityManager.System<SharedBodySystem>();
-            var inventory = entityManager.System<InventorySystem>();
             var groin = graph.GetBodyChildrenOfType(body, BodyPartType.Groin).Single().Id;
 
             Assert.That(graph.TryDetachPart(groin), Is.True);
+        });
+
+        await RunTicksSync(2);
+
+        await server.WaitAssertion(() =>
+        {
+            var graph = entityManager.System<SharedBodySystem>();
+            var inventory = entityManager.System<InventorySystem>();
             Assert.Multiple(() =>
             {
                 Assert.That(graph.BodyHasPartType(body, BodyPartType.Groin), Is.False);
@@ -47,16 +55,22 @@ public sealed class BodyConsequencesTest : GameTest
         await server.WaitIdleAsync();
         var entityManager = server.ResolveDependency<IEntityManager>();
         var map = await Pair.CreateTestMap();
+        var body = EntityUid.Invalid;
 
         await server.WaitAssertion(() =>
         {
-            var body = entityManager.SpawnEntity("MobHuman", map.GridCoords);
+            body = entityManager.SpawnEntity("MobHuman", map.GridCoords);
             var graph = entityManager.System<SharedBodySystem>();
-            var inventory = entityManager.System<InventorySystem>();
 
             foreach (var foot in graph.GetBodyChildrenOfType(body, BodyPartType.Foot).ToArray())
                 Assert.That(graph.TryDetachPart(foot.Id), Is.True);
+        });
 
+        await RunTicksSync(2);
+
+        await server.WaitAssertion(() =>
+        {
+            var inventory = entityManager.System<InventorySystem>();
             Assert.That(inventory.HasSlot(body, "shoes"), Is.False);
             Assert.That(inventory.HasSlot(body, "socks"), Is.True);
         });

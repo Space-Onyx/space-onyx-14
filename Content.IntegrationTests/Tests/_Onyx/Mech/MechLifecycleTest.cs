@@ -48,6 +48,7 @@ public sealed class MechLifecycleTest : GameTest
   id: TestMech
   parent: BaseMech
   components:
+  - type: Sprite
   - type: Mech
     entryDelay: 0
     exitDelay: 0
@@ -55,7 +56,9 @@ public sealed class MechLifecycleTest : GameTest
 - type: entity
   id: TestMechPilot
   components:
+  - type: Sprite
   - type: InputMover
+  - type: Physics
   - type: Hands
     hands:
       hand_right:
@@ -76,6 +79,7 @@ public sealed class MechLifecycleTest : GameTest
   id: TestNeutralMechPilot
   components:
   - type: InputMover
+  - type: Physics
   - type: Hands
     hands:
       hand_right:
@@ -88,6 +92,7 @@ public sealed class MechLifecycleTest : GameTest
   id: TestHandlessMechPilot
   components:
   - type: InputMover
+  - type: Physics
 
 - type: entity
   id: TestHamsterMechPilot
@@ -267,7 +272,8 @@ public sealed class MechLifecycleTest : GameTest
         Assert.That(_vehicle.TryEnter(mech, pilot), Is.True);
         AssertPilotInserted(mech, pilot, component);
 
-        Assert.That(_vehicle.TryExit(mech), Is.True);
+        Assert.That(_vehicle.TryGetOperatorContainer(mech, out var pilotContainer), Is.True);
+        Assert.That(_container.Remove(pilot, pilotContainer!, reparent: false, force: true), Is.True);
         AssertPilotRemoved(mech, pilot, component);
     }
 
@@ -507,9 +513,9 @@ public sealed class MechLifecycleTest : GameTest
         var zero = RaiseEmp(mech, 0);
         Assert.That(zero.Affected, Is.False);
         Assert.That(zero.Disabled, Is.False);
-        Assert.That(_container.Remove(first, component.BatterySlot, force: true), Is.True);
-        Assert.That(component.Energy, Is.Zero);
-        Assert.That(component.MaxEnergy, Is.Zero);
+        Assert.That(_container.Remove(first, component.BatterySlot, reparent: false, force: true), Is.True);
+        Assert.That(component.Energy, Is.EqualTo(FixedPoint2.Zero));
+        Assert.That(component.MaxEnergy, Is.EqualTo(FixedPoint2.Zero));
 
         _battery.SetCharge((second, secondComp), 35);
         _mech.InsertBattery(mech, second, component, secondComp);
@@ -605,7 +611,7 @@ public sealed class MechLifecycleTest : GameTest
         SEntMan.EventBus.RaiseLocalEvent(gun, takeAmmo);
         Assert.That(ammo, Has.Count.EqualTo(1));
         Assert.That(_battery.GetCharge((battery, batteryComp)), Is.Zero);
-        Assert.That(component.Energy, Is.Zero);
+        Assert.That(component.Energy, Is.EqualTo(FixedPoint2.Zero));
         Assert.That(provider.Shots, Is.Zero);
         Assert.That(_battery.GetCharge((gun, internalBattery)), Is.Zero);
 

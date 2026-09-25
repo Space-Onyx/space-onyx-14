@@ -8,7 +8,6 @@ using Content.Shared.Stacks;
 using Content.Shared.Tag;
 using Content.Shared.Whitelist;
 using Robust.Shared.Containers;
-using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 
 namespace Content.IntegrationTests.Tests._Onyx.Xenobiology;
@@ -22,12 +21,14 @@ public sealed class XenobiologyBountyTest : GameTest
     [RunOnSide(Side.Server)]
     public void CatalogPoolAndNestedMixedPartialPlanAreExact()
     {
-        var prototypes = SProtoMan.EnumeratePrototypes<XenobiologyBountyPrototype>().ToArray();
+        var prototypes = SProtoMan.EnumeratePrototypes<XenobiologyBountyPrototype>()
+            .Where(prototype => !Pair.IsTestPrototype(prototype))
+            .ToArray();
         Assert.That(prototypes, Has.Length.EqualTo(27));
         Assert.That(prototypes.All(prototype => prototype.PointsAwarded > 0), Is.True);
 
         var system = SEntMan.System<XenobiologyBountySystem>();
-        var station = SEntMan.SpawnEntity(null, MapCoordinates.Nullspace);
+        var station = SSpawn(null);
         var database = SEntMan.AddComponent<StationXenobiologyBountyDatabaseComponent>(station);
         system.FillDatabase((station, database));
         Assert.Multiple(() =>
@@ -39,8 +40,8 @@ public sealed class XenobiologyBountyTest : GameTest
         });
 
         var containers = SEntMan.System<SharedContainerSystem>();
-        var root = SEntMan.SpawnEntity(null, MapCoordinates.Nullspace);
-        var nested = SEntMan.SpawnEntity(null, MapCoordinates.Nullspace);
+        var root = SSpawn(null);
+        var nested = SSpawn(null);
         var rootContainer = containers.EnsureContainer<Container>(root, "root");
         var nestedContainer = containers.EnsureContainer<Container>(nested, "nested");
         Assert.That(containers.Insert(nested, rootContainer), Is.True);

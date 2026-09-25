@@ -4,7 +4,6 @@ using Content.Shared._Onyx.Abductor;
 using Content.Shared.Body;
 using Content.Shared.Mobs.Components;
 using Robust.Shared.Containers;
-using Robust.Shared.Map;
 
 namespace Content.IntegrationTests.Tests._Onyx.Abductor;
 
@@ -29,10 +28,10 @@ public sealed class AbductorExperimentatorTest : GameTest
     {
         var containers = SEntMan.System<SharedContainerSystem>();
         var experimentator = SSpawn("TestAbductorExperimentator");
-        var item = SEntMan.SpawnEntity(null, MapCoordinates.Nullspace);
-        var ghostLikeMob = SEntMan.SpawnEntity(null, MapCoordinates.Nullspace);
+        var item = SSpawn(null);
+        var ghostLikeMob = SSpawn(null);
         SEntMan.AddComponent<MobStateComponent>(ghostLikeMob);
-        var victim = SEntMan.SpawnEntity(null, MapCoordinates.Nullspace);
+        var victim = SSpawn(null);
         SEntMan.AddComponent<MobStateComponent>(victim);
         SEntMan.AddComponent<BodyComponent>(victim);
         SEntMan.AddComponent<AbductorVictimComponent>(victim);

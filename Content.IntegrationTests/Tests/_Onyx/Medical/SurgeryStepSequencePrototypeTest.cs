@@ -45,7 +45,7 @@ public sealed class SurgeryStepSequencePrototypeTest : GameTest
     {
         foreach (var prototype in _prototypes.EnumeratePrototypes<EntityPrototype>())
         {
-            if (prototype.Abstract ||
+            if (prototype.Abstract || Pair.IsTestPrototype(prototype) ||
                 !prototype.TryComp(out SurgeryComponent surgery, _componentFactory))
                 continue;
 

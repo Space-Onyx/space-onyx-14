@@ -3,7 +3,6 @@ using Content.IntegrationTests.Fixtures.Attributes;
 using Content.Shared._Onyx.Xenobiology.Equipment.Components;
 using Content.Shared.Timing;
 using Content.Shared.Timing.Components;
-using Robust.Shared.Map;
 
 namespace Content.IntegrationTests.Tests._Onyx.Xenobiology;
 
@@ -14,8 +13,8 @@ public sealed class XenovacTest : GameTest
     [RunOnSide(Side.Server)]
     public void XenovacPrototypesHaveCapacityWhitelistAndDelays()
     {
-        var tank = SEntMan.SpawnEntity("ClothingBackpackXenoBioTank", MapCoordinates.Nullspace);
-        var nozzle = SEntMan.SpawnEntity("WeaponXenoVacNozzle", MapCoordinates.Nullspace);
+        var tank = SSpawn("ClothingBackpackXenoBioTank");
+        var nozzle = SSpawn("WeaponXenoVacNozzle");
         var tankComp = SEntMan.GetComponent<XenovacTankComponent>(tank);
         var nozzleComp = SEntMan.GetComponent<XenovacComponent>(nozzle);
         var delays = SEntMan.GetComponent<UseDelayComponent>(nozzle);
