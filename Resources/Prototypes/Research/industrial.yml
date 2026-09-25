@@ -16,6 +16,15 @@
   technologyPrerequisites:
     - IndustrialEngineering
     - AtmosphericTech
+  connectionRoutes:
+    IndustrialEngineering:
+      - 68,16
+  connectionVisuals:
+    IndustrialEngineering:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 40,-37.5
+      targetPort: 40,0
 - type: technology
   id: AdvancedPowercells
   name: research-technology-advanced-powercells
@@ -30,6 +39,8 @@
   position: 7,3
   technologyPrerequisites:
     - PowerGeneration
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: AdvancedToolsTechnology
   name: research-technology-advanced-tools
@@ -47,6 +58,14 @@
   position: 9,3
   technologyPrerequisites:
     - IndustrialEngineering
+  connectionRoutes:
+    IndustrialEngineering: []
+  connectionVisuals:
+    IndustrialEngineering:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 40,-18.75
+      targetPort: "-40,0"
 - type: technology
   id: AtmosphericTech
   name: research-technology-atmospheric-tech
@@ -61,6 +80,8 @@
     - GasRecyclerMachineCircuitboard
   position: 7,2
   technologyPrerequisites: []
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: BluespaceStorage
   name: research-technology-bluespace-storage
@@ -83,6 +104,13 @@
       amount: 10000
     - type: Experimental
       amount: 1200
+  connectionRoutes: {}
+  connectionVisuals:
+    AdvancedToolsTechnology:
+      thumbnail: Auto
+      bridge: Auto
+      sourceThumbnailPosition: 76,24
+      targetThumbnailPosition: "-16,44"
 - type: technology
   id: IndustrialEngineering
   name: research-technology-industrial-engineering
@@ -99,6 +127,8 @@
   position: 8,4
   technologyPrerequisites:
     - MechanicalCompression
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: MassExcavation
   name: research-technology-excavation
@@ -121,6 +151,8 @@
       amount: 10000
     - type: Experimental
       amount: 330
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: MechanicalCompression
   name: research-technology-mechanical-compression
@@ -135,6 +167,14 @@
   position: 7,4
   technologyPrerequisites:
     - PowerGeneration
+  connectionRoutes:
+    PowerGeneration:
+      - 52,28
+  connectionVisuals:
+    PowerGeneration:
+      thumbnail: Auto
+      bridge: Auto
+      targetPort: 0,-40
 - type: technology
   id: OptimizedMicrogalvanism
   name: research-technology-optimized-microgalvanism
@@ -156,6 +196,13 @@
       amount: 9000
     - type: Experimental
       amount: 450
+  connectionRoutes: {}
+  connectionVisuals:
+    SMESAdvanced:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 0,-40
+      targetPort: 0,40
 - type: technology
   id: PowerGeneration
   name: research-technology-power-generation
@@ -174,6 +221,8 @@
     - EmitterCircuitboard
   position: 6,3
   technologyPrerequisites: []
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: RipleyAPLU
   name: research-technology-ripley-aplu
@@ -199,6 +248,8 @@
       amount: 7500
     - type: Experimental
       amount: 190
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: SalvageEquipment
   name: research-technology-salvage-equipment
@@ -218,6 +269,8 @@
   position: 6,5
   technologyPrerequisites:
     - SpaceScanning
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: Shuttlecraft
   name: research-technology-shuttlecraft
@@ -241,6 +294,15 @@
       amount: 1000
     - type: Experimental
       amount: 160
+  connectionRoutes:
+    IndustrialEngineering:
+      - 68,40
+  connectionVisuals:
+    IndustrialEngineering:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 40,18.75
+      targetPort: "-40,0"
 - type: technology
   id: SpaceScanning
   name: research-technology-space-scanning
@@ -256,3 +318,5 @@
   position: 6,4
   technologyPrerequisites:
     - PowerGeneration
+  connectionRoutes: {}
+  connectionVisuals: {}

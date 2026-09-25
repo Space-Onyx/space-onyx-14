@@ -5,6 +5,7 @@ using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Input;
+using Robust.Shared.Maths;
 
 namespace Content.Client._Onyx.Research.UI;
 
@@ -26,6 +27,7 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
     private const float ObstaclePenalty = 100000f;
     private const float BridgeHalfGap = 5f;
     private const float BridgeCapHalfLength = 4f;
+    private const float ManualRouteGridStep = 18.75f;
     private const float RouteGridStep = 75f;
 
     private static readonly Color ConnectionColor = Color.FromHex("#718294").WithAlpha(0.48f);
@@ -48,6 +50,7 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
         IReadOnlyList<Vector2> SourceRoute,
         IReadOnlyList<Vector2>? TargetRoute,
         int Priority,
+        ResearchConnectionBridgeMode BridgeMode,
         List<RouteBridge> SourceBridges,
         List<RouteBridge> TargetBridges);
 
@@ -63,7 +66,16 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
         FancyResearchConsoleItem Source,
         FancyResearchConsoleItem Target,
         int Distance,
-        int Priority);
+        int Priority,
+        IReadOnlyList<Vector2i>? ManualRoute,
+        ResearchConnectionThumbnailMode ThumbnailMode,
+        ResearchConnectionBridgeMode BridgeMode,
+        Vector2i? SourceThumbnailPosition,
+        Vector2i? TargetThumbnailPosition,
+        IReadOnlyList<Vector2i> SourceThumbnailRoute,
+        IReadOnlyList<Vector2i> TargetThumbnailRoute,
+        Vector2? SourcePort,
+        Vector2? TargetPort);
     private readonly record struct GridPoint(int X, int Y);
     private readonly record struct GridState(GridPoint Point, GridPoint Direction);
     private static readonly GridPoint[] GridDirections =
@@ -191,38 +203,123 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
                 var delta = target.Prototype.Position - source.Prototype.Position;
                 var distance = (int) (Math.Abs(delta.X) + Math.Abs(delta.Y));
                 var priority = dependentCounts[source.Prototype.ID] * 100 - distance;
-                requests.Add(new ConnectionRequest(source, target, distance, priority));
+                target.Prototype.ConnectionRoutes.TryGetValue(prerequisiteId, out var manualRoute);
+                target.Prototype.ConnectionVisuals.TryGetValue(prerequisiteId, out var visuals);
+                requests.Add(new ConnectionRequest(source, target, distance, priority, manualRoute,
+                    visuals?.Thumbnail ?? ResearchConnectionThumbnailMode.Auto,
+                    visuals?.Bridge ?? ResearchConnectionBridgeMode.Auto,
+                    visuals?.SourceThumbnailPosition,
+                    visuals?.TargetThumbnailPosition,
+                    visuals?.SourceThumbnailRoute ?? [],
+                    visuals?.TargetThumbnailRoute ?? [],
+                    visuals?.SourcePort,
+                    visuals?.TargetPort));
             }
         }
 
-        foreach (var request in requests.Where(request => request.Distance > LongConnectionDistance)
+        foreach (var request in requests.Where(request => !UsesThumbnail(request) && request.ManualRoute != null)
+                     .OrderByDescending(request => request.Priority)
+                     .ThenBy(request => request.Source.Prototype.ID)
+                     .ThenBy(request => request.Target.Prototype.ID))
+        {
+            var route = CreateManualRoute(bounds[request.Source], bounds[request.Target], request.ManualRoute!,
+                request.SourcePort, request.TargetPort);
+            _connections.Add(new RoutedConnection(request.Source, request.Target, route, null, request.Priority,
+                request.BridgeMode, new(), new()));
+            AddSegments(route, request.Source.Prototype.ID, request.Target.Prototype.ID, occupied, true);
+        }
+
+        foreach (var request in requests.Where(UsesThumbnail)
                      .OrderByDescending(request => request.Priority)
                      .ThenBy(request => request.Source.Prototype.ID)
                      .ThenBy(request => request.Target.Prototype.ID))
         {
             var routes = CreateLongRoutes(request.Source, request.Target, bounds[request.Source], bounds[request.Target],
-                obstacles, stubSlots, terminals, occupied);
+                obstacles, stubSlots, terminals, occupied, request.SourceThumbnailPosition, request.TargetThumbnailPosition,
+                request.SourceThumbnailRoute, request.TargetThumbnailRoute, request.SourcePort, request.TargetPort);
             if (routes.Source.Count < 2 || routes.Target.Count < 2)
                 continue;
 
             _connections.Add(new RoutedConnection(request.Source, request.Target, routes.Source, routes.Target,
-                request.Priority - 1000, new(), new()));
+                request.Priority - 1000, request.BridgeMode, new(), new()));
             AddSegments(routes.Source, request.Source.Prototype.ID, request.Target.Prototype.ID, occupied);
             AddSegments(routes.Target, request.Source.Prototype.ID, request.Target.Prototype.ID, occupied);
         }
 
-        foreach (var request in requests.Where(request => request.Distance <= LongConnectionDistance)
+        foreach (var request in requests.Where(request => !UsesThumbnail(request) && request.ManualRoute == null)
                      .OrderByDescending(request => request.Priority)
                      .ThenBy(request => request.Source.Prototype.ID)
                      .ThenBy(request => request.Target.Prototype.ID))
         {
             var route = SelectRoute(bounds[request.Source], bounds[request.Target], obstacles, terminals, occupied,
                 request.Source.Prototype.ID, request.Target.Prototype.ID);
-            _connections.Add(new RoutedConnection(request.Source, request.Target, route, null, request.Priority, new(), new()));
+            _connections.Add(new RoutedConnection(request.Source, request.Target, route, null, request.Priority,
+                request.BridgeMode, new(), new()));
             AddSegments(route, request.Source.Prototype.ID, request.Target.Prototype.ID, occupied, true);
         }
 
         BuildBridges();
+    }
+
+    private static bool UsesThumbnail(ConnectionRequest request)
+        => request.ThumbnailMode == ResearchConnectionThumbnailMode.Always ||
+           request.ThumbnailMode == ResearchConnectionThumbnailMode.Auto &&
+           request.ManualRoute == null && request.Distance > LongConnectionDistance;
+
+    private static IReadOnlyList<Vector2> CreateManualRoute(
+        NodeRect source,
+        NodeRect target,
+        IReadOnlyList<Vector2i> waypoints,
+        Vector2? sourcePort,
+        Vector2? targetPort)
+    {
+        var sourceEdge = sourcePort.HasValue
+            ? source.Center + sourcePort.Value
+            : source.Center;
+        var targetEdge = targetPort.HasValue
+            ? target.Center + targetPort.Value
+            : target.Center;
+        var sourceDirection = sourcePort.HasValue ? GetPortDirection(sourcePort.Value) : Vector2.Zero;
+        var targetDirection = targetPort.HasValue ? GetPortDirection(targetPort.Value) : Vector2.Zero;
+        var route = new List<Vector2> { sourceEdge };
+        if (sourcePort != null)
+            route.Add(GetPortGridExit(source, sourceEdge, sourceDirection));
+        foreach (var waypoint in waypoints)
+            AppendOrthogonal(route, new Vector2(waypoint.X, waypoint.Y) * ManualRouteGridStep + new Vector2(NodeSize / 2f));
+        if (targetPort != null)
+            AppendOrthogonal(route, GetPortGridExit(target, targetEdge, targetDirection));
+        AppendOrthogonal(route, targetEdge);
+
+        var simplified = SimplifyRoute(route).ToList();
+        if (simplified.Count < 2)
+            return [source.Center];
+        if (sourcePort == null)
+            simplified[0] = GetEdgePoint(source, simplified[1] - source.Center);
+        if (targetPort == null)
+            simplified[^1] = GetEdgePoint(target, simplified[^2] - target.Center);
+        return SimplifyRoute(simplified);
+    }
+
+    private static Vector2 GetPortDirection(Vector2 port)
+        => Math.Abs(port.X) >= Math.Abs(port.Y)
+            ? new Vector2(Math.Sign(port.X), 0f)
+            : new Vector2(0f, Math.Sign(port.Y));
+
+    private static Vector2 GetPortGridExit(NodeRect node, Vector2 edge, Vector2 direction)
+    {
+        var distance = MathF.Ceiling(NodeSize / 2f / ManualRouteGridStep) * ManualRouteGridStep;
+        return Math.Abs(direction.X) > 0f
+            ? new Vector2(node.Center.X + direction.X * distance, edge.Y)
+            : new Vector2(edge.X, node.Center.Y + direction.Y * distance);
+    }
+
+    private static void AppendOrthogonal(List<Vector2> route, Vector2 point)
+    {
+        var previous = route[^1];
+        if (!MathHelper.CloseTo(previous.X, point.X) && !MathHelper.CloseTo(previous.Y, point.Y))
+            route.Add(new Vector2(point.X, previous.Y));
+        if (route[^1] != point)
+            route.Add(point);
     }
 
     private void BuildBridges()
@@ -233,17 +330,8 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
             {
                 var first = _connections[firstIndex];
                 var second = _connections[secondIndex];
-                if (first.Source.Prototype.ID == second.Source.Prototype.ID ||
-                    first.Source.Prototype.ID == second.Target.Prototype.ID ||
-                    first.Target.Prototype.ID == second.Source.Prototype.ID ||
-                    first.Target.Prototype.ID == second.Target.Prototype.ID)
+                if (!TrySelectJumper(first, second, out var jumper, out var main))
                     continue;
-
-                var firstIsJumper = first.Priority < second.Priority ||
-                                    first.Priority == second.Priority &&
-                                    string.CompareOrdinal(first.Target.Prototype.ID, second.Target.Prototype.ID) > 0;
-                var jumper = firstIsJumper ? first : second;
-                var main = ReferenceEquals(jumper, first) ? second : first;
                 AddCrossingBridges(jumper.SourceRoute, jumper.SourceBridges, main.SourceRoute);
                 if (main.TargetRoute != null)
                     AddCrossingBridges(jumper.SourceRoute, jumper.SourceBridges, main.TargetRoute);
@@ -262,6 +350,42 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
                 SortBridges(connection.TargetRoute, connection.TargetBridges);
         }
     }
+
+    private static bool TrySelectJumper(
+        RoutedConnection first,
+        RoutedConnection second,
+        out RoutedConnection jumper,
+        out RoutedConnection main)
+    {
+        if (first.BridgeMode == ResearchConnectionBridgeMode.None ||
+            second.BridgeMode == ResearchConnectionBridgeMode.None ||
+            first.BridgeMode == ResearchConnectionBridgeMode.Over &&
+            second.BridgeMode == ResearchConnectionBridgeMode.Over)
+        {
+            jumper = first;
+            main = second;
+            return false;
+        }
+
+        var firstRank = BridgeRank(first.BridgeMode);
+        var secondRank = BridgeRank(second.BridgeMode);
+        var firstIsJumper = first.BridgeMode != ResearchConnectionBridgeMode.Over &&
+            (second.BridgeMode == ResearchConnectionBridgeMode.Over || firstRank > secondRank || firstRank == secondRank &&
+            (first.Priority < second.Priority || first.Priority == second.Priority &&
+             string.CompareOrdinal(first.Target.Prototype.ID, second.Target.Prototype.ID) > 0));
+        jumper = firstIsJumper ? first : second;
+        main = firstIsJumper ? second : first;
+        return true;
+    }
+
+    private static int BridgeRank(ResearchConnectionBridgeMode mode)
+        => mode switch
+        {
+            ResearchConnectionBridgeMode.Under => 3,
+            ResearchConnectionBridgeMode.Auto => 2,
+            ResearchConnectionBridgeMode.Over => 1,
+            _ => 0,
+        };
 
     private static void SortBridges(IReadOnlyList<Vector2> route, List<RouteBridge> bridges)
     {
@@ -703,7 +827,13 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
         IEnumerable<NodeRect> obstacles,
         Dictionary<string, int> stubSlots,
         ICollection<Vector2> terminals,
-        IReadOnlyList<OccupiedSegment> occupied)
+        IReadOnlyList<OccupiedSegment> occupied,
+        Vector2i? sourceThumbnailPosition,
+        Vector2i? targetThumbnailPosition,
+        IReadOnlyList<Vector2i> sourceThumbnailRoute,
+        IReadOnlyList<Vector2i> targetThumbnailRoute,
+        Vector2? sourcePort,
+        Vector2? targetPort)
     {
         var delta = targetItem.Prototype.Position - sourceItem.Prototype.Position;
         var horizontal = Math.Abs(delta.X) >= Math.Abs(delta.Y);
@@ -712,14 +842,72 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
             direction = 1;
 
         var preferred = (horizontal ? Vector2.UnitX : Vector2.UnitY) * direction;
-        var sourceStub = CreateFreeStub(sourceItem.Prototype.ID, source, target, preferred, 1f, obstacles, stubSlots, terminals, occupied);
+        var sourceStub = sourceThumbnailPosition is { } sourcePosition
+            ? CreateThumbnailStub(source, sourcePosition, sourceThumbnailRoute, sourcePort)
+            : sourceThumbnailRoute.Count > 0
+                ? CreateThumbnailStub(source,
+                    CreateFreeStub(sourceItem.Prototype.ID, source, target, preferred, 1f, obstacles, stubSlots, terminals, occupied)[^1],
+                    sourceThumbnailRoute,
+                    sourcePort)
+            : sourcePort is { } sourcePortPosition
+                ? CreatePortStub(source, sourcePortPosition)
+            : CreateFreeStub(sourceItem.Prototype.ID, source, target, preferred, 1f, obstacles, stubSlots, terminals, occupied);
         terminals.Add(sourceStub[^1]);
         var targetOccupied = occupied.ToList();
         AddSegments(sourceStub, sourceItem.Prototype.ID, targetItem.Prototype.ID, targetOccupied);
-        var targetStub = CreateFreeStub(targetItem.Prototype.ID, target, source, -preferred, 1f, obstacles, stubSlots, terminals, targetOccupied);
+        var targetStub = targetThumbnailPosition is { } targetPosition
+            ? CreateThumbnailStub(target, targetPosition, targetThumbnailRoute, targetPort)
+            : targetThumbnailRoute.Count > 0
+                ? CreateThumbnailStub(target,
+                    CreateFreeStub(targetItem.Prototype.ID, target, source, -preferred, 1f, obstacles, stubSlots, terminals, targetOccupied)[^1],
+                    targetThumbnailRoute,
+                    targetPort)
+            : targetPort is { } targetPortPosition
+                ? CreatePortStub(target, targetPortPosition)
+            : CreateFreeStub(targetItem.Prototype.ID, target, source, -preferred, 1f, obstacles, stubSlots, terminals, targetOccupied);
         terminals.Add(targetStub[^1]);
 
         return (sourceStub, targetStub);
+    }
+
+    private static IReadOnlyList<Vector2> CreatePortStub(NodeRect node, Vector2 port)
+    {
+        var direction = GetPortDirection(port);
+        var edge = node.Center + port;
+        return [edge, GetPortGridExit(node, edge, direction)];
+    }
+
+    private static IReadOnlyList<Vector2> CreateThumbnailStub(
+        NodeRect node,
+        Vector2i position,
+        IReadOnlyList<Vector2i> waypoints,
+        Vector2? port)
+        => CreateThumbnailStub(node,
+            new Vector2(position.X, position.Y) * ManualRouteGridStep + new Vector2(NodeSize / 2f),
+            waypoints,
+            port);
+
+    private static IReadOnlyList<Vector2> CreateThumbnailStub(
+        NodeRect node,
+        Vector2 terminal,
+        IReadOnlyList<Vector2i> waypoints,
+        Vector2? port)
+    {
+        var direction = port is { } portPosition ? GetPortDirection(portPosition) : Vector2.Zero;
+        var edge = port is { } portOffset
+            ? node.Center + portOffset
+            : node.Center;
+        var route = new List<Vector2> { edge };
+        if (port != null)
+            route.Add(GetPortGridExit(node, edge, direction));
+        foreach (var waypoint in waypoints)
+            AppendOrthogonal(route, new Vector2(waypoint.X, waypoint.Y) * ManualRouteGridStep + new Vector2(NodeSize / 2f));
+        AppendOrthogonal(route, terminal);
+        if (route.Count < 2)
+            return [node.Center];
+        if (port == null)
+            route[0] = GetEdgePoint(node, route[1] - node.Center);
+        return SimplifyRoute(route);
     }
 
     private static IReadOnlyList<Vector2> CreateFreeStub(string id, NodeRect source, NodeRect target,

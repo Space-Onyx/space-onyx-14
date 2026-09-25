@@ -13,6 +13,8 @@
   position: 7,5
   technologyPrerequisites:
     - MechanicalCompression
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: Bitrunning
   name: research-technology-bitrunning
@@ -30,6 +32,8 @@
   position: 5,6
   technologyPrerequisites:
     - SalvageEquipment
+  connectionRoutes: {}
+  connectionVisuals: {}
 - id: BorgSalvageEquipment
   name: research-technology-borg-salvage-equipment
   type: technology
@@ -48,6 +52,8 @@
       amount: 8000
     - type: Experimental
       amount: 210
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: CalibratedMachineParts
   name: research-technology-calibrated-machine-parts
@@ -66,6 +72,8 @@
   position: 7,6
   technologyPrerequisites:
     - BasicMachineParts
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: Crystallizer
   name: research-technology-crystallizer
@@ -84,6 +92,8 @@
       amount: 9000
     - type: Experimental
       amount: 300
+  connectionRoutes: {}
+  connectionVisuals: {}
 - id: Expeditions
   name: research-technology-expeditions
   type: technology
@@ -102,6 +112,8 @@
   tier: 3
   technologyPrerequisites:
     - MassExcavation
+  connectionRoutes: {}
+  connectionVisuals: {}
 - id: Fulton
   name: research-technology-fulton
   type: technology
@@ -117,6 +129,8 @@
   tier: 1
   technologyPrerequisites:
     - SalvageEquipment
+  connectionRoutes: {}
+  connectionVisuals: {}
 - id: OreBagOfHolding
   name: research-technology-ore-bag-holding
   type: technology
@@ -136,6 +150,14 @@
   technologyPrerequisites:
     - MassExcavation
     - BluespaceTheory
+  connectionRoutes: {}
+  connectionVisuals:
+    BluespaceTheory:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: "-40,-18.75"
+      sourceThumbnailPosition: "-20,49"
+      targetThumbnailPosition: 44,64
 - type: technology
   id: PrecisionMachineParts
   name: research-technology-precision-machine-parts
@@ -156,6 +178,8 @@
     - CalibratedMachineParts
   experimentDiscounts:
     TieredPartsAnalysisTier2: 5000
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: QuantumMachineParts
   name: research-technology-quantum-machine-parts
@@ -182,6 +206,14 @@
       amount: 15000
     - type: Experimental
       amount: 500
+  connectionRoutes: {}
+  connectionVisuals:
+    BluespaceTheory:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: "-40,-18.75"
+      sourceThumbnailPosition: "-24,49"
+      targetThumbnailPosition: 60,64
 - type: technology
   id: Ripley2
   name: research-technology-ripley-mkii
@@ -194,9 +226,11 @@
   recipeUnlocks:
     - RipleyMKIIHarness
     - RipleyUpgradeKit
-  position: 9,6
+  position: 8,6
   technologyPrerequisites:
     - RipleyAPLU
+  connectionRoutes: {}
+  connectionVisuals: {}
 - id: SMESAdvanced
   name: research-technology-advanced-smes
   type: technology
@@ -217,6 +251,8 @@
   technologyPrerequisites:
     - AdvancedPowercells
     - IndustrialEngineering
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: SpecTechFabs
   name: research-technology-spec-tech-fabs
@@ -236,6 +272,8 @@
       amount: 12000
     - type: Experimental
       amount: 1000
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: TechFabs
   name: research-technology-tech-fabs
@@ -253,3 +291,5 @@
   position: 9,4
   technologyPrerequisites:
     - IndustrialEngineering
+  connectionRoutes: {}
+  connectionVisuals: {}

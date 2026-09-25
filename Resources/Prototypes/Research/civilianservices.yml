@@ -19,6 +19,8 @@
       amount: 8000
     - type: Experimental
       amount: 500
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: AdvancedEntertainment
   name: research-technology-advanced-entertainment
@@ -33,6 +35,8 @@
     - MassMediaCircuitboard
   position: 0,-7
   technologyPrerequisites: []
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: AdvancedSpray
   name: research-technology-advanced-spray
@@ -48,6 +52,8 @@
   position: -2,-7
   technologyPrerequisites:
     - AdvancedCleaning
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: AudioVisualCommunication
   name: research-technology-audio-visual-communication
@@ -68,6 +74,15 @@
   position: -1,-8
   technologyPrerequisites:
     - AdvancedEntertainment
+  connectionRoutes:
+    AdvancedEntertainment:
+      - "-4,-64"
+  connectionVisuals:
+    AdvancedEntertainment:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: "-40,-18.75"
+      targetPort: 40,0
 - type: technology
   id: BiochemicalStasis
   name: research-technology-biochemical-stasis
@@ -87,6 +102,8 @@
     - RadiationBodyBag
   position: 6,-8
   technologyPrerequisites: []
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: BluespaceCargoTransport
   name: research-technology-bluespace-cargo-transport
@@ -106,6 +123,14 @@
       amount: 15000
     - type: Experimental
       amount: 5500
+  connectionRoutes: {}
+  connectionVisuals:
+    BluespaceTheory:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: "-40,-18.75"
+      sourceThumbnailPosition: "-22,49"
+      targetThumbnailPosition: 4,-72
 - type: technology
   id: BluespaceChemistry
   name: research-technology-bluespace-chemistry
@@ -126,6 +151,13 @@
       amount: 12000
     - type: Experimental
       amount: 3000
+  connectionRoutes: {}
+  connectionVisuals:
+    BiochemicalStasis:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: "-40,-18.75"
+      targetPort: 40,0
 - type: technology
   id: CritterMechs
   name: research-technology-critter-mechs
@@ -152,6 +184,8 @@
       amount: 7500
     - type: Experimental
       amount: 500
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: FauxAstroTiles
   name: research-technology-faux-astro-tiles
@@ -176,6 +210,15 @@
   position: -1,-6
   technologyPrerequisites:
     - AdvancedEntertainment
+  connectionRoutes:
+    AdvancedEntertainment:
+      - "-4,-48"
+  connectionVisuals:
+    AdvancedEntertainment:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: "-40,18.75"
+      targetPort: 40,0
 - type: technology
   id: HONKMech
   name: research-technology-honk-mech
@@ -199,6 +242,8 @@
   technologyPrerequisites:
     - PushHorn
     - RipleyAPLU
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: Hydroponics
   name: research-technology-basic-hydroponics
@@ -214,6 +259,8 @@
     - ReagentGrinderIndustrialMachineCircuitboard
   position: 4,-7
   technologyPrerequisites: []
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: LauncherSyringe
   name: research-technology-launcher-syringe
@@ -229,6 +276,8 @@
   position: 5,-8
   technologyPrerequisites:
     - BiochemicalStasis
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: MeatManipulation
   name: research-technology-meat-manipulation
@@ -244,6 +293,8 @@
   position: 4,-8
   technologyPrerequisites:
     - Hydroponics
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: MechanizedTreatment
   name: research-technology-mechanized-treatment
@@ -258,6 +309,8 @@
   position: 6,-7
   technologyPrerequisites:
     - BiochemicalStasis
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: PushHorn
   name: research-technology-clowning-utilities
@@ -274,3 +327,12 @@
   position: 1,-6
   technologyPrerequisites:
     - AdvancedEntertainment
+  connectionRoutes:
+    AdvancedEntertainment:
+      - 4,-48
+  connectionVisuals:
+    AdvancedEntertainment:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 40,18.75
+      targetPort: "-40,0"

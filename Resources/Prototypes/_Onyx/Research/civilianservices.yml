@@ -13,6 +13,8 @@
   position: 0,-6
   technologyPrerequisites:
     - AdvancedEntertainment
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: AdvancedCybernaticsUpgrade
   name: research-technology-advanced-cybernatics-upgrade
@@ -39,6 +41,8 @@
       amount: 15000
     - type: Experimental
       amount: 1000
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: AdvancedNeuroInterfaceEmpProtection
   name: research-technology-advanced-neuro-interface-emp-protection
@@ -57,6 +61,8 @@
   position: 10,-8
   technologyPrerequisites:
     - NeuroInterfaceEmpProtection
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: AdvancedTranslation
   name: research-technology-advanced-translation
@@ -90,6 +96,8 @@
   position: 2,-8
   technologyPrerequisites:
     - BasicTranslation
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: AdvancedTreatment
   name: research-technology-onyx-advanced-treatment
@@ -116,6 +124,8 @@
       amount: 10000
     - type: Experimental
       amount: 1000
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: BasicAugmentation
   name: research-technology-basic-augmentation
@@ -132,6 +142,8 @@
   position: 8,-8
   technologyPrerequisites:
     - BasicCybernaticsUpgrade
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: BasicCybernaticsUpgrade
   name: research-technology-basic-cybernatics-upgrade
@@ -158,6 +170,8 @@
   position: 8,-9
   technologyPrerequisites:
     - AdvancedTreatment
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: BasicTranslation
   name: research-technology-basic-translation
@@ -188,6 +202,15 @@
   position: 1,-8
   technologyPrerequisites:
     - AdvancedEntertainment
+  connectionRoutes:
+    AdvancedEntertainment:
+      - 4,-64
+  connectionVisuals:
+    AdvancedEntertainment:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 40,-18.75
+      targetPort: "-40,0"
 - type: technology
   id: BioMass
   name: research-technology-biomass
@@ -202,6 +225,8 @@
     state: icon
   technologyPrerequisites:
     - MeatManipulation
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: CombatAugmentation
   name: research-technology-combat-augmentation
@@ -221,6 +246,14 @@
       amount: 10000
     - type: Experimental
       amount: 2000
+  connectionRoutes:
+    BasicAugmentation: []
+  connectionVisuals:
+    BasicAugmentation:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 40,0
+      targetPort: 40,0
 - type: technology
   id: CyberDeckSystems
   name: research-technology-cyberdeck-systems
@@ -236,6 +269,14 @@
   position: 9,-7
   technologyPrerequisites:
     - BasicAugmentation
+  connectionRoutes:
+    BasicAugmentation: []
+  connectionVisuals:
+    BasicAugmentation:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 40,0
+      targetPort: "-40,0"
 - type: technology
   id: GeneticsModification
   name: research-technology-genetics-modification
@@ -251,6 +292,14 @@
   recipeUnlocks:
     - DnaModifierComputerCircuitboard
     - BorgModuleDNA
+  connectionRoutes:
+    BiochemicalStasis: []
+  connectionVisuals:
+    BiochemicalStasis:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 40,-18.75
+      targetPort: "-40,0"
 - type: technology
   id: HighEndSurgery
   name: research-technology-onyx-high-end-surgery
@@ -270,6 +319,8 @@
       amount: 15000
     - type: Experimental
       amount: 1500
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: HONKWeapons
   name: research-technology-honk-weapons
@@ -285,6 +336,8 @@
   position: 3,-6
   technologyPrerequisites:
     - HONKMech
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: HydroponicsDNA
   name: research-technology-dna-hydroponics
@@ -302,6 +355,13 @@
     - Hydroponics
   requiredExperiments:
     - SeedDiversityAnalysis
+  connectionRoutes:
+    Hydroponics: []
+  connectionVisuals:
+    Hydroponics:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: "-18.75,-40"
 - type: technology
   id: ImplantedTools
   name: research-technology-implanted-tools
@@ -320,6 +380,8 @@
   position: 8,-7
   technologyPrerequisites:
     - BasicAugmentation
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: MedicalBioFabricator
   name: research-technology-medicalbiofabricator
@@ -334,6 +396,8 @@
     state: icon
   technologyPrerequisites:
     - BioMass
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: MedicalScanning
   name: research-technology-medicalscanning
@@ -348,6 +412,8 @@
     state: occupied
   technologyPrerequisites:
     - BiochemicalStasis
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: MetabolicAugmentPower
   name: research-technology-metabolic-augment-power
@@ -366,6 +432,15 @@
   position: 9,-6
   technologyPrerequisites:
     - BasicAugmentation
+  connectionRoutes:
+    BasicAugmentation:
+      - 68,-48
+  connectionVisuals:
+    BasicAugmentation:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 40,0
+      targetPort: "-40,0"
 - type: technology
   id: Music
   name: research-technology-music
@@ -382,6 +457,8 @@
     state: icon
   technologyPrerequisites:
     - AdvancedEntertainment
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: NeuroInterfaceEmpProtection
   name: research-technology-neuro-interface-emp-protection
@@ -400,6 +477,14 @@
   position: 9,-8
   technologyPrerequisites:
     - BasicAugmentation
+  connectionRoutes:
+    BasicAugmentation: []
+  connectionVisuals:
+    BasicAugmentation:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 40,-18.75
+      targetPort: "-40,-18.75"
 - type: technology
   id: RadioisotopeAugmentPower
   name: research-technology-radioisotope-augment-power
@@ -418,6 +503,8 @@
   position: 10,-6
   technologyPrerequisites:
     - MetabolicAugmentPower
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: RadioMusicCommunications
   name: research-technology-radio-music-communication
@@ -435,6 +522,8 @@
   position: -2,-9
   technologyPrerequisites:
     - AudioVisualCommunication
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: SuitModuleMedical
   name: research-technology-suit-module-medical
@@ -457,6 +546,13 @@
   technologyPrerequisites:
     - ModsuitsTech
     - MechanizedTreatment
+  connectionRoutes: {}
+  connectionVisuals:
+    MechanizedTreatment:
+      thumbnail: Auto
+      bridge: Auto
+      sourceThumbnailPosition: 48,-52
+      targetThumbnailPosition: 8,4
 - type: technology
   id: TeleCommunication
   name: research-technology-telecommunication
@@ -476,6 +572,8 @@
     state: telecom-nopower
   technologyPrerequisites:
     - AudioVisualCommunication
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: TeleCommunication_Advanced
   name: research-technology-advanced-telecommunication
@@ -494,3 +592,5 @@
       amount: 1500
   technologyPrerequisites:
     - TeleCommunication
+  connectionRoutes: {}
+  connectionVisuals: {}

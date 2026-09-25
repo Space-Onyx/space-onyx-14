@@ -29,6 +29,14 @@
       amount: 6000
     - type: Experimental
       amount: 200
+  connectionRoutes:
+    BasicRobotics:
+      - "-15,28"
+  connectionVisuals:
+    BasicRobotics:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 18.75,-40
 - id: AnomalyPinpointers
   name: research-technology-anomaly-pinpointing
   type: technology
@@ -48,6 +56,8 @@
   tier: 1
   technologyPrerequisites: []
   cost: 1
+  connectionRoutes: {}
+  connectionVisuals: {}
 - id: ArtifactPinpointers
   name: research-technology-artifact-pinpointing
   type: technology
@@ -66,6 +76,8 @@
       amount: 1
   tier: 1
   technologyPrerequisites: []
+  connectionRoutes: {}
+  connectionVisuals: {}
 - id: AutonomousRobotics
   name: research-technology-autonomous-robotics
   type: technology
@@ -81,6 +93,8 @@
   tier: 1
   technologyPrerequisites:
     - BasicRobotics
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: BluespaceTheory
   name: research-technology-bluespace-theory
@@ -101,6 +115,22 @@
       amount: 8000
     - type: Experimental
       amount: 800
+  connectionRoutes:
+    AbnormalArtifactManipulation:
+      - "-26,56"
+    AdvancedAnomalyResearch:
+      - "-8,56"
+  connectionVisuals:
+    AbnormalArtifactManipulation:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 0,40
+      targetPort: "-40,0"
+    AdvancedAnomalyResearch:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 0,40
+      targetPort: 40,0
 - type: technology
   id: DestructiveAnalysis
   name: research-technology-destructive-analysis
@@ -119,6 +149,8 @@
   position: -3,2
   technologyPrerequisites:
     - AlternativeResearch
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: ModsuitsTech
   name: research-technology-modsuits
@@ -144,6 +176,8 @@
       amount: 5000
     - type: Experimental
       amount: 500
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: NightVisionTech
   name: research-technology-night-vision
@@ -163,6 +197,8 @@
       amount: 7500
     - type: Experimental
       amount: 130
+  connectionRoutes: {}
+  connectionVisuals: {}
 - id: OrganoidRobotics
   name: research-technology-organoid-robotics
   type: technology
@@ -181,6 +217,8 @@
       amount: 100
   technologyPrerequisites:
     - BasicRobotics
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: Pinpointers
   name: research-technology-pinpointing
@@ -196,6 +234,8 @@
   position: -4,2
   technologyPrerequisites:
     - AlternativeResearch
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: SuitModuleAdvanced
   name: research-technology-suit-module-advanced
@@ -225,6 +265,8 @@
       amount: 8000
     - type: Experimental
       amount: 900
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: SuitModuleIndustrial
   name: research-technology-suit-module-industrial
@@ -252,6 +294,8 @@
   technologyPrerequisites:
     - ModsuitsTech
   pointCosts: []
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: SuitModuleUtility
   name: research-technology-suit-module-utility
@@ -278,6 +322,8 @@
       amount: 7500
     - type: Experimental
       amount: 300
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: ThermalVisionTech
   name: research-technology-thermal-vision
@@ -297,6 +343,8 @@
       amount: 8000
     - type: Experimental
       amount: 200
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: XenobagHolding
   name: research-technology-xenobag-holding
@@ -316,6 +364,8 @@
       amount: 10000
     - type: Experimental
       amount: 500
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: Xenobiology
   name: research-technology-xenobiology
@@ -333,3 +383,5 @@
   position: -3,4
   technologyPrerequisites:
     - BasicRobotics
+  connectionRoutes: {}
+  connectionVisuals: {}

@@ -17,6 +17,10 @@
       amount: 5000
     - type: Experimental
       amount: 250
+  connectionRoutes:
+    BasicXenoArcheology:
+      - "-29,44"
+  connectionVisuals: {}
 - type: technology
   id: AdvancedAnomalyResearch
   name: research-technology-advanced-anomaly-research
@@ -40,6 +44,13 @@
       amount: 8000
     - type: Experimental
       amount: 400
+  connectionRoutes:
+    BasicAnomalousResearch: []
+  connectionVisuals:
+    BasicAnomalousResearch:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 18.75,40
 - type: technology
   id: AlternativeResearch
   name: research-technology-alternative-research
@@ -54,6 +65,14 @@
   position: -3,3
   technologyPrerequisites:
     - BasicRobotics
+  connectionRoutes:
+    BasicRobotics:
+      - "-17,28"
+  connectionVisuals:
+    BasicRobotics:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: "-18.75,-40"
 - type: technology
   id: AnomalyCoreHarnessing
   name: research-technology-anomaly-harnessing
@@ -72,6 +91,8 @@
       amount: 9000
     - type: Experimental
       amount: 500
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: BasicAnomalousResearch
   name: research-technology-basic-anomalous-research
@@ -90,6 +111,14 @@
   position: -1,5
   technologyPrerequisites:
     - BasicRobotics
+  connectionRoutes:
+    BasicRobotics:
+      - "-15,36"
+  connectionVisuals:
+    BasicRobotics:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 18.75,40
 - type: technology
   id: BasicRobotics
   name: research-technology-basic-robotics
@@ -115,6 +144,8 @@
     - BorgModuleFireExtinguisher
   position: -2,4
   technologyPrerequisites: []
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: BasicXenoArcheology
   name: research-technology-basic-xenoarcheology
@@ -131,6 +162,14 @@
   position: -3,5
   technologyPrerequisites:
     - BasicRobotics
+  connectionRoutes:
+    BasicRobotics:
+      - "-17,36"
+  connectionVisuals:
+    BasicRobotics:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: "-18.75,40"
 - type: technology
   id: BluespaceTimeManipulation
   name: research-technology-bluespace-time-manipulation
@@ -150,6 +189,8 @@
       amount: 13000
     - type: Experimental
       amount: 1500
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: DeterrenceTechnologies
   name: research-technology-deterrence
@@ -169,6 +210,8 @@
       amount: 7500
     - type: Experimental
       amount: 150
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: GravityManipulation
   name: research-technology-gravity-manipulation
@@ -185,6 +228,13 @@
   technologyPrerequisites:
     - MagnetsTech
     - AnomalyCoreHarnessing
+  connectionRoutes: {}
+  connectionVisuals:
+    MagnetsTech:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 40,0
+      targetPort: "-40,0"
 - type: technology
   id: MagnetsTech
   name: research-technology-magnets-tech
@@ -200,6 +250,8 @@
   position: -1,6
   technologyPrerequisites:
     - BasicAnomalousResearch
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: QuantumLeaping
   name: research-technology-quantum-leaping
@@ -218,6 +270,15 @@
       amount: 10000
     - type: Experimental
       amount: 1500
+  connectionRoutes:
+    BluespaceTheory:
+      - "-17,60"
+  connectionVisuals:
+    BluespaceTheory:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: "-18.75,40"
+      targetPort: 0,-40
 - type: technology
   id: TeleSci
   name: research-technology-telesci
@@ -239,3 +300,5 @@
       amount: 9000
     - type: Experimental
       amount: 900
+  connectionRoutes: {}
+  connectionVisuals: {}

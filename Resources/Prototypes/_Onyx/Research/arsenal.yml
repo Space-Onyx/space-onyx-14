@@ -20,6 +20,14 @@
       amount: 20000
     - type: Experimental
       amount: 2000
+  connectionRoutes:
+    WeaponLaserCellSniperTech:
+      - 52,-9
+  connectionVisuals:
+    WeaponLaserCellSniperTech:
+      thumbnail: Auto
+      bridge: Auto
+      targetPort: "-40,-18.75"
 - type: technology
   id: Durand
   name: research-technology-durand
@@ -48,6 +56,8 @@
       amount: 30000
     - type: Experimental
       amount: 1500
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: ExplosiveMechAmmunition
   name: research-technology-explosive-mech-ammunition
@@ -63,6 +73,13 @@
   technologyPrerequisites:
     - Gygax
     - ExplosiveTechnology
+  connectionRoutes:
+    Gygax: []
+  connectionVisuals:
+    Gygax:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: "-18.75,-40"
 - type: technology
   id: Gygax
   name: research-technology-gygax
@@ -90,6 +107,8 @@
       amount: 19000
     - type: Experimental
       amount: 1300
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: IntegratedAdvancedWeaponAugments
   name: research-technology-integrated-advanced-weapon-augments
@@ -110,6 +129,8 @@
       amount: 15000
     - type: Experimental
       amount: 400
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: IntegratedWeaponAugments
   name: research-technology-integrated-weapon-augments
@@ -131,12 +152,14 @@
       amount: 10000
     - type: Experimental
       amount: 300
+  connectionRoutes: {}
+  connectionVisuals: {}
 - id: KineticMech
   name: research-technology-kenetic-mech
   type: technology
   cost: 10000
   discipline: Arsenal
-  position: 8,6
+  position: 9,6
   recipeUnlocks:
     - MechEquipmentKineticAccelerator
   icon:
@@ -145,6 +168,15 @@
   tier: 2
   technologyPrerequisites:
     - RipleyAPLU
+  connectionRoutes:
+    RipleyAPLU:
+      - 65,44
+  connectionVisuals:
+    RipleyAPLU:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 18.75,40
+      targetPort: 0,-40
 - id: MechLasers
   name: research-technology-mech-lasers
   type: technology
@@ -164,6 +196,8 @@
   technologyPrerequisites:
     - WeaponLaserCellRevolverTech
     - Gygax
+  connectionRoutes: {}
+  connectionVisuals: {}
 - id: ShuttleKinetic
   name: research-technology-kenetic-shuttle
   type: technology
@@ -177,6 +211,8 @@
   tier: 2
   technologyPrerequisites:
     - BasicShuttleArmament
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: WeaponLaserCellLMGTech
   name: research-technology-mag-fed-lmg
@@ -196,6 +232,8 @@
       amount: 15000
     - type: Experimental
       amount: 1000
+  connectionRoutes: {}
+  connectionVisuals: {}
 - type: technology
   id: WeaponLaserCellRevolverTech
   name: research-technology-mag-fed-pistol
@@ -214,8 +252,15 @@
   pointCosts:
     - type: General
       amount: 5000
-    - type: General
+    - type: Experimental
       amount: 400
+  connectionRoutes: {}
+  connectionVisuals:
+    ConcentratedLaserWeaponry:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: "-40,18.75"
+      targetPort: 0,-40
 - type: technology
   id: WeaponLaserCellSMGTech
   name: research-technology-mag-fed-smg
@@ -236,6 +281,14 @@
       amount: 10000
     - type: Experimental
       amount: 600
+  connectionRoutes:
+    WeaponLaserCellRevolverTech: []
+  connectionVisuals:
+    WeaponLaserCellRevolverTech:
+      thumbnail: Auto
+      bridge: Auto
+      sourcePort: 40,18.75
+      targetPort: "-40,0"
 - type: technology
   id: WeaponLaserCellSniperTech
   name: research-technology-mag-fed-sniper
@@ -256,3 +309,5 @@
       amount: 15000
     - type: Experimental
       amount: 800
+  connectionRoutes: {}
+  connectionVisuals: {}
