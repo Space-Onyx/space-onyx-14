@@ -3,4 +3,4 @@
   id: DoubleGlassAirlockAssembly
   name: construction-recipe-double-glass-airlock
   graph: DoubleAirlock
-  targetNode: assembly
+  targetNode: doubleGlassAirlock
