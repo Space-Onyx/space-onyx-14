@@ -7,7 +7,7 @@
     MinSize="790 560"
     SetSize="860 620">
     <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="6" HorizontalExpand="True" VerticalExpand="True">
-        <BoxContainer Orientation="Horizontal">
+        <BoxContainer Name="TabButtons" Orientation="Horizontal">
             <Button Name="BodyButton" Text="{Loc health-analyzer-window-body-tab}" MinWidth="120" MinHeight="32" HorizontalExpand="True" ToggleMode="True" Pressed="True" StyleClasses="OpenRight" />
             <Button Name="OrgansButton" Text="{Loc health-analyzer-window-organs-tab}" MinWidth="120" MinHeight="32" HorizontalExpand="True" ToggleMode="True" StyleClasses="OpenBoth" />
             <Button Name="ChemicalsButton" Text="{Loc health-analyzer-window-chemicals-tab}" MinWidth="120" MinHeight="32" HorizontalExpand="True" ToggleMode="True" StyleClasses="OpenLeft" />
