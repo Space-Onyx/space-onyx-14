@@ -10,7 +10,7 @@
     anchored: true
   - type: Clickable
   - type: Sprite
-    sprite: _Onyx/Tiles/Planet/Chasms/chasm_opening.rsi
+    sprite: _Onyx/Tiles/planet/Chasms/chasm_opening.rsi
     drawdepth: BelowFloor
     layers:
     - state: chasm-opening
