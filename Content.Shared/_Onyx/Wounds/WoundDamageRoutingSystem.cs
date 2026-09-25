@@ -330,7 +330,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                TryRouteTargetedDamage(body,
                    damage,
                    snapshot.RequestedTarget,
-                   snapshot.Shooter,
+                   GetEntity(snapshot.Shooter),
                    out damageDealt,
                    ignoreResistances,
                    origin);
@@ -602,7 +602,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
                 {
                     if (origin is { } source &&
                         TryComp(source, out TargetingSnapshotComponent? snapshot) &&
-                        _targetResolver.TryResolve(body, snapshot.RequestedTarget, snapshot.Shooter, out var snapshotPart))
+                        _targetResolver.TryResolve(body, snapshot.RequestedTarget, GetEntity(snapshot.Shooter), out var snapshotPart))
                         _requestedParts[body] = snapshotPart;
                     else if (origin is { } light && HasComp<PoweredLightComponent>(light) &&
                              TryGetActiveHandPart(body, out var handPart))

@@ -37,7 +37,7 @@ public sealed partial class HitscanBasicDamageSystem : EntitySystem
             var routed = _woundRouting.TryRouteTargetedDamage(args.Data.HitEntity.Value,
                 dmg,
                 snapshot.RequestedTarget,
-                snapshot.Shooter,
+                GetEntity(snapshot.Shooter),
                 out damageDealt);
             damaged = routed && !damageDealt.Empty;
             if (!routed)

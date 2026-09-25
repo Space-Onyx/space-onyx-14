@@ -77,6 +77,7 @@ public partial class FancyVendingMachineMenu : FancyWindow
             _entityManager.QueueDeleteEntity(entity);
         }
         _dummies.Clear();
+        _cachedItems.Clear();
         _pendingSolutionAppearances.Clear();
     }
 

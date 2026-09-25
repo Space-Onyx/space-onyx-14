@@ -9,5 +9,5 @@ public sealed partial class TargetingSnapshotComponent : Component
     public TargetBodyPart RequestedTarget = TargetBodyPart.Chest;
 
     [DataField, AutoNetworkedField]
-    public EntityUid? Shooter;
+    public NetEntity? Shooter;
 }

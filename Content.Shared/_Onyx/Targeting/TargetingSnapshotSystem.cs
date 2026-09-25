@@ -28,7 +28,7 @@ public sealed partial class TargetingSnapshotSystem : EntitySystem
 
         var snapshot = EnsureComp<TargetingSnapshotComponent>(carrier);
         snapshot.RequestedTarget = targeting.Target;
-        snapshot.Shooter = source;
+        snapshot.Shooter = GetNetEntity(source);
         Dirty(carrier, snapshot);
         return true;
     }
