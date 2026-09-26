@@ -7,7 +7,7 @@
     Glass: 500
     Gold: 500
     Silver: 500
-  icon: { sprite: _Onyx/Structures/Machines/comms_transmitter.rsi, state: base }
+  icon: { sprite: _Onyx/Structures/Machines/telecomms.rsi, state: relay_off }
   result: TelecomTransmitterCircuitboard
 
 - type: latheRecipe
@@ -25,19 +25,19 @@
 - type: latheRecipe
   parent: [ BaseCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
   id: TelecomReceiverCircuitboard
-  icon: { sprite: _Onyx/Structures/Machines/comms_transmitter.rsi, state: base }
+  icon: { sprite: _Onyx/Structures/Machines/telecomms.rsi, state: broadcast receiver_off }
   result: TelecomReceiverCircuitboard
 
 - type: latheRecipe
   parent: [ BaseCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
   id: TelecomProcessorCircuitboard
-  icon: { sprite: _Onyx/Structures/Machines/tele_bus.rsi, state: icon }
+  icon: { sprite: _Onyx/Structures/Machines/telecomms.rsi, state: processor_off }
   result: TelecomProcessorCircuitboard
 
 - type: latheRecipe
   parent: [ BaseCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
   id: TelecomBroadcasterCircuitboard
-  icon: { sprite: _Onyx/Structures/Machines/comms_transmitter.rsi, state: base }
+  icon: { sprite: _Onyx/Structures/Machines/telecomms.rsi, state: broadcaster_off }
   result: TelecomBroadcasterCircuitboard
 
 - type: latheRecipe
@@ -45,3 +45,9 @@
   id: TelecomTrafficConsoleCircuitboard
   icon: { sprite: Structures/Machines/computers.rsi, state: comm_logs }
   result: TelecomTrafficConsoleCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
+  id: TelecomHubCircuitboard
+  icon: { sprite: _Onyx/Structures/Machines/telecomms.rsi, state: hub_off }
+  result: TelecomHubCircuitboard

@@ -18,6 +18,10 @@ signal-port-name-telecom-server-monitor-output = Traffic monitor
 signal-port-description-telecom-server-monitor-output = Connects the server to a telecommunication traffic console.
 signal-port-name-telecom-console-input = Server monitor input
 signal-port-description-telecom-console-input = Accepts telecommunication servers whose traffic should be monitored.
+signal-port-name-telecom-hub-input = Telecom hub input
+signal-port-description-telecom-hub-input = Receives signals from receivers and telecommunication servers.
+signal-port-name-telecom-hub-output = Telecom hub output
+signal-port-description-telecom-hub-output = Routes aggregated signals to buses and broadcasters.
 
 signal-port-name-triggered-signaller = Triggered
 signal-port-description-triggered-signaller = Emitted when signaller activates.

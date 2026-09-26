@@ -37,23 +37,35 @@ public enum TelecomHardwareType : byte
     Bus,
     Broadcaster,
     Server,
+    Hub,
+    Transmitter,
 }
 
 [Serializable, NetSerializable]
 public sealed class TelecomHardwareInfo(
+    NetEntity entity,
     TelecomHardwareType type,
     int index,
     bool powered,
     int calibration,
     int wear,
-    int loadPercent)
+    int loadPercent,
+    string name,
+    int linkCount,
+    int bandwidth,
+    List<string> links)
 {
+    public readonly NetEntity Entity = entity;
     public readonly TelecomHardwareType Type = type;
     public readonly int Index = index;
     public readonly bool Powered = powered;
     public readonly int Calibration = calibration;
     public readonly int Wear = wear;
     public readonly int LoadPercent = loadPercent;
+    public readonly string Name = name;
+    public readonly int LinkCount = linkCount;
+    public readonly int Bandwidth = bandwidth;
+    public readonly List<string> Links = links;
 }
 
 [Serializable, NetSerializable]

@@ -2,7 +2,7 @@
   id: TelecomReceiverOutput
   name: signal-port-name-telecom-receiver-output
   description: signal-port-description-telecom-receiver-output
-  defaultLinks: [ TelecomBusInput ]
+  defaultLinks: [ TelecomBusInput, TelecomHubInput ]
 
 - type: sinkPort
   id: TelecomProcessorInput
@@ -35,7 +35,7 @@
   id: TelecomServerOutput
   name: signal-port-name-telecom-server-output
   description: signal-port-description-telecom-server-output
-  defaultLinks: [ TelecomBroadcasterInput ]
+  defaultLinks: [ TelecomBroadcasterInput, TelecomHubInput ]
 
 - type: sinkPort
   id: TelecomBroadcasterInput
@@ -52,6 +52,17 @@
   id: TelecomConsoleInput
   name: signal-port-name-telecom-console-input
   description: signal-port-description-telecom-console-input
+
+- type: sinkPort
+  id: TelecomHubInput
+  name: signal-port-name-telecom-hub-input
+  description: signal-port-description-telecom-hub-input
+
+- type: sourcePort
+  id: TelecomHubOutput
+  name: signal-port-name-telecom-hub-output
+  description: signal-port-description-telecom-hub-output
+  defaultLinks: [ TelecomBusInput, TelecomBroadcasterInput ]
 
 - type: sourcePort
   id: Triggered

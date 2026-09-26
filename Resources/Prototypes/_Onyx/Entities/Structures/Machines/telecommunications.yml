@@ -40,16 +40,14 @@
   description: Carries signals between physically connected telecommunications machines.
   components:
   - type: Sprite
-    sprite: Structures/Machines/telecomms.rsi
+    sprite: _Onyx/Structures/Machines/telecomms.rsi
     snapCardinals: true
     layers:
-    - state: telecom-nopower
-    - state: telecom-stripe
-    - state: telecom-on
-      shader: unshaded
+    - state: bus_off
+    - state: bus
       visible: false
       map: ["enum.PowerDeviceVisualLayers.Powered"]
-    - state: telecom-open
+    - state: bus_o
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: TelecomBus
     maxReceivers: 4
@@ -57,6 +55,15 @@
     maxServers: 2
     routeLossExponent: 2
     routeLossChanceMultiplier: 0.65
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+        enum.WiresVisualLayers.MaintenancePanel:
+          True: { state: bus_o }
+          False: { state: bus_o_off }
   - type: TelecomWear
   - type: DeviceLinkSink
     ports:
@@ -75,19 +82,24 @@
   description: Receives radio signals and passes them into the telecommunications network.
   components:
   - type: Sprite
-    sprite: _Onyx/Structures/Machines/comms_transmitter.rsi
+    sprite: _Onyx/Structures/Machines/telecomms.rsi
     snapCardinals: true
     layers:
-    - state: base
-    - state: transmitter-on
+    - state: broadcast receiver_off
+    - state: broadcast receiver
       visible: false
       map: ["powered-state"]
+    - state: broadcast receiver_o_off
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: GenericVisualizer
     visuals:
       enum.PowerDeviceVisuals.Powered:
         powered-state:
           True: { visible: true }
           False: { visible: false }
+        enum.WiresVisualLayers.MaintenancePanel:
+          True: { state: broadcast receiver_o }
+          False: { state: broadcast receiver_o_off }
   - type: PointLight
     enabled: false
     castShadows: false
@@ -114,18 +126,29 @@
   description: Processes incoming radio signals before they are routed.
   components:
   - type: Sprite
-    sprite: _Onyx/Structures/Machines/tele_bus.rsi
+    sprite: _Onyx/Structures/Machines/telecomms.rsi
     snapCardinals: true
     layers:
-    - state: icon
-    - state: unlit
-      shader: unshaded
+    - state: processor_off
+    - state: processor
+      visible: false
       map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: processor_o
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: TelecomProcessor
     maxBuses: 1
     garbleQualityThreshold: 0.95
     garbleChanceMultiplier: 0.35
     calibrationLatencyMultiplier: 800
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+        enum.WiresVisualLayers.MaintenancePanel:
+          True: { state: processor_o }
+          False: { state: processor_o_off }
   - type: TelecomCalibration
   - type: TelecomNode
     bandwidth: 8
@@ -150,19 +173,24 @@
   description: Broadcasts signals received from the telecommunication router.
   components:
   - type: Sprite
-    sprite: _Onyx/Structures/Machines/comms_transmitter.rsi
+    sprite: _Onyx/Structures/Machines/telecomms.rsi
     snapCardinals: true
     layers:
-    - state: base
-    - state: transmitter-on
+    - state: broadcaster_off
+    - state: broadcaster
       visible: false
       map: ["powered-state"]
+    - state: broadcaster_o_off
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: GenericVisualizer
     visuals:
       enum.PowerDeviceVisuals.Powered:
         powered-state:
           True: { visible: true }
           False: { visible: false }
+        enum.WiresVisualLayers.MaintenancePanel:
+          True: { state: broadcaster_o }
+          False: { state: broadcaster_o_off }
   - type: PointLight
     enabled: false
     castShadows: false
@@ -180,6 +208,53 @@
     - TelecomBroadcasterInput
   - type: Machine
     board: TelecomBroadcasterCircuitboard
+
+- type: entity
+  parent: OnyxTelecomMachineBase
+  id: TelecomHub
+  name: telecommunication hub
+  description: Aggregates receiver and server traffic and routes it through the telecommunications network.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Machines/telecomms.rsi
+    snapCardinals: true
+    layers:
+    - state: hub_off
+    - state: hub
+      visible: false
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: hub_o
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: TelecomHub
+    maxInputs: 8
+    maxOutputs: 8
+    routeLossExponent: 2
+    routeLossChanceMultiplier: 0.5
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+        enum.WiresVisualLayers.MaintenancePanel:
+          True: { state: hub_o }
+          False: { state: hub_o_off }
+  - type: TelecomWear
+  - type: TelecomNode
+    bandwidth: 24
+    basePacketCost: 0.5
+    charactersPerCostUnit: 100
+    loadRecoveryPerSecond: 24
+    telemetryRecoveryPerSecond: 2.4
+  - type: DeviceLinkSink
+    ports:
+    - TelecomHubInput
+  - type: DeviceLinkSource
+    ports:
+    - TelecomHubOutput
+    range: 8
+  - type: Machine
+    board: TelecomHubCircuitboard
 
 - type: entity
   parent: BaseComputer

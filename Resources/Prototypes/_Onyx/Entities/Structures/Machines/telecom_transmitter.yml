@@ -5,13 +5,15 @@
   description: When powered, it allows telecommunication servers to expand their signal.
   components:
   - type: Sprite
-    sprite: _Onyx/Structures/Machines/comms_transmitter.rsi
+    sprite: _Onyx/Structures/Machines/telecomms.rsi
     snapCardinals: true
     layers:
-    - state: base
-    - state: transmitter-on
+    - state: relay_off
+    - state: relay
       visible: false
       map: ["powered-state"]
+    - state: relay_o_off
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: PointLight
     enabled: false
     castShadows: false
@@ -25,7 +27,12 @@
         powered-state:
           True: { visible: true }
           False: { visible: false }
+        enum.WiresVisualLayers.MaintenancePanel:
+          True: { state: relay_o }
+          False: { state: relay_o_off }
   - type: Appearance
+  - type: WiresVisuals
+  - type: WiresPanel
   - type: AmbientOnPowered
   - type: AmbientSound
     volume: -9
@@ -63,5 +70,19 @@
     anchored: true
   - type: Pullable
   - type: TelecomTransmitter
+    lossExponent: 2
+    lossChanceMultiplier: 0.65
+    congestionDropThreshold: 1
+    congestionDropChanceMultiplier: 0.4
+    maxCongestionDropChance: 0.75
+  - type: TelecomWear
+    wearPerHour: 2
+    damageLossMultiplier: 0.12
+  - type: TelecomNode
+    bandwidth: 20
+    basePacketCost: 1
+    charactersPerCostUnit: 90
+    loadRecoveryPerSecond: 20
+    telemetryRecoveryPerSecond: 2
   - type: Machine
     board: TelecomTransmitterCircuitboard

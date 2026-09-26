@@ -12,7 +12,7 @@
 - type: entity
   parent: TelecomServer
   id: AutonomousTelecomServer
-  suffix: Autonomous, Signal Chain
+  suffix: Autonomous
   components:
   - type: TelecomCalibration
     maintenanceFree: true
@@ -20,7 +20,7 @@
     maintenanceFree: true
   - type: TelecomRouter
     maxBuses: 1
-    standalone: false
+    standalone: true
 
 - type: entity
   parent: TelecomServerFilled
@@ -36,7 +36,10 @@
 - type: entity
   parent: [TelecomServerFilled, AutonomousTelecomServer]
   id: AutonomousTelecomServerFilled
-  suffix: Filled All, Autonomous, Signal Chain
+  suffix: Filled All, Autonomous
+  components:
+  - type: TelecomRouter
+    standalone: true
 
 - type: entity
   parent: TelecomServerFilledCommon
@@ -52,7 +55,10 @@
 - type: entity
   parent: [TelecomServerFilledCommon, AutonomousTelecomServer]
   id: AutonomousTelecomServerFilledCommon
-  suffix: Common, Autonomous, Signal Chain
+  suffix: Common, Autonomous
+  components:
+  - type: TelecomRouter
+    standalone: true
 
 - type: entity
   parent: TelecomServerFilledCargo
@@ -68,7 +74,10 @@
 - type: entity
   parent: [TelecomServerFilledCargo, AutonomousTelecomServer]
   id: AutonomousTelecomServerFilledCargo
-  suffix: Cargo, Autonomous, Signal Chain
+  suffix: Cargo, Autonomous
+  components:
+  - type: TelecomRouter
+    standalone: true
 
 - type: entity
   parent: TelecomServerFilledEngineering
@@ -84,7 +93,10 @@
 - type: entity
   parent: [TelecomServerFilledEngineering, AutonomousTelecomServer]
   id: AutonomousTelecomServerFilledEngineering
-  suffix: Engineering, Autonomous, Signal Chain
+  suffix: Engineering, Autonomous
+  components:
+  - type: TelecomRouter
+    standalone: true
 
 - type: entity
   parent: TelecomServerFilledMedical
@@ -100,7 +112,10 @@
 - type: entity
   parent: [TelecomServerFilledMedical, AutonomousTelecomServer]
   id: AutonomousTelecomServerFilledMedical
-  suffix: Medical, Autonomous, Signal Chain
+  suffix: Medical, Autonomous
+  components:
+  - type: TelecomRouter
+    standalone: true
 
 - type: entity
   parent: TelecomServerFilledScience
@@ -116,7 +131,10 @@
 - type: entity
   parent: [TelecomServerFilledScience, AutonomousTelecomServer]
   id: AutonomousTelecomServerFilledScience
-  suffix: Science, Autonomous, Signal Chain
+  suffix: Science, Autonomous
+  components:
+  - type: TelecomRouter
+    standalone: true
 
 - type: entity
   parent: TelecomServerFilledSecurity
@@ -132,7 +150,10 @@
 - type: entity
   parent: [TelecomServerFilledSecurity, AutonomousTelecomServer]
   id: AutonomousTelecomServerFilledSecurity
-  suffix: Security, Autonomous, Signal Chain
+  suffix: Security, Autonomous
+  components:
+  - type: TelecomRouter
+    standalone: true
 
 - type: entity
   parent: TelecomServerFilledService
@@ -148,7 +169,10 @@
 - type: entity
   parent: [TelecomServerFilledService, AutonomousTelecomServer]
   id: AutonomousTelecomServerFilledService
-  suffix: Service, Autonomous, Signal Chain
+  suffix: Service, Autonomous
+  components:
+  - type: TelecomRouter
+    standalone: true
 
 - type: entity
   parent: TelecomServerFilledCommand
@@ -164,7 +188,10 @@
 - type: entity
   parent: [TelecomServerFilledCommand, AutonomousTelecomServer]
   id: AutonomousTelecomServerFilledCommand
-  suffix: Command, Autonomous, Signal Chain
+  suffix: Command, Autonomous
+  components:
+  - type: TelecomRouter
+    standalone: true
 
 - type: entity
   parent: TelecomServerFilledLegal
@@ -180,7 +207,10 @@
 - type: entity
   parent: [TelecomServerFilledLegal, AutonomousTelecomServer]
   id: AutonomousTelecomServerFilledLegal
-  suffix: Legal, Autonomous, Signal Chain
+  suffix: Legal, Autonomous
+  components:
+  - type: TelecomRouter
+    standalone: true
 
 - type: entity
   parent: TelecomServer
@@ -208,4 +238,7 @@
 - type: entity
   parent: [TelecomServerFilledHotel, AutonomousTelecomServer]
   id: AutonomousTelecomServerFilledHotel
-  suffix: Hotel, Autonomous, Signal Chain
+  suffix: Hotel, Autonomous
+  components:
+  - type: TelecomRouter
+    standalone: true

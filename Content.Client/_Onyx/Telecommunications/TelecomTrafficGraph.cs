@@ -21,7 +21,7 @@ public sealed class TelecomTrafficGraph : Control
 
     public TelecomTrafficGraph()
     {
-        MinSize = new Vector2(0, 210);
+        MinSize = new Vector2(0, 140);
         HorizontalExpand = true;
     }
 

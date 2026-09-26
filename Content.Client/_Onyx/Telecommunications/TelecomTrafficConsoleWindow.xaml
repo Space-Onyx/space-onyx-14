@@ -3,14 +3,14 @@
                xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
                xmlns:telecom="clr-namespace:Content.Client._Onyx.Telecommunications"
                xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
-               MinSize="1100 900"
+                MinSize="1350 900"
                Title="{Loc 'telecom-traffic-console-title'}">
     <PanelContainer Margin="4">
         <PanelContainer.PanelOverride>
             <gfx:StyleBoxFlat BackgroundColor="#07110d" BorderColor="#56c987" BorderThickness="2"/>
         </PanelContainer.PanelOverride>
 
-        <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="8" Modulate="#b8ffd2">
+        <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="8">
             <Label Text="{Loc 'telecom-traffic-console-heading'}"
                    StyleClasses="ConsoleHeading"
                    HorizontalAlignment="Center"/>
@@ -39,11 +39,15 @@
                 </PanelContainer>
 
                 <TabContainer Name="RightTabs"
-                              MinWidth="600"
+                              MinWidth="480"
                               HorizontalExpand="True"
                               VerticalExpand="True">
-                    <BoxContainer Orientation="Vertical"
+                    <BoxContainer Orientation="Horizontal"
                                   HorizontalExpand="True"
+                                  VerticalExpand="True"
+                                  SeparationOverride="8">
+                    <BoxContainer Orientation="Vertical"
+                                  MinWidth="380"
                                   VerticalExpand="True"
                                   SeparationOverride="8">
                     <PanelContainer>
@@ -51,12 +55,12 @@
                             <gfx:StyleBoxFlat BorderColor="#56c987" BorderThickness="1"/>
                         </PanelContainer.PanelOverride>
                         <BoxContainer Orientation="Horizontal" Margin="8" SeparationOverride="8">
-                            <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+                            <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalAlignment="Center">
                                 <Label Name="SelectedServerLabel" StyleClasses="ConsoleSubHeading"/>
                                 <Label Name="RoutingStatusLabel" StyleClasses="ConsoleText"/>
                                 <Label Name="DiagnosticStatusLabel" StyleClasses="ConsoleText"/>
                             </BoxContainer>
-                            <Button Name="RoutingButton" MinWidth="190"/>
+                            <Button Name="RoutingButton" VerticalAlignment="Center" MinWidth="150" StyleClasses="OpenBoth"/>
                         </BoxContainer>
                     </PanelContainer>
 
@@ -64,42 +68,47 @@
                         <PanelContainer.PanelOverride>
                             <gfx:StyleBoxFlat BorderColor="#56c987" BorderThickness="1"/>
                         </PanelContainer.PanelOverride>
-                        <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="5">
+                        <BoxContainer Orientation="Vertical" Margin="8 8 8 12" SeparationOverride="5">
                             <Label Text="{Loc 'telecom-traffic-console-channels-title'}"
                                    StyleClasses="ConsoleSubHeading"/>
-                            <ScrollContainer SetHeight="60"
-                                             HScrollEnabled="False">
-                                <BoxContainer Name="ChannelList"
-                                              Orientation="Vertical"
-                                              SeparationOverride="2"/>
-                            </ScrollContainer>
+                            <GridContainer Name="ChannelList"
+                                                Columns="2"
+                                                Margin="0 0 0 2"
+                                                HSeparationOverride="4"
+                                                VSeparationOverride="2"/>
                         </BoxContainer>
                     </PanelContainer>
 
-                    <PanelContainer>
+                    <Control MinSize="0 8"/>
+
+                    <PanelContainer VerticalExpand="True">
                         <PanelContainer.PanelOverride>
                             <gfx:StyleBoxFlat BorderColor="#56c987" BorderThickness="1"/>
                         </PanelContainer.PanelOverride>
                         <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="5">
-                            <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                            <BoxContainer Orientation="Vertical" SeparationOverride="4">
                                 <Label Text="{Loc 'telecom-traffic-console-graph-title'}"
                                        StyleClasses="ConsoleSubHeading"
                                        HorizontalExpand="True"/>
-                                <Label Text="{Loc 'telecom-traffic-console-channel-filter'}"
-                                       StyleClasses="ConsoleText"
-                                       VerticalAlignment="Center"/>
-                                <OptionButton Name="GraphChannelFilter" MinWidth="160"/>
-                                <Button Name="SuccessfulFilter"
-                                        Text="{Loc 'telecom-traffic-console-filter-successful'}"
-                                        ToggleMode="True"
-                                        Pressed="True"/>
-                                <Button Name="FailedFilter"
-                                        Text="{Loc 'telecom-traffic-console-filter-failed'}"
-                                        ToggleMode="True"
-                                        Pressed="True"/>
+                                <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                                    <Label Text="{Loc 'telecom-traffic-console-channel-filter'}"
+                                           StyleClasses="ConsoleText"
+                                           VerticalAlignment="Center"/>
+                                    <OptionButton Name="GraphChannelFilter" MinWidth="130" HorizontalExpand="True"/>
+                                    <Button Name="SuccessfulFilter"
+                                            Text="{Loc 'telecom-traffic-console-filter-successful'}"
+                                            ToggleMode="True"
+                                            StyleClasses="OpenBoth"
+                                            Pressed="True"/>
+                                    <Button Name="FailedFilter"
+                                            Text="{Loc 'telecom-traffic-console-filter-failed'}"
+                                            ToggleMode="True"
+                                            StyleClasses="OpenBoth"
+                                            Pressed="True"/>
+                                </BoxContainer>
                             </BoxContainer>
 
-                            <BoxContainer Orientation="Horizontal" SeparationOverride="16">
+                            <BoxContainer Orientation="Horizontal" SeparationOverride="8">
                                 <Label Text="{Loc 'telecom-traffic-console-legend-received'}"
                                        FontColorOverride="#58c7ff"
                                        StyleClasses="ConsoleText"/>
@@ -115,30 +124,33 @@
                                        HorizontalAlignment="Right"/>
                             </BoxContainer>
 
-                            <telecom:TelecomTrafficGraph Name="TrafficGraph"/>
+                            <telecom:TelecomTrafficGraph Name="TrafficGraph" VerticalExpand="True"/>
                             <Label Name="TrafficStatsLabel"
                                    StyleClasses="ConsoleText"
                                    HorizontalAlignment="Center"/>
                         </BoxContainer>
                     </PanelContainer>
 
-                        <PanelContainer VerticalExpand="True">
+                    </BoxContainer>
+                        <PanelContainer HorizontalExpand="True" VerticalExpand="True">
                         <PanelContainer.PanelOverride>
                             <gfx:StyleBoxFlat BorderColor="#56c987" BorderThickness="1"/>
                         </PanelContainer.PanelOverride>
                         <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="5">
-                            <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                            <BoxContainer Orientation="Vertical" SeparationOverride="4">
                                 <Label Name="LogTitleLabel"
                                        StyleClasses="ConsoleSubHeading"
                                        HorizontalExpand="True"/>
-                                <LineEdit Name="LogSearch"
-                                          MinWidth="220"
-                                          PlaceHolder="{Loc 'telecom-traffic-console-log-search'}"/>
-                                <OptionButton Name="LogStatusFilter" MinWidth="155"/>
-                                <Button Name="LiveLogButton"
-                                        Text="{Loc 'telecom-traffic-console-log-live'}"
-                                        ToggleMode="True"
-                                        Pressed="True"/>
+                                <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                                    <LineEdit Name="LogSearch"
+                                              MinWidth="140"
+                                              HorizontalExpand="True"
+                                              PlaceHolder="{Loc 'telecom-traffic-console-log-search'}"/>
+                                    <OptionButton Name="LogStatusFilter" MinWidth="125"/>
+                                    <Button Name="LiveLogButton"
+                                            Text="{Loc 'telecom-traffic-console-log-live'}"
+                                            StyleClasses="OpenBoth"/>
+                                </BoxContainer>
                             </BoxContainer>
 
                             <ui:Separator StyleClasses="LowDivider" Thickness="1" ColorOverride="#56c987" />
@@ -146,6 +158,7 @@
                             <ScrollContainer Name="LogScroll"
                                              HorizontalExpand="True"
                                              VerticalExpand="True"
+                                             MinSize="0 220"
                                              HScrollEnabled="False"
                                              ReserveScrollbarSpace="True">
                                 <BoxContainer Name="LogContainer"

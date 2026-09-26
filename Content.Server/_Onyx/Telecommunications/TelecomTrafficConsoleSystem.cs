@@ -1,6 +1,5 @@
 using Content.Server._Onyx.Telecommunications.Components;
 using Content.Shared._Onyx.Telecommunications;
-using Content.Shared.DeviceLinking;
 using Content.Shared.Labels.Components;
 using Content.Shared.Lock;
 using Content.Shared.Radio;
@@ -262,11 +261,17 @@ public sealed partial class TelecomTrafficConsoleSystem : EntitySystem
         foreach (var entry in hardware)
         {
             hash.Add(entry.Type);
+            hash.Add(entry.Entity);
             hash.Add(entry.Index);
             hash.Add(entry.Powered);
             hash.Add(entry.Calibration);
             hash.Add(entry.Wear);
             hash.Add(entry.LoadPercent);
+            hash.Add(entry.Name);
+            hash.Add(entry.LinkCount);
+            hash.Add(entry.Bandwidth);
+            foreach (var link in entry.Links)
+                hash.Add(link);
         }
 
         return hash.ToHashCode();
@@ -275,13 +280,10 @@ public sealed partial class TelecomTrafficConsoleSystem : EntitySystem
     private List<TelecomTrafficServerInfo> GetServers(EntityUid console)
     {
         var result = new List<TelecomTrafficServerInfo>();
-        if (!TryComp<DeviceLinkSinkComponent>(console, out var sink))
-            return result;
-
-        foreach (var serverUid in sink.LinkedSources)
+        var query = EntityQueryEnumerator<TelecomServerComponent, TelecomSignalLogComponent>();
+        while (query.MoveNext(out var serverUid, out _, out var log))
         {
-            if (!_chain.IsServerLinkedToConsole(serverUid, console) ||
-                !TryComp<TelecomSignalLogComponent>(serverUid, out var log))
+            if (!_chain.IsServerLinkedToConsole(serverUid, console))
                 continue;
 
             var name = GetServerDisplayName(serverUid);
@@ -306,10 +308,9 @@ public sealed partial class TelecomTrafficConsoleSystem : EntitySystem
 
     private bool IsServerVisible(EntityUid console, EntityUid server)
     {
-        return Transform(console).MapID == Transform(server).MapID &&
+        return _chain.IsServerLinkedToConsole(server, console) &&
                HasComp<TelecomServerComponent>(server) &&
-               HasComp<TelecomSignalLogComponent>(server) &&
-               _chain.IsServerLinkedToConsole(server, console);
+               HasComp<TelecomSignalLogComponent>(server);
     }
 
     private static string FormatTime(TimeSpan time)

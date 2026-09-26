@@ -568,6 +568,7 @@
     - TelecomProcessorCircuitboard
     - TelecomBroadcasterCircuitboard
     - TelecomTrafficConsoleCircuitboard
+    - TelecomHubCircuitboard
   icon:
     sprite: Structures/Machines/telecomms.rsi
     state: telecom-nopower
@@ -584,8 +585,8 @@
   recipeUnlocks:
     - TelecomTransmitterCircuitboard
   icon:
-    sprite: _Onyx/Structures/Machines/comms_transmitter.rsi
-    state: transmitter-on
+    sprite: _Onyx/Structures/Machines/telecomms.rsi
+    state: relay
   pointCosts:
     - type: General
       amount: 9000

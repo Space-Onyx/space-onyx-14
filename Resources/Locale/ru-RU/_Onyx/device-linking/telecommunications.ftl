@@ -18,6 +18,10 @@ signal-port-name-telecom-server-monitor-output = Мониторинг трафи
 signal-port-description-telecom-server-monitor-output = Подключает сервер к консоли мониторинга телекоммуникаций.
 signal-port-name-telecom-console-input = Вход мониторинга серверов
 signal-port-description-telecom-console-input = Принимает телекоммуникационные серверы, трафик которых необходимо отслеживать.
+signal-port-name-telecom-hub-input = Вход телекоммуникационного хаба
+signal-port-description-telecom-hub-input = Принимает сигналы от приёмников и телекоммуникационных серверов.
+signal-port-name-telecom-hub-output = Выход телекоммуникационного хаба
+signal-port-description-telecom-hub-output = Направляет объединённые сигналы к шинам и трансляторам.
 
 signal-port-name-triggered-signaller = Срабатывание
 signal-port-description-triggered-signaller = Передаётся при срабатывании сигналлера.

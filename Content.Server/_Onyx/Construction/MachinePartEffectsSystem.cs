@@ -9,10 +9,12 @@ using Content.Server.Power.Components;
 using Content.Server.Kitchen.Components;
 using Content.Server.Power.SMES;
 using Content.Shared._Onyx.Construction;
+using Content.Shared.Radio.Components;
 using Content.Shared._Onyx.Bitrunning.Components;
 using Content.Shared.Atmos.Piping.Unary.Components;
 using Content.Shared.Bed.Components;
 using Content.Server._Onyx.Chemistry.Components;
+using Content.Server._Onyx.Telecommunications.Components;
 
 namespace Content.Server._Onyx.Construction;
 
@@ -29,12 +31,20 @@ public sealed partial class MachinePartEffectsSystem : EntitySystem
         SubscribeLocalEvent<SmesComponent, MachinePartsChangedEvent>(OnSmesPartsChanged);
         SubscribeLocalEvent<QuantumServerComponent, MachinePartsChangedEvent>(OnQuantumServerPartsChanged);
         SubscribeLocalEvent<EnergyReagentDispenserComponent, MachinePartsChangedEvent>(OnEnergyDispenserPartsChanged);
+        SubscribeLocalEvent<TelecomReceiverComponent, MachinePartsChangedEvent>(OnTelecomReceiverPartsChanged);
+        SubscribeLocalEvent<TelecomProcessorComponent, MachinePartsChangedEvent>(OnTelecomProcessorPartsChanged);
+        SubscribeLocalEvent<TelecomBroadcasterComponent, MachinePartsChangedEvent>(OnTelecomBroadcasterPartsChanged);
+        SubscribeLocalEvent<TelecomHubComponent, MachinePartsChangedEvent>(OnTelecomHubPartsChanged);
         SubscribeLocalEvent<SpaceHeaterComponent, MachineUpgradeExamineEvent>(OnSpaceHeaterExamine);
         SubscribeLocalEvent<MicrowaveComponent, MachineUpgradeExamineEvent>(OnMicrowaveExamine);
         SubscribeLocalEvent<StasisBedComponent, MachineUpgradeExamineEvent>(OnStasisExamine);
         SubscribeLocalEvent<SmesComponent, MachineUpgradeExamineEvent>(OnSmesExamine);
         SubscribeLocalEvent<QuantumServerComponent, MachineUpgradeExamineEvent>(OnQuantumServerExamine);
         SubscribeLocalEvent<EnergyReagentDispenserComponent, MachineUpgradeExamineEvent>(OnEnergyDispenserExamine);
+        SubscribeLocalEvent<TelecomReceiverComponent, MachineUpgradeExamineEvent>(OnTelecomReceiverExamine);
+        SubscribeLocalEvent<TelecomProcessorComponent, MachineUpgradeExamineEvent>(OnTelecomProcessorExamine);
+        SubscribeLocalEvent<TelecomBroadcasterComponent, MachineUpgradeExamineEvent>(OnTelecomBroadcasterExamine);
+        SubscribeLocalEvent<TelecomHubComponent, MachineUpgradeExamineEvent>(OnTelecomHubExamine);
     }
 
     private void OnSpaceHeaterPartsChanged(Entity<SpaceHeaterComponent> ent, ref MachinePartsChangedEvent args)
@@ -98,6 +108,43 @@ public sealed partial class MachinePartEffectsSystem : EntitySystem
         ent.Comp.EnergyCostMultiplier = LinearDecrease(args.GetRating(MachinePartKind.MatterBin), 0.1f);
     }
 
+    private void OnTelecomReceiverPartsChanged(Entity<TelecomReceiverComponent> ent, ref MachinePartsChangedEvent args)
+    {
+        var baseline = EnsureComp<MachinePartBaselineComponent>(ent);
+        ent.Comp.LossChanceMultiplier = GetBaseline(baseline, "telecom-receiver-loss", ent.Comp.LossChanceMultiplier)
+            * LinearDecrease(args.GetRating(MachinePartKind.Capacitor), 0.15f);
+        ent.Comp.LossExponent = GetBaseline(baseline, "telecom-receiver-exponent", ent.Comp.LossExponent)
+            * Positive(args.GetRating(MachinePartKind.Scanner));
+    }
+
+    private void OnTelecomProcessorPartsChanged(Entity<TelecomProcessorComponent> ent, ref MachinePartsChangedEvent args)
+    {
+        if (HasComp<TelecomServerComponent>(ent.Owner))
+            return;
+
+        var baseline = EnsureComp<MachinePartBaselineComponent>(ent);
+        ent.Comp.CalibrationLatencyMultiplier = GetBaseline(baseline, "telecom-processor-latency", ent.Comp.CalibrationLatencyMultiplier)
+            * LinearDecrease(args.GetRating(MachinePartKind.Servo), 0.15f);
+        ent.Comp.GarbleChanceMultiplier = GetBaseline(baseline, "telecom-processor-garble", ent.Comp.GarbleChanceMultiplier)
+            * LinearDecrease(args.GetRating(MachinePartKind.Scanner), 0.15f);
+    }
+
+    private void OnTelecomBroadcasterPartsChanged(Entity<TelecomBroadcasterComponent> ent, ref MachinePartsChangedEvent args)
+    {
+        var baseline = EnsureComp<MachinePartBaselineComponent>(ent);
+        ent.Comp.OutputLossChanceMultiplier = GetBaseline(baseline, "telecom-broadcaster-loss", ent.Comp.OutputLossChanceMultiplier)
+            * LinearDecrease(args.GetRating(MachinePartKind.Laser), 0.15f);
+        ent.Comp.DamageLossMultiplier = GetBaseline(baseline, "telecom-broadcaster-damage", ent.Comp.DamageLossMultiplier)
+            * LinearDecrease(args.GetRating(MachinePartKind.Capacitor), 0.15f);
+    }
+
+    private void OnTelecomHubPartsChanged(Entity<TelecomHubComponent> ent, ref MachinePartsChangedEvent args)
+    {
+        var baseline = EnsureComp<MachinePartBaselineComponent>(ent);
+        ent.Comp.RouteLossChanceMultiplier = GetBaseline(baseline, "telecom-hub-loss", ent.Comp.RouteLossChanceMultiplier)
+            * LinearDecrease(args.GetRating(MachinePartKind.Servo), 0.15f);
+    }
+
     private void OnSpaceHeaterExamine(Entity<SpaceHeaterComponent> ent, ref MachineUpgradeExamineEvent args)
     {
         if (!TryComp<MachinePartBaselineComponent>(ent, out var baseline))
@@ -142,6 +189,51 @@ public sealed partial class MachinePartEffectsSystem : EntitySystem
     private static void OnEnergyDispenserExamine(Entity<EnergyReagentDispenserComponent> ent, ref MachineUpgradeExamineEvent args)
     {
         args.Add("machine-upgrade-energy-cost", ent.Comp.EnergyCostMultiplier);
+    }
+
+    private void OnTelecomReceiverExamine(Entity<TelecomReceiverComponent> ent, ref MachineUpgradeExamineEvent args)
+    {
+        if (!TryComp<MachinePartBaselineComponent>(ent, out var baseline))
+            return;
+
+        if (baseline.Values.TryGetValue("telecom-receiver-loss", out var loss))
+            args.Add("machine-upgrade-telecom-reception-loss", ent.Comp.LossChanceMultiplier / loss);
+        if (baseline.Values.TryGetValue("telecom-receiver-exponent", out var exponent))
+            args.Add("machine-upgrade-telecom-reception-clarity", ent.Comp.LossExponent / exponent);
+    }
+
+    private void OnTelecomProcessorExamine(Entity<TelecomProcessorComponent> ent, ref MachineUpgradeExamineEvent args)
+    {
+        if (HasComp<TelecomServerComponent>(ent.Owner))
+            return;
+
+        if (!TryComp<MachinePartBaselineComponent>(ent, out var baseline))
+            return;
+
+        if (baseline.Values.TryGetValue("telecom-processor-latency", out var latency))
+            args.Add("machine-upgrade-telecom-processing-latency", ent.Comp.CalibrationLatencyMultiplier / latency);
+        if (baseline.Values.TryGetValue("telecom-processor-garble", out var garble))
+            args.Add("machine-upgrade-telecom-distortion", ent.Comp.GarbleChanceMultiplier / garble);
+    }
+
+    private void OnTelecomBroadcasterExamine(Entity<TelecomBroadcasterComponent> ent, ref MachineUpgradeExamineEvent args)
+    {
+        if (!TryComp<MachinePartBaselineComponent>(ent, out var baseline))
+            return;
+
+        if (baseline.Values.TryGetValue("telecom-broadcaster-loss", out var loss))
+            args.Add("machine-upgrade-telecom-broadcast-loss", ent.Comp.OutputLossChanceMultiplier / loss);
+        if (baseline.Values.TryGetValue("telecom-broadcaster-damage", out var damage))
+            args.Add("machine-upgrade-telecom-cascade-damage", ent.Comp.DamageLossMultiplier / damage);
+    }
+
+    private void OnTelecomHubExamine(Entity<TelecomHubComponent> ent, ref MachineUpgradeExamineEvent args)
+    {
+        if (!TryComp<MachinePartBaselineComponent>(ent, out var baseline))
+            return;
+
+        if (baseline.Values.TryGetValue("telecom-hub-loss", out var loss))
+            args.Add("machine-upgrade-telecom-routing-loss", ent.Comp.RouteLossChanceMultiplier / loss);
     }
 
 

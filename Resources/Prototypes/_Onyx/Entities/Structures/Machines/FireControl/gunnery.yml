@@ -6,12 +6,12 @@
   description: Manages the remote operation of ship weapons.
   components:
   - type: Sprite
-    sprite: _Onyx/Structures/Machines/tele_bus.rsi
+    sprite: _Onyx/Structures/Machines/telecomms.rsi
     snapCardinals: true
     layers:
-    - state: icon
-    - state: unlit
-      shader: unshaded
+    - state: processor_off
+    - state: processor
+      visible: false
       map: ["enum.PowerDeviceVisualLayers.Powered"]
   - type: ExtensionCableReceiver
   - type: Appearance

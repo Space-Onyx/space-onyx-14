@@ -37,6 +37,8 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
     private const string BroadcasterInputPort = "TelecomBroadcasterInput";
     private const string ServerMonitorOutputPort = "TelecomServerMonitorOutput";
     private const string ConsoleInputPort = "TelecomConsoleInput";
+    private const string HubInputPort = "TelecomHubInput";
+    private const string HubOutputPort = "TelecomHubOutput";
     private const string WeldingQuality = "Welding";
 
     [Dependency] private IGameTiming _timing = default!;
@@ -46,6 +48,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
     [Dependency] private PopupSystem _popup = default!;
 
     private float _maintenanceAccumulator;
+    private readonly Dictionary<EntityUid, TelecomTransmissionContext> _transmissions = new();
 
     public override void Initialize()
     {
@@ -57,6 +60,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         SubscribeLocalEvent<TelecomSignalLogComponent, LinkAttemptEvent>(OnServerLinkAttempt);
         SubscribeLocalEvent<TelecomBroadcasterComponent, LinkAttemptEvent>(OnBroadcasterLinkAttempt);
         SubscribeLocalEvent<TelecomTrafficConsoleComponent, LinkAttemptEvent>(OnConsoleLinkAttempt);
+        SubscribeLocalEvent<TelecomHubComponent, LinkAttemptEvent>(OnHubLinkAttempt);
         SubscribeLocalEvent<TelecomRouterComponent, GotEmaggedEvent>(OnRouterEmagged);
         SubscribeLocalEvent<TelecomBroadcasterComponent, GotEmaggedEvent>(OnBroadcasterEmagged);
         SubscribeLocalEvent<TelecomBroadcasterComponent, DamageDealtEvent>(OnBroadcasterDamaged);
@@ -75,6 +79,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         SubscribeLocalEvent<TelecomWearComponent, EmpPulseEvent>(OnWearEmp);
         SubscribeLocalEvent<TelecomWearComponent, ExaminedEvent>(OnWearExamined);
         SubscribeLocalEvent<TelecomSolarFlareEvent>(OnSolarFlare);
+        SubscribeLocalEvent<RadioReceiveAttemptEvent>(OnRadioReceiveAttempt);
     }
 
     public override void Update(float frameTime)
@@ -127,20 +132,30 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
     }
 
     public TelecomRouteResult RouteSignal(
-        MapId mapId,
+        EntityUid radioSource,
         RadioChannelPrototype channel,
         EntityUid messageSource,
         string message)
     {
-        if (!TryFindServer(mapId, channel.ID, out var server))
+        var sourceLocation = GetNetworkLocation(radioSource);
+        _transmissions[radioSource] = new TelecomTransmissionContext(sourceLocation.Map, message.Length);
+        if (!TryFindServer(sourceLocation, channel.ID, out var server))
         {
-            AddFallbackLog(mapId, channel, messageSource, message,
+            AddFallbackLog(sourceLocation, channel, messageSource, message,
                 TelecomSignalStatus.NoRoute, message.Length);
             return new TelecomRouteResult(false, message);
         }
 
         var log = EnsureComp<TelecomSignalLogComponent>(server);
-        var chainStatus = GetChainStatus(server, mapId, out var chain);
+        var serverLocation = GetNetworkLocation(server);
+        if (!TryRouteInterMap(_transmissions[radioSource], serverLocation.Map))
+        {
+            TryAddServerLog(server, log, channel, messageSource, message,
+                TelecomSignalStatus.BroadcastLoss, message.Length);
+            return new TelecomRouteResult(false, message);
+        }
+
+        var chainStatus = GetChainStatus(server, serverLocation, out var chain);
         if (chainStatus != TelecomSignalStatus.Routed)
         {
             TryAddServerLog(server, log, channel, messageSource, message,
@@ -182,6 +197,8 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         var busQuality = GetWearQuality(chain.Bus);
         var serverQuality = GetWearQuality(chain.Server);
         var broadcasterQuality = GetBroadcasterQuality(route.Broadcaster);
+        var inputHubQuality = route.InputHub is { } inputHub ? GetWearQuality(inputHub) : 1f;
+        var outputHubQuality = route.OutputHub is { } outputHub ? GetWearQuality(outputHub) : 1f;
 
         if (!chain.Standalone &&
             TryComp<TelecomReceiverComponent>(route.Receiver, out var receiver) &&
@@ -207,6 +224,14 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
             return new TelecomRouteResult(false, message);
         }
 
+        if (!TryRouteHub(route.InputHub, inputHubQuality) ||
+            !TryRouteHub(route.OutputHub, outputHubQuality))
+        {
+            TryAddServerLog(server, log, channel, messageSource, message,
+                TelecomSignalStatus.BusFault, message.Length);
+            return new TelecomRouteResult(false, message);
+        }
+
         var metrics = ApplyTrafficLoad(
             chain,
             route,
@@ -217,6 +242,8 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
             busQuality,
             serverQuality,
             broadcasterQuality,
+            inputHubQuality,
+            outputHubQuality,
             out var broadcasterSabotaged);
         var congestionDropChance = Math.Clamp(
             (metrics.MaxUtilization - router.CongestionDropThreshold) *
@@ -329,37 +356,86 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                !IsChannelFaulted(router, channel);
     }
 
+    public bool CanCommunicate(EntityUid source, TransformComponent receiverTransform)
+    {
+        return CanReach(GetNetworkLocation(source), GetNetworkLocation(receiverTransform));
+    }
+
+    public bool CanCommunicate(EntityUid source, EntityUid receiver)
+    {
+        return CanReach(GetNetworkLocation(source), GetNetworkLocation(receiver));
+    }
+
     public bool IsServerLinkedToConsole(EntityUid server, EntityUid console)
     {
         return TryComp<DeviceLinkSourceComponent>(server, out var source) &&
                IsLinked(source, console, ServerMonitorOutputPort, ConsoleInputPort);
     }
 
-    private bool TryFindServer(MapId mapId, string channel, out EntityUid result)
+    public void CompleteTransmission(EntityUid radioSource)
+    {
+        _transmissions.Remove(radioSource);
+    }
+
+    private void OnRadioReceiveAttempt(ref RadioReceiveAttemptEvent args)
+    {
+        if (args.Cancelled ||
+            args.Channel.LongRange ||
+            TryComp<ActiveRadioComponent>(args.RadioReceiver, out var radio) && radio.GlobalReceive)
+            return;
+
+        if (!CanCommunicate(args.RadioSource, args.RadioReceiver))
+        {
+            args.Cancelled = true;
+            return;
+        }
+
+        if (_transmissions.TryGetValue(args.RadioSource, out var transmission) &&
+            !TryRouteInterMap(transmission, Transform(args.RadioReceiver).MapID))
+        {
+            args.Cancelled = true;
+        }
+    }
+
+    private bool TryFindServer(TelecomNetworkLocation sourceLocation, string channel, out EntityUid result)
     {
         var query = EntityQueryEnumerator<TelecomServerComponent, TelecomRouterComponent,
             ApcPowerReceiverComponent, TransformComponent>();
-        EntityUid? incompleteServer = null;
+        EntityUid? localIncompleteServer = null;
+        EntityUid? remoteCompleteServer = null;
+        EntityUid? remoteIncompleteServer = null;
 
         while (query.MoveNext(out var uid, out _, out _, out var power, out var transform))
         {
-            if (transform.MapID == mapId &&
-                power.Powered &&
-                ServerHasChannel(uid, channel))
+            var serverLocation = GetNetworkLocation(transform);
+            if (!CanReach(sourceLocation, serverLocation) ||
+                !power.Powered ||
+                !ServerHasChannel(uid, channel))
+                continue;
+
+            var complete = GetChainStatus(uid, serverLocation, out _) == TelecomSignalStatus.Routed;
+            if (sourceLocation.Map == serverLocation.Map)
             {
-                if (GetChainStatus(uid, mapId, out _) == TelecomSignalStatus.Routed)
+                if (complete)
                 {
                     result = uid;
                     return true;
                 }
 
-                incompleteServer ??= uid;
+                localIncompleteServer ??= uid;
+                continue;
             }
+
+            if (complete)
+                remoteCompleteServer ??= uid;
+            else
+                remoteIncompleteServer ??= uid;
         }
 
-        if (incompleteServer != null)
+        var fallbackServer = localIncompleteServer ?? remoteCompleteServer ?? remoteIncompleteServer;
+        if (fallbackServer != null)
         {
-            result = incompleteServer.Value;
+            result = fallbackServer.Value;
             return true;
         }
 
@@ -367,7 +443,9 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         return false;
     }
 
-    private List<EntityUid> GetLinkedPoweredProcessors(EntityUid busUid, MapId mapId)
+    private List<EntityUid> GetLinkedPoweredProcessors(
+        EntityUid busUid,
+        TelecomNetworkLocation networkLocation)
     {
         var processors = new List<EntityUid>();
 
@@ -375,7 +453,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
             !TryComp<DeviceLinkSourceComponent>(busUid, out var busSource) ||
             !TryComp<ApcPowerReceiverComponent>(busUid, out var busPower) ||
             !busPower.Powered ||
-            Transform(busUid).MapID != mapId)
+            !IsSameNetworkLocation(GetNetworkLocation(busUid), networkLocation))
         {
             return processors;
         }
@@ -388,7 +466,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 !IsLinked(busSource, candidate, BusOutputPort, ProcessorInputPort) ||
                 !TryComp<ApcPowerReceiverComponent>(candidate, out var processorPower) ||
                 !processorPower.Powered ||
-                Transform(candidate).MapID != mapId)
+                !IsSameNetworkLocation(GetNetworkLocation(candidate), networkLocation))
             {
                 continue;
             }
@@ -399,19 +477,22 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         return processors;
     }
 
-    private TelecomSignalStatus GetChainStatus(EntityUid server, MapId mapId, out TelecomChainSnapshot chain)
+    private TelecomSignalStatus GetChainStatus(
+        EntityUid server,
+        TelecomNetworkLocation networkLocation,
+        out TelecomChainSnapshot chain)
     {
         chain = default;
 
         if (TryComp<TelecomRouterComponent>(server, out var router) && router.Standalone)
         {
-            chain = new TelecomChainSnapshot([], [], server, server, [], true);
+            chain = new TelecomChainSnapshot([], [], [], server, server, [], true);
             return TelecomSignalStatus.Routed;
         }
 
         if (!TryGetLinkedPoweredSource<TelecomBusComponent>(
                 server,
-                mapId,
+                networkLocation,
                 BusOutputPort,
                 ServerInputPort,
                 out var bus))
@@ -419,23 +500,59 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
 
         var receivers = GetLinkedPoweredSources<TelecomReceiverComponent>(
             bus,
-            mapId,
+            networkLocation,
             ReceiverOutputPort,
             BusInputPort);
+        foreach (var hub in GetLinkedPoweredSources<TelecomHubComponent>(
+                     bus,
+                     networkLocation,
+                     HubOutputPort,
+                     BusInputPort))
+        {
+            receivers.AddRange(GetLinkedPoweredSources<TelecomReceiverComponent>(
+                hub,
+                networkLocation,
+                ReceiverOutputPort,
+                HubInputPort));
+        }
+        receivers = receivers.Distinct().ToList();
         if (receivers.Count == 0)
             return TelecomSignalStatus.NoReceiver;
 
-        var processors = GetLinkedPoweredProcessors(bus, mapId);
+        var processors = GetLinkedPoweredProcessors(bus, networkLocation);
         if (processors.Count == 0)
             return TelecomSignalStatus.NoProcessor;
 
-        var broadcasters = GetLinkedPoweredBroadcasters(server, mapId);
+        var broadcasters = GetLinkedPoweredBroadcasters(server, networkLocation);
+        broadcasters = broadcasters.Distinct().ToList();
         if (broadcasters.Count == 0)
             return TelecomSignalStatus.NoBroadcaster;
+
+        var hubs = new HashSet<EntityUid>();
+        foreach (var hub in GetLinkedPoweredSources<TelecomHubComponent>(
+                     bus,
+                     networkLocation,
+                     HubOutputPort,
+                     BusInputPort))
+            hubs.Add(hub);
+
+        if (TryComp<DeviceLinkSourceComponent>(server, out var serverSource))
+        {
+            foreach (var hub in serverSource.LinkedPorts.Keys)
+            {
+                if (HasComp<TelecomHubComponent>(hub) &&
+                    IsLinked(serverSource, hub, ServerOutputPort, HubInputPort) &&
+                    TryComp<ApcPowerReceiverComponent>(hub, out var hubPower) &&
+                    hubPower.Powered &&
+                    IsSameNetworkLocation(GetNetworkLocation(hub), networkLocation))
+                    hubs.Add(hub);
+            }
+        }
 
         chain = new TelecomChainSnapshot(
             receivers,
             processors,
+            hubs.ToList(),
             bus,
             server,
             broadcasters);
@@ -459,6 +576,19 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 TryComp<TelecomBroadcasterComponent>(broadcasterUid, out var broadcaster))
             {
                 broadcaster.Sabotaged = false;
+            }
+
+            if (!IsLinked(source, broadcasterUid, ServerOutputPort, HubInputPort) ||
+                !TryComp<DeviceLinkSourceComponent>(broadcasterUid, out var hubSource))
+                continue;
+
+            foreach (var linkedBroadcaster in hubSource.LinkedPorts.Keys)
+            {
+                if (IsLinked(hubSource, linkedBroadcaster, HubOutputPort, BroadcasterInputPort) &&
+                    TryComp<TelecomBroadcasterComponent>(linkedBroadcaster, out var linkedBroadcasterComponent))
+                {
+                    linkedBroadcasterComponent.Sabotaged = false;
+                }
             }
         }
     }
@@ -561,9 +691,28 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         if (string.IsNullOrWhiteSpace(message))
             return message;
 
+        var inMarkup = new bool[message.Length];
+        for (var start = 0; start < message.Length; start++)
+        {
+            if (message[start] != '[')
+                continue;
+
+            var end = message.IndexOf(']', start + 1);
+            if (end == -1)
+                break;
+
+            for (var j = start; j <= end; j++)
+                inMarkup[j] = true;
+
+            start = end;
+        }
+
         var chars = message.ToCharArray();
         for (var i = 0; i < chars.Length; i++)
         {
+            if (inMarkup[i])
+                continue;
+
             if (!char.IsWhiteSpace(chars[i]) &&
                 _random.Prob(Math.Clamp(router.GarbleCharacterChance, 0f, 1f)))
             {
@@ -578,7 +727,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
 
     private bool TryGetLinkedPoweredSource<TComponent>(
         EntityUid sinkUid,
-        MapId mapId,
+        TelecomNetworkLocation networkLocation,
         string sourcePort,
         string sinkPort,
         out EntityUid sourceUid)
@@ -597,7 +746,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 !IsLinked(source, sinkUid, sourcePort, sinkPort) ||
                 !TryComp<ApcPowerReceiverComponent>(candidate, out var power) ||
                 !power.Powered ||
-                Transform(candidate).MapID != mapId)
+                !IsSameNetworkLocation(GetNetworkLocation(candidate), networkLocation))
             {
                 continue;
             }
@@ -612,7 +761,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
 
     private List<EntityUid> GetLinkedPoweredSources<TComponent>(
         EntityUid sinkUid,
-        MapId mapId,
+        TelecomNetworkLocation networkLocation,
         string sourcePort,
         string sinkPort)
         where TComponent : IComponent
@@ -628,7 +777,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 !IsLinked(source, sinkUid, sourcePort, sinkPort) ||
                 !TryComp<ApcPowerReceiverComponent>(candidate, out var power) ||
                 !power.Powered ||
-                Transform(candidate).MapID != mapId)
+                !IsSameNetworkLocation(GetNetworkLocation(candidate), networkLocation))
             {
                 continue;
             }
@@ -639,7 +788,9 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         return result;
     }
 
-    private List<EntityUid> GetLinkedPoweredBroadcasters(EntityUid server, MapId mapId)
+    private List<EntityUid> GetLinkedPoweredBroadcasters(
+        EntityUid server,
+        TelecomNetworkLocation networkLocation)
     {
         var result = new List<EntityUid>();
         if (!TryComp<DeviceLinkSourceComponent>(server, out var source))
@@ -651,7 +802,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 !TryComp<TelecomBroadcasterComponent>(broadcasterUid, out var broadcaster) ||
                 !TryComp<ApcPowerReceiverComponent>(broadcasterUid, out var power) ||
                 !power.Powered ||
-                Transform(broadcasterUid).MapID != mapId)
+                !IsSameNetworkLocation(GetNetworkLocation(broadcasterUid), networkLocation))
             {
                 continue;
             }
@@ -659,7 +810,74 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
             result.Add(broadcasterUid);
         }
 
+        foreach (var hubUid in source.LinkedPorts.Keys)
+        {
+            if (!IsLinked(source, hubUid, ServerOutputPort, HubInputPort) ||
+                !TryComp<TelecomHubComponent>(hubUid, out _) ||
+                !TryComp<ApcPowerReceiverComponent>(hubUid, out var hubPower) ||
+                !hubPower.Powered ||
+                !IsSameNetworkLocation(GetNetworkLocation(hubUid), networkLocation) ||
+                !TryComp<DeviceLinkSourceComponent>(hubUid, out var hubSource))
+                continue;
+
+            foreach (var broadcasterUid in hubSource.LinkedPorts.Keys)
+            {
+                if (IsLinked(hubSource, broadcasterUid, HubOutputPort, BroadcasterInputPort) &&
+                    TryComp<TelecomBroadcasterComponent>(broadcasterUid, out _) &&
+                    TryComp<ApcPowerReceiverComponent>(broadcasterUid, out var power) &&
+                    power.Powered &&
+                    IsSameNetworkLocation(GetNetworkLocation(broadcasterUid), networkLocation))
+                {
+                    result.Add(broadcasterUid);
+                }
+            }
+        }
+
         return result;
+    }
+
+    private EntityUid? FindInputHub(EntityUid receiver, EntityUid bus, IReadOnlyCollection<EntityUid> activeHubs)
+    {
+        if (!TryComp<DeviceLinkSourceComponent>(receiver, out var receiverSource))
+            return null;
+
+        foreach (var hub in receiverSource.LinkedPorts.Keys)
+        {
+            if (activeHubs.Contains(hub) &&
+                IsLinked(receiverSource, hub, ReceiverOutputPort, HubInputPort) &&
+                TryComp<DeviceLinkSourceComponent>(hub, out var hubSource) &&
+                IsLinked(hubSource, bus, HubOutputPort, BusInputPort))
+                return hub;
+        }
+
+        return null;
+    }
+
+    private EntityUid? FindOutputHub(EntityUid server, EntityUid broadcaster, IReadOnlyCollection<EntityUid> activeHubs)
+    {
+        if (!TryComp<DeviceLinkSourceComponent>(server, out var serverSource))
+            return null;
+
+        foreach (var hub in serverSource.LinkedPorts.Keys)
+        {
+            if (activeHubs.Contains(hub) &&
+                IsLinked(serverSource, hub, ServerOutputPort, HubInputPort) &&
+                TryComp<DeviceLinkSourceComponent>(hub, out var hubSource) &&
+                IsLinked(hubSource, broadcaster, HubOutputPort, BroadcasterInputPort))
+                return hub;
+        }
+
+        return null;
+    }
+
+    private bool TryRouteHub(EntityUid? hub, float quality)
+    {
+        return hub == null ||
+               !TryComp<TelecomHubComponent>(hub, out var hubComponent) ||
+               !_random.Prob(GetFailureChance(
+                   quality,
+                   hubComponent.RouteLossExponent,
+                   hubComponent.RouteLossChanceMultiplier));
     }
 
     private bool IsBusProcessorLinkedEitherWay(EntityUid busUid, EntityUid processorUid)
@@ -764,12 +982,15 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
     {
         if (args.Source != ent.Owner ||
             args.SourcePort != ReceiverOutputPort ||
-            args.SinkPort != BusInputPort)
+            args.SinkPort is not (BusInputPort or HubInputPort))
             return;
 
-        if (!HasComp<TelecomBusComponent>(args.Sink) ||
-            CountLinkedTargets<TelecomBusComponent>(ent.Owner, ReceiverOutputPort, BusInputPort) >= ent.Comp.MaxBuses &&
-            !IsAlreadyLinked(ent.Owner, args.Sink, ReceiverOutputPort, BusInputPort))
+        var validSink = args.SinkPort == BusInputPort && HasComp<TelecomBusComponent>(args.Sink) ||
+                        args.SinkPort == HubInputPort && HasComp<TelecomHubComponent>(args.Sink);
+        if (!validSink ||
+            CountLinkedTargets<TelecomBusComponent>(ent.Owner, ReceiverOutputPort, BusInputPort) +
+            CountLinkedTargets<TelecomHubComponent>(ent.Owner, ReceiverOutputPort, HubInputPort) >= ent.Comp.MaxBuses &&
+            !IsAlreadyLinked(ent.Owner, args.Sink, ReceiverOutputPort, args.SinkPort))
         {
             args.Cancel();
         }
@@ -821,6 +1042,21 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
 
     private void OnBusLinkAttempt(Entity<TelecomBusComponent> ent, ref LinkAttemptEvent args)
     {
+        if (args.Sink == ent.Owner &&
+            args.SourcePort == HubOutputPort &&
+            args.SinkPort == BusInputPort)
+        {
+            if (!HasComp<TelecomHubComponent>(args.Source) ||
+                CountLinkedSources<TelecomHubComponent>(ent.Owner, HubOutputPort, BusInputPort) +
+                CountLinkedSources<TelecomReceiverComponent>(ent.Owner, ReceiverOutputPort, BusInputPort) >= ent.Comp.MaxReceivers &&
+                !IsAlreadyLinked(args.Source, ent.Owner, HubOutputPort, BusInputPort))
+            {
+                args.Cancel();
+            }
+
+            return;
+        }
+
         if (args.Sink == ent.Owner &&
             args.SourcePort == ReceiverOutputPort &&
             args.SinkPort == BusInputPort)
@@ -928,15 +1164,47 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
     private void OnBroadcasterLinkAttempt(Entity<TelecomBroadcasterComponent> ent, ref LinkAttemptEvent args)
     {
         if (args.Sink != ent.Owner ||
-            args.SourcePort != ServerOutputPort ||
+            args.SourcePort is not (ServerOutputPort or HubOutputPort) ||
             args.SinkPort != BroadcasterInputPort)
             return;
 
-        if (!HasComp<TelecomServerComponent>(args.Source) ||
-            CountLinkedSources<TelecomServerComponent>(ent.Owner, ServerOutputPort, BroadcasterInputPort) >= ent.Comp.MaxServers &&
-            !IsAlreadyLinked(args.Source, ent.Owner, ServerOutputPort, BroadcasterInputPort))
+        if (!HasComp<TelecomServerComponent>(args.Source) && !HasComp<TelecomHubComponent>(args.Source) ||
+            CountLinkedSources<TelecomServerComponent>(ent.Owner, ServerOutputPort, BroadcasterInputPort) +
+            CountLinkedSources<TelecomHubComponent>(ent.Owner, HubOutputPort, BroadcasterInputPort) >= ent.Comp.MaxServers &&
+            !IsAlreadyLinked(args.Source, ent.Owner, args.SourcePort, BroadcasterInputPort))
         {
             args.Cancel();
+        }
+    }
+
+    private void OnHubLinkAttempt(Entity<TelecomHubComponent> ent, ref LinkAttemptEvent args)
+    {
+        if (args.Sink == ent.Owner && args.SinkPort == HubInputPort)
+        {
+            var validSource = args.SourcePort == ReceiverOutputPort && HasComp<TelecomReceiverComponent>(args.Source) ||
+                              args.SourcePort == ServerOutputPort && HasComp<TelecomServerComponent>(args.Source);
+            if (!validSource ||
+                CountLinkedSources<TelecomReceiverComponent>(ent.Owner, ReceiverOutputPort, HubInputPort) +
+                CountLinkedSources<TelecomServerComponent>(ent.Owner, ServerOutputPort, HubInputPort) >= ent.Comp.MaxInputs &&
+                !IsAlreadyLinked(args.Source, ent.Owner, args.SourcePort, HubInputPort))
+            {
+                args.Cancel();
+            }
+
+            return;
+        }
+
+        if (args.Source == ent.Owner && args.SourcePort == HubOutputPort)
+        {
+            var validSink = args.SinkPort == BusInputPort && HasComp<TelecomBusComponent>(args.Sink) ||
+                            args.SinkPort == BroadcasterInputPort && HasComp<TelecomBroadcasterComponent>(args.Sink);
+            if (!validSink ||
+                CountLinkedTargets<TelecomBusComponent>(ent.Owner, HubOutputPort, BusInputPort) +
+                CountLinkedTargets<TelecomBroadcasterComponent>(ent.Owner, HubOutputPort, BroadcasterInputPort) >= ent.Comp.MaxOutputs &&
+                !IsAlreadyLinked(ent.Owner, args.Sink, HubOutputPort, args.SinkPort))
+            {
+                args.Cancel();
+            }
         }
     }
 
@@ -997,7 +1265,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
     }
 
     private void AddFallbackLog(
-        MapId mapId,
+        TelecomNetworkLocation sourceLocation,
         RadioChannelPrototype channel,
         EntityUid messageSource,
         string message,
@@ -1007,7 +1275,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         var query = EntityQueryEnumerator<TelecomServerComponent, TelecomSignalLogComponent, TransformComponent>();
         while (query.MoveNext(out _, out _, out var log, out var transform))
         {
-            if (transform.MapID != mapId)
+            if (!CanReach(sourceLocation, GetNetworkLocation(transform)))
                 continue;
 
             AddLogEntry(log, channel, messageSource, message, status, messageLength);
@@ -1099,17 +1367,118 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
 
     public TelecomTrafficMetrics GetServerMetrics(EntityUid server)
     {
-        var mapId = Transform(server).MapID;
+        var networkLocation = GetNetworkLocation(server);
         return TryComp<TelecomRouterComponent>(server, out var router) &&
-               GetChainStatus(server, mapId, out var chain) == TelecomSignalStatus.Routed
+               GetChainStatus(server, networkLocation, out var chain) == TelecomSignalStatus.Routed
             ? ReadTrafficMetrics(chain, router)
             : TelecomTrafficMetrics.Empty;
+    }
+
+    private TelecomNetworkLocation GetNetworkLocation(EntityUid uid)
+    {
+        return GetNetworkLocation(Transform(uid));
+    }
+
+    private static TelecomNetworkLocation GetNetworkLocation(TransformComponent transform)
+    {
+        return new TelecomNetworkLocation(transform.MapID, transform.GridUid);
+    }
+
+    private bool CanReach(TelecomNetworkLocation source, TelecomNetworkLocation destination)
+    {
+        if (source.Map == destination.Map)
+            return true;
+
+        return HasActiveTransmitter(source.Map) &&
+               HasActiveTransmitter(destination.Map);
+    }
+
+    private bool TryRouteInterMap(TelecomTransmissionContext transmission, MapId destination)
+    {
+        if (transmission.SourceMap == destination)
+            return true;
+
+        if (transmission.Destinations.TryGetValue(destination, out var routed))
+            return routed;
+
+        if (!TryGetActiveTransmitter(transmission.SourceMap, out var sourceTransmitter) ||
+            !TryGetActiveTransmitter(destination, out var destinationTransmitter))
+        {
+            transmission.Destinations[destination] = false;
+            return false;
+        }
+
+        ApplyNodeLoad(sourceTransmitter, transmission.MessageLength);
+        ApplyNodeLoad(destinationTransmitter, transmission.MessageLength);
+        routed = !TransmitterDropsSignal(sourceTransmitter) &&
+                 !TransmitterDropsSignal(destinationTransmitter);
+        transmission.Destinations[destination] = routed;
+        return routed;
+    }
+
+    private bool TryGetActiveTransmitter(MapId map, out EntityUid result)
+    {
+        result = default;
+        var bestUtilization = float.MaxValue;
+        var query = EntityQueryEnumerator<TelecomTransmitterComponent,
+            ApcPowerReceiverComponent,
+            TransformComponent>();
+        while (query.MoveNext(out var uid, out _, out var power, out var transform))
+        {
+            if (!power.Powered || transform.MapID != map)
+                continue;
+
+            var utilization = GetNodeUtilization(uid);
+            if (utilization >= bestUtilization)
+                continue;
+
+            result = uid;
+            bestUtilization = utilization;
+        }
+
+        return result.IsValid();
+    }
+
+    private bool TransmitterDropsSignal(EntityUid uid)
+    {
+        if (!TryComp<TelecomTransmitterComponent>(uid, out var transmitter))
+            return true;
+
+        var wearLoss = GetFailureChance(
+            GetWearQuality(uid),
+            transmitter.LossExponent,
+            transmitter.LossChanceMultiplier);
+        var congestionLoss = Math.Clamp(
+            (GetNodeUtilization(uid) - transmitter.CongestionDropThreshold) *
+            transmitter.CongestionDropChanceMultiplier,
+            0f,
+            Math.Max(0f, transmitter.MaxCongestionDropChance));
+        return _random.Prob(Math.Clamp(wearLoss + congestionLoss, 0f, 1f));
+    }
+
+    private static bool IsSameNetworkLocation(
+        TelecomNetworkLocation left,
+        TelecomNetworkLocation right)
+    {
+        return left.Map == right.Map && left.Grid == right.Grid;
+    }
+
+    private bool HasActiveTransmitter(MapId map)
+    {
+        return TryGetActiveTransmitter(map, out _);
     }
 
     public List<TelecomHardwareInfo> GetServerHardwareInfo(EntityUid server)
     {
         var result = new List<TelecomHardwareInfo>();
         AddHardwareInfo(result, server, TelecomHardwareType.Server);
+        var serverMap = Transform(server).MapID;
+        var transmitterQuery = EntityQueryEnumerator<TelecomTransmitterComponent, TransformComponent>();
+        while (transmitterQuery.MoveNext(out var transmitter, out _, out var transform))
+        {
+            if (transform.MapID == serverMap)
+                AddHardwareInfo(result, transmitter, TelecomHardwareType.Transmitter);
+        }
 
         if (TryComp<TelecomRouterComponent>(server, out var router) && router.Standalone)
             return result;
@@ -1129,6 +1498,21 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                          BusInputPort))
             {
                 AddHardwareInfo(result, receiver, TelecomHardwareType.Receiver);
+            }
+
+            foreach (var hub in GetLinkedSourcesRegardlessOfPower<TelecomHubComponent>(
+                         bus,
+                         HubOutputPort,
+                         BusInputPort))
+            {
+                AddHardwareInfo(result, hub, TelecomHardwareType.Hub);
+                foreach (var receiver in GetLinkedSourcesRegardlessOfPower<TelecomReceiverComponent>(
+                             hub,
+                             ReceiverOutputPort,
+                             HubInputPort))
+                {
+                    AddHardwareInfo(result, receiver, TelecomHardwareType.Receiver);
+                }
             }
 
             var processors = new HashSet<EntityUid>();
@@ -1168,6 +1552,23 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                     IsLinked(serverSource, candidate, ServerOutputPort, BroadcasterInputPort))
                 {
                     AddHardwareInfo(result, candidate, TelecomHardwareType.Broadcaster);
+                }
+
+                if (!HasComp<TelecomHubComponent>(candidate) ||
+                    !IsLinked(serverSource, candidate, ServerOutputPort, HubInputPort))
+                    continue;
+
+                AddHardwareInfo(result, candidate, TelecomHardwareType.Hub);
+                if (!TryComp<DeviceLinkSourceComponent>(candidate, out var hubSource))
+                    continue;
+
+                foreach (var broadcaster in hubSource.LinkedPorts.Keys)
+                {
+                    if (HasComp<TelecomBroadcasterComponent>(broadcaster) &&
+                        IsLinked(hubSource, broadcaster, HubOutputPort, BroadcasterInputPort))
+                    {
+                        AddHardwareInfo(result, broadcaster, TelecomHardwareType.Broadcaster);
+                    }
                 }
             }
         }
@@ -1210,6 +1611,9 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         EntityUid uid,
         TelecomHardwareType type)
     {
+        if (result.Any(entry => entry.Entity == GetNetEntity(uid)))
+            return;
+
         var index = result.Count(entry => entry.Type == type) + 1;
         var powered = TryComp<ApcPowerReceiverComponent>(uid, out var power) && power.Powered;
         var integratedProcessorActive = IsIntegratedProcessorActive(uid);
@@ -1226,8 +1630,43 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                    TryComp<TelecomNodeComponent>(uid, out var node)
             ? (int) MathF.Round(node.TelemetryLoad / Math.Max(0.1f, node.Bandwidth) * 100f)
             : -1;
+        var bandwidth = TryComp<TelecomNodeComponent>(uid, out node)
+            ? (int) MathF.Round(node.Bandwidth)
+            : -1;
 
-        result.Add(new TelecomHardwareInfo(type, index, powered, calibration, wear, load));
+        result.Add(new TelecomHardwareInfo(
+            GetNetEntity(uid),
+            type,
+            index,
+            powered,
+            calibration,
+            wear,
+            load,
+            Name(uid),
+            GetLinkCount(uid),
+            bandwidth,
+            GetLinkNames(uid)));
+    }
+
+    private int GetLinkCount(EntityUid uid)
+    {
+        var links = new HashSet<EntityUid>();
+        if (TryComp<DeviceLinkSinkComponent>(uid, out var sink))
+            links.UnionWith(sink.LinkedSources);
+        if (TryComp<DeviceLinkSourceComponent>(uid, out var source))
+            links.UnionWith(source.LinkedPorts.Keys);
+        return links.Count;
+    }
+
+    private List<string> GetLinkNames(EntityUid uid)
+    {
+        var links = new HashSet<EntityUid>();
+        if (TryComp<DeviceLinkSinkComponent>(uid, out var sink))
+            links.UnionWith(sink.LinkedSources);
+        if (TryComp<DeviceLinkSourceComponent>(uid, out var source))
+            links.UnionWith(source.LinkedPorts.Keys);
+
+        return links.Select(link => Name(link)).Order().ToList();
     }
 
     private TelecomTrafficMetrics ApplyTrafficLoad(
@@ -1240,15 +1679,15 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         float busQuality,
         float serverQuality,
         float broadcasterQuality,
+        float inputHubQuality,
+        float outputHubQuality,
         out bool broadcasterSabotaged)
     {
-        if (TryComp<TelecomNodeComponent>(route.Processor, out var node))
-        {
-            var packetCost = Math.Max(0f, node.BasePacketCost) +
-                messageLength / Math.Max(1f, node.CharactersPerCostUnit);
-            node.CurrentLoad += packetCost;
-            node.TelemetryLoad = Math.Max(node.TelemetryLoad, node.CurrentLoad);
-        }
+        ApplyNodeLoad(route.Processor, messageLength);
+        if (route.InputHub is { } inputHub)
+            ApplyNodeLoad(inputHub, messageLength);
+        if (route.OutputHub is { } outputHub && outputHub != route.InputHub)
+            ApplyNodeLoad(outputHub, messageLength);
 
         broadcasterSabotaged = !chain.Standalone &&
             TryComp<TelecomBroadcasterComponent>(route.Broadcaster, out var broadcasterComponent) &&
@@ -1259,13 +1698,31 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                processorQuality +
                busQuality +
                serverQuality +
-               broadcasterQuality) / 5f;
+               broadcasterQuality +
+               (route.InputHub == null ? 0f : inputHubQuality) +
+               (route.OutputHub == null ? 0f : outputHubQuality)) /
+              (5f + (route.InputHub == null ? 0f : 1f) + (route.OutputHub == null ? 0f : 1f));
         return BuildTrafficMetrics(
             quality,
             processorQuality,
-            GetNodeUtilization(route.Processor),
+            Math.Max(
+                GetNodeUtilization(route.Processor),
+                Math.Max(
+                    route.InputHub is { } inputHubUid ? GetNodeUtilization(inputHubUid) : 0f,
+                    route.OutputHub is { } outputHubUid ? GetNodeUtilization(outputHubUid) : 0f)),
             route.Processor,
             router);
+    }
+
+    private void ApplyNodeLoad(EntityUid uid, int messageLength)
+    {
+        if (!TryComp<TelecomNodeComponent>(uid, out var node))
+            return;
+
+        var packetCost = Math.Max(0f, node.BasePacketCost) +
+            messageLength / Math.Max(1f, node.CharactersPerCostUnit);
+        node.CurrentLoad += packetCost;
+        node.TelemetryLoad = Math.Max(node.TelemetryLoad, node.CurrentLoad);
     }
 
     private TelecomTrafficMetrics ReadTrafficMetrics(
@@ -1283,19 +1740,28 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         var receiverMetrics = ReadPoolMetrics(chain.Receivers);
         var processorMetrics = ReadPoolMetrics(chain.Processors);
         var broadcasterMetrics = ReadPoolMetrics(chain.Broadcasters);
+        var hubMetrics = ReadPoolMetrics(chain.Hubs);
         var busMetrics = ReadPoolMetrics([chain.Bus]);
         var serverMetrics = ReadPoolMetrics([chain.Server]);
 
-        var quality = (
+        var qualityTotal =
             receiverMetrics.Quality +
             processorMetrics.Quality +
             busMetrics.Quality +
             serverMetrics.Quality +
-            broadcasterMetrics.Quality) / 5f;
+            broadcasterMetrics.Quality;
+        var qualityDivisor = 5f;
+        if (chain.Hubs.Count > 0)
+        {
+            qualityTotal += hubMetrics.Quality;
+            qualityDivisor++;
+        }
+
+        var quality = qualityTotal / qualityDivisor;
         return BuildTrafficMetrics(
             quality,
             processorMetrics.Quality,
-            processorMetrics.Utilization,
+            Math.Max(processorMetrics.Utilization, hubMetrics.Utilization),
             chain.Processors[0],
             router);
     }
@@ -1346,12 +1812,17 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
 
     private TelecomSelectedRoute SelectRoute(TelecomChainSnapshot chain)
     {
-        return chain.Standalone
-            ? new TelecomSelectedRoute(chain.Server, chain.Server, chain.Server)
-            : new TelecomSelectedRoute(
-                chain.Receivers[_random.Next(chain.Receivers.Count)],
-                GetLeastLoadedNode(chain.Processors),
-                chain.Broadcasters[_random.Next(chain.Broadcasters.Count)]);
+        if (chain.Standalone)
+            return new TelecomSelectedRoute(chain.Server, chain.Server, chain.Server, null, null);
+
+        var receiver = chain.Receivers[_random.Next(chain.Receivers.Count)];
+        var broadcaster = chain.Broadcasters[_random.Next(chain.Broadcasters.Count)];
+        return new TelecomSelectedRoute(
+            receiver,
+            GetLeastLoadedNode(chain.Processors),
+            broadcaster,
+            FindInputHub(receiver, chain.Bus, chain.Hubs),
+            FindOutputHub(chain.Server, broadcaster, chain.Hubs));
     }
 
     private EntityUid GetLeastLoadedNode(IReadOnlyList<EntityUid> nodes)
@@ -1667,6 +2138,7 @@ public readonly record struct TelecomTrafficMetrics(
 internal readonly record struct TelecomChainSnapshot(
     List<EntityUid> Receivers,
     List<EntityUid> Processors,
+    List<EntityUid> Hubs,
     EntityUid Bus,
     EntityUid Server,
     List<EntityUid> Broadcasters,
@@ -1675,6 +2147,17 @@ internal readonly record struct TelecomChainSnapshot(
 internal readonly record struct TelecomSelectedRoute(
     EntityUid Receiver,
     EntityUid Processor,
-    EntityUid Broadcaster);
+    EntityUid Broadcaster,
+    EntityUid? InputHub,
+    EntityUid? OutputHub);
 
 internal readonly record struct TelecomPoolMetrics(float Quality, float Utilization);
+
+internal readonly record struct TelecomNetworkLocation(MapId Map, EntityUid? Grid);
+
+internal sealed class TelecomTransmissionContext(MapId sourceMap, int messageLength)
+{
+    public readonly MapId SourceMap = sourceMap;
+    public readonly int MessageLength = messageLength;
+    public readonly Dictionary<MapId, bool> Destinations = new();
+}

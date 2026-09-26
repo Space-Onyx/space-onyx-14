@@ -61,11 +61,7 @@ public sealed partial class TelecomTrafficConsoleWindow : DefaultWindow
 
         SuccessfulFilter.OnToggled += _ => RefreshGraph();
         FailedFilter.OnToggled += _ => RefreshGraph();
-        LiveLogButton.OnToggled += _ =>
-        {
-            if (LiveLogButton.Pressed)
-                LogScroll.SetScrollValue(Vector2.Zero);
-        };
+        LiveLogButton.OnPressed += _ => LogScroll.SetScrollValue(Vector2.Zero);
         LogSearch.OnTextChanged += _ => RefreshLog();
         LogContainer.OnResized += UpdateLogEntryWidths;
     }
@@ -182,13 +178,43 @@ public sealed partial class TelecomTrafficConsoleWindow : DefaultWindow
                 StyleClasses = { "ConsoleSubHeading" },
             });
 
-            var state = new BoxContainer
+            content.AddChild(new Label
             {
-                Orientation = BoxContainer.LayoutOrientation.Horizontal,
-                SeparationOverride = 18,
-            };
+                Text = Loc.GetString(
+                    "telecom-traffic-console-hardware-identity",
+                    ("name", hardware.Name)),
+                StyleClasses = { "ConsoleText" },
+            });
 
-            state.AddChild(MakeHardwareLabel(
+            content.AddChild(new Label
+            {
+                Text = Loc.GetString("telecom-traffic-console-hardware-links"),
+                StyleClasses = { "ConsoleText" },
+            });
+
+            if (hardware.Links.Count == 0)
+            {
+                content.AddChild(new Label
+                {
+                    Text = Loc.GetString("telecom-traffic-console-hardware-links-none"),
+                    Margin = new Thickness(12, 0, 0, 0),
+                    StyleClasses = { "ConsoleText" },
+                });
+            }
+            else
+            {
+                foreach (var link in hardware.Links)
+                {
+                    content.AddChild(new Label
+                    {
+                        Text = Loc.GetString("telecom-traffic-console-hardware-link", ("name", link)),
+                        Margin = new Thickness(12, 0, 0, 0),
+                        StyleClasses = { "ConsoleText" },
+                    });
+                }
+            }
+
+            content.AddChild(MakeHardwareLabel(
                 Loc.GetString(
                     hardware.Powered
                         ? "telecom-traffic-console-hardware-powered"
@@ -197,7 +223,7 @@ public sealed partial class TelecomTrafficConsoleWindow : DefaultWindow
 
             if (hardware.Calibration >= 0)
             {
-                state.AddChild(MakeHardwareLabel(
+                content.AddChild(MakeHardwareLabel(
                     Loc.GetString(
                         "telecom-traffic-console-hardware-calibration",
                         ("value", hardware.Calibration)),
@@ -206,7 +232,7 @@ public sealed partial class TelecomTrafficConsoleWindow : DefaultWindow
 
             if (hardware.Wear >= 0)
             {
-                state.AddChild(MakeHardwareLabel(
+                content.AddChild(MakeHardwareLabel(
                     Loc.GetString(
                         "telecom-traffic-console-hardware-wear",
                         ("value", hardware.Wear)),
@@ -215,14 +241,22 @@ public sealed partial class TelecomTrafficConsoleWindow : DefaultWindow
 
             if (hardware.LoadPercent >= 0)
             {
-                state.AddChild(MakeHardwareLabel(
+                content.AddChild(MakeHardwareLabel(
                     Loc.GetString(
                         "telecom-traffic-console-hardware-load",
                         ("value", hardware.LoadPercent)),
                     GetLoadColor(hardware.LoadPercent)));
             }
 
-            content.AddChild(state);
+            if (hardware.Bandwidth >= 0)
+            {
+                content.AddChild(MakeHardwareLabel(
+                    Loc.GetString(
+                        "telecom-traffic-console-hardware-bandwidth",
+                        ("value", hardware.Bandwidth)),
+                    Color.FromHex("#58c7ff")));
+            }
+
             panel.AddChild(content);
             HardwareList.AddChild(panel);
         }
@@ -338,9 +372,7 @@ public sealed partial class TelecomTrafficConsoleWindow : DefaultWindow
                 HorizontalExpand = true,
                 ToggleMode = true,
                 Pressed = channel.Enabled,
-                ModulateSelfOverride = channel.Enabled
-                    ? Color.FromHex("#33a73b")
-                    : Color.FromHex("#e65454"),
+                StyleClasses = { "OpenBoth" },
             };
 
             var capturedChannel = channel.Id;
@@ -411,6 +443,7 @@ public sealed partial class TelecomTrafficConsoleWindow : DefaultWindow
             return;
 
         var oldScroll = LogScroll.GetScrollValue();
+        var followNewest = oldScroll.Y <= 1f;
         LogContainer.Children.Clear();
 
         var search = LogSearch.Text.Trim();
@@ -485,7 +518,7 @@ public sealed partial class TelecomTrafficConsoleWindow : DefaultWindow
             ("total", _state.Logs.Count));
 
         UpdateLogEntryWidths();
-        LogScroll.SetScrollValue(LiveLogButton.Pressed ? Vector2.Zero : oldScroll);
+        LogScroll.SetScrollValue(followNewest ? Vector2.Zero : oldScroll);
     }
 
     private void UpdateLogEntryWidths()

@@ -1,20 +1,15 @@
-using System.Linq;
 using Content.Server.Administration.Logs;
 using Content.Server.Chat.Managers;
 using Content.Server.Chat.Systems;
 using Content.Server.Ghost;
-using Content.Server.Power.Components;
 using Content.Server._Onyx.Chat;
-using Content.Server._Onyx.Telecommunications;
 using Content.Shared._Onyx.Language; // <Onyx-LanguageAppearance>
 using Content.Shared.Chat;
-using Content.Shared._Onyx.Telecommunications; // <Onyx-TelecomTransmitter>
 using Content.Shared.Database;
 using Content.Shared.Radio;
 using Content.Shared.Radio.Components;
 using Content.Shared.Radio.EntitySystems;
 using Content.Shared.Speech;
-using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
@@ -31,7 +26,6 @@ public sealed partial class RadioSystem : SharedRadioSystem
     [Dependency] private IAdminLogManager _adminLogger = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private ChatSystem _chat = default!;
-    [Dependency] private TelecommunicationsChainSystem _telecommunications = default!;
     [Dependency] private Content.Server._Onyx.Language.LanguageSystem _languages = default!; // <Onyx-LanguageAppearance>
 
     private EntityQuery<TelecomExemptComponent> _exemptQuery;
@@ -91,18 +85,7 @@ public sealed partial class RadioSystem : SharedRadioSystem
         RaiseLocalEvent(radioSource, ref sendAttemptEv);
         var canSend = !sendAttemptEv.Cancelled;
 
-        var sourceXform = Transform(radioSource);
-        var sourceMapId = sourceXform.MapID;
-        var sourceServerExempt = _exemptQuery.HasComp(radioSource);
-        var transmittedMessage = message;
-        var canBroadcast = canSend;
-
-        if (canBroadcast && !channel.LongRange && !sourceServerExempt)
-        {
-            var route = _telecommunications.RouteSignal(sourceMapId, channel, messageSource, message);
-            canBroadcast = route.CanBroadcast;
-            transmittedMessage = route.Message;
-        }
+        var (canBroadcast, transmittedMessage) = RouteTelecommunications(canSend, radioSource, channel, messageSource, message); // <Onyx-TelecommsGridRouting-edited>
 
         var content = escapeMarkup
             ? FormattedMessage.EscapeText(transmittedMessage)
@@ -150,10 +133,6 @@ public sealed partial class RadioSystem : SharedRadioSystem
                     continue;
             }
 
-            if (!channel.LongRange && transform.MapID != sourceMapId && !radio.GlobalReceive
-                && !(HasActiveTransmitter(transform.MapID) && HasActiveTransmitter(sourceMapId)))
-                continue;
-
             // check if message can be sent to specific receiver
             var attemptEv = new RadioReceiveAttemptEvent(channel, radioSource, receiver);
             RaiseLocalEvent(ref attemptEv);
@@ -165,6 +144,8 @@ public sealed partial class RadioSystem : SharedRadioSystem
             RaiseLocalEvent(receiver, ref ev);
         }
 
+        CompleteTelecommunications(radioSource); // <Onyx-TelecommsGridRouting-edited>
+
         if (name != Name(messageSource))
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} as {name} on {channel.LocalizedName}: {message}");
         else
@@ -174,12 +155,4 @@ public sealed partial class RadioSystem : SharedRadioSystem
         _messages.Remove(message);
     }
 
-    // <Onyx-TelecomTransmitter-edited>
-    /// <inheritdoc cref="TelecomTransmitterComponent"/>
-    private bool HasActiveTransmitter(MapId mapId)
-    {
-        return EntityQuery<TelecomTransmitterComponent, ApcPowerReceiverComponent, TransformComponent>()
-            .Any(transmitter => transmitter.Item3.MapID == mapId && transmitter.Item2.Powered);
-    }
-    // </Onyx-TelecomTransmitter-edited>
 }

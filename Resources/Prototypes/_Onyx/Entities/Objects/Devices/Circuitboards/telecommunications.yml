@@ -51,6 +51,9 @@
     state: engineering
   - type: MachineBoard
     prototype: TelecomReceiver
+    partRequirements:
+      Capacitor: 1
+      Scanner: 1
     stackRequirements:
       Steel: 1
       Cable: 2
@@ -67,6 +70,7 @@
     prototype: TelecomProcessor
     partRequirements:
       Servo: 1
+      Scanner: 1
     stackRequirements:
       Steel: 1
       Cable: 2
@@ -83,6 +87,7 @@
     prototype: TelecomBroadcaster
     partRequirements:
       Capacitor: 1
+      Laser: 1
     stackRequirements:
       Steel: 1
       Cable: 2
@@ -95,3 +100,19 @@
   components:
   - type: ComputerBoard
     prototype: TelecomTrafficConsole
+
+- type: entity
+  id: TelecomHubCircuitboard
+  parent: BaseMachineCircuitboard
+  name: telecommunication hub machine board
+  description: A machine printed circuit board for a telecommunication hub.
+  components:
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: TelecomHub
+    partRequirements:
+      Servo: 2
+    stackRequirements:
+      Steel: 2
+      Cable: 4
