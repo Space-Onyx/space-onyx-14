@@ -82,7 +82,10 @@
     angleDecay: 20
     selectedMode: FullAuto # Override of BaseWeaponPistol to default to full-auto
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Pistols/viper.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Pistols/viper.rsi # <Onyx-GunResprites-edited>
+  - type: Clothing # <Onyx-GunResprites>
+    sprite: _Onyx/Objects/Weapons/Guns/Pistols/viper.rsi
+  # </Onyx-GunResprites>
   - type: ItemSlots
     slots:
       gun_magazine:
@@ -152,14 +155,14 @@
   description: Integrally suppressed semi-automatic pistol used by the Syndicate, firing caseless subsonic rounds. Favored by any agent who likes to keep things quiet and leave no evidence behind. Feeds from .25 pistol magazines.
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Pistols/cobra.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Pistols/cobra.rsi # <Onyx-GunResprites-edited>
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
-    sprite: Objects/Weapons/Guns/Pistols/cobra.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Pistols/cobra.rsi # <Onyx-GunResprites-edited>
   - type: ChamberMagazineAmmoProvider
     boltClosed: null
   - type: Gun
@@ -206,14 +209,14 @@
   description: Designed by Nanotrasen’s Small Arms Division, the Mk58 is a conventional semi-automatic pistol with a simple recoil-operated action and excellent reliability. The standard sidearm of Nanotrasen’s station security and emergency response teams. Feeds from .35 pistol magazines.
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Pistols/mk58.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Pistols/mk58.rsi # <Onyx-GunResprites-edited>
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
-    sprite: Objects/Weapons/Guns/Pistols/mk58.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Pistols/mk58.rsi # <Onyx-GunResprites-edited>
   - type: Item
     storedOffset: 0,-2
   - type: Gun
@@ -226,6 +229,49 @@
     - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/mk58.ogg
+  # <Onyx-Mk58Flashlight>
+  - type: ItemUpgradeable
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+      flashlight: !type:ContainerSlot
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazinePistol
+        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazinePistol
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgePistol
+        priority: 1
+        whitelist:
+          tags:
+            - CartridgePistol
+      flashlight:
+        name: weapon-upgrade-slot-name-flashlight
+        priority: 1
+        insertDelay: 0.4
+        ejectDelay: 0.2
+        ejectOnBreak: true
+        occludesLight: false
+        whitelist:
+          components:
+          - GunUpgradeFlashlight
+  - type: ItemMapper
+    mapLayers:
+      flashlight:
+        whitelist:
+          components:
+          - GunUpgradeFlashlight
+  # </Onyx-Mk58Flashlight>
   - type: StealTarget
     stealGroup: OfficerHandgun
 
@@ -236,14 +282,14 @@
   description: An exceptionally powerful ‘hand cannon’ designed as part of Nanotrasen's BFG initiative. Chambered in .45, the lord’s caliber, it is generally considered too unwieldy for standard use but has become something of a status symbol among Nanotrasen officials. Feeds from .45 pistol magazines.
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Pistols/N1984.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Pistols/N1984.rsi # <Onyx-GunResprites-edited>
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
-    sprite: Objects/Weapons/Guns/Pistols/N1984.rsi
+    sprite: _Onyx/Objects/Weapons/Guns/Pistols/N1984.rsi # <Onyx-GunResprites-edited>
   - type: Gun
     minAngle: 1
     maxAngle: 20

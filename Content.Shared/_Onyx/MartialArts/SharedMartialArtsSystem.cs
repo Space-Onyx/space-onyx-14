@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Numerics;
 using Content.Goobstation.Shared.GrabIntent;
+using Content.Shared._Onyx.Projectiles;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Actions;
 using Content.Shared.Alert;
@@ -319,20 +320,11 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
             return;
 
         var effects = EnsureComp<SleepingCarpEffectsComponent>(uid);
-        if (!TryComp<ReflectComponent>(uid, out var reflect))
+        if (!HasComp<AutoDodgeComponent>(uid))
         {
-            reflect = AddComp<ReflectComponent>(uid);
-            effects.AddedReflect = true;
+            AddComp<AutoDodgeComponent>(uid).DodgeMelee = false;
+            effects.AddedAutoDodge = true;
         }
-        else
-        {
-            effects.OriginalReflectProbability = reflect.ReflectProb;
-            effects.OriginalReflectSpread = reflect.Spread;
-        }
-
-        reflect.ReflectProb = 1f;
-        reflect.Spread = Angle.FromDegrees(60);
-        Dirty(uid, reflect);
 
         const string dragon = "Dragon";
         if (!_faction.IsMember(uid, dragon))
@@ -347,14 +339,8 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
         if (!TryComp<SleepingCarpEffectsComponent>(uid, out var effects))
             return;
 
-        if (effects.AddedReflect)
-            RemComp<ReflectComponent>(uid);
-        else if (TryComp<ReflectComponent>(uid, out var reflect))
-        {
-            reflect.ReflectProb = effects.OriginalReflectProbability;
-            reflect.Spread = effects.OriginalReflectSpread;
-            Dirty(uid, reflect);
-        }
+        if (effects.AddedAutoDodge)
+            RemComp<AutoDodgeComponent>(uid);
 
         if (effects.AddedDragonFaction)
         {

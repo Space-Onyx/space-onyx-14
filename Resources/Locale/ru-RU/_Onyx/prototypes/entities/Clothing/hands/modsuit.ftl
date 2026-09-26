@@ -22,3 +22,5 @@ ent-ClothingModsuitGauntletsCosmohonk = перчатки скафандра MOD 
     .desc = Клоунские перчатки, идеально подходящие для хонков.
 ent-ClothingModsuitGauntletsRescue = спасательные перчатки скафандра MOD
     .desc = Спасательные перчатки с частичной электроизоляцией.
+ent-ClothingModsuitGauntletsBrigMed = перчатки скафандра MOD бригмедика
+    .desc = Защитные герметичные перчатки, не мешающие оказывать медицинскую помощь.

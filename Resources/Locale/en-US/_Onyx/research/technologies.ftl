@@ -66,3 +66,6 @@ research-technology-kenetic-mech = Kinetic Mech Weaponry
 research-technology-kenetic-shuttle = Kinetic Shuttle Weaponry
 research-technology-mech-lasers = Mech Laser Weaponry
 research-technology-ore-bag-holding = Bluespace Ore Storage
+
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station/pull/7189), licensed under AGPL-3.0-or-later.
+research-technology-security-cyborg = Security Cyborg Technology

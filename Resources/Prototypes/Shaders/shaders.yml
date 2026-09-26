@@ -154,3 +154,10 @@
   id: NaturalNightVision
   kind: source
   path: "/Textures/_Onyx/Shaders/nightvision.swsl" # <Onyx-WegaAssets-edited>
+
+# <Onyx-SleepingCarpDodge>
+- type: shader
+  id: SpeedLines
+  kind: source
+  path: "/Textures/_Onyx/Shaders/speed_lines.swsl"
+# </Onyx-SleepingCarpDodge>

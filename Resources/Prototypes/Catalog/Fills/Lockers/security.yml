@@ -128,7 +128,7 @@
     # <Onyx-LockerInventories-edited>
     - id: ClothingBackpackDuffelSurgeryFilled
     - id: ClothingHandsGlovesLatex
-    - id: ClothingOuterHardsuitBrigmedic
+    - id: UndeterminedVoidsuitBrigMed # <Onyx-BrigMedModsuit-edited>
     - id: OxygenTankFilled
     - id: NitrogenTankFilled
     - id: ClothingUniformJumpskirtOfLife

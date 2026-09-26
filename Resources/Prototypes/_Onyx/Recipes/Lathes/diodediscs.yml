@@ -1,0 +1,9 @@
+- type: latheRecipe
+  parent: BaseLatheUpgradeKitRecipe
+  id: DiodeDiscElectroDisruptive
+  result: DiodeDiscElectroDisruptive
+
+- type: latheRecipe
+  parent: BaseLatheUpgradeKitRecipe
+  id: DiodeDiscElectroBehavioural
+  result: DiodeDiscElectroBehavioural

@@ -239,3 +239,16 @@ marking-GauzeBandagedHead = Перевязка головы
 marking-GauzeBandagedHead-bandagedhead = Перевязка головы
 marking-FaceNoseclip = Зажим для носа
 marking-FaceNoseclip-noseclip = Зажим для носа
+
+marking-HumanHairCubism = Кубизм
+marking-HumanHairDeathKid = Дитя смерти
+marking-HumanHairLongRoundedExtensions = Длинные круглые с начёсом
+marking-HumanHairLongTuftTipped = Длинные с кисточками
+marking-HumanHairOrb = Сфера
+marking-HumanHairPigtailsExtensions = Косички с начёсом
+marking-HumanHairShortCurvy = Короткие вьющиеся
+marking-HumanHairShortRoundedExtensions = Короткие круглые с начёсом
+marking-HumanHairShortTuftTipped = Короткие с кисточками
+marking-HumanHairTriangulum = Триангулум
+marking-HumanHairWolfcutClean = Аккуратный волчий крой
+marking-HumanHairWolfcutMeow = Волчий крой «мяу»

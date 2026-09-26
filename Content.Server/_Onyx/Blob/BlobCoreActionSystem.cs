@@ -187,9 +187,13 @@ public sealed partial class BlobCoreActionSystem : SharedBlobCoreActionSystem
         }
 
         var cost = core.Comp.BlobTileCosts[BlobTileType.Normal];
+        if (core.Comp.CurrentChem == BlobChemType.ChainCoating)
+            cost *= 1.5f;
+
         if (targetTileEmpty)
         {
-            cost *= 2.5f;
+            if (core.Comp.CurrentChem != BlobChemType.ComatoseFiber)
+                cost *= 2.5f;
 
         }
 

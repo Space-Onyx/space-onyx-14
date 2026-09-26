@@ -1,29 +1,17 @@
 - type: entity
   parent: BaseSubdermalImplant
-  id: DeathRattleLavalandImplant
-  name: lavaland death rattle implant
-  description: This implant informs the Supply radio channel if the user dies on the Lavaland surface, including exact coordinates.
+  id: TelepathyImplant
+  name: telepathy implant
+  description: This implant allows the user to use telepathy.
+  categories: [ HideSpawnMenu ]
   components:
   - type: SubdermalImplant
-    permanent: true
-    whitelist:
-      components:
-      - MobState
-  - type: TriggerBlocker
-    mapWhitelist:
-      components:
-      - LavalandMap
-  - type: TriggerOnMobstateChange
-    mobState:
-    - Dead
-  - type: RattleOnTrigger
-    radioChannel: Supply
-    reportCoordinates: true
+    implantAction: ActionTelepathy
 
 - type: entity
-  id: DeathRattleLavalandImplanter
-  suffix: Lavaland Death Rattle
   parent: BaseImplantOnlyImplanter
+  id: TelepathyImplanter
+  suffix: Telepathy
   components:
   - type: Implanter
-    implant: DeathRattleLavalandImplant
+    implant: TelepathyImplant

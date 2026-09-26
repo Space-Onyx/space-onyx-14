@@ -5,10 +5,6 @@
   abstract: true
   description: Gambling for the antisocial.
   components:
-  - type: CollectiveMind
-    defaultChannel: Binary
-    channels:
-    - Binary
   - type: StationAiWhitelist
   - type: Transform
     noRot: false

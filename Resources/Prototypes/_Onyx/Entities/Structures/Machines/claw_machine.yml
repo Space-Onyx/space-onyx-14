@@ -4,10 +4,6 @@
   name: claw machine
   description: Sure we got our health insurance benefits cut, and yeah we don't get any overtime on holidays, but hey - free to play claw machines!
   components:
-  - type: CollectiveMind
-    defaultChannel: Binary
-    channels:
-    - Binary
   - type: StationAiWhitelist
   - type: Sprite
     sprite: _Onyx/Structures/Machines/SlotMachines/claw_machine.rsi

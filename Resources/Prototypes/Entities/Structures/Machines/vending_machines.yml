@@ -77,19 +77,20 @@
     minVocalizeInterval: 8m
     maxVocalizeInterval: 10m
     hideChat: true
-  # <Onyx-CollectiveMind>
-  - type: CollectiveMind
-    defaultChannel: Binary
-    channels:
-    - Binary
-  # </Onyx-CollectiveMind>
+  # <Onyx-BinaryRadio-edited>
   - type: VocalizerRequiresPower
   - type: SpookySpeaker
     messageSet: SpookySpeakerMessagesGeneric
     speakChance: 0.2
   - type: IntrinsicRadioReceiver
+  # <Onyx-BinaryRadio>
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+  # </Onyx-BinaryRadio>
   - type: ActiveRadio
     channels:
+    - Binary # <Onyx-BinaryRadio-edited>
     - Common
   - type: DoAfter
   - type: Electrified

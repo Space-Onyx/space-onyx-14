@@ -75,15 +75,15 @@
     tags:
     - BasicSilicon
   - type: IntrinsicRadioReceiver
+  # <Onyx-BinaryRadio>
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+  # </Onyx-BinaryRadio>
   - type: ActiveRadio
     channels:
     - Common
-  # <Onyx-CollectiveMind>
-  - type: CollectiveMind
-    defaultChannel: Binary
-    channels:
-    - Binary
-  # </Onyx-CollectiveMind>
+    - Binary # <Onyx-BinaryRadio-edited>
   - type: HealthExaminable
     examinableTypes:
     - Blunt

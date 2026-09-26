@@ -236,3 +236,16 @@ marking-HeterochromiaMothSoft = Heterochromia (Cute Eyes)
 marking-HeterochromiaMothSoft-eyes_heterochromia_soft = Heterochromia
 marking-GauzeBandagedHead = GauzeBandagedHead
 marking-FaceNoseclip = FaceNoseclip
+
+marking-HumanHairCubism = Cubism
+marking-HumanHairDeathKid = Death Kid
+marking-HumanHairLongRoundedExtensions = Long Round with Extensions
+marking-HumanHairLongTuftTipped = Long Tuft-tipped
+marking-HumanHairOrb = Orb
+marking-HumanHairPigtailsExtensions = Pigtails with Extensions
+marking-HumanHairShortCurvy = Short and Curly
+marking-HumanHairShortRoundedExtensions = Short Rounded with Extensions
+marking-HumanHairShortTuftTipped = Short Tuft-tipped
+marking-HumanHairTriangulum = Triangulum
+marking-HumanHairWolfcutClean = Wolfcut Clean
+marking-HumanHairWolfcutMeow = Wolfcut Meow

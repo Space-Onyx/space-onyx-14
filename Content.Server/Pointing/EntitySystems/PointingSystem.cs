@@ -6,6 +6,7 @@ using Content.Shared.Database;
 using Content.Shared.Examine;
 using Content.Shared.Eye;
 using Content.Shared.Ghost.Components;
+using Content.Shared.Holopad;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Input;
 using Content.Shared.Interaction;
@@ -14,6 +15,7 @@ using Content.Shared.Mind;
 using Content.Shared.Parallax;
 using Content.Shared.Pointing;
 using Content.Shared.Popups;
+using Content.Shared.Telephone;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
@@ -150,7 +152,21 @@ namespace Content.Server.Pointing.EntitySystems
                 return false;
             }
 
-            if (!CanPoint(player))
+            // <Onyx-HolopadPointing>
+            var pointOrigin = player;
+            if (TryComp<HolopadUserComponent>(player, out var holopad))
+            {
+                var stationAi = holopad.LinkedHolopads.FirstOrDefault();
+                if (stationAi.Owner.IsValid() &&
+                    TryComp<TelephoneComponent>(stationAi.Owner, out var telephone) &&
+                    telephone.LinkedTelephones.Count == 1)
+                {
+                    pointOrigin = telephone.LinkedTelephones.Single();
+                }
+            }
+            // </Onyx-HolopadPointing>
+
+            if (!CanPoint(pointOrigin)) // <Onyx-HolopadPointing-edited>
             {
                 return false;
             }
@@ -167,7 +183,7 @@ namespace Content.Server.Pointing.EntitySystems
 
             if (TryComp<PointingArrowComponent>(arrow, out var pointing))
             {
-                pointing.StartPosition = _transform.ToCoordinates((arrow, Transform(arrow)), _transform.ToMapCoordinates(Transform(player).Coordinates)).Position;
+                pointing.StartPosition = _transform.ToCoordinates((arrow, Transform(arrow)), _transform.ToMapCoordinates(Transform(pointOrigin).Coordinates)).Position; // <Onyx-HolopadPointing-edited>
                 pointing.EndTime = _gameTiming.CurTime + PointDuration;
 
                 Dirty(arrow, pointing);

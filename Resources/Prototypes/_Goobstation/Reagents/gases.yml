@@ -128,12 +128,22 @@
       effects:
       - !type:Oxygenate
         factor: 8
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [ Feroxi ]
+      - !type:Oxygenate
+        factor: 8
       - !type:ModifyLungGas
         ratios:
           CarbonDioxide: 1
           Pluoxium: -1
     Respiration:
       effects:
+      - !type:Oxygenate
+        factor: 8
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [ Feroxi ]
       - !type:Oxygenate
         factor: 8
       - !type:ModifyLungGas

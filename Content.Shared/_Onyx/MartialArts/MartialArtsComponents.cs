@@ -98,10 +98,8 @@ public sealed partial class SleepingCarpStudentComponent : Component
 [RegisterComponent]
 public sealed partial class SleepingCarpEffectsComponent : Component
 {
-    public bool AddedReflect;
+    public bool AddedAutoDodge;
     public bool AddedDragonFaction;
-    public float OriginalReflectProbability;
-    public Angle OriginalReflectSpread;
 }
 
 [RegisterComponent]

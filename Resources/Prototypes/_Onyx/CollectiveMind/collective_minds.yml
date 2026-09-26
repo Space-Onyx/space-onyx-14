@@ -48,11 +48,12 @@
   keycode: 'а'
   color: "#d600bd"
 
-- type: collectiveMind
-  id: Binary
-  name: collective-mind-binary
-  keycode: 'и'
-  color: "#5ed7aa"
+# Binary is a radio channel, not a hivemind.
+#- type: collectiveMind
+#  id: Binary
+#  name: collective-mind-binary
+#  keycode: 'и'
+#  color: "#5ed7aa"
 
 - type: collectiveMind
   id: Dronemind

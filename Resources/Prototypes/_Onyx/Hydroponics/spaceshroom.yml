@@ -1,0 +1,33 @@
+- type: entity
+  parent: BasePlant
+  id: SpaceshroomPlants
+  categories: [ HideSpawnMenu ]
+  name: spaceshroom
+  components:
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Hydroponics/spaceshroom.rsi
+  - type: PlantData
+    name: seeds-spaceshroom-name
+    displayName: seeds-spaceshroom-display-name
+    packetPrototype: SpaceshroomSeeds
+    productPrototypes: [ FoodSpaceshroom ]
+  - type: Plant
+    lifespan: 25
+    maturation: 10
+    production: 5
+    yield: 3
+    potency: 10
+    growthStages: 3
+  - type: PlantGrowth
+    waterConsumption: 1
+    nutrientConsumption: 0.4
+
+- type: entity
+  parent: SeedBase
+  id: SpaceshroomSeeds
+  name: packet of spaceshroom spores
+  components:
+  - type: Seed
+    plantId: SpaceshroomPlants
+  - type: Sprite
+    sprite: _Onyx/Objects/Specific/Hydroponics/spaceshroom.rsi

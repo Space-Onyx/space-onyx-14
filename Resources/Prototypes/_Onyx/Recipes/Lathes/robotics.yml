@@ -383,3 +383,15 @@
   parent: BaseBorgModuleRecipe
   id: BorgModuleDNA
   result: BorgModuleDNA
+
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station/pull/7189), licensed under AGPL-3.0-or-later.
+- type: latheRecipe
+  parent: BaseRoboticsRecipe
+  id: SecEndoskeleton
+  result: CyborgEndoskeletonSEC
+  completetime: 4
+  materials:
+    Steel: 1500
+    Gold: 200
+    Silver: 200
+    Uranium: 100

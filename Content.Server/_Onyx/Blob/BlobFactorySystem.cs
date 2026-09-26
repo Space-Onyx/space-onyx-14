@@ -96,6 +96,12 @@ public sealed partial class BlobFactorySystem : EntitySystem
     private static readonly ProtoId<ReagentPrototype> Mold = "Mold";
 
     private static readonly ProtoId<ReagentPrototype> Bicaridine = "Bicaridine";
+    private static readonly ProtoId<ReagentPrototype> ChloralHydrate = "ChloralHydrate";
+    private static readonly ProtoId<ReagentPrototype> Profanol = "Profanol";
+    private static readonly ProtoId<ReagentPrototype> PolytrinicAcid = "PolytrinicAcid";
+    private static readonly ProtoId<ReagentPrototype> Ipecac = "Ipecac";
+    private static readonly ProtoId<ReagentPrototype> Razorium = "Razorium";
+    private static readonly ProtoId<ReagentPrototype> Fresium = "Fresium";
 
     private static readonly ProtoId<ReagentPrototype> Aluminium = "Aluminium";
     private static readonly ProtoId<ReagentPrototype> Iron = "Iron";
@@ -132,6 +138,22 @@ public sealed partial class BlobFactorySystem : EntitySystem
             default:
                 blobGas.AddSolution(new Solution(TearGas, FixedPoint2.New(30)),_prototypeManager);
                 break;
+            case BlobChemType.ComatoseFiber:
+                blobGas.AddSolution(new Solution(ChloralHydrate, FixedPoint2.New(30)),_prototypeManager);
+                break;
+            case BlobChemType.ChainCoating:
+                blobGas.AddSolution(new Solution(Razorium, FixedPoint2.New(30)),_prototypeManager);
+                break;
+            case BlobChemType.SinewyTendons:
+                blobGas.AddSolution(new Solution(Ipecac, FixedPoint2.New(15)),_prototypeManager);
+                blobGas.AddSolution(new Solution(Profanol, FixedPoint2.New(15)),_prototypeManager);
+                break;
+            case BlobChemType.CorrosiveSlime:
+                blobGas.AddSolution(new Solution(PolytrinicAcid, FixedPoint2.New(30)),_prototypeManager);
+                break;
+            case BlobChemType.CryogenicPoison:
+                blobGas.AddSolution(new Solution(Fresium, FixedPoint2.New(30)),_prototypeManager);
+                break;
         }
     }
 
@@ -145,6 +167,7 @@ public sealed partial class BlobFactorySystem : EntitySystem
 
         // forget dead pods
         component.BlobPods = component.BlobPods.Where(b => !TerminatingOrDeleted(b) && _mobState.IsAlive(b)).ToList();
+        component.SpawnLimit = blobCoreComponent.CurrentChem == BlobChemType.SinewyTendons ? 5 : 3;
 
         if (component.BlobPods.Count >= component.SpawnLimit)
             return;

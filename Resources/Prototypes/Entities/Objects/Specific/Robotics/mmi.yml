@@ -25,6 +25,7 @@
         components:
         - Brain
   - type: BorgBrain
+  - type: IntellicardableMind # <Onyx-IntellicardMMI>
   - type: BlockMovement
   - type: Examiner
   - type: IntrinsicRadioReceiver
@@ -35,12 +36,6 @@
     channels:
     - Binary
     - Common
-  # <Onyx-CollectiveMind>
-  - type: CollectiveMind
-    defaultChannel: Binary
-    channels:
-    - Binary
-  # </Onyx-CollectiveMind>
   - type: NameIdentifier
     group: MMI
   - type: DoAfter
@@ -108,6 +103,7 @@
     - type: BlockMovement
     - type: Examiner
     - type: BorgBrain
+    - type: IntellicardableMind # <Onyx-IntellicardMMI>
     - type: IntrinsicRadioReceiver
     - type: IntrinsicRadioTransmitter
       channels:
@@ -116,12 +112,6 @@
       channels:
       - Binary
       - Common
-    # <Onyx-CollectiveMind>
-    - type: CollectiveMind
-      defaultChannel: Binary
-      channels:
-      - Binary
-    # </Onyx-CollectiveMind>
     - type: NameIdentifier
       group: PositronicBrain
     - type: DoAfter

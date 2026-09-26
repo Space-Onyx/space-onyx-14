@@ -4,10 +4,6 @@
   name: coin flipper
   description: Coinflipping for the antisocial.
   components:
-  - type: CollectiveMind
-    defaultChannel: Binary
-    channels:
-    - Binary
   - type: StationAiWhitelist
   - type: Sprite
     sprite: _Onyx/Structures/Machines/SlotMachines/coinflipper.rsi

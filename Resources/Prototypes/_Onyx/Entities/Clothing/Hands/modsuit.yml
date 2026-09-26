@@ -269,8 +269,6 @@
     clothingVisuals:
       gloves:
       - state: equipped-HAND-sealed
-      gloves-resomi:
-      - state: equipped-HAND-sealed-resomi
       gloves-vox:
       - state: equipped-HAND-sealed-vox
 
@@ -310,8 +308,6 @@
     clothingVisuals:
       gloves:
       - state: equipped-HAND-sealed
-      gloves-resomi:
-      - state: equipped-HAND-sealed-resomi
       gloves-vox:
       - state: equipped-HAND-sealed-vox
 
@@ -376,8 +372,6 @@
     clothingVisuals:
         hands:
         - state: equipped-HAND
-        hands-resomi:
-        - state: equipped-HAND-resomi
   - type: DamageOnInteractProtection
     damageProtection:
       flatReductions:
@@ -395,7 +389,44 @@
     clothingVisuals:
       gloves:
       - state: equipped-HAND-sealed
-      gloves-resomi:
-      - state: equipped-HAND-sealed-resomi
+      gloves-vox:
+      - state: equipped-HAND-sealed-vox
+
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station/pull/6999), licensed under AGPL-3.0-or-later.
+- type: entity
+  parent: ClothingHandModsuitBase
+  id: ClothingModsuitGauntletsBrigMed
+  name: trauma modsuit gauntlets
+  description: Cool gauntlets.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Appearance
+  - type: Sprite
+    sprite: _Onyx/Clothing/Hands/Modsuits/brigmed.rsi
+    layers:
+    - state: gauntlets
+    - state: gauntlets-sealed
+      visible: false
+      map: [ "sealed" ]
+  - type: Clothing
+    equipSound: /Audio/Mecha/mechmove03.ogg
+    unequipSound: /Audio/Mecha/mechmove03.ogg
+    slots: [ gloves ]
+  - type: DamageOnInteractProtection
+    damageProtection:
+      flatReductions:
+        Heat: 10
+  - type: Fiber
+    fiberMaterial: fibers-modular
+    fiberColor: fibers-black
+  - type: FingerprintMask
+  - type: SealableClothing
+    sealUpPopup: sealable-clothing-seal-up-gauntlets
+    sealDownPopup: sealable-clothing-seal-down-gauntlets
+  - type: SealableClothingVisuals
+    spriteLayer: sealed
+    clothingVisuals:
+      gloves:
+      - state: equipped-HAND-sealed
       gloves-vox:
       - state: equipped-HAND-sealed-vox

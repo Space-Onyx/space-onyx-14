@@ -24,3 +24,5 @@ ent-ClothingModsuitHelmetCosmohonk = шлем скафандра MOD "Космо
     .desc = Клоунский шлем с красным визором. Хонк!
 ent-ClothingModsuitHelmetRescue = спасательный шлем скафандра MOD
     .desc = Медицинский шлем для эвакуации пациентов из опасной среды.
+ent-ClothingModsuitHelmetBrigMed = шлем скафандра MOD бригмедика
+    .desc = Бронированный герметичный шлем с медицинским визором для наблюдения за состоянием окружающих.

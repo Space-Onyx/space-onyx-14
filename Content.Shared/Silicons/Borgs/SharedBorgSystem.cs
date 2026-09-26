@@ -1,5 +1,6 @@
 using Content.Shared.Access.Systems;
 using Content.Shared._Onyx.Silicons.Borgs.Components; // <Onyx-AiRemoteBrain>
+using Content.Shared.Holopad;
 using Content.Shared.Actions;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Containers.ItemSlots;
@@ -364,7 +365,8 @@ public abstract partial class SharedBorgSystem : EntitySystem
 
     private void OnBrainPointAttempt(Entity<BorgBrainComponent> brain, ref PointAttemptEvent args)
     {
-        args.Cancel();
+        if (!HasComp<HolopadUserComponent>(brain)) // <Onyx-HolopadPointing-edited>
+            args.Cancel();
     }
 
     // Raised when the power cell is empty or removed from the borg.

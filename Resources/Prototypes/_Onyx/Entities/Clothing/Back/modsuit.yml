@@ -394,8 +394,6 @@
     clothingVisuals:
       back:
       - state: equipped-BACKPACK
-      back-resomi:
-      - state: equipped-BACKPACK-resomi
   - type: Sprite
     sprite: _Onyx/Clothing/Back/Modsuits/headofsecurity.rsi
   - type: ToggleableClothing
@@ -412,8 +410,6 @@
     clothingVisuals:
       back:
       - state: equipped-BACKPACK-sealed
-      back-resomi:
-      - state: equipped-BACKPACK-sealed-resomi
 
 - type: entity
   parent: ClothingModsuitHeadOfSecurity
@@ -500,8 +496,6 @@
     clothingVisuals:
       back:
       - state: equipped-BACKPACK-sealed
-      back-resomi:
-      - state: equipped-BACKPACK-sealed-resomi
 
 - type: entity
   parent: ClothingModsuitEngineer
@@ -544,8 +538,6 @@
     clothingVisuals:
       back:
       - state: equipped-BACKPACK-sealed
-      back-resomi:
-      - state: equipped-BACKPACK-sealed-resomi
 
 - type: entity
   parent: ClothingModsuitAtmostech
@@ -635,8 +627,6 @@
     clothingVisuals:
       back:
       - state: equipped-BACKPACK-sealed
-      back-resomi:
-      - state: equipped-BACKPACK-sealed-resomi
 
 - type: entity
   parent: ClothingModsuitCaptain
@@ -655,3 +645,42 @@
     startingModules:
     - StorageLargeSuitModule
     - FlashlightSuitModule
+
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station/pull/6999), licensed under AGPL-3.0-or-later.
+- type: entity
+  parent: [ClothingModsuitStandard, BaseSecurityContraband]
+  id: ClothingModsuitBrigMed
+  name: security trauma modsuit control unit
+  description: A robust modular hardsuit control module unit for healing commies in space.
+  components:
+  - type: Appearance
+  - type: Sprite
+    sprite: _Onyx/Clothing/Back/Modsuits/brigmed.rsi
+  - type: ToggleableClothing
+    clothingPrototypes:
+      head: ClothingModsuitHelmetBrigMed
+      gloves: ClothingModsuitGauntletsBrigMed
+      outerClothing: ClothingModsuitChestplateBrigMed
+      shoes: ClothingModsuitBootsBrigMed
+  - type: Construction
+    graph: Modsuit
+    node: brigmed
+  - type: SealableClothingVisuals
+    spriteLayer: sealed
+    clothingVisuals:
+      back:
+      - state: equipped-BACKPACK-sealed
+
+- type: entity
+  parent: ClothingModsuitBrigMed
+  id: ClothingModsuitBrigMedPowerCell
+  suffix: High-Capacity Battery
+  components:
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellHigh
+        whitelist:
+          components:
+            - PowerCell

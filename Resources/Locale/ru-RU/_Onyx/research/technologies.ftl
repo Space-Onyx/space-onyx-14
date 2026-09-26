@@ -72,3 +72,6 @@ research-technology-bitrunning = Битраннинг
 
 # Content below taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
 research-technology-genetics-modification = Модификация ДНК
+
+research-technology-security-cyborg = Киборги S.E.C.
+research-technology-advanced-emitters = Модификация эмиттеров

@@ -10,8 +10,6 @@
     clothingVisuals:
       back:
       - state: equipped-BACKPACK
-      back-resomi:
-      - state: equipped-BACKPACK-resomi
   - type: ToggleableClothing
     clothingPrototypes:
       head: ClothingModsuitHelmetPraetorian
@@ -31,8 +29,6 @@
     clothingVisuals:
       back:
       - state: equipped-BACKPACK-sealed
-      back-resomi:
-      - state: equipped-BACKPACK-sealed-resomi
 
 - type: entity
   parent: ClothingModsuitGauntletsStandard
@@ -67,8 +63,6 @@
     clothingVisuals:
       head:
       - state: equipped-HEAD
-      head-resomi:
-      - state: equipped-HEAD-resomi
       head-vox:
       - state: equipped-HEAD-vox
       head-vulpkanin:
@@ -113,8 +107,6 @@
       - state: equipped-HEAD-sealed
       - state: equipped-HEAD-sealed-unshaded
         shader: unshaded
-      head-resomi:
-      - state: equipped-HEAD-sealed-resomi
       head-vox:
       - state: equipped-HEAD-sealed-vox
       - state: equipped-HEAD-sealed-unshaded-vox
@@ -154,8 +146,6 @@
     clothingVisuals:
       outerClothing:
       - state: equipped-OUTERCLOTHING-sealed
-      outerClothing-resomi:
-      - state: equipped-OUTERCLOTHING-sealed-resomi
       outerClothing-vox:
       - state: equipped-OUTERCLOTHING-sealed-vox
       outerClothing-reptilian:

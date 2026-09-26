@@ -16,3 +16,4 @@ construction-graph-tag-mod-chestplate = нагрудник MOD скафандр�
 construction-graph-tag-mod-gauntlets = перчатки MOD скафандра
 construction-graph-tag-mod-boots = ботинки MOD скафандра
 construction-graph-tag-mod-plating = обшивка MOD скафандра
+construction-graph-tag-combat-knife = боевой нож

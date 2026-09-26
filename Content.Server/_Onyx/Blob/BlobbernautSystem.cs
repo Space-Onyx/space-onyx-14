@@ -106,6 +106,13 @@ public sealed partial class BlobbernautSystem : SharedBlobbernautSystem
             case BlobChemType.ExplosiveLattice:
                 _explosionSystem.QueueExplosion(args.HitEntities.FirstOrDefault(), blobCoreComponent.BlobExplosive, 4, 1, 2, maxTileBreak: 0);
                 break;
+
+            case BlobChemType.ChainCoating:
+            {
+                _damageableSystem.SetDamageModifierSetId(uid, "BlobBlobbernautChainCoating");
+                break;
+            }
+
             case BlobChemType.ElectromagneticWeb:
             {
                 var xform = Transform(args.HitEntities.FirstOrDefault());

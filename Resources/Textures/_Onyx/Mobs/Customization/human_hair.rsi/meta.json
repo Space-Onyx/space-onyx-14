@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from Goob Station PR #6942; sprites by BeeRobynn.",
+  "size": { "x": 32, "y": 32 },
+  "states": [
+    { "name": "cubism", "directions": 4 },
+    { "name": "deathkid", "directions": 4 },
+    { "name": "longroundextensions", "directions": 4 },
+    { "name": "longtufttipped", "directions": 4 },
+    { "name": "orb", "directions": 4 },
+    { "name": "pigtailextensions", "directions": 4 },
+    { "name": "shortandcurvy", "directions": 4 },
+    { "name": "shortroundedextensions", "directions": 4 },
+    { "name": "shorttufttipped", "directions": 4 },
+    { "name": "triangulum", "directions": 4 },
+    { "name": "wolfcutclean", "directions": 4 },
+    { "name": "wolfcutmeow", "directions": 4 }
+  ]
+}

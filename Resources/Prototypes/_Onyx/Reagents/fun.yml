@@ -1,0 +1,15 @@
+- type: reagent
+  id: Profanol
+  name: reagent-name-profanol
+  group: Toxins
+  desc: reagent-desc-profanol
+  physicalDesc: reagent-physical-desc-pungent
+  flavor: offensive
+  color: "#BF5E5E"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.10
+      effects:
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectVulgarity
+        time: 2

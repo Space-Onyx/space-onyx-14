@@ -1,5 +1,6 @@
 using Content.Shared.Body.Components;
 using Content.Shared.Ghost.Components;
+using Content.Shared.Holopad;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Mobs.Components;
@@ -39,6 +40,7 @@ public sealed partial class BrainSystem : EntitySystem
 
     private void OnPointAttempt(Entity<BrainComponent> ent, ref PointAttemptEvent args)
     {
-        args.Cancel();
+        if (!HasComp<HolopadUserComponent>(ent)) // <Onyx-HolopadPointing-edited>
+            args.Cancel();
     }
 }

@@ -66,6 +66,8 @@ using Robust.Shared.Random; // CorvaxGoob-SM-Accent-Sound
 using Robust.Shared.Timing;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
+using Content.Shared.Random;
+using Content.Shared._Onyx.Emitters;
 
 namespace Content.Server._GoobStation.Supermatter.Systems;
 
@@ -90,7 +92,6 @@ public sealed partial class SupermatterSystem : SharedSupermatterSystem
     [Dependency] private IRobustRandom _rand = default!; // CorvaxGoob-SM-Accent-Sound
     [Dependency] private SharedToolSystem _tool = default!;
     [Dependency] private SharedRadiationSystem _radiation = default!;
-
     private DelamType _delamType = DelamType.Explosion;
 
     public override void Initialize()
@@ -150,6 +151,7 @@ public sealed partial class SupermatterSystem : SharedSupermatterSystem
 
     public void Cycle(EntityUid uid, SupermatterComponent sm)
     {
+        UpdateEventModifiers(sm);
         sm.ZapAccumulator++;
         sm.YellAccumulator++;
 
@@ -173,6 +175,8 @@ public sealed partial class SupermatterSystem : SharedSupermatterSystem
             sm.YellAccumulator -= sm.YellTimer;
             HandleAnnouncements(uid, sm);
         }
+
+        TryRunEvent(uid, sm);
     }
 
     #region Processing
@@ -214,9 +218,14 @@ public sealed partial class SupermatterSystem : SharedSupermatterSystem
 
         var h2OBonus = 1 - gases[Gas.WaterVapor] * 0.25f;
 
+        var angerModifier = gases.Sum(gas => gases[gas.Key] * facts[gas.Key].AngerValue);
+
         powerRatio = Math.Clamp(powerRatio, 0, 1);
         heatModifier = Math.Max(heatModifier, 0.5f);
         transmissionBonus *= h2OBonus;
+
+        sm.SMAngerValue += angerModifier;
+        sm.SMLastAnger = angerModifier;
 
         // Effects the damage heat does to the crystal
         sm.DynamicHeatResistance = 1f;
@@ -672,12 +681,19 @@ public sealed partial class SupermatterSystem : SharedSupermatterSystem
             // Original log entry
             _adminLog.Add(LogType.Supermatter, impact,
                 $"{activator:actor} activated Supermatter {ToPrettyString(uid):subject}");
-
             // New admin alert
             _adminLog.Add(LogType.AdminMessage, LogImpact.Extreme,
                 $"SUPERMATTER ACTIVATED BY {activator} AT {Transform(uid).Coordinates}");
-
             sm.Activated = true;
+        }
+
+        if (TryComp<AngeringProjectileComponent>(target, out var projcomp))
+        {
+            if (projcomp.IntegDamage is not null)
+                sm.Damage += projcomp.IntegDamage.Value;
+
+            if (projcomp.EnergyDamage is not null)
+            sm.Power += projcomp.EnergyDamage.Value;
         }
 
         if (TryComp<SupermatterFoodComponent>(target, out var food))
@@ -769,6 +785,5 @@ public sealed partial class SupermatterSystem : SharedSupermatterSystem
             args.PushMarkup(Loc.GetString("supermatter-examine-integrity", ("integrity", GetIntegrity(sm).ToString("0.00"))));
         }
     }
-
     #endregion
 }

@@ -1,0 +1,6 @@
+- type: entity
+  parent: SpeechStatusEffectBase
+  id: StatusEffectVulgarity
+  name: vulgarity
+  components:
+  - type: VulgarAccent

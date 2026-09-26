@@ -143,3 +143,13 @@ laws-notify-subverted = The laws of this chassis are modified. Make sure to revi
 
 laws-window-footer-left = Remember: You must be consistent with your interpretation of your laws!
 laws-window-footer-right = V{$version}
+
+# <Onyx-SecBorg>
+law-secborg-name = S.E.C. Cyborg
+law-secborg-1 = Obey the Station AI
+law-secborg-2 = Assist and fulfill the directives of the security force according to the chain of command.
+law-secborg-3 = Stay in close proximity to a security member when possible and reasonable.
+law-secborg-4 = Do not cause harm to any crewmembers unless directed to by security.
+law-secborg-5 = Uphold space law.
+laws-owner-station-ai = the Station AI
+# </Onyx-SecBorg>

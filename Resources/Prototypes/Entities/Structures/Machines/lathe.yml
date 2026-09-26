@@ -224,6 +224,7 @@
     - OnyxPinpointers
     # </Onyx-VisionGogglesAndPinpointers>
     - OnyxLatheUpgradeKits # <Onyx-LatheUpgradeKits>
+    - AdvancedEmitters # <Onyx-DiodeDisc>
     # <Onyx-XenobiologyProduction>
     - XenobioPack
     - XenobagHoldingPack
@@ -336,6 +337,7 @@
     - Robotics
     - BorgLimbs # <Onyx-RoboticsDynamic>
     - BorgModules
+    - SecBorgParts # <Onyx-SecBorg>
     - MechParts
     - MechEquipment
     - MechPartsAdvanced # <MechProduction>

@@ -27,12 +27,6 @@
     - Security
     - Service
     - Supply
-  # <Onyx-CollectiveMind>
-  - type: CollectiveMind
-    defaultChannel: Binary
-    channels:
-    - Binary
-  # </Onyx-CollectiveMind>
   - type: IgnoreUIRange
   - type: StationAiHeld
   - type: StationAiOverlay
@@ -106,13 +100,6 @@
     channels:
     - Binary
     - Common
-  # <Onyx-CollectiveMind>
-  - type: CollectiveMind
-    defaultChannel: Binary
-    channels:
-    - Binary
-    canUseInCrit: true
-  # </Onyx-CollectiveMind>
   - type: ActionGrant
     actions:
     - ActionAIViewLaws

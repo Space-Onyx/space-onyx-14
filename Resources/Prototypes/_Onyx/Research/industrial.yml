@@ -293,3 +293,26 @@
     - IndustrialEngineering
   connectionRoutes: {}
   connectionVisuals: {}
+
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station/pull/7076), licensed under AGPL-3.0-or-later.
+- type: technology
+  id: AdvancedEmitters
+  name: research-technology-advanced-emitters
+  icon:
+    sprite: _Onyx/Objects/Tools/diodedisc.rsi
+    state: icon
+  discipline: Industrial
+  tier: 1
+  cost: 3000
+  recipeUnlocks:
+  - DiodeDiscElectroDisruptive
+  - DiodeDiscElectroBehavioural
+  position: 5,3
+  technologyPrerequisites:
+  - PowerGeneration
+  connectionRoutes:
+    PowerGeneration: []
+  connectionVisuals:
+    PowerGeneration:
+      thumbnail: Auto
+      bridge: Auto

@@ -45,6 +45,16 @@ public sealed partial class BlobNodeSystem : EntitySystem
         _tileQuery = GetEntityQuery<BlobTileComponent>();
     }
 
+    private static float GetPulseFrequencyByChem(BlobChemType chemType)
+    {
+        return chemType switch
+        {
+            BlobChemType.SinewyTendons => 2.5f,
+            BlobChemType.ChainCoating => 6f,
+            _ => 4f,
+        };
+    }
+
     private void OnNodePulse(Entity<BlobNodeComponent> ent, ref BlobNodePulseEvent args)
     {
         var xform = Transform(ent);
@@ -171,6 +181,10 @@ public sealed partial class BlobNodeSystem : EntitySystem
         var blobNodeQuery = EntityQueryEnumerator<BlobNodeComponent, BlobTileComponent>();
         while (blobNodeQuery.MoveNext(out var ent, out var comp, out var blobTileComponent))
         {
+            comp.PulseFrequency = blobTileComponent.Core is { } core && TryComp<BlobCoreComponent>(core, out var coreComp)
+                ? GetPulseFrequencyByChem(coreComp.CurrentChem)
+                : GetPulseFrequencyByChem(default);
+
             comp.NextPulse += frameTime;
             if (comp.PulseFrequency > comp.NextPulse)
                 continue;

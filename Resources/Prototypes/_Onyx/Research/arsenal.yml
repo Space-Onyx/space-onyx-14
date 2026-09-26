@@ -311,3 +311,27 @@
       amount: 800
   connectionRoutes: {}
   connectionVisuals: {}
+
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station/pull/7189), licensed under AGPL-3.0-or-later.
+- type: technology
+  id: SecurityCyborgTechnology
+  name: research-technology-security-cyborg
+  icon:
+    sprite: _Onyx/Mobs/Silicon/sec_chassis.rsi
+    state: sec
+  discipline: Arsenal
+  tier: 2
+  recipeUnlocks:
+  - SecEndoskeleton
+  position: 0,-3
+  technologyPrerequisites:
+  - AdvancedRiotControl
+  pointCosts:
+    - type: General
+      amount: 10000
+  connectionRoutes:
+    AdvancedRiotControl: []
+  connectionVisuals:
+    AdvancedRiotControl:
+      thumbnail: Auto
+      bridge: Auto

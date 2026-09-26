@@ -16,3 +16,6 @@ construction-graph-tag-mod-chestplate = modsuit chestplate
 construction-graph-tag-mod-gauntlets = modsuit gauntlets
 construction-graph-tag-mod-boots = modsuit boots
 construction-graph-tag-mod-plating = modsuit plating
+
+# Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station/pull/7189), licensed under AGPL-3.0-or-later.
+construction-graph-tag-combat-knife = a combat knife

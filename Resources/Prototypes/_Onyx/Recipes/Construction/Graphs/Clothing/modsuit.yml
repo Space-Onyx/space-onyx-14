@@ -234,3 +234,7 @@
 
   - node: rescue
     entity: ClothingModsuitRescue
+
+  # Content below taken from Goob Station (https://github.com/Goob-Station/Goob-Station/pull/6999), licensed under AGPL-3.0-or-later.
+  - node: brigmed
+    entity: ClothingModsuitBrigMed
