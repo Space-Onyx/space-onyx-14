@@ -18,6 +18,7 @@ using Content.Shared.Popups;
 using Content.Shared.Stacks;
 using Content.Shared._Onyx.Targeting; // <Onyx-WoundTreatment>
 using Content.Shared._Onyx.Wounds; // <Onyx-WoundTreatment>
+using Content.Shared.Humanoid; // <Onyx-NonHumanoidHealing>
 using Robust.Shared.Audio.Systems;
 
 namespace Content.Shared.Medical.Healing;
@@ -287,6 +288,13 @@ public sealed partial class HealingSystem : EntitySystem
     {
         if (!HasComp<WoundHostComponent>(target) || !TryComp(user, out TargetingComponent? targeting))
             return false;
+
+        // <Onyx-NonHumanoidHealing>
+        // Non-humanoids have no meaningful manual part selection, so fall back to automatic
+        // ResolveHealingPart. Repeated uses then cover every existing part head-to-feet.
+        if (!HasComp<HumanoidProfileComponent>(target))
+            return false;
+        // </Onyx-NonHumanoidHealing>
 
         if (!_targetResolver.TryResolveExact(target, targeting.Target, out var part))
         {

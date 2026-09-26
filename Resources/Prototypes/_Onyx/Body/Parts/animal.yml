@@ -56,6 +56,7 @@
 - type: entity
   parent: ChestAnimal
   id: ChestAnimalSlime
+  name: slime chest
   components: &animalSlimeCompatibility
   - type: TransplantCompatibility
     profile: Slime
@@ -63,16 +64,19 @@
 - type: entity
   parent: GroinAnimal
   id: GroinAnimalSlime
+  name: slime groin
   components: *animalSlimeCompatibility
 
 - type: entity
   parent: LegsAnimal
   id: LegsAnimalSlime
+  name: slime legs
   components: *animalSlimeCompatibility
 
 - type: entity
   parent: FeetAnimal
   id: FeetAnimalSlime
+  name: slime feet
   components: *animalSlimeCompatibility
 
 - type: entity
