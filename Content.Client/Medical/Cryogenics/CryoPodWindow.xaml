@@ -223,16 +223,18 @@
 
         </BoxContainer>
         <BoxContainer Name="HealthSection"
+                      HorizontalExpand="True"
                       VerticalExpand="True"
                       Orientation="Vertical">
 
-            <health:HealthAnalyzerControl Name="HealthAnalyzer"/>
+            <health:HealthAnalyzerControl Name="HealthAnalyzer"
+                                          HorizontalExpand="True"
+                                          VerticalExpand="True"/>
 
             <!-- This label is used to deal with a stray hline at the end of the health analyzer UI -->
             <Label Name="NoDamageText"
                    Text="{Loc 'cryo-pod-window-health-no-damage'}"
                    FontColorOverride="DeepSkyBlue"/>
-            <Control VerticalExpand="True"/>
 
         </BoxContainer>
     </BoxContainer>
