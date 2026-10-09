@@ -38,12 +38,6 @@
   id: AugmentModuleCyberDeck
 
 - type: Tag
-  id: AugmentModuleCyberDeckProgram
-
-- type: Tag
-  id: AugmentModuleCyberDeckRam
-
-- type: Tag
   id: AugmentBioReactorCasing
 
 - type: Tag

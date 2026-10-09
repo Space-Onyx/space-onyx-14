@@ -265,7 +265,6 @@
   cost: 7000
   recipeUnlocks:
     - AugmentModuleCyberDeck
-    - AugmentModuleCyberDeckRam
   position: 9,-7
   technologyPrerequisites:
     - BasicAugmentation

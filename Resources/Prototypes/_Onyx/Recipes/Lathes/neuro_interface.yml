@@ -24,12 +24,6 @@
 
 - type: latheRecipe
   parent: BaseAugmentRecipe
-  id: AugmentModuleCyberDeckRam
-  result: AugmentModuleCyberDeckRam
-  materials: { Glass: 250, Plastic: 150, Gold: 200 }
-
-- type: latheRecipe
-  parent: BaseAugmentRecipe
   id: AugmentBioReactor
   result: AugmentBioReactor
   completetime: 10
