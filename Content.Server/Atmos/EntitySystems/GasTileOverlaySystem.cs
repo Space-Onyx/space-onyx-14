@@ -226,7 +226,12 @@ public sealed partial class GasTileOverlaySystem : SharedGasTileOverlaySystem
         if (oldData.Equals(default))
         {
             changed = true;
-            oldData = new GasOverlayData(tile.Hotspot.State, new byte[VisibleGasId.Length], newByteTemp, tile.PuddleSolutionFlammability > 0 ? (byte) 1 : (byte) 0); // <Onyx-BurningPuddles-edited>
+            // <Onyx-BurningPuddles-edited>
+            oldData = new GasOverlayData(tile.Hotspot.State,
+                new byte[VisibleGasId.Length],
+                newByteTemp,
+                tile.PuddleSolutionFlammability > 0 ? (byte) 1 : (byte) 0);
+            // </Onyx-BurningPuddles-edited>
         }
         else if (oldData.FireState != tile.Hotspot.State ||
                  oldData.FireType != (tile.PuddleSolutionFlammability > 0 ? (byte) 1 : (byte) 0) || // <Onyx-BurningPuddles>
@@ -234,7 +239,12 @@ public sealed partial class GasTileOverlaySystem : SharedGasTileOverlaySystem
                  oldData.ByteGasTemperature.Value != newByteTemp.Value && newByteTemp.Value > ThermalByte.TempResolution) // change of special ThermalByte value
         {
             changed = true;
-            oldData = new GasOverlayData(tile.Hotspot.State, oldData.Opacity, newByteTemp, tile.PuddleSolutionFlammability > 0 ? (byte) 1 : (byte) 0); // <Onyx-BurningPuddles-edited>
+            // <Onyx-BurningPuddles-edited>
+            oldData = new GasOverlayData(tile.Hotspot.State,
+                oldData.Opacity,
+                newByteTemp,
+                tile.PuddleSolutionFlammability > 0 ? (byte) 1 : (byte) 0);
+            // </Onyx-BurningPuddles-edited>
         }
 
         if (tile is {Air: not null, NoGridTile: false})

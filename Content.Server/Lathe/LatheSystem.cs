@@ -473,7 +473,7 @@ namespace Content.Server.Lathe
         }
 
         /// <summary>
-        /// Aborts the recipe currently printing, putting it back on the queue.
+        /// Aborts the recipe currently printing, requeuing it or refunding it if the queue is empty.
         /// </summary>
         /// <remarks>
         /// Alters batch counts where possible instead of creating a new batch.
@@ -512,9 +512,10 @@ namespace Content.Server.Lathe
                 }
                 else
                 {
-                    // Nothing exists, create a new batch to save the current recipe.
-                    var newBatch = new LatheRecipeBatch(component.CurrentRecipe.Value, 0, 1, component.ActiveMaterialCost); // <Onyx-TieredMachineParts-edited>
-                    component.Queue.AddFirst(newBatch);
+                    // <Onyx-TieredMachineParts-edited>
+                    // Refund the last interrupted item at its original material cost.
+                    RefundCurrentRecipe(uid, component);
+                    // </Onyx-TieredMachineParts-edited>
                 }
 
                 component.ActiveMaterialCost = null; // <Onyx-TieredMachineParts>

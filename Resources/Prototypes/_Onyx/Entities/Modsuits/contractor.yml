@@ -153,14 +153,14 @@
         program: 62
       - type: SwappableInstrument
         instrumentList:
-          "Synth": {62: 0}
-          "Friend": {2: 0}
-          "Overdriven": {29: 0}
-          "Bass": {33: 0}
-          "Rock": {29: 0}
-          "Acoustic": {24: 0}
-          "Flute": {73: 0}
-          "Sax": {66: 0}
+          onyx-swappable-instrument-style-synth: {62: 0}
+          onyx-swappable-instrument-style-friend: {2: 0}
+          onyx-swappable-instrument-style-overdriven: {29: 0}
+          onyx-swappable-instrument-style-bass: {33: 0}
+          onyx-swappable-instrument-style-rock: {29: 0}
+          onyx-swappable-instrument-style-acoustic: {24: 0}
+          onyx-swappable-instrument-style-flute: {73: 0}
+          onyx-swappable-instrument-style-sax: {66: 0}
       - type: BreathMask
       - type: PressureProtection
         highPressureMultiplier: 0.3

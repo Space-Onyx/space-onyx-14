@@ -14,6 +14,30 @@ namespace Content.IntegrationTests.Tests.Lathe;
 public sealed class LatheTest : GameTest
 {
     [Test]
+    public async Task AbortLastItemRefundsOriginalMaterialCost()
+    {
+        var server = Pair.Server;
+        var mapData = await Pair.CreateTestMap();
+
+        await server.WaitAssertion(() =>
+        {
+            var uid = server.EntMan.SpawnEntity(null, mapData.GridCoords);
+            var lathe = server.EntMan.AddComponent<LatheComponent>(uid);
+            var storage = server.EntMan.AddComponent<MaterialStorageComponent>(uid);
+            lathe.CurrentRecipe = server.ProtoMan.EnumeratePrototypes<LatheRecipePrototype>().First().ID;
+            lathe.ActiveMaterialCost = new Dictionary<ProtoId<MaterialPrototype>, int> { ["Steel"] = 123 };
+            lathe.MaterialUseMultiplier = 0.5f;
+
+            server.System<Content.Server.Lathe.LatheSystem>().AbortProduction(uid, lathe);
+
+            Assert.That(lathe.Queue, Is.Empty);
+            Assert.That(lathe.CurrentRecipe, Is.Null);
+            Assert.That(lathe.ActiveMaterialCost, Is.Null);
+            Assert.That(storage.Storage["Steel"], Is.EqualTo(123));
+        });
+    }
+
+    [Test]
     public async Task TestLatheRecipeIngredientsFitLathe()
     {
         var pair = Pair;
