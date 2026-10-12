@@ -1,20 +1,26 @@
 using Content.Client.CartridgeLoader;
 using Content.Client.PDA;
+using Content.Client.UserInterface;
 using Content.Client.UserInterface.Fragments;
 using Content.Shared._Onyx.PDA;
 using Content.Shared.CartridgeLoader;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.PDA;
 using JetBrains.Annotations;
+using Robust.Client.Timing;
 using Robust.Client.UserInterface;
 using Robust.Shared.Prototypes;
 
 namespace Content.Client._Onyx.PDA;
 
 [UsedImplicitly]
-public sealed class ModernPdaBoundUserInterface : CartridgeLoaderBoundUserInterface
+public sealed partial class ModernPdaBoundUserInterface : CartridgeLoaderBoundUserInterface, IBuiPreTickUpdate
 {
+    [Dependency] private IClientGameTiming _gameTiming = null!;
+
     private readonly PdaSystem _pdaSystem;
+    private readonly BuiPredictionState _themePrediction;
+    private InputCoalescer<Color?> _themeCoalescer;
 
     [ViewVariables]
     private ModernPdaMenu? _menu;
@@ -22,10 +28,13 @@ public sealed class ModernPdaBoundUserInterface : CartridgeLoaderBoundUserInterf
     private EntityUid? _attachedProgram;
     private UIFragment? _attachedUi;
     private Control? _attachedFragment;
+    private readonly List<(EntityUid, CartridgeComponent)> _programs = new();
 
     public ModernPdaBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
+        IoCManager.InjectDependencies(this);
         _pdaSystem = EntMan.System<PdaSystem>();
+        _themePrediction = new BuiPredictionState(this, _gameTiming);
     }
 
     protected override void Open()
@@ -68,7 +77,7 @@ public sealed class ModernPdaBoundUserInterface : CartridgeLoaderBoundUserInterf
             if (_attachedProgram is { } program)
                 SendMessage(new CartridgeLoaderUiMessage(EntMan.GetNetEntity(program), CartridgeUiMessageAction.Deactivate));
         };
-        _menu.OnThemeChanged += accent => SendMessage(new PdaSetThemeMessage(accent));
+        _menu.OnThemeChanged += accent => _themeCoalescer.Set(accent);
 
         var borderColor = EntMan.GetComponentOrNull<PdaBorderColorComponent>(Owner);
         if (borderColor == null)
@@ -77,6 +86,12 @@ public sealed class ModernPdaBoundUserInterface : CartridgeLoaderBoundUserInterf
         _menu.BorderColor = borderColor.BorderColor;
         _menu.AccentHColor = borderColor.AccentHColor;
         _menu.AccentVColor = borderColor.AccentVColor;
+    }
+
+    void IBuiPreTickUpdate.PreTickUpdate()
+    {
+        if (_themeCoalescer.CheckIsModified(out var accent))
+            _themePrediction.SendMessage(new PdaSetThemeMessage(accent));
     }
 
     protected override void ReceiveMessage(BoundUserInterfaceMessage message)
@@ -107,21 +122,33 @@ public sealed class ModernPdaBoundUserInterface : CartridgeLoaderBoundUserInterf
             return;
         }
 
-        _menu.UpdateState(updateState);
+        var themeAccent = updateState.ThemeAccent;
+        foreach (var message in _themePrediction.MessagesToReplay())
+        {
+            if (message is PdaSetThemeMessage setTheme)
+                themeAccent = setTheme.Accent ?? GetDefaultTheme();
+        }
+
+        if (_themeCoalescer.IsModified)
+            themeAccent = _themeCoalescer.LastValue ?? GetDefaultTheme();
+
+        _menu.UpdateState(updateState, themeAccent);
+
+        Color GetDefaultTheme() => EntMan.GetComponentOrNull<PdaComponent>(Owner)?.ThemeAccent ?? updateState.ThemeAccent;
     }
 
     private void UpdateLoaderState(CartridgeLoaderUiState loaderState)
     {
-        var programs = new List<(EntityUid, CartridgeComponent)>();
+        _programs.Clear();
         foreach (var programNet in loaderState.Programs)
         {
             if (!EntMan.TryGetEntity(programNet, out var programUid))
                 continue;
 
             if (EntMan.GetComponentOrNull<CartridgeComponent>(programUid) is { } cartridge)
-                programs.Add((programUid.Value, cartridge));
+                _programs.Add((programUid.Value, cartridge));
         }
-        UpdateAvailablePrograms(programs);
+        UpdateAvailablePrograms(_programs);
 
         EntityUid? active = null;
         if (loaderState.ActiveUI is { } activeNet && EntMan.TryGetEntity(activeNet, out var activeUid))

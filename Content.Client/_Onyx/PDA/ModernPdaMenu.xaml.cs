@@ -51,6 +51,7 @@ public sealed partial class ModernPdaMenu : PdaWindow
     private EntityUid? _activeProgram;
     private bool _themeApplied;
     private TimeSpan _nextClockUpdate;
+    private readonly StyleBoxFlat _themePreview = new();
 
     private List<(LocId LocKey, Color Color)> _themes = new();
 
@@ -65,12 +66,11 @@ public sealed partial class ModernPdaMenu : PdaWindow
         _alert = _entitySystem.GetEntitySystem<AlertLevelSystem>();
         _gameTicker = _entitySystem.GetEntitySystem<ClientGameTicker>();
         RobustXamlLoader.Load(this);
+        ThemeColorPreview.PanelOverride = _themePreview;
 
         ViewContainer.OnChildAdded += control => control.Visible = false;
 
         HomeButton.IconTexture = new SpriteSpecifier.Texture(new("/Textures/Interface/home.png"));
-        ProgramListButton.ButtonText = Loc.GetString("comp-pda-io-program-list-button");
-        SettingsButton.ButtonText = Loc.GetString("comp-pda-io-settings-button");
         FlashLightToggleButton.IconTexture = new SpriteSpecifier.Texture(new("/Textures/Interface/light.png"));
         EjectPenButton.IconTexture = new SpriteSpecifier.Texture(new("/Textures/Interface/pencil.png"));
         EjectIdButton.IconTexture = new SpriteSpecifier.Texture(new("/Textures/Interface/eject.png"));
@@ -103,19 +103,17 @@ public sealed partial class ModernPdaMenu : PdaWindow
             SetTheme(_themes[args.Id].Color);
         };
         ThemePicker.OnColorChanged += accent => SetTheme(accent, true, false);
-        ThemeResetButton.OnPressed += _ =>
-        {
-            OnThemeChanged?.Invoke(null);
-        };
+        ThemeResetButton.OnPressed += _ => OnThemeChanged?.Invoke(null);
 
         HideAllViews();
         ToHomeScreen();
         SetTheme(_themeAccent, false);
     }
 
-    public void UpdateState(PdaUpdateState state)
+    public void UpdateState(PdaUpdateState state, Color? themeAccent = null)
     {
-        SetTheme(state.ThemeAccent, false);
+        SetTheme(themeAccent ?? state.ThemeAccent, false);
+        DebugTools.Assert(ThemePicker.Color == _themeAccent);
         UpdateBattery(state.BatteryCharge, state.BatteryMax, state.BatteryLowThreshold);
         _diskUsed = state.DiskUsed;
         _diskMax = state.DiskMax;
@@ -193,14 +191,17 @@ public sealed partial class ModernPdaMenu : PdaWindow
     {
         if (programs.Count == 0)
         {
-            ProgramList.RemoveAllChildren();
-            ProgramList.AddChild(new Label
+            if (ProgramList.ChildCount != 1 || ProgramList.Children[0] is not Label)
             {
-                Text = Loc.GetString("comp-pda-io-no-programs-available"),
-                HorizontalAlignment = HAlignment.Center,
-                VerticalAlignment = VAlignment.Center,
-                VerticalExpand = true,
-            });
+                ProgramList.RemoveAllChildren();
+                ProgramList.AddChild(new Label
+                {
+                    Text = Loc.GetString("comp-pda-io-no-programs-available"),
+                    HorizontalAlignment = HAlignment.Center,
+                    VerticalAlignment = VAlignment.Center,
+                    VerticalExpand = true,
+                });
+            }
         }
         else
         {
@@ -241,8 +242,6 @@ public sealed partial class ModernPdaMenu : PdaWindow
         CartridgeStateLabel.Text = Loc.GetString(hasCartridge
             ? "pda-modern-cartridge-present"
             : "pda-modern-cartridge-absent");
-
-        UpdateResources();
     }
 
     public void SetActiveProgram(EntityUid? uid)
@@ -278,12 +277,10 @@ public sealed partial class ModernPdaMenu : PdaWindow
     {
         _themes = themes;
         ThemePreset.Clear();
+        ThemePanel.Visible = _themes.Count > 0;
 
         if (_themes.Count == 0)
-        {
-            ThemePanel.Visible = false;
             return;
-        }
 
         foreach (var (locKey, _) in _themes)
             ThemePreset.AddItem(Loc.GetString(locKey));
@@ -368,35 +365,29 @@ public sealed partial class ModernPdaMenu : PdaWindow
         if (_applyingTheme)
             return;
 
-        if (_themeApplied && !notify && accent == _themeAccent)
+        if (syncPicker && ThemePicker.Color != accent)
+            ThemePicker.Color = accent;
+
+        if (_themeApplied && accent == _themeAccent)
+        {
+            if (notify)
+                OnThemeChanged?.Invoke(accent);
             return;
+        }
 
         _themeApplied = true;
         _applyingTheme = true;
-        var changed = accent != _themeAccent;
         _themeAccent = accent;
         if (notify)
             OnThemeChanged?.Invoke(accent);
-        if (syncPicker && changed)
-            ThemePicker.Color = accent;
-        ThemeColorPreview.PanelOverride = new StyleBoxFlat { BackgroundColor = accent };
-
-        PanelContainer[] cards =
-        [
-            UserCard, DeviceCard, StationCard, ThemePanel,
-        ];
-        foreach (var card in cards)
-        {
-            if (card.PanelOverride is StyleBoxFlat box)
-                box.BorderColor = accent;
-        }
-
-        Label[] headers =
-        [
-            UserHeaderLabel, DeviceHeaderLabel, StationHeaderLabel,
-        ];
-        foreach (var header in headers)
-            header.FontColorOverride = accent;
+        _themePreview.BackgroundColor = accent;
+        SetBorderColor(UserCard, accent);
+        SetBorderColor(DeviceCard, accent);
+        SetBorderColor(StationCard, accent);
+        SetBorderColor(ThemePanel, accent);
+        UserHeaderLabel.FontColorOverride = accent;
+        DeviceHeaderLabel.FontColorOverride = accent;
+        StationHeaderLabel.FontColorOverride = accent;
 
         HomeButton.AccentColor = accent;
         ProgramListButton.AccentColor = accent;
@@ -423,9 +414,18 @@ public sealed partial class ModernPdaMenu : PdaWindow
         _applyingTheme = false;
     }
 
+    private static void SetBorderColor(PanelContainer panel, Color accent)
+    {
+        if (panel.PanelOverride is StyleBoxFlat box)
+            box.BorderColor = accent;
+    }
+
     private void ChangeView(int view)
     {
-        if (ViewContainer.ChildCount <= view)
+        if (view < 0 || view >= ViewContainer.ChildCount)
+            return;
+
+        if (view == _currentView && ViewContainer.GetChild(view).Visible)
             return;
 
         ViewContainer.GetChild(_currentView).Visible = false;
@@ -463,9 +463,9 @@ public sealed partial class ModernPdaMenu : PdaWindow
         return $"{(int) duration.TotalHours:00}:{duration.Minutes:00}:{duration.Seconds:00}";
     }
 
-    protected override void Draw(DrawingHandleScreen handle)
+    protected override void FrameUpdate(FrameEventArgs args)
     {
-        base.Draw(handle);
+        base.FrameUpdate(args);
 
         if (_gameTiming.CurTime < _nextClockUpdate)
             return;

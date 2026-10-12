@@ -26,7 +26,7 @@ public sealed class RotatedLabel : Label
 
     protected override Vector2 MeasureOverride(Vector2 availableSize)
     {
-        var measured = base.MeasureOverride(availableSize);
+        var measured = base.MeasureOverride(new Vector2(availableSize.Y, availableSize.X));
         return new Vector2(measured.Y, measured.X);
     }
 

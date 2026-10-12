@@ -76,6 +76,8 @@ public sealed class PdaSidebarButton : ContainerButton
         get => _accentColor;
         set
         {
+            if (_accentColor == value)
+                return;
             _accentColor = value;
             Refresh();
         }
@@ -86,6 +88,8 @@ public sealed class PdaSidebarButton : ContainerButton
         get => _current;
         set
         {
+            if (_current == value)
+                return;
             _current = value;
             Refresh();
         }

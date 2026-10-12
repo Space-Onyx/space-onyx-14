@@ -20,7 +20,7 @@
                 </PanelContainer>
                 <pda:PdaSidebarButton Name="HomeButton" HorizontalExpand="True" MinHeight="52" IsCurrent="True"
                                          ToolTip="{Loc 'pda-modern-home'}" />
-                <pda:PdaSidebarButton Name="ProgramListButton" Access="Public" HorizontalExpand="True" MinHeight="110"
+                <pda:PdaSidebarButton Name="ProgramListButton" HorizontalExpand="True" MinHeight="110"
                                         ButtonText="{Loc 'comp-pda-io-program-list-button'}"
                                         ToolTip="{Loc 'comp-pda-io-program-list-button'}" />
                 <pda:PdaSidebarButton Name="SettingsButton" HorizontalExpand="True" MinHeight="110"
@@ -55,7 +55,7 @@
             </PanelContainer>
 
             <BoxContainer Orientation="Horizontal" Margin="8 4 8 0" SeparationOverride="6">
-                <vanilla:PdaNavigationButton Name="ProgramTitle" Access="Public" HorizontalExpand="True"
+                <vanilla:PdaNavigationButton Name="ProgramTitle" HorizontalExpand="True"
                                              InactiveBgColor="#1B2026" ActiveBgColor="#20262C"
                                              CurrentTabBorderThickness="0 0 2 0" Visible="False" />
                 <vanilla:PdaNavigationButton Name="ProgramCloseButton" Access="Public" SetWidth="40"
@@ -63,7 +63,7 @@
                                              IconScale="0.5 0.5" Visible="False" IsActive="False" />
             </BoxContainer>
 
-            <BoxContainer Name="ViewContainer" Access="Public" Margin="8 6 8 4"
+            <BoxContainer Name="ViewContainer" Margin="8 6 8 4"
                               HorizontalExpand="True" VerticalExpand="True">
                     <ScrollContainer HorizontalExpand="True" VerticalExpand="True" HScrollEnabled="False">
                         <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="10">
@@ -75,13 +75,13 @@
                                     <Label Name="UserHeaderLabel" Text="{Loc 'pda-modern-profile'}" StyleClasses="font-small" />
                                     <ContainerButton Name="PdaOwnerButton" HorizontalExpand="True"
                                                      ToolTip="{Loc 'pda-modern-copy-hint'}">
-                                        <RichTextLabel Name="PdaOwnerLabel" Access="Public" Margin="6 2" />
+                                        <RichTextLabel Name="PdaOwnerLabel" Margin="6 2" />
                                     </ContainerButton>
                                     <ContainerButton Name="IdInfoButton" HorizontalExpand="True"
                                                      ToolTip="{Loc 'pda-modern-copy-hint'}">
-                                        <RichTextLabel Name="IdInfoLabel" Access="Public" Margin="6 2" />
+                                        <RichTextLabel Name="IdInfoLabel" Margin="6 2" />
                                     </ContainerButton>
-                                    <RichTextLabel Name="MiningPointsLabel" Access="Public" Visible="False" Margin="6 2" />
+                                    <RichTextLabel Name="MiningPointsLabel" Visible="False" Margin="6 2" />
                                 </BoxContainer>
                             </PanelContainer>
 
@@ -95,7 +95,7 @@
                                                FontColorOverride="#84918C" Margin="10 8 10 0" />
                                         <ContainerButton Name="StationNameButton" HorizontalExpand="True"
                                                          ToolTip="{Loc 'pda-modern-copy-hint'}">
-                                            <RichTextLabel Name="StationNameLabel" Access="Public" Margin="10 8"
+                                            <RichTextLabel Name="StationNameLabel" Margin="10 8"
                                                            HorizontalExpand="True" />
                                         </ContainerButton>
                                         <controls:Separator StyleClasses="LowDivider" />
@@ -106,13 +106,13 @@
                                         <controls:Separator StyleClasses="LowDivider" />
                                         <ContainerButton Name="StationAlertLevelButton" HorizontalExpand="True"
                                                          ToolTip="{Loc 'pda-modern-copy-hint'}">
-                                            <RichTextLabel Name="StationAlertLevelLabel" Access="Public" Margin="10 8"
+                                            <RichTextLabel Name="StationAlertLevelLabel" Margin="10 8"
                                                            HorizontalExpand="True" />
                                         </ContainerButton>
                                         <controls:Separator StyleClasses="LowDivider" />
                                         <ContainerButton Name="StationAlertLevelInstructionsButton" HorizontalExpand="True"
                                                          ToolTip="{Loc 'pda-modern-copy-hint'}">
-                                            <RichTextLabel Name="StationAlertLevelInstructions" Access="Public" Margin="10 8"
+                                            <RichTextLabel Name="StationAlertLevelInstructions" Margin="10 8"
                                                            HorizontalExpand="True" />
                                         </ContainerButton>
                                     </BoxContainer>

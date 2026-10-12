@@ -18,6 +18,9 @@ public sealed partial class ModernPdaProgramItem : ContainerButton
     private string _baseStatus = string.Empty;
     private bool _active;
     private bool _hovered;
+    private bool _actionHovered;
+    private bool _cartridgeSet;
+    private InstallationStatus _installationStatus;
 
     public event Action<EntityUid>? OnProgramItemPressed;
     public event Action<EntityUid>? OnUninstallButtonPressed;
@@ -32,8 +35,16 @@ public sealed partial class ModernPdaProgramItem : ContainerButton
 
         OnPressed += _ => OnProgramItemPressed?.Invoke(_cartridge);
         InstallButton.OnPressed += _ => ToggleInstallation();
-        InstallButton.OnMouseEntered += _ => ApplyActionStyle(true);
-        InstallButton.OnMouseExited += _ => ApplyActionStyle(false);
+        InstallButton.OnMouseEntered += _ =>
+        {
+            _actionHovered = true;
+            ApplyActionStyle(true);
+        };
+        InstallButton.OnMouseExited += _ =>
+        {
+            _actionHovered = false;
+            ApplyActionStyle(false);
+        };
         OnMouseEntered += _ =>
         {
             _hovered = true;
@@ -55,6 +66,8 @@ public sealed partial class ModernPdaProgramItem : ContainerButton
 
     public void SetTheme(Color accent)
     {
+        if (_themeAccent == accent)
+            return;
         _themeAccent = accent;
         RefreshAccentBar();
     }
@@ -63,6 +76,8 @@ public sealed partial class ModernPdaProgramItem : ContainerButton
 
     public void SetActive(bool active)
     {
+        if (_active == active)
+            return;
         _active = active;
         RefreshAccentBar();
         ProgramStatus.Text = active ? $"● {_baseStatus}" : _baseStatus;
@@ -75,11 +90,17 @@ public sealed partial class ModernPdaProgramItem : ContainerButton
 
     public void SetCartridge(Entity<CartridgeComponent> program)
     {
+        if (_cartridgeSet && _cartridge.Owner == program.Owner && _installationStatus == program.Comp.InstallationStatus)
+            return;
+
         _cartridge = program;
+        _cartridgeSet = true;
+        _installationStatus = program.Comp.InstallationStatus;
         var programName = Loc.GetString(program.Comp.ProgramName);
         ProgramName.SetMarkup(programName);
         ToolTip = programName;
 
+        Icon.Visible = program.Comp.Icon != null;
         if (program.Comp.Icon is { } icon)
             Icon.SetFromSpriteSpecifier(icon);
 
@@ -91,13 +112,13 @@ public sealed partial class ModernPdaProgramItem : ContainerButton
                 _baseStatus = Loc.GetString("pda-modern-program-cartridge");
                 InstallButton.Visible = true;
                 InstallButton.Text = Loc.GetString("cartridge-bound-user-interface-install-button");
-                ApplyActionStyle(false);
+                ApplyActionStyle(_actionHovered);
                 break;
             case InstallationStatus.Installed:
                 _baseStatus = Loc.GetString("pda-modern-program-installed");
                 InstallButton.Visible = true;
                 InstallButton.Text = Loc.GetString("cartridge-bound-user-interface-uninstall-button");
-                ApplyActionStyle(false);
+                ApplyActionStyle(_actionHovered);
                 break;
             case InstallationStatus.Readonly:
                 _baseStatus = Loc.GetString("pda-modern-program-system");
