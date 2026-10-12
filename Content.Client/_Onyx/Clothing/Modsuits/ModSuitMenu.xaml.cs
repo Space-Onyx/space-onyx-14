@@ -74,7 +74,12 @@ public sealed partial class ModSuitMenu : FancyWindow
             }
 
             if (isSame)
+            {
+                foreach (var child in ModuleContainer.Children)
+                    if (child is ModSuitModuleControl control)
+                        control.UpdateState();
                 return;
+            }
         }
 
         ModuleContainer.Children.Clear();
@@ -99,7 +104,9 @@ public sealed partial class ModSuitMenu : FancyWindow
         var chargeFraction = 0f;
 
         if (_powerCell.TryGetBatteryFromSlot(_entity, out var battery))
-            chargeFraction = _battery.GetCharge(battery.Value.AsNullable()) / battery.Value.Comp.MaxCharge;
+            chargeFraction = battery.Value.Comp.MaxCharge > 0
+                ? _battery.GetCharge(battery.Value.AsNullable()) / battery.Value.Comp.MaxCharge
+                : 0;
 
         ChargeBar.Value = chargeFraction;
         ChargeLabel.Text = Loc.GetString("mod-ui-charge-label",

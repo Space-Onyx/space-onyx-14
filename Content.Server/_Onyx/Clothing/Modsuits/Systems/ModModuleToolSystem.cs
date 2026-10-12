@@ -1,14 +1,13 @@
 using System.Linq;
 using Content.Server.Temperature.Systems;
-using Content.Shared._Onyx.Clothing.Components;
 using Content.Shared._Onyx.Clothing.Modsuits.Components;
 using Content.Shared.Actions;
+using Content.Shared.Actions.Components;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.DoAfter;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Mobs.Components;
-using Content.Shared.Physics;
 using Content.Shared.Popups;
 using Content.Shared.PowerCell;
 using Content.Shared.Temperature.Components;
@@ -26,8 +25,6 @@ namespace Content.Server._Onyx.Clothing.Modsuits.Systems;
 
 public sealed partial class ModModuleToolSystem : EntitySystem
 {
-    private const string GrabberContainer = "mod-grabber";
-
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedContainerSystem _containers = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
@@ -38,6 +35,9 @@ public sealed partial class ModModuleToolSystem : EntitySystem
     [Dependency] private SharedGunSystem _gun = default!;
     [Dependency] private TemperatureSystem _temperature = default!;
     [Dependency] private SharedWieldableSystem _wieldable = default!;
+    [Dependency] private ModModuleSystem _modules = default!;
+
+    private const string GrabberContainer = "mod-grabber";
 
     public override void Initialize()
     {
@@ -55,34 +55,8 @@ public sealed partial class ModModuleToolSystem : EntitySystem
 
     private void OnHolster(Entity<ModModuleHolsterComponent> module, ref ModModuleHolsterEvent args)
     {
-        if (args.Handled || !TryController(module.Owner, args.Performer, out var controller, out var framework) ||
-            !_slots.TryGetSlot(module.Owner, module.Comp.ContainerId, out var slot))
-            return;
-        if (slot.Item is { } stored)
-        {
-            var activeHand = _hands.GetActiveHand(args.Performer);
-            if (activeHand == null || !_hands.CanPickupToHand(args.Performer, stored, activeHand, checkActionBlocker: false) ||
-                !TryUseActionCharge(framework, controller, args.Action.Owner, args.Performer) ||
-                !_hands.TryPickup(args.Performer, stored, activeHand, checkActionBlocker: false))
-                return;
-            if (TryComp<WieldableComponent>(stored, out var wieldable))
-                _wieldable.TryWield((stored, wieldable), args.Performer);
-            if (TryComp<ChamberMagazineAmmoProviderComponent>(stored, out var chamber) && chamber.BoltClosed == false)
-                _gun.SetBoltClosed(stored, chamber, true, args.Performer);
-        }
-        else
-        {
-            var held = _hands.GetActiveItem(args.Performer);
-            if (held == null || !_slots.CanInsert(module, slot, held.Value, args.Performer) ||
-                !TryUseActionCharge(framework, controller, args.Action.Owner, args.Performer) ||
-                !_slots.TryInsert(module, slot, held.Value, args.Performer))
-            {
-                _popup.PopupEntity(Loc.GetString("mod-module-holster-invalid"), args.Performer, args.Performer);
-                return;
-            }
-        }
-        _actions.SetToggled(args.Action.AsNullable(), slot.Item != null);
-        args.Handled = true;
+        if (!args.Handled)
+            args.Handled = TryToggleHolster(module.AsNullable(), args.Performer, args.Action);
     }
 
     private void OnGrabberInit(Entity<ModModuleGrabberToolComponent> tool, ref MapInitEvent args) =>
@@ -90,11 +64,101 @@ public sealed partial class ModModuleToolSystem : EntitySystem
 
     private void OnGrab(Entity<ModModuleGrabberToolComponent> tool, ref AfterInteractEvent args)
     {
-        if (args.Handled || !args.CanReach || args.Target is not { } target || !CanGrab(target) ||
-            !_containers.TryGetContainer(tool, GrabberContainer, out var container) || container.Count >= tool.Comp.MaxContents ||
-            !TryLink(tool.Owner, args.User, ref tool.Comp.Module, out _, out _))
+        if (!args.Handled && args.CanReach && args.Target is { } target)
+            args.Handled = TryStartGrab(tool.AsNullable(), args.User, target);
+    }
+
+    private void OnGrabComplete(Entity<ModModuleGrabberToolComponent> tool, ref ModModuleGrabDoAfterEvent args)
+    {
+        if (!args.Cancelled && !args.Handled && args.Target is { } target)
+            args.Handled = TryGrab(tool.AsNullable(), args.User, target);
+    }
+
+    private void OnGrabberVerb(Entity<ModModuleGrabberToolComponent> tool, ref GetVerbsEvent<AlternativeVerb> args)
+    {
+        if (!args.CanAccess || !args.CanInteract || !CanEject(tool.AsNullable(), args.User, out _, out _))
             return;
-        args.Handled = _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, tool.Comp.Delay,
+        var user = args.User;
+        args.Verbs.Add(new AlternativeVerb
+        {
+            Text = Loc.GetString("mod-module-grabber-eject"),
+            Act = () => TryEject(tool.AsNullable(), user),
+        });
+    }
+
+    private void OnMicrowave(Entity<ModModuleMicrowaveToolComponent> tool, ref AfterInteractEvent args)
+    {
+        if (!args.Handled && args.CanReach && args.Target is { } target)
+            args.Handled = TryStartHeating(tool.AsNullable(), args.User, target);
+    }
+
+    private void OnMicrowaveComplete(Entity<ModModuleMicrowaveToolComponent> tool, ref ModModuleMicrowaveDoAfterEvent args)
+    {
+        if (!args.Cancelled && !args.Handled && args.Target is { } target)
+            args.Handled = TryHeat(tool.AsNullable(), args.User, target);
+    }
+
+    private void OnModuleDeactivated(Entity<ModModuleComponent> module, ref ModModuleDeactivatedEvent args) => CleanupTools(module, args.Controller);
+    private void OnModuleUninstalled(Entity<ModModuleComponent> module, ref ModModuleUninstalledEvent args) => CleanupTools(module, args.Controller);
+
+    /// <summary>
+    /// Stores the held weapon or draws the stored weapon, spending charge only after checking the transfer.
+    /// </summary>
+    public bool TryToggleHolster(Entity<ModModuleHolsterComponent?> module, EntityUid user, Entity<ActionComponent> action)
+    {
+        if (!Resolve(module, ref module.Comp, false) || !CanToggleHolster(module, user, out var slot))
+            return false;
+        if (!_modules.TryUseAction(module.Owner, user, action, out _))
+            return false;
+        if (slot.Item is { } stored)
+        {
+            var activeHand = _hands.GetActiveHand(user);
+            if (activeHand == null || !_hands.TryPickup(user, stored, activeHand, checkActionBlocker: false))
+                return false;
+            if (TryComp<WieldableComponent>(stored, out var wieldable))
+                _wieldable.TryWield((stored, wieldable), user);
+            if (TryComp<ChamberMagazineAmmoProviderComponent>(stored, out var chamber) && chamber.BoltClosed == false)
+                _gun.SetBoltClosed(stored, chamber, true, user);
+        }
+        else
+        {
+            var held = _hands.GetActiveItem(user);
+            if (held == null || !_slots.TryInsert(module, slot, held.Value, user))
+                return false;
+        }
+        _actions.SetToggled(action.AsNullable(), slot.Item != null);
+        return true;
+    }
+
+    /// <summary>
+    /// Checks the active hand and holster whitelist without changing either container.
+    /// </summary>
+    public bool CanToggleHolster(Entity<ModModuleHolsterComponent?> module, EntityUid user, out ItemSlot slot)
+    {
+        slot = default!;
+        if (!Resolve(module, ref module.Comp, false) || !_modules.CanUseModule(module.Owner, user, out _) ||
+            !_slots.TryGetSlot(module.Owner, module.Comp.ContainerId, out var holster))
+            return false;
+        slot = holster;
+        if (slot.Item is { } stored)
+        {
+            var hand = _hands.GetActiveHand(user);
+            return hand != null && _hands.CanPickupToHand(user, stored, hand, checkActionBlocker: false);
+        }
+        if (_hands.GetActiveItem(user) is { } held && _slots.CanInsert(module, slot, held, user))
+            return true;
+        _popup.PopupEntity(Loc.GetString("mod-module-holster-invalid"), user, user);
+        return false;
+    }
+
+    /// <summary>
+    /// Starts the grabber delay after checking ownership, capacity and the target.
+    /// </summary>
+    public bool TryStartGrab(Entity<ModModuleGrabberToolComponent?> tool, EntityUid user, EntityUid target)
+    {
+        if (!Resolve(tool, ref tool.Comp, false) || !CanGrab(tool, user, target, out _, out _))
+            return false;
+        return _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, tool.Comp!.Delay,
             new ModModuleGrabDoAfterEvent(), tool, target, tool)
         {
             BreakOnMove = true,
@@ -103,34 +167,42 @@ public sealed partial class ModModuleToolSystem : EntitySystem
         });
     }
 
-    private void OnGrabComplete(Entity<ModModuleGrabberToolComponent> tool, ref ModModuleGrabDoAfterEvent args)
+    /// <summary>
+    /// Rechecks the delayed grab before consuming energy and inserting the target.
+    /// </summary>
+    public bool TryGrab(Entity<ModModuleGrabberToolComponent?> tool, EntityUid user, EntityUid target)
     {
-        if (args.Cancelled || args.Handled || args.Target is not { } target || !CanGrab(target) ||
-            !_containers.TryGetContainer(tool, GrabberContainer, out var container) || container.Count >= tool.Comp.MaxContents ||
-            !TryLink(tool.Owner, args.User, ref tool.Comp.Module, out var controller, out _) ||
-            !_power.TryUseCharge(controller, tool.Comp.UseCost, args.User) || !_containers.Insert(target, container))
-            return;
-        args.Handled = true;
+        if (!Resolve(tool, ref tool.Comp, false) || !CanGrab(tool, user, target, out var container, out var controller))
+            return false;
+        return _power.TryUseCharge(controller, tool.Comp!.UseCost, user) && _containers.Insert(target, container);
     }
 
-    private void OnGrabberVerb(Entity<ModModuleGrabberToolComponent> tool, ref GetVerbsEvent<AlternativeVerb> args)
+    /// <summary>
+    /// Checks a non-living movable target and available grabber capacity.
+    /// </summary>
+    public bool CanGrab(Entity<ModModuleGrabberToolComponent?> tool, EntityUid user, EntityUid target,
+        out BaseContainer container, out EntityUid controller)
     {
-        if (!args.CanAccess || !args.CanInteract || !_containers.TryGetContainer(tool, GrabberContainer, out var container) || container.Count == 0)
-            return;
-        var user = args.User;
-        args.Verbs.Add(new AlternativeVerb
-        {
-            Text = Loc.GetString("mod-module-grabber-eject"),
-            Act = () => TryEject(tool, container, user),
-        });
+        container = default!;
+        controller = default;
+        if (!Resolve(tool, ref tool.Comp, false) || !Exists(target) || HasComp<MobStateComponent>(target) || Transform(target).Anchored ||
+            TryComp<PhysicsComponent>(target, out var physics) && physics.BodyType == BodyType.Static)
+            return false;
+        if (!_containers.TryGetContainer(tool, GrabberContainer, out var storage))
+            return false;
+        container = storage;
+        return container.Count < tool.Comp.MaxContents && CanUseTool(tool, user, out controller) &&
+            _containers.CanInsert(target, container);
     }
 
-    private void OnMicrowave(Entity<ModModuleMicrowaveToolComponent> tool, ref AfterInteractEvent args)
+    /// <summary>
+    /// Starts the microwave delay without spending charge.
+    /// </summary>
+    public bool TryStartHeating(Entity<ModModuleMicrowaveToolComponent?> tool, EntityUid user, EntityUid target)
     {
-        if (args.Handled || !args.CanReach || args.Target is not { } target || !CanHeat(target) ||
-            !TryLink(tool.Owner, args.User, ref tool.Comp.Module, out _, out _))
-            return;
-        args.Handled = _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, tool.Comp.Delay,
+        if (!Resolve(tool, ref tool.Comp, false) || !CanHeat(tool, user, target, out _))
+            return false;
+        return _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, tool.Comp!.Delay,
             new ModModuleMicrowaveDoAfterEvent(), tool, target, tool)
         {
             BreakOnMove = true,
@@ -139,18 +211,52 @@ public sealed partial class ModModuleToolSystem : EntitySystem
         });
     }
 
-    private void OnMicrowaveComplete(Entity<ModModuleMicrowaveToolComponent> tool, ref ModModuleMicrowaveDoAfterEvent args)
+    /// <summary>
+    /// Applies the configured heat after rechecking the delayed interaction.
+    /// </summary>
+    public bool TryHeat(Entity<ModModuleMicrowaveToolComponent?> tool, EntityUid user, EntityUid target)
     {
-        if (args.Cancelled || args.Handled || args.Target is not { } target || !CanHeat(target) ||
-            !TryLink(tool.Owner, args.User, ref tool.Comp.Module, out var controller, out _) ||
-            !_power.TryUseCharge(controller, tool.Comp.UseCost, args.User))
-            return;
-        _temperature.ChangeHeat(target, tool.Comp.Heat);
-        args.Handled = true;
+        if (!Resolve(tool, ref tool.Comp, false) || !CanHeat(tool, user, target, out var controller) ||
+            !_power.TryUseCharge(controller, tool.Comp.UseCost, user))
+            return false;
+        _temperature.ChangeHeat(target, tool.Comp!.Heat);
+        return true;
     }
 
-    private void OnModuleDeactivated(Entity<ModModuleComponent> module, ref ModModuleDeactivatedEvent args) => CleanupTools(module, args.Controller);
-    private void OnModuleUninstalled(Entity<ModModuleComponent> module, ref ModModuleUninstalledEvent args) => CleanupTools(module, args.Controller);
+    /// <summary>
+    /// Restricts microwave heating to non-living temperature-bearing targets.
+    /// </summary>
+    public bool CanHeat(Entity<ModModuleMicrowaveToolComponent?> tool, EntityUid user, EntityUid target, out EntityUid controller)
+    {
+        controller = default;
+        return Resolve(tool, ref tool.Comp, false) && !HasComp<MobStateComponent>(target) && HasComp<TemperatureComponent>(target) &&
+            CanUseTool(tool, user, out controller);
+    }
+
+    /// <summary>
+    /// Releases grabbed items after validating the current holder and module.
+    /// </summary>
+    public bool TryEject(Entity<ModModuleGrabberToolComponent?> tool, EntityUid user)
+    {
+        if (!Resolve(tool, ref tool.Comp, false) || !CanEject(tool, user, out var container, out var controller) ||
+            !_power.TryUseCharge(controller, tool.Comp.UseCost, user))
+            return false;
+        Eject(container, Transform(user).Coordinates);
+        return true;
+    }
+
+    /// <summary>
+    /// Checks that an active, held grabber contains items to eject.
+    /// </summary>
+    public bool CanEject(Entity<ModModuleGrabberToolComponent?> tool, EntityUid user, out BaseContainer container, out EntityUid controller)
+    {
+        container = default!;
+        controller = default;
+        if (!Resolve(tool, ref tool.Comp, false) || !_containers.TryGetContainer(tool, GrabberContainer, out var storage))
+            return false;
+        container = storage;
+        return container.Count > 0 && CanUseTool(tool, user, out controller);
+    }
 
     private void CleanupTools(Entity<ModModuleComponent> module, EntityUid controller)
     {
@@ -159,55 +265,15 @@ public sealed partial class ModModuleToolSystem : EntitySystem
                 Eject(container, Transform(controller).Coordinates);
     }
 
-    private bool TryLink(EntityUid tool, EntityUid user, ref EntityUid? module, out EntityUid controller, out ModModuleComponent framework)
+    private bool CanUseTool(EntityUid tool, EntityUid user, out EntityUid controller)
     {
         controller = default;
-        framework = default!;
-        if (module is not { } moduleUid)
-        {
-            moduleUid = FindOwningModule(tool);
-            module = moduleUid.IsValid() ? moduleUid : null;
-        }
-        return module is { } found && TryController(found, user, out controller, out framework);
-    }
-
-    private EntityUid FindOwningModule(EntityUid tool)
-    {
+        if (!_hands.IsHolding(user, tool, out _))
+            return false;
         var query = EntityQueryEnumerator<ModModuleComponent>();
         while (query.MoveNext(out var uid, out var module))
-            if (module.ItemEntities.Values.Contains(tool)) return uid;
-        return EntityUid.Invalid;
-    }
-
-    private bool TryController(EntityUid module, EntityUid user, out EntityUid controller, out ModModuleComponent framework)
-    {
-        controller = default;
-        framework = default!;
-        if (!TryComp<ModModuleComponent>(module, out var found) || !found.Active || found.InstalledController is not { } installed ||
-            !TryComp<SealableClothingControlComponent>(installed, out var seal) || seal.WearerEntity != user)
-            return false;
-        framework = found;
-        controller = installed;
-        return true;
-    }
-
-    private bool CanGrab(EntityUid target) => !HasComp<MobStateComponent>(target) && !Transform(target).Anchored &&
-        (!TryComp<PhysicsComponent>(target, out var physics) || physics.BodyType != BodyType.Static);
-    private bool CanHeat(EntityUid target) => !HasComp<MobStateComponent>(target) && HasComp<TemperatureComponent>(target);
-
-    private void TryEject(Entity<ModModuleGrabberToolComponent> tool, BaseContainer container, EntityUid user)
-    {
-        if (!TryLink(tool.Owner, user, ref tool.Comp.Module, out var controller, out _) ||
-            !_power.TryUseCharge(controller, tool.Comp.UseCost, user))
-            return;
-        Eject(container, Transform(user).Coordinates);
-    }
-
-    private bool TryUseActionCharge(ModModuleComponent module, EntityUid controller, EntityUid action, EntityUid user)
-    {
-        foreach (var definition in module.Actions)
-            if (module.ActionEntities.TryGetValue(definition.Action, out var actionUid) && actionUid == action)
-                return definition.UseCost <= 0 || _power.TryUseCharge(controller, definition.UseCost, user, predicted: true);
+            if (module.ItemEntities.Values.Contains(tool))
+                return _modules.CanUseModule(new Entity<ModModuleComponent?>(uid, module), user, out controller);
         return false;
     }
 

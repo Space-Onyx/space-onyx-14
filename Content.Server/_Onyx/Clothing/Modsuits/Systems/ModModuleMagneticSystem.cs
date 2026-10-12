@@ -18,8 +18,7 @@ public sealed partial class ModModuleMagneticSystem : EntitySystem
         SubscribeLocalEvent<ModModuleMagneticComponent, ModModuleActivatedEvent>(OnActivated);
         SubscribeLocalEvent<ModModuleMagneticComponent, ModModuleDeactivatedEvent>(OnDeactivated);
         SubscribeLocalEvent<ModModuleMagneticComponent, ModModuleUninstalledEvent>(OnUninstalled);
-        SubscribeLocalEvent<ModModuleMagneticEffectComponent, IsWeightlessEvent>(OnWeightless);
-        SubscribeLocalEvent<ModModuleMagneticEffectComponent, ComponentRemove>(OnEffectRemoved);
+        SubscribeLocalEvent<ModModuleMagneticEffectComponent, ComponentShutdown>(OnEffectShutdown);
     }
 
     private void OnActivated(Entity<ModModuleMagneticComponent> module, ref ModModuleActivatedEvent args)
@@ -27,7 +26,10 @@ public sealed partial class ModModuleMagneticSystem : EntitySystem
         var effect = EnsureComp<ModModuleMagneticEffectComponent>(args.Wearer);
         effect.Module = module.Owner;
         if (TryComp<MovedByPressureComponent>(args.Wearer, out var moved))
+        {
+            effect.OriginalPressureEnabled = moved.Enabled;
             moved.Enabled = false;
+        }
         if (TryComp<MagbootsComponent>(FindBoots(args.Controller), out var boots))
             _alerts.ShowAlert(args.Wearer, boots.MagbootsAlert);
         _gravity.RefreshWeightless(args.Wearer);
@@ -50,27 +52,16 @@ public sealed partial class ModModuleMagneticSystem : EntitySystem
     {
         if (!TryComp<ModModuleMagneticEffectComponent>(wearer, out var effect) || effect.Module != module)
             return;
-        if (TryComp<MovedByPressureComponent>(wearer, out var moved))
-            moved.Enabled = true;
         if (TryComp<MagbootsComponent>(FindBoots(controller), out var boots))
             _alerts.ClearAlert(wearer, boots.MagbootsAlert);
         RemComp<ModModuleMagneticEffectComponent>(wearer);
         _gravity.RefreshWeightless(wearer);
     }
 
-    private void OnWeightless(Entity<ModModuleMagneticEffectComponent> ent, ref IsWeightlessEvent args)
+    private void OnEffectShutdown(Entity<ModModuleMagneticEffectComponent> ent, ref ComponentShutdown args)
     {
-        if (!_gravity.EntityOnGravitySupportingGridOrMap(ent.Owner))
-            return;
-        args.IsWeightless = false;
-        args.Handled = true;
-    }
-
-    private void OnEffectRemoved(Entity<ModModuleMagneticEffectComponent> ent, ref ComponentRemove args)
-    {
-        if (TryComp<MovedByPressureComponent>(ent, out var moved))
-            moved.Enabled = true;
-        _gravity.RefreshWeightless(ent.Owner);
+        if (ent.Comp.OriginalPressureEnabled is { } enabled && TryComp<MovedByPressureComponent>(ent, out var moved))
+            moved.Enabled = enabled;
     }
 
     private EntityUid FindBoots(EntityUid controller)
@@ -80,10 +71,4 @@ public sealed partial class ModModuleMagneticSystem : EntitySystem
                 if (slot == "shoes") return part;
         return controller;
     }
-}
-
-[RegisterComponent]
-public sealed partial class ModModuleMagneticEffectComponent : Component
-{
-    public EntityUid Module;
 }

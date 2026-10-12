@@ -5,35 +5,25 @@ using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Gravity;
 using Content.Shared.Inventory;
-using Content.Shared.Mobs.Systems;
-using Content.Shared.Movement.Pulling.Events;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Nutrition.Components;
-using Content.Shared.Standing;
 
 namespace Content.Server._Onyx.Clothing.Modsuits.Systems;
 
 public sealed partial class ModModuleWearerSystem : EntitySystem
 {
     [Dependency] private SharedGravitySystem _gravity = default!;
-    [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private MovementSpeedModifierSystem _speed = default!;
-    [Dependency] private StandingStateSystem _standing = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<ModModuleAntiGravityComponent, ModModuleActivatedEvent>(OnAntiGravityActivated);
         SubscribeLocalEvent<ModModuleAntiGravityComponent, ModModuleDeactivatedEvent>(OnAntiGravityDeactivated);
-        SubscribeLocalEvent<ModModuleAntiGravityEffectComponent, IsWeightlessEvent>(OnWeightless);
-        SubscribeLocalEvent<ModModuleAntiGravityEffectComponent, ComponentRemove>(OnAntiGravityRemoved);
         SubscribeLocalEvent<ModModuleApparatusComponent, ModModuleActivatedEvent>(OnApparatusActivated);
         SubscribeLocalEvent<ModModuleApparatusComponent, ModModuleDeactivatedEvent>(OnApparatusDeactivated);
         SubscribeLocalEvent<ModModuleQuickCarryComponent, ModModuleActivatedEvent>(OnCarryActivated);
         SubscribeLocalEvent<ModModuleQuickCarryComponent, ModModuleDeactivatedEvent>(OnCarryDeactivated);
-        SubscribeLocalEvent<ModModuleQuickCarryEffectComponent, PullStartedMessage>(OnPullStarted);
-        SubscribeLocalEvent<ModModuleQuickCarryEffectComponent, PullStoppedMessage>(OnPullStopped);
-        SubscribeLocalEvent<ModModuleQuickCarryEffectComponent, RefreshMovementSpeedModifiersEvent>(OnCarrySpeed);
         SubscribeLocalEvent<ModModuleArmorBoosterEffectComponent, InventoryRelayedEvent<CoefficientQueryEvent>>(OnCoefficients,
             after: [typeof(SharedArmorSystem)]);
         SubscribeLocalEvent<ModModuleArmorBoosterEffectComponent, InventoryRelayedEvent<DamageModifyEvent>>(OnDamage,
@@ -47,7 +37,7 @@ public sealed partial class ModModuleWearerSystem : EntitySystem
     private void OnAntiGravityActivated(Entity<ModModuleAntiGravityComponent> module, ref ModModuleActivatedEvent args)
     {
         EnsureComp<ModModuleAntiGravityEffectComponent>(args.Wearer).Module = module.Owner;
-        _gravity.RefreshWeightless(args.Wearer, !_standing.IsDown(args.Wearer));
+        _gravity.RefreshWeightless(args.Wearer);
     }
 
     private void OnAntiGravityDeactivated(Entity<ModModuleAntiGravityComponent> module, ref ModModuleDeactivatedEvent args)
@@ -55,16 +45,6 @@ public sealed partial class ModModuleWearerSystem : EntitySystem
         if (args.Wearer is { } wearer && TryComp<ModModuleAntiGravityEffectComponent>(wearer, out var effect) && effect.Module == module.Owner)
             RemComp<ModModuleAntiGravityEffectComponent>(wearer);
     }
-
-    private void OnWeightless(Entity<ModModuleAntiGravityEffectComponent> ent, ref IsWeightlessEvent args)
-    {
-        if (_standing.IsDown(ent.Owner))
-            return;
-        args.IsWeightless = true;
-        args.Handled = true;
-    }
-
-    private void OnAntiGravityRemoved(Entity<ModModuleAntiGravityEffectComponent> ent, ref ComponentRemove args) => _gravity.RefreshWeightless(ent.Owner, false);
 
     private void OnApparatusActivated(Entity<ModModuleApparatusComponent> module, ref ModModuleActivatedEvent args)
     {
@@ -90,6 +70,8 @@ public sealed partial class ModModuleWearerSystem : EntitySystem
         var effect = EnsureComp<ModModuleQuickCarryEffectComponent>(args.Wearer);
         effect.Module = module.Owner;
         effect.Multiplier = module.Comp.Multiplier;
+        Dirty(args.Wearer, effect);
+        _speed.RefreshMovementSpeedModifiers(args.Wearer);
     }
 
     private void OnCarryDeactivated(Entity<ModModuleQuickCarryComponent> module, ref ModModuleDeactivatedEvent args)
@@ -97,25 +79,6 @@ public sealed partial class ModModuleWearerSystem : EntitySystem
         if (args.Wearer is { } wearer && TryComp<ModModuleQuickCarryEffectComponent>(wearer, out var effect) && effect.Module == module.Owner)
             RemComp<ModModuleQuickCarryEffectComponent>(wearer);
         if (args.Wearer is { } user) _speed.RefreshMovementSpeedModifiers(user);
-    }
-
-    private void OnPullStarted(Entity<ModModuleQuickCarryEffectComponent> ent, ref PullStartedMessage args)
-    {
-        if (args.PullerUid != ent.Owner || !_mobState.IsIncapacitated(args.PulledUid)) return;
-        ent.Comp.Carrying = true;
-        _speed.RefreshMovementSpeedModifiers(ent.Owner);
-    }
-
-    private void OnPullStopped(Entity<ModModuleQuickCarryEffectComponent> ent, ref PullStoppedMessage args)
-    {
-        if (args.PullerUid != ent.Owner) return;
-        ent.Comp.Carrying = false;
-        _speed.RefreshMovementSpeedModifiers(ent.Owner);
-    }
-
-    private void OnCarrySpeed(Entity<ModModuleQuickCarryEffectComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
-    {
-        if (ent.Comp.Carrying) args.ModifySpeed(1f + ent.Comp.Multiplier);
     }
 
     private void OnArmorActivated(Entity<ModModuleArmorBoosterComponent> module, ref ModModuleActivatedEvent args)
@@ -157,7 +120,6 @@ public sealed partial class ModModuleWearerSystem : EntitySystem
         args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, ent.Comp.Modifiers);
 
     private EntityUid FindHelmet(EntityUid controller) => FindPart(controller, "head");
-    private EntityUid FindTorso(EntityUid controller) => FindPart(controller, "outerClothing");
     private EntityUid FindPart(EntityUid controller, string slot)
     {
         if (TryComp<Content.Shared.Clothing.Components.ToggleableClothingComponent>(controller, out var toggleable))
@@ -167,6 +129,4 @@ public sealed partial class ModModuleWearerSystem : EntitySystem
     }
 }
 
-[RegisterComponent] public sealed partial class ModModuleAntiGravityEffectComponent : Component { public EntityUid Module; }
-[RegisterComponent] public sealed partial class ModModuleQuickCarryEffectComponent : Component { public EntityUid Module; public float Multiplier; public bool Carrying; }
 [RegisterComponent] public sealed partial class ModModuleArmorBoosterEffectComponent : Component { public EntityUid Module; public DamageModifierSet Modifiers = new(); }

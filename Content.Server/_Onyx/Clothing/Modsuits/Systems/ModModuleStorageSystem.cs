@@ -36,6 +36,11 @@ public sealed partial class ModModuleStorageSystem : EntitySystem
         module.Comp.OriginalGrid = new(controller.Grid);
         controller.Grid = new(source.Grid);
         _storage.RefreshStorageGrid((args.Controller, controller));
+        foreach (var item in source.Container.ContainedEntities.ToArray())
+        {
+            if (!_storage.Insert(args.Controller, item, out _, storageComp: controller, playSound: false, stackAutomatically: false))
+                _containers.Remove(item, source.Container, destination: Transform(args.Controller).Coordinates);
+        }
     }
 
     private void OnUninstalled(Entity<ModModuleStorageComponent> module, ref ModModuleUninstalledEvent args)

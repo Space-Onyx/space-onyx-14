@@ -50,11 +50,17 @@ public sealed partial class ModModuleComponent : Component
     [DataField]
     public float DrawRate;
 
-    [DataField]
+    [DataField, AutoNetworkedField]
     public bool Permanent;
 
     [DataField, AutoNetworkedField]
     public bool CanBeDisabled = true;
+
+    /// <summary>
+    /// Whether the module exposes an on/off action instead of running passively.
+    /// </summary>
+    [DataField]
+    public bool Toggleable;
 
     [DataField("active"), AutoNetworkedField]
     public bool Enabled;
@@ -73,6 +79,11 @@ public sealed partial class ModModuleComponent : Component
 
     [AutoNetworkedField]
     public bool Active;
+
+    public EntityUid? ActiveWearer;
+
+    public EntityUid? ToggleAction;
+    public EntityUid? ToggleActionWearer;
 
     [DataField]
     public Dictionary<ModEffectTarget, EntityUid> AppliedTargets = new();
@@ -95,6 +106,8 @@ public sealed partial class ModModuleEffectOwnershipComponent : Component
 
     [DataField]
     public HashSet<string> Added = new();
+
+    public Dictionary<string, IComponent> Replaced = new();
 }
 
 [DataDefinition]
@@ -118,6 +131,12 @@ public sealed partial class ModModuleStorageComponent : Component
 
     [DataField]
     public bool ControllerHadStorage;
+}
+
+[RegisterComponent]
+public sealed partial class ModModuleProvidedActionComponent : Component
+{
+    public EntityUid Module;
 }
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
@@ -158,6 +177,19 @@ public sealed partial class ModModuleGeigerComponent : Component;
 
 [RegisterComponent]
 public sealed partial class ModModuleAntiGravityComponent : Component;
+
+[RegisterComponent, NetworkedComponent]
+public sealed partial class ModModuleAntiGravityEffectComponent : Component
+{
+    public EntityUid Module;
+}
+
+[RegisterComponent, NetworkedComponent]
+public sealed partial class ModModuleMagneticEffectComponent : Component
+{
+    public EntityUid Module;
+    public bool? OriginalPressureEnabled;
+}
 
 [RegisterComponent]
 public sealed partial class ModModuleContainerRequirementComponent : Component
@@ -209,6 +241,15 @@ public sealed partial class ModModuleSpringlockControllerComponent : Component
 {
     [AutoNetworkedField]
     public EntityUid Module;
+}
+
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
+public sealed partial class ModModuleQuickCarryEffectComponent : Component
+{
+    public EntityUid Module;
+
+    [AutoNetworkedField]
+    public float Multiplier;
 }
 
 [RegisterComponent]
@@ -313,7 +354,7 @@ public enum ModPart : byte
     Boots,
 }
 
-public sealed partial class ModModuleActionEvent : InstantActionEvent;
+public sealed partial class ModModuleToggleEvent : InstantActionEvent;
 public sealed partial class ModModuleToggleLightEvent : InstantActionEvent;
 public sealed partial class ModModuleTeleportEvent : InstantActionEvent;
 public sealed partial class ModModuleDispenseEvent : InstantActionEvent;
@@ -345,6 +386,3 @@ public readonly record struct ModModuleActivatedEvent(EntityUid Controller, Enti
 
 [ByRefEvent]
 public readonly record struct ModModuleDeactivatedEvent(EntityUid Controller, EntityUid? Wearer);
-
-[ByRefEvent]
-public readonly record struct ModModuleUsedEvent(EntityUid Controller, EntityUid Wearer, EntityUid Performer);

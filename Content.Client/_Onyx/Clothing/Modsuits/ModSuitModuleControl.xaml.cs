@@ -11,9 +11,14 @@ public sealed partial class ModSuitModuleControl : PanelContainer
 {
     public Action? RemoveButtonPressed;
 
+    private readonly EntityUid _module;
+    private readonly IEntityManager _entityManager;
+
     public ModSuitModuleControl(EntityUid module, IEntityManager entMan)
     {
         RobustXamlLoader.Load(this);
+        _module = module;
+        _entityManager = entMan;
 
         ModuleView.SetEntity(module);
         ModuleName.Text = entMan.GetComponent<MetaDataComponent>(module).EntityName;
@@ -23,5 +28,13 @@ public sealed partial class ModSuitModuleControl : PanelContainer
         RemoveButton.Visible = canRemove;
 
         RemoveButton.OnPressed += _ => RemoveButtonPressed?.Invoke();
+        UpdateState();
+    }
+
+    public void UpdateState()
+    {
+        if (!_entityManager.TryGetComponent<ModModuleComponent>(_module, out var module))
+            return;
+        RemoveButton.Visible = !module.Permanent;
     }
 }

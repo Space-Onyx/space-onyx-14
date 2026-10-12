@@ -3,6 +3,8 @@
   id: BaseSuitModule
   abstract: true
   components:
+  - type: ModModule
+    active: true
   - type: Sprite
     sprite: &modules-rsi _Onyx/Objects/Specific/Robotics/modules.rsi
 
@@ -235,6 +237,8 @@
     state: medhud_visor
   - type: ModModule
     id: medical-visor
+    toggleable: true
+    active: false
     requiredPart: Helmet
     drawRate: 0.3
     conflictTags: [ Visor ]
@@ -251,6 +255,8 @@
     state: diaghud_visor
   - type: ModModule
     id: diagnostic-visor
+    toggleable: true
+    active: false
     requiredPart: Helmet
     drawRate: 0.3
     conflictTags: [ Visor ]
@@ -267,6 +273,8 @@
     state: sechud_visor
   - type: ModModule
     id: security-visor
+    toggleable: true
+    active: false
     requiredPart: Helmet
     drawRate: 0.3
     conflictTags: [ Visor ]
@@ -285,6 +293,8 @@
     state: meson_visor
   - type: ModModule
     id: meson-visor
+    toggleable: true
+    active: false
     requiredPart: Helmet
     drawRate: 0.3
     conflictTags: [ Visor, WeldingVisor ]
@@ -302,6 +312,8 @@
     state: scanner
   - type: ModModule
     id: solution-scanner
+    toggleable: true
+    active: false
     requiredPart: Helmet
     drawRate: 0.2
     conflictTags: [ Visor ]
@@ -334,6 +346,8 @@
     state: antigrav
   - type: ModModule
     id: anti-gravity
+    toggleable: true
+    active: false
     drawRate: 0.45
   - type: ModModuleAntiGravity
   - type: ModModuleContainerRequirement
@@ -385,6 +399,8 @@
     state: tray
   - type: ModModule
     id: tray-scanner
+    toggleable: true
+    active: false
     requiredPart: Gloves
     drawRate: 0.15
     integratedItems:
@@ -398,6 +414,8 @@
     state: health
   - type: ModModule
     id: health-analyzer
+    toggleable: true
+    active: false
     requiredPart: Gloves
     drawRate: 0.75
     integratedItems:
@@ -411,6 +429,8 @@
     state: defibrillator
   - type: ModModule
     id: defibrillator
+    toggleable: true
+    active: false
     requiredPart: Gloves
     drawRate: 2
     integratedItems:
@@ -423,6 +443,7 @@
   components:
   - type: Jetpack
     moleUsage: 0
+    toggleAction: ActionToggleSuitModuleJetpack
 
 - type: entity
   parent: BaseSuitModule
@@ -432,6 +453,7 @@
     state: jetpack
   - type: ModModule
     id: jetpack
+    canBeDisabled: false
     requiredPart: Torso
     drawRate: 1.25
     conflictTags: [ Jetpack ]
@@ -444,6 +466,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: Jetpack
+    toggleAction: ActionToggleSuitModuleJetpack
     acceleration: 2
     weightlessModifier: 2.4
     friction: 0.125
@@ -469,6 +492,8 @@
     state: magnet
   - type: ModModule
     id: magnetic-stability
+    toggleable: true
+    active: false
     requiredPart: Boots
     drawRate: 0.4
     conflictTags: [ Traction ]
@@ -526,6 +551,8 @@
     state: tether
   - type: ModModule
     id: tether
+    toggleable: true
+    active: false
     drawRate: 0.15
     integratedItems:
     - item: WeaponGrapplingGun
@@ -599,6 +626,8 @@
     state: gps
   - type: ModModule
     id: gps
+    toggleable: true
+    active: false
     integratedItems:
     - item: BorgHandheldGPSBasic
 
@@ -610,6 +639,8 @@
     state: constructor
   - type: ModModule
     id: constructor
+    toggleable: true
+    active: false
     requiredPart: Gloves
     drawRate: 1
     conflictTags: [ ArmUtility ]
@@ -651,6 +682,8 @@
     state: clamp
   - type: ModModule
     id: grabber
+    toggleable: true
+    active: false
     requiredPart: Gloves
     integratedItems:
     - item: SuitModuleGrabberTool
@@ -676,6 +709,8 @@
     state: microwave_beam
   - type: ModModule
     id: microwave-beam
+    toggleable: true
+    active: false
     requiredPart: Gloves
     integratedItems:
     - item: SuitModuleMicrowaveTool
@@ -688,6 +723,8 @@
     state: drill
   - type: ModModule
     id: drill
+    toggleable: true
+    active: false
     requiredPart: Gloves
     drawRate: 0.5
     integratedItems:
@@ -701,6 +738,8 @@
     state: injector
   - type: ModModule
     id: injector
+    toggleable: true
+    active: false
     requiredPart: Gloves
     drawRate: 0.3
     integratedItems:
@@ -714,6 +753,8 @@
     state: bikehorn
   - type: ModModule
     id: bike-horn
+    toggleable: true
+    active: false
     requiredPart: Gloves
     integratedItems:
     - item: BikeHorn
@@ -726,6 +767,8 @@
     state: ore
   - type: ModModule
     id: ore-bag
+    toggleable: true
+    active: false
     requiredPart: Gloves
     integratedItems:
     - item: BorgOreBag
@@ -754,6 +797,8 @@
     state: kinesis
   - type: ModModule
     id: kinesis
+    toggleable: true
+    active: false
     requiredPart: Gloves
     drawRate: 0.7
     integratedItems:

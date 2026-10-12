@@ -1,9 +1,12 @@
 using System.Linq;
+using Content.Server.Temperature.Components;
 using Content.Shared._Onyx.Clothing.Components;
 using Content.Shared._Onyx.Clothing.Modsuits;
 using Content.Shared._Onyx.Clothing.Modsuits.Components;
 using Content.Shared._Onyx.Clothing.Systems;
 using Content.Shared.Actions;
+using Content.Shared.Actions.Components;
+using Content.Shared.Actions.Events;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Clothing;
 using Content.Shared.Database;
@@ -19,6 +22,10 @@ using Content.Shared.Popups;
 using Content.Shared.PowerCell;
 using Content.Shared.PowerCell.Components;
 using Content.Shared.Power;
+using Content.Shared.Power.EntitySystems;
+using Content.Shared.Emp;
+using Content.Shared.Movement.Systems;
+using Robust.Shared.Serialization.Manager;
 using Content.Shared.Radiation.Components;
 using Content.Shared.Storage.EntitySystems;
 using Content.Shared.Verbs;
@@ -26,12 +33,15 @@ using Content.Shared.Wires;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 
 namespace Content.Server._Onyx.Clothing.Modsuits.Systems;
 
 public sealed partial class ModModuleSystem : EntitySystem
 {
     private const string ItemContainer = "mod-integrated-items";
+    private static readonly EntProtoId ToggleModuleAction = "ActionToggleSuitModule";
+    private readonly HashSet<EntityUid> _powerRefresh = new();
 
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
@@ -41,6 +51,10 @@ public sealed partial class ModModuleSystem : EntitySystem
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private PowerCellSystem _power = default!;
     [Dependency] private SharedUserInterfaceSystem _ui = default!;
+    [Dependency] private ISerializationManager _serialization = default!;
+    [Dependency] private MovementSpeedModifierSystem _speed = default!;
+    [Dependency] private MetaDataSystem _metaData = default!;
+    [Dependency] private SharedBatterySystem _battery = default!;
 
     public override void Initialize()
     {
@@ -49,8 +63,10 @@ public sealed partial class ModModuleSystem : EntitySystem
         SubscribeLocalEvent<ModModuleContainerComponent, ContainerIsInsertingAttemptEvent>(OnInsertAttempt);
         SubscribeLocalEvent<ModModuleContainerComponent, ContainerIsRemovingAttemptEvent>(OnRemoveAttempt);
         SubscribeLocalEvent<ModModuleContainerComponent, ComponentShutdown>(OnContainerShutdown);
-        SubscribeLocalEvent<ModModuleContainerComponent, ClothingGotEquippedEvent>(OnSuitChanged);
-        SubscribeLocalEvent<ModModuleContainerComponent, ClothingGotUnequippedEvent>(OnSuitUnequipped);
+        SubscribeLocalEvent<ModModuleContainerComponent, ClothingGotEquippedEvent>(OnSuitChanged,
+            after: [typeof(SharedSealableClothingSystem)]);
+        SubscribeLocalEvent<ModModuleContainerComponent, ClothingGotUnequippedEvent>(OnSuitUnequipped,
+            after: [typeof(SharedSealableClothingSystem)]);
         SubscribeLocalEvent<ModModuleContainerComponent, ClothingControlSealCompleteEvent>(OnSealChanged);
         SubscribeLocalEvent<ModModuleContainerComponent, PowerCellChangedEvent>(OnPowerChanged);
         SubscribeLocalEvent<ModModuleContainerComponent, PowerCellSlotEmptyEvent>(OnPowerLost);
@@ -62,10 +78,11 @@ public sealed partial class ModModuleSystem : EntitySystem
         SubscribeLocalEvent<ModModuleComponent, ModModuleRemoveDoAfterEvent>(OnRemoveDoAfterFinished);
         SubscribeLocalEvent<ModModuleContainerComponent, ModSuitEjectBatteryBuiMessage>(OnEjectBatteryBuiMessage);
         SubscribeLocalEvent<ModModuleContainerComponent, ModSuitRemoveModuleBuiMessage>(OnRemoveModuleBuiMessage);
+        SubscribeLocalEvent<ModModuleComponent, ModModuleToggleEvent>(OnToggleAction);
         SubscribeLocalEvent<ModModuleComponent, EntGotInsertedIntoContainerMessage>(OnModuleInserted);
         SubscribeLocalEvent<ModModuleComponent, EntGotRemovedFromContainerMessage>(OnModuleRemoved);
         SubscribeLocalEvent<ModModuleComponent, ComponentShutdown>(OnModuleShutdown);
-        SubscribeLocalEvent<ModModuleComponent, ModModuleActionEvent>(OnModuleAction);
+        SubscribeLocalEvent<ModModuleProvidedActionComponent, ActionValidateEvent>(OnProvidedActionValidate);
         SubscribeLocalEvent<ModModuleContainerRequirementComponent, EntInsertedIntoContainerMessage>(OnRequirementChanged);
         SubscribeLocalEvent<ModModuleContainerRequirementComponent, EntRemovedFromContainerMessage>(OnRequirementChanged);
     }
@@ -106,7 +123,11 @@ public sealed partial class ModModuleSystem : EntitySystem
     private void OnContainerShutdown(Entity<ModModuleContainerComponent> ent, ref ComponentShutdown args)
     {
         foreach (var module in Modules(ent).ToArray())
+        {
             Deactivate(module, ent);
+            RemoveToggleAction(module);
+        }
+        _powerRefresh.Remove(ent);
     }
 
     private void OnSuitChanged(Entity<ModModuleContainerComponent> ent, ref ClothingGotEquippedEvent args) => Refresh(ent);
@@ -114,7 +135,10 @@ public sealed partial class ModModuleSystem : EntitySystem
     private void OnSuitUnequipped(Entity<ModModuleContainerComponent> ent, ref ClothingGotUnequippedEvent args)
     {
         foreach (var module in Modules(ent))
+        {
             Deactivate(module, ent, args.Wearer);
+            RemoveToggleAction(module);
+        }
         RefreshDraw(ent);
     }
     private void OnSealChanged(Entity<ModModuleContainerComponent> ent, ref ClothingControlSealCompleteEvent args) => Refresh(ent);
@@ -129,18 +153,34 @@ public sealed partial class ModModuleSystem : EntitySystem
     {
         ent.Comp.Powered = false;
         Dirty(ent);
-        Refresh(ent);
+        _powerRefresh.Add(ent);
     }
 
     private void OnBatteryStateChanged(Entity<ModModuleContainerComponent> ent, ref BatteryStateChangedEvent args)
     {
         RefreshPower(ent);
-        Refresh(ent);
+        // Charge consumption raises this synchronously. Finish the action before reclaiming its tools and effects.
+        _powerRefresh.Add(ent);
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+        foreach (var controller in _powerRefresh.ToArray())
+        {
+            _powerRefresh.Remove(controller);
+            if (TryComp<ModModuleContainerComponent>(controller, out var bay))
+                Refresh((controller, bay));
+        }
     }
 
     private void OnRefreshChargeRate(Entity<ModModuleContainerComponent> ent, ref RefreshChargeRateEvent args)
     {
-        args.NewChargeRate -= Modules(ent).Where(x => x.Comp.Active).Sum(x => x.Comp.DrawRate);
+        foreach (var module in Modules(ent))
+        {
+            if (module.Comp.Active)
+                args.NewChargeRate -= module.Comp.DrawRate;
+        }
     }
 
     private void OnModuleInteract(Entity<ModModuleContainerComponent> controller, ref InteractUsingEvent args)
@@ -169,16 +209,19 @@ public sealed partial class ModModuleSystem : EntitySystem
 
     private void OnInstallDoAfterFinished(Entity<ModModuleComponent> module, ref ModModuleInstallDoAfterEvent args)
     {
-        if (args.Cancelled || args.Args.Target == null || args.Args.Used == null)
+        if (args.Cancelled || args.Handled || args.Args.Target == null || args.Args.Used != module.Owner)
             return;
 
         if (!TryComp<ModModuleContainerComponent>(args.Args.Target.Value, out var containerComp))
             return;
 
-        if (!TryInstall((args.Args.Used.Value, module), (args.Args.Target.Value, containerComp), out var reason))
+        if (!TryInstall(module, (args.Args.Target.Value, containerComp), out var reason))
             _popup.PopupEntity(Loc.GetString(reason), args.Args.Target.Value, args.User);
         else
+        {
+            args.Handled = true;
             _popup.PopupEntity(Loc.GetString("mod-module-install-finish"), args.Args.Target.Value, args.User);
+        }
     }
 
     private bool TryInstall(Entity<ModModuleComponent> module,
@@ -269,6 +312,7 @@ public sealed partial class ModModuleSystem : EntitySystem
             return;
 
         var controller = args.Container.Owner;
+        RemoveToggleAction(module);
         if (TryComp<ModModuleContainerComponent>(controller, out var container))
             Deactivate(module, (controller, container));
         var ev = new ModModuleUninstalledEvent(controller);
@@ -281,6 +325,7 @@ public sealed partial class ModModuleSystem : EntitySystem
 
     private void OnModuleShutdown(Entity<ModModuleComponent> module, ref ComponentShutdown args)
     {
+        RemoveToggleAction(module);
         if (module.Comp.InstalledController is { } controller &&
             TryComp<ModModuleContainerComponent>(controller, out var container))
             Deactivate(module, (controller, container));
@@ -292,27 +337,6 @@ public sealed partial class ModModuleSystem : EntitySystem
             return;
 
         var user = args.User;
-        foreach (var module in Modules(controller))
-        {
-            var captured = module;
-            if (module.Comp.CanBeDisabled && !module.Comp.Permanent &&
-                TryComp<SealableClothingControlComponent>(controller, out var seal) && seal.WearerEntity == user)
-            {
-                var enabled = module.Comp.Enabled;
-                var toggleReason = string.Empty;
-                var canToggle = enabled;
-                if (!enabled)
-                    canToggle = CanEnable(controller, user, out toggleReason);
-                args.Verbs.Add(new AlternativeVerb
-                {
-                    Text = Loc.GetString(enabled ? "mod-module-verb-disable" : "mod-module-verb-enable", ("module", Name(module))),
-                    Disabled = !canToggle,
-                    Message = enabled || string.IsNullOrEmpty(toggleReason) ? null : Loc.GetString(toggleReason),
-                    Act = () => Toggle(captured, controller, user),
-                });
-            }
-        }
-
         args.Verbs.Add(new AlternativeVerb
         {
             Text = Loc.GetString("mod-module-verb-open-panel"),
@@ -331,23 +355,42 @@ public sealed partial class ModModuleSystem : EntitySystem
         return true;
     }
 
-    private void Toggle(Entity<ModModuleComponent> module,
+    /// <summary>
+    /// Changes the module's enabled state and refreshes its suit without consuming action charge.
+    /// </summary>
+    public bool TryToggle(Entity<ModModuleComponent?> module,
         Entity<ModModuleContainerComponent> controller,
         EntityUid user)
     {
-        if (!module.Comp.CanBeDisabled || module.Comp.Permanent)
-            return;
-        if (!module.Comp.Enabled && !CanEnable(controller, user, out var reason))
+        if (!Resolve(module, ref module.Comp, false))
+            return false;
+        if (!CanToggle(module, controller, user, out var reason))
         {
-            _popup.PopupEntity(Loc.GetString(reason), controller, user);
-            return;
+            if (reason.Length > 0)
+                _popup.PopupEntity(Loc.GetString(reason), controller, user);
+            return false;
         }
         module.Comp.Enabled = !module.Comp.Enabled;
         Dirty(module);
         Refresh(controller);
+        return true;
     }
 
-    private void Remove(Entity<ModModuleComponent> module,
+    /// <summary>
+    /// Allows disabling without power; enabling requires the wearer's sealed, powered suit.
+    /// </summary>
+    public bool CanToggle(Entity<ModModuleComponent?> module,
+        Entity<ModModuleContainerComponent> controller, EntityUid user, out string reason)
+    {
+        reason = string.Empty;
+        if (!Resolve(module, ref module.Comp, false) || !module.Comp.Toggleable || !module.Comp.CanBeDisabled || module.Comp.Permanent ||
+            module.Comp.InstalledController != controller.Owner ||
+            !TryComp<SealableClothingControlComponent>(controller, out var seal) || seal.WearerEntity != user)
+            return false;
+        return module.Comp.Enabled || CanEnable(controller, user, out reason);
+    }
+
+    private void StartRemoval(Entity<ModModuleComponent> module,
         Entity<ModModuleContainerComponent> controller,
         EntityUid user)
     {
@@ -358,8 +401,6 @@ public sealed partial class ModModuleSystem : EntitySystem
         }
 
         var removeDuration = controller.Comp.RemoveDuration;
-        _popup.PopupEntity(Loc.GetString("mod-module-remove-begin"), module, user);
-
         var doAfterArgs = new DoAfterArgs(EntityManager, user, removeDuration,
             new ModModuleRemoveDoAfterEvent(), module.Owner, target: controller.Owner, used: module.Owner)
         {
@@ -371,7 +412,7 @@ public sealed partial class ModModuleSystem : EntitySystem
 
     private void OnRemoveDoAfterFinished(Entity<ModModuleComponent> module, ref ModModuleRemoveDoAfterEvent args)
     {
-        if (args.Cancelled || args.Args.Target == null || args.Args.Used == null)
+        if (args.Cancelled || args.Handled || args.Args.Target == null || args.Args.Used != module.Owner)
             return;
 
         if (!TryComp<ModModuleContainerComponent>(args.Args.Target.Value, out var containerComp))
@@ -379,7 +420,7 @@ public sealed partial class ModModuleSystem : EntitySystem
 
         var controller = (args.Args.Target.Value, containerComp);
 
-        if (!CanRemove((module.Owner, module), controller, out _))
+        if (!CanRemove(module, controller, out _))
             return;
 
         if (!_containers.TryGetContainer(args.Args.Target.Value, ModModuleContainerComponent.ContainerId, out var container) ||
@@ -389,7 +430,10 @@ public sealed partial class ModModuleSystem : EntitySystem
         if (!_containers.Remove(module.Owner, container, destination: Transform(args.User).Coordinates))
             _popup.PopupEntity(Loc.GetString("mod-module-error-remove"), args.Args.Target.Value, args.User);
         else
+        {
+            args.Handled = true;
             _popup.PopupEntity(Loc.GetString("mod-module-remove-finish"), args.Args.Target.Value, args.User);
+        }
     }
 
     private void OnEjectBatteryBuiMessage(Entity<ModModuleContainerComponent> controller, ref ModSuitEjectBatteryBuiMessage args)
@@ -401,39 +445,62 @@ public sealed partial class ModModuleSystem : EntitySystem
     private void OnRemoveModuleBuiMessage(Entity<ModModuleContainerComponent> controller, ref ModSuitRemoveModuleBuiMessage args)
     {
         var module = GetEntity(args.Module);
-        if (!TryComp<ModModuleComponent>(module, out var mod))
+        if (!TryComp<ModModuleComponent>(module, out var mod) || mod.InstalledController != controller.Owner)
             return;
 
-        if (!CanRemove((module, mod), controller, out var reason))
-        {
-            _popup.PopupEntity(Loc.GetString(reason), controller, args.Actor);
+        StartRemoval((module, mod), controller, args.Actor);
+    }
+
+    private void OnToggleAction(Entity<ModModuleComponent> module, ref ModModuleToggleEvent args)
+    {
+        if (args.Handled || module.Comp.ToggleAction != args.Action.Owner ||
+            module.Comp.InstalledController is not { } controller ||
+            !TryComp<ModModuleContainerComponent>(controller, out var bay))
             return;
-        }
-
-        var removeDuration = controller.Comp.RemoveDuration;
-
-        var doAfterArgs = new DoAfterArgs(EntityManager, args.Actor, removeDuration,
-            new ModModuleRemoveDoAfterEvent(), module, target: controller.Owner, used: module)
-        {
-            BreakOnMove = true,
-            BreakOnDamage = true,
-        };
-        _doAfter.TryStartDoAfter(doAfterArgs);
+        args.Handled = TryToggle(module.AsNullable(), (controller, bay), args.Performer);
     }
 
     private void Refresh(Entity<ModModuleContainerComponent> controller)
     {
         EntityUid? wearer = null;
-        var active = TryComp<SealableClothingControlComponent>(controller, out var seal) &&
-            (wearer = seal.WearerEntity) != null && seal.IsCurrentlySealed && controller.Comp.Powered;
+        var sealedSuit = TryComp<SealableClothingControlComponent>(controller, out var seal) &&
+            (wearer = seal.WearerEntity) != null && seal.IsCurrentlySealed;
+        var active = sealedSuit && controller.Comp.Powered;
         foreach (var module in Modules(controller))
         {
+            RefreshToggleAction(module, controller, sealedSuit ? wearer : null);
             if (active && module.Comp.Enabled && wearer is { } user)
                 Activate(module, controller, user);
             else
                 Deactivate(module, controller);
         }
         RefreshDraw(controller);
+    }
+
+    private void RefreshToggleAction(Entity<ModModuleComponent> module, EntityUid controller, EntityUid? wearer)
+    {
+        if (wearer == null || !module.Comp.Toggleable || !module.Comp.CanBeDisabled || module.Comp.Permanent)
+        {
+            RemoveToggleAction(module);
+            return;
+        }
+        if (module.Comp.ToggleActionWearer != wearer)
+            RemoveToggleAction(module);
+        if (module.Comp.ToggleActionWearer == null &&
+            !_actions.AddAction(wearer.Value, ref module.Comp.ToggleAction, ToggleModuleAction, module))
+            return;
+        if (module.Comp.ToggleAction is not { } action)
+            return;
+        module.Comp.ToggleActionWearer = wearer;
+        SetModuleActionIcon(action, module);
+        _metaData.SetEntityName(action, Name(module));
+        _actions.SetToggled(action, module.Comp.Enabled);
+    }
+
+    private void RemoveToggleAction(Entity<ModModuleComponent> module)
+    {
+        _actions.RemoveAction(module.Comp.ToggleAction);
+        module.Comp.ToggleActionWearer = null;
     }
 
     private void Activate(Entity<ModModuleComponent> module,
@@ -447,9 +514,30 @@ public sealed partial class ModModuleSystem : EntitySystem
             return;
         }
 
+        if (module.Comp.Active && module.Comp.ActiveWearer == wearer)
+            return;
         if (module.Comp.Active)
-            Deactivate(module, controller, wearer);
-        var applied = new List<(EntityUid Target, ComponentRegistry Registry)>();
+            Deactivate(module, controller);
+        ApplyEffects(module, controller, wearer);
+        if (!TryProvideActions(module, controller, wearer) || !ProvideItems(module, controller, wearer))
+        {
+            RemoveModuleActions(module);
+            StoreItems(module, wearer);
+            ReleaseEffects(module, wearer);
+            module.Comp.Active = false;
+            Dirty(module);
+            return;
+        }
+        module.Comp.Active = true;
+        module.Comp.ActiveWearer = wearer;
+        Dirty(module);
+        var ev = new ModModuleActivatedEvent(controller, wearer);
+        RaiseLocalEvent(module, ref ev);
+        _speed.RefreshMovementSpeedModifiers(wearer);
+    }
+
+    private void ApplyEffects(Entity<ModModuleComponent> module, EntityUid controller, EntityUid wearer)
+    {
         foreach (var (targetKind, registry) in module.Comp.Effects)
         {
             if (FindTarget(controller, wearer, targetKind) is { } target)
@@ -460,44 +548,57 @@ public sealed partial class ModModuleSystem : EntitySystem
                     var equipped = new GotEquippedEvent(wearer, target, new SlotDefinition());
                     RaiseLocalEvent(target, equipped);
                 }
-                applied.Add((target, registry));
                 module.Comp.AppliedTargets[targetKind] = target;
             }
         }
-        var addedActions = true;
+    }
+
+    private bool TryProvideActions(Entity<ModModuleComponent> module, EntityUid controller, EntityUid wearer)
+    {
         foreach (var action in module.Comp.Actions)
         {
             module.Comp.ActionEntities.TryGetValue(action.Action, out var stored);
             EntityUid? actionUid = stored.IsValid() ? stored : null;
             if (!_actions.AddAction(wearer, ref actionUid, action.Action, module) || actionUid is not { } uid)
-            {
-                addedActions = false;
-                break;
-            }
+                return false;
             module.Comp.ActionEntities[action.Action] = uid;
+            SetModuleActionIcon(uid, module);
         }
-        if (!addedActions || !ProvideItems(module, wearer))
-        {
-            _actions.RemoveProvidedActions(wearer, module);
-            StoreItems(module, wearer);
-            foreach (var (target, registry) in applied)
-                Release(target, registry);
-            module.Comp.AppliedTargets.Clear();
-            module.Comp.Active = false;
-            Dirty(module);
-            return;
-        }
-        module.Comp.Active = true;
-        Dirty(module);
-        var ev = new ModModuleActivatedEvent(controller, wearer);
-        RaiseLocalEvent(module, ref ev);
+        return true;
     }
 
-    private void OnRequirementChanged(Entity<ModModuleContainerRequirementComponent> module, ref EntInsertedIntoContainerMessage args) =>
-        RefreshRequiredModule(module);
+    private void RemoveModuleActions(Entity<ModModuleComponent> module)
+    {
+        foreach (var action in module.Comp.ActionEntities.Values)
+            _actions.RemoveAction(action);
+    }
 
-    private void OnRequirementChanged(Entity<ModModuleContainerRequirementComponent> module, ref EntRemovedFromContainerMessage args) =>
-        RefreshRequiredModule(module);
+    private void SetModuleActionIcon(EntityUid action, EntityUid module)
+    {
+        EnsureComp<ModModuleProvidedActionComponent>(action).Module = module;
+        _actions.SetIcon(action, new SpriteSpecifier.EntityPrototype(MetaData(module).EntityPrototype!.ID));
+        _actions.SetItemIconStyle(action, ItemActionIconStyle.NoItem);
+    }
+
+    private void OnProvidedActionValidate(Entity<ModModuleProvidedActionComponent> action, ref ActionValidateEvent args)
+    {
+        if (TryComp<ModModuleComponent>(action.Comp.Module, out var module) && module.ToggleAction == action.Owner)
+            return;
+        if (!CanUseModule(action.Comp.Module, args.User, out _))
+            args.Invalid = true;
+    }
+
+    private void OnRequirementChanged(Entity<ModModuleContainerRequirementComponent> module, ref EntInsertedIntoContainerMessage args)
+    {
+        if (args.Container.ID == module.Comp.ContainerId)
+            RefreshRequiredModule(module);
+    }
+
+    private void OnRequirementChanged(Entity<ModModuleContainerRequirementComponent> module, ref EntRemovedFromContainerMessage args)
+    {
+        if (args.Container.ID == module.Comp.ContainerId)
+            RefreshRequiredModule(module);
+    }
 
     private void RefreshRequiredModule(Entity<ModModuleContainerRequirementComponent> module)
     {
@@ -512,11 +613,23 @@ public sealed partial class ModModuleSystem : EntitySystem
     {
         if (!module.Comp.Active)
             return;
-        EntityUid? wearer = knownWearer;
+        EntityUid? wearer = module.Comp.ActiveWearer ?? knownWearer;
         if (TryComp<SealableClothingControlComponent>(controller, out var seal))
             wearer ??= seal.WearerEntity;
-        if (wearer is { } user)
-            _actions.RemoveProvidedActions(user, module);
+        RemoveModuleActions(module);
+        ReleaseEffects(module, wearer);
+        StoreItems(module, wearer);
+        module.Comp.Active = false;
+        module.Comp.ActiveWearer = null;
+        Dirty(module);
+        var ev = new ModModuleDeactivatedEvent(controller, wearer);
+        RaiseLocalEvent(module, ref ev);
+        if (wearer is { } oldWearer && Exists(oldWearer))
+            _speed.RefreshMovementSpeedModifiers(oldWearer);
+    }
+
+    private void ReleaseEffects(Entity<ModModuleComponent> module, EntityUid? wearer)
+    {
         foreach (var (targetKind, registry) in module.Comp.Effects)
         {
             if (module.Comp.AppliedTargets.TryGetValue(targetKind, out var target) && Exists(target))
@@ -531,26 +644,47 @@ public sealed partial class ModModuleSystem : EntitySystem
             }
         }
         module.Comp.AppliedTargets.Clear();
-        StoreItems(module, wearer);
-        module.Comp.Active = false;
-        Dirty(module);
-        var ev = new ModModuleDeactivatedEvent(controller, wearer);
-        RaiseLocalEvent(module, ref ev);
     }
 
-    private void OnModuleAction(Entity<ModModuleComponent> module, ref ModModuleActionEvent args)
+    /// <summary>
+    /// Checks that the module still belongs to the performer's sealed, powered suit.
+    /// </summary>
+    public bool CanUseModule(Entity<ModModuleComponent?> module, EntityUid performer, out EntityUid controller)
     {
-        if (args.Handled || !module.Comp.Active || module.Comp.InstalledController is not { } controller ||
-            !TryComp<SealableClothingControlComponent>(controller, out var seal) || seal.WearerEntity != args.Performer)
-            return;
-        var usedAction = args.Action.Owner;
-        var definition = module.Comp.Actions.FirstOrDefault(x =>
-            module.Comp.ActionEntities.TryGetValue(x.Action, out var action) && action == usedAction);
-        if (definition == null)
-            return;
-        args.Handled = true;
-        var ev = new ModModuleUsedEvent(controller, args.Performer, args.Performer);
-        RaiseLocalEvent(module, ref ev);
+        controller = default;
+        if (!Resolve(module, ref module.Comp, false) || !module.Comp.Enabled || !module.Comp.Active || module.Comp.ActiveWearer != performer ||
+            module.Comp.InstalledController is not { } installed)
+            return false;
+        if (!TryComp<ModModuleContainerComponent>(installed, out var bay) || !bay.Powered ||
+            !TryComp<SealableClothingControlComponent>(installed, out var seal) ||
+            seal.WearerEntity != performer || !seal.IsCurrentlySealed)
+            return false;
+        if (TryComp<ModModuleContainerRequirementComponent>(module, out var requirement) &&
+            (!_containers.TryGetContainer(module, requirement.ContainerId, out var core) || core.Count == 0))
+            return false;
+        if (!_containers.TryGetContainer(installed, ModModuleContainerComponent.ContainerId, out var modules) ||
+            !modules.Contains(module))
+            return false;
+        controller = installed;
+        return true;
+    }
+
+    /// <summary>
+    /// Validates the provided action and consumes its configured charge once.
+    /// </summary>
+    public bool TryUseAction(Entity<ModModuleComponent?> module, EntityUid performer,
+        Entity<ActionComponent> action, out EntityUid controller)
+    {
+        if (!CanUseModule(module, performer, out controller))
+            return false;
+        var framework = Comp<ModModuleComponent>(module);
+        foreach (var definition in framework.Actions)
+        {
+            if (!framework.ActionEntities.TryGetValue(definition.Action, out var provided) || provided != action.Owner)
+                continue;
+            return definition.UseCost <= 0 || _power.TryUseCharge(controller, definition.UseCost, performer, predicted: true);
+        }
+        return false;
     }
 
     private void Acquire(EntityUid target, ComponentRegistry registry)
@@ -562,8 +696,15 @@ public sealed partial class ModModuleSystem : EntitySystem
             var name = Factory.GetComponentName(type);
             ownership.References.TryGetValue(name, out var count);
             ownership.References[name] = count + 1;
-            if (count > 0 || HasComp(target, entry.Component.GetType()))
+            if (count > 0)
                 continue;
+            if (TryComp(target, type, out var existing))
+            {
+                if (entry.Component is not (ClothingSpeedModifierComponent or TemperatureProtectionComponent or EmpResistanceComponent))
+                    continue;
+                ownership.Replaced[name] = _serialization.CreateCopy(existing, notNullableOverride: true);
+                RemComp(target, type);
+            }
             EntityManager.AddComponents(target, new ComponentRegistry { [name] = entry }, removeExisting: false);
             ownership.Added.Add(name);
         }
@@ -586,17 +727,18 @@ public sealed partial class ModModuleSystem : EntitySystem
             ownership.References.Remove(name);
             if (ownership.Added.Remove(name))
                 RemComp(target, entry.Component.GetType());
+            if (ownership.Replaced.Remove(name, out var original))
+                AddComp(target, original);
         }
         if (ownership.References.Count == 0)
             RemComp<ModModuleEffectOwnershipComponent>(target);
     }
 
-    private bool ProvideItems(Entity<ModModuleComponent> module, EntityUid wearer)
+    private bool ProvideItems(Entity<ModModuleComponent> module, EntityUid controller, EntityUid wearer)
     {
         if (!TryComp<HandsComponent>(wearer, out var hands))
             return module.Comp.IntegratedItems.Count == 0;
         var storage = _containers.EnsureContainer<Container>(module, ItemContainer);
-        var created = new List<EntityUid>();
         for (var i = 0; i < module.Comp.IntegratedItems.Count; i++)
         {
             EntityUid item;
@@ -606,14 +748,9 @@ public sealed partial class ModModuleSystem : EntitySystem
             {
                 item = Spawn(module.Comp.IntegratedItems[i].Item, Transform(module).Coordinates);
                 module.Comp.ItemEntities[i] = item;
-                created.Add(item);
             }
             if (!storage.Contains(item) && !_containers.Insert(item, storage))
-            {
-                foreach (var uid in created)
-                    if (Exists(uid)) QueueDel(uid);
                 return false;
-            }
         }
         for (var i = 0; i < module.Comp.IntegratedItems.Count; i++)
             _hands.AddHand((wearer, hands), HandId(module, i), module.Comp.IntegratedItems[i].Hand);
@@ -631,6 +768,13 @@ public sealed partial class ModModuleSystem : EntitySystem
             {
                 EnsureComp<UnremoveableComponent>(item);
                 module.Comp.OwnedUnremoveable.Add(i);
+            }
+            if (TryComp<ActionsContainerComponent>(item, out var itemActions))
+            {
+                foreach (var action in itemActions.Container.ContainedEntities)
+                {
+                    SetModuleActionIcon(action, module);
+                }
             }
         }
         Dirty(module);
@@ -660,9 +804,9 @@ public sealed partial class ModModuleSystem : EntitySystem
 
     private void RefreshPower(Entity<ModModuleContainerComponent> controller)
     {
-        TryComp<PowerCellDrawComponent>(controller, out var draw);
         TryComp<PowerCellSlotComponent>(controller, out var slot);
-        controller.Comp.Powered = slot == null || _power.HasDrawCharge((controller.Owner, draw, slot));
+        controller.Comp.Powered = slot == null ||
+            _power.TryGetBatteryFromSlot((controller.Owner, slot), out var battery) && _battery.GetCharge(battery.Value.Owner).Charge > 0;
         Dirty(controller);
     }
 
@@ -671,7 +815,7 @@ public sealed partial class ModModuleSystem : EntitySystem
         if (!TryComp<PowerCellDrawComponent>(controller, out var draw))
             return;
         _power.SetDrawEnabled((controller.Owner, draw),
-            TryComp<SealableClothingControlComponent>(controller, out var seal) && seal.IsCurrentlySealed);
+            TryComp<SealableClothingControlComponent>(controller, out var seal) && seal.WearerEntity != null && seal.IsCurrentlySealed);
     }
 
     private EntityUid? FindTarget(EntityUid controller, EntityUid? wearer, ModEffectTarget target) => target switch
