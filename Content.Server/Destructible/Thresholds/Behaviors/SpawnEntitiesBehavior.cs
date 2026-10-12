@@ -3,7 +3,6 @@ using Content.Server.Spawners.Components; // <Onyx-DelayedEntitySpawn>
 using Content.Server.Spawners.EntitySystems; // <Onyx-DelayedEntitySpawn>
 using Content.Shared.Destructible.Thresholds;
 using Content.Shared.Forensics.Components;
-using Content.Shared.Prototypes;
 using Content.Shared.Stacks;
 using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
@@ -82,7 +81,7 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
                         }
                     }
                     // </Onyx-DelayedEntitySpawn>
-                    else if (EntityPrototypeHelpers.HasComponent<StackComponent>(entityId, system.PrototypeManager, system.EntityManager.ComponentFactory))
+                    else if (system.PrototypeManager.TryIndex(entityId, out var prototype) && prototype.HasComp<StackComponent>(system.EntityManager.ComponentFactory)) // <Onyx-DelayedEntitySpawn-edited>
                     {
                         var spawned = SpawnInContainer
                             ? system.EntityManager.SpawnNextToOrDrop(entityId, owner)

@@ -1,13 +1,13 @@
 - type: entity
   parent: BoxCardboard
-  id: SlimeCubeBox
+  id: XenobioSlimeCubeBox
   name: slime cube box
   description: Drymate brand slime cubes. Just add water!
   components:
   - type: EntityTableContainerFill
     containers:
       storagebase:
-        id: SlimeCubeWrapped
+        id: XenobioSlimeCubeWrapped
         amount: 9
   - type: Sprite
     sprite: Objects/Misc/monkeycube.rsi
@@ -30,13 +30,13 @@
 
 - type: entity
   parent: BaseWrappedCube
-  id: SlimeCubeWrapped
+  id: XenobioSlimeCubeWrapped
   name: slime cube wrapped
   description: Unwrap this to get a slime cube.
   components:
   - type: SpawnItemsOnUse
     items:
-    - id: SlimeCube
+    - id: XenobioSlimeCube
   - type: Sprite
     state: wrapper
 
@@ -48,14 +48,14 @@
   components:
   - type: SpawnItemsOnUse
     items:
-    - id: SlimeCube
+    - id: XenobioSlimeCube
   - type: Sprite
     sprite: _Onyx/Xenobiology/Objects/Misc/syndiecubes.rsi
     state: wrapper
 
 - type: entity
   parent: RehydratableAnimalCube
-  id: SlimeCube
+  id: XenobioSlimeCube
   name: slime cube
   components:
   - type: Rehydratable

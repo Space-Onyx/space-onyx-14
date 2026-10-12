@@ -89,7 +89,7 @@ public sealed partial class WeatherSchedulerSystem : EntitySystem
                 continue;
 
             if (!_prototypes.TryIndex<EntityPrototype>(weather, out var prototype) ||
-                !prototype.HasComponent<WeatherStatusEffectComponent>(_componentFactory))
+                !prototype.HasComp<WeatherStatusEffectComponent>(_componentFactory))
             {
                 return Fail(ent, $"stage {i} references invalid weather prototype '{weather}'");
             }

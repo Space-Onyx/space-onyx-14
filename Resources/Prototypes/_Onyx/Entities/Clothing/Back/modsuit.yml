@@ -439,7 +439,7 @@
   - type: Sprite
     sprite: _Onyx/Clothing/Back/Modsuits/paramedic.rsi
   - type: StealTarget # CorvaxGoob-Bugfixes
-    stealGroup: ClothingOuterHardsuitVoidParamed
+    stealGroup: [ClothingOuterHardsuitVoidParamed]
   - type: ToggleableClothing
     clothingPrototypes:
       head: ClothingModsuitHelmetParamedic
@@ -581,7 +581,7 @@
       back:
       - state: equipped-BACKPACK-sealed
   - type: StealTarget
-    stealGroup: ClothingOuterHardsuitRd
+    stealGroup: [ClothingOuterHardsuitRd]
   - type: Tag
     tags:
       - HighRiskItem

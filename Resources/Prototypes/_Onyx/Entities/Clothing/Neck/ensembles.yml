@@ -21,7 +21,7 @@
     slots:
     - Neck
   - type: StealTarget
-    stealGroup: HeadCloak
+    stealGroup: [HeadCloak]
   - type: ItemSwitch
     state: both
     showLabel: true
@@ -65,7 +65,7 @@
     slots:
     - Neck
   - type: StealTarget
-    stealGroup: HeadCloak
+    stealGroup: [HeadCloak]
   - type: ItemSwitch
     state: both
     showLabel: true
@@ -109,7 +109,7 @@
     slots:
     - Neck
   - type: StealTarget
-    stealGroup: HeadCloak
+    stealGroup: [HeadCloak]
   - type: ItemSwitch
     state: both
     showLabel: true
@@ -153,7 +153,7 @@
     slots:
     - Neck
   - type: StealTarget
-    stealGroup: HeadCloak
+    stealGroup: [HeadCloak]
   - type: ItemSwitch
     state: all
     showLabel: true
@@ -217,7 +217,7 @@
     slots:
     - Neck
   - type: StealTarget
-    stealGroup: HeadCloak
+    stealGroup: [HeadCloak]
   - type: ItemSwitch
     state: both
     showLabel: true
@@ -261,7 +261,7 @@
     slots:
     - Neck
   - type: StealTarget
-    stealGroup: HeadCloak
+    stealGroup: [HeadCloak]
   - type: ItemSwitch
     state: all
     showLabel: true
@@ -325,7 +325,7 @@
     slots:
     - Neck
   - type: StealTarget
-    stealGroup: HeadCloak
+    stealGroup: [HeadCloak]
   - type: ItemSwitch
     state: both
     showLabel: true
@@ -369,7 +369,7 @@
     slots:
     - Neck
   - type: StealTarget
-    stealGroup: HeadCloak
+    stealGroup: [HeadCloak]
   - type: ItemSwitch
     state: both
     showLabel: true

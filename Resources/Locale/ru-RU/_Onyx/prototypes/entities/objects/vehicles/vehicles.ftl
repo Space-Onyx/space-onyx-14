@@ -1,14 +1,6 @@
 ent-VehicleATV = квадроцикл
     .desc = Полный плитвод!
 
-ent-VehicleWheelchair = инвалидная коляска
-    .desc = Кресло с большими колёсами. Похоже, на нём можно передвигаться самостоятельно.
-ent-VehicleWheelchairFolded = { ent-VehicleWheelchair }
-    .suffix = сложено
-    .desc = { ent-VehicleWheelchair.desc }
-
-ent-VehicleJanicart = уборочная машина
-    .desc = Верный конь уборщика.
 ent-VehicleSecway = сегвей
     .desc = Будущее транспорта. Популяризируется святым Иаковом, покровителем сотрудников службы безопасности и модераторов интернет-форумов.
 ent-VehicleSyndicateSegway = сегвей Синдиката

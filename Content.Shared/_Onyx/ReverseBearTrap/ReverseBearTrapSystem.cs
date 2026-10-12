@@ -82,7 +82,7 @@ public sealed partial class ReverseBearTrapSystem : EntitySystem
             return;
 
         args.Handled = true;
-        var target = args.HitEntities[0];
+        var target = args.HitEntities.First();
         var user = args.User;
 
         _popup.PopupEntity(Loc.GetString("reverse-bear-trap-component-start-cuffing-observer",
@@ -104,7 +104,7 @@ public sealed partial class ReverseBearTrapSystem : EntitySystem
 
         _audio.PlayPredicted(trap.StartCuffSound, uid, user);
 
-        var doAfterArgs = new DoAfterArgs(EntityManager, args.User, 3f,
+        var doAfterArgs = new DoAfterArgs(EntityManager, args.User, TimeSpan.FromSeconds(3),
             new BearTrapApplyDoAfterEvent(), uid, target, uid)
         {
             BreakOnDamage = true,

@@ -9,7 +9,7 @@
   - type: Clothing
     sprite: _Onyx/Clothing/Neck/Cloaks/helldiver.rsi
   - type: StealTarget
-    stealGroup: HeadCloak
+    stealGroup: [HeadCloak]
 
 - type: entity
   parent: ClothingNeckBase
@@ -167,7 +167,7 @@
   - type: Sprite
     sprite: _Onyx/Clothing/Neck/Cloaks/ChiefEngineer/whitece.rsi
   - type: StealTarget
-    stealGroup: HeadCloak
+    stealGroup: [HeadCloak]
 
 - type: entity
   parent: [ClothingNeckBase, BaseCommandContraband]
@@ -178,7 +178,7 @@
   - type: Sprite
     sprite: _Onyx/Clothing/Neck/Cloaks/ChiefEngineer/greence.rsi
   - type: StealTarget
-    stealGroup: HeadCloak
+    stealGroup: [HeadCloak]
 
 - type: entity
   parent: ClothingNeckBase

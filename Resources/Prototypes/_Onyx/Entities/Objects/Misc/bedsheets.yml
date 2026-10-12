@@ -54,7 +54,7 @@
   - type: Sprite
     state: double_sheetcaptain
   - type: StealTarget
-    stealGroup: HeadBedsheet
+    stealGroup: [HeadBedsheet]
 
 - type: entity
   parent: DoubleBedsheetBase
@@ -65,7 +65,7 @@
   - type: Sprite
     state: double_sheetce
   - type: StealTarget
-    stealGroup: HeadBedsheet
+    stealGroup: [HeadBedsheet]
 
 - type: entity
   parent: DoubleBedsheetBase
@@ -76,7 +76,7 @@
   - type: Sprite
     state: double_sheetcentcom
   - type: StealTarget
-    stealGroup: HeadBedsheet
+    stealGroup: [HeadBedsheet]
 
 - type: entity
   parent: DoubleBedsheetBase
@@ -96,7 +96,7 @@
   - type: Sprite
     state: double_sheetcmo
   - type: StealTarget
-    stealGroup: HeadBedsheet
+    stealGroup: [HeadBedsheet]
 
 - type: entity
   parent: DoubleBedsheetBase
@@ -141,7 +141,7 @@
   - type: Sprite
     state: double_sheethop
   - type: StealTarget
-    stealGroup: HeadBedsheet
+    stealGroup: [HeadBedsheet]
 
 - type: entity
   parent: DoubleBedsheetBase
@@ -152,7 +152,7 @@
   - type: Sprite
     state: double_sheethos
   - type: StealTarget
-    stealGroup: HeadBedsheet
+    stealGroup: [HeadBedsheet]
 
 - type: entity
   parent: DoubleBedsheetBase
@@ -213,7 +213,7 @@
   - type: Sprite
     state: double_sheetqm
   - type: StealTarget
-    stealGroup: HeadBedsheet
+    stealGroup: [HeadBedsheet]
 
 - type: entity
   parent: DoubleBedsheetBase
@@ -232,7 +232,7 @@
   - type: Sprite
     state: double_sheetrd
   - type: StealTarget
-    stealGroup: HeadBedsheet
+    stealGroup: [HeadBedsheet]
 
 - type: entity
   parent: DoubleBedsheetBase

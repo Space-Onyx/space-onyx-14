@@ -579,7 +579,8 @@
   - type: Machine
     board: MedicalTechFabCircuitboard
   - type: StealTarget
-    stealGroup: MedicalTechFabCircuitboard
+    stealGroup:
+    - MedicalTechFabCircuitboard
   - type: OreSiloClient
   # <Onyx-MaterialSiloDeviceLink>
   - type: MaterialSiloLink

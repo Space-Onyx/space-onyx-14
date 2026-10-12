@@ -7,6 +7,6 @@
   - type: FaxMachine
     name: "Bridge"
   - type: StealTarget
-    stealGroup: FaxMachineCaptain
+    stealGroup: [FaxMachineCaptain]
   - type: FaxAlert
     alertChannel: Command

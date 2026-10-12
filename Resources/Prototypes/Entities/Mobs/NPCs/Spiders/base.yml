@@ -75,6 +75,13 @@
     emoteSounds: UnisexArachnid
   - type: TypingIndicator
     proto: spider
+  - type: SpriteMovement
+    movementLayers:
+      movement:
+        state: moving
+    noMovementLayers:
+      movement:
+        state: idle
   - type: Tag
     tags:
     - DoorBumpOpener
@@ -100,19 +107,6 @@
         Shock: -0.03
 
 - type: entity
-  abstract: true
-  parent: MobSpiderBase
-  id: MobSpiderAnimated
-  components:
-  - type: SpriteMovement
-    movementLayers:
-      movement:
-        state: moving
-    noMovementLayers:
-      movement:
-        state: idle
-
-- type: entity
   parent: [SolutionWeapon, SolutionTiny]
   id: SolutionVenomSpider
   categories: [ HideSpawnMenu ]
@@ -126,7 +120,6 @@
 # Angry MobSpiderAngryBase; should not be used
 - type: entity
   abstract: true
-  parent: MobSpiderBase
   id: MobSpiderAngryBase
   components:
   - type: NpcFactionMember

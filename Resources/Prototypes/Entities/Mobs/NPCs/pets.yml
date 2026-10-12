@@ -65,7 +65,8 @@
     - CannotSuicide
     - VimPilot
   - type: StealTarget
-    stealGroup: AnimalIan
+    stealGroup:
+    - AnimalIan
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
     speaks:
@@ -182,7 +183,8 @@
       amount: 2
     - id: MaterialHideCorgi
   - type: StealTarget
-    stealGroup: AnimalIan
+    stealGroup:
+    - AnimalIan
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
     speaks:
@@ -213,7 +215,8 @@
     - CannotSuicide
     - VimPilot
   - type: StealTarget
-    stealGroup: AnimalNamedCat
+    stealGroup:
+    - AnimalNamedCat
   - type: SpeakOnException
     speechCooldown: 3m
     chanceSpeakNoAccent: 0.01
@@ -246,7 +249,8 @@
     - CannotSuicide
     - VimPilot
   - type: StealTarget
-    stealGroup: AnimalNamedCat
+    stealGroup:
+    - AnimalNamedCat
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
     speaks:
@@ -281,7 +285,8 @@
     - CannotSuicide
     - VimPilot
   - type: StealTarget
-    stealGroup: AnimalNamedCat
+    stealGroup:
+    - AnimalNamedCat
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
     speaks:
@@ -369,7 +374,8 @@
     - CannotSuicide
     - VimPilot
   - type: StealTarget
-    stealGroup: AnimalNamedCat
+    stealGroup:
+    - AnimalNamedCat
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
     speaks:
@@ -462,7 +468,8 @@
     - CannotSuicide
     - VimPilot
   - type: StealTarget
-    stealGroup: AnimalMcGriff
+    stealGroup:
+    - AnimalMcGriff
   - type: MessyDrinker
 
 - type: entity
@@ -564,7 +571,8 @@
     - CannotSuicide
     - VimPilot
   - type: StealTarget
-    stealGroup: AnimalWalter
+    stealGroup:
+    - AnimalWalter
   - type: Speech
     speechVerb: Canine
     speechSounds: Dog
@@ -600,7 +608,8 @@
     - CannotSuicide
     - VimPilot
   - type: StealTarget
-    stealGroup: AnimalMorty
+    stealGroup:
+    - AnimalMorty
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
     speaks:
@@ -740,7 +749,8 @@
     - CannotSuicide
     - VimPilot
   - type: StealTarget
-    stealGroup: AnimalRenault
+    stealGroup:
+    - AnimalRenault
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
     speaks:
@@ -828,7 +838,7 @@
     predicted: true
 
 - type: entity
-  parent: [ BaseUniquePet, MobSpiderAnimated ]
+  parent: [ BaseUniquePet, MobSpiderBase ]
   id: MobSpiderShiva
   name: Shiva
   description: The first defender of the station.
@@ -893,7 +903,8 @@
     - DoorBumpOpener
     - FootstepSound
   - type: StealTarget
-    stealGroup: AnimalShiva
+    stealGroup:
+    - AnimalShiva
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
     speaks:
@@ -1101,7 +1112,8 @@
       gender: male
 #  - type: AlwaysRevolutionaryConvertible
   - type: StealTarget
-    stealGroup: AnimalTropico
+    stealGroup:
+    - AnimalTropico
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
     speaks:

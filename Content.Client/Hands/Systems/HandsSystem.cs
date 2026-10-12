@@ -29,6 +29,7 @@ namespace Content.Client.Hands.Systems
 
         [Dependency] private StrippableSystem _stripSys = default!;
         [Dependency] private SpriteSystem _sprite = default!;
+        [Dependency] private TransformSystem _renderTransforms = default!;
         [Dependency] private ExamineSystem _examine = default!;
         [Dependency] private DisplacementMapSystem _displacement = default!;
 
@@ -112,9 +113,15 @@ namespace Content.Client.Hands.Systems
             EntityCoordinates? targetDropLocation = null
         )
         {
+            TryGetHeldItem(ent, handId, out var held);
             base.DoDrop(ent, handId, doDropInteraction, log, targetDropLocation);
 
-            if (TryGetHeldItem(ent, handId, out var held) && TryComp(held, out SpriteComponent? sprite))
+            if (held == null || IsHolding(ent, held.Value))
+                return;
+
+            _renderTransforms.SnapRenderTransform(held.Value, true);
+
+            if (TryComp(held, out SpriteComponent? sprite))
                 sprite.RenderOrder = EntityManager.CurrentTick.Value;
         }
 
@@ -275,7 +282,7 @@ namespace Content.Client.Hands.Systems
             foreach (var layers in ent.Comp.RevealedLayers.Values)
             {
                 foreach (var key in layers)
-                    _sprite.RemoveLayer((ent.Owner, sprite), key, false); // <Onyx-FunctionalHands-edited>
+                    _sprite.RemoveLayer((ent.Owner, sprite), key, false);
                 layers.Clear();
             }
 
@@ -284,7 +291,7 @@ namespace Content.Client.Hands.Systems
                 if (!TryGetHeldItem(ent, handId, out var held))
                     continue;
 
-                UpdateHandVisuals((ent.Owner, ent.Comp, sprite), held.Value, handId, ent == _playerManager.LocalEntity); // <Onyx-FunctionalHands-edited>
+                UpdateHandVisuals((ent.Owner, ent.Comp, sprite), held.Value, handId, ent == _playerManager.LocalEntity);
             }
         }
 

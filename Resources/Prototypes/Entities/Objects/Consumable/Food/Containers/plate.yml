@@ -40,6 +40,7 @@
         acts: [ "Destruction" ]
   - type: Tag
     tags:
+    - Dinnerware
     - Trash
   - type: SpaceGarbage
 
@@ -160,6 +161,7 @@
       - state: plate-plastic-inhand-right
   - type: Tag
     tags:
+    - Dinnerware
     - Trash
 
 - type: entity
@@ -185,6 +187,7 @@
       - state: plate-plastic-inhand-right
   - type: Tag
     tags:
+    - Dinnerware
     - Trash
 
 # Pie Tin
@@ -205,6 +208,7 @@
     storedOffset: 0,-3
   - type: Tag
     tags:
+    - Cookware
     - Trash
   - type: PhysicalComposition
     materialComposition:
@@ -229,6 +233,7 @@
     storedOffset: 0,-2
   - type: Tag
     tags:
+    - Cookware
     - Trash
   - type: PhysicalComposition
     materialComposition:

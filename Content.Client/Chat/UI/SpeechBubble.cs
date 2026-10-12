@@ -4,8 +4,8 @@ using Content.Client._Onyx.Humanoid; // <Onyx-MarkingBounds>
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Speech;
-using Robust.Client.GameObjects; // <Onyx-MarkingBounds>
 using Robust.Client.Graphics;
+using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
@@ -20,7 +20,7 @@ namespace Content.Client.Chat.UI
         [Dependency] private IEyeManager _eyeManager = default!;
         [Dependency] private IEntityManager _entityManager = default!;
         [Dependency] protected IConfigurationManager ConfigManager = default!;
-        private readonly SharedTransformSystem _transformSystem;
+        private readonly TransformSystem _transformSystem;
         private readonly SpriteSystem _spriteSystem; // <Onyx-MarkingBounds>
 
         // <Onyx-SpeechBubbleBarks-edited>
@@ -105,7 +105,7 @@ namespace Content.Client.Chat.UI
                 ConfigManager.GetCVar(CCVars.SpeechTextRevealEnabled) &&
                 message.RevealSpeed != null;
             // </Onyx-SpeechTextReveal-edited>
-            _transformSystem = _entityManager.System<SharedTransformSystem>();
+            _transformSystem = _entityManager.System<TransformSystem>();
             _spriteSystem = _entityManager.System<SpriteSystem>(); // <Onyx-MarkingBounds>
 
             // Use text clipping so new messages don't overlap old ones being pushed up.
@@ -175,7 +175,7 @@ namespace Content.Client.Chat.UI
                 entityOffset = MarkingBoundsHelper.GetLocalBoundsWithoutMarkings((_senderEntity, senderSprite), _spriteSystem, _entityManager).Height / 2f; // <Onyx-MarkingBounds>
 
             var offset = (-_eyeManager.CurrentEye.Rotation).ToWorldVec() * -(entityOffset + baseOffset); // <Onyx-MarkingBounds-edited>
-            var worldPos = _transformSystem.GetWorldPosition(xform) + offset;
+            var worldPos = _transformSystem.GetRenderWorldPosition((_senderEntity, xform)) + offset;
 
             var lowerCenter = _eyeManager.WorldToScreen(worldPos) / UIScale;
             var screenPos = lowerCenter - new Vector2(ContentSize.X / 2, ContentSize.Y + _verticalOffsetAchieved);

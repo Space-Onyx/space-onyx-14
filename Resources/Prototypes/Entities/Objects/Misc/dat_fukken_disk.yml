@@ -21,7 +21,8 @@
     tags:
     - HighRiskItem
   - type: StealTarget
-    stealGroup: NukeDisk
+    stealGroup:
+    - NukeDisk
   # <GoobStation-Supermatter>
   - type: SupermatterImmune
   # </GoobStation-Supermatter>

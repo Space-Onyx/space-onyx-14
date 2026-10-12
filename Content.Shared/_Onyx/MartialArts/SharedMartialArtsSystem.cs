@@ -731,7 +731,7 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
         ResetSurprise(args.User, sneak);
         if (args.HitEntities.Count == 0)
             return;
-        var target = args.HitEntities[0];
+        var target = args.HitEntities.First();
         if (target == args.User || args.Weapon != args.User && !args.BaseDamage.DamageDict.ContainsKey("Slash"))
             return;
 

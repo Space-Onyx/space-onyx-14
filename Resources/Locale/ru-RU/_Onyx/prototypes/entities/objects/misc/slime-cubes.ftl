@@ -1,10 +1,10 @@
-ent-SlimeCubeBox = коробка кубиков слаймов
+ent-XenobioSlimeCubeBox = коробка кубиков слаймов
     .desc = Кубики слаймов марки Drymate. Просто добавьте воды!
 ent-SlimeCubeBoxSyndie = коробка кубиков слаймов Синдиката
     .desc = Кубики слаймов марки Interdyne. Просто добавьте воды!
-ent-SlimeCubeWrapped = завёрнутый кубик слайма
+ent-XenobioSlimeCubeWrapped = завёрнутый кубик слайма
     .desc = Разверните, чтобы получить кубик слайма.
 ent-SlimeCubeWrappedSyndie = завёрнутый кубик слайма Синдиката
     .desc = Разверните, чтобы получить кубик слайма.
-ent-SlimeCube = кубик слайма
+ent-XenobioSlimeCube = кубик слайма
     .desc = Добавьте воды, чтобы вырастить одного случайного слайма начальной породы.

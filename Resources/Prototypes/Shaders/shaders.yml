@@ -140,20 +140,22 @@
   id: Sharpness
   kind: source
   path: "/Textures/Shaders/sharpness.swsl"
+# <Onyx-VisionShaders>
 - type: shader
   id: Dizzy
   kind: source
-  path: "/Textures/_Onyx/Shaders/dizzy.swsl" # <Onyx-WegaAssets-edited>
+  path: "/Textures/_Onyx/Shaders/dizzy.swsl"
 
 - type: shader
   id: Colourblindness
   kind: source
-  path: "/Textures/_Onyx/Shaders/colourblindness.swsl" # <Onyx-WegaAssets-edited>
+  path: "/Textures/_Onyx/Shaders/colourblindness.swsl"
 
 - type: shader
   id: NaturalNightVision
   kind: source
-  path: "/Textures/_Onyx/Shaders/nightvision.swsl" # <Onyx-WegaAssets-edited>
+  path: "/Textures/_Onyx/Shaders/nightvision.swsl"
+# </Onyx-VisionShaders>
 
 # <Onyx-SleepingCarpDodge>
 - type: shader
@@ -161,3 +163,8 @@
   kind: source
   path: "/Textures/_Onyx/Shaders/speed_lines.swsl"
 # </Onyx-SleepingCarpDodge>
+
+- type: shader
+  id: VacuumDesaturation
+  kind: source
+  path: "/Textures/Shaders/vacuum_desaturation.swsl"

@@ -45,7 +45,8 @@
     - HighRiskItem
     - HandheldCrewMonitor # <Onyx-CMOWebbing>
   - type: StealTarget
-    stealGroup: HandheldCrewMonitor
+    stealGroup:
+    - HandheldCrewMonitor
 
 - type: entity
   id: HandheldCrewMonitorEmpty

@@ -6,7 +6,7 @@
 
 using Content.Server.Atmos.Portable;
 using Content.Server.Power.Components;
-using Content.Server.Kitchen.Components;
+using Content.Shared.Kitchen.Components;
 using Content.Server.Power.SMES;
 using Content.Shared._Onyx.Construction;
 using Content.Shared.Radio.Components;
@@ -22,6 +22,7 @@ public sealed partial class MachinePartEffectsSystem : EntitySystem
 {
     [Dependency] private Content.Server._Onyx.Bitrunning.Systems.QuantumConsoleSystem _quantumConsole = default!;
     [Dependency] private SpaceHeaterSystem _spaceHeater = default!;
+    [Dependency] private Content.Shared.Kitchen.EntitySystems.MicrowaveSystem _microwave = default!;
 
     public override void Initialize()
     {
@@ -63,11 +64,13 @@ public sealed partial class MachinePartEffectsSystem : EntitySystem
     private void OnMicrowavePartsChanged(Entity<MicrowaveComponent> ent, ref MachinePartsChangedEvent args)
     {
         var baseline = EnsureComp<MachinePartBaselineComponent>(ent);
-        ent.Comp.CookTimeMultiplier = GetBaseline(baseline, "microwave-time", ent.Comp.CookTimeMultiplier)
+        var cookTimeMultiplier = GetBaseline(baseline, "microwave-time", ent.Comp.CookTimeMultiplier)
             * LinearDecrease(args.GetRating(MachinePartKind.Laser), 0.1f);
-        ent.Comp.Capacity = (int) MathF.Round(GetBaseline(baseline, "microwave-capacity", ent.Comp.Capacity) * Positive(args.GetRating(MachinePartKind.MatterBin)));
-        ent.Comp.ExplosionChance = Math.Max(0f, GetBaseline(baseline, "microwave-explosion", ent.Comp.ExplosionChance)
+        var capacity = (int) MathF.Round(GetBaseline(baseline, "microwave-capacity", ent.Comp.Capacity)
+            * Positive(args.GetRating(MachinePartKind.MatterBin)));
+        var explosionChance = Math.Max(0f, GetBaseline(baseline, "microwave-explosion", ent.Comp.ExplosionChance)
             - (args.GetRating(MachinePartKind.Laser) - 1f) * 0.05f);
+        _microwave.SetMachinePartEffects(ent, cookTimeMultiplier, capacity, explosionChance);
     }
 
     private void OnStasisPartsChanged(Entity<StasisBedComponent> ent, ref MachinePartsChangedEvent args)

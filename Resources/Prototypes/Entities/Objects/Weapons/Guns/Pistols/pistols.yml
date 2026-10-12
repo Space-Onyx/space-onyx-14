@@ -270,7 +270,8 @@
           - GunUpgradeFlashlight
   # </Onyx-Mk58Flashlight>
   - type: StealTarget
-    stealGroup: OfficerHandgun
+    stealGroup:
+    - OfficerHandgun
 
 - type: entity
   name: N1984

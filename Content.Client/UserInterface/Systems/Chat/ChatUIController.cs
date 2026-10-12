@@ -11,14 +11,13 @@ using Content.Client.Examine;
 using Content.Client.Gameplay;
 using Content.Client.Ghost;
 using Content.Client.Mind;
-using Content.Client.Roles;
-using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Screens;
 using Content.Client.UserInterface.Systems.Chat.Widgets;
 using Content.Client.UserInterface.Systems.Gameplay;
 using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
+using Content.Shared.Codewords;
 using Content.Shared.Damage.ForceSay;
 using Content.Shared.Decals;
 using Content.Shared.Input;
@@ -26,7 +25,6 @@ using Content.Shared.Radio;
 using ClientCollectiveMindSystem = Content.Client._Onyx.Chat.CollectiveMindSystem; // <Onyx-CollectiveMind>
 using Content.Shared._Onyx.CollectiveMind; // <Onyx-CollectiveMind>
 using Content.Client._Onyx.Chat; // <Onyx-EmoteVisibility>
-using Content.Shared.Roles.RoleCodeword;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.Input;
@@ -63,14 +61,13 @@ public sealed partial class ChatUIController : UIController
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private IReplayRecordingManager _replayRecording = default!;
 
-    [UISystemDependency] private readonly ExamineSystem? _examine = default;
-    [UISystemDependency] private readonly GhostSystem? _ghost = default;
-    [UISystemDependency] private readonly TypingIndicatorSystem? _typingIndicator = default;
-    [UISystemDependency] private readonly ChatSystem? _chatSys = default;
-    [UISystemDependency] private readonly TransformSystem? _transform = default;
-    [UISystemDependency] private readonly MindSystem? _mindSystem = default!;
-    [UISystemDependency] private readonly RoleCodewordSystem? _roleCodewordSystem = default!;
     [UISystemDependency] private readonly ClientCollectiveMindSystem? _collectiveMind = default!; // <Onyx-CollectiveMind>
+    [UISystemDependency] private readonly ChatSystem? _chatSys = default!;
+    [UISystemDependency] private readonly CodewordSystem? _codeword = default!;
+    [UISystemDependency] private readonly ExamineSystem _examine = default!;
+    [UISystemDependency] private readonly GhostSystem _ghost = default!;
+    [UISystemDependency] private readonly TransformSystem _transform = default!;
+    [UISystemDependency] private readonly TypingIndicatorSystem _typingIndicator = default!;
 
     private SharedChatSystem? _sharedChatSys;
     private static readonly ProtoId<ColorPalettePrototype> ChatNamePalette = "ChatNames";
@@ -751,14 +748,12 @@ public sealed partial class ChatUIController : UIController
         // We only cut off prefix only if it is not a radio or local channel, which both map to the same /say command
         // because ????????
 
-        // <Onyx-InlineActions>
         if (text.Length > 1
             && text[0] == SharedChatSystem.EmotesAltPrefix
             && text[1] == SharedChatSystem.EmotesAltPrefix)
         {
             return (ChatSelectChannel.None, text[1..], null, null);
         }
-        // </Onyx-InlineActions>
 
         ChatSelectChannel chatChannel;
         if (TryGetRadioChannel(text, out var radioChannel))
@@ -905,15 +900,15 @@ public sealed partial class ChatUIController : UIController
             msg.WrappedMessage = SharedChatSystem.InjectTagAroundString(msg, highlight, "color", _highlightsColor);
         }
 
-        // Color any codewords for minds that have roles that use them
-        if (_player.LocalUser != null && _mindSystem != null && _roleCodewordSystem != null)
+        // In case we get messages outside of systems being init.
+        if (_codeword != null)
         {
-            if (_mindSystem.TryGetMind(_player.LocalUser.Value, out var mindId) && _ent.TryGetComponent(mindId, out RoleCodewordComponent? codewordComp))
+            // Color any codewords for minds that have roles that use them
+            foreach (var data in _codeword.GetPlayerCodewords(_player.LocalUser))
             {
-                foreach (var (_, codewordData) in codewordComp.RoleCodewords)
+                foreach (var codeword in data.Codewords)
                 {
-                    foreach (string codeword in codewordData.Codewords)
-                        msg.WrappedMessage = SharedChatSystem.InjectTagAroundString(msg, codeword, "color", codewordData.Color.ToHex());
+                    msg.WrappedMessage = SharedChatSystem.InjectTagAroundString(msg, codeword, "color", data.Color.ToHex());
                 }
             }
         }

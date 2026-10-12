@@ -17,9 +17,6 @@ public sealed partial class TieredMachinePartConstructionGraphStep : EntityInser
     [DataField(required: true)]
     public MachinePartKind MachinePart;
 
-    [DataField]
-    public int Amount = 1;
-
     public override bool EntityValid(EntityUid uid, IEntityManager entityManager, IComponentFactory compFactory)
     {
         return entityManager.TryGetComponent(uid, out TieredMachinePartComponent? part)

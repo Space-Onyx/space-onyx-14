@@ -106,8 +106,6 @@ public sealed partial class ParallaxOverlay : Overlay
                 worldHandle.DrawTextureRect(tex, Box2.FromDimensions(originBL, size));
             }
         }
-
-        worldHandle.UseShader(null);
     }
 }
 

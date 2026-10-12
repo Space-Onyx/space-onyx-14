@@ -42,7 +42,6 @@ public sealed partial class StatusIconOverlay : Overlay
 
         var eyeRot = args.Viewport.Eye?.Rotation ?? default;
 
-        var xformQuery = _entity.GetEntityQuery<TransformComponent>();
         var scaleMatrix = Matrix3Helpers.CreateScale(new Vector2(1, 1));
         var rotationMatrix = Matrix3Helpers.CreateRotation(-eyeRot);
 
@@ -54,7 +53,7 @@ public sealed partial class StatusIconOverlay : Overlay
 
             var bounds = comp.Bounds ?? MarkingBoundsHelper.GetLocalBoundsWithoutMarkings((uid, sprite), _sprite, _entity); // <Onyx-MarkingBounds-edited>
 
-            var worldPos = _transform.GetWorldPosition(xform, xformQuery);
+            var worldPos = _transform.GetRenderWorldPosition((uid, xform));
 
             if (!bounds.Translated(worldPos).Intersects(args.WorldAABB))
                 continue;
@@ -127,9 +126,6 @@ public sealed partial class StatusIconOverlay : Overlay
                 var position = new Vector2(xOffset, yOffset);
                 handle.DrawTexture(texture, position);
             }
-
-            handle.UseShader(null);
-            handle.SetTransform(Matrix3x2.Identity);
         }
     }
 }

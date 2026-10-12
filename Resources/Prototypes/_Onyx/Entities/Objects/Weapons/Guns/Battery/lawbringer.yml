@@ -64,7 +64,7 @@
   - type: StaticPrice
     price: 750
   - type: StealTarget
-    stealGroup: WeaponEnergyGunLawbringer
+    stealGroup: [WeaponEnergyGunLawbringer]
   - type: RestrictById
     restrictMelee: true
     restrictRanged: true

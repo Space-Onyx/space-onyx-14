@@ -186,8 +186,5 @@ public sealed partial class GasTileFireOverlay : Overlay
 
                 return true;
             });
-
-        drawHandle.UseShader(null);
-        drawHandle.SetTransform(Matrix3x2.Identity);
     }
 }

@@ -7,15 +7,15 @@
   id: Robotics
   recipes:
   - ProximitySensor
-  - Drone # <Onyx-Drone>
-  - AiRemoteBrain # <Onyx-AiRemoteBrain>
+  - Drone
+  - AiRemoteBrain
   - SciFlash
   - CyborgEndoskeleton
   - PositronicBrain
   - MMI
   - BorgModuleTool
   - BorgModuleCable
-  - BorgModuleSurgery # <Onyx-BorgSurgery>
+  - BorgModuleSurgery
 
 - type: latheRecipePack
   id: BorgLimbs
@@ -35,13 +35,14 @@
   - BorgModuleFireExtinguisher
   - BorgModuleInflatable
   - BorgModuleArtistry
+  - BorgModuleMusique
   - BorgModuleAdvancedCleaning
   - BorgModuleAdvancedTool
   - BorgModuleAdvancedClowning
   - BorgModuleAdvancedTopical
   - BorgModuleAdvancedMining
-  - BorgModuleAdvancedSurgery # <Onyx-BorgSurgery>
-  - BorgModuleDNA # <Onyx-WegaGenetics>
+  - BorgModuleAdvancedSurgery
+  - BorgModuleDNA
 # </Onyx-RoboticsDynamic-edited>
 
 - type: latheRecipePack

@@ -31,7 +31,8 @@
     - WhitelistChameleon
     - WhitelistChameleonIdCard
   - type: StealTarget
-    stealGroup: IDCard
+    stealGroup:
+    - IDCard
 
 #IDs with layers
 
@@ -73,7 +74,8 @@
     - WhitelistChameleonIdCard
     - HighRiskItem
   - type: StealTarget
-    stealGroup: CaptainIDCard
+    stealGroup:
+    - CaptainIDCard
 
 - type: entity
   parent: IDCardStandard

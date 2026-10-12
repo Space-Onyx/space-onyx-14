@@ -1,10 +1,10 @@
-ent-SlimeCubeBox = slime cube box
+ent-XenobioSlimeCubeBox = slime cube box
     .desc = Drymate brand slime cubes. Just add water!
 ent-SlimeCubeBoxSyndie = syndicate slime cube box
     .desc = Interdyne brand slime cubes. Just add water!
-ent-SlimeCubeWrapped = wrapped slime cube
+ent-XenobioSlimeCubeWrapped = wrapped slime cube
     .desc = Unwrap this to get a slime cube.
 ent-SlimeCubeWrappedSyndie = wrapped syndicate slime cube
     .desc = Unwrap this to get a slime cube.
-ent-SlimeCube = slime cube
+ent-XenobioSlimeCube = slime cube
     .desc = Add water to grow one random starter slime.

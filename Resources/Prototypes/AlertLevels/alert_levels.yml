@@ -106,6 +106,7 @@
   emergencyLightColor: PaleVioletRed
   forceEnableEmergencyLights: true
 
+# <Onyx-CosmicCult>
 - type: alertLevel
   id: Octarine
   name: alert-level-octarine
@@ -118,3 +119,14 @@
   emergencyLightColor: CadetBlue
   forceEnableEmergencyLights: true
   shuttleTime: 600
+# </Onyx-CosmicCult>
+
+# Placeholder for the comms console in case of failure.
+- type: alertLevel
+  parent: Green
+  id: Unknown
+  name: generic-unknown-title
+  announcement: alert-level-unknown-announcement
+  instructions: alert-level-unknown-instructions
+  selectable: false
+  color: Gray

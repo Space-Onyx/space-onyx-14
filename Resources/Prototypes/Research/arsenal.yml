@@ -1,3 +1,4 @@
+# <Onyx-ResearchTree-edited>
 - type: technology
   id: AdvancedRiotControl
   name: research-technology-advanced-riot-control
@@ -102,7 +103,6 @@
     - MagazinePistolSubMachineGunIncendiary
     - MagazineLightRifleIncendiary
     - SpeedLoaderMagnumIncendiary
-    - MagazineShotgunIncendiary
     - MagazineBoxPistolIncendiary
     - MagazineBoxMagnumIncendiary
     - MagazineBoxLightRifleIncendiary
@@ -232,7 +232,6 @@
   tier: 1
   cost: 5000
   recipeUnlocks:
-    - MagazineShotgunBeanbag
     - BoxShellTranquilizer
     - BoxBeanbag
     - WeaponDisabler
@@ -387,3 +386,4 @@
       bridge: Auto
       sourcePort: 18.75,-40
       targetPort: "-18.75,40"
+# </Onyx-ResearchTree-edited>

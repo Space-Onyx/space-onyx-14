@@ -40,7 +40,7 @@
     allowedStates:
     - Alive
   - type: StealTarget
-    stealGroup: WeaponSecHeadSword
+    stealGroup: [WeaponSecHeadSword]
   - type: IntrinsicRadioReceiver
   - type: ActiveRadio
     channels:

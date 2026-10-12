@@ -1,9 +1,9 @@
 - type: entity
+  parent: BaseItem
+  id: BaseRadioHandheld # <Onyx-Radio-edited>
+  abstract: true # <Onyx-Radio>
   name: handheld radio
   description: A handy handheld radio.
-  parent: BaseItem
-  id: BaseRadioHandheld
-  abstract: true
   components:
   - type: TelecomExempt
   - type: RadioMicrophone
@@ -20,8 +20,25 @@
     sprite: Objects/Devices/communication.rsi
     layers:
     - state: walkietalkie
-    - state: walkietalkie-on
-    state: walkietalkie
+    - map: [enum.RadioDeviceVisualLayers.Broadcasting]
+      state: walkietalkie-on
+      shader: unshaded
+      visible: false
+    - map: [enum.RadioDeviceVisualLayers.Speaker]
+      state: walkietalkie-active
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.RadioDeviceVisuals.Broadcasting:
+        enum.RadioDeviceVisualLayers.Broadcasting:
+          True: { visible: true }
+          False: { visible: false }
+      enum.RadioDeviceVisuals.Speaker:
+        enum.RadioDeviceVisualLayers.Speaker:
+          True: { visible: true }
+          False: { visible: false }
   - type: Item
     sprite: Objects/Devices/communication.rsi
     heldPrefix: walkietalkie
@@ -58,10 +75,10 @@
   # </Onyx-Radio>
 
 - type: entity
+  parent: [ BaseCorvaxContraband433DepartmentsCommandSecurity, BaseRadioHandheld, BaseSecurityContraband ] # Corvax-Contraband; <Onyx-HandheldRadio-edited>
+  id: RadioHandheldSecurity
   name: security radio
   description: A handy security radio.
-  parent: [BaseCorvaxContraband433DepartmentsCommandSecurity, BaseRadioHandheld, BaseSecurityContraband] # Corvax-Contraband; <Onyx-HandheldRadio-edited>
-  id: RadioHandheldSecurity
   components:
   - type: RadioMicrophone
     broadcastChannel: Security
@@ -82,4 +99,3 @@
     sprite: Objects/Devices/securityhandy.rsi
   - type: Item
     sprite: Objects/Devices/securityhandy.rsi
-    heldPrefix: walkietalkie

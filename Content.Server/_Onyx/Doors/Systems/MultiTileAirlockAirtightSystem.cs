@@ -18,7 +18,6 @@ public sealed partial class MultiTileAirlockAirtightSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<MultiTileAirlockAirtightComponent, ComponentStartup>(OnPositionChanged);
         SubscribeLocalEvent<MultiTileAirlockAirtightComponent, AnchorStateChangedEvent>(OnPositionChanged);
-        SubscribeLocalEvent<MultiTileAirlockAirtightComponent, ReAnchorEvent>(OnPositionChanged);
         SubscribeLocalEvent<MultiTileAirlockAirtightComponent, MoveEvent>(OnPositionChanged);
         SubscribeLocalEvent<MultiTileAirlockAirtightComponent, AirtightChanged>(OnAirtightChanged);
         SubscribeLocalEvent<MultiTileAirlockAirtightComponent, ComponentShutdown>(OnShutdown);

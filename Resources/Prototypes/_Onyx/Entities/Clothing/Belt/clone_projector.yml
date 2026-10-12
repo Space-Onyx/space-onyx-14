@@ -94,7 +94,7 @@
   description: A highly advanced holo-projector rig that interfaces directly with the user's spinal cord to generate an exact copy of them. Truly a marvel of Nanotrasen technology.
   components:
   - type: StealTarget
-    stealGroup: ClothingBeltGeminiHoloProjector
+    stealGroup: [ClothingBeltGeminiHoloProjector]
   - type: CloneProjector
     clonedItemBlacklist:
       components:
