@@ -85,9 +85,9 @@
       guides: [ Supermatter, Power ]
     - type: WarpPoint
       follow: true
-      location: warp-point-supermatter # <Onyx-WarpPointLocalization-edited>
+      location: warp-point-supermatter
     - type: StealTarget
-      stealGroup: [SupermatterSliver] # uses to verify sm existense on map; <Onyx-StealTargetGroups-edited>
+      stealGroup: [SupermatterSliver] # uses to verify sm existense on map;
     - type: PhysicsGunBlacklist
     - type: LanguageSpeaker # Einstein Engines - Language
     - type: LanguageKnowledge # Einstein Engines - Language
