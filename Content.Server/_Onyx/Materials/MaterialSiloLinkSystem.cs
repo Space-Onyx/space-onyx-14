@@ -1,7 +1,8 @@
-using Content.Server.DeviceLinking.Systems;
+using Content.Shared.DeviceLinking.Systems;
 using Content.Shared._Onyx.Materials;
 using Content.Shared._Onyx.Salvage.MiningPoints;
 using Content.Shared.DeviceLinking;
+using Content.Shared.DeviceLinking.Components;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Materials;
 using Content.Shared.Materials.OreSilo;
@@ -25,7 +26,7 @@ public sealed partial class OreSiloSystem
         SubscribeLocalEvent<MaterialSiloLinkComponent, MapInitEvent>(OnMaterialSiloLinkMapInit);
         SubscribeLocalEvent<MaterialSiloLinkComponent, LinkAttemptEvent>(OnMaterialSiloLinkAttempt);
         SubscribeLocalEvent<MaterialSiloLinkComponent, NewLinkEvent>(OnMaterialSiloNewLink);
-        SubscribeLocalEvent<MaterialSiloLinkComponent, PortDisconnectedEvent>(OnMaterialSiloPortDisconnected);
+        SubscribeLocalEvent<MaterialSiloLinkComponent, SinkPortDisconnectedEvent>(OnMaterialSiloPortDisconnected);
         SubscribeLocalEvent<OreSiloComponent, ComponentStartup>(OnOreSiloStartup);
         SubscribeLocalEvent<OreSiloClientComponent, ComponentStartup>(OnOreSiloClientStartup);
         SubscribeLocalEvent<SalvageMiningPointProcessorComponent, MaterialEntityInsertedEvent>(OnMiningPointOreInserted);
@@ -88,7 +89,7 @@ public sealed partial class OreSiloSystem
             client.Silo is { } silo && silo != args.Source ||
             !CanTransmitMaterials(args.Source, args.Sink, requirePower: false))
         {
-            args.Cancel();
+            args.Cancelled = true;
         }
     }
 
@@ -103,10 +104,10 @@ public sealed partial class OreSiloSystem
         }
 
         if (!TryLinkClient((ent, silo), args.Sink))
-            _deviceLink.RemoveSinkFromSource(ent, args.Sink);
+            _deviceLink.RemoveSinkFromSource(ent.Owner, args.Sink);
     }
 
-    private void OnMaterialSiloPortDisconnected(Entity<MaterialSiloLinkComponent> ent, ref PortDisconnectedEvent args)
+    private void OnMaterialSiloPortDisconnected(Entity<MaterialSiloLinkComponent> ent, ref SinkPortDisconnectedEvent args)
     {
         if (args.Port != MaterialSiloSinkPort ||
             !TryComp<OreSiloClientComponent>(ent, out var client) ||
@@ -121,6 +122,6 @@ public sealed partial class OreSiloSystem
 
     protected override void OnClientUiUnlinked(Entity<OreSiloComponent> silo, EntityUid client)
     {
-        _deviceLink.RemoveSinkFromSource(silo, client);
+        _deviceLink.RemoveSinkFromSource(silo.Owner, client);
     }
 }

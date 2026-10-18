@@ -1,4 +1,4 @@
-using Content.Server.DeviceLinking.Systems;
+using Content.Shared.DeviceLinking.Systems;
 using Content.Server.Electrocution;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Buckle.Components;

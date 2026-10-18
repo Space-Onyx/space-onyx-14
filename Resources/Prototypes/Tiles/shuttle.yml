@@ -10,7 +10,7 @@
   id: FloorShuttleGrey
   parent: BaseStationTile
   name: tiles-grey-shuttle-floor
-  sprite: /Textures/Tiles/Shuttle/shuttle-gray.png
+  sprite: /Textures/_Onyx/Tiles/shuttlegrey.png # <Onyx-LegacyTiles-edited>
   variants: 4 # <Onyx-TileResprite-edited>
   itemDrop: FloorTileItemShuttleGrey
 
@@ -18,7 +18,7 @@
   id: FloorShuttleBlack
   parent: BaseStationTile
   name: tiles-black-shuttle-floor
-  sprite: /Textures/Tiles/Shuttle/shuttle-black.png
+  sprite: /Textures/_Onyx/Tiles/shuttleblack.png # <Onyx-LegacyTiles-edited>
   variants: 4 # <Onyx-TileResprite-edited>
   itemDrop: FloorTileItemShuttleBlack
 
@@ -26,7 +26,7 @@
   id: FloorShuttleBlue
   parent: BaseStationTile
   name: tiles-blue-shuttle-floor
-  sprite: /Textures/Tiles/Shuttle/shuttle-blue.png
+  sprite: /Textures/_Onyx/Tiles/shuttleblue.png # <Onyx-LegacyTiles-edited>
   variants: 4 # <Onyx-TileResprite-edited>
   itemDrop: FloorTileItemShuttleBlue
 
@@ -42,7 +42,7 @@
   id: FloorShuttlePurple
   parent: BaseStationTile
   name: tiles-purple-shuttle-floor
-  sprite: /Textures/Tiles/Shuttle/shuttle-purple.png
+  sprite: /Textures/_Onyx/Tiles/shuttlepurple.png # <Onyx-LegacyTiles-edited>
   variants: 4 # <Onyx-TileResprite-edited>
   itemDrop: FloorTileItemShuttlePurple
 
@@ -50,6 +50,6 @@
   id: FloorShuttleRed
   parent: BaseStationTile
   name: tiles-red-shuttle-floor
-  sprite: /Textures/Tiles/Shuttle/shuttle-red.png
+  sprite: /Textures/_Onyx/Tiles/shuttlered.png # <Onyx-LegacyTiles-edited>
   variants: 4 # <Onyx-TileResprite-edited>
   itemDrop: FloorTileItemShuttleRed

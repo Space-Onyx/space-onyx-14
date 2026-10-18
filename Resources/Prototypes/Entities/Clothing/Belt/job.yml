@@ -313,8 +313,7 @@
   - type: Storage
     whitelist:
       tags:
-      - PlantSampleTaker
-      - PlantAnalyzer # <Onyx-PlantAnalyzer>
+      - PlantSampleTaker # <Onyx-PlantAnalyzer-edited>
       - BotanyShovel
       - BotanyHatchet
       - Bottle
@@ -348,13 +347,7 @@
         whitelist:
           tags:
           - PlantBGone
-      # <Onyx-PlantAnalyzer>
-      hydro:
-        whitelist:
-          tags:
-          - PlantAnalyzer
-      # </Onyx-PlantAnalyzer>
-      bottle:
+      bottle: # <Onyx-PlantAnalyzer-edited>
         whitelist:
           tags:
           - Bottle

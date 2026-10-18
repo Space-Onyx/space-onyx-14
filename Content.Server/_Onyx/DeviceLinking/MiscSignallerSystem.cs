@@ -1,4 +1,4 @@
-using Content.Server.DeviceLinking.Systems;
+using Content.Shared.DeviceLinking.Systems;
 using Content.Shared._Onyx.DeviceLinking;
 using Content.Shared.Trigger;
 using Robust.Shared.Timing;

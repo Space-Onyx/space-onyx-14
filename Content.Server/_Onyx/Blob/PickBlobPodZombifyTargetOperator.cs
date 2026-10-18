@@ -42,12 +42,12 @@ public sealed partial class PickBlobPodZombifyTargetOperator : HTNOperator
     [DataField("pathfindKey")]
     public string PathfindKey = NPCBlackboard.PathfindKey;
 
-    public override void Initialize(IEntitySystemManager sysManager)
+    public override void Initialize(IDependencyCollection deps)
     {
-        base.Initialize(sysManager);
-        _pathfinding = sysManager.GetEntitySystem<PathfindingSystem>();
-        _mobSystem = sysManager.GetEntitySystem<MobStateSystem>();
-        _factions = sysManager.GetEntitySystem<NpcFactionSystem>();
+        base.Initialize(deps);
+        _pathfinding = _entManager.System<PathfindingSystem>();
+        _mobSystem = _entManager.System<MobStateSystem>();
+        _factions = _entManager.System<NpcFactionSystem>();
     }
 
     public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,

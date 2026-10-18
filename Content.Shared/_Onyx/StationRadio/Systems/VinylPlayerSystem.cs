@@ -1,7 +1,7 @@
 using Content.Shared._Onyx.StationRadio.Components;
 using Content.Shared._Onyx.StationRadio.Events;
 using Content.Shared.Destructible;
-using Content.Shared.DeviceLinking;
+using Content.Shared.DeviceLinking.Components;
 using Content.Shared.Power;
 using Content.Shared.Power.EntitySystems;
 using Robust.Shared.Audio;

@@ -17,9 +17,6 @@
   id: SawElectric
 
 - type: Tag
-  id: PlantAnalyzer
-
-- type: Tag
   id: BotanyHoe
 
 - type: Tag

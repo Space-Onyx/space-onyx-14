@@ -1,7 +1,9 @@
-using Content.Server.DeviceLinking.Systems;
+using Content.Shared.DeviceLinking.Systems;
 using Content.Server.Power.EntitySystems;
 using Content.Shared._Onyx.Contraband;
+using Content.Shared.DeviceLinking;
 using Robust.Server.Audio;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
@@ -10,6 +12,8 @@ namespace Content.Server._Onyx.Contraband;
 
 public sealed partial class ContrabandDetectorSystem : SharedContrabandDetectorSystem
 {
+    private static readonly ProtoId<SourcePortPrototype> ContrabandDetectedPort = "SignalContrabandDetected";
+
     [Dependency] private AudioSystem _audio = default!;
     [Dependency] private DeviceLinkSystem _deviceLink = default!;
     [Dependency] private PowerReceiverSystem _power = default!;
@@ -32,7 +36,7 @@ public sealed partial class ContrabandDetectorSystem : SharedContrabandDetectorS
                        (FindContraband(args.OtherEntity).Count > 0 ^ _random.Prob(detector.Comp.FalseDetectingChance));
 
         _audio.PlayPvs(detected ? detector.Comp.Detect : detector.Comp.NoDetect, detector);
-        _deviceLink.SendSignal((detector.Owner, null), "SignalContrabandDetected", detected);
+        _deviceLink.SendSignal((detector.Owner, null), ContrabandDetectedPort, detected);
         detector.Comp.State = detected ? ContrabandDetectorState.Alarm : ContrabandDetectorState.Scan;
         detector.Comp.LastScanTime = _timing.CurTime;
         UpdateVisuals(detector);

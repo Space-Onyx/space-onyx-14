@@ -5,6 +5,7 @@ using Content.Shared._Onyx.Bitrunning;
 using Content.Shared._Onyx.Bitrunning.Components;
 using Content.Shared._Onyx.Bitrunning.Prototypes;
 using Content.Shared.DeviceLinking;
+using Content.Shared.DeviceLinking.Components;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Emag.Components;
 using Content.Shared.Emag.Systems;
@@ -44,7 +45,7 @@ public sealed partial class ByteforgeSystem : EntitySystem
         SubscribeLocalEvent<ByteforgeComponent, PowerChangedEvent>(OnByteforgePowerChanged);
         SubscribeLocalEvent<BitrunningRewardCacheComponent, StorageAfterOpenEvent>(OnRewardCacheOpen);
         SubscribeLocalEvent<QuantumServerComponent, NewLinkEvent>(OnServerNewLink);
-        SubscribeLocalEvent<QuantumServerComponent, PortDisconnectedEvent>(OnServerPortDisconnected);
+        SubscribeLocalEvent<QuantumServerComponent, SourcePortDisconnectedEvent>(OnServerPortDisconnected);
         SubscribeLocalEvent<QuantumServerComponent, GotEmaggedEvent>(OnServerEmagged);
     }
 
@@ -97,7 +98,7 @@ public sealed partial class ByteforgeSystem : EntitySystem
         }
     }
 
-    private void OnServerPortDisconnected(Entity<QuantumServerComponent> ent, ref PortDisconnectedEvent args)
+    private void OnServerPortDisconnected(Entity<QuantumServerComponent> ent, ref SourcePortDisconnectedEvent args)
     {
         if (args.Port != ServerSourcePort)
             return;

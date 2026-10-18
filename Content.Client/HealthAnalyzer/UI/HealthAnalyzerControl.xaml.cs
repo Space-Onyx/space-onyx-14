@@ -42,7 +42,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
     private readonly SpriteSystem _spriteSystem;
     public bool IsHumanoid { get; private set; } // <Onyx-HealthAnalyzer-Interface>
     // <Onyx-HealthAnalyzer-StatusDoll>
-    private HealthAnalyzerUiState _state;
+    private HealthAnalyzerUiState? _state;
     private NetEntity? _displayedTarget;
     private TargetBodyPart? _selectedPart;
     private EntityUid? _target;
@@ -253,7 +253,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
     {
         if (!IsHumanoid)
             return;
-        if (_target is not { } target || _state.PartDamage == null || part is { } selected && !_state.PartDamage.ContainsKey(selected))
+        if (_target is not { } target || _state?.PartDamage == null || part is { } selected && !_state.PartDamage.ContainsKey(selected))
             return;
 
         _selectedPart = part;
@@ -265,6 +265,9 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
 
     private void DrawDamage(EntityUid target)
     {
+        if (_state == null)
+            return;
+
         IReadOnlyDictionary<ProtoId<DamageGroupPrototype>, FixedPoint2> groups;
         IReadOnlyDictionary<ProtoId<DamageTypePrototype>, FixedPoint2> types;
 

@@ -2,7 +2,8 @@
   id: FloorConcrete
   parent: BaseStationTile
   name: tiles-concrete-tile
-  sprite: /Textures/Tiles/Concrete/concrete.png
+  sprite: /Textures/_Onyx/Tiles/Planet/Concrete/concrete.png # <Onyx-LegacyTiles-edited>
+  variants: 4 # <Onyx-LegacyTiles>
   footstepSounds:
     collection: FootstepTile
   itemDrop: FloorTileItemConcrete
@@ -11,8 +12,10 @@
   id: FloorConcreteMono
   parent: BaseStationTile
   name: tiles-concrete-slab
-  sprite: /Textures/Tiles/Concrete/concrete-mono.png
-  variants: 2
+  # <Onyx-LegacyTiles-edited>
+  sprite: /Textures/_Onyx/Tiles/Planet/Concrete/concrete_mono.png
+  variants: 4
+  # </Onyx-LegacyTiles-edited>
   footstepSounds:
     collection: FootstepTile
   itemDrop: FloorTileItemConcreteMono
@@ -21,8 +24,10 @@
   id: FloorConcreteSmooth
   parent: BaseStationTile
   name: tiles-concrete-smooth
-  sprite: /Textures/Tiles/Concrete/concrete-smooth.png
-  variants: 2
+  # <Onyx-LegacyTiles-edited>
+  sprite: /Textures/_Onyx/Tiles/Planet/Concrete/concrete_smooth.png
+  variants: 4
+  # </Onyx-LegacyTiles-edited>
   footstepSounds:
     collection: FootstepTile
   itemDrop: FloorTileItemConcreteSmooth

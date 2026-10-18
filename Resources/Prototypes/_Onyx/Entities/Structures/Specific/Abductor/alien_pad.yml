@@ -45,7 +45,7 @@
       map: [ "enum.CargoTelepadLayers.Base" ]
     - state: idle
       map: [ "enum.CargoTelepadLayers.Beam" ]
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 200
   - type: Appearance
   - type: CollideOnAnchor

@@ -29,7 +29,7 @@
   - type: Fixtures
   - type: DeviceNetwork
     deviceNetId: Wireless
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 200
   - type: DeviceLinkSource
     ports: [ On, Off, Status ]

@@ -1,0 +1,62 @@
+# SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: tile
+  id: FloorSteelDiagonalMini
+  parent: FloorSteel
+  sprite: /Textures/_Onyx/Tiles/steel_diagonal_mini.png
+  variants: 4
+
+- type: tile
+  id: FloorWhiteDiagonalMini
+  parent: FloorWhite
+  sprite: /Textures/_Onyx/Tiles/white_diagonal_mini.png
+  variants: 4
+
+- type: tile
+  id: FloorDarkDiagonalMini
+  parent: FloorDark
+  sprite: /Textures/_Onyx/Tiles/dark_diagonal_mini.png
+  variants: 4
+
+- type: tile
+  id: FloorSteelDirty
+  parent: FloorSteel
+  sprite: /Textures/_Onyx/Tiles/steel_dirty.png
+  variants: 4
+
+- type: tile
+  id: FloorSteelSlatsContinuous
+  parent: FloorSteelVerticalSlatsBordered
+  sprite: /Textures/_Onyx/Tiles/steel_slats_continuous.png
+  variants: 4
+
+- type: tile
+  id: FloorWhiteSlatsContinuous
+  parent: FloorWhiteVerticalSlatsBordered
+  sprite: /Textures/_Onyx/Tiles/white_slats_continuous.png
+  variants: 4
+
+- type: tile
+  id: FloorDarkSlatsContinuous
+  parent: FloorDarkVerticalSlatsBordered
+  sprite: /Textures/_Onyx/Tiles/dark_slats_continuous.png
+  variants: 4
+
+- type: tile
+  id: FloorMono
+  parent: FloorSteelMono
+  sprite: /Textures/_Onyx/Tiles/mono.png
+  variants: 1
+
+- type: tile
+  id: FloorShowroom
+  parent: FloorSteel
+  sprite: /Textures/_Onyx/Tiles/showroom.png
+  variants: 1
+
+- type: tile
+  id: FloorTechMaint
+  parent: FloorTechMaint2
+  sprite: /Textures/_Onyx/Tiles/tech_maint.png
+  variants: 1

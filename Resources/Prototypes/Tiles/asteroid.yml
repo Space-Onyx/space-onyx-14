@@ -30,8 +30,10 @@
 - type: tile
   id: FloorAsteroidTile
   name: tiles-asteroid-tile
-  sprite: /Textures/Tiles/Asteroid/asteroid-tile.png
-  variants: 4
+  # <Onyx-LegacyTiles-edited>
+  sprite: /Textures/_Onyx/Tiles/Asteroid/asteroid_tile.png
+  variants: 1
+  # </Onyx-LegacyTiles-edited>
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]

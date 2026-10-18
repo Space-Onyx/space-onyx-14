@@ -280,6 +280,11 @@
   - hisses
   - hissed
   - hissing
+  # <Onyx-RacialEmoteSounds>
+  - шипит
+  - шипит.
+  - шипит!
+  # </Onyx-RacialEmoteSounds>
 
 # Vulpkanin
 - type: emote

@@ -2,8 +2,10 @@
   id: FloorExoViscera
   parent: BaseStationTile
   name: tiles-exo-viscera
-  sprite: /Textures/Tiles/Exo/exo-viscera.png
-  variants: 3
+  # <Onyx-LegacyTiles-edited>
+  sprite: /Textures/_Onyx/Tiles/xeno_flooring.png
+  variants: 1
+  # </Onyx-LegacyTiles-edited>
   footstepSounds:
     collection: FootstepBlood
   itemDrop: FloorTileItemExoViscera
@@ -12,7 +14,7 @@
   id: FloorExoHull
   parent: BaseStationTile
   name: tiles-exo-hull
-  sprite: /Textures/Tiles/Exo/exo-hull.png
+  sprite: /Textures/_Onyx/Tiles/xeno_steel.png # <Onyx-LegacyTiles-edited>
   footstepSounds:
     collection: FootstepTile
   itemDrop: FloorTileItemExoHull
@@ -21,7 +23,7 @@
   id: FloorExoTechmaint
   parent: BaseStationTile
   name: tiles-exo-techmaint
-  sprite: /Textures/Tiles/Exo/exo-maint.png
+  sprite: /Textures/_Onyx/Tiles/xeno_maint.png # <Onyx-LegacyTiles-edited>
   footstepSounds:
     collection: FootstepHull
   itemDrop: FloorTileItemExoTechmaint
@@ -30,7 +32,8 @@
   id: FloorExoHorizontal
   parent: BaseStationTile
   name: tiles-exo-horizontal
-  sprite: /Textures/Tiles/Exo/exo-horizontal.png
+  sprite: /Textures/_Onyx/Tiles/dark_squiggly.png # <Onyx-LegacyTiles-edited>
+  variants: 4 # <Onyx-LegacyTiles>
   footstepSounds:
     collection: FootstepTile
   itemDrop: FloorTileItemExoHorizontal
@@ -75,7 +78,7 @@
   id: FloorExoCornerSW
   parent: BaseStationTile
   name: tiles-exo-corner-sw
-  sprite: /Textures/Tiles/Exo/exo-SW.png
+  sprite: /Textures/_Onyx/Tiles/xeno_steel_corner.png # <Onyx-LegacyTiles-edited>
   footstepSounds:
     collection: FootstepTile
   itemDrop: FloorTileItemExoCornerSW
@@ -83,7 +86,7 @@
 - type: tile
   id: FloorExoBorg
   name: tiles-exo-borg
-  sprite: /Textures/Tiles/Exo/exo-borg.png
+  sprite: /Textures/_Onyx/Tiles/exoborg.png # <Onyx-LegacyTiles-edited>
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]

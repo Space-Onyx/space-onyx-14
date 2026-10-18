@@ -18,7 +18,7 @@ using Content.Shared.Antag;
 using Content.Shared.GameTicking.Events;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking.Events;
-using Content.Server.Pinpointer;
+using Content.Shared.Pinpointer;
 using Content.Server.Popups;
 using Content.Server.Station.Systems;
 using Content.Shared.Station.Systems;

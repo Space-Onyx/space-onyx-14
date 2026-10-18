@@ -50,7 +50,7 @@
     access: [ [ "Security" ] ]
   - type: DeviceNetwork
     deviceNetId: Wireless
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 1000
   - type: DeviceLinkSource
     range: 1000

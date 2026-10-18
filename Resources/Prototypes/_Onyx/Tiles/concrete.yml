@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: tile
+  id: FloorAsphalt
+  parent: FloorConcrete
+  sprite: /Textures/_Onyx/Tiles/Planet/Concrete/asphalt.png
+  variants: 10

@@ -1,6 +1,6 @@
 ﻿using Content.Server.Power.EntitySystems;
 // <ShuttleSignalPorts>
-using Content.Server.DeviceLinking.Systems;
+using Content.Shared.DeviceLinking.Systems; // <Onyx-ShuttleSignalPorts-edited>
 using Content.Shared._Onyx.Shuttles.Events;
 using Content.Shared.DeviceLinking;
 // </ShuttleSignalPorts>

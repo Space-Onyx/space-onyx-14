@@ -213,6 +213,9 @@
   parent: [ OrganBaseEyes, OrganRodentiaInternal ]
   id: OrganRodentiaEyes
   components:
+  - type: EyeBlinking
+    eyelidsSprite: /Textures/Mobs/Species/Human/parts.rsi
+  - type: Appearance
   - type: VisualOrgan
     layer: enum.HumanoidVisualLayers.Eyes
     data: { sprite: Mobs/Customization/eyes.rsi }

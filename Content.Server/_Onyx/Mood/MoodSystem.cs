@@ -28,6 +28,7 @@ using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Systems;
+using Content.Shared.Movement.Components;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.Nutrition.Prototypes;
@@ -58,7 +59,6 @@ public sealed partial class MoodSystem : EntitySystem
     [Dependency] private MobThresholdSystem _thresholds = default!;
     [Dependency] private MovementSpeedModifierSystem _speed = default!;
     [Dependency] private PopupSystem _popup = default!;
-    [Dependency] private SharedJetpackSystem _jetpack = default!;
     [Dependency] private AtmosphereSystem _atmo = default!;
     [Dependency] private BarotraumaSystem _barotrauma = default!;
     [Dependency] private SatiationSystem _satiation = default!;
@@ -524,7 +524,7 @@ public sealed partial class MoodSystem : EntitySystem
     private void OnSpeedRefresh(EntityUid uid, MoodComponent component, RefreshMovementSpeedModifiersEvent args)
     {
         if (!_config.GetCVar(CCVars.MoodEnabled)
-            || _jetpack.IsUserFlying(uid))
+            || HasComp<JetpackUserComponent>(uid))
             return;
 
         var slowdown = _config.GetCVar(CCVars.MoodDecreasesSpeed);

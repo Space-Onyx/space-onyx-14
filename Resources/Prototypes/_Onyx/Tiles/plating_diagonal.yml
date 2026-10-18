@@ -2,7 +2,7 @@
   id: DebugLatticeRadarHalfWidth
   parent: Lattice
   name: tiles-debug-lattice-radar-half-width
-  sprite: /Textures/Tiles/lattice.png
+  sprite: /Textures/_Onyx/Tiles/lattice.png
   vertices: ["0.25, 0", "0.75, 0", "0.75, 1", "0.25, 1"]
 
 - type: tile

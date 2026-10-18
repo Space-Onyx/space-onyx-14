@@ -92,6 +92,9 @@
   parent: [ OrganBaseEyes, OrganShadowkinInternal ]
   id: OrganShadowkinEyes
   components:
+  - type: EyeBlinking
+    eyelidsSprite: /Textures/Mobs/Species/Human/parts.rsi
+  - type: Appearance
   - type: Sprite
     layers:
     - state: eyes

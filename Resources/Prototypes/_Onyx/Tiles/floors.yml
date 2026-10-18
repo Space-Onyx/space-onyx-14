@@ -1,0 +1,32 @@
+# SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: tile
+  id: FloorBrassReebe
+  parent: FloorSteelDamaged
+  sprite: /Textures/_Onyx/Tiles/Misc/clockwork/reebe.png
+  variants: 1
+
+- type: tile
+  id: FloorBrassFilled
+  parent: FloorSteelDamaged
+  sprite: /Textures/_Onyx/Tiles/Misc/clockwork/clockwork_floor_filled.png
+  variants: 1
+
+- type: tile
+  id: PlatingBrass
+  parent: Plating
+  sprite: /Textures/_Onyx/Tiles/Misc/clockwork/clockwork_floor.png
+  variants: 1
+
+- type: tile
+  id: FloorEighties
+  parent: FloorArcadeBlue
+  sprite: /Textures/_Onyx/Tiles/eighties.png
+  variants: 1
+
+- type: tile
+  id: FloorArcadeBlue2
+  parent: FloorArcadeBlue
+  sprite: /Textures/_Onyx/Tiles/arcadeblue2.png
+  variants: 1

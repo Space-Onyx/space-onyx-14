@@ -286,6 +286,12 @@
 - type: entity
   parent: [ OrganTajaranVisual, OrganBaseEyes, OrganTajaranInternal ]
   id: OrganTajaranEyes
+  # <Onyx-EyeBlinking>
+  components:
+  - type: EyeBlinking
+    eyelidsSprite: /Textures/Mobs/Species/Human/parts.rsi
+  - type: Appearance
+  # </Onyx-EyeBlinking>
 
 - type: entity
   parent: [ OrganBaseTongue, OrganTajaranInternal ]

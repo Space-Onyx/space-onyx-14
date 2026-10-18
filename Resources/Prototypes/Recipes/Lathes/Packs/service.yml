@@ -27,7 +27,7 @@
   - WetFloorSign
   - WireBrush
   - PhotoCamera # <Onyx-PhotoCamera>
-  - AdvancedPlantAnalyzer # <Onyx-PlantAnalyzer>
+  # <Onyx-PlantAnalyzer-edited> Используется ванильный рецепт в HydroponicsStatic.
 
 - type: latheRecipePack
   id: ServiceBoardsStatic

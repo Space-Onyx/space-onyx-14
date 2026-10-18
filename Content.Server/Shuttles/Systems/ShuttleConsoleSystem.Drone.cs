@@ -4,7 +4,7 @@ using Content.Server._Onyx.Shuttles.Systems;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
 // <ShuttleRemoteControl>
-using Content.Shared.DeviceLinking;
+using Content.Shared.DeviceLinking.Components; // <Onyx-ShuttleSignalPorts-edited>
 // </ShuttleRemoteControl>
 using Content.Shared.Station.Components;
 using Content.Shared.UserInterface;

@@ -33,6 +33,7 @@ using Content.Shared.Damage.Systems;
 using Content.Shared._Onyx.Salvage.Weapons;
 using Content.Shared._Onyx.Wounds;
 using Content.Shared.DeviceLinking;
+using Content.Shared.DeviceLinking.Systems;
 using Content.Shared.SurveillanceCamera.Components;
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DoAfter;
@@ -90,7 +91,7 @@ public sealed partial class QuantumServerSystem : EntitySystem
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private StunSystem _stun = default!;
     [Dependency] private StatusEffectsSystem _statusEffects = default!;
-    [Dependency] private SharedDeviceLinkSystem _deviceLink = default!;
+    [Dependency] private DeviceLinkSystem _deviceLink = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedPowerReceiverSystem _power = default!;
     [Dependency] private BitrunningPointsSystem _bitrunningPoints = default!;

@@ -15,11 +15,11 @@ public sealed partial class SlimeLatchOperator : HTNOperator
     [DataField(required: true)]
     public string LatchKey = string.Empty;
 
-    public override void Initialize(IEntitySystemManager sysManager)
+    public override void Initialize(IDependencyCollection deps)
     {
-        base.Initialize(sysManager);
-        _doAfter = sysManager.GetEntitySystem<SharedDoAfterSystem>();
-        _latch = sysManager.GetEntitySystem<SlimeLatchSystem>();
+        base.Initialize(deps);
+        _doAfter = _entManager.System<SharedDoAfterSystem>();
+        _latch = _entManager.System<SlimeLatchSystem>();
     }
 
     public override HTNOperatorStatus Update(NPCBlackboard blackboard, float frameTime)

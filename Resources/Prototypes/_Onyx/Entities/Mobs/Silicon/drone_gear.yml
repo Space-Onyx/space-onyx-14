@@ -15,7 +15,7 @@
     sprite: _Onyx/Drone/dronesatchel.rsi
 
 - type: entity
-  parent: trayScanner
+  parent: TRayScanner
   id: trayScannerUnremoveable
   suffix: Unremovable
   components:

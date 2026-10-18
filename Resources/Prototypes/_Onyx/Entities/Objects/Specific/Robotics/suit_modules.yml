@@ -404,7 +404,7 @@
     requiredPart: Gloves
     drawRate: 0.15
     integratedItems:
-    - item: trayScanner
+    - item: TRayScanner
 
 - type: entity
   parent: BaseSuitModule

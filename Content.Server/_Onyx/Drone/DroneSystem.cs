@@ -96,14 +96,14 @@ public sealed partial class DroneSystem : SharedDroneSystem
         var count = 0;
         foreach (var item in _inventory.GetHandOrInventoryEntities(ent.Owner, SlotFlags.POCKET))
         {
-            if (HasComp<TrayScannerComponent>(item))
+            if (HasComp<TRayScannerComponent>(item))
                 count++;
         }
 
         if (count == 0)
-            RemComp<TrayScannerUserComponent>(ent);
+            RemComp<TRayScannerUserComponent>(ent);
         else
-            EnsureComp<TrayScannerUserComponent>(ent).Count = count;
+            EnsureComp<TRayScannerUserComponent>(ent).Count = count;
 
         _eye.RefreshVisibilityMask(ent.Owner);
     }

@@ -17,7 +17,7 @@ public sealed partial class ShuttleDroneLinkSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<DroneConsoleComponent, LinkAttemptEvent>(OnLinkAttempt);
         SubscribeLocalEvent<DroneConsoleComponent, NewLinkEvent>(OnNewLink);
-        SubscribeLocalEvent<DroneConsoleComponent, PortDisconnectedEvent>(OnPortDisconnected);
+        SubscribeLocalEvent<DroneConsoleComponent, SourcePortDisconnectedEvent>(OnPortDisconnected);
     }
 
     private void OnLinkAttempt(Entity<DroneConsoleComponent> entity, ref LinkAttemptEvent args)
@@ -27,7 +27,7 @@ public sealed partial class ShuttleDroneLinkSystem : EntitySystem
             !HasComp<DroneConsoleComponent>(args.Sink))
             return;
 
-        args.Cancel();
+        args.Cancelled = true;
     }
 
     private void OnNewLink(Entity<DroneConsoleComponent> entity, ref NewLinkEvent args)
@@ -35,7 +35,7 @@ public sealed partial class ShuttleDroneLinkSystem : EntitySystem
         RefreshConsoles();
     }
 
-    private void OnPortDisconnected(Entity<DroneConsoleComponent> entity, ref PortDisconnectedEvent args)
+    private void OnPortDisconnected(Entity<DroneConsoleComponent> entity, ref SourcePortDisconnectedEvent args)
     {
         if (args.Port == RemoteDroneSourcePort)
             RefreshConsoles();

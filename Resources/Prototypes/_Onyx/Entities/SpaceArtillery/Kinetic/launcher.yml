@@ -20,7 +20,7 @@
   - type: Appearance
   - type: AutoShootGun
   - type: GunSignalControl
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 700
   - type: DeviceLinkSink
     ports:
@@ -75,7 +75,7 @@
     maxCharge: 1500 #CorvaxGoob-ShuttleGuns-Rebalance
     startingCharge: 1500 #CorvaxGoob-ShuttleGuns-Rebalance
   - type: ExaminableBattery
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 500
   - type: Gun
     fireRate: 0.3 #CorvaxGoob-ShuttleGuns-Rebalance
@@ -122,7 +122,7 @@
     maxCharge: 12000 #CorvaxGoob-ShuttleGuns-Rebalance
     startingCharge: 12000 #CorvaxGoob-ShuttleGuns-Rebalance
   - type: ExaminableBattery
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 500
   - type: Gun
     fireRate: 0.3 #CorvaxGoob-ShuttleGuns-Rebalance
@@ -174,7 +174,7 @@
     maxCharge: 40000
     startingCharge: 40000
   - type: ExaminableBattery
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 500
   - type: Gun
     fireRate: 0.05
@@ -222,7 +222,7 @@
     maxCharge: 12000
     startingCharge: 12000
   - type: ExaminableBattery
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 500
   - type: Fixtures
     fixtures:
@@ -286,7 +286,7 @@
     maxCharge: 18000 #CorvaxGoob-ShuttleGuns-Rebalance
     startingCharge: 18000 #CorvaxGoob-ShuttleGuns-Rebalance
   - type: ExaminableBattery
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 500
   - type: Fixtures
     fixtures:
@@ -349,7 +349,7 @@
     maxCharge: 40000
     startingCharge: 40000
   - type: ExaminableBattery
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 500
   - type: Gun
     fireRate: 0.05
@@ -425,7 +425,7 @@
     maxCharge: 40000
     startingCharge: 40000
   - type: ExaminableBattery
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 500
   - type: Fixtures
     fixtures:
@@ -484,7 +484,7 @@
     maxCharge: 40000
     startingCharge: 40000
   - type: ExaminableBattery
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 500
   - type: Fixtures
     fixtures:

@@ -47,14 +47,16 @@
   parent: BaseStationTile
   id: FloorSteelVerticalSlatsBordered
   name: tiles-steel-floor-vertical-slats-bordered
-  sprite: /Textures/Tiles/Basic/Gray/gray-vertical-slats.png
+  sprite: /Textures/_Onyx/Tiles/steel_vertical_slats_bordered.png # <Onyx-LegacyTiles-edited>
+  variants: 4 # <Onyx-LegacyTiles>
   itemDrop: FloorTileItemSteelVerticalSlatsBordered
 
 - type: tile
   parent: BaseStationTile
   id: FloorSteelHorizontalSlatsBordered
   name: tiles-steel-floor-horizontal-slats-bordered
-  sprite: /Textures/Tiles/Basic/Gray/gray-horizontal-slats.png
+  sprite: /Textures/_Onyx/Tiles/steel_horizontal_slats_bordered.png # <Onyx-LegacyTiles-edited>
+  variants: 4 # <Onyx-LegacyTiles>
   itemDrop: FloorTileItemSteelHorizontalSlatsBordered
 
 - type: tile
@@ -77,8 +79,10 @@
   id: FloorSteelDamaged
   parent: BaseStationTile
   name: tiles-steel-floor
-  sprite: /Textures/Tiles/Basic/Gray/gray-damaged.png
-  variants: 4
+  # <Onyx-LegacyTiles-edited>
+  sprite: /Textures/_Onyx/Tiles/steel_damaged.png
+  variants: 5
+  # </Onyx-LegacyTiles-edited>
   itemDrop: FloorTileItemSteel #This should probably be made null when it becomes possible to make it such, in SS13 prying destroyed tiles wouldn't give you anything.
 
 #### WHITE
@@ -104,14 +108,16 @@
   parent: BaseStationTile
   id: FloorWhiteVerticalSlatsBordered
   name: tiles-white-floor-vertical-slats-bordered
-  sprite: /Textures/Tiles/Basic/White/white-vertical-slats.png
+  sprite: /Textures/_Onyx/Tiles/white_vertical_slats_bordered.png # <Onyx-LegacyTiles-edited>
+  variants: 4 # <Onyx-LegacyTiles>
   itemDrop: FloorTileItemWhiteVerticalSlatsBordered
 
 - type: tile
   parent: BaseStationTile
   id: FloorWhiteHorizontalSlatsBordered
   name: tiles-white-floor-horizontal-slats-bordered
-  sprite: /Textures/Tiles/Basic/White/white-horizontal-slats.png
+  sprite: /Textures/_Onyx/Tiles/white_horizontal_slats_bordered.png # <Onyx-LegacyTiles-edited>
+  variants: 4 # <Onyx-LegacyTiles>
   itemDrop: FloorTileItemWhiteHorizontalSlatsBordered
 
 - type: tile
@@ -182,14 +188,16 @@
   parent: BaseStationTile
   id: FloorDarkVerticalSlatsBordered
   name: tiles-dark-floor-vertical-slats-bordered
-  sprite: /Textures/Tiles/Basic/Dark/dark-vertical-slats.png
+  sprite: /Textures/_Onyx/Tiles/dark_vertical_slats_bordered.png # <Onyx-LegacyTiles-edited>
+  variants: 4 # <Onyx-LegacyTiles>
   itemDrop: FloorTileItemDarkVerticalSlatsBordered
 
 - type: tile
   parent: BaseStationTile
   id: FloorDarkHorizontalSlatsBordered
   name: tiles-dark-floor-horizontal-slats-bordered
-  sprite: /Textures/Tiles/Basic/Dark/dark-horizontal-slats.png
+  sprite: /Textures/_Onyx/Tiles/dark_horizontal_slats_bordered.png # <Onyx-LegacyTiles-edited>
+  variants: 4 # <Onyx-LegacyTiles>
   itemDrop: FloorTileItemDarkHorizontalSlatsBordered
 
 - type: tile
@@ -241,7 +249,7 @@
   id: FloorTechMaintDark
   parent: BaseStationTile
   name: tiles-techmaint-floor-dark
-  sprite: /Textures/Tiles/Basic/Dark/dark-maint.png
+  sprite: /Textures/_Onyx/Tiles/tech_maint_dark.png # <Onyx-LegacyTiles-edited>
   footstepSounds:
     collection: FootstepHull
   itemDrop: FloorTileItemTechmaintDark

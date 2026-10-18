@@ -92,7 +92,7 @@
     receiveFrequencyId: PDA
     prefix: device-address-prefix-console
     savableAddress: false
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 500
   - type: Ringer
   - type: RingerUplink
@@ -105,5 +105,4 @@
   parent: AugmentModuleCyberDeck
   id: AugmentModuleCyberDeckInterdyne
   name: Interdyne Fallen
-
 

@@ -7,7 +7,7 @@
 using Content.Shared._Onyx.Abductor;
 using Robust.Client.UserInterface.Controls;
 using JetBrains.Annotations;
-using static Content.Shared.Pinpointer.SharedNavMapSystem;
+using static Content.Shared.Pinpointer.NavMapSystem;
 
 namespace Content.Client._Onyx.Abductor;
 

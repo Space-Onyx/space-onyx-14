@@ -26,7 +26,7 @@ public sealed partial class SupermatterConsoleWindow : FancyWindow
 {
     private readonly IEntityManager _entManager;
     private readonly SpriteSystem _spriteSystem;
-    private readonly SharedNavMapSystem _navMapSystem;
+    private readonly NavMapSystem _navMapSystem;
 
     private EntityUid? _owner;
     private NetEntity? _trackedEntity;
@@ -55,7 +55,7 @@ public sealed partial class SupermatterConsoleWindow : FancyWindow
         RobustXamlLoader.Load(this);
         _entManager = IoCManager.Resolve<IEntityManager>();
         _spriteSystem = _entManager.System<SpriteSystem>();
-        _navMapSystem = _entManager.System<SharedNavMapSystem>();
+        _navMapSystem = _entManager.System<NavMapSystem>();
 
         // Pass the owner to nav map
         _owner = owner;

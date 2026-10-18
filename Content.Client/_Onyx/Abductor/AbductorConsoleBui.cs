@@ -9,7 +9,6 @@ using JetBrains.Annotations;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.RichText;
 using Robust.Shared.Utility;
-using static Content.Shared.Pinpointer.SharedNavMapSystem;
 using static Robust.Client.UserInterface.Control;
 
 namespace Content.Client._Onyx.Abductor;

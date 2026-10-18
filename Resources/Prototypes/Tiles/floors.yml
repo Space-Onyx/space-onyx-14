@@ -54,7 +54,7 @@
   id: FloorWood
   parent: BaseStationTile
   name: tiles-wood
-  sprite: /Textures/Tiles/Wood/wood.png
+  sprite: /Textures/_Onyx/Tiles/wood.png # <Onyx-LegacyTiles-edited>
   variants: 4 # <Onyx-TileResprite-edited>
   footstepSounds:
     collection: FootstepWood
@@ -110,7 +110,7 @@
   id: FloorFreezer
   parent: BaseStationTile
   name: tiles-freezer
-  sprite: /Textures/Tiles/freezer.png
+  sprite: /Textures/_Onyx/Tiles/freezer.png # <Onyx-LegacyTiles-edited>
   footstepSounds:
     collection: FootstepHull
   itemDrop: FloorTileItemFreezer
@@ -244,7 +244,7 @@
   id: FloorMetalFoam
   parent: BaseStationTile
   name: tiles-metal-foam
-  sprite: /Textures/Tiles/foammetal.png
+  sprite: /Textures/_Onyx/Tiles/foammetal.png # <Onyx-LegacyTiles-edited>
   footstepSounds:
     collection: FootstepHull
   itemDrop: SheetSteel1
@@ -274,8 +274,10 @@
   id: FloorFlesh
   parent: BaseStationTile
   name: tiles-flesh-floor
-  sprite: /Textures/Tiles/meat.png
-  variants: 2
+  # <Onyx-LegacyTiles-edited>
+  sprite: /Textures/_Onyx/Tiles/meat.png
+  variants: 4
+  # </Onyx-LegacyTiles-edited>
   footstepSounds:
     collection: FootstepBlood
   itemDrop: FloorTileItemFlesh
@@ -285,7 +287,8 @@
   id: FloorTechMaint3
   parent: BaseStationTile
   name: tiles-techmaint3-floor
-  sprite: /Textures/Tiles/grating-maint.png
+  sprite: /Textures/_Onyx/Tiles/grating_maint.png # <Onyx-LegacyTiles-edited>
+  variants: 4 # <Onyx-LegacyTiles>
   footstepSounds:
     collection: FootstepHull
   itemDrop: FloorTileItemGratingMaint
@@ -294,7 +297,7 @@
   id: FloorWoodTile
   parent: BaseStationTile
   name: tiles-wood2
-  sprite: /Textures/Tiles/Wood/wood-tile.png
+  sprite: /Textures/_Onyx/Tiles/wood_tile.png # <Onyx-LegacyTiles-edited>
   variants: 4 # <Onyx-TileResprite-edited>
   footstepSounds:
     collection: FootstepWood
@@ -306,7 +309,7 @@
   id: FloorBrokenWood
   parent: BaseStationTile
   name: tiles-wood3
-  sprite: /Textures/Tiles/Wood/wood-broken.png
+  sprite: /Textures/_Onyx/Tiles/wood_broken.png # <Onyx-LegacyTiles-edited>
   variants: 7
   footstepSounds:
     collection: FootstepWood
@@ -365,7 +368,7 @@
   id: FloorHull
   parent: BaseStationTile
   name: tiles-hull
-  sprite: /Textures/Tiles/hull.png
+  sprite: /Textures/_Onyx/Tiles/hull.png # <Onyx-LegacyTiles-edited>
   footstepSounds:
     collection: FootstepHull
   itemDrop: FloorTileItemSteel #probably should not be normally obtainable, but the game shits itself and dies when you try to put null here

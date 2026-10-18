@@ -8,6 +8,8 @@ using Content.Shared._Onyx.Bitrunning;
 using Content.Shared._Onyx.Bitrunning.Components;
 using Content.Shared.Destructible;
 using Content.Shared.DeviceLinking;
+using Content.Shared.DeviceLinking.Components;
+using Content.Shared.DeviceLinking.Systems;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
@@ -27,7 +29,7 @@ namespace Content.Server._Onyx.Bitrunning.Systems;
 public sealed partial class NetpodSystem : EntitySystem
 {
     [Dependency] private QuantumServerSystem _server = default!;
-    [Dependency] private SharedDeviceLinkSystem _deviceLink = default!;
+    [Dependency] private DeviceLinkSystem _deviceLink = default!;
     [Dependency] private PopupSystem _popup = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private AppearanceSystem _appearance = default!;
@@ -62,7 +64,7 @@ public sealed partial class NetpodSystem : EntitySystem
         SubscribeLocalEvent<NetpodComponent, NetpodSelectLoadoutMessage>(OnSelectLoadout);
         SubscribeLocalEvent<NetpodComponent, NewLinkEvent>(OnNewLink);
         SubscribeLocalEvent<NetpodComponent, LinkAttemptEvent>(OnLinkAttempt);
-        SubscribeLocalEvent<NetpodComponent, PortDisconnectedEvent>(OnPortDisconnected);
+        SubscribeLocalEvent<NetpodComponent, SinkPortDisconnectedEvent>(OnPortDisconnected);
         SubscribeLocalEvent<NetpodOccupantComponent, InhaleLocationEvent>(OnOccupantInhale);
         SubscribeLocalEvent<NetpodOccupantComponent, ExhaleLocationEvent>(OnOccupantExhale);
     }
@@ -331,7 +333,7 @@ public sealed partial class NetpodSystem : EntitySystem
 
         if (CountLinkedPods(args.Source, ent.Owner) >= MaxPodsPerServer)
         {
-            args.Cancel();
+            args.Cancelled = true;
             Log.Warning("Refused netpod {Pod} link to server {Server}: pod limit ({Limit}) reached.",
                 ToPrettyString(ent.Owner), ToPrettyString(args.Source), MaxPodsPerServer);
             if (args.User is { } user)
@@ -352,7 +354,7 @@ public sealed partial class NetpodSystem : EntitySystem
         return count;
     }
 
-    private void OnPortDisconnected(Entity<NetpodComponent> ent, ref PortDisconnectedEvent args)
+    private void OnPortDisconnected(Entity<NetpodComponent> ent, ref SinkPortDisconnectedEvent args)
     {
         if (args.Port != ServerSinkPort)
             return;

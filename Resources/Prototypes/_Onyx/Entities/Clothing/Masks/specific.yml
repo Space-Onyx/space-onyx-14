@@ -268,7 +268,7 @@
   - type: SupermatterImmune
 
 - type: entity
-  parent: ClothingMaskClownBase
+  parent: ClothingMaskBase
   id: ClothingMaskSexyClown
   name: sexy clown mask
   description: Some naughty clowns think this is what the Honkmother looks like.
@@ -277,6 +277,16 @@
     sprite: _Onyx/Clothing/Mask/sexyclown.rsi
   - type: Clothing
     sprite: _Onyx/Clothing/Mask/sexyclown.rsi
+  - type: BreathMask
+  - type: IdentityBlocker
+  - type: Tag
+    tags:
+    - ClownMask
+    - WhitelistChameleon
+    - HamsterWearable
+  - type: HideLayerClothing
+    slots:
+    - Snout
 
 - type: entity
   parent: ClothingMaskMime

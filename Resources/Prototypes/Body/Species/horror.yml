@@ -252,6 +252,7 @@
   parent: [ OrganBaseEyes, OrganHorrorInternal, OrganHorrorExternal ]
   id: OrganHorrorEyes
   components:
+  - type: EyeBlinking # <Onyx-EyeBlinking>
   - type: Sprite
     visible: false
   - type: VisualOrgan

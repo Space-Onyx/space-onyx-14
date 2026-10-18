@@ -20,7 +20,10 @@
         acts: [ "Destruction" ]
   - type: IconSmooth
     key: cultwalls
-    base: cult
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ cultwalls ]
+      base: cult
 
 - type: entity
   parent: WallCosmicCult
@@ -35,18 +38,15 @@
     sprite: _Onyx/CosmicCult/Tileset/cosmicwall.rsi
     layers:
       - state: full
-      - map: [ "enum.EdgeLayer.South" ]
-        state: trim_south
-      - map: [ "enum.EdgeLayer.East" ]
-        state: trim_east
-      - map: [ "enum.EdgeLayer.North" ]
-        state: trim_north
-      - map: [ "enum.EdgeLayer.West" ]
-        state: trim_west
   - type: IconSmooth
     key: cultwalls
-    base: cult
-  - type: SmoothEdge
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ cultwalls ]
+      base: cult
+    - !type:EdgeSpriteSmoothing
+      mask: [ cultwalls ]
+      base: trim_
 
 - type: entity
   id: WindowCosmicCult
@@ -76,7 +76,10 @@
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
   - type: IconSmooth
-    base: coswindow
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: coswindow
   - type: Appearance
   - type: DamageVisuals
     thresholds: [5, 10, 20]
@@ -100,7 +103,10 @@
     sprite: _Onyx/CosmicCult/Tileset/cosmicwindow_dark.rsi
     state: full
   - type: IconSmooth
-    base: cosDwindow
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: cosDwindow
 
 - type: entity
   parent: WallShuttleDiagonal
@@ -120,9 +126,11 @@
     sprite: _Onyx/CosmicCult/Tileset/cosmicwindow_diagonal.rsi
     state: coswindow0
   - type: IconSmooth
-    mode: Diagonal
     key: cultwindows
-    base: coswindow
+    states:
+    - !type:DiagonalSpriteSmoothing
+      mask: [ cultwindows ]
+      base: coswindow
   - type: Icon
     sprite: _Onyx/CosmicCult/Tileset/cosmicwindow_diagonal.rsi
     state: coswindow0
@@ -152,9 +160,11 @@
     sprite: _Onyx/CosmicCult/Tileset/cosmicwindow_dark_diagonal.rsi
     state: cosDwindow0
   - type: IconSmooth
-    mode: Diagonal
     key: cultwindows
-    base: cosDwindow
+    states:
+    - !type:DiagonalSpriteSmoothing
+      mask: [ cultwindows ]
+      base: cosDwindow
   - type: Icon
     sprite: _Onyx/CosmicCult/Tileset/cosmicwindow_dark_diagonal.rsi
     state: cosDwindow0

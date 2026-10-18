@@ -2,7 +2,7 @@
 // Licensed under the GNU General Public License v3.0.
 using System.Linq;
 using Content.Server.Administration;
-using Content.Server.DeviceLinking.Systems;
+using Content.Shared.DeviceLinking.Systems;
 using Content.Server.Medical.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Chemistry;
@@ -15,6 +15,7 @@ using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DeviceLinking;
+using Content.Shared.DeviceLinking.Components;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.FixedPoint;
 using Content.Shared.Forensics.Components;
@@ -67,7 +68,7 @@ namespace Content.Server.Genetics.System
             SubscribeLocalEvent<DnaModifierConsoleComponent, AfterActivatableUIOpenEvent>(OnUIOpen);
             SubscribeLocalEvent<DnaModifierConsoleComponent, PowerChangedEvent>(OnPowerChanged);
             SubscribeLocalEvent<DnaModifierConsoleComponent, NewLinkEvent>(OnNewLink);
-            SubscribeLocalEvent<DnaModifierConsoleComponent, PortDisconnectedEvent>(OnPortDisconnected);
+            SubscribeLocalEvent<DnaModifierConsoleComponent, SourcePortDisconnectedEvent>(OnPortDisconnected);
             SubscribeLocalEvent<DnaModifierConsoleComponent, AnchorStateChangedEvent>(OnAnchorChanged);
 
             SubscribeNetworkEvent<DnaModifierUpdateEvent>(OnUpdateUI);
@@ -146,7 +147,7 @@ namespace Content.Server.Genetics.System
             UpdateUserInterface(uid, component);
         }
 
-        private void OnNewLink(EntityUid uid, DnaModifierConsoleComponent component, NewLinkEvent args)
+        private void OnNewLink(EntityUid uid, DnaModifierConsoleComponent component, ref NewLinkEvent args)
         {
             if (TryComp<MedicalScannerComponent>(args.Sink, out var scanner) && args.SourcePort == DnaModifierConsoleComponent.ScannerPort)
             {
@@ -157,7 +158,7 @@ namespace Content.Server.Genetics.System
             RecheckConnections(uid, component.GeneticScanner, component);
         }
 
-        private void OnPortDisconnected(EntityUid uid, DnaModifierConsoleComponent component, PortDisconnectedEvent args)
+        private void OnPortDisconnected(EntityUid uid, DnaModifierConsoleComponent component, ref SourcePortDisconnectedEvent args)
         {
             if (args.Port == DnaModifierConsoleComponent.ScannerPort)
                 component.GeneticScanner = null;

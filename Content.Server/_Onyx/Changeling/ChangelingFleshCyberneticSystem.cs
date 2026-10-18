@@ -23,11 +23,10 @@ public sealed partial class ChangelingFleshCyberneticSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<BodyComponent, CloningEvent>(OnCloning);
         SubscribeLocalEvent<BodyComponent, AfterChangelingTransformEvent>(OnAfterTransform);
     }
 
-    private void OnCloning(Entity<BodyComponent> source, ref CloningEvent args)
+    public void CopyCloningDisguises(EntityUid source, CloningEvent args)
     {
         if (args.Settings.ID != ChangelingCloningSettings)
             return;

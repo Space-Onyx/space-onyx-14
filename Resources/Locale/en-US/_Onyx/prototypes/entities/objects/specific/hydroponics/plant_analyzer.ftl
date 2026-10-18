@@ -1,4 +1,0 @@
-ent-AdvancedPlantAnalyzer = plant analyzer
-    .desc = A scanner used to evaluate a plant's growth, genetic traits and chemicals.
-ent-PlantAnalyzerReportPaper = plant analyzer report
-    .desc = A printout from a plant analyzer.

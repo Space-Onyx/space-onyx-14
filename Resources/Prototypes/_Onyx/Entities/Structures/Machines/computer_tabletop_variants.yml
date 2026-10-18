@@ -648,7 +648,7 @@
 
 - type: entity
   id: computerBodyScannerTabletop
-  parent: [BaseStructureComputerTabletop, computerBodyScanner]
+  parent: [BaseStructureComputerTabletop, ComputerBodyScanner]
   suffix: Tabletop
   components:
   - type: Sprite

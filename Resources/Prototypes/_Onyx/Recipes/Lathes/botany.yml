@@ -5,8 +5,3 @@
   materials:
     Steel: 500
     Plastic: 100
-
-- type: latheRecipe
-  parent: HandheldHealthAnalyzer
-  id: AdvancedPlantAnalyzer
-  result: AdvancedPlantAnalyzer

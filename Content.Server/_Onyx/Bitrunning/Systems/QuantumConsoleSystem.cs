@@ -3,6 +3,8 @@ using Content.Server._Onyx.Bitrunning.Components;
 using Content.Shared._Onyx.Bitrunning;
 using Content.Shared._Onyx.Bitrunning.Components;
 using Content.Shared.DeviceLinking;
+using Content.Shared.DeviceLinking.Components;
+using Content.Shared.DeviceLinking.Systems;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Emag.Components;
 using Robust.Server.GameObjects;
@@ -14,7 +16,7 @@ public sealed partial class QuantumConsoleSystem : EntitySystem
     [Dependency] private UserInterfaceSystem _ui = default!;
     [Dependency] private QuantumServerSystem _server = default!;
     [Dependency] private BitrunningDomainSystem _domains = default!;
-    [Dependency] private SharedDeviceLinkSystem _deviceLink = default!;
+    [Dependency] private DeviceLinkSystem _deviceLink = default!;
     [Dependency] private IGameTiming _timing = default!;
 
     private static readonly TimeSpan UiRefresh = TimeSpan.FromSeconds(1);
@@ -37,7 +39,7 @@ public sealed partial class QuantumConsoleSystem : EntitySystem
         SubscribeLocalEvent<QuantumConsoleComponent, QuantumConsoleRefreshMessage>(OnRefresh);
         SubscribeLocalEvent<QuantumConsoleComponent, QuantumConsoleBroadcastMessage>(OnBroadcast);
         SubscribeLocalEvent<QuantumConsoleComponent, NewLinkEvent>(OnNewLink);
-        SubscribeLocalEvent<QuantumConsoleComponent, PortDisconnectedEvent>(OnPortDisconnected);
+        SubscribeLocalEvent<QuantumConsoleComponent, SinkPortDisconnectedEvent>(OnPortDisconnected);
     }
 
     private void OnInit(Entity<QuantumConsoleComponent> ent, ref ComponentInit args)
@@ -260,7 +262,7 @@ public sealed partial class QuantumConsoleSystem : EntitySystem
         ent.Comp.LinkedServerId = args.Source;
     }
 
-    private static void OnPortDisconnected(Entity<QuantumConsoleComponent> ent, ref PortDisconnectedEvent args)
+    private static void OnPortDisconnected(Entity<QuantumConsoleComponent> ent, ref SinkPortDisconnectedEvent args)
     {
         if (args.Port != ServerSinkPort)
             return;

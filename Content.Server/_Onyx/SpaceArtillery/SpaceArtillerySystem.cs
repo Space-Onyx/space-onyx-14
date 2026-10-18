@@ -1,6 +1,6 @@
 using System.Numerics;
 using Content.Server._Onyx.SpaceArtillery.Components;
-using Content.Server.DeviceLinking.Systems;
+using Content.Shared.DeviceLinking.Systems;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Weapons.Ranged.Systems;

@@ -153,6 +153,7 @@ public sealed partial class CloningSystem : SharedCloningSystem
 
         var cloningEv = new CloningEvent(settings, clone);
         RaiseLocalEvent(original, ref cloningEv); // used for datafields that cannot be directly copied using CopyComp
+        EntityManager.System<Content.Server._Onyx.Changeling.ChangelingFleshCyberneticSystem>().CopyCloningDisguises(original, cloningEv); // <Onyx-ChangelingCybernetics>
     }
 
     public override void CopyEquipment(

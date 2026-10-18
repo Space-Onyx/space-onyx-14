@@ -46,7 +46,7 @@ namespace Content.Shared.Genetics.Systems
             var allMarkingPrototypes = ProtoMan.EnumeratePrototypes<MarkingPrototype>();
             foreach (var markingPrototype in allMarkingPrototypes)
             {
-                if (markingPrototype.MarkingType is MarkingTypes.NonGenetics)
+                if (markingPrototype.MarkingType is MarkingPrototype.MarkingTypes.NonGenetics)
                     continue;
 
                 var markingPrototypeInfo = new MarkingPrototypeInfo

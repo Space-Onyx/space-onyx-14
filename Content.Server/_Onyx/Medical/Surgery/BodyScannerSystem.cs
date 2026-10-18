@@ -4,6 +4,7 @@ using Content.Shared._Onyx.Medical.Surgery;
 using Content.Shared.Buckle.Components;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.DeviceLinking;
+using Content.Shared.DeviceLinking.Components;
 using Content.Shared.Damage.Components;
 using Content.Shared.UserInterface;
 using Robust.Shared.Prototypes;
@@ -22,7 +23,7 @@ public sealed partial class BodyScannerSystem : EntitySystem
         SubscribeLocalEvent<OperatingTableComponent, UnstrappedEvent>(OnUnstrapped);
         SubscribeLocalEvent<BodyScannerComponent, LinkAttemptEvent>(OnLinkAttempt);
         SubscribeLocalEvent<BodyScannerComponent, NewLinkEvent>(OnNewLink);
-        SubscribeLocalEvent<BodyScannerComponent, PortDisconnectedEvent>(OnDisconnected);
+        SubscribeLocalEvent<BodyScannerComponent, SourcePortDisconnectedEvent>(OnDisconnected);
         SubscribeLocalEvent<BodyScannerComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<BodyScannerComponent, AfterActivatableUIOpenEvent>(OnUiOpened);
         SubscribeLocalEvent<BodyScannerComponent, ComponentShutdown>(OnScannerShutdown);
@@ -35,7 +36,7 @@ public sealed partial class BodyScannerSystem : EntitySystem
             args.SinkPort != ReceiverPort ||
             scanner.Comp.Table != null ||
             !TryComp(args.Sink, out OperatingTableComponent? table) || table.Scanner != null)
-            args.Cancel();
+            args.Cancelled = true;
     }
 
     private void OnNewLink(Entity<BodyScannerComponent> scanner, ref NewLinkEvent args)
@@ -52,7 +53,7 @@ public sealed partial class BodyScannerSystem : EntitySystem
         SyncPatient(scanner);
     }
 
-    private void OnDisconnected(Entity<BodyScannerComponent> scanner, ref PortDisconnectedEvent args)
+    private void OnDisconnected(Entity<BodyScannerComponent> scanner, ref SourcePortDisconnectedEvent args)
     {
         if (args.Port == BodyScannerComponent.LinkingPort)
             ClearScanner(scanner);

@@ -26,7 +26,7 @@
     transmitFrequencyId: VirologyServer
     receiveFrequencyId: VirologyServer
     autoConnect: false
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 500
   - type: StationLimitedNetwork
   - type: ApcPowerReceiver
@@ -71,5 +71,5 @@
   - type: DeviceNetwork
     deviceNetId: Wireless
     receiveFrequencyId: VirologyServer
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 1200

@@ -34,14 +34,14 @@ public sealed partial class PickSlimeLatchTargetOperator : HTNOperator
     [DataField]
     public string PathfindKey = NPCBlackboard.PathfindKey;
 
-    public override void Initialize(IEntitySystemManager sysManager)
+    public override void Initialize(IDependencyCollection deps)
     {
-        base.Initialize(sysManager);
-        _satiation = sysManager.GetEntitySystem<SatiationSystem>();
-        _latch = sysManager.GetEntitySystem<SlimeLatchSystem>();
-        _mobState = sysManager.GetEntitySystem<MobStateSystem>();
-        _factions = sysManager.GetEntitySystem<NpcFactionSystem>();
-        _pathfinding = sysManager.GetEntitySystem<PathfindingSystem>();
+        base.Initialize(deps);
+        _satiation = _entManager.System<SatiationSystem>();
+        _latch = _entManager.System<SlimeLatchSystem>();
+        _mobState = _entManager.System<MobStateSystem>();
+        _factions = _entManager.System<NpcFactionSystem>();
+        _pathfinding = _entManager.System<PathfindingSystem>();
     }
 
     public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(

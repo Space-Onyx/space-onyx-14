@@ -8,6 +8,7 @@ using Content.Shared.DoAfter;
 using Content.Shared.Emp;
 using Content.Shared._Onyx.Telecommunications;
 using Content.Shared.DeviceLinking;
+using Content.Shared.DeviceLinking.Components;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Examine;
@@ -982,7 +983,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
     {
         if (args.Source != ent.Owner ||
             args.SourcePort != ReceiverOutputPort ||
-            args.SinkPort is not (BusInputPort or HubInputPort))
+            args.SinkPort != BusInputPort && args.SinkPort != HubInputPort)
             return;
 
         var validSink = args.SinkPort == BusInputPort && HasComp<TelecomBusComponent>(args.Sink) ||
@@ -992,7 +993,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
             CountLinkedTargets<TelecomHubComponent>(ent.Owner, ReceiverOutputPort, HubInputPort) >= ent.Comp.MaxBuses &&
             !IsAlreadyLinked(ent.Owner, args.Sink, ReceiverOutputPort, args.SinkPort))
         {
-            args.Cancel();
+            args.Cancelled = true;
         }
     }
 
@@ -1006,7 +1007,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 CountLinkedBusesForProcessor(ent.Owner) >= ent.Comp.MaxBuses &&
                 !IsBusProcessorLinkedEitherWay(args.Source, ent.Owner))
             {
-                args.Cancel();
+                args.Cancelled = true;
             }
 
             return;
@@ -1015,7 +1016,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         if (args.Sink == ent.Owner &&
             args.SinkPort == ProcessorInputPort)
         {
-            args.Cancel();
+            args.Cancelled = true;
             return;
         }
 
@@ -1027,7 +1028,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 CountLinkedBusesForProcessor(ent.Owner) >= ent.Comp.MaxBuses &&
                 !IsBusProcessorLinkedEitherWay(args.Sink, ent.Owner))
             {
-                args.Cancel();
+                args.Cancelled = true;
             }
 
             return;
@@ -1036,7 +1037,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         if (args.Source == ent.Owner &&
             args.SourcePort == ProcessorOutputPort)
         {
-            args.Cancel();
+            args.Cancelled = true;
         }
     }
 
@@ -1051,7 +1052,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 CountLinkedSources<TelecomReceiverComponent>(ent.Owner, ReceiverOutputPort, BusInputPort) >= ent.Comp.MaxReceivers &&
                 !IsAlreadyLinked(args.Source, ent.Owner, HubOutputPort, BusInputPort))
             {
-                args.Cancel();
+                args.Cancelled = true;
             }
 
             return;
@@ -1065,7 +1066,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 CountLinkedSources<TelecomReceiverComponent>(ent.Owner, ReceiverOutputPort, BusInputPort) >= ent.Comp.MaxReceivers &&
                 !IsAlreadyLinked(args.Source, ent.Owner, ReceiverOutputPort, BusInputPort))
             {
-                args.Cancel();
+                args.Cancelled = true;
             }
 
             return;
@@ -1079,7 +1080,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 CountLinkedProcessorsForBus(ent.Owner) >= ent.Comp.MaxProcessors &&
                 !IsBusProcessorLinkedEitherWay(ent.Owner, args.Source))
             {
-                args.Cancel();
+                args.Cancelled = true;
             }
 
             return;
@@ -1088,7 +1089,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         if (args.Sink == ent.Owner &&
             args.SinkPort == BusInputPort)
         {
-            args.Cancel();
+            args.Cancelled = true;
             return;
         }
 
@@ -1100,7 +1101,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 CountLinkedProcessorsForBus(ent.Owner) >= ent.Comp.MaxProcessors &&
                 !IsBusProcessorLinkedEitherWay(ent.Owner, args.Sink))
             {
-                args.Cancel();
+                args.Cancelled = true;
             }
 
             return;
@@ -1114,7 +1115,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 CountLinkedTargets<TelecomServerComponent>(ent.Owner, BusOutputPort, ServerInputPort) >= ent.Comp.MaxServers &&
                 !IsAlreadyLinked(ent.Owner, args.Sink, BusOutputPort, ServerInputPort))
             {
-                args.Cancel();
+                args.Cancelled = true;
             }
 
             return;
@@ -1123,7 +1124,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         if (args.Source == ent.Owner &&
             args.SourcePort == BusOutputPort)
         {
-            args.Cancel();
+            args.Cancelled = true;
         }
     }
     private void OnServerLinkAttempt(Entity<TelecomSignalLogComponent> ent, ref LinkAttemptEvent args)
@@ -1137,7 +1138,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 CountLinkedSources<TelecomBusComponent>(ent.Owner, BusOutputPort, ServerInputPort) >= router.MaxBuses &&
                 !IsAlreadyLinked(args.Source, ent.Owner, BusOutputPort, ServerInputPort))
             {
-                args.Cancel();
+                args.Cancelled = true;
             }
 
             return;
@@ -1148,7 +1149,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
             args.SinkPort == BroadcasterInputPort &&
             !HasComp<TelecomBroadcasterComponent>(args.Sink))
         {
-            args.Cancel();
+            args.Cancelled = true;
             return;
         }
 
@@ -1157,14 +1158,14 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
             args.SinkPort == ConsoleInputPort &&
             !HasComp<TelecomTrafficConsoleComponent>(args.Sink))
         {
-            args.Cancel();
+            args.Cancelled = true;
         }
     }
 
     private void OnBroadcasterLinkAttempt(Entity<TelecomBroadcasterComponent> ent, ref LinkAttemptEvent args)
     {
         if (args.Sink != ent.Owner ||
-            args.SourcePort is not (ServerOutputPort or HubOutputPort) ||
+            args.SourcePort != ServerOutputPort && args.SourcePort != HubOutputPort ||
             args.SinkPort != BroadcasterInputPort)
             return;
 
@@ -1173,7 +1174,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
             CountLinkedSources<TelecomHubComponent>(ent.Owner, HubOutputPort, BroadcasterInputPort) >= ent.Comp.MaxServers &&
             !IsAlreadyLinked(args.Source, ent.Owner, args.SourcePort, BroadcasterInputPort))
         {
-            args.Cancel();
+            args.Cancelled = true;
         }
     }
 
@@ -1188,7 +1189,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 CountLinkedSources<TelecomServerComponent>(ent.Owner, ServerOutputPort, HubInputPort) >= ent.Comp.MaxInputs &&
                 !IsAlreadyLinked(args.Source, ent.Owner, args.SourcePort, HubInputPort))
             {
-                args.Cancel();
+                args.Cancelled = true;
             }
 
             return;
@@ -1203,7 +1204,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
                 CountLinkedTargets<TelecomBroadcasterComponent>(ent.Owner, HubOutputPort, BroadcasterInputPort) >= ent.Comp.MaxOutputs &&
                 !IsAlreadyLinked(ent.Owner, args.Sink, HubOutputPort, args.SinkPort))
             {
-                args.Cancel();
+                args.Cancelled = true;
             }
         }
     }
@@ -1216,7 +1217,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
             return;
 
         if (!HasComp<TelecomServerComponent>(args.Source))
-            args.Cancel();
+            args.Cancelled = true;
     }
 
     private int CountLinkedTargets<TComponent>(EntityUid sourceUid, string sourcePort, string sinkPort)
