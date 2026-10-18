@@ -183,7 +183,7 @@ public abstract partial class SharedPuddleSystem : EntitySystem
         OnPuddleBurningStateChanged(entity); // <Onyx-BurningPuddles>
 
         if (!args.Anchored && !args.Detaching)
-            PredictedQueueDel(entity.Owner);
+            QueueDel(entity.Owner);
     }
 
     protected virtual void OnPuddleBurningStateChanged(Entity<PuddleComponent> entity) // <Onyx-BurningPuddles>
@@ -212,7 +212,7 @@ public abstract partial class SharedPuddleSystem : EntitySystem
                 if (!_puddleQuery.HasComponent(ent))
                     continue;
 
-                PredictedQueueDel(ent);
+                QueueDel(ent);
             }
         }
     }

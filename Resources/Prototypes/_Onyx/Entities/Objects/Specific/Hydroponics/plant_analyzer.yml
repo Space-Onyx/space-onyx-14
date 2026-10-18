@@ -1,5 +1,5 @@
 - type: entity
-  id: PlantAnalyzer
+  id: AdvancedPlantAnalyzer
   parent: BaseItem
   name: plant analyzer
   description: A scanner used to evaluate a plant's growth, genetic traits and chemicals.
@@ -16,14 +16,14 @@
     tags:
     - PlantAnalyzer
   - type: ActivatableUI
-    key: enum.PlantAnalyzerUiKey.Key
+    key: enum.AdvancedPlantAnalyzerUiKey.Key
   - type: UserInterface
     interfaces:
-      enum.PlantAnalyzerUiKey.Key:
-        type: PlantAnalyzerBoundUserInterface
+      enum.AdvancedPlantAnalyzerUiKey.Key:
+        type: AdvancedPlantAnalyzerBoundUserInterface
   - type: ItemToggle
     onUse: false
-  - type: PlantAnalyzer
+  - type: AdvancedPlantAnalyzer
   - type: GuideHelp
     guides:
     - Botany

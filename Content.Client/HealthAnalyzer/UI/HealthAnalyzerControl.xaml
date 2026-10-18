@@ -25,7 +25,7 @@
                     <Label Text="{Loc 'health-analyzer-window-entity-status-text'}" StyleClasses="LabelWeak" />
                     <Label Name="StatusLabel" HorizontalAlignment="Right" />
                     <Label Text="{Loc 'health-analyzer-window-entity-temperature-text'}" StyleClasses="LabelWeak" />
-                    <Label Name="TemperatureLabel" HorizontalAlignment="Right" />
+                    <Label Name="TemperatureLabel" HorizontalAlignment="Right" Text="{Loc 'health-analyzer-window-entity-unknown-temperature-text'}" />
                     <Label Text="{Loc 'health-analyzer-window-entity-blood-level-text'}" StyleClasses="LabelWeak" />
                     <Label Name="BloodLabel" HorizontalAlignment="Right" />
                 </GridContainer>

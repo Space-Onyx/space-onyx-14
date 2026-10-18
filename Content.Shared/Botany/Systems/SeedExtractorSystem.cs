@@ -46,12 +46,12 @@ public sealed partial class SeedExtractorSystem : EntitySystem
             args.User,
             PopupType.Medium);
 
-        PredictedQueueDel(args.Used);
+        QueueDel(args.Used);
         args.Handled = true;
 
 
         var random = SharedRandomExtensions.PredictedRandom(_timing, GetNetEntity(ent));
-        var amount = Math.Max(1, (int) MathF.Round(random.NextFloat(ent.Comp.BaseSeeds.Min, ent.Comp.BaseSeeds.Max + 1) * ent.Comp.SeedMultiplier)); // <Onyx-TieredMachineParts-edited>
+        var amount = Math.Max(1, (int) MathF.Round(ent.Comp.BaseSeeds.Next(random) * ent.Comp.SeedMultiplier)); // <Onyx-TieredMachineParts-edited>
         var coords = Transform(ent).Coordinates;
 
         for (var i = 0; i < amount; i++)

@@ -50,14 +50,12 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Torso
-    dirtExposures: [Splash, Crawl, FullBody] # <Onyx-ClothingDirt>
-    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING, NECK] # <Onyx-ClothingDirt>
+    dirtExposures: [Splash, Crawl, FullBody]
+    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING, NECK]
     vital: true
     category: Torso
-    # <Onyx-GoobTraumaProtection>
     traumaProtection:
       Dismemberment: 0.3
-    # </Onyx-GoobTraumaProtection>
   # </Onyx-Surgery>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
@@ -99,26 +97,22 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Head
-    dirtExposures: [Splash, Crawl, Face, FullBody] # <Onyx-ClothingDirt>
-    dirtCoverageLayers: [HEAD, MASK] # <Onyx-ClothingDirt>
+    dirtExposures: [Splash, Crawl, Face, FullBody]
+    dirtCoverageLayers: [HEAD, MASK]
     vital: true
     category: Head
     fractureProfile: OrganicFractureProfile
-    # <Onyx-GoobTraumaProtection>
     traumaProtection:
       Dismemberment: 0.5
-    # </Onyx-GoobTraumaProtection>
     amputationThresholds:
       Slash: 200
       Piercing: 200
       Blunt: 350
-    # <Onyx-AmputationDamage>
     damageOnAmputate:
       types:
         Bloodloss: 45
         Asphyxiation: 45
         Slash: 45
-    # </Onyx-AmputationDamage>
   # </Onyx-Surgery>
   # <Onyx-SurgeryToolExamine>
   - type: SurgeryTool
@@ -167,15 +161,13 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Arm
-    dirtExposures: [Splash, Crawl, FullBody] # <Onyx-ClothingDirt>
-    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING] # <Onyx-ClothingDirt>
+    dirtExposures: [Splash, Crawl, FullBody]
+    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING]
     symmetry: Left
     category: ArmLeft
     fractureProfile: OrganicFractureProfile
-    # <Onyx-GoobTraumaProtection>
     traumaProtection:
       Dismemberment: 0.3
-    # </Onyx-GoobTraumaProtection>
     amputationThresholds:
       Slash: 130
       Piercing: 250
@@ -221,15 +213,13 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Arm
-    dirtExposures: [Splash, Crawl, FullBody] # <Onyx-ClothingDirt>
-    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING] # <Onyx-ClothingDirt>
+    dirtExposures: [Splash, Crawl, FullBody]
+    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING]
     symmetry: Right
     category: ArmRight
     fractureProfile: OrganicFractureProfile
-    # <Onyx-GoobTraumaProtection>
     traumaProtection:
       Dismemberment: 0.3
-    # </Onyx-GoobTraumaProtection>
     amputationThresholds:
       Slash: 130
       Piercing: 250
@@ -274,15 +264,13 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Hand
-    dirtExposures: [Splash, Crawl, Hands, FullBody] # <Onyx-ClothingDirt>
-    dirtCoverageLayers: [GLOVES] # <Onyx-ClothingDirt>
+    dirtExposures: [Splash, Crawl, Hands, FullBody]
+    dirtCoverageLayers: [GLOVES]
     symmetry: Left
     category: HandLeft
     fractureProfile: OrganicFractureProfile
-    # <Onyx-GoobTraumaProtection>
     traumaProtection:
       Dismemberment: 0.3
-    # </Onyx-GoobTraumaProtection>
     amputationThresholds:
       Slash: 70
       Piercing: 200
@@ -329,15 +317,13 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Hand
-    dirtExposures: [Splash, Crawl, Hands, FullBody] # <Onyx-ClothingDirt>
-    dirtCoverageLayers: [GLOVES] # <Onyx-ClothingDirt>
+    dirtExposures: [Splash, Crawl, Hands, FullBody]
+    dirtCoverageLayers: [GLOVES]
     symmetry: Right
     category: HandRight
     fractureProfile: OrganicFractureProfile
-    # <Onyx-GoobTraumaProtection>
     traumaProtection:
       Dismemberment: 0.3
-    # </Onyx-GoobTraumaProtection>
     amputationThresholds:
       Slash: 70
       Piercing: 200
@@ -385,15 +371,13 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Leg
-    dirtExposures: [Splash, Crawl, FullBody] # <Onyx-ClothingDirt>
-    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING] # <Onyx-ClothingDirt>
+    dirtExposures: [Splash, Crawl, FullBody]
+    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING]
     symmetry: Left
     category: LegLeft
     fractureProfile: OrganicFractureProfile
-    # <Onyx-GoobTraumaProtection>
     traumaProtection:
       Dismemberment: 0.3
-    # </Onyx-GoobTraumaProtection>
     amputationThresholds:
       Slash: 150
       Piercing: 250
@@ -439,15 +423,13 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Leg
-    dirtExposures: [Splash, Crawl, FullBody] # <Onyx-ClothingDirt>
-    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING] # <Onyx-ClothingDirt>
+    dirtExposures: [Splash, Crawl, FullBody]
+    dirtCoverageLayers: [OUTERCLOTHING, INNERCLOTHING]
     symmetry: Right
     category: LegRight
     fractureProfile: OrganicFractureProfile
-    # <Onyx-GoobTraumaProtection>
     traumaProtection:
       Dismemberment: 0.3
-    # </Onyx-GoobTraumaProtection>
     amputationThresholds:
       Slash: 150
       Piercing: 250
@@ -492,15 +474,13 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Foot
-    dirtExposures: [Splash, Ground, Crawl, FullBody] # <Onyx-ClothingDirt>
-    dirtCoverageLayers: [FEET, SOCKS] # <Onyx-ClothingDirt>
+    dirtExposures: [Splash, Ground, Crawl, FullBody]
+    dirtCoverageLayers: [FEET, SOCKS]
     symmetry: Left
     category: FootLeft
     fractureProfile: OrganicFractureProfile
-    # <Onyx-GoobTraumaProtection>
     traumaProtection:
       Dismemberment: 0.3
-    # </Onyx-GoobTraumaProtection>
     amputationThresholds:
       Slash: 80
       Piercing: 220
@@ -543,15 +523,13 @@
   # <Onyx-Surgery>
   - type: BodyPart
     partType: Foot
-    dirtExposures: [Splash, Ground, Crawl, FullBody] # <Onyx-ClothingDirt>
-    dirtCoverageLayers: [FEET, SOCKS] # <Onyx-ClothingDirt>
+    dirtExposures: [Splash, Ground, Crawl, FullBody]
+    dirtCoverageLayers: [FEET, SOCKS]
     symmetry: Right
     category: FootRight
     fractureProfile: OrganicFractureProfile
-    # <Onyx-GoobTraumaProtection>
     traumaProtection:
       Dismemberment: 0.3
-    # </Onyx-GoobTraumaProtection>
     amputationThresholds:
       Slash: 80
       Piercing: 220
@@ -688,6 +666,7 @@
     markingData:
       layers:
       - Eyes
+      - OverEyes
 
 - type: entity
   parent:

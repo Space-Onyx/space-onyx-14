@@ -28,7 +28,7 @@
       prob: 0.7
     - id: Multitool
       prob: 0.2
-    - id: trayScanner
+    - id: TRayScanner
       prob: 0.7
     - id: GasAnalyzer
       prob: 0.7
@@ -128,7 +128,7 @@
   # <Onyx-LockerInventories-edited>
   - type: StorageFill
     contents:
-    - id: UndeterminedVoidsuitAtmos # <Onyx-VoidsuitSelectors-edited>
+    - id: UndeterminedVoidsuitAtmos
     - id: OxygenTankFilled
     - id: NitrogenTankFilled
     - id: ClothingMaskGasAtmos
@@ -136,7 +136,7 @@
     - id: ClothingHeadHelmetAtmosFire
     - id: MedkitOxygenFilled
     - id: HolofanProjector
-    - id: RPD # <Onyx-LockerInventories>
+    - id: RPD
     - id: RCD
     - id: RCDAmmo
     - id: AirGrenade
@@ -158,7 +158,7 @@
     - id: ClothingHeadHelmetAtmosFire
     - id: MedkitOxygenFilled
     - id: HolofanProjector
-    - id: RPD # <Onyx-LockerInventories>
+    - id: RPD
     - id: RCD
     - id: RCDAmmo
     - id: AirGrenade
@@ -226,7 +226,7 @@
     # <Onyx-LockerInventories-edited>
     - id: ClothingHandsGlovesColorYellow
     - id: ClothingMaskGas
-    - id: trayScanner
+    - id: TRayScanner
     - id: RCD
     - id: RCDAmmo
     - id: MetalFoamGrenade

@@ -13,6 +13,7 @@ using Content.Shared.Popups;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.UserInterface;
 using Content.Shared.VendingMachines.Components;
+using Content.Shared.VendingMachines.Events;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.GameStates;
@@ -48,6 +49,13 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
             subs.Event<VendingMachineWithdrawMessage>(OnWithdrawMessage);
         });
         SubscribeLocalEvent<VendingMachineComponent, GotEmaggedEvent>(OnEmagged);
+    }
+
+    [SubscribeLocalEvent]
+    private void OnOpenVendingUIAction(Entity<VendingMachineComponent> entity, ref OpenVendingUIActionEvent args)
+    {
+        UISystem.TryToggleUi(entity.Owner, VendingMachineUiKey.Key,args.Performer);
+        args.Handled = true;
     }
 
     [SubscribeLocalEvent]

@@ -19,9 +19,9 @@ public sealed partial class HealthAnalyzerWindow : FancyWindow
         // </Onyx-HealthAnalyzer-Interface-edited>
     }
 
-    public void Populate(HealthAnalyzerScannedUserMessage msg)
+    public void Populate(HealthAnalyzerUiState state)
     {
-        HealthAnalyzer.Populate(msg.State);
+        HealthAnalyzer.Populate(state);
         // <Onyx-HealthAnalyzer-Interface>
         TabButtons.Visible = HealthAnalyzer.IsHumanoid;
         if (!HealthAnalyzer.IsHumanoid)

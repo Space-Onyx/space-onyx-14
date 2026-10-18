@@ -56,6 +56,6 @@ public abstract partial class SharedVendingMachineSystem
         TryRestockInventory(ent, ent.Comp);
         Popup.PopupEntity(Loc.GetString("vending-machine-restock-done-self", ("target", ent)), Loc.GetString("vending-machine-restock-done-others", ("user", Identity.Entity(args.User, EntityManager)), ("target", ent)), ent, args.User, PopupType.Medium);
         Audio.PlayPredicted(restock.SoundRestockDone, ent, args.User);
-        PredictedQueueDel(args.Used.Value);
+        QueueDel(args.Used.Value);
     }
 }

@@ -41,6 +41,8 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         {
             HandleFilter();
         };
+
+        // HomeButton uses the workspace rule entry. // <Onyx-GuidebookWorkspace-edited>
     }
 
     public void HandleClick(string link)

@@ -1,13 +1,13 @@
 using Content.Shared.Botany.Systems;
 using Robust.Shared.GameStates;
-using Robust.Shared.Analyzers;
+using Robust.Shared.Analyzers; // <Onyx-SeedDna>
 
 namespace Content.Shared.Botany.Components;
 
 /// <summary>
 /// Component for atmospheric-related requirements for proper plant growth.
 /// </summary>
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true)]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true, raiseAfterAutoHandleState: true)]
 [Access(typeof(SharedPlantAtmosphericSystem), Other = AccessPermissions.ReadWriteExecute)] // <Onyx-SeedDna-edited>
 public sealed partial class PlantAtmosphericComponent : Component
 {

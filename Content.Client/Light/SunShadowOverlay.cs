@@ -1,8 +1,7 @@
 using System.Numerics;
 using Content.Client.Graphics;
 using Content.Shared.Light.Components;
-using Content.Client.Light.EntitySystems;
-using Robust.Client.GameObjects;
+using Content.Client.Light.EntitySystems; // <Onyx-RoofSunlight>
 using Robust.Client.Graphics;
 using Robust.Shared.Enums;
 using Robust.Shared.Map;
@@ -23,8 +22,8 @@ public sealed partial class SunShadowOverlay : Overlay
     [Dependency] private IPrototypeManager _protoManager = default!;
     private readonly EntityLookupSystem _lookup;
     private readonly SharedMapSystem _mapSys;
-    private readonly RoofSystem _roof;
-    private readonly TransformSystem _xformSys;
+    private readonly RoofSystem _roof; // <Onyx-RoofSunlight>
+    private readonly SharedTransformSystem _xformSys;
 
     private readonly HashSet<Entity<SunShadowCastComponent>> _shadows = new();
 
@@ -33,7 +32,7 @@ public sealed partial class SunShadowOverlay : Overlay
     public SunShadowOverlay()
     {
         IoCManager.InjectDependencies(this);
-        _xformSys = _entManager.System<TransformSystem>();
+        _xformSys = _entManager.System<SharedTransformSystem>();
         _mapSys = _entManager.System<SharedMapSystem>();
         _roof = _entManager.System<RoofSystem>();
         _lookup = _entManager.System<EntityLookupSystem>();
@@ -127,7 +126,7 @@ public sealed partial class SunShadowOverlay : Overlay
                     foreach (var ent in _shadows)
                     {
                         var xform = _entManager.GetComponent<TransformComponent>(ent.Owner);
-                        var (worldPos, worldRot) = _xformSys.GetRenderWorldPositionRotation((ent.Owner, xform));
+                        var (worldPos, worldRot) = _xformSys.GetWorldPositionRotation(xform);
                         // Need no rotation on matrix as sun shadow direction doesn't care.
                         var worldMatrix = Matrix3x2.CreateTranslation(worldPos);
                         var renderMatrix = Matrix3x2.Multiply(worldMatrix, invMatrix);

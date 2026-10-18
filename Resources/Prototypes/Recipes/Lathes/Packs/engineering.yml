@@ -22,9 +22,8 @@
   - HandheldStationMap
   - ClothingHeadHatWelding
   - ClothingHeadHatCone
-  # <Onyx-Hammer>
-  - WeaponHammer
-  # </Onyx-Hammer>
+  - WeaponHammer # <Onyx-Hammer>
+  - Binoculars
 
 - type: latheRecipePack
   id: AtmosStatic
@@ -96,7 +95,7 @@
   - OnyxTelecomServerCircuitboard
   - TelecomBusCircuitboard
   - TelecomReceiverCircuitboard
-  - TelecomTransmitterCircuitboard # <Onyx-TelecomTransmitter>
+  - TelecomTransmitterCircuitboard
   - TelecomProcessorCircuitboard
   - TelecomBroadcasterCircuitboard
   - TelecomTrafficConsoleCircuitboard

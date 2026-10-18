@@ -22,8 +22,8 @@ public sealed partial class FaxAlertSystem : EntitySystem
         if (!TryComp(faxEntity, out FaxAlertComponent? alertComponent))
             return;
 
-        var senderName = args.FromAddress != null &&
-            faxEntity.Comp.KnownFaxes.TryGetValue(args.FromAddress, out var faxName)
+        var senderName = args.FromAddress is { } address &&
+            faxEntity.Comp.KnownFaxes.TryGetValue(address, out var faxName)
                 ? faxName
                 : Loc.GetString("fax-machine-popup-source-unknown");
 

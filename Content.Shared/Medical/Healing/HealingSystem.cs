@@ -3,7 +3,7 @@ using Content.Shared.Body.Components;
 using Content.Shared.Body.Systems;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage.Components;
-using Content.Shared.Damage;
+using Content.Shared.Damage; // <Onyx-WoundTreatment>
 using Content.Shared.Damage.Systems;
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
@@ -36,7 +36,7 @@ public sealed partial class HealingSystem : EntitySystem
     [Dependency] private MobThresholdSystem _mobThresholdSystem = default!;
     [Dependency] private SharedPopupSystem _popupSystem = default!;
     [Dependency] private SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private TargetResolverSystem _targetResolver = default!;
+    [Dependency] private TargetResolverSystem _targetResolver = default!; // <Onyx-WoundTreatment>
     [Dependency] private WoundHealingSystem _woundHealing = default!; // <Onyx-WoundSystem>
 
     public override void Initialize()
@@ -149,7 +149,7 @@ public sealed partial class HealingSystem : EntitySystem
         }
         else
         {
-            PredictedQueueDel(used);
+            QueueDel(used); // <Onyx-WoundTreatment-edited>
         }
 
         if (target.Owner != args.User)

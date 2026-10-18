@@ -1,11 +1,12 @@
-using Content.Server.Medical.Components;
 using Content.Shared.CartridgeLoader;
+using Content.Shared.Medical.HealthAnalyzer;
 
 namespace Content.Server.CartridgeLoader.Cartridges;
 
 public sealed partial class MedTekCartridgeSystem : EntitySystem
 {
     [Dependency] private CartridgeLoaderSystem _cartridgeLoaderSystem = default!;
+    [Dependency] private HealthAnalyzerSystem _healthAnalyzer = default!; // <Onyx-MedTekScanCharge>
 
     private const float ScanCharge = 7.2f; // <Onyx-MedTekScanCharge>
 
@@ -19,7 +20,7 @@ public sealed partial class MedTekCartridgeSystem : EntitySystem
 
     private void OnCartridgeAdded(Entity<MedTekCartridgeComponent> ent, ref CartridgeAddedEvent args)
     {
-        EnsureComp<HealthAnalyzerComponent>(args.Loader).ScanCharge = ScanCharge; // <Onyx-MedTekScanCharge-edited>
+        _healthAnalyzer.SetScanCharge((args.Loader, EnsureComp<HealthAnalyzerComponent>(args.Loader)), ScanCharge); // <Onyx-MedTekScanCharge-edited>
     }
 
     private void OnCartridgeRemoved(Entity<MedTekCartridgeComponent> ent, ref CartridgeRemovedEvent args)

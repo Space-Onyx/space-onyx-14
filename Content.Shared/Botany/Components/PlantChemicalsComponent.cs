@@ -2,7 +2,7 @@ using Content.Shared.Botany.Systems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
 using Robust.Shared.GameStates;
-using Robust.Shared.Analyzers;
+using Robust.Shared.Analyzers; // <Onyx-SeedDna>
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
@@ -11,7 +11,7 @@ namespace Content.Shared.Botany.Components;
 /// <summary>
 /// Component for defining what reagents harvested produce will contain for this plant species.
 /// </summary>
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true)]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true, raiseAfterAutoHandleState: true)]
 [Access(typeof(PlantChemicalsSystem), typeof(PlantMutationSystem), Other = AccessPermissions.ReadWriteExecute)] // <Onyx-SeedDna-edited>
 public sealed partial class PlantChemicalsComponent : Component
 {

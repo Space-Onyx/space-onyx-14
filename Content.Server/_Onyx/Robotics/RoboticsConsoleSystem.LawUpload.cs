@@ -61,7 +61,7 @@ public sealed partial class RoboticsConsoleSystem
         if (!ent.Comp.AllowLawUpload ||
             _lock.IsLocked(ent.Owner) ||
             !_access.IsAllowed(args.Actor, ent) ||
-            !ent.Comp.Cyborgs.ContainsKey(args.Address) ||
+            !ent.Comp.CyborgsAddresses.ContainsKey(args.Address) ||
             !ent.Comp.LawUploadTargets.TryGetValue(args.Address, out var target) ||
             !IsValidTarget(ent, target) ||
             !TryComp<SiliconLawProviderComponent>(target, out var targetProvider) ||

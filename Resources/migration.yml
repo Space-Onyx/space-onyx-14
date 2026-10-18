@@ -908,16 +908,18 @@ CratePartsT3T4: null
 CratePartsT4: null
 
 # 2026-07-16
-WallNecropolis: WallSolid
-WallVaultAlien: WallSolid
-WallVaultRock: WallSolid
-WallVaultSandstone: WallSolid
-WallSandstone: WallSolid
-WallDiamond: WallReinforced
-WallCult: WallBrick
-WallClown: WallGold
-WallClock: WallBrass
-WallPlastic: WallSolid
+# <Onyx-OldWallSprites-edited>
+# WallNecropolis: WallSolid
+# WallVaultAlien: WallSolid
+# WallVaultRock: WallSolid
+# WallVaultSandstone: WallSolid
+# WallSandstone: WallSolid
+# WallDiamond: WallReinforced
+# WallCult: WallBrick
+# WallClown: WallGold
+# WallClock: WallBrass
+# WallPlastic: WallSolid
+# </Onyx-OldWallSprites-edited>
 # ClockworkGrille: Grille
 # ClockworkGrilleBroken: GrilleBroken
 # ClockworkGrilleDiagonal: GrilleDiagonal
@@ -932,15 +934,17 @@ PinionAirlockAssembly: AirlockAssembly
 BananiumDoor: GoldDoor
 EncrustedIronstoneDoor: SilverDoor
 IronstoneDoor: SilverDoor
-WallSnowCobblebrick: WallBrick
-WallSandCobblebrick: WallBrick
-WallChromiteCobblebrick: WallBrick
-WallAndesiteCobblebrick: WallBrick
-WallIronsandCobblebrick: WallBrick
-WallCobblebrick: WallConcrete
-WallAsteroidCobblebrick: WallConcrete
-WallBasaltCobblebrick: WallConcrete
-WallIce: WallRockSnow
+# <Onyx-OldWallSprites-edited>
+# WallSnowCobblebrick: WallBrick
+# WallSandCobblebrick: WallBrick
+# WallChromiteCobblebrick: WallBrick
+# WallAndesiteCobblebrick: WallBrick
+# WallIronsandCobblebrick: WallBrick
+# WallCobblebrick: WallConcrete
+# WallAsteroidCobblebrick: WallConcrete
+# WallBasaltCobblebrick: WallConcrete
+# WallIce: WallRockSnow
+# </Onyx-OldWallSprites-edited>
 
 #2026-07-17
 WeaponRifleM90GrenadeLauncher: null
@@ -1147,7 +1151,7 @@ FloorChromiteChasm: FloorChasmEntity
 # 2026-08-06
 # Corvax-Sprites
 # FloorTileItemHydro: null
-WallRiveted: WallMarble
+# WallRiveted: WallMarble # <Onyx-OldWallSprites-edited>
 WallSpawnAsteroidBananium: null
 WallSpawnAsteroidBananiumCrab: null
 
@@ -1230,6 +1234,7 @@ LightReplacerEmpty: LightReplacer
 #2026-08-19
 JanitorServiceLight: null
 
+# <Onyx-EntityMigrations>
 # 2026-08-01 Onyx
 AirlockCentralCommandCommandLocked: AirlockMaintLocked
 RandomVendingSnacksMidpop: RandomVendingSnacks
@@ -1255,6 +1260,11 @@ HoloCigar: null
 AirlockCaptain: Airlock
 AirlockHeadOfPersonnel: Airlock
 AirlockHeadOfPersonnelGlass: AirlockGlass
+# </Onyx-EntityMigrations>
+
+#2026-08-28
+ClothingUniformJumpskirtPerformer: ClothingUniformJumpskirtVirtualSinger
+ClothingShoesBootsPerformer: ClothingShoesBootsVirtualSinger
 
 #2026-08-31
 DrinkWaterJug: JugWater
@@ -1293,3 +1303,16 @@ ClothingHeadHatWizard: ClothingHeadHatWizardBlue
 ClothingOuterWizard: ClothingOuterWizardBlue
 ClothingHeadHatRedwizard: ClothingHeadHatWizardRed
 ClothingHeadHatVioletwizard: ClothingHeadHatWizardViolet
+
+# 2026-10-07
+computerBodyScanner: ComputerBodyScanner
+filingCabinet: FilingCabinet
+filingCabinetRandom: FilingCabinetRandom
+filingCabinetDrawer: FilingCabinetDrawer
+filingCabinetDrawerRandom: FilingCabinetDrawerRandom
+filingCabinetTall: FilingCabinetTall
+filingCabinetTallRandom: FilingCabinetTallRandom
+hydroponicsSoil: HydroponicsSoil
+hydroponicsTray: HydroponicsTray
+trayScanner: TRayScanner
+voicesensor: VoiceSensor

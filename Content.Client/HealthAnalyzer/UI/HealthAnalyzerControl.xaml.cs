@@ -14,7 +14,6 @@ using Content.Shared.Damage.Systems;
 using Content.Shared.Chemistry.Reagent; // <Onyx-HealthAnalyzerChemicals>
 using Content.Shared.FixedPoint;
 using Content.Shared.Humanoid;
-using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.IdentityManagement;
 using Content.Shared.MedicalScanner;
 using Content.Shared.Mobs;
@@ -27,31 +26,28 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
+
 namespace Content.Client.HealthAnalyzer.UI;
 
 // Health analyzer UI is split from its window because it's used by both the
 // health analyzer item and the cryo pod UI.
-
 [GenerateTypedNameReferences]
 public sealed partial class HealthAnalyzerControl : BoxContainer
 {
-    private const float DangerousBloodLevel = 0.65f;
-
-    private readonly IEntityManager _entityManager;
-    private readonly SpriteSystem _spriteSystem;
-    private readonly IPrototypeManager _prototypes;
+    private const float DangerousBloodLevel = 0.65f; // <Onyx-HealthAnalyzer-StatusDoll>
     private readonly IResourceCache _cache;
+    private readonly IEntityManager _entityManager;
+    private readonly IPrototypeManager _prototypes;
     private readonly DamageableSystem _damageable;
+    private readonly SpriteSystem _spriteSystem;
     public bool IsHumanoid { get; private set; } // <Onyx-HealthAnalyzer-Interface>
     // <Onyx-HealthAnalyzer-StatusDoll>
     private HealthAnalyzerUiState _state;
     private NetEntity? _displayedTarget;
     private TargetBodyPart? _selectedPart;
     private EntityUid? _target;
-    // <Onyx-HealthAnalyzerOrgans>
     private readonly Dictionary<NetEntity, (BoxContainer Row, EllipsisLabel Name, RichTextLabel Health)> _organRows = new();
     private bool _organsUnavailable;
-    // </Onyx-HealthAnalyzerOrgans>
     // </Onyx-HealthAnalyzer-StatusDoll>
 
     public HealthAnalyzerControl()
@@ -59,10 +55,10 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         RobustXamlLoader.Load(this);
 
         var dependencies = IoCManager.Instance!;
-        _entityManager = dependencies.Resolve<IEntityManager>();
-        _spriteSystem = _entityManager.System<SpriteSystem>();
-        _prototypes = dependencies.Resolve<IPrototypeManager>();
         _cache = dependencies.Resolve<IResourceCache>();
+        _entityManager = dependencies.Resolve<IEntityManager>();
+        _prototypes = dependencies.Resolve<IPrototypeManager>();
+        _spriteSystem = _entityManager.System<SpriteSystem>();
         _damageable = _entityManager.System<DamageableSystem>();
         // <Onyx-HealthAnalyzer-StatusDoll>
         StatusDoll.PartSelected += OnPartSelected;
@@ -70,12 +66,32 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         // </Onyx-HealthAnalyzer-StatusDoll>
     }
 
+    /// <summary>
+    /// Populate the UI via a state.
+    /// </summary>
+    /// <param name="state">The state that carries the information about the patient.</param>
     public void Populate(HealthAnalyzerUiState state)
     {
-        var target = _entityManager.GetEntity(state.TargetEntity);
+        PopulateDataFields(state); // <Onyx-HealthAnalyzer-StatusDoll-edited>
+        if (!float.IsNaN(state.Temperature))
+            PopulateTemperature(state.Temperature);
+    }
 
-        if (target == null
-            || !_entityManager.HasComponent<DamageableComponent>(target))
+    /// <summary>
+    /// Populates the UI directly.
+    /// </summary>
+    /// <param name="state">The current scan and diagnostic data.</param>
+    private void PopulateDataFields(HealthAnalyzerUiState state) // <Onyx-HealthAnalyzer-StatusDoll-edited>
+    {
+        // <Onyx-HealthAnalyzer-StatusDoll>
+        var target = _entityManager.GetEntity(state.TargetEntity);
+        var scanMode = state.ScanMode;
+        var bloodlevel = state.BloodLevel;
+        var unrevivable = state.Unrevivable;
+        // </Onyx-HealthAnalyzer-StatusDoll>
+
+        // If the entity has been deleted,
+        if (_entityManager.Deleted(target) || !_entityManager.HasComponent<DamageableComponent>(target)) // <Onyx-HealthAnalyzer-StatusDoll-edited>
         {
             // <Onyx-HealthAnalyzer-StatusDoll-edited>
             PatientDataContainer.Visible = true;
@@ -104,12 +120,12 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
             DiseasesDivider.Visible = false;
             DiseasesContainer.Visible = false;
             DiseasesContainer.RemoveAllChildren();
-            ClearOrganRows(); // <Onyx-HealthAnalyzerOrgans-edited>
-            ChemicalsContainer.RemoveAllChildren(); // <Onyx-HealthAnalyzerChemicals>
+            ClearOrganRows();
+            ChemicalsContainer.RemoveAllChildren();
             _target = null;
             _displayedTarget = null;
             _selectedPart = null;
-            IsHumanoid = false; // <Onyx-HealthAnalyzer-Interface>
+            IsHumanoid = false;
             // </Onyx-HealthAnalyzer-StatusDoll-edited>
             return;
         }
@@ -126,31 +142,26 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         _displayedTarget = state.TargetEntity;
         _state = state;
         _target = target;
-        // <Onyx-HealthAnalyzer-Interface>
         IsHumanoid = _entityManager.HasComponent<HumanoidProfileComponent>(target.Value);
         SpeciesLabel.Visible = IsHumanoid;
         WoundDiagnosticPanel.Visible = _entityManager.HasComponent<WoundHostComponent>(target.Value);
-        // </Onyx-HealthAnalyzer-Interface>
-        DrawDiseases(target.Value); // <Onyx-DiseaseHealthAnalyzer-edited>
+        DrawDiseases(target.Value);
         if (_selectedPart is { } selected && (state.PartDamage == null || !state.PartDamage.ContainsKey(selected)))
             _selectedPart = null;
         // </Onyx-HealthAnalyzer-StatusDoll>
 
         // Scan Mode
+        ScanModeLabel.Text = scanMode
+            ? Loc.GetString("health-analyzer-window-scan-mode-active")
+            : Loc.GetString("health-analyzer-window-scan-mode-inactive");
 
-        ScanModeLabel.Text = state.ScanMode.HasValue
-            ? state.ScanMode.Value
-                ? Loc.GetString("health-analyzer-window-scan-mode-active")
-                : Loc.GetString("health-analyzer-window-scan-mode-inactive")
-            : Loc.GetString("health-analyzer-window-entity-unknown-text");
-
-        ScanModeLabel.FontColorOverride = state.ScanMode.HasValue && state.ScanMode.Value ? Color.Green : Color.Red;
+        ScanModeLabel.FontColorOverride = scanMode ? Color.Green : Color.Red;
 
         // Patient Information
 
         // <Onyx-HealthAnalyzer-StatusDoll-edited>
         var active = state.ScanMode == true;
-        var showDoll = active && IsHumanoid && state.PartDamage != null; // <Onyx-HealthAnalyzer-Interface-edited>
+        var showDoll = active && IsHumanoid && state.PartDamage != null;
         SpriteView.SetEntity(target.Value);
         SpriteView.Visible = active && !showDoll;
         StatusDoll.Visible = showDoll;
@@ -160,10 +171,8 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         if (showDoll)
             StatusDoll.Refresh(state.PartDamage!, _spriteSystem);
         DrawWoundDiagnostics(state);
-        // <Onyx-HealthAnalyzerOrgans-edited>
         DrawOrgans(state);
-        // </Onyx-HealthAnalyzerOrgans-edited>
-        DrawChemicals(state); // <Onyx-HealthAnalyzerChemicals>
+        DrawChemicals(state);
         // </Onyx-HealthAnalyzer-StatusDoll-edited>
 
         var name = new FormattedMessage();
@@ -171,6 +180,11 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         name.AddText(_entityManager.HasComponent<MetaDataComponent>(target.Value)
             ? Identity.Name(target.Value, _entityManager)
             : Loc.GetString("health-analyzer-window-entity-unknown-text"));
+
+        // If the scanned entity was changed, we need to reset the temperature label.
+        if (name.ToMarkup() != NameLabel.Text)
+            TemperatureLabel.Text = Loc.GetString("health-analyzer-window-entity-unknown-temperature-text");
+
         NameLabel.SetMessage(name);
 
         SpeciesLabel.Text =
@@ -180,13 +194,8 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                 : Loc.GetString("health-analyzer-window-entity-unknown-species-text");
 
         // Basic Diagnostic
-
-        TemperatureLabel.Text = !float.IsNaN(state.Temperature)
-            ? $"{state.Temperature - Atmospherics.T0C:F1} °C ({state.Temperature:F1} K)"
-            : Loc.GetString("health-analyzer-window-entity-unknown-value-text");
-
-        BloodLabel.Text = !float.IsNaN(state.BloodLevel)
-            ? $"{state.BloodLevel * 100:F1} %"
+        BloodLabel.Text = !float.IsNaN(bloodlevel)
+            ? $"{bloodlevel * 100:F1} %"
             : Loc.GetString("health-analyzer-window-entity-unknown-value-text");
 
         StatusLabel.Text =
@@ -212,8 +221,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         // </Onyx-VitalDamage>
 
         // Alerts
-
-        var showAlerts = state.Unrevivable == true;
+        var showAlerts = unrevivable; // <Onyx-HealthAnalyzer-StatusDoll-edited>
 
         AlertsDivider.Visible = showAlerts;
         AlertsContainer.Visible = showAlerts;
@@ -221,14 +229,16 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         if (showAlerts)
             AlertsContainer.RemoveAllChildren();
 
-        if (state.Unrevivable == true)
+        if (unrevivable)
+        {
             AlertsContainer.AddChild(new RichTextLabel
             {
                 Text = Loc.GetString("health-analyzer-window-entity-unrevivable-text"),
                 Margin = new Thickness(0, 4),
-                MaxWidth = 300
+                MaxWidth = 300,
             });
-
+        }
+        // Damage and bleeding findings are rendered by DrawDamage. // <Onyx-HealthAnalyzer-StatusDoll-edited>
     }
 
     // <Onyx-HealthAnalyzer-StatusDoll>
@@ -403,23 +413,20 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         WoundFindingsContainer.AddChild(label);
     }
 
-    // <Onyx-HealthAnalyzerChemicals-edited>
     public void SelectBodyTab()
     {
         BodyTab.Visible = true;
         OrgansTab.Visible = false;
-        ChemicalsTab.Visible = false; // <Onyx-HealthAnalyzerChemicals>
+        ChemicalsTab.Visible = false;
     }
 
     public void SelectOrgansTab()
     {
         BodyTab.Visible = false;
         OrgansTab.Visible = true;
-        ChemicalsTab.Visible = false; // <Onyx-HealthAnalyzerChemicals>
+        ChemicalsTab.Visible = false;
     }
-    // </Onyx-HealthAnalyzerChemicals-edited>
 
-    // <Onyx-HealthAnalyzerChemicals>
     public void SelectChemicalsTab()
     {
         BodyTab.Visible = false;
@@ -480,9 +487,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
             ChemicalsContainer.AddChild(group);
         }
     }
-    // </Onyx-HealthAnalyzerChemicals>
 
-    // <Onyx-HealthAnalyzerOrgans-edited>
     private void DrawOrgans(HealthAnalyzerUiState state)
     {
         if (state.ScanMode != true || state.Organs == null)
@@ -602,8 +607,19 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         // Prevent Roslyn from emitting string span code forbidden by the content sandbox.
         return first + rest;
     }
-    // </Onyx-HealthAnalyzerOrgans-edited>
     // </Onyx-HealthAnalyzer-StatusDoll>
+    /// <summary>
+    /// Populate the temperature label.
+    /// </summary>
+    /// <remarks>
+    /// This has been isolated in a method due to temperature not being predicted, while the rest is.
+    /// </remarks>
+    private void PopulateTemperature(float temperature)
+    {
+        TemperatureLabel.Text = !float.IsNaN(temperature)
+            ? $"{temperature - Atmospherics.T0C:F1} °C ({temperature:F1} K)"
+            : Loc.GetString("health-analyzer-window-entity-unknown-temperature-text");
+    }
 
     private static string GetStatus(MobState mobState)
     {
@@ -641,7 +657,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
 
             var groupTitleText = $"{Loc.GetString(
                 "health-analyzer-window-damage-group-text",
-                ("damageGroup", _prototypes.Index<DamageGroupPrototype>(damageGroupId).LocalizedName),
+                ("damageGroup", _prototypes.Index(damageGroupId).LocalizedName),
                 ("amount", damageAmount)
             )}";
 
@@ -656,7 +672,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
             GroupsContainer.AddChild(groupContainer);
 
             // Show the damage for each type in that group.
-            var group = _prototypes.Index<DamageGroupPrototype>(damageGroupId);
+            var group = _prototypes.Index(damageGroupId);
 
             foreach (var type in group.DamageTypes)
             {
@@ -665,7 +681,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
 
                 var damageString = Loc.GetString(
                     "health-analyzer-window-damage-type-text",
-                    ("damageType", _prototypes.Index<DamageTypePrototype>(type).LocalizedName),
+                    ("damageType", _prototypes.Index(type).LocalizedName),
                     ("amount", typeAmount)
                 );
 
@@ -680,7 +696,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         var rsiSprite = new SpriteSpecifier.Rsi(rsiPath, texture);
 
         var rsi = _cache.GetResource<RSIResource>(rsiSprite.RsiPath).RSI;
-        if (!rsi.TryGetState(rsiSprite.RsiState, out var state))
+        if (!rsi.TryGetState(rsiSprite.RsiState, out _))
         {
             rsiSprite = new SpriteSpecifier.Rsi(rsiPath, "unknown");
         }

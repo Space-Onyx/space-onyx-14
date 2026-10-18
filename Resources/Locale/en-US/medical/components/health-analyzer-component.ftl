@@ -2,6 +2,7 @@ health-analyzer-window-no-patient-data-text = No patient data.
 health-analyzer-window-entity-unknown-text = Unknown
 health-analyzer-window-entity-unknown-species-text = Non-Humanoid
 health-analyzer-window-entity-unknown-value-text = N/A
+health-analyzer-window-entity-unknown-temperature-text = Analyzing...
 
 health-analyzer-window-entity-alive-text = Alive
 health-analyzer-window-entity-dead-text = Dead
@@ -57,9 +58,7 @@ health-analyzer-wound-diagnostics-inactive = No contact with patient.
 health-analyzer-wound-diagnostics-unavailable = Diagnostics unavailable for this patient.
 health-analyzer-wound-part-head-genitive = head
 health-analyzer-wound-part-chest-genitive = torso
-# <Onyx-ChestGroin-edited>
 health-analyzer-wound-part-groin-genitive = pelvis
-# </Onyx-ChestGroin-edited>
 health-analyzer-wound-part-left-arm-genitive = left arm
 health-analyzer-wound-part-left-hand-genitive = left hand
 health-analyzer-wound-part-right-arm-genitive = right arm

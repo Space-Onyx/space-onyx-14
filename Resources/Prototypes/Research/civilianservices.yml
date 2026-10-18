@@ -1,6 +1,30 @@
 - type: technology
+  id: PackagedLights
+  name: research-technology-packaged-lights
+  position: -2,-8 # <Onyx-ResearchTree>
+  icon:
+    sprite: Objects/Storage/EntityProvider/packaged_lights.rsi
+    state: base # Doesn't seem to work with sprite layers.
+  discipline: CivilianServices
+  tier: 1
+  cost: 5000
+  recipeUnlocks:
+  - BoxLighttube
+  - BoxExteriorLighttube
+  - BoxLedLighttube
+  - BoxSodiumLighttube
+  - BoxLightbulb
+  - BoxDimLightbulb
+  - BoxWarmLightbulb
+  - BoxLedLightbulb
+  - BoxLightMixed
+  - BoxLedLightMixed
+
+- type: technology
+  # <Onyx-ResearchTree-edited>
   id: AdvancedCleaning
   name: research-technology-advanced-cleaning
+  # </Onyx-ResearchTree-edited>
   icon:
     sprite: Objects/Specific/Janitorial/advmop.rsi
     state: advmop
@@ -306,6 +330,7 @@
   cost: 5000
   recipeUnlocks:
     - BorgModuleAdvancedTopical
+    - AdvancedJetInjector
   position: 6,-7
   technologyPrerequisites:
     - BiochemicalStasis

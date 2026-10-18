@@ -454,14 +454,12 @@
     speechVerb: Canine
     speechSounds: Dog
   # <Onyx-CreatureLanguages-edited>
-  # <Onyx-Animals-edited>
   - type: LanguageKnowledge
     speaks:
     - Dog
     understands:
     - Dog
     - TauCetiBasic
-  # </Onyx-Animals-edited>
   # </Onyx-CreatureLanguages-edited>
   - type: Tag
     tags:
@@ -1141,4 +1139,9 @@
       gender: male
   - type: Loadout
     prototypes: [ MobPollyGear ]
+  - type: SentienceTarget
+    flavorKind: station-event-random-sentience-flavor-organic
+  - type: Tag
+    tags:
+    - CannotSuicide
 

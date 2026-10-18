@@ -1,5 +1,4 @@
 using Content.Shared.Robotics;
-using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 
 namespace Content.Client.Robotics.UI;
@@ -22,16 +21,16 @@ public sealed class RoboticsConsoleBoundUserInterface : BoundUserInterface
 
         _window.OnDisablePressed += address =>
         {
-            SendMessage(new RoboticsConsoleDisableMessage(address));
+            SendMessage(new RoboticsConsoleDisableMessage(address.AddressId));
         };
         _window.OnDestroyPressed += address =>
         {
-            SendMessage(new RoboticsConsoleDestroyMessage(address));
+            SendMessage(new RoboticsConsoleDestroyMessage(address.AddressId));
         };
         // <Onyx-RoboticsLawUpload>
         _window.OnChangeLawsPressed += address =>
         {
-            SendMessage(new RoboticsConsoleChangeLawsMessage(address));
+            SendMessage(new RoboticsConsoleChangeLawsMessage(address.AddressId));
         };
         // </Onyx-RoboticsLawUpload>
     }

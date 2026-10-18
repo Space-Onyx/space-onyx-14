@@ -147,6 +147,7 @@
     - TapeRecorderStatic # <Onyx-TapeRecorder>
     - PowerCellsStatic
     - ElectronicsStatic
+    - HydroponicsStatic
   - type: EmagLatheRecipes
     emagStaticPacks:
     - SecurityAmmoStatic
@@ -216,19 +217,15 @@
     - Janitor
     - Instruments
     - Equipment
-    - TieredMachineParts # <Onyx-TieredMachineParts>
+    - TieredMachineParts
     - FauxTiles
-    - SeedDnaDisks # <Onyx-SeedDnaResearch>
-    # <Onyx-VisionGogglesAndPinpointers>
+    - SeedDnaDisks
     - OnyxSpecOpsGoggles
     - OnyxPinpointers
-    # </Onyx-VisionGogglesAndPinpointers>
-    - OnyxLatheUpgradeKits # <Onyx-LatheUpgradeKits>
-    - AdvancedEmitters # <Onyx-DiodeDisc>
-    # <Onyx-XenobiologyProduction>
+    - OnyxLatheUpgradeKits
+    - AdvancedEmitters
     - XenobioPack
     - XenobagHoldingPack
-    # </Onyx-XenobiologyProduction>
     # </Onyx-GoobProtolathePacks-edited>
   - type: EmagLatheRecipes
     # <Onyx-GoobProtolathePacks-edited>
@@ -285,7 +282,7 @@
     - SharedBoards
     - CameraBoards
     - ShuttleBoards
-    - SeedDnaBoards # <Onyx-SeedDnaResearch>
+    - SeedDnaBoards
     # </Onyx-GoobDepartmentBoards-edited>
   - type: EmagLatheRecipes
     emagDynamicPacks:
@@ -345,8 +342,8 @@
     # <Onyx-Cybernetics>
     - BasicCybernetics
     - AdvancedCybernetics
-    - PowerAugments # <Onyx-Augments>
-    - ToolAugments # <Onyx-Augments>
+    - PowerAugments
+    - ToolAugments
     # </Onyx-Cybernetics>
   # <MechProduction>
   - type: EmagLatheRecipes
@@ -448,20 +445,18 @@
     - SecurityAmmo
     - SecurityWeapons
     - SecurityDisablers
-    - MedipenFilling # <Onyx-CartridgeAutoinjector>
-    - PrisonerBodyBagDynamic # <Onyx-AdvancedBodyBags>
+    - MedipenFilling
+    - PrisonerBodyBagDynamic
     # <MechProduction>
     - MechBoardsSecurity
     - MechWeaponsSecurityLight
     - MechWeaponsSecurityHeavy
     # </MechProduction>
-    # <Onyx-Cybernetics>
     - SecurityCybernetics
-    - IntegratedWeaponAugments # <Onyx-AugmentItemPanel>
-    - IntegratedAdvancedWeaponAugments # <Onyx-AugmentItemPanel>
-    # </Onyx-Cybernetics>
+    - IntegratedWeaponAugments
+    - IntegratedAdvancedWeaponAugments
     - PowerCells
-    - SuitModulesSecurity # <Onyx-SuitModuleRecipes>
+    - SuitModulesSecurity
     # </Onyx-DepartmentTechfabRecipes-edited>
   - type: EmagLatheRecipes
     emagStaticPacks:
@@ -542,7 +537,7 @@
     - TopicalsStatic
     - ChemistryStatic
     - MedicalStatic
-    - MedicalPatchesStatic # <Onyx-MedicalPatches>
+    - MedicalPatchesStatic
     - RollerBedsStatic
     - MedicalClothingStatic
     - EmptyMedkitsStatic
@@ -552,24 +547,16 @@
     dynamicPacks:
     - Chemistry
     - MedicalBoards
-    - RescueEquipment # <Onyx-RescueEquipment>
-    # <Onyx-CorvaxGoobMedicalTechnology>
+    - RescueEquipment
     - MedipenFilling
     - Cloning
-    # </Onyx-CorvaxGoobMedicalTechnology>
-    # <Onyx-AdvancedSurgery>
     - OnyxAdvancedSurgery
-    # </Onyx-AdvancedSurgery>
-    # <Onyx-Cybernetics>
     - MedicalCybernetics
-    # </Onyx-Cybernetics>
-    - OnyxTranslatorImplanters # <Onyx-LanguageTranslators>
+    - OnyxTranslatorImplanters
     - PowerCells
-    # <Onyx-AdvancedBodyBags>
     - BodyBagsDynamic
     - BluespaceBodyBagDynamic
-    # </Onyx-AdvancedBodyBags>
-    - SuitModulesMedical # <Onyx-SuitModuleRecipes>
+    - SuitModulesMedical
     # </Onyx-DepartmentTechfabRecipes-edited>
   # <Onyx-AdvancedBodyBags>
   - type: EmagLatheRecipes
@@ -614,6 +601,7 @@
     - ClothingCivilian
     - ClothingCargo
     - ClothingCommand
+    - ClothingDresses
     - ClothingEngineering
     - ClothingMedical
     - ClothingScience

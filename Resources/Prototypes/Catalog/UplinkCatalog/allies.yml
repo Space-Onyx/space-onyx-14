@@ -33,11 +33,13 @@
   categories:
   - UplinkAllies
   conditions:
-    - !type:StoreWhitelistCondition
-      blacklist:
-        tags:
-          - NukeOpsUplink # <Onyx-UplinkGoob>
-          - ContravendUplink
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+        - NukeOpsUplink
+        - ContravendUplink # <Onyx-UplinkGoob>
+  - !type:ListingLimitedStockCondition
+    stock: 2
 
 - type: listing
   id: UplinkReinforcementRadioSyndicateNukeops # Version for Nukeops that spawns another nuclear operative without the uplink.
@@ -85,11 +87,13 @@
   categories:
   - UplinkAllies
   conditions:
-    - !type:StoreWhitelistCondition
-      blacklist:
-        tags:
-          - NukeOpsUplink # <Onyx-UplinkGoob>
-          - ContravendUplink
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+        - NukeOpsUplink
+        - ContravendUplink # <Onyx-UplinkGoob>
+  - !type:ListingLimitedStockCondition
+    stock: 3
 
 - type: listing
   id: UplinkReinforcementRadioSyndicateAncestorNukeops # Version for Nukeops that spawns a syndicate monkey with the NukeOperative component.

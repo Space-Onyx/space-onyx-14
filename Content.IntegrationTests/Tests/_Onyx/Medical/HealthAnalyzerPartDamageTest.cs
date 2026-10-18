@@ -1,7 +1,7 @@
 using System.Linq;
 using Content.IntegrationTests.Fixtures;
 using Content.Client.HealthAnalyzer.UI;
-using Content.Server.Medical;
+using Content.Shared.Medical.HealthAnalyzer;
 using Content.Shared._Onyx.Targeting;
 using Content.Shared._Onyx.Wounds;
 using Content.Shared.Body.Part;

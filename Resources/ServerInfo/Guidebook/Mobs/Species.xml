@@ -9,9 +9,9 @@
   <GuideEntityEmbed Entity="AppearanceArachnid" Caption="Арахнид"/>
   <GuideEntityEmbed Entity="AppearanceDiona" Caption="Диона"/>
   <GuideEntityEmbed Entity="AppearanceDwarf" Caption="Дворф"/>
+  <GuideEntityEmbed Entity="AppearanceMoth" Caption="Ниана"/> <!-- <Onyx-SpeciesGuide-edited> -->
   </Box>
   <Box>
-  <GuideEntityEmbed Entity="AppearanceMoth" Caption="Ниан"/>
   <GuideEntityEmbed Entity="AppearanceReptilian" Caption="Унатх"/>
   <GuideEntityEmbed Entity="AppearanceSlimePerson" Caption="Слаймолюд"/>
   <GuideEntityEmbed Entity="AppearanceVox" Caption="Вокс"/>

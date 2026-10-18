@@ -1,3 +1,5 @@
+using Content.Shared.DeviceNetwork;
+
 namespace Content.Shared.Robotics.Components;
 
 public sealed partial class RoboticsConsoleComponent
@@ -11,5 +13,5 @@ public sealed partial class RoboticsConsoleComponent
     [DataField]
     public LocId ChangeLawsMessage = "robotics-console-cyborg-change-laws";
 
-    public readonly Dictionary<string, EntityUid> LawUploadTargets = new();
+    public readonly Dictionary<DeviceAddress, EntityUid> LawUploadTargets = new();
 }

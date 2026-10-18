@@ -379,6 +379,9 @@
       group: Slime
       layers: [ Eyes ]
   # </Onyx-SlimeEyesSpawn>
+  - type: EyeBlinking
+    eyelidsSprite: /Textures/Mobs/Species/Human/parts.rsi
+  - type: Appearance
 
 - type: entity
   parent: [ OrganBaseLungs, OrganSlimePersonInternal, OrganSlimePersonMetabolizer ]

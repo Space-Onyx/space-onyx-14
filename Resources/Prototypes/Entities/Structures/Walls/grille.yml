@@ -36,6 +36,11 @@
     state: grille # <Onyx-OldWallSprites-edited>
   - type: PlacementReplacement
     key: grilles
+  # <Onyx-OldWallSprites-edited>
+  - type: IconSmooth
+    key: grilles
+    states: []
+  # </Onyx-OldWallSprites-edited>
   - type: Electrified
     requirePower: true
     noWindowInTile: true
@@ -73,6 +78,7 @@
           True: { visible: True }
           False: { visible: False }
   - type: AnimationPlayer
+  - type: TrayScanReveal
   - type: Damageable
     damageModifierSet: RodMetalMod
   - type: Destructible

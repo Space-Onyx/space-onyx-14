@@ -16,3 +16,281 @@
   - type: Tag
     tags:
     - DevourImmune
+
+# Content below taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: entity
+  parent: [ BaseWall, BaseStructureHealth ]
+  id: WallRiveted
+  name: riveted wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/riveted.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/riveted.rsi
+  - type: Damageable
+    damageModifierSet: StructuralMetallicStrong
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          Girder:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: riveted
+  - type: StaticPrice
+    price: 150
+
+- type: entity
+  parent: WallBrass
+  id: WallClock
+  name: clock wall
+
+- type: entity
+  parent: WallSolid
+  id: WallClown
+  name: bananium wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/clown.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/clown.rsi
+  - type: IconSmooth
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: clown
+
+- type: entity
+  parent: WallBrick
+  id: WallCult
+  name: cult wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/cult.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/cult.rsi
+  - type: IconSmooth
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: cult
+
+- type: entity
+  parent: WallReinforced
+  id: WallDiamond
+  name: diamond wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/diamond.rsi
+    layers:
+    - state: full
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/diamond.rsi
+    state: full
+  - type: IconSmooth
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: diamond
+
+- type: entity
+  parent: WallSolid
+  id: WallIce
+  name: ice wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/ice.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/ice.rsi
+  - type: IconSmooth
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: ice
+
+- type: entity
+  parent: WallSolid
+  id: WallPlastic
+  name: plastic wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/plastic.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/plastic.rsi
+  - type: IconSmooth
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: plastic
+
+- type: entity
+  parent: WallSolid
+  id: WallSandstone
+  name: sandstone wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/sandstone.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/sandstone.rsi
+  - type: IconSmooth
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: sandstone
+
+- type: entity
+  parent: WallSolid
+  id: WallNecropolis
+  name: stone wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/necropolis.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/necropolis.rsi
+  - type: IconSmooth
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: necropolis
+
+- type: entity
+  parent: WallSolid
+  id: WallVaultAlien
+  name: alien vault wall
+  description: A mysterious ornate looking wall. There may be ancient dangers inside.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/vault.rsi
+    state: alienvault
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/vault.rsi
+    state: alienvault
+  - type: IconSmooth
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: alienvault
+
+- type: entity
+  parent: WallSolid
+  id: WallVaultRock
+  name: rock vault wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/vault.rsi
+    state: rockvault
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/vault.rsi
+    state: rockvault
+  - type: IconSmooth
+    states: []
+
+- type: entity
+  parent: WallVaultRock
+  id: WallVaultSandstone
+  name: sandstone vault wall
+  components:
+  - type: Sprite
+    state: sandstonevault
+  - type: Icon
+    state: sandstonevault
+
+- type: entity
+  parent: WallConcrete
+  id: WallCobblebrick
+  name: cobblestone brick wall
+  description: Stone by stone, perfectly fitted together to form a wall.
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/cobblebrick.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/cobblebrick.rsi
+  - type: IconSmooth
+    key: cobblebricks
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ cobblebricks ]
+      base: cobblebrick
+
+- type: entity
+  parent: WallCobblebrick
+  id: WallBasaltCobblebrick
+  name: basalt brick wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/cobblebrick_basalt.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/cobblebrick_basalt.rsi
+
+- type: entity
+  parent: WallCobblebrick
+  id: WallSnowCobblebrick
+  name: snow brick wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/cobblebrick_snow.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/cobblebrick_snow.rsi
+
+- type: entity
+  parent: WallCobblebrick
+  id: WallAsteroidCobblebrick
+  name: asteroid stone brick wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/cobblebrick_asteroid.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/cobblebrick_asteroid.rsi
+
+- type: entity
+  parent: WallCobblebrick
+  id: WallSandCobblebrick
+  name: sandstone brick wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/cobblebrick_sand.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/cobblebrick_sand.rsi
+
+- type: entity
+  parent: WallCobblebrick
+  id: WallChromiteCobblebrick
+  name: chromite brick wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/cobblebrick_chromite.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/cobblebrick_chromite.rsi
+
+- type: entity
+  parent: WallCobblebrick
+  id: WallAndesiteCobblebrick
+  name: andesite brick wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/cobblebrick_andesite.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/cobblebrick_andesite.rsi
+
+- type: entity
+  parent: WallCobblebrick
+  id: WallIronsandCobblebrick
+  name: ironsand brick wall
+  components:
+  - type: Sprite
+    sprite: _Onyx/Structures/Walls/cobblebrick_ironsand.rsi
+  - type: Icon
+    sprite: _Onyx/Structures/Walls/cobblebrick_ironsand.rsi

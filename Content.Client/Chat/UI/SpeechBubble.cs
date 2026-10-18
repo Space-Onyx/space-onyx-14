@@ -1,27 +1,16 @@
-using System.Numerics;
-using Content.Client.Chat.Managers;
-using Content.Client._Onyx.Humanoid; // <Onyx-MarkingBounds>
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
-using Content.Shared.Speech;
 using Robust.Client.Graphics;
-using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
-using Robust.Shared.Configuration;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
 namespace Content.Client.Chat.UI
 {
-    public abstract partial class SpeechBubble : Control
+    public abstract partial class SpeechBubble : BaseBubble
     {
         [Dependency] private IGameTiming _timing = default!;
-        [Dependency] private IEyeManager _eyeManager = default!;
-        [Dependency] private IEntityManager _entityManager = default!;
-        [Dependency] protected IConfigurationManager ConfigManager = default!;
-        private readonly TransformSystem _transformSystem;
-        private readonly SpriteSystem _spriteSystem; // <Onyx-MarkingBounds>
 
         // <Onyx-SpeechBubbleBarks-edited>
         public enum SpeechType : byte
@@ -45,27 +34,14 @@ namespace Content.Client.Chat.UI
         private static readonly TimeSpan FadeTime = TimeSpan.FromSeconds(0.25f);
 
         /// <summary>
-        ///     The distance in world space to offset the speech bubble from the center of the entity.
-        ///     i.e. greater -> higher above the mob's head.
-        /// </summary>
-        private const float EntityVerticalOffset = 0.5f;
-
-        /// <summary>
         ///     The default maximum width for speech bubbles.
         /// </summary>
         public const float SpeechMaxWidth = 256;
-
-        private readonly EntityUid _senderEntity;
 
         /// <summary>
         /// The time at which this bubble will die.
         /// </summary>
         private TimeSpan _deathTime;
-
-        public float VerticalOffset { get; set; }
-        private float _verticalOffsetAchieved;
-
-        public Vector2 ContentSize { get; private set; }
 
         // man down
         public event Action<EntityUid, SpeechBubble>? OnDied;
@@ -97,19 +73,14 @@ namespace Content.Client.Chat.UI
         }
 
         public SpeechBubble(ChatMessage message, EntityUid senderEntity, string speechStyleClass, Color? fontColor = null, bool revealText = false) // <Onyx-SpeechTextReveal-edited>
+            : base(senderEntity)
         {
             IoCManager.InjectDependencies(this);
-            _senderEntity = senderEntity;
             // <Onyx-SpeechTextReveal-edited>
             RevealText = revealText &&
                 ConfigManager.GetCVar(CCVars.SpeechTextRevealEnabled) &&
                 message.RevealSpeed != null;
             // </Onyx-SpeechTextReveal-edited>
-            _transformSystem = _entityManager.System<TransformSystem>();
-            _spriteSystem = _entityManager.System<SpriteSystem>(); // <Onyx-MarkingBounds>
-
-            // Use text clipping so new messages don't overlap old ones being pushed up.
-            RectClipContent = true;
 
             // <Onyx-SpeechTextReveal-edited>
             _bubble = BuildBubble(message, speechStyleClass, fontColor);
@@ -117,7 +88,7 @@ namespace Content.Client.Chat.UI
             UpdateContentSize();
             _deathTime = _timing.RealTime + TotalTime;
             InitializeTextReveal(message.RevealSpeed);
-            _verticalOffsetAchieved = -ContentSize.Y;
+            VerticalOffsetAchieved = -ContentSize.Y;
             // </Onyx-SpeechTextReveal-edited>
         }
 
@@ -131,28 +102,14 @@ namespace Content.Client.Chat.UI
             FrameUpdateTextReveal(); // <Onyx-SpeechTextReveal>
 
             var timeLeft = (float)(_deathTime - _timing.RealTime).TotalSeconds;
-            if (_entityManager.Deleted(_senderEntity) || timeLeft <= 0)
+            if (EntityManager.Deleted(SenderEntity) || timeLeft <= 0)
             {
                 // Timer spawn to prevent concurrent modification exception.
                 Timer.Spawn(0, Die);
                 return;
             }
 
-            // Lerp to our new vertical offset if it's been modified.
-            if (MathHelper.CloseToPercent(_verticalOffsetAchieved - VerticalOffset, 0, 0.1))
-            {
-                _verticalOffsetAchieved = VerticalOffset;
-            }
-            else
-            {
-                _verticalOffsetAchieved = MathHelper.Lerp(_verticalOffsetAchieved, VerticalOffset, 10 * args.DeltaSeconds);
-            }
-
-            if (!_entityManager.TryGetComponent<TransformComponent>(_senderEntity, out var xform) || xform.MapID != _eyeManager.CurrentEye.Position.MapId)
-            {
-                Modulate = Color.White.WithAlpha(0);
-                return;
-            }
+            UpdateBubblePosition(args);
 
             if (timeLeft <= FadeTime.TotalSeconds)
             {
@@ -164,27 +121,6 @@ namespace Content.Client.Chat.UI
                 // Make opaque otherwise, because it might have been hidden before
                 Modulate = Color.White;
             }
-
-            var baseOffset = 0f;
-
-            if (_entityManager.TryGetComponent<SpeechComponent>(_senderEntity, out var speech))
-                baseOffset = speech.SpeechBubbleOffset;
-
-            var entityOffset = EntityVerticalOffset; // <Onyx-MarkingBounds>
-            if (_entityManager.TryGetComponent<SpriteComponent>(_senderEntity, out var senderSprite)) // <Onyx-MarkingBounds>
-                entityOffset = MarkingBoundsHelper.GetLocalBoundsWithoutMarkings((_senderEntity, senderSprite), _spriteSystem, _entityManager).Height / 2f; // <Onyx-MarkingBounds>
-
-            var offset = (-_eyeManager.CurrentEye.Rotation).ToWorldVec() * -(entityOffset + baseOffset); // <Onyx-MarkingBounds-edited>
-            var worldPos = _transformSystem.GetRenderWorldPosition((_senderEntity, xform)) + offset;
-
-            var lowerCenter = _eyeManager.WorldToScreen(worldPos) / UIScale;
-            var screenPos = lowerCenter - new Vector2(ContentSize.X / 2, ContentSize.Y + _verticalOffsetAchieved);
-            // Round to nearest 0.5
-            screenPos = (screenPos * 2).Rounded() / 2;
-            LayoutContainer.SetPosition(this, screenPos);
-
-            var height = MathF.Ceiling(MathHelper.Clamp(lowerCenter.Y - screenPos.Y, 0, ContentSize.Y));
-            SetHeight = height;
         }
 
         private void Die()
@@ -194,7 +130,7 @@ namespace Content.Client.Chat.UI
                 return;
             }
 
-            OnDied?.Invoke(_senderEntity, this);
+            OnDied?.Invoke(SenderEntity, this);
         }
 
         /// <summary>

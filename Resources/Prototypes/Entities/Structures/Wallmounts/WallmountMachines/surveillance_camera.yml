@@ -49,7 +49,7 @@
   - type: ApcPowerReceiver
   - type: ExtensionCableReceiver
   - type: Eye
-  - type: WiredNetworkConnection
+  - type: WiredNetwork
   - type: DeviceNetworkRequiresPower
   - type: Transform
     anchored: true
@@ -81,6 +81,8 @@
     price: 200
   - type: Damageable
     damageModifierSet: SteelMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
   - type: Destructible
     thresholds: &ThresholdsSurveilCamera
     - trigger:

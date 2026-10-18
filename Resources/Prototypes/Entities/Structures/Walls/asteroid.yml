@@ -13,10 +13,11 @@
     noRot: true
   - type: IconSmooth
     key: stone
-    additionalKeys:
-    - doors
-    index: 0
-    base: stone
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ stone, doors ]
+      base: stone
+      index: 0
   - type: Icon
     state: full
   - type: Sprite
@@ -64,7 +65,7 @@
   - type: Sprite
     layers:
     - state: gibtonite_inactive
-      sprite: Structures/Walls/stone-ore.rsi
+      sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
       visible: false
       map: [ "enum.MiningScannerVisualLayers.Overlay", "gib" ]
   - type: Appearance
@@ -129,7 +130,7 @@
   - type: Sprite
     layers:
     - state: rock_coal
-      sprite: Structures/Walls/stone-ore.rsi
+      sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       # <Onyx-HiddenOre>
       visible: false
@@ -147,7 +148,7 @@
   - type: Sprite
     layers:
     - state: rock_gold
-      sprite: Structures/Walls/stone-ore.rsi
+      sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       # <Onyx-HiddenOre>
       visible: false
@@ -165,7 +166,7 @@
   - type: Sprite
     layers:
     - state: rock_diamond
-      sprite: Structures/Walls/stone-ore.rsi
+      sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       # <Onyx-HiddenOre>
       visible: false
@@ -183,7 +184,7 @@
   - type: Sprite
     layers:
     - state: rock_phoron
-      sprite: Structures/Walls/stone-ore.rsi
+      sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       # <Onyx-HiddenOre>
       visible: false
@@ -201,7 +202,7 @@
   - type: Sprite
     layers:
     - state: rock_quartz
-      sprite: Structures/Walls/stone-ore.rsi
+      sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       # <Onyx-HiddenOre>
       visible: false
@@ -219,7 +220,7 @@
   - type: Sprite
     layers:
     - state: rock_silver
-      sprite: Structures/Walls/stone-ore.rsi
+      sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       # <Onyx-HiddenOre>
       visible: false
@@ -237,7 +238,7 @@
   - type: Sprite
     layers:
     - state: rock_tin
-      sprite: Structures/Walls/stone-ore.rsi
+      sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       # <Onyx-HiddenOre>
       visible: false
@@ -255,7 +256,7 @@
   - type: Sprite
     layers:
     - state: rock_uranium
-      sprite: Structures/Walls/stone-ore.rsi
+      sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       # <Onyx-HiddenOre>
       visible: false
@@ -273,7 +274,7 @@
   - type: Sprite
     layers:
     - state: rock_salt
-      sprite: Structures/Walls/stone-ore.rsi
+      sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       # <Onyx-HiddenOre>
       visible: false
@@ -291,7 +292,7 @@
   - type: Sprite
     layers:
     - state: rock_artifact_fragment
-      sprite: Structures/Walls/stone-ore.rsi
+      sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       # <Onyx-HiddenOre>
       visible: false
@@ -317,25 +318,20 @@
   name: asteroid rock
   description: A rocky asteroid.
   components:
+  # <Onyx-OldRockSprites-edited>
   - type: IconSmooth
-    key: walls # <Onyx-OldRockSprites-edited>
-    mode: NoSprite # <Onyx-OldRockSprites-edited>
-  - type: SmoothEdge # <Onyx-OldRockSprites>
+    key: walls
+    states:
+    - !type:EdgeSpriteSmoothing
+      mask: [ walls ]
+      base: rock_asteroid_
+  # </Onyx-OldRockSprites-edited>
   - type: Icon
     sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
     state: rock_asteroid # <Onyx-OldRockSprites-edited>
   - type: Sprite
     sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
-    layers: # <Onyx-OldRockSprites>
-    - state: rock_asteroid
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_asteroid_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_asteroid_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_asteroid_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_asteroid_west
+    layers: [ { state: rock_asteroid } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseAsteroidRockVisuals, BaseAsteroidRock, BaseAsteroidDestructible ]
@@ -347,7 +343,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_asteroid }, { state: rock_asteroid_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_asteroid_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_asteroid_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_asteroid_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_coal, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_asteroid }, { state: rock_coal, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: AsteroidRockCoal
@@ -363,7 +359,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_asteroid }, { state: rock_asteroid_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_asteroid_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_asteroid_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_asteroid_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_gold, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_asteroid }, { state: rock_gold, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: AsteroidRockGold
@@ -379,7 +375,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_asteroid }, { state: rock_asteroid_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_asteroid_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_asteroid_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_asteroid_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_diamond, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_asteroid }, { state: rock_diamond, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinPlasma, AsteroidRock ]
@@ -387,7 +383,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_asteroid }, { state: rock_asteroid_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_asteroid_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_asteroid_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_asteroid_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_phoron, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_asteroid }, { state: rock_phoron, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinQuartz, AsteroidRock ]
@@ -395,7 +391,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_asteroid }, { state: rock_asteroid_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_asteroid_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_asteroid_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_asteroid_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_quartz, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_asteroid }, { state: rock_quartz, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: AsteroidRockQuartz
@@ -411,7 +407,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_asteroid }, { state: rock_asteroid_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_asteroid_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_asteroid_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_asteroid_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_silver, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_asteroid }, { state: rock_silver, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: AsteroidRockSilver
@@ -428,7 +424,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_asteroid }, { state: rock_asteroid_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_asteroid_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_asteroid_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_asteroid_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_tin, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_asteroid }, { state: rock_tin, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: AsteroidRockTin
@@ -444,7 +440,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_asteroid }, { state: rock_asteroid_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_asteroid_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_asteroid_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_asteroid_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_uranium, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_asteroid }, { state: rock_uranium, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: AsteroidRockUranium
@@ -460,7 +456,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_asteroid }, { state: rock_asteroid_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_asteroid_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_asteroid_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_asteroid_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_salt, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_asteroid }, { state: rock_salt, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinArtifactFragment, AsteroidRock ]
@@ -468,7 +464,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_asteroid }, { state: rock_asteroid_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_asteroid_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_asteroid_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_asteroid_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_artifact_fragment, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_asteroid }, { state: rock_artifact_fragment, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseRockGibtonite, BaseAsteroidRockVisuals, BaseAsteroidRock ]
@@ -476,7 +472,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_asteroid }, { state: rock_asteroid_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_asteroid_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_asteroid_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_asteroid_west, map: [ "enum.EdgeLayer.West" ] }, { state: gibtonite_inactive, map: [ "enum.MiningScannerVisualLayers.Overlay", "gib" ], visible: false } ]
+    layers: [ { state: rock_asteroid }, { state: gibtonite_inactive, map: [ "enum.MiningScannerVisualLayers.Overlay", "gib" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinRandom, AsteroidRock ]
@@ -491,25 +487,20 @@
   name: ironrock
   description: A rocky asteroid.
   components:
+  # <Onyx-OldRockSprites-edited>
   - type: IconSmooth
-    key: walls # <Onyx-OldRockSprites-edited>
-    mode: NoSprite # <Onyx-OldRockSprites-edited>
-  - type: SmoothEdge # <Onyx-OldRockSprites>
+    key: walls
+    states:
+    - !type:EdgeSpriteSmoothing
+      mask: [ walls ]
+      base: ironrock_
+  # </Onyx-OldRockSprites-edited>
   - type: Icon
     sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
     state: ironrock # <Onyx-OldRockSprites-edited>
   - type: Sprite
     sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
-    layers: # <Onyx-OldRockSprites>
-    - state: ironrock
-    - map: [ "enum.EdgeLayer.South" ]
-      state: ironrock_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: ironrock_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: ironrock_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: ironrock_west
+    layers: [ { state: ironrock } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseIronRockVisuals, BaseAsteroidRock, BaseAsteroidDestructible ]
@@ -525,7 +516,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: ironrock }, { state: ironrock_south, map: [ "enum.EdgeLayer.South" ] }, { state: ironrock_east, map: [ "enum.EdgeLayer.East" ] }, { state: ironrock_north, map: [ "enum.EdgeLayer.North" ] }, { state: ironrock_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_coal, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: ironrock }, { state: rock_coal, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinGold, IronRock ]
@@ -533,7 +524,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: ironrock }, { state: ironrock_south, map: [ "enum.EdgeLayer.South" ] }, { state: ironrock_east, map: [ "enum.EdgeLayer.East" ] }, { state: ironrock_north, map: [ "enum.EdgeLayer.North" ] }, { state: ironrock_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_gold, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: ironrock }, { state: rock_gold, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinPlasma, IronRock ]
@@ -541,7 +532,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: ironrock }, { state: ironrock_south, map: [ "enum.EdgeLayer.South" ] }, { state: ironrock_east, map: [ "enum.EdgeLayer.East" ] }, { state: ironrock_north, map: [ "enum.EdgeLayer.North" ] }, { state: ironrock_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_phoron, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: ironrock }, { state: rock_phoron, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinQuartz, IronRock ]
@@ -549,7 +540,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: ironrock }, { state: ironrock_south, map: [ "enum.EdgeLayer.South" ] }, { state: ironrock_east, map: [ "enum.EdgeLayer.East" ] }, { state: ironrock_north, map: [ "enum.EdgeLayer.North" ] }, { state: ironrock_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_quartz, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: ironrock }, { state: rock_quartz, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinSilver, IronRock ]
@@ -557,7 +548,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: ironrock }, { state: ironrock_south, map: [ "enum.EdgeLayer.South" ] }, { state: ironrock_east, map: [ "enum.EdgeLayer.East" ] }, { state: ironrock_north, map: [ "enum.EdgeLayer.North" ] }, { state: ironrock_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_silver, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: ironrock }, { state: rock_silver, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinSteel, IronRock ]
@@ -565,7 +556,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: ironrock }, { state: ironrock_south, map: [ "enum.EdgeLayer.South" ] }, { state: ironrock_east, map: [ "enum.EdgeLayer.East" ] }, { state: ironrock_north, map: [ "enum.EdgeLayer.North" ] }, { state: ironrock_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_tin, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: ironrock }, { state: rock_tin, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinUranium, IronRock ]
@@ -573,7 +564,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: ironrock }, { state: ironrock_south, map: [ "enum.EdgeLayer.South" ] }, { state: ironrock_east, map: [ "enum.EdgeLayer.East" ] }, { state: ironrock_north, map: [ "enum.EdgeLayer.North" ] }, { state: ironrock_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_uranium, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: ironrock }, { state: rock_uranium, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinSalt, IronRock ]
@@ -581,7 +572,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: ironrock }, { state: ironrock_south, map: [ "enum.EdgeLayer.South" ] }, { state: ironrock_east, map: [ "enum.EdgeLayer.East" ] }, { state: ironrock_north, map: [ "enum.EdgeLayer.North" ] }, { state: ironrock_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_salt, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: ironrock }, { state: rock_salt, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinArtifactFragment, IronRock ]
@@ -589,7 +580,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: ironrock }, { state: ironrock_south, map: [ "enum.EdgeLayer.South" ] }, { state: ironrock_east, map: [ "enum.EdgeLayer.East" ] }, { state: ironrock_north, map: [ "enum.EdgeLayer.North" ] }, { state: ironrock_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_artifact_fragment, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: ironrock }, { state: rock_artifact_fragment, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseRockGibtonite, BaseIronRockVisuals, BaseAsteroidRock ]
@@ -597,7 +588,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: ironrock }, { state: ironrock_south, map: [ "enum.EdgeLayer.South" ] }, { state: ironrock_east, map: [ "enum.EdgeLayer.East" ] }, { state: ironrock_north, map: [ "enum.EdgeLayer.North" ] }, { state: ironrock_west, map: [ "enum.EdgeLayer.West" ] }, { state: gibtonite_inactive, map: [ "enum.MiningScannerVisualLayers.Overlay", "gib" ], visible: false } ]
+    layers: [ { state: ironrock }, { state: gibtonite_inactive, map: [ "enum.MiningScannerVisualLayers.Overlay", "gib" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinDiamond, IronRock ]
@@ -605,7 +596,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: ironrock }, { state: ironrock_south, map: [ "enum.EdgeLayer.South" ] }, { state: ironrock_east, map: [ "enum.EdgeLayer.East" ] }, { state: ironrock_north, map: [ "enum.EdgeLayer.North" ] }, { state: ironrock_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_diamond, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: ironrock }, { state: rock_diamond, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 #endregion
 #region Wall Rock
@@ -633,26 +624,21 @@
         damage: 150
       behaviors:
       - *SoundStoneBreak
+  # <Onyx-OldRockSprites-edited>
   - type: IconSmooth
-    key: walls # <Onyx-OldRockSprites-edited>
-    mode: NoSprite # <Onyx-OldRockSprites-edited>
-  - type: SmoothEdge # <Onyx-OldRockSprites>
+    key: walls
+    states:
+    - !type:EdgeSpriteSmoothing
+      mask: [ walls ]
+      base: rock_
+  # </Onyx-OldRockSprites-edited>
   - type: Icon
     sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
     state: rock # <Onyx-OldRockSprites-edited>
   - type: MiningScannerViewable
   - type: Sprite
     sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
-    layers: # <Onyx-OldRockSprites>
-    - state: rock
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_west
+    layers: [ { state: rock } ] # <Onyx-OldRockSprites-edited>
 
 # Ore veins
 - type: entity
@@ -662,15 +648,7 @@
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
     layers:
-    - state: rock
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_west
+    - state: rock # <Onyx-OldRockSprites-edited>
     - state: rock_coal
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       visible: false
@@ -688,15 +666,7 @@
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
     layers:
-    - state: rock
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_west
+    - state: rock # <Onyx-OldRockSprites-edited>
     - state: rock_gold
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       visible: false
@@ -714,15 +684,7 @@
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
     layers:
-    - state: rock
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_west
+    - state: rock # <Onyx-OldRockSprites-edited>
     - state: rock_diamond
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       visible: false
@@ -740,15 +702,7 @@
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
     layers:
-    - state: rock
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_west
+    - state: rock # <Onyx-OldRockSprites-edited>
     - state: rock_phoron
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       visible: false
@@ -766,15 +720,7 @@
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
     layers:
-    - state: rock
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_west
+    - state: rock # <Onyx-OldRockSprites-edited>
     - state: rock_quartz
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       visible: false
@@ -792,15 +738,7 @@
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
     layers:
-    - state: rock
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_west
+    - state: rock # <Onyx-OldRockSprites-edited>
     - state: rock_silver
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       visible: false
@@ -818,15 +756,7 @@
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
     layers:
-    - state: rock
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_west
+    - state: rock # <Onyx-OldRockSprites-edited>
     - state: rock_tin
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       visible: false
@@ -844,15 +774,7 @@
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
     layers:
-    - state: rock
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_west
+    - state: rock # <Onyx-OldRockSprites-edited>
     - state: rock_uranium
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       visible: false
@@ -870,15 +792,7 @@
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
     layers:
-    - state: rock
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_west
+    - state: rock # <Onyx-OldRockSprites-edited>
     - state: rock_artifact_fragment
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       visible: false
@@ -896,15 +810,7 @@
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
     layers:
-    - state: rock
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_west
+    - state: rock # <Onyx-OldRockSprites-edited>
     - state: rock_salt
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
       visible: false
@@ -923,21 +829,19 @@
   id: WallRockSnow
   name: snowdrift
   components:
+  # <Onyx-OldRockSprites>
+  - type: IconSmooth
+    states:
+    - !type:EdgeSpriteSmoothing
+      mask: [ walls ]
+      base: rock_snow_
+  # </Onyx-OldRockSprites>
   - type: Icon
     sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
     state: rock_snow # <Onyx-OldRockSprites-edited>
   - type: Sprite
     sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
-    layers: # <Onyx-OldRockSprites>
-    - state: rock_snow
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_snow_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_snow_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_snow_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_snow_west
+    layers: [ { state: rock_snow } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinCoal, WallRockSnow ]
@@ -945,7 +849,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_snow }, { state: rock_snow_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_snow_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_snow_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_snow_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_coal, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_snow }, { state: rock_coal, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinGold, WallRockSnow ]
@@ -953,7 +857,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_snow }, { state: rock_snow_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_snow_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_snow_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_snow_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_gold, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_snow }, { state: rock_gold, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinDiamond, WallRockSnow ]
@@ -961,7 +865,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_snow }, { state: rock_snow_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_snow_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_snow_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_snow_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_diamond, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_snow }, { state: rock_diamond, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinPlasma, WallRockSnow ]
@@ -969,7 +873,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_snow }, { state: rock_snow_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_snow_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_snow_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_snow_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_phoron, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_snow }, { state: rock_phoron, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinQuartz, WallRockSnow ]
@@ -977,7 +881,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_snow }, { state: rock_snow_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_snow_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_snow_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_snow_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_quartz, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_snow }, { state: rock_quartz, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinSilver, WallRockSnow ]
@@ -985,7 +889,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_snow }, { state: rock_snow_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_snow_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_snow_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_snow_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_silver, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_snow }, { state: rock_silver, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinSteel, WallRockSnow ]
@@ -993,7 +897,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_snow }, { state: rock_snow_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_snow_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_snow_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_snow_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_tin, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_snow }, { state: rock_tin, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinUranium, WallRockSnow ]
@@ -1001,7 +905,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_snow }, { state: rock_snow_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_snow_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_snow_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_snow_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_uranium, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_snow }, { state: rock_uranium, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinArtifactFragment, WallRockSnow ]
@@ -1009,7 +913,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_snow }, { state: rock_snow_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_snow_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_snow_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_snow_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_artifact_fragment, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_snow }, { state: rock_artifact_fragment, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinSalt, WallRockSnow ]
@@ -1017,7 +921,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_snow }, { state: rock_snow_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_snow_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_snow_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_snow_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_salt, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_snow }, { state: rock_salt, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 #endregion
 #region Wall Rock (Sand)
@@ -1027,21 +931,19 @@
   id: WallRockSand
   name: sandstone
   components:
+  # <Onyx-OldRockSprites>
+  - type: IconSmooth
+    states:
+    - !type:EdgeSpriteSmoothing
+      mask: [ walls ]
+      base: rock_sand_
+  # </Onyx-OldRockSprites>
   - type: Icon
     sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
     state: rock_sand # <Onyx-OldRockSprites-edited>
   - type: Sprite
     sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
-    layers: # <Onyx-OldRockSprites>
-    - state: rock_sand
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_sand_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_sand_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_sand_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_sand_west
+    layers: [ { state: rock_sand } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinCoal, WallRockSand ]
@@ -1049,7 +951,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_sand }, { state: rock_sand_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_sand_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_sand_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_sand_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_coal, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_sand }, { state: rock_coal, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinGold, WallRockSand ]
@@ -1057,7 +959,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_sand }, { state: rock_sand_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_sand_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_sand_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_sand_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_gold, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_sand }, { state: rock_gold, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinDiamond, WallRockSand ]
@@ -1065,7 +967,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_sand }, { state: rock_sand_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_sand_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_sand_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_sand_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_diamond, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_sand }, { state: rock_diamond, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinPlasma, WallRockSand ]
@@ -1073,7 +975,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_sand }, { state: rock_sand_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_sand_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_sand_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_sand_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_phoron, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_sand }, { state: rock_phoron, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinQuartz, WallRockSand ]
@@ -1081,7 +983,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_sand }, { state: rock_sand_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_sand_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_sand_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_sand_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_quartz, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_sand }, { state: rock_quartz, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinSilver, WallRockSand ]
@@ -1089,7 +991,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_sand }, { state: rock_sand_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_sand_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_sand_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_sand_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_silver, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_sand }, { state: rock_silver, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinSteel, WallRockSand ]
@@ -1097,7 +999,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_sand }, { state: rock_sand_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_sand_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_sand_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_sand_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_tin, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_sand }, { state: rock_tin, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinUranium, WallRockSand ]
@@ -1105,7 +1007,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_sand }, { state: rock_sand_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_sand_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_sand_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_sand_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_uranium, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_sand }, { state: rock_uranium, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinArtifactFragment, WallRockSand ]
@@ -1113,7 +1015,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_sand }, { state: rock_sand_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_sand_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_sand_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_sand_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_artifact_fragment, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_sand }, { state: rock_artifact_fragment, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinSalt, WallRockSand ]
@@ -1121,7 +1023,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_sand }, { state: rock_sand_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_sand_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_sand_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_sand_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_salt, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_sand }, { state: rock_salt, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 #endregion
 #region Wall Rock (Chromite)
@@ -1131,21 +1033,19 @@
   name: chromite
   parent: WallRock
   components:
+  # <Onyx-OldRockSprites>
+  - type: IconSmooth
+    states:
+    - !type:EdgeSpriteSmoothing
+      mask: [ walls ]
+      base: rock_chromite_
+  # </Onyx-OldRockSprites>
   - type: Icon
     sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
     state: rock_chromite # <Onyx-OldRockSprites-edited>
   - type: Sprite
     sprite: Structures/Walls/rock.rsi # <Onyx-OldRockSprites-edited>
-    layers: # <Onyx-OldRockSprites>
-    - state: rock_chromite
-    - map: [ "enum.EdgeLayer.South" ]
-      state: rock_chromite_south
-    - map: [ "enum.EdgeLayer.East" ]
-      state: rock_chromite_east
-    - map: [ "enum.EdgeLayer.North" ]
-      state: rock_chromite_north
-    - map: [ "enum.EdgeLayer.West" ]
-      state: rock_chromite_west
+    layers: [ { state: rock_chromite } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinCoal, WallRockChromite ]
@@ -1153,7 +1053,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_chromite }, { state: rock_chromite_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_chromite_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_chromite_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_chromite_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_coal, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_chromite }, { state: rock_coal, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinGold, WallRockChromite ]
@@ -1161,7 +1061,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_chromite }, { state: rock_chromite_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_chromite_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_chromite_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_chromite_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_gold, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_chromite }, { state: rock_gold, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinDiamond, WallRockChromite ]
@@ -1169,7 +1069,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_chromite }, { state: rock_chromite_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_chromite_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_chromite_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_chromite_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_diamond, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_chromite }, { state: rock_diamond, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinPlasma, WallRockChromite ]
@@ -1177,7 +1077,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_chromite }, { state: rock_chromite_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_chromite_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_chromite_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_chromite_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_phoron, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_chromite }, { state: rock_phoron, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinQuartz, WallRockChromite ]
@@ -1185,7 +1085,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_chromite }, { state: rock_chromite_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_chromite_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_chromite_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_chromite_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_quartz, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_chromite }, { state: rock_quartz, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinSilver, WallRockChromite ]
@@ -1193,7 +1093,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_chromite }, { state: rock_chromite_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_chromite_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_chromite_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_chromite_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_silver, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_chromite }, { state: rock_silver, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinSteel, WallRockChromite ]
@@ -1201,7 +1101,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_chromite }, { state: rock_chromite_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_chromite_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_chromite_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_chromite_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_tin, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_chromite }, { state: rock_tin, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinUranium, WallRockChromite ]
@@ -1209,7 +1109,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_chromite }, { state: rock_chromite_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_chromite_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_chromite_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_chromite_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_uranium, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_chromite }, { state: rock_uranium, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinArtifactFragment, WallRockChromite ]
@@ -1217,7 +1117,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_chromite }, { state: rock_chromite_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_chromite_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_chromite_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_chromite_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_artifact_fragment, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_chromite }, { state: rock_artifact_fragment, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 - type: entity
   parent: [ BaseVeinSalt, WallRockChromite ]
@@ -1225,6 +1125,6 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/rock.rsi
-    layers: [ { state: rock_chromite }, { state: rock_chromite_south, map: [ "enum.EdgeLayer.South" ] }, { state: rock_chromite_east, map: [ "enum.EdgeLayer.East" ] }, { state: rock_chromite_north, map: [ "enum.EdgeLayer.North" ] }, { state: rock_chromite_west, map: [ "enum.EdgeLayer.West" ] }, { state: rock_salt, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ]
+    layers: [ { state: rock_chromite }, { state: rock_salt, map: [ "enum.MiningScannerVisualLayers.Overlay" ], visible: false } ] # <Onyx-OldRockSprites-edited>
 
 #endregion

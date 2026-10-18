@@ -558,8 +558,8 @@
     # </Onyx-IdCards-edited>
   - type: PresetIdCard
     job: Bartender
-    name: Pun Pun
-  - type: Tag #  Ignore Chameleon tags
+    name: id-card-preset-pun
+  - type: Tag # Ignore Chameleon tags
     tags:
     - DoorBumpOpener
 
@@ -807,6 +807,7 @@
     tags:
     - Maintenance
     - SyndicateAgent
+  - type: AccessStealer
   - type: AgentIDCard
     iconGroups:
     - CommandIconGroup
@@ -824,6 +825,8 @@
     - AntagonistIconGroup
     - MiscIconGroup
     - BlankIconGroup
+  - type: IdCard
+    jobIcon: JobIconPassenger
   - type: UIRequiresLock
   - type: ActivatableUI
     key: enum.AgentIDCardUiKey.Key
@@ -874,6 +877,46 @@
     - SyndicateAgent
 
 - type: entity
+  parent: SyndicateIDCard
+  id: SyndicateIDCardAdaptive
+  name: syndicate ID card
+  suffix: Adaptive
+  components:
+  - type: AgentIDCard
+    iconGroups:
+    - CommandIconGroup
+    - SecurityIconGroup
+    - CargoIconGroup
+    - EngineeringIconGroup
+    - MedicalIconGroup
+    - ScienceIconGroup
+    - ServiceIconGroup
+    - TheatreIconGroup
+    - CivilianIconGroup
+    - SiliconIconGroup
+    - CentCommIconGroup
+    - TaskForceIconGroup
+    - AntagonistIconGroup
+    - MiscIconGroup
+    - BlankIconGroup
+  - type: UIRequiresLock
+  - type: ActivatableUI
+    key: enum.AgentIDCardUiKey.Key
+    verbText: agent-id-open-ui-verb
+  - type: UserInterface
+    interfaces:
+      enum.AgentIDCardUiKey.Key:
+        type: AgentIDCardBoundUserInterface
+
+- type: entity # Used for reinforcements, means that someone isn't immediately outed because they forget to change their ID on spawning
+  parent: SyndicateIDCardAdaptive
+  id: SyndicateIDCardAdaptivePassenger
+  suffix: Adaptive, Passenger Icon
+  components:
+  - type: IdCard
+    jobIcon: JobIconPassenger
+
+- type: entity
   parent: [ SyndicateIDCard, BaseSyndicateContraband ]
   id: SyndiOperativeIDCard
   name: syndicate operative ID card
@@ -883,8 +926,9 @@
     # <Onyx-IdCards-edited>
     - state: syndie
     # </Onyx-IdCards-edited>
-  - type: AgentIDCard
+  - type: AccessStealer
   - type: IdCard
+    jobTitle: job-name-syndicate-operative
     jobIcon: JobIconSyndicateOperative
 
 - type: entity
@@ -898,6 +942,7 @@
     - state: syndie
     # </Onyx-IdCards-edited>
   - type: IdCard
+    jobTitle: job-name-syndicate-corpsman
     jobIcon: JobIconSyndicateCorpsman
 
 - type: entity
@@ -911,6 +956,7 @@
     - state: syndie
     # </Onyx-IdCards-edited>
   - type: IdCard
+    jobTitle: job-name-syndicate-commander
     jobIcon: JobIconSyndicateCommander
 
 - type: entity
@@ -929,8 +975,9 @@
     # </Onyx-IdCards-edited>
   - type: Item
     heldPrefix: green
-  - type: AgentIDCard
+  - type: AccessStealer
   - type: IdCard
+    jobTitle: job-name-ninja
     jobIcon: JobIconNinja
   - type: Access
     tags:
@@ -949,6 +996,7 @@
   - type: Item
     heldPrefix: orange #this is close enough to the weird puce color pirate IDs have going on
   - type: IdCard
+    jobTitle: job-name-pirate
     jobIcon: JobIconPirate
 
 - type: entity
@@ -986,6 +1034,7 @@
     - External
     - Maintenance
   - type: IdCard
+    jobTitle: job-name-wizard
     jobIcon: JobIconWizard
 
 #ERT/Centcomm
@@ -1018,7 +1067,8 @@
     - state: ert_commander
     # </Onyx-IdCards-edited>
   - type: Item
-    heldPrefix: gold
+    # heldPrefix: gold
+    heldPrefix: blue # Corvax-ID-sprite
   - type: PresetIdCard
     job: ERTLeader
 
@@ -1170,6 +1220,7 @@
   - type: Tag #  Ignore Chameleon tags
     tags:
     - DoorBumpOpener
+  - type: AccessStealer
   - type: AgentIDCard
     iconGroups:
     - CommandIconGroup

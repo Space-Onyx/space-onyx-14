@@ -49,7 +49,7 @@
       required: false
     # <Onyx-GoobMarkings>
     enum.HumanoidVisualLayers.HeadTop:
-      limit: 3 # <Onyx-MarkingCategories-edited>
+      limit: 3
       required: true
       default: [ FoxEar ] # Corvax-Vulp_Port VulpEar
     # </Onyx-GoobMarkings>
@@ -386,6 +386,9 @@
       layers:
       - Eyes
   # </Onyx-VulpkaninBody-edited>
+  - type: EyeBlinking
+    eyelidsSprite: /Textures/Mobs/Species/Vulpkanin/parts.rsi
+  - type: Appearance
 
 - type: entity
   parent: [ OrganBaseTongue, OrganVulpkaninInternal ]

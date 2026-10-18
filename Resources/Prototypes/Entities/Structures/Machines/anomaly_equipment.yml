@@ -218,7 +218,7 @@
   - type: DeviceNetwork
     deviceNetId: Wireless
     receiveFrequencyId: BasicDevice
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 200
   - type: DeviceLinkSink
     ports:
@@ -288,7 +288,6 @@
   - type: DeviceLinkSink
     ports:
     - MaterialSiloUtilizer
-  # </Onyx-MaterialSiloDeviceLink>
   - type: MaterialSiloLink
   # </Onyx-MaterialSiloDeviceLink>
   - type: Fixtures

@@ -10,8 +10,7 @@
   sprites:
   - sprite: _Onyx/Species/Shadowkin/parts.rsi
     state: eyes
-  shaders:
-    eyes: unshaded
+    shader: unshaded
 
 - type: marking
   id: EarsShadowkin

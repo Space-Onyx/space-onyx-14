@@ -83,7 +83,10 @@
     state: full
   - type: IconSmooth
     key: walls
-    base: state
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: state
   - type: Reflect
     reflectProb: 1
 
@@ -96,13 +99,14 @@
   components:
   - type: Sprite
     sprite: _Onyx/Structures/Abductor/abductor_diagonal.rsi
-    state: state0
   - type: Icon
     sprite: _Onyx/Structures/Abductor/abductor_diagonal.rsi
     state: state0
   - type: IconSmooth
-    mode: Diagonal
     key: walls
-    base: state
+    states:
+    - !type:DiagonalSpriteSmoothing
+      mask: [ walls, windows, grilles, marble, doors ]
+      base: state
   - type: Reflect
     reflectProb: 1

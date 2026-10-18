@@ -27,7 +27,7 @@
   - WetFloorSign
   - WireBrush
   - PhotoCamera # <Onyx-PhotoCamera>
-  - PlantAnalyzer # <Onyx-PlantAnalyzer>
+  - AdvancedPlantAnalyzer # <Onyx-PlantAnalyzer>
 
 - type: latheRecipePack
   id: ServiceBoardsStatic
@@ -49,6 +49,16 @@
   - StationRadioCircuitboard
   # </Onyx-StationRadio>
 
+- type: latheRecipePack
+  id: HydroponicsStatic
+  recipes:
+  - HydroponicsToolMiniHoe
+  - HydroponicsToolScythe
+  - HydroponicsToolHatchet
+  - HydroponicsToolSpade
+  - HydroponicsToolClippers
+  - PlantAnalyzer
+
 ## Dynamic
 
 - type: latheRecipePack
@@ -59,6 +69,16 @@
   - ClothingBackpackWaterTank
   - MegaSprayBottle
   - TrashBagHolding
+  - BoxLighttube
+  - BoxExteriorLighttube
+  - BoxLedLighttube
+  - BoxSodiumLighttube
+  - BoxLightbulb
+  - BoxDimLightbulb
+  - BoxWarmLightbulb
+  - BoxLedLightbulb
+  - BoxLightMixed
+  - BoxLedLightMixed
 
 - type: latheRecipePack
   id: Instruments

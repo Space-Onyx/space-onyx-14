@@ -12,6 +12,7 @@ using Content.Shared._Onyx.Salvage.MiningPoints; // <Onyx-MiningPointsPda>
 using Content.Shared.AlertLevel;
 using Content.Shared.CartridgeLoader;
 using Content.Shared.Chat;
+using Content.Shared.DeviceNetwork;
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.Genetics;
 using Content.Shared.Implants;
@@ -373,7 +374,7 @@ namespace Content.Server.PDA
 
             if (TryComp(uid, out DeviceNetworkComponent? deviceNetworkComponent))
             {
-                address = deviceNetworkComponent.Address;
+                address = DeviceLocalizationHelpers.GetAddressFromId(deviceNetworkComponent);
             }
 
             return address;

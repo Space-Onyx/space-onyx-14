@@ -6,4 +6,4 @@
   - type: Sprite
     state: water_full
   - type: IconSmooth
-    mode: NoSprite
+    states: []

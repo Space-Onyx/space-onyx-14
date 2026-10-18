@@ -16,7 +16,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._Onyx.Botany.PlantAnalyzer;
 
-public sealed partial class PlantAnalyzerSystem : AbstractAnalyzerSystem<PlantAnalyzerComponent, PlantAnalyzerDoAfterEvent>
+public sealed partial class PlantAnalyzerSystem : AbstractAnalyzerSystem<AdvancedPlantAnalyzerComponent, PlantAnalyzerDoAfterEvent>
 {
     [Dependency] private UserInterfaceSystem _uiSystem = default!;
     [Dependency] private IGameTiming _gameTiming = default!;
@@ -30,22 +30,22 @@ public sealed partial class PlantAnalyzerSystem : AbstractAnalyzerSystem<PlantAn
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<PlantAnalyzerComponent, PlantAnalyzerPrintMessage>(OnPrint);
+        SubscribeLocalEvent<AdvancedPlantAnalyzerComponent, PlantAnalyzerPrintMessage>(OnPrint);
     }
 
     public override void UpdateScannedUser(EntityUid analyzer, EntityUid target, bool scanMode)
     {
-        if (!_uiSystem.HasUi(analyzer, PlantAnalyzerUiKey.Key) ||
+        if (!_uiSystem.HasUi(analyzer, AdvancedPlantAnalyzerUiKey.Key) ||
             !ValidScanTarget(target) ||
-            !TryComp<PlantAnalyzerComponent>(analyzer, out var component))
+            !TryComp<AdvancedPlantAnalyzerComponent>(analyzer, out var component))
             return;
 
         _uiSystem.ServerSendUiMessage(analyzer,
-            PlantAnalyzerUiKey.Key,
+            AdvancedPlantAnalyzerUiKey.Key,
             GatherData(component, scanMode, target));
     }
 
-    private PlantAnalyzerScannedUserMessage GatherData(PlantAnalyzerComponent analyzer,
+    private PlantAnalyzerScannedUserMessage GatherData(AdvancedPlantAnalyzerComponent analyzer,
         bool? scanMode = null,
         EntityUid? target = null)
     {
@@ -127,7 +127,7 @@ public sealed partial class PlantAnalyzerSystem : AbstractAnalyzerSystem<PlantAn
         return Math.Max(1, yieldMod < 0 ? yield : yield * yieldMod);
     }
 
-    private void OnPrint(EntityUid uid, PlantAnalyzerComponent component, PlantAnalyzerPrintMessage args)
+    private void OnPrint(EntityUid uid, AdvancedPlantAnalyzerComponent component, PlantAnalyzerPrintMessage args)
     {
         var user = args.Actor;
         if (_gameTiming.CurTime < component.PrintReadyAt)
@@ -182,9 +182,9 @@ public sealed partial class PlantAnalyzerSystem : AbstractAnalyzerSystem<PlantAn
         component.PrintReadyAt = _gameTiming.CurTime + component.PrintCooldown;
     }
 
-    protected override Enum GetUiKey() => PlantAnalyzerUiKey.Key;
+    protected override Enum GetUiKey() => AdvancedPlantAnalyzerUiKey.Key;
 
-    protected override bool ScanTargetPopupMessage(Entity<PlantAnalyzerComponent> uid,
+    protected override bool ScanTargetPopupMessage(Entity<AdvancedPlantAnalyzerComponent> uid,
         AfterInteractEvent args,
         [NotNullWhen(true)] out string? message)
     {

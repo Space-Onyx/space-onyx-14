@@ -154,7 +154,7 @@ public abstract partial class SharedProjectileSystem : EntitySystem
 
         if (component.DeleteOnRemove)
         {
-            PredictedQueueDel(uid);
+            QueueDel(uid);
             return;
         }
 

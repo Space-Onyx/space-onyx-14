@@ -84,7 +84,7 @@ public abstract partial class SpeechBubble
         ContentSize = _bubble.DesiredSize;
         var delta = ContentSize.Y - oldHeight;
         if (!MathHelper.CloseTo(delta, 0f))
-            OnHeightChanged?.Invoke(_senderEntity, this, delta);
+            OnHeightChanged?.Invoke(SenderEntity, this, delta);
     }
 
     private sealed class RevealedText

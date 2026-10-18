@@ -105,10 +105,6 @@ public abstract partial class SharedStackSystem
     /// Moves as much stack count as we can from the donor to the recipient.
     /// Deletes the donor if count goes to 0.
     /// </summary>
-    /// <param name="donor">Entity losing count.</param>
-    /// <param name="recipient">Entity gaining count.</param>
-    /// <param name="transferred">How much stack count was moved.</param>
-    /// <param name="amount">Optional. Limits amount of stack count to move from the donor.</param>
     /// <param name="donor">Entity which will give the amount from its stack</param>
     /// <param name="recipient">Entity which will receive the amount to its stack</param>
     /// <param name="transferred">How much stack count was actually moved.</param>
@@ -265,7 +261,7 @@ public abstract partial class SharedStackSystem
 
         // Queue delete stack if count reaches zero.
         if (ent.Comp.Count <= 0 && !ent.Comp.Lingering) // <Onyx-LingeringStacks-edited>
-            PredictedQueueDel(ent.Owner);
+            QueueDel(ent.Owner);
     }
 
     /// <inheritdoc cref="SetCount(Entity{StackComponent?}, int)"/>

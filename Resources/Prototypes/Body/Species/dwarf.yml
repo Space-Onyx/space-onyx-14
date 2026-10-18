@@ -105,16 +105,12 @@
 - type: entity
   parent: [ OrganHumanChest, OrganDwarfAppearance ]
   id: OrganDwarfChest
-  # <Onyx-NoDwarfDisplacement-edited>
   # Dwarfism chest markings displacement removed.
-  # </Onyx-NoDwarfDisplacement-edited>
 
 - type: entity
   parent: [ OrganHumanGroin, OrganDwarfAppearance ]
   id: OrganDwarfGroin
-  # <Onyx-NoDwarfDisplacement-edited>
   # Dwarfism groin markings displacement removed.
-  # </Onyx-NoDwarfDisplacement-edited>
 # </Onyx-ChestGroin-edited>
 
 - type: entity

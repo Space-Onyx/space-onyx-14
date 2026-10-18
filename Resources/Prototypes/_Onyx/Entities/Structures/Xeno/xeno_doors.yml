@@ -61,7 +61,7 @@
         acts: ["Destruction"]
   - type: IconSmooth
     key: walls
-    mode: NoSprite
+    states: []
   - type: Airlock
     emergencyAccessLayer: false
     animatePanel: false
@@ -106,4 +106,4 @@
         acts: ["Destruction"]
   - type: IconSmooth
     key: walls
-    mode: NoSprite
+    states: []
