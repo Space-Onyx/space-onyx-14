@@ -1,0 +1,98 @@
+// SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+light_mode unshaded;
+#include "/Shaders/Internal/shadow_cast_shared.swsl"
+const highp float g_MinVariance = 0.0;
+const highp float FAR = 100000000000000000000.0;
+uniform sampler2D fovDepth;
+uniform highp float mapWidth;
+uniform bool circle;
+uniform highp vec2 center;
+uniform highp float radius;
+uniform highp vec2[8] vertices;
+uniform highp int vertexCount;
+
+highp float cross(highp vec2 a, highp vec2 b)
+{
+    return a.x * b.y - a.y * b.x;
+}
+
+highp float edgeDistance(highp vec2 a, highp vec2 b, highp vec2 direction)
+{
+    highp vec2 edge = b - a;
+    highp float denominator = cross(direction, edge);
+    if (denominator == 0.0)
+    {
+        if (cross(a, direction) != 0.0)
+            return FAR;
+        highp float start = dot(a, direction);
+        highp float end = dot(b, direction);
+        if (max(start, end) < 0.0)
+            return FAR;
+        return max(0.0, min(start, end));
+    }
+    highp float distance = cross(a, edge) / denominator;
+    highp float t = cross(a, direction) / denominator;
+    if (distance < 0.0 || t < 0.0 || t > 1.0)
+        return FAR;
+    return distance;
+}
+
+highp float circleRay(highp vec2 direction)
+{
+    highp float along = dot(center, direction);
+    highp float perpendicular = cross(center, direction);
+    highp float discriminant = radius * radius - perpendicular * perpendicular;
+    if (along < 0.0 || discriminant < 0.0)
+        return FAR;
+    return max(0.0, along - sqrt(discriminant));
+}
+
+void fragment()
+{
+    highp float u = FRAGCOORD.x / mapWidth;
+    highp float angle = (1.0 - u) * 2.0 * PI;
+    highp vec2 direction = vec2(cos(angle), sin(angle));
+    highp float halfAngle = PI / mapWidth;
+    highp vec2 right = vec2(cos(angle - halfAngle), sin(angle - halfAngle));
+    highp vec2 left = vec2(cos(angle + halfAngle), sin(angle + halfAngle));
+    highp float nearest = FAR;
+    if (circle)
+    {
+        if (length(center) <= radius)
+            nearest = 0.0;
+        else if (radius == 0.0 && cross(right, center) >= 0.0 && cross(center, left) >= 0.0)
+            nearest = length(center);
+        else
+            nearest = circleRay(direction);
+    }
+    else
+    {
+        bool positive = false;
+        bool negative = false;
+        highp float area = 0.0;
+        for (highp int i = 0; i < 8; i++)
+        {
+            if (i >= vertexCount)
+                break;
+            highp int next = i + 1;
+            if (next == vertexCount)
+                next = 0;
+            highp vec2 a = vertices[i];
+            highp vec2 b = vertices[next];
+            area += cross(a - vertices[0], b - vertices[0]);
+            highp float side = cross(b - a, -a);
+            positive = positive || side > 0.0;
+            negative = negative || side < 0.0;
+            nearest = min(nearest, edgeDistance(a, b, direction));
+        }
+        if (vertexCount >= 3 && abs(area) > 0.0 && !(positive && negative))
+            nearest = 0.0;
+    }
+    // The near face blocks entities; the far face is only for drawing the wall itself.
+    highp float depth = zClydeShadowDepthUnpack(texture2D(fovDepth, vec2(u, 0.25))).x;
+    if (nearest == FAR || depth - 0.75 / 32.0 < nearest)
+        discard;
+    COLOR = vec4(1.0);
+}

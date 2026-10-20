@@ -1,0 +1,38 @@
+// SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+light_mode unshaded;
+#include "/Shaders/Internal/shadow_cast_shared.swsl"
+const highp float g_MinVariance = 0.0;
+uniform bool enabled;
+uniform sampler2D visibilityMask;
+uniform highp vec2 maskUV;
+uniform sampler2D fovDepth;
+uniform highp vec2 worldOrigin;
+uniform highp vec2 worldHorizontal;
+uniform highp vec2 worldVertical;
+uniform highp vec2 anchor;
+
+void fragment()
+{
+    highp vec4 color = zTexture(UV);
+    if (color.a == 0.0)
+        discard;
+    if (enabled)
+    {
+        if (texture2D(visibilityMask, maskUV).r < 0.5)
+            discard;
+        highp vec2 point = worldOrigin + SCREEN_UV.x * worldHorizontal + SCREEN_UV.y * worldVertical;
+        // Test this sprite column at its base, not the sprite top's fictitious floor position.
+        highp float horizontalSquared = dot(worldHorizontal, worldHorizontal);
+        highp vec2 basePoint = anchor;
+        if (horizontalSquared > 0.0)
+            basePoint += worldHorizontal * (dot(point - anchor, worldHorizontal) / horizontalSquared);
+        if (doesOcclude(basePoint, fovDepth, 0.25, -0.75 / 32.0))
+        {
+            if (doesOcclude(point, fovDepth, 0.25, -0.75 / 32.0))
+                discard;
+        }
+    }
+    COLOR = color;
+}

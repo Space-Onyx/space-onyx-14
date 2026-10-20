@@ -1,0 +1,17 @@
+// SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+light_mode unshaded;
+uniform sampler2D sourceMask;
+uniform highp vec2 sourceSize;
+uniform highp float sourceWidth;
+
+void fragment()
+{
+    highp float x = floor(FRAGCOORD.x) * 2.0;
+    highp float y = FRAGCOORD.y / sourceSize.y;
+    highp float visible = texture2D(sourceMask, vec2((x + 0.5) / sourceSize.x, y)).r;
+    if (x + 1.0 < sourceWidth)
+        visible = max(visible, texture2D(sourceMask, vec2((x + 1.5) / sourceSize.x, y)).r);
+    COLOR = vec4(vec3(visible), 1.0);
+}

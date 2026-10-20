@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: shader
+  id: EntityOcclusionFootprint
+  kind: source
+  path: /Textures/_Onyx/Shaders/entity_occlusion_footprint.swsl
+
+- type: shader
+  id: EntityOcclusion
+  kind: source
+  path: /Textures/_Onyx/Shaders/entity_occlusion.swsl
+
+- type: shader
+  id: EntityOcclusionReduce
+  kind: source
+  path: /Textures/_Onyx/Shaders/entity_occlusion_reduce.swsl
