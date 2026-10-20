@@ -105,6 +105,7 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
 
     private void ApplyVisual(Entity<VisualOrganComponent> ent, EntityUid target)
     {
+        _directionalLayering.Invalidate(target); // <Onyx-DirectionalLayers>
         // <Onyx-DetachedOrganVisuals-edited>
         if (!ent.Comp.ShowOnDetached &&
             TryComp<OrganComponent>(ent.Owner, out var organ) &&
@@ -341,6 +342,7 @@ public sealed partial class VisualBodySystem : SharedVisualBodySystem
         }
 
         ent.Comp.AppliedMarkings = applied;
+        _directionalLayering.Invalidate(target); // <Onyx-DirectionalLayers>
     }
 
     /// <summary>

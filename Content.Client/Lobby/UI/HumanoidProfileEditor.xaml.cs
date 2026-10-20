@@ -461,9 +461,9 @@ namespace Content.Client.Lobby.UI
 
         private void SetPreviewRotation(Direction direction)
         {
-            var renderDirection = (Direction)((int)direction % 4 * 2); // <Onyx-DirectionalLimbLayers-edited>
-            SpriteView.OverrideDirection = renderDirection; // <Onyx-DirectionalLimbLayers-edited>
-            SpriteView.UpdateDirectionalLimbLayers(renderDirection); // <Onyx-DirectionalLimbLayers>
+            var renderDirection = (Direction)((int)direction % 4 * 2); // <Onyx-DirectionalLayers-edited>
+            SpriteView.OverrideDirection = renderDirection; // <Onyx-DirectionalLayers-edited>
+            SpriteView.InvalidateMeasure(); // <Onyx-DirectionalLayers>
         }
     }
 }

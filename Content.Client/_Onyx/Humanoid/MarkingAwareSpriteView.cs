@@ -6,6 +6,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
+using Content.Client._Onyx.Body;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface.Controls;
@@ -108,6 +109,8 @@ public class MarkingAwareSpriteView : SpriteView
         _sprites ??= EntMan.System<SpriteSystem>();
         _transform ??= EntMan.System<SharedTransformSystem>();
 
+        EntMan.System<DirectionalLayeringSystem>().TryUpdate(
+            (uid, sprite), (WorldRotation ?? Angle.Zero) + EyeRotation, OverrideDirection);
         _sprites.ForceUpdate(uid);
 
         var stretchVec = Stretch switch

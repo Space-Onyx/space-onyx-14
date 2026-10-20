@@ -129,7 +129,6 @@
   - type: VisualOrgan
     colorFromProfile: false
     data: { sprite: _Onyx/Cybernetics/bishop_main.rsi, state: l_leg-combined }
-  - type: DirectionalLimbLayer
   - type: RoundstartCybernetics
     selectable: false
     cost: 2
@@ -154,7 +153,6 @@
   - type: VisualOrgan
     colorFromProfile: false
     data: { sprite: _Onyx/Cybernetics/bishop_main.rsi, state: r_leg-combined }
-  - type: DirectionalLimbLayer
   - type: RoundstartCybernetics
     selectable: false
     cost: 2
@@ -179,7 +177,6 @@
   - type: VisualOrgan
     colorFromProfile: false
     data: { sprite: _Onyx/Cybernetics/bishop_main.rsi, state: l_foot }
-  - type: DirectionalLimbLayer
   - type: RoundstartCybernetics
     selectable: false
 
@@ -202,7 +199,6 @@
   - type: VisualOrgan
     colorFromProfile: false
     data: { sprite: _Onyx/Cybernetics/bishop_main.rsi, state: r_foot }
-  - type: DirectionalLimbLayer
   - type: RoundstartCybernetics
     selectable: false
 

@@ -1,12 +1,9 @@
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
-using Content.Client._Onyx.Body; // <Onyx-DirectionalLimbLayers>
-using Content.Client._Onyx.Humanoid; // <Onyx-MarkingBounds>
-using Robust.Client.GameObjects; // <Onyx-DirectionalLimbLayers>
+using Content.Client._Onyx.Humanoid; // <Onyx-DirectionalLayers-edited>
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Maths; // <Onyx-DirectionalLimbLayers>
 
 namespace Content.Client.Lobby.UI.ProfileEditorControls;
 
@@ -35,23 +32,11 @@ public sealed partial class ProfilePreviewSpriteView : MarkingAwareSpriteView //
     {
         ClearPreview(); // <Onyx-CharacterPreviewReset-edited>
 
-        LoadHumanoidEntity(profile, jobOverride, showClothes);
-        UpdateDirectionalLimbLayers(OverrideDirection ?? Direction.South); // <Onyx-DirectionalLimbLayers>
+        LoadHumanoidEntity(profile, jobOverride, showClothes); // <Onyx-DirectionalLayers-edited>
 
         SetEntity(PreviewDummy);
         SetName(profile.Name);
     }
-
-    // <Onyx-DirectionalLimbLayers>
-    public void UpdateDirectionalLimbLayers(Direction direction)
-    {
-        if (!EntMan.TryGetComponent(PreviewDummy, out SpriteComponent? sprite))
-            return;
-
-        EntMan.System<DirectionalLimbLayerSystem>().Update((PreviewDummy, sprite), direction);
-        InvalidateMeasure(); // <Onyx-MarkingBounds>
-    }
-    // </Onyx-DirectionalLimbLayers>
 
     /// <summary>
     /// Sets the preview entity's name without reloading anything else.
