@@ -1,6 +1,5 @@
 - type: microwaveMealRecipe
   id: RecipeSashimiRaw
-  name: recipe-name-sashimi
   result: FoodMealSashimi
   time: 15
   group: Savory
@@ -11,7 +10,6 @@
 
 - type: microwaveMealRecipe
   id: RecipeBisqueRaw
-  name: recipe-name-bisque
   result: FoodSoupBisque
   time: 10
   group: Soup
@@ -25,7 +23,6 @@
 
 - type: microwaveMealRecipe
   id: RecipeTacoFishRaw
-  name: recipe-name-fish-taco
   result: FoodTacoFish
   time: 10
   solids:

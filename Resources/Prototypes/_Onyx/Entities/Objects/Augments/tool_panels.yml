@@ -134,7 +134,7 @@
   - type: Storage
     whitelist:
       tags: [ Wirecutter, Crowbar, Screwdriver, Wrench, GeigerCounter, Powerdrill, JawsOfLife, HolofanProjector, Multitool, AppraisalTool ]
-      components: [ StationMap, SprayPainter, NetworkConfigurator, RCD, RCDAmmo, Welder, PowerCell, Geiger, TrayScanner, GasAnalyzer ]
+      components: [ StationMap, SprayPainter, NetworkConfigurator, RCD, RCDAmmo, Welder, PowerCell, Geiger, TRayScanner, GasAnalyzer ]
   - type: Construction
     node: utility
 

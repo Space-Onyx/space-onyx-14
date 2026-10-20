@@ -22,7 +22,10 @@
     state: resin
   - type: IconSmooth
     key: walls
-    base: resin
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls ]
+      base: resin
   - type: Damageable
     damageModifierSet: Resin
   - type: Injurable
@@ -54,8 +57,10 @@
     state: weed0
   - type: IconSmooth
     key: cm_xeno_weeds
-    base: weed_dir
-    mode: CardinalFlags
+    states:
+    - !type:CardinalFlagsSpriteSmoothing
+      mask: [ cm_xeno_weeds ]
+      base: weed_dir
   - type: Damageable
     damageModifierSet: Resin
   - type: Injurable
@@ -104,7 +109,10 @@
     state: full
   - type: IconSmooth
     key: full
-    base: resin_nest
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ full ]
+      base: resin_nest
   - type: Fixtures
     fixtures:
       fix1:

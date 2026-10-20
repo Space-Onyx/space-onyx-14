@@ -44,7 +44,10 @@
     state: resin
   - type: IconSmooth
     key: walls
-    base: resin
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls ]
+      base: resin
   - type: Destructible
     thresholds:
     - trigger:
@@ -67,7 +70,10 @@
     state: thickresin
   - type: IconSmooth
     key: walls
-    base: thickresin
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls ]
+      base: thickresin
   - type: Destructible
     thresholds:
     - trigger:
@@ -128,7 +134,10 @@
         acts: ["Destruction"]
   - type: IconSmooth
     key: walls
-    base: membrane
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls ]
+      base: membrane
 
 - type: entity
   parent: BaseMembraneXeno
@@ -151,4 +160,7 @@
         acts: ["Destruction"]
   - type: IconSmooth
     key: walls
-    base: thickmembrane
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls ]
+      base: thickmembrane

@@ -2,7 +2,7 @@
   id: ColoredPaper
   icon:
     sprite: Objects/Misc/bureaucracy.rsi
-    state: nano_paper
+    state: paper
   product: CrateColoredPaper
   cost: 650
   category: cargoproduct-category-name-fun

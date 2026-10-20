@@ -1,6 +1,5 @@
 - type: microwaveMealRecipe
   id: RecipeOlivielsoup
-  name: oliviel soup
   result: FoodOlivielsoup
   time: 15
   reagents:

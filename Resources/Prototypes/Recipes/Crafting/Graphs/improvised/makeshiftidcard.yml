@@ -13,7 +13,7 @@
           icon:
             sprite: Objects/Misc/potatoai_chip.rsi
             state: icon
-        - material: Manipulator
+        - material: ServoDriveT1 # <Onyx-TieredMachineParts-edited>
           amount: 2
           doAfter: 5
 

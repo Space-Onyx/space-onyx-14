@@ -2,6 +2,6 @@
   id: CosmicRadio
   name: chat-radio-cosmiccult
   keycode: 'ш' # CorvaxGoob edit
-  frequency: 77777
+  frequency: 57777
   color: "#4cabb3"
   longRange: true

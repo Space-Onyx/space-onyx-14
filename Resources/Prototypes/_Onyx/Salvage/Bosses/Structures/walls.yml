@@ -32,7 +32,10 @@
     sprite: _Onyx/Salvage/Structures/Walls/hierophant.rsi
   - type: IconSmooth
     key: walls
-    base: hierophant
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ walls ]
+      base: hierophant
   - type: SyncSprite
   - type: PointLight
     radius: 5.0
@@ -52,7 +55,10 @@
     sprite: _Onyx/Salvage/Structures/Walls/hierophant_temp.rsi
   - type: IconSmooth
     key: hierofield
-    base: hierotemp
-    shader: unshaded
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ hierofield ]
+      base: hierotemp
+      shader: unshaded
   - type: Occluder
     enabled: false

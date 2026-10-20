@@ -31,8 +31,10 @@
     - state: weed0
   - type: IconSmooth
     key: cm_xeno_weeds
-    base: weed_dir
-    mode: CardinalFlags
+    states:
+    - !type:CardinalFlagsSpriteSmoothing
+      mask: [ cm_xeno_weeds ]
+      base: weed_dir
   - type: RandomSprite
     available:
     - 0:
@@ -139,8 +141,10 @@
     drawdepth: Objects
   - type: IconSmooth
     key: cm_xeno_weeds_walls
-    base: weedwall
-    mode: Corners
+    states:
+    - !type:CornerSpriteSmoothing
+      mask: [ cm_xeno_weeds_walls ]
+      base: weedwall
   - type: Injurable
     damageContainer: Biological
   - type: Destructible
