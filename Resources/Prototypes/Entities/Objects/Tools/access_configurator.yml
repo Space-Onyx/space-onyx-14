@@ -22,9 +22,6 @@
       - Armory
       - Atmospherics
       - Bar
-      # <Onyx-AccessConfiguratorLevels>
-      - BlueshieldOfficer
-      # </Onyx-AccessConfiguratorLevels>
       - Brig
       - Detective
       - Captain
@@ -44,14 +41,6 @@
       - Lawyer
       - Maintenance
       - Medical
-      # <Onyx-AccessConfiguratorLevels>
-      - Paramedic
-      - Robotics
-      - Journalism
-      - HotelManager
-      - HotelSecure
-      - HotelStaff
-      # </Onyx-AccessConfiguratorLevels>
       - Quartermaster
       - Research
       - ResearchDirector
@@ -105,9 +94,6 @@
     - Bar
     - BasicSilicon
     - Borg
-    # <Onyx-AccessConfiguratorUniversalLevels>
-    - BlueshieldOfficer
-    # </Onyx-AccessConfiguratorUniversalLevels>
     - Brig
     - Detective
     - Captain
@@ -124,13 +110,6 @@
     - HeadOfPersonnel
     - HeadOfSecurity
     - Hydroponics
-    # <Onyx-AccessConfiguratorUniversalLevels>
-    - Ipc
-    - Journalism
-    - HotelManager
-    - HotelSecure
-    - HotelStaff
-    # </Onyx-AccessConfiguratorUniversalLevels>
     - Janitor
     - Kitchen
     - Lawyer
@@ -139,9 +118,6 @@
     - Quartermaster
     - Research
     - ResearchDirector
-    # <Onyx-AccessConfiguratorUniversalLevels>
-    - Robotics
-    # </Onyx-AccessConfiguratorUniversalLevels>
     - Salvage
     - Security
     - Service
@@ -152,9 +128,6 @@
     - SyndicateAgent
     - Wizard
     - Xenoborg
-    # <Onyx-AccessConfiguratorUniversalLevels>
-    - Xenomorph
-    # </Onyx-AccessConfiguratorUniversalLevels>
     - GenpopEnter
     - GenpopLeave
     privilegedIdSlot:

@@ -1,6 +1,6 @@
 - type: entity
   abstract: true
-  parent: [SolutionWelder, BaseItem, WelderRepairModes] # <Onyx-WelderRepairModes>
+  parent: [SolutionWelder, BaseItem]
   id: BaseWelder
   components:
   - type: Sprite

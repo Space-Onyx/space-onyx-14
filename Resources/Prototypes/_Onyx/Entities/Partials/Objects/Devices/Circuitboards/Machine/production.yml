@@ -1,0 +1,540 @@
+# SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: AutolatheMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 3
+      Servo: 1
+
+- type: entity
+  id: AutolatheHyperConvectionMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 2
+      Servo: 2
+
+- type: entity
+  id: ProtolatheMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 2
+      Servo: 2
+
+- type: entity
+  id: ProtolatheHyperConvectionMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 2
+      Servo: 2
+
+- type: entity
+  id: BiofabricatorMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 4
+
+- type: entity
+  id: SecurityTechFabCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 2
+      Servo: 2
+
+- type: entity
+  id: AmmoTechFabCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 1
+      Servo: 1
+
+- type: entity
+  id: MedicalTechFabCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 2
+      Servo: 2
+
+- type: entity
+  id: CircuitImprinterMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 1
+      Servo: 1
+
+- type: entity
+  id: CircuitImprinterHyperConvectionMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 1
+      Servo: 1
+
+- type: entity
+  id: ExosuitFabricatorMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 2
+      Servo: 1
+      Laser: 1
+
+- type: entity
+  id: BiogeneratorMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 1
+      Servo: 1
+
+- type: entity
+  id: UniformPrinterMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 3
+
+- type: entity
+  id: VaccinatorMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 2
+
+- type: entity
+  id: ArtifactAnalyzerMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Capacitor: 1
+
+- type: entity
+  id: ArtifactCrusherMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 2
+
+- type: entity
+  id: StationTeleporterMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 3
+
+- type: entity
+  id: AnomalyVesselCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 3
+
+- type: entity
+  id: AnomalyVesselExperimentalCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 3
+
+- type: entity
+  id: AnomalySynchronizerCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 7
+
+- type: entity
+  id: APECircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 2
+
+- type: entity
+  id: ThermomachineFreezerMachineCircuitBoard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 2
+      Laser: 2
+
+- type: entity
+  id: ThermomachineHeaterMachineCircuitBoard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 2
+      Laser: 2
+
+- type: entity
+  id: HellfireFreezerMachineCircuitBoard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 4
+
+- type: entity
+  id: HellfireHeaterMachineCircuitBoard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 4
+
+- type: entity
+  id: CondenserMachineCircuitBoard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 1
+
+- type: entity
+  id: PortableScrubberMachineCircuitBoard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Laser: 2
+      Capacitor: 2
+
+- type: entity
+  id: SpaceHeaterMachineCircuitBoard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Capacitor: 2
+      Laser: 2
+
+- type: entity
+  id: CloningPodMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Capacitor: 1
+
+- type: entity
+  id: MedicalScannerMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 1
+
+- type: entity
+  id: ChemMasterMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 1
+
+- type: entity
+  id: ChemDispenserMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Capacitor: 2
+      MatterBin: 2
+
+- type: entity
+  id: BiomassReclaimerMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 3
+
+- type: entity
+  id: HydroponicsTrayMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 2
+      Servo: 1
+
+- type: entity
+  id: SeedExtractorMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 3
+
+- type: entity
+  id: SMESMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Capacitor: 4
+
+- type: entity
+  id: SMESAdvancedMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Capacitor: 4
+
+- type: entity
+  id: CellRechargerCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Capacitor: 1
+
+- type: entity
+  id: PowerCageRechargerCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Capacitor: 1
+
+- type: entity
+  id: BorgChargerCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Capacitor: 2
+      Servo: 1
+
+- type: entity
+  id: WeaponCapacitorRechargerCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Capacitor: 1
+
+- type: entity
+  id: TurboItemRechargerCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Capacitor: 1
+
+- type: entity
+  id: SubstationMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 1
+
+- type: entity
+  id: PortableGeneratorPacmanMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 1
+
+- type: entity
+  id: ThrusterMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 4
+
+- type: entity
+  id: GyroscopeMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 3
+
+- type: entity
+  id: PortableGeneratorSuperPacmanMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 2
+
+- type: entity
+  id: PortableGeneratorJrPacmanMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 1
+
+- type: entity
+  id: ReagentGrinderMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 1
+      MatterBin: 1
+
+- type: entity
+  id: HotplateMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Laser: 1
+
+- type: entity
+  id: ElectricGrillMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 4
+
+- type: entity
+  id: StasisBedMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Capacitor: 2
+
+- type: entity
+  id: ElectrolysisUnitMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 2
+      Capacitor: 2
+
+- type: entity
+  id: CentrifugeMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 1
+
+- type: entity
+  id: MaterialSiloMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 4
+
+- type: entity
+  id: OreProcessorMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 1
+      Laser: 1
+      Servo: 1
+
+- type: entity
+  id: OreProcessorIndustrialMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 1
+      Laser: 1
+      Servo: 1
+
+- type: entity
+  id: SheetifierMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 2
+      MatterBin: 2
+
+- type: entity
+  id: MicrowaveMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Laser: 1
+      MatterBin: 1
+
+- type: entity
+  id: SyndicateMicrowaveMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Laser: 1
+      MatterBin: 1
+
+- type: entity
+  id: FatExtractorMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Laser: 1
+
+- type: entity
+  id: FlatpackerMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 2
+      Laser: 2
+      Servo: 1
+
+- type: entity
+  id: EmitterCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Laser: 1
+      Servo: 1
+
+- type: entity
+  id: GasRecyclerMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 2
+
+- type: entity
+  id: CargoTelepadMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 1
+
+- type: entity
+  id: MailTeleporterMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 2
+      Scanner: 1
+
+- type: entity
+  id: SalvageMagnetMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 1
+      MatterBin: 1
+
+- type: entity
+  id: MiniGravityGeneratorCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 7
+
+- type: entity
+  id: StationAnchorCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 7
+
+- type: entity
+  id: ReagentGrinderIndustrialMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 2
+      Servo: 2
+
+- type: entity
+  id: CutterMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 2
+
+- type: entity
+  id: SmartFridgeCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      MatterBin: 2

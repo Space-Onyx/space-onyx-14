@@ -2,7 +2,6 @@ using System.Linq;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared._Onyx.Cybernetics.Personalization; // <Onyx-CyberneticsPersonalization>
-using Content.Shared._Onyx.Loadouts; // <Onyx-LoadoutPersonalization>
 using Content.Shared._Onyx.Silicons.Laws; // <Onyx-SyntheticLawPresets>
 using Content.Shared.Body;
 using Content.Shared.CCVar;
@@ -206,26 +205,6 @@ public sealed partial class StationSpawningSystem : EntitySystem
         }
     }
 
-    // <Onyx-LoadoutPersonalization>
-    public void ApplyLoadoutCustomization(EntityUid entity, Loadout? loadout)
-    {
-        if (loadout == null)
-            return;
-
-        if (!string.IsNullOrWhiteSpace(loadout.CustomName))
-            _metadata.SetEntityName(entity, loadout.CustomName);
-
-        if (!string.IsNullOrWhiteSpace(loadout.CustomDescription))
-            _metadata.SetEntityDescription(entity, loadout.CustomDescription);
-
-        if (string.IsNullOrEmpty(loadout.CustomColorTint) || !Color.TryFromHex(loadout.CustomColorTint, out var color))
-            return;
-
-        var tint = EnsureComp<LoadoutTintComponent>(entity);
-        tint.Color = color;
-        Dirty(entity, tint);
-    }
-    // </Onyx-LoadoutPersonalization>
 
     /// <summary>
     ///     Gets all the gear for a given slot when passed a loadout.

@@ -10,7 +10,3 @@
         # Manipulator: 4 # <Onyx-TieredMachineParts-edited>
         Cable: 4
         Glass: 2
-      # <Onyx-TieredMachineParts>
-      partRequirements:
-        Capacitor: 1
-      # </Onyx-TieredMachineParts>

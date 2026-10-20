@@ -1,0 +1,32 @@
+# SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: EmergencyOxygenTank
+  components:
+  - type: Tag
+    tags: [EmergencyOxygenTank]
+
+- type: entity
+  id: EmergencyNitrogenTank
+  components:
+  - type: Tag
+    tags: [EmergencyNitrogenTank]
+
+- type: entity
+  id: ExtendedEmergencyOxygenTank
+  components:
+  - type: Tag
+    tags: [ExtendedEmergencyOxygenTank]
+
+- type: entity
+  id: ExtendedEmergencyNitrogenTank
+  components:
+  - type: Tag
+    tags: [ExtendedEmergencyNitrogenTank]
+
+- type: entity
+  id: EmergencyFunnyOxygenTank
+  components:
+  - type: Tag
+    tags: [ClownEmergencyOxygenTank]

@@ -206,43 +206,10 @@ namespace Content.Shared.Movement.Systems
     ///     should hook into this event and set it then. If you want this event to be raised,
     ///     call <see cref="MovementSpeedModifierSystem.RefreshMovementSpeedModifiers"/>.
     /// </summary>
-    public sealed class RefreshMovementSpeedModifiersEvent : EntityEventArgs, IInventoryRelayEvent
+    public sealed partial class RefreshMovementSpeedModifiersEvent : EntityEventArgs, IInventoryRelayEvent // <Onyx-XenobiologyVolatileCoating-edited>
     {
         public SlotFlags TargetSlots { get; } = ~SlotFlags.POCKET;
 
-        // <Onyx-XenobiologyVolatileCoating-edited>
-        private float _walkSpeedup = 1.0f;
-        private float _walkSlowdown = 1.0f;
-        private float _sprintSpeedup = 1.0f;
-        private float _sprintSlowdown = 1.0f;
-        private bool _slowdownImmune;
-
-        public float WalkSpeedModifier => _walkSpeedup * (_slowdownImmune ? 1.0f : _walkSlowdown);
-        public float SprintSpeedModifier => _sprintSpeedup * (_slowdownImmune ? 1.0f : _sprintSlowdown);
-
-        public void ModifySpeed(float walk, float sprint)
-        {
-            if (walk < 1.0f)
-                _walkSlowdown *= walk;
-            else
-                _walkSpeedup *= walk;
-
-            if (sprint < 1.0f)
-                _sprintSlowdown *= sprint;
-            else
-                _sprintSpeedup *= sprint;
-        }
-
-        public void ModifySpeed(float mod)
-        {
-            ModifySpeed(mod, mod);
-        }
-
-        public void GrantSlowdownImmunity()
-        {
-            _slowdownImmune = true;
-        }
-        // </Onyx-XenobiologyVolatileCoating-edited>
     }
 
     [ByRefEvent]

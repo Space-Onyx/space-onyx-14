@@ -8,12 +8,12 @@
   copyright: "vgstation13 at roughly commit e4d3ea7f69d21c3667be12b114fa935c4640cb05, asteroid_tile taken from /vg/station at commit 02b9f6894af4419c9f7e699a22c402b086d8067, mono resprited by @mishutka09 (discord:1152277579206774854), freezer resprited by Ko4erga (discord), showroom by sentryprimies (discord)"
   source: "https://github.com/vgstation-coders/vgstation13"
 
-- files: ["Planet/Concrete/asphalt.png"]
+- files: ["planet/Concrete/asphalt.png"]
   license: "CC-BY-SA-3.0"
   copyright: "Taken from vgstation13, modified by EmoGarbage404 (github)"
   source: "https://github.com/vgstation-coders/vgstation13/commit/02b9f6894af4419c9f7e699a22c402b086d8067e"
 
-- files: ["Planet/Concrete/concrete.png", "Planet/Concrete/concrete_mono.png", "Planet/Concrete/concrete_smooth.png"]
+- files: ["planet/Concrete/concrete.png", "planet/Concrete/concrete_mono.png", "planet/Concrete/concrete_smooth.png"]
   license: "CC-BY-NC-SA-3.0"
   copyright: "Taken from goonstation, modified by EmoGarbage404 (github)"
   source: "https://github.com/goonstation/goonstation/commit/1a76b08389014ec88f703fdb1ae916c2a6e57bd8"

@@ -176,8 +176,6 @@
     blockingWireType: Apc
 ##Corvax-species-start
   - type: Healing
-    treatmentCapabilities: [Electrical] # <Onyx-WoundTreatment>
-    healWounds: true # <Onyx-WoundTreatment>
     damageContainers:
       - SiliconIpc
     damage:

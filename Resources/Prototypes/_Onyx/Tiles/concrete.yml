@@ -4,5 +4,5 @@
 - type: tile
   id: FloorAsphalt
   parent: FloorConcrete
-  sprite: /Textures/_Onyx/Tiles/Planet/Concrete/asphalt.png
+  sprite: /Textures/_Onyx/Tiles/planet/Concrete/asphalt.png
   variants: 10

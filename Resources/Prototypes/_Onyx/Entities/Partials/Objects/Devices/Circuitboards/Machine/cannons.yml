@@ -1,0 +1,37 @@
+# SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: ShuttleGunSvalinnMachineGunCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 6
+
+- type: entity
+  id: ShuttleGunPerforatorCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 1
+
+- type: entity
+  id: ShuttleGunFriendshipCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 5
+
+- type: entity
+  id: ShuttleGunDusterCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 1
+
+- type: entity
+  id: ShuttleGunKineticCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Servo: 5

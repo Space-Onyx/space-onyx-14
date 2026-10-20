@@ -1,0 +1,62 @@
+# SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: ClothingHeadsetAltCargo
+  components:
+  - type: Headset
+    color: "#b48b57"
+
+- type: entity
+  id: ClothingHeadsetAltCentCom
+  components:
+  - type: Headset
+    color: "#2681a5"
+
+- type: entity
+  id: ClothingHeadsetAltCommand
+  components:
+  - type: Headset
+    color: "#fcdf03"
+
+- type: entity
+  id: ClothingHeadsetAltEngineering
+  components:
+  - type: Headset
+    color: "#ff733c"
+
+- type: entity
+  id: ClothingHeadsetAltMedical
+  components:
+  - type: Headset
+    color: "#57b8f0"
+
+- type: entity
+  id: ClothingHeadsetAltSecurity
+  components:
+  - type: Headset
+    color: "#ff4242"
+
+- type: entity
+  id: ClothingHeadsetAltScience
+  components:
+  - type: Headset
+    color: "#cd7ccd"
+
+- type: entity
+  id: ClothingHeadsetAltSyndicate
+  components:
+  - type: Headset
+    color: "#8f4a4b"
+
+- type: entity
+  id: ClothingHeadsetAltFreelancer
+  components:
+  - type: Headset
+    color: "#f6ce64"
+
+- type: entity
+  id: ClothingHeadsetAltWizard
+  components:
+  - type: Headset
+    color: "#35d389"

@@ -30,6 +30,7 @@ namespace Content.Shared.Entry
 
         public override void Init()
         {
+            RegisterPartialPrototypes(); // <Onyx-PrototypePartials>
             IgnorePrototypes();
         }
 

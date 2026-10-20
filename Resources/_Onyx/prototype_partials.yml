@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# Paths are relative to Resources; lower priorities are applied first.
+- path: /Prototypes/_Onyx/Entities/Partials
+  priority: 1

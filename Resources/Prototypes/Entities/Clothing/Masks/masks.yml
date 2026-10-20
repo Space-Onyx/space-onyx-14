@@ -331,10 +331,6 @@
       Plastic: 25
   - type: StaticPrice
     price: 5
-  # <Onyx-SurgeryInfection>
-  - type: SurgeryInfectionProtection
-    protection: 40
-  # </Onyx-SurgeryInfection>
   - type: Tag
     tags:
     - SurgerySterileMask

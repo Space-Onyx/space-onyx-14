@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: HolopadMachineCircuitboard
+  components:
+  - type: MachineBoard
+    partRequirements:
+      Capacitor: 1

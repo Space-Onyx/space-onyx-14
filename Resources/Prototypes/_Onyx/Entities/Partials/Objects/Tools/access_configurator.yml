@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: AccessConfigurator
+  components:
+  - type: AccessOverrider
+    accessLevels:
+    - !Index:28 HotelStaff
+    - !Index:27 HotelSecure
+    - !Index:26 HotelManager
+    - !Index:25 Journalism
+    - !Index:24 Robotics
+    - !Index:23 Paramedic
+    - !Index:3 BlueshieldOfficer
+
+- type: entity
+  id: AccessConfiguratorUniversal
+  components:
+  - type: AccessOverrider
+    accessLevels:
+    - !Index:46 Xenomorph
+    - !Index:35 Robotics
+    - !Index:26 HotelStaff
+    - !Index:25 HotelSecure
+    - !Index:24 HotelManager
+    - !Index:23 Journalism
+    - !Index:22 Ipc
+    - !Index:5 BlueshieldOfficer

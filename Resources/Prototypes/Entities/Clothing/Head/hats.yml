@@ -599,10 +599,6 @@
     sprite: Clothing/Head/Hats/surgcap_blue.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/surgcap_blue.rsi
-  # <Onyx-SurgeryInfection>
-  - type: SurgeryInfectionProtection
-    protection: 20
-  # </Onyx-SurgeryInfection>
   # <Onyx-SurgeryPPE>
   - type: Tag
     tags:
@@ -628,10 +624,6 @@
     sprite: Clothing/Head/Hats/surgcap_green.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/surgcap_green.rsi
-  # <Onyx-SurgeryInfection>
-  - type: SurgeryInfectionProtection
-    protection: 20
-  # </Onyx-SurgeryInfection>
   # <Onyx-SurgeryPPE>
   - type: Tag
     tags: [ SurgerySterileCap ]
@@ -652,10 +644,6 @@
     sprite: Clothing/Head/Hats/surgcap_purple.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/surgcap_purple.rsi
-  # <Onyx-SurgeryInfection>
-  - type: SurgeryInfectionProtection
-    protection: 20
-  # </Onyx-SurgeryInfection>
   # <Onyx-SurgeryPPE>
   - type: Tag
     tags: [ SurgerySterileCap ]

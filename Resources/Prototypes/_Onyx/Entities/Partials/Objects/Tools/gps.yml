@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: HandheldGPSBasic
+  components:
+  - type: GPS
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 400
+      Glass: 150
+  - type: Tag
+    tags:
+    - GPS
+  - type: ActivatableUI
+    key: enum.GpsUiKey.Key
+    inHandsOnly: true
+    singleUser: true
+  - type: UserInterface
+    interfaces:
+      enum.GpsUiKey.Key:
+        type: GpsBoundUserInterface

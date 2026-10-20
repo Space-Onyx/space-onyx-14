@@ -129,8 +129,6 @@
   - type: PhysicalComposition
     materialComposition:
       Steel: 100
-  - type: Tag # <Onyx-SlottedSurvivalBoxes>
-    tags: [EmergencyOxygenTank] # <Onyx-SlottedSurvivalBoxes>
 
 - type: entity
   parent: EmergencyOxygenTank
@@ -147,8 +145,6 @@
       sprite: Objects/Tanks/emergency_red.rsi
   - type: Clothing
     sprite: Objects/Tanks/emergency_red.rsi
-  - type: Tag # <Onyx-SlottedSurvivalBoxes>
-    tags: [EmergencyNitrogenTank] # <Onyx-SlottedSurvivalBoxes>
 
 - type: entity
   parent: EmergencyOxygenTank
@@ -169,8 +165,6 @@
       temperature: 293.15
   - type: Clothing
     sprite: Objects/Tanks/emergency_extended.rsi
-  - type: Tag # <Onyx-SlottedSurvivalBoxes>
-    tags: [ExtendedEmergencyOxygenTank] # <Onyx-SlottedSurvivalBoxes>
 
 - type: entity
   parent: ExtendedEmergencyOxygenTank
@@ -187,8 +181,6 @@
       sprite: Objects/Tanks/emergency_extended_red.rsi
   - type: Clothing
     sprite: Objects/Tanks/emergency_extended_red.rsi
-  - type: Tag # <Onyx-SlottedSurvivalBoxes>
-    tags: [ExtendedEmergencyNitrogenTank] # <Onyx-SlottedSurvivalBoxes>
 
 - type: entity
   parent: ExtendedEmergencyOxygenTank
@@ -246,8 +238,6 @@
       sprite: Objects/Tanks/emergency_clown.rsi
   - type: Clothing
     sprite: Objects/Tanks/emergency_clown.rsi
-  - type: Tag # <Onyx-SlottedSurvivalBoxes>
-    tags: [ClownEmergencyOxygenTank] # <Onyx-SlottedSurvivalBoxes>
 
 - type: entity
   parent: GasTankRoundBase

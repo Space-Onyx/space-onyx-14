@@ -7,7 +7,6 @@ using Content.Shared.ActionBlocker;
 using Content.Shared._Onyx.MartialArts;
 using Content.Shared.Item;
 using Content.Shared.Throwing;
-using Robust.Shared.Physics.Components;
 // </Onyx-GoobShove>
 using Content.Shared.Actions.Events;
 using Content.Shared.Administration.Logs;
@@ -286,17 +285,6 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         return ev.Rate * ev.Multipliers;
     }
 
-    // _Onyx-CrusherUpgrades-start
-    public float GetRange(EntityUid uid, EntityUid user, MeleeWeaponComponent? component = null)
-    {
-        if (!Resolve(uid, ref component))
-            return 0;
-
-        var ev = new GetMeleeRangeEvent(uid, component.Range, 1, user);
-        RaiseLocalEvent(uid, ref ev);
-        return ev.Range * ev.Multipliers;
-    }
-    // _Onyx-CrusherUpgrades-end
 
     public FixedPoint2 GetHeavyDamageModifier(EntityUid uid, EntityUid user, MeleeWeaponComponent? component = null)
     {
@@ -921,22 +909,6 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         return highestDamageType;
     }
 
-    // <Onyx-GoobShove>
-    private float CalculateShoveStaminaDamage(EntityUid user, EntityUid target)
-    {
-        var damage = TryComp<ShovingComponent>(user, out var shoving)
-            ? shoving.StaminaDamage
-            : ShovingComponent.DefaultStaminaDamage;
-
-        if (!TryComp<PhysicsComponent>(user, out var userPhysics) ||
-            !TryComp<PhysicsComponent>(target, out var targetPhysics) ||
-            userPhysics.InvMass <= 0f ||
-            targetPhysics.InvMass <= 0f)
-            return damage;
-
-        return damage * Math.Clamp(targetPhysics.InvMass / userPhysics.InvMass, 0f, 2f);
-    }
-    // </Onyx-GoobShove>
 
     private bool DoDisarm(EntityUid user, DisarmAttackEvent ev, EntityUid meleeUid, MeleeWeaponComponent component, ICommonSession? session)
     {
