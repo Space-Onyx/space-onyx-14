@@ -33,7 +33,6 @@ public partial class ChatBox
             return false;
 
         var initial = SpeechTextReveal.Create(formatted, 0, range);
-        ResetChatCoalescing();
         var entry = Contents.AddMessage(initial, tagsAllowed: null);
         var timeline = SpeechTextReveal.BuildTimeline(
             range.Runes,

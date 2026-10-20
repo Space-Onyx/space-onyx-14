@@ -81,9 +81,8 @@ public partial class ChatBox : UIWidget, IEntityLinkClickHandler
 
         var color = msg.MessageColorOverride ?? msg.Channel.TextColor();
 
-        var reveal = revealText && TryAddRevealedMessage(msg, color);
         msg.Read = true;
-        if (!reveal && !TryAddCoalescedMessage(msg, color))
+        if (!TryAddCoalescedMessage(msg, color) && !(revealText && TryAddRevealedMessage(msg, color)))
             AddLine(msg.WrappedMessage, color);
         // </Onyx-SpeechTextReveal-edited>
     }
