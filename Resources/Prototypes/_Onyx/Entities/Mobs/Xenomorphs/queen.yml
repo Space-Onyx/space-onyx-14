@@ -94,16 +94,12 @@
     speechSounds: Xenomorph
     speechVerb: LargeMob
   - type: LanguageKnowledge
-    speaks:
-    - Xeno
-    - XenoHivemind 
-    - TauCetiBasic
-    understands:
-    - Xeno
-    - XenoHivemind
-    - Hissing
-    - Draconic
-    - TauCetiBasic
+    languages:
+      Xeno: All
+      XenoHivemind: All
+      TauCetiBasic: All
+      Hissing: Understand, Read
+      Draconic: Understand, Read
   # - type: GuideHelp
   #   guides:
   #   - XenomorphQueen

@@ -102,12 +102,9 @@
     speechVerb: SmallMob
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - TauCetiBasic
-    - Mouse
-    understands:
-    - TauCetiBasic
-    - Mouse
+    languages:
+      TauCetiBasic: All
+      Mouse: All
   # </Onyx-CreatureLanguages>
   - type: ToolRefinable
     refineResult:
@@ -212,11 +209,9 @@
       shader: unshaded
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Mouse
-    understands:
-    - Mouse
-    - TauCetiBasic
+    languages:
+      Mouse: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: SpriteMovement
     movementLayers:

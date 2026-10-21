@@ -6,3 +6,5 @@ translator-examined-requires-any = It requires you to know at least one of these
 translator-examined-requires-all = It requires you to know all of these languages: [color=yellow]{$languages}[/color].
 translator-examined-enabled = It appears to be [color=green]active[/color].
 translator-examined-disabled = It appears to be [color=red]turned off[/color].
+translator-examined-writing-enabled = Written translation is supported for its configured languages.
+translator-examined-writing-disabled = Does not translate written text or grant writing abilities.

@@ -7,10 +7,8 @@
   components:
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Universal
-    understands:
-    - Universal
+    languages:
+      Universal: All
   # </Onyx-CreatureLanguages>
   - type: Sprite
     drawdepth: Mobs

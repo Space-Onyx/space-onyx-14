@@ -20,16 +20,19 @@ public sealed partial class TranslatorSystem : EntitySystem
         if (!ent.Comp.ShowInfoOnExamine)
             return;
 
-        var understood = ent.Comp.UnderstoodLanguages.Select(GetLanguageName);
-        var spoken = ent.Comp.SpokenLanguages.Select(GetLanguageName);
-        var required = ent.Comp.RequiredLanguages.Select(GetLanguageName);
+        var understood = ent.Comp.Languages.Where(entry => (entry.Value & LanguageAbility.Understand) != 0).Select(entry => GetLanguageName(entry.Key));
+        var spoken = ent.Comp.Languages.Where(entry => (entry.Value & LanguageAbility.Speak) != 0).Select(entry => GetLanguageName(entry.Key));
+        var required = ent.Comp.Requires.Select(GetLanguageName);
 
         args.PushMarkup(Loc.GetString("translator-examined-langs-understood", ("languages", string.Join(", ", understood))));
         args.PushMarkup(Loc.GetString("translator-examined-langs-spoken", ("languages", string.Join(", ", spoken))));
+        args.PushMarkup(Loc.GetString(ent.Comp.TranslateWriting
+            ? "translator-examined-writing-enabled"
+            : "translator-examined-writing-disabled"));
 
-        if (ent.Comp.RequiredLanguages.Count > 0)
+        if (ent.Comp.Requires.Count > 0)
         {
-            args.PushMarkup(Loc.GetString(ent.Comp.RequiresAllLanguages
+            args.PushMarkup(Loc.GetString(ent.Comp.RequiresAll
                     ? "translator-examined-requires-all"
                     : "translator-examined-requires-any",
                 ("languages", string.Join(", ", required))));

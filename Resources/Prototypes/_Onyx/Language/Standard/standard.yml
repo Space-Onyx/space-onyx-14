@@ -1,5 +1,7 @@
 - type: language
   id: Tradeband
+  writing:
+    description: paper-language-writing-Tradeband
   speech:
     color: "#597d35"
   obfuscation:
@@ -17,6 +19,8 @@
     maxSyllables: 3
 - type: language
   id: Freespeak
+  writing:
+    description: paper-language-writing-Freespeak
   speech:
     color: "#91c756"
   obfuscation:
@@ -34,6 +38,8 @@
     maxSyllables: 3
 - type: language
   id: Elyran
+  writing:
+    description: paper-language-writing-Elyran
   speech:
     color: "#c480e8aa"
   obfuscation:
@@ -51,6 +57,8 @@
     maxSyllables: 4
 - type: language
   id: NovuNederic
+  writing:
+    description: paper-language-writing-NovuNederic
   speech:
     color: "#df6e14dd"
   obfuscation:
@@ -68,6 +76,8 @@
     maxSyllables: 4
 - type: language
   id: Marish
+  writing:
+    description: paper-language-writing-Marish
   speech:
     color: "#be3cc5"
   obfuscation:
@@ -85,6 +95,8 @@
     maxSyllables: 3
 - type: language
   id: ValyrianStandard
+  writing:
+    description: paper-language-writing-ValyrianStandard
   speech:
     color: "#46ce83"
     fontSize: 13
@@ -103,6 +115,8 @@
     maxSyllables: 3
 - type: language
   id: SpaceItalian
+  writing:
+    description: paper-language-writing-SpaceItalian
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -118,6 +132,8 @@
     maxSyllables: 4
 - type: language
   id: YowKriol
+  writing:
+    description: paper-language-writing-YowKriol
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -133,6 +149,8 @@
     maxSyllables: 3
 - type: language
   id: Gruntish
+  writing:
+    description: paper-language-writing-Gruntish
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -148,6 +166,8 @@
     maxSyllables: 3
 - type: language
   id: Nehina
+  writing:
+    description: paper-language-writing-Nehina
   isVisibleLanguage: true
   speech:
     color: "#8DB9D6"

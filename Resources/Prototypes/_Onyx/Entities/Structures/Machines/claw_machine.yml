@@ -88,12 +88,9 @@
     dataset: SlotMachineAds
   - type: LanguageSpeaker
   - type: LanguageKnowledge
-    speaks:
-    - TauCetiBasic
-    - RobotTalk
-    understands:
-    - TauCetiBasic
-    - RobotTalk
+    languages:
+      TauCetiBasic: All
+      RobotTalk: All
   - type: ClawMachine # EVIL LOOT!!!
     rewards:
     - PlushieMoth

@@ -1,5 +1,8 @@
 - type: language
   id: DroneTalk
+  writing:
+    description: paper-language-writing-DroneTalk
+    fontId: Monospace
   speech:
     fontId: Monospace
     boldFontId: MonospaceBold

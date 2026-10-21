@@ -55,16 +55,12 @@
       settings: default
   - type: GhostTakeoverAvailable
   - type: LanguageKnowledge
-    speaks:
-    - Xeno
-    - XenoHivemind
-    - TauCetiBasic # Smart thing
-    understands:
-    - Xeno
-    - XenoHivemind
-    - Hissing
-    - Draconic
-    - TauCetiBasic
+    languages:
+      Xeno: All
+      XenoHivemind: All
+      TauCetiBasic: All
+      Hissing: Understand, Read
+      Draconic: Understand, Read
   # - type: GuideHelp
   #   guides:
   #   - XenomorphMaid

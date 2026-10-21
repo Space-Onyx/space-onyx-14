@@ -7,7 +7,6 @@ lathe-recipe-translator-calcic = Calcic translator
 lathe-recipe-translator-new-kin-pidgin = Ka'rakk translator
 lathe-recipe-translator-canilunzt = Canilunzt translator
 lathe-recipe-translator-siik-maas = Siik'maas translator
-lathe-recipe-translator-robot-talk = Robot Talk translator
 lathe-recipe-translator-nekomimetic = Nekomimetic translator
 lathe-recipe-translator-sol-common = Sol Common translator
 
@@ -20,7 +19,6 @@ lathe-recipe-translator-implanter-calcic = Calcic translator implanter
 lathe-recipe-translator-implanter-new-kin-pidgin = Ka'rakk translator implanter
 lathe-recipe-translator-implanter-canilunzt = Canilunzt translator implanter
 lathe-recipe-translator-implanter-siik-maas = Siik'maas translator implanter
-lathe-recipe-translator-implanter-robot-talk = Robot Talk translator implanter
 lathe-recipe-translator-implanter-nekomimetic = Nekomimetic translator implanter
 lathe-recipe-translator-implanter-sol-common = Sol Common translator implanter
 lathe-recipe-translator-implanter-sign = Sign Language translator implanter

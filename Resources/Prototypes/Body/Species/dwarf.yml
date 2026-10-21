@@ -54,8 +54,9 @@
     lowest: MobMonkeyDwarf
   # <Onyx-Languages>
   - type: LanguageKnowledge
-    speaks: [TauCetiBasic, SolCommon]
-    understands: [TauCetiBasic, SolCommon]
+    languages:
+      TauCetiBasic: All
+      SolCommon: All
   # </Onyx-Languages>
   # <Onyx-NoDwarfDisplacement>
   # Dwarf fixture size override removed: standard collision size.

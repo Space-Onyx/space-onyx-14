@@ -1,4 +1,4 @@
-paper-language-cannot-write = The selected language cannot be written on paper.
+paper-language-cannot-write = You cannot write in the selected language: you lack writing knowledge, or the language has no written form.
 paper-language-loading = The writing is coming into focus...
 paper-language-cannot-edit-unknown = You cannot partially modify text in an unknown language. You can erase or replace it entirely.
 paper-language-writing-known = [italic]{ $description } ({ $language }).[/italic]
@@ -36,6 +36,5 @@ paper-language-writing-Nehina = flowing Feroxi writing: “kapa”, “tama”
 paper-language-writing-Eldritch = bloody occult runes: “shr”, “kh”
 paper-language-writing-Blob = blurred Blob symbols: “blip”, “blop”
 paper-language-writing-Revolutionary = coded revolutionary signs: “liberé”
-paper-language-writing-Bingle = primitive Bingle glyphs: “bingle”, “bongle”
 paper-language-writing-XenoHivemind = organic Xenomorph scratches: “ss”
 paper-language-writing-DroneTalk = monospaced hexadecimal Drone codes: “0A”, “1F”

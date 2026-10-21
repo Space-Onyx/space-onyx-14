@@ -69,11 +69,6 @@
   result: SiikMaasTranslator
 - type: latheRecipe
   parent: OnyxTranslatorRecipeBase
-  id: RobotTalkTranslatorRecipe
-  name: lathe-recipe-translator-robot-talk
-  result: RobotTalkTranslator
-- type: latheRecipe
-  parent: OnyxTranslatorRecipeBase
   id: NekomimeticTranslatorRecipe
   name: lathe-recipe-translator-nekomimetic
   result: NekomimeticTranslator
@@ -128,11 +123,6 @@
   id: SiikMaasTranslatorImplanterRecipe
   name: lathe-recipe-translator-implanter-siik-maas
   result: SiikMaasTranslatorImplanter
-- type: latheRecipe
-  parent: OnyxTranslatorImplanterRecipeBase
-  id: RobotTalkTranslatorImplanterRecipe
-  name: lathe-recipe-translator-implanter-robot-talk
-  result: RobotTalkTranslatorImplanter
 - type: latheRecipe
   parent: OnyxTranslatorImplanterRecipeBase
   id: NekomimeticTranslatorImplanterRecipe
@@ -275,3 +265,22 @@
   id: LibrarianTranslatorImplanterRecipe
   name: lathe-recipe-LibrarianTranslatorImplanterRecipe
   result: LibrarianTranslatorImplanter
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: ElyranTranslatorImplanterRecipe
+  result: ElyranTranslatorImplanter
+
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: FreespeakTranslatorImplanterRecipe
+  result: FreespeakTranslatorImplanter
+
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: TradebandTranslatorImplanterRecipe
+  result: TradebandTranslatorImplanter
+
+- type: latheRecipe
+  parent: OnyxTranslatorImplanterRecipeBase
+  id: NehinaTranslatorImplanterRecipe
+  result: NehinaTranslatorImplanter

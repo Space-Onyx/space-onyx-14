@@ -34,11 +34,9 @@
   - type: Familiar
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Mouse
-    understands:
-    - Mouse
-    - TauCetiBasic
+    languages:
+      Mouse: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -101,9 +99,7 @@
     emoteSounds: Cerberus
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Dog
-    understands:
-    - Dog
-    - TauCetiBasic
+    languages:
+      Dog: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>

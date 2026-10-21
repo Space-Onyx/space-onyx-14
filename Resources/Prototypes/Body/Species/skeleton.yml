@@ -116,8 +116,9 @@
     emoteSounds: Skeleton
   # <Onyx-Languages>
   - type: LanguageKnowledge
-    speaks: [TauCetiBasic, Calcic]
-    understands: [TauCetiBasic, Calcic]
+    languages:
+      TauCetiBasic: All
+      Calcic: All
   # </Onyx-Languages>
   - type: SkeletonAccent
   - type: Fixtures

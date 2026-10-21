@@ -74,10 +74,8 @@
     # Einstein Engines - Language begin
     - type: LanguageSpeaker
     - type: LanguageKnowledge
-      speaks:
-      - Blob
-      understands:
-      - Blob
+      languages:
+        Blob: All
     # Einstein Engines - Language end
     - type: CombatMode
     - type: NpcFactionMember
@@ -172,10 +170,8 @@
     # Einstein Engines - Language begin
     - type: LanguageSpeaker
     - type: LanguageKnowledge
-      speaks:
-      - Blob
-      understands:
-      - Blob
+      languages:
+        Blob: All
     # Einstein Engines - Language end
     - type: CombatMode
     - type: HTN
@@ -263,12 +259,10 @@
     - type: LanguageSpeaker
       currentLanguage: Blob
     - type: LanguageKnowledge
-      speaks:
-      - Blob
-      understands:
-      - Blob
-      - Xeno
-      - TauCetiBasic
+      languages:
+        Blob: All
+        Xeno: Understand, Read
+        TauCetiBasic: Understand, Read
     # Einstein Engines - Language end
     - type: Hands
       showInHands: true

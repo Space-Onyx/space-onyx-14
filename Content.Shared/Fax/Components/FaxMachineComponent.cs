@@ -195,7 +195,7 @@ public sealed partial class FaxPrintout
     public bool Locked { get; private set; }
 
     [DataField]
-    public List<PaperLanguageSegment> LanguageSegments { get; private set; } = new(); // <Onyx-PaperLanguages>
+    public List<Content.Shared._Onyx.Language.LanguageTextRange> LanguageSegments { get; private set; } = new(); // <Onyx-Languages-edited>
 
     [DataField]
     public string? SenderFaxName { get; private set; } = default!;
@@ -204,7 +204,7 @@ public sealed partial class FaxPrintout
     {
     }
 
-    public FaxPrintout(string content, string name, string? label = null, string? prototypeId = null, string? stampState = null, List<StampDisplayInfo>? stampedBy = null, bool locked = false, string? senderFaxName = null, List<PaperLanguageSegment>? languageSegments = null, List<SignatureDisplayInfo>? signedBy = null) // <Onyx-PaperSignatures-edited>
+    public FaxPrintout(string content, string name, string? label = null, string? prototypeId = null, string? stampState = null, List<StampDisplayInfo>? stampedBy = null, bool locked = false, string? senderFaxName = null, List<Content.Shared._Onyx.Language.LanguageTextRange>? languageSegments = null, List<SignatureDisplayInfo>? signedBy = null) // <Onyx-Languages-edited>
     {
         Content = content;
         Name = name;
@@ -215,6 +215,6 @@ public sealed partial class FaxPrintout
         SignedBy = signedBy ?? new List<SignatureDisplayInfo>(); // <Onyx-PaperSignatures>
         Locked = locked;
         SenderFaxName = senderFaxName;
-        LanguageSegments = languageSegments ?? PaperLanguageSegments.ForText(content, "Universal"); // <Onyx-PaperLanguages>
+        LanguageSegments = languageSegments ?? global::Content.Shared._Onyx.Language.LanguageDocument.ForText(content, "Universal"); // <Onyx-Languages-edited>
     }
 }

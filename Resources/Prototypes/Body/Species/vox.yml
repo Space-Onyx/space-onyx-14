@@ -182,8 +182,9 @@
     emoteSounds: UnisexVox
   # <Onyx-Languages>
   - type: LanguageKnowledge
-    speaks: [TauCetiBasic, NewKinPidgin]
-    understands: [TauCetiBasic, NewKinPidgin]
+    languages:
+      TauCetiBasic: All
+      NewKinPidgin: All
   # </Onyx-Languages>
   - type: Butcherable
     spawned:

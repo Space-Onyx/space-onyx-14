@@ -131,7 +131,7 @@ public sealed partial class OSay : LocalizedCommands
     private IEnumerable<string> GetLanguages(EntityUid source)
     {
         return _entityManager.TryGetComponent<LanguageSpeakerComponent>(source, out var component)
-            ? component.SpokenLanguages.Select(language => language.Id).Order()
+            ? component.Languages.Where(entry => (entry.Value & LanguageAbility.Speak) != 0).Select(entry => entry.Key.Id).Order()
             : [];
     }
 
@@ -140,7 +140,7 @@ public sealed partial class OSay : LocalizedCommands
         language = null;
         if (!_entityManager.TryGetComponent<LanguageSpeakerComponent>(source, out var speaker) ||
             !_prototypes.HasIndex<LanguagePrototype>(value) ||
-            !speaker.SpokenLanguages.Contains(value))
+            !LanguageKnowledge.Has(speaker.Languages, value, LanguageAbility.Speak))
             return false;
 
         language = value;

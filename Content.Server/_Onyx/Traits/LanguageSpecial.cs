@@ -20,6 +20,7 @@ public sealed partial class LanguageSpecial : JobSpecial
     public override void AfterEquip(EntityUid mob)
     {
         var entities = IoCManager.Resolve<IEntityManager>();
+        entities.EnsureComponent<LanguageSpeakerComponent>(mob);
         var knowledge = entities.EnsureComponent<LanguageTraitComponent>(mob);
         knowledge.Languages.UnionWith(Languages);
         entities.System<LanguageSystem>().UpdateLanguages(mob);

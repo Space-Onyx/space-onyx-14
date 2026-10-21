@@ -76,5 +76,3 @@ language-Blob-name = Блоб
 language-Blob-description = Блип боб.
 language-Revolutionary-name = Liberé
 language-Revolutionary-description = Тайный язык революционеров.
-language-Bingle-name = Бингл
-language-Bingle-description = Бингл бонгл.

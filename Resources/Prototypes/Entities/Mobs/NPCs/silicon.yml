@@ -57,12 +57,9 @@
   - type: Insulated
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - TauCetiBasic
-    - RobotTalk
-    understands:
-    - TauCetiBasic
-    - RobotTalk
+    languages:
+      TauCetiBasic: All
+      RobotTalk: All
   # </Onyx-CreatureLanguages>
 
 # Used for bots

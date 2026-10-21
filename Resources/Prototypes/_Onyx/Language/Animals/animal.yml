@@ -1,5 +1,6 @@
 - type: language
   id: Cat
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -9,6 +10,7 @@
     maxSyllables: 2
 - type: language
   id: Dog
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -19,6 +21,7 @@
     maxSyllables: 2
 - type: language
   id: Fox
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -29,6 +32,7 @@
     maxSyllables: 2
 - type: language
   id: Xeno
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -38,6 +42,7 @@
     maxSyllables: 8
 - type: language
   id: Monkey
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -48,6 +53,7 @@
     maxSyllables: 8
 - type: language
   id: Mouse
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -59,6 +65,7 @@
     maxSyllables: 3
 - type: language
   id: Chicken
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -69,6 +76,7 @@
     maxSyllables: 3
 - type: language
   id: Duck
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -79,6 +87,7 @@
     maxSyllables: 3
 - type: language
   id: Cow
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -88,6 +97,7 @@
     maxSyllables: 3
 - type: language
   id: Sheep
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -98,6 +108,7 @@
     maxSyllables: 3
 - type: language
   id: Kangaroo
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -108,6 +119,7 @@
     maxSyllables: 3
 - type: language
   id: Pig
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -116,6 +128,7 @@
     maxSyllables: 3
 - type: language
   id: Crab
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -126,6 +139,7 @@
     maxSyllables: 3
 - type: language
   id: Kobold
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -137,6 +151,7 @@
     maxSyllables: 4
 - type: language
   id: Hissing
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -147,6 +162,7 @@
     maxSyllables: 4
 - type: language
   id: Penguin
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -157,6 +173,7 @@
     maxSyllables: 3
 - type: language
   id: Deer
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -166,6 +183,7 @@
     maxSyllables: 3
 - type: language
   id: Carptongue
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -176,6 +194,7 @@
     maxSyllables: 3
 - type: language
   id: Cheval
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -186,6 +205,7 @@
     maxSyllables: 2
 - type: language
   id: FloorGoblin
+  canWrite: false
   obfuscation:
     !type:SyllableObfuscation
     replacement:

@@ -86,10 +86,8 @@
     # <Onyx-GuardianLanguage>
     - type: LanguageSpeaker
     - type: LanguageKnowledge
-      speaks:
-      - TauCetiBasic
-      understands:
-      - TauCetiBasic
+      languages:
+        TauCetiBasic: All
     # </Onyx-GuardianLanguage>
     - type: TypingIndicator
       proto: guardian

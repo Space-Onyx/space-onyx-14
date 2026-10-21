@@ -119,11 +119,9 @@
     accent: slimes
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Bubblish
-    understands:
-    - Bubblish
-    - TauCetiBasic
+    languages:
+      Bubblish: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: GhostTakeoverAvailable
   - type: GhostRole

@@ -59,6 +59,7 @@ public sealed class CheckIgnoreSpeechBlockerEvent : EntityEventArgs
 public sealed class EntitySpokeEvent : EntityEventArgs
 {
     public readonly EntityUid Source;
+    public Robust.Shared.Prototypes.ProtoId<Content.Shared._Onyx.Language.LanguagePrototype>? Language; // <Onyx-Languages>
     public readonly string Message;
     public readonly string? ObfuscatedMessage; // not null if this was a whisper
     public readonly string OriginalMessage; // Corvax-TTS

@@ -22,18 +22,18 @@ public sealed partial class PaperLanguageTag : IMarkupTagHandler
             return;
         }
 
-        if (language.Speech.FontId == null && language.Speech.FontSize == null)
+        if (language.Writing.FontId == null && language.Writing.FontSize == null)
         {
             context.Font.Push(context.Font.Peek());
         }
         else
         {
 #pragma warning disable CS0618 // Font prototypes are already the language prototype contract.
-            var fontNode = language.Speech.FontSize is { } size
+            var fontNode = language.Writing.FontSize is { } size
                 ? new MarkupNode(null, null, new Dictionary<string, MarkupParameter> { ["size"] = new(size) })
                 : node;
             var font = FontTag.CreateFont(context.Font, fontNode, _resources, _prototypes,
-                language.Speech.FontId ?? FontTag.DefaultFont);
+                language.Writing.FontId ?? FontTag.DefaultFont);
 #pragma warning restore CS0618
             context.Font.Push(font);
         }

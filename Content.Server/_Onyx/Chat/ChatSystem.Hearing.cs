@@ -13,7 +13,7 @@ public sealed partial class ChatSystem
     ///     Returns true if <paramref name="listener"/> can both hear <paramref name="source"/> and see it.
     ///     Chat from creatures on visibility layers the listener's eye cannot see is filtered out.
     /// </summary>
-    private bool CanHearSource(EntityUid listener, EntityUid source)
+    public bool CanHearSource(EntityUid listener, EntityUid source)
     {
         return CanHear(listener) && CanSeeSource(listener, source);
     }

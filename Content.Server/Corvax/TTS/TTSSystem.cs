@@ -199,7 +199,7 @@ public sealed partial class TTSSystem : EntitySystem
     private void OnEntitySpoke(Entity<TTSComponent> ent, ref EntitySpokeEvent args)
     {
         var voiceId = ent.Comp.VoicePrototypeId;
-        if (!_isEnabled || string.IsNullOrEmpty(voiceId))
+        if (!_isEnabled || string.IsNullOrEmpty(voiceId) || !TryResolveLanguage(args, out var language) || language.RequiresSight) // <Onyx-Languages-edited>
             return;
 
         if (args.Message.Length > MaxMessageChars)
@@ -214,14 +214,20 @@ public sealed partial class TTSSystem : EntitySystem
 
         if (args.ObfuscatedMessage != null)
         {
-            HandleWhisper(ent, args.Message, protoVoice.Speaker, args.Channel);
+            // <Onyx-Languages-edited>
+            HandleWhisper(ent, args.Message, protoVoice.Speaker, args.Channel, language.ID);
+            HandleWhisper(ent, EntityManager.System<Content.Server._Onyx.Language.LanguageSystem>().Obfuscate(args.Message, language), protoVoice.Speaker, args.Channel, language.ID, false);
+            // </Onyx-Languages-edited>
             return;
         }
 
-        HandleSay(ent, args.Message, protoVoice.Speaker, args.Channel);
+        // <Onyx-Languages-edited>
+        HandleSay(ent, args.Message, protoVoice.Speaker, args.Channel, language.ID);
+        HandleSay(ent, EntityManager.System<Content.Server._Onyx.Language.LanguageSystem>().Obfuscate(args.Message, language), protoVoice.Speaker, args.Channel, language.ID, false);
+        // </Onyx-Languages-edited>
     }
 
-    private async void HandleSay(EntityUid uid, string message, string speaker, RadioChannelPrototype? channel)
+    private async void HandleSay(EntityUid uid, string message, string speaker, RadioChannelPrototype? channel, ProtoId<Content.Shared._Onyx.Language.LanguagePrototype> language, bool understood = true) // <Onyx-Languages-edited>
     {
         var soundData = await GenerateTTS(message, speaker);
 
@@ -230,6 +236,7 @@ public sealed partial class TTSSystem : EntitySystem
 
         // Should be here because EntitySpokeEvent may be called on the entities in the PVS range, but not always in range where player receives chat messages
         var filter = GetReceiversFilter(uid, TTSRange);
+        FilterLanguageReceivers(language, filter, understood); // <Onyx-Languages>
         if (filter.Recipients.Any())
         {
             RaiseNetworkEvent(new PlayTTSEvent(soundData, GetNetEntity(uid)), filter, recordReplay: false);
@@ -237,7 +244,7 @@ public sealed partial class TTSSystem : EntitySystem
 
         if (channel != null)
         {
-            SendTTSToRadio(soundData, uid, channel, false);
+            SendTTSToRadio(soundData, uid, channel, false, language, understood); // <Onyx-Languages-edited>
         }
     }
 
@@ -245,7 +252,7 @@ public sealed partial class TTSSystem : EntitySystem
         EntityUid uid,
         string message,
         string speaker,
-        RadioChannelPrototype? channel)
+        RadioChannelPrototype? channel, ProtoId<Content.Shared._Onyx.Language.LanguagePrototype> language, bool understood = true) // <Onyx-Languages-edited>
     {
         var fullSoundData = await GenerateTTS(message, speaker, true);
         if (fullSoundData is null)
@@ -255,6 +262,7 @@ public sealed partial class TTSSystem : EntitySystem
 
         // TODO: Check obstacles
         var filter = GetReceiversFilter(uid, SharedChatSystem.WhisperClearRange);
+        FilterLanguageReceivers(language, filter, understood); // <Onyx-Languages>
         if (filter.Recipients.Any())
         {
             RaiseNetworkEvent(fullTtsEvent, filter, recordReplay: false);
@@ -262,11 +270,11 @@ public sealed partial class TTSSystem : EntitySystem
 
         if (channel != null)
         {
-            SendTTSToRadio(fullSoundData, uid, channel);
+            SendTTSToRadio(fullSoundData, uid, channel, true, language, understood); // <Onyx-Languages-edited>
         }
     }
 
-    private void SendTTSToRadio(byte[] soundData, EntityUid sourceUid, RadioChannelPrototype channel, bool isWhisper = true)
+    private void SendTTSToRadio(byte[] soundData, EntityUid sourceUid, RadioChannelPrototype channel, bool isWhisper, ProtoId<Content.Shared._Onyx.Language.LanguagePrototype> language, bool understood) // <Onyx-Languages-edited>
     {
         var channelFlag = GetChannelFlag(channel.ID);
         if (channelFlag == RadioChannelFlag.None)
@@ -320,6 +328,11 @@ public sealed partial class TTSSystem : EntitySystem
 
             if (wearer == null)
                 continue;
+
+            // <Onyx-Languages>
+            if (EntityManager.System<Content.Server._Onyx.Language.LanguageSystem>().CanUnderstand(wearer.Value, language) != understood)
+                continue;
+            // </Onyx-Languages>
 
             if (!TryComp(wearer.Value, out actor))
                 continue;
@@ -408,6 +421,7 @@ public sealed partial class TTSSystem : EntitySystem
                 continue;
 
             var transformEntity = Transform(playerEntity);
+            if (!EntityManager.System<Content.Server.Chat.Systems.ChatSystem>().CanHearSource(playerEntity, sourceUid)) continue; // <Onyx-Languages>
 
             if (transformEntity.MapID != Transform(sourceUid).MapID)
                 continue;

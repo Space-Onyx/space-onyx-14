@@ -46,7 +46,7 @@ public sealed partial class RadioSystem : SharedRadioSystem
     {
         if (args.Channel != null && component.Channels.Contains(args.Channel.ID))
         {
-            SendRadioMessage(uid, args.Message, args.Channel, uid);
+            SendLanguageRadioMessage(uid, args.Message, args.Channel, uid, args.Language); // <Onyx-Languages-edited>
             args.Channel = null; // prevent duplicate messages from other listeners.
         }
     }
@@ -61,6 +61,19 @@ public sealed partial class RadioSystem : SharedRadioSystem
 
     /// <inheritdoc/>
     public override void SendRadioMessage(EntityUid messageSource, string message, RadioChannelPrototype channel, EntityUid radioSource, bool escapeMarkup = true)
+    // <Onyx-Languages-edited>
+    {
+        SendLanguageRadioMessage(messageSource, message, channel, radioSource, null, escapeMarkup);
+    }
+
+    public void SendLanguageRadioMessage(
+        EntityUid messageSource,
+        string message,
+        RadioChannelPrototype channel,
+        EntityUid radioSource,
+        Robust.Shared.Prototypes.ProtoId<LanguagePrototype>? languageId,
+        bool escapeMarkup = true)
+    // </Onyx-Languages-edited>
     {
         // TODO if radios ever garble / modify messages, feedback-prevention needs to be handled better than this.
         if (!_messages.Add(message))
@@ -94,7 +107,18 @@ public sealed partial class RadioSystem : SharedRadioSystem
         var inlineFormattedMessage = InlineActionFormatter.Format(content); // <Onyx-InlineActions>
         var loudspeakerFontSize = _chat.GetLoudspeakerFontSize(messageSource, true); // <Onyx-Loudspeaker>
         // <Onyx-LanguageAppearance>
-        var language = _languages.GetCurrentLanguage(messageSource);
+        if (!_languages.TryResolveLanguage(messageSource, languageId, out var language))
+        {
+            CompleteTelecommunications(radioSource);
+            _messages.Remove(message);
+            return;
+        }
+        if (!language.CanTransmit)
+        {
+            CompleteTelecommunications(radioSource);
+            _messages.Remove(message);
+            return;
+        }
         var languageColor = language.Speech.Color is { } overrideColor
             ? Color.InterpolateBetween(Color.White, overrideColor, overrideColor.A)
             : channel.Color;
@@ -109,8 +133,8 @@ public sealed partial class RadioSystem : SharedRadioSystem
             ("fontSize", loudspeakerFontSize ?? language.Speech.FontSize ?? speech.FontSize),
             ("verb", verb),
             ("channel", $"\\[{channel.LocalizedName}\\]"),
-            ("name", radioName), // <Onyx-RadioJobTitles-edited>
-            ("message", inlineFormattedMessage) // <Onyx-InlineActions>
+            ("name", radioName),
+            ("message", inlineFormattedMessage)
         );
         // </Onyx-LanguageAppearance>
         // <Onyx-Languages>
@@ -170,7 +194,7 @@ public sealed partial class RadioSystem : SharedRadioSystem
             if (TryGetRadioListener(receiver, transform, out var radioListener) &&
                 !_languages.CanUnderstand(radioListener, language.ID))
             {
-                var obfuscatedEv = ev with { ChatMsg = obfuscatedChatMsg };
+                var obfuscatedEv = ev with { ChatMsg = obfuscatedChatMsg, Message = obfuscatedRadioMessage };
                 RaiseLocalEvent(receiver, ref obfuscatedEv);
                 continue;
             }

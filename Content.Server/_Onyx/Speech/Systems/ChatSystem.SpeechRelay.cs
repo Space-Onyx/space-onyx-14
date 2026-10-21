@@ -42,7 +42,11 @@ public sealed partial class ChatSystem
             relayBarks ? speaker : null,
             TryComp<SpeechTextRevealComponent>(speaker, out var reveal) ? reveal.Speed : null);
 
-        var language = _language.GetCurrentLanguage(speaker);
+        if (!_language.TryGetCurrentLanguage(speaker, out var language))
+        {
+            _speechRelay = oldRelay;
+            return;
+        }
 
         try
         {

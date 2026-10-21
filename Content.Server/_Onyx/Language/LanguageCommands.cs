@@ -18,8 +18,10 @@ public sealed class LanguageListCommand : IConsoleCommand
             return;
 
         shell.WriteLine($"Current: {speaker.CurrentLanguage}");
-        shell.WriteLine($"Spoken: {string.Join(", ", speaker.SpokenLanguages.OrderBy(id => id.Id))}");
-        shell.WriteLine($"Understood: {string.Join(", ", speaker.UnderstoodLanguages.OrderBy(id => id.Id))}");
+        shell.WriteLine($"Writing: {speaker.WrittenLanguage}");
+        foreach (var (language, abilities) in speaker.Languages.OrderBy(entry => entry.Key.Id))
+            shell.WriteLine($"{language}: {abilities}");
+        shell.WriteLine($"Universal: {speaker.UniversalAbilities}");
     }
 }
 

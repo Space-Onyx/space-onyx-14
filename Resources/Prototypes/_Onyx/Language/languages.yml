@@ -9,6 +9,7 @@
 
 - type: language
   id: Psychomantic
+  canWrite: false
   alwaysUnderstood: true
   showInLanguageMenu: false
   speech:
@@ -20,6 +21,9 @@
 
 - type: language
   id: TauCetiBasic
+  selectionPriority: 100
+  writing:
+    description: paper-language-writing-TauCetiBasic
   obfuscation:
     !type:SyllableObfuscation
     minSyllables: 1
@@ -38,6 +42,8 @@
 
 - type: language
   id: Chittin
+  writing:
+    description: paper-language-writing-Chittin
   speech:
     color: "#7d7d7d"
   obfuscation:
@@ -54,6 +60,8 @@
 
 - type: language
   id: RootSpeak
+  writing:
+    description: paper-language-writing-RootSpeak
   speech:
     color: "#a64e14dd"
   obfuscation:
@@ -70,6 +78,8 @@
 
 - type: language
   id: Moffic
+  writing:
+    description: paper-language-writing-Moffic
   speech:
     color: "#c7df2edd"
   obfuscation:
@@ -86,6 +96,8 @@
 
 - type: language
   id: Draconic
+  writing:
+    description: paper-language-writing-Draconic
   speech:
     color: "#2aca2add"
   obfuscation:
@@ -102,6 +114,8 @@
 
 - type: language
   id: Bubblish
+  writing:
+    description: paper-language-writing-Bubblish
   speech:
     color: "#24d1b9"
   obfuscation:
@@ -118,6 +132,8 @@
 
 - type: language
   id: Calcic
+  writing:
+    description: paper-language-writing-Calcic
   speech:
     color: "#e3dac9"
   obfuscation:
@@ -134,6 +150,8 @@
 
 - type: language
   id: NewKinPidgin
+  writing:
+    description: paper-language-writing-NewKinPidgin
   speech:
     color: "#a489a0"
     fontSize: 12
@@ -151,6 +169,8 @@
 
 - type: language
   id: Canilunzt
+  writing:
+    description: paper-language-writing-Canilunzt
   speech:
     color: "#d69b3dcc"
   obfuscation:
@@ -167,6 +187,8 @@
 
 - type: language
   id: SiikMaas
+  writing:
+    description: paper-language-writing-SiikMaas
   speech:
     color: "#d6a36eee"
   obfuscation:
@@ -183,6 +205,9 @@
 
 - type: language
   id: RobotTalk
+  writing:
+    description: paper-language-writing-RobotTalk
+    fontId: Monospace
   speech:
     fontId: Monospace
     boldFontId: MonospaceBold
@@ -193,6 +218,8 @@
 
 - type: language
   id: Nekomimetic
+  writing:
+    description: paper-language-writing-Nekomimetic
   speech:
     color: "#df57aaee"
   obfuscation:
@@ -209,6 +236,8 @@
 
 - type: language
   id: SolCommon
+  writing:
+    description: paper-language-writing-SolCommon
   speech:
     color: "#8282fbaa"
   obfuscation:
@@ -226,7 +255,10 @@
 - type: language
   id: Sign
   requiresSight: true
+  canTransmit: false
+  canWrite: false
   speech:
+    requireSpeech: false
     color: "#dddddd"
   obfuscation:
     !type:ReplacementObfuscation

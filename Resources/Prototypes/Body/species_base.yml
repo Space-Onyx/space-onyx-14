@@ -184,8 +184,8 @@
     emoteSounds: MaleHuman
   # <Onyx-Languages>
   - type: LanguageKnowledge
-    speaks: [TauCetiBasic]
-    understands: [TauCetiBasic]
+    languages:
+      TauCetiBasic: All
   # </Onyx-Languages>
   - type: Emoting
   - type: BodyEmotes

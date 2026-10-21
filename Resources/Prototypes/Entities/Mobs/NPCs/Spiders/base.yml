@@ -42,11 +42,9 @@
     solution: melee
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Xeno
-    understands:
-    - Xeno
-    - TauCetiBasic
+    languages:
+      Xeno: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: ReplacementAccent
     accent: xeno

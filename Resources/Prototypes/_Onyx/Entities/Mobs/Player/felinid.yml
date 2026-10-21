@@ -24,5 +24,6 @@
   - type: Vocal
     emoteSounds: MaleFelinid
   - type: LanguageKnowledge
-    speaks: [TauCetiBasic, Nekomimetic]
-    understands: [TauCetiBasic, Nekomimetic]
+    languages:
+      TauCetiBasic: All
+      Nekomimetic: All

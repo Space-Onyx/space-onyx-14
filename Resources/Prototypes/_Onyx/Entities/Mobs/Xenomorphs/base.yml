@@ -137,14 +137,11 @@
   - type: Vocal
     emoteSounds: Xenomorph
   - type: LanguageKnowledge
-    speaks:
-    - Xeno
-    - XenoHivemind
-    understands:
-    - Xeno
-    - XenoHivemind
-    - Hissing
-    - Draconic
+    languages:
+      Xeno: All
+      XenoHivemind: All
+      Hissing: Understand, Read
+      Draconic: Understand, Read
   - type: CollectiveMind # Goobstation
     defaultChannel: Xenomorphivemind
     channels:

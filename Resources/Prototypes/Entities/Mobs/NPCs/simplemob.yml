@@ -31,8 +31,8 @@
   - type: Blindable
   # <Onyx-Languages>
   - type: LanguageKnowledge
-    speaks: []
-    understands: [TauCetiBasic]
+    languages:
+      TauCetiBasic: Understand, Read
   # </Onyx-Languages>
 
 - type: entity

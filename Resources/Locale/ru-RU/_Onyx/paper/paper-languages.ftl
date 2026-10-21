@@ -1,4 +1,4 @@
-paper-language-cannot-write = На выбранном языке нельзя писать на бумаге.
+paper-language-cannot-write = Вы не можете писать на выбранном языке: нет знания письма или у языка нет письменной формы.
 paper-language-loading = Текст проявляется...
 paper-language-cannot-edit-unknown = Нельзя частично изменять текст на неизвестном языке. Его можно стереть или заменить целиком.
 paper-language-writing-known = [italic]{ $description } ({ $language }).[/italic]
@@ -36,6 +36,5 @@ paper-language-writing-Nehina = Текучее письмо ферокси: «к
 paper-language-writing-Eldritch = Кровавые оккультные руны: «шр», «кх»
 paper-language-writing-Blob = Расплывчатые знаки блоба: «блип», «блоп»
 paper-language-writing-Revolutionary = Условные знаки революционеров: «liberé»
-paper-language-writing-Bingle = Примитивные глифы бинглов: «бингл», «бонгл»
 paper-language-writing-XenoHivemind = Органические знаки ксеноморфов, похожие на царапины: «сс»
 paper-language-writing-DroneTalk = Моноширинные шестнадцатеричные коды дронов: «0A», «1F»

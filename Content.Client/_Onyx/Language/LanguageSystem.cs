@@ -5,7 +5,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client._Onyx.Language;
 
-public sealed partial class LanguageSystem : EntitySystem
+public sealed partial class LanguageSystem : SharedLanguageSystem
 {
     [Dependency] private IPlayerManager _player = default!;
 
@@ -13,20 +13,25 @@ public sealed partial class LanguageSystem : EntitySystem
 
     public override void Initialize()
     {
-        SubscribeLocalEvent<LanguageSpeakerComponent, ComponentHandleState>(OnHandleState);
-        _player.LocalPlayerAttached += _ => LanguagesChanged?.Invoke();
+        base.Initialize();
+        SubscribeLocalEvent<LanguageSpeakerComponent, AfterAutoHandleStateEvent>(OnHandleState);
+        _player.LocalPlayerAttached += OnPlayerChanged;
+        _player.LocalPlayerDetached += OnPlayerChanged;
     }
 
-    private void OnHandleState(Entity<LanguageSpeakerComponent> ent, ref ComponentHandleState args)
+    public override void Shutdown()
     {
-        if (args.Current is not LanguageSpeakerComponentState state)
-            return;
+        _player.LocalPlayerAttached -= OnPlayerChanged;
+        _player.LocalPlayerDetached -= OnPlayerChanged;
+        base.Shutdown();
+    }
 
-        ent.Comp.CurrentLanguage = state.CurrentLanguage;
-        ent.Comp.SpokenLanguages = state.SpokenLanguages;
-        ent.Comp.UnderstoodLanguages = state.UnderstoodLanguages;
-        ent.Comp.UnderstandsAllLanguages = state.UnderstandsAllLanguages;
+    private void OnPlayerChanged(EntityUid entity) => LanguagesChanged?.Invoke();
 
+    private void OnHandleState(Entity<LanguageSpeakerComponent> ent, ref AfterAutoHandleStateEvent args)
+    {
+        var changed = new LanguageStateChangedEvent();
+        RaiseLocalEvent(ent.Owner, ref changed);
         if (ent.Owner == _player.LocalEntity)
             LanguagesChanged?.Invoke();
     }
@@ -36,9 +41,11 @@ public sealed partial class LanguageSystem : EntitySystem
         return CompOrNull<LanguageSpeakerComponent>(_player.LocalEntity);
     }
 
-    public void SelectLanguage(ProtoId<LanguagePrototype> language)
+    public void SelectLanguage(ProtoId<LanguagePrototype> language, bool writing = false)
     {
-        if (GetLocalSpeaker()?.CurrentLanguage != language)
-            RaiseNetworkEvent(new SetLanguageMessage(language));
+        if (_player.LocalEntity is not { } speaker ||
+            !(writing ? CanWrite(speaker, language) : CanSpeak(speaker, language)))
+            return;
+        RaiseNetworkEvent(new SetLanguageMessage(language, writing));
     }
 }

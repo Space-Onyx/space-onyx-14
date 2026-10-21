@@ -203,8 +203,9 @@
     emoteSounds: MaleVulpkanin
   # <Onyx-Languages>
   - type: LanguageKnowledge
-    speaks: [TauCetiBasic, Canilunzt]
-    understands: [TauCetiBasic, Canilunzt]
+    languages:
+      TauCetiBasic: All
+      Canilunzt: All
   # </Onyx-Languages>
   - type: Damageable
     damageModifierSet: Vulpkanin

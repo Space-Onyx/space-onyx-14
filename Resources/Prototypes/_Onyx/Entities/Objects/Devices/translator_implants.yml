@@ -3,6 +3,9 @@
   parent: BaseSubdermalImplant
   abstract: true
   name: translator implant
+  components:
+  - type: TranslatorImplant
+    translateWriting: true
   categories:
   - HideSpawnMenu
 
@@ -13,10 +16,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken:
-    - Chittin
-    understood:
-    - Chittin
+    languages:
+      Chittin: All
     requires:
     - TauCetiBasic
 - type: entity
@@ -26,10 +27,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken:
-    - RootSpeak
-    understood:
-    - RootSpeak
+    languages:
+      RootSpeak: All
     requires:
     - TauCetiBasic
 - type: entity
@@ -39,10 +38,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken:
-    - Moffic
-    understood:
-    - Moffic
+    languages:
+      Moffic: All
     requires:
     - TauCetiBasic
 - type: entity
@@ -52,10 +49,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken:
-    - Draconic
-    understood:
-    - Draconic
+    languages:
+      Draconic: All
     requires:
     - TauCetiBasic
 - type: entity
@@ -65,10 +60,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken:
-    - Bubblish
-    understood:
-    - Bubblish
+    languages:
+      Bubblish: All
     requires:
     - TauCetiBasic
 - type: entity
@@ -78,10 +71,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken:
-    - Calcic
-    understood:
-    - Calcic
+    languages:
+      Calcic: All
     requires:
     - TauCetiBasic
 - type: entity
@@ -91,10 +82,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken:
-    - NewKinPidgin
-    understood:
-    - NewKinPidgin
+    languages:
+      NewKinPidgin: All
     requires:
     - TauCetiBasic
 - type: entity
@@ -104,10 +93,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken:
-    - Canilunzt
-    understood:
-    - Canilunzt
+    languages:
+      Canilunzt: All
     requires:
     - TauCetiBasic
 - type: entity
@@ -117,23 +104,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken:
-    - SiikMaas
-    understood:
-    - SiikMaas
-    requires:
-    - TauCetiBasic
-- type: entity
-  id: RobotTalkTranslatorImplant
-  parent: OnyxTranslatorImplantBase
-  categories:
-  - HideSpawnMenu
-  components:
-  - type: TranslatorImplant
-    spoken:
-    - RobotTalk
-    understood:
-    - RobotTalk
+    languages:
+      SiikMaas: All
     requires:
     - TauCetiBasic
 - type: entity
@@ -143,10 +115,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken:
-    - Nekomimetic
-    understood:
-    - Nekomimetic
+    languages:
+      Nekomimetic: All
     requires:
     - TauCetiBasic
 - type: entity
@@ -156,10 +126,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken:
-    - SolCommon
-    understood:
-    - SolCommon
+    languages:
+      SolCommon: All
     requires:
     - TauCetiBasic
 - type: entity
@@ -169,10 +137,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken:
-    - Sign
-    understood:
-    - Sign
+    languages:
+      Sign: All
     requires:
     - TauCetiBasic
 
@@ -183,7 +149,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    understood: [TauCetiBasic]
+    languages:
+      TauCetiBasic: Understand, Read
 - type: entity
   id: TauCetiBasicTranslatorImplant
   parent: OnyxTranslatorImplantBase
@@ -191,8 +158,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken: [TauCetiBasic]
-    understood: [TauCetiBasic]
+    languages:
+      TauCetiBasic: All
 - type: entity
   id: NovuNedericTranslatorImplant
   parent: OnyxTranslatorImplantBase
@@ -200,8 +167,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken: [NovuNederic]
-    understood: [NovuNederic]
+    languages:
+      NovuNederic: All
     requires: [TauCetiBasic]
 - type: entity
   id: MarishTranslatorImplant
@@ -210,8 +177,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken: [Marish]
-    understood: [Marish]
+    languages:
+      Marish: All
     requires: [TauCetiBasic]
 - type: entity
   id: ValyrianStandardTranslatorImplant
@@ -220,8 +187,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken: [ValyrianStandard]
-    understood: [ValyrianStandard]
+    languages:
+      ValyrianStandard: All
     requires: [TauCetiBasic]
 - type: entity
   id: AzazibaTranslatorImplant
@@ -230,8 +197,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken: [Azaziba]
-    understood: [Azaziba]
+    languages:
+      Azaziba: All
     requires: [Draconic]
 - type: entity
   id: SchechiTranslatorImplant
@@ -240,8 +207,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken: [Schechi]
-    understood: [Schechi]
+    languages:
+      Schechi: All
     requires: [TauCetiBasic]
 - type: entity
   id: GruntishTranslatorImplant
@@ -250,8 +217,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken: [Gruntish]
-    understood: [Gruntish]
+    languages:
+      Gruntish: All
     requires: [TauCetiBasic]
 - type: entity
   id: SpaceItalianTranslatorImplant
@@ -260,8 +227,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken: [SpaceItalian]
-    understood: [SpaceItalian]
+    languages:
+      SpaceItalian: All
 - type: entity
   id: BasicSpaceItalianTranslatorImplant
   parent: OnyxTranslatorImplantBase
@@ -269,7 +236,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    understood: [SpaceItalian]
+    languages:
+      SpaceItalian: Understand, Read
 - type: entity
   id: YowKriolTranslatorImplant
   parent: OnyxTranslatorImplantBase
@@ -277,8 +245,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken: [YowKriol]
-    understood: [YowKriol]
+    languages:
+      YowKriol: All
     requires: [TauCetiBasic]
 - type: entity
   id: ChevalTranslatorImplant
@@ -287,8 +255,8 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken: [Cheval]
-    understood: [Cheval]
+    languages:
+      Cheval: All
 - type: entity
   id: ZookeeperTranslatorImplant
   parent: OnyxTranslatorImplantBase
@@ -296,26 +264,25 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    understood:
-    - Cat
-    - Dog
-    - Fox
-    - Xeno
-    - Monkey
-    - Mouse
-    - Chicken
-    - Duck
-    - Cow
-    - Sheep
-    - Kangaroo
-    - Pig
-    - Crab
-    - Kobold
-    - Hissing
-    - Penguin
-    - Deer
-    - Bingle
-    - Cheval
+    languages:
+      Cat: Understand, Read
+      Dog: Understand, Read
+      Fox: Understand, Read
+      Xeno: Understand, Read
+      Monkey: Understand, Read
+      Mouse: Understand, Read
+      Chicken: Understand, Read
+      Duck: Understand, Read
+      Cow: Understand, Read
+      Sheep: Understand, Read
+      Kangaroo: Understand, Read
+      Pig: Understand, Read
+      Crab: Understand, Read
+      Kobold: Understand, Read
+      Hissing: Understand, Read
+      Penguin: Understand, Read
+      Deer: Understand, Read
+      Cheval: Understand, Read
 - type: entity
   id: LibrarianTranslatorImplant
   parent: OnyxTranslatorImplantBase
@@ -323,68 +290,36 @@
   - HideSpawnMenu
   components:
   - type: TranslatorImplant
-    spoken:
-    - TauCetiBasic
-    - SolCommon
-    - Elyran
-    - Freespeak
-    - NovuNederic
-    - Tradeband
-    - Sign
-    - SpaceItalian
-    - Bubblish
-    - Calcic
-    - Canilunzt
-    - Chittin
-    - Gruntish
-    - NewKinPidgin
-    - Marish
-    - Moffic
-    - Nehina
-    - Nekomimetic
-    - RobotTalk
-    - RootSpeak
-    - SiikMaas
-    - Draconic
-    - Schechi
-    - ValyrianStandard
-    - YowKriol
-    - Azaziba
-    - Cheval
-    - Mouse
-    - Monkey
-    - Kobold
-    understood:
-    - TauCetiBasic
-    - SolCommon
-    - Elyran
-    - Freespeak
-    - NovuNederic
-    - Tradeband
-    - Sign
-    - SpaceItalian
-    - Bubblish
-    - Calcic
-    - Canilunzt
-    - Chittin
-    - Gruntish
-    - NewKinPidgin
-    - Marish
-    - Moffic
-    - Nehina
-    - Nekomimetic
-    - RobotTalk
-    - RootSpeak
-    - SiikMaas
-    - Draconic
-    - Schechi
-    - ValyrianStandard
-    - YowKriol
-    - Azaziba
-    - Cheval
-    - Mouse
-    - Monkey
-    - Kobold
+    languages:
+      TauCetiBasic: All
+      SolCommon: All
+      Elyran: All
+      Freespeak: All
+      NovuNederic: All
+      Tradeband: All
+      Sign: All
+      SpaceItalian: All
+      Bubblish: All
+      Calcic: All
+      Canilunzt: All
+      Chittin: All
+      Gruntish: All
+      NewKinPidgin: All
+      Marish: All
+      Moffic: All
+      Nehina: All
+      Nekomimetic: All
+      RootSpeak: All
+      SiikMaas: All
+      Draconic: All
+      Schechi: All
+      ValyrianStandard: All
+      YowKriol: All
+      Azaziba: All
+      Cheval: All
+      Mouse: All
+      Monkey: All
+      Kobold: All
 
 - type: entity
   id: OnyxTranslatorImplanterBase
@@ -538,12 +473,6 @@
   - type: Implanter
     implant: SiikMaasTranslatorImplant
 - type: entity
-  id: RobotTalkTranslatorImplanter
-  parent: OnyxTranslatorImplanterBase
-  components:
-  - type: Implanter
-    implant: RobotTalkTranslatorImplant
-- type: entity
   id: NekomimeticTranslatorImplanter
   parent: OnyxTranslatorImplanterBase
   components:
@@ -561,3 +490,67 @@
   components:
   - type: Implanter
     implant: SignTranslatorImplant
+
+- type: entity
+  id: ElyranTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  components:
+  - type: TranslatorImplant
+    languages:
+      Elyran: All
+    requires: [TauCetiBasic]
+
+- type: entity
+  id: FreespeakTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  components:
+  - type: TranslatorImplant
+    languages:
+      Freespeak: All
+    requires: [TauCetiBasic]
+
+- type: entity
+  id: TradebandTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  components:
+  - type: TranslatorImplant
+    languages:
+      Tradeband: All
+    requires: [TauCetiBasic]
+
+- type: entity
+  id: NehinaTranslatorImplant
+  parent: OnyxTranslatorImplantBase
+  components:
+  - type: TranslatorImplant
+    languages:
+      Nehina: All
+    requires: [TauCetiBasic]
+
+- type: entity
+  id: ElyranTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: ElyranTranslatorImplant
+
+- type: entity
+  id: FreespeakTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: FreespeakTranslatorImplant
+
+- type: entity
+  id: TradebandTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: TradebandTranslatorImplant
+
+- type: entity
+  id: NehinaTranslatorImplanter
+  parent: OnyxTranslatorImplanterBase
+  components:
+  - type: Implanter
+    implant: NehinaTranslatorImplant

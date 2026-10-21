@@ -21,6 +21,7 @@ public sealed partial class SpeechBarksSystem : EntitySystem
     [Dependency] private IConfigurationManager _cfg = default!;
     [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private ChatSystem _chat = default!;
+    [Dependency] private Content.Server._Onyx.Language.LanguageSystem _languages = default!;
 
     [Dependency] private MindSystem _mind = default!;
     [Dependency] private ISharedPlayerManager _player = default!;
@@ -40,7 +41,7 @@ public sealed partial class SpeechBarksSystem : EntitySystem
 
     private void OnEntitySpoke(EntitySpokeEvent args)
     {
-        if (!_isEnabled ||
+        if (!_isEnabled || !_languages.TryResolveLanguage(args.Source, args.Language, out var language) || language.RequiresSight ||
             _chat.GetSpeechBarkSource(args.Source) is not { } source ||
             !TryComp<SpeechBarksComponent>(source, out var component))
             return;
@@ -55,12 +56,14 @@ public sealed partial class SpeechBarksSystem : EntitySystem
 
         foreach (var ent in _lookup.GetEntitiesInRange(Transform(args.Source).Coordinates, 10f))
         {
+            if (!_chat.CanHearSource(ent, args.Source))
+                continue;
             if (!_mind.TryGetMind(ent, out _, out var mind) || mind.UserId == null || !_player.TryGetSessionById(mind.UserId, out var session))
                 continue;
 
             RaiseNetworkEvent(new PlaySpeechBarksEvent(
                         GetNetEntity(args.Source),
-                        message,
+                         _languages.CanUnderstand(ent, language.ID) ? message : _languages.Obfuscate(message, language),
                         soundSpecifier,
                         pitch,
                         minVar,

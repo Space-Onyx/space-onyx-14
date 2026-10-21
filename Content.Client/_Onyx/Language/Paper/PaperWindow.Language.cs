@@ -1,6 +1,7 @@
 using Content.Client._Onyx.Language.Paper;
 using Content.Client.RichText;
 using Content.Shared._Onyx.Language.Paper;
+using Content.Shared._Onyx.Language;
 using Content.Shared.Paper;
 using Robust.Client.UserInterface.RichText;
 using Robust.Client.UserInterface.Controls;
@@ -10,10 +11,10 @@ namespace Content.Client.Paper.UI;
 
 public sealed partial class PaperWindow
 {
-    public event Action<uint, ulong, List<PaperLanguageEditOperation>>? OnLanguageSaved;
+    public event Action<uint, ulong, List<LanguageTextEdit>>? OnLanguageSaved;
 
     private static readonly Type[] PaperAllowedTags =
-        [..UserFormattableTags.BaseAllowedTags, typeof(FontTag), typeof(PaperLanguageTag)];
+        [..UserFormattableTags.BaseAllowedTags, typeof(PaperLanguageTag)];
 
     private uint _revision;
     private ulong _viewGeneration;
@@ -21,7 +22,7 @@ public sealed partial class PaperWindow
     private string _lastText = string.Empty;
     private bool _populating;
     private bool _applyingLanguageView;
-    private readonly List<PaperLanguageEditOperation> _operations = new();
+    private readonly List<LanguageTextEdit> _operations = new();
 
     private void InitializeLanguageView()
     {
@@ -34,7 +35,7 @@ public sealed partial class PaperWindow
 
     private void SaveLanguageText(string text)
     {
-        OnLanguageSaved?.Invoke(_revision, _viewGeneration, new List<PaperLanguageEditOperation>(_operations));
+        OnLanguageSaved?.Invoke(_revision, _viewGeneration, new List<LanguageTextEdit>(_operations));
     }
 
     public void PopulateLanguage(PaperLanguageViewMessage state)
@@ -85,10 +86,11 @@ public sealed partial class PaperWindow
         {
             if (selectionStart < selectionEnd)
             {
-                _operations.Add(new PaperLanguageEditOperation(
+                _operations.Add(new LanguageTextEdit(
                     selectionStart,
                     selectionEnd - selectionStart,
-                    text.Substring(selectionStart, selectionEnd - selectionStart)));
+                    text.Substring(selectionStart, selectionEnd - selectionStart),
+                    GetWritingLanguage()));
             }
             return;
         }
@@ -97,7 +99,7 @@ public sealed partial class PaperWindow
         var suffix = CommonSuffix(_lastText, text, start);
         var deleteLength = _lastText.Length - start - suffix;
         var insertLength = text.Length - start - suffix;
-        _operations.Add(new PaperLanguageEditOperation(start, deleteLength, text.Substring(start, insertLength)));
+        _operations.Add(new LanguageTextEdit(start, deleteLength, text.Substring(start, insertLength), GetWritingLanguage()));
         _lastText = text;
     }
 
@@ -107,8 +109,13 @@ public sealed partial class PaperWindow
         var prefix = 0;
         while (prefix < length && left[prefix] == right[prefix])
             prefix++;
+        if (prefix > 0 && prefix < left.Length && char.IsHighSurrogate(left[prefix - 1]) && char.IsLowSurrogate(left[prefix]))
+            prefix--;
         return prefix;
     }
+
+    private static Robust.Shared.Prototypes.ProtoId<LanguagePrototype>? GetWritingLanguage() =>
+        IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<Content.Client._Onyx.Language.LanguageSystem>().GetLocalSpeaker()?.WrittenLanguage;
 
     private static int CommonSuffix(string left, string right, int prefix)
     {
@@ -116,6 +123,8 @@ public sealed partial class PaperWindow
         var suffix = 0;
         while (suffix < limit && left[^(suffix + 1)] == right[^(suffix + 1)])
             suffix++;
+        if (suffix > 0 && suffix < left.Length && char.IsLowSurrogate(left[^suffix]) && char.IsHighSurrogate(left[^(suffix + 1)]))
+            suffix--;
         return suffix;
     }
 }

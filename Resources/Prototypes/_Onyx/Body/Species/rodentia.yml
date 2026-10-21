@@ -80,8 +80,9 @@
     proto: rodentia
   - type: CheeseAccent
   - type: LanguageKnowledge
-    speaks: [ TauCetiBasic, Mouse ]
-    understands: [ TauCetiBasic, Mouse ]
+    languages:
+      TauCetiBasic: All
+      Mouse: All
   - type: MeleeWeapon
     soundHit: { path: /Audio/Weapons/pierce.ogg }
     angle: 30

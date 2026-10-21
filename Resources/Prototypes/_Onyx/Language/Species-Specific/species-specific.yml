@@ -1,5 +1,7 @@
 - type: language
   id: Azaziba
+  writing:
+    description: paper-language-writing-Azaziba
   speech:
     color: "#2aca2add"
   obfuscation:
@@ -17,6 +19,8 @@
     maxSyllables: 3
 - type: language
   id: Schechi
+  writing:
+    description: paper-language-writing-Schechi
   speech:
     color: "#4DBFD9"
     fontSize: 14
@@ -35,6 +39,8 @@
     maxSyllables: 3
 - type: language
   id: Xeeplian
+  writing:
+    description: paper-language-writing-Xeeplian
   speech:
     color: "#a4bb98"
   obfuscation:
@@ -43,6 +49,8 @@
     consonants: "гжзйклмнпрстфхцчш"
 - type: language
   id: Hydraspeak
+  writing:
+    description: paper-language-writing-Hydraspeak
   speech:
     color: "#6e6cfedd"
   obfuscation:
@@ -68,6 +76,8 @@
     - ""
 - type: language
   id: SiikTajr
+  writing:
+    description: paper-language-writing-SiikTajr
   speech:
     color: "#f58c9aee"
   obfuscation:
@@ -85,6 +95,8 @@
     maxSyllables: 3
 - type: language
   id: YaSsa
+  writing:
+    description: paper-language-writing-YaSsa
   speech:
     color: "#9a69f5ee"
   obfuscation:
@@ -102,6 +114,8 @@
     maxSyllables: 5
 - type: language
   id: Delvahii
+  writing:
+    description: paper-language-writing-Delvahii
   speech:
     color: "#b1c472ee"
   obfuscation:

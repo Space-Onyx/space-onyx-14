@@ -243,8 +243,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         if (checkRadioPrefix)
         {
             // <Onyx-SignLanguage-edited>
-            var canUseRadio = !TryComp<Content.Shared._Onyx.Language.LanguageSpeakerComponent>(source, out var speaker) ||
-                              speaker.CurrentLanguage != "Sign";
+            var canUseRadio = _language.TryResolveLanguage(source, languageOverride, out var radioLanguage) && radioLanguage.CanTransmit;
             // </Onyx-SignLanguage-edited>
             if (canUseRadio && TryProcessRadioMessage(source, message, out var modMessage, out var channel))
             {

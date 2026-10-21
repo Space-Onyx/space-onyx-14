@@ -30,8 +30,9 @@
     speedMultiplier: 1.5
     staminaCostMultiplier: 0.6
   - type: LanguageKnowledge
-    speaks: [ TauCetiBasic, Nehina ]
-    understands: [ TauCetiBasic, Nehina ]
+    languages:
+      TauCetiBasic: All
+      Nehina: All
 - type: entity
   parent: MobFeroxi
   id: MobFeroxiRandom

@@ -1,47 +1,39 @@
+// SPDX-FileCopyrightText: 2026 Space Onyx Contributors
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 using Robust.Shared.Prototypes;
 using Robust.Shared.GameStates;
-using Robust.Shared.Serialization;
 
 namespace Content.Shared._Onyx.Language;
 
-[RegisterComponent, NetworkedComponent]
+/// <summary>Owner-only effective knowledge. Modified only by the authoritative language system.</summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
 public sealed partial class LanguageSpeakerComponent : Component
 {
     public override bool SendOnlyToOwner => true;
 
-    [DataField]
-    public ProtoId<LanguagePrototype> CurrentLanguage = "Universal";
+    [DataField, AutoNetworkedField]
+    public ProtoId<LanguagePrototype>? CurrentLanguage;
 
-    [DataField]
-    public HashSet<ProtoId<LanguagePrototype>> SpokenLanguages = new();
+    [DataField, AutoNetworkedField]
+    public ProtoId<LanguagePrototype>? WrittenLanguage;
 
-    [DataField]
-    public HashSet<ProtoId<LanguagePrototype>> UnderstoodLanguages = new();
+    [AutoNetworkedField]
+    public Dictionary<ProtoId<LanguagePrototype>, LanguageAbility> Languages = new();
 
-    public bool UnderstandsAllLanguages;
+    [AutoNetworkedField]
+    public LanguageAbility UniversalAbilities;
+
+    [AutoNetworkedField]
+    public uint Revision;
 }
 
-[Serializable, NetSerializable]
-public sealed class LanguageSpeakerComponentState(
-    ProtoId<LanguagePrototype> currentLanguage,
-    HashSet<ProtoId<LanguagePrototype>> spokenLanguages,
-    HashSet<ProtoId<LanguagePrototype>> understoodLanguages,
-    bool understandsAllLanguages) : ComponentState
-{
-    public ProtoId<LanguagePrototype> CurrentLanguage = currentLanguage;
-    public HashSet<ProtoId<LanguagePrototype>> SpokenLanguages = spokenLanguages;
-    public HashSet<ProtoId<LanguagePrototype>> UnderstoodLanguages = understoodLanguages;
-    public bool UnderstandsAllLanguages = understandsAllLanguages;
-}
-
+/// <summary>Intrinsic abilities, independent of equipment and temporary sources.</summary>
 [RegisterComponent]
 public sealed partial class LanguageKnowledgeComponent : Component
 {
-    [DataField("speaks", required: true)]
-    public HashSet<ProtoId<LanguagePrototype>> SpokenLanguages = new();
-
-    [DataField("understands", required: true)]
-    public HashSet<ProtoId<LanguagePrototype>> UnderstoodLanguages = new();
+    [DataField]
+    public Dictionary<ProtoId<LanguagePrototype>, LanguageAbility> Languages = new();
 }
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
@@ -51,28 +43,31 @@ public sealed partial class UniversalLanguageSpeakerComponent : Component
     public bool Enabled = true;
 
     [DataField]
-    public HashSet<ProtoId<LanguagePrototype>> SpokenLanguages = new() { "Psychomantic" };
+    public Dictionary<ProtoId<LanguagePrototype>, LanguageAbility> Languages = new()
+    {
+        ["Psychomantic"] = LanguageAbility.Speak,
+    };
 
     [DataField]
-    public bool UnderstandsAllLanguages = true;
+    public LanguageAbility Abilities = LanguageAbility.Understand | LanguageAbility.Read;
 }
 
 public abstract partial class BaseTranslatorComponent : Component
 {
-    [DataField("spoken")]
-    public HashSet<ProtoId<LanguagePrototype>> SpokenLanguages = new();
+    [DataField]
+    public bool TranslateWriting;
 
-    [DataField("understood")]
-    public HashSet<ProtoId<LanguagePrototype>> UnderstoodLanguages = new();
+    [DataField]
+    public Dictionary<ProtoId<LanguagePrototype>, LanguageAbility> Languages = new();
 
-    [DataField("requires")]
-    public HashSet<ProtoId<LanguagePrototype>> RequiredLanguages = new();
+    [DataField]
+    public HashSet<ProtoId<LanguagePrototype>> Requires = new();
 
     [DataField]
     public bool Enabled = true;
 
-    [DataField("requiresAll")]
-    public bool RequiresAllLanguages;
+    [DataField]
+    public bool RequiresAll;
 }
 
 [RegisterComponent]

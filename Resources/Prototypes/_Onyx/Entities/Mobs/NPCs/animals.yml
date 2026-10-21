@@ -57,11 +57,9 @@
     - id: FoodMeat
       amount: 1
   - type: LanguageKnowledge
-    speaks:
-    - Dog
-    understands:
-    - Dog
-    - TauCetiBasic
+    languages:
+      Dog: All
+      TauCetiBasic: Understand, Read
 
 - type: entity
   parent: MobCarp

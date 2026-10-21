@@ -22,9 +22,7 @@ public sealed partial class MimePowersSystem : EntitySystem
 {
     public static readonly EntProtoId MutedEffect = "StatusEffectMimeMuted";
 
-    // <Onyx-SignLanguage>
-    private static readonly ProtoId<LanguagePrototype> SignLanguage = "Sign";
-    // </Onyx-SignLanguage>
+    // Sign knowledge is provided by LanguageSystem while MimePowers exists. <Onyx-Languages-edited>
     [Dependency] private SharedPopupSystem _popupSystem = default!;
     [Dependency] private SharedActionsSystem _actionsSystem = default!;
     [Dependency] private AlertsSystem _alertsSystem = default!;
@@ -70,15 +68,7 @@ public sealed partial class MimePowersSystem : EntitySystem
         if (!ent.Comp.VowBroken)
             _statusEffects.TrySetStatusEffectDuration(ent, MutedEffect);
 
-        // <Onyx-SignLanguage-edited>
-        if (TryComp<LanguageKnowledgeComponent>(ent, out var knowledge))
-        {
-            knowledge.SpokenLanguages.Add(SignLanguage);
-            knowledge.UnderstoodLanguages.Add(SignLanguage);
-            Dirty(ent, knowledge);
-            RaiseLocalEvent(ent, new LanguageKnowledgeChangedEvent());
-        }
-        // </Onyx-SignLanguage-edited>
+        RaiseLocalEvent(ent, new LanguageKnowledgeChangedEvent()); // <Onyx-Languages-edited>
 
         if (ent.Comp.PreventWriting)
         {
@@ -94,15 +84,7 @@ public sealed partial class MimePowersSystem : EntitySystem
     {
         _statusEffects.TryRemoveStatusEffect(ent, MutedEffect);
 
-        // <Onyx-SignLanguage-edited>
-        if (TryComp<LanguageKnowledgeComponent>(ent, out var knowledge))
-        {
-            knowledge.SpokenLanguages.Remove(SignLanguage);
-            knowledge.UnderstoodLanguages.Remove(SignLanguage);
-            Dirty(ent, knowledge);
-            RaiseLocalEvent(ent, new LanguageKnowledgeChangedEvent());
-        }
-        // </Onyx-SignLanguage-edited>
+        RaiseLocalEvent(ent, new LanguageKnowledgeChangedEvent()); // <Onyx-Languages-edited>
         _actionsSystem.RemoveAction(ent.Owner, ent.Comp.InvisibleWallActionEntity);
     }
 

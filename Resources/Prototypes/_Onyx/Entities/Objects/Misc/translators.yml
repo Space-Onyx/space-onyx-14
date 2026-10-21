@@ -31,6 +31,7 @@
   - type: PowerCellDraw
     drawRate: 1
   - type: HandheldTranslator
+    translateWriting: false
     enabled: false
   - type: Clothing
     slots:
@@ -45,12 +46,9 @@
   name: chittin translator
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - Chittin
-    understood:
-    - TauCetiBasic
-    - Chittin
+    languages:
+      TauCetiBasic: All
+      Chittin: All
     requires:
     - TauCetiBasic
     - Chittin
@@ -61,12 +59,9 @@
   name: rootspeak translator
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - RootSpeak
-    understood:
-    - TauCetiBasic
-    - RootSpeak
+    languages:
+      TauCetiBasic: All
+      RootSpeak: All
     requires:
     - TauCetiBasic
     - RootSpeak
@@ -77,12 +72,9 @@
   name: moffic translator
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - Moffic
-    understood:
-    - TauCetiBasic
-    - Moffic
+    languages:
+      TauCetiBasic: All
+      Moffic: All
     requires:
     - TauCetiBasic
     - Moffic
@@ -93,12 +85,9 @@
   name: draconic translator
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - Draconic
-    understood:
-    - TauCetiBasic
-    - Draconic
+    languages:
+      TauCetiBasic: All
+      Draconic: All
     requires:
     - TauCetiBasic
     - Draconic
@@ -109,12 +98,9 @@
   name: bubblish translator
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - Bubblish
-    understood:
-    - TauCetiBasic
-    - Bubblish
+    languages:
+      TauCetiBasic: All
+      Bubblish: All
     requires:
     - TauCetiBasic
     - Bubblish
@@ -125,12 +111,9 @@
   name: calcic translator
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - Calcic
-    understood:
-    - TauCetiBasic
-    - Calcic
+    languages:
+      TauCetiBasic: All
+      Calcic: All
     requires:
     - TauCetiBasic
     - Calcic
@@ -141,12 +124,9 @@
   name: ka'rakk translator
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - NewKinPidgin
-    understood:
-    - TauCetiBasic
-    - NewKinPidgin
+    languages:
+      TauCetiBasic: All
+      NewKinPidgin: All
     requires:
     - TauCetiBasic
     - NewKinPidgin
@@ -157,12 +137,9 @@
   name: canilunzt translator
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - Canilunzt
-    understood:
-    - TauCetiBasic
-    - Canilunzt
+    languages:
+      TauCetiBasic: All
+      Canilunzt: All
     requires:
     - TauCetiBasic
     - Canilunzt
@@ -173,31 +150,12 @@
   name: siik'maas translator
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - SiikMaas
-    understood:
-    - TauCetiBasic
-    - SiikMaas
+    languages:
+      TauCetiBasic: All
+      SiikMaas: All
     requires:
     - TauCetiBasic
     - SiikMaas
-
-- type: entity
-  id: RobotTalkTranslator
-  parent: OnyxTranslatorBase
-  name: robot talk translator
-  components:
-  - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - RobotTalk
-    understood:
-    - TauCetiBasic
-    - RobotTalk
-    requires:
-    - TauCetiBasic
-    - RobotTalk
 
 - type: entity
   id: NekomimeticTranslator
@@ -205,12 +163,9 @@
   name: nekomimetic translator
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - Nekomimetic
-    understood:
-    - TauCetiBasic
-    - Nekomimetic
+    languages:
+      TauCetiBasic: All
+      Nekomimetic: All
     requires:
     - TauCetiBasic
     - Nekomimetic
@@ -221,12 +176,9 @@
   name: sol common translator
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - SolCommon
-    understood:
-    - TauCetiBasic
-    - SolCommon
+    languages:
+      TauCetiBasic: All
+      SolCommon: All
     requires:
     - TauCetiBasic
     - SolCommon
@@ -256,12 +208,9 @@
   parent: OnyxTranslatorBase
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - NovuNederic
-    understood:
-    - TauCetiBasic
-    - NovuNederic
+    languages:
+      TauCetiBasic: All
+      NovuNederic: All
     requires:
     - TauCetiBasic
     - NovuNederic
@@ -270,12 +219,9 @@
   parent: OnyxTranslatorBase
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - Xeno
-    understood:
-    - TauCetiBasic
-    - Xeno
+    languages:
+      TauCetiBasic: All
+      Xeno: All
     requires:
     - TauCetiBasic
 - type: entity
@@ -283,23 +229,23 @@
   parent: OnyxTranslatorBase
   components:
   - type: HandheldTranslator
-    understood:
-    - Cat
-    - Dog
-    - Fox
-    - Monkey
-    - Mouse
-    - Chicken
-    - Duck
-    - Cow
-    - Sheep
-    - Kangaroo
-    - Pig
-    - Crab
-    - Kobold
-    - Hissing
-    - Deer
-    - Carptongue
+    languages:
+      Cat: Understand, Read
+      Dog: Understand, Read
+      Fox: Understand, Read
+      Monkey: Understand, Read
+      Mouse: Understand, Read
+      Chicken: Understand, Read
+      Duck: Understand, Read
+      Cow: Understand, Read
+      Sheep: Understand, Read
+      Kangaroo: Understand, Read
+      Pig: Understand, Read
+      Crab: Understand, Read
+      Kobold: Understand, Read
+      Hissing: Understand, Read
+      Deer: Understand, Read
+      Carptongue: Understand, Read
     requires:
     - TauCetiBasic
     setLanguageOnInteract: false
@@ -308,12 +254,9 @@
   parent: OnyxTranslatorBase
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - ValyrianStandard
-    understood:
-    - TauCetiBasic
-    - ValyrianStandard
+    languages:
+      TauCetiBasic: All
+      ValyrianStandard: All
     requires:
     - TauCetiBasic
     - ValyrianStandard
@@ -322,12 +265,9 @@
   parent: OnyxTranslatorBase
   components:
   - type: HandheldTranslator
-    spoken:
-    - Draconic
-    - Azaziba
-    understood:
-    - Draconic
-    - Azaziba
+    languages:
+      Draconic: All
+      Azaziba: All
     requires:
     - Draconic
     - Azaziba
@@ -336,12 +276,9 @@
   parent: OnyxTranslatorBase
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - Marish
-    understood:
-    - TauCetiBasic
-    - Marish
+    languages:
+      TauCetiBasic: All
+      Marish: All
     requires:
     - TauCetiBasic
     - Marish
@@ -350,12 +287,9 @@
   parent: OnyxTranslatorBase
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - Schechi
-    understood:
-    - TauCetiBasic
-    - Schechi
+    languages:
+      TauCetiBasic: All
+      Schechi: All
     requires:
     - TauCetiBasic
     - Schechi
@@ -364,12 +298,9 @@
   parent: OnyxTranslatorBase
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - Gruntish
-    understood:
-    - TauCetiBasic
-    - Gruntish
+    languages:
+      TauCetiBasic: All
+      Gruntish: All
     requires:
     - TauCetiBasic
     - Gruntish
@@ -378,12 +309,9 @@
   parent: OnyxTranslatorBase
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - YowKriol
-    understood:
-    - TauCetiBasic
-    - YowKriol
+    languages:
+      TauCetiBasic: All
+      YowKriol: All
     requires:
     - TauCetiBasic
     - YowKriol
@@ -392,12 +320,9 @@
   parent: OnyxTranslatorBase
   components:
   - type: HandheldTranslator
-    spoken:
-    - TauCetiBasic
-    - Xeeplian
-    understood:
-    - TauCetiBasic
-    - Xeeplian
+    languages:
+      TauCetiBasic: All
+      Xeeplian: All
     requires:
     - TauCetiBasic
     - Xeeplian

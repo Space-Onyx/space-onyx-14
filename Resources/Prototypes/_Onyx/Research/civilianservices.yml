@@ -93,6 +93,15 @@
     - XeeplianTranslatorRecipe
     - YowKriolTranslatorImplanterRecipe
     - SignTranslatorImplanterRecipe
+    - ElyranTranslatorImplanterRecipe
+    - FreespeakTranslatorImplanterRecipe
+    - TradebandTranslatorImplanterRecipe
+    - NehinaTranslatorImplanterRecipe
+    - CalcicTranslatorImplanterRecipe
+    - NovuNedericTranslatorImplanterRecipe
+    - AzazibaTranslatorImplanterRecipe
+    - SpaceItalianTranslatorImplanterRecipe
+    - ZookeeperTranslatorImplanterRecipe
   position: 2,-8
   technologyPrerequisites:
     - BasicTranslation

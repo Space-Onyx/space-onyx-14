@@ -34,13 +34,18 @@ public sealed class LanguagePrototypeTest : GameTest
         {
             foreach (var entity in _prototypes.EnumeratePrototypes<EntityPrototype>())
             {
-                if (Pair.IsTestPrototype(entity) ||
-                    !entity.TryComp(out LanguageKnowledgeComponent knowledge, _componentFactory))
+                if (Pair.IsTestPrototype(entity))
                     continue;
-
-                foreach (var language in knowledge.SpokenLanguages.Concat(knowledge.UnderstoodLanguages))
-                    Assert.That(_prototypes.HasIndex(language), Is.True,
-                        $"Entity prototype {entity.ID} references missing language {language}.");
+                if (entity.TryComp(out LanguageKnowledgeComponent knowledge, _componentFactory))
+                {
+                    foreach (var language in knowledge.Languages.Keys)
+                        Assert.That(_prototypes.HasIndex(language), Is.True,
+                            $"Entity prototype {entity.ID} references missing language {language}.");
+                }
+                if (entity.TryComp(out HandheldTranslatorComponent handheld, _componentFactory))
+                    CheckTranslator(entity.ID, handheld);
+                if (entity.TryComp(out TranslatorImplantComponent implant, _componentFactory))
+                    CheckTranslator(entity.ID, implant);
             }
 
             foreach (var language in _prototypes.EnumeratePrototypes<LanguagePrototype>())
@@ -52,6 +57,9 @@ public sealed class LanguagePrototypeTest : GameTest
                     $"Language {language.ID} has no localized name.");
                 Assert.That(_localization.HasString($"language-{language.ID}-description"), Is.True,
                     $"Language {language.ID} has no localized description.");
+                if (language.Writing.Description is { } description)
+                    Assert.That(_localization.HasString(description), Is.True,
+                        $"Language {language.ID} has no writing description {description}.");
             }
 
             foreach (var trait in _prototypes.EnumeratePrototypes<TraitPrototype>())
@@ -66,6 +74,13 @@ public sealed class LanguagePrototypeTest : GameTest
         });
     }
 
+    private void CheckTranslator(string entity, BaseTranslatorComponent translator)
+    {
+        foreach (var language in translator.Languages.Keys.Concat(translator.Requires))
+            Assert.That(_prototypes.HasIndex(language), Is.True,
+                $"Translator {entity} references missing language {language}.");
+    }
+
     [Test]
     [RunOnSide(Side.Server)]
     public void MultipleLanguageTraitsAreMerged()
@@ -76,5 +91,47 @@ public sealed class LanguagePrototypeTest : GameTest
 
         var knowledge = SEntMan.GetComponent<LanguageTraitComponent>(entity);
         Assert.That(knowledge.Languages, Is.EquivalentTo(new[] { Sign, SolCommon }));
+        var languages = SEntMan.System<Content.Server._Onyx.Language.LanguageSystem>();
+        Assert.That(languages.CanSpeak(entity, Sign), Is.True);
+        Assert.That(languages.CanUnderstand(entity, Sign), Is.True);
+        Assert.That(languages.CanWrite(entity, Sign), Is.False);
+        Assert.That(languages.CanSpeak(entity, SolCommon), Is.True);
+        Assert.That(languages.CanUnderstand(entity, SolCommon), Is.True);
+        Assert.That(languages.CanRead(entity, SolCommon), Is.True);
+        Assert.That(languages.CanWrite(entity, SolCommon), Is.True);
+    }
+
+    [Test]
+    [RunOnSide(Side.Server)]
+    public void WritingKnowledgeDoesNotRequireSpeech()
+    {
+        var entity = SSpawn(null);
+        var knowledge = SEntMan.AddComponent<LanguageKnowledgeComponent>(entity);
+        SEntMan.AddComponent<LanguageSpeakerComponent>(entity);
+        knowledge.Languages[SolCommon] = LanguageAbility.Read | LanguageAbility.Write;
+        var languages = SEntMan.System<Content.Server._Onyx.Language.LanguageSystem>();
+        languages.UpdateLanguages(entity);
+        Assert.That(languages.CanWrite(entity, SolCommon), Is.True);
+        Assert.That(languages.CanRead(entity, SolCommon), Is.True);
+        Assert.That(languages.CanSpeak(entity, SolCommon), Is.False);
+        Assert.That(languages.TryGetCurrentLanguage(entity, out _), Is.False);
+        Assert.That(languages.TryGetWrittenLanguage(entity, out var written), Is.True);
+        Assert.That(written.ID, Is.EqualTo(SolCommon.Id));
+    }
+
+    [Test]
+    [RunOnSide(Side.Server)]
+    public void SignDoesNotGrantWrittenForm()
+    {
+        var entity = SSpawn(null);
+        var knowledge = SEntMan.AddComponent<LanguageKnowledgeComponent>(entity);
+        SEntMan.AddComponent<LanguageSpeakerComponent>(entity);
+        knowledge.Languages[Sign] = LanguageAbility.All;
+        var languages = SEntMan.System<Content.Server._Onyx.Language.LanguageSystem>();
+        languages.UpdateLanguages(entity);
+        Assert.That(languages.CanSpeak(entity, Sign), Is.True);
+        Assert.That(languages.CanWrite(entity, Sign), Is.False);
+        Assert.That(languages.CanRead(entity, Sign), Is.False);
+        Assert.That(_prototypes.Index(Sign).CanTransmit, Is.False);
     }
 }

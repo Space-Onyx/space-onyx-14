@@ -141,13 +141,10 @@
   - type: TileMovement
   - type: VentCrawler
   - type: LanguageKnowledge # Einstein Engines - Language
-    speaks:
-    - Xeno
-    - Hissing
-    understands:
-    - Xeno
-    - Hissing
-    - Draconic
+    languages:
+      Xeno: All
+      Hissing: All
+      Draconic: Understand, Read
   - type: Fauna # Lavaland Change
 
 - type: entity

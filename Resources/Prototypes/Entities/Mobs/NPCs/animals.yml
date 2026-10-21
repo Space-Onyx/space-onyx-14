@@ -56,11 +56,9 @@
         Quantity: 50
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Mouse
-    understands:
-    - Mouse
-    - TauCetiBasic
+    languages:
+      Mouse: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: ReplacementAccent
     accent: mouse
@@ -241,11 +239,9 @@
     speechSounds: Cluck
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
-    speaks:
-    - Chicken
-    understands:
-    - Chicken
-    - TauCetiBasic
+    languages:
+      Chicken: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages-edited>
   - type: Tag
     tags:
@@ -470,11 +466,9 @@
   components:
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Hissing
-    understands:
-    - Hissing
-    - TauCetiBasic
+    languages:
+      Hissing: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: Sprite
     sprite: Mobs/Animals/cockroach.rsi
@@ -564,11 +558,9 @@
     allowedEmotes: ['Chitter', 'Squeak', 'Flap']
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
-    speaks:
-    - Moffic
-    understands:
-    - Moffic
-    - TauCetiBasic
+    languages:
+      Moffic: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages-edited>
   - type: FaxableObject
     insertingState: inserting_mothroach
@@ -723,11 +715,9 @@
   components:
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
-    speaks:
-    - Duck
-    understands:
-    - Duck
-    - TauCetiBasic
+    languages:
+      Duck: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages-edited>
   - type: Sprite
     drawdepth: Mobs
@@ -950,10 +940,8 @@
   components:
   # <Onyx-Animals>
   - type: LanguageKnowledge
-    speaks:
-    - Cow
-    understands:
-    - Cow
+    languages:
+      Cow: All
   # </Onyx-Animals>
   - type: Sprite
     drawdepth: Mobs
@@ -1059,11 +1047,9 @@
   components:
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
-    speaks:
-    - Crab
-    understands:
-    - Crab
-    - TauCetiBasic
+    languages:
+      Crab: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages-edited>
   - type: Sprite
     drawdepth: Mobs
@@ -1262,10 +1248,8 @@
   description: A sheep.
   components:
   - type: LanguageKnowledge
-    speaks:
-    - Sheep
-    understands:
-    - Sheep
+    languages:
+      Sheep: All
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -1608,11 +1592,9 @@
   components:
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
-    speaks:
-    - Kangaroo
-    understands:
-    - Kangaroo
-    - TauCetiBasic
+    languages:
+      Kangaroo: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages-edited>
   - type: MovementSpeedModifier
     baseWalkSpeed: 3.5
@@ -1851,11 +1833,9 @@
     lowest: MobMonkey
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
-    speaks:
-    - Monkey
-    understands:
-    - Monkey
-    - Kobold
+    languages:
+      Monkey: All
+      Kobold: Understand, Read
   # </Onyx-CreatureLanguages-edited>
   # <Onyx-PrimateAnatomy>
   - type: DeclarativeBody
@@ -1907,12 +1887,10 @@
     speechVerb: Monkey
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Monkey
-    understands:
-    - Monkey
-    - Kobold
-    - TauCetiBasic
+    languages:
+      Monkey: All
+      Kobold: Understand, Read
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: MonkeyAccent
   - type: NpcFactionMember
@@ -1963,12 +1941,10 @@
     group: Kobold
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Kobold
-    understands:
-    - Kobold
-    - Monkey
-    - TauCetiBasic
+    languages:
+      Kobold: All
+      Monkey: Understand, Read
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   # <Onyx-PrimateAnatomy>
   - type: DeclarativeBody
@@ -2041,10 +2017,8 @@
     - StatusEffectClumsyKobold
   # <Onyx-Animals>
   - type: LanguageKnowledge
-    speaks:
-    - Kobold
-    understands:
-    - Kobold
+    languages:
+      Kobold: All
   # </Onyx-Animals>
 
 - type: entity
@@ -2078,12 +2052,10 @@
     profile: TraitorReinforcement
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Kobold
-    understands:
-    - Monkey
-    - Kobold
-    - TauCetiBasic
+    languages:
+      Kobold: All
+      Monkey: Understand, Read
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -2118,11 +2090,9 @@
   # </Onyx-Rodentia>
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
-    speaks:
-    - Mouse
-    understands:
-    - Mouse
-    - TauCetiBasic
+    languages:
+      Mouse: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages-edited>
   # <Onyx-VentCrawling>
   - type: VentCrawler
@@ -2673,10 +2643,8 @@
     emoteSounds: Parrot
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - TauCetiBasic
-    understands:
-    - TauCetiBasic
+    languages:
+      TauCetiBasic: All
   # </Onyx-CreatureLanguages>
   - type: ActiveListener
   - type: Vocalizer
@@ -2728,11 +2696,9 @@
   components:
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
-    speaks:
-    - Penguin
-    understands:
-    - Penguin
-    - TauCetiBasic
+    languages:
+      Penguin: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages-edited>
   - type: Sprite
     drawdepth: Mobs
@@ -2914,11 +2880,9 @@
     damageModifierSet: Scale
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Hissing
-    understands:
-    - Hissing
-    - TauCetiBasic
+    languages:
+      Hissing: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -2929,11 +2893,9 @@
   components:
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Hissing
-    understands:
-    - Hissing
-    - TauCetiBasic
+    languages:
+      Hissing: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: Sprite
     drawdepth: Mobs
@@ -3010,11 +2972,9 @@
   components:
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Hissing
-    understands:
-    - Hissing
-    - TauCetiBasic
+    languages:
+      Hissing: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: Sprite
     drawdepth: Mobs
@@ -3071,11 +3031,9 @@
   components:
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
-    speaks:
-    - Fox
-    understands:
-    - Fox
-    - TauCetiBasic
+    languages:
+      Fox: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages-edited>
   - type: Sprite
     drawdepth: Mobs
@@ -3162,10 +3120,8 @@
   components:
   # <Onyx-Animals>
   - type: LanguageKnowledge
-    speaks:
-    - Dog
-    understands:
-    - Dog
+    languages:
+      Dog: All
   # </Onyx-Animals>
   - type: Sprite
     drawdepth: Mobs
@@ -3248,11 +3204,9 @@
       amount: 2
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Dog
-    understands:
-    - Dog
-    - TauCetiBasic
+    languages:
+      Dog: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   # <Onyx-Animals-edited>
   - type: Tag
@@ -3361,11 +3315,9 @@
     lowest: MobCat
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
-    speaks:
-    - Cat
-    understands:
-    - Cat
-    - TauCetiBasic
+    languages:
+      Cat: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages-edited>
   - type: Sprite
     drawdepth: Mobs
@@ -3468,11 +3420,9 @@
   components:
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Cat
-    understands:
-    - Cat
-    - TauCetiBasic
+    languages:
+      Cat: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: Sprite
     layers:
@@ -3624,11 +3574,9 @@
   components:
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Hissing
-    understands:
-    - Hissing
-    - TauCetiBasic
+    languages:
+      Hissing: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: MovementSpeedModifier
     baseWalkSpeed : 0.5
@@ -3689,11 +3637,9 @@
   components:
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Hissing
-    understands:
-    - Hissing
-    - TauCetiBasic
+    languages:
+      Hissing: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: Sprite
     drawdepth: Mobs
@@ -3843,11 +3789,9 @@
       amount: 1
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Mouse
-    understands:
-    - Mouse
-    - TauCetiBasic
+    languages:
+      Mouse: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: ReplacementAccent
     accent: mouse
@@ -3916,11 +3860,9 @@
   components:
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
-    speaks:
-    - Pig
-    understands:
-    - Pig
-    - TauCetiBasic
+    languages:
+      Pig: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages-edited>
   - type: Sprite
     drawdepth: Mobs
@@ -4072,11 +4014,9 @@
     reformPrototype: MobDionaReformed
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - RootSpeak
-    understands:
-    - RootSpeak
-    - TauCetiBasic
+    languages:
+      RootSpeak: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: TTS # Corvax-TTS
     voice: Omu
@@ -4155,11 +4095,9 @@
     needsHands: false
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Deer
-    understands:
-    - Deer
-    - TauCetiBasic
+    languages:
+      Deer: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity

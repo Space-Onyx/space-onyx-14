@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Server.Administration;
 using Content.Shared.Administration;
 using Content.Shared._Onyx.Language;
@@ -20,23 +21,14 @@ public sealed class AdminLanguageCommand : ToolshedCommand
         [CommandArgument] bool canSpeak = true,
         [CommandArgument] bool canUnderstand = true)
     {
-        if (language.Id == "Universal")
-        {
-            EnsureComp<UniversalLanguageSpeakerComponent>(input);
-            EnsureComp<LanguageSpeakerComponent>(input);
-            Languages.UpdateLanguages(input);
-            return input;
-        }
-
-        var knowledge = EnsureComp<LanguageKnowledgeComponent>(input);
-        EnsureComp<LanguageSpeakerComponent>(input);
-
+        var abilities = TryComp<LanguageKnowledgeComponent>(input, out var knowledge)
+            ? knowledge.Languages.GetValueOrDefault(language)
+            : LanguageAbility.None;
         if (canSpeak)
-            knowledge.SpokenLanguages.Add(language);
+            abilities |= LanguageAbility.Speak | LanguageAbility.Write;
         if (canUnderstand)
-            knowledge.UnderstoodLanguages.Add(language);
-
-        Languages.UpdateLanguages(input);
+            abilities |= LanguageAbility.Understand | LanguageAbility.Read;
+        Languages.SetKnowledge(input, language, abilities);
         return input;
     }
 
@@ -47,19 +39,25 @@ public sealed class AdminLanguageCommand : ToolshedCommand
         [CommandArgument] bool removeSpeak = true,
         [CommandArgument] bool removeUnderstand = true)
     {
-        if (language.Id == "Universal" && HasComp<UniversalLanguageSpeakerComponent>(input))
-            RemComp<UniversalLanguageSpeakerComponent>(input);
-
         if (TryComp<LanguageKnowledgeComponent>(input, out var knowledge))
         {
+            var abilities = knowledge.Languages.GetValueOrDefault(language);
             if (removeSpeak)
-                knowledge.SpokenLanguages.Remove(language);
+                abilities &= ~(LanguageAbility.Speak | LanguageAbility.Write);
             if (removeUnderstand)
-                knowledge.UnderstoodLanguages.Remove(language);
+                abilities &= ~(LanguageAbility.Understand | LanguageAbility.Read);
+            Languages.SetKnowledge(input, language, abilities);
         }
+        return input;
+    }
 
-        EnsureComp<LanguageSpeakerComponent>(input);
-        Languages.UpdateLanguages(input);
+    [CommandImplementation("set")]
+    public EntityUid SetAbilities(
+        [PipedArgument] EntityUid input,
+        [CommandArgument] ProtoId<LanguagePrototype> language,
+        [CommandArgument] LanguageAbility abilities)
+    {
+        Languages.SetKnowledge(input, language, abilities);
         return input;
     }
 
@@ -67,7 +65,7 @@ public sealed class AdminLanguageCommand : ToolshedCommand
     public IEnumerable<ProtoId<LanguagePrototype>> ListSpoken([PipedArgument] EntityUid input)
     {
         return TryComp<LanguageSpeakerComponent>(input, out var speaker)
-            ? speaker.SpokenLanguages
+            ? speaker.Languages.Where(entry => (entry.Value & LanguageAbility.Speak) != 0).Select(entry => entry.Key)
             : [];
     }
 
@@ -75,7 +73,7 @@ public sealed class AdminLanguageCommand : ToolshedCommand
     public IEnumerable<ProtoId<LanguagePrototype>> ListUnderstood([PipedArgument] EntityUid input)
     {
         return TryComp<LanguageSpeakerComponent>(input, out var speaker)
-            ? speaker.UnderstoodLanguages
+            ? speaker.Languages.Where(entry => (entry.Value & LanguageAbility.Understand) != 0).Select(entry => entry.Key)
             : [];
     }
 }

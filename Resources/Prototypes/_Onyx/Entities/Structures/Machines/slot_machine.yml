@@ -77,12 +77,9 @@
           - Cash
   - type: LanguageSpeaker
   - type: LanguageKnowledge
-    speaks:
-    - TauCetiBasic
-    - RobotTalk
-    understands:
-    - TauCetiBasic
-    - RobotTalk
+    languages:
+      TauCetiBasic: All
+      RobotTalk: All
   - type: SlotMachine
   - type: DoAfter
 

@@ -3,8 +3,11 @@
                Title="{Loc language-menu-window-title}"
                SetSize="440 480" MinSize="340 300">
     <BoxContainer Orientation="Vertical" SeparationOverride="6" MinWidth="250">
-        <Label Text="{Loc language-menu-known-languages}" StyleClasses="LabelHeading" />
-        <Label Text="{Loc language-menu-help}" StyleClasses="LabelSubText" />
+        <BoxContainer Orientation="Horizontal" SeparationOverride="4">
+            <LineEdit Name="Search" PlaceHolder="{Loc language-menu-search}" HorizontalExpand="True" MinWidth="100" />
+            <OptionButton Name="AbilityFilter" ToolTip="{Loc language-menu-filter-tooltip}" />
+            <Button Name="ResetFilters" Text="{Loc language-menu-reset}" ToolTip="{Loc language-menu-reset-tooltip}" />
+        </BoxContainer>
         <PanelContainer StyleClasses="PdaBorderRect">
             <BoxContainer Orientation="Vertical" Margin="6">
                 <Label Text="{Loc language-menu-current-heading}" StyleClasses="LabelSubText" />

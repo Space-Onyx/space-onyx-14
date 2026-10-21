@@ -14,12 +14,33 @@ public sealed partial class LanguageMenuWindow : DefaultWindow
 {
     private readonly LanguageSystem _languages;
     private readonly IPrototypeManager _prototypes;
+    private LanguageAbility _filter;
 
     public LanguageMenuWindow()
     {
         RobustXamlLoader.Load(this);
         _languages = IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<LanguageSystem>();
         _prototypes = IoCManager.Resolve<IPrototypeManager>();
+        Search.OnTextChanged += _ => UpdateState();
+        AbilityFilter.AddItem(Loc.GetString("language-menu-filter-all"), (int) LanguageAbility.None);
+        AbilityFilter.AddItem(Loc.GetString("language-menu-filter-speak"), (int) LanguageAbility.Speak);
+        AbilityFilter.AddItem(Loc.GetString("language-menu-filter-understand"), (int) LanguageAbility.Understand);
+        AbilityFilter.AddItem(Loc.GetString("language-menu-filter-read"), (int) LanguageAbility.Read);
+        AbilityFilter.AddItem(Loc.GetString("language-menu-filter-write"), (int) LanguageAbility.Write);
+        AbilityFilter.SelectId((int) LanguageAbility.None);
+        AbilityFilter.OnItemSelected += args =>
+        {
+            _filter = (LanguageAbility) args.Id;
+            AbilityFilter.SelectId(args.Id);
+            UpdateState();
+        };
+        ResetFilters.OnPressed += _ =>
+        {
+            _filter = LanguageAbility.None;
+            AbilityFilter.SelectId((int) LanguageAbility.None);
+            Search.Text = string.Empty;
+            UpdateState();
+        };
     }
 
     protected override void EnteredTree()
@@ -42,22 +63,26 @@ public sealed partial class LanguageMenuWindow : DefaultWindow
     private void UpdateState()
     {
         var speaker = _languages.GetLocalSpeaker();
-        if (speaker == null)
-            return;
-
-        CurrentLanguageLabel.Text = speaker.SpokenLanguages.Count == 0
-            ? Loc.GetString("language-menu-no-spoken-language")
-            : _prototypes.Index(speaker.CurrentLanguage).Name;
+        ResetFilters.Disabled = Search.Text.Length == 0 && _filter == LanguageAbility.None;
         OptionsList.RemoveAllChildren();
+        CurrentLanguageLabel.Text = speaker?.CurrentLanguage is not { } selected || !_prototypes.TryIndex(selected, out var current)
+            ? Loc.GetString("language-menu-no-spoken-language")
+            : current.Name;
+        if (speaker == null)
+        {
+            NoLanguagesLabel.Visible = true;
+            return;
+        }
 
         var understoodLanguages = _prototypes.EnumeratePrototypes<LanguagePrototype>()
             .Where(language => language.ShowInLanguageMenu &&
-                (speaker.UnderstandsAllLanguages || language.AlwaysUnderstood))
+                ((speaker.UniversalAbilities & LanguageAbility.Understand) != 0 || language.AlwaysUnderstood))
             .Select(language => new ProtoId<LanguagePrototype>(language.ID))
-            .Concat(speaker.UnderstoodLanguages);
+            .Concat(speaker.Languages.Keys);
 
-        var knownLanguages = speaker.SpokenLanguages.Union(understoodLanguages)
-            .Where(id => _prototypes.Index(id).ShowInLanguageMenu)
+        var knownLanguages = understoodLanguages.Distinct()
+            .Where(id => _prototypes.TryIndex(id, out var language) && language.ShowInLanguageMenu)
+            .Where(id => MatchesFilters(speaker, id))
             .OrderBy(id => _prototypes.Index(id).Name)
             .ToArray();
         NoLanguagesLabel.Visible = knownLanguages.Length == 0;
@@ -65,8 +90,9 @@ public sealed partial class LanguageMenuWindow : DefaultWindow
         foreach (var id in knownLanguages)
         {
             var language = _prototypes.Index(id);
-            var canSpeak = speaker.SpokenLanguages.Contains(id);
-            var canUnderstand = speaker.UnderstandsAllLanguages || language.AlwaysUnderstood || speaker.UnderstoodLanguages.Contains(id);
+            var canSpeak = LanguageKnowledge.Has(speaker.Languages, id, LanguageAbility.Speak);
+            var canUnderstand = (speaker.UniversalAbilities & LanguageAbility.Understand) != 0 || language.AlwaysUnderstood ||
+                LanguageKnowledge.Has(speaker.Languages, id, LanguageAbility.Understand);
 
             var row = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal };
             row.AddChild(new Label
@@ -76,6 +102,11 @@ public sealed partial class LanguageMenuWindow : DefaultWindow
                 StyleClasses = { StyleClass.LabelHeading },
             });
 
+            var selectionButtons = new BoxContainer
+            {
+                Orientation = BoxContainer.LayoutOrientation.Vertical,
+                SeparationOverride = 4,
+            };
             if (canSpeak)
             {
                 var button = new Button
@@ -86,19 +117,38 @@ public sealed partial class LanguageMenuWindow : DefaultWindow
                     Disabled = id == speaker.CurrentLanguage,
                 };
                 button.OnPressed += _ => _languages.SelectLanguage(id);
-                row.AddChild(button);
+                selectionButtons.AddChild(button);
             }
+
+            if (language.CanWrite && LanguageKnowledge.Has(speaker.Languages, id, LanguageAbility.Write))
+            {
+                var writingButton = new Button
+                {
+                    Text = Loc.GetString(id == speaker.WrittenLanguage ? "language-menu-writing-selected" : "language-menu-write"),
+                    Disabled = id == speaker.WrittenLanguage,
+                };
+                writingButton.OnPressed += _ => _languages.SelectLanguage(id, writing: true);
+                selectionButtons.AddChild(writingButton);
+            }
+            row.AddChild(selectionButtons);
 
             var entry = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical };
             entry.AddChild(row);
             var statusRow = new BoxContainer
             {
                 Orientation = BoxContainer.LayoutOrientation.Horizontal,
-                SeparationOverride = 12,
+                SeparationOverride = 6,
             };
             statusRow.AddChild(CreateStatusLabel("language-menu-speaking", canSpeak));
             statusRow.AddChild(CreateStatusLabel("language-menu-understanding", canUnderstand));
             entry.AddChild(statusRow);
+            var literacyRow = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 6 };
+            literacyRow.AddChild(CreateStatusLabel("language-menu-reading", language.CanWrite &&
+                ((speaker.UniversalAbilities & LanguageAbility.Read) != 0 || language.AlwaysUnderstood ||
+                 LanguageKnowledge.Has(speaker.Languages, id, LanguageAbility.Read))));
+            literacyRow.AddChild(CreateStatusLabel("language-menu-writing", language.CanWrite &&
+                LanguageKnowledge.Has(speaker.Languages, id, LanguageAbility.Write)));
+            entry.AddChild(literacyRow);
 
             var body = new CollapsibleBody
             {
@@ -132,5 +182,22 @@ public sealed partial class LanguageMenuWindow : DefaultWindow
                 available ? StyleClass.Positive : StyleClass.Negative,
             },
         };
+    }
+
+    private bool MatchesFilters(LanguageSpeakerComponent speaker, ProtoId<LanguagePrototype> id)
+    {
+        var language = _prototypes.Index(id);
+        var search = Search.Text.Trim();
+        if (search.Length > 0 && !language.Name.Contains(search, StringComparison.CurrentCultureIgnoreCase) &&
+            !id.Id.Contains(search, StringComparison.OrdinalIgnoreCase))
+            return false;
+        var abilities = speaker.Languages.GetValueOrDefault(id) | speaker.UniversalAbilities;
+        if (_filter == LanguageAbility.None)
+            return true;
+        if ((_filter & (LanguageAbility.Read | LanguageAbility.Write)) != 0 && !language.CanWrite)
+            return false;
+        if (language.AlwaysUnderstood && _filter is LanguageAbility.Understand or LanguageAbility.Read)
+            return true;
+        return (abilities & _filter) != 0;
     }
 }

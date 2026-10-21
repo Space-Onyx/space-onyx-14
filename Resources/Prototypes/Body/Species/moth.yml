@@ -188,8 +188,9 @@
     emoteSounds: UnisexMoth
   # <Onyx-Languages>
   - type: LanguageKnowledge
-    speaks: [TauCetiBasic, Moffic]
-    understands: [TauCetiBasic, Moffic]
+    languages:
+      TauCetiBasic: All
+      Moffic: All
   # </Onyx-Languages>
   - type: BodyEmotes
     soundsId: MothBodyEmotes

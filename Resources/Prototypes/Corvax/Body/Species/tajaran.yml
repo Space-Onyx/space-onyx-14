@@ -162,8 +162,9 @@
     emoteSounds: MaleTajaran
   # <Onyx-Languages>
   - type: LanguageKnowledge
-    speaks: [TauCetiBasic, SiikMaas]
-    understands: [TauCetiBasic, SiikMaas]
+    languages:
+      TauCetiBasic: All
+      SiikMaas: All
   # </Onyx-Languages>
   - type: GrowlingAccent
   - type: MeleeWeapon

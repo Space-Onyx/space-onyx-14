@@ -18,11 +18,9 @@
     accent: xeno
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Xeno
-    understands:
-    - Xeno
-    - TauCetiBasic
+    languages:
+      Xeno: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: Bloodstream
     bloodReferenceSolution:

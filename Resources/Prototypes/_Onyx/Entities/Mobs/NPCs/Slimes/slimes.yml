@@ -62,10 +62,8 @@
     breedName: xenobio-breed-grey
   - type: RandomizeXenobioSlime
   - type: LanguageKnowledge
-    speaks:
-    - Bubblish
-    understands:
-    - Bubblish
+    languages:
+      Bubblish: All
   - type: GuideHelp
     guides: [ XenobiologyGuide ]
 

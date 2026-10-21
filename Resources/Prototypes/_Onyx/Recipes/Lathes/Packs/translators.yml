@@ -10,7 +10,6 @@
   - NewKinPidginTranslatorRecipe
   - CanilunztTranslatorRecipe
   - SiikMaasTranslatorRecipe
-  - RobotTalkTranslatorRecipe
   - NekomimeticTranslatorRecipe
   - SolCommonTranslatorRecipe
   - NovuNedericTranslatorRecipe
@@ -36,7 +35,6 @@
   - NewKinPidginTranslatorImplanterRecipe
   - CanilunztTranslatorImplanterRecipe
   - SiikMaasTranslatorImplanterRecipe
-  - RobotTalkTranslatorImplanterRecipe
   - NekomimeticTranslatorImplanterRecipe
   - SolCommonTranslatorImplanterRecipe
   - SignTranslatorImplanterRecipe
@@ -55,3 +53,7 @@
   - ChevalTranslatorImplanterRecipe
   - ZookeeperTranslatorImplanterRecipe
   - LibrarianTranslatorImplanterRecipe
+  - ElyranTranslatorImplanterRecipe
+  - FreespeakTranslatorImplanterRecipe
+  - TradebandTranslatorImplanterRecipe
+  - NehinaTranslatorImplanterRecipe

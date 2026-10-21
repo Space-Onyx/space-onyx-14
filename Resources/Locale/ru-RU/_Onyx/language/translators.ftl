@@ -6,3 +6,5 @@ translator-examined-requires-any = Необходимо знать хотя бы
 translator-examined-requires-all = Необходимо знать все языки: [color=yellow]{ $languages }[/color].
 translator-examined-enabled = Сейчас [color=green]включен[/color].
 translator-examined-disabled = Сейчас [color=red]выключен[/color].
+translator-examined-writing-enabled = Перевод письменного текста поддерживается для настроенных языков.
+translator-examined-writing-disabled = Письменный текст не переводит и знания письма не даёт.

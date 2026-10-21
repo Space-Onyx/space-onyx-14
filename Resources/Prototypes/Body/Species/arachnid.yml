@@ -157,8 +157,9 @@
     emoteSounds: UnisexArachnid
   # <Onyx-Languages>
   - type: LanguageKnowledge
-    speaks: [TauCetiBasic, Chittin]
-    understands: [TauCetiBasic, Chittin]
+    languages:
+      TauCetiBasic: All
+      Chittin: All
   # </Onyx-Languages>
   - type: TypingIndicator
     proto: spider

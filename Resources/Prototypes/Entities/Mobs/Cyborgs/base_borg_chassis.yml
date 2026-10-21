@@ -111,7 +111,7 @@
     - Binary
     - Common
     - Science
-  # <Onyx-BinaryRadio-edited>
+  # Binary radio routing uses the intrinsic channels above. <Onyx-BinaryRadio-edited>
   - type: ZombieImmune
   - type: Repairable
     damageValue: -10 # 10 seconds to repair from crit
@@ -231,45 +231,26 @@
     - Robotics
   # <Onyx-BorgLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - TauCetiBasic
-    - Canilunzt
-    - Bubblish
-    - Nekomimetic
-    - Draconic
-    - SolCommon
-    - RootSpeak
-    - Moffic
-    - ValyrianStandard
-    - Chittin
-    - SiikMaas
-    - RobotTalk
-    - Marish
-    - Elyran
-    - Freespeak
-    - Tradeband
-    - Schechi
-    - NewKinPidgin
-    understands:
-    - TauCetiBasic
-    - Canilunzt
-    - Bubblish
-    - Nekomimetic
-    - Draconic
-    - SolCommon
-    - RootSpeak
-    - Moffic
-    - ValyrianStandard
-    - Chittin
-    - SiikMaas
-    - RobotTalk
-    - Marish
-    - Elyran
-    - Freespeak
-    - Tradeband
-    - Sign
-    - Schechi
-    - NewKinPidgin
+    languages:
+      TauCetiBasic: All
+      Canilunzt: All
+      Bubblish: All
+      Nekomimetic: All
+      Draconic: All
+      SolCommon: All
+      RootSpeak: All
+      Moffic: All
+      ValyrianStandard: All
+      Chittin: All
+      SiikMaas: All
+      RobotTalk: All
+      Marish: All
+      Elyran: All
+      Freespeak: All
+      Tradeband: All
+      Schechi: All
+      NewKinPidgin: All
+      Sign: Understand, Read
   # </Onyx-BorgLanguages>
   - type: ProtectedFromStepTriggers
   - type: DamageOnInteractProtection

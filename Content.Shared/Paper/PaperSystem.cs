@@ -45,7 +45,7 @@ public sealed partial class PaperSystem : EntitySystem
         SubscribeLocalEvent<PaperComponent, BeforeActivatableUIOpenEvent>(BeforeUIOpen);
         SubscribeLocalEvent<PaperComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<PaperComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<PaperComponent, PaperInputTextMessage>(OnInputTextMessage);
+        // Paper writes use revision-checked, reader-specific edits. // <Onyx-Languages-edited>
 
         SubscribeLocalEvent<RandomPaperContentComponent, MapInitEvent>(OnRandomPaperContentMapInit);
 
@@ -201,21 +201,7 @@ public sealed partial class PaperSystem : EntitySystem
         };
     }
 
-    private void OnInputTextMessage(Entity<PaperComponent> entity, ref PaperInputTextMessage args)
-    {
-        var ev = new PaperWriteAttemptEvent(entity.Owner);
-        RaiseLocalEvent(args.Actor, ref ev);
-        if (ev.Cancelled)
-            return;
-
-        if (args.Text.Length <= entity.Comp.ContentSize)
-            ApplyWrittenContent(entity, args.Actor, args.Text); // <Onyx-PaperLanguages-edited>
-        else
-        {
-            entity.Comp.Mode = PaperAction.Read;
-            UpdateUserInterface(entity);
-        }
-    }
+    // Legacy full-text writes removed: they bypass language and editor validation. // <Onyx-Languages-edited>
 
     // <Onyx-PaperLanguages>
     public void ApplyWrittenContent(Entity<PaperComponent> entity, EntityUid actor, string content)

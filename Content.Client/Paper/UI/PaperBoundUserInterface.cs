@@ -4,6 +4,7 @@ using Content.Shared.Paper;
 using static Content.Shared.Paper.PaperComponent;
 using Content.Client._Onyx.Language.Paper; // <Onyx-PaperLanguages>
 using Content.Shared._Onyx.Language.Paper; // <Onyx-PaperLanguages>
+using Content.Shared._Onyx.Language; // <Onyx-Languages>
 
 namespace Content.Client.Paper.UI;
 
@@ -47,7 +48,7 @@ public sealed class PaperBoundUserInterface : BoundUserInterface
         base.ReceiveMessage(message);
         if (message is PaperLanguageViewMessage view)
         {
-            EntMan.System<PaperLanguageViewSystem>().Store(Owner, view); // <Onyx-PaperLanguages>
+            EntMan.System<PaperLanguageViewSystem>().Store(Owner, view);
             PopulateLanguage(view);
         }
     }
@@ -55,7 +56,7 @@ public sealed class PaperBoundUserInterface : BoundUserInterface
 
     public void PopulateLanguage(PaperLanguageViewMessage view) => _window?.PopulateLanguage(view); // <Onyx-PaperLanguages>
 
-    private void InputOnTextEntered(uint revision, ulong viewGeneration, List<PaperLanguageEditOperation> operations) // <Onyx-PaperLanguages-edited>
+    private void InputOnTextEntered(uint revision, ulong viewGeneration, List<LanguageTextEdit> operations) // <Onyx-Languages-edited>
     {
         SendMessage(new PaperLanguageSaveMessage(revision, viewGeneration, operations)); // <Onyx-PaperLanguages-edited>
     }

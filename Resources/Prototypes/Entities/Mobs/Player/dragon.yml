@@ -181,12 +181,9 @@
       path: /Audio/Items/crowbar.ogg
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - TauCetiBasic
-    - Carptongue
-    understands:
-    - TauCetiBasic
-    - Carptongue
+    languages:
+      TauCetiBasic: All
+      Carptongue: All
   # </Onyx-CreatureLanguages>
   # <Onyx-CollectiveMind>
   - type: CollectiveMind

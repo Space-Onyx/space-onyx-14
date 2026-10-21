@@ -141,8 +141,9 @@
     emoteSounds: MaleSlime
   # <Onyx-Languages>
   - type: LanguageKnowledge
-    speaks: [TauCetiBasic, Bubblish]
-    understands: [TauCetiBasic, Bubblish]
+    languages:
+      TauCetiBasic: All
+      Bubblish: All
   # </Onyx-Languages>
   - type: Damageable
     damageModifierSet: Slime

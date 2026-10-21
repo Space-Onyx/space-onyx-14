@@ -168,8 +168,9 @@
     emoteSounds: UnisexDiona
   # <Onyx-Languages>
   - type: LanguageKnowledge
-    speaks: [TauCetiBasic, RootSpeak]
-    understands: [TauCetiBasic, RootSpeak]
+    languages:
+      TauCetiBasic: All
+      RootSpeak: All
   # </Onyx-Languages>
   - type: TypingIndicator
     proto: diona

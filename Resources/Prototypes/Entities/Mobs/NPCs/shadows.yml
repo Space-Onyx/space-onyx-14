@@ -54,11 +54,9 @@
     accent: cat
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Cat
-    understands:
-    - Cat
-    - TauCetiBasic
+    languages:
+      Cat: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: InteractionPopup
     successChance: 0.01 # you cant pet shadow cat... almost

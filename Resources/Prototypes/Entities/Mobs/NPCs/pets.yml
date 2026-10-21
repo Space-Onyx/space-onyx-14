@@ -69,11 +69,9 @@
     - AnimalIan
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Dog
-    understands:
-    - Dog
-    - TauCetiBasic
+    languages:
+      Dog: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -187,11 +185,9 @@
     - AnimalIan
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Dog
-    understands:
-    - Dog
-    - TauCetiBasic
+    languages:
+      Dog: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -222,11 +218,9 @@
     chanceSpeakNoAccent: 0.01
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Cat
-    understands:
-    - Cat
-    - TauCetiBasic
+    languages:
+      Cat: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 - type: entity
   parent: [ BaseUniquePet, MobCatCalico ]
@@ -253,11 +247,9 @@
     - AnimalNamedCat
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Cat
-    understands:
-    - Cat
-    - TauCetiBasic
+    languages:
+      Cat: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -289,11 +281,9 @@
     - AnimalNamedCat
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Cat
-    understands:
-    - Cat
-    - TauCetiBasic
+    languages:
+      Cat: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -312,11 +302,9 @@
     - VimPilot
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Hissing
-    understands:
-    - Hissing
-    - TauCetiBasic
+    languages:
+      Hissing: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -378,11 +366,9 @@
     - AnimalNamedCat
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Cat
-    understands:
-    - Cat
-    - TauCetiBasic
+    languages:
+      Cat: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -455,11 +441,9 @@
     speechSounds: Dog
   # <Onyx-CreatureLanguages-edited>
   - type: LanguageKnowledge
-    speaks:
-    - Dog
-    understands:
-    - Dog
-    - TauCetiBasic
+    languages:
+      Dog: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages-edited>
   - type: Tag
     tags:
@@ -505,11 +489,9 @@
       gender: male
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Hissing
-    understands:
-    - Hissing
-    - TauCetiBasic
+    languages:
+      Hissing: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -577,11 +559,9 @@
   - type: MessyDrinker
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Dog
-    understands:
-    - Dog
-    - TauCetiBasic
+    languages:
+      Dog: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -610,11 +590,9 @@
     - AnimalMorty
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Hissing
-    understands:
-    - Hissing
-    - TauCetiBasic
+    languages:
+      Hissing: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -682,11 +660,9 @@
     - VimPilot
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Hissing
-    understands:
-    - Hissing
-    - TauCetiBasic
+    languages:
+      Hissing: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -712,11 +688,9 @@
     - VimPilot
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Pig
-    understands:
-    - Pig
-    - TauCetiBasic
+    languages:
+      Pig: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -751,11 +725,9 @@
     - AnimalRenault
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Fox
-    understands:
-    - Fox
-    - TauCetiBasic
+    languages:
+      Fox: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -812,11 +784,9 @@
     - sadness
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Mouse
-    understands:
-    - Mouse
-    - TauCetiBasic
+    languages:
+      Mouse: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -905,11 +875,9 @@
     - AnimalShiva
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Xeno
-    understands:
-    - Xeno
-    - TauCetiBasic
+    languages:
+      Xeno: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -944,11 +912,9 @@
     prototypes: [ BoxingKangarooGear ]
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Kangaroo
-    understands:
-    - Kangaroo
-    - TauCetiBasic
+    languages:
+      Kangaroo: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -1035,11 +1001,9 @@
     voice: Dryad
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Bubblish
-    understands:
-    - Bubblish
-    - TauCetiBasic
+    languages:
+      Bubblish: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -1077,12 +1041,10 @@
       gender: male
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Monkey
-    understands:
-    - Monkey
-    - Kobold
-    - TauCetiBasic
+    languages:
+      Monkey: All
+      Kobold: Understand, Read
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity
@@ -1114,11 +1076,9 @@
     - AnimalTropico
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Crab
-    understands:
-    - Crab
-    - TauCetiBasic
+    languages:
+      Crab: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
 
 - type: entity

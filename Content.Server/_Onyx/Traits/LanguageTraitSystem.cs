@@ -1,7 +1,6 @@
 using Content.Server._Onyx.Language;
 using Content.Shared._Onyx.Language;
 using Content.Shared._Onyx.Traits;
-using Robust.Shared.Timing;
 
 namespace Content.Server._Onyx.Traits;
 
@@ -19,8 +18,10 @@ public sealed partial class LanguageTraitSystem : EntitySystem
 
     private void OnCollectKnowledge(Entity<LanguageTraitComponent> ent, ref CollectLanguageKnowledgeEvent args)
     {
-        args.SpokenLanguages.UnionWith(ent.Comp.Languages);
-        args.UnderstoodLanguages.UnionWith(ent.Comp.Languages);
+        if (ent.Comp.LifeStage >= ComponentLifeStage.Stopping)
+            return;
+        foreach (var language in ent.Comp.Languages)
+            args.Grant(language, LanguageAbility.All);
     }
 
     private void OnStartup(Entity<LanguageTraitComponent> ent, ref ComponentStartup args)
@@ -30,10 +31,6 @@ public sealed partial class LanguageTraitSystem : EntitySystem
 
     private void OnRemoved(Entity<LanguageTraitComponent> ent, ref ComponentRemove args)
     {
-        Timer.Spawn(0, () =>
-        {
-            if (Exists(ent.Owner))
-                _languages.UpdateLanguages(ent.Owner);
-        });
+        _languages.QueueUpdate(ent);
     }
 }

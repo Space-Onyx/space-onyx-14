@@ -1,5 +1,7 @@
 - type: language
   id: Eldritch
+  writing:
+    description: paper-language-writing-Eldritch
   speech:
     color: "#dc143c"
   obfuscation:
@@ -17,6 +19,8 @@
     maxSyllables: 3
 - type: language
   id: Blob
+  writing:
+    description: paper-language-writing-Blob
   speech:
     color: "#800080"
     fontId: Monospace
@@ -34,6 +38,8 @@
     maxSyllables: 4
 - type: language
   id: Revolutionary
+  writing:
+    description: paper-language-writing-Revolutionary
   obfuscation:
     !type:SyllableObfuscation
     replacement:
@@ -45,18 +51,5 @@
     - ре
     - са
     - ви
-    minSyllables: 1
-    maxSyllables: 4
-- type: language
-  id: Bingle
-  obfuscation:
-    !type:SyllableObfuscation
-    replacement:
-    - бин
-    - бон
-    - гл
-    - дин
-    - дон
-    - линг
     minSyllables: 1
     maxSyllables: 4

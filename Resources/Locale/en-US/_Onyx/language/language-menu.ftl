@@ -1,9 +1,9 @@
 language-menu-window-title = Language Menu
 language-menu-known-languages = Known languages
-language-menu-help = Select a spoken language and review your speaking and comprehension abilities.
+language-menu-help = Select speech and writing languages independently. Use search and filters to find available abilities.
 language-menu-current-heading = Current spoken language
 language-menu-no-spoken-language = No spoken language available
-language-menu-no-languages = You do not know any languages.
+language-menu-no-languages = No matching languages. Change the search or filters.
 language-menu-select = Select
 language-menu-selected = Selected
 language-menu-description-header = Description
@@ -17,9 +17,9 @@ language-menu-understanding = Understanding: { $available ->
 }
 
 language-Universal-name = Universal
-language-Universal-description = What are you?
+language-Universal-description = Universal communication understood regardless of individual language knowledge. It does not itself grant knowledge of other languages.
 language-Psychomantic-name = Psychomantic
-language-Psychomantic-description = Pure meaning, free from the tyranny of primative words and gestures.
+language-Psychomantic-description = Pure meaning, independent of spoken words and gestures. It has no written form.
 language-Bubblish-name = Bubblish
 language-Bubblish-description = The language of Slimes. Being a mixture of bubbling noises and pops it's very difficult to speak for humans without the use of mechanical aids.
 language-RootSpeak-name = Rootspeak
@@ -43,11 +43,11 @@ language-Canilunzt-description = The guttural language spoken and utilized by th
 language-Moffic-name = Moffic
 language-Moffic-description = The language of the mothpeople borders on complete unintelligibility.
 language-RobotTalk-name = RobotTalk
-language-RobotTalk-description = A language consisting of harsh binary chirps, whistles, hisses, and whines. Organic tongues cannot speak it without aid from special translators.
+language-RobotTalk-description = A machine language of binary signals, whistles and electronic chirps, used by synthetics. Handheld and implanted translators do not grant knowledge of it.
 language-Calcic-name = Calcic
 language-Calcic-description = The bone-rattling language of Skeletons and Plasmamen. It sounds like a harmonic trousle of bones with a humerus tone, sans any off-tune ribbing.
 language-Sign-name = Sign Language
-language-Sign-description = Tau-Ceti Basic Sign Language. TCB-SL for short, this sign language is prevalent among mute and deaf people.
+language-Sign-description = Tau-Ceti Basic Sign Language, commonly used by mute and deaf people. Requires seeing the speaker, cannot be transmitted by radio, and has no written form.
 language-SiikMaas-name = Siik'maas
 language-SiikMaas-description = The ancient religious tongue of the Tajara, now the most widely spoken and taught language on Adhomai.
 language-Chittin-name = Chittin

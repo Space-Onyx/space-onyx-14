@@ -530,7 +530,7 @@ public sealed partial class FaxSystem : EntitySystem
                 ("time", timeString)
             );
         }
-        PaperLanguageSegments.Normalize(languageSegments, content.Length); // <Onyx-PaperLanguages>
+        Content.Shared._Onyx.Language.LanguageDocument.Normalize(languageSegments, content.Length); // <Onyx-Languages-edited>
 
         var payload = new FaxPrintPayload
         {

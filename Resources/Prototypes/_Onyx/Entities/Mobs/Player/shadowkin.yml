@@ -8,8 +8,9 @@
   - type: DnaModifier
     upper: MobShadowkin
   - type: LanguageKnowledge
-    speaks: [ TauCetiBasic, Marish ]
-    understands: [ TauCetiBasic, Marish ]
+    languages:
+      TauCetiBasic: All
+      Marish: All
   - type: Destructible
     thresholds:
     - trigger: !type:DamageTypeTrigger

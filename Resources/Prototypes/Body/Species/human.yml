@@ -110,8 +110,9 @@
     lowest: MobMonkey
   # <Onyx-Languages>
   - type: LanguageKnowledge
-    speaks: [TauCetiBasic, SolCommon]
-    understands: [TauCetiBasic, SolCommon]
+    languages:
+      TauCetiBasic: All
+      SolCommon: All
   # </Onyx-Languages>
   - type: Butcherable
     spawned:

@@ -172,8 +172,9 @@
     emoteSounds: MaleReptilian
   # <Onyx-Languages>
   - type: LanguageKnowledge
-    speaks: [TauCetiBasic, Draconic]
-    understands: [TauCetiBasic, Draconic]
+    languages:
+      TauCetiBasic: All
+      Draconic: All
   # </Onyx-Languages>
   - type: BodyEmotes
     soundsId: ReptilianBodyEmotes

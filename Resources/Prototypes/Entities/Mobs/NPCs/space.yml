@@ -165,11 +165,9 @@
     emoteSounds: Kangaroo
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Kangaroo
-    understands:
-    - Kangaroo
-    - TauCetiBasic
+    languages:
+      Kangaroo: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: ReplacementAccent
     accent: kangaroo
@@ -257,11 +255,9 @@
     transferAmount: 4
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - Xeno
-    understands:
-    - Xeno
-    - TauCetiBasic
+    languages:
+      Xeno: All
+      TauCetiBasic: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: ReplacementAccent
     accent: xeno
@@ -376,11 +372,9 @@
       transferAmount: 6
     # <Onyx-CreatureLanguages>
     - type: LanguageKnowledge
-      speaks:
-      - Xeno
-      understands:
-      - Xeno
-      - TauCetiBasic
+      languages:
+        Xeno: All
+        TauCetiBasic: Understand, Read
     # </Onyx-CreatureLanguages>
     - type: ReplacementAccent
       accent: xeno

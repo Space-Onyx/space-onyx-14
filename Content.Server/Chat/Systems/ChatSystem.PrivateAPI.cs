@@ -33,9 +33,10 @@ public sealed partial class ChatSystem
         ProtoId<LanguagePrototype>? languageOverride = null // <Onyx-OSayLanguage>
         )
     {
-        var language = languageOverride is { } languageId && ProtoMan.TryIndex(languageId, out LanguagePrototype? overrideLanguage)
-            ? overrideLanguage
-            : _language.GetCurrentLanguage(source); // <Onyx-LanguageSpeechOverride>
+        // <Onyx-Languages-edited>
+        if (!_language.TryResolveLanguage(source, languageOverride, out var language))
+            return;
+        // </Onyx-Languages-edited>
 
         if (language.Speech.RequireSpeech && !_actionBlocker.CanSpeak(source) && !ignoreActionBlocker) // <Onyx-LanguageSpeechOverride-edited>
             return;
@@ -88,7 +89,7 @@ public sealed partial class ChatSystem
         var content = FormattedMessage.EscapeText(restoredMessage);
         var inlineFormattedMessage = InlineActionFormatter.Format(content); // <Onyx-InlineActions>
         // <Onyx-Languages>
-        var speechVerb = Loc.GetString(_random.Pick(language.Speech.SpeechVerbOverrides ?? speech.SpeechVerbStrings)); // <Onyx-LanguageSpeechOverride-edited>
+        var speechVerb = Loc.GetString(_random.Pick(language.Speech.SpeechVerbOverrides is { Count: > 0 } verbs ? verbs : speech.SpeechVerbStrings));
         // </Onyx-Languages>
         // <Onyx-Loudspeaker>
         var loudspeakerFontSize = GetLoudspeakerFontSize(source, false);
@@ -102,26 +103,22 @@ public sealed partial class ChatSystem
             speech,
             language,
             loudspeakerFontSize,
-            fontEv.FontId, // <Onyx-SpeakFontOverride-edited>
-            fontEv.FontSize, // <Onyx-SpeakFontOverride-edited>
-            fontEv.Color); // <Onyx-SpeakFontOverride-edited>
-        // <Onyx-SignLanguage-edited>
+            fontEv.FontId,
+            fontEv.FontSize,
+            fontEv.Color);
         var isSignLanguage = language.RequiresSight;
-        // </Onyx-SignLanguage-edited>
         var obfuscated = InlineActionFormatter.RestoreActions(_language.Obfuscate(protectedMessage, language), inlineReplacements);
         foreach (var (session, data) in GetRecipients(source, VoiceRange))
         {
             if (session.AttachedEntity is not { } listener)
                 continue;
 
-            // <Onyx-SignLanguage-edited>
             if (isSignLanguage
                     ? TryComp<BlindableComponent>(listener, out var blind) && blind.IsBlind ||
                       !_examineSystem.InRangeUnOccluded(source, listener, VoiceRange) ||
-                      !CanSeeSource(listener, source) // <Onyx-HearingVisibility-edited>
-                    : !CanHearSource(listener, source)) // <Onyx-HearingVisibility-edited>
+                      !CanSeeSource(listener, source)
+                    : !CanHearSource(listener, source))
                 continue;
-            // </Onyx-SignLanguage-edited>
 
             var entRange = MessageRangeCheck(session, data, range);
             if (entRange == MessageRangeCheckResult.Disallowed)
@@ -138,16 +135,16 @@ public sealed partial class ChatSystem
                 speech,
                 language,
                 loudspeakerFontSize,
-                fontEv.FontId, // <Onyx-SpeakFontOverride-edited>
-                fontEv.FontSize, // <Onyx-SpeakFontOverride-edited>
-                fontEv.Color); // <Onyx-SpeakFontOverride-edited>
+                fontEv.FontId,
+                fontEv.FontSize,
+                fontEv.Color);
             _chatManager.ChatMessageToOne(ChatChannel.Local, perceived, perceivedWrap, source,
                 entRange == MessageRangeCheckResult.HideChat, session.Channel);
         }
         _replay.RecordServerMessage(new ChatMessage(ChatChannel.Local, message, wrappedMessage, GetNetEntity(source), null, MessageRangeHideChatForReplay(range)));
         // </Onyx-Languages-edited>
 
-        var ev = new EntitySpokeEvent(source, message, originalMessage, null, null);
+        var ev = new EntitySpokeEvent(source, message, originalMessage, null, null) { Language = language.ID }; // <Onyx-Languages-edited>
         RaiseLocalEvent(source, ev, true);
 
         // To avoid logging any messages sent by entities that are not players, like vendors, cloning, etc.
@@ -184,9 +181,10 @@ public sealed partial class ChatSystem
         ProtoId<LanguagePrototype>? languageOverride = null // <Onyx-OSayLanguage>
         )
     {
-        var language = languageOverride is { } languageId && ProtoMan.TryIndex(languageId, out LanguagePrototype? overrideLanguage)
-            ? overrideLanguage
-            : _language.GetCurrentLanguage(source); // <Onyx-LanguageSpeechOverride>
+        // <Onyx-Languages-edited>
+        if (!_language.TryResolveLanguage(source, languageOverride, out var language))
+            return;
+        // </Onyx-Languages-edited>
 
         if (language.Speech.RequireSpeech && !_actionBlocker.CanSpeak(source) && !ignoreActionBlocker) // <Onyx-LanguageSpeechOverride-edited>
             return;
@@ -202,9 +200,7 @@ public sealed partial class ChatSystem
         // </Onyx-InlineActions>
 
         // <Onyx-Languages-edited>
-        // <Onyx-SignLanguage-edited>
         var isSignLanguage = language.RequiresSight;
-        // </Onyx-SignLanguage-edited>
         var languageObfuscatedMessage = InlineActionFormatter.RestoreActions(_language.Obfuscate(protectedMessage, language), inlineReplacements);
         var obfuscatedMessage = ObfuscateMessageReadability(restoredMessage, 0.2f);
         // </Onyx-Languages-edited>
@@ -285,7 +281,7 @@ public sealed partial class ChatSystem
 
         _replay.RecordServerMessage(new ChatMessage(ChatChannel.Whisper, message, wrappedMessage, GetNetEntity(source), null, MessageRangeHideChatForReplay(range)));
 
-        var ev = new EntitySpokeEvent(source, message, originalMessage, channel, obfuscatedMessage);
+        var ev = new EntitySpokeEvent(source, message, originalMessage, channel, obfuscatedMessage) { Language = language.ID }; // <Onyx-Languages-edited>
         RaiseLocalEvent(source, ev, true);
         if (!hideLog)
             if (originalMessage == message)

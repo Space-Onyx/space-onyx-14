@@ -83,11 +83,9 @@
     # </Onyx-Animals-edited>
     # <Onyx-Animals-edited>
     - type: LanguageKnowledge
-      speaks:
-      - Carptongue
-      understands:
-      - Carptongue
-      - TauCetiBasic
+      languages:
+        Carptongue: All
+        TauCetiBasic: Understand, Read
     # </Onyx-Animals-edited>
     - type: InteractionPopup
       interactSuccessString: petting-success-carp

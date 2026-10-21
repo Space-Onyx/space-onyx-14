@@ -51,8 +51,7 @@ public sealed partial class BlobMobSystem : SharedBlobMobSystem
            or ComponentLifeStage.Stopped)
             return;
 
-        args.SpokenLanguages.Add(ent.Comp.Language);
-        args.UnderstoodLanguages.Add(ent.Comp.Language);
+        args.Grant(ent.Comp.Language, LanguageAbility.Speak | LanguageAbility.Understand);
     }
 
     private void OnSpokeName(Entity<BlobSpeakComponent> ent, ref TransformSpeakerNameEvent args)
@@ -78,7 +77,7 @@ public sealed partial class BlobMobSystem : SharedBlobMobSystem
         if (TerminatingOrDeleted(ent))
             return;
 
-        _language.UpdateLanguages(ent.Owner);
+        _language.QueueUpdate(ent.Owner);
     }
 
     private void OnSpokeAdd(Entity<BlobSpeakComponent> ent, ref ComponentStartup args)

@@ -2,7 +2,6 @@ using System.Linq;
 using System.Text;
 using Content.Server.Popups;
 using Content.Server.Cloning;
-using Content.Server.Examine;
 using Content.Shared._Onyx.Language.Paper;
 using Content.Shared._Onyx.Language;
 using Content.Shared._Onyx.Paper;
@@ -20,15 +19,6 @@ namespace Content.Server._Onyx.Language.Paper;
 public sealed partial class PaperLanguageSystem : EntitySystem
 {
     private static readonly ProtoId<LanguagePrototype> Universal = "Universal";
-    private static readonly HashSet<ProtoId<LanguagePrototype>> NonWrittenLanguages =
-    [
-        "Universal", "Psychomantic", "Sign", "NalRasan",
-        "Cat", "Dog", "Fox", "Xeno", "Monkey", "Mouse", "Chicken", "Duck", "Cow", "Sheep",
-        "Kangaroo", "Pig", "Crab", "Kobold", "Hissing", "Penguin", "Deer", "Carptongue", "Cheval",
-        "FloorGoblin",
-    ];
-    private const float PreloadRange = 8f;
-    private const float PreloadInterval = 0.25f;
     private const int MaxEditOperations = 256;
     private const int MaxLanguageSegments = 10000;
 
@@ -37,20 +27,12 @@ public sealed partial class PaperLanguageSystem : EntitySystem
     [Dependency] private PopupSystem _popup = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
-    [Dependency] private EntityLookupSystem _lookup = default!;
-    [Dependency] private ExamineSystem _examine = default!;
 
     private readonly Dictionary<EntityUid, int> _preserveSegments = new();
-    private readonly Dictionary<(EntityUid Paper, EntityUid Actor), ViewVersion> _sentViews = new();
-    private readonly HashSet<EntityUid> _nearby = new();
-    private readonly HashSet<(EntityUid Paper, EntityUid Actor)> _nearbyViews = new();
     private readonly HashSet<(EntityUid Paper, EntityUid Actor)> _writers = new();
     private readonly HashSet<(EntityUid Paper, EntityUid Actor)> _pendingWriters = new();
     private readonly Dictionary<(EntityUid Paper, EntityUid Actor), ulong> _viewGenerations = new();
-    private float _preloadAccumulator;
     private ulong _nextViewGeneration;
-
-    private readonly record struct ViewVersion(uint Revision, PaperAction Mode, int Knowledge, int Stamps, int Signatures);
 
     public override void Initialize()
     {
@@ -62,6 +44,7 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         SubscribeLocalEvent<PaperComponent, PaperLanguageExaminedEvent>(OnExamined);
         SubscribeLocalEvent<PaperComponent, ComponentShutdown>(OnPaperShutdown);
         SubscribeLocalEvent<PaperLanguageComponent, CloningItemEvent>(OnClonePaper, after: new[] { typeof(CloningSystem) });
+        SubscribeLocalEvent<LanguageSpeakerComponent, LanguageStateChangedEvent>(OnLanguageStateChanged);
     }
 
     private void OnExamined(Entity<PaperComponent> ent, ref PaperLanguageExaminedEvent args)
@@ -71,13 +54,13 @@ public sealed partial class PaperLanguageSystem : EntitySystem
 
         var languages = EnsureLanguageData(ent).Segments
             .Select(segment => segment.Language)
-            .Where(language => !NonWrittenLanguages.Contains(language))
+            .Where(id => _prototypes.TryIndex(id, out var language) && language.Writing.Description != null)
             .Distinct();
 
         foreach (var language in languages)
         {
-            var description = Loc.GetString($"paper-language-writing-{language}");
-            args.Examine.PushMarkup(_languages.CanUnderstand(args.Examine.Examiner, language)
+            var description = Loc.GetString(_prototypes.Index(language).Writing.Description!.Value);
+            args.Examine.PushMarkup(_languages.CanRead(args.Examine.Examiner, language)
                 ? Loc.GetString("paper-language-writing-known",
                     ("language", Loc.GetString($"language-{language}-name")),
                     ("description", description))
@@ -90,53 +73,19 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         _preserveSegments.Remove(ent.Owner);
         _writers.RemoveWhere(key => key.Paper == ent.Owner);
         _pendingWriters.RemoveWhere(key => key.Paper == ent.Owner);
-        foreach (var key in _viewGenerations.Keys)
+        foreach (var key in _viewGenerations.Keys.ToArray())
         {
             if (key.Paper == ent.Owner)
                 _viewGenerations.Remove(key);
-        }
-        foreach (var key in _sentViews.Keys)
-        {
-            if (key.Paper == ent.Owner)
-                _sentViews.Remove(key);
         }
     }
 
     public override void Update(float frameTime)
     {
-        _preloadAccumulator += frameTime;
-        if (_preloadAccumulator < PreloadInterval)
-            return;
-
-        _preloadAccumulator = 0f;
-        _nearbyViews.Clear();
-        var actors = EntityQueryEnumerator<ActorComponent>();
-        while (actors.MoveNext(out var actor, out _))
-        {
-            _nearby.Clear();
-            _lookup.GetEntitiesInRange(actor, PreloadRange, _nearby);
-            foreach (var paper in _nearby)
-            {
-                if (TryComp<PaperComponent>(paper, out var component))
-                {
-                    if (_ui.IsUiOpen(paper, PaperUiKey.Key, actor))
-                        continue;
-                    if (!_examine.InRangeUnOccluded(actor, paper, PreloadRange))
-                        continue;
-                    _nearbyViews.Add((paper, actor));
-                    SendPrefetchedView((paper, component), actor);
-                }
-            }
-        }
-
-        foreach (var key in _sentViews.Keys)
-        {
-            if (!_nearbyViews.Contains(key))
-                _sentViews.Remove(key);
-        }
+        base.Update(frameTime);
         _pendingWriters.RemoveWhere(key => !_ui.IsUiOpen(key.Paper, PaperUiKey.Key, key.Actor));
         _writers.RemoveWhere(key => !Exists(key.Actor) || !HasComp<ActorComponent>(key.Actor));
-        foreach (var key in _viewGenerations.Keys)
+        foreach (var key in _viewGenerations.Keys.ToArray())
         {
             if (!Exists(key.Actor) || !HasComp<ActorComponent>(key.Actor))
                 _viewGenerations.Remove(key);
@@ -159,6 +108,7 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         {
             _writers.Remove((ent.Owner, args.Actor));
             _pendingWriters.Remove((ent.Owner, args.Actor));
+            _viewGenerations.Remove((ent.Owner, args.Actor));
         }
     }
 
@@ -187,38 +137,17 @@ public sealed partial class PaperLanguageSystem : EntitySystem
 
     private void SendPrefetchedView(Entity<PaperComponent> ent, EntityUid actor)
     {
-        var key = (ent.Owner, actor);
-        var version = GetViewVersion(ent, actor);
-        if (_sentViews.TryGetValue(key, out var sent) && sent == version)
-            return;
-
-        _sentViews[key] = version;
         RaiseNetworkEvent(new PaperLanguageViewPrefetchEvent(GetNetEntity(ent.Owner), BuildViewMessage(ent, actor)), actor);
     }
 
-    private ViewVersion GetViewVersion(Entity<PaperComponent> ent, EntityUid actor)
+    private void OnLanguageStateChanged(Entity<LanguageSpeakerComponent> ent, ref LanguageStateChangedEvent args)
     {
-        var revision = EnsureLanguageData(ent).Revision;
-        var knowledge = 0;
-        if (TryComp<LanguageSpeakerComponent>(actor, out var speaker))
+        foreach (var key in _viewGenerations.Keys.ToArray())
         {
-            knowledge = speaker.UnderstandsAllLanguages ? 1 : 0;
-            foreach (var language in speaker.UnderstoodLanguages.OrderBy(id => id.Id, StringComparer.Ordinal))
-                knowledge = HashCode.Combine(knowledge, language.Id.GetHashCode(StringComparison.Ordinal));
+            if (key.Actor == ent.Owner && TryComp<PaperComponent>(key.Paper, out var paper) &&
+                _ui.IsUiOpen(key.Paper, PaperUiKey.Key, ent.Owner))
+                SendView((key.Paper, paper), ent.Owner);
         }
-
-        var stamps = 0;
-        foreach (var stamp in ent.Comp.StampedBy)
-            stamps = HashCode.Combine(stamps, stamp.GetHashCode());
-
-        var signatures = 0;
-        foreach (var signature in ent.Comp.SignedBy)
-            signatures = HashCode.Combine(signatures, signature.GetHashCode());
-
-        var mode = _writers.Contains((ent.Owner, actor)) || _pendingWriters.Contains((ent.Owner, actor))
-            ? PaperAction.Write
-            : PaperAction.Read;
-        return new ViewVersion(revision, mode, knowledge, stamps, signatures);
     }
 
     private void OnSaveMessage(Entity<PaperComponent> ent, ref PaperLanguageSaveMessage args)
@@ -247,26 +176,13 @@ public sealed partial class PaperLanguageSystem : EntitySystem
             return;
         }
 
-        var insertsText = args.Operations?.Any(operation => !string.IsNullOrEmpty(operation.InsertedText)) == true;
-        var language = _languages.GetCurrentLanguage(args.Actor);
-        if (insertsText && !_languages.CanSpeak(args.Actor, language.ID))
-        {
-            SendView(ent, args.Actor, true);
-            return;
-        }
-
-        if (language.RequiresSight && insertsText)
-        {
-            _popup.PopupEntity(Loc.GetString("paper-language-cannot-write"), ent, args.Actor);
-            SendView(ent, args.Actor, true);
-            return;
-        }
-
         if (args.Operations == null || args.Operations.Count > MaxEditOperations)
         {
             SendView(ent, args.Actor, true);
             return;
         }
+
+        var hasLanguage = _languages.TryGetWrittenLanguage(args.Actor, out var language);
 
         if (args.Operations.Count == 0)
         {
@@ -280,17 +196,23 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         var insertedBudget = 0;
         foreach (var operation in args.Operations)
         {
+            var writingLanguage = operation.Language ?? (hasLanguage ? new ProtoId<LanguagePrototype>(language.ID) : Universal);
+            if (!string.IsNullOrEmpty(operation.InsertedText) && !_languages.CanWrite(args.Actor, writingLanguage))
+            {
+                _popup.PopupEntity(Loc.GetString("paper-language-cannot-write"), ent, args.Actor);
+                SendView(ent, args.Actor, true);
+                return;
+            }
             if (operation.InsertedText == null || operation.InsertedText.Length > ent.Comp.ContentSize ||
                 operation.Start < 0 || operation.DeleteLength < 0 || operation.Start > currentLength ||
                 operation.DeleteLength > currentLength - operation.Start ||
                 operation.InsertedText.Length > ent.Comp.ContentSize - insertedBudget ||
-                !IsWellFormedUtf16(operation.InsertedText) || !IsScalarBoundary(spans, operation.Start) ||
-                !IsScalarBoundary(spans, operation.Start + operation.DeleteLength))
+                !LanguageDocument.IsWellFormed(operation.InsertedText))
             {
                 SendView(ent, args.Actor, true);
                 return;
             }
-            if (!PaperLanguageEditReplay.Apply(spans, operation, language.ID))
+            if (!LanguageDocument.TryEdit(spans, operation, writingLanguage))
             {
                 _popup.PopupEntity(Loc.GetString("paper-language-cannot-edit-unknown"), ent, args.Actor);
                 SendView(ent, args.Actor);
@@ -300,16 +222,15 @@ public sealed partial class PaperLanguageSystem : EntitySystem
             currentLength = currentLength - operation.DeleteLength + operation.InsertedText.Length;
         }
 
-        PaperLanguageEditReplay.CanonicalizeSeparators(spans);
-
         var content = new StringBuilder();
-        var segments = new List<PaperLanguageSegment>();
+        var segments = new List<LanguageTextRange>();
         foreach (var span in spans)
         {
             content.Append(span.SourceText);
-            AddSegment(segments, content.Length - span.SourceText.Length, span.SourceText.Length, span.Language);
+            LanguageDocument.AppendRange(segments, content.Length - span.SourceText.Length, span.SourceText.Length, span.Language);
         }
-        if (content.Length > ent.Comp.ContentSize || !SegmentsCover(segments, content.Length))
+        if (content.Length > ent.Comp.ContentSize || !LanguageDocument.IsWellFormed(content.ToString()) ||
+            !LanguageDocument.Covers(segments, content.Length))
         {
             SendView(ent, args.Actor, true);
             return;
@@ -327,7 +248,7 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         var data = EnsureLanguageData(ent);
         if (!_preserveSegments.TryGetValue(ent.Owner, out var preserve) || preserve <= 0)
         {
-            data.Segments = PaperLanguageSegments.ForText(ent.Comp.Content, Universal);
+            data.Segments = LanguageDocument.ForText(ent.Comp.Content, Universal);
             data.Revision++;
         }
         else if (preserve == 1)
@@ -342,16 +263,18 @@ public sealed partial class PaperLanguageSystem : EntitySystem
     public void SetContent(
         Entity<PaperComponent> ent,
         string content,
-        IEnumerable<PaperLanguageSegment> segments)
+        IEnumerable<LanguageTextRange> segments)
     {
         var data = EnsureLanguageData(ent);
+        if (!LanguageDocument.IsWellFormed(content))
+            throw new ArgumentException("Paper content must contain well-formed UTF-16.", nameof(content));
         data.Segments = segments.Take(MaxLanguageSegments)
-            .Select(segment => new PaperLanguageSegment(
+            .Select(segment => new LanguageTextRange(
                 segment.Start,
                 segment.Length,
                 _prototypes.HasIndex(segment.Language) ? segment.Language : Universal))
             .ToList();
-        PaperLanguageSegments.Normalize(data.Segments, content.Length);
+        LanguageDocument.Normalize(data.Segments, content.Length);
         data.Revision++;
         PreserveNextContentChange(ent.Owner);
         _paper.SetContent(ent, content);
@@ -371,25 +294,20 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         SetContent((args.CloneUid, clonePaper), sourcePaper.Content, ent.Comp.Segments);
     }
 
-    public List<PaperLanguageSegment> CopySegments(EntityUid paper)
+    public List<LanguageTextRange> CopySegments(EntityUid paper)
     {
         return TryComp<PaperLanguageComponent>(paper, out var data)
-            ? PaperLanguageSegments.Clone(data.Segments)
-            : new List<PaperLanguageSegment>();
+            ? LanguageDocument.Clone(data.Segments)
+            : new List<LanguageTextRange>();
     }
 
     private PaperLanguageComponent EnsureLanguageData(Entity<PaperComponent> ent)
     {
         var data = EnsureComp<PaperLanguageComponent>(ent);
-        if (!SegmentsCover(data.Segments, ent.Comp.Content.Length))
+        if (!LanguageDocument.Covers(data.Segments, ent.Comp.Content.Length))
         {
-            data.Segments = PaperLanguageSegments.ForText(ent.Comp.Content, Universal);
+            LanguageDocument.Normalize(data.Segments, ent.Comp.Content.Length);
             data.Revision++;
-            foreach (var key in _sentViews.Keys)
-            {
-                if (key.Paper == ent.Owner)
-                    _sentViews.Remove(key);
-            }
         }
         return data;
     }
@@ -407,11 +325,6 @@ public sealed partial class PaperLanguageSystem : EntitySystem
             _pendingWriters.RemoveWhere(key => key.Paper == ent.Owner);
         }
 
-        foreach (var key in _sentViews.Keys)
-        {
-            if (key.Paper == ent.Owner)
-                _sentViews.Remove(key);
-        }
         foreach (var actor in _ui.GetActors(ent.Owner, PaperUiKey.Key).ToList())
             SendView(ent, actor);
     }
@@ -435,18 +348,15 @@ public sealed partial class PaperLanguageSystem : EntitySystem
 
     private (string Editable, string Rendered) BuildViews(
         string content,
-        List<PaperLanguageSegment> segments,
+        List<LanguageTextRange> segments,
         EntityUid reader)
     {
         var editable = new StringBuilder(content.Length);
         var rendered = new StringBuilder(content.Length);
         foreach (var span in BuildEditSpans(content, segments, reader))
         {
-            if (!_prototypes.TryIndex(span.Language, out LanguagePrototype? language))
-                continue;
-
             editable.Append(span.ViewText);
-            AppendRenderedSpan(rendered, span.ViewText, language.ID);
+            AppendRenderedSpan(rendered, span.ViewText, _prototypes.HasIndex(span.Language) ? span.Language.Id : Universal.Id);
         }
         return (editable.ToString(), rendered.ToString());
     }
@@ -478,192 +388,23 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         output.Append("[/paperlang]");
     }
 
-    private List<PaperLanguageEditSpan> BuildEditSpans(
+    private List<LanguageTextSpan> BuildEditSpans(
         string content,
-        List<PaperLanguageSegment> segments,
+        List<LanguageTextRange> segments,
         EntityUid reader)
     {
-        var spans = new List<PaperLanguageEditSpan>();
-        var viewSegments = PaperLanguageSegments.Clone(segments);
-        PaperLanguageSegments.MakeMarkupUniversal(content, viewSegments);
-        foreach (var segment in viewSegments)
-        {
-            var effectiveLanguage = segment.Language;
-            if (!_prototypes.TryIndex(effectiveLanguage, out LanguagePrototype? language))
-            {
-                effectiveLanguage = Universal;
-                language = _prototypes.Index(Universal);
-            }
-
-            var understood = _languages.CanUnderstand(reader, effectiveLanguage);
-            var end = segment.Start + segment.Length;
-            var start = segment.Start;
-            while (start < end)
-            {
-                var newline = content.IndexOf('\n', start, end - start);
-                var bodyEnd = newline < 0 ? end : newline;
-                var source = content.Substring(start, bodyEnd - start);
-                var view = source;
-                if (!understood)
-                {
-                    view = ObfuscateMarkupLine(view, language);
-                    if (source.Length > 0 && view.Length == 0)
-                        view = "<?>";
-                }
-                spans.Add(new PaperLanguageEditSpan(view, source, effectiveLanguage, understood && view.Length == source.Length));
-
-                if (newline >= 0)
-                    spans.Add(new PaperLanguageEditSpan("\n", "\n", effectiveLanguage, true));
-                start = newline < 0 ? end : newline + 1;
-            }
-        }
-        return spans;
+        return LanguageDocument.Project(content, segments,
+            language => _languages.CanRead(reader, language),
+            (text, id) => _prototypes.TryIndex(id, out var language) ? _languages.Obfuscate(text, language) : "<?>",
+            PaperLanguageMarkup.GetProtectedLength);
     }
 
-
-    private string ObfuscateMarkupLine(string value, LanguagePrototype language)
-    {
-        var protectedText = new StringBuilder(value.Length);
-        var tags = new List<string>();
-        var escaped = false;
-        var inTag = false;
-        var tagEnd = '\0';
-        var tag = new StringBuilder();
-
-        for (var i = 0; i < value.Length; i++)
-        {
-            var character = value[i];
-            if (escaped)
-            {
-                protectedText.Append(character);
-                escaped = false;
-                continue;
-            }
-
-            if (character == '\\')
-            {
-                protectedText.Append(character);
-                escaped = true;
-                continue;
-            }
-
-            if (!inTag && PaperLanguageMarkup.TryGetTagLength(value, i, out _))
-            {
-                inTag = true;
-                tagEnd = character == '<' ? '>' : ']';
-                tag.Append(character);
-                continue;
-            }
-
-            if (inTag)
-                tag.Append(character);
-            else
-                protectedText.Append(character);
-
-            if (inTag && character == tagEnd)
-            {
-                inTag = false;
-                tags.Add(tag.ToString());
-                tag.Clear();
-                protectedText.Append('\uE000');
-            }
-        }
-
-        if (tag.Length > 0)
-            protectedText.Append(tag);
-
-        var output = new StringBuilder(_languages.Obfuscate(protectedText.ToString(), language));
-        if (tags.Count > 0 && !output.ToString().Contains('\uE000'))
-        {
-            var opening = tags.Where(markup => !markup.StartsWith("[/", StringComparison.Ordinal));
-            var closing = tags.Where(markup => markup.StartsWith("[/", StringComparison.Ordinal));
-            return string.Concat(opening) + output + string.Concat(closing);
-        }
-
-        foreach (var markup in tags)
-        {
-            var index = output.ToString().IndexOf('\uE000');
-            if (index < 0)
-                break;
-            output.Remove(index, 1);
-            output.Insert(index, markup);
-        }
-        return output.ToString();
-    }
 
     private static string SanitizeLanguageTags(string text)
     {
         return text
             .Replace("[paperlang", "［paperlang", StringComparison.OrdinalIgnoreCase)
             .Replace("[/paperlang", "［/paperlang", StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static bool SegmentsCover(List<PaperLanguageSegment> segments, int length)
-    {
-        if (length == 0)
-            return segments.Count == 0;
-        var position = 0;
-        foreach (var segment in segments)
-        {
-            if (segment.Start != position || segment.Length <= 0 || segment.Length > length - position)
-                return false;
-            position += segment.Length;
-        }
-        return position == length;
-    }
-
-    private static void AddSegment(
-        List<PaperLanguageSegment> segments,
-        int start,
-        int length,
-        ProtoId<LanguagePrototype> language)
-    {
-        if (length == 0)
-            return;
-        if (segments.Count > 0 && segments[^1].Language == language &&
-            segments[^1].Start + segments[^1].Length == start)
-        {
-            segments[^1].Length += length;
-            return;
-        }
-        segments.Add(new PaperLanguageSegment(start, length, language));
-    }
-
-    private static bool IsWellFormedUtf16(string value)
-    {
-        for (var i = 0; i < value.Length; i++)
-        {
-            if (char.IsHighSurrogate(value[i]))
-            {
-                if (++i >= value.Length || !char.IsLowSurrogate(value[i]))
-                    return false;
-            }
-            else if (char.IsLowSurrogate(value[i]))
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static bool IsScalarBoundary(List<PaperLanguageEditSpan> spans, int index)
-    {
-        if (index <= 0)
-            return index == 0;
-
-        var position = 0;
-        char? previous = null;
-        foreach (var span in spans)
-        {
-            foreach (var character in span.ViewText)
-            {
-                if (position == index)
-                    return previous is not { } before || !char.IsHighSurrogate(before) || !char.IsLowSurrogate(character);
-                previous = character;
-                position++;
-            }
-        }
-        return index == position;
     }
 
 }

@@ -77,6 +77,9 @@ internal static class InlineActionFormatter
         var cursor = 0;
         var searchStart = 0;
         var index = 0;
+        var marker = "\uFFFC";
+        while (message.Contains(marker, StringComparison.Ordinal))
+            marker += '\uFFFC';
 
         while (searchStart < message.Length)
         {
@@ -105,7 +108,7 @@ internal static class InlineActionFormatter
             extractedActions ??= new List<string>();
             builder ??= new StringBuilder(message.Length);
 
-            var placeholder = $"\uFFFC{index}\uFFFC";
+            var placeholder = $"{marker}{index}{marker}";
             var original = message[openIndex..(closeIndex + 1)];
             replacements.Add((placeholder, original));
             extractedActions.Add(actionText);

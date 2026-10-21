@@ -55,18 +55,7 @@ public sealed partial class PaperComponent : Component
         }
     }
 
-    [Serializable, NetSerializable]
-    public sealed class PaperInputTextMessage : BoundUserInterfaceMessage
-    {
-        public readonly string Text;
-
-        public PaperInputTextMessage(string text)
-        {
-            Text = text;
-        }
-    }
-
-    [Serializable, NetSerializable]
+    [Serializable, NetSerializable] // <Onyx-Languages-edited>
     public enum PaperUiKey
     {
         Key

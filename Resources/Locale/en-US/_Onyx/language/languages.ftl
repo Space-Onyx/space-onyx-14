@@ -76,5 +76,3 @@ language-Blob-name = Blob
 language-Blob-description = Bleeb bob.
 language-Revolutionary-name = Liberé
 language-Revolutionary-description = The secret language of revolutionaries.
-language-Bingle-name = Bingle
-language-Bingle-description = Bingle bongle.

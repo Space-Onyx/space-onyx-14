@@ -480,47 +480,27 @@
     group: StationAi
   # <Onyx-CreatureLanguages>
   - type: LanguageKnowledge
-    speaks:
-    - TauCetiBasic
-    - Canilunzt
-    - Bubblish
-    - Nekomimetic
-    - Draconic
-    - SolCommon
-    - RootSpeak
-    - Moffic
-    - ValyrianStandard
-    - Chittin
-    - SiikMaas
-    - RobotTalk
-    - DroneTalk
-    - Marish
-    - Elyran
-    - Freespeak
-    - Tradeband
-    - Schechi
-    - NewKinPidgin
-    understands:
-    - TauCetiBasic
-    - Canilunzt
-    - Bubblish
-    - Nekomimetic
-    - Draconic
-    - SolCommon
-    - RootSpeak
-    - Moffic
-    - ValyrianStandard
-    - Chittin
-    - SiikMaas
-    - RobotTalk
-    - DroneTalk
-    - Marish
-    - Elyran
-    - Freespeak
-    - Tradeband
-    - Sign
-    - Schechi
-    - NewKinPidgin
+    languages:
+      TauCetiBasic: All
+      Canilunzt: All
+      Bubblish: All
+      Nekomimetic: All
+      Draconic: All
+      SolCommon: All
+      RootSpeak: All
+      Moffic: All
+      ValyrianStandard: All
+      Chittin: All
+      SiikMaas: All
+      RobotTalk: All
+      DroneTalk: All
+      Marish: All
+      Elyran: All
+      Freespeak: All
+      Tradeband: All
+      Schechi: All
+      NewKinPidgin: All
+      Sign: Understand, Read
   # </Onyx-CreatureLanguages>
   - type: ToggleableGhostRole
     roleName: station-ai-ghost-role-name

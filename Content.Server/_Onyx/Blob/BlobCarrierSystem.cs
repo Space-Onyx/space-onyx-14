@@ -65,11 +65,10 @@ public sealed partial class BlobCarrierSystem : SharedBlobCarrierSystem
            or ComponentLifeStage.Stopped)
             return;
 
-        args.SpokenLanguages.Add(BlobLang);
-        args.UnderstoodLanguages.Add(BlobLang);
+        args.Grant(BlobLang, LanguageAbility.Speak | LanguageAbility.Understand);
     }
 
-    private void OnRemove(Entity<BlobCarrierComponent> ent, ref ComponentRemove args) => _language.UpdateLanguages(ent.Owner);
+    private void OnRemove(Entity<BlobCarrierComponent> ent, ref ComponentRemove args) => _language.QueueUpdate(ent.Owner);
 
     private void OnMindAdded(EntityUid uid, BlobCarrierComponent component, MindAddedMessage args) => component.HasMind = true;
 

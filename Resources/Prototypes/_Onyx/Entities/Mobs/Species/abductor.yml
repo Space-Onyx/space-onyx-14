@@ -26,11 +26,9 @@
     sprite: _Onyx/Mobs/Species/Abductor/parts.rsi
     state: full
   - type: LanguageKnowledge # Einstein Engines - Language
-    speaks:
-    - Xeeplian
-    understands:
-    - TauCetiBasic # Can understand, but cannot speak it.
-    - Xeeplian
+    languages:
+      Xeeplian: All
+      TauCetiBasic: Understand, Read
   - type: Bloodstream
     bloodReferenceSolution:
       reagents:

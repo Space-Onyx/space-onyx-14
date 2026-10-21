@@ -54,7 +54,7 @@ public sealed partial class MutedStatusEffectSystem : EntitySystem
         // <Onyx-SignLanguage>
         if (HasComp<MimePowersComponent>(target) &&
             TryComp<LanguageSpeakerComponent>(target, out var speaker) &&
-            speaker.CurrentLanguage == "Sign")
+            speaker.CurrentLanguage is { } language && ProtoMan.TryIndex(language, out var prototype) && !prototype.Speech.RequireSpeech)
             return;
         // </Onyx-SignLanguage>
 

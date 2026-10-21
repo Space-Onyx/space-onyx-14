@@ -91,7 +91,5 @@
     - type: PhysicsGunBlacklist
     - type: LanguageSpeaker # Einstein Engines - Language
     - type: LanguageKnowledge # Einstein Engines - Language
-      speaks:
-      - TauCetiBasic
-      understands:
-      - TauCetiBasic
+      languages:
+        TauCetiBasic: All
