@@ -772,7 +772,7 @@ public sealed partial class PainSystem : EntitySystem
             changed = true;
         }
 
-        foreach (var (key, multiplier) in hub.Comp.Multipliers.ToArray())
+        foreach (var (key, multiplier) in hub.Comp.Multipliers)
         {
             if (multiplier.Time is null || multiplier.Time >= _timing.CurTime)
                 continue;

@@ -24,6 +24,11 @@ namespace Content.Client._Onyx.Body;
 /// </summary>
 public sealed partial class DirectionalLayeringSystem : EntitySystem
 {
+    private static readonly HumanoidVisualLayers[] VisualLayers = Enum.GetValues<HumanoidVisualLayers>();
+    private static readonly string[] SlotBookmarks = ["neck", "head", "mask", "maskalt", "back"];
+    private static readonly HumanoidVisualLayers[] LegLayers =
+        [HumanoidVisualLayers.RLeg, HumanoidVisualLayers.LLeg, HumanoidVisualLayers.RFoot, HumanoidVisualLayers.LFoot];
+
     [Dependency] private SpriteSystem _sprite = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private IEyeManager _eye = default!;
@@ -126,7 +131,7 @@ public sealed partial class DirectionalLayeringSystem : EntitySystem
         layout.Order.Clear();
         layout.Order.AddRange(layout.Native);
 
-        foreach (var layer in Enum.GetValues<HumanoidVisualLayers>())
+        foreach (var layer in VisualLayers)
             AddKey(ent, layout, layer, GetGroup(layout, layer));
 
         foreach (var organ in _body.EnumerateOrgans<VisualOrganMarkingsComponent>(ent.Owner, _markingsQuery))
@@ -154,7 +159,7 @@ public sealed partial class DirectionalLayeringSystem : EntitySystem
         }
 
         // Empty slot bookmarks exist before InventorySlots has rendered any equipment.
-        foreach (var slot in new[] { "neck", "head", "mask", "maskalt", "back" })
+        foreach (var slot in SlotBookmarks)
             AddKey(ent, layout, slot, GetGroup(layout, slot));
     }
 
@@ -193,10 +198,12 @@ public sealed partial class DirectionalLayeringSystem : EntitySystem
     private static void Order(Layout layout, RsiDirection direction, bool maskLowered)
     {
         var hair = GetGroup(layout, HumanoidVisualLayers.Hair);
-        var trim = new List<SpriteComponent.Layer>();
+        var trim = layout.Trim;
+        trim.Clear();
         trim.AddRange(GetGroup(layout, HumanoidVisualLayers.HeadSide));
         trim.AddRange(GetGroup(layout, HumanoidVisualLayers.HeadTop));
-        var tail = new List<SpriteComponent.Layer>();
+        var tail = layout.Tail;
+        tail.Clear();
         tail.AddRange(GetGroup(layout, HumanoidVisualLayers.Tail));
         tail.AddRange(GetGroup(layout, HumanoidVisualLayers.TailOverlay));
         var neck = GetGroup(layout, "neck");
@@ -208,7 +215,9 @@ public sealed partial class DirectionalLayeringSystem : EntitySystem
 
         if (direction == RsiDirection.North)
         {
-            var headTrim = new List<SpriteComponent.Layer>(trim);
+            var headTrim = layout.HeadTrim;
+            headTrim.Clear();
+            headTrim.AddRange(trim);
             headTrim.AddRange(hair);
             if (!maskLowered)
                 headTrim.AddRange(mask);
@@ -223,9 +232,9 @@ public sealed partial class DirectionalLayeringSystem : EntitySystem
                 MoveTo(layout.Order, tail, 0);
             else
             {
-                var legs = new List<SpriteComponent.Layer>();
-                foreach (var key in new[] { HumanoidVisualLayers.RLeg, HumanoidVisualLayers.LLeg,
-                             HumanoidVisualLayers.RFoot, HumanoidVisualLayers.LFoot })
+                var legs = layout.Legs;
+                legs.Clear();
+                foreach (var key in LegLayers)
                     legs.AddRange(GetGroup(layout, key));
                 MoveRelative(layout.Order, tail, legs, false);
             }
@@ -356,6 +365,10 @@ public sealed partial class DirectionalLayeringSystem : EntitySystem
         public readonly List<SpriteComponent.Layer> Order = new();
         public readonly List<SpriteComponent.Layer> Native = new();
         public readonly List<SpriteComponent.Layer> Applied = new();
+        public readonly List<SpriteComponent.Layer> Trim = new();
+        public readonly List<SpriteComponent.Layer> Tail = new();
+        public readonly List<SpriteComponent.Layer> HeadTrim = new();
+        public readonly List<SpriteComponent.Layer> Legs = new();
         public RsiDirection Direction;
         public bool Dirty = true;
     }

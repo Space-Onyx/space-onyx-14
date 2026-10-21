@@ -557,9 +557,17 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
                 var next = new GridState(nextPoint, direction);
                 var bend = current.Direction == default || current.Direction == direction ? 0f : BendPenalty;
                 var segment = new RouteSegment(start, end);
-                var conflict = occupied.Any(other => SegmentsOverlap(segment, other.Segment))
-                    ? OverlapPenalty * RouteGridStep
-                    : occupied.Any(other => SegmentsCross(segment, other.Segment)) ? CrossingPenalty : 0f;
+                var conflict = 0f;
+                foreach (var other in occupied)
+                {
+                    if (SegmentsOverlap(segment, other.Segment))
+                    {
+                        conflict = OverlapPenalty * RouteGridStep;
+                        break;
+                    }
+                    if (SegmentsCross(segment, other.Segment))
+                        conflict = CrossingPenalty;
+                }
                 var cost = costs[current] + RouteGridStep + bend + conflict;
                 if (costs.TryGetValue(next, out var known) && known <= cost)
                     continue;
@@ -970,7 +978,12 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
         var halfSize = TerminalSize / 2f + 2f;
         var bounds = new NodeRect(terminal.X - halfSize, terminal.Y - halfSize,
             terminal.X + halfSize, terminal.Y + halfSize);
-        return occupied.Any(segment => SegmentIntersects(segment.Segment.Start, segment.Segment.End, bounds));
+        foreach (var segment in occupied)
+        {
+            if (SegmentIntersects(segment.Segment.Start, segment.Segment.End, bounds))
+                return true;
+        }
+        return false;
     }
 
     private static bool RectsOverlap(NodeRect first, NodeRect second)
@@ -1012,8 +1025,11 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
         for (var i = 1; i < route.Count; i++)
         {
             var segment = new RouteSegment(route[i - 1], route[i]);
-            if (occupied.Any(other => SegmentsCross(segment, other.Segment) || SegmentsOverlap(segment, other.Segment)))
-                return true;
+            foreach (var other in occupied)
+            {
+                if (SegmentsCross(segment, other.Segment) || SegmentsOverlap(segment, other.Segment))
+                    return true;
+            }
         }
         return false;
     }

@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Shared._Onyx.Overlays;
 using Content.Shared.Body;
@@ -24,6 +23,8 @@ public sealed partial class ThermalVisionOverlay : Overlay
     private readonly ContainerSystem _container;
     private readonly SharedPointLightSystem _light;
     private readonly List<ThermalVisionRenderEntry> _entries = [];
+    private readonly HashSet<EntityUid> _rendered = [];
+    private readonly List<(int Index, ShaderInstance? Shader, Color Color)> _layers = [];
 
     private EntityUid? _lightEntity;
 
@@ -64,6 +65,7 @@ public sealed partial class ThermalVisionOverlay : Overlay
         var mapId = eye.Position.MapId;
         var eyeRotation = eye.Rotation;
         _entries.Clear();
+        _rendered.Clear();
 
         var query = _entityManager.EntityQueryEnumerator<BodyComponent, SpriteComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var body, out var sprite, out var transform))
@@ -82,7 +84,7 @@ public sealed partial class ThermalVisionOverlay : Overlay
                 transform = outerTransform;
             }
 
-            if (_entries.Any(entry => entry.Entity.Owner == rendered))
+            if (!_rendered.Add(rendered))
                 continue;
 
             _entries.Add(new ThermalVisionRenderEntry((rendered, sprite, transform), mapId, eyeRotation));
@@ -115,14 +117,15 @@ public sealed partial class ThermalVisionOverlay : Overlay
             return;
 
         var originalColor = sprite.Color;
-        var layers = new Dictionary<int, (ShaderInstance? Shader, Color Color)>();
-        var allLayers = sprite.AllLayers.ToList();
-        for (var i = 0; i < allLayers.Count; i++)
+        _layers.Clear();
+        var i = -1;
+        foreach (var spriteLayer in sprite.AllLayers)
         {
-            if (allLayers[i] is not SpriteComponent.Layer { Visible: true } layer)
+            i++;
+            if (spriteLayer is not SpriteComponent.Layer { Visible: true } layer)
                 continue;
 
-            layers[i] = (layer.Shader, layer.Color);
+            _layers.Add((i, layer.Shader, layer.Color));
             layer.Shader = null;
             _sprite.LayerSetColor(layer, Color.White.WithAlpha(layer.Color.A));
         }
@@ -134,11 +137,12 @@ public sealed partial class ThermalVisionOverlay : Overlay
         handle.UseShader(null);
         _sprite.SetColor((uid, sprite), originalColor);
 
-        foreach (var (index, data) in layers)
+        foreach (var (index, shader, color) in _layers)
         {
-            ((SpriteComponent.Layer) sprite[index]).Shader = data.Shader;
-            _sprite.LayerSetColor((uid, sprite), index, data.Color);
+            ((SpriteComponent.Layer) sprite[index]).Shader = shader;
+            _sprite.LayerSetColor((uid, sprite), index, color);
         }
+        _layers.Clear();
     }
 
     public void ResetLight()

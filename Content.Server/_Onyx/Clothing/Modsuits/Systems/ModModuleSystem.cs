@@ -42,6 +42,7 @@ public sealed partial class ModModuleSystem : EntitySystem
     private const string ItemContainer = "mod-integrated-items";
     private static readonly EntProtoId ToggleModuleAction = "ActionToggleSuitModule";
     private readonly HashSet<EntityUid> _powerRefresh = new();
+    private readonly List<EntityUid> _powerRefreshBuffer = new();
 
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
@@ -166,12 +167,15 @@ public sealed partial class ModModuleSystem : EntitySystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
-        foreach (var controller in _powerRefresh.ToArray())
+        _powerRefreshBuffer.Clear();
+        _powerRefreshBuffer.AddRange(_powerRefresh);
+        foreach (var controller in _powerRefreshBuffer)
         {
             _powerRefresh.Remove(controller);
             if (TryComp<ModModuleContainerComponent>(controller, out var bay))
                 Refresh((controller, bay));
         }
+        _powerRefreshBuffer.Clear();
     }
 
     private void OnRefreshChargeRate(Entity<ModModuleContainerComponent> ent, ref RefreshChargeRateEvent args)

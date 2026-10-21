@@ -42,8 +42,11 @@ public abstract partial class SharedContrabandDetectorSystem : EntitySystem
                 Dirty(uid, detector);
             }
 
-            foreach (var scanned in detector.Scanned.Where(entry => _timing.CurTime > entry.Value).ToArray())
-                detector.Scanned.Remove(scanned.Key);
+            foreach (var (scanned, expires) in detector.Scanned)
+            {
+                if (_timing.CurTime > expires)
+                    detector.Scanned.Remove(scanned);
+            }
         }
     }
 
@@ -109,12 +112,21 @@ public abstract partial class SharedContrabandDetectorSystem : EntitySystem
         if (!TryComp(contraband, out ContrabandComponent? component))
             return true;
 
-        var jobs = component.AllowedJobs.Select(id => _prototypes.Index(id).LocalizedName);
         if (!_idCards.TryFindIdCard(user, out var id))
             return false;
 
-        return id.Comp.JobDepartments.Intersect(component.AllowedDepartments).Any() ||
-               id.Comp.LocalizedJobTitle != null && jobs.Contains(id.Comp.LocalizedJobTitle);
+        if (id.Comp.JobDepartments.Intersect(component.AllowedDepartments).Any())
+            return true;
+
+        if (id.Comp.LocalizedJobTitle == null)
+            return false;
+
+        foreach (var job in component.AllowedJobs)
+        {
+            if (_prototypes.Index(job).LocalizedName == id.Comp.LocalizedJobTitle)
+                return true;
+        }
+        return false;
     }
 
     private void OnPowerChanged(Entity<ContrabandDetectorComponent> detector, ref PowerChangedEvent args)

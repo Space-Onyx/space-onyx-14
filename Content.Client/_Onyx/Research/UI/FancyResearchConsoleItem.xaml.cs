@@ -62,7 +62,12 @@ public sealed partial class FancyResearchConsoleItem : LayoutContainer
     public void SetScale(float scale)
     {
         NodeContainer.SetSize = new Vector2(80 * scale);
+        Margin = new Thickness(5 * scale);
+        ((StyleBoxFlat) Panel.PanelOverride!).SetContentMarginOverride(StyleBox.Margin.All, 6 * scale);
+        ResearchDisplay.Margin = new Thickness(9 * scale);
         DisciplineBadge.SetSize = new Vector2(24 * scale);
+        DisciplineBadge.Margin = new Thickness(3 * scale);
+        ((StyleBoxFlat) DisciplineBadge.PanelOverride!).SetContentMarginOverride(StyleBox.Margin.All, 3 * scale);
         StatusAccent.SetHeight = 4 * scale;
     }
 

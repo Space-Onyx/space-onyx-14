@@ -1,5 +1,4 @@
 using System.Numerics;
-using System.Linq;
 using Content.Client.Items.Systems;
 using Content.Shared._Onyx.Food.Components;
 using Robust.Client.GameObjects;
@@ -107,7 +106,7 @@ public sealed partial class PlateContainerVisualSystem : EntitySystem
                 ? ent.Comp.ItemOffsets[itemIndex]
                 : Vector2.Zero;
 
-            var sourceLayerCount = itemSprite.AllLayers.Count();
+            var sourceLayerCount = itemSprite.LayerData.Count;
             for (var sourceIndex = 0; sourceIndex < sourceLayerCount; sourceIndex++)
             {
                 if (itemSprite[sourceIndex] is not SpriteComponent.Layer source)

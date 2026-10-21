@@ -34,6 +34,7 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
     private readonly SpriteSystem _sprite;
     private readonly AccessReaderSystem _accessReader;
     private readonly List<TechnologyPrototype> _technologies = new();
+    private readonly HashSet<string> _technologyIds = new();
     private readonly List<FancyResearchConsoleItem> _items = new();
     private readonly List<(TechnologyPrototype Tech, ResearchAvailability Availability)> _matches = new();
     private readonly HashSet<string> _matchIds = new();
@@ -90,11 +91,14 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
             .Where(tech => list.ContainsKey(tech.ID))
             .ToList();
         var rebuild = forceRebuild || technologies.Count != _technologies.Count ||
-                      technologies.Any(tech => _technologies.All(existing => existing.ID != tech.ID));
+                      technologies.Any(tech => !_technologyIds.Contains(tech.ID));
         if (rebuild)
         {
             _technologies.Clear();
             _technologies.AddRange(technologies);
+            _technologyIds.Clear();
+            foreach (var technology in technologies)
+                _technologyIds.Add(technology.ID);
             UpdateMatches();
             UpdateTree();
         }

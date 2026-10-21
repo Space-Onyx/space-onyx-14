@@ -67,7 +67,7 @@ public sealed partial class BitrunningDiskSystem : EntitySystem
 
     public void RegisterAvatar(Entity<AvatarConnectionComponent> avatar)
     {
-        foreach (var (existingBodyUid, existingAvatarUid) in _avatarByBody.ToArray())
+        foreach (var (existingBodyUid, existingAvatarUid) in _avatarByBody)
         {
             if (existingAvatarUid == avatar.Owner)
                 _avatarByBody.Remove(existingBodyUid);

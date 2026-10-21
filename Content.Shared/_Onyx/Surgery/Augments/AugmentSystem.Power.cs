@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.Power;
 using Content.Shared.Power.Components;
@@ -67,10 +66,13 @@ public sealed partial class AugmentSystem
                     total += power.Draw;
             }
         }
-        var poweredSlots = GetPowerSlots(body)
-            .Where(slot => _powerCell.TryGetBatteryFromSlot(slot, out _))
-            .ToList();
-        var drawPerSlot = poweredSlots.Count > 0 ? total / poweredSlots.Count : 0f;
+        var poweredSlots = 0;
+        foreach (var slot in GetPowerSlots(body))
+        {
+            if (_powerCell.TryGetBatteryFromSlot(slot, out _))
+                poweredSlots++;
+        }
+        var drawPerSlot = poweredSlots > 0 ? total / poweredSlots : 0f;
         foreach (var slot in GetPowerSlots(body))
         {
             if (!TryComp(slot, out PowerCellDrawComponent? draw))

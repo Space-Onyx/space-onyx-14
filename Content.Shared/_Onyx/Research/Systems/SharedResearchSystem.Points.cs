@@ -14,10 +14,9 @@ public abstract partial class SharedResearchSystem
     /// </summary>
     public List<ResearchPointAmount> GetTechnologyCosts(TechnologyPrototype technology, TechnologyDatabaseComponent? database = null)
     {
-        IReadOnlyList<ResearchPointAmount> costs = technology.PointCosts.Count > 0
-            ? technology.PointCosts
-            : new[] { new ResearchPointAmount(ResearchPointAmount.General, technology.Cost) };
-        var result = AggregatePoints(costs);
+        var result = technology.PointCosts.Count > 0
+            ? AggregatePoints(technology.PointCosts)
+            : new List<ResearchPointAmount> { new(ResearchPointAmount.General, technology.Cost) };
         if (database == null)
             return result;
 
@@ -44,9 +43,10 @@ public abstract partial class SharedResearchSystem
             aggregated[amount.Type] = existing + amount.Amount;
         }
 
-        return aggregated
-            .Select(pair => new ResearchPointAmount(pair.Key, pair.Value))
-            .ToList();
+        var result = new List<ResearchPointAmount>(aggregated.Count);
+        foreach (var (type, amount) in aggregated)
+            result.Add(new ResearchPointAmount(type, amount));
+        return result;
     }
 
     /// <summary>

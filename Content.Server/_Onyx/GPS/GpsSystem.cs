@@ -1,8 +1,8 @@
-using System.Linq;
 using Content.Shared._Onyx.GPS;
 using Content.Shared.CCVar;
 using Content.Shared.Pinpointer;
 using Robust.Shared.Configuration;
+using Robust.Shared.Map;
 using Robust.Shared.Random;
 
 namespace Content.Server._Onyx.GPS;
@@ -38,9 +38,7 @@ public sealed partial class GpsSystem : SharedGpsSystem
         var query = AllEntityQuery<GPSComponent, ActiveUserInterfaceComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var gps, out _, out var xform))
         {
-            var entries = allEntries
-                .Where(entry => entry.NetEntity != GetNetEntity(uid) && xform.MapID == entry.Coordinates.MapId)
-                .ToList();
+            var entries = FilterGpsEntries(allEntries, GetNetEntity(uid), xform.MapID);
             UiSystem.ServerSendUiMessage(uid, GpsUiKey.Key,
                 new GpsUpdateMessage(gps.GpsName, gps.TrackedEntity, gps.InDistress, gps.Enabled, entries));
         }
@@ -49,9 +47,7 @@ public sealed partial class GpsSystem : SharedGpsSystem
     private void OnUiOpened(Entity<GPSComponent> ent, ref BoundUIOpenedEvent args)
     {
         var xform = Transform(ent);
-        var entries = GetGpsEntries()
-            .Where(entry => entry.NetEntity != GetNetEntity(ent) && xform.MapID == entry.Coordinates.MapId)
-            .ToList();
+        var entries = FilterGpsEntries(GetGpsEntries(), GetNetEntity(ent), xform.MapID);
         UiSystem.ServerSendUiMessage(ent.Owner, GpsUiKey.Key,
             new GpsUpdateMessage(ent.Comp.GpsName, ent.Comp.TrackedEntity, ent.Comp.InDistress, ent.Comp.Enabled, entries),
             args.Actor);
@@ -75,6 +71,18 @@ public sealed partial class GpsSystem : SharedGpsSystem
 
         ent.Comp.GpsName = $"GPS-{_random.Next(1000, 9999)}";
         DirtyField(ent, ent.Comp, nameof(GPSComponent.GpsName));
+    }
+
+    private static List<GpsEntry> FilterGpsEntries(List<GpsEntry> allEntries, NetEntity self, MapId mapId)
+    {
+        var entries = new List<GpsEntry>();
+        foreach (var entry in allEntries)
+        {
+            if (entry.NetEntity != self && mapId == entry.Coordinates.MapId)
+                entries.Add(entry);
+        }
+
+        return entries;
     }
 
     private List<GpsEntry> GetGpsEntries()

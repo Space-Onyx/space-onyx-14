@@ -14,7 +14,7 @@
                                   ContentMarginBottomOverride="6"/>
             </PanelContainer.PanelOverride>
             <onyx:DrawButton Name="Button" Access="Public" ModulateSelfOverride="#00000000" HorizontalExpand="True" MouseFilter="Pass"/>
-            <TextureRect Name="ResearchDisplay" TextureScale="2 2" Stretch="KeepAspectCentered" Margin="9"/>
+            <TextureRect Name="ResearchDisplay" CanShrink="True" TextureScale="2 2" Stretch="KeepAspectCentered" Margin="9"/>
             <PanelContainer Name="DisciplineBadge"
                             SetSize="24 24"
                             HorizontalAlignment="Right"
@@ -30,7 +30,7 @@
                                       ContentMarginRightOverride="3"
                                       ContentMarginBottomOverride="3"/>
                 </PanelContainer.PanelOverride>
-                <TextureRect Name="DisciplineDisplay" TextureScale="2 2" Stretch="KeepAspectCentered" MouseFilter="Ignore"/>
+                <TextureRect Name="DisciplineDisplay" CanShrink="True" TextureScale="2 2" Stretch="KeepAspectCentered" MouseFilter="Ignore"/>
             </PanelContainer>
             <PanelContainer Name="StatusAccent"
                             SetHeight="4"

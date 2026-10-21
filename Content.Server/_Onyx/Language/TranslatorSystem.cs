@@ -43,7 +43,7 @@ public sealed partial class TranslatorSystem : EntitySystem
             {
                 foreach (var contained in container.ContainedEntities)
                 {
-                    if (TryComp<HandheldTranslatorComponent>(contained, out var translator))
+                    if (TryComp<HandheldTranslatorComponent>(contained, out var translator) && translator.Enabled)
                         translators.Add(translator);
                 }
             }
@@ -53,7 +53,7 @@ public sealed partial class TranslatorSystem : EntitySystem
         {
             foreach (var implant in implanted.ImplantContainer.ContainedEntities)
             {
-                if (TryComp<TranslatorImplantComponent>(implant, out var translator))
+                if (TryComp<TranslatorImplantComponent>(implant, out var translator) && translator.Enabled)
                     translators.Add(translator);
             }
         }
@@ -73,7 +73,7 @@ public sealed partial class TranslatorSystem : EntitySystem
     {
         var spoken = new HashSet<ProtoId<LanguagePrototype>>(intrinsicSpoken);
         var understood = new HashSet<ProtoId<LanguagePrototype>>(intrinsicUnderstood);
-        var remaining = translators.Where(translator => translator.Enabled).ToList();
+        var remaining = translators;
 
         while (remaining.Count > 0)
         {
@@ -105,8 +105,13 @@ public sealed partial class TranslatorSystem : EntitySystem
 
     public static bool RequirementsMet<T>(ICollection<T> required, ICollection<T> provided, bool requireAll)
     {
-        return required.Count == 0 ||
-               (requireAll ? required.All(provided.Contains) : required.Any(provided.Contains));
+        foreach (var requirement in required)
+        {
+            if (provided.Contains(requirement) != requireAll)
+                return !requireAll;
+        }
+
+        return requireAll || required.Count == 0;
     }
 
     private void OnTranslatorToggle(Entity<HandheldTranslatorComponent> ent, ref ActivateInWorldEvent args)

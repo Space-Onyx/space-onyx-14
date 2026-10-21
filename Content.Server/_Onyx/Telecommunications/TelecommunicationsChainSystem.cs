@@ -1612,10 +1612,15 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
         EntityUid uid,
         TelecomHardwareType type)
     {
-        if (result.Any(entry => entry.Entity == GetNetEntity(uid)))
-            return;
-
-        var index = result.Count(entry => entry.Type == type) + 1;
+        var netEntity = GetNetEntity(uid);
+        var index = 1;
+        foreach (var entry in result)
+        {
+            if (entry.Entity == netEntity)
+                return;
+            if (entry.Type == type)
+                index++;
+        }
         var powered = TryComp<ApcPowerReceiverComponent>(uid, out var power) && power.Powered;
         var integratedProcessorActive = IsIntegratedProcessorActive(uid);
         var calibration = integratedProcessorActive &&
@@ -1636,7 +1641,7 @@ public sealed partial class TelecommunicationsChainSystem : EntitySystem
             : -1;
 
         result.Add(new TelecomHardwareInfo(
-            GetNetEntity(uid),
+            netEntity,
             type,
             index,
             powered,

@@ -4,7 +4,6 @@
 // This file is licensed under AGPL-3.0-or-later.
 // See LICENSES for the full license text.
 
-using System.Linq;
 using Content.Shared._Onyx.Bitrunning.Components;
 using Content.Shared._Onyx.PDA;
 using Content.Shared._Onyx.Salvage.MiningPoints;
@@ -29,6 +28,7 @@ public sealed partial class PdaSystem
     private const float PdaBatteryUiRefreshInterval = 5f;
 
     private readonly HashSet<EntityUid> _pdaBatteryOpen = new();
+    private readonly List<EntityUid> _pdaBatteryOpenBuffer = new();
     private readonly Dictionary<EntityUid, PdaDisplaySnapshot> _pdaBatterySent = new();
     private readonly Dictionary<EntityUid, int> _pdaBatteryPercentSent = new();
     private float _pdaBatteryUiTimer;
@@ -66,7 +66,9 @@ public sealed partial class PdaSystem
             return;
 
         _pdaBatteryUiTimer = 0f;
-        foreach (var uid in _pdaBatteryOpen.ToArray())
+        _pdaBatteryOpenBuffer.Clear();
+        _pdaBatteryOpenBuffer.AddRange(_pdaBatteryOpen);
+        foreach (var uid in _pdaBatteryOpenBuffer)
         {
             if (TerminatingOrDeleted(uid) || !TryComp<PdaComponent>(uid, out var pda))
             {
@@ -82,6 +84,7 @@ public sealed partial class PdaSystem
             _pdaBatterySent[uid] = snapshot;
             UpdatePdaUi(uid, pda);
         }
+        _pdaBatteryOpenBuffer.Clear();
     }
 
     private bool IsDisplayUnchanged(EntityUid uid, PdaComponent pda, out PdaDisplaySnapshot snapshot)

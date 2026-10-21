@@ -9,6 +9,7 @@ public sealed partial class HeatProducerSystem : EntitySystem
     [Dependency] private IGameTiming _timing = default!;
 
     private TimeSpan _nextUpdate;
+    private readonly Dictionary<EntityUid, float> _gridHeat = new();
 
     public override void Update(float frameTime)
     {
@@ -28,20 +29,20 @@ public sealed partial class HeatProducerSystem : EntitySystem
             signature.StoredHeat += producer.HeatPerSecond;
         }
 
-        var gridHeat = new Dictionary<EntityUid, float>();
+        _gridHeat.Clear();
         var signatures = EntityQueryEnumerator<ThermalSignatureComponent, TransformComponent>();
         while (signatures.MoveNext(out var uid, out var signature, out var xform))
         {
             signature.StoredHeat = MathF.Max(0f, signature.StoredHeat * Math.Clamp(signature.HeatRetention, 0f, 1f));
             if (xform.GridUid is { } grid && grid != uid)
-                gridHeat[grid] = gridHeat.GetValueOrDefault(grid) + signature.StoredHeat;
+                _gridHeat[grid] = _gridHeat.GetValueOrDefault(grid) + signature.StoredHeat;
         }
 
         var grids = EntityQueryEnumerator<MapGridComponent>();
         while (grids.MoveNext(out var uid, out _))
         {
             var ownHeat = TryComp<ThermalSignatureComponent>(uid, out var signature) ? signature.StoredHeat : 0f;
-            var total = ownHeat + gridHeat.GetValueOrDefault(uid);
+            var total = ownHeat + _gridHeat.GetValueOrDefault(uid);
             if (total <= 0f && signature == null)
                 continue;
 
@@ -52,6 +53,7 @@ public sealed partial class HeatProducerSystem : EntitySystem
             signature.AggregatedHeat = total;
             Dirty(uid, signature);
         }
+        _gridHeat.Clear();
     }
 
     public void SetEnabled(Entity<HeatProducerComponent> producer, bool enabled)

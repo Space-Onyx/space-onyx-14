@@ -105,15 +105,15 @@ public sealed partial class MarkingActivitySystem : EntitySystem
 
             var organChanged = false;
             var markings = visual.Markings.ToDictionary(entry => entry.Key, entry => entry.Value.ToList());
-            foreach (var layer in markings.Keys.ToList())
+            foreach (var layerMarkings in markings.Values)
             {
-                for (var i = 0; i < markings[layer].Count; i++)
+                for (var i = 0; i < layerMarkings.Count; i++)
                 {
-                    var current = markings[layer][i];
+                    var current = layerMarkings[i];
                     if (!TryGetVariant(current.MarkingId, active, out var variant))
                         continue;
 
-                    markings[layer][i] = new Marking(variant, current.MarkingColors) { Forced = current.Forced };
+                    layerMarkings[i] = new Marking(variant, current.MarkingColors) { Forced = current.Forced };
                     organChanged = true;
                 }
             }

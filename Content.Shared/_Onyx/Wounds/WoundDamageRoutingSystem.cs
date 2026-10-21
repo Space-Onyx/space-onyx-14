@@ -853,7 +853,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         }
 
         var healing = new DamageSpecifier();
-        foreach (var (type, amount) in localized.DamageDict.ToArray())
+        foreach (var (type, amount) in localized.DamageDict)
         {
             if (amount >= FixedPoint2.Zero)
                 continue;
@@ -960,7 +960,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
 
         if (remaining <= FixedPoint2.Zero)
         {
-            foreach (var (type, amount) in damage.DamageDict.ToArray())
+            foreach (var (type, amount) in damage.DamageDict)
             {
                 if (amount <= FixedPoint2.Zero)
                     continue;
@@ -971,7 +971,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         }
         else
         {
-            foreach (var (type, amount) in damage.DamageDict.ToArray())
+            foreach (var (type, amount) in damage.DamageDict)
             {
                 if (amount <= FixedPoint2.Zero)
                     continue;
@@ -1158,7 +1158,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
             return damage;
 
         var filtered = damage.Clone();
-        foreach (var type in filtered.DamageDict.Keys.ToArray())
+        foreach (var type in filtered.DamageDict.Keys)
         {
             if (profile.AcceptedDamageTypes.Count != 0 && !profile.AcceptedDamageTypes.Contains(type))
                 filtered.DamageDict.Remove(type);
@@ -1175,7 +1175,7 @@ public sealed partial class WoundDamageRoutingSystem : EntitySystem
         recoveryMultiplier = Math.Max(0f, recoveryMultiplier);
         if (recoveryMultiplier != 1f)
         {
-            foreach (var (type, amount) in filtered.DamageDict.ToArray())
+            foreach (var (type, amount) in filtered.DamageDict)
             {
                 if (amount < FixedPoint2.Zero)
                     filtered.DamageDict[type] = amount * recoveryMultiplier;

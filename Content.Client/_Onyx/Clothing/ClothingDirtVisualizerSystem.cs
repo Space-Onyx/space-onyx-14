@@ -17,7 +17,6 @@ using Robust.Client.Graphics;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using System.Numerics;
-using System.Linq;
 
 namespace Content.Client._Onyx.Clothing;
 
@@ -150,7 +149,7 @@ public sealed partial class ClothingDirtVisualizerSystem : EntitySystem
         }
 
         var keys = new List<string>();
-        var sourceCount = sprite.AllLayers.Count();
+        var sourceCount = sprite.LayerData.Count;
         for (var i = 0; i < sourceCount; i++)
         {
             if (sprite[i] is not SpriteComponent.Layer source || !source.Visible || source.Blank)

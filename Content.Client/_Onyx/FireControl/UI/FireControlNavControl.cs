@@ -40,6 +40,8 @@ public sealed class FireControlNavControl : BaseShuttleControl
     private List<Entity<MapGridComponent>> _grids = new();
     private FireControllableEntry[] _controllables = [];
     private readonly HashSet<NetEntity> _selectedWeapons = new();
+    private readonly Vector2[] _blipPoints = new Vector2[10];
+    private readonly List<Vector2> _selectedWeaponPositions = new();
 
     public Action<EntityCoordinates>? OnRadarClick;
 
@@ -162,6 +164,16 @@ public sealed class FireControlNavControl : BaseShuttleControl
             DrawGrid(handle, _transform.GetWorldMatrix(grid.Owner) * worldToView, grid, _shuttles.GetIFFColor(grid, false, iff));
         }
 
+        _selectedWeaponPositions.Clear();
+        if (_mouseInside)
+        {
+            foreach (var controllable in _controllables)
+            {
+                if (_selectedWeapons.Contains(controllable.NetEntity))
+                    _selectedWeaponPositions.Add(_transform.ToMapCoordinates(EntManager.GetCoordinates(controllable.Coordinates)).Position);
+            }
+        }
+
         foreach (var blip in _blips.GetCurrentBlips())
         {
             DrawBlip(handle, Vector2.Transform(blip.Position, worldToView), blip.Scale, blip.Color, blip.Shape);
@@ -173,9 +185,19 @@ public sealed class FireControlNavControl : BaseShuttleControl
 
     private void DrawAimTracer(DrawingHandleScreen handle, Vector2 weaponPosition, Color color, Matrix3x2 worldToView, MapId mapId)
     {
-        if (!_mouseInside || _coordinates == null || !_controllables.Any(controllable =>
-            _selectedWeapons.Contains(controllable.NetEntity) &&
-            Vector2.Distance(_transform.ToMapCoordinates(EntManager.GetCoordinates(controllable.Coordinates)).Position, weaponPosition) < 0.1f))
+        if (!_mouseInside || _coordinates == null)
+            return;
+
+        var selected = false;
+        foreach (var position in _selectedWeaponPositions)
+        {
+            if (Vector2.Distance(position, weaponPosition) < 0.1f)
+            {
+                selected = true;
+                break;
+            }
+        }
+        if (!selected)
             return;
 
         var cursorViewPosition = _mousePosition * UIScale;
@@ -202,16 +224,49 @@ public sealed class FireControlNavControl : BaseShuttleControl
             return;
         }
 
-        var points = shape switch
+        var count = shape switch
         {
-            RadarBlipShape.Square => new[] { new Vector2(-size, -size), new Vector2(size, -size), new Vector2(size, size), new Vector2(-size, size) },
-            RadarBlipShape.Triangle => new[] { new Vector2(0, -size), new Vector2(size, size), new Vector2(-size, size) },
-            RadarBlipShape.Diamond => new[] { new Vector2(0, -size), new Vector2(size, 0), new Vector2(0, size), new Vector2(-size, 0) },
-            RadarBlipShape.Arrow => new[] { new Vector2(0, -size), new Vector2(size / 2f, size), new Vector2(0, size / 2f), new Vector2(-size / 2f, size) },
-            RadarBlipShape.Hexagon => Enumerable.Range(0, 6).Select(i => new Angle(i * Math.Tau / 6).ToVec() * size).ToArray(),
-            RadarBlipShape.Star => Enumerable.Range(0, 10).Select(i => new Angle(i * Math.Tau / 10).ToVec() * (i % 2 == 0 ? size : size * 0.4f)).ToArray(),
-            _ => Array.Empty<Vector2>(),
+            RadarBlipShape.Triangle => 3,
+            RadarBlipShape.Square or RadarBlipShape.Diamond or RadarBlipShape.Arrow => 4,
+            RadarBlipShape.Hexagon => 6,
+            RadarBlipShape.Star => 10,
+            _ => 0,
         };
+        var points = _blipPoints.AsSpan(0, count);
+        switch (shape)
+        {
+            case RadarBlipShape.Square:
+                points[0] = new Vector2(-size, -size);
+                points[1] = new Vector2(size, -size);
+                points[2] = new Vector2(size, size);
+                points[3] = new Vector2(-size, size);
+                break;
+            case RadarBlipShape.Triangle:
+                points[0] = new Vector2(0, -size);
+                points[1] = new Vector2(size, size);
+                points[2] = new Vector2(-size, size);
+                break;
+            case RadarBlipShape.Diamond:
+                points[0] = new Vector2(0, -size);
+                points[1] = new Vector2(size, 0);
+                points[2] = new Vector2(0, size);
+                points[3] = new Vector2(-size, 0);
+                break;
+            case RadarBlipShape.Arrow:
+                points[0] = new Vector2(0, -size);
+                points[1] = new Vector2(size / 2f, size);
+                points[2] = new Vector2(0, size / 2f);
+                points[3] = new Vector2(-size / 2f, size);
+                break;
+            case RadarBlipShape.Hexagon:
+                for (var i = 0; i < count; i++)
+                    points[i] = new Angle(i * Math.Tau / 6).ToVec() * size;
+                break;
+            case RadarBlipShape.Star:
+                for (var i = 0; i < count; i++)
+                    points[i] = new Angle(i * Math.Tau / 10).ToVec() * (i % 2 == 0 ? size : size * 0.4f);
+                break;
+        }
         for (var i = 0; i < points.Length; i++)
             points[i] += position;
         handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, points, color.WithAlpha(0.8f));

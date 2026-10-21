@@ -103,7 +103,9 @@ public static class PaperLanguageEditReplay
         PaperLanguageEditOperation operation,
         ProtoId<LanguagePrototype> language)
     {
-        var viewLength = spans.Sum(span => span.ViewText.Length);
+        var viewLength = 0;
+        foreach (var span in spans)
+            viewLength = checked(viewLength + span.ViewText.Length);
         if (operation.Start < 0 || operation.DeleteLength < 0 ||
             operation.Start > viewLength || operation.DeleteLength > viewLength - operation.Start ||
             operation.InsertedText == null)
@@ -169,7 +171,11 @@ public static class PaperLanguageEditReplay
             AddInserted(output, operation.InsertedText, language);
 
         spans.Clear();
-        spans.AddRange(output.Where(span => span.SourceText.Length > 0));
+        foreach (var span in output)
+        {
+            if (span.SourceText.Length > 0)
+                spans.Add(span);
+        }
         return true;
     }
 
@@ -192,7 +198,15 @@ public static class PaperLanguageEditReplay
             i = end;
         }
 
-        static bool IsSeparator(string text) => text.All(character => !char.IsLetterOrDigit(character));
+        static bool IsSeparator(string text)
+        {
+            foreach (var character in text)
+            {
+                if (char.IsLetterOrDigit(character))
+                    return false;
+            }
+            return true;
+        }
     }
 
     private static void AddInserted(

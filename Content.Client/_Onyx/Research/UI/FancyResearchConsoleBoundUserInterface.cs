@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Research;
 using Content.Shared._Onyx.Research.Prototypes;
 using Content.Shared.Lathe;
@@ -67,13 +66,15 @@ public sealed class FancyResearchConsoleBoundUserInterface : BoundUserInterface
         var research = EntMan.System<ResearchSystem>();
         var prototypes = IoCManager.Resolve<IPrototypeManager>();
         var list = new Dictionary<string, ResearchAvailability>();
+        var visited = new HashSet<string>();
         foreach (var tech in prototypes.EnumeratePrototypes<TechnologyPrototype>())
         {
             var unlocked = IsUnlocked(database, tech.ID);
+            visited.Clear();
 
             if (tech.EditorDeleted ||
                 !SupportsDiscipline(database, tech.Discipline) ||
-                IsConcealedByHiddenTechnology(tech, database, prototypes))
+                IsConcealedByHiddenTechnology(tech, database, prototypes, visited))
                 continue;
 
             list[tech.ID] = unlocked
@@ -85,18 +86,26 @@ public sealed class FancyResearchConsoleBoundUserInterface : BoundUserInterface
                     : ResearchAvailability.Unavailable;
         }
 
-        if (force || !_consoleMenu.List.OrderBy(x => x.Key).SequenceEqual(list.OrderBy(x => x.Key)))
+        if (force || !AvailabilityEquals(_consoleMenu.List, list))
             _consoleMenu.UpdatePanels(list, force);
         _consoleMenu.UpdateInformationPanel(state.Points, state.PointBalances);
         _consoleMenu.UpdateNetworkLogs(state.Logs);
     }
 
-    private static bool IsConcealedByHiddenTechnology(
-        TechnologyPrototype technology,
-        TechnologyDatabaseComponent database,
-        IPrototypeManager prototypes)
+    private static bool AvailabilityEquals(
+        Dictionary<string, ResearchAvailability> previous,
+        Dictionary<string, ResearchAvailability> current)
     {
-        return IsConcealedByHiddenTechnology(technology, database, prototypes, new());
+        if (previous.Count != current.Count)
+            return false;
+
+        foreach (var (id, availability) in previous)
+        {
+            if (!current.TryGetValue(id, out var value) || value != availability)
+                return false;
+        }
+
+        return true;
     }
 
     private static bool IsConcealedByHiddenTechnology(

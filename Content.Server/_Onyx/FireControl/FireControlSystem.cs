@@ -39,6 +39,7 @@ public sealed partial class FireControlSystem : EntitySystem
 
     private readonly Dictionary<(ICommonSession Session, EntityUid Grid), int> _pvsReferences = new();
     private readonly Dictionary<EntityUid, (EntityCoordinates Target, TimeSpan Updated)> _consoleTargets = new();
+    private readonly List<EntityUid> _pvsActorBuffer = new();
     private TimeSpan _nextPvsRefresh;
 
     public override void Initialize()
@@ -84,9 +85,12 @@ public sealed partial class FireControlSystem : EntitySystem
         var consoles = EntityQueryEnumerator<FireControlPvsComponent>();
         while (consoles.MoveNext(out var console, out var tracker))
         {
-            foreach (var actor in tracker.Overrides.Keys.ToArray())
+            _pvsActorBuffer.Clear();
+            _pvsActorBuffer.AddRange(tracker.Overrides.Keys);
+            foreach (var actor in _pvsActorBuffer)
                 RefreshPvs(console, actor);
         }
+        _pvsActorBuffer.Clear();
     }
 
     private void OnServerMapInit(Entity<FireControlServerComponent> ent, ref MapInitEvent args)

@@ -5,7 +5,6 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using System.Linq;
 using Content.Shared._Onyx.Cards.Stack;
 using Robust.Client.GameObjects;
 
@@ -32,27 +31,28 @@ public sealed partial class CardSpriteSystem : EntitySystem
 
         var layerCount = 0;
         //Gets the quantity of layers
-        var relevantCards = stack.Cards.TakeLast(cardCount).ToList();
-        foreach (var card in relevantCards)
+        for (var cardIndex = stack.Cards.Count - Math.Max(0, cardCount); cardIndex < stack.Cards.Count; cardIndex++)
         {
+            var card = stack.Cards[cardIndex];
             if (!TryComp(card, out SpriteComponent? cardSprite))
                 return false;
 
-            layerCount += cardSprite.AllLayers.Count();
+            layerCount += cardSprite.LayerData.Count;
         }
         layerCount = int.Max(1, layerCount); // Frontier: you need one layer.
         //inserts Missing Layers
-        if (sprite.AllLayers.Count() < layerCount)
+        var currentLayerCount = sprite.LayerData.Count;
+        if (currentLayerCount < layerCount)
         {
-            for (var i = sprite.AllLayers.Count(); i < layerCount; i++)
+            for (var i = currentLayerCount; i < layerCount; i++)
             {
                 _sprite.AddBlankLayer((uid.Owner, sprite), i);
             }
         }
         //Removes extra layers
-        else if (sprite.AllLayers.Count() > layerCount)
+        else if (currentLayerCount > layerCount)
         {
-            for (var i = sprite.AllLayers.Count() - 1; i >= layerCount; i--)
+            for (var i = currentLayerCount - 1; i >= layerCount; i--)
             {
                 _sprite.RemoveLayer((uid.Owner, sprite), i);
             }
@@ -71,12 +71,13 @@ public sealed partial class CardSpriteSystem : EntitySystem
         List<(int, ISpriteLayer)> layers = [];
 
         var i = 0;
-        var cards = stack.Cards.TakeLast(cardCount).ToList();
-        foreach (var card in cards)
+        for (var cardIndex = Math.Max(0, stack.Cards.Count - Math.Max(0, cardCount)); cardIndex < stack.Cards.Count; cardIndex++)
         {
+            var card = stack.Cards[cardIndex];
             if (!TryComp(card, out SpriteComponent? cardSprite))
                 return false;
-            layers.AddRange(cardSprite.AllLayers.Select(layer => (i, layer)));
+            foreach (var layer in cardSprite.AllLayers)
+                layers.Add((i, layer));
             i++;
         }
 

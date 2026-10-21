@@ -90,10 +90,16 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         _preserveSegments.Remove(ent.Owner);
         _writers.RemoveWhere(key => key.Paper == ent.Owner);
         _pendingWriters.RemoveWhere(key => key.Paper == ent.Owner);
-        foreach (var key in _viewGenerations.Keys.Where(key => key.Paper == ent.Owner).ToList())
-            _viewGenerations.Remove(key);
-        foreach (var key in _sentViews.Keys.Where(key => key.Paper == ent.Owner).ToList())
-            _sentViews.Remove(key);
+        foreach (var key in _viewGenerations.Keys)
+        {
+            if (key.Paper == ent.Owner)
+                _viewGenerations.Remove(key);
+        }
+        foreach (var key in _sentViews.Keys)
+        {
+            if (key.Paper == ent.Owner)
+                _sentViews.Remove(key);
+        }
     }
 
     public override void Update(float frameTime)
@@ -123,12 +129,18 @@ public sealed partial class PaperLanguageSystem : EntitySystem
             }
         }
 
-        foreach (var key in _sentViews.Keys.Where(key => !_nearbyViews.Contains(key)).ToList())
-            _sentViews.Remove(key);
+        foreach (var key in _sentViews.Keys)
+        {
+            if (!_nearbyViews.Contains(key))
+                _sentViews.Remove(key);
+        }
         _pendingWriters.RemoveWhere(key => !_ui.IsUiOpen(key.Paper, PaperUiKey.Key, key.Actor));
         _writers.RemoveWhere(key => !Exists(key.Actor) || !HasComp<ActorComponent>(key.Actor));
-        foreach (var key in _viewGenerations.Keys.Where(key => !Exists(key.Actor) || !HasComp<ActorComponent>(key.Actor)).ToList())
-            _viewGenerations.Remove(key);
+        foreach (var key in _viewGenerations.Keys)
+        {
+            if (!Exists(key.Actor) || !HasComp<ActorComponent>(key.Actor))
+                _viewGenerations.Remove(key);
+        }
     }
 
     private void OnUiOpened(Entity<PaperComponent> ent, ref BoundUIOpenedEvent args)
@@ -373,8 +385,11 @@ public sealed partial class PaperLanguageSystem : EntitySystem
         {
             data.Segments = PaperLanguageSegments.ForText(ent.Comp.Content, Universal);
             data.Revision++;
-            foreach (var key in _sentViews.Keys.Where(key => key.Paper == ent.Owner).ToList())
-                _sentViews.Remove(key);
+            foreach (var key in _sentViews.Keys)
+            {
+                if (key.Paper == ent.Owner)
+                    _sentViews.Remove(key);
+            }
         }
         return data;
     }
@@ -392,8 +407,11 @@ public sealed partial class PaperLanguageSystem : EntitySystem
             _pendingWriters.RemoveWhere(key => key.Paper == ent.Owner);
         }
 
-        foreach (var key in _sentViews.Keys.Where(key => key.Paper == ent.Owner).ToList())
-            _sentViews.Remove(key);
+        foreach (var key in _sentViews.Keys)
+        {
+            if (key.Paper == ent.Owner)
+                _sentViews.Remove(key);
+        }
         foreach (var actor in _ui.GetActors(ent.Owner, PaperUiKey.Key).ToList())
             SendView(ent, actor);
     }

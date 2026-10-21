@@ -74,15 +74,29 @@ public sealed partial class ResearchSystem
     {
         authority = default;
         authorityComponent = default!;
-        var servers = GetNetworkServers(server, component);
-        var first = servers.FirstOrDefault(member => CanRun(member));
-        if (first.Owner == default)
-            first = servers.FirstOrDefault();
-        if (first.Owner == default)
+        if (!Resolve(server, ref component, false) || Transform(server).GridUid is not { } grid)
             return false;
 
-        authority = first.Owner;
-        authorityComponent = first.Comp;
+        Entity<ResearchServerComponent>? first = null;
+        Entity<ResearchServerComponent>? firstPowered = null;
+        foreach (var member in GetServers(server))
+        {
+            if (TerminatingOrDeleted(member) ||
+                !string.Equals(member.Comp.NetworkId, component.NetworkId, StringComparison.Ordinal) ||
+                Transform(member).GridUid != grid)
+                continue;
+
+            if (first == null || member.Comp.Id < first.Value.Comp.Id)
+                first = member;
+            if (CanRun(member) && (firstPowered == null || member.Comp.Id < firstPowered.Value.Comp.Id))
+                firstPowered = member;
+        }
+
+        if ((firstPowered ?? first) is not { } selected)
+            return false;
+
+        authority = selected.Owner;
+        authorityComponent = selected.Comp;
         return true;
     }
 

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server._Onyx.Projectiles.TargetGuided;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
@@ -14,6 +13,7 @@ public sealed partial class FireControlSystem
 
     private readonly Dictionary<EntityUid, (EntityUid Console, EntityCoordinates Target)> _guidedShots = new();
     private readonly HashSet<EntityUid> _guidedMissiles = new();
+    private readonly List<EntityUid> _guidedMissileBuffer = new();
 
     private void InitializeTargetGuided()
     {
@@ -49,7 +49,9 @@ public sealed partial class FireControlSystem
 
     private void UpdateTargetGuided()
     {
-        foreach (var missile in _guidedMissiles.ToArray())
+        _guidedMissileBuffer.Clear();
+        _guidedMissileBuffer.AddRange(_guidedMissiles);
+        foreach (var missile in _guidedMissileBuffer)
         {
             if (!TryComp<TargetGuidedComponent>(missile, out var guided) ||
                 guided.FixedDirection != null ||
@@ -60,7 +62,8 @@ public sealed partial class FireControlSystem
                 _guidedMissiles.Remove(missile);
         }
 
-        foreach (var (console, target) in _consoleTargets.ToArray())
+        _guidedMissileBuffer.Clear();
+        foreach (var (console, target) in _consoleTargets)
         {
             if (!Exists(console) || _timing.CurTime - target.Updated > GuidanceTimeout)
                 _consoleTargets.Remove(console);

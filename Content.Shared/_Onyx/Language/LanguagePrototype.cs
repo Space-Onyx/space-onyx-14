@@ -101,6 +101,11 @@ public sealed partial class SyllableObfuscation : ReplacementObfuscation
 
         var output = new StringBuilder();
         var word = new StringBuilder();
+        var syllables = new StringBuilder();
+        var totalLength = 0;
+        foreach (var replacement in Replacement)
+            totalLength += replacement.Length;
+        var averageLength = Math.Max(1, totalLength / Replacement.Count);
 
         void FlushWord()
         {
@@ -108,11 +113,7 @@ public sealed partial class SyllableObfuscation : ReplacementObfuscation
                 return;
 
             var seed = StableHash(word) ^ roundId;
-            var syllables = new StringBuilder();
-            var totalLength = 0;
-            foreach (var replacement in Replacement)
-                totalLength += replacement.Length;
-            var averageLength = Math.Max(1, totalLength / Replacement.Count);
+            syllables.Clear();
             var count = Math.Clamp((word.Length + averageLength / 2) / averageLength, MinSyllables, MaxSyllables);
             var previous = -1;
             for (var i = 0; i < count; i++)

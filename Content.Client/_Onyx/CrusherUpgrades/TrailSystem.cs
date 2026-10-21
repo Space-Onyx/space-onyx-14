@@ -1,5 +1,4 @@
 using System.Numerics;
-using System.Linq;
 using Content.Shared.CrusherUpgrades;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
@@ -33,16 +32,18 @@ public sealed class TrailOverlay(IEntityManager entities, IGameTiming timing, IP
 {
     public override OverlaySpace Space => OverlaySpace.WorldSpaceEntities;
     private readonly Dictionary<EntityUid, TrailRecord> _trails = new();
+    private readonly HashSet<EntityUid> _seen = new();
+    private readonly List<EntityUid> _removed = new();
     private readonly TransformSystem _transform = entities.System<TransformSystem>();
     private readonly SpriteSystem _sprites = entities.System<SpriteSystem>();
 
     protected override void Draw(in OverlayDrawArgs args)
     {
-        var seen = new HashSet<EntityUid>();
+        _seen.Clear();
         var query = entities.EntityQueryEnumerator<TrailComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var trail, out var xform))
         {
-            seen.Add(uid);
+            _seen.Add(uid);
             if (!_trails.TryGetValue(uid, out var record))
                 _trails[uid] = record = new TrailRecord();
 
@@ -56,8 +57,17 @@ public sealed class TrailOverlay(IEntityManager entities, IGameTiming timing, IP
             DrawTrail(args, trail, record.Points, now);
         }
 
-        foreach (var uid in _trails.Keys.Where(uid => !seen.Contains(uid)).ToArray())
+        _removed.Clear();
+        foreach (var uid in _trails.Keys)
+        {
+            if (!_seen.Contains(uid))
+                _removed.Add(uid);
+        }
+
+        foreach (var uid in _removed)
             _trails.Remove(uid);
+        _removed.Clear();
+        _seen.Clear();
     }
 
     private void DrawTrail(in OverlayDrawArgs args, TrailComponent trail, List<TrailPoint> points, TimeSpan now)

@@ -249,8 +249,9 @@ public sealed partial class ConsciousnessSystem : EntitySystem
         if (!Resolve(uid, ref consciousness))
             return;
 
-        var total = consciousness.Modifiers.Aggregate(FixedPoint2.Zero,
-            (current, modifier) => current + modifier.Value.Change * consciousness.Multiplier);
+        var total = FixedPoint2.Zero;
+        foreach (var modifier in consciousness.Modifiers.Values)
+            total += modifier.Change * consciousness.Multiplier;
 
         consciousness.RawConsciousness = consciousness.Cap + total;
 
@@ -263,9 +264,11 @@ public sealed partial class ConsciousnessSystem : EntitySystem
         if (!Resolve(uid, ref consciousness))
             return;
 
+        var total = FixedPoint2.Zero;
+        foreach (var multiplier in consciousness.Multipliers.Values)
+            total += multiplier.Change;
         consciousness.Multiplier = consciousness.Multipliers.Count > 0
-            ? consciousness.Multipliers.Aggregate(FixedPoint2.Zero,
-                (current, multiplier) => current + multiplier.Value.Change) / consciousness.Multipliers.Count
+            ? total / consciousness.Multipliers.Count
             : FixedPoint2.New(1f);
 
         UpdateConsciousnessModifiers(uid, consciousness);
